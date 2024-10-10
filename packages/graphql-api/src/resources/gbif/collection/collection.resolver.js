@@ -15,12 +15,22 @@ function between(input, min, max) {
  */
 export default {
   Query: {
-    collectionSearch: (parent, args, { dataSources }) =>
-      dataSources.collectionAPI.searchCollections({ query: args }),
+    collectionSearch: (parent, { query = {}, ...args } = {}, { dataSources }) =>
+      dataSources.collectionAPI.searchCollections({ query: { ...args, ...query } }),
     collection: (parent, { key }, { dataSources }) =>
       dataSources.collectionAPI.getCollectionByKey({ key }),
     collectionDescriptorGroup: (parent, { key, collectionKey }, { dataSources }) =>
       dataSources.collectionAPI.getCollectionDescriptorGroup({ key, collectionKey }),
+  },
+  CollectionSearchEntity: {
+    thumbor: ({ featuredImageUrl: url }, { fitIn, width = '', height = '' }) => getThumborUrl({url, fitIn, width, height}),
+    excerpt: ({ description, taxonomicCoverage, geography }) => {
+      if (typeof description === 'undefined') return null;
+      return getExcerpt({
+        strings: [description, taxonomicCoverage, geography],
+        length: 300,
+      }).plainText;
+    },
   },
   Collection: {
     institution: ({ institutionKey: key }, args, { dataSources }) => {

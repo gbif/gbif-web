@@ -6,14 +6,13 @@ import { Tabs } from '@/components/tabs';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { Card } from '@/components/ui/smallCard';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { CollectionSearchQuery, CollectionSearchQueryVariables } from '@/gql/graphql';
+import { LiteratureSearchQuery, LiteratureSearchQueryVariables } from '@/gql/graphql';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { FormattedMessage } from 'react-intl';
 import { PaginationFooter } from '@/components/pagination';
 import { NoRecords } from '@/components/noDataMessages';
 import { Skeleton } from '@/components/ui/skeleton';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
-import { CollectionResult } from '../collectionResult';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import { FilterContext, FilterProvider } from '@/contexts/filter';
 import {
@@ -29,38 +28,49 @@ import { useFilters } from './filters';
 import { useConfig } from '@/contexts/config/config';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { FilterBar, getAsQuery } from '@/components/filters/filterTools';
+import { Button } from '@/components/ui/button';
 
-const COLLECTION_SEARCH_QUERY = /* GraphQL */ `
-  query CollectionSearch($query: CollectionSearchInput) {
-    collectionSearch(query: $query) {
-      count
-      limit
-      offset
-      results {
-        ...CollectionResult
+const LITERATURE_SEARCH_QUERY = /* GraphQL */ `
+  query LiteratureSearch($predicate: Predicate, $size: Int, $from: Int) {
+    literatureSearch(predicate: $predicate, size: $size, from: $from) {
+      documents {
+        size
+        from
+        total
+        results {
+          title
+          excerpt
+          countriesOfResearcher
+          countriesOfCoverage
+          year
+          identifiers {
+            doi
+          }
+        }
       }
     }
   }
+
 `;
 
-export function CollectionSearchPage(): React.ReactElement {
+export function LiteratureSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
   const config = useConfig();
   return (
     <>
       <Helmet>
-        <title>Collection search</title>
+        <title>Literature search</title>
       </Helmet>
-      <SearchContextProvider searchContext={config.collectionSearch}>
+      <SearchContextProvider searchContext={config.literatureSearch}>
         <FilterProvider filter={filter} onChange={setFilter}>
-          <CollectionSearch />
+          <LiteratureSearch />
         </FilterProvider>
       </SearchContextProvider>
     </>
   );
 }
 
-export function CollectionSearch(): React.ReactElement {
+export function LiteratureSearch(): React.ReactElement {
   const [offset, setOffset] = useState(0);
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
@@ -69,8 +79,8 @@ export function CollectionSearch(): React.ReactElement {
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
   const tabClassName = 'g-pt-2 g-pb-1.5';
 
-  const { data, error, load, loading } = useQuery<CollectionSearchQuery, CollectionSearchQueryVariables>(
-    COLLECTION_SEARCH_QUERY,
+  const { data, error, load, loading } = useQuery<LiteratureSearchQuery, LiteratureSearchQueryVariables>(
+    LITERATURE_SEARCH_QUERY,
     {
       throwAllErrors: true,
       lazyLoad: true,
@@ -81,31 +91,40 @@ export function CollectionSearch(): React.ReactElement {
     const query = getAsQuery({ filter, searchContext, searchConfig });
     load({
       variables: {
-        query: {
-          ...query,
-          limit: 20,
-          offset,
-        },
+        predicate: query,
+        size: 20,
+        from: offset,
       },
     });
   }, [load, offset, filterHash, searchConfig]);
 
-  const collections = data?.collectionSearch;
+  const literature = data?.literatureSearch?.documents;
   
   return (
     <>
       <DataHeader
-        title="Collections"
+        title="Literatures"
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
-      ></DataHeader>
+      >
+        <Tabs
+          className="g-border-none"
+          links={[
+            {
+              to: '/literature/search',
+              children: 'List',
+              className: tabClassName,
+            },
+          ]}
+        />
+      </DataHeader>
 
       <section className="">
         <FilterBar filters={filters} />
         <ArticleContainer className="g-bg-slate-100">
           <ArticleTextContainer className="g-m-0">
-            <Results loading={loading} collections={collections} setOffset={setOffset} />
+            <Results loading={loading} literature={literature} setOffset={setOffset} />
           </ArticleTextContainer>
         </ArticleContainer>
       </section>
@@ -115,15 +134,17 @@ export function CollectionSearch(): React.ReactElement {
 
 function Results({
   loading,
-  collections,
+  literature,
   setOffset,
 }: {
   loading: boolean;
-  collections?: CollectionSearchQuery['collectionSearch'];
+  literature?: LiteratureSearchQuery['literatureSearch']['documents'];
   setOffset: (x: number) => void;
 }) {
+  
   return (
     <>
+      <div className="g-bg-slate-200 g-text-sm g-p-4 g-mb-4">Crude temporary results view</div>
       {loading && (
         <>
           <CardHeader>
@@ -136,29 +157,33 @@ function Results({
           <CardListSkeleton />
         </>
       )}
-      {!loading && collections?.count === 0 && (
+      {!loading && literature?.total === 0 && (
         <>
           <NoRecords />
         </>
       )}
-      {collections && collections.count > 0 && (
+      {literature && literature.total > 0 && (
         <>
-          <CardHeader id="collections">
+          <CardHeader id="literature">
             <CardTitle>
-              <FormattedMessage id="counts.nCollections" values={{ total: collections.count ?? 0 }} />
+              <FormattedMessage id="counts.nResults" values={{ total: literature.total ?? 0 }} />
             </CardTitle>
           </CardHeader>
           <ClientSideOnly>
-            {collections &&
-              collections.results.map((item) => <CollectionResult key={item.key} collection={item} />)}
+            {literature &&
+              literature.results.map((item) => <article className="g-m-2 g-border g-p-2 g-bg-white" key={item.key}>
+                <h2 className="g-font-bold">{item.title}</h2>
+                <p className="g-text-slate-600 g-text-sm">{item.excerpt}</p>
+                {item?.identifiers?.doi && <Button asChild><a href={`https://doi.org/${item.identifiers.doi}`}>More</a></Button>}
+                </article>)}
 
-            {collections?.count && collections?.count > collections?.limit && (
+            {literature?.total && literature?.total > literature?.size && (
               <PaginationFooter
-                offset={collections.offset}
-                count={collections.count}
-                limit={collections.limit}
+                offset={literature.from}
+                count={literature.total}
+                limit={literature.size}
                 onChange={(x) => setOffset(x)}
-                anchor="collections"
+                anchor="literatures"
               />
             )}
           </ClientSideOnly>
@@ -173,7 +198,7 @@ function AboutContent() {
     <div>
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="item-1">
-          <AccordionTrigger>What is a collection?</AccordionTrigger>
+          <AccordionTrigger>What is a literature?</AccordionTrigger>
           <AccordionContent className="g-prose g-text-sm">
             Data is loaded from contentful help items async. E.g.
             <HelpText
@@ -196,7 +221,7 @@ function ApiContent() {
       <h3>API access</h3>
       <p>
         All data is available via the{' '}
-        <a href="https://techdocs.gbif.org/en/openapi/v1/registry#/Collections">GBIF API</a>. No
+        <a href="https://techdocs.gbif.org/en/openapi/v1/registry#/Literatures">GBIF API</a>. No
         registration or API key is required.
       </p>
       <p>
@@ -205,14 +230,14 @@ function ApiContent() {
       </p>
       <h4>Examples</h4>
       <Card className="g-p-2 g-mb-2">
-        Get all collections <br />
-        <a href="https://api.gbif.org/v1/collection/search">https://api.gbif.org/v1/collection/search</a>
+        Get all literatures <br />
+        <a href="https://api.gbif.org/v1/literature/search">https://api.gbif.org/v1/literature/search</a>
       </Card>
       <Card className="g-p-2">
-        First 2 collection published from Denmark with free text "fungi" in the title or description
+        First 2 literature published from Denmark with free text "fungi" in the title or description
         <br />
-        <a href="https://api.gbif.org/v1/collection/search?q=fungi&publishingCountry=DK&limit=2&offset=0">
-          https://api.gbif.org/v1/collection/search?q=fungi&publishingCountry=DK&limit=2&offset=0
+        <a href="https://api.gbif.org/v1/literature/search?q=fungi&publishingCountry=DK&limit=2&offset=0">
+          https://api.gbif.org/v1/literature/search?q=fungi&publishingCountry=DK&limit=2&offset=0
         </a>
       </Card>
     </div>

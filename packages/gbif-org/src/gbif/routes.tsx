@@ -104,12 +104,14 @@ import { BecomeAPublisherPage, becomeAPublisherPageLoader } from '@/routes/custo
 import { SuggestDatasetPage } from '@/routes/custom/suggestDataset';
 import { DatasetSearchPage } from '@/routes/dataset/search/datasetSearch';
 import { PublisherSearchPage } from '@/routes/publisher/search/publisherSearch';
-import { CollectionSearchPage } from '@/routes/collection/search/searchPage';
+import { CollectionSearchPage } from '@/routes/collection/search/collectionSearch';
+// import { CollectionSearchPage } from '@/routes/collection/search/searchPage';
 import { InstitutionSearchPage } from '@/routes/institution/search/searchPage';
 import { OccurrenceFragment, occurrenceFragmentLoader } from '@/routes/occurrence/key/fragment';
 import { resourceRedirectLoader } from '@/routes/resource/key/resourceRedirect';
 import { ResourceSearchPage } from '@/routes/resource/search/resourceSearch';
 import { NotFoundPage } from '@/notFoundPage';
+import { LiteratureSearchPage } from '@/routes/literature/search/literatureSearch';
 
 const baseRoutes: SourceRouteObject[] = [
   {
@@ -172,6 +174,11 @@ const baseRoutes: SourceRouteObject[] = [
             key: 'dataset-search-page',
             path: 'dataset/search',
             element: <DatasetSearchPage />,
+          },
+          {
+            key: 'literature-search-page',
+            path: 'literature/search',
+            element: <LiteratureSearchPage />,
           },
           {
             key: 'publisher-search-page',

@@ -26,7 +26,7 @@ export default function DisplayName({
     }>;
     cancel?: (reason: string) => void;
   };
-  id: string | number;
+  id: string | number | object;
   useHtml: boolean;
 }) {
   const intl = useIntl();
@@ -37,7 +37,7 @@ export default function DisplayName({
   const [loading, setLoading] = React.useState<boolean>(true);
 
   useEffect(() => {
-    setTitle(undefined);
+    if (typeof id === 'undefined') return;
     setLoading(true);
     const { promise, cancel } = getData({ id, intl, v1Endpoint, graphqlEndpoint });
 
@@ -70,7 +70,7 @@ export default function DisplayName({
 
   if (loading) {
     return (
-      <span style={{ width: 100, display: 'inline-block', verticalAlign: 'top' }}>
+      <span style={{ display: 'inline-block', verticalAlign: 'top' }}>
         <Skeleton className="g-inline-block">Loading ...</Skeleton>
       </span>
     );
@@ -86,6 +86,6 @@ export default function DisplayName({
     )
   }
   return <span className="g-text-red-700">
-    {id}
+    {id.toString()}
   </span>
 }

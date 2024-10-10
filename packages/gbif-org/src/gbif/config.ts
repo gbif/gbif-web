@@ -139,5 +139,13 @@ export const gbifConfig: Config = {
       publishingCountry: ['DK'],
     },
     queryType: 'V1',
-  }
+  },
+  collectionSearch: {
+    queryType: 'V1',
+    highlightedFilters: ['q', 'institutionKey'],
+  },
+  literatureSearch: {
+    queryType: 'PREDICATE',
+    highlightedFilters: ['q', 'year'],
+  },
 };

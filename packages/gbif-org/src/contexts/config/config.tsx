@@ -2,7 +2,6 @@ import React from 'react';
 import { Endpoints, GbifEnv } from './endpoints';
 import themeBuilder from './theme/index';
 import { Theme } from './theme/theme';
-import { DatasetSearchQuery } from '@/gql/graphql';
 import { SearchMetadata } from '../search';
 
 type PageConfig = {
@@ -33,6 +32,11 @@ export type Config = Endpoints & {
   taiwanNodeidentifier: string;
   linkToGbifOrg?: boolean;
   datasetSearch?: SearchMetadata;
+  collectionSearch?: SearchMetadata;
+  institutionSearch?: SearchMetadata;
+  occurrenceSearch?: SearchMetadata;
+  publisherSearch?: SearchMetadata;
+  literatureSearch?: SearchMetadata;
 };
 
 const ConfigContext = React.createContext<Config | null>(null);

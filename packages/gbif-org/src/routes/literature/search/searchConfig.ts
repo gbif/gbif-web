@@ -5,11 +5,10 @@ export const searchConfig: FilterConfigType = {
     q: {
       singleValue: true
     },
-    country: {
-      singleValue: false
-    },
-    type: {
-      defaultKey: 'type'
+    year: {
+      v1: {
+        supportedTypes: ['range', 'equals']
+      }
     }
   }
 }

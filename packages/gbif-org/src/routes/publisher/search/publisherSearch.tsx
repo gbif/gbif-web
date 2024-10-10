@@ -194,9 +194,9 @@ export function DataHeader({
       <>
         <div className="g-flex-none g-flex g-items-center g-mx-2">
           <MdApps />
-          {title && <span className="g-ms-2">{title}</span>}
+          {title && <span className="g-ms-2 g-pt-2 g-pb-1.5">{title}</span>}
         </div>
-        <Separator />
+        {children && <Separator />}
       </>
       <div className="g-flex-auto">{children}</div>
       <div className="g-flex-none g-mx-2">

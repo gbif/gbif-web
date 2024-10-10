@@ -2,10 +2,17 @@ import {
   CountryLabel,
   DatasetTypeLabel,
   IdentityLabel,
+  InstitutionLabel,
   LicenceLabel,
   PublisherLabel,
+  TaxonLabel,
 } from '@/components/filters/displayNames';
-import { filterConfig, filterConfigTypes, FilterSetting, generateFilters } from '@/components/filters/filterTools';
+import {
+  filterConfig,
+  filterConfigTypes,
+  FilterSetting,
+  generateFilters,
+} from '@/components/filters/filterTools';
 import { useIntl } from 'react-intl';
 import { matchSorter } from 'match-sorter';
 import hash from 'object-hash';
@@ -45,131 +52,59 @@ const publisherConfig: filterConfig = {
   `,
 };
 
-const hostingOrgConfig: filterConfig = {
+const institutionKeyConfig: filterConfig = {
   filterType: filterConfigTypes.SUGGEST,
-  filterHandle: 'hostingOrg',
-  displayName: PublisherLabel,
-  filterTranslation: 'filters.hostingOrganizationKey.name',
+  filterHandle: 'institutionKey',
+  displayName: InstitutionLabel,
+  filterTranslation: 'filters.institutionKey.name',
   suggest: ({ q }: { q: string }) => {
-    return fetch(`https://api.gbif.org/v1/organization/suggest?limit=20&q=${q}`)
+    return fetch(`https://api.gbif.org/v1/grscicoll/institution/suggest?limit=20&q=${q}`)
       .then((res) => res.json())
       .then((data) => {
-        return data;
+        return data.map((item) => ({
+          key: item.key,
+          title: item.name,
+        }));
       });
   },
-  facetQuery: /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
-      search: datasetSearch(query: $query) {
-        facet {
-          field: hostingOrg {
-            name
-            count
-            item: organization {
-              title
-            }
-          }
-        }
-      }
-    }
-  `,
 };
 
-const projectIdConfig: filterConfig = {
+const taxonKeyConfig: filterConfig = {
   filterType: filterConfigTypes.SUGGEST,
-  filterHandle: 'projectId',
-  displayName: IdentityLabel,
-  // filterButtonProps: {
-  //   hideSingleValues: true,
-  // },
-  filterTranslation: 'filters.projectId.name',
-  facetQuery: /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
-      search: datasetSearch(query: $query) {
-        facet {
-          field: projectId {
-            name
-            count
-          }
-        }
-      }
-    }
-  `,
+  filterHandle: 'taxonKey',
+  displayName: TaxonLabel,
+  filterTranslation: 'filters.taxonKey.name',
+  suggest: ({ q }: { q: string }) => {
+    return fetch(`https://api.gbif.org/v1/species/suggest?limit=20&q=${q}`)
+      .then((res) => res.json())
+      .then((data) => {
+        return data.map((item) => ({
+          key: item.key,
+          title: item.scientificName,
+        }));
+      });
+  },
 };
 
-const publishingCountryConfig: filterConfig = {
+const descriptorCountryConfig: filterConfig = {
   filterType: filterConfigTypes.SUGGEST,
-  filterHandle: 'publishingCountry',
+  filterHandle: 'descriptorCountry',
   displayName: CountryLabel,
-  filterTranslation: 'filters.publishingCountryCode.name',
-  // suggest: ({ q, intl }: { q: string, intl: IntlShape }) => {
-  //   // this is an ineffecient way to do it as it translates all the values on every keystroke
-  //   // unless performance becomes an issue, I would not worry about it
-  //   const countryValues = country.map((code) => ({
-  //     key: code,
-  //     title: intl.formatMessage({ id: `enums.countryCode.${code}` }),
-  //   }));
-  //   const filtered = countryValues.filter((x) => x?.title?.toLowerCase().includes(q.toLowerCase()));
-  //   return Promise.resolve(filtered);
-  // },
-  facetQuery: /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
-      search: datasetSearch(query: $query) {
-        facet {
-          field: publishingCountry {
-            name
-            count
-          }
-        }
-      }
-    }
-  `,
+  filterTranslation: 'filters.collectionDescriptorCountry.name',
 };
 
-const licenceConfig: filterConfig = {
-  filterType: filterConfigTypes.ENUM,
-  filterHandle: 'license',
-  displayName: LicenceLabel,
-  options: licenseOptions,
-  filterTranslation: 'filters.license.name',
-  facetQuery: /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
-      search: datasetSearch(query: $query) {
-        facet {
-          field: license {
-            name
-            count
-          }
-        }
-      }
-    }
-  `,
-};
-
-const datasetTypeConfig: filterConfig = {
-  filterType: filterConfigTypes.ENUM,
-  filterHandle: 'type',
-  displayName: DatasetTypeLabel,
-  options: datasetTypeOptions,
-  filterTranslation: 'filters.datasetType.name',
-  facetQuery: /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
-      search: datasetSearch(query: $query) {
-        facet {
-          field: type {
-            name
-            count
-          }
-        }
-      }
-    }
-  `,
+const countryConfig: filterConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'country',
+  displayName: CountryLabel,
+  filterTranslation: 'filters.country.name',
 };
 
 const freeTextConfig: filterConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
   filterHandle: 'q',
   displayName: IdentityLabel,
-  filterTranslation: 'filters.q.name'
+  filterTranslation: 'filters.q.name',
 };
 
 export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }): {
@@ -178,7 +113,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
   const { formatMessage } = useIntl();
   const [countries, setCountries] = useState<{ key: string; title: string }[]>([]);
   const [filters, setFilters] = useState<Record<string, FilterSetting>>({});
-  
+
   // first translate relevant enums
   useEffect(() => {
     const countryValues = country.map((code) => ({
@@ -201,22 +136,40 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
 
   useEffect(() => {
     const nextFilters = {
-      publishingOrg: generateFilters({ config: publisherConfig, searchConfig, formatMessage }),
-      hostingOrg: generateFilters({ config: hostingOrgConfig, searchConfig, formatMessage }),
-      projectId: generateFilters({ config: projectIdConfig, searchConfig, formatMessage }),
-      publishingCountry: generateFilters({
-        config: { ...publishingCountryConfig, suggest: countrySuggest },
-        searchConfig,
-        formatMessage
-      }),
-      license: generateFilters({ config: licenceConfig, searchConfig, formatMessage }),
-      type: generateFilters({ config: datasetTypeConfig, searchConfig, formatMessage }),
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
-    }
+      // code: generateFilters({ config: publisherConfig, searchConfig, formatMessage }),
+      country: generateFilters({
+        config: { ...countryConfig, suggest: countrySuggest },
+        searchConfig,
+        formatMessage,
+      }),
+      descriptorCountry: generateFilters({
+        config: { ...descriptorCountryConfig, suggest: countrySuggest },
+        searchConfig,
+        formatMessage,
+      }),
+      institutionKey: generateFilters({
+        config: { ...institutionKeyConfig },
+        searchConfig,
+        formatMessage,
+      }),
+      taxonKey: generateFilters({
+        config: { ...taxonKeyConfig },
+        searchConfig,
+        formatMessage,
+      }),
+
+      // publishingOrg: generateFilters({ config: publisherConfig, searchConfig, formatMessage }),
+      // hostingOrg: generateFilters({ config: hostingOrgConfig, searchConfig, formatMessage }),
+      // projectId: generateFilters({ config: projectIdConfig, searchConfig, formatMessage }),
+
+      // license: generateFilters({ config: licenceConfig, searchConfig, formatMessage }),
+      // type: generateFilters({ config: datasetTypeConfig, searchConfig, formatMessage }),
+    };
     setFilters(nextFilters);
   }, [searchConfig, countrySuggest, formatMessage]);
 
   return {
-    filters
+    filters,
   };
 }

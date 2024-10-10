@@ -1,86 +1,74 @@
 import { DynamicLink } from '@/components/dynamicLink';
-import { DatasetResultFragment, DatasetStubResultFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 import { FormattedMessage } from 'react-intl';
-import { MapThumbnail, MapTypes } from '@/components/mapThumbnail';
 import { CountTag, Tag } from '@/components/resultCards';
 import { Card } from '@/components/ui/largeCard';
 
 fragmentManager.register(/* GraphQL */ `
-  fragment DatasetStubResult on DatasetSearchStub {
+  fragment CollectionResult on CollectionSearchEntity {
     key
-    title
+    name
     excerpt
-    type
-    publishingOrganizationTitle
-  }
-`);
-// TODO: seems silly but we need to register the same fragment twice with different names and we also need to call the function twice as it only extracts the first fragment
-fragmentManager.register(/* GraphQL */ `
-  fragment DatasetResult on Dataset {
-    key
-    title
-    excerpt
-    type
-    publishingOrganizationTitle
+    numberSpecimens
+    institutionName
+    institutionKey
+    featuredImageUrl: thumbor(width: 300, height: 200)
+    featuredImageLicense
   }
 `);
 
-export function DatasetResult({
-  dataset,
-}: {
-  dataset: DatasetStubResultFragment | DatasetResultFragment;
-}) {
+export function CollectionResult({ collection }: { collection: CollectionResultFragment }) {
   return (
-    <Card className='g-mb-4'>
-      <article className='g-p-8'>
-        <div className='g-flex g-flex-col md:g-flex-row g-gap-4'>
-          <div className='g-flex-grow'>
-            <h3 className='g-text-base g-font-semibold g-mb-2'>
-              <DynamicLink to={`/dataset/${dataset.key}`}>{dataset.title}</DynamicLink>
+    <Card className="g-mb-4">
+      <article className="g-p-8">
+        <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
+          <div className="g-flex-grow">
+            <h3 className="g-text-base g-font-semibold g-mb-2">
+              <DynamicLink to={`/collection/${collection.key}`}>{collection.name}</DynamicLink>
             </h3>
-            {dataset.excerpt && (
-              <p className='g-font-normal g-text-slate-700 g-text-sm'>{dataset.excerpt}</p>
+            {collection.excerpt && (
+              <p className="g-font-normal g-text-slate-700 g-text-sm">{collection.excerpt}</p>
             )}
-            {!dataset.excerpt && (
-              <p className='g-font-normal g-text-slate-400 g-text-sm'>
+            {!collection.excerpt && (
+              <p className="g-font-normal g-text-slate-400 g-text-sm">
                 <FormattedMessage id="phrases.noDescriptionProvided" />
               </p>
             )}
 
-            <p className='g-font-normal g-text-slate-500 g-text-sm g-mt-2'>
-              <FormattedMessage id="dataset.publishedBy" />{' '}
-              <span>{dataset.publishingOrganizationTitle}</span>
+            <p className="g-font-normal g-text-slate-500 g-text-sm g-mt-2">
+              <FormattedMessage
+                id="grscicoll.fromInstitution"
+                values={{
+                  institution: (
+                    <DynamicLink
+                      className="g-underline"
+                      to={`/institution/${collection.institutionKey}`}
+                    >
+                      {collection.institutionName}
+                    </DynamicLink>
+                  ),
+                }}
+              />
             </p>
           </div>
-          <div className='g-max-w-48 md:g-max-w-64 '>
-            <MapThumbnail
-              type={MapTypes.DatasetKey}
-              identifier={dataset.key}
-              overlayStyle="classic-noborder.poly"
-              className='g-rounded'
-            />
+          <div className="g-flex-none g-max-w-48 md:g-max-w-64 ">
+            {collection.featuredImageUrl && (
+              <img
+                src={collection.featuredImageUrl}
+                className="g-rounded-lg g-bg-slate-100 g-border g-border-slate-200"
+              />
+            )}
           </div>
         </div>
-        <div className='-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap'>
-          <Tag>
-            <FormattedMessage id={`dataset.longType.${dataset.type}`} />
-          </Tag>
-          <div className='g-flex-grow'></div>
+        <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
+          {/* <Tag>
+            <FormattedMessage id={`collection.longType.${collection.type}`} />
+          </Tag> */}
+          <div className="g-flex-grow"></div>
           <CountTag
             v1Endpoint="/occurrence/search"
-            params={{ datasetKey: dataset.key }}
+            params={{ collectionKey: collection.key }}
             message="counts.nOccurrences"
-          />
-          <CountTag
-            v1Endpoint="/species/search"
-            params={{ datasetKey: dataset.key, origin: 'SOURCE' }}
-            message="counts.nRecords"
-          />
-          <CountTag
-            v1Endpoint="/literature/search"
-            params={{ gbifDatasetKey: dataset.key }}
-            message="counts.nCitations"
           />
         </div>
       </article>

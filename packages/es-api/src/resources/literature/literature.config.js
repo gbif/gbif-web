@@ -179,6 +179,10 @@ const config = {
       type: 'keyword',
       field: 'gbifRegion'
     },
+    gbifTaxonKey: {
+      type: 'keyword',
+      field: 'gbifTaxonKey'
+    },
     genre: {
       type: 'keyword',
       field: 'genre'

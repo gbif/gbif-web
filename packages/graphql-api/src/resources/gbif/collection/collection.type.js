@@ -33,9 +33,46 @@ const typeDef = gql`
       descriptorCountry: [Country!]
       typeStatus: [TypeStatus!]
       taxonKey: [ID!]
-      ): CollectionSearchResults
+      query: CollectionSearchInput
+    ): CollectionSearchResults
     collection(key: ID!): Collection
-    collectionDescriptorGroup(key: ID!, collectionKey: ID!): CollectionDescriptorGroup
+    collectionDescriptorGroup(
+      key: ID!
+      collectionKey: ID!
+    ): CollectionDescriptorGroup
+  }
+
+  input CollectionSearchInput {
+    limit: Int
+    offset: Int
+    q: String
+    institutionKey: [GUID]
+    """
+    deprecated field, use institutionKey instead
+    """
+    institution: [GUID]
+    contact: ID
+    code: String
+    name: String
+    fuzzyName: String
+    city: String
+    country: [Country]
+    alternativeCode: String
+    identifier: String
+    active: Boolean
+    personalCollection: Boolean
+    numberSpecimens: String
+    occurrenceCount: String
+    contentType: [String!]
+    preservationType: [String!]
+    displayOnNHCPortal: Boolean
+    sortBy: CollectionsSortField
+    sortOrder: SortOrder
+
+    recordedBy: [String!]
+    descriptorCountry: [Country!]
+    typeStatus: [TypeStatus!]
+    taxonKey: [ID!]
   }
 
   type CollectionSearchResults {
@@ -72,6 +109,7 @@ const typeDef = gql`
     featuredImageLicense: License
     thumbor(width: Int, height: Int, fitIn: Boolean): String
     descriptorMatches: [DescriptorMatches!]
+    excerpt: String
   }
 
   type DescriptorMatches {

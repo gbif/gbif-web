@@ -36,6 +36,7 @@ type SuggestProps = {
   onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
   onCancel?: () => void;
   pristine?: boolean;
+  disableFacetsForSelected: boolean;
 };
 
 export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
@@ -50,6 +51,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       onApply,
       onCancel,
       pristine,
+      disableFacetsForSelected,
     }: SuggestProps,
     ref
   ) => {
@@ -91,18 +93,18 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       } else {
         facetLoad({ variables: { predicate: query } });
       }
-    }, [filterBeforeHash, facetLoad, searchContext, searchConfig, filterHandle]);
+    }, [facetQuery, filterBeforeHash, facetLoad, searchContext, searchConfig, filterHandle]);
 
     useEffect(() => {
-      if (!facetQuery) return;
+      if (!facetQuery || disableFacetsForSelected) return;
       // if the filter has changed, then get facet values from API
       const query = getAsQuery({ filter: filter, searchContext, searchConfig });
       if (searchContext.queryType === 'V1') {
-        selectedFacetLoad({ variables: { query: query } });
+        selectedFacetLoad({ variables: { query: query, limit: (selected?.length ?? 10) } });
       } else {
-        selectedFacetLoad({ variables: { predicate: query } });
+        selectedFacetLoad({ variables: { predicate: query, size: (selected?.length ?? 10) } });
       }
-    }, [filterHash, selectedFacetLoad, searchContext, searchConfig]);
+    }, [facetQuery, filterHash, selectedFacetLoad, selected, searchContext, searchConfig]);
 
     useEffect(() => {
       // filter has changed updateed the listed of selected values
@@ -224,7 +226,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
           )}
           {options}
         </div>
-        <div className="g-flex-auto g-overflow-auto">
+        <div className="g-flex-auto g-overflow-auto g-max-h-96 [&::-webkit-scrollbar]:g-w-1 [&::-webkit-scrollbar-track]:g-bg-gray-100 [&::-webkit-scrollbar-thumb]:g-bg-gray-300">
           {selected.length > 0 && (
             <div className={cn('g-text-base g-mt-2 g-px-4', className)}>
               <div role="group" className="g-text-sm">
@@ -244,7 +246,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                         <span className="g-flex-auto">
                           <DisplayName id={x} />
                         </span>
-                        {!selectedFacetLoading && !selectedFacetError && (
+                        {!selectedFacetLoading && !selectedFacetError && !disableFacetsForSelected && (
                           <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
                             <FormattedNumber value={facetLookup[x] ?? 0} />
                           </span>

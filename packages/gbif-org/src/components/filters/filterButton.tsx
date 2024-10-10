@@ -30,8 +30,8 @@ interface FilterButtonProps {
   className?: string;
   filterHandle: string;
   onClear?: () => void;
-  getCount?: (filter: any) => number;
-  DisplayName?: React.ComponentType<{ id: string }>;
+  getCount?: (filter: unknown) => number;
+  DisplayName?: React.ComponentType<{ id: string | number | object }>;
 }
 
 export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProps>(
