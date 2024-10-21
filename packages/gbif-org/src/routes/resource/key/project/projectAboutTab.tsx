@@ -1,4 +1,4 @@
-import { ParticipantOrFundingOrganisationDetailsFragment, ProjectQuery } from '@/gql/graphql';
+import { ParticipantOrFundingOrganisationDetailsFragment } from '@/gql/graphql';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
 import { ArticleTextContainer } from '../components/articleTextContainer';
 import { ArticleBody } from '../components/articleBody';
@@ -9,11 +9,11 @@ import { SecondaryLinks } from '../components/secondaryLinks';
 import { Documents } from '../components/documents';
 import { KeyValuePair } from '../components/keyValuePair';
 import { FormattedDate, FormattedMessage, FormattedNumber } from 'react-intl';
-import { DynamicLink } from '@/components/dynamicLink';
-import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
 import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
 import { notNull } from '@/utils/notNull';
+import { useProjectKeyLoaderData } from '.';
 
 fragmentManager.register(/* GraphQL */ `
   fragment ProjectAboutTab on GbifProject {
@@ -82,7 +82,7 @@ fragmentManager.register(/* GraphQL */ `
 `);
 
 export function ProjectAboutTab() {
-  const { resource } = useParentRouteLoaderData(RouteId.Project) as ProjectQuery;
+  const { resource } = useProjectKeyLoaderData();
 
   // Can't happen, but TS doesn't know that
   if (resource?.__typename !== 'GbifProject') throw new Error('500');
@@ -97,11 +97,11 @@ export function ProjectAboutTab() {
 
   return (
     <>
-      <ArticleBanner className='g-mt-8 g-mb-6' image={resource?.primaryImage} />
+      <ArticleBanner className="g-mt-8 g-mb-6" image={resource?.primaryImage} />
 
       <ArticleTextContainer>
         {resource.body && (
-          <ArticleBody dangerouslySetBody={{ __html: resource.body }} className='g-mt-2' />
+          <ArticleBody dangerouslySetBody={{ __html: resource.body }} className="g-mt-2" />
         )}
 
         <ArticleFooterWrapper hrClassName="g-mb-8">
@@ -157,7 +157,7 @@ export function ProjectAboutTab() {
             <KeyValuePair
               label={<FormattedMessage id="cms.project.programme" />}
               value={
-                <DynamicLink to={`/programme/${resource.programme?.id}`} className='g-underline'>
+                <DynamicLink to={`/programme/${resource.programme?.id}`} className="g-underline">
                   {resource.programme?.title}
                 </DynamicLink>
               }
@@ -201,17 +201,17 @@ export function ProjectAboutTab() {
 
           {resource.secondaryLinks && (
             <ArticleAuxiliary>
-              <SecondaryLinks links={resource.secondaryLinks} className='g-mt-8' />
+              <SecondaryLinks links={resource.secondaryLinks} className="g-mt-8" />
             </ArticleAuxiliary>
           )}
 
           {resource.documents && (
             <ArticleAuxiliary>
-              <Documents documents={resource.documents} className='g-mt-8' />
+              <Documents documents={resource.documents} className="g-mt-8" />
             </ArticleAuxiliary>
           )}
 
-          <ArticleTags resource={resource} className='g-mt-8' />
+          <ArticleTags resource={resource} className="g-mt-8" />
         </ArticleFooterWrapper>
       </ArticleTextContainer>
     </>
@@ -228,7 +228,7 @@ function ParticipantOrFundingOrganisation({
   resources: Array<ParticipantOrFundingOrganisationDetailsFragment | null | undefined>;
 }) {
   return (
-    <ul className='underlineLinks inlineBulletList'>
+    <ul className="underlineLinks inlineBulletList">
       {resources.filter(notNull).map((f) => (
         <li key={f.id}>
           {f.__typename === 'FundingOrganisation' && f.url ? (

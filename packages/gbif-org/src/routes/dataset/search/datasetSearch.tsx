@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import useQuery from '@/hooks/useQuery';
 import { CountMessage, DataHeader } from '@/routes/publisher/search/publisherSearch';
 import { Tabs } from '@/components/tabs';
@@ -20,8 +20,14 @@ import { searchConfig } from '@/routes/publisher/search/searchConfig';
 import { FilterContext, FilterProvider } from '@/contexts/filter';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
 import { QFilter } from '@/routes/publisher/search/filters/QFilter';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 import { HelpText } from '@/components/helpText';
+import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 
 const DATASET_SEARCH_QUERY = /* GraphQL */ `
   query DatasetSearch($offset: Int, $limit: Int, $q: String) {
@@ -58,13 +64,13 @@ export function DatasetSearch(): React.ReactElement {
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
   const tabClassName = 'g-pt-2 g-pb-1.5';
 
-  const { data, error, load, loading } = useQuery<
-    DatasetSearchQuery,
-    DatasetSearchQueryVariables
-  >(DATASET_SEARCH_QUERY, {
-    throwAllErrors: true,
-    lazyLoad: true,
-  });
+  const { data, error, load, loading } = useQuery<DatasetSearchQuery, DatasetSearchQueryVariables>(
+    DATASET_SEARCH_QUERY,
+    {
+      throwAllErrors: true,
+      lazyLoad: true,
+    }
+  );
 
   useEffect(() => {
     const v1 = filter2v1(filter, searchConfig);
@@ -72,11 +78,11 @@ export function DatasetSearch(): React.ReactElement {
       variables: {
         ...v1.filter,
         limit: 20,
-        offset
-      }
+        offset,
+      },
     });
   }, [offset, filterHash, searchConfig]);
-  
+
   // call https://graphql.gbif-staging.org/unstable-api/user-info?lang=en to get the users country: response {country, countryName}
   // then use the country code to get a count of publishers from that country
   // useEffect(() => {
@@ -91,7 +97,12 @@ export function DatasetSearch(): React.ReactElement {
   const datasets = data?.list;
   return (
     <>
-      <DataHeader title="Datasets" hasBorder aboutContent={<AboutContent />} apiContent={<ApiContent />}>
+      <DataHeader
+        title="Datasets"
+        hasBorder
+        aboutContent={<AboutContent />}
+        apiContent={<ApiContent />}
+      >
         <Tabs
           className="g-border-none"
           links={[
@@ -99,7 +110,7 @@ export function DatasetSearch(): React.ReactElement {
               to: '/dataset/search',
               children: 'List',
               className: tabClassName,
-            }
+            },
           ]}
         />
       </DataHeader>
@@ -197,7 +208,6 @@ function Results({
 //   );
 // }
 
-
 function Filters() {
   const filterContext = useContext(FilterContext);
   if (!filterContext) {
@@ -252,10 +262,8 @@ function ApiContent() {
       <h3>API access</h3>
       <p>
         All data is available via the{' '}
-        <a href="https://techdocs.gbif.org/en/openapi/v1/registry#/Datasets">
-          GBIF API
-        </a>
-        . No registration or API key is required.
+        <a href="https://techdocs.gbif.org/en/openapi/v1/registry#/Datasets">GBIF API</a>. No
+        registration or API key is required.
       </p>
       <p>
         Please remember to properly cite usage and to throttle requests in scripts. Most endpoint
@@ -270,7 +278,7 @@ function ApiContent() {
         First 2 dataset published from Denmark with free text "fungi" in the title or description
         <br />
         <a href="https://api.gbif.org/v1/dataset/search?q=fungi&publishingCountry=DK&limit=2&offset=0">
-        https://api.gbif.org/v1/dataset/search?q=fungi&publishingCountry=DK&limit=2&offset=0
+          https://api.gbif.org/v1/dataset/search?q=fungi&publishingCountry=DK&limit=2&offset=0
         </a>
       </Card>
     </div>

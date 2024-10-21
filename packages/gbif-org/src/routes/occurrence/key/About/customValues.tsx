@@ -1,7 +1,7 @@
 import { PlainTextField, HtmlField, BasicField, CustomValueField } from '../properties';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import Properties, { Term as T, Value as V } from '@/components/properties';
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import equal from 'fast-deep-equal/react';
 
 export function Institution({ termMap, showAll, occurrence }) {

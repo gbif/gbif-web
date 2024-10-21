@@ -23,7 +23,7 @@ import { OrganizationDetails } from './steps/organizationDetails';
 import { TermsAndConditions } from './steps/termsAndConditions';
 import { WhatAndHow } from './steps/whatAndHow';
 import { useSuggestedNodeCountry } from './useSuggestedNodeCountry';
-import { useConfig } from '@/contexts/config/config';
+import { useConfig } from '@/config/config';
 import { cn } from '@/utils/shadcn';
 
 const ContactSchema = z.object({

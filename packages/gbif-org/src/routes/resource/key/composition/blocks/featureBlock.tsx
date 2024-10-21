@@ -7,7 +7,6 @@ import { BlockContainer, BlockHeading, backgroundColorMap } from './_shared';
 import { cn } from '@/utils/shadcn';
 import { redirectMapper } from '../../createResourceLoaderWithRedirect';
 import { slugify } from '@/utils/slugify';
-import { useI18n } from '@/contexts/i18n';
 
 fragmentManager.register(/* GraphQL */ `
   fragment FeatureBlockDetails on FeatureBlock {
@@ -61,7 +60,6 @@ type Props = {
 export function FeatureBlock({ resource }: Props) {
   const backgroundColor = backgroundColorMap[resource?.backgroundColour ?? 'white'];
   const maxPerRow = resource.maxPerRow ?? 4;
-  const { locale } = useI18n();
 
   return (
     <BlockContainer className={backgroundColor}>

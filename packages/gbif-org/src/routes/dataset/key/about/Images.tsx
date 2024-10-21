@@ -1,7 +1,7 @@
 import { FormattedNumber } from 'react-intl';
 import { MdImage } from 'react-icons/md';
 import { SimpleTooltip } from '@/components/simpleTooltip';
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { Button } from '@/components/ui/button';
 import { ClientImage as Image } from '@/components/image';
 import styles from './images.module.css';
@@ -15,10 +15,10 @@ export function Images({ dataset, className, images = [], ...props }) {
         {images.documents.results.map((occurrence) => {
           return (
             <Image
-                key={occurrence.key}
-                src={occurrence.stillImages[0].identifier}
-                defaultSize={{ height: 200, width: 200 }}
-              />
+              key={occurrence.key}
+              src={occurrence.stillImages[0].identifier}
+              defaultSize={{ height: 200, width: 200 }}
+            />
           );
         })}
       </div>

@@ -12,9 +12,7 @@ import {
 import Properties, { Property, Term, Value } from '@/components/properties';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { CollectionQuery } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
-import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
@@ -27,10 +25,12 @@ import { GbifLinkCard } from '@/components/TocHelp';
 import { useParams } from 'react-router-dom';
 import { useCount } from '@/components/count';
 import EmptyValue from '@/components/emptyValue';
+import { useCollectionKeyLoaderData } from '.';
+import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
 
 export default function About() {
   const { key } = useParams();
-  const { data } = useParentRouteLoaderData(RouteId.Collection) as { data: CollectionQuery };
+  const { data } = useCollectionKeyLoaderData();
   const { count, loading } = useCount({
     v1Endpoint: '/occurrence/search',
     params: { collectionKey: key },
@@ -51,9 +51,6 @@ export default function About() {
   const contacts = collection?.contactPersons.filter((x) => x.firstName);
 
   const imageUrl = collection.featuredImageUrl ?? collection.featuredImageUrl_fallback;
-
-  // TODO Daniel, it would be nice to have access to the calls that I have already made on the parent route.
-  // should we move the routes from the main config in to the individual components? I wonder if that makes changes easier to manage. It would make passing data around easier.
 
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
@@ -90,9 +87,15 @@ export default function About() {
                     labelId="grscicoll.temporalDescription"
                     showEmpty
                   />
-                  {collection.notes && <Property value={collection.notes} labelId="grscicoll.notes">
-                    <HyperText className="dataProse [&_a]:g-underline" text={collection.notes} fallback/>
-                  </Property>}
+                  {collection.notes && (
+                    <Property value={collection.notes} labelId="grscicoll.notes">
+                      <HyperText
+                        className="dataProse [&_a]:g-underline"
+                        text={collection.notes}
+                        fallback
+                      />
+                    </Property>
+                  )}
                   <Property value={collection.code} labelId="grscicoll.code" showEmpty />
                   <Property
                     value={collection.numberSpecimens}
@@ -201,7 +204,7 @@ export default function About() {
               </CardHeader>
               <CardContent>
                 <Properties useDefaultTermWidths className="g-mb-8">
-                  {collection?.email?.length > 0 && (
+                  {isNoneEmptyArray(collection.email) && (
                     <Property
                       labelId="grscicoll.email"
                       className=""
@@ -285,7 +288,7 @@ export default function About() {
                               firstName={contact.firstName}
                               lastName={contact.lastName}
                             ></ContactTitle>
-                            {contact.position?.length > 0 && (
+                            {isNoneEmptyArray(contact.position) && (
                               <ContactDescription>
                                 {contact.position.map((position) => position).join(', ')}
                               </ContactDescription>
@@ -323,7 +326,7 @@ export default function About() {
                   breakpoint={800}
                 >
                   <Property value={collection.code} labelId="grscicoll.code" showEmpty />
-                  {collection?.alternativeCodes?.length > 0 && (
+                  {isNoneEmptyArray(collection.alternativeCodes) && (
                     <Property
                       value={collection.alternativeCodes}
                       labelId="grscicoll.alternativeCodes"
@@ -346,7 +349,7 @@ export default function About() {
                     value={collection.additionalNames}
                     labelId="grscicoll.additionalNames"
                   />
-                  {collection?.identifiers?.length > 0 && (
+                  {isNoneEmptyArray(collection.identifiers) && (
                     <Property value={collection.identifiers} labelId="grscicoll.identifiers">
                       <ul
                       // css={css`padding: 0; margin: 0; list-style: none;`}

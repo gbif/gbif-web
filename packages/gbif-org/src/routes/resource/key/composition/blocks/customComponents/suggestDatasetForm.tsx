@@ -24,7 +24,7 @@ import {
 import { RadioGroup } from '@/components/ui/radio-group';
 import { Button } from '@/components/ui/button';
 import { ToastAction } from '@/components/ui/toast';
-import { useConfig } from '@/contexts/config/config';
+import { useConfig } from '@/config/config';
 
 const Schema = z.object({
   title: RequiredStringSchema,

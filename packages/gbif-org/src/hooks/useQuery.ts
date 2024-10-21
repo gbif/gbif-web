@@ -1,5 +1,5 @@
-import { useConfig } from '@/contexts/config/config';
-import { useI18n } from '@/contexts/i18n';
+import { useConfig } from '@/config/config';
+import { useI18n } from '@/reactRouterPlugins';
 import React, { useRef } from 'react';
 import Queue from 'queue-promise';
 import { GraphQLService } from '@/services/graphQLService';
@@ -156,7 +156,7 @@ export function useQuery<TResult, TVariabels>(
       // Add the request to the queue
       queues[mergedOptions.queue.name].enqueue(async () => {
         if (isMounted.current === false) return; // if unmounted then ignore
-        if (randomTokenRef.current !== randomToken) return // if stale ignore - this is necessary because we cannot cancel a request before it starts. So we need to check at tome of starting if the request has since changed
+        if (randomTokenRef.current !== randomToken) return; // if stale ignore - this is necessary because we cannot cancel a request before it starts. So we need to check at tome of starting if the request has since changed
         return startRequest();
       });
     },

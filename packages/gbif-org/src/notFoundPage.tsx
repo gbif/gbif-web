@@ -1,3 +1,5 @@
+import { RouteObjectWithPlugins } from './reactRouterPlugins';
+
 export function NotFoundPage() {
   return (
     <main className="g-h-full g-text-center">
@@ -5,3 +7,8 @@ export function NotFoundPage() {
     </main>
   );
 }
+
+export const notFoundRoute: RouteObjectWithPlugins = {
+  path: '*',
+  element: <NotFoundPage />,
+};

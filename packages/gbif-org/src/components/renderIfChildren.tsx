@@ -11,11 +11,11 @@ type ComponentOrElement = JSXElementConstructor<any> | keyof JSX.IntrinsicElemen
 
 type Props<T extends ComponentOrElement> = {
   children?: ReactNode;
-  as: T;
+  as?: T;
   onChange?: (visible: boolean) => void;
 } & Omit<ComponentProps<T>, 'children'>;
 
-export function RenderIfChildren<T extends ComponentOrElement>({
+export function RenderIfChildren<T extends ComponentOrElement = 'div'>({
   children,
   as,
   onChange,

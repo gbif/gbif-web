@@ -1,10 +1,10 @@
-import { Config } from '@/contexts/config/config';
+import { Config } from '@/config/config';
 import {
   GbifEnv,
   getDefaultEndpointsBasedOnGbifEnv,
   InvalidGbifEnvError,
   isGbifEnv,
-} from '@/contexts/config/endpoints';
+} from '@/config/endpoints';
 import { merge } from 'ts-deepmerge';
 
 // The env options
@@ -70,6 +70,17 @@ export const gbifConfig: Config = {
     }
     return options.formsEndpointClient ?? options.formsEndpoint;
   },
+  // pages: [
+  //   {
+  //     id: 'home',
+  //   },
+  //   {
+  //     id: 'occurrence-search',
+  //   },
+  //   {
+  //     id: 'dataset-search',
+  //   },
+  // ],
   defaultTitle: 'GBIF',
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: [
@@ -107,7 +118,6 @@ export const gbifConfig: Config = {
       reactIntlLocale: 'ar-SA',
     },
   ],
-  // occurrencePredicate: undefined,
   occurrencePredicate: {
     type: 'and',
     predicates: [

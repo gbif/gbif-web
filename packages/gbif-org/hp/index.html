@@ -10,6 +10,8 @@
     <header>
       <nav>
         <a href="/occurrence/search">Occurrence Search</a>
+        <a href="/danish-occurrence/search">Danish Occurrence Search</a>
+        <a href="/dataset/search">Dataset Search (disabled)</a>
       </nav>
     </header>
     <div id="root" class="gbif"></div>
@@ -19,16 +21,26 @@
 
       render(document.getElementById('root'), {
         gbifEnv: 'dev',
+        extraOccurrenceSearchPages: [
+          {
+            path: 'danish-occurrence/search',
+            overwriteConfig: {
+              occurrencePredicate: {
+                type: 'and',
+                predicates: [
+                  {
+                    type: 'equals',
+                    key: 'countryCode',
+                    value: 'DK',
+                  },
+                ],
+              },
+            },
+          },
+        ],
         pages: [
           {
-            key: 'occurrence-search-page',
-          },
-          {
-            key: 'occurrence-page',
-          },
-          // Uncomment this object to enable the dataset page. Otherwise it will link to GBIF.org
-          {
-            key: 'dataset-page',
+            id: 'occurrence-search',
           },
         ],
         languages: [

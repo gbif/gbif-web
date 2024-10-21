@@ -1,6 +1,6 @@
 import { fragmentManager } from '@/services/fragmentManager';
 import { MediaBlockDetailsFragment } from '@/gql/graphql';
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
 import { ArticleBody } from '../../components/articleBody';
 import { BlockContainer, BlockHeading, backgroundColorMap } from './_shared';

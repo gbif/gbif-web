@@ -44,11 +44,7 @@ export function SearchSuggest<T>({
   noSearchResultsPlaceholder = 'No results found',
   searchInputPlaceholder = 'Search...',
 }: Props<T>) {
-  const [controlledOpen, setControlledOpen] = useUncontrolledProp(
-    open,
-    false,
-    setOpen
-  );
+  const [controlledOpen, setControlledOpen] = useUncontrolledProp(open, false, setOpen);
   const [searchTerm, setSearchTerm] = React.useState('');
 
   // Fetch new search results when the search term changes
@@ -65,7 +61,7 @@ export function SearchSuggest<T>({
       <PopoverTrigger asChild>
         <Button
           ref={triggerRef}
-          variant={ selected ? 'default' : 'outline' }
+          variant={selected ? 'default' : 'outline'}
           role="combobox"
           aria-expanded={open}
           className={cn('g-w-full g-flex', className)}
@@ -98,7 +94,7 @@ export function SearchSuggest<T>({
                     } else {
                       setSelected(result);
                     }
-                    setOpen(false);
+                    setOpen?.(false);
                   }}
                 >
                   {labelSelector(result)}

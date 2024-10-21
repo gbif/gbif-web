@@ -1,6 +1,5 @@
 import { Card } from '@/components/ui/largeCard';
-import { OccurrenceQuery, Term } from '@/gql/graphql';
-import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
+import { Term } from '@/gql/graphql';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useCallback, useState } from 'react';
@@ -8,8 +7,9 @@ import { Groups } from './About/groups';
 import { HashLink } from 'react-router-hash-link';
 import { Aside, AsideSticky, SidebarLayout } from './pagelayouts';
 import useBelow from '@/hooks/useBelow';
-import { useConfig } from '@/contexts/config/config';
+import { useConfig } from '@/config/config';
 import { TocLi as Li, Separator } from '@/components/TocHelp';
+import { useOccurrenceKeyLoaderData } from '.';
 
 const extensions = [
   'media',
@@ -39,7 +39,7 @@ const extensions = [
 
 export function OccurrenceKeyAbout() {
   const config = useConfig();
-  const { data } = useParentRouteLoaderData(RouteId.Occurrence) as { data: OccurrenceQuery };
+  const { data } = useOccurrenceKeyLoaderData();
   const hideSidebar = useBelow(1000);
   const [toc, setToc] = useState(
     extensions.reduce((acc, section) => ({ ...acc, [section]: false }), {})

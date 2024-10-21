@@ -2,9 +2,9 @@ import React from 'react';
 import { ScrollRestoration, useLoaderData } from 'react-router-dom';
 import { Toaster } from '@/components/ui/toaster';
 import { HeaderQuery, HeaderQueryVariables } from '@/gql/graphql';
-import { LoaderArgs } from '../types';
 import { NoscriptNotification } from '@/components/noscriptNotification';
 import { Header } from './header';
+import { LoaderArgs } from '@/reactRouterPlugins';
 
 const HEADER_QUERY = /* GraphQL */ `
   query Header {

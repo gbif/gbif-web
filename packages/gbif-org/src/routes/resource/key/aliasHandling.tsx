@@ -4,7 +4,7 @@ import {
   ArticlePageFragment,
   CompositionPageFragment,
 } from '@/gql/graphql';
-import { LoaderArgs } from '@/types';
+import { LoaderArgs } from '@/reactRouterPlugins';
 import { required } from '@/utils/required';
 import { ArticlePage, articlePageLoader } from './article/article';
 import { CompositionPage, compositionPageLoader } from './composition/composition';

@@ -15,10 +15,8 @@ import { ArticleTitle } from '../resource/key/components/articleTitle';
 import { Documents } from '../resource/key/components/documents';
 import { SecondaryLinks } from '../resource/key/components/secondaryLinks';
 import { PageContainer } from '../resource/key/components/pageContainer';
-import { LoaderArgs } from '@/types';
 import { BecomeAPublisherForm } from '../resource/key/composition/blocks/customComponents/becomeAPublisherForm';
-
-export const BecomeAPublisherPageSkeleton = ArticleSkeleton;
+import { LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
 
 const BECOME_A_PUBLISHER_QUERY = /* GraphQL */ `
   query BecomeAPublisherPage {
@@ -50,14 +48,14 @@ const BECOME_A_PUBLISHER_QUERY = /* GraphQL */ `
   }
 `;
 
-export function becomeAPublisherPageLoader(args: LoaderArgs) {
+function becomeAPublisherPageLoader(args: LoaderArgs) {
   return args.graphql.query<BecomeAPublisherPageQuery, undefined>(
     BECOME_A_PUBLISHER_QUERY,
     undefined
   );
 }
 
-export function BecomeAPublisherPage() {
+function BecomeAPublisherPage() {
   const { data } = useLoaderData() as { data: BecomeAPublisherPageQuery };
   const resource = data.resource;
 
@@ -124,3 +122,10 @@ export function BecomeAPublisherPage() {
     </article>
   );
 }
+
+export const becomeAPublisherRoute: RouteObjectWithPlugins = {
+  id: 'become-a-publisher',
+  element: <BecomeAPublisherPage />,
+  loader: becomeAPublisherPageLoader,
+  loadingElement: <ArticleSkeleton />,
+};

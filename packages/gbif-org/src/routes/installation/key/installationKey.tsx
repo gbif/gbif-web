@@ -1,5 +1,4 @@
 import { InstallationQuery, InstallationQueryVariables } from '@/gql/graphql';
-import { LoaderArgs } from '@/types';
 import { required } from '@/utils/required';
 import { Helmet } from 'react-helmet-async';
 import { Outlet, useLoaderData } from 'react-router-dom';
@@ -17,6 +16,7 @@ import {
 } from '@/components/headerComponents';
 import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
+import { LoaderArgs } from '@/reactRouterPlugins';
 
 const INSTALLATION_QUERY = /* GraphQL */ `
   query Installation($key: ID!) {

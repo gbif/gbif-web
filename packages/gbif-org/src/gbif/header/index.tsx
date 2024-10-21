@@ -2,14 +2,14 @@ import { GbifLogoIcon } from '@/components/icons/icons';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { MainNavigation } from './mainNav';
 import { HeaderQuery } from '@/gql/graphql';
-import { DynamicLink } from '@/components/dynamicLink';
 import { MobileMenu } from './mobileMenu';
 import { MdOutlineFeedback, MdSearch, MdTranslate } from 'react-icons/md';
 import { Button } from '@/components/ui/button';
 import { FiActivity } from 'react-icons/fi';
 import { LanguageSelector } from './languageSelector';
 import { FeedbackPopover } from './feedback';
-import { useI18n } from '@/contexts/i18n';
+import { useI18n } from '@/reactRouterPlugins';
+import { DynamicLink } from '@/reactRouterPlugins';
 
 export function Header({ menu }: { menu: HeaderQuery }) {
   const { locale } = useI18n();
@@ -26,7 +26,11 @@ export function Header({ menu }: { menu: HeaderQuery }) {
   return (
     <div className={`g-flex g-items-center g-p-2 g-px-4 ${transparentClass}`}>
       <div className="g-flex-none ">
-        <DynamicLink as={NavLink} to="/" className={`g-p-2 ${isTransparent ? 'g-text-white' : 'g-text-primary-500'}`}>
+        <DynamicLink
+          as={NavLink}
+          to="/"
+          className={`g-p-2 ${isTransparent ? 'g-text-white' : 'g-text-primary-500'}`}
+        >
           <GbifLogoIcon style={{ fontSize: 25 }} />
         </DynamicLink>
       </div>

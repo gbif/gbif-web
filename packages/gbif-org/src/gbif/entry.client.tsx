@@ -1,6 +1,6 @@
 import { hydrateRoot } from 'react-dom/client';
 import { createBrowserRouter, matchRoutes, RouteObject, RouterProvider } from 'react-router-dom';
-import { configureGbifRoutes } from '@/gbif/routes';
+import { createGbifRoutes } from '@/gbif/routes';
 import { gbifConfig } from '@/gbif/config';
 import { Root } from '@/components/root';
 
@@ -8,7 +8,7 @@ hydrate();
 
 async function hydrate() {
   // Configure the routes
-  const { routes, metadataRoutes } = configureGbifRoutes(gbifConfig);
+  const routes = createGbifRoutes(gbifConfig);
 
   // Load any lazy routes
   await loadLazyRoutes(routes);
@@ -20,7 +20,7 @@ async function hydrate() {
 
   hydrateRoot(
     root,
-    <Root config={gbifConfig} metadataRoutes={metadataRoutes}>
+    <Root config={gbifConfig}>
       <RouterProvider router={router} fallbackElement={null} />
     </Root>,
     {

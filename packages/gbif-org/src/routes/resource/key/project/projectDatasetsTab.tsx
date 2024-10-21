@@ -1,15 +1,11 @@
-import {
-  ProjectDatasetsQuery,
-  ProjectDatasetsQueryVariables,
-  ProjectQuery,
-} from '@/gql/graphql';
+import { ProjectDatasetsQuery, ProjectDatasetsQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { fragmentManager } from '@/services/fragmentManager';
-import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
 import { DatasetResult } from '@/routes/dataset/datasetResult';
 import { HelpLine } from '../../../../components/helpText';
 import { NoResultsTab } from '../components/noResultsTab';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
+import { useProjectKeyLoaderData } from '.';
 
 fragmentManager.register(/* GraphQL */ `
   fragment ProjectDatasetsTab on Query {
@@ -36,7 +32,7 @@ const DATASET_QUERY = /* GraphQL */ `
 `;
 
 export function ProjectDatasetsTab() {
-  const { resource, datasetsHelp } = useParentRouteLoaderData(RouteId.Project) as ProjectQuery;
+  const { resource, datasetsHelp } = useProjectKeyLoaderData();
 
   // Can't happen but TS doesn't know
   if (resource?.__typename !== 'GbifProject') throw new Error('500');
@@ -55,9 +51,9 @@ export function ProjectDatasetsTab() {
   if (datasets.data?.datasetSearch == null) return <CardListSkeleton />;
 
   return (
-    <div className='g-pt-4 g-max-w-3xl g-m-auto'>
-      <p className='g-pb-4 g-text-gray-600 g-text-sm g-text-right'>
-        <HelpLine title={datasetsHelp?.title} id="how-to-link-datasets-to-my-project-page" icon/>
+    <div className="g-pt-4 g-max-w-3xl g-m-auto">
+      <p className="g-pb-4 g-text-gray-600 g-text-sm g-text-right">
+        <HelpLine title={datasetsHelp?.title} id="how-to-link-datasets-to-my-project-page" icon />
       </p>
 
       {/* TODO: Needs translation */}

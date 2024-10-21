@@ -1,7 +1,7 @@
 import { fragmentManager } from '@/services/fragmentManager';
 import { MediaCountBlockDetailsFragment } from '@/gql/graphql';
 import { ArticleBody } from '../../components/articleBody';
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
 import { CountResolver } from '@/components/countResolver';
 import { BlockContainer, BlockHeading, backgroundColorMap } from './_shared';

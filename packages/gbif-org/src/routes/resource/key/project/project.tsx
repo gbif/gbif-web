@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet-async';
 import { ProjectPageFragment } from '@/gql/graphql';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTitle } from '../components/articleTitle';
 import { ArticleTextContainer } from '../components/articleTextContainer';
 import { ArticlePreTitle } from '../components/articlePreTitle';
@@ -79,15 +78,15 @@ export function ProjectPage() {
 
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }}>
             {isClosed && (
-              <span className='g-align-middle g-bg-red-100 g-text-red-800 g-text-sm g-font-medium g-ms-2 g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300'>
+              <span className="g-align-middle g-bg-red-100 g-text-red-800 g-text-sm g-font-medium g-ms-2 g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300">
                 <FormattedMessage id={`enums.cms.projectStatus.${resource.status}`} />
               </span>
             )}
           </ArticleTitle>
 
-          <RenderIfChildren className='g-mt-2 g-text-slate-500 dark:g-text-gray-400 g-text-sm g-font-medium g-flex g-items-center g-gap-6'>
+          <RenderIfChildren className="g-mt-2 g-text-slate-500 dark:g-text-gray-400 g-text-sm g-font-medium g-flex g-items-center g-gap-6">
             {resource.start && resource.end && (
-              <p className='g-flex g-items-center g-gap-1'>
+              <p className="g-flex g-items-center g-gap-1">
                 <CalendarIcon size={18} />
                 <FormattedDateTimeRange
                   from={new Date(resource.start)}
@@ -100,14 +99,14 @@ export function ProjectPage() {
             )}
 
             {resource.fundsAllocated && (
-              <p className='g-flex g-items-center g-gap-1'>
+              <p className="g-flex g-items-center g-gap-1">
                 <EuroIcon size={18} />
                 <FormattedNumber value={resource.fundsAllocated} />
               </p>
             )}
           </RenderIfChildren>
 
-          <Tabs className='g-mt-6' links={tabLinks} />
+          <Tabs className="g-mt-6" links={tabLinks} />
         </ArticleTextContainer>
 
         <Outlet />
@@ -131,8 +130,8 @@ function createTabLinks(resource: ProjectPageFragment) {
     tabLinks.push({
       to: resource.primaryLink.url,
       children: (
-        <span className='g-flex g-items-center'>
-          {resource.primaryLink.label} <MdLink className='g-ms-1' />
+        <span className="g-flex g-items-center">
+          {resource.primaryLink.label} <MdLink className="g-ms-1" />
         </span>
       ),
     });
