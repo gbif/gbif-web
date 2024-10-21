@@ -24,7 +24,7 @@ import { Experience } from './steps/experience';
 import { NodeContact } from './steps/nodeContact';
 import { Terms } from './steps/terms';
 import { useToast } from '@/components/ui/use-toast';
-import { useConfig } from '@/contexts/config/config';
+import { useConfig } from '@/config/config';
 
 const Schema = z.object({
   primaryContact: z.object({

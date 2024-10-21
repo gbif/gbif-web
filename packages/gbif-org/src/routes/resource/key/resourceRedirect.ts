@@ -1,6 +1,6 @@
 import { NotFoundError } from '@/errors';
 import { ResourceRedirectQuery, ResourceRedirectQueryVariables } from '@/gql/graphql';
-import { LoaderArgs } from '@/types';
+import { LoaderArgs } from '@/reactRouterPlugins';
 import { required } from '@/utils/required';
 import { redirect } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ const RESOURCE_REDIRECT_QUERY = /* GraphQL */ `
 `;
 
 // The purpose of this loader is to redirect from /resource/:key to the appropriate resource page.
-export async function resourceRedirectLoader({ params, graphql, id }: LoaderArgs) {
+export async function resourceRedirectLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'Key is required');
 
   const response = await graphql.query<ResourceRedirectQuery, ResourceRedirectQueryVariables>(

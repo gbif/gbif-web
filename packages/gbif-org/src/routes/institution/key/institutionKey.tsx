@@ -1,10 +1,16 @@
-import { InstitutionQuery, InstitutionQueryVariables, InstitutionSummaryMetricsQuery, InstitutionSummaryMetricsQueryVariables, PredicateType } from '@/gql/graphql';
-import { LoaderArgs } from '@/types';
+import {
+  InstitutionQuery,
+  InstitutionQueryVariables,
+  InstitutionSummaryMetricsQuery,
+  InstitutionSummaryMetricsQueryVariables,
+  PredicateType,
+} from '@/gql/graphql';
 import { required } from '@/utils/required';
 import { useLoaderData } from 'react-router-dom';
-import { InstitutionKey as Presentation} from './institutionKeyPresentation';
+import { InstitutionKey as Presentation } from './institutionKeyPresentation';
 import useQuery from '@/hooks/useQuery';
 import { useEffect } from 'react';
+import { LoaderArgs } from '@/reactRouterPlugins';
 
 export async function institutionLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
@@ -28,8 +34,8 @@ export function InstitutionKey() {
     if (typeof id !== 'undefined') {
       const institutionPredicate = {
         type: PredicateType.Equals,
-        key: "institutionKey",
-        value: id
+        key: 'institutionKey',
+        value: id,
       };
       slowLoad({
         variables: {
@@ -37,29 +43,32 @@ export function InstitutionKey() {
           predicate: institutionPredicate,
           imagePredicate: {
             type: PredicateType.And,
-            predicates: [institutionPredicate, { type: PredicateType.Equals, key: 'mediaType', value: 'StillImage' }]
+            predicates: [
+              institutionPredicate,
+              { type: PredicateType.Equals, key: 'mediaType', value: 'StillImage' },
+            ],
           },
           coordinatePredicate: {
             type: PredicateType.And,
             predicates: [
               institutionPredicate,
-              { type: PredicateType.Equals, key: 'hasCoordinate', value: 'true' }
-            ]
+              { type: PredicateType.Equals, key: 'hasCoordinate', value: 'true' },
+            ],
           },
           clusterPredicate: {
             type: PredicateType.And,
             predicates: [
               institutionPredicate,
-              { type: PredicateType.Equals, key: 'isInCluster', value: 'true' }
-            ]
+              { type: PredicateType.Equals, key: 'isInCluster', value: 'true' },
+            ],
           },
-        }
+        },
       });
     }
   }, [data.institution?.key]);
 
   if (data.institution == null) throw new Error('404');
-  return <Presentation data={data} institutionMetrics={institutionMetrics}/>;
+  return <Presentation data={data} institutionMetrics={institutionMetrics} />;
 }
 
 export { InstitutionPageSkeleton } from './institutionKeyPresentation';
@@ -129,7 +138,7 @@ const INSTITUTION_QUERY = /* GraphQL */ `
         }
       }
       numberSpecimens
-      
+
       mailingAddress {
         address
         city
@@ -158,7 +167,13 @@ const INSTITUTION_QUERY = /* GraphQL */ `
 `;
 
 const SLOW_QUERY = /* GraphQL */ `
-  query InstitutionSummaryMetrics($key: ID!, $predicate: Predicate, $imagePredicate: Predicate, $coordinatePredicate: Predicate, $clusterPredicate: Predicate){
+  query InstitutionSummaryMetrics(
+    $key: ID!
+    $predicate: Predicate
+    $imagePredicate: Predicate
+    $coordinatePredicate: Predicate
+    $clusterPredicate: Predicate
+  ) {
     occurrenceSearch(predicate: $predicate) {
       documents(size: 0) {
         total

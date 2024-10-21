@@ -14,7 +14,7 @@ import Properties from '@/components/properties';
 import { RenderIfChildren } from '@/components/renderIfChildren';
 import { useState } from 'react';
 import { GadmClassification, TaxonClassification } from '@/components/classification';
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { Media } from './media';
 import { OccurrenceQuery, Term } from '@/gql/graphql';
 import { BulletList } from '@/components/bulletList';

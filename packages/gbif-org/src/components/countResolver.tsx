@@ -1,4 +1,4 @@
-import { useConfig } from '@/contexts/config/config';
+import { useConfig } from '@/config/config';
 import { useEffect, useState } from 'react';
 
 type Props = {

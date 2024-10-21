@@ -1,8 +1,8 @@
 import { MdLink } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { KeyChartGenerator } from './KeyChartGenerator';
+import { DynamicLink } from '@/reactRouterPlugins';
 // import LocaleContext from '../../../dataManagement/LocaleProvider/LocaleContext';
-import { DynamicLink } from '@/components/dynamicLink';
 
 export function Datasets({
   predicate,
@@ -10,28 +10,42 @@ export function Datasets({
   currentFilter = {}, //excluding root predicate
   ...props
 }) {
-  return <KeyChartGenerator {...{
-    predicate, detailsRoute, currentFilter,
-    fieldName: 'datasetKey',
-    disableUnknown: true,
-    disableOther: false,
-    facetSize: 10,
-    gqlEntity: `dataset {title}`,
-    title: <FormattedMessage id="filters.datasetKey.name" defaultMessage="Dataset" />,
-    subtitleKey: "dashboard.numberOfOccurrences",
-    transform: data => {
-      return data?.search?.facet?.results?.map(x => {
-        return {
-          key: x.key,
-          title: <span>{x?.entity?.title} <DynamicLink to={`/dataset/${x.key}`}><MdLink /></DynamicLink></span>,
-          plainTextTitle: x?.entity?.title,
-          count: x.count,
-          description: x.entity.description,
-          filter: { datasetKey: [x.key] },
-        }
-      });
-    }
-  }} {...props} />
+  return (
+    <KeyChartGenerator
+      {...{
+        predicate,
+        detailsRoute,
+        currentFilter,
+        fieldName: 'datasetKey',
+        disableUnknown: true,
+        disableOther: false,
+        facetSize: 10,
+        gqlEntity: `dataset {title}`,
+        title: <FormattedMessage id="filters.datasetKey.name" defaultMessage="Dataset" />,
+        subtitleKey: 'dashboard.numberOfOccurrences',
+        transform: (data) => {
+          return data?.search?.facet?.results?.map((x) => {
+            return {
+              key: x.key,
+              title: (
+                <span>
+                  {x?.entity?.title}{' '}
+                  <DynamicLink to={`/dataset/${x.key}`}>
+                    <MdLink />
+                  </DynamicLink>
+                </span>
+              ),
+              plainTextTitle: x?.entity?.title,
+              count: x.count,
+              description: x.entity.description,
+              filter: { datasetKey: [x.key] },
+            };
+          });
+        },
+      }}
+      {...props}
+    />
+  );
 }
 
 export function Publishers({
@@ -40,28 +54,42 @@ export function Publishers({
   currentFilter = {}, //excluding root predicate
   ...props
 }) {
-  return <KeyChartGenerator {...{
-    predicate, detailsRoute, currentFilter,
-    fieldName: 'publishingOrg',
-    disableUnknown: true,
-    disableOther: false,
-    facetSize: 10,
-    gqlEntity: `publisher {title}`,
-    title: <FormattedMessage id="filters.publisherKey.name" defaultMessage="Publisher" />,
-    subtitleKey: "dashboard.numberOfOccurrences",
-    transform: data => {
-      return data?.search?.facet?.results?.map(x => {
-        return {
-          key: x.key,
-          title: <span>{x?.entity?.title} <DynamicLink to={`/publisher/${x.key}`}><MdLink /></DynamicLink></span>,
-          plainTextTitle: x?.entity?.title,
-          count: x.count,
-          description: x.entity.description,
-          filter: { publishingOrg: [x.key] },
-        }
-      });
-    }
-  }} {...props} />
+  return (
+    <KeyChartGenerator
+      {...{
+        predicate,
+        detailsRoute,
+        currentFilter,
+        fieldName: 'publishingOrg',
+        disableUnknown: true,
+        disableOther: false,
+        facetSize: 10,
+        gqlEntity: `publisher {title}`,
+        title: <FormattedMessage id="filters.publisherKey.name" defaultMessage="Publisher" />,
+        subtitleKey: 'dashboard.numberOfOccurrences',
+        transform: (data) => {
+          return data?.search?.facet?.results?.map((x) => {
+            return {
+              key: x.key,
+              title: (
+                <span>
+                  {x?.entity?.title}{' '}
+                  <DynamicLink to={`/publisher/${x.key}`}>
+                    <MdLink />
+                  </DynamicLink>
+                </span>
+              ),
+              plainTextTitle: x?.entity?.title,
+              count: x.count,
+              description: x.entity.description,
+              filter: { publishingOrg: [x.key] },
+            };
+          });
+        },
+      }}
+      {...props}
+    />
+  );
 }
 
 export function HostingOrganizations({
@@ -70,27 +98,46 @@ export function HostingOrganizations({
   currentFilter = {}, //excluding root predicate
   ...props
 }) {
-  return <KeyChartGenerator {...{
-    predicate, detailsRoute, currentFilter,
-    fieldName: 'hostingOrganizationKey',
-    disableUnknown: true,
-    disableOther: false,
-    facetSize: 10,
-    gqlEntity: `publisher {title}`,
-    title: <FormattedMessage id="filters.hostingOrganizationKey.name" defaultMessage="Hosting organization" />,
-    subtitleKey: "dashboard.numberOfOccurrences",
-    transform: data => {
-      return data?.search?.facet?.results?.map(x => {
-        return {
-          key: x.key,
-          title: <span>{x?.entity?.title} <DynamicLink to={`/publisher/${x.key}`}><MdLink /></DynamicLink></span>,
-          plainTextTitle: x?.entity?.title,
-          count: x.count,
-          filter: { hostingOrganizationKey: [x.key] },
-        }
-      });
-    }
-  }} {...props} />
+  return (
+    <KeyChartGenerator
+      {...{
+        predicate,
+        detailsRoute,
+        currentFilter,
+        fieldName: 'hostingOrganizationKey',
+        disableUnknown: true,
+        disableOther: false,
+        facetSize: 10,
+        gqlEntity: `publisher {title}`,
+        title: (
+          <FormattedMessage
+            id="filters.hostingOrganizationKey.name"
+            defaultMessage="Hosting organization"
+          />
+        ),
+        subtitleKey: 'dashboard.numberOfOccurrences',
+        transform: (data) => {
+          return data?.search?.facet?.results?.map((x) => {
+            return {
+              key: x.key,
+              title: (
+                <span>
+                  {x?.entity?.title}{' '}
+                  <DynamicLink to={`/publisher/${x.key}`}>
+                    <MdLink />
+                  </DynamicLink>
+                </span>
+              ),
+              plainTextTitle: x?.entity?.title,
+              count: x.count,
+              filter: { hostingOrganizationKey: [x.key] },
+            };
+          });
+        },
+      }}
+      {...props}
+    />
+  );
 }
 
 export function Collections({
@@ -99,28 +146,42 @@ export function Collections({
   currentFilter = {}, //excluding root predicate
   ...props
 }) {
-  return <KeyChartGenerator {...{
-    predicate, detailsRoute, currentFilter,
-    fieldName: 'collectionKey',
-    disableUnknown: false,
-    disableOther: false,
-    facetSize: 10,
-    gqlEntity: `collection {title: name}`,
-    title: <FormattedMessage id="filters.collectionKey.name" defaultMessage="Collection" />,
-    subtitleKey: "dashboard.numberOfOccurrences",
-    transform: data => {
-      return data?.search?.facet?.results?.map(x => {
-        return {
-          key: x.key,
-          title: <span>{x?.entity?.title} <DynamicLink to={`/collection/${x.key}`}><MdLink /></DynamicLink></span>,
-          plainTextTitle: x?.entity?.title,
-          count: x.count,
-          description: x.entity.description,
-          filter: { collectionKey: [x.key] },
-        }
-      });
-    }
-  }} {...props} />
+  return (
+    <KeyChartGenerator
+      {...{
+        predicate,
+        detailsRoute,
+        currentFilter,
+        fieldName: 'collectionKey',
+        disableUnknown: false,
+        disableOther: false,
+        facetSize: 10,
+        gqlEntity: `collection {title: name}`,
+        title: <FormattedMessage id="filters.collectionKey.name" defaultMessage="Collection" />,
+        subtitleKey: 'dashboard.numberOfOccurrences',
+        transform: (data) => {
+          return data?.search?.facet?.results?.map((x) => {
+            return {
+              key: x.key,
+              title: (
+                <span>
+                  {x?.entity?.title}{' '}
+                  <DynamicLink to={`/collection/${x.key}`}>
+                    <MdLink />
+                  </DynamicLink>
+                </span>
+              ),
+              plainTextTitle: x?.entity?.title,
+              count: x.count,
+              description: x.entity.description,
+              filter: { collectionKey: [x.key] },
+            };
+          });
+        },
+      }}
+      {...props}
+    />
+  );
 }
 
 export function Institutions({
@@ -129,28 +190,42 @@ export function Institutions({
   currentFilter = {}, //excluding root predicate
   ...props
 }) {
-  return <KeyChartGenerator {...{
-    predicate, detailsRoute, currentFilter,
-    fieldName: 'institutionKey',
-    disableUnknown: false,
-    disableOther: false,
-    facetSize: 10,
-    gqlEntity: `institution {title: name}`,
-    title: <FormattedMessage id="filters.institutionKey.name" defaultMessage="Institution" />,
-    subtitleKey: "dashboard.numberOfOccurrences",
-    transform: data => {
-      return data?.search?.facet?.results?.map(x => {
-        return {
-          key: x.key,
-          title: <span>{x?.entity?.title} <DynamicLink to={`/institution/${x.key}`}><MdLink /></DynamicLink></span>,
-          plainTextTitle: x?.entity?.title,
-          count: x.count,
-          description: x.entity.description,
-          filter: { institutionKey: [x.key] },
-        }
-      });
-    }
-  }} {...props} />
+  return (
+    <KeyChartGenerator
+      {...{
+        predicate,
+        detailsRoute,
+        currentFilter,
+        fieldName: 'institutionKey',
+        disableUnknown: false,
+        disableOther: false,
+        facetSize: 10,
+        gqlEntity: `institution {title: name}`,
+        title: <FormattedMessage id="filters.institutionKey.name" defaultMessage="Institution" />,
+        subtitleKey: 'dashboard.numberOfOccurrences',
+        transform: (data) => {
+          return data?.search?.facet?.results?.map((x) => {
+            return {
+              key: x.key,
+              title: (
+                <span>
+                  {x?.entity?.title}{' '}
+                  <DynamicLink to={`/institution/${x.key}`}>
+                    <MdLink />
+                  </DynamicLink>
+                </span>
+              ),
+              plainTextTitle: x?.entity?.title,
+              count: x.count,
+              description: x.entity.description,
+              filter: { institutionKey: [x.key] },
+            };
+          });
+        },
+      }}
+      {...props}
+    />
+  );
 }
 
 export function Networks({
@@ -159,28 +234,42 @@ export function Networks({
   currentFilter = {}, //excluding root predicate
   ...props
 }) {
-  return <KeyChartGenerator {...{
-    predicate, detailsRoute, currentFilter,
-    fieldName: 'networkKey',
-    disableUnknown: false,
-    disableOther: false,
-    facetSize: 10,
-    gqlEntity: `network {title}`,
-    title: <FormattedMessage id="filters.networkKey.name" defaultMessage="Network" />,
-    subtitleKey: "dashboard.numberOfOccurrences",
-    transform: data => {
-      return data?.search?.facet?.results?.map(x => {
-        return {
-          key: x.key,
-          title: <span>{x?.entity?.title} <DynamicLink to={`/network/${x.key}`}><MdLink /></DynamicLink></span>,
-          plainTextTitle: x?.entity?.title,
-          count: x.count,
-          description: x.entity.description,
-          filter: { networkKey: [x.key] },
-        }
-      });
-    }
-  }} {...props} />
+  return (
+    <KeyChartGenerator
+      {...{
+        predicate,
+        detailsRoute,
+        currentFilter,
+        fieldName: 'networkKey',
+        disableUnknown: false,
+        disableOther: false,
+        facetSize: 10,
+        gqlEntity: `network {title}`,
+        title: <FormattedMessage id="filters.networkKey.name" defaultMessage="Network" />,
+        subtitleKey: 'dashboard.numberOfOccurrences',
+        transform: (data) => {
+          return data?.search?.facet?.results?.map((x) => {
+            return {
+              key: x.key,
+              title: (
+                <span>
+                  {x?.entity?.title}{' '}
+                  <DynamicLink to={`/network/${x.key}`}>
+                    <MdLink />
+                  </DynamicLink>
+                </span>
+              ),
+              plainTextTitle: x?.entity?.title,
+              count: x.count,
+              description: x.entity.description,
+              filter: { networkKey: [x.key] },
+            };
+          });
+        },
+      }}
+      {...props}
+    />
+  );
 }
 
 export function EstablishmentMeans({
@@ -193,27 +282,39 @@ export function EstablishmentMeans({
   // const vocabularyLocale = localeContext?.localeMap?.vocabulary || 'en';
   const vocabularyLocale = 'en';
 
-  return <KeyChartGenerator {...{
-    predicate, detailsRoute, currentFilter,
-    fieldName: 'establishmentMeans',
-    disableUnknown: true,
-    disableOther: true,
-    facetSize: 10,
-    gqlEntity: `concept {title: uiLabel(language: "${vocabularyLocale}")}`,
-    title: <FormattedMessage id="filters.establishmentMeans.name" defaultMessage="establishmentMeans" />,
-    subtitleKey: "dashboard.numberOfOccurrences",
-    transform: data => {
-      return data?.search?.facet?.results?.map(x => {
-        return {
-          key: x.key,
-          title: x?.entity?.title,
-          count: x.count,
-          description: x.entity.description,
-          filter: { establishmentMeans: [x.key] },
-        }
-      });
-    }
-  }} {...props} />
+  return (
+    <KeyChartGenerator
+      {...{
+        predicate,
+        detailsRoute,
+        currentFilter,
+        fieldName: 'establishmentMeans',
+        disableUnknown: true,
+        disableOther: true,
+        facetSize: 10,
+        gqlEntity: `concept {title: uiLabel(language: "${vocabularyLocale}")}`,
+        title: (
+          <FormattedMessage
+            id="filters.establishmentMeans.name"
+            defaultMessage="establishmentMeans"
+          />
+        ),
+        subtitleKey: 'dashboard.numberOfOccurrences',
+        transform: (data) => {
+          return data?.search?.facet?.results?.map((x) => {
+            return {
+              key: x.key,
+              title: x?.entity?.title,
+              count: x.count,
+              description: x.entity.description,
+              filter: { establishmentMeans: [x.key] },
+            };
+          });
+        },
+      }}
+      {...props}
+    />
+  );
 }
 
 export function Synonyms({
@@ -229,37 +330,61 @@ export function Synonyms({
       {
         type: 'equals',
         key: 'gbifClassification_synonym',
-        value: true
-      }
-    ]
-  }
-  return <KeyChartGenerator {...{
-    predicate, detailsRoute, currentFilter,
-    fieldName: 'gbifClassification_usage_key',
-    disableUnknown: true,
-    disableOther: true,
-    facetSize: 10,
-    options: ['TABLE'],
-    gqlEntity: `taxon {
+        value: true,
+      },
+    ],
+  };
+  return (
+    <KeyChartGenerator
+      {...{
+        predicate,
+        detailsRoute,
+        currentFilter,
+        fieldName: 'gbifClassification_usage_key',
+        disableUnknown: true,
+        disableOther: true,
+        facetSize: 10,
+        options: ['TABLE'],
+        gqlEntity: `taxon {
       title: scientificName
       accepted
       acceptedKey
     }`,
-    title: <FormattedMessage id="dashboard.synonyms" defaultMessage="Synonyms" />,
-    subtitleKey: "dashboard.numberOfOccurrences",
-    transform: data => {
-      return data?.search?.facet?.results?.map(x => {
-        return {
-          key: x.key,
-          title: <span>{x?.entity?.title} <DynamicLink to={`/species/${x.key}`}><MdLink /></DynamicLink></span>,
-          plainTextTitle: x?.entity?.title,
-          count: x.count,
-          filter: { taxonKey: [x.key] },
-          description: <div>Accepted name: <span>{x?.entity?.accepted} <DynamicLink to={`/species/${x?.entity?.acceptedKey}`}><MdLink /></DynamicLink></span></div>
-        }
-      });
-    }
-  }} {...props} />
+        title: <FormattedMessage id="dashboard.synonyms" defaultMessage="Synonyms" />,
+        subtitleKey: 'dashboard.numberOfOccurrences',
+        transform: (data) => {
+          return data?.search?.facet?.results?.map((x) => {
+            return {
+              key: x.key,
+              title: (
+                <span>
+                  {x?.entity?.title}{' '}
+                  <DynamicLink to={`/species/${x.key}`}>
+                    <MdLink />
+                  </DynamicLink>
+                </span>
+              ),
+              plainTextTitle: x?.entity?.title,
+              count: x.count,
+              filter: { taxonKey: [x.key] },
+              description: (
+                <div>
+                  Accepted name:{' '}
+                  <span>
+                    {x?.entity?.accepted}{' '}
+                    <DynamicLink to={`/species/${x?.entity?.acceptedKey}`}>
+                      <MdLink />
+                    </DynamicLink>
+                  </span>
+                </div>
+              ),
+            };
+          });
+        },
+      }}
+      {...props}
+    />
+  );
 }
 
 // export function LiteratureTopics({

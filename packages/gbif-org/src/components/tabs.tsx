@@ -8,9 +8,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu';
-import { DynamicLink } from './dynamicLink';
 import { MdMoreHoriz } from 'react-icons/md';
-import { useI18n } from '@/contexts/i18n';
+import { useI18n } from '@/reactRouterPlugins';
+import { DynamicLink } from '@/reactRouterPlugins';
 
 export type Props = {
   className?: string;

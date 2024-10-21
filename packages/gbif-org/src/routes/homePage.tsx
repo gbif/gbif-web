@@ -1,16 +1,16 @@
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { HomePageQuery, HomePageQueryVariables } from '@/gql/graphql';
-import { LoaderArgs } from '@/types';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLoaderData } from 'react-router-dom';
 import { BlockItem } from './resource/key/composition/blockItem';
 import { ArticleTextContainer } from './resource/key/components/articleTextContainer';
 import { PageContainer } from './resource/key/components/pageContainer';
-import { useConfig } from '@/contexts/config/config';
-import { useI18n } from '@/contexts/i18n';
+import { useConfig } from '@/config/config';
+import { useI18n } from '@/reactRouterPlugins';
 import { interopDefault } from '@/utils/interopDefault';
 import _useLocalStorage from 'use-local-storage';
+import { LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
 // Used to import commonjs module as es6 module
 const useLocalStorage = interopDefault(_useLocalStorage);
 
@@ -58,11 +58,11 @@ const HOMEPAGE_QUERY = /* GraphQL */ `
   }
 `;
 
-export function homepageLoader({ params, graphql }: LoaderArgs) {
+function homepageLoader({ params, graphql }: LoaderArgs) {
   return graphql.query<HomePageQuery, HomePageQueryVariables>(HOMEPAGE_QUERY, {});
 }
 
-export function HomePage(): React.ReactElement {
+function HomePage(): React.ReactElement {
   const { data } = useLoaderData() as { data: HomePageQuery };
   const config = useConfig();
   const { locale } = useI18n();
@@ -401,3 +401,10 @@ function TmpOverview() {
     </section>
   );
 }
+
+export const homePageRoute: RouteObjectWithPlugins = {
+  index: true,
+  id: 'home',
+  element: <HomePage />,
+  loader: homepageLoader,
+};

@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { CheckboxField, Inputs, TextField } from '../becomeAPublisherForm';
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { RadioItem } from '../../_shared';
 import { RadioGroup } from '@/components/ui/radio-group';

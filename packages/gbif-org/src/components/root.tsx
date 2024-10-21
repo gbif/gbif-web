@@ -1,32 +1,41 @@
 import React from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { ConfigProvider, Config } from '@/contexts/config/config';
-import { MetadataRoutesProvider } from '@/contexts/metadataRoutes';
-import { RouteMetadata } from '@/types';
-import { LoadingElementProvider } from '@/contexts/loadingElement';
+import { ConfigProvider, Config } from '@/config/config';
 import { TooltipProvider } from './ui/tooltip';
+import { SkeletonLoadingProvider } from '@/reactRouterPlugins/skeletonLoading';
 
 type Props = {
   config: Config;
   children: React.ReactNode;
   helmetContext?: {};
-  metadataRoutes: RouteMetadata[];
 };
 
-export function Root({ config, helmetContext, children, metadataRoutes }: Props) {
+export function Root({ config, helmetContext, children }: Props) {
   return (
     <React.StrictMode>
       <ConfigProvider config={config}>
-        <MetadataRoutesProvider metadataRoutes={metadataRoutes}>
-          <LoadingElementProvider>
-            <HelmetProvider context={helmetContext}>
-              <Helmet>
-                <title>{config.defaultTitle}</title>
-              </Helmet>
-              <TooltipProvider>{children}</TooltipProvider>
-            </HelmetProvider>
-          </LoadingElementProvider>
-        </MetadataRoutesProvider>
+        <SkeletonLoadingProvider>
+          <HelmetProvider context={helmetContext}>
+            <Helmet>
+              <title>{config.defaultTitle}</title>
+            </Helmet>
+            <TooltipProvider>{children}</TooltipProvider>
+          </HelmetProvider>
+        </SkeletonLoadingProvider>
+      </ConfigProvider>
+    </React.StrictMode>
+  );
+}
+
+export function StandaloneRoot({ config, children }: Omit<Props, 'helmetContext'>) {
+  return (
+    <React.StrictMode>
+      <ConfigProvider config={config}>
+        <SkeletonLoadingProvider>
+          <HelmetProvider>
+            <TooltipProvider>{children}</TooltipProvider>
+          </HelmetProvider>
+        </SkeletonLoadingProvider>
       </ConfigProvider>
     </React.StrictMode>
   );

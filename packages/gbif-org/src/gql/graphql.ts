@@ -1177,11 +1177,12 @@ export type Dataset = {
   keywords?: Maybe<Array<Scalars['String']['output']>>;
   language?: Maybe<Language>;
   license?: Maybe<Scalars['String']['output']>;
+  literatureCount?: Maybe<Scalars['Int']['output']>;
   lockedForAutoUpdate?: Maybe<Scalars['Boolean']['output']>;
   /** Link to homepage with crawling logs. */
   logInterfaceUrl?: Maybe<Scalars['String']['output']>;
   logoUrl?: Maybe<Scalars['URL']['output']>;
-  machineTags?: Maybe<Array<Maybe<MachineTag>>>;
+  machineTags?: Maybe<Array<MachineTag>>;
   maintenanceDescription?: Maybe<Scalars['String']['output']>;
   maintenanceUpdateFrequency?: Maybe<MaintenanceUpdateFrequency>;
   mapCapabilities?: Maybe<MapCapabilities>;
@@ -1190,6 +1191,7 @@ export type Dataset = {
   modifiedBy?: Maybe<Scalars['String']['output']>;
   networks: Array<Maybe<Network>>;
   numConstituents?: Maybe<Scalars['Int']['output']>;
+  occurrenceCount?: Maybe<Scalars['Int']['output']>;
   parentDataset?: Maybe<Dataset>;
   parentDatasetKey?: Maybe<Scalars['ID']['output']>;
   project?: Maybe<Project>;
@@ -1219,6 +1221,13 @@ export type DatasetConstituentsArgs = {
 
 export type DatasetGriddedArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type DatasetMachineTagsArgs = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  namespace?: InputMaybe<Scalars['String']['input']>;
+  value?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type DatasetBreakdown = {
@@ -5797,12 +5806,14 @@ export type Organization = {
   key: Scalars['ID']['output'];
   language?: Maybe<Language>;
   latitude?: Maybe<Scalars['Float']['output']>;
+  literatureCount?: Maybe<Scalars['Int']['output']>;
   logoUrl?: Maybe<Scalars['String']['output']>;
   longitude?: Maybe<Scalars['Float']['output']>;
-  machineTags?: Maybe<Array<Maybe<MachineTag>>>;
+  machineTags?: Maybe<Array<MachineTag>>;
   modified?: Maybe<Scalars['DateTime']['output']>;
   modifiedBy?: Maybe<Scalars['String']['output']>;
   numPublishedDatasets?: Maybe<Scalars['Int']['output']>;
+  occurrenceCount?: Maybe<Scalars['Int']['output']>;
   phone?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   postalCode?: Maybe<Scalars['String']['output']>;
   province?: Maybe<Scalars['String']['output']>;
@@ -5822,6 +5833,13 @@ export type OrganizationHostedDatasetArgs = {
 export type OrganizationInstallationArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OrganizationMachineTagsArgs = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  namespace?: InputMaybe<Scalars['String']['input']>;
+  value?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -6080,6 +6098,7 @@ export type Query = {
   dataUse?: Maybe<DataUse>;
   dataset?: Maybe<Dataset>;
   datasetDownloads?: Maybe<DatasetDownloadListResults>;
+  datasetList: DatasetListResults;
   datasetSearch: DatasetSearchResults;
   directoryAmbassadors?: Maybe<DirectoryContactRoleSearchResults>;
   directoryAwardWinners: Array<Maybe<DirectoryPerson>>;
@@ -6232,6 +6251,20 @@ export type QueryDatasetDownloadsArgs = {
   datasetKey: Scalars['ID']['input'];
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type QueryDatasetListArgs = {
+  country?: InputMaybe<Country>;
+  identifier?: InputMaybe<Scalars['String']['input']>;
+  identifierType?: InputMaybe<IdentifierType>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  machineTagName?: InputMaybe<Scalars['String']['input']>;
+  machineTagNamespace?: InputMaybe<Scalars['String']['input']>;
+  machineTagValue?: InputMaybe<Scalars['String']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  q?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<DatasetType>;
 };
 
 
@@ -7883,7 +7916,7 @@ export type DatasetQueryVariables = Exact<{
 }>;
 
 
-export type DatasetQuery = { __typename?: 'Query', literatureSearch?: { __typename?: 'LiteratureSearchResult', documents: { __typename?: 'LiteratureDocuments', total: any } } | null, totalTaxa: { __typename?: 'TaxonSearchResult', count: number }, accepted: { __typename?: 'TaxonSearchResult', count: number }, synonyms: { __typename?: 'TaxonSearchResult', count: number }, dataset?: { __typename?: 'Dataset', key: string, type?: DatasetType | null, title?: string | null, created?: string | null, modified?: string | null, deleted?: string | null, pubDate?: string | null, description?: string | null, purpose?: string | null, temporalCoverages?: Array<any | null> | null, logoUrl?: any | null, publishingOrganizationKey: string, publishingOrganizationTitle?: string | null, homepage?: any | null, additionalInfo?: string | null, license?: string | null, doi?: string | null, checklistBankDataset?: { __typename?: 'ChecklistBankDataset', key?: number | null } | null, duplicateOfDataset?: { __typename?: 'Dataset', key: string, title?: string | null } | null, metrics?: { __typename?: 'DatasetChecklistMetrics', colCoveragePct?: number | null, nubCoveragePct?: number | null, nubMatchingCount?: number | null, colMatchingCount?: number | null } | null, installation?: { __typename?: 'Installation', key: string, title?: string | null, organization?: { __typename?: 'Organization', key: string, title?: string | null } | null } | null, volatileContributors?: Array<{ __typename?: 'Contact', key?: string | null, firstName?: string | null, lastName?: string | null, position?: Array<string | null> | null, organization?: string | null, address: Array<string | null>, userId?: Array<string | null> | null, email?: Array<string | null> | null, phone?: Array<string | null> | null, type?: string | null, _highlighted?: boolean | null, roles?: Array<string | null> | null } | null> | null, contactsCitation?: Array<{ __typename?: 'ContactsCitation', key: number, abbreviatedName?: string | null, firstName?: string | null, lastName?: string | null, userId?: Array<any | null> | null, roles?: Array<string | null> | null }> | null, geographicCoverages?: Array<{ __typename?: 'GeographicCoverage', description?: string | null, boundingBox?: { __typename?: 'BoundingBox', minLatitude?: number | null, maxLatitude?: number | null, minLongitude?: number | null, maxLongitude?: number | null, globalCoverage?: boolean | null } | null } | null> | null, taxonomicCoverages?: Array<{ __typename?: 'TaxonomicCoverage', description?: string | null, coverages?: Array<{ __typename?: 'TaxonCoverage', scientificName?: string | null, commonName?: string | null, rank?: { __typename?: 'TaxonCoverageRank', interpreted?: string | null } | null } | null> | null } | null> | null, bibliographicCitations?: Array<{ __typename?: 'BibliographicCitation', identifier?: string | null, text?: string | null } | null> | null, samplingDescription?: { __typename?: 'SamplingDescription', studyExtent?: string | null, sampling?: string | null, qualityControl?: string | null, methodSteps?: Array<string | null> | null } | null, dataDescriptions?: Array<{ __typename?: 'DataDescription', charset?: string | null, name?: string | null, format?: string | null, formatVersion?: string | null, url?: string | null } | null> | null, citation?: { __typename?: 'Citation', text: string } | null, project?: { __typename?: 'Project', title?: string | null, abstract?: string | null, studyAreaDescription?: string | null, designDescription?: string | null, funding?: string | null, identifier?: string | null, contacts?: Array<{ __typename?: 'Contact', firstName?: string | null, lastName?: string | null, organization?: string | null, position?: Array<string | null> | null, roles?: Array<string | null> | null, type?: string | null, address: Array<string | null>, city?: string | null, postalCode?: string | null, province?: string | null, country?: Country | null, homepage?: Array<any | null> | null, email?: Array<string | null> | null, phone?: Array<string | null> | null, userId?: Array<string | null> | null } | null> | null } | null, endpoints?: Array<{ __typename?: 'Endpoint', key: string, type: EndpointType, url?: any | null }> | null, identifiers?: Array<{ __typename?: 'Identifier', key: string, type: IdentifierType, identifier: string } | null> | null, machineTags?: Array<{ __typename?: 'MachineTag', namespace: string, name: string, value: string } | null> | null, gridded?: Array<{ __typename?: 'GridMetric', percent?: number | null } | null> | null } | null };
+export type DatasetQuery = { __typename?: 'Query', literatureSearch?: { __typename?: 'LiteratureSearchResult', documents: { __typename?: 'LiteratureDocuments', total: any } } | null, totalTaxa: { __typename?: 'TaxonSearchResult', count: number }, accepted: { __typename?: 'TaxonSearchResult', count: number }, synonyms: { __typename?: 'TaxonSearchResult', count: number }, dataset?: { __typename?: 'Dataset', key: string, type?: DatasetType | null, title?: string | null, created?: string | null, modified?: string | null, deleted?: string | null, pubDate?: string | null, description?: string | null, purpose?: string | null, temporalCoverages?: Array<any | null> | null, logoUrl?: any | null, publishingOrganizationKey: string, publishingOrganizationTitle?: string | null, homepage?: any | null, additionalInfo?: string | null, license?: string | null, doi?: string | null, checklistBankDataset?: { __typename?: 'ChecklistBankDataset', key?: number | null } | null, duplicateOfDataset?: { __typename?: 'Dataset', key: string, title?: string | null } | null, metrics?: { __typename?: 'DatasetChecklistMetrics', colCoveragePct?: number | null, nubCoveragePct?: number | null, nubMatchingCount?: number | null, colMatchingCount?: number | null } | null, installation?: { __typename?: 'Installation', key: string, title?: string | null, organization?: { __typename?: 'Organization', key: string, title?: string | null } | null } | null, volatileContributors?: Array<{ __typename?: 'Contact', key?: string | null, firstName?: string | null, lastName?: string | null, position?: Array<string | null> | null, organization?: string | null, address: Array<string | null>, userId?: Array<string | null> | null, email?: Array<string | null> | null, phone?: Array<string | null> | null, type?: string | null, _highlighted?: boolean | null, roles?: Array<string | null> | null } | null> | null, contactsCitation?: Array<{ __typename?: 'ContactsCitation', key: number, abbreviatedName?: string | null, firstName?: string | null, lastName?: string | null, userId?: Array<any | null> | null, roles?: Array<string | null> | null }> | null, geographicCoverages?: Array<{ __typename?: 'GeographicCoverage', description?: string | null, boundingBox?: { __typename?: 'BoundingBox', minLatitude?: number | null, maxLatitude?: number | null, minLongitude?: number | null, maxLongitude?: number | null, globalCoverage?: boolean | null } | null } | null> | null, taxonomicCoverages?: Array<{ __typename?: 'TaxonomicCoverage', description?: string | null, coverages?: Array<{ __typename?: 'TaxonCoverage', scientificName?: string | null, commonName?: string | null, rank?: { __typename?: 'TaxonCoverageRank', interpreted?: string | null } | null } | null> | null } | null> | null, bibliographicCitations?: Array<{ __typename?: 'BibliographicCitation', identifier?: string | null, text?: string | null } | null> | null, samplingDescription?: { __typename?: 'SamplingDescription', studyExtent?: string | null, sampling?: string | null, qualityControl?: string | null, methodSteps?: Array<string | null> | null } | null, dataDescriptions?: Array<{ __typename?: 'DataDescription', charset?: string | null, name?: string | null, format?: string | null, formatVersion?: string | null, url?: string | null } | null> | null, citation?: { __typename?: 'Citation', text: string } | null, project?: { __typename?: 'Project', title?: string | null, abstract?: string | null, studyAreaDescription?: string | null, designDescription?: string | null, funding?: string | null, identifier?: string | null, contacts?: Array<{ __typename?: 'Contact', firstName?: string | null, lastName?: string | null, organization?: string | null, position?: Array<string | null> | null, roles?: Array<string | null> | null, type?: string | null, address: Array<string | null>, city?: string | null, postalCode?: string | null, province?: string | null, country?: Country | null, homepage?: Array<any | null> | null, email?: Array<string | null> | null, phone?: Array<string | null> | null, userId?: Array<string | null> | null } | null> | null } | null, endpoints?: Array<{ __typename?: 'Endpoint', key: string, type: EndpointType, url?: any | null }> | null, identifiers?: Array<{ __typename?: 'Identifier', key: string, type: IdentifierType, identifier: string } | null> | null, machineTags?: Array<{ __typename?: 'MachineTag', namespace: string, name: string, value: string }> | null, gridded?: Array<{ __typename?: 'GridMetric', percent?: number | null } | null> | null } | null };
 
 export type DatasetSearchQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;

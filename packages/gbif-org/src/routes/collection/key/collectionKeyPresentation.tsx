@@ -23,7 +23,7 @@ import {
   PeopleIcon,
 } from '@/components/highlights';
 import { ErrorMessage } from '@/components/errorMessage';
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
 import { GrGithub as Github } from 'react-icons/gr';
@@ -170,37 +170,40 @@ export function CollectionKey({
                       </GenericFeature>
                     )}
                   </FeatureList>
-                  {(collection?.catalogUrls?.length ?? 0) > 0 || contacts.length > 0 && (
-                    <FeatureList>
-                      {collection.catalogUrls && <GenericFeature>
-                        <CatalogIcon />
-                        <span>
-                          <a href={collection.catalogUrls[0]}>
-                            <FormattedMessage
-                              id="grscicoll.dataCatalog"
-                              defaultMessage="Data catalog"
-                            />
-                          </a>
-                        </span>
-                      </GenericFeature>}
-                      {contacts.length > 0 && (
-                        <GenericFeature>
-                          <PeopleIcon />
-                          <HashLink to="#contact">
-                            {contacts.length < contactThreshold && (
-                              <span>{contacts.join(' • ')}</span>
-                            )}
-                            {contacts.length >= contactThreshold && (
-                              <FormattedMessage
-                                id="counts.nStaffMembers"
-                                values={{ total: contacts.length }}
-                              />
-                            )}
-                          </HashLink>
-                        </GenericFeature>
-                      )}
-                    </FeatureList>
-                  )}
+                  {(collection?.catalogUrls?.length ?? 0) > 0 ||
+                    (contacts.length > 0 && (
+                      <FeatureList>
+                        {collection.catalogUrls && (
+                          <GenericFeature>
+                            <CatalogIcon />
+                            <span>
+                              <a href={collection.catalogUrls[0]}>
+                                <FormattedMessage
+                                  id="grscicoll.dataCatalog"
+                                  defaultMessage="Data catalog"
+                                />
+                              </a>
+                            </span>
+                          </GenericFeature>
+                        )}
+                        {contacts.length > 0 && (
+                          <GenericFeature>
+                            <PeopleIcon />
+                            <HashLink to="#contact">
+                              {contacts.length < contactThreshold && (
+                                <span>{contacts.join(' • ')}</span>
+                              )}
+                              {contacts.length >= contactThreshold && (
+                                <FormattedMessage
+                                  id="counts.nStaffMembers"
+                                  values={{ total: contacts.length }}
+                                />
+                              )}
+                            </HashLink>
+                          </GenericFeature>
+                        )}
+                      </FeatureList>
+                    ))}
                 </HeaderInfoMain>
                 <HeaderInfoEdit className="g-flex">
                   {/* TODO Phew it is quite a few lines just to add a tooltip, I wonder if an abstraction would be appreciated. Here I repeat the provider, which doesn't help, but it didn't properly disappear and reappear without it*/}

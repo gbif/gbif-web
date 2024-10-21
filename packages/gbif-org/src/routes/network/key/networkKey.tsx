@@ -1,6 +1,5 @@
 import { Tabs } from '@/components/tabs';
 import { NetworkQuery, NetworkQueryVariables, PredicateType } from '@/gql/graphql';
-import { LoaderArgs } from '@/types';
 import { required } from '@/utils/required';
 import { Helmet } from 'react-helmet-async';
 import { Outlet, useLoaderData } from 'react-router-dom';
@@ -25,6 +24,7 @@ import {
 } from '@/components/highlights';
 import { ArticleIntro } from '@/routes/resource/key/components/articleIntro';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
+import { LoaderArgs } from '@/reactRouterPlugins';
 
 const NETWORK_QUERY = /* GraphQL */ `
   query Network($key: ID!, $predicate: Predicate) {

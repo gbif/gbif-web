@@ -1,11 +1,11 @@
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { OccurrenceExistsQuery, OccurrenceExistsQueryVariables } from '@/gql/graphql';
+import { LoaderArgs } from '@/reactRouterPlugins';
 import { ArticleIntro } from '@/routes/resource/key/components/articleIntro';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { LoaderArgs } from '@/types';
 import { required } from '@/utils/required';
 import { redirect, useLoaderData, useParams } from 'react-router-dom';
 import formatXml from 'xml-formatter';

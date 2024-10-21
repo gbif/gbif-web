@@ -7,7 +7,6 @@ import {
   PredicateType,
 } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
-import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -30,7 +29,7 @@ import { Citation } from './about/Citation';
 import useQuery from '@/hooks/useQuery';
 import { useEffect, useState } from 'react';
 import { Images } from './about/Images';
-import { useConfig } from '@/contexts/config/config';
+import { useConfig } from '@/config/config';
 import { HyperText } from '@/components/hyperText';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { ClientSideOnly } from '@/components/clientSideOnly';
@@ -40,19 +39,22 @@ import { GbifLinkCard, TocLi } from '@/components/TocHelp';
 import { CardContent as CardContentSmall } from '@/components/ui/smallCard';
 import { Progress } from '@/components/ui/progress';
 import formatAsPercentage from '@/utils/formatAsPercentage';
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { GiDna1 } from 'react-icons/gi';
-import { TiPipette as SamplingIcon } from "react-icons/ti";
+import { TiPipette as SamplingIcon } from 'react-icons/ti';
 import { Message } from '@/components/message';
 import { MapThumbnail, MapTypes, useHasMap } from '@/components/mapThumbnail';
 import EmptyValue from '@/components/emptyValue';
-
+import { useDatasetKeyLoaderData } from '.';
 
 export function DatasetKeyAbout() {
-  const { data } = useParentRouteLoaderData(RouteId.Dataset) as { data: DatasetQuery };
+  const { data } = useDatasetKeyLoaderData();
   const { dataset, totalTaxa, accepted, synonyms } = data;
   const defaultToc = getToc(data);
-  const hasPreprocessedMap = useHasMap({ type: MapTypes.DatasetKey, identifier: data?.dataset?.key ?? '' });
+  const hasPreprocessedMap = useHasMap({
+    type: MapTypes.DatasetKey,
+    identifier: data?.dataset?.key ?? '',
+  });
   const [toc, setToc] = useState(defaultToc);
   const removeSidebar = useBelow(1100);
   const { formatMessage } = useIntl();
@@ -230,7 +232,7 @@ export function DatasetKeyAbout() {
                 </CardContent>
               </Card>
             )}
-            {toc.geographicDescription && (
+            {toc?.geographicDescription && (
               <Card className="g-mb-4" id="geographic-description">
                 <CardHeader>
                   <CardTitle>
@@ -244,7 +246,7 @@ export function DatasetKeyAbout() {
                   <CardContent>
                     <hr className="g-my-4" />
                     <p className="g-text-slate-400 g-mb-2 g-text-sm">
-                      Derrived from occurrence data
+                      Derived from occurrence data
                     </p>
                     <DashBoardLayout>
                       <charts.Country
@@ -262,7 +264,7 @@ export function DatasetKeyAbout() {
                 )}
               </Card>
             )}
-            {toc.temporalDescription && (
+            {toc?.temporalDescription && (
               <Card className="g-mb-4" id="temporal-description">
                 <CardHeader>
                   <CardTitle>
@@ -276,7 +278,7 @@ export function DatasetKeyAbout() {
                   <CardContent>
                     <hr className="g-my-4" />
                     <p className="g-text-slate-400 g-mb-2 g-text-sm">
-                      Derrived from occurrence data
+                      Derived from occurrence data
                     </p>
                     <DashBoardLayout>
                       <charts.EventDate
@@ -296,7 +298,7 @@ export function DatasetKeyAbout() {
                 )}
               </Card>
             )}
-            {toc.taxonomicDescription && (
+            {toc?.taxonomicDescription && (
               <Card className="g-mb-4" id="taxonomic-description">
                 <CardHeader>
                   <CardTitle>
@@ -310,7 +312,7 @@ export function DatasetKeyAbout() {
                   <CardContent>
                     <hr className="g-my-4" />
                     <p className="g-text-slate-400 g-mb-2 g-text-sm">
-                      Derrived from occurrence data
+                      Derived from occurrence data
                     </p>
                     <charts.Taxa
                       predicate={predicate}
@@ -321,7 +323,7 @@ export function DatasetKeyAbout() {
                 )}
               </Card>
             )}
-            {toc.methodology && (
+            {toc?.methodology && (
               <Card className="g-mb-4" id="methodology">
                 <CardHeader>
                   <CardTitle>
@@ -333,7 +335,7 @@ export function DatasetKeyAbout() {
                 </CardContent>
               </Card>
             )}
-            {toc.metrics && (
+            {toc?.metrics && (
               <section>
                 <CardHeader id="metrics">
                   <CardTitle>
@@ -380,7 +382,7 @@ export function DatasetKeyAbout() {
                 </div>
               </section>
             )}
-            {toc.additionalInfo && (
+            {toc?.additionalInfo && (
               <Card className="g-mb-4" id="additional-info">
                 <CardHeader>
                   <CardTitle>
@@ -395,7 +397,7 @@ export function DatasetKeyAbout() {
                 </CardContent>
               </Card>
             )}
-            {toc.bibliography && (
+            {toc?.bibliography && (
               <Card className="g-mb-4" id="bibliography">
                 <CardHeader>
                   <CardTitle>
@@ -409,7 +411,7 @@ export function DatasetKeyAbout() {
                 </CardContent>
               </Card>
             )}
-            {toc.contacts && (
+            {toc?.contacts && (
               <Card className="g-mb-4" id="contacts">
                 <CardHeader>
                   <CardTitle>
@@ -524,7 +526,9 @@ export function DatasetKeyAbout() {
 
               {(total > 0 || dataset.type === 'OCCURRENCE') && (
                 <Card className="g-mb-4">
-                  {hasPreprocessedMap && <MapThumbnail type={MapTypes.DatasetKey} identifier={dataset.key}/>}
+                  {hasPreprocessedMap && (
+                    <MapThumbnail type={MapTypes.DatasetKey} identifier={dataset.key} />
+                  )}
                   <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
                     <div className="g-flex-none g-me-2">
                       <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
@@ -578,7 +582,9 @@ export function DatasetKeyAbout() {
                       </div>
                     </div>
                     <div className="g-flex-auto g-mt-0.5 g-mb-2">
-                      <DynamicLink to={`/occurrence/search?datasetKey=${dataset.key}&isSequenced=true`}>
+                      <DynamicLink
+                        to={`/occurrence/search?datasetKey=${dataset.key}&isSequenced=true`}
+                      >
                         <h5 className="g-font-bold">
                           <FormattedMessage id="dataset.includesDna" />
                         </h5>
@@ -636,20 +642,20 @@ export function DatasetKeyAbout() {
                   <nav>
                     <ul className="g-list-none g-m-0 g-p-0 g-my-2">
                       <TocLi to="#description">Description</TocLi>
-                      {toc.geographicDescription && (
+                      {toc?.geographicDescription && (
                         <TocLi to="#geographic-description">Geographic description</TocLi>
                       )}
-                      {toc.temporalDescription && (
+                      {toc?.temporalDescription && (
                         <TocLi to="#temporal-description">Temporal description</TocLi>
                       )}
-                      {toc.taxonomicDescription && (
+                      {toc?.taxonomicDescription && (
                         <TocLi to="#taxonomic-description">Taxonomic description</TocLi>
                       )}
-                      {toc.methodology && <TocLi to="#methodology">Methodology</TocLi>}
-                      {toc.metrics && <TocLi to="#metrics">Metrics</TocLi>}
-                      {toc.additionalInfo && <TocLi to="#additional-info">Additional info</TocLi>}
-                      {toc.bibliography && <TocLi to="#bibliography">Bibliography</TocLi>}
-                      {toc.contacts && <TocLi to="#contacts">Contacts</TocLi>}
+                      {toc?.methodology && <TocLi to="#methodology">Methodology</TocLi>}
+                      {toc?.metrics && <TocLi to="#metrics">Metrics</TocLi>}
+                      {toc?.additionalInfo && <TocLi to="#additional-info">Additional info</TocLi>}
+                      {toc?.bibliography && <TocLi to="#bibliography">Bibliography</TocLi>}
+                      {toc?.contacts && <TocLi to="#contacts">Contacts</TocLi>}
                       <TocLi to="#registration">GBIF registration</TocLi>
                       <TocLi to="#citation">Citation</TocLi>
                     </ul>

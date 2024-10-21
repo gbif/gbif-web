@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
 import { ArticlePreTitle } from '../components/articlePreTitle';
 import { ArticleTitle } from '../components/articleTitle';
@@ -77,8 +76,8 @@ export function EventPage() {
       </Helmet>
 
       <PageContainer topPadded className="g-bg-white">
-        <ArticleTextContainer className='g-mb-10'>
-          <ArticlePreTitle className='g-flex g-items-center g-gap-4 g-mt-2'>
+        <ArticleTextContainer className="g-mb-10">
+          <ArticlePreTitle className="g-flex g-items-center g-gap-4 g-mt-2">
             <ClientSideOnly>
               <span>
                 <DateRange start={startDate} end={endDate} />
@@ -95,13 +94,13 @@ export function EventPage() {
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 
           {resource.summary && (
-            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className='g-mt-2' />
+            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="g-mt-2" />
           )}
 
-          <Button className='g-mt-4' asChild>
+          <Button className="g-mt-4" asChild>
             <a
               href={`https://www.gbif.org/api/newsroom/events/${resource.id}.ics`}
-              className='g-flex g-gap-2'
+              className="g-flex g-gap-2"
             >
               <MdCalendarMonth />
               <FormattedMessage id="cms.resource.addToCalendar" />
@@ -109,11 +108,11 @@ export function EventPage() {
           </Button>
         </ArticleTextContainer>
 
-        <ArticleBanner className='g-mt-8 g-mb-6' image={resource?.primaryImage} />
+        <ArticleBanner className="g-mt-8 g-mb-6" image={resource?.primaryImage} />
 
         <ArticleTextContainer>
           {resource.body && (
-            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className='g-mt-2' />
+            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className="g-mt-2" />
           )}
 
           <ArticleFooterWrapper>
@@ -129,7 +128,7 @@ export function EventPage() {
               </ArticleAuxiliary>
             )}
 
-            <RenderIfChildren className='g-flex g-flex-col g-gap-1 g-mt-8'>
+            <RenderIfChildren className="g-flex g-flex-col g-gap-1 g-mt-8">
               {resource.venue && (
                 <KeyValuePair
                   label={<FormattedMessage id="cms.resource.venue" />}

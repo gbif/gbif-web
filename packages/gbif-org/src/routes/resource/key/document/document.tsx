@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { ArticleTitle } from '../components/articleTitle';
 import { ArticleIntro } from '../components/articleIntro';
 import { Button } from '@/components/ui/button';
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { MdDownload as DownloadIcon } from 'react-icons/md';
 import { ArticleBody } from '../components/articleBody';
 import { PublishedDate } from '../components/publishedDate';

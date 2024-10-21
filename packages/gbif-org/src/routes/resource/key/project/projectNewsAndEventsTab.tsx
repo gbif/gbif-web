@@ -1,4 +1,4 @@
-import { LoaderArgs } from '@/types';
+import { LoaderArgs } from '@/reactRouterPlugins';
 import { ProjectNewsAndEventsQuery, ProjectNewsAndEventsQueryVariables } from '@/gql/graphql';
 import { NewsResult } from '../news/newsResult';
 import { EventResult } from '../event/eventResult';
@@ -58,9 +58,9 @@ export function ProjectNewsAndEventsTab() {
   const help = data.help;
 
   return (
-    <div className='g-pt-4 g-max-w-3xl g-m-auto'>
-      <p className='g-pb-4 g-text-gray-600 g-text-sm g-text-right'>
-        <HelpLine title={help?.title} id="how-to-add-events-to-my-project-page" icon/>
+    <div className="g-pt-4 g-max-w-3xl g-m-auto">
+      <p className="g-pb-4 g-text-gray-600 g-text-sm g-text-right">
+        <HelpLine title={help?.title} id="how-to-add-events-to-my-project-page" icon />
       </p>
 
       {/* TODO: Needs translation */}
