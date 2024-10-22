@@ -365,6 +365,16 @@ function TmpOverview() {
               </p>
               <ul>
                 <li>
+                  <DynamicLink className="g-me-4" to="/dataset/search">
+                    Datasets - started
+                  </DynamicLink>
+                </li>
+                <li>
+                  <DynamicLink className="g-me-4" to="/literature/search">
+                    Literature - started
+                  </DynamicLink>
+                </li>
+                <li>
                   <DynamicLink className="g-me-4" to="/publisher/search">
                     Publishers - started
                   </DynamicLink>
@@ -372,11 +382,6 @@ function TmpOverview() {
                 <li>
                   <DynamicLink className="g-me-4" to="/occurrence/search">
                     Occurrences - stub
-                  </DynamicLink>
-                </li>
-                <li>
-                  <DynamicLink className="g-me-4" to="/dataset/search">
-                    Datasets - stub
                   </DynamicLink>
                 </li>
                 <li>

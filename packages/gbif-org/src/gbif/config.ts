@@ -135,9 +135,9 @@ export const gbifConfig: Config = {
     excludedFilters: [],
     highlightedFilters: ['q', 'type', 'publishingOrg', 'license'],
     // defaultTableColumns: ['title', 'description', 'publisher', 'type', 'occurrenceCount', 'literatureCount'],
-    scope: {
-      publishingCountry: ['DK'],
-    },
+    // scope: {
+    //   publishingCountry: ['DK'],
+    // },
     queryType: 'V1',
   },
   collectionSearch: {

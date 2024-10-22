@@ -96,7 +96,7 @@ export function LiteratureSearch(): React.ReactElement {
         from: offset,
       },
     });
-  }, [load, offset, filterHash, searchConfig]);
+  }, [load, offset, filterHash, searchContext]);
 
   const literature = data?.literatureSearch?.documents;
   
