@@ -55,6 +55,23 @@ function tryParse(value: string): string | number | JSON {
   } catch (e) {
     // if JSON.parse fails, it is not a JSON string
   }
-  const parsed = parseFloat(jsonValue);
-  return isNaN(parsed) ? jsonValue : parsed;
+  if (isValidFloat(value)) {
+    return parseFloat(value);
+  }
+  return jsonValue;
+}
+
+function isValidFloat(str: string): boolean {
+  // First, parse the string as a float
+  const parsed = parseFloat(str);
+  
+  // Check if the parsed result is NaN (not a number)
+  if (isNaN(parsed)) {
+      return false;
+  }
+  // chat that the original str does not contain letters or characters beyond 0-9 and punctuation .
+  if (/[^0-9.]/.test(str)) {
+      return false;
+  }
+  return true;
 }

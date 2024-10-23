@@ -32,10 +32,10 @@ export function filter2predicate(filter: FilterType | undefined | null, filterCo
   if (filterConfig?.preFilterTransform) {
     filter = filterConfig?.preFilterTransform(filter);
   }
-  const { must, must_not } = filter;
+  const { must, mustNot } = filter;
 
   const positive = getPredicates({ filters: must, filterConfig });
-  const negated = getPredicates({ filters: must_not, filterConfig }).map((p):Predicate => ({ type: PredicateType.Not, predicate: p }));
+  const negated = getPredicates({ filters: mustNot, filterConfig }).map((p):Predicate => ({ type: PredicateType.Not, predicate: p }));
   
   const predicates = positive.concat(negated);
 

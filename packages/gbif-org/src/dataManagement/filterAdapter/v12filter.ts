@@ -13,7 +13,7 @@ export default function v12filter(query: ParamQuery, filterConfig: FilterConfigT
   const fields = filterConfig?.fields;
   if (!fields) return {};
 
-  let reverseMap: { [key: string]: string } = Object.keys(fields).reduce(
+  const reverseMap: { [key: string]: string } = Object.keys(fields).reduce(
     (prev: { [key: string]: string }, fieldName) => {
       const from = fields[fieldName]?.defaultKey || fieldName;
       const to = fieldName;
@@ -35,11 +35,11 @@ export default function v12filter(query: ParamQuery, filterConfig: FilterConfigT
     //if range type then transform values
     if (v1Types.includes('range')) {
       arrayValue = arrayValue.map((val: string): object => {
-        const parts = val.split(',');
+        const parts = (val + '').split(',');
         if (parts.length === 1) {
           return { type: 'equals', value: parts[0] };
         } else {
-          let range : {type: string, value: {gte?: number | string, lte?: number | string}} = {
+          const range : {type: string, value: {gte?: number | string, lte?: number | string}} = {
             type: 'range',
             value: {},
           };

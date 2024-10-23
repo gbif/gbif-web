@@ -1,11 +1,12 @@
 import { useCallback, useState, useEffect } from 'react';
 import { filter2v1 } from '.';
-import { FilterType } from '../../contexts/filter';
-import { FilterConfigType, FieldType } from './filter2predicate';
+import { cleanUpFilter, FilterType } from '../../contexts/filter';
+import { FilterConfigType } from './filter2predicate';
 import isPlainObject from 'lodash/isPlainObject';
 import { useSearchParams } from 'react-router-dom';
 import { asStringParams, ParamQuery, parseParams } from '@/utils/querystring';
 import v12filter from './v12filter';
+import objectHash from 'object-hash';
 
 // function v12filter(query: any, filterConfig: FilterConfigType): FilterType {
 //   const filter = {};
@@ -45,17 +46,19 @@ export function useFilterParams({ filterConfig }: { filterConfig: FilterConfigTy
   // Field names can change according to the configuration
   const setFilter = useCallback(
     (nextFilter: FilterType) => {
-      const { filter, errors } = filter2v1(nextFilter, filterConfig);
+      if (objectHash(cleanUpFilter(nextFilter)) === objectHash(cleanUpFilter(filter))) {
+        return;
+      }
+      const { filter: v1Filter, errors } = filter2v1(nextFilter, filterConfig);
       if (errors) {
-        debugger;
         // if we cannot serialize the filter to version 1 API, then just serialize the json and put it in the filter param
         setQuery({ ...emptyQuery, filter: nextFilter });
       } else {
-        setQuery({ ...emptyQuery, ...filter });
+        setQuery({ ...emptyQuery, ...v1Filter });
       }
       // setQuery({q: 'sdf', country: ['DK', 'DE', 'SE']});
     },
-    [filterConfig, emptyQuery]
+    [filterConfig, emptyQuery, filter, setQuery]
   );
 
   // Transform the query from the url to the naming the consumer prefers.
@@ -78,8 +81,8 @@ function useQueryParams() {
   const [query, setQuery] = useState({});
   
   // useCallback to to setsearchparams, but before doing so it should turn everything into string or array of strings
-  const updateQuery = useCallback((query: any) => {
-    const stringParams = asStringParams(query);
+  const updateQuery = useCallback((nextQuery: any) => {
+    const stringParams = asStringParams(nextQuery);
     setSearchParams(stringParams);
   }, [setSearchParams]);
 
