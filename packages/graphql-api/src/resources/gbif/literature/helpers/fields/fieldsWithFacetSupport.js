@@ -9,4 +9,6 @@ export default [
   'relevance',
   'countriesOfCoverage',
   'countriesOfResearcher',
+  'publishingOrganizationKey',
+  'gbifDatasetKey',
 ];

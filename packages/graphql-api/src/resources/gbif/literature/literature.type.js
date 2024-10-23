@@ -14,6 +14,7 @@ const typeDef = gql`
       year: [String]
       topics: [String]
       gbifDatasetKey: [ID]
+      gbifTaxonKey: [ID]
       publishingOrganizationKey: [ID]
       gbifNetworkKey: [ID]
       gbifOccurrenceKey: [ID]
@@ -71,6 +72,8 @@ const typeDef = gql`
     relevance(size: Int, from: Int): [GenericFacetResult_string]
     countriesOfCoverage(size: Int, from: Int): [GenericFacetResult_string]
     countriesOfResearcher(size: Int, from: Int): [GenericFacetResult_string]
+    publishingOrganizationKey(size: Int, from: Int): [OrganizationFacet]
+    gbifDatasetKey(size: Int, from: Int): [DatasetFacet]
   }
 
   type LiteratureStats {
@@ -108,6 +111,20 @@ const typeDef = gql`
     key: Boolean!
     count: Int!
     _predicate: JSON
+  }
+
+  type OrganizationFacet {
+    key: String!
+    count: Int!
+    _predicate: JSON
+    organization: Organization
+  }
+
+  type DatasetFacet {
+    key: String!
+    count: Int!
+    _predicate: JSON
+    dataset: Dataset
   }
 
   type GenericFacetResult_float {

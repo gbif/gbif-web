@@ -108,4 +108,22 @@ export default {
     //   dataSources.someAPI.getSomethingByKey({ key })
     // },
   },
+  OrganizationFacet: {
+    organization: ({ key, name }, args, { dataSources }) => {
+      const id = key ?? name;
+      if (typeof id === 'undefined') return null;
+      return dataSources.organizationAPI.getOrganizationByKey({
+        key: id,
+      });
+    },
+  },
+  DatasetFacet: {
+    dataset: ({ key, name }, args, { dataSources }) => {
+      const id = key ?? name;
+      if (typeof id === 'undefined') return null;
+      return dataSources.datasetAPI.getDatasetByKey({
+        key: id,
+      });
+    },
+  },
 };
