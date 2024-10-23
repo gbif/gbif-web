@@ -45,9 +45,9 @@ export function GbifRootLayout({ children }: Props) {
   const { data } = useLoaderData() as { data: HeaderQuery };
 
   return (
-    <>
+    <div className="g-flex g-flex-col g-min-h-[100dvh]">
       <Header menu={data} />
-      <main className="g-min-h-screen">
+      <main className="g-flex-auto">
         <NoscriptNotification />
         <ScrollRestoration />
         <Toaster />
@@ -57,6 +57,9 @@ export function GbifRootLayout({ children }: Props) {
           <div className="g-mt-[200px] g-mb-[60%] g-bg-red-300 g-h-[calc(100vh-60%-200px)] g-opacity-10"></div>
         </div> */}
       </main>
-    </>
+      <footer className="g-flex-none g-h-96 g-bg-gray-100 g-p-4 g-text-center">
+        <div className="g-text-sm">Footer</div>
+      </footer>
+    </div>
   );
 }
