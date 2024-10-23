@@ -26,7 +26,7 @@ import { HelpText } from '@/components/helpText';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { searchConfig } from './searchConfig';
 import { useFilters } from './filters';
-import { useConfig } from '@/contexts/config/config';
+import { useConfig } from '@/config/config';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { FilterBar, getAsQuery } from '@/components/filters/filterTools';
 

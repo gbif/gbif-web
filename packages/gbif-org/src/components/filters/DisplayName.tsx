@@ -1,5 +1,5 @@
 import { Skeleton } from '@/components/ui/skeleton';
-import { useConfig } from '@/contexts/config/config';
+import { useConfig } from '@/config/config';
 import { CANCEL_REQUEST } from '@/utils/fetchWithCancel';
 import React, { useEffect } from 'react';
 import { IntlShape, useIntl } from 'react-intl';
