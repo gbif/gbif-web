@@ -29,6 +29,10 @@ const typeDef = gql`
       continent: [Continent]
       projectId: [ID]
       hl: Boolean
+      """
+      Will take precedence over the atomized parameters if provided
+      """
+      query: DatasetSearchInput
     ): DatasetSearchResults!
     datasetList(
       limit: Int
@@ -43,6 +47,35 @@ const typeDef = gql`
       machineTagValue: String
     ): DatasetListResults!
     dataset(key: ID!): Dataset
+  }
+
+  input DatasetSearchInput {
+    limit: Int
+    offset: Int
+    q: String
+    """
+    Not implemented yet
+    """
+    country: [Country]
+    type: [DatasetType]
+    """
+    Not implemented yet
+    """
+    subtype: [DatasetSubtype]
+    license: [License]
+    keyword: [String]
+    publishingOrg: [ID]
+    endorsingNodeKey: [ID]
+    hostingOrg: [ID]
+    networkKey: [ID]
+    decade: [Int]
+    publishingCountry: [Country]
+    """
+    Not implemented yet
+    """
+    continent: [Continent]
+    projectId: [ID]
+    hl: Boolean
   }
 
   type DatasetSearchResults {

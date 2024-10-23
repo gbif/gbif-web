@@ -7,27 +7,27 @@ import { getContributors } from './helpers/contributors';
  */
 const getDatasetFacet =
   (facetKey) =>
-    (parent, { limit = 10, offset = 0 }, { dataSources }) => {
-      // generate the species search query, by inherting from the parent query, and map limit/offset to facet equivalents
-      const query = {
-        ...parent._query,
-        limit: 0,
-        facet: facetKey,
-        facetLimit: limit,
-        facetOffset: offset,
-      };
-      // query the API, and throw away anything but the facet counts
-      return dataSources.datasetAPI.searchDatasets({ query }).then((data) => [
-        ...data.facets[0].counts.map((facet) => ({
-          ...facet,
-          // attach the query, but add the facet as a filter
-          _query: {
-            ...parent._query,
-            [facetKey]: facet.name,
-          },
-        })),
-      ]);
+  (parent, { limit = 10, offset = 0 }, { dataSources }) => {
+    // generate the species search query, by inherting from the parent query, and map limit/offset to facet equivalents
+    const query = {
+      ...parent._query,
+      limit: 0,
+      facet: facetKey,
+      facetLimit: limit,
+      facetOffset: offset,
     };
+    // query the API, and throw away anything but the facet counts
+    return dataSources.datasetAPI.searchDatasets({ query }).then((data) => [
+      ...data.facets[0].counts.map((facet) => ({
+        ...facet,
+        // attach the query, but add the facet as a filter
+        _query: {
+          ...parent._query,
+          [facetKey]: facet.name,
+        },
+      })),
+    ]);
+  };
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -37,8 +37,8 @@ const getDatasetFacet =
  * info: Information about the execution state of the operation which should only be used in advanced cases
  */
 export const Query = {
-  datasetSearch: (parent, args, { dataSources }) =>
-    dataSources.datasetAPI.searchDatasets({ query: args }),
+  datasetSearch: (parent, { query = {}, ...args } = {}, { dataSources }) =>
+    dataSources.datasetAPI.searchDatasets({ query: { ...args, ...query } }),
   datasetList: (parent, args, { dataSources }) =>
     dataSources.datasetAPI.listDatasets({ query: args }),
   dataset: (parent, { key }, { dataSources }) =>
@@ -73,7 +73,8 @@ export const DatasetSearchStub = {
           size: 0,
           predicate: { type: 'equals', key: 'datasetKey', value: key },
         },
-      }).then((documents) => documents.total);
+      })
+      .then((documents) => documents.total);
   },
   literatureCount: ({ key }, args, { dataSources }) => {
     if (typeof key === 'undefined') return null;
@@ -81,25 +82,30 @@ export const DatasetSearchStub = {
       .searchLiterature({ query: { gbifDatasetKey: key, size: 0 } })
       .then((response) => response.documents.total);
   },
-  excerpt: src => excerpt({ body: src.description }),
+  excerpt: (src) => excerpt({ body: src.description }),
   mapCapabilities: ({ key }, args, { dataSources }) => {
     if (typeof key === 'undefined') return null;
     return dataSources.occurrenceAPI.getMapCapabilities({ datasetKey: key });
-  }
+  },
 };
 
 export const Dataset = {
   logInterfaceUrl: ({ key }) => {
     return `https://logs.gbif.org/app/kibana#/discover?_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-7d,mode:quick,to:now))&_a=(columns:!(_source),index:AWyLao3iHCKcR6PFXuPR,interval:auto,query:(query_string:(analyze_wildcard:!t,query:'datasetKey:%22${key}%22')),sort:!('@timestamp',desc))`;
   },
-  machineTags: ({ machineTags }, {namespace, name, value}) => {
+  machineTags: ({ machineTags }, { namespace, name, value }) => {
     // allow filtering of machine tags
     if (namespace || name || value) {
-      return machineTags.filter(mt => (!namespace || mt.namespace === namespace) && (!name || mt.name === name) && (!value || mt.value === value));
+      return machineTags.filter(
+        (mt) =>
+          (!namespace || mt.namespace === namespace) &&
+          (!name || mt.name === name) &&
+          (!value || mt.value === value),
+      );
     }
     return machineTags;
   },
-  excerpt: src => excerpt({ body: src.description }),
+  excerpt: (src) => excerpt({ body: src.description }),
   installation: ({ installationKey: key }, args, { dataSources }) =>
     dataSources.installationAPI.getInstallationByKey({ key }),
   duplicateOfDataset: (
@@ -146,8 +152,9 @@ export const Dataset = {
     return dataSources.datasetAPI.getMetrics({ key });
   },
   gridded: ({ key }, { limit = 1000 }, { dataSources }) => {
-    return dataSources.datasetAPI.getGridded({ key })
-      .then(response => response.slice(0, limit));
+    return dataSources.datasetAPI
+      .getGridded({ key })
+      .then((response) => response.slice(0, limit));
   },
   description: ({ description }) => getHtml(description),
   purpose: ({ purpose }) => getHtml(purpose),
@@ -167,7 +174,8 @@ export const Dataset = {
           size: 0,
           predicate: { type: 'equals', key: 'datasetKey', value: key },
         },
-      }).then((documents) => documents.total);
+      })
+      .then((documents) => documents.total);
   },
   literatureCount: ({ key }, args, { dataSources }) => {
     if (typeof key === 'undefined') return null;
@@ -180,9 +188,10 @@ export const Dataset = {
 export const ChecklistBankDataset = {
   import: ({ key }, args, { dataSources }) => {
     const query = Object.keys(args).length > 0 ? args : undefined;
-    return dataSources.datasetAPI.getChecklistBankImport({ key, query })
-      .then(response => response?.[0]);
-  }
+    return dataSources.datasetAPI
+      .getChecklistBankImport({ key, query })
+      .then((response) => response?.[0]);
+  },
 };
 
 export const DatasetSearchResults = {
