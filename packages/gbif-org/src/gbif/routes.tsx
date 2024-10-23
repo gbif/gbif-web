@@ -22,6 +22,7 @@ import { resourceKeyRoutes } from '@/routes/resource/key';
 import { RootErrorPage } from '@/routes/rootErrorPage';
 import { Outlet } from 'react-router-dom';
 import { GbifRootLayout, headerLoader } from './gbifRootLayout';
+import { literatureSearchRoute } from '@/routes/literature/search';
 
 export function createGbifRoutes(config: Config) {
   return applyReactRouterPlugins(
@@ -48,6 +49,7 @@ export function createGbifRoutes(config: Config) {
               occurrenceSearchRoute,
               publisherKeyRoute,
               publisherSearchRoute,
+              literatureSearchRoute,
               confirmEndorsmentRoute,
               ...resourceKeyRoutes,
               ...notImplementedRoutes,
