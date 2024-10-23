@@ -15,7 +15,7 @@ class TaxonAPI extends RESTDataSource {
   willSendRequest(request) {
     request.headers.set('User-Agent', this.context.userAgent);
     request.headers.set('referer', this.context.referer);
-    request.agent = getTaxonAgent(this.baseURL);
+    request.agent = getTaxonAgent(this.baseURL, request.path);
   }
 
   async searchTaxa({ query }) {

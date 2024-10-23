@@ -38,7 +38,7 @@ class PersonAPI extends RESTDataSource {
 
   willSendRequest(request) {
     request.headers.set('Accept', 'application/json');
-    request.agent = getDefaultAgent(this.baseURL);
+    request.agent = getDefaultAgent(this.baseURL, request.path);
   }
 
   async getPersonByOrcid({ key, dataSources, expand }) {

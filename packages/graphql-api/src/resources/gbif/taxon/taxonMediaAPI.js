@@ -14,7 +14,7 @@ class TaxonMediaAPI extends RESTDataSource {
     request.headers.set('User-Agent', this.context.userAgent);
     request.headers.set('referer', this.context.referer);
     request.headers.set('Accept', 'application/json');
-    request.agent = getDefaultAgent(this.baseURL);
+    request.agent = getDefaultAgent(this.baseURL, request.path);
   }
 
   async getRepresentativeImages({ taxon, size = 1, from, params, dataSources }) {
