@@ -21,6 +21,7 @@ import { useDeepCompareEffect } from 'react-use';
 HighchartSankey(Highcharts);
 HighchartsWheel(Highcharts);
 
+const RESULTS_CAP = 1000;
 
 export function Repatriated(props) {
   return <ChartClickWrapper {...props}>
@@ -63,21 +64,24 @@ function RepatriatedMain({
   const { data, error, loading, load } = useQuery(REPATRIATED, { lazyLoad: true });
 
   useDeepCompareEffect(() => {
+    let repatriatedPredicate = {
+      "type": "and",
+      "predicates": [
+        {
+          "type": "equals",
+          "key": "repatriated",
+          "value": true
+        }
+      ]
+    };
+    if (predicate) {
+      repatriatedPredicate.predicates.push(predicate);
+    }
     load({
       variables: {
         size: 10,
         predicate,
-        repatriatedPredicate: {
-          "type": "and",
-          "predicates": [
-            predicate,
-            {
-              "type": "equals",
-              "key": "repatriated",
-              "value": true
-            }
-          ]
-        }
+        repatriatedPredicate
       },
       queue: { name: 'dashboard' }
     });
@@ -89,7 +93,7 @@ function RepatriatedMain({
 
   const resultsAll = transformData(data?.graph?.facet?.results || []).map((item) => [item.from, item.to, item.weight]);
 
-  const result = resultsAll.sort((a, b) => b[2] - a[2]).slice(0, 100);
+  const result = resultsAll.sort((a, b) => b[2] - a[2]).slice(0, RESULTS_CAP);
 
   const serie = {
     keys: ['from', 'to', 'weight'],
@@ -123,7 +127,7 @@ function RepatriatedMain({
       <br />
       repatriation relations: {resultsAll.length}
       <br />
-      showing the first 100
+      showing the first {RESULTS_CAP}
     </div>
     <div style={{ margin: '0 auto' }}>
       <HighchartsReact
