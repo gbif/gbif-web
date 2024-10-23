@@ -14,7 +14,7 @@ class LiteratureAPI extends RESTDataSource {
     request.headers.set('Authorization', `ApiKey-v1 ${this.config.apiEsKey}`);
     request.headers.set('User-Agent', this.context.userAgent);
     request.headers.set('referer', this.context.referer);
-    request.agent = getDefaultAgent(this.baseURL);
+    request.agent = getDefaultAgent(this.baseURL, request.path);
   }
 
   async searchLiteratureDocuments({ query }) {

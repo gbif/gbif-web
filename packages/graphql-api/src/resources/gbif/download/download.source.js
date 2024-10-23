@@ -8,7 +8,7 @@ class DownloadAPI extends RESTDataSource {
   }
 
   willSendRequest(request) {
-    request.agent = getOccurrenceAgent(this.baseURL);
+    request.agent = getOccurrenceAgent(this.baseURL, request.path);
   }
 
   async datasetDownloads({ query }) {

@@ -27,7 +27,7 @@ class OrcidAPI extends RESTDataSource {
   // eslint-disable-next-line class-methods-use-this
   willSendRequest(request) {
     request.headers.set('Accept', 'application/json');
-    request.agent = getDefaultAgent(this.baseURL);
+    request.agent = getDefaultAgent(this.baseURL, request.path);
   }
 
   async getOrcidByKey({ key }) {

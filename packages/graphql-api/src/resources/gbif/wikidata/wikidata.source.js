@@ -21,7 +21,7 @@ class WikiDataAPI extends RESTDataSource {
   willSendRequest(request) {
     request.headers.set('User-Agent', USER_AGENT);
     request.headers.set('Accept', 'application/json');
-    request.agent = getDefaultAgent(this.baseURL);
+    request.agent = getDefaultAgent(this.baseURL, request.path);
   }
 
   async getReverseClaims(property, value) {

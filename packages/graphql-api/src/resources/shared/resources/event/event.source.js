@@ -15,7 +15,7 @@ class EventAPI extends RESTDataSource {
   willSendRequest(request) {
     // now that we make a public version, we might as well just make it open since the key is shared with everyone
     request.headers.set('Authorization', `ApiKey-v1 ${this.config.apiEsKey}`);
-    request.agent = getDefaultAgent(this.baseURL);
+    request.agent = getDefaultAgent(this.baseURL, request.path);
   }
 
   async searchEventDocuments({ query }) {

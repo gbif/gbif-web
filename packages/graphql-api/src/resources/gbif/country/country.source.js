@@ -10,7 +10,7 @@ class CollectionAPI extends RESTDataSource {
   willSendRequest(request) {
     request.headers.set('User-Agent', this.context.userAgent);
     request.headers.set('referer', this.context.referer);
-    request.agent = getDefaultAgent(this.baseURL);
+    request.agent = getDefaultAgent(this.baseURL, request.path);
   }
 
   async getCountryCodes() {

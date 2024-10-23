@@ -2,8 +2,12 @@ import { Agent as HttpAgent } from 'node:http';
 import { AgentOptions, Agent as HttpsAgent } from 'node:https';
 
 function createGetAgentFn(httpsAgent: HttpsAgent, httpAgent: HttpAgent) {
-  return (baseUrl: string) =>
-    baseUrl.startsWith('https') ? httpsAgent : httpAgent;
+  return (baseUrl: string, path: string) => {
+    // If the path is absolute, we should respect the protocol provided
+    if (path.startsWith('http')) return path.startsWith('https') ? httpsAgent : httpAgent
+
+    return baseUrl.startsWith('https') ? httpsAgent : httpAgent;
+  }
 }
 
 const baseOptions: AgentOptions = {
