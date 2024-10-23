@@ -131,8 +131,8 @@ export const gbifConfig: Config = {
     ],
   },
   theme: {
-    // primary: '#4787fb',//'#69AA69',
-    primary: '#69AA69',
+    primary: '#4787fb',//'#69AA69',
+    // primary: '#69AA69',
     stickyOffset: '40px',
   },
   openGraph: {
@@ -141,4 +141,21 @@ export const gbifConfig: Config = {
   OBISKey: 'ba0670b9-4186-41e6-8e70-f9cb3065551a',
   taiwanNodeidentifier: '239',
   linkToGbifOrg: true,
+  datasetSearch: {
+    excludedFilters: [],
+    highlightedFilters: ['q', 'type', 'publishingOrg', 'license'],
+    // defaultTableColumns: ['title', 'description', 'publisher', 'type', 'occurrenceCount', 'literatureCount'],
+    // scope: {
+    //   publishingCountry: ['DK'],
+    // },
+    queryType: 'V1',
+  },
+  collectionSearch: {
+    queryType: 'V1',
+    highlightedFilters: ['q', 'institutionKey'],
+  },
+  literatureSearch: {
+    queryType: 'PREDICATE',
+    highlightedFilters: ['q', 'year'],
+  },
 };

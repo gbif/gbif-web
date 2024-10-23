@@ -2,6 +2,7 @@ import React from 'react';
 import { Endpoints, GbifEnv } from './endpoints';
 import themeBuilder from './theme/index';
 import { Theme } from './theme/theme';
+import { SearchMetadata } from '../contexts/search';
 
 type PageConfig = {
   id: string;
@@ -32,6 +33,12 @@ export type Config = Endpoints & {
   OBISKey: string;
   taiwanNodeidentifier: string;
   linkToGbifOrg?: boolean;
+  datasetSearch?: SearchMetadata;
+  collectionSearch?: SearchMetadata;
+  institutionSearch?: SearchMetadata;
+  occurrenceSearch?: SearchMetadata;
+  publisherSearch?: SearchMetadata;
+  literatureSearch?: SearchMetadata;
   extraOccurrenceSearchPages?: Array<{
     path: string;
     overwriteConfig: Partial<Config>;
