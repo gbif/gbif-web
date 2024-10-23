@@ -2,7 +2,6 @@ import { SearchInput } from '@/components/searchInput';
 import { Button } from '@/components/ui/button';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { MdClose } from 'react-icons/md';
-import { FilterButton } from './filterButton';
 import { cn } from '@/utils/shadcn';
 import { FilterContext } from '@/contexts/filter';
 
@@ -89,5 +88,39 @@ export function QFilter({
         }}
       />
     </FilterButton>
+  );
+}
+
+export function FilterButton({
+  onClear,
+  onOpen,
+  children,
+  selectedLabel, // a react object or a string
+  isInputHidden,
+  className,
+}: {
+  onClear: () => void;
+  onOpen: () => void;
+  selectedLabel: string | React.ReactNode;
+  className?: string;
+  isInputHidden: boolean;
+  children: React.ReactNode;
+}) {
+  if (!isInputHidden) {
+    return children;
+  }
+  return (
+    <div className={cn('g-inline-block g-items-center', className)}>
+      <div className="g-inline-flex g-w-full g-rounded-md g-shadow-sm" role="group">
+        <Button onClick={onOpen} type="button" className="g-flex-auto g-rounded-e-none g-rounded-s">
+          {selectedLabel}
+        </Button>
+        <Button onClick={onClear} type="button" aria-label="Clear filter" className="g-rounded-s-none g-rounded-e g-px-2">
+          <span>
+            <MdClose />
+          </span>
+        </Button>
+      </div>
+    </div>
   );
 }
