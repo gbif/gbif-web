@@ -53,7 +53,15 @@ function Gallery({ size: defaultSize = 50, ...props }) {
   const [allData, setAllData] = useState([]);
 
   useEffect(() => {
-    setAllData([...allData, ...data?.occurrenceSearch?.documents?.results || []])
+    const all = [...allData, ...data?.occurrenceSearch?.documents?.results || []];
+    // get unique by key
+    const unique = all.reduce((acc, cur) => {
+      if (acc.find(x => x.key === cur.key)) {
+        return acc;
+      }
+      return [...acc, cur];
+    }, []);
+    setAllData(unique);
   }, [data]);
 
   useEffect(() => {
