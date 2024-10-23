@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { DynamicLink } from '@/reactRouterPlugins';
 import useQuery from '@/hooks/useQuery';
-import { CountMessage, DataHeader } from '@/routes/publisher/search/publisherSearch';
+import { DataHeader } from '@/routes/publisher/search/publisherSearch';
 import { Tabs } from '@/components/tabs';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { Card } from '@/components/ui/smallCard';
@@ -16,10 +15,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { DatasetResult } from '../datasetResult';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import { searchConfig } from '@/routes/publisher/search/searchConfig';
 import { FilterContext, FilterProvider } from '@/contexts/filter';
-import { filter2v1 } from '@/dataManagement/filterAdapter';
-import { QFilter } from '@/routes/publisher/search/filters/QFilter';
 import {
   Accordion,
   AccordionContent,
@@ -27,11 +23,16 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { HelpText } from '@/components/helpText';
-import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
+import { ClientSideOnly } from '@/components/clientSideOnly';
+import { searchConfig } from './searchConfig';
+import { useFilters } from './filters';
+import { useConfig } from '@/config/config';
+import { SearchContextProvider, useSearchContext } from '@/contexts/search';
+import { FilterBar, getAsQuery } from '@/components/filters/filterTools';
 
 const DATASET_SEARCH_QUERY = /* GraphQL */ `
-  query DatasetSearch($offset: Int, $limit: Int, $q: String) {
-    list: datasetSearch(offset: $offset, limit: $limit, q: $q) {
+  query DatasetSearch($query: DatasetSearchInput) {
+    datasetSearch(query: $query) {
       count
       limit
       offset
@@ -44,14 +45,17 @@ const DATASET_SEARCH_QUERY = /* GraphQL */ `
 
 export function DatasetSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
+  const config = useConfig();
   return (
     <>
       <Helmet>
         <title>Dataset search</title>
       </Helmet>
-      <FilterProvider filter={filter} onChange={setFilter}>
-        <DatasetSearch />
-      </FilterProvider>
+      <SearchContextProvider searchContext={config.datasetSearch}>
+        <FilterProvider filter={filter} onChange={setFilter}>
+          <DatasetSearch />
+        </FilterProvider>
+      </SearchContextProvider>
     </>
   );
 }
@@ -59,7 +63,8 @@ export function DatasetSearchPage(): React.ReactElement {
 export function DatasetSearch(): React.ReactElement {
   const [offset, setOffset] = useState(0);
   const filterContext = useContext(FilterContext);
-  const [userCountry, setUserCountry] = useState<{ country: string; countryName: string }>();
+  const searchContext = useSearchContext();
+  const { filters } = useFilters({ searchConfig });
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
   const tabClassName = 'g-pt-2 g-pb-1.5';
@@ -73,28 +78,20 @@ export function DatasetSearch(): React.ReactElement {
   );
 
   useEffect(() => {
-    const v1 = filter2v1(filter, searchConfig);
+    const query = getAsQuery({ filter, searchContext, searchConfig });
     load({
       variables: {
-        ...v1.filter,
-        limit: 20,
-        offset,
+        query: {
+          ...query,
+          limit: 20,
+          offset,
+        },
       },
     });
-  }, [offset, filterHash, searchConfig]);
+  }, [load, offset, filterHash, searchConfig]);
 
-  // call https://graphql.gbif-staging.org/unstable-api/user-info?lang=en to get the users country: response {country, countryName}
-  // then use the country code to get a count of publishers from that country
-  // useEffect(() => {
-  //   fetch('https://graphql.gbif-staging.org/unstable-api/user-info?lang=en')
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setUserCountry({country: 'DK', countryName: 'Denmark'});
-  //       // setUserCountry(data);
-  //     });
-  // }, []);
-
-  const datasets = data?.list;
+  const datasets = data?.datasetSearch;
+  
   return (
     <>
       <DataHeader
@@ -116,9 +113,9 @@ export function DatasetSearch(): React.ReactElement {
       </DataHeader>
 
       <section className="">
-        <Filters />
+        <FilterBar filters={filters} />
         <ArticleContainer className="g-bg-slate-100">
-          <ArticleTextContainer>
+          <ArticleTextContainer className="g-m-0">
             <Results loading={loading} datasets={datasets} setOffset={setOffset} />
           </ArticleTextContainer>
         </ArticleContainer>
@@ -133,8 +130,8 @@ function Results({
   setOffset,
 }: {
   loading: boolean;
-  datasets: DatasetSearchQuery['list'];
-  setOffset: any;
+  datasets?: DatasetSearchQuery['datasetSearch'];
+  setOffset: (x: number) => void;
 }) {
   return (
     <>
@@ -162,75 +159,23 @@ function Results({
               <FormattedMessage id="counts.nDatasets" values={{ total: datasets.count ?? 0 }} />
             </CardTitle>
           </CardHeader>
-          {datasets &&
-            datasets.results.map((item) => <DatasetResult key={item.key} dataset={item} />)}
+          <ClientSideOnly>
+            {datasets &&
+              datasets.results.map((item) => <DatasetResult key={item.key} dataset={item} />)}
 
-          {datasets?.count && datasets?.count > datasets?.limit && (
-            <PaginationFooter
-              offset={datasets.offset}
-              count={datasets.count}
-              limit={datasets.limit}
-              onChange={(x) => setOffset(x)}
-              anchor="datasets"
-            />
-          )}
+            {datasets?.count && datasets?.count > datasets?.limit && (
+              <PaginationFooter
+                offset={datasets.offset}
+                count={datasets.count}
+                limit={datasets.limit}
+                onChange={(x) => setOffset(x)}
+                anchor="datasets"
+              />
+            )}
+          </ClientSideOnly>
         </>
       )}
     </>
-  );
-}
-
-// export function DatasetSearchPage2(): React.ReactElement {
-//   const { data, loading, error } = useQuery(DATASET_SEARCH_QUERY, { variables: { offset: 0 } });
-
-//   return (
-//     <>
-//       <Helmet>
-//         <title>Dataset search</title>
-//       </Helmet>
-
-//       <section className="g-m-4">
-//         <h1 className="g-text-2xl g-mb-2 g-font-bold">
-//           This page is a crude stub for search. For now it serves as a placeholder and easy access
-//           to individual records
-//         </h1>
-//         {!loading && data && (
-//           <ul className="g-text-blue-400">
-//             {data.list.results.map((item) => (
-//               <li key={item.key}>
-//                 <DynamicLink to={`/dataset/${item.key}`}>{item.title}</DynamicLink>
-//               </li>
-//             ))}
-//           </ul>
-//         )}
-//       </section>
-//     </>
-//   );
-// }
-
-function Filters() {
-  const filterContext = useContext(FilterContext);
-  if (!filterContext) {
-    console.error('FilterContext not found');
-    return null;
-  }
-
-  const { filter, setField } = filterContext;
-
-  return (
-    <div className="g-border-b g-py-2 g-px-2" role="search">
-      <QFilter
-        className="g-inline-block"
-        value={filter.must?.q?.[0]}
-        onChange={(x) => {
-          if (x !== '' && x) {
-            setField('q', [x]);
-          } else {
-            setField('q', []);
-          }
-        }}
-      />
-    </div>
   );
 }
 
