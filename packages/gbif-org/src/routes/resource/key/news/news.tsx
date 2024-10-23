@@ -1,6 +1,5 @@
 import { NewsPageFragment } from '@/gql/graphql';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { fragmentManager } from '@/services/fragmentManager';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
@@ -73,24 +72,24 @@ export function NewsPage() {
 
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 
-          <PublishedDate className='g-mt-2' date={resource.createdAt} />
+          <PublishedDate className="g-mt-2" date={resource.createdAt} />
 
           {resource.summary && (
-            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className='g-mt-2' />
+            <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="g-mt-2" />
           )}
         </ArticleTextContainer>
 
-        <ArticleBanner className='g-mt-8 g-mb-6' image={resource?.primaryImage} />
+        <ArticleBanner className="g-mt-8 g-mb-6" image={resource?.primaryImage} />
 
         <ArticleTextContainer>
           {resource.body && (
-            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className='g-mt-2' />
+            <ArticleBody dangerouslySetBody={{ __html: resource.body }} className="g-mt-2" />
           )}
 
           <ArticleFooterWrapper>
             {resource.secondaryLinks && (
               <ArticleAuxiliary>
-                <SecondaryLinks links={resource.secondaryLinks} className='g-mt-8' />
+                <SecondaryLinks links={resource.secondaryLinks} className="g-mt-8" />
               </ArticleAuxiliary>
             )}
 
@@ -104,7 +103,7 @@ export function NewsPage() {
               />
             )}
 
-            <ArticleTags resource={resource} className='g-mt-8' />
+            <ArticleTags resource={resource} className="g-mt-8" />
           </ArticleFooterWrapper>
         </ArticleTextContainer>
       </PageContainer>

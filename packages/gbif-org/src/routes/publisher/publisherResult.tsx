@@ -1,4 +1,4 @@
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { PublisherResultFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 import { FormattedDate, FormattedMessage } from 'react-intl';
@@ -25,15 +25,15 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
     new Date(publisher.created) > new Date(Date.now() - days * 24 * 60 * 60 * 1000);
 
   return (
-    <Card className='g-mb-4'>
-      <article className='g-p-8'>
-        <div className='g-flex g-flex-col md:g-flex-row g-gap-4'>
-          <div className='g-flex-grow'>
-            <h3 className='g-text-base g-font-semibold g-mb-1'>
+    <Card className="g-mb-4">
+      <article className="g-p-8">
+        <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
+          <div className="g-flex-grow">
+            <h3 className="g-text-base g-font-semibold g-mb-1">
               <DynamicLink to={`/publisher/${publisher.key}`}>{publisher.title}</DynamicLink>
             </h3>
             {publisher.created && (
-              <p className='g-mb-4 g-text-sm g-text-slate-500'>
+              <p className="g-mb-4 g-text-sm g-text-slate-500">
                 <FormattedMessage
                   id="publisher.joinedDate"
                   values={{
@@ -41,23 +41,23 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
                   }}
                 />
                 {isNew && (
-                  <span className='g-text-xs g-bg-primary-500 g-px-2 g-py-1 g-text-white g-ml-2 g-rounded'>
+                  <span className="g-text-xs g-bg-primary-500 g-px-2 g-py-1 g-text-white g-ml-2 g-rounded">
                     <FormattedMessage id="publisher.newPublisher" />
                   </span>
                 )}
               </p>
             )}
             {publisher.excerpt && (
-              <p className='g-font-normal g-text-slate-700 g-text-sm'>{publisher.excerpt}</p>
+              <p className="g-font-normal g-text-slate-700 g-text-sm">{publisher.excerpt}</p>
             )}
             {!publisher.excerpt && (
-              <p className='g-font-normal g-text-slate-400 g-text-sm'>
+              <p className="g-font-normal g-text-slate-400 g-text-sm">
                 <FormattedMessage id="phrases.noDescriptionProvided" />
               </p>
             )}
           </div>
           {publisher.logoUrl && (
-            <div className='g-max-w-24 g-max-h-24'>
+            <div className="g-max-w-24 g-max-h-24">
               <img
                 onError={(e) => {
                   // hide image if it fails to load
@@ -65,12 +65,12 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
                 }}
                 src={publisher.logoUrl}
                 alt={'Publisher logo'}
-                className='g-rounded g-border g-border-slate-100 g-p-1 g-w-full'
+                className="g-rounded g-border g-border-slate-100 g-p-1 g-w-full"
               />
             </div>
           )}
         </div>
-        <div className='-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap'>
+        <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
           <Tag>
             <FormattedMessage id={`enums.countryCode.${publisher.country}`} />
           </Tag>

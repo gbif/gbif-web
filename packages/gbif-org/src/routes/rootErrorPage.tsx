@@ -1,4 +1,4 @@
-import { NotFoundError, UnexpectedLoaderError } from '@/errors';
+import { UnexpectedLoaderError } from '@/errors';
 import { NotFoundPage } from '@/notFoundPage';
 import React from 'react';
 import { useRouteError } from 'react-router-dom';

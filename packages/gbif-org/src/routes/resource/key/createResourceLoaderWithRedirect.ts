@@ -1,6 +1,6 @@
 import { NotFoundError, UnexpectedLoaderError } from '@/errors';
 import { fragmentManager } from '@/services/fragmentManager';
-import { LoaderArgs } from '@/types';
+import { LoaderArgs } from '@/reactRouterPlugins';
 import { required } from '@/utils/required';
 import { slugify } from '@/utils/slugify';
 import { redirect } from 'react-router-dom';
@@ -94,7 +94,7 @@ type Options =
 export function createResourceLoaderWithRedirect(options: Options) {
   const query = createQuery(options);
 
-  return async function loader({ params, graphql, locale, id, request }: LoaderArgs) {
+  return async function loader({ params, graphql, locale, request }: LoaderArgs) {
     const key = required(params.key, 'No key provided in the url');
 
     const response = await graphql.query(query, { key });

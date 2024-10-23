@@ -5,13 +5,12 @@ import {
   InstallationQuery,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
-import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
 import { DatasetResult } from '@/routes/dataset/datasetResult';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import Properties, { Property } from '@/components/properties';
 import { FormattedMessage } from 'react-intl';
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import {
   ContactActions,
   ContactAvatar,
@@ -24,9 +23,10 @@ import {
   ContactTitle,
 } from '@/components/contact';
 import { PaginationFooter } from '@/components/pagination';
+import { useInstallationKeyLoaderData } from '.';
 
 export function InstallationKeyAbout() {
-  const { data } = useParentRouteLoaderData(RouteId.Installation) as { data: InstallationQuery };
+  const { data } = useInstallationKeyLoaderData();
   const [offset, setOffset] = useState(0);
 
   const { installation } = data;
@@ -103,7 +103,7 @@ export function InstallationKeyAbout() {
         </CardContent>
       </Card>
 
-      {installation.contacts?.length > 0 && (
+      {installation.contacts && installation.contacts.length > 0 && (
         <Card className="g-mb-4">
           <CardHeader>
             <CardTitle>

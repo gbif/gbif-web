@@ -1,4 +1,4 @@
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { Coordinates, FeatureList, Sequenced, TypeStatus } from '@/components/highlights';
 import { Tag } from '@/components/resultCards';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
@@ -41,7 +41,7 @@ export function OccurrenceKeyCluster() {
 
   if (loading || !data)
     return (
-      <ArticleContainer className='g-bg-slate-100'>
+      <ArticleContainer className="g-bg-slate-100">
         <ArticleTextContainer>
           <CardListSkeleton />
         </ArticleTextContainer>
@@ -51,18 +51,16 @@ export function OccurrenceKeyCluster() {
   // if there are no related occurrenves, then tell the user
   if (data.occurrence?.related?.count === 0) {
     return (
-      <ArticleContainer className='g-bg-slate-100'>
-        <ArticleTextContainer>
-          No related occurrences
-        </ArticleTextContainer>
+      <ArticleContainer className="g-bg-slate-100">
+        <ArticleTextContainer>No related occurrences</ArticleTextContainer>
       </ArticleContainer>
     );
   }
 
   return (
-    <ArticleContainer className='g-bg-slate-100 g-pt-0'>
-      <ArticleTextContainer className='g-max-w-screen-xl xl:g-flex g-gap-x-4'>
-        <div className='g-flex-1'>
+    <ArticleContainer className="g-bg-slate-100 g-pt-0">
+      <ArticleTextContainer className="g-max-w-screen-xl xl:g-flex g-gap-x-4">
+        <div className="g-flex-1">
           <CardHeader>
             <CardTitle>Current</CardTitle>
           </CardHeader>
@@ -71,7 +69,7 @@ export function OccurrenceKeyCluster() {
             stub={data.occurrence?.related?.currentOccurrence?.stub}
           />
         </div>
-        <div className='g-flex-1'>
+        <div className="g-flex-1">
           <CardHeader>
             <CardTitle>Related</CardTitle>
           </CardHeader>
@@ -106,11 +104,11 @@ function RelatedRecord({
     return <Card>Record has since been deleted</Card>;
   }
   return (
-    <Card className='g-mb-4'>
-      <article className='g-p-8'>
-        <div className='g-flex g-flex-col md:g-flex-row g-gap-4'>
-          <div className='g-flex-grow'>
-            <h3 className='g-text-base g-font-semibold g-mb-2'>
+    <Card className="g-mb-4">
+      <article className="g-p-8">
+        <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
+          <div className="g-flex-grow">
+            <h3 className="g-text-base g-font-semibold g-mb-2">
               <DynamicLink to={`/occurrence/${stub?.gbifId}`}>
                 <span
                   dangerouslySetInnerHTML={{
@@ -122,19 +120,19 @@ function RelatedRecord({
                 ></span>
               </DynamicLink>
             </h3>
-            <p className='g-font-normal g-text-slate-700 g-text-sm'>
+            <p className="g-font-normal g-text-slate-700 g-text-sm">
               Dataset:{' '}
               <DynamicLink to={`/dataset/${stub?.datasetKey}`}>
                 {occurrence?.datasetTitle}
               </DynamicLink>
             </p>
-            <p className='g-font-normal g-text-slate-700 g-text-sm'>
+            <p className="g-font-normal g-text-slate-700 g-text-sm">
               Publisher:{' '}
               <DynamicLink to={`/publisher/${stub?.publishingOrgKey}`}>
                 {stub?.publishingOrgName}
               </DynamicLink>
             </p>
-            <p className='g-font-normal g-text-slate-700 g-text-sm'>
+            <p className="g-font-normal g-text-slate-700 g-text-sm">
               Basis of record:{' '}
               <FormattedMessage id={`enums.basisOfRecord.${occurrence.basisOfRecord}`} />
             </p>
@@ -145,19 +143,19 @@ function RelatedRecord({
             </FeatureList>
           </div>
           {occurrence?.primaryImage?.identifier && (
-            <div className='g-max-w-48 md:g-max-w-64'>
-              <img className='g-rounded' src={occurrence?.primaryImage?.identifier} width="300px" />
+            <div className="g-max-w-48 md:g-max-w-64">
+              <img className="g-rounded" src={occurrence?.primaryImage?.identifier} width="300px" />
             </div>
           )}
         </div>
         {reasons && (
-          <div className='-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap'>
-            <hr className='g-border' />
+          <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
+            <hr className="g-border" />
             <span>Cluster tags</span>
             {reasons.map((reason: string, key: number) => {
               return <Tag key={key}>{reason}</Tag>;
             })}
-            <div className='g-flex-grow'></div>
+            <div className="g-flex-grow"></div>
           </div>
         )}
       </article>

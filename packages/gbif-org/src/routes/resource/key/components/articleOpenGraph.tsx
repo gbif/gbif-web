@@ -1,5 +1,5 @@
-import { useConfig } from '@/contexts/config/config';
-import { useI18n } from '@/contexts/i18n';
+import { useConfig } from '@/config/config';
+import { useI18n } from '@/reactRouterPlugins';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 

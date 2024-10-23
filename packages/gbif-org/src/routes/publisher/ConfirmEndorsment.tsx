@@ -1,10 +1,10 @@
-import { LoaderArgs } from '@/types';
 import { required } from '@/utils/required';
 import { useLoaderData, useSearchParams } from 'react-router-dom';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
 import { MdErrorOutline } from 'react-icons/md';
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { Button } from '@/components/ui/button';
+import { LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
 
 type LoaderResult =
   | {
@@ -18,7 +18,7 @@ type LoaderResult =
       success: false;
     };
 
-export async function confirmEndorsmentLoader({ request, config }: LoaderArgs) {
+async function confirmEndorsmentLoader({ request, config }: LoaderArgs) {
   try {
     // Extract the key and code from the URL
     const url = new URL(request.url);
@@ -38,7 +38,7 @@ export async function confirmEndorsmentLoader({ request, config }: LoaderArgs) {
   }
 }
 
-export function ConfirmEndorsmentPage() {
+function ConfirmEndorsmentPage() {
   const result = useLoaderData() as LoaderResult;
   const [searchParams] = useSearchParams();
 
@@ -79,3 +79,9 @@ export function ConfirmEndorsmentPage() {
     );
   }
 }
+
+export const confirmEndorsmentRoute: RouteObjectWithPlugins = {
+  path: 'publisher/confirm',
+  element: <ConfirmEndorsmentPage />,
+  loader: confirmEndorsmentLoader,
+};

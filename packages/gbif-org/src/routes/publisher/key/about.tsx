@@ -12,7 +12,7 @@ import {
 import EmptyValue from '@/components/emptyValue';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { ClientSideOnly } from '@/components/clientSideOnly';
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import {
   CardContent as CardContentSmall,
@@ -20,16 +20,16 @@ import {
   Card as CardSmall,
   CardTitle as CardTitleSmall,
 } from '@/components/ui/smallCard';
-import { PublisherQuery } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
-import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { MdDownload, MdMap } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
+import { usePublisherKeyLoaderData } from '.';
+import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
 
 export function PublisherKeyAbout() {
-  const { data } = useParentRouteLoaderData(RouteId.Publisher) as { data: PublisherQuery };
+  const { data } = usePublisherKeyLoaderData();
   const removeSidebar = useBelow(1100);
 
   const { publisher } = data;
@@ -253,7 +253,7 @@ export function PublisherKeyAbout() {
               </CardContent>
             </Card>
 
-            {publisher?.contacts?.length > 0 && (
+            {isNoneEmptyArray(publisher.contacts) && (
               <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>

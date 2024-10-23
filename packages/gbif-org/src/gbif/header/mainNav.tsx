@@ -10,7 +10,7 @@ import {
 import { cn } from '@/utils/shadcn';
 import { HeaderQuery } from '@/gql/graphql';
 import { MdLink } from 'react-icons/md';
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 
 export function MainNavigation({ menu }: { menu: HeaderQuery }) {
   const [value, setValue] = React.useState('');

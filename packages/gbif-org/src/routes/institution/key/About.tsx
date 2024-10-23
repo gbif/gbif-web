@@ -1,6 +1,4 @@
 import Properties, { Property, Term, Value } from '@/components/properties';
-import { InstitutionQuery } from '@/gql/graphql';
-import { RouteId, useParentRouteLoaderData } from '@/hooks/useParentRouteLoaderData';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { FormattedMessage } from 'react-intl';
@@ -21,7 +19,7 @@ import {
 } from '@/components/contact';
 import { ConceptValue } from '@/components/conceptValue';
 import { Tag } from '@/components/resultCards';
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { FormattedNumber } from '@/components/dashboard/shared';
 import {
   CardContent as CardContentSmall,
@@ -35,11 +33,13 @@ import { useParams } from 'react-router-dom';
 import { TableOfContents } from '@/components/tableOfContents';
 import { useMemo } from 'react';
 import { GbifLinkCard } from '@/components/TocHelp';
+import { useInstitutionKeyLoaderData } from '.';
+import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
 // import { MdMap } from 'react-icons/md';
 
 export default function About() {
   const { key } = useParams();
-  const { data } = useParentRouteLoaderData(RouteId.Institution) as { data: InstitutionQuery };
+  const { data } = useInstitutionKeyLoaderData();
   const { count, loading } = useCount({
     v1Endpoint: '/occurrence/search',
     params: { institutionKey: key },
@@ -75,7 +75,9 @@ export default function About() {
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl">
-        <div className={`${removeSidebar ? '' : 'g-grid g-gap-4 g-grid-cols-[minmax(0,1fr)_350px]'}`}>
+        <div
+          className={`${removeSidebar ? '' : 'g-grid g-gap-4 g-grid-cols-[minmax(0,1fr)_350px]'}`}
+        >
           <div className="">
             <Card className="g-mb-4" id="description">
               <CardHeader>
@@ -148,7 +150,7 @@ export default function About() {
               </Card>
             )}
 
-            {institution?.collections?.length > 0 && (
+            {isNoneEmptyArray(institution.collections) && (
               <div id="collections" className="g-scroll-mt-24">
                 <CardHeader>
                   <CardTitle>
@@ -226,7 +228,7 @@ export default function About() {
               </CardHeader>
               <CardContent>
                 <Properties useDefaultTermWidths className="g-mb-8">
-                  {institution?.email?.length > 0 && (
+                  {isNoneEmptyArray(institution.email) && (
                     <Property
                       labelId="grscicoll.email"
                       className="g-prose"
@@ -357,7 +359,7 @@ export default function About() {
                   breakpoint={800}
                 >
                   <Property value={institution.code} labelId="grscicoll.code" showEmpty />
-                  {institution?.alternativeCodes?.length > 0 && (
+                  {isNoneEmptyArray(institution.alternativeCodes) && (
                     <Property
                       value={institution.alternativeCodes}
                       labelId="grscicoll.alternativeCodes"
@@ -380,7 +382,7 @@ export default function About() {
                     value={institution.additionalNames}
                     labelId="grscicoll.additionalNames"
                   />
-                  {institution?.identifiers?.length > 0 && (
+                  {isNoneEmptyArray(institution.identifiers) && (
                     <Property value={institution.identifiers} labelId="grscicoll.identifiers">
                       <ul
                       // css={css`padding: 0; margin: 0; list-style: none;`}

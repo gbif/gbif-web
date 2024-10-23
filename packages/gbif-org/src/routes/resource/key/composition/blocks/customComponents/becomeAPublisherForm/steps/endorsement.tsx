@@ -8,7 +8,7 @@ import { ParticipantSelect, ValidParticipant } from '@/components/select/partici
 import { useState } from 'react';
 import { SuggestedNodeCountry } from '../useSuggestedNodeCountry';
 import { useSuggestedNonCountryNode } from '../useSuggestedNonCountryNode';
-import { useConfig } from '@/contexts/config/config';
+import { useConfig } from '@/config/config';
 
 type Props = {
   suggestedNodeCountry: SuggestedNodeCountry | undefined;

@@ -7,7 +7,7 @@ import { CheckboxField } from '../becomeAPublisherForm';
 import { cn } from '@/utils/shadcn';
 import { ConditionalWrapper } from '@/components/conditionalWrapper';
 import { TimeAgo } from '@/components/timeAgo';
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { OrganizationPreviewQuery, OrganizationPreviewQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 

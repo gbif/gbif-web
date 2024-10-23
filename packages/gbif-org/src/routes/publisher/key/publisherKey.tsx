@@ -1,6 +1,5 @@
 import { Tabs } from '@/components/tabs';
 import { PublisherQuery, PublisherQueryVariables } from '@/gql/graphql';
-import { LoaderArgs } from '@/types';
 import { required } from '@/utils/required';
 import { Helmet } from 'react-helmet-async';
 import { Outlet, useLoaderData } from 'react-router-dom';
@@ -24,6 +23,7 @@ import {
   CitationIcon,
 } from '@/components/highlights';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
+import { LoaderArgs } from '@/reactRouterPlugins';
 
 const PUBLISHER_QUERY = /* GraphQL */ `
   query Publisher($key: ID!, $jsonKey: JSON!) {
@@ -113,9 +113,7 @@ export function PublisherPage() {
 
   const deletedAt = publisher.deleted;
 
-  const tabs = [
-    { to: '.', children: 'About' }
-  ];
+  const tabs = [{ to: '.', children: 'About' }];
   // only add occurrence tab if there are occurrences
   if (occurrenceSearch?.documents.total > 0) {
     tabs.push({ to: 'metrics', children: 'Metrics' });
@@ -204,9 +202,7 @@ export function PublisherPage() {
             </HeaderInfoMain>
           </HeaderInfo>
           <div className="g-border-b g-mt-4"></div>
-          <Tabs
-            links={tabs}
-          />
+          <Tabs links={tabs} />
         </ArticleTextContainer>
       </PageContainer>
 

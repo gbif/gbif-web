@@ -2,23 +2,25 @@ import React from 'react';
 import { Endpoints, GbifEnv } from './endpoints';
 import themeBuilder from './theme/index';
 import { Theme } from './theme/theme';
-import { SearchMetadata } from '../search';
+import { SearchMetadata } from '../contexts/search';
 
 type PageConfig = {
-  key: string;
+  id: string;
+};
+
+export type LanguageOption = {
+  code: string; // this codes are passed to react-intl, so they must be valid locale codes. Altenatively we need an extra field for the locale code used by react-intl
+  label: string;
+  default: boolean;
+  textDirection: 'ltr' | 'rtl';
+  cmsLocale?: string; // this is the locale code used by the CMS
+  reactIntlLocale?: string; // this is the locale code used by react-intl
 };
 
 export type Config = Endpoints & {
   defaultTitle?: string;
   gbifEnv: GbifEnv;
-  languages: {
-    code: string; // this codes are passed to react-intl, so they must be valid locale codes. Altenatively we need an extra field for the locale code used by react-intl
-    label: string;
-    default: boolean;
-    textDirection: 'ltr' | 'rtl';
-    cmsLocale?: string; // this is the locale code used by the CMS
-    reactIntlLocale?: string; // this is the locale code used by react-intl
-  }[];
+  languages: LanguageOption[];
   occurrencePredicate: any;
   pages?: PageConfig[];
   theme?: Partial<Theme>;
@@ -37,6 +39,10 @@ export type Config = Endpoints & {
   occurrenceSearch?: SearchMetadata;
   publisherSearch?: SearchMetadata;
   literatureSearch?: SearchMetadata;
+  extraOccurrenceSearchPages?: Array<{
+    path: string;
+    overwriteConfig: Partial<Config>;
+  }>;
 };
 
 const ConfigContext = React.createContext<Config | null>(null);
@@ -85,6 +91,10 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
       {children}
     </ConfigContext.Provider>
   );
+}
+
+export function OverwriteConfigProvider({ config, children }: Props): React.ReactElement {
+  return <ConfigContext.Provider value={config}>{children}</ConfigContext.Provider>;
 }
 
 export function useConfig(): Config {

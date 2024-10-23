@@ -11,7 +11,7 @@ import {
 import { BlockItem } from '../blockItem';
 import { useEffect, useState } from 'react';
 import { cn } from '@/utils/shadcn';
-import { useI18n } from '@/contexts/i18n';
+import { useI18n } from '@/reactRouterPlugins';
 import { BlockContainer, BlockHeading, backgroundColorMap } from './_shared';
 import { ArticleTextContainer } from '../../components/articleTextContainer';
 import { ArticleBody } from '../../components/articleBody';
@@ -61,11 +61,11 @@ export function CarouselBlock({ resource }: Props) {
     <BlockContainer className={backgroundColor}>
       {resource.title && <BlockHeading dangerouslySetHeading={{ __html: resource.title }} />}
       {resource.body && (
-        <ArticleTextContainer className='g-mt-2 g-mb-10'>
+        <ArticleTextContainer className="g-mt-2 g-mb-10">
           <ArticleBody dangerouslySetBody={{ __html: resource.body }} />
         </ArticleTextContainer>
       )}
-      <div className='g-max-w-6xl g-w-full g-px-10 g-my-10 g-m-auto'>
+      <div className="g-max-w-6xl g-w-full g-px-10 g-my-10 g-m-auto">
         <Carousel
           opts={{ loop: true, align: 'center', direction: locale.textDirection }}
           setApi={setApi}
@@ -80,7 +80,7 @@ export function CarouselBlock({ resource }: Props) {
 
           <CarouselPrevious />
           <CarouselNext />
-          <div className='g-flex g-justify-center g-items-center g-gap-2 g-pt-8'>
+          <div className="g-flex g-justify-center g-items-center g-gap-2 g-pt-8">
             {Array.from({ length: count }).map((_, idx) => (
               <button
                 key={idx}

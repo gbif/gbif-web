@@ -14,7 +14,7 @@ import { cn } from '@/utils/shadcn';
 import useQuery from '@/hooks/useQuery';
 import { Country, ParticipantsQuery, ParticipationStatus } from '@/gql/graphql';
 import { useEffect, useMemo } from 'react';
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import {
   Select,
   SelectContent,

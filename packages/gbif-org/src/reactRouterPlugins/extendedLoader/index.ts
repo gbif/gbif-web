@@ -1,0 +1,1 @@
+export { applyExtendedLoaderPlugin } from "./plugin";

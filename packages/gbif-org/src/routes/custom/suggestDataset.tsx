@@ -4,8 +4,9 @@ import { ArticleTextContainer } from '../resource/key/components/articleTextCont
 import { ArticleTitle } from '../resource/key/components/articleTitle';
 import { SuggestDatasetForm } from '../resource/key/composition/blocks/customComponents/suggestDatasetForm';
 import { ArticleIntro } from '../resource/key/components/articleIntro';
+import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 
-export function SuggestDatasetPage() {
+function SuggestDatasetPage() {
   return (
     <PageContainer className="g-bg-white" topPadded bottomPadded>
       <Helmet>
@@ -24,3 +25,8 @@ export function SuggestDatasetPage() {
     </PageContainer>
   );
 }
+
+export const suggestDatasetRoute: RouteObjectWithPlugins = {
+  id: 'suggest-dataset',
+  element: <SuggestDatasetPage />,
+};

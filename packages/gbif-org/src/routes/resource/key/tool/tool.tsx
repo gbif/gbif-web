@@ -13,7 +13,7 @@ import { FormattedMessage } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
 import { ArticleSkeleton } from '../components/articleSkeleton';
 import { Button } from '@/components/ui/button';
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
 import { fragmentManager } from '@/services/fragmentManager';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';

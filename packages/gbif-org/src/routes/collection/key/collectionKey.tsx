@@ -5,13 +5,13 @@ import {
   CollectionSummaryMetricsQueryVariables,
   PredicateType,
 } from '@/gql/graphql';
-import { LoaderArgs } from '@/types';
 import { required } from '@/utils/required';
 import { useLoaderData } from 'react-router-dom';
 import { CollectionKey as Presentation } from './collectionKeyPresentation';
 import useQuery from '@/hooks/useQuery';
 import { useEffect } from 'react';
 import { NotFoundError } from '@/errors';
+import { LoaderArgs } from '@/reactRouterPlugins';
 
 export async function collectionLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');

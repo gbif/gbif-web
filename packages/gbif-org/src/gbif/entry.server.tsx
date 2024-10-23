@@ -6,12 +6,12 @@ import {
 } from 'react-router-dom/server';
 import type { Request as ExpressRequest } from 'express';
 import { FilledContext, HelmetServerState } from 'react-helmet-async';
-import { configureGbifRoutes } from '@/gbif/routes';
+import { createGbifRoutes } from '@/gbif/routes';
 import { gbifConfig } from '@/gbif/config';
 import { Root } from '@/components/root';
 
 // Create routes based on config
-const { routes, metadataRoutes } = configureGbifRoutes(gbifConfig);
+const routes = createGbifRoutes(gbifConfig);
 const { query, dataRoutes } = createStaticHandler(routes);
 
 export async function render(req: ExpressRequest) {
@@ -31,7 +31,7 @@ export async function render(req: ExpressRequest) {
   const helmetContext = {};
 
   const appHtml = ReactDOMServer.renderToString(
-    <Root config={gbifConfig} helmetContext={helmetContext} metadataRoutes={metadataRoutes}>
+    <Root config={gbifConfig} helmetContext={helmetContext}>
       <StaticRouterProvider router={router} context={context} nonce="the-nonce" />
     </Root>
   );

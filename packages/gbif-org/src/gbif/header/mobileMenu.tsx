@@ -16,10 +16,10 @@ import {
 } from '@/components/ui/accordion';
 import { GbifLogoIcon } from '@/components/icons/icons';
 import { HeaderQuery } from '@/gql/graphql';
-import { DynamicLink } from '@/components/dynamicLink';
 import { useState } from 'react';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { ClientSideOnly } from '@/components/clientSideOnly';
+import { DynamicLink } from '@/reactRouterPlugins';
 
 export function MobileMenu({ menu }: { menu: HeaderQuery }) {
   const [open, setOpen] = useState(false);

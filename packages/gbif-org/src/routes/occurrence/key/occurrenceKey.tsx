@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import { LoaderArgs } from '@/types';
 import { OccurrenceIssue, OccurrenceQuery, OccurrenceQueryVariables, Term } from '@/gql/graphql';
 import { required } from '@/utils/required';
 import { Outlet, redirect, useLoaderData } from 'react-router-dom';
@@ -27,6 +26,7 @@ import {
 import { fragmentManager } from '@/services/fragmentManager';
 import useBelow from '@/hooks/useBelow';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
+import { LoaderArgs } from '@/reactRouterPlugins';
 
 const OCCURRENCE_QUERY = /* GraphQL */ `
   query Occurrence($key: ID!, $language: String!) {

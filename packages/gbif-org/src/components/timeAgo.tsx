@@ -1,4 +1,4 @@
-import { useI18n } from '@/contexts/i18n';
+import { useI18n } from '@/reactRouterPlugins';
 
 type Props = {
   date: Date;

@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 
 type UseTablePaginationResult = {
   nextLink: string | undefined;
+  firstLink: string | undefined;
   previousLink: string | undefined;
 };
 
@@ -31,6 +32,7 @@ export function useTablePagination(options: PaginationOptions): UseTablePaginati
   // TODO : Add end of results validation
   const nextLink = createLink(from + options.pageSize, otherParams);
   const previousLink = from > 0 ? createLink(from - options.pageSize, otherParams) : undefined;
+  const firstLink = from > 0 ? createLink(0, otherParams) : undefined;
 
-  return { nextLink, previousLink };
+  return { firstLink, nextLink, previousLink };
 }

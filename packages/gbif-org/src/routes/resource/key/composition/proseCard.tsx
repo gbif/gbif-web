@@ -1,5 +1,5 @@
 import { ConditionalWrapper } from '@/components/conditionalWrapper';
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { ProseCardImgFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 

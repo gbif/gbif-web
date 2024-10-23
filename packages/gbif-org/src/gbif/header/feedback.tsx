@@ -1,9 +1,9 @@
-import { DynamicLink } from '@/components/dynamicLink';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Textarea } from '@/components/ui/textarea';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { useEffect, useState } from 'react';
 import { MdFeedback } from 'react-icons/md';
 
@@ -36,7 +36,10 @@ export function FeedbackPopover({ trigger = <MdFeedback /> }): React.ReactElemen
           <div className="g-space-y-2">
             <h4 className="g-font-medium g-leading-none">Questions and comments</h4>
             <p className="g-text-sm g-text-muted-foreground">
-              See also the{' '}<DynamicLink className="g-underline" to="/faq" onClick={() => setOpen(false)}>FAQ</DynamicLink>
+              See also the{' '}
+              <DynamicLink className="g-underline" to="/faq" onClick={() => setOpen(false)}>
+                FAQ
+              </DynamicLink>
             </p>
           </div>
         </div>
@@ -44,13 +47,22 @@ export function FeedbackPopover({ trigger = <MdFeedback /> }): React.ReactElemen
           <form>
             <div className="">
               <Label htmlFor="summary">Summary</Label>
-              <Input required id="summary" className="g-h-8" value={titleValue}
-                onChange={(e) => setTitleValue(e.target.value)} />
+              <Input
+                required
+                id="summary"
+                className="g-h-8"
+                value={titleValue}
+                onChange={(e) => setTitleValue(e.target.value)}
+              />
             </div>
             <div className="g-mt-4">
               <Label htmlFor="description">Description</Label>
-              <Textarea id="description" rows={5} value={descriptionValue}
-                onChange={(e) => setDescriptionValue(e.target.value)}/>
+              <Textarea
+                id="description"
+                rows={5}
+                value={descriptionValue}
+                onChange={(e) => setDescriptionValue(e.target.value)}
+              />
             </div>
             {mentionsCsv && (
               <div className="g-mt-2 g-text-xs g-text-slate-800 g-mb-4 g-bg-orange-200 g-p-2 g-rounded-lg">

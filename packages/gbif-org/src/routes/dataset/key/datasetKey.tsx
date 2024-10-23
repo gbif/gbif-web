@@ -1,4 +1,4 @@
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import {
   DeletedMessage,
   HeaderInfo,
@@ -11,12 +11,12 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { NotFoundError } from '@/errors';
 import { DatasetQuery, DatasetQueryVariables } from '@/gql/graphql';
+import { LoaderArgs } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { LoaderArgs } from '@/types';
 import { required } from '@/utils/required';
 import { Helmet } from 'react-helmet-async';
 import { MdLink } from 'react-icons/md';

@@ -22,7 +22,7 @@ import {
   Location,
 } from '@/components/highlights';
 import { ErrorMessage } from '@/components/errorMessage';
-import { DynamicLink } from '@/components/dynamicLink';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
 import { GrGithub as Github } from 'react-icons/gr';

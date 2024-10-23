@@ -3,21 +3,21 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Root } from '@/components/root';
-import { Config } from '@/contexts/config/config';
-import { configureHostedPortalRoutes } from '@/hp/routes';
+import { Config } from '@/config/config';
+import { createHostedPortalRoutes } from '@/hp/routes';
 import { merge } from 'ts-deepmerge';
-import { Endpoints, getDefaultEndpointsBasedOnGbifEnv } from '@/contexts/config/endpoints';
+import { Endpoints, getDefaultEndpointsBasedOnGbifEnv } from '@/config/endpoints';
 
 type Props = {
   config: Config;
 };
 
 function HostedPortalApp({ config }: Props): React.ReactElement {
-  const { routes, metadataRoutes } = configureHostedPortalRoutes(config);
+  const routes = createHostedPortalRoutes(config);
   const router = createBrowserRouter(routes);
 
   return (
-    <Root config={config} metadataRoutes={metadataRoutes}>
+    <Root config={config}>
       <RouterProvider router={router} fallbackElement={null} />
     </Root>
   );
