@@ -12,8 +12,7 @@ import { SearchMetadata } from '@/contexts/search';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
 import { FilterButton } from './filterButton';
 import { QFilter } from './QFilter';
-import { QContextFilter } from './QFilterButton';
-import { useConfig } from '@/config/config';
+import { QInlineButtonFilter } from './QFilterButton';
 import { cn } from '@/utils/shadcn';
 import { SuggestionItem } from './suggest';
 import MoreFilters from './More';
@@ -83,7 +82,6 @@ export type FacetQueryResponse = {
 function getPopoverFilter({
   Content,
 }: {
-  config: filterConfig;
   Content: React.FC<{
     onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
     onCancel?: () => void;
@@ -323,7 +321,7 @@ export function generateFilter({
   };
   if (config.filterType === filterConfigTypes.FREE_TEXT) {
     FilterButtonPopover = ({ className }: { className?: string }) => (
-      <QContextFilter className={className} />
+      <QInlineButtonFilter className={className} />
     );
   }
 
@@ -393,6 +391,14 @@ export function generateFilters({
   }
 }
 
+/**
+ * Decide which filtesr to show and which to put in a dropdown (and which to remove completely)
+ * @param {FilterType} filter - Current filter that the user has selected
+ * @param {string[]} existingFilters - A list of all available filters (generally, not for the individual site)
+ * @param {string[]} excludedFilters - A list of filters that should not be shown (site owner might have excluded some filters)
+ * @param {string[]} highlightedFilters - A list of filters that should always be shown (configured by site owner, default visible filteres)
+ * @returns { visibleFilters: string[]; availableFilters: string[] } An object with visibleFilters and availableFilters
+ */
 export function getFilterConfig({
   currentFilter,
   existingFilters,
@@ -427,6 +433,14 @@ export function getFilterConfig({
   };
 }
 
+/**
+ * Returns a query variable for graphql. A combination of the search scope (e.g. only data from a certain country) + the current user filter. And then transformed to the appropriate field names.
+ * It needs a filter. A search context to know the default scope. And it needs to know how to map the filters (which names to use, is it arrays or strings etc)
+ * @param {FilterType} filter - Current filter
+ * @param {SearchMetadata} searchContext - Context with the underlying scope (e.g. a country or taxon)
+ * @param {FilterConfigType} searchConfig - How to map the filters to a query. E.g. how to map it to v1 API or a predicate.
+ * @returns {Object} A graphql variable for the query.
+ */
 export function getAsQuery({
   filter,
   searchContext,
@@ -436,27 +450,42 @@ export function getAsQuery({
   searchContext: SearchMetadata;
   searchConfig: FilterConfigType;
 }) {
+  // should we use get v1 syntax or predicates (we have later added predicates to v1, so the naming is less meaningful now)
   if (searchContext.queryType === 'V1') {
     const v1Filter = filter2v1(filter, searchConfig);
     const scope = searchContext.scope ?? {};
     // TODO, we could do more to merge here.
-    // E.g. the intersection of overlapping keys.
+    // E.g. the intersection of overlapping keys so you can have a scope of 10 countries but still have the option to search for a country without being able to get something out of scope.
     // But for now we must assume that you cannot search on something that is defined in the root scope
     return { ...v1Filter?.filter, ...scope };
   } else {
+    // query by predicate
     const rootPredicate = searchContext.scope;
     const currentPredicate = filter2predicate(filter, searchConfig);
     const predicates = [rootPredicate, currentPredicate].filter((x) => x);
     if (predicates.length === 0) {
       return undefined;
+    } else if (predicates.length === 1) {
+      return predicates[0];
     } else {
       return { type: 'and', predicates };
     }
   }
 }
 
-export function FilterBar({ filters }: { filters?: Record<string, FilterSetting> }) {
-  const config = useConfig();
+/**
+ * Return filter buttons based on settings. Handles which should be shown, available, hidden, more buttons etc.
+ *  @param {FilterType} filter - Current filter
+ * @param {SearchMetadata} searchContext - Context with which filters to exclude and highlight
+ * @returns
+ */
+export function FilterButtons({
+  filters,
+  searchContext,
+}: {
+  filters?: Record<string, FilterSetting>;
+  searchContext: SearchMetadata;
+}) {
   const filterContext = useContext(FilterContext);
 
   if (!filters) {
@@ -470,8 +499,8 @@ export function FilterBar({ filters }: { filters?: Record<string, FilterSetting>
   const { visibleFilters, availableFilters } = getFilterConfig({
     currentFilter: filterContext.filter,
     existingFilters: Object.keys(filters).map((x) => filters[x].handle ?? x),
-    excludedFilters: config?.literatureSearch?.excludedFilters ?? [],
-    highlightedFilters: config?.literatureSearch?.highlightedFilters ?? [],
+    excludedFilters: searchContext?.excludedFilters ?? [],
+    highlightedFilters: searchContext?.highlightedFilters ?? [],
   });
 
   // map availableFilters to the form {filterHandle: {Button, Popover, Content}}
@@ -485,13 +514,27 @@ export function FilterBar({ filters }: { filters?: Record<string, FilterSetting>
     }, {});
 
   return (
-    <div className="g-border-b g-py-2 g-px-3 -g-mb-1" role="search">
+    <>
       {visibleFilters?.map((filterHandle) => {
         const filterConfig = filters[filterHandle];
         if (!filterConfig) return null;
         return <filterConfig.Button key={filterHandle} className="g-mx-1 g-mb-1" />;
       })}
       {Object.keys(otherFilters).length > 0 && <MoreFilters filters={otherFilters} />}
+    </>
+  );
+}
+
+export function FilterBar({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn('g-border-b g-py-2 g-px-3 -g-mb-1', className)} role="search">
+      {children}
     </div>
   );
 }

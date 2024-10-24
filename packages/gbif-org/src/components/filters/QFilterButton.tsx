@@ -5,7 +5,7 @@ import { MdClose } from 'react-icons/md';
 import { cn } from '@/utils/shadcn';
 import { FilterContext } from '@/contexts/filter';
 
-export function QContextFilter({ className }: { className?: string }) {
+export function QInlineButtonFilter({ className }: { className?: string }) {
   const { filter, setField } = useContext(FilterContext);
   return (
     <QFilter
@@ -24,7 +24,7 @@ export function QContextFilter({ className }: { className?: string }) {
   );
 }
 
-export function QFilter({
+function QFilter({
   onChange,
   value,
   className,
@@ -91,7 +91,7 @@ export function QFilter({
   );
 }
 
-export function FilterButton({
+function FilterButton({
   onClear,
   onOpen,
   children,
@@ -112,7 +112,7 @@ export function FilterButton({
   return (
     <div className={cn('g-inline-block g-items-center', className)}>
       <div className="g-inline-flex g-w-full g-rounded-md g-shadow-sm" role="group">
-        <Button onClick={onOpen} type="button" className="g-flex-auto g-rounded-e-none g-rounded-s">
+        <Button onClick={onOpen} type="button" className="g-flex-auto g-rounded-e-none g-rounded-s g-justify-start">
           {selectedLabel}
         </Button>
         <Button onClick={onClear} type="button" aria-label="Clear filter" className="g-rounded-s-none g-rounded-e g-px-2">

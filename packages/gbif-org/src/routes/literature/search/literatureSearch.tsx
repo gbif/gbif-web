@@ -27,7 +27,7 @@ import { searchConfig } from './searchConfig';
 import { useFilters } from './filters';
 import { useConfig } from '@/config/config';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
-import { FilterBar, getAsQuery } from '@/components/filters/filterTools';
+import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
 import { Button } from '@/components/ui/button';
 
 const LITERATURE_SEARCH_QUERY = /* GraphQL */ `
@@ -120,7 +120,9 @@ export function LiteratureSearch(): React.ReactElement {
       </DataHeader>
 
       <section className="">
-        <FilterBar filters={filters} />
+        <FilterBar>
+          <FilterButtons filters={filters} searchContext={searchContext}/>
+        </FilterBar>
         <ArticleContainer className="g-bg-slate-100">
           <ArticleTextContainer className="g-m-0">
             <Results loading={loading} literature={literature} setOffset={setOffset} />
