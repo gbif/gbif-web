@@ -12,7 +12,7 @@ import { SearchMetadata } from '@/contexts/search';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
 import { FilterButton } from './filterButton';
 import { QFilter } from './QFilter';
-import { QInlineButtonFilter } from './QFilterButton';
+import { QInlineButtonFilter } from './QInlineButtonFilter';
 import { cn } from '@/utils/shadcn';
 import { SuggestionItem } from './suggest';
 import MoreFilters from './More';

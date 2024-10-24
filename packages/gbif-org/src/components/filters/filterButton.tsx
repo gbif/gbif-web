@@ -76,7 +76,7 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
 
     return (
       <ActiveFilterButton className={className} ref={ref} handleClear={handleClear} {...props}>
-        <span className={`g-overflow-ellipsis g-flex g-items-center g-w-full`}>
+        <span className={`g-overflow-ellipsis g-flex g-items-center g-w-`}>
           <span className="g-flex-auto g-text-start">
             <FormattedMessage
               id={titleTranslationKey}
