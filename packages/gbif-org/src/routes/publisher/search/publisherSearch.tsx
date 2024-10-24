@@ -1,5 +1,7 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
+import country from '@/enums/basic/country.json';
+import hash from 'object-hash';
 import useQuery from '@/hooks/useQuery';
 import { MdApps, MdCode, MdInfo } from 'react-icons/md';
 import { Tabs } from '@/components/tabs';
@@ -17,12 +19,10 @@ import { ArticleContainer } from '@/routes/resource/key/components/articleContai
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { PublisherResult } from '../publisherResult';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { PaginationFooter } from '@/components/pagination';
 import { NoRecords } from '@/components/noDataMessages';
 import { PublisherSearchQuery, PublisherSearchQueryVariables } from '@/gql/graphql';
-import { QFilter } from './filters/QFilter';
-import { SingleCountryFilterSuggest } from './filters/SingleCountryFilterSuggest';
 import { CountProps, useCount } from '@/components/count';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -30,6 +30,13 @@ import { FilterContext, FilterProvider } from '@/contexts/filter';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
 import { searchConfig } from './searchConfig';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
+import { QInlineButtonFilter } from '@/components/filters/QInlineButtonFilter';
+import { FilterBar } from '@/components/filters/filterTools';
+import { FilterButton } from '@/components/filters/filterButton';
+import { FilterPopover } from '@/components/filters/filterPopover';
+import { CountryLabel } from '@/components/filters/displayNames';
+import { SearchCommand } from '../../../components/filters/SearchCommand';
+import { matchSorter } from 'match-sorter';
 
 const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
   query PublisherSearch(
@@ -96,18 +103,18 @@ export function PublisherSearch(): React.ReactElement {
         isEndorsed: true,
       },
     });
-  }, [offset, filterHash, searchConfig]);
+  }, [offset, filterHash, searchConfig, load]);
 
   // call https://graphql.gbif-staging.org/unstable-api/user-info?lang=en to get the users country: response {country, countryName}
   // then use the country code to get a count of publishers from that country
-  // useEffect(() => {
-  //   fetch('https://graphql.gbif-staging.org/unstable-api/user-info?lang=en')
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setUserCountry({country: 'DK', countryName: 'Denmark'});
-  //       // setUserCountry(data);
-  //     });
-  // }, []);
+  useEffect(() => {
+    fetch('https://graphql.gbif-staging.org/unstable-api/user-info?lang=en')
+      .then((res) => res.json())
+      .then((data) => {
+        // setUserCountry({ country: 'DK', countryName: 'Denmark' });
+        setUserCountry(data);
+      });
+  }, []);
 
   const publishers = data?.list;
   return (
@@ -115,7 +122,12 @@ export function PublisherSearch(): React.ReactElement {
       <Helmet>
         <title>Publisher search</title>
       </Helmet>
-      <DataHeader title="Publishers" hasBorder aboutContent={<AboutContent />} apiContent={<ApiContent />}>
+      <DataHeader
+        title="Publishers"
+        hasBorder
+        aboutContent={<AboutContent />}
+        apiContent={<ApiContent />}
+      >
         <Tabs
           className="g-border-none"
           links={[
@@ -134,10 +146,15 @@ export function PublisherSearch(): React.ReactElement {
       </DataHeader>
 
       <section className="">
-        <Filters />
-        <ArticleContainer className="g-bg-slate-100">
-          <aside>
-            {userCountry?.country && (
+        <FilterBar>
+          <Filters />
+        </FilterBar>
+        <ArticleContainer className="g-bg-slate-100 g-flex">
+          <ArticleTextContainer className="g-flex-auto">
+            <Results loading={loading} publishers={publishers} setOffset={setOffset} />
+          </ArticleTextContainer>
+          {/* {userCountry?.country && (
+            <aside className="g-flex-none">
               <section>
                 <h2>Did you know?</h2>
                 <Card>
@@ -151,13 +168,11 @@ export function PublisherSearch(): React.ReactElement {
                       }}
                     />
                   </p>
+                  <Button onClick={() => setField('country', [userCountry?.country])}>View</Button>
                 </Card>
               </section>
-            )}
-          </aside>
-          <ArticleTextContainer>
-            <Results loading={loading} publishers={publishers} setOffset={setOffset} />
-          </ArticleTextContainer>
+            </aside>
+          )} */}
         </ArticleContainer>
       </section>
     </>
@@ -194,18 +209,22 @@ export function DataHeader({
       <>
         <div className="g-flex-none g-flex g-items-center g-mx-2">
           <MdApps />
-          {title && <span className="g-ms-2">{title}</span>}
+          {title && <span className="g-ms-2 g-pt-2 g-pb-1.5">{title}</span>}
         </div>
-        <Separator />
+        {children && <Separator />}
       </>
       <div className="g-flex-auto">{children}</div>
       <div className="g-flex-none g-mx-2">
         <div className="g-flex g-justify-center g-text-slate-400">
           {aboutContent && (
-            <Popup trigger={<MdInfo className="g-mx-1 hover:g-text-slate-700" />}>{aboutContent}</Popup>
+            <Popup trigger={<MdInfo className="g-mx-1 hover:g-text-slate-700" />}>
+              {aboutContent}
+            </Popup>
           )}
           {apiContent && (
-            <Popup trigger={<MdCode className="g-mx-1 hover:g-text-slate-700" />}>{apiContent}</Popup>
+            <Popup trigger={<MdCode className="g-mx-1 hover:g-text-slate-700" />}>
+              {apiContent}
+            </Popup>
           )}
         </div>
       </div>
@@ -257,7 +276,7 @@ function Results({
 }: {
   loading: boolean;
   publishers: PublisherSearchQuery['list'];
-  setOffset: any;
+  setOffset: (x: number) => void;
 }) {
   return (
     <>
@@ -305,6 +324,29 @@ function Results({
 
 function Filters() {
   const filterContext = useContext(FilterContext);
+  const { formatMessage } = useIntl();
+  const [countries, setCountries] = useState<{ key: string; title: string }[]>([]);
+  const [results, setResults] = useState<{ key: string; title: string }[]>([]);
+
+  // first translate relevant enums
+  useEffect(() => {
+    const countryValues = country.map((code) => ({
+      key: code,
+      title: formatMessage({ id: `enums.countryCode.${code}` }),
+    }));
+    if (hash(countries) !== hash(countryValues)) {
+      setCountries(countryValues);
+    }
+  }, [formatMessage, countries]);
+
+  const countrySearch = useCallback(
+    (q: string) => {
+      const filtered = matchSorter(countries, q, { keys: ['title', 'key'] });
+      setResults(filtered);
+    },
+    [countries]
+  );
+
   if (!filterContext) {
     console.error('FilterContext not found');
     return null;
@@ -313,28 +355,31 @@ function Filters() {
   const { filter, setField } = filterContext;
 
   return (
-    <div className="g-border-b g-py-2 g-px-2" role="search">
-      <QFilter
-        className="g-inline-block"
-        value={filter.must?.q?.[0]}
-        onChange={(x) => {
-          if (x !== '' && x) {
-            setField('q', [x]);
-          } else {
-            setField('q', []);
-          }
-        }}
-      />
-      <SingleCountryFilterSuggest
-        className="g-inline-block g-w-auto"
-        selected={
-          filter?.must?.country?.[0]
-            ? { key: filter?.must?.country?.[0], title: filter?.must?.country?.[0] }
-            : undefined
+    <>
+      <QInlineButtonFilter className="g-min-w-36" />
+      <FilterPopover
+        trigger={
+          <FilterButton
+            className="g-mx-1 g-mb-1 g-max-w-md g-text-slate-600"
+            filterHandle="country"
+            DisplayName={CountryLabel}
+            titleTranslationKey="filters.country.name"
+          />
         }
-        setSelected={(x) => setField('country', [x?.key])}
-      />
-    </div>
+      >
+        <SearchCommand<{ key: string; title: string }>
+          setSelected={(x) => setField('country', x ? [x.key] : [])}
+          selectedKey={filter?.must?.country?.[0]}
+          search={countrySearch}
+          results={results ?? []}
+          labelSelector={(value) => value.title}
+          keySelector={(value) => value.key}
+          noSearchResultsPlaceholder={<span>No countries found</span>}
+          noSelectionPlaceholder={<span>Country</span>}
+          searchInputPlaceholder="Search countries..."
+        />
+      </FilterPopover>
+    </>
   );
 }
 
