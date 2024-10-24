@@ -102,7 +102,7 @@ export function LiteratureSearch(): React.ReactElement {
   return (
     <>
       <DataHeader
-        title="Literatures"
+        title="Literature"
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
