@@ -23,7 +23,7 @@ const typeDef = gql`
       displayOnNHCPortal: Boolean
       sortBy: CollectionsSortField
       sortOrder: SortOrder
-      ): InstitutionSearchResults
+    ): InstitutionSearchResults
     institution(key: ID!): Institution
   }
 
