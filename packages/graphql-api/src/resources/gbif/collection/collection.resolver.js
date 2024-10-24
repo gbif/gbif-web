@@ -16,14 +16,24 @@ function between(input, min, max) {
 export default {
   Query: {
     collectionSearch: (parent, { query = {}, ...args } = {}, { dataSources }) =>
-      dataSources.collectionAPI.searchCollections({ query: { ...args, ...query } }),
+      dataSources.collectionAPI.searchCollections({
+        query: { ...args, ...query },
+      }),
     collection: (parent, { key }, { dataSources }) =>
       dataSources.collectionAPI.getCollectionByKey({ key }),
-    collectionDescriptorGroup: (parent, { key, collectionKey }, { dataSources }) =>
-      dataSources.collectionAPI.getCollectionDescriptorGroup({ key, collectionKey }),
+    collectionDescriptorGroup: (
+      parent,
+      { key, collectionKey },
+      { dataSources },
+    ) =>
+      dataSources.collectionAPI.getCollectionDescriptorGroup({
+        key,
+        collectionKey,
+      }),
   },
   CollectionSearchEntity: {
-    thumbor: ({ featuredImageUrl: url }, { fitIn, width = '', height = '' }) => getThumborUrl({url, fitIn, width, height}),
+    thumbor: ({ featuredImageUrl: url }, { fitIn, width = '', height = '' }) =>
+      getThumborUrl({ url, fitIn, width, height }),
     excerpt: ({ description, taxonomicCoverage, geography }) => {
       if (typeof description === 'undefined') return null;
       return getExcerpt({
@@ -37,8 +47,16 @@ export default {
       if (typeof key === 'undefined') return null;
       return dataSources.institutionAPI.getInstitutionByKey({ key });
     },
-    descriptorGroups: ({ key }, {limit: limit = 20, offset: offset = 0}, { dataSources }) => {
-      return dataSources.collectionAPI.searchCollectionDescriptorGroups({ key, limit, offset });
+    descriptorGroups: (
+      { key },
+      { limit = 20, offset = 0 },
+      { dataSources },
+    ) => {
+      return dataSources.collectionAPI.searchCollectionDescriptorGroups({
+        key,
+        limit,
+        offset,
+      });
     },
     // This would fetch the updated number, but we have since added a batch job to update counts. Which is likely good enough
     // occurrenceCount: ({ key }, args, { dataSources }) => {
@@ -55,11 +73,14 @@ export default {
       if (!replacedBy) return null;
       return dataSources.collectionAPI.getCollectionByKey({ key: replacedBy });
     },
-    thumbor: ({ featuredImageUrl: url }, { fitIn, width = '', height = '' }) => getThumborUrl({url, fitIn, width, height}),
+    thumbor: ({ featuredImageUrl: url }, { fitIn, width = '', height = '' }) =>
+      getThumborUrl({ url, fitIn, width, height }),
     homepageOGImageUrl_volatile: ({ homepage }) => {
-      return getOGImage({ homepage }).then((response) => {
-        return response;
-      }).catch(() => null);
+      return getOGImage({ homepage })
+        .then((response) => {
+          return response;
+        })
+        .catch(() => null);
     },
     excerpt: ({ description, taxonomicCoverage, geography }) => {
       if (typeof description === 'undefined') return null;
@@ -110,8 +131,17 @@ export default {
     },
   },
   CollectionDescriptorGroup: {
-    descriptors: ({ collectionKey, key }, { limit = 20, offset = 0 }, { dataSources }) => {
-      return dataSources.collectionAPI.getCollectionDescriptor({ key, collectionKey, limit, offset });
+    descriptors: (
+      { collectionKey, key },
+      { limit = 20, offset = 0 },
+      { dataSources },
+    ) => {
+      return dataSources.collectionAPI.getCollectionDescriptor({
+        key,
+        collectionKey,
+        limit,
+        offset,
+      });
     },
-  }
+  },
 };
