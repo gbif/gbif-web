@@ -1,12 +1,16 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { SingleOccurrenceSearchResult } from '@/routes/occurrence/search/occurrenceSearchPage';
 import { useMemo } from 'react';
+import { FilterSetting } from '@/components/filters/filterTools';
+import { FormattedMessage } from 'react-intl';
+import { Button } from '@/components/ui/button';
 
 type Args = {
   showPreview(id: string): void;
+  filters: Record<string, FilterSetting>;
 };
 
-export function useColumns({ showPreview }: Args): ColumnDef<SingleOccurrenceSearchResult>[] {
+export function useColumns({ showPreview, filters }: Args): ColumnDef<SingleOccurrenceSearchResult>[] {
   return useMemo(
     () => [
       {
@@ -15,6 +19,16 @@ export function useColumns({ showPreview }: Args): ColumnDef<SingleOccurrenceSea
           <button onClick={() => row.original.key && showPreview(row.original.key.toString())}>
             {row.original.scientificName}
           </button>
+          // <DynamicLink to={`/occurrence/${row.original.key}`}>
+          //   {row.original.scientificName}
+          // </DynamicLink>
+        ),
+      },
+      {
+        header: <filters.country.Popover trigger={<span>Country (filter trigger)</span>} />,
+        accessorKey: 'countryCode',
+        cell: ({ row }) => (
+          <FormattedMessage id={`enums.countryCode.${row.original.countryCode}`} />
           // <DynamicLink to={`/occurrence/${row.original.key}`}>
           //   {row.original.scientificName}
           // </DynamicLink>

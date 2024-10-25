@@ -35,6 +35,7 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
           eventDate
           coordinates
           county
+          countryCode
           basisOfRecord
           datasetName
           publisherTitle
@@ -47,35 +48,6 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
 export type SingleOccurrenceSearchResult = ExtractPaginatedResult<
   OccurrenceSearchQuery['occurrenceSearch']
 >;
-
-function useOccurrenceSearchQuery() {
-  const config = useConfig();
-  const [searchParams] = useSearchParams();
-  const queryVariabels = React.useMemo<OccurrenceSearchQueryVariables>(() => {
-    const from = parseInt(searchParams.get('from') ?? '0');
-    const status = searchParams.get('occurrenceStatus')?.split(',') ?? [];
-
-    const predicate = JSON.parse(JSON.stringify(config.occurrencePredicate));
-
-    if (status.length > 0) {
-      predicate.predicates.push({
-        type: 'in',
-        key: 'occurrenceStatus',
-        values: status,
-      });
-    }
-
-    return {
-      from,
-      predicate,
-    };
-  }, [config.occurrencePredicate, searchParams]);
-
-  return useQuery<OccurrenceSearchQuery, OccurrenceSearchQueryVariables>(OCCURRENCE_SEARCH_QUERY, {
-    variables: queryVariabels,
-    keepDataWhileLoading: true,
-  });
-}
 
 const PAGE_SIZE = 20;
 
@@ -127,7 +99,7 @@ export function OccurrenceSearch(): React.ReactElement {
   }, [load, filterHash, searchContext]);
 
 
-  const columns = useColumns({ showPreview: setPreviewKey });
+  const columns = useColumns({ showPreview: setPreviewKey, filters });
 
   const occurrences = React.useMemo(
     () => data?.occurrenceSearch?.documents.results.filter(notNull) ?? [],
