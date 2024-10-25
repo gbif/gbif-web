@@ -25,7 +25,8 @@ export function useColumns({ showPreview, filters }: Args): ColumnDef<SingleOccu
         ),
       },
       {
-        header: <filters.country.Popover trigger={<span>Country (filter trigger)</span>} />,
+        // TODO: obviously a mess. Some test of weather the popover is available is needed
+        header: filters?.country?.Popover ? <filters.country.Popover trigger={<span>Country (filter trigger)</span>} /> : 'Country tmp',
         accessorKey: 'countryCode',
         cell: ({ row }) => (
           <FormattedMessage id={`enums.countryCode.${row.original.countryCode}`} />
