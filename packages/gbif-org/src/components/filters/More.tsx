@@ -12,7 +12,8 @@ import {
 import { MdArrowBack } from 'react-icons/md';
 import { FilterType } from '@/contexts/filter';
 
-function ContentWrapper({
+const ContentWrapper = React.forwardRef(
+  ({
   onApply,
   onCancel,
   pristine,
@@ -30,8 +31,8 @@ function ContentWrapper({
         ref: React.ForwardedRef<unknown>;
       }>;
     };
-  };
-}) {
+  }
+}, ref)  => {
   const searchRef = useRef<HTMLInputElement>(null);
   const [activeFilterHandle, setActiveFilterHandle] = React.useState<string | null>(null);
   const Content = activeFilterHandle ? filters?.[activeFilterHandle]?.Content : null;
@@ -92,7 +93,7 @@ function ContentWrapper({
       )}
     </div>
   );
-}
+});
 
 export default function MoreFilters({ filters }: { filters: { [key: string]: any } }) {
   return (

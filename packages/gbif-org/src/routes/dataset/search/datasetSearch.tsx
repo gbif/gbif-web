@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import useQuery from '@/hooks/useQuery';
-import { DataHeader } from '@/routes/publisher/search/publisherSearch';
 import { Tabs } from '@/components/tabs';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { Card } from '@/components/ui/smallCard';
@@ -29,6 +28,7 @@ import { useFilters } from './filters';
 import { useConfig } from '@/config/config';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
+import { DataHeader } from '@/components/dataHeader';
 
 const DATASET_SEARCH_QUERY = /* GraphQL */ `
   query DatasetSearch($query: DatasetSearchInput) {

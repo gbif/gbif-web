@@ -1,10 +1,7 @@
 import {
   CountryLabel,
-  DatasetTypeLabel,
   IdentityLabel,
   InstitutionLabel,
-  LicenceLabel,
-  PublisherLabel,
   TaxonLabel,
 } from '@/components/filters/displayNames';
 import {
@@ -17,11 +14,10 @@ import { useIntl } from 'react-intl';
 import { matchSorter } from 'match-sorter';
 import hash from 'object-hash';
 import country from '@/enums/basic/country.json';
-import licenseOptions from '@/enums/basic/license.json';
-import datasetTypeOptions from '@/enums/basic/datasetType.json';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import { useCallback, useEffect, useState } from 'react';
 import { SuggestFnProps, SuggestResponseType } from '@/components/filters/suggest';
+import { HelpText } from '@/components/helpText';
 
 const institutionKeyConfig: filterConfig = {
   filterType: filterConfigTypes.SUGGEST,
@@ -39,17 +35,18 @@ const institutionKeyConfig: filterConfig = {
       });
   },
   facetQuery: /* GraphQL */ `
-    query CollectionInstitutionFacet($query: CollectionSearchInput) {
-      search: collectionSearch(query: $query) {
+    query OccurrenceInstitutionFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
         facet {
           field: institutionKey {
-            name
+            name: key
             count
           }
         }
       }
     }
   `,
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
 };
 
 const countryConfig: filterConfig = {
@@ -59,17 +56,18 @@ const countryConfig: filterConfig = {
   filterTranslation: 'filters.country.name',
   // suggest will be provided by the useFilters hook
   facetQuery: /* GraphQL */ `
-    query CollectionCountryFacet($query: CollectionSearchInput) {
-      search: collectionSearch(query: $query) {
+    query OccurrenceCountryFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
         facet {
-          field: country {
-            name
+          field: countryCode {
+            name: key
             count
           }
         }
       }
     }
   `,
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
 };
 
 const taxonKeyConfig: filterConfig = {
@@ -87,13 +85,7 @@ const taxonKeyConfig: filterConfig = {
         }));
       });
   },
-};
-
-const descriptorCountryConfig: filterConfig = {
-  filterType: filterConfigTypes.SUGGEST,
-  filterHandle: 'descriptorCountry',
-  displayName: CountryLabel,
-  filterTranslation: 'filters.collectionDescriptorCountry.name',
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
 };
 
 const freeTextConfig: filterConfig = {
@@ -139,11 +131,6 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         searchConfig,
         formatMessage,
       }),
-      descriptorCountry: generateFilters({
-        config: { ...descriptorCountryConfig, suggest: countrySuggest },
-        searchConfig,
-        formatMessage,
-      }),
       institutionKey: generateFilters({
         config: { ...institutionKeyConfig },
         searchConfig,
@@ -154,13 +141,6 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         searchConfig,
         formatMessage,
       }),
-
-      // publishingOrg: generateFilters({ config: publisherConfig, searchConfig, formatMessage }),
-      // hostingOrg: generateFilters({ config: hostingOrgConfig, searchConfig, formatMessage }),
-      // projectId: generateFilters({ config: projectIdConfig, searchConfig, formatMessage }),
-
-      // license: generateFilters({ config: licenceConfig, searchConfig, formatMessage }),
-      // type: generateFilters({ config: datasetTypeConfig, searchConfig, formatMessage }),
     };
     setFilters(nextFilters);
   }, [searchConfig, countrySuggest, formatMessage]);

@@ -5,8 +5,13 @@ import {
   LicenceLabel,
   PublisherLabel,
 } from '@/components/filters/displayNames';
-import { filterConfig, filterConfigTypes, FilterSetting, generateFilters } from '@/components/filters/filterTools';
-import { useIntl } from 'react-intl';
+import {
+  filterConfig,
+  filterConfigTypes,
+  FilterSetting,
+  generateFilters,
+} from '@/components/filters/filterTools';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { matchSorter } from 'match-sorter';
 import hash from 'object-hash';
 import country from '@/enums/basic/country.json';
@@ -14,6 +19,8 @@ import licenseOptions from '@/enums/basic/license.json';
 import datasetTypeOptions from '@/enums/basic/datasetType.json';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import { useCallback, useEffect, useState } from 'react';
+import { SuggestFnProps } from '@/components/filters/suggest';
+import { HelpText } from '@/components/helpText';
 
 // shared vairables for the various components
 const publisherConfig: filterConfig = {
@@ -21,8 +28,8 @@ const publisherConfig: filterConfig = {
   filterHandle: 'publishingOrg',
   displayName: PublisherLabel,
   filterTranslation: 'filters.publisherKey.name',
-  suggest: ({ q }: { q: string }) => {
-    return fetch(`https://api.gbif.org/v1/organization/suggest?limit=20&q=${q}`)
+  suggest: ({ q, siteConfig }: SuggestFnProps) => {
+    return fetch(`${siteConfig.v1Endpoint}/organization/suggest?limit=20&q=${q}`)
       .then((res) => res.json())
       .then((data) => {
         return data;
@@ -43,6 +50,14 @@ const publisherConfig: filterConfig = {
       }
     }
   `,
+  about: () => (
+    <div>
+      {/* TODO */}
+      The publisher of the data
+      {/* <FormattedMessage id="filters.publisherKey.description" />
+    <HelpText identifier="how-to-link-datasets-to-my-project-page" /> */}
+    </div>
+  ),
 };
 
 const hostingOrgConfig: filterConfig = {
@@ -50,8 +65,8 @@ const hostingOrgConfig: filterConfig = {
   filterHandle: 'hostingOrg',
   displayName: PublisherLabel,
   filterTranslation: 'filters.hostingOrganizationKey.name',
-  suggest: ({ q }: { q: string }) => {
-    return fetch(`https://api.gbif.org/v1/organization/suggest?limit=20&q=${q}`)
+  suggest: ({ q, siteConfig }: SuggestFnProps) => {
+    return fetch(`${siteConfig.v1Endpoint}/organization/suggest?limit=20&q=${q}`)
       .then((res) => res.json())
       .then((data) => {
         return data;
@@ -72,6 +87,7 @@ const hostingOrgConfig: filterConfig = {
       }
     }
   `,
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
 };
 
 const projectIdConfig: filterConfig = {
@@ -94,6 +110,7 @@ const projectIdConfig: filterConfig = {
       }
     }
   `,
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
 };
 
 const publishingCountryConfig: filterConfig = {
@@ -101,16 +118,6 @@ const publishingCountryConfig: filterConfig = {
   filterHandle: 'publishingCountry',
   displayName: CountryLabel,
   filterTranslation: 'filters.publishingCountryCode.name',
-  // suggest: ({ q, intl }: { q: string, intl: IntlShape }) => {
-  //   // this is an ineffecient way to do it as it translates all the values on every keystroke
-  //   // unless performance becomes an issue, I would not worry about it
-  //   const countryValues = country.map((code) => ({
-  //     key: code,
-  //     title: intl.formatMessage({ id: `enums.countryCode.${code}` }),
-  //   }));
-  //   const filtered = countryValues.filter((x) => x?.title?.toLowerCase().includes(q.toLowerCase()));
-  //   return Promise.resolve(filtered);
-  // },
   facetQuery: /* GraphQL */ `
     query DatasetPublisherFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
@@ -123,6 +130,7 @@ const publishingCountryConfig: filterConfig = {
       }
     }
   `,
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
 };
 
 const licenceConfig: filterConfig = {
@@ -143,6 +151,7 @@ const licenceConfig: filterConfig = {
       }
     }
   `,
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
 };
 
 const datasetTypeConfig: filterConfig = {
@@ -163,13 +172,14 @@ const datasetTypeConfig: filterConfig = {
       }
     }
   `,
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
 };
 
 const freeTextConfig: filterConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
   filterHandle: 'q',
   displayName: IdentityLabel,
-  filterTranslation: 'filters.q.name'
+  filterTranslation: 'filters.q.name',
 };
 
 export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }): {
@@ -178,7 +188,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
   const { formatMessage } = useIntl();
   const [countries, setCountries] = useState<{ key: string; title: string }[]>([]);
   const [filters, setFilters] = useState<Record<string, FilterSetting>>({});
-  
+
   // first translate relevant enums
   useEffect(() => {
     const countryValues = country.map((code) => ({
@@ -191,7 +201,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
   }, [formatMessage, countries]);
 
   const countrySuggest = useCallback(
-    ({ q }: { q: string }) => {
+    ({ q }: SuggestFnProps) => {
       // instead of just using indexOf or similar. This has the benefit of reshuffling records based on the match, check for abrivations etc
       const filtered = matchSorter(countries, q, { keys: ['title', 'key'] });
       return Promise.resolve(filtered);
@@ -207,16 +217,16 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       publishingCountry: generateFilters({
         config: { ...publishingCountryConfig, suggest: countrySuggest },
         searchConfig,
-        formatMessage
+        formatMessage,
       }),
       license: generateFilters({ config: licenceConfig, searchConfig, formatMessage }),
       type: generateFilters({ config: datasetTypeConfig, searchConfig, formatMessage }),
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
-    }
+    };
     setFilters(nextFilters);
   }, [searchConfig, countrySuggest, formatMessage]);
 
   return {
-    filters
+    filters,
   };
 }

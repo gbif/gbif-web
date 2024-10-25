@@ -1,10 +1,17 @@
 import _ from 'lodash';
 import { getExcerpt, getOGImage } from '#/helpers/utils';
 import { getThumborUrl } from '../resource/misc/misc.resolver';
+import { getCardinality, getFacet } from '../getQueryMetrics';
 
 function between(input, min, max) {
   return Math.min(Math.max(input, min), max);
 }
+
+const getSourceSearch = (dataSources) => (args) =>
+  dataSources.collectionAPI.searchCollections.call(
+    dataSources.collectionAPI,
+    args,
+  );
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -30,6 +37,15 @@ export default {
         key,
         collectionKey,
       }),
+  },
+  CollectionSearchResults: {
+    // this looks odd. I'm not sure what is the best way, but I want to transfer the current query to the child, so that it can be used when asking for the individual facets
+    facet: (parent) => ({
+      _query: { ...parent._query, limit: undefined, offset: undefined },
+    }),
+    cardinality: (parent) => ({
+      _query: { ...parent._query, limit: undefined, offset: undefined },
+    }),
   },
   CollectionSearchEntity: {
     thumbor: ({ featuredImageUrl: url }, { fitIn, width = '', height = '' }) =>
@@ -58,17 +74,6 @@ export default {
         offset,
       });
     },
-    // This would fetch the updated number, but we have since added a batch job to update counts. Which is likely good enough
-    // occurrenceCount: ({ key }, args, { dataSources }) => {
-    //   if (typeof key === 'undefined') return null;
-    //   return dataSources.occurrenceAPI
-    //     .searchOccurrenceDocuments({
-    //       query: {
-    //         predicate: { type: 'equals', key: 'collectionKey', value: key },
-    //       },
-    //     })
-    //     .then((response) => response.total);
-    // },
     replacedByCollection: ({ replacedBy }, args, { dataSources }) => {
       if (!replacedBy) return null;
       return dataSources.collectionAPI.getCollectionByKey({ key: replacedBy });
@@ -143,5 +148,25 @@ export default {
         offset,
       });
     },
+  },
+  CollectionFacet: {
+    institutionKey: getFacet('INSTITUTION_KEY', getSourceSearch),
+    country: getFacet('COUNTRY', getSourceSearch),
+    kingdomKey: getFacet('KINGDOM_KEY', getSourceSearch),
+    phylumKey: getFacet('PHYLUM_KEY', getSourceSearch),
+    descriptorCountry: getFacet('DESCRIPTOR_COUNTRY', getSourceSearch),
+    contentType: getFacet('CONTENT_TYPE', getSourceSearch),
+    preservationType: getFacet('PRESERVATION_TYPE', getSourceSearch),
+    accessionStatus: getFacet('ACCESSION_STATUS', getSourceSearch),
+  },
+  CollectionCardinality: {
+    institutionKey: getCardinality('INSTITUTION_KEY', getSourceSearch),
+    country: getCardinality('COUNTRY', getSourceSearch),
+    kingdomKey: getCardinality('KINGDOM_KEY', getSourceSearch),
+    phylumKey: getCardinality('PHYLUM_KEY', getSourceSearch),
+    descriptorCountry: getCardinality('DESCRIPTOR_COUNTRY', getSourceSearch),
+    contentType: getCardinality('CONTENT_TYPE', getSourceSearch),
+    preservationType: getCardinality('PRESERVATION_TYPE', getSourceSearch),
+    accessionStatus: getCardinality('ACCESSION_STATUS', getSourceSearch),
   },
 };

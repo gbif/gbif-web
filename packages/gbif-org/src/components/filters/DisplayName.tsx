@@ -1,5 +1,5 @@
 import { Skeleton } from '@/components/ui/skeleton';
-import { useConfig } from '@/config/config';
+import { Config, useConfig } from '@/config/config';
 import { CANCEL_REQUEST } from '@/utils/fetchWithCancel';
 import React, { useEffect } from 'react';
 import { IntlShape, useIntl } from 'react-intl';
@@ -12,13 +12,11 @@ export default function DisplayName({
   getData: ({
     id,
     intl,
-    v1Endpoint,
-    graphqlEndpoint,
+    config,
   }: {
     id: string | number | object;
     intl: IntlShape;
-    v1Endpoint: string;
-    graphqlEndpoint: string;
+    config: Config;
   }) => {
     promise?: Promise<{
       title: string | number | React.ReactElement;
@@ -30,7 +28,7 @@ export default function DisplayName({
   useHtml: boolean;
 }) {
   const intl = useIntl();
-  const { v1Endpoint, graphqlEndpoint } = useConfig();
+  const config = useConfig();
   const [title, setTitle] = React.useState<string | number | React.ReactElement | undefined>(
     undefined
   );
@@ -39,7 +37,7 @@ export default function DisplayName({
   useEffect(() => {
     if (typeof id === 'undefined') return;
     setLoading(true);
-    const { promise, cancel } = getData({ id, intl, v1Endpoint, graphqlEndpoint });
+    const { promise, cancel } = getData({ id, intl, config });
 
     if (promise) {
       promise
@@ -66,7 +64,7 @@ export default function DisplayName({
       }
       setTitle(undefined);
     };
-  }, [id, useHtml, intl, getData, v1Endpoint, graphqlEndpoint]);
+  }, [id, useHtml, intl, getData, config]);
 
   if (loading) {
     return (

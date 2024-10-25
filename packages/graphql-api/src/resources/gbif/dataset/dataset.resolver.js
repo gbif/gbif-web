@@ -1,33 +1,9 @@
 import { getHtml, excerpt } from '#/helpers/utils';
+import { getFacet } from '../getQueryMetrics';
 import { getContributors } from './helpers/contributors';
-/**
- * Convinent wrapper to generate the facet resolvers.
- * Given a string (facet name) then generate a query a map the result
- * @param {String} facetKey
- */
-const getDatasetFacet =
-  (facetKey) =>
-  (parent, { limit = 10, offset = 0 }, { dataSources }) => {
-    // generate the species search query, by inherting from the parent query, and map limit/offset to facet equivalents
-    const query = {
-      ...parent._query,
-      limit: 0,
-      facet: facetKey,
-      facetLimit: limit,
-      facetOffset: offset,
-    };
-    // query the API, and throw away anything but the facet counts
-    return dataSources.datasetAPI.searchDatasets({ query }).then((data) => [
-      ...data.facets[0].counts.map((facet) => ({
-        ...facet,
-        // attach the query, but add the facet as a filter
-        _query: {
-          ...parent._query,
-          [facetKey]: facet.name,
-        },
-      })),
-    ]);
-  };
+
+const getSourceSearch = (dataSources) => (args) =>
+  dataSources.datasetAPI.searchDatasets.call(dataSources.datasetAPI, args);
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -201,14 +177,14 @@ export const DatasetSearchResults = {
   }),
 };
 export const DatasetFacet = {
-  type: getDatasetFacet('type'),
-  keyword: getDatasetFacet('keyword'),
-  publishingOrg: getDatasetFacet('publishingOrg'),
-  hostingOrg: getDatasetFacet('hostingOrg'),
-  decade: getDatasetFacet('decade'),
-  publishingCountry: getDatasetFacet('publishingCountry'),
-  projectId: getDatasetFacet('projectId'),
-  license: getDatasetFacet('license'),
+  type: getFacet('type', getSourceSearch),
+  keyword: getFacet('keyword', getSourceSearch),
+  publishingOrg: getFacet('publishingOrg', getSourceSearch),
+  hostingOrg: getFacet('hostingOrg', getSourceSearch),
+  decade: getFacet('decade', getSourceSearch),
+  publishingCountry: getFacet('publishingCountry', getSourceSearch),
+  projectId: getFacet('projectId', getSourceSearch),
+  license: getFacet('license', getSourceSearch),
 };
 export const DatasetOrganizationFacet = {
   organization: ({ name: key }, args, { dataSources }) => {

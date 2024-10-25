@@ -1,6 +1,7 @@
+import { Config, useConfig } from '@/config/config';
 import { cn } from '@/utils/shadcn';
 import { useCombobox } from 'downshift';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { MdCheck, MdSearch } from 'react-icons/md';
 import { IntlShape, useIntl } from 'react-intl';
 
@@ -10,34 +11,27 @@ export interface SuggestionItem {
   description?: string;
 }
 
+export type SuggestFnProps = {
+  q: string;
+  locale: string;
+  siteConfig: Config;
+  intl: IntlShape;
+}
+
+export type SuggestResponseType = Promise<SuggestionItem[]>;
+
+export type SuggestFnType = (args: SuggestFnProps) => SuggestResponseType;
+
 export type SuggestProps = {
   onSelect: (item: SuggestionItem) => void;
   className?: string;
-  getSuggestions?: ({
-    q,
-    locale,
-    endpoints,
-  }: {
-    q: string;
-    locale?: string;
-    endpoints?: { v1: string; graphql: string };
-    intl?: IntlShape;
-  }) => Promise<SuggestionItem[]>;
+  getSuggestions?: SuggestFnType;
   selected?: (string | number)[];
   onKeyPress?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
 export const Suggest = React.forwardRef<HTMLInputElement, SuggestProps>(
-  (
-    {
-      onSelect,
-      className,
-      getSuggestions,
-      selected,
-      onKeyPress,
-    }: SuggestProps,
-    ref
-  ) => {
+  ({ onSelect, className, getSuggestions, selected, onKeyPress }: SuggestProps, ref) => {
     return (
       <Search
         ref={ref}
@@ -60,7 +54,7 @@ const Search = React.forwardRef(
       selected,
       onKeyPress,
     }: {
-      onSearch: ({ q, intl }: { q: string, intl?: IntlShape }) => Promise<SuggestionItem[]>;
+      onSearch: ({ q, intl }: { q: string; intl?: IntlShape }) => Promise<SuggestionItem[]>;
       onSelect: (item: SuggestionItem) => void;
       className?: string;
       selected?: (string | number)[];
@@ -68,6 +62,7 @@ const Search = React.forwardRef(
     },
     ref
   ) => {
+    const config = useConfig();
     const intl = useIntl();
     const [items, setItems] = React.useState<SuggestionItem[]>([]);
     const [selectedItem, setSelectedItem] = React.useState<SuggestionItem | null>(null);
@@ -83,7 +78,7 @@ const Search = React.forwardRef(
     } = useCombobox({
       onInputValueChange({ inputValue }) {
         // setInputValue(inputValue);
-        onSearch({ q: inputValue, intl })
+        onSearch({ q: inputValue, intl, siteConfig: config })
           .then((data) => {
             // setResults(data);
             setItems(data);
@@ -147,10 +142,10 @@ const Search = React.forwardRef(
               type="input"
               placeholder="Search..."
               className={cn(
-                'g-flex-auto g-w-full g-bg-transparent g-py-1 g-text-sm g-transition-colors file:g-border-0 file:g-bg-transparent file:g-text-sm file:g-font-medium placeholder:g-text-muted-foreground focus-visible:g-outline-none disabled:g-cursor-not-allowed',
+                'g-flex-auto g-w-full g-bg-transparent g-py-1 g-text-sm g-transition-colors file:g-border-0 file:g-bg-transparent file:g-text-sm file:g-font-medium placeholder:g-text-muted-foreground focus-visible:g-outline-none disabled:g-cursor-not-allowed'
                 // 'focus-visible:g-ring-2 focus-visible:g-ring-blue-400/30 focus-visible:g-ring-offset-0 g-ring-inset',
               )}
-              {...getInputProps({ref, onKeyPress})}
+              {...getInputProps({ ref, onKeyPress })}
             />
           </div>
         </div>
@@ -180,7 +175,9 @@ const Search = React.forwardRef(
                   />
                   <div className="g-flex-auto">
                     <div>{item.title}</div>
-                    {item.description && <div className="g-text-sm g-text-gray-700">{item.description}</div>}
+                    {item.description && (
+                      <div className="g-text-sm g-text-gray-700">{item.description}</div>
+                    )}
                   </div>
                 </li>
               ))}

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import useQuery from '@/hooks/useQuery';
-import { DataHeader } from '@/routes/publisher/search/publisherSearch';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { Card } from '@/components/ui/smallCard';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -27,7 +26,8 @@ import { searchConfig } from './searchConfig';
 import { useFilters } from './filters';
 import { useConfig } from '@/config/config';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
-import { FilterBar, getAsQuery } from '@/components/filters/filterTools';
+import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
+import { DataHeader } from '@/components/dataHeader';
 
 const COLLECTION_SEARCH_QUERY = /* GraphQL */ `
   query CollectionSearch($query: CollectionSearchInput) {
@@ -101,7 +101,9 @@ export function CollectionSearch(): React.ReactElement {
       ></DataHeader>
 
       <section className="">
-        <FilterBar filters={filters} />
+        <FilterBar>
+          <FilterButtons filters={filters} searchContext={searchContext}/>
+        </FilterBar>
         <ArticleContainer className="g-bg-slate-100">
           <ArticleTextContainer className="g-m-0">
             <Results loading={loading} collections={collections} setOffset={setOffset} />

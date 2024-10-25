@@ -17,13 +17,13 @@ import { cn } from '@/utils/shadcn';
 import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import useQuery from '@/hooks/useQuery';
-import { HelpLine } from '@/components/helpText';
 import { FormattedNumber } from 'react-intl';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { FacetQuery, getAsQuery } from './filterTools';
 import { Option } from './option';
 import cloneDeep from 'lodash/cloneDeep';
 import { useSearchContext } from '@/contexts/search';
+import { AboutButton } from './aboutButton';
 
 export const EnumFilter = React.forwardRef(
   (
@@ -36,7 +36,8 @@ export const EnumFilter = React.forwardRef(
       enumOptions,
       onApply,
       onCancel,
-      pristine
+      pristine,
+      about
     }: {
       className?: string;
       searchConfig: FilterConfigType;
@@ -44,16 +45,16 @@ export const EnumFilter = React.forwardRef(
       DisplayName: React.FC<{ id: string }>;
       facetQuery?: string;
       enumOptions?: string[];
-      onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean, filter?: FilterType }) => void;
+      onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
       onCancel?: () => void;
       pristine?: boolean;
+      about?: React.FC;
     },
     ref
   ) => {
     const searchContext = useSearchContext();
     const currentFilterContext = useContext(FilterContext);
-    const { filter, toggle, setFullField, filterHash } =
-      currentFilterContext;
+    const { filter, toggle, setFullField, filterHash } = currentFilterContext;
     const [selected, setSelected] = useState<string[]>([]);
     const [filterBeforeHash, setFilterBeforeHash] = useState<string | undefined>(undefined);
 
@@ -83,7 +84,7 @@ export const EnumFilter = React.forwardRef(
         if (searchContext.queryType === 'V1') {
           noFilterFacetLoad({ variables: { query: query } });
         } else {
-          noFilterFacetLoad({ variables: { predicate: query }});
+          noFilterFacetLoad({ variables: { predicate: query } });
         }
       }
     }, [enumOptions, facetQuery, noFilterFacetLoad, searchContext, searchConfig]);
@@ -98,7 +99,7 @@ export const EnumFilter = React.forwardRef(
       if (searchContext.queryType === 'V1') {
         facetLoad({ variables: { query: query } });
       } else {
-        facetLoad({ variables: { predicate: query }});
+        facetLoad({ variables: { predicate: query } });
       }
     }, [facetQuery, filterBeforeHash, facetLoad, searchContext, searchConfig, filterHandle]);
 
@@ -112,16 +113,22 @@ export const EnumFilter = React.forwardRef(
       setFilterBeforeHash(hash(prunedFilter));
     }, [filterHash, filterHandle]);
 
-    const facetSuggestions = facetData?.search?.facet?.field?.reduce((acc: Record<string, number>, x) => {
-      if (x?.name) {
-        acc[x.name] = x.count;
-      }
-      return acc;
-    }, {} as Record<string, number>);
+    const facetSuggestions = facetData?.search?.facet?.field?.reduce(
+      (acc: Record<string, number>, x) => {
+        if (x?.name) {
+          acc[x.name] = x.count;
+        }
+        return acc;
+      },
+      {} as Record<string, number>
+    );
 
     const useFacetOptions = !enumOptions && noFilterFacetData?.search?.facet?.field;
-    const valueOptions = useFacetOptions ? noFilterFacetData?.search?.facet?.field?.filter(x => x).map((x) => x.name) ?? [] : enumOptions ?? [];
+    const valueOptions = useFacetOptions
+      ? noFilterFacetData?.search?.facet?.field?.filter((x) => x).map((x) => x.name) ?? []
+      : enumOptions ?? [];
 
+    const About = about;
     const options = (
       <>
         <div className="g-flex-auto"></div>
@@ -164,14 +171,11 @@ export const EnumFilter = React.forwardRef(
           </button>
         </SimpleTooltip> */}
 
-          <SimpleTooltip delayDuration={300} title="About this filter">
-            <span>
-              <HelpLine
-                id="how-to-link-datasets-to-my-project-page"
-                title={<MdInfoOutline className="-g-me-1" />}
-              />
-            </span>
-          </SimpleTooltip>
+          {About && (
+            <AboutButton className="-g-me-1">
+              <About />
+            </AboutButton>
+          )}
         </div>
       </>
     );
@@ -232,14 +236,16 @@ export const EnumFilter = React.forwardRef(
             </div>
           </div>
         </div>
-        {(onApply && onCancel) && (
+        {onApply && onCancel && (
           <div className="g-flex-none g-py-2 g-px-2 g-flex g-justify-between">
             <Button size="sm" variant="outline" onClick={onCancel}>
               Cancel
             </Button>
-            {!pristine && <Button size="sm" onClick={() => onApply({keepOpen: false})}>
-              Apply
-            </Button>}
+            {!pristine && (
+              <Button size="sm" onClick={() => onApply({ keepOpen: false })}>
+                Apply
+              </Button>
+            )}
           </div>
         )}
       </div>

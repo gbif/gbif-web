@@ -4,16 +4,23 @@ import { TableFilters } from '@/components/tableFilters/tableFilters';
 import { DataTable } from '@/components/ui/dataTable';
 import { useConfig } from '@/config/config';
 import { OccurrenceSearchQuery, OccurrenceSearchQueryVariables } from '@/gql/graphql';
-import { useFilters } from '@/hooks/useFilters';
 import useQuery from '@/hooks/useQuery';
 import { useColumns } from '@/routes/occurrence/search/columns';
 import { ExtractPaginatedResult } from '@/types';
 import { notNull } from '@/utils/notNull';
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useSearchParams } from 'react-router-dom';
 import { StandaloneOccurrenceKeyPage } from '../key/standalone';
-import { ocurrenceSearchFilterDefinitions } from './filters';
+import { DataHeader } from '@/components/dataHeader';
+import { Tabs } from '@/components/tabs';
+import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
+import { FilterContext, FilterProvider } from '@/contexts/filter';
+import { SearchContextProvider, useSearchContext } from '@/contexts/search';
+import { searchConfig } from './searchConfig';
+import { useFilters } from './filters';
+import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
+import { AboutContent, ApiContent } from './helpTexts';
 
 const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
   query OccurrenceSearch($from: Int, $predicate: Predicate) {
@@ -73,9 +80,52 @@ function useOccurrenceSearchQuery() {
 const PAGE_SIZE = 20;
 
 export function OccurrenceSearchPage(): React.ReactElement {
-  const { data, loading } = useOccurrenceSearchQuery();
-  const [filters, setFilter] = useFilters(ocurrenceSearchFilterDefinitions);
+  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
+  const config = useConfig();
+  return (
+    <>
+      <Helmet>
+        <title>Occurrence search</title>
+      </Helmet>
+      <SearchContextProvider searchContext={config.occurrenceSearch}>
+        <FilterProvider filter={filter} onChange={setFilter}>
+          <OccurrenceSearch />
+        </FilterProvider>
+      </SearchContextProvider>
+    </>
+  );
+}
+
+export function OccurrenceSearch(): React.ReactElement {
+  const filterContext = useContext(FilterContext);
+  const searchContext = useSearchContext();
+  const { filters } = useFilters({ searchConfig });
+
+  const { filter, filterHash } = filterContext || { filter: { must: {} } };
+  const tabClassName = 'g-pt-2 g-pb-1.5';
+
   const [previewKey, setPreviewKey] = useState<string | null>();
+
+  const { data, error, load, loading } = useQuery<OccurrenceSearchQuery, OccurrenceSearchQueryVariables>(
+    OCCURRENCE_SEARCH_QUERY,
+    {
+      throwAllErrors: true,
+      lazyLoad: true,
+    }
+  );
+
+  useEffect(() => {
+    const query = getAsQuery({ filter, searchContext, searchConfig });
+    load({
+      variables: {
+        predicate: {
+          ...query,
+        },
+        limit: 20,
+      },
+    });
+  }, [load, filterHash, searchContext]);
+
 
   const columns = useColumns({ showPreview: setPreviewKey });
 
@@ -99,11 +149,6 @@ export function OccurrenceSearchPage(): React.ReactElement {
         <title>Occurrence search</title>
       </Helmet>
 
-      <h1 className="g-text-2xl g-mb-2 g-font-bold">
-        This page is a crude stub for search. For now it serves as a placeholder and easy access to
-        individual records
-      </h1>
-
       <Drawer
         isOpen={typeof previewKey === 'string'}
         close={() => setPreviewKey(null)}
@@ -126,11 +171,31 @@ export function OccurrenceSearchPage(): React.ReactElement {
         <StandaloneOccurrenceKeyPage occurrenceKey={previewKey} />
       </Drawer>
 
-      <InternalScrollHandler headerHeight={70}>
-        <div className="g-p-2 g-border-b">
-          <TableFilters filters={filters} setFilter={setFilter} />
-        </div>
+      <DataHeader
+        title="Occurrences"
+        hasBorder
+        aboutContent={<AboutContent />}
+        apiContent={<ApiContent />}
+      >
+        <Tabs
+          className="g-border-none"
+          links={[
+            {
+              to: '/dataset/search',
+              children: 'List',
+              className: tabClassName,
+            },
+          ]}
+        />
+      </DataHeader>
 
+      <section className="">
+        <FilterBar>
+          <FilterButtons filters={filters} searchContext={searchContext}/>
+        </FilterBar>
+      </section>
+
+      <InternalScrollHandler headerHeight={200}>
         <div className="g-bg-gray-100 g-p-2 g-flex g-flex-col g-flex-1 g-min-h-0">
           <p className="g-text-sm g-pb-1 g-text-gray-500">
             {typeof totalResults === 'number' && <>{totalResults} results</>}

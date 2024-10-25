@@ -46,33 +46,28 @@ const typeDef = gql`
     limit: Int
     offset: Int
     q: String
-    institutionKey: [GUID]
-    """
-    deprecated field, use institutionKey instead
-    """
-    institution: [GUID]
-    contact: ID
-    code: String
-    name: String
+    institutionKey: [GUID!]
+    contact: [ID!]
+    code: [String!]
+    name: [String!]
     fuzzyName: String
-    city: String
-    country: [Country]
-    alternativeCode: String
-    identifier: String
-    active: Boolean
-    personalCollection: Boolean
-    numberSpecimens: String
-    occurrenceCount: String
+    city: [String!]
+    country: [Country!]
+    alternativeCode: [String!]
+    identifier: [String!]
+    active: [Boolean!]
+    personalCollection: [Boolean!]
+    numberSpecimens: [String!]
+    occurrenceCount: [String!]
     contentType: [String!]
     preservationType: [String!]
-    displayOnNHCPortal: Boolean
-    sortBy: CollectionsSortField
-    sortOrder: SortOrder
-
+    displayOnNHCPortal: [Boolean!]
     recordedBy: [String!]
     descriptorCountry: [Country!]
     typeStatus: [TypeStatus!]
     taxonKey: [ID!]
+    sortBy: CollectionsSortField
+    sortOrder: SortOrder
   }
 
   type CollectionSearchResults {
@@ -81,6 +76,44 @@ const typeDef = gql`
     offset: Int!
     count: Int!
     endOfRecords: Boolean!
+    facet: CollectionFacet
+    cardinality: CollectionCardinality
+    _query: JSON
+  }
+
+  type CollectionFacet {
+    institutionKey(limit: Int, offset: Int): [CollectionFacetResult]
+    country(limit: Int, offset: Int): [CollectionFacetResult]
+    kingdomKey(limit: Int, offset: Int): [CollectionFacetResult]
+    phylumKey(limit: Int, offset: Int): [CollectionFacetResult]
+    descriptorCountry(limit: Int, offset: Int): [CollectionFacetResult]
+    contentType(limit: Int, offset: Int): [CollectionFacetResult]
+    preservationType(limit: Int, offset: Int): [CollectionFacetResult]
+    accessionStatus(limit: Int, offset: Int): [CollectionFacetResult]
+  }
+
+  type CollectionCardinality {
+    institutionKey(limit: Int, offset: Int): Int!
+    country(limit: Int, offset: Int): Int!
+    kingdomKey(limit: Int, offset: Int): Int!
+    phylumKey(limit: Int, offset: Int): Int!
+    descriptorCountry(limit: Int, offset: Int): Int!
+    contentType(limit: Int, offset: Int): Int!
+    preservationType(limit: Int, offset: Int): Int!
+    accessionStatus(limit: Int, offset: Int): Int!
+  }
+
+  type CollectionInstitutionFacet {
+    name: String!
+    count: Int!
+    _query: JSON
+    institution: Institution
+  }
+
+  type CollectionFacetResult {
+    name: String!
+    count: Int!
+    _query: JSON
   }
 
   type CollectionSearchEntity {

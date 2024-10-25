@@ -67,9 +67,9 @@ export function IdentityLabel({ id }: { id: string | number | object }) {
 export function InstitutionLabel({ id }: { id: string | number | object }) {
   return (
     <DisplayName
-      getData={({ id, graphqlEndpoint }) => {
+      getData={({ id, config }) => {
         const { promise, cancel } = fetchWithCancel(
-          `${graphqlEndpoint}?query=${encodeURIComponent(
+          `${config.graphqlEndpoint}?query=${encodeURIComponent(
             `query {item:institution(key: "${id}") {title: name}}`
           )}`
         );
@@ -90,9 +90,9 @@ export function TaxonLabel({ id }: { id: string | number | object }) {
   return (
     <DisplayName
       useHtml
-      getData={({ id, graphqlEndpoint }) => {
+      getData={({ id, config }) => {
         const { promise, cancel } = fetchWithCancel(
-          `${graphqlEndpoint}?query=${encodeURIComponent(
+          `${config.graphqlEndpoint}?query=${encodeURIComponent(
             `query {
                 taxon(key: "${id}") {
                   formattedName
@@ -115,9 +115,9 @@ export function TaxonLabel({ id }: { id: string | number | object }) {
 export function PublisherLabel({ id }: { id: string | number | object }) {
   return (
     <DisplayName
-      getData={({ id, graphqlEndpoint }) => {
+      getData={({ id, config }) => {
         const { promise, cancel } = fetchWithCancel(
-          `${graphqlEndpoint}?query=${encodeURIComponent(
+          `${config.graphqlEndpoint}?query=${encodeURIComponent(
             `query {item:organization(key: "${id.toString()}") {title}}`
           )}`
         );
@@ -137,9 +137,9 @@ export function PublisherLabel({ id }: { id: string | number | object }) {
 export function DatasetLabel({ id }: { id: string | number | object }) {
   return (
     <DisplayName
-      getData={({ id, graphqlEndpoint }) => {
+      getData={({ id, config }) => {
         const { promise, cancel } = fetchWithCancel(
-          `${graphqlEndpoint}?query=${encodeURIComponent(
+          `${config.graphqlEndpoint}?query=${encodeURIComponent(
             `query {item:dataset(key: "${id.toString()}") {title}}`
           )}`
         );

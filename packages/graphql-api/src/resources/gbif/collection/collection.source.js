@@ -15,10 +15,12 @@ class CollectionAPI extends RESTDataSource {
   }
 
   async searchCollections({ query }) {
-    return this.get(
+    const response = await this.get(
       '/grscicoll/collection/search',
       stringify(query, { indices: false }),
     );
+    response._query = query;
+    return response;
   }
 
   async getCollectionByKey({ key }) {

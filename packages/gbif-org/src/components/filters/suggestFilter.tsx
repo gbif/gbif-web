@@ -18,13 +18,15 @@ import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicat
 import useQuery from '@/hooks/useQuery';
 import hash from 'object-hash';
 import cloneDeep from 'lodash/cloneDeep';
-import { Suggest, SuggestionItem } from './suggest';
-import { HelpLine } from '@/components/helpText';
-import { FormattedNumber, IntlShape } from 'react-intl';
+import { Suggest, SuggestFnType } from './suggest';
+import { HelpLine, HelpText } from '@/components/helpText';
+import { FormattedNumber } from 'react-intl';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Option, SkeletonOption } from './option';
 import { FacetQuery, getAsQuery } from './filterTools';
 import { useSearchContext } from '@/contexts/search';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { AboutButton } from './aboutButton';
 
 type SuggestProps = {
   className?: string;
@@ -32,11 +34,12 @@ type SuggestProps = {
   filterHandle: string;
   DisplayName: React.FC<{ id: string }>;
   facetQuery?: string;
-  getSuggestions?: ({ q, intl }: { q: string; intl?: IntlShape }) => Promise<SuggestionItem[]>;
+  getSuggestions?: SuggestFnType;
   onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
   onCancel?: () => void;
   pristine?: boolean;
   disableFacetsForSelected: boolean;
+  about: React.FC;
 };
 
 export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
@@ -52,6 +55,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       onCancel,
       pristine,
       disableFacetsForSelected,
+      about,
     }: SuggestProps,
     ref
   ) => {
@@ -63,6 +67,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
     const [facetLookup, setFacetLookup] = useState<Record<string, number>>({});
     const [q, setQ] = useState<string>('');
 
+    const About = about;
     const {
       data: facetData,
       error: facetError,
@@ -100,9 +105,9 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       // if the filter has changed, then get facet values from API
       const query = getAsQuery({ filter: filter, searchContext, searchConfig });
       if (searchContext.queryType === 'V1') {
-        selectedFacetLoad({ variables: { query: query, limit: (selected?.length ?? 10) } });
+        selectedFacetLoad({ variables: { query: query, limit: selected?.length ?? 10 } });
       } else {
-        selectedFacetLoad({ variables: { predicate: query, size: (selected?.length ?? 10) } });
+        selectedFacetLoad({ variables: { predicate: query, size: selected?.length ?? 10 } });
       }
     }, [facetQuery, filterHash, selectedFacetLoad, selected, searchContext, searchConfig]);
 
@@ -137,7 +142,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
         <div className="g-flex-none g-text-base" style={{ marginTop: '-0.2em' }}>
           {selected.length > 0 && (
             <button
-              className="g-mx-1 g-me-2 g-px-1 g-pe-3 g-border-r"
+              className={cn("g-mx-1 g-px-1", !!About && 'g-pe-3 g-border-r g-me-2')}
               onClick={() => setFullField(filterHandle, [], [])}
             >
               <MdDeleteOutline />
@@ -164,14 +169,11 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
           </button>
         </SimpleTooltip> */}
 
-          <SimpleTooltip delayDuration={300} title="About this filter">
-            <span>
-              <HelpLine
-                id="how-to-link-datasets-to-my-project-page"
-                title={<MdInfoOutline className="-g-me-1" />}
-              />
-            </span>
-          </SimpleTooltip>
+          {About && (
+            <AboutButton className="-g-me-1">
+              <About />
+            </AboutButton>
+          )}
         </div>
       </>
     );
@@ -246,11 +248,13 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                         <span className="g-flex-auto">
                           <DisplayName id={x} />
                         </span>
-                        {!selectedFacetLoading && !selectedFacetError && !disableFacetsForSelected && (
-                          <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
-                            <FormattedNumber value={facetLookup[x] ?? 0} />
-                          </span>
-                        )}
+                        {!selectedFacetLoading &&
+                          !selectedFacetError &&
+                          !disableFacetsForSelected && (
+                            <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
+                              <FormattedNumber value={facetLookup[x] ?? 0} />
+                            </span>
+                          )}
                       </div>
                     </Option>
                   );
@@ -309,14 +313,16 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
             <Button size="sm" variant="outline" onClick={onCancel}>
               Cancel
             </Button>
-            {!pristine && <Button
-              type="submit"
-              role="button"
-              size="sm"
-              onClick={() => onApply({ keepOpen: false })}
-            >
-              Apply
-            </Button>}
+            {!pristine && (
+              <Button
+                type="submit"
+                role="button"
+                size="sm"
+                onClick={() => onApply({ keepOpen: false })}
+              >
+                Apply
+              </Button>
+            )}
           </div>
         )}
       </div>

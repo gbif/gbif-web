@@ -26,6 +26,7 @@ import relevanceOptions from '@/enums/cms/relevance.json';
 import topicsOptions from '@/enums/cms/topics.json';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import { useCallback, useEffect, useState } from 'react';
+import { SuggestFnProps } from '@/components/filters/suggest';
 
 
 const publisherConfig: filterConfig = {
@@ -34,8 +35,8 @@ const publisherConfig: filterConfig = {
   displayName: PublisherLabel,
   filterTranslation: 'filters.publisherKey.name',
   disableFacetsForSelected: true,
-  suggest: ({ q }: { q: string }) => {
-    return fetch(`https://api.gbif.org/v1/organization/suggest?limit=20&q=${q}`)
+  suggest: ({ q, siteConfig }: SuggestFnProps) => {
+    return fetch(`${siteConfig.v1Endpoint}/organization/suggest?limit=20&q=${q}`)
       .then((res) => res.json())
       .then((data) => {
         return data;
@@ -64,8 +65,8 @@ const datasetConfig: filterConfig = {
   displayName: DatasetLabel,
   filterTranslation: 'filters.datasetKey.name',
   disableFacetsForSelected: true,
-  suggest: ({ q }: { q: string }) => {
-    return fetch(`https://api.gbif.org/v1/dataset/suggest?limit=20&q=${q}`)
+  suggest: ({ q, siteConfig }: SuggestFnProps) => {
+    return fetch(`${siteConfig.v1Endpoint}/dataset/suggest?limit=20&q=${q}`)
       .then((res) => res.json())
       .then((data) => {
         return data.map((item) => ({title: item.title, key: item.key}));
@@ -206,8 +207,8 @@ const taxonKeyConfig: filterConfig = {
   filterHandle: 'gbifTaxonKey',
   displayName: TaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
-  suggest: ({ q }: { q: string }) => {
-    return fetch(`https://api.gbif.org/v1/species/suggest?limit=20&q=${q}`)
+  suggest: ({ q, siteConfig }: SuggestFnProps) => {
+    return fetch(`${siteConfig.v1Endpoint}/species/suggest?limit=20&q=${q}`)
       .then((res) => res.json())
       .then((data) => {
         return data.map((item) => ({
@@ -237,7 +238,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
   }, [formatMessage, countries]);
 
   const countrySuggest = useCallback(
-    ({ q }: { q: string }) => {
+    ({ q }: SuggestFnProps) => {
       // instead of just using indexOf or similar. This has the benefit of reshuffling records based on the match, check for abrivations etc
       const filtered = matchSorter(countries, q, { keys: ['title', 'key'] });
       return Promise.resolve(filtered);

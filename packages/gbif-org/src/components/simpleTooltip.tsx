@@ -9,7 +9,7 @@ export function SimpleTooltip({
   title: React.ReactNode;
   delayDuration?: number;
   children: React.ReactNode;
-  side: 'top' | 'right' | 'bottom' | 'left';
+  side?: 'top' | 'right' | 'bottom' | 'left';
 }) {
   return (
     <Tooltip delayDuration={delayDuration}>

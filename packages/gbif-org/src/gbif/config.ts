@@ -158,4 +158,8 @@ export const gbifConfig: Config = {
     queryType: 'PREDICATE',
     highlightedFilters: ['q', 'year'],
   },
+  occurrenceSearch: {
+    queryType: 'PREDICATE',
+    highlightedFilters: ['q', 'institutionKey'],
+  },
 };

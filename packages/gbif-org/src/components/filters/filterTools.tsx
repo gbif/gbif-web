@@ -14,7 +14,7 @@ import { FilterButton } from './filterButton';
 import { QFilter } from './QFilter';
 import { QInlineButtonFilter } from './QInlineButtonFilter';
 import { cn } from '@/utils/shadcn';
-import { SuggestionItem } from './suggest';
+import { SuggestFnType, SuggestionItem } from './suggest';
 import MoreFilters from './More';
 import { RangeFilter } from './rangeFilter';
 
@@ -33,6 +33,7 @@ export type filterConfigShared = {
   content?: React.FC;
   facetQuery?: string;
   filterButtonProps?: { hideSingleValues: boolean };
+  info?: React.FC;
 };
 
 export type filterConfig = {
@@ -42,10 +43,11 @@ export type filterConfig = {
   filterTranslation: string;
   content?: React.FC;
   options?: string[];
-  suggest?: (args: { q: string; intl?: IntlShape }) => Promise<SuggestionItem[]>;
+  suggest?: SuggestFnType;
   facetQuery?: string;
   filterButtonProps?: { hideSingleValues: boolean };
   regex?: RegExp;
+  about?: React.FC;
 };
 
 // generic type for a facet query
@@ -131,6 +133,7 @@ const getSuggestFilter = ({
           DisplayName={config.displayName}
           disableFacetsForSelected={config.disableFacetsForSelected}
           searchConfig={searchConfig}
+          about={config.about}
           {...{ onApply, onCancel, className, style, pristine }}
         />
       );
@@ -204,6 +207,7 @@ const getEnumFilter = ({
           filterHandle={config.filterHandle}
           DisplayName={config.displayName}
           searchConfig={searchConfig}
+          about={config.about}
           {...{ onApply, onCancel, className, style, pristine }}
         />
       );
