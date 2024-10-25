@@ -77,6 +77,6 @@ export function useColumns({ showPreview, filters }: Args): ColumnDef<SingleOccu
         accessorKey: 'publisherTitle',
       },
     ],
-    [showPreview]
+    [showPreview, filters]
   );
 }
