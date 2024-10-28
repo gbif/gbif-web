@@ -3,7 +3,6 @@ import { SingleOccurrenceSearchResult } from '@/routes/occurrence/search/occurre
 import { useMemo } from 'react';
 import { FilterSetting } from '@/components/filters/filterTools';
 import { FormattedMessage } from 'react-intl';
-import { Button } from '@/components/ui/button';
 
 type Args = {
   showPreview(id: string): void;
@@ -29,7 +28,7 @@ export function useColumns({ showPreview, filters }: Args): ColumnDef<SingleOccu
         header: filters?.country?.Popover ? <filters.country.Popover trigger={<span>Country (filter trigger)</span>} /> : 'Country tmp',
         accessorKey: 'countryCode',
         cell: ({ row }) => (
-          <FormattedMessage id={`enums.countryCode.${row.original.countryCode}`} />
+          row?.original?.countryCode ? <FormattedMessage id={`enums.countryCode.${row.original.countryCode}`} /> : null
           // <DynamicLink to={`/occurrence/${row.original.key}`}>
           //   {row.original.scientificName}
           // </DynamicLink>
