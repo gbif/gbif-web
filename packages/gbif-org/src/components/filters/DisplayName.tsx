@@ -4,6 +4,20 @@ import { CANCEL_REQUEST } from '@/utils/fetchWithCancel';
 import React, { useEffect } from 'react';
 import { IntlShape, useIntl } from 'react-intl';
 
+export type DisplayNameGetDataProps = {
+  id: string | number | object;
+  intl: IntlShape;
+  config: Config;
+};
+
+export type DisplayNameResponseType = {
+  promise?: Promise<{
+    title: string | number | React.ReactElement;
+    description?: string | React.ReactElement;
+  }>;
+  cancel?: (reason: string) => void;
+};
+
 export default function DisplayName({
   getData,
   id,
@@ -13,17 +27,7 @@ export default function DisplayName({
     id,
     intl,
     config,
-  }: {
-    id: string | number | object;
-    intl: IntlShape;
-    config: Config;
-  }) => {
-    promise?: Promise<{
-      title: string | number | React.ReactElement;
-      description?: string | React.ReactElement;
-    }>;
-    cancel?: (reason: string) => void;
-  };
+  }: DisplayNameGetDataProps) => DisplayNameResponseType;
   id: string | number | object;
   useHtml: boolean;
 }) {
@@ -64,7 +68,7 @@ export default function DisplayName({
       }
       setTitle(undefined);
     };
-  }, [id, useHtml, intl, getData, config]);
+  }, [id, useHtml, getData, config, intl]);
 
   if (loading) {
     return (
