@@ -23,9 +23,9 @@ import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams'
 import { AboutContent, ApiContent } from './helpTexts';
 
 const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
-  query OccurrenceSearch($from: Int, $predicate: Predicate) {
+  query OccurrenceSearch($from: Int, $size: Int, $predicate: Predicate) {
     occurrenceSearch(predicate: $predicate) {
-      documents(from: $from) {
+      documents(from: $from, size: $size) {
         from
         size
         total
@@ -69,6 +69,8 @@ export function OccurrenceSearchPage(): React.ReactElement {
 }
 
 export function OccurrenceSearch(): React.ReactElement {
+  const [searchParams] = useSearchParams();
+  const from = parseInt(searchParams.get('from') ?? '0');
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
@@ -78,13 +80,13 @@ export function OccurrenceSearch(): React.ReactElement {
 
   const [previewKey, setPreviewKey] = useState<string | null>();
 
-  const { data, error, load, loading } = useQuery<OccurrenceSearchQuery, OccurrenceSearchQueryVariables>(
-    OCCURRENCE_SEARCH_QUERY,
-    {
-      throwAllErrors: true,
-      lazyLoad: true,
-    }
-  );
+  const { data, error, load, loading } = useQuery<
+    OccurrenceSearchQuery,
+    OccurrenceSearchQueryVariables
+  >(OCCURRENCE_SEARCH_QUERY, {
+    throwAllErrors: true,
+    lazyLoad: true,
+  });
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
@@ -93,11 +95,11 @@ export function OccurrenceSearch(): React.ReactElement {
         predicate: {
           ...query,
         },
-        limit: 20,
+        size: PAGE_SIZE,
+        from: from,
       },
     });
-  }, [load, filterHash, searchContext]);
-
+  }, [load, filterHash, searchContext, from]);
 
   const columns = useColumns({ showPreview: setPreviewKey, filters });
 
@@ -163,7 +165,7 @@ export function OccurrenceSearch(): React.ReactElement {
 
       <section className="">
         <FilterBar>
-          <FilterButtons filters={filters} searchContext={searchContext}/>
+          <FilterButtons filters={filters} searchContext={searchContext} />
         </FilterBar>
       </section>
 
