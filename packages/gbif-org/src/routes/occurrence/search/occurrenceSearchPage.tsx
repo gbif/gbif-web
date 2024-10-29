@@ -10,7 +10,6 @@ import { ExtractPaginatedResult } from '@/types';
 import { notNull } from '@/utils/notNull';
 import React, { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useSearchParams } from 'react-router-dom';
 import { StandaloneOccurrenceKeyPage } from '../key/standalone';
 import { DataHeader } from '@/components/dataHeader';
 import { Tabs } from '@/components/tabs';
@@ -21,6 +20,14 @@ import { searchConfig } from './searchConfig';
 import { useFilters } from './filters';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import { AboutContent, ApiContent } from './helpTexts';
+import { useIntParam, useStringParam } from '@/hooks/useParam';
+import { useSearchParams } from 'react-router-dom';
+import { cn } from '@/utils/shadcn';
+import { Map } from './views/map';
+import { Media } from './views/media';
+import { Clusters } from './views/clusters';
+import { Dashboard } from './views/dashboard';
+import { Download } from './views/download';
 
 const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
   query OccurrenceSearch($from: Int, $size: Int, $predicate: Predicate) {
@@ -69,14 +76,13 @@ export function OccurrenceSearchPage(): React.ReactElement {
 }
 
 export function OccurrenceSearch(): React.ReactElement {
-  const [searchParams] = useSearchParams();
-  const from = parseInt(searchParams.get('from') ?? '0');
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
+  const [view, setView] = useStringParam({ key: 'view', defaultValue: 'table', hideDefault: true });
+  const [from] = useIntParam({ key: 'from', defaultValue: 0 });
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
-  const tabClassName = 'g-pt-2 g-pb-1.5';
 
   const [previewKey, setPreviewKey] = useState<string | null>();
 
@@ -151,16 +157,21 @@ export function OccurrenceSearch(): React.ReactElement {
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
       >
-        <Tabs
-          className="g-border-none"
-          links={[
-            {
-              to: '/dataset/search',
-              children: 'List',
-              className: tabClassName,
-            },
-          ]}
-        />
+        {/* Our tabs component is very tied into a specific way to handle routes an actions. 
+        It would be nice to split it up into a more generic component that can be used in more contexts.
+        Could be this where we do search params or it could be links to other sites 
+        For now a quick and dirty mock to have the option to do views with a url search param
+        */}
+        <div className="g-relative g-border-slate-200 dark:g-border-slate-200/5">
+          <ul className="g-flex g-whitespace-nowrap g-overflow-hidden -g-mb-px">
+            <li role="button" className={cn("g-p-2 g-border-b-2 g-border-transparent", view === 'table' && 'g-border-b-primary-500')} onClick={() => setView('table')}>Table</li>
+            <li role="button" className={cn("g-p-2 g-border-b-2 g-border-transparent", view === 'map' && 'g-border-b-primary-500')} onClick={() => setView('map')}>Map</li>
+            <li role="button" className={cn("g-p-2 g-border-b-2 g-border-transparent", view === 'media' && 'g-border-b-primary-500')} onClick={() => setView('media')}>Media</li>
+            <li role="button" className={cn("g-p-2 g-border-b-2 g-border-transparent", view === 'clusters' && 'g-border-b-primary-500')} onClick={() => setView('clusters')}>Related</li>
+            <li role="button" className={cn("g-p-2 g-border-b-2 g-border-transparent", view === 'dashboard' && 'g-border-b-primary-500')} onClick={() => setView('dashboard')}>Dashboard</li>
+            <li role="button" className={cn("g-p-2 g-border-b-2 g-border-transparent", view === 'download' && 'g-border-b-primary-500')} onClick={() => setView('download')}>Download</li>
+          </ul>
+        </div>
       </DataHeader>
 
       <section className="">
@@ -169,7 +180,7 @@ export function OccurrenceSearch(): React.ReactElement {
         </FilterBar>
       </section>
 
-      <InternalScrollHandler headerHeight={200}>
+      {view === 'table' && <InternalScrollHandler headerHeight={200}>
         <div className="g-bg-gray-100 g-p-2 g-flex g-flex-col g-flex-1 g-min-h-0">
           <p className="g-text-sm g-pb-1 g-text-gray-500">
             {typeof totalResults === 'number' && <>{totalResults} results</>}
@@ -184,7 +195,13 @@ export function OccurrenceSearch(): React.ReactElement {
             totalPagesCount={totalPagesCount}
           />
         </div>
-      </InternalScrollHandler>
+      </InternalScrollHandler>}
+
+      {view === 'map' && <Map />}
+      {view === 'media' && <Media />}
+      {view === 'clusters' && <Clusters />}
+      {view === 'dashboard' && <Dashboard />}
+      {view === 'download' && <Download />}
     </>
   );
 }
