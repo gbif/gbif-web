@@ -20,6 +20,7 @@ function metric2aggs(metrics = {}, config) {
       }
       const from = parseInt(metric.from || 0, 10);
       const size = parseInt(metric.size || 10, 10) || 10;
+      const aggSize = size + from;
       switch (metric.type) {
         case 'facet': {
           if (!['keyword', 'numeric', 'boolean'].includes(conf.type)) {
@@ -35,8 +36,9 @@ function metric2aggs(metrics = {}, config) {
           const aggName = {
             terms: {
               field: conf.displayField ? conf.displayField : conf.field,
-              size: size + from,
-              include: metric.include
+              size: aggSize,
+              include: metric.include,
+              shard_size: (aggSize * 2) + 50000
             }
           };
           if (order) {
