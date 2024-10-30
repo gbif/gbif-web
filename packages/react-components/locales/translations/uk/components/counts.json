@@ -1,1 +1,20 @@
-{}
+{
+  "nResults": "{total, plural, one {# результат} few {# результати} many {# результатів} other {# результати}}",
+  "nOccurrences": "{total, plural, one {# знахідка} few {# знахідки} many {# знахідок} other {# знахідки}}",
+  "nRecords": "{total, plural, one {# запис} few {# записи} many {# записів} other {# записи}}",
+  "nTaxa": "{total, plural, one {# таксон} few {# таксони} many {# таксонів} other {# таксони}}",
+  "nCitations": "{total, plural, one {# цитування} few {# цитування} many {# цитувань} other {# цитування}}",
+  "nSpecimensInGbif": "{total, plural, one {# запис про знахідки у GBIF} few {# записи про знахідки у GBIF} many {# записів про знахідки у GBIF} other {# записи про знахідки у GBIF}}",
+  "nNames": "{total, plural, one {# назва} few {# назви} many {# назв} other {# назви}}",
+  "nAcceptedNames": "{total, plural, one {# прийнята назва} few {# прийняті назви} many {# прийнятих назв} other {# прийняті назви}}",
+  "nSynonyms": "{total, plural, one {# синонім} few {# синоніми} many {# синонімів} other {# синоніми}}",
+  "inGbif": "{total, plural, one {# у GBIF} few {# у GBIF} many {# у GBIF} other {# у GBIF}}",
+  "nSpecimens": "{total, plural, one {# зразок} few {# зразки} many {# зразків} other {# зразки}}",
+  "nCollections": "{total, plural, one {# колекція} few {# колекції} many {# колекцій} other {# колекції}}",
+  "nRecordsTotal": "{total, plural, one {# запис у підсумку} few {# записи у підсумку} many {# записів у підсумку} other {# записи у підсумку}}",
+  "nSelected": "{total, plural, one {} few {# вибрано} many {# вибрано}other {# вибрано}}",
+  "nQualityFlags": "{total, plural, one {# позначка якості} few {# позначки якості} many {# позначок якості} other {# позначки якості}}",
+  "nAudioFiles": "{total, plural, one {# звукозапис} few {# звукозаписи} many {# звукозаписів} other {# звукозаписи}}",
+  "nVideos": "{total, plural, one {# відео} few {# відео} many {# відео} other {# відео}}",
+  "nImages": "{total, plural, one {# зображення} few {# зображення} many {# зображень} other {# зображення}}"
+}
