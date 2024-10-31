@@ -16,5 +16,15 @@
   "nQualityFlags": "{total, plural, one {# позначка якості} few {# позначки якості} many {# позначок якості} other {# позначки якості}}",
   "nAudioFiles": "{total, plural, one {# звукозапис} few {# звукозаписи} many {# звукозаписів} other {# звукозаписи}}",
   "nVideos": "{total, plural, one {# відео} few {# відео} many {# відео} other {# відео}}",
-  "nImages": "{total, plural, one {# зображення} few {# зображення} many {# зображень} other {# зображення}}"
+  "nImages": "{total, plural, one {# зображення} few {# зображення} many {# зображень} other {# зображення}}",
+  "nAuthors": "{total, plural, one {# автор} few {# автори} many {# авторів} other {# автори}}",
+  "nResultsWithCoordinates": "{total, plural, one {# результат} few {# результати} many {# результатів} other {# результати}}",
+  "percentWithCoordinates": "{percent}% з координатами",
+  "percentWithYear": "{percent}% з роком",
+  "percentWithTaxonMatch": "{percent}% із зіставленням з таксоном",
+  "nResultsWithImages": "{total, plural, one {# результат} few {# результати} many {# результатів} other {# результати}}",
+  "gbifOverlapPercent": "{percent}% перекриття з Опорною таксономією GBIF",
+  "colOverlapPercent": "{percent}% перекриття з Catalogue of Life",
+  "nPublishedDatasets": "{total, plural, one {# опублікований набір даних} few {# опубліковані набори даних} many {# опублікованих наборів даних} other {# опубліковані набори даних}}",
+  "nDatasets": "{total, plural, one {# набір даних} few {# набори даних} many {# наборів даних} other {# набори даних}}"
 }
