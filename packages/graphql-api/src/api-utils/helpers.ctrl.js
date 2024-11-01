@@ -13,5 +13,24 @@ export default (app) => {
 
 router.get('/generate-sql', async (req, res, next) => {
   const { error, sql } = await generateSql(req.query);
-  res.json({ error, sql });
+
+  // post to https://api.gbif.org/v1/occurrence/download/request/validate to validate the sql
+  const validation = await fetch(
+    'https://api.gbif.org/v1/occurrence/download/request/validate',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ sql, format: 'SQL_TSV_ZIP' }),
+    },
+  ).then((response) => response.json());
+
+  console.log(sql);
+  res.json({
+    error,
+    sql,
+    inlineSql: sql.replace(/\n/g, ' '),
+    validationResponse: validation,
+  });
 });
