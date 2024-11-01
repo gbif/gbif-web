@@ -25,12 +25,12 @@ export default async function generateSql({
   const filters = `"year" BETWEEN 2000 AND 2030`; //  TODO we need a way to get the filter as SQL https://github.com/gbif/occurrence/issues/356
   const groupBy = ['taxonRank', 'taxonomicStatus'];
   const measurements = ['COUNT(*) AS occurrences'];
-  if (includeTemporalUncertainty) {
+  if (includeTemporalUncertainty === 'YES') {
     measurements.push(
       'MIN(GBIF_TemporalUncertainty(eventDate)) AS minTemporalUncertainty',
     );
   }
-  if (includeSpatialUncertainty) {
+  if (includeSpatialUncertainty === 'YES') {
     measurements.push(
       'MIN(COALESCE(coordinateUncertaintyInMeters, 1000)) AS minCoordinateUncertaintyInMeters',
     );
@@ -40,49 +40,59 @@ export default async function generateSql({
     const KINGDOM = 'kingdom, kingdomKey';
     const PHYLUM = `${KINGDOM}, phylum, phylumKey`;
     const CLASS = `${PHYLUM}, class, classKey`;
-    const ORDER = `${CLASS}, "order_", orderKey`;
+    const ORDER = `${CLASS}, "order_" as "order", orderKey`;
     const FAMILY = `${ORDER}, family, familyKey`;
     const GENUS = `${FAMILY}, genus, genusKey`;
     const SPECIES = `${GENUS}, species, speciesKey`;
     const EXACT_TAXON = `${SPECIES}, taxonKey, scientificName`;
     const ACCEPTED_TAXON = `${SPECIES}, acceptedTaxonKey, acceptedScientificName`;
 
+    const KINGDOM_GROUP = 'kingdom, kingdomKey';
+    const PHYLUM_GROUP = `${KINGDOM_GROUP}, phylum, phylumKey`;
+    const CLASS_GROUP = `${PHYLUM_GROUP}, class, classKey`;
+    const ORDER_GROUP = `${CLASS_GROUP}, "order", orderKey`;
+    const FAMILY_GROUP = `${ORDER_GROUP}, family, familyKey`;
+    const GENUS_GROUP = `${FAMILY_GROUP}, genus, genusKey`;
+    const SPECIES_GROUP = `${GENUS_GROUP}, species, speciesKey`;
+    const EXACT_TAXON_GROUP = `${SPECIES_GROUP}, taxonKey, scientificName`;
+    const ACCEPTED_TAXON_GROUP = `${SPECIES_GROUP}, acceptedTaxonKey, acceptedScientificName`;
+
     const lookup = {
       KINGDOM: {
         dimension: KINGDOM,
-        groupBy: KINGDOM,
+        groupBy: KINGDOM_GROUP,
       },
       PHYLUM: {
         dimension: PHYLUM,
-        groupBy: PHYLUM,
+        groupBy: PHYLUM_GROUP,
       },
       CLASS: {
         dimension: CLASS,
-        groupBy: CLASS,
+        groupBy: CLASS_GROUP,
       },
       ORDER: {
         dimension: ORDER,
-        groupBy: ORDER,
+        groupBy: ORDER_GROUP,
       },
       FAMILY: {
         dimension: FAMILY,
-        groupBy: FAMILY,
+        groupBy: FAMILY_GROUP,
       },
       GENUS: {
         dimension: GENUS,
-        groupBy: GENUS,
+        groupBy: GENUS_GROUP,
       },
       SPECIES: {
         dimension: SPECIES,
-        groupBy: SPECIES,
+        groupBy: SPECIES_GROUP,
       },
       EXACT_TAXON: {
         dimension: EXACT_TAXON,
-        groupBy: EXACT_TAXON,
+        groupBy: EXACT_TAXON_GROUP,
       },
       ACCEPTED_TAXON: {
         dimension: ACCEPTED_TAXON,
-        groupBy: ACCEPTED_TAXON,
+        groupBy: ACCEPTED_TAXON_GROUP,
       },
     };
     dimensions.push(lookup[taxonomy].dimension);
@@ -110,7 +120,7 @@ export default async function generateSql({
 
   if (spatial) {
     let coordinateUncertaintyInMeters = 0;
-    if (randomize === 'yes') {
+    if (randomize === 'YES') {
       coordinateUncertaintyInMeters = `COALESCE(coordinateUncertaintyInMeters, ${defaultUncertainty})`;
     }
     const lookup = {
