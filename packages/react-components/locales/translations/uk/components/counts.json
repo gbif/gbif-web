@@ -26,5 +26,8 @@
   "gbifOverlapPercent": "{percent}% перекриття з Опорною таксономією GBIF",
   "colOverlapPercent": "{percent}% перекриття з Catalogue of Life",
   "nPublishedDatasets": "{total, plural, one {# опублікований набір даних} few {# опубліковані набори даних} many {# опублікованих наборів даних} other {# опубліковані набори даних}}",
-  "nDatasets": "{total, plural, one {# набір даних} few {# набори даних} many {# наборів даних} other {# набори даних}}"
+  "nDatasets": "{total, plural, one {# набір даних} few {# набори даних} many {# наборів даних} other {# набори даних}}",
+  "nPublishers": "{total, plural, one {# видавець даних} few {# видавці даних} many {# видавців даних} other {# видавці даних}}",
+  "nHostedDatasets": "{total, plural, one {# опублікований набір даних} few {# опубліковані набори даних} many {# опублікованих наборів даних} other {# опубліковані набори даних}}",
+  "nParticipatingDatasets": "{total, plural, one {# залучений набір даних} few {# залучені набори даних} many {# залучених наборів даних} other {# залучені набори даних}}"
 }
