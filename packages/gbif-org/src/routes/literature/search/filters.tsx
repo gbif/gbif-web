@@ -116,7 +116,7 @@ const literatureRelevanceConfig: filterConfig = {
   options: relevanceOptions,
   filterTranslation: 'filters.relevance.name',
   facetQuery: /* GraphQL */ `
-    query LiteratureTypeFacet($predicate: Predicate) {
+    query LiteratureRelevanceFacet($predicate: Predicate) {
       search: literatureSearch(predicate: $predicate) {
         facet {
           field: relevance(size: 100) {
@@ -136,7 +136,7 @@ const topicsConfig: filterConfig = {
   options: topicsOptions,
   filterTranslation: 'filters.topics.name',
   facetQuery: /* GraphQL */ `
-    query LiteratureTypeFacet($predicate: Predicate) {
+    query LiteratureTopicsFacet($predicate: Predicate) {
       search: literatureSearch(predicate: $predicate) {
         facet {
           field: topics(size: 100) {
@@ -155,7 +155,7 @@ const countriesOfCoverageConfig: filterConfig = {
   displayName: CountryLabel,
   filterTranslation: 'filters.countriesOfCoverage.name',
   facetQuery: /* GraphQL */ `
-    query LiteratureResearcherCountryFacet($predicate: Predicate) {
+    query LiteratureCoverageCountryFacet($predicate: Predicate) {
       search: literatureSearch(predicate: $predicate) {
         facet {
           field: countriesOfCoverage {
