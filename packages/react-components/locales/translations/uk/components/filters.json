@@ -43,16 +43,16 @@
     "name": "",
     "count": "",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
+    "placeholderLat": "Широта",
+    "placeholderLon": "Довгота",
     "placeholderDist": ""
   },
   "geometry": {
     "name": "Місцезнаходження",
     "count": "",
     "description": "Архів анотований GBIF",
-    "placeholderLat": "",
-    "placeholderLon": "",
+    "placeholderLat": "Широта",
+    "placeholderLon": "Довгота",
     "placeholderDist": ""
   },
   "relevance": {
