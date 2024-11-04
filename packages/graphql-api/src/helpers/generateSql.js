@@ -22,7 +22,7 @@ export default async function generateSql({
 }) {
   // generate SQL query
   const dimensions = [];
-  const filters = `"year" BETWEEN 2000 AND 2030`; //  TODO we need a way to get the filter as SQL https://github.com/gbif/occurrence/issues/356
+  const filters = `"year" > 2000`; //  TODO we need a way to get the filter as SQL https://github.com/gbif/occurrence/issues/356
   const groupBy = ['taxonRank', 'taxonomicStatus'];
   const measurements = ['COUNT(*) AS occurrences'];
   if (includeTemporalUncertainty === 'YES') {
@@ -40,7 +40,8 @@ export default async function generateSql({
     const KINGDOM = 'kingdom, kingdomKey';
     const PHYLUM = `${KINGDOM}, phylum, phylumKey`;
     const CLASS = `${PHYLUM}, class, classKey`;
-    const ORDER = `${CLASS}, "order_" as "order", orderKey`;
+    // const ORDER = `${CLASS}, "order_" as "order", orderKey`; // dev, uat and prod are not aligned on column naming
+    const ORDER = `${CLASS}, "order", orderKey`;
     const FAMILY = `${ORDER}, family, familyKey`;
     const GENUS = `${FAMILY}, genus, genusKey`;
     const SPECIES = `${GENUS}, species, speciesKey`;
@@ -165,7 +166,11 @@ export default async function generateSql({
     groupBy.push(lookup[spatial].groupBy);
   }
 
-  if (higherGroups && higherGroups.length > 0) {
+  // cast higherGroups as array
+  const higherGroupsArray =
+    higherGroups && Array.isArray(higherGroups) ? higherGroups : [higherGroups];
+
+  if (higherGroupsArray.length > 0) {
     const generate = (rank) =>
       `IF(ISNULL(${rank}Key), NULL, SUM(COUNT(*)) OVER (PARTITION BY ${rank}Key)) AS ${rank}Count`;
     const lookup = {
@@ -176,7 +181,7 @@ export default async function generateSql({
       FAMILY: generate('family'),
       GENUS: generate('genus'),
     };
-    higherGroups.forEach((rank) => {
+    higherGroupsArray.forEach((rank) => {
       dimensions.push(lookup[rank]);
     });
   }

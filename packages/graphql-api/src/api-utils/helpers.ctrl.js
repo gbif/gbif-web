@@ -4,6 +4,7 @@ The idea is to use our geocoding layers to provide results like: denmark, copenh
 */
 import { Router } from 'express';
 import generateSql from '#/helpers/generateSql';
+import config from '#/config';
 
 const router = Router();
 
@@ -33,10 +34,13 @@ router.post('/generate-sql', async (req, res) => {
 
 async function getSql({ query }) {
   const { error, sql } = await generateSql(query);
+  if (error) {
+    return { error, sql };
+  }
 
   // post to https://api.gbif.org/v1/occurrence/download/request/validate to validate the sql
   const validation = await fetch(
-    'https://api.gbif.org/v1/occurrence/download/request/validate',
+    `${config.apiv1}/occurrence/download/request/validate`,
     {
       method: 'POST',
       headers: {
@@ -46,7 +50,12 @@ async function getSql({ query }) {
     },
   ).then((response) => response.json());
 
-  console.log(sql);
+  if (!validation.sql) {
+    return {
+      error: 'Validation failed',
+      validationResponse: validation,
+    };
+  }
   return {
     comment:
       'This is an experimental endpoint to generate SQL queries for the occurrence download service. Currently filters (WHERE) is hardcoded and is waiting for https://github.com/gbif/occurrence/issues/356',
