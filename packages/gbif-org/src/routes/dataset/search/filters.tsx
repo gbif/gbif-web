@@ -73,7 +73,7 @@ const hostingOrgConfig: filterConfig = {
       });
   },
   facetQuery: /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
+    query DatasetHostingFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
         facet {
           field: hostingOrg {
@@ -99,7 +99,7 @@ const projectIdConfig: filterConfig = {
   // },
   filterTranslation: 'filters.projectId.name',
   facetQuery: /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
+    query DatasetProjectFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
         facet {
           field: projectId {
@@ -119,7 +119,7 @@ const publishingCountryConfig: filterConfig = {
   displayName: CountryLabel,
   filterTranslation: 'filters.publishingCountryCode.name',
   facetQuery: /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
+    query DatasetPublishingCountryFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
         facet {
           field: publishingCountry {
@@ -140,7 +140,7 @@ const licenceConfig: filterConfig = {
   options: licenseOptions,
   filterTranslation: 'filters.license.name',
   facetQuery: /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
+    query DatasetLicenceFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
         facet {
           field: license {
@@ -161,7 +161,7 @@ const datasetTypeConfig: filterConfig = {
   options: datasetTypeOptions,
   filterTranslation: 'filters.datasetType.name',
   facetQuery: /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
+    query DatasetTypeFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
         facet {
           field: type {
