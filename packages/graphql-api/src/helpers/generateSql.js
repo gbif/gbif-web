@@ -1,3 +1,5 @@
+import config from "#/config";
+
 const defaultUncertainty = 1000;
 
 const template = `SELECT 
@@ -192,5 +194,39 @@ export default async function generateSql({
     .replace('{{FILTERS}}', filters)
     .replace('{{GROUP_BY}}', groupBy.join(', '));
 
+    console.log(sql);
   return { error: null, sql };
+}
+
+export async function getSql({ query }) {
+  const { error, sql } = await generateSql(query);
+  if (error) {
+    return { error, sql };
+  }
+
+  // post to https://api.gbif.org/v1/occurrence/download/request/validate to validate the sql
+  const validation = await fetch(
+    `${config.apiv1}/occurrence/download/request/validate`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ sql, format: 'SQL_TSV_ZIP' }),
+    },
+  ).then((response) => response.json());
+
+  if (!validation.sql) {
+    return {
+      error: 'Validation failed',
+      validationResponse: validation,
+    };
+  }
+  return {
+    comment:
+      'This is an experimental endpoint to generate SQL queries for the occurrence download service. Currently filters (WHERE) is hardcoded and is waiting for https://github.com/gbif/occurrence/issues/356',
+    error,
+    sql,
+    validationResponse: validation,
+  };
 }
