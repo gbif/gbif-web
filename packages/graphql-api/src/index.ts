@@ -28,6 +28,7 @@ import polygonName from './api-utils/polygonName.ctrl.js';
 import suggestFilter from './api-utils/suggestFilter.ctrl.js';
 import formController from './api-utils/forms/index.ctrl';
 import geometryController from './api-utils/geometry/index.ctrl.js';
+import helperController from './api-utils/helpers.ctrl.js';
 import { loggingPlugin } from './plugins/loggingPlugin';
 
 // we are doing this async as we need to load the various enumerations from the APIs
@@ -113,6 +114,7 @@ async function initializeServer() {
   formController(app);
   suggestFilter(app);
   geometryController(app);
+  helperController(app);
 
   await server.start();
   server.applyMiddleware({ app });
