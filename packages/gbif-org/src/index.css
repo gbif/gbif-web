@@ -120,8 +120,16 @@
   @apply gb-button gb-button-size-default gb-button-variant-default;
 }
 
-.box-shadow-b {
+.g-box-shadow-b {
   box-shadow: inset 0 -1px 0 var(--border);
+}
+
+.g-box-shadow-r {
+  box-shadow: inset -1px 0 0 var(--border);
+}
+
+.g-box-shadow-br {
+  box-shadow: inset 0 -1px 0 var(--border), inset -1px 0 0 var(--border);
 }
 
 .gbif .dataProse {
@@ -669,7 +677,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   @apply gb-button gb-button-size-default gb-button-variant-default;
 }
 
-.box-shadow-b {
+.g-box-shadow-b {
   box-shadow: inset 0 -1px 0 var(--border);
 }
 

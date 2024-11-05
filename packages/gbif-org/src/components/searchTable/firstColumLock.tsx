@@ -1,10 +1,12 @@
 import useBelow from '@/hooks/useBelow';
 import { createContext, useContext, useMemo, useState } from 'react';
 
+// TODO: This funcionaly is built into the table library, but for development speed i don't want to refactor it now.
+
 type FirstColumLockContextType = {
   locked: boolean;
   setLocked: React.Dispatch<React.SetStateAction<boolean>>;
-  hidden: boolean;
+  hideLock: boolean;
 };
 const FirstColumLockContext = createContext<FirstColumLockContextType | undefined>(undefined);
 
@@ -18,7 +20,7 @@ export function FirstColumLockProvider({ children }: Props) {
   const isMobile = useBelow(600, true);
 
   const context: FirstColumLockContextType = useMemo(
-    () => ({ locked: isMobile || locked, setLocked, hidden: isMobile }),
+    () => ({ locked: isMobile || locked, setLocked, hideLock: isMobile }),
     [locked, setLocked, isMobile]
   );
 

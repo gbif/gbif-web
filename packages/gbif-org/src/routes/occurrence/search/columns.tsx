@@ -3,10 +3,11 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { SingleOccurrenceSearchResult } from '@/routes/occurrence/search/occurrenceSearchPage';
 import { ColumnDef } from '@tanstack/react-table';
-import { useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import { GoSidebarExpand } from 'react-icons/go';
 import { FilterSetting } from '@/components/filters/filterTools';
 import { FormattedMessage } from 'react-intl';
+import { FilterContext } from '@/contexts/filter';
 
 type Args = {
   showPreview?: ((id: string) => void) | false;
@@ -17,8 +18,13 @@ export function useOccurrenceColumns({
   showPreview,
   filters,
 }: Args): ColumnDef<SingleOccurrenceSearchResult>[] {
-  return useMemo(
-    () => [
+  const { add } = useContext(FilterContext);
+
+  return useMemo(() => {
+    // TODO: That a filter is defined does not mean that it is active (this just prevents us from using filters that are not defined yet)
+    const isFilterActive = (filterName: string) => filters[filterName] != null;
+
+    return [
       {
         id: 'scientificName',
         header: 'Scientific name',
@@ -46,40 +52,38 @@ export function useOccurrenceColumns({
                 </button>
               )}
               <div>
-                <SetAsFilter value={row.original.scientificName} />
+                <SetAsFilter
+                  filterIsActive={isFilterActive('taxonKey')}
+                  applyFilter={() => add('taxonKey', row.original.taxonKey)}
+                >
+                  {row.original.scientificName}
+                </SetAsFilter>
               </div>
             </DynamicLink>
           );
         },
-        minWidth: 250,
+        minSize: 250,
         meta: {
           noCellPadding: true,
+          filter: filters['taxonKey'],
         },
       },
       {
         id: 'country',
-        cell: ({ row }) => {
-          return (
-            <SetAsFilter
-              value={
-                row?.original?.countryCode ? (
-                  <FormattedMessage id={`enums.countryCode.${row.original.countryCode}`} />
-                ) : null
-              }
-            />
-          );
+        cell: ({ row }) => (
+          <SetAsFilter
+            filterIsActive={isFilterActive('country')}
+            applyFilter={() => add('country', row.original.countryCode)}
+          >
+            {row.original.countryCode && (
+              <FormattedMessage id={`enums.countryCode.${row.original.countryCode}`} />
+            )}
+          </SetAsFilter>
+        ),
+        header: 'Country',
+        meta: {
+          filter: filters['country'],
         },
-        // TODO: obviously a mess. Some test of weather the popover is available is needed
-        header: () => {
-          if (filters?.country?.Popover)
-            return <filters.country.Popover trigger={<span>Country</span>} />;
-
-          return 'Country tmp';
-        },
-      },
-      {
-        header: 'County or area',
-        accessorKey: 'county',
       },
       {
         id: 'coordinates',
@@ -102,6 +106,9 @@ export function useOccurrenceColumns({
 
           return `${latitude}, ${longitude}`;
         },
+        meta: {
+          filter: filters['coordinates'],
+        },
       },
       {
         id: 'year',
@@ -112,25 +119,50 @@ export function useOccurrenceColumns({
             ? new Date(row.original.eventDate).getFullYear().toString()
             : null;
 
-          return <SetAsFilter value={year} />;
+          return (
+            <SetAsFilter
+              filterIsActive={isFilterActive('year')}
+              applyFilter={() => add('year', year)}
+            >
+              {year}
+            </SetAsFilter>
+          );
+        },
+        meta: {
+          filter: filters['year'],
         },
       },
       {
         id: 'basisOfRecord',
         header: 'Basis of record',
         accessorKey: 'basisOfRecord',
+        meta: {
+          filter: filters['basisOfRecord'],
+        },
       },
       {
         id: 'dataset',
         header: 'Dataset',
-        cell: ({ row }) => <SetAsFilter value={row.original.datasetName?.join(', ')} />,
+        cell: ({ row }) => (
+          <SetAsFilter
+            filterIsActive={isFilterActive('year')}
+            applyFilter={() => add('dataset', row.original.datasetKey)}
+          >
+            {row.original.datasetTitle}
+          </SetAsFilter>
+        ),
+        meta: {
+          filter: filters['dataset'],
+        },
       },
       {
         id: 'publisher',
         header: 'Publisher',
         accessorKey: 'publisherTitle',
+        meta: {
+          filter: filters['publisher'],
+        },
       },
-    ],
-    [showPreview, filters]
-  );
+    ];
+  }, [showPreview, filters, add]);
 }
