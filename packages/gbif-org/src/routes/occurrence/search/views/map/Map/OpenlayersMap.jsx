@@ -97,6 +97,8 @@ class Map extends Component {
     zoom = Math.min(Math.max(0, zoom), 20);
 
     let lng = sessionStorage.getItem('mapLng') || this.props.defaultMapSettings?.lng || 0;
+    while (lng < -180) lng += 360;
+    while (lng > 180) lng -= 360;
     lng = Math.min(Math.max(-180, lng), 180);
 
     let lat = sessionStorage.getItem('mapLat') || this.props.defaultMapSettings?.lat || 0;
@@ -124,7 +126,8 @@ class Map extends Component {
     const { listener } = this.props;
     if (!listener || typeof listener !== 'function') return;
     const view = this.map.getView();
-    const extent = view.calculateExtent(this.map.getSize());
+    const size = this.map.getSize();
+    const extent = view.calculateExtent(size);
     const leftTop = transform([extent[0], extent[3]], view.getProjection(), 'EPSG:4326');
     const rightBottom = transform([extent[2], extent[1]], view.getProjection(), 'EPSG:4326');
     

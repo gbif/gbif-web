@@ -9,7 +9,7 @@ import { cn } from '@/utils/shadcn';
 
 // This is not a React hook.
 // eslint-disable-next-line
-useGeographic();
+// useGeographic();
 
 type Props = {
   coordinates: {

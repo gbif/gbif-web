@@ -1,4 +1,5 @@
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
+import { PredicateType } from '@/gql/graphql';
 
 export const searchConfig: FilterConfigType = {
   fields: {
@@ -10,5 +11,11 @@ export const searchConfig: FilterConfigType = {
     },
     institutionKey: {},
     taxonKey: {},
+    geometry: {
+      defaultType: PredicateType.Within,
+      v1: {
+        supportedTypes: ['within']
+      }
+    }
   } 
 }

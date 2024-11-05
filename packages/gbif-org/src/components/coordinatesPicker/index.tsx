@@ -12,7 +12,7 @@ import { Button } from '../ui/button';
 
 // This is not a React hook.
 // eslint-disable-next-line
-useGeographic();
+// useGeographic();
 
 type Coordinates = {
   lat: number;

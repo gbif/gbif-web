@@ -190,9 +190,9 @@ function Map({ labelMap, query, q, pointData, pointError, pointLoading, loading,
     {/* <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.key}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
       <OccurrenceSidebar id={activeItem?.key} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} onCloseRequest={() => dialog.setVisible(false)} />
     </DetailsDrawer> */}
-    <div ref={ref} className={cn("mapArea g-flex-auto g-flex g-h-full g-min-h-[500px] g-max-h-[100dvh] g-flex-col g-relative", className)} {...{style}}>
+    <div ref={ref} className={cn("mapArea g-flex-auto g-flex g-h-fullg-h-[800px] g-flex-col g-relative", className)} {...{style}}>
       {/* <ViewHeader message="counts.nResultsWithCoordinates" loading={loading} total={total} /> */}
-      <div style={{ position: 'relative', height: '200px', flex: '1 1 auto', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ position: 'relative', height: '700px', flex: '1 1 auto', display: 'flex', flexDirection: 'column' }}>
         {/* {listVisible && <ListBox onCloseRequest={e => showList(false)}
           labelMap={labelMap}
           onClick={({ index }) => { dialog.show(); setActive(index) }}
@@ -226,10 +226,12 @@ function Map({ labelMap, query, q, pointData, pointError, pointLoading, loading,
           predicateHash={predicateHash}
           q={q}
           className="mapComponent [&>canvas:focus]:g-outline-none g-border g-border-slate-100 g-rounded g-flex g-flex-col g-h-full g-flex-auto"
-          style={{width: 500, height: 500}}
           query={query}
           onMapClick={e => showList(false)}
-          onPointClick={data => { showList(true); loadPointData(data) }}
+          onPointClick={data => {
+            // check that it is only doing so for the top layer - it should call multiple times for each layer
+            showList(true); loadPointData(data)
+          }}
           listener={eventListener}
           registerPredicate={registerPredicate}
           height={height}
