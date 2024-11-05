@@ -2,11 +2,14 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import React from 'react';
 
 type Props = {
-  value: null | undefined | React.ReactNode;
+  applyFilter: () => void;
+  filterIsActive: boolean;
+  children: null | undefined | React.ReactNode;
 };
 
-export function SetAsFilter({ value }: Props) {
-  if (!value) return null;
+export function SetAsFilter({ filterIsActive, applyFilter, children }: Props) {
+  if (!children) return null;
+  if (!filterIsActive) return <>{children}</>;
 
   return (
     <SimpleTooltip title="Set as filter" side="right">
@@ -14,10 +17,13 @@ export function SetAsFilter({ value }: Props) {
         // Buttons can't be displayed inline
         role="button"
         className="g-inline g-text-left hover:g-bg-primary-300 g-whitespace-normal g-box-decoration-clone g-p-0.5 -g-ml-0.5"
-        // TODO: Open filter
-        onClick={(e) => e.preventDefault()}
+        onClick={(e) => {
+          e.preventDefault();
+          console.log('applyFilter', applyFilter);
+          applyFilter();
+        }}
       >
-        {value}
+        {children}
       </span>
     </SimpleTooltip>
   );

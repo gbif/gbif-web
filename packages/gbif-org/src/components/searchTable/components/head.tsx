@@ -82,10 +82,6 @@ export function Head<TData>({
             ? null
             : flexRender(header.column.columnDef.header, header.getContext())}
 
-          {/* How should we determine if the header filter is enabled for this column? */}
-          {/* TODO: Open filter popover on click */}
-          {/* We could add the filter as a custom property on the columnDef (https://tanstack.com/table/latest/docs/api/core/table#meta) */}
-          {/* If filters can be disabled by site owners, we should also take that into account */}
           {filter && (
             <SimpleTooltip title="Filter">
               <div>

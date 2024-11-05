@@ -42,7 +42,8 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
           country
           countryCode
           basisOfRecord
-          datasetName
+          datasetTitle
+          datasetKey
           publisherTitle
         }
       }
@@ -79,8 +80,6 @@ export function OccurrenceSearch(): React.ReactElement {
   const { filters } = useFilters({ searchConfig });
   const [view, setView] = useStringParam({ key: 'view', defaultValue: 'table', hideDefault: true });
   const config = useConfig();
-
-  console.log(filters);
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
 
