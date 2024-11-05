@@ -74,14 +74,13 @@ export function SearchTable<TData, TValue>({
         <div className={cn('g-rounded-md g-border g-flex g-flex-col', className)}>
           <Table>
             <TableHeader>
-              {table.getHeaderGroups().map((headerGroup, groupIdx) => (
+              {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header, headerIdx) => (
+                  {headerGroup.headers.map((header) => (
                     <Head
                       key={header.id}
                       table={table}
                       header={header}
-                      isFirstHead={groupIdx === 0 && headerIdx === 0}
                       resetColumnVisibility={() =>
                         setColumnVisibility(
                           createInitialColumnVisibilityState(

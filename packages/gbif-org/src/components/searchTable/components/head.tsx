@@ -9,14 +9,13 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { LuListFilter as FilterIcon } from 'react-icons/lu';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 
-type Props = {
-  isFirstHead: boolean;
-  header: Header<unknown, unknown>;
-  table: Table<unknown>;
+type Props<TData> = {
+  header: Header<TData, unknown>;
+  table: Table<TData>;
   resetColumnVisibility: () => void;
 };
 
-export function Head({ isFirstHead, header, table, resetColumnVisibility }: Props) {
+export function Head<TData>({ header, table, resetColumnVisibility }: Props<TData>) {
   const { locked, setLocked, hideLock } = useFirstColumLock();
   const filter = header.column.columnDef.meta?.filter;
 
@@ -24,7 +23,7 @@ export function Head({ isFirstHead, header, table, resetColumnVisibility }: Prop
     <TableHead
       key={header.id}
       className={cn('g-sticky g-top-0 g-bg-white box-shadow-b g-z-10 g-text-nowrap', {
-        'g-left-0 g-z-20': locked && isFirstHead,
+        'g-left-0 g-z-20': locked && header.column.getIsFirstColumn(),
       })}
       style={{
         minWidth: header.column.columnDef.minSize ?? 'unset',
@@ -32,7 +31,7 @@ export function Head({ isFirstHead, header, table, resetColumnVisibility }: Prop
     >
       <div className="g-inline-flex g-items-center g-justify-between g-w-full">
         <div className="g-inline-flex">
-          {isFirstHead && (
+          {header.column.getIsFirstColumn() && (
             <ColumnVisibilityPopover table={table} resetColumnVisibility={resetColumnVisibility} />
           )}
 
@@ -55,7 +54,7 @@ export function Head({ isFirstHead, header, table, resetColumnVisibility }: Prop
           )}
         </div>
 
-        {isFirstHead && !hideLock && (
+        {header.column.getIsFirstColumn() && !hideLock && (
           <SimpleTooltip title={locked ? 'Unlock column' : 'Lock column'}>
             <button onClick={() => setLocked((v) => !v)}>
               {locked ? <MdLock /> : <MdLockOpen />}
@@ -67,10 +66,10 @@ export function Head({ isFirstHead, header, table, resetColumnVisibility }: Prop
   );
 }
 
-function ColumnVisibilityPopover({
+function ColumnVisibilityPopover<TData>({
   table,
   resetColumnVisibility,
-}: Pick<Props, 'table' | 'resetColumnVisibility'>) {
+}: Pick<Props<TData>, 'table' | 'resetColumnVisibility'>) {
   return (
     <Popover>
       <SimpleTooltip title="Visible column settings">
