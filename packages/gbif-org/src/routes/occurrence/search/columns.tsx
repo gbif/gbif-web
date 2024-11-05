@@ -53,8 +53,8 @@ export function useOccurrenceColumns({
               )}
               <div>
                 <SetAsFilter
-                  filterIsActive={isFilterActive('scientificName')}
-                  applyFilter={() => add('scientificName', row.original.scientificName)}
+                  filterIsActive={isFilterActive('taxonKey')}
+                  applyFilter={() => add('taxonKey', row.original.taxonKey)}
                 >
                   {row.original.scientificName}
                 </SetAsFilter>
@@ -65,28 +65,24 @@ export function useOccurrenceColumns({
         minWidth: 250,
         meta: {
           noCellPadding: true,
+          filter: filters['taxonKey'],
         },
       },
       {
         id: 'country',
-        cell: ({ row }) => {
-          return (
-            <SetAsFilter
-              filterIsActive={isFilterActive('country')}
-              applyFilter={() => add('country', row.original.countryCode)}
-            >
-              {row.original.countryCode && (
-                <FormattedMessage id={`enums.countryCode.${row.original.countryCode}`} />
-              )}
-            </SetAsFilter>
-          );
-        },
-        // TODO: obviously a mess. Some test of weather the popover is available is needed
-        header: () => {
-          if (filters?.country?.Popover)
-            return <filters.country.Popover trigger={<span>Country</span>} />;
-
-          return 'Country';
+        cell: ({ row }) => (
+          <SetAsFilter
+            filterIsActive={isFilterActive('country')}
+            applyFilter={() => add('country', row.original.countryCode)}
+          >
+            {row.original.countryCode && (
+              <FormattedMessage id={`enums.countryCode.${row.original.countryCode}`} />
+            )}
+          </SetAsFilter>
+        ),
+        header: 'Country',
+        meta: {
+          filter: filters['country'],
         },
       },
       {
@@ -110,6 +106,9 @@ export function useOccurrenceColumns({
 
           return `${latitude}, ${longitude}`;
         },
+        meta: {
+          filter: filters['coordinates'],
+        },
       },
       {
         id: 'year',
@@ -129,11 +128,17 @@ export function useOccurrenceColumns({
             </SetAsFilter>
           );
         },
+        meta: {
+          filter: filters['year'],
+        },
       },
       {
         id: 'basisOfRecord',
         header: 'Basis of record',
         accessorKey: 'basisOfRecord',
+        meta: {
+          filter: filters['basisOfRecord'],
+        },
       },
       {
         id: 'dataset',
@@ -146,11 +151,17 @@ export function useOccurrenceColumns({
             {row.original.datasetTitle}
           </SetAsFilter>
         ),
+        meta: {
+          filter: filters['dataset'],
+        },
       },
       {
         id: 'publisher',
         header: 'Publisher',
         accessorKey: 'publisherTitle',
+        meta: {
+          filter: filters['publisher'],
+        },
       },
     ];
   }, [showPreview, filters, add]);

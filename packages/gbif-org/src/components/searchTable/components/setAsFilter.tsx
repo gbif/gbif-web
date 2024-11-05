@@ -18,8 +18,8 @@ export function SetAsFilter({ filterIsActive, applyFilter, children }: Props) {
         role="button"
         className="g-inline g-text-left hover:g-bg-primary-300 g-whitespace-normal g-box-decoration-clone g-p-0.5 -g-ml-0.5"
         onClick={(e) => {
+          // Prevent links that span an entire cell from being triggered
           e.preventDefault();
-          console.log('applyFilter', applyFilter);
           applyFilter();
         }}
       >

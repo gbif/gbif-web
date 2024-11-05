@@ -16,7 +16,6 @@ import { Head } from './components/head';
 import { FirstColumLockProvider } from './firstColumLock';
 import { Cell } from './components/cell';
 import { useState } from 'react';
-import { FilterSetting } from '../filters/filterTools';
 
 interface Props<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -28,7 +27,6 @@ interface Props<TData, TValue> {
   setPaginationState: React.Dispatch<React.SetStateAction<PaginationState>>;
   availableTableColumns: string[];
   defaultEnabledTableColumns: string[];
-  filters: Record<string, FilterSetting>;
 }
 
 export function SearchTable<TData, TValue>({
@@ -41,7 +39,6 @@ export function SearchTable<TData, TValue>({
   setPaginationState,
   availableTableColumns,
   defaultEnabledTableColumns,
-  filters,
 }: Props<TData, TValue>) {
   const [columnVisibility, setColumnVisibility] = useState(
     createInitialColumnVisibilityState(availableTableColumns, defaultEnabledTableColumns)
@@ -84,7 +81,6 @@ export function SearchTable<TData, TValue>({
                       key={header.id}
                       table={table}
                       header={header}
-                      filters={filters}
                       isFirstHead={groupIdx === 0 && headerIdx === 0}
                       resetColumnVisibility={() =>
                         setColumnVisibility(
