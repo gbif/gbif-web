@@ -28,6 +28,7 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { useConfig } from '@/config/config';
 import { useToast } from '@/components/ui/use-toast';
 import { cn } from '@/utils/shadcn';
+import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 // import { toast } from 'react-toast'
 
 const pixelRatio = window.devicePixelRatio || 1;
@@ -192,6 +193,7 @@ function Map({ labelMap, query, q, pointData, pointError, pointLoading, loading,
     </DetailsDrawer> */}
     <div ref={ref} className={cn("mapArea g-flex-auto g-flex g-h-fullg-h-[800px] g-flex-col g-relative", className)} {...{style}}>
       {/* <ViewHeader message="counts.nResultsWithCoordinates" loading={loading} total={total} /> */}
+      <DynamicHeightDiv minPxHeight={500} className="g-bg-red-800"/>
       <div style={{ position: 'relative', height: '700px', flex: '1 1 auto', display: 'flex', flexDirection: 'column' }}>
         {/* {listVisible && <ListBox onCloseRequest={e => showList(false)}
           labelMap={labelMap}
