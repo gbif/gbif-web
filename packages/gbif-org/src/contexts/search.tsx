@@ -1,11 +1,13 @@
 import React from 'react';
 
-export type QueryTypeEnum = 'V1' | 'PREDICATE';// | 'DATASET' | 'OCCURRENCE' | 'COLLECTION' | 'INSTITUTION' | 'PUBLISHER';
+export type QueryTypeEnum = 'V1' | 'PREDICATE'; // | 'DATASET' | 'OCCURRENCE' | 'COLLECTION' | 'INSTITUTION' | 'PUBLISHER';
 export type SearchMetadata = {
   excludedFilters?: string[];
   highlightedFilters?: string[];
   scope?: unknown;
   queryType?: QueryTypeEnum;
+  availableTableColumns?: string[]; // Default all columns are available
+  defaultEnabledTableColumns?: string[]; // TODO: What should the default value be?
 };
 
 const SearchMetadataContext = React.createContext<SearchMetadata | null>(null);

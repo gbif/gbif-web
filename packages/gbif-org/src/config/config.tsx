@@ -17,6 +17,7 @@ export type LanguageOption = {
   reactIntlLocale?: string; // this is the locale code used by react-intl
 };
 
+// TODO: The config object should probably be refactored in the future with logical nesting
 export type Config = Endpoints & {
   defaultTitle?: string;
   gbifEnv: GbifEnv;

@@ -34,7 +34,7 @@ const institutionKeyConfig: filterConfig = {
         }));
       });
   },
-  facetQuery: /* GraphQL */ `
+  facetQuery: `
     query OccurrenceInstitutionFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
@@ -46,7 +46,7 @@ const institutionKeyConfig: filterConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
 const countryConfig: filterConfig = {
@@ -55,7 +55,7 @@ const countryConfig: filterConfig = {
   displayName: CountryLabel,
   filterTranslation: 'filters.country.name',
   // suggest will be provided by the useFilters hook
-  facetQuery: /* GraphQL */ `
+  facetQuery: `
     query OccurrenceCountryFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
@@ -67,7 +67,7 @@ const countryConfig: filterConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
 const taxonKeyConfig: filterConfig = {
@@ -75,7 +75,7 @@ const taxonKeyConfig: filterConfig = {
   filterHandle: 'taxonKey',
   displayName: TaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
-  suggest: ({ q, siteConfig }: SuggestFnProps):SuggestResponseType => {
+  suggest: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {
     return fetch(`${siteConfig.v1Endpoint}/species/suggest?limit=20&q=${q}`)
       .then((res) => res.json())
       .then((data) => {
@@ -85,7 +85,7 @@ const taxonKeyConfig: filterConfig = {
         }));
       });
   },
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
 const freeTextConfig: filterConfig = {

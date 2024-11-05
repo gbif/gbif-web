@@ -1,27 +1,28 @@
+import { DataHeader } from '@/components/dataHeader';
 import { Drawer } from '@/components/drawer/drawer';
+import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
 import { InternalScrollHandler } from '@/components/internalScrollHandler';
-import { DataTable } from '@/components/ui/dataTable';
+import { SearchTable } from '@/components/searchTable/table';
+import { usePaginationState } from '@/components/searchTable/usePaginationState';
 import { useConfig } from '@/config/config';
+import { FilterContext, FilterProvider } from '@/contexts/filter';
+import { SearchContextProvider, useSearchContext } from '@/contexts/search';
+import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import { OccurrenceSearchQuery, OccurrenceSearchQueryVariables } from '@/gql/graphql';
+import { useStringParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
-import { useColumns } from '@/routes/occurrence/search/columns';
+import { useOccurrenceColumns } from '@/routes/occurrence/search/columns';
 import { ExtractPaginatedResult } from '@/types';
 import { notNull } from '@/utils/notNull';
+import { cn } from '@/utils/shadcn';
 import React, { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { StandaloneOccurrenceKeyPage } from '../key/standalone';
-import { DataHeader } from '@/components/dataHeader';
-import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
-import { FilterContext, FilterProvider } from '@/contexts/filter';
-import { SearchContextProvider, useSearchContext } from '@/contexts/search';
-import { searchConfig } from './searchConfig';
 import { useFilters } from './filters';
-import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import { AboutContent, ApiContent } from './helpTexts';
-import { useIntParam, useStringParam } from '@/hooks/useParam';
-import { cn } from '@/utils/shadcn';
 import { Map } from './views/map';
 import { Media } from './views/media';
+import { searchConfig } from './searchConfig';
 import { Clusters } from './views/clusters';
 import { Dashboard } from './views/dashboard';
 import { Download } from './views/download';
@@ -38,7 +39,7 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
           scientificName
           eventDate
           coordinates
-          county
+          country
           countryCode
           basisOfRecord
           datasetName
@@ -53,11 +54,10 @@ export type SingleOccurrenceSearchResult = ExtractPaginatedResult<
   OccurrenceSearchQuery['occurrenceSearch']
 >;
 
-const PAGE_SIZE = 20;
-
 export function OccurrenceSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
   const config = useConfig();
+
   return (
     <>
       <Helmet>
@@ -73,15 +73,19 @@ export function OccurrenceSearchPage(): React.ReactElement {
 }
 
 export function OccurrenceSearch(): React.ReactElement {
+  const previewInDrawer = true;
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
   const [view, setView] = useStringParam({ key: 'view', defaultValue: 'table', hideDefault: true });
-  const [from] = useIntParam({ key: 'from', defaultValue: 0 });
+  const config = useConfig();
+
+  console.log(filters);
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
 
   const [previewKey, setPreviewKey] = useState<string | null>();
+  const [paginationState, setPaginationState] = usePaginationState();
 
   const { data, error, load, loading } = useQuery<
     OccurrenceSearchQuery,
@@ -98,27 +102,18 @@ export function OccurrenceSearch(): React.ReactElement {
         predicate: {
           ...query,
         },
-        size: PAGE_SIZE,
-        from: from,
+        size: paginationState.pageSize,
+        from: paginationState.pageIndex * paginationState.pageSize,
       },
     });
-  }, [load, filterHash, searchContext, from]);
+  }, [load, filterHash, searchContext, paginationState.pageIndex, paginationState.pageSize]);
 
-  const columns = useColumns({ showPreview: setPreviewKey, filters });
+  const columns = useOccurrenceColumns({ showPreview: setPreviewKey, filters });
 
   const occurrences = React.useMemo(
     () => data?.occurrenceSearch?.documents.results.filter(notNull) ?? [],
     [data]
   );
-
-  const totalResults = React.useMemo(() => data?.occurrenceSearch?.documents.total, [data]);
-
-  const currentPageNumber = data?.occurrenceSearch?.documents.from
-    ? Math.floor(data.occurrenceSearch.documents.from / PAGE_SIZE)
-    : 0;
-  const totalPagesCount = data?.occurrenceSearch?.documents.total
-    ? Math.ceil(data.occurrenceSearch.documents.total / PAGE_SIZE)
-    : 0;
 
   return (
     <>
@@ -126,27 +121,29 @@ export function OccurrenceSearch(): React.ReactElement {
         <title>Occurrence search</title>
       </Helmet>
 
-      <Drawer
-        isOpen={typeof previewKey === 'string'}
-        close={() => setPreviewKey(null)}
-        viewOnGbifHref={`/occurrence/${previewKey}`}
-        next={() => {
-          const currentIndex = occurrences.findIndex((o) => o.key?.toString() === previewKey);
-          const nextIndex = currentIndex + 1;
-          if (nextIndex < occurrences.length) {
-            setPreviewKey(occurrences[nextIndex].key?.toString());
-          }
-        }}
-        previous={() => {
-          const currentIndex = occurrences.findIndex((o) => o.key?.toString() === previewKey);
-          const previousIndex = currentIndex - 1;
-          if (previousIndex >= 0) {
-            setPreviewKey(occurrences[previousIndex].key?.toString());
-          }
-        }}
-      >
-        <StandaloneOccurrenceKeyPage occurrenceKey={previewKey} />
-      </Drawer>
+      {previewInDrawer && (
+        <Drawer
+          isOpen={typeof previewKey === 'string'}
+          close={() => setPreviewKey(null)}
+          viewOnGbifHref={`/occurrence/${previewKey}`}
+          next={() => {
+            const currentIndex = occurrences.findIndex((o) => o.key?.toString() === previewKey);
+            const nextIndex = currentIndex + 1;
+            if (nextIndex < occurrences.length) {
+              setPreviewKey(occurrences[nextIndex].key?.toString());
+            }
+          }}
+          previous={() => {
+            const currentIndex = occurrences.findIndex((o) => o.key?.toString() === previewKey);
+            const previousIndex = currentIndex - 1;
+            if (previousIndex >= 0) {
+              setPreviewKey(occurrences[previousIndex].key?.toString());
+            }
+          }}
+        >
+          <StandaloneOccurrenceKeyPage occurrenceKey={previewKey} />
+        </Drawer>
+      )}
 
       <DataHeader
         title="Occurrences"
@@ -161,12 +158,66 @@ export function OccurrenceSearch(): React.ReactElement {
         */}
         <div className="g-relative g-border-slate-200 dark:g-border-slate-200/5">
           <ul className="g-flex g-whitespace-nowrap g-overflow-hidden -g-mb-px">
-            <li role="button" className={cn("g-p-2 g-border-b-2 g-border-transparent", view === 'table' && 'g-border-b-primary-500')} onClick={() => setView('table')}>Table</li>
-            <li role="button" className={cn("g-p-2 g-border-b-2 g-border-transparent", view === 'map' && 'g-border-b-primary-500')} onClick={() => setView('map')}>Map</li>
-            <li role="button" className={cn("g-p-2 g-border-b-2 g-border-transparent", view === 'media' && 'g-border-b-primary-500')} onClick={() => setView('media')}>Media</li>
-            <li role="button" className={cn("g-p-2 g-border-b-2 g-border-transparent", view === 'clusters' && 'g-border-b-primary-500')} onClick={() => setView('clusters')}>Related</li>
-            <li role="button" className={cn("g-p-2 g-border-b-2 g-border-transparent", view === 'dashboard' && 'g-border-b-primary-500')} onClick={() => setView('dashboard')}>Dashboard</li>
-            <li role="button" className={cn("g-p-2 g-border-b-2 g-border-transparent", view === 'download' && 'g-border-b-primary-500')} onClick={() => setView('download')}>Download</li>
+            <li
+              role="button"
+              className={cn(
+                'g-p-2 g-border-b-2 g-border-transparent',
+                view === 'table' && 'g-border-b-primary-500'
+              )}
+              onClick={() => setView('table')}
+            >
+              Table
+            </li>
+            <li
+              role="button"
+              className={cn(
+                'g-p-2 g-border-b-2 g-border-transparent',
+                view === 'map' && 'g-border-b-primary-500'
+              )}
+              onClick={() => setView('map')}
+            >
+              Map
+            </li>
+            <li
+              role="button"
+              className={cn(
+                'g-p-2 g-border-b-2 g-border-transparent',
+                view === 'media' && 'g-border-b-primary-500'
+              )}
+              onClick={() => setView('media')}
+            >
+              Media
+            </li>
+            <li
+              role="button"
+              className={cn(
+                'g-p-2 g-border-b-2 g-border-transparent',
+                view === 'clusters' && 'g-border-b-primary-500'
+              )}
+              onClick={() => setView('clusters')}
+            >
+              Related
+            </li>
+            <li
+              role="button"
+              className={cn(
+                'g-p-2 g-border-b-2 g-border-transparent',
+                view === 'dashboard' && 'g-border-b-primary-500'
+              )}
+              onClick={() => setView('dashboard')}
+            >
+              Dashboard
+            </li>
+            <li
+              role="button"
+              className={cn(
+                'g-p-2 g-border-b-2 g-border-transparent',
+                view === 'download' && 'g-border-b-primary-500'
+              )}
+              onClick={() => setView('download')}
+            >
+              Download
+            </li>
           </ul>
         </div>
       </DataHeader>
@@ -177,22 +228,29 @@ export function OccurrenceSearch(): React.ReactElement {
         </FilterBar>
       </section>
 
-      {view === 'table' && <InternalScrollHandler headerHeight={200}>
-        <div className="g-bg-gray-100 g-p-2 g-flex g-flex-col g-flex-1 g-min-h-0">
-          <p className="g-text-sm g-pb-1 g-text-gray-500">
-            {typeof totalResults === 'number' && <>{totalResults} results</>}
-          </p>
-          <DataTable
+      {view === 'table' && (
+        <InternalScrollHandler headerHeight={150}>
+          <SearchTable
             className="g-bg-white g-flex-1 g-min-h-0"
             columns={columns}
             data={occurrences}
             loading={loading}
-            pageSize={PAGE_SIZE}
-            currentPageNumber={currentPageNumber}
-            totalPagesCount={totalPagesCount}
+            rowCount={data?.occurrenceSearch?.documents.total}
+            pagination={paginationState}
+            setPaginationState={setPaginationState}
+            filters={filters}
+            // TODO: Should the logic be located in the config?
+            availableTableColumns={[
+              'scientificName',
+              ...(config?.occurrenceSearch?.availableTableColumns ?? []),
+            ]}
+            defaultEnabledTableColumns={[
+              'scientificName',
+              ...(config?.occurrenceSearch?.defaultEnabledTableColumns ?? []),
+            ]}
           />
-        </div>
-      </InternalScrollHandler>}
+        </InternalScrollHandler>
+      )}
 
       {view === 'map' && <Map />}
       {view === 'media' && <Media />}

@@ -38,7 +38,7 @@ const institutionKeyConfig: filterConfig = {
         }));
       });
   },
-  facetQuery: /* GraphQL */ `
+  facetQuery: `
     query CollectionInstitutionFacet($query: CollectionSearchInput) {
       search: collectionSearch(query: $query) {
         facet {
@@ -58,7 +58,7 @@ const countryConfig: filterConfig = {
   displayName: CountryLabel,
   filterTranslation: 'filters.country.name',
   // suggest will be provided by the useFilters hook
-  facetQuery: /* GraphQL */ `
+  facetQuery: `
     query CollectionCountryFacet($query: CollectionSearchInput) {
       search: collectionSearch(query: $query) {
         facet {
@@ -77,7 +77,7 @@ const taxonKeyConfig: filterConfig = {
   filterHandle: 'taxonKey',
   displayName: TaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
-  suggest: ({ q, siteConfig }: SuggestFnProps):SuggestResponseType => {
+  suggest: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {
     return fetch(`${siteConfig.v1Endpoint}/species/suggest?limit=20&q=${q}`)
       .then((res) => res.json())
       .then((data) => {
