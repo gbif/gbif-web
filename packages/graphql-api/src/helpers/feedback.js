@@ -38,8 +38,8 @@ function getFeedbackSystem({ config, occurrence }) {
   if (templateConfig) {
     // given the urlTemplate in the config, replace all keys with data from the occurrence
     return {
-      url: replaceKeys(templateConfig.url, templateConfig.keys, occurrence),
-      value: templateConfig.name,
+      value: replaceKeys(templateConfig.url, templateConfig.keys, occurrence),
+      title: templateConfig.name,
     };
   }
   return null;
