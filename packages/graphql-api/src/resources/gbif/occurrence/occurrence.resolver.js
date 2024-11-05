@@ -22,6 +22,7 @@ import termResolver from './helpers/terms/occurrenceTerms';
 import predicate2v1 from './helpers/predicate2v1';
 import getLongitudeBounds from './helpers/longitudeBounds';
 import config from '../../../config';
+import getFeedbackOptions from '#/helpers/feedback';
 
 const getSourceSearch = (dataSources) => args => dataSources.occurrenceAPI.searchOccurrences.call(dataSources.occurrenceAPI, args);
 
@@ -162,7 +163,7 @@ export default {
     },
   },
   MultimediaItem: {
-    thumbor: ({identifier, type, occurrenceKey}, {fitIn, width = '', height = ''}) => {
+    thumbor: ({ identifier, type, occurrenceKey }, { fitIn, width = '', height = '' }) => {
       if (!identifier) return null;
       if (type !== 'StillImage') return null;
       if (!occurrenceKey) return null;
@@ -173,7 +174,7 @@ export default {
       try {
         const url = `${config.occurrenceImageCache}/${fitIn ? 'fit-in/' : ''}${width}x${height}/occurrence/${occurrenceKey}/media/${md5(identifier ?? '')}`;
         return url;
-      } catch(err) {
+      } catch (err) {
         return identifier;
       }
     }
@@ -195,7 +196,7 @@ export default {
       // extract primary image. for now just any image
       const img = media.find((x) => x.type === 'StillImage');
       if (img) {
-        return {...img, occurrenceKey: key};
+        return { ...img, occurrenceKey: key };
       }
       return null;
     },
@@ -569,6 +570,9 @@ export default {
         lat,
         lon,
       };
+    },
+    feedback: (occurrence, _args, { dataSources }) => {
+      return getFeedbackOptions({ occurrence, dataSources });
     },
   },
   OccurrenceFeatures: {

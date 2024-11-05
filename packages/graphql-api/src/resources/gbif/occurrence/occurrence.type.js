@@ -113,6 +113,7 @@ const typeDef = gql`
     higherGeography: [String]
     higherGeographyID: String
     highestBiostratigraphicZone: String
+    hostingOrganizationKey: ID
     identificationID: String
     identificationQualifier: String
     identificationReferences: String
@@ -400,6 +401,10 @@ const typeDef = gql`
     Duck typing various features that is worth highlighting
     """
     features: OccurrenceFeatures
+    """
+    Feedback options for the occurrence
+    """
+    feedback: OccurrenceFeedback
   }
 
   type OccurrenceFeatures {
@@ -423,6 +428,17 @@ const typeDef = gql`
     The occurrence has fields that are intended for use by sampling events
     """
     isSamplingEvent: Boolean
+  }
+
+  type OccurrenceFeedback {
+    gbifGithub: String!
+    publisherFeedbackSystem: OccurrenceFeedbackValue
+    datasetContactEmail: OccurrenceFeedbackValue
+  }
+
+  type OccurrenceFeedbackValue {
+    value: String!
+    title: String!
   }
 
   type Globe {
