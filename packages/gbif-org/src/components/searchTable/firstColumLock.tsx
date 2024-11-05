@@ -1,6 +1,8 @@
 import useBelow from '@/hooks/useBelow';
 import { createContext, useContext, useMemo, useState } from 'react';
 
+// TODO: This funcionaly is built into the table library, but for development speed i don't want to refactor it now.
+
 type FirstColumLockContextType = {
   locked: boolean;
   setLocked: React.Dispatch<React.SetStateAction<boolean>>;

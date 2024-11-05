@@ -22,9 +22,12 @@ export function Head<TData>({ header, table, resetColumnVisibility }: Props<TDat
   return (
     <TableHead
       key={header.id}
-      className={cn('g-sticky g-top-0 g-bg-white box-shadow-b g-z-10 g-text-nowrap', {
-        'g-left-0 g-z-20': locked && header.column.getIsFirstColumn(),
-      })}
+      className={cn(
+        'g-sticky g-top-0 g-bg-white g-z-10 g-text-nowrap',
+        locked && header.column.getIsFirstColumn()
+          ? 'g-left-0 g-z-20 g-box-shadow-br g-border-r-0'
+          : 'g-box-shadow-b'
+      )}
       style={{
         minWidth: header.column.columnDef.minSize ?? 'unset',
       }}

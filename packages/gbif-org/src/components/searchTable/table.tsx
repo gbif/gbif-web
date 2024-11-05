@@ -103,8 +103,8 @@ export function SearchTable<TData, TValue>({
                     data-state={row.getIsSelected() && 'selected'}
                     className="g-border-b"
                   >
-                    {row.getVisibleCells().map((cell, idx) => (
-                      <Cell key={cell.id} cell={cell} isFirstHead={idx === 0} loading={loading} />
+                    {row.getVisibleCells().map((cell) => (
+                      <Cell key={cell.id} cell={cell} loading={loading} />
                     ))}
                   </TableRow>
                 ))}
