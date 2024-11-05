@@ -9,7 +9,7 @@ import { OccurrenceQuery } from '@/gql/graphql';
 const id = 'occurrence-key';
 
 export const occurrenceKeyRoutes: RouteObjectWithPlugins[] = [
-  // Used by standalone occurrence key page to show loading before the data is loaded
+  // Used by standalone occurrence key page to show loading before the data is loaded as the skeleton loading only works when navigating between pages
   {
     id: id + '-loading',
     path: 'occurrence/loading',

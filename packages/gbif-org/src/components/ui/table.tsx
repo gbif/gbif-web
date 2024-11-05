@@ -3,7 +3,7 @@ import { cn } from '@/utils/shadcn';
 
 const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(
   ({ className, ...props }, ref) => (
-    <div className='g-relative g-w-full g-overflow-auto g-h-full'>
+    <div className="g-relative g-w-full g-overflow-auto g-h-full">
       <table
         ref={ref}
         className={cn('g-w-full g-caption-bottom g-text-sm g-h-full', className)}
@@ -48,7 +48,8 @@ const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTML
   ({ className, ...props }, ref) => (
     <tr
       ref={ref}
-      className={cn('g-transition-colors hover:g-bg-muted/50 data-[state=selected]:g-bg-muted',
+      className={cn(
+        'g-transition-colors hover:g-bg-muted/50 data-[state=selected]:g-bg-muted',
         className
       )}
       {...props}
@@ -63,7 +64,8 @@ const TableHead = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <th
     ref={ref}
-    className={cn('g-h-10 g-px-2 g-text-left g-align-middle g-font-medium g-text-muted-foreground [&:has([role=checkbox])]:g-pr-0 [&>[role=checkbox]]:g-translate-y-[2px] g-border-r last:g-border-r-0',
+    className={cn(
+      'g-h-10 g-px-2 g-text-left g-align-middle g-font-medium g-text-muted-foreground [&:has([role=checkbox])]:g-pr-0 [&>[role=checkbox]]:g-translate-y-[2px] g-border-r last:g-border-r-0',
       className
     )}
     {...props}
@@ -77,7 +79,8 @@ const TableCell = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <td
     ref={ref}
-    className={cn('g-p-2 g-align-middle [&:has([role=checkbox])]:g-pr-0 [&>[role=checkbox]]:g-translate-y-[2px] g-border-r last:g-border-0',
+    className={cn(
+      'g-p-2 g-align-middle [&:has([role=checkbox])]:g-pr-0 [&>[role=checkbox]]:g-translate-y-[2px] g-border-r last:g-border-0',
       className
     )}
     {...props}
@@ -89,7 +92,11 @@ const TableCaption = React.forwardRef<
   HTMLTableCaptionElement,
   React.HTMLAttributes<HTMLTableCaptionElement>
 >(({ className, ...props }, ref) => (
-  <caption ref={ref} className={cn('g-mt-4 g-text-sm g-text-muted-foreground', className)} {...props} />
+  <caption
+    ref={ref}
+    className={cn('g-mt-4 g-text-sm g-text-muted-foreground', className)}
+    {...props}
+  />
 ));
 TableCaption.displayName = 'TableCaption';
 

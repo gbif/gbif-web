@@ -1,20 +1,22 @@
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
+import { TooltipContentProps } from '@radix-ui/react-tooltip';
 
-export function SimpleTooltip({
-  title,
-  delayDuration = 0,
-  children,
-  side,
-}: {
+type Props = {
   title: React.ReactNode;
   delayDuration?: number;
   children: React.ReactNode;
-  side?: 'top' | 'right' | 'bottom' | 'left';
-}) {
+  side?: TooltipContentProps['side'];
+};
+
+export function SimpleTooltip({ title, delayDuration = 0, children, side }: Props) {
   return (
     <Tooltip delayDuration={delayDuration}>
-      <TooltipTrigger tabIndex={-1} asChild>{children}</TooltipTrigger>
-      <TooltipContent className='g-max-w-96 g-pointer-events-none' side={side}>{title}</TooltipContent>
+      <TooltipTrigger tabIndex={-1} asChild>
+        {children}
+      </TooltipTrigger>
+      <TooltipContent className="g-max-w-96 g-pointer-events-none g-z-50" side={side}>
+        {title}
+      </TooltipContent>
     </Tooltip>
   );
 }

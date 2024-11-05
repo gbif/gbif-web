@@ -131,7 +131,7 @@ export const gbifConfig: Config = {
     ],
   },
   theme: {
-    primary: '#4787fb',//'#69AA69',
+    primary: '#4787fb', //'#69AA69',
     // primary: '#69AA69',
     stickyOffset: '40px',
   },
@@ -161,5 +161,7 @@ export const gbifConfig: Config = {
   occurrenceSearch: {
     queryType: 'PREDICATE',
     highlightedFilters: ['q', 'institutionKey'],
+    availableTableColumns: ['countryOrArea', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
+    defaultEnabledTableColumns: ['countryOrArea', 'year', 'basisOfRecord', 'dataset'],
   },
 };
