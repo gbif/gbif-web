@@ -62,7 +62,7 @@ export function useOccurrenceColumns({
             </DynamicLink>
           );
         },
-        minWidth: 250,
+        minSize: 250,
         meta: {
           noCellPadding: true,
           filter: filters['taxonKey'],
