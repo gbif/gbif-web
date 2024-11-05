@@ -27,6 +27,17 @@ import { Download } from './views/download';
 import { Map } from './views/map';
 import { Media } from './views/media';
 
+// TODO: Should maybe be moved to the configBuilder
+const DAFAULT_AVAILABLE_TABLE_COLUMNS = Object.freeze([
+  'country',
+  'coordinates',
+  'year',
+  'basisOfRecord',
+  'dataset',
+  'publisher',
+]);
+const DEFAULT_ENABLED_TABLE_COLUMNS = Object.freeze([...DAFAULT_AVAILABLE_TABLE_COLUMNS]);
+
 const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
   query OccurrenceSearch($from: Int, $size: Int, $predicate: Predicate) {
     occurrenceSearch(predicate: $predicate) {
@@ -36,13 +47,15 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
         total
         results {
           key
+          taxonKey
           scientificName
           eventDate
           coordinates
           country
           countryCode
           basisOfRecord
-          datasetName
+          datasetTitle
+          datasetKey
           publisherTitle
         }
       }
@@ -80,20 +93,18 @@ export function OccurrenceSearch(): React.ReactElement {
   const [view, setView] = useStringParam({ key: 'view', defaultValue: 'table', hideDefault: true });
   const config = useConfig();
 
-  console.log(filters);
-
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
 
   const [previewKey, setPreviewKey] = useState<string | null>();
   const [paginationState, setPaginationState] = usePaginationState();
 
-  const { data, error, load, loading } = useQuery<
-    OccurrenceSearchQuery,
-    OccurrenceSearchQueryVariables
-  >(OCCURRENCE_SEARCH_QUERY, {
-    throwAllErrors: true,
-    lazyLoad: true,
-  });
+  const { data, load, loading } = useQuery<OccurrenceSearchQuery, OccurrenceSearchQueryVariables>(
+    OCCURRENCE_SEARCH_QUERY,
+    {
+      throwAllErrors: true,
+      lazyLoad: true,
+    }
+  );
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
@@ -238,15 +249,16 @@ export function OccurrenceSearch(): React.ReactElement {
             rowCount={data?.occurrenceSearch?.documents.total}
             pagination={paginationState}
             setPaginationState={setPaginationState}
-            filters={filters}
             // TODO: Should the logic be located in the config?
             availableTableColumns={[
               'scientificName',
-              ...(config?.occurrenceSearch?.availableTableColumns ?? []),
+              ...(config?.occurrenceSearch?.availableTableColumns ??
+                DAFAULT_AVAILABLE_TABLE_COLUMNS),
             ]}
             defaultEnabledTableColumns={[
               'scientificName',
-              ...(config?.occurrenceSearch?.defaultEnabledTableColumns ?? []),
+              ...(config?.occurrenceSearch?.defaultEnabledTableColumns ??
+                DEFAULT_ENABLED_TABLE_COLUMNS),
             ]}
           />
         </InternalScrollHandler>
