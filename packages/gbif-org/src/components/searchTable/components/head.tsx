@@ -8,16 +8,26 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Checkbox } from '@/components/ui/checkbox';
 import { LuListFilter as FilterIcon } from 'react-icons/lu';
 import { SimpleTooltip } from '@/components/simpleTooltip';
+import { FilterSetting } from '@/components/filters/filterTools';
 
 type Props<TData> = {
   isFirstHead: boolean;
   header: Header<TData, unknown>;
   table: Table<TData>;
   resetColumnVisibility: () => void;
+  filters: Record<string, FilterSetting>;
 };
 
-export function Head<TData>({ isFirstHead, header, table, resetColumnVisibility }: Props<TData>) {
+export function Head<TData>({
+  isFirstHead,
+  header,
+  table,
+  resetColumnVisibility,
+  filters,
+}: Props<TData>) {
   const { locked, setLocked, hidden } = useFirstColumLock();
+
+  const filter = filters[header.column.id];
 
   return (
     <TableHead
@@ -30,7 +40,7 @@ export function Head<TData>({ isFirstHead, header, table, resetColumnVisibility 
       }}
     >
       <div className="g-inline-flex g-items-center g-justify-between g-w-full">
-        <div>
+        <div className="g-inline-flex">
           {isFirstHead && (
             <Popover>
               <SimpleTooltip title="Visible column settings">
@@ -76,18 +86,19 @@ export function Head<TData>({ isFirstHead, header, table, resetColumnVisibility 
           {/* TODO: Open filter popover on click */}
           {/* We could add the filter as a custom property on the columnDef (https://tanstack.com/table/latest/docs/api/core/table#meta) */}
           {/* If filters can be disabled by site owners, we should also take that into account */}
-          <Popover>
-            <PopoverTrigger>
-              <SimpleTooltip title="Filter">
-                <div className="g-ml-2">
-                  <FilterIcon />
-                </div>
-              </SimpleTooltip>
-            </PopoverTrigger>
-            <PopoverContent>
-              <div className="g-p-3">Filter content</div>
-            </PopoverContent>
-          </Popover>
+          {filter && (
+            <SimpleTooltip title="Filter">
+              <div>
+                <filter.Popover
+                  trigger={
+                    <button className="g-ml-2">
+                      <FilterIcon />
+                    </button>
+                  }
+                />
+              </div>
+            </SimpleTooltip>
+          )}
         </div>
 
         {isFirstHead && !hidden && (

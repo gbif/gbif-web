@@ -80,6 +80,8 @@ export function OccurrenceSearch(): React.ReactElement {
   const [view, setView] = useStringParam({ key: 'view', defaultValue: 'table', hideDefault: true });
   const config = useConfig();
 
+  console.log(filters);
+
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
 
   const [previewKey, setPreviewKey] = useState<string | null>();
@@ -236,6 +238,7 @@ export function OccurrenceSearch(): React.ReactElement {
             rowCount={data?.occurrenceSearch?.documents.total}
             pagination={paginationState}
             setPaginationState={setPaginationState}
+            filters={filters}
             // TODO: Should the logic be located in the config?
             availableTableColumns={[
               'scientificName',

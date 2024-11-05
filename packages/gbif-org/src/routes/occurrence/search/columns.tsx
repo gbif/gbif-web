@@ -57,7 +57,7 @@ export function useOccurrenceColumns({
         },
       },
       {
-        id: 'countryOrArea',
+        id: 'country',
         cell: ({ row }) => {
           return (
             <SetAsFilter
