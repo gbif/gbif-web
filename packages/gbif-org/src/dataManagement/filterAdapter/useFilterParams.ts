@@ -84,7 +84,9 @@ function useQueryParams({observedParams}: {observedParams: string[]}) {
   
   // useCallback to to setsearchparams, but before doing so it should turn everything into string or array of strings
   const updateQuery = useCallback((nextQuery: any) => {
-    const stringParams = asStringParams(nextQuery);
+    const existingQuery = parseParams(searchParams, true);
+    const mergedQuery = {...existingQuery, ...nextQuery};
+    const stringParams = asStringParams(mergedQuery);
     setSearchParams(stringParams);
   }, [setSearchParams, observedParams]);
 
