@@ -4345,6 +4345,7 @@ export type Occurrence = {
   higherGeography?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   higherGeographyID?: Maybe<Scalars['String']['output']>;
   highestBiostratigraphicZone?: Maybe<Scalars['String']['output']>;
+  hostingOrganizationKey?: Maybe<Scalars['ID']['output']>;
   identificationID?: Maybe<Scalars['String']['output']>;
   identificationQualifier?: Maybe<Scalars['String']['output']>;
   identificationReferences?: Maybe<Scalars['String']['output']>;
@@ -5693,6 +5694,19 @@ export type OccurrenceFeatures = {
   isSpecimen?: Maybe<Scalars['Boolean']['output']>;
   /** We know for sure that this is related to a treatment (based on the publisher) */
   isTreament?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type OccurrenceFeedback = {
+  __typename?: 'OccurrenceFeedback';
+  datasetContactEmail?: Maybe<OccurrenceFeedbackValue>;
+  gbifGithub: Scalars['String']['output'];
+  publisherFeedbackSystem?: Maybe<OccurrenceFeedbackValue>;
+};
+
+export type OccurrenceFeedbackValue = {
+  __typename?: 'OccurrenceFeedbackValue';
+  title: Scalars['String']['output'];
+  value: Scalars['String']['output'];
 };
 
 export type OccurrenceHistogram = {
@@ -7993,6 +8007,8 @@ export type VolatileOccurrenceData = {
   __typename?: 'VolatileOccurrenceData';
   /** Duck typing various features that is worth highlighting */
   features?: Maybe<OccurrenceFeatures>;
+  /** Feedback options for the occurrence */
+  feedback?: Maybe<OccurrenceFeedback>;
   globe?: Maybe<Globe>;
 };
 
