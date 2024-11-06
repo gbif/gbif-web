@@ -240,28 +240,29 @@ export function OccurrenceSearch(): React.ReactElement {
       </section>
 
       {view === 'table' && (
-        <InternalScrollHandler headerHeight={150}>
-          <SearchTable
-            className="g-bg-white g-flex-1 g-min-h-0"
-            columns={columns}
-            data={occurrences}
-            loading={loading}
-            rowCount={data?.occurrenceSearch?.documents.total}
-            pagination={paginationState}
-            setPaginationState={setPaginationState}
-            // TODO: Should the logic be located in the config?
-            availableTableColumns={[
-              'scientificName',
-              ...(config?.occurrenceSearch?.availableTableColumns ??
-                DAFAULT_AVAILABLE_TABLE_COLUMNS),
-            ]}
-            defaultEnabledTableColumns={[
-              'scientificName',
-              ...(config?.occurrenceSearch?.defaultEnabledTableColumns ??
-                DEFAULT_ENABLED_TABLE_COLUMNS),
-            ]}
-          />
-        </InternalScrollHandler>
+        <h1>table placeholder</h1>
+        // <InternalScrollHandler headerHeight={150}>
+        //   <SearchTable
+        //     className="g-bg-white g-flex-1 g-min-h-0"
+        //     columns={columns}
+        //     data={occurrences}
+        //     loading={loading}
+        //     rowCount={data?.occurrenceSearch?.documents.total}
+        //     pagination={paginationState}
+        //     setPaginationState={setPaginationState}
+        //     // TODO: Should the logic be located in the config?
+        //     availableTableColumns={[
+        //       'scientificName',
+        //       ...(config?.occurrenceSearch?.availableTableColumns ??
+        //         DAFAULT_AVAILABLE_TABLE_COLUMNS),
+        //     ]}
+        //     defaultEnabledTableColumns={[
+        //       'scientificName',
+        //       ...(config?.occurrenceSearch?.defaultEnabledTableColumns ??
+        //         DEFAULT_ENABLED_TABLE_COLUMNS),
+        //     ]}
+        //   />
+        // </InternalScrollHandler>
       )}
 
       {view === 'map' && <Map />}

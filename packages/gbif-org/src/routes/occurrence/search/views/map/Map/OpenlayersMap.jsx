@@ -324,9 +324,13 @@ class Map extends Component {
     });
 
     map.on('pointermove', function (e) {
-      var pixel = map.getEventPixel(e.originalEvent);
-      var hit = map.hasFeatureAtPixel(pixel, { layerFilter: l => l.values_.name === 'occurrences' });
-      map.getViewport().style.cursor = hit ? 'pointer' : '';
+      if (e.dragging) {
+        return;
+      } else {
+        var pixel = map.getEventPixel(e.originalEvent);
+        var hit = map.hasFeatureAtPixel(pixel, { layerFilter: l => l.values_.name === 'occurrences' });
+        map.getViewport().style.cursor = hit ? 'pointer' : '';
+      }
     });
   }
 

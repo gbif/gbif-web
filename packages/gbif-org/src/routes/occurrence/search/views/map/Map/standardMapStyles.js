@@ -2,7 +2,7 @@ import MapComponentMB from './MapboxMap';
 import MapComponentOL from './OpenlayersMap';
 const pixelRatio = window.devicePixelRatio || 1;
 
-const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/unstable-api/map-styles`;
+const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
 
 export function getMapStyles({ apiKeys = {}, language = 'en' }) {
   const natural = `styleName=natural&background=${encodeURIComponent('#e5e9cd')}&language=${language}&pixelRatio=${pixelRatio}`;
