@@ -1,7 +1,22 @@
-import { debounce } from "@/utils/debounce";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { debounce } from '@/utils/debounce';
+import { CSSProperties, ReactNode, useEffect, useRef, useState } from 'react';
 
-export default function DynamicHeightDiv({ minPxHeight = 300, children, style = {}, ...props }: { minPxHeight?: number, children: ReactNode, style?: CSSProperties }) {
+export default function DynamicHeightDiv({
+  minPxHeight = 300,
+  maxPxHeight,
+  sizeByViewport = false,
+  stepSize = 20,
+  children,
+  style = {},
+  ...props
+}: {
+  minPxHeight?: number;
+  maxPxHeight?: number;
+  stepSize?: number;
+  sizeByViewport?: boolean;
+  children: ReactNode;
+  style?: CSSProperties;
+}) {
   const divRef = useRef(null);
   const [divHeight, setDivHeight] = useState(minPxHeight);
 
@@ -9,25 +24,46 @@ export default function DynamicHeightDiv({ minPxHeight = 300, children, style = 
     const adjustHeight = () => {
       if (divRef.current) {
         // Get the position of the div relative to the viewport
-        const { top } = divRef.current.getBoundingClientRect();
+        const { top: relativetop } = divRef.current.getBoundingClientRect();
+        // get position relative to document top
+        const absoluteTop = window.scrollY + relativetop;
 
         // Calculate the remaining height
-        const availableHeight = window.innerHeight - top;
+        // default behaviour is relative to the window, but it can be relative to the viewport. The latter will mean that the div will grow when scrolling
+        const availableHeight = window.innerHeight - (sizeByViewport ? relativetop : absoluteTop);
 
-        // Set the height, ensuring it's at least 300px
-        setDivHeight(Math.max(minPxHeight, availableHeight));
+        // get maximium height - the default is viewport height, but it can be set to a fixed value
+        const maximumHeight = Math.max(minPxHeight, maxPxHeight ?? getDynamicViewportHeight());
+
+        // Set the height, ensuring it is between min and max heights
+        const height = Math.max(minPxHeight, Math.min(availableHeight, maximumHeight));
+        // Allow rounding down to nearest step size (e.g. 10 px). This will prevent as much flickering when resizing
+        const stepHeight = stepSize * Math.floor(height / stepSize);
+        setDivHeight(stepHeight);
       }
     };
 
     // Initial height adjustment and on resize
     adjustHeight();
 
-    const handleResize = debounce(adjustHeight, 100);
+    // add a debounce to avoid excessive recalculations
+    const handleResize = debounce(adjustHeight, 30);
 
-    // Update the visible tab count on resize
+    // watch for changes in the body size
+    const resizeObserver = new ResizeObserver(() => {
+      handleResize();
+    });
+    resizeObserver.observe(document.body);
+
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    window.addEventListener('scroll', handleResize);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleResize);
+      resizeObserver.disconnect();
+    };
+  }, [minPxHeight, maxPxHeight, sizeByViewport, stepSize]);
 
   return (
     <div
@@ -35,11 +71,15 @@ export default function DynamicHeightDiv({ minPxHeight = 300, children, style = 
       style={{
         minHeight: `${minPxHeight}px`,
         height: `${divHeight}px`,
-        ...style
+        ...style,
       }}
       {...props}
     >
       {children}
     </div>
   );
-};
+}
+
+function getDynamicViewportHeight() {
+  return window.visualViewport ? window.visualViewport.height : window.innerHeight;
+}
