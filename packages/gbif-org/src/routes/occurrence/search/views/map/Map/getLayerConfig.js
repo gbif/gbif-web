@@ -1,4 +1,11 @@
-export function getLayerConfig({tileString, theme}) {
+export function getLayerConfig({tileString}) {
+  const mapDensityColors = [
+    "#fed976",
+    "#fd8d3c",
+    "#F7642E",
+    "#f03b20",
+    "#bd0026"
+  ];
   return {
     id: "occurrences",
     type: "circle",
@@ -19,14 +26,14 @@ export function getLayerConfig({tileString, theme}) {
       "circle-color": {
         property: "total",
         type: "interval",
-        stops: [0, 10, 100, 1000, 10000].map((x, i) => [x, theme.mapDensityColors[i]])
+        stops: [0, 10, 100, 1000, 10000].map((x, i) => [x, mapDensityColors[i]])
       },
       "circle-opacity": {
         property: "total",
         type: "interval",
         stops: [[0, 1], [10, 0.8], [100, 0.8], [1000, 0.7], [10000, 0.7]]
       },
-      "circle-stroke-color": theme.mapDensityColors[2],
+      "circle-stroke-color": mapDensityColors[2],
       "circle-stroke-width": {
         property: "total",
         type: "interval",

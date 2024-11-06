@@ -21,8 +21,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu';
 // import { ViewHeader } from '../ViewHeader';
@@ -36,6 +34,9 @@ import { useConfig } from '@/config/config';
 import { useToast } from '@/components/ui/use-toast';
 import { cn } from '@/utils/shadcn';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
+import ListBox from './ListBox';
+import { Drawer } from '@/components/drawer/drawer';
+import { StandaloneOccurrenceKeyPage } from '@/routes/occurrence/key/standalone';
 // import { toast } from 'react-toast'
 
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
@@ -79,7 +80,7 @@ function Map({
   // const dialog = useDialogState({ animated: true, modal: false });
   const config = useConfig();
   const userLocationEnabled = true; //config?.occurrence?.mapSettings?.userLocationEnabled;
-
+  const [previewKey, setPreviewKey] = useState();
   const styleLookup = config?.maps?.styleLookup || {};
 
   const mapStyles = config?.maps?.mapStyles?.options || defaultLayerOptions;
@@ -119,7 +120,6 @@ function Map({
   });
 
   useEffect(() => {
-    console.log('generate basemap options');
     const mapStyles = getMapStyles({
       apiKeys: config?.apiKeys,
       language: config?.maps?.locale || 'en',
@@ -250,8 +250,8 @@ function Map({
   });
 
   if (!basemapOptions || !mapConfiguration) return null;
-  const MapComponent = MapComponentOL;
-  // const MapComponent = mapConfiguration?.component || MapComponentOL;
+  // const MapComponent = MapComponentOL;
+  const MapComponent = mapConfiguration?.component || MapComponentOL;
 
   const notPolarProjection = ['PLATE_CAREE', 'MERCATOR'].indexOf(projection) >= 0;
 
@@ -260,6 +260,16 @@ function Map({
       {/* <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.key}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
       <OccurrenceSidebar id={activeItem?.key} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} onCloseRequest={() => dialog.setVisible(false)} />
     </DetailsDrawer> */}
+      <Drawer
+        isOpen={!!activeItem?.key}
+        close={() => setActive(null)}
+        viewOnGbifHref={`/occurrence/${activeItem?.key}`}
+        next={nextItem}
+        previous={previousItem}
+      >
+        <StandaloneOccurrenceKeyPage occurrenceKey={activeItem?.key} />
+      </Drawer>
+
       <div
         ref={ref}
         className={cn(
@@ -270,13 +280,17 @@ function Map({
       >
         {/* <ViewHeader message="counts.nResultsWithCoordinates" loading={loading} total={total} /> */}
         <DynamicHeightDiv minPxHeight={500}>
-          {/* {listVisible && <ListBox onCloseRequest={e => showList(false)}
-          labelMap={labelMap}
-          onClick={({ index }) => { dialog.show(); setActive(index) }}
-          data={pointData} error={pointError}
-          loading={pointLoading}
-          css={css.resultList({})}
-        />} */}
+          {listVisible && (
+            <ListBox
+              onCloseRequest={(e) => showList(false)}
+              labelMap={labelMap}
+              onClick={({ index }) => { setActive(index) }}
+              data={pointData}
+              error={pointError}
+              loading={pointLoading}
+              className="gbif-resultList g-z-10 g-absolute g-start-0 g-top-0 g-m-2 g-w-96 g-max-w-full g-max-h-[calc(100%-4rem)]"
+            />
+          )}
           <div className="mapControls g-flex g-absolute g-bg-white g-z-10 g-border g-m-2 g-end-0 g-items-center">
             <MenuButton onClick={() => broadcastEvent({ type: 'ZOOM_IN' })}>
               <MdZoomIn />
@@ -295,11 +309,6 @@ function Map({
                 </MenuButton>
               </SimpleTooltip>
             )}
-            {/* {projectionOptions.length > 1 && <Menu style={{ display: 'inline-block' }}
-            aria-label="Select projection"
-            trigger={<Button appearance="text"><MdLanguage /></Button>}
-            items={projectionMenuOptions}
-          />} */}
 
             {projectionOptions.length > 1 && (
               <DropdownMenu>
@@ -376,7 +385,7 @@ function Spinner() {
       <svg
         aria-hidden="true"
         className="g-text-gray-200 g-animate-spin dark:g-text-slate-300 g-fill-slate-500"
-        style={{height: '.8em', width: '.8em'}}
+        style={{ height: '.8em', width: '.8em' }}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

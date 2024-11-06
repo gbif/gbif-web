@@ -411,10 +411,10 @@ function Location({
         {occurrence.coordinates.lon && (
           <div className="g-ms-4 g-flex-auto g-w-1/2 g-min-w-64">
             <StaticRenderSuspence fallback={<div>Loading map...</div>}>
-              <Map
+              {/* <Map
                 coordinates={occurrence.coordinates}
                 className="g-w-full g-rounded g-overflow-hidden"
-              />
+              /> */}
             </StaticRenderSuspence>
           </div>
         )}

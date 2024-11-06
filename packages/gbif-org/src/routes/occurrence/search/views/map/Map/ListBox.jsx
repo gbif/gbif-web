@@ -1,147 +1,112 @@
-
-import { useContext } from "react";
+import { BasisOfRecordLabel } from '@/components/filters/displayNames';
+import StripeLoader from '@/components/stripeLoader';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/utils/shadcn';
+import { useContext } from 'react';
 import { MdChevronRight } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
-import { Image, StripeLoader, Button, Row, Col } from '../../../../components';
+// import { Image, StripeLoader, Button, Row, Col } from '../../../../components';
 import { FormattedDate } from 'react-intl';
-import ThemeContext from '../../../../style/themes/ThemeContext';
-import { styledScrollBars } from '../../../../style/shared';
+// import ThemeContext from '../../../../style/themes/ThemeContext';
+// import { styledScrollBars } from '../../../../style/shared';
 
-function ListItem({ BasisOfRecordLabel, id, item, imageSrc, onClick = () => { }, ...props }) {
-  const theme = useContext(ThemeContext);
-
-  return <div css={listItem({ theme })} onClick={e => onClick({ id })}>
-    <Row wrap="no-wrap" alignItems="center">
-      <Col grow={true} css={listItemContent({ theme })}>
-        <h4 dangerouslySetInnerHTML={{ __html: item.gbifClassification.usage.formattedName }} ></h4>
-        {item.eventDate && <div>
-          <FormattedDate value={item.eventDate}
-            year="numeric"
-            month="long"
-            day="2-digit" />
-        </div>}
-        <div>
-          <BasisOfRecordLabel id={item.basisOfRecord} />
+function ListItem({ id, item, onClick = (id) => {}, ...props }) {
+  return (
+    <button className="gbif-listItem g-text-start g-w-full g-border-b g-p-2 g-text-sm g-min-h-20" onClick={() => onClick({ id })}>
+      <div className="g-flex g-flex-row g-flex-nowrap" >
+        <div className="g-flex-grow gbif-listItemContent">
+          <h4 className=""
+            dangerouslySetInnerHTML={{ __html: item.gbifClassification.usage.formattedName }}
+          ></h4>
+          {item.eventDate && (
+            <div className="g-text-slate-500">
+              <FormattedDate value={item.eventDate} year="numeric" month="long" day="2-digit" />
+            </div>
+          )}
+          {/* <div className="g-text-slate-500">
+            <BasisOfRecordLabel id={item.basisOfRecord} />
+          </div> */}
         </div>
-      </Col>
-      <Col grow={false}>
-        <Button className="gbif-map-listItem-chevreon" appearance="text" style={{ padding: 3 }} onClick={e => onClick({ id })}>
-          <MdChevronRight />
-        </Button>
-      </Col>
-      {item.primaryImage?.identifier && <Col grow={false}>
-        <Image src={item.primaryImage?.identifier} w={80} h={80} style={{ display: 'block', background: theme.paperBackground200, width: 80, height: 80 }} />
-      </Col>}
-    </Row>
-  </div>
+        {item.primaryImage?.identifier && (
+          <div className="g-flex-grow-0 g-block g-w-[60px] g-h-[60px] g-bg-slate-100 g-rounded g-border">
+            <img
+              src={item.primaryImage?.identifier}
+              className="g-w-full g-h-full g-rounded"
+            />
+          </div>
+        )}
+      </div>
+    </button>
+  );
 }
 
-function ListBox({ labelMap, onCloseRequest, onClick, data, error, loading, ...props }) {
-  const theme = useContext(ThemeContext);
+function ListBox({ className, labelMap, onCloseRequest, onClick, data, error, loading, ...props }) {
   if (!error && !loading && !data) return null;
-  const BasisOfRecordLabel = labelMap.basisOfRecord;
 
   let content;
   if (loading) {
-    return <section  {...props}>
-      <div css={container({ theme })}>
-        <StripeLoader active />
-        <div css={listItemContent({ theme })}>
-          <FormattedMessage id="phrases.loading" />
+    return (
+      <section {...props}>
+        <div className="gbif-container">
+          <StripeLoader active />
+          <div className="listItemContent">
+            <FormattedMessage id="phrases.loading" />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    );
   } else if (error) {
-    return <section  {...props}>
-      <div css={container({ theme })}>
-        <StripeLoader active error />
-        <div css={listItemContent({ theme })}>
-          <FormattedMessage id="phrases.loadError" />
+    return (
+      <section {...props}>
+        <div className="container">
+          <StripeLoader active error />
+          <div className="gbif-listItemContent">
+            <FormattedMessage id="phrases.loadError" />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    );
   } else if (data) {
     const results = data?.occurrenceSearch?.documents?.results || [];
-    content = <ul css={list({ theme })}>
-      {results.map((x, index) => {
-        return <li key={x.key}>
-          <ListItem BasisOfRecordLabel={BasisOfRecordLabel} onClick={() => onClick({ index })} id={x.key} item={x} />
-        </li>
-      })}
-    </ul>;
+    content = (
+      <ul className="gbif-list">
+        {results.map((x, index) => {
+          return (
+            <li key={x.key}>
+              <ListItem
+                onClick={() => onClick({ index })}
+                id={x.key}
+                item={x}
+              />
+            </li>
+          );
+        })}
+      </ul>
+    );
   }
 
-  return <section  {...props}>
-    <Row css={container({ theme })} direction="column">
-      <Col grow={false} as="header" >
-        <Row alignItems="center">
-          <Col grow>
-            <FormattedMessage id="counts.nResults" values={{ total: data?.occurrenceSearch?.documents.total }} />
-          </Col>
-          <Col grow={false}><Button appearance="outline" onClick={onCloseRequest}>
-            <FormattedMessage id="phrases.close" />
-          </Button></Col>
-        </Row>
-      </Col>
-      <Col grow as="div">
+  return (
+    <section {...props} className={cn('g-flex g-flex-col g-bg-white g-border', className)}>
+      <header className="g-flex g-flex-col g-flex-none g-border-b g-text-sm g-font-bold g-px-2 g-py-1">
+        <div className="g-flex g-flex-row g-items-center">
+          <div className="g-flex-1">
+            <FormattedMessage
+              id="counts.nResults"
+              values={{ total: data?.occurrenceSearch?.documents.total }}
+            />
+          </div>
+          <div className="g-flex-0">
+            <Button variant="outline" onClick={onCloseRequest}>
+              <FormattedMessage id="phrases.close" />
+            </Button>
+          </div>
+        </div>
+      </header>
+      <main className="g-flex-1 g-overflow-auto">
         {content}
-      </Col>
-    </Row>
-  </section>
+      </main>
+    </section>
+  );
 }
-
-const container = ({ theme, ...props }) => css`
-  background: ${theme.paperBackground500};
-  overflow: auto;
-  border-radius: ${theme.borderRadius}px;
-  border: 1px solid ${theme.paperBorderColor};
-  max-height: inherit;
-  flex-wrap: nowrap;
-  header {
-    padding: 8px 16px;
-    border-bottom: 1px solid ${theme.paperBorderColor};
-    font-size: 12px;
-    font-weight: 500;
-  }
-  main {
-    overflow: auto;
-    ${styledScrollBars({ theme })};
-  }
-  footer {
-    border-top: 1px solid ${theme.paperBorderColor};
-    padding: 8px 16px;
-  }
-`;
-
-const list = ({ theme, ...props }) => css`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  border-top: 1px solid ${theme.paperBorderColor};
-`;
-
-const listItemContent = ({ ...props }) => css`
-  padding: 8px 16px;
-  font-size: 13px;
-  overflow: hidden;
-  h4 {
-    margin: 0 0 8px 0;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-`;
-
-const listItem = ({ theme, ...props }) => css`
-  border-bottom: 1px solid ${theme.paperBorderColor};
-  cursor: pointer;
-  :hover {
-    background: ${theme.paperBackground700};
-  }
-  .gbif-map-listItem-chevreon {
-    color: ${theme.color500};
-  }
-`;
-
 
 export default ListBox;

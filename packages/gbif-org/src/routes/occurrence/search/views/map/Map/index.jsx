@@ -36,7 +36,7 @@ query point($predicate: Predicate){
           }
         }
         primaryImage {
-          identifier
+          identifier: thumbor(width: 60, height: 60)
         }
       }
     }

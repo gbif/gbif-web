@@ -3,6 +3,7 @@ import MapComponentOL from './OpenlayersMap';
 const pixelRatio = window.devicePixelRatio || 1;
 
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
+const API_KEY_MAPTILER = import.meta.env.PUBLIC_API_KEY_MAPTILER;
 
 export function getMapStyles({ apiKeys = {}, language = 'en' }) {
   const natural = `styleName=natural&background=${encodeURIComponent('#e5e9cd')}&language=${language}&pixelRatio=${pixelRatio}`;
@@ -61,7 +62,7 @@ export function getMapStyles({ apiKeys = {}, language = 'en' }) {
       labelKey: 'map.styles.satellite',
       component: MapComponentMB,
       mapConfig: {
-        basemapStyle: `${MAP_STYLES}/3857/satellite_maptiler?maptilerApiKey=${apiKeys.maptiler}`,
+        basemapStyle: `${MAP_STYLES}/3857/satellite_maptiler?maptilerApiKey=${API_KEY_MAPTILER}`,
         projection: 'EPSG_3857'
       }
     },
@@ -77,7 +78,7 @@ export function getMapStyles({ apiKeys = {}, language = 'en' }) {
       labelKey: 'map.styles.natural',
       component: MapComponentMB,
       mapConfig: {
-        basemapStyle: `${MAP_STYLES}/3857/gbif-raster-hillshade?${natural}&maptilerApiKey=${apiKeys.maptiler}`,
+        basemapStyle: `${MAP_STYLES}/3857/gbif-raster-hillshade?${natural}&maptilerApiKey=${API_KEY_MAPTILER}`,
         projection: 'EPSG_3857'
       }
     },
@@ -94,14 +95,6 @@ export function getMapStyles({ apiKeys = {}, language = 'en' }) {
       component: MapComponentMB,
       mapConfig: {
         basemapStyle: `${MAP_STYLES}/3857/gbif-raster?${dark}`,
-        projection: 'EPSG_3857'
-      }
-    },
-    BRIGHT_MAPBOX_MERCATOR: {
-      labelKey: 'map.styles.bright',
-      component: MapComponentMB,
-      mapConfig: {
-        basemapStyle: `https://api.mapbox.com/styles/v1/mapbox/light-v9?access_token=${apiKeys.mapbox}`,
         projection: 'EPSG_3857'
       }
     },
