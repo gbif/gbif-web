@@ -25,6 +25,7 @@ export default [
   'eventId',
   'hasCoordinate',
   'hasGeospatialIssue',
+  'higherGeography',
   'id',
   'identifiedBy',
   'individualCount',
