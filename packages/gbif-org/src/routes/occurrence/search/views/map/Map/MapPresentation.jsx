@@ -37,6 +37,8 @@ import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import ListBox from './ListBox';
 import { Drawer } from '@/components/drawer/drawer';
 import { StandaloneOccurrenceKeyPage } from '@/routes/occurrence/key/standalone';
+import { useOrderedList } from '../../browseList/useOrderedList';
+import { useStringParam } from '@/hooks/useParam';
 // import { toast } from 'react-toast'
 
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
@@ -80,7 +82,7 @@ function Map({
   const config = useConfig();
   const userLocationEnabled = true; //config?.occurrence?.mapSettings?.userLocationEnabled;
   const styleLookup = config?.maps?.styleLookup || {};
-
+  const { setOrderedList } = useOrderedList();
   const mapStyles = config?.maps?.mapStyles?.options || defaultLayerOptions;
   const supportedProjections = Object.keys(mapStyles);
   const [projectionOptions] = useState(supportedProjections);
@@ -104,12 +106,15 @@ function Map({
   const [latestEvent, broadcastEvent] = useState();
   const [searchingLocation, setLocationSearch] = useState();
   const [basemapOptions, setBasemapOptions] = useState();
-  const [activeId, setActive] = useState();
-  const [activeItem, setActiveItem] = useState();
   const [listVisible, showList] = useState(false);
   const { toast } = useToast();
-
+  const [, setPreviewKey] = useStringParam({ key: 'entity' });
   const items = React.useMemo(() => pointData?.occurrenceSearch?.documents?.results || [], [pointData]);
+
+  // update ordered list on items change
+  useEffect(() => {
+    setOrderedList(items.map((item) => `o_${item.key}`));
+  }, [items, setOrderedList]);
 
   const { width, height, ref } = useResizeDetector({
     handleHeight: true,
@@ -138,18 +143,6 @@ function Map({
     const newBaseMapOptions = Object.assign({}, mapStyles, mapStyleOverwrites);
     setBasemapOptions(newBaseMapOptions);
   }, [config]);
-
-  useEffect(() => {
-    setActiveItem(items[activeId]);
-  }, [activeId, items]);
-
-  const nextItem = useCallback(() => {
-    setActive(Math.min(items.length - 1, activeId + 1));
-  }, [items, activeId]);
-
-  const previousItem = useCallback(() => {
-    setActive(Math.max(0, activeId - 1));
-  }, [activeId]);
 
   const eventListener = useCallback(
     (event) => {
@@ -255,16 +248,6 @@ function Map({
 
   return (
     <>
-      <Drawer
-        isOpen={!!activeItem?.key}
-        close={() => setActive(null)}
-        viewOnGbifHref={`/occurrence/${activeItem?.key}`}
-        next={nextItem}
-        previous={previousItem}
-      >
-        <StandaloneOccurrenceKeyPage occurrenceKey={activeItem?.key} />
-      </Drawer>
-
       <div
         ref={ref}
         className={cn(
@@ -277,9 +260,11 @@ function Map({
         <DynamicHeightDiv minPxHeight={500}>
           {listVisible && (
             <ListBox
-              onCloseRequest={(e) => showList(false)}
+              onCloseRequest={() => showList(false)}
               labelMap={labelMap}
-              onClick={({ index }) => { setActive(index) }}
+              onClick={({ index }) => {
+                setPreviewKey(`o_${items[index].key}`);
+              }}
               data={pointData}
               error={pointError}
               loading={pointLoading}

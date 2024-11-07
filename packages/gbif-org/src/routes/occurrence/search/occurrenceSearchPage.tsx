@@ -26,6 +26,7 @@ import { searchConfig } from './searchConfig';
 import { Clusters } from './views/clusters';
 import { Dashboard } from './views/dashboard';
 import { Download } from './views/download';
+import EntityDrawer from './views/browseList/ListBrowser';
 
 // TODO: Should maybe be moved to the configBuilder
 const DAFAULT_AVAILABLE_TABLE_COLUMNS = Object.freeze([
@@ -132,6 +133,7 @@ export function OccurrenceSearch(): React.ReactElement {
         <title>Occurrence search</title>
       </Helmet>
 
+<EntityDrawer />
       {previewInDrawer && (
         <Drawer
           isOpen={typeof previewKey === 'string'}
