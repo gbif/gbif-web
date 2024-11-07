@@ -133,7 +133,7 @@ export const gbifConfig: Config = {
   theme: {
     primary: '#4787fb', //'#69AA69',
     // primary: '#69AA69',
-    stickyOffset: '40px',
+    stickyOffset: '0px',
   },
   openGraph: {
     site_name: 'GBIF',
@@ -164,4 +164,34 @@ export const gbifConfig: Config = {
     // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
     // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
   },
+  maps: {
+    mapStyles: {
+      defaultProjection: 'MERCATOR',
+      defaultMapStyle: 'NATURAL',
+      options: {
+        ARCTIC: ['NATURAL', 'BRIGHT'],
+        PLATE_CAREE: ['NATURAL', 'BRIGHT', 'DARK'],
+        MERCATOR: ['NATURAL', 'BRIGHT', 'SATELLITE', 'DARK', 'GEOLOGY'],
+        ANTARCTIC: ['NATURAL', 'BRIGHT', 'DARK']
+      },
+    },
+    addMapStyles: function ({ mapStyleServer, language, pixelRatio, apiKeys, mapComponents }) {
+      return {
+        GEOLOGY: { // the name of your style
+          component: mapComponents.OpenlayersMap, // what map component to use OpenlayersMap | MapLibreMap
+          labelKey: 'I ❤️ GBIF', // the label in the select. Use a translation key
+          mapConfig: {
+            basemapStyle: 'http://localhost:4002/unstable-api/map-styles/3857/geology',
+            projection: 'EPSG_3857'// one of 4326 | 3031 | 3857 | 3575
+          }
+        }
+      }
+    },
+    // rewire style names to show a different style
+    styleLookup: {
+      MERCATOR: {
+        GEOLOGY: 'GEOLOGY'
+      }
+    }
+  }
 };

@@ -9,7 +9,7 @@ export  function useNumberParam({
   key: string;
   defaultValue?: string | number;
   hideDefault?: boolean;
-}): [number, (value: number) => void] {
+}): [number, (value?: number) => void] {
   const [value, setValue] = useParam({
     key,
     defaultValue: defaultValue ?? 0,
@@ -27,7 +27,7 @@ export function useIntParam({
   key: string;
   defaultValue?: number;
   hideDefault?: boolean;
-}): [number, (value: number) => void] {
+}): [number, (value?: number) => void] {
   const [value, setValue] = useParam({
     key,
     defaultValue: defaultValue ?? 0,
@@ -45,7 +45,7 @@ export function useStringParam({
   key: string;
   defaultValue?: string;
   hideDefault?: boolean;
-}): [string | undefined, (value: string) => void] {
+}): [string | undefined, (value?: string) => void] {
   const [value, setValue] = useParam({
     key,
     defaultValue: defaultValue,
@@ -65,14 +65,14 @@ function useParam<T>({
   parse: (value?: string) => T;
   defaultValue?: string | number;
   hideDefault?: boolean;
-}): [T, (value: T) => void] {
+}): [T, (value?: T) => void] {
   const [searchParams, setSearchParams] = useSearchParams();
   const value = parse(searchParams.get(key) ?? (defaultValue ? defaultValue.toString() : undefined));
-  const setValue = (value: T) => {
+  const setValue = (value?: T) => {
     setSearchParams((params) => {
       const clone = new URLSearchParams(params);
       clone.set(key, parse(value + '') + '');
-      if (value === defaultValue && hideDefault) {
+      if (value === undefined || (value === defaultValue && hideDefault)) {
         clone.delete(key);
       }
       return clone;

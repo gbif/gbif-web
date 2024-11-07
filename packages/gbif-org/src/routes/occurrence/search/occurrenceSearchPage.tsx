@@ -20,12 +20,13 @@ import { Helmet } from 'react-helmet-async';
 import { StandaloneOccurrenceKeyPage } from '../key/standalone';
 import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './helpTexts';
+import { Map } from './views/map';
+import { Media } from './views/media';
 import { searchConfig } from './searchConfig';
 import { Clusters } from './views/clusters';
 import { Dashboard } from './views/dashboard';
 import { Download } from './views/download';
-import { Map } from './views/map';
-import { Media } from './views/media';
+import EntityDrawer from './views/browseList/ListBrowser';
 
 // TODO: Should maybe be moved to the configBuilder
 const DAFAULT_AVAILABLE_TABLE_COLUMNS = Object.freeze([
@@ -132,29 +133,7 @@ export function OccurrenceSearch(): React.ReactElement {
         <title>Occurrence search</title>
       </Helmet>
 
-      {previewInDrawer && (
-        <Drawer
-          isOpen={typeof previewKey === 'string'}
-          close={() => setPreviewKey(null)}
-          viewOnGbifHref={`/occurrence/${previewKey}`}
-          next={() => {
-            const currentIndex = occurrences.findIndex((o) => o.key?.toString() === previewKey);
-            const nextIndex = currentIndex + 1;
-            if (nextIndex < occurrences.length) {
-              setPreviewKey(occurrences[nextIndex].key?.toString());
-            }
-          }}
-          previous={() => {
-            const currentIndex = occurrences.findIndex((o) => o.key?.toString() === previewKey);
-            const previousIndex = currentIndex - 1;
-            if (previousIndex >= 0) {
-              setPreviewKey(occurrences[previousIndex].key?.toString());
-            }
-          }}
-        >
-          <StandaloneOccurrenceKeyPage occurrenceKey={previewKey} />
-        </Drawer>
-      )}
+      <EntityDrawer />
 
       <DataHeader
         title="Occurrences"
@@ -240,28 +219,29 @@ export function OccurrenceSearch(): React.ReactElement {
       </section>
 
       {view === 'table' && (
-        <InternalScrollHandler headerHeight={150}>
-          <SearchTable
-            className="g-bg-white g-flex-1 g-min-h-0"
-            columns={columns}
-            data={occurrences}
-            loading={loading}
-            rowCount={data?.occurrenceSearch?.documents.total}
-            pagination={paginationState}
-            setPaginationState={setPaginationState}
-            // TODO: Should the logic be located in the config?
-            availableTableColumns={[
-              'scientificName',
-              ...(config?.occurrenceSearch?.availableTableColumns ??
-                DAFAULT_AVAILABLE_TABLE_COLUMNS),
-            ]}
-            defaultEnabledTableColumns={[
-              'scientificName',
-              ...(config?.occurrenceSearch?.defaultEnabledTableColumns ??
-                DEFAULT_ENABLED_TABLE_COLUMNS),
-            ]}
-          />
-        </InternalScrollHandler>
+        <h1>table placeholder</h1>
+        // <InternalScrollHandler headerHeight={150}>
+        //   <SearchTable
+        //     className="g-bg-white g-flex-1 g-min-h-0"
+        //     columns={columns}
+        //     data={occurrences}
+        //     loading={loading}
+        //     rowCount={data?.occurrenceSearch?.documents.total}
+        //     pagination={paginationState}
+        //     setPaginationState={setPaginationState}
+        //     // TODO: Should the logic be located in the config?
+        //     availableTableColumns={[
+        //       'scientificName',
+        //       ...(config?.occurrenceSearch?.availableTableColumns ??
+        //         DAFAULT_AVAILABLE_TABLE_COLUMNS),
+        //     ]}
+        //     defaultEnabledTableColumns={[
+        //       'scientificName',
+        //       ...(config?.occurrenceSearch?.defaultEnabledTableColumns ??
+        //         DEFAULT_ENABLED_TABLE_COLUMNS),
+        //     ]}
+        //   />
+        // </InternalScrollHandler>
       )}
 
       {view === 'map' && <Map />}

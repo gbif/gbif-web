@@ -4,15 +4,11 @@ import { Feature, Map as OpenLayersMap, View } from 'ol';
 import { XYZ, Vector as VectorSource } from 'ol/source';
 import { Point } from 'ol/geom';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
-import { useGeographic } from 'ol/proj';
 import Style from 'ol/style/Style';
 import Icon from 'ol/style/Icon';
 import Marker from './marker.svg';
 import { Button } from '../ui/button';
-
-// This is not a React hook.
-// eslint-disable-next-line
-useGeographic();
+import { transform } from 'ol/proj';
 
 type Coordinates = {
   lat: number;
@@ -57,7 +53,8 @@ export function CoordinatesPicker({
 
     mapRef.current.on('singleclick', (event) => {
       const [lon, lat] = event.coordinate;
-      setCoordinates({ lat, lon });
+      const wgsCoordinates = transform([lon, lat], 'EPSG:3857', 'EPSG:4326');
+      setCoordinates({ lat: wgsCoordinates[1], lon: wgsCoordinates[0] });
     });
   });
 
@@ -67,9 +64,11 @@ export function CoordinatesPicker({
       return;
     }
 
+    const mercatorCoordinates = transform([coordinates.lon, coordinates.lat], 'EPSG:4326', 'EPSG:3857');
+
     const layer = new VectorLayer({
       source: new VectorSource({
-        features: [new Feature(new Point([coordinates.lon, coordinates.lat]))],
+        features: [new Feature(new Point([mercatorCoordinates[0], mercatorCoordinates[1]]))],
       }),
       style: new Style({
         image: new Icon({

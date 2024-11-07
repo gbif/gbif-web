@@ -1,9 +1,16 @@
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
+import { PredicateType } from '@/gql/graphql';
 
 const config: FilterConfigType = {
   fields: {
     q: {
       singleValue: true
+    },
+    geometry: {
+      defaultType: PredicateType.Within,
+      v1: {
+        supportedTypes: ['within']
+      }
     },
   } 
 }
