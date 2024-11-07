@@ -133,30 +133,7 @@ export function OccurrenceSearch(): React.ReactElement {
         <title>Occurrence search</title>
       </Helmet>
 
-<EntityDrawer />
-      {previewInDrawer && (
-        <Drawer
-          isOpen={typeof previewKey === 'string'}
-          close={() => setPreviewKey(null)}
-          viewOnGbifHref={`/occurrence/${previewKey}`}
-          next={() => {
-            const currentIndex = occurrences.findIndex((o) => o.key?.toString() === previewKey);
-            const nextIndex = currentIndex + 1;
-            if (nextIndex < occurrences.length) {
-              setPreviewKey(occurrences[nextIndex].key?.toString());
-            }
-          }}
-          previous={() => {
-            const currentIndex = occurrences.findIndex((o) => o.key?.toString() === previewKey);
-            const previousIndex = currentIndex - 1;
-            if (previousIndex >= 0) {
-              setPreviewKey(occurrences[previousIndex].key?.toString());
-            }
-          }}
-        >
-          <StandaloneOccurrenceKeyPage occurrenceKey={previewKey} />
-        </Drawer>
-      )}
+      <EntityDrawer />
 
       <DataHeader
         title="Occurrences"
