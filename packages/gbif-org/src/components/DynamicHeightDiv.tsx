@@ -47,7 +47,7 @@ export default function DynamicHeightDiv({
     adjustHeight();
 
     // add a debounce to avoid excessive recalculations
-    const handleResize = debounce(adjustHeight, 30);
+    const handleResize = debounce(adjustHeight, 100);
 
     // watch for changes in the body size
     const resizeObserver = new ResizeObserver(() => {
