@@ -77,10 +77,8 @@ function Map({
   onFeaturesChange,
   ...props
 }) {
-  // const dialog = useDialogState({ animated: true, modal: false });
   const config = useConfig();
   const userLocationEnabled = true; //config?.occurrence?.mapSettings?.userLocationEnabled;
-  const [previewKey, setPreviewKey] = useState();
   const styleLookup = config?.maps?.styleLookup || {};
 
   const mapStyles = config?.maps?.mapStyles?.options || defaultLayerOptions;
@@ -101,7 +99,7 @@ function Map({
     defaultStyle = mapStyles?.[defaultProjection]?.[0];
   }
 
-  const [layerOptions, setLayerOptions] = useState(mapStyles);
+  const [layerOptions] = useState(mapStyles);
   const [layerId, setLayerId] = useState(defaultStyle);
   const [latestEvent, broadcastEvent] = useState();
   const [searchingLocation, setLocationSearch] = useState();
@@ -111,7 +109,7 @@ function Map({
   const [listVisible, showList] = useState(false);
   const { toast } = useToast();
 
-  const items = pointData?.occurrenceSearch?.documents?.results || [];
+  const items = React.useMemo(() => pointData?.occurrenceSearch?.documents?.results || [], [pointData]);
 
   const { width, height, ref } = useResizeDetector({
     handleHeight: true,
@@ -151,7 +149,7 @@ function Map({
 
   const previousItem = useCallback(() => {
     setActive(Math.max(0, activeId - 1));
-  }, [items, activeId]);
+  }, [activeId]);
 
   const eventListener = useCallback(
     (event) => {
@@ -169,7 +167,7 @@ function Map({
         onFeaturesChange({ features: [wkt] }); //remove existing geometries
       }
     },
-    [onFeaturesChange, projection]
+    [onFeaturesChange, projection, toast]
   );
 
   const getUserLocation = useCallback(() => {
@@ -204,7 +202,7 @@ function Map({
         }
       );
     }
-  }, []);
+  }, [toast]);
 
   const menuLayerOptions = layerOptions?.[projection].map((layerId) => {
     const layerStyle = getStyle({
@@ -257,9 +255,6 @@ function Map({
 
   return (
     <>
-      {/* <DetailsDrawer href={`https://www.gbif.org/occurrence/${activeItem?.key}`} dialog={dialog} nextItem={nextItem} previousItem={previousItem}>
-      <OccurrenceSidebar id={activeItem?.key} defaultTab='details' style={{ maxWidth: '100%', width: 700, height: '100%' }} onCloseRequest={() => dialog.setVisible(false)} />
-    </DetailsDrawer> */}
       <Drawer
         isOpen={!!activeItem?.key}
         close={() => setActive(null)}
