@@ -335,6 +335,11 @@
     "count": "{num, plural, one { cuerpo de agua } other {# cuerpos de agua}}",
     "description": "El nombre del cuerpo de agua en la que se presenta la ubicación.\n"
   },
+  "higherGeography": {
+    "name": "Geografía Superior",
+    "count": "Aquí debe colocarse una breve descripción del componente",
+    "description": "Aquí debe colocarse una breve descripción del componente"
+  },
   "stateProvince": {
     "name": "Departamento/Estado/Provincia",
     "count": "{num, plural, one { departamento/estado/provincia } other {# departamentos/estados/provincias}}",
