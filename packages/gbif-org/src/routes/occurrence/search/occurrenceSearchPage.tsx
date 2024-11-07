@@ -1,5 +1,4 @@
 import { DataHeader } from '@/components/dataHeader';
-import { Drawer } from '@/components/drawer/drawer';
 import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
 import { InternalScrollHandler } from '@/components/internalScrollHandler';
 import { SearchTable } from '@/components/searchTable/table';
@@ -15,9 +14,8 @@ import { useOccurrenceColumns } from '@/routes/occurrence/search/columns';
 import { ExtractPaginatedResult } from '@/types';
 import { notNull } from '@/utils/notNull';
 import { cn } from '@/utils/shadcn';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { StandaloneOccurrenceKeyPage } from '../key/standalone';
 import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './helpTexts';
 import { Map } from './views/map';
@@ -27,6 +25,7 @@ import { Clusters } from './views/clusters';
 import { Dashboard } from './views/dashboard';
 import { Download } from './views/download';
 import EntityDrawer from './views/browseList/ListBrowser';
+import { useOrderedList } from './views/browseList/useOrderedList';
 
 // TODO: Should maybe be moved to the configBuilder
 const DAFAULT_AVAILABLE_TABLE_COLUMNS = Object.freeze([
@@ -88,15 +87,14 @@ export function OccurrenceSearchPage(): React.ReactElement {
 
 export function OccurrenceSearch(): React.ReactElement {
   const previewInDrawer = true;
+  const { setOrderedList } = useOrderedList();
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
   const [view, setView] = useStringParam({ key: 'view', defaultValue: 'table', hideDefault: true });
   const config = useConfig();
-
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
-
-  const [previewKey, setPreviewKey] = useState<string | null>();
+  const [, setPreviewKey] = useStringParam({ key: 'entity' });
   const [paginationState, setPaginationState] = usePaginationState();
 
   const { data, load, loading } = useQuery<OccurrenceSearchQuery, OccurrenceSearchQueryVariables>(
@@ -126,6 +124,11 @@ export function OccurrenceSearch(): React.ReactElement {
     () => data?.occurrenceSearch?.documents.results.filter(notNull) ?? [],
     [data]
   );
+
+  // update ordered list on items change
+  useEffect(() => {
+    setOrderedList(occurrences.map((item) => `o_${item.key}`));
+  }, [occurrences, setOrderedList]);
 
   return (
     <>
@@ -219,29 +222,28 @@ export function OccurrenceSearch(): React.ReactElement {
       </section>
 
       {view === 'table' && (
-        <h1>table placeholder</h1>
-        // <InternalScrollHandler headerHeight={150}>
-        //   <SearchTable
-        //     className="g-bg-white g-flex-1 g-min-h-0"
-        //     columns={columns}
-        //     data={occurrences}
-        //     loading={loading}
-        //     rowCount={data?.occurrenceSearch?.documents.total}
-        //     pagination={paginationState}
-        //     setPaginationState={setPaginationState}
-        //     // TODO: Should the logic be located in the config?
-        //     availableTableColumns={[
-        //       'scientificName',
-        //       ...(config?.occurrenceSearch?.availableTableColumns ??
-        //         DAFAULT_AVAILABLE_TABLE_COLUMNS),
-        //     ]}
-        //     defaultEnabledTableColumns={[
-        //       'scientificName',
-        //       ...(config?.occurrenceSearch?.defaultEnabledTableColumns ??
-        //         DEFAULT_ENABLED_TABLE_COLUMNS),
-        //     ]}
-        //   />
-        // </InternalScrollHandler>
+        <InternalScrollHandler headerHeight={150}>
+          <SearchTable
+            className="g-bg-white g-flex-1 g-min-h-0"
+            columns={columns}
+            data={occurrences}
+            loading={loading}
+            rowCount={data?.occurrenceSearch?.documents.total}
+            pagination={paginationState}
+            setPaginationState={setPaginationState}
+            // TODO: Should the logic be located in the config?
+            availableTableColumns={[
+              'scientificName',
+              ...(config?.occurrenceSearch?.availableTableColumns ??
+                DAFAULT_AVAILABLE_TABLE_COLUMNS),
+            ]}
+            defaultEnabledTableColumns={[
+              'scientificName',
+              ...(config?.occurrenceSearch?.defaultEnabledTableColumns ??
+                DEFAULT_ENABLED_TABLE_COLUMNS),
+            ]}
+          />
+        </InternalScrollHandler>
       )}
 
       {view === 'map' && <Map />}

@@ -40,8 +40,8 @@ export function useOccurrenceColumns({
                   className="g-pr-3 g-pl-1 hover:g-text-primary-500 g-flex g-items-center"
                   onClick={(e) => {
                     // Prevent the parent link from being triggered
+                    if (row.original.key) showPreview(`0_${row.original.key.toString()}`);
                     e.preventDefault();
-                    if (row.original.key) showPreview(row.original.key.toString());
                   }}
                 >
                   <SimpleTooltip title="View details" side="right">
