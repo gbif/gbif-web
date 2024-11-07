@@ -335,6 +335,11 @@
     "count": "",
     "description": "Le nom du plan d'eau dans lequel se trouve la localité."
   },
+  "higherGeography": {
+    "name": "Géographie Supérieure",
+    "count": "Archive annotée par GBIF",
+    "description": "Archive annotée par GBIF"
+  },
   "stateProvince": {
     "name": "État/Province",
     "count": "",
