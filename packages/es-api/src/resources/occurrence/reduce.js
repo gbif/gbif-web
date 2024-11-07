@@ -302,6 +302,7 @@ function reduce(item) {
     genericName:                        source.gbifClassification?.usageParsedName?.genericName,
     genus:                              source.gbifClassification.genus,
     genusKey:                           source.gbifClassification.genusKey,
+    hostingOrganizationKey:             source.hostingOrganizationKey,
     installationKey:                    source.installationKey,
     institutionKey:                     source.institutionKey,
     issues:                             source.issues || [],
