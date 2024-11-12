@@ -30,6 +30,9 @@ export function createGbifRoutes(config: Config) {
       {
         element: <GbifRootLayout children={<Outlet />} />,
         loader: headerLoader,
+        shouldRevalidate() {
+          return false;
+        },
         children: [
           {
             errorElement: <RootErrorPage />,
