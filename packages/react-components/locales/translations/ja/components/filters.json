@@ -335,6 +335,11 @@
     "count": "",
     "description": ""
   },
+  "higherGeography": {
+    "name": "採集地を含む地域",
+    "count": "GBIFがアノーテーションしたアーカイブ",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
   "stateProvince": {
     "name": "州/地方または都道府県",
     "count": "",

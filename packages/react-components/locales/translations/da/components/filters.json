@@ -335,6 +335,11 @@
     "count": "",
     "description": ""
   },
+  "higherGeography": {
+    "name": "",
+    "count": "GBIF annoteret Arkiv",
+    "description": "GBIF annoteret Arkiv"
+  },
   "stateProvince": {
     "name": "",
     "count": "",

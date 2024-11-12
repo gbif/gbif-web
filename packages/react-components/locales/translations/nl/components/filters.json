@@ -335,6 +335,11 @@
     "count": "",
     "description": "De naam van het waterlichaam waarin de vindplaats ligt."
   },
+  "higherGeography": {
+    "name": "",
+    "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
   "stateProvince": {
     "name": "Staat/provincie",
     "count": "",

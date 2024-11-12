@@ -335,6 +335,11 @@
     "count": "{num, plural, one {水體} other {#水體}}",
     "description": "發生事件地點的水體名稱"
   },
+  "higherGeography": {
+    "name": "高階地理",
+    "count": "GBIF 註記的存檔",
+    "description": "GBIF 註記的存檔"
+  },
   "stateProvince": {
     "name": "州/省",
     "count": "{num, plural, one {州省} other {#州省}}",
