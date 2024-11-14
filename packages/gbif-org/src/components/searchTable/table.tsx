@@ -27,6 +27,7 @@ interface Props<TData, TValue> {
   setPaginationState: React.Dispatch<React.SetStateAction<PaginationState>>;
   availableTableColumns: string[];
   defaultEnabledTableColumns: string[];
+  lockColumnLocalStoreKey?: string;
 }
 
 export function SearchTable<TData, TValue>({
@@ -39,6 +40,7 @@ export function SearchTable<TData, TValue>({
   setPaginationState,
   availableTableColumns,
   defaultEnabledTableColumns,
+  lockColumnLocalStoreKey = 'searchTableLockColumn',
 }: Props<TData, TValue>) {
   const [columnVisibility, setColumnVisibility] = useState(
     createInitialColumnVisibilityState(availableTableColumns, defaultEnabledTableColumns)
@@ -66,7 +68,7 @@ export function SearchTable<TData, TValue>({
   const initialLoading = data.length === 0;
 
   return (
-    <FirstColumLockProvider>
+    <FirstColumLockProvider lockColumnLocalStoreKey={lockColumnLocalStoreKey}>
       <div className="g-bg-gray-100 g-p-2 g-flex g-flex-col g-flex-1 g-min-h-0">
         {initialLoading && <Skeleton className="g-w-32 g-h-5 g-inline-block g-mb-1" />}
         {initialLoading || <p className="g-text-sm g-pb-1 g-text-gray-500">{rowCount} results</p>}

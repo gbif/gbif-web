@@ -83,7 +83,7 @@ function ColumnVisibilityPopover<TData>({
           </div>
         </PopoverTrigger>
       </SimpleTooltip>
-      <PopoverContent className="g-p-3 g-flex g-flex-col g-gap-3">
+      <PopoverContent className="g-p-3 g-flex g-flex-col g-gap-3 g-overflow-y-scroll g-max-h-96">
         {table.getAllColumns().map((column) => (
           <div key={column.id} className="g-flex g-items-center g-gap-2">
             <Checkbox
