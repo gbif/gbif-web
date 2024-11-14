@@ -335,6 +335,11 @@
     "count": "",
     "description": ""
   },
+  "higherGeography": {
+    "name": "Вышестоящие географические единицы",
+    "count": "Архив, аннотированный GBIF",
+    "description": "Архив, аннотированный GBIF"
+  },
   "stateProvince": {
     "name": "Регион",
     "count": "",

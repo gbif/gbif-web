@@ -335,6 +335,11 @@
     "count": "",
     "description": ""
   },
+  "higherGeography": {
+    "name": "Географічна місцевість у широкому масштабі",
+    "count": "Архів анотований GBIF",
+    "description": "Архів анотований GBIF"
+  },
   "stateProvince": {
     "name": "Область/район",
     "count": "",

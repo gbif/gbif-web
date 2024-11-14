@@ -335,6 +335,11 @@
     "count": "{num, plural, one { zbiornik wodny } few {# zbiorniki wodne} many {# zbiorników wodnych} other {# zbiorniki wodne}}",
     "description": "Nazwa zbiornika wodnego, w którym ma miejsce lokalizacja."
   },
+  "higherGeography": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "stateProvince": {
     "name": "Województwo/stan",
     "count": "{num, plural, one { województwo/stan } few {# województwa/stany} many {# województw/stanów} other {# województwa/stany}}",

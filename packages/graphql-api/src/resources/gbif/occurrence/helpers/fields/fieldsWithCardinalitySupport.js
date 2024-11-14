@@ -22,6 +22,7 @@ export default [
   'institutionKey',
   'institutionCode',
   'collectionCode',
+  'higherGeography',
   'projectId',
   'networkKey',
   'preparations',

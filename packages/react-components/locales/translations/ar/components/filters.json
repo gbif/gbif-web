@@ -335,6 +335,11 @@
     "count": "",
     "description": ""
   },
+  "higherGeography": {
+    "name": "الجغرافيا العليا",
+    "count": "أرشيف شروح \"جيبف\"",
+    "description": "أرشيف شروح \"جيبف\""
+  },
   "stateProvince": {
     "name": "الولاية/المقاطعة/المحافظة",
     "count": "",

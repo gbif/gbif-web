@@ -108,6 +108,11 @@ const preconfiguredCharts = {
       return <charts.GadmGid predicate={predicate} interactive {...props} />;
     },
   },
+  higherGeography: {
+    component: ({ predicate, ...props }) => {
+      return <charts.HigherGeography predicate={predicate} interactive {...props} />;
+    },
+  },
   mediaType: {
     component: ({ predicate, ...props }) => {
       return <charts.MediaType predicate={predicate} interactive {...props} />;

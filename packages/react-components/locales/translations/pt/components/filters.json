@@ -335,6 +335,11 @@
     "count": "{num, plural, one { massa de água } other {# massas de água}}",
     "description": "O nome da massa da água em que a localização ocorre."
   },
+  "higherGeography": {
+    "name": "Geografia superior",
+    "count": "Uma breve descrição do componente deve ser colocada aqui",
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
+  },
   "stateProvince": {
     "name": "Estado/Província",
     "count": "{num, plural, one { província ou estado } other {# províncias ou estados}}",

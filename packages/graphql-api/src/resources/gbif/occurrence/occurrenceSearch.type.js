@@ -115,6 +115,7 @@ const typeDef = gql`
     repatriated: Long!
     gadmGid: Long!
     projectId: Long!
+    higherGeography: Long!
   }
 
   type OccurrenceHistogram {
@@ -165,6 +166,7 @@ const typeDef = gql`
     datasetPublishingCountry(size: Int, from: Int): [OccurrenceFacetResult_string]
     dwcaExtension(size: Int, from: Int): [OccurrenceFacetResult_string]
     eventId(size: Int, from: Int): [OccurrenceFacetResult_string]
+    higherGeography(size: Int, from: Int): [OccurrenceFacetResult_string]
     id(size: Int, from: Int): [OccurrenceFacetResult_string]
     institutionCode(size: Int, from: Int): [OccurrenceFacetResult_string]
     issue(size: Int, from: Int): [OccurrenceFacetResult_string]
