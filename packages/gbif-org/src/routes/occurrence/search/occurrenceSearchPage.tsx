@@ -191,7 +191,7 @@ export function OccurrenceSearch(): React.ReactElement {
             >
               Related
             </li>
-            <li
+            {/* <li
               role="button"
               className={cn(
                 'g-p-2 g-border-b-2 g-border-transparent',
@@ -200,7 +200,7 @@ export function OccurrenceSearch(): React.ReactElement {
               onClick={() => setView('dashboard')}
             >
               Dashboard
-            </li>
+            </li> */}
             <li
               role="button"
               className={cn(

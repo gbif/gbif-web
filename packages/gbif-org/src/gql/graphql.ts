@@ -4549,6 +4549,7 @@ export type OccurrenceCardinality = {
   gadmGid: Scalars['Long']['output'];
   gbifClassification_usage_key: Scalars['Long']['output'];
   genusKey: Scalars['Long']['output'];
+  higherGeography: Scalars['Long']['output'];
   hostingOrganizationKey: Scalars['Long']['output'];
   identifiedBy: Scalars['Long']['output'];
   institutionCode: Scalars['Long']['output'];
@@ -4710,6 +4711,7 @@ export type OccurrenceFacet = {
   genusKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
   hasCoordinate?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
   hasGeospatialIssue?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  higherGeography?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   hostingOrganizationKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Organization>>>;
   id?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   identifiedBy?: Maybe<Array<Maybe<OccurrenceFacetResult_IdentifiedBy>>>;
@@ -5121,6 +5123,12 @@ export type OccurrenceFacetHasCoordinateArgs = {
 
 
 export type OccurrenceFacetHasGeospatialIssueArgs = {
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetHigherGeographyArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
