@@ -3,7 +3,9 @@ import { ArticleContainer } from '@/routes/resource/key/components/articleContai
 import { useEffect, useRef } from 'react';
 // @ts-ignore
 import { phylotree } from 'phylotree';
-import 'phylotree/dist/phylotree.css';
+
+// import 'phylotree/dist/phylotree.css'; // there is no scoping of the css, so it will affect the whole site
+// we will need a way to scope the css to the component
 
 export function OccurrenceKeyPhylo() {
   const ref = useRef(null);
