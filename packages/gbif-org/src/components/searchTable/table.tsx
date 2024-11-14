@@ -15,7 +15,7 @@ import { InlineSkeletonWrapper } from './components/inlineSkeletonWrapper';
 import { Head } from './components/head';
 import { FirstColumLockProvider } from './firstColumLock';
 import { Cell } from './components/cell';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Props<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -67,6 +67,15 @@ export function SearchTable<TData, TValue>({
 
   const initialLoading = data.length === 0;
 
+  const tableRef = useRef<HTMLTableElement>(null);
+
+  // Scroll to the top of the table when currentPage changes
+  useEffect(() => {
+    if (tableRef.current) {
+      tableRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [pagination.pageIndex]);
+
   return (
     <FirstColumLockProvider lockColumnLocalStoreKey={lockColumnLocalStoreKey}>
       <div className="g-bg-gray-100 g-p-2 g-flex g-flex-col g-flex-1 g-min-h-0">
@@ -74,7 +83,7 @@ export function SearchTable<TData, TValue>({
         {initialLoading || <p className="g-text-sm g-pb-1 g-text-gray-500">{rowCount} results</p>}
 
         <div className={cn('g-rounded-md g-border g-flex g-flex-col', className)}>
-          <Table>
+          <Table ref={tableRef}>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>

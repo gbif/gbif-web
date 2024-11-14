@@ -121,6 +121,7 @@ export function OccurrenceTable() {
     {
       throwAllErrors: true,
       lazyLoad: true,
+      keepDataWhileLoading: true,
     }
   );
 
