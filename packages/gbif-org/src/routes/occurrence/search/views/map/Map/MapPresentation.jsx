@@ -38,6 +38,7 @@ import ListBox from './ListBox';
 import { useOrderedList } from '../../browseList/useOrderedList';
 import { useStringParam } from '@/hooks/useParam';
 import { Spinner } from '@/components/ui/spinner';
+import { ViewHeader } from '@/components/ViewHeader';
 // import { toast } from 'react-toast'
 
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
@@ -45,10 +46,10 @@ const pixelRatio = window.devicePixelRatio || 1;
 const hasGeoLocation = 'geolocation' in navigator;
 
 const defaultLayerOptions = {
-  ARCTIC: ['NATURAL', 'BRIGHT', 'DARK'],
-  PLATE_CAREE: ['NATURAL', 'BRIGHT', 'DARK'],
+  // ARCTIC: ['NATURAL', 'BRIGHT', 'DARK'],
+  // PLATE_CAREE: ['NATURAL', 'BRIGHT', 'DARK'],
   MERCATOR: ['BRIGHT', 'NATURAL'],
-  ANTARCTIC: ['NATURAL', 'BRIGHT', 'DARK'],
+  // ANTARCTIC: ['NATURAL', 'BRIGHT', 'DARK'],
 };
 
 function getStyle({ styles = {}, projection, type, lookup = {}, layerOptions }) {
@@ -87,7 +88,7 @@ function Map({
   const [projectionOptions] = useState(supportedProjections);
   let defaultProjection =
     sessionStorage.getItem('defaultOccurrenceProjection') ||
-    config?.maps?.defaultProjection ||
+    config?.maps?.mapStyles?.defaultProjection ||
     supportedProjections[0];
   if (!supportedProjections.includes(defaultProjection)) {
     defaultProjection = supportedProjections[0];
@@ -95,7 +96,7 @@ function Map({
   const [projection, setProjection] = useState(defaultProjection);
 
   let defaultStyle =
-    sessionStorage.getItem('defaultOccurrenceLayer') || config?.maps?.defaultMapStyle || 'BRIGHT';
+    sessionStorage.getItem('defaultOccurrenceLayer') || config?.maps?.mapStyles?.defaultMapStyle || 'BRIGHT';
   if (!mapStyles?.[defaultProjection]?.includes(defaultStyle)) {
     defaultStyle = mapStyles?.[defaultProjection]?.[0];
   }
@@ -255,7 +256,7 @@ function Map({
         )}
         {...{ style }}
       >
-        {/* <ViewHeader message="counts.nResultsWithCoordinates" loading={loading} total={total} /> */}
+        <ViewHeader message="counts.nResultsWithCoordinates" loading={loading} total={total} />
         <DynamicHeightDiv minPxHeight={500}>
           {listVisible && (
             <ListBox
@@ -324,7 +325,7 @@ function Map({
             defaultMapSettings={defaultMapSettings}
             predicateHash={predicateHash}
             q={q}
-            className="mapComponent [&>canvas:focus]:g-outline-none g-border g-border-slate-100 g-rounded g-flex g-flex-col g-h-full g-flex-auto"
+            className="mapComponent [&>canvas:focus]:g-outline-none g-border g-border-slate-200 g-rounded g-flex g-flex-col g-h-full g-flex-auto"
             query={query}
             onMapClick={(e) => showList(false)}
             onPointClick={(data) => {

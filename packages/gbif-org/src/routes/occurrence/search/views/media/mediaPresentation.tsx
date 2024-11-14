@@ -27,10 +27,10 @@ export function MediaPresentation({
   onSelect: ({ key }: { key: string }) => void;
 }) {
   return (
-    <div className="g-mx-2 g-my-4">
+    <div className="">
       <ViewHeader total={total} loading={loading} message="counts.nResultsWithImages" />
       {total === 0 && !loading && <NoRecords />}
-      <div className="g-flex g-flex-wrap g-mb-12">
+      <div className="g-flex g-flex-wrap g-mb-12 -g-mx-2">
         {results.map((result) => {
           let identifier = result.primaryImage?.identifier;
           if (result.key === 4028668553) {
@@ -61,8 +61,8 @@ export function MediaPresentation({
           <GalleryItemSkeleton />
         </>}
         {results.length > 0 && (
-          <div className="g-m-2 g-flex g-flex-col g-justify-center g-w-36">
-            <Button disabled={loading} variant="secondary" onClick={() => next()}>
+          <div className="g-flex g-flex-col g-justify-center g-w-36">
+            <Button disabled={loading} variant="outline" onClick={() => next()}>
               {loading ? <Spinner /> : <FormattedMessage id="search.loadMore" />}
             </Button>
           </div>
@@ -141,7 +141,7 @@ function GalleryItem({
       style={{ flexBasis: width }}
     >
       <button
-        className="g-inline-block g-rounded-lg g-bg-gray-50 g-overflow-hidden g-text-center hover:g-shadow-md"
+        className="g-inline-block g-rounded-lg g-bg-gray-200/50 g-overflow-hidden g-text-center hover:g-shadow-md"
         onClick={onClick}
       >
         {failed && (

@@ -245,12 +245,13 @@ export function OccurrenceSearch(): React.ReactElement {
           />
         </InternalScrollHandler>
       )}
-
-      {view === 'map' && <Map />}
-      {view === 'media' && <Media />}
-      {view === 'clusters' && <Clusters />}
-      {view === 'dashboard' && <Dashboard />}
-      {view === 'download' && <Download />}
+      <div className="g-py-2 g-px-4 g-bg-slate-100">
+        {view === 'map' && <Map />}
+        {view === 'media' && <Media />}
+        {view === 'clusters' && <Clusters />}
+        {view === 'dashboard' && <Dashboard />}
+        {view === 'download' && <Download />}
+      </div>
     </>
   );
 }
