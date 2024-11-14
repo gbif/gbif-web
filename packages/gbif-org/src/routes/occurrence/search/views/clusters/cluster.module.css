@@ -121,7 +121,10 @@
         margin-top: -100%;
         border-radius: 45px;
         background-color: #01a4e9;
-        animation: pulseRing 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) forwards 2;
+        /* To change to local scope compiled names we can do this https://stackoverflow.com/questions/57634370/css-modules-and-css-keyframe-animations */
+        & :local {
+          animation: pulseRing 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) forwards 2;
+        }
       }
     }
 
@@ -132,21 +135,6 @@
     .nodeContent-wrapper {
       border-radius: 50%;
     }
-
-    @keyframes pulseRing {
-      0% {
-        opacity: 1;
-        transform: scale(.33);
-      }
-      80%, 99% {
-        opacity: 0;
-        transform: scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(.33);
-      }
-    }
   }
 }
 
@@ -154,4 +142,19 @@
   background-image: linear-gradient(-45deg, #00000000 25%, #00000088 25%, #00000088 50%, #00000000 50%, #00000000 75%, #00000088 75%, #00000088 100%);
   background-size: 12px 12px;
   border: 1px solid #bbb;
+}
+
+@keyframes pulseRing {
+  0% {
+    opacity: 1;
+    transform: scale(.33);
+  }
+  80%, 99% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(.33);
+  }
 }

@@ -1,6 +1,5 @@
 // @ts-nocheck
 import React, { useRef, useState, useContext, useEffect, useCallback } from 'react';
-// import { FilterContext } from '../../../../widgets/Filter/state';
 import { useIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import {
   MdChevronRight,
@@ -9,7 +8,6 @@ import {
   MdExpandMore,
   MdExpandLess,
 } from 'react-icons/md';
-// import { useUrlState } from '../../../../dataManagement/state/useUrlState';
 import graphOfClusters, { highlightNode } from './clusterGraph';
 import useBelow from '@/hooks/useBelow';
 import { ViewHeader } from '@/components/ViewHeader';
@@ -22,6 +20,7 @@ import styles from './cluster.module.css';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { Card, CardContent, CardHeader } from '@/components/ui/smallCard';
 import { cn } from '@/utils/shadcn';
+import { useOrderedList } from '../browseList/useOrderedList';
 
 export const ClusterPresentation = ({
   reload,
@@ -42,28 +41,40 @@ export const ClusterPresentation = ({
   const [tooltipItem, setTooltipItem] = useState();
   const useMobileLayout = useBelow(1000);
   const [mobileTab, setMobileTab] = useState('clusters');
+  const { setOrderedList } = useOrderedList();
 
   const page = 1 + Math.floor(from / size);
   const totalPages = Math.ceil(total / size);
 
-  const nextItem = useCallback(() => {
-    if (!activeCluster) return;
-    const clusterNodes = activeCluster.clusterNodes;
-    const activeIndex = clusterNodes.findIndex((x) => x === activeKey);
-    const next = activeIndex === clusterNodes.length - 1 ? 0 : activeIndex + 1;
-    if (clusterNodes[next]) {
-      setActiveKey(clusterNodes[next]);
+  // update ordered list on items change
+  useEffect(() => {
+    if (activeCluster) {
+      setOrderedList(activeCluster.clusterNodes.map((item) => item));// todo sort so selected is first. else you start in the middle of the list
     }
-  }, [activeKey, activeCluster]);
+  }, [activeCluster, setOrderedList]);
+  
+  useEffect(() => {
+    if (graph && activeKey) {
+      const clusterKey = graph.nodes.find(x => x.name === '' + activeKey).rootKey;
+      const cluster = graph.clusterMap[clusterKey];
+      setActiveCluster(cluster);
+      highlightNode({
+        element: ref.current,
+        key: activeKey
+      });
+    } else {
+      highlightNode({
+        element: ref.current
+      });
+    }
+  }, [activeKey, graph]);
 
-  const previousItem = useCallback(() => {
+  useEffect(() => {
     if (!activeCluster) return;
-    const clusterNodes = activeCluster.clusterNodes;
-    const activeIndex = clusterNodes.findIndex((x) => x === activeKey);
-    const prev = activeIndex === 0 ? clusterNodes.length - 1 : activeIndex - 1;
-    if (clusterNodes[prev]) {
-      setActiveKey(clusterNodes[prev]);
-    }
+    highlightNode({
+      element: ref.current,
+      key: activeKey
+    });
   }, [activeKey, activeCluster]);
 
   useEffect(() => {
@@ -142,8 +153,8 @@ export const ClusterPresentation = ({
                                   <FormattedMessage id="search.occurrenceClustersView.aboutLink" />
                                 </div>
                                 <ul style={{ whiteSpace: 'pre' }}>
-                                  {tooltipItem.link.reasons.map((x) => (
-                                    <li>
+                                  {tooltipItem.link.reasons.map((x, i) => (
+                                    <li key={i}>
                                       <FormattedMessage
                                         id={`enums.clusterReasons.${x}`}
                                         defaultMessage={prettifyEnum(x)}
