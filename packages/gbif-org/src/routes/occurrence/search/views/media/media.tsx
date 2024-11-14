@@ -5,6 +5,8 @@ import { filter2predicate } from '@/dataManagement/filterAdapter';
 import { useSearchContext } from '@/contexts/search';
 import { searchConfig } from '../../searchConfig';
 import { MediaPresentation } from './mediaPresentation';
+import { useStringParam } from '@/hooks/useParam';
+import { useOrderedList } from '../browseList/useOrderedList';
 
 const OCCURRENCE_MEDIA = `
 query occurrenceMedia($predicate: Predicate, $size: Int, $from: Int) {
@@ -54,8 +56,15 @@ export function Media({ size: defaultSize = 50 }) {
     lazyLoad: true,
     throwAllErrors: true,
   });
+  const { setOrderedList } = useOrderedList();
+  const [, setPreviewKey] = useStringParam({ key: 'entity' });
 
   const [allData, setAllData] = useState([]);
+
+  // update ordered list on items change
+  useEffect(() => {
+    setOrderedList(allData.map((item) => `o_${item.key}`));
+  }, [allData, setOrderedList]);
 
   useEffect(() => {
     const all = [...allData, ...(data?.occurrenceSearch?.documents?.results || [])];
@@ -102,6 +111,7 @@ export function Media({ size: defaultSize = 50 }) {
       error={error}
       next={next}
       total={data?.occurrenceSearch?.documents?.total}
+      onSelect={({ key }: { key: string | number }) => setPreviewKey(`o_${key}`)}
     />
   );
 }

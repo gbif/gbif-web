@@ -1,17 +1,36 @@
+import { FormattedDateRange } from '@/components/message';
+import { NoRecords } from '@/components/noDataMessages';
+import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { ViewHeader } from '@/components/ViewHeader';
 import { useCallback, useState } from 'react';
 import { FaGlobeAfrica } from 'react-icons/fa';
-import { MdEvent } from 'react-icons/md';
+import { MdBrokenImage, MdEvent, MdOutlineImageSearch } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 
-export function MediaPresentation({ mediaTypes, results, total, loading, error, next }) {
+export function MediaPresentation({
+  mediaTypes,
+  results,
+  total,
+  loading,
+  error,
+  next,
+  onSelect,
+}: {
+  mediaTypes: any;
+  results: any;
+  total: number;
+  loading: boolean;
+  error: any;
+  next: () => void;
+  onSelect: ({ key }: { key: string }) => void;
+}) {
   return (
     <div className="g-mx-2 g-my-4">
       <ViewHeader total={total} loading={loading} message="counts.nResultsWithImages" />
+      {total === 0 && !loading && <NoRecords />}
       <div className="g-flex g-flex-wrap g-mb-12">
-        {loading && (!results || results.length === 0) && <h1>loading</h1>}
         {results.map((result) => {
           let identifier = result.primaryImage?.identifier;
           if (result.key === 4028668553) {
@@ -23,6 +42,7 @@ export function MediaPresentation({ mediaTypes, results, total, loading, error, 
 
           return (
             <GalleryItem
+              onClick={() => onSelect({ key: result.key })}
               key={result.key}
               identifier={identifier}
               formattedName={result.gbifClassification.usage.formattedName}
@@ -31,6 +51,15 @@ export function MediaPresentation({ mediaTypes, results, total, loading, error, 
             />
           );
         })}
+        {loading && <>
+          <GalleryItemSkeleton />
+          <GalleryItemSkeleton />
+          <GalleryItemSkeleton />
+          <GalleryItemSkeleton />
+          <GalleryItemSkeleton />
+          <GalleryItemSkeleton />
+          <GalleryItemSkeleton />
+        </>}
         {results.length > 0 && (
           <div className="g-m-2 g-flex g-flex-col g-justify-center g-w-36">
             <Button disabled={loading} variant="secondary" onClick={() => next()}>
@@ -51,21 +80,21 @@ function GalleryItem({
   eventDate,
   height = 150,
   minWidth,
+  onClick = () => {},
 }: {
   identifier: string;
   formattedName: string;
   countryCode: string;
   eventDate: string;
-  locality: string;
   height: number;
   minWidth: number;
+  onClick: () => void;
 }) {
   const [ratio, setRatio] = useState(1);
-  const [isValid, setValid] = useState(false);
+  const [failed, setFailed] = useState(false);
 
-  const onLoad = useCallback((event) => {
-    setValid(true);
-    const ratio = event.target.naturalWidth / event.target.naturalHeight;
+  const onLoad = useCallback((event: React.SyntheticEvent<HTMLImageElement>) => {
+    const ratio = event.currentTarget.naturalWidth / event.currentTarget.naturalHeight;
     setRatio(ratio);
   }, []);
 
@@ -82,39 +111,75 @@ function GalleryItem({
   }
   if (minWidth) width = Math.max(minWidth, width);
 
+  const about = (
+    <div>
+      <div
+        className="g-font-semibold g-overflow-hidden g-text-ellipsis"
+        dangerouslySetInnerHTML={{ __html: formattedName }}
+      ></div>
+      {countryCode && (
+        <div className="g-overflow-hidden g-text-ellipsis g-flex g-items-center g-opacity-60">
+          <FaGlobeAfrica className="g-flex-shrink-0" />
+          <span className="g-ms-1 g-flex-grow g-overflow-hidden g-text-ellipsis">
+            <FormattedMessage id={`enums.countryCode.${countryCode}`} />
+          </span>
+        </div>
+      )}
+      {eventDate && (
+        <div className="g-overflow-hidden g-text-ellipsis g-flex g-items-center g-opacity-60">
+          <MdEvent className="g-flex-shrink-0" />
+          <span className="g-ms-1 g-flex-grow g-overflow-hidden g-text-ellipsis">
+            <FormattedDateRange date={eventDate} />
+          </span>
+        </div>
+      )}
+    </div>
+  );
   return (
     <div
       className="g-m-2 g-flex-grow g-inline-flex g-flex-col g-overflow-hidden"
       style={{ flexBasis: width }}
     >
-      <div className="g-inline-block g-rounded-lg g-bg-gray-50 g-overflow-hidden g-text-center hover:g-shadow-md">
-        <img
-          src={identifier}
-          alt=""
-          className={`g-h-36 g-mx-auto g-rounded-lg ${coverClass}`}
-          onLoad={onLoad}
-        />
-        {/* <img src="https://placehold.co/1000x50" alt="" className={`g-h-36 g-mx-auto ${cover ?? 'g-object-cover'}`} onLoad={onLoad} /> */}
+      <button
+        className="g-inline-block g-rounded-lg g-bg-gray-50 g-overflow-hidden g-text-center hover:g-shadow-md"
+        onClick={onClick}
+      >
+        {failed && (
+          <div className="gb-image-failed g-h-36 g-mx-auto g-flex g-items-center g-justify-center">
+            <MdBrokenImage />
+          </div>
+        )}
+        {!failed && (
+          <img
+            src={identifier}
+            alt=""
+            className={`g-h-36 g-mx-auto g-rounded-lg ${coverClass}`}
+            onLoad={onLoad}
+            onError={() => setFailed(true)}
+          />
+        )}
+      </button>
+      <div>
+        <div className="g-text-xs g-whitespace-nowrap g-mt-1 g-font-medium">
+          <SimpleTooltip title={about} delayDuration={1000} disableHoverableContent>
+            {about}
+          </SimpleTooltip>
+        </div>
       </div>
-      <div className="g-text-xs g-whitespace-nowrap g-mt-1 g-font-medium">
-        <div
-          className="g-font-semibold g-overflow-hidden g-text-ellipsis"
-          dangerouslySetInnerHTML={{ __html: formattedName }}
-        ></div>
-        {countryCode && (
-          <div className="g-overflow-hidden g-text-ellipsis g-flex g-items-center g-text-slate-500">
-            <FaGlobeAfrica />
-            <span className="g-ms-1">
-              <FormattedMessage id={`enums.countryCode.${countryCode}`} />
-            </span>
-          </div>
-        )}
-        {eventDate && (
-          <div className="g-overflow-hidden g-text-ellipsis g-flex g-items-center g-text-slate-500">
-            <MdEvent />
-            <span className="g-ms-1">{eventDate}</span>
-          </div>
-        )}
+    </div>
+  );
+}
+
+function GalleryItemSkeleton() {
+  return (
+    <div className="g-animate-pulse g-m-2 g-flex-grow g-inline-flex g-flex-col g-overflow-hidden g-w-36">
+      <div className="g-inline-block g-rounded-lg g-bg-slate-900/10 g-overflow-hidden g-h-36">
+      </div>
+      <div>
+        <div className="g-text-xs g-whitespace-nowrap g-mt-1 g-font-medium">
+          <div className="g-w-full g-h-4 g-bg-slate-900/10 g-mt-1 g-rounded"></div>
+          <div className="g-w-1/2 g-h-4 g-bg-slate-900/10 g-mt-1 g-rounded"></div>
+        </div>
       </div>
     </div>
   );

@@ -20,7 +20,7 @@ export const ViewHeader = ({
 
   return (
     <div className={cn('g-text-xs g-me-1 g-mb-1 g-text-slate-400', className)} {...props}>
-      {showSkeleton && <Skeleton style={{ width: 100 }} />}
+      {showSkeleton && <Skeleton style={{ width: 100 }}>Loading</Skeleton>}
       {!showSkeleton && <FormattedMessage id={message || 'counts.nResults'} values={{ total }} />}
       {children}
     </div>
