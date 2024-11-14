@@ -83,24 +83,24 @@ function CatalogSelector({title}: {title: React.ReactNode}) {
     </div>
   </DropdownMenuTrigger>
   <DropdownMenuContent>
-    <DropdownMenuItem>
+    <DropdownMenuItem asChild>
       <DynamicLink to="/occurrence/search">Occurrences</DynamicLink>
     </DropdownMenuItem>
-    <DropdownMenuItem>
+    <DropdownMenuItem asChild>
       <DynamicLink to="/dataset/search">Datasets</DynamicLink>
     </DropdownMenuItem>
-    <DropdownMenuItem>
+    <DropdownMenuItem asChild>
       <DynamicLink to="/publisher/search">Publishers</DynamicLink>
     </DropdownMenuItem>
     <DropdownMenuSeparator />
-    <DropdownMenuItem>
+    <DropdownMenuItem asChild>
       <DynamicLink to="/institution/search">Institutions</DynamicLink>
     </DropdownMenuItem>
-    <DropdownMenuItem>
+    <DropdownMenuItem asChild>
       <DynamicLink to="/collection/search">Collections</DynamicLink>
     </DropdownMenuItem>
     <DropdownMenuSeparator />
-    <DropdownMenuItem>
+    <DropdownMenuItem asChild>
       <DynamicLink to="/literature/search">Literature</DynamicLink>
     </DropdownMenuItem>
   </DropdownMenuContent>
