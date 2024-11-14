@@ -16,6 +16,7 @@ import { Head } from './components/head';
 import { FirstColumLockProvider } from './firstColumLock';
 import { Cell } from './components/cell';
 import { useEffect, useRef, useState } from 'react';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 interface Props<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -69,7 +70,7 @@ export function SearchTable<TData, TValue>({
 
   const tableRef = useRef<HTMLTableElement>(null);
 
-  // Scroll to the top of the table when currentPage changes
+  // Scroll to the top of the table when pagination.pageIndex changes
   useEffect(() => {
     if (tableRef.current) {
       tableRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -128,20 +129,26 @@ export function SearchTable<TData, TValue>({
                   <FooterButton
                     onClick={table.firstPage}
                     icon={<MdFirstPage />}
-                    toolTip={<span>First</span>}
+                    toolTip={<FormattedMessage id="pagination.first" />}
                   />
                   <FooterButton
                     onClick={table.previousPage}
                     icon={<MdChevronLeft />}
-                    toolTip={<span>Previous</span>}
+                    toolTip={<FormattedMessage id="pagination.previous" />}
                   />
                 </>
               )}
             </div>
             <InlineSkeletonWrapper loading={initialLoading}>
-              {/* TODO: Format numbers and translate */}
               <span className="g-text-xs">
-                Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+                <FormattedMessage
+                  id="pagination.pageXofY"
+                  defaultMessage={'Loading'}
+                  values={{
+                    current: <FormattedNumber value={table.getState().pagination.pageIndex + 1} />,
+                    total: <FormattedNumber value={table.getPageCount()} />,
+                  }}
+                />
               </span>
             </InlineSkeletonWrapper>
             <div className="g-flex g-flex-1 g-justify-end">
@@ -149,7 +156,7 @@ export function SearchTable<TData, TValue>({
                 <FooterButton
                   onClick={table.nextPage}
                   icon={<MdChevronRight />}
-                  toolTip={<span>Next</span>}
+                  toolTip={<FormattedMessage id="pagination.next" />}
                 />
               )}
             </div>

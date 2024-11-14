@@ -8,6 +8,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Checkbox } from '@/components/ui/checkbox';
 import { LuListFilter as FilterIcon } from 'react-icons/lu';
 import { SimpleTooltip } from '@/components/simpleTooltip';
+import { FormattedMessage } from 'react-intl';
 
 type Props<TData> = {
   header: Header<TData, unknown>;
@@ -38,12 +39,10 @@ export function Head<TData>({ header, table, resetColumnVisibility }: Props<TDat
             <ColumnVisibilityPopover table={table} resetColumnVisibility={resetColumnVisibility} />
           )}
 
-          {header.isPlaceholder
-            ? null
-            : flexRender(header.column.columnDef.header, header.getContext())}
+          {!header.isPlaceholder && <HeaderTitle header={header} />}
 
           {filter && (
-            <SimpleTooltip title="Filter">
+            <SimpleTooltip title="search.table.filter">
               <div>
                 <filter.Popover
                   trigger={
@@ -58,7 +57,13 @@ export function Head<TData>({ header, table, resetColumnVisibility }: Props<TDat
         </div>
 
         {header.column.getIsFirstColumn() && !hideLock && (
-          <SimpleTooltip title={locked ? 'Unlock column' : 'Lock column'}>
+          <SimpleTooltip
+            title={
+              <FormattedMessage
+                id={locked ? 'search.table.unlockColumn ' : 'search.table.lockColumn'}
+              />
+            }
+          >
             <button onClick={() => setLocked((v) => !v)}>
               {locked ? <MdLock /> : <MdLockOpen />}
             </button>
@@ -75,7 +80,7 @@ function ColumnVisibilityPopover<TData>({
 }: Pick<Props<TData>, 'table' | 'resetColumnVisibility'>) {
   return (
     <Popover>
-      <SimpleTooltip title="Visible column settings">
+      <SimpleTooltip title="search.table.columnVisibility">
         <PopoverTrigger className="g-pr-3 g-pl-1 hover:g-text-primary-500">
           {/* This 16px width match the drawer icon in the left most cell */}
           <div className="g-w-[16px]">
@@ -84,20 +89,19 @@ function ColumnVisibilityPopover<TData>({
         </PopoverTrigger>
       </SimpleTooltip>
       <PopoverContent className="g-p-3 g-flex g-flex-col g-gap-3 g-overflow-y-scroll g-max-h-96">
-        {table.getAllColumns().map((column) => (
-          <div key={column.id} className="g-flex g-items-center g-gap-2">
+        {table.getFlatHeaders().map((header) => (
+          <div key={header.id} className="g-flex g-items-center g-gap-2">
             <Checkbox
-              checked={column.getIsVisible()}
-              disabled={!column.getCanHide()}
-              onCheckedChange={() => column.toggleVisibility()}
-              id={column.id}
+              checked={header.column.getIsVisible()}
+              disabled={!header.column.getCanHide()}
+              onCheckedChange={() => header.column.toggleVisibility()}
+              id={header.id}
             />
             <label
-              htmlFor={column.id}
+              htmlFor={header.id}
               className="g-cursor-pointer g-text-sm g-font-medium peer-disabled:g-cursor-not-allowed peer-disabled:g-opacity-70"
             >
-              {/* TODO: This could fail because header can i a component. Should we handle components here or restrict the type? */}
-              {column.columnDef.header?.toString()}
+              <HeaderTitle header={header} />
             </label>
           </div>
         ))}
@@ -105,9 +109,17 @@ function ColumnVisibilityPopover<TData>({
           onClick={() => resetColumnVisibility()}
           className="g-text-primary-500 g-font-medium g-text-sm"
         >
-          Reset
+          <FormattedMessage id="search.table.resetColumnVisibility" />
         </button>
       </PopoverContent>
     </Popover>
   );
+}
+
+function HeaderTitle<TData>({ header }: Pick<Props<TData>, 'header'>) {
+  if (typeof header.column.columnDef.header === 'string') {
+    return <FormattedMessage id={header.column.columnDef.header} />;
+  }
+
+  return flexRender(header.column.columnDef.header, header.getContext());
 }

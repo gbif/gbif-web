@@ -29,7 +29,7 @@ export function useOccurrenceColumns({
     return [
       {
         id: 'scientificName',
-        header: 'Scientific name',
+        header: 'filters.taxonKey.name',
         enableHiding: false,
         cell: ({ row }) => {
           const occurrence = row.original;
@@ -48,7 +48,10 @@ export function useOccurrenceColumns({
                     e.preventDefault();
                   }}
                 >
-                  <SimpleTooltip title="View details" side="right">
+                  <SimpleTooltip
+                    title={<FormattedMessage id="filterSupport.viewDetails" />}
+                    side="right"
+                  >
                     <div className="g-flex g-items-center">
                       <GoSidebarExpand size={16} />
                     </div>
@@ -93,11 +96,11 @@ export function useOccurrenceColumns({
       // TODO
       // {
       //   id: 'features',
-      //   header: 'Features',
+      //   header: 'tableHeaders.features',
       // },
       {
         id: 'country',
-        header: 'Country or area',
+        header: 'filters.occurrenceCountry.name',
         cell: ({ row }) => (
           <SetAsFilter
             filterIsActive={isFilterActive('country')}
@@ -115,8 +118,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'coordinates',
-        header: 'Coordinates',
-        accessorKey: 'formattedCoordinates',
+        header: 'filters.coordinates.name',
         cell: ({ row }) => {
           const formattedCoordinates = row.original.formattedCoordinates;
           if (!formattedCoordinates) return null;
@@ -128,7 +130,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'year',
-        header: 'Year',
+        header: 'filters.year.name',
         cell: ({ row }) => {
           return (
             <SetAsFilter
@@ -151,7 +153,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'eventDate',
-        header: 'Event date',
+        header: 'filters.eventDate.name',
         accessorKey: 'eventDate',
         cell: ({ row }) => {
           const eventDate = row.original.eventDate;
@@ -168,7 +170,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'basisOfRecord',
-        header: 'Basis of record',
+        header: 'filters.basisOfRecord.name',
         cell: ({ row }) => (
           <SetAsFilter
             filterIsActive={isFilterActive('basisOfRecord')}
@@ -183,7 +185,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'dataset',
-        header: 'Dataset',
+        header: 'filters.datasetKey.name',
         cell: ({ row }) => (
           <SetAsFilter
             filterIsActive={isFilterActive('year')}
@@ -199,7 +201,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'publisher',
-        header: 'Publisher',
+        header: 'filters.publisherKey.name',
         cell: ({ row }) => (
           <SetAsFilter
             filterIsActive={isFilterActive('publisherKey')}
@@ -215,7 +217,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'catalogNumber',
-        header: 'Catalog number',
+        header: 'filters.catalogNumber.name',
         cell: ({ row }) => (
           <SetAsFilter
             filterIsActive={isFilterActive('catalogNumber')}
@@ -230,7 +232,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'recordedBy',
-        header: 'Recorded by',
+        header: 'filters.recordedBy.name',
         cell: ({ row }) => (
           <SetAsFilter
             filterIsActive={isFilterActive('recordedBy')}
@@ -245,7 +247,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'identifiedBy',
-        header: 'Identified by',
+        header: 'filters.identifiedBy.name',
         cell: ({ row }) => (
           <SetAsFilter
             filterIsActive={isFilterActive('identifiedBy')}
@@ -260,7 +262,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'recordNumber',
-        header: 'Record number',
+        header: 'filters.recordNumber.name',
         accessorKey: 'recordNumber',
         cell: ({ row }) => (
           <SetAsFilter
@@ -276,7 +278,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'typeStatus',
-        header: 'Type status',
+        header: 'filters.typeStatus.name',
         accessorKey: 'typeStatus',
         meta: {
           filter: filters['typeStatus'],
@@ -284,7 +286,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'preparations',
-        header: 'Preparations',
+        header: 'occurrenceFieldNames.preparations',
         accessorKey: 'preparations',
         meta: {
           filter: filters['preparations'],
@@ -292,7 +294,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'collectionCode',
-        header: 'Collection code',
+        header: 'occurrenceFieldNames.collectionCode',
         cell: ({ row }) => {
           const collection = row.original.collection;
           if (!collection) return null;
@@ -312,7 +314,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'institutionCode',
-        header: 'Institution code',
+        header: 'occurrenceFieldNames.institutionCode',
         cell: ({ row }) => {
           const institution = row.original.institution;
           if (!institution) return null;
@@ -332,7 +334,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'institutionKey',
-        header: 'Institution Key',
+        header: 'tableHeaders.institution',
         cell: ({ row }) => {
           const institution = row.original.institution;
           if (!institution) return null;
@@ -356,7 +358,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'collectionKey',
-        header: 'Collection Key',
+        header: 'tableHeaders.collection',
         cell: ({ row }) => {
           const collection = row.original.collection;
           if (!collection) return null;
@@ -380,7 +382,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'locality',
-        header: 'Locality',
+        header: 'occurrenceFieldNames.locality',
         accessorKey: 'locality',
         meta: {
           filter: filters['locality'],
@@ -388,7 +390,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'higherGeography',
-        header: 'Higher Geography',
+        header: 'occurrenceFieldNames.higherGeography',
         accessorKey: 'higherGeography',
         meta: {
           filter: filters['higherGeography'],
@@ -396,7 +398,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'stateProvince',
-        header: 'State/Province',
+        header: 'occurrenceFieldNames.stateProvince',
         cell: ({ row }) => {
           const stateProvince = row.original.stateProvince;
           if (!stateProvince) return null;
@@ -417,7 +419,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'establishmentMeans',
-        header: 'Establishment Means',
+        header: 'occurrenceFieldNames.establishmentMeans',
         cell: ({ row }) => {
           const establishmentMeans = row.original.establishmentMeans;
           if (!establishmentMeans) return null;
@@ -437,7 +439,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'iucnRedListCategory',
-        header: 'IUCN Red List Category',
+        header: 'occurrenceFieldNames.iucnRedListCategory',
         cell: ({ row }) => {
           const iucnRedListCategory = row.original.iucnRedListCategory;
           if (!iucnRedListCategory) return null;
@@ -458,7 +460,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'datasetName',
-        header: 'Dataset Name',
+        header: 'occurrenceFieldNames.datasetName',
         accessorKey: 'datasetName',
         meta: {
           filter: filters['datasetName'],
