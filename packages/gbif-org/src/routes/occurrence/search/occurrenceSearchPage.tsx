@@ -25,7 +25,7 @@ import { Clusters } from './views/clusters';
 import { Dashboard } from './views/dashboard';
 import { Download } from './views/download';
 import EntityDrawer from './views/browseList/ListBrowser';
-import { useOrderedList } from './views/browseList/useOrderedList';
+import { Dataset } from './views/datasets';
 
 // TODO: Should maybe be moved to the configBuilder
 const DAFAULT_AVAILABLE_TABLE_COLUMNS = Object.freeze([
@@ -87,7 +87,6 @@ export function OccurrenceSearchPage(): React.ReactElement {
 
 export function OccurrenceSearch(): React.ReactElement {
   const previewInDrawer = true;
-  const { setOrderedList } = useOrderedList();
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
@@ -124,11 +123,6 @@ export function OccurrenceSearch(): React.ReactElement {
     () => data?.occurrenceSearch?.documents.results.filter(notNull) ?? [],
     [data]
   );
-
-  // update ordered list on items change
-  useEffect(() => {
-    setOrderedList(occurrences.map((item) => `o_${item.key}`));
-  }, [occurrences, setOrderedList]);
 
   return (
     <>
@@ -191,6 +185,16 @@ export function OccurrenceSearch(): React.ReactElement {
             >
               Related
             </li>
+            <li
+              role="button"
+              className={cn(
+                'g-p-2 g-border-b-2 g-border-transparent',
+                view === 'dataset' && 'g-border-b-primary-500'
+              )}
+              onClick={() => setView('dataset')}
+            >
+              Datasets
+            </li>
             {/* <li
               role="button"
               className={cn(
@@ -201,6 +205,7 @@ export function OccurrenceSearch(): React.ReactElement {
             >
               Dashboard
             </li> */}
+
             <li
               role="button"
               className={cn(
@@ -251,6 +256,7 @@ export function OccurrenceSearch(): React.ReactElement {
         {view === 'clusters' && <Clusters />}
         {view === 'dashboard' && <Dashboard />}
         {view === 'download' && <Download />}
+        {view === 'dataset' && <Dataset />}
       </div>
     </>
   );
