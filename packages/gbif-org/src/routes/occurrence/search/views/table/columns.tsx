@@ -10,6 +10,7 @@ import { FilterContext } from '@/contexts/filter';
 import { FormattedDateRange } from '@/components/message';
 import { SingleOccurrenceSearchResult } from '.';
 import { LinkOption } from '@/components/searchTable/components/linkOption';
+import { IconFeatures } from './iconFeatures';
 
 type Args = {
   showPreview?: ((id: string) => void) | false;
@@ -90,11 +91,27 @@ export function useOccurrenceColumns({
           filter: filters['taxonKey'],
         },
       },
-      // TODO
-      // {
-      //   id: 'features',
-      //   header: 'tableHeaders.features',
-      // },
+      {
+        id: 'features',
+        header: 'tableHeaders.features',
+        cell: ({ row }) => {
+          const occurrence = row.original;
+          return (
+            <IconFeatures
+              iconsOnly
+              stillImageCount={occurrence.stillImageCount}
+              movingImageCount={occurrence.movingImageCount}
+              soundCount={occurrence.soundCount}
+              typeStatus={occurrence.typeStatus}
+              isSequenced={occurrence.volatile?.features?.isSequenced}
+              isTreament={occurrence.volatile?.features?.isTreament}
+              isClustered={occurrence.volatile?.features?.isClustered}
+              isSamplingEvent={occurrence.volatile?.features?.isSamplingEvent}
+              issueCount={occurrence?.issues?.length}
+            />
+          );
+        },
+      },
       {
         id: 'country',
         header: 'filters.occurrenceCountry.name',

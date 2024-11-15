@@ -18,6 +18,7 @@ import { useFilters } from '../../filters';
 // TODO: Should maybe be moved to the configBuilder
 const DAFAULT_AVAILABLE_TABLE_COLUMNS = Object.freeze([
   'scientificName',
+  'features',
   'country',
   'coordinates',
   'year',
@@ -97,6 +98,18 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
           establishmentMeans
           iucnRedListCategory
           datasetName
+          stillImageCount
+          movingImageCount
+          soundCount
+          issues
+          volatile {
+            features {
+              isSequenced
+              isTreament
+              isClustered
+              isSamplingEvent
+            }
+          }
         }
       }
     }
