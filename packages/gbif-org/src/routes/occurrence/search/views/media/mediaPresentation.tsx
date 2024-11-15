@@ -13,6 +13,7 @@ export function MediaPresentation({
   mediaTypes,
   results,
   total,
+  endOfRecords,
   loading,
   error,
   next,
@@ -21,6 +22,7 @@ export function MediaPresentation({
   mediaTypes: any;
   results: any;
   total: number;
+  endOfRecords: boolean;
   loading: boolean;
   error: any;
   next: () => void;
@@ -60,7 +62,7 @@ export function MediaPresentation({
           <GalleryItemSkeleton />
           <GalleryItemSkeleton />
         </>}
-        {results.length > 0 && (
+        {results.length > 0 && !endOfRecords && (
           <div className="g-flex g-flex-col g-justify-center g-w-36">
             <Button disabled={loading} variant="outline" onClick={() => next()}>
               {loading ? <Spinner /> : <FormattedMessage id="search.loadMore" />}

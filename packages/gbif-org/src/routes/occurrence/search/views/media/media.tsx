@@ -67,15 +67,17 @@ export function Media({ size: defaultSize = 50 }) {
   }, [allData, setOrderedList]);
 
   useEffect(() => {
-    const all = [...allData, ...(data?.occurrenceSearch?.documents?.results || [])];
-    // get unique by key
-    const unique = all.reduce((acc, cur) => {
-      if (acc.find((x) => x.key === cur.key)) {
-        return acc;
-      }
-      return [...acc, cur];
-    }, []);
-    setAllData(unique);
+    setAllData(prev => {
+      const all = [...prev, ...(data?.occurrenceSearch?.documents?.results || [])];
+      // get unique by key
+      const unique = all.reduce((acc, cur) => {
+        if (acc.find((x) => x.key === cur.key)) {
+          return acc;
+        }
+        return [...acc, cur];
+      }, []);
+      return unique;
+    });
   }, [data]);
 
   useEffect(() => {
@@ -87,7 +89,8 @@ export function Media({ size: defaultSize = 50 }) {
         {
           type: 'in',
           key: 'mediaType',
-          values: ['StillImage', 'MovingImage', 'Sound'],
+          // values: ['StillImage', 'MovingImage', 'Sound'],
+          values: ['StillImage'],
         },
       ].filter((x) => x),
     };
@@ -109,6 +112,7 @@ export function Media({ size: defaultSize = 50 }) {
       results={allData}
       loading={loading}
       error={error}
+      endOfRecords={from + size >= data?.occurrenceSearch?.documents?.total}
       next={next}
       total={data?.occurrenceSearch?.documents?.total}
       onSelect={({ key }: { key: string | number }) => setPreviewKey(`o_${key}`)}
