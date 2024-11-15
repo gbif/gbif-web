@@ -2,6 +2,7 @@ import {
   ColumnDef,
   getCoreRowModel,
   PaginationState,
+  Row,
   useReactTable,
   VisibilityState,
 } from '@tanstack/react-table';
@@ -15,7 +16,8 @@ import { InlineSkeletonWrapper } from './components/inlineSkeletonWrapper';
 import { Head } from './components/head';
 import { FirstColumLockProvider } from './firstColumLock';
 import { Cell } from './components/cell';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 interface Props<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -27,6 +29,8 @@ interface Props<TData, TValue> {
   setPaginationState: React.Dispatch<React.SetStateAction<PaginationState>>;
   availableTableColumns: string[];
   defaultEnabledTableColumns: string[];
+  lockColumnLocalStoreKey?: string;
+  createRowLink?: (row: Row<TData>) => string;
 }
 
 export function SearchTable<TData, TValue>({
@@ -39,6 +43,8 @@ export function SearchTable<TData, TValue>({
   setPaginationState,
   availableTableColumns,
   defaultEnabledTableColumns,
+  createRowLink,
+  lockColumnLocalStoreKey = 'searchTableLockColumn',
 }: Props<TData, TValue>) {
   const [columnVisibility, setColumnVisibility] = useState(
     createInitialColumnVisibilityState(availableTableColumns, defaultEnabledTableColumns)
@@ -65,14 +71,23 @@ export function SearchTable<TData, TValue>({
 
   const initialLoading = data.length === 0;
 
+  const tableRef = useRef<HTMLTableElement>(null);
+
+  // Scroll to the top of the table when pagination.pageIndex changes
+  useEffect(() => {
+    if (tableRef.current) {
+      tableRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [pagination.pageIndex]);
+
   return (
-    <FirstColumLockProvider>
+    <FirstColumLockProvider lockColumnLocalStoreKey={lockColumnLocalStoreKey}>
       <div className="g-bg-gray-100 g-p-2 g-flex g-flex-col g-flex-1 g-min-h-0">
         {initialLoading && <Skeleton className="g-w-32 g-h-5 g-inline-block g-mb-1" />}
         {initialLoading || <p className="g-text-sm g-pb-1 g-text-gray-500">{rowCount} results</p>}
 
         <div className={cn('g-rounded-md g-border g-flex g-flex-col', className)}>
-          <Table>
+          <Table ref={tableRef}>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
@@ -101,10 +116,12 @@ export function SearchTable<TData, TValue>({
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && 'selected'}
-                    className="g-border-b"
+                    className={cn('g-border-b', {
+                      'hover:g-bg-gray-50': typeof createRowLink === 'function',
+                    })}
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <Cell key={cell.id} cell={cell} loading={loading} />
+                      <Cell to={createRowLink?.(row)} key={cell.id} cell={cell} loading={loading} />
                     ))}
                   </TableRow>
                 ))}
@@ -117,20 +134,26 @@ export function SearchTable<TData, TValue>({
                   <FooterButton
                     onClick={table.firstPage}
                     icon={<MdFirstPage />}
-                    toolTip={<span>First</span>}
+                    toolTip={<FormattedMessage id="pagination.first" />}
                   />
                   <FooterButton
                     onClick={table.previousPage}
                     icon={<MdChevronLeft />}
-                    toolTip={<span>Previous</span>}
+                    toolTip={<FormattedMessage id="pagination.previous" />}
                   />
                 </>
               )}
             </div>
             <InlineSkeletonWrapper loading={initialLoading}>
-              {/* TODO: Format numbers and translate */}
               <span className="g-text-xs">
-                Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+                <FormattedMessage
+                  id="pagination.pageXofY"
+                  defaultMessage={'Loading'}
+                  values={{
+                    current: <FormattedNumber value={table.getState().pagination.pageIndex + 1} />,
+                    total: <FormattedNumber value={table.getPageCount()} />,
+                  }}
+                />
               </span>
             </InlineSkeletonWrapper>
             <div className="g-flex g-flex-1 g-justify-end">
@@ -138,7 +161,7 @@ export function SearchTable<TData, TValue>({
                 <FooterButton
                   onClick={table.nextPage}
                   icon={<MdChevronRight />}
-                  toolTip={<span>Next</span>}
+                  toolTip={<FormattedMessage id="pagination.next" />}
                 />
               )}
             </div>

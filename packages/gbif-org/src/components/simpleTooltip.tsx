@@ -1,3 +1,4 @@
+import { FormattedMessage } from 'react-intl';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 import { TooltipContentProps } from '@radix-ui/react-tooltip';
 
@@ -16,7 +17,7 @@ export function SimpleTooltip({ title, delayDuration = 0, children, side, disabl
         {children}
       </TooltipTrigger>
       <TooltipContent className="g-max-w-96 g-pointer-events-none g-z-50" side={side}>
-        {title}
+        {typeof title !== 'string' ? title : <FormattedMessage id={title} />}
       </TooltipContent>
     </Tooltip>
   );

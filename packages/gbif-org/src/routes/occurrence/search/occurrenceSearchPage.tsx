@@ -1,71 +1,25 @@
 import { DataHeader } from '@/components/dataHeader';
-import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
+import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
 import { InternalScrollHandler } from '@/components/internalScrollHandler';
-import { SearchTable } from '@/components/searchTable/table';
-import { usePaginationState } from '@/components/searchTable/usePaginationState';
 import { useConfig } from '@/config/config';
-import { FilterContext, FilterProvider } from '@/contexts/filter';
+import { FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import { OccurrenceSearchQuery, OccurrenceSearchQueryVariables } from '@/gql/graphql';
 import { useStringParam } from '@/hooks/useParam';
-import useQuery from '@/hooks/useQuery';
-import { useOccurrenceColumns } from '@/routes/occurrence/search/columns';
-import { ExtractPaginatedResult } from '@/types';
-import { notNull } from '@/utils/notNull';
 import { cn } from '@/utils/shadcn';
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './helpTexts';
-import { Map } from './views/map';
-import { Media } from './views/media';
 import { searchConfig } from './searchConfig';
+import EntityDrawer from './views/browseList/ListBrowser';
 import { Clusters } from './views/clusters';
 import { Dashboard } from './views/dashboard';
 import { Download } from './views/download';
-import EntityDrawer from './views/browseList/ListBrowser';
+import { Map } from './views/map';
+import { Media } from './views/media';
+import { OccurrenceTable } from './views/table';
 import { Dataset } from './views/datasets';
-
-// TODO: Should maybe be moved to the configBuilder
-const DAFAULT_AVAILABLE_TABLE_COLUMNS = Object.freeze([
-  'country',
-  'coordinates',
-  'year',
-  'basisOfRecord',
-  'dataset',
-  'publisher',
-]);
-const DEFAULT_ENABLED_TABLE_COLUMNS = Object.freeze([...DAFAULT_AVAILABLE_TABLE_COLUMNS]);
-
-const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
-  query OccurrenceSearch($from: Int, $size: Int, $predicate: Predicate) {
-    occurrenceSearch(predicate: $predicate) {
-      documents(from: $from, size: $size) {
-        from
-        size
-        total
-        results {
-          key
-          taxonKey
-          scientificName
-          eventDate
-          coordinates
-          country
-          countryCode
-          basisOfRecord
-          datasetTitle
-          datasetKey
-          publisherTitle
-        }
-      }
-    }
-  }
-`;
-
-export type SingleOccurrenceSearchResult = ExtractPaginatedResult<
-  OccurrenceSearchQuery['occurrenceSearch']
->;
 
 export function OccurrenceSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
@@ -86,43 +40,9 @@ export function OccurrenceSearchPage(): React.ReactElement {
 }
 
 export function OccurrenceSearch(): React.ReactElement {
-  const previewInDrawer = true;
-  const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
   const [view, setView] = useStringParam({ key: 'view', defaultValue: 'table', hideDefault: true });
-  const config = useConfig();
-  const { filter, filterHash } = filterContext || { filter: { must: {} } };
-  const [, setPreviewKey] = useStringParam({ key: 'entity' });
-  const [paginationState, setPaginationState] = usePaginationState();
-
-  const { data, load, loading } = useQuery<OccurrenceSearchQuery, OccurrenceSearchQueryVariables>(
-    OCCURRENCE_SEARCH_QUERY,
-    {
-      throwAllErrors: true,
-      lazyLoad: true,
-    }
-  );
-
-  useEffect(() => {
-    const query = getAsQuery({ filter, searchContext, searchConfig });
-    load({
-      variables: {
-        predicate: {
-          ...query,
-        },
-        size: paginationState.pageSize,
-        from: paginationState.pageIndex * paginationState.pageSize,
-      },
-    });
-  }, [load, filterHash, searchContext, paginationState.pageIndex, paginationState.pageSize]);
-
-  const columns = useOccurrenceColumns({ showPreview: setPreviewKey, filters });
-
-  const occurrences = React.useMemo(
-    () => data?.occurrenceSearch?.documents.results.filter(notNull) ?? [],
-    [data]
-  );
 
   return (
     <>
@@ -228,26 +148,7 @@ export function OccurrenceSearch(): React.ReactElement {
 
       {view === 'table' && (
         <InternalScrollHandler headerHeight={150}>
-          <SearchTable
-            className="g-bg-white g-flex-1 g-min-h-0"
-            columns={columns}
-            data={occurrences}
-            loading={loading}
-            rowCount={data?.occurrenceSearch?.documents.total}
-            pagination={paginationState}
-            setPaginationState={setPaginationState}
-            // TODO: Should the logic be located in the config?
-            availableTableColumns={[
-              'scientificName',
-              ...(config?.occurrenceSearch?.availableTableColumns ??
-                DAFAULT_AVAILABLE_TABLE_COLUMNS),
-            ]}
-            defaultEnabledTableColumns={[
-              'scientificName',
-              ...(config?.occurrenceSearch?.defaultEnabledTableColumns ??
-                DEFAULT_ENABLED_TABLE_COLUMNS),
-            ]}
-          />
+          <OccurrenceTable />
         </InternalScrollHandler>
       )}
       <div className="g-py-2 g-px-4 g-bg-slate-100">

@@ -12,7 +12,7 @@ export function SetAsFilter({ filterIsActive, applyFilter, children }: Props) {
   if (!filterIsActive) return <>{children}</>;
 
   return (
-    <SimpleTooltip title="Set as filter" side="right">
+    <SimpleTooltip title="filterSupport.setFilter" side="right">
       <span
         // Buttons can't be displayed inline
         role="button"
