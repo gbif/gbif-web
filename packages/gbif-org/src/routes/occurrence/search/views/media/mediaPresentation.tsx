@@ -143,7 +143,7 @@ function GalleryItem({
       style={{ flexBasis: width }}
     >
       <button
-        className="g-inline-block g-rounded-lg g-bg-gray-200/50 g-overflow-hidden g-text-center hover:g-shadow-md"
+        className="g-inline-block g-rounded-lg g-bg-gray-200/50 g-overflow-hidden g-text-center g-border g-border-transparent hover:g-border-slate-500/20"
         onClick={onClick}
       >
         {failed && (
