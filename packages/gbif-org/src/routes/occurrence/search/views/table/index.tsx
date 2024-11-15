@@ -158,6 +158,7 @@ export function OccurrenceTable() {
 
   return (
     <SearchTable
+      createRowLink={(row) => `/occurrence/${row.original.key}`}
       lockColumnLocalStoreKey="occurrenceSearchTableLockColumn"
       className="g-bg-white g-flex-1 g-min-h-0"
       columns={columns}

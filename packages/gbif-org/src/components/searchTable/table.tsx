@@ -2,6 +2,7 @@ import {
   ColumnDef,
   getCoreRowModel,
   PaginationState,
+  Row,
   useReactTable,
   VisibilityState,
 } from '@tanstack/react-table';
@@ -29,6 +30,7 @@ interface Props<TData, TValue> {
   availableTableColumns: string[];
   defaultEnabledTableColumns: string[];
   lockColumnLocalStoreKey?: string;
+  createRowLink?: (row: Row<TData>) => string;
 }
 
 export function SearchTable<TData, TValue>({
@@ -41,6 +43,7 @@ export function SearchTable<TData, TValue>({
   setPaginationState,
   availableTableColumns,
   defaultEnabledTableColumns,
+  createRowLink,
   lockColumnLocalStoreKey = 'searchTableLockColumn',
 }: Props<TData, TValue>) {
   const [columnVisibility, setColumnVisibility] = useState(
@@ -113,10 +116,12 @@ export function SearchTable<TData, TValue>({
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && 'selected'}
-                    className="g-border-b"
+                    className={cn('g-border-b', {
+                      'hover:g-bg-gray-50': typeof createRowLink === 'function',
+                    })}
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <Cell key={cell.id} cell={cell} loading={loading} />
+                      <Cell to={createRowLink?.(row)} key={cell.id} cell={cell} loading={loading} />
                     ))}
                   </TableRow>
                 ))}

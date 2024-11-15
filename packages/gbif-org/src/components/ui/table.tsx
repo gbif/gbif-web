@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cn } from '@/utils/shadcn';
+import { DynamicLink } from '@/reactRouterPlugins';
 
 const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(
   ({ className, ...props }, ref) => (
@@ -75,16 +76,27 @@ TableHead.displayName = 'TableHead';
 
 const TableCell = React.forwardRef<
   HTMLTableCellElement,
-  React.TdHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
+  React.TdHTMLAttributes<HTMLTableCellElement> & { to?: string }
+>(({ className, to, children, ...props }, ref) => (
   <td
     ref={ref}
     className={cn(
-      'g-p-2 g-align-middle [&:has([role=checkbox])]:g-pr-0 [&>[role=checkbox]]:g-translate-y-[2px] g-border-r last:g-border-0',
+      {
+        'g-p-2 g-align-middle': !to,
+      },
+      'g-border-r last:g-border-0 [&:has([role=checkbox])]:g-pr-0 [&>[role=checkbox]]:g-translate-y-[2px]',
       className
     )}
     {...props}
-  />
+  >
+    {!to ? (
+      children
+    ) : (
+      <DynamicLink className="g-p-2 g-flex g-h-full g-items-center" to={to}>
+        {children}
+      </DynamicLink>
+    )}
+  </td>
 ));
 TableCell.displayName = 'TableCell';
 

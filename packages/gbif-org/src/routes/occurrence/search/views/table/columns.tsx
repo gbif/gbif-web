@@ -35,10 +35,7 @@ export function useOccurrenceColumns({
           const occurrence = row.original;
 
           return (
-            <DynamicLink
-              to={`/occurrence/${occurrence.key}`}
-              className="g-inline-flex g-items-center g-w-full g-h-full g-p-2"
-            >
+            <div className="g-inline-flex g-items-center g-w-full g-h-full">
               {typeof showPreview === 'function' && (
                 <button
                   className="g-pr-3 g-pl-1 hover:g-text-primary-500 g-flex g-items-center"
@@ -84,7 +81,7 @@ export function useOccurrenceColumns({
                   </SimpleTooltip>
                 )}
               </div>
-            </DynamicLink>
+            </div>
           );
         },
         minSize: 250,
