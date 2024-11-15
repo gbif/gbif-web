@@ -19,6 +19,7 @@ import { Download } from './views/download';
 import { Map } from './views/map';
 import { Media } from './views/media';
 import { OccurrenceTable } from './views/table';
+import { Dataset } from './views/datasets';
 
 export function OccurrenceSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
@@ -104,6 +105,16 @@ export function OccurrenceSearch(): React.ReactElement {
             >
               Related
             </li>
+            <li
+              role="button"
+              className={cn(
+                'g-p-2 g-border-b-2 g-border-transparent',
+                view === 'dataset' && 'g-border-b-primary-500'
+              )}
+              onClick={() => setView('dataset')}
+            >
+              Datasets
+            </li>
             {/* <li
               role="button"
               className={cn(
@@ -114,6 +125,7 @@ export function OccurrenceSearch(): React.ReactElement {
             >
               Dashboard
             </li> */}
+
             <li
               role="button"
               className={cn(
@@ -145,6 +157,7 @@ export function OccurrenceSearch(): React.ReactElement {
         {view === 'clusters' && <Clusters />}
         {view === 'dashboard' && <Dashboard />}
         {view === 'download' && <Download />}
+        {view === 'dataset' && <Dataset />}
       </div>
     </>
   );
