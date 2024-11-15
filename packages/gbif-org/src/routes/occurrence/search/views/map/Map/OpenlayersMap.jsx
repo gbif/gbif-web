@@ -26,7 +26,7 @@ class Map extends Component {
     this.updateLayer = this.updateLayer.bind(this);
     this.onPointClick = this.onPointClick.bind(this);
     this.myRef = React.createRef();
-    this.state = {};
+    this.state = {loadDiff: 0};
   }
 
   componentDidMount() {
@@ -56,6 +56,14 @@ class Map extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.query !== this.props.query && this.mapLoaded) {
       this.updateLayer();
+    }
+
+    if (this.props.onLoading) {
+      if (this.state.loadDiff > 0) {
+        this.props.onLoading(true);
+      } else {
+        this.props.onLoading(false);
+      }
     }
 
     if (prevProps.mapConfig !== this.props.mapConfig && this.mapLoaded) {
@@ -260,10 +268,26 @@ class Map extends Component {
     if (this.props.q) {
       filter.q = this.props.q;
     }
+    this.setState(function(){
+      return {loadDiff: 0}
+   });
     const occurrenceLayer = currentProjection.getAdhocLayer({
       style: 'scaled.circles',
       mode: 'GEO_CENTROID',
       squareSize: 512,
+      progress: {
+        addLoading: () => {
+          this.setState(function(prevState){
+            return {loadDiff: prevState.loadDiff + 1}
+         });
+      
+        },
+        addLoaded: () => {
+          this.setState(function(prevState){
+            return {loadDiff: prevState.loadDiff - 1}
+         });
+        }
+      },
       ...filter,
       onError: e => {
         // there seem to be no simple way to get the statuscode, so we will just reregister on any type of error
@@ -314,19 +338,21 @@ class Map extends Component {
       });
     });
 
-    map.on('pointermove', function (e) {
-      if (e.dragging) {
-        return;
-      } else {
-        var pixel = map.getEventPixel(e.originalEvent);
-        var hit = map.hasFeatureAtPixel(pixel, { layerFilter: l => l.values_.name === 'occurrences' });
-        map.getViewport().style.cursor = hit ? 'pointer' : '';
-      }
-    });
+    // the performance of this is really bad. It is a shame, but I think it is better to have it disabled until we can find a better solution. Probably updating to a newer version of openlayers will do it.
+    // map.on('pointermove', function (e) {
+    //   if (e.dragging) {
+    //     return;
+    //   } else {
+    //     var pixel = map.getEventPixel(e.originalEvent);
+    //     var hit = map.hasFeatureAtPixel(pixel, { layerFilter: l => l.values_.name === 'occurrences' });
+    //     map.getViewport().style.cursor = hit ? 'pointer' : '';
+    //   }
+    // });
   }
 
   render() {
     const { query, onMapClick, onPointClick, predicateHash, className, ...props } = this.props;
+
     return <div ref={this.myRef} className={className} />
   }
 }

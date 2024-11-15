@@ -17,7 +17,7 @@ class Map extends Component {
     this.updateLayer = this.updateLayer.bind(this);
     this.onPointClick = this.onPointClick.bind(this);
     this.myRef = React.createRef();
-    this.state = {};
+    this.state = {loadDiff: 0};
   }
 
   componentDidMount() {
@@ -122,6 +122,7 @@ class Map extends Component {
       // const source = this.map.getSource('occurrences');
       // source.setTiles([`${env.API_V2}/map/occurrence/adhoc/{z}/{x}/{y}.mvt?style=scaled.circles&mode=GEO_CENTROID&srs=EPSG%3A3857&squareSize=256&predicateHash=${this.props.predicateHash}&${this.props.q ? `&q=${this.props.q} ` : ''}`])
 
+      this.state.loadDiff = 0;
       var tileString = `${PUBLIC_API_V2}/map/occurrence/adhoc/{z}/{x}/{y}.mvt?style=scaled.circles&mode=GEO_CENTROID&srs=EPSG%3A3857&squareSize=256&predicateHash=${
         this.props.predicateHash ?? '' 
       }&${this.props.q ? `&q=${this.props.q} ` : ''}`;
@@ -173,6 +174,14 @@ class Map extends Component {
             this.props.registerPredicate();
           }
         });
+
+        map.on('dataloading', (e) => {
+          this.props.onLoading(true);
+        });
+
+        map.on('idle', (e) => {
+          this.props.onLoading(false);
+        });
       }
       this.mapLoaded = true;
     } catch (err) {
@@ -181,9 +190,12 @@ class Map extends Component {
   }
 
   render() {
-    const { query, onMapClick, onPointClick, predicateHash, style, className, ...props } =
-      this.props;
-    return <div ref={this.myRef} {...{ style, className }} />;
+    const { style = {}, className } = this.props;
+    const { loadDiff } = this.state;
+    const isLoading = loadDiff > 0;
+    console.log(loadDiff);
+
+    return <div ref={this.myRef} className={className} style={style} />
   }
 }
 
