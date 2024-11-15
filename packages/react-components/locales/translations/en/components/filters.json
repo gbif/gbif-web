@@ -335,6 +335,11 @@
     "count": "{num, plural, one { water body } other {# water bodies}}",
     "description": "The name of the water body in which the location occurs."
   },
+  "higherGeography": {
+    "name": "Higher geography",
+    "count": "",
+    "description": ""
+  },
   "stateProvince": {
     "name": "State province",
     "count": "{num, plural, one { state province } other {# state provinces}}",

@@ -45,6 +45,7 @@ export type Config = Endpoints & {
     overwriteConfig: Partial<Config>;
   }>;
   maps: {
+    locale?: string;
     mapStyles: {
       defaultProjection: 'MERCATOR' | 'PLATE_CAREE' | 'ARCTIC' | 'ANTARCTIC';
       defaultMapStyle: MapStyleType;

@@ -150,3 +150,9 @@ export const CountryLabel = getEnumLabel({ template: (id) => `enums.countryCode.
 export const RelevanceLabel = getEnumLabel({ template: (id) => `enums.relevance.${id}` });
 export const TopicsLabel = getEnumLabel({ template: (id) => `enums.topics.${id}` });
 export const BasisOfRecordLabel = getEnumLabel({ template: (id) => `enums.basisOfRecord.${id}` });
+
+export function prettifyEnum(text: string) {
+  return typeof text === 'string'
+    ? text.charAt(0) + text.slice(1).toLowerCase().replace(/_/g, ' ')
+    : 'Unknown';
+}

@@ -127,6 +127,29 @@ export const Preparations = getStringChart({
   gqlEntity: `occurrences {documents(size: 1) {results {preparations}}}`,
 });
 
+export const HigherGeography = getStringChart({
+  showFreeTextWarning: true,
+  interactive: false,
+  fieldName: 'higherGeography',
+  title: <FormattedMessage id="filters.higherGeography.name" defaultMessage="Higher geography" />,
+  gqlEntity: `occurrences {documents(size: 1) {results {higherGeography}}}`,
+  transform: data => {
+    return data?.search?.facet?.results?.map(x => {
+      const title = x.key;
+      return {
+        key: x.key,
+        count: x.count,
+        title: x.key,
+        // description: <Classification>
+        //   {x.entity?.documents?.results?.[0]?.higherGeography.map(h => <span>{h}</span>)}
+        // </Classification>,
+        plainTextTitle: title,
+        filter: { higherGeography: [x.key] },
+      }
+    });
+  }
+});
+
 export const CatalogNumber = getStringChart({
   fieldName: 'catalogNumber',
   title: <FormattedMessage id="filters.catalogNumber.name" defaultMessage="Catalogue number" />,

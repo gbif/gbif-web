@@ -6,12 +6,13 @@ type Props = {
   title: React.ReactNode;
   delayDuration?: number;
   children: React.ReactNode;
+  disableHoverableContent?: boolean;
   side?: TooltipContentProps['side'];
 };
 
-export function SimpleTooltip({ title, delayDuration = 0, children, side }: Props) {
+export function SimpleTooltip({ title, delayDuration = 0, children, side, disableHoverableContent }: Props) {
   return (
-    <Tooltip delayDuration={delayDuration}>
+    <Tooltip delayDuration={delayDuration} disableHoverableContent={disableHoverableContent}>
       <TooltipTrigger tabIndex={-1} asChild>
         {children}
       </TooltipTrigger>

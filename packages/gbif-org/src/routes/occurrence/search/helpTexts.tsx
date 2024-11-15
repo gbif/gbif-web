@@ -12,7 +12,7 @@ export function AboutContent() {
     <div>
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="item-1">
-          <AccordionTrigger>What is a dataset?</AccordionTrigger>
+          <AccordionTrigger>What is an occurrence?</AccordionTrigger>
           <AccordionContent className="g-prose g-text-sm">
             Data is loaded from contentful help items async. E.g.
             <HelpText
@@ -35,23 +35,22 @@ export function ApiContent() {
       <h3>API access</h3>
       <p>
         All data is available via the{' '}
-        <a href="https://techdocs.gbif.org/en/openapi/v1/registry#/Datasets">GBIF API</a>. No
+        <a href="https://techdocs.gbif.org/en/openapi/v1/occurrence">GBIF API</a>. No
         registration or API key is required.
       </p>
       <p>
-        Please remember to properly cite usage and to throttle requests in scripts. Most endpoint
-        types support download/export. Use those if you need large data volumes.
+        Please remember to properly cite usage and to throttle requests in scripts. You need to <a href="https://techdocs.gbif.org/en/openapi/v1/occurrence#/Occurrence%20downloads/requestDownload">do a download</a> to get a citation string.
       </p>
       <h4>Examples</h4>
       <Card className="g-p-2 g-mb-2">
-        Get all datasets <br />
-        <a href="https://api.gbif.org/v1/dataset/search">https://api.gbif.org/v1/dataset/search</a>
+        Get all occurrences <br />
+        <a href="https://api.gbif.org/v1/occurrence/search">https://api.gbif.org/v1/occurrence/search</a>
       </Card>
       <Card className="g-p-2">
-        First 2 dataset published from Denmark with free text "fungi" in the title or description
+        First 5 occurrences of taxon 9778871 (Flabellina McMurtrie, 1831) that have been recorded in May between year 2000-2024<br />
         <br />
-        <a href="https://api.gbif.org/v1/dataset/search?q=fungi&publishingCountry=DK&limit=2&offset=0">
-          https://api.gbif.org/v1/dataset/search?q=fungi&publishingCountry=DK&limit=2&offset=0
+        <a className="g-break-all" href="https://api.gbif.org/v1/occurrence/search?month=5&taxonKey=9778871&year=2000,2024&occurrenceStatus=present&limit=5&offset=0">
+          https://api.gbif.org/v1/occurrence/search?month=5&taxonKey=9778871&year=2000,2024&occurrenceStatus=present&limit=5&offset=0
         </a>
       </Card>
     </div>

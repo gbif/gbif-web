@@ -104,7 +104,7 @@ export function OccurrenceSearch(): React.ReactElement {
             >
               Related
             </li>
-            <li
+            {/* <li
               role="button"
               className={cn(
                 'g-p-2 g-border-b-2 g-border-transparent',
@@ -113,7 +113,7 @@ export function OccurrenceSearch(): React.ReactElement {
               onClick={() => setView('dashboard')}
             >
               Dashboard
-            </li>
+            </li> */}
             <li
               role="button"
               className={cn(
@@ -139,11 +139,13 @@ export function OccurrenceSearch(): React.ReactElement {
           <OccurrenceTable />
         </InternalScrollHandler>
       )}
-      {view === 'map' && <Map />}
-      {view === 'media' && <Media />}
-      {view === 'clusters' && <Clusters />}
-      {view === 'dashboard' && <Dashboard />}
-      {view === 'download' && <Download />}
+      <div className="g-py-2 g-px-4 g-bg-slate-100">
+        {view === 'map' && <Map />}
+        {view === 'media' && <Media />}
+        {view === 'clusters' && <Clusters />}
+        {view === 'dashboard' && <Dashboard />}
+        {view === 'download' && <Download />}
+      </div>
     </>
   );
 }

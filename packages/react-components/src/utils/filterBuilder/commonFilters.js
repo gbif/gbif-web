@@ -847,6 +847,22 @@ export const commonFilters = {
       }
     }
   },
+  higherGeography: {
+    type: 'SIMPLE_TEXT',
+    config: {
+      std: {
+        id2labelHandle: 'higherGeography',
+        translations: {
+          count: 'filters.higherGeography.count', // translation path to display names with counts. e.g. "3 scientific names"
+          name: 'filters.higherGeography.name',// translation path to a title for the popover and the button
+          description: 'filters.higherGeography.description', // translation path for the filter description
+        },
+      },
+      specific: {
+        supportsExist: false,
+      }
+    }
+  },
   recordNumber: {
     type: 'SUGGEST',
     config: {
