@@ -39,6 +39,7 @@ import { useOrderedList } from '../../browseList/useOrderedList';
 import { useStringParam } from '@/hooks/useParam';
 import { Spinner } from '@/components/ui/spinner';
 import { ViewHeader } from '@/components/ViewHeader';
+import StripeLoader from '@/components/stripeLoader';
 // import { toast } from 'react-toast'
 
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
@@ -109,7 +110,12 @@ function Map({
   const [listVisible, showList] = useState(false);
   const { toast } = useToast();
   const [, setPreviewKey] = useStringParam({ key: 'entity' });
+  const [mapLoading, setMapLoading] = useState(false);
   const items = React.useMemo(() => pointData?.occurrenceSearch?.documents?.results || [], [pointData]);
+
+  const updateLoading = useCallback((loading) => {
+    setMapLoading(loading);
+  }, []);
 
   // update ordered list on items change
   useEffect(() => {
@@ -257,7 +263,7 @@ function Map({
         {...{ style }}
       >
         <ViewHeader message="counts.nResultsWithCoordinates" loading={loading} total={total} />
-        <DynamicHeightDiv minPxHeight={500}>
+        <DynamicHeightDiv minPxHeight={500} className="g-relative">
           {listVisible && (
             <ListBox
               onCloseRequest={() => showList(false)}
@@ -271,6 +277,9 @@ function Map({
               className="gbif-resultList g-z-10 g-absolute g-start-0 g-top-0 g-m-2 g-w-96 g-max-w-full g-max-h-[calc(100%-4rem)]"
             />
           )}
+          <div className="g-z-10 g-absolute g-start-0 g-top-0 g-end-0">
+            <StripeLoader active={mapLoading} className="g-w-full" />
+          </div>
           <div className="mapControls g-flex g-absolute g-bg-white g-z-10 g-border g-m-2 g-end-0 g-items-center">
             <MenuButton onClick={() => broadcastEvent({ type: 'ZOOM_IN' })}>
               <MdZoomIn />
@@ -327,6 +336,7 @@ function Map({
             q={q}
             className="mapComponent [&>canvas:focus]:g-outline-none g-border g-border-slate-200 g-rounded g-flex g-flex-col g-h-full g-flex-auto"
             query={query}
+            onLoading={updateLoading}
             onMapClick={(e) => showList(false)}
             onPointClick={(data) => {
               // check that it is only doing so for the top layer - it should call multiple times for each layer
