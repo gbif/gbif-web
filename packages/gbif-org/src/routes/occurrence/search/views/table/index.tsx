@@ -199,7 +199,6 @@ export function OccurrenceTable() {
     <SearchTable
       createRowLink={createRowLink}
       lockColumnLocalStoreKey="occurrenceSearchTableLockColumn"
-      className="g-bg-white g-flex-1 g-min-h-0"
       columns={columns}
       data={occurrences}
       loading={loading}

@@ -4,13 +4,11 @@ import { DynamicLink } from '@/reactRouterPlugins';
 
 const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(
   ({ className, ...props }, ref) => (
-    <div className="g-relative g-w-full g-overflow-auto g-h-full">
-      <table
-        ref={ref}
-        className={cn('g-w-full g-caption-bottom g-text-sm g-h-full', className)}
-        {...props}
-      />
-    </div>
+    <table
+      ref={ref}
+      className={cn('g-w-full g-caption-bottom g-text-sm g-h-full', className)}
+      {...props}
+    />
   )
 );
 Table.displayName = 'Table';

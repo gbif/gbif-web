@@ -1,6 +1,16 @@
 import { debounce } from '@/utils/debounce';
 import { CSSProperties, ReactNode, useEffect, useRef, useState } from 'react';
 
+type Props = {
+  minPxHeight?: number;
+  maxPxHeight?: number;
+  stepSize?: number;
+  sizeByViewport?: boolean;
+  children: ReactNode;
+  style?: CSSProperties;
+  className?: string;
+};
+
 export default function DynamicHeightDiv({
   minPxHeight = 300,
   maxPxHeight,
@@ -9,15 +19,8 @@ export default function DynamicHeightDiv({
   children,
   style = {},
   ...props
-}: {
-  minPxHeight?: number;
-  maxPxHeight?: number;
-  stepSize?: number;
-  sizeByViewport?: boolean;
-  children: ReactNode;
-  style?: CSSProperties;
-}) {
-  const divRef = useRef(null);
+}: Props) {
+  const divRef = useRef<HTMLDivElement>(null);
   const [divHeight, setDivHeight] = useState(minPxHeight);
 
   useEffect(() => {
@@ -57,7 +60,7 @@ export default function DynamicHeightDiv({
 
     window.addEventListener('resize', handleResize);
     window.addEventListener('scroll', handleResize);
-    
+
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('scroll', handleResize);

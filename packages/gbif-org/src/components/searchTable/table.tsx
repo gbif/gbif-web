@@ -15,6 +15,7 @@ import { Head } from './components/head';
 import { InitialSkeletonTable } from './components/initialSkeletonTable';
 import { TableFooter } from './components/tableFooter';
 import { FirstColumLockProvider } from './firstColumLock';
+import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 
 interface Props<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -71,58 +72,69 @@ export function SearchTable<TData, TValue>({
   const initialLoading = loading && data.length === 0;
 
   // Scroll to the top of the table when pagination.pageIndex changes
-  const tableRef = useRef<HTMLTableElement>(null);
+  const tableWrapperRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (tableRef.current) {
-      tableRef.current.scrollIntoView({ behavior: 'instant', block: 'start' });
+    if (tableWrapperRef.current) {
+      tableWrapperRef.current.scrollTop = 0;
     }
   }, [data]);
 
   return (
-    <FirstColumLockProvider lockColumnLocalStoreKey={lockColumnLocalStoreKey}>
-      <div className="g-bg-gray-100 g-p-2 g-flex g-flex-col g-flex-1 g-min-h-0">
-        <ViewHeader total={rowCount} loading={loading} message="counts.nResults" />
-
-        <div className={cn('g-rounded-md g-border g-flex g-flex-col', className)}>
-          <Table ref={tableRef}>
-            <TableHeader>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <Head
-                      key={header.id}
-                      table={table}
-                      header={header}
-                      resetColumnVisibility={() =>
-                        setColumnVisibility(initialColumnVisibility.current)
-                      }
-                    />
+    <>
+      <ViewHeader total={rowCount} loading={loading} message="counts.nResults" />
+      <FirstColumLockProvider lockColumnLocalStoreKey={lockColumnLocalStoreKey}>
+        <DynamicHeightDiv
+          minPxHeight={500}
+          className={cn('g-rounded-md g-border g-relative g-bg-white', className)}
+        >
+          <div className="g-flex g-flex-col g-h-full">
+            <div ref={tableWrapperRef} className="g-relative g-w-full g-overflow-auto g-h-full">
+              <Table>
+                <TableHeader>
+                  {table.getHeaderGroups().map((headerGroup) => (
+                    <TableRow key={headerGroup.id}>
+                      {headerGroup.headers.map((header) => (
+                        <Head
+                          key={header.id}
+                          table={table}
+                          header={header}
+                          resetColumnVisibility={() =>
+                            setColumnVisibility(initialColumnVisibility.current)
+                          }
+                        />
+                      ))}
+                    </TableRow>
                   ))}
-                </TableRow>
-              ))}
-            </TableHeader>
-            <TableBody>
-              {initialLoading && <InitialSkeletonTable table={table} />}
-              {initialLoading ||
-                table.getRowModel().rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && 'selected'}
-                    className={cn('g-border-b', {
-                      'hover:g-bg-gray-50': typeof createRowLink === 'function',
-                    })}
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <Cell to={createRowLink?.(row)} key={cell.id} cell={cell} loading={loading} />
+                </TableHeader>
+                <TableBody>
+                  {initialLoading && <InitialSkeletonTable table={table} />}
+                  {initialLoading ||
+                    table.getRowModel().rows.map((row) => (
+                      <TableRow
+                        key={row.id}
+                        data-state={row.getIsSelected() && 'selected'}
+                        className={cn('g-border-b', {
+                          'hover:g-bg-gray-50': typeof createRowLink === 'function',
+                        })}
+                      >
+                        {row.getVisibleCells().map((cell) => (
+                          <Cell
+                            to={createRowLink?.(row)}
+                            key={cell.id}
+                            cell={cell}
+                            loading={loading}
+                          />
+                        ))}
+                      </TableRow>
                     ))}
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-          <TableFooter table={table} loading={loading} />
-        </div>
-      </div>
-    </FirstColumLockProvider>
+                </TableBody>
+              </Table>
+            </div>
+            <TableFooter table={table} loading={loading} />
+          </div>
+        </DynamicHeightDiv>
+      </FirstColumLockProvider>
+    </>
   );
 }
 

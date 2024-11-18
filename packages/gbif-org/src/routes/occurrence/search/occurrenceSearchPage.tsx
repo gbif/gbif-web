@@ -146,12 +146,8 @@ export function OccurrenceSearch(): React.ReactElement {
         </FilterBar>
       </section>
 
-      {view === 'table' && (
-        <InternalScrollHandler headerHeight={150}>
-          <OccurrenceTable />
-        </InternalScrollHandler>
-      )}
       <div className="g-py-2 g-px-4 g-bg-slate-100">
+        {view === 'table' && <OccurrenceTable />}
         {view === 'map' && <Map />}
         {view === 'media' && <Media />}
         {view === 'clusters' && <Clusters />}
