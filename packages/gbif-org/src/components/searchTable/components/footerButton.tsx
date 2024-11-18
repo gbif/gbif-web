@@ -9,15 +9,13 @@ type Props = {
 
 export function FooterButton({ icon, toolTip, onClick }: Props) {
   return (
-    <TooltipProvider delayDuration={0}>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button onClick={onClick} variant="ghost" className="g-h-8 g-w-8 g-p-0">
-            {icon}
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent>{toolTip}</TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button onClick={onClick} variant="ghost" className="g-h-8 g-w-8 g-p-0">
+          {icon}
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>{toolTip}</TooltipContent>
+    </Tooltip>
   );
 }

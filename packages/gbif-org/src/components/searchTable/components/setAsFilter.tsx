@@ -1,13 +1,16 @@
 import { SimpleTooltip } from '@/components/simpleTooltip';
-import React from 'react';
+import { FilterContext } from '@/contexts/filter';
+import React, { useContext } from 'react';
 
 type Props = {
-  applyFilter: () => void;
   filterIsActive: boolean;
   children: null | undefined | React.ReactNode;
+  field: string;
+  value: any;
 };
 
-export function SetAsFilter({ filterIsActive, applyFilter, children }: Props) {
+export function SetAsFilter({ filterIsActive, children, field, value }: Props) {
+  const { add } = useContext(FilterContext);
   if (!children) return null;
   if (!filterIsActive) return <>{children}</>;
 
@@ -20,7 +23,7 @@ export function SetAsFilter({ filterIsActive, applyFilter, children }: Props) {
         onClick={(e) => {
           // Prevent links that span an entire cell from being triggered
           e.preventDefault();
-          applyFilter();
+          add(field, value);
         }}
       >
         {children}

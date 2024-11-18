@@ -24,10 +24,17 @@ export function FirstColumLockProvider({ children, lockColumnLocalStoreKey }: Pr
 
   const isMobile = useBelow(600, true);
 
-  const context: FirstColumLockContextType = useMemo(
-    () => ({ locked: isMobile || locked, setLocked, hideLock: isMobile }),
-    [locked, setLocked, isMobile]
-  );
+  const context: FirstColumLockContextType = useMemo(() => {
+    let _locked: boolean;
+    if (isMobile) _locked = false;
+    else _locked = locked;
+
+    return {
+      locked: _locked,
+      setLocked,
+      hideLock: isMobile,
+    };
+  }, [locked, setLocked, isMobile]);
 
   return (
     <FirstColumLockContext.Provider value={context}>{children}</FirstColumLockContext.Provider>

@@ -14,6 +14,7 @@ import { SearchTable } from '@/components/searchTable/table';
 import { useConfig } from '@/config/config';
 import { useSearchContext } from '@/contexts/search';
 import { useFilters } from '../../filters';
+import { Row } from '@tanstack/react-table';
 
 // TODO: Should maybe be moved to the configBuilder
 const DAFAULT_AVAILABLE_TABLE_COLUMNS = Object.freeze([
@@ -120,6 +121,8 @@ export type SingleOccurrenceSearchResult = ExtractPaginatedResult<
   OccurrenceSearchQuery['occurrenceSearch']
 >;
 
+const createRowLink = (row: Row<SingleOccurrenceSearchResult>) => `/occurrence/${row.original.key}`;
+
 export function OccurrenceTable() {
   const searchContext = useSearchContext();
   const [paginationState, setPaginationState] = usePaginationState();
@@ -128,6 +131,11 @@ export function OccurrenceTable() {
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
   const [, setPreviewKey] = useStringParam({ key: 'entity' });
+
+  // Go back to the first page when the filters change
+  useEffect(() => {
+    setPaginationState((prev) => ({ ...prev, pageIndex: 0 }));
+  }, [filterHash]);
 
   const { data, load, loading } = useQuery<OccurrenceSearchQuery, OccurrenceSearchQueryVariables>(
     OCCURRENCE_SEARCH_QUERY,
@@ -155,6 +163,7 @@ export function OccurrenceTable() {
   }, [load, filterHash, searchContext, paginationState.pageIndex, paginationState.pageSize]);
 
   const { filters } = useFilters({ searchConfig });
+
   const columns = useOccurrenceColumns({ showPreview: setPreviewKey, filters });
 
   const occurrences = useMemo(
@@ -169,9 +178,26 @@ export function OccurrenceTable() {
     setOrderedList(occurrences.map((item) => `o_${item.key}`));
   }, [occurrences, setOrderedList]);
 
+  // TODO: Should the logic be located in the config?
+  const availableTableColumns = useMemo(
+    () => [
+      'scientificName',
+      ...(config?.occurrenceSearch?.availableTableColumns ?? DAFAULT_AVAILABLE_TABLE_COLUMNS),
+    ],
+    [config]
+  );
+
+  const defaultEnabledTableColumns = useMemo(
+    () => [
+      'scientificName',
+      ...(config?.occurrenceSearch?.defaultEnabledTableColumns ?? DEFAULT_ENABLED_TABLE_COLUMNS),
+    ],
+    [config]
+  );
+
   return (
     <SearchTable
-      createRowLink={(row) => `/occurrence/${row.original.key}`}
+      createRowLink={createRowLink}
       lockColumnLocalStoreKey="occurrenceSearchTableLockColumn"
       className="g-bg-white g-flex-1 g-min-h-0"
       columns={columns}
@@ -180,15 +206,8 @@ export function OccurrenceTable() {
       rowCount={data?.occurrenceSearch?.documents.total}
       pagination={paginationState}
       setPaginationState={setPaginationState}
-      // TODO: Should the logic be located in the config?
-      availableTableColumns={[
-        'scientificName',
-        ...(config?.occurrenceSearch?.availableTableColumns ?? DAFAULT_AVAILABLE_TABLE_COLUMNS),
-      ]}
-      defaultEnabledTableColumns={[
-        'scientificName',
-        ...(config?.occurrenceSearch?.defaultEnabledTableColumns ?? DEFAULT_ENABLED_TABLE_COLUMNS),
-      ]}
+      availableTableColumns={availableTableColumns}
+      defaultEnabledTableColumns={defaultEnabledTableColumns}
     />
   );
 }

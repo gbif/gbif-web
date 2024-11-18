@@ -1,3 +1,5 @@
+import { Table, TableBody, TableHeader, TableRow } from '@/components/ui/table';
+import { cn } from '@/utils/shadcn';
 import {
   ColumnDef,
   getCoreRowModel,
@@ -6,18 +8,13 @@ import {
   useReactTable,
   VisibilityState,
 } from '@tanstack/react-table';
-import { Table, TableBody, TableHeader, TableRow } from '@/components/ui/table';
-import { cn } from '@/utils/shadcn';
-import { Skeleton } from '../ui/skeleton';
-import { MdChevronLeft, MdChevronRight, MdFirstPage } from 'react-icons/md';
-import { InitialSkeletonTable } from './components/initialSkeletonTable';
-import { FooterButton } from './components/footerButton';
-import { InlineSkeletonWrapper } from './components/inlineSkeletonWrapper';
-import { Head } from './components/head';
-import { FirstColumLockProvider } from './firstColumLock';
-import { Cell } from './components/cell';
 import { useEffect, useRef, useState } from 'react';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { ViewHeader } from '../ViewHeader';
+import { Cell } from './components/cell';
+import { Head } from './components/head';
+import { InitialSkeletonTable } from './components/initialSkeletonTable';
+import { TableFooter } from './components/tableFooter';
+import { FirstColumLockProvider } from './firstColumLock';
 
 interface Props<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -46,9 +43,11 @@ export function SearchTable<TData, TValue>({
   createRowLink,
   lockColumnLocalStoreKey = 'searchTableLockColumn',
 }: Props<TData, TValue>) {
-  const [columnVisibility, setColumnVisibility] = useState(
+  const initialColumnVisibility = useRef(
     createInitialColumnVisibilityState(availableTableColumns, defaultEnabledTableColumns)
   );
+
+  const [columnVisibility, setColumnVisibility] = useState(initialColumnVisibility.current);
 
   const table = useReactTable({
     data: data ?? [],
@@ -69,22 +68,20 @@ export function SearchTable<TData, TValue>({
     manualSorting: true,
   });
 
-  const initialLoading = data.length === 0;
-
-  const tableRef = useRef<HTMLTableElement>(null);
+  const initialLoading = loading && data.length === 0;
 
   // Scroll to the top of the table when pagination.pageIndex changes
+  const tableRef = useRef<HTMLTableElement>(null);
   useEffect(() => {
     if (tableRef.current) {
-      tableRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      tableRef.current.scrollIntoView({ behavior: 'instant', block: 'start' });
     }
-  }, [pagination.pageIndex]);
+  }, [data]);
 
   return (
     <FirstColumLockProvider lockColumnLocalStoreKey={lockColumnLocalStoreKey}>
       <div className="g-bg-gray-100 g-p-2 g-flex g-flex-col g-flex-1 g-min-h-0">
-        {initialLoading && <Skeleton className="g-w-32 g-h-5 g-inline-block g-mb-1" />}
-        {initialLoading || <p className="g-text-sm g-pb-1 g-text-gray-500">{rowCount} results</p>}
+        <ViewHeader total={rowCount} loading={loading} message="counts.nResults" />
 
         <div className={cn('g-rounded-md g-border g-flex g-flex-col', className)}>
           <Table ref={tableRef}>
@@ -97,12 +94,7 @@ export function SearchTable<TData, TValue>({
                       table={table}
                       header={header}
                       resetColumnVisibility={() =>
-                        setColumnVisibility(
-                          createInitialColumnVisibilityState(
-                            availableTableColumns,
-                            defaultEnabledTableColumns
-                          )
-                        )
+                        setColumnVisibility(initialColumnVisibility.current)
                       }
                     />
                   ))}
@@ -127,45 +119,7 @@ export function SearchTable<TData, TValue>({
                 ))}
             </TableBody>
           </Table>
-          <div className="g-flex g-justify-between g-items-center g-border-t g-px-2">
-            <div className="g-flex g-flex-1">
-              {table.getCanPreviousPage() && (
-                <>
-                  <FooterButton
-                    onClick={table.firstPage}
-                    icon={<MdFirstPage />}
-                    toolTip={<FormattedMessage id="pagination.first" />}
-                  />
-                  <FooterButton
-                    onClick={table.previousPage}
-                    icon={<MdChevronLeft />}
-                    toolTip={<FormattedMessage id="pagination.previous" />}
-                  />
-                </>
-              )}
-            </div>
-            <InlineSkeletonWrapper loading={initialLoading}>
-              <span className="g-text-xs">
-                <FormattedMessage
-                  id="pagination.pageXofY"
-                  defaultMessage={'Loading'}
-                  values={{
-                    current: <FormattedNumber value={table.getState().pagination.pageIndex + 1} />,
-                    total: <FormattedNumber value={table.getPageCount()} />,
-                  }}
-                />
-              </span>
-            </InlineSkeletonWrapper>
-            <div className="g-flex g-flex-1 g-justify-end">
-              {table.getCanNextPage() && (
-                <FooterButton
-                  onClick={table.nextPage}
-                  icon={<MdChevronRight />}
-                  toolTip={<FormattedMessage id="pagination.next" />}
-                />
-              )}
-            </div>
-          </div>
+          <TableFooter table={table} loading={loading} />
         </div>
       </div>
     </FirstColumLockProvider>

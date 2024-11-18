@@ -89,6 +89,7 @@ function ColumnVisibilityPopover<TData>({
         </PopoverTrigger>
       </SimpleTooltip>
       <PopoverContent className="g-p-3 g-flex g-flex-col g-gap-3 g-overflow-y-scroll g-max-h-96">
+        {/* TODO: This only shows the headers that are visible, wich makes it useless */}
         {table.getFlatHeaders().map((header) => (
           <div key={header.id} className="g-flex g-items-center g-gap-2">
             <Checkbox

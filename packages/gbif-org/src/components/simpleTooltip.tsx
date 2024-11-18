@@ -1,5 +1,5 @@
 import { FormattedMessage } from 'react-intl';
-import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
 import { TooltipContentProps } from '@radix-ui/react-tooltip';
 
 type Props = {
@@ -10,7 +10,13 @@ type Props = {
   side?: TooltipContentProps['side'];
 };
 
-export function SimpleTooltip({ title, delayDuration = 0, children, side, disableHoverableContent }: Props) {
+export function SimpleTooltip({
+  title,
+  delayDuration = 0,
+  children,
+  side,
+  disableHoverableContent,
+}: Props) {
   return (
     <Tooltip delayDuration={delayDuration} disableHoverableContent={disableHoverableContent}>
       <TooltipTrigger tabIndex={-1} asChild>

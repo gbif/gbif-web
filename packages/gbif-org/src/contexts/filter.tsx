@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useUncontrolledProp } from 'uncontrollable';
 import cloneDeep from 'lodash/cloneDeep';
 import uniqWith from 'lodash/uniqWith';
@@ -37,34 +37,55 @@ export type FilterContextType = {
   filterHash: string;
 };
 
-export function FilterProvider({ filter: controlledFilter, onChange: controlledOnChange, children }: { filter?: FilterType; onChange?: (filter: FilterType) => void; children: React.ReactNode }) {
+export function FilterProvider({
+  filter: controlledFilter,
+  onChange: controlledOnChange,
+  children,
+}: {
+  filter?: FilterType;
+  onChange?: (filter: FilterType) => void;
+  children: React.ReactNode;
+}) {
   const [currentFilter, onChange] = useUncontrolledProp(controlledFilter, {}, controlledOnChange);
 
-  const setFilter = (filter: FilterType): FilterType => {
-    if (isEqual(filter, currentFilter)) {
-      return currentFilter;
-    }
-    if (typeof filter === 'object') {
-      filter = cleanUpFilter(cloneDeep(filter));
-      if (isEmpty(filter?.must)) delete filter.must;
-      if (isEmpty(filter?.mustNot)) delete filter.mustNot;
-      if (Object.keys(filter).length === 0) filter = {};
-    }
-    onChange(filter || {});
-    return filter;
+  const hashObj = {
+    must: currentFilter?.must || {},
+    mustNot: currentFilter?.mustNot || {},
   };
 
-  const setField = (field: string, value: any[], isNegated?: boolean): FilterType => {
-    const filter = currentFilter ? cloneDeep(currentFilter) : {};
-    const type = isNegated ? 'mustNot' : 'must';
-    return setFilter({
-      ...filter,
-      [type]: {
-        ...filter[type],
-        [field]: value.filter((v) => v !== undefined),
-      },
-    });
-  };
+  const filterHash = hash(hashObj);
+
+  const setFilter = useCallback(
+    (filter: FilterType): FilterType => {
+      if (isEqual(filter, currentFilter)) {
+        return currentFilter;
+      }
+      if (typeof filter === 'object') {
+        filter = cleanUpFilter(cloneDeep(filter));
+        if (isEmpty(filter?.must)) delete filter.must;
+        if (isEmpty(filter?.mustNot)) delete filter.mustNot;
+        if (Object.keys(filter).length === 0) filter = {};
+      }
+      onChange(filter || {});
+      return filter;
+    },
+    [filterHash, onChange]
+  );
+
+  const setField = useCallback(
+    (field: string, value: any[], isNegated?: boolean): FilterType => {
+      const filter = currentFilter ? cloneDeep(currentFilter) : {};
+      const type = isNegated ? 'mustNot' : 'must';
+      return setFilter({
+        ...filter,
+        [type]: {
+          ...filter[type],
+          [field]: value.filter((v) => v !== undefined),
+        },
+      });
+    },
+    [filterHash, setFilter]
+  );
 
   const setFullField = (field: string, must: any[], mustNot: any[]): FilterType => {
     const filter = currentFilter ? cloneDeep(currentFilter) : {};
@@ -82,57 +103,64 @@ export function FilterProvider({ filter: controlledFilter, onChange: controlledO
     return result;
   };
 
-  const negateField = (field: string, isNegated?: boolean): FilterType => {
-    const filter = currentFilter ? cloneDeep(currentFilter) : {};
-    const must = get(filter, `must.${field}`, []);
-    const mustNot = get(filter, `mustNot.${field}`, []);
-    const value = [...must, ...mustNot];
-    const uniqValues = uniqWith(value, isEqual);
-    const typeToSet = isNegated ? 'mustNot' : 'must';
-    const typeToRemove = !isNegated ? 'mustNot' : 'must';
-    return setFilter({
-      ...filter,
-      [typeToSet]: {
-        ...filter[typeToSet],
-        [field]: uniqValues,
-      },
-      [typeToRemove]: {
-        ...filter[typeToRemove],
-        [field]: [],
-      },
-    });
-  };
+  const negateField = useCallback(
+    (field: string, isNegated?: boolean): FilterType => {
+      const filter = currentFilter ? cloneDeep(currentFilter) : {};
+      const must = get(filter, `must.${field}`, []);
+      const mustNot = get(filter, `mustNot.${field}`, []);
+      const value = [...must, ...mustNot];
+      const uniqValues = uniqWith(value, isEqual);
+      const typeToSet = isNegated ? 'mustNot' : 'must';
+      const typeToRemove = !isNegated ? 'mustNot' : 'must';
+      return setFilter({
+        ...filter,
+        [typeToSet]: {
+          ...filter[typeToSet],
+          [field]: uniqValues,
+        },
+        [typeToRemove]: {
+          ...filter[typeToRemove],
+          [field]: [],
+        },
+      });
+    },
+    [filterHash, setFilter]
+  );
 
-  const add = (field: string, value: any, isNegated?: boolean): FilterType => {
-    const type = isNegated ? 'mustNot' : 'must';
-    let values = get(currentFilter, `${type}.${field}`, []);
-    values = values.concat(value);
-    values = uniqWith(values, isEqual);
-    return setField(field, values, isNegated);
-  };
+  const add = useCallback(
+    (field: string, value: any, isNegated?: boolean): FilterType => {
+      const type = isNegated ? 'mustNot' : 'must';
+      let values = get(currentFilter, `${type}.${field}`, []);
+      values = values.concat(value);
+      values = uniqWith(values, isEqual);
+      return setField(field, values, isNegated);
+    },
+    [filterHash, setField]
+  );
 
-  const remove = (field: string, value: any, isNegated?: boolean): FilterType => {
-    const type = isNegated ? 'mustNot' : 'must';
-    let values = get(currentFilter, `${type}.${field}`, []);
-    values = values.filter((e) => !isEqual(e, value));
-    return setField(field, values, isNegated);
-  };
+  const remove = useCallback(
+    (field: string, value: any, isNegated?: boolean): FilterType => {
+      const type = isNegated ? 'mustNot' : 'must';
+      let values = get(currentFilter, `${type}.${field}`, []);
+      values = values.filter((e) => !isEqual(e, value));
+      return setField(field, values, isNegated);
+    },
+    [filterHash, setField]
+  );
 
-  const toggle = (field: string, value: any, isNegated?: boolean): FilterType => {
-    const type = isNegated ? 'mustNot' : 'must';
-    const values = get(currentFilter, `${type}.${field}`, []);
-    if (values.some((e) => isEqual(e, value))) {
-      return remove(field, value, isNegated);
-    } else {
-      return add(field, value, isNegated);
-    }
-  };
+  const toggle = useCallback(
+    (field: string, value: any, isNegated?: boolean): FilterType => {
+      const type = isNegated ? 'mustNot' : 'must';
+      const values = get(currentFilter, `${type}.${field}`, []);
+      if (values.some((e) => isEqual(e, value))) {
+        return remove(field, value, isNegated);
+      } else {
+        return add(field, value, isNegated);
+      }
+    },
+    [add, filterHash, remove]
+  );
 
-  const hashObj = {
-    must: currentFilter?.must || {},
-    mustNot: currentFilter?.mustNot || {},
-  };
-  const filterHash = hash(hashObj);
   const contextValue = {
     setField, // updates a single field
     setFullField, // updates a single field both must and mustNot. Ugly hack as I couldn't get it to work begint to calls. The problem is that the filter isn't updated between the two calls in the event loop and hence the first update is ignored

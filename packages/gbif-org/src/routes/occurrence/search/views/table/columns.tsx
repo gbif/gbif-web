@@ -1,12 +1,10 @@
 import { SetAsFilter } from '@/components/searchTable/components/setAsFilter';
 import { SimpleTooltip } from '@/components/simpleTooltip';
-import { DynamicLink } from '@/reactRouterPlugins';
 import { ColumnDef } from '@tanstack/react-table';
-import { useContext, useMemo } from 'react';
+import { useMemo } from 'react';
 import { GoSidebarExpand } from 'react-icons/go';
 import { FilterSetting } from '@/components/filters/filterTools';
 import { FormattedMessage } from 'react-intl';
-import { FilterContext } from '@/contexts/filter';
 import { FormattedDateRange } from '@/components/message';
 import { SingleOccurrenceSearchResult } from '.';
 import { LinkOption } from '@/components/searchTable/components/linkOption';
@@ -21,8 +19,6 @@ export function useOccurrenceColumns({
   showPreview,
   filters,
 }: Args): ColumnDef<SingleOccurrenceSearchResult>[] {
-  const { add } = useContext(FilterContext);
-
   return useMemo(() => {
     // TODO: That a filter is defined does not mean that it is active (this just prevents us from using filters that are not defined yet)
     const isFilterActive = (filterName: string) => filters[filterName] != null;
@@ -59,7 +55,8 @@ export function useOccurrenceColumns({
               <div>
                 <SetAsFilter
                   filterIsActive={isFilterActive('taxonKey')}
-                  applyFilter={() => add('taxonKey', row.original.taxonKey)}
+                  field="taxonKey"
+                  value={row.original.taxonKey}
                 >
                   <span
                     dangerouslySetInnerHTML={{
@@ -118,7 +115,8 @@ export function useOccurrenceColumns({
         cell: ({ row }) => (
           <SetAsFilter
             filterIsActive={isFilterActive('country')}
-            applyFilter={() => add('country', row.original.countryCode)}
+            field="country"
+            value={row.original.countryCode}
           >
             {row.original.countryCode && (
               <FormattedMessage id={`enums.countryCode.${row.original.countryCode}`} />
@@ -150,9 +148,8 @@ export function useOccurrenceColumns({
             <SetAsFilter
               filterIsActive={isFilterActive('year')}
               // TODO How do we add a date range to the filter?
-              applyFilter={() =>
-                add('year', new Date(row.original.eventDate!)?.getFullYear().toString())
-              }
+              field="year"
+              value={new Date(row.original.eventDate!)?.getFullYear().toString()}
             >
               <FormattedDateRange
                 date={row.original.eventDate ?? undefined}
@@ -188,7 +185,8 @@ export function useOccurrenceColumns({
         cell: ({ row }) => (
           <SetAsFilter
             filterIsActive={isFilterActive('basisOfRecord')}
-            applyFilter={() => add('basisOfRecord', row.original.basisOfRecord)}
+            field="basisOfRecord"
+            value={row.original.basisOfRecord}
           >
             <FormattedMessage id={`enums.basisOfRecord.${row.original.basisOfRecord}`} />
           </SetAsFilter>
@@ -202,8 +200,9 @@ export function useOccurrenceColumns({
         header: 'filters.datasetKey.name',
         cell: ({ row }) => (
           <SetAsFilter
-            filterIsActive={isFilterActive('year')}
-            applyFilter={() => add('dataset', row.original.datasetKey)}
+            filterIsActive={isFilterActive('dataset')}
+            field="dataset"
+            value={new Date(row.original.eventDate!)?.getFullYear().toString()}
           >
             {row.original.datasetTitle}
           </SetAsFilter>
@@ -219,7 +218,8 @@ export function useOccurrenceColumns({
         cell: ({ row }) => (
           <SetAsFilter
             filterIsActive={isFilterActive('publisherKey')}
-            applyFilter={() => add('publisherKey', row.original.publishingOrgKey)}
+            field="publisherKey"
+            value={row.original.publishingOrgKey}
           >
             {row.original.publisherTitle}
           </SetAsFilter>
@@ -235,7 +235,8 @@ export function useOccurrenceColumns({
         cell: ({ row }) => (
           <SetAsFilter
             filterIsActive={isFilterActive('catalogNumber')}
-            applyFilter={() => add('catalogNumber', row.original.catalogNumber)}
+            field="catalogNumber"
+            value={row.original.catalogNumber}
           >
             {row.original.catalogNumber}
           </SetAsFilter>
@@ -250,7 +251,8 @@ export function useOccurrenceColumns({
         cell: ({ row }) => (
           <SetAsFilter
             filterIsActive={isFilterActive('recordedBy')}
-            applyFilter={() => add('recordedBy', row.original.recordedBy)}
+            field="recordedBy"
+            value={row.original.recordedBy}
           >
             {row.original.recordedBy}
           </SetAsFilter>
@@ -265,7 +267,8 @@ export function useOccurrenceColumns({
         cell: ({ row }) => (
           <SetAsFilter
             filterIsActive={isFilterActive('identifiedBy')}
-            applyFilter={() => add('identifiedBy', row.original.identifiedBy)}
+            field="identifiedBy"
+            value={row.original.identifiedBy}
           >
             {row.original.identifiedBy}
           </SetAsFilter>
@@ -281,7 +284,8 @@ export function useOccurrenceColumns({
         cell: ({ row }) => (
           <SetAsFilter
             filterIsActive={isFilterActive('recordNumber')}
-            applyFilter={() => add('recordNumber', row.original.recordNumber)}
+            field="recordNumber"
+            value={row.original.recordNumber}
           >
             {row.original.recordNumber}
           </SetAsFilter>
@@ -316,7 +320,8 @@ export function useOccurrenceColumns({
           return (
             <SetAsFilter
               filterIsActive={isFilterActive('collectionCode')}
-              applyFilter={() => add('collectionCode', collection.code)}
+              field="collectionCode"
+              value={collection.code}
             >
               {collection.code}
             </SetAsFilter>
@@ -336,7 +341,8 @@ export function useOccurrenceColumns({
           return (
             <SetAsFilter
               filterIsActive={isFilterActive('institutionCode')}
-              applyFilter={() => add('institutionCode', institution?.code)}
+              field="institutionCode"
+              value={institution.code}
             >
               {institution?.code}
             </SetAsFilter>
@@ -357,7 +363,8 @@ export function useOccurrenceColumns({
             <LinkOption to={`/institution/${institution.key}`}>
               <SetAsFilter
                 filterIsActive={isFilterActive('institutionKey')}
-                applyFilter={() => add('institutionKey', institution.key)}
+                field="institutionKey"
+                value={institution.key}
               >
                 <span>
                   {institution.name} <span>{institution.code}</span>
@@ -381,7 +388,8 @@ export function useOccurrenceColumns({
             <LinkOption to={`/collection/${collection.key}`}>
               <SetAsFilter
                 filterIsActive={isFilterActive('collectionCode')}
-                applyFilter={() => add('collectionCode', collection.code)}
+                field="collectionCode"
+                value={collection.code}
               >
                 <span>
                   {collection.name} <span>({collection.code})</span>
@@ -420,7 +428,8 @@ export function useOccurrenceColumns({
           return (
             <SetAsFilter
               filterIsActive={isFilterActive('stateProvince')}
-              applyFilter={() => add('stateProvince', stateProvince)}
+              field="stateProvince"
+              value={stateProvince}
             >
               {stateProvince}
             </SetAsFilter>
@@ -441,7 +450,8 @@ export function useOccurrenceColumns({
           return (
             <SetAsFilter
               filterIsActive={isFilterActive('establishmentMeans')}
-              applyFilter={() => add('establishmentMeans', establishmentMeans)}
+              field="establishmentMeans"
+              value={establishmentMeans}
             >
               <FormattedMessage id={`enums.establishmentMeans.${establishmentMeans}`} />
             </SetAsFilter>
@@ -461,7 +471,8 @@ export function useOccurrenceColumns({
           return (
             <SetAsFilter
               filterIsActive={isFilterActive('iucnRedListCategory')}
-              applyFilter={() => add('iucnRedListCategory', iucnRedListCategory)}
+              field="iucnRedListCategory"
+              value={iucnRedListCategory}
             >
               <FormattedMessage id={`enums.iucnRedListCategory.${iucnRedListCategory}`} />
             </SetAsFilter>
@@ -481,5 +492,5 @@ export function useOccurrenceColumns({
         },
       },
     ];
-  }, [showPreview, filters, add]);
+  }, [showPreview, filters]);
 }

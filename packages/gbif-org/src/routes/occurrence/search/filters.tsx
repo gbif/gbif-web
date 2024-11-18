@@ -15,7 +15,7 @@ import { matchSorter } from 'match-sorter';
 import hash from 'object-hash';
 import country from '@/enums/basic/country.json';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { SuggestFnProps, SuggestResponseType } from '@/components/filters/suggest';
 import { HelpText } from '@/components/helpText';
 
@@ -95,12 +95,13 @@ const freeTextConfig: filterConfig = {
   filterTranslation: 'filters.q.name',
 };
 
+type Filters = Record<string, FilterSetting>;
+
 export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }): {
-  filters: Record<string, FilterSetting>;
+  filters: Filters;
 } {
   const { formatMessage } = useIntl();
   const [countries, setCountries] = useState<{ key: string; title: string }[]>([]);
-  const [filters, setFilters] = useState<Record<string, FilterSetting>>({});
 
   // first translate relevant enums
   useEffect(() => {
@@ -122,8 +123,8 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
     [countries]
   );
 
-  useEffect(() => {
-    const nextFilters = {
+  const filters: Filters = useMemo(
+    () => ({
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
       // code: generateFilters({ config: publisherConfig, searchConfig, formatMessage }),
       country: generateFilters({
@@ -141,9 +142,9 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         searchConfig,
         formatMessage,
       }),
-    };
-    setFilters(nextFilters);
-  }, [searchConfig, countrySuggest, formatMessage]);
+    }),
+    [searchConfig, countrySuggest, formatMessage]
+  );
 
   return {
     filters,
