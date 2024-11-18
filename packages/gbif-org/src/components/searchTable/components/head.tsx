@@ -42,7 +42,7 @@ export function Head<TData>({ header, table, resetColumnVisibility }: Props<TDat
           {!header.isPlaceholder && <HeaderTitle header={header} />}
 
           {filter && (
-            <SimpleTooltip title="search.table.filter">
+            <SimpleTooltip title="search.table.openFilter">
               <div>
                 <filter.Popover
                   trigger={
