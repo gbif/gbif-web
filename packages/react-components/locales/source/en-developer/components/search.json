@@ -11,7 +11,11 @@
     "sites": "Sites"
   },
   "table": {
-    "lockColumn": "Lock column"
+    "lockColumn": "Lock column",
+    "unlockColumn": "Unlock column",
+    "columnVisibility": "Toggle columns",
+    "resetColumnVisibility": "Reset",
+    "openFilter": "Open filter"
   },
   "placeholders": {
     "default": "Search",
