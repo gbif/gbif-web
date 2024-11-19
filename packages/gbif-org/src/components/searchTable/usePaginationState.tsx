@@ -1,35 +1,19 @@
+import { useIntParam } from '@/hooks/useParam';
 import { useStateAsRef } from '@/hooks/useStateAsRef';
 import { PaginationState } from '@tanstack/react-table';
 import { useCallback, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 
 export function usePaginationState(): [
   PaginationState,
   React.Dispatch<React.SetStateAction<PaginationState>>
 ] {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [from, setFrom] = useIntParam({
+    key: 'from',
+    hideDefault: true,
+    defaultValue: 0,
+    removeOnUnmount: true,
+  });
   const [pageSize, setPageSize] = useState(20);
-
-  const from = parseInt(searchParams.get('from') ?? '0');
-
-  // This ref is used to help limit the amount of renrenders the table does when changing filters
-  const searchParamsRef = useStateAsRef(searchParams);
-
-  const setFrom = useCallback(
-    (from: number) => {
-      const newSearchParams = new URLSearchParams(searchParamsRef.current);
-
-      if (from === 0) {
-        // Remove the from parameter if it is 0
-        newSearchParams.delete('from');
-        return setSearchParams(newSearchParams);
-      }
-
-      newSearchParams.set('from', from.toString());
-      setSearchParams(newSearchParams);
-    },
-    [setSearchParams]
-  );
 
   const state: PaginationState = useMemo(() => {
     return { pageIndex: Math.floor(from / pageSize), pageSize };
