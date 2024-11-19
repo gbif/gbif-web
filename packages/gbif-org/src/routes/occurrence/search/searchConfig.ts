@@ -15,7 +15,7 @@ const config: FilterConfigType = {
   } 
 }
 
-const otherParams = ['country', 'taxonKey', 'institutionKey', 'datasetKey'];
+const otherParams = ['country', 'taxonKey', 'institutionKey', 'datasetKey', 'catalogNumber', 'recordedBy', 'higherGeography'];
 
 otherParams.forEach(filter => {
   config.fields = config.fields ?? {};
