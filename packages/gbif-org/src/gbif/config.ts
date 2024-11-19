@@ -163,13 +163,13 @@ export const gbifConfig: Config = {
     highlightedFilters: ['q', 'institutionKey'],
     // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
     // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
-    scope: {
-      type: 'range',
-      key: 'year',
-      value: {
-        gte: '2012',
-      },
-    },
+    // scope: {
+    //   type: 'range',
+    //   key: 'year',
+    //   value: {
+    //     gte: '1500',
+    //   },
+    // },
   },
   maps: {
     locale: 'en',
