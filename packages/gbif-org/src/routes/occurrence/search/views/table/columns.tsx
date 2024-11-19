@@ -165,7 +165,6 @@ export function useOccurrenceColumns({
       {
         id: 'eventDate',
         header: 'filters.eventDate.name',
-        accessorKey: 'eventDate',
         cell: ({ row }) => {
           const eventDate = row.original.eventDate;
           if (!eventDate) return null;
@@ -202,7 +201,7 @@ export function useOccurrenceColumns({
           <SetAsFilter
             filterIsActive={isFilterActive('dataset')}
             field="dataset"
-            value={new Date(row.original.eventDate!)?.getFullYear().toString()}
+            value={row.original.datasetKey}
           >
             {row.original.datasetTitle}
           </SetAsFilter>
@@ -249,13 +248,18 @@ export function useOccurrenceColumns({
         id: 'recordedBy',
         header: 'filters.recordedBy.name',
         cell: ({ row }) => (
-          <SetAsFilter
-            filterIsActive={isFilterActive('recordedBy')}
-            field="recordedBy"
-            value={row.original.recordedBy}
-          >
-            {row.original.recordedBy}
-          </SetAsFilter>
+          <div>
+            {row.original.recordedBy?.map((recordedBy) => (
+              <SetAsFilter
+                filterIsActive={isFilterActive('recordedBy')}
+                field="recordedBy"
+                value={recordedBy}
+                className="g-inline-block"
+              >
+                {recordedBy}
+              </SetAsFilter>
+            ))}
+          </div>
         ),
         meta: {
           filter: filters['recordedBy'],
@@ -265,13 +269,18 @@ export function useOccurrenceColumns({
         id: 'identifiedBy',
         header: 'filters.identifiedBy.name',
         cell: ({ row }) => (
-          <SetAsFilter
-            filterIsActive={isFilterActive('identifiedBy')}
-            field="identifiedBy"
-            value={row.original.identifiedBy}
-          >
-            {row.original.identifiedBy}
-          </SetAsFilter>
+          <div>
+            {row.original.identifiedBy?.map((identifiedBy) => (
+              <SetAsFilter
+                filterIsActive={isFilterActive('identifiedBy')}
+                field="identifiedBy"
+                value={identifiedBy}
+                className="g-inline-block"
+              >
+                {identifiedBy}
+              </SetAsFilter>
+            ))}
+          </div>
         ),
         meta: {
           filter: filters['identifiedBy'],
@@ -297,7 +306,20 @@ export function useOccurrenceColumns({
       {
         id: 'typeStatus',
         header: 'filters.typeStatus.name',
-        accessorKey: 'typeStatus',
+        cell: ({ row }) => (
+          <div>
+            {row.original.typeStatus?.map((typeStatus) => (
+              <SetAsFilter
+                filterIsActive={isFilterActive('typeStatus')}
+                field="typeStatus"
+                value={typeStatus}
+                className="g-inline-block"
+              >
+                <FormattedMessage id={`enums.typeStatus.${typeStatus}`} />
+              </SetAsFilter>
+            ))}
+          </div>
+        ),
         meta: {
           filter: filters['typeStatus'],
         },
@@ -305,7 +327,20 @@ export function useOccurrenceColumns({
       {
         id: 'preparations',
         header: 'occurrenceFieldNames.preparations',
-        accessorKey: 'preparations',
+        cell: ({ row }) => (
+          <div>
+            {row.original.preparations?.map((preparation) => (
+              <SetAsFilter
+                filterIsActive={isFilterActive('preparations')}
+                field="preparations"
+                value={preparation}
+                className="g-inline-block"
+              >
+                <FormattedMessage id={`enums.preparations.${preparation}`} />
+              </SetAsFilter>
+            ))}
+          </div>
+        ),
         meta: {
           filter: filters['preparations'],
         },
@@ -413,9 +448,22 @@ export function useOccurrenceColumns({
       {
         id: 'higherGeography',
         header: 'occurrenceFieldNames.higherGeography',
-        accessorKey: 'higherGeography',
+        cell: ({ row }) => (
+          <div>
+            {row.original.higherGeography?.map((higherGeography) => (
+              <SetAsFilter
+                filterIsActive={isFilterActive('higherGeography')}
+                field="higherGeography"
+                value={higherGeography}
+                className="g-inline-block"
+              >
+                <FormattedMessage id={`enums.preparations.${higherGeography}`} />
+              </SetAsFilter>
+            ))}
+          </div>
+        ),
         meta: {
-          filter: filters['higherGeography'],
+          filter: filters['preparations'],
         },
       },
       {
@@ -488,7 +536,13 @@ export function useOccurrenceColumns({
       {
         id: 'datasetName',
         header: 'occurrenceFieldNames.datasetName',
-        accessorKey: 'datasetName',
+        cell: ({ row }) => (
+          <div>
+            {row.original.datasetName?.map((datasetName) => (
+              <span className="g-inline-block">{datasetName}</span>
+            ))}
+          </div>
+        ),
         meta: {
           filter: filters['datasetName'],
         },
