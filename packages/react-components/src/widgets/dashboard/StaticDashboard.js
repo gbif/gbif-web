@@ -67,4 +67,5 @@ const lookup = {
   institutionKey: ({predicate, ...props}) => <charts.Institutions predicate={predicate} {...props} />,
   projectId: ({predicate, ...props}) => <charts.ProjectId predicate={predicate} {...props} />,
   catalogNumber: ({predicate, ...props}) => <charts.CatalogNumber predicate={predicate} {...props} />,
+  higherGeography: ({predicate, ...props}) => <charts.HigherGeography predicate={predicate} {...props} />,
 };
