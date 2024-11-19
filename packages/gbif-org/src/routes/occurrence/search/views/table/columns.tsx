@@ -453,7 +453,9 @@ export function useOccurrenceColumns({
               field="establishmentMeans"
               value={establishmentMeans}
             >
-              <FormattedMessage id={`enums.establishmentMeans.${establishmentMeans}`} />
+              <FormattedMessage
+                id={`enums.establishmentMeans.${establishmentMeans.toUpperCase()}`}
+              />
             </SetAsFilter>
           );
         },
