@@ -22,7 +22,7 @@ export function SimpleTooltip({
       <TooltipTrigger tabIndex={-1} asChild>
         {children}
       </TooltipTrigger>
-      <TooltipContent className="g-max-w-96 g-pointer-events-none g-z-50" side={side}>
+      <TooltipContent className="g-max-w-96 g-pointer-events-none g-z-30" side={side}>
         {typeof title !== 'string' ? title : <FormattedMessage id={title} />}
       </TooltipContent>
     </Tooltip>

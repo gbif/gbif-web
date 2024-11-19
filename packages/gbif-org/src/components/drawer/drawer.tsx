@@ -21,7 +21,7 @@ export function Drawer({ isOpen, close, viewOnGbifHref, children, next, previous
           <div className="g-overflow-x-auto">{children}</div>
         </div>
 
-        <BottomBar viewOnGbifHref={viewOnGbifHref} next={next} previous={previous} close={close}/>
+        <BottomBar viewOnGbifHref={viewOnGbifHref} next={next} previous={previous} close={close} />
       </DrawerContainer>
     </Backdrop>
   );
@@ -49,7 +49,7 @@ function Backdrop({ isOpen, close, children }: Pick<Props, 'isOpen' | 'close' | 
     <div
       onClick={close}
       className={cn(
-        'g-fixed g-w-screen g-h-screen g-right-0 g-top-0 g-bg-gray-500 g-flex g-justify-end g-transition-all g-cursor-pointer g-z-20',
+        'g-fixed g-w-screen g-h-screen g-right-0 g-top-0 g-bg-gray-500 g-flex g-justify-end g-transition-all g-cursor-pointer g-z-50',
         {
           'g-pointer-events-none g-bg-opacity-0': !isOpen,
           'g-bg-opacity-50 g-overflow-hidden': isOpen,
@@ -65,7 +65,7 @@ function BottomBar({
   viewOnGbifHref,
   next,
   previous,
-  close
+  close,
 }: Pick<Props, 'viewOnGbifHref' | 'next' | 'previous' | 'close'>) {
   return (
     <div className="g-h-10 g-border-t g-flex g-justify-between g-p-2">

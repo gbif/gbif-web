@@ -170,7 +170,10 @@ export function useOccurrenceColumns({
           if (!eventDate) return null;
           return (
             <span className="g-text-nowrap">
-              <FormattedDateRange date={eventDate} />
+              <FormattedDateRange
+                date={eventDate}
+                format={{ year: 'numeric', month: 'short', day: 'numeric' }}
+              />
             </span>
           );
         },
