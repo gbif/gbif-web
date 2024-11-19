@@ -62,13 +62,13 @@ export function IconFeatures({
   const typeStatus = typeStatusString?.[0];
 
   return (
-    <div className="flex flex-wrap items-center -m-1">
+    <div className="g-flex g-flex-wrap g-items-center g--m-1">
       {children && <div className="m-1">{children}</div>}
       {eventDate && (
         <SimpleTooltip title="occurrenceDetails.features.eventDate">
-          <div className="flex items-start m-1">
-            <MdEvent className="flex-none h-[1.2em]" />
-            <span className="ml-3">
+          <div className="g-inline-flex g-items-start g-m-1">
+            <MdEvent className="g-flex-none g-h-[1.2em]" />
+            <span className="g-ml-3">
               <FormattedDateRange date={eventDate} />
             </span>
           </div>
@@ -76,18 +76,18 @@ export function IconFeatures({
       )}
       {formattedCoordinates && (
         <SimpleTooltip title="occurrenceDetails.features.hasCoordinates">
-          <div className="flex items-start m-1">
-            <MdLocationOn className="flex-none h-[1.2em]" />
-            {!iconsOnly && <span className="ml-3">{formattedCoordinates}</span>}
+          <div className="g-inline-flex g-items-start g-m-1">
+            <MdLocationOn className="g-flex-none g-h-[1.2em]" />
+            {!iconsOnly && <span className="g-ml-3">{formattedCoordinates}</span>}
           </div>
         </SimpleTooltip>
       )}
       {countryCode && (
         <SimpleTooltip title="occurrenceDetails.features.hasCountry">
-          <div className="flex items-start m-1">
-            <FaGlobeAfrica className="flex-none h-[1.2em]" />
+          <div className="g-inline-flex g-items-start g-m-1">
+            <FaGlobeAfrica className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
-              <span className="ml-3">
+              <span className="g-ml-3">
                 <span>{locality ? `${locality}, ` : ''}</span>
                 <span>
                   <FormattedMessage id={`enums.countryCode.${countryCode}`} />
@@ -99,10 +99,10 @@ export function IconFeatures({
       )}
       {isSpecimen && (
         <SimpleTooltip title="occurrenceDetails.features.isSpecimen">
-          <div className="flex items-start m-1">
-            <MdLabel className="flex-none h-[1.2em]" />
+          <div className="g-inline-flex g-items-start g-m-1">
+            <MdLabel className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
-              <span className="ml-3">
+              <span className="g-ml-3">
                 <FormattedMessage id={`enums.basisOfRecord.${basisOfRecord}`} />
               </span>
             )}
@@ -111,14 +111,14 @@ export function IconFeatures({
       )}
       {isPositiveNumber(stillImageCount) && (
         <SimpleTooltip title="occurrenceDetails.features.hasImages">
-          <div className="flex items-start m-1">
+          <div className="g-inline-flex g-items-start g-m-1">
             {stillImageCount > 1 ? (
-              <MdPhotoLibrary className="flex-none h-[1.2em]" />
+              <MdPhotoLibrary className="g-flex-none g-h-[1.2em]" />
             ) : (
-              <MdImage className="flex-none h-[1.2em]" />
+              <MdImage className="g-flex-none g-h-[1.2em]" />
             )}
             {!iconsOnly && (
-              <span className="ml-3">
+              <span className="g-ml-3">
                 <FormattedMessage id="counts.nImages" values={{ total: stillImageCount }} />
               </span>
             )}
@@ -127,10 +127,10 @@ export function IconFeatures({
       )}
       {isPositiveNumber(movingImageCount) && (
         <SimpleTooltip title="occurrenceDetails.features.hasVideo">
-          <div className="flex items-start m-1">
-            <MdVideocam className="flex-none h-[1.2em]" />
+          <div className="g-inline-flex g-items-start g-m-1">
+            <MdVideocam className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
-              <span className="ml-3">
+              <span className="g-ml-3">
                 <FormattedMessage id="counts.nVideos" values={{ total: movingImageCount }} />
               </span>
             )}
@@ -139,10 +139,10 @@ export function IconFeatures({
       )}
       {isPositiveNumber(soundCount) && (
         <SimpleTooltip title="occurrenceDetails.features.hasSound">
-          <div className="flex items-start m-1">
-            <AiFillAudio className="flex-none h-[1.2em]" />
+          <div className="g-inline-flex g-items-start g-m-1">
+            <AiFillAudio className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
-              <span className="ml-3">
+              <span className="g-ml-3">
                 <FormattedMessage id="counts.nAudioFiles" values={{ total: soundCount }} />
               </span>
             )}
@@ -151,10 +151,10 @@ export function IconFeatures({
       )}
       {isSequenced && (
         <SimpleTooltip title="occurrenceDetails.features.isSequenced">
-          <div className="flex items-start m-1">
-            <GiDna1 className="flex-none h-[1.2em]" />
+          <div className="g-inline-flex g-items-start g-m-1">
+            <GiDna1 className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
-              <span className="ml-3">
+              <span className="g-ml-3">
                 <FormattedMessage id="occurrenceDetails.features.isSequenced" />
               </span>
             )}
@@ -163,10 +163,10 @@ export function IconFeatures({
       )}
       {isTreament && (
         <SimpleTooltip title="occurrenceDetails.features.isTreament">
-          <div className="flex items-start m-1">
-            <MdInsertDriveFile className="flex-none h-[1.2em]" />
+          <div className="g-inline-flex g-items-start g-m-1">
+            <MdInsertDriveFile className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
-              <span className="ml-3">
+              <span className="g-ml-3">
                 <FormattedMessage id="occurrenceDetails.features.isTreatment" />
               </span>
             )}
@@ -175,8 +175,8 @@ export function IconFeatures({
       )}
       {typeStatus && typeStatus !== TypeStatus.Notatype && (
         <SimpleTooltip title="occurrenceDetails.features.isType">
-          <div className="flex items-start m-1">
-            <MdStar className="flex-none h-[1.2em]" />
+          <div className="g-inline-flex g-items-start g-m-1">
+            <MdStar className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
               <span style={getTypeStyle(typeStatus)}>
                 <FormattedMessage id={`enums.typeStatus.${typeStatus}`} />
@@ -187,10 +187,10 @@ export function IconFeatures({
       )}
       {isSamplingEvent && (
         <SimpleTooltip title="occurrenceDetails.features.isSamplingEvent">
-          <div className="flex items-start m-1">
-            <MdGridOn className="flex-none h-[1.2em]" />
+          <div className="g-inline-flex g-items-start g-m-1">
+            <MdGridOn className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
-              <span className="ml-3">
+              <span className="g-ml-3">
                 <FormattedMessage id="occurrenceDetails.features.isSamplingEvent" />
               </span>
             )}
@@ -199,10 +199,10 @@ export function IconFeatures({
       )}
       {isClustered && (
         <SimpleTooltip title="occurrenceDetails.features.isClustered">
-          <div className="flex items-start m-1">
-            <ClusterIcon className="flex-none h-[1.2em]" />
+          <div className="g-inline-flex g-items-start g-m-1">
+            <ClusterIcon className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
-              <span className="ml-3">
+              <span className="g-ml-3">
                 <FormattedMessage id="occurrenceDetails.features.isClustered" />
               </span>
             )}
@@ -211,10 +211,10 @@ export function IconFeatures({
       )}
       {isPositiveNumber(issueCount) && (
         <SimpleTooltip title="occurrenceDetails.features.hasIssues">
-          <div className="flex items-start m-1">
-            <BsLightningFill className="flex-none h-[1.2em]" style={{ color: 'orange' }} />
+          <div className="g-inline-flex g-items-start g-m-1">
+            <BsLightningFill className="g-flex-none g-h-[1.2em]" style={{ color: 'orange' }} />
             {!iconsOnly && (
-              <span className="ml-3">
+              <span className="g-ml-3">
                 <FormattedMessage id="counts.nQualityFlags" values={{ total: issueCount }} />
               </span>
             )}
