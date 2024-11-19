@@ -721,3 +721,20 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .gbif-table-wrapper td {
   vertical-align: top;
 }
+
+.g-fill-evenodd {
+  fill-rule: evenodd;
+}
+.g-clip-evenodd {
+  clip-rule: evenodd;
+}
+.g-evenodd {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+}
+.g-linecap-round {
+  stroke-linecap: round;
+}
+.g-linejoin-round {
+  stroke-linejoin: round;
+}
