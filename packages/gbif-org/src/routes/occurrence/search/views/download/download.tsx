@@ -94,7 +94,7 @@ export function Download() {
                 </Description>
               </>
             )}
-            {!err && fullPredicate && (
+            {(loading || (!err && fullPredicate)) && (
               <>
                 <Title>
                   <Message id="download.download" />
@@ -102,7 +102,8 @@ export function Download() {
                 <Description>
                   <Message id="download.redirectNotice" />
                 </Description>
-                <Button className="g-mt-6" asChild disabled={loading}>
+                {loading && <Button className="g-mt-6" disabled><Message id="download.continueToGBIF" /></Button>}
+                {!loading && <Button className="g-mt-6" asChild>
                   <a
                     href={`${GBIF_ORG}/${
                       localePrefix ? `${localePrefix}/` : ''
@@ -112,7 +113,7 @@ export function Download() {
                   >
                     <Message id="download.continueToGBIF" />
                   </a>
-                </Button>
+                </Button>}
               </>
             )}
           </>
