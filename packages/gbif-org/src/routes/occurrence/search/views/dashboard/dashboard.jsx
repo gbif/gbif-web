@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import DashboardBuilder from './DashboardBuilder';
-// import { useQueryParam } from 'use-query-params';
-// import Base64JsonParam from '../../../../dataManagement/state/base64JsonParam';
 import useLocalStorage from 'use-local-storage';
 import { FormattedMessage } from 'react-intl';
 import * as charts from '@/components/dashboard';
@@ -10,10 +8,10 @@ import { OccurrenceTable as Table } from '../table';
 import { Media } from '../media';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/smallCard';
+import { useJsonParam } from '@/hooks/useParam';
 
 export function Dashboard({ predicate, chartsTypes: chartsTypesProp, ...props }) {
-  const [urlLayout, setUrlLayout] = useState();
-  // const [urlLayout, setUrlLayout] = useQueryParam('layout', Base64JsonParam);
+  const [urlLayout, setUrlLayout] = useJsonParam({key: 'layout'});
   const [layout = [[]], setLayoutState] = useLocalStorage('occurrenceDashboardLayout', [[]]);
   const [chartsTypes, setChartsTypes] = useState([]);
 
@@ -294,8 +292,6 @@ const preconfiguredCharts = {
       return (
         <Card className="g-overflow-y-auto g-h-full g-p-2 g-overflow-x-hidden">
           <Map
-            predicate={predicate}
-            interactive
             className=""
             mapProps={{
               style: { border: 0, borderRadius: '0 0 var(--borderRadiusPx) var(--borderRadiusPx)' },
@@ -311,13 +307,9 @@ const preconfiguredCharts = {
     r: true, // resizable
     component: ({ predicate, ...props }) => {
       return (
-        <Card className="g-overflow-y-auto g-h-full g-p-2">
+        <Card className="g-overflow-hidden g-overflow-y-auto g-h-full g-p-2">
           <Table
-            predicate={predicate}
-            interactive
             {...props}
-            className=""
-            dataTableProps={{ style: { borderWidth: '1px 0 0 0', overflow: 'hidden' } }}
           />
         </Card>
       );
@@ -330,9 +322,7 @@ const preconfiguredCharts = {
       return (
         <Card className="g-overflow-y-auto g-h-full g-p-2">
           <Media
-            predicate={predicate}
             size={10}
-            interactive
             className="g-pt-2 g-border g-rounded g-overflow-auto g-h-full"
             {...props}
           />

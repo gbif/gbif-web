@@ -48,7 +48,6 @@ const wktBBoxTemplate = '((W S,E S,E N,W N,W S))';
 function Map({style, className, mapProps}) {
   const currentFilterContext = useContext(FilterContext);
   const { scope } = useSearchContext();
-  // const { labelMap, rootPredicate, predicateConfig, more } = useContext(OccurrenceContext);
   const { data, error, loading, load } = useQuery(OCCURRENCE_MAP, { lazyLoad: true, throwAllErrors: true });
   const { data: pointData, error: pointError, loading: pointLoading, load: pointLoad } = useQuery(OCCURRENCE_POINT, { lazyLoad: true });
 

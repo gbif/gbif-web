@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useOnUnmount } from './useOnUnmount';
+import { Base64 } from 'js-base64';
 
 // hook to get and set number param from url
 const numberParser = (str?: string) => parseFloat(str ?? '0');
@@ -70,15 +71,58 @@ export function useStringParam({
   return [value, setValue];
 }
 
+const jsonParser = (obj?: string) => {
+  if (!obj) return undefined;
+  try {
+    const value = obj ? Base64.decode(obj) : obj;
+    const parsedValue = JSON.parse(value);
+    return parsedValue;
+  } catch (err) {
+    return undefined;
+  }
+};
+const jsonEncoder = (v?: object) => {
+  try {
+    const encoded = Base64.encode(JSON.stringify(v));
+    return encoded;
+  } catch (err) {
+    return undefined;
+  }
+};
+
+export function useJsonParam({
+  key,
+  defaultValue,
+  hideDefault,
+  removeOnUnmount,
+}: {
+  key: string;
+  defaultValue?: object;
+  hideDefault?: boolean;
+  removeOnUnmount?: boolean;
+}): [object | undefined, (value?: object) => void] {
+  const [value, setValue] = useParam({
+    key,
+    defaultValue: jsonEncoder(defaultValue),
+    parse: jsonParser,
+    serialize: jsonEncoder,
+    hideDefault,
+    removeOnUnmount,
+  });
+  return [value, setValue];
+}
+
 function useParam<T>({
   key,
   parse,
+  serialize = (value) => value + '',
   defaultValue,
   hideDefault,
   removeOnUnmount,
 }: {
   key: string;
   parse: (value?: string) => T;
+  serialize?: (value?: T) => string | undefined;
   defaultValue?: string | number;
   hideDefault?: boolean;
   removeOnUnmount?: boolean;
@@ -101,13 +145,14 @@ function useParam<T>({
       // I use document location because the searchParams can't be updated multiple times in the same render in a predictable way like using useState
       // For example, removing the from param and adding view=map in the same render will result in none of the params being added
       const clone = new URLSearchParams(document.location.search);
-      clone.set(key, parse(value + '') + '');
+      const serializedValue = serialize(value);
+      clone.set(key, serializedValue + '');
       if (value === undefined || (value === defaultValue && hideDefault)) {
         clone.delete(key);
       }
       setSearchParamsRef.current(clone);
     },
-    [key, parse, defaultValue, hideDefault]
+    [key, serialize, defaultValue, hideDefault]
   );
 
   useOnUnmount(() => {

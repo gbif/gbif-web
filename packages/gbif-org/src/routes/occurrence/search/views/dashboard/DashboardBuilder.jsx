@@ -82,6 +82,7 @@ const getListStyle = ({ isDraggingOver, width, index, maxGroups, groupCount }) =
       : {
           flex: `0 0 600px`,
           maxWidth: `${width}%`,
+          width: 50,
         };
   return {
     background: isDraggingOver ? '#00000005' : 'none',
