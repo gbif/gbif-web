@@ -114,7 +114,7 @@ export function SearchTable<TData, TValue>({
                         key={row.id}
                         data-state={row.getIsSelected() && 'selected'}
                         className={cn('g-border-b', {
-                          'hover:g-bg-gray-50': typeof createRowLink === 'function',
+                          'g-group': typeof createRowLink === 'function',
                         })}
                       >
                         {row.getVisibleCells().map((cell) => (

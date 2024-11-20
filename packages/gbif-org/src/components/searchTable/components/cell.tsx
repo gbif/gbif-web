@@ -16,10 +16,11 @@ export function Cell<TData>({ loading, cell, to }: Props<TData>) {
   return (
     <TableCell
       to={to}
-      className={cn({
-        'g-left-0 g-z-10 g-sticky g-bg-white g-border-r-0 g-box-shadow-r':
+      className={cn('g-bg-white', {
+        'g-left-0 g-z-10 g-sticky g-border-r-0 g-box-shadow-r':
           locked && cell.column.getIsFirstColumn(),
         'g-p-0': cell.column.columnDef.meta?.noCellPadding,
+        'group-hover:g-bg-gray-50': to,
       })}
     >
       <InlineSkeletonWrapper loading={loading}>
