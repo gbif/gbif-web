@@ -9,13 +9,11 @@ import {
   VisibilityState,
 } from '@tanstack/react-table';
 import { useEffect, useRef, useState } from 'react';
-import { ViewHeader } from '../ViewHeader';
 import { Cell } from './components/cell';
 import { Head } from './components/head';
 import { InitialSkeletonTable } from './components/initialSkeletonTable';
 import { TableFooter } from './components/tableFooter';
 import { FirstColumLockProvider } from './firstColumLock';
-import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 
 interface Props<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -80,63 +78,55 @@ export function SearchTable<TData, TValue>({
   }, [data]);
 
   return (
-    <>
-      <ViewHeader total={rowCount} loading={loading} message="counts.nResults" />
-      <FirstColumLockProvider lockColumnLocalStoreKey={lockColumnLocalStoreKey}>
-        <DynamicHeightDiv
-          minPxHeight={500}
-          className={cn('g-rounded-md g-border g-relative g-bg-white', className)}
-        >
-          <div className="g-flex g-flex-col g-h-full">
-            <div ref={tableWrapperRef} className="g-relative g-w-full g-overflow-auto g-h-full">
-              {/* https://limebrains.com/blog/2021-03-02T13:00-heigh-100-inside-table-td/ */}
-              {/* Without this 1px height the a tags in the table cells won't be able to match the height of the td with height: 100% */}
-              <Table className="g-h-[1px]">
-                <TableHeader>
-                  {table.getHeaderGroups().map((headerGroup) => (
-                    <TableRow key={headerGroup.id}>
-                      {headerGroup.headers.map((header) => (
-                        <Head
-                          key={header.id}
-                          table={table}
-                          header={header}
-                          resetColumnVisibility={() =>
-                            setColumnVisibility(initialColumnVisibility.current)
-                          }
-                        />
-                      ))}
-                    </TableRow>
+    <FirstColumLockProvider lockColumnLocalStoreKey={lockColumnLocalStoreKey}>
+      <div
+        className={cn(
+          'g-bg-white g-flex-1 g-border g-basis-full g-h-1 g-flex g-flex-col',
+          className
+        )}
+      >
+        <div ref={tableWrapperRef} className="g-relative g-w-full g-overflow-auto g-h-full">
+          {/* https://limebrains.com/blog/2021-03-02T13:00-heigh-100-inside-table-td/ */}
+          {/* Without this 1px height the a tags in the table cells won't be able to match the height of the td with height: 100% */}
+          <Table className="g-h-1">
+            <TableHeader>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <Head
+                      key={header.id}
+                      table={table}
+                      header={header}
+                      resetColumnVisibility={() =>
+                        setColumnVisibility(initialColumnVisibility.current)
+                      }
+                    />
                   ))}
-                </TableHeader>
-                <TableBody>
-                  {initialLoading && <InitialSkeletonTable table={table} />}
-                  {initialLoading ||
-                    table.getRowModel().rows.map((row) => (
-                      <TableRow
-                        key={row.id}
-                        data-state={row.getIsSelected() && 'selected'}
-                        className={cn('g-border-b', {
-                          'g-group': typeof createRowLink === 'function',
-                        })}
-                      >
-                        {row.getVisibleCells().map((cell) => (
-                          <Cell
-                            to={createRowLink?.(row)}
-                            key={cell.id}
-                            cell={cell}
-                            loading={loading}
-                          />
-                        ))}
-                      </TableRow>
+                </TableRow>
+              ))}
+            </TableHeader>
+            <TableBody>
+              {initialLoading && <InitialSkeletonTable table={table} />}
+              {initialLoading ||
+                table.getRowModel().rows.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && 'selected'}
+                    className={cn('g-border-b', {
+                      'g-group': typeof createRowLink === 'function',
+                    })}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <Cell to={createRowLink?.(row)} key={cell.id} cell={cell} loading={loading} />
                     ))}
-                </TableBody>
-              </Table>
-            </div>
-            <TableFooter table={table} loading={loading} />
-          </div>
-        </DynamicHeightDiv>
-      </FirstColumLockProvider>
-    </>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </div>
+        <TableFooter table={table} loading={loading} />
+      </div>
+    </FirstColumLockProvider>
   );
 }
 

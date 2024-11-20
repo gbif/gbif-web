@@ -15,6 +15,7 @@ import { useConfig } from '@/config/config';
 import { useSearchContext } from '@/contexts/search';
 import { useFilters } from '../../filters';
 import { Row } from '@tanstack/react-table';
+import { ViewHeader } from '@/components/ViewHeader';
 
 // TODO: Should maybe be moved to the configBuilder
 const DAFAULT_AVAILABLE_TABLE_COLUMNS = Object.freeze([
@@ -196,17 +197,24 @@ export function OccurrenceTable() {
   );
 
   return (
-    <SearchTable
-      createRowLink={createRowLink}
-      lockColumnLocalStoreKey="occurrenceSearchTableLockColumn"
-      columns={columns}
-      data={occurrences}
-      loading={loading}
-      rowCount={data?.occurrenceSearch?.documents.total}
-      pagination={paginationState}
-      setPaginationState={setPaginationState}
-      availableTableColumns={availableTableColumns}
-      defaultEnabledTableColumns={defaultEnabledTableColumns}
-    />
+    <div className="g-flex g-flex-col g-h-full">
+      <ViewHeader
+        total={data?.occurrenceSearch?.documents.total}
+        loading={loading}
+        message="counts.nResults"
+      />
+      <SearchTable
+        createRowLink={createRowLink}
+        lockColumnLocalStoreKey="occurrenceSearchTableLockColumn"
+        columns={columns}
+        data={occurrences}
+        loading={loading}
+        rowCount={data?.occurrenceSearch?.documents.total}
+        pagination={paginationState}
+        setPaginationState={setPaginationState}
+        availableTableColumns={availableTableColumns}
+        defaultEnabledTableColumns={defaultEnabledTableColumns}
+      />
+    </div>
   );
 }
