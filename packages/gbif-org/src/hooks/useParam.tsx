@@ -116,7 +116,7 @@ function useParam<T>({
       // For example, removing the from param and adding view=map in the same render will result in none of the params being added
       const clone = new URLSearchParams(document.location.search);
       clone.delete(key);
-      setSearchParamsRef.current(clone);
+      setSearchParamsRef.current(clone, { replace: true });
     }
   });
 

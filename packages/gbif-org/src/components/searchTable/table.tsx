@@ -89,7 +89,9 @@ export function SearchTable<TData, TValue>({
         >
           <div className="g-flex g-flex-col g-h-full">
             <div ref={tableWrapperRef} className="g-relative g-w-full g-overflow-auto g-h-full">
-              <Table>
+              {/* https://limebrains.com/blog/2021-03-02T13:00-heigh-100-inside-table-td/ */}
+              {/* Without this 1px height the a tags in the table cells won't be able to match the height of the td with height: 100% */}
+              <Table className="g-h-[1px]">
                 <TableHeader>
                   {table.getHeaderGroups().map((headerGroup) => (
                     <TableRow key={headerGroup.id}>
