@@ -64,7 +64,7 @@ export function MediaPresentation({
         </>}
         {results.length > 0 && !endOfRecords && (
           <div className="g-flex g-flex-col g-justify-center g-w-36 g-mx-2 g-mt-4">
-            <Button disabled={loading} variant="outline" onClick={() => next()}>
+            <Button disabled={loading} variant="primaryOutline" onClick={() => next()}>
               {loading ? <Spinner /> : <FormattedMessage id="search.loadMore" />}
             </Button>
           </div>
