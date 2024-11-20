@@ -46,6 +46,7 @@ export function OccurrenceSearch(): React.ReactElement {
   const { filters } = useFilters({ searchConfig });
   const [view, setView] = useStringParam({ key: 'view', defaultValue: 'table', hideDefault: true });
 
+  const fixedHeight = ['table', 'map', 'clusters'].includes(view);
   return (
     <>
       <Helmet>
@@ -150,17 +151,21 @@ export function OccurrenceSearch(): React.ReactElement {
 
       <ErrorBoundary invalidateOn={view}>
         <div className="g-py-2 g-px-4 g-bg-slate-100">
-          {['table', 'map', 'clusters'].includes(view) && (
+          {fixedHeight && (
             <DynamicHeightDiv minPxHeight={500}>
               {view === 'table' && <OccurrenceTable />}
               {view === 'map' && <Map />}
               {view === 'clusters' && <Clusters />}
             </DynamicHeightDiv>
           )}
-          {view === 'media' && <Media />}
-          {view === 'dataset' && <Dataset />}
-          {view === 'download' && <Download />}
-          {view === 'dashboard' && <Dashboard />}
+          {!fixedHeight && (
+            <DynamicHeightDiv minPxHeight={500} onlySetMinHeight>
+              {view === 'media' && <Media />}
+              {view === 'dataset' && <Dataset />}
+              {view === 'download' && <Download />}
+              {view === 'dashboard' && <Dashboard />}
+            </DynamicHeightDiv>
+          )}
         </div>
       </ErrorBoundary>
     </>

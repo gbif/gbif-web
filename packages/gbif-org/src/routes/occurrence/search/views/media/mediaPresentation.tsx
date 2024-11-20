@@ -106,10 +106,10 @@ function GalleryItem({
 
   if (ratio > 2) {
     width = height * 2;
-    coverClass = '';
+    // coverClass = '';
   } else if (ratio < 0.4) {
     width = height * 0.4;
-    coverClass = '';
+    // coverClass = '';
   }
   if (minWidth) width = Math.max(minWidth, width);
 

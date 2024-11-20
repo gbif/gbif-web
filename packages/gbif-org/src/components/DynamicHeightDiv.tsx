@@ -4,6 +4,7 @@ import { CSSProperties, ReactNode, useEffect, useRef, useState } from 'react';
 type Props = {
   minPxHeight?: number;
   maxPxHeight?: number;
+  onlySetMinHeight?: boolean;
   stepSize?: number;
   sizeByViewport?: boolean;
   children: ReactNode;
@@ -14,6 +15,7 @@ type Props = {
 export default function DynamicHeightDiv({
   minPxHeight = 300,
   maxPxHeight,
+  onlySetMinHeight = false,
   sizeByViewport = false,
   stepSize = 20,
   children,
@@ -66,14 +68,14 @@ export default function DynamicHeightDiv({
       window.removeEventListener('scroll', handleResize);
       resizeObserver.disconnect();
     };
-  }, [minPxHeight, maxPxHeight, sizeByViewport, stepSize]);
+  }, [minPxHeight, maxPxHeight, sizeByViewport, stepSize, onlySetMinHeight]);
 
+  const heightStyle = onlySetMinHeight ? { height: 'auto', minHeight: `${divHeight}px` } : { height: `${divHeight}px`, minHeight: `${minPxHeight}px` };
   return (
     <div
       ref={divRef}
       style={{
-        minHeight: `${minPxHeight}px`,
-        height: `${divHeight}px`,
+        ...heightStyle,
         ...style,
       }}
       {...props}

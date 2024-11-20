@@ -174,15 +174,15 @@ function Clusters() {
 
   const next = useCallback(() => {
     setFrom(Math.max(0, from + size));
-  }, []);
+  }, [from, setFrom]);
 
   const prev = useCallback(() => {
     setFrom(Math.max(0, from - size));
-  }, []);
+  }, [setFrom, from]);
 
   const first = useCallback(() => {
     setFrom(0);
-  }, []);
+  }, [setFrom]);
 
   const reload = useCallback(() => {
     setAttempt(Math.random());

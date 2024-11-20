@@ -105,10 +105,7 @@ export const ClusterPresentation = ({
 
   return (
     <>
-      <DynamicHeightDiv
-        minPxHeight={500}
-        className="g-flex g-flex-col"
-      >
+      <div className="g-flex g-flex-col g-h-full">
         <ViewHeader loading={loading} total={total} className="g-flex-none">
           <div style={{ flex: '1 1 auto' }}></div>
           {/* {useMobileLayout && <div><DropdownButton look="primaryOutline"
@@ -407,7 +404,7 @@ export const ClusterPresentation = ({
             </div>
           )}
         </div>
-      </DynamicHeightDiv>
+      </div>
     </>
   );
 };

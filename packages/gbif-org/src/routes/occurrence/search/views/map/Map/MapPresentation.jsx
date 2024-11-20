@@ -33,7 +33,6 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { useConfig } from '@/config/config';
 import { useToast } from '@/components/ui/use-toast';
 import { cn } from '@/utils/shadcn';
-import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import ListBox from './ListBox';
 import { useOrderedList } from '../../browseList/useOrderedList';
 import { useStringParam } from '@/hooks/useParam';
@@ -274,7 +273,7 @@ function Map({
               data={pointData}
               error={pointError}
               loading={pointLoading}
-              className="gbif-resultList g-z-10 g-absolute g-start-0 g-top-0 g-m-2 g-w-96 g-max-w-full g-max-h-[calc(100%-4rem)]"
+              className="gbif-resultList g-z-20 g-absolute g-start-0 g-top-0 g-m-2 g-w-96 g-max-w-full g-max-h-[calc(100%-4rem)]"
             />
           )}
           <div className="g-z-10 g-absolute g-start-0 g-top-0 g-end-0">
@@ -334,7 +333,7 @@ function Map({
             defaultMapSettings={defaultMapSettings}
             predicateHash={predicateHash}
             q={q}
-            className="mapComponent [&>canvas:focus]:g-outline-none g-border g-border-slate-200 g-rounded g-flex g-flex-col g-h-full g-flex-auto"
+            className="mapComponent g-relative [&>canvas:focus]:g-outline-none g-border g-border-slate-200 g-rounded g-flex g-flex-col g-h-full g-flex-auto g-z-0"
             query={query}
             onLoading={updateLoading}
             onMapClick={(e) => showList(false)}

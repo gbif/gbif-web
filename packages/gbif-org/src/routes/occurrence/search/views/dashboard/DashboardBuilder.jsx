@@ -309,7 +309,7 @@ function DashboardBuilder({
             })}
           </DragDropContext>
         </div>
-        <div>
+        <div className="g-z-30">
           <div
             className="g-flex-auto g-sticky g-top-0 g-flex g-flex-col"
             style={{ marginInlineStart: `${grid * 2}px` }}
@@ -467,9 +467,8 @@ function Item({ item, index, onDelete, onUpdateItem, predicate, lockedLayout, ch
 function EmptyColumn({ onAdd, removeColumn, chartsTypes, columnCount }) {
   // if the columns is empty, then show a larger card with a placeholder graph and provide the user 3 options: add chart, delete column or add additional column.
   return (
-    <Card>
-      <CardTitle></CardTitle>
-      <div style={{ textAlign: 'center' }}>
+    <Card className="g-p-4">
+      <div className="g-text-center">
         <MdAddChart className="g-text-slate-200 g-text-8xl" />
         <ColumnOptions {...{ onAdd, chartsTypes, removeColumn, isEmpty: true, columnCount }} />
       </div>
@@ -482,7 +481,7 @@ function ColumnOptions({ onAdd, chartsTypes, removeColumn, isEmpty, columnCount 
   const messageRemove = intl.formatMessage({ id: 'dashboard.removeEmptyGroup' });
 
   return (
-    <div className="g-flex g-justify-center g-items-center g-text-sm">
+    <div className="g-flex g-justify-center g-items-center g-text-sm g-gap-4">
       <CreateOptions onAdd={onAdd} chartsTypes={chartsTypes} />
       {isEmpty && columnCount > 1 && (
         <Button variant="primaryOutline" onClick={removeColumn}>
