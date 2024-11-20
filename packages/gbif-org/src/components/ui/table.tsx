@@ -4,11 +4,7 @@ import { DynamicLink } from '@/reactRouterPlugins';
 
 const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(
   ({ className, ...props }, ref) => (
-    <table
-      ref={ref}
-      className={cn('g-w-full g-caption-bottom g-text-sm g-h-full', className)}
-      {...props}
-    />
+    <table ref={ref} className={cn('g-w-full g-caption-bottom g-text-sm', className)} {...props} />
   )
 );
 Table.displayName = 'Table';
@@ -23,11 +19,7 @@ const TableBody = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => (
-  <tbody
-    ref={ref}
-    className={cn('[&_tr:last-child]:g-border-0 g-overflow-y-auto', className)}
-    {...props}
-  />
+  <tbody ref={ref} className={cn('g-overflow-y-auto', className)} {...props} />
 ));
 TableBody.displayName = 'TableBody';
 
@@ -82,7 +74,7 @@ const TableCell = React.forwardRef<
       {
         'g-p-2 g-align-middle': !to,
       },
-      'g-border-r last:g-border-0 [&:has([role=checkbox])]:g-pr-0 [&>[role=checkbox]]:g-translate-y-[2px]',
+      'g-border-r [&:has([role=checkbox])]:g-pr-0 [&>[role=checkbox]]:g-translate-y-[2px]',
       className
     )}
     {...props}
