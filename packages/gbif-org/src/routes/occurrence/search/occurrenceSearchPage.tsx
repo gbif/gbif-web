@@ -1,6 +1,5 @@
 import { DataHeader } from '@/components/dataHeader';
 import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
-import { InternalScrollHandler } from '@/components/internalScrollHandler';
 import { useConfig } from '@/config/config';
 import { FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';

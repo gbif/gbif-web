@@ -56,7 +56,7 @@ export default function EntityDrawer() {
       isOpen={typeof key === 'string'}
       close={() => setPreviewKey()}
       viewOnGbifHref={`/occurrence/${key}`}
-      next={isFirst ? undefined :  handleNext}
+      next={isFirst ? undefined : handleNext}
       previous={isLast ? undefined : handlePrevious}
     >
       {type === 'occurrence' && <StandaloneOccurrenceKeyPage occurrenceKey={key} />}

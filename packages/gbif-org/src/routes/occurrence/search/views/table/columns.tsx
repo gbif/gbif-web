@@ -38,7 +38,7 @@ export function useOccurrenceColumns({
                   className="g-pr-3 g-pl-1 hover:g-text-primary-500 g-flex g-items-center"
                   onClick={(e) => {
                     // Prevent the parent link from being triggered
-                    if (occurrence.key) showPreview(`0_${occurrence.key.toString()}`);
+                    if (occurrence.key) showPreview(`o_${occurrence.key.toString()}`);
                     e.preventDefault();
                   }}
                 >
@@ -256,6 +256,7 @@ export function useOccurrenceColumns({
           <div>
             {row.original.recordedBy?.map((recordedBy) => (
               <SetAsFilter
+                key={recordedBy}
                 filterIsActive={isFilterActive('recordedBy')}
                 field="recordedBy"
                 value={recordedBy}
@@ -278,6 +279,7 @@ export function useOccurrenceColumns({
           <div>
             {row.original.identifiedBy?.map((identifiedBy) => (
               <SetAsFilter
+                key={identifiedBy}
                 filterIsActive={isFilterActive('identifiedBy')}
                 field="identifiedBy"
                 value={identifiedBy}
@@ -317,6 +319,7 @@ export function useOccurrenceColumns({
           <div>
             {row.original.typeStatus?.map((typeStatus) => (
               <SetAsFilter
+                key={typeStatus}
                 filterIsActive={isFilterActive('typeStatus')}
                 field="typeStatus"
                 value={typeStatus}
@@ -338,6 +341,7 @@ export function useOccurrenceColumns({
           <div>
             {row.original.preparations?.map((preparation) => (
               <SetAsFilter
+                key={preparation}
                 filterIsActive={isFilterActive('preparations')}
                 field="preparations"
                 value={preparation}
@@ -467,6 +471,7 @@ export function useOccurrenceColumns({
           <div>
             {row.original.higherGeography?.map((higherGeography) => (
               <SetAsFilter
+                key={higherGeography}
                 filterIsActive={isFilterActive('higherGeography')}
                 field="higherGeography"
                 value={higherGeography}
@@ -554,7 +559,9 @@ export function useOccurrenceColumns({
         cell: ({ row }) => (
           <div className="g-line-clamp-3">
             {row.original.datasetName?.map((datasetName) => (
-              <span className="g-inline-block">{datasetName}</span>
+              <span key={datasetName} className="g-inline-block">
+                {datasetName}
+              </span>
             ))}
           </div>
         ),
