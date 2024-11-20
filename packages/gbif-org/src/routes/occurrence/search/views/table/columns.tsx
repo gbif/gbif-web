@@ -32,7 +32,7 @@ export function useOccurrenceColumns({
           const occurrence = row.original;
 
           return (
-            <div className="g-inline-flex g-items-center g-w-full g-h-full">
+            <div className="g-inline-flex g-items-center g-w-full">
               {typeof showPreview === 'function' && (
                 <button
                   className="g-pr-3 g-pl-1 hover:g-text-primary-500 g-flex g-items-center"

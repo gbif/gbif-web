@@ -69,7 +69,7 @@ const TableCell = React.forwardRef<
     ref={ref}
     className={cn(
       {
-        'g-p-2 g-align-middle': !to,
+        'g-p-2': !to,
       },
       'g-border-r [&:has([role=checkbox])]:g-pr-0 [&>[role=checkbox]]:g-translate-y-[2px]',
       className
@@ -79,7 +79,7 @@ const TableCell = React.forwardRef<
     {!to ? (
       children
     ) : (
-      <DynamicLink className="g-p-2 g-flex g-h-full g-items-center" to={to}>
+      <DynamicLink className="g-p-2 g-flex g-h-full g-items-start" to={to}>
         {children}
       </DynamicLink>
     )}
