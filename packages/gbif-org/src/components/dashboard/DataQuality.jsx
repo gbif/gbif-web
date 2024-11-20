@@ -120,7 +120,7 @@ export function DataQuality({ predicate, ...props }) {
                     />
                   </BarItem>
                 </td>
-                <td>
+                <td className="g-text-end">
                   <FormattedNumber value={data?.rank?.documents?.total} />
                 </td>
                 {/* <td>
@@ -133,7 +133,7 @@ export function DataQuality({ predicate, ...props }) {
                     <FormattedMessage id="dashboard.withCoordinates" />
                   </BarItem>
                 </td>
-                <td>
+                <td className="g-text-end">
                   <FormattedNumber value={data?.hasCoordinates?.documents?.total} />
                 </td>
                 {/* <td>
@@ -146,7 +146,7 @@ export function DataQuality({ predicate, ...props }) {
                     <FormattedMessage id="dashboard.withYear" />
                   </BarItem>
                 </td>
-                <td>
+                <td className="g-text-end">
                   <FormattedNumber value={data?.hasYear?.documents?.total} />
                 </td>
                 {/* <td>
@@ -159,7 +159,7 @@ export function DataQuality({ predicate, ...props }) {
                     <FormattedMessage id="dashboard.withCollector" />
                   </BarItem>
                 </td>
-                <td>
+                <td className="g-text-end">
                   <FormattedNumber value={data?.hasCollector?.documents?.total} />
                 </td>
                 {/* <td>
@@ -173,7 +173,7 @@ export function DataQuality({ predicate, ...props }) {
                     <FormattedMessage id="dashboard.withMedia" />
                   </BarItem>
                 </td>
-                <td>
+                <td className="g-text-end">
                   <FormattedNumber value={data?.hasMedia?.documents?.total} />
                 </td>
                 {/* <td>
@@ -187,7 +187,7 @@ export function DataQuality({ predicate, ...props }) {
                     <FormattedMessage id="dashboard.withSequence" />
                   </BarItem>
                 </td>
-                <td>
+                <td className="g-text-end">
                   <FormattedNumber value={data?.hasSequence?.documents?.total} />
                 </td>
                 {/* <td>
