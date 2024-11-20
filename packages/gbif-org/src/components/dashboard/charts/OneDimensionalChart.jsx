@@ -1,7 +1,7 @@
 import { CardHeader } from '../shared';
 import { Card, CardTitle, CardDescription, CardContent } from '@/components/ui/smallCard';
 import Highcharts, { chartColors } from './highcharts';
-import HighchartsReact from 'highcharts-react-official'
+import HighchartsReact from 'highcharts-react-official';
 import { getPieOptions } from './pie';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { getColumnOptions } from './column';
@@ -26,12 +26,22 @@ function ViewOptions({ view, setView, options = ['COLUMN', 'PIE', 'TABLE'] }) {
     PIE: <BsPieChartFill />,
     TABLE: <MdViewStream />,
     TIME: <BsFillBarChartFill />,
-  }
-  return <div >
-    {options.map(option => <Button key={option} variant="link" style={{padding: '0 5px', height: 'auto'}} className={`g-m-0 ${view === option ? 'g-text-primary-500' : 'g-text-slate-400'}`} onClick={() => setView(option)}>
-      {iconMap[option]}
-    </Button>)}
-  </div>
+  };
+  return (
+    <div>
+      {options.map((option) => (
+        <Button
+          key={option}
+          variant="link"
+          style={{ padding: '0 5px', height: 'auto' }}
+          className={`g-m-0 ${view === option ? 'g-text-primary-500' : 'g-text-slate-400'}`}
+          onClick={() => setView(option)}
+        >
+          {iconMap[option]}
+        </Button>
+      ))}
+    </div>
+  );
 }
 
 export function OneDimensionalChart({
@@ -70,23 +80,23 @@ export function OneDimensionalChart({
   // if (!view) setView(defaultOption ?? options?.[0] ?? 'TABLE');
   const messages = [...(customMessages ?? [])];
   const translations = {
-    occurrences: intl.formatMessage({ id: 'dashboard.occurrences' })
-  }
-  facetResults?.results?.forEach(x => x.filter = { [filterKey ?? predicateKey]: [x.key] });
+    occurrences: intl.formatMessage({ id: 'dashboard.occurrences' }),
+  };
+  facetResults?.results?.forEach((x) => (x.filter = { [filterKey ?? predicateKey]: [x.key] }));
   const mappedResults = transform ? transform(facetResults.data) : facetResults.results;
-  const data = mappedResults?.map(x => {
+  const data = mappedResults?.map((x) => {
     return {
       ...x,
       y: x.count,
       name: x.plainTextTitle ?? x.title,
       key: x.key,
       filter: { [predicateKey]: [x.key] },
-      visible: x.count > 0
-    }
+      visible: x.count > 0,
+    };
   });
 
   // count how many results have data
-  const notEmptyResults = data?.filter(x => x.y > 0);
+  const notEmptyResults = data?.filter((x) => x.y > 0);
 
   if (data && notEmptyResults?.length <= visibilityThreshold) return null;
 
@@ -102,7 +112,7 @@ export function OneDimensionalChart({
         y: otherCount,
         name: intl.formatMessage({ id: 'dashboard.other' }),
         color: chartColors.OTHER,
-        visible: true
+        visible: true,
       });
     }
     if (showUnknownInChart && emptyCount) {
@@ -111,7 +121,7 @@ export function OneDimensionalChart({
         name: intl.formatMessage({ id: 'dashboard.unknown' }),
         visible: true,
         color: chartColors.UNKNOWN,
-        filter: { mustNot: { [predicateKey]: [{ "type": "isNotNull" }] } },
+        filter: { mustNot: { [predicateKey]: [{ type: 'isNotNull' }] } },
       });
     }
   }
@@ -126,10 +136,15 @@ export function OneDimensionalChart({
     serie,
     onClick: handleRedirect,
     interactive,
-    translations
+    translations,
   });
 
-  const columnOptions = getColumnOptions({ serie, onClick: handleRedirect, interactive, translations });
+  const columnOptions = getColumnOptions({
+    serie,
+    onClick: handleRedirect,
+    interactive,
+    translations,
+  });
 
   // if time series then create the area chart options
   let timeSeriesOptions;
@@ -146,10 +161,10 @@ export function OneDimensionalChart({
       h: 'hour',
       m: 'minute',
       s: 'second',
-    }
+    };
 
     // // rename the data to get names with time interval
-    data?.forEach(x => {
+    data?.forEach((x) => {
       const utc = Number.parseInt(x?.utc);
       // add the interval to the date, and serialize as yyyy-mm-dd - yyyy-mm-dd (start date - end date)
       const startDate = new Date(utc);
@@ -168,9 +183,25 @@ export function OneDimensionalChart({
       let format = { year: 'numeric' };
       if (unit === 'M') format = { year: 'numeric', month: 'short' };
       if (unit === 'd') format = { year: 'numeric', month: 'short', day: 'numeric' };
-      if (unit === 'h') format = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric' };
-      if (unit === 'm') format = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-      if (unit === 's') format = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+      if (unit === 'h')
+        format = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric' };
+      if (unit === 'm')
+        format = {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+        };
+      if (unit === 's')
+        format = {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+          second: 'numeric',
+        };
 
       const start = new Intl.DateTimeFormat('en', format).format(startDate);
       const end = new Intl.DateTimeFormat('en', format).format(endDate);
@@ -184,7 +215,7 @@ export function OneDimensionalChart({
       innerSize: '25%',
       name: intl.formatMessage({ id: 'dashboard.occurrences' }),
       // pointStart: -10476864000000,
-      pointStart: Number.parseInt(data?.[0]?.utc),//Date.UTC(1638, 0, 1), // first of April
+      pointStart: Number.parseInt(data?.[0]?.utc), //Date.UTC(1638, 0, 1), // first of April
       // pointRange: 3600 * 1000 * 24 * 365 * 10, // hourly data
       pointInterval: value,
       pointIntervalUnit: unitMap[unit],
@@ -196,71 +227,111 @@ export function OneDimensionalChart({
       data,
     };
 
-    timeSeriesOptions = getTimeSeriesOptions({ serie: histogramSerie, onClick: handleRedirect, interactive, translations });
+    timeSeriesOptions = getTimeSeriesOptions({
+      serie: histogramSerie,
+      onClick: handleRedirect,
+      interactive,
+      translations,
+    });
   }
 
-  const filledPercentage = facetResults?.data?.isNotNull?.documents?.total / facetResults?.data?.search?.documents?.total;
+  const filledPercentage =
+    facetResults?.data?.isNotNull?.documents?.total / facetResults?.data?.search?.documents?.total;
 
   if (showFreeTextWarning) {
     messages.push('dashboard.notVocabularyWarning');
   }
 
   if (!disableUnknown) {
-    messages.push(<div><FormattedMessage id="dashboard.percentWithValue" values={{ percent: formatAsPercentage(filledPercentage) }} /></div>);
+    messages.push(
+      <div>
+        <FormattedMessage
+          id="dashboard.percentWithValue"
+          values={{ percent: formatAsPercentage(filledPercentage) }}
+        />
+      </div>
+    );
   }
   const renderedView = view;
   // the idea with this was that it looks odd with a pie chart with only one value, but it looks even worse with a table with only one value. Similar for column charts. But in reality it was also confusing changing the layout when changing filters, so we removed this.
   // const singleValue = notEmptyResults?.length === 1 ? notEmptyResults[0] : null;
   // const renderedView = singleValue ? 'TABLE' : view;
 
-  return <Card {...props} loading={facetResults.loading || !facetResults.data} error={!!facetResults.error}>
-    {/* <CardTitle options={(singleValue || (distinct === 0)) ? null : <ViewOptions options={options} view={view} setView={setView} />}> */}
-    <CardHeader options={<ViewOptions options={options} view={view} setView={setView} />}>
-      <CardTitle>
-        {title && <>{title}</>}
-      </CardTitle>
-      {subtitleKey && <CardDescription>
-        <FormattedMessage id={subtitleKey} defaultMessage="Number of occurrences" />
-      </CardDescription>}
-    </CardHeader>
-    <CardContent>
-      {distinct === 0 && <div 
-        className='g-text-center g-text-slate-400'
-      >
-        <FormattedMessage id="dashboard.noData" defaultMessage="No data" />
-      </div>}
+  return (
+    <Card
+      {...props}
+      loading={facetResults.loading || !facetResults.data}
+      error={!!facetResults.error}
+    >
+      {/* <CardTitle options={(singleValue || (distinct === 0)) ? null : <ViewOptions options={options} view={view} setView={setView} />}> */}
+      <CardHeader options={<ViewOptions options={options} view={view} setView={setView} />}>
+        <CardTitle>{title && <>{title}</>}</CardTitle>
+        {subtitleKey && (
+          <CardDescription>
+            <FormattedMessage id={subtitleKey} defaultMessage="Number of occurrences" />
+          </CardDescription>
+        )}
+      </CardHeader>
+      <CardContent>
+        {distinct === 0 && (
+          <div className="g-text-center g-text-slate-400">
+            <FormattedMessage id="dashboard.noData" defaultMessage="No data" />
+          </div>
+        )}
 
-      {distinct > 0 && <>
-        {showChart && <div style={{ margin: '0 auto' }}>
-          {renderedView === 'PIE' && <HighchartsReact
-            highcharts={Highcharts}
-            options={pieOptions}
-            className={chartsClass}
-          />}
-          {renderedView === 'COLUMN' && <HighchartsReact
-            highcharts={Highcharts}
-            options={columnOptions}
-            className={chartsClass}
-          />}
-          {renderedView === 'TIME' && <HighchartsReact
-            highcharts={Highcharts}
-            options={timeSeriesOptions}
-            className={chartsClass}
-          />}
-        </div>}
-        {renderedView === 'TABLE' && <GroupBy facetResults={facetResults} transform={transform} onClick={handleRedirect} interactive={interactive} />}
-        {renderedView !== 'TIME' && <Pagging facetResults={facetResults} />}
+        {distinct > 0 && (
+          <>
+            {showChart && (
+              <div style={{ margin: '0 auto' }}>
+                {renderedView === 'PIE' && (
+                  <HighchartsReact
+                    highcharts={Highcharts}
+                    options={pieOptions}
+                    className={chartsClass}
+                  />
+                )}
+                {renderedView === 'COLUMN' && (
+                  <HighchartsReact
+                    highcharts={Highcharts}
+                    options={columnOptions}
+                    className={chartsClass}
+                  />
+                )}
+                {renderedView === 'TIME' && (
+                  <HighchartsReact
+                    highcharts={Highcharts}
+                    options={timeSeriesOptions}
+                    className={chartsClass}
+                  />
+                )}
+              </div>
+            )}
+            {renderedView === 'TABLE' && (
+              <GroupBy
+                facetResults={facetResults}
+                transform={transform}
+                onClick={handleRedirect}
+                interactive={interactive}
+              />
+            )}
+            {renderedView !== 'TIME' && <Pagging facetResults={facetResults} />}
 
-        {messages.length > 0 && <div 
-          className='g-text-slate-400 g-text-sm hover:g-text-slate-800 p:g-my-1 g-transition-colors'
-        >
-          {messages.map((message, i) => <div key={i}>
-            {typeof message === 'string' && <FormattedMessage id={message} />}
-            {typeof message !== 'string' && message}
-          </div>)}
-        </div>}
-      </>}
-    </CardContent>
-  </Card>
-};
-
+            {messages.length > 0 && (
+              <div className="g-text-slate-400 g-text-sm hover:g-text-slate-800 p:g-my-1 g-transition-colors">
+                {messages.map((message, i) => {
+                  const isString = (typeof message) === 'string';
+                  return (
+                    <div key={i}>
+                      {isString && <FormattedMessage id={message} />}
+                      {!isString && message}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </>
+        )}
+      </CardContent>
+    </Card>
+  );
+}

@@ -33,5 +33,6 @@
   "nParticipatingPublishers": "{total, plural, one {# participating publisher} other {# participating publishers}}",
   "nPublishersInCountry": "{total, plural, one {There is # publisher} other {There are # publishers}} in {country}",
   "nStaffMembers": "{total, plural, one {# staff member} other {# staff members}}",
-  "nOccurrencesHosted": "{total, plural, one {# hosted occurrence} other {# hosted occurrences}}"
+  "nOccurrencesHosted": "{total, plural, one {# hosted occurrence} other {# hosted occurrences}}",
+  "nPercentOfTotal": "{percentage, plural, other {#% of total}}"
 }

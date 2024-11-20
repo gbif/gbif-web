@@ -15,6 +15,7 @@
     "unlockColumn": "Unlock column",
     "columnVisibility": "Toggle columns",
     "resetColumnVisibility": "Reset",
+    "openFilter": "Open filter"
   },
   "placeholders": {
     "default": "Search",

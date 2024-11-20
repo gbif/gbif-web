@@ -6,7 +6,7 @@ import StripeLoader from '../stripeLoader';
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & { loading?: boolean; error?: boolean }
->(({ className, children, loading, error, ...props }, ref) => (
+>(({ className, children, loading, error, style }, ref) => (
   <div
     ref={ref}
     className={cn(
@@ -15,7 +15,7 @@ const Card = React.forwardRef<
       }`,
       className
     )}
-    {...props}
+    style={style}
   >
     {error && (
       <CardContent className="g-p-2 md:g-p-4">
