@@ -202,6 +202,7 @@ export function useOccurrenceColumns({
         header: 'filters.datasetKey.name',
         cell: ({ row }) => (
           <SetAsFilter
+            className="g-line-clamp-3"
             filterIsActive={isFilterActive('dataset')}
             field="dataset"
             value={row.original.datasetKey}
@@ -209,7 +210,7 @@ export function useOccurrenceColumns({
             {row.original.datasetTitle}
           </SetAsFilter>
         ),
-        minSize: 200,
+        minSize: 350,
         meta: {
           filter: filters['dataset'],
         },
@@ -219,6 +220,7 @@ export function useOccurrenceColumns({
         header: 'filters.publisherKey.name',
         cell: ({ row }) => (
           <SetAsFilter
+            className="g-line-clamp-3"
             filterIsActive={isFilterActive('publisherKey')}
             field="publisherKey"
             value={row.original.publishingOrgKey}
@@ -226,7 +228,7 @@ export function useOccurrenceColumns({
             {row.original.publisherTitle}
           </SetAsFilter>
         ),
-        minSize: 150,
+        minSize: 250,
         meta: {
           filter: filters['publisher'],
         },
@@ -257,13 +259,14 @@ export function useOccurrenceColumns({
                 filterIsActive={isFilterActive('recordedBy')}
                 field="recordedBy"
                 value={recordedBy}
-                className="g-inline-block"
+                className="g-inline-block g-line-clamp-3"
               >
                 {recordedBy}
               </SetAsFilter>
             ))}
           </div>
         ),
+        minSize: 200,
         meta: {
           filter: filters['recordedBy'],
         },
@@ -278,13 +281,14 @@ export function useOccurrenceColumns({
                 filterIsActive={isFilterActive('identifiedBy')}
                 field="identifiedBy"
                 value={identifiedBy}
-                className="g-inline-block"
+                className="g-inline-block g-line-clamp-3"
               >
                 {identifiedBy}
               </SetAsFilter>
             ))}
           </div>
         ),
+        minSize: 200,
         meta: {
           filter: filters['identifiedBy'],
         },
@@ -378,6 +382,7 @@ export function useOccurrenceColumns({
 
           return (
             <SetAsFilter
+              className="g-line-clamp-3"
               filterIsActive={isFilterActive('institutionCode')}
               field="institutionCode"
               value={institution.code}
@@ -386,6 +391,7 @@ export function useOccurrenceColumns({
             </SetAsFilter>
           );
         },
+        minSize: 200,
         meta: {
           filter: filters['institutionCode'],
         },
@@ -400,6 +406,7 @@ export function useOccurrenceColumns({
           return (
             <LinkOption to={`/institution/${institution.key}`}>
               <SetAsFilter
+                className="g-line-clamp-3"
                 filterIsActive={isFilterActive('institutionKey')}
                 field="institutionKey"
                 value={institution.key}
@@ -411,6 +418,7 @@ export function useOccurrenceColumns({
             </LinkOption>
           );
         },
+        minSize: 200,
         meta: {
           filter: filters['institutionKey'],
         },
@@ -428,6 +436,7 @@ export function useOccurrenceColumns({
                 filterIsActive={isFilterActive('collectionCode')}
                 field="collectionCode"
                 value={collection.code}
+                className="g-line-clamp-3"
               >
                 <span>
                   {collection.name} <span>({collection.code})</span>
@@ -436,6 +445,7 @@ export function useOccurrenceColumns({
             </LinkOption>
           );
         },
+        minSize: 200,
         meta: {
           filter: filters['collectionKey'],
         },
@@ -444,6 +454,8 @@ export function useOccurrenceColumns({
         id: 'locality',
         header: 'occurrenceFieldNames.locality',
         accessorKey: 'locality',
+        cell: ({ row }) => <span className="g-line-clamp-3">{row.original.locality}</span>,
+        minSize: 200,
         meta: {
           filter: filters['locality'],
         },
@@ -460,13 +472,13 @@ export function useOccurrenceColumns({
                 value={higherGeography}
                 className="g-inline-block"
               >
-                <FormattedMessage id={`enums.preparations.${higherGeography}`} />
+                <FormattedMessage id={`enums.higherGeography.${higherGeography}`} />
               </SetAsFilter>
             ))}
           </div>
         ),
         meta: {
-          filter: filters['preparations'],
+          filter: filters['higherGeography'],
         },
       },
       {
@@ -540,12 +552,13 @@ export function useOccurrenceColumns({
         id: 'datasetName',
         header: 'occurrenceFieldNames.datasetName',
         cell: ({ row }) => (
-          <div>
+          <div className="g-line-clamp-3">
             {row.original.datasetName?.map((datasetName) => (
               <span className="g-inline-block">{datasetName}</span>
             ))}
           </div>
         ),
+        minSize: 200,
         meta: {
           filter: filters['datasetName'],
         },
