@@ -2,28 +2,25 @@ import { useCallback, useEffect, useState } from 'react';
 import DashboardBuilder from './DashboardBuilder';
 // import { useQueryParam } from 'use-query-params';
 // import Base64JsonParam from '../../../../dataManagement/state/base64JsonParam';
-import useLocalStorage from "use-local-storage";
+import useLocalStorage from 'use-local-storage';
 import { FormattedMessage } from 'react-intl';
 import * as charts from '@/components/dashboard';
-// import Map from "../Map";
-// import Table from '../Table';
-// import Gallery from '../Gallery';
+import { Map } from '../map';
+import { OccurrenceTable as Table } from '../table';
+import { Media } from '../media';
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/smallCard';
 
-export function Dashboard({
-  predicate,
-  chartsTypes: chartsTypesProp,
-  ...props
-}) {
+export function Dashboard({ predicate, chartsTypes: chartsTypesProp, ...props }) {
   const [urlLayout, setUrlLayout] = useState();
   // const [urlLayout, setUrlLayout] = useQueryParam('layout', Base64JsonParam);
   const [layout = [[]], setLayoutState] = useLocalStorage('occurrenceDashboardLayout', [[]]);
   const [chartsTypes, setChartsTypes] = useState([]);
 
   useEffect(() => {
-    const charts = {...preconfiguredCharts};
+    const charts = { ...preconfiguredCharts };
     // delete charts that are not in the chartsTypesProp array
-    Object.keys(charts).forEach(key => {
+    Object.keys(charts).forEach((key) => {
       if (!chartsTypesProp.includes(key)) {
         delete charts[key];
       }
@@ -31,22 +28,49 @@ export function Dashboard({
     setChartsTypes(charts);
   }, [chartsTypesProp]);
 
-  const updateState = useCallback((value, useUrl) => {
-    if (useUrl) {
-      setUrlLayout(value);
-    } else {
-      setLayoutState(value);
-      setUrlLayout();
-    }
-  }, [setLayoutState, setUrlLayout]);
+  const updateState = useCallback(
+    (value, useUrl) => {
+      if (useUrl) {
+        setUrlLayout(value);
+      } else {
+        setLayoutState(value);
+        setUrlLayout();
+      }
+    },
+    [setLayoutState, setUrlLayout]
+  );
 
   const isUrlLayoutDifferent = urlLayout && JSON.stringify(urlLayout) !== JSON.stringify(layout);
-  return <div>
-    {isUrlLayoutDifferent && <div className="g-mb-4"><FormattedMessage id="dashboard.sharedLayout" /> <Button className="g-ms-4" onClick={() => setUrlLayout()}><FormattedMessage id="phrases.discard" /></Button> <Button look="primaryOutline" className="g-ms-4" onClick={() => {setLayoutState(urlLayout); setUrlLayout();}}><FormattedMessage id="phrases.keep" /></Button></div>}
-    <DashboardBuilder chartsTypes={chartsTypes} predicate={predicate} setState={updateState} state={urlLayout ?? layout} {...{lockedLayout: isUrlLayoutDifferent}}/>
-  </div>
-};
-
+  return (
+    <div>
+      {isUrlLayoutDifferent && (
+        <div className="g-mb-4">
+          <FormattedMessage id="dashboard.sharedLayout" />{' '}
+          <Button className="g-ms-4" onClick={() => setUrlLayout()}>
+            <FormattedMessage id="phrases.discard" />
+          </Button>{' '}
+          <Button
+            look="primaryOutline"
+            className="g-ms-4"
+            onClick={() => {
+              setLayoutState(urlLayout);
+              setUrlLayout();
+            }}
+          >
+            <FormattedMessage id="phrases.keep" />
+          </Button>
+        </div>
+      )}
+      <DashboardBuilder
+        chartsTypes={chartsTypes}
+        predicate={predicate}
+        setState={updateState}
+        state={urlLayout ?? layout}
+        {...{ lockedLayout: isUrlLayoutDifferent }}
+      />
+    </div>
+  );
+}
 
 const preconfiguredCharts = {
   iucn: {
@@ -67,7 +91,7 @@ const preconfiguredCharts = {
   },
   year: {
     component: ({ predicate, ...props }) => {
-      return <charts.EventDate options={['TIME']}  predicate={predicate} {...props} />;
+      return <charts.EventDate options={['TIME']} predicate={predicate} {...props} />;
     },
   },
   synonyms: {
@@ -132,7 +156,7 @@ const preconfiguredCharts = {
     translation: 'filters.publishingCountryCode.name',
     component: ({ predicate, ...props }) => {
       return <charts.PublishingCountryCode predicate={predicate} interactive {...props} />;
-    }
+    },
   },
   protocol: {
     component: ({ predicate, ...props }) => {
@@ -191,7 +215,14 @@ const preconfiguredCharts = {
   },
   establishmentMeans: {
     component: ({ predicate, ...props }) => {
-      return <charts.EstablishmentMeans predicate={predicate} interactive defaultOption="PIE" {...props} />;
+      return (
+        <charts.EstablishmentMeans
+          predicate={predicate}
+          interactive
+          defaultOption="PIE"
+          {...props}
+        />
+      );
     },
   },
   month: {
@@ -256,26 +287,57 @@ const preconfiguredCharts = {
       return <charts.ProjectId predicate={predicate} interactive {...props} />;
     },
   },
-  // map: {
-  //   translation: 'search.tabs.map',
-  //   r: true, // resizable
-  //   component: ({ predicate, ...props }) => {
-  //     return <Map predicate={predicate} interactive className="g-bg-white g-pt-2 g-border g-rounded" mapProps={{ style: { border: 0, borderRadius: '0 0 var(--borderRadiusPx) var(--borderRadiusPx)' } }} {...props}
-  //     />;
-  //   },
-  // },
-  // table: {
-  //   translation: 'search.tabs.table',
-  //   r: true, // resizable
-  //   component: ({ predicate, ...props }) => {
-  //     return <Table predicate={predicate} interactive {...props} className="g-bg-white g-pt-2 g-border g-rounded" dataTableProps={{ style: { borderWidth: '1px 0 0 0', overflow: 'hidden' } }} />;
-  //   },
-  // },
-  // gallery: {
-  //   translation: 'search.tabs.gallery',
-  //   r: true, // resizable
-  //   component: ({ predicate, ...props }) => {
-  //     return <Gallery predicate={predicate} size={10} interactive className="g-bg-white g-pt-2 g-border g-rounded g-overflow-auto g-h-full" {...props} />;
-  //   },
-  // },
+  map: {
+    translation: 'search.tabs.map',
+    r: true, // resizable
+    component: ({ predicate, ...props }) => {
+      return (
+        <Card className="g-overflow-y-auto g-h-full g-p-2 g-overflow-x-hidden">
+          <Map
+            predicate={predicate}
+            interactive
+            className=""
+            mapProps={{
+              style: { border: 0, borderRadius: '0 0 var(--borderRadiusPx) var(--borderRadiusPx)' },
+            }}
+            {...props}
+          />
+        </Card>
+      );
+    },
+  },
+  table: {
+    translation: 'search.tabs.table',
+    r: true, // resizable
+    component: ({ predicate, ...props }) => {
+      return (
+        <Card className="g-overflow-y-auto g-h-full g-p-2">
+          <Table
+            predicate={predicate}
+            interactive
+            {...props}
+            className=""
+            dataTableProps={{ style: { borderWidth: '1px 0 0 0', overflow: 'hidden' } }}
+          />
+        </Card>
+      );
+    },
+  },
+  gallery: {
+    translation: 'search.tabs.gallery',
+    r: true, // resizable
+    component: ({ predicate, ...props }) => {
+      return (
+        <Card className="g-overflow-y-auto g-h-full g-p-2">
+          <Media
+            predicate={predicate}
+            size={10}
+            interactive
+            className="g-pt-2 g-border g-rounded g-overflow-auto g-h-full"
+            {...props}
+          />
+        </Card>
+      );
+    },
+  },
 };

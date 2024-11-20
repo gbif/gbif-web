@@ -21,6 +21,7 @@ import { Media } from './views/media';
 import { OccurrenceTable } from './views/table';
 import { Dataset } from './views/datasets';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 
 export function OccurrenceSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
@@ -149,13 +150,17 @@ export function OccurrenceSearch(): React.ReactElement {
 
       <ErrorBoundary invalidateOn={view}>
         <div className="g-py-2 g-px-4 g-bg-slate-100">
-          {view === 'table' && <OccurrenceTable />}
-          {view === 'map' && <Map />}
+          {['table', 'map', 'clusters'].includes(view) && (
+            <DynamicHeightDiv minPxHeight={500}>
+              {view === 'table' && <OccurrenceTable />}
+              {view === 'map' && <Map />}
+              {view === 'clusters' && <Clusters />}
+            </DynamicHeightDiv>
+          )}
           {view === 'media' && <Media />}
-          {view === 'clusters' && <Clusters />}
-          {view === 'dashboard' && <Dashboard />}
-          {view === 'download' && <Download />}
           {view === 'dataset' && <Dataset />}
+          {view === 'download' && <Download />}
+          {view === 'dashboard' && <Dashboard />}
         </div>
       </ErrorBoundary>
     </>

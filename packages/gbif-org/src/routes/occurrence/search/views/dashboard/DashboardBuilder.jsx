@@ -73,7 +73,6 @@ const getItemStyle = (isDragging, draggableStyle, index) => ({
 });
 
 const getListStyle = ({ isDraggingOver, width, index, maxGroups, groupCount }) => {
-  const cardSize = 600;
   const style =
     index === 0
       ? {
@@ -432,8 +431,8 @@ function Item({ item, index, onDelete, onUpdateItem, predicate, lockedLayout, ch
             <Resizable
               handleComponent={{
                 bottom: (
-                  <div className="g-p-2 g-m-2">
-                    <div className="g-h-2 g-block g-bg-slate-300 g-rounded g-w-12 g-mx-auto"></div>
+                  <div className="g-p-1.5 g-m-1">
+                    <div className="g-h-1.5 g-block g-bg-slate-300 g-rounded g-w-12 g-mx-auto"></div>
                   </div>
                 ),
               }}

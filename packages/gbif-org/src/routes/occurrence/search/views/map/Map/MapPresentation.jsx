@@ -257,13 +257,13 @@ function Map({
       <div
         ref={ref}
         className={cn(
-          'mapArea g-flex-auto g-flex g-h-fullg-h-[800px] g-flex-col g-relative',
+          'mapArea g-flex-auto g-flex g-h-full g-flex-col g-relative',
           className
         )}
         {...{ style }}
       >
         <ViewHeader message="counts.nResultsWithCoordinates" loading={loading} total={total} />
-        <DynamicHeightDiv minPxHeight={500} className="g-relative">
+        <div className="g-flex-auto g-h-96 g-relative">
           {listVisible && (
             <ListBox
               onCloseRequest={() => showList(false)}
@@ -348,7 +348,7 @@ function Map({
             height={height}
             width={width}
           />
-        </DynamicHeightDiv>
+        </div>
       </div>
     </>
   );

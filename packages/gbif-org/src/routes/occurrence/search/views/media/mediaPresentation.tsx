@@ -32,7 +32,7 @@ export function MediaPresentation({
     <div className="">
       <ViewHeader total={total} loading={loading} message="counts.nResultsWithImages" />
       {total === 0 && !loading && <NoRecords />}
-      <div className="g-flex g-flex-wrap g-mb-12 -g-mx-2">
+      <div className="g-flex g-flex-wrap g-mb-12 -g-mx-2 -g-mt-2">
         {results.map((result) => {
           let identifier = result.primaryImage?.identifier;
           if (result.key === 4028668553) {

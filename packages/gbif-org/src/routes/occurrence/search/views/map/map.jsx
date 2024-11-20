@@ -3,8 +3,8 @@ import React from "react";
 // const MapComponent = React.lazy(() => import('./test'));
 const MapComponent = React.lazy(() => import('./Map/index'));
 
-export function Map() {
+export function Map(props) {
   return <ClientSideOnly>
-    <MapComponent />
+    <MapComponent {...props}/>
   </ClientSideOnly>
 }
