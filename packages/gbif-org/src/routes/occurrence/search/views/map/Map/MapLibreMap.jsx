@@ -191,9 +191,6 @@ class Map extends Component {
 
   render() {
     const { style = {}, className } = this.props;
-    const { loadDiff } = this.state;
-    const isLoading = loadDiff > 0;
-    console.log(loadDiff);
 
     return <div ref={this.myRef} className={className} style={style} />
   }
