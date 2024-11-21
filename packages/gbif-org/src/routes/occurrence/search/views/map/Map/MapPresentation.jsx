@@ -116,10 +116,14 @@ function Map({
     setMapLoading(loading);
   }, []);
 
-  // update ordered list on items change
-  useEffect(() => {
+  const updateList = useCallback(() => {
     setOrderedList(items.map((item) => `o_${item.key}`));
   }, [items, setOrderedList]);
+
+  const selectPreview = useCallback((key) => {
+    updateList();
+    setPreviewKey(`o_${key}`);
+  }, [setPreviewKey, updateList]);
 
   const { width, height, ref } = useResizeDetector({
     handleHeight: true,
@@ -268,7 +272,7 @@ function Map({
               onCloseRequest={() => showList(false)}
               labelMap={labelMap}
               onClick={({ index }) => {
-                setPreviewKey(`o_${items[index].key}`);
+                selectPreview(`${items[index].key}`);
               }}
               data={pointData}
               error={pointError}

@@ -57,14 +57,18 @@ export function Media({ size: defaultSize = 50 }) {
     throwAllErrors: true,
   });
   const { setOrderedList } = useOrderedList();
-  const [, setPreviewKey] = useStringParam({ key: 'entity' });
+  const [,setPreviewKey] = useStringParam({ key: 'entity' });
 
   const [allData, setAllData] = useState([]);
 
-  // update ordered list on items change
-  useEffect(() => {
+  const updateList = useCallback(() => {
     setOrderedList(allData.map((item) => `o_${item.key}`));
   }, [allData, setOrderedList]);
+
+  const selectPreview = useCallback((key: string | number) => {
+    updateList();
+    setPreviewKey(`o_${key}`);
+  }, [setPreviewKey, updateList]);
 
   useEffect(() => {
     setAllData(prev => {
@@ -115,7 +119,7 @@ export function Media({ size: defaultSize = 50 }) {
       endOfRecords={from + size >= data?.occurrenceSearch?.documents?.total}
       next={next}
       total={data?.occurrenceSearch?.documents?.total}
-      onSelect={({ key }: { key: string | number }) => setPreviewKey(`o_${key}`)}
+      onSelect={({ key }: { key: string | number }) => selectPreview(key)}
     />
   );
 }
