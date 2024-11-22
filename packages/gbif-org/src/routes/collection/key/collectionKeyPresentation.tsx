@@ -32,9 +32,13 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { MdInfo } from 'react-icons/md';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { HashLink } from 'react-router-hash-link';
+import { createContext, useState } from 'react';
 
 const GBIF_REGISTRY_ENDPOINT = 'https://registry.gbif.org';
 const contactThreshold = 5;
+
+// create context to pass data to children
+export const CollectionKeyContext = createContext<unknown>(null);
 
 export function CollectionKey({
   data,
@@ -43,6 +47,7 @@ export function CollectionKey({
   data: CollectionQuery;
   collectionMetrics?: CollectionSummaryMetricsQuery;
 }) {
+  const [count, setCount] = useState(0);
   // const hideSideBar = useBelow(1100);
   const useInlineImage = useBelow(700);
   if (data.collection == null) throw new Error('404');
@@ -252,7 +257,9 @@ export function CollectionKey({
         </ArticleTextContainer>
       </PageContainer>
 
-      <Outlet />
+      <CollectionKeyContext.Provider value={{key: data?.collection?.key, collectionMetrics}}>
+        <Outlet />
+      </CollectionKeyContext.Provider>
     </article>
   );
 }
