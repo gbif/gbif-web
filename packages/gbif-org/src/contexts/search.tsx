@@ -8,6 +8,8 @@ export type SearchMetadata = {
   queryType?: QueryTypeEnum;
   availableTableColumns?: string[]; // Default all columns are available
   defaultEnabledTableColumns?: string[]; // TODO: What should the default value be?
+  tabs?: string[];
+  defaultTab?: string;
 };
 
 const SearchMetadataContext = React.createContext<SearchMetadata | null>(null);

@@ -17,6 +17,8 @@ export type LanguageOption = {
   reactIntlLocale?: string; // this is the locale code used by react-intl
 };
 
+type PartialSearchMetadata = Pick<SearchMetadata, 'availableTableColumns' | 'defaultEnabledTableColumns' | 'tabs' | 'defaultTab'>;
+
 // TODO: The config object should probably be refactored in the future with logical nesting
 export type Config = Endpoints & {
   defaultTitle?: string;
@@ -35,10 +37,23 @@ export type Config = Endpoints & {
   taiwanNodeidentifier: string;
   linkToGbifOrg?: boolean;
   datasetSearch?: SearchMetadata;
+  datasetKey: {
+    literatureSearch: PartialSearchMetadata;
+    occurrenceSearch: PartialSearchMetadata;
+  }
   collectionSearch?: SearchMetadata;
+  collectionKey: {
+    occurrenceSearch: PartialSearchMetadata;
+  }
   institutionSearch?: SearchMetadata;
+  institutionKey: {
+    occurrenceSearch: PartialSearchMetadata;
+  }
   occurrenceSearch?: SearchMetadata;
   publisherSearch?: SearchMetadata;
+  publisherKey: {
+    literatureSearch: PartialSearchMetadata;
+  }
   literatureSearch?: SearchMetadata;
   extraOccurrenceSearchPages?: Array<{
     path: string;

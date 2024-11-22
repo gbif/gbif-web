@@ -13,17 +13,22 @@ export default function Specimen() {
   const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
   const baseConfig = useConfig();
   const [config, setConfig] = useState<SearchMetadata | undefined>();
-  const { key, collectionMetrics } = useContext(CollectionKeyContext);
+  const { key, contentMetrics } = useContext(CollectionKeyContext);
+  const occurrenceSearchConfig = baseConfig?.collectionKey?.occurrenceSearch;
 
   useEffect(() => {
-    const occurrenceSearchTabs = [];
-    if (collectionMetrics?.withCoordinates?.documents?.total > 0) occurrenceSearchTabs.push('map');
-    if (collectionMetrics?.withImages?.documents?.total > 0) occurrenceSearchTabs.push('media');
-    if (collectionMetrics?.withClusters?.documents?.total > 0)
-      occurrenceSearchTabs.push('clusters');
+    let activeTabs = occurrenceSearchConfig?.tabs ?? ['table', 'map', 'media', 'clusters', 'dataset', 'download'];
+    if (contentMetrics?.withCoordinates?.documents?.total === 0) activeTabs = removeStringFromArray(activeTabs, 'map');
+    if (contentMetrics?.withImages?.documents?.total === 0) activeTabs = removeStringFromArray(activeTabs, 'media');
+    if (contentMetrics?.withClusters?.documents?.total === 0)
+    
+    // if there is no table, then add it as the first tab
+    if (!activeTabs.includes('table')) activeTabs.unshift('table');
 
     const c = {
       ...baseConfig.occurrenceSearch,
+      ...occurrenceSearchConfig,
+      tabs: activeTabs,
       scope: {
         type: 'equals',
         key: 'collectionKey',
@@ -31,7 +36,7 @@ export default function Specimen() {
       },
     };
     setConfig(c);
-  }, [baseConfig, collectionMetrics, key]);
+  }, [baseConfig, contentMetrics, key, occurrenceSearchConfig]);
 
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-0">
@@ -46,4 +51,10 @@ export default function Specimen() {
       </ArticleTextContainer>
     </ArticleContainer>
   );
+}
+
+
+//function to remove a specific string from an array
+function removeStringFromArray(array: string[], string: string): string[] {
+  return array.filter((item) => item !== string);
 }

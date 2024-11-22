@@ -154,6 +154,14 @@ export const gbifConfig: Config = {
     queryType: 'V1',
     highlightedFilters: ['q', 'institutionKey'],
   },
+  collectionKey: {
+    occurrenceSearch: {
+      // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
+      // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
+      tabs: ['table', 'map', 'media', 'clusters', 'download'],
+      defaultTab: 'table'
+    }
+  },
   literatureSearch: {
     queryType: 'PREDICATE',
     highlightedFilters: ['q', 'year'],
@@ -161,6 +169,7 @@ export const gbifConfig: Config = {
   occurrenceSearch: {
     queryType: 'PREDICATE',
     highlightedFilters: ['q', 'institutionKey'],
+    tabs: ['table', 'map', 'media', 'clusters', 'datasets', 'download'],
     // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
     // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
     // scope: {
