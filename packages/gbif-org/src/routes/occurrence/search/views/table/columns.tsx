@@ -42,10 +42,7 @@ export function useOccurrenceColumns({
                     e.preventDefault();
                   }}
                 >
-                  <SimpleTooltip
-                    title={<FormattedMessage id="filterSupport.viewDetails" />}
-                    side="right"
-                  >
+                  <SimpleTooltip i18nKey="filterSupport.viewDetails" side="right">
                     <div className="g-flex g-items-center">
                       <GoSidebarExpand size={16} />
                     </div>
@@ -65,14 +62,7 @@ export function useOccurrenceColumns({
                   />
                 </SetAsFilter>
                 {occurrence.hasTaxonIssues && (
-                  <SimpleTooltip
-                    side="right"
-                    title={
-                      <span>
-                        <FormattedMessage id="filterSupport.nameWithTaxonMatchIssue" />
-                      </span>
-                    }
-                  >
+                  <SimpleTooltip side="right" i18nKey="filterSupport.nameWithTaxonMatchIssue">
                     <div style={{ color: '#fea600' }} className="g-cursor-default" data-loader>
                       {occurrence.gbifClassification?.verbatimScientificName}
                     </div>

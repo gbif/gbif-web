@@ -65,7 +65,7 @@ export function IconFeatures({
     <div className="g-flex g-flex-wrap g-items-center g--m-1">
       {children && <div className="m-1">{children}</div>}
       {eventDate && (
-        <SimpleTooltip title="occurrenceDetails.features.eventDate">
+        <SimpleTooltip i18nKey="occurrenceDetails.features.eventDate">
           <div className="g-inline-flex g-items-start g-m-1">
             <MdEvent className="g-flex-none g-h-[1.2em]" />
             <span className="g-ml-3">
@@ -75,7 +75,7 @@ export function IconFeatures({
         </SimpleTooltip>
       )}
       {formattedCoordinates && (
-        <SimpleTooltip title="occurrenceDetails.features.hasCoordinates">
+        <SimpleTooltip i18nKey="occurrenceDetails.features.hasCoordinates">
           <div className="g-inline-flex g-items-start g-m-1">
             <MdLocationOn className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && <span className="g-ml-3">{formattedCoordinates}</span>}
@@ -83,7 +83,7 @@ export function IconFeatures({
         </SimpleTooltip>
       )}
       {countryCode && (
-        <SimpleTooltip title="occurrenceDetails.features.hasCountry">
+        <SimpleTooltip i18nKey="occurrenceDetails.features.hasCountry">
           <div className="g-inline-flex g-items-start g-m-1">
             <FaGlobeAfrica className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
@@ -98,7 +98,7 @@ export function IconFeatures({
         </SimpleTooltip>
       )}
       {isSpecimen && (
-        <SimpleTooltip title="occurrenceDetails.features.isSpecimen">
+        <SimpleTooltip i18nKey="occurrenceDetails.features.isSpecimen">
           <div className="g-inline-flex g-items-start g-m-1">
             <MdLabel className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
@@ -110,7 +110,7 @@ export function IconFeatures({
         </SimpleTooltip>
       )}
       {isPositiveNumber(stillImageCount) && (
-        <SimpleTooltip title="occurrenceDetails.features.hasImages">
+        <SimpleTooltip i18nKey="occurrenceDetails.features.hasImages">
           <div className="g-inline-flex g-items-start g-m-1">
             {stillImageCount > 1 ? (
               <MdPhotoLibrary className="g-flex-none g-h-[1.2em]" />
@@ -126,7 +126,7 @@ export function IconFeatures({
         </SimpleTooltip>
       )}
       {isPositiveNumber(movingImageCount) && (
-        <SimpleTooltip title="occurrenceDetails.features.hasVideo">
+        <SimpleTooltip i18nKey="occurrenceDetails.features.hasVideo">
           <div className="g-inline-flex g-items-start g-m-1">
             <MdVideocam className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
@@ -138,7 +138,7 @@ export function IconFeatures({
         </SimpleTooltip>
       )}
       {isPositiveNumber(soundCount) && (
-        <SimpleTooltip title="occurrenceDetails.features.hasSound">
+        <SimpleTooltip i18nKey="occurrenceDetails.features.hasSound">
           <div className="g-inline-flex g-items-start g-m-1">
             <AiFillAudio className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
@@ -150,7 +150,7 @@ export function IconFeatures({
         </SimpleTooltip>
       )}
       {isSequenced && (
-        <SimpleTooltip title="occurrenceDetails.features.isSequenced">
+        <SimpleTooltip i18nKey="occurrenceDetails.features.isSequenced">
           <div className="g-inline-flex g-items-start g-m-1">
             <GiDna1 className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
@@ -162,7 +162,7 @@ export function IconFeatures({
         </SimpleTooltip>
       )}
       {isTreament && (
-        <SimpleTooltip title="occurrenceDetails.features.isTreament">
+        <SimpleTooltip i18nKey="occurrenceDetails.features.isTreament">
           <div className="g-inline-flex g-items-start g-m-1">
             <MdInsertDriveFile className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
@@ -174,7 +174,7 @@ export function IconFeatures({
         </SimpleTooltip>
       )}
       {typeStatus && typeStatus !== TypeStatus.Notatype && (
-        <SimpleTooltip title="occurrenceDetails.features.isType">
+        <SimpleTooltip i18nKey="occurrenceDetails.features.isType">
           <div className="g-inline-flex g-items-start g-m-1">
             <MdStar className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
@@ -186,7 +186,7 @@ export function IconFeatures({
         </SimpleTooltip>
       )}
       {isSamplingEvent && (
-        <SimpleTooltip title="occurrenceDetails.features.isSamplingEvent">
+        <SimpleTooltip i18nKey="occurrenceDetails.features.isSamplingEvent">
           <div className="g-inline-flex g-items-start g-m-1">
             <MdGridOn className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
@@ -198,7 +198,7 @@ export function IconFeatures({
         </SimpleTooltip>
       )}
       {isClustered && (
-        <SimpleTooltip title="occurrenceDetails.features.isClustered">
+        <SimpleTooltip i18nKey="occurrenceDetails.features.isClustered">
           <div className="g-inline-flex g-items-start g-m-1">
             <ClusterIcon className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (
@@ -210,7 +210,7 @@ export function IconFeatures({
         </SimpleTooltip>
       )}
       {isPositiveNumber(issueCount) && (
-        <SimpleTooltip title="occurrenceDetails.features.hasIssues">
+        <SimpleTooltip i18nKey="occurrenceDetails.features.hasIssues">
           <div className="g-inline-flex g-items-start g-m-1">
             <BsLightningFill className="g-flex-none g-h-[1.2em]" style={{ color: 'orange' }} />
             {!iconsOnly && (

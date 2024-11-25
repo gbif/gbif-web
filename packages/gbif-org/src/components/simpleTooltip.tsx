@@ -1,9 +1,10 @@
 import { FormattedMessage } from 'react-intl';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
+import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 import { TooltipContentProps } from '@radix-ui/react-tooltip';
 
 type Props = {
-  title: React.ReactNode;
+  title?: React.ReactNode;
+  i18nKey?: string;
   delayDuration?: number;
   children: React.ReactNode;
   disableHoverableContent?: boolean;
@@ -16,6 +17,7 @@ export function SimpleTooltip({
   children,
   side,
   disableHoverableContent,
+  i18nKey,
 }: Props) {
   return (
     <Tooltip delayDuration={delayDuration} disableHoverableContent={disableHoverableContent}>
@@ -23,7 +25,7 @@ export function SimpleTooltip({
         {children}
       </TooltipTrigger>
       <TooltipContent className="g-max-w-96 g-pointer-events-none g-z-30" side={side}>
-        {typeof title !== 'string' ? title : <FormattedMessage id={title} />}
+        {i18nKey ? <FormattedMessage id={i18nKey} /> : title}
       </TooltipContent>
     </Tooltip>
   );

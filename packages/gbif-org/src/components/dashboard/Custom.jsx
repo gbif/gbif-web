@@ -257,7 +257,7 @@ export function Iucn(props) {
 
 function IucnCategory({ code, category }) {
   return (
-    <SimpleTooltip title={<FormattedMessage id={`enums.threatStatus.${category}`} />}>
+    <SimpleTooltip i18nKey={`enums.threatStatus.${category}`}>
       <span className="g-bg-[#7a443a] g-text-white g-px-1 g-py-0.5 g-text-xs g-font-bold g-rounded-md g-mr-2">
         {code}
       </span>

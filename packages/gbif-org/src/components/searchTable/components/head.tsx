@@ -54,11 +54,7 @@ export function Head<TData>({ header, table, resetColumnVisibility }: Props<TDat
 
         {header.column.getIsFirstColumn() && !hideLock && (
           <SimpleTooltip
-            title={
-              <FormattedMessage
-                id={locked ? 'search.table.unlockColumn ' : 'search.table.lockColumn'}
-              />
-            }
+            i18nKey={locked ? 'search.table.unlockColumn ' : 'search.table.lockColumn'}
           >
             <button onClick={() => setLocked((v) => !v)}>
               {locked ? <MdLock /> : <MdLockOpen />}
@@ -76,7 +72,7 @@ function ColumnVisibilityPopover<TData>({
 }: Pick<Props<TData>, 'table' | 'resetColumnVisibility'>) {
   return (
     <Popover>
-      <SimpleTooltip title="search.table.columnVisibility">
+      <SimpleTooltip i18nKey="search.table.columnVisibility">
         <PopoverTrigger className="g-pr-3 g-pl-1 hover:g-text-primary-500">
           {/* This 16px width match the drawer icon in the left most cell */}
           <div className="g-w-[16px]">

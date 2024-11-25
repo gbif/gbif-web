@@ -342,9 +342,7 @@ export function DatasetKeyAbout() {
                     <span className="g-me-2">
                       <FormattedMessage id="dataset.metrics" />
                     </span>
-                    <SimpleTooltip
-                      title={<FormattedMessage id="dataset.metricsOccurrenceHelpText" />}
-                    >
+                    <SimpleTooltip i18nKey="dataset.metricsOccurrenceHelpText">
                       <span>
                         <MdInfoOutline style={{ verticalAlign: 'middle' }} />
                       </span>

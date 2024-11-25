@@ -315,7 +315,7 @@ function DashboardBuilder({
             className="g-flex-auto g-sticky g-top-0 g-flex g-flex-col"
             style={{ marginInlineStart: `${grid * 2}px` }}
           >
-            <SimpleTooltip title={<FormattedMessage id="phrases.share" />}>
+            <SimpleTooltip i18nKey="phrases.share">
               <Button
                 style={{ marginBottom: 8 }}
                 onClick={() => {
@@ -335,7 +335,7 @@ function DashboardBuilder({
               </Button>
             </SimpleTooltip>
             {maxGroups > state.length && (
-              <SimpleTooltip title={<FormattedMessage id="dashboard.newGroup" />}>
+              <SimpleTooltip i18nKey="dashboard.newGroup">
                 <Button onClick={addNewGroup}>
                   <MdAddChart />
                 </Button>
