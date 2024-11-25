@@ -128,4 +128,5 @@ export const becomeAPublisherRoute: RouteObjectWithPlugins = {
   element: <BecomeAPublisherPage />,
   loader: becomeAPublisherPageLoader,
   loadingElement: <ArticleSkeleton />,
+  path: 'become-a-publisher',
 };
