@@ -11,6 +11,7 @@ import { useI18n } from '@/reactRouterPlugins';
 import { interopDefault } from '@/utils/interopDefault';
 import _useLocalStorage from 'use-local-storage';
 import { LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 // Used to import commonjs module as es6 module
 const useLocalStorage = interopDefault(_useLocalStorage);
 
@@ -89,7 +90,7 @@ function HomePage(): React.ReactElement {
   if (!home) return <div>Loading</div>;
 
   return (
-    <>
+    <ErrorBoundary>
       <Helmet>
         <title>Home</title>
       </Helmet>
@@ -150,7 +151,7 @@ function HomePage(): React.ReactElement {
           <BlockItem resource={block} key={idx} />
         ))}
       </main>
-    </>
+    </ErrorBoundary>
   );
 }
 
