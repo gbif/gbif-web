@@ -1,15 +1,18 @@
 import React from 'react';
-import { Feature, Map as OpenLayersMap, View } from 'ol';
-import { OSM, Vector as VectorSource } from 'ol/source';
-import { Point } from 'ol/geom';
-import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
-import { useGeographic } from 'ol/proj';
+import { Map as OpenLayersMap } from 'ol';
+import { applyBackground, stylefunction } from 'ol-mapbox-style';
+import { defaults as olControlDefaults } from 'ol/control';
+import * as olInteraction from 'ol/interaction';
 import { useOnMountUnsafe } from '@/hooks/useOnMountUnsafe';
 import { cn } from '@/utils/shadcn';
+import { projections } from '@/routes/occurrence/search/views/map/Map/openlayers/projections';
+import { getMapStyles } from '@/routes/occurrence/search/views/map/Map/standardMapStyles';
 
-// This is not a React hook.
-// eslint-disable-next-line
-useGeographic();
+const mapStyles = getMapStyles({language: 'en'});
+const basemapStyle = mapStyles.NATURAL_PLATE_CAREE.mapConfig.basemapStyle;
+
+const currentProjection = projections.EPSG_4326;
+const interactions = olInteraction.defaults({ altShiftDragRotate: false, pinchRotate: false, mouseWheelZoom: true });
 
 type Props = {
   coordinates: {
@@ -24,28 +27,55 @@ export default function Map({ coordinates, className }: Props) {
 
   useOnMountUnsafe(() => {
     const place = [coordinates.lon, coordinates.lat];
+    const lat = 0;
+    const lon = 0;
+    const zoom = 0;
 
-    new OpenLayersMap({
-      layers: [
-        new TileLayer({
-          source: new OSM(),
-        }),
-        new VectorLayer({
-          source: new VectorSource({
-            features: [new Feature(new Point(place))],
-          }),
-          style: {
-            'circle-radius': 9,
-            'circle-fill-color': 'green',
-          },
-        }),
-      ],
+    const baseLayer = currentProjection.getBaseLayer();
+    // const resolutions = baseLayer?.getSource()?.getTileGrid()?.getResolutions();
+    // applyBackground(baseLayer, layerStyle, 'openmaptiles');
+    // applyStyle(baseLayer, layerStyle, 'openmaptiles', undefined, resolutions);
+    
+    const mapConfig = {
+      layers: [baseLayer],
       target: mapRef.current ?? undefined,
-      view: new View({
-        center: place,
-        zoom: 4,
-      }),
+      view: currentProjection.getView(lat, lon, zoom),
+      controls: olControlDefaults({ zoom: false, attribution: true }),
+      interactions,
+    };
+
+    const map = new OpenLayersMap(mapConfig);
+    // apply(map, mapStyles.NATURAL_PLATE_CAREE.mapConfig.basemapStyle);
+    const stylePromise = fetch(basemapStyle).then(response => response.json());
+    stylePromise.then(styleResponse => {
+      const baseLayer = currentProjection.getBaseLayer();
+      const resolutions = baseLayer?.getSource()?.getTileGrid()?.getResolutions();
+      applyBackground(baseLayer, styleResponse, 'openmaptiles');
+      stylefunction(baseLayer, styleResponse, 'openmaptiles', resolutions);
+      map.addLayer(baseLayer);
     });
+    
+    // map.addLayer(baseLayer);
+
+    // new OpenLayersMap({
+    //   layers: [
+    //     baseLayer,
+    //     // new VectorLayer({
+    //     //   source: new VectorSource({
+    //     //     features: [new Feature(new Point(place))],
+    //     //   }),
+    //     //   style: {
+    //     //     'circle-radius': 9,
+    //     //     'circle-fill-color': 'green',
+    //     //   },
+    //     // }),
+    //   ],
+    //   target: mapRef.current ?? undefined,
+    //   view: new View({
+    //     // center: place,
+    //     zoom: 4,
+    //   }),
+    // });
   });
 
   return <div className={cn('g-w-full g-h-96', className)} ref={mapRef}></div>;
