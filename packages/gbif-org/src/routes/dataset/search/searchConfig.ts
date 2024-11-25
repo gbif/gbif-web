@@ -1,6 +1,6 @@
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 
-export const searchConfig: FilterConfigType = {
+const config: FilterConfigType = {
   fields: {
     q: {
       singleValue: true
@@ -13,3 +13,11 @@ export const searchConfig: FilterConfigType = {
     }
   }
 }
+const otherParams = ['license', 'publishingCountry', 'projectId', 'hostingOrg', 'publishingOrg'];
+
+otherParams.forEach(filter => {
+  config.fields = config.fields ?? {};
+  config.fields[filter] = config.fields[filter] || {};
+});
+
+export const searchConfig = config;

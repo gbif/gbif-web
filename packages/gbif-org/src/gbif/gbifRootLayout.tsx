@@ -5,6 +5,7 @@ import { HeaderQuery, HeaderQueryVariables } from '@/gql/graphql';
 import { NoscriptNotification } from '@/components/noscriptNotification';
 import { Header } from './header';
 import { LoaderArgs } from '@/reactRouterPlugins';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 const HEADER_QUERY = /* GraphQL */ `
   query Header {
@@ -51,13 +52,15 @@ export function GbifRootLayout({ children }: Props) {
         <NoscriptNotification />
         <ScrollRestoration />
         <Toaster />
-        {children}
+        <ErrorBoundary>
+          {children}
+        </ErrorBoundary>
         {/* Visualization of the table of contents IntersectionObserver area
         <div className="g-fixed g-pointer-events-none g-top-0 g-left-0 g-w-screen g-h-screen">
           <div className="g-mt-[200px] g-mb-[60%] g-bg-red-300 g-h-[calc(100vh-60%-200px)] g-opacity-10"></div>
         </div> */}
       </main>
-      <footer className="g-flex-none g-h-96 g-bg-gray-100 g-p-4 g-text-center">
+      <footer className="g-flex-none g-h-96 g-bg-gray-100 g-p-4 g-text-center g-border-t">
         <div className="g-text-sm">Footer</div>
       </footer>
     </div>

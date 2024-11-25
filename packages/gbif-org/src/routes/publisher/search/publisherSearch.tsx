@@ -3,10 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import country from '@/enums/basic/country.json';
 import hash from 'object-hash';
 import useQuery from '@/hooks/useQuery';
-import { MdApps, MdCode, MdInfo } from 'react-icons/md';
 import { Tabs } from '@/components/tabs';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { cn } from '@/utils/shadcn';
 import {
   Accordion,
   AccordionContent,

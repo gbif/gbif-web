@@ -28,7 +28,6 @@ import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicat
 import { useCallback, useEffect, useState } from 'react';
 import { SuggestFnProps } from '@/components/filters/suggest';
 
-
 const publisherConfig: filterConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'publishingOrganizationKey',
@@ -69,7 +68,7 @@ const datasetConfig: filterConfig = {
     return fetch(`${siteConfig.v1Endpoint}/dataset/suggest?limit=20&q=${q}`)
       .then((res) => res.json())
       .then((data) => {
-        return data.map((item) => ({title: item.title, key: item.key}));
+        return data.map((item) => ({ title: item.title, key: item.key }));
       });
   },
   facetQuery: `
@@ -95,7 +94,7 @@ const literatureTypeConfig: filterConfig = {
   displayName: LiteratureTypeLabel,
   options: literatureTypeOptions,
   filterTranslation: 'filters.literatureType.name',
-  facetQuery: /* GraphQL */ `
+  facetQuery: `
     query LiteratureTypeFacet($predicate: Predicate) {
       search: literatureSearch(predicate: $predicate) {
         facet {
@@ -116,7 +115,7 @@ const literatureRelevanceConfig: filterConfig = {
   options: relevanceOptions,
   filterTranslation: 'filters.relevance.name',
   facetQuery: /* GraphQL */ `
-    query LiteratureTypeFacet($predicate: Predicate) {
+    query LiteratureRelevanceFacet($predicate: Predicate) {
       search: literatureSearch(predicate: $predicate) {
         facet {
           field: relevance(size: 100) {
@@ -136,7 +135,7 @@ const topicsConfig: filterConfig = {
   options: topicsOptions,
   filterTranslation: 'filters.topics.name',
   facetQuery: /* GraphQL */ `
-    query LiteratureTypeFacet($predicate: Predicate) {
+    query LiteratureTopicsFacet($predicate: Predicate) {
       search: literatureSearch(predicate: $predicate) {
         facet {
           field: topics(size: 100) {
@@ -155,7 +154,7 @@ const countriesOfCoverageConfig: filterConfig = {
   displayName: CountryLabel,
   filterTranslation: 'filters.countriesOfCoverage.name',
   facetQuery: /* GraphQL */ `
-    query LiteratureResearcherCountryFacet($predicate: Predicate) {
+    query LiteratureCoverageCountryFacet($predicate: Predicate) {
       search: literatureSearch(predicate: $predicate) {
         facet {
           field: countriesOfCoverage {
@@ -173,7 +172,7 @@ const countriesOfResearcherConfig: filterConfig = {
   filterHandle: 'countriesOfResearcher',
   displayName: CountryLabel,
   filterTranslation: 'filters.countriesOfResearcher.name',
-  facetQuery: /* GraphQL */ `
+  facetQuery: `
     query LiteratureResearcherCountryFacet($predicate: Predicate) {
       search: literatureSearch(predicate: $predicate) {
         facet {
@@ -249,11 +248,23 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
   useEffect(() => {
     const nextFilters = {
       year: generateFilters({ config: yearConfig, searchConfig, formatMessage }),
-      literatureType: generateFilters({ config: literatureTypeConfig, searchConfig, formatMessage }),
-      relevance: generateFilters({ config: literatureRelevanceConfig, searchConfig, formatMessage }),
+      literatureType: generateFilters({
+        config: literatureTypeConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      relevance: generateFilters({
+        config: literatureRelevanceConfig,
+        searchConfig,
+        formatMessage,
+      }),
       topics: generateFilters({ config: topicsConfig, searchConfig, formatMessage }),
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
-      publishingOrganizationKey: generateFilters({ config: publisherConfig, searchConfig, formatMessage }),
+      publishingOrganizationKey: generateFilters({
+        config: publisherConfig,
+        searchConfig,
+        formatMessage,
+      }),
       gbifDatasetKey: generateFilters({ config: datasetConfig, searchConfig, formatMessage }),
       countriesOfResearcher: generateFilters({
         config: { ...countriesOfResearcherConfig, suggest: countrySuggest },

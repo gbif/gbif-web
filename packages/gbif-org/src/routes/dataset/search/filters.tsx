@@ -11,7 +11,7 @@ import {
   FilterSetting,
   generateFilters,
 } from '@/components/filters/filterTools';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { matchSorter } from 'match-sorter';
 import hash from 'object-hash';
 import country from '@/enums/basic/country.json';
@@ -35,7 +35,7 @@ const publisherConfig: filterConfig = {
         return data;
       });
   },
-  facetQuery: /* GraphQL */ `
+  facetQuery: `
     query DatasetPublisherFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
         facet {
@@ -73,7 +73,7 @@ const hostingOrgConfig: filterConfig = {
       });
   },
   facetQuery: /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
+    query DatasetHostingFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
         facet {
           field: hostingOrg {
@@ -87,7 +87,7 @@ const hostingOrgConfig: filterConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
 const projectIdConfig: filterConfig = {
@@ -99,7 +99,7 @@ const projectIdConfig: filterConfig = {
   // },
   filterTranslation: 'filters.projectId.name',
   facetQuery: /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
+    query DatasetProjectFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
         facet {
           field: projectId {
@@ -110,7 +110,7 @@ const projectIdConfig: filterConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
 const publishingCountryConfig: filterConfig = {
@@ -119,7 +119,7 @@ const publishingCountryConfig: filterConfig = {
   displayName: CountryLabel,
   filterTranslation: 'filters.publishingCountryCode.name',
   facetQuery: /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
+    query DatasetPublishingCountryFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
         facet {
           field: publishingCountry {
@@ -130,7 +130,7 @@ const publishingCountryConfig: filterConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
 const licenceConfig: filterConfig = {
@@ -140,7 +140,7 @@ const licenceConfig: filterConfig = {
   options: licenseOptions,
   filterTranslation: 'filters.license.name',
   facetQuery: /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
+    query DatasetLicenceFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
         facet {
           field: license {
@@ -151,7 +151,7 @@ const licenceConfig: filterConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
 const datasetTypeConfig: filterConfig = {
@@ -161,7 +161,7 @@ const datasetTypeConfig: filterConfig = {
   options: datasetTypeOptions,
   filterTranslation: 'filters.datasetType.name',
   facetQuery: /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
+    query DatasetTypeFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
         facet {
           field: type {
@@ -172,7 +172,7 @@ const datasetTypeConfig: filterConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
 const freeTextConfig: filterConfig = {

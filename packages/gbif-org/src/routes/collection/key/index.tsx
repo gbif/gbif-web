@@ -16,6 +16,10 @@ export const collectionKeyRoute: RouteObjectWithPlugins = {
     return `/collection/${params.key}`;
   },
   loader: collectionLoader,
+  shouldRevalidate({ currentUrl, nextUrl, defaultShouldRevalidate }) {
+    if (currentUrl.pathname === nextUrl.pathname) return false;
+    return defaultShouldRevalidate;
+  },
   element: <CollectionKey />,
   children: [
     {

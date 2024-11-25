@@ -15,7 +15,7 @@ import { matchSorter } from 'match-sorter';
 import hash from 'object-hash';
 import country from '@/enums/basic/country.json';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { SuggestFnProps, SuggestResponseType } from '@/components/filters/suggest';
 import { HelpText } from '@/components/helpText';
 
@@ -34,7 +34,7 @@ const institutionKeyConfig: filterConfig = {
         }));
       });
   },
-  facetQuery: /* GraphQL */ `
+  facetQuery: `
     query OccurrenceInstitutionFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
@@ -46,7 +46,7 @@ const institutionKeyConfig: filterConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
 const countryConfig: filterConfig = {
@@ -55,7 +55,7 @@ const countryConfig: filterConfig = {
   displayName: CountryLabel,
   filterTranslation: 'filters.country.name',
   // suggest will be provided by the useFilters hook
-  facetQuery: /* GraphQL */ `
+  facetQuery: `
     query OccurrenceCountryFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
@@ -67,7 +67,7 @@ const countryConfig: filterConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
 const taxonKeyConfig: filterConfig = {
@@ -75,7 +75,7 @@ const taxonKeyConfig: filterConfig = {
   filterHandle: 'taxonKey',
   displayName: TaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
-  suggest: ({ q, siteConfig }: SuggestFnProps):SuggestResponseType => {
+  suggest: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {
     return fetch(`${siteConfig.v1Endpoint}/species/suggest?limit=20&q=${q}`)
       .then((res) => res.json())
       .then((data) => {
@@ -85,7 +85,7 @@ const taxonKeyConfig: filterConfig = {
         }));
       });
   },
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
 const freeTextConfig: filterConfig = {
@@ -95,12 +95,13 @@ const freeTextConfig: filterConfig = {
   filterTranslation: 'filters.q.name',
 };
 
+type Filters = Record<string, FilterSetting>;
+
 export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }): {
-  filters: Record<string, FilterSetting>;
+  filters: Filters;
 } {
   const { formatMessage } = useIntl();
   const [countries, setCountries] = useState<{ key: string; title: string }[]>([]);
-  const [filters, setFilters] = useState<Record<string, FilterSetting>>({});
 
   // first translate relevant enums
   useEffect(() => {
@@ -122,8 +123,8 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
     [countries]
   );
 
-  useEffect(() => {
-    const nextFilters = {
+  const filters: Filters = useMemo(
+    () => ({
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
       // code: generateFilters({ config: publisherConfig, searchConfig, formatMessage }),
       country: generateFilters({
@@ -141,9 +142,9 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         searchConfig,
         formatMessage,
       }),
-    };
-    setFilters(nextFilters);
-  }, [searchConfig, countrySuggest, formatMessage]);
+    }),
+    [searchConfig, countrySuggest, formatMessage]
+  );
 
   return {
     filters,

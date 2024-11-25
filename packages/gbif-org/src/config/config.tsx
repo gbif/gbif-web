@@ -17,6 +17,9 @@ export type LanguageOption = {
   reactIntlLocale?: string; // this is the locale code used by react-intl
 };
 
+type PartialSearchMetadata = Pick<SearchMetadata, 'availableTableColumns' | 'defaultEnabledTableColumns' | 'tabs' | 'defaultTab'>;
+
+// TODO: The config object should probably be refactored in the future with logical nesting
 export type Config = Endpoints & {
   defaultTitle?: string;
   gbifEnv: GbifEnv;
@@ -34,16 +37,64 @@ export type Config = Endpoints & {
   taiwanNodeidentifier: string;
   linkToGbifOrg?: boolean;
   datasetSearch?: SearchMetadata;
+  datasetKey?: {
+    literatureSearch: PartialSearchMetadata;
+    occurrenceSearch: PartialSearchMetadata;
+  }
   collectionSearch?: SearchMetadata;
+  collectionKey?: {
+    occurrenceSearch: PartialSearchMetadata;
+  }
   institutionSearch?: SearchMetadata;
+  institutionKey?: {
+    occurrenceSearch: PartialSearchMetadata;
+  }
   occurrenceSearch?: SearchMetadata;
   publisherSearch?: SearchMetadata;
+  publisherKey?: {
+    literatureSearch: PartialSearchMetadata;
+  }
   literatureSearch?: SearchMetadata;
   extraOccurrenceSearchPages?: Array<{
     path: string;
     overwriteConfig: Partial<Config>;
   }>;
+  maps: {
+    locale?: string;
+    mapStyles: {
+      defaultProjection: 'MERCATOR' | 'PLATE_CAREE' | 'ARCTIC' | 'ANTARCTIC';
+      defaultMapStyle: MapStyleType;
+      options: {
+        ARCTIC: MapStyleType[];
+        PLATE_CAREE: MapStyleType[];
+        MERCATOR: MapStyleType[];
+        ANTARCTIC: MapStyleType[];
+      };
+    },
+    addMapStyles?: (args: {
+      mapStyleServer: string;
+      language: string;
+      pixelRatio: number;
+      apiKeys: string[];
+      mapComponents: {
+        OpenlayersMap: React.ComponentType;
+        MapboxMap: React.ComponentType;
+      };
+    }) => Record<string, {
+      component: React.ComponentType;
+      labelKey: string;
+      mapConfig: {
+        basemapStyle: string;
+        projection: Projection;
+      };
+    }>;
+    styleLookup?: Partial<Record<ProjectionName, Record<string, string>>>;
+  }
 };
+
+type Projection = 'EPSG_4326' | 'EPSG_3857' | 'EPSG_3031' | 'EPSG_3575';
+type ProjectionName = 'PLATE_CAREE' | 'MERCATOR' | 'ARCTIC' | 'ANTARCTIC';
+type MapStyleType = 'NATURAL' | 'BRIGHT' | 'DARK' | 'SATELLITE' | string;
 
 const ConfigContext = React.createContext<Config | null>(null);
 

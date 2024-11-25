@@ -1,4 +1,5 @@
 @import 'ol/ol.css';
+@import 'maplibre-gl/dist/maplibre-gl.css';
 
 @tailwind base;
 @tailwind components;
@@ -120,8 +121,16 @@
   @apply gb-button gb-button-size-default gb-button-variant-default;
 }
 
-.box-shadow-b {
+.g-box-shadow-b {
   box-shadow: inset 0 -1px 0 var(--border);
+}
+
+.g-box-shadow-r {
+  box-shadow: inset -1px 0 0 var(--border);
+}
+
+.g-box-shadow-br {
+  box-shadow: inset 0 -1px 0 var(--border), inset -1px 0 0 var(--border);
 }
 
 .gbif .dataProse {
@@ -669,7 +678,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   @apply gb-button gb-button-size-default gb-button-variant-default;
 }
 
-.box-shadow-b {
+.g-box-shadow-b {
   box-shadow: inset 0 -1px 0 var(--border);
 }
 
@@ -711,4 +720,21 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 
 .gbif-table-wrapper td {
   vertical-align: top;
+}
+
+.g-fill-evenodd {
+  fill-rule: evenodd;
+}
+.g-clip-evenodd {
+  clip-rule: evenodd;
+}
+.g-evenodd {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+}
+.g-linecap-round {
+  stroke-linecap: round;
+}
+.g-linejoin-round {
+  stroke-linejoin: round;
 }

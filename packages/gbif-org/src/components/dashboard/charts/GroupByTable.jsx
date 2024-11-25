@@ -52,7 +52,7 @@ export function GroupByTable({
         )}
         <tbody className="[&_td]:g-align-baseline [&_th]:g-text-sm [&_th]:g-font-normal">
           {results.map((e, i) => {
-            const perentageOfTotal = e.count / total;
+            const fractionOfTotal = e.count / total;
             return (
               <tr key={e.key}>
                 <td style={interactive ? { cursor: 'pointer' } : {}}>
@@ -74,7 +74,7 @@ export function GroupByTable({
                   <FormattedNumber value={e.count} />
                 </td>
                 <td className="g-w-20">
-                  <Tooltip title={`${formatAsPercentage(perentageOfTotal)}% of total`} side="left">
+                  <Tooltip title={<FormattedMessage id="counts.nPercentOfTotal" values={{percentage: formatAsPercentage(fractionOfTotal)}}/>}  side="left">
                     <div>
                       <Progress
                         value={(100 * e.count) / maxCount}
