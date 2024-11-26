@@ -35,7 +35,7 @@ export function useOccurrenceColumns({
             <div className="g-inline-flex g-items-center g-w-full">
               {typeof showPreview === 'function' && (
                 <button
-                  className="g-pr-3 g-pl-1 hover:g-text-primary-500 g-flex g-items-center"
+                  className="g-pr-3 g-pl-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
                   onClick={(e) => {
                     // Prevent the parent link from being triggered
                     if (occurrence.key) showPreview(`o_${occurrence.key.toString()}`);
@@ -56,6 +56,7 @@ export function useOccurrenceColumns({
                   value={row.original.taxonKey}
                 >
                   <span
+                    className="g-pointer-events-auto"
                     dangerouslySetInnerHTML={{
                       __html: row.original.gbifClassification?.usage?.formattedName as string,
                     }}
@@ -74,7 +75,6 @@ export function useOccurrenceColumns({
         },
         minSize: 250,
         meta: {
-          noCellPadding: true,
           filter: filters['taxonKey'],
         },
       },
@@ -337,7 +337,7 @@ export function useOccurrenceColumns({
                 value={preparation}
                 className="g-inline-block"
               >
-                <FormattedMessage id={`enums.preparations.${preparation}`} />
+                {preparation}
               </SetAsFilter>
             ))}
           </div>
@@ -467,7 +467,7 @@ export function useOccurrenceColumns({
                 value={higherGeography}
                 className="g-inline-block"
               >
-                <FormattedMessage id={`enums.higherGeography.${higherGeography}`} />
+                {higherGeography}
               </SetAsFilter>
             ))}
           </div>

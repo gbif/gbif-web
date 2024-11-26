@@ -68,21 +68,13 @@ const TableCell = React.forwardRef<
   <td
     ref={ref}
     className={cn(
-      {
-        'g-p-2': !to,
-      },
-      'g-border-r [&:has([role=checkbox])]:g-pr-0 [&>[role=checkbox]]:g-translate-y-[2px]',
+      'g-p-2 g-border-r [&:has([role=checkbox])]:g-pr-0 [&>[role=checkbox]]:g-translate-y-[2px] g-relative',
       className
     )}
     {...props}
   >
-    {!to ? (
-      children
-    ) : (
-      <DynamicLink className="g-p-2 g-flex g-h-full g-items-start" to={to}>
-        {children}
-      </DynamicLink>
-    )}
+    {to && <DynamicLink to={to} className="g-absolute g-top-0 g-left-0 g-w-full g-h-full" />}
+    <div className="g-flex g-items-start g-pointer-events-none g-relative">{children}</div>
   </td>
 ));
 TableCell.displayName = 'TableCell';

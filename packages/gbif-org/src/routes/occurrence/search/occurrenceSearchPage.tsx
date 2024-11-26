@@ -149,6 +149,7 @@ function OccurrenceViewTabs({
         {tabs.map((tab) => {
           return (
             <li
+              key={tab}
               role="button"
               className={cn(
                 'g-p-2 g-border-b-2 g-border-transparent',

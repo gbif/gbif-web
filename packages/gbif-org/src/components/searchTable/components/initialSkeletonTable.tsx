@@ -15,7 +15,7 @@ export function InitialSkeletonTable<TData>({ table }: Props<TData>) {
           <TableRow key={rowIdx} className="g-border-b">
             {table.getVisibleLeafColumns().map((_, colIdx) => (
               <TableCell key={`${rowIdx}-${colIdx}`} colSpan={1}>
-                <Skeleton className="g-h-6" />
+                <Skeleton className="g-h-6 g-w-full" />
               </TableCell>
             ))}
           </TableRow>
