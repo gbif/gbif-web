@@ -14,6 +14,7 @@ import { Head } from './components/head';
 import { InitialSkeletonTable } from './components/initialSkeletonTable';
 import { TableFooter } from './components/tableFooter';
 import { FirstColumLockProvider } from './firstColumLock';
+import { useIsElementHorizontallyScrolled } from '@/hooks/useIsElementHorizontallyScrolled';
 
 interface Props<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -75,6 +76,8 @@ export function SearchTable<TData, TValue>({
     }
   }, [data]);
 
+  const isHorizontallyScrolled = useIsElementHorizontallyScrolled(tableWrapperRef);
+
   return (
     <FirstColumLockProvider lockColumnLocalStoreKey={lockColumnLocalStoreKey}>
       <div
@@ -91,7 +94,12 @@ export function SearchTable<TData, TValue>({
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
-                    <Head key={header.id} table={table} header={header} />
+                    <Head
+                      key={header.id}
+                      table={table}
+                      header={header}
+                      isScrolled={isHorizontallyScrolled}
+                    />
                   ))}
                 </TableRow>
               ))}
@@ -108,7 +116,13 @@ export function SearchTable<TData, TValue>({
                     })}
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <Cell to={createRowLink?.(row)} key={cell.id} cell={cell} loading={loading} />
+                      <Cell
+                        to={createRowLink?.(row)}
+                        key={cell.id}
+                        cell={cell}
+                        loading={loading}
+                        isScrolled={isHorizontallyScrolled}
+                      />
                     ))}
                   </TableRow>
                 ))}

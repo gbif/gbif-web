@@ -13,9 +13,10 @@ import { FormattedMessage } from 'react-intl';
 type Props<TData> = {
   header: Header<TData, unknown>;
   table: Table<TData>;
+  isScrolled?: boolean;
 };
 
-export function Head<TData>({ header, table }: Props<TData>) {
+export function Head<TData>({ header, table, isScrolled = false }: Props<TData>) {
   const { locked, setLocked, hideLock } = useFirstColumLock();
   const filter = header.column.columnDef.meta?.filter;
 
@@ -23,10 +24,12 @@ export function Head<TData>({ header, table }: Props<TData>) {
     <TableHead
       key={header.id}
       className={cn(
-        'g-sticky g-top-0 g-bg-white g-z-10 g-text-nowrap',
+        'g-transition-colors g-sticky g-top-0 g-z-10 g-text-nowrap',
         locked && header.column.getIsFirstColumn()
           ? 'g-left-0 g-z-20 g-box-shadow-br g-border-r-0'
-          : 'g-box-shadow-b'
+          : 'g-box-shadow-b',
+        // Darken the background color when the table is scrolled and the column is locked
+        isScrolled && locked && !header.column.getIsFirstColumn() ? 'g-bg-gray-50' : 'g-bg-white'
       )}
       style={{
         minWidth: header.column.columnDef.minSize ?? 'unset',
