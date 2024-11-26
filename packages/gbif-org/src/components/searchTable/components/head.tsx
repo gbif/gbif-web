@@ -13,10 +13,9 @@ import { FormattedMessage } from 'react-intl';
 type Props<TData> = {
   header: Header<TData, unknown>;
   table: Table<TData>;
-  resetColumnVisibility: () => void;
 };
 
-export function Head<TData>({ header, table, resetColumnVisibility }: Props<TData>) {
+export function Head<TData>({ header, table }: Props<TData>) {
   const { locked, setLocked, hideLock } = useFirstColumLock();
   const filter = header.column.columnDef.meta?.filter;
 
@@ -35,11 +34,11 @@ export function Head<TData>({ header, table, resetColumnVisibility }: Props<TDat
     >
       <div className="g-inline-flex g-items-center g-justify-between g-w-full">
         <div className="g-inline-flex">
-          {header.column.getIsFirstColumn() && (
-            <ColumnVisibilityPopover table={table} resetColumnVisibility={resetColumnVisibility} />
-          )}
+          {header.column.getIsFirstColumn() && <ColumnVisibilityPopover table={table} />}
 
-          {!header.isPlaceholder && <HeaderTitle header={header} />}
+          {!header.isPlaceholder && (
+            <FormattedMessage id={headerIsString(header.column.columnDef.header)} />
+          )}
 
           {filter && (
             <filter.Popover
@@ -66,10 +65,7 @@ export function Head<TData>({ header, table, resetColumnVisibility }: Props<TDat
   );
 }
 
-function ColumnVisibilityPopover<TData>({
-  table,
-  resetColumnVisibility,
-}: Pick<Props<TData>, 'table' | 'resetColumnVisibility'>) {
+function ColumnVisibilityPopover<TData>({ table }: Pick<Props<TData>, 'table'>) {
   return (
     <Popover>
       <SimpleTooltip i18nKey="search.table.columnVisibility">
@@ -82,24 +78,24 @@ function ColumnVisibilityPopover<TData>({
       </SimpleTooltip>
       <PopoverContent className="g-p-3 g-flex g-flex-col g-gap-3 g-overflow-y-scroll g-max-h-96">
         {/* TODO: This only shows the headers that are visible, wich makes it useless */}
-        {table.getFlatHeaders().map((header) => (
-          <div key={header.id} className="g-flex g-items-center g-gap-2">
+        {table.getAllFlatColumns().map((column) => (
+          <div key={column.id} className="g-flex g-items-center g-gap-2">
             <Checkbox
-              checked={header.column.getIsVisible()}
-              disabled={!header.column.getCanHide()}
-              onCheckedChange={() => header.column.toggleVisibility()}
-              id={header.id}
+              checked={column.getIsVisible()}
+              disabled={!column.getCanHide()}
+              onCheckedChange={() => column.toggleVisibility()}
+              id={column.id}
             />
             <label
-              htmlFor={header.id}
+              htmlFor={column.id}
               className="g-cursor-pointer g-text-sm g-font-medium peer-disabled:g-cursor-not-allowed peer-disabled:g-opacity-70"
             >
-              <HeaderTitle header={header} />
+              <FormattedMessage id={headerIsString(column.columnDef.header)} />
             </label>
           </div>
         ))}
         <button
-          onClick={() => resetColumnVisibility()}
+          onClick={() => table.resetColumnVisibility()}
           className="g-text-primary-500 g-font-medium g-text-sm"
         >
           <FormattedMessage id="search.table.resetColumnVisibility" />
@@ -109,10 +105,12 @@ function ColumnVisibilityPopover<TData>({
   );
 }
 
-function HeaderTitle<TData>({ header }: Pick<Props<TData>, 'header'>) {
-  if (typeof header.column.columnDef.header === 'string') {
-    return <FormattedMessage id={header.column.columnDef.header} />;
-  }
+// The tanstack table api can't display all headers including the ones that are not visible,
+// therefore we have to get the header from the columnDef, which doesn't allow us to use the flexRender that can handle header functions
+// We don't use header functions, so we just don't support the flexRender and give an error if the header is not a string
+function headerIsString(header: unknown) {
+  if (typeof header === 'string') return header;
 
-  return flexRender(header.column.columnDef.header, header.getContext());
+  console.error('Header is not a string', header);
+  return 'Error';
 }

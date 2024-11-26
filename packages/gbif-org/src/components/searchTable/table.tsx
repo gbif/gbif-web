@@ -42,11 +42,9 @@ export function SearchTable<TData, TValue>({
   createRowLink,
   lockColumnLocalStoreKey = 'searchTableLockColumn',
 }: Props<TData, TValue>) {
-  const initialColumnVisibility = useRef(
+  const [columnVisibility, setColumnVisibility] = useState(
     createInitialColumnVisibilityState(availableTableColumns, defaultEnabledTableColumns)
   );
-
-  const [columnVisibility, setColumnVisibility] = useState(initialColumnVisibility.current);
 
   const table = useReactTable({
     data: data ?? [],
@@ -93,14 +91,7 @@ export function SearchTable<TData, TValue>({
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
-                    <Head
-                      key={header.id}
-                      table={table}
-                      header={header}
-                      resetColumnVisibility={() =>
-                        setColumnVisibility(initialColumnVisibility.current)
-                      }
-                    />
+                    <Head key={header.id} table={table} header={header} />
                   ))}
                 </TableRow>
               ))}
