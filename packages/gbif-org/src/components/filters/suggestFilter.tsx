@@ -27,6 +27,7 @@ import { FacetQuery, getAsQuery } from './filterTools';
 import { useSearchContext } from '@/contexts/search';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { AboutButton } from './aboutButton';
+import { SuggestConfig } from '@/utils/suggestEndpoints';
 
 type SuggestProps = {
   className?: string;
@@ -34,7 +35,7 @@ type SuggestProps = {
   filterHandle: string;
   DisplayName: React.FC<{ id: string }>;
   facetQuery?: string;
-  getSuggestions?: SuggestFnType;
+  suggestConfig?: SuggestConfig;
   onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
   onCancel?: () => void;
   pristine?: boolean;
@@ -50,7 +51,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       filterHandle,
       DisplayName,
       facetQuery,
-      getSuggestions, // function that takes a query string and returns a promise of suggestions
+      suggestConfig, // function that takes a query string and returns a promise of suggestions
       onApply,
       onCancel,
       pristine,
@@ -182,7 +183,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       <div className="g-flex g-flex-col">
         <div className="g-flex g-flex-none">
           <div className="g-p-2 g-w-full">
-            {getSuggestions && (
+            {suggestConfig && (
               <Suggest
                 ref={ref}
                 onSelect={(item) => add(filterHandle, item.key)}
@@ -191,13 +192,15 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                   className
                 )}
                 selected={selected}
-                getSuggestions={getSuggestions}
+                getSuggestions={suggestConfig.getSuggestions}
+                render={suggestConfig.render}
+                getStringValue={suggestConfig.getStringValue}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') onApply?.();
                 }}
               />
             )}
-            {!getSuggestions && (
+            {!suggestConfig && (
               <SearchInput
                 ref={ref}
                 value={q}

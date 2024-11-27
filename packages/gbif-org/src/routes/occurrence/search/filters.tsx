@@ -70,8 +70,8 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
   const countrySuggest = useCallback(
     ({ q }: SuggestFnProps) => {
       // instead of just using indexOf or similar. This has the benefit of reshuffling records based on the match, check for abrivations etc
-      const filtered = matchSorter(countries, q, { keys: ['title', 'key'] });
-      return Promise.resolve(filtered);
+      const filtered = matchSorter(countries, q ?? '', { keys: ['title', 'key'] });
+      return {promise: Promise.resolve(filtered), cancel: () => {}};
     },
     [countries]
   );
@@ -81,7 +81,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
       // code: generateFilters({ config: publisherConfig, searchConfig, formatMessage }),
       country: generateFilters({
-        config: { ...countryConfig, suggest: countrySuggest },
+        config: { ...countryConfig, suggestConfig: {getSuggestions: countrySuggest }},
         searchConfig,
         formatMessage,
       }),

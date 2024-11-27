@@ -14,9 +14,10 @@ import { FilterButton } from './filterButton';
 import { QFilter } from './QFilter';
 import { QInlineButtonFilter } from './QInlineButtonFilter';
 import { cn } from '@/utils/shadcn';
-import { SuggestFnType, SuggestionItem } from './suggest';
+import { SuggestionItem } from './suggest';
 import MoreFilters from './More';
 import { RangeFilter } from './rangeFilter';
+import { SuggestConfig } from '@/utils/suggestEndpoints';
 
 export const filterConfigTypes = {
   SUGGEST: 'SUGGEST',
@@ -43,7 +44,7 @@ export type filterConfig = {
   filterTranslation: string;
   content?: React.FC;
   options?: string[];
-  suggest?: SuggestFnType;
+  suggestConfig?: SuggestConfig;
   facetQuery?: string;
   filterButtonProps?: { hideSingleValues: boolean };
   regex?: RegExp;
@@ -127,7 +128,7 @@ const getSuggestFilter = ({
       return (
         <SuggestFilter
           ref={ref}
-          getSuggestions={config.suggest}
+          suggestConfig={config.suggestConfig}
           facetQuery={config.facetQuery}
           filterHandle={config.filterHandle}
           DisplayName={config.displayName}

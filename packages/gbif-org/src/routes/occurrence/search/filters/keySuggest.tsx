@@ -17,7 +17,7 @@ export const institutionKeyConfig: filterConfig = {
   filterHandle: 'institutionKey',
   displayName: InstitutionLabel,
   filterTranslation: 'filters.institutionKey.name',
-  suggest: institutionKeySuggest,
+  suggestConfig: institutionKeySuggest,
   facetQuery: `
     query OccurrenceInstitutionFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
@@ -38,7 +38,7 @@ export const taxonKeyConfig: filterConfig = {
   filterHandle: 'taxonKey',
   displayName: TaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
-  suggest: taxonKeySuggest,
+  suggestConfig: taxonKeySuggest,
   facetQuery: `
     query OccurrenceTaxonFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
@@ -62,7 +62,7 @@ export const collectionKeyConfig: filterConfig = {
   filterHandle: 'collectionKey',
   displayName: CollectionLabel,
   filterTranslation: 'filters.collectionKey.name',
-  suggest: collectionKeySuggest,
+  suggestConfig: collectionKeySuggest,
   facetQuery: `
     query OccurrenceInstitutionFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
@@ -83,7 +83,7 @@ export const datasetKeyConfig: filterConfig = {
   filterHandle: 'datasetKey',
   displayName: DatasetLabel,
   filterTranslation: 'filters.datasetKey.name',
-  suggest: datasetKeyOccurrenceSuggest,//datasetKeySuggest,
+  suggestConfig: datasetKeyOccurrenceSuggest,//datasetKeySuggest,
   facetQuery: `
     query OccurrenceDatasetFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
@@ -118,7 +118,7 @@ export const publisherKeyConfig: filterConfig = {
   filterHandle: 'publisherKey',
   displayName: PublisherLabel,
   filterTranslation: 'filters.publisherKey.name',
-  suggest: publisherKeyOccurrenceSuggest,//publisherKeySuggest,
+  suggestConfig: publisherKeyOccurrenceSuggest,//publisherKeySuggest,
   facetQuery: `
     query OccurrencePublisherFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
@@ -139,7 +139,7 @@ export const hostingOrganizationKeyConfig: filterConfig = {
   filterHandle: 'hostingOrganizationKey',
   displayName: PublisherLabel,
   filterTranslation: 'filters.hostingOrganizationKey.name',
-  suggest: publisherKeySuggest,
+  suggestConfig: publisherKeySuggest,
   facetQuery: `
     query OccurrencePublisherFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
@@ -160,7 +160,7 @@ export const networkKeyConfig: filterConfig = {
   filterHandle: 'networkKey',
   displayName: NetworkLabel,
   filterTranslation: 'filters.networkKey.name',
-  suggest: networkKeySuggest,
+  suggestConfig: networkKeySuggest,
   facetQuery: `
     query OccurrencePublisherFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
@@ -181,7 +181,7 @@ export const gadmGidConfig: filterConfig = {
   filterHandle: 'gadmGid',
   displayName: GadmGidLabel,
   filterTranslation: 'filters.gadmGid.name',
-  suggest: gadGidSuggest,
+  suggestConfig: gadGidSuggest,
   facetQuery: `
     query OccurrencePublisherFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {

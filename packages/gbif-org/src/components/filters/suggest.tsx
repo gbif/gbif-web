@@ -24,7 +24,7 @@ export type SuggestFnProps = {
 export type SuggestResponseType = {
   cancel: () => void;
   promise: Promise<SuggestionItem[]>;
-}
+};
 
 export type SuggestFnType = (args: SuggestFnProps) => SuggestResponseType;
 
@@ -34,18 +34,18 @@ export type SuggestProps = {
   getSuggestions?: SuggestFnType;
   selected?: (string | number)[];
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  render: (item: SuggestionItem) => React.ReactNode;
+  getStringValue: (item: SuggestionItem) => string;
+  placeholder: string;
 };
 
 export const Suggest = React.forwardRef<HTMLInputElement, SuggestProps>(
-  ({ onSelect, className, getSuggestions, selected, onKeyDown }: SuggestProps, ref) => {
+  ({ onSelect, className, getSuggestions, selected, onKeyDown, render, getStringValue, placeholder }: SuggestProps, ref) => {
     return (
       <Search
         ref={ref}
         onSearch={getSuggestions || (() => ({ cancel: () => {}, promise: Promise.resolve([]) }))}
-        onSelect={onSelect}
-        className={className}
-        selected={selected}
-        onKeyDown={onKeyDown}
+        {...{ render, getStringValue, placeholder, onKeyDown, selected, className, onSelect }}
       />
     );
   }
@@ -59,6 +59,9 @@ const Search = React.forwardRef(
       className,
       selected,
       onKeyDown,
+      render,
+      placeholder,
+      getStringValue = (item: SuggestionItem) => item.title,
     }: {
       onSearch: ({ q, intl }: SuggestFnProps) => {
         cancel: () => void;
@@ -68,6 +71,9 @@ const Search = React.forwardRef(
       className?: string;
       selected?: (string | number)[];
       onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+      render: (item: SuggestionItem) => React.ReactNode;
+      getStringValue: (item: SuggestionItem) => string;
+      placeholder: string;
     },
     ref
   ) => {
@@ -77,6 +83,9 @@ const Search = React.forwardRef(
     const [items, setItems] = React.useState<SuggestionItem[]>([]);
     const [selectedItem, setSelectedItem] = React.useState<SuggestionItem | null>(null);
     const [q, setQ] = React.useState('');
+    const placeholderText = intl.formatMessage({
+      id: placeholder ?? 'search.placeholders.default',
+    });
 
     useEffect(() => {
       const { cancel, promise } = onSearch({
@@ -114,7 +123,7 @@ const Search = React.forwardRef(
       },
       items: items || [],
       itemToString(item: SuggestionItem | null) {
-        return item ? item.title : '';
+        return item ? getStringValue(item) : '';
       },
       // inputValue,
       selectedItem,
@@ -149,13 +158,16 @@ const Search = React.forwardRef(
       },
     });
 
-    const keyDownHandler = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (isOpen) {
-        event.stopPropagation();
-      } else {
-        onKeyDown?.(event);
-      }
-    }, [isOpen, onKeyDown]);
+    const keyDownHandler = useCallback(
+      (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (isOpen) {
+          event.stopPropagation();
+        } else {
+          onKeyDown?.(event);
+        }
+      },
+      [isOpen, onKeyDown]
+    );
 
     return (
       <div className="g-w-full g-relative">
@@ -173,7 +185,7 @@ const Search = React.forwardRef(
             <MdSearch className="g-text-slate-400 g-me-2 g-text-center g-flex-none" />
             <input
               type="input"
-              placeholder="Search..."
+              placeholder={placeholderText}
               className={cn(
                 'g-flex-auto g-w-full g-bg-transparent g-py-1 g-text-sm g-transition-colors file:g-border-0 file:g-bg-transparent file:g-text-sm file:g-font-medium placeholder:g-text-muted-foreground focus-visible:g-outline-none disabled:g-cursor-not-allowed'
                 // 'focus-visible:g-ring-2 focus-visible:g-ring-blue-400/30 focus-visible:g-ring-offset-0 g-ring-inset',
@@ -207,9 +219,14 @@ const Search = React.forwardRef(
                     )}
                   />
                   <div className="g-flex-auto">
-                    <div>{item.title}</div>
-                    {item.description && (
-                      <div className="g-text-sm g-text-gray-700">{item.description}</div>
+                    {render && render(item)}
+                    {!render && (
+                      <>
+                        <div>{item.title}</div>
+                        {item.description && (
+                          <div className="g-text-sm g-text-gray-700">{item.description}</div>
+                        )}
+                      </>
                     )}
                   </div>
                 </li>
