@@ -192,7 +192,9 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                 )}
                 selected={selected}
                 getSuggestions={getSuggestions}
-                onKeyPress={(e) => (e.key === 'Enter' ? onApply?.() : null)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') onApply?.();
+                }}
               />
             )}
             {!getSuggestions && (

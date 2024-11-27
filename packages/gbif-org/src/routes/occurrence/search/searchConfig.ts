@@ -12,10 +12,13 @@ const config: FilterConfigType = {
         supportedTypes: ['within']
       }
     },
+    publisherKey: {
+      defaultKey: 'publishingOrg'
+    }
   } 
 }
 
-const otherParams = ['country', 'taxonKey', 'institutionKey', 'datasetKey', 'catalogNumber', 'recordedBy', 'higherGeography'];
+const otherParams = ['gadmGid', 'hostingOrganizationKey', 'networkKey', 'publisherKey', 'country', 'taxonKey', 'institutionKey', 'collectionKey', 'datasetKey', 'catalogNumber', 'recordedBy', 'higherGeography'];
 
 otherParams.forEach(filter => {
   config.fields = config.fields ?? {};

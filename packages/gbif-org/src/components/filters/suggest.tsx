@@ -1,7 +1,9 @@
 import { Config, useConfig } from '@/config/config';
+import { SearchMetadata, useSearchContext } from '@/contexts/search';
+import { CANCEL_REQUEST } from '@/utils/fetchWithCancel';
 import { cn } from '@/utils/shadcn';
 import { useCombobox } from 'downshift';
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { MdCheck, MdSearch } from 'react-icons/md';
 import { IntlShape, useIntl } from 'react-intl';
 
@@ -12,13 +14,17 @@ export interface SuggestionItem {
 }
 
 export type SuggestFnProps = {
-  q: string;
+  q?: string;
   locale: string;
   siteConfig: Config;
+  searchContext: SearchMetadata;
   intl: IntlShape;
-}
+};
 
-export type SuggestResponseType = Promise<SuggestionItem[]>;
+export type SuggestResponseType = {
+  cancel: () => void;
+  promise: Promise<SuggestionItem[]>;
+}
 
 export type SuggestFnType = (args: SuggestFnProps) => SuggestResponseType;
 
@@ -27,19 +33,19 @@ export type SuggestProps = {
   className?: string;
   getSuggestions?: SuggestFnType;
   selected?: (string | number)[];
-  onKeyPress?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
 export const Suggest = React.forwardRef<HTMLInputElement, SuggestProps>(
-  ({ onSelect, className, getSuggestions, selected, onKeyPress }: SuggestProps, ref) => {
+  ({ onSelect, className, getSuggestions, selected, onKeyDown }: SuggestProps, ref) => {
     return (
       <Search
         ref={ref}
-        onSearch={getSuggestions || (() => Promise.resolve([]))}
+        onSearch={getSuggestions || (() => ({ cancel: () => {}, promise: Promise.resolve([]) }))}
         onSelect={onSelect}
         className={className}
         selected={selected}
-        onKeyPress={onKeyPress}
+        onKeyDown={onKeyDown}
       />
     );
   }
@@ -52,21 +58,48 @@ const Search = React.forwardRef(
       onSelect,
       className,
       selected,
-      onKeyPress,
+      onKeyDown,
     }: {
-      onSearch: ({ q, intl }: { q: string; intl?: IntlShape }) => Promise<SuggestionItem[]>;
+      onSearch: ({ q, intl }: SuggestFnProps) => {
+        cancel: () => void;
+        promise: Promise<SuggestionItem[]>;
+      };
       onSelect: (item: SuggestionItem) => void;
       className?: string;
       selected?: (string | number)[];
-      onKeyPress?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+      onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
     },
     ref
   ) => {
     const config = useConfig();
+    const searchContext = useSearchContext();
     const intl = useIntl();
     const [items, setItems] = React.useState<SuggestionItem[]>([]);
     const [selectedItem, setSelectedItem] = React.useState<SuggestionItem | null>(null);
-    // const [inputValue, setInputValue] = React.useState('');
+    const [q, setQ] = React.useState('');
+
+    useEffect(() => {
+      const { cancel, promise } = onSearch({
+        q,
+        intl,
+        searchContext,
+        siteConfig: config,
+        locale: intl.locale,
+      });
+      promise
+        .then((data) => {
+          setItems(data);
+        })
+        .catch((err) => {
+          if (err === CANCEL_REQUEST) return;
+          console.error(err);
+        });
+
+      return () => {
+        if (cancel) cancel();
+      };
+    }, [q, intl, searchContext, config, onSearch]);
+
     const {
       isOpen,
       inputValue,
@@ -77,15 +110,7 @@ const Search = React.forwardRef(
       getItemProps,
     } = useCombobox({
       onInputValueChange({ inputValue }) {
-        // setInputValue(inputValue);
-        onSearch({ q: inputValue, intl, siteConfig: config })
-          .then((data) => {
-            // setResults(data);
-            setItems(data);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
+        setQ(inputValue);
       },
       items: items || [],
       itemToString(item: SuggestionItem | null) {
@@ -124,6 +149,14 @@ const Search = React.forwardRef(
       },
     });
 
+    const keyDownHandler = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (isOpen) {
+        event.stopPropagation();
+      } else {
+        onKeyDown?.(event);
+      }
+    }, [isOpen, onKeyDown]);
+
     return (
       <div className="g-w-full g-relative">
         <div className="g-w-full g-flex g-flex-col g-gap-1">
@@ -145,11 +178,11 @@ const Search = React.forwardRef(
                 'g-flex-auto g-w-full g-bg-transparent g-py-1 g-text-sm g-transition-colors file:g-border-0 file:g-bg-transparent file:g-text-sm file:g-font-medium placeholder:g-text-muted-foreground focus-visible:g-outline-none disabled:g-cursor-not-allowed'
                 // 'focus-visible:g-ring-2 focus-visible:g-ring-blue-400/30 focus-visible:g-ring-offset-0 g-ring-inset',
               )}
-              {...getInputProps({ ref, onKeyPress })}
+              {...getInputProps({ ref, onKeyDown: keyDownHandler })}
             />
           </div>
         </div>
-        <div className="g-absolute g-w-full">
+        <div className="g-absolute g-w-full g-z-10">
           <ul
             className={`g-w-full g-bg-white g-shadow-2xl g-max-h-80 g-overflow-auto g-p-0 g-z-10 g-rounded g-border ${
               !(isOpen && items.length) && 'g-hidden'

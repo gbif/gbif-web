@@ -18,36 +18,7 @@ import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicat
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { SuggestFnProps, SuggestResponseType } from '@/components/filters/suggest';
 import { HelpText } from '@/components/helpText';
-
-const institutionKeyConfig: filterConfig = {
-  filterType: filterConfigTypes.SUGGEST,
-  filterHandle: 'institutionKey',
-  displayName: InstitutionLabel,
-  filterTranslation: 'filters.institutionKey.name',
-  suggest: ({ q, siteConfig }: SuggestFnProps) => {
-    return fetch(`${siteConfig.v1Endpoint}/grscicoll/institution/suggest?limit=20&q=${q}`)
-      .then((res) => res.json())
-      .then((data) => {
-        return data.map((item) => ({
-          key: item?.key,
-          title: item?.name,
-        }));
-      });
-  },
-  facetQuery: `
-    query OccurrenceInstitutionFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
-        facet {
-          field: institutionKey {
-            name: key
-            count
-          }
-        }
-      }
-    }
-  `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
-};
+import { collectionKeyConfig, datasetKeyConfig, gadmGidConfig, hostingOrganizationKeyConfig, institutionKeyConfig, networkKeyConfig, publisherKeyConfig, taxonKeyConfig } from './filters/keySuggest';
 
 const countryConfig: filterConfig = {
   filterType: filterConfigTypes.SUGGEST,
@@ -67,24 +38,6 @@ const countryConfig: filterConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
-};
-
-const taxonKeyConfig: filterConfig = {
-  filterType: filterConfigTypes.SUGGEST,
-  filterHandle: 'taxonKey',
-  displayName: TaxonLabel,
-  filterTranslation: 'filters.taxonKey.name',
-  suggest: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {
-    return fetch(`${siteConfig.v1Endpoint}/species/suggest?limit=20&q=${q}`)
-      .then((res) => res.json())
-      .then((data) => {
-        return data.map((item) => ({
-          key: item?.key,
-          title: item?.scientificName,
-        }));
-      });
-  },
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
@@ -132,16 +85,14 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         searchConfig,
         formatMessage,
       }),
-      institutionKey: generateFilters({
-        config: { ...institutionKeyConfig },
-        searchConfig,
-        formatMessage,
-      }),
-      taxonKey: generateFilters({
-        config: { ...taxonKeyConfig },
-        searchConfig,
-        formatMessage,
-      }),
+      institutionKey: generateFilters({config: institutionKeyConfig, searchConfig, formatMessage}),
+      collectionKey: generateFilters({config: collectionKeyConfig, searchConfig, formatMessage}),
+      datasetKey: generateFilters({config: datasetKeyConfig, searchConfig, formatMessage}),
+      taxonKey: generateFilters({config: taxonKeyConfig, searchConfig, formatMessage}),
+      publisherKey: generateFilters({config: publisherKeyConfig, searchConfig, formatMessage}),
+      hostingOrganizationKey: generateFilters({config: hostingOrganizationKeyConfig, searchConfig, formatMessage}),
+      networkKey: generateFilters({config: networkKeyConfig, searchConfig, formatMessage}),
+      gadmGid: generateFilters({config: gadmGidConfig, searchConfig, formatMessage}),
     }),
     [searchConfig, countrySuggest, formatMessage]
   );
