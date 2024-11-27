@@ -2,6 +2,7 @@
   "tabs": {
     "table": "Tabel",
     "gallery": "Galleri",
+    "media": "GBIF annoteret Arkiv",
     "map": "Kort",
     "datasets": "Datasæt",
     "events": "Arrangementer",
@@ -11,7 +12,11 @@
     "sites": "GBIF annoteret Arkiv"
   },
   "table": {
-    "lockColumn": ""
+    "lockColumn": "",
+    "unlockColumn": "GBIF annoteret Arkiv",
+    "columnVisibility": "GBIF annoteret Arkiv",
+    "resetColumnVisibility": "GBIF annoteret Arkiv",
+    "openFilter": "GBIF annoteret Arkiv"
   },
   "placeholders": {
     "default": "Søg",
