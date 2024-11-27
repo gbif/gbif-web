@@ -2,6 +2,7 @@
   "tabs": {
     "table": "表",
     "gallery": "圖片集",
+    "media": "GBIF 註記的存檔",
     "map": "地圖",
     "datasets": "資料集",
     "events": "事件",
@@ -11,7 +12,11 @@
     "sites": "GBIF 註記的存檔"
   },
   "table": {
-    "lockColumn": "鎖定欄位"
+    "lockColumn": "鎖定欄位",
+    "unlockColumn": "GBIF 註記的存檔",
+    "columnVisibility": "GBIF 註記的存檔",
+    "resetColumnVisibility": "GBIF 註記的存檔",
+    "openFilter": "GBIF 註記的存檔"
   },
   "placeholders": {
     "default": "搜尋",
