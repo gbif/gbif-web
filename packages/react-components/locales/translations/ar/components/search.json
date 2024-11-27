@@ -2,6 +2,7 @@
   "tabs": {
     "table": "جدول",
     "gallery": "معرض صور",
+    "media": "أرشيف شروح \"جيبف\"",
     "map": "خارطة",
     "datasets": "مجموعات البيانات",
     "events": "أحداث",
@@ -11,7 +12,11 @@
     "sites": "أرشيف شروح \"جيبف\""
   },
   "table": {
-    "lockColumn": ""
+    "lockColumn": "",
+    "unlockColumn": "أرشيف شروح \"جيبف\"",
+    "columnVisibility": "أرشيف شروح \"جيبف\"",
+    "resetColumnVisibility": "أرشيف شروح \"جيبف\"",
+    "openFilter": "أرشيف شروح \"جيبف\""
   },
   "placeholders": {
     "default": "بحث",
