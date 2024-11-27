@@ -1,8 +1,8 @@
 import { GbifLogoIcon } from '@/components/icons/icons';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { MainNavigation } from './mainNav';
+import MainNavigation from './mainNav';
 import { HeaderQuery } from '@/gql/graphql';
-import { MobileMenu } from './mobileMenu';
+import MobileMenu from './mobileMenu';
 import { MdOutlineFeedback, MdSearch, MdTranslate } from 'react-icons/md';
 import { Button } from '@/components/ui/button';
 import { FiActivity } from 'react-icons/fi';

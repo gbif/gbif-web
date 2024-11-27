@@ -11,8 +11,10 @@ import { cn } from '@/utils/shadcn';
 import { HeaderQuery } from '@/gql/graphql';
 import { MdLink } from 'react-icons/md';
 import { DynamicLink } from '@/reactRouterPlugins';
+import { memo } from 'react';
 
-export function MainNavigation({ menu }: { menu: HeaderQuery }) {
+export default memo(MainNavigation) as typeof MainNavigation;
+function MainNavigation({ menu }: { menu: HeaderQuery }) {
   const [value, setValue] = React.useState('');
   const children = menu.gbifHome?.children;
   return (

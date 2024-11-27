@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useConfig } from '@/config/config';
 import { useI18n } from '@/reactRouterPlugins';
 import {

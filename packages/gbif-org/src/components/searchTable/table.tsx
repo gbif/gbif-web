@@ -8,7 +8,7 @@ import {
   useReactTable,
   VisibilityState,
 } from '@tanstack/react-table';
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { Cell } from './components/cell';
 import { Head } from './components/head';
 import { InitialSkeletonTable } from './components/initialSkeletonTable';
@@ -30,7 +30,8 @@ interface Props<TData, TValue> {
   createRowLink?: (row: Row<TData>) => string;
 }
 
-export function SearchTable<TData, TValue>({
+export default memo(SearchTable) as typeof SearchTable;
+function SearchTable<TData, TValue>({
   columns,
   data,
   className,

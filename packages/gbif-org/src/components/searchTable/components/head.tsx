@@ -1,5 +1,5 @@
 import { TableHead } from '@/components/ui/table';
-import { flexRender, Header, Table } from '@tanstack/react-table';
+import { Header, Table } from '@tanstack/react-table';
 import { MdLock, MdLockOpen } from 'react-icons/md';
 import { useFirstColumLock } from '../firstColumLock';
 import { cn } from '@/utils/shadcn';

@@ -10,7 +10,7 @@ import { useOrderedList } from '../browseList/useOrderedList';
 import { FilterContext } from '@/contexts/filter';
 import { useStringParam } from '@/hooks/useParam';
 import { searchConfig } from '../../searchConfig';
-import { SearchTable } from '@/components/searchTable/table';
+import SearchTable from '@/components/searchTable/table';
 import { useConfig } from '@/config/config';
 import { useSearchContext } from '@/contexts/search';
 import { useFilters } from '../../filters';

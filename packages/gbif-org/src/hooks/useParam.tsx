@@ -112,10 +112,12 @@ export function useJsonParam({
   return [value, setValue];
 }
 
+const defaultSerialize = (value: unknown) => value + '';
+
 function useParam<T>({
   key,
   parse,
-  serialize = (value) => value + '',
+  serialize = defaultSerialize,
   defaultValue,
   hideDefault,
   removeOnUnmount,
