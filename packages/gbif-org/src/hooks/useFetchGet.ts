@@ -1,8 +1,6 @@
-import React from 'react';
-
-class NetworkError extends Error {
-  name = 'NetworkError';
-}
+import { useRef, useState, useCallback, useEffect } from 'react';
+import { NetworkError } from './useQuery';
+import { hash } from '@/utils/hash';
 
 type Options = {
   endpoint?: string;
@@ -10,6 +8,7 @@ type Options = {
   throwAllErrors?: boolean;
   lazyLoad?: boolean;
   keepDataWhileLoading?: boolean;
+  headers?: Record<string, string>;
 };
 
 const defaultOptions: Options = {
@@ -17,68 +16,114 @@ const defaultOptions: Options = {
   throwAllErrors: false,
   lazyLoad: false,
   keepDataWhileLoading: false,
+  headers: {},
 };
 
+const ABORT_REASON = 'REQUEST_ABORTED_ON_PURPOSE';
+
 export function useFetchGet<TResult>(options: Options = defaultOptions) {
-  const [data, setData] = React.useState<TResult | undefined>();
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState<Error | undefined>();
-  const [abortController, setAbortController] = React.useState<AbortController | undefined>();
+  const isMounted = useRef(false);
+  const [data, setData] = useState<TResult | undefined>();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<Error | undefined>();
+  const cancelRequestRef = useRef<(reason: string) => void>(() => () => {});
+  const hashOptions = hash(options);
 
   // Cancel pending request on unmount
-  const cancelRequest = React.useCallback(() => abortController?.abort(), [abortController]);
-  React.useEffect(() => () => cancelRequest(), [cancelRequest]);
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+      cancelRequestRef.current(ABORT_REASON);
+    };
+  }, []);
 
-  // Just to make sure the names of the options don't collide
-  const outerOptions = options;
+  const load = useCallback(
+    (loadOptions?: Options) => {
+      const mergedOptions = { ...options, ...(loadOptions ?? {}) };
 
-  const load = React.useCallback(
-    async (options?: Options) => {
-      const _abortController = new AbortController();
-      setAbortController(_abortController);
+      const startRequest = async () => {
+        if (isMounted.current === false) return;
 
-      if (options?.keepDataWhileLoading !== true) setData(undefined);
-      setLoading(true);
-      setError(undefined);
+        if (mergedOptions?.keepDataWhileLoading !== true) setData(undefined);
+        setLoading(true);
+        setError(undefined);
+        cancelRequestRef.current(ABORT_REASON);
 
-      const endpoint = outerOptions?.endpoint ?? options?.endpoint;
-      if (typeof endpoint !== 'string')
-        return console.error('No endpoint provided in the useFetchGet hook');
+        const abortController = new AbortController();
+        // Update the ref to the new cancel function
+        cancelRequestRef.current = (reason: string) => {
+          abortController.abort(reason);
+        };
 
-      try {
-        const response = await fetch(endpoint, {
-          method: 'GET',
-          signal: _abortController.signal,
-        });
+        try {
+          const response = await fetch(mergedOptions.endpoint!, {
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              ...mergedOptions?.headers,
+            },
+            signal: abortController.signal,
+          });
 
-        if (!response.ok) throw new NetworkError(`Network error: ${response.statusText}`);
+          // Handle HTTP errors
+          if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+          }
 
-        const json = await response.json();
-        setData(json);
-      } catch (err) {
-        if (err instanceof Error && err.name === 'AbortError') {
-          setError(undefined); // Ignore abort errors
-        } else {
-          setError(err as Error);
-          setData(undefined);
+          const result = await response.json();
+
+          if (isMounted.current) {
+            setData(result);
+            setError(undefined);
+            setLoading(false);
+          }
+        } catch (error) {
+          // Handle cancellation errors
+          if ((error instanceof Error && error.name === 'AbortError') || error === ABORT_REASON) {
+            return;
+          }
+
+          // Handle network errors
+          if (error instanceof TypeError) {
+            const networkError = new NetworkError(error.message);
+            if (isMounted.current) {
+              setError(networkError);
+              setData(undefined);
+              setLoading(false);
+            }
+          } else {
+            // Handle other errors
+            if (isMounted.current) {
+              setError(error instanceof Error ? error : new Error(String(error)));
+              setData(undefined);
+              setLoading(false);
+            }
+          }
         }
-      } finally {
-        setLoading(false);
-        setAbortController(undefined);
-      }
+      };
+
+      // Cancel any ongoing requests before starting a new one
+      cancelRequestRef.current(ABORT_REASON);
+
+      return startRequest();
     },
-    [outerOptions?.endpoint]
+    [hashOptions]
   );
 
-  // Load data on mount and when options change.
-  React.useEffect(() => {
+  // Load the data on mount and when the options change
+  useEffect(() => {
     if (options.lazyLoad !== true) {
       load(options);
     }
-  }, [load, options]);
+  }, [load, hashOptions]);
 
+  // Throw errors if enabled
   if (error instanceof NetworkError && options?.throwNetworkErrors) throw error;
   if (error instanceof Error && options?.throwAllErrors) throw error;
+
+  const cancelRequest = useCallback((reason: string) => cancelRequestRef.current(reason), []);
 
   return { data, loading, error, load, cancel: cancelRequest };
 }

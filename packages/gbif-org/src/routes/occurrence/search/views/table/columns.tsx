@@ -1,7 +1,7 @@
 import { SetAsFilter } from '@/components/searchTable/components/setAsFilter';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { ColumnDef } from '@tanstack/react-table';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { GoSidebarExpand } from 'react-icons/go';
 import { FilterSetting } from '@/components/filters/filterTools';
 import { FormattedMessage } from 'react-intl';
@@ -9,6 +9,11 @@ import { FormattedDateRange } from '@/components/message';
 import { SingleOccurrenceSearchResult } from '.';
 import { LinkOption } from '@/components/searchTable/components/linkOption';
 import { IconFeatures } from './iconFeatures';
+import useFetchGet from '@/hooks/useFetchGet';
+import { LanguageOption, useConfig } from '@/config/config';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useI18n } from '@/reactRouterPlugins';
+import { VocabularyValue } from '@/components/vocabularyValue';
 
 type Args = {
   showPreview?: ((id: string) => void) | false;
@@ -511,9 +516,7 @@ export function useOccurrenceColumns({
               field="establishmentMeans"
               value={establishmentMeans}
             >
-              <FormattedMessage
-                id={`enums.establishmentMeans.${establishmentMeans.toUpperCase()}`}
-              />
+              <VocabularyValue vocabulary="EstablishmentMeans" value={establishmentMeans} />
             </SetAsFilter>
           );
         },

@@ -4,7 +4,7 @@ import React, { useRef } from 'react';
 import Queue from 'queue-promise';
 import { GraphQLService } from '@/services/graphQLService';
 
-class NetworkError extends Error {
+export class NetworkError extends Error {
   name = 'NetworkError';
 }
 
