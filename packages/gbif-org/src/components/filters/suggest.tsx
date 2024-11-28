@@ -34,9 +34,9 @@ export type SuggestProps = {
   getSuggestions?: SuggestFnType;
   selected?: (string | number)[];
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-  render: (item: SuggestionItem) => React.ReactNode;
-  getStringValue: (item: SuggestionItem) => string;
-  placeholder: string;
+  render?: (item: SuggestionItem) => React.ReactNode;
+  getStringValue?: (item: SuggestionItem) => string;
+  placeholder?: string;
 };
 
 export const Suggest = React.forwardRef<HTMLInputElement, SuggestProps>(
@@ -71,9 +71,9 @@ const Search = React.forwardRef(
       className?: string;
       selected?: (string | number)[];
       onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-      render: (item: SuggestionItem) => React.ReactNode;
-      getStringValue: (item: SuggestionItem) => string;
-      placeholder: string;
+      render?: (item: SuggestionItem) => React.ReactNode;
+      getStringValue?: (item: SuggestionItem) => string;
+      placeholder?: string;
     },
     ref
   ) => {

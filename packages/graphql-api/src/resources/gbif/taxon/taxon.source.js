@@ -106,7 +106,6 @@ class TaxonAPI extends RESTDataSource {
         }
       });
       scientificResults = responseScientificSuggestions;
-      console.log(scientificResults);
     }
 
     // get results matching vernacular name
@@ -232,7 +231,7 @@ class TaxonAPI extends RESTDataSource {
     });
 
     const sortedResults = matchSorter(structuredResults, q, {
-      keys: ['scientificName', 'acceptedNameOf', 'vernacularName'],
+      keys: ['scientificName', 'acceptedNameOf', 'vernacularName', 'canonicalName' ],
       threshold: strictMatching ? matchSorter.rankings.MATCHES : matchSorter.rankings.NO_MATCH
     });
     return sortedResults;

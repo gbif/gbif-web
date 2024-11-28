@@ -224,9 +224,26 @@ export const taxonKeySuggest = {
   render: (item: SuggestionItem) => {
     return (
       <div>
-        {item.status !== 'ACCEPTED' && <SimpleTooltip title={<span><FormattedMessage id={`enums.taxonomicStatus.${item.status}`} /></span>}>
-          <span style={{ display: 'inline-block', marginRight: 8, width: 8, height: 8, borderRadius: 4, background: 'orange' }}></span>
-        </SimpleTooltip>}
+        {item.status !== 'ACCEPTED' && (
+          <SimpleTooltip
+            title={
+              <span>
+                <FormattedMessage id={`enums.taxonomicStatus.${item.status}`} />
+              </span>
+            }
+          >
+            <span
+              style={{
+                display: 'inline-block',
+                marginRight: 8,
+                width: 8,
+                height: 8,
+                borderRadius: 4,
+                background: 'orange',
+              }}
+            ></span>
+          </SimpleTooltip>
+        )}
         {item.title}
         <div>
           <TaxonDetailsLabel {...item} />
@@ -251,6 +268,88 @@ export const taxonKeySuggest = {
   },
 };
 
+export const taxonKeyVernacularSuggest = {
+  placeholder: 'search.placeholders.default',
+  // how to get the list of suggestion data
+  getSuggestions: ({ q, siteConfig, locale }: SuggestFnProps): SuggestResponseType => {
+    // const language = localeContext?.localeMap?.iso3LetterCode ?? 'eng';
+    const language = 'eng';
+
+    const abortController = new AbortController();
+    const graphqlService = new GraphQLService({
+      endpoint: siteConfig.graphqlEndpoint,
+      abortSignal: abortController.signal,
+      locale: 'en',
+    });
+
+    const SEARCH = `
+      query($q: String, $language: Language){
+        taxonSuggestions( q: $q, language: $language) {
+          key
+          scientificName
+          vernacularName
+          taxonomicStatus
+          acceptedNameOf
+          classification {
+            name
+          }
+        }
+      }    
+    `;
+    const promise = graphqlService.query(SEARCH, { q, language: language });
+    return {
+      promise: promise
+        .then((res) => res.json())
+        .then((response) => {
+          return response.data?.taxonSuggestions.map((i) => ({ ...i, title: i.scientificName }));
+        }),
+      cancel: () => abortController.abort(CANCEL_REQUEST),
+    };
+  },
+  // how to map the results to a single string value
+  // how to display the individual suggestions in the list
+  render: (suggestion: SuggestionItem) => {
+    const ranks = suggestion.classification.map((rank, i) => <span key={i}>{rank.name}</span>);
+
+    return (
+      <div style={{ maxWidth: '100%' }}>
+        <div className="g-line-clamp-2">
+          {suggestion.taxonomicStatus !== 'ACCEPTED' && (
+            <span
+              className="g-inline-block g-me-1 g-bg-orange-400 g-text-xs g-rounded g-px-0.5 g-text-white"
+              style={{
+                fontSize: '10px',
+              }}
+            >
+              <FormattedMessage id={`enums.taxonomicStatus.${suggestion.taxonomicStatus}`} />
+            </span>
+          )}
+          <span>{suggestion.scientificName}</span>
+        </div>
+        {suggestion.vernacularName && (
+          <div className="g-text-slate-500 g-line-clamp-2 g-text-xs">
+            <div>
+              <FormattedMessage id="filterSupport.commonName" />:{' '}
+              <span className="g-text-slate-500">{suggestion.vernacularName}</span>
+            </div>
+          </div>
+        )}
+        {!suggestion.vernacularName && suggestion.acceptedNameOf && (
+          <div className="g-text-slate-500 g-line-clamp-2 g-text-xs">
+            <div>
+              <FormattedMessage id="filterSupport.acceptedNameOf" />:{' '}
+              <span className="g-text-slate-500">{suggestion.acceptedNameOf}</span>
+            </div>
+          </div>
+        )}
+        <div className="g-text-slate-400 g-text-xs g-mt-1.5">
+          <Classification>{ranks}</Classification>
+        </div>
+      </div>
+    );
+  },
+};
+
 export const gadGidSuggest = {
   getSuggestions: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {
     const { cancel, promise } = fetchWithCancel(
@@ -265,7 +364,7 @@ export const gadGidSuggest = {
             key: item?.id,
             title: item?.name,
             description: item?.higherRegions && item?.higherRegions?.length > 0 && (
-              <Classification style={{ opacity: 0.8 }}>
+              <Classification>
                 {item.higherRegions.map((x) => (
                   <span>{x.name}</span>
                 ))}
@@ -276,4 +375,14 @@ export const gadGidSuggest = {
       });
     return { cancel, promise: result };
   },
+  render: function GadmGidSuggestItem(suggestion: SuggestionItem) {
+    return <div className="g-max-w-full">
+      <div>
+        {suggestion.title}
+      </div>
+      {suggestion?.higherRegions?.length > 0 && <Classification className="g-text-slate-500">
+        {suggestion.higherRegions.map(x => <span>{x.name}</span>)}
+      </Classification>}
+    </div>
+  }
 };

@@ -1,5 +1,6 @@
 import {
   CollectionLabel,
+  CountryLabel,
   DatasetLabel,
   GadmGidLabel,
   InstitutionLabel,
@@ -10,7 +11,7 @@ import {
 import { filterConfig, filterConfigTypes } from '@/components/filters/filterTools';
 import { SuggestFnProps, SuggestResponseType } from '@/components/filters/suggest';
 import { HelpText } from '@/components/helpText';
-import { collectionKeySuggest, datasetKeyOccurrenceSuggest, datasetKeySuggest, gadGidSuggest, institutionKeySuggest, networkKeySuggest, publisherKeyOccurrenceSuggest, publisherKeySuggest, taxonKeySuggest } from '@/utils/suggestEndpoints';
+import { collectionKeySuggest, datasetKeyOccurrenceSuggest, datasetKeySuggest, gadGidSuggest, institutionKeySuggest, networkKeySuggest, publisherKeyOccurrenceSuggest, publisherKeySuggest, taxonKeySuggest, taxonKeyVernacularSuggest } from '@/utils/suggestEndpoints';
 
 export const institutionKeyConfig: filterConfig = {
   filterType: filterConfigTypes.SUGGEST,
@@ -38,7 +39,7 @@ export const taxonKeyConfig: filterConfig = {
   filterHandle: 'taxonKey',
   displayName: TaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
-  suggestConfig: taxonKeySuggest,
+  suggestConfig: taxonKeyVernacularSuggest,//taxonKeySuggest,
   facetQuery: `
     query OccurrenceTaxonFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
@@ -187,6 +188,48 @@ export const gadmGidConfig: filterConfig = {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
           field: gadmGid {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+};
+
+export const countryConfig: filterConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'country',
+  displayName: CountryLabel,
+  filterTranslation: 'filters.country.name',
+  // suggest will be provided by the useFilters hook
+  facetQuery: `
+    query OccurrenceCountryFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: countryCode {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+};
+
+export const publishingCountryConfig: filterConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'publishingCountry',
+  displayName: CountryLabel,
+  filterTranslation: 'filters.publishingCountryCode.name',
+  // suggest will be provided by the useFilters hook
+  facetQuery: `
+    query OccurrenceCountryFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: publishingCountry {
             name: key
             count
           }

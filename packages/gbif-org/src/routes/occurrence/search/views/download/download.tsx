@@ -43,7 +43,7 @@ export function Download() {
       ),
     };
     load({ keepDataWhileLoading: true, variables: { predicate } });
-  }, [currentFilterContext.filterHash, scope, load]);
+  }, [currentFilterContext.filter, currentFilterContext.filterHash, scope, load]);
 
   const fullPredicate = data?.occurrenceSearch?._downloadPredicate?.predicate;
   const err = data?.occurrenceSearch?._downloadPredicate?.err;

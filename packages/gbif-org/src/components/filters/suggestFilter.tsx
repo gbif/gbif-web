@@ -9,6 +9,7 @@ import {
   MdShuffle,
   MdPieChart,
   MdPieChartOutline,
+  MdOutlineRemoveCircle,
 } from 'react-icons/md';
 import { PiEmptyBold, PiEmptyFill } from 'react-icons/pi';
 import { TiArrowShuffle as InvertIcon } from 'react-icons/ti';
@@ -20,10 +21,10 @@ import hash from 'object-hash';
 import cloneDeep from 'lodash/cloneDeep';
 import { Suggest, SuggestFnType } from './suggest';
 import { HelpLine, HelpText } from '@/components/helpText';
-import { FormattedNumber } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Option, SkeletonOption } from './option';
-import { FacetQuery, getAsQuery } from './filterTools';
+import { FacetQuery, FilterSummaryType, getAsQuery, getFilterSummary } from './filterTools';
 import { useSearchContext } from '@/contexts/search';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { AboutButton } from './aboutButton';
@@ -62,11 +63,15 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
   ) => {
     const searchContext = useSearchContext();
     const currentFilterContext = useContext(FilterContext);
-    const { filter, toggle, add, setFullField, filterHash } = currentFilterContext;
+    const { filter, toggle, add, setFullField, filterHash, negateField } = currentFilterContext;
     const [selected, setSelected] = useState<string[]>([]);
     const [filterBeforeHash, setFilterBeforeHash] = useState<string | undefined>(undefined);
     const [facetLookup, setFacetLookup] = useState<Record<string, number>>({});
     const [q, setQ] = useState<string>('');
+    const [filterSummary, setFilterSummary] = useState<FilterSummaryType>()
+    // const [negated, setNegated]  = useState<boolean>(filter.mustNot?.[filterHandle].length > 0 ? true : false);
+
+    const useNegations = filterSummary?.hasNegations ?? false;
 
     const About = about;
     const {
@@ -114,13 +119,16 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
 
     useEffect(() => {
       // filter has changed updateed the listed of selected values
-      const selectedList = filter?.must?.[filterHandle] ?? [];
+      const selectedList = filter?.must?.[filterHandle] ?? filter?.mustNot?.[filterHandle] ?? [];
       setSelected(selectedList);
 
       // secondly keep track the facets without the current filter
       const prunedFilter = cleanUpFilter(cloneDeep(filter));
       delete prunedFilter.must?.[filterHandle];
       setFilterBeforeHash(hash(prunedFilter));
+
+      const filterSummary = getFilterSummary(filter, filterHandle);
+      setFilterSummary(filterSummary);
     }, [filterHash, filterHandle]);
 
     useEffect(() => {
@@ -133,8 +141,9 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       setFacetLookup(selectedFacetLookup);
     }, [selectedFacetData]);
 
+    const selectedStrings = selected.map((x) => x.toString());
     const facetSuggestions = facetData?.search?.facet?.field?.filter(
-      (x) => !selected.includes(x.name)
+      (x) => !selectedStrings.includes(x.name)
     );
 
     const options = (
@@ -149,22 +158,24 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
               <MdDeleteOutline />
             </button>
           )}
-          {/* <SimpleTooltip delayDuration={300} title="Exclude selected">
+          <SimpleTooltip delayDuration={300} title="Exclude selected">
           <button
             className="g-px-1"
             onClick={() => {
-              // negateField('publishingOrg', true)
+              negateField(filterHandle, !useNegations)
             }}
           >
-            <MdOutlineRemoveCircleOutline />
+            {useNegations && <MdOutlineRemoveCircle />}
+            {!useNegations && <MdOutlineRemoveCircleOutline />}
           </button>
-        </SimpleTooltip> */}
+        </SimpleTooltip>
+
           {/* <SimpleTooltip delayDuration={300} title="Invert selection">
           <button className="g-px-1">
             <MdShuffle />
           </button>
-        </SimpleTooltip>
-        <SimpleTooltip delayDuration={300} title="Filter by existence">
+        </SimpleTooltip> */}
+        {/* <SimpleTooltip delayDuration={300} title="Filter by existence">
           <button className="g-px-1">
             <PiEmptyBold />
           </button>
@@ -186,7 +197,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
             {suggestConfig && (
               <Suggest
                 ref={ref}
-                onSelect={(item) => add(filterHandle, item.key)}
+                onSelect={(item) => add(filterHandle, item.key, useNegations)}
                 className={cn(
                   'g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset',
                   className
@@ -210,9 +221,10 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                 onKeyDown={(e) => {
                   // if user press enter, then update the value
                   if (e.key === 'Enter') {
-                    if (e.currentTarget.value !== '') {
-                      add(filterHandle, e.currentTarget.value);
+                    if (e.currentTarget.value !== '' && q !== '') {
+                      add(filterHandle, e.currentTarget.value, useNegations);
                       setQ('');
+                      e.preventDefault();
                     } else {
                       onApply?.();
                     }
@@ -229,7 +241,10 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
           )}
         >
           {selected.length > -1 && (
-            <div className="g-flex-none g-text-xs g-font-bold">{selected?.length} selected</div>
+            <div className="g-flex-none g-text-xs g-font-bold">
+              {useNegations && <FormattedMessage id="counts.nExcluded" values={{total: selected?.length}}/>}
+              {!useNegations && <FormattedMessage id="counts.nSelected" values={{total: selected?.length}}/>}
+            </div>
           )}
           {options}
         </div>
@@ -240,10 +255,11 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                 {selected.map((x) => {
                   return (
                     <Option
+                      isNegated={useNegations}
                       key={x}
                       className="g-mb-2"
                       onClick={() => {
-                        toggle(filterHandle, x);
+                        toggle(filterHandle, x, useNegations);
                       }}
                       onKeyDown={(e) => (e.key === 'Enter' ? onApply?.({}) : null)}
                       checked={true}
@@ -291,7 +307,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                         key={x.name}
                         className="g-mb-2"
                         onClick={() => {
-                          toggle(filterHandle, x.name);
+                          toggle(filterHandle, x.name, useNegations);
                         }}
                         onKeyDown={(e) => (e.key === 'Enter' ? onApply?.({}) : null)}
                         // checked={false}

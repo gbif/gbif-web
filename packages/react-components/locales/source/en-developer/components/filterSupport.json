@@ -17,6 +17,7 @@
   "useCaseInsensitiveValue": "Search for case insensitive match",
   "showSuggestions": "Show suggestions",
   "excludeSelected": "Exclude selected",
+  "exclude": "Exclude",
   "updateFilter": "Update filter",
   "setFilter": "Set as filter",
   "nameWithTaxonMatchIssue": "Name before normalisation",

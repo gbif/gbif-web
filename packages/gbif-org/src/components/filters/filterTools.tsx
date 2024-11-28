@@ -543,3 +543,30 @@ export function FilterBar({
     </div>
   );
 }
+
+export type FilterSummaryType = {
+  defaultCount: number;
+  hasNegations: boolean;
+  mixed: boolean;
+  isNull: boolean;
+  isNotNull: boolean;
+  firstValue: { type: string; value: unknown };
+};
+
+export function getFilterSummary(filter: FilterType, handle: string): FilterSummaryType {
+  const must = filter?.must?.[handle] || [];
+  const mustNot = filter?.mustNot?.[handle] || [];
+
+  // check if there is a isNull or isNotNull filter among the filters
+  const isNull = must?.[0]?.type === 'isNull' && must.length === 1;
+  const isNotNull = must?.[0]?.type === 'isNotNull' && must.length === 1;
+
+  return {
+    defaultCount: must.length + mustNot.length,
+    hasNegations: mustNot.length > 0,
+    mixed: must.length > 0 && mustNot.length > 0,
+    isNull,
+    isNotNull,
+    firstValue: must?.[0] || mustNot?.[0],
+  };
+}

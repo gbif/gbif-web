@@ -4,23 +4,54 @@ import { PredicateType } from '@/gql/graphql';
 const config: FilterConfigType = {
   fields: {
     q: {
-      singleValue: true
+      singleValue: true,
     },
     geometry: {
       defaultType: PredicateType.Within,
       v1: {
-        supportedTypes: ['within']
-      }
+        supportedTypes: ['within'],
+      },
     },
     publisherKey: {
-      defaultKey: 'publishingOrg'
-    }
-  } 
-}
+      defaultKey: 'publishingOrg',
+    },
+  },
+};
 
-const otherParams = ['gadmGid', 'hostingOrganizationKey', 'networkKey', 'publisherKey', 'country', 'taxonKey', 'institutionKey', 'collectionKey', 'datasetKey', 'catalogNumber', 'recordedBy', 'higherGeography'];
+const otherParams = [
+  'gadmGid',
+  'hostingOrganizationKey',
+  'networkKey',
+  'publisherKey',
+  'country',
+  'publishingCountry',
+  'taxonKey',
+  'institutionKey',
+  'collectionKey',
+  'datasetKey',
 
-otherParams.forEach(filter => {
+  'license',
+  'basisOfRecord',
+  'mediaType',
+  'month',
+  'continent',
+  'protocol',
+  'dwcaExtension',
+  'iucnRedListCategory',
+  
+  'projectId',
+  'recordedById',
+  'identifiedById',
+  'occurrenceId',
+  'organismId',
+  'higherGeography',
+  'eventId',
+
+  'catalogNumber',
+  'recordedBy',
+];
+
+otherParams.forEach((filter) => {
   config.fields = config.fields ?? {};
   config.fields[filter] = config.fields[filter] || {};
 });

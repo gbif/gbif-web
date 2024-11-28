@@ -19,8 +19,9 @@ import licenseOptions from '@/enums/basic/license.json';
 import datasetTypeOptions from '@/enums/basic/datasetType.json';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import { useCallback, useEffect, useState } from 'react';
-import { SuggestFnProps } from '@/components/filters/suggest';
+import { SuggestFnProps, SuggestResponseType } from '@/components/filters/suggest';
 import { HelpText } from '@/components/helpText';
+import { fetchWithCancel } from '@/utils/fetchWithCancel';
 
 // shared vairables for the various components
 const publisherConfig: filterConfig = {
@@ -28,12 +29,14 @@ const publisherConfig: filterConfig = {
   filterHandle: 'publishingOrg',
   displayName: PublisherLabel,
   filterTranslation: 'filters.publisherKey.name',
-  suggest: ({ q, siteConfig }: SuggestFnProps) => {
-    return fetch(`${siteConfig.v1Endpoint}/organization/suggest?limit=20&q=${q}`)
-      .then((res) => res.json())
-      .then((data) => {
-        return data;
-      });
+  suggestConfig: {
+    getSuggestions: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {
+      const { cancel, promise } = fetchWithCancel(
+        `${siteConfig.v1Endpoint}/organization/suggest?limit=20&q=${q}`
+      );
+      const result = promise.then((res) => res.json());
+      return { cancel, promise: result };
+    },
   },
   facetQuery: `
     query DatasetPublisherFacet($query: DatasetSearchInput) {
@@ -65,12 +68,14 @@ const hostingOrgConfig: filterConfig = {
   filterHandle: 'hostingOrg',
   displayName: PublisherLabel,
   filterTranslation: 'filters.hostingOrganizationKey.name',
-  suggest: ({ q, siteConfig }: SuggestFnProps) => {
-    return fetch(`${siteConfig.v1Endpoint}/organization/suggest?limit=20&q=${q}`)
-      .then((res) => res.json())
-      .then((data) => {
-        return data;
-      });
+  suggestConfig: {
+    getSuggestions: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {
+      const { cancel, promise } = fetchWithCancel(
+        `${siteConfig.v1Endpoint}/organization/suggest?limit=20&q=${q}`
+      );
+      const result = promise.then((res) => res.json());
+      return { cancel, promise: result };
+    },
   },
   facetQuery: /* GraphQL */ `
     query DatasetHostingFacet($query: DatasetSearchInput) {
@@ -203,8 +208,8 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
   const countrySuggest = useCallback(
     ({ q }: SuggestFnProps) => {
       // instead of just using indexOf or similar. This has the benefit of reshuffling records based on the match, check for abrivations etc
-      const filtered = matchSorter(countries, q, { keys: ['title', 'key'] });
-      return Promise.resolve(filtered);
+      const filtered = matchSorter(countries, q ?? '', { keys: ['title', 'key'] });
+      return {promise: Promise.resolve(filtered), cancel: () => {}};
     },
     [countries]
   );
@@ -215,7 +220,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       hostingOrg: generateFilters({ config: hostingOrgConfig, searchConfig, formatMessage }),
       projectId: generateFilters({ config: projectIdConfig, searchConfig, formatMessage }),
       publishingCountry: generateFilters({
-        config: { ...publishingCountryConfig, suggest: countrySuggest },
+        config: { ...publishingCountryConfig, suggestConfig: {getSuggestions: countrySuggest }},
         searchConfig,
         formatMessage,
       }),

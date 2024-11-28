@@ -13,6 +13,7 @@
   "nCollections": "{total, plural, one {# collection} other {# collections}}",
   "nRecordsTotal": "{total, plural, one {# record in total} other {# records in total}}",
   "nSelected": "{total, plural, other {# selected}}",
+  "nExcluded": "{total, plural, other {# excluded}}",
   "nQualityFlags": "{total, plural, one {# quality flag} other {# quality flags}}",
   "nAudioFiles": "{total, plural, one {# sound file} other {# sound files}}",
   "nVideos": "{total, plural, one {# video} other {# videos}}",
