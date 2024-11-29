@@ -75,7 +75,7 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
           )}
           {count >= 1 && !showFirstValue && (
             <>
-              <span className="g-ms-2 -g-me-2 g-p-1 g-px-2 g-rounded-lg g-bg-slate-950/20 g-flex-none">
+              <span className="g-ms-2 -g-me-2 g-px-2 g-rounded-lg g-bg-slate-950/20 g-flex-none">
                 {count}
               </span>
             </>
