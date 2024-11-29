@@ -15,8 +15,9 @@ import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicat
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { SuggestFnProps } from '@/components/filters/suggest';
 import { collectionCodeConfig, collectionKeyConfig, countryConfig, datasetKeyConfig, gadmGidConfig, hostingOrganizationKeyConfig, institutionCodeConfig, institutionKeyConfig, networkKeyConfig, publisherKeyConfig, publishingCountryConfig, recordNumberConfig, taxonKeyConfig } from './filters/keySuggest';
-import { basisOfRecordConfig, continentConfig, dwcaExtensionConfig, iucnRedListCategoryConfig, licenceConfig, mediaTypeConfig, monthConfig, protocolConfig, typeStatusConfig } from './filters/enums';
+import { basisOfRecordConfig, continentConfig, dwcaExtensionConfig, iucnRedListCategoryConfig, licenceConfig, mediaTypeConfig, monthConfig, occurrenceIssueConfig, occurrenceStatusConfig, protocolConfig, typeStatusConfig } from './filters/enums';
 import { eventIdConfig, higherGeographyConfig, identifiedByIdConfig, occurrenceIdConfig, organismIdConfig, projectIdConfig, recordedByIdConfig } from './filters/textOnly';
+import { establishmentMeansConfig } from './filters/vocabulary';
 
 const freeTextConfig: filterConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
@@ -81,6 +82,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       institutionCode: generateFilters({config: institutionCodeConfig, searchConfig, formatMessage}),
       collectionCode: generateFilters({config: collectionCodeConfig, searchConfig, formatMessage}),
       recordNumber: generateFilters({config: recordNumberConfig, searchConfig, formatMessage}),
+      establishmentMeans: generateFilters({config: establishmentMeansConfig, searchConfig, formatMessage}),
       
       // enums
       license: generateFilters({config: licenceConfig, searchConfig, formatMessage}),
@@ -92,6 +94,8 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       dwcaExtension: generateFilters({config: dwcaExtensionConfig, searchConfig, formatMessage}),
       iucnRedListCategory: generateFilters({config: iucnRedListCategoryConfig, searchConfig, formatMessage}),
       typeStatus: generateFilters({config: typeStatusConfig, searchConfig, formatMessage}),
+      issue: generateFilters({config: occurrenceIssueConfig, searchConfig, formatMessage}),
+      occurrenceStatus: generateFilters({config: occurrenceStatusConfig, searchConfig, formatMessage}),
       
       projectId: generateFilters({config: projectIdConfig, searchConfig, formatMessage}),
       recordedById: generateFilters({config: recordedByIdConfig, searchConfig, formatMessage}),

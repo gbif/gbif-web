@@ -51,6 +51,8 @@ export type filterConfig = {
   filterButtonProps?: { hideSingleValues: boolean };
   regex?: RegExp;
   about?: React.FC;
+  allowNegations?: boolean;
+  allowExistence?: boolean;
 };
 
 // generic type for a facet query
@@ -209,6 +211,8 @@ const getEnumFilter = ({
           facetQuery={config.facetQuery}
           filterHandle={config.filterHandle}
           DisplayName={config.displayName}
+          allowExistence={config.allowExistence}
+          allowNegations={config.allowNegations}
           searchConfig={searchConfig}
           about={config.about}
           {...{ onApply, onCancel, className, style, pristine }}

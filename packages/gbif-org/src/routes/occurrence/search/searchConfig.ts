@@ -29,6 +29,8 @@ const otherParams = [
   'institutionKey',
   'collectionKey',
   'datasetKey',
+
+  'establishmentMeans',
   
   'institutionCode',
   'collectionCode',
@@ -43,6 +45,8 @@ const otherParams = [
   'dwcaExtension',
   'iucnRedListCategory',
   'typeStatus',
+  'issue',
+  'occurrenceStatus',
   
   'projectId',
   'recordedById',

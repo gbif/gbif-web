@@ -1,4 +1,4 @@
-import { BasisOfRecordLabel, ContinentLabel, DwcaExtensionLabel, EndpointTypeLabel, LicenceLabel, MediaTypeLabel, MonthLabel, IucnRedListCategoryLabel, typeStatusLabel } from "@/components/filters/displayNames";
+import { BasisOfRecordLabel, ContinentLabel, DwcaExtensionLabel, EndpointTypeLabel, LicenceLabel, MediaTypeLabel, MonthLabel, IucnRedListCategoryLabel, typeStatusLabel, occurrenceIssueLabel, occurrenceStatusLabel } from "@/components/filters/displayNames";
 import licenseOptions from '@/enums/basic/license.json';
 import basisOfRecordOptions from '@/enums/basic/basisOfRecord.json';
 import mediaTypeOptions from '@/enums/basic/mediaType.json';
@@ -8,6 +8,8 @@ import endpointTypeOptions from '@/enums/basic/endpointType.json';
 import dwcaExtensionOptions from '@/enums/basic/dwcaExtension.json';
 import iucnRedListCategoryOptions from '@/enums/basic/iucnRedListCategory.json';
 import typeStatusOptions from '@/enums/basic/typeStatus.json';
+import occurrenceIssueOptions from '@/enums/basic/occurrenceIssue.json';
+import occurrenceStatusOptions from '@/enums/basic/occurrenceStatus.json';
 import { HelpText } from '@/components/helpText';
 import { filterConfig, filterConfigTypes } from "@/components/filters/filterTools";
 
@@ -58,6 +60,7 @@ export const mediaTypeConfig: filterConfig = {
   filterHandle: 'mediaType',
   displayName: MediaTypeLabel,
   options: mediaTypeOptions,
+  allowExistence: true,
   filterTranslation: 'filters.mediaType.name',
   facetQuery: /* GraphQL */ `
     query OccurrenceCountryFacet($predicate: Predicate) {
@@ -79,6 +82,8 @@ export const monthConfig: filterConfig = {
   filterHandle: 'month',
   displayName: MonthLabel,
   options: monthOptions,
+  allowNegations: true,
+  allowExistence: true,
   filterTranslation: 'filters.month.name',
   facetQuery: /* GraphQL */ `
     query OccurrenceCountryFacet($predicate: Predicate) {
@@ -99,6 +104,7 @@ export const continentConfig: filterConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'continent',
   displayName: ContinentLabel,
+  allowExistence: true,
   options: continentOptions,
   filterTranslation: 'filters.continent.name',
   facetQuery: /* GraphQL */ `
@@ -121,6 +127,7 @@ export const protocolConfig: filterConfig = {
   filterHandle: 'protocol',
   displayName: EndpointTypeLabel,
   options: endpointTypeOptions,
+  allowNegations: true,
   filterTranslation: 'filters.protocol.name',
   facetQuery: /* GraphQL */ `
     query OccurrenceCountryFacet($predicate: Predicate) {
@@ -142,6 +149,8 @@ export const dwcaExtensionConfig: filterConfig = {
   filterHandle: 'dwcaExtension',
   displayName: DwcaExtensionLabel,
   options: dwcaExtensionOptions,
+  allowNegations: true,
+  allowExistence: true,
   filterTranslation: 'filters.dwcaExtension.name',
   facetQuery: /* GraphQL */ `
     query OccurrenceCountryFacet($predicate: Predicate) {
@@ -184,12 +193,58 @@ export const typeStatusConfig: filterConfig = {
   filterHandle: 'typeStatus',
   displayName: typeStatusLabel,
   options: typeStatusOptions,
+  allowNegations: true,
+  allowExistence: true,
   filterTranslation: 'filters.typeStatus.name',
   facetQuery: /* GraphQL */ `
     query OccurrenceTypeStatusFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
           field: typeStatus(size: 100) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+};
+
+export const occurrenceIssueConfig: filterConfig = {
+  filterType: filterConfigTypes.ENUM,
+  filterHandle: 'issue',
+  displayName: occurrenceIssueLabel,
+  options: occurrenceIssueOptions,
+  allowNegations: true,
+  allowExistence: true,
+  filterTranslation: 'filters.occurrenceIssue.name',
+  facetQuery: /* GraphQL */ `
+    query OccurrenceIssueFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: issue(size: 100) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+};
+
+export const occurrenceStatusConfig: filterConfig = {
+  filterType: filterConfigTypes.ENUM,
+  filterHandle: 'occurrenceStatus',
+  displayName: occurrenceStatusLabel,
+  options: occurrenceStatusOptions,
+  filterTranslation: 'filters.occurrenceStatus.name',
+  facetQuery: /* GraphQL */ `
+    query OccurrenceOccurrenceStatusFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: occurrenceStatus(size: 100) {
             name: key
             count
           }

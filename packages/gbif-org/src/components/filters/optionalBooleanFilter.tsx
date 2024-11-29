@@ -26,7 +26,7 @@ import { useSearchContext } from '@/contexts/search';
 import { AboutButton } from './aboutButton';
 import { Exists } from './exists';
 
-export const EnumFilter = React.forwardRef(
+export const OptionalBooleanFilter = React.forwardRef(
   (
     {
       className,

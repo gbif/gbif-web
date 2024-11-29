@@ -376,15 +376,19 @@ export const gadGidSuggest = {
     return { cancel, promise: result };
   },
   render: function GadmGidSuggestItem(suggestion: SuggestionItem) {
-    return <div className="g-max-w-full">
-      <div>
-        {suggestion.title}
+    return (
+      <div className="g-max-w-full">
+        <div>{suggestion.title}</div>
+        {suggestion?.higherRegions?.length > 0 && (
+          <Classification className="g-text-slate-500">
+            {suggestion.higherRegions.map((x) => (
+              <span>{x.name}</span>
+            ))}
+          </Classification>
+        )}
       </div>
-      {suggestion?.higherRegions?.length > 0 && <Classification className="g-text-slate-500">
-        {suggestion.higherRegions.map(x => <span>{x.name}</span>)}
-      </Classification>}
-    </div>
-  }
+    );
+  },
 };
 
 export const institutionCodeSuggest = {
@@ -395,15 +399,13 @@ export const institutionCodeSuggest = {
     const result = promise
       .then((res) => res.json())
       .then((data) => {
-        return data.map(
-          (item: string) => ({
-            key: item,
-            title: item
-          })
-        );
+        return data.map((item: string) => ({
+          key: item,
+          title: item,
+        }));
       });
     return { cancel, promise: result };
-  }
+  },
 };
 
 export const collectionCodeSuggest = {
@@ -414,15 +416,13 @@ export const collectionCodeSuggest = {
     const result = promise
       .then((res) => res.json())
       .then((data) => {
-        return data.map(
-          (item: string) => ({
-            key: item,
-            title: item
-          })
-        );
+        return data.map((item: string) => ({
+          key: item,
+          title: item,
+        }));
       });
     return { cancel, promise: result };
-  }
+  },
 };
 
 export const recordNumberSuggest = {
@@ -433,13 +433,56 @@ export const recordNumberSuggest = {
     const result = promise
       .then((res) => res.json())
       .then((data) => {
-        return data.map(
-          (item: string) => ({
-            key: item,
-            title: item
-          })
-        );
+        return data.map((item: string) => ({
+          key: item,
+          title: item,
+        }));
       });
     return { cancel, promise: result };
-  }
+  },
+};
+
+// for use with vocabulary endpoints
+export type VocabularyType = {
+  name: string;
+  label: { key: number; value: string; language: string }[];
+};
+function extractTitle(vocabularyLocale: string) {
+  return (response: {
+    data: {
+      results: VocabularyType[];
+    };
+  }) => {
+    // transform result labels to an object with language as keys
+    const results = response?.results?.map((result) => {
+      const labels = result.label.reduce((acc: Record<string, string>, label) => {
+        acc[label.language] = label.value;
+        return acc;
+      }, {});
+      return {
+        ...result,
+        title: labels[vocabularyLocale] || labels.en || result.name || 'Unknown',
+      };
+    });
+    return { data: { ...response.data, results } };
+  };
+}
+
+export const establishmentMeansSuggest = {
+  getSuggestions: ({ q, siteConfig, currentLocale }: SuggestFnProps): SuggestResponseType => {
+    const vocabularyLocale = currentLocale.vocabularyLocale ?? currentLocale.code ?? 'en';
+    const { cancel, promise } = fetchWithCancel(
+      `${siteConfig.v1Endpoint}/vocabularies/EstablishmentMeans/concepts?limit=100&q=${q}&lang=${vocabularyLocale}`
+    );
+    const result = promise
+      .then((res) => res.json())
+      .then(extractTitle(vocabularyLocale))
+      .then((response) => {
+        return response.data.results.map((item) => ({
+          key: item.name,
+          title: item.title,
+        }));
+      });
+    return { cancel, promise: result };
+  },
 };

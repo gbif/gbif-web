@@ -11,7 +11,7 @@ import {
 } from '@/components/filters/displayNames';
 import { filterConfig, filterConfigTypes } from '@/components/filters/filterTools';
 import { HelpText } from '@/components/helpText';
-import { collectionCodeSuggest, collectionKeySuggest, datasetKeyOccurrenceSuggest, datasetKeySuggest, gadGidSuggest, institutionCodeSuggest, institutionKeySuggest, networkKeySuggest, publisherKeyOccurrenceSuggest, publisherKeySuggest, recordNumberSuggest, taxonKeySuggest, taxonKeyVernacularSuggest } from '@/utils/suggestEndpoints';
+import { collectionCodeSuggest, collectionKeySuggest, datasetKeyOccurrenceSuggest, gadGidSuggest, institutionCodeSuggest, institutionKeySuggest, networkKeySuggest, publisherKeyOccurrenceSuggest, publisherKeySuggest, recordNumberSuggest, taxonKeySuggest, taxonKeyVernacularSuggest } from '@/utils/suggestEndpoints';
 
 export const institutionKeyConfig: filterConfig = {
   filterType: filterConfigTypes.SUGGEST,

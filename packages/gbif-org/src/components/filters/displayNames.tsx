@@ -3,6 +3,7 @@ import DisplayName, { DisplayNameGetDataProps } from './DisplayName';
 import { fetchWithCancel } from '@/utils/fetchWithCancel';
 import isUndefined from 'lodash/isUndefined';
 import { useCallback } from 'react';
+import { VocabularyType } from '@/utils/suggestEndpoints';
 
 // utility function to generate label for range or equal filters
 function rangeOrEqualLabel(path: string) {
@@ -86,15 +87,15 @@ function getEndpointLabel({
   transform,
 }: {
   template: ({ id, v1Endpoint }: { id: string | number | object; v1Endpoint: string }) => string;
-  transform?: (response: object) => { title: string; description?: string };
+  transform?: (response: object, { id, intl, config }: DisplayNameGetDataProps) => { title: string; description?: string };
 }) {
   const transformer = transform ?? ((response) => ({ title: response?.title }));
   return ({ id }: { id: string | number | object }) => {
-    const getData = useCallback(({ id, config }: DisplayNameGetDataProps) => {
+    const getData = useCallback(({ id, intl, config, currentLocale }: DisplayNameGetDataProps) => {
       const endpoint = template({ id, v1Endpoint: config.v1Endpoint });
       const { promise, cancel } = fetchWithCancel(endpoint);
       return {
-        promise: promise.then((response) => response.json()).then(transformer),
+        promise: promise.then((response) => response.json()).then(response => transformer(response, { id, intl, config, currentLocale })),
         cancel,
       };
     }, []);
@@ -135,6 +136,19 @@ export function TaxonLabel({ id }: { id: string | number | object }) {
   return <DisplayName useHtml getData={getData} id={id} />;
 }
 
+function getVocabularyLabel(result: VocabularyType, { currentLocale }: DisplayNameGetDataProps) {
+  const vocabularyLocale = currentLocale?.vocabularyLocale ?? currentLocale.code ?? 'en';
+
+  // transform result labels to an object with language as keys
+  const labels = result.label.reduce((acc:Record<string, string>, label) => {
+    acc[label.language] = label.value;
+    return acc;
+  }, {});
+
+  const title = labels[vocabularyLocale] || labels.en || result.name || 'Unknown';
+  return { title };
+}
+
 export const LiteratureTypeLabel = getEnumLabel({ template: (id) => `enums.literatureType.${id}` });
 export const LicenceLabel = getEnumLabel({ template: (id) => `enums.license.${id}` });
 export const DatasetTypeLabel = getEnumLabel({ template: (id) => `enums.datasetType.${id}` });
@@ -150,10 +164,17 @@ export const EndpointTypeLabel = getEnumLabel({ template: (id) => `enums.endpoin
 export const DwcaExtensionLabel = getEnumLabel({ template: (id) => `enums.dwcaExtension.${id}` });
 export const IucnRedListCategoryLabel = getEnumLabel({ template: (id) => `enums.iucnRedListCategory.${id}` });
 export const typeStatusLabel = getEnumLabel({ template: (id) => `enums.typeStatus.${id}` });
+export const occurrenceIssueLabel = getEnumLabel({ template: (id) => `enums.occurrenceIssue.${id}` });
+export const occurrenceStatusLabel = getEnumLabel({ template: (id) => `enums.occurrenceStatus.${id}` });
 
 export const GadmGidLabel = getEndpointLabel({
   template: ({ id, v1Endpoint }) => `${v1Endpoint}/geocode/gadm/${id}`,
   transform: (response) => ({ title: response?.name }),
+});
+
+export const establishmentMeansLabel = getEndpointLabel({
+  template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/EstablishmentMeans/concepts/${id}`,
+  transform: getVocabularyLabel
 });
 
 export const CollectionLabel = getGraphQlLabel({

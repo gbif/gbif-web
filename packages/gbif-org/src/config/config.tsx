@@ -15,6 +15,7 @@ export type LanguageOption = {
   textDirection: 'ltr' | 'rtl';
   cmsLocale?: string; // this is the locale code used by the CMS
   reactIntlLocale?: string; // this is the locale code used by react-intl
+  vocabularyLocale?: string; // this is the locale code used by the vocabulary server
 };
 
 type PartialSearchMetadata = Pick<SearchMetadata, 'availableTableColumns' | 'defaultEnabledTableColumns' | 'tabs' | 'defaultTab'>;

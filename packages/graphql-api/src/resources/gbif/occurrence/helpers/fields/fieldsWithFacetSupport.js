@@ -72,6 +72,7 @@ export default [
   'startDayOfYear',
   'stateProvince',
   'typeStatus',
+  'occurrenceStatus',
   'typifiedName',
   'waterBody',
   'year',

@@ -1,5 +1,6 @@
-import { Config, useConfig } from '@/config/config';
+import { Config, LanguageOption, useConfig } from '@/config/config';
 import { SearchMetadata, useSearchContext } from '@/contexts/search';
+import { useI18n } from '@/reactRouterPlugins';
 import { CANCEL_REQUEST } from '@/utils/fetchWithCancel';
 import { cn } from '@/utils/shadcn';
 import { useCombobox } from 'downshift';
@@ -19,6 +20,7 @@ export type SuggestFnProps = {
   siteConfig: Config;
   searchContext: SearchMetadata;
   intl: IntlShape;
+  currentLocale: LanguageOption;
 };
 
 export type SuggestResponseType = {
@@ -80,6 +82,7 @@ const Search = React.forwardRef(
     const config = useConfig();
     const searchContext = useSearchContext();
     const intl = useIntl();
+    const { locale: currentLocale } = useI18n();
     const [items, setItems] = React.useState<SuggestionItem[]>([]);
     const [selectedItem, setSelectedItem] = React.useState<SuggestionItem | null>(null);
     const [q, setQ] = React.useState('');
@@ -94,6 +97,7 @@ const Search = React.forwardRef(
         searchContext,
         siteConfig: config,
         locale: intl.locale,
+        currentLocale,
       });
       promise
         .then((data) => {
