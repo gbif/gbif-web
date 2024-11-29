@@ -142,7 +142,13 @@ export function FilterProvider({
     (field: string, value: any, isNegated?: boolean): FilterType => {
       const type = isNegated ? 'mustNot' : 'must';
       let values = get(currentFilter, `${type}.${field}`, []);
-      values = values.filter((e) => !isEqual(e, value));
+      values = values.filter((e) => {
+        //check if strings or numbers, then just do a string comparison
+        if (typeof e === 'string' || typeof e === 'number') {
+          return e.toString() !== value.toString();
+        }
+        return !isEqual(e, value)
+      });
       return setField(field, values, isNegated);
     },
     [filterHash, setField]
@@ -152,7 +158,13 @@ export function FilterProvider({
     (field: string, value: any, isNegated?: boolean): FilterType => {
       const type = isNegated ? 'mustNot' : 'must';
       const values = get(currentFilter, `${type}.${field}`, []);
-      if (values.some((e) => isEqual(e, value))) {
+      if (values.some((e) => {
+        //check if strins or numbers, then just do a string comparison
+        if (typeof e === 'string' || typeof e === 'number') {
+          return e.toString() === value.toString();
+        }
+        return isEqual(e, value);
+      })) {
         return remove(field, value, isNegated);
       } else {
         return add(field, value, isNegated);

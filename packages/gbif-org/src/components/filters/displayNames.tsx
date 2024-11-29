@@ -149,6 +149,7 @@ export const ContinentLabel = getEnumLabel({ template: (id) => `enums.continent.
 export const EndpointTypeLabel = getEnumLabel({ template: (id) => `enums.endpointType.${id}` });
 export const DwcaExtensionLabel = getEnumLabel({ template: (id) => `enums.dwcaExtension.${id}` });
 export const IucnRedListCategoryLabel = getEnumLabel({ template: (id) => `enums.iucnRedListCategory.${id}` });
+export const typeStatusLabel = getEnumLabel({ template: (id) => `enums.typeStatus.${id}` });
 
 export const GadmGidLabel = getEndpointLabel({
   template: ({ id, v1Endpoint }) => `${v1Endpoint}/geocode/gadm/${id}`,

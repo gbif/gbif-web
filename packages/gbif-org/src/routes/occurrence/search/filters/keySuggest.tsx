@@ -3,15 +3,15 @@ import {
   CountryLabel,
   DatasetLabel,
   GadmGidLabel,
+  IdentityLabel,
   InstitutionLabel,
   NetworkLabel,
   PublisherLabel,
   TaxonLabel,
 } from '@/components/filters/displayNames';
 import { filterConfig, filterConfigTypes } from '@/components/filters/filterTools';
-import { SuggestFnProps, SuggestResponseType } from '@/components/filters/suggest';
 import { HelpText } from '@/components/helpText';
-import { collectionKeySuggest, datasetKeyOccurrenceSuggest, datasetKeySuggest, gadGidSuggest, institutionKeySuggest, networkKeySuggest, publisherKeyOccurrenceSuggest, publisherKeySuggest, taxonKeySuggest, taxonKeyVernacularSuggest } from '@/utils/suggestEndpoints';
+import { collectionCodeSuggest, collectionKeySuggest, datasetKeyOccurrenceSuggest, datasetKeySuggest, gadGidSuggest, institutionCodeSuggest, institutionKeySuggest, networkKeySuggest, publisherKeyOccurrenceSuggest, publisherKeySuggest, recordNumberSuggest, taxonKeySuggest, taxonKeyVernacularSuggest } from '@/utils/suggestEndpoints';
 
 export const institutionKeyConfig: filterConfig = {
   filterType: filterConfigTypes.SUGGEST,
@@ -230,6 +230,69 @@ export const publishingCountryConfig: filterConfig = {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
           field: publishingCountry {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+};
+
+export const institutionCodeConfig: filterConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'institutionCode',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.institutionCode.name',
+  suggestConfig: institutionCodeSuggest,
+  facetQuery: `
+    query OccurrenceInstitutionCodeFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: institutionCode {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+};
+
+export const collectionCodeConfig: filterConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'collectionCode',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.collectionCode.name',
+  suggestConfig: collectionCodeSuggest,
+  facetQuery: `
+    query OccurrenceCollectionCodeFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: collectionCode {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+};
+
+export const recordNumberConfig: filterConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'recordNumber',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.recordNumber.name',
+  suggestConfig: recordNumberSuggest,
+  facetQuery: `
+    query OccurrenceRecordNumberFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: recordNumber {
             name: key
             count
           }

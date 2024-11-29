@@ -156,6 +156,19 @@ function transform(p, config, isRootQuery) {
         }
       }
     }
+    case 'isNull': {
+      return {
+        bool: {
+          must_not: [
+            {
+              exists: {
+                field: fieldName
+              }
+            }
+          ]
+        }
+      }
+    }
     case 'within': {
       const geojson = wktToGeoJson(p.value);
       if (!['MultiPolygon', 'Polygon'].includes(geojson.type)) {

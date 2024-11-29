@@ -386,3 +386,60 @@ export const gadGidSuggest = {
     </div>
   }
 };
+
+export const institutionCodeSuggest = {
+  getSuggestions: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {
+    const { cancel, promise } = fetchWithCancel(
+      `${siteConfig.v1Endpoint}/occurrence/search/institutionCode?limit=100&q=${q}`
+    );
+    const result = promise
+      .then((res) => res.json())
+      .then((data) => {
+        return data.map(
+          (item: string) => ({
+            key: item,
+            title: item
+          })
+        );
+      });
+    return { cancel, promise: result };
+  }
+};
+
+export const collectionCodeSuggest = {
+  getSuggestions: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {
+    const { cancel, promise } = fetchWithCancel(
+      `${siteConfig.v1Endpoint}/occurrence/search/collectionCode?limit=100&q=${q}`
+    );
+    const result = promise
+      .then((res) => res.json())
+      .then((data) => {
+        return data.map(
+          (item: string) => ({
+            key: item,
+            title: item
+          })
+        );
+      });
+    return { cancel, promise: result };
+  }
+};
+
+export const recordNumberSuggest = {
+  getSuggestions: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {
+    const { cancel, promise } = fetchWithCancel(
+      `${siteConfig.v1Endpoint}/occurrence/search/recordNumber?limit=100&q=${q}`
+    );
+    const result = promise
+      .then((res) => res.json())
+      .then((data) => {
+        return data.map(
+          (item: string) => ({
+            key: item,
+            title: item
+          })
+        );
+      });
+    return { cancel, promise: result };
+  }
+};

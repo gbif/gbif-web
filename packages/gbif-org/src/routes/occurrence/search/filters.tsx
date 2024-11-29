@@ -14,8 +14,8 @@ import country from '@/enums/basic/country.json';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { SuggestFnProps } from '@/components/filters/suggest';
-import { collectionKeyConfig, countryConfig, datasetKeyConfig, gadmGidConfig, hostingOrganizationKeyConfig, institutionKeyConfig, networkKeyConfig, publisherKeyConfig, publishingCountryConfig, taxonKeyConfig } from './filters/keySuggest';
-import { basisOfRecordConfig, continentConfig, dwcaExtensionConfig, iucnRedListCategoryConfig, licenceConfig, mediaTypeConfig, monthConfig, protocolConfig } from './filters/enums';
+import { collectionCodeConfig, collectionKeyConfig, countryConfig, datasetKeyConfig, gadmGidConfig, hostingOrganizationKeyConfig, institutionCodeConfig, institutionKeyConfig, networkKeyConfig, publisherKeyConfig, publishingCountryConfig, recordNumberConfig, taxonKeyConfig } from './filters/keySuggest';
+import { basisOfRecordConfig, continentConfig, dwcaExtensionConfig, iucnRedListCategoryConfig, licenceConfig, mediaTypeConfig, monthConfig, protocolConfig, typeStatusConfig } from './filters/enums';
 import { eventIdConfig, higherGeographyConfig, identifiedByIdConfig, occurrenceIdConfig, organismIdConfig, projectIdConfig, recordedByIdConfig } from './filters/textOnly';
 
 const freeTextConfig: filterConfig = {
@@ -78,6 +78,10 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       networkKey: generateFilters({config: networkKeyConfig, searchConfig, formatMessage}),
       gadmGid: generateFilters({config: gadmGidConfig, searchConfig, formatMessage}),
       
+      institutionCode: generateFilters({config: institutionCodeConfig, searchConfig, formatMessage}),
+      collectionCode: generateFilters({config: collectionCodeConfig, searchConfig, formatMessage}),
+      recordNumber: generateFilters({config: recordNumberConfig, searchConfig, formatMessage}),
+      
       // enums
       license: generateFilters({config: licenceConfig, searchConfig, formatMessage}),
       basisOfRecord: generateFilters({config: basisOfRecordConfig, searchConfig, formatMessage}),
@@ -87,6 +91,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       protocol: generateFilters({config: protocolConfig, searchConfig, formatMessage}),
       dwcaExtension: generateFilters({config: dwcaExtensionConfig, searchConfig, formatMessage}),
       iucnRedListCategory: generateFilters({config: iucnRedListCategoryConfig, searchConfig, formatMessage}),
+      typeStatus: generateFilters({config: typeStatusConfig, searchConfig, formatMessage}),
       
       projectId: generateFilters({config: projectIdConfig, searchConfig, formatMessage}),
       recordedById: generateFilters({config: recordedByIdConfig, searchConfig, formatMessage}),

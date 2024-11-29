@@ -29,6 +29,10 @@ const otherParams = [
   'institutionKey',
   'collectionKey',
   'datasetKey',
+  
+  'institutionCode',
+  'collectionCode',
+  'recordNumber',
 
   'license',
   'basisOfRecord',
@@ -38,6 +42,7 @@ const otherParams = [
   'protocol',
   'dwcaExtension',
   'iucnRedListCategory',
+  'typeStatus',
   
   'projectId',
   'recordedById',

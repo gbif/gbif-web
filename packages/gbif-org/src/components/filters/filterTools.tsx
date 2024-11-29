@@ -18,6 +18,8 @@ import { SuggestionItem } from './suggest';
 import MoreFilters from './More';
 import { RangeFilter } from './rangeFilter';
 import { SuggestConfig } from '@/utils/suggestEndpoints';
+import { Button } from '../ui/button';
+import { SkeletonOption } from './option';
 
 export const filterConfigTypes = {
   SUGGEST: 'SUGGEST',
@@ -542,6 +544,59 @@ export function FilterBar({
       {children}
     </div>
   );
+}
+
+export function ApplyCancel({
+  onApply,
+  onCancel,
+  pristine,
+}: {
+  onApply?: ({ keepOpen }?: { keepOpen?: boolean }) => void;
+  onCancel?: () => void;
+  pristine?: boolean;
+}) {
+  if (!onApply || !onCancel) return null;
+  return (
+    <div className="g-flex-none g-py-2 g-px-2 g-flex g-justify-between">
+      <Button size="sm" variant="outline" onClick={onCancel}>
+        Cancel
+      </Button>
+      {!pristine && (
+        <Button type="submit" role="button" size="sm" onClick={() => onApply({ keepOpen: false })}>
+          Apply
+        </Button>
+      )}
+    </div>
+  );
+}
+
+export function AsyncOptions({
+  children,
+  loading,
+  error,
+  className,
+}: {
+  children: React.ReactNode;
+  loading: boolean;
+  error?: Error;
+  className?: string;
+}) {
+  if (error) {
+    return (
+      <div className="g-p-2 g-m-4 g-text-red-900 g-text-sm">Unable to load suggestions...</div>
+    );
+  }
+  if (loading) {
+    return (
+      <div className={cn(className)}>
+        <SkeletonOption className="g-w-full g-mb-2" />
+        <SkeletonOption className="g-w-36 g-max-w-full g-mb-2" />
+        <SkeletonOption className="g-max-w-full g-w-48 g-mb-2" />
+        <SkeletonOption className="g-max-w-full g-w-64 g-mb-2" />
+      </div>
+    );
+  }
+  return children;
 }
 
 export type FilterSummaryType = {

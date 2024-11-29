@@ -1,4 +1,4 @@
-import { BasisOfRecordLabel, ContinentLabel, DwcaExtensionLabel, EndpointTypeLabel, LicenceLabel, MediaTypeLabel, MonthLabel, IucnRedListCategoryLabel } from "@/components/filters/displayNames";
+import { BasisOfRecordLabel, ContinentLabel, DwcaExtensionLabel, EndpointTypeLabel, LicenceLabel, MediaTypeLabel, MonthLabel, IucnRedListCategoryLabel, typeStatusLabel } from "@/components/filters/displayNames";
 import licenseOptions from '@/enums/basic/license.json';
 import basisOfRecordOptions from '@/enums/basic/basisOfRecord.json';
 import mediaTypeOptions from '@/enums/basic/mediaType.json';
@@ -7,6 +7,7 @@ import continentOptions from '@/enums/basic/continent.json';
 import endpointTypeOptions from '@/enums/basic/endpointType.json';
 import dwcaExtensionOptions from '@/enums/basic/dwcaExtension.json';
 import iucnRedListCategoryOptions from '@/enums/basic/iucnRedListCategory.json';
+import typeStatusOptions from '@/enums/basic/typeStatus.json';
 import { HelpText } from '@/components/helpText';
 import { filterConfig, filterConfigTypes } from "@/components/filters/filterTools";
 
@@ -168,6 +169,27 @@ export const iucnRedListCategoryConfig: filterConfig = {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
           field: iucnRedListCategory(size: 100) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+};
+
+export const typeStatusConfig: filterConfig = {
+  filterType: filterConfigTypes.ENUM,
+  filterHandle: 'typeStatus',
+  displayName: typeStatusLabel,
+  options: typeStatusOptions,
+  filterTranslation: 'filters.typeStatus.name',
+  facetQuery: /* GraphQL */ `
+    query OccurrenceTypeStatusFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: typeStatus(size: 100) {
             name: key
             count
           }

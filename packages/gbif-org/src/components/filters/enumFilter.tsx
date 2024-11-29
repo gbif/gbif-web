@@ -9,6 +9,7 @@ import {
   MdShuffle,
   MdPieChart,
   MdPieChartOutline,
+  MdOutlineRemoveCircle,
 } from 'react-icons/md';
 import hash from 'object-hash';
 import { PiEmptyBold, PiEmptyFill } from 'react-icons/pi';
@@ -17,13 +18,20 @@ import { cn } from '@/utils/shadcn';
 import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import useQuery from '@/hooks/useQuery';
-import { FormattedNumber } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { SimpleTooltip } from '@/components/simpleTooltip';
-import { FacetQuery, getAsQuery } from './filterTools';
+import {
+  ApplyCancel,
+  FacetQuery,
+  FilterSummaryType,
+  getAsQuery,
+  getFilterSummary,
+} from './filterTools';
 import { Option } from './option';
 import cloneDeep from 'lodash/cloneDeep';
 import { useSearchContext } from '@/contexts/search';
 import { AboutButton } from './aboutButton';
+import { Exists } from './exists';
 
 export const EnumFilter = React.forwardRef(
   (
@@ -37,7 +45,7 @@ export const EnumFilter = React.forwardRef(
       onApply,
       onCancel,
       pristine,
-      about
+      about,
     }: {
       className?: string;
       searchConfig: FilterConfigType;
@@ -54,10 +62,19 @@ export const EnumFilter = React.forwardRef(
   ) => {
     const searchContext = useSearchContext();
     const currentFilterContext = useContext(FilterContext);
-    const { filter, toggle, setFullField, filterHash } = currentFilterContext;
+    const { filter, toggle, setFullField, negateField, setFilter, filterHash } = currentFilterContext;
     const [selected, setSelected] = useState<string[]>([]);
     const [filterBeforeHash, setFilterBeforeHash] = useState<string | undefined>(undefined);
+    const [backupFilter, setBackupFilter] = useState<FilterType | undefined>(undefined);
+    const [filterSummary, setFilterSummary] = useState<FilterSummaryType>(
+      getFilterSummary(filter, filterHandle)
+    );
+    const [filterType, setFilterType] = useState(
+      filterSummary?.isNotNull || filterSummary?.isNull ? 'EXISTS' : 'SELECT'
+    );
+    const [useNegations, setUseNegations] = useState(filterSummary?.hasNegations ?? false);
 
+    console.log(filter);
     const {
       data: facetData,
       error: facetError,
@@ -75,6 +92,15 @@ export const EnumFilter = React.forwardRef(
     } = useQuery<FacetQuery, unknown>(facetQuery ?? '', {
       lazyLoad: true,
     });
+
+    // watch filter summary and update filter type
+    useEffect(() => {
+      if (filterSummary?.isNotNull || filterSummary?.isNull) {
+        setFilterType('EXISTS');
+      } else {
+        setFilterType('SELECT');
+      }
+    }, [filterSummary]);
 
     useEffect(() => {
       // if no enums are provided, then get facet values from API using no filters. This will provide is with the possible values for that field.
@@ -94,6 +120,7 @@ export const EnumFilter = React.forwardRef(
       // if the filter has changed, then get facet values from API
       const prunedFilter = cleanUpFilter(cloneDeep(filter));
       delete prunedFilter.must?.[filterHandle];
+      delete prunedFilter.mustNot?.[filterHandle];
 
       const query = getAsQuery({ filter: prunedFilter, searchContext, searchConfig });
       if (searchContext.queryType === 'V1') {
@@ -104,13 +131,16 @@ export const EnumFilter = React.forwardRef(
     }, [facetQuery, filterBeforeHash, facetLoad, searchContext, searchConfig, filterHandle]);
 
     useEffect(() => {
-      const selectedList = filter?.must?.[filterHandle] ?? [];
-      setSelected(selectedList);
+      const selectedList = filter?.must?.[filterHandle] ?? filter?.mustNot?.[filterHandle] ?? [];
+      setSelected(selectedList.map((x) => x.toString()));
 
       // secondly keep track the facets without the current filter
       const prunedFilter = cleanUpFilter(cloneDeep(filter));
       delete prunedFilter.must?.[filterHandle];
       setFilterBeforeHash(hash(prunedFilter));
+
+      const filterSummary = getFilterSummary(filter, filterHandle);
+      setFilterSummary(filterSummary);
     }, [filterHash, filterHandle]);
 
     const facetSuggestions = facetData?.search?.facet?.field?.reduce(
@@ -141,16 +171,33 @@ export const EnumFilter = React.forwardRef(
               <MdDeleteOutline />
             </button>
           )}
-          {/* <SimpleTooltip delayDuration={300} title="Exclude selected">
-          <button
-            className="g-px-1"
-            onClick={() => {
-              // negateField('fieldName', true)
-            }}
-          >
-            <MdOutlineRemoveCircleOutline />
-          </button>
-        </SimpleTooltip> */}
+
+          <SimpleTooltip delayDuration={300} title="Exclude selected">
+            <button
+              className="g-px-1"
+              onClick={() => {
+                negateField(filterHandle, !useNegations);
+                setUseNegations(!useNegations);
+              }}
+            >
+              {useNegations && <MdOutlineRemoveCircle />}
+              {!useNegations && <MdOutlineRemoveCircleOutline />}
+            </button>
+          </SimpleTooltip>
+
+          <SimpleTooltip delayDuration={300} title="Filter by existence">
+            <button
+              className="g-px-1"
+              onClick={() => {
+                const backup = cleanUpFilter(cloneDeep(filter));
+                setBackupFilter(backup);
+                setFullField(filterHandle, [{ type: 'isNotNull' }], []);
+              }}
+            >
+              <PiEmptyBold />
+            </button>
+          </SimpleTooltip>
+
           <SimpleTooltip delayDuration={300} title="Invert selection">
             <span>
               <button
@@ -165,11 +212,6 @@ export const EnumFilter = React.forwardRef(
               </button>
             </span>
           </SimpleTooltip>
-          {/* <SimpleTooltip delayDuration={300} title="Filter by existence">
-          <button className="g-px-1">
-            <PiEmptyBold />
-          </button>
-        </SimpleTooltip> */}
 
           {About && (
             <AboutButton className="-g-me-1">
@@ -180,9 +222,53 @@ export const EnumFilter = React.forwardRef(
       </>
     );
 
+    if (filterType === 'EXISTS') {
+      return (
+        <>
+          <div
+            className={cn(
+              'g-flex g-flex-none g-text-sm g-text-slate-400 g-py-1.5 g-px-4 g-items-center g-pt-2',
+              className
+            )}
+          >
+            <button
+              onClick={() => {
+                if (backupFilter) setFilter(backupFilter);
+                else setFullField(filterHandle, [], []);
+              }}
+            >
+              <FormattedMessage id="filterSupport.backToSelect" />
+            </button>
+
+            <div className="g-flex-auto"></div>
+            <div className="g-flex-none g-text-base" style={{ marginTop: '-0.2em' }}>
+              {About && (
+                <AboutButton className="-g-me-1">
+                  <About />
+                </AboutButton>
+              )}
+            </div>
+          </div>
+          <div className="g-py-1.5 g-px-4 g-w-full">
+            <Exists
+              isEmpty={!!filterSummary?.isNull}
+              onChange={({ isEmpty }: { isEmpty: boolean }) => {
+                if (isEmpty) {
+                  setFullField(filterHandle, [{ type: 'isNull' }], []);
+                } else {
+                  setFullField(filterHandle, [{ type: 'isNotNull' }], []);
+                }
+              }}
+            />
+          </div>
+          <ApplyCancel onApply={onApply} onCancel={onCancel} pristine={pristine} />
+        </>
+      );
+    }
+
     return (
       <div
-        className="g-flex g-flex-col g-overflow-hidden"
+        className="g-flex g-flex-col g-overflow-hidden g-max-h-[90dvh]"
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
             if (typeof onApply === 'function') {
@@ -208,17 +294,20 @@ export const EnumFilter = React.forwardRef(
           )}
           {options}
         </div>
-        <div className="g-flex-auto g-overflow-auto">
+        <div className="g-flex-auto g-overflow-auto g-max-h-96 [&::-webkit-scrollbar]:g-w-1 [&::-webkit-scrollbar-track]:g-bg-gray-100 [&::-webkit-scrollbar-thumb]:g-bg-gray-300">
           <div className={cn('g-text-base g-mt-2 g-px-4', className)}>
             <div role="group" className="g-text-sm">
               {valueOptions &&
                 valueOptions.map((x, i) => {
                   return (
                     <Option
+                      isNegated={useNegations}
                       key={x}
                       ref={i === 0 ? ref : undefined}
                       className="g-mb-2"
-                      onClick={() => toggle(filterHandle, x)}
+                      onClick={() => {
+                        toggle(filterHandle, x, useNegations);
+                      }}
                       checked={selected.includes(x.toString())}
                       // helpText="Longer description can go here"
                     >
@@ -236,18 +325,7 @@ export const EnumFilter = React.forwardRef(
             </div>
           </div>
         </div>
-        {onApply && onCancel && (
-          <div className="g-flex-none g-py-2 g-px-2 g-flex g-justify-between">
-            <Button size="sm" variant="outline" onClick={onCancel}>
-              Cancel
-            </Button>
-            {!pristine && (
-              <Button size="sm" onClick={() => onApply({ keepOpen: false })}>
-                Apply
-              </Button>
-            )}
-          </div>
-        )}
+        <ApplyCancel onApply={onApply} onCancel={onCancel} pristine={pristine} />
       </div>
     );
   }
