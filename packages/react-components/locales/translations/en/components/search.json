@@ -2,6 +2,7 @@
   "tabs": {
     "table": "Table",
     "gallery": "Gallery",
+    "media": "",
     "map": "Map",
     "datasets": "Datasets",
     "events": "Events",
@@ -11,7 +12,11 @@
     "sites": ""
   },
   "table": {
-    "lockColumn": "Lock column"
+    "lockColumn": "Lock column",
+    "unlockColumn": "",
+    "columnVisibility": "",
+    "resetColumnVisibility": "",
+    "openFilter": ""
   },
   "placeholders": {
     "default": "Search",
