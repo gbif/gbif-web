@@ -23,31 +23,21 @@ import { HelpLine } from '@/components/helpText';
 import { FormattedMessage, FormattedNumber, IntlShape } from 'react-intl';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Option, SkeletonOption } from './option';
-import { FacetQuery, getAsQuery } from './filterTools';
+import { AdditionalFilterProps, FacetQuery, filterRangeConfig, getAsQuery } from './filterTools';
 import { useSearchContext } from '@/contexts/search';
 
-type RangeProps = {
+type RangeProps = Omit<filterRangeConfig, 'filterType' | 'filterTranslation'> & AdditionalFilterProps & {
   className?: string;
-  searchConfig: FilterConfigType;
-  filterHandle: string;
-  DisplayName: React.FC<{ id: string }>;
-  facetQuery?: string;
-  getSuggestions?: ({ q, intl }: { q: string; intl?: IntlShape }) => Promise<SuggestionItem[]>;
-  onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
-  onCancel?: () => void;
-  pristine?: boolean;
-  regex?: RegExp;
 };
 
-export const RangeFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
+export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
   (
     {
       className,
       searchConfig,
       regex,
       filterHandle,
-      DisplayName,
-      getSuggestions, // function that takes a query string and returns a promise of suggestions
+      displayName: DisplayName,
       onApply,
       onCancel,
       pristine,
@@ -186,7 +176,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                       <FormattedMessage
                         id={`intervals.description.e`}
                         defaultMessage={'Filter name'}
-                        values={{ from: option.value }}
+                        values={{ from: option.value, is: option.value }}
                       />
                     );
                   } else {

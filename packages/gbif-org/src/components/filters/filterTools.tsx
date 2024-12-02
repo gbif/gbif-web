@@ -21,6 +21,7 @@ import { SuggestConfig } from '@/utils/suggestEndpoints';
 import { Button } from '../ui/button';
 import { SkeletonOption } from './option';
 import { OptionalBooleanFilter } from './optionalBooleanFilter';
+import { WildcardFilter } from './wildcardFilter';
 
 export enum filterConfigTypes {
   SUGGEST = 'SUGGEST',
@@ -28,6 +29,14 @@ export enum filterConfigTypes {
   FREE_TEXT = 'FREE_TEXT',
   RANGE = 'RANGE',
   OPTIONAL_BOOL = 'OPTIONAL_BOOL',
+  WILDCARD = 'WILDCARD',
+}
+
+export type AdditionalFilterProps = {
+  searchConfig: FilterConfigType;
+  onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+  onCancel?: () => void;
+  pristine?: boolean;
 }
 
 export type filterConfigShared = {
@@ -49,6 +58,13 @@ export type filterBoolConfig = filterConfigShared & {
 export type filterSuggestConfig = filterConfigShared & {
   filterType: filterConfigTypes.SUGGEST;
   disableFacetsForSelected?: boolean;
+  suggestConfig?: SuggestConfig;
+  allowExistence?: boolean;
+  allowNegations?: boolean;
+};
+
+export type filterWildcardConfig = filterConfigShared & {
+  filterType: filterConfigTypes.WILDCARD;
   suggestConfig?: SuggestConfig;
   allowExistence?: boolean;
   allowNegations?: boolean;
@@ -76,7 +92,8 @@ export type filterConfig =
   | filterSuggestConfig
   | filterEnumConfig
   | filterRangeConfig
-  | filterFreeTextConfig;
+  | filterFreeTextConfig
+  | filterWildcardConfig;
 
 // generic type for a facet query
 export interface FacetQuery {
@@ -166,7 +183,48 @@ const getSuggestFilter = ({
           suggestConfig={config.suggestConfig}
           facetQuery={config.facetQuery}
           filterHandle={config.filterHandle}
-          DisplayName={config.displayName}
+          displayName={config.displayName}
+          disableFacetsForSelected={config.disableFacetsForSelected}
+          searchConfig={searchConfig}
+          about={config.about}
+          {...{ onApply, onCancel, className, style, pristine }}
+        />
+      );
+    }
+  );
+};
+
+const getWildcardFilter = ({
+  config,
+  searchConfig,
+}: {
+  config: filterSuggestConfig;
+  searchConfig: FilterConfigType;
+}) => {
+  return React.forwardRef(
+    (
+      {
+        onApply,
+        onCancel,
+        className,
+        style,
+        pristine,
+      }: {
+        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+        onCancel?: () => void;
+        className?: string;
+        style?: React.CSSProperties;
+        pristine?: boolean;
+      },
+      ref
+    ) => {
+      return (
+        <WildcardFilter
+          ref={ref}
+          suggestConfig={config.suggestConfig}
+          facetQuery={config.facetQuery}
+          filterHandle={config.filterHandle}
+          displayName={config.displayName}
           disableFacetsForSelected={config.disableFacetsForSelected}
           searchConfig={searchConfig}
           about={config.about}
@@ -238,10 +296,10 @@ const getEnumFilter = ({
       return (
         <EnumFilter
           ref={ref}
-          enumOptions={config.options}
+          options={config.options}
           facetQuery={config.facetQuery}
           filterHandle={config.filterHandle}
-          DisplayName={config.displayName}
+          displayName={config.displayName}
           allowExistence={config.allowExistence}
           allowNegations={config.allowNegations}
           searchConfig={searchConfig}
@@ -282,7 +340,7 @@ const getOptionalBooleanFilter = ({
           ref={ref}
           facetQuery={config.facetQuery}
           filterHandle={config.filterHandle}
-          DisplayName={config.displayName}
+          displayName={config.displayName}
           searchConfig={searchConfig}
           about={config.about}
           {...{ onApply, onCancel, className, style, pristine }}
@@ -321,7 +379,7 @@ const getRangeFilter = ({
           ref={ref}
           regex={config.regex}
           filterHandle={config.filterHandle}
-          DisplayName={config.displayName}
+          displayName={config.displayName}
           searchConfig={searchConfig}
           {...{ onApply, onCancel, className, style, pristine }}
         />
@@ -343,7 +401,7 @@ export type FilterSetting = {
   }>;
   name: string;
   handle: string;
-  DisplayName: React.FC<{ id: string | number | object }>;
+  displayName: React.FC<{ id: string | number | object }>;
   translatedFilterName: string;
 };
 
@@ -352,7 +410,7 @@ type FilterSettingDefaults = {
   Popover: React.FC<{ trigger: React.ReactNode }>;
   name: string;
   handle: string;
-  DisplayName: React.FC<{ id: string | number | object }>;
+  displayName: React.FC<{ id: string | number | object }>;
   translatedFilterName: string;
 };
 
@@ -392,7 +450,7 @@ export function generateFilter({
           <FilterButton
             className={cn('g-mx-1 g-mb-1 g-max-w-md g-text-slate-600', className)}
             filterHandle={config.filterHandle}
-            DisplayName={config.displayName}
+            displayName={config.displayName}
             titleTranslationKey={config.filterTranslation}
             {...config.filterButtonProps}
           />
@@ -413,7 +471,7 @@ export function generateFilter({
     Content: Content,
     name: config.filterTranslation,
     handle: config.filterHandle,
-    DisplayName: config.displayName,
+    displayName: config.displayName,
     translatedFilterName: formatMessage({ id: config.filterTranslation }),
   };
 }
@@ -456,6 +514,12 @@ export function generateFilters({
       config,
       formatMessage,
       Content: getOptionalBooleanFilter({ config: config as filterBoolConfig, searchConfig }),
+    });
+  } else if (config.filterType === filterConfigTypes.WILDCARD) {
+    return generateFilter({
+      config,
+      formatMessage,
+      Content: getWildcardFilter({ config: config as filterWildcardConfig, searchConfig }),
     });
   } else {
     throw new Error(`Unknown filter type ${config?.filterType}`);

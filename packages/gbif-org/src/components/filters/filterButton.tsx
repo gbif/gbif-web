@@ -14,7 +14,7 @@ interface FilterButtonProps {
   filterHandle: string;
   onClear?: () => void;
   getCount?: (filter: unknown) => number;
-  DisplayName?: React.ComponentType<{ id: string | number | object }>;
+  displayName?: React.ComponentType<{ id: string | number | object }>;
 }
 
 export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProps>(
@@ -26,7 +26,7 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
       filterHandle,
       onClear,
       getCount,
-      DisplayName = ({ id }) => <>{id}</>,
+      displayName: DisplayName = ({ id }) => <>{id}</>,
       ...props
     },
     ref

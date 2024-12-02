@@ -1,21 +1,24 @@
 import React, { useContext, useEffect, useState } from 'react';
 import hash from 'object-hash';
 import { cn } from '@/utils/shadcn';
-import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
-import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
+import { cleanUpFilter, FilterContext } from '@/contexts/filter';
 import useQuery from '@/hooks/useQuery';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import {
+  AdditionalFilterProps,
   ApplyCancel,
   FacetQuery,
-  FilterSummaryType,
+  filterBoolConfig,
   getAsQuery,
-  getFilterSummary,
 } from './filterTools';
 import cloneDeep from 'lodash/cloneDeep';
 import { useSearchContext } from '@/contexts/search';
 import { AboutButton } from './aboutButton';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
+
+type BoolProps = Omit<filterBoolConfig, 'filterType' | 'filterTranslation'> & AdditionalFilterProps & {
+  className?: string;
+};
 
 export const OptionalBooleanFilter = React.forwardRef(
   (
@@ -23,25 +26,13 @@ export const OptionalBooleanFilter = React.forwardRef(
       className,
       searchConfig,
       filterHandle,
-      DisplayName,
+      displayName: DisplayName,
       facetQuery,
       onApply,
       onCancel,
       pristine,
       about,
-    }: {
-      className?: string;
-      searchConfig: FilterConfigType;
-      filterHandle: string;
-      DisplayName: React.FC<{ id: string | number | object}>;
-      facetQuery?: string;
-      onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
-      onCancel?: () => void;
-      pristine?: boolean;
-      about?: React.FC;
-      allowNegations?: boolean;
-      allowExistence?: boolean;
-    },
+    }: BoolProps,
     ref
   ) => {
     const searchContext = useSearchContext();

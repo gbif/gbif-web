@@ -9,7 +9,6 @@ import {
 import { PiEmptyBold, PiEmptyFill } from 'react-icons/pi';
 import { cn } from '@/utils/shadcn';
 import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
-import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import useQuery from '@/hooks/useQuery';
 import hash from 'object-hash';
 import cloneDeep from 'lodash/cloneDeep';
@@ -22,8 +21,8 @@ import {
   ApplyCancel,
   AsyncOptions,
   FacetQuery,
-  filterSuggestConfig,
   FilterSummaryType,
+  filterWildcardConfig,
   getAsQuery,
   getFilterSummary,
 } from './filterTools';
@@ -32,12 +31,12 @@ import { AboutButton } from './aboutButton';
 import { Exists } from './exists';
 import StripeLoader from '../stripeLoader';
 
-type SuggestProps = Omit<filterSuggestConfig, 'filterType' | 'filterTranslation'> &
+type WildcardProps = Omit<filterWildcardConfig, 'filterType' | 'filterTranslation'> &
   AdditionalFilterProps & {
     className?: string;
   };
 
-export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
+export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
   (
     {
       className,
@@ -49,9 +48,8 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       onApply,
       onCancel,
       pristine,
-      disableFacetsForSelected,
       about,
-    }: SuggestProps,
+    }: WildcardProps,
     ref
   ) => {
     const searchContext = useSearchContext();
@@ -111,8 +109,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
         disableFacetsForSelected ||
         filterSummary?.isNotNull ||
         filterSummary?.isNull ||
-        filterSummary?.mixed ||
-        useNegations
+        filterSummary?.mixed || useNegations
       )
         return;
       // if the filter has changed, then get facet values from API
@@ -269,7 +266,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
     }
 
     return (
-      <div className={cn('g-flex g-flex-col g-max-h-[100dvh]', className)}>
+      <div className={cn("g-flex g-flex-col g-max-h-[100dvh]", className)}>
         <div className="g-flex g-flex-none">
           <div className="g-p-2 g-w-full">
             {suggestConfig && (
@@ -349,8 +346,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                         <span className="g-flex-auto">
                           <DisplayName id={x} />
                         </span>
-                        {!useNegations &&
-                          !selectedFacetLoading &&
+                        {!useNegations && !selectedFacetLoading &&
                           !selectedFacetError &&
                           !disableFacetsForSelected && (
                             <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
@@ -375,7 +371,11 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
             className="g-p-2 g-pt-2 g-px-4"
           >
             {facetSuggestions && facetSuggestions.length > 0 && (
-              <div className={cn(selected.length > 0 && 'g-border-t')}>
+              <div
+                className={cn(
+                  selected.length > 0 && 'g-border-t'
+                )}
+              >
                 <StripeLoader active={facetLoading} />
                 <div className="g-p-2 g-pt-2 g-px-4">
                   {/* <div className={cn('g-flex g-text-sm g-text-slate-400 g-mt-1 g-mb-2 g-items-center')}>

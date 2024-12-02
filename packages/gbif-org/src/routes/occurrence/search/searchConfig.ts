@@ -96,6 +96,8 @@ const otherParams = [
 
   'catalogNumber',
   'recordedBy',
+
+  'waterBody',
 ];
 
 otherParams.forEach((filter) => {

@@ -9,13 +9,14 @@ import hash from 'object-hash';
 import { PiEmptyBold } from 'react-icons/pi';
 import { cn } from '@/utils/shadcn';
 import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
-import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import useQuery from '@/hooks/useQuery';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import {
+  AdditionalFilterProps,
   ApplyCancel,
   FacetQuery,
+  filterEnumConfig,
   FilterSummaryType,
   getAsQuery,
   getFilterSummary,
@@ -26,35 +27,26 @@ import { useSearchContext } from '@/contexts/search';
 import { AboutButton } from './aboutButton';
 import { Exists } from './exists';
 
+type EnumProps = Omit<filterEnumConfig, 'filterType' | 'filterTranslation'> & AdditionalFilterProps & {
+  className?: string;
+};
+
 export const EnumFilter = React.forwardRef(
   (
     {
       className,
       searchConfig,
       filterHandle,
-      DisplayName,
+      displayName: DisplayName,
       facetQuery,
-      enumOptions,
+      options: enumOptions,
       onApply,
       onCancel,
       pristine,
       about,
       allowNegations,
       allowExistence,
-    }: {
-      className?: string;
-      searchConfig: FilterConfigType;
-      filterHandle: string;
-      DisplayName: React.FC<{ id: string | number | object }>;
-      facetQuery?: string;
-      enumOptions?: string[];
-      onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
-      onCancel?: () => void;
-      pristine?: boolean;
-      about?: React.FC;
-      allowNegations?: boolean;
-      allowExistence?: boolean;
-    },
+    }: EnumProps,
     ref
   ) => {
     const searchContext = useSearchContext();

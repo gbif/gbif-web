@@ -52,6 +52,7 @@ import {
 import { establishmentMeansConfig } from './filters/vocabulary';
 import { isInClusterConfig, isSequencedConfig } from './filters/booleans';
 import { coordinateUncertaintyConfig, depthConfig, elevationConfig, organismQuantityConfig, relativeOrganismQuantityConfig, sampleSizeValueConfig, yearConfig } from './filters/ranges';
+import { waterBodyConfig } from './filters/wildcard';
 
 const freeTextConfig: filterConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
@@ -185,6 +186,8 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       relativeOrganismQuantity: generateFilters({ config: relativeOrganismQuantityConfig, searchConfig, formatMessage }),
       sampleSizeValue: generateFilters({ config: sampleSizeValueConfig, searchConfig, formatMessage }),
       elevation: generateFilters({ config: elevationConfig, searchConfig, formatMessage }),
+      
+      waterBody: generateFilters({ config: waterBodyConfig, searchConfig, formatMessage }),
     }),
     [searchConfig, countrySuggest, formatMessage]
   );
