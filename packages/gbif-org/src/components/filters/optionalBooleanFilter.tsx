@@ -1,18 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {
-  MdDeleteOutline,
-  MdOutlineRemoveCircleOutline,
-  MdShuffle,
-  MdOutlineRemoveCircle,
-} from 'react-icons/md';
 import hash from 'object-hash';
-import { PiEmptyBold } from 'react-icons/pi';
 import { cn } from '@/utils/shadcn';
 import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import useQuery from '@/hooks/useQuery';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { SimpleTooltip } from '@/components/simpleTooltip';
 import {
   ApplyCancel,
   FacetQuery,
@@ -20,11 +12,10 @@ import {
   getAsQuery,
   getFilterSummary,
 } from './filterTools';
-import { Option } from './option';
 import cloneDeep from 'lodash/cloneDeep';
 import { useSearchContext } from '@/contexts/search';
 import { AboutButton } from './aboutButton';
-import { Exists } from './exists';
+import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 
 export const OptionalBooleanFilter = React.forwardRef(
   (
@@ -34,20 +25,16 @@ export const OptionalBooleanFilter = React.forwardRef(
       filterHandle,
       DisplayName,
       facetQuery,
-      enumOptions,
       onApply,
       onCancel,
       pristine,
       about,
-      allowNegations,
-      allowExistence,
     }: {
       className?: string;
       searchConfig: FilterConfigType;
       filterHandle: string;
-      DisplayName: React.FC<{ id: string }>;
+      DisplayName: React.FC<{ id: string | number | object}>;
       facetQuery?: string;
-      enumOptions?: string[];
       onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
       onCancel?: () => void;
       pristine?: boolean;
@@ -59,19 +46,9 @@ export const OptionalBooleanFilter = React.forwardRef(
   ) => {
     const searchContext = useSearchContext();
     const currentFilterContext = useContext(FilterContext);
-    const { filter, toggle, setFullField, negateField, setFilter, filterHash } = currentFilterContext;
-    const [selected, setSelected] = useState<string[]>([]);
+    const { filter, filterHash, setFullField } = currentFilterContext;
     const [filterBeforeHash, setFilterBeforeHash] = useState<string | undefined>(undefined);
-    const [backupFilter, setBackupFilter] = useState<FilterType | undefined>(undefined);
-    const [filterSummary, setFilterSummary] = useState<FilterSummaryType>(
-      getFilterSummary(filter, filterHandle)
-    );
-    const [filterType, setFilterType] = useState(
-      filterSummary?.isNotNull || filterSummary?.isNull ? 'EXISTS' : 'SELECT'
-    );
-    const [useNegations, setUseNegations] = useState(filterSummary?.hasNegations ?? false);
 
-    console.log(filter);
     const {
       data: facetData,
       error: facetError,
@@ -80,37 +57,6 @@ export const OptionalBooleanFilter = React.forwardRef(
     } = useQuery<FacetQuery, unknown>(facetQuery ?? '', {
       lazyLoad: true,
     });
-
-    const {
-      data: noFilterFacetData,
-      error: noFilterFacetError,
-      loading: noFilterFacetLoading,
-      load: noFilterFacetLoad,
-    } = useQuery<FacetQuery, unknown>(facetQuery ?? '', {
-      lazyLoad: true,
-    });
-
-    // watch filter summary and update filter type
-    useEffect(() => {
-      if (filterSummary?.isNotNull || filterSummary?.isNull) {
-        setFilterType('EXISTS');
-      } else {
-        setFilterType('SELECT');
-      }
-    }, [filterSummary]);
-
-    useEffect(() => {
-      // if no enums are provided, then get facet values from API using no filters. This will provide is with the possible values for that field.
-      // TODO this should be changed to take into account the scope defined at site level
-      if (!enumOptions && facetQuery) {
-        const query = getAsQuery({ filter: {}, searchContext, searchConfig });
-        if (searchContext.queryType === 'V1') {
-          noFilterFacetLoad({ variables: { query: query } });
-        } else {
-          noFilterFacetLoad({ variables: { predicate: query } });
-        }
-      }
-    }, [enumOptions, facetQuery, noFilterFacetLoad, searchContext, searchConfig]);
 
     useEffect(() => {
       if (!facetQuery) return;
@@ -123,207 +69,82 @@ export const OptionalBooleanFilter = React.forwardRef(
       if (searchContext.queryType === 'V1') {
         facetLoad({ variables: { query: query } });
       } else {
-        facetLoad({ variables: { predicate: query } });
+        facetLoad({ variables: { predicate: query }, keepDataWhileLoading: true });
       }
     }, [facetQuery, filterBeforeHash, facetLoad, searchContext, searchConfig, filterHandle]);
 
     useEffect(() => {
-      const selectedList = filter?.must?.[filterHandle] ?? filter?.mustNot?.[filterHandle] ?? [];
-      setSelected(selectedList.map((x) => x.toString()));
-
-      // secondly keep track the facets without the current filter
+      // keep track the facets without the current filter
       const prunedFilter = cleanUpFilter(cloneDeep(filter));
       delete prunedFilter.must?.[filterHandle];
       setFilterBeforeHash(hash(prunedFilter));
-
-      const filterSummary = getFilterSummary(filter, filterHandle);
-      setFilterSummary(filterSummary);
-    }, [filterHash, filterHandle]);
-
-    const facetSuggestions = facetData?.search?.facet?.field?.reduce(
-      (acc: Record<string, number>, x) => {
-        if (x?.name) {
-          acc[x.name] = x.count;
-        }
-        return acc;
-      },
-      {} as Record<string, number>
-    );
-
-    const useFacetOptions = !enumOptions && noFilterFacetData?.search?.facet?.field;
-    const valueOptions = useFacetOptions
-      ? noFilterFacetData?.search?.facet?.field?.filter((x) => x).map((x) => x.name) ?? []
-      : enumOptions ?? [];
+    }, [filterHash, filterHandle])
 
     const About = about;
-    const options = (
-      <>
-        <div className="g-flex-auto"></div>
-        <div className="g-flex-none g-text-base" style={{ marginTop: '-0.2em' }}>
-          {selected.length > 0 && (
-            <button
-              className="g-mx-1 g-me-2 g-px-1 g-pe-3 g-border-r"
-              onClick={() => setFullField(filterHandle, [], [])}
-            >
-              <MdDeleteOutline />
-            </button>
-          )}
 
-          {allowNegations && <SimpleTooltip delayDuration={300} title="Exclude selected">
-            <button
-              className="g-px-1"
-              onClick={() => {
-                negateField(filterHandle, !useNegations);
-                setUseNegations(!useNegations);
-              }}
-            >
-              {useNegations && <MdOutlineRemoveCircle />}
-              {!useNegations && <MdOutlineRemoveCircleOutline />}
-            </button>
-          </SimpleTooltip>}
+    // get counts for true and false values from the facets
+    const trueCount =
+      facetData?.search?.facet?.field?.find((x) => x.name.toString() === 'true')?.count ??
+      0;
+    const falseCount =
+      facetData?.search?.facet?.field?.find((x) => x.name.toString() === 'false')?.count ??
+      0;
 
-          {allowExistence && <SimpleTooltip delayDuration={300} title="Filter by existence">
-            <button
-              className="g-px-1"
-              onClick={() => {
-                const backup = cleanUpFilter(cloneDeep(filter));
-                setBackupFilter(backup);
-                setFullField(filterHandle, [{ type: 'isNotNull' }], []);
-              }}
-            >
-              <PiEmptyBold />
-            </button>
-          </SimpleTooltip>}
-
-          <SimpleTooltip delayDuration={300} title="Invert selection">
-            <span>
-              <button
-                className="g-px-1"
-                onClick={() => {
-                  // reverse selection
-                  const newSelected = valueOptions.filter((x) => !selected.includes(x));
-                  setFullField(filterHandle, newSelected, []);
-                }}
-              >
-                <MdShuffle />
-              </button>
-            </span>
-          </SimpleTooltip>
-
-          {About && (
-            <AboutButton className="-g-me-1">
-              <About />
-            </AboutButton>
-          )}
-        </div>
-      </>
-    );
-
-    if (filterType === 'EXISTS') {
-      return (
-        <>
-          <div
-            className={cn(
-              'g-flex g-flex-none g-text-sm g-text-slate-400 g-py-1.5 g-px-4 g-items-center g-pt-2',
-              className
-            )}
-          >
-            <button
-              onClick={() => {
-                if (backupFilter) setFilter(backupFilter);
-                else setFullField(filterHandle, [], []);
-              }}
-            >
-              <FormattedMessage id="filterSupport.backToSelect" />
-            </button>
-
-            <div className="g-flex-auto"></div>
-            <div className="g-flex-none g-text-base" style={{ marginTop: '-0.2em' }}>
-              {About && (
-                <AboutButton className="-g-me-1">
-                  <About />
-                </AboutButton>
-              )}
-            </div>
-          </div>
-          <div className="g-py-1.5 g-px-4 g-w-full">
-            <Exists
-              isEmpty={!!filterSummary?.isNull}
-              onChange={({ isEmpty }: { isEmpty: boolean }) => {
-                if (isEmpty) {
-                  setFullField(filterHandle, [{ type: 'isNull' }], []);
-                } else {
-                  setFullField(filterHandle, [{ type: 'isNotNull' }], []);
-                }
-              }}
-            />
-          </div>
-          <ApplyCancel onApply={onApply} onCancel={onCancel} pristine={pristine} />
-        </>
-      );
-    }
+    const defaultSelected = filter?.must?.[filterHandle]?.[0]?.toString() ?? '';
 
     return (
-      <div
-        className="g-flex g-flex-col g-overflow-hidden g-max-h-[90dvh]"
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            if (typeof onApply === 'function') {
-              onApply();
-            }
-          }
-        }}
-      >
+      <>
         <div
-          onFocusCapture={(e) => {
-            // https://github.com/radix-ui/primitives/issues/2248#issuecomment-2147056904
-            // radix quirk. Doing this prevents tooltips from showing when opening in a popover
-            // since it also removed popovers on keyboard navigation, we only do so when there is no default checkboxes to take focus
-            e.stopPropagation();
-          }}
           className={cn(
-            'g-flex g-flex-none g-text-sm g-text-slate-400 g-py-1.5 g-px-4 g-items-center',
+            'g-flex g-flex-none g-text-sm g-text-slate-400 g-py-0 g-px-4 g-items-center g-pt-2',
             className
           )}
         >
-          {selected.length > -1 && (
-            <div className="g-flex-none g-text-xs g-font-bold">{selected?.length} selected</div>
-          )}
-          {options}
-        </div>
-        <div className="g-flex-auto g-overflow-auto g-max-h-96 [&::-webkit-scrollbar]:g-w-1 [&::-webkit-scrollbar-track]:g-bg-gray-100 [&::-webkit-scrollbar-thumb]:g-bg-gray-300">
-          <div className={cn('g-text-base g-mt-2 g-px-4', className)}>
-            <div role="group" className="g-text-sm">
-              {valueOptions &&
-                valueOptions.map((x, i) => {
-                  return (
-                    <Option
-                      isNegated={useNegations}
-                      key={x}
-                      ref={i === 0 ? ref : undefined}
-                      className="g-mb-2"
-                      onClick={() => {
-                        toggle(filterHandle, x, useNegations);
-                      }}
-                      checked={selected.includes(x.toString())}
-                      // helpText="Longer description can go here"
-                    >
-                      <div className="g-flex g-items-center">
-                        <span className="g-flex-auto">
-                          <DisplayName id={x} />
-                        </span>
-                        <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
-                          {facetSuggestions && <FormattedNumber value={facetSuggestions[x] ?? 0} />}
-                        </span>
-                      </div>
-                    </Option>
-                  );
-                })}
-            </div>
+          <div className="g-flex-auto"></div>
+          <div className="g-flex-none g-text-base" style={{ marginTop: '-0.2em' }}>
+            {About && (
+              <AboutButton className="-g-me-1">
+                <About />
+              </AboutButton>
+            )}
           </div>
         </div>
+        <div className="g-pb-1.5 g-px-4 g-w-full">
+          <RadioGroup
+            onValueChange={(val) => {
+              setFullField(filterHandle, val === '' ? [] : [val], []);
+            }}
+            defaultValue={defaultSelected}
+            className="g-gap-1"
+          >
+            <label className={cn('g-flex g-w-full')}>
+              <RadioGroupItem value="" className="g-flex-none g-me-2 g-mt-1" />
+              <div className="g-flex-auto g-overflow-hidden">
+                <FormattedMessage id="search.ternary.either" />
+              </div>
+            </label>
+            <label className={cn('g-flex g-w-full g-items-center')}>
+              <RadioGroupItem value="true" className="g-flex-none g-me-2 g-mt-1" />
+              <div className="g-flex-auto g-overflow-hidden">
+                <DisplayName id="true" />
+              </div>
+              {!facetLoading && <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
+                <FormattedNumber value={trueCount ?? 0} />
+              </span>}
+            </label>
+            <label className={cn('g-flex g-w-full g-items-center')}>
+              <RadioGroupItem value="false" className="g-flex-none g-me-2 g-mt-1" />
+              <div className="g-flex-auto g-overflow-hidden">
+                <DisplayName id="false" />
+              </div>
+              {!facetLoading && <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
+                <FormattedNumber value={falseCount ?? 0} />
+              </span>}
+            </label>
+          </RadioGroup>
+        </div>
         <ApplyCancel onApply={onApply} onCancel={onCancel} pristine={pristine} />
-      </div>
+      </>
     );
   }
 );

@@ -36,9 +36,10 @@ export function Download() {
   const localePrefix = 'en';
 
   useEffect(() => {
+    const currentFilter = filter2predicate(currentFilterContext.filter, searchConfig);
     const predicate = {
       type: 'and',
-      predicates: [scope, filter2predicate(currentFilterContext.filter, searchConfig)].filter(
+      predicates: [scope, currentFilter].filter(
         (x) => x
       ),
     };

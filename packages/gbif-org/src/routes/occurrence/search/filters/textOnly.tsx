@@ -1,8 +1,8 @@
 import { HelpText } from '@/components/helpText';
-import { filterConfig, filterConfigTypes } from "@/components/filters/filterTools";
+import { filterSuggestConfig, filterConfigTypes } from "@/components/filters/filterTools";
 import { IdentityLabel } from '@/components/filters/displayNames';
 
-export const projectIdConfig: filterConfig = {
+export const projectIdConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'projectId',
   displayName: IdentityLabel,
@@ -22,7 +22,7 @@ export const projectIdConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const recordedByIdConfig: filterConfig = {
+export const recordedByIdConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'recordedById',
   displayName: IdentityLabel,
@@ -30,7 +30,7 @@ export const recordedByIdConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const identifiedByIdConfig: filterConfig = {
+export const identifiedByIdConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'identifiedById',
   displayName: IdentityLabel,
@@ -38,7 +38,7 @@ export const identifiedByIdConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const occurrenceIdConfig: filterConfig = {
+export const occurrenceIdConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'occurrenceId',
   displayName: IdentityLabel,
@@ -46,7 +46,7 @@ export const occurrenceIdConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const organismIdConfig: filterConfig = {
+export const organismIdConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'organismId',
   displayName: IdentityLabel,
@@ -66,7 +66,7 @@ export const organismIdConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const higherGeographyConfig: filterConfig = {
+export const higherGeographyConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'higherGeography',
   displayName: IdentityLabel,
@@ -86,7 +86,7 @@ export const higherGeographyConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const eventIdConfig: filterConfig = {
+export const eventIdConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'eventId',
   displayName: IdentityLabel,

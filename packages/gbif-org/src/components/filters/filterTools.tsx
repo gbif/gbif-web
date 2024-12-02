@@ -5,7 +5,7 @@ import {
   filter2predicate,
   FilterConfigType,
 } from '@/dataManagement/filterAdapter/filter2predicate';
-import { IntlShape } from 'react-intl';
+import { FormattedMessage, IntlShape } from 'react-intl';
 import { EnumFilter } from './enumFilter';
 import { FilterContext, FilterType } from '@/contexts/filter';
 import { SearchMetadata } from '@/contexts/search';
@@ -20,13 +20,15 @@ import { RangeFilter } from './rangeFilter';
 import { SuggestConfig } from '@/utils/suggestEndpoints';
 import { Button } from '../ui/button';
 import { SkeletonOption } from './option';
+import { OptionalBooleanFilter } from './optionalBooleanFilter';
 
-export const filterConfigTypes = {
-  SUGGEST: 'SUGGEST',
-  ENUM: 'ENUM',
-  FREE_TEXT: 'FREE_TEXT',
-  RANGE: 'RANGE',
-};
+export enum filterConfigTypes {
+  SUGGEST = 'SUGGEST',
+  ENUM = 'ENUM',
+  FREE_TEXT = 'FREE_TEXT',
+  RANGE = 'RANGE',
+  OPTIONAL_BOOL = 'OPTIONAL_BOOL',
+}
 
 export type filterConfigShared = {
   filterType: string;
@@ -37,23 +39,44 @@ export type filterConfigShared = {
   facetQuery?: string;
   filterButtonProps?: { hideSingleValues: boolean };
   info?: React.FC;
+  about?: React.FC;
 };
 
-export type filterConfig = {
-  filterType: string;
-  filterHandle: string;
-  displayName: React.FC<{ id: string | number | object }>;
-  filterTranslation: string;
-  content?: React.FC;
-  options?: string[];
-  suggestConfig?: SuggestConfig;
-  facetQuery?: string;
-  filterButtonProps?: { hideSingleValues: boolean };
-  regex?: RegExp;
-  about?: React.FC;
-  allowNegations?: boolean;
-  allowExistence?: boolean;
+export type filterBoolConfig = filterConfigShared & {
+  filterType: filterConfigTypes.OPTIONAL_BOOL;
 };
+
+export type filterSuggestConfig = filterConfigShared & {
+  filterType: filterConfigTypes.SUGGEST;
+  disableFacetsForSelected?: boolean;
+  suggestConfig?: SuggestConfig;
+  allowExistence?: boolean;
+  allowNegations?: boolean;
+};
+
+export type filterEnumConfig = filterConfigShared & {
+  filterType: filterConfigTypes.ENUM;
+  options?: string[];
+  allowExistence?: boolean;
+  allowNegations?: boolean;
+};
+
+export type filterRangeConfig = filterConfigShared & {
+  filterType: filterConfigTypes.RANGE;
+  regex?: RegExp;
+};
+
+export type filterFreeTextConfig = filterConfigShared & {
+  filterType: filterConfigTypes.FREE_TEXT;
+};
+
+// define a type that is one of filterBoolConfig, filterSuggestConfig or filterEnumConfig
+export type filterConfig =
+  | filterBoolConfig
+  | filterSuggestConfig
+  | filterEnumConfig
+  | filterRangeConfig
+  | filterFreeTextConfig;
 
 // generic type for a facet query
 export interface FacetQuery {
@@ -88,6 +111,7 @@ export type FacetQueryResponse = {
 
 function getPopoverFilter({
   Content,
+  filterTranslation,
 }: {
   Content: React.FC<{
     onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
@@ -95,11 +119,18 @@ function getPopoverFilter({
     className?: string;
     style?: React.CSSProperties;
   }>;
+  filterTranslation: string;
 }) {
   return function PopoverFilter({ trigger }: { trigger: React.ReactNode }) {
+    const title = <div className="g-flex g-flex-nowrap g-items-center g-border-b g-p-2 g-px-4">
+    <h3 className="g-flex-auto g-text-slate-800 g-text-sm g-font-semibold">
+      <FormattedMessage id={filterTranslation} />
+    </h3>
+  </div>;
+
     return (
-      <FilterPopover trigger={trigger}>
-        <Content />
+      <FilterPopover trigger={trigger} title={title}>
+          <Content />
       </FilterPopover>
     );
   };
@@ -109,7 +140,7 @@ const getSuggestFilter = ({
   config,
   searchConfig,
 }: {
-  config: filterConfig;
+  config: filterSuggestConfig;
   searchConfig: FilterConfigType;
 }) => {
   return React.forwardRef(
@@ -184,7 +215,7 @@ const getEnumFilter = ({
   config,
   searchConfig,
 }: {
-  config: filterConfig;
+  config: filterEnumConfig;
   searchConfig: FilterConfigType;
 }) => {
   return React.forwardRef(
@@ -222,11 +253,50 @@ const getEnumFilter = ({
   );
 };
 
+const getOptionalBooleanFilter = ({
+  config,
+  searchConfig,
+}: {
+  config: filterBoolConfig;
+  searchConfig: FilterConfigType;
+}) => {
+  return React.forwardRef(
+    (
+      {
+        onApply,
+        onCancel,
+        className,
+        style,
+        pristine,
+      }: {
+        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+        onCancel?: () => void;
+        className?: string;
+        style?: React.CSSProperties;
+        pristine?: boolean;
+      },
+      ref
+    ) => {
+      return (
+        <OptionalBooleanFilter
+          ref={ref}
+          facetQuery={config.facetQuery}
+          filterHandle={config.filterHandle}
+          DisplayName={config.displayName}
+          searchConfig={searchConfig}
+          about={config.about}
+          {...{ onApply, onCancel, className, style, pristine }}
+        />
+      );
+    }
+  );
+};
+
 const getRangeFilter = ({
   config,
   searchConfig,
 }: {
-  config: filterConfig;
+  config: filterRangeConfig;
   searchConfig: FilterConfigType;
 }) => {
   return React.forwardRef(
@@ -314,7 +384,7 @@ export function generateFilter({
   formatMessage: IntlShape['formatMessage'];
   Content: React.FC;
 }): FilterSetting {
-  const PopoverFilter = getPopoverFilter({ config, Content });
+  const PopoverFilter = getPopoverFilter({ Content, filterTranslation: config.filterTranslation });
   let FilterButtonPopover = ({ className }: { className?: string }) => {
     return (
       <PopoverFilter
@@ -348,22 +418,6 @@ export function generateFilter({
   };
 }
 
-export function getSuggestFilterConfig({
-  config,
-  searchConfig,
-  formatMessage,
-}: {
-  config: filterConfig;
-  searchConfig: FilterConfigType;
-  formatMessage: IntlShape['formatMessage'];
-}): FilterSettingSuggest {
-  return generateFilter({
-    config,
-    formatMessage,
-    Content: getSuggestFilter({ config, searchConfig }),
-  });
-}
-
 export function generateFilters({
   config,
   searchConfig,
@@ -377,13 +431,13 @@ export function generateFilters({
     return generateFilter({
       config,
       formatMessage,
-      Content: getSuggestFilter({ config, searchConfig }),
+      Content: getSuggestFilter({ config: config as filterSuggestConfig, searchConfig }),
     });
   } else if (config.filterType === filterConfigTypes.ENUM) {
     return generateFilter({
       config,
       formatMessage,
-      Content: getEnumFilter({ config, searchConfig }),
+      Content: getEnumFilter({ config: config as filterEnumConfig, searchConfig }),
     });
   } else if (config.filterType === filterConfigTypes.FREE_TEXT) {
     return generateFilter({
@@ -395,7 +449,13 @@ export function generateFilters({
     return generateFilter({
       config,
       formatMessage,
-      Content: getRangeFilter({ config, searchConfig }),
+      Content: getRangeFilter({ config: config as filterRangeConfig, searchConfig }),
+    });
+  } else if (config.filterType === filterConfigTypes.OPTIONAL_BOOL) {
+    return generateFilter({
+      config,
+      formatMessage,
+      Content: getOptionalBooleanFilter({ config: config as filterBoolConfig, searchConfig }),
     });
   } else {
     throw new Error(`Unknown filter type ${config?.filterType}`);
@@ -626,6 +686,6 @@ export function getFilterSummary(filter: FilterType, handle: string): FilterSumm
     mixed: must.length > 0 && mustNot.length > 0,
     isNull,
     isNotNull,
-    firstValue: must?.[0] || mustNot?.[0],
+    firstValue: must?.length > 0 ? must?.[0] : mustNot?.[0],
   };
 }

@@ -166,6 +166,7 @@ export const IucnRedListCategoryLabel = getEnumLabel({ template: (id) => `enums.
 export const typeStatusLabel = getEnumLabel({ template: (id) => `enums.typeStatus.${id}` });
 export const occurrenceIssueLabel = getEnumLabel({ template: (id) => `enums.occurrenceIssue.${id}` });
 export const occurrenceStatusLabel = getEnumLabel({ template: (id) => `enums.occurrenceStatus.${id}` });
+export const booleanLabel = getEnumLabel({ template: (id) => `enums.yesNo.${id}` });
 
 export const GadmGidLabel = getEndpointLabel({
   template: ({ id, v1Endpoint }) => `${v1Endpoint}/geocode/gadm/${id}`,

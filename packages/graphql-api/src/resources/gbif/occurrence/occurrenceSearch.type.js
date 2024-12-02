@@ -253,6 +253,8 @@ const typeDef = gql`
     gbifClassification_usageParsedName_basionymAuthorship_empty(size: Int, from: Int): [OccurrenceFacetResult_boolean]
     gbifClassification_usageParsedName_combinationAuthorship_empty(size: Int, from: Int): [OccurrenceFacetResult_boolean]
 
+    isInCluster(size: Int, from: Int): [OccurrenceFacetResult_boolean]
+
     datasetKey(size: Int, from: Int): [OccurrenceFacetResult_dataset]
     endorsingNodeKey(size: Int, from: Int): [OccurrenceFacetResult_node]
     installationKey(size: Int, from: Int): [OccurrenceFacetResult_installation]

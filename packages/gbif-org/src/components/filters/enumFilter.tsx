@@ -45,7 +45,7 @@ export const EnumFilter = React.forwardRef(
       className?: string;
       searchConfig: FilterConfigType;
       filterHandle: string;
-      DisplayName: React.FC<{ id: string }>;
+      DisplayName: React.FC<{ id: string | number | object }>;
       facetQuery?: string;
       enumOptions?: string[];
       onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
@@ -71,7 +71,6 @@ export const EnumFilter = React.forwardRef(
     );
     const [useNegations, setUseNegations] = useState(filterSummary?.hasNegations ?? false);
 
-    console.log(filter);
     const {
       data: facetData,
       error: facetError,

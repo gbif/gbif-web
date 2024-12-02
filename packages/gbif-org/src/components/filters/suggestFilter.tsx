@@ -29,21 +29,20 @@ import { useSearchContext } from '@/contexts/search';
 import { AboutButton } from './aboutButton';
 import { SuggestConfig } from '@/utils/suggestEndpoints';
 import { Exists } from './exists';
-import { Button } from '../ui/button';
 import StripeLoader from '../stripeLoader';
 
 type SuggestProps = {
   className?: string;
   searchConfig: FilterConfigType;
   filterHandle: string;
-  DisplayName: React.FC<{ id: string }>;
+  DisplayName: React.FC<{ id: string | number | object }>;
   facetQuery?: string;
   suggestConfig?: SuggestConfig;
   onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
   onCancel?: () => void;
   pristine?: boolean;
   disableFacetsForSelected: boolean;
-  about: React.FC;
+  about?: React.FC;
 };
 
 export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
@@ -104,7 +103,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       // if the filter has changed, then get facet values from API
       const prunedFilter = cleanUpFilter(cloneDeep(filter));
       delete prunedFilter.must?.[filterHandle];
-      delete prunedFilter.mustNot?.[filterHandle];
+      // delete prunedFilter.mustNot?.[filterHandle];
 
       const query = getAsQuery({ filter: prunedFilter, searchContext, searchConfig });
       if (searchContext.queryType === 'V1') {

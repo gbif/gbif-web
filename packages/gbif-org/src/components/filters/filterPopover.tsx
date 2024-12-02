@@ -2,12 +2,14 @@ import React, { useCallback, useContext, useEffect, useRef, useState } from 'rea
 import { FilterContext, FilterProvider, FilterType } from '@/contexts/filter';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useUncontrolledProp } from 'uncontrollable';
+import { FormattedMessage } from 'react-intl';
 
 export function FilterPopover({
   open,
   setOpen,
   children,
   trigger,
+  title,
 }: {
   open?: boolean;
   setOpen?: (b: boolean) => void;
@@ -19,6 +21,7 @@ export function FilterPopover({
     } & React.RefAttributes<HTMLDivElement>
   >;
   trigger: React.ReactNode;
+  title: React.ReactNode;
 }) {
   const [controlledOpen, setControlledOpen] = useUncontrolledProp(open, false, setOpen);
   const focusRef = useRef<HTMLDivElement>(null);
@@ -71,14 +74,17 @@ export function FilterPopover({
       >
         <FilterProvider filter={tmpFilter} onChange={onFilterChange}>
           {React.isValidElement(child) && (
-            <form onSubmit={e => e.preventDefault()}>
-              {React.cloneElement(child, {
-                onApply,
-                onCancel,
-                pristine,
-                ref: focusRef,
-              })}
-            </form>
+            <>
+              {title}
+              <form onSubmit={(e) => e.preventDefault()}>
+                {React.cloneElement(child, {
+                  onApply,
+                  onCancel,
+                  pristine,
+                  ref: focusRef,
+                })}
+              </form>
+            </>
           )}
         </FilterProvider>
       </PopoverContent>

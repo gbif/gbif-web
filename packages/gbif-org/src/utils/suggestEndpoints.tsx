@@ -202,7 +202,6 @@ export const networkKeySuggest = {
 };
 
 function TaxonDetailsLabel(taxon) {
-  console.log(taxon);
   const ranks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'].map(
     (rank, i) => {
       return taxon[rank] && rank !== taxon.rank.toLowerCase() ? (

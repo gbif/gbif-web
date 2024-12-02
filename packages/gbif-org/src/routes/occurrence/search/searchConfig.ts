@@ -55,6 +55,8 @@ const otherParams = [
   'organismId',
   'higherGeography',
   'eventId',
+  
+  'isInCluster',
 
   'catalogNumber',
   'recordedBy',

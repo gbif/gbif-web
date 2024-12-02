@@ -91,6 +91,6 @@ export default function DisplayName({
     )
   }
   return <span className="g-text-red-700">
-    {id.toString()}
+    {id?.toString() || 'Failed to load'}
   </span>
 }

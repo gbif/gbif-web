@@ -11,9 +11,9 @@ import typeStatusOptions from '@/enums/basic/typeStatus.json';
 import occurrenceIssueOptions from '@/enums/basic/occurrenceIssue.json';
 import occurrenceStatusOptions from '@/enums/basic/occurrenceStatus.json';
 import { HelpText } from '@/components/helpText';
-import { filterConfig, filterConfigTypes } from "@/components/filters/filterTools";
+import { filterConfigTypes, filterEnumConfig } from "@/components/filters/filterTools";
 
-export const licenceConfig: filterConfig = {
+export const licenceConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'license',
   displayName: LicenceLabel,
@@ -34,7 +34,7 @@ export const licenceConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const basisOfRecordConfig: filterConfig = {
+export const basisOfRecordConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'basisOfRecord',
   displayName: BasisOfRecordLabel,
@@ -55,7 +55,7 @@ export const basisOfRecordConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const mediaTypeConfig: filterConfig = {
+export const mediaTypeConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'mediaType',
   displayName: MediaTypeLabel,
@@ -77,7 +77,7 @@ export const mediaTypeConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const monthConfig: filterConfig = {
+export const monthConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'month',
   displayName: MonthLabel,
@@ -100,7 +100,7 @@ export const monthConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const continentConfig: filterConfig = {
+export const continentConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'continent',
   displayName: ContinentLabel,
@@ -122,7 +122,7 @@ export const continentConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const protocolConfig: filterConfig = {
+export const protocolConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'protocol',
   displayName: EndpointTypeLabel,
@@ -144,7 +144,7 @@ export const protocolConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const dwcaExtensionConfig: filterConfig = {
+export const dwcaExtensionConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'dwcaExtension',
   displayName: DwcaExtensionLabel,
@@ -167,7 +167,7 @@ export const dwcaExtensionConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const iucnRedListCategoryConfig: filterConfig = {
+export const iucnRedListCategoryConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'iucnRedListCategory',
   displayName: IucnRedListCategoryLabel,
@@ -188,7 +188,7 @@ export const iucnRedListCategoryConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const typeStatusConfig: filterConfig = {
+export const typeStatusConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'typeStatus',
   displayName: typeStatusLabel,
@@ -211,7 +211,7 @@ export const typeStatusConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const occurrenceIssueConfig: filterConfig = {
+export const occurrenceIssueConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'issue',
   displayName: occurrenceIssueLabel,
@@ -234,7 +234,7 @@ export const occurrenceIssueConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const occurrenceStatusConfig: filterConfig = {
+export const occurrenceStatusConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'occurrenceStatus',
   displayName: occurrenceStatusLabel,

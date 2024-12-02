@@ -76,6 +76,7 @@ export default [
   'typifiedName',
   'waterBody',
   'year',
+  'isInCluster',
   'agentIds_type',
   'agentIds_value',
   'classKey',

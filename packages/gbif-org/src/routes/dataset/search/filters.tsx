@@ -6,9 +6,11 @@ import {
   PublisherLabel,
 } from '@/components/filters/displayNames';
 import {
-  filterConfig,
   filterConfigTypes,
+  filterEnumConfig,
+  filterFreeTextConfig,
   FilterSetting,
+  filterSuggestConfig,
   generateFilters,
 } from '@/components/filters/filterTools';
 import { useIntl } from 'react-intl';
@@ -24,7 +26,7 @@ import { HelpText } from '@/components/helpText';
 import { fetchWithCancel } from '@/utils/fetchWithCancel';
 
 // shared vairables for the various components
-const publisherConfig: filterConfig = {
+const publisherConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'publishingOrg',
   displayName: PublisherLabel,
@@ -63,7 +65,7 @@ const publisherConfig: filterConfig = {
   ),
 };
 
-const hostingOrgConfig: filterConfig = {
+const hostingOrgConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'hostingOrg',
   displayName: PublisherLabel,
@@ -95,7 +97,7 @@ const hostingOrgConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-const projectIdConfig: filterConfig = {
+const projectIdConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'projectId',
   displayName: IdentityLabel,
@@ -118,7 +120,7 @@ const projectIdConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-const publishingCountryConfig: filterConfig = {
+const publishingCountryConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'publishingCountry',
   displayName: CountryLabel,
@@ -138,7 +140,7 @@ const publishingCountryConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-const licenceConfig: filterConfig = {
+const licenceConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'license',
   displayName: LicenceLabel,
@@ -159,7 +161,7 @@ const licenceConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-const datasetTypeConfig: filterConfig = {
+const datasetTypeConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'type',
   displayName: DatasetTypeLabel,
@@ -180,7 +182,7 @@ const datasetTypeConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-const freeTextConfig: filterConfig = {
+const freeTextConfig: filterFreeTextConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
   filterHandle: 'q',
   displayName: IdentityLabel,
@@ -209,7 +211,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
     ({ q }: SuggestFnProps) => {
       // instead of just using indexOf or similar. This has the benefit of reshuffling records based on the match, check for abrivations etc
       const filtered = matchSorter(countries, q ?? '', { keys: ['title', 'key'] });
-      return {promise: Promise.resolve(filtered), cancel: () => {}};
+      return { promise: Promise.resolve(filtered), cancel: () => {} };
     },
     [countries]
   );
@@ -220,7 +222,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       hostingOrg: generateFilters({ config: hostingOrgConfig, searchConfig, formatMessage }),
       projectId: generateFilters({ config: projectIdConfig, searchConfig, formatMessage }),
       publishingCountry: generateFilters({
-        config: { ...publishingCountryConfig, suggestConfig: {getSuggestions: countrySuggest }},
+        config: { ...publishingCountryConfig, suggestConfig: { getSuggestions: countrySuggest } },
         searchConfig,
         formatMessage,
       }),

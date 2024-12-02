@@ -9,11 +9,11 @@ import {
   PublisherLabel,
   TaxonLabel,
 } from '@/components/filters/displayNames';
-import { filterConfig, filterConfigTypes } from '@/components/filters/filterTools';
+import { filterConfigTypes, filterSuggestConfig } from '@/components/filters/filterTools';
 import { HelpText } from '@/components/helpText';
 import { collectionCodeSuggest, collectionKeySuggest, datasetKeyOccurrenceSuggest, gadGidSuggest, institutionCodeSuggest, institutionKeySuggest, networkKeySuggest, publisherKeyOccurrenceSuggest, publisherKeySuggest, recordNumberSuggest, taxonKeySuggest, taxonKeyVernacularSuggest } from '@/utils/suggestEndpoints';
 
-export const institutionKeyConfig: filterConfig = {
+export const institutionKeyConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'institutionKey',
   displayName: InstitutionLabel,
@@ -34,7 +34,7 @@ export const institutionKeyConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const taxonKeyConfig: filterConfig = {
+export const taxonKeyConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'taxonKey',
   displayName: TaxonLabel,
@@ -58,7 +58,7 @@ export const taxonKeyConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const collectionKeyConfig: filterConfig = {
+export const collectionKeyConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'collectionKey',
   displayName: CollectionLabel,
@@ -79,7 +79,7 @@ export const collectionKeyConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const datasetKeyConfig: filterConfig = {
+export const datasetKeyConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'datasetKey',
   displayName: DatasetLabel,
@@ -114,7 +114,7 @@ export const datasetKeyConfig: filterConfig = {
 //   },
 // };
 
-export const publisherKeyConfig: filterConfig = {
+export const publisherKeyConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'publisherKey',
   displayName: PublisherLabel,
@@ -135,7 +135,7 @@ export const publisherKeyConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const hostingOrganizationKeyConfig: filterConfig = {
+export const hostingOrganizationKeyConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'hostingOrganizationKey',
   displayName: PublisherLabel,
@@ -156,7 +156,7 @@ export const hostingOrganizationKeyConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const networkKeyConfig: filterConfig = {
+export const networkKeyConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'networkKey',
   displayName: NetworkLabel,
@@ -177,7 +177,7 @@ export const networkKeyConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const gadmGidConfig: filterConfig = {
+export const gadmGidConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'gadmGid',
   displayName: GadmGidLabel,
@@ -198,7 +198,7 @@ export const gadmGidConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const countryConfig: filterConfig = {
+export const countryConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'country',
   displayName: CountryLabel,
@@ -219,7 +219,7 @@ export const countryConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const publishingCountryConfig: filterConfig = {
+export const publishingCountryConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'publishingCountry',
   displayName: CountryLabel,
@@ -240,7 +240,7 @@ export const publishingCountryConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const institutionCodeConfig: filterConfig = {
+export const institutionCodeConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'institutionCode',
   displayName: IdentityLabel,
@@ -261,7 +261,7 @@ export const institutionCodeConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const collectionCodeConfig: filterConfig = {
+export const collectionCodeConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'collectionCode',
   displayName: IdentityLabel,
@@ -282,7 +282,7 @@ export const collectionCodeConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-export const recordNumberConfig: filterConfig = {
+export const recordNumberConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'recordNumber',
   displayName: IdentityLabel,
