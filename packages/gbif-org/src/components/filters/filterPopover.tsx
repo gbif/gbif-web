@@ -2,7 +2,6 @@ import React, { useCallback, useContext, useEffect, useRef, useState } from 'rea
 import { FilterContext, FilterProvider, FilterType } from '@/contexts/filter';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useUncontrolledProp } from 'uncontrollable';
-import { FormattedMessage } from 'react-intl';
 
 export function FilterPopover({
   open,

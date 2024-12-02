@@ -1,4 +1,4 @@
-import { IdentityLabel } from '@/components/filters/displayNames';
+import { CoordinateUncertaintyLabel, IdentityLabel } from '@/components/filters/displayNames';
 import {
   filterConfig,
   filterConfigTypes,
@@ -50,7 +50,8 @@ import {
   recordedByIdConfig,
 } from './filters/textOnly';
 import { establishmentMeansConfig } from './filters/vocabulary';
-import { isInClusterConfig } from './filters/booleans';
+import { isInClusterConfig, isSequencedConfig } from './filters/booleans';
+import { coordinateUncertaintyConfig, depthConfig, elevationConfig, organismQuantityConfig, relativeOrganismQuantityConfig, sampleSizeValueConfig, yearConfig } from './filters/ranges';
 
 const freeTextConfig: filterConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
@@ -175,6 +176,15 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       eventId: generateFilters({ config: eventIdConfig, searchConfig, formatMessage }),
 
       isInCluster: generateFilters({ config: isInClusterConfig, searchConfig, formatMessage }),
+      isSequenced: generateFilters({ config: isSequencedConfig, searchConfig, formatMessage }),
+      
+      year: generateFilters({ config: yearConfig, searchConfig, formatMessage }),
+      coordinateUncertainty: generateFilters({ config: coordinateUncertaintyConfig, searchConfig, formatMessage }),
+      depth: generateFilters({ config: depthConfig, searchConfig, formatMessage }),
+      organismQuantity: generateFilters({ config: organismQuantityConfig, searchConfig, formatMessage }),
+      relativeOrganismQuantity: generateFilters({ config: relativeOrganismQuantityConfig, searchConfig, formatMessage }),
+      sampleSizeValue: generateFilters({ config: sampleSizeValueConfig, searchConfig, formatMessage }),
+      elevation: generateFilters({ config: elevationConfig, searchConfig, formatMessage }),
     }),
     [searchConfig, countrySuggest, formatMessage]
   );

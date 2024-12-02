@@ -31,7 +31,7 @@ function rangeOrEqualLabel(path: string) {
         <FormattedMessage
           id={`${path}.e`}
           defaultMessage={'Filter name'}
-          values={{ from: value.value }}
+          values={{ from: value?.value, is: value?.value }}
         />
       );
     } else {
@@ -41,6 +41,13 @@ function rangeOrEqualLabel(path: string) {
 }
 
 export const YearLabel = rangeOrEqualLabel('intervals.compactTime');
+export const CoordinateUncertaintyLabel = rangeOrEqualLabel('intervals.compactMeters');
+export const DepthLabel = rangeOrEqualLabel('intervals.compactMeters');
+export const ElevationLabel = rangeOrEqualLabel('intervals.compactMeters');
+export const OrganismQuantityLabel = rangeOrEqualLabel('intervals.description');
+export const SampleSizeValueLabel = rangeOrEqualLabel('intervals.description');
+export const RelativeOrganismQuantityLabel = rangeOrEqualLabel('intervals.description');
+
 
 function getEnumLabel({ template }: { template: (id: string) => string }) {
   return ({ id }: { id: string | number | object }) => {

@@ -15,6 +15,41 @@ const config: FilterConfigType = {
     publisherKey: {
       defaultKey: 'publishingOrg',
     },
+    year: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
+    coordinateUncertainty: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
+    depth: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
+    organismQuantity: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
+    sampleSizeValue: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
+    relativeOrganismQuantity: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
+    elevation: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
   },
 };
 
@@ -57,6 +92,7 @@ const otherParams = [
   'eventId',
   
   'isInCluster',
+  'isSequenced',
 
   'catalogNumber',
   'recordedBy',

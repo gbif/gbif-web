@@ -168,7 +168,7 @@ export const gbifConfig: Config = {
   },
   occurrenceSearch: {
     queryType: 'PREDICATE',
-    highlightedFilters: ['q', 'institutionKey', 'taxonKey', 'isInCluster'],
+    highlightedFilters: ['q', 'taxonKey', 'isInCluster', 'year', 'elevation', 'depth', 'coordinateUncertainty'],
     tabs: ['table', 'map', 'media', 'clusters', 'datasets', 'download'],
     // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
     // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
