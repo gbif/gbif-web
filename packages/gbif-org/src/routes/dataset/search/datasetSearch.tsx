@@ -116,8 +116,8 @@ export function DatasetSearch(): React.ReactElement {
         <FilterBar>
           <FilterButtons filters={filters} searchContext={searchContext}/>
         </FilterBar>
-        <ArticleContainer className="g-bg-slate-100">
-          <ArticleTextContainer className="g-m-0">
+        <ArticleContainer className="g-bg-slate-100 g-flex">
+          <ArticleTextContainer className="g-flex-auto">
             <Results loading={loading} datasets={datasets} setOffset={setOffset} />
           </ArticleTextContainer>
         </ArticleContainer>
