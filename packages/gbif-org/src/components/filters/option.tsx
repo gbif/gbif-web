@@ -14,7 +14,7 @@ export const Option = React.forwardRef(
       onKeyDown,
       isNegated
     }: {
-      helpText?: string;
+      helpText?: string | React.ReactNode;
       checked?: boolean;
       children: React.ReactNode;
       onClick: (checked: boolean) => void;

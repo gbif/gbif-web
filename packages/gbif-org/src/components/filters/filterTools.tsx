@@ -45,7 +45,6 @@ export type filterConfigShared = {
   displayName: React.FC<{ id: string | number | object }>;
   filterTranslation: string;
   content?: React.FC;
-  facetQuery?: string;
   filterButtonProps?: { hideSingleValues: boolean };
   info?: React.FC;
   about?: React.FC;
@@ -53,10 +52,12 @@ export type filterConfigShared = {
 
 export type filterBoolConfig = filterConfigShared & {
   filterType: filterConfigTypes.OPTIONAL_BOOL;
+  facetQuery?: string;
 };
 
 export type filterSuggestConfig = filterConfigShared & {
   filterType: filterConfigTypes.SUGGEST;
+  facetQuery?: string;
   disableFacetsForSelected?: boolean;
   suggestConfig?: SuggestConfig;
   allowExistence?: boolean;
@@ -65,13 +66,17 @@ export type filterSuggestConfig = filterConfigShared & {
 
 export type filterWildcardConfig = filterConfigShared & {
   filterType: filterConfigTypes.WILDCARD;
-  suggestConfig?: SuggestConfig;
   allowExistence?: boolean;
   allowNegations?: boolean;
+  queryKey?: string;
+  keepCase?: boolean;
+  suggestQuery: string;
+  disallowLikeFilters?: boolean;
 };
 
 export type filterEnumConfig = filterConfigShared & {
   filterType: filterConfigTypes.ENUM;
+  facetQuery?: string;
   options?: string[];
   allowExistence?: boolean;
   allowNegations?: boolean;
@@ -105,6 +110,21 @@ export interface FacetQuery {
         item?: {
           title?: string | null;
         } | null;
+      }>;
+    } | null;
+  };
+}
+
+// generic type for a wildcard queries
+export interface WildcardQuery {
+  search: {
+    cardinality: {
+      total: number;
+    }
+    facet?: {
+      field?: Array<{
+        name: string;
+        count: number;
       }>;
     } | null;
   };
@@ -198,7 +218,7 @@ const getWildcardFilter = ({
   config,
   searchConfig,
 }: {
-  config: filterSuggestConfig;
+  config: filterWildcardConfig;
   searchConfig: FilterConfigType;
 }) => {
   return React.forwardRef(
@@ -221,11 +241,9 @@ const getWildcardFilter = ({
       return (
         <WildcardFilter
           ref={ref}
-          suggestConfig={config.suggestConfig}
-          facetQuery={config.facetQuery}
+          suggestQuery={config.suggestQuery}
           filterHandle={config.filterHandle}
           displayName={config.displayName}
-          disableFacetsForSelected={config.disableFacetsForSelected}
           searchConfig={searchConfig}
           about={config.about}
           {...{ onApply, onCancel, className, style, pristine }}

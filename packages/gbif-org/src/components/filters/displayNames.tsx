@@ -48,6 +48,17 @@ export const OrganismQuantityLabel = rangeOrEqualLabel('intervals.description');
 export const SampleSizeValueLabel = rangeOrEqualLabel('intervals.description');
 export const RelativeOrganismQuantityLabel = rangeOrEqualLabel('intervals.description');
 
+export const WildcardLabel = ({ id }: { id: string | number | object }) => {
+  const value = id?.value || id;
+  const trimmed = value.trim();
+  const displayValue = trimmed.length !== value.length ? `"${value}"` : value;
+
+  if (id?.type === 'like' && typeof id?.value === 'string') {
+    return <i>{displayValue}</i>;
+  }
+
+  return displayValue;
+};
 
 function getEnumLabel({ template }: { template: (id: string) => string }) {
   return ({ id }: { id: string | number | object }) => {
@@ -94,7 +105,10 @@ function getEndpointLabel({
   transform,
 }: {
   template: ({ id, v1Endpoint }: { id: string | number | object; v1Endpoint: string }) => string;
-  transform?: (response: object, { id, intl, config }: DisplayNameGetDataProps) => { title: string; description?: string };
+  transform?: (
+    response: object,
+    { id, intl, config }: DisplayNameGetDataProps
+  ) => { title: string; description?: string };
 }) {
   const transformer = transform ?? ((response) => ({ title: response?.title }));
   return ({ id }: { id: string | number | object }) => {
@@ -102,7 +116,9 @@ function getEndpointLabel({
       const endpoint = template({ id, v1Endpoint: config.v1Endpoint });
       const { promise, cancel } = fetchWithCancel(endpoint);
       return {
-        promise: promise.then((response) => response.json()).then(response => transformer(response, { id, intl, config, currentLocale })),
+        promise: promise
+          .then((response) => response.json())
+          .then((response) => transformer(response, { id, intl, config, currentLocale })),
         cancel,
       };
     }, []);
@@ -147,7 +163,7 @@ function getVocabularyLabel(result: VocabularyType, { currentLocale }: DisplayNa
   const vocabularyLocale = currentLocale?.vocabularyLocale ?? currentLocale.code ?? 'en';
 
   // transform result labels to an object with language as keys
-  const labels = result.label.reduce((acc:Record<string, string>, label) => {
+  const labels = result.label.reduce((acc: Record<string, string>, label) => {
     acc[label.language] = label.value;
     return acc;
   }, {});
@@ -169,10 +185,16 @@ export const MonthLabel = getEnumLabel({ template: (id) => `enums.month.${id}` }
 export const ContinentLabel = getEnumLabel({ template: (id) => `enums.continent.${id}` });
 export const EndpointTypeLabel = getEnumLabel({ template: (id) => `enums.endpointType.${id}` });
 export const DwcaExtensionLabel = getEnumLabel({ template: (id) => `enums.dwcaExtension.${id}` });
-export const IucnRedListCategoryLabel = getEnumLabel({ template: (id) => `enums.iucnRedListCategory.${id}` });
+export const IucnRedListCategoryLabel = getEnumLabel({
+  template: (id) => `enums.iucnRedListCategory.${id}`,
+});
 export const typeStatusLabel = getEnumLabel({ template: (id) => `enums.typeStatus.${id}` });
-export const occurrenceIssueLabel = getEnumLabel({ template: (id) => `enums.occurrenceIssue.${id}` });
-export const occurrenceStatusLabel = getEnumLabel({ template: (id) => `enums.occurrenceStatus.${id}` });
+export const occurrenceIssueLabel = getEnumLabel({
+  template: (id) => `enums.occurrenceIssue.${id}`,
+});
+export const occurrenceStatusLabel = getEnumLabel({
+  template: (id) => `enums.occurrenceStatus.${id}`,
+});
 export const booleanLabel = getEnumLabel({ template: (id) => `enums.yesNo.${id}` });
 
 export const GadmGidLabel = getEndpointLabel({
@@ -182,7 +204,7 @@ export const GadmGidLabel = getEndpointLabel({
 
 export const establishmentMeansLabel = getEndpointLabel({
   template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/EstablishmentMeans/concepts/${id}`,
-  transform: getVocabularyLabel
+  transform: getVocabularyLabel,
 });
 
 export const CollectionLabel = getGraphQlLabel({
