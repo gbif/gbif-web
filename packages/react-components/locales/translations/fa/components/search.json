@@ -2,6 +2,7 @@
   "tabs": {
     "table": "",
     "gallery": "",
+    "media": "",
     "map": "",
     "datasets": "مجموعه اطلاعات",
     "events": "",
@@ -11,7 +12,11 @@
     "sites": ""
   },
   "table": {
-    "lockColumn": ""
+    "lockColumn": "",
+    "unlockColumn": "",
+    "columnVisibility": "",
+    "resetColumnVisibility": "",
+    "openFilter": ""
   },
   "placeholders": {
     "default": "",
