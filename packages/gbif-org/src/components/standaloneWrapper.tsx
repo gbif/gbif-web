@@ -1,6 +1,6 @@
 import { useConfig } from '@/config/config';
 import { applyReactRouterPlugins, RouteObjectWithPlugins, useI18n } from '@/reactRouterPlugins';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { StandaloneRoot } from './root';
@@ -16,14 +16,18 @@ export function StandaloneWrapper({ routes, url }: Props) {
   const routerRef = useRef<ReturnType<typeof createMemoryRouter>>();
   const rootRef = useRef<ReturnType<typeof createRoot>>();
   const { localizeLink } = useI18n();
+  const [routerIsReady, setRouterIsReady] = useState(false);
 
   useEffect(() => {
     const renderTimeout = setTimeout(() => {
-      rootRef.current = rootRef.current ?? createRoot(ref.current!);
+      if (ref.current && !rootRef.current) {
+        rootRef.current = createRoot(ref.current);
+      }
 
       if (ref.current && rootRef.current) {
         const routesWithPlugins = applyReactRouterPlugins(routes, config, { standalone: true });
         routerRef.current = createMemoryRouter(routesWithPlugins);
+        setRouterIsReady(true);
 
         rootRef.current.render(
           <StandaloneRoot config={config}>
@@ -45,8 +49,10 @@ export function StandaloneWrapper({ routes, url }: Props) {
 
   // Navigate to the url when it changes
   useEffect(() => {
-    routerRef.current?.navigate(localizeLink(url));
-  }, [url, localizeLink]);
+    if (routerIsReady) {
+      routerRef.current?.navigate(localizeLink(url));
+    }
+  }, [url, localizeLink, routerIsReady]);
 
   return <div ref={ref} />;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { ConfigProvider, Config } from '@/config/config';
+import { ConfigProvider, Config, OverwriteConfigProvider } from '@/config/config';
 import { TooltipProvider } from './ui/tooltip';
 import { SkeletonLoadingProvider } from '@/reactRouterPlugins/skeletonLoading';
 
@@ -30,13 +30,13 @@ export function Root({ config, helmetContext, children }: Props) {
 export function StandaloneRoot({ config, children }: Omit<Props, 'helmetContext'>) {
   return (
     <React.StrictMode>
-      <ConfigProvider config={config}>
+      <OverwriteConfigProvider config={config}>
         <SkeletonLoadingProvider>
           <HelmetProvider>
             <TooltipProvider>{children}</TooltipProvider>
           </HelmetProvider>
         </SkeletonLoadingProvider>
-      </ConfigProvider>
+      </OverwriteConfigProvider>
     </React.StrictMode>
   );
 }
