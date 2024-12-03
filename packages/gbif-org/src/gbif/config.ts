@@ -168,8 +168,8 @@ export const gbifConfig: Config = {
   },
   occurrenceSearch: {
     queryType: 'PREDICATE',
-    highlightedFilters: ['q', 'taxonKey', 'isInCluster', 'year', 'waterBody'],
-    tabs: ['table', 'map', 'media', 'clusters', 'datasets', 'download'],
+    highlightedFilters: ['occurrenceStatus', 'taxonKey', 'year', 'country', 'issue'],
+    tabs: ['media', 'map', 'clusters', 'datasets', 'download'],
     // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
     // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
     // scope: {
