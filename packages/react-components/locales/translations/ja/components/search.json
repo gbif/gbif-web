@@ -2,6 +2,7 @@
   "tabs": {
     "table": "表",
     "gallery": "ギャラリー",
+    "media": "GBIFがアノーテーションしたアーカイブ",
     "map": "マップ",
     "datasets": "データセット",
     "events": "イベント",
@@ -11,7 +12,11 @@
     "sites": "GBIFがアノーテーションしたアーカイブ"
   },
   "table": {
-    "lockColumn": ""
+    "lockColumn": "",
+    "unlockColumn": "GBIFがアノーテーションしたアーカイブ",
+    "columnVisibility": "GBIFがアノーテーションしたアーカイブ",
+    "resetColumnVisibility": "GBIFがアノーテーションしたアーカイブ",
+    "openFilter": "GBIFがアノーテーションしたアーカイブ"
   },
   "placeholders": {
     "default": "検索",

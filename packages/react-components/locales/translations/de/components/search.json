@@ -2,6 +2,7 @@
   "tabs": {
     "table": "Liste",
     "gallery": "Galerie",
+    "media": "Stadt zum Fundort.",
     "map": "Karte",
     "datasets": "Datasets",
     "events": "",
@@ -11,7 +12,11 @@
     "sites": "Stadt zum Fundort."
   },
   "table": {
-    "lockColumn": "Spalte fixieren"
+    "lockColumn": "Spalte fixieren",
+    "unlockColumn": "Stadt zum Fundort.",
+    "columnVisibility": "Stadt zum Fundort.",
+    "resetColumnVisibility": "Stadt zum Fundort.",
+    "openFilter": "Stadt zum Fundort."
   },
   "placeholders": {
     "default": "Suche",

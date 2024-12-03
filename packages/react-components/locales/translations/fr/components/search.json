@@ -2,6 +2,7 @@
   "tabs": {
     "table": "Tableau",
     "gallery": "Galerie",
+    "media": "Archive annotée par GBIF",
     "map": "Carte",
     "datasets": "Jeux de données",
     "events": "Évènements",
@@ -11,7 +12,11 @@
     "sites": "Archive annotée par GBIF"
   },
   "table": {
-    "lockColumn": "Verrouiller la colonne"
+    "lockColumn": "Verrouiller la colonne",
+    "unlockColumn": "Archive annotée par GBIF",
+    "columnVisibility": "Archive annotée par GBIF",
+    "resetColumnVisibility": "Archive annotée par GBIF",
+    "openFilter": "Archive annotée par GBIF"
   },
   "placeholders": {
     "default": "Rechercher",

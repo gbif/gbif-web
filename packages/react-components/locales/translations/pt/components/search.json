@@ -2,6 +2,7 @@
   "tabs": {
     "table": "Tabela",
     "gallery": "Galeria",
+    "media": "Uma breve descrição do componente deve ser colocada aqui",
     "map": "Mapa",
     "datasets": "Conjuntos de dados",
     "events": "Eventos",
@@ -11,7 +12,11 @@
     "sites": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "table": {
-    "lockColumn": ""
+    "lockColumn": "",
+    "unlockColumn": "Uma breve descrição do componente deve ser colocada aqui",
+    "columnVisibility": "Uma breve descrição do componente deve ser colocada aqui",
+    "resetColumnVisibility": "Uma breve descrição do componente deve ser colocada aqui",
+    "openFilter": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "placeholders": {
     "default": "Pesquisa",
