@@ -52,7 +52,7 @@ import {
 import { establishmentMeansConfig } from './filters/vocabulary';
 import { isInClusterConfig, isSequencedConfig } from './filters/booleans';
 import { coordinateUncertaintyConfig, depthConfig, elevationConfig, organismQuantityConfig, relativeOrganismQuantityConfig, sampleSizeValueConfig, yearConfig } from './filters/ranges';
-import { waterBodyConfig } from './filters/wildcard';
+import { catalogNumberConfig, identifiedByConfig, localityConfig, recordedByConfig, sampleSizeUnitConfig, samplingProtocolConfig, stateProvinceConfig, verbatimScientificNameConfig, waterBodyConfig } from './filters/wildcard';
 
 const freeTextConfig: filterConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
@@ -186,8 +186,17 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       relativeOrganismQuantity: generateFilters({ config: relativeOrganismQuantityConfig, searchConfig, formatMessage }),
       sampleSizeValue: generateFilters({ config: sampleSizeValueConfig, searchConfig, formatMessage }),
       elevation: generateFilters({ config: elevationConfig, searchConfig, formatMessage }),
-      
+
+      catalogNumber: generateFilters({ config: catalogNumberConfig, searchConfig, formatMessage }),
+      sampleSizeUnit: generateFilters({ config: sampleSizeUnitConfig, searchConfig, formatMessage }),
+      locality: generateFilters({ config: localityConfig, searchConfig, formatMessage }),
       waterBody: generateFilters({ config: waterBodyConfig, searchConfig, formatMessage }),
+      stateProvince: generateFilters({ config: stateProvinceConfig, searchConfig, formatMessage }),
+      samplingProtocol: generateFilters({ config: samplingProtocolConfig, searchConfig, formatMessage }),
+      verbatimScientificName: generateFilters({ config: verbatimScientificNameConfig, searchConfig, formatMessage }),
+      
+      recordedBy: generateFilters({ config: recordedByConfig, searchConfig, formatMessage }),
+      identifiedBy: generateFilters({ config: identifiedByConfig, searchConfig, formatMessage }),
     }),
     [searchConfig, countrySuggest, formatMessage]
   );

@@ -94,10 +94,16 @@ const otherParams = [
   'isInCluster',
   'isSequenced',
 
-  'catalogNumber',
   'recordedBy',
+  'identifiedBy',
 
+  'catalogNumber',
+  'sampleSizeUnit',
+  'locality',
   'waterBody',
+  'stateProvince',
+  'samplingProtocol',
+  'verbatimScientificName',
 ];
 
 otherParams.forEach((filter) => {

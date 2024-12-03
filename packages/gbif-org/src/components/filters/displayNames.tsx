@@ -40,14 +40,6 @@ function rangeOrEqualLabel(path: string) {
   };
 }
 
-export const YearLabel = rangeOrEqualLabel('intervals.compactTime');
-export const CoordinateUncertaintyLabel = rangeOrEqualLabel('intervals.compactMeters');
-export const DepthLabel = rangeOrEqualLabel('intervals.compactMeters');
-export const ElevationLabel = rangeOrEqualLabel('intervals.compactMeters');
-export const OrganismQuantityLabel = rangeOrEqualLabel('intervals.description');
-export const SampleSizeValueLabel = rangeOrEqualLabel('intervals.description');
-export const RelativeOrganismQuantityLabel = rangeOrEqualLabel('intervals.description');
-
 export const WildcardLabel = ({ id }: { id: string | number | object }) => {
   const value = id?.value ?? id;
   if (typeof value !== 'string') {
@@ -62,6 +54,14 @@ export const WildcardLabel = ({ id }: { id: string | number | object }) => {
 
   return displayValue;
 };
+
+export const YearLabel = rangeOrEqualLabel('intervals.compactTime');
+export const CoordinateUncertaintyLabel = rangeOrEqualLabel('intervals.compactMeters');
+export const DepthLabel = rangeOrEqualLabel('intervals.compactMeters');
+export const ElevationLabel = rangeOrEqualLabel('intervals.compactMeters');
+export const OrganismQuantityLabel = rangeOrEqualLabel('intervals.description');
+export const SampleSizeValueLabel = rangeOrEqualLabel('intervals.description');
+export const RelativeOrganismQuantityLabel = rangeOrEqualLabel('intervals.description');
 
 function getEnumLabel({ template }: { template: (id: string) => string }) {
   return ({ id }: { id: string | number | object }) => {
