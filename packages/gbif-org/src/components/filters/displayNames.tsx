@@ -49,8 +49,11 @@ export const SampleSizeValueLabel = rangeOrEqualLabel('intervals.description');
 export const RelativeOrganismQuantityLabel = rangeOrEqualLabel('intervals.description');
 
 export const WildcardLabel = ({ id }: { id: string | number | object }) => {
-  const value = id?.value || id;
-  const trimmed = value.trim();
+  const value = id?.value ?? id;
+  if (typeof value !== 'string') {
+    return <span>Unknown</span>
+  }
+  const trimmed = value?.trim();
   const displayValue = trimmed.length !== value.length ? `"${value}"` : value;
 
   if (id?.type === 'like' && typeof id?.value === 'string') {

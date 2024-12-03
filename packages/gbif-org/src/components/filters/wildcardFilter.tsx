@@ -15,7 +15,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import { Suggest } from './suggest';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { SimpleTooltip } from '@/components/simpleTooltip';
-import { Option } from './option';
+import { Option, SkeletonOption } from './option';
 import {
   AdditionalFilterProps,
   ApplyCancel,
@@ -31,6 +31,7 @@ import { useSearchContext } from '@/contexts/search';
 import { AboutButton } from './aboutButton';
 import { Exists } from './exists';
 import StripeLoader from '../stripeLoader';
+import { Button } from '../ui/button';
 
 const initialSize = 25;
 
@@ -118,8 +119,6 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
         },
       });
     }, [size, q, filterBeforeHash, keepCase]);
-
-    // const handleResize = debounce(adjustHeight, 100);
 
     const loadMore = useCallback(() => {
       setSize(size + 50);
@@ -258,6 +257,10 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
       );
     }
 
+    const cardinality = data?.search?.cardinality?.total ?? 0;
+    const hasSuggestions = data?.search?.facet?.field && data?.search?.facet?.field?.length > 0;
+    const hasMoreSuggestions = hasSuggestions && cardinality > (data?.search?.facet?.field?.length ?? 0);
+
     return (
       <div className={cn('g-flex g-flex-col g-max-h-[100dvh]', className)}>
         <div
@@ -342,15 +345,12 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
                 >
                   <Option
                     key={q}
-                    // loading={loading}
-                    // helpVisible={true}
                     helpText={
                       <FormattedMessage
                         id="filterSupport.useWildcardPattern"
                         defaultMessage="Search for the pattern"
                       />
                     }
-                    // checked={checkedMap.has(hash({ type: 'like', value: q }))}
                     onClick={() => {
                       // if q contains * or ? then it is a wildcard query else just a plain string match
                       if (q.indexOf('*') > -1 || q.indexOf('?') > -1) {
@@ -359,12 +359,9 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
                       } else {
                         toggle(filterHandle, q, useNegations);
                       }
-                      // const allOptions = unionBy(options, [qString], hash);
-                      // setOptions(allOptions);
                     }}
                   >
                     {q}
-                    {/* <DisplayName id={{ type: 'like', value: q }} /> */}
                   </Option>
                 </div>
               )}
@@ -379,9 +376,6 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
                 <div>
                   <StripeLoader active={loading} />
                   <div className="g-p-2 g-pt-0 g-px-4">
-                    {/* <div className={cn('g-flex g-text-sm g-text-slate-400 g-mt-1 g-mb-2 g-items-center')}>
-                      <h4 className="g-text-xs g-font-bold g-text-slate-400 g-mb-1">Suggestions</h4>
-                    </div> */}
                     {facetSuggestions.map((x) => {
                       return (
                         <Option
@@ -405,6 +399,14 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
                         </Option>
                       );
                     })}
+                    {hasMoreSuggestions && !loading && <div style={{fontSize: 12, marginLeft: 24, marginTop: 12}}><Button variant="primaryOutline" size="sm" onClick={loadMore}>
+                      <FormattedMessage id="search.loadMore" defaultMessage="More"/>
+                    </Button></div>}
+                    {loading && <>
+                      <SkeletonOption className="g-w-full g-mb-2" />
+                      <SkeletonOption className="g-w-36 g-max-w-full g-mb-2" />
+                      <SkeletonOption className="g-max-w-full g-w-48 g-mb-2" />
+                    </>}
                   </div>
                 </div>
               )}

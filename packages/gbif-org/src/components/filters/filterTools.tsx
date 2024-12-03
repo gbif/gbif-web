@@ -722,7 +722,7 @@ export function AsyncOptions({
   error,
   className,
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   loading: boolean;
   error?: Error;
   className?: string;
@@ -742,7 +742,7 @@ export function AsyncOptions({
       </div>
     );
   }
-  return children;
+  return children ?? null;
 }
 
 export type FilterSummaryType = {
