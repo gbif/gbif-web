@@ -1,27 +1,10 @@
 import React, { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { FilterContext, FilterType } from '@/contexts/filter';
+import { FilterContext } from '@/contexts/filter';
 import { cn } from '@/utils/shadcn';
 import { Button } from '@/components/ui/button';
 import { MdClose } from 'react-icons/md';
-
-function getFilterSummary(filter: FilterType, handle: string) {
-  const must = filter?.must?.[handle] || [];
-  const mustNot = filter?.mustNot?.[handle] || [];
-
-  // check if there is a isNull or isNotNull filter among the filters
-  const isNull = must?.[0]?.type === 'isNull' && must.length === 1;
-  const isNotNull = must?.[0]?.type === 'isNotNull' && must.length === 1;
-
-  return {
-    defaultCount: must.length + mustNot.length,
-    hasNegations: mustNot.length > 0,
-    mixed: must.length > 0 && mustNot.length > 0,
-    isNull,
-    isNotNull,
-    firstValue: must?.[0] || mustNot?.[0],
-  };
-}
+import { getFilterSummary } from './filterTools';
 
 interface FilterButtonProps {
   title?: string;
@@ -31,7 +14,7 @@ interface FilterButtonProps {
   filterHandle: string;
   onClear?: () => void;
   getCount?: (filter: unknown) => number;
-  DisplayName?: React.ComponentType<{ id: string | number | object }>;
+  displayName?: React.ComponentType<{ id: string | number | object }>;
 }
 
 export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProps>(
@@ -43,13 +26,13 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
       filterHandle,
       onClear,
       getCount,
-      DisplayName = ({ id }) => <>{id}</>,
+      displayName: DisplayName = ({ id }) => <>{id}</>,
       ...props
     },
     ref
   ) => {
     const currentFilterContext = useContext(FilterContext);
-    const { defaultCount, isNull, isNotNull, firstValue } = getFilterSummary(
+    const { defaultCount, hasNegations, mixed, isNull, isNotNull, firstValue } = getFilterSummary(
       currentFilterContext.filter,
       filterHandle
     );
@@ -72,12 +55,13 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
         />
       );
 
-    const showFirstValue = count === 1 && !isNull && !isNotNull && !hideSingleValues;
+    const showFirstValue = count === 1 && !isNull && !isNotNull && !hideSingleValues && !mixed;
 
     return (
       <ActiveFilterButton className={className} ref={ref} handleClear={handleClear} {...props}>
-        <span className={`g-overflow-ellipsis g-flex g-items-center g-w-`}>
+        <span className={`g-overflow-ellipsis g-flex g-items-center`}>
           <span className="g-flex-auto g-text-start">
+            {hasNegations && !mixed && (<span className="g-me-2 g-pe-2 g-border-e g-border-e-primary-700"><FormattedMessage id="filterSupport.exclude" /></span>)}
             <FormattedMessage
               id={titleTranslationKey}
               defaultMessage={titleTranslationKey || 'Unknown'}
@@ -91,7 +75,7 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
           )}
           {count >= 1 && !showFirstValue && (
             <>
-              <span className="g-ms-2 -g-me-2 g-p-1 g-px-2 g-rounded-lg g-bg-slate-950/20 g-flex-none">
+              <span className="g-ms-2 -g-me-2 g-px-2 g-rounded-lg g-bg-slate-950/20 g-flex-none">
                 {count}
               </span>
             </>

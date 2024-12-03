@@ -6,9 +6,11 @@ import {
   PublisherLabel,
 } from '@/components/filters/displayNames';
 import {
-  filterConfig,
   filterConfigTypes,
+  filterEnumConfig,
+  filterFreeTextConfig,
   FilterSetting,
+  filterSuggestConfig,
   generateFilters,
 } from '@/components/filters/filterTools';
 import { useIntl } from 'react-intl';
@@ -19,21 +21,24 @@ import licenseOptions from '@/enums/basic/license.json';
 import datasetTypeOptions from '@/enums/basic/datasetType.json';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import { useCallback, useEffect, useState } from 'react';
-import { SuggestFnProps } from '@/components/filters/suggest';
+import { SuggestFnProps, SuggestResponseType } from '@/components/filters/suggest';
 import { HelpText } from '@/components/helpText';
+import { fetchWithCancel } from '@/utils/fetchWithCancel';
 
 // shared vairables for the various components
-const publisherConfig: filterConfig = {
+const publisherConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'publishingOrg',
   displayName: PublisherLabel,
   filterTranslation: 'filters.publisherKey.name',
-  suggest: ({ q, siteConfig }: SuggestFnProps) => {
-    return fetch(`${siteConfig.v1Endpoint}/organization/suggest?limit=20&q=${q}`)
-      .then((res) => res.json())
-      .then((data) => {
-        return data;
-      });
+  suggestConfig: {
+    getSuggestions: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {
+      const { cancel, promise } = fetchWithCancel(
+        `${siteConfig.v1Endpoint}/organization/suggest?limit=20&q=${q}`
+      );
+      const result = promise.then((res) => res.json());
+      return { cancel, promise: result };
+    },
   },
   facetQuery: `
     query DatasetPublisherFacet($query: DatasetSearchInput) {
@@ -60,17 +65,19 @@ const publisherConfig: filterConfig = {
   ),
 };
 
-const hostingOrgConfig: filterConfig = {
+const hostingOrgConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'hostingOrg',
   displayName: PublisherLabel,
   filterTranslation: 'filters.hostingOrganizationKey.name',
-  suggest: ({ q, siteConfig }: SuggestFnProps) => {
-    return fetch(`${siteConfig.v1Endpoint}/organization/suggest?limit=20&q=${q}`)
-      .then((res) => res.json())
-      .then((data) => {
-        return data;
-      });
+  suggestConfig: {
+    getSuggestions: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {
+      const { cancel, promise } = fetchWithCancel(
+        `${siteConfig.v1Endpoint}/organization/suggest?limit=20&q=${q}`
+      );
+      const result = promise.then((res) => res.json());
+      return { cancel, promise: result };
+    },
   },
   facetQuery: /* GraphQL */ `
     query DatasetHostingFacet($query: DatasetSearchInput) {
@@ -90,7 +97,7 @@ const hostingOrgConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-const projectIdConfig: filterConfig = {
+const projectIdConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'projectId',
   displayName: IdentityLabel,
@@ -113,7 +120,7 @@ const projectIdConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-const publishingCountryConfig: filterConfig = {
+const publishingCountryConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'publishingCountry',
   displayName: CountryLabel,
@@ -133,7 +140,7 @@ const publishingCountryConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-const licenceConfig: filterConfig = {
+const licenceConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'license',
   displayName: LicenceLabel,
@@ -154,7 +161,7 @@ const licenceConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-const datasetTypeConfig: filterConfig = {
+const datasetTypeConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'type',
   displayName: DatasetTypeLabel,
@@ -175,7 +182,7 @@ const datasetTypeConfig: filterConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
-const freeTextConfig: filterConfig = {
+const freeTextConfig: filterFreeTextConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
   filterHandle: 'q',
   displayName: IdentityLabel,
@@ -203,8 +210,8 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
   const countrySuggest = useCallback(
     ({ q }: SuggestFnProps) => {
       // instead of just using indexOf or similar. This has the benefit of reshuffling records based on the match, check for abrivations etc
-      const filtered = matchSorter(countries, q, { keys: ['title', 'key'] });
-      return Promise.resolve(filtered);
+      const filtered = matchSorter(countries, q ?? '', { keys: ['title', 'key'] });
+      return { promise: Promise.resolve(filtered), cancel: () => {} };
     },
     [countries]
   );
@@ -215,7 +222,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       hostingOrg: generateFilters({ config: hostingOrgConfig, searchConfig, formatMessage }),
       projectId: generateFilters({ config: projectIdConfig, searchConfig, formatMessage }),
       publishingCountry: generateFilters({
-        config: { ...publishingCountryConfig, suggest: countrySuggest },
+        config: { ...publishingCountryConfig, suggestConfig: { getSuggestions: countrySuggest } },
         searchConfig,
         formatMessage,
       }),

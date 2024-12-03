@@ -36,14 +36,15 @@ export function Download() {
   const localePrefix = 'en';
 
   useEffect(() => {
+    const currentFilter = filter2predicate(currentFilterContext.filter, searchConfig);
     const predicate = {
       type: 'and',
-      predicates: [scope, filter2predicate(currentFilterContext.filter, searchConfig)].filter(
+      predicates: [scope, currentFilter].filter(
         (x) => x
       ),
     };
     load({ keepDataWhileLoading: true, variables: { predicate } });
-  }, [currentFilterContext.filterHash, scope, load]);
+  }, [currentFilterContext.filter, currentFilterContext.filterHash, scope, load]);
 
   const fullPredicate = data?.occurrenceSearch?._downloadPredicate?.predicate;
   const err = data?.occurrenceSearch?._downloadPredicate?.err;

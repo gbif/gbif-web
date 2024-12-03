@@ -30,7 +30,7 @@ export function useFilterParams({ filterConfig }: { filterConfig: FilterConfigTy
   useEffect(() => {
     const fields = filterConfig?.fields ?? {};
     if (!isPlainObject(fields)) return;
-    setObservedParams(Object.keys(fields));
+    setObservedParams([...Object.keys(fields), 'filter']);
 
     const empty: { [key: string]: undefined } = Object.keys(fields).reduce(
       (accumulator: { [key: string]: undefined }, curr: string) => {
@@ -67,8 +67,8 @@ export function useFilterParams({ filterConfig }: { filterConfig: FilterConfigTy
   // Field names can change according to the configuration
   useEffect(() => {
     let f;
-    if (query.filter) {
-      f = query.filter;
+    if (query?.filter) {
+      f = Array.isArray(query.filter) ? query.filter[0] : query.filter;
     } else {
       f = v12filter(query, filterConfig);
     }

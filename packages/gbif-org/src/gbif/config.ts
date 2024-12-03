@@ -168,16 +168,14 @@ export const gbifConfig: Config = {
   },
   occurrenceSearch: {
     queryType: 'PREDICATE',
-    highlightedFilters: ['q', 'institutionKey'],
-    tabs: ['table', 'map', 'media', 'clusters', 'datasets', 'download'],
+    highlightedFilters: ['occurrenceStatus', 'taxonKey', 'year', 'country', 'issue'],
+    tabs: ['media', 'map', 'clusters', 'datasets', 'download'],
     // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
     // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
     // scope: {
-    //   type: 'range',
-    //   key: 'year',
-    //   value: {
-    //     gte: '1500',
-    //   },
+    //   type: 'equals',
+    //   key: 'country',
+    //   value: 'DK',
     // },
   },
   maps: {

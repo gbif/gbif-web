@@ -1,43 +1,31 @@
 import {
   CountryLabel,
-  DatasetTypeLabel,
   IdentityLabel,
   InstitutionLabel,
-  LicenceLabel,
-  PublisherLabel,
   TaxonLabel,
 } from '@/components/filters/displayNames';
 import {
-  filterConfig,
   filterConfigTypes,
+  filterFreeTextConfig,
   FilterSetting,
+  filterSuggestConfig,
   generateFilters,
 } from '@/components/filters/filterTools';
 import { useIntl } from 'react-intl';
 import { matchSorter } from 'match-sorter';
 import hash from 'object-hash';
 import country from '@/enums/basic/country.json';
-import licenseOptions from '@/enums/basic/license.json';
-import datasetTypeOptions from '@/enums/basic/datasetType.json';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import { useCallback, useEffect, useState } from 'react';
-import { SuggestFnProps, SuggestResponseType } from '@/components/filters/suggest';
+import { SuggestFnProps } from '@/components/filters/suggest';
+import { institutionKeySuggest, taxonKeySuggest } from '@/utils/suggestEndpoints';
 
-const institutionKeyConfig: filterConfig = {
+const institutionKeyConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'institutionKey',
   displayName: InstitutionLabel,
   filterTranslation: 'filters.institutionKey.name',
-  suggest: ({ q, siteConfig }: SuggestFnProps) => {
-    return fetch(`${siteConfig.v1Endpoint}/grscicoll/institution/suggest?limit=20&q=${q}`)
-      .then((res) => res.json())
-      .then((data) => {
-        return data.map((item) => ({
-          key: item?.key,
-          title: item?.name,
-        }));
-      });
-  },
+  suggestConfig: institutionKeySuggest,
   facetQuery: `
     query CollectionInstitutionFacet($query: CollectionSearchInput) {
       search: collectionSearch(query: $query) {
@@ -52,7 +40,7 @@ const institutionKeyConfig: filterConfig = {
   `,
 };
 
-const countryConfig: filterConfig = {
+const countryConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'country',
   displayName: CountryLabel,
@@ -72,31 +60,22 @@ const countryConfig: filterConfig = {
   `,
 };
 
-const taxonKeyConfig: filterConfig = {
+const taxonKeyConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'taxonKey',
   displayName: TaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
-  suggest: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {
-    return fetch(`${siteConfig.v1Endpoint}/species/suggest?limit=20&q=${q}`)
-      .then((res) => res.json())
-      .then((data) => {
-        return data.map((item) => ({
-          key: item?.key,
-          title: item?.scientificName,
-        }));
-      });
-  },
+  suggestConfig: taxonKeySuggest
 };
 
-const descriptorCountryConfig: filterConfig = {
+const descriptorCountryConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'descriptorCountry',
   displayName: CountryLabel,
   filterTranslation: 'filters.collectionDescriptorCountry.name',
 };
 
-const freeTextConfig: filterConfig = {
+const freeTextConfig: filterFreeTextConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
   filterHandle: 'q',
   displayName: IdentityLabel,
@@ -124,8 +103,8 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
   const countrySuggest = useCallback(
     ({ q }: SuggestFnProps) => {
       // instead of just using indexOf or similar. This has the benefit of reshuffling records based on the match, check for abrivations etc
-      const filtered = matchSorter(countries, q, { keys: ['title', 'key'] });
-      return Promise.resolve(filtered);
+      const filtered = matchSorter(countries, q ?? '', { keys: ['title', 'key'] });
+      return { promise: Promise.resolve(filtered), cancel: () => {} };
     },
     [countries]
   );
@@ -135,12 +114,12 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
       // code: generateFilters({ config: publisherConfig, searchConfig, formatMessage }),
       country: generateFilters({
-        config: { ...countryConfig, suggest: countrySuggest },
+        config: { ...countryConfig, suggestConfig: { getSuggestions: countrySuggest } },
         searchConfig,
         formatMessage,
       }),
       descriptorCountry: generateFilters({
-        config: { ...descriptorCountryConfig, suggest: countrySuggest },
+        config: { ...descriptorCountryConfig, suggestConfig: { getSuggestions: countrySuggest } },
         searchConfig,
         formatMessage,
       }),

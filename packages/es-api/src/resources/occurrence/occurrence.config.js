@@ -31,7 +31,7 @@ const config =
     },
     "collectionCode": {
       "type": "keyword",
-      "field": "collectionCode.keyword",
+      "field": "collectionCode.verbatim",
       "suggestField": "collectionCode.suggest"
     },
     "collectionKey": {
@@ -278,7 +278,7 @@ const config =
     },
     "institutionCode": {
       "type": "keyword",
-      "field": "institutionCode.keyword",
+      "field": "institutionCode.verbatim",
       "suggestField": "institutionCode.suggest",
       "suggestField": "institutionCode.suggest"
     },
@@ -482,7 +482,7 @@ const config =
     },
     "recordNumber": {
       "type": "keyword",
-      "field": "recordNumber.keyword",
+      "field": "recordNumber.verbatim",
       "suggestField": "recordNumber.suggest"
     },
     "recordedBy": {

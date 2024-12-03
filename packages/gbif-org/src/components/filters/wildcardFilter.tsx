@@ -1,5 +1,5 @@
 import { SearchInput } from '@/components/searchInput';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import {
   MdDeleteOutline,
   MdOutlineRemoveCircleOutline,
@@ -9,58 +9,62 @@ import {
 import { PiEmptyBold, PiEmptyFill } from 'react-icons/pi';
 import { cn } from '@/utils/shadcn';
 import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
-import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import useQuery from '@/hooks/useQuery';
 import hash from 'object-hash';
 import cloneDeep from 'lodash/cloneDeep';
 import { Suggest } from './suggest';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { SimpleTooltip } from '@/components/simpleTooltip';
-import { Option } from './option';
+import { Option, SkeletonOption } from './option';
 import {
   AdditionalFilterProps,
   ApplyCancel,
   AsyncOptions,
   FacetQuery,
-  filterSuggestConfig,
   FilterSummaryType,
+  filterWildcardConfig,
   getAsQuery,
   getFilterSummary,
+  WildcardQuery,
 } from './filterTools';
 import { useSearchContext } from '@/contexts/search';
 import { AboutButton } from './aboutButton';
 import { Exists } from './exists';
 import StripeLoader from '../stripeLoader';
+import { Button } from '../ui/button';
 
-type SuggestProps = Omit<filterSuggestConfig, 'filterType' | 'filterTranslation'> &
+const initialSize = 25;
+
+type WildcardProps = Omit<filterWildcardConfig, 'filterType' | 'filterTranslation'> &
   AdditionalFilterProps & {
     className?: string;
   };
 
-export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
+export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
   (
     {
       className,
       searchConfig,
       filterHandle,
+      disallowLikeFilters,
       displayName: DisplayName,
-      facetQuery,
-      suggestConfig, // function that takes a query string and returns a promise of suggestions
+      suggestQuery,
+      queryKey,
+      keepCase,
       onApply,
       onCancel,
       pristine,
-      disableFacetsForSelected,
       about,
-    }: SuggestProps,
+    }: WildcardProps,
     ref
   ) => {
     const searchContext = useSearchContext();
     const currentFilterContext = useContext(FilterContext);
     const { filter, toggle, add, setFullField, setFilter, filterHash, negateField } =
       currentFilterContext;
+    const [size, setSize] = useState(initialSize);
     const [selected, setSelected] = useState<string[]>([]);
     const [filterBeforeHash, setFilterBeforeHash] = useState<string | undefined>(undefined);
-    const [facetLookup, setFacetLookup] = useState<Record<string, number>>({});
     const [q, setQ] = useState<string>('');
     const [backupFilter, setBackupFilter] = useState<FilterType | undefined>(undefined);
     const [filterSummary, setFilterSummary] = useState<FilterSummaryType>(
@@ -71,67 +75,59 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
     );
     const [useNegations, setUseNegations] = useState(filterSummary?.hasNegations ?? false);
 
+    const { data, error, loading, load } = useQuery<WildcardQuery, unknown>(suggestQuery, {
+      lazyLoad: true,
+    });
+
     const About = about;
-    const {
-      data: facetData,
-      error: facetError,
-      loading: facetLoading,
-      load: facetLoad,
-    } = useQuery<FacetQuery, unknown>(facetQuery ?? '', {
-      lazyLoad: true,
-    });
-
-    const {
-      data: selectedFacetData,
-      error: selectedFacetError,
-      loading: selectedFacetLoading,
-      load: selectedFacetLoad,
-    } = useQuery<FacetQuery, unknown>(facetQuery ?? '', {
-      lazyLoad: true,
-    });
 
     useEffect(() => {
-      if (!facetQuery) return;
-      // if the filter has changed, then get facet values from API
-      const prunedFilter = cleanUpFilter(cloneDeep(filter));
-      delete prunedFilter.must?.[filterHandle];
-      // delete prunedFilter.mustNot?.[filterHandle];
-
-      const query = getAsQuery({ filter: prunedFilter, searchContext, searchConfig });
-      if (searchContext.queryType === 'V1') {
-        facetLoad({ variables: { query: query } });
-      } else {
-        facetLoad({ variables: { predicate: query }, keepDataWhileLoading: true });
+      const predicates = [];
+      if (searchContext?.scope) {
+        predicates.push(searchContext.scope);
       }
-    }, [facetQuery, filterBeforeHash, facetLoad, searchContext, searchConfig, filterHandle]);
-
-    useEffect(() => {
-      if (
-        !facetQuery ||
-        disableFacetsForSelected ||
-        filterSummary?.isNotNull ||
-        filterSummary?.isNull ||
-        filterSummary?.mixed ||
-        useNegations
-      )
-        return;
-      // if the filter has changed, then get facet values from API
-      const query = getAsQuery({ filter: filter, searchContext, searchConfig });
-      if (searchContext.queryType === 'V1') {
-        selectedFacetLoad({ variables: { query: query, limit: selected?.length ?? 10 } });
-      } else {
-        selectedFacetLoad({ variables: { predicate: query, size: selected?.length ?? 10 } });
+      let queryString = q;
+      let postfix = '';
+      if (queryString.indexOf('*') === -1 && queryString.indexOf('?') === -1) {
+        postfix = '*';
       }
-    }, [
-      facetQuery,
-      disableFacetsForSelected,
-      filterHash,
-      selectedFacetLoad,
-      selected,
-      searchContext,
-      searchConfig,
-      useNegations,
-    ]);
+      queryString = `${q}${postfix}`;
+
+      if (q && q !== '') {
+        predicates.push({
+          type: 'like',
+          key: queryKey ?? filterHandle,
+          value: `${queryString}`,
+        });
+      }
+
+      let includePattern = queryString
+        .replace(/\*/g, '.*')
+        .replace(/\?/, '.')
+        .replace(/([?+|{}[\]()"\\])/g, (_, p1) => '\\' + p1);
+      if (!keepCase) includePattern = includePattern.toLowerCase();
+
+      load({
+        keepDataWhileLoading: size > initialSize,
+        variables: {
+          size,
+          include: includePattern,
+          predicate: {
+            type: 'and',
+            predicates: predicates,
+          },
+        },
+      });
+    }, [size, q, filterBeforeHash, keepCase]);
+
+    const loadMore = useCallback(() => {
+      setSize(size + 50);
+    }, [size]);
+
+    const search = useCallback((q: string) => {
+      setSize(initialSize);
+      setQ(q);
+    }, []);
 
     useEffect(() => {
       // filter has changed updateed the listed of selected values
@@ -156,20 +152,13 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       }
     }, [filterSummary]);
 
-    useEffect(() => {
-      // map selectedFacetData to a lookup so that we have easy access to the counts per publisher key
-      const selectedFacetLookup =
-        selectedFacetData?.search?.facet?.field?.reduce((acc, x) => {
-          acc[x.name] = x.count;
-          return acc;
-        }, {} as Record<string, number>) ?? {};
-      setFacetLookup(selectedFacetLookup);
-    }, [selectedFacetData]);
-
+    // no longer just strings, so I guess we have to revisit this
     const selectedStrings = selected.map((x) => x.toString());
-    const facetSuggestions = facetData?.search?.facet?.field?.filter(
+    const facetSuggestions = data?.search?.facet?.field?.filter(
       (x) => !selectedStrings.includes(x.name)
     );
+
+    const patternAlreadySelected = !!selected.find((x) => typeof x === 'object' && x.type === 'like' && x.value && x.value === q) || selectedStrings.includes(q);
 
     const options = (
       <>
@@ -268,49 +257,12 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       );
     }
 
+    const cardinality = data?.search?.cardinality?.total ?? 0;
+    const hasSuggestions = data?.search?.facet?.field && data?.search?.facet?.field?.length > 0;
+    const hasMoreSuggestions = hasSuggestions && cardinality > (data?.search?.facet?.field?.length ?? 0);
+
     return (
       <div className={cn('g-flex g-flex-col g-max-h-[100dvh]', className)}>
-        <div className="g-flex g-flex-none">
-          <div className="g-p-2 g-w-full">
-            {suggestConfig && (
-              <Suggest
-                ref={ref}
-                onSelect={(item) => add(filterHandle, item.key, useNegations)}
-                className={cn(
-                  'g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset'
-                )}
-                selected={selected}
-                getSuggestions={suggestConfig.getSuggestions}
-                render={suggestConfig.render}
-                getStringValue={suggestConfig.getStringValue}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') onApply?.();
-                }}
-              />
-            )}
-            {!suggestConfig && (
-              <SearchInput
-                ref={ref}
-                value={q}
-                onChange={(e) => setQ(e.target.value)}
-                placeholder="Search"
-                className="g-w-full g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset"
-                onKeyDown={(e) => {
-                  // if user press enter, then update the value
-                  if (e.key === 'Enter') {
-                    if (e.currentTarget.value !== '' && q !== '') {
-                      add(filterHandle, e.currentTarget.value, useNegations);
-                      setQ('');
-                      e.preventDefault();
-                    } else {
-                      onApply?.();
-                    }
-                  }
-                }}
-              />
-            )}
-          </div>
-        </div>
         <div
           className={cn(
             'g-flex g-flex-none g-text-sm g-text-slate-400 g-py-1.5 g-px-4 g-items-center'
@@ -349,14 +301,6 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                         <span className="g-flex-auto">
                           <DisplayName id={x} />
                         </span>
-                        {!useNegations &&
-                          !selectedFacetLoading &&
-                          !selectedFacetError &&
-                          !disableFacetsForSelected && (
-                            <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
-                              <FormattedNumber value={facetLookup[x] ?? 0} />
-                            </span>
-                          )}
                       </div>
                     </Option>
                   );
@@ -364,24 +308,74 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
               </div>
             </div>
           )}
-          {facetSuggestions && facetSuggestions.length === 0 && selected?.length === 0 && (
-            <div className="g-p-4 g-text-center g-text-sm g-text-slate-400">
-              No matching records.
+          <div className="g-flex g-flex-none g-border-t">
+            <div className="g-p-2 g-w-full">
+              <SearchInput
+                ref={ref}
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                placeholder="Search"
+                className="g-w-full g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset"
+                onKeyDown={(e) => {
+                  // if user press enter, then update the value
+                  if (e.key === 'Enter') {
+                    if (e.currentTarget.value !== '' && q !== '') {
+                      const query = e.currentTarget.value;
+                      if (query.indexOf('*') > -1 || query.indexOf('?') > -1) {
+                        const qString = { type: 'like', value: query };
+                        add(filterHandle, qString, useNegations);
+                      } else {
+                        add(filterHandle, query, useNegations);
+                      }
+                      setQ('');
+                      e.preventDefault();
+                    } else {
+                      onApply?.();
+                    }
+                  }
+                }}
+              />
             </div>
-          )}
-          <AsyncOptions
-            loading={facetLoading && (!facetSuggestions || facetSuggestions?.length === 0)}
-            error={facetError}
-            className="g-p-2 g-pt-2 g-px-4"
-          >
-            {facetSuggestions && facetSuggestions.length > 0 && (
-              <div className={cn(selected.length > 0 && 'g-border-t')}>
-                <StripeLoader active={facetLoading} />
-                <div className="g-p-2 g-pt-2 g-px-4">
-                  {/* <div className={cn('g-flex g-text-sm g-text-slate-400 g-mt-1 g-mb-2 g-items-center')}>
-              <h4 className="g-text-xs g-font-bold g-text-slate-400 g-mb-1">Suggestions</h4>
-            </div> */}
-                  <div role="group" className="g-text-sm g-text-slate-600">
+          </div>
+          <div role="group" className="g-text-sm g-text-slate-700">
+            <div className="g-p-2 g-pt-0 g-px-4">
+              {!disallowLikeFilters && q !== '' && !patternAlreadySelected && (
+                <div
+                  className=""
+                >
+                  <Option
+                    key={q}
+                    helpText={
+                      <FormattedMessage
+                        id="filterSupport.useWildcardPattern"
+                        defaultMessage="Search for the pattern"
+                      />
+                    }
+                    onClick={() => {
+                      // if q contains * or ? then it is a wildcard query else just a plain string match
+                      if (q.indexOf('*') > -1 || q.indexOf('?') > -1) {
+                        const qString = { type: 'like', value: q };
+                        toggle(filterHandle, qString, useNegations);
+                      } else {
+                        toggle(filterHandle, q, useNegations);
+                      }
+                    }}
+                  >
+                    {q}
+                  </Option>
+                </div>
+              )}
+            </div>
+
+            <AsyncOptions
+              className="g-p-2 g-pt-0 g-px-4"
+              loading={loading && (!facetSuggestions || facetSuggestions?.length === 0)}
+              error={error}
+            >
+              {facetSuggestions && facetSuggestions.length > 0 && (
+                <div>
+                  <StripeLoader active={loading} />
+                  <div className="g-p-2 g-pt-0 g-px-4">
                     {facetSuggestions.map((x) => {
                       return (
                         <Option
@@ -396,7 +390,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                         >
                           <div className="g-flex g-items-center">
                             <span className="g-flex-auto g-overflow-hidden g-text-ellipsis g-whitespace-nowrap">
-                              {x?.item?.title ?? <DisplayName id={x?.name} />}
+                              {x?.name ?? <DisplayName id={x?.name} />}
                             </span>
                             <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
                               <FormattedNumber value={x.count} />
@@ -405,11 +399,24 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                         </Option>
                       );
                     })}
+                    {hasMoreSuggestions && !loading && <div style={{fontSize: 12, marginLeft: 24, marginTop: 12}}><Button variant="primaryOutline" size="sm" onClick={loadMore}>
+                      <FormattedMessage id="search.loadMore" defaultMessage="More"/>
+                    </Button></div>}
+                    {loading && <>
+                      <SkeletonOption className="g-w-full g-mb-2" />
+                      <SkeletonOption className="g-w-36 g-max-w-full g-mb-2" />
+                      <SkeletonOption className="g-max-w-full g-w-48 g-mb-2" />
+                    </>}
                   </div>
                 </div>
-              </div>
-            )}
-          </AsyncOptions>
+              )}
+            </AsyncOptions>
+          </div>
+          {facetSuggestions && facetSuggestions.length === 0 && selected?.length === 0 && (
+            <div className="g-p-4 g-text-center g-text-sm g-text-slate-400">
+              No matching records.
+            </div>
+          )}
         </div>
         <ApplyCancel onApply={onApply} onCancel={onCancel} pristine={pristine} />
       </div>
