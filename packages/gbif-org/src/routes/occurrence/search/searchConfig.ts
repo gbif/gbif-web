@@ -104,6 +104,10 @@ const otherParams = [
   'stateProvince',
   'samplingProtocol',
   'verbatimScientificName',
+  
+  'geometry',
+  'hasCoordinate',
+  'hasGeospatialIssue',
 ];
 
 otherParams.forEach((filter) => {

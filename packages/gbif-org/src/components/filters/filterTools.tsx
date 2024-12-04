@@ -22,6 +22,7 @@ import { Button } from '../ui/button';
 import { SkeletonOption } from './option';
 import { OptionalBooleanFilter } from './optionalBooleanFilter';
 import { WildcardFilter } from './wildcardFilter';
+import { GeometryFilter } from './geometryFilter';
 
 export enum filterConfigTypes {
   SUGGEST = 'SUGGEST',
@@ -30,6 +31,7 @@ export enum filterConfigTypes {
   RANGE = 'RANGE',
   OPTIONAL_BOOL = 'OPTIONAL_BOOL',
   WILDCARD = 'WILDCARD',
+  LOCATION = 'LOCATION',
 }
 
 export type AdditionalFilterProps = {
@@ -37,7 +39,7 @@ export type AdditionalFilterProps = {
   onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
   onCancel?: () => void;
   pristine?: boolean;
-}
+};
 
 export type filterConfigShared = {
   filterType: string;
@@ -87,6 +89,10 @@ export type filterRangeConfig = filterConfigShared & {
   regex?: RegExp;
 };
 
+export type filterLocationConfig = filterConfigShared & {
+  filterType: filterConfigTypes.LOCATION;
+};
+
 export type filterFreeTextConfig = filterConfigShared & {
   filterType: filterConfigTypes.FREE_TEXT;
 };
@@ -98,7 +104,8 @@ export type filterConfig =
   | filterEnumConfig
   | filterRangeConfig
   | filterFreeTextConfig
-  | filterWildcardConfig;
+  | filterWildcardConfig
+  | filterLocationConfig;
 
 // generic type for a facet query
 export interface FacetQuery {
@@ -120,7 +127,7 @@ export interface WildcardQuery {
   search: {
     cardinality: {
       total: number;
-    }
+    };
     facet?: {
       field?: Array<{
         name: string;
@@ -159,15 +166,17 @@ function getPopoverFilter({
   filterTranslation: string;
 }) {
   return function PopoverFilter({ trigger }: { trigger: React.ReactNode }) {
-    const title = <div className="g-flex g-flex-nowrap g-items-center g-border-b g-p-2 g-px-4">
-    <h3 className="g-flex-auto g-text-slate-800 g-text-sm g-font-semibold">
-      <FormattedMessage id={filterTranslation} />
-    </h3>
-  </div>;
+    const title = (
+      <div className="g-flex g-flex-nowrap g-items-center g-border-b g-p-2 g-px-4">
+        <h3 className="g-flex-auto g-text-slate-800 g-text-sm g-font-semibold">
+          <FormattedMessage id={filterTranslation} />
+        </h3>
+      </div>
+    );
 
     return (
       <FilterPopover trigger={trigger} title={title}>
-          <Content />
+        <Content />
       </FilterPopover>
     );
   };
@@ -322,6 +331,41 @@ const getEnumFilter = ({
           allowNegations={config.allowNegations}
           searchConfig={searchConfig}
           about={config.about}
+          {...{ onApply, onCancel, className, style, pristine }}
+        />
+      );
+    }
+  );
+};
+
+const getLocationFilter = ({
+  config,
+  searchConfig,
+}: {
+  config: filterLocationConfig;
+  searchConfig: FilterConfigType;
+}) => {
+  return React.forwardRef(
+    (
+      {
+        onApply,
+        onCancel,
+        className,
+        style,
+        pristine,
+      }: {
+        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+        onCancel?: () => void;
+        className?: string;
+        style?: React.CSSProperties;
+        pristine?: boolean;
+      },
+      ref
+    ) => {
+      return (
+        <GeometryFilter
+          ref={ref}
+          {...config}
           {...{ onApply, onCancel, className, style, pristine }}
         />
       );
@@ -538,6 +582,12 @@ export function generateFilters({
       config,
       formatMessage,
       Content: getWildcardFilter({ config: config as filterWildcardConfig, searchConfig }),
+    });
+  } else if (config.filterType === filterConfigTypes.LOCATION) {
+    return generateFilter({
+      config,
+      formatMessage,
+      Content: getLocationFilter({ config: config as filterLocationConfig, searchConfig }),
     });
   } else {
     throw new Error(`Unknown filter type ${config?.filterType}`);

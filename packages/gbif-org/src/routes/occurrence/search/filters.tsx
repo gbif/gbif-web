@@ -53,6 +53,7 @@ import { establishmentMeansConfig } from './filters/vocabulary';
 import { isInClusterConfig, isSequencedConfig } from './filters/booleans';
 import { coordinateUncertaintyConfig, depthConfig, elevationConfig, organismQuantityConfig, relativeOrganismQuantityConfig, sampleSizeValueConfig, yearConfig } from './filters/ranges';
 import { catalogNumberConfig, identifiedByConfig, localityConfig, recordedByConfig, sampleSizeUnitConfig, samplingProtocolConfig, stateProvinceConfig, verbatimScientificNameConfig, waterBodyConfig } from './filters/wildcard';
+import { locationConfig } from './filters/location';
 
 const freeTextConfig: filterConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
@@ -197,6 +198,8 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       
       recordedBy: generateFilters({ config: recordedByConfig, searchConfig, formatMessage }),
       identifiedBy: generateFilters({ config: identifiedByConfig, searchConfig, formatMessage }),
+      
+      location: generateFilters({ config: locationConfig, searchConfig, formatMessage }),
     }),
     [searchConfig, countrySuggest, formatMessage]
   );
