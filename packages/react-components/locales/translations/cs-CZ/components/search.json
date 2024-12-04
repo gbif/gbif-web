@@ -1,0 +1,55 @@
+{
+  "tabs": {
+    "table": "",
+    "gallery": "",
+    "media": "",
+    "map": "",
+    "datasets": "",
+    "events": "",
+    "download": "",
+    "clusters": "",
+    "dashboard": "",
+    "sites": ""
+  },
+  "table": {
+    "lockColumn": "",
+    "unlockColumn": "",
+    "columnVisibility": "",
+    "resetColumnVisibility": "",
+    "openFilter": ""
+  },
+  "placeholders": {
+    "default": "",
+    "range": "",
+    "wildcard": "",
+    "locationID": ""
+  },
+  "ternary": {
+    "yes": "",
+    "no": "",
+    "either": ""
+  },
+  "loadMore": "",
+  "occurrenceClustersView": {
+    "about": "",
+    "clusters": "",
+    "legend": "",
+    "differentPublishers": "",
+    "samePublishers": "",
+    "entryPoint": "",
+    "hasMultipleTaxonKeys": "",
+    "aboutLink": "",
+    "isCapped": "",
+    "isDeleted": "",
+    "similarities": "",
+    "currentRecord": "",
+    "nodeType": {
+      "IMAGE": "",
+      "TYPE": "",
+      "TREATMENT": "",
+      "OBSERVATION": "",
+      "SPECIMEN": "",
+      "SEQUENCE": ""
+    }
+  }
+}
