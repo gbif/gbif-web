@@ -96,7 +96,7 @@ export const FilterContent = ({ config = {}, translations, labelledById, LabelFr
                   helpText = <FormattedMessage
                     id={`intervals.description.e`}
                     defaultMessage={'Filter name'}
-                    values={{ is: option.value }}
+                    values={{ is: option.value, from: option.value }}
                   />
                 } else {
                   helpText = <>

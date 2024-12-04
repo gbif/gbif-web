@@ -23,8 +23,8 @@ export function rangeOrEqualLabel(path) {
     } else if (value?.type === 'equals') {
       return <FormattedMessage
         id={`${path}.e`}
-        defaultMessage={'Filter name'}
-        values={{ from: value.value }}
+        defaultMessage={value.value}
+        values={{ from: value.value, is: value.value }}
       />
     } else {
       return <FormattedMessage
