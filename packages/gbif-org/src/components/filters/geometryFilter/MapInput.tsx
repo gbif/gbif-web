@@ -63,13 +63,9 @@ const OpenLayersMap = ({
   geometryList: string[];
   onChange: ({ wkt }: { wkt: string[] }) => void;
 }) => {
-  const interactionOptions = olInteraction.defaults({
-    altShiftDragRotate: false,
-    pinchRotate: false,
-    mouseWheelZoom: true,
-  });
-  const mapRef = useRef();
+  const mapRef = useRef<HTMLDivElement | null>(null);
   const [map, setMap] = useState<Map | null>(null);
+  const [initialGeometries] = useState(geometryList);
   const [vectorSource, setVectorSource] = useState<VectorSource | null>(null);
   const [interactions, setInteractions] = useState<{
     draw: Draw;
@@ -133,8 +129,13 @@ const OpenLayersMap = ({
     interactions?.select?.setActive(false);
   }
 
+  // const createMap = useCallback(() => {
+
+  // })
   useEffect(() => {
-    if (!mapRef.current) return;
+    if (!mapRef.current || map?.getLoadingOrNotReady()) {
+      return;
+    }
     const source = new VectorSource({ wrapX: true });
     const vector = new VectorLayer({
       source: source,
@@ -150,9 +151,14 @@ const OpenLayersMap = ({
     });
 
     setVectorSource(source);
-    const geometries = getFeaturesFromWktList({ geometry: geometryList });
+    const interactionOptions = olInteraction.defaults({
+      altShiftDragRotate: false,
+      pinchRotate: false,
+      mouseWheelZoom: true,
+    });
+    const geometries = getFeaturesFromWktList({ geometry: initialGeometries });
     source.addFeatures(geometries);
-    const map = new Map({
+    const newMap = new Map({
       layers: [epsg_4326_raster, vector],
       target: mapRef.current,
       view: new View({
@@ -164,7 +170,6 @@ const OpenLayersMap = ({
       controls: olControlDefaults({ zoom: false, attribution: true }),
       interactions: interactionOptions,
     });
-    setMap(map);
 
     const draw = new Draw({
       source: source,
@@ -173,10 +178,10 @@ const OpenLayersMap = ({
     const modify = new Modify({ source: source });
     const snap = new Snap({ source: source });
     const select = new Select({ layers: [vector] });
-    map.addInteraction(draw);
-    map.addInteraction(snap);
-    map.addInteraction(modify);
-    map.addInteraction(select);
+    newMap.addInteraction(draw);
+    newMap.addInteraction(snap);
+    newMap.addInteraction(modify);
+    newMap.addInteraction(select);
     setInteractions({ draw, modify, snap, select });
     draw.setActive(false);
     modify.setActive(false);
@@ -216,14 +221,18 @@ const OpenLayersMap = ({
       });
     });
 
+    if (!map) {
+      setMap(newMap);
+    }
+
     return () => {
-      map.removeInteraction(draw);
-      map.removeInteraction(modify);
-      map.removeInteraction(snap);
-      map.removeInteraction(select);
-      map.setTarget(undefined);
+      newMap.removeInteraction(draw);
+      newMap.removeInteraction(modify);
+      newMap.removeInteraction(snap);
+      newMap.removeInteraction(select);
+      newMap.setTarget(undefined);
     };
-  }, [mapRef]);
+  }, [mapRef, onChange, initialGeometries, map]);
 
   useEffect(() => {
     if (map && vectorSource) {
