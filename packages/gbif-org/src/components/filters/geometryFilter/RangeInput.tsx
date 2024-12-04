@@ -51,10 +51,10 @@ export const RangeInput = ({ onAdd }: { onAdd: ({ wkt }: { wkt: string[] }) => v
       const wkt =
         'POLYGON' +
         '((W S,E S,E N,W N,W S))'
-          .replace(/N/g, +N.toFixed(3))
-          .replace(/S/g, +S.toFixed(3))
-          .replace(/W/g, +W.toFixed(3))
-          .replace(/E/g, +E.toFixed(3));
+          .replace(/N/g, (+N.toFixed(3)).toString())
+          .replace(/S/g, (+S.toFixed(3)).toString())
+          .replace(/W/g, (+W.toFixed(3)).toString())
+          .replace(/E/g, (+E.toFixed(3)).toString());
 
       // update lat and lon values with new nsew values
       setMinLatitude(S);

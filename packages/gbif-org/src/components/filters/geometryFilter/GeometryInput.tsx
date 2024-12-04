@@ -19,8 +19,8 @@ export const GeometryInput = ({
   onAdd,
   initialValue = '',
 }: {
-  onAdd: ({ wkt }: { wkt?: string[] }) => void;
-  initialValue: string;
+  onAdd: ({ wkt }: { wkt: string[] }) => void;
+  initialValue?: string;
 }) => {
   const { toast } = useToast();
   const intl = useIntl();
@@ -137,10 +137,10 @@ export const GeometryInput = ({
     // if any fail, then tell the user and offer to remove the invalid geometries
     // if all pass, then add the geometries to the list of geometries
     if (result.geometry && result.geometry.length > 0) {
-      const promises = result.geometry.filter(x => x).map((wkt) => checkWktAgainstAPI(wkt));
+      const promises = result.geometry.filter(x => typeof x !== 'undefined').map((wkt) => checkWktAgainstAPI(wkt));
       Promise.all(promises)
         .then(() => {
-          onAdd({ wkt: result.geometry });
+          onAdd({ wkt: result.geometry.filter(x => typeof x !== 'undefined') });
           setValue('');
           setSimplificationOffer(false);
         })

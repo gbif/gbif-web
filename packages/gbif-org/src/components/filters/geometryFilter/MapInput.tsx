@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import Draw from 'ol/interaction/Draw.js';
 import Select from 'ol/interaction/Select.js';
 import Modify from 'ol/interaction/Modify.js';
@@ -19,6 +19,7 @@ import { Fill, Stroke, Style } from 'ol/style';
 import { MdZoomIn, MdZoomOut, MdDelete, MdEdit } from 'react-icons/md';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Feature } from 'ol';
+import useKeyPress from '@/hooks/useKeyPress';
 
 proj4.defs('EPSG:4326', '+proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees');
 
@@ -33,9 +34,8 @@ if (typeof window !== 'undefined') {
   pixel_ratio = window?.devicePixelRatio || 1;
 }
 const tile_grid = new TileGrid({
-  extent: olProj.get('EPSG:4326').getExtent(),
+  extent: olProj.get('EPSG:4326')?.getExtent() || [-90, -90, 90, 90], // I doubt the fallback is ever used
   minZoom: 0,
-  maxZoom: max_zoom,
   resolutions: resolutions,
   tileSize: tile_size,
 });
@@ -71,9 +71,14 @@ const OpenLayersMap = ({
   const mapRef = useRef();
   const [map, setMap] = useState<Map | null>(null);
   const [vectorSource, setVectorSource] = useState<VectorSource | null>(null);
-  const [interactions, setInteractions] = useState<{draw: Draw, modify: Modify, snap: Snap, select: Select} | null>(null);
+  const [interactions, setInteractions] = useState<{
+    draw: Draw;
+    modify: Modify;
+    snap: Snap;
+    select: Select;
+  } | null>(null);
   const [tool, setTool] = useState<string | null>(null); // DRAW, DELETE or null
-  const cancelInteraction = () => {
+  const cancelInteraction = useCallback(() => {
     if (!map) return;
     map.getInteractions().forEach((interaction) => {
       if (interaction instanceof Draw) {
@@ -81,8 +86,14 @@ const OpenLayersMap = ({
         map.addInteraction(interaction);
       }
     });
-  };
-  // useKeyPressEvent('Escape', cancelInteraction);
+  }, [map]);
+  const escapePressed = useKeyPress('Escape');
+
+  useEffect(() => {
+    if (escapePressed) {
+      cancelInteraction();
+    }
+  }, [cancelInteraction, escapePressed]);
 
   function toggleDelete() {
     disableAll();
@@ -158,11 +169,10 @@ const OpenLayersMap = ({
     const draw = new Draw({
       source: source,
       type: 'Polygon',
-      active: false,
     });
     const modify = new Modify({ source: source });
     const snap = new Snap({ source: source });
-    const select = new Select({ source: source });
+    const select = new Select({ layers: [vector] });
     map.addInteraction(draw);
     map.addInteraction(snap);
     map.addInteraction(modify);
@@ -233,7 +243,7 @@ const OpenLayersMap = ({
             onClick={() => {
               if (!map) return;
               const view = map.getView();
-              view.setZoom(view.getZoom() + 1);
+              view.setZoom((view.getZoom() ?? 0) + 1);
             }}
           >
             <MdZoomIn />
@@ -244,7 +254,7 @@ const OpenLayersMap = ({
             onClick={() => {
               if (!map) return;
               const view = map.getView();
-              view.setZoom(view.getZoom() - 1);
+              view.setZoom((view.getZoom() ?? 1) - 1);
             }}
           >
             <MdZoomOut />

@@ -1,7 +1,6 @@
 import useLocalStorage from 'use-local-storage';
 import { Option } from '../option';
 import { FormattedMessage } from 'react-intl';
-import { Button } from '@/components/ui/button';
 import { HiOutlineClipboardCopy as CopyToClipboardIcon } from 'react-icons/hi';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { PolygonLabel } from '../displayNames';

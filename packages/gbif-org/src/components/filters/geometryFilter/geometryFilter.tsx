@@ -11,7 +11,6 @@ import {
   ApplyCancel,
   filterLocationConfig,
 } from '../filterTools';
-import { useSearchContext } from '@/contexts/search';
 import { AboutButton } from '../aboutButton';
 import { ToggleGroup, ToggleGroupItem } from '../../ui/toggle-group';
 import set from 'lodash/set';
@@ -24,9 +23,6 @@ import { RangeInput } from './RangeInput';
 import { CopyToClipboard, InvalidWkt, RecentInput } from './RecentInput';
 import { PolygonLabel } from '../displayNames';
 import { truncate } from '@/utils/truncate';
-import { has } from 'lodash';
-
-const initialSize = 25;
 
 type WildcardProps = Omit<filterLocationConfig, 'filterType' | 'filterTranslation'> &
   AdditionalFilterProps & {
@@ -45,9 +41,8 @@ export const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
     }: WildcardProps,
     ref
   ) => {
-    const searchContext = useSearchContext();
     const currentFilterContext = useContext(FilterContext);
-    const { filter, toggle, setFullField, setFilter, filterHash, negateField } =
+    const { filter, toggle, setFullField, setFilter, filterHash } =
       currentFilterContext;
     const hasCoordinate = filter?.must?.hasCoordinate?.[0];
     const hasGeospatialIssue = filter?.must?.hasGeospatialIssue?.[0];
