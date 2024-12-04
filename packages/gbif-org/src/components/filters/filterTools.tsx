@@ -456,7 +456,7 @@ export type FilterSetting = {
   Content: React.FC<{
     onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
     onCancel?: () => void;
-    ref: React.ForwardedRef<unknown>;
+    ref?: React.ForwardedRef<unknown>;
     className?: string;
     style?: React.CSSProperties;
     pristine?: boolean;
@@ -736,7 +736,7 @@ export function FilterBar({
   className?: string;
 }) {
   return (
-    <div className={cn('g-border-b g-py-2 g-px-3', className)} role="search">
+    <div className={cn('g-border-b g-py-2 g-px-4', className)} role="search">
       {children}
     </div>
   );

@@ -4,7 +4,7 @@ import { HelpText } from '@/components/helpText';
 
 export const locationConfig: filterLocationConfig = {
   filterType: filterConfigTypes.LOCATION,
-  filterHandle: 'location',
+  filterHandle: 'geometry',
   displayName: WildcardLabel,
   filterTranslation: 'filters.geometry.name',
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
