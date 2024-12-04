@@ -4,6 +4,7 @@ import { fetchWithCancel } from '@/utils/fetchWithCancel';
 import isUndefined from 'lodash/isUndefined';
 import { useCallback } from 'react';
 import { VocabularyType } from '@/utils/suggestEndpoints';
+import { truncate } from '@/utils/truncate';
 
 // utility function to generate label for range or equal filters
 function rangeOrEqualLabel(path: string) {
@@ -43,7 +44,7 @@ function rangeOrEqualLabel(path: string) {
 export const WildcardLabel = ({ id }: { id: string | number | object }) => {
   const value = id?.value ?? id;
   if (typeof value !== 'string') {
-    return <span>Unknown</span>
+    return <span>Unknown</span>;
   }
   const trimmed = value?.trim();
   const displayValue = trimmed.length !== value.length ? `"${value}"` : value;
@@ -76,6 +77,20 @@ function getEnumLabel({ template }: { template: (id: string) => string }) {
 
     return <DisplayName getData={getData} id={id} useHtml={false} />;
   };
+}
+
+export function PolygonLabel({ id }: { id: string | number | object }) {
+  const getData = useCallback(({ id }: DisplayNameGetDataProps) => {
+    const { promise, cancel } = fetchWithCancel(
+      `${import.meta.env.PUBLIC_WEB_UTILS}/polygon-name?wkt=${id}`
+    );
+    return {
+      promise: promise.then((response) => response.json()).then((data) => ({ title: truncate(data.title, 150) })),
+      cancel,
+    };
+  }, []);
+
+  return <DisplayName getData={getData} id={id} useHtml={false} />;
 }
 
 function getGraphQlLabel({

@@ -164,8 +164,9 @@ function getPopoverFilter({
     style?: React.CSSProperties;
   }>;
   filterTranslation: string;
+  className?: string;
 }) {
-  return function PopoverFilter({ trigger }: { trigger: React.ReactNode }) {
+  return function PopoverFilter({ trigger, className }: { trigger: React.ReactNode; className?: string }) {
     const title = (
       <div className="g-flex g-flex-nowrap g-items-center g-border-b g-p-2 g-px-4">
         <h3 className="g-flex-auto g-text-slate-800 g-text-sm g-font-semibold">
@@ -175,7 +176,7 @@ function getPopoverFilter({
     );
 
     return (
-      <FilterPopover trigger={trigger} title={title}>
+      <FilterPopover trigger={trigger} title={title} className={className}>
         <Content />
       </FilterPopover>
     );
@@ -499,15 +500,17 @@ export function generateFilter({
   Content,
   config,
   formatMessage,
+  popoverClassName,
 }: {
   config: filterConfig;
   formatMessage: IntlShape['formatMessage'];
   Content: React.FC;
+  popoverClassName?: string;
 }): FilterSetting {
   const PopoverFilter = getPopoverFilter({ Content, filterTranslation: config.filterTranslation });
   let FilterButtonPopover = ({ className }: { className?: string }) => {
     return (
-      <PopoverFilter
+      <PopoverFilter className={popoverClassName}
         trigger={
           <FilterButton
             className={cn('g-mx-1 g-mb-1 g-max-w-md g-text-slate-600', className)}
@@ -588,6 +591,7 @@ export function generateFilters({
       config,
       formatMessage,
       Content: getLocationFilter({ config: config as filterLocationConfig, searchConfig }),
+      popoverClassName: 'g-w-[500px]',
     });
   } else {
     throw new Error(`Unknown filter type ${config?.filterType}`);

@@ -1,43 +1,30 @@
-import { SearchInput } from '@/components/searchInput';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   MdDeleteOutline,
-  MdOutlineRemoveCircleOutline,
-  MdOutlineRemoveCircle,
-  MdArrowBack,
 } from 'react-icons/md';
-import { PiEmptyBold, PiEmptyFill } from 'react-icons/pi';
 import { cn } from '@/utils/shadcn';
-import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
-import useQuery from '@/hooks/useQuery';
-import hash from 'object-hash';
-import cloneDeep from 'lodash/cloneDeep';
-import { Suggest } from '../suggest';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { SimpleTooltip } from '@/components/simpleTooltip';
-import { Option, SkeletonOption } from '../option';
+import { FilterContext } from '@/contexts/filter';
+import { FormattedMessage } from 'react-intl';
+import { Option } from '../option';
 import {
   AdditionalFilterProps,
   ApplyCancel,
-  AsyncOptions,
   filterLocationConfig,
-  FilterSummaryType,
-  getAsQuery,
-  getFilterSummary,
-  WildcardQuery,
 } from '../filterTools';
 import { useSearchContext } from '@/contexts/search';
 import { AboutButton } from '../aboutButton';
-import { Exists } from '../exists';
-import StripeLoader from '../../stripeLoader';
-import { Button } from '../../ui/button';
 import { ToggleGroup, ToggleGroupItem } from '../../ui/toggle-group';
 import set from 'lodash/set';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card } from '../../ui/smallCard';
 import MapInput from './MapInput';
 import { ClientSideOnly } from '@/components/clientSideOnly';
-import { GeometryInput } from './GeometryInput';
+import { GeometryInput, isValidWKT } from './GeometryInput';
+import { RangeInput } from './RangeInput';
+import { CopyToClipboard, InvalidWkt, RecentInput } from './RecentInput';
+import { PolygonLabel } from '../displayNames';
+import { truncate } from '@/utils/truncate';
+import { has } from 'lodash';
 
 const initialSize = 25;
 
@@ -50,13 +37,7 @@ export const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
   (
     {
       className,
-      searchConfig,
       filterHandle,
-      disallowLikeFilters,
-      displayName: DisplayName,
-      suggestQuery,
-      queryKey,
-      keepCase,
       onApply,
       onCancel,
       pristine,
@@ -66,11 +47,12 @@ export const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
   ) => {
     const searchContext = useSearchContext();
     const currentFilterContext = useContext(FilterContext);
-    const { filter, toggle, add, setFullField, setFilter, filterHash, negateField } =
+    const { filter, toggle, setFullField, setFilter, filterHash, negateField } =
       currentFilterContext;
     const hasCoordinate = filter?.must?.hasCoordinate?.[0];
     const hasGeospatialIssue = filter?.must?.hasGeospatialIssue?.[0];
     const [selected, setSelected] = useState<string[]>([]);
+    const [count, setCount] = useState(selected.length);
 
     const About = about;
     const options = (
@@ -78,7 +60,7 @@ export const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
         <div className="g-flex-auto"></div>
         <div className="g-flex-none g-text-base" style={{ marginTop: '-0.2em' }}>
           <>
-            {selected.length > 0 && (
+            {count > 0 && (
               <button
                 className={cn('g-mx-1 g-px-1', !!About && 'g-pe-3 g-border-r g-me-2')}
                 onClick={() => {
@@ -99,6 +81,21 @@ export const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
       </>
     );
 
+    useEffect(() => {
+      setSelected(filter?.must?.geometry ?? []);
+    }, [setSelected, filterHash]);
+
+    useEffect(() => {
+      let c = selected.length;
+      if (typeof hasCoordinate !== 'undefined') {
+        c++;
+      }
+      if (typeof hasGeospatialIssue !== 'undefined') {
+        c++;
+      }
+      setCount(c);
+    }, [selected, hasCoordinate, hasGeospatialIssue]);
+
     return (
       <ClientSideOnly>
         <div className={cn('g-flex g-flex-col g-max-h-[100dvh]', className)}>
@@ -107,9 +104,9 @@ export const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
               'g-flex g-flex-none g-text-sm g-text-slate-400 g-py-1.5 g-px-4 g-items-center'
             )}
           >
-            {selected.length > -1 && (
+            {count > -1 && (
               <div className="g-flex-none g-text-xs g-font-bold">
-                <FormattedMessage id="counts.nSelected" values={{ total: selected?.length }} />
+                <FormattedMessage id="counts.nSelected" values={{ total: count }} />
               </div>
             )}
             {options}
@@ -166,7 +163,7 @@ export const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
           </div>
 
           <div className="g-px-4 g-py-1.5">
-            <Tabs defaultValue="gbifLocationTabGeometry">
+            <Tabs defaultValue="gbifLocationTabRecent">
               <TabsList>
                 <TabsTrigger value="gbifLocationTabMap">
                   <FormattedMessage id="filterSupport.location.map" />
@@ -200,7 +197,7 @@ export const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
               <TabsContent value="gbifLocationTabGeometry">
                 <Card className="g-mt-2">
                   <GeometryInput
-                    onAdd={({ wkt }: {wkt: string[]}) => {
+                    onAdd={({ wkt }: { wkt: string[] }) => {
                       const options = filter.must?.geometry ?? [];
                       const allOptions = [...new Set([...wkt, ...options])];
                       setFullField(filterHandle, allOptions, []);
@@ -209,12 +206,64 @@ export const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
                 </Card>
               </TabsContent>
               <TabsContent value="gbifLocationTabRange">
-                <Card className="g-mt-2">gbifLocationTabRange</Card>
+                <Card className="g-mt-2 g-p-2 g-text-sm">
+                  <RangeInput
+                    onAdd={({ wkt }) => {
+                      const options = filter.must?.geometry ?? [];
+                      const allOptions = [...new Set([...wkt, ...options])];
+                      setFullField(filterHandle, allOptions, []);
+                    }}
+                  />
+                </Card>
               </TabsContent>
               <TabsContent value="gbifLocationTabRecent">
-                <Card className="g-mt-2">gbifLocationTabRecent</Card>
+                <Card className="g-mt-2 g-p-2">
+                  <RecentInput
+                    onAdd={({ wkt }) => {
+                      const options = filter.must?.geometry ?? [];
+                      const allOptions = [...new Set([...wkt, ...options])];
+                      setFullField(filterHandle, allOptions, []);
+                    }}
+                    currentlySelected={filter.must?.geometry ?? []}
+                  />
+                </Card>
               </TabsContent>
             </Tabs>
+          </div>
+
+          <div className="g-px-4 g-py-1.5 g-text-sm">
+            {selected.length > 0 && (
+              <div>
+                {selected.map((concept) => {
+                  const isValid = isValidWKT(concept);
+                  return (
+                    <Option
+                      className="g-mb-1"
+                      // innerRef={index === 0 ? focusRef : null}
+                      key={concept}
+                      helpText={
+                        isValid ? (
+                          <div
+                            className="g-text-slate-400"
+                            style={{ fontSize: 12, lineHeight: 1.2 }}
+                          >
+                            <PolygonLabel id={concept} />
+                          </div>
+                        ) : (
+                          <InvalidWkt />
+                        )
+                      }
+                      checked={true}
+                      onClick={() => {
+                        toggle(filterHandle, concept);
+                      }}
+                    >
+                      {truncate(concept, 70)} <CopyToClipboard text={concept} />
+                    </Option>
+                  )
+                })}
+              </div>
+            )}
           </div>
 
           <ApplyCancel onApply={onApply} onCancel={onCancel} pristine={pristine} />

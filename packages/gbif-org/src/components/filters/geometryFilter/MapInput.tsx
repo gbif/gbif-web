@@ -225,7 +225,7 @@ const OpenLayersMap = ({
 
   return (
     <div className="g-relative">
-      <div className="g-absolute g-top-0 g-end-0 g-m-2 g-z-10 g-text-lg">
+      <div className="g-absolute g-top-0 g-end-0 g-my-2 g-z-10 g-text-lg">
         <ToggleGroup type="single" className="g-me-2 g-bg-white">
           <ToggleGroupItem
             value="ZOOM_IN"

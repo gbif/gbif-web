@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useIntl, FormattedMessage } from 'react-intl';
 import { WKT, GeoJSON } from 'ol/format';
@@ -6,19 +6,11 @@ import turfSimplify from '@turf/simplify';
 import turfBboxPolygon from '@turf/bbox-polygon';
 import turfBbox from '@turf/bbox';
 import turfKinks from '@turf/kinks';
-// import parseGeometry from 'wellknown';
+import parseGeometry from 'wellknown';
 import { MdInfoOutline } from 'react-icons/md';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 
-const parseGeometry = {
-  parse: (str) => {
-    return JSON.parse(str);
-  },
-  stringify: (obj) => {
-    return JSON.stringify(obj);
-  },
-};
 const wktSizeLimit = 5000;
 const wktFormat = new WKT();
 const geojsonFormat = new GeoJSON();
@@ -27,7 +19,7 @@ export const GeometryInput = ({
   onAdd,
   initialValue = '',
 }: {
-  onAdd: ({ wkt }: { wkt: string[] }) => void;
+  onAdd: ({ wkt }: { wkt?: string[] }) => void;
   initialValue: string;
 }) => {
   const { toast } = useToast();
@@ -144,10 +136,10 @@ export const GeometryInput = ({
     // check each geometry against the API
     // if any fail, then tell the user and offer to remove the invalid geometries
     // if all pass, then add the geometries to the list of geometries
-    if (result.geometry.length > 0) {
-      const promises = result.geometry.map((wkt) => checkWktAgainstAPI(wkt));
+    if (result.geometry && result.geometry.length > 0) {
+      const promises = result.geometry.filter(x => x).map((wkt) => checkWktAgainstAPI(wkt));
       Promise.all(promises)
-        .then((res) => {
+        .then(() => {
           onAdd({ wkt: result.geometry });
           setValue('');
           setSimplificationOffer(false);
@@ -156,12 +148,21 @@ export const GeometryInput = ({
           const unknownData = err?.response?.data;
           try {
             const jsonData = JSON.parse(unknownData);
-            toast.error(`The geometry was rejected by the API : ${JSON.stringify(jsonData)}`);
+            toast({
+              title: `The geometry was rejected by the API : ${JSON.stringify(jsonData)}`,
+              variant: 'destructive',
+            });
           } catch (parseError) {
             if (typeof unknownData === 'string' && unknownData.length > 0) {
-              toast.error(`Invalid geometry: ${unknownData}`);
+              toast({
+                title: `Invalid geometry: ${unknownData}`,
+                variant: 'destructive',
+              });
             } else {
-              toast.error('The geometry was rejected by the API.');
+              toast({
+                title: 'The geometry was rejected by the API.',
+                variant: 'destructive',
+              });
             }
           }
         });
@@ -169,18 +170,24 @@ export const GeometryInput = ({
   };
 
   const bbox = () => {
-    const wkt = useBBox(inputValue, messages);
-    // toast.info(messages.geometryReducedToBbox);
+    const wkt = getBBox(inputValue, messages);
+    toast({
+      title: messages.geometryReducedToBbox,
+      variant: 'destructive',
+    });
     handleAdd(wkt);
   };
 
   const simplify = () => {
-    const wkt = getSimplified({ str: inputValue, messages });
+    const wkt = getSimplified({ str: inputValue, messages, toast });
     if (wkt) {
       handleAdd(wkt);
       return true;
     } else {
-      toast.error(messages.failedToSimplify);
+      toast({
+        title: messages.failedToSimplify,
+        variant: 'destructive',
+      });
       return false;
     }
   };
@@ -196,7 +203,7 @@ export const GeometryInput = ({
           setSimplificationOffer(false);
         }}
       />
-      <div className="g-text-sm g-flex g-m-1">
+      <div className="g-text-sm g-flex g-m-2">
         {offerSimplification && (
           <Button
             size="sm"
@@ -328,7 +335,7 @@ function testWktForIntersections(str: string) {
   };
 }
 
-function getAsValidWKT(testWkt: string, messages = {}) {
+function getAsValidWKT(testWkt: string, messages = {}, toast: Toast) {
   try {
     const simplifiedWkt = formatWkt(testWkt);
     const counterClockwiseWkt = getRightHandCorrectedWKT(simplifiedWkt);
@@ -337,10 +344,10 @@ function getAsValidWKT(testWkt: string, messages = {}) {
     // check if invalid type
     const isUnsupportedType = hasUnsupportedGeometryType(counterClockwiseWkt);
     if (isUnsupportedType) {
-      // toast({
-      //   title: messages.onlyPolygonsSupported,
-      //   variant: 'destructive',
-      // });
+      toast({
+        title: messages?.onlyPolygonsSupported,
+        variant: 'destructive',
+      });
       return { failed: true };
     }
 
@@ -391,10 +398,12 @@ function getSimplified({
   str: geometryString,
   tolerance,
   messages = {},
+  toast
 }: {
   str: string;
-  tolerance: number;
+  tolerance?: number;
   messages: Record<string, string>;
+  toast: Toast;
 }) {
   tolerance = tolerance || 0.001;
   if (typeof tolerance !== 'number') {
@@ -412,17 +421,23 @@ function getSimplified({
   // test that wkt is not self intersecting. If so add a toast warning, but still use the simplified geometry
   const intersectionTest = testWktForIntersections(wkt);
   if (intersectionTest.selfIntersecting) {
-    // toast.warning(messages.simplificationCausedSelfIntersection);
+    toast({
+      title: messages?.simplificationCausedSelfIntersection,
+      variant: 'destructive',
+    });
   }
   if (wkt.length > wktSizeLimit && tolerance <= 10) {
-    return getSimplified({ str: wkt, tolerance: tolerance * 4, messages });
+    return getSimplified({ str: wkt, tolerance: tolerance * 4, messages, toast });
   } else {
-    // toast.info(messages.polygonSimplifiedToFewerPoints);
+    toast({
+      title: messages?.polygonSimplifiedToFewerPoints,
+      variant: 'destructive',
+    });
     return wkt;
   }
 }
 
-function useBBox(str: string, messages = {}) {
+function getBBox(str: string, messages = {}) {
   const parsingResult = parseStringToWKTs(str, messages);
   const geom = parseGeometry.parse(parsingResult.geometry[0]);
   const bbox = turfBbox(geom);

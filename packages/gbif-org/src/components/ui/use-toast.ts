@@ -1,3 +1,4 @@
+// Looks like this is copied from https://stackoverflow.com/questions/76812372/shadcn-toasts-inspired-by-react-hot-toast-library-duration-issues if more context is needed
 // Inspired by react-hot-toast library
 import * as React from "react"
 
