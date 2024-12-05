@@ -210,7 +210,7 @@ function Clusters() {
         setCriticalError(true);
       }
     }
-  }, [data]);
+  }, [data, error]);
 
   return (
     <>

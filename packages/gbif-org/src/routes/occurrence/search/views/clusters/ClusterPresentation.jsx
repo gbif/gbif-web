@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useRef, useState, useContext, useEffect, useCallback } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import {
   MdChevronRight,
@@ -17,7 +17,6 @@ import { Spinner } from '@/components/ui/spinner';
 import { useNumberParam } from '@/hooks/useParam';
 import { HelpText } from '@/components/helpText';
 import styles from './cluster.module.css';
-import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { Card, CardContent, CardHeader } from '@/components/ui/smallCard';
 import { cn } from '@/utils/shadcn';
 import { useOrderedList } from '../browseList/useOrderedList';
@@ -224,8 +223,8 @@ export const ClusterPresentation = ({
                   </div>
                 </div>
                 {loading && !graph && (
-                  <div style={{ margin: '48px auto', width: 100 }}>
-                    <Spinner />
+                  <div className="g-flex g-h-full g-items-center g-place-content-center">
+                    <Spinner className="g-h-12 g-w-12" />
                   </div>
                 )}
                 {graph && (
