@@ -71,10 +71,6 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
         </FilterBar>
       </section>
 
-      <Card className="g-mx-48 g-my-12 g-shadow-2xl g-border">
-        <LocationContent />
-      </Card>
-
       <Views view={view} className="g-py-2 g-px-4 g-bg-slate-100" />
     </>
   );
