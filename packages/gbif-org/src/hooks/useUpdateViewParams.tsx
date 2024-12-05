@@ -16,21 +16,24 @@ export function useUpdateViewParams(paramsToRemove = [] as string[]): {
       newSearchParams.delete(param);
     });
 
-    // Return the updated search parameters as a string
+    // Return the updated search parameters
     return newSearchParams;
   }, [searchParams, paramsToRemove]);
 
   const getParams = useCallback(
     (view?: string, defaultValue?: string) => {
+      // Clone the current search parameters
       const newSearchParams = new URLSearchParams(params);
       
       // Update or set the `view` parameter
-      // if no view or view equals default value, remove the view parameter
+      // Update or set the `view` parameter and remove default values
       if (view && view !== defaultValue) {
         newSearchParams.set('view', view);
       } else {
         newSearchParams.delete('view');
       }
+      
+      // Return the cleaned up search parameters
       return newSearchParams;
     },
     [params]
