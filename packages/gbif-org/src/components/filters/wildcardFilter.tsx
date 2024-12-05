@@ -333,7 +333,6 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
                       } else {
                         add(filterHandle, query, useNegations);
                       }
-                      setQ('');
                       e.preventDefault();
                     } else {
                       onApply?.();
