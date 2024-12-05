@@ -160,7 +160,7 @@ export const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
           </div>
 
           <div className="g-px-4 g-py-1.5">
-            <Tabs defaultValue="gbifLocationTabRecent">
+            <Tabs defaultValue="gbifLocationTabMap">
               <TabsList>
                 <TabsTrigger value="gbifLocationTabMap">
                   <FormattedMessage id="filterSupport.location.map" />
