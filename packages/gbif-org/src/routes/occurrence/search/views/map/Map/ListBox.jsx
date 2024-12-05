@@ -47,9 +47,9 @@ function ListBox({ className, labelMap, onCloseRequest, onClick, data, error, lo
   if (loading) {
     return (
       <section {...props}>
-        <div className="gbif-container">
+        <div className={cn("gbif-container g-bg-white", className)}>
           <StripeLoader active />
-          <div className="listItemContent">
+          <div className="listItemContent g-text-slate-400">
             <FormattedMessage id="phrases.loading" />
           </div>
         </div>
@@ -58,7 +58,7 @@ function ListBox({ className, labelMap, onCloseRequest, onClick, data, error, lo
   } else if (error) {
     return (
       <section {...props}>
-        <div className="container">
+        <div className={cn("gbif-container", className)}>
           <StripeLoader active error />
           <div className="gbif-listItemContent">
             <FormattedMessage id="phrases.loadError" />
@@ -102,7 +102,7 @@ function ListBox({ className, labelMap, onCloseRequest, onClick, data, error, lo
           </div>
         </div>
       </header>
-      <main className="g-flex-1 g-overflow-auto">
+      <main className="g-flex-1 g-overflow-auto gbif-small-scrollbar">
         {content}
       </main>
     </section>

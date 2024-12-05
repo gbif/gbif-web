@@ -265,7 +265,7 @@ function Map({
         {...{ style }}
       >
         <ViewHeader message="counts.nResultsWithCoordinates" loading={loading} total={total} />
-        <div className="g-flex-auto g-h-96 g-relative">
+        <div className="g-flex-auto g-h-96 g-relative g-z-10">
           {listVisible && (
             <ListBox
               onCloseRequest={() => showList(false)}
