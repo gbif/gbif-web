@@ -59,6 +59,7 @@ export type filterConfigShared = {
 export type filterBoolConfig = filterConfigShared & {
   filterType: filterConfigTypes.OPTIONAL_BOOL;
   facetQuery?: string;
+  disableFacetsForSelected?: boolean;
 };
 
 export type filterSuggestConfig = filterConfigShared & {
@@ -536,7 +537,7 @@ export function generateFilter({
   };
   if (config.filterType === filterConfigTypes.FREE_TEXT) {
     FilterButtonPopover = ({ className }: { className?: string }) => (
-      <QInlineButtonFilter className={className} />
+      <QInlineButtonFilter className={className} filterHandle={config.filterHandle} />
     );
   }
 

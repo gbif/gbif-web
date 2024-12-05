@@ -51,6 +51,8 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       pristine,
       disableFacetsForSelected,
       about,
+      allowExistence,
+      allowNegations
     }: SuggestProps,
     ref
   ) => {
@@ -189,7 +191,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                   <MdDeleteOutline />
                 </button>
               )}
-              <SimpleTooltip delayDuration={300} title="Exclude selected">
+              {allowNegations && <SimpleTooltip delayDuration={300} title="Exclude selected">
                 <button
                   className="g-px-1"
                   onClick={() => {
@@ -200,11 +202,11 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                   {useNegations && <MdOutlineRemoveCircle />}
                   {!useNegations && <MdOutlineRemoveCircleOutline />}
                 </button>
-              </SimpleTooltip>
+              </SimpleTooltip>}
             </>
           )}
 
-          <SimpleTooltip delayDuration={300} title="Filter by existence">
+          {allowExistence && <SimpleTooltip delayDuration={300} title="Filter by existence">
             <button
               className="g-px-1"
               onClick={() => {
@@ -215,7 +217,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
             >
               <PiEmptyBold />
             </button>
-          </SimpleTooltip>
+          </SimpleTooltip>}
 
           {About && (
             <AboutButton className="-g-me-1">

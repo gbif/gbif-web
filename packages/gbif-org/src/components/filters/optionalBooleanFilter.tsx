@@ -33,6 +33,7 @@ export const OptionalBooleanFilter = React.forwardRef(
       onCancel,
       pristine,
       about,
+      disableFacetsForSelected,
     }: BoolProps,
     ref
   ) => {
@@ -51,7 +52,7 @@ export const OptionalBooleanFilter = React.forwardRef(
     });
 
     useEffect(() => {
-      if (!facetQuery) return;
+      if (!facetQuery || disableFacetsForSelected) return;
       // if the filter has changed, then get facet values from API
       const prunedFilter = cleanUpFilter(cloneDeep(filter));
       delete prunedFilter.must?.[filterHandle];
@@ -76,6 +77,7 @@ export const OptionalBooleanFilter = React.forwardRef(
 
     const About = about;
 
+    const hasFacets = facetQuery && !disableFacetsForSelected;
     // get counts for true and false values from the facets
     const trueCount =
       facetData?.search?.facet?.field?.find((x) => x.name.toString() === 'true')?.count ?? 0;
@@ -120,7 +122,7 @@ export const OptionalBooleanFilter = React.forwardRef(
               <div className="g-flex-auto g-overflow-hidden">
                 <DisplayName id="true" />
               </div>
-              {!facetLoading && (
+              {!facetLoading && hasFacets && (
                 <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
                   <FormattedNumber value={trueCount ?? 0} />
                 </span>
@@ -131,7 +133,7 @@ export const OptionalBooleanFilter = React.forwardRef(
               <div className="g-flex-auto g-overflow-hidden">
                 <DisplayName id="false" />
               </div>
-              {!facetLoading && (
+              {!facetLoading && hasFacets && (
                 <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
                   <FormattedNumber value={falseCount ?? 0} />
                 </span>

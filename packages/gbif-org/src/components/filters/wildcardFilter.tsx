@@ -55,6 +55,8 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
       onCancel,
       pristine,
       about,
+      allowExistence,
+      allowNegations,
     }: WildcardProps,
     ref
   ) => {
@@ -181,7 +183,7 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
                   <MdDeleteOutline />
                 </button>
               )}
-              <SimpleTooltip delayDuration={300} title="Exclude selected">
+              {allowNegations && <SimpleTooltip delayDuration={300} title="Exclude selected">
                 <button
                   className="g-px-1"
                   onClick={() => {
@@ -192,22 +194,24 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
                   {useNegations && <MdOutlineRemoveCircle />}
                   {!useNegations && <MdOutlineRemoveCircleOutline />}
                 </button>
-              </SimpleTooltip>
+              </SimpleTooltip>}
             </>
           )}
 
-          <SimpleTooltip delayDuration={300} title="Filter by existence">
-            <button
-              className="g-px-1"
-              onClick={() => {
-                const backup = cleanUpFilter(cloneDeep(filter));
-                setBackupFilter(backup);
-                setFullField(filterHandle, [{ type: 'isNotNull' }], []);
-              }}
-            >
-              <PiEmptyBold />
-            </button>
-          </SimpleTooltip>
+          {allowExistence && (
+            <SimpleTooltip delayDuration={300} title="Filter by existence">
+              <button
+                className="g-px-1"
+                onClick={() => {
+                  const backup = cleanUpFilter(cloneDeep(filter));
+                  setBackupFilter(backup);
+                  setFullField(filterHandle, [{ type: 'isNotNull' }], []);
+                }}
+              >
+                <PiEmptyBold />
+              </button>
+            </SimpleTooltip>
+          )}
 
           {About && (
             <AboutButton className="-g-me-1">

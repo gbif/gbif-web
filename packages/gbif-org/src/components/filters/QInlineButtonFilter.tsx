@@ -5,18 +5,18 @@ import { MdClose } from 'react-icons/md';
 import { cn } from '@/utils/shadcn';
 import { FilterContext } from '@/contexts/filter';
 
-export function QInlineButtonFilter({ className }: { className?: string }) {
+export function QInlineButtonFilter({ className, filterHandle = 'q' }: { className?: string, filterHandle: string }) {
   const { filter, setField } = useContext(FilterContext);
   return (
     <QFilter
       className={cn('g-min-w-48 g-mx-1 g-mb-1', className)}
-      value={filter.must?.q?.[0]}
+      value={filter.must?.[filterHandle]?.[0]}
       onChange={(x) => {
         if (x !== '' && x) {
-          setField('q', [x]);
+          setField(filterHandle, [x]);
         } else {
           // if (filter.must?.q?.[0]) {
-            setField('q', []);
+            setField(filterHandle, []);
           // }
         }
       }}
