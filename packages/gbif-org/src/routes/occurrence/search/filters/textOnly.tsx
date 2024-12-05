@@ -8,7 +8,7 @@ export const projectIdConfig: filterSuggestConfig = {
   displayName: IdentityLabel,
   filterTranslation: 'filters.projectId.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceCountryFacet($predicate: Predicate) {
+    query OccurrenceProjectIdFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
           field: projectId(size: 10) {
@@ -52,7 +52,7 @@ export const organismIdConfig: filterSuggestConfig = {
   displayName: IdentityLabel,
   filterTranslation: 'filters.organismId.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceCountryFacet($predicate: Predicate) {
+    query OccurrenceOrganismIdFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
           field: organismId(size: 10) {
@@ -72,7 +72,7 @@ export const higherGeographyConfig: filterSuggestConfig = {
   displayName: IdentityLabel,
   filterTranslation: 'filters.higherGeography.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceCountryFacet($predicate: Predicate) {
+    query OccurrencehigherGeographyFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
           field: higherGeography(size: 10) {

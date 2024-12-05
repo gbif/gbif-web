@@ -8,6 +8,8 @@ export const waterBodyConfig: filterWildcardConfig = {
   queryKey: 'waterBody',
   displayName: WildcardLabel,
   filterTranslation: 'filters.waterBody.name',
+  allowExistence: true,
+  allowNegations: true,
   suggestQuery: `
     query OccurrenceWaterBodyFacet($predicate: Predicate, $size: Int){
       search: occurrenceSearch(predicate: $predicate) {
@@ -32,6 +34,8 @@ export const catalogNumberConfig: filterWildcardConfig = {
   queryKey: 'catalogNumber',
   displayName: WildcardLabel,
   filterTranslation: 'filters.catalogNumber.name',
+  allowExistence: true,
+  allowNegations: true,
   suggestQuery: `
     query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int){
       search: occurrenceSearch(predicate: $predicate) {
@@ -56,6 +60,8 @@ export const sampleSizeUnitConfig: filterWildcardConfig = {
   queryKey: 'sampleSizeUnit',
   displayName: WildcardLabel,
   filterTranslation: 'filters.sampleSizeUnit.name',
+  allowExistence: true,
+  allowNegations: true,
   suggestQuery: `
     query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int){
       search: occurrenceSearch(predicate: $predicate) {
@@ -80,6 +86,8 @@ export const localityConfig: filterWildcardConfig = {
   queryKey: 'locality',
   displayName: WildcardLabel,
   filterTranslation: 'filters.locality.name',
+  allowExistence: true,
+  allowNegations: true,
   suggestQuery: `
     query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int){
       search: occurrenceSearch(predicate: $predicate) {
@@ -104,6 +112,8 @@ export const stateProvinceConfig: filterWildcardConfig = {
   queryKey: 'stateProvince',
   displayName: WildcardLabel,
   filterTranslation: 'filters.stateProvince.name',
+  allowExistence: true,
+  allowNegations: true,
   suggestQuery: `
     query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int){
       search: occurrenceSearch(predicate: $predicate) {
@@ -128,6 +138,8 @@ export const samplingProtocolConfig: filterWildcardConfig = {
   queryKey: 'samplingProtocol',
   displayName: WildcardLabel,
   filterTranslation: 'filters.samplingProtocol.name',
+  allowExistence: true,
+  allowNegations: true,
   suggestQuery: `
     query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int){
       search: occurrenceSearch(predicate: $predicate) {
@@ -152,6 +164,7 @@ export const verbatimScientificNameConfig: filterWildcardConfig = {
   queryKey: 'verbatimScientificName',
   displayName: WildcardLabel,
   filterTranslation: 'filters.verbatimScientificName.name',
+  allowNegations: true,
   suggestQuery: `
     query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int){
       search: occurrenceSearch(predicate: $predicate) {
@@ -176,6 +189,8 @@ export const recordedByConfig: filterWildcardConfig = {
   queryKey: 'recordedBy',
   displayName: WildcardLabel,
   filterTranslation: 'filters.recordedBy.name',
+  allowExistence: true,
+  allowNegations: true,
   suggestQuery: `
     query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int, $include: String){
       search: occurrenceSearch(predicate: $predicate) {
@@ -200,6 +215,8 @@ export const identifiedByConfig: filterWildcardConfig = {
   queryKey: 'identifiedBy',
   displayName: WildcardLabel,
   filterTranslation: 'filters.identifiedBy.name',
+  allowExistence: true,
+  allowNegations: true,
   suggestQuery: `
     query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int, $include: String){
       search: occurrenceSearch(predicate: $predicate) {

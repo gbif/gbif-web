@@ -19,6 +19,8 @@ export const institutionKeyConfig: filterSuggestConfig = {
   displayName: InstitutionLabel,
   filterTranslation: 'filters.institutionKey.name',
   suggestConfig: institutionKeySuggest,
+  allowExistence: true,
+  allowNegations: true,
   facetQuery: `
     query OccurrenceInstitutionFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
@@ -40,6 +42,8 @@ export const taxonKeyConfig: filterSuggestConfig = {
   displayName: TaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
   suggestConfig: taxonKeyVernacularSuggest,//taxonKeySuggest,
+  allowExistence: false,
+  allowNegations: true,
   facetQuery: `
     query OccurrenceTaxonFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
@@ -64,6 +68,8 @@ export const collectionKeyConfig: filterSuggestConfig = {
   displayName: CollectionLabel,
   filterTranslation: 'filters.collectionKey.name',
   suggestConfig: collectionKeySuggest,
+  allowExistence: true,
+  allowNegations: true,
   facetQuery: `
     query OccurrenceInstitutionFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
@@ -85,6 +91,8 @@ export const datasetKeyConfig: filterSuggestConfig = {
   displayName: DatasetLabel,
   filterTranslation: 'filters.datasetKey.name',
   suggestConfig: datasetKeyOccurrenceSuggest,//datasetKeySuggest,
+  allowExistence: false,
+  allowNegations: true,
   facetQuery: `
     query OccurrenceDatasetFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
@@ -120,6 +128,8 @@ export const publisherKeyConfig: filterSuggestConfig = {
   displayName: PublisherLabel,
   filterTranslation: 'filters.publisherKey.name',
   suggestConfig: publisherKeyOccurrenceSuggest,//publisherKeySuggest,
+  allowExistence: false,
+  allowNegations: true,
   facetQuery: `
     query OccurrencePublisherFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
@@ -141,6 +151,8 @@ export const hostingOrganizationKeyConfig: filterSuggestConfig = {
   displayName: PublisherLabel,
   filterTranslation: 'filters.hostingOrganizationKey.name',
   suggestConfig: publisherKeySuggest,
+  allowExistence: false,
+  allowNegations: true,
   facetQuery: `
     query OccurrencePublisherFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
@@ -162,6 +174,8 @@ export const networkKeyConfig: filterSuggestConfig = {
   displayName: NetworkLabel,
   filterTranslation: 'filters.networkKey.name',
   suggestConfig: networkKeySuggest,
+  allowExistence: true,
+  allowNegations: true,
   facetQuery: `
     query OccurrencePublisherFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
@@ -183,6 +197,8 @@ export const gadmGidConfig: filterSuggestConfig = {
   displayName: GadmGidLabel,
   filterTranslation: 'filters.gadmGid.name',
   suggestConfig: gadGidSuggest,
+  allowExistence: true,
+  allowNegations: true,
   facetQuery: `
     query OccurrencePublisherFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
@@ -204,6 +220,8 @@ export const countryConfig: filterSuggestConfig = {
   displayName: CountryLabel,
   filterTranslation: 'filters.country.name',
   // suggest will be provided by the useFilters hook
+  allowExistence: true,
+  allowNegations: true,
   facetQuery: `
     query OccurrenceCountryFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
@@ -225,8 +243,10 @@ export const publishingCountryConfig: filterSuggestConfig = {
   displayName: CountryLabel,
   filterTranslation: 'filters.publishingCountryCode.name',
   // suggest will be provided by the useFilters hook
+  allowExistence: true,
+  allowNegations: true,
   facetQuery: `
-    query OccurrenceCountryFacet($predicate: Predicate) {
+    query OccurrencePublishingCountryFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
           field: publishingCountry {
@@ -246,6 +266,8 @@ export const institutionCodeConfig: filterSuggestConfig = {
   displayName: IdentityLabel,
   filterTranslation: 'filters.institutionCode.name',
   suggestConfig: institutionCodeSuggest,
+  allowExistence: true,
+  allowNegations: true,
   facetQuery: `
     query OccurrenceInstitutionCodeFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
@@ -267,6 +289,8 @@ export const collectionCodeConfig: filterSuggestConfig = {
   displayName: IdentityLabel,
   filterTranslation: 'filters.collectionCode.name',
   suggestConfig: collectionCodeSuggest,
+  allowExistence: true,
+  allowNegations: true,
   facetQuery: `
     query OccurrenceCollectionCodeFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
@@ -288,6 +312,8 @@ export const recordNumberConfig: filterSuggestConfig = {
   displayName: IdentityLabel,
   filterTranslation: 'filters.recordNumber.name',
   suggestConfig: recordNumberSuggest,
+  allowExistence: true,
+  allowNegations: true,
   facetQuery: `
     query OccurrenceRecordNumberFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {

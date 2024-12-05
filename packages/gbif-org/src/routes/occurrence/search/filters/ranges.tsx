@@ -7,18 +7,6 @@ export const yearConfig: filterRangeConfig = {
   filterHandle: 'year',
   displayName: YearLabel,
   filterTranslation: 'filters.year.name',
-  facetQuery: `
-    query OccurrenceYearFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
-        facet {
-          field: year {
-            name: key
-            count
-          }
-        }
-      }
-    }
-  `,
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
@@ -27,18 +15,6 @@ export const coordinateUncertaintyConfig: filterRangeConfig = {
   filterHandle: 'coordinateUncertainty',
   displayName: CoordinateUncertaintyLabel,
   filterTranslation: 'filters.coordinateUncertainty.name',
-  facetQuery: `
-    query OccurrenceCoordinateUncertaintyFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
-        facet {
-          field: coordinateUncertainty {
-            name: key
-            count
-          }
-        }
-      }
-    }
-  `,
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
@@ -47,18 +23,6 @@ export const depthConfig: filterRangeConfig = {
   filterHandle: 'depth',
   displayName: DepthLabel,
   filterTranslation: 'filters.depth.name',
-  facetQuery: `
-    query OccurrenceDepthFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
-        facet {
-          field: depth {
-            name: key
-            count
-          }
-        }
-      }
-    }
-  `,
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
@@ -67,18 +31,6 @@ export const organismQuantityConfig: filterRangeConfig = {
   filterHandle: 'organismQuantity',
   displayName: OrganismQuantityLabel,
   filterTranslation: 'filters.organismQuantity.name',
-  facetQuery: `
-    query OccurrenceOrganismQuantityFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
-        facet {
-          field: organismQuantity {
-            name: key
-            count
-          }
-        }
-      }
-    }
-  `,
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
@@ -87,18 +39,6 @@ export const sampleSizeValueConfig: filterRangeConfig = {
   filterHandle: 'sampleSizeValue',
   displayName: SampleSizeValueLabel,
   filterTranslation: 'filters.sampleSizeValue.name',
-  facetQuery: `
-    query OccurrenceSampleSizeValueFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
-        facet {
-          field: sampleSizeValue {
-            name: key
-            count
-          }
-        }
-      }
-    }
-  `,
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
@@ -107,18 +47,6 @@ export const relativeOrganismQuantityConfig: filterRangeConfig = {
   filterHandle: 'relativeOrganismQuantity',
   displayName: RelativeOrganismQuantityLabel,
   filterTranslation: 'filters.relativeOrganismQuantity.name',
-  facetQuery: `
-    query OccurrenceRelativeOrganismQuantityFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
-        facet {
-          field: relativeOrganismQuantity {
-            name: key
-            count
-          }
-        }
-      }
-    }
-  `,
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
@@ -127,17 +55,5 @@ export const elevationConfig: filterRangeConfig = {
   filterHandle: 'elevation',
   displayName: ElevationLabel,
   filterTranslation: 'filters.elevation.name',
-  facetQuery: `
-    query OccurrenceElevationFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
-        facet {
-          field: elevation {
-            name: key
-            count
-          }
-        }
-      }
-    }
-  `,
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };

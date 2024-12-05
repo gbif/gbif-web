@@ -20,7 +20,7 @@ export const licenceConfig: filterEnumConfig = {
   options: licenseOptions,
   filterTranslation: 'filters.license.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceCountryFacet($predicate: Predicate) {
+    query OccurrenceLicenseFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
           field: license {
@@ -41,7 +41,7 @@ export const basisOfRecordConfig: filterEnumConfig = {
   options: basisOfRecordOptions,
   filterTranslation: 'filters.basisOfRecord.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceCountryFacet($predicate: Predicate) {
+    query OccurrenceBoRFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
           field: basisOfRecord {
@@ -61,9 +61,10 @@ export const mediaTypeConfig: filterEnumConfig = {
   displayName: MediaTypeLabel,
   options: mediaTypeOptions,
   allowExistence: true,
+  allowNegations: false,
   filterTranslation: 'filters.mediaType.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceCountryFacet($predicate: Predicate) {
+    query OccurrenceMediaFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
           field: mediaType {
@@ -86,7 +87,7 @@ export const monthConfig: filterEnumConfig = {
   allowExistence: true,
   filterTranslation: 'filters.month.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceCountryFacet($predicate: Predicate) {
+    query OccurrenceMonthFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
           field: month(size: 12) {
@@ -105,10 +106,11 @@ export const continentConfig: filterEnumConfig = {
   filterHandle: 'continent',
   displayName: ContinentLabel,
   allowExistence: true,
+  allowNegations: false,
   options: continentOptions,
   filterTranslation: 'filters.continent.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceCountryFacet($predicate: Predicate) {
+    query OccurrenceContinentFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
           field: continent {
@@ -127,10 +129,11 @@ export const protocolConfig: filterEnumConfig = {
   filterHandle: 'protocol',
   displayName: EndpointTypeLabel,
   options: endpointTypeOptions,
-  allowNegations: true,
+  allowExistence: true,
+  allowNegations: false,
   filterTranslation: 'filters.protocol.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceCountryFacet($predicate: Predicate) {
+    query OccurrenceProtocolFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
           field: protocol(size: 100) {
@@ -153,7 +156,7 @@ export const dwcaExtensionConfig: filterEnumConfig = {
   allowExistence: true,
   filterTranslation: 'filters.dwcaExtension.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceCountryFacet($predicate: Predicate) {
+    query OccurrenceDwcaExtensionFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
           field: dwcaExtension(size: 100) {
@@ -174,7 +177,7 @@ export const iucnRedListCategoryConfig: filterEnumConfig = {
   options: iucnRedListCategoryOptions,
   filterTranslation: 'filters.iucnRedListCategory.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceCountryFacet($predicate: Predicate) {
+    query OccurrenceIucnFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
           field: iucnRedListCategory(size: 100) {
