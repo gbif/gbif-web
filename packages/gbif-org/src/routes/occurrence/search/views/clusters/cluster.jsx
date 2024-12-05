@@ -133,7 +133,7 @@ query clusters($predicate: Predicate, $size: Int = 20, $from: Int = 0){
 `;
 
 function Clusters() {
-  const [from = 0, setFrom] = useNumberParam({ key: 'from' });
+  const [from = 0, setFrom] = useNumberParam({ key: 'offset' });
   const [graph, setGraph] = useState();
   const [attempt, setAttempt] = useState(0);
   const [criticalError, setCriticalError] = useState(false);
@@ -164,18 +164,6 @@ function Clusters() {
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFilterContext.filterHash, scope, from, attempt, load]);
-
-  // TODO we should remove the from param when the filter changes. But due to https://github.com/gbif/gbif-web/issues/668 we cannot for now
-  // useEffect(() => {
-  //   return function cleanup() {
-  //     setFrom();
-  //   };
-  // }, []);
-
-  // https://stackoverflow.com/questions/55075604/react-hooks-useeffect-only-on-update
-  useUpdateEffect(() => {
-    setFrom(0);
-  }, [currentFilterContext.filterHash]);
 
   const next = useCallback(() => {
     setFrom(Math.max(0, from + size));
