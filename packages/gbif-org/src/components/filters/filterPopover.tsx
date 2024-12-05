@@ -22,7 +22,7 @@ export function FilterPopover({
     } & React.RefAttributes<HTMLDivElement>
   >;
   trigger: React.ReactNode;
-  title: React.ReactNode;
+  title?: React.ReactNode;
   className?: string;
 }) {
   const [controlledOpen, setControlledOpen] = useUncontrolledProp(open, false, setOpen);
