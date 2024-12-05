@@ -78,6 +78,8 @@ export const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
 
     useEffect(() => {
       setSelected(filter?.must?.geometry ?? []);
+      // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setSelected, filterHash]);
 
     useEffect(() => {

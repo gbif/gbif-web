@@ -133,7 +133,7 @@ const OpenLayersMap = ({
 
   // })
   useEffect(() => {
-    if (!mapRef.current || map?.getLoadingOrNotReady()) {
+    if (!mapRef.current) {
       return;
     }
     const source = new VectorSource({ wrapX: true });
@@ -221,9 +221,7 @@ const OpenLayersMap = ({
       });
     });
 
-    if (!map) {
-      setMap(newMap);
-    }
+    setMap(newMap);
 
     return () => {
       newMap.removeInteraction(draw);
@@ -232,7 +230,7 @@ const OpenLayersMap = ({
       newMap.removeInteraction(select);
       newMap.setTarget(undefined);
     };
-  }, [mapRef, onChange, initialGeometries, map]);
+  }, [mapRef, initialGeometries]);
 
   useEffect(() => {
     if (map && vectorSource) {
@@ -253,9 +251,10 @@ const OpenLayersMap = ({
               if (!map) return;
               const view = map.getView();
               view.setZoom((view.getZoom() ?? 0) + 1);
+              console.log(view.getZoom());
             }}
           >
-            <MdZoomIn />
+            <MdZoomIn style={{fontSize: 18}}/>
           </ToggleGroupItem>
           <ToggleGroupItem
             value="ZOOM_OUT"
@@ -264,9 +263,10 @@ const OpenLayersMap = ({
               if (!map) return;
               const view = map.getView();
               view.setZoom((view.getZoom() ?? 1) - 1);
+              console.log(view.getZoom());
             }}
           >
-            <MdZoomOut />
+            <MdZoomOut style={{fontSize: 18}}/>
           </ToggleGroupItem>
         </ToggleGroup>
         <ToggleGroup type="single" className="g-me-2 g-bg-white">
