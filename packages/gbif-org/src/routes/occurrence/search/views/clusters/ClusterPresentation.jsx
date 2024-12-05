@@ -100,7 +100,7 @@ export const ClusterPresentation = ({
         });
       }
     }
-  }, [ref, graph]);
+  }, [ref, graph, setActiveKey]);
 
   return (
     <>
