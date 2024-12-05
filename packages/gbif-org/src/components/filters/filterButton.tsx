@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { FilterContext } from '@/contexts/filter';
+import { FilterContext, FilterType } from '@/contexts/filter';
 import { cn } from '@/utils/shadcn';
 import { Button } from '@/components/ui/button';
 import { MdClose } from 'react-icons/md';
@@ -13,7 +13,7 @@ interface FilterButtonProps {
   className?: string;
   filterHandle: string;
   onClear?: () => void;
-  getCount?: (filter: unknown) => number;
+  getCount?: (filter: FilterType) => number;
   displayName?: React.ComponentType<{ id: string | number | object }>;
 }
 

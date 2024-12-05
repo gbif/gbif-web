@@ -47,7 +47,7 @@ export type filterConfigShared = {
   displayName: React.FC<{ id: string | number | object }>;
   filterTranslation: string;
   content?: React.FC;
-  filterButtonProps?: { hideSingleValues: boolean };
+  filterButtonProps?: { hideSingleValues: boolean; getCount: (filter: FilterType) => number };
   info?: React.FC;
   about?: React.FC;
 };
