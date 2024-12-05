@@ -80,7 +80,13 @@ export default {
     },
     thumbor: ({ featuredImageUrl: url }, { fitIn, width = '', height = '' }) =>
       getThumborUrl({ url, fitIn, width, height }),
-    homepageOGImageUrl_volatile: ({ homepage }) => {
+    homepageOGImageUrl_volatile: (
+      { homepage, featuredImageUrl },
+      { onlyIfNoImageUrl },
+    ) => {
+      if (onlyIfNoImageUrl && featuredImageUrl) {
+        return null;
+      }
       return getOGImage({ homepage })
         .then((response) => {
           return response;

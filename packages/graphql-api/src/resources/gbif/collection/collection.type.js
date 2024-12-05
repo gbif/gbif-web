@@ -259,7 +259,7 @@ const typeDef = gql`
     """
     This can be used as a backup, but since it works by fetching the homepage url and extracting the open graph tags it can be slow. Use with caution.
     """
-    homepageOGImageUrl_volatile: String
+    homepageOGImageUrl_volatile(onlyIfNoImageUrl: Boolean): String
 
     occurrenceCount: Int
     excerpt: String
