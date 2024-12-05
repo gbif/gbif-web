@@ -738,3 +738,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .g-linejoin-round {
   stroke-linejoin: round;
 }
+
+.gbif-small-scrollbar {
+  @apply  [&::-webkit-scrollbar]:g-w-1 [&::-webkit-scrollbar-track]:g-bg-gray-100 [&::-webkit-scrollbar-thumb]:g-bg-gray-300;
+}

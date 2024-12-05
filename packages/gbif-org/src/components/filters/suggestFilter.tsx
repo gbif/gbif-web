@@ -330,7 +330,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
           )}
           {options}
         </div>
-        <div className="g-flex-auto g-overflow-auto g-max-h-96 [&::-webkit-scrollbar]:g-w-1 [&::-webkit-scrollbar-track]:g-bg-gray-100 [&::-webkit-scrollbar-thumb]:g-bg-gray-300">
+        <div className="g-flex-auto g-overflow-auto g-max-h-96 gbif-small-scrollbar">
           {selected.length > 0 && (
             <div className={cn('g-text-base g-mt-2 g-px-4')}>
               <div role="group" className="g-text-sm">

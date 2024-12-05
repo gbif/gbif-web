@@ -106,7 +106,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
     );
 
     return (
-      <div className="g-flex g-flex-col">
+      <div className={cn('g-flex g-flex-col g-max-h-[100dvh]', className)}>
         <div className="g-flex g-flex-none">
           <div className="g-p-2 g-w-full g-relative g-group">
             <SearchInput

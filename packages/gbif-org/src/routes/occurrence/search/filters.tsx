@@ -108,8 +108,8 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
     [countries]
   );
 
-  const filters: Filters = useMemo(
-    () => ({
+  const filters: Filters = useMemo(() => {
+    const tmpFilters = {
       //free text
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
 
@@ -246,9 +246,9 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       identifiedBy: generateFilters({ config: identifiedByConfig, searchConfig, formatMessage }),
 
       geometry: generateFilters({ config: locationConfig, searchConfig, formatMessage }),
-    }),
-    [searchConfig, countrySuggest, formatMessage]
-  );
+    };
+    return tmpFilters;
+  }, [searchConfig, countrySuggest, formatMessage]);
 
   return {
     filters,

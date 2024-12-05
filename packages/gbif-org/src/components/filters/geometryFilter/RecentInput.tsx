@@ -60,7 +60,7 @@ export const RecentInput = ({
                   onAdd({ wkt: [concept] });
                 }}
               >
-                {truncate(concept, 70)} <CopyToClipboard text={concept} />
+                <span className="g-break-all">{truncate(concept, 50)} <CopyToClipboard text={concept} /></span>
               </Option>
             );
           })}

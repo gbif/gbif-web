@@ -292,7 +292,7 @@ export const ClusterPresentation = ({
             <div
               className={cn(
                 'g-flex-grow g-flex-shrink-0 g-basis-[280px] g-overflow-x-auto',
-                '[&::-webkit-scrollbar]:g-w-1 [&::-webkit-scrollbar-track]:g-bg-gray-100 [&::-webkit-scrollbar-thumb]:g-bg-gray-300'
+                'gbif-small-scrollbar'
               )}
             >
               <InfoCard headline={<FormattedMessage id={`phrases.about`} />} collapsed={true}>

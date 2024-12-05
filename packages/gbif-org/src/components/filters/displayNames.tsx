@@ -85,7 +85,7 @@ export function PolygonLabel({ id }: { id: string | number | object }) {
       `${import.meta.env.PUBLIC_WEB_UTILS}/polygon-name?wkt=${id}`
     );
     return {
-      promise: promise.then((response) => response.json()).then((data) => ({ title: truncate(data.title, 150) })),
+      promise: promise.then((response) => response.json()).then((data) => ({ title: truncate(data.title, 100) })),
       cancel,
     };
   }, []);
