@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useEffect, useRef, useState } from 'rea
 import { FilterContext, FilterProvider, FilterType } from '@/contexts/filter';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useUncontrolledProp } from 'uncontrollable';
+import { cn } from '@/utils/shadcn';
 
 export function FilterPopover({
   open,
@@ -9,6 +10,7 @@ export function FilterPopover({
   children,
   trigger,
   title,
+  className,
 }: {
   open?: boolean;
   setOpen?: (b: boolean) => void;
@@ -21,6 +23,7 @@ export function FilterPopover({
   >;
   trigger: React.ReactNode;
   title: React.ReactNode;
+  className?: string;
 }) {
   const [controlledOpen, setControlledOpen] = useUncontrolledProp(open, false, setOpen);
   const focusRef = useRef<HTMLDivElement>(null);
@@ -69,7 +72,10 @@ export function FilterPopover({
         }}
         onEscapeKeyDown={onCancel}
         align="start"
-        className="g-flex g-flex-col g-p-0 g-w-96 g-max-w-[var(--radix-popper-available-width)] g-shadow-[0_10px_600px_-12px_rgba(0,0,0,0.2)]"
+        className={cn(
+          'g-w-96 g-flex g-flex-col g-p-0 g-max-w-[var(--radix-popper-available-width)] g-shadow-[0_10px_600px_-12px_rgba(0,0,0,0.2)]',
+          className
+        )}
       >
         <FilterProvider filter={tmpFilter} onChange={onFilterChange}>
           {React.isValidElement(child) && (

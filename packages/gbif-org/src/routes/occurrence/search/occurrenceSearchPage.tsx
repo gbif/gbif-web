@@ -46,6 +46,8 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
   const { filters } = useFilters({ searchConfig });
   const [view, setView] = useStringParam({ key: 'view', defaultValue: searchContext?.tabs?.[0] ?? 'table', hideDefault: true });
 
+  const LocationContent = filters.location.Content;
+
   return (
     <>
       <EntityDrawer />
@@ -68,6 +70,10 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
           <FilterButtons filters={filters} searchContext={searchContext} />
         </FilterBar>
       </section>
+
+      <Card className="g-mx-48 g-my-12 g-shadow-2xl g-border">
+        <LocationContent />
+      </Card>
 
       <Views view={view} className="g-py-2 g-px-4 g-bg-slate-100" />
     </>

@@ -39,7 +39,6 @@ import { useStringParam } from '@/hooks/useParam';
 import { Spinner } from '@/components/ui/spinner';
 import { ViewHeader } from '@/components/ViewHeader';
 import StripeLoader from '@/components/stripeLoader';
-// import { toast } from 'react-toast'
 
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
 const pixelRatio = window.devicePixelRatio || 1;

@@ -51,8 +51,27 @@ import {
 } from './filters/textOnly';
 import { establishmentMeansConfig } from './filters/vocabulary';
 import { isInClusterConfig, isSequencedConfig } from './filters/booleans';
-import { coordinateUncertaintyConfig, depthConfig, elevationConfig, organismQuantityConfig, relativeOrganismQuantityConfig, sampleSizeValueConfig, yearConfig } from './filters/ranges';
-import { catalogNumberConfig, identifiedByConfig, localityConfig, recordedByConfig, sampleSizeUnitConfig, samplingProtocolConfig, stateProvinceConfig, verbatimScientificNameConfig, waterBodyConfig } from './filters/wildcard';
+import {
+  coordinateUncertaintyConfig,
+  depthConfig,
+  elevationConfig,
+  organismQuantityConfig,
+  relativeOrganismQuantityConfig,
+  sampleSizeValueConfig,
+  yearConfig,
+} from './filters/ranges';
+import {
+  catalogNumberConfig,
+  identifiedByConfig,
+  localityConfig,
+  recordedByConfig,
+  sampleSizeUnitConfig,
+  samplingProtocolConfig,
+  stateProvinceConfig,
+  verbatimScientificNameConfig,
+  waterBodyConfig,
+} from './filters/wildcard';
+import { locationConfig } from './filters/location';
 
 const freeTextConfig: filterConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
@@ -178,25 +197,55 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
 
       isInCluster: generateFilters({ config: isInClusterConfig, searchConfig, formatMessage }),
       isSequenced: generateFilters({ config: isSequencedConfig, searchConfig, formatMessage }),
-      
+
       year: generateFilters({ config: yearConfig, searchConfig, formatMessage }),
-      coordinateUncertainty: generateFilters({ config: coordinateUncertaintyConfig, searchConfig, formatMessage }),
+      coordinateUncertainty: generateFilters({
+        config: coordinateUncertaintyConfig,
+        searchConfig,
+        formatMessage,
+      }),
       depth: generateFilters({ config: depthConfig, searchConfig, formatMessage }),
-      organismQuantity: generateFilters({ config: organismQuantityConfig, searchConfig, formatMessage }),
-      relativeOrganismQuantity: generateFilters({ config: relativeOrganismQuantityConfig, searchConfig, formatMessage }),
-      sampleSizeValue: generateFilters({ config: sampleSizeValueConfig, searchConfig, formatMessage }),
+      organismQuantity: generateFilters({
+        config: organismQuantityConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      relativeOrganismQuantity: generateFilters({
+        config: relativeOrganismQuantityConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      sampleSizeValue: generateFilters({
+        config: sampleSizeValueConfig,
+        searchConfig,
+        formatMessage,
+      }),
       elevation: generateFilters({ config: elevationConfig, searchConfig, formatMessage }),
 
       catalogNumber: generateFilters({ config: catalogNumberConfig, searchConfig, formatMessage }),
-      sampleSizeUnit: generateFilters({ config: sampleSizeUnitConfig, searchConfig, formatMessage }),
+      sampleSizeUnit: generateFilters({
+        config: sampleSizeUnitConfig,
+        searchConfig,
+        formatMessage,
+      }),
       locality: generateFilters({ config: localityConfig, searchConfig, formatMessage }),
       waterBody: generateFilters({ config: waterBodyConfig, searchConfig, formatMessage }),
       stateProvince: generateFilters({ config: stateProvinceConfig, searchConfig, formatMessage }),
-      samplingProtocol: generateFilters({ config: samplingProtocolConfig, searchConfig, formatMessage }),
-      verbatimScientificName: generateFilters({ config: verbatimScientificNameConfig, searchConfig, formatMessage }),
-      
+      samplingProtocol: generateFilters({
+        config: samplingProtocolConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      verbatimScientificName: generateFilters({
+        config: verbatimScientificNameConfig,
+        searchConfig,
+        formatMessage,
+      }),
+
       recordedBy: generateFilters({ config: recordedByConfig, searchConfig, formatMessage }),
       identifiedBy: generateFilters({ config: identifiedByConfig, searchConfig, formatMessage }),
+
+      location: generateFilters({ config: locationConfig, searchConfig, formatMessage }),
     }),
     [searchConfig, countrySuggest, formatMessage]
   );

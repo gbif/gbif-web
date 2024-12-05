@@ -22,6 +22,7 @@ import { Button } from '../ui/button';
 import { SkeletonOption } from './option';
 import { OptionalBooleanFilter } from './optionalBooleanFilter';
 import { WildcardFilter } from './wildcardFilter';
+import { GeometryFilter } from './geometryFilter';
 
 export enum filterConfigTypes {
   SUGGEST = 'SUGGEST',
@@ -30,6 +31,7 @@ export enum filterConfigTypes {
   RANGE = 'RANGE',
   OPTIONAL_BOOL = 'OPTIONAL_BOOL',
   WILDCARD = 'WILDCARD',
+  LOCATION = 'LOCATION',
 }
 
 export type AdditionalFilterProps = {
@@ -37,7 +39,7 @@ export type AdditionalFilterProps = {
   onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
   onCancel?: () => void;
   pristine?: boolean;
-}
+};
 
 export type filterConfigShared = {
   filterType: string;
@@ -87,6 +89,10 @@ export type filterRangeConfig = filterConfigShared & {
   regex?: RegExp;
 };
 
+export type filterLocationConfig = filterConfigShared & {
+  filterType: filterConfigTypes.LOCATION;
+};
+
 export type filterFreeTextConfig = filterConfigShared & {
   filterType: filterConfigTypes.FREE_TEXT;
 };
@@ -98,7 +104,8 @@ export type filterConfig =
   | filterEnumConfig
   | filterRangeConfig
   | filterFreeTextConfig
-  | filterWildcardConfig;
+  | filterWildcardConfig
+  | filterLocationConfig;
 
 // generic type for a facet query
 export interface FacetQuery {
@@ -120,7 +127,7 @@ export interface WildcardQuery {
   search: {
     cardinality: {
       total: number;
-    }
+    };
     facet?: {
       field?: Array<{
         name: string;
@@ -157,17 +164,20 @@ function getPopoverFilter({
     style?: React.CSSProperties;
   }>;
   filterTranslation: string;
+  className?: string;
 }) {
-  return function PopoverFilter({ trigger }: { trigger: React.ReactNode }) {
-    const title = <div className="g-flex g-flex-nowrap g-items-center g-border-b g-p-2 g-px-4">
-    <h3 className="g-flex-auto g-text-slate-800 g-text-sm g-font-semibold">
-      <FormattedMessage id={filterTranslation} />
-    </h3>
-  </div>;
+  return function PopoverFilter({ trigger, className }: { trigger: React.ReactNode; className?: string }) {
+    const title = (
+      <div className="g-flex g-flex-nowrap g-items-center g-border-b g-p-2 g-px-4">
+        <h3 className="g-flex-auto g-text-slate-800 g-text-sm g-font-semibold">
+          <FormattedMessage id={filterTranslation} />
+        </h3>
+      </div>
+    );
 
     return (
-      <FilterPopover trigger={trigger} title={title}>
-          <Content />
+      <FilterPopover trigger={trigger} title={title} className={className}>
+        <Content />
       </FilterPopover>
     );
   };
@@ -329,6 +339,41 @@ const getEnumFilter = ({
   );
 };
 
+const getLocationFilter = ({
+  config,
+  searchConfig,
+}: {
+  config: filterLocationConfig;
+  searchConfig: FilterConfigType;
+}) => {
+  return React.forwardRef(
+    (
+      {
+        onApply,
+        onCancel,
+        className,
+        style,
+        pristine,
+      }: {
+        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+        onCancel?: () => void;
+        className?: string;
+        style?: React.CSSProperties;
+        pristine?: boolean;
+      },
+      ref
+    ) => {
+      return (
+        <GeometryFilter
+          ref={ref}
+          {...config}
+          {...{ onApply, onCancel, className, style, pristine }}
+        />
+      );
+    }
+  );
+};
+
 const getOptionalBooleanFilter = ({
   config,
   searchConfig,
@@ -412,7 +457,7 @@ export type FilterSetting = {
   Content: React.FC<{
     onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
     onCancel?: () => void;
-    ref: React.ForwardedRef<unknown>;
+    ref?: React.ForwardedRef<unknown>;
     className?: string;
     style?: React.CSSProperties;
     pristine?: boolean;
@@ -455,15 +500,17 @@ export function generateFilter({
   Content,
   config,
   formatMessage,
+  popoverClassName,
 }: {
   config: filterConfig;
   formatMessage: IntlShape['formatMessage'];
   Content: React.FC;
+  popoverClassName?: string;
 }): FilterSetting {
   const PopoverFilter = getPopoverFilter({ Content, filterTranslation: config.filterTranslation });
   let FilterButtonPopover = ({ className }: { className?: string }) => {
     return (
-      <PopoverFilter
+      <PopoverFilter className={popoverClassName}
         trigger={
           <FilterButton
             className={cn('g-mx-1 g-mb-1 g-max-w-md g-text-slate-600', className)}
@@ -538,6 +585,13 @@ export function generateFilters({
       config,
       formatMessage,
       Content: getWildcardFilter({ config: config as filterWildcardConfig, searchConfig }),
+    });
+  } else if (config.filterType === filterConfigTypes.LOCATION) {
+    return generateFilter({
+      config,
+      formatMessage,
+      Content: getLocationFilter({ config: config as filterLocationConfig, searchConfig }),
+      popoverClassName: 'g-w-[500px]',
     });
   } else {
     throw new Error(`Unknown filter type ${config?.filterType}`);
@@ -686,7 +740,7 @@ export function FilterBar({
   className?: string;
 }) {
   return (
-    <div className={cn('g-border-b g-py-2 g-px-3', className)} role="search">
+    <div className={cn('g-border-b g-py-2 g-px-4', className)} role="search">
       {children}
     </div>
   );
