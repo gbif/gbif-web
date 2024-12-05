@@ -230,7 +230,7 @@ const OpenLayersMap = ({
       newMap.removeInteraction(select);
       newMap.setTarget(undefined);
     };
-  }, [mapRef, initialGeometries]);
+  }, [mapRef, initialGeometries, onChange]);
 
   useEffect(() => {
     if (map && vectorSource) {
@@ -251,7 +251,6 @@ const OpenLayersMap = ({
               if (!map) return;
               const view = map.getView();
               view.setZoom((view.getZoom() ?? 0) + 1);
-              console.log(view.getZoom());
             }}
           >
             <MdZoomIn style={{fontSize: 18}}/>
@@ -263,7 +262,6 @@ const OpenLayersMap = ({
               if (!map) return;
               const view = map.getView();
               view.setZoom((view.getZoom() ?? 1) - 1);
-              console.log(view.getZoom());
             }}
           >
             <MdZoomOut style={{fontSize: 18}}/>
