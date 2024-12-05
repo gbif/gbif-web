@@ -152,7 +152,7 @@ export const gbifConfig: Config = {
   },
   collectionSearch: {
     queryType: 'V1',
-    highlightedFilters: ['q', 'institutionKey'],
+    highlightedFilters: ['q', 'code', 'country', 'numberSpecimens', 'occurrenceCount', 'taxonKey', 'descriptorCountry'],
   },
   collectionKey: {
     occurrenceSearch: {

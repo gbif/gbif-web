@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import useQuery from '@/hooks/useQuery';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
@@ -28,6 +28,7 @@ import { useConfig } from '@/config/config';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
 import { DataHeader } from '@/components/dataHeader';
+import { useNumberParam } from '@/hooks/useParam';
 
 const COLLECTION_SEARCH_QUERY = /* GraphQL */ `
   query CollectionSearch($query: CollectionSearchInput) {
@@ -43,7 +44,7 @@ const COLLECTION_SEARCH_QUERY = /* GraphQL */ `
 `;
 
 export function CollectionSearchPage(): React.ReactElement {
-  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
+  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig, paramsToRemove: ['offset'] });
   const config = useConfig();
   return (
     <>
@@ -60,13 +61,12 @@ export function CollectionSearchPage(): React.ReactElement {
 }
 
 export function CollectionSearch(): React.ReactElement {
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useNumberParam({ key: 'offset', defaultValue: 0, hideDefault: true });
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
-  const tabClassName = 'g-pt-2 g-pb-1.5';
 
   const { data, error, load, loading } = useQuery<
     CollectionSearchQuery,
@@ -106,8 +106,8 @@ export function CollectionSearch(): React.ReactElement {
         <FilterBar>
           <FilterButtons filters={filters} searchContext={searchContext} />
         </FilterBar>
-        <ArticleContainer className="g-bg-slate-100">
-          <ArticleTextContainer className="g-m-0">
+        <ArticleContainer className="g-bg-slate-100 g-flex">
+          <ArticleTextContainer className="g-flex-auto">
             <Results loading={loading} collections={collections} setOffset={setOffset} />
           </ArticleTextContainer>
         </ArticleContainer>
@@ -165,8 +165,9 @@ function Results({
                 offset={collections.offset}
                 count={collections.count}
                 limit={collections.limit}
-                onChange={(x) => setOffset(x)}
-                anchor="collections"
+                onChange={(x) => {
+                  setOffset(x)}
+                }
               />
             )}
           </ClientSideOnly>

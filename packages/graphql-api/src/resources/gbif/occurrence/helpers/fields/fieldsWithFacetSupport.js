@@ -20,6 +20,7 @@ export default [
   'elevation',
   'elevationAccuracy',
   'endDayOfYear',
+  'isSequenced',
   'endorsingNodeKey',
   'establishmentMeans',
   'eventId',

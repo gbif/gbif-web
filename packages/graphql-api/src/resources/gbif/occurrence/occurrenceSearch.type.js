@@ -116,6 +116,7 @@ const typeDef = gql`
     gadmGid: Long!
     projectId: Long!
     higherGeography: Long!
+    isSequenced: Long!
   }
 
   type OccurrenceHistogram {
@@ -254,6 +255,7 @@ const typeDef = gql`
     gbifClassification_usageParsedName_combinationAuthorship_empty(size: Int, from: Int): [OccurrenceFacetResult_boolean]
 
     isInCluster(size: Int, from: Int): [OccurrenceFacetResult_boolean]
+    isSequenced(size: Int, from: Int): [OccurrenceFacetResult_boolean]
 
     datasetKey(size: Int, from: Int): [OccurrenceFacetResult_dataset]
     endorsingNodeKey(size: Int, from: Int): [OccurrenceFacetResult_node]

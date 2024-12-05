@@ -141,6 +141,13 @@ export default {
       return Math.ceil((100 * completeness) / totalAvailable);
     },
   },
+  DescriptorMatches: {
+    taxon: ({ usageKey }, args, { dataSources }) => {
+      return dataSources.taxonAPI.getTaxonByKey({
+        key: usageKey,
+      });
+    },
+  },
   CollectionDescriptorGroup: {
     descriptors: (
       { collectionKey, key },
@@ -158,21 +165,37 @@ export default {
   CollectionFacet: {
     institutionKey: getFacet('INSTITUTION_KEY', getSourceSearch),
     country: getFacet('COUNTRY', getSourceSearch),
+    city: getFacet('CITY', getSourceSearch),
     kingdomKey: getFacet('KINGDOM_KEY', getSourceSearch),
     phylumKey: getFacet('PHYLUM_KEY', getSourceSearch),
+    classKey: getFacet('CLASS_KEY', getSourceSearch),
+    orderKey: getFacet('ORDER_KEY', getSourceSearch),
+    familyKey: getFacet('FAMILY_KEY', getSourceSearch),
+    genusKey: getFacet('GENUS_KEY', getSourceSearch),
+    speciesKey: getFacet('SPECIES_KEY', getSourceSearch),
+    recordedBy: getFacet('RECORDED_BY', getSourceSearch),
     descriptorCountry: getFacet('DESCRIPTOR_COUNTRY', getSourceSearch),
     contentType: getFacet('CONTENT_TYPE', getSourceSearch),
     preservationType: getFacet('PRESERVATION_TYPE', getSourceSearch),
     accessionStatus: getFacet('ACCESSION_STATUS', getSourceSearch),
+    typeStatus: getFacet('TYPE_STATUS', getSourceSearch),
   },
   CollectionCardinality: {
     institutionKey: getCardinality('INSTITUTION_KEY', getSourceSearch),
     country: getCardinality('COUNTRY', getSourceSearch),
+    city: getCardinality('CITY', getSourceSearch),
     kingdomKey: getCardinality('KINGDOM_KEY', getSourceSearch),
     phylumKey: getCardinality('PHYLUM_KEY', getSourceSearch),
+    classKey: getCardinality('CLASS_KEY', getSourceSearch),
+    orderKey: getCardinality('ORDER_KEY', getSourceSearch),
+    familyKey: getCardinality('FAMILY_KEY', getSourceSearch),
+    genusKey: getCardinality('GENUS_KEY', getSourceSearch),
+    speciesKey: getCardinality('SPECIES_KEY', getSourceSearch),
+    recordedBy: getCardinality('RECORDED_BY', getSourceSearch),
     descriptorCountry: getCardinality('DESCRIPTOR_COUNTRY', getSourceSearch),
     contentType: getCardinality('CONTENT_TYPE', getSourceSearch),
     preservationType: getCardinality('PRESERVATION_TYPE', getSourceSearch),
     accessionStatus: getCardinality('ACCESSION_STATUS', getSourceSearch),
+    typeStatus: getCardinality('TYPE_STATUS', getSourceSearch),
   },
 };

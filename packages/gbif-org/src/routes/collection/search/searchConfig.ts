@@ -5,13 +5,23 @@ export const config: FilterConfigType = {
     q: {
       singleValue: true
     },
-    country: {
-      singleValue: false
-    }
+    // name: {
+    //   singleValue: true
+    // },
+    numberSpecimens: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
+    occurrenceCount: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
   }
 }
 
-const otherParams = ['descriptorCountry', 'institutionKey', 'taxonKey'];
+const otherParams = ['active', 'code', 'personalCollection', 'recordedBy', 'contentType', 'preservationType', 'alternativeCode', 'city', 'country', 'descriptorCountry', 'numberSpecimens', 'institutionKey', 'taxonKey'];
 
 otherParams.forEach(filter => {
   config.fields = config.fields ?? {};

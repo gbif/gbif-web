@@ -18,6 +18,7 @@ export default [
   'license',
   'basisOfRecord',
   'issue',
+  'isSequenced',
   'collectionKey',
   'institutionKey',
   'institutionCode',
