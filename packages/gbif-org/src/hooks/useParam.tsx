@@ -8,7 +8,6 @@ export function useNumberParam({
   key,
   defaultValue,
   hideDefault,
-  removeOnUnmount,
 }: {
   key: string;
   defaultValue?: string | number;
@@ -20,7 +19,6 @@ export function useNumberParam({
     defaultValue: defaultValue ?? 0,
     parse: numberParser,
     hideDefault,
-    removeOnUnmount,
   });
   return [value, setValue];
 }
@@ -30,7 +28,6 @@ export function useIntParam({
   key,
   defaultValue,
   hideDefault,
-  removeOnUnmount,
 }: {
   key: string;
   defaultValue?: number;
@@ -42,7 +39,6 @@ export function useIntParam({
     defaultValue: defaultValue ?? 0,
     parse: intParser,
     hideDefault,
-    removeOnUnmount,
   });
 
   return [value, setValue];
@@ -53,7 +49,6 @@ export function useStringParam({
   key,
   defaultValue,
   hideDefault,
-  removeOnUnmount,
 }: {
   key: string;
   defaultValue?: string;
@@ -65,7 +60,6 @@ export function useStringParam({
     defaultValue: defaultValue,
     parse: stringParser,
     hideDefault,
-    removeOnUnmount,
   });
   return [value, setValue];
 }
@@ -93,7 +87,6 @@ export function useJsonParam({
   key,
   defaultValue,
   hideDefault,
-  removeOnUnmount,
 }: {
   key: string;
   defaultValue?: object;
@@ -106,7 +99,6 @@ export function useJsonParam({
     parse: jsonParser,
     serialize: jsonEncoder,
     hideDefault,
-    removeOnUnmount,
   });
   return [value, setValue];
 }
@@ -114,17 +106,15 @@ export function useJsonParam({
 function useParam<T>({
   key,
   parse,
-  serialize = (value) => value + '',
+  serialize,
   defaultValue,
-  hideDefault,
-  removeOnUnmount,
+  hideDefault
 }: {
   key: string;
   parse: (value?: string) => T;
   serialize?: (value?: T) => string | undefined;
   defaultValue?: string | number;
   hideDefault?: boolean;
-  removeOnUnmount?: boolean;
 }): [T, (value?: T) => void] {
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -139,20 +129,17 @@ function useParam<T>({
     setSearchParamsRef.current = setSearchParams;
   }, [setSearchParams]);
 
-  const setValue = useCallback(
-    (value?: T) => {
-      // I use document location because the searchParams can't be updated multiple times in the same render in a predictable way like using useState
-      // For example, removing the from param and adding view=map in the same render will result in none of the params being added
-      const clone = new URLSearchParams(document.location.search);
-      const serializedValue = serialize(value);
+  const setValue = useCallback((value?: T) => {
+    setSearchParams((params) => {
+      const clone = new URLSearchParams(params);
+      const serializedValue = typeof serialize === 'function' ? serialize(value) : value + '';
       clone.set(key, serializedValue + '');
       if (value === undefined || (value === defaultValue && hideDefault)) {
         clone.delete(key);
       }
-      setSearchParamsRef.current(clone);
-    },
-    [key, serialize, defaultValue, hideDefault]
-  );
+      return clone;
+    });
+  }, [key, serialize, setSearchParams, defaultValue, hideDefault]);
 
   return [value, setValue];
 }
