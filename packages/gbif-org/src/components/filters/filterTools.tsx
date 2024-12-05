@@ -7,7 +7,7 @@ import {
 } from '@/dataManagement/filterAdapter/filter2predicate';
 import { FormattedMessage, IntlShape } from 'react-intl';
 import { EnumFilter } from './enumFilter';
-import { FilterContext, FilterType } from '@/contexts/filter';
+import { FilterContext, FilterContextType, FilterType } from '@/contexts/filter';
 import { SearchMetadata } from '@/contexts/search';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
 import { FilterButton } from './filterButton';
@@ -47,7 +47,11 @@ export type filterConfigShared = {
   displayName: React.FC<{ id: string | number | object }>;
   filterTranslation: string;
   content?: React.FC;
-  filterButtonProps?: { hideSingleValues: boolean; getCount: (filter: FilterType) => number };
+  filterButtonProps?: {
+    hideSingleValues: boolean;
+    getCount: (filter: FilterType) => number;
+    onClear?: (filterContext: FilterContextType) => void;
+  };
   info?: React.FC;
   about?: React.FC;
 };
@@ -166,7 +170,13 @@ function getPopoverFilter({
   filterTranslation: string;
   className?: string;
 }) {
-  return function PopoverFilter({ trigger, className }: { trigger: React.ReactNode; className?: string }) {
+  return function PopoverFilter({
+    trigger,
+    className,
+  }: {
+    trigger: React.ReactNode;
+    className?: string;
+  }) {
     const title = (
       <div className="g-flex g-flex-nowrap g-items-center g-border-b g-p-2 g-px-4">
         <h3 className="g-flex-auto g-text-slate-800 g-text-sm g-font-semibold">
@@ -510,7 +520,8 @@ export function generateFilter({
   const PopoverFilter = getPopoverFilter({ Content, filterTranslation: config.filterTranslation });
   let FilterButtonPopover = ({ className }: { className?: string }) => {
     return (
-      <PopoverFilter className={popoverClassName}
+      <PopoverFilter
+        className={popoverClassName}
         trigger={
           <FilterButton
             className={cn('g-mx-1 g-mb-1 g-max-w-md g-text-slate-600', className)}

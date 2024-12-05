@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { FilterContext, FilterType } from '@/contexts/filter';
+import { FilterContext, FilterContextType, FilterType } from '@/contexts/filter';
 import { cn } from '@/utils/shadcn';
 import { Button } from '@/components/ui/button';
 import { MdClose } from 'react-icons/md';
@@ -12,7 +12,7 @@ interface FilterButtonProps {
   hideSingleValues?: boolean;
   className?: string;
   filterHandle: string;
-  onClear?: () => void;
+  onClear?: (filterContext: FilterContextType) => void;
   getCount?: (filter: FilterType) => number;
   displayName?: React.ComponentType<{ id: string | number | object }>;
 }
@@ -41,8 +41,11 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
     // first get number of filters applied. Using getcount if it is defined, otherwise use the filterHandle
 
     const handleClear = () => {
-      if (typeof onClear === 'function') onClear();
-      currentFilterContext.setFullField(filterHandle, [], []);
+      if (typeof onClear === 'function') {
+        onClear(currentFilterContext);
+      } else {
+        currentFilterContext.setFullField(filterHandle, [], []);
+      }
     };
 
     if (count === 0)
@@ -61,7 +64,11 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
       <ActiveFilterButton className={className} ref={ref} handleClear={handleClear} {...props}>
         <span className={`g-overflow-ellipsis g-flex g-items-center`}>
           <span className="g-flex-auto g-text-start">
-            {hasNegations && !mixed && (<span className="g-me-2 g-pe-2 g-border-e g-border-e-primary-700"><FormattedMessage id="filterSupport.exclude" /></span>)}
+            {hasNegations && !mixed && (
+              <span className="g-me-2 g-pe-2 g-border-e g-border-e-primary-700">
+                <FormattedMessage id="filterSupport.exclude" />
+              </span>
+            )}
             <FormattedMessage
               id={titleTranslationKey}
               defaultMessage={titleTranslationKey || 'Unknown'}
