@@ -5,8 +5,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
-      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/decimalLatitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
     ]
   },
@@ -16,8 +16,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
-      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/decimalLatitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
     ]
   },
@@ -27,8 +27,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
-      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/decimalLatitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
     ]
   },
@@ -38,8 +38,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
-      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/decimalLatitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
     ]
   },
@@ -63,8 +63,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
-      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/decimalLatitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/geodeticDatum",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
     ]
@@ -75,8 +75,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
-      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/decimalLatitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/geodeticDatum",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
     ]
@@ -87,8 +87,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
-      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/decimalLatitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/geodeticDatum",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
     ]
@@ -135,8 +135,8 @@
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
       "http://rs.tdwg.org/dwc/terms/country",
-      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/decimalLatitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/countryCode",
       "http://rs.tdwg.org/dwc/terms/geodeticDatum",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
@@ -165,8 +165,8 @@
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
       "http://rs.tdwg.org/dwc/terms/country",
-      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/decimalLatitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/countryCode",
       "http://rs.tdwg.org/dwc/terms/geodeticDatum",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
@@ -203,8 +203,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
-      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/decimalLatitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
     ]
   },
@@ -214,8 +214,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
-      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/decimalLatitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
     ]
   },
@@ -225,8 +225,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/verbatimLatitude",
       "http://rs.tdwg.org/dwc/terms/verbatimLongitude",
-      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/decimalLatitude",
+      "http://rs.tdwg.org/dwc/terms/decimalLongitude",
       "http://rs.tdwg.org/dwc/terms/verbatimCoordinates"
     ]
   },
@@ -270,8 +270,8 @@
     "id": "TAXON_MATCH_FUZZY",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/genus",
+      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/scientificNameID",
       "http://rs.tdwg.org/dwc/terms/genericName",
       "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
@@ -289,8 +289,8 @@
     "id": "TAXON_MATCH_HIGHERRANK",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/genus",
+      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/scientificNameID",
       "http://rs.tdwg.org/dwc/terms/genericName",
       "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
@@ -308,8 +308,8 @@
     "id": "TAXON_MATCH_AGGREGATE",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/genus",
+      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/scientificNameID",
       "http://rs.tdwg.org/dwc/terms/genericName",
       "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
@@ -379,8 +379,8 @@
     "id": "TAXON_MATCH_NONE",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/genus",
+      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/scientificNameID",
       "http://rs.tdwg.org/dwc/terms/genericName",
       "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
@@ -398,8 +398,8 @@
     "id": "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/genus",
+      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/scientificNameID",
       "http://rs.tdwg.org/dwc/terms/genericName",
       "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
@@ -514,6 +514,13 @@
   },
   {
     "id": "TYPE_STATUS_INVALID",
+    "severity": "WARNING",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/typeStatus"
+    ]
+  },
+  {
+    "id": "SUSPECTED_TYPE",
     "severity": "WARNING",
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/typeStatus"
@@ -771,8 +778,8 @@
     "id": "CLASSIFICATION_NOT_APPLIED",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/genus",
+      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/family",
       "http://rs.tdwg.org/dwc/terms/order",
@@ -875,8 +882,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/acceptedNameUsageID",
       "http://rs.tdwg.org/dwc/terms/acceptedNameUsage",
-      "http://rs.tdwg.org/dwc/terms/originalNameUsageID",
       "http://rs.tdwg.org/dwc/terms/parentNameUsage",
+      "http://rs.tdwg.org/dwc/terms/originalNameUsageID",
       "http://rs.tdwg.org/dwc/terms/parentNameUsageID",
       "http://rs.tdwg.org/dwc/terms/originalNameUsage"
     ]
@@ -921,8 +928,8 @@
       "http://rs.tdwg.org/dwc/terms/genus",
       "http://rs.tdwg.org/dwc/terms/namePublishedInYear",
       "http://rs.tdwg.org/dwc/terms/parentNameUsage",
-      "http://rs.tdwg.org/dwc/terms/scientificName",
-      "http://rs.tdwg.org/dwc/terms/parentNameUsageID"
+      "http://rs.tdwg.org/dwc/terms/parentNameUsageID",
+      "http://rs.tdwg.org/dwc/terms/scientificName"
     ]
   },
   {
