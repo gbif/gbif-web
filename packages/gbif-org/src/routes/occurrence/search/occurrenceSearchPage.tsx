@@ -46,8 +46,6 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
   const { filters } = useFilters({ searchConfig });
   const [view, setView] = useStringParam({ key: 'view', defaultValue: searchContext?.tabs?.[0] ?? 'table', hideDefault: true });
 
-  const LocationContent = filters.location.Content;
-
   return (
     <>
       <EntityDrawer />
