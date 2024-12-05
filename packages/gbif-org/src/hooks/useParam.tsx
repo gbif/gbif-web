@@ -12,8 +12,7 @@ export function useNumberParam({
   key: string;
   defaultValue?: string | number;
   hideDefault?: boolean;
-  removeOnUnmount?: boolean;
-}): [number, (value?: number) => void] {
+}): [number, (value: number, replace?: boolean) => void] {
   const [value, setValue] = useParam({
     key,
     defaultValue: defaultValue ?? 0,
@@ -32,8 +31,7 @@ export function useIntParam({
   key: string;
   defaultValue?: number;
   hideDefault?: boolean;
-  removeOnUnmount?: boolean;
-}): [number, (value?: number) => void] {
+}): [number, (value: number, replace?: boolean) => void] {
   const [value, setValue] = useParam({
     key,
     defaultValue: defaultValue ?? 0,
@@ -53,8 +51,7 @@ export function useStringParam({
   key: string;
   defaultValue?: string;
   hideDefault?: boolean;
-  removeOnUnmount?: boolean;
-}): [string | undefined, (value?: string) => void] {
+}): [string | undefined, (value: string, replace?: boolean) => void] {
   const [value, setValue] = useParam({
     key,
     defaultValue: defaultValue,
@@ -91,8 +88,7 @@ export function useJsonParam({
   key: string;
   defaultValue?: object;
   hideDefault?: boolean;
-  removeOnUnmount?: boolean;
-}): [object | undefined, (value?: object) => void] {
+}): [object | undefined, (value: object, replace?: boolean) => void] {
   const [value, setValue] = useParam({
     key,
     defaultValue: jsonEncoder(defaultValue),
@@ -115,7 +111,7 @@ function useParam<T>({
   serialize?: (value?: T) => string | undefined;
   defaultValue?: string | number;
   hideDefault?: boolean;
-}): [T, (value?: T) => void] {
+}): [T, (value: T, replace?: boolean) => void] {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const value = parse(
@@ -129,8 +125,8 @@ function useParam<T>({
     setSearchParamsRef.current = setSearchParams;
   }, [setSearchParams]);
 
-  const setValue = useCallback((value?: T) => {
-    setSearchParams((params) => {
+  const setValue = useCallback((value: T, replace?: boolean) => {
+    setSearchParamsRef.current((params) => {
       const clone = new URLSearchParams(params);
       const serializedValue = typeof serialize === 'function' ? serialize(value) : value + '';
       clone.set(key, serializedValue + '');
@@ -138,8 +134,8 @@ function useParam<T>({
         clone.delete(key);
       }
       return clone;
-    });
-  }, [key, serialize, setSearchParams, defaultValue, hideDefault]);
+    }, { replace });
+  }, [key, serialize, defaultValue, hideDefault]);
 
   return [value, setValue];
 }
