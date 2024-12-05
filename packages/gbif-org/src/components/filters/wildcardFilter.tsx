@@ -141,6 +141,8 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
 
       const filterSummary = getFilterSummary(filter, filterHandle);
       setFilterSummary(filterSummary);
+      // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filterHash, filterHandle]);
 
     // watch filter summary and update filter type
@@ -158,7 +160,10 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
       (x) => !selectedStrings.includes(x.name)
     );
 
-    const patternAlreadySelected = !!selected.find((x) => typeof x === 'object' && x.type === 'like' && x.value && x.value === q) || selectedStrings.includes(q);
+    const patternAlreadySelected =
+      !!selected.find(
+        (x) => typeof x === 'object' && x.type === 'like' && x.value && x.value === q
+      ) || selectedStrings.includes(q);
 
     const options = (
       <>
@@ -259,7 +264,8 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
 
     const cardinality = data?.search?.cardinality?.total ?? 0;
     const hasSuggestions = data?.search?.facet?.field && data?.search?.facet?.field?.length > 0;
-    const hasMoreSuggestions = hasSuggestions && cardinality > (data?.search?.facet?.field?.length ?? 0);
+    const hasMoreSuggestions =
+      hasSuggestions && cardinality > (data?.search?.facet?.field?.length ?? 0);
 
     return (
       <div className={cn('g-flex g-flex-col g-max-h-[100dvh]', className)}>
@@ -340,9 +346,7 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
           <div role="group" className="g-text-sm g-text-slate-700">
             <div className="g-p-2 g-pt-0 g-px-4">
               {!disallowLikeFilters && q !== '' && !patternAlreadySelected && (
-                <div
-                  className=""
-                >
+                <div className="">
                   <Option
                     key={q}
                     helpText={
@@ -399,14 +403,20 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
                         </Option>
                       );
                     })}
-                    {hasMoreSuggestions && !loading && <div style={{fontSize: 12, marginLeft: 24, marginTop: 12}}><Button variant="primaryOutline" size="sm" onClick={loadMore}>
-                      <FormattedMessage id="search.loadMore" defaultMessage="More"/>
-                    </Button></div>}
-                    {loading && <>
-                      <SkeletonOption className="g-w-full g-mb-2" />
-                      <SkeletonOption className="g-w-36 g-max-w-full g-mb-2" />
-                      <SkeletonOption className="g-max-w-full g-w-48 g-mb-2" />
-                    </>}
+                    {hasMoreSuggestions && !loading && (
+                      <div style={{ fontSize: 12, marginLeft: 24, marginTop: 12 }}>
+                        <Button variant="primaryOutline" size="sm" onClick={loadMore}>
+                          <FormattedMessage id="search.loadMore" defaultMessage="More" />
+                        </Button>
+                      </div>
+                    )}
+                    {loading && (
+                      <>
+                        <SkeletonOption className="g-w-full g-mb-2" />
+                        <SkeletonOption className="g-w-36 g-max-w-full g-mb-2" />
+                        <SkeletonOption className="g-max-w-full g-w-48 g-mb-2" />
+                      </>
+                    )}
                   </div>
                 </div>
               )}

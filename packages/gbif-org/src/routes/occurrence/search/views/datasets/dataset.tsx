@@ -45,7 +45,7 @@ export function Dataset({ size: defaultSize = 100 }) {
 
   useEffect(() => {
     setSize(defaultSize);
-  }, [currentFilterContext.filterHash]);
+  }, [currentFilterContext.filterHash, defaultSize]);
 
   const more = useCallback(() => {
     setSize(size + 100);
@@ -57,7 +57,7 @@ export function Dataset({ size: defaultSize = 100 }) {
   }, [allData, setOrderedList]);
 
   useEffect(() => {
-    setAllData(prev => {
+    setAllData((prev) => {
       const all = [...prev, ...(data?.occurrenceSearch?.facet?.datasetKey || [])];
       // get unique by key
       const unique = all.reduce((acc, cur) => {
@@ -73,12 +73,13 @@ export function Dataset({ size: defaultSize = 100 }) {
   useEffect(() => {
     const predicate = {
       type: 'and',
-      predicates: [
-        scope,
-        filter2predicate(currentFilterContext.filter, searchConfig),
-      ].filter((x) => x),
+      predicates: [scope, filter2predicate(currentFilterContext.filter, searchConfig)].filter(
+        (x) => x
+      ),
     };
     load({ keepDataWhileLoading: true, variables: { predicate, size } });
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [from, currentFilterContext.filterHash, scope, load, size]);
 
   useEffect(() => {

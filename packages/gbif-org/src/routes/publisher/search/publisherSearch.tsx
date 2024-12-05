@@ -101,7 +101,9 @@ export function PublisherSearch(): React.ReactElement {
         isEndorsed: true,
       },
     });
-  }, [offset, filterHash, searchConfig, load]);
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [offset, filterHash, load]);
 
   // call https://graphql.gbif-staging.org/unstable-api/user-info?lang=en to get the users country: response {country, countryName}
   // then use the country code to get a count of publishers from that country

@@ -57,7 +57,7 @@ export function Media({ size: defaultSize = 50 }) {
     throwAllErrors: true,
   });
   const { setOrderedList } = useOrderedList();
-  const [,setPreviewKey] = useStringParam({ key: 'entity' });
+  const [, setPreviewKey] = useStringParam({ key: 'entity' });
 
   const [allData, setAllData] = useState([]);
 
@@ -65,13 +65,16 @@ export function Media({ size: defaultSize = 50 }) {
     setOrderedList(allData.map((item) => `o_${item.key}`));
   }, [allData, setOrderedList]);
 
-  const selectPreview = useCallback((key: string | number) => {
-    updateList();
-    setPreviewKey(`o_${key}`);
-  }, [setPreviewKey, updateList]);
+  const selectPreview = useCallback(
+    (key: string | number) => {
+      updateList();
+      setPreviewKey(`o_${key}`);
+    },
+    [setPreviewKey, updateList]
+  );
 
   useEffect(() => {
-    setAllData(prev => {
+    setAllData((prev) => {
       const all = [...prev, ...(data?.occurrenceSearch?.documents?.results || [])];
       // get unique by key
       const unique = all.reduce((acc, cur) => {
@@ -99,6 +102,8 @@ export function Media({ size: defaultSize = 50 }) {
       ].filter((x) => x),
     };
     load({ keepDataWhileLoading: true, variables: { predicate, size, from } });
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [from, currentFilterContext.filterHash, scope, load, size]);
 
   useEffect(() => {

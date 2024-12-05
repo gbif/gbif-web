@@ -153,7 +153,7 @@ function OccurrenceViewTabs({
       <ul className="g-flex g-whitespace-nowrap g-overflow-hidden -g-mb-px">
         {tabs.map((tab) => {
           return (
-            <li
+            <li key={tab}
               role="button"
               className={cn(
                 'g-p-2 g-border-b-2 g-border-transparent',

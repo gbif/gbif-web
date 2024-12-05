@@ -16,9 +16,10 @@ import { useSearchContext } from '@/contexts/search';
 import { AboutButton } from './aboutButton';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 
-type BoolProps = Omit<filterBoolConfig, 'filterType' | 'filterTranslation'> & AdditionalFilterProps & {
-  className?: string;
-};
+type BoolProps = Omit<filterBoolConfig, 'filterType' | 'filterTranslation'> &
+  AdditionalFilterProps & {
+    className?: string;
+  };
 
 export const OptionalBooleanFilter = React.forwardRef(
   (
@@ -69,17 +70,17 @@ export const OptionalBooleanFilter = React.forwardRef(
       const prunedFilter = cleanUpFilter(cloneDeep(filter));
       delete prunedFilter.must?.[filterHandle];
       setFilterBeforeHash(hash(prunedFilter));
-    }, [filterHash, filterHandle])
+      // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filterHash, filterHandle]);
 
     const About = about;
 
     // get counts for true and false values from the facets
     const trueCount =
-      facetData?.search?.facet?.field?.find((x) => x.name.toString() === 'true')?.count ??
-      0;
+      facetData?.search?.facet?.field?.find((x) => x.name.toString() === 'true')?.count ?? 0;
     const falseCount =
-      facetData?.search?.facet?.field?.find((x) => x.name.toString() === 'false')?.count ??
-      0;
+      facetData?.search?.facet?.field?.find((x) => x.name.toString() === 'false')?.count ?? 0;
 
     const defaultSelected = filter?.must?.[filterHandle]?.[0]?.toString() ?? '';
 
@@ -119,18 +120,22 @@ export const OptionalBooleanFilter = React.forwardRef(
               <div className="g-flex-auto g-overflow-hidden">
                 <DisplayName id="true" />
               </div>
-              {!facetLoading && <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
-                <FormattedNumber value={trueCount ?? 0} />
-              </span>}
+              {!facetLoading && (
+                <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
+                  <FormattedNumber value={trueCount ?? 0} />
+                </span>
+              )}
             </label>
             <label className={cn('g-flex g-w-full g-items-center')}>
               <RadioGroupItem value="false" className="g-flex-none g-me-2 g-mt-1" />
               <div className="g-flex-auto g-overflow-hidden">
                 <DisplayName id="false" />
               </div>
-              {!facetLoading && <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
-                <FormattedNumber value={falseCount ?? 0} />
-              </span>}
+              {!facetLoading && (
+                <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
+                  <FormattedNumber value={falseCount ?? 0} />
+                </span>
+              )}
             </label>
           </RadioGroup>
         </div>

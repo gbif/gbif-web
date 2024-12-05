@@ -22,7 +22,9 @@ export const QFilter = React.forwardRef<HTMLInputElement, QFilterProps>(
       // filter has changed updateed the listed of selected values
       const filterQ = filter?.must?.[filterHandle]?.[0] ?? '';
       setQ(filterQ);
-    }, [filterHash]);
+      // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filterHash, filterHandle]);
 
     return (
       <div className="g-flex g-flex-col">

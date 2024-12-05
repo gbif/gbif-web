@@ -35,6 +35,8 @@ export function FilterPopover({
   useEffect(() => {
     setFilter(currentFilterContext.filter);
     setPristine(true);
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFilterContext.filterHash]);
 
   const onApply = useCallback(
@@ -52,6 +54,8 @@ export function FilterPopover({
     setFilter(currentFilterContext.filter);
     setControlledOpen(false);
     setPristine(true);
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFilterContext.filterHash, setControlledOpen]);
 
   const onFilterChange = useCallback((filter: FilterType) => {

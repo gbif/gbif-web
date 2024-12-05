@@ -68,13 +68,13 @@ export function CollectionSearch(): React.ReactElement {
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
   const tabClassName = 'g-pt-2 g-pb-1.5';
 
-  const { data, error, load, loading } = useQuery<CollectionSearchQuery, CollectionSearchQueryVariables>(
-    COLLECTION_SEARCH_QUERY,
-    {
-      throwAllErrors: true,
-      lazyLoad: true,
-    }
-  );
+  const { data, error, load, loading } = useQuery<
+    CollectionSearchQuery,
+    CollectionSearchQueryVariables
+  >(COLLECTION_SEARCH_QUERY, {
+    throwAllErrors: true,
+    lazyLoad: true,
+  });
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
@@ -87,10 +87,12 @@ export function CollectionSearch(): React.ReactElement {
         },
       },
     });
-  }, [load, offset, filterHash, searchConfig]);
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [load, offset, filterHash, searchContext]);
 
   const collections = data?.collectionSearch;
-  
+
   return (
     <>
       <DataHeader
@@ -102,7 +104,7 @@ export function CollectionSearch(): React.ReactElement {
 
       <section className="">
         <FilterBar>
-          <FilterButtons filters={filters} searchContext={searchContext}/>
+          <FilterButtons filters={filters} searchContext={searchContext} />
         </FilterBar>
         <ArticleContainer className="g-bg-slate-100">
           <ArticleTextContainer className="g-m-0">
@@ -146,12 +148,17 @@ function Results({
         <>
           <CardHeader id="collections">
             <CardTitle>
-              <FormattedMessage id="counts.nCollections" values={{ total: collections.count ?? 0 }} />
+              <FormattedMessage
+                id="counts.nCollections"
+                values={{ total: collections.count ?? 0 }}
+              />
             </CardTitle>
           </CardHeader>
           <ClientSideOnly>
             {collections &&
-              collections.results.map((item) => <CollectionResult key={item.key} collection={item} />)}
+              collections.results.map((item) => (
+                <CollectionResult key={item.key} collection={item} />
+              ))}
 
             {collections?.count && collections?.count > collections?.limit && (
               <PaginationFooter
@@ -207,7 +214,9 @@ function ApiContent() {
       <h4>Examples</h4>
       <Card className="g-p-2 g-mb-2">
         Get all collections <br />
-        <a href="https://api.gbif.org/v1/collection/search">https://api.gbif.org/v1/collection/search</a>
+        <a href="https://api.gbif.org/v1/collection/search">
+          https://api.gbif.org/v1/collection/search
+        </a>
       </Card>
       <Card className="g-p-2">
         First 2 collection published from Denmark with free text "fungi" in the title or description

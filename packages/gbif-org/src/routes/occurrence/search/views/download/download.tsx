@@ -39,12 +39,12 @@ export function Download() {
     const currentFilter = filter2predicate(currentFilterContext.filter, searchConfig);
     const predicate = {
       type: 'and',
-      predicates: [scope, currentFilter].filter(
-        (x) => x
-      ),
+      predicates: [scope, currentFilter].filter((x) => x),
     };
     load({ keepDataWhileLoading: true, variables: { predicate } });
-  }, [currentFilterContext.filter, currentFilterContext.filterHash, scope, load]);
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentFilterContext.filterHash, scope, load]);
 
   const fullPredicate = data?.occurrenceSearch?._downloadPredicate?.predicate;
   const err = data?.occurrenceSearch?._downloadPredicate?.err;
@@ -54,7 +54,11 @@ export function Download() {
 
   return (
     <div className="g-my-20 g-w-96 g-max-w-full g-mx-auto">
-      <ViewHeader message="counts.nRecords" loading={loading} total={data?.occurrenceSearch?.documents?.total} />
+      <ViewHeader
+        message="counts.nRecords"
+        loading={loading}
+        total={data?.occurrenceSearch?.documents?.total}
+      />
 
       <Card className="g-p-8 g-mt-2 g-text-center">
         <div className="icon g-w-16 g-h-16 g-mx-auto g-mb-4 g-text-slate-300 g-border-slate-300 g-text-4xl g-rounded-full g-border-2 g-flex g-items-center g-justify-center">
@@ -103,18 +107,24 @@ export function Download() {
                 <Description>
                   <Message id="download.redirectNotice" />
                 </Description>
-                {loading && <Button className="g-mt-6" disabled><Message id="download.continueToGBIF" /></Button>}
-                {!loading && <Button className="g-mt-6" asChild>
-                  <a
-                    href={`${GBIF_ORG}/${
-                      localePrefix ? `${localePrefix}/` : ''
-                    }occurrence/download/request?predicate=${encodeURIComponent(
-                      JSON.stringify(fullPredicate)
-                    )}#create`}
-                  >
+                {loading && (
+                  <Button className="g-mt-6" disabled>
                     <Message id="download.continueToGBIF" />
-                  </a>
-                </Button>}
+                  </Button>
+                )}
+                {!loading && (
+                  <Button className="g-mt-6" asChild>
+                    <a
+                      href={`${GBIF_ORG}/${
+                        localePrefix ? `${localePrefix}/` : ''
+                      }occurrence/download/request?predicate=${encodeURIComponent(
+                        JSON.stringify(fullPredicate)
+                      )}#create`}
+                    >
+                      <Message id="download.continueToGBIF" />
+                    </a>
+                  </Button>
+                )}
               </>
             )}
           </>
