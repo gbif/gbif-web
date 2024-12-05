@@ -245,7 +245,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       recordedBy: generateFilters({ config: recordedByConfig, searchConfig, formatMessage }),
       identifiedBy: generateFilters({ config: identifiedByConfig, searchConfig, formatMessage }),
 
-      location: generateFilters({ config: locationConfig, searchConfig, formatMessage }),
+      geometry: generateFilters({ config: locationConfig, searchConfig, formatMessage }),
     }),
     [searchConfig, countrySuggest, formatMessage]
   );
