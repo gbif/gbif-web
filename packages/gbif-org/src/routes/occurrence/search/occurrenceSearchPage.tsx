@@ -26,7 +26,7 @@ import { Link } from 'react-router-dom';
 import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
 
 export function OccurrenceSearchPage(): React.ReactElement {
-  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
+  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig, paramsToRemove: ['offset', 'from'] });
   const config = useConfig();
 
   return (

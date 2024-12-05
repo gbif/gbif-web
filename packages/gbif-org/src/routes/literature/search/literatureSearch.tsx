@@ -53,7 +53,7 @@ const LITERATURE_SEARCH_QUERY = /* GraphQL */ `
 `;
 
 export function LiteratureSearchPage(): React.ReactElement {
-  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
+  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig, paramsToRemove: ['offset'] });
   const config = useConfig();
   return (
     <>
