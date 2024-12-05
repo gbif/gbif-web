@@ -60,6 +60,7 @@ export const YearLabel = rangeOrEqualLabel('intervals.compactTime');
 export const CoordinateUncertaintyLabel = rangeOrEqualLabel('intervals.compactMeters');
 export const DepthLabel = rangeOrEqualLabel('intervals.compactMeters');
 export const ElevationLabel = rangeOrEqualLabel('intervals.compactMeters');
+export const QuantityLabel = rangeOrEqualLabel('intervals.description');
 export const OrganismQuantityLabel = rangeOrEqualLabel('intervals.description');
 export const SampleSizeValueLabel = rangeOrEqualLabel('intervals.description');
 export const RelativeOrganismQuantityLabel = rangeOrEqualLabel('intervals.description');
@@ -222,6 +223,16 @@ export const GadmGidLabel = getEndpointLabel({
 
 export const establishmentMeansLabel = getEndpointLabel({
   template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/EstablishmentMeans/concepts/${id}`,
+  transform: getVocabularyLabel,
+});
+
+export const preservationTypeLabel = getEndpointLabel({
+  template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/PreservationType/concepts/${id}`,
+  transform: getVocabularyLabel,
+});
+
+export const collectionContentTypeLabel = getEndpointLabel({
+  template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/CollectionContentType/concepts/${id}`,
   transform: getVocabularyLabel,
 });
 
