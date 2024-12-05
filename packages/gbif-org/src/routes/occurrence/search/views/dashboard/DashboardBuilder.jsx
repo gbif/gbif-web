@@ -231,7 +231,7 @@ function DashboardBuilder({
   }
 
   return (
-    <div>
+    <div className="g-relative g-z-0">
       {!lockedLayout && disableAdd && (
         <div className="g-mb-2">
           <FormattedMessage id="dashboard.invalidLayoutWarning" />
