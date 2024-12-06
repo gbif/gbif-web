@@ -18,7 +18,8 @@ import objectHash from 'object-hash';
 //   };
 // }
 
-export function useFilterParams({ filterConfig, paramsToRemove = [] }: { filterConfig: FilterConfigType, paramsToRemove: string[] }): [FilterType, (filter: FilterType) => void] {
+export function useFilterParams({ filterConfig, paramsToRemove }: { filterConfig: FilterConfigType, paramsToRemove: string[] }): [FilterType, (filter: FilterType) => void] {
+  const [remove] = useState(paramsToRemove ?? []);
   const [filter, setPublicFilter] = useState({});
   const [emptyQuery, setEmptyQuery] = useState({});
   const [observedParams, setObservedParams] = useState<string[]>([]);
@@ -32,7 +33,7 @@ export function useFilterParams({ filterConfig, paramsToRemove = [] }: { filterC
     if (!isPlainObject(fields)) return;
     setObservedParams([...Object.keys(fields), 'filter']);
 
-    const empty: { [key: string]: undefined } = ([...Object.keys(fields), ...paramsToRemove]).reduce(
+    const empty: { [key: string]: undefined } = ([...Object.keys(fields), ...remove]).reduce(
       (accumulator: { [key: string]: undefined }, curr: string) => {
         const fieldConfig = fields[curr];
         accumulator[fieldConfig?.defaultKey || curr] = undefined;
@@ -42,7 +43,7 @@ export function useFilterParams({ filterConfig, paramsToRemove = [] }: { filterC
     );
     empty.filter = undefined;
     setEmptyQuery(empty);
-  }, [filterConfig, paramsToRemove]);
+  }, [filterConfig, remove]);
 
   // transform the filter to a string that can go into the url.
   // Field names can change according to the configuration
