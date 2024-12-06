@@ -417,17 +417,20 @@ export default function About() {
 
           {!removeSidebar && (
             <aside className="g-flex-none g-w-96 g-ms-4">
-              <div className="g-max-w-64 md:g-max-w-96 g-mb-4">
-                <AdHocMapThumbnail
-                  filter={{ collectionKey: collection.key }}
-                  className="g-rounded g-border"
-                />
-              </div>
-              <ClientSideOnly>
-                <charts.OccurrenceSummary predicate={predicate} className="g-mb-4" />
-                <charts.DataQuality predicate={predicate} className="g-mb-4" />
-                {/* <charts.Taxa predicate={predicate} className='g-mb-2' /> */}
-              </ClientSideOnly>
+              {!!count && count > 0 && (
+                <>
+                  <div className="g-max-w-64 md:g-max-w-96 g-mb-4">
+                    <AdHocMapThumbnail
+                      filter={{ collectionKey: collection.key }}
+                      className="g-rounded g-border"
+                    />
+                  </div>
+                  <ClientSideOnly>
+                    <charts.OccurrenceSummary predicate={predicate} className="g-mb-4" />
+                    <charts.DataQuality predicate={predicate} className="g-mb-4" />
+                  </ClientSideOnly>
+                </>
+              )}
 
               <GbifLinkCard path={`/grscicoll/collection/${collection.key}`} />
             </aside>

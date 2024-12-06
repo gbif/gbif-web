@@ -8,7 +8,7 @@ export function GbifLinkCard({ path, className }: { path: string; className?: st
   if (!config.linkToGbifOrg) return null;
 
   return (
-    <Card className={cn('g-mt-4', className)}>
+    <Card className={cn('', className)}>
       <nav>
         <ul className="g-list-none g-m-0 g-p-0 g-my-2">
           <TocLi>
