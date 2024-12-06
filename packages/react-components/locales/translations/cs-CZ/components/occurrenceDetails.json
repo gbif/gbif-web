@@ -1,9 +1,9 @@
 {
-  "occurrence": "",
+  "occurrence": "Výskyt",
   "showAllFields": "",
   "morePhotos": "",
   "about": "",
-  "dataset": "",
+  "dataset": "Datová sada",
   "publisher": "",
   "institution": "",
   "institutionGrSciColl": "",
@@ -18,8 +18,8 @@
   },
   "groups": {
     "summary": "",
-    "record": "",
-    "occurrence": "",
+    "record": "Záznam",
+    "occurrence": "Výskyt",
     "event": "",
     "identification": "",
     "taxon": "",
