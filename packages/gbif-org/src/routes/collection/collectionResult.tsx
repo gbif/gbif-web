@@ -116,7 +116,7 @@ export function CollectionResult({ collection }: { collection: CollectionResultF
       {collection?.descriptorMatches && collection?.descriptorMatches.length > 0 && <div className="g-mx-2 g-bg-slate-50 g-shadow g-rounded-b g-text-sm">
         {collection?.descriptorMatches.length > 3 && <div className="g-text-slate-500 g-text-sm g-px-4 g-py-2 g-mb-2">Showing first 3 descriptors</div>}
         <div className="g-w-full g-max-w-full g-overflow-auto g-pb-2">
-          <table removeBorder={false} className="gbif-table-style g-whitespace-nowrap g-text-sm">
+          <table className="gbif-table-style g-whitespace-nowrap g-text-sm">
             <thead
               className=""
             >
@@ -135,9 +135,9 @@ export function CollectionResult({ collection }: { collection: CollectionResultF
                   <td>{descriptor.usageName}</td>
                   <td>{descriptor.country && <FormattedMessage id={`enums.countryCode.${descriptor.country}`} />}</td>
                   <td>{descriptor.individualCount && <FormattedNumber value={descriptor.individualCount} />}</td>
-                  <td>{descriptor.recordedBy}</td>
-                  <td>{descriptor.identifiedBy}</td>
-                  <td>{descriptor.typeStatus && <TypeStatusLabel id={descriptor.typeStatus} />}</td>
+                  <td>{descriptor.recordedBy && descriptor.recordedBy.length > 0 && descriptor.recordedBy.join(', ')}</td>
+                  <td>{descriptor.identifiedBy && descriptor.identifiedBy.length > 0 && descriptor.identifiedBy.join(', ')}</td>
+                  <td>{descriptor.typeStatus && descriptor.typeStatus.length > 0 && descriptor.typeStatus.map(typeStatus => <TypeStatusLabel id={typeStatus} />)}</td>
                 </tr>
               ))}
             </tbody>
