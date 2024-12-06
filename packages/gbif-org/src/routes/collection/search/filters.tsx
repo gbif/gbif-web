@@ -2,12 +2,12 @@ import {
   booleanLabel,
   collectionContentTypeLabel,
   CountryLabel,
-  ElevationLabel,
   IdentityLabel,
   InstitutionLabel,
   preservationTypeLabel,
   QuantityLabel,
   TaxonLabel,
+  TypeStatusLabel,
 } from '@/components/filters/displayNames';
 import {
   filterBoolConfig,
@@ -241,6 +241,26 @@ export const preservationTypeConfig: filterSuggestConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
+export const typeStatusConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'typeStatus',
+  displayName: TypeStatusLabel,
+  filterTranslation: 'filters.typeStatus.name',
+  facetQuery: /* GraphQL */ `
+    query CollectionTypeStatusFacet($query: CollectionSearchInput) {
+      search: collectionSearch(query: $query) {
+        facet {
+          field: typeStatus(limit: 10) {
+            name
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+};
+
 export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }): {
   filters: Record<string, FilterSetting>;
 } {
@@ -279,6 +299,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       recordedBy: generateFilters({ config: recordedByConfig, searchConfig, formatMessage }),
       contentType: generateFilters({ config: contentTypeConfig, searchConfig, formatMessage }),
       preservationType: generateFilters({ config: preservationTypeConfig, searchConfig, formatMessage }),
+      typeStatus: generateFilters({ config: typeStatusConfig, searchConfig, formatMessage }),
       alternativeCode: generateFilters({ config: alternativeCodeConfig, searchConfig, formatMessage }),
       numberSpecimens: generateFilters({ config: numberSpecimensConfig, searchConfig, formatMessage }),
       occurrenceCount: generateFilters({ config: occurrenceCountConfig, searchConfig, formatMessage }),

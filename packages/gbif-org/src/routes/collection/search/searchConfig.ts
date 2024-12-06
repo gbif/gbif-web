@@ -21,7 +21,7 @@ export const config: FilterConfigType = {
   }
 }
 
-const otherParams = ['active', 'code', 'personalCollection', 'recordedBy', 'contentType', 'preservationType', 'alternativeCode', 'city', 'country', 'descriptorCountry', 'numberSpecimens', 'institutionKey', 'taxonKey'];
+const otherParams = ['active', 'code', 'personalCollection', 'recordedBy', 'contentType', 'preservationType', 'alternativeCode', 'city', 'country', 'typeStatus', 'descriptorCountry', 'numberSpecimens', 'institutionKey', 'taxonKey'];
 
 otherParams.forEach(filter => {
   config.fields = config.fields ?? {};
