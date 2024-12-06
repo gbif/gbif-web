@@ -1,10 +1,11 @@
 import { fragmentManager } from '@/services/fragmentManager';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Tag } from '@/components/resultCards';
 import { Card } from '@/components/ui/largeCard';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { CollectionResultFragment } from '@/gql/graphql';
 import { truncate } from '@/utils/truncate';
+import { TypeStatusLabel } from '@/components/filters/displayNames';
 
 fragmentManager.register(/* GraphQL */ `
   fragment CollectionResult on CollectionSearchEntity {
@@ -43,7 +44,7 @@ fragmentManager.register(/* GraphQL */ `
 export function CollectionResult({ collection }: { collection: CollectionResultFragment }) {
   return (
     <div className="g-mb-4">
-      <Card className="">
+      <Card className="g-max-w-full">
         <article className="g-p-8">
           <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
             <div className="g-flex-grow">
@@ -112,20 +113,35 @@ export function CollectionResult({ collection }: { collection: CollectionResultF
           </div>
         </article>
       </Card>
-      {collection?.descriptorMatches && collection?.descriptorMatches.length > 0 && <div className="g-mx-2 g-p-4 g-bg-slate-50 g-shadow g-rounded-b g-text-sm">
-        {collection?.descriptorMatches.length > 3 && <div className="g-text-slate-500 g-text-sm g-mb-2">Showing first 3 descriptors</div>}
-        <div className="g-flex g-flex-wrap g-gap-2">
-          <ul>
-          {collection.descriptorMatches.slice(0,3).map((descriptor) => (
-            <li key={descriptor.key} className="g-flex">
-              <div>{descriptor.usageName}</div>
-              <div>{descriptor.individualCount}</div>
-              <div>{descriptor.recordedBy}</div>
-              <div>{descriptor.identifiedBy}</div>
-              <div>{descriptor.typeStatus}</div>
-            </li>
-          ))}
-          </ul>
+      {collection?.descriptorMatches && collection?.descriptorMatches.length > 0 && <div className="g-mx-2 g-bg-slate-50 g-shadow g-rounded-b g-text-sm">
+        {collection?.descriptorMatches.length > 3 && <div className="g-text-slate-500 g-text-sm g-px-4 g-py-2 g-mb-2">Showing first 3 descriptors</div>}
+        <div className="g-w-full g-max-w-full g-overflow-auto g-pb-2">
+          <table removeBorder={false} className="gbif-table-style g-whitespace-nowrap g-text-sm">
+            <thead
+              className=""
+            >
+              <tr>
+                <th>Taxon</th>
+                <th>Country</th>
+                <th>Individual count</th>
+                <th>Recorded by</th>
+                <th>Identified by</th>
+                <th>Type status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {collection.descriptorMatches.slice(0,3).map((descriptor) => (
+                <tr key={descriptor.key} className="g-text-slate-600">
+                  <td>{descriptor.usageName}</td>
+                  <td>{descriptor.country && <FormattedMessage id={`enums.countryCode.${descriptor.country}`} />}</td>
+                  <td>{descriptor.individualCount && <FormattedNumber value={descriptor.individualCount} />}</td>
+                  <td>{descriptor.recordedBy}</td>
+                  <td>{descriptor.identifiedBy}</td>
+                  <td>{descriptor.typeStatus && <TypeStatusLabel id={descriptor.typeStatus} />}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>}
     </div>

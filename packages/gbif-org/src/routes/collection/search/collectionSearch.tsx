@@ -107,7 +107,7 @@ export function CollectionSearch(): React.ReactElement {
           <FilterButtons filters={filters} searchContext={searchContext} />
         </FilterBar>
         <ArticleContainer className="g-bg-slate-100 g-flex">
-          <ArticleTextContainer className="g-flex-auto">
+          <ArticleTextContainer className="g-flex-auto g-w-full">
             <Results loading={loading} collections={collections} setOffset={setOffset} />
           </ArticleTextContainer>
         </ArticleContainer>

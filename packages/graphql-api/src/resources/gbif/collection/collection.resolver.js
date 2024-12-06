@@ -143,6 +143,7 @@ export default {
   },
   DescriptorMatches: {
     taxon: ({ usageKey }, args, { dataSources }) => {
+      if (typeof usageKey === 'undefined') return null;
       return dataSources.taxonAPI.getTaxonByKey({
         key: usageKey,
       });
