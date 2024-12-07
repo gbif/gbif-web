@@ -6,6 +6,7 @@
   "CLIMATE_CHANGE": "Zmiany klimatyczne",
   "CONSERVATION": "Konserwacja",
   "DATA_MANAGEMENT": "Zarządzanie danymi",
+  "DATA_PAPER": "Artykuły naukowe ze zbiorami danych",
   "ECOLOGY": "Ekologia",
   "ECOSYSTEM_SERVICES": "Usługi ekosystemowe",
   "EVOLUTION": "Ewolucja",
@@ -14,6 +15,7 @@
   "INVASIVES": "Inwazyjne",
   "MARINE": "Morskie",
   "PHYLOGENETICS": "Filogenetyka",
+  "SPECIES_DISTRIBUTIONS": "Występowanie gatunków",
   "INFRASTRUCTURE": "Infrastruktura",
   "DNA": "DNA",
   "TAXONOMY": "Taksonomia"
