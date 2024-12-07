@@ -1,9 +1,11 @@
 {
-  "ARCHAEOLOGICAL_HUMAN_REMAINS": "Archeologiczne ludzkie szczątki",
+  "ARCHAEOLOGICAL_HUMAN_REMAINS": "Archeologiczne szczątki ludzkie",
   "ARCHAEOLOGICAL_FAUNAL_REMAINS": "Archeologiczne pozostałości fauny",
   "ARCHAEOLOGICAL_FLORAL_REMAINS": "Archeologiczne pozostałości flory",
   "ARCHAEOLOGICAL_COPROLITES": "Archeologiczne koprolity",
-  "ARCHAEOLOGICAL_CERAMIC_ARTIFACTS": "Archeologiczne ceramiczne artefakty",
-  "ARCHAEOLOGICAL_LITHIC_ARTIFACTS": "Archeologiczne artefakty z litu",
-  "ARCHAEOLOGICAL_METAL_ARTIFACTS": "Archeologiczne artefakty z metalu"
+  "ARCHAEOLOGICAL_CERAMIC_ARTIFACTS": "Archeologiczne artefakty ceramiczne",
+  "ARCHAEOLOGICAL_LITHIC_ARTIFACTS": "Archeologiczne artefakty kamienne/ mineralne",
+  "ARCHAEOLOGICAL_METAL_ARTIFACTS": "Archeologiczne artefakty metalowe",
+  "BIOLOGICAL_ENDOSKELETONS": "Biologiczne endoszkielety",
+  "BIOLOGICAL_EXOSKELETONS": "Biologiczne egzoszkielety"
 }
