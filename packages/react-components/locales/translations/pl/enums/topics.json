@@ -1,5 +1,5 @@
 {
-  "AGRICULTURE": "Agrokultura",
+  "AGRICULTURE": "Rolnictwo",
   "BIODIVERSITY_SCIENCE": "Nauka o bioróżnorodności",
   "BIOGEOGRAPHY": "Biogeografia",
   "CITIZEN_SCIENCE": "Nauka obywatelska",
@@ -12,7 +12,7 @@
   "EVOLUTION": "Ewolucja",
   "FRESHWATER": "Słodkowodne",
   "HUMAN_HEALTH": "Zdrowie człowieka",
-  "INVASIVES": "Inwazyjne",
+  "INVASIVES": "Gatunki inwazyjne",
   "MARINE": "Morskie",
   "PHYLOGENETICS": "Filogenetyka",
   "SPECIES_DISTRIBUTIONS": "Występowanie gatunków",
