@@ -1,4 +1,11 @@
 {
   "URL": "URL",
-  "UNKNOWN": "Nieznane"
+  "DOI": "DOI",
+  "FTP": "FTP",
+  "UNKNOWN": "Nieznane",
+  "GBIF_PORTAL": "Portal GBIF",
+  "GBIF_NODE": "Węzeł GBIF",
+  "IH_IRN": "Indeks Herbariorum",
+  "CITES": "Konwencja waszyngtońska (CITES)",
+  "GRSCICOLL_ID": "Identyfikator GRSCICOLL"
 }
