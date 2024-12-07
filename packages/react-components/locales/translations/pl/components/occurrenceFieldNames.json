@@ -10,10 +10,15 @@
   "available": "Dostępny(a)",
   "bibliographicCitation": "Cytowanie bibliograficzne",
   "conformsTo": "Zgodny z",
+  "contributor": "Współtwórca",
   "created": "Utworzono",
+  "creator": "Twórca",
   "date": "Data",
+  "dateAccepted": "Data akceptacji",
+  "dateSubmitted": "Data wgrania",
   "description": "Opis",
   "educationLevel": "Poziom wykształcenia",
+  "extent": "Zakres",
   "format": "Format",
   "identifier": "Identyfikator",
   "isPartOf": "Jest częścią",
@@ -69,6 +74,5 @@
   "nomenclaturalCode": "Kodeks nomenklatury",
   "taxonomicStatus": "Status taksonomiczny",
   "taxonRemarks": "Uwagi taksonomiczne",
-  "species": "gatunek\n",
-  "country": "Kraj lub obszar"
+  "species": "gatunek\n"
 }
