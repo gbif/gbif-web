@@ -47,5 +47,6 @@
   "PHYSICS_BIOPHYSICS": "Biofizyka",
   "PHYSICS_MEDICAL_RADIOLOGICAL": "Fizyka medyczna radiologiczna",
   "PHYSICS_NUCLEAR_PHYSICS": "Fizyka jądrowa",
-  "PHYSICS_OPTICS_PHOTONICS": "Optyka fotonika"
+  "PHYSICS_OPTICS_PHOTONICS": "Optyka fotonika",
+  "AGRICULTURAL": "Rolniczy"
 }
