@@ -5,7 +5,7 @@
     "media": "",
     "map": "Mapa",
     "datasets": "Zbiory danych",
-    "events": "Zdarzenie",
+    "events": "Zdarzenia",
     "download": "Pobierz",
     "clusters": "",
     "dashboard": "Kokpit",
@@ -46,10 +46,10 @@
     "nodeType": {
       "IMAGE": "Zdjęcie",
       "TYPE": "Typ okazu",
-      "TREATMENT": "",
+      "TREATMENT": "Leczenie",
       "OBSERVATION": "Obserwacja",
       "SPECIMEN": "Okaz",
-      "SEQUENCE": ""
+      "SEQUENCE": "Sekwencja"
     }
   }
 }
