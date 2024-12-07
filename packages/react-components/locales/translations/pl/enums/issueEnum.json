@@ -1,1 +1,9 @@
-{}
+{
+    "RANK_INVALID": "Kategoria nieznana",
+    "NOMENCLATURAL_STATUS_INVALID": "Stan nomenklaturowy nieznany",
+    "TAXONOMIC_STATUS_INVALID": "Stan taksonomiczny nieznany",
+    "BASIONYM_AUTHOR_MISMATCH": "Niedopasowanie autora bazonimu",
+    "TAXONOMIC_STATUS_MISMATCH": "Stan taksonomiczny niedopasowany",
+    "DESCRIPTION_INVALID": "Nieprawidłowy opis",
+    "HOMONYM": "Homonim"
+}
