@@ -47,7 +47,7 @@
     "about": "Informacje",
     "explore": "Przeglądaj katalog"
   },
-  "citesPermitNumber": "",
+  "citesPermitNumber": "Numer pozwolenia CITES",
   "collectionDescriptorsHeadline": "",
   "collectionDescriptorsIntroduction": "",
   "collectionSearchNoResultsMessage": "",
