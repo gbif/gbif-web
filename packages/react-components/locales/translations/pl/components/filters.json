@@ -336,7 +336,7 @@
     "description": "Nazwa zbiornika wodnego, w którym ma miejsce lokalizacja."
   },
   "higherGeography": {
-    "name": "",
+    "name": "Geografia wyższego rzędu",
     "count": "",
     "description": ""
   },
