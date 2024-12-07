@@ -198,7 +198,7 @@
   "gbifPublisherKey": {
     "name": "Publikujący w GBIF",
     "count": "{num, plural, one {publikujący w GBIF} few {# publikujących w GBIF} many {# publikujących w GBIF} other {# publikujący w GBIF}}",
-    "description": "Nazwa organizacji odpowiedzialnej za udostępnienie zbioru danych zawierającego zapis."
+    "description": "Nazwa organizacji odpowiedzialnej za udostępnienie zbioru danych zawierającego stwierdzenie."
   },
   "hostingOrganizationKey": {
     "name": "Organizacja goszcząca",
