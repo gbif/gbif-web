@@ -61,11 +61,11 @@
         "Rating": "Ocena",
         "commenterLiteral": "",
         "commenter": "",
-        "comments": "",
+        "comments": "Komentarze",
         "reviewerLiteral": "",
         "reviewer": "",
         "reviewerComments": "",
-        "available": "",
+        "available": "Dostępny(a)",
         "hasServiceAccessPoint": "",
         "rights": "",
         "Owner": "",
@@ -86,7 +86,7 @@
         "metadataProvider": "",
         "description": "",
         "caption": "",
-        "language": "",
+        "language": "Język",
         "physicalSetting": "",
         "CVterm": "",
         "subjectCategoryVocabulary": "",
@@ -332,7 +332,7 @@
         "title": "Tytuł",
         "subject": "",
         "format": "Format",
-        "datasetID": ""
+        "datasetID": "ID zbioru danych"
       }
     },
     "image": {
@@ -353,7 +353,7 @@
         "audience": "Odbiorcy",
         "license": "Licencja",
         "rightsHolder": "Właściciel praw",
-        "datasetID": ""
+        "datasetID": "ID zbioru danych"
       }
     },
     "measurementOrFact": {
@@ -382,30 +382,30 @@
         "created": "",
         "creator": "",
         "contributor": "",
-        "publisher": "",
-        "audience": "",
+        "publisher": "Wydawca",
+        "audience": "Odbiorcy",
         "source": "",
         "license": "",
-        "rightsHolder": "",
-        "datasetID": ""
+        "rightsHolder": "Właściciel praw",
+        "datasetID": "ID zbioru danych"
       }
     },
     "reference": {
       "name": "",
       "properties": {
         "identifier": "",
-        "bibliographicCitation": "",
+        "bibliographicCitation": "Cytowanie bibliograficzne",
         "title": "",
         "creator": "",
         "date": "",
         "source": "",
         "description": "",
         "subject": "",
-        "language": "",
+        "language": "Język",
         "rights": "",
         "taxonRemarks": "",
         "type": "",
-        "datasetID": ""
+        "datasetID": "ID zbioru danych"
       }
     },
     "eolReference": {
@@ -421,11 +421,11 @@
         "pageEnd": "",
         "volume": "",
         "edition": "",
-        "publisher": "",
+        "publisher": "Wydawca",
         "authorList": "",
         "editorList": "",
         "created": "",
-        "language": "",
+        "language": "Język",
         "uri": "",
         "doi": "",
         "localityName": ""
