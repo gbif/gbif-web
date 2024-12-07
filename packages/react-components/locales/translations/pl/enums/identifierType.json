@@ -1,11 +1,21 @@
 {
   "URL": "URL",
+  "LSID": "LSID",
+  "HANDLER": "Opiekun",
   "DOI": "DOI",
+  "UUID": "UUID",
   "FTP": "FTP",
+  "URI": "URI",
   "UNKNOWN": "Nieznane",
   "GBIF_PORTAL": "Portal GBIF",
   "GBIF_NODE": "Węzeł GBIF",
+  "GBIF_PARTICIPANT": "Członek GBIF",
+  "GRBIO_ID": "Identyfikator GRBIO",
+  "GRBIO_URI": "URI GRBIO",
+  "GRSCICOLL_URI": "URI CRSCICOLL",
   "IH_IRN": "Indeks Herbariorum",
+  "ROR": "ROR",
+  "GRID": "GRID",
   "CITES": "Konwencja waszyngtońska (CITES)",
   "GRSCICOLL_ID": "Identyfikator GRSCICOLL"
 }
