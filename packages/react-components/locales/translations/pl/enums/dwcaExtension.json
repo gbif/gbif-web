@@ -1,3 +1,4 @@
 {
-  "http://rs.tdwg.org/dwc/terms/Occurrence": "Występowanie"
+  "http://rs.tdwg.org/dwc/terms/Occurrence": "Występowanie",
+  "http://data.ggbn.org/schemas/ggbn/terms/MaterialSample": "Próbka materiału"
 }
