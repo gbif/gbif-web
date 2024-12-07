@@ -188,7 +188,7 @@
   "datasetKey": {
     "name": "Zbiór danych",
     "count": "{num, plural, one {zbiór danych} few {# zbiory danych} many {# zbiorów danych} other {# zbiory danych}}",
-    "description": "Tytuł zbioru danych, w którym udostępniony jest zapis."
+    "description": "Tytuł zbioru danych, w którym udostępnione jest stwierdzenie."
   },
   "publisherKey": {
     "name": "Publikujący",
