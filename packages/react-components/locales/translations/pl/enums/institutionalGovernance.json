@@ -1,5 +1,11 @@
 {
+  "ACADEMIC_FEDERAL": "Akademicki federalny",
+  "ACADEMIC_FOR_PROFIT": "Akademicki komercyjny",
+  "ACADEMIC_LOCAL": "akademicki lokalny",
+  "ACADEMIC_NON_PROFIT": "Akademicki non-profit",
+  "ACADEMIC_STATE": "Akademicki krajowy",
   "FEDERAL": "Federalny",
+  "FOR_PROFIT": "Komercyjny",
   "LOCAL": "Lokalny",
   "NON_PROFIT": "Non-profit",
   "OTHER": "Inny",
