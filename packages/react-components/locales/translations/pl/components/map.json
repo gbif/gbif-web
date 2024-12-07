@@ -1,16 +1,16 @@
 {
     "styles": {
         "satellite": "Satelita",
-        "natural": "Charakter",
+        "natural": "Natura",
         "bright": "Jasny",
         "dark": "Ciemny",
-        "outdoor": "W plenerze"
+        "outdoor": "Plener"
     },
     "projections": {
         "ARCTIC": "Arktyczny",
-        "MERCATOR": "",
+        "MERCATOR": "Mercator",
         "ANTARCTIC": "Antarktyka",
-        "PLATE_CAREE": "Odwzorowanie walcowe równoodległościowe "
+        "PLATE_CAREE": "Plate Carrée"
     },
     "failedToGetUserLocation": {
         "title": "",
