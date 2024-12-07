@@ -1,3 +1,11 @@
 {
+  "EXTINCT": "Wymarły",
+  "EXTINCT_IN_THE_WILD": "Wymarły na wolności",
+  "CRITICALLY_ENDANGERED": "Krytycznie zagrożony",
+  "ENDANGERED": "Zagrożony",
+  "VULNERABLE": "Narażony",
+  "NEAR_THREATENED": "Bliski zagrożenia",
+  "LEAST_CONCERN": "Najmniejszej troski",
+  "DATA_DEFICIENT": "Brak wystarczających danych",
   "NOT_EVALUATED": "Brak oceny"
 }
