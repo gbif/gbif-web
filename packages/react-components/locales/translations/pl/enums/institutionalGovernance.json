@@ -1,1 +1,7 @@
-{}
+{
+  "FEDERAL": "Federalny",
+  "LOCAL": "Lokalny",
+  "NON_PROFIT": "Non-profit",
+  "OTHER": "Inny",
+  "STATE": "Państwowy"
+}
