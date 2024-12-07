@@ -44,22 +44,22 @@
     "e": "Głębokość wynosi {from}"
   },
   "organismQuantity": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Liczebność organizmów od {from} do {to}",
+    "lt": "Liczebność organizmów poniżej {to}",
+    "gt": "Liczebność organizmów powyżej {from}",
+    "e": "Liczebność organizmów wynosi {from}"
   },
   "sampleSizeValue": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Wartość wielkość próby od {from} do {to}",
+    "lt": "Wartość wielkość próby poniżej {to}",
+    "gt": "Wartość wielkość próby powyżej {from}",
+    "e": "Wartość wielkości próby wynosi {from}"
   },
   "relativeOrganismQuantity": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Względna liczebność organizmów od {from} do {to}",
+    "lt": "Względna liczebność organizmów poniżej {to}",
+    "gt": "Względna liczebność organizmów powyżej {from}",
+    "e": "Względna liczebność organizmów wynosi {from}"
   },
   "elevation": {
     "between": "Wysokość {from} do {to}",
