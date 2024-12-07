@@ -127,14 +127,14 @@
     "addingToQueue": "Dodawanie do kolejki",
     "unableToStart": "Niemożliwie zacząć wczytywanie",
     "ingestionChartExplainer": "Niedawne wczytywania. W lewym górnym rogu są najbardziej aktualne.",
-    "ingestionStatus": "",
-    "itemInIngestionQueue": "",
-    "datasetIngestionStatus": "",
-    "gbifIngestionStatus": "",
+    "ingestionStatus": "Status wczytania",
+    "itemInIngestionQueue": "Elementy w kolejce do wczytania",
+    "datasetIngestionStatus": "Status wczytania zbioru danych",
+    "gbifIngestionStatus": "Status wczytania GBIF",
     "lastIngestionSuccess": "Ostatnie wczytywanie było sukcesywne",
     "lastIngestionFailed": "Ostatnie wczytywanie się nie powiodło",
     "outOfSync": "Brak synchronizacji",
-    "becauseTrustedContact": "",
+    "becauseTrustedContact": "Ponieważ jesteś zaufanym kontaktem",
     "registrationDetails": ""
   }
 }
