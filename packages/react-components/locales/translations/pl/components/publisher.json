@@ -1,8 +1,8 @@
 {
   "searchTitle": "Wyszukiwanie wydawców",
   "tabs": {
-    "aboutPublisher": "Informacje",
-    "metrics": "Metryka",
+    "aboutPublisher": "Informacje o wydawcy",
+    "metrics": "Statystyki",
     "publishersHomepage": "Strona główna"
   },
   "joinedDate": "",
