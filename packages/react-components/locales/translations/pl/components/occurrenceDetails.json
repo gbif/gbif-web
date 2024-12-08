@@ -50,16 +50,16 @@
       "properties": {
         "identifier": "Identyfikator",
         "type": "Typ",
-        "subtypeLiteral": "",
+        "subtypeLiteral": "Podtyp jak podano",
         "subtype": "Podtyp",
         "title": "Tytuł",
         "modified": "Zmodyfikowano",
         "MetadataDate": "Data metadanych",
-        "metadataLanguageLiteral": "",
+        "metadataLanguageLiteral": "Język metadanych jak podano",
         "metadataLanguage": "Język metadanych",
-        "providerManagedID": "",
+        "providerManagedID": "Identyfikator zarządzany przez dostawcę",
         "Rating": "Ocena",
-        "commenterLiteral": "",
+        "commenterLiteral": "Komentator jak podano",
         "commenter": "",
         "comments": "Komentarze",
         "reviewerLiteral": "",
@@ -103,8 +103,8 @@
         "timeOfDay": "",
         "taxonCoverage": "",
         "scientificName": "Nazwa naukowa",
-        "identificationQualifier": "",
-        "vernacularName": "",
+        "identificationQualifier": "Kwalifikator identyfikacji",
+        "vernacularName": "Nazwa zwyczajowa",
         "nameAccordingTo": "Nazwa zgodna z",
         "scientificNameID": "",
         "otherScientificName": "",
@@ -113,7 +113,7 @@
         "taxonCount": "",
         "subjectPart": "",
         "sex": "Płeć",
-        "lifeStage": "",
+        "lifeStage": "Stadium rozwoju",
         "subjectOrientation": "",
         "preparations": "Preparacje",
         "LocationCreated": "",
@@ -141,7 +141,7 @@
       }
     },
     "amplification": {
-      "name": "",
+      "name": "Amplifikacja",
       "properties": {
         "amplificationDate": "",
         "amplificationStaff": "",
@@ -180,7 +180,7 @@
       }
     },
     "germplasmAccession": {
-      "name": "",
+      "name": "Germplasm: Germplasm akcesja",
       "properties": {
         "germplasmID": "",
         "germplasmIdentifier": "",
@@ -222,7 +222,7 @@
       }
     },
     "germplasmMeasurementScore": {
-      "name": "",
+      "name": "Germplasm: wynik pomiaru",
       "properties": {
         "measurementID": "",
         "measurementValue": "",
@@ -245,7 +245,7 @@
       }
     },
     "germplasmMeasurementTrait": {
-      "name": "",
+      "name": "Germplasm: cecha pomiaru",
       "properties": {
         "measurementTraitID": "",
         "measurementTraitIdentifier": "",
@@ -259,7 +259,7 @@
       }
     },
     "germplasmMeasurementTrial": {
-      "name": "",
+      "name": "Germplasm: próba pomiaru",
       "properties": {
         "measurementTrailID": "",
         "measurementTrailIdentifier": "",
@@ -277,14 +277,14 @@
       "name": "Historia identyfikacji",
       "properties": {
         "identificationID": "",
-        "verbatimIdentification": "",
-        "identificationQualifier": "",
-        "typeStatus": "",
+        "verbatimIdentification": "Identyfikacja jak pierwotnie podana",
+        "identificationQualifier": "Kwalifikator identyfikacji",
+        "typeStatus": "Status typu",
         "identifiedBy": "Zidentyfikowany przez",
         "identifiedByID": "Identyfikator identyfikującego",
         "dateIdentified": "Data identyfikacji",
-        "identificationReferences": "",
-        "identificationVerificationStatus": "",
+        "identificationReferences": "Odnośniki dla identyfikacji",
+        "identificationVerificationStatus": "Status weryfikacji identyfikacji",
         "identificationRemarks": "Uwagi na temat identyfikacji",
         "taxonID": "",
         "scientificNameID": "",
@@ -295,7 +295,7 @@
         "namePublishedInID": "",
         "taxonConceptID": "",
         "scientificName": "Nazwa naukowa",
-        "acceptedNameUsage": "",
+        "acceptedNameUsage": "Zaakceptowane użycie nazwy",
         "parentNameUsage": "Użycie nazwy nadrzędnej",
         "originalNameUsage": "Oryginalne użycie nazwy",
         "nameAccordingTo": "Nazwa zgodna z",
