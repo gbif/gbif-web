@@ -10,6 +10,8 @@ import { GoSidebarExpand } from 'react-icons/go';
 import { FormattedMessage } from 'react-intl';
 import { SingleOccurrenceSearchResult } from '.';
 import { IconFeatures } from './iconFeatures';
+import { SetAsFilterList } from '@/components/searchTable/components/setAsFilterList';
+import { InlineLineClamp } from '@/components/inlineLineClamp';
 
 type Args = {
   showPreview?: ((id: string) => void) | false;
@@ -192,14 +194,16 @@ export function useOccurrenceColumns({
         id: 'dataset',
         header: 'filters.datasetKey.name',
         cell: ({ row }) => (
-          <SetAsFilter
-            className="g-line-clamp-3"
-            filterIsActive={isFilterActive('dataset')}
-            field="dataset"
-            value={row.original.datasetKey}
-          >
-            {row.original.datasetTitle}
-          </SetAsFilter>
+          <InlineLineClamp className="-g-ml-0.5">
+            <SetAsFilter
+              filterIsActive={isFilterActive('dataset')}
+              field="dataset"
+              value={row.original.datasetKey}
+              className="g-ml-0"
+            >
+              {row.original.datasetTitle}
+            </SetAsFilter>
+          </InlineLineClamp>
         ),
         minSize: 350,
         meta: {
@@ -211,7 +215,6 @@ export function useOccurrenceColumns({
         header: 'filters.publisherKey.name',
         cell: ({ row }) => (
           <SetAsFilter
-            className="g-line-clamp-3"
             filterIsActive={isFilterActive('publisherKey')}
             field="publisherKey"
             value={row.original.publishingOrgKey}
@@ -244,19 +247,11 @@ export function useOccurrenceColumns({
         id: 'recordedBy',
         header: 'filters.recordedBy.name',
         cell: ({ row }) => (
-          <div>
-            {row.original.recordedBy?.map((recordedBy) => (
-              <SetAsFilter
-                key={recordedBy}
-                filterIsActive={isFilterActive('recordedBy')}
-                field="recordedBy"
-                value={recordedBy}
-                className="g-inline-block g-line-clamp-3"
-              >
-                {recordedBy}
-              </SetAsFilter>
-            ))}
-          </div>
+          <SetAsFilterList
+            filterIsActive={isFilterActive('recordedBy')}
+            field="recordedBy"
+            items={row.original.recordedBy}
+          />
         ),
         minSize: 200,
         meta: {
@@ -267,19 +262,11 @@ export function useOccurrenceColumns({
         id: 'identifiedBy',
         header: 'filters.identifiedBy.name',
         cell: ({ row }) => (
-          <div>
-            {row.original.identifiedBy?.map((identifiedBy) => (
-              <SetAsFilter
-                key={identifiedBy}
-                filterIsActive={isFilterActive('identifiedBy')}
-                field="identifiedBy"
-                value={identifiedBy}
-                className="g-inline-block g-line-clamp-3"
-              >
-                {identifiedBy}
-              </SetAsFilter>
-            ))}
-          </div>
+          <SetAsFilterList
+            filterIsActive={isFilterActive('identifiedBy')}
+            field="identifiedBy"
+            items={row.original.identifiedBy}
+          />
         ),
         minSize: 200,
         meta: {
@@ -307,19 +294,12 @@ export function useOccurrenceColumns({
         id: 'typeStatus',
         header: 'filters.typeStatus.name',
         cell: ({ row }) => (
-          <div>
-            {row.original.typeStatus?.map((typeStatus) => (
-              <SetAsFilter
-                key={typeStatus}
-                filterIsActive={isFilterActive('typeStatus')}
-                field="typeStatus"
-                value={typeStatus}
-                className="g-inline-block"
-              >
-                <FormattedMessage id={`enums.typeStatus.${typeStatus}`} />
-              </SetAsFilter>
-            ))}
-          </div>
+          <SetAsFilterList
+            filterIsActive={isFilterActive('typeStatus')}
+            field="typeStatus"
+            items={row.original.typeStatus}
+            renderValue={(value) => <FormattedMessage id={`enums.typeStatus.${value}`} />}
+          />
         ),
         meta: {
           filter: filters['typeStatus'],
@@ -329,19 +309,11 @@ export function useOccurrenceColumns({
         id: 'preparations',
         header: 'occurrenceFieldNames.preparations',
         cell: ({ row }) => (
-          <div>
-            {row.original.preparations?.map((preparation) => (
-              <SetAsFilter
-                key={preparation}
-                filterIsActive={isFilterActive('preparations')}
-                field="preparations"
-                value={preparation}
-                className="g-inline-block"
-              >
-                {preparation}
-              </SetAsFilter>
-            ))}
-          </div>
+          <SetAsFilterList
+            filterIsActive={isFilterActive('preparations')}
+            field="preparations"
+            items={row.original.preparations}
+          />
         ),
         meta: {
           filter: filters['preparations'],
@@ -377,7 +349,6 @@ export function useOccurrenceColumns({
 
           return (
             <SetAsFilter
-              className="g-line-clamp-3"
               filterIsActive={isFilterActive('institutionCode')}
               field="institutionCode"
               value={institution.code}
@@ -401,7 +372,6 @@ export function useOccurrenceColumns({
           return (
             <LinkOption to={`/institution/${institution.key}`}>
               <SetAsFilter
-                className="g-line-clamp-3"
                 filterIsActive={isFilterActive('institutionKey')}
                 field="institutionKey"
                 value={institution.key}
@@ -431,7 +401,6 @@ export function useOccurrenceColumns({
                 filterIsActive={isFilterActive('collectionCode')}
                 field="collectionCode"
                 value={collection.code}
-                className="g-line-clamp-3"
               >
                 <span>
                   {collection.name} <span>({collection.code})</span>
@@ -449,7 +418,7 @@ export function useOccurrenceColumns({
         id: 'locality',
         header: 'occurrenceFieldNames.locality',
         accessorKey: 'locality',
-        cell: ({ row }) => <span className="g-line-clamp-3">{row.original.locality}</span>,
+        cell: ({ row }) => <InlineLineClamp>{row.original.locality}</InlineLineClamp>,
         minSize: 200,
         meta: {
           filter: filters['locality'],
@@ -459,19 +428,11 @@ export function useOccurrenceColumns({
         id: 'higherGeography',
         header: 'occurrenceFieldNames.higherGeography',
         cell: ({ row }) => (
-          <div>
-            {row.original.higherGeography?.map((higherGeography) => (
-              <SetAsFilter
-                key={higherGeography}
-                filterIsActive={isFilterActive('higherGeography')}
-                field="higherGeography"
-                value={higherGeography}
-                className="g-inline-block"
-              >
-                {higherGeography}
-              </SetAsFilter>
-            ))}
-          </div>
+          <SetAsFilterList
+            filterIsActive={isFilterActive('higherGeography')}
+            field="higherGeography"
+            items={row.original.higherGeography}
+          />
         ),
         meta: {
           filter: filters['higherGeography'],
@@ -546,13 +507,11 @@ export function useOccurrenceColumns({
         id: 'datasetName',
         header: 'occurrenceFieldNames.datasetName',
         cell: ({ row }) => (
-          <div className="g-line-clamp-3">
-            {row.original.datasetName?.map((datasetName) => (
-              <span key={datasetName} className="g-inline-block">
-                {datasetName}
-              </span>
-            ))}
-          </div>
+          <SetAsFilterList
+            filterIsActive={isFilterActive('datasetName')}
+            field="datasetName"
+            items={row.original.datasetName}
+          />
         ),
         minSize: 200,
         meta: {

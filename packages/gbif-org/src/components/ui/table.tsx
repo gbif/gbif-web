@@ -74,7 +74,7 @@ const TableCell = React.forwardRef<
     {...props}
   >
     {to && <DynamicLink to={to} className="g-absolute g-top-0 g-left-0 g-w-full g-h-full" />}
-    <div className="g-flex g-items-start g-pointer-events-none g-relative">{children}</div>
+    <div className="g-pointer-events-none g-relative">{children}</div>
   </td>
 ));
 TableCell.displayName = 'TableCell';

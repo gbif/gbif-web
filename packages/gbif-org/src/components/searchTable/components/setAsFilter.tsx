@@ -22,12 +22,10 @@ export function SetAsFilter({ filterIsActive, children, field, value, className 
         // Buttons can't be displayed inline
         role="button"
         className={cn(
-          'g-inline g-text-left hover:g-bg-primary-300 g-whitespace-normal g-box-decoration-clone g-p-0.5 -g-ml-0.5 g-pointer-events-auto',
+          'hover:g-bg-primary-300 g-box-decoration-clone g-p-0.5 -g-ml-0.5 g-pointer-events-auto',
           className
         )}
-        onClick={(e) => {
-          add(field, value);
-        }}
+        onClick={() => add(field, value)}
       >
         {children}
       </span>
