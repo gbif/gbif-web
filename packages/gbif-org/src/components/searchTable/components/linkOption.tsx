@@ -9,7 +9,7 @@ type Props = {
 export function LinkOption({ to, children }: Props) {
   return (
     <div>
-      <DynamicLink to={to}>
+      <DynamicLink to={to} className="g-pointer-events-auto">
         <span className="g-pr-1">
           <MdLink />
         </span>

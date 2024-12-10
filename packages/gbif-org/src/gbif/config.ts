@@ -185,7 +185,7 @@ export const gbifConfig: Config = {
       'geometry',
       'recordedBy',
     ],
-    tabs: ['media', 'map', 'clusters', 'datasets', 'dashboard', 'download'],
+    tabs: ['table', 'media', 'map', 'clusters', 'datasets', 'dashboard', 'download'],
     // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
     // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
     // scope: {
