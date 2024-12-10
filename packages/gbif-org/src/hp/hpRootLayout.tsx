@@ -1,3 +1,4 @@
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Toaster } from '@/components/ui/toaster';
 import { ScrollRestoration } from 'react-router-dom';
 
@@ -10,7 +11,7 @@ export function HpRootLayout({ children }: Props) {
     <>
       <ScrollRestoration />
       <Toaster />
-      {children}
+      <ErrorBoundary>{children}</ErrorBoundary>
     </>
   );
 }

@@ -20,7 +20,7 @@
       import { render } from '/gbif-lib.js';
 
       render(document.getElementById('root'), {
-        gbifEnv: 'dev',
+        gbifEnv: 'staging',
         extraOccurrenceSearchPages: [
           {
             path: 'danish-occurrence/search',
@@ -84,6 +84,45 @@
         },
         OBISKey: 'ba0670b9-4186-41e6-8e70-f9cb3065551a',
         taiwanNodeidentifier: '239',
+        occurrenceSearch: {
+          queryType: 'PREDICATE',
+          highlightedFilters: [
+            'occurrenceStatus',
+            'taxonKey',
+            'year',
+            'country',
+            'issue',
+            'geometry',
+            'recordedBy',
+          ],
+          tabs: ['table', 'media', 'map', 'clusters', 'datasets', 'dashboard', 'download'],
+          // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
+          // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
+          // scope: {
+          //   type: 'equals',
+          //   key: 'country',
+          //   value: 'DK',
+          // },
+        },
+        maps: {
+          locale: 'en',
+          mapStyles: {
+            defaultProjection: 'MERCATOR',
+            defaultMapStyle: 'NATURAL',
+            options: {
+              ARCTIC: ['NATURAL', 'BRIGHT'],
+              PLATE_CAREE: ['NATURAL', 'BRIGHT', 'DARK'],
+              MERCATOR: ['NATURAL', 'BRIGHT', 'SATELLITE', 'DARK', 'GEOLOGY'],
+              ANTARCTIC: ['NATURAL', 'BRIGHT', 'DARK'],
+            },
+          },
+          // rewire style names to show a different style
+          styleLookup: {
+            MERCATOR: {
+              GEOLOGY: 'GEOLOGY',
+            },
+          },
+        },
       });
     </script>
   </body>

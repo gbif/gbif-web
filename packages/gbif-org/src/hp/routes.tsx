@@ -19,6 +19,7 @@ import { resourceKeyRoutes } from '@/routes/resource/key';
 import { RootErrorPage } from '@/routes/rootErrorPage';
 import { Outlet } from 'react-router-dom';
 import { HpRootLayout } from './hpRootLayout';
+import { literatureSearchRoute } from '@/routes/literature/search';
 
 export function createHostedPortalRoutes(config: Config) {
   return applyReactRouterPlugins(
@@ -42,6 +43,7 @@ export function createHostedPortalRoutes(config: Config) {
               occurrenceSearchRoute,
               publisherKeyRoute,
               publisherSearchRoute,
+              literatureSearchRoute,
               ...resourceKeyRoutes,
               ...notImplementedRoutes,
               notFoundRoute,
