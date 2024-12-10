@@ -221,13 +221,8 @@ const getSuggestFilter = ({
       return (
         <SuggestFilter
           ref={ref}
-          suggestConfig={config.suggestConfig}
-          facetQuery={config.facetQuery}
-          filterHandle={config.filterHandle}
-          displayName={config.displayName}
-          disableFacetsForSelected={config.disableFacetsForSelected}
+          {...config}
           searchConfig={searchConfig}
-          about={config.about}
           {...{ onApply, onCancel, className, style, pristine }}
         />
       );

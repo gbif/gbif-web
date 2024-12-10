@@ -485,3 +485,41 @@ export const establishmentMeansSuggest = {
     return { cancel, promise: result };
   },
 };
+
+export const institutionDisciplineSuggest = {
+  getSuggestions: ({ q, siteConfig, currentLocale }: SuggestFnProps): SuggestResponseType => {
+    const vocabularyLocale = currentLocale.vocabularyLocale ?? currentLocale.code ?? 'en';
+    const { cancel, promise } = fetchWithCancel(
+      `${siteConfig.v1Endpoint}/vocabularies/Discipline/concepts?limit=100&q=${q}&lang=${vocabularyLocale}`
+    );
+    const result = promise
+      .then((res) => res.json())
+      .then(extractTitle(vocabularyLocale))
+      .then((response) => {
+        return response.data.results.map((item) => ({
+          key: item.name,
+          title: item.title,
+        }));
+      });
+    return { cancel, promise: result };
+  },
+};
+
+export const institutionTypeSuggest = {
+  getSuggestions: ({ q, siteConfig, currentLocale }: SuggestFnProps): SuggestResponseType => {
+    const vocabularyLocale = currentLocale.vocabularyLocale ?? currentLocale.code ?? 'en';
+    const { cancel, promise } = fetchWithCancel(
+      `${siteConfig.v1Endpoint}/vocabularies/InstitutionType/concepts?limit=100&q=${q}&lang=${vocabularyLocale}`
+    );
+    const result = promise
+      .then((res) => res.json())
+      .then(extractTitle(vocabularyLocale))
+      .then((response) => {
+        return response.data.results.map((item) => ({
+          key: item.name,
+          title: item.title,
+        }));
+      });
+    return { cancel, promise: result };
+  },
+};

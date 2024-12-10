@@ -4,12 +4,10 @@ import {
   MdDeleteOutline,
   MdOutlineRemoveCircleOutline,
   MdOutlineRemoveCircle,
-  MdArrowBack,
 } from 'react-icons/md';
-import { PiEmptyBold, PiEmptyFill } from 'react-icons/pi';
+import { PiEmptyBold } from 'react-icons/pi';
 import { cn } from '@/utils/shadcn';
 import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
-import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import useQuery from '@/hooks/useQuery';
 import hash from 'object-hash';
 import cloneDeep from 'lodash/cloneDeep';

@@ -1,5 +1,12 @@
-import { getOGImage } from "#/helpers/utils";
-import { getThumborUrl } from "../resource/misc/misc.resolver";
+import { getExcerpt, getOGImage } from '#/helpers/utils';
+import { getThumborUrl } from '../resource/misc/misc.resolver';
+import { getCardinality, getFacet } from '../getQueryMetrics';
+
+const getSourceSearch = (dataSources) => (args) =>
+  dataSources.institutionAPI.searchInstitutions.call(
+    dataSources.institutionAPI,
+    args,
+  );
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -10,12 +17,34 @@ import { getThumborUrl } from "../resource/misc/misc.resolver";
  */
 export default {
   Query: {
-    institutionSearch: (parent, args, { dataSources }) =>
-      dataSources.institutionAPI.searchInstitutions({ query: args }),
+    institutionSearch: (
+      parent,
+      { query = {}, ...args } = {},
+      { dataSources },
+    ) =>
+      dataSources.institutionAPI.searchInstitutions({
+        query: { ...args, ...query },
+      }),
     institution: (parent, { key }, { dataSources }) =>
       dataSources.institutionAPI.getInstitutionByKey({ key }),
   },
+  InstitutionSearchResults: {
+    // this looks odd. I'm not sure what is the best way, but I want to transfer the current query to the child, so that it can be used when asking for the individual facets
+    facet: (parent) => ({
+      _query: { ...parent._query, limit: undefined, offset: undefined },
+    }),
+    cardinality: (parent) => ({
+      _query: { ...parent._query, limit: undefined, offset: undefined },
+    }),
+  },
   Institution: {
+    excerpt: ({ description }) => {
+      if (typeof description === 'undefined') return null;
+      return getExcerpt({
+        strings: [description],
+        length: 200,
+      }).plainText;
+    },
     collections: ({ key }, { limit, offset }, { dataSources }) => {
       return dataSources.collectionAPI.getCollectionsByInstitutionKey({
         key,
@@ -40,7 +69,7 @@ export default {
         key: convertedToCollection,
       });
     },
-    thumbor: ({ featuredImageUrl: url }, { fitIn, width = '', height = '' }) => getThumborUrl({url, fitIn, width, height}),
+    thumbor: ({ featuredImageUrl: url }, { fitIn, width = '', height = '' }) => getThumborUrl({ url, fitIn, width, height }),
     homepageOGImageUrl_volatile: ({ homepage }, { onlyIfNoImageUrl }) => {
       if (onlyIfNoImageUrl && featuredImageUrl) {
         return null;
@@ -51,20 +80,32 @@ export default {
         })
         .catch(() => null);
     },
-    // this has since been added to the API as a regularly updated field.
-    // occurrenceCount: ({ key }, args, { dataSources }) => {
-    //   if (!key) return null;
-    //   return dataSources.occurrenceAPI
-    //     .searchOccurrenceDocuments({
-    //       query: {
-    //         predicate: { type: 'equals', key: 'institutionKey', value: key },
-    //       },
-    //     })
-    //     .then((response) => response.total);
-    // },
-    // someField: ({ fieldWithKey: key }, args, { dataSources }) => {
-    //   if (typeof key === 'undefined') return null;
-    //   dataSources.someAPI.getSomethingByKey({ key })
-    // },
+  },
+  InstitutionSearchEntity: {
+    thumbor: ({ featuredImageUrl: url }, { fitIn, width = '', height = '' }) => getThumborUrl({ url, fitIn, width, height }),
+    excerpt: ({ description }) => {
+      if (typeof description === 'undefined') return null;
+      return getExcerpt({
+        strings: [description],
+        length: 200,
+      }).plainText;
+    },
+    collectionCount: ({ key }, args, { dataSources }) => {
+      return dataSources.collectionAPI
+        .getCollectionsByInstitutionKey({ key, limit: 1000 })
+        .then((data) => data.length);
+    },
+  },
+  InstitutionFacet: {
+    country: getFacet('COUNTRY', getSourceSearch),
+    city: getFacet('CITY', getSourceSearch),
+    type: getFacet('TYPE', getSourceSearch),
+    discipline: getFacet('DISCIPLINE', getSourceSearch),
+  },
+  InstitutionCardinality: {
+    country: getCardinality('COUNTRY', getSourceSearch),
+    city: getCardinality('CITY', getSourceSearch),
+    type: getCardinality('TYPE', getSourceSearch),
+    discipline: getCardinality('DISCIPLINE', getSourceSearch),
   },
 };

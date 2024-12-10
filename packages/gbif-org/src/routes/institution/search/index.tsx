@@ -1,6 +1,6 @@
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
-import { InstitutionSearchPage } from './searchPage';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { InstitutionSearchPage } from './institutionSearch';
 
 export const institutionSearchRoute: RouteObjectWithPlugins = {
   id: 'institution-search',
