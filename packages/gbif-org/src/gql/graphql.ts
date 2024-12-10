@@ -3247,6 +3247,7 @@ export type Institution = {
   description?: Maybe<Scalars['String']['output']>;
   disciplines?: Maybe<Array<Scalars['String']['output']>>;
   email?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  excerpt?: Maybe<Scalars['String']['output']>;
   featuredImageLicense?: Maybe<License>;
   featuredImageUrl?: Maybe<Scalars['String']['output']>;
   foundingDate?: Maybe<Scalars['Int']['output']>;
@@ -3295,12 +3296,83 @@ export type InstitutionThumborArgs = {
   width?: InputMaybe<Scalars['Int']['input']>;
 };
 
+export type InstitutionCardinality = {
+  __typename?: 'InstitutionCardinality';
+  city: Scalars['Int']['output'];
+  country: Scalars['Int']['output'];
+  discipline: Scalars['Int']['output'];
+  type: Scalars['Int']['output'];
+};
+
+
+export type InstitutionCardinalityCityArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type InstitutionCardinalityCountryArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type InstitutionCardinalityDisciplineArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type InstitutionCardinalityTypeArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type InstitutionFacet = {
+  __typename?: 'InstitutionFacet';
+  city?: Maybe<Array<Maybe<InstitutionFacetResult>>>;
+  country?: Maybe<Array<Maybe<InstitutionFacetResult>>>;
+  discipline?: Maybe<Array<Maybe<InstitutionFacetResult>>>;
+  type?: Maybe<Array<Maybe<InstitutionFacetResult>>>;
+};
+
+
+export type InstitutionFacetCityArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type InstitutionFacetCountryArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type InstitutionFacetDisciplineArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type InstitutionFacetTypeArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
 export enum InstitutionFacetParameter {
   City = 'CITY',
   Country = 'COUNTRY',
   Discipline = 'DISCIPLINE',
   Type = 'TYPE'
 }
+
+export type InstitutionFacetResult = {
+  __typename?: 'InstitutionFacetResult';
+  _query?: Maybe<Scalars['JSON']['output']>;
+  count: Scalars['Int']['output'];
+  name: Scalars['String']['output'];
+};
 
 export enum InstitutionGovernance {
   AcademicFederal = 'ACADEMIC_FEDERAL',
@@ -3316,13 +3388,73 @@ export enum InstitutionGovernance {
   State = 'STATE'
 }
 
+export type InstitutionSearchEntity = {
+  __typename?: 'InstitutionSearchEntity';
+  active?: Maybe<Scalars['Boolean']['output']>;
+  alternativeCodes?: Maybe<Array<AlternativeCode>>;
+  city?: Maybe<Scalars['String']['output']>;
+  code?: Maybe<Scalars['String']['output']>;
+  collectionCount?: Maybe<Scalars['Int']['output']>;
+  country?: Maybe<Country>;
+  description?: Maybe<Scalars['String']['output']>;
+  disciplines?: Maybe<Array<Scalars['String']['output']>>;
+  displayOnNHCPortal?: Maybe<Scalars['Boolean']['output']>;
+  excerpt?: Maybe<Scalars['String']['output']>;
+  featuredImageLicense?: Maybe<License>;
+  featuredImageUrl?: Maybe<Scalars['String']['output']>;
+  foundingDate?: Maybe<Scalars['Int']['output']>;
+  institutionalGovernances?: Maybe<Array<Scalars['String']['output']>>;
+  key: Scalars['ID']['output'];
+  latitude?: Maybe<Scalars['Float']['output']>;
+  longitude?: Maybe<Scalars['Float']['output']>;
+  mailingCity?: Maybe<Scalars['String']['output']>;
+  mailingCountry?: Maybe<Country>;
+  name?: Maybe<Scalars['String']['output']>;
+  numberSpecimens?: Maybe<Scalars['Long']['output']>;
+  occurrenceCount?: Maybe<Scalars['Long']['output']>;
+  thumbor?: Maybe<Scalars['String']['output']>;
+  types?: Maybe<Array<Scalars['String']['output']>>;
+};
+
+
+export type InstitutionSearchEntityThumborArgs = {
+  fitIn?: InputMaybe<Scalars['Boolean']['input']>;
+  height?: InputMaybe<Scalars['Int']['input']>;
+  width?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type InstitutionSearchInput = {
+  active?: InputMaybe<Array<Scalars['Boolean']['input']>>;
+  alternativeCode?: InputMaybe<Array<Scalars['String']['input']>>;
+  city?: InputMaybe<Array<Scalars['String']['input']>>;
+  code?: InputMaybe<Array<Scalars['String']['input']>>;
+  contact?: InputMaybe<Scalars['ID']['input']>;
+  country?: InputMaybe<Array<Country>>;
+  discipline?: InputMaybe<Array<Scalars['String']['input']>>;
+  displayOnNHCPortal?: InputMaybe<Array<Scalars['Boolean']['input']>>;
+  fuzzyName?: InputMaybe<Array<Scalars['String']['input']>>;
+  identifier?: InputMaybe<Scalars['String']['input']>;
+  institutionKey?: InputMaybe<Array<Scalars['GUID']['input']>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Array<Scalars['String']['input']>>;
+  numberSpecimens?: InputMaybe<Array<Scalars['String']['input']>>;
+  occurrenceCount?: InputMaybe<Array<Scalars['String']['input']>>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  q?: InputMaybe<Scalars['String']['input']>;
+  sortBy?: InputMaybe<CollectionsSortField>;
+  sortOrder?: InputMaybe<SortOrder>;
+  type?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
 export type InstitutionSearchResults = {
   __typename?: 'InstitutionSearchResults';
+  cardinality?: Maybe<InstitutionCardinality>;
   count: Scalars['Int']['output'];
   endOfRecords: Scalars['Boolean']['output'];
+  facet?: Maybe<InstitutionFacet>;
   limit: Scalars['Int']['output'];
   offset: Scalars['Int']['output'];
-  results: Array<Maybe<Institution>>;
+  results: Array<Maybe<InstitutionSearchEntity>>;
 };
 
 export enum InstitutionType {
@@ -6818,26 +6950,27 @@ export type QueryInstitutionArgs = {
 
 
 export type QueryInstitutionSearchArgs = {
-  active?: InputMaybe<Scalars['Boolean']['input']>;
-  alternativeCode?: InputMaybe<Scalars['String']['input']>;
-  city?: InputMaybe<Scalars['String']['input']>;
-  code?: InputMaybe<Scalars['String']['input']>;
+  active?: InputMaybe<Array<Scalars['Boolean']['input']>>;
+  alternativeCode?: InputMaybe<Array<Scalars['String']['input']>>;
+  city?: InputMaybe<Array<Scalars['String']['input']>>;
+  code?: InputMaybe<Array<Scalars['String']['input']>>;
   contact?: InputMaybe<Scalars['ID']['input']>;
-  country?: InputMaybe<Array<InputMaybe<Country>>>;
-  discipline?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  displayOnNHCPortal?: InputMaybe<Scalars['Boolean']['input']>;
-  fuzzyName?: InputMaybe<Scalars['String']['input']>;
+  country?: InputMaybe<Array<Country>>;
+  discipline?: InputMaybe<Array<Scalars['String']['input']>>;
+  displayOnNHCPortal?: InputMaybe<Array<Scalars['Boolean']['input']>>;
+  fuzzyName?: InputMaybe<Array<Scalars['String']['input']>>;
   identifier?: InputMaybe<Scalars['String']['input']>;
-  institutionKey?: InputMaybe<Array<InputMaybe<Scalars['GUID']['input']>>>;
+  institutionKey?: InputMaybe<Array<Scalars['GUID']['input']>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  numberSpecimens?: InputMaybe<Scalars['String']['input']>;
-  occurrenceCount?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Array<Scalars['String']['input']>>;
+  numberSpecimens?: InputMaybe<Array<Scalars['String']['input']>>;
+  occurrenceCount?: InputMaybe<Array<Scalars['String']['input']>>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   q?: InputMaybe<Scalars['String']['input']>;
+  query?: InputMaybe<InstitutionSearchInput>;
   sortBy?: InputMaybe<CollectionsSortField>;
   sortOrder?: InputMaybe<SortOrder>;
-  type?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 
@@ -8465,12 +8598,38 @@ export type InstitutionSummaryMetricsQueryVariables = Exact<{
 
 export type InstitutionSummaryMetricsQuery = { __typename?: 'Query', occurrenceSearch?: { __typename?: 'OccurrenceSearchResult', documents: { __typename?: 'OccurrenceDocuments', total: any } } | null, institution?: { __typename?: 'Institution', key: string, collections?: Array<{ __typename?: 'Collection', key: string, occurrenceCount?: number | null, richness?: number | null } | null> | null } | null, withImages?: { __typename?: 'OccurrenceSearchResult', documents: { __typename?: 'OccurrenceDocuments', total: any } } | null, withCoordinates?: { __typename?: 'OccurrenceSearchResult', documents: { __typename?: 'OccurrenceDocuments', total: any } } | null, withClusters?: { __typename?: 'OccurrenceSearchResult', documents: { __typename?: 'OccurrenceDocuments', total: any } } | null };
 
-export type InstitutionSearchQueryVariables = Exact<{
-  offset?: InputMaybe<Scalars['Int']['input']>;
+export type InstitutionCityFacetQueryVariables = Exact<{
+  query?: InputMaybe<InstitutionSearchInput>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
 
-export type InstitutionSearchQuery = { __typename?: 'Query', list?: { __typename?: 'InstitutionSearchResults', results: Array<{ __typename?: 'Institution', key: string, title?: string | null } | null> } | null };
+export type InstitutionCityFacetQuery = { __typename?: 'Query', search?: { __typename?: 'InstitutionSearchResults', facet?: { __typename?: 'InstitutionFacet', field?: Array<{ __typename?: 'InstitutionFacetResult', name: string, count: number } | null> | null } | null } | null };
+
+export type InstitutionDisciplineFacetQueryVariables = Exact<{
+  query?: InputMaybe<InstitutionSearchInput>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type InstitutionDisciplineFacetQuery = { __typename?: 'Query', search?: { __typename?: 'InstitutionSearchResults', facet?: { __typename?: 'InstitutionFacet', field?: Array<{ __typename?: 'InstitutionFacetResult', name: string, count: number } | null> | null } | null } | null };
+
+export type InstitutionTypeStatusFacetQueryVariables = Exact<{
+  query?: InputMaybe<InstitutionSearchInput>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type InstitutionTypeStatusFacetQuery = { __typename?: 'Query', search?: { __typename?: 'InstitutionSearchResults', facet?: { __typename?: 'InstitutionFacet', field?: Array<{ __typename?: 'InstitutionFacetResult', name: string, count: number } | null> | null } | null } | null };
+
+export type InstitutionResultFragment = { __typename?: 'InstitutionSearchEntity', key: string, name?: string | null, active?: boolean | null, code?: string | null, excerpt?: string | null, country?: Country | null, mailingCountry?: Country | null, collectionCount?: number | null, numberSpecimens?: any | null, occurrenceCount?: any | null, featuredImageLicense?: License | null, featuredImageUrl?: string | null };
+
+export type InstitutionSearchQueryVariables = Exact<{
+  query?: InputMaybe<InstitutionSearchInput>;
+}>;
+
+
+export type InstitutionSearchQuery = { __typename?: 'Query', institutionSearch?: { __typename?: 'InstitutionSearchResults', count: number, limit: number, offset: number, results: Array<{ __typename?: 'InstitutionSearchEntity', key: string, name?: string | null, active?: boolean | null, code?: string | null, excerpt?: string | null, country?: Country | null, mailingCountry?: Country | null, collectionCount?: number | null, numberSpecimens?: any | null, occurrenceCount?: any | null, featuredImageLicense?: License | null, featuredImageUrl?: string | null } | null> } | null };
 
 export type LiteratureResultFragment = { __typename?: 'Literature', id: string, title: string, literatureType?: string | null, year?: number | null, relevance?: Array<string | null> | null, topics?: Array<string | null> | null, excerpt?: string | null };
 
@@ -8887,6 +9046,7 @@ export type ToolPageFragment = { __typename?: 'Tool', id: string, title: string,
 export const CollectionResultFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CollectionResult"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CollectionSearchEntity"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"numberSpecimens"}},{"kind":"Field","name":{"kind":"Name","value":"occurrenceCount"}},{"kind":"Field","name":{"kind":"Name","value":"institutionName"}},{"kind":"Field","name":{"kind":"Name","value":"institutionKey"}},{"kind":"Field","alias":{"kind":"Name","value":"featuredImageUrl"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"300"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"200"}}]},{"kind":"Field","name":{"kind":"Name","value":"featuredImageLicense"}},{"kind":"Field","name":{"kind":"Name","value":"descriptorMatches"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"usageName"}},{"kind":"Field","name":{"kind":"Name","value":"country"}},{"kind":"Field","name":{"kind":"Name","value":"individualCount"}},{"kind":"Field","name":{"kind":"Name","value":"recordedBy"}},{"kind":"Field","name":{"kind":"Name","value":"typeStatus"}},{"kind":"Field","name":{"kind":"Name","value":"identifiedBy"}},{"kind":"Field","name":{"kind":"Name","value":"taxon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"kingdom"}},{"kind":"Field","name":{"kind":"Name","value":"phylum"}},{"kind":"Field","name":{"kind":"Name","value":"class"}},{"kind":"Field","name":{"kind":"Name","value":"order"}},{"kind":"Field","name":{"kind":"Name","value":"family"}},{"kind":"Field","name":{"kind":"Name","value":"genus"}},{"kind":"Field","name":{"kind":"Name","value":"species"}}]}}]}}]}}]} as unknown as DocumentNode<CollectionResultFragment, unknown>;
 export const DatasetStubResultFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DatasetStubResult"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"DatasetSearchStub"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"publishingOrganizationTitle"}}]}}]} as unknown as DocumentNode<DatasetStubResultFragment, unknown>;
 export const DatasetResultFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DatasetResult"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Dataset"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"publishingOrganizationTitle"}}]}}]} as unknown as DocumentNode<DatasetResultFragment, unknown>;
+export const InstitutionResultFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InstitutionResult"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"InstitutionSearchEntity"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"country"}},{"kind":"Field","name":{"kind":"Name","value":"mailingCountry"}},{"kind":"Field","name":{"kind":"Name","value":"collectionCount"}},{"kind":"Field","name":{"kind":"Name","value":"numberSpecimens"}},{"kind":"Field","name":{"kind":"Name","value":"occurrenceCount"}},{"kind":"Field","alias":{"kind":"Name","value":"featuredImageUrl"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"300"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"200"}}]},{"kind":"Field","name":{"kind":"Name","value":"featuredImageLicense"}}]}}]} as unknown as DocumentNode<InstitutionResultFragment, unknown>;
 export const LiteratureResultFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LiteratureResult"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Literature"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"literatureType"}},{"kind":"Field","name":{"kind":"Name","value":"year"}},{"kind":"Field","name":{"kind":"Name","value":"relevance"}},{"kind":"Field","name":{"kind":"Name","value":"topics"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}}]}}]} as unknown as DocumentNode<LiteratureResultFragment, unknown>;
 export const ArticleBannerFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ArticleBanner"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AssetImage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"details"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"normal"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"1200"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"500"}}]},{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"800"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}}]}}]} as unknown as DocumentNode<ArticleBannerFragment, unknown>;
 export const NetworkAboutTabFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"NetworkAboutTab"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"NetworkProse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ArticleBanner"}}]}},{"kind":"Field","name":{"kind":"Name","value":"primaryLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ArticleBanner"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AssetImage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"details"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"normal"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"1200"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"500"}}]},{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"800"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}}]}}]} as unknown as DocumentNode<NetworkAboutTabFragment, unknown>;
@@ -8952,7 +9112,10 @@ export const InstallationDatasetsDocument = {"kind":"Document","definitions":[{"
 export const InstallationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Installation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"installation"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"deleted"}},{"kind":"Field","name":{"kind":"Name","value":"created"}},{"kind":"Field","name":{"kind":"Name","value":"homepage"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"endpoints"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"contacts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"homepage"}},{"kind":"Field","name":{"kind":"Name","value":"organization"}},{"kind":"Field","name":{"kind":"Name","value":"roles"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"dataset"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"0"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]} as unknown as DocumentNode<InstallationQuery, InstallationQueryVariables>;
 export const InstitutionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Institution"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"institution"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"homepage"}},{"kind":"Field","name":{"kind":"Name","value":"catalogUrls"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeCodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"Field","name":{"kind":"Name","value":"types"}},{"kind":"Field","name":{"kind":"Name","value":"apiUrls"}},{"kind":"Field","name":{"kind":"Name","value":"institutionalGovernances"}},{"kind":"Field","name":{"kind":"Name","value":"disciplines"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"additionalNames"}},{"kind":"Field","name":{"kind":"Name","value":"foundingDate"}},{"kind":"Field","name":{"kind":"Name","value":"numberSpecimens"}},{"kind":"Field","name":{"kind":"Name","value":"logoUrl"}},{"kind":"Field","alias":{"kind":"Name","value":"featuredImageUrl"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"1000"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"667"}}]},{"kind":"Field","name":{"kind":"Name","value":"featuredImageLicense"}},{"kind":"Field","alias":{"kind":"Name","value":"featuredImageUrl_fallback"},"name":{"kind":"Name","value":"homepageOGImageUrl_volatile"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"onlyIfNoImageUrl"},"value":{"kind":"BooleanValue","value":true}}]},{"kind":"Field","name":{"kind":"Name","value":"masterSourceMetadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"source"}},{"kind":"Field","name":{"kind":"Name","value":"sourceId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"created"}},{"kind":"Field","name":{"kind":"Name","value":"deleted"}},{"kind":"Field","name":{"kind":"Name","value":"modified"}},{"kind":"Field","name":{"kind":"Name","value":"modifiedBy"}},{"kind":"Field","name":{"kind":"Name","value":"replacedByInstitution"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"key"}}]}},{"kind":"Field","name":{"kind":"Name","value":"identifiers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"identifier"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"contactPersons"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"taxonomicExpertise"}},{"kind":"Field","name":{"kind":"Name","value":"primary"}},{"kind":"Field","name":{"kind":"Name","value":"position"}},{"kind":"Field","name":{"kind":"Name","value":"userIds"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"numberSpecimens"}},{"kind":"Field","name":{"kind":"Name","value":"mailingAddress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"province"}},{"kind":"Field","name":{"kind":"Name","value":"postalCode"}},{"kind":"Field","name":{"kind":"Name","value":"country"}}]}},{"kind":"Field","name":{"kind":"Name","value":"address"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"province"}},{"kind":"Field","name":{"kind":"Name","value":"postalCode"}},{"kind":"Field","name":{"kind":"Name","value":"country"}}]}},{"kind":"Field","name":{"kind":"Name","value":"collections"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"200"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"numberSpecimens"}},{"kind":"Field","name":{"kind":"Name","value":"richness"}}]}}]}}]}}]} as unknown as DocumentNode<InstitutionQuery, InstitutionQueryVariables>;
 export const InstitutionSummaryMetricsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"InstitutionSummaryMetrics"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"imagePredicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"coordinatePredicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"clusterPredicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documents"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"0"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"institution"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"collections"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"200"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"occurrenceCount"}},{"kind":"Field","name":{"kind":"Name","value":"richness"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"withImages"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"imagePredicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documents"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"0"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"withCoordinates"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"coordinatePredicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documents"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"0"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"withClusters"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"clusterPredicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documents"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"0"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}}]}}]} as unknown as DocumentNode<InstitutionSummaryMetricsQuery, InstitutionSummaryMetricsQueryVariables>;
-export const InstitutionSearchDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"InstitutionSearch"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"offset"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"list"},"name":{"kind":"Name","value":"institutionSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"offset"},"value":{"kind":"Variable","name":{"kind":"Name","value":"offset"}}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"100"}},{"kind":"Argument","name":{"kind":"Name","value":"sortBy"},"value":{"kind":"EnumValue","value":"NUMBER_SPECIMENS"}},{"kind":"Argument","name":{"kind":"Name","value":"sortOrder"},"value":{"kind":"EnumValue","value":"DESC"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"title"},"name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"key"}}]}}]}}]}}]} as unknown as DocumentNode<InstitutionSearchQuery, InstitutionSearchQueryVariables>;
+export const InstitutionCityFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"InstitutionCityFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"InstitutionSearchInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"institutionSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"city"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<InstitutionCityFacetQuery, InstitutionCityFacetQueryVariables>;
+export const InstitutionDisciplineFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"InstitutionDisciplineFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"InstitutionSearchInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"institutionSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"discipline"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<InstitutionDisciplineFacetQuery, InstitutionDisciplineFacetQueryVariables>;
+export const InstitutionTypeStatusFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"InstitutionTypeStatusFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"InstitutionSearchInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"institutionSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"type"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<InstitutionTypeStatusFacetQuery, InstitutionTypeStatusFacetQueryVariables>;
+export const InstitutionSearchDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"InstitutionSearch"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"InstitutionSearchInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"institutionSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"offset"}},{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InstitutionResult"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InstitutionResult"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"InstitutionSearchEntity"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"active"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"country"}},{"kind":"Field","name":{"kind":"Name","value":"mailingCountry"}},{"kind":"Field","name":{"kind":"Name","value":"collectionCount"}},{"kind":"Field","name":{"kind":"Name","value":"numberSpecimens"}},{"kind":"Field","name":{"kind":"Name","value":"occurrenceCount"}},{"kind":"Field","alias":{"kind":"Name","value":"featuredImageUrl"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"300"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"200"}}]},{"kind":"Field","name":{"kind":"Name","value":"featuredImageLicense"}}]}}]} as unknown as DocumentNode<InstitutionSearchQuery, InstitutionSearchQueryVariables>;
 export const LiteratureCoverageCountryFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"LiteratureCoverageCountryFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"literatureSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"countriesOfCoverage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<LiteratureCoverageCountryFacetQuery, LiteratureCoverageCountryFacetQueryVariables>;
 export const LiteratureRelevanceFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"LiteratureRelevanceFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"literatureSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"relevance"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<LiteratureRelevanceFacetQuery, LiteratureRelevanceFacetQueryVariables>;
 export const LiteratureTopicsFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"LiteratureTopicsFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"literatureSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"topics"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<LiteratureTopicsFacetQuery, LiteratureTopicsFacetQueryVariables>;

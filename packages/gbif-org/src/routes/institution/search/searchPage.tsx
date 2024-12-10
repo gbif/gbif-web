@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { DynamicLink } from '@/reactRouterPlugins';
 import useQuery from '@/hooks/useQuery';
 
-const INSTITUTION_SEARCH_QUERY = /* GraphQL */ `
+const INSTITUTION_SEARCH_QUERY = `
   query InstitutionSearch($offset: Int) {
     list: institutionSearch(
       offset: $offset

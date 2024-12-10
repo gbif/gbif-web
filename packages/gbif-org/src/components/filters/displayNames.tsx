@@ -239,6 +239,16 @@ export const collectionContentTypeLabel = getEndpointLabel({
   transform: getVocabularyLabel,
 });
 
+export const InstitutionTypeLabel = getEndpointLabel({
+  template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/InstitutionType/concepts/${id}`,
+  transform: getVocabularyLabel,
+});
+
+export const InstitutionDisciplineLabel = getEndpointLabel({
+  template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/Discipline/concepts/${id}`,
+  transform: getVocabularyLabel,
+});
+
 export const CollectionLabel = getGraphQlLabel({
   query: `query($key:ID!) {item:collection(key: $key) {title: name}}`,
 });

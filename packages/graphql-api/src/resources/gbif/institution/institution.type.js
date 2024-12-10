@@ -7,32 +7,105 @@ const typeDef = gql`
       offset: Int
       q: String
       contact: ID
-      code: String
-      name: String
-      fuzzyName: String
-      city: String
-      country: [Country]
-      alternativeCode: String
-      active: Boolean
-      numberSpecimens: String
-      occurrenceCount: String
+      code: [String!]
+      name: [String!]
+      fuzzyName: [String!]
+      city: [String!]
+      country: [Country!]
+      alternativeCode: [String!]
+      active: [Boolean!]
+      numberSpecimens: [String!]
+      occurrenceCount: [String!]
       identifier: String
-      type: String
-      institutionKey: [GUID]
-      discipline: [String]
-      displayOnNHCPortal: Boolean
+      type: [String!]
+      institutionKey: [GUID!]
+      discipline: [String!]
+      displayOnNHCPortal: [Boolean!]
       sortBy: CollectionsSortField
       sortOrder: SortOrder
+      query: InstitutionSearchInput
     ): InstitutionSearchResults
     institution(key: ID!): Institution
   }
 
+  input InstitutionSearchInput {
+    limit: Int
+    offset: Int
+    q: String
+    contact: ID
+    code: [String!]
+    name: [String!]
+    fuzzyName: [String!]
+    city: [String!]
+    country: [Country!]
+    alternativeCode: [String!]
+    active: [Boolean!]
+    numberSpecimens: [String!]
+    occurrenceCount: [String!]
+    identifier: String
+    type: [String!]
+    institutionKey: [GUID!]
+    discipline: [String!]
+    displayOnNHCPortal: [Boolean!]
+    sortBy: CollectionsSortField
+    sortOrder: SortOrder
+  }
+
   type InstitutionSearchResults {
-    results: [Institution]!
+    results: [InstitutionSearchEntity]!
     limit: Int!
     offset: Int!
     count: Int!
     endOfRecords: Boolean!
+    facet: InstitutionFacet
+    cardinality: InstitutionCardinality
+  }
+
+  type InstitutionFacet {
+    country(limit: Int, offset: Int): [InstitutionFacetResult]
+    city(limit: Int, offset: Int): [InstitutionFacetResult]
+    type(limit: Int, offset: Int): [InstitutionFacetResult]
+    discipline(limit: Int, offset: Int): [InstitutionFacetResult]
+  }
+
+  type InstitutionCardinality {
+    country(limit: Int, offset: Int): Int!
+    city(limit: Int, offset: Int): Int!
+    type(limit: Int, offset: Int): Int!
+    discipline(limit: Int, offset: Int): Int!
+  }
+
+  type InstitutionFacetResult {
+    name: String!
+    count: Int!
+    _query: JSON
+  }
+
+  type InstitutionSearchEntity {
+    key: ID!
+    code: String
+    name: String
+    description: String
+    alternativeCodes: [AlternativeCode!]
+    country: Country
+    mailingCountry: Country
+    city: String
+    mailingCity: String
+    active: Boolean
+    displayOnNHCPortal: Boolean
+    types: [String!]
+    institutionalGovernances: [String!]
+    disciplines: [String!]
+    latitude: Float
+    longitude: Float
+    foundingDate: Int
+    occurrenceCount: Long
+    numberSpecimens: Long
+    collectionCount: Int
+    featuredImageUrl: String
+    featuredImageLicense: License
+    thumbor(width: Int, height: Int, fitIn: Boolean): String
+    excerpt: String
   }
 
   type Institution {
@@ -93,8 +166,8 @@ const typeDef = gql`
     occurrenceCount: Int
     masterSource: String
     masterSourceMetadata: MasterSourceMetadata
+    excerpt: String
   }
-
 `;
 
 export default typeDef;

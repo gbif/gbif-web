@@ -170,6 +170,10 @@ export const gbifConfig: Config = {
       defaultTab: 'table',
     },
   },
+  institutionSearch: {
+    queryType: 'V1',
+    highlightedFilters: ['q', 'code', 'country', 'numberSpecimens', 'occurrenceCount'],
+  },
   literatureSearch: {
     queryType: 'PREDICATE',
     highlightedFilters: ['q', 'year'],

@@ -39,6 +39,7 @@
   "discard": "Discard",
   "keep": "Keep",
   "copyToClipboard": "Copy to clipboard",
+  "fromCountry": "From {country}",
   "copiedToClipboard": "Copied to clipboard",
   "headers": {
     "description": "Description",
