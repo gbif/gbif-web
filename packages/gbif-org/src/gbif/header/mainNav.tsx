@@ -20,7 +20,7 @@ function MainNavigation({ menu }: { menu: HeaderQuery }) {
   return (
     <>
       <div className="g-hidden lg:g-block">
-        <NavigationMenu value={value} onValueChange={setValue}>
+        <NavigationMenu value={value} onValueChange={setValue} className="g-z-30">
           <NavigationMenuList>
             {children?.map((parent) => {
               const groups = parent?.children?.[0].children ? parent?.children?.length : 1;

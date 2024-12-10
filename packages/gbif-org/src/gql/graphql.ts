@@ -484,6 +484,11 @@ export type CollectionDescriptorGroupsArgs = {
 };
 
 
+export type CollectionHomepageOgImageUrl_VolatileArgs = {
+  onlyIfNoImageUrl?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
 export type CollectionThumborArgs = {
   fitIn?: InputMaybe<Scalars['Boolean']['input']>;
   height?: InputMaybe<Scalars['Int']['input']>;
@@ -493,17 +498,37 @@ export type CollectionThumborArgs = {
 export type CollectionCardinality = {
   __typename?: 'CollectionCardinality';
   accessionStatus: Scalars['Int']['output'];
+  city: Scalars['Int']['output'];
+  classKey: Scalars['Int']['output'];
   contentType: Scalars['Int']['output'];
   country: Scalars['Int']['output'];
   descriptorCountry: Scalars['Int']['output'];
+  familyKey: Scalars['Int']['output'];
+  genusKey: Scalars['Int']['output'];
   institutionKey: Scalars['Int']['output'];
   kingdomKey: Scalars['Int']['output'];
+  orderKey: Scalars['Int']['output'];
   phylumKey: Scalars['Int']['output'];
   preservationType: Scalars['Int']['output'];
+  recordedBy: Scalars['Int']['output'];
+  speciesKey: Scalars['Int']['output'];
+  typeStatus: Scalars['Int']['output'];
 };
 
 
 export type CollectionCardinalityAccessionStatusArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type CollectionCardinalityCityArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type CollectionCardinalityClassKeyArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -527,6 +552,18 @@ export type CollectionCardinalityDescriptorCountryArgs = {
 };
 
 
+export type CollectionCardinalityFamilyKeyArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type CollectionCardinalityGenusKeyArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
 export type CollectionCardinalityInstitutionKeyArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -539,6 +576,12 @@ export type CollectionCardinalityKingdomKeyArgs = {
 };
 
 
+export type CollectionCardinalityOrderKeyArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
 export type CollectionCardinalityPhylumKeyArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -546,6 +589,24 @@ export type CollectionCardinalityPhylumKeyArgs = {
 
 
 export type CollectionCardinalityPreservationTypeArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type CollectionCardinalityRecordedByArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type CollectionCardinalitySpeciesKeyArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type CollectionCardinalityTypeStatusArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -676,17 +737,37 @@ export type CollectionDescriptorResults = {
 export type CollectionFacet = {
   __typename?: 'CollectionFacet';
   accessionStatus?: Maybe<Array<Maybe<CollectionFacetResult>>>;
+  city?: Maybe<Array<Maybe<CollectionFacetResult>>>;
+  classKey?: Maybe<Array<Maybe<CollectionFacetResult>>>;
   contentType?: Maybe<Array<Maybe<CollectionFacetResult>>>;
   country?: Maybe<Array<Maybe<CollectionFacetResult>>>;
   descriptorCountry?: Maybe<Array<Maybe<CollectionFacetResult>>>;
+  familyKey?: Maybe<Array<Maybe<CollectionFacetResult>>>;
+  genusKey?: Maybe<Array<Maybe<CollectionFacetResult>>>;
   institutionKey?: Maybe<Array<Maybe<CollectionFacetResult>>>;
   kingdomKey?: Maybe<Array<Maybe<CollectionFacetResult>>>;
+  orderKey?: Maybe<Array<Maybe<CollectionFacetResult>>>;
   phylumKey?: Maybe<Array<Maybe<CollectionFacetResult>>>;
   preservationType?: Maybe<Array<Maybe<CollectionFacetResult>>>;
+  recordedBy?: Maybe<Array<Maybe<CollectionFacetResult>>>;
+  speciesKey?: Maybe<Array<Maybe<CollectionFacetResult>>>;
+  typeStatus?: Maybe<Array<Maybe<CollectionFacetResult>>>;
 };
 
 
 export type CollectionFacetAccessionStatusArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type CollectionFacetCityArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type CollectionFacetClassKeyArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -710,6 +791,18 @@ export type CollectionFacetDescriptorCountryArgs = {
 };
 
 
+export type CollectionFacetFamilyKeyArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type CollectionFacetGenusKeyArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
 export type CollectionFacetInstitutionKeyArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -717,6 +810,12 @@ export type CollectionFacetInstitutionKeyArgs = {
 
 
 export type CollectionFacetKingdomKeyArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type CollectionFacetOrderKeyArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -732,6 +831,44 @@ export type CollectionFacetPreservationTypeArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
+
+
+export type CollectionFacetRecordedByArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type CollectionFacetSpeciesKeyArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type CollectionFacetTypeStatusArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export enum CollectionFacetParameter {
+  AccessionStatus = 'ACCESSION_STATUS',
+  City = 'CITY',
+  ClassKey = 'CLASS_KEY',
+  ContentType = 'CONTENT_TYPE',
+  Country = 'COUNTRY',
+  DescriptorCountry = 'DESCRIPTOR_COUNTRY',
+  FamilyKey = 'FAMILY_KEY',
+  GenusKey = 'GENUS_KEY',
+  InstitutionKey = 'INSTITUTION_KEY',
+  KingdomKey = 'KINGDOM_KEY',
+  ObjectClassification = 'OBJECT_CLASSIFICATION',
+  OrderKey = 'ORDER_KEY',
+  PhylumKey = 'PHYLUM_KEY',
+  PreservationType = 'PRESERVATION_TYPE',
+  RecordedBy = 'RECORDED_BY',
+  SpeciesKey = 'SPECIES_KEY',
+  TypeStatus = 'TYPE_STATUS'
+}
 
 export type CollectionFacetResult = {
   __typename?: 'CollectionFacetResult';
@@ -1658,6 +1795,7 @@ export type DescriptorMatches = {
   issues?: Maybe<Array<OccurrenceIssue>>;
   key?: Maybe<Scalars['ID']['output']>;
   recordedBy?: Maybe<Array<Scalars['String']['output']>>;
+  taxon?: Maybe<Taxon>;
   typeStatus?: Maybe<Array<TypeStatus>>;
   usageKey?: Maybe<Scalars['Long']['output']>;
   usageName?: Maybe<Scalars['String']['output']>;
@@ -2031,8 +2169,11 @@ export type Endpoint = {
 };
 
 export enum EndpointType {
+  Acef = 'ACEF',
   Biocase = 'BIOCASE',
   BiocaseXmlArchive = 'BIOCASE_XML_ARCHIVE',
+  Biom_1_0 = 'BIOM_1_0',
+  Biom_2_1 = 'BIOM_2_1',
   CamtrapDp = 'CAMTRAP_DP',
   Coldp = 'COLDP',
   Digir = 'DIGIR',
@@ -2045,6 +2186,7 @@ export enum EndpointType {
   Tapir = 'TAPIR',
   TcsRdf = 'TCS_RDF',
   TcsXml = 'TCS_XML',
+  TextTree = 'TEXT_TREE',
   Wfs = 'WFS',
   Wms = 'WMS'
 }
@@ -2714,6 +2856,11 @@ export type FeaturedTextBlock = {
   title?: Maybe<Scalars['String']['output']>;
 };
 
+export enum Format {
+  Default = 'DEFAULT',
+  LatimerCore = 'LATIMER_CORE'
+}
+
 export type FundingOrganisation = {
   __typename?: 'FundingOrganisation';
   id: Scalars['ID']['output'];
@@ -2941,6 +3088,7 @@ export type Identifier = {
 
 export enum IdentifierType {
   Cites = 'CITES',
+  ClbDatasetKey = 'CLB_DATASET_KEY',
   Doi = 'DOI',
   Ftp = 'FTP',
   GbifNode = 'GBIF_NODE',
@@ -2951,6 +3099,7 @@ export enum IdentifierType {
   GrscicollUri = 'GRSCICOLL_URI',
   Handler = 'HANDLER',
   IhIrn = 'IH_IRN',
+  Isil = 'ISIL',
   Lsid = 'LSID',
   NcbiBiocollection = 'NCBI_BIOCOLLECTION',
   Ror = 'ROR',
@@ -3070,6 +3219,7 @@ export enum InstallationType {
   EarthcapeInstallation = 'EARTHCAPE_INSTALLATION',
   HttpInstallation = 'HTTP_INSTALLATION',
   IptInstallation = 'IPT_INSTALLATION',
+  MdtInstallation = 'MDT_INSTALLATION',
   SymbiotaInstallation = 'SYMBIOTA_INSTALLATION',
   TapirInstallation = 'TAPIR_INSTALLATION'
 }
@@ -3134,11 +3284,23 @@ export type InstitutionCollectionsArgs = {
 };
 
 
+export type InstitutionHomepageOgImageUrl_VolatileArgs = {
+  onlyIfNoImageUrl?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
 export type InstitutionThumborArgs = {
   fitIn?: InputMaybe<Scalars['Boolean']['input']>;
   height?: InputMaybe<Scalars['Int']['input']>;
   width?: InputMaybe<Scalars['Int']['input']>;
 };
+
+export enum InstitutionFacetParameter {
+  City = 'CITY',
+  Country = 'COUNTRY',
+  Discipline = 'DISCIPLINE',
+  Type = 'TYPE'
+}
 
 export enum InstitutionGovernance {
   AcademicFederal = 'ACADEMIC_FEDERAL',
@@ -3658,9 +3820,11 @@ export enum LiteratureRelevance {
 }
 
 export enum LiteratureSearchParameter {
+  Added = 'ADDED',
   CitationType = 'CITATION_TYPE',
   CountriesOfCoverage = 'COUNTRIES_OF_COVERAGE',
   CountriesOfResearcher = 'COUNTRIES_OF_RESEARCHER',
+  Discovered = 'DISCOVERED',
   Doi = 'DOI',
   GbifDatasetKey = 'GBIF_DATASET_KEY',
   GbifDownloadKey = 'GBIF_DOWNLOAD_KEY',
@@ -3672,13 +3836,17 @@ export enum LiteratureSearchParameter {
   GbifTaxonKey = 'GBIF_TAXON_KEY',
   Language = 'LANGUAGE',
   LiteratureType = 'LITERATURE_TYPE',
+  Modified = 'MODIFIED',
   OpenAccess = 'OPEN_ACCESS',
   PeerReview = 'PEER_REVIEW',
+  Published = 'PUBLISHED',
   Publisher = 'PUBLISHER',
+  PublishingCountry = 'PUBLISHING_COUNTRY',
   PublishingOrganizationKey = 'PUBLISHING_ORGANIZATION_KEY',
   Relevance = 'RELEVANCE',
   Source = 'SOURCE',
   Topics = 'TOPICS',
+  Websites = 'WEBSITES',
   Year = 'YEAR'
 }
 
@@ -4554,6 +4722,7 @@ export type OccurrenceCardinality = {
   identifiedBy: Scalars['Long']['output'];
   institutionCode: Scalars['Long']['output'];
   institutionKey: Scalars['Long']['output'];
+  isSequenced: Scalars['Long']['output'];
   issue: Scalars['Long']['output'];
   iucnRedListCategory: Scalars['Long']['output'];
   kingdomKey: Scalars['Long']['output'];
@@ -4719,6 +4888,8 @@ export type OccurrenceFacet = {
   installationKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Installation>>>;
   institutionCode?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   institutionKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Institution>>>;
+  isInCluster?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  isSequenced?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
   issue?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   iucnRedListCategory?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   kingdomKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
@@ -4736,7 +4907,7 @@ export type OccurrenceFacet = {
   month?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
   networkKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Network>>>;
   occurrenceId?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
-  occurrenceStatus?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  occurrenceStatus?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   orderKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
   organismId?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   organismQuantity?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
@@ -5171,6 +5342,18 @@ export type OccurrenceFacetInstitutionCodeArgs = {
 
 
 export type OccurrenceFacetInstitutionKeyArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetIsInClusterArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetIsSequencedArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -5799,6 +5982,7 @@ export enum OccurrenceIssue {
   ReferencesUriInvalid = 'REFERENCES_URI_INVALID',
   ScientificNameAndIdInconsistent = 'SCIENTIFIC_NAME_AND_ID_INCONSISTENT',
   ScientificNameIdNotFound = 'SCIENTIFIC_NAME_ID_NOT_FOUND',
+  SuspectedType = 'SUSPECTED_TYPE',
   TaxonConceptIdNotFound = 'TAXON_CONCEPT_ID_NOT_FOUND',
   TaxonIdNotFound = 'TAXON_ID_NOT_FOUND',
   TaxonMatchAggregate = 'TAXON_MATCH_AGGREGATE',
@@ -5869,6 +6053,7 @@ export enum OccurrenceSearchParameter {
   EndDayOfYear = 'END_DAY_OF_YEAR',
   EstablishmentMeans = 'ESTABLISHMENT_MEANS',
   EventDate = 'EVENT_DATE',
+  EventDateGte = 'EVENT_DATE_GTE',
   EventId = 'EVENT_ID',
   FamilyKey = 'FAMILY_KEY',
   FieldNumber = 'FIELD_NUMBER',
@@ -6220,6 +6405,7 @@ export enum PredicateType {
   GeoDistance = 'geoDistance',
   In = 'in',
   IsNotNull = 'isNotNull',
+  IsNull = 'isNull',
   Like = 'like',
   Nested = 'nested',
   Not = 'not',
