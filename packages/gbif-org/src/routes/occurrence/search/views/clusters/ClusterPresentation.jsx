@@ -48,22 +48,22 @@ export const ClusterPresentation = ({
   // update ordered list on items change
   useEffect(() => {
     if (activeCluster) {
-      setOrderedList(activeCluster.clusterNodes.map((item) => item));// todo sort so selected is first. else you start in the middle of the list
+      setOrderedList(activeCluster.clusterNodes.map((item) => item)); // todo sort so selected is first. else you start in the middle of the list
     }
   }, [activeCluster, setOrderedList]);
-  
+
   useEffect(() => {
     if (graph && activeKey) {
-      const clusterKey = graph.nodes.find(x => x.name === '' + activeKey).rootKey;
+      const clusterKey = graph.nodes.find((x) => x.name === '' + activeKey).rootKey;
       const cluster = graph.clusterMap[clusterKey];
       setActiveCluster(cluster);
       highlightNode({
         element: ref.current,
-        key: activeKey
+        key: activeKey,
       });
     } else {
       highlightNode({
-        element: ref.current
+        element: ref.current,
       });
     }
   }, [activeKey, graph]);
@@ -72,7 +72,7 @@ export const ClusterPresentation = ({
     if (!activeCluster) return;
     highlightNode({
       element: ref.current,
-      key: activeKey
+      key: activeKey,
     });
   }, [activeKey, activeCluster]);
 

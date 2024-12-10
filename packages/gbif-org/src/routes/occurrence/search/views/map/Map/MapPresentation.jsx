@@ -95,7 +95,9 @@ function Map({
   const [projection, setProjection] = useState(defaultProjection);
 
   let defaultStyle =
-    sessionStorage.getItem('defaultOccurrenceLayer') || config?.maps?.mapStyles?.defaultMapStyle || 'BRIGHT';
+    sessionStorage.getItem('defaultOccurrenceLayer') ||
+    config?.maps?.mapStyles?.defaultMapStyle ||
+    'BRIGHT';
   if (!mapStyles?.[defaultProjection]?.includes(defaultStyle)) {
     defaultStyle = mapStyles?.[defaultProjection]?.[0];
   }
@@ -109,7 +111,10 @@ function Map({
   const { toast } = useToast();
   const [, setPreviewKey] = useStringParam({ key: 'entity' });
   const [mapLoading, setMapLoading] = useState(false);
-  const items = React.useMemo(() => pointData?.occurrenceSearch?.documents?.results || [], [pointData]);
+  const items = React.useMemo(
+    () => pointData?.occurrenceSearch?.documents?.results || [],
+    [pointData]
+  );
 
   const updateLoading = useCallback((loading) => {
     setMapLoading(loading);
@@ -119,10 +124,13 @@ function Map({
     setOrderedList(items.map((item) => `o_${item.key}`));
   }, [items, setOrderedList]);
 
-  const selectPreview = useCallback((key) => {
-    updateList();
-    setPreviewKey(`o_${key}`);
-  }, [setPreviewKey, updateList]);
+  const selectPreview = useCallback(
+    (key) => {
+      updateList();
+      setPreviewKey(`o_${key}`);
+    },
+    [setPreviewKey, updateList]
+  );
 
   const { width, height, ref } = useResizeDetector({
     handleHeight: true,
@@ -258,10 +266,7 @@ function Map({
     <>
       <div
         ref={ref}
-        className={cn(
-          'mapArea g-flex-auto g-flex g-h-full g-flex-col g-relative',
-          className
-        )}
+        className={cn('mapArea g-flex-auto g-flex g-h-full g-flex-col g-relative', className)}
         {...{ style }}
       >
         <ViewHeader message="counts.nResultsWithCoordinates" loading={loading} total={total} />
@@ -370,4 +375,3 @@ const MenuButton = React.forwardRef(({ children, loading, ...props }, ref) => {
     </Button>
   );
 });
-

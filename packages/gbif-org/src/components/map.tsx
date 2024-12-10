@@ -8,11 +8,15 @@ import { cn } from '@/utils/shadcn';
 import { projections } from '@/routes/occurrence/search/views/map/Map/openlayers/projections';
 import { getMapStyles } from '@/routes/occurrence/search/views/map/Map/standardMapStyles';
 
-const mapStyles = getMapStyles({language: 'en'});
+const mapStyles = getMapStyles({ language: 'en' });
 const basemapStyle = mapStyles.NATURAL_PLATE_CAREE.mapConfig.basemapStyle;
 
 const currentProjection = projections.EPSG_4326;
-const interactions = olInteraction.defaults({ altShiftDragRotate: false, pinchRotate: false, mouseWheelZoom: true });
+const interactions = olInteraction.defaults({
+  altShiftDragRotate: false,
+  pinchRotate: false,
+  mouseWheelZoom: true,
+});
 
 type Props = {
   coordinates: {
@@ -35,7 +39,7 @@ export default function Map({ coordinates, className }: Props) {
     // const resolutions = baseLayer?.getSource()?.getTileGrid()?.getResolutions();
     // applyBackground(baseLayer, layerStyle, 'openmaptiles');
     // applyStyle(baseLayer, layerStyle, 'openmaptiles', undefined, resolutions);
-    
+
     const mapConfig = {
       layers: [baseLayer],
       target: mapRef.current ?? undefined,
@@ -46,15 +50,15 @@ export default function Map({ coordinates, className }: Props) {
 
     const map = new OpenLayersMap(mapConfig);
     // apply(map, mapStyles.NATURAL_PLATE_CAREE.mapConfig.basemapStyle);
-    const stylePromise = fetch(basemapStyle).then(response => response.json());
-    stylePromise.then(styleResponse => {
+    const stylePromise = fetch(basemapStyle).then((response) => response.json());
+    stylePromise.then((styleResponse) => {
       const baseLayer = currentProjection.getBaseLayer();
       const resolutions = baseLayer?.getSource()?.getTileGrid()?.getResolutions();
       applyBackground(baseLayer, styleResponse, 'openmaptiles');
       stylefunction(baseLayer, styleResponse, 'openmaptiles', resolutions);
       map.addLayer(baseLayer);
     });
-    
+
     // map.addLayer(baseLayer);
 
     // new OpenLayersMap({

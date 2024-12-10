@@ -86,7 +86,9 @@ export function PolygonLabel({ id }: { id: string | number | object }) {
       `${import.meta.env.PUBLIC_WEB_UTILS}/polygon-name?wkt=${id}`
     );
     return {
-      promise: promise.then((response) => response.json()).then((data) => ({ title: truncate(data.title, 100) })),
+      promise: promise
+        .then((response) => response.json())
+        .then((data) => ({ title: truncate(data.title, 100) })),
       cancel,
     };
   }, []);
@@ -232,7 +234,8 @@ export const preservationTypeLabel = getEndpointLabel({
 });
 
 export const collectionContentTypeLabel = getEndpointLabel({
-  template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/CollectionContentType/concepts/${id}`,
+  template: ({ id, v1Endpoint }) =>
+    `${v1Endpoint}/vocabularies/CollectionContentType/concepts/${id}`,
   transform: getVocabularyLabel,
 });
 

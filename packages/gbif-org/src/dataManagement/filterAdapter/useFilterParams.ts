@@ -18,12 +18,18 @@ import objectHash from 'object-hash';
 //   };
 // }
 
-export function useFilterParams({ filterConfig, paramsToRemove }: { filterConfig: FilterConfigType, paramsToRemove: string[] }): [FilterType, (filter: FilterType) => void] {
+export function useFilterParams({
+  filterConfig,
+  paramsToRemove,
+}: {
+  filterConfig: FilterConfigType;
+  paramsToRemove: string[];
+}): [FilterType, (filter: FilterType) => void] {
   const [remove] = useState(paramsToRemove ?? []);
   const [filter, setPublicFilter] = useState({});
   const [emptyQuery, setEmptyQuery] = useState({});
   const [observedParams, setObservedParams] = useState<string[]>([]);
-  const [query, setQuery] = useQueryParams({observedParams});
+  const [query, setQuery] = useQueryParams({ observedParams });
 
   // create an empty map to use as overwrites when a param is present in updates.
   // this simply generates a map with all keys set to undefined, but only the keys that are defined in the filterConfig
@@ -33,7 +39,7 @@ export function useFilterParams({ filterConfig, paramsToRemove }: { filterConfig
     if (!isPlainObject(fields)) return;
     setObservedParams([...Object.keys(fields), 'filter']);
 
-    const empty: { [key: string]: undefined } = ([...Object.keys(fields), ...remove]).reduce(
+    const empty: { [key: string]: undefined } = [...Object.keys(fields), ...remove].reduce(
       (accumulator: { [key: string]: undefined }, curr: string) => {
         const fieldConfig = fields[curr];
         accumulator[fieldConfig?.defaultKey || curr] = undefined;
@@ -79,23 +85,26 @@ export function useFilterParams({ filterConfig, paramsToRemove }: { filterConfig
   return [filter, setFilter];
 }
 
-function useQueryParams({observedParams}: {observedParams: string[]}) {
+function useQueryParams({ observedParams }: { observedParams: string[] }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState({});
-  
+
   // useCallback to to setsearchparams, but before doing so it should turn everything into string or array of strings
-  const updateQuery = useCallback((nextQuery: any) => {
-    const existingQuery = parseParams(searchParams, true);
-    const mergedQuery = {...existingQuery, ...nextQuery};
-    const stringParams = asStringParams(mergedQuery);
-    setSearchParams(stringParams);
-  }, [setSearchParams, observedParams]);
+  const updateQuery = useCallback(
+    (nextQuery: any) => {
+      const existingQuery = parseParams(searchParams, true);
+      const mergedQuery = { ...existingQuery, ...nextQuery };
+      const stringParams = asStringParams(mergedQuery);
+      setSearchParams(stringParams);
+    },
+    [setSearchParams, observedParams]
+  );
 
   // use effect to watch searchParams and set a public query after having parsed the strings into objects, numbers etc
   useEffect(() => {
     const query = parseParams(searchParams, true);
     // delete query properties that aren't observedParams
-    Object.keys(query).forEach(key => {
+    Object.keys(query).forEach((key) => {
       if (!observedParams.includes(key)) {
         delete query[key];
       }

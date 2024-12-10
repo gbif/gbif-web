@@ -17,6 +17,7 @@ import { Dashboard } from './views/dashboard';
 import { Download } from './views/download';
 import { Map } from './views/map';
 import { Media } from './views/media';
+import { OccurrenceTable } from './views/table';
 import { Dataset } from './views/datasets';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
@@ -26,7 +27,10 @@ import { Link } from 'react-router-dom';
 import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
 
 export function OccurrenceSearchPage(): React.ReactElement {
-  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig, paramsToRemove: ['offset', 'from'] });
+  const [filter, setFilter] = useFilterParams({
+    filterConfig: searchConfig,
+    paramsToRemove: ['offset', 'from'],
+  });
   const config = useConfig();
 
   return (
@@ -126,7 +130,7 @@ function Views({ view, className }: { view?: string; className?: string }) {
       <div className={cn('', className)}>
         {fixedHeight && (
           <DynamicHeightDiv minPxHeight={500}>
-            {view === 'table' && <h1>Table</h1>}
+            {view === 'table' && <OccurrenceTable />}
             {view === 'map' && <Map />}
             {view === 'clusters' && <Clusters />}
           </DynamicHeightDiv>

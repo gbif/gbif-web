@@ -189,7 +189,6 @@ function Clusters() {
         console.log(error);
         // setGraph();
       }
-
       try {
         const graph = transformResult({ data });
         setGraph(graph);

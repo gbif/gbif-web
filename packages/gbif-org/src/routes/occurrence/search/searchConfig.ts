@@ -66,7 +66,7 @@ const otherParams = [
   'datasetKey',
 
   'establishmentMeans',
-  
+
   'institutionCode',
   'collectionCode',
   'recordNumber',
@@ -82,7 +82,7 @@ const otherParams = [
   'typeStatus',
   'issue',
   'occurrenceStatus',
-  
+
   'projectId',
   'recordedById',
   'identifiedById',
@@ -90,7 +90,7 @@ const otherParams = [
   'organismId',
   'higherGeography',
   'eventId',
-  
+
   'isInCluster',
   'isSequenced',
 
@@ -104,7 +104,7 @@ const otherParams = [
   'stateProvince',
   'samplingProtocol',
   'verbatimScientificName',
-  
+
   'geometry',
   'hasCoordinate',
   'hasGeospatialIssue',

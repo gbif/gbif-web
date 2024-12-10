@@ -91,7 +91,7 @@ const taxonKeyConfig: filterSuggestConfig = {
   filterHandle: 'taxonKey',
   displayName: TaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
-  suggestConfig: taxonKeySuggest
+  suggestConfig: taxonKeySuggest,
 };
 
 const descriptorCountryConfig: filterSuggestConfig = {
@@ -293,16 +293,36 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
       name: generateFilters({ config: nameConfig, searchConfig, formatMessage }),
       active: generateFilters({ config: activeConfig, searchConfig, formatMessage }),
-      personalCollection: generateFilters({ config: personalCollectionConfig, searchConfig, formatMessage }),
+      personalCollection: generateFilters({
+        config: personalCollectionConfig,
+        searchConfig,
+        formatMessage,
+      }),
       code: generateFilters({ config: codeConfig, searchConfig, formatMessage }),
       city: generateFilters({ config: cityConfig, searchConfig, formatMessage }),
       recordedBy: generateFilters({ config: recordedByConfig, searchConfig, formatMessage }),
       contentType: generateFilters({ config: contentTypeConfig, searchConfig, formatMessage }),
-      preservationType: generateFilters({ config: preservationTypeConfig, searchConfig, formatMessage }),
+      preservationType: generateFilters({
+        config: preservationTypeConfig,
+        searchConfig,
+        formatMessage,
+      }),
       typeStatus: generateFilters({ config: typeStatusConfig, searchConfig, formatMessage }),
-      alternativeCode: generateFilters({ config: alternativeCodeConfig, searchConfig, formatMessage }),
-      numberSpecimens: generateFilters({ config: numberSpecimensConfig, searchConfig, formatMessage }),
-      occurrenceCount: generateFilters({ config: occurrenceCountConfig, searchConfig, formatMessage }),
+      alternativeCode: generateFilters({
+        config: alternativeCodeConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      numberSpecimens: generateFilters({
+        config: numberSpecimensConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      occurrenceCount: generateFilters({
+        config: occurrenceCountConfig,
+        searchConfig,
+        formatMessage,
+      }),
       country: generateFilters({
         config: { ...countryConfig, suggestConfig: { getSuggestions: countrySuggest } },
         searchConfig,

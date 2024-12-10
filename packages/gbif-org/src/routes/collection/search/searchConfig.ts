@@ -3,7 +3,7 @@ import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicat
 export const config: FilterConfigType = {
   fields: {
     q: {
-      singleValue: true
+      singleValue: true,
     },
     // name: {
     //   singleValue: true
@@ -18,12 +18,27 @@ export const config: FilterConfigType = {
         supportedTypes: ['range', 'equals'],
       },
     },
-  }
-}
+  },
+};
 
-const otherParams = ['active', 'code', 'personalCollection', 'recordedBy', 'contentType', 'preservationType', 'alternativeCode', 'city', 'country', 'typeStatus', 'descriptorCountry', 'numberSpecimens', 'institutionKey', 'taxonKey'];
+const otherParams = [
+  'active',
+  'code',
+  'personalCollection',
+  'recordedBy',
+  'contentType',
+  'preservationType',
+  'alternativeCode',
+  'city',
+  'country',
+  'typeStatus',
+  'descriptorCountry',
+  'numberSpecimens',
+  'institutionKey',
+  'taxonKey',
+];
 
-otherParams.forEach(filter => {
+otherParams.forEach((filter) => {
   config.fields = config.fields ?? {};
   config.fields[filter] = config.fields[filter] || {};
 });

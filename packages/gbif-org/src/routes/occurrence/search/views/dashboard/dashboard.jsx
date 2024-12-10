@@ -4,14 +4,14 @@ import useLocalStorage from 'use-local-storage';
 import { FormattedMessage } from 'react-intl';
 import * as charts from '@/components/dashboard';
 import { Map } from '../map';
-// import { OccurrenceTable as Table } from '../table';
+import { OccurrenceTable as Table } from '../table';
 import { Media } from '../media';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/smallCard';
 import { useJsonParam } from '@/hooks/useParam';
 
 export function Dashboard({ predicate, chartsTypes: chartsTypesProp, ...props }) {
-  const [urlLayout, setUrlLayout] = useJsonParam({key: 'layout'});
+  const [urlLayout, setUrlLayout] = useJsonParam({ key: 'layout' });
   const [layout = [[]], setLayoutState] = useLocalStorage('occurrenceDashboardLayout', [[]]);
   const [chartsTypes, setChartsTypes] = useState([]);
 
@@ -302,19 +302,17 @@ const preconfiguredCharts = {
       );
     },
   },
-  // table: {
-  //   translation: 'search.tabs.table',
-  //   r: true, // resizable
-  //   component: ({ predicate, ...props }) => {
-  //     return (
-  //       <Card className="g-overflow-hidden g-overflow-y-auto g-h-full g-p-2">
-  //         <Table
-  //           {...props}
-  //         />
-  //       </Card>
-  //     );
-  //   },
-  // },
+  table: {
+    translation: 'search.tabs.table',
+    r: true, // resizable
+    component: ({ predicate, ...props }) => {
+      return (
+        <Card className="g-overflow-hidden g-overflow-y-auto g-h-full g-p-2">
+          <Table {...props} />
+        </Card>
+      );
+    },
+  },
   gallery: {
     translation: 'search.tabs.gallery',
     r: true, // resizable

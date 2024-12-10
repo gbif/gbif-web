@@ -104,7 +104,7 @@ function useParam<T>({
   parse,
   serialize,
   defaultValue,
-  hideDefault
+  hideDefault,
 }: {
   key: string;
   parse: (value?: string) => T;
@@ -125,17 +125,23 @@ function useParam<T>({
     setSearchParamsRef.current = setSearchParams;
   }, [setSearchParams]);
 
-  const setValue = useCallback((value: T, replace?: boolean) => {
-    setSearchParamsRef.current((params) => {
-      const clone = new URLSearchParams(params);
-      const serializedValue = typeof serialize === 'function' ? serialize(value) : value + '';
-      clone.set(key, serializedValue + '');
-      if (value === undefined || (value === defaultValue && hideDefault)) {
-        clone.delete(key);
-      }
-      return clone;
-    }, { replace });
-  }, [key, serialize, defaultValue, hideDefault]);
+  const setValue = useCallback(
+    (value: T, replace?: boolean) => {
+      setSearchParamsRef.current(
+        (params) => {
+          const clone = new URLSearchParams(params);
+          const serializedValue = typeof serialize === 'function' ? serialize(value) : value + '';
+          clone.set(key, serializedValue + '');
+          if (value === undefined || (value === defaultValue && hideDefault)) {
+            clone.delete(key);
+          }
+          return clone;
+        },
+        { replace }
+      );
+    },
+    [key, serialize, defaultValue, hideDefault]
+  );
 
   return [value, setValue];
 }

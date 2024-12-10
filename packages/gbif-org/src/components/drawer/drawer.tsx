@@ -49,7 +49,7 @@ function Backdrop({ isOpen, close, children }: Pick<Props, 'isOpen' | 'close' | 
     <div
       onClick={close}
       className={cn(
-        'g-fixed g-w-screen g-h-screen g-right-0 g-top-0 g-bg-gray-500 g-flex g-justify-end g-transition-all g-cursor-pointer g-z-20',
+        'g-fixed g-w-screen g-h-screen g-right-0 g-top-0 g-bg-gray-500 g-flex g-justify-end g-transition-all g-cursor-pointer g-z-50',
         {
           'g-pointer-events-none g-bg-opacity-0': !isOpen,
           'g-bg-opacity-50 g-overflow-hidden': isOpen,

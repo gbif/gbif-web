@@ -18,7 +18,10 @@ export type LanguageOption = {
   vocabularyLocale?: string; // this is the locale code used by the vocabulary server
 };
 
-type PartialSearchMetadata = Pick<SearchMetadata, 'availableTableColumns' | 'defaultEnabledTableColumns' | 'tabs' | 'defaultTab'>;
+type PartialSearchMetadata = Pick<
+  SearchMetadata,
+  'availableTableColumns' | 'defaultEnabledTableColumns' | 'tabs' | 'defaultTab'
+>;
 
 // TODO: The config object should probably be refactored in the future with logical nesting
 export type Config = Endpoints & {
@@ -41,20 +44,20 @@ export type Config = Endpoints & {
   datasetKey?: {
     literatureSearch: PartialSearchMetadata;
     occurrenceSearch: PartialSearchMetadata;
-  }
+  };
   collectionSearch?: SearchMetadata;
   collectionKey?: {
     occurrenceSearch: PartialSearchMetadata;
-  }
+  };
   institutionSearch?: SearchMetadata;
   institutionKey?: {
     occurrenceSearch: PartialSearchMetadata;
-  }
+  };
   occurrenceSearch?: SearchMetadata;
   publisherSearch?: SearchMetadata;
   publisherKey?: {
     literatureSearch: PartialSearchMetadata;
-  }
+  };
   literatureSearch?: SearchMetadata;
   extraOccurrenceSearchPages?: Array<{
     path: string;
@@ -71,7 +74,7 @@ export type Config = Endpoints & {
         MERCATOR: MapStyleType[];
         ANTARCTIC: MapStyleType[];
       };
-    },
+    };
     addMapStyles?: (args: {
       mapStyleServer: string;
       language: string;
@@ -81,16 +84,19 @@ export type Config = Endpoints & {
         OpenlayersMap: React.ComponentType;
         MapboxMap: React.ComponentType;
       };
-    }) => Record<string, {
-      component: React.ComponentType;
-      labelKey: string;
-      mapConfig: {
-        basemapStyle: string;
-        projection: Projection;
-      };
-    }>;
+    }) => Record<
+      string,
+      {
+        component: React.ComponentType;
+        labelKey: string;
+        mapConfig: {
+          basemapStyle: string;
+          projection: Projection;
+        };
+      }
+    >;
     styleLookup?: Partial<Record<ProjectionName, Record<string, string>>>;
-  }
+  };
 };
 
 type Projection = 'EPSG_4326' | 'EPSG_3857' | 'EPSG_3031' | 'EPSG_3575';

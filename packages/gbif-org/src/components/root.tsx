@@ -19,7 +19,7 @@ export function Root({ config, helmetContext, children }: Props) {
             <Helmet>
               <title>{config.defaultTitle}</title>
             </Helmet>
-            <TooltipProvider>{children}</TooltipProvider>
+            <TooltipProvider delayDuration={0}>{children}</TooltipProvider>
           </HelmetProvider>
         </SkeletonLoadingProvider>
       </ConfigProvider>
@@ -33,7 +33,7 @@ export function StandaloneRoot({ config, children }: Omit<Props, 'helmetContext'
       <OverwriteConfigProvider config={config}>
         <SkeletonLoadingProvider>
           <HelmetProvider>
-            <TooltipProvider>{children}</TooltipProvider>
+            <TooltipProvider delayDuration={0}>{children}</TooltipProvider>
           </HelmetProvider>
         </SkeletonLoadingProvider>
       </OverwriteConfigProvider>
