@@ -2,12 +2,15 @@ import React, { useCallback, useContext, useEffect, useRef, useState } from 'rea
 import { FilterContext, FilterProvider, FilterType } from '@/contexts/filter';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useUncontrolledProp } from 'uncontrollable';
+import { cn } from '@/utils/shadcn';
 
 export function FilterPopover({
   open,
   setOpen,
   children,
   trigger,
+  title,
+  className,
 }: {
   open?: boolean;
   setOpen?: (b: boolean) => void;
@@ -19,6 +22,8 @@ export function FilterPopover({
     } & React.RefAttributes<HTMLDivElement>
   >;
   trigger: React.ReactNode;
+  title?: React.ReactNode;
+  className?: string;
 }) {
   const [controlledOpen, setControlledOpen] = useUncontrolledProp(open, false, setOpen);
   const focusRef = useRef<HTMLDivElement>(null);
@@ -30,6 +35,8 @@ export function FilterPopover({
   useEffect(() => {
     setFilter(currentFilterContext.filter);
     setPristine(true);
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFilterContext.filterHash]);
 
   const onApply = useCallback(
@@ -47,6 +54,8 @@ export function FilterPopover({
     setFilter(currentFilterContext.filter);
     setControlledOpen(false);
     setPristine(true);
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFilterContext.filterHash, setControlledOpen]);
 
   const onFilterChange = useCallback((filter: FilterType) => {
@@ -67,18 +76,24 @@ export function FilterPopover({
         }}
         onEscapeKeyDown={onCancel}
         align="start"
-        className="g-flex g-flex-col g-p-0 g-w-96 g-max-w-[var(--radix-popper-available-width)] g-shadow-[0_10px_600px_-12px_rgba(0,0,0,0.2)]"
+        className={cn(
+          'g-w-96 g-flex g-flex-col g-p-0 g-max-w-[var(--radix-popper-available-width)] g-shadow-[0_10px_600px_-12px_rgba(0,0,0,0.2)]',
+          className
+        )}
       >
         <FilterProvider filter={tmpFilter} onChange={onFilterChange}>
           {React.isValidElement(child) && (
-            <form onSubmit={e => e.preventDefault()}>
-              {React.cloneElement(child, {
-                onApply,
-                onCancel,
-                pristine,
-                ref: focusRef,
-              })}
-            </form>
+            <>
+              {title}
+              <form onSubmit={(e) => e.preventDefault()}>
+                {React.cloneElement(child, {
+                  onApply,
+                  onCancel,
+                  pristine,
+                  ref: focusRef,
+                })}
+              </form>
+            </>
           )}
         </FilterProvider>
       </PopoverContent>

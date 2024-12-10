@@ -2,6 +2,7 @@
   "tabs": {
     "table": "Таблица",
     "gallery": "Галерея",
+    "media": "Архив, аннотированный GBIF",
     "map": "Карта",
     "datasets": "Опубликованных наборов данных",
     "events": "Мероприятия",
@@ -11,7 +12,11 @@
     "sites": "Архив, аннотированный GBIF"
   },
   "table": {
-    "lockColumn": ""
+    "lockColumn": "",
+    "unlockColumn": "Архив, аннотированный GBIF",
+    "columnVisibility": "Архив, аннотированный GBIF",
+    "resetColumnVisibility": "Архив, аннотированный GBIF",
+    "openFilter": "Архив, аннотированный GBIF"
   },
   "placeholders": {
     "default": "Поиск",

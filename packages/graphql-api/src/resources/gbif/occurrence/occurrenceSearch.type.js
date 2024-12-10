@@ -116,6 +116,7 @@ const typeDef = gql`
     gadmGid: Long!
     projectId: Long!
     higherGeography: Long!
+    isSequenced: Long!
   }
 
   type OccurrenceHistogram {
@@ -210,6 +211,7 @@ const typeDef = gql`
     gbifClassification_usageParsedName_basionymAuthorship_year(size: Int, from: Int): [OccurrenceFacetResult_string]
     gbifClassification_usageParsedName_combinationAuthorship_year(size: Int, from: Int): [OccurrenceFacetResult_string]
     iucnRedListCategory(size: Int, from: Int): [OccurrenceFacetResult_string]
+    occurrenceStatus(size: Int): [OccurrenceFacetResult_string]
 
     coordinatePrecision(size: Int, from: Int): [OccurrenceFacetResult_float]
     coordinateUncertaintyInMeters(size: Int, from: Int): [OccurrenceFacetResult_float]
@@ -239,7 +241,6 @@ const typeDef = gql`
     hasCoordinate(size: Int): [OccurrenceFacetResult_boolean]
     hasGeospatialIssue(size: Int): [OccurrenceFacetResult_boolean]
     repatriated(size: Int): [OccurrenceFacetResult_boolean]
-    occurrenceStatus(size: Int): [OccurrenceFacetResult_boolean]
     gbifClassification_synonym(size: Int, from: Int): [OccurrenceFacetResult_boolean]
     gbifClassification_classification_synonym(size: Int, from: Int): [OccurrenceFacetResult_boolean]
     gbifClassification_usageParsedName_abbreviated(size: Int, from: Int): [OccurrenceFacetResult_boolean]
@@ -252,6 +253,9 @@ const typeDef = gql`
     gbifClassification_usageParsedName_trinomial(size: Int, from: Int): [OccurrenceFacetResult_boolean]
     gbifClassification_usageParsedName_basionymAuthorship_empty(size: Int, from: Int): [OccurrenceFacetResult_boolean]
     gbifClassification_usageParsedName_combinationAuthorship_empty(size: Int, from: Int): [OccurrenceFacetResult_boolean]
+
+    isInCluster(size: Int, from: Int): [OccurrenceFacetResult_boolean]
+    isSequenced(size: Int, from: Int): [OccurrenceFacetResult_boolean]
 
     datasetKey(size: Int, from: Int): [OccurrenceFacetResult_dataset]
     endorsingNodeKey(size: Int, from: Int): [OccurrenceFacetResult_node]

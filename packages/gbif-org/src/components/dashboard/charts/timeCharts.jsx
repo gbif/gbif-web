@@ -46,7 +46,7 @@ export function EventDate({
     disableOther,
     disableUnknown,
     options:['TIME'],
-    messages: ['For date ranges, start date is used.'],
+    messages: ['dashboard.usingStartDates'],
     title: <FormattedMessage id="filters.eventDate.name" defaultMessage="Event date" />,
     predicateKey: 'eventDate',
     facetSize,

@@ -23,9 +23,14 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { Card } from '@/components/ui/smallCard';
 import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
+import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
 
 export function OccurrenceSearchPage(): React.ReactElement {
-  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
+  const [filter, setFilter] = useFilterParams({
+    filterConfig: searchConfig,
+    paramsToRemove: ['offset', 'from'],
+  });
   const config = useConfig();
 
   return (
@@ -45,7 +50,12 @@ export function OccurrenceSearchPage(): React.ReactElement {
 export function OccurrenceSearchPageInner(): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
-  const [view, setView] = useStringParam({ key: 'view', defaultValue: 'table', hideDefault: true });
+  const defaultView = searchContext?.tabs?.[0] ?? 'table';
+  const [view, setView] = useStringParam({
+    key: 'view',
+    defaultValue: defaultView,
+    hideDefault: true,
+  });
 
   return (
     <>
@@ -61,7 +71,12 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
         Could be this where we do search params or it could be links to other sites 
         For now a quick and dirty mock to have the option to do views with a url search param
         */}
-        <OccurrenceViewTabs setView={setView} view={view} tabs={searchContext.tabs} />
+        <OccurrenceViewTabs
+          setView={setView}
+          view={view}
+          defaultView={defaultView}
+          tabs={searchContext.tabs}
+        />
       </DataHeader>
 
       <section className="">
@@ -78,9 +93,10 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
 export function OccurrenceSearchInner(): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
+  const defaultView = searchContext?.tabs?.[0] ?? 'table';
   const [view, setView] = useStringParam({
     key: 'view',
-    defaultValue: searchContext.defaultTab ?? 'table',
+    defaultValue: defaultView,
     hideDefault: true,
   });
 
@@ -92,6 +108,7 @@ export function OccurrenceSearchInner(): React.ReactElement {
           <OccurrenceViewTabs
             setView={setView}
             view={view}
+            defaultView={defaultView}
             tabs={searchContext.tabs}
             className="g-border-b"
           />
@@ -133,16 +150,19 @@ function Views({ view, className }: { view?: string; className?: string }) {
 
 // temporary view selector until we have a proper tabs implementation
 function OccurrenceViewTabs({
-  setView,
   view,
+  defaultView,
   tabs = ['table', 'map', 'media', 'clusters', 'datasets', 'dashboard', 'download'],
   className,
 }: {
   setView: (view: string) => void;
+  defaultView?: string;
   view?: string;
   tabs?: string[];
   className?: string;
 }) {
+  const { getParams } = useUpdateViewParams(['from', 'sort', 'limit', 'offset']); // Removes 'from' and 'sort'
+
   return (
     <div className={cn('g-relative g-border-slate-200 dark:g-border-slate-200/5', className)}>
       <ul className="g-flex g-whitespace-nowrap g-overflow-hidden -g-mb-px">
@@ -155,9 +175,10 @@ function OccurrenceViewTabs({
                 'g-p-2 g-border-b-2 g-border-transparent',
                 view === tab && 'g-border-b-primary-500'
               )}
-              onClick={() => setView(tab)}
             >
-              <FormattedMessage id={`search.tabs.${tab}`} defaultMessage={tab} />
+              <Link to={{ search: getParams(tab, defaultView).toString() }}>
+                <FormattedMessage id={`search.tabs.${tab}`} defaultMessage={tab} />
+              </Link>
             </li>
           );
         })}

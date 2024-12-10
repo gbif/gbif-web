@@ -152,15 +152,23 @@ export const gbifConfig: Config = {
   },
   collectionSearch: {
     queryType: 'V1',
-    highlightedFilters: ['q', 'institutionKey'],
+    highlightedFilters: [
+      'q',
+      'code',
+      'country',
+      'numberSpecimens',
+      'occurrenceCount',
+      'taxonKey',
+      'descriptorCountry',
+    ],
   },
   collectionKey: {
     occurrenceSearch: {
       // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
       // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
       tabs: ['table', 'map', 'media', 'clusters', 'download'],
-      defaultTab: 'table'
-    }
+      defaultTab: 'table',
+    },
   },
   literatureSearch: {
     queryType: 'PREDICATE',
@@ -168,16 +176,22 @@ export const gbifConfig: Config = {
   },
   occurrenceSearch: {
     queryType: 'PREDICATE',
-    highlightedFilters: ['q', 'institutionKey'],
-    tabs: ['table', 'map', 'media', 'clusters', 'datasets', 'download'],
+    highlightedFilters: [
+      'occurrenceStatus',
+      'taxonKey',
+      'year',
+      'country',
+      'issue',
+      'geometry',
+      'recordedBy',
+    ],
+    tabs: ['media', 'map', 'clusters', 'datasets', 'dashboard', 'download'],
     // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
     // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
     // scope: {
-    //   type: 'range',
-    //   key: 'year',
-    //   value: {
-    //     gte: '1500',
-    //   },
+    //   type: 'equals',
+    //   key: 'country',
+    //   value: 'DK',
     // },
   },
   maps: {
@@ -189,26 +203,27 @@ export const gbifConfig: Config = {
         ARCTIC: ['NATURAL', 'BRIGHT'],
         PLATE_CAREE: ['NATURAL', 'BRIGHT', 'DARK'],
         MERCATOR: ['NATURAL', 'BRIGHT', 'SATELLITE', 'DARK', 'GEOLOGY'],
-        ANTARCTIC: ['NATURAL', 'BRIGHT', 'DARK']
+        ANTARCTIC: ['NATURAL', 'BRIGHT', 'DARK'],
       },
     },
     addMapStyles: function ({ mapStyleServer, language, pixelRatio, apiKeys, mapComponents }) {
       return {
-        GEOLOGY: { // the name of your style
+        GEOLOGY: {
+          // the name of your style
           component: mapComponents.OpenlayersMap, // what map component to use OpenlayersMap | MapLibreMap
           labelKey: 'I ❤️ GBIF', // the label in the select. Use a translation key
           mapConfig: {
             basemapStyle: 'http://localhost:4002/unstable-api/map-styles/3857/geology',
-            projection: 'EPSG_3857'// one of 4326 | 3031 | 3857 | 3575
-          }
-        }
-      }
+            projection: 'EPSG_3857', // one of 4326 | 3031 | 3857 | 3575
+          },
+        },
+      };
     },
     // rewire style names to show a different style
     styleLookup: {
       MERCATOR: {
-        GEOLOGY: 'GEOLOGY'
-      }
-    }
-  }
+        GEOLOGY: 'GEOLOGY',
+      },
+    },
+  },
 };

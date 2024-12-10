@@ -69,6 +69,8 @@ export function FilterProvider({
       onChange(filter || {});
       return filter;
     },
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [filterHash, onChange]
   );
 
@@ -84,6 +86,8 @@ export function FilterProvider({
         },
       });
     },
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [filterHash, setFilter]
   );
 
@@ -124,6 +128,8 @@ export function FilterProvider({
         },
       });
     },
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [filterHash, setFilter]
   );
 
@@ -135,6 +141,8 @@ export function FilterProvider({
       values = uniqWith(values, isEqual);
       return setField(field, values, isNegated);
     },
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [filterHash, setField]
   );
 
@@ -142,9 +150,17 @@ export function FilterProvider({
     (field: string, value: any, isNegated?: boolean): FilterType => {
       const type = isNegated ? 'mustNot' : 'must';
       let values = get(currentFilter, `${type}.${field}`, []);
-      values = values.filter((e) => !isEqual(e, value));
+      values = values.filter((e) => {
+        //check if strings or numbers, then just do a string comparison
+        if (typeof e === 'string' || typeof e === 'number') {
+          return e.toString() !== value.toString();
+        }
+        return !isEqual(e, value);
+      });
       return setField(field, values, isNegated);
     },
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [filterHash, setField]
   );
 
@@ -152,12 +168,22 @@ export function FilterProvider({
     (field: string, value: any, isNegated?: boolean): FilterType => {
       const type = isNegated ? 'mustNot' : 'must';
       const values = get(currentFilter, `${type}.${field}`, []);
-      if (values.some((e) => isEqual(e, value))) {
+      if (
+        values.some((e) => {
+          //check if strins or numbers, then just do a string comparison
+          if (typeof e === 'string' || typeof e === 'number') {
+            return e.toString() === value.toString();
+          }
+          return isEqual(e, value);
+        })
+      ) {
         return remove(field, value, isNegated);
       } else {
         return add(field, value, isNegated);
       }
     },
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [add, filterHash, remove]
   );
 

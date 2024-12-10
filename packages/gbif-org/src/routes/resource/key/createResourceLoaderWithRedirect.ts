@@ -134,7 +134,7 @@ export function createResourceLoaderWithRedirect(options: Options) {
     }
 
     // If the resource type and the slugified key are correct, return the resource
-    if (options.resourceType === resource.__typename && params.slugifiedTitle === slugifiedTitle) {
+    if (options.resourceType === resource.__typename && params.slug === slugifiedTitle) {
       return data;
     }
 

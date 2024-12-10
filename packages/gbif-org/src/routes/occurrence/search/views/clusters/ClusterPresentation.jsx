@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useRef, useState, useContext, useEffect, useCallback } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import {
   MdChevronRight,
@@ -17,7 +17,6 @@ import { Spinner } from '@/components/ui/spinner';
 import { useNumberParam } from '@/hooks/useParam';
 import { HelpText } from '@/components/helpText';
 import styles from './cluster.module.css';
-import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { Card, CardContent, CardHeader } from '@/components/ui/smallCard';
 import { cn } from '@/utils/shadcn';
 import { useOrderedList } from '../browseList/useOrderedList';
@@ -49,22 +48,22 @@ export const ClusterPresentation = ({
   // update ordered list on items change
   useEffect(() => {
     if (activeCluster) {
-      setOrderedList(activeCluster.clusterNodes.map((item) => item));// todo sort so selected is first. else you start in the middle of the list
+      setOrderedList(activeCluster.clusterNodes.map((item) => item)); // todo sort so selected is first. else you start in the middle of the list
     }
   }, [activeCluster, setOrderedList]);
-  
+
   useEffect(() => {
     if (graph && activeKey) {
-      const clusterKey = graph.nodes.find(x => x.name === '' + activeKey).rootKey;
+      const clusterKey = graph.nodes.find((x) => x.name === '' + activeKey).rootKey;
       const cluster = graph.clusterMap[clusterKey];
       setActiveCluster(cluster);
       highlightNode({
         element: ref.current,
-        key: activeKey
+        key: activeKey,
       });
     } else {
       highlightNode({
-        element: ref.current
+        element: ref.current,
       });
     }
   }, [activeKey, graph]);
@@ -73,7 +72,7 @@ export const ClusterPresentation = ({
     if (!activeCluster) return;
     highlightNode({
       element: ref.current,
-      key: activeKey
+      key: activeKey,
     });
   }, [activeKey, activeCluster]);
 
@@ -101,7 +100,7 @@ export const ClusterPresentation = ({
         });
       }
     }
-  }, [ref, graph]);
+  }, [ref, graph, setActiveKey]);
 
   return (
     <>
@@ -224,8 +223,8 @@ export const ClusterPresentation = ({
                   </div>
                 </div>
                 {loading && !graph && (
-                  <div style={{ margin: '48px auto', width: 100 }}>
-                    <Spinner />
+                  <div className="g-flex g-h-full g-items-center g-place-content-center">
+                    <Spinner className="g-h-12 g-w-12" />
                   </div>
                 )}
                 {graph && (
@@ -292,7 +291,7 @@ export const ClusterPresentation = ({
             <div
               className={cn(
                 'g-flex-grow g-flex-shrink-0 g-basis-[280px] g-overflow-x-auto',
-                '[&::-webkit-scrollbar]:g-w-1 [&::-webkit-scrollbar-track]:g-bg-gray-100 [&::-webkit-scrollbar-thumb]:g-bg-gray-300'
+                'gbif-small-scrollbar'
               )}
             >
               <InfoCard headline={<FormattedMessage id={`phrases.about`} />} collapsed={true}>

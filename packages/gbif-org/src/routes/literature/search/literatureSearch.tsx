@@ -53,7 +53,7 @@ const LITERATURE_SEARCH_QUERY = /* GraphQL */ `
 `;
 
 export function LiteratureSearchPage(): React.ReactElement {
-  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
+  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig, paramsToRemove: ['offset'] });
   const config = useConfig();
   return (
     <>
@@ -78,13 +78,13 @@ export function LiteratureSearch(): React.ReactElement {
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
   const tabClassName = 'g-pt-2 g-pb-1.5';
 
-  const { data, error, load, loading } = useQuery<LiteratureSearchQuery, LiteratureSearchQueryVariables>(
-    LITERATURE_SEARCH_QUERY,
-    {
-      throwAllErrors: true,
-      lazyLoad: true,
-    }
-  );
+  const { data, error, load, loading } = useQuery<
+    LiteratureSearchQuery,
+    LiteratureSearchQueryVariables
+  >(LITERATURE_SEARCH_QUERY, {
+    throwAllErrors: true,
+    lazyLoad: true,
+  });
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
@@ -95,10 +95,12 @@ export function LiteratureSearch(): React.ReactElement {
         from: offset,
       },
     });
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [load, offset, filterHash, searchContext]);
 
   const literature = data?.literatureSearch?.documents;
-  
+
   return (
     <>
       <DataHeader
@@ -121,7 +123,7 @@ export function LiteratureSearch(): React.ReactElement {
 
       <section className="">
         <FilterBar>
-          <FilterButtons filters={filters} searchContext={searchContext}/>
+          <FilterButtons filters={filters} searchContext={searchContext} />
         </FilterBar>
         <ArticleContainer className="g-bg-slate-100">
           <ArticleTextContainer className="g-m-0">
@@ -142,7 +144,6 @@ function Results({
   literature?: LiteratureSearchQuery['literatureSearch']['documents'];
   setOffset: (x: number) => void;
 }) {
-  
   return (
     <>
       <div className="g-bg-slate-200 g-text-sm g-p-4 g-mb-4">Crude temporary results view</div>
@@ -172,11 +173,17 @@ function Results({
           </CardHeader>
           <ClientSideOnly>
             {literature &&
-              literature.results.map((item) => <article className="g-m-2 g-border g-p-2 g-bg-white" key={item.key}>
-                <h2 className="g-font-bold">{item.title}</h2>
-                <p className="g-text-slate-600 g-text-sm">{item.excerpt}</p>
-                {item?.identifiers?.doi && <Button asChild><a href={`https://doi.org/${item.identifiers.doi}`}>More</a></Button>}
-                </article>)}
+              literature.results.map((item) => (
+                <article className="g-m-2 g-border g-p-2 g-bg-white" key={item.key}>
+                  <h2 className="g-font-bold">{item.title}</h2>
+                  <p className="g-text-slate-600 g-text-sm">{item.excerpt}</p>
+                  {item?.identifiers?.doi && (
+                    <Button asChild>
+                      <a href={`https://doi.org/${item.identifiers.doi}`}>More</a>
+                    </Button>
+                  )}
+                </article>
+              ))}
 
             {literature?.total && literature?.total > literature?.size && (
               <PaginationFooter
@@ -232,7 +239,9 @@ function ApiContent() {
       <h4>Examples</h4>
       <Card className="g-p-2 g-mb-2">
         Get all literatures <br />
-        <a href="https://api.gbif.org/v1/literature/search">https://api.gbif.org/v1/literature/search</a>
+        <a href="https://api.gbif.org/v1/literature/search">
+          https://api.gbif.org/v1/literature/search
+        </a>
       </Card>
       <Card className="g-p-2">
         First 2 literature published from Denmark with free text "fungi" in the title or description

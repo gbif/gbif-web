@@ -41,10 +41,15 @@ export default {
       });
     },
     thumbor: ({ featuredImageUrl: url }, { fitIn, width = '', height = '' }) => getThumborUrl({url, fitIn, width, height}),
-    homepageOGImageUrl_volatile: ({ homepage }) => {
-      return getOGImage({ homepage }).then((response) => {
-        return response;
-      }).catch(() => null);
+    homepageOGImageUrl_volatile: ({ homepage }, { onlyIfNoImageUrl }) => {
+      if (onlyIfNoImageUrl && featuredImageUrl) {
+        return null;
+      }
+      return getOGImage({ homepage })
+        .then((response) => {
+          return response;
+        })
+        .catch(() => null);
     },
     // this has since been added to the API as a regularly updated field.
     // occurrenceCount: ({ key }, args, { dataSources }) => {

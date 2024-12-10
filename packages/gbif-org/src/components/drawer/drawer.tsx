@@ -18,7 +18,7 @@ export function Drawer({ isOpen, close, viewOnGbifHref, children, next, previous
     <Backdrop isOpen={isOpen} close={close}>
       <DrawerContainer isOpen={isOpen}>
         <div className="g-flex g-flex-grow g-overflow-hidden">
-          <div className="g-overflow-x-auto g-w-full">{children}</div>
+          <div className="g-overflow-x-auto g-flex-grow g-w-full">{children}</div>
         </div>
 
         <BottomBar viewOnGbifHref={viewOnGbifHref} next={next} previous={previous} close={close} />

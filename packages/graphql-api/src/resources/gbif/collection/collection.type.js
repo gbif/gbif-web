@@ -84,23 +84,39 @@ const typeDef = gql`
   type CollectionFacet {
     institutionKey(limit: Int, offset: Int): [CollectionFacetResult]
     country(limit: Int, offset: Int): [CollectionFacetResult]
+    city(limit: Int, offset: Int): [CollectionFacetResult]
     kingdomKey(limit: Int, offset: Int): [CollectionFacetResult]
     phylumKey(limit: Int, offset: Int): [CollectionFacetResult]
+    classKey(limit: Int, offset: Int): [CollectionFacetResult]
+    orderKey(limit: Int, offset: Int): [CollectionFacetResult]
+    familyKey(limit: Int, offset: Int): [CollectionFacetResult]
+    genusKey(limit: Int, offset: Int): [CollectionFacetResult]
+    speciesKey(limit: Int, offset: Int): [CollectionFacetResult]
+    recordedBy(limit: Int, offset: Int): [CollectionFacetResult]
     descriptorCountry(limit: Int, offset: Int): [CollectionFacetResult]
     contentType(limit: Int, offset: Int): [CollectionFacetResult]
     preservationType(limit: Int, offset: Int): [CollectionFacetResult]
     accessionStatus(limit: Int, offset: Int): [CollectionFacetResult]
+    typeStatus(limit: Int, offset: Int): [CollectionFacetResult]
   }
 
   type CollectionCardinality {
     institutionKey(limit: Int, offset: Int): Int!
     country(limit: Int, offset: Int): Int!
+    city(limit: Int, offset: Int): Int!
     kingdomKey(limit: Int, offset: Int): Int!
     phylumKey(limit: Int, offset: Int): Int!
+    classKey(limit: Int, offset: Int): Int!
+    orderKey(limit: Int, offset: Int): Int!
+    familyKey(limit: Int, offset: Int): Int!
+    genusKey(limit: Int, offset: Int): Int!
+    speciesKey(limit: Int, offset: Int): Int!
+    recordedBy(limit: Int, offset: Int): Int!
     descriptorCountry(limit: Int, offset: Int): Int!
     contentType(limit: Int, offset: Int): Int!
     preservationType(limit: Int, offset: Int): Int!
     accessionStatus(limit: Int, offset: Int): Int!
+    typeStatus(limit: Int, offset: Int): Int!
   }
 
   type CollectionInstitutionFacet {
@@ -157,6 +173,7 @@ const typeDef = gql`
     recordedBy: [String!]
     typeStatus: [TypeStatus!]
     identifiedBy: [String!]
+    taxon: Taxon
   }
 
   type CollectionDescriptorGroupResults {
@@ -259,7 +276,7 @@ const typeDef = gql`
     """
     This can be used as a backup, but since it works by fetching the homepage url and extracting the open graph tags it can be slow. Use with caution.
     """
-    homepageOGImageUrl_volatile: String
+    homepageOGImageUrl_volatile(onlyIfNoImageUrl: Boolean): String
 
     occurrenceCount: Int
     excerpt: String

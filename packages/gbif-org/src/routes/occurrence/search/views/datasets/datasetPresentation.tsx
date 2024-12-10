@@ -5,6 +5,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Card } from '@/components/ui/smallCard';
 import { Spinner } from '@/components/ui/spinner';
 import { ViewHeader } from '@/components/ViewHeader';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 export function DatasetPresentation({
@@ -63,24 +64,23 @@ function DatasetResult({
 }) {
   return (
     <Card className="g-p-4 g-mb-2 g-relative">
-      <a
+      <DynamicLink
         className="g-z-10 g-absolute g-top-0 g-bottom-0 g-left-0 g-right-0"
-        href={`https://www.gbif.org/dataset/${item.dataset.key}`}
-        onClick={(event) => {
-          if (
-            event.ctrlKey ||
-            event.shiftKey ||
-            event.metaKey || // apple
-            (event.button && event.button == 1) // middle click, >IE9 + everyone else
-          ) {
-            return;
-          } else {
-            console.log(4);
-            onSelect(item);
-            event.preventDefault();
-          }
-        }}
-      ></a>
+        to={`/dataset/${item.dataset.key}`}
+        // onClick={(event) => {
+        //   if (
+        //     event.ctrlKey ||
+        //     event.shiftKey ||
+        //     event.metaKey || // apple
+        //     (event.button && event.button == 1) // middle click, >IE9 + everyone else
+        //   ) {
+        //     return;
+        //   } else {
+        //     onSelect(item);
+        //     event.preventDefault();
+        //   }
+        // }}
+      ></DynamicLink>
       <div className="title g-flex g-flex-nowrap g-text-sm g-z-1">
         <div className="g-flex-auto">{item.dataset.title}</div>
         <span className="g-text-slate-500">

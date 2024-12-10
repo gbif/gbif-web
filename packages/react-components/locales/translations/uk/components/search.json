@@ -2,6 +2,7 @@
   "tabs": {
     "table": "Таблиця",
     "gallery": "Галерея",
+    "media": "Архів анотований GBIF",
     "map": "Мапа",
     "datasets": "Наборів даних",
     "events": "Заходи",
@@ -11,7 +12,11 @@
     "sites": "Архів анотований GBIF"
   },
   "table": {
-    "lockColumn": ""
+    "lockColumn": "",
+    "unlockColumn": "Архів анотований GBIF",
+    "columnVisibility": "Архів анотований GBIF",
+    "resetColumnVisibility": "Архів анотований GBIF",
+    "openFilter": "Архів анотований GBIF"
   },
   "placeholders": {
     "default": "Пошук",

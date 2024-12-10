@@ -231,7 +231,7 @@ function DashboardBuilder({
   }
 
   return (
-    <div>
+    <div className="g-relative g-z-0">
       {!lockedLayout && disableAdd && (
         <div className="g-mb-2">
           <FormattedMessage id="dashboard.invalidLayoutWarning" />
@@ -315,7 +315,7 @@ function DashboardBuilder({
             className="g-flex-auto g-sticky g-top-0 g-flex g-flex-col"
             style={{ marginInlineStart: `${grid * 2}px` }}
           >
-            <SimpleTooltip i18nKey="phrases.share">
+            <SimpleTooltip title={<FormattedMessage id="phrases.share" />}>
               <Button
                 style={{ marginBottom: 8 }}
                 onClick={() => {
@@ -335,7 +335,7 @@ function DashboardBuilder({
               </Button>
             </SimpleTooltip>
             {maxGroups > state.length && (
-              <SimpleTooltip i18nKey="dashboard.newGroup">
+              <SimpleTooltip title={<FormattedMessage id="dashboard.newGroup" />}>
                 <Button onClick={addNewGroup}>
                   <MdAddChart />
                 </Button>

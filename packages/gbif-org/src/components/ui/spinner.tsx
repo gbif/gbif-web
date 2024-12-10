@@ -1,10 +1,15 @@
-export function Spinner() {
+import { cn } from '@/utils/shadcn';
+
+export function Spinner({ className, style }: { className?: string; style?: React.CSSProperties }) {
   return (
     <div role="status">
       <svg
         aria-hidden="true"
-        className="g-text-gray-200 g-animate-spin dark:g-text-slate-300 g-fill-slate-500"
-        style={{ height: '.8em', width: '.8em' }}
+        className={cn(
+          'g-text-gray-200 g-animate-spin dark:g-text-slate-300 g-fill-slate-500 g-h-3 g-w-3',
+          className
+        )}
+        style={style}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

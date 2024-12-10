@@ -44,7 +44,7 @@ const DATASET_SEARCH_QUERY = /* GraphQL */ `
 `;
 
 export function DatasetSearchPage(): React.ReactElement {
-  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
+  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig, paramsToRemove: ['offset'] });
   const config = useConfig();
   return (
     <>
@@ -88,10 +88,12 @@ export function DatasetSearch(): React.ReactElement {
         },
       },
     });
-  }, [load, offset, filterHash, searchConfig]);
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [load, offset, filterHash, searchContext]);
 
   const datasets = data?.datasetSearch;
-  
+
   return (
     <>
       <DataHeader
@@ -114,10 +116,10 @@ export function DatasetSearch(): React.ReactElement {
 
       <section className="">
         <FilterBar>
-          <FilterButtons filters={filters} searchContext={searchContext}/>
+          <FilterButtons filters={filters} searchContext={searchContext} />
         </FilterBar>
-        <ArticleContainer className="g-bg-slate-100">
-          <ArticleTextContainer className="g-m-0">
+        <ArticleContainer className="g-bg-slate-100 g-flex">
+          <ArticleTextContainer className="g-flex-auto">
             <Results loading={loading} datasets={datasets} setOffset={setOffset} />
           </ArticleTextContainer>
         </ArticleContainer>

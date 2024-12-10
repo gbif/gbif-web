@@ -1,5 +1,6 @@
 @import 'ol/ol.css';
 @import 'maplibre-gl/dist/maplibre-gl.css';
+@import 'maplibre-gl/dist/maplibre-gl.css';
 
 @tailwind base;
 @tailwind components;
@@ -737,4 +738,24 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 .g-linejoin-round {
   stroke-linejoin: round;
+}
+
+.gbif-small-scrollbar {
+  @apply [&::-webkit-scrollbar]:g-w-1 [&::-webkit-scrollbar-track]:g-bg-gray-100 [&::-webkit-scrollbar-thumb]:g-bg-gray-300;
+}
+
+.gbif-table-style {
+  @apply g-w-full g-text-sm g-text-left rtl:g-text-right g-text-gray-500 dark:g-text-gray-400;
+  thead {
+    @apply g-text-slate-500 g-font-light g-bg-gray-200/10 dark:g-bg-gray-700/10 dark:g-text-gray-400 g-border-b;
+  }
+  th {
+    @apply g-px-3 g-py-3 g-font-normal;
+  }
+  tbody tr {
+    @apply g-border-b last:g-border-0 dark:g-border-gray-700 g-text-slate-900;
+    td {
+      @apply g-px-3 g-py-3 dark:g-text-white;
+    }
+  }
 }

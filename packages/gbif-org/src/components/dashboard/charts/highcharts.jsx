@@ -1,4 +1,6 @@
-import Highcharts from 'highcharts'
+import Highcharts from 'highcharts';
+import highchartsAccessibility from "highcharts/modules/accessibility";
+
 
 // demo of how to use patterns in highcharts https://codesandbox.io/s/highcharts-react-demo-rkleb?file=/demo.jsx:244-272
 // also a blog post https://www.highcharts.com/blog/products/highcharts/pattern-fill-plugin/
@@ -329,9 +331,10 @@ Highcharts.theme = {
   maskColor: 'rgba(255,255,255,0.3)'
 };
 
-// Apply the theme
+// Apply the theme and additional modules
 if (typeof Highcharts === 'object') {
   HC_patternFill(Highcharts);
+  highchartsAccessibility(Highcharts);
   Highcharts.setOptions(Highcharts.theme);
 }
 

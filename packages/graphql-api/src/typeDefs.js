@@ -25,6 +25,7 @@ const inputTypeDef = gql`
     in
     within
     isNotNull
+    isNull
     like
     fuzzy
     nested

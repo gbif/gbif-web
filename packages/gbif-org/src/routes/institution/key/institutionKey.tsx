@@ -102,7 +102,7 @@ const INSTITUTION_QUERY = /* GraphQL */ `
 
       featuredImageUrl: thumbor(width: 1000, height: 667)
       featuredImageLicense
-      featuredImageUrl_fallback: homepageOGImageUrl_volatile
+      featuredImageUrl_fallback: homepageOGImageUrl_volatile(onlyIfNoImageUrl: true)
 
       masterSourceMetadata {
         key

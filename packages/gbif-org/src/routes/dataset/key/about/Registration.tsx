@@ -20,7 +20,7 @@ export function Registration({ dataset = {}, ...props }) {
   const { organization: hostingOrganization } = installation;
   const urlEndpoints = endpoints.filter((x) => x.url);
   const availableIdentifiers = identifiers.filter(
-    (x) => ['DOI', 'URL', 'LSID', 'FTP', 'UNKNOWN'].indexOf(x.type) > -1
+    (x) => ['DOI', 'URL', 'LSID', 'FTP', 'UNKNOWN'].indexOf(x?.type) > -1
   );
 
   const orphanMachineTag = machineTags.find(

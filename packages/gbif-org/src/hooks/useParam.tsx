@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useOnUnmount } from './useOnUnmount';
 import { Base64 } from 'js-base64';
 
 // hook to get and set number param from url
@@ -9,19 +8,16 @@ export function useNumberParam({
   key,
   defaultValue,
   hideDefault,
-  removeOnUnmount,
 }: {
   key: string;
   defaultValue?: string | number;
   hideDefault?: boolean;
-  removeOnUnmount?: boolean;
-}): [number, (value?: number) => void] {
+}): [number, (value: number, replace?: boolean) => void] {
   const [value, setValue] = useParam({
     key,
     defaultValue: defaultValue ?? 0,
     parse: numberParser,
     hideDefault,
-    removeOnUnmount,
   });
   return [value, setValue];
 }
@@ -31,19 +27,16 @@ export function useIntParam({
   key,
   defaultValue,
   hideDefault,
-  removeOnUnmount,
 }: {
   key: string;
   defaultValue?: number;
   hideDefault?: boolean;
-  removeOnUnmount?: boolean;
-}): [number, (value?: number) => void] {
+}): [number, (value: number, replace?: boolean) => void] {
   const [value, setValue] = useParam({
     key,
     defaultValue: defaultValue ?? 0,
     parse: intParser,
     hideDefault,
-    removeOnUnmount,
   });
 
   return [value, setValue];
@@ -54,19 +47,16 @@ export function useStringParam({
   key,
   defaultValue,
   hideDefault,
-  removeOnUnmount,
 }: {
   key: string;
   defaultValue?: string;
   hideDefault?: boolean;
-  removeOnUnmount?: boolean;
-}): [string | undefined, (value?: string) => void] {
+}): [string | undefined, (value: string, replace?: boolean) => void] {
   const [value, setValue] = useParam({
     key,
     defaultValue: defaultValue,
     parse: stringParser,
     hideDefault,
-    removeOnUnmount,
   });
   return [value, setValue];
 }
@@ -94,41 +84,34 @@ export function useJsonParam({
   key,
   defaultValue,
   hideDefault,
-  removeOnUnmount,
 }: {
   key: string;
   defaultValue?: object;
   hideDefault?: boolean;
-  removeOnUnmount?: boolean;
-}): [object | undefined, (value?: object) => void] {
+}): [object | undefined, (value: object, replace?: boolean) => void] {
   const [value, setValue] = useParam({
     key,
     defaultValue: jsonEncoder(defaultValue),
     parse: jsonParser,
     serialize: jsonEncoder,
     hideDefault,
-    removeOnUnmount,
   });
   return [value, setValue];
 }
 
-const defaultSerialize = (value: unknown) => value + '';
-
 function useParam<T>({
   key,
   parse,
-  serialize = defaultSerialize,
+  serialize,
   defaultValue,
   hideDefault,
-  removeOnUnmount,
 }: {
   key: string;
   parse: (value?: string) => T;
   serialize?: (value?: T) => string | undefined;
   defaultValue?: string | number;
   hideDefault?: boolean;
-  removeOnUnmount?: boolean;
-}): [T, (value?: T) => void] {
+}): [T, (value: T, replace?: boolean) => void] {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const value = parse(
@@ -143,29 +126,22 @@ function useParam<T>({
   }, [setSearchParams]);
 
   const setValue = useCallback(
-    (value?: T) => {
-      // I use document location because the searchParams can't be updated multiple times in the same render in a predictable way like using useState
-      // For example, removing the from param and adding view=map in the same render will result in none of the params being added
-      const clone = new URLSearchParams(document.location.search);
-      const serializedValue = serialize(value);
-      clone.set(key, serializedValue + '');
-      if (value === undefined || (value === defaultValue && hideDefault)) {
-        clone.delete(key);
-      }
-      setSearchParamsRef.current(clone);
+    (value: T, replace?: boolean) => {
+      setSearchParamsRef.current(
+        (params) => {
+          const clone = new URLSearchParams(params);
+          const serializedValue = typeof serialize === 'function' ? serialize(value) : value + '';
+          clone.set(key, serializedValue + '');
+          if (value === undefined || (value === defaultValue && hideDefault)) {
+            clone.delete(key);
+          }
+          return clone;
+        },
+        { replace }
+      );
     },
     [key, serialize, defaultValue, hideDefault]
   );
-
-  useOnUnmount(() => {
-    if (removeOnUnmount) {
-      // I use document location because the searchParams can't be updated multiple times in the same render in a predictable way like using useState
-      // For example, removing the from param and adding view=map in the same render will result in none of the params being added
-      const clone = new URLSearchParams(document.location.search);
-      clone.delete(key);
-      setSearchParamsRef.current(clone, { replace: true });
-    }
-  });
 
   return [value, setValue];
 }

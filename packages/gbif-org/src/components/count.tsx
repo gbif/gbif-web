@@ -1,4 +1,4 @@
-import { get } from '@/utils/get';
+import get from 'lodash/get';
 import { stringify } from '@/utils/querystring';
 import { useEffect, useState } from 'react';
 import Queue from 'queue-promise';

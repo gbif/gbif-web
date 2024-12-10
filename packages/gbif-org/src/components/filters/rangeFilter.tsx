@@ -23,32 +23,21 @@ import { HelpLine } from '@/components/helpText';
 import { FormattedMessage, FormattedNumber, IntlShape } from 'react-intl';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Option, SkeletonOption } from './option';
-import { FacetQuery, getAsQuery } from './filterTools';
+import { AdditionalFilterProps, FacetQuery, filterRangeConfig, getAsQuery } from './filterTools';
 import { useSearchContext } from '@/contexts/search';
-import unionBy from 'lodash/unionBy';
 
-type RangeProps = {
+type RangeProps = Omit<filterRangeConfig, 'filterType' | 'filterTranslation'> & AdditionalFilterProps & {
   className?: string;
-  searchConfig: FilterConfigType;
-  filterHandle: string;
-  DisplayName: React.FC<{ id: string }>;
-  facetQuery?: string;
-  getSuggestions?: ({ q, intl }: { q: string; intl?: IntlShape }) => Promise<SuggestionItem[]>;
-  onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
-  onCancel?: () => void;
-  pristine?: boolean;
-  regex?: RegExp;
 };
 
-export const RangeFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
+export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
   (
     {
       className,
       searchConfig,
       regex,
       filterHandle,
-      DisplayName,
-      getSuggestions, // function that takes a query string and returns a promise of suggestions
+      displayName: DisplayName,
       onApply,
       onCancel,
       pristine,
@@ -67,6 +56,8 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       // filter has changed updateed the listed of selected values
       const selectedList = filter?.must?.[filterHandle] ?? [];
       setSelected(selectedList);
+      // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filterHash, filterHandle]);
 
     const options = (
@@ -115,7 +106,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
     );
 
     return (
-      <div className="g-flex g-flex-col">
+      <div className={cn('g-flex g-flex-col g-max-h-[100dvh]', className)}>
         <div className="g-flex g-flex-none">
           <div className="g-p-2 g-w-full g-relative g-group">
             <SearchInput
@@ -133,7 +124,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
               }}
               placeholder="Search"
               className="g-w-full g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset"
-              onKeyUp={(e) => {
+              onKeyDown={(e) => {
                 // if user press enter, then update the value
                 const value = e.currentTarget.value;
                 if (e.key === 'Enter') {
@@ -142,30 +133,11 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                     // const filters = unionBy([q], selected, hash);
                     add(filterHandle, rangeQuery);
                     setQ('');
+                    e.preventDefault();
                   } else {
                     onApply?.();
                   }
                 }
-                // const value = e.currentTarget.value;
-                // if (e.which === keyCodes.ENTER) {
-                //   if (value === '') {
-                //     onApply({ filter, hide });
-                //   } else {
-                //     const q = rangeOrTerm(value, upperBound, lowerBound);
-                //     setValue('');
-                //     const allOptions = unionBy([q], options, hash);
-                //     setOptions(allOptions);
-                //     if (singleSelect) {
-                //       setOptions([q]);
-                //       setFullField(filterHandle, [q], [])
-                //         .then(responseFilter => onApply({ filter: responseFilter, hide }))
-                //         .catch(err => console.log(err));
-                //     } else {
-                //       toggle(filterHandle, q);
-                //     }
-                //     // toggle(filterHandle, q);
-                //   }
-                // }
               }}
             />
             {/* {selected.length === 0 && <div className="g-hidden group-focus-within:g-block g-pointer-events-none g-absolute g-text-white g-text-sm g-bg-slate-500 g-p-4 g-border g-shadow-md g-left-0 g-right-0 g-mx-2 g-rounded">
@@ -198,7 +170,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                       <FormattedMessage
                         id={`intervals.description.e`}
                         defaultMessage={'Filter name'}
-                        values={{ is: option }}
+                        values={{ from: option }}
                       />
                     );
                   } else if (option?.type === 'equals') {
@@ -206,7 +178,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                       <FormattedMessage
                         id={`intervals.description.e`}
                         defaultMessage={'Filter name'}
-                        values={{ is: option.value }}
+                        values={{ from: option.value, is: option.value }}
                       />
                     );
                   } else {

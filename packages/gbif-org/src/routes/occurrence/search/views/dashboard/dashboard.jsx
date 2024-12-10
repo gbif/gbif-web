@@ -11,7 +11,7 @@ import { Card } from '@/components/ui/smallCard';
 import { useJsonParam } from '@/hooks/useParam';
 
 export function Dashboard({ predicate, chartsTypes: chartsTypesProp, ...props }) {
-  const [urlLayout, setUrlLayout] = useJsonParam({key: 'layout'});
+  const [urlLayout, setUrlLayout] = useJsonParam({ key: 'layout' });
   const [layout = [[]], setLayoutState] = useLocalStorage('occurrenceDashboardLayout', [[]]);
   const [chartsTypes, setChartsTypes] = useState([]);
 
@@ -308,9 +308,7 @@ const preconfiguredCharts = {
     component: ({ predicate, ...props }) => {
       return (
         <Card className="g-overflow-hidden g-overflow-y-auto g-h-full g-p-2">
-          <Table
-            {...props}
-          />
+          <Table {...props} />
         </Card>
       );
     },

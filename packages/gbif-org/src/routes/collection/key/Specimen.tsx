@@ -10,7 +10,7 @@ import { useContext, useEffect, useState } from 'react';
 import { CollectionKeyContext } from './collectionKeyPresentation';
 
 export default function Specimen() {
-  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
+  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig, paramsToRemove: ['offset'] });
   const baseConfig = useConfig();
   const [config, setConfig] = useState<SearchMetadata | undefined>();
   const { key, contentMetrics } = useContext(CollectionKeyContext);

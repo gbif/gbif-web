@@ -48,14 +48,12 @@ export function PaginationFooter({
   limit = 20,
   count,
   maxPages = 5,
-  onChange,
-  anchor = '',
+  onChange
 }: {
   offset: number;
   limit: number;
   count: number;
   maxPages?: number;
-  anchor?: string;
   onChange: (offset: number) => void;
 }) {
   const { pages, currentPage, previousPageOffset, nextPageOffset, hasBefore, hasAfter } = getPages({
@@ -70,7 +68,7 @@ export function PaginationFooter({
       <PaginationContent>
         {currentPage > 1 && (
           <PaginationItem onClick={() => onChange(previousPageOffset)}>
-            <PaginationPrevious href={`#${anchor}`} />
+            <PaginationPrevious />
           </PaginationItem>
         )}
         {hasBefore && (
@@ -80,7 +78,7 @@ export function PaginationFooter({
         )}
         {pages.map((page) => (
           <PaginationItem key={page.pageNumber} onClick={() => onChange(page.offset)}>
-            <PaginationLink href={`#${anchor}`} isActive={currentPage === page.pageNumber}>
+            <PaginationLink isActive={currentPage === page.pageNumber}>
               {page.pageNumber}
             </PaginationLink>
           </PaginationItem>
@@ -92,7 +90,7 @@ export function PaginationFooter({
         )}
         {offset + limit < count && (
           <PaginationItem onClick={() => onChange(nextPageOffset)}>
-            <PaginationNext href={`#${anchor}`} />
+            <PaginationNext  />
           </PaginationItem>
         )}
       </PaginationContent>

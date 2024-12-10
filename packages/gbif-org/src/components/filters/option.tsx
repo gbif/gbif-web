@@ -12,13 +12,15 @@ export const Option = React.forwardRef(
       onClick,
       children,
       onKeyDown,
+      isNegated
     }: {
-      helpText?: string;
+      helpText?: string | React.ReactNode;
       checked?: boolean;
       children: React.ReactNode;
       onClick: (checked: boolean) => void;
       className?: string;
       onKeyDown?: (e: React.KeyboardEvent) => void;
+      isNegated?: boolean;
     },
     ref
   ) => {
@@ -27,7 +29,7 @@ export const Option = React.forwardRef(
       <label className={cn('g-flex g-w-full', className)}>
         <Checkbox
           ref={ref}
-          className="g-flex-none g-me-2 g-mt-0.5"
+          className={cn("g-flex-none g-me-2 g-mt-0.5", isNegated && 'data-[state=checked]:g-bg-orange-500 data-[state=checked]:g-text-white')}
           checked={checked}
           onClick={() => {
             onClick(!checked);

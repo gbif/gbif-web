@@ -40,7 +40,7 @@ function TaxaMain({
       <CardHeader
         options={
           <DropdownMenu>
-            <DropdownMenuTrigger>
+            <DropdownMenuTrigger asChild>
               <Button variant="outline">
                 <MdMoreHoriz />
               </Button>

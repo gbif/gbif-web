@@ -101,7 +101,7 @@ function getPredicate({ filterName, values = [], filterConfig }: {filterName: st
 function getPredicateFromSingleValue({ filterName, value, config }: {filterName: string, value: any, config: FieldConfigType}): Predicate | null {
   // the values are expected to be either a predicate object (optionally missing key and type)
   // or a string/number
-  if (typeof value === 'string' || typeof value === 'number') {
+  if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
     return {
       type: config?.defaultType || PredicateType.Equals,
       //if no default key is provided, then fall back to the filterName as a key

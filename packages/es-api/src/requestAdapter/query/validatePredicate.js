@@ -50,6 +50,10 @@ const schema = Joi.alternatives().try(
     key: Joi.string().required(),
   }),
   Joi.object({
+    type: Joi.string().valid('isNull').required(),
+    key: Joi.string().required(),
+  }),
+  Joi.object({
     type: Joi.string().valid('like').required(),
     key: Joi.string().required(),
     value: Joi.string().required(),
