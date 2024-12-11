@@ -118,18 +118,6 @@ export const gbifConfig: Config = {
       reactIntlLocale: 'ar-SA',
     },
   ],
-  occurrencePredicate: {
-    type: 'and',
-    predicates: [
-      {
-        type: 'range',
-        key: 'year',
-        value: {
-          gte: '2012',
-        },
-      },
-    ],
-  },
   theme: {
     primary: '#4787fb', //'#69AA69',
     // primary: '#69AA69',

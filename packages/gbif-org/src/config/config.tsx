@@ -28,7 +28,6 @@ export type Config = Endpoints & {
   defaultTitle?: string;
   gbifEnv: GbifEnv;
   languages: LanguageOption[];
-  occurrencePredicate: any;
   pages?: PageConfig[];
   theme?: Partial<Theme>;
   baseUrl: string; // e.g. 'https://www.gbif.org'
@@ -112,9 +111,71 @@ type Props = {
 
 type CssVariable = { name: string; value: unknown };
 
+const ConfigDefault: Partial<Config> = {
+  datasetSearch: {
+    excludedFilters: [],
+    highlightedFilters: ['q', 'type', 'publishingOrg', 'license'],
+    queryType: 'V1',
+  },
+  collectionSearch: {
+    queryType: 'V1',
+    highlightedFilters: [
+      'q',
+      'code',
+      'country',
+      'numberSpecimens',
+      'occurrenceCount',
+      'taxonKey',
+      'descriptorCountry',
+    ],
+  },
+  collectionKey: {
+    occurrenceSearch: {
+      // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
+      // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
+      tabs: ['table', 'map', 'media', 'clusters', 'download'],
+      defaultTab: 'table',
+    },
+  },
+  institutionSearch: {
+    queryType: 'V1',
+    highlightedFilters: ['q', 'code', 'country', 'numberSpecimens', 'occurrenceCount'],
+  },
+  literatureSearch: {
+    queryType: 'PREDICATE',
+    highlightedFilters: ['q', 'year'],
+  },
+  occurrenceSearch: {
+    queryType: 'PREDICATE',
+    highlightedFilters: [
+      'occurrenceStatus',
+      'taxonKey',
+      'year',
+      'country',
+      'issue',
+      'geometry',
+    ],
+    tabs: ['table', 'media', 'map', 'dashboard', 'download'],
+    // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
+  },
+  maps: {
+    locale: 'en',
+    mapStyles: {
+      defaultProjection: 'MERCATOR',
+      defaultMapStyle: 'NATURAL',
+      options: {
+        ARCTIC: ['NATURAL', 'BRIGHT'],
+        PLATE_CAREE: ['NATURAL', 'BRIGHT', 'DARK'],
+        MERCATOR: ['NATURAL', 'BRIGHT', 'SATELLITE', 'DARK'],
+        ANTARCTIC: ['NATURAL', 'BRIGHT', 'DARK'],
+      },
+    },
+  }
+}
+
 export function ConfigProvider({ config, children }: Props): React.ReactElement {
   // Create css for theming based on the baseTheme and the theme extension
-  const css: string = React.useMemo(() => {
+  const css: { style: string; config: Config; } = React.useMemo(() => {
     const theme = themeBuilder({
       baseTheme: 'light',
       extendWith: config.theme,
@@ -138,14 +199,21 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
 
         return { name: `--${key}`, value };
       });
-
     // Convert css variables to actual css that will be injected in the document
-    return `:root { ${cssVariables.map((v) => `${v.name}: ${v.value};`).join('\n')} }`;
+    return {
+      style: `:root { ${cssVariables.map((v) => `${v.name}: ${v.value};`).join('\n')} }`,
+      config: {
+        ...ConfigDefault,
+        ...config,
+        theme,
+        variables: cssVariables,
+      },
+    };
   }, [config]);
 
   return (
-    <ConfigContext.Provider value={config}>
-      <style>{css}</style>
+    <ConfigContext.Provider value={css.config}>
+      <style>{css.style}</style>
       {children}
     </ConfigContext.Provider>
   );
