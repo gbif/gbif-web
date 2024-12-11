@@ -3,7 +3,7 @@ import { useStateAsRef } from '@/hooks/useStateAsRef';
 import { PaginationState } from '@tanstack/react-table';
 import { useCallback, useMemo, useState } from 'react';
 
-export function usePaginationState(): [
+export function usePaginationState({pageSize: size}: {pageSize?: number} = {}): [
   PaginationState,
   React.Dispatch<React.SetStateAction<PaginationState>>
 ] {
@@ -12,7 +12,7 @@ export function usePaginationState(): [
     hideDefault: true,
     defaultValue: 0,
   });
-  const [pageSize, setPageSize] = useState(20);
+  const [pageSize, setPageSize] = useState(size ?? 20);
 
   const state: PaginationState = useMemo(() => {
     return { pageIndex: Math.floor(from / pageSize), pageSize };
