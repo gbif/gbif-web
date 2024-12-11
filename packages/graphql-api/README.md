@@ -15,6 +15,8 @@ Start developing with
 npm run develop
 ```
 
+It needs the [es-api](https://github.com/gbif/gbif-web/tree/master/packages/es-api) to start. Either running locally or pointing to a deployed version
+
 ## How deep to go
 How far to resolve.
 * On facets. Can you resolve the value to a title? For say datasetKey? how about enumeration keys to translations? Can you resolve to the full object? If so we need different schemas for each facet type.
