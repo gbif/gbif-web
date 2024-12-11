@@ -1,9 +1,9 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, Location, To, useLocation } from 'react-router-dom';
 import { useI18n } from './i18n';
 import { useGetRedirectUrl } from './enablePages';
 
 type Props<T extends React.ElementType> = React.ComponentProps<T> & {
-  to: string;
+  to: To;
   as?: T;
 };
 
@@ -15,7 +15,8 @@ export function DynamicLink<T extends React.ElementType = typeof Link>({
   // Localize the link
   const { localizeLink } = useI18n();
   const location = useLocation();
-  let toResult = localizeLink(to as string);
+  const toString = convertTo2String(to, location);
+  let toResult = localizeLink(toString);
 
   // Replace the link with a link to gbif if the target route is disabled
   const redirectToGbifLink = useGetRedirectUrl(toResult);
@@ -31,4 +32,20 @@ export function DynamicLink<T extends React.ElementType = typeof Link>({
 
   const LinkComponent = as ?? Link;
   return <LinkComponent to={toResult} {...props} />;
+}
+
+function convertTo2String(to: To, location: Location<any>): string {
+  if (typeof to === 'string') {
+    return to;
+  }
+
+  const pathname = to.pathname ?? location.pathname;
+  const search = to.search ?? location.search;
+  const hash = to.hash ?? location.hash;
+
+  let link = pathname;
+  if (search) link += `?${search}`;
+  if (hash) link += `#${hash}`;
+
+  return link;
 }

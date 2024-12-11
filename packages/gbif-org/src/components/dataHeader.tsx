@@ -34,7 +34,7 @@ export function DataHeader({
         <CatalogSelector title={title} />
         {children && <Separator />}
       </>
-      <div className="g-flex-auto">{children}</div>
+      <div className="g-flex-auto g-min-w-0">{children}</div>
       <div className="g-flex-none g-mx-2">
         <div className="g-flex g-justify-center g-text-slate-400">
           {aboutContent && (
@@ -74,37 +74,39 @@ function Popup({
   );
 }
 
-function CatalogSelector({title}: {title: React.ReactNode}) {
-  return <div className="g-flex-none g-flex g-items-center g-mx-2">
-  <DropdownMenu>
-  <DropdownMenuTrigger>
-    <div className="g-flex g-justify-center g-items-center">
-      <MdApps /> {title && <span className="g-ms-2 g-pt-2 g-pb-1.5">{title}</span>}
+function CatalogSelector({ title }: { title: React.ReactNode }) {
+  return (
+    <div className="g-flex-none g-flex g-items-center g-mx-2">
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <div className="g-flex g-justify-center g-items-center">
+            <MdApps />{' '}
+            {title && <span className="g-ms-2 g-pt-2 g-pb-1.5 g-hidden lg:g-inline">{title}</span>}
+          </div>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem asChild>
+            <DynamicLink to="/occurrence/search">Occurrences</DynamicLink>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <DynamicLink to="/dataset/search">Datasets</DynamicLink>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <DynamicLink to="/publisher/search">Publishers</DynamicLink>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem asChild>
+            <DynamicLink to="/institution/search">Institutions</DynamicLink>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <DynamicLink to="/collection/search">Collections</DynamicLink>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem asChild>
+            <DynamicLink to="/literature/search">Literature</DynamicLink>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
-  </DropdownMenuTrigger>
-  <DropdownMenuContent>
-    <DropdownMenuItem asChild>
-      <DynamicLink to="/occurrence/search">Occurrences</DynamicLink>
-    </DropdownMenuItem>
-    <DropdownMenuItem asChild>
-      <DynamicLink to="/dataset/search">Datasets</DynamicLink>
-    </DropdownMenuItem>
-    <DropdownMenuItem asChild>
-      <DynamicLink to="/publisher/search">Publishers</DynamicLink>
-    </DropdownMenuItem>
-    <DropdownMenuSeparator />
-    <DropdownMenuItem asChild>
-      <DynamicLink to="/institution/search">Institutions</DynamicLink>
-    </DropdownMenuItem>
-    <DropdownMenuItem asChild>
-      <DynamicLink to="/collection/search">Collections</DynamicLink>
-    </DropdownMenuItem>
-    <DropdownMenuSeparator />
-    <DropdownMenuItem asChild>
-      <DynamicLink to="/literature/search">Literature</DynamicLink>
-    </DropdownMenuItem>
-  </DropdownMenuContent>
-</DropdownMenu>
-</div>
-
+  );
 }

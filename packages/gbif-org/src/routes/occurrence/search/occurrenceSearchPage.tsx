@@ -23,8 +23,8 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { Card } from '@/components/ui/smallCard';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
 import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
+import { Tabs } from '@/components/tabs';
 
 export function OccurrenceSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({
@@ -164,25 +164,14 @@ function OccurrenceViewTabs({
   const { getParams } = useUpdateViewParams(['from', 'sort', 'limit', 'offset']); // Removes 'from' and 'sort'
 
   return (
-    <div className={cn('g-relative g-border-slate-200 dark:g-border-slate-200/5', className)}>
-      <ul className="g-flex g-whitespace-nowrap g-overflow-hidden -g-mb-px">
-        {tabs.map((tab) => {
-          return (
-            <li
-              key={tab}
-              role="button"
-              className={cn(
-                'g-p-2 g-border-b-2 g-border-transparent',
-                view === tab && 'g-border-b-primary-500'
-              )}
-            >
-              <Link to={{ search: getParams(tab, defaultView).toString() }}>
-                <FormattedMessage id={`search.tabs.${tab}`} defaultMessage={tab} />
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+    <Tabs
+      disableAutoDetectActive
+      className={className}
+      links={tabs.map((tab) => ({
+        isActive: view === tab,
+        to: { search: getParams(tab, defaultView).toString() },
+        children: <FormattedMessage id={`search.tabs.${tab}`} defaultMessage={tab} />,
+      }))}
+    />
   );
 }

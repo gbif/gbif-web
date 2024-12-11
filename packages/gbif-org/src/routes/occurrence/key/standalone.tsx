@@ -12,7 +12,6 @@ type Props = {
 export function StandaloneOccurrenceKeyPage({ occurrenceKey }: Props) {
   const [, setEntity] = useStringParam({ key: 'entity' });
   const setEntityParam = useRef((id: string) => {
-    console.log('setEntityParam', id);
     setEntity(`o_${id}`);
   });
 
@@ -46,9 +45,6 @@ function SyncDrawerOccurenceIdWithRootRouter({
       .get('entity')
       ?.split('o_')[1];
     const drawerOccurrenceKey = drawerLocation.pathname.split('/occurrence/')[1].split('/')[0];
-
-    console.log('rootOccurrenceKey', rootOccurrenceKey);
-    console.log('drawerOccurrenceKey', drawerOccurrenceKey);
 
     if (rootOccurrenceKey === drawerOccurrenceKey) return;
 

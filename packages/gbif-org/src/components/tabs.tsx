@@ -11,13 +11,23 @@ import {
 import { MdMoreHoriz } from 'react-icons/md';
 import { useI18n } from '@/reactRouterPlugins';
 import { DynamicLink } from '@/reactRouterPlugins';
+import { To } from 'react-router-dom';
+
+type Tab = {
+  to: To;
+  children: React.ReactNode;
+  className?: string;
+  testId?: string;
+  isActive?: boolean;
+};
 
 export type Props = {
   className?: string;
-  links: Array<{ to: string; children: React.ReactNode; className?: string; testId?: string }>;
+  links: Tab[];
+  disableAutoDetectActive?: boolean;
 };
 
-export function Tabs({ links, className }: Props) {
+export function Tabs({ links, className, disableAutoDetectActive = false }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const dropdownMenuTriggerRef = useRef<HTMLButtonElement>(null);
   const [visibleTabCount, setVisibleTabCount] = useState(0);
@@ -34,7 +44,7 @@ export function Tabs({ links, className }: Props) {
       // If the total width of the tabs is less than the container width, show all tabs
       const tabs = containerRef.current.querySelectorAll('li');
       const tabsWidth = Array.from(tabs).reduce((acc, tab) => acc + tab.offsetWidth, 0);
-      if (tabsWidth < containerWidth) return void setVisibleTabCount(links.length);
+      if (tabsWidth < containerWidth) return void setVisibleTabCount(tabs.length);
 
       // Otherwise show as many tabs as possible taking into account the width of the button
       const buttonWidth = dropdownMenuTriggerRef.current?.offsetWidth ?? 0;
@@ -67,12 +77,17 @@ export function Tabs({ links, className }: Props) {
       )}
     >
       <ul className="g-flex g-whitespace-nowrap g-overflow-hidden -g-mb-px">
-        {links.map(({ to, children, className: cls }, idx) => {
+        {links.map(({ to, children, className: cls, isActive }, idx) => {
           const visible = idx < visibleTabCount;
 
           return (
-            <li key={to} className={cn({ 'g-invisible': !visible }, 'g-pr-1')}>
-              <TabLink to={to} className={cls}>
+            <li key={to2Key(to)} className={cn({ 'g-invisible': !visible }, 'g-pr-1')}>
+              <TabLink
+                to={to}
+                className={cls}
+                isActive={isActive}
+                autoDetectActive={!disableAutoDetectActive}
+              >
                 {children}
               </TabLink>
             </li>
@@ -95,7 +110,7 @@ export function Tabs({ links, className }: Props) {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           {links.slice(visibleTabCount).map(({ to, children }) => (
-            <DropdownMenuItem key={to}>
+            <DropdownMenuItem key={to2Key(to)}>
               <DynamicLink
                 onClick={() => setIsDropdownOpen(false)}
                 to={to}
@@ -110,3 +125,5 @@ export function Tabs({ links, className }: Props) {
     </div>
   );
 }
+
+const to2Key = (to: To) => (typeof to === 'string' ? to : JSON.stringify(to));
