@@ -26,7 +26,7 @@ export function DataHeader({
 }) {
   return (
     <div
-      className={`g-flex g-justify-center g-items-center g-ps-2 ${
+      className={`g-flex g-justify-center g-items-center g-ps-2 g-bg-paperBackground ${
         hasBorder ? 'g-border-b g-border-slate-200' : ''
       }`}
     >
