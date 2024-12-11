@@ -26,6 +26,7 @@ fragmentManager.register(/* GraphQL */ `
 `);
 
 export function InstitutionResult({ institution }: { institution: InstitutionResultFragment }) {
+  const country = institution.country ?? institution.mailingCountry;
   return (
     <div className="g-mb-4">
       <Wrapper>
@@ -52,22 +53,22 @@ export function InstitutionResult({ institution }: { institution: InstitutionRes
                   </p>
                 )}
 
-                {institution.country && institution.mailingCountry && (
+                {(country || institution.code) && (
                   <div className="g-font-normal g-text-slate-500 g-text-sm g-my-1 g-flex g-items-center">
-                    <div className="g-flex g-items-center">
-                      <GlobeIcon />{' '}
-                      <span className="g-mx-2">
-                        <FormattedMessage
-                          id={`enums.countryCode.${
-                            institution.country ?? institution.mailingCountry
-                          }`}
-                        />
-                      </span>
-                    </div>
-                    <div className="g-ms-4 g-flex g-items-center">
-                      <FormattedMessage id="filters.institutionCode.name" />:
-                      <span className="g-mx-2">{truncate(institution.code, 20)}</span>
-                    </div>
+                    {country && (
+                      <div className="g-flex g-items-center">
+                        <GlobeIcon />{' '}
+                        <span className="g-mx-2">
+                          <FormattedMessage id={`enums.countryCode.${country}`} />
+                        </span>
+                      </div>
+                    )}
+                    {institution.code && (
+                      <div className="g-ms-4 g-flex g-items-center">
+                        <FormattedMessage id="filters.institutionCode.name" />:
+                        <span className="g-mx-2">{truncate(institution.code, 20)}</span>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
