@@ -15,6 +15,10 @@ import { InitialSkeletonTable } from './components/initialSkeletonTable';
 import { TableFooter } from './components/tableFooter';
 import { FirstColumLockProvider } from './firstColumLock';
 import { useIsElementHorizontallyScrolled } from '@/hooks/useIsElementHorizontallyScrolled';
+import { interopDefault } from '@/utils/interopDefault';
+import _useLocalStorage from 'use-local-storage';
+// Used to import commonjs module as es6 module
+const useLocalStorage = interopDefault(_useLocalStorage);
 
 interface Props<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -27,6 +31,7 @@ interface Props<TData, TValue> {
   availableTableColumns: string[];
   defaultEnabledTableColumns: string[];
   lockColumnLocalStoreKey?: string;
+  selectedColumnsLocalStoreKey?: string;
   createRowLink?: (row: Row<TData>) => string;
 }
 
@@ -43,8 +48,10 @@ function SearchTable<TData, TValue>({
   defaultEnabledTableColumns,
   createRowLink,
   lockColumnLocalStoreKey = 'searchTableLockColumn',
+  selectedColumnsLocalStoreKey = 'selectedColumnsLocalStoreKey',
 }: Props<TData, TValue>) {
-  const [columnVisibility, setColumnVisibility] = useState(
+  const [columnVisibility, setColumnVisibility] = useLocalStorage(
+    selectedColumnsLocalStoreKey,
     createInitialColumnVisibilityState(availableTableColumns, defaultEnabledTableColumns)
   );
 
@@ -61,6 +68,7 @@ function SearchTable<TData, TValue>({
       pagination,
       columnVisibility,
     },
+    // @ts-ignore
     onColumnVisibilityChange: setColumnVisibility,
     // We use server side pagination and sorting
     manualPagination: true,

@@ -148,7 +148,6 @@ function Views({ view, className }: { view?: string; className?: string }) {
   );
 }
 
-// temporary view selector until we have a proper tabs implementation
 function OccurrenceViewTabs({
   view,
   defaultView,
