@@ -196,7 +196,7 @@ export function useOccurrenceColumns({
         cell: ({ row }) => (
           <InlineLineClamp className="-g-ml-0.5">
             <SetAsFilter
-              filterIsActive={isFilterActive('dataset')}
+              filterIsActive={isFilterActive('datasetKey')}
               field="dataset"
               value={row.original.datasetKey}
               className="g-ml-0"
