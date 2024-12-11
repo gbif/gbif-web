@@ -3,6 +3,7 @@ import { Endpoints, GbifEnv } from './endpoints';
 import themeBuilder from './theme/index';
 import { Theme } from './theme/theme';
 import { SearchMetadata } from '../contexts/search';
+import defaultsDeep from 'lodash/defaultsDeep';
 
 type PageConfig = {
   id: string;
@@ -111,7 +112,7 @@ type Props = {
 
 type CssVariable = { name: string; value: unknown };
 
-const ConfigDefault: Partial<Config> = {
+const configDefault: Partial<Config> = {
   datasetSearch: {
     excludedFilters: [],
     highlightedFilters: ['q', 'type', 'publishingOrg', 'license'],
@@ -143,7 +144,7 @@ const ConfigDefault: Partial<Config> = {
   },
   literatureSearch: {
     queryType: 'PREDICATE',
-    highlightedFilters: ['q', 'year'],
+    highlightedFilters: ['q', 'year', 'countriesOfResearcher', 'gbifDatasetKey'],
   },
   occurrenceSearch: {
     queryType: 'PREDICATE',
@@ -156,7 +157,13 @@ const ConfigDefault: Partial<Config> = {
       'geometry',
     ],
     tabs: ['table', 'media', 'map', 'dashboard', 'download'],
-    // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
+    defaultEnabledTableColumns: [
+      'scientificName',
+      'features',
+      'country',
+      'coordinates',
+      'year'
+    ],
   },
   maps: {
     locale: 'en',
@@ -200,14 +207,10 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
         return { name: `--${key}`, value };
       });
     // Convert css variables to actual css that will be injected in the document
+    const mergedConfig = defaultsDeep({}, {theme, variables: cssVariables}, config, configDefault);
     return {
       style: `:root { ${cssVariables.map((v) => `${v.name}: ${v.value};`).join('\n')} }`,
-      config: {
-        ...ConfigDefault,
-        ...config,
-        theme,
-        variables: cssVariables,
-      },
+      config: mergedConfig,
     };
   }, [config]);
 
