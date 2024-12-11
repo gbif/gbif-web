@@ -59,7 +59,7 @@ export function DatasetKeyAbout() {
   const removeSidebar = useBelow(1100);
   const { formatMessage } = useIntl();
   const config = useConfig();
-  const sitePredicate = config?.occurrencePredicate;
+  const sitePredicate = config?.occurrenceSearch?.scope;
 
   const {
     data: insights,
@@ -121,7 +121,7 @@ export function DatasetKeyAbout() {
         },
       },
     });
-  }, [dataset?.key]);
+  }, [dataset?.key, sitePredicate, load]);
 
   if (!dataset) {
     return null; //TODO return loader or error
