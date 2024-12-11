@@ -74,7 +74,7 @@ export function InstitutionKey({
 
       <PageContainer topPadded className="g-bg-white">
         <ArticleTextContainer className="g-max-w-screen-xl">
-          <div className="g-flex g-mb-4">
+          <div className="g-flex g-pb-4">
             {imageUrl && !useInlineImage && (
               <div className="g-flex-none g-me-4">
                 <div className="g-bg-slate-200 g-rounded g-w-36 lg:g-w-96 g-overflow-hidden">
@@ -202,7 +202,7 @@ export function InstitutionKey({
           </div>
           {tabs.length > 1 && (
             <>
-              <div className="g-border-b g-mt-4"></div>
+              <div className="g-border-b"></div>
               <Tabs links={tabs} />
             </>
           )}

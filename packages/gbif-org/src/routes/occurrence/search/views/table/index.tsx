@@ -126,7 +126,7 @@ const createRowLink = (row: Row<SingleOccurrenceSearchResult>) => `/occurrence/$
 
 export function OccurrenceTable() {
   const searchContext = useSearchContext();
-  const [paginationState, setPaginationState] = usePaginationState();
+  const [paginationState, setPaginationState] = usePaginationState({pageSize: 50});
   const filterContext = useContext(FilterContext);
   const config = useConfig();
 
