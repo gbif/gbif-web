@@ -1,3 +1,4 @@
+import { ErrorPage } from '@/components/ErrorBoundary';
 import { UnexpectedLoaderError } from '@/errors';
 import { NotFoundPage } from '@/notFoundPage';
 import React from 'react';
@@ -12,11 +13,10 @@ export function RootErrorPage(): React.ReactElement {
 
   if (error instanceof UnexpectedLoaderError) {
     // TODO: Handle
+    console.error(error);
   }
 
   return (
-    <>
-      <h1>Oops an error occurred!</h1>
-    </>
+    <ErrorPage error={error} />
   );
 }
