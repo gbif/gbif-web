@@ -2,6 +2,7 @@ import { useOrderedList } from './useOrderedList';
 import { Drawer } from '@/components/drawer/drawer';
 import { useStringParam } from '@/hooks/useParam';
 import { StandaloneOccurrenceKeyPage } from '@/routes/occurrence/key/standalone';
+import { useEffect, useRef } from 'react';
 
 const entityTypes = {
   o: 'occurrence',
@@ -16,9 +17,29 @@ export default function EntityDrawer() {
   const { orderedList } = useOrderedList();
   const [previewKey, setPreviewKey] = useStringParam({ key: 'entity' });
 
+  // We need to keep track of the history of keys to be able to go back and forth
+  // This is because the drawer can display related occurrences that has an id that is not in the orderedList
+  // If we encounter such an id, we need to be able to go back to the previous id in the history until we find an id that is in the orderedList
+  const keyHistory = useRef<string[]>([]);
+
+  const getCurrentIndex = (key: string | undefined = previewKey) => {
+    if (key == null) return -1;
+
+    const index = orderedList.findIndex((o) => o.toString() === key?.toString());
+    if (index !== -1) return index;
+
+    return getCurrentIndex(keyHistory.current.pop());
+  };
+
+  useEffect(() => {
+    if (previewKey) {
+      keyHistory.current.push(previewKey);
+    }
+  }, [previewKey]);
+
   const handleNext = () => {
     // Logic to go to the next item in `orderedList`
-    const currentIndex = orderedList.findIndex((o) => o.toString() === previewKey?.toString());
+    const currentIndex = getCurrentIndex();
     const nextIndex = currentIndex + 1;
     if (nextIndex < orderedList.length) {
       setPreviewKey(orderedList[nextIndex].toString());
@@ -27,7 +48,7 @@ export default function EntityDrawer() {
 
   const handlePrevious = () => {
     // Logic to go to the previous item in `orderedList`
-    const currentIndex = orderedList.findIndex((o) => o?.toString() === previewKey?.toString());
+    const currentIndex = getCurrentIndex();
     const previousIndex = currentIndex - 1;
     if (previousIndex >= 0) {
       setPreviewKey(orderedList[previousIndex]?.toString());

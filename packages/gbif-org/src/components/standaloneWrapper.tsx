@@ -2,7 +2,7 @@ import { useConfig } from '@/config/config';
 import { applyReactRouterPlugins, RouteObjectWithPlugins, useI18n } from '@/reactRouterPlugins';
 import { useRef, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { createMemoryRouter, RouterProvider } from 'react-router-dom';
+import { createMemoryRouter, RouterProvider, useNavigate } from 'react-router-dom';
 import { StandaloneRoot } from './root';
 
 type Props = {
@@ -12,6 +12,7 @@ type Props = {
 
 export function StandaloneWrapper({ routes, url }: Props) {
   const config = useConfig();
+  const rootNavigate = useNavigate();
   const ref = useRef<HTMLDivElement>(null);
   const routerRef = useRef<ReturnType<typeof createMemoryRouter>>();
   const rootRef = useRef<ReturnType<typeof createRoot>>();
@@ -25,7 +26,21 @@ export function StandaloneWrapper({ routes, url }: Props) {
       }
 
       if (ref.current && rootRef.current) {
-        const routesWithPlugins = applyReactRouterPlugins(routes, config, { standalone: true });
+        const routesWithNotFoundRedirect: RouteObjectWithPlugins[] = [
+          ...routes,
+          {
+            path: '*',
+            loader: ({ request }) => {
+              const url = new URL(request.url);
+              rootNavigate(url.pathname);
+              return null;
+            },
+          },
+        ];
+
+        const routesWithPlugins = applyReactRouterPlugins(routesWithNotFoundRedirect, config, {
+          standalone: true,
+        });
         routerRef.current = createMemoryRouter(routesWithPlugins);
         setRouterIsReady(true);
 
@@ -45,7 +60,7 @@ export function StandaloneWrapper({ routes, url }: Props) {
 
       setTimeout(() => root?.unmount());
     };
-  }, [routes, config]);
+  }, [routes, config, rootNavigate]);
 
   // Navigate to the url when it changes
   useEffect(() => {
