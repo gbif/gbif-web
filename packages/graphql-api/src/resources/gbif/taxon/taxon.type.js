@@ -18,6 +18,7 @@ const typeDef = gql`
       issue: [NameUsageIssue]
       hl: Boolean
       qField: [TaxonSearchQField]
+      query: TaxonSearchInput
     ): TaxonSearchResult!
     backboneSearch(
       limit: Int
@@ -31,8 +32,9 @@ const typeDef = gql`
       nameType: [NameType]
       nomenclaturalStatus: [NomenclaturalStatus]
       issue: [NameUsageIssue]
-      hl: Boolean,
+      hl: Boolean
       qField: [TaxonSearchQField]
+      query: TaxonSearchInput
     ): TaxonSearchResult!
     taxon(key: ID!): Taxon
     checklistRoots(datasetKey: ID!, limit: Int, offset: Int): TaxonListResult
@@ -50,6 +52,24 @@ const typeDef = gql`
       datasetKey: ID
       taxonScope: [ID!]
     ): [TaxonSuggestion]!
+  }
+
+  input TaxonSearchInput {
+    limit: Int
+    offset: Int
+    q: String
+    datasetKey: [ID]
+    rank: [Rank]
+    highertaxonKey: [ID]
+    status: [TaxonomicStatus]
+    isExtinct: Boolean
+    habitat: [Habitat]
+    origin: [Origin]
+    nameType: [NameType]
+    nomenclaturalStatus: [NomenclaturalStatus]
+    issue: [NameUsageIssue]
+    hl: Boolean
+    qField: [TaxonSearchQField]
   }
 
   type TaxonSearchResult {
@@ -153,7 +173,7 @@ const typeDef = gql`
   type TaxonFacet {
     rank(limit: Int, offset: Int): [TaxonFacetResult]
     status(limit: Int, offset: Int): [TaxonFacetResult]
-    higherTaxon(limit: Int, offset: Int): [TaxonBreakdown]
+    highertaxonKey(limit: Int, offset: Int): [TaxonBreakdown]
     issue(limit: Int, offset: Int): [TaxonFacetResult]
   }
 

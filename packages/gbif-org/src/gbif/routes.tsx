@@ -23,6 +23,8 @@ import { RootErrorPage } from '@/routes/rootErrorPage';
 import { Outlet } from 'react-router-dom';
 import { GbifRootLayout, headerLoader } from './gbifRootLayout';
 import { literatureSearchRoute } from '@/routes/literature/search';
+import { taxonKeyRoute } from '@/routes/taxon/key';
+import { taxonSearchRoute } from '@/routes/taxon/search';
 
 export function createGbifRoutes(config: Config) {
   return applyReactRouterPlugins(
@@ -52,6 +54,8 @@ export function createGbifRoutes(config: Config) {
               occurrenceSearchRoute,
               publisherKeyRoute,
               publisherSearchRoute,
+              taxonKeyRoute,
+              taxonSearchRoute,
               literatureSearchRoute,
               confirmEndorsmentRoute,
               ...resourceKeyRoutes,

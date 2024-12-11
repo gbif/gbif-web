@@ -8,6 +8,7 @@ const entityTypes = {
   o: 'occurrence',
   d: 'dataset',
   p: 'publisher',
+  t: 'taxon',
   c: 'collection',
   i: 'institution',
   n: 'network',
@@ -87,6 +88,7 @@ export default function EntityDrawer() {
       {type === 'institution' && <h1>Institution {key}</h1>}
       {type === 'network' && <h1>Network {key}</h1>}
       {type === 'installation' && <h1>Installation {key}</h1>}
+      {type === 'taxon' && <h1>Taxon {key}</h1>}
     </Drawer>
   );
 }

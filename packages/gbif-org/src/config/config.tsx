@@ -54,6 +54,7 @@ export type Config = Endpoints & {
     occurrenceSearch: PartialSearchMetadata;
   };
   occurrenceSearch?: SearchMetadata;
+  taxonSearch?: SearchMetadata;
   publisherSearch?: SearchMetadata;
   publisherKey?: {
     literatureSearch: PartialSearchMetadata;
@@ -162,7 +163,16 @@ const configDefault: Partial<Config> = {
       'features',
       'country',
       'coordinates',
-      'year'
+      'year',
+      'eventDate',
+      'dataset',
+      'recordedBy',
+      'identifiedBy',
+      'typeStatus',
+      'preparations',
+      'catalogNumber',
+      'establishmentMeans',
+      'iucnRedListCategory',
     ],
   },
   maps: {
@@ -208,6 +218,10 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
       });
     // Convert css variables to actual css that will be injected in the document
     const mergedConfig = defaultsDeep({}, {theme, variables: cssVariables}, config, configDefault);
+    // const mergedConfigTest = defaultsDeep({}, config.occurrenceSearch, configDefault.occurrenceSearch);
+    // console.log('config', config.occurrenceSearch);
+    // console.log('configDefault', configDefault.occurrenceSearch);
+    // console.log('mergedConfig', mergedConfigTest);
     return {
       style: `:root { ${cssVariables.map((v) => `${v.name}: ${v.value};`).join('\n')} }`,
       config: mergedConfig,

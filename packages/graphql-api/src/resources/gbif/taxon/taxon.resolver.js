@@ -36,10 +36,10 @@ const getTaxonFacet =
  */
 export default {
   Query: {
-    taxonSearch: (parent, query, { dataSources }) =>
-      dataSources.taxonAPI.searchTaxa({ query }),
-    backboneSearch: (parent, query, { dataSources }) =>
-      dataSources.taxonAPI.searchBackbone({ query }),
+    taxonSearch: (parent, { query = {}, ...args } = {}, { dataSources }) =>
+      dataSources.taxonAPI.searchTaxa({ query: { ...args, ...query } }),
+    backboneSearch: (parent, { query = {}, ...args } = {}, { dataSources }) =>
+      dataSources.taxonAPI.searchBackbone({ query: { ...args, ...query } }),
     taxon: (parent, { key }, { dataSources }) =>
       dataSources.taxonAPI.getTaxonByKey({ key }),
     checklistRoots: (parent, { datasetKey: key, ...query }, { dataSources }) =>
@@ -69,7 +69,7 @@ export default {
   TaxonFacet: {
     rank: getTaxonFacet('rank'),
     status: getTaxonFacet('status'),
-    higherTaxon: getTaxonFacet('highertaxonKey'),
+    highertaxonKey: getTaxonFacet('highertaxonKey'),
     issue: getTaxonFacet('issue'),
   },
   TaxonFacetResult: {

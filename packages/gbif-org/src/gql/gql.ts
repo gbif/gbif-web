@@ -126,6 +126,12 @@ const documents = {
     "\n  query ProjectNewsAndEvents($key: String!) {\n    gbifProject(id: $key) {\n      news {\n        __typename\n        createdAt\n        ...NewsResult\n      }\n      events {\n        __typename\n        start\n        ...EventResult\n      }\n    }\n    help(identifier: \"how-to-add-events-to-my-project-page\") {\n      title\n    }\n  }\n": types.ProjectNewsAndEventsDocument,
     "\n  query ResourceRedirect($id: String!) {\n    resource(id: $id) {\n      __typename\n    }\n  }\n": types.ResourceRedirectDocument,
     "\n  fragment ToolPage on Tool {\n    id\n    title\n    summary\n    body\n    primaryImage {\n      ...ArticleBanner\n    }\n    primaryLink {\n      label\n      url\n    }\n    secondaryLinks {\n      label\n      url\n    }\n    citation\n    createdAt\n    author\n    rights\n    rightsHolder\n    publicationDate\n  }\n": types.ToolPageFragmentDoc,
+    "\n  query Taxon($key: ID!) {\n    taxon(key: $key) {\n      key\n      scientificName\n    }\n  }\n": types.TaxonDocument,
+    "\n  query TaxonSummaryMetrics {\n    taxonSearch {\n      facet {\n        issue {\n          name\n          count\n        }\n      }\n    }\n  }\n": types.TaxonSummaryMetricsDocument,
+    "\n    query TaxonRankFacet($query: TaxonSearchInput) {\n      search: taxonSearch(query: $query) {\n        facet {\n          field: rank(limit: 100) {\n            name\n            count\n          }\n        }\n      }\n    }\n  ": types.TaxonRankFacetDocument,
+    "\n    query TaxonStatusFacet($query: TaxonSearchInput) {\n      search: taxonSearch(query: $query) {\n        facet {\n          field: status(limit: 100) {\n            name\n            count\n          }\n        }\n      }\n    }\n  ": types.TaxonStatusFacetDocument,
+    "\n  query TaxonSearch($offset: Int, $limit: Int, $query: TaxonSearchInput) {\n    taxonSearch(query: $query, offset: $offset, limit: $limit) {\n      count\n      offset\n      endOfRecords\n      results {\n        key\n        nubKey\n        scientificName\n        formattedName\n        kingdom\n        phylum\n        class\n        order\n        family\n        genus\n        species\n        taxonomicStatus\n        rank\n        datasetKey\n        dataset {\n          title\n        }\n        accepted\n        acceptedKey\n        numDescendants\n        vernacularNames(limit: 2, language: \"eng\") {\n          results {\n            vernacularName\n            source\n            sourceTaxonKey\n          }\n        }\n      }\n    }\n  }\n": types.TaxonSearchDocument,
+    "\n  fragment TaxonResult on Taxon {\n    key\n    nubKey\n    scientificName\n    formattedName\n    kingdom\n    phylum\n    class\n    order\n    family\n    genus\n    taxonomicStatus\n  }\n": types.TaxonResultFragmentDoc,
 };
 
 /**
@@ -594,6 +600,30 @@ export function graphql(source: "\n  query ResourceRedirect($id: String!) {\n   
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  fragment ToolPage on Tool {\n    id\n    title\n    summary\n    body\n    primaryImage {\n      ...ArticleBanner\n    }\n    primaryLink {\n      label\n      url\n    }\n    secondaryLinks {\n      label\n      url\n    }\n    citation\n    createdAt\n    author\n    rights\n    rightsHolder\n    publicationDate\n  }\n"): (typeof documents)["\n  fragment ToolPage on Tool {\n    id\n    title\n    summary\n    body\n    primaryImage {\n      ...ArticleBanner\n    }\n    primaryLink {\n      label\n      url\n    }\n    secondaryLinks {\n      label\n      url\n    }\n    citation\n    createdAt\n    author\n    rights\n    rightsHolder\n    publicationDate\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Taxon($key: ID!) {\n    taxon(key: $key) {\n      key\n      scientificName\n    }\n  }\n"): (typeof documents)["\n  query Taxon($key: ID!) {\n    taxon(key: $key) {\n      key\n      scientificName\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query TaxonSummaryMetrics {\n    taxonSearch {\n      facet {\n        issue {\n          name\n          count\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query TaxonSummaryMetrics {\n    taxonSearch {\n      facet {\n        issue {\n          name\n          count\n        }\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query TaxonRankFacet($query: TaxonSearchInput) {\n      search: taxonSearch(query: $query) {\n        facet {\n          field: rank(limit: 100) {\n            name\n            count\n          }\n        }\n      }\n    }\n  "): (typeof documents)["\n    query TaxonRankFacet($query: TaxonSearchInput) {\n      search: taxonSearch(query: $query) {\n        facet {\n          field: rank(limit: 100) {\n            name\n            count\n          }\n        }\n      }\n    }\n  "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query TaxonStatusFacet($query: TaxonSearchInput) {\n      search: taxonSearch(query: $query) {\n        facet {\n          field: status(limit: 100) {\n            name\n            count\n          }\n        }\n      }\n    }\n  "): (typeof documents)["\n    query TaxonStatusFacet($query: TaxonSearchInput) {\n      search: taxonSearch(query: $query) {\n        facet {\n          field: status(limit: 100) {\n            name\n            count\n          }\n        }\n      }\n    }\n  "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query TaxonSearch($offset: Int, $limit: Int, $query: TaxonSearchInput) {\n    taxonSearch(query: $query, offset: $offset, limit: $limit) {\n      count\n      offset\n      endOfRecords\n      results {\n        key\n        nubKey\n        scientificName\n        formattedName\n        kingdom\n        phylum\n        class\n        order\n        family\n        genus\n        species\n        taxonomicStatus\n        rank\n        datasetKey\n        dataset {\n          title\n        }\n        accepted\n        acceptedKey\n        numDescendants\n        vernacularNames(limit: 2, language: \"eng\") {\n          results {\n            vernacularName\n            source\n            sourceTaxonKey\n          }\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query TaxonSearch($offset: Int, $limit: Int, $query: TaxonSearchInput) {\n    taxonSearch(query: $query, offset: $offset, limit: $limit) {\n      count\n      offset\n      endOfRecords\n      results {\n        key\n        nubKey\n        scientificName\n        formattedName\n        kingdom\n        phylum\n        class\n        order\n        family\n        genus\n        species\n        taxonomicStatus\n        rank\n        datasetKey\n        dataset {\n          title\n        }\n        accepted\n        acceptedKey\n        numDescendants\n        vernacularNames(limit: 2, language: \"eng\") {\n          results {\n            vernacularName\n            source\n            sourceTaxonKey\n          }\n        }\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  fragment TaxonResult on Taxon {\n    key\n    nubKey\n    scientificName\n    formattedName\n    kingdom\n    phylum\n    class\n    order\n    family\n    genus\n    taxonomicStatus\n  }\n"): (typeof documents)["\n  fragment TaxonResult on Taxon {\n    key\n    nubKey\n    scientificName\n    formattedName\n    kingdom\n    phylum\n    class\n    order\n    family\n    genus\n    taxonomicStatus\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

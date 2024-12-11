@@ -1,0 +1,108 @@
+import { NoRecords } from '@/components/noDataMessages';
+import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Card } from '@/components/ui/smallCard';
+import { Spinner } from '@/components/ui/spinner';
+import { ViewHeader } from '@/components/ViewHeader';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
+
+export function TreePresentation({
+  results,
+  total,
+  endOfRecords,
+  loading,
+  next,
+  onSelect,
+}: {
+  results: any;
+  total: number;
+  endOfRecords: boolean;
+  loading: boolean;
+  next: () => void;
+  onSelect: ({ key }: { key: string }) => void;
+}) {
+  return (
+    <div className="">
+      <ViewHeader total={total} loading={loading} message="counts.nTrees" />
+      {total === 0 && !loading && <NoRecords />}
+      <div className="g-mb-12">
+        <ul style={{ padding: 0, margin: 0, listStyle: 'none' }}>
+          {results.length > 0 &&
+            results.map((item) => (
+              <li key={item.key}>
+                <TreeResult onSelect={onSelect} item={item} largest={results[0].count} />
+              </li>
+            ))}
+        </ul>
+        {loading && <>
+          <TreeSkeleton />
+        </>}
+        {results.length > 0 && !endOfRecords && (
+          <div className="">
+            <Button disabled={loading} variant="outline" onClick={() => next()}>
+              {loading ? <Spinner /> : <FormattedMessage id="search.loadMore" />}
+            </Button>
+          </div>
+        )}
+        
+        <div className="g-flex-1 g-flex-grow-[1000]"></div>
+      </div>
+    </div>
+  );
+}
+
+function TreeResult({
+  largest,
+  item,
+  onSelect,
+}: {
+  largest: number;
+  item: any;
+  onSelect: ({ key }: { key: string }) => void;
+}) {
+  return (
+    <Card className="g-p-4 g-mb-2 g-relative">
+      <DynamicLink
+        className="g-z-10 g-absolute g-top-0 g-bottom-0 g-left-0 g-right-0"
+        to={`/tree/${item.tree.key}`}
+        // onClick={(event) => {
+        //   if (
+        //     event.ctrlKey ||
+        //     event.shiftKey ||
+        //     event.metaKey || // apple
+        //     (event.button && event.button == 1) // middle click, >IE9 + everyone else
+        //   ) {
+        //     return;
+        //   } else {
+        //     onSelect(item);
+        //     event.preventDefault();
+        //   }
+        // }}
+      ></DynamicLink>
+      <div className="title g-flex g-flex-nowrap g-text-sm g-z-1">
+        <div className="g-flex-auto">{item.tree.title}</div>
+        <span className="g-text-slate-500">
+          <FormattedNumber value={item.count} />
+        </span>
+      </div>
+      <Progress value={(100 * item.count) / largest} className="g-h-1 g-mt-1" />
+      <div className="g-mt-2 g-text-sm g-text-slate-500">{item.tree.excerpt}</div>
+    </Card>
+  );
+}
+
+function TreeSkeleton() {
+  return (
+    <>
+      <Skeleton className="g-h-24 g-mb-2" />
+      <Skeleton className="g-h-24 g-mb-2" />
+      <Skeleton className="g-h-24 g-mb-2" />
+      <Skeleton className="g-h-24 g-mb-2" />
+      <Skeleton className="g-h-24 g-mb-2" />
+      <Skeleton className="g-h-24 g-mb-2" />
+      <Skeleton className="g-h-24 g-mb-2" />
+    </>
+  );
+}

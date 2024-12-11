@@ -162,6 +162,13 @@ export const gbifConfig: Config = {
     queryType: 'V1',
     highlightedFilters: ['q', 'code', 'country', 'numberSpecimens', 'occurrenceCount'],
   },
+  taxonSearch: {
+    queryType: 'V1',
+    scope: {
+      datasetKey: ['d7dddbf4-2cf0-4f39-9b2a-bb099caae36c']
+    },
+    highlightedFilters: ['q', 'status', 'rank'],
+  },
   literatureSearch: {
     queryType: 'PREDICATE',
     highlightedFilters: ['q', 'year'],
@@ -178,6 +185,11 @@ export const gbifConfig: Config = {
       'recordedBy',
     ],
     tabs: ['table', 'media', 'map', 'clusters', 'datasets', 'dashboard', 'download'],
+    defaultEnabledTableColumns: [
+      'scientificName',
+      'features',
+      'catalogNumber',
+    ],
     // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
     // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
     // scope: {

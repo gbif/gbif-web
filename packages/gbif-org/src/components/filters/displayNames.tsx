@@ -206,6 +206,8 @@ export const MonthLabel = getEnumLabel({ template: (id) => `enums.month.${id}` }
 export const ContinentLabel = getEnumLabel({ template: (id) => `enums.continent.${id}` });
 export const EndpointTypeLabel = getEnumLabel({ template: (id) => `enums.endpointType.${id}` });
 export const DwcaExtensionLabel = getEnumLabel({ template: (id) => `enums.dwcaExtension.${id}` });
+export const TaxonRankLabel = getEnumLabel({ template: (id) => `enums.taxonRank.${id}` });
+export const TaxonStatusLabel = getEnumLabel({ template: (id) => `enums.taxonomicStatus.${id}` });
 export const IucnRedListCategoryLabel = getEnumLabel({
   template: (id) => `enums.iucnRedListCategory.${id}`,
 });
