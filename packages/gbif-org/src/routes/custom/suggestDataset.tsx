@@ -5,6 +5,7 @@ import { ArticleTitle } from '../resource/key/components/articleTitle';
 import { SuggestDatasetForm } from '../resource/key/composition/blocks/customComponents/suggestDatasetForm';
 import { ArticleIntro } from '../resource/key/components/articleIntro';
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
+import { ArticleSkeleton } from '../resource/key/components/articleSkeleton';
 
 function SuggestDatasetPage() {
   return (
@@ -29,4 +30,6 @@ function SuggestDatasetPage() {
 export const suggestDatasetRoute: RouteObjectWithPlugins = {
   id: 'suggest-dataset',
   element: <SuggestDatasetPage />,
+  loadingElement: <ArticleSkeleton />,
+  path: 'suggest-dataset',
 };
