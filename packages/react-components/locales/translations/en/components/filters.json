@@ -26,12 +26,12 @@
   },
   "taxonomicStatus": {
     "name": "Status",
-    "count": "",
+    "count": "{num, plural, one { status } other {# statuses}}",
     "description": "The number of held specimens stated in the description. This number does not reflect how many records have been digitized and shared."
   },
   "taxonRank": {
     "name": "Rank",
-    "count": "",
+    "count": "{num, plural, one { rank } other {# ranks}}",
     "description": "The number of held specimens stated in the description. This number does not reflect how many records have been digitized and shared."
   },
   "numberSpecimens": {
