@@ -50,7 +50,7 @@ export function OccurrenceSearchPage(): React.ReactElement {
 export function OccurrenceSearchPageInner(): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
-  const defaultView = searchContext?.tabs?.[0] ?? 'table';
+  const defaultView = searchContext.defaultTab ?? searchContext?.tabs?.[0] ?? 'table';
   const [view, setView] = useStringParam({
     key: 'view',
     defaultValue: defaultView,
