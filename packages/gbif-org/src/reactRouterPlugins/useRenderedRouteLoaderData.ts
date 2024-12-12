@@ -6,7 +6,7 @@ import { slugifyId } from './slugified';
 export function useRenderedRouteLoaderData(routeId: string) {
   const localizedRouteId = useLocalizedRouteId(routeId);
   const localizedRouteData = useRouteLoaderData(localizedRouteId);
-  const slugifiedAndLocalizedRouteId = useLocalizedRouteId(slugifyId(routeId));
+  const slugifiedAndLocalizedRouteId = slugifyId(localizedRouteId);
   const slugifiedAndLocalizedRouteData = useRouteLoaderData(slugifiedAndLocalizedRouteId);
 
   return localizedRouteData || slugifiedAndLocalizedRouteData;
