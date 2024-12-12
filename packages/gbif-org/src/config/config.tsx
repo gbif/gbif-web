@@ -3,7 +3,7 @@ import { Endpoints, GbifEnv } from './endpoints';
 import themeBuilder from './theme/index';
 import { Theme } from './theme/theme';
 import { SearchMetadata } from '../contexts/search';
-import defaultsDeep from 'lodash/defaultsDeep';
+import mergeWith from 'lodash/mergeWith';
 
 type PageConfig = {
   id: string;
@@ -54,9 +54,12 @@ export type Config = Endpoints & {
     occurrenceSearch: PartialSearchMetadata;
   };
   occurrenceSearch?: SearchMetadata;
-  taxonSearch?: SearchMetadata;
   publisherSearch?: SearchMetadata;
   publisherKey?: {
+    literatureSearch: PartialSearchMetadata;
+  };
+  taxonSearch?: SearchMetadata;
+  taxonKey?: {
     literatureSearch: PartialSearchMetadata;
   };
   literatureSearch?: SearchMetadata;
@@ -143,6 +146,14 @@ const configDefault: Partial<Config> = {
     queryType: 'V1',
     highlightedFilters: ['q', 'code', 'country', 'numberSpecimens', 'occurrenceCount'],
   },
+  publisherSearch: {
+    queryType: 'V1',
+    highlightedFilters: ['q', 'country'],
+  },
+  taxonSearch: {
+    queryType: 'V1',
+    highlightedFilters: ['q', 'status', 'rank'],
+  },
   literatureSearch: {
     queryType: 'PREDICATE',
     highlightedFilters: ['q', 'year', 'countriesOfResearcher', 'gbifDatasetKey'],
@@ -217,11 +228,12 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
         return { name: `--${key}`, value };
       });
     // Convert css variables to actual css that will be injected in the document
-    const mergedConfig = defaultsDeep({}, {theme, variables: cssVariables}, config, configDefault);
-    // const mergedConfigTest = defaultsDeep({}, config.occurrenceSearch, configDefault.occurrenceSearch);
-    // console.log('config', config.occurrenceSearch);
-    // console.log('configDefault', configDefault.occurrenceSearch);
-    // console.log('mergedConfig', mergedConfigTest);
+    function customizer(current: unknown) {
+      if (Array.isArray(current)) {
+        return current;
+      }
+    }
+    const mergedConfig = mergeWith({}, {theme, variables: cssVariables}, config, configDefault, customizer);
     return {
       style: `:root { ${cssVariables.map((v) => `${v.name}: ${v.value};`).join('\n')} }`,
       config: mergedConfig,
