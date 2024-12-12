@@ -6,7 +6,7 @@ import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import { useStringParam } from '@/hooks/useParam';
 import { cn } from '@/utils/shadcn';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useFilters } from './filters';
 import { searchConfig } from './searchConfig';
@@ -20,6 +20,7 @@ import { AboutContent, ApiContent } from './helpTexts';
 import EntityDrawer from '@/routes/occurrence/search/views/browseList/ListBrowser';
 import { Table } from './views/table';
 import { Tree } from './views/tree';
+import { ClientSideOnly } from '@/components/clientSideOnly';
 
 export function TaxonSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({
@@ -34,9 +35,11 @@ export function TaxonSearchPage(): React.ReactElement {
         <title>Taxon search</title>
       </Helmet>
       <SearchContextProvider searchContext={config.taxonSearch}>
-        <FilterProvider filter={filter} onChange={setFilter}>
-          <TaxonSearchPageInner />
-        </FilterProvider>
+        <ClientSideOnly>
+          <FilterProvider filter={filter} onChange={setFilter}>
+            <TaxonSearchPageInner />
+          </FilterProvider>
+        </ClientSideOnly>
       </SearchContextProvider>
     </>
   );
@@ -52,11 +55,21 @@ export function TaxonSearchPageInner(): React.ReactElement {
     hideDefault: true,
   });
 
+  const visibleFilters = useMemo(() => {
+    if (view === 'table') {
+      return filters;
+    } else if (filters.q) {
+      return { q: filters.q };
+    } else {
+      return {};
+    }
+  }, [filters, view]);
+
   return (
     <>
       <EntityDrawer />
       <DataHeader
-        title="Taxons"
+        title="Taxonomy"
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
@@ -76,7 +89,7 @@ export function TaxonSearchPageInner(): React.ReactElement {
 
       <section className="">
         <FilterBar>
-          <FilterButtons filters={filters} searchContext={searchContext} />
+          <FilterButtons filters={visibleFilters} searchContext={searchContext} />
         </FilterBar>
       </section>
 
@@ -124,9 +137,7 @@ function Views({ view, className }: { view?: string; className?: string }) {
     <ErrorBoundary invalidateOn={view}>
       <div className={cn('', className)}>
         {fixedHeight && (
-          <DynamicHeightDiv minPxHeight={500}>
-            {view === 'table' && <Table />}
-          </DynamicHeightDiv>
+          <DynamicHeightDiv minPxHeight={500}>{view === 'table' && <Table />}</DynamicHeightDiv>
         )}
         {!fixedHeight && (
           <DynamicHeightDiv minPxHeight={500} onlySetMinHeight>
