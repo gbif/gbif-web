@@ -26,12 +26,12 @@
   },
   "taxonomicStatus": {
     "name": "Statut",
-    "count": "",
+    "count": "{num, plural, one { statut } other {# statuts}}",
     "description": "Le nombre de spécimens détenus indiqué dans la description. Ce nombre ne correspond pas au nombre d'enregistrements qui ont été numérisés et partagés."
   },
   "taxonRank": {
     "name": "Niveau du taxon",
-    "count": "",
+    "count": "{num, plural, one { rang } other {# rangs}}",
     "description": "Le nombre de spécimens détenus indiqué dans la description. Ce nombre ne correspond pas au nombre d'enregistrements qui ont été numérisés et partagés."
   },
   "numberSpecimens": {
