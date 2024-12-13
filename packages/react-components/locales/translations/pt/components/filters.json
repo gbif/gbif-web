@@ -24,6 +24,16 @@
     "count": "",
     "description": ""
   },
+  "taxonomicStatus": {
+    "name": "Estado",
+    "count": "",
+    "description": ""
+  },
+  "taxonRank": {
+    "name": "Nível",
+    "count": "",
+    "description": ""
+  },
   "numberSpecimens": {
     "name": "",
     "count": "",
