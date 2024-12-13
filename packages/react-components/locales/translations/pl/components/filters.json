@@ -24,6 +24,16 @@
     "count": "{num, plural, one {# kolekcja } few {# kolekcje} many {# kolekcji} other {# kolekcje}}",
     "description": "Kolekcja w GrSciColl, do której ten zapis został dopasowany"
   },
+  "taxonomicStatus": {
+    "name": "Status",
+    "count": "",
+    "description": "Liczba przechowywanych okazów określona w opisie. Liczba ta nie odzwierciedla liczby zdigitalizowanych i udostępnionych zapisów."
+  },
+  "taxonRank": {
+    "name": "",
+    "count": "",
+    "description": "Liczba przechowywanych okazów określona w opisie. Liczba ta nie odzwierciedla liczby zdigitalizowanych i udostępnionych zapisów."
+  },
   "numberSpecimens": {
     "name": "Liczba okazów",
     "count": "",
