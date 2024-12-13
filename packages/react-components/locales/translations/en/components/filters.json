@@ -24,6 +24,16 @@
     "count": "{num, plural, one {# collection } other {# collections}}",
     "description": "The collection in GrSciColl this record was matched to"
   },
+  "taxonomicStatus": {
+    "name": "Status",
+    "count": "{num, plural, one { status } other {# statuses}}",
+    "description": "The number of held specimens stated in the description. This number does not reflect how many records have been digitized and shared."
+  },
+  "taxonRank": {
+    "name": "Rank",
+    "count": "{num, plural, one { rank } other {# ranks}}",
+    "description": "The number of held specimens stated in the description. This number does not reflect how many records have been digitized and shared."
+  },
   "numberSpecimens": {
     "name": "Number of specimens",
     "count": "{num, plural, one { specimen count } other {# Specimen counts filters}}",
