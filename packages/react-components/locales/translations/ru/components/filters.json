@@ -24,6 +24,16 @@
     "count": "",
     "description": ""
   },
+  "taxonomicStatus": {
+    "name": "Статус",
+    "count": "",
+    "description": ""
+  },
+  "taxonRank": {
+    "name": "Ранг таксона",
+    "count": "",
+    "description": ""
+  },
   "numberSpecimens": {
     "name": "",
     "count": "",
