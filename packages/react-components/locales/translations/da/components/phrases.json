@@ -39,6 +39,7 @@
   "discard": "GBIF annoteret Arkiv",
   "keep": "GBIF annoteret Arkiv",
   "copyToClipboard": "GBIF annoteret Arkiv",
+  "fromCountry": "",
   "copiedToClipboard": "",
   "headers": {
     "description": "Beskriveslse",
