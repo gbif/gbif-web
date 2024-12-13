@@ -39,6 +39,7 @@
   "discard": "Архів анотований GBIF",
   "keep": "Архів анотований GBIF",
   "copyToClipboard": "Архів анотований GBIF",
+  "fromCountry": "",
   "copiedToClipboard": "",
   "headers": {
     "description": "Опис",
