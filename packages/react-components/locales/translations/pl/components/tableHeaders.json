@@ -1,6 +1,17 @@
 {
+  "features": "Cechy",
+  "citations": "Cytowanie",
+  "occurrences": "Wystąpienia",
+  "numberSpecimens": "Liczba okazów",
+  "gbifNumberSpecimens": "Okazy w GBIF",
   "title": "Tytuł",
+  "titleAndAbstract": "Tytuł i streszczenie",
+  "altmetric": "Altmetryka",
+  "registered": "Zarejestrowano",
+  "hostedDatasets": "Hostowane zbiory danych",
+  "pubDatasets": "Opublikowane zbiory danych",
   "institution": "Instytucja",
   "collection": "Kolekcja",
-  "collectionCount": "Kolekcje"
+  "collectionCount": "Kolekcje",
+  "active": "Aktywny"
 }

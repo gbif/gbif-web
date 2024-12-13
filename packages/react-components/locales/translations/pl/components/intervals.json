@@ -11,72 +11,72 @@
     "between": "{from} do {to}",
     "lt": "Poniżej {to}",
     "gt": "Powyżej {from}",
-    "e": ""
+    "e": "{from}"
   },
   "compactMeters": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "{from}m do {to}m",
+    "lt": "Poniżej {to}m",
+    "gt": "Powyżej {from}m",
+    "e": "{from}m"
   },
   "compactTime": {
     "between": "{from} do {to}",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "lt": "Przed {to}",
+    "gt": "Po {from}",
+    "e": "{from}"
   },
   "year": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Rok {from} do {to}",
+    "lt": "Przed rokiem {to}",
+    "gt": "Po roku {from}",
+    "e": "Rok {from}"
   },
   "coordinateUncertainty": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Niepewność współrzędnych od {from}m do {to}m",
+    "lt": "Niepewność współrzędnych poniżej {to}m",
+    "gt": "Niepewność współrzędnych powyżej {from}m",
+    "e": "Niepewność współrzędnych wynosi {from}m"
   },
   "depth": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Głębokość od {from} to {to}",
+    "lt": "Głębokość poniżej {to}",
+    "gt": "Głębokość powyżej {from}",
+    "e": "Głębokość wynosi {from}"
   },
   "organismQuantity": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Liczebność organizmów od {from} do {to}",
+    "lt": "Liczebność organizmów poniżej {to}",
+    "gt": "Liczebność organizmów powyżej {from}",
+    "e": "Liczebność organizmów wynosi {from}"
   },
   "sampleSizeValue": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Wartość wielkość próby od {from} do {to}",
+    "lt": "Wartość wielkość próby poniżej {to}",
+    "gt": "Wartość wielkość próby powyżej {from}",
+    "e": "Wartość wielkości próby wynosi {from}"
   },
   "relativeOrganismQuantity": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Względna liczebność organizmów od {from} do {to}",
+    "lt": "Względna liczebność organizmów poniżej {to}",
+    "gt": "Względna liczebność organizmów powyżej {from}",
+    "e": "Względna liczebność organizmów wynosi {from}"
   },
   "elevation": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Wysokość {from} do {to}",
+    "lt": "Wysokość pod {to}",
+    "gt": "Wysokość ponad {from}",
+    "e": "Wysokość wynosi {from}"
   },
   "geoDistance": {
-    "short": "",
-    "description": ""
+    "short": "W zasięgu {distance} od {latitude},{longitude}",
+    "description": "Szerokość geograficzna: {latitude}, długość geograficzna: {longitude}, dystans: {distance}"
   },
   "units": {
     "name": {
-      "km": "",
-      "m": "",
-      "mi": "",
-      "ft": ""
+      "km": "kilometry",
+      "m": "metry",
+      "mi": "mile",
+      "ft": "stopy"
     }
   }
 }

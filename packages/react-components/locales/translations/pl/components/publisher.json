@@ -1,25 +1,25 @@
 {
-  "searchTitle": "",
+  "searchTitle": "Wyszukiwanie wydawców",
   "tabs": {
-    "aboutPublisher": "",
-    "metrics": "",
-    "publishersHomepage": ""
+    "aboutPublisher": "Informacje o wydawcy",
+    "metrics": "Statystyki",
+    "publishersHomepage": "Strona główna"
   },
   "joinedDate": "",
-  "newPublisher": "",
-  "technicalContact": "",
-  "country": "",
-  "hosting": "",
-  "description": "",
-  "endorsedBy": "",
-  "pendingEndorsementBy": "",
-  "endorsementWithheld": "",
-  "installations": "",
-  "getDownloadReport": "",
-  "contacts": "",
-  "administrativeContact": "",
+  "newPublisher": "Nowy wydawca",
+  "technicalContact": "Kontakt w sprawach technicznych",
+  "country": "Kraj lub obszar",
+  "hosting": "Hosting",
+  "description": "Opis",
+  "endorsedBy": "Poparte przez",
+  "pendingEndorsementBy": "Oczekuje poparcia przez",
+  "endorsementWithheld": "Poparcie wstrzymane",
+  "installations": "Instalacja",
+  "getDownloadReport": "Pobierz raport aktywności",
+  "contacts": "Kontakt",
+  "administrativeContact": "Kontakt w sprawach administracyjnych",
   "header": {
-    "publisher": "",
-    "sinceDate": ""
+    "publisher": "Wydawca",
+    "sinceDate": "Od"
   }
 }

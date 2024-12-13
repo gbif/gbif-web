@@ -30,8 +30,8 @@
   "notVocabularyWarning": "",
   "group": {
     "views": "",
-    "record": "",
-    "occurrence": "",
+    "record": "Záznam",
+    "occurrence": "Výskyt",
     "organism": "",
     "materialEntity": "",
     "event": "",

@@ -44,8 +44,8 @@
     "keywords": ""
   },
   "auxiliary": {
-    "subject": "",
-    "citation": "",
+    "subject": "Předmět",
+    "citation": "Citace",
     "organisingParticipants": ""
   },
   "document": {
@@ -64,13 +64,13 @@
     "howToLinkDatasets": "",
     "howToLinkEvents": "",
     "when": "",
-    "language": "",
+    "language": "Jazyk",
     "viewOnGBIF": "",
     "published": "",
     "programme": "",
     "fundedBy": "",
     "about": "",
-    "rights": "",
+    "rights": "Práva",
     "rightsHolder": "",
     "author": "",
     "datasets": "",
