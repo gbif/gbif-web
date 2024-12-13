@@ -26,12 +26,12 @@
   },
   "taxonomicStatus": {
     "name": "Estado",
-    "count": "",
+    "count": "{num, plural, one {estado} other {# estados}}",
     "description": "El número de especímenes reportados que se indican en la descripción. Este número no refleja cuántos registros han sido digitalizados y compartidos."
   },
   "taxonRank": {
     "name": "Rango",
-    "count": "",
+    "count": "{num, plural, one { rango} other {# rangos}}",
     "description": "El número de especímenes reportados que se indican en la descripción. Este número no refleja cuántos registros han sido digitalizados y compartidos."
   },
   "numberSpecimens": {
