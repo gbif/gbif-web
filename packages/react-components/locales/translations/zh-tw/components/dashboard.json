@@ -24,6 +24,7 @@
   "occurrences": "出現紀錄",
   "other": "其它",
   "unknown": "未知",
+  "usingStartDates": "GBIF 註記的存檔",
   "iucnThreatStatus": "GBIF 註記的存檔",
   "iucnThreatStatusDescription": "GBIF 註記的存檔",
   "metricsFromGbifData": "這些指標是來自GBIF所共享的紀錄",
