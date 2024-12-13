@@ -24,6 +24,16 @@
     "count": "{num, plural, one {# collection } other {# collections}}",
     "description": "La collection de GrSciColl à laquelle cet enregistrement a été associé"
   },
+  "taxonomicStatus": {
+    "name": "Statut",
+    "count": "",
+    "description": "Le nombre de spécimens détenus indiqué dans la description. Ce nombre ne correspond pas au nombre d'enregistrements qui ont été numérisés et partagés."
+  },
+  "taxonRank": {
+    "name": "Niveau du taxon",
+    "count": "",
+    "description": "Le nombre de spécimens détenus indiqué dans la description. Ce nombre ne correspond pas au nombre d'enregistrements qui ont été numérisés et partagés."
+  },
   "numberSpecimens": {
     "name": "Nombre de spécimens",
     "count": "",
