@@ -11,6 +11,7 @@
   "inGbif": "{total, plural, one {# dans GBIF} other {# dans GBIF}}",
   "nSpecimens": "{total, plural, one {# spécimen} other {# spécimens}}",
   "nCollections": "{total, plural, one {# collection} other {# collections}}",
+  "nInstitutions": "{total, plural, one {# institution} other {# institutions}}",
   "nRecordsTotal": "{total, plural, one {# enregistrement au total} other {# enregistrements au total}}",
   "nSelected": "{total, plural, one {}other {# sélectionné}}",
   "nQualityFlags": "{total, plural, one {# drapeau de qualité} other {# drapeaux de qualité}}",
