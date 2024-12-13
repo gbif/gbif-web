@@ -20,7 +20,7 @@
     "summary": "Streszczenie",
     "record": "Zapis",
     "occurrence": "Stwierdzenie",
-    "event": "Wydarzenie",
+    "event": "Zdarzenie",
     "identification": "Identyfikacja",
     "taxon": "Takson",
     "location": "Lokalizacja",
@@ -31,10 +31,10 @@
   },
   "features": {
     "isClustered": "Klastrowany",
-    "isSamplingEvent": "Próbkowanie",
+    "isSamplingEvent": "Pobieranie prób",
     "isTreament": "Przetwarzanie",
     "isSequenced": "Sekwencjonowane",
-    "hasIssues": "Problemy",
+    "hasIssues": "Problemy i komentarze",
     "hasCoordinates": "Ma współrzędne",
     "hasCountry": "Kraj",
     "hasImages": "Multimedia",
@@ -50,25 +50,25 @@
       "properties": {
         "identifier": "Identyfikator",
         "type": "Typ",
-        "subtypeLiteral": "",
+        "subtypeLiteral": "Podtyp jak podano",
         "subtype": "Podtyp",
         "title": "Tytuł",
         "modified": "Zmodyfikowano",
         "MetadataDate": "Data metadanych",
-        "metadataLanguageLiteral": "",
+        "metadataLanguageLiteral": "Język metadanych jak podano",
         "metadataLanguage": "Język metadanych",
-        "providerManagedID": "",
+        "providerManagedID": "Identyfikator zarządzany przez dostawcę",
         "Rating": "Ocena",
-        "commenterLiteral": "",
+        "commenterLiteral": "Komentator jak podano",
         "commenter": "",
-        "comments": "",
+        "comments": "Komentarze",
         "reviewerLiteral": "",
         "reviewer": "",
         "reviewerComments": "",
-        "available": "",
+        "available": "Dostępny(a)",
         "hasServiceAccessPoint": "",
-        "rights": "",
-        "Owner": "",
+        "rights": "Prawa",
+        "Owner": "Właściciel",
         "UsageTerms": "",
         "WebStatement": "",
         "licenseLogoURL": "",
@@ -76,46 +76,46 @@
         "attributionLogoURL": "",
         "attributionLinkURL": "",
         "fundingAttribution": "",
-        "source": "",
-        "creator": "",
+        "source": "Źródło",
+        "creator": "Twórca",
         "providerLiteral": "",
         "provider": "",
         "metadataCreatorLiteral": "",
         "metadataCreator": "",
         "metadataProviderLiteral": "",
         "metadataProvider": "",
-        "description": "",
+        "description": "Opis",
         "caption": "",
-        "language": "",
+        "language": "Język",
         "physicalSetting": "",
         "CVterm": "",
         "subjectCategoryVocabulary": "",
         "tag": "",
         "LocationShown": "",
         "WorldRegion": "",
-        "CountryCode": "",
+        "CountryCode": "Kod kraju",
         "CountryName": "",
         "ProvinceState": "",
-        "City": "",
+        "City": "Miasto",
         "Sublocation": "",
-        "temporal": "",
+        "temporal": "Tymczasowe",
         "CreateDate": "",
         "timeOfDay": "",
         "taxonCoverage": "",
-        "scientificName": "",
-        "identificationQualifier": "",
-        "vernacularName": "",
-        "nameAccordingTo": "",
+        "scientificName": "Nazwa naukowa",
+        "identificationQualifier": "Kwalifikator identyfikacji",
+        "vernacularName": "Nazwa zwyczajowa",
+        "nameAccordingTo": "Nazwa zgodna z",
         "scientificNameID": "",
         "otherScientificName": "",
-        "identifiedBy": "",
-        "dateIdentified": "",
+        "identifiedBy": "Zidentyfikowany przez",
+        "dateIdentified": "Data identyfikacji",
         "taxonCount": "",
         "subjectPart": "",
-        "sex": "",
-        "lifeStage": "",
+        "sex": "Płeć",
+        "lifeStage": "Stadium rozwoju",
         "subjectOrientation": "",
-        "preparations": "",
+        "preparations": "Preparacje",
         "LocationCreated": "",
         "digitizationDate": "",
         "captureDevice": "",
@@ -127,7 +127,7 @@
         "associatedSpecimenReference": "",
         "associatedObservationReference": "",
         "accessURI": "",
-        "format": "",
+        "format": "Format",
         "variantLiteral": "",
         "variant": "",
         "variantDescription": "",
@@ -141,7 +141,7 @@
       }
     },
     "amplification": {
-      "name": "",
+      "name": "Amplifikacja",
       "properties": {
         "amplificationDate": "",
         "amplificationStaff": "",
@@ -180,7 +180,7 @@
       }
     },
     "germplasmAccession": {
-      "name": "",
+      "name": "Germplasm: Germplasm akcesja",
       "properties": {
         "germplasmID": "",
         "germplasmIdentifier": "",
@@ -222,7 +222,7 @@
       }
     },
     "germplasmMeasurementScore": {
-      "name": "",
+      "name": "Germplasm: wynik pomiaru",
       "properties": {
         "measurementID": "",
         "measurementValue": "",
@@ -245,7 +245,7 @@
       }
     },
     "germplasmMeasurementTrait": {
-      "name": "",
+      "name": "Germplasm: cecha pomiaru",
       "properties": {
         "measurementTraitID": "",
         "measurementTraitIdentifier": "",
@@ -259,7 +259,7 @@
       }
     },
     "germplasmMeasurementTrial": {
-      "name": "",
+      "name": "Germplasm: próba pomiaru",
       "properties": {
         "measurementTrailID": "",
         "measurementTrailIdentifier": "",
@@ -267,25 +267,25 @@
         "measurementTrailReport": "",
         "measurementTrailRemarks": "",
         "locationID": "",
-        "location": "",
+        "location": "Lokalizacja",
         "longitude": "Długość geograficzna",
         "latitude": "Szerokość geograficzna",
         "altitude": ""
       }
     },
     "identification": {
-      "name": "",
+      "name": "Historia identyfikacji",
       "properties": {
         "identificationID": "",
-        "verbatimIdentification": "",
-        "identificationQualifier": "",
-        "typeStatus": "",
-        "identifiedBy": "",
-        "identifiedByID": "",
-        "dateIdentified": "",
-        "identificationReferences": "",
-        "identificationVerificationStatus": "",
-        "identificationRemarks": "",
+        "verbatimIdentification": "Identyfikacja jak pierwotnie podana",
+        "identificationQualifier": "Kwalifikator identyfikacji",
+        "typeStatus": "Status typu",
+        "identifiedBy": "Zidentyfikowany przez",
+        "identifiedByID": "Identyfikator identyfikującego",
+        "dateIdentified": "Data identyfikacji",
+        "identificationReferences": "Odnośniki dla identyfikacji",
+        "identificationVerificationStatus": "Status weryfikacji identyfikacji",
+        "identificationRemarks": "Uwagi na temat identyfikacji",
         "taxonID": "",
         "scientificNameID": "",
         "acceptedNameUsageID": "",
@@ -294,15 +294,15 @@
         "nameAccordingToID": "",
         "namePublishedInID": "",
         "taxonConceptID": "",
-        "scientificName": "",
-        "acceptedNameUsage": "",
-        "parentNameUsage": "",
-        "originalNameUsage": "",
-        "nameAccordingTo": "",
-        "namePublishedIn": "",
-        "namePublishedInYear": "",
-        "higherClassification": "",
-        "kingdom": "",
+        "scientificName": "Nazwa naukowa",
+        "acceptedNameUsage": "Zaakceptowane użycie nazwy",
+        "parentNameUsage": "Użycie nazwy nadrzędnej",
+        "originalNameUsage": "Oryginalne użycie nazwy",
+        "nameAccordingTo": "Nazwa zgodna z",
+        "namePublishedIn": "Nazwa opublikowana w",
+        "namePublishedInYear": "Nazwa opublikowana w roku",
+        "higherClassification": "Nadrzędna klasyfikacja",
+        "kingdom": "Królestwo",
         "phylum": "Typ/Gromada",
         "class": "Klasa",
         "order": "Rząd",
@@ -311,18 +311,18 @@
         "genus": "Rodzaj",
         "genericName": "Gatunek",
         "subgenus": "Podrodzaj",
-        "infragenericEpithet": "",
-        "specificEpithet": "",
-        "infraspecificEpithet": "",
-        "cultivarEpithet": "",
+        "infragenericEpithet": "Epitet podrodzajowy",
+        "specificEpithet": "Epitet gatunkowy",
+        "infraspecificEpithet": "Epitet podgatunkowy",
+        "cultivarEpithet": "Epitet kultywaru",
         "taxonRank": "",
         "verbatimTaxonRank": "",
-        "scientificNameAuthorship": "",
-        "vernacularName": "",
-        "nomenclaturalCode": "",
+        "scientificNameAuthorship": "Autorstwo nazwy naukowej",
+        "vernacularName": "Zwyczajowa nazwa",
+        "nomenclaturalCode": "Kodeks nomenklatury",
         "taxonomicStatus": "Status taksonomiczny",
-        "nomenclaturalStatus": "",
-        "taxonRemarks": ""
+        "nomenclaturalStatus": "Status nomenklatoryczny",
+        "taxonRemarks": "Uwagi taksonomiczne"
       }
     },
     "identifier": {
@@ -330,19 +330,19 @@
       "properties": {
         "identifier": "Identyfikator",
         "title": "Tytuł",
-        "subject": "",
+        "subject": "Temat",
         "format": "Format",
-        "datasetID": ""
+        "datasetID": "ID zbioru danych"
       }
     },
     "image": {
       "name": "Zdjęcie",
       "properties": {
         "identifier": "Identyfikator",
-        "references": "",
+        "references": "Odniesienia",
         "title": "Tytuł",
         "description": "Opis",
-        "spatial": "",
+        "spatial": "Przestrzenne",
         "latitude": "Szerokość geograficzna",
         "longitude": "Długość geograficzna",
         "format": "Format",
@@ -353,11 +353,11 @@
         "audience": "Odbiorcy",
         "license": "Licencja",
         "rightsHolder": "Właściciel praw",
-        "datasetID": ""
+        "datasetID": "ID zbioru danych"
       }
     },
     "measurementOrFact": {
-      "name": "",
+      "name": "Pomiar lub fakt",
       "properties": {
         "measurementID": "",
         "measurementType": "",
@@ -376,63 +376,63 @@
         "type": "Typ",
         "format": "Format",
         "identifier": "Identyfikator",
-        "references": "",
+        "references": "Odniesienia",
         "title": "Tytuł",
-        "description": "",
-        "created": "",
-        "creator": "",
-        "contributor": "",
-        "publisher": "",
-        "audience": "",
-        "source": "",
-        "license": "",
-        "rightsHolder": "",
-        "datasetID": ""
+        "description": "Opis",
+        "created": "Utworzono",
+        "creator": "Twórca",
+        "contributor": "Współtwórca",
+        "publisher": "Wydawca",
+        "audience": "Odbiorcy",
+        "source": "Źródło",
+        "license": "Licencja",
+        "rightsHolder": "Właściciel praw",
+        "datasetID": "ID zbioru danych"
       }
     },
     "reference": {
-      "name": "",
+      "name": "Odniesienie",
       "properties": {
-        "identifier": "",
-        "bibliographicCitation": "",
-        "title": "",
-        "creator": "",
-        "date": "",
-        "source": "",
-        "description": "",
-        "subject": "",
-        "language": "",
-        "rights": "",
-        "taxonRemarks": "",
-        "type": "",
-        "datasetID": ""
+        "identifier": "Identyfikator",
+        "bibliographicCitation": "Cytowanie bibliograficzne",
+        "title": "Tytuł",
+        "creator": "Twórca",
+        "date": "Data",
+        "source": "Źródło",
+        "description": "Opis",
+        "subject": "Temat",
+        "language": "Język",
+        "rights": "Prawa",
+        "taxonRemarks": "Uwagi taksonomiczne",
+        "type": "Typ",
+        "datasetID": "ID zbioru danych"
       }
     },
     "eolReference": {
-      "name": "",
+      "name": "Odnośnik EOL",
       "properties": {
-        "identifier": "",
-        "publicationType": "",
-        "full_reference": "",
-        "primaryTitle": "",
-        "title": "",
-        "pages": "",
-        "pageStart": "",
-        "pageEnd": "",
-        "volume": "",
-        "edition": "",
-        "publisher": "",
-        "authorList": "",
-        "editorList": "",
-        "created": "",
-        "language": "",
-        "uri": "",
+        "identifier": "Identyfikator",
+        "publicationType": "Rodzaj publikacji",
+        "full_reference": "Pełny odnościk",
+        "primaryTitle": "Tytuł główny",
+        "title": "Tytuł",
+        "pages": "Strony",
+        "pageStart": "Strona początkowa",
+        "pageEnd": "Strona końcowa",
+        "volume": "Tom",
+        "edition": "Wydanie",
+        "publisher": "Wydawca",
+        "authorList": "Lista autorów",
+        "editorList": "Lista edytorów",
+        "created": "Utworzono",
+        "language": "Język",
+        "uri": "URI",
         "doi": "",
-        "localityName": ""
+        "localityName": "Nazwa lokalicaji"
       }
     },
     "resourceRelationship": {
-      "name": "",
+      "name": "Powiązania zasobów",
       "properties": {
         "resourceRelationshipID": "",
         "resourceID": "",
@@ -445,7 +445,7 @@
       }
     },
     "cloning": {
-      "name": "",
+      "name": "Klonowanie",
       "properties": {
         "cloningDate": "",
         "cloningStaff": "",
@@ -468,7 +468,7 @@
     "gelImage": {
       "name": "",
       "properties": {
-        "identifier": "",
+        "identifier": "Identyfikator",
         "DNAThreshold": "",
         "gelBuffer": "",
         "gelConcentration": "",
@@ -483,7 +483,7 @@
       }
     },
     "loan": {
-      "name": "",
+      "name": "Wypożyczenie",
       "properties": {
         "blockedUntil": "",
         "blocked": "",
@@ -491,12 +491,12 @@
         "loanDate": "",
         "loanDestination": "",
         "loanIdentifier": "",
-        "disposition": "",
+        "disposition": "Dyspozycja",
         "receivedFrom": ""
       }
     },
     "materialSample": {
-      "name": "",
+      "name": "Próbka materiału",
       "properties": {
         "materialSampleType": "",
         "concentration": "",
@@ -523,7 +523,7 @@
       }
     },
     "permit": {
-      "name": "",
+      "name": "Pozwolenie",
       "properties": {
         "permitType": "",
         "permitStatus": "",
@@ -533,18 +533,18 @@
       }
     },
     "preparation": {
-      "name": "",
+      "name": "Preparacja",
       "properties": {
         "preparationType": "",
         "preparationProcess": "",
         "preparationMaterials": "",
         "preparedBy": "",
         "preparationDate": "",
-        "associatedReferences": ""
+        "associatedReferences": "Powiązane cytowania"
       }
     },
     "preservation": {
-      "name": "",
+      "name": "Sposób konserwacji",
       "properties": {
         "preservationType": "",
         "preservationTemperature": "",
@@ -553,10 +553,10 @@
       }
     },
     "extendedMeasurementOrFact": {
-      "name": "",
+      "name": "Rozszerzony pomiar lub fakt",
       "properties": {
         "measurementID": "",
-        "occurrenceID": "",
+        "occurrenceID": "Identyfikator wystąpienia",
         "measurementType": "",
         "measurementTypeID": "",
         "measurementValue": "",
@@ -571,7 +571,7 @@
       }
     },
     "chronometricAge": {
-      "name": "",
+      "name": "Wiek chronometryczny",
       "properties": {
         "chronometricAgeID": "",
         "verbatimChronometricAge": "",
@@ -594,7 +594,7 @@
       }
     },
     "dnaDerivedData": {
-      "name": "",
+      "name": "Dane pochodzące z DNA",
       "properties": {}
     }
   }
