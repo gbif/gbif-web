@@ -3,7 +3,7 @@ import { CollectionSearchPage } from './collectionSearch';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 export const collectionSearchRoute: RouteObjectWithPlugins = {
-  id: 'collection-search',
+  id: 'collectionSearch',
   path: 'collection/search',
   element: (
     <ErrorBoundary>

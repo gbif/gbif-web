@@ -12,7 +12,7 @@ export const notImplementedRoutes: RouteObjectWithPlugins[] = [
     loader: () => redirectDocument('https://techdocs.gbif.org/en/openapi'),
   },
   {
-    id: 'country-key',
+    id: 'countryKey',
     gbifRedirect: (params) => {
       if (typeof params.key !== 'string') throw new Error('Invalid key');
       if (params.key === 'search') return null;

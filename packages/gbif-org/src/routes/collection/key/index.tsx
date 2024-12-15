@@ -5,7 +5,7 @@ import CollectionKeyDashboard from './Dashboard';
 import CollectionKeySpecimens from './Specimen';
 import { CollectionQuery } from '@/gql/graphql';
 
-const id = 'collection-key';
+const id = 'collectionKey';
 
 export const collectionKeyRoute: RouteObjectWithPlugins = {
   id,

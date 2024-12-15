@@ -6,7 +6,7 @@ import { OccurrenceKeyPhylo } from './phylogenies';
 import { OccurrenceFragment, occurrenceFragmentLoader } from './fragment';
 import { OccurrenceQuery } from '@/gql/graphql';
 
-const id = 'occurrence-key';
+const id = 'occurrenceKey';
 
 export const occurrenceKeyRoutes: RouteObjectWithPlugins[] = [
   // Used by standalone occurrence key page to show loading before the data is loaded as the skeleton loading only works when navigating between pages
