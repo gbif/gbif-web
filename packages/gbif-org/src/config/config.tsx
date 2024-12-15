@@ -238,11 +238,7 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
         return current;
       }
     }
-    console.log('straight from import');
-    console.log(config);
     const mergedConfig = mergeWith({}, configDefault, {theme, variables: cssVariables}, config, customizer);
-    console.log(configDefault);
-    console.log(mergedConfig);
     return {
       style: `:root { ${cssVariables.map((v) => `${v.name}: ${v.value};`).join('\n')} }`,
       config: mergedConfig,
