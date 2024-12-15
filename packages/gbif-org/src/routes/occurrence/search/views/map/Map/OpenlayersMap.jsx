@@ -272,6 +272,7 @@ class Map extends Component {
       return {loadDiff: 0}
    });
     const occurrenceLayer = currentProjection.getAdhocLayer({
+      siteTheme: this.props.theme,
       style: 'scaled.circles',
       mode: 'GEO_CENTROID',
       squareSize: 512,

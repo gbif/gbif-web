@@ -1,5 +1,5 @@
-export function getLayerConfig({tileString}) {
-  const mapDensityColors = [
+export function getLayerConfig({tileString, theme}) {
+  const mapDensityColors = theme?.mapDensityColors ?? [
     "#fed976",
     "#fd8d3c",
     "#F7642E",

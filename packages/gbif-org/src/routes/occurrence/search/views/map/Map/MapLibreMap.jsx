@@ -128,7 +128,7 @@ class Map extends Component {
       }&${this.props.q ? `&q=${this.props.q} ` : ''}`;
 
       this.map.addLayer(
-        getLayerConfig({ tileString }),
+        getLayerConfig({ tileString, theme: this.props.theme }),
         // "poi-scalerank2"
       );
 

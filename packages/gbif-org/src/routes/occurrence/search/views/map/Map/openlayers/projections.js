@@ -316,6 +316,8 @@ function getAdhocLayer(baseUrl, proj, params, name = 'occurrences') {
   delete params.progress;
   var onError = params.onError;
   delete params.onError;
+  var siteTheme = params.siteTheme;
+  delete params.siteTheme;
   var source = new VectorTileSource({
     format: new MVTFormat(),
     projection: proj.projection,
@@ -350,7 +352,7 @@ function getAdhocLayer(baseUrl, proj, params, name = 'occurrences') {
     useInterimTilesOnError: false,
     visible: true,
     name: name,
-    style: densityPoints,
+    style: densityPoints(siteTheme),
     // className: 'occurrenceLayer'
     zIndex: 1000
   });
