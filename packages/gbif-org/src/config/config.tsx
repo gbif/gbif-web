@@ -41,6 +41,8 @@ export type Config = Endpoints & {
   taiwanNodeidentifier: string;
   linkToGbifOrg?: boolean;
   datasetSearch?: SearchMetadata;
+  /** Never add options to table cells to modify filters */
+  disableInlineTableFilterButtons: boolean;
   datasetKey?: {
     literatureSearch: PartialSearchMetadata;
     occurrenceSearch: PartialSearchMetadata;

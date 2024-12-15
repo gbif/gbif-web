@@ -165,7 +165,7 @@ export function OccurrenceTable() {
 
   const { filters } = useFilters({ searchConfig });
 
-  const columns = useOccurrenceColumns({ showPreview: setPreviewKey, filters });
+  const columns = useOccurrenceColumns({ showPreview: setPreviewKey, filters, disableCellFilters: config.disableInlineTableFilterButtons});
 
   const occurrences = useMemo(
     () => data?.occurrenceSearch?.documents.results.filter(notNull) ?? [],
