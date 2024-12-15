@@ -43,9 +43,9 @@ export type Config = Endpoints & {
   linkToGbifOrg?: boolean;
   datasetSearch?: SearchMetadata;
   /** Never add options to table cells to modify filters */
-  disableInlineTableFilterButtons: boolean;
+  disableInlineTableFilterButtons?: boolean;
   /** Key string value pairs for translations. E.g. {en: Record<string, string>, es: Record<string, string>} */
-  messages: Record<string, Record<string, string>>;
+  messages?: Record<string, Record<string, string>>;
   datasetKey?: {
     literatureSearch: PartialSearchMetadata;
     occurrenceSearch: PartialSearchMetadata;
@@ -238,7 +238,11 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
         return current;
       }
     }
-    const mergedConfig = mergeWith({}, {theme, variables: cssVariables}, config, configDefault, customizer);
+    console.log('straight from import');
+    console.log(config);
+    const mergedConfig = mergeWith({}, configDefault, {theme, variables: cssVariables}, config, customizer);
+    console.log(configDefault);
+    console.log(mergedConfig);
     return {
       style: `:root { ${cssVariables.map((v) => `${v.name}: ${v.value};`).join('\n')} }`,
       config: mergedConfig,

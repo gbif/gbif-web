@@ -5,6 +5,7 @@ import {
   InvalidGbifEnvError,
   isGbifEnv,
 } from '@/config/endpoints';
+import { languagesOptions } from '@/config/languagesOptions';
 import { merge } from 'ts-deepmerge';
 
 // The env options
@@ -57,6 +58,7 @@ const options = merge.withOptions(
 const isServer = () => typeof window === 'undefined';
 
 export const gbifConfig: Config = {
+  version: 3,
   ...options,
   get graphqlEndpoint() {
     if (isServer()) {
@@ -83,41 +85,7 @@ export const gbifConfig: Config = {
   // ],
   defaultTitle: 'GBIF',
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
-  languages: [
-    {
-      code: 'en', // TODO, really ought to be en-GB, but while developing it is convinent to have developer english when text change
-      label: 'English',
-      default: true,
-      textDirection: 'ltr',
-    },
-    {
-      code: 'en-DK', // TODO, really ought to be en-GB, but while developing it is convinent to have developer english when text change
-      label: 'Danglish',
-      default: false,
-      textDirection: 'ltr',
-    },
-    {
-      code: 'fr',
-      label: 'Français',
-      default: false,
-      textDirection: 'ltr',
-      cmsLocale: 'fr', // what locale code to use when fetching data from the cms endpoints
-    },
-    {
-      code: 'es',
-      label: 'Español',
-      default: false,
-      textDirection: 'ltr',
-      cmsLocale: 'es', // what locale code to use when fetching data from the cms endpoints
-    },
-    {
-      code: 'ar',
-      label: 'العربية',
-      default: false,
-      textDirection: 'rtl',
-      reactIntlLocale: 'ar-SA',
-    },
-  ],
+  languages: languagesOptions,
   theme: {
     primary: '#4787fb', //'#69AA69',
     // primary: '#69AA69',
@@ -171,7 +139,7 @@ export const gbifConfig: Config = {
   },
   occurrenceSearch: {
     highlightedFilters: [
-      'occurrenceStatus',
+      // 'occurrenceStatus',
       'taxonKey',
       'year',
       'country',
@@ -194,6 +162,8 @@ export const gbifConfig: Config = {
     //   value: 'DK',
     // },
   },
+  disableInlineTableFilterButtons: false,
+  // messages: {} // no messages to overwrite for gbif.org
   maps: {
     locale: 'en',
     mapStyles: {
