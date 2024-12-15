@@ -25,6 +25,7 @@ function convertedConfig(config: object): Partial<Config> {
     version: 3,
     pages: pages,
     disableInlineTableFilterButtons: config?.disableInlineTableFilterButtons ?? false,
+    theme: config?.theme,
     maps: {
       locale: config?.maps?.locale,
       mapStyles: {

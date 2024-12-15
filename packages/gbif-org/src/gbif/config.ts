@@ -90,6 +90,7 @@ export const gbifConfig: Config = {
     primary: '#4787fb', //'#69AA69',
     // primary: '#69AA69',
     stickyOffset: '0px',
+    borderRadius: 3,
   },
   openGraph: {
     site_name: 'GBIF',
