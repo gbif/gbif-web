@@ -26,6 +26,7 @@ type PartialSearchMetadata = Pick<
 
 // TODO: The config object should probably be refactored in the future with logical nesting
 export type Config = Endpoints & {
+  version: number;
   defaultTitle?: string;
   gbifEnv: GbifEnv;
   languages: LanguageOption[];
@@ -43,6 +44,8 @@ export type Config = Endpoints & {
   datasetSearch?: SearchMetadata;
   /** Never add options to table cells to modify filters */
   disableInlineTableFilterButtons: boolean;
+  /** Key string value pairs for translations. E.g. {en: Record<string, string>, es: Record<string, string>} */
+  messages: Record<string, Record<string, string>>;
   datasetKey?: {
     literatureSearch: PartialSearchMetadata;
     occurrenceSearch: PartialSearchMetadata;
