@@ -46,12 +46,12 @@ export default function About() {
     value: taxon?.key,
   };
 
-  const addressesIdentical =
+/*   const addressesIdentical =
     JSON.stringify(taxon?.mailingAddress) === JSON.stringify(taxon?.address);
   const contacts = taxon?.contactPersons.filter((x) => x.firstName);
 
-  const imageUrl = taxon.featuredImageUrl ?? taxon.featuredImageUrl_fallback;
-
+  const imageUrl = taxon.featuredImageUrl ?? taxon.featuredImageUrl_fallback; */
+console.log(data)
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl">

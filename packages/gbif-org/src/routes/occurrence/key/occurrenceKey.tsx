@@ -27,6 +27,7 @@ import { fragmentManager } from '@/services/fragmentManager';
 import useBelow from '@/hooks/useBelow';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { LoaderArgs } from '@/reactRouterPlugins';
+import { createContext } from 'react';
 
 const OCCURRENCE_QUERY = /* GraphQL */ `
   query Occurrence($key: ID!, $language: String!) {
@@ -43,6 +44,7 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
       references
       issues
       basisOfRecord
+      dynamicProperties
       institution {
         name
         key
@@ -262,6 +264,7 @@ export async function occurrenceKeyLoader({ params, graphql }: LoaderArgs) {
 
   return result;
 }
+export const OccurrenceKeyContext = createContext<{key?: string, datasetKey?: string, dynamicProperties?: string}>({});
 
 export function OccurrenceKey() {
   const { data } = useLoaderData() as { data: OccurrenceQuery };
@@ -285,7 +288,14 @@ export function OccurrenceKey() {
 
   const tabs = [{ to: '.', children: 'Overview' }];
   if (hasRelated) tabs.push({ to: 'related', children: 'Related' });
-  // if (true) tabs.push({ to: 'phylogenies', children: 'Phylogenies' });
+  if(occurrence?.dynamicProperties){
+    try {
+      const parsedDynamicProperties = JSON.parse(occurrence.dynamicProperties)
+      if(parsedDynamicProperties?.phylogenies?.[0]?.phyloTreeFileName){
+        tabs.push({ to: 'phylogenies', children: 'Phylogenies' });
+      }
+    } catch (error) { /* empty */ }
+  }
 
   return (
     <article>
@@ -456,8 +466,9 @@ export function OccurrenceKey() {
           <Tabs links={tabs} />
         </ArticleTextContainer>
       </PageContainer>
-
-      <Outlet />
+      <OccurrenceKeyContext.Provider value={{key: data?.occurrence?.key, datasetKey: data?.occurrence?.datasetKey, dynamicProperties: data?.occurrence?.dynamicProperties}}>
+        <Outlet />
+      </OccurrenceKeyContext.Provider>
     </article>
   );
 }

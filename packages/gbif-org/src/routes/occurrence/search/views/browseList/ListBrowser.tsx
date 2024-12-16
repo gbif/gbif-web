@@ -77,7 +77,7 @@ export default function EntityDrawer() {
     <Drawer
       isOpen={typeof key === 'string'}
       close={() => setPreviewKey()}
-      viewOnGbifHref={`/occurrence/${key}`}
+      viewOnGbifHref={`/${type === "taxon" ? "species": type}/${key}`}
       next={isFirst ? undefined : handleNext}
       previous={isLast ? undefined : handlePrevious}
     >

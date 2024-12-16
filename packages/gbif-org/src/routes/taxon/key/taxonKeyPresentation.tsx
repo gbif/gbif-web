@@ -65,13 +65,13 @@ export function TaxonKey({
   }
 
   // if there is at least a countryCode for thee address, then use that, else fall back to the mailing address
-  const contactInfo = taxon?.address?.country
+  /* const contactInfo = taxon?.address?.country
     ? taxon?.address
-    : taxon?.mailingAddress;
+    : taxon?.mailingAddress; */
   const feedbackTemplate = `Please provide your feedback here, but leave content below for context\n\n---\nRelating to ${GBIF_REGISTRY_ENDPOINT}/taxon/${taxon.key}`;
-  const contacts = taxon?.contactPersons
+/*   const contacts = taxon?.contactPersons
     .filter((x) => x?.firstName || x?.lastName)
-    .map((x) => `${x?.firstName ?? ''} ${x?.lastName ?? ''}`);
+    .map((x) => `${x?.firstName ?? ''} ${x?.lastName ?? ''}`); */
 
   const imageUrl = taxon.featuredImageUrl ?? taxon.featuredImageUrl_fallback;
   return (
@@ -149,106 +149,7 @@ export function TaxonKey({
                 )}
               </div>
 
-              <HeaderInfo className="g-flex-none g-mb-0">
-                <HeaderInfoMain>
-                  <FeatureList>
-                    <Homepage url={taxon?.homepage} />
-                    {contactInfo?.country && (
-                      <Location countryCode={contactInfo?.country} city={contactInfo.city} />
-                    )}
-                    {(taxon?.numberSpecimens ?? 0) > 1 && (
-                      <GenericFeature>
-                        <OccurrenceIcon />
-                        <FormattedMessage
-                          id="counts.nSpecimens"
-                          values={{ total: taxon.numberSpecimens }}
-                        />
-                      </GenericFeature>
-                    )}
-                    {!(taxon?.numberSpecimens && taxon?.numberSpecimens > 1) && (
-                      <GenericFeature>
-                        <OccurrenceIcon />
-                        <span className="g-text-slate-400">
-                          <FormattedMessage id="grscicoll.unknownSize" />
-                        </span>
-                      </GenericFeature>
-                    )}
-                  </FeatureList>
-                  {(taxon?.catalogUrls?.length ?? 0) > 0 ||
-                    (contacts.length > 0 && (
-                      <FeatureList>
-                        {taxon.catalogUrls && (
-                          <GenericFeature>
-                            <CatalogIcon />
-                            <span>
-                              <a href={taxon.catalogUrls[0]}>
-                                <FormattedMessage
-                                  id="grscicoll.dataCatalog"
-                                  defaultMessage="Data catalog"
-                                />
-                              </a>
-                            </span>
-                          </GenericFeature>
-                        )}
-                        {contacts.length > 0 && (
-                          <GenericFeature>
-                            <PeopleIcon />
-                            <HashLink to="#contact">
-                              {contacts.length < contactThreshold && (
-                                <span>{contacts.join(' • ')}</span>
-                              )}
-                              {contacts.length >= contactThreshold && (
-                                <FormattedMessage
-                                  id="counts.nStaffMembers"
-                                  values={{ total: contacts.length }}
-                                />
-                              )}
-                            </HashLink>
-                          </GenericFeature>
-                        )}
-                      </FeatureList>
-                    ))}
-                </HeaderInfoMain>
-                <HeaderInfoEdit className="g-flex">
-                  {/* TODO Phew it is quite a few lines just to add a tooltip, I wonder if an abstraction would be appreciated. Here I repeat the provider, which doesn't help, but it didn't properly disappear and reappear without it*/}
-                  <Tooltip delayDuration={0}>
-                    <TooltipTrigger>
-                      <Button variant="outline" asChild>
-                        <a href={`${GBIF_REGISTRY_ENDPOINT}/taxon/${taxon.key}`}>
-                          <FormattedMessage id="grscicoll.edit" defaultMessage="Edit" />
-                        </a>
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <FormattedMessage
-                        id="grscicoll.editHelpText"
-                        defaultMessage="No login required"
-                      />
-                    </TooltipContent>
-                  </Tooltip>
-                  <Tooltip delayDuration={0}>
-                    <TooltipTrigger>
-                      <Button
-                        variant="ghost"
-                        asChild
-                        className="g-ms-2"
-                        style={{ fontSize: '1.2em' }}
-                      >
-                        <a
-                          href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(
-                            `NHC: ${taxon.name}`
-                          )}&body=${encodeURIComponent(feedbackTemplate)}`}
-                        >
-                          <Github />
-                        </a>
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <FormattedMessage id="grscicoll.githubHelpText" defaultMessage="Github" />
-                    </TooltipContent>
-                  </Tooltip>
-                </HeaderInfoEdit>
-              </HeaderInfo>
+
             </div>
           </div>
           <div className="g-border-b"></div>

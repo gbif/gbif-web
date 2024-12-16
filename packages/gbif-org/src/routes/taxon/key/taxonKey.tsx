@@ -57,6 +57,7 @@ const TAXON_QUERY = /* GraphQL */ `
     taxon(key: $key) {
       key
       scientificName
+      kingdom
     }
   }
 `;
