@@ -5,6 +5,7 @@ const config: FilterConfigType = {
   fields: {
     q: {
       singleValue: true,
+      defaultType: PredicateType.Fuzzy,
     },
     geometry: {
       defaultType: PredicateType.Within,

@@ -1,9 +1,11 @@
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
+import { PredicateType } from '@/gql/graphql';
 
 export const config: FilterConfigType = {
   fields: {
     q: {
       singleValue: true,
+      defaultType: PredicateType.Fuzzy,
     },
     numberSpecimens: {
       v1: {
