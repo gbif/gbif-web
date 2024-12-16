@@ -13,7 +13,7 @@ const config: FilterConfigType = {
     }
   }
 }
-const otherParams = ['license', 'publishingCountry', 'projectId', 'hostingOrg', 'publishingOrg'];
+const otherParams = ['license', 'publishingCountry', 'projectId', 'hostingOrg', 'publishingOrg', 'networkKey', 'hostingCountry', 'taxonKey', 'subtype', 'endorsingNodeKey', 'installationKey', 'endpointType'];
 
 otherParams.forEach(filter => {
   config.fields = config.fields ?? {};
