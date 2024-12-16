@@ -659,7 +659,7 @@ export function DatasetKeyAbout() {
                     </ul>
                   </nav>
                 </Card>
-                <GbifLinkCard path={`/dataset/${dataset.key}`} className="g-mt-4"/>
+                <GbifLinkCard path={`/dataset/${dataset.key}`} className="g-mt-4" />
               </AsideSticky>
             </Aside>
           )}

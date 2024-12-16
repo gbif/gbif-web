@@ -4,4 +4,4 @@ import resolver from './article.resolver';
 export default {
   typeDef,
   resolver,
-}
+};

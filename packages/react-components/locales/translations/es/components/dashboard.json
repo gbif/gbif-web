@@ -24,6 +24,7 @@
   "occurrences": "Registros biológicos",
   "other": "Otro",
   "unknown": "Desconocida",
+  "usingStartDates": "Aquí debe colocarse una breve descripción del componente",
   "iucnThreatStatus": "Aquí debe colocarse una breve descripción del componente",
   "iucnThreatStatusDescription": "Aquí debe colocarse una breve descripción del componente",
   "metricsFromGbifData": "",

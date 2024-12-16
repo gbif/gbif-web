@@ -1,7 +1,7 @@
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { OccurrenceSearchPage } from './occurrenceSearchPage';
 
-export const occurrenceSearchRouteId = 'occurrence-search';
+export const occurrenceSearchRouteId = 'occurrenceSearch';
 
 export const occurrenceSearchRoute: RouteObjectWithPlugins = {
   id: occurrenceSearchRouteId,

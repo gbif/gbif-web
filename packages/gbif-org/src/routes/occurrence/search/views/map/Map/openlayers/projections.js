@@ -3,7 +3,7 @@ import { basemaps } from './basemaps';
 import createBasicBaseMapStyle from './styles/basicBaseMap';
 import densityPoints from './styles/densityPoints';
 import { Style, Fill, Stroke, Icon, Text, Circle } from 'ol/style';
-import { VectorTile as VectorTileLayer} from 'ol/layer';
+import { VectorTile as VectorTileLayer } from 'ol/layer';
 import { VectorTile as VectorTileSource } from 'ol/source';
 import TileGrid from 'ol/tilegrid/TileGrid';
 import { MVT as MVTFormat } from 'ol/format';
@@ -15,8 +15,14 @@ import { transform } from 'ol/proj';
 import { stringify } from '@/utils/querystring';
 
 proj4.defs('EPSG:4326', '+proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees');
-proj4.defs('EPSG:3575', '+proj=laea +lat_0=90 +lon_0=10 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs');
-proj4.defs('EPSG:3031', '+proj=stere +lat_0=-90 +lat_ts=-71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs');
+proj4.defs(
+  'EPSG:3575',
+  '+proj=laea +lat_0=90 +lon_0=10 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'
+);
+proj4.defs(
+  'EPSG:3031',
+  '+proj=stere +lat_0=-90 +lat_ts=-71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs'
+);
 register(proj4);
 
 const window = global?.window;
@@ -28,16 +34,18 @@ var pixelRatio = window?.devicePixelRatio || 1;
 
 function get4326() {
   var extent = 180.0;
-  var resolutions = Array(maxZoom + 1).fill().map(function (x, i) {
-    return extent / tileSize / Math.pow(2, i);
-  });
+  var resolutions = Array(maxZoom + 1)
+    .fill()
+    .map(function (x, i) {
+      return extent / tileSize / Math.pow(2, i);
+    });
 
   const tileGridOptions = {
     extent: olProj.get('EPSG:4326').getExtent(),
     minZoom: 0,
     maxZoom: maxZoom,
     resolutions: resolutions,
-    tileSize: tileSize
+    tileSize: tileSize,
   };
   var tileGrid = new TileGrid(tileGridOptions);
 
@@ -69,27 +77,34 @@ function get4326() {
         minZoom: 0,
         center: [lon, lat],
         zoom: zoom,
-        projection: 'EPSG:4326'
+        projection: 'EPSG:4326',
       });
     },
     getBaseLayer: function (params = {}) {
       return getLayer(basemaps.EPSG_4326.url, this, params, 'baseLayer');
     },
     getOccurrenceLayer: function (params = {}) {
-      return getLayer(import.meta.env.PUBLIC_API_V2 + '/map/occurrence/density/{z}/{x}/{y}.mvt?', this, params);
+      return getLayer(
+        import.meta.env.PUBLIC_API_V2 + '/map/occurrence/density/{z}/{x}/{y}.mvt?',
+        this,
+        params
+      );
     },
     getAdhocLayer: function (params = {}) {
-      return getAdhocLayer(import.meta.env.PUBLIC_API_V2 + '/map/occurrence/adhoc/{z}/{x}/{y}.mvt?', this, params);
-    }
+      return getAdhocLayer(
+        import.meta.env.PUBLIC_API_V2 + '/map/occurrence/adhoc/{z}/{x}/{y}.mvt?',
+        this,
+        params
+      );
+    },
   };
 }
-
 
 function get3857() {
   var tileGrid16 = createXYZ({
     minZoom: 0,
     maxZoom: maxZoom,
-    tileSize: tileSize
+    tileSize: tileSize,
   });
   return {
     name: 'EPSG_3857',
@@ -115,18 +130,26 @@ function get3857() {
         minZoom: 0,
         center: [lon, lat],
         zoom: zoom,
-        projection: 'EPSG:3857'
+        projection: 'EPSG:3857',
       });
     },
     getBaseLayer: function (params = {}) {
       return getLayer(basemaps.EPSG_3857.url, this, params, 'baseLayer');
     },
     getOccurrenceLayer: function (params = {}) {
-      return getLayer(import.meta.env.PUBLIC_API_V2 + '/map/occurrence/density/{z}/{x}/{y}.mvt?', this, params);
+      return getLayer(
+        import.meta.env.PUBLIC_API_V2 + '/map/occurrence/density/{z}/{x}/{y}.mvt?',
+        this,
+        params
+      );
     },
     getAdhocLayer: function (params = {}) {
-      return getAdhocLayer(import.meta.env.PUBLIC_API_V2 + '/map/occurrence/adhoc/{z}/{x}/{y}.mvt?', this, params);
-    }
+      return getAdhocLayer(
+        import.meta.env.PUBLIC_API_V2 + '/map/occurrence/adhoc/{z}/{x}/{y}.mvt?',
+        this,
+        params
+      );
+    },
   };
 }
 
@@ -139,12 +162,12 @@ function get3575() {
   });
 
   const tileGridOptions = {
-    extent: olProj.get("EPSG:3575").getExtent(),
+    extent: olProj.get('EPSG:3575').getExtent(),
     origin: [-halfWidth, halfWidth],
     minZoom: 0,
     maxZoom: maxZoom,
     resolutions: resolutions,
-    tileSize: tileSize
+    tileSize: tileSize,
   };
 
   var tileGrid16 = new TileGrid(tileGridOptions);
@@ -181,14 +204,21 @@ function get3575() {
       return getLayer(basemaps.EPSG_3575.url, this, params, 'baseLayer');
     },
     getOccurrenceLayer: function (params = {}) {
-      return getLayer(import.meta.env.PUBLIC_API_V2 + '/map/occurrence/density/{z}/{x}/{y}.mvt?', this, params);
+      return getLayer(
+        import.meta.env.PUBLIC_API_V2 + '/map/occurrence/density/{z}/{x}/{y}.mvt?',
+        this,
+        params
+      );
     },
     getAdhocLayer: function (params = {}) {
-      return getAdhocLayer(import.meta.env.PUBLIC_API_V2 + '/map/occurrence/adhoc/{z}/{x}/{y}.mvt?', this, params);
-    }
+      return getAdhocLayer(
+        import.meta.env.PUBLIC_API_V2 + '/map/occurrence/adhoc/{z}/{x}/{y}.mvt?',
+        this,
+        params
+      );
+    },
   };
 }
-
 
 function get3031() {
   var halfWidth = 12367396.2185; // To the Equator
@@ -204,7 +234,7 @@ function get3031() {
     minZoom: 0,
     maxZoom: maxZoom,
     resolutions: resolutions,
-    tileSize: tileSize
+    tileSize: tileSize,
   };
 
   var tileGrid16 = new TileGrid(tileGridOptions);
@@ -240,11 +270,19 @@ function get3031() {
       return getLayer(basemaps.EPSG_3031.url, this, params, 'baseLayer');
     },
     getOccurrenceLayer: function (params = {}) {
-      return getLayer(import.meta.env.PUBLIC_API_V2 + '/map/occurrence/density/{z}/{x}/{y}.mvt?', this, params);
+      return getLayer(
+        import.meta.env.PUBLIC_API_V2 + '/map/occurrence/density/{z}/{x}/{y}.mvt?',
+        this,
+        params
+      );
     },
     getAdhocLayer: function (params = {}) {
-      return getAdhocLayer(import.meta.env.PUBLIC_API_V2 + '/map/occurrence/adhoc/{z}/{x}/{y}.mvt?', this, params);
-    }
+      return getAdhocLayer(
+        import.meta.env.PUBLIC_API_V2 + '/map/occurrence/adhoc/{z}/{x}/{y}.mvt?',
+        this,
+        params
+      );
+    },
   };
 }
 
@@ -261,7 +299,11 @@ function getLayer(baseUrl, proj, params, name) {
     tilePixelRatio: pixelRatio,
     url: baseUrl + stringify(params),
     wrapX: proj.wrapX,
-    attributions: ['© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', '© <a href="https://openmaptiles.org/" class="inherit">OpenMapTiles</a>', '<a href="https://www.gbif.org/citation-guidelines">GBIF</a>'],
+    attributions: [
+      '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      '© <a href="https://openmaptiles.org/" class="inherit">OpenMapTiles</a>',
+      '<a href="https://www.gbif.org/citation-guidelines">GBIF</a>',
+    ],
   });
 
   if (progress) {
@@ -284,11 +326,10 @@ function getLayer(baseUrl, proj, params, name) {
     visible: true,
     name: name,
     declutter: true,
-    style: createBasicBaseMapStyle(Style, Fill, Stroke, Icon, Text)
+    style: createBasicBaseMapStyle(Style, Fill, Stroke, Icon, Text),
   });
   return layer;
 }
-
 
 // currently map resolution isn't too good.
 // it is neccessary to hardcode resolution to zoom levels
@@ -316,6 +357,8 @@ function getAdhocLayer(baseUrl, proj, params, name = 'occurrences') {
   delete params.progress;
   var onError = params.onError;
   delete params.onError;
+  var siteTheme = params.siteTheme;
+  delete params.siteTheme;
   var source = new VectorTileSource({
     format: new MVTFormat(),
     projection: proj.projection,
@@ -350,9 +393,9 @@ function getAdhocLayer(baseUrl, proj, params, name = 'occurrences') {
     useInterimTilesOnError: false,
     visible: true,
     name: name,
-    style: densityPoints,
+    style: densityPoints(siteTheme),
     // className: 'occurrenceLayer'
-    zIndex: 1000
+    zIndex: 1000,
   });
 }
 
@@ -360,7 +403,7 @@ export const projections = {
   EPSG_4326: get4326(),
   EPSG_3575: get3575(),
   EPSG_3031: get3031(),
-  EPSG_3857: get3857()
+  EPSG_3857: get3857(),
 };
 
 const testStyles = [
@@ -386,5 +429,5 @@ const testStyles = [
     //   const coordinates = feature.getGeometry().getCoordinates()[0];
     //   return new MultiPoint(coordinates);
     // },
-  })
+  }),
 ];

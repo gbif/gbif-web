@@ -37,9 +37,7 @@ export function CompositionPage() {
         <title>{resource.maybeTitle}</title>
       </Helmet>
 
-      {resource.blocks?.map((block) => (
-        <BlockItem resource={block} key={block.id} />
-      ))}
+      {resource.blocks?.map((block) => <BlockItem resource={block} key={block.id} />)}
     </article>
   );
 }

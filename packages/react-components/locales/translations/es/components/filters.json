@@ -24,6 +24,16 @@
     "count": "{num, plural, one {# colección } other {# colecciones}}",
     "description": "La colección en GrSciColl este registro es coincidente con"
   },
+  "taxonomicStatus": {
+    "name": "Estado",
+    "count": "{num, plural, one {estado} other {# estados}}",
+    "description": "El número de especímenes reportados que se indican en la descripción. Este número no refleja cuántos registros han sido digitalizados y compartidos."
+  },
+  "taxonRank": {
+    "name": "Rango",
+    "count": "{num, plural, one { rango} other {# rangos}}",
+    "description": "El número de especímenes reportados que se indican en la descripción. Este número no refleja cuántos registros han sido digitalizados y compartidos."
+  },
   "numberSpecimens": {
     "name": "Número de especímenes",
     "count": "",

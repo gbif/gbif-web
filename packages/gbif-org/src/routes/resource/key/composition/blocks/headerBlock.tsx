@@ -40,11 +40,11 @@ export function HeaderBlock({ resource, resourceType }: Props) {
         )}
 
         {resource.summary && (
-          <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className='g-mt-2' />
+          <ArticleIntro dangerouslySetIntro={{ __html: resource.summary }} className="g-mt-2" />
         )}
       </ArticleTextContainer>
 
-      <ArticleBanner className='g-mt-8' image={resource?.primaryImage} />
+      <ArticleBanner className="g-mt-8" image={resource?.primaryImage} />
     </BlockContainer>
   );
 }

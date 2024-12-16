@@ -8,6 +8,6 @@
 export default {
   Query: {
     fundingOrganisation: (_, { id }, { dataSources, locale, preview }) =>
-      dataSources.resourceAPI.getEntryById({ id, preview, locale })
+      dataSources.resourceAPI.getEntryById({ id, preview, locale }),
   },
-}
+};

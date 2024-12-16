@@ -7,6 +7,8 @@ import { Config } from '@/config/config';
 import { createHostedPortalRoutes } from '@/hp/routes';
 import { merge } from 'ts-deepmerge';
 import { Endpoints, getDefaultEndpointsBasedOnGbifEnv } from '@/config/endpoints';
+import { languagesOptions } from '@/config/languagesOptions';
+import { configAdapter } from './configAdapter';
 
 type Props = {
   config: Config;
@@ -27,11 +29,14 @@ export function render(
   rootElement: HTMLElement,
   config: Omit<Config, keyof Endpoints> & Partial<Endpoints>
 ) {
+  const convertedConfig = configAdapter(config);
   const configWithDefaults = merge.withOptions(
     { allowUndefinedOverrides: false },
-    config,
+    convertedConfig,
     getDefaultEndpointsBasedOnGbifEnv(config.gbifEnv)
   ) as Config;
 
   createRoot(rootElement).render(<HostedPortalApp config={configWithDefaults} />);
 }
+
+export const languages = languagesOptions;

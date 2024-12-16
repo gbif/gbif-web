@@ -4,4 +4,4 @@ import typeDef from './resource.type';
 export default {
   resolver,
   typeDef,
-}
+};

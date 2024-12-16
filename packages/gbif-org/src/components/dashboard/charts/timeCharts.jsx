@@ -34,31 +34,43 @@ export function EventDate({
           }
         }
       }
-      ${!disableUnknown ? `isNotNull: occurrenceSearch(predicate: $hasPredicate) {
+      ${
+        !disableUnknown
+          ? `isNotNull: occurrenceSearch(predicate: $hasPredicate) {
         documents(size: 0) {
           total
         }
-      }` : ''}
+      }`
+          : ''
+      }
     }
   `;
-  return <ChartWrapper {...{
-    predicate, detailsRoute, gqlQuery: GQL_QUERY, currentFilter,
-    disableOther,
-    disableUnknown,
-    options:['TIME'],
-    messages: ['dashboard.usingStartDates'],
-    title: <FormattedMessage id="filters.eventDate.name" defaultMessage="Event date" />,
-    predicateKey: 'eventDate',
-    facetSize,
-    transform: data => {
-      return data?.search?.facet?.results?.buckets?.map(x => {
-        return {
-          ...x,
-          title: x.date
-        }
-      });
-    }
-  }} {...props} />
+  return (
+    <ChartWrapper
+      {...{
+        predicate,
+        detailsRoute,
+        gqlQuery: GQL_QUERY,
+        currentFilter,
+        disableOther,
+        disableUnknown,
+        options: ['TIME'],
+        messages: ['dashboard.usingStartDates'],
+        title: <FormattedMessage id="filters.eventDate.name" defaultMessage="Event date" />,
+        predicateKey: 'eventDate',
+        facetSize,
+        transform: (data) => {
+          return data?.search?.facet?.results?.buckets?.map((x) => {
+            return {
+              ...x,
+              title: x.date,
+            };
+          });
+        },
+      }}
+      {...props}
+    />
+  );
 }
 
 export function LiteratureCreatedAt({
@@ -92,28 +104,40 @@ export function LiteratureCreatedAt({
           }
         }
       }
-      ${!disableUnknown ? `isNotNull: literatureSearch(predicate: $hasPredicate) {
+      ${
+        !disableUnknown
+          ? `isNotNull: literatureSearch(predicate: $hasPredicate) {
         documents(size: 0) {
           total
         }
-      }` : ''}
+      }`
+          : ''
+      }
     }
   `;
-  return <ChartWrapper {...{
-    predicate, detailsRoute, gqlQuery: GQL_QUERY, currentFilter,
-    disableOther,
-    disableUnknown,
-    options:['TIME'],
-    title: <FormattedMessage id="filters.createdAt.name" defaultMessage="Publication date" />,
-    predicateKey: 'createdAt',
-    facetSize,
-    transform: data => {
-      return data?.search?.facet?.results?.buckets?.map(x => {
-        return {
-          ...x,
-          title: x.date
-        }
-      });
-    }
-  }} {...props} />
+  return (
+    <ChartWrapper
+      {...{
+        predicate,
+        detailsRoute,
+        gqlQuery: GQL_QUERY,
+        currentFilter,
+        disableOther,
+        disableUnknown,
+        options: ['TIME'],
+        title: <FormattedMessage id="filters.createdAt.name" defaultMessage="Publication date" />,
+        predicateKey: 'createdAt',
+        facetSize,
+        transform: (data) => {
+          return data?.search?.facet?.results?.buckets?.map((x) => {
+            return {
+              ...x,
+              title: x.date,
+            };
+          });
+        },
+      }}
+      {...props}
+    />
+  );
 }

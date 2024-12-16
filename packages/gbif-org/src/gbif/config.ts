@@ -5,6 +5,7 @@ import {
   InvalidGbifEnvError,
   isGbifEnv,
 } from '@/config/endpoints';
+import { languagesOptions } from '@/config/languagesOptions';
 import { merge } from 'ts-deepmerge';
 
 // The env options
@@ -57,6 +58,7 @@ const options = merge.withOptions(
 const isServer = () => typeof window === 'undefined';
 
 export const gbifConfig: Config = {
+  version: 3,
   ...options,
   get graphqlEndpoint() {
     if (isServer()) {
@@ -83,45 +85,12 @@ export const gbifConfig: Config = {
   // ],
   defaultTitle: 'GBIF',
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
-  languages: [
-    {
-      code: 'en', // TODO, really ought to be en-GB, but while developing it is convinent to have developer english when text change
-      label: 'English',
-      default: true,
-      textDirection: 'ltr',
-    },
-    {
-      code: 'en-DK', // TODO, really ought to be en-GB, but while developing it is convinent to have developer english when text change
-      label: 'Danglish',
-      default: false,
-      textDirection: 'ltr',
-    },
-    {
-      code: 'fr',
-      label: 'Français',
-      default: false,
-      textDirection: 'ltr',
-      cmsLocale: 'fr', // what locale code to use when fetching data from the cms endpoints
-    },
-    {
-      code: 'es',
-      label: 'Español',
-      default: false,
-      textDirection: 'ltr',
-      cmsLocale: 'es', // what locale code to use when fetching data from the cms endpoints
-    },
-    {
-      code: 'ar',
-      label: 'العربية',
-      default: false,
-      textDirection: 'rtl',
-      reactIntlLocale: 'ar-SA',
-    },
-  ],
+  languages: languagesOptions,
   theme: {
     primary: '#4787fb', //'#69AA69',
     // primary: '#69AA69',
     stickyOffset: '0px',
+    borderRadius: 3,
   },
   openGraph: {
     site_name: 'GBIF',
@@ -136,10 +105,8 @@ export const gbifConfig: Config = {
     // scope: {
     //   publishingCountry: ['DK'],
     // },
-    queryType: 'V1',
   },
   collectionSearch: {
-    queryType: 'V1',
     highlightedFilters: [
       'q',
       'code',
@@ -159,13 +126,11 @@ export const gbifConfig: Config = {
     },
   },
   institutionSearch: {
-    queryType: 'V1',
     highlightedFilters: ['q', 'code', 'country', 'numberSpecimens', 'occurrenceCount'],
   },
   taxonSearch: {
-    queryType: 'V1',
     scope: {
-      datasetKey: ['d7dddbf4-2cf0-4f39-9b2a-bb099caae36c']
+      datasetKey: ['d7dddbf4-2cf0-4f39-9b2a-bb099caae36c'],
     },
     highlightedFilters: ['q', 'status', 'rank'],
   },
@@ -174,9 +139,8 @@ export const gbifConfig: Config = {
     highlightedFilters: ['q', 'year'],
   },
   occurrenceSearch: {
-    queryType: 'PREDICATE',
     highlightedFilters: [
-      'occurrenceStatus',
+      // 'occurrenceStatus',
       'taxonKey',
       'year',
       'country',
@@ -185,11 +149,8 @@ export const gbifConfig: Config = {
       'recordedBy',
     ],
     tabs: ['table', 'media', 'map', 'clusters', 'datasets', 'dashboard', 'download'],
-    defaultEnabledTableColumns: [
-      'scientificName',
-      'features',
-      'catalogNumber',
-    ],
+    defaultTab: 'clusters',
+    defaultEnabledTableColumns: ['scientificName', 'features', 'catalogNumber'],
     // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
     // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
     // scope: {
@@ -198,6 +159,8 @@ export const gbifConfig: Config = {
     //   value: 'DK',
     // },
   },
+  disableInlineTableFilterButtons: false,
+  // messages: {} // no messages to overwrite for gbif.org
   maps: {
     locale: 'en',
     mapStyles: {
@@ -215,9 +178,9 @@ export const gbifConfig: Config = {
         GEOLOGY: {
           // the name of your style
           component: mapComponents.OpenlayersMap, // what map component to use OpenlayersMap | MapLibreMap
-          labelKey: 'I ❤️ GBIF', // the label in the select. Use a translation key
+          labelKey: 'Custom map from tilejson', // the label in the select. Use a translation key
           mapConfig: {
-            basemapStyle: 'http://localhost:4002/unstable-api/map-styles/3857/geology',
+            basemapStyle: `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles/3857/geology`,
             projection: 'EPSG_3857', // one of 4326 | 3031 | 3857 | 3575
           },
         },

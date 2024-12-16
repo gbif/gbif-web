@@ -20,10 +20,6 @@ const cliOptions = [
 ];
 const options = commandLineArgs(cliOptions, { partial: true });
 
-const config = merge(
-  { debug: false, environment: 'dev' }, 
-  env, 
-  options,
-);
+const config = merge({ debug: false, environment: 'dev' }, env, options);
 
 export default config;

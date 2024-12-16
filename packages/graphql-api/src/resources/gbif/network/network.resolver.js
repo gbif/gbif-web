@@ -1,4 +1,4 @@
-import { getHtml, excerpt } from "#/helpers/utils";
+import { getHtml, excerpt } from '#/helpers/utils';
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -22,13 +22,17 @@ export default {
       return dataSources.networkAPI.getOrganizations({ key, query: args });
     },
     prose: ({ key }, args, { dataSources, locale }) => {
-      return dataSources.resourceSearchAPI.getFirstEntryByQuery({contentType: 'network', networkKey: key, limit: 1}, locale);
+      return dataSources.resourceSearchAPI.getFirstEntryByQuery(
+        { contentType: 'network', networkKey: key, limit: 1 },
+        locale,
+      );
     },
   },
   NetworkProse: {
     title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
     summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
-    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
-    excerpt: (src, _, { locale }) => excerpt(src, { locale })
-  }
+    body: (src, _, { locale }) =>
+      getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
+    excerpt: (src, _, { locale }) => excerpt(src, { locale }),
+  },
 };

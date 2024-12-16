@@ -27,8 +27,8 @@ class VocabularyAPI extends RESTDataSource {
     return this.get(
       `/vocabularies/${vocabulary}/concepts/latestRelease?includeParents=true`,
       stringify(query, { indices: false }),
-    ).then(response => {
-      response.results.forEach(concept => {
+    ).then((response) => {
+      response.results.forEach((concept) => {
         concept.vocabularyName = vocabulary;
       });
       return response;
@@ -39,7 +39,7 @@ class VocabularyAPI extends RESTDataSource {
     return this.get(
       `/vocabularies/${vocabulary}/concepts/latestRelease/${concept}?includeParents=true`,
       stringify(query, { indices: false }),
-    ).then(response => {
+    ).then((response) => {
       response.vocabularyName = vocabulary;
       return response;
     });

@@ -245,7 +245,7 @@ const typeDef = gql`
     deleted: DateTime
     replacedBy: ID
     replacedByCollection: Collection
-    tags:[Tag]
+    tags: [Tag]
     identifiers: [Identifier!]
     """
     The contacts type is deprecated and will no longer be updated

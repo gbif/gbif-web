@@ -1,11 +1,16 @@
-import config from "#/config";
-import logger from "#/logger";
-import { ConfirmEndorsementDTO } from ".";
-import { authenticatedRequest } from "../helpers/gbifAuthRequest";
+import config from '#/config';
+import logger from '#/logger';
+import { ConfirmEndorsementDTO } from '.';
+import { authenticatedRequest } from '../helpers/gbifAuthRequest';
 
-export type ConfirmEndorsmentResult = 'publisherConfirmedSuccessfully' | 'publisherIsAlreadyConfirmed' | 'failedToConfirmPublisher';
+export type ConfirmEndorsmentResult =
+  | 'publisherConfirmedSuccessfully'
+  | 'publisherIsAlreadyConfirmed'
+  | 'failedToConfirmPublisher';
 
-export async function confirmEndorsement(dto: ConfirmEndorsementDTO): Promise<ConfirmEndorsmentResult> {
+export async function confirmEndorsement(
+  dto: ConfirmEndorsementDTO,
+): Promise<ConfirmEndorsmentResult> {
   try {
     // Get organization
     const organizationResponse = await authenticatedRequest({
@@ -35,7 +40,11 @@ export async function confirmEndorsement(dto: ConfirmEndorsementDTO): Promise<Co
     return 'publisherConfirmedSuccessfully';
   } catch (error) {
     // Handle failed to confirm publisher
-    logger.error({ message: 'Failed to confirm publisher', error, key: dto.key });
+    logger.error({
+      message: 'Failed to confirm publisher',
+      error,
+      key: dto.key,
+    });
     return 'failedToConfirmPublisher';
   }
 }

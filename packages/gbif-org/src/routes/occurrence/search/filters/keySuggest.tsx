@@ -11,7 +11,20 @@ import {
 } from '@/components/filters/displayNames';
 import { filterConfigTypes, filterSuggestConfig } from '@/components/filters/filterTools';
 import { HelpText } from '@/components/helpText';
-import { collectionCodeSuggest, collectionKeySuggest, datasetKeyOccurrenceSuggest, gadGidSuggest, institutionCodeSuggest, institutionKeySuggest, networkKeySuggest, publisherKeyOccurrenceSuggest, publisherKeySuggest, recordNumberSuggest, taxonKeySuggest, taxonKeyVernacularSuggest } from '@/utils/suggestEndpoints';
+import {
+  collectionCodeSuggest,
+  collectionKeySuggest,
+  datasetKeyOccurrenceSuggest,
+  gadGidSuggest,
+  institutionCodeSuggest,
+  institutionKeySuggest,
+  networkKeySuggest,
+  publisherKeyOccurrenceSuggest,
+  publisherKeySuggest,
+  recordNumberSuggest,
+  taxonKeySuggest,
+  taxonKeyVernacularSuggest,
+} from '@/utils/suggestEndpoints';
 
 export const institutionKeyConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
@@ -41,7 +54,7 @@ export const taxonKeyConfig: filterSuggestConfig = {
   filterHandle: 'taxonKey',
   displayName: TaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
-  suggestConfig: taxonKeyVernacularSuggest,//taxonKeySuggest,
+  suggestConfig: taxonKeyVernacularSuggest, //taxonKeySuggest,
   allowExistence: false,
   allowNegations: true,
   facetQuery: `
@@ -90,7 +103,7 @@ export const datasetKeyConfig: filterSuggestConfig = {
   filterHandle: 'datasetKey',
   displayName: DatasetLabel,
   filterTranslation: 'filters.datasetKey.name',
-  suggestConfig: datasetKeyOccurrenceSuggest,//datasetKeySuggest,
+  suggestConfig: datasetKeyOccurrenceSuggest, //datasetKeySuggest,
   allowExistence: false,
   allowNegations: true,
   facetQuery: `
@@ -127,7 +140,7 @@ export const publisherKeyConfig: filterSuggestConfig = {
   filterHandle: 'publisherKey',
   displayName: PublisherLabel,
   filterTranslation: 'filters.publisherKey.name',
-  suggestConfig: publisherKeyOccurrenceSuggest,//publisherKeySuggest,
+  suggestConfig: publisherKeyOccurrenceSuggest, //publisherKeySuggest,
   allowExistence: false,
   allowNegations: true,
   facetQuery: `

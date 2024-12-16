@@ -9,7 +9,12 @@ type Props = {
 
 export function PublishedDate({ date, className }: Props) {
   return (
-    <p className={cn('g-text-slate-500 dark:g-text-gray-400 g-mt-2 g-text-sm g-font-medium', className)}>
+    <p
+      className={cn(
+        'g-text-slate-500 dark:g-text-gray-400 g-mt-2 g-text-sm g-font-medium',
+        className
+      )}
+    >
       <FormattedMessage id="cms.resource.published" /> <FormattedDate value={new Date(date)} />
     </p>
   );

@@ -24,6 +24,16 @@
     "count": "{num, plural, one {# kolekcja } few {# kolekcje} many {# kolekcji} other {# kolekcje}}",
     "description": "Kolekcja w GrSciColl, do której ten zapis został dopasowany"
   },
+  "taxonomicStatus": {
+    "name": "Status",
+    "count": "",
+    "description": "Liczba przechowywanych okazów określona w opisie. Liczba ta nie odzwierciedla liczby zdigitalizowanych i udostępnionych zapisów."
+  },
+  "taxonRank": {
+    "name": "",
+    "count": "",
+    "description": "Liczba przechowywanych okazów określona w opisie. Liczba ta nie odzwierciedla liczby zdigitalizowanych i udostępnionych zapisów."
+  },
   "numberSpecimens": {
     "name": "Liczba okazów",
     "count": "",
@@ -57,7 +67,7 @@
   },
   "relevance": {
     "name": "Znaczenie",
-    "count": "{num, plural, one { przydatność } few {# filtry przydatności} many {# filtrów przydatności} other {# filtry przydatności}}",
+    "count": "{num, plural, one { znaczenie } few {# filtry znaczenia} many {# filtrów znaczenia} other {# filtry znaczenia}}",
     "description": "Jak używa się GBIF w literaturze."
   },
   "topics": {
@@ -113,7 +123,7 @@
   "taxonKey": {
     "name": "Nazwa naukowa",
     "count": "{num, plural, one {nazwa naukowa} few {# nazwy naukowe} many {# nazw naukowych} other {# nazwy naukowe}}",
-    "description": "Nazwa naukowa w takiej postaci, w jakiej widnieje w Taksonomii Szkieletowej GBIF. Nazwy te są znormalizowane w celu ułatwienia wyszukiwania w zbiorach danych. Istnieje możliwość, że oryginalnie nadana nazwa może zostać źle zinterpretowana lub być nieznana. Aby wyszukać oryginalnie nadane nazwy, użyj filtru \"Nazwa naukowa verbatim\"."
+    "description": "Nazwa naukowa w takiej postaci, w jakiej widnieje w Rdzeniu Taksonomicznym GBIF. Nazwy te są zestandaryzowane w celu ułatwienia wyszukiwania w zbiorach danych. Istnieje możliwość, że oryginalnie nadana nazwa może zostać źle zinterpretowana lub być nieznana. Aby wyszukać oryginalnie nadane nazwy, użyj filtru \"Nazwa naukowa verbatim\"."
   },
   "taxonKeyGrSciColl": {
     "name": "Nazwa naukowa",
@@ -188,7 +198,7 @@
   "datasetKey": {
     "name": "Zbiór danych",
     "count": "{num, plural, one {zbiór danych} few {# zbiory danych} many {# zbiorów danych} other {# zbiory danych}}",
-    "description": "Tytuł zbioru danych, w którym udostępniony jest zapis."
+    "description": "Tytuł zbioru danych, w którym udostępnione jest stwierdzenie."
   },
   "publisherKey": {
     "name": "Publikujący",
@@ -198,7 +208,7 @@
   "gbifPublisherKey": {
     "name": "Publikujący w GBIF",
     "count": "{num, plural, one {publikujący w GBIF} few {# publikujących w GBIF} many {# publikujących w GBIF} other {# publikujący w GBIF}}",
-    "description": "Nazwa organizacji odpowiedzialnej za udostępnienie zbioru danych zawierającego zapis."
+    "description": "Nazwa organizacji odpowiedzialnej za udostępnienie zbioru danych zawierającego stwierdzenie."
   },
   "hostingOrganizationKey": {
     "name": "Organizacja goszcząca",
@@ -236,9 +246,9 @@
     "description": "Rok, w którym zdarzenie miało miejsce."
   },
   "sampleSizeUnit": {
-    "name": "Jednostka wielkości próbki",
-    "count": "{num, plural, one {jednostka wielkości próbki} few {# jednostki wielkości próbki} many {# jednostek wielkości próbki} other {# jednostki wielkości próbki}}",
-    "description": "Jednostka miary dla \"wartości wielkości próbki\"."
+    "name": "Jednostka wielkości próby",
+    "count": "{num, plural, one {jednostka wielkości próby} few {# jednostki wielkości próby} many {# jednostek wielkości próby} other {# jednostki wielkości próby}}",
+    "description": "Jednostka miary dla \"wartości wielkości próby\"."
   },
   "coordinateUncertainty": {
     "name": "Niepewność współrzędnych",
@@ -256,14 +266,14 @@
     "description": "Wartość liczebności organizmów, gdzie rodzaj pomiaru jest dany w \"Rodzaju liczebności organizmów\"."
   },
   "sampleSizeValue": {
-    "name": "Wartość wielkości próbki",
-    "count": "{num, plural, one { wartość wielkości próbki } few {# wartości wielkości próbk} many {# wartości wielkości próbk} other {# wartości wielkości próbk}}",
-    "description": "Wartość wielkości próbki, gdzie jednostki pomiaru są podane w \"Jednostce wielkości próbki\""
+    "name": "Wartość wielkości próby",
+    "count": "{num, plural, one { wartość wielkości próby } few {# wartości wielkości próby} many {# wartości wielkości próby} other {# wartości wielkości próby}}",
+    "description": "Wartość wielkości próby, gdzie jednostki pomiaru są podane w \"Jednostce wielkości próby\""
   },
   "relativeOrganismQuantity": {
-    "name": "Przybliżona liczebność organizmów",
-    "count": "{num, plural, one { przybliżona liczebność organizmów } few {# przybliżone liczebności organizmów} many {# przybliżonych liczebności organizmów} other {# przybliżone liczebności organizmów}}",
-    "description": "Ilość biologicznego materiału powiązana z wielkością próbki, wyliczona jako organismQuantity na sampleSize, jeśli organismQuantityType i sampleSizeUnit są jednoznaczne."
+    "name": "Względna liczebność organizmów",
+    "count": "{num, plural, one { względna liczebność organizmów } few {# względne liczebności organizmów} many {# względnych liczebności organizmów} other {# względne liczebności organizmów}}",
+    "description": "Ilość biologicznego materiału powiązana z wielkością próby, wyliczona jako organismQuantity na sampleSize, jeśli organismQuantityType i sampleSizeUnit są jednoznaczne."
   },
   "month": {
     "name": "Miesiąc",
@@ -323,7 +333,7 @@
   "organismId": {
     "name": "Identyfikator organizmu",
     "count": "{num, plural, one { ID organizmu } few {# ID organizmu} many {#  ID organizmu} other {# ID organizmu}}",
-    "description": "Unikatowy identyfikator organizmu w zapisie."
+    "description": "Unikalny identyfikator organizmu w zapisie."
   },
   "locality": {
     "name": "Lokalność",
@@ -336,24 +346,24 @@
     "description": "Nazwa zbiornika wodnego, w którym ma miejsce lokalizacja."
   },
   "higherGeography": {
-    "name": "",
+    "name": "Geografia wyższego rzędu",
     "count": "",
     "description": ""
   },
   "stateProvince": {
-    "name": "Województwo/stan",
-    "count": "{num, plural, one { województwo/stan } few {# województwa/stany} many {# województw/stanów} other {# województwa/stany}}",
+    "name": "Region",
+    "count": "{num, plural, one { region } few {# regiony} many {# regionów} other {# regiony}}",
     "description": "Nazwa rejonu administracyjnego zaraz po państwie, w którym znajduje się lokacja. "
   },
   "eventId": {
     "name": "ID zdarzenia",
     "count": "{num, plural, one { ID zdarzenia } few {# ID zdarzenia} many {# ID zdarzenia} other {# ID zdarzenia}}",
-    "description": "Unikatowy identyfikator zdarzenia w zapisie."
+    "description": "Unikalny identyfikator zdarzenia w zapisie."
   },
   "eventID": {
     "name": "ID zdarzenia",
     "count": "{num, plural, one { ID zdarzenia } few {# ID zdarzenia} many {# ID zdarzenia} other {# ID zdarzenia}}",
-    "description": "Unikatowy identyfikator zdarzenia w zapisie."
+    "description": "Unikalny identyfikator zdarzenia w zapisie."
   },
   "parentEventId": {
     "name": "ID nadrzędnego zdarzenia",
@@ -392,18 +402,18 @@
   },
   "samplingProtocol": {
     "name": "Protokół pobierania prób",
-    "count": "{num, plural, one { protokół próbkowania } few {# protokoły próbkowania} many {# protokołów próbkowania} other {# protokoły próbkowania}}",
-    "description": "Nazwa, odniesienie do lub opis metody lub protokołu użytego podczas zdarzenia."
+    "count": "{num, plural, one { protokół pobierania próby } few {# protokoły pobierania próby} many {# protokołów pobierania próby} other {# protokoły pobierania próby}}",
+    "description": "Nazwa, odniesienie lub opis metody/protokołu użytego podczas pobierania próby."
   },
   "occurrenceStatus": {
-    "name": "Status występowania",
+    "name": "Status stwierdzenia",
     "count": "{num, plural, one { status wystąpienia } few {# statusy wystąpienia} many {# statusów wystąpienia} other {# statusy wystąpienia}}",
     "description": "Obecność lub nieobecność jakichkolwiek organizmów z danego taksonu."
   },
   "gadmGid": {
     "name": "Obszar administracyjny",
     "count": "{num, plural, one { obszar administracyjny } few {# obszary administracyjne} many {# obszarów administracyjnych} other {# obszary administracyjne}}",
-    "description": "Nazwa obszaru administracyjnego z GADM.org, określonego podczas procesowania zapisu."
+    "description": "Nazwa obszaru administracyjnego z GADM.org określonego podczas przetwarzania stwierdzenia."
   },
   "identifiedBy": {
     "name": "Zidentyfikowany przez",
@@ -431,7 +441,7 @@
     "description": ""
   },
   "datasetType": {
-    "name": "Typ danych",
+    "name": "Typ zbioru danych",
     "count": "{num, plural, one { typ zbioru danych } few {# typy zbioru danych} many {# typów zbiorów danych} other {# typy zbiorów danych}}",
     "description": "Tu wstawić krótki opis komponentu"
   },

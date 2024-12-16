@@ -10,20 +10,23 @@ export default function ChartClickWrapper({ children, interactive, detailsRoute,
   const navigate = useNavigate();
   const { filter: filterContext, setFilter } = useContext(FilterContext);
 
-  const handleRedirect = useCallback(({ filter }) => {
-    if (!filter || !interactive) return;
-    if (!detailsRoute && !setFilter) {
-      console.warn('ChartClickWrapper: no detailsRoute or setFilter provided');
-      return;
-    }
-    const mergedFilter = merge({}, filterContext, { must: { ...filter } });
-    if (detailsRoute) {
-      const newLocation = `${detailsRoute || location.pathname}?${stringify(filter)}`;
-      navigate(newLocation, {replace: false});
-    } else {
-      setFilter(mergedFilter);
-    }
-  }, [detailsRoute, location.pathname, filterContext, interactive, setFilter, navigate]);
+  const handleRedirect = useCallback(
+    ({ filter }) => {
+      if (!filter || !interactive) return;
+      if (!detailsRoute && !setFilter) {
+        console.warn('ChartClickWrapper: no detailsRoute or setFilter provided');
+        return;
+      }
+      const mergedFilter = merge({}, filterContext, { must: { ...filter } });
+      if (detailsRoute) {
+        const newLocation = `${detailsRoute || location.pathname}?${stringify(filter)}`;
+        navigate(newLocation, { replace: false });
+      } else {
+        setFilter(mergedFilter);
+      }
+    },
+    [detailsRoute, location.pathname, filterContext, interactive, setFilter, navigate]
+  );
 
   return React.cloneElement(children, { handleRedirect, interactive, ...props });
 }

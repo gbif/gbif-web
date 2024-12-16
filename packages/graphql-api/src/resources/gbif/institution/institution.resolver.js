@@ -63,13 +63,18 @@ export default {
         key: replacedBy,
       });
     },
-    replacedByCollection: ({ convertedToCollection }, args, { dataSources }) => {
+    replacedByCollection: (
+      { convertedToCollection },
+      args,
+      { dataSources },
+    ) => {
       if (!convertedToCollection) return null;
       return dataSources.collectionAPI.getCollectionByKey({
         key: convertedToCollection,
       });
     },
-    thumbor: ({ featuredImageUrl: url }, { fitIn, width = '', height = '' }) => getThumborUrl({ url, fitIn, width, height }),
+    thumbor: ({ featuredImageUrl: url }, { fitIn, width = '', height = '' }) =>
+      getThumborUrl({ url, fitIn, width, height }),
     homepageOGImageUrl_volatile: ({ homepage }, { onlyIfNoImageUrl }) => {
       if (onlyIfNoImageUrl && featuredImageUrl) {
         return null;
@@ -82,7 +87,8 @@ export default {
     },
   },
   InstitutionSearchEntity: {
-    thumbor: ({ featuredImageUrl: url }, { fitIn, width = '', height = '' }) => getThumborUrl({ url, fitIn, width, height }),
+    thumbor: ({ featuredImageUrl: url }, { fitIn, width = '', height = '' }) =>
+      getThumborUrl({ url, fitIn, width, height }),
     excerpt: ({ description }) => {
       if (typeof description === 'undefined') return null;
       return getExcerpt({

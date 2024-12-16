@@ -12,7 +12,7 @@ export const Option = React.forwardRef(
       onClick,
       children,
       onKeyDown,
-      isNegated
+      isNegated,
     }: {
       helpText?: string | React.ReactNode;
       checked?: boolean;
@@ -29,7 +29,10 @@ export const Option = React.forwardRef(
       <label className={cn('g-flex g-w-full', className)}>
         <Checkbox
           ref={ref}
-          className={cn("g-flex-none g-me-2 g-mt-0.5", isNegated && 'data-[state=checked]:g-bg-orange-500 data-[state=checked]:g-text-white')}
+          className={cn(
+            'g-flex-none g-me-2 g-mt-0.5',
+            isNegated && 'data-[state=checked]:g-bg-orange-500 data-[state=checked]:g-text-white'
+          )}
           checked={checked}
           onClick={() => {
             onClick(!checked);
@@ -47,9 +50,9 @@ export const Option = React.forwardRef(
   }
 );
 
-export function SkeletonOption({className}: {className?: string}) {
+export function SkeletonOption({ className }: { className?: string }) {
   return (
-    <div className={cn("g-flex g-flex-nowrap", className)}>
+    <div className={cn('g-flex g-flex-nowrap', className)}>
       <Skeleton className="g-w-none g-w-4 g-me-2 g-inline-block g-h-4"> </Skeleton>
       <Skeleton className="g-flex-auto g-w-24 g-inline-block g-h-4"> </Skeleton>
     </div>

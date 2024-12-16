@@ -3,11 +3,11 @@ import { gql } from 'apollo-server';
 const typeDef = gql`
   extend type Query {
     occurrenceClusterSearch(
-      apiKey: String,
+      apiKey: String
       predicate: Predicate
       size: Int
       from: Int
-      ): OccurrenceClusterSearchResult
+    ): OccurrenceClusterSearchResult
   }
 
   type OccurrenceClusterSearchResult {

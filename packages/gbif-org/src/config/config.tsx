@@ -3,7 +3,7 @@ import { Endpoints, GbifEnv } from './endpoints';
 import themeBuilder from './theme/index';
 import { Theme } from './theme/theme';
 import { SearchMetadata } from '../contexts/search';
-import defaultsDeep from 'lodash/defaultsDeep';
+import mergeWith from 'lodash/mergeWith';
 
 type PageConfig = {
   id: string;
@@ -26,6 +26,7 @@ type PartialSearchMetadata = Pick<
 
 // TODO: The config object should probably be refactored in the future with logical nesting
 export type Config = Endpoints & {
+  version: number;
   defaultTitle?: string;
   gbifEnv: GbifEnv;
   languages: LanguageOption[];
@@ -41,6 +42,10 @@ export type Config = Endpoints & {
   taiwanNodeidentifier: string;
   linkToGbifOrg?: boolean;
   datasetSearch?: SearchMetadata;
+  /** Never add options to table cells to modify filters */
+  disableInlineTableFilterButtons?: boolean;
+  /** Key string value pairs for translations. E.g. {en: Record<string, string>, es: Record<string, string>} */
+  messages?: Record<string, Record<string, string>>;
   datasetKey?: {
     literatureSearch: PartialSearchMetadata;
     occurrenceSearch: PartialSearchMetadata;
@@ -54,9 +59,12 @@ export type Config = Endpoints & {
     occurrenceSearch: PartialSearchMetadata;
   };
   occurrenceSearch?: SearchMetadata;
-  taxonSearch?: SearchMetadata;
   publisherSearch?: SearchMetadata;
   publisherKey?: {
+    literatureSearch: PartialSearchMetadata;
+  };
+  taxonSearch?: SearchMetadata;
+  taxonKey?: {
     literatureSearch: PartialSearchMetadata;
   };
   literatureSearch?: SearchMetadata;
@@ -143,20 +151,21 @@ const configDefault: Partial<Config> = {
     queryType: 'V1',
     highlightedFilters: ['q', 'code', 'country', 'numberSpecimens', 'occurrenceCount'],
   },
+  publisherSearch: {
+    queryType: 'V1',
+    highlightedFilters: ['q', 'country'],
+  },
+  taxonSearch: {
+    queryType: 'V1',
+    highlightedFilters: ['q', 'status', 'rank'],
+  },
   literatureSearch: {
     queryType: 'PREDICATE',
     highlightedFilters: ['q', 'year', 'countriesOfResearcher', 'gbifDatasetKey'],
   },
   occurrenceSearch: {
     queryType: 'PREDICATE',
-    highlightedFilters: [
-      'occurrenceStatus',
-      'taxonKey',
-      'year',
-      'country',
-      'issue',
-      'geometry',
-    ],
+    highlightedFilters: ['occurrenceStatus', 'taxonKey', 'year', 'country', 'issue', 'geometry'],
     tabs: ['table', 'media', 'map', 'dashboard', 'download'],
     defaultEnabledTableColumns: [
       'scientificName',
@@ -187,12 +196,12 @@ const configDefault: Partial<Config> = {
         ANTARCTIC: ['NATURAL', 'BRIGHT', 'DARK'],
       },
     },
-  }
-}
+  },
+};
 
 export function ConfigProvider({ config, children }: Props): React.ReactElement {
   // Create css for theming based on the baseTheme and the theme extension
-  const css: { style: string; config: Config; } = React.useMemo(() => {
+  const css: { style: string; config: Config } = React.useMemo(() => {
     const theme = themeBuilder({
       baseTheme: 'light',
       extendWith: config.theme,
@@ -217,11 +226,18 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
         return { name: `--${key}`, value };
       });
     // Convert css variables to actual css that will be injected in the document
-    const mergedConfig = defaultsDeep({}, {theme, variables: cssVariables}, config, configDefault);
-    // const mergedConfigTest = defaultsDeep({}, config.occurrenceSearch, configDefault.occurrenceSearch);
-    // console.log('config', config.occurrenceSearch);
-    // console.log('configDefault', configDefault.occurrenceSearch);
-    // console.log('mergedConfig', mergedConfigTest);
+    function customizer(current: unknown) {
+      if (Array.isArray(current)) {
+        return current;
+      }
+    }
+    const mergedConfig = mergeWith(
+      {},
+      configDefault,
+      { theme, variables: cssVariables },
+      config,
+      customizer
+    );
     return {
       style: `:root { ${cssVariables.map((v) => `${v.name}: ${v.value};`).join('\n')} }`,
       config: mergedConfig,

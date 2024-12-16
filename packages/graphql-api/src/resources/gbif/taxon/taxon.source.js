@@ -2,7 +2,7 @@ import { RESTDataSource } from 'apollo-datasource-rest';
 import { stringify } from 'qs';
 import { getParsedName } from '#/helpers/scientificName';
 import { uniqBy } from 'lodash';
-import { matchSorter } from 'match-sorter'
+import { matchSorter } from 'match-sorter';
 import { getTaxonAgent } from '#/requestAgents';
 
 class TaxonAPI extends RESTDataSource {
@@ -31,8 +31,8 @@ class TaxonAPI extends RESTDataSource {
     return this.searchTaxa({
       query: {
         ...query,
-        datasetKey: this.config.gbifBackboneUUID
-      }
+        datasetKey: this.config.gbifBackboneUUID,
+      },
     });
   }
 
@@ -70,16 +70,27 @@ class TaxonAPI extends RESTDataSource {
     return getParsedName(key, this);
   }
 
-  async getSuggestions({ datasetKey = this.config.gbifBackboneUUID, limit = 10, q, language, vernacularNamesOnly, preferAccepted = true, strictMatching, taxonScope = [] }) {
+  async getSuggestions({
+    datasetKey = this.config.gbifBackboneUUID,
+    limit = 10,
+    q,
+    language,
+    vernacularNamesOnly,
+    preferAccepted = true,
+    strictMatching,
+    taxonScope = [],
+  }) {
     // get vernacular names
-    let responseVernacularPromise = language ? this.searchTaxa({
-      query: {
-        datasetKey,
-        q,
-        limit: 100,
-        qField: 'VERNACULAR'
-      }
-    }) : null;
+    let responseVernacularPromise = language
+      ? this.searchTaxa({
+          query: {
+            datasetKey,
+            q,
+            limit: 100,
+            qField: 'VERNACULAR',
+          },
+        })
+      : null;
 
     // get results matching scientific name
     let scientificResults = [];
@@ -95,11 +106,13 @@ class TaxonAPI extends RESTDataSource {
       // responseScientific.results.forEach(x => { delete x.vernacularNames });
       // scientificResults = responseScientific.results;
 
-      const responseScientificSuggestions = await this.get(`/species/suggest?limit=100&q=${q}&datasetKey=${datasetKey}`);
-      // for each result, check if it is a synonym=true, if so get the full result and from that the accepted result 
+      const responseScientificSuggestions = await this.get(
+        `/species/suggest?limit=100&q=${q}&datasetKey=${datasetKey}`,
+      );
+      // for each result, check if it is a synonym=true, if so get the full result and from that the accepted result
       // e.g. https://api.gbif.org/v1/species/8156363
       // add acceptedKey to each result
-      await promiseForEach(responseScientificSuggestions, async x => {
+      await promiseForEach(responseScientificSuggestions, async (x) => {
         if (x.synonym) {
           const taxon = await this.getTaxonByKey({ key: x.key });
           x.acceptedKey = taxon.acceptedKey;
@@ -114,29 +127,34 @@ class TaxonAPI extends RESTDataSource {
       const responseVernacular = await responseVernacularPromise;
 
       // only include vernacular names in the correct language
-      responseVernacular.results.forEach(x => {
-        x.vernacularNames = x.vernacularNames.filter(y => y.language === language);
+      responseVernacular.results.forEach((x) => {
+        x.vernacularNames = x.vernacularNames.filter(
+          (y) => y.language === language,
+        );
       });
 
       // remove results where there is no vernacular name in the correct language
-      vernacularResults = responseVernacular.results.filter(x => x.vernacularNames.length > 0);
+      vernacularResults = responseVernacular.results.filter(
+        (x) => x.vernacularNames.length > 0,
+      );
     }
 
     // concatenated results, putting scientific names first
     const results = scientificResults.concat(vernacularResults);
 
-    results.forEach(x => {
-      x.vernacularNames = (x.vernacularNames ?? []).map(x => x.vernacularName);
+    results.forEach((x) => {
+      x.vernacularNames = (x.vernacularNames ?? []).map(
+        (x) => x.vernacularName,
+      );
     });
 
     // remove duplicates, uniqBy keeps ordering
     let uniqueResults = uniqBy(results, 'key');
 
-
     // if the datasetKey is not the backbone, then we need to get the backbone taxon
     if (datasetKey !== this.config.gbifBackboneUUID) {
       let uniqueNubKeyResults = uniqBy(results, 'nubKey');
-      await promiseForEach(uniqueNubKeyResults, async x => {
+      await promiseForEach(uniqueNubKeyResults, async (x) => {
         // for some reason only some results have a nubKey. There can be two results from the backbone dataset, one has a nubKey the other doesn't. Both accepted names.
         if (!x.nubKey) {
           return;
@@ -146,25 +164,25 @@ class TaxonAPI extends RESTDataSource {
         }
       });
       // remove results without a backbone math
-      uniqueResults = uniqueNubKeyResults.filter(x => x.backboneTaxon);
+      uniqueResults = uniqueNubKeyResults.filter((x) => x.backboneTaxon);
       // flatten results
-      uniqueResults = uniqueResults.map(x => {
+      uniqueResults = uniqueResults.map((x) => {
         return {
           ...(x.backboneTaxon || x),
           vernacularNames: x.vernacularNames,
-        }
+        };
       });
     }
 
     // get the accepted taxon for each result
     if (preferAccepted) {
-      await promiseForEach(uniqueResults, async x => {
+      await promiseForEach(uniqueResults, async (x) => {
         if (!x.acceptedKey) return;
         const acceptedTaxon = await this.getTaxonByKey({ key: x.acceptedKey });
         x.acceptedTaxon = acceptedTaxon;
       });
 
-      uniqueResults = uniqueResults.map(x => {
+      uniqueResults = uniqueResults.map((x) => {
         if (!x.acceptedTaxon) {
           return x;
         } else {
@@ -172,7 +190,7 @@ class TaxonAPI extends RESTDataSource {
             ...x.acceptedTaxon,
             acceptedNameOf: x.scientificName,
             vernacularNames: x.vernacularNames,
-          }
+          };
         }
       });
     }
@@ -184,39 +202,56 @@ class TaxonAPI extends RESTDataSource {
     // e.g. taxonScope=[1,56,9786] should remove entries that do not exists in item.higherClassificationMap (form {key: name})
     let filteredResults = uniqueResults;
     if (taxonScope && taxonScope.length > 0) {
-      const taxonScopeKeys = taxonScope.map(x => x.toString());
+      const taxonScopeKeys = taxonScope.map((x) => x.toString());
       // so for each entry  in unique, we need to remove results where there isn't an overlap between taxonScope and Object.keys(item.higherClassificationMap)
-      filteredResults = uniqueResults.filter(item => {
+      filteredResults = uniqueResults.filter((item) => {
         let keys = [];
         if (item.higherClassificationMap) {
           keys = Object.keys(item.higherClassificationMap);
         } else {
           // add kingdomKey, phylumKey, classKey, orderKey, familyKey, genusKey, speciesKey to keys and remove undefined
-          keys = ['kingdomKey', 'phylumKey', 'classKey', 'orderKey', 'familyKey', 'genusKey', 'speciesKey']
-            .map(x => item[x])
-            .filter(x => x);
+          keys = [
+            'kingdomKey',
+            'phylumKey',
+            'classKey',
+            'orderKey',
+            'familyKey',
+            'genusKey',
+            'speciesKey',
+          ]
+            .map((x) => item[x])
+            .filter((x) => x);
         }
-        return taxonScopeKeys.some(x => keys.includes(x.toString()));
+        return taxonScopeKeys.some((x) => keys.includes(x.toString()));
       });
     }
 
     // map results more easily digestable format
-    let structuredResults = filteredResults.map(x => {
+    let structuredResults = filteredResults.map((x) => {
       // create a classification list
       let classification = [];
-      ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species']
-        .forEach(rank => {
-          if (x[rank]) {
-            classification.push({
-              rank: rank.toUpperCase(),
-              name: x[rank],
-              key: x[`${rank}Key`],
-            });
-          }
-        });
+      [
+        'kingdom',
+        'phylum',
+        'class',
+        'order',
+        'family',
+        'genus',
+        'species',
+      ].forEach((rank) => {
+        if (x[rank]) {
+          classification.push({
+            rank: rank.toUpperCase(),
+            name: x[rank],
+            key: x[`${rank}Key`],
+          });
+        }
+      });
 
       // there might be many vernacular names in the given language, and we do not know wich of them match the users query. try to sort it by best match.
-      const bestMatchVernacular = matchSorter(x.vernacularNames ?? [], q, { threshold: matchSorter.rankings.NO_MATCH });
+      const bestMatchVernacular = matchSorter(x.vernacularNames ?? [], q, {
+        threshold: matchSorter.rankings.NO_MATCH,
+      });
       const vernacularName = bestMatchVernacular[0];
       return {
         key: x.key,
@@ -227,19 +262,25 @@ class TaxonAPI extends RESTDataSource {
         acceptedNameOf: x.acceptedNameOf,
         vernacularName,
         classification,
-      }
+      };
     });
 
     const sortedResults = matchSorter(structuredResults, q, {
-      keys: ['scientificName', 'acceptedNameOf', 'vernacularName', 'canonicalName' ],
-      threshold: strictMatching ? matchSorter.rankings.MATCHES : matchSorter.rankings.NO_MATCH
+      keys: [
+        'scientificName',
+        'acceptedNameOf',
+        'vernacularName',
+        'canonicalName',
+      ],
+      threshold: strictMatching
+        ? matchSorter.rankings.MATCHES
+        : matchSorter.rankings.NO_MATCH,
     });
     return sortedResults;
   }
 }
 
 export default TaxonAPI;
-
 
 async function promiseForEach(array, callback) {
   for (let i = 0; i < array.length; i++) {

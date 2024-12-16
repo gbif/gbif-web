@@ -35,27 +35,25 @@ const children = [
   resource,
   tool,
   misc,
-  menuItem, 
+  menuItem,
   home,
   fundingOrganisation,
-].map(resource => resource.default);
+].map((resource) => resource.default);
 
 export default {
   resolver: Object.keys(children).reduce(
-    (agg, resource) =>
-      merge(agg, get(children, `${resource}.resolver`)),
+    (agg, resource) => merge(agg, get(children, `${resource}.resolver`)),
     {},
   ),
-  typeDef: children.map(resource => resource.typeDef),
+  typeDef: children.map((resource) => resource.typeDef),
   dataSource: merge(
     {
       resourceAPI: ResourceAPI,
       resourceSearchAPI: ResourceSearchAPI,
     },
     Object.keys(children).reduce(
-      (agg, resource) =>
-        merge(agg, get(resource, `${resource}.dataSource`)),
+      (agg, resource) => merge(agg, get(resource, `${resource}.dataSource`)),
       {},
     ),
-  )
-}
+  ),
+};

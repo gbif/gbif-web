@@ -5,7 +5,7 @@ import { PublisherKeyMetrics } from './metrics';
 import { PublisherKeyCitations } from './citations';
 import { PublisherQuery } from '@/gql/graphql';
 
-const id = 'publisher-key';
+const id = 'publisherKey';
 
 export const publisherKeyRoute: RouteObjectWithPlugins = {
   id,

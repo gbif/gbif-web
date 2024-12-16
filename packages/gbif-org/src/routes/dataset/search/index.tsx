@@ -3,8 +3,12 @@ import { DatasetSearchPage } from './datasetSearch';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 export const datasetSearchRoute: RouteObjectWithPlugins = {
-  id: 'dataset-search',
+  id: 'datasetSearch',
   gbifRedirect: () => '/dataset/search',
   path: 'dataset/search',
-  element: <ErrorBoundary><DatasetSearchPage /></ErrorBoundary>,
+  element: (
+    <ErrorBoundary>
+      <DatasetSearchPage />
+    </ErrorBoundary>
+  ),
 };

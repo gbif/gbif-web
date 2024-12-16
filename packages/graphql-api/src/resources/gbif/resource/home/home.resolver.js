@@ -1,5 +1,5 @@
-import { isNoneEmptyArray } from "#/helpers/utils";
-import { KNOWN_BLOCK_TYPES } from "../composition/acceptedTypes";
+import { isNoneEmptyArray } from '#/helpers/utils';
+import { KNOWN_BLOCK_TYPES } from '../composition/acceptedTypes';
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -11,26 +11,46 @@ import { KNOWN_BLOCK_TYPES } from "../composition/acceptedTypes";
 export default {
   Query: {
     gbifHome: (_, __, { dataSources, locale, preview }) =>
-      dataSources.resourceAPI.getEntryById({ id: '3D1QT0b4vuKS4iGaaumqwG', preview, locale })
+      dataSources.resourceAPI.getEntryById({
+        id: '3D1QT0b4vuKS4iGaaumqwG',
+        preview,
+        locale,
+      }),
   },
   Home: {
-    children: ({ mainNavigationElements }, _, { dataSources, locale, preview }) => {
+    children: (
+      { mainNavigationElements },
+      _,
+      { dataSources, locale, preview },
+    ) => {
       if (!mainNavigationElements) return [];
-      return mainNavigationElements.map(child => {
-        return dataSources.resourceAPI.getEntryById({ id: child.id, locale, preview })
-      })
+      return mainNavigationElements.map((child) => {
+        return dataSources.resourceAPI.getEntryById({
+          id: child.id,
+          locale,
+          preview,
+        });
+      });
     },
     blocks: ({ blocks }, args, { dataSources, locale, preview }) => {
       if (!isNoneEmptyArray(blocks)) return null;
 
-      const ids = blocks.map(block => block.id);
+      const ids = blocks.map((block) => block.id);
       // get all and subsequently filter out the ones that are not allowed (not in include list : HeaderBlock | FeatureBlock | FeaturedTextBlock | CarouselBlock | MediaBlock | MediaCountBlock | CustomComponentBlock)
-      return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview, locale })))
-        .then(results => results.filter(result => {
+      return Promise.all(
+        ids.map((id) =>
+          dataSources.resourceAPI.getEntryById({ id, preview, locale }),
+        ),
+      ).then((results) =>
+        results.filter((result) => {
           const knownType = KNOWN_BLOCK_TYPES[result.contentType];
-          if (!knownType) logger.warn(`Unknown content type for a block in programme.resolver.js: ${result.contentType}`);
+          if (!knownType)
+            logger.warn(
+              `Unknown content type for a block in programme.resolver.js: ${result.contentType}`,
+            );
           return knownType;
-        }));
+        }),
+      );
     },
-  }
-}
+  },
+};

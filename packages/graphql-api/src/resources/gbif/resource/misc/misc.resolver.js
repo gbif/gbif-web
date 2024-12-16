@@ -1,11 +1,14 @@
 import Thumbor from 'thumbor';
 import config from '../../../../config';
 
-const thumbor = new Thumbor(config.thumborSecurityKey, config.thumbor ?? 'https://api.gbif.org/v1/image');
+const thumbor = new Thumbor(
+  config.thumborSecurityKey,
+  config.thumbor ?? 'https://api.gbif.org/v1/image',
+);
 
-export function getThumborUrl({url, fitIn, width = '', height = ''}) {
+export function getThumborUrl({ url, fitIn, width = '', height = '' }) {
   if (!url) return null;
-  
+
   // if the url starts with // then it is a protocol relative url, and we need to add http: to it
   const path = url.startsWith('//') ? `http:${url}` : url;
   let img = thumbor.setImagePath(encodeURIComponent(path));
@@ -26,7 +29,8 @@ export function getThumborUrl({url, fitIn, width = '', height = ''}) {
  */
 export default {
   ImageFile: {
-    thumbor: ({ url }, { fitIn, width = '', height = '' }) => getThumborUrl({url, fitIn, width, height})
+    thumbor: ({ url }, { fitIn, width = '', height = '' }) =>
+      getThumborUrl({ url, fitIn, width, height }),
   },
   DocumentAssetFile: {
     volatile_documentType: ({ contentType }) => {
@@ -55,7 +59,6 @@ export default {
         case 'application/vnd.ms-excel':
           return 'xls';
 
-
         // word/doc
         case 'application/msword':
           return 'doc';
@@ -71,6 +74,6 @@ export default {
         default:
           return 'unknown';
       }
-    }
-  }
-}
+    },
+  },
+};

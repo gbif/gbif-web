@@ -51,9 +51,11 @@ export function NetworkKeyDataset() {
   return (
     <PageContainer topPadded bottomPadded className="g-bg-slate-100">
       <ArticleTextContainer>
-        { datasets?.count === 0 && <>
-          <NoRecords />
-        </>}
+        {datasets?.count === 0 && (
+          <>
+            <NoRecords />
+          </>
+        )}
         {datasets && datasets.count > 0 && (
           <>
             <CardHeader id="datasets">

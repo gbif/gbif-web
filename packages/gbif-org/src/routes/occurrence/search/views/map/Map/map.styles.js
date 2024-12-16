@@ -21,7 +21,7 @@ export const mapComponent = ({ theme }) => css`
   }
 `;
 
-export const resultList = ({ }) => css`
+export const resultList = ({}) => css`
   z-index: 10;
   margin: 12px;
   position: absolute;
@@ -44,7 +44,8 @@ export const mapControls = ({ theme }) => css`
   margin: 12px;
   right: 0;
   align-items: center;
-  > button, > div > button {
+  > button,
+  > div > button {
     padding: 6px;
     flex: 1 1 auto;
     font-size: 24px;

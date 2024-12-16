@@ -1,6 +1,4 @@
-import {
-  establishmentMeansLabel,
-} from '@/components/filters/displayNames';
+import { establishmentMeansLabel } from '@/components/filters/displayNames';
 import { filterConfigTypes, filterEnumConfig } from '@/components/filters/filterTools';
 import { HelpText } from '@/components/helpText';
 // import { establishmentMeansSuggest } from '@/utils/suggestEndpoints';

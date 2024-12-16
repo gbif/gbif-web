@@ -3,9 +3,9 @@ import { useStateAsRef } from '@/hooks/useStateAsRef';
 import { PaginationState } from '@tanstack/react-table';
 import { useCallback, useMemo, useState } from 'react';
 
-export function usePaginationState({pageSize: size}: {pageSize?: number} = {}): [
+export function usePaginationState({ pageSize: size }: { pageSize?: number } = {}): [
   PaginationState,
-  React.Dispatch<React.SetStateAction<PaginationState>>
+  React.Dispatch<React.SetStateAction<PaginationState>>,
 ] {
   const [from, setFrom] = useIntParam({
     key: 'from',

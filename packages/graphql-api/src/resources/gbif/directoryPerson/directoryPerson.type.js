@@ -2,8 +2,14 @@ import { gql } from 'apollo-server';
 
 const typeDef = gql`
   extend type Query {
-    directoryTranslators(limit: Int, offset: Int): DirectoryPersonRoleSearchResults
-    directoryAmbassadors(limit: Int, offset: Int): DirectoryContactRoleSearchResults
+    directoryTranslators(
+      limit: Int
+      offset: Int
+    ): DirectoryPersonRoleSearchResults
+    directoryAmbassadors(
+      limit: Int
+      offset: Int
+    ): DirectoryContactRoleSearchResults
     directoryMentors(limit: Int, offset: Int): DirectoryContactRoleSearchResults
     directoryAwardWinners(award: [String]): [DirectoryPerson]!
   }
@@ -29,9 +35,9 @@ const typeDef = gql`
   }
 
   type DirectoryTerm {
-  start: String
-  end: String
-}
+    start: String
+    end: String
+  }
 
   type DirectoryPersonRoleSearchResults {
     results: [DirectoryPersonRole]!
@@ -105,7 +111,7 @@ const typeDef = gql`
     createdBy: String
     created: String
   }
-  
+
   type ProfileDescription {
     key: Int
     language: String

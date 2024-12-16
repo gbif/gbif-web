@@ -5,7 +5,7 @@ import InstitutionKeySpecimens from './Specimen';
 import InstitutionKeyCollection from './Collection';
 import { InstitutionQuery } from '@/gql/graphql';
 
-const id = 'institution-key';
+const id = 'institutionKey';
 
 export const institutionKeyRoute: RouteObjectWithPlugins = {
   id,

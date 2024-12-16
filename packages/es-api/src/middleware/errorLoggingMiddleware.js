@@ -21,7 +21,7 @@ function errorLoggingMiddleware(error, req, res, next) {
       statusCode: res.statusCode,
       headers: res.headers,
       body: res.body,
-    }
+    },
   });
 }
 

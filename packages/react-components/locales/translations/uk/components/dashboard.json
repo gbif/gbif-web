@@ -24,6 +24,7 @@
   "occurrences": "Знахідки",
   "other": "Інше",
   "unknown": "Невідомо",
+  "usingStartDates": "Архів анотований GBIF",
   "iucnThreatStatus": "Архів анотований GBIF",
   "iucnThreatStatusDescription": "Архів анотований GBIF",
   "metricsFromGbifData": "Ці показники спираються на записи, що поширені GBIF",

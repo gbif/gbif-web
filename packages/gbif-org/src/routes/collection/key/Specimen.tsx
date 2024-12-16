@@ -10,20 +10,32 @@ import { useContext, useEffect, useState } from 'react';
 import { CollectionKeyContext } from './collectionKeyPresentation';
 
 export default function Specimen() {
-  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig, paramsToRemove: ['offset'] });
+  const [filter, setFilter] = useFilterParams({
+    filterConfig: searchConfig,
+    paramsToRemove: ['offset'],
+  });
   const baseConfig = useConfig();
   const [config, setConfig] = useState<SearchMetadata | undefined>();
   const { key, contentMetrics } = useContext(CollectionKeyContext);
   const occurrenceSearchConfig = baseConfig?.collectionKey?.occurrenceSearch;
 
   useEffect(() => {
-    let activeTabs = occurrenceSearchConfig?.tabs ?? ['table', 'map', 'media', 'clusters', 'dataset', 'download'];
-    if (contentMetrics?.withCoordinates?.documents?.total === 0) activeTabs = removeStringFromArray(activeTabs, 'map');
-    if (contentMetrics?.withImages?.documents?.total === 0) activeTabs = removeStringFromArray(activeTabs, 'media');
+    let activeTabs = occurrenceSearchConfig?.tabs ?? [
+      'table',
+      'map',
+      'media',
+      'clusters',
+      'dataset',
+      'download',
+    ];
+    if (contentMetrics?.withCoordinates?.documents?.total === 0)
+      activeTabs = removeStringFromArray(activeTabs, 'map');
+    if (contentMetrics?.withImages?.documents?.total === 0)
+      activeTabs = removeStringFromArray(activeTabs, 'media');
     if (contentMetrics?.withClusters?.documents?.total === 0)
-    
-    // if there is no table, then add it as the first tab
-    if (!activeTabs.includes('table')) activeTabs.unshift('table');
+      if (!activeTabs.includes('table'))
+        // if there is no table, then add it as the first tab
+        activeTabs.unshift('table');
 
     const c = {
       ...baseConfig.occurrenceSearch,
@@ -52,7 +64,6 @@ export default function Specimen() {
     </ArticleContainer>
   );
 }
-
 
 //function to remove a specific string from an array
 function removeStringFromArray(array: string[], string: string): string[] {

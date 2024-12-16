@@ -25,10 +25,12 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Option, SkeletonOption } from './option';
 import { AdditionalFilterProps, FacetQuery, filterRangeConfig, getAsQuery } from './filterTools';
 import { useSearchContext } from '@/contexts/search';
+import { AboutButton } from './aboutButton';
 
-type RangeProps = Omit<filterRangeConfig, 'filterType' | 'filterTranslation'> & AdditionalFilterProps & {
-  className?: string;
-};
+type RangeProps = Omit<filterRangeConfig, 'filterType' | 'filterTranslation'> &
+  AdditionalFilterProps & {
+    className?: string;
+  };
 
 export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
   (
@@ -41,6 +43,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
       onApply,
       onCancel,
       pristine,
+      about,
     }: RangeProps,
     ref
   ) => {
@@ -51,6 +54,8 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
     const [filterBeforeHash, setFilterBeforeHash] = useState<string | undefined>(undefined);
     const [q, setQ] = useState<string>('');
     const { upperBound = 'lte', lowerBound = 'gte', placeholder = 'E.g. 100,200' } = {};
+
+    const About = about;
 
     useEffect(() => {
       // filter has changed updateed the listed of selected values
@@ -72,35 +77,12 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
               <MdDeleteOutline />
             </button>
           )}
-          {/* <SimpleTooltip delayDuration={300} title="Exclude selected">
-          <button
-            className="g-px-1"
-            onClick={() => {
-              // negateField('publishingOrg', true)
-            }}
-          >
-            <MdOutlineRemoveCircleOutline />
-          </button>
-        </SimpleTooltip> */}
-          {/* <SimpleTooltip delayDuration={300} title="Invert selection">
-          <button className="g-px-1">
-            <MdShuffle />
-          </button>
-        </SimpleTooltip>
-        <SimpleTooltip delayDuration={300} title="Filter by existence">
-          <button className="g-px-1">
-            <PiEmptyBold />
-          </button>
-        </SimpleTooltip> */}
 
-          <SimpleTooltip delayDuration={300} title="About this filter">
-            <span>
-              <HelpLine
-                id="how-to-link-datasets-to-my-project-page"
-                title={<MdInfoOutline className="-g-me-1" />}
-              />
-            </span>
-          </SimpleTooltip>
+          {About && (
+            <AboutButton className="-g-me-1">
+              <About />
+            </AboutButton>
+          )}
         </div>
       </>
     );
@@ -156,9 +138,12 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
           )}
           {options}
         </div>
-        {selected.length === 0 && <div className="g-pointer-events-none g-text-slate-700 g-text-sm g-bg-slate-100 g-p-4 g-border g-left-0 g-right-0 g-mx-2 g-rounded">
-          Enter a range or a single value. E.g. 100,200 or 100. Or use blanks to have open ends like: 100,
-        </div>}
+        {selected.length === 0 && (
+          <div className="g-pointer-events-none g-text-slate-700 g-text-sm g-bg-slate-100 g-p-4 g-border g-left-0 g-right-0 g-mx-2 g-rounded">
+            Enter a range or a single value. E.g. 100,200 or 100. Or use blanks to have open ends
+            like: 100,
+          </div>
+        )}
         <div className="g-flex-auto g-overflow-auto">
           {selected.length > 0 && (
             <div className={cn('g-text-base g-mt-2 g-px-4', className)}>

@@ -39,6 +39,7 @@
   "discard": "Uma breve descrição do componente deve ser colocada aqui",
   "keep": "Uma breve descrição do componente deve ser colocada aqui",
   "copyToClipboard": "Uma breve descrição do componente deve ser colocada aqui",
+  "fromCountry": "",
   "copiedToClipboard": "",
   "headers": {
     "description": "Descrição",

@@ -42,7 +42,19 @@ export type SuggestProps = {
 };
 
 export const Suggest = React.forwardRef<HTMLInputElement, SuggestProps>(
-  ({ onSelect, className, getSuggestions, selected, onKeyDown, render, getStringValue, placeholder }: SuggestProps, ref) => {
+  (
+    {
+      onSelect,
+      className,
+      getSuggestions,
+      selected,
+      onKeyDown,
+      render,
+      getStringValue,
+      placeholder,
+    }: SuggestProps,
+    ref
+  ) => {
     return (
       <Search
         ref={ref}

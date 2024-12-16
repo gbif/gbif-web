@@ -49,7 +49,7 @@ export function Hostname({
     );
   } catch (err) {
     return (
-      <a href={href} className='g-text-red-400' {...props}>
+      <a href={href} className="g-text-red-400" {...props}>
         {href}
       </a>
     );
@@ -77,9 +77,7 @@ export function HeaderInfoEdit({
 }: {
   className?: string;
 } & React.ComponentProps<'div'>) {
-  return (
-    <div className={cn('g-flex-shrink', className)} {...props} />
-  );
+  return <div className={cn('g-flex-shrink', className)} {...props} />;
 }
 
 export function HeaderInfo({
@@ -96,4 +94,3 @@ export function HeaderInfo({
     </div>
   );
 }
-

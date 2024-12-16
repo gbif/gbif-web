@@ -204,12 +204,24 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       }),
       type: generateFilters({ config: typeConfig, searchConfig, formatMessage }),
       discipline: generateFilters({ config: disciplineConfig, searchConfig, formatMessage }),
-      alternativeCode: generateFilters({ config: alternativeCodeConfig, searchConfig, formatMessage }),
+      alternativeCode: generateFilters({
+        config: alternativeCodeConfig,
+        searchConfig,
+        formatMessage,
+      }),
       city: generateFilters({ config: cityConfig, searchConfig, formatMessage }),
       name: generateFilters({ config: nameConfig, searchConfig, formatMessage }),
       code: generateFilters({ config: codeConfig, searchConfig, formatMessage }),
-      numberSpecimens: generateFilters({ config: numberSpecimensConfig, searchConfig, formatMessage }),
-      occurrenceCount: generateFilters({ config: occurrenceCountConfig, searchConfig, formatMessage }),
+      numberSpecimens: generateFilters({
+        config: numberSpecimensConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      occurrenceCount: generateFilters({
+        config: occurrenceCountConfig,
+        searchConfig,
+        formatMessage,
+      }),
     };
     setFilters(nextFilters);
   }, [searchConfig, countrySuggest, formatMessage]);

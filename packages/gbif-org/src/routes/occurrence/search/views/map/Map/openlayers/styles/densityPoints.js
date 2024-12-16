@@ -8,61 +8,66 @@ const thresholds = function (total) {
   return 4;
 };
 
-const densityColours = [
-  '#fed976',
-  '#fd8d3ccc',
-  '#fd8d3cbb',
-  '#f03b2088',
-  '#bd002688',
-];
-
-const densityPoints = [
-  new Style({
-    image: new Circle({
+function getDensityPoint(theme) {
+  const densityColours = theme?.mapDensityColors ?? [
+    '#fed976',
+    '#fd8d3c',
+    '#fd8d3c',
+    '#f03b20',
+    '#bd0026',
+  ];
+  const densityPoints = [
+    new Style({
+      image: new Circle({
+        fill: new Fill({ color: densityColours[0] }),
+        stroke: new Stroke({
+          color: densityColours[2],
+          width: 1,
+        }),
+        radius: 4,
+      }),
       fill: new Fill({ color: densityColours[0] }),
-      stroke: new Stroke({
-        color: densityColours[2],
-        width: 1,
+    }),
+    new Style({
+      image: new Circle({
+        fill: new Fill({ color: densityColours[1] + 'cc' }),
+        stroke: new Stroke({
+          color: densityColours[2],
+          width: 1,
+        }),
+        radius: 4,
       }),
-      radius: 4,
+      fill: new Fill({ color: densityColours[1] + 'cc' }),
     }),
-    fill: new Fill({ color: densityColours[0] }),
-  }),
-  new Style({
-    image: new Circle({
-      fill: new Fill({ color: densityColours[1] }),
-      stroke: new Stroke({
-        color: densityColours[2],
-        width: 1,
+    new Style({
+      image: new Circle({
+        fill: new Fill({ color: densityColours[2] + 'bb' }),
+        radius: 5,
       }),
-      radius: 4,
+      fill: new Fill({ color: densityColours[2] + 'bb' }),
     }),
-    fill: new Fill({ color: densityColours[1] }),
-  }),
-  new Style({
-    image: new Circle({
-      fill: new Fill({ color: densityColours[2] }),
-      radius: 5,
+    new Style({
+      image: new Circle({
+        fill: new Fill({ color: densityColours[3] + '88' }),
+        radius: 8,
+      }),
+      fill: new Fill({ color: densityColours[3] + '88' }),
     }),
-    fill: new Fill({ color: densityColours[2] }),
-  }),
-  new Style({
-    image: new Circle({
-      fill: new Fill({ color: densityColours[3] }),
-      radius: 8,
+    new Style({
+      image: new Circle({
+        fill: new Fill({ color: densityColours[4] + '88' }),
+        radius: 12,
+      }),
+      fill: new Fill({ color: densityColours[4] + '88' }),
     }),
-    fill: new Fill({ color: densityColours[3] }),
-  }),
-  new Style({
-    image: new Circle({
-      fill: new Fill({ color: densityColours[4] }),
-      radius: 12,
-    }),
-    fill: new Fill({ color: densityColours[4] }),
-  }),
-];
+  ];
+  return densityPoints;
+}
 
-export default function (feature, resolution) {
-  var total = thresholds(feature.get('total'));
-  return densityPoints[total];
-};
+export default function (siteTheme) {
+  const densityPoints = getDensityPoint(siteTheme);
+  return function (feature, resolution) {
+    var total = thresholds(feature.get('total'));
+    return densityPoints[total];
+  };
+}

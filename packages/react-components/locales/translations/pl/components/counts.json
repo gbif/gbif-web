@@ -23,7 +23,7 @@
   "percentWithYear": "{percent}% z datą roczną",
   "percentWithTaxonMatch": "{percent}% z dopasowaniem taksonomicznym",
   "nResultsWithImages": "{total, plural, one {# wynik} few {# wyniki} many {# wyników} other {#wyniki, #wyników}} z obrazami",
-  "gbifOverlapPercent": "{percent}% pokrycia z Taksonomią Szkieletową GBIF",
+  "gbifOverlapPercent": "{percent}% pokrycia z Rdzeniem Taksonomicznym GBIF",
   "colOverlapPercent": "{percent}% pokrycia z Katalogiem Życia",
   "nPublishedDatasets": "{total, plural, one {# opublikowany zbiór danych} few {# opublikowane zbiory danych} many {# opublikowanych zbiorów danych} other {# opublikowane zbiory danych}}",
   "nDatasets": "{total, plural, one {# zbiór danych} few {# zbiory danych} many {# zbiorów danych} other {# zbiory danych}}",

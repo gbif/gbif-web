@@ -85,7 +85,10 @@ const typeDef = gql`
   }
 
   type LiteratureAutoDateHistogram {
-    createdAt(buckets: Float, minimum_interval: String): AutoDateHistogramResult!
+    createdAt(
+      buckets: Float
+      minimum_interval: String
+    ): AutoDateHistogramResult!
   }
 
   type LiteratureCardinality {

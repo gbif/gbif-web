@@ -4,4 +4,4 @@ import resolver from './notification.resolver';
 export default {
   typeDef,
   resolver,
-}
+};

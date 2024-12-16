@@ -13,28 +13,33 @@ const searchIndex = env.eventOccurrence.index || 'eventOccurrence';
 const isHttpsEndpoint = env.eventOccurrence.hosts[0].startsWith('https');
 const AgentType = isHttpsEndpoint ? Agent.HttpsAgent : Agent;
 
-const agent = () => new AgentType({
-  maxSockets: 1000, // Default = Infinity
-  keepAlive: true
-});
+const agent = () =>
+  new AgentType({
+    maxSockets: 1000, // Default = Infinity
+    keepAlive: true,
+  });
 
 const client = new Client({
   nodes: env.eventOccurrence.hosts,
   maxRetries: env.eventOccurrence.maxRetries || 3,
   requestTimeout: env.eventOccurrence.requestTimeout || 60000,
-  agent
+  agent,
 });
 
 async function query({ query, aggs, size = 20, from = 0, metrics, req }) {
   if (parseInt(from) + parseInt(size) > env.eventOccurrence.maxResultWindow) {
-    throw new ResponseError(400, 'BAD_REQUEST', `'from' + 'size' must be ${env.eventOccurrence.maxResultWindow} or less`);
+    throw new ResponseError(
+      400,
+      'BAD_REQUEST',
+      `'from' + 'size' must be ${env.eventOccurrence.maxResultWindow} or less`,
+    );
   }
   let filter = [
     {
-      'term': {
-        'type': 'occurrence'
-      }
-    }
+      term: {
+        type: 'occurrence',
+      },
+    },
   ];
   if (query) filter.push(query);
   const esQuery = {
@@ -51,53 +56,53 @@ async function query({ query, aggs, size = 20, from = 0, metrics, req }) {
     from,
     query: {
       bool: {
-        filter
-      }
+        filter,
+      },
     },
-    aggs
-  }
+    aggs,
+  };
 
   let response = await search({ client, index: searchIndex, query: esQuery, req });
   let body = response.body;
-  body.hits.hits = body.hits.hits.map(n => reduce(n));
+  body.hits.hits = body.hits.hits.map((n) => reduce(n));
 
   return {
     esBody: esQuery,
-    result: queryReducer({ body, size, from, metrics })
+    result: queryReducer({ body, size, from, metrics }),
   };
 }
 
 async function suggest({ field, text = '', size = 8, req }) {
   const esQuery = {
-    'suggest': {
-      'suggestions': {
-        'prefix': text,
-        'completion': {
-          'field': field,
-          'size': size,
-          'skip_duplicates': true
-        }
-      }
-    }
-  }
+    suggest: {
+      suggestions: {
+        prefix: text,
+        completion: {
+          field: field,
+          size: size,
+          skip_duplicates: true,
+        },
+      },
+    },
+  };
   let response = await search({ client, index: searchIndex, query: esQuery, req });
   let body = response.body;
-  const suggestions = body.suggest.suggestions[0].options.map(n => n.text);
+  const suggestions = body.suggest.suggestions[0].options.map((n) => n.text);
   return suggestions;
 }
 
 async function byKey({ key, req }) {
   const query = {
-    'size': 1,
-    'query': {
-      'bool': {
-        'filter': {
-          'term': {
-            'gbifId': key
-          }
-        }
-      }
-    }
+    size: 1,
+    query: {
+      bool: {
+        filter: {
+          term: {
+            gbifId: key,
+          },
+        },
+      },
+    },
   };
   let response = await search({ client, index: searchIndex, query, req });
   let body = response.body;
@@ -115,5 +120,5 @@ async function byKey({ key, req }) {
 module.exports = {
   query,
   byKey,
-  suggest
+  suggest,
 };

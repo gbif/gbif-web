@@ -131,7 +131,11 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
       rank: generateFilters({ config: rankConfig, searchConfig, formatMessage }),
       status: generateFilters({ config: statusConfig, searchConfig, formatMessage }),
-      highertaxonKey: generateFilters({ config: highertaxonKeyConfig, searchConfig, formatMessage }),
+      highertaxonKey: generateFilters({
+        config: highertaxonKeyConfig,
+        searchConfig,
+        formatMessage,
+      }),
     };
     setFilters(nextFilters);
   }, [searchConfig, countrySuggest, formatMessage]);

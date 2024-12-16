@@ -1,3 +1,1 @@
-export default [
-  'year',
-];
+export default ['year'];

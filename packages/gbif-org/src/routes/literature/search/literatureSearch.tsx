@@ -1,59 +1,35 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
-import useQuery from '@/hooks/useQuery';
+import { DataHeader } from '@/components/dataHeader';
+import DynamicHeightDiv from '@/components/DynamicHeightDiv';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
+import { HelpText } from '@/components/helpText';
 import { Tabs } from '@/components/tabs';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
-import { Card } from '@/components/ui/smallCard';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { LiteratureSearchQuery, LiteratureSearchQueryVariables } from '@/gql/graphql';
-import { CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { FormattedMessage } from 'react-intl';
-import { PaginationFooter } from '@/components/pagination';
-import { NoRecords } from '@/components/noDataMessages';
-import { Skeleton } from '@/components/ui/skeleton';
-import { CardListSkeleton } from '@/components/skeletonLoaders';
-import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import { FilterContext, FilterProvider } from '@/contexts/filter';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { HelpText } from '@/components/helpText';
-import { ClientSideOnly } from '@/components/clientSideOnly';
-import { searchConfig } from './searchConfig';
-import { useFilters } from './filters';
+import { Card } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
+import { FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
-import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
-import { Button } from '@/components/ui/button';
-import { DataHeader } from '@/components/dataHeader';
-
-const LITERATURE_SEARCH_QUERY = /* GraphQL */ `
-  query LiteratureSearch($predicate: Predicate, $size: Int, $from: Int) {
-    literatureSearch(predicate: $predicate, size: $size, from: $from) {
-      documents {
-        size
-        from
-        total
-        results {
-          title
-          excerpt
-          countriesOfResearcher
-          countriesOfCoverage
-          year
-          identifiers {
-            doi
-          }
-        }
-      }
-    }
-  }
-`;
+import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
+import { useStringParam } from '@/hooks/useParam';
+import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
+import React from 'react';
+import { Helmet } from 'react-helmet-async';
+import { FormattedMessage } from 'react-intl';
+import { useFilters } from './filters';
+import { searchConfig } from './searchConfig';
+import { LiteratureListView } from './views/list';
+import { LiteratureTable } from './views/table';
 
 export function LiteratureSearchPage(): React.ReactElement {
-  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig, paramsToRemove: ['offset'] });
+  const [filter, setFilter] = useFilterParams({
+    filterConfig: searchConfig,
+    paramsToRemove: ['offset'],
+  });
   const config = useConfig();
   return (
     <>
@@ -69,37 +45,18 @@ export function LiteratureSearchPage(): React.ReactElement {
   );
 }
 
+const defaultTabs = ['table', 'list'];
+
 export function LiteratureSearch(): React.ReactElement {
-  const [offset, setOffset] = useState(0);
-  const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
-
-  const { filter, filterHash } = filterContext || { filter: { must: {} } };
-  const tabClassName = 'g-pt-2 g-pb-1.5';
-
-  const { data, error, load, loading } = useQuery<
-    LiteratureSearchQuery,
-    LiteratureSearchQueryVariables
-  >(LITERATURE_SEARCH_QUERY, {
-    throwAllErrors: true,
-    lazyLoad: true,
+  const config = useConfig();
+  const defaultView = config.literatureSearch?.defaultTab ?? 'table';
+  const [view] = useStringParam({
+    key: 'view',
+    defaultValue: defaultView,
+    hideDefault: true,
   });
-
-  useEffect(() => {
-    const query = getAsQuery({ filter, searchContext, searchConfig });
-    load({
-      variables: {
-        predicate: query,
-        size: 20,
-        from: offset,
-      },
-    });
-    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [load, offset, filterHash, searchContext]);
-
-  const literature = data?.literatureSearch?.documents;
 
   return (
     <>
@@ -109,15 +66,10 @@ export function LiteratureSearch(): React.ReactElement {
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
       >
-        <Tabs
-          className="g-border-none"
-          links={[
-            {
-              to: '/literature/search',
-              children: 'List',
-              className: tabClassName,
-            },
-          ]}
+        <LiteartureViewTabs
+          tabs={config.literatureSearch?.tabs ?? defaultTabs}
+          view={view}
+          defaultView={defaultView}
         />
       </DataHeader>
 
@@ -125,79 +77,31 @@ export function LiteratureSearch(): React.ReactElement {
         <FilterBar>
           <FilterButtons filters={filters} searchContext={searchContext} />
         </FilterBar>
-        <ArticleContainer className="g-bg-slate-100">
-          <ArticleTextContainer className="g-m-0">
-            <Results loading={loading} literature={literature} setOffset={setOffset} />
-          </ArticleTextContainer>
-        </ArticleContainer>
       </section>
+
+      <Views view={view} className="g-py-2 g-px-4 g-bg-slate-100" />
     </>
   );
 }
 
-function Results({
-  loading,
-  literature,
-  setOffset,
-}: {
-  loading: boolean;
-  literature?: LiteratureSearchQuery['literatureSearch']['documents'];
-  setOffset: (x: number) => void;
-}) {
-  return (
-    <>
-      <div className="g-bg-slate-200 g-text-sm g-p-4 g-mb-4">Crude temporary results view</div>
-      {loading && (
-        <>
-          <CardHeader>
-            <Skeleton className="g-max-w-64">
-              <CardTitle>
-                <FormattedMessage id="phrases.loading" />
-              </CardTitle>
-            </Skeleton>
-          </CardHeader>
-          <CardListSkeleton />
-        </>
-      )}
-      {!loading && literature?.total === 0 && (
-        <>
-          <NoRecords />
-        </>
-      )}
-      {literature && literature.total > 0 && (
-        <>
-          <CardHeader id="literature">
-            <CardTitle>
-              <FormattedMessage id="counts.nResults" values={{ total: literature.total ?? 0 }} />
-            </CardTitle>
-          </CardHeader>
-          <ClientSideOnly>
-            {literature &&
-              literature.results.map((item) => (
-                <article className="g-m-2 g-border g-p-2 g-bg-white" key={item.key}>
-                  <h2 className="g-font-bold">{item.title}</h2>
-                  <p className="g-text-slate-600 g-text-sm">{item.excerpt}</p>
-                  {item?.identifiers?.doi && (
-                    <Button asChild>
-                      <a href={`https://doi.org/${item.identifiers.doi}`}>More</a>
-                    </Button>
-                  )}
-                </article>
-              ))}
+function Views({ view, className }: { view?: string; className?: string }) {
+  const fixedHeight = ['table'].includes(view ?? '');
 
-            {literature?.total && literature?.total > literature?.size && (
-              <PaginationFooter
-                offset={literature.from}
-                count={literature.total}
-                limit={literature.size}
-                onChange={(x) => setOffset(x)}
-                anchor="literatures"
-              />
-            )}
-          </ClientSideOnly>
-        </>
-      )}
-    </>
+  return (
+    <ErrorBoundary invalidateOn={view}>
+      <div className={className}>
+        {fixedHeight && (
+          <DynamicHeightDiv minPxHeight={500}>
+            {view === 'table' && <LiteratureTable />}
+          </DynamicHeightDiv>
+        )}
+        {!fixedHeight && (
+          <DynamicHeightDiv minPxHeight={500} onlySetMinHeight>
+            {view === 'list' && <LiteratureListView />}
+          </DynamicHeightDiv>
+        )}
+      </div>
+    </ErrorBoundary>
   );
 }
 
@@ -251,5 +155,29 @@ function ApiContent() {
         </a>
       </Card>
     </div>
+  );
+}
+
+function LiteartureViewTabs({
+  view,
+  defaultView,
+  tabs = ['table', 'list'],
+}: {
+  view?: string;
+  defaultView?: string;
+  tabs?: string[];
+}) {
+  const { getParams } = useUpdateViewParams(['from', 'sort', 'limit', 'offset']); // Removes 'from' and 'sort'
+
+  return (
+    <Tabs
+      className="g-border-none"
+      disableAutoDetectActive
+      links={tabs.map((tab) => ({
+        isActive: view === tab,
+        to: { search: getParams(tab, defaultView).toString() },
+        children: <FormattedMessage id={`search.tabs.${tab}`} defaultMessage={tab} />,
+      }))}
+    />
   );
 }

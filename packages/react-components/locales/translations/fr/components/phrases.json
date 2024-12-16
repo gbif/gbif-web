@@ -39,6 +39,7 @@
   "discard": "Archive annotée par GBIF",
   "keep": "Archive annotée par GBIF",
   "copyToClipboard": "Archive annotée par GBIF",
+  "fromCountry": "De {country}",
   "copiedToClipboard": "Copié dans le presse-papier",
   "headers": {
     "description": "Description",

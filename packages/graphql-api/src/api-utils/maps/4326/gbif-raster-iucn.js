@@ -26,9 +26,9 @@ export default function ({ iucnTaxonID, styleName, language, pixelRatio }) {
           maxZoom: 13,
           resolutions: [
             0.3515625, 0.17578125, 0.087890625, 0.0439453125, 0.02197265625,
-            0.010986328125, 0.0054931640625, 0.00274658203125, 0.001373291015625,
-            0.0006866455078125, 0.00034332275390625, 0.000171661376953125,
-            0.0000858306884765625, 0.00004291534423828125,
+            0.010986328125, 0.0054931640625, 0.00274658203125,
+            0.001373291015625, 0.0006866455078125, 0.00034332275390625,
+            0.000171661376953125, 0.0000858306884765625, 0.00004291534423828125,
           ],
           tileSize: 512,
         },
@@ -49,9 +49,9 @@ export default function ({ iucnTaxonID, styleName, language, pixelRatio }) {
           maxZoom: 13,
           resolutions: [
             0.3515625, 0.17578125, 0.087890625, 0.0439453125, 0.02197265625,
-            0.010986328125, 0.0054931640625, 0.00274658203125, 0.001373291015625,
-            0.0006866455078125, 0.00034332275390625, 0.000171661376953125,
-            0.0000858306884765625, 0.00004291534423828125,
+            0.010986328125, 0.0054931640625, 0.00274658203125,
+            0.001373291015625, 0.0006866455078125, 0.00034332275390625,
+            0.000171661376953125, 0.0000858306884765625, 0.00004291534423828125,
           ],
           tileSize: 512,
         },
@@ -78,28 +78,28 @@ export default function ({ iucnTaxonID, styleName, language, pixelRatio }) {
     template.sources.iucn.tiles[0] += `?id=${iucnTaxonID}`;
     template.layers = template.layers.concat([
       {
-        "id": "iucn_border",
-        "type": "line",
-        "source": "iucn",
-        "source-layer": "iucn",
-        "paint": {
-          "line-color": "#cb5656",
-          "line-width": 3
-        }
+        id: 'iucn_border',
+        type: 'line',
+        source: 'iucn',
+        'source-layer': 'iucn',
+        paint: {
+          'line-color': '#cb5656',
+          'line-width': 3,
+        },
       },
       {
-        "id": "iucn_area",
-        "type": "fill",
-        "source": "iucn",
-        "source-layer": "iucn",
-        "paint": {
-          "fill-antialias": false,
-          "fill-color": "rgba(276, 0, 0, 1)",
-          "fill-opacity": 0.3,
-          "fill-pattern": "iucn_pattern"
-        }
+        id: 'iucn_area',
+        type: 'fill',
+        source: 'iucn',
+        'source-layer': 'iucn',
+        paint: {
+          'fill-antialias': false,
+          'fill-color': 'rgba(276, 0, 0, 1)',
+          'fill-opacity': 0.3,
+          'fill-pattern': 'iucn_pattern',
+        },
       },
-    ])
+    ]);
   }
 
   return template;

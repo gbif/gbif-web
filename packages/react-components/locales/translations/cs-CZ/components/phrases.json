@@ -4,7 +4,7 @@
   "unknown": "",
   "notProvided": "",
   "close": "",
-  "citation": "",
+  "citation": "Citace",
   "citeAs": "",
   "deletedOnDate": "",
   "replacedBy": "",
@@ -39,6 +39,7 @@
   "discard": "",
   "keep": "",
   "copyToClipboard": "",
+  "fromCountry": "",
   "copiedToClipboard": "",
   "headers": {
     "description": "",

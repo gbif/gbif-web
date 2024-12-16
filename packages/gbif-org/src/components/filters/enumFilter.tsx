@@ -27,9 +27,10 @@ import { useSearchContext } from '@/contexts/search';
 import { AboutButton } from './aboutButton';
 import { Exists } from './exists';
 
-type EnumProps = Omit<filterEnumConfig, 'filterType' | 'filterTranslation'> & AdditionalFilterProps & {
-  className?: string;
-};
+type EnumProps = Omit<filterEnumConfig, 'filterType' | 'filterTranslation'> &
+  AdditionalFilterProps & {
+    className?: string;
+  };
 
 export const EnumFilter = React.forwardRef(
   (
@@ -51,7 +52,8 @@ export const EnumFilter = React.forwardRef(
   ) => {
     const searchContext = useSearchContext();
     const currentFilterContext = useContext(FilterContext);
-    const { filter, toggle, setFullField, negateField, setFilter, filterHash } = currentFilterContext;
+    const { filter, toggle, setFullField, negateField, setFilter, filterHash } =
+      currentFilterContext;
     const [selected, setSelected] = useState<string[]>([]);
     const [filterBeforeHash, setFilterBeforeHash] = useState<string | undefined>(undefined);
     const [backupFilter, setBackupFilter] = useState<FilterType | undefined>(undefined);
@@ -145,8 +147,8 @@ export const EnumFilter = React.forwardRef(
 
     const useFacetOptions = !enumOptions && noFilterFacetData?.search?.facet?.field;
     const valueOptions = useFacetOptions
-      ? noFilterFacetData?.search?.facet?.field?.filter((x) => x).map((x) => x.name) ?? []
-      : enumOptions ?? [];
+      ? (noFilterFacetData?.search?.facet?.field?.filter((x) => x).map((x) => x.name) ?? [])
+      : (enumOptions ?? []);
 
     const About = about;
     const options = (
@@ -162,7 +164,7 @@ export const EnumFilter = React.forwardRef(
             </button>
           )}
 
-          {allowNegations && <SimpleTooltip delayDuration={300} title="Exclude selected">
+          {allowNegations && (
             <button
               className="g-px-1"
               onClick={() => {
@@ -170,12 +172,16 @@ export const EnumFilter = React.forwardRef(
                 setUseNegations(!useNegations);
               }}
             >
-              {useNegations && <MdOutlineRemoveCircle />}
-              {!useNegations && <MdOutlineRemoveCircleOutline />}
+              <SimpleTooltip delayDuration={300} title="Exclude selected" asChild>
+                <span>
+                  {useNegations && <MdOutlineRemoveCircle />}
+                  {!useNegations && <MdOutlineRemoveCircleOutline />}
+                </span>
+              </SimpleTooltip>
             </button>
-          </SimpleTooltip>}
+          )}
 
-          {allowExistence && <SimpleTooltip delayDuration={300} title="Filter by existence">
+          {allowExistence && (
             <button
               className="g-px-1"
               onClick={() => {
@@ -184,11 +190,15 @@ export const EnumFilter = React.forwardRef(
                 setFullField(filterHandle, [{ type: 'isNotNull' }], []);
               }}
             >
-              <PiEmptyBold />
+              <SimpleTooltip delayDuration={300} title="Filter by existence" asChild>
+                <span>
+                  <PiEmptyBold />
+                </span>
+              </SimpleTooltip>
             </button>
-          </SimpleTooltip>}
+          )}
 
-          <SimpleTooltip delayDuration={300} title="Invert selection">
+          <SimpleTooltip delayDuration={300} title="Invert selection" asChild>
             <span>
               <button
                 className="g-px-1"

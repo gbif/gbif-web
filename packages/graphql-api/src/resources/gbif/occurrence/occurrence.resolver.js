@@ -16,7 +16,11 @@ import {
   histogramFields,
   dateHistogramFields,
 } from './helpers/fields';
-import { formattedCoordinates, isOccurrenceSequenced, simplifyUrlObjectKeys } from '#/helpers/utils';
+import {
+  formattedCoordinates,
+  isOccurrenceSequenced,
+  simplifyUrlObjectKeys,
+} from '#/helpers/utils';
 import groupResolver from './helpers/groups/occurrenceGroups';
 import termResolver from './helpers/terms/occurrenceTerms';
 import predicate2v1 from './helpers/predicate2v1';
@@ -24,7 +28,11 @@ import getLongitudeBounds from './helpers/longitudeBounds';
 import config from '../../../config';
 import getFeedbackOptions from '#/helpers/feedback';
 
-const getSourceSearch = (dataSources) => args => dataSources.occurrenceAPI.searchOccurrences.call(dataSources.occurrenceAPI, args);
+const getSourceSearch = (dataSources) => (args) =>
+  dataSources.occurrenceAPI.searchOccurrences.call(
+    dataSources.occurrenceAPI,
+    args,
+  );
 
 // there are many fields that support facets. This function creates the resolvers for all of them
 const facetReducer = (dictionary, facetName) => {
@@ -94,8 +102,8 @@ export default {
         _downloadPredicate: v1Predicate,
         _v1PredicateHash: v1PredicateQStripped.predicate
           ? dataSources.occurrenceAPI.registerPredicate({
-            predicate: v1PredicateQStripped.predicate,
-          })
+              predicate: v1PredicateQStripped.predicate,
+            })
           : null,
       };
     },
@@ -163,7 +171,10 @@ export default {
     },
   },
   MultimediaItem: {
-    thumbor: ({ identifier, type, occurrenceKey }, { fitIn, width = '', height = '' }) => {
+    thumbor: (
+      { identifier, type, occurrenceKey },
+      { fitIn, width = '', height = '' },
+    ) => {
       if (!identifier) return null;
       if (type !== 'StillImage') return null;
       if (!occurrenceKey) return null;
@@ -172,12 +183,16 @@ export default {
       // it also has a different cache purge strategy
       // see also https://github.com/gbif/gbif-web/issues/303
       try {
-        const url = `${config.occurrenceImageCache}/${fitIn ? 'fit-in/' : ''}${width}x${height}/occurrence/${occurrenceKey}/media/${md5(identifier ?? '')}`;
+        const url = `${config.occurrenceImageCache}/${
+          fitIn ? 'fit-in/' : ''
+        }${width}x${height}/occurrence/${occurrenceKey}/media/${md5(
+          identifier ?? '',
+        )}`;
         return url;
       } catch (err) {
         return identifier;
       }
-    }
+    },
   },
   Occurrence: {
     coordinates: ({ decimalLatitude, decimalLongitude }) => {
@@ -214,9 +229,11 @@ export default {
     },
     stillImages: ({ media, key }) => {
       if (!Array.isArray(media)) return null;
-      return media.filter((x) => x.type === 'StillImage').map((x) => {
-        return { ...x, occurrenceKey: key };
-      });
+      return media
+        .filter((x) => x.type === 'StillImage')
+        .map((x) => {
+          return { ...x, occurrenceKey: key };
+        });
     },
     movingImages: ({ media }) => {
       if (!Array.isArray(media)) return null;
@@ -297,36 +314,96 @@ export default {
     },
     extensions: (occurrence) => {
       const extensions = {
-        audubon: occurrence?.extensions?.['http://rs.tdwg.org/ac/terms/Multimedia'],
-        amplification: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Amplification'],
-        germplasmAccession: occurrence?.extensions?.['http://purl.org/germplasm/germplasmTerm#GermplasmAccession'],
-        germplasmMeasurementScore: occurrence?.extensions?.['http://purl.org/germplasm/germplasmTerm#MeasurementScore'],
-        germplasmMeasurementTrait: occurrence?.extensions?.['http://purl.org/germplasm/germplasmTerm#MeasurementTrait'],
-        germplasmMeasurementTrial: occurrence?.extensions?.['http://purl.org/germplasm/germplasmTerm#MeasurementTrial'],
-        identification: occurrence?.extensions?.['http://rs.tdwg.org/dwc/terms/Identification'],
-        identifier: occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/Identifier'],
+        audubon:
+          occurrence?.extensions?.['http://rs.tdwg.org/ac/terms/Multimedia'],
+        amplification:
+          occurrence?.extensions?.[
+            'http://data.ggbn.org/schemas/ggbn/terms/Amplification'
+          ],
+        germplasmAccession:
+          occurrence?.extensions?.[
+            'http://purl.org/germplasm/germplasmTerm#GermplasmAccession'
+          ],
+        germplasmMeasurementScore:
+          occurrence?.extensions?.[
+            'http://purl.org/germplasm/germplasmTerm#MeasurementScore'
+          ],
+        germplasmMeasurementTrait:
+          occurrence?.extensions?.[
+            'http://purl.org/germplasm/germplasmTerm#MeasurementTrait'
+          ],
+        germplasmMeasurementTrial:
+          occurrence?.extensions?.[
+            'http://purl.org/germplasm/germplasmTerm#MeasurementTrial'
+          ],
+        identification:
+          occurrence?.extensions?.[
+            'http://rs.tdwg.org/dwc/terms/Identification'
+          ],
+        identifier:
+          occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/Identifier'],
         image: occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/Image'],
-        measurementOrFact: occurrence?.extensions?.['http://rs.tdwg.org/dwc/terms/MeasurementOrFact'],
-        multimedia: occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/Multimedia'],
-        reference: occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/Reference'],
-        eolReference: occurrence?.extensions?.['http://eol.org/schema/reference/Reference'],
-        resourceRelationship: occurrence?.extensions?.['http://rs.tdwg.org/dwc/terms/ResourceRelationship'],
-        cloning: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Cloning'],
-        gelImage: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/GelImage'],
-        loan: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Loan'],
-        materialSample: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/MaterialSample'],
-        permit: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Permit'],
-        preparation: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Preparation'],
-        preservation: occurrence?.extensions?.['http://data.ggbn.org/schemas/ggbn/terms/Preservation'],
-        extendedMeasurementOrFact: occurrence?.extensions?.['http://rs.iobis.org/obis/terms/ExtendedMeasurementOrFact'],
-        chronometricAge: occurrence?.extensions?.['http://rs.tdwg.org/chrono/terms/ChronometricAge'],
-        dnaDerivedData: occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/DNADerivedData'],
-      }
-      Object.keys(extensions).forEach(key => {
+        measurementOrFact:
+          occurrence?.extensions?.[
+            'http://rs.tdwg.org/dwc/terms/MeasurementOrFact'
+          ],
+        multimedia:
+          occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/Multimedia'],
+        reference:
+          occurrence?.extensions?.['http://rs.gbif.org/terms/1.0/Reference'],
+        eolReference:
+          occurrence?.extensions?.['http://eol.org/schema/reference/Reference'],
+        resourceRelationship:
+          occurrence?.extensions?.[
+            'http://rs.tdwg.org/dwc/terms/ResourceRelationship'
+          ],
+        cloning:
+          occurrence?.extensions?.[
+            'http://data.ggbn.org/schemas/ggbn/terms/Cloning'
+          ],
+        gelImage:
+          occurrence?.extensions?.[
+            'http://data.ggbn.org/schemas/ggbn/terms/GelImage'
+          ],
+        loan: occurrence?.extensions?.[
+          'http://data.ggbn.org/schemas/ggbn/terms/Loan'
+        ],
+        materialSample:
+          occurrence?.extensions?.[
+            'http://data.ggbn.org/schemas/ggbn/terms/MaterialSample'
+          ],
+        permit:
+          occurrence?.extensions?.[
+            'http://data.ggbn.org/schemas/ggbn/terms/Permit'
+          ],
+        preparation:
+          occurrence?.extensions?.[
+            'http://data.ggbn.org/schemas/ggbn/terms/Preparation'
+          ],
+        preservation:
+          occurrence?.extensions?.[
+            'http://data.ggbn.org/schemas/ggbn/terms/Preservation'
+          ],
+        extendedMeasurementOrFact:
+          occurrence?.extensions?.[
+            'http://rs.iobis.org/obis/terms/ExtendedMeasurementOrFact'
+          ],
+        chronometricAge:
+          occurrence?.extensions?.[
+            'http://rs.tdwg.org/chrono/terms/ChronometricAge'
+          ],
+        dnaDerivedData:
+          occurrence?.extensions?.[
+            'http://rs.gbif.org/terms/1.0/DNADerivedData'
+          ],
+      };
+      Object.keys(extensions).forEach((key) => {
         const extension = extensions[key];
         // remove empty and half empty values
         if (Array.isArray(extension) && extension.length > 0) {
-          extensions[key] = extension.filter(x => Object.keys(x).length > 0).map(simplifyUrlObjectKeys);
+          extensions[key] = extension
+            .filter((x) => Object.keys(x).length > 0)
+            .map(simplifyUrlObjectKeys);
           if (extensions[key].length === 0) delete extensions[key];
         } else {
           delete extensions[key];
@@ -443,7 +520,10 @@ export default {
   OccurrenceFacetResult_establishmentMeans: {
     concept: ({ key }, _args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
-      return dataSources.vocabularyAPI.getConcept({ vocabulary: 'establishmentMeans', concept: key });
+      return dataSources.vocabularyAPI.getConcept({
+        vocabulary: 'establishmentMeans',
+        concept: key,
+      });
     },
     occurrences: facetOccurrenceSearch,
   },
@@ -513,9 +593,9 @@ export default {
       };
       const joinedPredicate = parent._parentPredicate
         ? {
-          type: 'and',
-          predicates: [parent._parentPredicate, predicate],
-        }
+            type: 'and',
+            predicates: [parent._parentPredicate, predicate],
+          }
         : predicate;
       return { _predicate: joinedPredicate };
     },
@@ -530,9 +610,9 @@ export default {
       };
       const joinedPredicate = parent._parentPredicate
         ? {
-          type: 'and',
-          predicates: [parent._parentPredicate, predicate],
-        }
+            type: 'and',
+            predicates: [parent._parentPredicate, predicate],
+          }
         : predicate;
       return { _predicate: joinedPredicate };
     },
@@ -544,7 +624,11 @@ export default {
       { decimalLatitude, decimalLongitude },
       { sphere, graticule, land },
     ) => {
-      if (typeof decimalLatitude !== 'number' || typeof decimalLongitude !== 'number') return null;
+      if (
+        typeof decimalLatitude !== 'number' ||
+        typeof decimalLongitude !== 'number'
+      )
+        return null;
 
       const roundedLat = Math.floor(decimalLatitude / 15) * 15;
       const lat = Math.min(Math.max(roundedLat, -60), 60);

@@ -1,5 +1,5 @@
-import { useCallback, useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useCallback, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 export function useUpdateViewParams(paramsToRemove = [] as string[]): {
   params: URLSearchParams;
@@ -24,7 +24,7 @@ export function useUpdateViewParams(paramsToRemove = [] as string[]): {
     (view?: string, defaultValue?: string) => {
       // Clone the current search parameters
       const newSearchParams = new URLSearchParams(params);
-      
+
       // Update or set the `view` parameter
       // Update or set the `view` parameter and remove default values
       if (view && view !== defaultValue) {
@@ -32,7 +32,7 @@ export function useUpdateViewParams(paramsToRemove = [] as string[]): {
       } else {
         newSearchParams.delete('view');
       }
-      
+
       // Return the cleaned up search parameters
       return newSearchParams;
     },

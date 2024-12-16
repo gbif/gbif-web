@@ -1,4 +1,4 @@
-import { gql } from "apollo-server";
+import { gql } from 'apollo-server';
 
 const typeDef = gql`
   extend type Query {
@@ -25,6 +25,6 @@ const typeDef = gql`
     meta: JSON
     blocks: [BlockItem!]
   }
-`
+`;
 
 export default typeDef;

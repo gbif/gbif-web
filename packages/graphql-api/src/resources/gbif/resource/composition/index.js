@@ -4,4 +4,4 @@ import typeDef from './composition.type';
 export default {
   resolver,
   typeDef,
-}
+};

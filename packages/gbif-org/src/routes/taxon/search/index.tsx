@@ -3,7 +3,7 @@ import { TaxonSearchPage } from './taxonSearch';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 export const taxonSearchRoute: RouteObjectWithPlugins = {
-  id: 'taxon-search',
+  id: 'taxonSearch',
   path: 'species/search',
   element: (
     <ErrorBoundary>

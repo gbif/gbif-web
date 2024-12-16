@@ -24,6 +24,16 @@
     "count": "",
     "description": ""
   },
+  "taxonomicStatus": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "taxonRank": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "numberSpecimens": {
     "name": "",
     "count": "",
@@ -48,7 +58,7 @@
     "placeholderDist": ""
   },
   "geometry": {
-    "name": "",
+    "name": "Poloha",
     "count": "",
     "description": "",
     "placeholderLat": "",
@@ -76,7 +86,7 @@
     "description": ""
   },
   "eventDate": {
-    "name": "",
+    "name": "Datum události",
     "count": "",
     "description": ""
   },
@@ -91,7 +101,7 @@
     "description": ""
   },
   "institutionType": {
-    "name": "",
+    "name": "Typ",
     "count": "",
     "description": ""
   },
@@ -111,12 +121,12 @@
     "description": ""
   },
   "taxonKey": {
-    "name": "",
+    "name": "Vědecký název",
     "count": "",
     "description": ""
   },
   "taxonKeyGrSciColl": {
-    "name": "",
+    "name": "Vědecký název",
     "count": "",
     "description": ""
   },
@@ -186,12 +196,12 @@
     "description": ""
   },
   "datasetKey": {
-    "name": "",
+    "name": "Datová sada",
     "count": "",
     "description": ""
   },
   "publisherKey": {
-    "name": "",
+    "name": "Vydavatel",
     "count": "",
     "description": ""
   },
@@ -231,7 +241,7 @@
     "description": ""
   },
   "year": {
-    "name": "",
+    "name": "Rok",
     "count": "",
     "description": ""
   },
@@ -246,7 +256,7 @@
     "description": ""
   },
   "depth": {
-    "name": "",
+    "name": "Hloubka",
     "count": "",
     "description": ""
   },
@@ -266,12 +276,12 @@
     "description": ""
   },
   "month": {
-    "name": "",
+    "name": "Měsíc",
     "count": "",
     "description": ""
   },
   "continent": {
-    "name": "",
+    "name": "Kontinent",
     "count": "",
     "description": ""
   },
@@ -326,12 +336,12 @@
     "description": ""
   },
   "locality": {
-    "name": "",
+    "name": "Lokalita",
     "count": "",
     "description": ""
   },
   "waterBody": {
-    "name": "",
+    "name": "Vodní plocha",
     "count": "",
     "description": ""
   },

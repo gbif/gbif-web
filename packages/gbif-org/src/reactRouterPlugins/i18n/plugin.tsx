@@ -13,7 +13,7 @@ export function applyI18nPlugin(
       'The root route should not have route: "/" when using the i18n react-router-dom plugin'
     );
   }
-
+  const { messages: customMessages = {} } = config;
   const defaultLanguage = config.languages.find((language) => language.default);
   if (!defaultLanguage) throw new Error('No default language found');
 
@@ -23,8 +23,9 @@ export function applyI18nPlugin(
       console.error('Failed to load translations entry file');
       throw err;
     });
-    
+
   return config.languages.map((localeOption) => {
+    const localeLanguage = customMessages[localeOption.code] ?? {};
     return {
       description: `Root route for ${localeOption.label}`,
       path: defaultLanguage.code === localeOption.code ? '/' : localeOption.code,
@@ -44,7 +45,7 @@ export function applyI18nPlugin(
             console.error('Failed language: ', localeOption.code);
             throw err;
           });
-        return { messages };
+        return { messages: { ...messages, ...localeLanguage } };
       },
       element: (
         <I18nContextProvider

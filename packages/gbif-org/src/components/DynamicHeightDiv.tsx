@@ -70,7 +70,9 @@ export default function DynamicHeightDiv({
     };
   }, [minPxHeight, maxPxHeight, sizeByViewport, stepSize, onlySetMinHeight]);
 
-  const heightStyle = onlySetMinHeight ? { height: 'auto', minHeight: `${divHeight}px` } : { height: `${divHeight}px`, minHeight: `${minPxHeight}px` };
+  const heightStyle = onlySetMinHeight
+    ? { height: 'auto', minHeight: `${divHeight}px` }
+    : { height: `${divHeight}px`, minHeight: `${minPxHeight}px` };
   return (
     <div
       ref={divRef}

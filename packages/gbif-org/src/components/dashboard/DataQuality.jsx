@@ -1,4 +1,4 @@
-import useDeepCompareEffect from 'use-deep-compare-effect'
+import useDeepCompareEffect from 'use-deep-compare-effect';
 import { FormattedMessage } from 'react-intl';
 import { Table, BarItem, FormattedNumber, CardHeader } from './shared';
 import useQuery from '@/hooks/useQuery';
@@ -70,7 +70,7 @@ export function DataQuality({ predicate, ...props }) {
             {
               type: 'equals',
               key: 'isSequenced',
-              value: true
+              value: true,
             },
           ],
         },

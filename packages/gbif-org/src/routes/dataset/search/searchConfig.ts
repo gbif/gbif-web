@@ -1,21 +1,36 @@
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
+import { PredicateType } from '@/gql/graphql';
 
 const config: FilterConfigType = {
   fields: {
     q: {
-      singleValue: true
+      singleValue: true,
+      defaultType: PredicateType.Fuzzy,
     },
     country: {
-      singleValue: true
+      singleValue: true,
     },
     type: {
-      defaultKey: 'type'
-    }
-  }
-}
-const otherParams = ['license', 'publishingCountry', 'projectId', 'hostingOrg', 'publishingOrg'];
+      defaultKey: 'type',
+    },
+  },
+};
+const otherParams = [
+  'license',
+  'publishingCountry',
+  'projectId',
+  'hostingOrg',
+  'publishingOrg',
+  'networkKey',
+  'hostingCountry',
+  'taxonKey',
+  'subtype',
+  'endorsingNodeKey',
+  'installationKey',
+  'endpointType',
+];
 
-otherParams.forEach(filter => {
+otherParams.forEach((filter) => {
   config.fields = config.fields ?? {};
   config.fields[filter] = config.fields[filter] || {};
 });

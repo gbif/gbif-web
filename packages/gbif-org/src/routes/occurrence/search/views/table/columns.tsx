@@ -16,15 +16,18 @@ import { InlineLineClamp } from '@/components/inlineLineClamp';
 type Args = {
   showPreview?: ((id: string) => void) | false;
   filters: Record<string, FilterSetting>;
+  disableCellFilters?: boolean;
 };
 
 export function useOccurrenceColumns({
   showPreview,
   filters,
+  disableCellFilters,
 }: Args): ColumnDef<SingleOccurrenceSearchResult>[] {
   return useMemo(() => {
     // TODO: That a filter is defined does not mean that it is active (this just prevents us from using filters that are not defined yet)
-    const isFilterActive = (filterName: string) => filters[filterName] != null;
+    const isFilterActive = (filterName: string) =>
+      !disableCellFilters && filters[filterName] != null;
 
     return [
       {

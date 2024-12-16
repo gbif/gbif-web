@@ -1,12 +1,4 @@
-import { Tabs } from '@/components/tabs';
-import { TaxonQuery, TaxonSummaryMetricsQuery } from '@/gql/graphql';
-import { Helmet } from 'react-helmet-async';
-import { Outlet } from 'react-router-dom';
-import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
-import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
-import { FormattedMessage } from 'react-intl';
+import { ErrorMessage } from '@/components/errorMessage';
 import {
   DeletedMessage,
   HeaderInfo,
@@ -14,31 +6,39 @@ import {
   HeaderInfoMain,
 } from '@/components/headerComponents';
 import {
-  Homepage,
+  CatalogIcon,
   FeatureList,
   GenericFeature,
-  OccurrenceIcon,
-  CatalogIcon,
+  Homepage,
   Location,
+  OccurrenceIcon,
   PeopleIcon,
 } from '@/components/highlights';
-import { ErrorMessage } from '@/components/errorMessage';
-import { DynamicLink } from '@/reactRouterPlugins';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { Button } from '@/components/ui/button';
-import { GrGithub as Github } from 'react-icons/gr';
-import useBelow from '@/hooks/useBelow';
 import { SimpleTooltip } from '@/components/simpleTooltip';
-import { MdInfo } from 'react-icons/md';
+import { Tabs } from '@/components/tabs';
+import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { TaxonQuery, TaxonSummaryMetricsQuery } from '@/gql/graphql';
+import useBelow from '@/hooks/useBelow';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
+import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
+import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { HashLink } from 'react-router-hash-link';
 import { createContext } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { GrGithub as Github } from 'react-icons/gr';
+import { MdInfo } from 'react-icons/md';
+import { FormattedMessage } from 'react-intl';
+import { Outlet } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 const GBIF_REGISTRY_ENDPOINT = 'https://registry.gbif.org';
 const contactThreshold = 5;
 
 // create context to pass data to children
-export const TaxonKeyContext = createContext<{key?: string, contentMetrics?: unknown}>({});
+export const TaxonKeyContext = createContext<{ key?: string; contentMetrics?: unknown }>({});
 
 export function TaxonKey({
   data,
@@ -65,13 +65,14 @@ export function TaxonKey({
   }
 
   // if there is at least a countryCode for thee address, then use that, else fall back to the mailing address
+  const contactInfo = taxon?.address?.country ? taxon?.address : taxon?.mailingAddress;
   /* const contactInfo = taxon?.address?.country
     ? taxon?.address
     : taxon?.mailingAddress; */
   const feedbackTemplate = `Please provide your feedback here, but leave content below for context\n\n---\nRelating to ${GBIF_REGISTRY_ENDPOINT}/taxon/${taxon.key}`;
-/*   const contacts = taxon?.contactPersons
+  const contacts = taxon?.contactPersons
     .filter((x) => x?.firstName || x?.lastName)
-    .map((x) => `${x?.firstName ?? ''} ${x?.lastName ?? ''}`); */
+    .map((x) => `${x?.firstName ?? ''} ${x?.lastName ?? ''}`);
 
   const imageUrl = taxon.featuredImageUrl ?? taxon.featuredImageUrl_fallback;
   return (
@@ -102,9 +103,7 @@ export function TaxonKey({
                   <FormattedMessage id="grscicoll.taxonCode" />
                 </ArticlePreTitle>
                 {/* it would be nice to know for sure which fields to expect */}
-                <ArticleTitle
-                  dangerouslySetTitle={{ __html: taxon.name || 'No title provided' }}
-                >
+                <ArticleTitle dangerouslySetTitle={{ __html: taxon.name || 'No title provided' }}>
                   {!taxon.active && (
                     <span className="g-align-middle g-bg-red-100 g-text-red-800 g-text-sm g-font-medium g-ms-2 g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300">
                       <FormattedMessage id={`grscicoll.inactive`} />
@@ -149,7 +148,106 @@ export function TaxonKey({
                 )}
               </div>
 
-
+              <HeaderInfo className="g-flex-none g-mb-0">
+                <HeaderInfoMain>
+                  <FeatureList>
+                    <Homepage url={taxon?.homepage} />
+                    {contactInfo?.country && (
+                      <Location countryCode={contactInfo?.country} city={contactInfo.city} />
+                    )}
+                    {(taxon?.numberSpecimens ?? 0) > 1 && (
+                      <GenericFeature>
+                        <OccurrenceIcon />
+                        <FormattedMessage
+                          id="counts.nSpecimens"
+                          values={{ total: taxon.numberSpecimens }}
+                        />
+                      </GenericFeature>
+                    )}
+                    {!(taxon?.numberSpecimens && taxon?.numberSpecimens > 1) && (
+                      <GenericFeature>
+                        <OccurrenceIcon />
+                        <span className="g-text-slate-400">
+                          <FormattedMessage id="grscicoll.unknownSize" />
+                        </span>
+                      </GenericFeature>
+                    )}
+                  </FeatureList>
+                  {(taxon?.catalogUrls?.length ?? 0) > 0 ||
+                    (contacts.length > 0 && (
+                      <FeatureList>
+                        {taxon.catalogUrls && (
+                          <GenericFeature>
+                            <CatalogIcon />
+                            <span>
+                              <a href={taxon.catalogUrls[0]}>
+                                <FormattedMessage
+                                  id="grscicoll.dataCatalog"
+                                  defaultMessage="Data catalog"
+                                />
+                              </a>
+                            </span>
+                          </GenericFeature>
+                        )}
+                        {contacts.length > 0 && (
+                          <GenericFeature>
+                            <PeopleIcon />
+                            <HashLink to="#contact">
+                              {contacts.length < contactThreshold && (
+                                <span>{contacts.join(' • ')}</span>
+                              )}
+                              {contacts.length >= contactThreshold && (
+                                <FormattedMessage
+                                  id="counts.nStaffMembers"
+                                  values={{ total: contacts.length }}
+                                />
+                              )}
+                            </HashLink>
+                          </GenericFeature>
+                        )}
+                      </FeatureList>
+                    ))}
+                </HeaderInfoMain>
+                <HeaderInfoEdit className="g-flex">
+                  {/* TODO Phew it is quite a few lines just to add a tooltip, I wonder if an abstraction would be appreciated. Here I repeat the provider, which doesn't help, but it didn't properly disappear and reappear without it*/}
+                  <Tooltip delayDuration={0}>
+                    <TooltipTrigger>
+                      <Button variant="outline" asChild>
+                        <a href={`${GBIF_REGISTRY_ENDPOINT}/taxon/${taxon.key}`}>
+                          <FormattedMessage id="grscicoll.edit" defaultMessage="Edit" />
+                        </a>
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <FormattedMessage
+                        id="grscicoll.editHelpText"
+                        defaultMessage="No login required"
+                      />
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip delayDuration={0}>
+                    <TooltipTrigger>
+                      <Button
+                        variant="ghost"
+                        asChild
+                        className="g-ms-2"
+                        style={{ fontSize: '1.2em' }}
+                      >
+                        <a
+                          href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(
+                            `NHC: ${taxon.name}`
+                          )}&body=${encodeURIComponent(feedbackTemplate)}`}
+                        >
+                          <Github />
+                        </a>
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <FormattedMessage id="grscicoll.githubHelpText" defaultMessage="Github" />
+                    </TooltipContent>
+                  </Tooltip>
+                </HeaderInfoEdit>
+              </HeaderInfo>
             </div>
           </div>
           <div className="g-border-b"></div>
@@ -157,7 +255,7 @@ export function TaxonKey({
         </ArticleTextContainer>
       </PageContainer>
 
-      <TaxonKeyContext.Provider value={{key: data?.taxon?.key, contentMetrics: taxonMetrics}}>
+      <TaxonKeyContext.Provider value={{ key: data?.taxon?.key, contentMetrics: taxonMetrics }}>
         <Outlet />
       </TaxonKeyContext.Provider>
     </article>

@@ -1,6 +1,10 @@
-import { excerpt, getHtml, isNoneEmptyArray } from "#/helpers/utils";
-import { KNOWN_BLOCK_TYPES, KNOWN_CAROUSEL_BLOCKS, KNOWN_FEATURE_TYPES } from "./acceptedTypes";
-import logger from "#/logger";
+import { excerpt, getHtml, isNoneEmptyArray } from '#/helpers/utils';
+import {
+  KNOWN_BLOCK_TYPES,
+  KNOWN_CAROUSEL_BLOCKS,
+  KNOWN_FEATURE_TYPES,
+} from './acceptedTypes';
+import logger from '#/logger';
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -14,8 +18,8 @@ export default {
     composition: (_, { id }, context, preview) => {
       const { dataSources, locale } = context;
       context.preview = context.preview ?? preview;
-      return dataSources.resourceAPI.getEntryById({ id, preview, locale })
-    }
+      return dataSources.resourceAPI.getEntryById({ id, preview, locale });
+    },
   },
   Composition: {
     title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
@@ -24,65 +28,97 @@ export default {
     blocks: ({ blocks }, _, { dataSources, locale, preview }) => {
       if (!isNoneEmptyArray(blocks)) return null;
 
-      const ids = blocks.map(block => block.id);
+      const ids = blocks.map((block) => block.id);
       // get all and subsequently filter out the ones that are not allowed (not in include list : HeaderBlock | FeatureBlock | FeaturedTextBlock | CarouselBlock | MediaBlock | MediaCountBlock | CustomComponentBlock)
-      return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview, locale })))
-        .then(results => results.filter(result => {
+      return Promise.all(
+        ids.map((id) =>
+          dataSources.resourceAPI.getEntryById({ id, preview, locale }),
+        ),
+      ).then((results) =>
+        results.filter((result) => {
           const knownType = KNOWN_BLOCK_TYPES[result.contentType];
-          if (!knownType) logger.warn(`Unknown content type for a block in programme.resolver.js: ${result.contentType}`);
+          if (!knownType)
+            logger.warn(
+              `Unknown content type for a block in programme.resolver.js: ${result.contentType}`,
+            );
           return knownType;
-        }));
-    }
+        }),
+      );
+    },
   },
   BlockItem: {
-    __resolveType: src => {
+    __resolveType: (src) => {
       const graphqlType = KNOWN_BLOCK_TYPES[src.contentType];
       if (graphqlType) return graphqlType;
-      console.warn(`Unknown content type in resourceSearch.resolver.js: ${src.contentType}`);
+      console.warn(
+        `Unknown content type in resourceSearch.resolver.js: ${src.contentType}`,
+      );
     },
   },
   FeatureBlock: {
     features: ({ features }, args, { dataSources, locale, preview }) => {
       if (!isNoneEmptyArray(features)) return null;
 
-      const ids = features.map(feature => feature.id);
-      return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview, locale })))
-        .then(results => results.filter(result => {
+      const ids = features.map((feature) => feature.id);
+      return Promise.all(
+        ids.map((id) =>
+          dataSources.resourceAPI.getEntryById({ id, preview, locale }),
+        ),
+      ).then((results) =>
+        results.filter((result) => {
           const knownType = KNOWN_FEATURE_TYPES[result.contentType];
-          if (!knownType) logger.warn(`Unknown content type for a feature block in programme.resolver.js: ${result.contentType}`);
+          if (!knownType)
+            logger.warn(
+              `Unknown content type for a feature block in programme.resolver.js: ${result.contentType}`,
+            );
           return knownType;
-        }));
+        }),
+      );
     },
     title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
-    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
+    body: (src, _, { locale }) =>
+      getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
   },
   FeatureItem: {
-    __resolveType: src => {
+    __resolveType: (src) => {
       const graphqlType = KNOWN_FEATURE_TYPES[src.contentType];
       if (graphqlType) return graphqlType;
-      console.warn(`Unknown content type in resourceSearch.resolver.js: ${src.contentType}`);
+      console.warn(
+        `Unknown content type in resourceSearch.resolver.js: ${src.contentType}`,
+      );
     },
   },
   CarouselBlock: {
     title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
-    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
+    body: (src, _, { locale }) =>
+      getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
     features: ({ features }, _, { dataSources, locale, preview }) => {
       if (!isNoneEmptyArray(features)) return null;
 
-      const ids = features.map(feature => feature.id);
-      return Promise.all(ids.map(id => dataSources.resourceAPI.getEntryById({ id, preview, locale })))
-        .then(results => results.filter(result => {
+      const ids = features.map((feature) => feature.id);
+      return Promise.all(
+        ids.map((id) =>
+          dataSources.resourceAPI.getEntryById({ id, preview, locale }),
+        ),
+      ).then((results) =>
+        results.filter((result) => {
           const knownType = KNOWN_CAROUSEL_BLOCKS[result.contentType];
-          if (!knownType) logger.warn(`Unknown content type for a caoursel block in programme.resolver.js: ${result.contentType}`);
+          if (!knownType)
+            logger.warn(
+              `Unknown content type for a caoursel block in programme.resolver.js: ${result.contentType}`,
+            );
           return knownType;
-        }));
-    }
+        }),
+      );
+    },
   },
   CarouselBlockFeature: {
-    __resolveType: src => {
+    __resolveType: (src) => {
       const graphqlType = KNOWN_CAROUSEL_BLOCKS[src.contentType];
       if (graphqlType) return graphqlType;
-      console.warn(`Unknown content type in resourceSearch.resolver.js: ${src.contentType}`);
+      console.warn(
+        `Unknown content type in resourceSearch.resolver.js: ${src.contentType}`,
+      );
     },
   },
   HeaderBlock: {
@@ -91,23 +127,29 @@ export default {
   },
   TextBlock: {
     title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
-    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
+    body: (src, _, { locale }) =>
+      getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
   },
   FeaturedTextBlock: {
     title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
-    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
+    body: (src, _, { locale }) =>
+      getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
   },
   MediaBlock: {
     title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
-    subtitle: (src, _, { locale }) => getHtml(src.subtitle, { inline: true, locale }),
-    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
+    subtitle: (src, _, { locale }) =>
+      getHtml(src.subtitle, { inline: true, locale }),
+    body: (src, _, { locale }) =>
+      getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
   },
   MediaCountBlock: {
     title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
-    subtitle: (src, _, { locale }) => getHtml(src.subtitle, { inline: true, locale }),
-    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
+    subtitle: (src, _, { locale }) =>
+      getHtml(src.subtitle, { inline: true, locale }),
+    body: (src, _, { locale }) =>
+      getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
   },
   CustomComponentBlock: {
     title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
-  }
-}
+  },
+};

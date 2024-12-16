@@ -3,7 +3,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { InstitutionSearchPage } from './institutionSearch';
 
 export const institutionSearchRoute: RouteObjectWithPlugins = {
-  id: 'institution-search',
+  id: 'institutionSearch',
   path: 'institution/search',
   element: (
     <ErrorBoundary>

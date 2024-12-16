@@ -3,6 +3,7 @@ import {
   DatasetTypeLabel,
   IdentityLabel,
   LicenceLabel,
+  NetworkLabel,
   PublisherLabel,
 } from '@/components/filters/displayNames';
 import {
@@ -24,6 +25,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { SuggestFnProps, SuggestResponseType } from '@/components/filters/suggest';
 import { HelpText } from '@/components/helpText';
 import { fetchWithCancel } from '@/utils/fetchWithCancel';
+import { networkKeySuggest } from '@/utils/suggestEndpoints';
 
 // shared vairables for the various components
 const publisherConfig: filterSuggestConfig = {
@@ -182,6 +184,29 @@ const datasetTypeConfig: filterEnumConfig = {
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 
+export const networkKeyConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'networkKey',
+  displayName: NetworkLabel,
+  filterTranslation: 'filters.networkKey.name',
+  suggestConfig: networkKeySuggest,
+  allowExistence: false,
+  allowNegations: false,
+  facetQuery: `
+    query OccurrencePublisherFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: networkKey {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+};
+
 const freeTextConfig: filterFreeTextConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
   filterHandle: 'q',
@@ -221,6 +246,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       publishingOrg: generateFilters({ config: publisherConfig, searchConfig, formatMessage }),
       hostingOrg: generateFilters({ config: hostingOrgConfig, searchConfig, formatMessage }),
       projectId: generateFilters({ config: projectIdConfig, searchConfig, formatMessage }),
+      networkKey: generateFilters({ config: networkKeyConfig, searchConfig, formatMessage }),
       publishingCountry: generateFilters({
         config: { ...publishingCountryConfig, suggestConfig: { getSuggestions: countrySuggest } },
         searchConfig,

@@ -3,7 +3,7 @@ import { TaxonKey, taxonLoader } from './taxonKey';
 import TaxonKeyAbout from './About';
 import { TaxonQuery } from '@/gql/graphql';
 
-const id = 'taxon-key';
+const id = 'taxonKey';
 
 export const taxonKeyRoute: RouteObjectWithPlugins = {
   id,

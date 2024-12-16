@@ -25,11 +25,7 @@ export default function DisplayName({
   id,
   useHtml,
 }: {
-  getData: ({
-    id,
-    intl,
-    config,
-  }: DisplayNameGetDataProps) => DisplayNameResponseType;
+  getData: ({ id, intl, config }: DisplayNameGetDataProps) => DisplayNameResponseType;
   id: string | number | object;
   useHtml: boolean;
 }) {
@@ -82,15 +78,11 @@ export default function DisplayName({
   }
 
   if (title) {
-    return (
-      useHtml ? (
-        <span dangerouslySetInnerHTML={{ __html: title.toString() }}></span>
-      ) : (
-        <span>{title}</span>
-      )
-    )
+    return useHtml ? (
+      <span dangerouslySetInnerHTML={{ __html: title.toString() }}></span>
+    ) : (
+      <span>{title}</span>
+    );
   }
-  return <span className="g-text-red-700">
-    {id?.toString() || 'Failed to load'}
-  </span>
+  return <span className="g-text-red-700">{id?.toString() || 'Failed to load'}</span>;
 }

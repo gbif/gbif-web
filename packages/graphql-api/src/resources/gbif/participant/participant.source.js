@@ -19,7 +19,7 @@ class ParticipantDirectoryAPI extends RESTDataSource {
 
   willSendRequest(request) {
     const header = createSignedGetHeader(request.path, this.config);
-    Object.keys(header).forEach(x => request.headers.set(x, header[x]));
+    Object.keys(header).forEach((x) => request.headers.set(x, header[x]));
     request.headers.set('User-Agent', this.context.userAgent);
     request.headers.set('referer', this.context.referer);
     request.agent = getDefaultAgent(this.baseURL, request.path);
@@ -77,16 +77,26 @@ class ParticipantAPI {
 
   async searchParticipants({ query }, locale) {
     // Rename the property to match the directory API
-    renameProperty(query, 'participationStatus', 'participation_status')
+    renameProperty(query, 'participationStatus', 'participation_status');
 
     const response = await this.directoryAPI.searchParticipants({ query });
     if (!response) return;
 
-    const resourceParticipants = await Promise.allSettled(response.results.map(p => this.resourceSearchAPI.getFirstEntryByQuery({ directoryId: p.id }, locale)));
+    const resourceParticipants = await Promise.allSettled(
+      response.results.map((p) =>
+        this.resourceSearchAPI.getFirstEntryByQuery(
+          { directoryId: p.id },
+          locale,
+        ),
+      ),
+    );
 
     response.results = response.results.map((directoryParticipant, i) => {
       if (resourceParticipants[i].status === 'fulfilled') {
-        return this.#mergeParticipantData(directoryParticipant, resourceParticipants[i].value);
+        return this.#mergeParticipantData(
+          directoryParticipant,
+          resourceParticipants[i].value,
+        );
       }
       return directoryParticipant;
     });
@@ -95,12 +105,21 @@ class ParticipantAPI {
   }
 
   async getParticipantByDirectoryId({ id, locale }) {
-    const directoryParticipant = await this.directoryAPI.getParticipantByKey({ key: id });
+    const directoryParticipant = await this.directoryAPI.getParticipantByKey({
+      key: id,
+    });
     if (!directoryParticipant) return;
 
-    const resourceParticipant = await this.resourceSearchAPI.getFirstEntryByQuery({ directoryId: id }, locale);
+    const resourceParticipant =
+      await this.resourceSearchAPI.getFirstEntryByQuery(
+        { directoryId: id },
+        locale,
+      );
     if (resourceParticipant) {
-      return this.#mergeParticipantData(directoryParticipant, resourceParticipant);
+      return this.#mergeParticipantData(
+        directoryParticipant,
+        resourceParticipant,
+      );
     }
 
     return directoryParticipant;
@@ -110,9 +129,14 @@ class ParticipantAPI {
     // If the resource does not have a directoryId, we return the resource as is.
     if (!resourceParticipant.directoryId) return resourceParticipant;
 
-    const directoryParticipant = await this.directoryAPI.getParticipantByKey({ key: resourceParticipant.directoryId });
+    const directoryParticipant = await this.directoryAPI.getParticipantByKey({
+      key: resourceParticipant.directoryId,
+    });
     if (directoryParticipant) {
-      return this.#mergeParticipantData(directoryParticipant, resourceParticipant);
+      return this.#mergeParticipantData(
+        directoryParticipant,
+        resourceParticipant,
+      );
     }
 
     return resourceParticipant;

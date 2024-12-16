@@ -6,56 +6,56 @@ export const SEARCH_RESULT_OPTIONS = Object.freeze([
   {
     elasticSearchType: 'dataUse',
     graphQLType: 'DataUse',
-    enumContentType: 'DATA_USE'
+    enumContentType: 'DATA_USE',
   },
   {
     elasticSearchType: 'event',
     graphQLType: 'MeetingEvent',
-    enumContentType: 'EVENT'
+    enumContentType: 'EVENT',
   },
   {
     elasticSearchType: 'notification',
     graphQLType: 'Notification',
-    enumContentType: 'NOTIFICATION'
+    enumContentType: 'NOTIFICATION',
   },
   {
     elasticSearchType: 'news',
     graphQLType: 'News',
-    enumContentType: 'NEWS'
+    enumContentType: 'NEWS',
   },
   {
     elasticSearchType: 'project',
     graphQLType: 'GbifProject',
-    enumContentType: 'PROJECT'
+    enumContentType: 'PROJECT',
   },
   {
     elasticSearchType: 'composition',
     graphQLType: 'Composition',
-    enumContentType: 'COMPOSITION'
+    enumContentType: 'COMPOSITION',
   },
   {
     elasticSearchType: 'tool',
     graphQLType: 'Tool',
-    enumContentType: 'TOOL'
+    enumContentType: 'TOOL',
   },
   {
     elasticSearchType: 'document',
     graphQLType: 'Document',
-    enumContentType: 'DOCUMENT'
+    enumContentType: 'DOCUMENT',
   },
   {
     elasticSearchType: 'article',
     graphQLType: 'Article',
-    enumContentType: 'ARTICLE'
+    enumContentType: 'ARTICLE',
   },
   {
     elasticSearchType: 'help',
     graphQLType: 'Help',
-    enumContentType: 'HELP'
+    enumContentType: 'HELP',
   },
   {
     elasticSearchType: 'literature',
     graphQLType: 'Literature',
-    enumContentType: 'LITERATURE'
+    enumContentType: 'LITERATURE',
   },
 ]);

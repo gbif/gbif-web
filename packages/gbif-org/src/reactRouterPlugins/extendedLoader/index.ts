@@ -1,1 +1,1 @@
-export { applyExtendedLoaderPlugin } from "./plugin";
+export { applyExtendedLoaderPlugin } from './plugin';

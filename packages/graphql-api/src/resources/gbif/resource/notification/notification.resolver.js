@@ -1,4 +1,4 @@
-import { getHtml, trustedTags } from "#/helpers/utils";
+import { getHtml, trustedTags } from '#/helpers/utils';
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -10,11 +10,12 @@ import { getHtml, trustedTags } from "#/helpers/utils";
 export default {
   Query: {
     notification: (_, { id }, { dataSources, locale, preview }) =>
-      dataSources.resourceAPI.getEntryById({ id, preview, locale })
+      dataSources.resourceAPI.getEntryById({ id, preview, locale }),
   },
   Notification: {
     title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
     summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
-    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
-  }
-}
+    body: (src, _, { locale }) =>
+      getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
+  },
+};

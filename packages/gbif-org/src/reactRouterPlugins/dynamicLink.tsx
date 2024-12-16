@@ -39,7 +39,7 @@ function convertTo2String(to: To, location: Location<any>): string {
     return to;
   }
 
-  const pathname = to.pathname ?? location.pathname;
+  const pathname = to.pathname ?? '.';
   const search = to.search ?? location.search;
   const hash = to.hash ?? location.hash;
 

@@ -39,6 +39,7 @@
   "discard": "GBIFがアノーテーションしたアーカイブ",
   "keep": "GBIFがアノーテーションしたアーカイブ",
   "copyToClipboard": "GBIFがアノーテーションしたアーカイブ",
+  "fromCountry": "",
   "copiedToClipboard": "",
   "headers": {
     "description": "説明",

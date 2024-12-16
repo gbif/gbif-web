@@ -94,6 +94,9 @@ function CatalogSelector({ title }: { title: React.ReactNode }) {
           <DropdownMenuItem asChild>
             <DynamicLink to="/publisher/search">Publishers</DynamicLink>
           </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <DynamicLink to="/species/search">Taxonomy</DynamicLink>
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
             <DynamicLink to="/institution/search">Institutions</DynamicLink>

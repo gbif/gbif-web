@@ -1,4 +1,7 @@
-import { translateContentfulResponse, objectToQueryString } from '#/helpers/utils';
+import {
+  translateContentfulResponse,
+  objectToQueryString,
+} from '#/helpers/utils';
 import { getDefaultAgent } from '#/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
 
@@ -38,7 +41,7 @@ export class ResourceSearchAPI extends RESTDataSource {
   search = async (params, locale) => {
     const response = await this.get(`/content`, objectToQueryString(params));
     return translateContentfulResponse(response.documents, locale);
-  }
+  };
 
   async getFirstEntryByQuery(params, locale) {
     const response = await this.search(params, locale);

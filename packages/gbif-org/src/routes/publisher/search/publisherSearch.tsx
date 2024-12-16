@@ -67,7 +67,10 @@ const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
 `;
 
 export function PublisherSearchPage(): React.ReactElement {
-  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig, paramsToRemove: ['offset'] });
+  const [filter, setFilter] = useFilterParams({
+    filterConfig: searchConfig,
+    paramsToRemove: ['offset'],
+  });
   return (
     <FilterProvider filter={filter} onChange={setFilter}>
       <PublisherSearch />

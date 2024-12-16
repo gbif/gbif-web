@@ -1,4 +1,4 @@
-import { SetStateAction } from "react";
+import { SetStateAction } from 'react';
 
 // orderedListStore.js
 let orderedList: string[] = []; // External state. Array of strings
@@ -15,7 +15,11 @@ export const setOrderedList = (newList: string[]) => {
 };
 
 // Function to subscribe to changes (used by the hook)
-export const subscribe = (listener: { (value: SetStateAction<string[]>): void; (newList: string[]): void; (newList: string[]): void; }) => {
+export const subscribe = (listener: {
+  (value: SetStateAction<string[]>): void;
+  (newList: string[]): void;
+  (newList: string[]): void;
+}) => {
   listeners.add(listener);
   return () => listeners.delete(listener); // Return an unsubscribe function
 };

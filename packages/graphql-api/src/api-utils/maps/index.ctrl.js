@@ -43,8 +43,15 @@ function returnTemplate(req, res, next, template, defaultOverwrites) {
     ...defaultOverwrites,
     ...req.query,
   };
-  const renderedTemplate = typeof template === 'function' ? template(variables) : render(JSON.stringify(template), variables);
-  res.json(typeof renderedTemplate === 'string' ? JSON.parse(renderedTemplate) : renderedTemplate);
+  const renderedTemplate =
+    typeof template === 'function'
+      ? template(variables)
+      : render(JSON.stringify(template), variables);
+  res.json(
+    typeof renderedTemplate === 'string'
+      ? JSON.parse(renderedTemplate)
+      : renderedTemplate,
+  );
 }
 
 // GBIF Natural
@@ -71,8 +78,16 @@ router.get('/4326/gbif-raster-iucn-volatile', async (req, res, next) => {
   if (taxonKey && !query.iucnTaxonID) {
     try {
       // fetch the IUCN Redlist category, and from that the species entry. From there we can get to the taxonID that is used in the map tiles
-      const iucnRedListCategory = (await axios.get(`${config.apiv1}/species/${taxonKey}/iucnRedListCategory`)).data;
-      const iucnSpecies = (await axios.get(`${config.apiv1}/species/${iucnRedListCategory.usageKey}`)).data;
+      const iucnRedListCategory = (
+        await axios.get(
+          `${config.apiv1}/species/${taxonKey}/iucnRedListCategory`,
+        )
+      ).data;
+      const iucnSpecies = (
+        await axios.get(
+          `${config.apiv1}/species/${iucnRedListCategory.usageKey}`,
+        )
+      ).data;
       const iucnTaxonID = iucnSpecies.taxonID;
       query.iucnTaxonID = iucnTaxonID;
     } catch (err) {

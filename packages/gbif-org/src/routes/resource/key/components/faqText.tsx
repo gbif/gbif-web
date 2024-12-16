@@ -74,7 +74,7 @@ export function FaqText({ dangerouslySetBody: html }: { dangerouslySetBody: stri
         )}
       >
         {typeof modal === 'object' && typeof modal.question === 'string' && (
-          <HelpText identifier={modal.question} includeTitle className='g-p-4' />
+          <HelpText identifier={modal.question} includeTitle className="g-p-4" />
         )}
       </div>
       <div dangerouslySetInnerHTML={{ __html: html }} />

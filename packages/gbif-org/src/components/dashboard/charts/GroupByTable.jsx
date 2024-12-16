@@ -74,7 +74,15 @@ export function GroupByTable({
                   <FormattedNumber value={e.count} />
                 </td>
                 <td className="g-w-20">
-                  <Tooltip title={<FormattedMessage id="counts.nPercentOfTotal" values={{percentage: formatAsPercentage(fractionOfTotal)}}/>}  side="left">
+                  <Tooltip
+                    title={
+                      <FormattedMessage
+                        id="counts.nPercentOfTotal"
+                        values={{ percentage: formatAsPercentage(fractionOfTotal) }}
+                      />
+                    }
+                    side="left"
+                  >
                     <div>
                       <Progress
                         value={(100 * e.count) / maxCount}

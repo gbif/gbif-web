@@ -4,4 +4,4 @@ import typeDef from './meetingEvent.type';
 export default {
   resolver,
   typeDef,
-}
+};

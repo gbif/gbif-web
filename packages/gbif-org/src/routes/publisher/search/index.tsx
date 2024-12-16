@@ -3,7 +3,7 @@ import { PublisherSearchPage } from './publisherSearch';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 export const publisherSearchRoute: RouteObjectWithPlugins = {
-  id: 'publisher-search',
+  id: 'publisherSearch',
   path: 'publisher/search',
   element: (
     <ErrorBoundary>

@@ -4,4 +4,4 @@ import typeDef from './help.type';
 export default {
   resolver,
   typeDef,
-}
+};

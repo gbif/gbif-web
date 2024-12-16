@@ -1,37 +1,38 @@
 {
   "tabs": {
-    "table": "",
-    "gallery": "",
+    "table": "Tabela",
+    "tree": "",
+    "gallery": "Galeria",
     "media": "",
-    "map": "",
+    "map": "Mapa",
     "datasets": "Zbiory danych",
-    "events": "",
-    "download": "",
+    "events": "Zdarzenia",
+    "download": "Pobierz",
     "clusters": "",
     "dashboard": "Kokpit",
     "sites": ""
   },
   "table": {
-    "lockColumn": "",
+    "lockColumn": "Zablokuj kolumnę",
     "unlockColumn": "",
     "columnVisibility": "",
     "resetColumnVisibility": "",
     "openFilter": ""
   },
   "placeholders": {
-    "default": "",
-    "range": "",
-    "wildcard": "",
+    "default": "Wyszukaj",
+    "range": "Przedział albo pojedyncza wartość",
+    "wildcard": "szukaj używając * i ? jako symboli wieloznacznych",
     "locationID": ""
   },
   "ternary": {
-    "yes": "",
-    "no": "",
+    "yes": "Tak",
+    "no": "Nie",
     "either": ""
   },
-  "loadMore": "",
+  "loadMore": "Więcej",
   "occurrenceClustersView": {
-    "about": "",
+    "about": "Informacje",
     "clusters": "",
     "legend": "",
     "differentPublishers": "",
@@ -44,12 +45,12 @@
     "similarities": "",
     "currentRecord": "",
     "nodeType": {
-      "IMAGE": "",
+      "IMAGE": "Zdjęcie",
       "TYPE": "Typ okazu",
-      "TREATMENT": "",
+      "TREATMENT": "Leczenie",
       "OBSERVATION": "Obserwacja",
-      "SPECIMEN": "",
-      "SEQUENCE": ""
+      "SPECIMEN": "Okaz",
+      "SEQUENCE": "Sekwencja"
     }
   }
 }

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { projections } from './openlayers/projections';
 
 import OlMap from 'ol/Map';
@@ -12,10 +12,14 @@ import { MVT as MVTFormat } from 'ol/format';
 import TileGrid from 'ol/tilegrid/TileGrid';
 import klokantech from './openlayers/styles/klokantech.json';
 
-var interactions = olInteraction.defaults({ altShiftDragRotate: false, pinchRotate: false, mouseWheelZoom: true });
+var interactions = olInteraction.defaults({
+  altShiftDragRotate: false,
+  pinchRotate: false,
+  mouseWheelZoom: true,
+});
 
 const mapStyles = {
-  klokantech
+  klokantech,
 };
 
 class Map extends Component {
@@ -26,7 +30,7 @@ class Map extends Component {
     this.updateLayer = this.updateLayer.bind(this);
     this.onPointClick = this.onPointClick.bind(this);
     this.myRef = React.createRef();
-    this.state = {loadDiff: 0};
+    this.state = { loadDiff: 0 };
   }
 
   componentDidMount() {
@@ -77,14 +81,21 @@ class Map extends Component {
         this.zoomOut();
       } else if (this.props.latestEvent?.type === 'ZOOM_TO') {
         const currentProjection = projections[this.props.mapConfig?.projection || 'EPSG_3031'];
-        const newView = currentProjection.getView(this.props.latestEvent.lat, this.props.latestEvent.lng, this.props.latestEvent.zoom);
+        const newView = currentProjection.getView(
+          this.props.latestEvent.lat,
+          this.props.latestEvent.lng,
+          this.props.latestEvent.zoom
+        );
         this.map.setView(newView);
       } else if (this.props.latestEvent?.type === 'EXPLORE_AREA') {
         this.exploreArea();
       }
     }
     // check if the size of the map container has changed and if so resize the map
-    if ((prevProps.height !== this.props.height || prevProps.width !== this.props.width) && this.mapLoaded) {
+    if (
+      (prevProps.height !== this.props.height || prevProps.width !== this.props.width) &&
+      this.mapLoaded
+    ) {
       this.map.updateSize();
     }
   }
@@ -104,21 +115,21 @@ class Map extends Component {
     lat = Math.min(Math.max(-90, lat), 90);
     // const reprojectedCenter = transform([lng, lat], 'EPSG:4326', currentProjection.srs);
     return {
-      lat,//: reprojectedCenter[1], 
-      lng,//: reprojectedCenter[0], 
-      zoom
+      lat, //: reprojectedCenter[1],
+      lng, //: reprojectedCenter[0],
+      zoom,
     };
   }
 
   zoomIn() {
     var view = this.map.getView();
     view.setZoom(view.getZoom() + 1);
-  };
+  }
 
   zoomOut() {
     var view = this.map.getView();
     view.setZoom(view.getZoom() - 1);
-  };
+  }
 
   exploreArea() {
     // get the current view of the map as a bounding box and send it to the parent component
@@ -129,20 +140,25 @@ class Map extends Component {
     const extent = view.calculateExtent(size);
     const leftTop = transform([extent[0], extent[3]], view.getProjection(), 'EPSG:4326');
     const rightBottom = transform([extent[2], extent[1]], view.getProjection(), 'EPSG:4326');
-    
-    listener({ type: 'EXPLORE_AREA', bbox: {top: leftTop[1], left: leftTop[0], bottom: rightBottom[1], right: rightBottom[0]} });
+
+    listener({
+      type: 'EXPLORE_AREA',
+      bbox: { top: leftTop[1], left: leftTop[0], bottom: rightBottom[1], right: rightBottom[0] },
+    });
   }
 
   removeLayer(name) {
-    this.map.getLayers().getArray()
-      .filter(layer => layer.get('name') === name)
-      .forEach(layer => this.map.removeLayer(layer));
+    this.map
+      .getLayers()
+      .getArray()
+      .filter((layer) => layer.get('name') === name)
+      .forEach((layer) => this.map.removeLayer(layer));
   }
 
   async updateMapLayers() {
     const epsg = this.props.mapConfig?.projection || 'EPSG_3031';
     const currentProjection = projections[epsg];
-    this.setState({ epsg })
+    this.setState({ epsg });
 
     this.map.getLayers().clear();
     // this.updateProjection();
@@ -161,8 +177,9 @@ class Map extends Component {
       applyStyle(baseLayer, layerStyle, 'openmaptiles', undefined, resolutions);
       this.map.addLayer(baseLayer);
     } else if (epsg !== 'EPSG_3857') {
-
-      const styleResponse = await fetch(this.props.mapConfig?.basemapStyle).then(response => response.json());
+      const styleResponse = await fetch(this.props.mapConfig?.basemapStyle).then((response) =>
+        response.json()
+      );
 
       if (!styleResponse?.metadata?.['gb:reproject']) {
         const baseLayer = currentProjection.getBaseLayer();
@@ -192,11 +209,16 @@ class Map extends Component {
                   urls: source.getUrls(),
                   tileGrid: new TileGrid(sourceConfig.tilegridOptions),
                   wrapX: sourceConfig.wrapX,
-                  attributions: [sourceConfig.attribution]
+                  attributions: [sourceConfig.attribution],
                 })
               );
 
-              stylefunction(layer, styleResponse, mapboxSource, sourceConfig.tilegridOptions.resolutions);
+              stylefunction(
+                layer,
+                styleResponse,
+                mapboxSource,
+                sourceConfig.tilegridOptions.resolutions
+              );
 
               // update the view projection to match the data projection
               const newView = currentProjection.getView(mapPos.lat, mapPos.lng, mapPos.zoom);
@@ -212,7 +234,7 @@ class Map extends Component {
                   tilePixelRatio: 2,
                   wrapX: sourceConfig.wrapX,
                   maxZoom: sourceConfig.maxZoom,
-                  attributions: [sourceConfig.attribution]
+                  attributions: [sourceConfig.attribution],
                 })
               );
               if (sourceConfig.extent) {
@@ -226,9 +248,11 @@ class Map extends Component {
           }
         });
       }
-
     } else {
-      await apply(this.map, this.props.mapConfig?.basemapStyle || 'http://localhost:3001/map/styles/darkMatter.json');
+      await apply(
+        this.map,
+        this.props.mapConfig?.basemapStyle || 'http://localhost:3001/map/styles/darkMatter.json'
+      );
     }
 
     // update projection
@@ -249,9 +273,11 @@ class Map extends Component {
   // }
 
   updateLayer() {
-    this.map.getLayers().getArray()
-      .filter(layer => layer.get('name') === 'occurrences')
-      .forEach(layer => this.map.removeLayer(layer));
+    this.map
+      .getLayers()
+      .getArray()
+      .filter((layer) => layer.get('name') === 'occurrences')
+      .forEach((layer) => this.map.removeLayer(layer));
     this.addLayer();
   }
 
@@ -260,48 +286,47 @@ class Map extends Component {
   }
 
   addLayer() {
-
     const currentProjection = projections[this.props.mapConfig?.projection || 'EPSG_3031'];
     const filter = {
       predicateHash: this.props.predicateHash,
-    }
+    };
     if (this.props.q) {
       filter.q = this.props.q;
     }
-    this.setState(function(){
-      return {loadDiff: 0}
-   });
+    this.setState(function () {
+      return { loadDiff: 0 };
+    });
     const occurrenceLayer = currentProjection.getAdhocLayer({
+      siteTheme: this.props.theme,
       style: 'scaled.circles',
       mode: 'GEO_CENTROID',
       squareSize: 512,
       progress: {
         addLoading: () => {
-          this.setState(function(prevState){
-            return {loadDiff: prevState.loadDiff + 1}
-         });
-      
+          this.setState(function (prevState) {
+            return { loadDiff: prevState.loadDiff + 1 };
+          });
         },
         addLoaded: () => {
-          this.setState(function(prevState){
-            return {loadDiff: prevState.loadDiff - 1}
-         });
-        }
+          this.setState(function (prevState) {
+            return { loadDiff: prevState.loadDiff - 1 };
+          });
+        },
       },
       ...filter,
-      onError: e => {
+      onError: (e) => {
         // there seem to be no simple way to get the statuscode, so we will just reregister on any type of error
         if (this.props.registerPredicate) {
           this.props.registerPredicate();
         }
-      }
+      },
     });
 
     // how to add a layer below e.g. labels on the basemap? // you can insert at specific indices, but the problem is that the basemap are collapsed into one layer
     // occurrenceLayer.setZIndex(0);
     this.map.addLayer(occurrenceLayer);
 
-    const map = this.map
+    const map = this.map;
 
     map.on('moveend', function (e) {
       if (this.refreshingView) return;
@@ -325,7 +350,7 @@ class Map extends Component {
 
     const pointClickHandler = this.onPointClick;
     const clickHandler = this.props.onMapClick;
-    map.on('singleclick', event => {
+    map.on('singleclick', (event) => {
       // todo : hover and click do not agree on wether there is a point or not
       occurrenceLayer.getFeatures(event.pixel).then(function (features) {
         const feature = features.length ? features[0] : undefined;
@@ -353,7 +378,7 @@ class Map extends Component {
   render() {
     const { query, onMapClick, onPointClick, predicateHash, className, ...props } = this.props;
 
-    return <div ref={this.myRef} className={className} />
+    return <div ref={this.myRef} className={className} />;
   }
 }
 

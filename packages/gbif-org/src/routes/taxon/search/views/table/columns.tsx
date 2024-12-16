@@ -62,7 +62,11 @@ export function useTaxonColumns({
                   }}
                 />
                 {vernacular && (
-                  <SimpleTooltip title={`According to ${vernacular.source}`} side="right" delayDuration={500}>
+                  <SimpleTooltip
+                    title={`According to ${vernacular.source}`}
+                    side="right"
+                    delayDuration={500}
+                  >
                     <div className="g-text-slate-400 g-flex g-items-center">
                       <span className="g-me-1">{vernacular.vernacularName}</span>
                       <MdInfoOutline />

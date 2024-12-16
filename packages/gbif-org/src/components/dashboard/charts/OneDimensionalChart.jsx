@@ -319,7 +319,7 @@ export function OneDimensionalChart({
             {messages.length > 0 && (
               <div className="g-text-slate-400 g-text-sm hover:g-text-slate-800 p:g-my-1 g-transition-colors">
                 {messages.map((message, i) => {
-                  const isString = (typeof message) === 'string';
+                  const isString = typeof message === 'string';
                   return (
                     <div key={i}>
                       {isString && <FormattedMessage id={message} />}

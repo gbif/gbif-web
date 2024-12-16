@@ -1,16 +1,16 @@
-import * as React from "react"
-import * as DialogPrimitive from "@radix-ui/react-dialog"
-import { Cross2Icon } from "@radix-ui/react-icons"
+import * as React from 'react';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
+import { Cross2Icon } from '@radix-ui/react-icons';
 
-import { cn } from "@/utils/shadcn"
+import { cn } from '@/utils/shadcn';
 
-const Dialog = DialogPrimitive.Root
+const Dialog = DialogPrimitive.Root;
 
-const DialogTrigger = DialogPrimitive.Trigger
+const DialogTrigger = DialogPrimitive.Trigger;
 
-const DialogPortal = DialogPrimitive.Portal
+const DialogPortal = DialogPrimitive.Portal;
 
-const DialogClose = DialogPrimitive.Close
+const DialogClose = DialogPrimitive.Close;
 
 const DialogOverlay = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Overlay>,
@@ -19,13 +19,13 @@ const DialogOverlay = React.forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      "g-fixed g-inset-0 g-z-50 g-bg-black/80 data-[state=open]:g-animate-in data-[state=closed]:g-animate-out data-[state=closed]:g-fade-out-0 data-[state=open]:g-fade-in-0",
+      'g-fixed g-inset-0 g-z-50 g-bg-black/80 data-[state=open]:g-animate-in data-[state=closed]:g-animate-out data-[state=closed]:g-fade-out-0 data-[state=open]:g-fade-in-0',
       className
     )}
     {...props}
   />
-))
-DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
+));
+DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
@@ -36,7 +36,7 @@ const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        "g-fixed g-left-[50%] g-top-[50%] g-z-50 g-grid g-w-full g-max-w-lg g-translate-x-[-50%] g-translate-y-[-50%] g-gap-4 g-border g-bg-background g-p-6 g-shadow-lg g-duration-200 data-[state=open]:g-animate-in data-[state=closed]:g-animate-out data-[state=closed]:g-fade-out-0 data-[state=open]:g-fade-in-0 data-[state=closed]:g-zoom-out-95 data-[state=open]:g-zoom-in-95 data-[state=closed]:g-slide-out-to-left-1/2 data-[state=closed]:g-slide-out-to-top-[48%] data-[state=open]:g-slide-in-from-left-1/2 data-[state=open]:g-slide-in-from-top-[48%] sm:g-rounded-lg",
+        'g-fixed g-left-[50%] g-top-[50%] g-z-50 g-grid g-w-full g-max-w-lg g-translate-x-[-50%] g-translate-y-[-50%] g-gap-4 g-border g-bg-background g-p-6 g-shadow-lg g-duration-200 data-[state=open]:g-animate-in data-[state=closed]:g-animate-out data-[state=closed]:g-fade-out-0 data-[state=open]:g-fade-in-0 data-[state=closed]:g-zoom-out-95 data-[state=open]:g-zoom-in-95 data-[state=closed]:g-slide-out-to-left-1/2 data-[state=closed]:g-slide-out-to-top-[48%] data-[state=open]:g-slide-in-from-left-1/2 data-[state=open]:g-slide-in-from-top-[48%] sm:g-rounded-lg',
         className
       )}
       {...props}
@@ -48,36 +48,27 @@ const DialogContent = React.forwardRef<
       </DialogPrimitive.Close>
     </DialogPrimitive.Content>
   </DialogPortal>
-))
-DialogContent.displayName = DialogPrimitive.Content.displayName
+));
+DialogContent.displayName = DialogPrimitive.Content.displayName;
 
-const DialogHeader = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
+const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    className={cn('g-flex g-flex-col g-space-y-1.5 g-text-center sm:g-text-left', className)}
+    {...props}
+  />
+);
+DialogHeader.displayName = 'DialogHeader';
+
+const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      "g-flex g-flex-col g-space-y-1.5 g-text-center sm:g-text-left",
+      'g-flex g-flex-col-reverse sm:g-flex-row sm:g-justify-end sm:g-space-x-2',
       className
     )}
     {...props}
   />
-)
-DialogHeader.displayName = "DialogHeader"
-
-const DialogFooter = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cn(
-      "g-flex g-flex-col-reverse sm:g-flex-row sm:g-justify-end sm:g-space-x-2",
-      className
-    )}
-    {...props}
-  />
-)
-DialogFooter.displayName = "DialogFooter"
+);
+DialogFooter.displayName = 'DialogFooter';
 
 const DialogTitle = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Title>,
@@ -85,14 +76,11 @@ const DialogTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
-    className={cn(
-      "g-text-lg g-font-semibold g-leading-none g-tracking-tight",
-      className
-    )}
+    className={cn('g-text-lg g-font-semibold g-leading-none g-tracking-tight', className)}
     {...props}
   />
-))
-DialogTitle.displayName = DialogPrimitive.Title.displayName
+));
+DialogTitle.displayName = DialogPrimitive.Title.displayName;
 
 const DialogDescription = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Description>,
@@ -100,11 +88,11 @@ const DialogDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Description
     ref={ref}
-    className={cn("g-text-sm g-text-muted-foreground", className)}
+    className={cn('g-text-sm g-text-muted-foreground', className)}
     {...props}
   />
-))
-DialogDescription.displayName = DialogPrimitive.Description.displayName
+));
+DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
 export {
   Dialog,
@@ -117,4 +105,4 @@ export {
   DialogFooter,
   DialogTitle,
   DialogDescription,
-}
+};

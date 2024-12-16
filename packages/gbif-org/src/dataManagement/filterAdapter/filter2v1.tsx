@@ -70,7 +70,7 @@ function getField({
   if (values && !Array.isArray(values)) {
     console.warn('Filter values should be an array');
     return;
-  };
+  }
   if (values?.length === 0) return;
 
   // get the configuration for this filter if any is provided

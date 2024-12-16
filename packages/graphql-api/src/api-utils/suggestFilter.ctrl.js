@@ -22,12 +22,11 @@ router.get('/col-suggest', async (req, res, next) => {
   const { language = 'eng', q, taxonKeys } = req.query;
   const result = await colSuggest({ language, q, taxonKeys });
   // slim down for suggest
-  result.map(x => {
+  result.map((x) => {
     let result = x;
     delete result.taxon;
-    result.classification = result.taxonClassification.map(c => c.name);
+    result.classification = result.taxonClassification.map((c) => c.name);
     delete result.taxonClassification;
-  })
+  });
   res.json(result);
 });
-

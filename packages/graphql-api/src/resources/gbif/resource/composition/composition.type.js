@@ -1,5 +1,9 @@
-import { gql } from "apollo-server";
-import { KNOWN_BLOCK_TYPES, KNOWN_CAROUSEL_BLOCKS, KNOWN_FEATURE_TYPES } from "./acceptedTypes";
+import { gql } from 'apollo-server';
+import {
+  KNOWN_BLOCK_TYPES,
+  KNOWN_CAROUSEL_BLOCKS,
+  KNOWN_FEATURE_TYPES,
+} from './acceptedTypes';
 
 const typeDef = gql`
   extend type Query {
@@ -119,7 +123,9 @@ const typeDef = gql`
     contentType: String
   }
 
-  union CarouselBlockFeature = ${Object.values(KNOWN_CAROUSEL_BLOCKS).join(' | ')}
-`
+  union CarouselBlockFeature = ${Object.values(KNOWN_CAROUSEL_BLOCKS).join(
+    ' | ',
+  )}
+`;
 
 export default typeDef;

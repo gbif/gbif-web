@@ -198,8 +198,12 @@ function Caption({
   occurrence: OccurrenceQuery['occurrence'];
 }) {
   return (
-    <figcaption className='g-px-4 g-py-2 [&_a]:g-underline'>
-      {!media.identifier && <div className='g-bg-slate-200 g-rounded g-text-slate-800 g-px-2 g-py-1 g-mb-2'>Identifier missing</div>}
+    <figcaption className="g-px-4 g-py-2 [&_a]:g-underline">
+      {!media.identifier && (
+        <div className="g-bg-slate-200 g-rounded g-text-slate-800 g-px-2 g-py-1 g-mb-2">
+          Identifier missing
+        </div>
+      )}
       <Properties style={{ fontSize: '85%' }} dense>
         {media.description && (
           <BasicField label={`occurrenceFieldNames.description`}>{media.description}</BasicField>

@@ -134,7 +134,10 @@ async function update() {
 const getEnumStatus = () => status;
 
 if (!config.apiv1) {
-  console.log('\x1b[33m%s\x1b[0m', 'Skipping sync check for GBIF enumerations as config is missing for GBIF APIv1');
+  console.log(
+    '\x1b[33m%s\x1b[0m',
+    'Skipping sync check for GBIF enumerations as config is missing for GBIF APIv1',
+  );
 } else {
   update();
 }

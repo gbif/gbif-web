@@ -24,6 +24,7 @@
   "occurrences": "Occurrences",
   "other": "Other",
   "unknown": "Unknown",
+  "usingStartDates": "",
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "These metrics are based on records shared via GBIF",

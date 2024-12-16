@@ -24,6 +24,7 @@
   "occurrences": "Observationer",
   "other": "",
   "unknown": "Ukendt",
+  "usingStartDates": "GBIF annoteret Arkiv",
   "iucnThreatStatus": "GBIF annoteret Arkiv",
   "iucnThreatStatusDescription": "GBIF annoteret Arkiv",
   "metricsFromGbifData": "",

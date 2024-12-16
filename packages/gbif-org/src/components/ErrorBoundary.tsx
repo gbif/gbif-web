@@ -49,7 +49,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   }
 }
 
-export function ErrorPage({ error }: {error: Error}): React.ReactElement {
+export function ErrorPage({ error }: { error: Error }): React.ReactElement {
   const [showStack, setShowStack] = useState(false);
 
   // An error has occurred

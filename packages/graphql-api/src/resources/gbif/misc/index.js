@@ -21,5 +21,5 @@ export default {
     machineTag,
     masterSourceMetadata,
     tag,
-  ]
+  ],
 };
