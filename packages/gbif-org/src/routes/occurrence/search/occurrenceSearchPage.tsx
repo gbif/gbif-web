@@ -51,7 +51,7 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
   const defaultView = searchContext.defaultTab ?? searchContext?.tabs?.[0] ?? 'table';
-  const [view, setView] = useStringParam({
+  const [view] = useStringParam({
     key: 'view',
     defaultValue: defaultView,
     hideDefault: true,
@@ -71,12 +71,7 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
         Could be this where we do search params or it could be links to other sites 
         For now a quick and dirty mock to have the option to do views with a url search param
         */}
-        <OccurrenceViewTabs
-          setView={setView}
-          view={view}
-          defaultView={defaultView}
-          tabs={searchContext.tabs}
-        />
+        <OccurrenceViewTabs view={view} defaultView={defaultView} tabs={searchContext.tabs} />
       </DataHeader>
 
       <section className="">
@@ -94,7 +89,7 @@ export function OccurrenceSearchInner(): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
   const defaultView = searchContext?.tabs?.[0] ?? 'table';
-  const [view, setView] = useStringParam({
+  const [view] = useStringParam({
     key: 'view',
     defaultValue: defaultView,
     hideDefault: true,
@@ -106,7 +101,6 @@ export function OccurrenceSearchInner(): React.ReactElement {
       <section className="g-bg-white">
         <Card>
           <OccurrenceViewTabs
-            setView={setView}
             view={view}
             defaultView={defaultView}
             tabs={searchContext.tabs}
@@ -154,7 +148,6 @@ function OccurrenceViewTabs({
   tabs = ['table', 'map', 'media', 'clusters', 'datasets', 'dashboard', 'download'],
   className,
 }: {
-  setView: (view: string) => void;
   defaultView?: string;
   view?: string;
   tabs?: string[];

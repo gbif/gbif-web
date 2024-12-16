@@ -9487,13 +9487,13 @@ export type LiteratureTopicsFacetQuery = {
   } | null;
 };
 
-export type LiteratureSearchQueryVariables = Exact<{
+export type LiteratureListSearchQueryVariables = Exact<{
   predicate?: InputMaybe<Predicate>;
   size?: InputMaybe<Scalars['Int']['input']>;
   from?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
-export type LiteratureSearchQuery = {
+export type LiteratureListSearchQuery = {
   __typename?: 'Query';
   literatureSearch?: {
     __typename?: 'LiteratureSearchResult';
@@ -9504,11 +9504,60 @@ export type LiteratureSearchQuery = {
       total: any;
       results: Array<{
         __typename?: 'Literature';
+        id: string;
         title: string;
         excerpt?: string | null;
         countriesOfResearcher?: Array<string | null> | null;
         countriesOfCoverage?: Array<string | null> | null;
         year?: number | null;
+        identifiers?: { __typename?: 'LiteratureIdentifiers'; doi?: string | null } | null;
+      } | null>;
+    };
+  } | null;
+};
+
+export type LiteratureTableSearchQueryVariables = Exact<{
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+  predicate?: InputMaybe<Predicate>;
+}>;
+
+export type LiteratureTableSearchQuery = {
+  __typename?: 'Query';
+  literatureSearch?: {
+    __typename?: 'LiteratureSearchResult';
+    documents: {
+      __typename?: 'LiteratureDocuments';
+      from: number;
+      size: number;
+      total: any;
+      results: Array<{
+        __typename?: 'Literature';
+        id: string;
+        title: string;
+        abstract?: string | null;
+        countriesOfCoverage?: Array<string | null> | null;
+        countriesOfResearcher?: Array<string | null> | null;
+        day?: number | null;
+        month?: number | null;
+        year?: number | null;
+        gbifRegion?: Array<GbifRegion | null> | null;
+        keywords?: Array<string | null> | null;
+        language?: Language | null;
+        literatureType?: string | null;
+        openAccess?: boolean | null;
+        peerReview?: boolean | null;
+        publisher?: string | null;
+        relevance?: Array<string | null> | null;
+        source?: string | null;
+        tags?: Array<string | null> | null;
+        topics?: Array<string | null> | null;
+        websites?: Array<string | null> | null;
+        authors?: Array<{
+          __typename?: 'Author';
+          firstName?: string | null;
+          lastName?: string | null;
+        } | null> | null;
         identifiers?: { __typename?: 'LiteratureIdentifiers'; doi?: string | null } | null;
       } | null>;
     };
@@ -22198,13 +22247,13 @@ export const LiteratureTopicsFacetDocument = {
     },
   ],
 } as unknown as DocumentNode<LiteratureTopicsFacetQuery, LiteratureTopicsFacetQueryVariables>;
-export const LiteratureSearchDocument = {
+export const LiteratureListSearchDocument = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'LiteratureSearch' },
+      name: { kind: 'Name', value: 'LiteratureListSearch' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
@@ -22263,6 +22312,7 @@ export const LiteratureSearchDocument = {
                         selectionSet: {
                           kind: 'SelectionSet',
                           selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                             { kind: 'Field', name: { kind: 'Name', value: 'title' } },
                             { kind: 'Field', name: { kind: 'Name', value: 'excerpt' } },
                             {
@@ -22294,7 +22344,132 @@ export const LiteratureSearchDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<LiteratureSearchQuery, LiteratureSearchQueryVariables>;
+} as unknown as DocumentNode<LiteratureListSearchQuery, LiteratureListSearchQueryVariables>;
+export const LiteratureTableSearchDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'LiteratureTableSearch' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'from' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'size' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'predicate' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Predicate' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'literatureSearch' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'predicate' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'predicate' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'documents' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'from' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'from' } },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'size' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'size' } },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'from' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'size' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'results' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'abstract' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'authors' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  { kind: 'Field', name: { kind: 'Name', value: 'firstName' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'lastName' } },
+                                ],
+                              },
+                            },
+                            { kind: 'Field', name: { kind: 'Name', value: 'countriesOfCoverage' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'countriesOfResearcher' },
+                            },
+                            { kind: 'Field', name: { kind: 'Name', value: 'day' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'month' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'year' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'gbifRegion' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'identifiers' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  { kind: 'Field', name: { kind: 'Name', value: 'doi' } },
+                                ],
+                              },
+                            },
+                            { kind: 'Field', name: { kind: 'Name', value: 'keywords' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'language' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'literatureType' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'openAccess' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'peerReview' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'publisher' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'relevance' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'source' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'tags' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'topics' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'websites' } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<LiteratureTableSearchQuery, LiteratureTableSearchQueryVariables>;
 export const NetworkDatasetsDocument = {
   kind: 'Document',
   definitions: [
