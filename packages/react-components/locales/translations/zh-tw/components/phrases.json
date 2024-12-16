@@ -39,6 +39,7 @@
   "discard": "GBIF 註記的存檔",
   "keep": "GBIF 註記的存檔",
   "copyToClipboard": "GBIF 註記的存檔",
+  "fromCountry": "",
   "copiedToClipboard": "",
   "headers": {
     "description": "描述",

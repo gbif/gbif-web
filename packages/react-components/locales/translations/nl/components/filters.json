@@ -24,6 +24,16 @@
     "count": "{num, plural, one {# verzameling } other {# verzamelingen}}",
     "description": "De verzameling in GrSciColl dit record werd gekoppeld met"
   },
+  "taxonomicStatus": {
+    "name": "Status",
+    "count": "",
+    "description": "Het aantal beschikbare specimens zoals vermeld in de beschrijving. Dit nummer geeft niet weer hoeveel records gedigitaliseerd en gedeeld zijn."
+  },
+  "taxonRank": {
+    "name": "",
+    "count": "",
+    "description": "Het aantal beschikbare specimens zoals vermeld in de beschrijving. Dit nummer geeft niet weer hoeveel records gedigitaliseerd en gedeeld zijn."
+  },
   "numberSpecimens": {
     "name": "Aantal specimens",
     "count": "",

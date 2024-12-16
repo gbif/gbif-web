@@ -24,6 +24,16 @@
     "count": "{num, plural, one {# 收藏品 } other {# 收藏品}}",
     "description": "该记录与GrSciColl中相匹配的收藏品"
   },
+  "taxonomicStatus": {
+    "name": "状态",
+    "count": "",
+    "description": "说明中所述的持有标本数量。这个数字并不反映有多少记录已经被数字化和共享。"
+  },
+  "taxonRank": {
+    "name": "类群排名",
+    "count": "",
+    "description": "说明中所述的持有标本数量。这个数字并不反映有多少记录已经被数字化和共享。"
+  },
   "numberSpecimens": {
     "name": "标本数",
     "count": "",

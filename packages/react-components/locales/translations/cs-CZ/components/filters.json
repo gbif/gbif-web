@@ -24,6 +24,16 @@
     "count": "",
     "description": ""
   },
+  "taxonomicStatus": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "taxonRank": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "numberSpecimens": {
     "name": "",
     "count": "",
@@ -48,7 +58,7 @@
     "placeholderDist": ""
   },
   "geometry": {
-    "name": "",
+    "name": "Poloha",
     "count": "",
     "description": "",
     "placeholderLat": "",
@@ -111,12 +121,12 @@
     "description": ""
   },
   "taxonKey": {
-    "name": "",
+    "name": "Vědecký název",
     "count": "",
     "description": ""
   },
   "taxonKeyGrSciColl": {
-    "name": "",
+    "name": "Vědecký název",
     "count": "",
     "description": ""
   },
@@ -246,7 +256,7 @@
     "description": ""
   },
   "depth": {
-    "name": "",
+    "name": "Hloubka",
     "count": "",
     "description": ""
   },

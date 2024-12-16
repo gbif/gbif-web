@@ -24,6 +24,16 @@
     "count": "{num, plural,one {#蒐藏}other {#蒐藏}}",
     "description": "這個紀錄與在 GrSciColl 中的蒐藏相符合"
   },
+  "taxonomicStatus": {
+    "name": "狀態",
+    "count": "",
+    "description": "描述裡記載持有標本的數量。此數量並未反映有多少筆紀錄已經數位化且共享。"
+  },
+  "taxonRank": {
+    "name": "分類位階",
+    "count": "",
+    "description": "描述裡記載持有標本的數量。此數量並未反映有多少筆紀錄已經數位化且共享。"
+  },
   "numberSpecimens": {
     "name": "標本數量",
     "count": "",

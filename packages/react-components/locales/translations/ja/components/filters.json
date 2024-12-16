@@ -24,6 +24,16 @@
     "count": "",
     "description": ""
   },
+  "taxonomicStatus": {
+    "name": "ステータス",
+    "count": "",
+    "description": ""
+  },
+  "taxonRank": {
+    "name": "分類階級",
+    "count": "",
+    "description": ""
+  },
   "numberSpecimens": {
     "name": "",
     "count": "",

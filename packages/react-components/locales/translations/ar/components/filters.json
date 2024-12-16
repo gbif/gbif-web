@@ -24,6 +24,16 @@
     "count": "",
     "description": ""
   },
+  "taxonomicStatus": {
+    "name": "الحالة",
+    "count": "",
+    "description": ""
+  },
+  "taxonRank": {
+    "name": "ترتيب",
+    "count": "",
+    "description": ""
+  },
   "numberSpecimens": {
     "name": "",
     "count": "",

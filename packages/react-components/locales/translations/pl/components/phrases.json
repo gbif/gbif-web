@@ -39,6 +39,7 @@
   "discard": "",
   "keep": "",
   "copyToClipboard": "",
+  "fromCountry": "",
   "copiedToClipboard": "Skopiowano do schowka",
   "headers": {
     "description": "Opis",
