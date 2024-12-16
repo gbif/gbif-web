@@ -109,6 +109,8 @@ export default {
   LiteratureAutoDateHistogram,
   LiteratureStats,
   Literature: {
+    // TODO: Remove (used to test that erros don't get cached)
+    title: src => Math.random() > 0.5 ? src.title : null,
     excerpt: (src) => excerpt({ body: src.abstract }),
     // someField: ({ fieldWithKey: key }, args, { dataSources }) => {
     //   if (typeof key === 'undefined') return null;
