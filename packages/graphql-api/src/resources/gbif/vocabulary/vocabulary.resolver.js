@@ -1,13 +1,18 @@
-const getTranslatedValue = (field, { useNameAsFallback } = {}) => (item, { language = 'en' }, { dataSources }) => {
-  // transform label array to map using language as key
-  const label = item[field];
-  const labelMap = label.reduce((acc, cur) => {
-    acc[cur.language] = cur.value;
-    return acc;
-  }
-    , {});
-  return labelMap[language] || labelMap['en'] || (useNameAsFallback ? item.name : null);
-}
+const getTranslatedValue =
+  (field, { useNameAsFallback } = {}) =>
+  (item, { language = 'en' }, { dataSources }) => {
+    // transform label array to map using language as key
+    const label = item[field];
+    const labelMap = label.reduce((acc, cur) => {
+      acc[cur.language] = cur.value;
+      return acc;
+    }, {});
+    return (
+      labelMap[language] ||
+      labelMap['en'] ||
+      (useNameAsFallback ? item.name : null)
+    );
+  };
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -22,8 +27,11 @@ export default {
     //   dataSources.vocabularyAPI.searchVocabularies({ query }),
     vocabulary: (parent, { key }, { dataSources }) =>
       dataSources.vocabularyAPI.getVocabulary({ key }),
-    vocabularyConceptSearch: (parent, { vocabulary, ...query }, { dataSources }) =>
-      dataSources.vocabularyAPI.searchConcepts({ vocabulary, query }),
+    vocabularyConceptSearch: (
+      parent,
+      { vocabulary, ...query },
+      { dataSources },
+    ) => dataSources.vocabularyAPI.searchConcepts({ vocabulary, query }),
     vocabularyConcept: (parent, { vocabulary, concept }, { dataSources }) =>
       dataSources.vocabularyAPI.getConcept({ vocabulary, concept }),
   },
@@ -44,9 +52,12 @@ export default {
       if (!vocabularyName || !parents) return null;
 
       // for all parents in the array, we need to fetch the concept value using dataSources.vocabularyAPI.getConcept({vocabulary, concept});
-      return parents.map(parent => {
-        return dataSources.vocabularyAPI.getConcept({ vocabulary: vocabularyName, concept: parent });
+      return parents.map((parent) => {
+        return dataSources.vocabularyAPI.getConcept({
+          vocabulary: vocabularyName,
+          concept: parent,
+        });
       });
-    }
+    },
   },
 };

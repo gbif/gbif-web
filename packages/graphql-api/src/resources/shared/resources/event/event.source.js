@@ -28,8 +28,24 @@ class EventAPI extends RESTDataSource {
     return response.documents;
   }
 
-  async searchEventOccurrences({ eventID, datasetKey, locationID, month, year, size, from }) {
-    const response = await this.eventOccurrences({ eventID, datasetKey, locationID, month, year, size, from });
+  async searchEventOccurrences({
+    eventID,
+    datasetKey,
+    locationID,
+    month,
+    year,
+    size,
+    from,
+  }) {
+    const response = await this.eventOccurrences({
+      eventID,
+      datasetKey,
+      locationID,
+      month,
+      year,
+      size,
+      from,
+    });
     const results = response.documents.results.map((doc) => {
       return {
         key: doc.key,
@@ -88,8 +104,15 @@ class EventAPI extends RESTDataSource {
     return response;
   };
 
-  eventOccurrences = async ({ eventID, datasetKey, locationID, month, year, size, from }) => {
-
+  eventOccurrences = async ({
+    eventID,
+    datasetKey,
+    locationID,
+    month,
+    year,
+    size,
+    from,
+  }) => {
     const params = {
       size,
       from,
@@ -97,14 +120,12 @@ class EventAPI extends RESTDataSource {
       ...(datasetKey && { datasetKey }),
       ...(locationID && { locationID }),
       ...(month && { month }),
-      ...(year && { year })
+      ...(year && { year }),
     };
 
-    const response = await this.get(
-      '/event-occurrence',
-      params,
-      { signal: this.context.abortController.signal },
-    );
+    const response = await this.get('/event-occurrence', params, {
+      signal: this.context.abortController.signal,
+    });
 
     // map to support APIv1 naming
     response.documents.count = response.documents.total;

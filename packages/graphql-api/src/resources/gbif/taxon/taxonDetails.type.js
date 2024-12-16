@@ -195,7 +195,11 @@ const typeDef = gql`
     """
     Lists all vernacular names for a name usage. The language paramter isn't supported in the official API, so paging will not work properly when using the language parameter
     """
-    vernacularNames(limit: Int, offset: Int, language: String): TaxonVernacularNameResult
+    vernacularNames(
+      limit: Int
+      offset: Int
+      language: String
+    ): TaxonVernacularNameResult
 
     """
     Lists all type specimens for a name usage, see also lmitations: https://github.com/gbif/portal-feedback/issues/1146#issuecomment-366260607

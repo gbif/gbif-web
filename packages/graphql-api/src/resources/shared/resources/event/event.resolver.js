@@ -68,8 +68,20 @@ export default {
     },
     event: (parent, { eventID, datasetKey }, { dataSources }) =>
       dataSources.eventAPI.getEventByKey({ eventID, datasetKey }),
-    occurrences: (parent, { eventID, datasetKey, locationID, month, year, size, from }, { dataSources }) => {
-      return dataSources.eventAPI.searchEventOccurrences({ eventID, datasetKey, locationID, month, year, size, from });
+    occurrences: (
+      parent,
+      { eventID, datasetKey, locationID, month, year, size, from },
+      { dataSources },
+    ) => {
+      return dataSources.eventAPI.searchEventOccurrences({
+        eventID,
+        datasetKey,
+        locationID,
+        month,
+        year,
+        size,
+        from,
+      });
     },
     location: (parent, { locationID }, { dataSources }) =>
       dataSources.eventAPI.getLocation({ locationID }),
@@ -207,7 +219,7 @@ export default {
             }),
           ),
         ),
-    extensions: ({ }) => ({}),
+    extensions: ({}) => ({}),
   },
   EventFacetResult_dataset: {
     datasetTitle: ({ key }, args, { dataSources }) => {
@@ -237,7 +249,9 @@ export default {
           },
         })
         .then(({ aggregations }) =>
-          aggregations.extensions_facet.buckets.map(({ key: facetKey }) => facetKey),
+          aggregations.extensions_facet.buckets.map(
+            ({ key: facetKey }) => facetKey,
+          ),
         );
     },
     events: facetEventSearch,
@@ -254,5 +268,4 @@ export default {
   EventTemporalResult_string: {
     events: temporalEventSearch,
   },
-
 };

@@ -47,9 +47,14 @@ export function registerSuggestDatasetForm(router: Router) {
         title: req.body.title,
         body: createMarkdown(req.body),
       });
-      res.status(200).json({ message: 'From submitted succesfully', link: issue?.html_url });
+      res
+        .status(200)
+        .json({ message: 'From submitted succesfully', link: issue?.html_url });
     } catch (error) {
-      logger.error({ message: 'Failed to submit "suggest-dataset" form', error });
+      logger.error({
+        message: 'Failed to submit "suggest-dataset" form',
+        error,
+      });
       res.status(200).json({ message: 'From submitted succesfully' });
     }
   });

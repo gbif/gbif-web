@@ -12,12 +12,12 @@ function wktToGeoJson(wktString) {
   try {
     var geojson = wkt.wktToGeoJSON(wktString);
     return geojson;
-  } catch(err) {
+  } catch (err) {
     throw new Error('Invalid WKT');
   }
 }
 
 module.exports = {
   wktToGeoJson,
-  wktPolygonToCoordinates
-}
+  wktPolygonToCoordinates,
+};

@@ -1,8 +1,12 @@
 import path from 'node:path';
 import fs from 'node:fs/promises';
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from 'express';
 
-export default async function graphqlExplorer(req: Request, res: Response, next: NextFunction) {
+export default async function graphqlExplorer(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   // Skip if the request is not accepting html
   if (!req.headers.accept?.includes('text/html')) return next();
 

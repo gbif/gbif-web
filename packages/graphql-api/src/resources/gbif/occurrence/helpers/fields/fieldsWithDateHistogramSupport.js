@@ -1,3 +1,1 @@
-export default [
-  'eventDate'
-];
+export default ['eventDate'];

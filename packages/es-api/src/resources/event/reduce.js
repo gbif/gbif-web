@@ -13,17 +13,17 @@ function reduce(item) {
 
   // Additional event verbatim fields
   const eventVerbatim = removeUndefined({
-    eventRemarks: source.verbatim.core['http://rs.tdwg.org/dwc/terms/eventRemarks']
+    eventRemarks: source.verbatim.core['http://rs.tdwg.org/dwc/terms/eventRemarks'],
   });
 
   return removeUndefined({
     ...source.event,
     ...source.metadata,
     ...source.derivedMetadata,
-    ...eventVerbatim
+    ...eventVerbatim,
   });
 }
 
 module.exports = {
-  reduce
-}
+  reduce,
+};

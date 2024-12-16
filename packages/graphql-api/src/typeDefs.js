@@ -51,13 +51,11 @@ async function getSchema() {
 
   // Map each organisation string to an aggregate array containing all of its typeDefs
   const organization = config.organization;
-  const orgTypeDefs = Object.keys(resources[organization]).map(resource => get(resources, `${organization}.${resource}.typeDef`));
+  const orgTypeDefs = Object.keys(resources[organization]).map((resource) =>
+    get(resources, `${organization}.${resource}.typeDef`),
+  );
 
-  const typeDefs = [
-    rootQuery,
-    inputTypeDef,
-    ...orgTypeDefs
-  ].flat();
+  const typeDefs = [rootQuery, inputTypeDef, ...orgTypeDefs].flat();
 
   return typeDefs;
 }

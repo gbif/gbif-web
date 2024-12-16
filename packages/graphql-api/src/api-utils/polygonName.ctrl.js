@@ -20,16 +20,21 @@ router.get('/polygon-name', async (req, res, next) => {
   if (!wkt) return res.status(400).json({ error: 'WKT parameter is required' });
   try {
     const { list, area } = await getPolygonName(wkt);
-    const title = uniq(list.map(item => item.title)).join(', ');
+    const title = uniq(list.map((item) => item.title)).join(', ');
     // set cache control to 1 day
     res.set('Cache-Control', 'public, max-age=86400');
     return res.json({
       title,
-      area: area
+      area: area,
     });
   } catch (error) {
     console.error('Error in polygon-name:', error.message);
-    return res.status(500).json({ error: 'Unable to name polygon. The most likely explanation is that it is an invalid WKT.' });
+    return res
+      .status(500)
+      .json({
+        error:
+          'Unable to name polygon. The most likely explanation is that it is an invalid WKT.',
+      });
   }
 });
 
@@ -75,7 +80,6 @@ async function getPolygonName(wkt) {
     gridPoints = getGridPoints(boundingBox, 10);
   }
 
-
   // Step 4: Perform Reverse Geocoding for Each Grid Point
   const metadataList = [];
 
@@ -94,8 +98,8 @@ async function getPolygonName(wkt) {
 
   return {
     area: size,
-    list: sortedMetadata
-  }
+    list: sortedMetadata,
+  };
 }
 
 // Function to sort metadata by frequency
@@ -116,10 +120,10 @@ function sortMetadataByFrequency(metadataList) {
         metadata.title = metadata.title + ' (Marine Regions)';
       }
       return { title: metadata.title, frequency: count };
-    }).sort((a, b) => b.frequency - a.frequency);
+    })
+    .sort((a, b) => b.frequency - a.frequency);
   return sortedMetadata;
 }
-
 
 // Function to perform reverse geocoding using GBIF API
 async function reverseGeocodeGetMetadata(lat, lon, uncertaintyDegrees = 0) {
@@ -128,9 +132,9 @@ async function reverseGeocodeGetMetadata(lat, lon, uncertaintyDegrees = 0) {
   try {
     const response = await axios.get(apiUrl);
     const metadata = response.data
-      .filter(item => item.distance <= uncertaintyDegrees)
-      .filter(item => item.source !== 'https://www.marineregions.org/')// the problem is that there is always a result, even for inland areas
-      .filter(item => item.type !== 'Continent')// but i guess we should just translate continent and country
+      .filter((item) => item.distance <= uncertaintyDegrees)
+      .filter((item) => item.source !== 'https://www.marineregions.org/') // the problem is that there is always a result, even for inland areas
+      .filter((item) => item.type !== 'Continent'); // but i guess we should just translate continent and country
 
     return metadata;
   } catch (error) {

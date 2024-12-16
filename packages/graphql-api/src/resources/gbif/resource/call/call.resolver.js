@@ -1,4 +1,4 @@
-import { getHtml, excerpt } from "#/helpers/utils";
+import { getHtml, excerpt } from '#/helpers/utils';
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -10,11 +10,12 @@ import { getHtml, excerpt } from "#/helpers/utils";
 export default {
   Query: {
     call: (_, { id }, { dataSources, locale, preview }) =>
-      dataSources.resourceAPI.getEntryById({ id, preview, locale })
+      dataSources.resourceAPI.getEntryById({ id, preview, locale }),
   },
   Call: {
     title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
-    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
+    body: (src, _, { locale }) =>
+      getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
     excerpt: (src, _, { locale }) => excerpt(src, { locale }),
-  }
-}
+  },
+};

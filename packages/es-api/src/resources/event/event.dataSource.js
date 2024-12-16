@@ -12,10 +12,11 @@ const searchIndex = env.event.index || 'event';
 const isHttpsEndpoint = env.event.hosts[0].startsWith('https');
 const AgentType = isHttpsEndpoint ? Agent.HttpsAgent : Agent;
 
-const agent = () => new AgentType({
-  maxSockets: 1000, // Default = Infinity
-  keepAlive: true
-});
+const agent = () =>
+  new AgentType({
+    maxSockets: 1000, // Default = Infinity
+    keepAlive: true,
+  });
 
 const client = new Client({
   nodes: env.event.hosts,
@@ -24,20 +25,24 @@ const client = new Client({
   agent,
   auth: {
     username: env.event.username,
-    password: env.event.password
-  }
+    password: env.event.password,
+  },
 });
 
 async function query({ query, aggs, size = 20, from = 0, metrics, randomSeed, randomize, req }) {
   if (parseInt(from) + parseInt(size) > env.event.maxResultWindow) {
-    throw new ResponseError(400, 'BAD_REQUEST', `'from' + 'size' must be ${env.event.maxResultWindow} or less`);
+    throw new ResponseError(
+      400,
+      'BAD_REQUEST',
+      `'from' + 'size' must be ${env.event.maxResultWindow} or less`,
+    );
   }
   let filter = [
     {
-      'term': {
-        'type': 'event'
-      }
-    }
+      term: {
+        type: 'event',
+      },
+    },
   ];
   if (query) filter.push(query);
   const esQuery = {
@@ -51,11 +56,11 @@ async function query({ query, aggs, size = 20, from = 0, metrics, randomSeed, ra
     from,
     query: {
       bool: {
-        filter
-      }
+        filter,
+      },
     },
-    aggs
-  }
+    aggs,
+  };
 
   if (randomize) {
     delete esQuery.sort;
@@ -65,75 +70,75 @@ async function query({ query, aggs, size = 20, from = 0, metrics, randomSeed, ra
           functions: [
             {
               random_score: {
-                seed: randomSeed || Math.floor(Math.random * 100000)
-              }
-            }
+                seed: randomSeed || Math.floor(Math.random * 100000),
+              },
+            },
           ],
-          boost_mode: 'replace'
-        }
-      }
+          boost_mode: 'replace',
+        },
+      },
     ];
   }
 
   // console.log(JSON.stringify(esQuery, null, 2));
   let response = await search({ client, index: searchIndex, query: esQuery, req });
   let body = response.body;
-  body.hits.hits = body.hits.hits.map(n => reduce(n));
+  body.hits.hits = body.hits.hits.map((n) => reduce(n));
   return {
     esBody: esQuery,
-    result: queryReducer({ body, size, from, metrics })
+    result: queryReducer({ body, size, from, metrics }),
   };
 }
 
 async function suggest({ field, text = '', size = 8, req }) {
   const esQuery = {
-    'suggest': {
-      'suggestions': {
-        'prefix': text,
-        'completion': {
-          'field': field,
-          'size': size,
-          'skip_duplicates': true
-        }
-      }
-    }
-  }
+    suggest: {
+      suggestions: {
+        prefix: text,
+        completion: {
+          field: field,
+          size: size,
+          skip_duplicates: true,
+        },
+      },
+    },
+  };
   let response = await search({ client, index: searchIndex, query: esQuery, req });
   let body = response.body;
-  const suggestions = body.suggest.suggestions[0].options.map(n => n.text);
+  const suggestions = body.suggest.suggestions[0].options.map((n) => n.text);
   return suggestions;
 }
 
 async function byKey({ qualifier: datasetKey, key, req }) {
   const query = {
-    'size': 1,
-    'query': {
-      'bool': {
-        'filter': [
+    size: 1,
+    query: {
+      bool: {
+        filter: [
           {
-            'term': {
-              'type': 'event'
-            }
+            term: {
+              type: 'event',
+            },
           },
           {
-            'bool': {
-              'filter': [
+            bool: {
+              filter: [
                 {
-                  'term': {
-                    'metadata.datasetKey': datasetKey
-                  }
+                  term: {
+                    'metadata.datasetKey': datasetKey,
+                  },
                 },
                 {
-                  'term': {
-                    'event.eventID.keyword': key
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
+                  term: {
+                    'event.eventID.keyword': key,
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
   };
   let response = await search({ client, index: searchIndex, query, req });
   let body = response.body;
@@ -150,61 +155,61 @@ async function byKey({ qualifier: datasetKey, key, req }) {
 
 async function scientificNameSuggest({ q, req } = {}) {
   const query = {
-    "size": 0,
-    "from": 0,
-    "query": {
-      "nested": {
-        "path": "occurrence.taxonomy",
-        "query": {
-          "bool": {
-            "filter": [
+    size: 0,
+    from: 0,
+    query: {
+      nested: {
+        path: 'occurrence.taxonomy',
+        query: {
+          bool: {
+            filter: [
               {
-                "wildcard": {
-                  "occurrence.taxonomy.name": {
-                    "value": `${q?.toLowerCase()}*`
-                  }
-                }
-              }
-            ]
-          }
-        }
-      }
-    },
-    "aggs": {
-      "taxonomy": {
-        "nested": {
-          "path": "occurrence.taxonomy"
+                wildcard: {
+                  'occurrence.taxonomy.name': {
+                    value: `${q?.toLowerCase()}*`,
+                  },
+                },
+              },
+            ],
+          },
         },
-        "aggs": {
-          "suggestions": {
-            "terms": {
-              "field": "occurrence.taxonomy.name",
-              "include": `${q?.toLowerCase()}.*`
+      },
+    },
+    aggs: {
+      taxonomy: {
+        nested: {
+          path: 'occurrence.taxonomy',
+        },
+        aggs: {
+          suggestions: {
+            terms: {
+              field: 'occurrence.taxonomy.name',
+              include: `${q?.toLowerCase()}.*`,
             },
-            "aggs": {
-              "exampleDocument": {
-                "top_hits": {
-                  "size": 1
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+            aggs: {
+              exampleDocument: {
+                top_hits: {
+                  size: 1,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
   };
 
   let response = await search({ client, index: searchIndex, query, req });
   let body = response.body;
 
   const buckets = body.aggregations.taxonomy.suggestions.buckets;
-  const results = buckets.map(x => {
+  const results = buckets.map((x) => {
     const example = x.exampleDocument.hits.hits[0]._source;
     return {
       scientificName: example.name,
-      key: example.taxonKey
-    }
-  })
+      key: example.taxonKey,
+    };
+  });
   return results;
 }
 
@@ -212,5 +217,5 @@ module.exports = {
   query,
   byKey,
   suggest,
-  scientificNameSuggest
+  scientificNameSuggest,
 };

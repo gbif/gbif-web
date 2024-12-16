@@ -45,44 +45,48 @@ const getFacet =
     });
   };
 
-const getMultiFacet = ({ _predicate, size, from }, {}, { searchApi, fields } ) => {
-      // generate the event search facet query, by inheriting from the parent query, and map limit/offset to facet equivalents
-      const query = {
-        predicate: _predicate,
-        size: 0,
-        metrics: {
-          multifacet: {
-            type: 'multifacet',
-            keys: fields,
-            size: size,
-            from: from
-          },
-        },
+const getMultiFacet = (
+  { _predicate, size, from },
+  {},
+  { searchApi, fields },
+) => {
+  // generate the event search facet query, by inheriting from the parent query, and map limit/offset to facet equivalents
+  const query = {
+    predicate: _predicate,
+    size: 0,
+    metrics: {
+      multifacet: {
+        type: 'multifacet',
+        keys: fields,
+        size: size,
+        from: from,
+      },
+    },
+  };
+  // query the API, and throw away anything but the facet counts
+  return searchApi({ query }).then((data) => {
+    return data.aggregations.multifacet.buckets.map((bucket) => {
+      const predicate = {
+        type: 'equals',
+        key: fields[0],
+        value: bucket.key[0],
       };
-      // query the API, and throw away anything but the facet counts
-      return searchApi({ query }).then( (data) => {
-        return data.aggregations.multifacet.buckets.map((bucket) => {
-          const predicate = {
-            type: 'equals',
-            key: fields[0],
-            value: bucket.key[0],
-          };
-          const joinedPredicate = data.meta.predicate
-            ? {
-              type: 'and',
-              predicates: [data.meta.predicate, predicate],
-            }
-            : predicate;
-          return {
-            keys: bucket.key,
-            count: bucket.doc_count,
-            // create a new predicate that joins the base with the facet. This enables us to dig deeper for multidimensional metrics
-            _predicate: joinedPredicate,
-            _parentPredicate: data.meta.predicate,
-          };
-        });
-      });
-    };
+      const joinedPredicate = data.meta.predicate
+        ? {
+            type: 'and',
+            predicates: [data.meta.predicate, predicate],
+          }
+        : predicate;
+      return {
+        keys: bucket.key,
+        count: bucket.doc_count,
+        // create a new predicate that joins the base with the facet. This enables us to dig deeper for multidimensional metrics
+        _predicate: joinedPredicate,
+        _parentPredicate: data.meta.predicate,
+      };
+    });
+  });
+};
 
 const getOccurrenceFacet =
   (field) =>

@@ -4,9 +4,9 @@
  */
 const _ = require('lodash');
 const commandLineArgs = require('command-line-args');
-const YAML = require('yaml')
+const YAML = require('yaml');
 const fs = require('fs');
-const file = fs.readFileSync(__dirname + '/../.env', 'utf8')
+const file = fs.readFileSync(__dirname + '/../.env', 'utf8');
 const env = YAML.parse(file);
 
 const cliOptions = [
@@ -15,10 +15,6 @@ const cliOptions = [
 ];
 const options = commandLineArgs(cliOptions);
 
-const config = _.merge(
-  { environment: 'dev' },
-  env,
-  options,
-);
+const config = _.merge({ environment: 'dev' }, env, options);
 
 module.exports = config;

@@ -14,7 +14,10 @@ export type CreateIssueArgs = {
 export async function createGitHubIssue(args: CreateIssueArgs) {
   try {
     if (!isGithubEnabled()) {
-      logger.warn({ message: 'GitHub integration is disabled. Skipping creating issue.', args })
+      logger.warn({
+        message: 'GitHub integration is disabled. Skipping creating issue.',
+        args,
+      });
       return;
     }
 
@@ -44,7 +47,9 @@ async function useOctokit(): Promise<Octokit> {
   if (octokit) return octokit;
 
   // @octokit/app is a ESM only package. This is a workaround to use it in a CommonJS project
-  const { App } = await dynamicImport<typeof import('@octokit/app')>('@octokit/app');
+  const { App } = await dynamicImport<typeof import('@octokit/app')>(
+    '@octokit/app',
+  );
 
   // Extract the necessary information from the config file
   const INSTALLATION_ID = parseInt(config.github.installationId);

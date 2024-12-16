@@ -4,4 +4,4 @@ const errorLoggingMiddleware = require('./errorLoggingMiddleware');
 module.exports = {
   loggingMiddleware,
   errorLoggingMiddleware,
-}
+};

@@ -14,7 +14,11 @@ import {
   dateHistogramFields,
 } from './helpers/fields';
 
-const getSourceSearch = (dataSources) => args => dataSources.literatureAPI.searchLiterature.call(dataSources.literatureAPI, args);
+const getSourceSearch = (dataSources) => (args) =>
+  dataSources.literatureAPI.searchLiterature.call(
+    dataSources.literatureAPI,
+    args,
+  );
 
 // there are many fields that support facets. This function creates the resolvers for all of them
 const facetReducer = (dictionary, facetName) => {
@@ -42,7 +46,10 @@ const autoDateHistogramReducer = (dictionary, fieldName) => {
   dictionary[fieldName] = getAutoDateHistogram(fieldName, getSourceSearch);
   return dictionary;
 };
-const LiteratureAutoDateHistogram = dateHistogramFields.reduce(autoDateHistogramReducer, {});
+const LiteratureAutoDateHistogram = dateHistogramFields.reduce(
+  autoDateHistogramReducer,
+  {},
+);
 
 // there are also many fields that support stats. Generate them all.
 const statsReducer = (dictionary, statsName) => {
@@ -102,7 +109,7 @@ export default {
   LiteratureAutoDateHistogram,
   LiteratureStats,
   Literature: {
-    excerpt: src => excerpt({ body: src.abstract }),
+    excerpt: (src) => excerpt({ body: src.abstract }),
     // someField: ({ fieldWithKey: key }, args, { dataSources }) => {
     //   if (typeof key === 'undefined') return null;
     //   dataSources.someAPI.getSomethingByKey({ key })

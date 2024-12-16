@@ -1,5 +1,5 @@
-import { getHtml, excerpt } from "#/helpers/utils";
-import { untrustedHeaderOptions } from "#/helpers/sanitize-html";
+import { getHtml, excerpt } from '#/helpers/utils';
+import { untrustedHeaderOptions } from '#/helpers/sanitize-html';
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -10,13 +10,22 @@ import { untrustedHeaderOptions } from "#/helpers/sanitize-html";
  */
 export default {
   Query: {
-    help: (_, {locale: localeOverwrite, ...params}, { dataSources, locale }) =>
+    help: (
+      _,
+      { locale: localeOverwrite, ...params },
+      { dataSources, locale },
+    ) =>
       // dataSources.resourceAPI.getEntryById({ id, preview, locale })
-      dataSources.resourceSearchAPI.getFirstEntryByQuery({...params, contentType: 'help'}, localeOverwrite ?? locale)
+      dataSources.resourceSearchAPI.getFirstEntryByQuery(
+        { ...params, contentType: 'help' },
+        localeOverwrite ?? locale,
+      ),
   },
   Help: {
-    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale, ...untrustedHeaderOptions }),
-    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
+    title: (src, _, { locale }) =>
+      getHtml(src.title, { inline: true, locale, ...untrustedHeaderOptions }),
+    body: (src, _, { locale }) =>
+      getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
     excerpt: (src, _, { locale }) => excerpt(src, { locale }),
-  }
-}
+  },
+};

@@ -1,12 +1,12 @@
 const taxonDetails =
   (resource) =>
-    (parent, query, { dataSources }) => {
-      return dataSources.taxonAPI.getTaxonDetails({
-        key: parent.key,
-        resource,
-        query,
-      });
-    };
+  (parent, query, { dataSources }) => {
+    return dataSources.taxonAPI.getTaxonDetails({
+      key: parent.key,
+      resource,
+      query,
+    });
+  };
 
 const optionalTaxonDetails = (resource) => {
   const details = taxonDetails(resource);
@@ -40,37 +40,47 @@ export default {
     distributions: taxonDetails('distributions'),
     references: taxonDetails('references'),
     speciesProfiles: taxonDetails('speciesProfiles'),
-    vernacularNames: (parent, { limit = 10, offset = 0, language }, { dataSources }) => {
+    vernacularNames: (
+      parent,
+      { limit = 10, offset = 0, language },
+      { dataSources },
+    ) => {
       // if the language parameter is present, then we need to fetch all the data and then manually filter it for the language, and the apply limit and offset
       let newQuery = { limit, offset, language };
       if (language) {
         newQuery.limit = 1000;
         newQuery.offset = 0;
       }
-      return dataSources.taxonAPI.getTaxonDetails({
-        key: parent.key,
-        resource: 'vernacularNames',
-        query: newQuery,
-      }).then((response) => {
-        if (language) {
-          const filtered = response.results.filter((item) => item.language === language);
-          // count how frequent each vernacularName is used
-          const counts = filtered.reduce((acc, item) => {
-            acc[item.vernacularName] = (acc[item.vernacularName] || 0) + 1;
-            return acc;
-          }, {});
-          // sort the list by the frequency of the vernacularName, this is simply to avoid the odd outliers that occasionally appear since it is a list stiched together from multiple sources
-          filtered.sort((a, b) => counts[b.vernacularName] - counts[a.vernacularName]);
+      return dataSources.taxonAPI
+        .getTaxonDetails({
+          key: parent.key,
+          resource: 'vernacularNames',
+          query: newQuery,
+        })
+        .then((response) => {
+          if (language) {
+            const filtered = response.results.filter(
+              (item) => item.language === language,
+            );
+            // count how frequent each vernacularName is used
+            const counts = filtered.reduce((acc, item) => {
+              acc[item.vernacularName] = (acc[item.vernacularName] || 0) + 1;
+              return acc;
+            }, {});
+            // sort the list by the frequency of the vernacularName, this is simply to avoid the odd outliers that occasionally appear since it is a list stiched together from multiple sources
+            filtered.sort(
+              (a, b) => counts[b.vernacularName] - counts[a.vernacularName],
+            );
 
-          const endOfRecords = offset + limit > filtered.length;
-          return {
-            ...response,
-            endOfRecords,
-            results: filtered.slice(offset, offset + limit),
-          };
-        }
-        return response;
-      });
+            const endOfRecords = offset + limit > filtered.length;
+            return {
+              ...response,
+              endOfRecords,
+              results: filtered.slice(offset, offset + limit),
+            };
+          }
+          return response;
+        });
     },
     typeSpecimens: taxonDetails('typeSpecimens'),
     iucnRedListCategory: taxonDetails('iucnRedListCategory'),

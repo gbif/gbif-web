@@ -1,4 +1,1 @@
-export default [
-  'decimalLongitude',
-  'year',
-];
+export default ['decimalLongitude', 'year'];

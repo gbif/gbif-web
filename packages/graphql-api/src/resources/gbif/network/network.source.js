@@ -35,7 +35,6 @@ class NetworkAPI extends RESTDataSource {
       stringify(query, { indices: false }),
     );
   }
-
 }
 
 export default NetworkAPI;

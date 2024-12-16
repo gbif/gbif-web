@@ -2,9 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import compression from 'compression';
 import { ApolloServer } from 'apollo-server-express';
-import {
-  ApolloServerPluginCacheControl,
-} from 'apollo-server-core';
+import { ApolloServerPluginCacheControl } from 'apollo-server-core';
 import { get } from 'lodash';
 import bodyParser from 'body-parser';
 // recommended in the apollo docs https://github.com/stems/graphql-depth-limit
@@ -62,14 +60,15 @@ async function initializeServer() {
     },
     typeDefs,
     resolvers,
-    dataSources: () => Object.keys(api).reduce(
-      (prev, cur) => ({
-        ...prev,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        [cur]: new (api as { [key: string]: any })[cur](config),
-      }),
-      {},
-    ), // Every request should have its own instance, see https://github.com/apollographql/apollo-server/issues/1562
+    dataSources: () =>
+      Object.keys(api).reduce(
+        (prev, cur) => ({
+          ...prev,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          [cur]: new (api as { [key: string]: any })[cur](config),
+        }),
+        {},
+      ), // Every request should have its own instance, see https://github.com/apollographql/apollo-server/issues/1562
     validationRules: [depthLimit(14)], // this likely have to be much higher than 6, but let us increase it as needed and not before
     plugins: [
       ApolloServerPluginCacheControl({
@@ -88,7 +87,7 @@ async function initializeServer() {
     }),
   );
   app.use(express.static('public'));
-  app.use(bodyParser.json({limit: '1mb'}));
+  app.use(bodyParser.json({ limit: '1mb' }));
 
   // extract query and variables from store if a hash is provided instead of a query or variable
   // app.use(hashMiddleware);

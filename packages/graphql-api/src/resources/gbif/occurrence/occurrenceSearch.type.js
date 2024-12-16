@@ -28,7 +28,12 @@ const typeDef = gql`
     """
     The occurrences that match the filter
     """
-    documents(size: Int, from: Int, sortBy: OccurrenceSortBy, sortOrder: SortOrder): OccurrenceDocuments!
+    documents(
+      size: Int
+      from: Int
+      sortBy: OccurrenceSortBy
+      sortOrder: SortOrder
+    ): OccurrenceDocuments!
     """
     Get number of occurrences per distinct values in a field. E.g. how many occurrences per year.
     """
@@ -125,7 +130,10 @@ const typeDef = gql`
   }
 
   type OccurrenceAutoDateHistogram {
-    eventDate(buckets: Float, minimum_interval: String): AutoDateHistogramResult!
+    eventDate(
+      buckets: Float
+      minimum_interval: String
+    ): AutoDateHistogramResult!
   }
 
   type AutoDateHistogramResult {
@@ -164,7 +172,10 @@ const typeDef = gql`
     collectionCode(size: Int, from: Int): [OccurrenceFacetResult_string]
     continent(size: Int, from: Int): [OccurrenceFacetResult_string]
     countryCode(size: Int, from: Int): [OccurrenceFacetResult_string]
-    datasetPublishingCountry(size: Int, from: Int): [OccurrenceFacetResult_string]
+    datasetPublishingCountry(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_string]
     dwcaExtension(size: Int, from: Int): [OccurrenceFacetResult_string]
     eventId(size: Int, from: Int): [OccurrenceFacetResult_string]
     higherGeography(size: Int, from: Int): [OccurrenceFacetResult_string]
@@ -196,25 +207,67 @@ const typeDef = gql`
     waterBody(size: Int, from: Int): [OccurrenceFacetResult_string]
     agentIds_type(size: Int, from: Int): [OccurrenceFacetResult_string]
     agentIds_value(size: Int, from: Int): [OccurrenceFacetResult_string]
-    gbifClassification_classificationPath(size: Int, from: Int): [OccurrenceFacetResult_string]
+    gbifClassification_classificationPath(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_string]
     verbatimScientificName(size: Int, from: Int): [OccurrenceFacetResult_string]
-    gbifClassification_acceptedUsage_rank(size: Int, from: Int): [OccurrenceFacetResult_string]
-    gbifClassification_classification_rank(size: Int, from: Int): [OccurrenceFacetResult_string]
-    gbifClassification_diagnostics_matchType(size: Int, from: Int): [OccurrenceFacetResult_string]
-    gbifClassification_diagnostics_status(size: Int, from: Int): [OccurrenceFacetResult_string]
-    gbifClassification_usage_name(size: Int, from: Int): [OccurrenceFacetResult_string]
-    gbifClassification_usage_rank(size: Int, from: Int): [OccurrenceFacetResult_string]
-    gbifClassification_usageParsedName_notho(size: Int, from: Int): [OccurrenceFacetResult_string]
-    gbifClassification_usageParsedName_rank(size: Int, from: Int): [OccurrenceFacetResult_string]
-    gbifClassification_usageParsedName_state(size: Int, from: Int): [OccurrenceFacetResult_string]
-    gbifClassification_usageParsedName_type(size: Int, from: Int): [OccurrenceFacetResult_string]
-    gbifClassification_usageParsedName_basionymAuthorship_year(size: Int, from: Int): [OccurrenceFacetResult_string]
-    gbifClassification_usageParsedName_combinationAuthorship_year(size: Int, from: Int): [OccurrenceFacetResult_string]
+    gbifClassification_acceptedUsage_rank(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_string]
+    gbifClassification_classification_rank(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_string]
+    gbifClassification_diagnostics_matchType(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_string]
+    gbifClassification_diagnostics_status(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_string]
+    gbifClassification_usage_name(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_string]
+    gbifClassification_usage_rank(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_string]
+    gbifClassification_usageParsedName_notho(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_string]
+    gbifClassification_usageParsedName_rank(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_string]
+    gbifClassification_usageParsedName_state(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_string]
+    gbifClassification_usageParsedName_type(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_string]
+    gbifClassification_usageParsedName_basionymAuthorship_year(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_string]
+    gbifClassification_usageParsedName_combinationAuthorship_year(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_string]
     iucnRedListCategory(size: Int, from: Int): [OccurrenceFacetResult_string]
     occurrenceStatus(size: Int): [OccurrenceFacetResult_string]
 
     coordinatePrecision(size: Int, from: Int): [OccurrenceFacetResult_float]
-    coordinateUncertaintyInMeters(size: Int, from: Int): [OccurrenceFacetResult_float]
+    coordinateUncertaintyInMeters(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_float]
     crawlId(size: Int, from: Int): [OccurrenceFacetResult_float]
     day(size: Int, from: Int): [OccurrenceFacetResult_float]
     decimalLatitude(size: Int, from: Int): [OccurrenceFacetResult_float]
@@ -226,14 +279,29 @@ const typeDef = gql`
     endDayOfYear(size: Int, from: Int): [OccurrenceFacetResult_float]
     individualCount(size: Int, from: Int): [OccurrenceFacetResult_float]
     maximumDepthInMeters(size: Int, from: Int): [OccurrenceFacetResult_float]
-    maximumDistanceAboveSurfaceInMeters(size: Int, from: Int): [OccurrenceFacetResult_float]
-    maximumElevationInMeters(size: Int, from: Int): [OccurrenceFacetResult_float]
+    maximumDistanceAboveSurfaceInMeters(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_float]
+    maximumElevationInMeters(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_float]
     minimumDepthInMeters(size: Int, from: Int): [OccurrenceFacetResult_float]
-    minimumDistanceAboveSurfaceInMeters(size: Int, from: Int): [OccurrenceFacetResult_float]
-    minimumElevationInMeters(size: Int, from: Int): [OccurrenceFacetResult_float]
+    minimumDistanceAboveSurfaceInMeters(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_float]
+    minimumElevationInMeters(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_float]
     month(size: Int, from: Int): [OccurrenceFacetResult_float]
     organismQuantity(size: Int, from: Int): [OccurrenceFacetResult_float]
-    relativeOrganismQuantity(size: Int, from: Int): [OccurrenceFacetResult_float]
+    relativeOrganismQuantity(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_float]
     sampleSizeValue(size: Int, from: Int): [OccurrenceFacetResult_float]
     startDayOfYear(size: Int, from: Int): [OccurrenceFacetResult_float]
     year(size: Int, from: Int): [OccurrenceFacetResult_float]
@@ -241,18 +309,54 @@ const typeDef = gql`
     hasCoordinate(size: Int): [OccurrenceFacetResult_boolean]
     hasGeospatialIssue(size: Int): [OccurrenceFacetResult_boolean]
     repatriated(size: Int): [OccurrenceFacetResult_boolean]
-    gbifClassification_synonym(size: Int, from: Int): [OccurrenceFacetResult_boolean]
-    gbifClassification_classification_synonym(size: Int, from: Int): [OccurrenceFacetResult_boolean]
-    gbifClassification_usageParsedName_abbreviated(size: Int, from: Int): [OccurrenceFacetResult_boolean]
-    gbifClassification_usageParsedName_autonym(size: Int, from: Int): [OccurrenceFacetResult_boolean]
-    gbifClassification_usageParsedName_binomial(size: Int, from: Int): [OccurrenceFacetResult_boolean]
-    gbifClassification_usageParsedName_candidatus(size: Int, from: Int): [OccurrenceFacetResult_boolean]
-    gbifClassification_usageParsedName_doubtful(size: Int, from: Int): [OccurrenceFacetResult_boolean]
-    gbifClassification_usageParsedName_incomplete(size: Int, from: Int): [OccurrenceFacetResult_boolean]
-    gbifClassification_usageParsedName_indetermined(size: Int, from: Int): [OccurrenceFacetResult_boolean]
-    gbifClassification_usageParsedName_trinomial(size: Int, from: Int): [OccurrenceFacetResult_boolean]
-    gbifClassification_usageParsedName_basionymAuthorship_empty(size: Int, from: Int): [OccurrenceFacetResult_boolean]
-    gbifClassification_usageParsedName_combinationAuthorship_empty(size: Int, from: Int): [OccurrenceFacetResult_boolean]
+    gbifClassification_synonym(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_boolean]
+    gbifClassification_classification_synonym(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_boolean]
+    gbifClassification_usageParsedName_abbreviated(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_boolean]
+    gbifClassification_usageParsedName_autonym(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_boolean]
+    gbifClassification_usageParsedName_binomial(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_boolean]
+    gbifClassification_usageParsedName_candidatus(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_boolean]
+    gbifClassification_usageParsedName_doubtful(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_boolean]
+    gbifClassification_usageParsedName_incomplete(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_boolean]
+    gbifClassification_usageParsedName_indetermined(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_boolean]
+    gbifClassification_usageParsedName_trinomial(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_boolean]
+    gbifClassification_usageParsedName_basionymAuthorship_empty(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_boolean]
+    gbifClassification_usageParsedName_combinationAuthorship_empty(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_boolean]
 
     isInCluster(size: Int, from: Int): [OccurrenceFacetResult_boolean]
     isSequenced(size: Int, from: Int): [OccurrenceFacetResult_boolean]
@@ -262,29 +366,55 @@ const typeDef = gql`
     installationKey(size: Int, from: Int): [OccurrenceFacetResult_installation]
     networkKey(size: Int, from: Int): [OccurrenceFacetResult_network]
     publishingOrg(size: Int, from: Int): [OccurrenceFacetResult_organization]
-    hostingOrganizationKey(size: Int, from: Int): [OccurrenceFacetResult_organization]
+    hostingOrganizationKey(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_organization]
 
-    establishmentMeans(size: Int, from: Int): [OccurrenceFacetResult_establishmentMeans]
+    establishmentMeans(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_establishmentMeans]
 
     gadmGid(size: Int, from: Int): [OccurrenceFacetResult_gadm]
 
-    gbifClassification_taxonID(size: Int, from: Int): [OccurrenceFacetResult_string]
+    gbifClassification_taxonID(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_string]
     collectionKey(size: Int, from: Int): [OccurrenceFacetResult_collection]
     institutionKey(size: Int, from: Int): [OccurrenceFacetResult_institution]
-    recordedBy(size: Int, from: Int, include: String): [OccurrenceFacetResult_recordedBy]
-    identifiedBy(size: Int, from: Int, include: String): [OccurrenceFacetResult_identifiedBy]
-    
-    taxonKey(size: Int, from: Int):                              [OccurrenceFacetResult_taxon]
-    classKey(size: Int, from: Int):                              [OccurrenceFacetResult_taxon]
-    familyKey(size: Int, from: Int):                             [OccurrenceFacetResult_taxon]
-    genusKey(size: Int, from: Int):                              [OccurrenceFacetResult_taxon]
-    kingdomKey(size: Int, from: Int):                            [OccurrenceFacetResult_taxon]
-    orderKey(size: Int, from: Int):                              [OccurrenceFacetResult_taxon]
-    phylumKey(size: Int, from: Int):                             [OccurrenceFacetResult_taxon]
-    speciesKey(size: Int, from: Int):                            [OccurrenceFacetResult_taxon]
-    gbifClassification_acceptedUsage_key(size: Int, from: Int):  [OccurrenceFacetResult_taxon]
-    gbifClassification_classification_key(size: Int, from: Int): [OccurrenceFacetResult_taxon]
-    gbifClassification_usage_key(size: Int, from: Int):          [OccurrenceFacetResult_taxon]
+    recordedBy(
+      size: Int
+      from: Int
+      include: String
+    ): [OccurrenceFacetResult_recordedBy]
+    identifiedBy(
+      size: Int
+      from: Int
+      include: String
+    ): [OccurrenceFacetResult_identifiedBy]
+
+    taxonKey(size: Int, from: Int): [OccurrenceFacetResult_taxon]
+    classKey(size: Int, from: Int): [OccurrenceFacetResult_taxon]
+    familyKey(size: Int, from: Int): [OccurrenceFacetResult_taxon]
+    genusKey(size: Int, from: Int): [OccurrenceFacetResult_taxon]
+    kingdomKey(size: Int, from: Int): [OccurrenceFacetResult_taxon]
+    orderKey(size: Int, from: Int): [OccurrenceFacetResult_taxon]
+    phylumKey(size: Int, from: Int): [OccurrenceFacetResult_taxon]
+    speciesKey(size: Int, from: Int): [OccurrenceFacetResult_taxon]
+    gbifClassification_acceptedUsage_key(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_taxon]
+    gbifClassification_classification_key(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_taxon]
+    gbifClassification_usage_key(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_taxon]
   }
 
   type OccurrenceFacetResult_float {

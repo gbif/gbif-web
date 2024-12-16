@@ -23,7 +23,7 @@ const typeDef = gql`
 
     created: DateTime
     createdBy: String
-    
+
     modified: DateTime
     modifiedBy: String
   }
