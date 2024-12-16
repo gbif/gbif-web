@@ -120,7 +120,8 @@ export function Registration({ dataset = {}, ...props }) {
               <FormattedMessage id="dataset.registry.hostingStatus" />
             </T>
             <V>
-              <FormattedMessage id={`dataset.registry.${hostingStatus}`} /><HelpLine id="what-is-an-orphan-dataset" icon />
+              <FormattedMessage id={`dataset.registry.${hostingStatus}`} />
+              <HelpLine id="what-is-an-orphan-dataset" icon />
             </V>
           </>
         )}

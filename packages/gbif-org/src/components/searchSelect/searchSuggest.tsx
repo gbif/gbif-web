@@ -72,7 +72,11 @@ export function SearchSuggest<T>({
           <ChevronsUpDown className="g-ml-2 g-h-4 g-w-4 g-shrink-0 g-opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent style={{ width: 'var(--radix-popover-trigger-width)' }} className="g-p-0" align="start">
+      <PopoverContent
+        style={{ width: 'var(--radix-popover-trigger-width)' }}
+        className="g-p-0"
+        align="start"
+      >
         <Command shouldFilter={false}>
           <CommandInput
             value={searchTerm}

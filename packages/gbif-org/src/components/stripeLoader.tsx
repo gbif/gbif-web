@@ -1,7 +1,7 @@
 // export const loading = keyframes
 //   from {
 //     left: -200,
-//     width: 30% 
+//     width: 30%
 //   }
 //   50% {
 //     width: 30%
@@ -20,7 +20,7 @@
 //   }
 // `;
 
-import { cn } from "@/utils/shadcn"
+import { cn } from '@/utils/shadcn';
 import styles from './stripeLoader.module.css';
 
 // const errorStyle = theme => css`
@@ -42,22 +42,33 @@ import styles from './stripeLoader.module.css';
 //   ${error ? errorStyle(theme) : null}
 // `;
 
-export default function StripeLoader({ active, error, className, ...props }: {
-  active?: boolean,
-  error?: boolean,
-  className?: string
+export default function StripeLoader({
+  active,
+  error,
+  className,
+  ...props
+}: {
+  active?: boolean;
+  error?: boolean;
+  className?: string;
 }) {
-  
-  return <div 
-    // className={cn('g-h-px g-w-full g-relative g-overflow-hidden before:g-block before:g-absolute before:content-'' before:left--200 before:w-200 before:h-px before:bg-primary before:animation-loading before:infinite before:linear", className)}
-    className={cn(styles.loader, (active && !error) ? styles.active : '', error ? styles.error : '', className)}
-    // css={css`
-    // height: 1px;
-    // width: 100%;
-    // position: relative;
-    // overflow: hidden;
-    // &:before {
-    //   ${active ? before({ error, theme }) : null}
-    // }`}
+  return (
+    <div
+      // className={cn('g-h-px g-w-full g-relative g-overflow-hidden before:g-block before:g-absolute before:content-'' before:left--200 before:w-200 before:h-px before:bg-primary before:animation-loading before:infinite before:linear", className)}
+      className={cn(
+        styles.loader,
+        active && !error ? styles.active : '',
+        error ? styles.error : '',
+        className
+      )}
+      // css={css`
+      // height: 1px;
+      // width: 100%;
+      // position: relative;
+      // overflow: hidden;
+      // &:before {
+      //   ${active ? before({ error, theme }) : null}
+      // }`}
     ></div>
+  );
 }

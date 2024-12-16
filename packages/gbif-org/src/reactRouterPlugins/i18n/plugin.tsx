@@ -23,7 +23,7 @@ export function applyI18nPlugin(
       console.error('Failed to load translations entry file');
       throw err;
     });
-    
+
   return config.languages.map((localeOption) => {
     const localeLanguage = customMessages[localeOption.code] ?? {};
     return {
@@ -45,7 +45,7 @@ export function applyI18nPlugin(
             console.error('Failed language: ', localeOption.code);
             throw err;
           });
-        return { messages: { ...messages, ...localeLanguage} };
+        return { messages: { ...messages, ...localeLanguage } };
       },
       element: (
         <I18nContextProvider

@@ -1,4 +1,16 @@
-import { BasisOfRecordLabel, ContinentLabel, DwcaExtensionLabel, EndpointTypeLabel, LicenceLabel, MediaTypeLabel, MonthLabel, IucnRedListCategoryLabel, typeStatusLabel, occurrenceIssueLabel, occurrenceStatusLabel } from "@/components/filters/displayNames";
+import {
+  BasisOfRecordLabel,
+  ContinentLabel,
+  DwcaExtensionLabel,
+  EndpointTypeLabel,
+  LicenceLabel,
+  MediaTypeLabel,
+  MonthLabel,
+  IucnRedListCategoryLabel,
+  typeStatusLabel,
+  occurrenceIssueLabel,
+  occurrenceStatusLabel,
+} from '@/components/filters/displayNames';
 import licenseOptions from '@/enums/basic/license.json';
 import basisOfRecordOptions from '@/enums/basic/basisOfRecord.json';
 import mediaTypeOptions from '@/enums/basic/mediaType.json';
@@ -11,7 +23,7 @@ import typeStatusOptions from '@/enums/basic/typeStatus.json';
 import occurrenceIssueOptions from '@/enums/basic/occurrenceIssue.json';
 import occurrenceStatusOptions from '@/enums/basic/occurrenceStatus.json';
 import { HelpText } from '@/components/helpText';
-import { filterConfigTypes, filterEnumConfig } from "@/components/filters/filterTools";
+import { filterConfigTypes, filterEnumConfig } from '@/components/filters/filterTools';
 
 export const licenceConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,

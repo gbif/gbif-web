@@ -336,7 +336,7 @@ function Map({
           </div>
           <MapComponent
             {...mapProps}
-            theme = {config?.theme}
+            theme={config?.theme}
             mapConfig={mapConfiguration.mapConfig}
             latestEvent={latestEvent}
             defaultMapSettings={defaultMapSettings}

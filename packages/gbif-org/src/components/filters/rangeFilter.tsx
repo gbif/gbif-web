@@ -27,9 +27,10 @@ import { AdditionalFilterProps, FacetQuery, filterRangeConfig, getAsQuery } from
 import { useSearchContext } from '@/contexts/search';
 import { AboutButton } from './aboutButton';
 
-type RangeProps = Omit<filterRangeConfig, 'filterType' | 'filterTranslation'> & AdditionalFilterProps & {
-  className?: string;
-};
+type RangeProps = Omit<filterRangeConfig, 'filterType' | 'filterTranslation'> &
+  AdditionalFilterProps & {
+    className?: string;
+  };
 
 export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
   (
@@ -137,9 +138,12 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
           )}
           {options}
         </div>
-        {selected.length === 0 && <div className="g-pointer-events-none g-text-slate-700 g-text-sm g-bg-slate-100 g-p-4 g-border g-left-0 g-right-0 g-mx-2 g-rounded">
-          Enter a range or a single value. E.g. 100,200 or 100. Or use blanks to have open ends like: 100,
-        </div>}
+        {selected.length === 0 && (
+          <div className="g-pointer-events-none g-text-slate-700 g-text-sm g-bg-slate-100 g-p-4 g-border g-left-0 g-right-0 g-mx-2 g-rounded">
+            Enter a range or a single value. E.g. 100,200 or 100. Or use blanks to have open ends
+            like: 100,
+          </div>
+        )}
         <div className="g-flex-auto g-overflow-auto">
           {selected.length > 0 && (
             <div className={cn('g-text-base g-mt-2 g-px-4', className)}>

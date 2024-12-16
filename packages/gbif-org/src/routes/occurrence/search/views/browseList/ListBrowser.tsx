@@ -67,7 +67,7 @@ export default function EntityDrawer() {
     }
   }
 
-  const key = previewKey ? previewKey.split('_')[1] ?? previewKey : undefined;
+  const key = previewKey ? (previewKey.split('_')[1] ?? previewKey) : undefined;
 
   const noList = !orderedList || orderedList.length < 2;
   const isFirst = noList || orderedList[0] === key;

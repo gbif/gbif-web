@@ -24,7 +24,7 @@ export function SimpleTooltip({
   return (
     <Tooltip delayDuration={delayDuration} disableHoverableContent={disableHoverableContent}>
       <TooltipTrigger className="g-pointer-events-auto" tabIndex={-1} asChild={asChild}>
-          {children}
+        {children}
       </TooltipTrigger>
       <TooltipContent className="g-max-w-96 g-pointer-events-none g-z-30" side={side}>
         {i18nKey ? <FormattedMessage id={i18nKey} /> : title}

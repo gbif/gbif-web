@@ -64,7 +64,11 @@ export function CoordinatesPicker({
       return;
     }
 
-    const mercatorCoordinates = transform([coordinates.lon, coordinates.lat], 'EPSG:4326', 'EPSG:3857');
+    const mercatorCoordinates = transform(
+      [coordinates.lon, coordinates.lat],
+      'EPSG:4326',
+      'EPSG:3857'
+    );
 
     const layer = new VectorLayer({
       source: new VectorSource({

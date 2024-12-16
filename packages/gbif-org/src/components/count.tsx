@@ -23,14 +23,13 @@ type Props = CountProps & {
   message?: string;
 };
 
-
 export function Count({ v1Endpoint, params, queueId, property, message }: Props) {
   const { count, loading, error } = useCount({ v1Endpoint, params, queueId, property });
 
   if (loading || typeof count === 'undefined') {
     return (
       <Skeleton>
-        <span className='g-opacity-0'>Loading</span>
+        <span className="g-opacity-0">Loading</span>
       </Skeleton>
     );
   }
@@ -62,7 +61,7 @@ export function useCount({
     })}`;
 
     setLoading(true);
-    
+
     // create a function to start the request. we will put this in the queue afterwards
     const startRequest = () =>
       fetch(endpoint, { signal })

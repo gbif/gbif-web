@@ -38,7 +38,7 @@ const GBIF_REGISTRY_ENDPOINT = 'https://registry.gbif.org';
 const contactThreshold = 5;
 
 // create context to pass data to children
-export const CollectionKeyContext = createContext<{key?: string, contentMetrics?: unknown}>({});
+export const CollectionKeyContext = createContext<{ key?: string; contentMetrics?: unknown }>({});
 
 export function CollectionKey({
   data,
@@ -256,7 +256,9 @@ export function CollectionKey({
         </ArticleTextContainer>
       </PageContainer>
 
-      <CollectionKeyContext.Provider value={{key: data?.collection?.key, contentMetrics: collectionMetrics}}>
+      <CollectionKeyContext.Provider
+        value={{ key: data?.collection?.key, contentMetrics: collectionMetrics }}
+      >
         <Outlet />
       </CollectionKeyContext.Provider>
     </article>

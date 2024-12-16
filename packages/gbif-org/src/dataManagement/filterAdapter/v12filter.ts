@@ -39,7 +39,7 @@ export default function v12filter(query: ParamQuery, filterConfig: FilterConfigT
         if (parts.length === 1) {
           return { type: 'equals', value: parts[0] };
         } else {
-          const range : {type: string, value: {gte?: number | string, lte?: number | string}} = {
+          const range: { type: string; value: { gte?: number | string; lte?: number | string } } = {
             type: 'range',
             value: {},
           };

@@ -35,21 +35,32 @@ export function ApiContent() {
       <h3>API access</h3>
       <p>
         All data is available via the{' '}
-        <a href="https://techdocs.gbif.org/en/openapi/v1/occurrence">GBIF API</a>. No
-        registration or API key is required.
+        <a href="https://techdocs.gbif.org/en/openapi/v1/occurrence">GBIF API</a>. No registration
+        or API key is required.
       </p>
       <p>
-        Please remember to properly cite usage and to throttle requests in scripts. You need to <a href="https://techdocs.gbif.org/en/openapi/v1/occurrence#/Occurrence%20downloads/requestDownload">do a download</a> to get a citation string.
+        Please remember to properly cite usage and to throttle requests in scripts. You need to{' '}
+        <a href="https://techdocs.gbif.org/en/openapi/v1/occurrence#/Occurrence%20downloads/requestDownload">
+          do a download
+        </a>{' '}
+        to get a citation string.
       </p>
       <h4>Examples</h4>
       <Card className="g-p-2 g-mb-2">
         Get all occurrences <br />
-        <a href="https://api.gbif.org/v1/occurrence/search">https://api.gbif.org/v1/occurrence/search</a>
+        <a href="https://api.gbif.org/v1/occurrence/search">
+          https://api.gbif.org/v1/occurrence/search
+        </a>
       </Card>
       <Card className="g-p-2">
-        First 5 occurrences of taxon 9778871 (Flabellina McMurtrie, 1831) that have been recorded in May between year 2000-2024<br />
+        First 5 occurrences of taxon 9778871 (Flabellina McMurtrie, 1831) that have been recorded in
+        May between year 2000-2024
         <br />
-        <a className="g-break-all" href="https://api.gbif.org/v1/occurrence/search?month=5&taxonKey=9778871&year=2000,2024&occurrenceStatus=present&limit=5&offset=0">
+        <br />
+        <a
+          className="g-break-all"
+          href="https://api.gbif.org/v1/occurrence/search?month=5&taxonKey=9778871&year=2000,2024&occurrenceStatus=present&limit=5&offset=0"
+        >
           https://api.gbif.org/v1/occurrence/search?month=5&taxonKey=9778871&year=2000,2024&occurrenceStatus=present&limit=5&offset=0
         </a>
       </Card>

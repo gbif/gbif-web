@@ -1,4 +1,4 @@
-import { LanguageOption } from "./config";
+import { LanguageOption } from './config';
 
 // define list of LanguageOption[]
 const languageOptions: LanguageOption[] = [
@@ -38,4 +38,6 @@ const languageOptions: LanguageOption[] = [
 ];
 
 const enabledLocales = import.meta.env.PUBLIC_ENABLED_LANGUAGES.split(',');
-export const languagesOptions = enabledLocales.map((code: string) => languageOptions.find((l) => l.code === code)).filter(Boolean) as LanguageOption[];
+export const languagesOptions = enabledLocales
+  .map((code: string) => languageOptions.find((l) => l.code === code))
+  .filter(Boolean) as LanguageOption[];

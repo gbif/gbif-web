@@ -165,14 +165,7 @@ const configDefault: Partial<Config> = {
   },
   occurrenceSearch: {
     queryType: 'PREDICATE',
-    highlightedFilters: [
-      'occurrenceStatus',
-      'taxonKey',
-      'year',
-      'country',
-      'issue',
-      'geometry',
-    ],
+    highlightedFilters: ['occurrenceStatus', 'taxonKey', 'year', 'country', 'issue', 'geometry'],
     tabs: ['table', 'media', 'map', 'dashboard', 'download'],
     defaultEnabledTableColumns: [
       'scientificName',
@@ -203,12 +196,12 @@ const configDefault: Partial<Config> = {
         ANTARCTIC: ['NATURAL', 'BRIGHT', 'DARK'],
       },
     },
-  }
-}
+  },
+};
 
 export function ConfigProvider({ config, children }: Props): React.ReactElement {
   // Create css for theming based on the baseTheme and the theme extension
-  const css: { style: string; config: Config; } = React.useMemo(() => {
+  const css: { style: string; config: Config } = React.useMemo(() => {
     const theme = themeBuilder({
       baseTheme: 'light',
       extendWith: config.theme,
@@ -238,7 +231,13 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
         return current;
       }
     }
-    const mergedConfig = mergeWith({}, configDefault, {theme, variables: cssVariables}, config, customizer);
+    const mergedConfig = mergeWith(
+      {},
+      configDefault,
+      { theme, variables: cssVariables },
+      config,
+      customizer
+    );
     return {
       style: `:root { ${cssVariables.map((v) => `${v.name}: ${v.value};`).join('\n')} }`,
       config: mergedConfig,

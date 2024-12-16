@@ -29,18 +29,22 @@ import * as d3 from 'd3';
 
 export function highlightNode({ element, key, remove }) {
   const svg = d3.select(element);
-  svg
-    .selectAll(".node")
-    .attr("data-highlight", (d, index, list) => {
-      if (!key && list[index].attributes['data-highlight']) {
-        return 'false';
-      }
-      if (d.name === '' + key) return 'true';
-      return undefined;
-    });
+  svg.selectAll('.node').attr('data-highlight', (d, index, list) => {
+    if (!key && list[index].attributes['data-highlight']) {
+      return 'false';
+    }
+    if (d.name === '' + key) return 'true';
+    return undefined;
+  });
 }
 
-export default function graphOfClusters({ element, links_data, nodes_data, onNodeClick, setTooltipItem }) {
+export default function graphOfClusters({
+  element,
+  links_data,
+  nodes_data,
+  onNodeClick,
+  setTooltipItem,
+}) {
   // First we select the element we want to apply the graph to
   const svg = d3.select(element);
   const width = element.clientWidth;
@@ -49,10 +53,11 @@ export default function graphOfClusters({ element, links_data, nodes_data, onNod
   const tooltipWrapperElement = document.getElementById('gb-cluster-tooltip');
   const clusterWrapperElement = tooltipWrapperElement.parentElement;
 
-  svg.selectAll("*").remove();
+  svg.selectAll('*').remove();
 
   // define a pattern that we can use to fill certain nodes. In this case nodes that are part of a cluster with multiple identifications
-  svg.append('defs')
+  svg
+    .append('defs')
     .append('pattern')
     .attr('id', 'diagonalHatch')
     .attr('patternUnits', 'userSpaceOnUse')
@@ -70,11 +75,11 @@ export default function graphOfClusters({ element, links_data, nodes_data, onNod
   var radius = 10,
     side = 2 * radius * Math.cos(Math.PI / 4);
 
-  //set up the simulation and add forces  
-  var simulation = d3.forceSimulation()
-    .nodes(nodes_data);
+  //set up the simulation and add forces
+  var simulation = d3.forceSimulation().nodes(nodes_data);
 
-  var link_force = d3.forceLink(links_data)
+  var link_force = d3
+    .forceLink(links_data)
     .distance(function (d) {
       if (d.target.type === 'IMAGE') return radius;
       if (d.target.type === 'SEQUENCE') return radius;
@@ -82,34 +87,36 @@ export default function graphOfClusters({ element, links_data, nodes_data, onNod
       return d.source.publishingOrgKey !== d.target.publishingOrgKey ? 50 : 25;
     })
     // .strength(0.1)
-    .id(function (d) { return d.name; });
+    .id(function (d) {
+      return d.name;
+    });
 
-  var charge_force = d3.forceManyBody()
-    .strength(-50);
+  var charge_force = d3.forceManyBody().strength(-50);
 
   simulation
-    .force("links", link_force)
-    .force("charge_force", charge_force)
+    .force('links', link_force)
+    .force('charge_force', charge_force)
     // .force("x", d3.forceX(width / 2))
     // .force("y", d3.forceY(height / 2));
-    .force('x', d3.forceX(width / 2).strength(.05))
-    .force('y', d3.forceY(height / 2).strength(.05 * ratio));
+    .force('x', d3.forceX(width / 2).strength(0.05))
+    .force('y', d3.forceY(height / 2).strength(0.05 * ratio));
 
-  //add tick instructions: 
-  simulation.on("tick", tickActions);
+  //add tick instructions:
+  simulation.on('tick', tickActions);
 
-  //add encompassing group for the zoom 
-  var g = svg.append("g")
-    .attr("class", "everything");
+  //add encompassing group for the zoom
+  var g = svg.append('g').attr('class', 'everything');
 
-  //draw lines for the links 
-  var link = g.append("g")
-    .attr("class", "links")
-    .selectAll("line")
+  //draw lines for the links
+  var link = g
+    .append('g')
+    .attr('class', 'links')
+    .selectAll('line')
     .data(links_data)
-    .enter().append("line")
-    .attr("stroke-width", 2)
-    .style("stroke", linkColour);
+    .enter()
+    .append('line')
+    .attr('stroke-width', 2)
+    .style('stroke', linkColour);
 
   // attaching events to links
   // https://stackoverflow.com/questions/19132118/d3js-force-directed-mouseover-on-line-link-doesnt-work-properly
@@ -117,50 +124,51 @@ export default function graphOfClusters({ element, links_data, nodes_data, onNod
   // link.on("mouseover", function () { d3.select(this).style("stroke", "red"); });
   // link.on("mouseleave", function () { d3.select(this).style("stroke", "pink"); });
 
-  link.on("mouseover", function (e, d) {
-    d3.select("#gb-cluster-tooltip")
-      .style("left", () => {
+  link.on('mouseover', function (e, d) {
+    d3.select('#gb-cluster-tooltip')
+      .style('left', () => {
         setTooltipItem({ link: d });
         var scrollLeft = window.scrollX || document.documentElement.scrollLeft;
         var offset = clusterWrapperElement.getBoundingClientRect().x;
-        return e.pageX - offset - scrollLeft + 10 + "px";
+        return e.pageX - offset - scrollLeft + 10 + 'px';
       })
-      .style("top", () => {
+      .style('top', () => {
         var scrollTop = window.scrollY || document.documentElement.scrollTop;
         var offset = clusterWrapperElement.getBoundingClientRect().y;
-        return e.pageY - offset - scrollTop + "px";
+        return e.pageY - offset - scrollTop + 'px';
       })
       .transition()
-      .style("visibility", "visible");
+      .style('visibility', 'visible');
   });
-  link.on("mouseleave", function (e) {
-    d3.select("#gb-cluster-tooltip")
+  link.on('mouseleave', function (e) {
+    d3.select('#gb-cluster-tooltip')
       .transition()
-      .style("visibility", () => {
+      .style('visibility', () => {
         setTooltipItem();
-        return "hidden";
+        return 'hidden';
       });
   });
 
-
-  //draw circles for the nodes 
-  var node = g.append("g")
-    .attr("class", "nodes")
-    .selectAll(".node")
+  //draw circles for the nodes
+  var node = g
+    .append('g')
+    .attr('class', 'nodes')
+    .selectAll('.node')
     .data(nodes_data)
     .enter()
-    .append("g")
-    .attr("class", "node")
-    .classed("fixed", d => d.fx !== undefined);
+    .append('g')
+    .attr('class', 'node')
+    .classed('fixed', (d) => d.fx !== undefined);
 
-  node.append("circle")
-    .attr("r", d => {
+  node
+    .append('circle')
+    .attr('r', (d) => {
       if (d.type === 'IMAGE') return 5;
       if (d.type === 'SEQUENCE') return 5;
       if (d.type === 'TYPE') return 5;
-      return radius
+      return radius;
     })
-    .attr("class", circleClass);
+    .attr('class', circleClass);
 
   // experiment, with adding an inner SVG with text. The initial idea was to show information about the node when zoomed in, but it did not feel intuitive, so opted for hovers and click for more info.
   // var innerSVG = node.append("svg")
@@ -170,19 +178,21 @@ export default function graphOfClusters({ element, links_data, nodes_data, onNod
   //   .attr("y", 10)
   //   .text("this text is in the inner SVG");
 
-  node.append("circle")
-    .attr("r", d => {
+  node
+    .append('circle')
+    .attr('r', (d) => {
       if (d.type === 'IMAGE') return 5;
       if (d.type === 'SEQUENCE') return 5;
       if (d.type === 'TYPE') return 5;
-      return radius
+      return radius;
     })
     // .attr("fill", circleColour)
-    .attr("class", 'node-overlay');
+    .attr('class', 'node-overlay');
 
   // https://stackoverflow.com/questions/20913869/wrap-text-within-circle
-  node.append("foreignObject")
-    .attr("class", "nodeContent-wrapper")
+  node
+    .append('foreignObject')
+    .attr('class', 'nodeContent-wrapper')
     // .attr('x', function (d) { return -(side / 2) })
     // .attr('y', function (d) { return -(side / 2) })
     .attr('x', function (d) {
@@ -201,69 +211,64 @@ export default function graphOfClusters({ element, links_data, nodes_data, onNod
       const r = ['IMAGE', 'SEQUENCE', 'TYPE'].indexOf(d.type) > -1 ? 5 : radius;
       return r * 2;
     })
-    .append("xhtml:div")
-    .attr("class", "nodeContent")
+    .append('xhtml:div')
+    .attr('class', 'nodeContent');
   //   .html(function (d) { return `<div class="nodeContent-info" style="background: #333; color: white; position: absolute; right: 0; bottom: 0;">${d.title || d.name}</div></div>` });
 
   // https://stackoverflow.com/questions/41577546/how-do-i-add-a-simple-mouseover-info-window
-  node.on("mouseover", function (e, d) {
-    d3.select("#gb-cluster-tooltip")
-      .style("left", () => {
+  node.on('mouseover', function (e, d) {
+    d3.select('#gb-cluster-tooltip')
+      .style('left', () => {
         setTooltipItem({ node: d });
         var scrollLeft = window.scrollX || document.documentElement.scrollLeft;
         var offset = clusterWrapperElement.getBoundingClientRect().x;
-        return e.pageX - offset - scrollLeft + "px";
+        return e.pageX - offset - scrollLeft + 'px';
       })
-      .style("top", () => {
+      .style('top', () => {
         var scrollTop = window.scrollY || document.documentElement.scrollTop;
         var offset = clusterWrapperElement.getBoundingClientRect().y;
-        return e.pageY - offset - scrollTop + "px";
+        return e.pageY - offset - scrollTop + 'px';
       })
       .transition()
-      .style("visibility", "visible");
+      .style('visibility', 'visible');
 
-    d3.select("#gb-cluster-tooltip-content")
-      .attr("style", function (d) {
-        let style = '';
-        if (e.x > width - 100) {
-          style += 'right: 10px; ';
-        } else {
-          style += 'left: 0px; ';
-        }
+    d3.select('#gb-cluster-tooltip-content').attr('style', function (d) {
+      let style = '';
+      if (e.x > width - 100) {
+        style += 'right: 10px; ';
+      } else {
+        style += 'left: 0px; ';
+      }
 
-        if (e.y > height - 100) {
-          style += 'bottom: 20px; ';
-        } else {
-          style += 'top: 0px; ';
-        }
-        return style;
-      });
+      if (e.y > height - 100) {
+        style += 'bottom: 20px; ';
+      } else {
+        style += 'top: 0px; ';
+      }
+      return style;
+    });
   });
 
-
-  node.on("mouseleave", function (e) {
-    d3.select("#gb-cluster-tooltip")
+  node.on('mouseleave', function (e) {
+    d3.select('#gb-cluster-tooltip')
       .transition()
-      .style("visibility", () => {
+      .style('visibility', () => {
         setTooltipItem();
-        return "hidden";
+        return 'hidden';
       });
-    d3.select("#gb-cluster-tooltip-content")
-      .attr("style", '');
+    d3.select('#gb-cluster-tooltip-content').attr('style', '');
   });
 
-  //add zoom capabilities 
+  //add zoom capabilities
   //https://observablehq.com/@d3/delaunay-find-zoom
   let transform;
-  const zoom = d3.zoom().on("zoom", e => {
-    g.attr("transform", (transform = e.transform));
-    g.style("stroke-width", 3 / Math.sqrt(transform.k));
+  const zoom = d3.zoom().on('zoom', (e) => {
+    g.attr('transform', (transform = e.transform));
+    g.style('stroke-width', 3 / Math.sqrt(transform.k));
     //    nodes.attr("r", 3 / Math.sqrt(transform.k));
   });
 
-  svg
-    .call(zoom)
-    .call(zoom.transform, d3.zoomIdentity)
+  svg.call(zoom).call(zoom.transform, d3.zoomIdentity);
 
   /** Functions **/
 
@@ -273,10 +278,10 @@ export default function graphOfClusters({ element, links_data, nodes_data, onNod
   function circleClass(d) {
     let str = 'node-circle ';
     if (d.capped) {
-      str += 'node-capped '
+      str += 'node-capped ';
     }
     if (d.isEntry) {
-      str += 'node-entry '
+      str += 'node-entry ';
     }
     if (d.type === 'SEQUENCE') {
       str += 'node-sequence ';
@@ -307,9 +312,9 @@ export default function graphOfClusters({ element, links_data, nodes_data, onNod
     return str;
   }
 
-  //Function to choose the line colour and thickness 
-  //If the link type is "A" return green 
-  //If the link type is "E" return red 
+  //Function to choose the line colour and thickness
+  //If the link type is "A" return green
+  //If the link type is "E" return red
   function linkColour(d) {
     try {
       if (d.source.publishingOrgKey !== d.target.publishingOrgKey) {
@@ -323,7 +328,7 @@ export default function graphOfClusters({ element, links_data, nodes_data, onNod
     }
   }
 
-  node.call(drag).on("click", click);
+  node.call(drag).on('click', click);
 
   function click(event, d) {
     if (d.key) {
@@ -351,25 +356,29 @@ export default function graphOfClusters({ element, links_data, nodes_data, onNod
       event.subject.fy = null;
     }
 
-    return d3.drag()
-      .on("start", dragstarted)
-      .on("drag", dragged)
-      .on("end", dragended);
+    return d3.drag().on('start', dragstarted).on('drag', dragged).on('end', dragended);
   }
 
   function tickActions() {
-    node.attr("transform", function (d) {
-      return "translate(" + d.x + "," + d.y + ")";
+    node.attr('transform', function (d) {
+      return 'translate(' + d.x + ',' + d.y + ')';
     });
 
-    //update link positions 
+    //update link positions
     link
-      .attr("x1", function (d) { return d.source.x; })
-      .attr("y1", function (d) { return d.source.y; })
-      .attr("x2", function (d) { return d.target.x; })
-      .attr("y2", function (d) { return d.target.y; });
+      .attr('x1', function (d) {
+        return d.source.x;
+      })
+      .attr('y1', function (d) {
+        return d.source.y;
+      })
+      .attr('x2', function (d) {
+        return d.target.x;
+      })
+      .attr('y2', function (d) {
+        return d.target.y;
+      });
   }
-
 
   // zoom fit http://bl.ocks.org/TWiStErRob/b1c62730e01fe33baa2dea0d0aa29359
   // https://stackoverflow.com/questions/16236600/d3-js-force-layout-auto-zoom-scale-after-loading
@@ -397,9 +406,7 @@ export default function graphOfClusters({ element, links_data, nodes_data, onNod
     var scale = (paddingPercent || 0.75) / Math.max(width / fullWidth, height / fullHeight);
     var translate = [fullWidth / 2 - scale * midX, fullHeight / 2 - scale * midY];
 
-    var transform = d3.zoomIdentity
-      .translate(translate[0], translate[1])
-      .scale(scale);
+    var transform = d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale);
 
     svg
       .transition()

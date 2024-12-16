@@ -81,7 +81,9 @@ export const GeometryInput = ({
   }, [initialValue]);
 
   const checkWktAgainstAPI = async (wkt: string) => {
-    const response = await fetch(`${import.meta.env.PUBLIC_API_V1 }/occurrence/search?hasCoordinate=false&geometry=${wkt}`).then(res => res.json());
+    const response = await fetch(
+      `${import.meta.env.PUBLIC_API_V1}/occurrence/search?hasCoordinate=false&geometry=${wkt}`
+    ).then((res) => res.json());
     return response.data;
   };
 
@@ -137,10 +139,12 @@ export const GeometryInput = ({
     // if any fail, then tell the user and offer to remove the invalid geometries
     // if all pass, then add the geometries to the list of geometries
     if (result.geometry && result.geometry.length > 0) {
-      const promises = result.geometry.filter(x => typeof x !== 'undefined').map((wkt) => checkWktAgainstAPI(wkt));
+      const promises = result.geometry
+        .filter((x) => typeof x !== 'undefined')
+        .map((wkt) => checkWktAgainstAPI(wkt));
       Promise.all(promises)
         .then(() => {
-          onAdd({ wkt: result.geometry.filter(x => typeof x !== 'undefined') });
+          onAdd({ wkt: result.geometry.filter((x) => typeof x !== 'undefined') });
           setValue('');
           setSimplificationOffer(false);
         })
@@ -398,7 +402,7 @@ function getSimplified({
   str: geometryString,
   tolerance,
   messages = {},
-  toast
+  toast,
 }: {
   str: string;
   tolerance?: number;

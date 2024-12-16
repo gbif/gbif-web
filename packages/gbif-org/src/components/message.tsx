@@ -13,7 +13,7 @@ export function FormattedDateRange({
   start,
   end,
   date,
-  format
+  format,
 }: {
   start?: string;
   end?: string;
@@ -61,7 +61,9 @@ export function FormattedDateRange({
 }
 
 export function Message({
-  id, defaultMessage, values,
+  id,
+  defaultMessage,
+  values,
   ...props
 }: {
   id: string;
@@ -69,6 +71,6 @@ export function Message({
   values?: any;
 }) {
   const { formatMessage } = useIntl();
-  const dirty = formatMessage({ ...{id, defaultMessage, values} });
-  return <HyperText text={dirty} {...props}/>
-};
+  const dirty = formatMessage({ ...{ id, defaultMessage, values } });
+  return <HyperText text={dirty} {...props} />;
+}

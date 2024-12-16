@@ -63,7 +63,12 @@ export type SingleTaxonSearchResult = ExtractPaginatedResult<TaxonSearchQuery['t
 
 const createRowLink = (row: Row<SingleTaxonSearchResult>) => `/species/${row.original.key}`;
 
-const DEFAULT_ENABLED_TABLE_COLUMNS = Object.freeze(['scientificName', 'taxonomicStatus', 'rank', 'taxonomy']);
+const DEFAULT_ENABLED_TABLE_COLUMNS = Object.freeze([
+  'scientificName',
+  'taxonomicStatus',
+  'rank',
+  'taxonomy',
+]);
 
 export function Table() {
   const searchContext = useSearchContext();

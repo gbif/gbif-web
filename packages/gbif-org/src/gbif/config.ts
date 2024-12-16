@@ -130,7 +130,7 @@ export const gbifConfig: Config = {
   },
   taxonSearch: {
     scope: {
-      datasetKey: ['d7dddbf4-2cf0-4f39-9b2a-bb099caae36c']
+      datasetKey: ['d7dddbf4-2cf0-4f39-9b2a-bb099caae36c'],
     },
     highlightedFilters: ['q', 'status', 'rank'],
   },
@@ -150,11 +150,7 @@ export const gbifConfig: Config = {
     ],
     tabs: ['table', 'media', 'map', 'clusters', 'datasets', 'dashboard', 'download'],
     defaultTab: 'clusters',
-    defaultEnabledTableColumns: [
-      'scientificName',
-      'features',
-      'catalogNumber',
-    ],
+    defaultEnabledTableColumns: ['scientificName', 'features', 'catalogNumber'],
     // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
     // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
     // scope: {

@@ -1,1 +1,1 @@
-export { GeometryFilter } from './geometryFilter'
+export { GeometryFilter } from './geometryFilter';

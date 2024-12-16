@@ -239,7 +239,9 @@ export const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
                             toggle(filterHandle, concept);
                           }}
                         >
-                          <span className="g-break-all">{truncate(concept, 50)} <CopyToClipboard text={concept} /></span>
+                          <span className="g-break-all">
+                            {truncate(concept, 50)} <CopyToClipboard text={concept} />
+                          </span>
                         </Option>
                       );
                     })}

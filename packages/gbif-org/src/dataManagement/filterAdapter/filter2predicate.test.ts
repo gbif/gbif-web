@@ -48,13 +48,11 @@ test('is handles basic arrays', () => {
 
 test('it has sensible defaults if no config provided', () => {
   expect(
-    filter2predicate(
-      {
-        must: {
-          taxonKey: [1, 2, 3],
-        },
-      }
-    )
+    filter2predicate({
+      must: {
+        taxonKey: [1, 2, 3],
+      },
+    })
   ).toEqual({
     key: 'taxonKey',
     type: 'in',
@@ -64,13 +62,11 @@ test('it has sensible defaults if no config provided', () => {
 
 test('it defaults to field name fore predicate keys', () => {
   expect(
-    filter2predicate(
-      {
-        must: {
-          datasetKey: ['asd', 'fgh'],
-        },
-      }
-    )
+    filter2predicate({
+      must: {
+        datasetKey: ['asd', 'fgh'],
+      },
+    })
   ).toEqual({
     key: 'datasetKey',
     type: 'in',
@@ -136,13 +132,11 @@ test('it can default to a predicate type based on config', () => {
 
 test('it can mix plain values with objects', () => {
   expect(
-    filter2predicate(
-      {
-        must: {
-          recordedBy: ['tim', { type: PredicateType.Like, value: 'robert' }],
-        },
-      }
-    )
+    filter2predicate({
+      must: {
+        recordedBy: ['tim', { type: PredicateType.Like, value: 'robert' }],
+      },
+    })
   ).toEqual({
     type: 'or',
     predicates: [
@@ -193,11 +187,17 @@ test('it can define a custom serializer', () => {
       },
       {
         fields: {
-          notIssues: { // normally this would turn into an 'in' predicate. So an OR of the valuesm but we want an AND in this example
-            serializer: ({values}) => ({
-              type: PredicateType.And, predicates: values.map(x => ({ type: PredicateType.Equals, key: 'notIssues', value: x }))
-            })
-          }
+          notIssues: {
+            // normally this would turn into an 'in' predicate. So an OR of the valuesm but we want an AND in this example
+            serializer: ({ values }) => ({
+              type: PredicateType.And,
+              predicates: values.map((x) => ({
+                type: PredicateType.Equals,
+                key: 'notIssues',
+                value: x,
+              })),
+            }),
+          },
         },
       }
     )
@@ -214,7 +214,7 @@ test('it can define a custom serializer', () => {
         key: 'notIssues',
         value: 'wrong_taxon',
       },
-    ]
+    ],
   });
 });
 
@@ -261,5 +261,5 @@ test('it can do pre transformations of the filter', () => {
 });
 
 // TODO: we need tests (and code) for isNull, isNotNull, geometry, ranges, booleans, negations.
-// But it doens't make sense to write them until we have migrated the search to use the 
+// But it doens't make sense to write them until we have migrated the search to use the
 // predicate structure we have in the official API

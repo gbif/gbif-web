@@ -44,7 +44,10 @@ const COLLECTION_SEARCH_QUERY = /* GraphQL */ `
 `;
 
 export function CollectionSearchPage(): React.ReactElement {
-  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig, paramsToRemove: ['offset'] });
+  const [filter, setFilter] = useFilterParams({
+    filterConfig: searchConfig,
+    paramsToRemove: ['offset'],
+  });
   const config = useConfig();
   return (
     <>
@@ -166,8 +169,8 @@ function Results({
                 count={collections.count}
                 limit={collections.limit}
                 onChange={(x) => {
-                  setOffset(x)}
-                }
+                  setOffset(x);
+                }}
               />
             )}
           </ClientSideOnly>

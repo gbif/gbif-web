@@ -211,7 +211,11 @@ function Results({
                     values={{ total: geojson.features.length ?? 0 }}
                   />
                 </div>
-                <Map className="g-z-0" {...{ geojson, geojsonLoading, geojsonError }} PopupContent={PopupContent}/>
+                <Map
+                  className="g-z-0"
+                  {...{ geojson, geojsonLoading, geojsonError }}
+                  PopupContent={PopupContent}
+                />
               </div>
             )}
 

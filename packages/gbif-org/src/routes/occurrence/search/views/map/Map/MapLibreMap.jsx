@@ -17,7 +17,7 @@ class Map extends Component {
     this.updateLayer = this.updateLayer.bind(this);
     this.onPointClick = this.onPointClick.bind(this);
     this.myRef = React.createRef();
-    this.state = {loadDiff: 0};
+    this.state = { loadDiff: 0 };
   }
 
   componentDidMount() {
@@ -124,11 +124,11 @@ class Map extends Component {
 
       this.state.loadDiff = 0;
       var tileString = `${PUBLIC_API_V2}/map/occurrence/adhoc/{z}/{x}/{y}.mvt?style=scaled.circles&mode=GEO_CENTROID&srs=EPSG%3A3857&squareSize=256&predicateHash=${
-        this.props.predicateHash ?? '' 
+        this.props.predicateHash ?? ''
       }&${this.props.q ? `&q=${this.props.q} ` : ''}`;
 
       this.map.addLayer(
-        getLayerConfig({ tileString, theme: this.props.theme }),
+        getLayerConfig({ tileString, theme: this.props.theme })
         // "poi-scalerank2"
       );
 
@@ -192,7 +192,7 @@ class Map extends Component {
   render() {
     const { style = {}, className } = this.props;
 
-    return <div ref={this.myRef} className={className} style={style} />
+    return <div ref={this.myRef} className={className} style={style} />;
   }
 }
 

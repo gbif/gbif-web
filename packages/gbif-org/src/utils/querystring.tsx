@@ -64,14 +64,14 @@ function tryParse(value: string): string | number | JSON {
 function isValidFloat(str: string): boolean {
   // First, parse the string as a float
   const parsed = parseFloat(str);
-  
+
   // Check if the parsed result is NaN (not a number)
   if (isNaN(parsed)) {
-      return false;
+    return false;
   }
   // chat that the original str does not contain letters or characters beyond 0-9 and punctuation .
   if (/[^0-9.]/.test(str)) {
-      return false;
+    return false;
   }
   return true;
 }

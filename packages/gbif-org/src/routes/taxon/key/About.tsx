@@ -97,10 +97,7 @@ export default function About() {
                     </Property>
                   )}
                   <Property value={taxon.code} labelId="grscicoll.code" showEmpty />
-                  <Property
-                    value={taxon.numberSpecimens}
-                    labelId="taxon.numberSpecimens"
-                  />
+                  <Property value={taxon.numberSpecimens} labelId="taxon.numberSpecimens" />
                   {!loading && count > 0 && (
                     <Property labelId="grscicoll.specimensViaGbif">
                       <FormattedNumber value={count} />
@@ -124,9 +121,7 @@ export default function About() {
                   <Property
                     value={taxon.contentTypes}
                     labelId="taxon.contentTypes"
-                    formatter={(val) => (
-                      <ConceptValue vocabulary="TaxonContentType" name={val} />
-                    )}
+                    formatter={(val) => <ConceptValue vocabulary="TaxonContentType" name={val} />}
                   />
                   <Property
                     value={taxon.preservationTypes}
@@ -160,9 +155,7 @@ export default function About() {
               <Card className="g-mb-4">
                 <FeaturedImageContent
                   featuredImageUrl={imageUrl}
-                  featuredImageLicense={
-                    taxon.featuredImageUrl ? taxon.featuredImageLicense : null
-                  }
+                  featuredImageLicense={taxon.featuredImageUrl ? taxon.featuredImageLicense : null}
                 />
               </Card>
             )}
@@ -229,10 +222,7 @@ export default function About() {
                   />
                   <Property value={taxon?.address?.province} labelId="grscicoll.province" />
                   <Property value={taxon?.address?.city} labelId="grscicoll.city" />
-                  <Property
-                    value={taxon?.address?.postalCode}
-                    labelId="grscicoll.postalCode"
-                  />
+                  <Property value={taxon?.address?.postalCode} labelId="grscicoll.postalCode" />
                   <Property value={taxon?.address?.address} labelId="grscicoll.address" />
                   {!addressesIdentical && (
                     <>
@@ -253,10 +243,7 @@ export default function About() {
                             value={taxon?.mailingAddress?.province}
                             labelId="grscicoll.province"
                           />
-                          <Property
-                            value={taxon?.mailingAddress?.city}
-                            labelId="grscicoll.city"
-                          />
+                          <Property value={taxon?.mailingAddress?.city} labelId="grscicoll.city" />
                           <Property
                             value={taxon?.mailingAddress?.postalCode}
                             labelId="grscicoll.postalCode"
@@ -327,10 +314,7 @@ export default function About() {
                 >
                   <Property value={taxon.code} labelId="grscicoll.code" showEmpty />
                   {isNoneEmptyArray(taxon.alternativeCodes) && (
-                    <Property
-                      value={taxon.alternativeCodes}
-                      labelId="grscicoll.alternativeCodes"
-                    >
+                    <Property value={taxon.alternativeCodes} labelId="grscicoll.alternativeCodes">
                       <ul
                       // css={css`padding: 0; margin: 0; list-style: none;`}
                       >
@@ -345,10 +329,7 @@ export default function About() {
                       </ul>
                     </Property>
                   )}
-                  <Property
-                    value={taxon.additionalNames}
-                    labelId="grscicoll.additionalNames"
-                  />
+                  <Property value={taxon.additionalNames} labelId="grscicoll.additionalNames" />
                   {isNoneEmptyArray(taxon.identifiers) && (
                     <Property value={taxon.identifiers} labelId="grscicoll.identifiers">
                       <ul

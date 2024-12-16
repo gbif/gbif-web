@@ -17,7 +17,17 @@ export function SidebarLayout({
     ? 'grid-cols-[300px_minmax(0,1fr)] xl:grid-cols-[350px_minmax(0,1fr)]'
     : 'grid-cols-[minmax(0,1fr)_300px] md:grid-cols-[minmax(0,1fr)_350px]';
   return (
-    <div className={cn('g-grid g-gap-x-4', sizes, className, stack ? 'g-grid-cols-1 sm:g-grid-cols-1 md:g-grid-cols-1 lg:g-grid-cols-1 xl:g-grid-cols-1' : '')} {...props}>
+    <div
+      className={cn(
+        'g-grid g-gap-x-4',
+        sizes,
+        className,
+        stack
+          ? 'g-grid-cols-1 sm:g-grid-cols-1 md:g-grid-cols-1 lg:g-grid-cols-1 xl:g-grid-cols-1'
+          : ''
+      )}
+      {...props}
+    >
       {children}
     </div>
   );

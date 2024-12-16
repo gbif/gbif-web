@@ -22,11 +22,12 @@ type Args = {
 export function useOccurrenceColumns({
   showPreview,
   filters,
-  disableCellFilters
+  disableCellFilters,
 }: Args): ColumnDef<SingleOccurrenceSearchResult>[] {
   return useMemo(() => {
     // TODO: That a filter is defined does not mean that it is active (this just prevents us from using filters that are not defined yet)
-    const isFilterActive = (filterName: string) => !disableCellFilters && filters[filterName] != null;
+    const isFilterActive = (filterName: string) =>
+      !disableCellFilters && filters[filterName] != null;
 
     return [
       {

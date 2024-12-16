@@ -147,9 +147,7 @@ function HomePage(): React.ReactElement {
           </PageContainer>
         </section> */}
 
-        {home.blocks?.map((block, idx) => (
-          <BlockItem resource={block} key={idx} />
-        ))}
+        {home.blocks?.map((block, idx) => <BlockItem resource={block} key={idx} />)}
       </main>
     </ErrorBoundary>
   );

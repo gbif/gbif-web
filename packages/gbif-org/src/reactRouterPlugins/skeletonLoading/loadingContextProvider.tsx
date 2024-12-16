@@ -1,9 +1,5 @@
-import { createContext, useEffect, useState } from "react";
-import {
-  AbortLoadingEvent,
-  NavigationCompleteEvent,
-  StartLoadingEvent,
-} from "./events";
+import { createContext, useEffect, useState } from 'react';
+import { AbortLoadingEvent, NavigationCompleteEvent, StartLoadingEvent } from './events';
 
 export const LoadingContext = createContext<string | undefined>(undefined);
 
@@ -30,9 +26,5 @@ export function LoadingContextProvider({ children }: Props) {
     return () => unsubscribe.forEach((fn) => fn());
   }, [setLoadingRouteId]);
 
-  return (
-    <LoadingContext.Provider value={loadingRouteId}>
-      {children}
-    </LoadingContext.Provider>
-  );
+  return <LoadingContext.Provider value={loadingRouteId}>{children}</LoadingContext.Provider>;
 }

@@ -44,7 +44,10 @@ const DATASET_SEARCH_QUERY = /* GraphQL */ `
 `;
 
 export function DatasetSearchPage(): React.ReactElement {
-  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig, paramsToRemove: ['offset'] });
+  const [filter, setFilter] = useFilterParams({
+    filterConfig: searchConfig,
+    paramsToRemove: ['offset'],
+  });
   const config = useConfig();
   return (
     <>

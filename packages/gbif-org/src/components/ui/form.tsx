@@ -17,7 +17,7 @@ const Form = FormProvider;
 
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > = {
   name: TName;
 };
@@ -26,7 +26,7 @@ const FormFieldContext = React.createContext<FormFieldContextValue>({} as FormFi
 
 const FormField = <
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
   ...props
 }: ControllerProps<TFieldValues, TName>) => {
@@ -70,13 +70,14 @@ const FormItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
   ({ className, ...props }, ref) => {
     const id = React.useId();
 
-  return (
-    <FormItemContext.Provider value={{ id }}>
-      <div ref={ref} className={cn('g-space-y-2', className)} {...props} />
-    </FormItemContext.Provider>
-  )
-})
-FormItem.displayName = "FormItem"
+    return (
+      <FormItemContext.Provider value={{ id }}>
+        <div ref={ref} className={cn('g-space-y-2', className)} {...props} />
+      </FormItemContext.Provider>
+    );
+  }
+);
+FormItem.displayName = 'FormItem';
 
 const FormLabel = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,

@@ -31,22 +31,34 @@ export function EnumChartGenerator({
           }
         }
       }
-      ${!disableUnknown ? `isNotNull: ${searchType}(predicate: $hasPredicate) {
+      ${
+        !disableUnknown
+          ? `isNotNull: ${searchType}(predicate: $hasPredicate) {
         documents(size: 0) {
           total
         }
-      }` : ''}
+      }`
+          : ''
+      }
     }
   `;
-  return <ChartWrapper {...{
-    predicate, detailsRoute, gqlQuery: GQL_QUERY, currentFilter,
-    translationTemplate: translationTemplate ?? `enums.${fieldName}.{key}`,
-    enumKeys,
-    disableOther,
-    disableUnknown,
-    predicateKey: fieldName,
-    facetSize,
-  }} {...props} />
+  return (
+    <ChartWrapper
+      {...{
+        predicate,
+        detailsRoute,
+        gqlQuery: GQL_QUERY,
+        currentFilter,
+        translationTemplate: translationTemplate ?? `enums.${fieldName}.{key}`,
+        enumKeys,
+        disableOther,
+        disableUnknown,
+        predicateKey: fieldName,
+        facetSize,
+      }}
+      {...props}
+    />
+  );
 }
 
 export function ChartWrapper({
@@ -64,8 +76,8 @@ export function ChartWrapper({
   const hasPredicates = [
     {
       type: 'isNotNull',
-      key: predicateKey
-    }
+      key: predicateKey,
+    },
   ];
   if (predicate) {
     hasPredicates.push(predicate);
@@ -79,12 +91,17 @@ export function ChartWrapper({
     otherVariables: {
       hasPredicate: {
         type: 'and',
-        predicates: hasPredicates
-      }
-    }
+        predicates: hasPredicates,
+      },
+    },
   };
 
-  return <ChartClickWrapper detailsRoute={props.detailsRoute} interactive={props.interactive}>
-    <OneDimensionalChart  {...{ facetQuery, disableOther, disableUnknown, predicateKey, currentFilter }} {...props} />
-  </ChartClickWrapper>
+  return (
+    <ChartClickWrapper detailsRoute={props.detailsRoute} interactive={props.interactive}>
+      <OneDimensionalChart
+        {...{ facetQuery, disableOther, disableUnknown, predicateKey, currentFilter }}
+        {...props}
+      />
+    </ChartClickWrapper>
+  );
 }

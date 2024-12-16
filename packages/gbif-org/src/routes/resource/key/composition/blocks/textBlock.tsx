@@ -27,7 +27,7 @@ export function TextBlock({ resource }: Props) {
         <BlockHeading dangerouslySetHeading={{ __html: resource.title }} />
       )}
       {resource.body && (
-        <ArticleTextContainer className='g-mt-2 g-mb-10'>
+        <ArticleTextContainer className="g-mt-2 g-mb-10">
           <ArticleBody dangerouslySetBody={{ __html: resource.body }} />
         </ArticleTextContainer>
       )}

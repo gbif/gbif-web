@@ -12,7 +12,8 @@ const buttonVariants = cva('gb-button', {
         'g-bg-destructive g-text-destructive-foreground g-shadow-sm hover:g-bg-destructive/90',
       outline:
         'g-border g-border-input g-bg-transparent g-shadow-sm hover:g-bg-accent hover:g-text-accent-foreground',
-      primaryOutline: 'g-border g-bg-transparent g-shadow-sm hover:g-bg-accent hover:g-text-accent-foreground g-border-primary-500',
+      primaryOutline:
+        'g-border g-bg-transparent g-shadow-sm hover:g-bg-accent hover:g-text-accent-foreground g-border-primary-500',
       secondary: 'g-bg-secondary g-text-secondary-foreground g-shadow-sm hover:g-bg-secondary/80',
       ghost: 'hover:g-bg-accent hover:g-text-accent-foreground',
       link: 'g-text-primary g-underline-offset-4 hover:g-underline',

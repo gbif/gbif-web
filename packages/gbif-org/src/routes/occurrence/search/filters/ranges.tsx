@@ -1,4 +1,12 @@
-import { CoordinateUncertaintyLabel, DepthLabel, ElevationLabel, OrganismQuantityLabel, RelativeOrganismQuantityLabel, SampleSizeValueLabel, YearLabel } from '@/components/filters/displayNames';
+import {
+  CoordinateUncertaintyLabel,
+  DepthLabel,
+  ElevationLabel,
+  OrganismQuantityLabel,
+  RelativeOrganismQuantityLabel,
+  SampleSizeValueLabel,
+  YearLabel,
+} from '@/components/filters/displayNames';
 import { filterConfigTypes, filterRangeConfig } from '@/components/filters/filterTools';
 import { HelpText } from '@/components/helpText';
 

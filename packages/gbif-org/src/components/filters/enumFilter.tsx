@@ -147,8 +147,8 @@ export const EnumFilter = React.forwardRef(
 
     const useFacetOptions = !enumOptions && noFilterFacetData?.search?.facet?.field;
     const valueOptions = useFacetOptions
-      ? noFilterFacetData?.search?.facet?.field?.filter((x) => x).map((x) => x.name) ?? []
-      : enumOptions ?? [];
+      ? (noFilterFacetData?.search?.facet?.field?.filter((x) => x).map((x) => x.name) ?? [])
+      : (enumOptions ?? []);
 
     const About = about;
     const options = (

@@ -155,9 +155,9 @@ export function GeoJsonMap({
         setPopupLngLat(coordinates);
       });
 
-      map.on('click', () => setZoomEnabled(true))
-      map.on('dblclick', () => setZoomEnabled(true))
-      map.on('drag', () => setZoomEnabled(true))
+      map.on('click', () => setZoomEnabled(true));
+      map.on('dblclick', () => setZoomEnabled(true));
+      map.on('drag', () => setZoomEnabled(true));
     },
     [config?.theme?.primary]
   );

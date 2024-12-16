@@ -161,10 +161,13 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
     useEffect(() => {
       // map selectedFacetData to a lookup so that we have easy access to the counts per publisher key
       const selectedFacetLookup =
-        selectedFacetData?.search?.facet?.field?.reduce((acc, x) => {
-          acc[x.name] = x.count;
-          return acc;
-        }, {} as Record<string, number>) ?? {};
+        selectedFacetData?.search?.facet?.field?.reduce(
+          (acc, x) => {
+            acc[x.name] = x.count;
+            return acc;
+          },
+          {} as Record<string, number>
+        ) ?? {};
       setFacetLookup(selectedFacetLookup);
     }, [selectedFacetData]);
 

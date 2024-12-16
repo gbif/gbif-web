@@ -36,9 +36,11 @@ export function TreePresentation({
               </li>
             ))}
         </ul>
-        {loading && <>
-          <TreeSkeleton />
-        </>}
+        {loading && (
+          <>
+            <TreeSkeleton />
+          </>
+        )}
         {results.length > 0 && !endOfRecords && (
           <div className="">
             <Button disabled={loading} variant="outline" onClick={() => next()}>
@@ -46,7 +48,7 @@ export function TreePresentation({
             </Button>
           </div>
         )}
-        
+
         <div className="g-flex-1 g-flex-grow-[1000]"></div>
       </div>
     </div>

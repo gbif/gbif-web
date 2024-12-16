@@ -13,7 +13,7 @@ export const useOrderedList = () => {
     // Cleanup subscription on unmount
     return () => {
       unsubscribe();
-    }
+    };
   }, []);
 
   return {

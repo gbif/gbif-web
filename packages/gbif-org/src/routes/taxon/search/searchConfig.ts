@@ -8,9 +8,7 @@ export const config: FilterConfigType = {
   },
 };
 
-const otherParams = [
-  'status', 'rank'
-];
+const otherParams = ['status', 'rank'];
 
 otherParams.forEach((filter) => {
   config.fields = config.fields ?? {};

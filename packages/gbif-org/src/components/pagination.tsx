@@ -48,7 +48,7 @@ export function PaginationFooter({
   limit = 20,
   count,
   maxPages = 5,
-  onChange
+  onChange,
 }: {
   offset: number;
   limit: number;
@@ -90,7 +90,7 @@ export function PaginationFooter({
         )}
         {offset + limit < count && (
           <PaginationItem onClick={() => onChange(nextPageOffset)}>
-            <PaginationNext  />
+            <PaginationNext />
           </PaginationItem>
         )}
       </PaginationContent>

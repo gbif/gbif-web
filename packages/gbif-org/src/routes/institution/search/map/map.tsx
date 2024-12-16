@@ -1,5 +1,5 @@
-import { Card } from "@/components/ui/smallCard";
-import { GeoJsonMap } from "./geoJsonMap";
+import { Card } from '@/components/ui/smallCard';
+import { GeoJsonMap } from './geoJsonMap';
 
 export function Map({
   geojson,
@@ -14,5 +14,13 @@ export function Map({
   className?: string;
   PopupContent: React.FC<{ feature: GeoJSON.Feature }>;
 }) {
-  return <Card className="g-mb-4">{geojson && <GeoJsonMap {...{geojson, loading: geojsonLoading, error: geojsonError, className, PopupContent}} />}</Card>;
+  return (
+    <Card className="g-mb-4">
+      {geojson && (
+        <GeoJsonMap
+          {...{ geojson, loading: geojsonLoading, error: geojsonError, className, PopupContent }}
+        />
+      )}
+    </Card>
+  );
 }

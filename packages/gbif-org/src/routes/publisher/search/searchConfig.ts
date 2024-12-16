@@ -3,10 +3,10 @@ import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicat
 export const searchConfig: FilterConfigType = {
   fields: {
     q: {
-      singleValue: true
+      singleValue: true,
     },
     country: {
-      singleValue: true
-    }
-  }
-}
+      singleValue: true,
+    },
+  },
+};

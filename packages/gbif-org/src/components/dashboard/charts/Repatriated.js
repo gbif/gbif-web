@@ -10,22 +10,23 @@ import React, { useState } from 'react';
 import { Card, CardTitle } from '../shared';
 import ChartClickWrapper from './ChartClickWrapper';
 import Highcharts from './highcharts';
-import HighchartsReact from 'highcharts-react-official'
-import HighchartSankey from "highcharts/modules/sankey";
-import HighchartsWheel from "highcharts/modules/dependency-wheel";
+import HighchartsReact from 'highcharts-react-official';
+import HighchartSankey from 'highcharts/modules/sankey';
+import HighchartsWheel from 'highcharts/modules/dependency-wheel';
 import { getDependencyWheelOptions } from './dependencywheel';
 import { useQuery } from '../../../dataManagement/api';
 import { FormattedMessage, useIntl } from 'react-intl';
-import useDeepCompareEffect from 'use-deep-compare-effect'
+import useDeepCompareEffect from 'use-deep-compare-effect';
 
 HighchartSankey(Highcharts);
 HighchartsWheel(Highcharts);
 
-
 export function Repatriated(props) {
-  return <ChartClickWrapper {...props}>
-    <RepatriatedMain />
-  </ChartClickWrapper>
+  return (
+    <ChartClickWrapper {...props}>
+      <RepatriatedMain />
+    </ChartClickWrapper>
+  );
 }
 
 function transformData(inputData) {
@@ -34,7 +35,11 @@ function transformData(inputData) {
   inputData.forEach((fromData) => {
     const from = fromData.key;
 
-    if (fromData.occurrences && fromData.occurrences.facet && fromData.occurrences.facet.countryCode) {
+    if (
+      fromData.occurrences &&
+      fromData.occurrences.facet &&
+      fromData.occurrences.facet.countryCode
+    ) {
       fromData.occurrences.facet.countryCode.forEach((toData) => {
         const to = toData.key;
         const weight = toData.count;
@@ -42,7 +47,7 @@ function transformData(inputData) {
         outputData.push({
           from: from,
           to: to,
-          weight: weight
+          weight: weight,
         });
       });
     }
@@ -68,26 +73,30 @@ function RepatriatedMain({
         size: 10,
         predicate,
         repatriatedPredicate: {
-          "type": "and",
-          "predicates": [
+          type: 'and',
+          predicates: [
             predicate,
             {
-              "type": "equals",
-              "key": "repatriated",
-              "value": true
-            }
-          ]
-        }
+              type: 'equals',
+              key: 'repatriated',
+              value: true,
+            },
+          ],
+        },
       },
-      queue: { name: 'dashboard' }
+      queue: { name: 'dashboard' },
     });
   }, [predicate]);
 
-  if (error) return <span>Failure</span>
+  if (error) return <span>Failure</span>;
   const noData = !data || loading;
-  if (noData) return <span>Loading...</span>
+  if (noData) return <span>Loading...</span>;
 
-  const resultsAll = transformData(data?.graph?.facet?.results || []).map((item) => [item.from, item.to, item.weight]);
+  const resultsAll = transformData(data?.graph?.facet?.results || []).map((item) => [
+    item.from,
+    item.to,
+    item.weight,
+  ]);
 
   const result = resultsAll.sort((a, b) => b[2] - a[2]).slice(0, 100);
 
@@ -100,39 +109,40 @@ function RepatriatedMain({
     dataLabels: {
       color: '#333',
       style: {
-        textOutline: 'none'
+        textOutline: 'none',
       },
       textPath: {
-        enabled: true
+        enabled: true,
       },
-      distance: 10
-    }
+      distance: 10,
+    },
   };
 
   const wheelOptions = getDependencyWheelOptions({
     serie,
     onClick: handleRedirect,
-    interactive
+    interactive,
   });
 
-  const repatriatedTotal = data?.counts?.facet.results.find((item) => item.key === true)?.count || 0;
-  return <Card {...props}>
-    <CardTitle><FormattedMessage id="filters.repatriated.name" defaultMessage="Repatriated x" /></CardTitle>
-    <div>
-      Repatriated records in total: {repatriatedTotal}
-      <br />
-      repatriation relations: {resultsAll.length}
-      <br />
-      showing the first 100
-    </div>
-    <div style={{ margin: '0 auto' }}>
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={wheelOptions}
-        css={chartsStyle}
-      />
-    </div>
-  </Card>
+  const repatriatedTotal =
+    data?.counts?.facet.results.find((item) => item.key === true)?.count || 0;
+  return (
+    <Card {...props}>
+      <CardTitle>
+        <FormattedMessage id="filters.repatriated.name" defaultMessage="Repatriated x" />
+      </CardTitle>
+      <div>
+        Repatriated records in total: {repatriatedTotal}
+        <br />
+        repatriation relations: {resultsAll.length}
+        <br />
+        showing the first 100
+      </div>
+      <div style={{ margin: '0 auto' }}>
+        <HighchartsReact highcharts={Highcharts} options={wheelOptions} css={chartsStyle} />
+      </div>
+    </Card>
+  );
 }
 
 const chartsStyle = css`
@@ -141,7 +151,6 @@ const chartsStyle = css`
   width: 160px;
   overflow: hidden;
 `;
-
 
 const REPATRIATED = `
 query repatriated($predicate: Predicate, $repatriatedPredicate: Predicate) {

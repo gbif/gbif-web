@@ -5,7 +5,13 @@ import { MdClose } from 'react-icons/md';
 import { cn } from '@/utils/shadcn';
 import { FilterContext } from '@/contexts/filter';
 
-export function QInlineButtonFilter({ className, filterHandle = 'q' }: { className?: string, filterHandle: string }) {
+export function QInlineButtonFilter({
+  className,
+  filterHandle = 'q',
+}: {
+  className?: string;
+  filterHandle: string;
+}) {
   const { filter, setField } = useContext(FilterContext);
   return (
     <QFilter
@@ -16,7 +22,7 @@ export function QInlineButtonFilter({ className, filterHandle = 'q' }: { classNa
           setField(filterHandle, [x]);
         } else {
           // if (filter.must?.q?.[0]) {
-            setField(filterHandle, []);
+          setField(filterHandle, []);
           // }
         }
       }}
@@ -112,10 +118,19 @@ function FilterButton({
   return (
     <div className={cn('g-inline-block g-items-center', className)}>
       <div className="g-inline-flex g-w-full g-rounded-md g-shadow-sm" role="group">
-        <Button onClick={onOpen} type="button" className="g-flex-auto g-rounded-e-none g-rounded-s g-justify-start">
+        <Button
+          onClick={onOpen}
+          type="button"
+          className="g-flex-auto g-rounded-e-none g-rounded-s g-justify-start"
+        >
           {selectedLabel}
         </Button>
-        <Button onClick={onClear} type="button" aria-label="Clear filter" className="g-rounded-s-none g-rounded-e g-px-2">
+        <Button
+          onClick={onClear}
+          type="button"
+          aria-label="Clear filter"
+          className="g-rounded-s-none g-rounded-e g-px-2"
+        >
           <span>
             <MdClose />
           </span>

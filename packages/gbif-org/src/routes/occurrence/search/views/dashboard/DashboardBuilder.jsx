@@ -111,10 +111,10 @@ function DashboardBuilder({
   const deviceSize = isBelow800
     ? 'small'
     : isBelow1200
-    ? 'medium'
-    : isBelow1800
-    ? 'large'
-    : 'xlarge';
+      ? 'medium'
+      : isBelow1800
+        ? 'large'
+        : 'xlarge';
   const maxGroups =
     deviceSize === 'small' ? 1 : deviceSize === 'medium' ? 2 : deviceSize === 'large' ? 3 : 4;
   const disableAdd = maxGroups < state.length;

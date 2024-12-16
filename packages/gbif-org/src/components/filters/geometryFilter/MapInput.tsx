@@ -253,7 +253,7 @@ const OpenLayersMap = ({
               view.setZoom((view.getZoom() ?? 0) + 1);
             }}
           >
-            <MdZoomIn style={{fontSize: 18}}/>
+            <MdZoomIn style={{ fontSize: 18 }} />
           </ToggleGroupItem>
           <ToggleGroupItem
             value="ZOOM_OUT"
@@ -264,7 +264,7 @@ const OpenLayersMap = ({
               view.setZoom((view.getZoom() ?? 1) - 1);
             }}
           >
-            <MdZoomOut style={{fontSize: 18}}/>
+            <MdZoomOut style={{ fontSize: 18 }} />
           </ToggleGroupItem>
         </ToggleGroup>
         <ToggleGroup type="single" className="g-me-2 g-bg-white">

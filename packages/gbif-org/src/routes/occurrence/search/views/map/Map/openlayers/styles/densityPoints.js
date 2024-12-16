@@ -69,5 +69,5 @@ export default function (siteTheme) {
   return function (feature, resolution) {
     var total = thresholds(feature.get('total'));
     return densityPoints[total];
-  }
+  };
 }

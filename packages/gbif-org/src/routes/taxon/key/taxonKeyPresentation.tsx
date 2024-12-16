@@ -38,7 +38,7 @@ const GBIF_REGISTRY_ENDPOINT = 'https://registry.gbif.org';
 const contactThreshold = 5;
 
 // create context to pass data to children
-export const TaxonKeyContext = createContext<{key?: string, contentMetrics?: unknown}>({});
+export const TaxonKeyContext = createContext<{ key?: string; contentMetrics?: unknown }>({});
 
 export function TaxonKey({
   data,
@@ -65,9 +65,7 @@ export function TaxonKey({
   }
 
   // if there is at least a countryCode for thee address, then use that, else fall back to the mailing address
-  const contactInfo = taxon?.address?.country
-    ? taxon?.address
-    : taxon?.mailingAddress;
+  const contactInfo = taxon?.address?.country ? taxon?.address : taxon?.mailingAddress;
   const feedbackTemplate = `Please provide your feedback here, but leave content below for context\n\n---\nRelating to ${GBIF_REGISTRY_ENDPOINT}/taxon/${taxon.key}`;
   const contacts = taxon?.contactPersons
     .filter((x) => x?.firstName || x?.lastName)
@@ -102,9 +100,7 @@ export function TaxonKey({
                   <FormattedMessage id="grscicoll.taxonCode" />
                 </ArticlePreTitle>
                 {/* it would be nice to know for sure which fields to expect */}
-                <ArticleTitle
-                  dangerouslySetTitle={{ __html: taxon.name || 'No title provided' }}
-                >
+                <ArticleTitle dangerouslySetTitle={{ __html: taxon.name || 'No title provided' }}>
                   {!taxon.active && (
                     <span className="g-align-middle g-bg-red-100 g-text-red-800 g-text-sm g-font-medium g-ms-2 g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300">
                       <FormattedMessage id={`grscicoll.inactive`} />
@@ -256,7 +252,7 @@ export function TaxonKey({
         </ArticleTextContainer>
       </PageContainer>
 
-      <TaxonKeyContext.Provider value={{key: data?.taxon?.key, contentMetrics: taxonMetrics}}>
+      <TaxonKeyContext.Provider value={{ key: data?.taxon?.key, contentMetrics: taxonMetrics }}>
         <Outlet />
       </TaxonKeyContext.Provider>
     </article>
