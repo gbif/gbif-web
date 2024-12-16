@@ -94,6 +94,9 @@ export function useLiteratureColumns({
             </SetAsFilter>
           );
         },
+        meta: {
+          filter: filters['year'],
+        },
       },
       {
         id: 'relevance',
@@ -111,6 +114,9 @@ export function useLiteratureColumns({
             />
           );
         },
+        meta: {
+          filter: filters['relevance'],
+        },
       },
       {
         id: 'topics',
@@ -127,6 +133,9 @@ export function useLiteratureColumns({
               renderValue={(value) => <FormattedMessage id={`enums.topics.${value}`} />}
             />
           );
+        },
+        meta: {
+          filter: filters['topics'],
         },
       },
     ];
