@@ -183,7 +183,7 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
                   <MdDeleteOutline />
                 </button>
               )}
-              {allowNegations && <SimpleTooltip delayDuration={300} title="Exclude selected">
+              {allowNegations && (
                 <button
                   className="g-px-1"
                   onClick={() => {
@@ -191,26 +191,32 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
                     setUseNegations(!useNegations);
                   }}
                 >
-                  {useNegations && <MdOutlineRemoveCircle />}
-                  {!useNegations && <MdOutlineRemoveCircleOutline />}
+                  <SimpleTooltip delayDuration={300} title="Exclude selected" asChild>
+                    <span>
+                      {useNegations && <MdOutlineRemoveCircle />}
+                      {!useNegations && <MdOutlineRemoveCircleOutline />}
+                    </span>
+                  </SimpleTooltip>
                 </button>
-              </SimpleTooltip>}
+              )}
             </>
           )}
 
           {allowExistence && (
-            <SimpleTooltip delayDuration={300} title="Filter by existence">
-              <button
-                className="g-px-1"
-                onClick={() => {
-                  const backup = cleanUpFilter(cloneDeep(filter));
-                  setBackupFilter(backup);
-                  setFullField(filterHandle, [{ type: 'isNotNull' }], []);
-                }}
-              >
-                <PiEmptyBold />
-              </button>
-            </SimpleTooltip>
+            <button
+              className="g-px-1"
+              onClick={() => {
+                const backup = cleanUpFilter(cloneDeep(filter));
+                setBackupFilter(backup);
+                setFullField(filterHandle, [{ type: 'isNotNull' }], []);
+              }}
+            >
+              <SimpleTooltip delayDuration={300} title="Filter by existence" asChild>
+                <span>
+                  <PiEmptyBold />
+                </span>
+              </SimpleTooltip>
+            </button>
           )}
 
           {About && (

@@ -25,6 +25,7 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Option, SkeletonOption } from './option';
 import { AdditionalFilterProps, FacetQuery, filterRangeConfig, getAsQuery } from './filterTools';
 import { useSearchContext } from '@/contexts/search';
+import { AboutButton } from './aboutButton';
 
 type RangeProps = Omit<filterRangeConfig, 'filterType' | 'filterTranslation'> & AdditionalFilterProps & {
   className?: string;
@@ -41,6 +42,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
       onApply,
       onCancel,
       pristine,
+      about,
     }: RangeProps,
     ref
   ) => {
@@ -51,6 +53,8 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
     const [filterBeforeHash, setFilterBeforeHash] = useState<string | undefined>(undefined);
     const [q, setQ] = useState<string>('');
     const { upperBound = 'lte', lowerBound = 'gte', placeholder = 'E.g. 100,200' } = {};
+
+    const About = about;
 
     useEffect(() => {
       // filter has changed updateed the listed of selected values
@@ -72,35 +76,12 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
               <MdDeleteOutline />
             </button>
           )}
-          {/* <SimpleTooltip delayDuration={300} title="Exclude selected">
-          <button
-            className="g-px-1"
-            onClick={() => {
-              // negateField('publishingOrg', true)
-            }}
-          >
-            <MdOutlineRemoveCircleOutline />
-          </button>
-        </SimpleTooltip> */}
-          {/* <SimpleTooltip delayDuration={300} title="Invert selection">
-          <button className="g-px-1">
-            <MdShuffle />
-          </button>
-        </SimpleTooltip>
-        <SimpleTooltip delayDuration={300} title="Filter by existence">
-          <button className="g-px-1">
-            <PiEmptyBold />
-          </button>
-        </SimpleTooltip> */}
 
-          <SimpleTooltip delayDuration={300} title="About this filter">
-            <span>
-              <HelpLine
-                id="how-to-link-datasets-to-my-project-page"
-                title={<MdInfoOutline className="-g-me-1" />}
-              />
-            </span>
-          </SimpleTooltip>
+          {About && (
+            <AboutButton className="-g-me-1">
+              <About />
+            </AboutButton>
+          )}
         </div>
       </>
     );

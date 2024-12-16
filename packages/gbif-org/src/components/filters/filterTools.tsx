@@ -446,9 +446,7 @@ const getRangeFilter = ({
       return (
         <RangeFilter
           ref={ref}
-          regex={config.regex}
-          filterHandle={config.filterHandle}
-          displayName={config.displayName}
+          {...config}
           searchConfig={searchConfig}
           {...{ onApply, onCancel, className, style, pristine }}
         />

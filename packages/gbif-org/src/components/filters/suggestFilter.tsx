@@ -50,7 +50,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       disableFacetsForSelected,
       about,
       allowExistence,
-      allowNegations
+      allowNegations,
     }: SuggestProps,
     ref
   ) => {
@@ -189,7 +189,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                   <MdDeleteOutline />
                 </button>
               )}
-              {allowNegations && <SimpleTooltip delayDuration={300} title="Exclude selected">
+              {allowNegations && (
                 <button
                   className="g-px-1"
                   onClick={() => {
@@ -197,14 +197,18 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                     setUseNegations(!useNegations);
                   }}
                 >
-                  {useNegations && <MdOutlineRemoveCircle />}
-                  {!useNegations && <MdOutlineRemoveCircleOutline />}
+                  <SimpleTooltip delayDuration={300} title="Exclude selected" asChild>
+                    <span>
+                      {useNegations && <MdOutlineRemoveCircle />}
+                      {!useNegations && <MdOutlineRemoveCircleOutline />}
+                    </span>
+                  </SimpleTooltip>
                 </button>
-              </SimpleTooltip>}
+              )}
             </>
           )}
 
-          {allowExistence && <SimpleTooltip delayDuration={300} title="Filter by existence">
+          {allowExistence && (
             <button
               className="g-px-1"
               onClick={() => {
@@ -213,9 +217,13 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                 setFullField(filterHandle, [{ type: 'isNotNull' }], []);
               }}
             >
-              <PiEmptyBold />
+              <SimpleTooltip delayDuration={300} title="Filter by existence" asChild>
+                <span>
+                  <PiEmptyBold />
+                </span>
+              </SimpleTooltip>
             </button>
-          </SimpleTooltip>}
+          )}
 
           {About && (
             <AboutButton className="-g-me-1">
