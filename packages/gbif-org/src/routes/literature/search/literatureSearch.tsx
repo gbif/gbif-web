@@ -45,11 +45,13 @@ export function LiteratureSearchPage(): React.ReactElement {
   );
 }
 
-const defaultView = 'table';
+const defaultTabs = ['table', 'list'];
 
 export function LiteratureSearch(): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
+  const config = useConfig();
+  const defaultView = config.literatureSearch?.defaultTab ?? 'table';
   const [view] = useStringParam({
     key: 'view',
     defaultValue: defaultView,
@@ -64,7 +66,11 @@ export function LiteratureSearch(): React.ReactElement {
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
       >
-        <LiteartureViewTabs view={view} defaultView={defaultView} />
+        <LiteartureViewTabs
+          tabs={config.literatureSearch?.tabs ?? defaultTabs}
+          view={view}
+          defaultView={defaultView}
+        />
       </DataHeader>
 
       <section className="">
