@@ -24,4 +24,3 @@ dist-ssr
 *.sw?
 
 artifacts
-src/gql
