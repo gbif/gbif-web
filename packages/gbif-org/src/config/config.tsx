@@ -1,9 +1,9 @@
+import mergeWith from 'lodash/mergeWith';
 import React from 'react';
+import { SearchMetadata } from '../contexts/search';
 import { Endpoints, GbifEnv } from './endpoints';
 import themeBuilder from './theme/index';
 import { Theme } from './theme/theme';
-import { SearchMetadata } from '../contexts/search';
-import mergeWith from 'lodash/mergeWith';
 
 type PageConfig = {
   id: string;
@@ -27,6 +27,9 @@ type PartialSearchMetadata = Pick<
 // TODO: The config object should probably be refactored in the future with logical nesting
 export type Config = Endpoints & {
   version: number;
+  suggest: {
+    gadm: { type: 'PARAMS'; value: { gadmGid: string } };
+  };
   defaultTitle?: string;
   gbifEnv: GbifEnv;
   languages: LanguageOption[];
