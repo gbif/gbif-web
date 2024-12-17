@@ -1,9 +1,9 @@
 import { ErrorMessage } from '@/components/errorMessage';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import maplibre, { Map } from 'maplibre-gl';
-import uniqBy from 'lodash/uniqBy';
 import { useConfig } from '@/config/config';
 import { cn } from '@/utils/shadcn';
+import uniqBy from 'lodash/uniqBy';
+import maplibre, { Map } from 'maplibre-gl';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export function GeoJsonMap({
   geojson,
@@ -198,7 +198,9 @@ export function GeoJsonMap({
 
       const newMap = new maplibre.Map({
         container: mapRef.current,
-        style: `http://localhost:4002/unstable-api/map-styles/3857/gbif-raster?styleName=osm&background=%23f3f3f1&language=en&pixelRatio=2`,
+        style: `${
+          import.meta.env.PUBLIC_WEB_UTILS
+        }/map-styles/3857/gbif-raster?styleName=osm&background=%23f3f3f1&language=en&pixelRatio=2`,
         center: [lng, lat],
         zoom,
       });
