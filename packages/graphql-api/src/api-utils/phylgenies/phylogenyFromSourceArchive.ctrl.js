@@ -1,14 +1,39 @@
 /* eslint-disable */
+import cors from 'cors';
 import { Router } from 'express';
-import axios from 'axios';
-import parseNexus from './parseNexus.js';
+import https from 'https';
+import config from '../../config';
+
 const router = Router();
 
 export default (app) => {
-    app.use('/unstable-api', router);
-  };
+  app.use('/unstable-api', router);
+};
 
-router.get('/source-archive/:datasetKey/phylogeny/:fileName', async (req, res, next) => {
+router.get(
+  '/source-archive/:datasetKey/:fileName',
+  cors(),
+  function (req, res, next) {
+    let url =
+      config.sourceArchiveEndpoint +
+      '/' +
+      req.params.datasetKey +
+      '/' +
+      req.params.fileName;
+
+    let newReq = https
+      .request(url, function (newRes) {
+        newRes.pipe(res);
+      })
+      .on('error', function (err) {
+        next(err);
+      });
+
+    req.pipe(newReq);
+  },
+);
+
+/* router.get('/source-archive/:datasetKey/phylogeny/:fileName', async (req, res, next) => {
     try {
         const {datasetKey, fileName} = req?.params
         const fileExtension = (fileName || "").split('.').pop()
@@ -34,4 +59,4 @@ router.get('/source-archive/:datasetKey/phylogeny/:fileName', async (req, res, n
     } catch (error) {
       res.sendStatus(error?.response?.status || 500)
     }
-  });
+  }); */
