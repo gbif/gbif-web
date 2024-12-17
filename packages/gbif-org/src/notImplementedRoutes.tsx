@@ -100,7 +100,7 @@ export const notImplementedRoutes: RouteObjectWithPlugins[] = [
 function NotImplemented() {
   return (
     <main className="g-h-full g-text-center">
-      <h1 className="g-mt-48 g-text-4xl g-font-bold g-text-slate-400 g-min-h-[80dvh]">
+      <h1 className="g-pt-48 g-text-4xl g-font-bold g-text-slate-400 g-min-h-[80dvh]">
         Not implemented yet
       </h1>
     </main>
