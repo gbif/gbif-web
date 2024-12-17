@@ -72,6 +72,13 @@ export const gbifConfig: Config = {
     }
     return options.formsEndpointClient ?? options.formsEndpoint;
   },
+  // suggest: {
+  //   gadm: {
+  //     type: 'PARAMS',
+  //     value: {gadmGid: 'DEU'}
+  //     },
+  //   },
+  // },
   // pages: [
   //   {
   //     id: 'home',

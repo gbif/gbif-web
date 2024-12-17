@@ -29,6 +29,7 @@ import geometryController from './api-utils/geometry/index.ctrl.js';
 import helperController from './api-utils/helpers.ctrl.js';
 import phylogenyFromSourceArchiveCtrl from './api-utils/phylgenies/phylogenyFromSourceArchive.ctrl.js';
 import { loggingPlugin } from './plugins/loggingPlugin';
+import { explicitNoCacheWhenErrorsPlugin } from './plugins/explicitNoCacheWhenErrorsPlugin';
 
 // we are doing this async as we need to load the various enumerations from the APIs
 // and generate the schema from those
@@ -76,6 +77,7 @@ async function initializeServer() {
         defaultMaxAge: config.debug ? 0 : 600,
       }),
       loggingPlugin,
+      explicitNoCacheWhenErrorsPlugin,
     ],
     logger: console,
   });

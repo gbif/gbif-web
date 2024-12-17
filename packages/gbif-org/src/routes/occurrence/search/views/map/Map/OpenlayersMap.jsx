@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { projections } from './openlayers/projections';
 
+import { apply, applyBackground, applyStyle, stylefunction } from 'ol-mapbox-style';
 import OlMap from 'ol/Map';
 import { defaults as olControlDefaults } from 'ol/control';
+import { MVT as MVTFormat } from 'ol/format';
 import * as olInteraction from 'ol/interaction';
 import { transform } from 'ol/proj';
-import { applyStyle, applyBackground, apply, stylefunction } from 'ol-mapbox-style';
-import { VectorTile as VectorTileSource } from 'ol/source';
-import { TileImage as TileImageSource } from 'ol/source';
-import { MVT as MVTFormat } from 'ol/format';
+import { TileImage as TileImageSource, VectorTile as VectorTileSource } from 'ol/source';
 import TileGrid from 'ol/tilegrid/TileGrid';
 import klokantech from './openlayers/styles/klokantech.json';
 
@@ -251,7 +250,10 @@ class Map extends Component {
     } else {
       await apply(
         this.map,
-        this.props.mapConfig?.basemapStyle || 'http://localhost:3001/map/styles/darkMatter.json'
+        this.props.mapConfig?.basemapStyle ||
+          `${
+            import.meta.env.PUBLIC_WEB_UTILS
+          }/map-styles/3857/gbif-raster?styleName=osm&background=%23f3f3f1&language=en&pixelRatio=2`
       );
     }
 

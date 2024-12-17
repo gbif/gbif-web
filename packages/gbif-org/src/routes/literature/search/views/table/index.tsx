@@ -13,6 +13,7 @@ import { useLiteratureColumns } from './columns';
 import { notNull } from '@/utils/notNull';
 import { ViewHeader } from '@/components/ViewHeader';
 import SearchTable from '@/components/searchTable/table';
+import { useResetPaginationOnFilterChange } from '@/hooks/useResetPaginationOnFilterChange';
 
 // TODO: Should maybe be moved to the configBuilder
 const DAFAULT_AVAILABLE_TABLE_COLUMNS = Object.freeze([
@@ -73,15 +74,11 @@ export type SingleLiteratureSearchResult = ExtractPaginatedResult<
 export function LiteratureTable() {
   const searchContext = useSearchContext();
   const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
+  useResetPaginationOnFilterChange(setPaginationState);
   const filterContext = useContext(FilterContext);
   const config = useConfig();
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
-
-  // Go back to the first page when the filters change
-  useEffect(() => {
-    setPaginationState((prev) => ({ ...prev, pageIndex: 0 }));
-  }, [filterHash]);
 
   const { data, load, loading } = useQuery<
     LiteratureTableSearchQuery,

@@ -1,9 +1,10 @@
-import { SuggestFnProps, SuggestResponseType } from '@/components/filters/suggest';
-import { CANCEL_REQUEST, fetchWithCancel } from './fetchWithCancel';
 import { Classification } from '@/components/classification';
-import { FormattedMessage } from 'react-intl';
-import { GraphQLService } from '@/services/graphQLService';
+import { SuggestFnProps, SuggestResponseType } from '@/components/filters/suggest';
 import { SimpleTooltip } from '@/components/simpleTooltip';
+import { GraphQLService } from '@/services/graphQLService';
+import { FormattedMessage } from 'react-intl';
+import { CANCEL_REQUEST, fetchWithCancel } from './fetchWithCancel';
+import { stringify } from './querystring';
 
 export type SuggestionItem = {
   key: string;
@@ -351,8 +352,10 @@ export const taxonKeyVernacularSuggest = {
 
 export const gadGidSuggest = {
   getSuggestions: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {
+    const gadmSuggest = siteConfig?.suggest?.gadm;
+    const extraParams = stringify(gadmSuggest?.extraParams ?? {});
     const { cancel, promise } = fetchWithCancel(
-      `${siteConfig.v1Endpoint}/geocode/gadm/search?limit=100&q=${q}`
+      `${siteConfig.v1Endpoint}/geocode/gadm/search?limit=100&q=${q}&${extraParams}`
     );
     const result = promise
       .then((res) => res.json())

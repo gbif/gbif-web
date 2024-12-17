@@ -16,6 +16,7 @@ import { useSearchContext } from '@/contexts/search';
 import { useFilters } from '../../filters';
 import { Row } from '@tanstack/react-table';
 import { ViewHeader } from '@/components/ViewHeader';
+import { useResetPaginationOnFilterChange } from '@/hooks/useResetPaginationOnFilterChange';
 
 // TODO: Should maybe be moved to the configBuilder
 const DAFAULT_AVAILABLE_TABLE_COLUMNS = Object.freeze([
@@ -127,16 +128,12 @@ const createRowLink = (row: Row<SingleOccurrenceSearchResult>) => `/occurrence/$
 export function OccurrenceTable() {
   const searchContext = useSearchContext();
   const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
+  useResetPaginationOnFilterChange(setPaginationState);
   const filterContext = useContext(FilterContext);
   const config = useConfig();
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
   const [, setPreviewKey] = useStringParam({ key: 'entity' });
-
-  // Go back to the first page when the filters change
-  useEffect(() => {
-    setPaginationState((prev) => ({ ...prev, pageIndex: 0 }));
-  }, [filterHash]);
 
   const { data, load, loading } = useQuery<OccurrenceSearchQuery, OccurrenceSearchQueryVariables>(
     OCCURRENCE_SEARCH_QUERY,
