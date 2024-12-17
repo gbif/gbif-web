@@ -53,9 +53,11 @@ export function I18nContextProvider({ children, locale, defaultLocale, available
 
   const setLocale = useCallback(
     (locale: string) => {
-      navigate(localizeLink(location.pathname, locale));
+      let targetLink = localizeLink(location.pathname, locale);
+      if (location.search) targetLink += location.search;
+      navigate(targetLink);
     },
-    [navigate, location.pathname, localizeLink]
+    [navigate, location.pathname, location.search, localizeLink]
   );
 
   const value: I18nContextValue = useMemo(
