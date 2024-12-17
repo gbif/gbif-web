@@ -48,7 +48,7 @@ export function useOccurrenceColumns({
                     e.preventDefault();
                   }}
                 >
-                  <SimpleTooltip i18nKey="filterSupport.viewDetails" side="right">
+                  <SimpleTooltip i18nKey="filterSupport.viewDetails" side="right" asChild>
                     <div className="g-flex g-items-center">
                       <GoSidebarExpand size={16} />
                     </div>

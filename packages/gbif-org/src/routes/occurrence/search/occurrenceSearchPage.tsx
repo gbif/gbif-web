@@ -25,6 +25,7 @@ import { Card } from '@/components/ui/smallCard';
 import { FormattedMessage } from 'react-intl';
 import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
 import { Tabs } from '@/components/tabs';
+import { ClientSideOnly } from '@/components/clientSideOnly';
 
 export function OccurrenceSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({
@@ -124,7 +125,11 @@ function Views({ view, className }: { view?: string; className?: string }) {
       <div className={cn('', className)}>
         {fixedHeight && (
           <DynamicHeightDiv minPxHeight={500}>
-            {view === 'table' && <OccurrenceTable />}
+            {view === 'table' && (
+              <ClientSideOnly>
+                <OccurrenceTable />
+              </ClientSideOnly>
+            )}
             {view === 'map' && <Map />}
             {view === 'clusters' && <Clusters />}
           </DynamicHeightDiv>

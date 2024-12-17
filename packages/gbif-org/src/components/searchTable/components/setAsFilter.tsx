@@ -17,7 +17,7 @@ export function SetAsFilter({ filterIsActive, children, field, value, className 
   if (!filterIsActive) return <span className={className}>{children}</span>;
 
   return (
-    <SimpleTooltip i18nKey="filterSupport.setFilter" side="right">
+    <SimpleTooltip i18nKey="filterSupport.setFilter" side="right" asChild>
       <span
         // Buttons can't be displayed inline
         role="button"

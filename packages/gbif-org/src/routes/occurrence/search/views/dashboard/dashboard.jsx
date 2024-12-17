@@ -9,6 +9,7 @@ import { Media } from '../media';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/smallCard';
 import { useJsonParam } from '@/hooks/useParam';
+import { ClientSideOnly } from '@/components/clientSideOnly';
 
 export function Dashboard({ predicate, chartsTypes: chartsTypesProp, ...props }) {
   const [urlLayout, setUrlLayout] = useJsonParam({ key: 'layout' });
@@ -308,7 +309,9 @@ const preconfiguredCharts = {
     component: ({ predicate, ...props }) => {
       return (
         <Card className="g-overflow-hidden g-overflow-y-auto g-h-full g-p-2">
-          <Table {...props} />
+          <ClientSideOnly>
+            <Table {...props} />
+          </ClientSideOnly>
         </Card>
       );
     },
