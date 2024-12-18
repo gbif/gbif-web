@@ -84,10 +84,14 @@ export const gbifConfig: Config = {
   //     id: 'home',
   //   },
   //   {
-  //     id: 'occurrence-search',
+  //     id: 'occurrenceSearch',
   //   },
   //   {
-  //     id: 'dataset-search',
+  //     id: 'datasetSearch',
+  //   },
+  //   {
+  //     id: 'datasetKey',
+  //     path: '/dataset?key=:key',
   //   },
   // ],
   defaultTitle: 'GBIF',

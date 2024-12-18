@@ -7,6 +7,14 @@ import { Theme } from './theme/theme';
 
 type PageConfig = {
   id: string;
+  enabled?: boolean;
+  path?: string;
+  getPath?: (args: {
+    key?: string;
+    searchParams?: object;
+    localeCode: string;
+    pageId: string;
+  }) => string;
 };
 
 export type LanguageOption = {

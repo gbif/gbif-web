@@ -1,20 +1,52 @@
+import { useConfig } from '@/config/config';
 import { Link, Location, To, useLocation } from 'react-router-dom';
-import { useI18n } from './i18n';
 import { useGetRedirectUrl } from './enablePages';
+import { useI18n } from './i18n';
 
 type Props<T extends React.ElementType> = React.ComponentProps<T> & {
   to: To;
   as?: T;
+  variables?: object;
+  pageId?: string;
+  searchParams?: object;
 };
 
 export function DynamicLink<T extends React.ElementType = typeof Link>({
   to,
   as,
+  variables,
+  pageId,
+  searchParams,
   ...props
 }: Props<T>): React.ReactElement {
   // Localize the link
   const { localizeLink } = useI18n();
+  const { pages } = useConfig();
   const location = useLocation();
+
+  // if a pageId is provided, use the pageId to get the link
+  if (pageId && pages) {
+    // first find the page with the provided pageId
+    const page = pages.find((page) => page.id === pageId);
+    if (page) {
+      // use the path provided
+      to = page.path;
+      if (variables) {
+        // replace the variables in the path
+        Object.entries(variables).forEach(([key, value]) => {
+          to = to.replace(`:${key}`, value);
+        });
+      }
+      if (searchParams) {
+        if (to.includes('?')) {
+          to = `${to}&${new URLSearchParams(searchParams).toString()}`;
+        } else {
+          to = { ...to, search: new URLSearchParams(searchParams).toString() };
+        }
+      }
+    }
+  }
+
   const toString = convertTo2String(to, location);
   let toResult = localizeLink(toString);
 
