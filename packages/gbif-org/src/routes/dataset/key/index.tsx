@@ -1,10 +1,10 @@
+import { DatasetQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
-import { datasetLoader, DatasetPage, DatasetPageSkeleton } from './datasetKey';
 import { DatasetKeyAbout } from './about';
 import { DatasetKeyDashboard } from './dashboard';
-import { DatasetKeyOccurrences } from './occurrences';
+import { datasetLoader, DatasetPage, DatasetPageSkeleton } from './datasetKey';
 import { DatasetKeyDownload } from './download';
-import { DatasetQuery } from '@/gql/graphql';
+import { DatasetKeyOccurrences } from './occurrences';
 
 const id = 'datasetKey';
 

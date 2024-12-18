@@ -1,8 +1,8 @@
-import useDeepCompareEffect from 'use-deep-compare-effect';
-import { FormattedMessage } from 'react-intl';
-import { Table, BarItem, FormattedNumber, CardHeader } from './shared';
 import useQuery from '@/hooks/useQuery';
+import { FormattedMessage } from 'react-intl';
+import useDeepCompareEffect from 'use-deep-compare-effect';
 import { Card, CardContent, CardTitle } from '../ui/smallCard';
+import { BarItem, CardHeader, FormattedNumber, Table } from './shared';
 
 export function DataQuality({ predicate, ...props }) {
   const { data, error, loading, load } = useQuery(OCCURRENCE_STATS, { lazyLoad: true });

@@ -1,6 +1,6 @@
+import { GadmClassification } from '@/components/classification';
 import { FormattedMessage } from 'react-intl';
 import { KeyChartGenerator } from './KeyChartGenerator';
-import { GadmClassification } from '@/components/classification';
 
 // a small wrapper to make it easier to add new charts
 function getStringChart({ fieldName, title, subtitleKey, ...rest }) {

@@ -1,6 +1,6 @@
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { TaxonSearchPage } from './taxonSearch';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 export const taxonSearchRoute: RouteObjectWithPlugins = {
   id: 'taxonSearch',

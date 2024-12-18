@@ -1,6 +1,6 @@
-import { MdInfoOutline } from 'react-icons/md';
-import { cn } from '@/utils/shadcn';
 import { SimpleTooltip } from '@/components/simpleTooltip';
+import { cn } from '@/utils/shadcn';
+import { MdInfoOutline } from 'react-icons/md';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 
 export function AboutButton({

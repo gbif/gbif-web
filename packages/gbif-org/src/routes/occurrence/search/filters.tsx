@@ -1,77 +1,77 @@
-import { CoordinateUncertaintyLabel, IdentityLabel } from '@/components/filters/displayNames';
+import { IdentityLabel } from '@/components/filters/displayNames';
 import {
-  filterConfig,
-  filterConfigTypes,
-  FilterSetting,
-  generateFilters,
+    filterConfig,
+    filterConfigTypes,
+    FilterSetting,
+    generateFilters
 } from '@/components/filters/filterTools';
-import { useIntl } from 'react-intl';
+import { SuggestFnProps } from '@/components/filters/suggest';
+import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
+import country from '@/enums/basic/country.json';
 import { matchSorter } from 'match-sorter';
 import hash from 'object-hash';
-import country from '@/enums/basic/country.json';
-import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { SuggestFnProps } from '@/components/filters/suggest';
-import {
-  collectionCodeConfig,
-  collectionKeyConfig,
-  countryConfig,
-  datasetKeyConfig,
-  gadmGidConfig,
-  hostingOrganizationKeyConfig,
-  institutionCodeConfig,
-  institutionKeyConfig,
-  networkKeyConfig,
-  publisherKeyConfig,
-  publishingCountryConfig,
-  recordNumberConfig,
-  taxonKeyConfig,
-} from './filters/keySuggest';
-import {
-  basisOfRecordConfig,
-  continentConfig,
-  dwcaExtensionConfig,
-  iucnRedListCategoryConfig,
-  licenceConfig,
-  mediaTypeConfig,
-  monthConfig,
-  occurrenceIssueConfig,
-  occurrenceStatusConfig,
-  protocolConfig,
-  typeStatusConfig,
-} from './filters/enums';
-import {
-  eventIdConfig,
-  higherGeographyConfig,
-  identifiedByIdConfig,
-  occurrenceIdConfig,
-  organismIdConfig,
-  projectIdConfig,
-  recordedByIdConfig,
-} from './filters/textOnly';
-import { establishmentMeansConfig } from './filters/vocabulary';
+import { useIntl } from 'react-intl';
 import { isInClusterConfig, isSequencedConfig } from './filters/booleans';
 import {
-  coordinateUncertaintyConfig,
-  depthConfig,
-  elevationConfig,
-  organismQuantityConfig,
-  relativeOrganismQuantityConfig,
-  sampleSizeValueConfig,
-  yearConfig,
+    basisOfRecordConfig,
+    continentConfig,
+    dwcaExtensionConfig,
+    iucnRedListCategoryConfig,
+    licenceConfig,
+    mediaTypeConfig,
+    monthConfig,
+    occurrenceIssueConfig,
+    occurrenceStatusConfig,
+    protocolConfig,
+    typeStatusConfig
+} from './filters/enums';
+import {
+    collectionCodeConfig,
+    collectionKeyConfig,
+    countryConfig,
+    datasetKeyConfig,
+    gadmGidConfig,
+    hostingOrganizationKeyConfig,
+    institutionCodeConfig,
+    institutionKeyConfig,
+    networkKeyConfig,
+    publisherKeyConfig,
+    publishingCountryConfig,
+    recordNumberConfig,
+    taxonKeyConfig
+} from './filters/keySuggest';
+import { locationConfig } from './filters/location';
+import {
+    coordinateUncertaintyConfig,
+    depthConfig,
+    elevationConfig,
+    organismQuantityConfig,
+    relativeOrganismQuantityConfig,
+    sampleSizeValueConfig,
+    yearConfig
 } from './filters/ranges';
 import {
-  catalogNumberConfig,
-  identifiedByConfig,
-  localityConfig,
-  recordedByConfig,
-  sampleSizeUnitConfig,
-  samplingProtocolConfig,
-  stateProvinceConfig,
-  verbatimScientificNameConfig,
-  waterBodyConfig,
+    eventIdConfig,
+    higherGeographyConfig,
+    identifiedByIdConfig,
+    occurrenceIdConfig,
+    organismIdConfig,
+    projectIdConfig,
+    recordedByIdConfig
+} from './filters/textOnly';
+import { establishmentMeansConfig } from './filters/vocabulary';
+import {
+    catalogNumberConfig,
+    identifiedByConfig,
+    localityConfig,
+    recordedByConfig,
+    sampleSizeUnitConfig,
+    samplingProtocolConfig,
+    stateProvinceConfig,
+    verbatimScientificNameConfig,
+    waterBodyConfig
 } from './filters/wildcard';
-import { locationConfig } from './filters/location';
 
 const freeTextConfig: filterConfig = {
   filterType: filterConfigTypes.FREE_TEXT,

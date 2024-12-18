@@ -1,18 +1,18 @@
 import { ErrorMessage } from '@/components/errorMessage';
 import {
-  DeletedMessage,
-  HeaderInfo,
-  HeaderInfoEdit,
-  HeaderInfoMain,
+    DeletedMessage,
+    HeaderInfo,
+    HeaderInfoEdit,
+    HeaderInfoMain
 } from '@/components/headerComponents';
 import {
-  CatalogIcon,
-  FeatureList,
-  GenericFeature,
-  Homepage,
-  Location,
-  OccurrenceIcon,
-  PeopleIcon,
+    CatalogIcon,
+    FeatureList,
+    GenericFeature,
+    Homepage,
+    Location,
+    OccurrenceIcon,
+    PeopleIcon
 } from '@/components/highlights';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';

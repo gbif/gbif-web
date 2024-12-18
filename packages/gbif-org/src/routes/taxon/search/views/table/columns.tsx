@@ -1,19 +1,14 @@
+import { TaxonClassification } from '@/components/classification';
 import { FilterSetting } from '@/components/filters/filterTools';
-import { FormattedDateRange } from '@/components/message';
-import { LinkOption } from '@/components/searchTable/components/linkOption';
 import { SetAsFilter } from '@/components/searchTable/components/setAsFilter';
 import { SimpleTooltip } from '@/components/simpleTooltip';
-import { VocabularyValue } from '@/components/vocabularyValue';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { ColumnDef } from '@tanstack/react-table';
 import { useMemo } from 'react';
 import { GoSidebarExpand } from 'react-icons/go';
+import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
-import { SetAsFilterList } from '@/components/searchTable/components/setAsFilterList';
-import { InlineLineClamp } from '@/components/inlineLineClamp';
 import { SingleTaxonSearchResult } from './table';
-import { TaxonClassification } from '@/components/classification';
-import { DynamicLink } from '@/reactRouterPlugins';
-import { MdInfo, MdInfoOutline } from 'react-icons/md';
 
 type Args = {
   showPreview?: ((id: string) => void) | false;

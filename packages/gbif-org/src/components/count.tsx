@@ -1,7 +1,7 @@
-import get from 'lodash/get';
 import { stringify } from '@/utils/querystring';
-import { useEffect, useState } from 'react';
+import get from 'lodash/get';
 import Queue from 'queue-promise';
+import { useEffect, useState } from 'react';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Skeleton } from './ui/skeleton';
 

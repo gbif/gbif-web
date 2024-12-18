@@ -1,7 +1,9 @@
 import { FilterSetting } from '@/components/filters/filterTools';
+import { InlineLineClamp } from '@/components/inlineLineClamp';
 import { FormattedDateRange } from '@/components/message';
 import { LinkOption } from '@/components/searchTable/components/linkOption';
 import { SetAsFilter } from '@/components/searchTable/components/setAsFilter';
+import { SetAsFilterList } from '@/components/searchTable/components/setAsFilterList';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { VocabularyValue } from '@/components/vocabularyValue';
 import { ColumnDef } from '@tanstack/react-table';
@@ -10,8 +12,6 @@ import { GoSidebarExpand } from 'react-icons/go';
 import { FormattedMessage } from 'react-intl';
 import { SingleOccurrenceSearchResult } from '.';
 import { IconFeatures } from './iconFeatures';
-import { SetAsFilterList } from '@/components/searchTable/components/setAsFilterList';
-import { InlineLineClamp } from '@/components/inlineLineClamp';
 
 type Args = {
   showPreview?: ((id: string) => void) | false;

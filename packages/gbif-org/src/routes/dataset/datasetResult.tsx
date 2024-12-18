@@ -1,10 +1,10 @@
-import { DynamicLink } from '@/reactRouterPlugins';
-import { DatasetResultFragment, DatasetStubResultFragment } from '@/gql/graphql';
-import { fragmentManager } from '@/services/fragmentManager';
-import { FormattedMessage } from 'react-intl';
 import { MapThumbnail, MapTypes } from '@/components/mapThumbnail';
 import { CountTag, Tag } from '@/components/resultCards';
 import { Card } from '@/components/ui/largeCard';
+import { DatasetResultFragment, DatasetStubResultFragment } from '@/gql/graphql';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { fragmentManager } from '@/services/fragmentManager';
+import { FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment DatasetStubResult on DatasetSearchStub {

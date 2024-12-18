@@ -6,7 +6,7 @@ import { Spinner } from '@/components/ui/spinner';
 import { ViewHeader } from '@/components/ViewHeader';
 import { useCallback, useState } from 'react';
 import { FaGlobeAfrica } from 'react-icons/fa';
-import { MdBrokenImage, MdEvent, MdOutlineImageSearch } from 'react-icons/md';
+import { MdBrokenImage, MdEvent } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 
 export function MediaPresentation({

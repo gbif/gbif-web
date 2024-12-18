@@ -1,7 +1,7 @@
-import { FormattedMessage } from 'react-intl';
 import licenses from '@/enums/basic/license.json';
-import React from 'react';
 import { cn } from '@/utils/shadcn';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 const url2enum: Record<string, string> = {
   '//creativecommons.org/publicdomain/zero/1.0/legalcode': 'CC0_1_0',

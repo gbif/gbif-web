@@ -1,21 +1,19 @@
-import { Helmet } from 'react-helmet-async';
-import { ProjectPageFragment } from '@/gql/graphql';
-import { ArticleTitle } from '../components/articleTitle';
-import { ArticleTextContainer } from '../components/articleTextContainer';
-import { ArticlePreTitle } from '../components/articlePreTitle';
-import { Tabs } from '@/components/tabs';
-import { Outlet, useLoaderData } from 'react-router-dom';
-import { FormattedMessage, FormattedDateTimeRange, FormattedNumber } from 'react-intl';
-import { MdLink } from 'react-icons/md';
-import { ArticleSkeleton } from '../components/articleSkeleton';
-import { MdCalendarMonth as CalendarIcon } from 'react-icons/md';
-import { MdEuro as EuroIcon } from 'react-icons/md';
 import { RenderIfChildren } from '@/components/renderIfChildren';
-import { FundingBanner } from '../components/fundingBanner';
+import { Tabs } from '@/components/tabs';
+import { ProjectPageFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
-import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import { Helmet } from 'react-helmet-async';
+import { MdCalendarMonth as CalendarIcon, MdEuro as EuroIcon, MdLink } from 'react-icons/md';
+import { FormattedDateTimeRange, FormattedMessage, FormattedNumber } from 'react-intl';
+import { Outlet, useLoaderData } from 'react-router-dom';
 import { ArticleOpenGraph } from '../components/articleOpenGraph';
+import { ArticlePreTitle } from '../components/articlePreTitle';
+import { ArticleSkeleton } from '../components/articleSkeleton';
+import { ArticleTextContainer } from '../components/articleTextContainer';
+import { ArticleTitle } from '../components/articleTitle';
+import { FundingBanner } from '../components/fundingBanner';
 import { PageContainer } from '../components/pageContainer';
+import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 
 export const ProjectPageSkeleton = ArticleSkeleton;
 

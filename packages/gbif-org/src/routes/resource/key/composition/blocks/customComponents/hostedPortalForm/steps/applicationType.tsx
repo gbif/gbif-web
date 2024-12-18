@@ -1,28 +1,28 @@
 import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage
 } from '@/components/ui/form';
-import { useFormContext } from 'react-hook-form';
-import { Inputs, TextField } from '../hostedPortalForm';
 import { RadioGroup } from '@/components/ui/radio-group';
-import { RadioItem, Required } from '../../_shared';
-import { cn } from '@/utils/shadcn';
-import useQuery from '@/hooks/useQuery';
-import { Country, ParticipantsQuery, ParticipationStatus } from '@/gql/graphql';
-import { useEffect, useMemo } from 'react';
-import { DynamicLink } from '@/reactRouterPlugins';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue
 } from '@/components/ui/select';
+import { Country, ParticipantsQuery, ParticipationStatus } from '@/gql/graphql';
+import useQuery from '@/hooks/useQuery';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { notNull } from '@/utils/notNull';
+import { cn } from '@/utils/shadcn';
+import { useEffect, useMemo } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { RadioItem, Required } from '../../_shared';
+import { Inputs, TextField } from '../hostedPortalForm';
 
 export function ApplicationType() {
   const form = useFormContext<Partial<Inputs>>();

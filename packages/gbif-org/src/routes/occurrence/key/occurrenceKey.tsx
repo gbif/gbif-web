@@ -1,14 +1,14 @@
 import Globe from '@/components/globe';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import {
-  FeatureList,
-  GadmClassification,
-  Homepage,
-  Location,
-  SamplingEvent,
-  Sequenced,
-  TaxonClassification,
-  TypeStatus,
+    FeatureList,
+    GadmClassification,
+    Homepage,
+    Location,
+    SamplingEvent,
+    Sequenced,
+    TaxonClassification,
+    TypeStatus
 } from '@/components/highlights';
 import { FormattedDateRange } from '@/components/message';
 import { Tabs } from '@/components/tabs';

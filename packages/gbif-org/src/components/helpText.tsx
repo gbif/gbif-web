@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import {
+    HelpTextQuery,
+    HelpTextQueryVariables,
+    HelpTitleQuery,
+    HelpTitleQueryVariables
+} from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
+import { cn } from '@/utils/shadcn';
+import React, { useEffect } from 'react';
+import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Skeleton } from './ui/skeleton';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { cn } from '@/utils/shadcn';
-import { MdInfoOutline } from 'react-icons/md';
-import {
-  HelpTextQuery,
-  HelpTextQueryVariables,
-  HelpTitleQuery,
-  HelpTitleQueryVariables,
-} from '@/gql/graphql';
 
 export function HelpTitle({ id, ...props }: { id: string } & React.HTMLProps<HTMLDivElement>) {
   const { loading, title, error } = useHelp(id, { titleOnly: true });

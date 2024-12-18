@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function useBelow(breakpoint = 800, defaultState = false) {
   // Initialize state with undefined width/height so server and client renders match

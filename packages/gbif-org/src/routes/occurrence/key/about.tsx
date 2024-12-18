@@ -1,15 +1,15 @@
+import { Separator, TocLi as Li } from '@/components/TocHelp';
 import { Card } from '@/components/ui/largeCard';
+import { useConfig } from '@/config/config';
 import { Term } from '@/gql/graphql';
+import useBelow from '@/hooks/useBelow';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useCallback, useState } from 'react';
-import { Groups } from './About/groups';
 import { HashLink } from 'react-router-hash-link';
-import { Aside, AsideSticky, SidebarLayout } from './pagelayouts';
-import useBelow from '@/hooks/useBelow';
-import { useConfig } from '@/config/config';
-import { TocLi as Li, Separator } from '@/components/TocHelp';
 import { useOccurrenceKeyLoaderData } from '.';
+import { Groups } from './About/groups';
+import { Aside, AsideSticky, SidebarLayout } from './pagelayouts';
 
 const extensions = [
   'media',

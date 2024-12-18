@@ -1,6 +1,6 @@
-import { NavLink, To } from 'react-router-dom';
-import { cn } from '@/utils/shadcn';
 import { DynamicLink } from '@/reactRouterPlugins';
+import { cn } from '@/utils/shadcn';
+import { NavLink, To } from 'react-router-dom';
 
 type Props = {
   to: To;

@@ -1,15 +1,15 @@
-import {
-  OrganizationOption,
-  OrganizationSearchSugget,
-} from '@/components/searchSelect/organizationSearchSuggest';
-import { useState } from 'react';
-import { CheckboxField } from '../becomeAPublisherForm';
-import { cn } from '@/utils/shadcn';
 import { ConditionalWrapper } from '@/components/conditionalWrapper';
+import {
+    OrganizationOption,
+    OrganizationSearchSugget
+} from '@/components/searchSelect/organizationSearchSuggest';
 import { TimeAgo } from '@/components/timeAgo';
-import { DynamicLink } from '@/reactRouterPlugins';
 import { OrganizationPreviewQuery, OrganizationPreviewQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { cn } from '@/utils/shadcn';
+import { useState } from 'react';
+import { CheckboxField } from '../becomeAPublisherForm';
 
 export function CheckRegistration() {
   const [organization, setOrganization] = useState<OrganizationOption | null | undefined>();

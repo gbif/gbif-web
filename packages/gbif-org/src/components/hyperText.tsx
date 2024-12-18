@@ -1,9 +1,9 @@
-import { marked } from 'marked'; // https://marked.js.org
 import doiRegex from 'doi-regex';
-import EmptyValue from './emptyValue';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { DoiTag, Lsid, OrcId } from './identifierTag';
 import pkg from 'isomorphic-dompurify';
+import { marked } from 'marked'; // https://marked.js.org
+import { FormattedMessage, FormattedNumber } from 'react-intl';
+import EmptyValue from './emptyValue';
+import { DoiTag, Lsid, OrcId } from './identifierTag';
 const { sanitize } = pkg;
 
 const getLsid = (text: any) => {

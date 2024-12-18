@@ -5,18 +5,17 @@
  I also needs a better loader consistent with the other cards. 
  */
 
-import { jsx, css } from '@emotion/react';
-import React, { useState } from 'react';
-import { Card, CardTitle } from '../shared';
-import ChartClickWrapper from './ChartClickWrapper';
-import Highcharts from './highcharts';
+import { css } from '@emotion/react';
 import HighchartsReact from 'highcharts-react-official';
-import HighchartSankey from 'highcharts/modules/sankey';
 import HighchartsWheel from 'highcharts/modules/dependency-wheel';
-import { getDependencyWheelOptions } from './dependencywheel';
-import { useQuery } from '../../../dataManagement/api';
+import HighchartSankey from 'highcharts/modules/sankey';
 import { FormattedMessage, useIntl } from 'react-intl';
 import useDeepCompareEffect from 'use-deep-compare-effect';
+import { useQuery } from '../../../dataManagement/api';
+import { Card, CardTitle } from '../shared';
+import ChartClickWrapper from './ChartClickWrapper';
+import { getDependencyWheelOptions } from './dependencywheel';
+import Highcharts from './highcharts';
 
 HighchartSankey(Highcharts);
 HighchartsWheel(Highcharts);

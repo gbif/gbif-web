@@ -1,17 +1,17 @@
 import * as React from 'react';
 
 import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuList,
-  NavigationMenuTrigger,
+    NavigationMenu,
+    NavigationMenuContent,
+    NavigationMenuItem,
+    NavigationMenuList,
+    NavigationMenuTrigger
 } from '@/components/ui/navigation-menu';
-import { cn } from '@/utils/shadcn';
 import { HeaderQuery } from '@/gql/graphql';
-import { MdLink } from 'react-icons/md';
 import { DynamicLink } from '@/reactRouterPlugins';
+import { cn } from '@/utils/shadcn';
 import { memo } from 'react';
+import { MdLink } from 'react-icons/md';
 
 export default memo(MainNavigation) as typeof MainNavigation;
 function MainNavigation({ menu }: { menu: HeaderQuery }) {

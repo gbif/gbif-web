@@ -1,32 +1,32 @@
 import {
-  booleanLabel,
-  collectionContentTypeLabel,
-  CountryLabel,
-  IdentityLabel,
-  InstitutionLabel,
-  preservationTypeLabel,
-  QuantityLabel,
-  TaxonLabel,
-  TypeStatusLabel,
+    booleanLabel,
+    collectionContentTypeLabel,
+    CountryLabel,
+    IdentityLabel,
+    InstitutionLabel,
+    preservationTypeLabel,
+    QuantityLabel,
+    TaxonLabel,
+    TypeStatusLabel
 } from '@/components/filters/displayNames';
 import {
-  filterBoolConfig,
-  filterConfigTypes,
-  filterFreeTextConfig,
-  filterRangeConfig,
-  FilterSetting,
-  filterSuggestConfig,
-  generateFilters,
+    filterBoolConfig,
+    filterConfigTypes,
+    filterFreeTextConfig,
+    filterRangeConfig,
+    FilterSetting,
+    filterSuggestConfig,
+    generateFilters
 } from '@/components/filters/filterTools';
-import { useIntl } from 'react-intl';
+import { SuggestFnProps } from '@/components/filters/suggest';
+import { HelpText } from '@/components/helpText';
+import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
+import country from '@/enums/basic/country.json';
+import { institutionKeySuggest, taxonKeySuggest } from '@/utils/suggestEndpoints';
 import { matchSorter } from 'match-sorter';
 import hash from 'object-hash';
-import country from '@/enums/basic/country.json';
-import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import { useCallback, useEffect, useState } from 'react';
-import { SuggestFnProps } from '@/components/filters/suggest';
-import { institutionKeySuggest, taxonKeySuggest } from '@/utils/suggestEndpoints';
-import { HelpText } from '@/components/helpText';
+import { useIntl } from 'react-intl';
 
 export const activeConfig: filterBoolConfig = {
   filterType: filterConfigTypes.OPTIONAL_BOOL,

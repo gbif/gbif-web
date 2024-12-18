@@ -1,5 +1,5 @@
-import { SetAsFilter } from './setAsFilter';
 import { InlineLineClamp } from '@/components/inlineLineClamp';
+import { SetAsFilter } from './setAsFilter';
 
 type Props<T> = {
   filterIsActive: boolean;

@@ -1,6 +1,6 @@
 import { NotFoundError, UnexpectedLoaderError } from '@/errors';
-import { fragmentManager } from '@/services/fragmentManager';
 import { LoaderArgs } from '@/reactRouterPlugins';
+import { fragmentManager } from '@/services/fragmentManager';
 import { required } from '@/utils/required';
 import { slugify } from '@/utils/slugify';
 import { redirect } from 'react-router-dom';

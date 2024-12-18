@@ -1,8 +1,8 @@
 import { Config } from '@/config/config';
-import { Context, RouteObjectWithPlugins } from '..';
-import { RedirectToGbifProvider } from './redirectToGBIFProvider';
 import { Outlet, redirectDocument } from 'react-router-dom';
+import { Context, RouteObjectWithPlugins } from '..';
 import { createGetRedirectUrl } from './createGetRedirectUrl';
+import { RedirectToGbifProvider } from './redirectToGBIFProvider';
 
 export type DisabledRoutes = Record<string, RouteObjectWithPlugins>;
 

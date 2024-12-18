@@ -1,6 +1,6 @@
-import { useRef, useState, useCallback, useEffect } from 'react';
-import { NetworkError } from './useQuery';
 import { hash } from '@/utils/hash';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { NetworkError } from './useQuery';
 
 type Options = {
   endpoint?: string;

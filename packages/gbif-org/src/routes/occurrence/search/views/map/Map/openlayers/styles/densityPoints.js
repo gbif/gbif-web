@@ -1,4 +1,4 @@
-import { Style, Fill, Stroke, Circle } from 'ol/style';
+import { Circle, Fill, Stroke, Style } from 'ol/style';
 
 const thresholds = function (total) {
   if (total <= 10) return 0;

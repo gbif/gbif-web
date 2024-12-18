@@ -1,17 +1,15 @@
-import { DynamicLink } from '@/reactRouterPlugins';
 import {
-  DeletedMessage,
-  HeaderInfo,
-  HeaderInfoMain,
-  defaultDateFormatProps,
+    defaultDateFormatProps, DeletedMessage,
+    HeaderInfo,
+    HeaderInfoMain
 } from '@/components/headerComponents';
-import { Homepage, FeatureList, GenericFeature, PeopleIcon } from '@/components/highlights';
+import { FeatureList, GenericFeature, Homepage, PeopleIcon } from '@/components/highlights';
 import { LicenceTag } from '@/components/identifierTag';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { NotFoundError } from '@/errors';
 import { DatasetQuery, DatasetQueryVariables } from '@/gql/graphql';
-import { LoaderArgs } from '@/reactRouterPlugins';
+import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';

@@ -1,6 +1,5 @@
-import { DynamicLink } from '@/reactRouterPlugins';
 import { OccurrenceExistsQuery, OccurrenceExistsQueryVariables } from '@/gql/graphql';
-import { LoaderArgs } from '@/reactRouterPlugins';
+import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
 import { ArticleIntro } from '@/routes/resource/key/components/articleIntro';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';

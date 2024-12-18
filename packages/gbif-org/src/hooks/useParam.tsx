@@ -1,6 +1,6 @@
+import { Base64 } from 'js-base64';
 import { useCallback, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Base64 } from 'js-base64';
 
 // hook to get and set number param from url
 const numberParser = (str?: string) => parseFloat(str ?? '0');

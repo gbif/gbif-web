@@ -1,20 +1,20 @@
 import { useState } from 'react';
-import { CardHeader } from './shared';
 import { GroupBy, Pagging, useFacets } from './charts/GroupByTable';
+import { CardHeader } from './shared';
 // import { Classification, DropdownButton, Tooltip } from '../../components';
-import { FormattedMessage } from 'react-intl';
-import ChartClickWrapper from './charts/ChartClickWrapper';
-import { SimpleTooltip } from '../simpleTooltip';
-import { Classification } from '../classification';
-import { Card, CardContent, CardDescription, CardTitle } from '../ui/smallCard';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger
 } from '@/components/ui/dropdownMenu';
 import { MdMoreHoriz } from 'react-icons/md';
+import { FormattedMessage } from 'react-intl';
+import { Classification } from '../classification';
+import { SimpleTooltip } from '../simpleTooltip';
 import { Button } from '../ui/button';
+import { Card, CardContent, CardDescription, CardTitle } from '../ui/smallCard';
+import ChartClickWrapper from './charts/ChartClickWrapper';
 
 const majorRanks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'];
 function TaxaMain({

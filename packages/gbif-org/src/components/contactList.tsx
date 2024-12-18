@@ -1,12 +1,12 @@
-import React from 'react';
+import { cn } from '@/utils/shadcn';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { MdMail } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
-import EmptyValue from './emptyValue';
 import { Details } from './details';
+import EmptyValue from './emptyValue';
 import Properties, { Property, Term, Value } from './properties';
 import { Card, CardContent } from './ui/largeCard';
-import { cn } from '@/utils/shadcn';
 
 export function ContactList({ contacts = [], className, ...props }) {
   return (

@@ -1,31 +1,31 @@
+import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
+import DynamicHeightDiv from '@/components/DynamicHeightDiv';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
+import { Tabs } from '@/components/tabs';
+import { Card } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
 import { FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import { useStringParam } from '@/hooks/useParam';
+import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
 import { cn } from '@/utils/shadcn';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { FormattedMessage } from 'react-intl';
 import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './helpTexts';
 import { searchConfig } from './searchConfig';
 import EntityDrawer from './views/browseList/ListBrowser';
 import { Clusters } from './views/clusters';
 import { Dashboard } from './views/dashboard';
+import { Dataset } from './views/datasets';
 import { Download } from './views/download';
 import { Map } from './views/map';
 import { Media } from './views/media';
 import { OccurrenceTable } from './views/table';
-import { Dataset } from './views/datasets';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
-import DynamicHeightDiv from '@/components/DynamicHeightDiv';
-import { Card } from '@/components/ui/smallCard';
-import { FormattedMessage } from 'react-intl';
-import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
-import { Tabs } from '@/components/tabs';
-import { ClientSideOnly } from '@/components/clientSideOnly';
 
 export function OccurrenceSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({

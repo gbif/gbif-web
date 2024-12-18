@@ -1,11 +1,11 @@
-import { useEffect, useContext, useState } from 'react';
-import { Dashboard as DashboardPresentation } from './dashboard';
-import { FilterContext } from '@/contexts/filter';
-import { filter2predicate } from '@/dataManagement/filterAdapter';
-import { searchConfig } from '../../searchConfig';
-import { useSearchContext } from '@/contexts/search';
-import { useFilters } from '../../filters';
 import { ClientSideOnly } from '@/components/clientSideOnly';
+import { FilterContext } from '@/contexts/filter';
+import { useSearchContext } from '@/contexts/search';
+import { filter2predicate } from '@/dataManagement/filterAdapter';
+import { useContext, useEffect, useState } from 'react';
+import { useFilters } from '../../filters';
+import { searchConfig } from '../../searchConfig';
+import { Dashboard as DashboardPresentation } from './dashboard';
 
 export function Dashboard() {
   const currentFilterContext = useContext(FilterContext);
