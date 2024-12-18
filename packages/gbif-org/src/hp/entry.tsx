@@ -1,13 +1,13 @@
+import { Root } from '@/components/root';
+import { Config } from '@/config/config';
+import { Endpoints, getDefaultEndpointsBasedOnGbifEnv } from '@/config/endpoints';
+import { languagesOptions } from '@/config/languagesOptions';
+import { createHostedPortalRoutes } from '@/hp/routes';
 import '@/index.css';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Root } from '@/components/root';
-import { Config } from '@/config/config';
-import { createHostedPortalRoutes } from '@/hp/routes';
 import { merge } from 'ts-deepmerge';
-import { Endpoints, getDefaultEndpointsBasedOnGbifEnv } from '@/config/endpoints';
-import { languagesOptions } from '@/config/languagesOptions';
 import { configAdapter } from './configAdapter';
 
 type Props = {

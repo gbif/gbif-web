@@ -1,12 +1,12 @@
-import useLocalStorage from 'use-local-storage';
-import { Option } from '../option';
-import { FormattedMessage } from 'react-intl';
-import { HiOutlineClipboardCopy as CopyToClipboardIcon } from 'react-icons/hi';
 import { SimpleTooltip } from '@/components/simpleTooltip';
-import { PolygonLabel } from '../displayNames';
-import { isValidWKT } from './GeometryInput';
-import { useEffect } from 'react';
 import { truncate } from '@/utils/truncate';
+import { useEffect } from 'react';
+import { HiOutlineClipboardCopy as CopyToClipboardIcon } from 'react-icons/hi';
+import { FormattedMessage } from 'react-intl';
+import useLocalStorage from 'use-local-storage';
+import { PolygonLabel } from '../displayNames';
+import { Option } from '../option';
+import { isValidWKT } from './GeometryInput';
 
 export const RecentInput = ({
   onAdd,

@@ -1,10 +1,10 @@
-import { DynamicLink } from '@/reactRouterPlugins';
-import { PublisherResultFragment } from '@/gql/graphql';
-import { fragmentManager } from '@/services/fragmentManager';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { defaultDateFormatProps } from '@/components/headerComponents';
 import { CountTag, Tag } from '@/components/resultCards';
 import { Card } from '@/components/ui/largeCard';
-import { defaultDateFormatProps } from '@/components/headerComponents';
+import { PublisherResultFragment } from '@/gql/graphql';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { fragmentManager } from '@/services/fragmentManager';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment PublisherResult on Organization {

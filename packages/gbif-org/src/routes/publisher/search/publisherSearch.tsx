@@ -1,40 +1,40 @@
-import React, { useEffect, useState, useContext, useCallback } from 'react';
-import { Helmet } from 'react-helmet-async';
-import country from '@/enums/basic/country.json';
-import hash from 'object-hash';
-import useQuery from '@/hooks/useQuery';
-import { Tabs } from '@/components/tabs';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
-import { HelpText } from '@/components/helpText';
-import { Card } from '@/components/ui/smallCard';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { PublisherResult } from '../publisherResult';
-import { CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { PaginationFooter } from '@/components/pagination';
-import { NoRecords } from '@/components/noDataMessages';
-import { PublisherSearchQuery, PublisherSearchQueryVariables } from '@/gql/graphql';
 import { CountProps, useCount } from '@/components/count';
-import { CardListSkeleton } from '@/components/skeletonLoaders';
-import { Skeleton } from '@/components/ui/skeleton';
-import { FilterContext, FilterProvider } from '@/contexts/filter';
-import { filter2v1 } from '@/dataManagement/filterAdapter';
-import { searchConfig } from './searchConfig';
-import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import { QInlineButtonFilter } from '@/components/filters/QInlineButtonFilter';
-import { FilterBar } from '@/components/filters/filterTools';
+import { DataHeader } from '@/components/dataHeader';
+import { CountryLabel } from '@/components/filters/displayNames';
 import { FilterButton } from '@/components/filters/filterButton';
 import { FilterPopover } from '@/components/filters/filterPopover';
-import { CountryLabel } from '@/components/filters/displayNames';
-import { SearchCommand } from '../../../components/filters/SearchCommand';
+import { FilterBar } from '@/components/filters/filterTools';
+import { QInlineButtonFilter } from '@/components/filters/QInlineButtonFilter';
+import { HelpText } from '@/components/helpText';
+import { NoRecords } from '@/components/noDataMessages';
+import { PaginationFooter } from '@/components/pagination';
+import { CardListSkeleton } from '@/components/skeletonLoaders';
+import { Tabs } from '@/components/tabs';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger
+} from '@/components/ui/accordion';
+import { CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Card } from '@/components/ui/smallCard';
+import { FilterContext, FilterProvider } from '@/contexts/filter';
+import { filter2v1 } from '@/dataManagement/filterAdapter';
+import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
+import country from '@/enums/basic/country.json';
+import { PublisherSearchQuery, PublisherSearchQueryVariables } from '@/gql/graphql';
+import useQuery from '@/hooks/useQuery';
+import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
+import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { matchSorter } from 'match-sorter';
-import { DataHeader } from '@/components/dataHeader';
+import hash from 'object-hash';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { SearchCommand } from '../../../components/filters/SearchCommand';
+import { PublisherResult } from '../publisherResult';
+import { searchConfig } from './searchConfig';
 
 const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
   query PublisherSearch(

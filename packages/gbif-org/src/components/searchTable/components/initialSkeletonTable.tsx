@@ -1,6 +1,6 @@
 import { Table } from '@tanstack/react-table';
-import { TableCell, TableRow } from '../../ui/table';
 import { Skeleton } from '../../ui/skeleton';
+import { TableCell, TableRow } from '../../ui/table';
 
 type Props<TData> = {
   table: Table<TData>;

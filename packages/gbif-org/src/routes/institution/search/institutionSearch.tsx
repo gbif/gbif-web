@@ -1,38 +1,38 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
-import useQuery from '@/hooks/useQuery';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
-import { Card } from '@/components/ui/smallCard';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { InstitutionSearchQuery, InstitutionSearchQueryVariables } from '@/gql/graphql';
-import { CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { FormattedMessage } from 'react-intl';
-import { PaginationFooter } from '@/components/pagination';
-import { NoRecords } from '@/components/noDataMessages';
-import { Skeleton } from '@/components/ui/skeleton';
-import { CardListSkeleton } from '@/components/skeletonLoaders';
-import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import { FilterContext, FilterProvider } from '@/contexts/filter';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
-import { HelpText } from '@/components/helpText';
 import { ClientSideOnly } from '@/components/clientSideOnly';
-import { searchConfig } from './searchConfig';
-import { useFilters } from './filters';
-import { useConfig } from '@/config/config';
-import { SearchContextProvider, useSearchContext } from '@/contexts/search';
-import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
 import { DataHeader } from '@/components/dataHeader';
+import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
+import { HelpText } from '@/components/helpText';
+import { NoRecords } from '@/components/noDataMessages';
+import { PaginationFooter } from '@/components/pagination';
+import { CardListSkeleton } from '@/components/skeletonLoaders';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger
+} from '@/components/ui/accordion';
+import { CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Card } from '@/components/ui/smallCard';
+import { useConfig } from '@/config/config';
+import { FilterContext, FilterProvider } from '@/contexts/filter';
+import { SearchContextProvider, useSearchContext } from '@/contexts/search';
+import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
+import { InstitutionSearchQuery, InstitutionSearchQueryVariables } from '@/gql/graphql';
 import { useNumberParam } from '@/hooks/useParam';
-import { InstitutionResult } from './institutionResult';
+import useQuery from '@/hooks/useQuery';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
+import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { CANCEL_REQUEST, fetchWithCancel } from '@/utils/fetchWithCancel';
 import { stringify } from '@/utils/querystring';
+import React, { useContext, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { FormattedMessage } from 'react-intl';
+import { useFilters } from './filters';
+import { InstitutionResult } from './institutionResult';
 import { Map } from './map/map';
-import { DynamicLink } from '@/reactRouterPlugins';
+import { searchConfig } from './searchConfig';
 
 const INSTITUTION_SEARCH_QUERY = /* GraphQL */ `
   query InstitutionSearch($query: InstitutionSearchInput) {

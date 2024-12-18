@@ -1,25 +1,21 @@
 // @ts-nocheck
-import { useRef, useState, useEffect } from 'react';
-import { useIntl, FormattedMessage, FormattedNumber } from 'react-intl';
-import {
-  MdChevronRight,
-  MdChevronLeft,
-  MdFirstPage,
-  MdExpandMore,
-  MdExpandLess,
-} from 'react-icons/md';
-import graphOfClusters, { highlightNode } from './clusterGraph';
-import useBelow from '@/hooks/useBelow';
-import { ViewHeader } from '@/components/ViewHeader';
-import { Button } from '@/components/ui/button';
 import { prettifyEnum } from '@/components/filters/displayNames';
-import { Spinner } from '@/components/ui/spinner';
-import { useNumberParam } from '@/hooks/useParam';
 import { HelpText } from '@/components/helpText';
-import styles from './cluster.module.css';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/smallCard';
+import { Spinner } from '@/components/ui/spinner';
+import { ViewHeader } from '@/components/ViewHeader';
+import useBelow from '@/hooks/useBelow';
+import { useNumberParam } from '@/hooks/useParam';
 import { cn } from '@/utils/shadcn';
+import { useEffect, useRef, useState } from 'react';
+import {
+    MdChevronLeft, MdChevronRight, MdExpandLess, MdExpandMore, MdFirstPage
+} from 'react-icons/md';
+import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { useOrderedList } from '../browseList/useOrderedList';
+import styles from './cluster.module.css';
+import graphOfClusters, { highlightNode } from './clusterGraph';
 
 export const ClusterPresentation = ({
   reload,

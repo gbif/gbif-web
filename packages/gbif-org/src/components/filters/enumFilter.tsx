@@ -1,17 +1,19 @@
+import { SimpleTooltip } from '@/components/simpleTooltip';
+import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
+import { useSearchContext } from '@/contexts/search';
+import useQuery from '@/hooks/useQuery';
+import { cn } from '@/utils/shadcn';
+import cloneDeep from 'lodash/cloneDeep';
+import hash from 'object-hash';
 import React, { useContext, useEffect, useState } from 'react';
 import {
-  MdDeleteOutline,
-  MdOutlineRemoveCircleOutline,
-  MdShuffle,
-  MdOutlineRemoveCircle,
+  MdDeleteOutline, MdOutlineRemoveCircle, MdOutlineRemoveCircleOutline,
+  MdShuffle
 } from 'react-icons/md';
-import hash from 'object-hash';
 import { PiEmptyBold } from 'react-icons/pi';
-import { cn } from '@/utils/shadcn';
-import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
-import useQuery from '@/hooks/useQuery';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { SimpleTooltip } from '@/components/simpleTooltip';
+import { AboutButton } from './aboutButton';
+import { Exists } from './exists';
 import {
   AdditionalFilterProps,
   ApplyCancel,
@@ -19,13 +21,9 @@ import {
   filterEnumConfig,
   FilterSummaryType,
   getAsQuery,
-  getFilterSummary,
+  getFilterSummary
 } from './filterTools';
 import { Option } from './option';
-import cloneDeep from 'lodash/cloneDeep';
-import { useSearchContext } from '@/contexts/search';
-import { AboutButton } from './aboutButton';
-import { Exists } from './exists';
 
 type EnumProps = Omit<filterEnumConfig, 'filterType' | 'filterTranslation'> &
   AdditionalFilterProps & {

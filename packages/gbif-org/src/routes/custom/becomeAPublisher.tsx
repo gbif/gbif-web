@@ -1,4 +1,5 @@
 import { BecomeAPublisherPageQuery } from '@/gql/graphql';
+import { LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
@@ -13,10 +14,9 @@ import { ArticleTags } from '../resource/key/components/articleTags';
 import { ArticleTextContainer } from '../resource/key/components/articleTextContainer';
 import { ArticleTitle } from '../resource/key/components/articleTitle';
 import { Documents } from '../resource/key/components/documents';
-import { SecondaryLinks } from '../resource/key/components/secondaryLinks';
 import { PageContainer } from '../resource/key/components/pageContainer';
+import { SecondaryLinks } from '../resource/key/components/secondaryLinks';
 import { BecomeAPublisherForm } from '../resource/key/composition/blocks/customComponents/becomeAPublisherForm';
-import { LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
 
 const BECOME_A_PUBLISHER_QUERY = /* GraphQL */ `
   query BecomeAPublisherPage {

@@ -1,29 +1,25 @@
 import {
-  BasisOfRecordLabel,
-  ContinentLabel,
-  DwcaExtensionLabel,
-  EndpointTypeLabel,
-  LicenceLabel,
-  MediaTypeLabel,
-  MonthLabel,
-  IucnRedListCategoryLabel,
-  typeStatusLabel,
-  occurrenceIssueLabel,
-  occurrenceStatusLabel,
+    BasisOfRecordLabel,
+    ContinentLabel,
+    DwcaExtensionLabel,
+    EndpointTypeLabel, IucnRedListCategoryLabel, LicenceLabel,
+    MediaTypeLabel,
+    MonthLabel, occurrenceIssueLabel,
+    occurrenceStatusLabel, typeStatusLabel
 } from '@/components/filters/displayNames';
-import licenseOptions from '@/enums/basic/license.json';
+import { filterConfigTypes, filterEnumConfig } from '@/components/filters/filterTools';
+import { HelpText } from '@/components/helpText';
 import basisOfRecordOptions from '@/enums/basic/basisOfRecord.json';
+import continentOptions from '@/enums/basic/continent.json';
+import dwcaExtensionOptions from '@/enums/basic/dwcaExtension.json';
+import endpointTypeOptions from '@/enums/basic/endpointType.json';
+import iucnRedListCategoryOptions from '@/enums/basic/iucnRedListCategory.json';
+import licenseOptions from '@/enums/basic/license.json';
 import mediaTypeOptions from '@/enums/basic/mediaType.json';
 import monthOptions from '@/enums/basic/month.json';
-import continentOptions from '@/enums/basic/continent.json';
-import endpointTypeOptions from '@/enums/basic/endpointType.json';
-import dwcaExtensionOptions from '@/enums/basic/dwcaExtension.json';
-import iucnRedListCategoryOptions from '@/enums/basic/iucnRedListCategory.json';
-import typeStatusOptions from '@/enums/basic/typeStatus.json';
 import occurrenceIssueOptions from '@/enums/basic/occurrenceIssue.json';
 import occurrenceStatusOptions from '@/enums/basic/occurrenceStatus.json';
-import { HelpText } from '@/components/helpText';
-import { filterConfigTypes, filterEnumConfig } from '@/components/filters/filterTools';
+import typeStatusOptions from '@/enums/basic/typeStatus.json';
 
 export const licenceConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,

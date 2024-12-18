@@ -1,12 +1,12 @@
-import { useEffect, useContext, useCallback, useState } from 'react';
 import { FilterContext } from '@/contexts/filter';
-import useQuery from '@/hooks/useQuery';
-import { filter2predicate } from '@/dataManagement/filterAdapter';
 import { useSearchContext } from '@/contexts/search';
-import { searchConfig } from '../../searchConfig';
-import { DatasetPresentation } from './datasetPresentation';
+import { filter2predicate } from '@/dataManagement/filterAdapter';
 import { useStringParam } from '@/hooks/useParam';
+import useQuery from '@/hooks/useQuery';
+import { useCallback, useContext, useEffect, useState } from 'react';
+import { searchConfig } from '../../searchConfig';
 import { useOrderedList } from '../browseList/useOrderedList';
+import { DatasetPresentation } from './datasetPresentation';
 
 const OCCURRENCE_DATASETS = `
 query occurrenceDatasets($predicate: Predicate, $size: Int) {

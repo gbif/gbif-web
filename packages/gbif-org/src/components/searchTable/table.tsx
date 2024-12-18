@@ -1,22 +1,22 @@
 import { Table, TableBody, TableHeader, TableRow } from '@/components/ui/table';
+import { useIsElementHorizontallyScrolled } from '@/hooks/useIsElementHorizontallyScrolled';
+import { interopDefault } from '@/utils/interopDefault';
 import { cn } from '@/utils/shadcn';
 import {
-  ColumnDef,
-  getCoreRowModel,
-  PaginationState,
-  Row,
-  useReactTable,
-  VisibilityState,
+    ColumnDef,
+    getCoreRowModel,
+    PaginationState,
+    Row,
+    useReactTable,
+    VisibilityState
 } from '@tanstack/react-table';
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef } from 'react';
+import _useLocalStorage from 'use-local-storage';
 import { Cell } from './components/cell';
 import { Head } from './components/head';
 import { InitialSkeletonTable } from './components/initialSkeletonTable';
 import { TableFooter } from './components/tableFooter';
 import { FirstColumLockProvider } from './firstColumLock';
-import { useIsElementHorizontallyScrolled } from '@/hooks/useIsElementHorizontallyScrolled';
-import { interopDefault } from '@/utils/interopDefault';
-import _useLocalStorage from 'use-local-storage';
 // Used to import commonjs module as es6 module
 const useLocalStorage = interopDefault(_useLocalStorage);
 

@@ -1,6 +1,6 @@
 import { Link, Location, To, useLocation } from 'react-router-dom';
-import { useI18n } from './i18n';
 import { useGetRedirectUrl } from './enablePages';
+import { useI18n } from './i18n';
 
 type Props<T extends React.ElementType> = React.ComponentProps<T> & {
   to: To;

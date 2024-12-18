@@ -1,34 +1,34 @@
 import {
-  CountryLabel,
-  DatasetLabel,
-  IdentityLabel,
-  LiteratureTypeLabel,
-  PublisherLabel,
-  RelevanceLabel,
-  TaxonLabel,
-  TopicsLabel,
-  YearLabel,
+    CountryLabel,
+    DatasetLabel,
+    IdentityLabel,
+    LiteratureTypeLabel,
+    PublisherLabel,
+    RelevanceLabel,
+    TaxonLabel,
+    TopicsLabel,
+    YearLabel
 } from '@/components/filters/displayNames';
 import {
-  filterConfigTypes,
-  filterEnumConfig,
-  filterFreeTextConfig,
-  filterRangeConfig,
-  FilterSetting,
-  filterSuggestConfig,
-  generateFilters,
+    filterConfigTypes,
+    filterEnumConfig,
+    filterFreeTextConfig,
+    filterRangeConfig,
+    FilterSetting,
+    filterSuggestConfig,
+    generateFilters
 } from '@/components/filters/filterTools';
-import { useIntl } from 'react-intl';
-import { matchSorter } from 'match-sorter';
-import hash from 'object-hash';
+import { SuggestFnProps } from '@/components/filters/suggest';
+import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import country from '@/enums/basic/country.json';
 import literatureTypeOptions from '@/enums/cms/literatureType.json';
 import relevanceOptions from '@/enums/cms/relevance.json';
 import topicsOptions from '@/enums/cms/topics.json';
-import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
-import { useCallback, useEffect, useState } from 'react';
-import { SuggestFnProps } from '@/components/filters/suggest';
 import { datasetKeySuggest, publisherKeySuggest, taxonKeySuggest } from '@/utils/suggestEndpoints';
+import { matchSorter } from 'match-sorter';
+import hash from 'object-hash';
+import { useCallback, useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
 
 const publisherConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,

@@ -1,9 +1,9 @@
-import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
-import { publisherLoader, PublisherPage, PublisherPageSkeleton } from './publisherKey';
-import { PublisherKeyAbout } from './about';
-import { PublisherKeyMetrics } from './metrics';
-import { PublisherKeyCitations } from './citations';
 import { PublisherQuery } from '@/gql/graphql';
+import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
+import { PublisherKeyAbout } from './about';
+import { PublisherKeyCitations } from './citations';
+import { PublisherKeyMetrics } from './metrics';
+import { publisherLoader, PublisherPage, PublisherPageSkeleton } from './publisherKey';
 
 const id = 'publisherKey';
 

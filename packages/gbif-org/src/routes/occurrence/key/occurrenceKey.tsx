@@ -1,33 +1,33 @@
-import { Helmet } from 'react-helmet-async';
-import { OccurrenceIssue, OccurrenceQuery, OccurrenceQueryVariables, Term } from '@/gql/graphql';
-import { required } from '@/utils/required';
-import { Outlet, redirect, useLoaderData } from 'react-router-dom';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
-import { FormattedMessage } from 'react-intl';
-import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
-import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
-import { FormattedDateRange } from '@/components/message';
 import Globe from '@/components/globe';
-import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { BsLightningFill } from 'react-icons/bs';
-import { Tabs } from '@/components/tabs';
+import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import {
-  FeatureList,
-  TaxonClassification,
-  GadmClassification,
-  SamplingEvent,
-  TypeStatus,
-  Location,
-  Homepage,
-  Sequenced,
+    FeatureList,
+    GadmClassification,
+    Homepage,
+    Location,
+    SamplingEvent,
+    Sequenced,
+    TaxonClassification,
+    TypeStatus
 } from '@/components/highlights';
-import { fragmentManager } from '@/services/fragmentManager';
+import { FormattedDateRange } from '@/components/message';
+import { Tabs } from '@/components/tabs';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { OccurrenceIssue, OccurrenceQuery, OccurrenceQueryVariables, Term } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
-import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { LoaderArgs } from '@/reactRouterPlugins';
+import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
+import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
+import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
+import { PageContainer } from '@/routes/resource/key/components/pageContainer';
+import { fragmentManager } from '@/services/fragmentManager';
+import { required } from '@/utils/required';
 import { createContext } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { BsLightningFill } from 'react-icons/bs';
+import { FormattedMessage } from 'react-intl';
+import { Outlet, redirect, useLoaderData } from 'react-router-dom';
 
 const OCCURRENCE_QUERY = /* GraphQL */ `
   query Occurrence($key: ID!, $language: String!) {
@@ -264,7 +264,11 @@ export async function occurrenceKeyLoader({ params, graphql }: LoaderArgs) {
 
   return result;
 }
-export const OccurrenceKeyContext = createContext<{key?: string, datasetKey?: string, dynamicProperties?: string}>({});
+export const OccurrenceKeyContext = createContext<{
+  key?: string;
+  datasetKey?: string;
+  dynamicProperties?: string;
+}>({});
 
 export function OccurrenceKey() {
   const { data } = useLoaderData() as { data: OccurrenceQuery };
@@ -288,13 +292,15 @@ export function OccurrenceKey() {
 
   const tabs = [{ to: '.', children: 'Overview' }];
   if (hasRelated) tabs.push({ to: 'related', children: 'Related' });
-  if(occurrence?.dynamicProperties){
+  if (occurrence?.dynamicProperties) {
     try {
-      const parsedDynamicProperties = JSON.parse(occurrence.dynamicProperties)
-      if(parsedDynamicProperties?.phylogenies?.[0]?.phyloTreeFileName){
+      const parsedDynamicProperties = JSON.parse(occurrence.dynamicProperties);
+      if (parsedDynamicProperties?.phylogenies?.[0]?.phyloTreeFileName) {
         tabs.push({ to: 'phylogenies', children: 'Phylogenies' });
       }
-    } catch (error) { /* empty */ }
+    } catch (error) {
+      /* empty */
+    }
   }
 
   return (
@@ -466,7 +472,13 @@ export function OccurrenceKey() {
           <Tabs links={tabs} />
         </ArticleTextContainer>
       </PageContainer>
-      <OccurrenceKeyContext.Provider value={{key: data?.occurrence?.key, datasetKey: data?.occurrence?.datasetKey, dynamicProperties: data?.occurrence?.dynamicProperties}}>
+      <OccurrenceKeyContext.Provider
+        value={{
+          key: data?.occurrence?.key,
+          datasetKey: data?.occurrence?.datasetKey,
+          dynamicProperties: data?.occurrence?.dynamicProperties,
+        }}
+      >
         <Outlet />
       </OccurrenceKeyContext.Provider>
     </article>

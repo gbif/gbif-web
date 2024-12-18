@@ -1,40 +1,37 @@
+import { BulletList } from '@/components/bulletList';
+import { ConceptValue } from '@/components/conceptValue';
+import {
+    ContactActions,
+    ContactAvatar,
+    ContactContent,
+    ContactDescription,
+    ContactEmail,
+    ContactHeader,
+    ContactHeaderContent,
+    ContactTelephone,
+    ContactTitle
+} from '@/components/contact';
+import { useCount } from '@/components/count';
+import { FormattedNumber } from '@/components/dashboard/shared';
+import { HyperText } from '@/components/hyperText';
 import Properties, { Property, Term, Value } from '@/components/properties';
+import { Tag } from '@/components/resultCards';
+import { TableOfContents } from '@/components/tableOfContents';
+import { GbifLinkCard } from '@/components/TocHelp';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import {
+    Card as CardSmall
+} from '@/components/ui/smallCard';
+import useBelow from '@/hooks/useBelow';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { FeaturedImageContent } from '@/routes/collection/key/collectionKeyPresentation';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { FormattedMessage } from 'react-intl';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import useBelow from '@/hooks/useBelow';
-import { HyperText } from '@/components/hyperText';
-import { FeaturedImageContent } from '@/routes/collection/key/collectionKeyPresentation';
-import {
-  ContactActions,
-  ContactAvatar,
-  ContactContent,
-  ContactDescription,
-  ContactEmail,
-  ContactHeader,
-  ContactHeaderContent,
-  ContactTelephone,
-  ContactTitle,
-} from '@/components/contact';
-import { ConceptValue } from '@/components/conceptValue';
-import { Tag } from '@/components/resultCards';
-import { DynamicLink } from '@/reactRouterPlugins';
-import { FormattedNumber } from '@/components/dashboard/shared';
-import {
-  CardContent as CardContentSmall,
-  CardHeader as CardHeaderSmall,
-  Card as CardSmall,
-  CardTitle as CardTitleSmall,
-} from '@/components/ui/smallCard';
-import { BulletList } from '@/components/bulletList';
-import { useCount } from '@/components/count';
-import { useParams } from 'react-router-dom';
-import { TableOfContents } from '@/components/tableOfContents';
-import { useMemo } from 'react';
-import { GbifLinkCard } from '@/components/TocHelp';
-import { useInstitutionKeyLoaderData } from '.';
 import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
+import { useMemo } from 'react';
+import { FormattedMessage } from 'react-intl';
+import { useParams } from 'react-router-dom';
+import { useInstitutionKeyLoaderData } from '.';
 // import { MdMap } from 'react-icons/md';
 
 export default function About() {

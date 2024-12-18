@@ -1,13 +1,6 @@
 import {
-  isArray,
-  isEmpty,
-  union,
-  cloneDeep,
-  uniqWith,
-  get,
-  remove,
-  isNil,
-  intersection,
+  cloneDeep, get, intersection, isArray,
+  isEmpty, isNil, remove, union, uniqWith
 } from 'lodash';
 
 /**

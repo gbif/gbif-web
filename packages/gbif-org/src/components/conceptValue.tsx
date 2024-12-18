@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { SimpleTooltip } from './simpleTooltip';
 import { VocabularyConceptQuery, VocabularyConceptQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
+import { useEffect } from 'react';
+import { SimpleTooltip } from './simpleTooltip';
 
 /**
  * Component will show given content only partially

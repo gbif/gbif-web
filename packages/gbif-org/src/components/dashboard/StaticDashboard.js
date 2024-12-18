@@ -1,7 +1,6 @@
-import React from 'react';
-import * as charts from './index';
-import DashBoardLayout from './DashboardLayout';
 import StandaloneWrapper from '../../StandaloneWrapper';
+import DashBoardLayout from './DashboardLayout';
+import * as charts from './index';
 
 export function Standalone({ siteConfig, ...props }) {
   return (

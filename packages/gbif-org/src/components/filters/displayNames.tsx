@@ -1,10 +1,10 @@
-import { FormattedMessage } from 'react-intl';
-import DisplayName, { DisplayNameGetDataProps } from './DisplayName';
 import { fetchWithCancel } from '@/utils/fetchWithCancel';
-import isUndefined from 'lodash/isUndefined';
-import { useCallback } from 'react';
 import { VocabularyType } from '@/utils/suggestEndpoints';
 import { truncate } from '@/utils/truncate';
+import isUndefined from 'lodash/isUndefined';
+import { useCallback } from 'react';
+import { FormattedMessage } from 'react-intl';
+import DisplayName, { DisplayNameGetDataProps } from './DisplayName';
 
 // utility function to generate label for range or equal filters
 function rangeOrEqualLabel(path: string) {

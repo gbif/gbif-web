@@ -1,12 +1,12 @@
-import React, { useCallback } from 'react';
-import { useUncontrolledProp } from 'uncontrollable';
 import cloneDeep from 'lodash/cloneDeep';
-import uniqWith from 'lodash/uniqWith';
+import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import pickBy from 'lodash/pickBy';
-import get from 'lodash/get';
-import isEqual from 'react-fast-compare';
+import uniqWith from 'lodash/uniqWith';
 import hash from 'object-hash';
+import React, { useCallback } from 'react';
+import isEqual from 'react-fast-compare';
+import { useUncontrolledProp } from 'uncontrollable';
 
 export const FilterContext = React.createContext<FilterContextType>({
   setField: () => ({}),

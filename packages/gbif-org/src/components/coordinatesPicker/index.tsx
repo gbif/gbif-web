@@ -1,14 +1,14 @@
-import React from 'react';
 import { useOnMountUnsafe } from '@/hooks/useOnMountUnsafe';
 import { Feature, Map as OpenLayersMap, View } from 'ol';
-import { XYZ, Vector as VectorSource } from 'ol/source';
 import { Point } from 'ol/geom';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
-import Style from 'ol/style/Style';
-import Icon from 'ol/style/Icon';
-import Marker from './marker.svg';
-import { Button } from '../ui/button';
 import { transform } from 'ol/proj';
+import { Vector as VectorSource, XYZ } from 'ol/source';
+import Icon from 'ol/style/Icon';
+import Style from 'ol/style/Style';
+import React from 'react';
+import { Button } from '../ui/button';
+import Marker from './marker.svg';
 
 type Coordinates = {
   lat: number;

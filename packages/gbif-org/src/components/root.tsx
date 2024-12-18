@@ -1,8 +1,8 @@
+import { Config, ConfigProvider, OverwriteConfigProvider } from '@/config/config';
+import { SkeletonLoadingProvider } from '@/reactRouterPlugins/skeletonLoading';
 import React from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { ConfigProvider, Config, OverwriteConfigProvider } from '@/config/config';
 import { TooltipProvider } from './ui/tooltip';
-import { SkeletonLoadingProvider } from '@/reactRouterPlugins/skeletonLoading';
 
 type Props = {
   config: Config;

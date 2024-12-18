@@ -1,10 +1,10 @@
-import { HelpLine, HelpText } from '@/components/helpText';
+import { HelpLine } from '@/components/helpText';
 import { HyperText } from '@/components/hyperText';
 import Properties, { Term as T, Value as V } from '@/components/properties';
 import { Button } from '@/components/ui/button';
 import React, { useState } from 'react';
 import { MdLink } from 'react-icons/md';
-import { FormattedMessage, FormattedDate } from 'react-intl';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 
 export function Registration({ dataset = {}, ...props }) {
   const {

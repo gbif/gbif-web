@@ -1,12 +1,12 @@
-import { useEffect, useContext, useCallback, useState } from 'react';
 import { FilterContext } from '@/contexts/filter';
-import useQuery from '@/hooks/useQuery';
-import { filter2predicate } from '@/dataManagement/filterAdapter';
 import { useSearchContext } from '@/contexts/search';
+import { filter2predicate } from '@/dataManagement/filterAdapter';
+import { useStringParam } from '@/hooks/useParam';
+import useQuery from '@/hooks/useQuery';
+import { useOrderedList } from '@/routes/occurrence/search/views/browseList/useOrderedList';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { searchConfig } from '../../searchConfig';
 import { TreePresentation } from './treePresentation';
-import { useStringParam } from '@/hooks/useParam';
-import { useOrderedList } from '@/routes/occurrence/search/views/browseList/useOrderedList';
 
 const OCCURRENCE_DATASETS = `
 query occurrenceTrees($predicate: Predicate, $size: Int) {

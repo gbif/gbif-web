@@ -1,18 +1,18 @@
+import { stringify } from '@/utils/querystring';
+import { MVT as MVTFormat } from 'ol/format';
+import { VectorTile as VectorTileLayer } from 'ol/layer';
+import * as olProj from 'ol/proj';
+import { transform } from 'ol/proj';
+import { register } from 'ol/proj/proj4';
+import { VectorTile as VectorTileSource } from 'ol/source';
+import { Circle, Fill, Icon, Stroke, Style, Text } from 'ol/style';
+import { createXYZ } from 'ol/tilegrid';
+import TileGrid from 'ol/tilegrid/TileGrid';
+import View from 'ol/View';
 import proj4 from 'proj4';
 import { basemaps } from './basemaps';
 import createBasicBaseMapStyle from './styles/basicBaseMap';
 import densityPoints from './styles/densityPoints';
-import { Style, Fill, Stroke, Icon, Text, Circle } from 'ol/style';
-import { VectorTile as VectorTileLayer } from 'ol/layer';
-import { VectorTile as VectorTileSource } from 'ol/source';
-import TileGrid from 'ol/tilegrid/TileGrid';
-import { MVT as MVTFormat } from 'ol/format';
-import { register } from 'ol/proj/proj4';
-import * as olProj from 'ol/proj';
-import View from 'ol/View';
-import { createXYZ } from 'ol/tilegrid';
-import { transform } from 'ol/proj';
-import { stringify } from '@/utils/querystring';
 
 proj4.defs('EPSG:4326', '+proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees');
 proj4.defs(

@@ -1,31 +1,16 @@
 import { SearchInput } from '@/components/searchInput';
 import { Button } from '@/components/ui/button';
+import { FilterContext } from '@/contexts/filter';
+import { useSearchContext } from '@/contexts/search';
+import { cn } from '@/utils/shadcn';
 import React, { useContext, useEffect, useState } from 'react';
 import {
-  MdDeleteOutline,
-  MdOutlineRemoveCircleOutline,
-  MdInfo,
-  MdInfoOutline,
-  MdShuffle,
-  MdPieChart,
-  MdPieChartOutline,
+    MdDeleteOutline
 } from 'react-icons/md';
-import { PiEmptyBold, PiEmptyFill } from 'react-icons/pi';
-import { TiArrowShuffle as InvertIcon } from 'react-icons/ti';
-import { cn } from '@/utils/shadcn';
-import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
-import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
-import useQuery from '@/hooks/useQuery';
-import hash from 'object-hash';
-import cloneDeep from 'lodash/cloneDeep';
-import { Suggest, SuggestionItem } from './suggest';
-import { HelpLine } from '@/components/helpText';
-import { FormattedMessage, FormattedNumber, IntlShape } from 'react-intl';
-import { SimpleTooltip } from '@/components/simpleTooltip';
-import { Option, SkeletonOption } from './option';
-import { AdditionalFilterProps, FacetQuery, filterRangeConfig, getAsQuery } from './filterTools';
-import { useSearchContext } from '@/contexts/search';
+import { FormattedMessage } from 'react-intl';
 import { AboutButton } from './aboutButton';
+import { AdditionalFilterProps, filterRangeConfig } from './filterTools';
+import { Option } from './option';
 
 type RangeProps = Omit<filterRangeConfig, 'filterType' | 'filterTranslation'> &
   AdditionalFilterProps & {
@@ -257,7 +242,7 @@ export function rangeOrTerm(value, lowerBound = 'gte', upperBound = 'lte') {
       value: value,
     };
   } else {
-    let values = value.split(delimter);
+    const values = value.split(delimter);
     const cleanedValues = values
       .map((s) => s.trim())
       .map((s) => (s === '*' || s === '' ? undefined : s));

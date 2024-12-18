@@ -1,6 +1,6 @@
+import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/utils/shadcn';
 import styles from './articleBody.module.css';
-import { Skeleton } from '@/components/ui/skeleton';
 import { FaqText } from './faqText';
 
 type Props = {

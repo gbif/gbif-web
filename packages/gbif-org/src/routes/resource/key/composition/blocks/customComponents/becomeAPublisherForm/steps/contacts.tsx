@@ -1,8 +1,8 @@
+import usePrevious from '@/hooks/usePrevious';
+import { cn } from '@/utils/shadcn';
+import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { CheckboxField, Inputs, TextField } from '../becomeAPublisherForm';
-import { useEffect } from 'react';
-import { cn } from '@/utils/shadcn';
-import usePrevious from '@/hooks/usePrevious';
 
 export function Contacts() {
   return (

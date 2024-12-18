@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { cn } from '@/utils/shadcn';
 import { DynamicLink } from '@/reactRouterPlugins';
+import { cn } from '@/utils/shadcn';
+import * as React from 'react';
 
 const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(
   ({ className, ...props }, ref) => (

@@ -1,29 +1,24 @@
+import {
+    defaultDateFormatProps, DeletedMessage,
+    HeaderInfo,
+    HeaderInfoMain
+} from '@/components/headerComponents';
+import {
+    CitationIcon, FeatureList,
+    GenericFeature, Homepage, OccurrenceIcon
+} from '@/components/highlights';
 import { Tabs } from '@/components/tabs';
 import { PublisherQuery, PublisherQueryVariables } from '@/gql/graphql';
-import { required } from '@/utils/required';
-import { Helmet } from 'react-helmet-async';
-import { Outlet, useLoaderData } from 'react-router-dom';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
+import { LoaderArgs } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
-import { FormattedDate, FormattedMessage } from 'react-intl';
-import {
-  DeletedMessage,
-  HeaderInfo,
-  HeaderInfoMain,
-  defaultDateFormatProps,
-} from '@/components/headerComponents';
-import {
-  Homepage,
-  FeatureList,
-  GenericFeature,
-  OccurrenceIcon,
-  CitationIcon,
-} from '@/components/highlights';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { LoaderArgs } from '@/reactRouterPlugins';
+import { required } from '@/utils/required';
+import { Helmet } from 'react-helmet-async';
+import { FormattedDate, FormattedMessage } from 'react-intl';
+import { Outlet, useLoaderData } from 'react-router-dom';
 
 const PUBLISHER_QUERY = /* GraphQL */ `
   query Publisher($key: ID!, $jsonKey: JSON!) {

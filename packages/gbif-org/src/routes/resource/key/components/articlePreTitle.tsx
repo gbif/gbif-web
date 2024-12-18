@@ -1,5 +1,5 @@
-import { cn } from '@/utils/shadcn';
 import { Skeleton } from '@/components/ui/skeleton';
+import { cn } from '@/utils/shadcn';
 
 type Props = {
   children: React.ReactNode;

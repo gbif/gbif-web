@@ -1,6 +1,6 @@
+import { PredicateType } from '@/gql/graphql';
 import { expect, test } from 'vitest';
 import { filter2v1 } from './filter2v1';
-import { PredicateType } from '@/gql/graphql';
 
 test('is handles basic arrays', () => {
   expect(

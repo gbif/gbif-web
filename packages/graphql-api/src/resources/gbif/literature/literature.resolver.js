@@ -1,17 +1,9 @@
 import { excerpt } from '#/helpers/utils';
 import {
-  getFacet,
-  getStats,
-  getCardinality,
-  getHistogram,
-  getAutoDateHistogram,
+  getAutoDateHistogram, getCardinality, getFacet, getHistogram, getStats
 } from '../getMetrics';
 import {
-  facetFields,
-  statsFields,
-  cardinalityFields,
-  histogramFields,
-  dateHistogramFields,
+  cardinalityFields, dateHistogramFields, facetFields, histogramFields, statsFields
 } from './helpers/fields';
 
 const getSourceSearch = (dataSources) => (args) =>

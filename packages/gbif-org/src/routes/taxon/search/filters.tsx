@@ -1,28 +1,27 @@
 import {
-  IdentityLabel,
-  TaxonLabel,
-  TaxonRankLabel,
-  TaxonStatusLabel,
+    IdentityLabel,
+    TaxonLabel,
+    TaxonRankLabel,
+    TaxonStatusLabel
 } from '@/components/filters/displayNames';
 import {
-  filterConfigTypes,
-  filterEnumConfig,
-  filterFreeTextConfig,
-  FilterSetting,
-  filterSuggestConfig,
-  generateFilters,
+    filterConfigTypes,
+    filterEnumConfig,
+    filterFreeTextConfig,
+    FilterSetting,
+    filterSuggestConfig,
+    generateFilters
 } from '@/components/filters/filterTools';
-import { useIntl } from 'react-intl';
-import taxonRankOptions from '@/enums/basic/rank.json';
-import taxonStatusOptions from '@/enums/basic/taxonomicStatus.json';
-import { matchSorter } from 'match-sorter';
-import hash from 'object-hash';
-import country from '@/enums/basic/country.json';
-import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
-import { useCallback, useEffect, useState } from 'react';
 import { SuggestFnProps } from '@/components/filters/suggest';
 import { HelpText } from '@/components/helpText';
+import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
+import country from '@/enums/basic/country.json';
+import taxonStatusOptions from '@/enums/basic/taxonomicStatus.json';
 import { taxonKeySuggest } from '@/utils/suggestEndpoints';
+import { matchSorter } from 'match-sorter';
+import hash from 'object-hash';
+import { useCallback, useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
 
 const freeTextConfig: filterFreeTextConfig = {
   filterType: filterConfigTypes.FREE_TEXT,

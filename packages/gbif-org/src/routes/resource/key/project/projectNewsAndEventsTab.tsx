@@ -1,14 +1,14 @@
-import { LoaderArgs } from '@/reactRouterPlugins';
+import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { ProjectNewsAndEventsQuery, ProjectNewsAndEventsQueryVariables } from '@/gql/graphql';
-import { NewsResult } from '../news/newsResult';
-import { EventResult } from '../event/eventResult';
-import { useLoaderData } from 'react-router-dom';
+import { LoaderArgs } from '@/reactRouterPlugins';
 import { required } from '@/utils/required';
-import { useMemo } from 'react';
 import { sortByNewToOld } from '@/utils/sort';
+import { useMemo } from 'react';
+import { useLoaderData } from 'react-router-dom';
 import { HelpLine } from '../../../../components/helpText';
 import { NoResultsTab } from '../components/noResultsTab';
-import { CardListSkeleton } from '@/components/skeletonLoaders';
+import { EventResult } from '../event/eventResult';
+import { NewsResult } from '../news/newsResult';
 
 const PROJECT_NEWS_QUERY = /* GraphQL */ `
   query ProjectNewsAndEvents($key: String!) {

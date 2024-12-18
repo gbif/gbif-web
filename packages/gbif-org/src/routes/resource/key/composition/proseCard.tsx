@@ -1,6 +1,6 @@
 import { ConditionalWrapper } from '@/components/conditionalWrapper';
-import { DynamicLink } from '@/reactRouterPlugins';
 import { ProseCardImgFragment } from '@/gql/graphql';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
 
 fragmentManager.register(/* GraphQL */ `

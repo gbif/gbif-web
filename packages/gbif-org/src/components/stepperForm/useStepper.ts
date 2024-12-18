@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
-import { Step } from './stepperForm';
 import { UseFormReturn } from 'react-hook-form';
+import { Step } from './stepperForm';
 
 export type UseStepperResult = {
   currentStep: Step;

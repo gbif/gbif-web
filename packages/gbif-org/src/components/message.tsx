@@ -30,7 +30,7 @@ export function FormattedDateRange({
   // but first get the resolution of the start date (year, month, day) seperated by -
   const startDateParts = startDate.split('-');
   const hasTime = startDate.includes('T');
-  let resolution = format ?? {
+  const resolution = format ?? {
     year: 'numeric',
     month: 'short',
     day: 'numeric',

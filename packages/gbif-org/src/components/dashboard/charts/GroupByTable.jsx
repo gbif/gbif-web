@@ -1,14 +1,14 @@
 import React, { useCallback, useState } from 'react';
 // import { Button, Progress, Skeleton, Tooltip } from '../../../components';
-import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
-import { Table } from '../shared';
-import useDeepCompareEffect from 'use-deep-compare-effect';
-import formatAsPercentage from '@/utils/formatAsPercentage';
-import useQuery from '@/hooks/useQuery';
-import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
 import { SimpleTooltip as Tooltip } from '@/components/simpleTooltip';
+import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
+import { Skeleton } from '@/components/ui/skeleton';
+import useQuery from '@/hooks/useQuery';
+import formatAsPercentage from '@/utils/formatAsPercentage';
+import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
+import useDeepCompareEffect from 'use-deep-compare-effect';
+import { Table } from '../shared';
 
 export function GroupByTable({
   predicate,
@@ -86,8 +86,7 @@ export function GroupByTable({
                     <div>
                       <Progress
                         value={(100 * e.count) / maxCount}
-                        className="g-w-20 g-relative"
-                        style={{ top: 2, height: '1em' }}
+                        className="g-w-20 g-relative g-h-[1em] g-top-0.5"
                       />
                     </div>
                   </Tooltip>

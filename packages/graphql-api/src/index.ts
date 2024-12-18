@@ -25,7 +25,7 @@ import helperController from './api-utils/helpers.ctrl.js';
 import ipController from './api-utils/ip2country.ctrl.js';
 import mapController from './api-utils/maps/index.ctrl.js';
 import polygonName from './api-utils/polygonName.ctrl.js';
-import phylogenyFromSourceArchiveCtrl from './api-utils/sourceArchive.ctrl.js';
+import sourceArchiveCtrl from './api-utils/sourceArchive.ctrl.js';
 import suggestFilter from './api-utils/suggestFilter.ctrl.js';
 import extractUser from './helpers/auth/extractUser';
 import { explicitNoCacheWhenErrorsPlugin } from './plugins/explicitNoCacheWhenErrorsPlugin';
@@ -117,7 +117,7 @@ async function initializeServer() {
   suggestFilter(app);
   geometryController(app);
   helperController(app);
-  phylogenyFromSourceArchiveCtrl(app);
+  sourceArchiveCtrl(app);
   await server.start();
   server.applyMiddleware({ app });
 

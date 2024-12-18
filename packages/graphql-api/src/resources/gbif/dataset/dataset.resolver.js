@@ -1,4 +1,4 @@
-import { getHtml, excerpt } from '#/helpers/utils';
+import { excerpt, getHtml } from '#/helpers/utils';
 import { getFacet } from '../getQueryMetrics';
 import { getContributors } from './helpers/contributors';
 

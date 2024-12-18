@@ -1,12 +1,12 @@
-import React from 'react';
+import { useOnMountUnsafe } from '@/hooks/useOnMountUnsafe';
+import { projections } from '@/routes/occurrence/search/views/map/Map/openlayers/projections';
+import { getMapStyles } from '@/routes/occurrence/search/views/map/Map/standardMapStyles';
+import { cn } from '@/utils/shadcn';
 import { Map as OpenLayersMap } from 'ol';
 import { applyBackground, stylefunction } from 'ol-mapbox-style';
 import { defaults as olControlDefaults } from 'ol/control';
 import * as olInteraction from 'ol/interaction';
-import { useOnMountUnsafe } from '@/hooks/useOnMountUnsafe';
-import { cn } from '@/utils/shadcn';
-import { projections } from '@/routes/occurrence/search/views/map/Map/openlayers/projections';
-import { getMapStyles } from '@/routes/occurrence/search/views/map/Map/standardMapStyles';
+import React from 'react';
 
 const mapStyles = getMapStyles({ language: 'en' });
 const basemapStyle = mapStyles.NATURAL_PLATE_CAREE.mapConfig.basemapStyle;

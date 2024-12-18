@@ -1,32 +1,30 @@
+import { ClientSideOnly } from '@/components/clientSideOnly';
 import {
-  ContactActions,
-  ContactAvatar,
-  ContactContent,
-  ContactDescription,
-  ContactEmail,
-  ContactHeader,
-  ContactHeaderContent,
-  ContactTelephone,
-  ContactTitle,
+    ContactActions,
+    ContactAvatar,
+    ContactContent,
+    ContactDescription,
+    ContactEmail,
+    ContactHeader,
+    ContactHeaderContent,
+    ContactTelephone,
+    ContactTitle
 } from '@/components/contact';
 import EmptyValue from '@/components/emptyValue';
 import { GbifLinkCard } from '@/components/TocHelp';
-import { ClientSideOnly } from '@/components/clientSideOnly';
-import { DynamicLink } from '@/reactRouterPlugins';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import {
-  CardContent as CardContentSmall,
-  CardHeader as CardHeaderSmall,
-  Card as CardSmall,
-  CardTitle as CardTitleSmall,
+    Card as CardSmall, CardContent as CardContentSmall,
+    CardHeader as CardHeaderSmall, CardTitle as CardTitleSmall
 } from '@/components/ui/smallCard';
 import useBelow from '@/hooks/useBelow';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
 import { MdDownload, MdMap } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { usePublisherKeyLoaderData } from '.';
-import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
 
 export function PublisherKeyAbout() {
   const { data } = usePublisherKeyLoaderData();

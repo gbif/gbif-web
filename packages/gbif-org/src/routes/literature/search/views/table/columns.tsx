@@ -1,12 +1,12 @@
 import { FilterSetting } from '@/components/filters/filterTools';
-import { ColumnDef } from '@tanstack/react-table';
-import { SingleLiteratureSearchResult } from '.';
-import { useMemo } from 'react';
 import { SetAsFilter } from '@/components/searchTable/components/setAsFilter';
-import { MdLink } from 'react-icons/md';
-import { notNull } from '@/utils/notNull';
 import { SetAsFilterList } from '@/components/searchTable/components/setAsFilterList';
+import { notNull } from '@/utils/notNull';
+import { ColumnDef } from '@tanstack/react-table';
+import { useMemo } from 'react';
+import { MdLink } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
+import { SingleLiteratureSearchResult } from '.';
 
 type Args = {
   filters: Record<string, FilterSetting>;
