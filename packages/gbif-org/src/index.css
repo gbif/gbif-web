@@ -15,7 +15,7 @@
     --card-foreground: hsl(222.2 84% 4.9%);
 
     --popover: hsl(0 0% 100%);
-    --popover-foreground: hsl(222.2 84% 4.9%);
+    --popover-foreground: hwb(223 1% 91%);
 
     --primary: hsl(222.2 47.4% 11.2%);
     --primary-foreground: hsl(210 40% 98%);
@@ -165,11 +165,12 @@
   }
 }
 
-.gbif {
+/* .gbif {
   :where(a) {
     color: inherit;
   }
-}
+} */
+
 /* We do not want the preflight reset to apply to all sites where these componetns are used. So we disable preflight in tailwind config and add this instead. Solution copied from https://dev.to/ajscommunications/scoping-normalized-preflight-css-c29 */
 :where(.gbif) {
   /*
@@ -362,10 +363,10 @@ Remove the inheritance of text transform in Edge and Firefox.
 2. Remove default button styles.
 */
 
-  button,
-  [type='button'],
-  [type='reset'],
-  [type='submit'] {
+  button
+  /* [type='button'], */ /* removed as it has to ohigh specificity and will overwrite tailwind classes*/
+  /* [type='reset'],
+  [type='submit'] */ {
     -webkit-appearance: button; /* 1 */
     background-color: transparent; /* 2 */
     background-image: none; /* 2 */
