@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { DynamicLink } from '@/reactRouterPlugins';
 import * as Dialog from '@radix-ui/react-dialog';
 import { useEffect } from 'react';
-// import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
 type Props = {
   isOpen: boolean;
@@ -15,6 +15,8 @@ type Props = {
   next?: () => void;
   previous?: () => void;
   onCloseAutoFocus?: (event: Event) => void;
+  screenReaderTitle?: React.ReactNode;
+  screenReaderDescription?: React.ReactNode;
 };
 
 export function Drawer({
@@ -25,6 +27,8 @@ export function Drawer({
   next,
   previous,
   onCloseAutoFocus,
+  screenReaderTitle,
+  screenReaderDescription,
 }: Props) {
   useEffect(() => {
     function handleKeypress(e: KeyboardEvent) {
@@ -57,11 +61,12 @@ export function Drawer({
             onCloseAutoFocus={onCloseAutoFocus}
             className="g-fixed g-w-screen g-max-w-screen-lg g-h-screen g-right-0 g-top-0 g-bg-white g-flex g-justify-end g-transition-all g-z-50"
           >
-            {/* TODO: We should add a title and description to the dialog for accessibility purposes */}
-            {/* <VisuallyHidden>
-              <Dialog.Title>Test</Dialog.Title>
-              <Dialog.Description>Test</Dialog.Description>
-            </VisuallyHidden> */}
+            <VisuallyHidden>
+              {screenReaderTitle && <Dialog.Title>{screenReaderTitle}</Dialog.Title>}
+              {screenReaderDescription && (
+                <Dialog.Description>{screenReaderDescription}</Dialog.Description>
+              )}
+            </VisuallyHidden>
             <div className="g-flex g-flex-col">
               <div className="g-overflow-x-auto g-flex-grow g-w-full">{children}</div>
               <BottomBar viewOnGbifHref={viewOnGbifHref} next={next} previous={previous} />

@@ -4,6 +4,7 @@ import { useStringParam } from '@/hooks/useParam';
 import usePrevious from '@/hooks/usePrevious';
 import { StandaloneOccurrenceKeyPage } from '@/routes/occurrence/key/standalone';
 import { useEffect, useRef } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 const entityTypes = {
   o: 'occurrence',
@@ -74,6 +75,7 @@ export default function EntityDrawer() {
   const isFirst = noList || orderedList[0] === key;
   const isLast = noList || orderedList[orderedList.length - 1] === key;
 
+  // Used to find the trigger to focus on close. The previewKey is undefined by the time the drawer closes
   const prevPreviewKey = usePrevious(previewKey);
 
   return (
@@ -84,6 +86,8 @@ export default function EntityDrawer() {
       next={isFirst ? undefined : handleNext}
       previous={isLast ? undefined : handlePrevious}
       onCloseAutoFocus={(e) => handleCloseAutoFocus(e, prevPreviewKey)}
+      screenReaderTitle={<ScreenReaderTitle type={type} />}
+      screenReaderDescription={<ScreenReaderDescription />}
     >
       {type === 'occurrence' && <StandaloneOccurrenceKeyPage occurrenceKey={key} />}
       {type === 'dataset' && <h1>Dataset {key}</h1>}
@@ -115,4 +119,23 @@ function handleCloseAutoFocus(e: Event, previewKey: string | undefined) {
   }
 
   console.warn('Could not find trigger to focus on close');
+}
+
+function ScreenReaderTitle({ type }: { type: string | undefined }) {
+  switch (type) {
+    case 'occurrence':
+      return (
+        <FormattedMessage
+          id={'occurrenceDetails.screenReader.title'}
+          defaultMessage="Occurrence details"
+        />
+      );
+  }
+
+  return null;
+}
+
+// TODO: What should the description be?
+function ScreenReaderDescription() {
+  return null;
 }
