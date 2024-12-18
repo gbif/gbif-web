@@ -24,6 +24,7 @@ export const helmetConfig = {
         'gbif.us18.list-manage.com',
         'zenodo.org',
         '*.youtube.com',
+        'localhost:*',
       ],
       scriptSrc: [
         `'self'`,

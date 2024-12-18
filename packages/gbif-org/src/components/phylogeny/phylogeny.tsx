@@ -1,16 +1,9 @@
-// based on https://github.com/veg/phylotree.js/issues/437, but that didn't work for me. So I now add the crazy append myself
-import { useConfig } from '@/config/config';
+import { phylotree } from 'phylotree';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import parseNexus from './parseNexus';
-// @ts-ignore
-import { phylotree } from 'phylotree';
-// import '../../../node_modules/phylotree/dist/phylotree.css'
+import cssAsText from './styles';
 
-import './phylogeny.css'; // there is no scoping of the css, so it will affect the whole site
-// we will need a way to scope the css to the component
-const nexExtensions = ['nex', 'nexus'];
-const nwkExtensions = ['phy', 'nwk', 'newick', 'tree'];
 const css_classes = {
   'tree-container': 'phylotree-container',
   'tree-scale-bar': 'gbif-phylotree-tree-scale-bar',
@@ -33,7 +26,7 @@ type TreeData = {
   nwk?: string;
   tipTranslation?: unknown;
 };
-const pathToRoot = (node: { parent: any }) => {
+const pathToRoot = (node: { parent: never }) => {
   const edgeSelection = [];
   while (node) {
     edgeSelection.push(node);
@@ -58,39 +51,15 @@ export const Phylogeny = ({
   const ref = useRef(null);
   const navigate = useNavigate();
   const [treeData, setTreeData] = useState<TreeData>({});
-  // const [hasRendered, setHasRendered] = useState(false);
-  const config = useConfig();
-  const spacingX = 14,
-    spacingY = 30;
-
-  /*   useEffect(() => {
-    fetch(
-      `${config.webApiEndpoint}/unstable-api/source-archive/${datasetKey}/phylogeny/${phyloTreeFileName}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setTreeData(data);
-      })
-      .catch((error) => {
-        setTreeData({});
-      });
-  }, [config, datasetKey, phyloTreeFileName]); */
+  const spacingX = 14;
+  const spacingY = 30;
 
   useEffect(() => {
-    const fileExtension = phyloTreeFileName.split('.').pop();
+    const fileExtension = phyloTreeFileName.split('.').pop() || '';
 
-    fetch(
-      `${config.webApiEndpoint}/unstable-api/source-archive/${datasetKey}/${phyloTreeFileName}`,
-      {
-        method: 'GET',
-      }
-    )
+    fetch(`${import.meta.env.PUBLIC_WEB_UTILS}/source-archive/${datasetKey}/${phyloTreeFileName}`, {
+      method: 'GET',
+    })
       .then((response) => response.text())
       .then((data) => {
         let nwk, tipTranslation;
@@ -107,7 +76,7 @@ export const Phylogeny = ({
       .catch((error) => {
         setTreeData({});
       });
-  }, [config, datasetKey, phyloTreeFileName]);
+  }, [datasetKey, phyloTreeFileName]);
 
   useEffect(() => {
     if (treeData?.nwk) {
@@ -117,10 +86,15 @@ export const Phylogeny = ({
       console.timeEnd('new phylotree(nwk)');
 
       if (tipTranslation) {
-        Object.keys(tipTranslation).forEach(function (key) {
-          const n = tree.getNodeByName(key);
-          n.data.name = tipTranslation[key];
-        });
+        const internals = tree.getInternals();
+        const tips = tree.getTips();
+        for (const nodes of [internals, tips]) {
+          for (let i = 0; i < nodes.length; i++) {
+            if (tipTranslation[nodes?.[i]?.data?.name]) {
+              nodes[i].data.name = tipTranslation[nodes?.[i]?.data?.name];
+            }
+          }
+        }
       }
 
       const selectedNode = phyloTreeTipLabel
@@ -197,9 +171,6 @@ export const Phylogeny = ({
             element.style('cursor', 'pointer');
           }
           element.on('click', function (e: any) {
-            /*  if (typeof onNodeClick === 'function') {
-                  onNodeClick(data);
-                } */
             data.selected_xx = true;
             console.log(data);
             if (data.data.name && !data.children) {
@@ -217,13 +188,13 @@ export const Phylogeny = ({
                 }
               }
 
-              navigate(`/occurrence/search?q=${searchTerm}&datasetKey=${datasetKey}`);
+              navigate(`/occurrence/search?q=${searchTerm}&datasetKey=${datasetKey}&view=table`);
             }
           });
         },
         'edge-styler': function (
           element: { style: (arg0: string, arg1: string, arg2: string) => void },
-          data: { target: any }
+          data: { target: never }
         ) {
           if (edgeSelection.includes(data.target)) {
             element.style('stroke', '#71b171', 'important');
@@ -232,20 +203,32 @@ export const Phylogeny = ({
       };
 
       // not optimal to call render twice, but the display object is not available before render is called, see https://github.com/veg/phylotree.js/issues/471
-      // tree.render(options);
-
-      console.time('tree.render(options);');
       tree.render(options);
-      console.timeEnd('tree.render(options);');
       tree.display.css(css_classes).update();
+      tree.render(options);
       tree.display.spacing_x(spacingX).update();
       tree.display.spacing_y(spacingY).update();
-      console.time('tree.display.show()');
-      ref?.current?.appendChild(tree.display.show());
-      console.timeEnd('tree.display.show()');
-      console.log('PHYLOTREE rendered');
+      const svgContent = tree.display.show();
+      if (ref?.current && !ref.current?.shadowRoot) {
+        const shadowRoot = ref.current?.attachShadow({ mode: 'open' });
+        const style = document.createElement('style');
+        style.textContent = cssAsText;
+        shadowRoot.appendChild(style);
+        shadowRoot.appendChild(svgContent);
+      } else if (ref?.current && ref.current?.shadowRoot) {
+        ref?.current?.shadowRoot.appendChild(svgContent);
+      }
+
+      return () => {
+        const shadowRoot = ref?.current?.shadowRoot;
+        if (shadowRoot) {
+          while (shadowRoot.firstChild) {
+            shadowRoot.removeChild(shadowRoot.firstChild);
+          }
+        }
+      };
     }
   }, [datasetKey, treeData?.nwk]);
 
-  return <div ref={ref} id="tree_container" className="g-bg-slate-200 phylotree-container"></div>;
+  return <div ref={ref} id="phylotreeContainer" className="g-overflow-x-scroll"></div>;
 };
