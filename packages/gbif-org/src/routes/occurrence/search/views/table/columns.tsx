@@ -36,17 +36,16 @@ export function useOccurrenceColumns({
         enableHiding: false,
         cell: ({ row }) => {
           const occurrence = row.original;
+          const entityKey = `o_${occurrence?.key?.toString()}`;
 
           return (
             <div className="g-inline-flex g-items-center g-w-full">
               {typeof showPreview === 'function' && (
                 <button
+                  // Used to refocus this button after closing the preview dialog
+                  data-entity-trigger={entityKey}
                   className="g-pr-3 g-pl-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
-                  onClick={(e) => {
-                    // Prevent the parent link from being triggered
-                    if (occurrence.key) showPreview(`o_${occurrence.key.toString()}`);
-                    e.preventDefault();
-                  }}
+                  onClick={() => showPreview(entityKey)}
                 >
                   <SimpleTooltip i18nKey="filterSupport.viewDetails" side="right" asChild>
                     <div className="g-flex g-items-center">
