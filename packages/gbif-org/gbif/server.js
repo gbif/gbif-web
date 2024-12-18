@@ -71,7 +71,7 @@ async function main() {
         const { appHtml, headHtml, htmlAttributes, bodyAttributes } = await render(req);
 
         const html = template
-          .replace('<html class="g-m-0 g-p-0">', `<html ${htmlAttributes} class="g-m-0 g-p-0>`)
+          .replace('<html class="g-m-0 g-p-0">', `<html ${htmlAttributes} class="g-m-0 g-p-0">`)
           .replace(
             '<body style="margin: 0; padding: 0" class="gbif">',
             `<body ${bodyAttributes} style="margin: 0; padding: 0" class="gbif">`
