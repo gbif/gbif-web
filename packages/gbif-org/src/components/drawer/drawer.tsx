@@ -87,7 +87,7 @@ function BottomBar({
   previous,
 }: Pick<Props, 'viewOnGbifHref' | 'next' | 'previous'>) {
   return (
-    <div className="g-w-full g-h-10 g-border-t g-flex g-justify-between g-p-2">
+    <div className="g-w-full g-h-10 g-border-t g-flex g-justify-between g-p-2 g-items-center">
       <Dialog.Close asChild>
         <Button variant="ghost" className="g-size-6 g-p-0">
           <CloseIcon />
