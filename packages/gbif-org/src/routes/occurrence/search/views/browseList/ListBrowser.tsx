@@ -16,6 +16,7 @@ const entityTypes = {
   n: 'network',
   in: 'installation',
 };
+
 export default function EntityDrawer() {
   const { orderedList } = useOrderedList();
   const [previewKey, setPreviewKey] = useStringParam({ key: 'entity' });
@@ -86,8 +87,15 @@ export default function EntityDrawer() {
       next={isFirst ? undefined : handleNext}
       previous={isLast ? undefined : handlePrevious}
       onCloseAutoFocus={(e) => handleCloseAutoFocus(e, prevPreviewKey)}
-      screenReaderTitle={<ScreenReaderTitle type={type} />}
-      screenReaderDescription={<ScreenReaderDescription />}
+      screenReaderTitle={
+        type === 'occurrence' ? (
+          <FormattedMessage
+            id={'occurrenceDetails.screenReader.title'}
+            defaultMessage="Occurrence details"
+          />
+        ) : undefined
+      }
+      screenReaderDescription={undefined}
     >
       {type === 'occurrence' && <StandaloneOccurrenceKeyPage occurrenceKey={key} />}
       {type === 'dataset' && <h1>Dataset {key}</h1>}
@@ -119,23 +127,4 @@ function handleCloseAutoFocus(e: Event, previewKey: string | undefined) {
   }
 
   console.warn('Could not find trigger to focus on close');
-}
-
-function ScreenReaderTitle({ type }: { type: string | undefined }) {
-  switch (type) {
-    case 'occurrence':
-      return (
-        <FormattedMessage
-          id={'occurrenceDetails.screenReader.title'}
-          defaultMessage="Occurrence details"
-        />
-      );
-  }
-
-  return null;
-}
-
-// TODO: What should the description be?
-function ScreenReaderDescription() {
-  return null;
 }

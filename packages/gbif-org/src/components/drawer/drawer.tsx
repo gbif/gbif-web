@@ -56,10 +56,11 @@ export function Drawer({
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => !open && close()}>
       <Dialog.Portal>
-        <Dialog.Overlay className="g-fixed g-w-screen g-h-screen g-right-0 g-top-0 g-bg-gray-500 g-transition-all g-z-50 g-bg-opacity-50">
+        <Dialog.Overlay className="g-fixed g-w-full g-h-screen g-right-0 g-top-0 g-bg-gray-500 g-transition-all g-z-50 g-bg-opacity-50">
           <Dialog.Content
             onCloseAutoFocus={onCloseAutoFocus}
-            className="g-fixed g-w-screen g-max-w-screen-lg g-h-screen g-right-0 g-top-0 g-bg-white g-flex g-justify-end g-transition-all g-z-50"
+            style={{ maxWidth: '95%', width: '1200px' }}
+            className="g-fixed g-h-screen g-right-0 g-top-0 g-bg-white g-flex g-justify-end g-transition-all g-z-50"
           >
             <VisuallyHidden>
               {screenReaderTitle && <Dialog.Title>{screenReaderTitle}</Dialog.Title>}
@@ -67,8 +68,10 @@ export function Drawer({
                 <Dialog.Description>{screenReaderDescription}</Dialog.Description>
               )}
             </VisuallyHidden>
-            <div className="g-flex g-flex-col">
-              <div className="g-overflow-x-auto g-flex-grow g-w-full">{children}</div>
+            <div className="g-flex g-flex-col g-bg-white g-w-full">
+              <div className="g-overflow-y-auto g-overflow-x-hidden g-flex-grow g-w-full">
+                {children}
+              </div>
               <BottomBar viewOnGbifHref={viewOnGbifHref} next={next} previous={previous} />
             </div>
           </Dialog.Content>
@@ -84,7 +87,7 @@ function BottomBar({
   previous,
 }: Pick<Props, 'viewOnGbifHref' | 'next' | 'previous'>) {
   return (
-    <div className="g-h-10 g-border-t g-flex g-justify-between g-p-2">
+    <div className="g-w-full g-h-10 g-border-t g-flex g-justify-between g-p-2">
       <Dialog.Close asChild>
         <Button variant="ghost" className="g-size-6 g-p-0">
           <CloseIcon />
