@@ -1,15 +1,15 @@
-import { useCallback, useEffect, useState } from 'react';
-import DashboardBuilder from './DashboardBuilder';
-import useLocalStorage from 'use-local-storage';
-import { FormattedMessage } from 'react-intl';
+import { ClientSideOnly } from '@/components/clientSideOnly';
 import * as charts from '@/components/dashboard';
-import { Map } from '../map';
-import { OccurrenceTable as Table } from '../table';
-import { Media } from '../media';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/smallCard';
 import { useJsonParam } from '@/hooks/useParam';
-import { ClientSideOnly } from '@/components/clientSideOnly';
+import { useCallback, useEffect, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
+import useLocalStorage from 'use-local-storage';
+import { Map } from '../map';
+import { Media } from '../media';
+import { OccurrenceTable as Table } from '../table';
+import DashboardBuilder from './DashboardBuilder';
 
 export function Dashboard({ predicate, chartsTypes: chartsTypesProp, ...props }) {
   const [urlLayout, setUrlLayout] = useJsonParam({ key: 'layout' });

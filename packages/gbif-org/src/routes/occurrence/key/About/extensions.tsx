@@ -1,9 +1,9 @@
 import Properties, { Term as T, Value as V } from '@/components/properties';
+import { Card } from '@/components/ui/largeCard';
 import { OccurrenceQuery } from '@/gql/graphql';
+import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Group } from './groups';
-import { Card } from '@/components/ui/largeCard';
-import { useEffect, useState } from 'react';
 
 export function Preparation({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
   const extensionName = 'preparation';

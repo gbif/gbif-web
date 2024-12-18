@@ -1,21 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 // TODO: this has been changed to a fork. Consider updating to https://atlassian.design/components/pragmatic-drag-and-drop/examples
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
+import { SimpleTooltip } from '@/components/simpleTooltip';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/smallCard';
+import { useToast } from '@/components/ui/use-toast';
+import useBelow from '@/hooks/useBelow';
+import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
 import { Resizable } from 're-resizable';
 import {
-  MdAddChart,
-  MdBrokenImage,
-  MdDeleteOutline as MdClose,
-  MdOutlineDragIndicator as MdDragHandle,
-  MdShare,
+    MdAddChart,
+    MdBrokenImage,
+    MdDeleteOutline as MdClose,
+    MdOutlineDragIndicator as MdDragHandle,
+    MdShare
 } from 'react-icons/md';
-import { useUncontrolledProp } from 'uncontrollable';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useToast } from '@/components/ui/use-toast';
-import { Button } from '@/components/ui/button';
-import { SimpleTooltip } from '@/components/simpleTooltip';
-import { Card, CardTitle } from '@/components/ui/smallCard';
-import useBelow from '@/hooks/useBelow';
+import { useUncontrolledProp } from 'uncontrollable';
 
 function generateRandomId() {
   return Math.random().toString(36).substring(2, 7);

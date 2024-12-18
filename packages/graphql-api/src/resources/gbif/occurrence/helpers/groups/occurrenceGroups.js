@@ -14,9 +14,9 @@
  *  }
  * }
  */
-import { pick, isNil } from 'lodash';
-import terms from './terms.json';
 import interpretationRemark from '#/helpers/enums/interpretationRemark';
+import { isNil, pick } from 'lodash';
+import terms from './terms.json';
 
 const defaultValue = {
   occurrence: [],

@@ -1,5 +1,5 @@
-import { FormattedMessage, FormattedDate } from 'react-intl';
 import { cn } from '@/utils/shadcn';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 import { ErrorMessage } from './errorMessage';
 
 type DateType = string | number | Date | null | undefined;

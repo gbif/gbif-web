@@ -12,6 +12,7 @@ import { homePageRoute } from '@/routes/homePage';
 import { installationKeyRoute } from '@/routes/installation/key';
 import { institutionKeyRoute } from '@/routes/institution/key';
 import { institutionSearchRoute } from '@/routes/institution/search';
+import { literatureSearchRoute } from '@/routes/literature/search';
 import { networkKeyRoute } from '@/routes/network/key';
 import { occurrenceKeyRoutes } from '@/routes/occurrence/key';
 import { occurrenceSearchRoute } from '@/routes/occurrence/search';
@@ -20,11 +21,10 @@ import { publisherKeyRoute } from '@/routes/publisher/key';
 import { publisherSearchRoute } from '@/routes/publisher/search';
 import { resourceKeyRoutes } from '@/routes/resource/key';
 import { RootErrorPage } from '@/routes/rootErrorPage';
-import { Outlet } from 'react-router-dom';
-import { GbifRootLayout, headerLoader } from './gbifRootLayout';
-import { literatureSearchRoute } from '@/routes/literature/search';
 import { taxonKeyRoute } from '@/routes/taxon/key';
 import { taxonSearchRoute } from '@/routes/taxon/search';
+import { Outlet } from 'react-router-dom';
+import { GbifRootLayout, headerLoader } from './gbifRootLayout';
 
 export function createGbifRoutes(config: Config) {
   return applyReactRouterPlugins(

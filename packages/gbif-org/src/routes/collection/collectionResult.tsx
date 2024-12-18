@@ -1,12 +1,11 @@
-import { fragmentManager } from '@/services/fragmentManager';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { TypeStatusLabel } from '@/components/filters/displayNames';
 import { Tag } from '@/components/resultCards';
 import { Card } from '@/components/ui/largeCard';
-import { DynamicLink } from '@/reactRouterPlugins';
 import { CollectionResultFragment } from '@/gql/graphql';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { fragmentManager } from '@/services/fragmentManager';
 import { truncate } from '@/utils/truncate';
-import { TypeStatusLabel } from '@/components/filters/displayNames';
-import { Button } from '@/components/ui/button';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment CollectionResult on CollectionSearchEntity {

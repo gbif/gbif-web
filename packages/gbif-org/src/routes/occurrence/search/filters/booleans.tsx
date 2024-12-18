@@ -1,6 +1,6 @@
 import { booleanLabel } from '@/components/filters/displayNames';
-import { HelpText } from '@/components/helpText';
 import { filterBoolConfig, filterConfigTypes } from '@/components/filters/filterTools';
+import { HelpText } from '@/components/helpText';
 
 export const isInClusterConfig: filterBoolConfig = {
   filterType: filterConfigTypes.OPTIONAL_BOOL,

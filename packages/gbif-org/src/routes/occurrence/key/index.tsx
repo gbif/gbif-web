@@ -1,10 +1,10 @@
+import { OccurrenceQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
-import { OccurrenceKey, occurrenceKeyLoader, OccurrenceKeySkeleton } from './occurrenceKey';
 import { OccurrenceKeyAbout } from './about';
 import { OccurrenceKeyCluster } from './cluster';
-import { OccurrenceKeyPhylo } from './phylogenies';
 import { OccurrenceFragment, occurrenceFragmentLoader } from './fragment';
-import { OccurrenceQuery } from '@/gql/graphql';
+import { OccurrenceKey, occurrenceKeyLoader, OccurrenceKeySkeleton } from './occurrenceKey';
+import { OccurrenceKeyPhylo } from './phylogenies';
 
 const id = 'occurrenceKey';
 

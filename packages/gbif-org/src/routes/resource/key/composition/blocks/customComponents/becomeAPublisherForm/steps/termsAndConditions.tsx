@@ -1,5 +1,5 @@
-import { CheckboxField } from '../becomeAPublisherForm';
 import { DynamicLink } from '@/reactRouterPlugins';
+import { CheckboxField } from '../becomeAPublisherForm';
 
 export function TermsAndConditions() {
   return (

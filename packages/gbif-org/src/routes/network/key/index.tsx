@@ -1,10 +1,10 @@
-import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
-import { networkLoader, NetworkPage, NetworkPageSkeleton } from './networkKey';
-import { NetworkKeyAbout } from './about';
-import { NetworkKeyMetrics } from './metrics';
-import { NetworkKeyDataset } from './dataset';
-import { NetworkKeyPublisher } from './publisher';
 import { NetworkQuery } from '@/gql/graphql';
+import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
+import { NetworkKeyAbout } from './about';
+import { NetworkKeyDataset } from './dataset';
+import { NetworkKeyMetrics } from './metrics';
+import { networkLoader, NetworkPage, NetworkPageSkeleton } from './networkKey';
+import { NetworkKeyPublisher } from './publisher';
 
 const id = 'network-key';
 

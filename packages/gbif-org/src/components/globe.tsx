@@ -1,8 +1,8 @@
+import { GlobeQuery, GlobeQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { cn } from '@/utils/shadcn';
 import { useEffect } from 'react';
 import css from './globe.module.css';
-import { GlobeQuery, GlobeQueryVariables } from '@/gql/graphql';
 
 export default function Globe({
   lat,

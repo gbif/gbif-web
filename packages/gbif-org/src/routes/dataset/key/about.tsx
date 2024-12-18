@@ -1,51 +1,45 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { ClientSideOnly } from '@/components/clientSideOnly';
+import { ContactList } from '@/components/contactList';
 import * as charts from '@/components/dashboard';
+import DashBoardLayout from '@/components/dashboard/DashboardLayout';
+import EmptyValue from '@/components/emptyValue';
+import { HyperText } from '@/components/hyperText';
+import { MapThumbnail, MapTypes, useHasMap } from '@/components/mapThumbnail';
+import { Message } from '@/components/message';
+import { SimpleTooltip } from '@/components/simpleTooltip';
+import { GbifLinkCard, TocLi } from '@/components/TocHelp';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { Progress } from '@/components/ui/progress';
+import { CardContent as CardContentSmall } from '@/components/ui/smallCard';
+import { useConfig } from '@/config/config';
 import {
-  DatasetQuery,
-  DatasetInsightsQuery,
-  DatasetInsightsQueryVariables,
-  PredicateType,
+    DatasetInsightsQuery,
+    DatasetInsightsQueryVariables, DatasetQuery, PredicateType
 } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
+import useQuery from '@/hooks/useQuery';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { Aside, AsideSticky, SidebarLayout } from '@/routes/occurrence/key/pagelayouts';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { GeographicCoverages } from './about/GeographicCoverages';
-import { TemporalCoverages } from './about/TemporalCoverages';
-import { TaxonomicCoverages } from './about/TaxonomicCoverages';
-import { SamplingDescription } from './about/SamplingDescription';
-import { SimpleTooltip } from '@/components/simpleTooltip';
-import {
-  MdPinDrop as OccurrenceIcon,
-  MdFormatQuote,
-  MdInfoOutline,
-  MdPlaylistAddCheck,
-  MdGridOn,
-} from 'react-icons/md';
-import { ContactList } from '@/components/contactList';
-import { BibliographicCitations } from './about/BibliographicCitations';
-import { Registration } from './about/Registration';
-import { Citation } from './about/Citation';
-import useQuery from '@/hooks/useQuery';
-import { useEffect, useState } from 'react';
-import { Images } from './about/Images';
-import { useConfig } from '@/config/config';
-import { HyperText } from '@/components/hyperText';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { ClientSideOnly } from '@/components/clientSideOnly';
-import DashBoardLayout from '@/components/dashboard/DashboardLayout';
-import { Aside, AsideSticky, SidebarLayout } from '@/routes/occurrence/key/pagelayouts';
-import { GbifLinkCard, TocLi } from '@/components/TocHelp';
-import { CardContent as CardContentSmall } from '@/components/ui/smallCard';
-import { Progress } from '@/components/ui/progress';
 import formatAsPercentage from '@/utils/formatAsPercentage';
-import { DynamicLink } from '@/reactRouterPlugins';
+import { useEffect, useState } from 'react';
 import { GiDna1 } from 'react-icons/gi';
+import {
+    MdFormatQuote, MdGridOn, MdInfoOutline, MdPinDrop as OccurrenceIcon, MdPlaylistAddCheck
+} from 'react-icons/md';
 import { TiPipette as SamplingIcon } from 'react-icons/ti';
-import { Message } from '@/components/message';
-import { MapThumbnail, MapTypes, useHasMap } from '@/components/mapThumbnail';
-import EmptyValue from '@/components/emptyValue';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useDatasetKeyLoaderData } from '.';
+import { BibliographicCitations } from './about/BibliographicCitations';
+import { Citation } from './about/Citation';
+import { GeographicCoverages } from './about/GeographicCoverages';
+import { Images } from './about/Images';
+import { Registration } from './about/Registration';
+import { SamplingDescription } from './about/SamplingDescription';
+import { TaxonomicCoverages } from './about/TaxonomicCoverages';
+import { TemporalCoverages } from './about/TemporalCoverages';
 
 export function DatasetKeyAbout() {
   const { data } = useDatasetKeyLoaderData();

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
 import maplibre from 'maplibre-gl';
+import React, { Component } from 'react';
 import { getLayerConfig } from './getLayerConfig';
 import klokantech from './openlayers/styles/klokantech.json';
 

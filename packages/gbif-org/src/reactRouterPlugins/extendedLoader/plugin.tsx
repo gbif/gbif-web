@@ -1,7 +1,7 @@
+import { Config, LanguageOption, OverwriteConfigProvider } from '@/config/config';
+import { GraphQLService } from '@/services/graphQLService';
 import { RouteObjectWithPlugins } from '..';
 import { extractLocaleFromPathname } from '../i18n';
-import { GraphQLService } from '@/services/graphQLService';
-import { Config, LanguageOption, OverwriteConfigProvider } from '@/config/config';
 
 export function applyExtendedLoaderPlugin(
   routes: RouteObjectWithPlugins[],

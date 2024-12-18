@@ -1,7 +1,7 @@
-import { DynamicLink } from '@/reactRouterPlugins';
 import { Tag } from '@/components/resultCards';
 import { Card } from '@/components/ui/largeCard';
 import { LiteratureResultFragment } from '@/gql/graphql';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
 import { FormattedMessage } from 'react-intl';
 

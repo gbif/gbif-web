@@ -1,10 +1,10 @@
 import {
-  ComponentProps,
-  JSXElementConstructor,
-  ReactNode,
-  useEffect,
-  useRef,
-  useState,
+    ComponentProps,
+    JSXElementConstructor,
+    ReactNode,
+    useEffect,
+    useRef,
+    useState
 } from 'react';
 
 type ComponentOrElement = JSXElementConstructor<any> | keyof JSX.IntrinsicElements;

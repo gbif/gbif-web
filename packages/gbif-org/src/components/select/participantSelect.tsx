@@ -1,12 +1,12 @@
 import {
-  NodeType,
-  ParticipantSelectQuery,
-  ParticipantSelectQueryVariables,
-  ParticipationStatus,
+    NodeType,
+    ParticipantSelectQuery,
+    ParticipantSelectQueryVariables,
+    ParticipationStatus
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
-import { Select, SelectTrigger, SelectContent, SelectValue, SelectItem } from '../ui/select';
 import { useMemo } from 'react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 
 const PARTICIPANT_SELECT_QUERY = /* GraphQL */ `
   query ParticipantSelect($type: NodeType, $participationStatus: ParticipationStatus, $limit: Int) {

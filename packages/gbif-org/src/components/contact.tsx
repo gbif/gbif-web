@@ -1,7 +1,7 @@
-import { FaBuilding, FaUserAlt } from 'react-icons/fa';
-import { FormattedMessage } from 'react-intl';
-import { MdMailOutline as MailIcon, MdPhone as PhoneIcon } from 'react-icons/md';
 import { cn } from '@/utils/shadcn';
+import { FaBuilding, FaUserAlt } from 'react-icons/fa';
+import { MdMailOutline as MailIcon, MdPhone as PhoneIcon } from 'react-icons/md';
+import { FormattedMessage } from 'react-intl';
 
 export function ContactHeader({ children }: { children: React.ReactNode }) {
   return <div className="g-flex g-mb-4">{children}</div>;

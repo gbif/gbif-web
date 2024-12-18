@@ -1,12 +1,12 @@
-import { fragmentManager } from '@/services/fragmentManager';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { TypeStatusLabel } from '@/components/filters/displayNames';
 import { Tag } from '@/components/resultCards';
 import { Card } from '@/components/ui/largeCard';
-import { DynamicLink } from '@/reactRouterPlugins';
 import { InstitutionResultFragment } from '@/gql/graphql';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { fragmentManager } from '@/services/fragmentManager';
 import { truncate } from '@/utils/truncate';
-import { TypeStatusLabel } from '@/components/filters/displayNames';
 import { GlobeIcon } from '@radix-ui/react-icons';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment InstitutionResult on InstitutionSearchEntity {

@@ -1,9 +1,9 @@
 import { SearchInput } from '@/components/searchInput';
 import { Button } from '@/components/ui/button';
+import { FilterContext } from '@/contexts/filter';
+import { cn } from '@/utils/shadcn';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { MdClose } from 'react-icons/md';
-import { cn } from '@/utils/shadcn';
-import { FilterContext } from '@/contexts/filter';
 
 export function QInlineButtonFilter({
   className,

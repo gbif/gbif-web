@@ -1,10 +1,10 @@
-import { fragmentManager } from '@/services/fragmentManager';
-import { MediaCountBlockDetailsFragment } from '@/gql/graphql';
-import { ArticleBody } from '../../components/articleBody';
-import { DynamicLink } from '@/reactRouterPlugins';
-import { cn } from '@/utils/shadcn';
 import { CountResolver } from '@/components/countResolver';
-import { BlockContainer, BlockHeading, backgroundColorMap } from './_shared';
+import { MediaCountBlockDetailsFragment } from '@/gql/graphql';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { fragmentManager } from '@/services/fragmentManager';
+import { cn } from '@/utils/shadcn';
+import { ArticleBody } from '../../components/articleBody';
+import { backgroundColorMap, BlockContainer, BlockHeading } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `
   fragment MediaCountBlockDetails on MediaCountBlock {

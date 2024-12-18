@@ -1,16 +1,11 @@
-import React, { useEffect, useRef } from 'react';
-import { FilterPopover } from './filterPopover';
 import { Button } from '@/components/ui/button';
 import {
-  Command,
-  CommandInput,
-  CommandEmpty,
-  CommandList,
-  CommandGroup,
-  CommandItem,
+    Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList
 } from '@/components/ui/command';
-import { MdArrowBack } from 'react-icons/md';
 import { FilterType } from '@/contexts/filter';
+import React, { useEffect, useRef } from 'react';
+import { MdArrowBack } from 'react-icons/md';
+import { FilterPopover } from './filterPopover';
 
 const ContentWrapper = React.forwardRef(
   (

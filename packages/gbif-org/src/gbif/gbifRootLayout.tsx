@@ -1,11 +1,11 @@
-import React from 'react';
-import { ScrollRestoration, useLoaderData } from 'react-router-dom';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { NoscriptNotification } from '@/components/noscriptNotification';
 import { Toaster } from '@/components/ui/toaster';
 import { HeaderQuery, HeaderQueryVariables } from '@/gql/graphql';
-import { NoscriptNotification } from '@/components/noscriptNotification';
-import { Header } from './header';
 import { LoaderArgs } from '@/reactRouterPlugins';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
+import React from 'react';
+import { ScrollRestoration, useLoaderData } from 'react-router-dom';
+import { Header } from './header';
 
 const HEADER_QUERY = /* GraphQL */ `
   query Header {

@@ -1,8 +1,8 @@
+import { cloneElement, isValidElement, useContext } from 'react';
+import { RouteObjectWithPlugins } from '..';
 import { AbortLoadingEvent, StartLoadingEvent } from './events';
 import { LoadingContext } from './loadingContextProvider';
-import { cloneElement, isValidElement, useContext } from 'react';
 import { NavigationListener } from './navigationListener';
-import { RouteObjectWithPlugins } from '..';
 
 export type ErrorPageProps = {
   loadingElement?: React.ReactNode;

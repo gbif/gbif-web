@@ -1,29 +1,29 @@
 import {
-  booleanLabel,
-  CountryLabel,
-  IdentityLabel,
-  InstitutionDisciplineLabel,
-  InstitutionTypeLabel,
-  QuantityLabel,
+    booleanLabel,
+    CountryLabel,
+    IdentityLabel,
+    InstitutionDisciplineLabel,
+    InstitutionTypeLabel,
+    QuantityLabel
 } from '@/components/filters/displayNames';
 import {
-  filterBoolConfig,
-  filterConfigTypes,
-  filterFreeTextConfig,
-  filterRangeConfig,
-  FilterSetting,
-  filterSuggestConfig,
-  generateFilters,
+    filterBoolConfig,
+    filterConfigTypes,
+    filterFreeTextConfig,
+    filterRangeConfig,
+    FilterSetting,
+    filterSuggestConfig,
+    generateFilters
 } from '@/components/filters/filterTools';
-import { useIntl } from 'react-intl';
-import { matchSorter } from 'match-sorter';
-import hash from 'object-hash';
-import country from '@/enums/basic/country.json';
-import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
-import { useCallback, useEffect, useState } from 'react';
 import { SuggestFnProps } from '@/components/filters/suggest';
 import { HelpText } from '@/components/helpText';
+import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
+import country from '@/enums/basic/country.json';
 import { institutionDisciplineSuggest, institutionTypeSuggest } from '@/utils/suggestEndpoints';
+import { matchSorter } from 'match-sorter';
+import hash from 'object-hash';
+import { useCallback, useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
 
 export const activeConfig: filterBoolConfig = {
   filterType: filterConfigTypes.OPTIONAL_BOOL,

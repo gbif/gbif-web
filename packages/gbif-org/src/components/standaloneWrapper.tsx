@@ -1,6 +1,6 @@
 import { useConfig } from '@/config/config';
 import { applyReactRouterPlugins, RouteObjectWithPlugins, useI18n } from '@/reactRouterPlugins';
-import { useRef, useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createMemoryRouter, RouterProvider, useNavigate } from 'react-router-dom';
 import { StandaloneRoot } from './root';

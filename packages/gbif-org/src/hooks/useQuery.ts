@@ -1,8 +1,8 @@
 import { useConfig } from '@/config/config';
 import { useI18n } from '@/reactRouterPlugins';
-import React, { useRef } from 'react';
-import Queue from 'queue-promise';
 import { GraphQLService } from '@/services/graphQLService';
+import Queue from 'queue-promise';
+import React, { useRef } from 'react';
 
 export class NetworkError extends Error {
   name = 'NetworkError';

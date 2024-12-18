@@ -1,6 +1,6 @@
 import { useConfig } from '@/config/config';
-import { useI18n } from '@/reactRouterPlugins';
 import { NonCountryNodeQuery, NonCountryNodeQueryVariables } from '@/gql/graphql';
+import { useI18n } from '@/reactRouterPlugins';
 import { GraphQLService } from '@/services/graphQLService';
 import { useCallback, useState } from 'react';
 

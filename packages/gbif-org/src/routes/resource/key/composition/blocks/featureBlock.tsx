@@ -1,12 +1,12 @@
 import { FeatureBlockDetailsFragment, ProseCardImgFragment } from '@/gql/graphql';
-import { ArticleTextContainer } from '../../components/articleTextContainer';
-import { ArticleBody } from '../../components/articleBody';
-import { ProseCard } from '../proseCard';
 import { fragmentManager } from '@/services/fragmentManager';
-import { BlockContainer, BlockHeading, backgroundColorMap } from './_shared';
 import { cn } from '@/utils/shadcn';
-import { redirectMapper } from '../../createResourceLoaderWithRedirect';
 import { slugify } from '@/utils/slugify';
+import { ArticleBody } from '../../components/articleBody';
+import { ArticleTextContainer } from '../../components/articleTextContainer';
+import { redirectMapper } from '../../createResourceLoaderWithRedirect';
+import { ProseCard } from '../proseCard';
+import { backgroundColorMap, BlockContainer, BlockHeading } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `
   fragment FeatureBlockDetails on FeatureBlock {

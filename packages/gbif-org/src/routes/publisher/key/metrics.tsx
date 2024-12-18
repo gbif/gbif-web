@@ -1,19 +1,16 @@
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
-import * as charts from '@/components/dashboard';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { useParams } from 'react-router-dom';
-import DashBoardLayout from '@/components/dashboard/DashboardLayout';
 import { ClientSideOnly } from '@/components/clientSideOnly';
+import * as charts from '@/components/dashboard';
+import DashBoardLayout from '@/components/dashboard/DashboardLayout';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { FormattedMessage } from 'react-intl';
-import { SimpleTooltip } from '@/components/SimpleTooltip';
-import { MdInfoOutline } from 'react-icons/md';
-import useQuery from '@/hooks/useQuery';
 import { PublisherCountsQuery, PublisherCountsQueryVariables } from '@/gql/graphql';
+import useQuery from '@/hooks/useQuery';
+import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
+import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 export function PublisherKeyMetrics() {
-  let { key } = useParams();
+  const { key } = useParams();
   const { load, data, loading, error } = useQuery<
     PublisherCountsQuery,
     PublisherCountsQueryVariables

@@ -1,7 +1,7 @@
-import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
-import { installationLoader, InstallationPage, InstallationPageSkeleton } from './installationKey';
-import { InstallationKeyAbout } from './about';
 import { InstallationQuery } from '@/gql/graphql';
+import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
+import { InstallationKeyAbout } from './about';
+import { installationLoader, InstallationPage, InstallationPageSkeleton } from './installationKey';
 
 const id = 'installation-key';
 

@@ -9,36 +9,35 @@ and some default styles for OL and MB to choose from, possibly an option to add 
 And probably the point overlays will have to be dependent on the basemap as well?
 
 */
+import React, { useCallback, useEffect, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import React, { useState, useEffect, useCallback } from 'react';
 // import { DetailsDrawer, Menu, MenuAction, Button, Tooltip } from '../../../../components';
 // import { OccurrenceSidebar } from '../../../../entities';
 // import { useDialogState } from "reakit/Dialog";
 // import ListBox from './ListBox';
-import { MdOutlineLayers, MdZoomIn, MdZoomOut, MdLanguage, MdMyLocation } from 'react-icons/md';
-import { MdOutlineFilterAlt as ExploreAreaIcon } from 'react-icons/md';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger
 } from '@/components/ui/dropdownMenu';
+import { MdLanguage, MdMyLocation, MdOutlineFilterAlt as ExploreAreaIcon, MdOutlineLayers, MdZoomIn, MdZoomOut } from 'react-icons/md';
 // import { ViewHeader } from '../ViewHeader';
+import { SimpleTooltip } from '@/components/simpleTooltip';
+import StripeLoader from '@/components/stripeLoader';
+import { Button } from '@/components/ui/button';
+import { Spinner } from '@/components/ui/spinner';
+import { useToast } from '@/components/ui/use-toast';
+import { ViewHeader } from '@/components/ViewHeader';
+import { useConfig } from '@/config/config';
+import { useStringParam } from '@/hooks/useParam';
+import { cn } from '@/utils/shadcn';
+import { FormattedMessage } from 'react-intl';
+import { useOrderedList } from '../../browseList/useOrderedList';
+import ListBox from './ListBox';
 import MapComponentML from './MapLibreMap';
 import MapComponentOL from './OpenlayersMap';
-import { FormattedMessage } from 'react-intl';
 import { getMapStyles } from './standardMapStyles';
-import { Button } from '@/components/ui/button';
-import { SimpleTooltip } from '@/components/simpleTooltip';
-import { useConfig } from '@/config/config';
-import { useToast } from '@/components/ui/use-toast';
-import { cn } from '@/utils/shadcn';
-import ListBox from './ListBox';
-import { useOrderedList } from '../../browseList/useOrderedList';
-import { useStringParam } from '@/hooks/useParam';
-import { Spinner } from '@/components/ui/spinner';
-import { ViewHeader } from '@/components/ViewHeader';
-import StripeLoader from '@/components/stripeLoader';
 
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
 const pixelRatio = window.devicePixelRatio || 1;

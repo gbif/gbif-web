@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import { useToast } from '@/components/ui/use-toast';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { useToast } from '@/components/ui/use-toast';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 export const RangeInput = ({ onAdd }: { onAdd: ({ wkt }: { wkt: string[] }) => void }) => {
   const { toast } = useToast();

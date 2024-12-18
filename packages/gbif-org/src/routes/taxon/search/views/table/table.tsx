@@ -1,20 +1,20 @@
-import { TaxonSearchQuery, TaxonSearchQueryVariables } from '@/gql/graphql';
-import { usePaginationState } from '@/components/searchTable/usePaginationState';
-import useQuery from '@/hooks/useQuery';
-import { useContext, useEffect, useMemo } from 'react';
 import { getAsQuery } from '@/components/filters/filterTools';
-import { useTaxonColumns } from './columns';
-import { notNull } from '@/utils/notNull';
-import { FilterContext } from '@/contexts/filter';
-import { useStringParam } from '@/hooks/useParam';
-import { searchConfig } from '../../searchConfig';
 import SearchTable from '@/components/searchTable/table';
-import { useConfig } from '@/config/config';
-import { useSearchContext } from '@/contexts/search';
-import { useFilters } from '../../filters';
-import { Row } from '@tanstack/react-table';
+import { usePaginationState } from '@/components/searchTable/usePaginationState';
 import { ViewHeader } from '@/components/ViewHeader';
+import { useConfig } from '@/config/config';
+import { FilterContext } from '@/contexts/filter';
+import { useSearchContext } from '@/contexts/search';
+import { TaxonSearchQuery, TaxonSearchQueryVariables } from '@/gql/graphql';
+import { useStringParam } from '@/hooks/useParam';
+import useQuery from '@/hooks/useQuery';
 import { useOrderedList } from '@/routes/occurrence/search/views/browseList/useOrderedList';
+import { notNull } from '@/utils/notNull';
+import { Row } from '@tanstack/react-table';
+import { useContext, useEffect, useMemo } from 'react';
+import { useFilters } from '../../filters';
+import { searchConfig } from '../../searchConfig';
+import { useTaxonColumns } from './columns';
 
 const TAXON_SEARCH_QUERY = /* GraphQL */ `
   query TaxonSearch($offset: Int, $limit: Int, $query: TaxonSearchInput) {

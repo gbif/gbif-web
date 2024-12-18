@@ -1,28 +1,28 @@
-import React, { useContext } from 'react';
-import { SuggestFilter } from './suggestFilter';
-import { FilterPopover } from './filterPopover';
-import {
-  filter2predicate,
-  FilterConfigType,
-} from '@/dataManagement/filterAdapter/filter2predicate';
-import { FormattedMessage, IntlShape } from 'react-intl';
-import { EnumFilter } from './enumFilter';
 import { FilterContext, FilterContextType, FilterType } from '@/contexts/filter';
 import { SearchMetadata } from '@/contexts/search';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
-import { FilterButton } from './filterButton';
-import { QFilter } from './QFilter';
-import { QInlineButtonFilter } from './QInlineButtonFilter';
+import {
+    filter2predicate,
+    FilterConfigType
+} from '@/dataManagement/filterAdapter/filter2predicate';
 import { cn } from '@/utils/shadcn';
-import { SuggestionItem } from './suggest';
-import MoreFilters from './More';
-import { RangeFilter } from './rangeFilter';
 import { SuggestConfig } from '@/utils/suggestEndpoints';
+import React, { useContext } from 'react';
+import { FormattedMessage, IntlShape } from 'react-intl';
 import { Button } from '../ui/button';
+import { EnumFilter } from './enumFilter';
+import { FilterButton } from './filterButton';
+import { FilterPopover } from './filterPopover';
+import { GeometryFilter } from './geometryFilter';
+import MoreFilters from './More';
 import { SkeletonOption } from './option';
 import { OptionalBooleanFilter } from './optionalBooleanFilter';
+import { QFilter } from './QFilter';
+import { QInlineButtonFilter } from './QInlineButtonFilter';
+import { RangeFilter } from './rangeFilter';
+import { SuggestionItem } from './suggest';
+import { SuggestFilter } from './suggestFilter';
 import { WildcardFilter } from './wildcardFilter';
-import { GeometryFilter } from './geometryFilter';
 
 export enum filterConfigTypes {
   SUGGEST = 'SUGGEST',

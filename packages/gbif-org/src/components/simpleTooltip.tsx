@@ -1,6 +1,6 @@
+import { TooltipContentProps } from '@radix-ui/react-tooltip';
 import { FormattedMessage } from 'react-intl';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
-import { TooltipContentProps } from '@radix-ui/react-tooltip';
 
 type Props = {
   title?: React.ReactNode;

@@ -1,13 +1,12 @@
-import { useEffect, useContext, useState, useCallback } from 'react';
-import { ClusterPresentation } from './ClusterPresentation';
-import uniqBy from 'lodash/uniqBy';
 import { FilterContext } from '@/contexts/filter';
-import useQuery from '@/hooks/useQuery';
-import { filter2predicate } from '@/dataManagement/filterAdapter';
-import { searchConfig } from '../../searchConfig';
 import { useSearchContext } from '@/contexts/search';
+import { filter2predicate } from '@/dataManagement/filterAdapter';
 import { useNumberParam } from '@/hooks/useParam';
-import useUpdateEffect from '@/hooks/useUpdateEffect';
+import useQuery from '@/hooks/useQuery';
+import uniqBy from 'lodash/uniqBy';
+import { useCallback, useContext, useEffect, useState } from 'react';
+import { searchConfig } from '../../searchConfig';
+import { ClusterPresentation } from './ClusterPresentation';
 
 const OCCURRENCE_CLUSTERS = `
 query clusters($predicate: Predicate, $size: Int = 20, $from: Int = 0){

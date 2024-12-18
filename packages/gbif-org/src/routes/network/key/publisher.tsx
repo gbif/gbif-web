@@ -1,15 +1,15 @@
+import { NoRecords } from '@/components/noDataMessages';
+import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { NetworkPublishersQuery, NetworkPublishersQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
-import { CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { FormattedMessage } from 'react-intl';
-import { PaginationFooter } from '@/components/pagination';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { NoRecords } from '@/components/noDataMessages';
 import { PublisherResult } from '@/routes/publisher/publisherResult';
+import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
+import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { useEffect, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
+import { useParams } from 'react-router-dom';
 
 export function NetworkKeyPublisher() {
   const { key } = useParams<{ key: string }>();

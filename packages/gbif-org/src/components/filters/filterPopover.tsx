@@ -1,8 +1,8 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { FilterContext, FilterProvider, FilterType } from '@/contexts/filter';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { useUncontrolledProp } from 'uncontrollable';
+import { FilterContext, FilterProvider, FilterType } from '@/contexts/filter';
 import { cn } from '@/utils/shadcn';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useUncontrolledProp } from 'uncontrollable';
 
 export function FilterPopover({
   open,

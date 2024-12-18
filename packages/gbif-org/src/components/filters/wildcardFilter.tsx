@@ -1,37 +1,29 @@
 import { SearchInput } from '@/components/searchInput';
+import { SimpleTooltip } from '@/components/simpleTooltip';
+import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
+import { useSearchContext } from '@/contexts/search';
+import useQuery from '@/hooks/useQuery';
+import { cn } from '@/utils/shadcn';
+import cloneDeep from 'lodash/cloneDeep';
+import hash from 'object-hash';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import {
-  MdDeleteOutline,
-  MdOutlineRemoveCircleOutline,
-  MdOutlineRemoveCircle,
-  MdArrowBack,
+    MdDeleteOutline, MdOutlineRemoveCircle, MdOutlineRemoveCircleOutline
 } from 'react-icons/md';
-import { PiEmptyBold, PiEmptyFill } from 'react-icons/pi';
-import { cn } from '@/utils/shadcn';
-import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
-import useQuery from '@/hooks/useQuery';
-import hash from 'object-hash';
-import cloneDeep from 'lodash/cloneDeep';
-import { Suggest } from './suggest';
+import { PiEmptyBold } from 'react-icons/pi';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { SimpleTooltip } from '@/components/simpleTooltip';
-import { Option, SkeletonOption } from './option';
-import {
-  AdditionalFilterProps,
-  ApplyCancel,
-  AsyncOptions,
-  FacetQuery,
-  FilterSummaryType,
-  filterWildcardConfig,
-  getAsQuery,
-  getFilterSummary,
-  WildcardQuery,
-} from './filterTools';
-import { useSearchContext } from '@/contexts/search';
-import { AboutButton } from './aboutButton';
-import { Exists } from './exists';
 import StripeLoader from '../stripeLoader';
 import { Button } from '../ui/button';
+import { AboutButton } from './aboutButton';
+import { Exists } from './exists';
+import {
+    AdditionalFilterProps,
+    ApplyCancel,
+    AsyncOptions, FilterSummaryType,
+    filterWildcardConfig, getFilterSummary,
+    WildcardQuery
+} from './filterTools';
+import { Option, SkeletonOption } from './option';
 
 const initialSize = 25;
 

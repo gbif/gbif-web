@@ -1,7 +1,7 @@
+import useQuery from '@/hooks/useQuery';
+import { DynamicLink } from '@/reactRouterPlugins';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { DynamicLink } from '@/reactRouterPlugins';
-import useQuery from '@/hooks/useQuery';
 
 const INSTITUTION_SEARCH_QUERY = `
   query InstitutionSearch($offset: Int) {

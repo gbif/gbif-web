@@ -1,32 +1,24 @@
 /* eslint-disable no-param-reassign */
-import md5 from 'md5';
-import _ from 'lodash';
+import getFeedbackOptions from '#/helpers/feedback';
 import getGlobe from '#/helpers/globe';
-import {
-  getFacet,
-  getStats,
-  getCardinality,
-  getHistogram,
-  getAutoDateHistogram,
-} from '../getMetrics';
-import {
-  facetFields,
-  statsFields,
-  cardinalityFields,
-  histogramFields,
-  dateHistogramFields,
-} from './helpers/fields';
 import {
   formattedCoordinates,
   isOccurrenceSequenced,
-  simplifyUrlObjectKeys,
+  simplifyUrlObjectKeys
 } from '#/helpers/utils';
-import groupResolver from './helpers/groups/occurrenceGroups';
-import termResolver from './helpers/terms/occurrenceTerms';
-import predicate2v1 from './helpers/predicate2v1';
-import getLongitudeBounds from './helpers/longitudeBounds';
+import _ from 'lodash';
+import md5 from 'md5';
 import config from '../../../config';
-import getFeedbackOptions from '#/helpers/feedback';
+import {
+  getAutoDateHistogram, getCardinality, getFacet, getHistogram, getStats
+} from '../getMetrics';
+import {
+  cardinalityFields, dateHistogramFields, facetFields, histogramFields, statsFields
+} from './helpers/fields';
+import groupResolver from './helpers/groups/occurrenceGroups';
+import getLongitudeBounds from './helpers/longitudeBounds';
+import predicate2v1 from './helpers/predicate2v1';
+import termResolver from './helpers/terms/occurrenceTerms';
 
 const getSourceSearch = (dataSources) => (args) =>
   dataSources.occurrenceAPI.searchOccurrences.call(

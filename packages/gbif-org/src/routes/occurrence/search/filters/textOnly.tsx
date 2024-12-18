@@ -1,6 +1,6 @@
-import { HelpText } from '@/components/helpText';
-import { filterSuggestConfig, filterConfigTypes } from '@/components/filters/filterTools';
 import { IdentityLabel } from '@/components/filters/displayNames';
+import { filterConfigTypes, filterSuggestConfig } from '@/components/filters/filterTools';
+import { HelpText } from '@/components/helpText';
 
 export const projectIdConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,

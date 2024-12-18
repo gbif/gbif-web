@@ -1,7 +1,7 @@
 import { useConfig } from '@/config/config';
-import { Card } from './ui/smallCard';
 import { cn } from '@/utils/shadcn';
 import { HashLink } from 'react-router-hash-link';
+import { Card } from './ui/smallCard';
 
 export function GbifLinkCard({ path, className }: { path: string; className?: string }) {
   const config = useConfig();

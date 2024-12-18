@@ -1,22 +1,22 @@
+import { ClientSideOnly } from '@/components/clientSideOnly';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { FilterContext } from '@/contexts/filter';
+import { cn } from '@/utils/shadcn';
+import { truncate } from '@/utils/truncate';
+import set from 'lodash/set';
 import React, { useContext, useEffect, useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
-import { cn } from '@/utils/shadcn';
-import { FilterContext } from '@/contexts/filter';
 import { FormattedMessage } from 'react-intl';
-import { Option } from '../option';
-import { AdditionalFilterProps, ApplyCancel, filterLocationConfig } from '../filterTools';
-import { AboutButton } from '../aboutButton';
-import { ToggleGroup, ToggleGroupItem } from '../../ui/toggle-group';
-import set from 'lodash/set';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card } from '../../ui/smallCard';
-import MapInput from './MapInput';
-import { ClientSideOnly } from '@/components/clientSideOnly';
+import { ToggleGroup, ToggleGroupItem } from '../../ui/toggle-group';
+import { AboutButton } from '../aboutButton';
+import { PolygonLabel } from '../displayNames';
+import { AdditionalFilterProps, ApplyCancel, filterLocationConfig } from '../filterTools';
+import { Option } from '../option';
 import { GeometryInput, isValidWKT } from './GeometryInput';
+import MapInput from './MapInput';
 import { RangeInput } from './RangeInput';
 import { CopyToClipboard, InvalidWkt, RecentInput } from './RecentInput';
-import { PolygonLabel } from '../displayNames';
-import { truncate } from '@/utils/truncate';
 
 type WildcardProps = Omit<filterLocationConfig, 'filterType' | 'filterTranslation'> &
   AdditionalFilterProps & {

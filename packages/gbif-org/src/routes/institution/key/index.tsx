@@ -1,9 +1,9 @@
-import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
-import { InstitutionKey, institutionLoader } from './institutionKey';
-import InstitutionKeyAbout from './About';
-import InstitutionKeySpecimens from './Specimen';
-import InstitutionKeyCollection from './Collection';
 import { InstitutionQuery } from '@/gql/graphql';
+import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
+import InstitutionKeyAbout from './About';
+import InstitutionKeyCollection from './Collection';
+import { InstitutionKey, institutionLoader } from './institutionKey';
+import InstitutionKeySpecimens from './Specimen';
 
 const id = 'institutionKey';
 

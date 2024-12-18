@@ -1,14 +1,14 @@
-import { FilterContext } from '@/contexts/filter';
-import { useSearchContext } from '@/contexts/search';
-import useQuery from '@/hooks/useQuery';
-import { useEffect, useContext } from 'react';
-import { MdFileDownload } from 'react-icons/md';
-import { searchConfig } from '../../searchConfig';
-import { filter2predicate } from '@/dataManagement/filterAdapter';
-import { Card } from '@/components/ui/smallCard';
 import { Message } from '@/components/message';
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/smallCard';
 import { ViewHeader } from '@/components/ViewHeader';
+import { FilterContext } from '@/contexts/filter';
+import { useSearchContext } from '@/contexts/search';
+import { filter2predicate } from '@/dataManagement/filterAdapter';
+import useQuery from '@/hooks/useQuery';
+import { useContext, useEffect } from 'react';
+import { MdFileDownload } from 'react-icons/md';
+import { searchConfig } from '../../searchConfig';
 
 const GBIF_ORG = import.meta.env.PUBLIC_GBIF_ORG;
 

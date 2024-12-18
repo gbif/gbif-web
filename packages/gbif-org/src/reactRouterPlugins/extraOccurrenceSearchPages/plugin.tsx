@@ -1,6 +1,6 @@
 import { Config } from '@/config/config';
-import { RouteObjectWithPlugins } from '..';
 import { occurrenceSearchRouteId } from '@/routes/occurrence/search';
+import { RouteObjectWithPlugins } from '..';
 
 export function applyExtraOccurrenceSearchPages(
   routes: RouteObjectWithPlugins[],

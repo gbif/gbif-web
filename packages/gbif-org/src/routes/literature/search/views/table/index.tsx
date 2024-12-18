@@ -1,19 +1,19 @@
 import { getAsQuery } from '@/components/filters/filterTools';
+import SearchTable from '@/components/searchTable/table';
 import { usePaginationState } from '@/components/searchTable/usePaginationState';
+import { ViewHeader } from '@/components/ViewHeader';
 import { useConfig } from '@/config/config';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { LiteratureTableSearchQuery, LiteratureTableSearchQueryVariables } from '@/gql/graphql';
-import { ExtractPaginatedResult } from '@/types';
-import { useContext, useEffect, useMemo } from 'react';
-import { searchConfig } from '../../searchConfig';
 import useQuery from '@/hooks/useQuery';
-import { useFilters } from '../../filters';
-import { useLiteratureColumns } from './columns';
-import { notNull } from '@/utils/notNull';
-import { ViewHeader } from '@/components/ViewHeader';
-import SearchTable from '@/components/searchTable/table';
 import { useResetPaginationOnFilterChange } from '@/hooks/useResetPaginationOnFilterChange';
+import { ExtractPaginatedResult } from '@/types';
+import { notNull } from '@/utils/notNull';
+import { useContext, useEffect, useMemo } from 'react';
+import { useFilters } from '../../filters';
+import { searchConfig } from '../../searchConfig';
+import { useLiteratureColumns } from './columns';
 
 // TODO: Should maybe be moved to the configBuilder
 const DAFAULT_AVAILABLE_TABLE_COLUMNS = Object.freeze([

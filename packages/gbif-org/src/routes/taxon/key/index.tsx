@@ -1,7 +1,7 @@
-import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
-import { TaxonKey, taxonLoader } from './taxonKey';
-import TaxonKeyAbout from './About';
 import { TaxonQuery } from '@/gql/graphql';
+import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
+import TaxonKeyAbout from './About';
+import { TaxonKey, taxonLoader } from './taxonKey';
 
 const id = 'taxonKey';
 

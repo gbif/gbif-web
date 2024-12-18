@@ -1,17 +1,17 @@
-import express from 'express';
-import cors from 'cors';
-import compression from 'compression';
-import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginCacheControl } from 'apollo-server-core';
-import { get } from 'lodash';
+import { ApolloServer } from 'apollo-server-express';
 import bodyParser from 'body-parser';
+import compression from 'compression';
+import cors from 'cors';
+import express from 'express';
+import { get } from 'lodash';
 // recommended in the apollo docs https://github.com/stems/graphql-depth-limit
 import depthLimit from 'graphql-depth-limit';
 
 // Local imports
 import config from './config';
-import { hashMiddleware, graphqlExplorer } from './middleware';
 import health from './health';
+import { graphqlExplorer, hashMiddleware } from './middleware';
 // get the full schema of what types, enums, scalars and queries are available
 import getSchema from './typeDefs';
 // define how to resolve the various types, fields and queries
@@ -19,17 +19,17 @@ import resolvers from './resolvers';
 // how to fetch the actual data and possible format/remap it to match the schemas
 import api from './dataSources';
 // we will attach a user if an authorization header is present.
-import extractUser from './helpers/auth/extractUser';
-import mapController from './api-utils/maps/index.ctrl.js';
-import ipController from './api-utils/ip2country.ctrl.js';
-import polygonName from './api-utils/polygonName.ctrl.js';
-import suggestFilter from './api-utils/suggestFilter.ctrl.js';
 import formController from './api-utils/forms/index.ctrl';
 import geometryController from './api-utils/geometry/index.ctrl.js';
 import helperController from './api-utils/helpers.ctrl.js';
+import ipController from './api-utils/ip2country.ctrl.js';
+import mapController from './api-utils/maps/index.ctrl.js';
 import phylogenyFromSourceArchiveCtrl from './api-utils/phylgenies/phylogenyFromSourceArchive.ctrl.js';
-import { loggingPlugin } from './plugins/loggingPlugin';
+import polygonName from './api-utils/polygonName.ctrl.js';
+import suggestFilter from './api-utils/suggestFilter.ctrl.js';
+import extractUser from './helpers/auth/extractUser';
 import { explicitNoCacheWhenErrorsPlugin } from './plugins/explicitNoCacheWhenErrorsPlugin';
+import { loggingPlugin } from './plugins/loggingPlugin';
 
 // we are doing this async as we need to load the various enumerations from the APIs
 // and generate the schema from those

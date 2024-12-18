@@ -1,15 +1,14 @@
 import { GbifLogoIcon } from '@/components/icons/icons';
-import { Link, NavLink, useLocation } from 'react-router-dom';
-import MainNavigation from './mainNav';
-import { HeaderQuery } from '@/gql/graphql';
-import MobileMenu from './mobileMenu';
-import { MdOutlineFeedback, MdSearch, MdTranslate } from 'react-icons/md';
 import { Button } from '@/components/ui/button';
+import { HeaderQuery } from '@/gql/graphql';
+import { DynamicLink, useI18n } from '@/reactRouterPlugins';
 import { FiActivity } from 'react-icons/fi';
-import { LanguageSelector } from './languageSelector';
+import { MdOutlineFeedback, MdSearch, MdTranslate } from 'react-icons/md';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { FeedbackPopover } from './feedback';
-import { useI18n } from '@/reactRouterPlugins';
-import { DynamicLink } from '@/reactRouterPlugins';
+import { LanguageSelector } from './languageSelector';
+import MainNavigation from './mainNav';
+import MobileMenu from './mobileMenu';
 
 export function Header({ menu }: { menu: HeaderQuery }) {
   const { locale } = useI18n();

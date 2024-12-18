@@ -1,8 +1,8 @@
 import { TextBlockDetailsFragment } from '@/gql/graphql';
-import { ArticleTextContainer } from '../../components/articleTextContainer';
-import { ArticleBody } from '../../components/articleBody';
 import { fragmentManager } from '@/services/fragmentManager';
-import { BlockContainer, BlockHeading, backgroundColorMap } from './_shared';
+import { ArticleBody } from '../../components/articleBody';
+import { ArticleTextContainer } from '../../components/articleTextContainer';
+import { backgroundColorMap, BlockContainer, BlockHeading } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `
   fragment TextBlockDetails on TextBlock {

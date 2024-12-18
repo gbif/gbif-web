@@ -1,29 +1,27 @@
 import {
-  CollectionLabel,
-  CountryLabel,
-  DatasetLabel,
-  GadmGidLabel,
-  IdentityLabel,
-  InstitutionLabel,
-  NetworkLabel,
-  PublisherLabel,
-  TaxonLabel,
+    CollectionLabel,
+    CountryLabel,
+    DatasetLabel,
+    GadmGidLabel,
+    IdentityLabel,
+    InstitutionLabel,
+    NetworkLabel,
+    PublisherLabel,
+    TaxonLabel
 } from '@/components/filters/displayNames';
 import { filterConfigTypes, filterSuggestConfig } from '@/components/filters/filterTools';
 import { HelpText } from '@/components/helpText';
 import {
-  collectionCodeSuggest,
-  collectionKeySuggest,
-  datasetKeyOccurrenceSuggest,
-  gadGidSuggest,
-  institutionCodeSuggest,
-  institutionKeySuggest,
-  networkKeySuggest,
-  publisherKeyOccurrenceSuggest,
-  publisherKeySuggest,
-  recordNumberSuggest,
-  taxonKeySuggest,
-  taxonKeyVernacularSuggest,
+    collectionCodeSuggest,
+    collectionKeySuggest,
+    datasetKeyOccurrenceSuggest,
+    gadGidSuggest,
+    institutionCodeSuggest,
+    institutionKeySuggest,
+    networkKeySuggest,
+    publisherKeyOccurrenceSuggest,
+    publisherKeySuggest,
+    recordNumberSuggest, taxonKeyVernacularSuggest
 } from '@/utils/suggestEndpoints';
 
 export const institutionKeyConfig: filterSuggestConfig = {

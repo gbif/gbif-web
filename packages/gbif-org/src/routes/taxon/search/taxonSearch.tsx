@@ -1,26 +1,26 @@
+import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
+import DynamicHeightDiv from '@/components/DynamicHeightDiv';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
+import { Card } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
 import { FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import { useStringParam } from '@/hooks/useParam';
+import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
+import EntityDrawer from '@/routes/occurrence/search/views/browseList/ListBrowser';
 import { cn } from '@/utils/shadcn';
 import React, { useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useFilters } from './filters';
-import { searchConfig } from './searchConfig';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
-import DynamicHeightDiv from '@/components/DynamicHeightDiv';
-import { Card } from '@/components/ui/smallCard';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
+import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './helpTexts';
-import EntityDrawer from '@/routes/occurrence/search/views/browseList/ListBrowser';
+import { searchConfig } from './searchConfig';
 import { Table } from './views/table';
 import { Tree } from './views/tree';
-import { ClientSideOnly } from '@/components/clientSideOnly';
 
 export function TaxonSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({

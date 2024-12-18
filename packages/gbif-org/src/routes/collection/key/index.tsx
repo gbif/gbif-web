@@ -1,9 +1,9 @@
+import { CollectionQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
-import { CollectionKey, collectionLoader } from './collectionKey';
 import CollectionKeyAbout from './About';
+import { CollectionKey, collectionLoader } from './collectionKey';
 import CollectionKeyDashboard from './Dashboard';
 import CollectionKeySpecimens from './Specimen';
-import { CollectionQuery } from '@/gql/graphql';
 
 const id = 'collectionKey';
 

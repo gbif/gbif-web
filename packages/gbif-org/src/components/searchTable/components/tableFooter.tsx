@@ -1,5 +1,5 @@
 import { Table } from '@tanstack/react-table';
-import { MdFirstPage, MdChevronLeft, MdChevronRight } from 'react-icons/md';
+import { MdChevronLeft, MdChevronRight, MdFirstPage } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { FooterButton } from './footerButton';
 import { InlineSkeletonWrapper } from './inlineSkeletonWrapper';

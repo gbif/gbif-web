@@ -1,25 +1,25 @@
+import { ClientSideOnly } from '@/components/clientSideOnly';
+import { GbifLogoIcon } from '@/components/icons/icons';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger
+} from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger
 } from '@/components/ui/sheet';
-import { MdLink, MdMenu } from 'react-icons/md';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
-import { GbifLogoIcon } from '@/components/icons/icons';
 import { HeaderQuery } from '@/gql/graphql';
-import { memo, useState } from 'react';
-import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DynamicLink } from '@/reactRouterPlugins';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { memo, useState } from 'react';
+import { MdLink, MdMenu } from 'react-icons/md';
 
 function MobileMenu({ menu }: { menu: HeaderQuery }) {
   const [open, setOpen] = useState(false);

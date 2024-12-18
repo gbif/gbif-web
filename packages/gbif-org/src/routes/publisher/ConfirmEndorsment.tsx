@@ -1,10 +1,9 @@
+import { Button } from '@/components/ui/button';
+import { DynamicLink, LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { required } from '@/utils/required';
-import { useLoaderData, useSearchParams } from 'react-router-dom';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
 import { MdErrorOutline } from 'react-icons/md';
-import { DynamicLink } from '@/reactRouterPlugins';
-import { Button } from '@/components/ui/button';
-import { LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
+import { useLoaderData, useSearchParams } from 'react-router-dom';
 
 type LoaderResult =
   | {

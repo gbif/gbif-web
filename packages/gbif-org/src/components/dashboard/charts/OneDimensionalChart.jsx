@@ -1,18 +1,18 @@
-import { CardHeader } from '../shared';
-import { Card, CardTitle, CardDescription, CardContent } from '@/components/ui/smallCard';
-import Highcharts, { chartColors } from './highcharts';
+import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/smallCard';
 import HighchartsReact from 'highcharts-react-official';
-import { getPieOptions } from './pie';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { CardHeader } from '../shared';
 import { getColumnOptions } from './column';
+import Highcharts, { chartColors } from './highcharts';
+import { getPieOptions } from './pie';
 // import { getTimeSeriesOptions } from './area';
-import { GroupBy, Pagging, useFacets } from './GroupByTable';
-import { MdViewStream } from 'react-icons/md';
-import { BsFillBarChartFill, BsPieChartFill } from 'react-icons/bs';
-import { getTimeSeriesOptions } from './time';
-import { useUncontrolledProp } from 'uncontrollable';
-import formatAsPercentage from '@/utils/formatAsPercentage';
 import { Button } from '@/components/ui/button';
+import formatAsPercentage from '@/utils/formatAsPercentage';
+import { BsFillBarChartFill, BsPieChartFill } from 'react-icons/bs';
+import { MdViewStream } from 'react-icons/md';
+import { useUncontrolledProp } from 'uncontrollable';
+import { GroupBy, Pagging, useFacets } from './GroupByTable';
+import { getTimeSeriesOptions } from './time';
 
 export const chartsClass = 'g-min-w-full g-h-full g-w-40 g-overflow-hidden';
 

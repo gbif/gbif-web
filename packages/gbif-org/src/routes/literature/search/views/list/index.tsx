@@ -1,20 +1,20 @@
+import { ClientSideOnly } from '@/components/clientSideOnly';
 import { getAsQuery } from '@/components/filters/filterTools';
+import { NoRecords } from '@/components/noDataMessages';
+import { PaginationFooter } from '@/components/pagination';
+import { CardListSkeleton } from '@/components/skeletonLoaders';
+import { Button } from '@/components/ui/button';
+import { CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { Skeleton } from '@/components/ui/skeleton';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { LiteratureListSearchQuery, LiteratureListSearchQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
-import { useContext, useEffect, useMemo, useState } from 'react';
-import { searchConfig } from '../../searchConfig';
-import { CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { Skeleton } from '@/components/ui/skeleton';
-import { FormattedMessage } from 'react-intl';
-import { CardListSkeleton } from '@/components/skeletonLoaders';
-import { NoRecords } from '@/components/noDataMessages';
-import { ClientSideOnly } from '@/components/clientSideOnly';
-import { Button } from '@/components/ui/button';
-import { PaginationFooter } from '@/components/pagination';
-import { notNull } from '@/utils/notNull';
 import { isPositiveNumber } from '@/utils/isPositiveNumber';
+import { notNull } from '@/utils/notNull';
+import { useContext, useEffect, useMemo, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
+import { searchConfig } from '../../searchConfig';
 
 const LITERATURE_SEARCH_QUERY = /* GraphQL */ `
   query LiteratureListSearch($predicate: Predicate, $size: Int, $from: Int) {

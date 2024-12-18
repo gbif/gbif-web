@@ -1,6 +1,6 @@
-import { fragmentManager } from '@/services/fragmentManager';
 import { Card } from '@/components/ui/largeCard';
 import { TaxonResultFragment } from '@/gql/graphql';
+import { fragmentManager } from '@/services/fragmentManager';
 
 fragmentManager.register(/* GraphQL */ `
   fragment TaxonResult on Taxon {

@@ -1,8 +1,8 @@
 import { TableCell } from '@/components/ui/table';
-import { InlineSkeletonWrapper } from './inlineSkeletonWrapper';
-import { flexRender, Cell as CellType } from '@tanstack/react-table';
-import { useFirstColumLock } from '../firstColumLock';
 import { cn } from '@/utils/shadcn';
+import { Cell as CellType, flexRender } from '@tanstack/react-table';
+import { useFirstColumLock } from '../firstColumLock';
+import { InlineSkeletonWrapper } from './inlineSkeletonWrapper';
 
 type Props<TData> = {
   loading: boolean;

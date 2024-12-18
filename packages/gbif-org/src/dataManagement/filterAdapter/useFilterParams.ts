@@ -1,12 +1,12 @@
-import { useCallback, useState, useEffect } from 'react';
+import { asStringParams, ParamQuery, parseParams } from '@/utils/querystring';
+import isPlainObject from 'lodash/isPlainObject';
+import objectHash from 'object-hash';
+import { useCallback, useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { filter2v1 } from '.';
 import { cleanUpFilter, FilterType } from '../../contexts/filter';
 import { FilterConfigType } from './filter2predicate';
-import isPlainObject from 'lodash/isPlainObject';
-import { useSearchParams } from 'react-router-dom';
-import { asStringParams, ParamQuery, parseParams } from '@/utils/querystring';
 import v12filter from './v12filter';
-import objectHash from 'object-hash';
 
 // function v12filter(query: any, filterConfig: FilterConfigType): FilterType {
 //   const filter = {};

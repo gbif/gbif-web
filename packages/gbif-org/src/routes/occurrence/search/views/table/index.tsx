@@ -1,22 +1,22 @@
-import { ExtractPaginatedResult } from '@/types';
-import { OccurrenceSearchQuery, OccurrenceSearchQueryVariables } from '@/gql/graphql';
-import { usePaginationState } from '@/components/searchTable/usePaginationState';
-import useQuery from '@/hooks/useQuery';
-import { useContext, useEffect, useMemo } from 'react';
 import { getAsQuery } from '@/components/filters/filterTools';
-import { useOccurrenceColumns } from './columns';
-import { notNull } from '@/utils/notNull';
-import { useOrderedList } from '../browseList/useOrderedList';
-import { FilterContext } from '@/contexts/filter';
-import { useStringParam } from '@/hooks/useParam';
-import { searchConfig } from '../../searchConfig';
 import SearchTable from '@/components/searchTable/table';
-import { useConfig } from '@/config/config';
-import { useSearchContext } from '@/contexts/search';
-import { useFilters } from '../../filters';
-import { Row } from '@tanstack/react-table';
+import { usePaginationState } from '@/components/searchTable/usePaginationState';
 import { ViewHeader } from '@/components/ViewHeader';
+import { useConfig } from '@/config/config';
+import { FilterContext } from '@/contexts/filter';
+import { useSearchContext } from '@/contexts/search';
+import { OccurrenceSearchQuery, OccurrenceSearchQueryVariables } from '@/gql/graphql';
+import { useStringParam } from '@/hooks/useParam';
+import useQuery from '@/hooks/useQuery';
 import { useResetPaginationOnFilterChange } from '@/hooks/useResetPaginationOnFilterChange';
+import { ExtractPaginatedResult } from '@/types';
+import { notNull } from '@/utils/notNull';
+import { Row } from '@tanstack/react-table';
+import { useContext, useEffect, useMemo } from 'react';
+import { useFilters } from '../../filters';
+import { searchConfig } from '../../searchConfig';
+import { useOrderedList } from '../browseList/useOrderedList';
+import { useOccurrenceColumns } from './columns';
 
 // TODO: Should maybe be moved to the configBuilder
 const DAFAULT_AVAILABLE_TABLE_COLUMNS = Object.freeze([

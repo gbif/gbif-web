@@ -1,31 +1,31 @@
 import {
-  CountryLabel,
-  DatasetTypeLabel,
-  IdentityLabel,
-  LicenceLabel,
-  NetworkLabel,
-  PublisherLabel,
+    CountryLabel,
+    DatasetTypeLabel,
+    IdentityLabel,
+    LicenceLabel,
+    NetworkLabel,
+    PublisherLabel
 } from '@/components/filters/displayNames';
 import {
-  filterConfigTypes,
-  filterEnumConfig,
-  filterFreeTextConfig,
-  FilterSetting,
-  filterSuggestConfig,
-  generateFilters,
+    filterConfigTypes,
+    filterEnumConfig,
+    filterFreeTextConfig,
+    FilterSetting,
+    filterSuggestConfig,
+    generateFilters
 } from '@/components/filters/filterTools';
-import { useIntl } from 'react-intl';
-import { matchSorter } from 'match-sorter';
-import hash from 'object-hash';
-import country from '@/enums/basic/country.json';
-import licenseOptions from '@/enums/basic/license.json';
-import datasetTypeOptions from '@/enums/basic/datasetType.json';
-import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
-import { useCallback, useEffect, useState } from 'react';
 import { SuggestFnProps, SuggestResponseType } from '@/components/filters/suggest';
 import { HelpText } from '@/components/helpText';
+import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
+import country from '@/enums/basic/country.json';
+import datasetTypeOptions from '@/enums/basic/datasetType.json';
+import licenseOptions from '@/enums/basic/license.json';
 import { fetchWithCancel } from '@/utils/fetchWithCancel';
 import { networkKeySuggest } from '@/utils/suggestEndpoints';
+import { matchSorter } from 'match-sorter';
+import hash from 'object-hash';
+import { useCallback, useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
 
 // shared vairables for the various components
 const publisherConfig: filterSuggestConfig = {

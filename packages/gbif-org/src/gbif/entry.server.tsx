@@ -1,14 +1,14 @@
-import ReactDOMServer from 'react-dom/server';
-import {
-  createStaticHandler,
-  createStaticRouter,
-  StaticRouterProvider,
-} from 'react-router-dom/server';
-import type { Request as ExpressRequest } from 'express';
-import { FilledContext, HelmetServerState } from 'react-helmet-async';
-import { createGbifRoutes } from '@/gbif/routes';
-import { gbifConfig } from '@/gbif/config';
 import { Root } from '@/components/root';
+import { gbifConfig } from '@/gbif/config';
+import { createGbifRoutes } from '@/gbif/routes';
+import type { Request as ExpressRequest } from 'express';
+import ReactDOMServer from 'react-dom/server';
+import { FilledContext, HelmetServerState } from 'react-helmet-async';
+import {
+    createStaticHandler,
+    createStaticRouter,
+    StaticRouterProvider
+} from 'react-router-dom/server';
 
 // Create routes based on config
 const routes = createGbifRoutes(gbifConfig);

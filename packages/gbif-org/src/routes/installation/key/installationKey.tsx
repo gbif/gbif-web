@@ -1,22 +1,21 @@
+import {
+    defaultDateFormatProps, DeletedMessage,
+    HeaderInfo,
+    HeaderInfoMain
+} from '@/components/headerComponents';
+import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
 import { InstallationQuery, InstallationQueryVariables } from '@/gql/graphql';
-import { required } from '@/utils/required';
-import { Helmet } from 'react-helmet-async';
-import { Outlet, useLoaderData } from 'react-router-dom';
+import { LoaderArgs } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
-import { FormattedDate, FormattedMessage } from 'react-intl';
-import {
-  DeletedMessage,
-  HeaderInfo,
-  HeaderInfoMain,
-  defaultDateFormatProps,
-} from '@/components/headerComponents';
-import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { LoaderArgs } from '@/reactRouterPlugins';
+import { required } from '@/utils/required';
+import { Helmet } from 'react-helmet-async';
+import { FormattedDate, FormattedMessage } from 'react-intl';
+import { Outlet, useLoaderData } from 'react-router-dom';
 
 const INSTALLATION_QUERY = /* GraphQL */ `
   query Installation($key: ID!) {

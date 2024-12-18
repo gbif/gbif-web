@@ -1,6 +1,6 @@
 import { get, merge } from 'lodash';
-import * as resources from './resources';
 import config from './config';
+import * as resources from './resources';
 
 const organization = config.organization;
 

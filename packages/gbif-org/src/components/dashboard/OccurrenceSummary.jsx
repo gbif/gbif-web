@@ -1,9 +1,9 @@
 import useDeepCompareEffect from 'use-deep-compare-effect';
 // import { FormattedMessage } from 'react-intl';
-import { Table, FormattedNumber, CardHeader } from './shared';
-import { FormattedMessage } from 'react-intl';
 import useQuery from '@/hooks/useQuery';
+import { FormattedMessage } from 'react-intl';
 import { Card, CardContent, CardTitle } from '../ui/smallCard';
+import { CardHeader, FormattedNumber, Table } from './shared';
 
 export function OccurrenceSummary({ predicate, ...props }) {
   const { data, error, loading, load } = useQuery(OCCURRENCE_STATS, { lazyLoad: true });

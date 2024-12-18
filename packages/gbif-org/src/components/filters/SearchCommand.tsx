@@ -1,14 +1,14 @@
-import React from 'react';
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList
 } from '@/components//ui/command';
-import { IoMdCheckmark as Checkmark } from 'react-icons/io';
 import { cn } from '@/utils/shadcn';
+import React from 'react';
+import { IoMdCheckmark as Checkmark } from 'react-icons/io';
 
 type Props<T> = {
   search(searchTerm: string): void;

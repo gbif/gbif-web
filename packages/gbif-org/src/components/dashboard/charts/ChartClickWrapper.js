@@ -1,9 +1,9 @@
 // @ts-nocheck
 import { FilterContext } from '@/contexts/filter';
+import { stringify } from '@/utils/querystring';
 import React, { useCallback, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { merge } from 'ts-deepmerge';
-import { stringify } from '@/utils/querystring';
 
 export default function ChartClickWrapper({ children, interactive, detailsRoute, ...props }) {
   const location = useLocation();

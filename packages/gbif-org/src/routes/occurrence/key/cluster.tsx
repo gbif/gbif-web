@@ -1,15 +1,15 @@
-import { DynamicLink } from '@/reactRouterPlugins';
 import { Coordinates, FeatureList, Sequenced, TypeStatus } from '@/components/highlights';
 import { Tag } from '@/components/resultCards';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Card, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import {
-  OccurrenceClusterQuery,
-  OccurrenceClusterQueryVariables,
-  RelatedOccurrenceDetailsFragment,
-  RelatedOccurrenceStubFragment,
+    OccurrenceClusterQuery,
+    OccurrenceClusterQueryVariables,
+    RelatedOccurrenceDetailsFragment,
+    RelatedOccurrenceStubFragment
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { fragmentManager } from '@/services/fragmentManager';

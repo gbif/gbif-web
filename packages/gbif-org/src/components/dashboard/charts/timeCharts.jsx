@@ -1,5 +1,5 @@
-import { ChartWrapper } from './EnumChartGenerator';
 import { FormattedMessage } from 'react-intl';
+import { ChartWrapper } from './EnumChartGenerator';
 
 // this is for generating charts for fields that are foreign keys like taxonKey, collectionKey, datasetKey, etc.
 // for some fields there will always be a value like datasetKey, but e.g. collectionKey is only sparsely filled.

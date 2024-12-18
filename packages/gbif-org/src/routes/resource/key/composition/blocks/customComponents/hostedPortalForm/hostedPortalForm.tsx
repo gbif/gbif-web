@@ -1,30 +1,27 @@
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  RequiredStringSchema,
-  RequiredEmailSchema,
-  OptionalStringSchema,
-  createTypedCheckboxField,
-  createTypedTextField,
-} from '../_shared';
-import { useForm } from 'react-hook-form';
-import { useMemo } from 'react';
-import { Step, StepperForm } from '@/components/stepperForm';
-import { withIndex } from '@/utils/withIndex';
-import { BlockContainer } from '../../_shared';
 import { ClientSideOnly } from '@/components/clientSideOnly';
-import { PrimaryContact } from './steps/primaryContact';
-import { HostedPortalName } from './steps/hostedPortalName';
-import { ApplicationType } from './steps/applicationType';
-import { DataScope } from './steps/dataScope';
-import { UserGroup } from './steps/userGroup';
-import { Timelines } from './steps/timelines';
-import { Languages } from './steps/languages';
-import { Experience } from './steps/experience';
-import { NodeContact } from './steps/nodeContact';
-import { Terms } from './steps/terms';
+import { Step, StepperForm } from '@/components/stepperForm';
 import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
+import { withIndex } from '@/utils/withIndex';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMemo } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { BlockContainer } from '../../_shared';
+import {
+    createTypedCheckboxField,
+    createTypedTextField, OptionalStringSchema, RequiredEmailSchema, RequiredStringSchema
+} from '../_shared';
+import { ApplicationType } from './steps/applicationType';
+import { DataScope } from './steps/dataScope';
+import { Experience } from './steps/experience';
+import { HostedPortalName } from './steps/hostedPortalName';
+import { Languages } from './steps/languages';
+import { NodeContact } from './steps/nodeContact';
+import { PrimaryContact } from './steps/primaryContact';
+import { Terms } from './steps/terms';
+import { Timelines } from './steps/timelines';
+import { UserGroup } from './steps/userGroup';
 
 const Schema = z.object({
   primaryContact: z.object({

@@ -1,22 +1,22 @@
-import { useLoaderData } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
-import { FormattedMessage } from 'react-intl';
-import { ArticleTitle } from '../components/articleTitle';
-import { ArticleIntro } from '../components/articleIntro';
-import { Button } from '@/components/ui/button';
-import { DynamicLink } from '@/reactRouterPlugins';
-import { MdDownload as DownloadIcon } from 'react-icons/md';
-import { ArticleBody } from '../components/articleBody';
-import { PublishedDate } from '../components/publishedDate';
-import { ArticleAuxiliary } from '../components/articleAuxiliary';
-import { ArticleSkeleton } from '../components/articleSkeleton';
 import { RenderIfChildren } from '@/components/renderIfChildren';
-import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
-import { fragmentManager } from '@/services/fragmentManager';
-import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import { Button } from '@/components/ui/button';
 import { DocumentPageFragment } from '@/gql/graphql';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { fragmentManager } from '@/services/fragmentManager';
+import { Helmet } from 'react-helmet-async';
+import { MdDownload as DownloadIcon } from 'react-icons/md';
+import { FormattedMessage } from 'react-intl';
+import { useLoaderData } from 'react-router-dom';
+import { ArticleAuxiliary } from '../components/articleAuxiliary';
+import { ArticleBody } from '../components/articleBody';
+import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
+import { ArticleIntro } from '../components/articleIntro';
 import { ArticleOpenGraph } from '../components/articleOpenGraph';
+import { ArticleSkeleton } from '../components/articleSkeleton';
+import { ArticleTitle } from '../components/articleTitle';
 import { PageContainer } from '../components/pageContainer';
+import { PublishedDate } from '../components/publishedDate';
+import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 
 export const DocumentPageSkeleton = ArticleSkeleton;
 

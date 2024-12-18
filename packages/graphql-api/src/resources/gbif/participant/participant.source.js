@@ -1,10 +1,10 @@
-import { RESTDataSource } from 'apollo-datasource-rest';
-import { ResourceSearchAPI } from '#/resources/gbif/resource/resource.source';
-import { stringify } from 'qs';
-import pick from 'lodash/pick';
 import { createSignedGetHeader } from '#/helpers/auth/authenticatedGet';
 import { renameProperty } from '#/helpers/utils';
 import { getDefaultAgent } from '#/requestAgents';
+import { ResourceSearchAPI } from '#/resources/gbif/resource/resource.source';
+import { RESTDataSource } from 'apollo-datasource-rest';
+import pick from 'lodash/pick';
+import { stringify } from 'qs';
 
 /**
  * This resource is from the directory API, which is not a public API.

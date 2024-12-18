@@ -1,38 +1,33 @@
+import { ErrorMessage } from '@/components/errorMessage';
+import {
+    DeletedMessage,
+    HeaderInfo,
+    HeaderInfoEdit,
+    HeaderInfoMain
+} from '@/components/headerComponents';
+import {
+    CatalogIcon, FeatureList,
+    GenericFeature, Homepage, Location, OccurrenceIcon, PeopleIcon
+} from '@/components/highlights';
+import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
+import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { CollectionQuery, CollectionSummaryMetricsQuery } from '@/gql/graphql';
-import { Helmet } from 'react-helmet-async';
-import { Outlet } from 'react-router-dom';
+import useBelow from '@/hooks/useBelow';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
-import { FormattedMessage } from 'react-intl';
-import {
-  DeletedMessage,
-  HeaderInfo,
-  HeaderInfoEdit,
-  HeaderInfoMain,
-} from '@/components/headerComponents';
-import {
-  Homepage,
-  FeatureList,
-  GenericFeature,
-  OccurrenceIcon,
-  CatalogIcon,
-  Location,
-  PeopleIcon,
-} from '@/components/highlights';
-import { ErrorMessage } from '@/components/errorMessage';
-import { DynamicLink } from '@/reactRouterPlugins';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { Button } from '@/components/ui/button';
-import { GrGithub as Github } from 'react-icons/gr';
-import useBelow from '@/hooks/useBelow';
-import { SimpleTooltip } from '@/components/simpleTooltip';
-import { MdInfo } from 'react-icons/md';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { HashLink } from 'react-router-hash-link';
 import { createContext } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { GrGithub as Github } from 'react-icons/gr';
+import { MdInfo } from 'react-icons/md';
+import { FormattedMessage } from 'react-intl';
+import { Outlet } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 const GBIF_REGISTRY_ENDPOINT = 'https://registry.gbif.org';
 const contactThreshold = 5;

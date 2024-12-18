@@ -1,21 +1,21 @@
+import { Config, LanguageOption } from '@/config/config';
+import { GraphQLService } from '@/services/graphQLService';
 import {
   IndexRouteObject,
   LoaderFunctionArgs,
   NonIndexRouteObject,
-  RouteObject,
+  RouteObject
 } from 'react-router-dom';
-import { applySkeletonLoadingPlugin } from './skeletonLoading';
-export type { ErrorPageProps } from './skeletonLoading';
-import { applyI18nPlugin } from './i18n';
+import { applyEnablePagesPlugin } from './enablePages';
 import { applyExtendedLoaderPlugin } from './extendedLoader';
 import { applyExtraOccurrenceSearchPages } from './extraOccurrenceSearchPages';
-import { applyEnablePagesPlugin } from './enablePages';
+import { applyI18nPlugin } from './i18n';
+import { applySkeletonLoadingPlugin } from './skeletonLoading';
 import { applySlugifiedPlugin } from './slugified';
-import { Config, LanguageOption } from '@/config/config';
-import { GraphQLService } from '@/services/graphQLService';
-export { useI18n } from './i18n';
-export { useRenderedRouteLoaderData } from './useRenderedRouteLoaderData';
 export { DynamicLink } from './dynamicLink';
+export { useI18n } from './i18n';
+export type { ErrorPageProps } from './skeletonLoading';
+export { useRenderedRouteLoaderData } from './useRenderedRouteLoaderData';
 
 export type Context = {
   standalone: boolean;

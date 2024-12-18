@@ -5,10 +5,10 @@ import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
 import { HelpText } from '@/components/helpText';
 import { Tabs } from '@/components/tabs';
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger
 } from '@/components/ui/accordion';
 import { Card } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';

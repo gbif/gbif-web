@@ -1,8 +1,8 @@
-import { Outlet } from 'react-router-dom';
-import { I18nContextProvider } from './i18nContextProvider';
-import { RouteObjectWithPlugins } from '..';
-import { localizeRouteId } from './useLocalizedRouteId';
 import { Config } from '@/config/config';
+import { Outlet } from 'react-router-dom';
+import { RouteObjectWithPlugins } from '..';
+import { I18nContextProvider } from './i18nContextProvider';
+import { localizeRouteId } from './useLocalizedRouteId';
 
 export function applyI18nPlugin(
   routes: RouteObjectWithPlugins[],

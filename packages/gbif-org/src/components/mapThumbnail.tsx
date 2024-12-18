@@ -1,8 +1,8 @@
 // Docs: https://techdocs.gbif.org/en/openapi/v2/maps
 
+import { stringify } from '@/utils/querystring';
 import { cn } from '@/utils/shadcn';
 import { useEffect, useState } from 'react';
-import { stringify } from '@/utils/querystring';
 import { ClientSideOnly } from './clientSideOnly';
 
 export enum MapTypes {

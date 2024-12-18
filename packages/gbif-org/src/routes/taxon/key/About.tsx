@@ -1,32 +1,32 @@
-import {
-  ContactActions,
-  ContactAvatar,
-  ContactContent,
-  ContactDescription,
-  ContactEmail,
-  ContactHeader,
-  ContactHeaderContent,
-  ContactTelephone,
-  ContactTitle,
-} from '@/components/contact';
-import Properties, { Property, Term, Value } from '@/components/properties';
 import { ClientSideOnly } from '@/components/clientSideOnly';
+import { ConceptValue } from '@/components/conceptValue';
+import {
+    ContactActions,
+    ContactAvatar,
+    ContactContent,
+    ContactDescription,
+    ContactEmail,
+    ContactHeader,
+    ContactHeaderContent,
+    ContactTelephone,
+    ContactTitle
+} from '@/components/contact';
+import { useCount } from '@/components/count';
+import * as charts from '@/components/dashboard';
+import EmptyValue from '@/components/emptyValue';
+import { HyperText } from '@/components/hyperText';
+import { AdHocMapThumbnail } from '@/components/mapThumbnail';
+import Properties, { Property, Term, Value } from '@/components/properties';
+import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { FeaturedImageContent } from './taxonKeyPresentation';
-import { HyperText } from '@/components/hyperText';
-import { AdHocMapThumbnail } from '@/components/mapThumbnail';
-import { ConceptValue } from '@/components/conceptValue';
-import * as charts from '@/components/dashboard';
-import { GbifLinkCard } from '@/components/TocHelp';
-import { useParams } from 'react-router-dom';
-import { useCount } from '@/components/count';
-import EmptyValue from '@/components/emptyValue';
-import { useTaxonKeyLoaderData } from '.';
 import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { useParams } from 'react-router-dom';
+import { useTaxonKeyLoaderData } from '.';
+import { FeaturedImageContent } from './taxonKeyPresentation';
 
 export default function About() {
   const { key } = useParams();

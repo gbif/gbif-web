@@ -1,6 +1,6 @@
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { LiteratureSearchPage } from './literatureSearch';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 export const literatureSearchRoute: RouteObjectWithPlugins = {
   id: 'literature-search',

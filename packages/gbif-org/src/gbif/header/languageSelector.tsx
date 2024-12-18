@@ -1,13 +1,13 @@
-import React, { memo } from 'react';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger
+} from '@/components/ui/dropdownMenu';
 import { useConfig } from '@/config/config';
 import { useI18n } from '@/reactRouterPlugins';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdownMenu';
+import React from 'react';
 import { MdCheck, MdTranslate } from 'react-icons/md';
 
 export function LanguageSelector({ trigger = <MdTranslate /> }): React.ReactElement {

@@ -1,11 +1,11 @@
+import React from 'react';
 import { Control, SubmitHandler, useForm, useWatch } from 'react-hook-form';
+import { z } from 'zod';
+import { Button } from '../ui/button';
 import { Checkbox } from '../ui/checkbox';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '../ui/form';
 import { BaseFilter } from './baseFilter';
 import { MultiOptionsFilter, Option } from './types';
-import { z } from 'zod';
-import { Button } from '../ui/button';
-import React from 'react';
 
 const FormSchema = z.object({
   values: z.array(z.string()),

@@ -1,11 +1,11 @@
-import { RiExternalLinkLine } from 'react-icons/ri';
-import { MdFileDownload } from 'react-icons/md';
-import Properties, { Term as T, Value as V } from '@/components/properties';
+import Properties from '@/components/properties';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { OccurrenceMediaDetailsFragment, OccurrenceQuery, Term } from '@/gql/graphql';
-import { BasicField } from '../properties';
-import { useEffect, useState } from 'react';
 import { truncateMiddle } from '@/utils/truncateString';
+import { useEffect, useState } from 'react';
+import { MdFileDownload } from 'react-icons/md';
+import { RiExternalLinkLine } from 'react-icons/ri';
+import { BasicField } from '../properties';
 
 const supportedFormats = [
   'audio/ogg',
