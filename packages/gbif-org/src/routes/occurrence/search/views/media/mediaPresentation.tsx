@@ -165,7 +165,7 @@ function GalleryItem({
       </button>
       <div>
         <div className="g-text-xs g-whitespace-nowrap g-mt-1 g-font-medium">
-          <SimpleTooltip title={about} delayDuration={1000} disableHoverableContent>
+          <SimpleTooltip title={about} delayDuration={1000} disableHoverableContent asChild>
             {about}
           </SimpleTooltip>
         </div>
