@@ -104,7 +104,7 @@ function getPredicate({
   if (Array.isArray(values) && values?.length === 0) return null;
 
   // if a mapping function for the values is provided, then apply it
-  let mappedValues =
+  const mappedValues =
     typeof config?.transformValue === 'function' ? values.map(config.transformValue) : values;
 
   // if the default type is equals or undefined then we might be able to create an 'in' predicate
@@ -121,7 +121,7 @@ function getPredicate({
   }
 
   // the values are mixed or complex. Create an or if length > 1
-  let predicates = mappedValues
+  const predicates = mappedValues
     .map((value) => getPredicateFromSingleValue({ filterName, value, config }))
     .filter((p) => p); // remove filters that couldn't be transformed to a predicate
   if (predicates.length === 1) {

@@ -103,7 +103,7 @@ function GalleryItem({
   }, []);
 
   let width = ratio * height;
-  let coverClass = 'g-object-contain';
+  const coverClass = 'g-object-contain';
   // let coverClass = 'g-object-cover g-w-full';
 
   if (ratio > 2) {

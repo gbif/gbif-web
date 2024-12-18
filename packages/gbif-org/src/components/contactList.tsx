@@ -29,7 +29,7 @@ function Contact({ contact, ...props }) {
       ? `${contact.firstName || ''} ${contact.lastName || ''}`.trim()
       : undefined;
 
-  let roles = contact.roles || (contact.type ? [contact.type] : []);
+  const roles = contact.roles || (contact.type ? [contact.type] : []);
   const Roles = (
     <>
       {roles.map((r) => (

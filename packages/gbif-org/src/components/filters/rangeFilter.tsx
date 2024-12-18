@@ -257,7 +257,7 @@ export function rangeOrTerm(value, lowerBound = 'gte', upperBound = 'lte') {
       value: value,
     };
   } else {
-    let values = value.split(delimter);
+    const values = value.split(delimter);
     const cleanedValues = values
       .map((s) => s.trim())
       .map((s) => (s === '*' || s === '' ? undefined : s));
