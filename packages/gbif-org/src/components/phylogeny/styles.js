@@ -1,3 +1,4 @@
+const styles = `
 .gbif-phylotree-tree-selection-brush .extent {
     fill-opacity: .05;
     stroke: #fff;
@@ -180,6 +181,5 @@ stroke-width: 10px;
 fill: black;
 stroke: #CCC;
 }
-
-.tree-widget {
-}
+`;
+export default styles;

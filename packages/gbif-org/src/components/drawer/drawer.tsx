@@ -3,9 +3,9 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
 import * as Dialog from '@radix-ui/react-dialog';
 import { useEffect } from 'react';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { FaChevronLeft as LeftIcon, FaChevronRight as RightIcon } from 'react-icons/fa';
 import { IoClose as CloseIcon } from 'react-icons/io5';
-// import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
 type Props = {
   isOpen: boolean;
@@ -15,6 +15,8 @@ type Props = {
   next?: () => void;
   previous?: () => void;
   onCloseAutoFocus?: (event: Event) => void;
+  screenReaderTitle?: React.ReactNode;
+  screenReaderDescription?: React.ReactNode;
 };
 
 export function Drawer({
@@ -25,6 +27,8 @@ export function Drawer({
   next,
   previous,
   onCloseAutoFocus,
+  screenReaderTitle,
+  screenReaderDescription,
 }: Props) {
   useEffect(() => {
     function handleKeypress(e: KeyboardEvent) {
@@ -52,18 +56,22 @@ export function Drawer({
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => !open && close()}>
       <Dialog.Portal>
-        <Dialog.Overlay className="g-fixed g-w-screen g-h-screen g-right-0 g-top-0 g-bg-gray-500 g-transition-all g-z-50 g-bg-opacity-50">
+        <Dialog.Overlay className="g-fixed g-w-full g-h-screen g-right-0 g-top-0 g-bg-gray-500 g-transition-all g-z-50 g-bg-opacity-50">
           <Dialog.Content
             onCloseAutoFocus={onCloseAutoFocus}
-            className="g-fixed g-w-screen g-max-w-screen-lg g-h-screen g-right-0 g-top-0 g-bg-white g-flex g-justify-end g-transition-all g-z-50"
+            style={{ maxWidth: '95%', width: '1200px' }}
+            className="g-fixed g-h-screen g-right-0 g-top-0 g-bg-white g-flex g-justify-end g-transition-all g-z-50"
           >
-            {/* TODO: We should add a title and description to the dialog for accessibility purposes */}
-            {/* <VisuallyHidden>
-              <Dialog.Title>Test</Dialog.Title>
-              <Dialog.Description>Test</Dialog.Description>
-            </VisuallyHidden> */}
-            <div className="g-flex g-flex-col">
-              <div className="g-overflow-x-auto g-flex-grow g-w-full">{children}</div>
+            <VisuallyHidden>
+              {screenReaderTitle && <Dialog.Title>{screenReaderTitle}</Dialog.Title>}
+              {screenReaderDescription && (
+                <Dialog.Description>{screenReaderDescription}</Dialog.Description>
+              )}
+            </VisuallyHidden>
+            <div className="g-flex g-flex-col g-bg-white g-w-full">
+              <div className="g-overflow-y-auto g-overflow-x-hidden g-flex-grow g-w-full">
+                {children}
+              </div>
               <BottomBar viewOnGbifHref={viewOnGbifHref} next={next} previous={previous} />
             </div>
           </Dialog.Content>
@@ -79,7 +87,7 @@ function BottomBar({
   previous,
 }: Pick<Props, 'viewOnGbifHref' | 'next' | 'previous'>) {
   return (
-    <div className="g-h-10 g-border-t g-flex g-justify-between g-p-2">
+    <div className="g-w-full g-h-10 g-border-t g-flex g-justify-between g-p-2 g-items-center">
       <Dialog.Close asChild>
         <Button variant="ghost" className="g-size-6 g-p-0">
           <CloseIcon />

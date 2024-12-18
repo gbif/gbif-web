@@ -3,6 +3,7 @@ import { useStringParam } from '@/hooks/useParam';
 import usePrevious from '@/hooks/usePrevious';
 import { StandaloneOccurrenceKeyPage } from '@/routes/occurrence/key/standalone';
 import { useEffect, useRef } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useOrderedList } from './useOrderedList';
 
 const entityTypes = {
@@ -15,6 +16,7 @@ const entityTypes = {
   n: 'network',
   in: 'installation',
 };
+
 export default function EntityDrawer() {
   const { orderedList } = useOrderedList();
   const [previewKey, setPreviewKey] = useStringParam({ key: 'entity' });
@@ -74,6 +76,7 @@ export default function EntityDrawer() {
   const isFirst = noList || orderedList[0] === key;
   const isLast = noList || orderedList[orderedList.length - 1] === key;
 
+  // Used to find the trigger to focus on close. The previewKey is undefined by the time the drawer closes
   const prevPreviewKey = usePrevious(previewKey);
 
   return (
@@ -84,6 +87,15 @@ export default function EntityDrawer() {
       next={isFirst ? undefined : handleNext}
       previous={isLast ? undefined : handlePrevious}
       onCloseAutoFocus={(e) => handleCloseAutoFocus(e, prevPreviewKey)}
+      screenReaderTitle={
+        type === 'occurrence' ? (
+          <FormattedMessage
+            id={'occurrenceDetails.screenReader.title'}
+            defaultMessage="Occurrence details"
+          />
+        ) : undefined
+      }
+      screenReaderDescription={undefined}
     >
       {type === 'occurrence' && <StandaloneOccurrenceKeyPage occurrenceKey={key} />}
       {type === 'dataset' && <h1>Dataset {key}</h1>}

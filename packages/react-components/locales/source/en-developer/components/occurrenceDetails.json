@@ -10,6 +10,9 @@
   "collection": "Collection",
   "collectionGrSciColl": "GrSciColl collection",
   "recordedAndIdentifiedBy": "Recorded and identified by",
+  "screenReader": {
+    "title": "Occurrence details"
+  },
   "info": {
     "original": "Original",
     "excluded": "Excluded",

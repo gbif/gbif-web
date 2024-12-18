@@ -72,7 +72,12 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
         Could be this where we do search params or it could be links to other sites 
         For now a quick and dirty mock to have the option to do views with a url search param
         */}
-        <OccurrenceViewTabs view={view} defaultView={defaultView} tabs={searchContext.tabs} />
+        <OccurrenceViewTabs
+          view={view}
+          defaultView={defaultView}
+          tabs={searchContext.tabs}
+          className="g-border-none"
+        />
       </DataHeader>
 
       <section className="">
