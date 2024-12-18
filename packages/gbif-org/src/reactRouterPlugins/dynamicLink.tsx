@@ -41,9 +41,10 @@ export function DynamicLink<T extends React.ElementType = typeof Link>({
         if (to.includes('?')) {
           to = `${to}&${new URLSearchParams(searchParams).toString()}`;
         } else {
-          to = { ...to, search: new URLSearchParams(searchParams).toString() };
+          to = `${to}?${new URLSearchParams(searchParams).toString()}`;
         }
       }
+      return <a {...props} href={to} />;
     }
   }
 

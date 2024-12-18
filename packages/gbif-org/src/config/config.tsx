@@ -7,7 +7,7 @@ import { Theme } from './theme/theme';
 
 type PageConfig = {
   id: string;
-  enabled?: boolean;
+  isCustom?: boolean;
   path?: string;
   getPath?: (args: {
     key?: string;
@@ -242,6 +242,7 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
         return current;
       }
     }
+
     const mergedConfig = mergeWith(
       {},
       configDefault,

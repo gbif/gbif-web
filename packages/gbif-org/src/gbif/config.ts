@@ -1,9 +1,9 @@
 import { Config } from '@/config/config';
 import {
-    GbifEnv,
-    getDefaultEndpointsBasedOnGbifEnv,
-    InvalidGbifEnvError,
-    isGbifEnv
+  GbifEnv,
+  getDefaultEndpointsBasedOnGbifEnv,
+  InvalidGbifEnvError,
+  isGbifEnv,
 } from '@/config/endpoints';
 import { languagesOptions } from '@/config/languagesOptions';
 import { merge } from 'ts-deepmerge';
@@ -91,7 +91,8 @@ export const gbifConfig: Config = {
   //   },
   //   {
   //     id: 'datasetKey',
-  //     path: '/dataset?key=:key',
+  //     path: '/dataset/:key',
+  //     isCustom: true,
   //   },
   // ],
   defaultTitle: 'GBIF',

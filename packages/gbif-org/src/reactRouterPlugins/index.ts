@@ -4,7 +4,7 @@ import {
   IndexRouteObject,
   LoaderFunctionArgs,
   NonIndexRouteObject,
-  RouteObject
+  RouteObject,
 } from 'react-router-dom';
 import { applyEnablePagesPlugin } from './enablePages';
 import { applyExtendedLoaderPlugin } from './extendedLoader';
@@ -34,6 +34,8 @@ export type RouteObjectWithPlugins = {
   loader?: (args: LoaderArgs) => unknown;
   overrideConfig?: Partial<Config>;
   gbifRedirect?: (params: Record<string, string | undefined>) => string | null;
+  disabled?: boolean;
+  isCustom?: boolean;
   isSlugified?: boolean;
 } & (
   | Omit<IndexRouteObject, 'loader'>

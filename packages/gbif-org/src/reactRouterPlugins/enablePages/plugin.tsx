@@ -20,13 +20,16 @@ export function applyEnablePagesPlugin(
 
   const disabledRoutes: DisabledRoutes = {};
 
+  const modifiedRoutes = addRedirectToLoader(routes, disabledRoutes, config);
   return [
     {
       description: 'Redirect to GBIF',
       // The disabledRoutes object will be modified by the addRedirectToLoader function
-      children: addRedirectToLoader(routes, disabledRoutes, config),
+      children: modifiedRoutes,
       element: (
-        <RedirectToGbifProvider getRedirectUrl={createGetRedirectUrl(disabledRoutes)}>
+        <RedirectToGbifProvider
+          getRedirectUrl={createGetRedirectUrl(disabledRoutes, config, modifiedRoutes)}
+        >
           <Outlet />
         </RedirectToGbifProvider>
       ),
@@ -52,6 +55,10 @@ function addRedirectToLoader(
     if (!isRouteEnabled(route, config)) {
       // Add the route to the disabled routes object that is used as a lookup when rewriting dynamic links
       disabledRoutes[currentPath] = route;
+      routeCopy.disabled = true;
+      routeCopy.isCustom = config.pages!.some(
+        (config) => config.id === route.id && config.isCustom
+      );
 
       // Modify the loader to redirect to GBIF.org
       const originalLoader = route.loader;
@@ -82,7 +89,7 @@ function isRouteEnabled(route: RouteObjectWithPlugins, config: Config): boolean 
   if (!route.id) return true;
 
   // If the route is enabled it should be marked as enabled
-  if (config.pages!.some((config) => config.id === route.id)) return true;
+  if (config.pages!.some((config) => config.id === route.id && !config.isCustom)) return true;
 
   return false;
 }
