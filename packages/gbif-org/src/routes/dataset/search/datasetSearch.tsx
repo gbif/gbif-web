@@ -1,34 +1,34 @@
+import { ClientSideOnly } from '@/components/clientSideOnly';
+import { DataHeader } from '@/components/dataHeader';
+import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
+import { HelpText } from '@/components/helpText';
+import { NoRecords } from '@/components/noDataMessages';
+import { PaginationFooter } from '@/components/pagination';
+import { CardListSkeleton } from '@/components/skeletonLoaders';
+import { Tabs } from '@/components/tabs';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger
+} from '@/components/ui/accordion';
+import { CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Card } from '@/components/ui/smallCard';
+import { useConfig } from '@/config/config';
+import { FilterContext, FilterProvider } from '@/contexts/filter';
+import { SearchContextProvider, useSearchContext } from '@/contexts/search';
+import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
+import { DatasetSearchQuery, DatasetSearchQueryVariables } from '@/gql/graphql';
+import useQuery from '@/hooks/useQuery';
+import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
+import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import React, { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import useQuery from '@/hooks/useQuery';
-import { Tabs } from '@/components/tabs';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
-import { Card } from '@/components/ui/smallCard';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { DatasetSearchQuery, DatasetSearchQueryVariables } from '@/gql/graphql';
-import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { FormattedMessage } from 'react-intl';
-import { PaginationFooter } from '@/components/pagination';
-import { NoRecords } from '@/components/noDataMessages';
-import { Skeleton } from '@/components/ui/skeleton';
-import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { DatasetResult } from '../datasetResult';
-import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import { FilterContext, FilterProvider } from '@/contexts/filter';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
-import { HelpText } from '@/components/helpText';
-import { ClientSideOnly } from '@/components/clientSideOnly';
-import { searchConfig } from './searchConfig';
 import { useFilters } from './filters';
-import { useConfig } from '@/config/config';
-import { SearchContextProvider, useSearchContext } from '@/contexts/search';
-import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
-import { DataHeader } from '@/components/dataHeader';
+import { searchConfig } from './searchConfig';
 
 const DATASET_SEARCH_QUERY = /* GraphQL */ `
   query DatasetSearch($query: DatasetSearchInput) {

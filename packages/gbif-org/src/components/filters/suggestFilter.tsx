@@ -1,34 +1,32 @@
 import { SearchInput } from '@/components/searchInput';
+import { SimpleTooltip } from '@/components/simpleTooltip';
+import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
+import { useSearchContext } from '@/contexts/search';
+import useQuery from '@/hooks/useQuery';
+import { cn } from '@/utils/shadcn';
+import cloneDeep from 'lodash/cloneDeep';
+import hash from 'object-hash';
 import React, { useContext, useEffect, useState } from 'react';
 import {
-  MdDeleteOutline,
-  MdOutlineRemoveCircleOutline,
-  MdOutlineRemoveCircle,
+    MdDeleteOutline, MdOutlineRemoveCircle, MdOutlineRemoveCircleOutline
 } from 'react-icons/md';
 import { PiEmptyBold } from 'react-icons/pi';
-import { cn } from '@/utils/shadcn';
-import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
-import useQuery from '@/hooks/useQuery';
-import hash from 'object-hash';
-import cloneDeep from 'lodash/cloneDeep';
-import { Suggest } from './suggest';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { SimpleTooltip } from '@/components/simpleTooltip';
-import { Option } from './option';
-import {
-  AdditionalFilterProps,
-  ApplyCancel,
-  AsyncOptions,
-  FacetQuery,
-  filterSuggestConfig,
-  FilterSummaryType,
-  getAsQuery,
-  getFilterSummary,
-} from './filterTools';
-import { useSearchContext } from '@/contexts/search';
+import StripeLoader from '../stripeLoader';
 import { AboutButton } from './aboutButton';
 import { Exists } from './exists';
-import StripeLoader from '../stripeLoader';
+import {
+    AdditionalFilterProps,
+    ApplyCancel,
+    AsyncOptions,
+    FacetQuery,
+    filterSuggestConfig,
+    FilterSummaryType,
+    getAsQuery,
+    getFilterSummary
+} from './filterTools';
+import { Option } from './option';
+import { Suggest } from './suggest';
 
 type SuggestProps = Omit<filterSuggestConfig, 'filterType' | 'filterTranslation'> &
   AdditionalFilterProps & {

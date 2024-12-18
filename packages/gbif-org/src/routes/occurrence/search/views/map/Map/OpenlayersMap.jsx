@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { projections } from './openlayers/projections';
 
 import { apply, applyBackground, applyStyle, stylefunction } from 'ol-mapbox-style';
-import OlMap from 'ol/Map';
 import { defaults as olControlDefaults } from 'ol/control';
 import { MVT as MVTFormat } from 'ol/format';
 import * as olInteraction from 'ol/interaction';
+import OlMap from 'ol/Map';
 import { transform } from 'ol/proj';
 import { TileImage as TileImageSource, VectorTile as VectorTileSource } from 'ol/source';
 import TileGrid from 'ol/tilegrid/TileGrid';

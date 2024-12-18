@@ -1,7 +1,6 @@
 import { SearchInput } from '@/components/searchInput';
 import { Button } from '@/components/ui/button';
 import { FilterContext, FilterType } from '@/contexts/filter';
-import { remove } from 'lodash';
 import React, { useContext, useEffect, useState } from 'react';
 
 type QFilterProps = {

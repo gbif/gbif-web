@@ -1,11 +1,11 @@
-import { Card } from '@/components/ui/smallCard';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
 import { HelpText } from '@/components/helpText';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger
+} from '@/components/ui/accordion';
+import { Card } from '@/components/ui/smallCard';
 
 export function AboutContent() {
   return (

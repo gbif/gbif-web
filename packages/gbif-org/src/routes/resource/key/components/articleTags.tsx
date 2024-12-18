@@ -1,8 +1,8 @@
-import { ArticleAuxiliary } from './articleAuxiliary';
-import { FormattedMessage } from 'react-intl';
-import { Pills } from './pills';
-import { notNull } from '@/utils/notNull';
 import { RenderIfChildren } from '@/components/renderIfChildren';
+import { notNull } from '@/utils/notNull';
+import { FormattedMessage } from 'react-intl';
+import { ArticleAuxiliary } from './articleAuxiliary';
+import { Pills } from './pills';
 
 type Props = {
   resource?: {

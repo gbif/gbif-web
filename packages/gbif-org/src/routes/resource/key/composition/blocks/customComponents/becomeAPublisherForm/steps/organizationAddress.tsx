@@ -1,9 +1,9 @@
-import { useFormContext } from 'react-hook-form';
-import { Inputs, TextField } from '../becomeAPublisherForm';
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Required } from '../../_shared';
-import { CountryCodeSelect } from '@/components/select/countryCodeSelect';
 import { CoordinatesPicker } from '@/components/coordinatesPicker';
+import { CountryCodeSelect } from '@/components/select/countryCodeSelect';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { useFormContext } from 'react-hook-form';
+import { Required } from '../../_shared';
+import { Inputs, TextField } from '../becomeAPublisherForm';
 
 type Props = {
   updateSuggestedNodeCountry(countryCode: string): void;

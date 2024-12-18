@@ -1,13 +1,13 @@
 import { BlockItemDetailsFragment } from '@/gql/graphql';
-import { HeaderBlock } from './blocks/headerBlock';
+import { fragmentManager } from '@/services/fragmentManager';
+import { CarouselBlock } from './blocks/carouselBlock';
+import { CustomComponentBlock } from './blocks/customComponentBlock';
 import { FeatureBlock } from './blocks/featureBlock';
 import { FeaturedTextBlock } from './blocks/featuredTextBlock';
-import { CarouselBlock } from './blocks/carouselBlock';
+import { HeaderBlock } from './blocks/headerBlock';
 import { MediaBlock } from './blocks/mediaBlock';
 import { MediaCountBlock } from './blocks/mediaCountBlock';
-import { CustomComponentBlock } from './blocks/customComponentBlock';
 import { TextBlock } from './blocks/textBlock';
-import { fragmentManager } from '@/services/fragmentManager';
 
 fragmentManager.register(/* GraphQL */ `
   fragment BlockItemDetails on BlockItem {

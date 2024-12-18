@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  important: '.gbif', // make sure that the tailwind classes are not overriden by other css frameworks
+  // important: '.gbif', // make sure that the tailwind classes are not overriden by other css frameworks. This has been disabled as profiling shows that it performs really bad. To the level that deeply nested SVGs cannot render
   corePlugins: {
     preflight: false, // We do not want the preflight reset to apply to all sites where these componetns are used. Instead the reset is applied in index.css as a class
   },

@@ -10,6 +10,6 @@ export function truncateMiddle(str: string, len: number) {
   if (len < 20) {
     return data.slice(0, len - 3) + '...';
   }
-  let splitLength = len / 2 - 3;
+  const splitLength = len / 2 - 3;
   return data.slice(0, splitLength) + '...' + data.slice(data.length - splitLength);
 }

@@ -1,17 +1,16 @@
+import { NotFoundError } from '@/errors';
 import {
-  TaxonQuery,
-  TaxonQueryVariables,
-  TaxonSummaryMetricsQuery,
-  TaxonSummaryMetricsQueryVariables,
-  PredicateType,
+    PredicateType, TaxonQuery,
+    TaxonQueryVariables,
+    TaxonSummaryMetricsQuery,
+    TaxonSummaryMetricsQueryVariables
 } from '@/gql/graphql';
+import useQuery from '@/hooks/useQuery';
+import { LoaderArgs } from '@/reactRouterPlugins';
 import { required } from '@/utils/required';
+import { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { TaxonKey as Presentation } from './taxonKeyPresentation';
-import useQuery from '@/hooks/useQuery';
-import { useEffect } from 'react';
-import { NotFoundError } from '@/errors';
-import { LoaderArgs } from '@/reactRouterPlugins';
 
 export async function taxonLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');

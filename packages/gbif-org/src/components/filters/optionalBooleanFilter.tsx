@@ -1,20 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react';
-import hash from 'object-hash';
-import { cn } from '@/utils/shadcn';
 import { cleanUpFilter, FilterContext } from '@/contexts/filter';
-import useQuery from '@/hooks/useQuery';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
-import {
-  AdditionalFilterProps,
-  ApplyCancel,
-  FacetQuery,
-  filterBoolConfig,
-  getAsQuery,
-} from './filterTools';
-import cloneDeep from 'lodash/cloneDeep';
 import { useSearchContext } from '@/contexts/search';
-import { AboutButton } from './aboutButton';
+import useQuery from '@/hooks/useQuery';
+import { cn } from '@/utils/shadcn';
+import cloneDeep from 'lodash/cloneDeep';
+import hash from 'object-hash';
+import React, { useContext, useEffect, useState } from 'react';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
+import { AboutButton } from './aboutButton';
+import {
+    AdditionalFilterProps,
+    ApplyCancel,
+    FacetQuery,
+    filterBoolConfig,
+    getAsQuery
+} from './filterTools';
 
 type BoolProps = Omit<filterBoolConfig, 'filterType' | 'filterTranslation'> &
   AdditionalFilterProps & {

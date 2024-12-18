@@ -1,11 +1,11 @@
+import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { ProjectDatasetsQuery, ProjectDatasetsQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
-import { fragmentManager } from '@/services/fragmentManager';
 import { DatasetResult } from '@/routes/dataset/datasetResult';
+import { fragmentManager } from '@/services/fragmentManager';
+import { useProjectKeyLoaderData } from '.';
 import { HelpLine } from '../../../../components/helpText';
 import { NoResultsTab } from '../components/noResultsTab';
-import { CardListSkeleton } from '@/components/skeletonLoaders';
-import { useProjectKeyLoaderData } from '.';
 
 fragmentManager.register(/* GraphQL */ `
   fragment ProjectDatasetsTab on Query {

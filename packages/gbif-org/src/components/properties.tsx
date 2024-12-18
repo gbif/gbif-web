@@ -1,10 +1,10 @@
-import { cn } from '@/utils/shadcn';
-import useBelow from '@/hooks/useBelow';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { MdInfoOutline } from 'react-icons/md';
-import { HelpLine } from '@/components/helpText';
-import EmptyValue from '@/components/emptyValue';
 import { BulletList } from '@/components/bulletList';
+import EmptyValue from '@/components/emptyValue';
+import { HelpLine } from '@/components/helpText';
+import useBelow from '@/hooks/useBelow';
+import { cn } from '@/utils/shadcn';
+import { MdInfoOutline } from 'react-icons/md';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 export default function Properties({
   breakpoint,

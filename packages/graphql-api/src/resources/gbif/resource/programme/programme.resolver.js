@@ -1,8 +1,5 @@
 import {
-  getHtml,
-  excerpt,
-  createLocalizedGbifHref,
-  isNoneEmptyArray,
+  excerpt, getHtml, isNoneEmptyArray
 } from '#/helpers/utils';
 import logger from '#/logger';
 import { KNOWN_BLOCK_TYPES } from '../composition/acceptedTypes';

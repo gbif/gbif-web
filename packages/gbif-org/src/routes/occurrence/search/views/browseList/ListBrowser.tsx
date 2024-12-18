@@ -1,10 +1,10 @@
-import { useOrderedList } from './useOrderedList';
 import { Drawer } from '@/components/drawer/drawer';
 import { useStringParam } from '@/hooks/useParam';
 import usePrevious from '@/hooks/usePrevious';
 import { StandaloneOccurrenceKeyPage } from '@/routes/occurrence/key/standalone';
 import { useEffect, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { useOrderedList } from './useOrderedList';
 
 const entityTypes = {
   o: 'occurrence',

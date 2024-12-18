@@ -1,17 +1,16 @@
-import { DynamicLink } from '@/reactRouterPlugins';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { ClientSideOnly } from '@/components/clientSideOnly';
+import { useConfig } from '@/config/config';
 import { HomePageQuery, HomePageQueryVariables } from '@/gql/graphql';
+import { DynamicLink, LoaderArgs, RouteObjectWithPlugins, useI18n } from '@/reactRouterPlugins';
+import { interopDefault } from '@/utils/interopDefault';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLoaderData } from 'react-router-dom';
-import { BlockItem } from './resource/key/composition/blockItem';
+import _useLocalStorage from 'use-local-storage';
 import { ArticleTextContainer } from './resource/key/components/articleTextContainer';
 import { PageContainer } from './resource/key/components/pageContainer';
-import { useConfig } from '@/config/config';
-import { useI18n } from '@/reactRouterPlugins';
-import { interopDefault } from '@/utils/interopDefault';
-import _useLocalStorage from 'use-local-storage';
-import { LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { BlockItem } from './resource/key/composition/blockItem';
 // Used to import commonjs module as es6 module
 const useLocalStorage = interopDefault(_useLocalStorage);
 
@@ -139,7 +138,9 @@ function HomePage(): React.ReactElement {
           </PageContainer>
         </section>
 
-        <TmpOverview />
+        <ClientSideOnly>
+          <TmpOverview />
+        </ClientSideOnly>
 
         {/* <section>
           <PageContainer>
@@ -147,7 +148,9 @@ function HomePage(): React.ReactElement {
           </PageContainer>
         </section> */}
 
-        {home.blocks?.map((block, idx) => <BlockItem resource={block} key={idx} />)}
+        {home.blocks?.map((block, idx) => (
+          <BlockItem resource={block} key={idx} />
+        ))}
       </main>
     </ErrorBoundary>
   );

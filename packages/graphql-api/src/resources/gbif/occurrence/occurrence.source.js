@@ -1,4 +1,4 @@
-import { getOccurrenceAgent, occurrenceAgent } from '#/requestAgents';
+import { getOccurrenceAgent } from '#/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
 import { stringify } from 'qs';
 

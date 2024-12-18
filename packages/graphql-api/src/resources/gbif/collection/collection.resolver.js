@@ -1,7 +1,7 @@
-import _ from 'lodash';
 import { getExcerpt, getOGImage } from '#/helpers/utils';
-import { getThumborUrl } from '../resource/misc/misc.resolver';
+import _ from 'lodash';
 import { getCardinality, getFacet } from '../getQueryMetrics';
+import { getThumborUrl } from '../resource/misc/misc.resolver';
 
 function between(input, min, max) {
   return Math.min(Math.max(input, min), max);

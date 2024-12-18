@@ -1,8 +1,8 @@
+import { getEnumTypeDefs } from '#/helpers/enums';
 import { gql } from 'apollo-server';
 import { get } from 'lodash';
-import { getEnumTypeDefs } from '#/helpers/enums';
-import * as resources from './resources';
 import config from './config';
+import * as resources from './resources';
 
 const inputTypeDef = gql`
   input Predicate {

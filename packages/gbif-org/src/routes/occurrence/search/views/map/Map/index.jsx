@@ -1,12 +1,12 @@
 // @ts-nocheck
-import { useEffect, useContext, useCallback } from 'react';
-import MapPresentation from './MapPresentation';
-import Geohash from 'latlon-geohash';
 import { FilterContext } from '@/contexts/filter';
-import useQuery from '@/hooks/useQuery';
-import { filter2predicate } from '@/dataManagement/filterAdapter';
-import { searchConfig } from '../../../searchConfig';
 import { useSearchContext } from '@/contexts/search';
+import { filter2predicate } from '@/dataManagement/filterAdapter';
+import useQuery from '@/hooks/useQuery';
+import Geohash from 'latlon-geohash';
+import { useCallback, useContext, useEffect } from 'react';
+import { searchConfig } from '../../../searchConfig';
+import MapPresentation from './MapPresentation';
 
 const OCCURRENCE_MAP = `
 query map($predicate: Predicate){

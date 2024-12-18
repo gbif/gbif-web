@@ -1,5 +1,5 @@
-import { CheckIcon } from '@radix-ui/react-icons';
 import { cn } from '@/utils/shadcn';
+import { CheckIcon } from '@radix-ui/react-icons';
 import { Step } from './stepperForm';
 
 type Props = {

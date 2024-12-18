@@ -1,6 +1,6 @@
+import { FilterType } from '@/contexts/filter';
 import { ParamQuery } from '@/utils/querystring';
 import { FilterConfigType } from './filter2predicate';
-import { FilterType } from '@/contexts/filter';
 /**
  * Will return a filter with the form: {filterNameA: [1], filterNameB: ['a', 'b']}
  * @param {JSON} query as when parsed from url. Should be of the form: {fieldA: [values], fieldB: value}

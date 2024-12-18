@@ -1,16 +1,16 @@
 import {
-  InstitutionQuery,
-  InstitutionQueryVariables,
-  InstitutionSummaryMetricsQuery,
-  InstitutionSummaryMetricsQueryVariables,
-  PredicateType,
+    InstitutionQuery,
+    InstitutionQueryVariables,
+    InstitutionSummaryMetricsQuery,
+    InstitutionSummaryMetricsQueryVariables,
+    PredicateType
 } from '@/gql/graphql';
+import useQuery from '@/hooks/useQuery';
+import { LoaderArgs } from '@/reactRouterPlugins';
 import { required } from '@/utils/required';
+import { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { InstitutionKey as Presentation } from './institutionKeyPresentation';
-import useQuery from '@/hooks/useQuery';
-import { useEffect } from 'react';
-import { LoaderArgs } from '@/reactRouterPlugins';
 
 export async function institutionLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');

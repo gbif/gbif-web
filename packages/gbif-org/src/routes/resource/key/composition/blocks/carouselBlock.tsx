@@ -1,20 +1,20 @@
-import { fragmentManager } from '@/services/fragmentManager';
-import { CarouselBlockDetailsFragment } from '@/gql/graphql';
 import {
-  Carousel,
-  CarouselApi,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
+    Carousel,
+    CarouselApi,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious
 } from '@/components/ui/carousel';
-import { BlockItem } from '../blockItem';
-import { useEffect, useState } from 'react';
-import { cn } from '@/utils/shadcn';
+import { CarouselBlockDetailsFragment } from '@/gql/graphql';
 import { useI18n } from '@/reactRouterPlugins';
-import { BlockContainer, BlockHeading, backgroundColorMap } from './_shared';
-import { ArticleTextContainer } from '../../components/articleTextContainer';
+import { fragmentManager } from '@/services/fragmentManager';
+import { cn } from '@/utils/shadcn';
+import { useEffect, useState } from 'react';
 import { ArticleBody } from '../../components/articleBody';
+import { ArticleTextContainer } from '../../components/articleTextContainer';
+import { BlockItem } from '../blockItem';
+import { backgroundColorMap, BlockContainer, BlockHeading } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `
   fragment CarouselBlockDetails on CarouselBlock {

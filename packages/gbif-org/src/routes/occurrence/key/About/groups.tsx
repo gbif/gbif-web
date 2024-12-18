@@ -1,48 +1,41 @@
-import React, { useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { PlainTextField, HtmlField, EnumField, BasicField } from '../properties';
-import {
-  Institution,
-  Collection,
-  ScientificName,
-  AcceptedScientificName,
-  AgentIds,
-  DynamicProperties,
-} from './customValues';
-import { FormattedMessage } from 'react-intl';
+import { BulletList } from '@/components/bulletList';
+import { GadmClassification, TaxonClassification } from '@/components/classification';
 import Properties from '@/components/properties';
 import { RenderIfChildren } from '@/components/renderIfChildren';
-import { useState } from 'react';
-import { GadmClassification, TaxonClassification } from '@/components/classification';
-import { DynamicLink } from '@/reactRouterPlugins';
-import { Media } from './media';
-import { OccurrenceQuery, Term } from '@/gql/graphql';
-import { BulletList } from '@/components/bulletList';
-import {
-  Amplification,
-  Audubon,
-  ChronometricAge,
-  Cloning,
-  DNADerivedData,
-  EolReference,
-  ExtendedMeasurementOrFact,
-  GelImage,
-  GermplasmAccession,
-  GermplasmMeasurementScore,
-  GermplasmMeasurementTrait,
-  GermplasmMeasurementTrial,
-  IdentificationHistory,
-  Identifier,
-  Loan,
-  MaterialSampleExt,
-  MeasurementOrFact,
-  Permit,
-  Preparation,
-  Preservation,
-  Reference,
-  ResourceRelationship,
-} from './extensions';
 import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { OccurrenceQuery, Term } from '@/gql/graphql';
+import { DynamicLink } from '@/reactRouterPlugins';
+import React, { useEffect, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
+import { BasicField, EnumField, HtmlField, PlainTextField } from '../properties';
+import {
+    AcceptedScientificName,
+    AgentIds, Collection, DynamicProperties, Institution, ScientificName
+} from './customValues';
+import {
+    Amplification, ChronometricAge,
+    Cloning,
+    DNADerivedData,
+    EolReference,
+    ExtendedMeasurementOrFact,
+    GelImage,
+    GermplasmAccession,
+    GermplasmMeasurementScore,
+    GermplasmMeasurementTrait,
+    GermplasmMeasurementTrial,
+    IdentificationHistory,
+    Identifier,
+    Loan,
+    MaterialSampleExt,
+    MeasurementOrFact,
+    Permit,
+    Preparation,
+    Preservation,
+    Reference,
+    ResourceRelationship
+} from './extensions';
+import { Media } from './media';
 
 const Map = React.lazy(() => import('@/components/map'));
 

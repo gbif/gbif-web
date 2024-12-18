@@ -1,11 +1,11 @@
-import { cn } from '@/utils/shadcn';
-import { IoClose as CloseIcon } from 'react-icons/io5';
-import { FaChevronLeft as LeftIcon, FaChevronRight as RightIcon } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import { DynamicLink } from '@/reactRouterPlugins';
+import { cn } from '@/utils/shadcn';
 import * as Dialog from '@radix-ui/react-dialog';
 import { useEffect } from 'react';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { FaChevronLeft as LeftIcon, FaChevronRight as RightIcon } from 'react-icons/fa';
+import { IoClose as CloseIcon } from 'react-icons/io5';
 
 type Props = {
   isOpen: boolean;

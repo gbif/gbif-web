@@ -77,10 +77,10 @@ function getField({
   const config = filterConfig?.fields?.[filterName] || {};
 
   // if a mapping function for the values is provided, then apply it
-  let mappedValues =
+  const mappedValues =
     typeof config?.transformValue === 'function' ? values.map(config.transformValue) : values;
 
-  let serializedValues = mappedValues
+  const serializedValues = mappedValues
     .filter((v) => typeof v !== 'undefined') // remove undefined values
     .map((value) => serializeValue({ value, config, filterName, errors }))
     .filter((v) => typeof v !== 'undefined'); // remove filters that couldn't be parsed

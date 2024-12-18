@@ -1,28 +1,27 @@
-import { useEffect, useState } from 'react';
 import {
-  InstallationDatasetsQuery,
-  InstallationDatasetsQueryVariables,
-  InstallationQuery,
-} from '@/gql/graphql';
-import useQuery from '@/hooks/useQuery';
-import { DatasetResult } from '@/routes/dataset/datasetResult';
-import { CardListSkeleton } from '@/components/skeletonLoaders';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import Properties, { Property } from '@/components/properties';
-import { FormattedMessage } from 'react-intl';
-import { DynamicLink } from '@/reactRouterPlugins';
-import {
-  ContactActions,
-  ContactAvatar,
-  ContactContent,
-  ContactDescription,
-  ContactEmail,
-  ContactHeader,
-  ContactHeaderContent,
-  ContactTelephone,
-  ContactTitle,
+    ContactActions,
+    ContactAvatar,
+    ContactContent,
+    ContactDescription,
+    ContactEmail,
+    ContactHeader,
+    ContactHeaderContent,
+    ContactTelephone,
+    ContactTitle
 } from '@/components/contact';
 import { PaginationFooter } from '@/components/pagination';
+import Properties, { Property } from '@/components/properties';
+import { CardListSkeleton } from '@/components/skeletonLoaders';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import {
+    InstallationDatasetsQuery,
+    InstallationDatasetsQueryVariables
+} from '@/gql/graphql';
+import useQuery from '@/hooks/useQuery';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { DatasetResult } from '@/routes/dataset/datasetResult';
+import { useEffect, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useInstallationKeyLoaderData } from '.';
 
 export function InstallationKeyAbout() {

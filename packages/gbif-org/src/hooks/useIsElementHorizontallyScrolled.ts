@@ -1,4 +1,4 @@
-import { useState, useEffect, RefObject } from 'react';
+import { RefObject, useEffect, useState } from 'react';
 
 export function useIsElementHorizontallyScrolled(elementRef: RefObject<HTMLElement>) {
   const [isScrolled, setIsScrolled] = useState(false);

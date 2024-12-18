@@ -1,18 +1,18 @@
+import { cn } from '@/utils/shadcn';
 import React from 'react';
-import { Button } from '../ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '../ui/command';
 import { IoMdCheckmark as Checkmark } from 'react-icons/io';
 import { LuChevronsUpDown as ChevronsUpDown } from 'react-icons/lu';
-import { cn } from '@/utils/shadcn';
 import { useUncontrolledProp } from 'uncontrollable';
+import { Button } from '../ui/button';
+import {
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList
+} from '../ui/command';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 
 type Props<T> = {
   search(searchTerm: string): void;

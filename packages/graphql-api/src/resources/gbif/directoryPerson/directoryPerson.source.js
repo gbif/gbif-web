@@ -3,11 +3,11 @@
  * Much of the data can be public though, but be cautious when adding new fields.
  */
 
-import { RESTDataSource } from 'apollo-datasource-rest';
-import { stringify } from 'qs';
-import pick from 'lodash/pick';
-import { getDefaultAgent } from '#/requestAgents';
 import { createSignedGetHeader } from '#/helpers/auth/authenticatedGet';
+import { getDefaultAgent } from '#/requestAgents';
+import { RESTDataSource } from 'apollo-datasource-rest';
+import pick from 'lodash/pick';
+import { stringify } from 'qs';
 
 class DirectoryPersonAPI extends RESTDataSource {
   constructor(config) {

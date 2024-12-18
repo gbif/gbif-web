@@ -1,9 +1,9 @@
-import { fragmentManager } from '@/services/fragmentManager';
 import { MediaBlockDetailsFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
+import { fragmentManager } from '@/services/fragmentManager';
 import { cn } from '@/utils/shadcn';
 import { ArticleBody } from '../../components/articleBody';
-import { BlockContainer, BlockHeading, backgroundColorMap } from './_shared';
+import { backgroundColorMap, BlockContainer, BlockHeading } from './_shared';
 
 fragmentManager.register(/* GraphQL */ `
   fragment MediaBlockDetails on MediaBlock {

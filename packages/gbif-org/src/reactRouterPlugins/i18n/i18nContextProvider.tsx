@@ -1,8 +1,8 @@
+import { LanguageOption } from '@/config/config';
 import { createContext, useCallback, useContext, useEffect, useMemo } from 'react';
+import { IntlProvider } from 'react-intl';
 import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { extractLocaleFromPathname } from './extractLocaleFromURL';
-import { LanguageOption } from '@/config/config';
-import { IntlProvider } from 'react-intl';
 
 type I18nContextValue = {
   locale: LanguageOption;

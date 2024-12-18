@@ -1,12 +1,12 @@
-import { cn } from '@/utils/shadcn';
-import { MdArchive, MdAudiotrack, MdFileDownload, MdImage, MdVideocam } from 'react-icons/md';
-import { BsTable, BsFilePdfFill as PdfIcon } from 'react-icons/bs';
-import { LuPresentation as PresentationIcon } from 'react-icons/lu';
-import { GrTextAlignLeft } from 'react-icons/gr';
-import styles from './documents.module.css';
-import { fragmentManager } from '@/services/fragmentManager';
-import { DocumentPreviewFragment } from '@/gql/graphql';
 import { Separator } from '@/components/ui/separator';
+import { DocumentPreviewFragment } from '@/gql/graphql';
+import { fragmentManager } from '@/services/fragmentManager';
+import { cn } from '@/utils/shadcn';
+import { BsFilePdfFill as PdfIcon, BsTable } from 'react-icons/bs';
+import { GrTextAlignLeft } from 'react-icons/gr';
+import { LuPresentation as PresentationIcon } from 'react-icons/lu';
+import { MdArchive, MdAudiotrack, MdFileDownload, MdImage, MdVideocam } from 'react-icons/md';
+import styles from './documents.module.css';
 
 fragmentManager.register(/* GraphQL */ `
   fragment DocumentPreview on DocumentAsset {
