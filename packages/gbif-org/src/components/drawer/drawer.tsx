@@ -3,6 +3,9 @@ import { IoClose as CloseIcon } from 'react-icons/io5';
 import { FaChevronLeft as LeftIcon, FaChevronRight as RightIcon } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import { DynamicLink } from '@/reactRouterPlugins';
+import * as Dialog from '@radix-ui/react-dialog';
+import { useEffect } from 'react';
+// import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
 type Props = {
   isOpen: boolean;
@@ -11,53 +14,62 @@ type Props = {
   children: React.ReactNode;
   next?: () => void;
   previous?: () => void;
+  onCloseAutoFocus?: (event: Event) => void;
 };
 
-export function Drawer({ isOpen, close, viewOnGbifHref, children, next, previous }: Props) {
-  return (
-    <Backdrop isOpen={isOpen} close={close}>
-      <DrawerContainer isOpen={isOpen}>
-        <div className="g-flex g-flex-grow g-overflow-hidden">
-          <div className="g-overflow-x-auto g-flex-grow g-w-full">{children}</div>
-        </div>
+export function Drawer({
+  isOpen,
+  close,
+  viewOnGbifHref,
+  children,
+  next,
+  previous,
+  onCloseAutoFocus,
+}: Props) {
+  useEffect(() => {
+    function handleKeypress(e: KeyboardEvent) {
+      if (!isOpen) return;
+      switch (e.key) {
+        case 'ArrowLeft':
+          previous?.();
+          return;
+        case 'ArrowRight':
+          next?.();
+          return;
+        default:
+          return;
+      }
+    }
+    if (document) {
+      document.addEventListener('keydown', handleKeypress, false);
+    }
 
-        <BottomBar viewOnGbifHref={viewOnGbifHref} next={next} previous={previous} close={close} />
-      </DrawerContainer>
-    </Backdrop>
-  );
-}
+    return function cleanup() {
+      if (document) document.removeEventListener('keydown', handleKeypress, false);
+    };
+  }, [next, previous, isOpen]);
 
-function DrawerContainer({ children, isOpen }: Pick<Props, 'children' | 'isOpen'>) {
   return (
-    <div
-      onClick={(e) => e.stopPropagation()}
-      className={cn(
-        'g-bg-white g-h-full g-max-w-[1500px] g-w-[95%] g-transition-all g-cursor-auto g-flex g-flex-col',
-        {
-          'g-translate-x-0': isOpen,
-          'g-translate-x-full': !isOpen,
-        }
-      )}
-    >
-      {children}
-    </div>
-  );
-}
-
-function Backdrop({ isOpen, close, children }: Pick<Props, 'isOpen' | 'close' | 'children'>) {
-  return (
-    <div
-      onClick={close}
-      className={cn(
-        'g-fixed g-w-screen g-h-screen g-right-0 g-top-0 g-bg-gray-500 g-flex g-justify-end g-transition-all g-cursor-pointer g-z-50',
-        {
-          'g-pointer-events-none g-bg-opacity-0': !isOpen,
-          'g-bg-opacity-50 g-overflow-hidden': isOpen,
-        }
-      )}
-    >
-      {children}
-    </div>
+    <Dialog.Root open={isOpen} onOpenChange={(open) => !open && close()}>
+      <Dialog.Portal>
+        <Dialog.Overlay className="g-fixed g-w-screen g-h-screen g-right-0 g-top-0 g-bg-gray-500 g-transition-all g-z-50 g-bg-opacity-50">
+          <Dialog.Content
+            onCloseAutoFocus={onCloseAutoFocus}
+            className="g-fixed g-w-screen g-max-w-screen-lg g-h-screen g-right-0 g-top-0 g-bg-white g-flex g-justify-end g-transition-all g-z-50"
+          >
+            {/* TODO: We should add a title and description to the dialog for accessibility purposes */}
+            {/* <VisuallyHidden>
+              <Dialog.Title>Test</Dialog.Title>
+              <Dialog.Description>Test</Dialog.Description>
+            </VisuallyHidden> */}
+            <div className="g-flex g-flex-col">
+              <div className="g-overflow-x-auto g-flex-grow g-w-full">{children}</div>
+              <BottomBar viewOnGbifHref={viewOnGbifHref} next={next} previous={previous} />
+            </div>
+          </Dialog.Content>
+        </Dialog.Overlay>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }
 
@@ -65,13 +77,14 @@ function BottomBar({
   viewOnGbifHref,
   next,
   previous,
-  close,
-}: Pick<Props, 'viewOnGbifHref' | 'next' | 'previous' | 'close'>) {
+}: Pick<Props, 'viewOnGbifHref' | 'next' | 'previous'>) {
   return (
     <div className="g-h-10 g-border-t g-flex g-justify-between g-p-2">
-      <Button variant="ghost" className="g-size-6 g-p-0" onClick={close}>
-        <CloseIcon />
-      </Button>
+      <Dialog.Close asChild>
+        <Button variant="ghost" className="g-size-6 g-p-0">
+          <CloseIcon />
+        </Button>
+      </Dialog.Close>
       {viewOnGbifHref && (
         <Button className="g-h-6" variant="ghost" asChild>
           <DynamicLink to={viewOnGbifHref}>Go to record</DynamicLink>

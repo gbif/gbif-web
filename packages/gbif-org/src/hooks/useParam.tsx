@@ -51,7 +51,7 @@ export function useStringParam({
   key: string;
   defaultValue?: string;
   hideDefault?: boolean;
-}): [string | undefined, (value: string, replace?: boolean) => void] {
+}): [string | undefined, (value?: string, replace?: boolean) => void] {
   const [value, setValue] = useParam({
     key,
     defaultValue: defaultValue,

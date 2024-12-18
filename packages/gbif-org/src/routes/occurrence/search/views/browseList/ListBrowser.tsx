@@ -1,6 +1,7 @@
 import { useOrderedList } from './useOrderedList';
 import { Drawer } from '@/components/drawer/drawer';
 import { useStringParam } from '@/hooks/useParam';
+import usePrevious from '@/hooks/usePrevious';
 import { StandaloneOccurrenceKeyPage } from '@/routes/occurrence/key/standalone';
 import { useEffect, useRef } from 'react';
 
@@ -67,19 +68,22 @@ export default function EntityDrawer() {
     }
   }
 
-  const key = previewKey ? (previewKey.split('_')[1] ?? previewKey) : undefined;
+  const key = previewKey ? previewKey.split('_')[1] ?? previewKey : undefined;
 
   const noList = !orderedList || orderedList.length < 2;
   const isFirst = noList || orderedList[0] === key;
   const isLast = noList || orderedList[orderedList.length - 1] === key;
 
+  const prevPreviewKey = usePrevious(previewKey);
+
   return (
     <Drawer
       isOpen={typeof key === 'string'}
       close={() => setPreviewKey()}
-      viewOnGbifHref={`/${type === "taxon" ? "species": type}/${key}`}
+      viewOnGbifHref={`/${type === 'taxon' ? 'species' : type}/${key}`}
       next={isFirst ? undefined : handleNext}
       previous={isLast ? undefined : handlePrevious}
+      onCloseAutoFocus={(e) => handleCloseAutoFocus(e, prevPreviewKey)}
     >
       {type === 'occurrence' && <StandaloneOccurrenceKeyPage occurrenceKey={key} />}
       {type === 'dataset' && <h1>Dataset {key}</h1>}
@@ -91,4 +95,24 @@ export default function EntityDrawer() {
       {type === 'taxon' && <h1>Taxon {key}</h1>}
     </Drawer>
   );
+}
+
+// In radix the dialog trigger and dialog is colocated, making it easy to let radix handle the refocus of the trigger on close
+// We can't really do that here, with the drawer trigger and drawer content being in different components + it could give more performance overhead for the table
+// So we need to look for the trigger. We do this by adding the entity query param as a data attribute on the trigger
+function handleCloseAutoFocus(e: Event, previewKey: string | undefined) {
+  if (!previewKey) {
+    console.warn('No previewKey to focus on close');
+    return;
+  }
+
+  const trigger = document.querySelector(`[data-entity-trigger="${previewKey}"]`);
+
+  if (trigger && 'focus' in trigger && typeof trigger.focus === 'function') {
+    trigger.focus();
+    e.preventDefault();
+    return;
+  }
+
+  console.warn('Could not find trigger to focus on close');
 }
