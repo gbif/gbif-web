@@ -5,6 +5,7 @@ import { DatasetKeyDashboard } from './dashboard';
 import { datasetLoader, DatasetPage, DatasetPageSkeleton } from './datasetKey';
 import { DatasetKeyDownload } from './download';
 import { DatasetKeyOccurrences } from './occurrences';
+import { DatasetKeyPhylo } from './phylogenies';
 
 const id = 'datasetKey';
 
@@ -31,6 +32,10 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
     {
       path: 'occurrences',
       element: <DatasetKeyOccurrences />,
+    },
+    {
+      path: 'phylogenies',
+      element: <DatasetKeyPhylo />,
     },
     {
       path: 'download',

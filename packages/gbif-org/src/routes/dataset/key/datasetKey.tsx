@@ -1,7 +1,8 @@
 import {
-    defaultDateFormatProps, DeletedMessage,
-    HeaderInfo,
-    HeaderInfoMain
+  defaultDateFormatProps,
+  DeletedMessage,
+  HeaderInfo,
+  HeaderInfoMain,
 } from '@/components/headerComponents';
 import { FeatureList, GenericFeature, Homepage, PeopleIcon } from '@/components/highlights';
 import { LicenceTag } from '@/components/identifierTag';
@@ -16,6 +17,7 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { required } from '@/utils/required';
+import { createContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
@@ -45,6 +47,9 @@ const DATASET_QUERY = /* GraphQL */ `
       key
       checklistBankDataset {
         key
+      }
+      firstOccurrence {
+        dynamicProperties
       }
       type
       title
@@ -191,6 +196,11 @@ const DATASET_QUERY = /* GraphQL */ `
     }
   }
 `;
+export const DatasetKeyContext = createContext<{
+  key?: string;
+  datasetKey?: string;
+  dynamicProperties?: string;
+}>({});
 
 export function datasetLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
@@ -216,6 +226,16 @@ export function DatasetPage() {
   ];
   if (true) {
     tabs.push({ to: 'occurrences', children: 'Occurrences' });
+  }
+  if (dataset?.firstOccurrence?.dynamicProperties) {
+    try {
+      const parsedDynamicProperties = JSON.parse(dataset?.firstOccurrence?.dynamicProperties);
+      if (parsedDynamicProperties?.phylogenies?.[0]?.phyloTreeFileName) {
+        tabs.push({ to: 'phylogenies', children: 'Phylogenies' });
+      }
+    } catch (error) {
+      /* empty */
+    }
   }
   if (dataset?.checklistBankDataset?.key) {
     tabs.push({
@@ -313,8 +333,14 @@ export function DatasetPage() {
           <Tabs links={tabs} />
         </ArticleTextContainer>
       </PageContainer>
-
-      <Outlet />
+      <DatasetKeyContext.Provider
+        value={{
+          datasetKey: data?.dataset?.key,
+          dynamicProperties: dataset?.firstOccurrence?.dynamicProperties || undefined,
+        }}
+      >
+        <Outlet />
+      </DatasetKeyContext.Provider>
     </article>
   );
 }

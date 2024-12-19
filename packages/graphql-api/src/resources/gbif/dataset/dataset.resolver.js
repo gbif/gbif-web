@@ -153,6 +153,18 @@ export const Dataset = {
       })
       .then((documents) => documents.total);
   },
+  firstOccurrence: ({ key }, args, { dataSources }) => {
+    if (typeof key === 'undefined') return null;
+
+    return dataSources.occurrenceAPI
+      .searchOccurrenceDocuments({
+        query: {
+          size: 1,
+          predicate: { type: 'equals', key: 'datasetKey', value: key },
+        },
+      })
+      .then((documents) => documents.results[0]);
+  },
   literatureCount: ({ key }, args, { dataSources }) => {
     if (typeof key === 'undefined') return null;
     return dataSources.literatureAPI

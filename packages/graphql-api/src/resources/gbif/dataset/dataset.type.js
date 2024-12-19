@@ -208,6 +208,7 @@ const typeDef = gql`
     excerpt: String
     occurrenceCount: Int
     literatureCount: Int
+    firstOccurrence: Occurrence
   }
 
   type DatasetChecklistMetrics {
