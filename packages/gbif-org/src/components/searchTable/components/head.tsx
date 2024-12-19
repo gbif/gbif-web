@@ -24,10 +24,11 @@ export function Head<TData>({ header, table, isScrolled = false }: Props<TData>)
     <TableHead
       key={header.id}
       className={cn(
-        'g-transition-colors g-sticky g-top-0 g-z-10 g-text-nowrap',
+        'g-transition-colors g-sticky g-top-0 g-text-nowrap',
         locked && header.column.getIsFirstColumn()
           ? 'g-left-0 g-z-20 g-box-shadow-br g-border-r-0'
           : 'g-box-shadow-b',
+        header.column.getIsFirstColumn() ? 'g-z-20' : 'g-z-10',
         // Darken the background color when the table is scrolled and the column is locked
         isScrolled && locked && !header.column.getIsFirstColumn() ? 'g-bg-gray-50' : 'g-bg-white'
       )}
