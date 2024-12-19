@@ -9,7 +9,13 @@ import { LicenceTag } from '@/components/identifierTag';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { NotFoundError } from '@/errors';
-import { DatasetQuery, DatasetQueryVariables } from '@/gql/graphql';
+import {
+  DatasetQuery,
+  DatasetQueryVariables,
+  OccurrenceSearchQuery,
+  OccurrenceSearchQueryVariables,
+} from '@/gql/graphql';
+import useQuery from '@/hooks/useQuery';
 import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
@@ -17,7 +23,7 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { required } from '@/utils/required';
-import { createContext } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
@@ -47,9 +53,6 @@ const DATASET_QUERY = /* GraphQL */ `
       key
       checklistBankDataset {
         key
-      }
-      firstOccurrence {
-        dynamicProperties
       }
       type
       title
@@ -196,6 +199,32 @@ const DATASET_QUERY = /* GraphQL */ `
     }
   }
 `;
+
+/* const FIRST_OCCURRENCE_QUERY = `
+  query firstOcc($predicate: Predicate){
+   occurrenceSearch(predicate: $predicate) {
+    documents(size: 1) {
+      results {
+        dynamicProperties
+      }
+    }
+}
+}`; */
+const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
+  query OccurrenceSearch($from: Int, $size: Int, $predicate: Predicate) {
+    occurrenceSearch(predicate: $predicate) {
+      documents(from: $from, size: $size) {
+        from
+        size
+        total
+        results {
+          dynamicProperties
+        }
+      }
+    }
+  }
+`;
+
 export const DatasetKeyContext = createContext<{
   key?: string;
   datasetKey?: string;
@@ -212,7 +241,11 @@ export const DatasetPageSkeleton = ArticleSkeleton;
 
 export function DatasetPage() {
   const { data } = useLoaderData() as { data: DatasetQuery };
-
+  const [tabs, setTabs] = useState<{ to: string; children: React.ReactNode }[]>([
+    { to: '.', children: 'About' },
+    { to: 'occurrences', children: 'Occurrences' },
+    { to: 'download', children: 'Download' },
+  ]);
   if (data.dataset == null) throw new NotFoundError();
   const dataset = data.dataset;
 
@@ -220,46 +253,76 @@ export function DatasetPage() {
   const contactThreshold = 6;
   const contactsCitation = dataset.contactsCitation?.filter((c) => c.abbreviatedName) || [];
 
-  const tabs: { to: string; children: React.ReactNode }[] = [
-    { to: '.', children: 'About' },
-    // { to: 'citations', children: 'Citations' },
-  ];
-  if (true) {
-    tabs.push({ to: 'occurrences', children: 'Occurrences' });
-  }
-  if (dataset?.firstOccurrence?.dynamicProperties) {
-    try {
-      const parsedDynamicProperties = JSON.parse(dataset?.firstOccurrence?.dynamicProperties);
-      if (parsedDynamicProperties?.phylogenies?.[0]?.phyloTreeFileName) {
-        tabs.push({ to: 'phylogenies', children: 'Phylogenies' });
-      }
-    } catch (error) {
-      /* empty */
-    }
-  }
-  if (dataset?.checklistBankDataset?.key) {
-    tabs.push({
-      to: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
-        dataset.key
-      }/classification`,
-      children: (
-        <>
-          <SimpleTooltip
-            title={
-              <FormattedMessage
-                id="dataset.exploreInChecklistBank"
-                defaultMessage="Explore taxonomy via Checklist Bank"
-              />
-            }
-          >
-            <FormattedMessage id="dataset.exploreInChecklistBank" defaultMessage="Taxonomy" />
-            <MdLink />
-          </SimpleTooltip>
-        </>
-      ),
+  const {
+    data: occData,
+    error,
+    load,
+    loading,
+  } = useQuery<OccurrenceSearchQuery, OccurrenceSearchQueryVariables>(OCURRENCE_SEARCH_QUERY, {
+    throwAllErrors: true,
+    lazyLoad: true,
+  });
+
+  useEffect(() => {
+    load({
+      variables: {
+        predicate: {
+          key: 'datasetKey',
+          value: dataset.key,
+          type: 'equals',
+        },
+        size: 1,
+        from: 0,
+      },
     });
-  }
-  tabs.push({ to: 'download', children: 'Download' });
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [load]);
+
+  useEffect(() => {
+    if (error) {
+      console.error(error);
+    }
+    if (occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties) {
+      try {
+        const parsedDynamicProperties = JSON.parse(
+          occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties
+        );
+        if (parsedDynamicProperties?.phylogenies?.[0]?.phyloTreeFileName) {
+          console.log('pushing phylogenies');
+          //tabs.push({ to: 'phylogenies', children: 'Phylogenies' });
+          tabs.splice(2, 0, { to: 'phylogenies', children: 'Phylogenies' });
+          setTabs([...tabs]);
+        }
+      } catch (error) {
+        /* empty */
+      }
+    }
+    if (dataset?.checklistBankDataset?.key) {
+      tabs.splice(2, 0, {
+        to: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
+          dataset.key
+        }/classification`,
+        children: (
+          <>
+            <SimpleTooltip
+              title={
+                <FormattedMessage
+                  id="dataset.exploreInChecklistBank"
+                  defaultMessage="Explore taxonomy via Checklist Bank"
+                />
+              }
+            >
+              <FormattedMessage id="dataset.exploreInChecklistBank" defaultMessage="Taxonomy" />
+              <MdLink />
+            </SimpleTooltip>
+          </>
+        ),
+      });
+      setTabs([...tabs]);
+    }
+  }, [occData, error, dataset.key, dataset?.checklistBankDataset?.key]);
+
   return (
     <article>
       <Helmet>
@@ -336,7 +399,8 @@ export function DatasetPage() {
       <DatasetKeyContext.Provider
         value={{
           datasetKey: data?.dataset?.key,
-          dynamicProperties: dataset?.firstOccurrence?.dynamicProperties || undefined,
+          dynamicProperties:
+            occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties || undefined,
         }}
       >
         <Outlet />
