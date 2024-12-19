@@ -9,12 +9,6 @@ import { OccurrenceKeyPhylo } from './phylogenies';
 const id = 'occurrenceKey';
 
 export const occurrenceKeyRoutes: RouteObjectWithPlugins[] = [
-  // Used by standalone occurrence key page to show loading before the data is loaded as the skeleton loading only works when navigating between pages
-  {
-    id: id + '-loading',
-    path: 'occurrence/loading',
-    element: <OccurrenceKeySkeleton />,
-  },
   {
     id,
     path: 'occurrence/:key',

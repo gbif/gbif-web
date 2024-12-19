@@ -4,17 +4,15 @@ import {
   IndexRouteObject,
   LoaderFunctionArgs,
   NonIndexRouteObject,
-  RouteObject
+  RouteObject,
 } from 'react-router-dom';
 import { applyEnablePagesPlugin } from './enablePages';
 import { applyExtendedLoaderPlugin } from './extendedLoader';
 import { applyExtraOccurrenceSearchPages } from './extraOccurrenceSearchPages';
 import { applyI18nPlugin } from './i18n';
-import { applySkeletonLoadingPlugin } from './skeletonLoading';
 import { applySlugifiedPlugin } from './slugified';
 export { DynamicLink } from './dynamicLink';
 export { useI18n } from './i18n';
-export type { ErrorPageProps } from './skeletonLoading';
 export { useRenderedRouteLoaderData } from './useRenderedRouteLoaderData';
 
 export type Context = {
@@ -54,8 +52,7 @@ export function applyReactRouterPlugins(
   );
   const withI18n = applyI18nPlugin(withExtraOccurrenceSearchPages, config);
   const withSlugified = applySlugifiedPlugin(withI18n, config);
-  const withSkeletonLoading = applySkeletonLoadingPlugin(withSlugified);
-  const withExtendedLoader = applyExtendedLoaderPlugin(withSkeletonLoading, config);
+  const withExtendedLoader = applyExtendedLoaderPlugin(withSlugified, config);
 
   return withExtendedLoader as RouteObject[];
 }

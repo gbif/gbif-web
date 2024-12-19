@@ -6,6 +6,7 @@ import { LoaderArgs } from '@/reactRouterPlugins';
 import React from 'react';
 import { ScrollRestoration, useLoaderData } from 'react-router-dom';
 import { Header } from './header';
+import { LoadingIndicator } from '@/components/loadingIndicator';
 
 const HEADER_QUERY = /* GraphQL */ `
   query Header {
@@ -47,6 +48,7 @@ export function GbifRootLayout({ children }: Props) {
 
   return (
     <div className="g-flex g-flex-col g-min-h-[100dvh]">
+      <LoadingIndicator />
       <Header menu={data} />
       <main className="g-flex-auto">
         <NoscriptNotification />

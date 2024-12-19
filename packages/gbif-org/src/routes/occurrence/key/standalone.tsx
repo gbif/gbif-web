@@ -4,6 +4,7 @@ import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { useEffect, useMemo, useRef } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { occurrenceKeyRoutes } from '.';
+import { OccurrenceKeySkeleton } from './occurrenceKey';
 
 type Props = {
   occurrenceKey?: string | null;
@@ -25,7 +26,13 @@ export function StandaloneOccurrenceKeyPage({ occurrenceKey }: Props) {
     []
   );
 
-  return <StandaloneWrapper routes={routes} url={`/occurrence/${occurrenceKey ?? 'loading'}`} />;
+  return (
+    <StandaloneWrapper
+      loadingElement={<OccurrenceKeySkeleton />}
+      routes={routes}
+      url={`/occurrence/${occurrenceKey}`}
+    />
+  );
 }
 
 // This component is used to handle the case where the user navigates to another occurrence within the drawer.
@@ -39,8 +46,6 @@ function SyncDrawerOccurenceIdWithRootRouter({
   const drawerLocation = useLocation();
 
   useEffect(() => {
-    if (drawerLocation.pathname === '/occurrence/loading') return;
-
     const rootOccurrenceKey = new URLSearchParams(window.location.search)
       .get('entity')
       ?.split('o_')[1];

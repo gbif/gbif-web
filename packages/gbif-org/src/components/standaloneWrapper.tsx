@@ -1,16 +1,25 @@
-import { useConfig } from '@/config/config';
+import { Config, useConfig } from '@/config/config';
 import { applyReactRouterPlugins, RouteObjectWithPlugins, useI18n } from '@/reactRouterPlugins';
 import { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { createMemoryRouter, RouterProvider, useNavigate } from 'react-router-dom';
+import {
+  createMemoryRouter,
+  NavigateFunction,
+  Outlet,
+  RouteObject,
+  RouterProvider,
+  useNavigate,
+} from 'react-router-dom';
 import { StandaloneRoot } from './root';
+import { LoadingIndicator } from './loadingIndicator';
 
 type Props = {
   routes: RouteObjectWithPlugins[];
+  loadingElement?: React.ReactNode;
   url: string;
 };
 
-export function StandaloneWrapper({ routes, url }: Props) {
+export function StandaloneWrapper({ routes, url, loadingElement }: Props) {
   const config = useConfig();
   const rootNavigate = useNavigate();
   const ref = useRef<HTMLDivElement>(null);
@@ -18,6 +27,7 @@ export function StandaloneWrapper({ routes, url }: Props) {
   const rootRef = useRef<ReturnType<typeof createRoot>>();
   const { localizeLink } = useI18n();
   const [routerIsReady, setRouterIsReady] = useState(false);
+  const [initialRenderDone, setInitialRenderDone] = useState(false);
 
   useEffect(() => {
     const renderTimeout = setTimeout(() => {
@@ -26,21 +36,9 @@ export function StandaloneWrapper({ routes, url }: Props) {
       }
 
       if (ref.current && rootRef.current) {
-        const routesWithNotFoundRedirect: RouteObjectWithPlugins[] = [
-          ...routes,
-          {
-            path: '*',
-            loader: ({ request }) => {
-              const url = new URL(request.url);
-              rootNavigate(url.pathname);
-              return null;
-            },
-          },
-        ];
-
-        const routesWithPlugins = applyReactRouterPlugins(routesWithNotFoundRedirect, config, {
-          standalone: true,
-        });
+        const routesWithPlugins = createRoutesWithPlugins(routes, config, rootNavigate, () =>
+          setInitialRenderDone(true)
+        );
         routerRef.current = createMemoryRouter(routesWithPlugins);
         setRouterIsReady(true);
 
@@ -69,5 +67,54 @@ export function StandaloneWrapper({ routes, url }: Props) {
     }
   }, [url, localizeLink, routerIsReady]);
 
-  return <div ref={ref} />;
+  return (
+    <>
+      <div className={initialRenderDone ? 'g-block' : 'g-invisible'} ref={ref} />
+      {!initialRenderDone && loadingElement}
+    </>
+  );
+}
+
+function createRoutesWithPlugins(
+  routes: RouteObjectWithPlugins[],
+  config: Config,
+  rootNavigate: NavigateFunction,
+  onRenderDone: () => void
+): RouteObject[] {
+  return applyReactRouterPlugins(
+    [
+      {
+        element: (
+          <>
+            <LoadingIndicator />
+            <OnRenderDone onDone={onRenderDone} />
+            <Outlet />
+          </>
+        ),
+        children: [
+          ...routes,
+          {
+            path: '*',
+            loader: ({ request }) => {
+              const url = new URL(request.url);
+              rootNavigate(url.pathname);
+              return null;
+            },
+          },
+        ],
+      },
+    ],
+    config,
+    {
+      standalone: true,
+    }
+  );
+}
+
+function OnRenderDone({ onDone }: { onDone: () => void }) {
+  useEffect(() => {
+    onDone();
+  }, [onDone]);
+
+  return null;
 }
