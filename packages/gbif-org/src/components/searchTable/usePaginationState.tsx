@@ -5,7 +5,7 @@ import { useCallback, useMemo, useState } from 'react';
 
 export function usePaginationState({ pageSize: size }: { pageSize?: number } = {}): [
   PaginationState,
-  React.Dispatch<React.SetStateAction<PaginationState>>,
+  React.Dispatch<React.SetStateAction<PaginationState>>
 ] {
   const [from, setFrom] = useIntParam({
     key: 'from',
@@ -31,7 +31,7 @@ export function usePaginationState({ pageSize: size }: { pageSize?: number } = {
         newState = updaterOrValue;
       }
 
-      setFrom(newState.pageIndex * newState.pageSize);
+      setFrom(newState.pageIndex * newState.pageSize, true);
       setPageSize(newState.pageSize);
     },
     [setFrom, setPageSize]

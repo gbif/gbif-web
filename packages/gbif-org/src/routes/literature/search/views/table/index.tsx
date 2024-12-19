@@ -7,7 +7,6 @@ import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { LiteratureTableSearchQuery, LiteratureTableSearchQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
-import { useResetPaginationOnFilterChange } from '@/hooks/useResetPaginationOnFilterChange';
 import { ExtractPaginatedResult } from '@/types';
 import { notNull } from '@/utils/notNull';
 import { useContext, useEffect, useMemo } from 'react';
@@ -74,7 +73,6 @@ export type SingleLiteratureSearchResult = ExtractPaginatedResult<
 export function LiteratureTable() {
   const searchContext = useSearchContext();
   const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
-  useResetPaginationOnFilterChange(setPaginationState);
   const filterContext = useContext(FilterContext);
   const config = useConfig();
 

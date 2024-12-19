@@ -8,7 +8,6 @@ import { useSearchContext } from '@/contexts/search';
 import { OccurrenceSearchQuery, OccurrenceSearchQueryVariables } from '@/gql/graphql';
 import { useStringParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
-import { useResetPaginationOnFilterChange } from '@/hooks/useResetPaginationOnFilterChange';
 import { ExtractPaginatedResult } from '@/types';
 import { notNull } from '@/utils/notNull';
 import { Row } from '@tanstack/react-table';
@@ -128,7 +127,6 @@ const createRowLink = (row: Row<SingleOccurrenceSearchResult>) => `/occurrence/$
 export function OccurrenceTable() {
   const searchContext = useSearchContext();
   const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
-  useResetPaginationOnFilterChange(setPaginationState);
   const filterContext = useContext(FilterContext);
   const config = useConfig();
 
