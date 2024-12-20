@@ -32,6 +32,7 @@ import { searchConfig } from './searchConfig';
 import { Button } from '@/components/ui/button';
 import { MdDownload } from 'react-icons/md';
 import { ParamQuery, stringify } from '@/utils/querystring';
+import { useIntParam } from '@/hooks/useParam';
 
 const DATASET_SEARCH_QUERY = /* GraphQL */ `
   query DatasetSearch($query: DatasetSearchInput) {
@@ -67,7 +68,7 @@ export function DatasetSearchPage(): React.ReactElement {
 }
 
 export function DatasetSearch(): React.ReactElement {
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useIntParam({ key: 'offset', defaultValue: 0, hideDefault: true });
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
