@@ -10,6 +10,9 @@
   "collection": "مجموعة",
   "collectionGrSciColl": "",
   "recordedAndIdentifiedBy": "",
+  "screenReader": {
+    "title": ""
+  },
   "info": {
     "original": "أصلي",
     "excluded": "استُبعِدت",
