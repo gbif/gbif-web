@@ -154,11 +154,12 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
         return { name: `--${key}`, value };
       });
     // Convert css variables to actual css that will be injected in the document
-    function customizer(current: unknown) {
-      if (Array.isArray(current)) {
-        return current;
+    function customizer(_current: unknown, next: unknown) {
+      if (Array.isArray(next)) {
+        return next;
       }
     }
+
     const mergedConfig = mergeWith(
       {},
       configDefault,
