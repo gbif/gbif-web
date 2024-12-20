@@ -7,10 +7,10 @@ import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Tabs } from '@/components/tabs';
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
 } from '@/components/ui/accordion';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -23,12 +23,15 @@ import { DatasetSearchQuery, DatasetSearchQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { DatasetResult } from '../datasetResult';
 import { useFilters } from './filters';
 import { searchConfig } from './searchConfig';
+import { Button } from '@/components/ui/button';
+import { MdDownload } from 'react-icons/md';
+import { ParamQuery, stringify } from '@/utils/querystring';
 
 const DATASET_SEARCH_QUERY = /* GraphQL */ `
   query DatasetSearch($query: DatasetSearchInput) {
@@ -140,6 +143,18 @@ function Results({
   datasets?: DatasetSearchQuery['datasetSearch'];
   setOffset: (x: number) => void;
 }) {
+  const filterContext = useContext(FilterContext);
+  const searchContext = useSearchContext();
+  const config = useConfig();
+
+  const { filter, filterHash } = filterContext || { filter: { must: {} } };
+
+  const downloadLink = useMemo(() => {
+    const query = getAsQuery({ filter, searchContext, searchConfig, queryType: 'V1' });
+    const queryString = stringify(query as ParamQuery);
+    return `${config.v1Endpoint}/dataset/search/export?format=TSV&${filter ? queryString : ''}`;
+  }, [filterHash, searchContext, config.v1Endpoint]);
+
   return (
     <>
       {loading && (
@@ -161,10 +176,19 @@ function Results({
       )}
       {datasets && datasets.count > 0 && (
         <>
-          <CardHeader id="datasets">
+          <CardHeader id="datasets" className="g-flex-row g-items-center g-justify-between">
             <CardTitle>
               <FormattedMessage id="counts.nDatasets" values={{ total: datasets.count ?? 0 }} />
             </CardTitle>
+
+            <Button size="sm" variant="link" asChild>
+              <a className="g-inline g-cursor-pointer hover:g-underline" href={downloadLink}>
+                <MdDownload size={16} />
+                <span className="g-ml-1">
+                  <FormattedMessage id="phrases.downloadAsTsv" defaultMessage="Download as TSV" />
+                </span>
+              </a>
+            </Button>
           </CardHeader>
           <ClientSideOnly>
             {datasets &&

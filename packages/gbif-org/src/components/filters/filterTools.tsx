@@ -1,9 +1,9 @@
 import { FilterContext, FilterContextType, FilterType } from '@/contexts/filter';
-import { SearchMetadata } from '@/contexts/search';
+import { QueryTypeEnum, SearchMetadata } from '@/contexts/search';
 import { filter2v1 } from '@/dataManagement/filterAdapter';
 import {
-    filter2predicate,
-    FilterConfigType
+  filter2predicate,
+  FilterConfigType,
 } from '@/dataManagement/filterAdapter/filter2predicate';
 import { cn } from '@/utils/shadcn';
 import { SuggestConfig } from '@/utils/suggestEndpoints';
@@ -657,13 +657,15 @@ export function getAsQuery({
   filter,
   searchContext,
   searchConfig,
+  queryType = searchContext.queryType,
 }: {
   filter: FilterType;
   searchContext: SearchMetadata;
   searchConfig: FilterConfigType;
+  queryType?: QueryTypeEnum;
 }) {
   // should we use get v1 syntax or predicates (we have later added predicates to v1, so the naming is less meaningful now)
-  if (searchContext.queryType === 'V1') {
+  if (queryType === 'V1') {
     const v1Filter = filter2v1(filter, searchConfig);
     const scope = searchContext.scope ?? {};
     // TODO, we could do more to merge here.
