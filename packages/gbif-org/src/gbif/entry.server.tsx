@@ -5,9 +5,9 @@ import type { Request as ExpressRequest } from 'express';
 import ReactDOMServer from 'react-dom/server';
 import { FilledContext, HelmetServerState } from 'react-helmet-async';
 import {
-    createStaticHandler,
-    createStaticRouter,
-    StaticRouterProvider
+  createStaticHandler,
+  createStaticRouter,
+  StaticRouterProvider,
 } from 'react-router-dom/server';
 
 // Create routes based on config
