@@ -5,8 +5,10 @@ import { Endpoints, GbifEnv } from './endpoints';
 import themeBuilder from './theme/index';
 import { Theme } from './theme/theme';
 
-type PageConfig = {
+export type PageConfig = {
   id: string;
+  isCustom?: boolean;
+  path?: string;
 };
 
 export type LanguageOption = {

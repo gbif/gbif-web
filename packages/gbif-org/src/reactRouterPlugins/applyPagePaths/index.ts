@@ -1,0 +1,1 @@
+export { applyPagePathsPlugin } from './plugin';

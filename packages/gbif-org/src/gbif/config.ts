@@ -1,9 +1,9 @@
 import { Config } from '@/config/config';
 import {
-    GbifEnv,
-    getDefaultEndpointsBasedOnGbifEnv,
-    InvalidGbifEnvError,
-    isGbifEnv
+  GbifEnv,
+  getDefaultEndpointsBasedOnGbifEnv,
+  InvalidGbifEnvError,
+  isGbifEnv,
 } from '@/config/endpoints';
 import { languagesOptions } from '@/config/languagesOptions';
 import { merge } from 'ts-deepmerge';
@@ -79,17 +79,24 @@ export const gbifConfig: Config = {
   //     },
   //   },
   // },
-  // pages: [
-  //   {
-  //     id: 'home',
-  //   },
-  //   {
-  //     id: 'occurrence-search',
-  //   },
-  //   {
-  //     id: 'dataset-search',
-  //   },
-  // ],
+  pages: [
+    {
+      id: 'home',
+    },
+    {
+      id: 'occurrenceSearch',
+      path: 'specimen/search',
+    },
+    {
+      id: 'datasetSearch',
+      path: 'test/dataset/whatever',
+    },
+    {
+      id: 'datasetKey',
+      path: 'test/dataset/:key',
+      isCustom: false,
+    },
+  ],
   defaultTitle: 'GBIF',
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: languagesOptions,

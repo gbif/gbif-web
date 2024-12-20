@@ -20,11 +20,13 @@ export function applyEnablePagesPlugin(
 
   const disabledRoutes: DisabledRoutes = {};
 
+  const modifiedRoutes = addRedirectToLoader(routes, disabledRoutes, config);
+
   return [
     {
       description: 'Redirect to GBIF',
       // The disabledRoutes object will be modified by the addRedirectToLoader function
-      children: addRedirectToLoader(routes, disabledRoutes, config),
+      children: modifiedRoutes,
       element: (
         <RedirectToGbifProvider getRedirectUrl={createGetRedirectUrl(disabledRoutes)}>
           <Outlet />
@@ -61,7 +63,7 @@ function addRedirectToLoader(
       // TODO: Do we want to redirect to GBIF.org in this case? A 404 page could maybe be more appropriate
       routeCopy.loader = (...args) => {
         const redirectPath = route.gbifRedirect?.(args[0].params);
-        if (redirectPath) {
+        if (redirectPath && !routeCopy.isCustom) {
           return redirectDocument('https://www.gbif.org' + redirectPath);
         }
 

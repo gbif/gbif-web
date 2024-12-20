@@ -6,6 +6,7 @@ import {
   NonIndexRouteObject,
   RouteObject,
 } from 'react-router-dom';
+import { applyPagePathsPlugin } from './applyPagePaths';
 import { applyEnablePagesPlugin } from './enablePages';
 import { applyExtendedLoaderPlugin } from './extendedLoader';
 import { applyExtraOccurrenceSearchPages } from './extraOccurrenceSearchPages';
@@ -32,6 +33,7 @@ export type RouteObjectWithPlugins = {
   loader?: (args: LoaderArgs) => unknown;
   overrideConfig?: Partial<Config>;
   gbifRedirect?: (params: Record<string, string | undefined>) => string | null;
+  isCustom?: boolean;
   isSlugified?: boolean;
 } & (
   | Omit<IndexRouteObject, 'loader'>
@@ -45,7 +47,8 @@ export function applyReactRouterPlugins(
   config: Config,
   context: Context = { standalone: false }
 ): RouteObject[] {
-  const withFilteredRoutes = applyEnablePagesPlugin(routes, config, context);
+  const withCorrectedPaths = applyPagePathsPlugin(routes, config, context);
+  const withFilteredRoutes = applyEnablePagesPlugin(withCorrectedPaths, config, context);
   const withExtraOccurrenceSearchPages = applyExtraOccurrenceSearchPages(
     withFilteredRoutes,
     config
