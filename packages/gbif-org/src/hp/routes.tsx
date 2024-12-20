@@ -6,7 +6,6 @@ import { collectionKeyRoute } from '@/routes/collection/key';
 import { collectionSearchRoute } from '@/routes/collection/search';
 import { datasetKeyRoute } from '@/routes/dataset/key';
 import { datasetSearchRoute } from '@/routes/dataset/search';
-import { homePageRoute } from '@/routes/homePage';
 import { installationKeyRoute } from '@/routes/installation/key';
 import { institutionKeyRoute } from '@/routes/institution/key';
 import { institutionSearchRoute } from '@/routes/institution/search';
@@ -30,21 +29,24 @@ export function createHostedPortalRoutes(config: Config) {
           {
             errorElement: <RootErrorPage />,
             children: [
-              homePageRoute,
-              collectionKeyRoute,
+              // search routes first
               collectionSearchRoute,
-              datasetKeyRoute,
-              datasetSearchRoute,
-              installationKeyRoute,
-              institutionKeyRoute,
               institutionSearchRoute,
-              networkKeyRoute,
-              ...occurrenceKeyRoutes,
-              occurrenceSearchRoute,
-              publisherKeyRoute,
               publisherSearchRoute,
               literatureSearchRoute,
+              occurrenceSearchRoute,
+
+              // then key routes
+              collectionKeyRoute,
+              datasetSearchRoute,
+              datasetKeyRoute,
+              institutionKeyRoute,
+              ...occurrenceKeyRoutes,
+              publisherKeyRoute,
+              installationKeyRoute,
+              networkKeyRoute,
               ...resourceKeyRoutes,
+
               ...notImplementedRoutes,
               notFoundRoute,
             ],

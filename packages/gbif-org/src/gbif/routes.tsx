@@ -40,25 +40,32 @@ export function createGbifRoutes(config: Config) {
             errorElement: <RootErrorPage />,
             children: [
               homePageRoute,
-              collectionKeyRoute,
+
+              // search routes first in case of conflict
               collectionSearchRoute,
-              becomeAPublisherRoute,
-              suggestDatasetRoute,
-              datasetKeyRoute,
               datasetSearchRoute,
+              institutionSearchRoute,
+              occurrenceSearchRoute,
+              taxonSearchRoute,
+              publisherSearchRoute,
+              literatureSearchRoute,
+
+              // detail routes
+              collectionKeyRoute,
+              datasetKeyRoute,
               installationKeyRoute,
               institutionKeyRoute,
-              institutionSearchRoute,
               networkKeyRoute,
               ...occurrenceKeyRoutes,
-              occurrenceSearchRoute,
               publisherKeyRoute,
-              publisherSearchRoute,
               taxonKeyRoute,
-              taxonSearchRoute,
-              literatureSearchRoute,
-              confirmEndorsmentRoute,
               ...resourceKeyRoutes,
+
+              // custom pages
+              becomeAPublisherRoute,
+              confirmEndorsmentRoute,
+              suggestDatasetRoute,
+
               ...notImplementedRoutes,
               notFoundRoute,
             ],
