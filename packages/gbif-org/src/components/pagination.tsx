@@ -1,12 +1,13 @@
 import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
 } from '@/components/ui/pagination';
+import { cn } from '@/utils/shadcn';
 
 function getPages({
   offset,
@@ -67,7 +68,7 @@ export function PaginationFooter({
     <Pagination>
       <PaginationContent>
         {currentPage > 1 && (
-          <PaginationItem onClick={() => onChange(previousPageOffset)}>
+          <PaginationItem className="g-cursor-pointer" onClick={() => onChange(previousPageOffset)}>
             <PaginationPrevious />
           </PaginationItem>
         )}
@@ -76,20 +77,25 @@ export function PaginationFooter({
             <PaginationEllipsis />
           </PaginationItem>
         )}
-        {pages.map((page) => (
-          <PaginationItem key={page.pageNumber} onClick={() => onChange(page.offset)}>
-            <PaginationLink isActive={currentPage === page.pageNumber}>
-              {page.pageNumber}
-            </PaginationLink>
-          </PaginationItem>
-        ))}
+        {pages.map((page) => {
+          const isActive = currentPage === page.pageNumber;
+          return (
+            <PaginationItem
+              className={cn({ 'g-cursor-pointer': !isActive, 'g-pointer-events-none': isActive })}
+              key={page.pageNumber}
+              onClick={() => onChange(page.offset)}
+            >
+              <PaginationLink isActive={isActive}>{page.pageNumber}</PaginationLink>
+            </PaginationItem>
+          );
+        })}
         {hasAfter && (
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
         )}
         {offset + limit < count && (
-          <PaginationItem onClick={() => onChange(nextPageOffset)}>
+          <PaginationItem className="g-cursor-pointer" onClick={() => onChange(nextPageOffset)}>
             <PaginationNext />
           </PaginationItem>
         )}
