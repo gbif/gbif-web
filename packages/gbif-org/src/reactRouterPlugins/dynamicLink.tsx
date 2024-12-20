@@ -1,16 +1,17 @@
 import { useContext } from 'react';
-import { Link, Location, To, useLocation } from 'react-router-dom';
+import { Link, LinkProps, Location, To, useLocation } from 'react-router-dom';
 import { PageContext } from './applyPagePaths/plugin';
 import { useGetRedirectUrl } from './enablePages';
 import { useI18n } from './i18n';
 
-type Props<T extends React.ElementType> = React.ComponentProps<T> & {
-  to: To;
+type DynamicLinkProps<T extends React.ElementType> = {
+  to?: To;
   as?: T;
   variables?: object;
   pageId?: string;
   searchParams?: object;
-};
+} & Omit<React.ComponentPropsWithoutRef<T>, 'to'> &
+  Partial<Pick<LinkProps, 'to'>>;
 
 export function DynamicLink<T extends React.ElementType = typeof Link>({
   to = '.',
@@ -19,7 +20,7 @@ export function DynamicLink<T extends React.ElementType = typeof Link>({
   pageId,
   searchParams,
   ...props
-}: Props<T>): React.ReactElement {
+}: DynamicLinkProps<T>): React.ReactElement {
   // Localize the link
   const { localizeLink } = useI18n();
   // const { pages } = useConfig();
