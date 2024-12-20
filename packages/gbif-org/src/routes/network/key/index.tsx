@@ -6,7 +6,7 @@ import { NetworkKeyMetrics } from './metrics';
 import { networkLoader, NetworkPage, NetworkPageSkeleton } from './networkKey';
 import { NetworkKeyPublisher } from './publisher';
 
-const id = 'network-key';
+const id = 'networkKey';
 
 export const networkKeyRoute: RouteObjectWithPlugins = {
   id,

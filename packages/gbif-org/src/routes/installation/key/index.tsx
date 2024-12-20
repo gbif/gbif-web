@@ -3,7 +3,7 @@ import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRoute
 import { InstallationKeyAbout } from './about';
 import { installationLoader, InstallationPage, InstallationPageSkeleton } from './installationKey';
 
-const id = 'installation-key';
+const id = 'installationKey';
 
 export const installationKeyRoute: RouteObjectWithPlugins = {
   id,
