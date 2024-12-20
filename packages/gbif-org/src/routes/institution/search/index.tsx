@@ -5,6 +5,9 @@ import { InstitutionSearchPage } from './institutionSearch';
 export const institutionSearchRoute: RouteObjectWithPlugins = {
   id: 'institutionSearch',
   path: 'institution/search',
+  gbifRedirect: () => {
+    return `/institution/search`;
+  },
   element: (
     <ErrorBoundary>
       <InstitutionSearchPage />

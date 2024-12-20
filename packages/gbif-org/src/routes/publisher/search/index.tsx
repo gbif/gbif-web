@@ -5,6 +5,9 @@ import { PublisherSearchPage } from './publisherSearch';
 export const publisherSearchRoute: RouteObjectWithPlugins = {
   id: 'publisherSearch',
   path: 'publisher/search',
+  gbifRedirect: () => {
+    return `/publisher/search`;
+  },
   element: (
     <ErrorBoundary>
       <PublisherSearchPage />
