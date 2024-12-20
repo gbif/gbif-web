@@ -152,6 +152,9 @@ function Results({
   const searchContext = useSearchContext();
   const config = useConfig();
 
+  const hidePublisher =
+    config.datasetSearch?.availableTableColumns?.includes('publishingOrg') === false;
+
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
 
   const downloadLink = useMemo(() => {
@@ -200,7 +203,9 @@ function Results({
           </CardHeader>
           <ClientSideOnly>
             {datasets &&
-              datasets.results.map((item) => <DatasetResult key={item.key} dataset={item} />)}
+              datasets.results.map((item) => (
+                <DatasetResult key={item.key} dataset={item} hidePublisher={hidePublisher} />
+              ))}
 
             {datasets?.count && datasets?.count > datasets?.limit && (
               <PaginationFooter

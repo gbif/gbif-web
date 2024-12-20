@@ -28,8 +28,10 @@ fragmentManager.register(/* GraphQL */ `
 
 export function DatasetResult({
   dataset,
+  hidePublisher,
 }: {
   dataset: DatasetStubResultFragment | DatasetResultFragment;
+  hidePublisher: boolean;
 }) {
   return (
     <Card className="g-mb-4">
@@ -49,11 +51,12 @@ export function DatasetResult({
                 <FormattedMessage id="phrases.noDescriptionProvided" />
               </p>
             )}
-
-            <p className="g-font-normal g-text-slate-500 g-text-sm g-mt-2">
-              <FormattedMessage id="dataset.publishedBy" />{' '}
-              <span>{dataset.publishingOrganizationTitle}</span>
-            </p>
+            {!hidePublisher && (
+              <p className="g-font-normal g-text-slate-500 g-text-sm g-mt-2">
+                <FormattedMessage id="dataset.publishedBy" />{' '}
+                <span>{dataset.publishingOrganizationTitle}</span>
+              </p>
+            )}
           </div>
           <div className="g-max-w-48 md:g-max-w-64 ">
             <MapThumbnail
