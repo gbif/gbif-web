@@ -3,7 +3,7 @@ import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { TaxonSearchPage } from './taxonSearch';
 
 export const taxonSearchRoute: RouteObjectWithPlugins = {
-  id: 'taxonSearch',
+  id: 'speciesSearch',
   path: 'species/search',
   gbifRedirect: () => {
     return `/species/search`;

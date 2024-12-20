@@ -1,13 +1,17 @@
 import { ErrorMessage } from '@/components/errorMessage';
 import {
-    DeletedMessage,
-    HeaderInfo,
-    HeaderInfoEdit,
-    HeaderInfoMain
+  DeletedMessage,
+  HeaderInfo,
+  HeaderInfoEdit,
+  HeaderInfoMain,
 } from '@/components/headerComponents';
 import {
-    CatalogIcon, FeatureList,
-    GenericFeature, Homepage, Location, OccurrenceIcon
+  CatalogIcon,
+  FeatureList,
+  GenericFeature,
+  Homepage,
+  Location,
+  OccurrenceIcon,
 } from '@/components/highlights';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
@@ -102,6 +106,8 @@ export function InstitutionKey({
                         newItem: (
                           <DynamicLink
                             className="g-me-4"
+                            pageId="institutionKey"
+                            variables={{ key: institution.replacedByInstitution.key }}
                             to={`/institution/${institution.replacedByInstitution.key}`}
                           >
                             {institution.replacedByInstitution.name}

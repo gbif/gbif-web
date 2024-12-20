@@ -4,7 +4,7 @@ And to make it even easier we will log the corrected version to the console.
 That should make it easy to copy it to the source file for the user.
 */
 
-import { Config } from '@/config/config';
+import { Config, PageConfig } from '@/config/config';
 
 export function configAdapter(config: object): Partial<Config> {
   if (config?.version === 3) {
@@ -18,7 +18,14 @@ function convertedConfig(config: object): Partial<Config> {
   let pages;
   if (config?.routes?.enabledRoutes) {
     pages = config?.routes?.enabledRoutes.map((route: string) => {
-      return { id: route };
+      const page: PageConfig = { id: route };
+      const path = config?.routes?.[route]?.route;
+      // remove trailing slash and ending slash from path
+      const cleanedPath = path?.replace(/^\/|\/$/g, '');
+      if (path) {
+        page.path = cleanedPath;
+      }
+      return page;
     });
   }
   const newConfig: Partial<Config> = {
@@ -74,3 +81,16 @@ function convertedConfig(config: object): Partial<Config> {
   console.log(newConfig);
   return newConfig as Config;
 }
+
+/*
+old config example
+we need to automatically generate the page paths from the enabledRoutes + definitions (as in e.g. occurrenceSearch below that defines an path)
+{
+routes: {
+    alwaysUseHrefs: true, // Update - there now is translations. since the site isn't translated we can use push for now. if true, then we will always use hrefs, if false we will use onClick events and push state to the history. I've added this because I just realize that the language picker doesn't work with pushState as the url of the translated site is not updated with the new url
+    enabledRoutes: ['occurrenceSearch', 'collectionSearch', 'collectionKey', 'institutionSearch', 'institutionKey'],
+    occurrenceSearch: {
+      route: '/specimen/search'
+    }
+  },}
+*/

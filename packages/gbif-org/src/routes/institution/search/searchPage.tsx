@@ -1,7 +1,6 @@
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 
 const INSTITUTION_SEARCH_QUERY = `
   query InstitutionSearch($offset: Int) {
@@ -33,7 +32,13 @@ export function InstitutionSearchPage(): React.ReactElement {
           <ul className="g-text-blue-400">
             {data.list.results.map((item) => (
               <li key={item.key}>
-                <DynamicLink to={`/institution/${item.key}`}>{item.title}</DynamicLink>
+                <DynamicLink
+                  to={`/institution/${item.key}`}
+                  pageId="institutionKey"
+                  variables={{ key: item.key }}
+                >
+                  {item.title}
+                </DynamicLink>
               </li>
             ))}
           </ul>

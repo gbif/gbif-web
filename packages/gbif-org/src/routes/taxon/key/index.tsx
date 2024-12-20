@@ -3,7 +3,7 @@ import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRoute
 import TaxonKeyAbout from './About';
 import { TaxonKey, taxonLoader } from './taxonKey';
 
-const id = 'taxonKey';
+const id = 'speciesKey';
 
 export const taxonKeyRoute: RouteObjectWithPlugins = {
   id,

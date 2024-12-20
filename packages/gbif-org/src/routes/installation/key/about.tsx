@@ -1,22 +1,19 @@
 import {
-    ContactActions,
-    ContactAvatar,
-    ContactContent,
-    ContactDescription,
-    ContactEmail,
-    ContactHeader,
-    ContactHeaderContent,
-    ContactTelephone,
-    ContactTitle
+  ContactActions,
+  ContactAvatar,
+  ContactContent,
+  ContactDescription,
+  ContactEmail,
+  ContactHeader,
+  ContactHeaderContent,
+  ContactTelephone,
+  ContactTitle,
 } from '@/components/contact';
 import { PaginationFooter } from '@/components/pagination';
 import Properties, { Property } from '@/components/properties';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import {
-    InstallationDatasetsQuery,
-    InstallationDatasetsQueryVariables
-} from '@/gql/graphql';
+import { InstallationDatasetsQuery, InstallationDatasetsQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { DatasetResult } from '@/routes/dataset/datasetResult';
@@ -82,6 +79,8 @@ export function InstallationKeyAbout() {
                 <Property labelId={'installation.hostedBy'}>
                   <DynamicLink
                     to={`/publisher/${installation.organization.key}`}
+                    pageId="publisherKey"
+                    variables={{ key: installation.organization.key }}
                     className="g-underline"
                   >
                     {installation.organization.title}

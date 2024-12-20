@@ -3,10 +3,10 @@ import { Tag } from '@/components/resultCards';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Card, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import {
-    OccurrenceClusterQuery,
-    OccurrenceClusterQueryVariables,
-    RelatedOccurrenceDetailsFragment,
-    RelatedOccurrenceStubFragment
+  OccurrenceClusterQuery,
+  OccurrenceClusterQueryVariables,
+  RelatedOccurrenceDetailsFragment,
+  RelatedOccurrenceStubFragment,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -109,7 +109,11 @@ function RelatedRecord({
         <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
           <div className="g-flex-grow">
             <h3 className="g-text-base g-font-semibold g-mb-2">
-              <DynamicLink to={`/occurrence/${stub?.gbifId}`}>
+              <DynamicLink
+                to={`/occurrence/${stub?.gbifId}`}
+                pageId="occurrenceKey"
+                variables={{ key: stub?.gbifId }}
+              >
                 <span
                   dangerouslySetInnerHTML={{
                     __html:
@@ -122,13 +126,21 @@ function RelatedRecord({
             </h3>
             <p className="g-font-normal g-text-slate-700 g-text-sm">
               Dataset:{' '}
-              <DynamicLink to={`/dataset/${stub?.datasetKey}`}>
+              <DynamicLink
+                to={`/dataset/${stub?.datasetKey}`}
+                pageId="datasetKey"
+                variables={{ key: stub?.datasetKey }}
+              >
                 {occurrence?.datasetTitle}
               </DynamicLink>
             </p>
             <p className="g-font-normal g-text-slate-700 g-text-sm">
               Publisher:{' '}
-              <DynamicLink to={`/publisher/${stub?.publishingOrgKey}`}>
+              <DynamicLink
+                to={`/publisher/${stub?.publishingOrgKey}`}
+                pageId="publisherKey"
+                variables={{ key: stub?.publishingOrgKey }}
+              >
                 {stub?.publishingOrgName}
               </DynamicLink>
             </p>

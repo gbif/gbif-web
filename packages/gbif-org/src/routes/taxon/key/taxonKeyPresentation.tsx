@@ -1,18 +1,18 @@
 import { ErrorMessage } from '@/components/errorMessage';
 import {
-    DeletedMessage,
-    HeaderInfo,
-    HeaderInfoEdit,
-    HeaderInfoMain
+  DeletedMessage,
+  HeaderInfo,
+  HeaderInfoEdit,
+  HeaderInfoMain,
 } from '@/components/headerComponents';
 import {
-    CatalogIcon,
-    FeatureList,
-    GenericFeature,
-    Homepage,
-    Location,
-    OccurrenceIcon,
-    PeopleIcon
+  CatalogIcon,
+  FeatureList,
+  GenericFeature,
+  Homepage,
+  Location,
+  OccurrenceIcon,
+  PeopleIcon,
 } from '@/components/highlights';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
@@ -138,6 +138,8 @@ export function TaxonKey({
                           <DynamicLink
                             className="g-me-4"
                             to={`/taxon/${taxon.replacedByTaxon.key}`}
+                            pageId="speciesKey"
+                            variables={{ key: taxon.replacedByTaxon.key }}
                           >
                             {taxon.replacedByTaxon.name}
                           </DynamicLink>

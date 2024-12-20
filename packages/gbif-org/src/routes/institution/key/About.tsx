@@ -1,15 +1,15 @@
 import { BulletList } from '@/components/bulletList';
 import { ConceptValue } from '@/components/conceptValue';
 import {
-    ContactActions,
-    ContactAvatar,
-    ContactContent,
-    ContactDescription,
-    ContactEmail,
-    ContactHeader,
-    ContactHeaderContent,
-    ContactTelephone,
-    ContactTitle
+  ContactActions,
+  ContactAvatar,
+  ContactContent,
+  ContactDescription,
+  ContactEmail,
+  ContactHeader,
+  ContactHeaderContent,
+  ContactTelephone,
+  ContactTitle,
 } from '@/components/contact';
 import { useCount } from '@/components/count';
 import { FormattedNumber } from '@/components/dashboard/shared';
@@ -19,9 +19,7 @@ import { Tag } from '@/components/resultCards';
 import { TableOfContents } from '@/components/tableOfContents';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import {
-    Card as CardSmall
-} from '@/components/ui/smallCard';
+import { Card as CardSmall } from '@/components/ui/smallCard';
 import useBelow from '@/hooks/useBelow';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { FeaturedImageContent } from '@/routes/collection/key/collectionKeyPresentation';
@@ -189,6 +187,8 @@ export default function About() {
                               <DynamicLink
                                 className="g-underline"
                                 to={`/collection/${collection.key}`}
+                                pageId="collectionKey"
+                                variables={{ key: collection.key }}
                               >
                                 {collection.name}
                               </DynamicLink>{' '}

@@ -52,7 +52,11 @@ function InstitutionKey({ occurrence }) {
   if (!occurrence?.institution?.key) return null;
   return (
     <BasicField label="occurrenceDetails.institutionGrSciColl">
-      <DynamicLink to={`/institution/${occurrence?.institution?.key}`}>
+      <DynamicLink
+        to={`/institution/${occurrence?.institution?.key}`}
+        pageId="institutionKey"
+        variables={{ key: occurrence?.institution?.key }}
+      >
         {occurrence.institution.name}
       </DynamicLink>
     </BasicField>
@@ -63,7 +67,11 @@ function CollectionKey({ occurrence }) {
   if (!occurrence?.collection?.key) return null;
   return (
     <BasicField label="occurrenceDetails.collectionGrSciColl">
-      <DynamicLink to={`/collection/${occurrence?.collection?.key}`}>
+      <DynamicLink
+        to={`/collection/${occurrence?.collection?.key}`}
+        pageId="collectionKey"
+        variables={{ key: occurrence?.collection?.key }}
+      >
         {occurrence.collection.name}
       </DynamicLink>
     </BasicField>
