@@ -92,6 +92,7 @@ export function PublisherSearch(): React.ReactElement {
   >(PUBLISHER_SEARCH_QUERY, {
     throwAllErrors: true,
     lazyLoad: true,
+    forceLoadingTrueOnMount: true,
   });
 
   useEffect(() => {

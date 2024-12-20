@@ -52,6 +52,7 @@ export function LiteratureListView() {
   >(LITERATURE_SEARCH_QUERY, {
     throwAllErrors: true,
     lazyLoad: true,
+    forceLoadingTrueOnMount: true,
   });
 
   useEffect(() => {

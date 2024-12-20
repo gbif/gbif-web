@@ -53,6 +53,7 @@ export function DatasetSearchPage(): React.ReactElement {
     paramsToRemove: ['offset'],
   });
   const config = useConfig();
+
   return (
     <>
       <FormattedMessage id="catalogues.datasets" defaultMessage="Datasets">
@@ -62,6 +63,7 @@ export function DatasetSearchPage(): React.ReactElement {
           </Helmet>
         )}
       </FormattedMessage>
+
       <SearchContextProvider searchContext={config.datasetSearch}>
         <FilterProvider filter={filter} onChange={setFilter}>
           <DatasetSearch />
@@ -85,6 +87,7 @@ export function DatasetSearch(): React.ReactElement {
     {
       throwAllErrors: true,
       lazyLoad: true,
+      forceLoadingTrueOnMount: true,
     }
   );
 

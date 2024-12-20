@@ -49,6 +49,7 @@ export function CollectionSearchPage(): React.ReactElement {
     paramsToRemove: ['offset'],
   });
   const config = useConfig();
+
   return (
     <>
       <FormattedMessage id="catalogues.collections" defaultMessage="Collections">
@@ -82,6 +83,7 @@ export function CollectionSearch(): React.ReactElement {
   >(COLLECTION_SEARCH_QUERY, {
     throwAllErrors: true,
     lazyLoad: true,
+    forceLoadingTrueOnMount: true,
   });
 
   useEffect(() => {

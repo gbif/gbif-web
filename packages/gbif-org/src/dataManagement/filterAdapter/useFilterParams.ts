@@ -95,7 +95,7 @@ function useQueryParams({ observedParams }: { observedParams: string[] }) {
       const existingQuery = parseParams(searchParams, true);
       const mergedQuery = { ...existingQuery, ...nextQuery };
       const stringParams = asStringParams(mergedQuery);
-      setSearchParams(stringParams);
+      setSearchParams(stringParams, { preventScrollReset: true });
     },
     [setSearchParams, observedParams]
   );

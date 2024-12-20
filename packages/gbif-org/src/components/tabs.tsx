@@ -1,8 +1,8 @@
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu';
 import { DynamicLink, useI18n } from '@/reactRouterPlugins';
 import { debounce } from '@/utils/debounce';
@@ -111,6 +111,7 @@ export function Tabs({ links, className, disableAutoDetectActive = false }: Prop
           {links.slice(visibleTabCount).map(({ to, children }) => (
             <DropdownMenuItem key={to2Key(to)}>
               <DynamicLink
+                preventScrollReset
                 onClick={() => setIsDropdownOpen(false)}
                 to={to}
                 className="g-w-full g-justify-center"

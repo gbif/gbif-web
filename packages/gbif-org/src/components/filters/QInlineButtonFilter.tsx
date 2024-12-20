@@ -48,7 +48,7 @@ function QFilter({
 
   useEffect(() => {
     if (!isInputHidden && inputRef.current) {
-      inputRef.current.focus();
+      inputRef.current.focus({ preventScroll: true });
     }
   }, [isInputHidden]);
 

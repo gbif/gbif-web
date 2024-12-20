@@ -20,6 +20,10 @@ type Options<TVariabels> = {
     concurrent?: number;
     interval?: number;
   };
+  // Some pages use lazyLoad for more fine-grained control over when the query is executed, but still executes the query immediately.
+  // This puts the page in a state where it is not loading, but also does not have any data. This can mess with the scroll restoration, as we can't scroll to a point that does not exist.
+  // Use this option to force a loading state from the beginning
+  forceLoadingTrueOnMount?: boolean;
 };
 
 const defaultOptions: Options<unknown> = {
@@ -34,6 +38,7 @@ const defaultOptions: Options<unknown> = {
     concurrent: 1,
     interval: 0,
   },
+  forceLoadingTrueOnMount: false,
 };
 
 const queues: Record<string, Queue> = {};
@@ -47,7 +52,7 @@ export function useQuery<TResult, TVariabels>(
   const isMounted = useRef(false);
   const randomTokenRef = useRef(getRandomToken());
   const [data, setData] = React.useState<TResult | undefined>();
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(options.forceLoadingTrueOnMount ?? false);
   const [error, setError] = React.useState<Error | undefined>();
   const cancelRequestRef = useRef<(reason: string) => void>(() => () => {});
   const config = useConfig();
