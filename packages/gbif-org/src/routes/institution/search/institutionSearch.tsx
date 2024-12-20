@@ -6,10 +6,10 @@ import { NoRecords } from '@/components/noDataMessages';
 import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
 } from '@/components/ui/accordion';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -53,11 +53,17 @@ export function InstitutionSearchPage(): React.ReactElement {
     paramsToRemove: ['offset'],
   });
   const config = useConfig();
+
   return (
     <>
-      <Helmet>
-        <title>Institution search</title>
-      </Helmet>
+      <FormattedMessage id="catalogues.institutions" defaultMessage="Institutions">
+        {(title) => (
+          <Helmet>
+            <title>{title}</title>
+          </Helmet>
+        )}
+      </FormattedMessage>
+
       <SearchContextProvider searchContext={config.institutionSearch}>
         <FilterProvider filter={filter} onChange={setFilter}>
           <InstitutionSearch />
@@ -129,11 +135,11 @@ export function InstitutionSearch(): React.ReactElement {
   return (
     <>
       <DataHeader
-        title="Institutions"
+        title={<FormattedMessage id="catalogues.institutions" defaultMessage="Institutions" />}
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
-      ></DataHeader>
+      />
 
       <section className="">
         <FilterBar>

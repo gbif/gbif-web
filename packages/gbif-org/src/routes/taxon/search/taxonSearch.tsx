@@ -31,9 +31,14 @@ export function TaxonSearchPage(): React.ReactElement {
 
   return (
     <>
-      <Helmet>
-        <title>Taxon search</title>
-      </Helmet>
+      <FormattedMessage id="catalogues.species" defaultMessage="Taxon">
+        {(title) => (
+          <Helmet>
+            <title>{title}</title>
+          </Helmet>
+        )}
+      </FormattedMessage>
+
       <SearchContextProvider searchContext={config.taxonSearch}>
         <ClientSideOnly>
           <FilterProvider filter={filter} onChange={setFilter}>
@@ -69,7 +74,7 @@ export function TaxonSearchPageInner(): React.ReactElement {
     <>
       <EntityDrawer />
       <DataHeader
-        title="Taxonomy"
+        title={<FormattedMessage id="catalogues.species" defaultMessage="Taxon" />}
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}

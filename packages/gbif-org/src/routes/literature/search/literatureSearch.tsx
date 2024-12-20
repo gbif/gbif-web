@@ -5,10 +5,10 @@ import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
 import { HelpText } from '@/components/helpText';
 import { Tabs } from '@/components/tabs';
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Card } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
@@ -33,9 +33,14 @@ export function LiteratureSearchPage(): React.ReactElement {
   const config = useConfig();
   return (
     <>
-      <Helmet>
-        <title>Literature search</title>
-      </Helmet>
+      <FormattedMessage id="catalogues.literature" defaultMessage="Literature">
+        {(title) => (
+          <Helmet>
+            <title>{title}</title>
+          </Helmet>
+        )}
+      </FormattedMessage>
+
       <SearchContextProvider searchContext={config.literatureSearch}>
         <FilterProvider filter={filter} onChange={setFilter}>
           <LiteratureSearch />
@@ -61,7 +66,7 @@ export function LiteratureSearch(): React.ReactElement {
   return (
     <>
       <DataHeader
-        title="Literature"
+        title={<FormattedMessage id="catalogues.literature" defaultMessage="Literature" />}
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}

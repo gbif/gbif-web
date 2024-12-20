@@ -6,10 +6,10 @@ import { NoRecords } from '@/components/noDataMessages';
 import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
 } from '@/components/ui/accordion';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -51,9 +51,14 @@ export function CollectionSearchPage(): React.ReactElement {
   const config = useConfig();
   return (
     <>
-      <Helmet>
-        <title>Collection search</title>
-      </Helmet>
+      <FormattedMessage id="catalogues.collections" defaultMessage="Collections">
+        {(title) => (
+          <Helmet>
+            <title>{title}</title>
+          </Helmet>
+        )}
+      </FormattedMessage>
+
       <SearchContextProvider searchContext={config.collectionSearch}>
         <FilterProvider filter={filter} onChange={setFilter}>
           <CollectionSearch />
@@ -99,11 +104,11 @@ export function CollectionSearch(): React.ReactElement {
   return (
     <>
       <DataHeader
-        title="Collections"
+        title={<FormattedMessage id="catalogues.collections" defaultMessage="Collections" />}
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
-      ></DataHeader>
+      />
 
       <section className="">
         <FilterBar>

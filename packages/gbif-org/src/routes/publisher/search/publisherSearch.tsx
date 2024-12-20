@@ -11,10 +11,10 @@ import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Tabs } from '@/components/tabs';
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
 } from '@/components/ui/accordion';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -122,11 +122,16 @@ export function PublisherSearch(): React.ReactElement {
   const publishers = data?.list;
   return (
     <>
-      <Helmet>
-        <title>Publisher search</title>
-      </Helmet>
+      <FormattedMessage id="catalogues.publishers" defaultMessage="Publishers">
+        {(title) => (
+          <Helmet>
+            <title>{title}</title>
+          </Helmet>
+        )}
+      </FormattedMessage>
+
       <DataHeader
-        title="Publishers"
+        title={<FormattedMessage id="catalogues.publishers" defaultMessage="Publishers" />}
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
@@ -136,12 +141,12 @@ export function PublisherSearch(): React.ReactElement {
           links={[
             {
               to: '/publisher/search',
-              children: 'List',
+              children: <FormattedMessage id="search.tabs.list" defaultMessage="List" />,
               className: tabClassName,
             },
             {
               to: '/publisher/search/map',
-              children: 'Map',
+              children: <FormattedMessage id="search.tabs.map" defaultMessage="Map" />,
               className: tabClassName,
             },
           ]}

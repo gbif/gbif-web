@@ -24,10 +24,6 @@ export function InstitutionSearchPage(): React.ReactElement {
 
   return (
     <>
-      <Helmet>
-        <title>Institution search</title>
-      </Helmet>
-
       <section className="g-m-4">
         <h1 className="g-text-2xl g-mb-2 g-font-bold">
           This page is a crude stub for search. For now it serves as a placeholder and easy access

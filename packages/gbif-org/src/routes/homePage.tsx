@@ -5,7 +5,6 @@ import { HomePageQuery, HomePageQueryVariables } from '@/gql/graphql';
 import { DynamicLink, LoaderArgs, RouteObjectWithPlugins, useI18n } from '@/reactRouterPlugins';
 import { interopDefault } from '@/utils/interopDefault';
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useLoaderData } from 'react-router-dom';
 import _useLocalStorage from 'use-local-storage';
 import { ArticleTextContainer } from './resource/key/components/articleTextContainer';
@@ -90,9 +89,6 @@ function HomePage(): React.ReactElement {
 
   return (
     <ErrorBoundary>
-      <Helmet>
-        <title>Home</title>
-      </Helmet>
       <main className="">
         {/* A background image with title and a search bar */}
         <section

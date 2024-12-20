@@ -1,15 +1,16 @@
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
 import React from 'react';
 import { MdApps, MdCode, MdInfo } from 'react-icons/md';
+import { FormattedMessage } from 'react-intl';
 
 export function DataHeader({
   children,
@@ -19,7 +20,7 @@ export function DataHeader({
   hasBorder,
 }: {
   children?: React.ReactNode;
-  title?: string;
+  title?: React.ReactNode;
   hasBorder?: boolean;
   aboutContent?: React.ReactElement;
   apiContent?: React.ReactElement;
@@ -86,27 +87,41 @@ function CatalogSelector({ title }: { title: React.ReactNode }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem asChild>
-            <DynamicLink to="/occurrence/search">Occurrences</DynamicLink>
+            <DynamicLink to="/occurrence/search">
+              <FormattedMessage id="catalogues.occurrences" />
+            </DynamicLink>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <DynamicLink to="/dataset/search">Datasets</DynamicLink>
+            <DynamicLink to="/dataset/search">
+              <FormattedMessage id="catalogues.datasets" />
+            </DynamicLink>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <DynamicLink to="/publisher/search">Publishers</DynamicLink>
+            <DynamicLink to="/publisher/search">
+              <FormattedMessage id="catalogues.publishers" />
+            </DynamicLink>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <DynamicLink to="/species/search">Taxonomy</DynamicLink>
+            <DynamicLink to="/species/search">
+              <FormattedMessage id="catalogues.species" />
+            </DynamicLink>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
-            <DynamicLink to="/institution/search">Institutions</DynamicLink>
+            <DynamicLink to="/institution/search">
+              <FormattedMessage id="catalogues.institutions" />
+            </DynamicLink>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <DynamicLink to="/collection/search">Collections</DynamicLink>
+            <DynamicLink to="/collection/search">
+              <FormattedMessage id="catalogues.collections" />
+            </DynamicLink>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
-            <DynamicLink to="/literature/search">Literature</DynamicLink>
+            <DynamicLink to="/literature/search">
+              <FormattedMessage id="catalogues.literature" />
+            </DynamicLink>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

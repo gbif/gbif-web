@@ -55,9 +55,13 @@ export function DatasetSearchPage(): React.ReactElement {
   const config = useConfig();
   return (
     <>
-      <Helmet>
-        <title>Dataset search</title>
-      </Helmet>
+      <FormattedMessage id="catalogues.datasets" defaultMessage="Datasets">
+        {(title) => (
+          <Helmet>
+            <title>{title}</title>
+          </Helmet>
+        )}
+      </FormattedMessage>
       <SearchContextProvider searchContext={config.datasetSearch}>
         <FilterProvider filter={filter} onChange={setFilter}>
           <DatasetSearch />
@@ -104,7 +108,7 @@ export function DatasetSearch(): React.ReactElement {
   return (
     <>
       <DataHeader
-        title="Datasets"
+        title={<FormattedMessage id="catalogues.datasets" defaultMessage="Datasets" />}
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
@@ -114,7 +118,7 @@ export function DatasetSearch(): React.ReactElement {
           links={[
             {
               to: '/dataset/search',
-              children: 'List',
+              children: <FormattedMessage id="search.tabs.list" defaultMessage="List" />,
               className: tabClassName,
             },
           ]}

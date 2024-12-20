@@ -36,9 +36,14 @@ export function OccurrenceSearchPage(): React.ReactElement {
 
   return (
     <>
-      <Helmet>
-        <title>Occurrence search</title>
-      </Helmet>
+      <FormattedMessage id="occurrence.pageTitle" defaultMessage="Occurrence search">
+        {(title) => (
+          <Helmet>
+            <title>{title}</title>
+          </Helmet>
+        )}
+      </FormattedMessage>
+
       <SearchContextProvider searchContext={config.occurrenceSearch}>
         <FilterProvider filter={filter} onChange={setFilter}>
           <OccurrenceSearchPageInner />
@@ -62,7 +67,7 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
     <>
       <EntityDrawer />
       <DataHeader
-        title="Occurrences"
+        title={<FormattedMessage id="catalogues.occurrences" defaultMessage="Occurrences" />}
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
