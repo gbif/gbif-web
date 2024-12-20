@@ -307,7 +307,12 @@ function PopupContent({ features }: { features: { key: string; name: string }[] 
     <ul className="g-list-disc g-px-2">
       {features.map((x) => (
         <li key={x.key}>
-          <DynamicLink className="g-underline" to={`/institution/${x.key}`}>
+          <DynamicLink
+            className="g-underline"
+            to={`/institution/${x.key}`}
+            pageId="institutionKey"
+            variables={{ key: x.key }}
+          >
             {x.name}
           </DynamicLink>
         </li>

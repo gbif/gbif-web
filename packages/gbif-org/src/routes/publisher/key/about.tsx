@@ -1,21 +1,23 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import {
-    ContactActions,
-    ContactAvatar,
-    ContactContent,
-    ContactDescription,
-    ContactEmail,
-    ContactHeader,
-    ContactHeaderContent,
-    ContactTelephone,
-    ContactTitle
+  ContactActions,
+  ContactAvatar,
+  ContactContent,
+  ContactDescription,
+  ContactEmail,
+  ContactHeader,
+  ContactHeaderContent,
+  ContactTelephone,
+  ContactTitle,
 } from '@/components/contact';
 import EmptyValue from '@/components/emptyValue';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import {
-    Card as CardSmall, CardContent as CardContentSmall,
-    CardHeader as CardHeaderSmall, CardTitle as CardTitleSmall
+  CardContent as CardContentSmall,
+  CardHeader as CardHeaderSmall,
+  Card as CardSmall,
+  CardTitle as CardTitleSmall,
 } from '@/components/ui/smallCard';
 import useBelow from '@/hooks/useBelow';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -170,7 +172,13 @@ export function PublisherKeyAbout() {
               <CardTitleSmall className="g-mb-2">
                 Installations:{' '}
                 {publisher?.installation.results.map((x) => (
-                  <DynamicLink to={`/installation/${x.key}`}>{x.title}</DynamicLink>
+                  <DynamicLink
+                    to={`/installation/${x.key}`}
+                    pageId="installationKey"
+                    variables={{ key: x.key }}
+                  >
+                    {x.title}
+                  </DynamicLink>
                 ))}
               </CardTitleSmall>
               <div className="g-text-sm g-text-slate-600">
@@ -187,7 +195,13 @@ export function PublisherKeyAbout() {
                 <ul>
                   {publisher?.installation?.results.map((x) => (
                     <li key={x.key}>
-                      <DynamicLink to={`/installation/${x.key}`}>{x.title}</DynamicLink>
+                      <DynamicLink
+                        to={`/installation/${x.key}`}
+                        pageId="installationKey"
+                        variables={{ key: x.key }}
+                      >
+                        {x.title}
+                      </DynamicLink>
                     </li>
                   ))}
                 </ul>

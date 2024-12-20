@@ -1,13 +1,18 @@
 import { ErrorMessage } from '@/components/errorMessage';
 import {
-    DeletedMessage,
-    HeaderInfo,
-    HeaderInfoEdit,
-    HeaderInfoMain
+  DeletedMessage,
+  HeaderInfo,
+  HeaderInfoEdit,
+  HeaderInfoMain,
 } from '@/components/headerComponents';
 import {
-    CatalogIcon, FeatureList,
-    GenericFeature, Homepage, Location, OccurrenceIcon, PeopleIcon
+  CatalogIcon,
+  FeatureList,
+  GenericFeature,
+  Homepage,
+  Location,
+  OccurrenceIcon,
+  PeopleIcon,
 } from '@/components/highlights';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
@@ -115,6 +120,8 @@ export function CollectionKey({
                           <DynamicLink
                             className="hover:g-underline g-text-primary-500"
                             to={`/institution/${collection.institution.key}`}
+                            pageId="institutionKey"
+                            variables={{ key: collection.institution.key }}
                           >
                             {collection.institution.name}
                           </DynamicLink>
@@ -134,6 +141,8 @@ export function CollectionKey({
                           <DynamicLink
                             className="g-me-4"
                             to={`/collection/${collection.replacedByCollection.key}`}
+                            pageId="collectionKey"
+                            variables={{ key: collection.replacedByCollection.key }}
                           >
                             {collection.replacedByCollection.name}
                           </DynamicLink>

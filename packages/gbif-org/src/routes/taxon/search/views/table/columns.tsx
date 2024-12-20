@@ -94,6 +94,8 @@ export function useTaxonColumns({
                 <DynamicLink
                   className="g-underline g-pointer-events-auto"
                   to={`/species/${row.original.acceptedKey}`}
+                  pageId="speciesKey"
+                  variables={{ key: row.original.acceptedKey }}
                 >
                   {row.original.accepted}
                 </DynamicLink>

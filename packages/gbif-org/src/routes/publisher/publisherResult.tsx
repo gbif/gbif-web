@@ -30,7 +30,13 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
         <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
           <div className="g-flex-grow">
             <h3 className="g-text-base g-font-semibold g-mb-1">
-              <DynamicLink to={`/publisher/${publisher.key}`}>{publisher.title}</DynamicLink>
+              <DynamicLink
+                to={`/publisher/${publisher.key}`}
+                pageId="publisherKey"
+                variables={{ key: publisher.key }}
+              >
+                {publisher.title}
+              </DynamicLink>
             </h3>
             {publisher.created && (
               <p className="g-mb-4 g-text-sm g-text-slate-500">

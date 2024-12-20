@@ -69,6 +69,8 @@ function DatasetResult({
       <DynamicLink
         className="g-z-10 g-absolute g-top-0 g-bottom-0 g-left-0 g-right-0"
         to={`/dataset/${item.dataset.key}`}
+        pageId="datasetKey"
+        variables={{ key: item.dataset.key }}
         // onClick={(event) => {
         //   if (
         //     event.ctrlKey ||

@@ -14,8 +14,10 @@ import { Progress } from '@/components/ui/progress';
 import { CardContent as CardContentSmall } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
 import {
-    DatasetInsightsQuery,
-    DatasetInsightsQueryVariables, DatasetQuery, PredicateType
+  DatasetInsightsQuery,
+  DatasetInsightsQueryVariables,
+  DatasetQuery,
+  PredicateType,
 } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
 import useQuery from '@/hooks/useQuery';
@@ -27,7 +29,11 @@ import formatAsPercentage from '@/utils/formatAsPercentage';
 import { useEffect, useState } from 'react';
 import { GiDna1 } from 'react-icons/gi';
 import {
-    MdFormatQuote, MdGridOn, MdInfoOutline, MdPinDrop as OccurrenceIcon, MdPlaylistAddCheck
+  MdFormatQuote,
+  MdGridOn,
+  MdInfoOutline,
+  MdPlaylistAddCheck,
+  MdPinDrop as OccurrenceIcon,
 } from 'react-icons/md';
 import { TiPipette as SamplingIcon } from 'react-icons/ti';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -528,7 +534,10 @@ export function DatasetKeyAbout() {
                       </div>
                     </div>
                     <div className="g-flex-auto g-mt-0.5 g-mb-2">
-                      <DynamicLink to={`/occurrence/search?datasetKey=${dataset.key}`}>
+                      <DynamicLink
+                        pageId="occurrenceSearch"
+                        searchParams={{ datasetKey: dataset.key }}
+                      >
                         <h5 className="g-font-bold">
                           <FormattedMessage id="counts.nOccurrences" values={{ total }} />
                         </h5>
@@ -575,6 +584,8 @@ export function DatasetKeyAbout() {
                     </div>
                     <div className="g-flex-auto g-mt-0.5 g-mb-2">
                       <DynamicLink
+                        pageId="occurrenceSearch"
+                        searchParams={{ datasetKey: dataset.key, isSequenced: true }}
                         to={`/occurrence/search?datasetKey=${dataset.key}&isSequenced=true`}
                       >
                         <h5 className="g-font-bold">

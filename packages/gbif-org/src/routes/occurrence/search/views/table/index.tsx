@@ -122,7 +122,8 @@ export type SingleOccurrenceSearchResult = ExtractPaginatedResult<
   OccurrenceSearchQuery['occurrenceSearch']
 >;
 
-const createRowLink = (row: Row<SingleOccurrenceSearchResult>) => `/occurrence/${row.original.key}`;
+const createRowLink = (row: Row<SingleOccurrenceSearchResult>) =>
+  `/occurrence/search?entity=${row.original.key}`;
 
 export function OccurrenceTable() {
   const searchContext = useSearchContext();

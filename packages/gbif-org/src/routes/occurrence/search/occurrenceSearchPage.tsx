@@ -33,7 +33,6 @@ export function OccurrenceSearchPage(): React.ReactElement {
     paramsToRemove: ['offset', 'from'],
   });
   const config = useConfig();
-
   return (
     <>
       <FormattedMessage id="occurrence.pageTitle" defaultMessage="Occurrence search">
@@ -170,6 +169,7 @@ function OccurrenceViewTabs({
 }) {
   const { getParams } = useUpdateViewParams(['from', 'sort', 'limit', 'offset']); // Removes 'from' and 'sort'
 
+  console.log(tabs);
   return (
     <Tabs
       disableAutoDetectActive

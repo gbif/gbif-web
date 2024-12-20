@@ -360,6 +360,8 @@ export function DatasetPage() {
               <DynamicLink
                 className="hover:g-underline g-text-primary-500"
                 to={`/publisher/${dataset.publishingOrganizationKey}`}
+                pageId="publisherKey"
+                variables={{ key: dataset.publishingOrganizationKey }}
               >
                 {dataset?.publishingOrganizationTitle}
               </DynamicLink>

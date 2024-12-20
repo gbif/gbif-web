@@ -87,39 +87,39 @@ function CatalogSelector({ title }: { title: React.ReactNode }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem asChild>
-            <DynamicLink to="/occurrence/search">
+            <DynamicLink pageId="occurrenceSearch">
               <FormattedMessage id="catalogues.occurrences" />
             </DynamicLink>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <DynamicLink to="/dataset/search">
+            <DynamicLink pageId="datasetSearch">
               <FormattedMessage id="catalogues.datasets" />
             </DynamicLink>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <DynamicLink to="/publisher/search">
+            <DynamicLink pageId="publisherSearch">
               <FormattedMessage id="catalogues.publishers" />
             </DynamicLink>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <DynamicLink to="/species/search">
+            <DynamicLink pageId="speciesSearch">
               <FormattedMessage id="catalogues.species" />
             </DynamicLink>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
-            <DynamicLink to="/institution/search">
+            <DynamicLink pageId="institutionSearch">
               <FormattedMessage id="catalogues.institutions" />
             </DynamicLink>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <DynamicLink to="/collection/search">
+            <DynamicLink pageId="collectionSearch">
               <FormattedMessage id="catalogues.collections" />
             </DynamicLink>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
-            <DynamicLink to="/literature/search">
+            <DynamicLink pageId="literatureSearch">
               <FormattedMessage id="catalogues.literature" />
             </DynamicLink>
           </DropdownMenuItem>

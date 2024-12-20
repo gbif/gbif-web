@@ -50,7 +50,13 @@ export function CollectionResult({ collection }: { collection: CollectionResultF
             <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
               <div className="g-flex-grow">
                 <h3 className="g-text-base g-font-semibold g-mb-2">
-                  <DynamicLink to={`/collection/${collection.key}`}>{collection.name}</DynamicLink>
+                  <DynamicLink
+                    to={`/collection/${collection.key}`}
+                    pageId="collectionKey"
+                    variables={{ key: collection.key }}
+                  >
+                    {collection.name}
+                  </DynamicLink>
                   {!collection.active && (
                     <span className="g-align-middle g-bg-red-100 g-text-red-800 g-text-sm g-font-medium g-ms-2 g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300">
                       <FormattedMessage id="grscicoll.inactive" />
@@ -73,6 +79,8 @@ export function CollectionResult({ collection }: { collection: CollectionResultF
                       institution: (
                         <DynamicLink
                           className="g-underline"
+                          pageId="institutionKey"
+                          variables={{ key: collection.institutionKey }}
                           to={`/institution/${collection.institutionKey}`}
                         >
                           {collection.institutionName}
@@ -84,6 +92,8 @@ export function CollectionResult({ collection }: { collection: CollectionResultF
               </div>
               <DynamicLink
                 to={`/collection/${collection.key}`}
+                pageId="collectionKey"
+                variables={{ key: collection.key }}
                 className="g-flex-none g-max-w-48 md:g-max-w-64 "
               >
                 {collection.featuredImageUrl && (

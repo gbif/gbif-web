@@ -24,7 +24,7 @@ export function Images({ dataset, className, images = [], ...props }) {
       </div>
 
       <Button asChild>
-        <DynamicLink to={`/dataset/${dataset.key}/occurrences?view=GALLERY`}>
+        <DynamicLink to={`./occurrences?view=GALLERY`}>
           <SimpleTooltip title={<span>Records with images</span>} placement="auto">
             <div className="g-flex g-place-items-center">
               <MdImage style={{ marginRight: 8 }} />{' '}

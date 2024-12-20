@@ -79,24 +79,28 @@ export const gbifConfig: Config = {
   //     },
   //   },
   // },
-  pages: [
-    {
-      id: 'home',
-    },
-    {
-      id: 'occurrenceSearch',
-      path: 'specimen/search',
-    },
-    {
-      id: 'datasetSearch',
-      path: 'test/dataset/whatever',
-    },
-    {
-      id: 'datasetKey',
-      path: 'test/dataset/:key',
-      isCustom: false,
-    },
-  ],
+  // pages: [
+  //   {
+  //     id: 'home',
+  //   },
+  //   {
+  //     id: 'occurrenceSearch',
+  //     path: 'specimen/search',
+  //   },
+  //   {
+  //     id: 'occurrenceKey',
+  //     path: 'specimen/:key',
+  //   },
+  //   {
+  //     id: 'datasetSearch',
+  //     path: 'test/dataset/whatever',
+  //   },
+  //   {
+  //     id: 'datasetKey',
+  //     path: 'test/dataset/:key',
+  //     isCustom: false,
+  //   },
+  // ],
   defaultTitle: 'GBIF',
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: languagesOptions,
@@ -163,7 +167,7 @@ export const gbifConfig: Config = {
       'recordedBy',
     ],
     tabs: ['table', 'media', 'map', 'clusters', 'datasets', 'dashboard', 'download'],
-    defaultTab: 'clusters',
+    defaultTab: 'table',
     defaultEnabledTableColumns: ['scientificName', 'features', 'catalogNumber'],
     // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
     // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],

@@ -10,30 +10,35 @@ import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { BasicField, EnumField, HtmlField, PlainTextField } from '../properties';
 import {
-    AcceptedScientificName,
-    AgentIds, Collection, DynamicProperties, Institution, ScientificName
+  AcceptedScientificName,
+  AgentIds,
+  Collection,
+  DynamicProperties,
+  Institution,
+  ScientificName,
 } from './customValues';
 import {
-    Amplification, ChronometricAge,
-    Cloning,
-    DNADerivedData,
-    EolReference,
-    ExtendedMeasurementOrFact,
-    GelImage,
-    GermplasmAccession,
-    GermplasmMeasurementScore,
-    GermplasmMeasurementTrait,
-    GermplasmMeasurementTrial,
-    IdentificationHistory,
-    Identifier,
-    Loan,
-    MaterialSampleExt,
-    MeasurementOrFact,
-    Permit,
-    Preparation,
-    Preservation,
-    Reference,
-    ResourceRelationship
+  Amplification,
+  ChronometricAge,
+  Cloning,
+  DNADerivedData,
+  EolReference,
+  ExtendedMeasurementOrFact,
+  GelImage,
+  GermplasmAccession,
+  GermplasmMeasurementScore,
+  GermplasmMeasurementTrait,
+  GermplasmMeasurementTrial,
+  IdentificationHistory,
+  Identifier,
+  Loan,
+  MaterialSampleExt,
+  MeasurementOrFact,
+  Permit,
+  Preparation,
+  Preservation,
+  Reference,
+  ResourceRelationship,
 } from './extensions';
 import { Media } from './media';
 
@@ -167,13 +172,21 @@ function Summary({
       )}
 
       <BasicField label="occurrenceDetails.dataset">
-        <DynamicLink to={`/dataset/${occurrence.datasetKey}`}>
+        <DynamicLink
+          to={`/dataset/${occurrence.datasetKey}`}
+          pageId="datasetKey"
+          variables={{ key: occurrence.datasetKey }}
+        >
           {occurrence.datasetTitle}
         </DynamicLink>
       </BasicField>
 
       <BasicField label="occurrenceFieldNames.publisher">
-        <DynamicLink to={`/publisher/${occurrence.publishingOrgKey}`}>
+        <DynamicLink
+          to={`/publisher/${occurrence.publishingOrgKey}`}
+          pageId="publisherKey"
+          variables={{ key: occurrence.publishingOrgKey }}
+        >
           {occurrence.publisherTitle}
         </DynamicLink>
       </BasicField>
@@ -203,7 +216,11 @@ function Provenance({
       <div className="g-py-4 g-px-4 md:g-px-8">
         This record is part of the dataset{' '}
         <span className="g-underline">
-          <DynamicLink to={`/dataset/${occurrence.datasetKey}`}>
+          <DynamicLink
+            to={`/dataset/${occurrence.datasetKey}`}
+            pageId="datasetKey"
+            variables={{ key: occurrence.datasetKey }}
+          >
             {occurrence.datasetTitle}
           </DynamicLink>
         </span>
@@ -824,13 +841,21 @@ function Debug({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
             </BulletList>
           </BasicField>
           <BasicField label="occurrenceDetails.dataset">
-            <DynamicLink to={`/dataset/${occurrence.datasetKey}`}>
+            <DynamicLink
+              to={`/dataset/${occurrence.datasetKey}`}
+              pageId="datasetKey"
+              variables={{ key: occurrence.datasetKey }}
+            >
               {occurrence.datasetTitle}
             </DynamicLink>
           </BasicField>
 
           <BasicField label="occurrenceFieldNames.publisher">
-            <DynamicLink to={`/publisher/${occurrence.publishingOrgKey}`}>
+            <DynamicLink
+              to={`/publisher/${occurrence.publishingOrgKey}`}
+              pageId="publisherKey"
+              variables={{ key: occurrence.publishingOrgKey }}
+            >
               {occurrence.publisherTitle}
             </DynamicLink>
           </BasicField>

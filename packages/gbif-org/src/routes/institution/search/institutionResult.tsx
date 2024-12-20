@@ -35,7 +35,11 @@ export function InstitutionResult({ institution }: { institution: InstitutionRes
             <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
               <div className="g-flex-grow">
                 <h3 className="g-text-base g-font-semibold g-mb-2">
-                  <DynamicLink to={`/institution/${institution.key}`}>
+                  <DynamicLink
+                    to={`/institution/${institution.key}`}
+                    pageId="institutionKey"
+                    variables={{ key: institution.key }}
+                  >
                     {institution.name}
                   </DynamicLink>
                   {!institution.active && (
@@ -74,6 +78,8 @@ export function InstitutionResult({ institution }: { institution: InstitutionRes
               </div>
               <DynamicLink
                 to={`/institution/${institution.key}`}
+                pageId="institutionKey"
+                variables={{ key: institution.key }}
                 className="g-flex-none g-max-w-48 md:g-max-w-64 "
               >
                 {institution.featuredImageUrl && (
