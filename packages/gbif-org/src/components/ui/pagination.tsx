@@ -62,7 +62,7 @@ const PaginationPrevious = ({
     {...props}
   >
     <ChevronLeftIcon className="g-h-4 g-w-4" />
-    <span>
+    <span className="g-hidden sm:g-inline">
       <FormattedMessage id="pagination.previous" />
     </span>
   </PaginationLink>
@@ -76,7 +76,7 @@ const PaginationNext = ({ className, ...props }: React.ComponentProps<typeof Pag
     className={cn('g-gap-1 g-pr-2.5', className)}
     {...props}
   >
-    <span>
+    <span className="g-hidden sm:g-inline">
       <FormattedMessage id="pagination.next" />
     </span>
     <ChevronRightIcon className="g-h-4 g-w-4" />
@@ -97,12 +97,11 @@ const PaginationEllipsis = ({ className, ...props }: React.ComponentProps<'span'
 PaginationEllipsis.displayName = 'PaginationEllipsis';
 
 export {
-    Pagination,
-    PaginationContent,
-    PaginationLink,
-    PaginationItem,
-    PaginationPrevious,
-    PaginationNext,
-    PaginationEllipsis,
+  Pagination,
+  PaginationContent,
+  PaginationLink,
+  PaginationItem,
+  PaginationPrevious,
+  PaginationNext,
+  PaginationEllipsis,
 };
-

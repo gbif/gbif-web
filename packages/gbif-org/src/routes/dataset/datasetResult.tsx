@@ -33,14 +33,16 @@ export function DatasetResult({
 }) {
   return (
     <Card className="g-mb-4">
-      <article className="g-p-8">
+      <article className="g-p-4 lg:g-p-8">
         <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
           <div className="g-flex-grow">
             <h3 className="g-text-base g-font-semibold g-mb-2">
               <DynamicLink to={`/dataset/${dataset.key}`}>{dataset.title}</DynamicLink>
             </h3>
             {dataset.excerpt && (
-              <p className="g-font-normal g-text-slate-700 g-text-sm">{dataset.excerpt}</p>
+              <p className="g-font-normal g-text-slate-700 g-text-sm g-break-words">
+                {dataset.excerpt}
+              </p>
             )}
             {!dataset.excerpt && (
               <p className="g-font-normal g-text-slate-400 g-text-sm">
@@ -66,7 +68,7 @@ export function DatasetResult({
           <Tag>
             <FormattedMessage id={`dataset.longType.${dataset.type}`} />
           </Tag>
-          <div className="g-flex-grow"></div>
+          <div className="g-flex-grow g-hidden sm:g-block"></div>
           <CountTag
             v1Endpoint="/occurrence/search"
             params={{ datasetKey: dataset.key }}

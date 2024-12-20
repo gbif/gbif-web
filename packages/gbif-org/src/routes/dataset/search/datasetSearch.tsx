@@ -126,7 +126,7 @@ export function DatasetSearch(): React.ReactElement {
           <FilterButtons filters={filters} searchContext={searchContext} />
         </FilterBar>
         <ArticleContainer className="g-bg-slate-100 g-flex">
-          <ArticleTextContainer className="g-flex-auto">
+          <ArticleTextContainer className="g-flex-auto g-w-full">
             <Results loading={loading} datasets={datasets} setOffset={setOffset} />
           </ArticleTextContainer>
         </ArticleContainer>
@@ -177,12 +177,15 @@ function Results({
       )}
       {datasets && datasets.count > 0 && (
         <>
-          <CardHeader id="datasets" className="g-flex-row g-items-center g-justify-between">
+          <CardHeader
+            id="datasets"
+            className="g-flex-col md:g-flex-row g-items-start md:g-items-center g-justify-between"
+          >
             <CardTitle>
               <FormattedMessage id="counts.nDatasets" values={{ total: datasets.count ?? 0 }} />
             </CardTitle>
 
-            <Button size="sm" variant="link" asChild>
+            <Button size="sm" className="g-p-0" variant="link" asChild>
               <a className="g-inline g-cursor-pointer hover:g-underline" href={downloadLink}>
                 <MdDownload size={16} />
                 <span className="g-ml-1">

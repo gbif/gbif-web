@@ -7,6 +7,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
+import useBelow from '@/hooks/useBelow';
 import { cn } from '@/utils/shadcn';
 
 function getPages({
@@ -48,20 +49,20 @@ export function PaginationFooter({
   offset,
   limit = 20,
   count,
-  maxPages = 5,
   onChange,
 }: {
   offset: number;
   limit: number;
   count: number;
-  maxPages?: number;
   onChange: (offset: number) => void;
 }) {
+  const isMobile = useBelow(640 /* sm from tailwind */);
+
   const { pages, currentPage, previousPageOffset, nextPageOffset, hasBefore, hasAfter } = getPages({
     offset,
     limit,
     count,
-    maxPages,
+    maxPages: isMobile ? 3 : 5,
   });
 
   return (
@@ -79,6 +80,7 @@ export function PaginationFooter({
         )}
         {pages.map((page) => {
           const isActive = currentPage === page.pageNumber;
+
           return (
             <PaginationItem
               className={cn({ 'g-cursor-pointer': !isActive, 'g-pointer-events-none': isActive })}
