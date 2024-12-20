@@ -10,6 +10,9 @@
   "collection": "コレクション",
   "collectionGrSciColl": "",
   "recordedAndIdentifiedBy": "",
+  "screenReader": {
+    "title": ""
+  },
   "info": {
     "original": "元の",
     "excluded": "除外",

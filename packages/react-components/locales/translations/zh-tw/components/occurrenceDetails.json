@@ -10,6 +10,9 @@
   "collection": "蒐藏集",
   "collectionGrSciColl": "GrSciColl 蒐藏",
   "recordedAndIdentifiedBy": "紀錄及鑑定",
+  "screenReader": {
+    "title": ""
+  },
   "info": {
     "original": "原始的",
     "excluded": "排除",

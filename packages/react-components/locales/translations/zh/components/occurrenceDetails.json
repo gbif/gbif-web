@@ -10,6 +10,9 @@
   "collection": "馆藏",
   "collectionGrSciColl": "科学馆收藏",
   "recordedAndIdentifiedBy": "记录并识别由",
+  "screenReader": {
+    "title": ""
+  },
   "info": {
     "original": "默认",
     "excluded": "排除",
