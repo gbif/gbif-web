@@ -10,6 +10,9 @@
   "collection": "Коллекция",
   "collectionGrSciColl": "",
   "recordedAndIdentifiedBy": "",
+  "screenReader": {
+    "title": ""
+  },
   "info": {
     "original": "исходный",
     "excluded": "не интерпретировано",
