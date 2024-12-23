@@ -10,7 +10,8 @@
     "download": "Download",
     "clusters": "Related",
     "dashboard": "Dashboard",
-    "sites": ""
+    "sites": "",
+    "list": "List"
   },
   "table": {
     "lockColumn": "Lock column",
