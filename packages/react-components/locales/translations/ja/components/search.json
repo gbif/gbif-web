@@ -10,7 +10,8 @@
     "download": "ダウンロード",
     "clusters": "",
     "dashboard": "",
-    "sites": "GBIFがアノーテーションしたアーカイブ"
+    "sites": "GBIFがアノーテーションしたアーカイブ",
+    "list": ""
   },
   "table": {
     "lockColumn": "",

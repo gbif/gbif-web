@@ -10,7 +10,8 @@
     "download": "Download",
     "clusters": "",
     "dashboard": "",
-    "sites": "GBIF annoteret Arkiv"
+    "sites": "GBIF annoteret Arkiv",
+    "list": ""
   },
   "table": {
     "lockColumn": "",

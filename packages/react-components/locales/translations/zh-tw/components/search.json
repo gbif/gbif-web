@@ -10,7 +10,8 @@
     "download": "下載",
     "clusters": "",
     "dashboard": "統計面板",
-    "sites": "GBIF 註記的存檔"
+    "sites": "GBIF 註記的存檔",
+    "list": ""
   },
   "table": {
     "lockColumn": "鎖定欄位",

@@ -10,7 +10,8 @@
     "download": "Download",
     "clusters": "",
     "dashboard": "",
-    "sites": "Stadt zum Fundort."
+    "sites": "Stadt zum Fundort.",
+    "list": ""
   },
   "table": {
     "lockColumn": "Spalte fixieren",

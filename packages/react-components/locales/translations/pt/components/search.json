@@ -10,7 +10,8 @@
     "download": "Transferir",
     "clusters": "",
     "dashboard": "",
-    "sites": "Uma breve descrição do componente deve ser colocada aqui"
+    "sites": "Uma breve descrição do componente deve ser colocada aqui",
+    "list": ""
   },
   "table": {
     "lockColumn": "",
