@@ -10,7 +10,8 @@
     "download": "Descargar",
     "clusters": "",
     "dashboard": "Panel de control",
-    "sites": "Aquí debe colocarse una breve descripción del componente"
+    "sites": "Aquí debe colocarse una breve descripción del componente",
+    "list": ""
   },
   "table": {
     "lockColumn": "Inmovilizar columna",
