@@ -10,6 +10,9 @@
   "collection": "Colección",
   "collectionGrSciColl": "",
   "recordedAndIdentifiedBy": "",
+  "screenReader": {
+    "title": "Detalles del registro biológico"
+  },
   "info": {
     "original": "original",
     "excluded": "Excluido",

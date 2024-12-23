@@ -10,6 +10,9 @@
   "collection": "Sammlung",
   "collectionGrSciColl": "GrSciColl Sammlung",
   "recordedAndIdentifiedBy": "Sammler/Bestimmer",
+  "screenReader": {
+    "title": ""
+  },
   "info": {
     "original": "Original",
     "excluded": "Ausgeschlossen",

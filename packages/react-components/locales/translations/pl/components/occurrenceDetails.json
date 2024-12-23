@@ -10,6 +10,9 @@
   "collection": "Kolekcja",
   "collectionGrSciColl": "Kolekcja GrSciColl",
   "recordedAndIdentifiedBy": "Stwierdzony i zidentyfikowany przez",
+  "screenReader": {
+    "title": ""
+  },
   "info": {
     "original": "oryginał",
     "excluded": "Wykluczone",
