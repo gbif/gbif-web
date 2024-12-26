@@ -1,1 +1,13 @@
-{}
+{
+  "ACADEMIC_FEDERAL": "Federální akademické pracoviště",
+  "ACADEMIC_FOR_PROFIT": "Zisková akademická činnost",
+  "ACADEMIC_LOCAL": "Místní akademické pracoviště",
+  "ACADEMIC_NON_PROFIT": "Nezisková akademická činnost",
+  "ACADEMIC_STATE": "Akademická půda",
+  "FEDERAL": "Federální",
+  "FOR_PROFIT": "Za účelem zisku",
+  "LOCAL": "Lokální",
+  "NON_PROFIT": "Neziskový",
+  "OTHER": "Ostatní",
+  "STATE": "Stav"
+}
