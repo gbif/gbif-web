@@ -1,1 +1,7 @@
-{}
+{
+  "institutionalGovernance": "Institucionální správa",
+  "type": "Typ instituce",
+  "addCollection": "Přidat sbírku",
+  "disciplines": "Institucionální disciplíny",
+  "numberSpecimens": "Počet exemplářů v instituci"
+}
