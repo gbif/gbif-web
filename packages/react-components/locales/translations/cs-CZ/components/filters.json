@@ -5,7 +5,7 @@
     "description": ""
   },
   "locationId": {
-    "name": "",
+    "name": "ID polohy",
     "count": "",
     "description": ""
   },
@@ -76,7 +76,7 @@
     "description": ""
   },
   "audiences": {
-    "name": "",
+    "name": "Sledovanost",
     "count": "",
     "description": ""
   },
@@ -246,7 +246,7 @@
     "description": ""
   },
   "sampleSizeUnit": {
-    "name": "",
+    "name": "Jednotka velikosti vzorku",
     "count": "",
     "description": ""
   },
@@ -266,7 +266,7 @@
     "description": ""
   },
   "sampleSizeValue": {
-    "name": "",
+    "name": "Hodnota velikosti vzorku",
     "count": "",
     "description": ""
   },
@@ -346,32 +346,32 @@
     "description": ""
   },
   "higherGeography": {
-    "name": "",
+    "name": "Vyšší geografie",
     "count": "",
     "description": ""
   },
   "stateProvince": {
-    "name": "",
+    "name": "Provincie státu",
     "count": "",
     "description": ""
   },
   "eventId": {
-    "name": "",
+    "name": "ID události",
     "count": "",
     "description": ""
   },
   "eventID": {
-    "name": "",
+    "name": "ID události",
     "count": "",
     "description": ""
   },
   "parentEventId": {
-    "name": "",
+    "name": "ID nadřazené události",
     "count": "",
     "description": ""
   },
   "locationID": {
-    "name": "",
+    "name": "ID polohy",
     "count": "",
     "description": ""
   },
@@ -401,7 +401,7 @@
     "description": ""
   },
   "samplingProtocol": {
-    "name": "",
+    "name": "Protokol o odběru vzorků",
     "count": "",
     "description": ""
   },
