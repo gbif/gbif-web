@@ -1,3 +1,6 @@
 {
-    "PUBLISHER": "Vydavatel"
+    "PUBLISHER": "Vydavatel",
+    "HEAD_OF_DELEGATION": "Vedoucí delegace",
+    "NODE_MANAGER": "Správce uzlu",
+    "NODE_STAFF": "Zaměstnanci uzlu"
 }
