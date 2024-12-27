@@ -1,22 +1,22 @@
 {
   "searchTitle": "",
   "tabs": {
-    "aboutPublisher": "",
-    "metrics": "",
-    "publishersHomepage": ""
+    "aboutPublisher": "O",
+    "metrics": "Metriky",
+    "publishersHomepage": "Domácí stránka"
   },
   "joinedDate": "",
   "newPublisher": "",
-  "technicalContact": "",
+  "technicalContact": "Technický kontakt",
   "country": "",
-  "hosting": "",
-  "description": "",
+  "hosting": "Hosting",
+  "description": "Popis",
   "endorsedBy": "",
   "pendingEndorsementBy": "",
   "endorsementWithheld": "",
   "installations": "",
   "getDownloadReport": "",
-  "contacts": "",
+  "contacts": "Kontakty",
   "administrativeContact": "",
   "header": {
     "publisher": "Vydavatel",
