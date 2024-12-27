@@ -8,5 +8,11 @@
   "URI": "URI",
   "UNKNOWN": "Neznámý",
   "GBIF_PORTAL": "GBIF portál",
-  "GBIF_NODE": "GBIF uzel"
+  "GBIF_NODE": "GBIF uzel",
+  "GBIF_PARTICIPANT": "GBIF účastník",
+  "GRBIO_ID": "GRBIO ID",
+  "GRBIO_URI": "GRBIO URI",
+  "GRSCICOLL_URI": "GRSCICOLL URI",
+  "ROR": "ROR",
+  "GRSCICOLL_ID": "GRSCICOLL ID"
 }
