@@ -10,7 +10,8 @@
     "download": "Pobierz",
     "clusters": "",
     "dashboard": "Kokpit",
-    "sites": ""
+    "sites": "",
+    "list": ""
   },
   "table": {
     "lockColumn": "Zablokuj kolumnę",

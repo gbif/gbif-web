@@ -10,7 +10,8 @@
     "download": "Télécharger",
     "clusters": "",
     "dashboard": "Tableau de bord",
-    "sites": "Archive annotée par GBIF"
+    "sites": "Archive annotée par GBIF",
+    "list": "Liste"
   },
   "table": {
     "lockColumn": "Verrouiller la colonne",

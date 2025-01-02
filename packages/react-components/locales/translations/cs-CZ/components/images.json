@@ -1,5 +1,11 @@
 {
+  "identifier": "ID",
   "type": "Typ",
+  "title": "Název",
   "rights": "Práva",
-  "format": "Formát"
+  "providerLiteral": "Poskytovatel",
+  "description": "Popis",
+  "accessURI": "URL",
+  "format": "Formát",
+  "pixelXDimension": "Šířka"
 }

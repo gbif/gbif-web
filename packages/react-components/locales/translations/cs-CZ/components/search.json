@@ -9,8 +9,9 @@
     "events": "",
     "download": "",
     "clusters": "",
-    "dashboard": "",
-    "sites": ""
+    "dashboard": "Ovládací panel",
+    "sites": "",
+    "list": ""
   },
   "table": {
     "lockColumn": "",

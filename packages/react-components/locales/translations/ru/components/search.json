@@ -10,7 +10,8 @@
     "download": "Загрузить",
     "clusters": "",
     "dashboard": "Панель управления",
-    "sites": "Архив, аннотированный GBIF"
+    "sites": "Архив, аннотированный GBIF",
+    "list": "Список"
   },
   "table": {
     "lockColumn": "",
