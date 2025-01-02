@@ -1,15 +1,15 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { ConceptValue } from '@/components/conceptValue';
 import {
-    ContactActions,
-    ContactAvatar,
-    ContactContent,
-    ContactDescription,
-    ContactEmail,
-    ContactHeader,
-    ContactHeaderContent,
-    ContactTelephone,
-    ContactTitle
+  ContactActions,
+  ContactAvatar,
+  ContactContent,
+  ContactDescription,
+  ContactEmail,
+  ContactHeader,
+  ContactHeaderContent,
+  ContactTelephone,
+  ContactTitle,
 } from '@/components/contact';
 import { useCount } from '@/components/count';
 import * as charts from '@/components/dashboard';
@@ -27,6 +27,7 @@ import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import { useCollectionKeyLoaderData } from '.';
 import { FeaturedImageContent } from './collectionKeyPresentation';
+import { DescriptorGroups } from './DescriptorGroups';
 
 export default function About() {
   const { key } = useParams();
@@ -155,6 +156,18 @@ export default function About() {
                 </Properties>
               </CardContent>
             </Card>
+            {true && (
+              <Card className="g-mb-4">
+                <CardHeader>
+                  <CardTitle>
+                    <FormattedMessage id="collection.collectionDescriptors" />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <DescriptorGroups collectionKey={key} />
+                </CardContent>
+              </Card>
+            )}
 
             {useInlineImage && (
               <Card className="g-mb-4">

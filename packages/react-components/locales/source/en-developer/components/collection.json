@@ -4,5 +4,6 @@
   "preservationTypes": "Preservation types",
   "personalCollection": "Personal collection",
   "accessionStatus": "Accession status",
-  "numberSpecimens": "Number of specimens in collection"
+  "numberSpecimens": "Number of specimens in collection",
+  "collectionDescriptors": "Collection descriptors"
 }
