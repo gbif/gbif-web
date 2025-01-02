@@ -15,9 +15,10 @@ export function configAdapter(config: object): Partial<Config> {
 }
 
 function convertedConfig(config: object): Partial<Config> {
-  let pages;
-  if (config?.routes?.enabledRoutes) {
-    pages = config?.routes?.enabledRoutes.map((route: string) => {
+  let pages = config?.pages;
+  const routeNames = config?.routes?.enabledRoutes ?? Object.keys(config?.routes ?? {});
+  if (!pages && routeNames) {
+    pages = routeNames.map((route: string) => {
       const page: PageConfig = { id: route };
       const path = config?.routes?.[route]?.route;
       // remove trailing slash and ending slash from path
