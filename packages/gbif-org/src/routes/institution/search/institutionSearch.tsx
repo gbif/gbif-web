@@ -11,7 +11,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { CardDescription, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
@@ -81,6 +81,7 @@ export function InstitutionSearch(): React.ReactElement {
   const [geojson, setGeojson] = useState<GeoJSON.FeatureCollection | undefined>();
   const [geojsonError, setGeojsonError] = useState(false);
   const [geojsonLoading, setGeojsonLoading] = useState(true);
+  const [tsvUrl, setTsvUrl] = useState('');
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
 
@@ -95,6 +96,11 @@ export function InstitutionSearch(): React.ReactElement {
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
+    const downloadUrl = `${import.meta.env.PUBLIC_API_V1}/grscicoll/institution/export?format=TSV&${
+      query ? stringify(query) : ''
+    }`;
+    setTsvUrl(downloadUrl);
+
     load({
       variables: {
         query: {
@@ -149,6 +155,7 @@ export function InstitutionSearch(): React.ReactElement {
         <ArticleContainer className="g-bg-slate-100 g-flex">
           <ArticleTextContainer className="g-flex-auto g-w-full">
             <Results
+              tsvUrl={tsvUrl}
               loading={loading}
               institutions={institutions}
               setOffset={setOffset}
@@ -168,6 +175,7 @@ function Results({
   geojson,
   geojsonLoading,
   geojsonError,
+  tsvUrl,
 }: {
   loading: boolean;
   institutions?: InstitutionSearchQuery['institutionSearch'];
@@ -175,6 +183,7 @@ function Results({
   geojson?: GeoJSON.FeatureCollection;
   geojsonLoading: boolean;
   geojsonError: boolean;
+  tsvUrl: string;
 }) {
   return (
     <>
@@ -204,6 +213,11 @@ function Results({
                 values={{ total: institutions.count ?? 0 }}
               />
             </CardTitle>
+            <CardDescription>
+              <a className="g-underline" href={tsvUrl}>
+                <FormattedMessage id="phrases.downloadAsTsv" />
+              </a>
+            </CardDescription>
           </CardHeader>
           <ClientSideOnly>
             {institutions &&

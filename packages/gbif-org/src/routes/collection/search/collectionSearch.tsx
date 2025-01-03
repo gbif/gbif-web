@@ -11,7 +11,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { CardDescription, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
@@ -23,7 +23,8 @@ import { useNumberParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import React, { useContext, useEffect } from 'react';
+import { stringify } from '@/utils/querystring';
+import React, { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { CollectionResult } from '../collectionResult';
@@ -74,6 +75,7 @@ export function CollectionSearch(): React.ReactElement {
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
+  const [tsvUrl, setTsvUrl] = useState('');
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
 
@@ -88,6 +90,10 @@ export function CollectionSearch(): React.ReactElement {
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
+    const downloadUrl = `${import.meta.env.PUBLIC_API_V1}/grscicoll/institution/export?format=TSV&${
+      query ? stringify(query) : ''
+    }`;
+    setTsvUrl(downloadUrl);
     load({
       variables: {
         query: {
@@ -118,7 +124,12 @@ export function CollectionSearch(): React.ReactElement {
         </FilterBar>
         <ArticleContainer className="g-bg-slate-100 g-flex">
           <ArticleTextContainer className="g-flex-auto g-w-full">
-            <Results loading={loading} collections={collections} setOffset={setOffset} />
+            <Results
+              tsvUrl={tsvUrl}
+              loading={loading}
+              collections={collections}
+              setOffset={setOffset}
+            />
           </ArticleTextContainer>
         </ArticleContainer>
       </section>
@@ -130,10 +141,12 @@ function Results({
   loading,
   collections,
   setOffset,
+  tsvUrl,
 }: {
   loading: boolean;
   collections?: CollectionSearchQuery['collectionSearch'];
   setOffset: (x: number) => void;
+  tsvUrl: string;
 }) {
   return (
     <>
@@ -163,6 +176,11 @@ function Results({
                 values={{ total: collections.count ?? 0 }}
               />
             </CardTitle>
+            <CardDescription>
+              <a className="g-underline" href={tsvUrl}>
+                <FormattedMessage id="phrases.downloadAsTsv" />
+              </a>
+            </CardDescription>
           </CardHeader>
           <ClientSideOnly>
             {collections &&

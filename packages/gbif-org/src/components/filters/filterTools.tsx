@@ -5,6 +5,7 @@ import {
   filter2predicate,
   FilterConfigType,
 } from '@/dataManagement/filterAdapter/filter2predicate';
+import { Predicate } from '@/gql/graphql';
 import { cn } from '@/utils/shadcn';
 import { SuggestConfig } from '@/utils/suggestEndpoints';
 import React, { useContext } from 'react';
@@ -663,7 +664,7 @@ export function getAsQuery({
   searchContext: SearchMetadata;
   searchConfig: FilterConfigType;
   queryType?: QueryTypeEnum;
-}) {
+}): object | Predicate | undefined {
   // should we use get v1 syntax or predicates (we have later added predicates to v1, so the naming is less meaningful now)
   if (queryType === 'V1') {
     const v1Filter = filter2v1(filter, searchConfig);
