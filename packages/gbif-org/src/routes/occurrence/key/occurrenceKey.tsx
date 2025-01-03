@@ -1,14 +1,15 @@
 import Globe from '@/components/globe';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import {
-    FeatureList,
-    GadmClassification,
-    Homepage,
-    Location,
-    SamplingEvent,
-    Sequenced,
-    TaxonClassification,
-    TypeStatus
+  FeatureList,
+  GadmClassification,
+  Homepage,
+  IIIF,
+  Location,
+  SamplingEvent,
+  Sequenced,
+  TaxonClassification,
+  TypeStatus,
 } from '@/components/highlights';
 import { FormattedDateRange } from '@/components/message';
 import { Tabs } from '@/components/tabs';
@@ -68,6 +69,7 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
           isSequenced
           isClustered
           isSamplingEvent
+          firstIIIF
         }
       }
       datasetKey
@@ -463,6 +465,9 @@ export function OccurrenceKey() {
                     )}
                     {occurrence?.references && <Homepage url={occurrence?.references} />}
                     {occurrence?.volatile?.features?.isSequenced && <Sequenced />}
+                    {occurrence?.volatile?.features?.firstIIIF && (
+                      <IIIF url={occurrence?.volatile?.features?.firstIIIF} />
+                    )}
                   </FeatureList>
                 </HeaderInfoMain>
               </HeaderInfo>

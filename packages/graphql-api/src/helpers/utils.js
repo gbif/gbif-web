@@ -90,7 +90,7 @@ function truncateText(sourceText, maxLength) {
   if (sourceText.length <= maxLength) return sourceText;
   const truncatedText = sourceText.slice(0, maxLength);
   const lastSpaceIndex = truncatedText.lastIndexOf(' ');
-  return truncatedText.slice(0, lastSpaceIndex) + '…';
+  return `${truncatedText.slice(0, lastSpaceIndex)}…`;
 }
 
 function excerpt({ summary, body }, { maxLength = 200, locale } = {}) {
@@ -194,17 +194,50 @@ async function getOGImage({ homepage }) {
   }
 }
 
+const getFirstIIIFImage = ({ occurrence, verbatim }) => {
+  // return 'test';
+  const multimediaExtension =
+    verbatim?.extensions?.['http://rs.tdwg.org/ac/terms/Multimedia'];
+  if (multimediaExtension) {
+    const iiifUris = multimediaExtension
+      .filter((e) => {
+        return (
+          e['http://purl.org/dc/elements/1.1/format'] ===
+            'application/ld+json' &&
+          e['http://rs.tdwg.org/ac/terms/serviceExpectation'] &&
+          e['http://rs.tdwg.org/ac/terms/serviceExpectation'].toLowerCase() ===
+            'iiif'
+        );
+      })
+      .map((e) => {
+        return e['http://rs.tdwg.org/ac/terms/accessURI'];
+      });
+    if (iiifUris.length > 0) {
+      try {
+        return `${
+          iiifUris[0].split('://')[0]
+        }://labs.gbif.org/mirador/?manifest=${iiifUris[0]}`;
+      } catch (error) {
+        return null;
+      }
+    }
+    return null;
+  }
+  return null;
+};
+
 export {
-  getOGImage,
+  createLocalizedGbifHref,
+  excerpt,
   formattedCoordinates,
-  isOccurrenceSequenced,
-  getHtml,
   getExcerpt,
+  getFirstIIIFImage,
+  getHtml,
+  getOGImage,
+  isNoneEmptyArray,
+  isOccurrenceSequenced,
+  objectToQueryString,
+  renameProperty,
   simplifyUrlObjectKeys,
   translateContentfulResponse,
-  excerpt,
-  objectToQueryString,
-  createLocalizedGbifHref,
-  isNoneEmptyArray,
-  renameProperty,
 };

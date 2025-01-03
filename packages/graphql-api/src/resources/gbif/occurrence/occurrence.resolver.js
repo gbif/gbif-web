@@ -3,17 +3,26 @@ import getFeedbackOptions from '#/helpers/feedback';
 import getGlobe from '#/helpers/globe';
 import {
   formattedCoordinates,
+  getFirstIIIFImage,
   isOccurrenceSequenced,
-  simplifyUrlObjectKeys
+  simplifyUrlObjectKeys,
 } from '#/helpers/utils';
 import _ from 'lodash';
 import md5 from 'md5';
 import config from '../../../config';
 import {
-  getAutoDateHistogram, getCardinality, getFacet, getHistogram, getStats
+  getAutoDateHistogram,
+  getCardinality,
+  getFacet,
+  getHistogram,
+  getStats,
 } from '../getMetrics';
 import {
-  cardinalityFields, dateHistogramFields, facetFields, histogramFields, statsFields
+  cardinalityFields,
+  dateHistogramFields,
+  facetFields,
+  histogramFields,
+  statsFields,
 } from './helpers/fields';
 import groupResolver from './helpers/groups/occurrenceGroups';
 import getLongitudeBounds from './helpers/longitudeBounds';
@@ -675,6 +684,11 @@ export default {
     },
     isSamplingEvent: (occurrence) =>
       !!occurrence.eventId && !!occurrence.samplingProtocol,
+    firstIIIF: (occurrence, _args, { dataSources }) => {
+      return dataSources.occurrenceAPI
+        .getVerbatim({ key: occurrence.key })
+        .then((verbatim) => getFirstIIIFImage({ occurrence, verbatim }));
+    },
   },
   RelatedOccurrence: {
     occurrence: (related, _args, { dataSources }) =>

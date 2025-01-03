@@ -329,3 +329,2478 @@ export const ErrorImage = (props: React.HTMLAttributes<HTMLOrSVGElement>) => (
     ></path>
   </svg>
 );
+
+const iiifJson = {
+  tag: 'svg',
+  attr: {
+    version: '1.1',
+    desc: 'Created with imagetracer.js version 1.2.6',
+    viewBox: '0 0 1280 1280',
+  },
+  child: [
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0',
+        d: 'M 0 0 L 1231 0.5 L 1196.5 4 L 1153.5 13 L 1124.5 22 L 1088.5 37 Q 1028.3 66.3 986 113.5 Q 938.7 165.2 919 244.5 L 914 272.5 L 914 280.5 L 913 281.5 L 911 316.5 L 910 317.5 L 910 334.5 L 909 335.5 L 909 361.5 L 908 362.5 L 908 471.5 L 909 472.5 L 909 513.5 L 910 514.5 L 910 548.5 L 911 549.5 L 911 583.5 L 912 584.5 L 912 624.5 L 913 625.5 L 913 1098 L 917.5 1098 L 943.5 1091 L 992.5 1075 L 1125.5 1023 L 1146.5 1016 L 1152 1012.5 L 1152 576.5 L 1157.5 571 L 1182.5 558 L 1236 542 L 1235.5 345 L 1188.5 363 L 1160.5 370 L 1152.5 370 L 1151 368.5 L 1151 354.5 L 1150 353.5 L 1149 308.5 L 1150 307.5 L 1151 279.5 L 1157 250.5 Q 1162.9 230.9 1176.5 219 Q 1183.8 213.3 1194.5 211 L 1213.5 211 L 1235.5 218 L 1236.5 0 L 1237 1099 L 859 1099 L 859 462.5 L 841.5 455 L 663.5 390 L 621.5 373 L 621 1009.5 L 624.5 1012 L 668.5 1029 L 858 1098.5 L 330.5 1099 L 330.5 1098 L 394.5 1072 L 525.5 1025 L 559.5 1012 L 563 1009.5 L 563 377.5 L 562.5 377 L 554.5 377 L 397.5 436 L 321 462 L 321 848.5 L 322 849.5 L 322 921.5 L 323 922.5 L 324 1005.5 L 325 1006.5 L 325 1035.5 L 326 1036.5 L 326 1061.5 L 327 1062.5 L 327 1084.5 L 328 1085.5 L 328 1099 L 260.5 1099 L 260 1098.5 L 260 462.5 L 219.5 446 L 67.5 391 L 22.5 373 L 21 374.5 L 21 1012.5 L 24.5 1015 L 50.5 1022 L 103.5 1040 L 258 1098.5 L 0 1099 L 0 0 Z M 83 75 L 82 76 L 68 77 L 55 81 Q 40 87 30 97 Q 10 115 1 144 L 1 202 Q 14 235 30 266 Q 43 289 60 310 Q 85 340 123 357 L 154 367 L 171 369 L 172 370 L 183 370 L 184 371 L 205 370 L 219 367 Q 238 361 251 349 Q 261 339 268 325 L 275 305 L 277 287 L 278 286 L 278 259 L 277 258 L 277 250 L 271 222 L 267 210 Q 255 176 233 153 Q 203 118 161 95 Q 142 85 120 79 L 104 76 L 83 75 Z M 687 76 L 653 83 Q 638 87 629 95 Q 616 106 608 121 L 599 142 L 595 162 L 596 191 L 600 209 L 608 231 Q 626 268 652 297 Q 682 330 722 353 Q 736 362 755 367 L 770 370 L 782 370 L 783 371 Q 828 370 852 348 Q 865 337 873 321 L 880 300 L 881 285 L 882 284 L 882 267 L 881 266 L 880 250 L 876 232 L 867 207 Q 850 168 822 141 Q 793 110 753 90 Q 736 82 717 78 L 703 77 L 702 76 L 687 76 Z M 479 77 L 453 82 L 426 92 Q 395 107 372 129 Q 341 157 321 195 L 308 228 L 304 245 L 303 263 L 302 264 L 303 286 L 307 306 Q 313 329 327 345 Q 338 358 355 365 L 383 372 L 411 372 Q 412 370 418 371 L 432 368 L 450 362 Q 483 348 509 325 Q 541 297 562 259 L 569 245 L 579 217 L 583 197 L 583 188 L 584 187 L 584 168 L 580 145 Q 573 120 558 105 Q 545 90 526 83 L 513 79 L 501 78 L 500 77 L 479 77 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1231.5 0 L 1236 0.5 L 1231.5 1 L 1231.5 0 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1220.5 1 L 1225 1.5 L 1220.5 2 L 1220.5 1 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1210.5 2 L 1215 2.5 L 1210.5 3 L 1210.5 2 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1203.5 3 L 1206 3.5 L 1203.5 4 L 1203.5 3 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1196.5 4 L 1199 4.5 L 1196.5 5 L 1196.5 4 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1190.5 5 L 1193 5.5 L 1190.5 6 L 1190.5 5 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1184.5 6 L 1187 6.5 L 1184.5 7 L 1184.5 6 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1179.5 7 L 1182 7.5 L 1179.5 8 L 1179.5 7 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1174.5 8 L 1177 8.5 L 1174.5 9 L 1174.5 8 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1078.5 42 L 1077.5 44 L 1078.5 42 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1067.5 48 L 1066.5 50 L 1067.5 48 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1057.5 54 L 1056.5 56 L 1057.5 54 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1049.5 59 L 1048.5 61 L 1049.5 59 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1046.5 61 L 1045.5 63 L 1046.5 61 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1043.5 63 L 1042.5 65 L 1043.5 63 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1039.5 66 L 1038.5 68 L 1039.5 66 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1036.5 68 L 1035.5 70 L 1036.5 68 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1032.5 71 L 1031.5 73 L 1032.5 71 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1028.5 74 L 1026.5 77 L 1028.5 74 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 82.5 75 L 94 75.5 L 82.5 76 L 82.5 75 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 73.5 76 L 76 76.5 L 73.5 77 L 73.5 76 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 100.5 76 L 104 76.5 L 100.5 77 L 100.5 76 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 686.5 76 L 702 76.5 L 686.5 77 L 686.5 76 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 67.5 77 L 70 77.5 L 67.5 78 L 67.5 77 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 478.5 77 L 487 77.5 L 478.5 78 L 478.5 77 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 491.5 77 L 500 77.5 L 491.5 78 L 491.5 77 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 679.5 77 L 682 77.5 L 679.5 78 L 679.5 77 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 708.5 77 L 711 77.5 L 708.5 78 L 708.5 77 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 470.5 78 L 473 78.5 L 470.5 79 L 470.5 78 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 504.5 78 L 507 78.5 L 504.5 79 L 504.5 78 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 673.5 78 L 676 78.5 L 673.5 79 L 673.5 78 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 714.5 78 L 717 78.5 L 714.5 79 L 714.5 78 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1023.5 78 L 1021.5 81 L 1023.5 78 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 464.5 79 L 467 79.5 L 464.5 80 L 464.5 79 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 510.5 79 L 513 79.5 L 510.5 80 L 510.5 79 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1018.5 82 L 1015.5 86 L 1018.5 82 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1011.5 88 L 1003.5 97 L 1011.5 88 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 39.5 89 L 38.5 91 L 39.5 89 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 637.5 89 L 636.5 91 L 637.5 89 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 35.5 92 L 33.5 95 L 35.5 92 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 160.5 95 L 161.5 97 L 160.5 95 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 547.5 95 L 549.5 98 L 547.5 95 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 628.5 95 L 620.5 104 L 628.5 95 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 417.5 96 L 416.5 98 L 417.5 96 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 764.5 96 L 765.5 98 L 764.5 96 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 29.5 97 L 25.5 102 L 29.5 97 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 169.5 100 L 170.5 102 L 169.5 100 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 554.5 101 L 557.5 105 L 554.5 101 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 174.5 103 L 175.5 105 L 174.5 103 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 22.5 105 L 20.5 108 L 22.5 105 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 177.5 105 L 178.5 107 L 177.5 105 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 994.5 105 L 986.5 114 L 994.5 105 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 617.5 107 L 616.5 109 L 617.5 107 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 561.5 109 L 563.5 112 L 561.5 109 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 18.5 110 L 17.5 112 L 18.5 110 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 186.5 111 L 187.5 113 L 186.5 111 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 393.5 111 L 392.5 113 L 393.5 111 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 614.5 111 L 613.5 113 L 614.5 111 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 789.5 112 L 790.5 114 L 789.5 112 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 16.5 113 L 15.5 115 L 16.5 113 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 189.5 113 L 190.5 115 L 189.5 113 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 389.5 114 L 388.5 116 L 389.5 114 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 612.5 114 L 611.5 116 L 612.5 114 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 793.5 115 L 794.5 117 L 793.5 115 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 14.5 116 L 13.5 118 L 14.5 116 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 193.5 116 L 194.5 118 L 193.5 116 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 385.5 117 L 383.5 120 L 385.5 117 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 983.5 117 L 980.5 121 L 983.5 117 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 197.5 119 L 199.5 122 L 197.5 119 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 798.5 119 L 799.5 121 L 798.5 119 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 379.5 122 L 377.5 125 L 379.5 122 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 202.5 123 L 205.5 127 L 202.5 123 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 978.5 123 L 976.5 126 L 978.5 123 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 804.5 124 L 806.5 127 L 804.5 124 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 208.5 128 L 214.5 135 L 208.5 128 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 974.5 128 L 972.5 131 L 974.5 128 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 371.5 129 L 356.5 145 L 371.5 129 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 971.5 132 L 969.5 135 L 971.5 132 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 814.5 133 L 821.5 141 L 814.5 133 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 968.5 136 L 967.5 138 L 968.5 136 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 965.5 140 L 964.5 142 L 965.5 140 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 963.5 143 L 962.5 145 L 963.5 143 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 961.5 146 L 960.5 148 L 961.5 146 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 227.5 147 L 232.5 153 L 227.5 147 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 828.5 148 L 831.5 152 L 828.5 148 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 351.5 150 L 349.5 153 L 351.5 150 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 581.5 152 L 582 154.5 L 581 154.5 L 581.5 152 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 596.5 154 L 597 156.5 L 596 156.5 L 596.5 154 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 834.5 155 L 836.5 158 L 834.5 155 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 235.5 156 L 237.5 159 L 235.5 156 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 346.5 156 L 345.5 158 L 346.5 156 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 582.5 158 L 583 161.5 L 582 161.5 L 582.5 158 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 343.5 160 L 342.5 162 L 343.5 160 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 838.5 160 L 839.5 162 L 838.5 160 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 239.5 161 L 241.5 164 L 239.5 161 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 595.5 161 L 596 168.5 L 595 168.5 L 595.5 161 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 841.5 164 L 842.5 166 L 841.5 164 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 242.5 165 L 243.5 167 L 242.5 165 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 583.5 167 L 584 186.5 L 583 186.5 L 583.5 167 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 337.5 168 L 336.5 170 L 337.5 168 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 844.5 168 L 845.5 170 L 844.5 168 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 245.5 169 L 246.5 171 L 245.5 169 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 335.5 171 L 334.5 173 L 335.5 171 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 247.5 172 L 248.5 174 L 247.5 172 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 333.5 174 L 332.5 176 L 333.5 174 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 595.5 175 L 596 182.5 L 595 182.5 L 595.5 175 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 850.5 177 L 851.5 179 L 850.5 177 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 252.5 180 L 253.5 182 L 252.5 180 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 596.5 188 L 597 190.5 L 596 190.5 L 596.5 188 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 582.5 193 L 583 196.5 L 582 196.5 L 582.5 193 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 581.5 200 L 582 202.5 L 581 202.5 L 581.5 200 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1197.5 210 L 1210 210.5 L 1197.5 211 L 1197.5 210 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1178.5 217 L 1177.5 219 L 1178.5 217 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1173.5 221 L 1171.5 224 L 1173.5 221 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1169.5 226 L 1167.5 229 L 1169.5 226 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1166.5 230 L 1165.5 232 L 1166.5 230 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 274.5 237 L 275 239.5 L 274 239.5 L 274.5 237 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 275.5 243 L 276 245.5 L 275 245.5 L 275.5 243 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 304.5 244 L 305 246.5 L 304 246.5 L 304.5 244 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 919.5 244 L 920 246.5 L 919 246.5 L 919.5 244 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 617.5 248 L 618.5 250 L 617.5 248 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 276.5 249 L 277 252.5 L 276 252.5 L 276.5 249 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 879.5 249 L 880 251.5 L 879 251.5 L 879.5 249 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 303.5 251 L 304 254.5 L 303 254.5 L 303.5 251 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 917.5 254 L 918 256.5 L 917 256.5 L 917.5 254 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 880.5 256 L 881 259.5 L 880 259.5 L 880.5 256 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 277.5 258 L 278 266.5 L 277 266.5 L 277.5 258 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 623.5 258 L 624.5 260 L 623.5 258 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 916.5 259 L 917 261.5 L 916 261.5 L 916.5 259 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 302.5 263 L 303 273.5 L 302 273.5 L 302.5 263 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 881.5 266 L 882 283.5 L 881 283.5 L 881.5 266 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 915.5 266 L 916 268.5 L 915 268.5 L 915.5 266 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 629.5 267 L 630.5 269 L 629.5 267 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1152.5 269 L 1153 271.5 L 1152 271.5 L 1152.5 269 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 631.5 270 L 632.5 272 L 631.5 270 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 34.5 272 L 35.5 274 L 34.5 272 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 914.5 272 L 915 275.5 L 914 275.5 L 914.5 272 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 634.5 274 L 635.5 276 L 634.5 274 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1151.5 275 L 1152 278.5 L 1151 278.5 L 1151.5 275 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 37.5 277 L 38.5 279 L 37.5 277 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 277.5 278 L 278 285.5 L 277 285.5 L 277.5 278 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 637.5 278 L 638.5 280 L 637.5 278 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 913.5 281 L 914 285.5 L 913 285.5 L 913.5 281 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 303.5 282 L 304 285.5 L 303 285.5 L 303.5 282 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 546.5 282 L 545.5 284 L 546.5 282 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 641.5 283 L 642.5 285 L 641.5 283 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1150.5 283 L 1151 288.5 L 1150 288.5 L 1150.5 283 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 543.5 286 L 542.5 288 L 543.5 286 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 645.5 288 L 648.5 292 L 645.5 288 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 304.5 290 L 305 292.5 L 304 292.5 L 304.5 290 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 540.5 290 L 539.5 292 L 540.5 290 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 880.5 290 L 881 293.5 L 880 293.5 L 880.5 290 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 276.5 291 L 277 293.5 L 276 293.5 L 276.5 291 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 912.5 291 L 913 296.5 L 912 296.5 L 912.5 291 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 47.5 292 L 48.5 294 L 47.5 292 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 49.5 295 L 51.5 298 L 49.5 295 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 536.5 295 L 534.5 298 L 536.5 295 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 652.5 296 L 660.5 305 L 652.5 296 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1149.5 296 L 1150 307.5 L 1149 307.5 L 1149.5 296 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 275.5 297 L 276 299.5 L 275 299.5 L 275.5 297 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 879.5 297 L 880 299.5 L 879 299.5 L 879.5 297 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 52.5 299 L 54.5 302 L 52.5 299 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 531.5 301 L 527.5 306 L 531.5 301 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 274.5 302 L 275 304.5 L 274 304.5 L 274.5 302 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 911.5 303 L 912 309.5 L 911 309.5 L 911.5 303 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 56.5 304 L 58.5 307 L 56.5 304 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 60.5 309 L 66.5 316 L 60.5 309 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 665.5 309 L 673.5 318 L 665.5 309 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 910.5 317 L 911 325.5 L 910 325.5 L 910.5 317 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 512.5 320 L 508.5 325 L 512.5 320 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 679.5 322 L 681.5 325 L 679.5 322 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 77.5 326 L 81.5 331 L 77.5 326 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 685.5 327 L 686.5 329 L 685.5 327 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 265.5 328 L 264.5 330 L 265.5 328 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 503.5 328 L 502.5 330 L 503.5 328 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1149.5 330 L 1150 343.5 L 1149 343.5 L 1149.5 330 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 690.5 331 L 691.5 333 L 690.5 331 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 498.5 332 L 497.5 334 L 498.5 332 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 85.5 333 L 87.5 336 L 85.5 333 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 262.5 333 L 261.5 335 L 262.5 333 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 864.5 333 L 863.5 335 L 864.5 333 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 694.5 334 L 695.5 336 L 694.5 334 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 909.5 335 L 910 346.5 L 909 346.5 L 909.5 335 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 89.5 336 L 91.5 339 L 89.5 336 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 260.5 336 L 259.5 338 L 260.5 336 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 698.5 337 L 699.5 339 L 698.5 337 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 490.5 338 L 489.5 340 L 490.5 338 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 860.5 338 L 851.5 348 L 860.5 338 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 93.5 339 L 94.5 341 L 93.5 339 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 323.5 339 L 324.5 341 L 323.5 339 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 257.5 340 L 255.5 343 L 257.5 340 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 327.5 344 L 336.5 354 L 327.5 344 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 102.5 345 L 103.5 347 L 102.5 345 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 252.5 346 L 250.5 349 L 252.5 346 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 713.5 347 L 714.5 349 L 713.5 347 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 107.5 348 L 108.5 350 L 107.5 348 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 847.5 350 L 846.5 352 L 847.5 350 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 246.5 351 L 244.5 354 L 246.5 351 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1150.5 354 L 1151 361.5 L 1150 361.5 L 1150.5 354 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 339.5 355 L 340.5 357 L 339.5 355 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 908.5 362 L 909 385.5 L 908 385.5 L 908.5 362 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 153.5 366 L 156 366.5 L 153.5 367 L 153.5 366 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 158.5 367 L 161 367.5 L 158.5 368 L 158.5 367 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 164.5 368 L 167 368.5 L 164.5 369 L 164.5 368 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 208.5 368 L 211 368.5 L 208.5 369 L 208.5 368 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 762.5 368 L 765 368.5 L 762.5 369 L 762.5 368 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 804.5 368 L 807 368.5 L 804.5 369 L 804.5 368 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1166.5 368 L 1169 368.5 L 1166.5 369 L 1166.5 368 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 171.5 369 L 176 369.5 L 171.5 370 L 171.5 369 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 201.5 369 L 205 369.5 L 201.5 370 L 201.5 369 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 769.5 369 L 773 369.5 L 769.5 370 L 769.5 369 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 797.5 369 L 801 369.5 L 797.5 370 L 797.5 369 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1151.5 369 L 1157 370.5 L 1151 371 L 1151.5 369 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1161.5 369 L 1164 369.5 L 1161.5 370 L 1161.5 369 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 183.5 370 L 194 370.5 L 183.5 371 L 183.5 370 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 415.5 370 L 418 370.5 L 415.5 371 L 415.5 370 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 782.5 370 L 789 370.5 L 782.5 371 L 782.5 370 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 382.5 371 L 387 371.5 L 382.5 372 L 382.5 371 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 406.5 371 L 411 371.5 L 406.5 372 L 406.5 371 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 22.5 373 L 22 374.5 L 21.5 1013 L 21 374.5 L 22.5 373 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 554.5 377 L 563 377.5 L 554.5 378 L 554.5 377 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 908.5 441 L 909 471.5 L 908 471.5 L 908.5 441 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 321.5 462 L 322 614.5 L 321 614.5 L 321.5 462 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 909.5 494 L 910 513.5 L 909 513.5 L 909.5 494 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 910.5 531 L 911 548.5 L 910 548.5 L 910.5 531 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 911.5 566 L 912 583.5 L 911 583.5 L 911.5 566 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1159.5 569 L 1158.5 571 L 1159.5 569 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 1156.5 571 L 1152 576.5 L 1151.5 1013 L 1151 576.5 L 1156.5 571 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 912.5 603 L 913 624.5 L 912 624.5 L 912.5 603 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 913.5 653 L 914 1097.5 L 913 1097.5 L 913.5 653 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 321.5 768 L 322 848.5 L 321 848.5 L 321.5 768 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 322.5 891 L 323 921.5 L 322 921.5 L 322.5 891 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 323.5 948 L 324 969.5 L 323 969.5 L 323.5 948 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 324.5 989 L 325 1005.5 L 324 1005.5 L 324.5 989 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 325.5 1022 L 326 1035.5 L 325 1035.5 L 325.5 1022 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 326.5 1050 L 327 1061.5 L 326 1061.5 L 326.5 1050 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 327.5 1074 L 328 1084.5 L 327 1084.5 L 327.5 1074 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '0.7450980392156863',
+        d: 'M 328.5 1096 L 330 1098.5 L 328 1099 L 328.5 1096 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '1',
+        d: 'M 1225.5 1 L 1235.5 1 L 1236 1.5 L 1236 217 L 1215.5 211 L 1197.5 210 Q 1180.3 212.8 1171 223.5 Q 1163.5 232 1159 243.5 L 1152 269.5 L 1151 282.5 L 1150 283.5 L 1150 295.5 L 1149 296.5 L 1149 343.5 L 1150 344.5 L 1150 361.5 L 1151 362.5 L 1151 371 L 1163.5 370 L 1183.5 365 L 1236 346 L 1236 540.5 L 1234.5 542 L 1176.5 560 Q 1161.3 565.8 1151 576.5 L 1151 1013.5 L 1148.5 1014 L 996.5 1073 L 948.5 1089 L 914 1098 L 914 653.5 L 913 652.5 L 913 603.5 L 912 602.5 L 912 566.5 L 911 565.5 L 910 494.5 L 909 493.5 L 908 386.5 L 909 385.5 L 910 326.5 L 911 325.5 L 911 310.5 L 912 309.5 L 914 276.5 L 915 275.5 L 918 251.5 L 925 223.5 Q 949.8 146.3 1002.5 97 Q 1044 57 1100.5 32 Q 1131.5 18.5 1167.5 10 L 1199.5 4 L 1224.5 2 L 1225.5 1 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '1',
+        d: 'M 76.5 76 L 99.5 76 L 100.5 77 L 107.5 77 L 117.5 79 L 153.5 92 Q 196.2 113.3 227 146.5 Q 251 171 265 205.5 L 275 240.5 L 276 252.5 L 277 253.5 L 278 277.5 L 277 278.5 L 277 290.5 L 274 306.5 L 268 323.5 Q 260.3 339.8 247.5 351 Q 224.3 372.8 176.5 370 L 143.5 364 L 121.5 356 Q 89.3 341.2 67 316.5 Q 46.3 294.2 31 266.5 Q 16.4 240.1 5 210.5 L 1 199.5 L 1 144.5 Q 11.2 114.2 32.5 95 Q 41.5 87 53.5 82 L 76.5 76 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '1',
+        d: 'M 487.5 77 L 509.5 79 L 529.5 85 Q 548.6 93.4 561 108.5 Q 573.1 122.4 579 142.5 L 583 162.5 L 583 192.5 L 578 218.5 Q 571.3 240.8 561 259.5 Q 541.6 294.1 513.5 320 Q 488.7 343.7 455.5 359 L 433.5 367 L 420.5 370 L 406.5 371 L 405.5 372 L 387.5 372 L 386.5 371 L 378.5 371 L 368.5 369 L 353.5 364 Q 336.1 355.9 325 341.5 Q 313.8 327.2 308 307.5 L 303 281.5 L 303 255.5 L 307 232.5 L 312 216.5 L 327 184.5 Q 347.2 150.2 376.5 125 Q 398.4 105.4 426.5 92 L 457.5 81 L 473.5 78 L 486.5 78 L 487.5 77 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '1',
+        d: 'M 682.5 77 L 707.5 77 Q 708.8 79.3 713.5 78 L 730.5 82 L 751.5 90 Q 796.7 111.8 828 147.5 Q 855.1 176.9 871 217.5 L 875 229.5 L 880 252.5 Q 878.2 258.7 881 260.5 L 881 289.5 L 877 309.5 L 871 323.5 Q 862.2 339.2 848.5 350 Q 835.4 360.4 817.5 366 L 796.5 370 L 773.5 370 L 772.5 369 L 759.5 368 L 743.5 363 L 720.5 352 Q 687.1 332.4 661 305.5 Q 629.1 274.4 609 231.5 Q 602 216.5 598 198.5 L 596 187.5 L 595 169.5 L 596 168.5 L 596 157.5 L 598 146.5 L 603 131.5 Q 612.8 108.8 630.5 94 L 650.5 84 L 682.5 77 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '1',
+        d: 'M 22 374 L 260 462 L 260 1097.5 L 257.5 1098 L 107.5 1041 L 45.5 1020 L 22 1014 L 22 374 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '1',
+        d: 'M 621 374 L 699.5 404 L 859 462 L 859 1097.5 L 856.5 1098 L 709.5 1044 L 621 1010 L 621 374 Z ',
+      },
+      child: [],
+    },
+    {
+      tag: 'path',
+      attr: {
+        stroke: 'rgb(0,0,0)',
+        strokeWidth: '1',
+        opacity: '1',
+        d: 'M 552.5 378 L 562.5 378 L 563 378.5 L 563 1010 L 513.5 1029 L 398.5 1070 L 329 1098 L 328 1095.5 L 327 1050.5 L 326 1049.5 L 326 1022.5 L 325 1021.5 L 324 948.5 L 323 947.5 L 323 891.5 L 322 890.5 L 321 615.5 L 322 614.5 L 322 462 L 390.5 439 L 552.5 378 Z ',
+      },
+      child: [],
+    },
+  ],
+};
+
+const iiifLogo = GenIcon(iiifJson);
+export const IIIFLogoIcon = (props: React.ComponentPropsWithoutRef<'svg'>): React.JSX.Element =>
+  iiifLogo(props);

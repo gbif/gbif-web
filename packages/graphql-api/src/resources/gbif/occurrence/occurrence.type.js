@@ -428,6 +428,10 @@ const typeDef = gql`
     The occurrence has fields that are intended for use by sampling events
     """
     isSamplingEvent: Boolean
+    """
+    The occurrence has an IIIF endpoint
+    """
+    firstIIIF: String
   }
 
   type OccurrenceFeedback {
