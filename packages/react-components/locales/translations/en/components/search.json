@@ -32,6 +32,7 @@
     "either": ""
   },
   "loadMore": "More",
+  "noResults": "",
   "occurrenceClustersView": {
     "about": "About",
     "clusters": "Related",
