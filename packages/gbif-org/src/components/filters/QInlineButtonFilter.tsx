@@ -4,6 +4,7 @@ import { FilterContext } from '@/contexts/filter';
 import { cn } from '@/utils/shadcn';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { MdClose } from 'react-icons/md';
+import { useIntl } from 'react-intl';
 
 export function QInlineButtonFilter({
   className,
@@ -41,6 +42,7 @@ function QFilter({
 }) {
   const [isInputHidden, setIsInputHidden] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { formatMessage } = useIntl();
 
   const handleClearClick = () => {
     onChange();
@@ -75,7 +77,7 @@ function QFilter({
       <SearchInput
         defaultValue={value}
         ref={inputRef}
-        placeholder="Text search"
+        placeholder={formatMessage({ id: 'filters.q.name' })}
         className={cn(
           'g-h-9 g-px-2 g-py-2 g-rounded-md g-w-auto g-border g-border-primary-500',
           className

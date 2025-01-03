@@ -1,10 +1,16 @@
 import { Button } from '@/components/ui/button';
 import {
-    Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
 } from '@/components/ui/command';
 import { FilterType } from '@/contexts/filter';
 import React, { useEffect, useRef } from 'react';
 import { MdArrowBack } from 'react-icons/md';
+import { FormattedMessage } from 'react-intl';
 import { FilterPopover } from './filterPopover';
 
 const ContentWrapper = React.forwardRef(
@@ -99,7 +105,7 @@ export default function MoreFilters({ filters }: { filters: { [key: string]: any
     <FilterPopover
       trigger={
         <Button variant="primaryOutline" className="g-mx-1 g-mb-1 g-max-w-md g-text-slate-600">
-          More
+          <FormattedMessage id="pagination.moreFilters" />
         </Button>
       }
     >
