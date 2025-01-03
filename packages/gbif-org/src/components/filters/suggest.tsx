@@ -6,7 +6,7 @@ import { cn } from '@/utils/shadcn';
 import { useCombobox } from 'downshift';
 import React, { useCallback, useEffect } from 'react';
 import { MdCheck, MdSearch } from 'react-icons/md';
-import { IntlShape, useIntl } from 'react-intl';
+import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 export interface SuggestionItem {
   key: string;
@@ -98,6 +98,7 @@ const Search = React.forwardRef(
     const [items, setItems] = React.useState<SuggestionItem[]>([]);
     const [selectedItem, setSelectedItem] = React.useState<SuggestionItem | null>(null);
     const [q, setQ] = React.useState('');
+    const [isLoading, setIsLoading] = React.useState(false);
     const placeholderText = intl.formatMessage({
       id: placeholder ?? 'search.placeholders.default',
     });
@@ -111,13 +112,16 @@ const Search = React.forwardRef(
         locale: intl.locale,
         currentLocale,
       });
+      setIsLoading(true);
       promise
         .then((data) => {
           setItems(data);
+          setIsLoading(false);
         })
         .catch((err) => {
           if (err === CANCEL_REQUEST) return;
           console.error(err);
+          setIsLoading(false);
         });
 
       return () => {
@@ -213,40 +217,49 @@ const Search = React.forwardRef(
         <div className="g-absolute g-w-full g-z-10">
           <ul
             className={`g-w-full g-bg-white g-shadow-2xl g-max-h-80 g-overflow-auto g-p-0 g-z-10 g-rounded g-border ${
-              !(isOpen && items.length) && 'g-hidden'
+              !isOpen && 'g-hidden'
             }`}
             {...getMenuProps()}
           >
-            {isOpen &&
-              items.map((item, index) => (
-                <li
-                  className={cn(
-                    highlightedIndex === index && 'g-bg-slate-100',
-                    selectedItem === item && 'g-font-bold',
-                    'g-text-sm g-py-2 g-px-2 g-border-b g-border-slate-100 g-flex g-flex-row g-items-start'
-                  )}
-                  key={item.key}
-                  {...getItemProps({ item, index })}
-                >
-                  <MdCheck
-                    className={cn(
-                      'g-flex-none g-me-1 g-mt-1',
-                      selected?.includes(item.key) ? 'g-visible' : 'g-invisible'
-                    )}
-                  />
-                  <div className="g-flex-auto">
-                    {render && render(item)}
-                    {!render && (
-                      <>
-                        <div>{item.title}</div>
-                        {item.description && (
-                          <div className="g-text-sm g-text-gray-700">{item.description}</div>
+            {isOpen && (
+              <>
+                {!isLoading && items.length === 0 && (
+                  <li className="g-text-slate-500 g-text-sm g-py-2 g-px-2 g-border-b g-border-slate-100 g-flex g-flex-row g-items-start">
+                    <FormattedMessage id="search.noResults" />
+                  </li>
+                )}
+                {items.length > 0 &&
+                  items.map((item, index) => (
+                    <li
+                      className={cn(
+                        highlightedIndex === index && 'g-bg-slate-100',
+                        selectedItem === item && 'g-font-bold',
+                        'g-text-sm g-py-2 g-px-2 g-border-b g-border-slate-100 g-flex g-flex-row g-items-start'
+                      )}
+                      key={item.key}
+                      {...getItemProps({ item, index })}
+                    >
+                      <MdCheck
+                        className={cn(
+                          'g-flex-none g-me-1 g-mt-1',
+                          selected?.includes(item.key) ? 'g-visible' : 'g-invisible'
                         )}
-                      </>
-                    )}
-                  </div>
-                </li>
-              ))}
+                      />
+                      <div className="g-flex-auto">
+                        {render && render(item)}
+                        {!render && (
+                          <>
+                            <div>{item.title}</div>
+                            {item.description && (
+                              <div className="g-text-sm g-text-gray-700">{item.description}</div>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+              </>
+            )}
           </ul>
         </div>
       </div>
