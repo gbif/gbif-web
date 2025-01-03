@@ -138,7 +138,6 @@ export function InstitutionSearch(): React.ReactElement {
   }, [load, offset, filterHash, searchContext]);
 
   const institutions = data?.institutionSearch;
-
   return (
     <>
       <DataHeader
@@ -155,6 +154,7 @@ export function InstitutionSearch(): React.ReactElement {
         <ArticleContainer className="g-bg-slate-100 g-flex">
           <ArticleTextContainer className="g-flex-auto g-w-full">
             <Results
+              excludedFilters={searchContext.excludedFilters}
               tsvUrl={tsvUrl}
               loading={loading}
               institutions={institutions}
@@ -176,6 +176,7 @@ function Results({
   geojsonLoading,
   geojsonError,
   tsvUrl,
+  excludedFilters,
 }: {
   loading: boolean;
   institutions?: InstitutionSearchQuery['institutionSearch'];
@@ -184,7 +185,10 @@ function Results({
   geojsonLoading: boolean;
   geojsonError: boolean;
   tsvUrl: string;
+  excludedFilters?: string[];
 }) {
+  const excludeCode = excludedFilters?.includes('code');
+  const excludeCountry = excludedFilters?.includes('country');
   return (
     <>
       {loading && (
@@ -223,7 +227,13 @@ function Results({
             {institutions &&
               institutions.results
                 .slice(0, 2)
-                .map((item) => <InstitutionResult key={item.key} institution={item} />)}
+                .map((item) => (
+                  <InstitutionResult
+                    key={item.key}
+                    institution={item}
+                    {...{ excludeCode, excludeCountry }}
+                  />
+                ))}
             {institutions.offset === 0 && geojson?.features?.length > 0 && (
               <div className="g-relative">
                 <div className="g-absolute g-top-0 g-start-0 g-text-xs g-border g-rounded g-z-10 g-bg-slate-100 g-text-slate-800 g-py-0 g-px-1 g-m-2">
@@ -243,7 +253,13 @@ function Results({
             {institutions &&
               institutions.results
                 .slice(2)
-                .map((item) => <InstitutionResult key={item.key} institution={item} />)}
+                .map((item) => (
+                  <InstitutionResult
+                    key={item.key}
+                    institution={item}
+                    {...{ excludeCode, excludeCountry }}
+                  />
+                ))}
 
             {institutions?.count && institutions?.count > institutions?.limit && (
               <PaginationFooter

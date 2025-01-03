@@ -25,8 +25,19 @@ fragmentManager.register(/* GraphQL */ `
   }
 `);
 
-export function InstitutionResult({ institution }: { institution: InstitutionResultFragment }) {
+export function InstitutionResult({
+  institution,
+  excludeCode,
+  excludeCountry,
+}: {
+  institution: InstitutionResultFragment;
+  excludeCode?: boolean;
+  excludeCountry?: boolean;
+}) {
   const country = institution.country ?? institution.mailingCountry;
+
+  const showCode = !excludeCode && institution.code;
+  const showCountry = !excludeCountry && country;
   return (
     <div className="g-mb-4">
       <Wrapper>
@@ -57,9 +68,9 @@ export function InstitutionResult({ institution }: { institution: InstitutionRes
                   </p>
                 )}
 
-                {(country || institution.code) && (
-                  <div className="g-font-normal g-text-slate-500 g-text-sm g-my-1 g-flex g-items-center">
-                    {country && (
+                {(showCountry || showCode) && (
+                  <div className="g-font-normal g-text-slate-500 g-text-sm g-my-1 g-flex g-items-center g-gap-4">
+                    {showCountry && (
                       <div className="g-flex g-items-center">
                         <GlobeIcon />{' '}
                         <span className="g-mx-2">
@@ -67,8 +78,8 @@ export function InstitutionResult({ institution }: { institution: InstitutionRes
                         </span>
                       </div>
                     )}
-                    {institution.code && (
-                      <div className="g-ms-4 g-flex g-items-center">
+                    {showCode && (
+                      <div className="g-flex g-items-center">
                         <FormattedMessage id="filters.institutionCode.name" />:
                         <span className="g-mx-2">{truncate(institution.code, 20)}</span>
                       </div>
