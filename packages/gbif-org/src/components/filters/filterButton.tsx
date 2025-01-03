@@ -75,7 +75,7 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
             />
           </span>
           {showFirstValue && (
-            <span className="g-flex-auto g-text-start g-overflow-ellipsis g-overflow-hidden">
+            <span className="g-flex-auto g-text-start g-overflow-ellipsis g-overflow-hidden g-max-w-[400px]">
               <span className="g-mx-1">:</span>
               <DisplayName id={firstValue} />
             </span>
@@ -126,11 +126,15 @@ const InactiveFilterButton = React.forwardRef<HTMLButtonElement, InactiveFilterB
 const ActiveFilterButton = React.forwardRef<HTMLButtonElement, ActiveFilterButtonProps>(
   ({ className, handleClear, children, ...props }, ref: React.Ref<HTMLButtonElement>) => {
     return (
-      <div className={cn('g-inline-flex g-rounded-md g-shadow-sm" role="group', className)}>
+      <div
+        className={cn('g-inline-flex g-rounded-md g-shadow-sm g-max-w-full', className)}
+        role="group"
+      >
+        {' '}
         <Button
           ref={ref}
           type="button"
-          className="g-overflow-hidden g-whitespace-nowrap g-flex-auto g-rounded-e-none g-rounded-s g-justify-between"
+          className="g-overflow-hidden g-whitespace-nowrap g-flex-auto g-rounded-e-none g-rounded-s g-justify-between g-text-ellipsis"
           {...props}
         >
           <span className="g-overflow-ellipsis g-w-full">{children}</span>

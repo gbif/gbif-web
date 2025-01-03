@@ -15,7 +15,7 @@ export function QInlineButtonFilter({
   const { filter, setField } = useContext(FilterContext);
   return (
     <QFilter
-      className={cn('g-min-w-48 g-mx-1 g-mb-1', className)}
+      className={cn('g-min-w-48 g-mx-1 g-mb-1 g-max-w-full', className)}
       value={filter.must?.[filterHandle]?.[0]}
       onChange={(x) => {
         if (x !== '' && x) {
@@ -65,7 +65,11 @@ function QFilter({
       onClear={handleClearClick}
       onOpen={() => setIsInputHidden(false)}
       isInputHidden={isInputHidden}
-      selectedLabel={<span>“{value}”</span>}
+      selectedLabel={
+        <span className="g-overflow-hidden g-whitespace-nowrap g-text-ellipsis g-max-w-[250px]">
+          “{value}”
+        </span>
+      }
       className={cn('', className)}
     >
       <SearchInput
@@ -121,7 +125,7 @@ function FilterButton({
         <Button
           onClick={onOpen}
           type="button"
-          className="g-flex-auto g-rounded-e-none g-rounded-s g-justify-start"
+          className="g-flex-auto g-rounded-e-none g-rounded-s g-justify-start g-overflow-hidden g-whitespace-nowrap g-text-ellipsis"
         >
           {selectedLabel}
         </Button>

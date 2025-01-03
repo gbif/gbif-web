@@ -518,7 +518,7 @@ export function generateFilter({
         className={popoverClassName}
         trigger={
           <FilterButton
-            className={cn('g-mx-1 g-mb-1 g-max-w-md g-text-slate-600', className)}
+            className={cn('g-mx-1 g-mb-1 g-max-w-full g-text-slate-600', className)}
             filterHandle={config.filterHandle}
             displayName={config.displayName}
             titleTranslationKey={config.filterTranslation}
