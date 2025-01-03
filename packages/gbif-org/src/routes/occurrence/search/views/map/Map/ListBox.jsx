@@ -1,3 +1,4 @@
+import { FormattedDateRange } from '@/components/message';
 import StripeLoader from '@/components/stripeLoader';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/shadcn';
@@ -22,6 +23,10 @@ function ListItem({ id, item, onClick = (id) => {}, ...props }) {
           {item.eventDate && (
             <div className="g-text-slate-500">
               <FormattedDate value={item.eventDate} year="numeric" month="long" day="2-digit" />
+              <FormattedDateRange
+                date={item.eventDate}
+                format={{ year: 'numeric', month: 'short', day: 'numeric' }}
+              />
             </div>
           )}
           {/* <div className="g-text-slate-500">

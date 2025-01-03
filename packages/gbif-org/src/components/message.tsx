@@ -1,6 +1,21 @@
 import { FormattedDate, FormattedDateTimeRange, FormattedMessage, useIntl } from 'react-intl';
 import { HyperText } from './hyperText';
 
+export function Message({
+  id,
+  defaultMessage,
+  values,
+  ...props
+}: {
+  id: string;
+  defaultMessage?: string;
+  values?: Record<string, string | number>;
+}) {
+  const { formatMessage } = useIntl();
+  const dirty = formatMessage({ ...{ id, defaultMessage, values } });
+  return <HyperText text={dirty} {...props} />;
+}
+
 export function Unknown({ id = 'phrases.unknown', ...props }) {
   return (
     <span style={{ color: 'var(--color200)' }}>
@@ -19,11 +34,10 @@ export function FormattedDateRange({
   end?: string;
   date?: string;
   format?: Intl.DateTimeFormatOptions;
-  shorten?: boolean;
 }) {
   if (!start && !date) return null;
   // split the event date into 2 parts, start date and end date (if applicable). split by /
-  const [startDate, endDate] = date ? date?.split('/') : [start, end];
+  let [startDate, endDate] = date?.split('/') ?? [start, end];
   if (!startDate) return null;
 
   // if there is no end date, just show the start date
@@ -31,6 +45,7 @@ export function FormattedDateRange({
   const startDateParts = startDate.split('-');
   const hasTime = startDate.includes('T');
   const resolution = format ?? {
+    timeZone: 'UTC',
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -47,30 +62,25 @@ export function FormattedDateRange({
   if (!hasTime) {
     delete resolution.hour;
     delete resolution.minute;
+    // add a time zone to the date if it doesn't have one
+    startDate = startDate + 'T00:00:00Z';
+  } else if (!startDate.includes('Z')) {
+    // add a time zone to the date if it doesn't have one
+    startDate = startDate + 'Z';
   }
 
-  let diplayDate = <FormattedDate value={startDate} {...resolution} />;
+  let diplayDate = <FormattedDate value={startDate} {...resolution} timeZone="UTC" />;
 
   if (endDate) {
     // if there is an end date, show the start date and end date
     diplayDate = (
-      <FormattedDateTimeRange from={new Date(startDate)} to={new Date(endDate)} {...resolution} />
+      <FormattedDateTimeRange
+        from={new Date(startDate)}
+        to={new Date(endDate)}
+        {...resolution}
+        timeZone="UTC"
+      />
     );
   }
   return diplayDate;
-}
-
-export function Message({
-  id,
-  defaultMessage,
-  values,
-  ...props
-}: {
-  id: string;
-  defaultMessage?: string;
-  values?: any;
-}) {
-  const { formatMessage } = useIntl();
-  const dirty = formatMessage({ ...{ id, defaultMessage, values } });
-  return <HyperText text={dirty} {...props} />;
 }
