@@ -132,9 +132,9 @@ export function InstitutionSearch(): React.ReactElement {
         }
       });
 
+    return () => cancel();
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    return () => cancel();
   }, [load, offset, filterHash, searchContext]);
 
   const institutions = data?.institutionSearch;
