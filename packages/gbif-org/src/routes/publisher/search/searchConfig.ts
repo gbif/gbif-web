@@ -6,6 +6,9 @@ export const searchConfig: FilterConfigType = {
     q: {
       singleValue: true,
       defaultType: PredicateType.Fuzzy,
+      v1: {
+        supportedTypes: ['fuzzy'],
+      },
     },
     country: {
       singleValue: true,
