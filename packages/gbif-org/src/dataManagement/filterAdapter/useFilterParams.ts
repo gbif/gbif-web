@@ -37,7 +37,7 @@ export function useFilterParams({
   useEffect(() => {
     const fields = filterConfig?.fields ?? {};
     if (!isPlainObject(fields)) return;
-    setObservedParams([...Object.keys(fields), 'filter']);
+    setObservedParams([...Object.keys(fields).map((x) => fields?.[x]?.defaultKey ?? x), 'filter']);
 
     const empty: { [key: string]: undefined } = [...Object.keys(fields), ...remove].reduce(
       (accumulator: { [key: string]: undefined }, curr: string) => {
