@@ -32,6 +32,7 @@
     "either": "GBIFがアノーテーションしたアーカイブ"
   },
   "loadMore": "もっと読み込む",
+  "noResults": "GBIFがアノーテーションしたアーカイブ",
   "occurrenceClustersView": {
     "about": "・・・について",
     "clusters": "",
