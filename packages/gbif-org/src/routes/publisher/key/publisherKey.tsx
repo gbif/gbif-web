@@ -1,3 +1,4 @@
+import { ErrorMessage } from '@/components/errorMessage';
 import {
   defaultDateFormatProps,
   DeletedMessage,
@@ -150,6 +151,11 @@ export function PublisherPage() {
           ></ArticleTitle>
 
           {deletedAt && <DeletedMessage date={deletedAt} />}
+          {!deletedAt && !publisher.endorsementApproved && (
+            <ErrorMessage>
+              <FormattedMessage id="publisher.notYetEndorsed" />
+            </ErrorMessage>
+          )}
 
           <HeaderInfo>
             <HeaderInfoMain>
