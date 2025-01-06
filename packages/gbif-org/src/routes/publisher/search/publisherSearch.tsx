@@ -157,8 +157,8 @@ export function PublisherSearch(): React.ReactElement {
     fetch(`${import.meta.env.PUBLIC_WEB_UTILS}/user-info?lang=en`)
       .then((res) => res.json())
       .then((data) => {
-        // setUserCountry(data);
-        setUserCountry({ country: 'DK', countryName: 'Denmark' });
+        setUserCountry(data);
+        // setUserCountry({ country: 'DK', countryName: 'Denmark' });
       });
   }, []);
 
