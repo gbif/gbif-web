@@ -10,10 +10,10 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { NotFoundError } from '@/errors';
 import {
+  DatasetOccurrenceSearchQuery,
+  DatasetOccurrenceSearchQueryVariables,
   DatasetQuery,
   DatasetQueryVariables,
-  OccurrenceSearchQuery,
-  OccurrenceSearchQueryVariables,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
@@ -211,7 +211,7 @@ const DATASET_QUERY = /* GraphQL */ `
 }
 }`; */
 const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
-  query OccurrenceSearch($from: Int, $size: Int, $predicate: Predicate) {
+  query DatasetOccurrenceSearch($from: Int, $size: Int, $predicate: Predicate) {
     occurrenceSearch(predicate: $predicate) {
       documents(from: $from, size: $size) {
         from
@@ -258,10 +258,13 @@ export function DatasetPage() {
     error,
     load,
     loading,
-  } = useQuery<OccurrenceSearchQuery, OccurrenceSearchQueryVariables>(OCURRENCE_SEARCH_QUERY, {
-    throwAllErrors: true,
-    lazyLoad: true,
-  });
+  } = useQuery<DatasetOccurrenceSearchQuery, DatasetOccurrenceSearchQueryVariables>(
+    OCURRENCE_SEARCH_QUERY,
+    {
+      throwAllErrors: true,
+      lazyLoad: true,
+    }
+  );
 
   useEffect(() => {
     load({
