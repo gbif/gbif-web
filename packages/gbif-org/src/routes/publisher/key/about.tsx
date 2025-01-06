@@ -89,7 +89,7 @@ export function PublisherKeyAbout() {
   const Map = () => {
     return (
       <CardSmall className="g-mb-4">
-        {publisher.longitude && (
+        {publisher?.latitude && Math.abs(publisher.latitude) < 85 && (
           <a
             className="g-block"
             href={`http://www.google.com/maps/place/${publisher.latitude},${publisher.longitude}`}
