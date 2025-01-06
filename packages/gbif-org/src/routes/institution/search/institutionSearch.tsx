@@ -18,7 +18,12 @@ import { useConfig } from '@/config/config';
 import { FilterContext, FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import { InstitutionSearchQuery, InstitutionSearchQueryVariables } from '@/gql/graphql';
+import {
+  CollectionsSortField,
+  InstitutionSearchQuery,
+  InstitutionSearchQueryVariables,
+  SortOrder,
+} from '@/gql/graphql';
 import { useNumberParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -105,6 +110,8 @@ export function InstitutionSearch(): React.ReactElement {
       variables: {
         query: {
           ...query,
+          sortBy: CollectionsSortField.NumberSpecimens,
+          sortOrder: SortOrder.Desc,
           limit: 20,
           offset,
         },

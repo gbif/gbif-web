@@ -18,7 +18,12 @@ import { useConfig } from '@/config/config';
 import { FilterContext, FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import { CollectionSearchQuery, CollectionSearchQueryVariables } from '@/gql/graphql';
+import {
+  CollectionSearchQuery,
+  CollectionSearchQueryVariables,
+  CollectionsSortField,
+  SortOrder,
+} from '@/gql/graphql';
 import { useNumberParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
@@ -98,6 +103,8 @@ export function CollectionSearch(): React.ReactElement {
       variables: {
         query: {
           ...query,
+          sortBy: CollectionsSortField.NumberSpecimens,
+          sortOrder: SortOrder.Desc,
           limit: 20,
           offset,
         },
