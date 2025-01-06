@@ -42,13 +42,13 @@ export function ContactTitle({
 }) {
   if (!firstName && !lastName && !children) {
     return (
-      <h4 className="g-text-lg g-italics g-text-slate-400 g-mt-1 g-mb-2">
+      <h4 className="g-text-base g-italics g-text-slate-400 g-mt-1 g-mb-2">
         <FormattedMessage id="phrases.unknown" defaultMessage="Unknown" />
       </h4>
     );
   }
   return (
-    <h4 className="g-text-lg">
+    <h4 className="g-text-base">
       {children}
       {firstName} {lastName}
     </h4>
