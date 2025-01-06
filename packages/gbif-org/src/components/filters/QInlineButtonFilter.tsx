@@ -11,7 +11,7 @@ export function QInlineButtonFilter({
   filterHandle = 'q',
 }: {
   className?: string;
-  filterHandle: string;
+  filterHandle?: string;
 }) {
   const { filter, setField } = useContext(FilterContext);
   return (
