@@ -32,6 +32,7 @@
     "either": "GBIF 註記的存檔"
   },
   "loadMore": "更多",
+  "noResults": "GBIF 註記的存檔",
   "occurrenceClustersView": {
     "about": "關於",
     "clusters": "",
