@@ -297,7 +297,7 @@ function Filters() {
           <FilterButton
             className="g-mx-1 g-mb-1 g-max-w-md g-text-slate-600"
             filterHandle="country"
-            DisplayName={CountryLabel}
+            displayName={CountryLabel}
             titleTranslationKey="filters.country.name"
           />
         }
