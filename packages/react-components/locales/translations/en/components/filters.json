@@ -435,6 +435,16 @@
     "count": "Active",
     "description": ""
   },
+  "activeInstitution": {
+    "name": "Active",
+    "count": "Active",
+    "description": ""
+  },
+  "activeCollection": {
+    "name": "Active",
+    "count": "Active",
+    "description": ""
+  },
   "personalCollection": {
     "name": "Personal collection",
     "count": "Personal collection",
