@@ -126,6 +126,7 @@ export function CollectionSearch(): React.ReactElement {
           <ArticleTextContainer className="g-flex-auto g-w-full">
             <Results
               tsvUrl={tsvUrl}
+              excludedFilters={searchContext.excludedFilters}
               loading={loading}
               collections={collections}
               setOffset={setOffset}
@@ -142,12 +143,15 @@ function Results({
   collections,
   setOffset,
   tsvUrl,
+  excludedFilters,
 }: {
   loading: boolean;
   collections?: CollectionSearchQuery['collectionSearch'];
   setOffset: (x: number) => void;
   tsvUrl: string;
+  excludedFilters?: string[];
 }) {
+  const excludeInstitution = excludedFilters?.includes('institutionKey');
   return (
     <>
       {loading && (
@@ -185,7 +189,7 @@ function Results({
           <ClientSideOnly>
             {collections &&
               collections.results.map((item) => (
-                <CollectionResult key={item.key} collection={item} />
+                <CollectionResult key={item.key} collection={item} {...{ excludeInstitution }} />
               ))}
 
             {collections?.count && collections?.count > collections?.limit && (

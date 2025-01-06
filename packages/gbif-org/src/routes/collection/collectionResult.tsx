@@ -41,7 +41,13 @@ fragmentManager.register(/* GraphQL */ `
   }
 `);
 
-export function CollectionResult({ collection }: { collection: CollectionResultFragment }) {
+export function CollectionResult({
+  collection,
+  excludeInstitution,
+}: {
+  collection: CollectionResultFragment;
+  excludeInstitution?: boolean;
+}) {
   return (
     <div className="g-mb-4">
       <Wrapper>
@@ -72,23 +78,25 @@ export function CollectionResult({ collection }: { collection: CollectionResultF
                   </p>
                 )}
 
-                <p className="g-font-normal g-text-slate-500 g-text-sm g-mt-2">
-                  <FormattedMessage
-                    id="grscicoll.fromInstitution"
-                    values={{
-                      institution: (
-                        <DynamicLink
-                          className="g-underline"
-                          pageId="institutionKey"
-                          variables={{ key: collection.institutionKey }}
-                          to={`/institution/${collection.institutionKey}`}
-                        >
-                          {collection.institutionName}
-                        </DynamicLink>
-                      ),
-                    }}
-                  />
-                </p>
+                {!excludeInstitution && (
+                  <p className="g-font-normal g-text-slate-500 g-text-sm g-mt-2">
+                    <FormattedMessage
+                      id="grscicoll.fromInstitution"
+                      values={{
+                        institution: (
+                          <DynamicLink
+                            className="g-underline"
+                            pageId="institutionKey"
+                            variables={{ key: collection.institutionKey }}
+                            to={`/institution/${collection.institutionKey}`}
+                          >
+                            {collection.institutionName}
+                          </DynamicLink>
+                        ),
+                      }}
+                    />
+                  </p>
+                )}
               </div>
               <DynamicLink
                 to={`/collection/${collection.key}`}
