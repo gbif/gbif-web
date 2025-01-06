@@ -1,19 +1,19 @@
 import {
-    booleanLabel,
-    CountryLabel,
-    IdentityLabel,
-    InstitutionDisciplineLabel,
-    InstitutionTypeLabel,
-    QuantityLabel
+  booleanLabel,
+  CountryLabel,
+  IdentityLabel,
+  InstitutionDisciplineLabel,
+  InstitutionTypeLabel,
+  QuantityLabel,
 } from '@/components/filters/displayNames';
 import {
-    filterBoolConfig,
-    filterConfigTypes,
-    filterFreeTextConfig,
-    filterRangeConfig,
-    FilterSetting,
-    filterSuggestConfig,
-    generateFilters
+  filterBoolConfig,
+  filterConfigTypes,
+  filterFreeTextConfig,
+  filterRangeConfig,
+  FilterSetting,
+  filterSuggestConfig,
+  generateFilters,
 } from '@/components/filters/filterTools';
 import { SuggestFnProps } from '@/components/filters/suggest';
 import { HelpText } from '@/components/helpText';
@@ -30,7 +30,7 @@ export const activeConfig: filterBoolConfig = {
   filterHandle: 'active',
   displayName: booleanLabel,
   disableFacetsForSelected: true,
-  filterTranslation: 'filters.active.name',
+  filterTranslation: 'filters.activeInstitution.name',
   about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
 };
 

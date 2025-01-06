@@ -364,7 +364,7 @@
     "name": "Event ID",
     "count": "{num, plural, one { event id } other {# event ids}}",
     "description": "The unique identifier for the Event in the record."
-  },  
+  },
   "parentEventId": {
     "name": "Parent event ID",
     "count": "{num, plural, one { event id } other {# event ids}}",
@@ -434,6 +434,16 @@
     "name": "Active",
     "count": "Active",
     "description": "Whether the entry correspond to an active collection/institution or a historical listing that no longer exists."
+  },
+  "activeInstitution": {
+    "name": "Active",
+    "count": "Active",
+    "description": "Whether the entry correspond to an active institution or a historical listing that no longer exists."
+  },
+  "activeCollection": {
+    "name": "Active",
+    "count": "Active",
+    "description": "Whether the entry correspond to an active collection or a historical listing that no longer exists."
   },
   "personalCollection": {
     "name": "Personal collection",

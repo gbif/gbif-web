@@ -65,7 +65,7 @@ export function CollectionResult({
                   </DynamicLink>
                   {!collection.active && (
                     <span className="g-align-middle g-bg-red-100 g-text-red-800 g-text-sm g-font-medium g-ms-2 g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300">
-                      <FormattedMessage id="grscicoll.inactive" />
+                      <FormattedMessage id="grscicoll.inactiveCollection" />
                     </span>
                   )}
                 </h3>
