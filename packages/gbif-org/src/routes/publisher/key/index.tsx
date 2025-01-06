@@ -1,7 +1,6 @@
 import { PublisherQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import { PublisherKeyAbout } from './about';
-import { PublisherKeyCitations } from './citations';
 import { PublisherKeyMetrics } from './metrics';
 import { publisherLoader, PublisherPage, PublisherPageSkeleton } from './publisherKey';
 
@@ -27,10 +26,10 @@ export const publisherKeyRoute: RouteObjectWithPlugins = {
       path: 'metrics',
       element: <PublisherKeyMetrics />,
     },
-    {
-      path: 'citations',
-      element: <PublisherKeyCitations />,
-    },
+    // {
+    //   path: 'citations',
+    //   element: <PublisherKeyCitations />,
+    // },
   ],
 };
 

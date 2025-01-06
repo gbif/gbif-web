@@ -173,6 +173,7 @@ export function PublisherKeyAbout() {
                 Installations:{' '}
                 {publisher?.installation.results.map((x) => (
                   <DynamicLink
+                    key={x.key}
                     to={`/installation/${x.key}`}
                     pageId="installationKey"
                     variables={{ key: x.key }}

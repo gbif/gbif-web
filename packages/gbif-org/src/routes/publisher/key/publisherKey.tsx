@@ -1,15 +1,19 @@
 import {
-    defaultDateFormatProps, DeletedMessage,
-    HeaderInfo,
-    HeaderInfoMain
+  defaultDateFormatProps,
+  DeletedMessage,
+  HeaderInfo,
+  HeaderInfoMain,
 } from '@/components/headerComponents';
 import {
-    CitationIcon, FeatureList,
-    GenericFeature, Homepage, OccurrenceIcon
+  CitationIcon,
+  FeatureList,
+  GenericFeature,
+  Homepage,
+  OccurrenceIcon,
 } from '@/components/highlights';
 import { Tabs } from '@/components/tabs';
 import { PublisherQuery, PublisherQueryVariables } from '@/gql/graphql';
-import { LoaderArgs } from '@/reactRouterPlugins';
+import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -113,10 +117,6 @@ export function PublisherPage() {
   if (occurrenceSearch?.documents.total > 0) {
     tabs.push({ to: 'metrics', children: 'Metrics' });
   }
-  // only add ciations tab if there are citations
-  if (literatureSearch?.documents.total > 0) {
-    tabs.push({ to: 'citations', children: 'Citations' });
-  }
 
   return (
     <article>
@@ -162,35 +162,59 @@ export function PublisherPage() {
                 {occurrenceSearch?.documents.total > 0 && (
                   <GenericFeature>
                     <OccurrenceIcon />
-                    <FormattedMessage
-                      id="counts.nOccurrences"
-                      values={{ total: occurrenceSearch?.documents.total }}
-                    />
+                    <DynamicLink
+                      className="hover:g-underline"
+                      pageId="occurrenceSearch"
+                      searchParams={{ publishingOrg: publisher.key }}
+                    >
+                      <FormattedMessage
+                        id="counts.nOccurrences"
+                        values={{ total: occurrenceSearch?.documents.total }}
+                      />
+                    </DynamicLink>
                   </GenericFeature>
                 )}
                 {(publisher?.numPublishedDatasets ?? 0) > 0 && (
                   <GenericFeature>
-                    <FormattedMessage
-                      id="counts.nPublishedDatasets"
-                      values={{ total: publisher.numPublishedDatasets ?? 0 }}
-                    />
+                    <DynamicLink
+                      className="hover:g-underline"
+                      pageId="datasetSearch"
+                      searchParams={{ publishingOrg: publisher.key }}
+                    >
+                      <FormattedMessage
+                        id="counts.nPublishedDatasets"
+                        values={{ total: publisher.numPublishedDatasets ?? 0 }}
+                      />
+                    </DynamicLink>
                   </GenericFeature>
                 )}
                 {hostedDatasets?.count > 0 && (
                   <GenericFeature>
-                    <FormattedMessage
-                      id="counts.nHostedDatasets"
-                      values={{ total: hostedDatasets?.count }}
-                    />
+                    <DynamicLink
+                      className="hover:g-underline"
+                      pageId="datasetSearch"
+                      searchParams={{ hostingOrg: publisher.key }}
+                    >
+                      <FormattedMessage
+                        id="counts.nHostedDatasets"
+                        values={{ total: hostedDatasets?.count }}
+                      />
+                    </DynamicLink>
                   </GenericFeature>
                 )}
                 {literatureSearch?.documents.total > 0 && (
                   <GenericFeature>
                     <CitationIcon />
-                    <FormattedMessage
-                      id="counts.nCitations"
-                      values={{ total: literatureSearch?.documents.total }}
-                    />
+                    <DynamicLink
+                      className="hover:g-underline"
+                      pageId="literatureSearch"
+                      searchParams={{ publishingOrganizationKey: publisher.key }}
+                    >
+                      <FormattedMessage
+                        id="counts.nCitations"
+                        values={{ total: literatureSearch?.documents.total }}
+                      />
+                    </DynamicLink>
                   </GenericFeature>
                 )}
               </FeatureList>
