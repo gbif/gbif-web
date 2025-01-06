@@ -30,6 +30,7 @@ import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import country from '@/enums/basic/country.json';
 import { PublisherSearchQuery, PublisherSearchQueryVariables } from '@/gql/graphql';
+import { useIntParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
@@ -93,7 +94,7 @@ export function PublisherSearchPage(): React.ReactElement {
 }
 
 export function PublisherSearch(): React.ReactElement {
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useIntParam({ key: 'offset', defaultValue: 0, hideDefault: true });
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
   const [geojson, setGeojson] = useState<GeoJSON.FeatureCollection | undefined>();
