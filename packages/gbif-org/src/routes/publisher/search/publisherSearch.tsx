@@ -348,6 +348,7 @@ function Results({
 }
 
 function Filters() {
+  const searchContext = useSearchContext();
   const filterContext = useContext(FilterContext);
   const { formatMessage } = useIntl();
   const [countries, setCountries] = useState<{ key: string; title: string }[]>([]);
@@ -379,31 +380,35 @@ function Filters() {
 
   const { filter, setField } = filterContext;
 
+  const hideCountryFilter = searchContext?.excludedFilters?.includes('country');
+
   return (
     <>
       <QInlineButtonFilter className="g-min-w-36" />
-      <FilterPopover
-        trigger={
-          <FilterButton
-            className="g-mx-1 g-mb-1 g-max-w-md g-text-slate-600"
-            filterHandle="country"
-            displayName={CountryLabel}
-            titleTranslationKey="filters.country.name"
+      {!hideCountryFilter && (
+        <FilterPopover
+          trigger={
+            <FilterButton
+              className="g-mx-1 g-mb-1 g-max-w-md g-text-slate-600"
+              filterHandle="country"
+              displayName={CountryLabel}
+              titleTranslationKey="filters.country.name"
+            />
+          }
+        >
+          <SearchCommand<{ key: string; title: string }>
+            setSelected={(x) => setField('country', x ? [x.key] : [])}
+            selectedKey={filter?.must?.country?.[0]}
+            search={countrySearch}
+            results={results ?? []}
+            labelSelector={(value) => value.title}
+            keySelector={(value) => value.key}
+            noSearchResultsPlaceholder={<span>No countries found</span>}
+            noSelectionPlaceholder={<span>Country</span>}
+            searchInputPlaceholder="Search countries..."
           />
-        }
-      >
-        <SearchCommand<{ key: string; title: string }>
-          setSelected={(x) => setField('country', x ? [x.key] : [])}
-          selectedKey={filter?.must?.country?.[0]}
-          search={countrySearch}
-          results={results ?? []}
-          labelSelector={(value) => value.title}
-          keySelector={(value) => value.key}
-          noSearchResultsPlaceholder={<span>No countries found</span>}
-          noSelectionPlaceholder={<span>Country</span>}
-          searchInputPlaceholder="Search countries..."
-        />
-      </FilterPopover>
+        </FilterPopover>
+      )}
     </>
   );
 }
