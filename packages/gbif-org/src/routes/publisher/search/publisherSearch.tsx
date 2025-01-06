@@ -154,16 +154,19 @@ export function PublisherSearch(): React.ReactElement {
   // call https://graphql.gbif-staging.org/unstable-api/user-info?lang=en to get the users country: response {country, countryName}
   // then use the country code to get a count of publishers from that country
   useEffect(() => {
-    fetch('https://graphql.gbif-staging.org/unstable-api/user-info?lang=en')
+    fetch(`${import.meta.env.PUBLIC_WEB_UTILS}/user-info?lang=en`)
       .then((res) => res.json())
       .then((data) => {
-        setUserCountry({ country: 'DK', countryName: 'Denmark' });
         // setUserCountry(data);
+        setUserCountry({ country: 'DK', countryName: 'Denmark' });
       });
   }, []);
 
   //decide if we should show the info about the country. This is only relevant if there is no country filter already set
-  const showCountryInfo = !filter?.must?.country && userCountry?.country;
+  const showCountryInfo =
+    !filter?.must?.country &&
+    userCountry?.country &&
+    !searchContext?.excludedFilters?.includes('country');
 
   const publishers = data?.list;
   return (
@@ -237,6 +240,8 @@ function Results({
   userCountry: { country: string; countryName: string } | undefined;
   setField: (field: string, value: string[]) => void;
 }) {
+  const reactIntl = useIntl();
+  const countryName = reactIntl.formatMessage({ id: `enums.countryCode.${userCountry?.country}` });
   const sidebarContent = !userCountry?.countryName ? null : (
     <section className="g-ms-4 g-text-sm g-max-w-96">
       <SmallHeader className="!g-px-0 !g-pt-0">
@@ -248,7 +253,7 @@ function Results({
         <p>
           <CountMessage
             message="counts.nPublishersInCountry"
-            messageValues={{ country: userCountry?.countryName }}
+            messageValues={{ country: countryName }}
             countProps={{
               v1Endpoint: '/organization',
               params: { country: userCountry?.country, isEndorsed: 'true' },
