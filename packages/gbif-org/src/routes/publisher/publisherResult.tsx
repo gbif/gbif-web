@@ -40,14 +40,16 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
             </h3>
             {publisher.created && (
               <p className="g-mb-4 g-text-sm g-text-slate-500">
-                <FormattedMessage
-                  id="publisher.joinedDate"
-                  values={{
-                    date: <FormattedDate {...defaultDateFormatProps} value={publisher.created} />,
-                  }}
-                />
+                <span className="g-me-2">
+                  <FormattedMessage
+                    id="publisher.joinedDate"
+                    values={{
+                      date: <FormattedDate {...defaultDateFormatProps} value={publisher.created} />,
+                    }}
+                  />
+                </span>
                 {isNew && (
-                  <span className="g-text-xs g-bg-primary-500 g-px-2 g-py-1 g-text-white g-ml-2 g-rounded">
+                  <span className="g-text-xs g-bg-primary-500 g-px-2 g-py-1 g-text-white g-rounded g-inline-block">
                     <FormattedMessage id="publisher.newPublisher" />
                   </span>
                 )}
