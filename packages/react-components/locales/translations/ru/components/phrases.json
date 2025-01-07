@@ -23,6 +23,8 @@
   "project": "Проект",
   "license": "Лицензия",
   "downloadAsTsv": "Скачать в формате TSV",
+  "didYouKnow": "Архив, аннотированный GBIF",
+  "explore": "Просмотр",
   "backHome": "Назад",
   "pageNotFound": "Ошибка 404",
   "noInformation": "Информация отсутствует",
