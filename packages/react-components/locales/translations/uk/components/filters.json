@@ -435,6 +435,16 @@
     "count": "Діяльна",
     "description": "Архів анотований GBIF"
   },
+  "activeInstitution": {
+    "name": "Діяльна",
+    "count": "Діяльна",
+    "description": "Архів анотований GBIF"
+  },
+  "activeCollection": {
+    "name": "Діяльна",
+    "count": "Діяльна",
+    "description": "Архів анотований GBIF"
+  },
   "personalCollection": {
     "name": "Приватна колекція",
     "count": "Приватна колекція",
