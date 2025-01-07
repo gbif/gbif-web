@@ -12,6 +12,7 @@
   "hosting": "Alojamiento",
   "description": "Descripción",
   "endorsedBy": "Respaldado por",
+  "notYetEndorsed": "Aquí debe colocarse una breve descripción del componente",
   "pendingEndorsementBy": "Pendiente de respaldo por",
   "endorsementWithheld": "",
   "installations": "Instalaciones",
