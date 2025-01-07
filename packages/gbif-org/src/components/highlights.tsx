@@ -12,6 +12,7 @@ import {
 } from './classification';
 import { Hostname } from './headerComponents';
 import { IIIFLogoIcon } from './icons/icons';
+import { Skeleton } from './ui/skeleton';
 export { IoPinSharp as OccurrenceIcon } from 'react-icons/io5';
 export {
   MdOutlineScreenSearchDesktop as CatalogIcon,
@@ -20,6 +21,14 @@ export {
 } from 'react-icons/md';
 
 export { DnaIcon, GlobeIcon, IIIFLogoIcon, SamplingEventIcon, TypeStatusIcon };
+
+export function GenericFeatureSkeleton() {
+  return (
+    <GenericFeature>
+      <Skeleton className="g-w-32">Loading</Skeleton>
+    </GenericFeature>
+  );
+}
 
 export function GenericFeature({
   className,

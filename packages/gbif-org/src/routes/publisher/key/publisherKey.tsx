@@ -9,11 +9,18 @@ import {
   CitationIcon,
   FeatureList,
   GenericFeature,
+  GenericFeatureSkeleton,
   Homepage,
   OccurrenceIcon,
 } from '@/components/highlights';
 import { Tabs } from '@/components/tabs';
-import { PublisherQuery, PublisherQueryVariables } from '@/gql/graphql';
+import {
+  PublisherQuery,
+  PublisherQueryVariables,
+  PublisherStatsQuery,
+  PublisherStatsQueryVariables,
+} from '@/gql/graphql';
+import useQuery from '@/hooks/useQuery';
 import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
@@ -21,12 +28,13 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { required } from '@/utils/required';
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 
 const PUBLISHER_QUERY = /* GraphQL */ `
-  query Publisher($key: ID!, $jsonKey: JSON!) {
+  query Publisher($key: ID!) {
     publisher: organization(key: $key) {
       key
       title
@@ -80,6 +88,11 @@ const PUBLISHER_QUERY = /* GraphQL */ `
         userId
       }
     }
+  }
+`;
+
+const SLOW_PUBLISHER_QUERY = /* GraphQL */ `
+  query PublisherStats($key: ID!, $jsonKey: JSON!) {
     occurrenceSearch(predicate: { type: equals, key: "publishingOrg", value: $jsonKey }) {
       documents(size: 0) {
         total
@@ -101,15 +114,27 @@ export async function publisherLoader({ params, graphql }: LoaderArgs) {
 
   return graphql.query<PublisherQuery, PublisherQueryVariables>(PUBLISHER_QUERY, {
     key,
-    jsonKey: key,
   });
 }
 
 export function PublisherPage() {
   const { data } = useLoaderData() as { data: PublisherQuery };
+  const {
+    data: slowData,
+    load,
+    error,
+    loading,
+  } = useQuery<PublisherStatsQuery, PublisherStatsQueryVariables>(SLOW_PUBLISHER_QUERY);
+
+  useEffect(() => {
+    if (data.publisher) {
+      load({ variables: { key: data.publisher.key, jsonKey: data.publisher.key } });
+    }
+  }, [data.publisher, load]);
 
   if (data.publisher == null) throw new Error('404');
-  const { publisher, occurrenceSearch, hostedDatasets, literatureSearch } = data;
+  const { publisher } = data;
+  const { occurrenceSearch, hostedDatasets, literatureSearch } = slowData ?? {};
 
   const deletedAt = publisher.deleted;
 
@@ -165,6 +190,13 @@ export function PublisherPage() {
                 </FeatureList>
               )}
               <FeatureList>
+                {!error && !slowData && (
+                  <>
+                    <GenericFeatureSkeleton />
+                    <GenericFeatureSkeleton />
+                    <GenericFeatureSkeleton />
+                  </>
+                )}
                 {occurrenceSearch?.documents.total > 0 && (
                   <GenericFeature>
                     <OccurrenceIcon />
