@@ -78,6 +78,15 @@ export type Config = Endpoints & {
     path: string;
     overwriteConfig: Partial<Config>;
   }>;
+  availableCatalogues?: (
+    | 'INSTITUTION'
+    | 'COLLECTION'
+    | 'OCCURRENCE'
+    | 'DATASET'
+    | 'PUBLISHER'
+    | 'TAXON'
+    | 'LITERATURE'
+  )[];
   maps: {
     locale?: string;
     mapStyles: {

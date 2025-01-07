@@ -1,3 +1,4 @@
+import { DataHeader } from '@/components/dataHeader';
 import Globe from '@/components/globe';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import {
@@ -29,6 +30,7 @@ import { Helmet } from 'react-helmet-async';
 import { BsLightningFill } from 'react-icons/bs';
 import { FormattedMessage } from 'react-intl';
 import { Outlet, redirect, useLoaderData } from 'react-router-dom';
+import { AboutContent, ApiContent } from './help';
 
 const OCCURRENCE_QUERY = /* GraphQL */ `
   query Occurrence($key: ID!, $language: String!) {
@@ -306,113 +308,120 @@ export function OccurrenceKey() {
   }
 
   return (
-    <article>
+    <>
       <Helmet>
         <title>{occurrence.scientificName}</title>
       </Helmet>
-
-      <PageContainer topPadded className="g-bg-white">
-        <ArticleTextContainer className="g-max-w-screen-xl">
-          <div className="g-flex">
-            {!hideGlobe && data?.occurrence?.volatile?.globe && (
-              <div className="g-flex">
-                <Globe
-                  {...data?.occurrence?.volatile?.globe}
-                  className="g-w-32 g-h-32 g-me-4 g-mb-4"
-                />
-              </div>
-            )}
-            <div className="g-flex-grow">
-              <ArticlePreTitle
-                secondary={
-                  occurrence.eventDate ? (
-                    <FormattedDateRange date={occurrence?.eventDate} />
-                  ) : (
-                    <FormattedMessage id="phrases.unknownDate" />
-                  )
-                }
-              >
-                {occurrence.volatile?.features?.isSpecimen && (
-                  <FormattedMessage id="specimen" defaultMessage="Specimen" />
-                )}
-                {!occurrence.volatile?.features?.isSpecimen && (
-                  <FormattedMessage id="observation" defaultMessage="Observation" />
-                )}
-              </ArticlePreTitle>
-              {/* <ArticleTitle
+      <DataHeader
+        aboutContent={<AboutContent />}
+        apiContent={<ApiContent id={data?.occurrence?.key?.toString()} />}
+      ></DataHeader>
+      <article>
+        <PageContainer topPadded className="g-bg-white">
+          <ArticleTextContainer className="g-max-w-screen-xl">
+            <div className="g-flex">
+              {!hideGlobe && data?.occurrence?.volatile?.globe && (
+                <div className="g-flex">
+                  <Globe
+                    {...data?.occurrence?.volatile?.globe}
+                    className="g-w-32 g-h-32 g-me-4 g-mb-4"
+                  />
+                </div>
+              )}
+              <div className="g-flex-grow">
+                <ArticlePreTitle
+                  secondary={
+                    occurrence.eventDate ? (
+                      <FormattedDateRange date={occurrence?.eventDate} />
+                    ) : (
+                      <FormattedMessage id="phrases.unknownDate" />
+                    )
+                  }
+                >
+                  {occurrence.volatile?.features?.isSpecimen && (
+                    <FormattedMessage id="specimen" defaultMessage="Specimen" />
+                  )}
+                  {!occurrence.volatile?.features?.isSpecimen && (
+                    <FormattedMessage id="observation" defaultMessage="Observation" />
+                  )}
+                </ArticlePreTitle>
+                {/* <ArticleTitle
                 dangerouslySetTitle={{ __html: occurrence.scientificName || 'No title provided' }}
               ></ArticleTitle> */}
-              <ArticleTitle className="lg:g-text-3xl">
-                {!occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
-                  <>
-                    <span
-                      className="g-me-4"
-                      dangerouslySetInnerHTML={{
-                        __html:
-                          occurrence?.gbifClassification?.usage?.formattedName ??
-                          occurrence.scientificName ??
-                          'No title provided',
-                      }}
-                    />
-                    {vernacularName && (
-                      <span className="g-text-slate-300 g-inline-block" style={{ fontSize: '85%' }}>
-                        {vernacularName}
-                      </span>
-                    )}
-                  </>
-                )}
-                {occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
-                  <>
-                    <span>{termMap.scientificName.verbatim}</span>
-                    <Tooltip delayDuration={0}>
-                      <TooltipTrigger>
-                        <span style={{ marginInlineStart: 8 }}>
-                          <BsLightningFill style={{ color: 'orange' }} />
-                        </span>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        This name could not be matched confidently to the GBIF backbone. The
-                        clostest match is{' '}
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html:
-                              occurrence?.gbifClassification?.usage?.formattedName ??
-                              occurrence.scientificName ??
-                              'Uknown scientific name',
-                          }}
-                        />
-                      </TooltipContent>
-                    </Tooltip>
-                  </>
-                )}
-              </ArticleTitle>
-              {occurrence.organismName && <h2>Organism name: {occurrence.organismName}</h2>}
-              <HeaderInfo>
-                <HeaderInfoMain>
-                  <div>
-                    {occurrence.gbifClassification?.classification && (
-                      <div>
-                        <TaxonClassification
-                          className="g-flex g-mb-2"
-                          majorOnly
-                          classification={occurrence.gbifClassification?.classification}
-                        />
-                      </div>
-                    )}
-
-                    {occurrence.gadm?.level1 && (
-                      <GadmClassification className="g-flex g-mb-1" gadm={occurrence.gadm}>
-                        {occurrence.locality && <div>{occurrence.locality}</div>}
-                      </GadmClassification>
-                    )}
-                    {!occurrence?.gadm?.level1 && occurrence.countryCode && (
-                      <Location
-                        countryCode={occurrence.countryCode}
-                        city={occurrence.stateProvince}
+                <ArticleTitle className="lg:g-text-3xl">
+                  {!occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
+                    <>
+                      <span
+                        className="g-me-4"
+                        dangerouslySetInnerHTML={{
+                          __html:
+                            occurrence?.gbifClassification?.usage?.formattedName ??
+                            occurrence.scientificName ??
+                            'No title provided',
+                        }}
                       />
-                    )}
+                      {vernacularName && (
+                        <span
+                          className="g-text-slate-300 g-inline-block"
+                          style={{ fontSize: '85%' }}
+                        >
+                          {vernacularName}
+                        </span>
+                      )}
+                    </>
+                  )}
+                  {occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
+                    <>
+                      <span>{termMap.scientificName.verbatim}</span>
+                      <Tooltip delayDuration={0}>
+                        <TooltipTrigger>
+                          <span style={{ marginInlineStart: 8 }}>
+                            <BsLightningFill style={{ color: 'orange' }} />
+                          </span>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          This name could not be matched confidently to the GBIF backbone. The
+                          clostest match is{' '}
+                          <span
+                            dangerouslySetInnerHTML={{
+                              __html:
+                                occurrence?.gbifClassification?.usage?.formattedName ??
+                                occurrence.scientificName ??
+                                'Uknown scientific name',
+                            }}
+                          />
+                        </TooltipContent>
+                      </Tooltip>
+                    </>
+                  )}
+                </ArticleTitle>
+                {occurrence.organismName && <h2>Organism name: {occurrence.organismName}</h2>}
+                <HeaderInfo>
+                  <HeaderInfoMain>
+                    <div>
+                      {occurrence.gbifClassification?.classification && (
+                        <div>
+                          <TaxonClassification
+                            className="g-flex g-mb-2"
+                            majorOnly
+                            classification={occurrence.gbifClassification?.classification}
+                          />
+                        </div>
+                      )}
 
-                    {/* {(termMap.recordedBy?.verbatim || termMap.identifiedBy?.verbatim) && (
+                      {occurrence.gadm?.level1 && (
+                        <GadmClassification className="g-flex g-mb-1" gadm={occurrence.gadm}>
+                          {occurrence.locality && <div>{occurrence.locality}</div>}
+                        </GadmClassification>
+                      )}
+                      {!occurrence?.gadm?.level1 && occurrence.countryCode && (
+                        <Location
+                          countryCode={occurrence.countryCode}
+                          city={occurrence.stateProvince}
+                        />
+                      )}
+
+                      {/* {(termMap.recordedBy?.verbatim || termMap.identifiedBy?.verbatim) && (
                       <GenericFeature className='g-flex g-mb-1'>
                         <PeopleIcon />
                         {recorderAndIndentiferIsDifferent && (
@@ -456,37 +465,38 @@ export function OccurrenceKey() {
                         )}
                       </GenericFeature>
                     )} */}
-                  </div>
+                    </div>
 
-                  <FeatureList className="g-mt-2">
-                    {occurrence.volatile?.features?.isSamplingEvent && <SamplingEvent />}
-                    {occurrence.typeStatus && occurrence.typeStatus?.length > 0 && (
-                      <TypeStatus types={occurrence.typeStatus} />
-                    )}
-                    {occurrence?.references && <Homepage url={occurrence?.references} />}
-                    {occurrence?.volatile?.features?.isSequenced && <Sequenced />}
-                    {occurrence?.volatile?.features?.firstIIIF && (
-                      <IIIF url={occurrence?.volatile?.features?.firstIIIF} />
-                    )}
-                  </FeatureList>
-                </HeaderInfoMain>
-              </HeaderInfo>
+                    <FeatureList className="g-mt-2">
+                      {occurrence.volatile?.features?.isSamplingEvent && <SamplingEvent />}
+                      {occurrence.typeStatus && occurrence.typeStatus?.length > 0 && (
+                        <TypeStatus types={occurrence.typeStatus} />
+                      )}
+                      {occurrence?.references && <Homepage url={occurrence?.references} />}
+                      {occurrence?.volatile?.features?.isSequenced && <Sequenced />}
+                      {occurrence?.volatile?.features?.firstIIIF && (
+                        <IIIF url={occurrence?.volatile?.features?.firstIIIF} />
+                      )}
+                    </FeatureList>
+                  </HeaderInfoMain>
+                </HeaderInfo>
+              </div>
             </div>
-          </div>
-          <div className="g-border-b g-mt-4"></div>
-          <Tabs links={tabs} />
-        </ArticleTextContainer>
-      </PageContainer>
-      <OccurrenceKeyContext.Provider
-        value={{
-          key: data?.occurrence?.key,
-          datasetKey: data?.occurrence?.datasetKey,
-          dynamicProperties: data?.occurrence?.dynamicProperties,
-        }}
-      >
-        <Outlet />
-      </OccurrenceKeyContext.Provider>
-    </article>
+            <div className="g-border-b g-mt-4"></div>
+            <Tabs links={tabs} />
+          </ArticleTextContainer>
+        </PageContainer>
+        <OccurrenceKeyContext.Provider
+          value={{
+            key: data?.occurrence?.key,
+            datasetKey: data?.occurrence?.datasetKey,
+            dynamicProperties: data?.occurrence?.dynamicProperties,
+          }}
+        >
+          <Outlet />
+        </OccurrenceKeyContext.Provider>
+      </article>
+    </>
   );
 }
 

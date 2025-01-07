@@ -5,21 +5,13 @@ import { FilterButton } from '@/components/filters/filterButton';
 import { FilterPopover } from '@/components/filters/filterPopover';
 import { FilterBar, getAsQuery } from '@/components/filters/filterTools';
 import { QInlineButtonFilter } from '@/components/filters/QInlineButtonFilter';
-import { HelpText } from '@/components/helpText';
 import { NoRecords } from '@/components/noDataMessages';
 import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
-  Card,
   CardContent,
   CardHeader as SmallHeader,
   CardTitle as SmallTitle,
@@ -44,6 +36,7 @@ import { Helmet } from 'react-helmet-async';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { SearchCommand } from '../../../components/filters/SearchCommand';
 import { PublisherResult } from '../publisherResult';
+import { AboutContent, ApiContent } from './help';
 import { Map } from './map/map';
 import { searchConfig } from './searchConfig';
 
@@ -410,59 +403,6 @@ function Filters() {
         </FilterPopover>
       )}
     </>
-  );
-}
-
-function AboutContent() {
-  return (
-    <div>
-      <Accordion type="single" collapsible className="w-full">
-        <AccordionItem value="item-1">
-          <AccordionTrigger>What is a publisher?</AccordionTrigger>
-          <AccordionContent className="g-prose g-text-sm">
-            Data is loaded from contentful help items async. E.g.
-            <HelpText
-              identifier={'which-coordinate-systems-are-used-for-gbif-occurence-downloads'}
-            />
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-2">
-          <AccordionTrigger>How to search for publishers</AccordionTrigger>
-          <AccordionContent>Data is loaded from contentful help items async</AccordionContent>
-        </AccordionItem>
-      </Accordion>
-    </div>
-  );
-}
-
-function ApiContent() {
-  return (
-    <div className="g-text-sm g-prose">
-      <h3>API access</h3>
-      <p>
-        All data is available via the{' '}
-        <a href="https://techdocs.gbif.org/en/openapi/v1/registry#/Publishing%20organizations">
-          GBIF API
-        </a>
-        . No registration or API key is required.
-      </p>
-      <p>
-        Please remember to properly cite usage and to throttle requests in scripts. Most endpoint
-        types support download/export. Use those if you need large data volumes.
-      </p>
-      <h4>Examples</h4>
-      <Card className="g-p-2 g-mb-2">
-        Get all publishers <br />
-        <a href="https://api.gbif.org/v1/organization">https://api.gbif.org/v1/organization</a>
-      </Card>
-      <Card className="g-p-2">
-        First 2 German publishers with free text "animals"
-        <br />
-        <a href="https://api.gbif.org/v1/organization?country=DE&q=animals&limit=2&offset=0">
-          https://api.gbif.org/v1/organization?country=DE&q=animals&limit=2&offset=0
-        </a>
-      </Card>
-    </div>
   );
 }
 

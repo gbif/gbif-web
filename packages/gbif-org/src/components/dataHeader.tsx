@@ -6,6 +6,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { useConfig } from '@/config/config';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
 import React from 'react';
@@ -18,23 +19,29 @@ export function DataHeader({
   aboutContent,
   apiContent,
   hasBorder,
+  hideCatalogueSelector,
 }: {
   children?: React.ReactNode;
   title?: React.ReactNode;
   hasBorder?: boolean;
   aboutContent?: React.ReactElement;
   apiContent?: React.ReactElement;
+  hideCatalogueSelector?: boolean;
 }) {
+  const { availableCatalogues = [] } = useConfig();
+
   return (
     <div
-      className={`g-flex g-justify-center g-items-center g-ps-2 g-bg-paperBackground ${
+      className={`g-flex g-justify-center g-items-center g-px-2 g-h-12 ${
         hasBorder ? 'g-border-b g-border-slate-200' : ''
       }`}
     >
-      <>
-        <CatalogSelector title={title} />
-        {children && <Separator />}
-      </>
+      {!hideCatalogueSelector && availableCatalogues.length > 1 && (
+        <>
+          <CatalogSelector title={title} availableCatalogues={availableCatalogues} />
+          {children && <Separator />}
+        </>
+      )}
       <div className="g-flex-auto g-min-w-0">{children}</div>
       <div className="g-flex-none g-mx-2">
         <div className="g-flex g-justify-center g-text-slate-400">
@@ -75,54 +82,82 @@ function Popup({
   );
 }
 
-function CatalogSelector({ title }: { title: React.ReactNode }) {
+function CatalogSelector({
+  title,
+  availableCatalogues,
+}: {
+  title: React.ReactNode;
+  availableCatalogues: string[];
+}) {
+  if (availableCatalogues.length < 2) return null;
+
+  const lookup = availableCatalogues.reduce((acc: { [key: string]: boolean }, cur) => {
+    acc[cur] = true;
+    return acc;
+  }, {});
+
   return (
-    <div className="g-flex-none g-flex g-items-center g-mx-2">
+    <div className="g-flex-none g-flex g-items-center">
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <div className="g-flex g-justify-center g-items-center">
-            <MdApps />{' '}
-            {title && <span className="g-ms-2 g-pt-2 g-pb-1.5 g-hidden lg:g-inline">{title}</span>}
+          <div className="g-flex g-justify-center g-items-center g-px-2 g-pt-2.5 g-pb-2.5">
+            <MdApps /> {title && <span className="g-ms-2 g-hidden lg:g-inline">{title}</span>}
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem asChild>
-            <DynamicLink pageId="occurrenceSearch">
-              <FormattedMessage id="catalogues.occurrences" />
-            </DynamicLink>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <DynamicLink pageId="datasetSearch">
-              <FormattedMessage id="catalogues.datasets" />
-            </DynamicLink>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <DynamicLink pageId="publisherSearch">
-              <FormattedMessage id="catalogues.publishers" />
-            </DynamicLink>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <DynamicLink pageId="speciesSearch">
-              <FormattedMessage id="catalogues.species" />
-            </DynamicLink>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem asChild>
-            <DynamicLink pageId="institutionSearch">
-              <FormattedMessage id="catalogues.institutions" />
-            </DynamicLink>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <DynamicLink pageId="collectionSearch">
-              <FormattedMessage id="catalogues.collections" />
-            </DynamicLink>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem asChild>
-            <DynamicLink pageId="literatureSearch">
-              <FormattedMessage id="catalogues.literature" />
-            </DynamicLink>
-          </DropdownMenuItem>
+          {lookup.OCCURRENCE && (
+            <DropdownMenuItem asChild>
+              <DynamicLink pageId="occurrenceSearch">
+                <FormattedMessage id="catalogues.occurrences" />
+              </DynamicLink>
+            </DropdownMenuItem>
+          )}
+          {lookup.DATASET && (
+            <DropdownMenuItem asChild>
+              <DynamicLink pageId="datasetSearch">
+                <FormattedMessage id="catalogues.datasets" />
+              </DynamicLink>
+            </DropdownMenuItem>
+          )}
+          {lookup.PUBLISHER && (
+            <DropdownMenuItem asChild>
+              <DynamicLink pageId="publisherSearch">
+                <FormattedMessage id="catalogues.publishers" />
+              </DynamicLink>
+            </DropdownMenuItem>
+          )}
+          {lookup.TAXON && (
+            <DropdownMenuItem asChild>
+              <DynamicLink pageId="speciesSearch">
+                <FormattedMessage id="catalogues.species" />
+              </DynamicLink>
+            </DropdownMenuItem>
+          )}
+          {(lookup.INSTITUTION || lookup.COLLECTION) && <DropdownMenuSeparator />}
+          {lookup.INSTITUTION && (
+            <DropdownMenuItem asChild>
+              <DynamicLink pageId="institutionSearch">
+                <FormattedMessage id="catalogues.institutions" />
+              </DynamicLink>
+            </DropdownMenuItem>
+          )}
+          {lookup.COLLECTION && (
+            <DropdownMenuItem asChild>
+              <DynamicLink pageId="collectionSearch">
+                <FormattedMessage id="catalogues.collections" />
+              </DynamicLink>
+            </DropdownMenuItem>
+          )}
+          {lookup.LITERATURE && (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <DynamicLink pageId="literatureSearch">
+                  <FormattedMessage id="catalogues.literature" />
+                </DynamicLink>
+              </DropdownMenuItem>
+            </>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

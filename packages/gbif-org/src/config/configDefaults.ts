@@ -1,6 +1,15 @@
 import { Config } from './config';
 
 export const configDefault: Partial<Config> = {
+  availableCatalogues: [
+    'OCCURRENCE',
+    'INSTITUTION',
+    'COLLECTION',
+    'DATASET',
+    'PUBLISHER',
+    'TAXON',
+    'LITERATURE',
+  ],
   datasetSearch: {
     excludedFilters: [],
     highlightedFilters: ['q', 'type', 'publishingOrg', 'license'],

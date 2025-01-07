@@ -19,6 +19,23 @@ export function HelpTitle({ id, ...props }: { id: string } & React.HTMLProps<HTM
   return <span dangerouslySetInnerHTML={{ __html: title }} {...props} />;
 }
 
+export function HelpTextSkeleton({ includeTitle }: { includeTitle?: boolean }) {
+  return (
+    <div className="g-animate-pulse g-flex g-space-x-4">
+      <div className="g-flex-1 g-space-y-6 g-py-1">
+        {includeTitle && <div className="g-h-2 g-bg-slate-200 g-rounded"></div>}
+        <div className="g-space-y-3">
+          <div className="g-grid g-grid-cols-3 g-gap-4">
+            <div className="g-h-2 g-bg-slate-200 g-rounded g-col-span-2"></div>
+            <div className="g-h-2 g-bg-slate-200 g-rounded g-col-span-1"></div>
+          </div>
+          <div className="g-h-2 g-bg-slate-200 g-rounded"></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function HelpText({
   identifier,
   includeTitle,
@@ -33,20 +50,7 @@ export function HelpText({
 
   return (
     <div {...props}>
-      {loading && (
-        <div className="g-animate-pulse g-flex g-space-x-4">
-          <div className="g-flex-1 g-space-y-6 g-py-1">
-            {includeTitle && <div className="g-h-2 g-bg-slate-200 g-rounded"></div>}
-            <div className="g-space-y-3">
-              <div className="g-grid g-grid-cols-3 g-gap-4">
-                <div className="g-h-2 g-bg-slate-200 g-rounded g-col-span-2"></div>
-                <div className="g-h-2 g-bg-slate-200 g-rounded g-col-span-1"></div>
-              </div>
-              <div className="g-h-2 g-bg-slate-200 g-rounded"></div>
-            </div>
-          </div>
-        </div>
-      )}
+      {loading && <HelpTextSkeleton includeTitle={includeTitle} />}
       {!loading && error && (
         <div style={{ textAlign: 'center' }}>
           <div>

@@ -1,3 +1,4 @@
+import { DataHeader } from '@/components/dataHeader';
 import { ErrorMessage } from '@/components/errorMessage';
 import {
   defaultDateFormatProps,
@@ -32,6 +33,7 @@ import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
+import { AboutContent, ApiContent } from './help';
 
 const PUBLISHER_QUERY = /* GraphQL */ `
   query Publisher($key: ID!) {
@@ -150,6 +152,10 @@ export function PublisherPage() {
         <title>{publisher.title}</title>
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
+      <DataHeader
+        aboutContent={<AboutContent />}
+        apiContent={<ApiContent id={publisher?.key?.toString()} />}
+      ></DataHeader>
 
       <PageContainer topPadded className="g-bg-white">
         <ArticleTextContainer className="g-max-w-screen-xl">

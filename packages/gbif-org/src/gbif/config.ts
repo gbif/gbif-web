@@ -116,6 +116,13 @@ export const gbifConfig: Config = {
   OBISKey: 'ba0670b9-4186-41e6-8e70-f9cb3065551a',
   taiwanNodeidentifier: '239',
   linkToGbifOrg: true,
+  publisherSearch: {
+    queryType: 'V1',
+    // scope: {
+    //   country: 'DK',
+    // },
+    // excludedFilters: ['country'],
+  },
   datasetSearch: {
     excludedFilters: [],
     highlightedFilters: ['q', 'type', 'publishingOrg', 'license'],
@@ -134,6 +141,7 @@ export const gbifConfig: Config = {
       'taxonKey',
       'descriptorCountry',
     ],
+    // excludedFilters: ['institutionKey', 'active'],
   },
   collectionKey: {
     occurrenceSearch: {
@@ -145,6 +153,7 @@ export const gbifConfig: Config = {
   },
   institutionSearch: {
     highlightedFilters: ['q', 'code', 'country', 'numberSpecimens', 'occurrenceCount'],
+    // excludedFilters: ['code', 'country'],
   },
   taxonSearch: {
     scope: {

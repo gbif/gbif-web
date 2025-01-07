@@ -1,3 +1,4 @@
+import { DataHeader } from '@/components/dataHeader';
 import {
   defaultDateFormatProps,
   DeletedMessage,
@@ -28,6 +29,7 @@ import { Helmet } from 'react-helmet-async';
 import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
+import { AboutContent, ApiContent } from './help';
 
 const DATASET_QUERY = /* GraphQL */ `
   query Dataset($key: ID!) {
@@ -327,89 +329,94 @@ export function DatasetPage() {
   }, [occData, error, dataset.key, dataset?.checklistBankDataset?.key]);
 
   return (
-    <article>
+    <>
       <Helmet>
         <title>{dataset.title}</title>
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
-
-      <PageContainer topPadded className="g-bg-white">
-        <ArticleTextContainer className="g-max-w-screen-xl">
-          <ArticlePreTitle
-            secondary={
-              <FormattedMessage
-                id="dataset.registeredDate"
-                values={{
-                  DATE: (
-                    <FormattedDate
-                      value={dataset.created ?? undefined}
-                      {...defaultDateFormatProps}
-                    />
-                  ),
-                }}
-              />
-            }
-          >
-            <FormattedMessage id={`dataset.longType.${dataset.type}`} />
-          </ArticlePreTitle>
-          {/* it would be nice to know for sure which fields to expect */}
-          <ArticleTitle
-            dangerouslySetTitle={{ __html: dataset.title || 'No title provided' }}
-          ></ArticleTitle>
-
-          {dataset.publishingOrganizationTitle && (
-            <div className="g-mt-2">
-              <FormattedMessage id="dataset.publishedBy" />{' '}
-              <DynamicLink
-                className="hover:g-underline g-text-primary-500"
-                to={`/publisher/${dataset.publishingOrganizationKey}`}
-                pageId="publisherKey"
-                variables={{ key: dataset.publishingOrganizationKey }}
-              >
-                {dataset?.publishingOrganizationTitle}
-              </DynamicLink>
-            </div>
-          )}
-
-          {deletedAt && <DeletedMessage date={deletedAt} />}
-
-          <HeaderInfo>
-            <HeaderInfoMain>
-              <FeatureList>
-                {contactsCitation.length > 0 && (
-                  <GenericFeature>
-                    <PeopleIcon />
-                    {contactsCitation.length < contactThreshold && (
-                      <span>{contactsCitation.map((c) => c.abbreviatedName).join(' • ')}</span>
-                    )}
-                    {contactsCitation.length >= contactThreshold && (
-                      <FormattedMessage
-                        id="counts.nAuthors"
-                        values={{ total: contactsCitation.length }}
+      <DataHeader
+        aboutContent={<AboutContent />}
+        apiContent={<ApiContent id={dataset?.key?.toString()} />}
+      ></DataHeader>
+      <article>
+        <PageContainer topPadded className="g-bg-white">
+          <ArticleTextContainer className="g-max-w-screen-xl">
+            <ArticlePreTitle
+              secondary={
+                <FormattedMessage
+                  id="dataset.registeredDate"
+                  values={{
+                    DATE: (
+                      <FormattedDate
+                        value={dataset.created ?? undefined}
+                        {...defaultDateFormatProps}
                       />
-                    )}
+                    ),
+                  }}
+                />
+              }
+            >
+              <FormattedMessage id={`dataset.longType.${dataset.type}`} />
+            </ArticlePreTitle>
+            {/* it would be nice to know for sure which fields to expect */}
+            <ArticleTitle
+              dangerouslySetTitle={{ __html: dataset.title || 'No title provided' }}
+            ></ArticleTitle>
+
+            {dataset.publishingOrganizationTitle && (
+              <div className="g-mt-2">
+                <FormattedMessage id="dataset.publishedBy" />{' '}
+                <DynamicLink
+                  className="hover:g-underline g-text-primary-500"
+                  to={`/publisher/${dataset.publishingOrganizationKey}`}
+                  pageId="publisherKey"
+                  variables={{ key: dataset.publishingOrganizationKey }}
+                >
+                  {dataset?.publishingOrganizationTitle}
+                </DynamicLink>
+              </div>
+            )}
+
+            {deletedAt && <DeletedMessage date={deletedAt} />}
+
+            <HeaderInfo>
+              <HeaderInfoMain>
+                <FeatureList>
+                  {contactsCitation.length > 0 && (
+                    <GenericFeature>
+                      <PeopleIcon />
+                      {contactsCitation.length < contactThreshold && (
+                        <span>{contactsCitation.map((c) => c.abbreviatedName).join(' • ')}</span>
+                      )}
+                      {contactsCitation.length >= contactThreshold && (
+                        <FormattedMessage
+                          id="counts.nAuthors"
+                          values={{ total: contactsCitation.length }}
+                        />
+                      )}
+                    </GenericFeature>
+                  )}
+                  <Homepage url={dataset.homepage} />
+                  <GenericFeature>
+                    <LicenceTag value={dataset.license} />
                   </GenericFeature>
-                )}
-                <Homepage url={dataset.homepage} />
-                <GenericFeature>
-                  <LicenceTag value={dataset.license} />
-                </GenericFeature>
-              </FeatureList>
-            </HeaderInfoMain>
-          </HeaderInfo>
-          <div className="g-border-b g-mt-4"></div>
-          <Tabs links={tabs} />
-        </ArticleTextContainer>
-      </PageContainer>
-      <DatasetKeyContext.Provider
-        value={{
-          datasetKey: data?.dataset?.key,
-          dynamicProperties:
-            occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties || undefined,
-        }}
-      >
-        <Outlet />
-      </DatasetKeyContext.Provider>
-    </article>
+                </FeatureList>
+              </HeaderInfoMain>
+            </HeaderInfo>
+            <div className="g-border-b g-mt-4"></div>
+            <Tabs links={tabs} />
+          </ArticleTextContainer>
+        </PageContainer>
+        <DatasetKeyContext.Provider
+          value={{
+            datasetKey: data?.dataset?.key,
+            dynamicProperties:
+              occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties || undefined,
+          }}
+        >
+          <Outlet />
+        </DatasetKeyContext.Provider>
+      </article>
+    </>
   );
 }

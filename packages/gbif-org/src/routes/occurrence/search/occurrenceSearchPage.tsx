@@ -16,7 +16,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { useFilters } from './filters';
-import { AboutContent, ApiContent } from './helpTexts';
+import { AboutContent, ApiContent } from './help';
 import { searchConfig } from './searchConfig';
 import EntityDrawer from './views/browseList/ListBrowser';
 import { Clusters } from './views/clusters';
@@ -169,7 +169,6 @@ function OccurrenceViewTabs({
 }) {
   const { getParams } = useUpdateViewParams(['from', 'sort', 'limit', 'offset']); // Removes 'from' and 'sort'
 
-  console.log(tabs);
   return (
     <Tabs
       disableAutoDetectActive

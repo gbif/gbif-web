@@ -1,3 +1,4 @@
+import { DataHeader } from '@/components/dataHeader';
 import { ErrorMessage } from '@/components/errorMessage';
 import {
   DeletedMessage,
@@ -29,6 +30,7 @@ import { Helmet } from 'react-helmet-async';
 import { GrGithub as Github } from 'react-icons/gr';
 import { FormattedMessage } from 'react-intl';
 import { Outlet } from 'react-router-dom';
+import { AboutContent, ApiContent } from './help';
 
 const GBIF_REGISTRY_ENDPOINT = 'https://registry.gbif.org';
 
@@ -66,153 +68,158 @@ export function InstitutionKey({
   const imageUrl = institution.featuredImageUrl ?? institution.featuredImageUrl_fallback;
 
   return (
-    <article>
+    <>
       <Helmet>
         <title>{institution.name}</title>
         {/* TODO we need much richer meta data. */}
       </Helmet>
-
-      <PageContainer topPadded className="g-bg-white">
-        <ArticleTextContainer className="g-max-w-screen-xl">
-          <div className="g-flex g-pb-4">
-            {imageUrl && !useInlineImage && (
-              <div className="g-flex-none g-me-4">
-                <div className="g-bg-slate-200 g-rounded g-w-36 lg:g-w-96 g-overflow-hidden">
-                  <FeaturedImageContent
-                    featuredImageUrl={imageUrl}
-                    featuredImageLicense={
-                      institution.featuredImageUrl ? institution.featuredImageLicense : null
-                    }
-                  />
-                </div>
-              </div>
-            )}
-            <div className="g-flex-auto g-flex g-flex-col">
-              <div className="g-flex-auto">
-                <ArticlePreTitle secondary={institution?.code}>
-                  <FormattedMessage id="grscicoll.institutionCode" />
-                </ArticlePreTitle>
-                {/* it would be nice to know for sure which fields to expect */}
-                <ArticleTitle
-                  dangerouslySetTitle={{ __html: institution.name || 'No title provided' }}
-                ></ArticleTitle>
-
-                {deletedAt && <DeletedMessage date={deletedAt} />}
-                {institution.replacedByInstitution && (
-                  <ErrorMessage>
-                    <FormattedMessage
-                      id="phrases.replacedBy"
-                      values={{
-                        newItem: (
-                          <DynamicLink
-                            className="g-me-4"
-                            pageId="institutionKey"
-                            variables={{ key: institution.replacedByInstitution.key }}
-                            to={`/institution/${institution.replacedByInstitution.key}`}
-                          >
-                            {institution.replacedByInstitution.name}
-                          </DynamicLink>
-                        ),
-                      }}
+      <DataHeader
+        aboutContent={<AboutContent />}
+        apiContent={<ApiContent id={institution?.key?.toString()} />}
+      ></DataHeader>
+      <article>
+        <PageContainer topPadded className="g-bg-white">
+          <ArticleTextContainer className="g-max-w-screen-xl">
+            <div className="g-flex g-pb-4">
+              {imageUrl && !useInlineImage && (
+                <div className="g-flex-none g-me-4">
+                  <div className="g-bg-slate-200 g-rounded g-w-36 lg:g-w-96 g-overflow-hidden">
+                    <FeaturedImageContent
+                      featuredImageUrl={imageUrl}
+                      featuredImageLicense={
+                        institution.featuredImageUrl ? institution.featuredImageLicense : null
+                      }
                     />
-                  </ErrorMessage>
-                )}
-              </div>
+                  </div>
+                </div>
+              )}
+              <div className="g-flex-auto g-flex g-flex-col">
+                <div className="g-flex-auto">
+                  <ArticlePreTitle secondary={institution?.code}>
+                    <FormattedMessage id="grscicoll.institutionCode" />
+                  </ArticlePreTitle>
+                  {/* it would be nice to know for sure which fields to expect */}
+                  <ArticleTitle
+                    dangerouslySetTitle={{ __html: institution.name || 'No title provided' }}
+                  ></ArticleTitle>
 
-              <HeaderInfo>
-                <HeaderInfoMain>
-                  <FeatureList>
-                    <Homepage url={institution?.homepage} />
-                    {contactInfo?.country && (
-                      <Location countryCode={contactInfo?.country} city={contactInfo.city} />
-                    )}
-                    {institution?.numberSpecimens && institution?.numberSpecimens > 1 && (
-                      <GenericFeature>
-                        <OccurrenceIcon />
-                        <FormattedMessage
-                          id="counts.nSpecimens"
-                          values={{ total: institution.numberSpecimens }}
-                        />
-                      </GenericFeature>
-                    )}
-                    {!(institution?.numberSpecimens && institution?.numberSpecimens > 1) && (
-                      <GenericFeature>
-                        <OccurrenceIcon />
-                        <span className="g-text-slate-400">
-                          <FormattedMessage id="grscicoll.unknownSize" />
-                        </span>
-                      </GenericFeature>
-                    )}
-                  </FeatureList>
-                  {institution?.catalogUrls && institution?.catalogUrls?.length > 0 && (
-                    <FeatureList>
-                      <GenericFeature>
-                        <CatalogIcon />
-                        <span>
-                          <a href={institution.catalogUrls[0]}>
-                            <FormattedMessage
-                              id="grscicoll.dataCatalog"
-                              defaultMessage="Data catalog"
-                            />
-                          </a>
-                        </span>
-                      </GenericFeature>
-                    </FeatureList>
-                  )}
-                </HeaderInfoMain>
-                <HeaderInfoEdit className="g-flex">
-                  {/* TODO Phew it is quite a few lines just to add a tooltip, I wonder if an abstraction would be appreciated. Here I repeat the provider, which doesn't help, but it didn't properly disappear and reappear without it*/}
-                  <Tooltip delayDuration={0}>
-                    <TooltipTrigger>
-                      <Button variant="outline" asChild>
-                        <a href={`${GBIF_REGISTRY_ENDPOINT}/institution/${institution.key}`}>
-                          <FormattedMessage id="grscicoll.edit" defaultMessage="Edit" />
-                        </a>
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
+                  {deletedAt && <DeletedMessage date={deletedAt} />}
+                  {institution.replacedByInstitution && (
+                    <ErrorMessage>
                       <FormattedMessage
-                        id="grscicoll.editHelpText"
-                        defaultMessage="No login required"
+                        id="phrases.replacedBy"
+                        values={{
+                          newItem: (
+                            <DynamicLink
+                              className="g-me-4"
+                              pageId="institutionKey"
+                              variables={{ key: institution.replacedByInstitution.key }}
+                              to={`/institution/${institution.replacedByInstitution.key}`}
+                            >
+                              {institution.replacedByInstitution.name}
+                            </DynamicLink>
+                          ),
+                        }}
                       />
-                    </TooltipContent>
-                  </Tooltip>
-                  <Tooltip delayDuration={0}>
-                    <TooltipTrigger>
-                      <Button
-                        variant="ghost"
-                        asChild
-                        className="g-ms-2"
-                        style={{ fontSize: '1.2em' }}
-                      >
-                        <a
-                          href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(
-                            `NHC: ${institution.name}`
-                          )}&body=${encodeURIComponent(feedbackTemplate)}`}
-                        >
-                          <Github />
-                        </a>
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <FormattedMessage id="grscicoll.githubHelpText" defaultMessage="Github" />
-                    </TooltipContent>
-                  </Tooltip>
-                </HeaderInfoEdit>
-              </HeaderInfo>
-            </div>
-          </div>
-          {tabs.length > 1 && (
-            <>
-              <div className="g-border-b"></div>
-              <Tabs links={tabs} />
-            </>
-          )}
-        </ArticleTextContainer>
-      </PageContainer>
+                    </ErrorMessage>
+                  )}
+                </div>
 
-      <Outlet />
-    </article>
+                <HeaderInfo>
+                  <HeaderInfoMain>
+                    <FeatureList>
+                      <Homepage url={institution?.homepage} />
+                      {contactInfo?.country && (
+                        <Location countryCode={contactInfo?.country} city={contactInfo.city} />
+                      )}
+                      {institution?.numberSpecimens && institution?.numberSpecimens > 1 && (
+                        <GenericFeature>
+                          <OccurrenceIcon />
+                          <FormattedMessage
+                            id="counts.nSpecimens"
+                            values={{ total: institution.numberSpecimens }}
+                          />
+                        </GenericFeature>
+                      )}
+                      {!(institution?.numberSpecimens && institution?.numberSpecimens > 1) && (
+                        <GenericFeature>
+                          <OccurrenceIcon />
+                          <span className="g-text-slate-400">
+                            <FormattedMessage id="grscicoll.unknownSize" />
+                          </span>
+                        </GenericFeature>
+                      )}
+                    </FeatureList>
+                    {institution?.catalogUrls && institution?.catalogUrls?.length > 0 && (
+                      <FeatureList>
+                        <GenericFeature>
+                          <CatalogIcon />
+                          <span>
+                            <a href={institution.catalogUrls[0]}>
+                              <FormattedMessage
+                                id="grscicoll.dataCatalog"
+                                defaultMessage="Data catalog"
+                              />
+                            </a>
+                          </span>
+                        </GenericFeature>
+                      </FeatureList>
+                    )}
+                  </HeaderInfoMain>
+                  <HeaderInfoEdit className="g-flex">
+                    {/* TODO Phew it is quite a few lines just to add a tooltip, I wonder if an abstraction would be appreciated. Here I repeat the provider, which doesn't help, but it didn't properly disappear and reappear without it*/}
+                    <Tooltip delayDuration={0}>
+                      <TooltipTrigger>
+                        <Button variant="outline" asChild>
+                          <a href={`${GBIF_REGISTRY_ENDPOINT}/institution/${institution.key}`}>
+                            <FormattedMessage id="grscicoll.edit" defaultMessage="Edit" />
+                          </a>
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <FormattedMessage
+                          id="grscicoll.editHelpText"
+                          defaultMessage="No login required"
+                        />
+                      </TooltipContent>
+                    </Tooltip>
+                    <Tooltip delayDuration={0}>
+                      <TooltipTrigger>
+                        <Button
+                          variant="ghost"
+                          asChild
+                          className="g-ms-2"
+                          style={{ fontSize: '1.2em' }}
+                        >
+                          <a
+                            href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(
+                              `NHC: ${institution.name}`
+                            )}&body=${encodeURIComponent(feedbackTemplate)}`}
+                          >
+                            <Github />
+                          </a>
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <FormattedMessage id="grscicoll.githubHelpText" defaultMessage="Github" />
+                      </TooltipContent>
+                    </Tooltip>
+                  </HeaderInfoEdit>
+                </HeaderInfo>
+              </div>
+            </div>
+            {tabs.length > 1 && (
+              <>
+                <div className="g-border-b"></div>
+                <Tabs links={tabs} />
+              </>
+            )}
+          </ArticleTextContainer>
+        </PageContainer>
+
+        <Outlet />
+      </article>
+    </>
   );
 }
 

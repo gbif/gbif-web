@@ -28,7 +28,7 @@ export function Header({ menu }: { menu: HeaderQuery }) {
         <DynamicLink
           as={NavLink}
           to="/"
-          className={`g-p-2 ${isTransparent ? 'g-text-white' : 'g-text-primary-500'}`}
+          className={`g-py-2 ${isTransparent ? 'g-text-white' : 'g-text-primary-500'}`}
         >
           <GbifLogoIcon style={{ fontSize: 25 }} />
         </DynamicLink>
