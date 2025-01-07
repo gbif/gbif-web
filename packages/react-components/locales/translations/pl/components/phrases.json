@@ -23,6 +23,8 @@
   "project": "Projekt",
   "license": "Licencja",
   "downloadAsTsv": "Pobierz jako TSV",
+  "didYouKnow": "",
+  "explore": "",
   "backHome": "Wróć na stronę główną",
   "pageNotFound": "404",
   "noInformation": "Brak informacji",
