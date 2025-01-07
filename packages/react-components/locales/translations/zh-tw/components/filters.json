@@ -435,6 +435,16 @@
     "count": "在線",
     "description": "GBIF 註記的存檔"
   },
+  "activeInstitution": {
+    "name": "在線",
+    "count": "在線",
+    "description": "GBIF 註記的存檔"
+  },
+  "activeCollection": {
+    "name": "在線",
+    "count": "在線",
+    "description": "GBIF 註記的存檔"
+  },
   "personalCollection": {
     "name": "私人典藏",
     "count": "私人典藏",
