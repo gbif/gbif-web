@@ -436,13 +436,13 @@
     "description": "Архив, аннотированный GBIF"
   },
   "activeInstitution": {
-    "name": "Действующая",
-    "count": "Действующая",
+    "name": "Действует",
+    "count": "Действует",
     "description": "Архив, аннотированный GBIF"
   },
   "activeCollection": {
-    "name": "Действующая",
-    "count": "Действующая",
+    "name": "Действует",
+    "count": "Действует",
     "description": "Архив, аннотированный GBIF"
   },
   "personalCollection": {
