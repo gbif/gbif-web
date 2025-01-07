@@ -9,6 +9,14 @@ const languageOptions: LanguageOption[] = [
     textDirection: 'ltr',
   },
   {
+    code: 'en-ZZ',
+    label: 'Test',
+    default: false,
+    textDirection: 'ltr',
+    cmsLocale: 'es',
+    reactIntlLocale: 'ar-SA',
+  },
+  {
     code: 'en-DK', // TODO, developer english.  while developing it is convinent to have developer english when text change so taht we can see changes immeadiately
     label: 'Danglish',
     default: false,

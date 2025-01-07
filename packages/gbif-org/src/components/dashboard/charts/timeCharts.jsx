@@ -125,7 +125,9 @@ export function LiteratureCreatedAt({
         disableOther,
         disableUnknown,
         options: ['TIME'],
-        title: <FormattedMessage id="filters.createdAt.name" defaultMessage="Publication date" />,
+        title: (
+          <FormattedMessage id="filters.publicationDate.name" defaultMessage="Publication date" />
+        ),
         predicateKey: 'createdAt',
         facetSize,
         transform: (data) => {

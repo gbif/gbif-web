@@ -3,10 +3,10 @@ import { GroupBy, Pagging, useFacets } from './charts/GroupByTable';
 import { CardHeader } from './shared';
 // import { Classification, DropdownButton, Tooltip } from '../../components';
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu';
 import { MdMoreHoriz } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
@@ -67,7 +67,9 @@ function TaxaMain({
         <CardTitle>
           <FormattedMessage id={`enums.taxonRank.${rank.toUpperCase()}`} defaultMessage={rank} />
         </CardTitle>
-        <CardDescription>Number of occurrences</CardDescription>
+        <CardDescription>
+          <FormattedMessage id="dashboard.numberOfOccurrences" />
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <GroupBy

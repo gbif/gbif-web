@@ -7,6 +7,7 @@ import useQuery from '@/hooks/useQuery';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useEffect } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
 
 export function PublisherKeyMetrics() {
@@ -54,7 +55,9 @@ export function PublisherKeyMetrics() {
             <section>
               <CardHeader>
                 <CardTitle>
-                  <span className="g-me-2">Citation metrics</span>
+                  <span className="g-me-2">
+                    <FormattedMessage id="phrases.citationMetrics" />
+                  </span>
                 </CardTitle>
               </CardHeader>
               <DashBoardLayout>
@@ -84,7 +87,9 @@ export function PublisherKeyMetrics() {
             <section>
               <CardHeader>
                 <CardTitle>
-                  <span className="g-me-2">Occurrence metrics</span>
+                  <span className="g-me-2">
+                    <FormattedMessage id="phrases.occurrenceMetrics" />
+                  </span>
                 </CardTitle>
               </CardHeader>
               <DashBoardLayout>

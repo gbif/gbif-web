@@ -1,5 +1,6 @@
 import { useConfig } from '@/config/config';
 import { cn } from '@/utils/shadcn';
+import { FormattedMessage } from 'react-intl';
 import { HashLink } from 'react-router-hash-link';
 import { Card } from './ui/smallCard';
 
@@ -12,7 +13,9 @@ export function GbifLinkCard({ path, className }: { path: string; className?: st
       <nav>
         <ul className="g-list-none g-m-0 g-p-0 g-my-2">
           <TocLi>
-            <a href={`${import.meta.env.PUBLIC_GBIF_ORG}${path}`}>View on GBIF.org</a>
+            <a href={`${import.meta.env.PUBLIC_GBIF_ORG}${path}`}>
+              <FormattedMessage id="phrases.viewOnGBif" />
+            </a>
           </TocLi>
         </ul>
       </nav>

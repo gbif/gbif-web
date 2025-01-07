@@ -445,6 +445,11 @@
     "count": "Active",
     "description": "Whether the entry correspond to an active collection or a historical listing that no longer exists."
   },
+  "publicationDate": {
+    "name": "Publication date",
+    "count": "{num, plural, one { publication date } other {# publication dates}}",
+    "description": "When was the record was published"
+  },
   "personalCollection": {
     "name": "Personal collection",
     "count": "Personal collection",

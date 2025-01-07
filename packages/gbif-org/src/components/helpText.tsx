@@ -1,9 +1,9 @@
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import {
-    HelpTextQuery,
-    HelpTextQueryVariables,
-    HelpTitleQuery,
-    HelpTitleQueryVariables
+  HelpTextQuery,
+  HelpTextQueryVariables,
+  HelpTitleQuery,
+  HelpTitleQueryVariables,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { cn } from '@/utils/shadcn';
@@ -36,7 +36,7 @@ export function HelpText({
       {loading && (
         <div className="g-animate-pulse g-flex g-space-x-4">
           <div className="g-flex-1 g-space-y-6 g-py-1">
-            <div className="g-h-2 g-bg-slate-200 g-rounded"></div>
+            {includeTitle && <div className="g-h-2 g-bg-slate-200 g-rounded"></div>}
             <div className="g-space-y-3">
               <div className="g-grid g-grid-cols-3 g-gap-4">
                 <div className="g-h-2 g-bg-slate-200 g-rounded g-col-span-2"></div>

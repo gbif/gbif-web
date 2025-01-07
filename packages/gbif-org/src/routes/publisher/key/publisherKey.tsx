@@ -138,10 +138,10 @@ export function PublisherPage() {
 
   const deletedAt = publisher.deleted;
 
-  const tabs = [{ to: '.', children: 'About' }];
+  const tabs = [{ to: '.', children: <FormattedMessage id="publisher.tabs.aboutPublisher" /> }];
   // only add occurrence tab if there are occurrences
   if (occurrenceSearch?.documents.total > 0) {
-    tabs.push({ to: 'metrics', children: 'Metrics' });
+    tabs.push({ to: 'metrics', children: <FormattedMessage id="publisher.tabs.metrics" /> });
   }
 
   return (
