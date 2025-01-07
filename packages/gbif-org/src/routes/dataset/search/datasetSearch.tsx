@@ -1,5 +1,6 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
+import { DownloadAsTSVLink } from '@/components/downloadAsTSVLink';
 import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
 import { HelpText } from '@/components/helpText';
 import { NoRecords } from '@/components/noDataMessages';
@@ -20,19 +21,17 @@ import { FilterContext, FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import { DatasetSearchQuery, DatasetSearchQueryVariables } from '@/gql/graphql';
+import { useIntParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import React, { useContext, useEffect, useMemo } from 'react';
+import { stringify } from '@/utils/querystring';
+import React, { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { DatasetResult } from '../datasetResult';
 import { useFilters } from './filters';
 import { searchConfig } from './searchConfig';
-import { Button } from '@/components/ui/button';
-import { MdDownload } from 'react-icons/md';
-import { ParamQuery, stringify } from '@/utils/querystring';
-import { useIntParam } from '@/hooks/useParam';
 
 const DATASET_SEARCH_QUERY = /* GraphQL */ `
   query DatasetSearch($query: DatasetSearchInput) {
@@ -78,6 +77,7 @@ export function DatasetSearch(): React.ReactElement {
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
+  const [tsvUrl, setTsvUrl] = useState('');
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
   const tabClassName = 'g-pt-2 g-pb-1.5';
@@ -93,6 +93,11 @@ export function DatasetSearch(): React.ReactElement {
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
+    const downloadUrl = `${import.meta.env.PUBLIC_API_V1}/dataset/search/export?format=TSV&${
+      query ? stringify(query as any) : ''
+    }`;
+    setTsvUrl(downloadUrl);
+
     load({
       variables: {
         query: {
@@ -134,7 +139,7 @@ export function DatasetSearch(): React.ReactElement {
         </FilterBar>
         <ArticleContainer className="g-bg-slate-100 g-flex">
           <ArticleTextContainer className="g-flex-auto g-w-full">
-            <Results loading={loading} datasets={datasets} setOffset={setOffset} />
+            <Results loading={loading} datasets={datasets} setOffset={setOffset} tsvUrl={tsvUrl} />
           </ArticleTextContainer>
         </ArticleContainer>
       </section>
@@ -146,25 +151,17 @@ function Results({
   loading,
   datasets,
   setOffset,
+  tsvUrl,
 }: {
   loading: boolean;
   datasets?: DatasetSearchQuery['datasetSearch'];
   setOffset: (x: number) => void;
+  tsvUrl: string;
 }) {
-  const filterContext = useContext(FilterContext);
-  const searchContext = useSearchContext();
   const config = useConfig();
 
   const hidePublisher =
     config.datasetSearch?.availableTableColumns?.includes('publishingOrg') === false;
-
-  const { filter, filterHash } = filterContext || { filter: { must: {} } };
-
-  const downloadLink = useMemo(() => {
-    const query = getAsQuery({ filter, searchContext, searchConfig, queryType: 'V1' });
-    const queryString = stringify(query as ParamQuery);
-    return `${config.v1Endpoint}/dataset/search/export?format=TSV&${filter ? queryString : ''}`;
-  }, [filterHash, searchContext, config.v1Endpoint]);
 
   return (
     <>
@@ -195,14 +192,7 @@ function Results({
               <FormattedMessage id="counts.nDatasets" values={{ total: datasets.count }} />
             </CardTitle>
 
-            <Button size="sm" className="g-p-0" variant="link" asChild>
-              <a className="g-inline g-cursor-pointer hover:g-underline" href={downloadLink}>
-                <MdDownload size={16} />
-                <span className="g-ml-1">
-                  <FormattedMessage id="phrases.downloadAsTsv" defaultMessage="Download as TSV" />
-                </span>
-              </a>
-            </Button>
+            <DownloadAsTSVLink tsvUrl={tsvUrl} />
           </CardHeader>
 
           {datasets.results.map((item) => (

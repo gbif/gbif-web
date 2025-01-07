@@ -1,5 +1,6 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
+import { DownloadAsTSVLink } from '@/components/downloadAsTSVLink';
 import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
 import { HelpText } from '@/components/helpText';
 import { NoRecords } from '@/components/noDataMessages';
@@ -11,7 +12,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { CardDescription, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
@@ -217,18 +218,17 @@ function Results({
       )}
       {institutions && institutions.count > 0 && (
         <>
-          <CardHeader id="institutions">
+          <CardHeader
+            id="institutions"
+            className="g-flex-col md:g-flex-row g-items-start md:g-items-center g-justify-between"
+          >
             <CardTitle>
               <FormattedMessage
                 id="counts.nInstitutions"
                 values={{ total: institutions.count ?? 0 }}
               />
             </CardTitle>
-            <CardDescription>
-              <a className="g-underline" href={tsvUrl}>
-                <FormattedMessage id="phrases.downloadAsTsv" />
-              </a>
-            </CardDescription>
+            <DownloadAsTSVLink tsvUrl={tsvUrl} />
           </CardHeader>
           <ClientSideOnly>
             {institutions &&

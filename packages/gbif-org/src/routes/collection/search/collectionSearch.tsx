@@ -1,5 +1,6 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
+import { DownloadAsTSVLink } from '@/components/downloadAsTSVLink';
 import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
 import { HelpText } from '@/components/helpText';
 import { NoRecords } from '@/components/noDataMessages';
@@ -11,7 +12,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { CardDescription, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
@@ -28,6 +29,7 @@ import { useNumberParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { notNull } from '@/utils/notNull';
 import { stringify } from '@/utils/querystring';
 import React, { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -35,7 +37,6 @@ import { FormattedMessage } from 'react-intl';
 import { CollectionResult } from '../collectionResult';
 import { useFilters } from './filters';
 import { searchConfig } from './searchConfig';
-import { notNull } from '@/utils/notNull';
 
 const COLLECTION_SEARCH_QUERY = /* GraphQL */ `
   query CollectionSearch($query: CollectionSearchInput) {
@@ -181,18 +182,17 @@ function Results({
       )}
       {collections && collections.count > 0 && (
         <>
-          <CardHeader id="collections">
+          <CardHeader
+            id="collections"
+            className="g-flex-col md:g-flex-row g-items-start md:g-items-center g-justify-between"
+          >
             <CardTitle>
               <FormattedMessage
                 id="counts.nCollections"
                 values={{ total: collections.count ?? 0 }}
               />
             </CardTitle>
-            <CardDescription>
-              <a className="g-underline" href={tsvUrl}>
-                <FormattedMessage id="phrases.downloadAsTsv" />
-              </a>
-            </CardDescription>
+            <DownloadAsTSVLink tsvUrl={tsvUrl} />
           </CardHeader>
           {collections.results.filter(notNull).map((item) => (
             <CollectionResult key={item.key} collection={item} {...{ excludeInstitution }} />
