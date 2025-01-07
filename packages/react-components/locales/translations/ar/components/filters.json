@@ -435,6 +435,16 @@
     "count": "نشط",
     "description": "أرشيف شروح \"جيبف\""
   },
+  "activeInstitution": {
+    "name": "نشط",
+    "count": "نشط",
+    "description": "أرشيف شروح \"جيبف\""
+  },
+  "activeCollection": {
+    "name": "نشط",
+    "count": "نشط",
+    "description": "أرشيف شروح \"جيبف\""
+  },
   "personalCollection": {
     "name": "مجموعة شخصية",
     "count": "مجموعة شخصية",
