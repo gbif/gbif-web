@@ -27,8 +27,8 @@
     "locationID": ""
   },
   "ternary": {
-    "yes": "",
-    "no": "",
+    "yes": "Ano",
+    "no": "Ne",
     "either": ""
   },
   "loadMore": "",
