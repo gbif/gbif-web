@@ -190,13 +190,7 @@ export function PublisherPage() {
                 </FeatureList>
               )}
               <FeatureList>
-                {!error && !slowData && (
-                  <>
-                    <GenericFeatureSkeleton />
-                    <GenericFeatureSkeleton />
-                    <GenericFeatureSkeleton />
-                  </>
-                )}
+                {!error && !slowData && <GenericFeatureSkeleton />}
                 {occurrenceSearch?.documents.total > 0 && (
                   <GenericFeature>
                     <OccurrenceIcon />
