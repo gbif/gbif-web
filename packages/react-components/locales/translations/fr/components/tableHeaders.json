@@ -14,5 +14,7 @@
   "institution": "Institution",
   "collection": "Collection",
   "collectionCount": "Collections",
-  "active": "Est actif"
+  "active": "Est actif",
+  "activeInstitution": "Est actif",
+  "activeCollection": "Est actif"
 }
