@@ -23,6 +23,8 @@
   "project": "專案",
   "license": "授權",
   "downloadAsTsv": "下載為TSV",
+  "didYouKnow": "GBIF 註記的存檔",
+  "explore": "探索",
   "backHome": "返回首頁",
   "pageNotFound": "404",
   "noInformation": "沒有資訊",
