@@ -20,7 +20,7 @@ import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './helpTexts';
 import { searchConfig } from './searchConfig';
 import { Table } from './views/table';
-import { Tree } from './views/tree';
+import { TaxonTree } from './views/tree';
 
 export function TaxonSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({
@@ -147,7 +147,7 @@ function Views({ view, className }: { view?: string; className?: string }) {
         )}
         {!fixedHeight && (
           <DynamicHeightDiv minPxHeight={500} onlySetMinHeight>
-            {view === 'media' && <Tree />}
+            {view === 'tree' && <TaxonTree />}
           </DynamicHeightDiv>
         )}
       </div>

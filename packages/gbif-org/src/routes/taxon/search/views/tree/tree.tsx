@@ -1,101 +1,248 @@
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
-import { filter2predicate } from '@/dataManagement/filterAdapter';
-import { useStringParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
-import { useOrderedList } from '@/routes/occurrence/search/views/browseList/useOrderedList';
-import { useCallback, useContext, useEffect, useState } from 'react';
-import { searchConfig } from '../../searchConfig';
-import { TreePresentation } from './treePresentation';
+import { useContext, useEffect, useState } from 'react';
+import { ControlledTreeEnvironment, Tree, TreeItemIndex } from 'react-complex-tree';
+import 'react-complex-tree/lib/style-modern.css';
 
-const OCCURRENCE_DATASETS = `
-query occurrenceTrees($predicate: Predicate, $size: Int) {
-  occurrenceSearch(predicate: $predicate, size: 0, from: 0) {
-    cardinality {
-      treeKey
-    }
-    facet {
-      treeKey(size: $size) {
-        count
-        key
-        tree {
+const CHILDREN_SEARCH_QUERY = /* GraphQL */ `
+  query TaxonChildren($key: ID!, $limit: Int, $offset: Int) {
+    taxon(key: $key) {
+      key
+      scientificName
+      children(limit: $limit, offset: $offset) {
+        limit
+        endOfRecords
+        offset
+        results {
           key
-          title
-          excerpt
+          numDescendants
+          scientificName
+          formattedName
         }
       }
     }
   }
-}
 `;
 
-export function Tree({ size: defaultSize = 100 }) {
+const CHECKLIST_ROOTS = /* GraphQL */ `
+  query RootSearch($datasetKey: ID!, $offset: Int, $limit: Int) {
+    checklistRoots(datasetKey: $datasetKey, offset: $offset, limit: $limit) {
+      offset
+      endOfRecords
+      results {
+        key
+        nubKey
+        scientificName
+        formattedName
+        kingdom
+        children {
+          limit
+          endOfRecords
+          results {
+            key
+            parentKey
+            numDescendants
+            scientificName
+          }
+        }
+        phylum
+        class
+        order
+        family
+        genus
+        species
+        taxonomicStatus
+        rank
+        datasetKey
+        dataset {
+          title
+        }
+        accepted
+        acceptedKey
+        numDescendants
+        vernacularNames(limit: 2, language: "eng") {
+          results {
+            vernacularName
+            source
+            sourceTaxonKey
+          }
+        }
+      }
+    }
+  }
+`;
+
+export function TaxonTree({ size: defaultSize = 100 }) {
   const [from, setFrom] = useState(0);
+  const [expandedItems, setExpandedItems] = useState<TreeItemIndex[]>([]);
+  const [focusedItem, setFocusedItem] = useState<TreeItemIndex | null>(null);
+  const [items, setItems] = useState({});
   const currentFilterContext = useContext(FilterContext);
   const { scope } = useSearchContext();
-  const { data, loading, load } = useQuery(OCCURRENCE_DATASETS, {
+  const {
+    data: rootData,
+    loading,
+    load,
+  } = useQuery(CHECKLIST_ROOTS, {
     lazyLoad: true,
     throwAllErrors: true,
   });
-  const { setOrderedList } = useOrderedList();
-  const [, setPreviewKey] = useStringParam({ key: 'entity' });
-  const [size, setSize] = useState(defaultSize);
 
-  const [allData, setAllData] = useState([]);
+  const {
+    data: childrenData,
+    loading: childrenLoading,
+    load: loadChildren,
+  } = useQuery(CHILDREN_SEARCH_QUERY, {
+    lazyLoad: true,
+    throwAllErrors: true,
+  });
+
+  const [size, setSize] = useState(defaultSize);
 
   useEffect(() => {
     setSize(defaultSize);
   }, [currentFilterContext.filterHash, defaultSize]);
 
-  const more = useCallback(() => {
-    setSize(size + 100);
-  }, [size]);
-
-  // update ordered list on items change
   useEffect(() => {
-    setOrderedList(allData.map((item) => `d_${item.key}`));
-  }, [allData, setOrderedList]);
-
-  useEffect(() => {
-    setAllData((prev) => {
-      const all = [...prev, ...(data?.occurrenceSearch?.facet?.treeKey || [])];
-      // get unique by key
-      const unique = all.reduce((acc, cur) => {
-        if (acc.find((x) => x.key === cur.key)) {
-          return acc;
-        }
-        return [...acc, cur];
-      }, []);
-      return unique;
+    load({
+      keepDataWhileLoading: true,
+      variables: { datasetKey: scope?.datasetKey[0], limit: size },
     });
-  }, [data]);
-
-  useEffect(() => {
-    const predicate = {
-      type: 'and',
-      predicates: [scope, filter2predicate(currentFilterContext.filter, searchConfig)].filter(
-        (x) => x
-      ),
-    };
-    load({ keepDataWhileLoading: true, variables: { predicate, size } });
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [from, currentFilterContext.filterHash, scope, load, size]);
+  useEffect(() => {
+    if (rootData?.checklistRoots?.results) {
+      setItems(
+        rootData?.checklistRoots.results.reduce(
+          (acc, cur) => {
+            acc[cur.key] = {
+              index: cur.key,
+              canMove: false,
+              isFolder: cur.numDescendants > 0,
+              children: cur.children.results.map((item) => item.key),
+              data: cur,
+              canRename: false,
+            };
+            for (let i = 0; i < cur.children.results.length; i++) {
+              acc[cur.children.results[i].key] = {
+                index: cur.children.results[i].key,
+                canMove: false,
+                isFolder: cur.children.results[i].numDescendants > 0,
+                children: [],
+                data: cur.children.results[i],
+                canRename: false,
+              };
+            }
+            return acc;
+          },
+          {
+            root: {
+              index: 'root',
+              canMove: false,
+              isFolder: true,
+              children: rootData?.checklistRoots.results.map((item) => item.key),
+              data: 'Root item',
+              canRename: false,
+            },
+          }
+        )
+      );
+    }
+  }, [rootData]);
 
   useEffect(() => {
-    setFrom(0);
-    setAllData([]);
-  }, [currentFilterContext.filterHash, scope]);
+    if (childrenData?.taxon?.children?.results) {
+      const parent = items[childrenData?.taxon?.key];
+      if (parent?.children?.[parent?.children?.length - 1]?.toString().endsWith('load-more')) {
+        parent.children.pop();
+        delete items[`${parent?.data?.key}-load-more`];
+      }
+      parent.data.childOffset = childrenData?.taxon?.children?.offset;
+      parent.children = [
+        ...(parent.children || []),
+        ...childrenData?.taxon?.children?.results.map((item) => item.key),
+      ];
+      if (childrenData?.taxon?.children?.endOfRecords === true) {
+        parent.data.endOfChildren = true;
+      } else {
+        parent.data.endOfChildren = false;
+        const loadMoreChildrenNode = {
+          index: `${parent?.data?.key}-load-more`,
+          canMove: false,
+          isFolder: false,
+          data: {},
+          canRename: false,
+        };
+        items[loadMoreChildrenNode.index] = loadMoreChildrenNode;
+        parent.children.push(loadMoreChildrenNode.index);
+      }
+      setItems({
+        ...items,
+        ...childrenData?.taxon?.children?.results.reduce((acc, cur) => {
+          acc[cur.key] = {
+            index: cur.key,
+            canMove: false,
+            isFolder: cur.numDescendants > 0,
+            data: cur,
+            canRename: false,
+          };
+          return acc;
+        }, {}),
+      });
+    }
+  }, [childrenData]);
 
-  const total = data?.occurrenceSearch?.cardinality?.treeKey;
+  const total = rootData?.checklistRoots?.cardinality?.treeKey;
+
   return (
-    <TreePresentation
-      results={allData}
-      loading={loading}
-      endOfRecords={from + size >= total}
-      next={more}
-      total={total}
-      onSelect={({ key }: { key: string | number }) => setPreviewKey(`d_${key}`)}
-    />
+    <ControlledTreeEnvironment
+      items={items}
+      getItemTitle={(item) =>
+        item.index.toString().endsWith('load-more') ? (
+          <div
+            onClick={() => {
+              const parent = items[item.index.replace('-load-more', '')];
+              loadChildren({
+                keepDataWhileLoading: true,
+                variables: {
+                  key: parent.data.key,
+                  limit: 25,
+                  offset: (parent.data.childOffset || 0) + 25,
+                },
+              });
+            }}
+          >
+            More..
+          </div>
+        ) : (
+          <div>{`${item.data.scientificName} (${item.data.numDescendants})`}</div>
+        )
+      }
+      viewState={{
+        ['tree-1']: {
+          focusedItem,
+          expandedItems,
+        },
+      }}
+      onFocusItem={(item) => setFocusedItem(item.index)}
+      onExpandItem={(item) => {
+        loadChildren({
+          keepDataWhileLoading: true,
+          variables: { key: item.data.key, limit: 25, offset: item.data.childOffset || 0 },
+        });
+        setExpandedItems([...expandedItems, item.index]);
+      }}
+      onCollapseItem={(item) =>
+        setExpandedItems(
+          expandedItems.filter((expandedItemIndex) => expandedItemIndex !== item.index)
+        )
+      }
+      /*     onSelectItems={items => setSelectedItems(items)}
+       */
+    >
+      <Tree treeId="tree-1" rootItem="root" treeLabel="Tree Example" />
+    </ControlledTreeEnvironment>
   );
 }
