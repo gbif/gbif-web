@@ -435,6 +435,16 @@
     "count": "",
     "description": "GBIF annoteret Arkiv"
   },
+  "activeInstitution": {
+    "name": "",
+    "count": "",
+    "description": "GBIF annoteret Arkiv"
+  },
+  "activeCollection": {
+    "name": "",
+    "count": "",
+    "description": "GBIF annoteret Arkiv"
+  },
   "personalCollection": {
     "name": "",
     "count": "",
