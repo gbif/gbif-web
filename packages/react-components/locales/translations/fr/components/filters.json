@@ -435,6 +435,16 @@
     "count": "Activé",
     "description": "Archive annotée par GBIF"
   },
+  "activeInstitution": {
+    "name": "Activé",
+    "count": "Activé",
+    "description": "Archive annotée par GBIF"
+  },
+  "activeCollection": {
+    "name": "Activé",
+    "count": "Activé",
+    "description": "Archive annotée par GBIF"
+  },
   "personalCollection": {
     "name": "Collection personnelle",
     "count": "Collection personnelle",
