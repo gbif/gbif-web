@@ -35,6 +35,7 @@ import { FormattedMessage } from 'react-intl';
 import { CollectionResult } from '../collectionResult';
 import { useFilters } from './filters';
 import { searchConfig } from './searchConfig';
+import { notNull } from '@/utils/notNull';
 
 const COLLECTION_SEARCH_QUERY = /* GraphQL */ `
   query CollectionSearch($query: CollectionSearchInput) {
@@ -193,13 +194,11 @@ function Results({
               </a>
             </CardDescription>
           </CardHeader>
+          {collections.results.filter(notNull).map((item) => (
+            <CollectionResult key={item.key} collection={item} {...{ excludeInstitution }} />
+          ))}
           <ClientSideOnly>
-            {collections &&
-              collections.results.map((item) => (
-                <CollectionResult key={item.key} collection={item} {...{ excludeInstitution }} />
-              ))}
-
-            {collections?.count && collections?.count > collections?.limit && (
+            {collections.count && collections.count > collections.limit && (
               <PaginationFooter
                 offset={collections.offset}
                 count={collections.count}

@@ -192,7 +192,7 @@ function Results({
             className="g-flex-col md:g-flex-row g-items-start md:g-items-center g-justify-between"
           >
             <CardTitle>
-              <FormattedMessage id="counts.nDatasets" values={{ total: datasets.count ?? 0 }} />
+              <FormattedMessage id="counts.nDatasets" values={{ total: datasets.count }} />
             </CardTitle>
 
             <Button size="sm" className="g-p-0" variant="link" asChild>
@@ -204,13 +204,13 @@ function Results({
               </a>
             </Button>
           </CardHeader>
-          <ClientSideOnly>
-            {datasets &&
-              datasets.results.map((item) => (
-                <DatasetResult key={item.key} dataset={item} hidePublisher={hidePublisher} />
-              ))}
 
-            {datasets?.count && datasets?.count > datasets?.limit && (
+          {datasets.results.map((item) => (
+            <DatasetResult key={item.key} dataset={item} hidePublisher={hidePublisher} />
+          ))}
+
+          <ClientSideOnly>
+            {datasets.count > datasets.limit && (
               <PaginationFooter
                 offset={datasets.offset}
                 count={datasets.count}
