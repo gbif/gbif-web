@@ -23,6 +23,8 @@
   "project": "Projeto",
   "license": "Licença",
   "downloadAsTsv": "",
+  "didYouKnow": "Uma breve descrição do componente deve ser colocada aqui",
+  "explore": "Explorar",
   "backHome": "",
   "pageNotFound": "",
   "noInformation": "",
