@@ -8,5 +8,7 @@
   "institution": "Организация",
   "collection": "Коллекция",
   "collectionCount": "Коллекции",
-  "active": "Активен"
+  "active": "Активен",
+  "activeInstitution": "Активен",
+  "activeCollection": "Активен"
 }
