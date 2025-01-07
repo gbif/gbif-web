@@ -32,6 +32,7 @@
     "either": "Archive annotée par GBIF"
   },
   "loadMore": "Plus",
+  "noResults": "Archive annotée par GBIF",
   "occurrenceClustersView": {
     "about": "À propos",
     "clusters": "",

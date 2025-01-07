@@ -32,6 +32,7 @@
     "either": "Архів анотований GBIF"
   },
   "loadMore": "Більше",
+  "noResults": "Архів анотований GBIF",
   "occurrenceClustersView": {
     "about": "Відомості про видавця даних",
     "clusters": "",
