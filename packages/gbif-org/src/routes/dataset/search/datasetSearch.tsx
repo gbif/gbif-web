@@ -5,7 +5,6 @@ import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filte
 import { NoRecords } from '@/components/noDataMessages';
 import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
-import { Tabs } from '@/components/tabs';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useConfig } from '@/config/config';
@@ -114,7 +113,7 @@ export function DatasetSearch(): React.ReactElement {
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
       >
-        <Tabs
+        {/* <Tabs
           className="g-border-none"
           links={[
             {
@@ -123,7 +122,7 @@ export function DatasetSearch(): React.ReactElement {
               className: tabClassName,
             },
           ]}
-        />
+        /> */}
       </DataHeader>
 
       <section className="">
