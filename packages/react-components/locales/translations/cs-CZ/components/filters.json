@@ -66,12 +66,12 @@
     "placeholderDist": ""
   },
   "relevance": {
-    "name": "",
+    "name": "Relevance",
     "count": "",
     "description": ""
   },
   "topics": {
-    "name": "",
+    "name": "Téma",
     "count": "",
     "description": ""
   },
@@ -81,7 +81,7 @@
     "description": ""
   },
   "purposes": {
-    "name": "",
+    "name": "Téma",
     "count": "",
     "description": ""
   },
