@@ -104,7 +104,7 @@ function CatalogSelector({
             <MdApps /> {title && <span className="g-ms-2 g-hidden lg:g-inline">{title}</span>}
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent>
+        <DropdownMenuContent align="start">
           {lookup.OCCURRENCE && (
             <DropdownMenuItem>
               <DynamicLink pageId="occurrenceSearch">
