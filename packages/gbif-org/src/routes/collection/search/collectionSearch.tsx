@@ -2,19 +2,11 @@ import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
 import { DownloadAsTSVLink } from '@/components/downloadAsTSVLink';
 import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
-import { HelpText } from '@/components/helpText';
 import { NoRecords } from '@/components/noDataMessages';
 import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Card } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
 import { FilterContext, FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
@@ -36,6 +28,7 @@ import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { CollectionResult } from '../collectionResult';
 import { useFilters } from './filters';
+import { AboutContent, ApiContent } from './help';
 import { searchConfig } from './searchConfig';
 
 const COLLECTION_SEARCH_QUERY = /* GraphQL */ `
@@ -212,58 +205,5 @@ function Results({
         </>
       )}
     </>
-  );
-}
-
-function AboutContent() {
-  return (
-    <div>
-      <Accordion type="single" collapsible className="w-full">
-        <AccordionItem value="item-1">
-          <AccordionTrigger>What is a collection?</AccordionTrigger>
-          <AccordionContent className="g-prose g-text-sm">
-            Data is loaded from contentful help items async. E.g.
-            <HelpText
-              identifier={'which-coordinate-systems-are-used-for-gbif-occurence-downloads'}
-            />
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-2">
-          <AccordionTrigger>Other example entry</AccordionTrigger>
-          <AccordionContent>Data is loaded from contentful help items async</AccordionContent>
-        </AccordionItem>
-      </Accordion>
-    </div>
-  );
-}
-
-function ApiContent() {
-  return (
-    <div className="g-text-sm g-prose">
-      <h3>API access</h3>
-      <p>
-        All data is available via the{' '}
-        <a href="https://techdocs.gbif.org/en/openapi/v1/registry#/Collections">GBIF API</a>. No
-        registration or API key is required.
-      </p>
-      <p>
-        Please remember to properly cite usage and to throttle requests in scripts. Most endpoint
-        types support download/export. Use those if you need large data volumes.
-      </p>
-      <h4>Examples</h4>
-      <Card className="g-p-2 g-mb-2">
-        Get all collections <br />
-        <a href="https://api.gbif.org/v1/collection/search">
-          https://api.gbif.org/v1/collection/search
-        </a>
-      </Card>
-      <Card className="g-p-2">
-        First 2 collection published from Denmark with free text "fungi" in the title or description
-        <br />
-        <a href="https://api.gbif.org/v1/collection/search?q=fungi&publishingCountry=DK&limit=2&offset=0">
-          https://api.gbif.org/v1/collection/search?q=fungi&publishingCountry=DK&limit=2&offset=0
-        </a>
-      </Card>
-    </div>
   );
 }

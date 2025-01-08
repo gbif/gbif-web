@@ -2,15 +2,7 @@ import { DataHeader } from '@/components/dataHeader';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
-import { HelpText } from '@/components/helpText';
 import { Tabs } from '@/components/tabs';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
-import { Card } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
 import { FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
@@ -21,6 +13,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { useFilters } from './filters';
+import { AboutContent, ApiContent } from './help';
 import { searchConfig } from './searchConfig';
 import { LiteratureListView } from './views/list';
 import { LiteratureTable } from './views/table';
@@ -107,59 +100,6 @@ function Views({ view, className }: { view?: string; className?: string }) {
         )}
       </div>
     </ErrorBoundary>
-  );
-}
-
-function AboutContent() {
-  return (
-    <div>
-      <Accordion type="single" collapsible className="w-full">
-        <AccordionItem value="item-1">
-          <AccordionTrigger>What is a literature?</AccordionTrigger>
-          <AccordionContent className="g-prose g-text-sm">
-            Data is loaded from contentful help items async. E.g.
-            <HelpText
-              identifier={'which-coordinate-systems-are-used-for-gbif-occurence-downloads'}
-            />
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-2">
-          <AccordionTrigger>Other example entry</AccordionTrigger>
-          <AccordionContent>Data is loaded from contentful help items async</AccordionContent>
-        </AccordionItem>
-      </Accordion>
-    </div>
-  );
-}
-
-function ApiContent() {
-  return (
-    <div className="g-text-sm g-prose">
-      <h3>API access</h3>
-      <p>
-        All data is available via the{' '}
-        <a href="https://techdocs.gbif.org/en/openapi/v1/registry#/Literatures">GBIF API</a>. No
-        registration or API key is required.
-      </p>
-      <p>
-        Please remember to properly cite usage and to throttle requests in scripts. Most endpoint
-        types support download/export. Use those if you need large data volumes.
-      </p>
-      <h4>Examples</h4>
-      <Card className="g-p-2 g-mb-2">
-        Get all literatures <br />
-        <a href="https://api.gbif.org/v1/literature/search">
-          https://api.gbif.org/v1/literature/search
-        </a>
-      </Card>
-      <Card className="g-p-2">
-        First 2 literature published from Denmark with free text "fungi" in the title or description
-        <br />
-        <a href="https://api.gbif.org/v1/literature/search?q=fungi&publishingCountry=DK&limit=2&offset=0">
-          https://api.gbif.org/v1/literature/search?q=fungi&publishingCountry=DK&limit=2&offset=0
-        </a>
-      </Card>
-    </div>
   );
 }
 
