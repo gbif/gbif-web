@@ -28,7 +28,7 @@
     "taxon": "",
     "location": "Poloha",
     "organism": "",
-    "materialSample": "",
+    "materialSample": "Vzorek materiálu",
     "geologicalContext": "",
     "other": ""
   },
@@ -499,7 +499,7 @@
       }
     },
     "materialSample": {
-      "name": "",
+      "name": "Vzorek materiálu",
       "properties": {
         "materialSampleType": "",
         "concentration": "",
