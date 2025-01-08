@@ -155,6 +155,15 @@ export const gbifConfig: Config = {
     highlightedFilters: ['q', 'code', 'country', 'numberSpecimens', 'occurrenceCount'],
     // excludedFilters: ['code', 'country'],
   },
+  institutionKey: {
+    occurrenceSearch: {
+      excludedFilters: ['institutionKey'],
+      // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
+      // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
+      // tabs: ['table', 'map', 'media', 'clusters', 'download'],
+      defaultTab: 'table',
+    },
+  },
   taxonSearch: {
     scope: {
       datasetKey: ['d7dddbf4-2cf0-4f39-9b2a-bb099caae36c'],

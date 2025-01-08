@@ -24,7 +24,12 @@ export type LanguageOption = {
 
 type PartialSearchMetadata = Pick<
   SearchMetadata,
-  'availableTableColumns' | 'defaultEnabledTableColumns' | 'tabs' | 'defaultTab'
+  | 'availableTableColumns'
+  | 'defaultEnabledTableColumns'
+  | 'tabs'
+  | 'defaultTab'
+  | 'excludedFilters'
+  | 'highlightedFilters'
 >;
 
 // TODO: The config object should probably be refactored in the future with logical nesting

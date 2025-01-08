@@ -26,6 +26,7 @@ import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleto
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
+import { createContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { GrGithub as Github } from 'react-icons/gr';
 import { FormattedMessage } from 'react-intl';
@@ -34,12 +35,18 @@ import { AboutContent, ApiContent } from './help';
 
 const GBIF_REGISTRY_ENDPOINT = 'https://registry.gbif.org';
 
+// create context to pass data to children
+export const InstitutionKeyContext = createContext<{
+  key?: string;
+  contentMetrics?: InstitutionSummaryMetricsQuery;
+}>({});
+
 export function InstitutionKey({
   data,
   institutionMetrics,
 }: {
   data: InstitutionQuery;
-  institutionMetrics: InstitutionSummaryMetricsQuery;
+  institutionMetrics?: InstitutionSummaryMetricsQuery;
 }) {
   const useInlineImage = useBelow(700);
   if (data.institution == null) throw new Error('404');
@@ -217,7 +224,11 @@ export function InstitutionKey({
           </ArticleTextContainer>
         </PageContainer>
 
-        <Outlet />
+        <InstitutionKeyContext.Provider
+          value={{ key: data?.institution?.key, contentMetrics: institutionMetrics }}
+        >
+          <Outlet />
+        </InstitutionKeyContext.Provider>
       </article>
     </>
   );

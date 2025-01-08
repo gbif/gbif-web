@@ -1,9 +1,9 @@
 import {
-    InstitutionQuery,
-    InstitutionQueryVariables,
-    InstitutionSummaryMetricsQuery,
-    InstitutionSummaryMetricsQueryVariables,
-    PredicateType
+  InstitutionQuery,
+  InstitutionQueryVariables,
+  InstitutionSummaryMetricsQuery,
+  InstitutionSummaryMetricsQueryVariables,
+  PredicateType,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { LoaderArgs } from '@/reactRouterPlugins';
@@ -65,7 +65,7 @@ export function InstitutionKey() {
         },
       });
     }
-  }, [data.institution?.key]);
+  }, [data.institution?.key, slowLoad]);
 
   if (data.institution == null) throw new Error('404');
   return <Presentation data={data} institutionMetrics={institutionMetrics} />;
