@@ -15,13 +15,11 @@ import { useCount } from '@/components/count';
 import { FormattedNumber } from '@/components/dashboard/shared';
 import { HyperText } from '@/components/hyperText';
 import Properties, { Property, Term, Value } from '@/components/properties';
-import { Tag } from '@/components/resultCards';
 import { TableOfContents } from '@/components/tableOfContents';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Card as CardSmall } from '@/components/ui/smallCard';
 import useBelow from '@/hooks/useBelow';
-import { DynamicLink } from '@/reactRouterPlugins';
 import { FeaturedImageContent } from '@/routes/collection/key/collectionKeyPresentation';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -143,78 +141,6 @@ export default function About() {
                   }
                 />
               </Card>
-            )}
-
-            {isNoneEmptyArray(institution.collections) && (
-              <div id="collections" className="g-scroll-mt-24">
-                <CardHeader>
-                  <CardTitle>
-                    <FormattedMessage id="institution.collections" defaultMessage="Collections" />
-                  </CardTitle>
-                </CardHeader>
-                <Card className="g-relative g-overflow-x-auto g-rounded g-border g-mb-4">
-                  <table className="g-w-full g-text-sm g-text-left rtl:g-text-right g-text-gray-500 dark:g-text-gray-400">
-                    <thead className="g-text-slate-500 g-font-light g-bg-gray-50 dark:g-bg-gray-700 dark:g-text-gray-400 g-border-b">
-                      <tr>
-                        <th scope="col" className="g-px-6 g-py-3 g-font-normal">
-                          Name
-                        </th>
-                        <th scope="col" className="g-px-1 g-py-3 g-font-normal">
-                          Code
-                        </th>
-                        <th scope="col" className="g-px-1 g-py-3 g-font-normal">
-                          Description
-                        </th>
-                        <th
-                          scope="col"
-                          className="g-px-6 g-py-3 g-font-normal g-text-right rtl:g-text-left"
-                        >
-                          Specimens
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {institution?.collections?.map((collection) => {
-                        return (
-                          <tr
-                            key={collection.key}
-                            className="g-bg-white g-border-b last:g-border-0 dark:g-bg-gray-800 dark:g-border-gray-700"
-                          >
-                            <td
-                              scope="row"
-                              className="g-px-6 g-py-3 g-font-medium g-text-slate-900 dark:g-text-white g-min-w-80"
-                            >
-                              <DynamicLink
-                                className="g-underline"
-                                to={`/collection/${collection.key}`}
-                                pageId="collectionKey"
-                                variables={{ key: collection.key }}
-                              >
-                                {collection.name}
-                              </DynamicLink>{' '}
-                              {!collection.active && (
-                                <Tag className="g-bg-red-700 g-text-white">Inactive</Tag>
-                              )}
-                            </td>
-                            <td className="g-px-1 g-py-3">
-                              <Tag className="g-whitespace-nowrap">{collection.code}</Tag>
-                            </td>
-                            <td className="g-px-1 g-py-3">
-                              <div
-                                className="g-line-clamp-2"
-                                dangerouslySetInnerHTML={{ __html: collection.excerpt }}
-                              ></div>
-                            </td>
-                            <td className="g-px-6 g-py-3 g-text-right rtl:g-text-left">
-                              <FormattedNumber value={collection.numberSpecimens} />
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </Card>
-              </div>
             )}
 
             <Card className="g-mb-4" id="contacts">

@@ -1,6 +1,6 @@
 import { getExcerpt, getOGImage } from '#/helpers/utils';
-import { getThumborUrl } from '../resource/misc/misc.resolver';
 import { getCardinality, getFacet } from '../getQueryMetrics';
+import { getThumborUrl } from '../resource/misc/misc.resolver';
 
 const getSourceSearch = (dataSources) => (args) =>
   dataSources.institutionAPI.searchInstitutions.call(
@@ -46,16 +46,18 @@ export default {
       }).plainText;
     },
     collections: ({ key }, { limit, offset }, { dataSources }) => {
-      return dataSources.collectionAPI.getCollectionsByInstitutionKey({
-        key,
-        limit,
-        offset,
-      });
+      return dataSources.collectionAPI
+        .getCollectionsByInstitutionKey({
+          key,
+          limit,
+          offset,
+        })
+        .then((data) => data.results);
     },
     collectionCount: ({ key }, args, { dataSources }) => {
       return dataSources.collectionAPI
-        .getCollectionsByInstitutionKey({ key, limit: 1000 })
-        .then((data) => data.length);
+        .getCollectionsByInstitutionKey({ key, limit: 0 })
+        .then((data) => data.count);
     },
     replacedByInstitution: ({ replacedBy }, args, { dataSources }) => {
       if (!replacedBy) return null;
@@ -98,8 +100,8 @@ export default {
     },
     collectionCount: ({ key }, args, { dataSources }) => {
       return dataSources.collectionAPI
-        .getCollectionsByInstitutionKey({ key, limit: 1000 })
-        .then((data) => data.length);
+        .getCollectionsByInstitutionKey({ key, limit: 0 })
+        .then((data) => data.count);
     },
   },
   InstitutionFacet: {

@@ -115,8 +115,8 @@ const typeDef = gql`
     description: String
     types: [String!]
     active: Boolean
-    email: [String]
-    phone: [String]
+    email: [String!]
+    phone: [String!]
     homepage: URL
     catalogUrls: [String!]
     apiUrls: [String!]
@@ -126,7 +126,7 @@ const typeDef = gql`
     longitude: Float
     mailingAddress: Address
     address: Address
-    additionalNames: [String]
+    additionalNames: [String!]
     foundingDate: Int
     numberSpecimens: Int
     logoUrl: URL
@@ -140,16 +140,16 @@ const typeDef = gql`
     convertedToCollection: ID
     replacedByCollection: Collection
     tags: [Tag]
-    identifiers: [Identifier]
+    identifiers: [Identifier!]
     """
     The contacts type is deprecated and will no longer be updated
     """
-    contacts: [StaffMember]
+    contacts: [StaffMember!]
     contactPersons: [ContactPerson]!
-    machineTags: [MachineTag]
-    alternativeCodes: [AlternativeCode]
-    comments: [Comment]
-    collections(limit: Int, offset: Int): [Collection]
+    machineTags: [MachineTag!]
+    alternativeCodes: [AlternativeCode!]
+    comments: [Comment!]
+    collections(limit: Int, offset: Int): [Collection!]
     """
     collection count will count up to a 1000. After that results will be capped to 1000. This is unlikely to be an issue, but you should worry if you see 1000 results exactly.
     """

@@ -51,11 +51,11 @@ class CollectionAPI extends RESTDataSource {
   }
 
   async getCollectionsByInstitutionKey({ key, limit = 20, offset = 0 }) {
-    return this.get('/grscicoll/collection', {
+    return this.get('/grscicoll/collection/search', {
       institutionKey: key,
       limit,
       offset,
-    }).then((res) => res.results);
+    });
   }
 
   /*

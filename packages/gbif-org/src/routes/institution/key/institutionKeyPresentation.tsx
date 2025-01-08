@@ -51,19 +51,26 @@ export function InstitutionKey({
   const useInlineImage = useBelow(700);
   if (data.institution == null) throw new Error('404');
   const { institution } = data;
-  const { occurrenceSearch, institution: institutionCollections } = institutionMetrics ?? {};
+  const { occurrenceSearch } = institutionMetrics ?? {};
 
   const deletedAt = institution.deleted;
 
-  // const collections = institutionCollections?.collections;
-  const tabs = [
-    { to: '.', children: 'About' },
-    // { to: 'collection', children: 'Collections' }, // TODO, tabs can only be strings <FormattedMessage id="counts.nCollections" values={{ total: collections?.length }} />
-  ];
+  const tabs = [{ to: '.', children: <FormattedMessage id="grscicoll.tabs.about" /> }];
+  if (institution.collectionCount && institution.collectionCount > 0) {
+    tabs.push({
+      to: 'collection',
+      children: (
+        <FormattedMessage
+          id="counts.nCollections"
+          values={{ total: institution.collectionCount }}
+        />
+      ),
+    });
+  }
 
   // if there is occurrences, then add a specimens tab
   if (occurrenceSearch?.documents.total > 0) {
-    tabs.push({ to: 'specimen', children: 'Specimens' });
+    tabs.push({ to: 'specimen', children: <FormattedMessage id="grscicoll.specimens" /> });
   }
 
   // if there is at least a countryCode for thee address, then use that, else fall back to the mailing address

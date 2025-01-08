@@ -153,15 +153,7 @@ const INSTITUTION_QUERY = /* GraphQL */ `
         postalCode
         country
       }
-      collections(limit: 200) {
-        key
-        excerpt
-        code
-        name
-        active
-        numberSpecimens
-        richness
-      }
+      collectionCount
     }
   }
 `;
@@ -183,7 +175,11 @@ const SLOW_QUERY = /* GraphQL */ `
       key
       collections(limit: 200) {
         key
-        occurrenceCount
+        excerpt
+        code
+        name
+        active
+        numberSpecimens
         richness
       }
     }
