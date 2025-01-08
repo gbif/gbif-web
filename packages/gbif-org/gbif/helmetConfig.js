@@ -24,6 +24,8 @@ export const helmetConfig = {
         'gbif.us18.list-manage.com',
         'zenodo.org',
         '*.youtube.com',
+        'openmaptiles.github.io',
+        'api.maptiler.com',
         'localhost:*',
       ],
       scriptSrc: [
