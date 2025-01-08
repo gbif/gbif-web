@@ -106,28 +106,28 @@ function CatalogSelector({
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           {lookup.OCCURRENCE && (
-            <DropdownMenuItem asChild>
+            <DropdownMenuItem>
               <DynamicLink pageId="occurrenceSearch">
                 <FormattedMessage id="catalogues.occurrences" />
               </DynamicLink>
             </DropdownMenuItem>
           )}
           {lookup.DATASET && (
-            <DropdownMenuItem asChild>
+            <DropdownMenuItem>
               <DynamicLink pageId="datasetSearch">
                 <FormattedMessage id="catalogues.datasets" />
               </DynamicLink>
             </DropdownMenuItem>
           )}
           {lookup.PUBLISHER && (
-            <DropdownMenuItem asChild>
+            <DropdownMenuItem>
               <DynamicLink pageId="publisherSearch">
                 <FormattedMessage id="catalogues.publishers" />
               </DynamicLink>
             </DropdownMenuItem>
           )}
           {lookup.TAXON && (
-            <DropdownMenuItem asChild>
+            <DropdownMenuItem>
               <DynamicLink pageId="speciesSearch">
                 <FormattedMessage id="catalogues.species" />
               </DynamicLink>
@@ -135,14 +135,14 @@ function CatalogSelector({
           )}
           {(lookup.INSTITUTION || lookup.COLLECTION) && <DropdownMenuSeparator />}
           {lookup.INSTITUTION && (
-            <DropdownMenuItem asChild>
+            <DropdownMenuItem>
               <DynamicLink pageId="institutionSearch">
                 <FormattedMessage id="catalogues.institutions" />
               </DynamicLink>
             </DropdownMenuItem>
           )}
           {lookup.COLLECTION && (
-            <DropdownMenuItem asChild>
+            <DropdownMenuItem>
               <DynamicLink pageId="collectionSearch">
                 <FormattedMessage id="catalogues.collections" />
               </DynamicLink>
@@ -151,7 +151,7 @@ function CatalogSelector({
           {lookup.LITERATURE && (
             <>
               <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem>
                 <DynamicLink pageId="literatureSearch">
                   <FormattedMessage id="catalogues.literature" />
                 </DynamicLink>
