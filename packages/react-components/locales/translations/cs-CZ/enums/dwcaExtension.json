@@ -1,3 +1,4 @@
 {
-  "http://rs.tdwg.org/dwc/terms/Occurrence": "Výskyt"
+  "http://rs.tdwg.org/dwc/terms/Occurrence": "Výskyt",
+  "http://data.ggbn.org/schemas/ggbn/terms/MaterialSample": "Vzorek materiálu"
 }
