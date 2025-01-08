@@ -301,9 +301,8 @@ function Results({
               publishers.results
                 .slice(0, 2)
                 .map((item) => <PublisherResult key={item.key} publisher={item} />)}
-
             {publishers.offset === 0 &&
-              geojson?.features?.length &&
+              !!geojson?.features?.length &&
               geojson?.features?.length > 0 && (
                 <div className="g-relative">
                   <div className="g-absolute g-top-0 g-start-0 g-text-xs g-border g-rounded g-z-10 g-bg-slate-100 g-text-slate-800 g-py-0 g-px-1 g-m-2">
@@ -319,12 +318,10 @@ function Results({
                   />
                 </div>
               )}
-
             {publishers &&
               publishers.results
                 .slice(2)
                 .map((item) => <PublisherResult key={item.key} publisher={item} />)}
-
             {publishers?.count && publishers?.count > publishers?.limit && (
               <PaginationFooter
                 offset={publishers.offset}
