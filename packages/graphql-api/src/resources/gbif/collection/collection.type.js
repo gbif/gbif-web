@@ -139,10 +139,10 @@ const typeDef = gql`
     description: String
     country: Country
     city: String
-    contentTypes: [String!]
+    contentTypes: [String!]!
     active: Boolean
     personalCollection: Boolean
-    preservationTypes: [String!]
+    preservationTypes: [String!]!
     accessionStatus: String
     institutionKey: ID
     institutionName: String
@@ -151,13 +151,13 @@ const typeDef = gql`
     taxonomicCoverage: String
     geographicCoverage: String
     temporalCoverage: String
-    alternativeCodes: [AlternativeCode]
+    alternativeCodes: [AlternativeCode!]!
     occurrenceCount: Long
     typeSpecimenCount: Long
     featuredImageUrl: String
     featuredImageLicense: License
     thumbor(width: Int, height: Int, fitIn: Boolean): String
-    descriptorMatches: [DescriptorMatches!]
+    descriptorMatches: [DescriptorMatches!]!
     excerpt: String
   }
 
@@ -169,10 +169,10 @@ const typeDef = gql`
     usageRank: Rank
     country: Country
     individualCount: Long
-    issues: [OccurrenceIssue!]
-    recordedBy: [String!]
-    typeStatus: [TypeStatus!]
-    identifiedBy: [String!]
+    issues: [OccurrenceIssue!]!
+    recordedBy: [String!]!
+    typeStatus: [TypeStatus!]!
+    identifiedBy: [String!]!
     taxon: Taxon
   }
 
@@ -181,7 +181,7 @@ const typeDef = gql`
     limit: Int
     endOfRecords: Boolean
     count: Int
-    results: [CollectionDescriptorGroup]
+    results: [CollectionDescriptorGroup]!
   }
 
   type CollectionDescriptorGroup {
@@ -223,16 +223,16 @@ const typeDef = gql`
     code: String
     name: String
     description: String
-    contentTypes: [String!]
+    contentTypes: [String!]!
     active: Boolean
     personalCollection: Boolean
     doi: String
-    email: [String!]
-    phone: [String!]
+    email: [String!]!
+    phone: [String!]!
     homepage: URL
-    catalogUrls: [String!]
-    apiUrls: [String!]
-    preservationTypes: [String!]
+    catalogUrls: [String!]!
+    apiUrls: [String!]!
+    preservationTypes: [String!]!
     accessionStatus: String
     institutionKey: ID
     institution: Institution
@@ -245,20 +245,20 @@ const typeDef = gql`
     deleted: DateTime
     replacedBy: ID
     replacedByCollection: Collection
-    tags: [Tag]
-    identifiers: [Identifier!]
+    tags: [Tag]!
+    identifiers: [Identifier!]!
     """
     The contacts type is deprecated and will no longer be updated
     """
-    contacts: [StaffMember]
+    contacts: [StaffMember]!
     contactPersons: [ContactPerson!]!
     numberSpecimens: Int
-    machineTags: [MachineTag]
+    machineTags: [MachineTag]!
     taxonomicCoverage: String
     geographicCoverage: String
     temporalCoverage: String
     notes: String
-    incorporatedCollections: [String]
+    incorporatedCollections: [String]!
     """
     Deprecated
     """
@@ -267,7 +267,7 @@ const typeDef = gql`
     Deprecated
     """
     collectionSummary: JSON
-    alternativeCodes: [AlternativeCode]
+    alternativeCodes: [AlternativeCode!]!
     comments: Comment
 
     featuredImageUrl: String
