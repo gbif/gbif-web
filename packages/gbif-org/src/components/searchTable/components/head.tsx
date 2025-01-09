@@ -58,6 +58,7 @@ export function Head<TData>({ header, table, isScrolled = false }: Props<TData>)
         {header.column.getIsFirstColumn() && !hideLock && (
           <SimpleTooltip
             asChild
+            i18nDefaultMessage={locked ? 'Unlock column' : 'Lock column'}
             i18nKey={locked ? 'search.table.unlockColumn ' : 'search.table.lockColumn'}
           >
             <button onClick={() => setLocked((v) => !v)}>

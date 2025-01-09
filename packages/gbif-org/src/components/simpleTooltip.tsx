@@ -5,6 +5,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 type Props = {
   title?: React.ReactNode;
   i18nKey?: string;
+  i18nDefaultMessage?: string;
   delayDuration?: number;
   children: React.ReactNode;
   disableHoverableContent?: boolean;
@@ -19,6 +20,7 @@ export function SimpleTooltip({
   side,
   disableHoverableContent,
   i18nKey,
+  i18nDefaultMessage,
   asChild,
 }: Props) {
   return (
@@ -27,7 +29,7 @@ export function SimpleTooltip({
         {children}
       </TooltipTrigger>
       <TooltipContent className="g-max-w-96 g-pointer-events-none g-z-30" side={side}>
-        {i18nKey ? <FormattedMessage id={i18nKey} /> : title}
+        {i18nKey ? <FormattedMessage id={i18nKey} defaultMessage={i18nDefaultMessage} /> : title}
       </TooltipContent>
     </Tooltip>
   );
