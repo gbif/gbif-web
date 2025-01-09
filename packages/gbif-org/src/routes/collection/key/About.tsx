@@ -21,6 +21,7 @@ import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';
 import { DynamicLink } from '@/reactRouterPlugins';
+import { GrSciCollMetadata } from '@/routes/institution/key/MetaData';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
@@ -460,6 +461,7 @@ export default function About() {
             </aside>
           )}
         </div>
+        {collection && <GrSciCollMetadata entity={collection} />}
       </ArticleTextContainer>
     </ArticleContainer>
   );
