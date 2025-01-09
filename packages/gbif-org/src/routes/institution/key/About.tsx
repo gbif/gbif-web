@@ -35,7 +35,7 @@ export default function About() {
     v1Endpoint: '/occurrence/search',
     params: { institutionKey: key },
   });
-  const removeSidebar = useBelow(1100);
+  const removeSidebar = true; //useBelow(1100);
   const useInlineImage = useBelow(700);
   const { institution } = data;
 
