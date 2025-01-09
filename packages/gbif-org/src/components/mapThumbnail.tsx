@@ -128,18 +128,21 @@ export function AdHocMapThumbnail({
   filter,
   basemapStyle = 'gbif-geyser', // default value for basemapStyle
   // basemapStyle = 'gbif-middle', // default value for basemapStyle
+  params,
   className,
 }: {
   filter: JSON;
   basemapStyle?: BasemapStyle;
+  params?: { [key: string]: string } | null;
   className?: string;
 }) {
-  const overlayStyle = {
+  const overlayStyleParams = params || {
     mode: 'GEO_CENTROID',
     squareSize: '256',
     style: 'scaled.circles',
   };
-  const styleString = stringify(overlayStyle);
+
+  const styleString = stringify(overlayStyleParams);
   const filterString = stringify(filter);
 
   return (

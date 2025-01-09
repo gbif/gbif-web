@@ -25,15 +25,17 @@ import { GrSciCollMetadata } from '@/routes/institution/key/MetaData';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
+import { useContext } from 'react';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import { useCollectionKeyLoaderData } from '.';
-import { FeaturedImageContent } from './collectionKeyPresentation';
+import { CollectionKeyContext, FeaturedImageContent } from './collectionKeyPresentation';
 import { DescriptorGroups } from './DescriptorGroups';
 
 export default function About() {
   const { key } = useParams();
   const { data } = useCollectionKeyLoaderData();
+  const { contentMetrics } = useContext(CollectionKeyContext);
   const { count, loading } = useCount({
     v1Endpoint: '/occurrence/search',
     params: { collectionKey: key },
@@ -107,11 +109,6 @@ export default function About() {
                       </DynamicLink>
                     </Property>
                   )}
-                  {/* {occurrenceSearch?.documents?.total > 0 && <Property value={occurrenceSearch?.documents?.total} labelId="grscicoll.specimensViaGbif" formatter={count => {
-                    return <ResourceLink type="collectionKeySpecimens" id={collection.key}>
-                      <FormattedNumber value={count} />
-                    </ResourceLink>
-                  }} />} */}
                   <Property value={collection.catalogUrls} labelId="grscicoll.catalogUrl">
                     <ul>
                       {collection.catalogUrls.map((url, i) => (
@@ -134,6 +131,11 @@ export default function About() {
                       ))}
                     </ul>
                   </Property>
+                  {collection.homepage && (
+                    <Property value={collection.homepage} labelId="grscicoll.homepage" showEmpty>
+                      <HyperText text={collection.homepage} />
+                    </Property>
+                  )}
                   <Property
                     value={collection.contentTypes}
                     labelId="collection.contentTypes"
@@ -444,12 +446,19 @@ export default function About() {
             <aside className="g-flex-none g-w-96 g-ms-4">
               {!!count && count > 0 && (
                 <>
-                  <div className="g-max-w-64 md:g-max-w-96 g-mb-4">
-                    <AdHocMapThumbnail
-                      filter={{ collectionKey: collection.key }}
-                      className="g-rounded g-border"
-                    />
-                  </div>
+                  {contentMetrics?.withCoordinates?.documents?.total > 0 && (
+                    <div className="g-max-w-64 md:g-max-w-96 g-mb-4">
+                      <AdHocMapThumbnail
+                        params={
+                          contentMetrics?.withCoordinates?.documents?.total < 100
+                            ? { bin: 'hex', hexPerTile: '20', style: 'red.poly' }
+                            : null
+                        }
+                        filter={{ collectionKey: collection.key }}
+                        className="g-rounded g-border"
+                      />
+                    </div>
+                  )}
                   <ClientSideOnly>
                     <charts.OccurrenceSummary predicate={predicate} className="g-mb-4" />
                     <charts.DataQuality predicate={predicate} className="g-mb-4" />
