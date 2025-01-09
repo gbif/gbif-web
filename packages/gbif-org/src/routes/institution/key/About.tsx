@@ -18,13 +18,11 @@ import Properties, { Property, Term, Value } from '@/components/properties';
 import { TableOfContents } from '@/components/tableOfContents';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { Card as CardSmall } from '@/components/ui/smallCard';
 import useBelow from '@/hooks/useBelow';
 import { FeaturedImageContent } from '@/routes/collection/key/collectionKeyPresentation';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
-import { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import { useInstitutionKeyLoaderData } from '.';
@@ -41,19 +39,11 @@ export default function About() {
   const useInlineImage = useBelow(700);
   const { institution } = data;
 
-  const tableOfContents = useMemo(
-    () => [
-      { id: 'description', title: <FormattedMessage id="Description" /> },
-      {
-        id: 'collections',
-        title: <FormattedMessage id="Collections" />,
-        hidden: !institution?.collections?.length,
-      },
-      { id: 'contacts', title: <FormattedMessage id="Contacts" /> },
-      { id: 'identifiers', title: <FormattedMessage id="Identifiers" /> },
-    ],
-    [institution]
-  );
+  const tableOfContents = [
+    { id: 'description', title: <FormattedMessage id="grscicoll.description" /> },
+    { id: 'contacts', title: <FormattedMessage id="grscicoll.contacts" /> },
+    { id: 'identifiers', title: <FormattedMessage id="grscicoll.identifiers" /> },
+  ];
 
   if (!institution) return null;
 
@@ -364,57 +354,7 @@ export default function About() {
           </div>
           {!removeSidebar && (
             <aside className="g-sticky">
-              {institution?.latitude && Math.abs(institution.latitude) < 85 && (
-                <CardSmall className="">
-                  <a
-                    className="g-block"
-                    href={`http://www.google.com/maps/place/${institution.latitude},${institution.longitude}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <img
-                      style={{ width: '100%', display: 'block' }}
-                      src={`https://api.mapbox.com/styles/v1/mapbox/streets-v9/static/pin-s-circle+285A98(${institution.longitude},${institution.latitude})/${institution.longitude},${institution.latitude},15,0/400x250@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
-                    />
-                  </a>
-
-                  {/* <CardContentSmall className='g-mt-4'>
-                  <div className='g-flex'>
-                    <div className='g-flex-none g-me-2'>
-                      <div className='g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center'>
-                        <MdMap />
-                      </div>
-                    </div>
-                    <div className='g-flex-auto g-text-sm g-prose'>
-                      <address style={{ fontStyle: 'normal' }}>
-                        {institutionAddress.address && <div>
-                          {institutionAddress.address}
-                        </div>}
-                        {institutionAddress.city && <div>{institutionAddress.city}</div>}
-                        {institutionAddress.province && <div>{institutionAddress.province}</div>}
-                        {institutionAddress.postalCode && <div>{institutionAddress.postalCode}</div>}
-                        {institutionAddress.country && (
-                          <div>
-                            <FormattedMessage id={`enums.countryCode.${institutionAddress.country}`} />
-                          </div>
-                        )}
-                        {institutionAddress.email && (
-                          <div>
-                            <a href={`mailto:${institutionAddress.email}`}>{institutionAddress.email}</a>
-                          </div>
-                        )}
-                        {institutionAddress.phone && (
-                          <div>
-                            <a href={`tel:${institutionAddress.phone}`}>{institutionAddress.phone}</a>
-                          </div>
-                        )}
-                      </address>
-                    </div>
-                  </div>
-                </CardContentSmall> */}
-                </CardSmall>
-              )}
-              <div className="g-pt-4 g-sticky g-top-[--stickyOffset]">
+              <div className="-g-mt-4 g-pt-4 g-sticky g-top-[--stickyOffset]">
                 <TableOfContents sections={tableOfContents} />
                 <GbifLinkCard path={`/grscicoll/institution/${institution.key}`} />
               </div>

@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/smallCard';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/smallCard';
 import { cn } from '@/utils/shadcn';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -45,7 +45,7 @@ export function TableOfContents({ sections }: Props) {
     <Card className="g-mb-4">
       <CardHeader>
         <CardTitle>
-          <FormattedMessage id="On this page" />
+          <FormattedMessage id="phrases.pageToc" />
         </CardTitle>
       </CardHeader>
       <CardContent>

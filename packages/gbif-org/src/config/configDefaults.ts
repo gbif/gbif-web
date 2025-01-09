@@ -39,6 +39,15 @@ export const configDefault: Partial<Config> = {
     queryType: 'V1',
     highlightedFilters: ['q', 'code', 'country', 'numberSpecimens', 'occurrenceCount'],
   },
+  institutionKey: {
+    occurrenceSearch: {
+      excludedFilters: ['institutionKey'],
+      // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
+      // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
+      tabs: ['table', 'media', 'map', 'dashboard', 'clusters', 'download'],
+      defaultTab: 'table',
+    },
+  },
   publisherSearch: {
     queryType: 'V1',
     highlightedFilters: ['q', 'country'],
