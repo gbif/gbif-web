@@ -44,9 +44,11 @@ export const InstitutionKeyContext = createContext<{
 export function InstitutionKey({
   data,
   institutionMetrics,
+  fallbackImage,
 }: {
   data: InstitutionQuery;
   institutionMetrics?: InstitutionSummaryMetricsQuery;
+  fallbackImage: string;
 }) {
   const useInlineImage = useBelow(700);
   if (data.institution == null) throw new Error('404');
@@ -79,7 +81,8 @@ export function InstitutionKey({
     : institution?.mailingAddress;
   const feedbackTemplate = `Please provide your feedback here, but leave content below for context\n\n---\nRelating to ${GBIF_REGISTRY_ENDPOINT}/institution/${institution.key}`;
 
-  const imageUrl = institution.featuredImageUrl ?? institution.featuredImageUrl_fallback;
+  const imageUrl =
+    institution.featuredImageUrl ?? institution.featuredImageUrl_fallback ?? fallbackImage;
 
   return (
     <>

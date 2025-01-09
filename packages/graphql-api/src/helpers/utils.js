@@ -156,11 +156,12 @@ function renameProperty(obj, from, to) {
   return obj;
 }
 
-async function getOGImage({ homepage }) {
+async function getOGImage({ homepage, timeoutMs = 5000 }) {
   if (!homepage) return null;
 
   try {
     const response = await fetch(homepage, {
+      signal: AbortSignal.timeout(timeoutMs),
       headers: {
         accept:
           'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',

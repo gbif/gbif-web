@@ -1,4 +1,6 @@
 import {
+  InstitutionFallbackImageQuery,
+  InstitutionFallbackImageQueryVariables,
   InstitutionQuery,
   InstitutionQueryVariables,
   InstitutionSummaryMetricsQuery,
@@ -27,6 +29,14 @@ export function InstitutionKey() {
   >(SLOW_QUERY, {
     lazyLoad: true,
     throwAllErrors: true,
+  });
+
+  const { data: imageData, load: imageLoad } = useQuery<
+    InstitutionFallbackImageQuery,
+    InstitutionFallbackImageQueryVariables
+  >(IMAGE_QUERY, {
+    lazyLoad: true,
+    throwAllErrors: false,
   });
 
   useEffect(() => {
@@ -64,11 +74,18 @@ export function InstitutionKey() {
           },
         },
       });
+      imageLoad({ variables: { key: id } });
     }
-  }, [data.institution?.key, slowLoad]);
+  }, [data.institution?.key, slowLoad, imageLoad]);
 
   if (data.institution == null) throw new Error('404');
-  return <Presentation data={data} institutionMetrics={institutionMetrics} />;
+  return (
+    <Presentation
+      data={data}
+      institutionMetrics={institutionMetrics}
+      fallbackImage={imageData?.institution?.featuredImageUrl_fallback}
+    />
+  );
 }
 
 export { InstitutionPageSkeleton } from './institutionKeyPresentation';
@@ -102,7 +119,7 @@ const INSTITUTION_QUERY = /* GraphQL */ `
 
       featuredImageUrl: thumbor(width: 1000, height: 667)
       featuredImageLicense
-      featuredImageUrl_fallback: homepageOGImageUrl_volatile(onlyIfNoImageUrl: true)
+      featuredImageUrl_fallback: homepageOGImageUrl_volatile(onlyIfNoImageUrl: true, timeoutMs: 300)
 
       masterSourceMetadata {
         key
@@ -197,6 +214,17 @@ const SLOW_QUERY = /* GraphQL */ `
       documents(size: 0) {
         total
       }
+    }
+  }
+`;
+
+const IMAGE_QUERY = /* GraphQL */ `
+  query InstitutionFallbackImage($key: ID!) {
+    institution(key: $key) {
+      featuredImageUrl_fallback: homepageOGImageUrl_volatile(
+        onlyIfNoImageUrl: true
+        timeoutMs: 3000
+      )
     }
   }
 `;
