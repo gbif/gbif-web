@@ -288,7 +288,10 @@ export function DatasetPage() {
     if (error) {
       console.error(error);
     }
-    if (occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties) {
+    if (
+      occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties &&
+      !tabs.find((t) => t.to.includes('phylogenies'))
+    ) {
       try {
         const parsedDynamicProperties = JSON.parse(
           occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties
@@ -303,7 +306,13 @@ export function DatasetPage() {
         /* empty */
       }
     }
-    if (dataset?.checklistBankDataset?.key) {
+  }, [occData, error, dataset.key, tabs]);
+
+  useEffect(() => {
+    if (error) {
+      console.error(error);
+    }
+    if (dataset?.checklistBankDataset?.key && !tabs.find((t) => t.to.includes('classification'))) {
       tabs.splice(2, 0, {
         to: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
           dataset.key
@@ -326,7 +335,7 @@ export function DatasetPage() {
       });
       setTabs([...tabs]);
     }
-  }, [occData, error, dataset.key, dataset?.checklistBankDataset?.key]);
+  }, [occData, error, dataset.key, dataset?.checklistBankDataset?.key, tabs]);
 
   return (
     <>
