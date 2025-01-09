@@ -68,7 +68,7 @@ export default function About() {
                   <FormattedMessage id="dataset.description" />
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="[&_a]:g-text-primary-500">
                 {institution?.description && (
                   <div
                     className="g-prose g-mb-6 g-max-w-full"
@@ -87,7 +87,17 @@ export default function About() {
                       <FormattedNumber value={count} />
                     </Property>
                   )}
-                  <Property value={institution.catalogUrls} labelId="grscicoll.catalogUrl" />
+                  {institution.catalogUrls && (
+                    <Property
+                      value={institution.catalogUrls}
+                      formatter={(x) => (
+                        <a href={x} target="_blank" rel="noreferrer" key={x}>
+                          {x}
+                        </a>
+                      )}
+                      labelId="grscicoll.catalogUrl"
+                    />
+                  )}
                   <Property value={institution.apiUrls} labelId="grscicoll.apiUrl" />
                   <Property
                     value={institution.disciplines}
@@ -132,7 +142,7 @@ export default function About() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <Properties useDefaultTermWidths className="g-mb-8">
+                <Properties useDefaultTermWidths className="g-mb-8 [&_a]:g-text-primary-500">
                   {isNoneEmptyArray(institution.email) && (
                     <Property
                       labelId="grscicoll.email"
@@ -146,7 +156,7 @@ export default function About() {
                     ></Property>
                   )}
                   <Property labelId="grscicoll.homepage">
-                    <HyperText className="g-prose" text={institution?.homepage} />
+                    <HyperText text={institution?.homepage} />
                   </Property>
                   <Property
                     value={institution?.address?.country}
@@ -257,7 +267,7 @@ export default function About() {
                   <FormattedMessage id="grscicoll.identifiers" />
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="[&_a]:g-text-primary-500">
                 <Properties
                   style={{ fontSize: 16, marginBottom: 12 }}
                   useDefaultTermWidths
@@ -304,7 +314,7 @@ export default function About() {
                                   defaultMessage={type}
                                 />
                               </div>
-                              <div className="g-prose">
+                              <div>
                                 <a href={link}>{text}</a>
                               </div>
                             </li>
@@ -340,7 +350,7 @@ export default function About() {
                                 />
                               </div>
                               <div>
-                                <HyperText className="g-prose" text={identifier} inline />
+                                <HyperText text={identifier} inline />
                               </div>
                             </li>
                           );

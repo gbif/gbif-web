@@ -16,7 +16,7 @@ export default function Collections() {
   const { key, contentMetrics } = useContext(InstitutionKeyContext);
   const collections = contentMetrics?.institution?.collections;
   return (
-    <ArticleContainer className="g-bg-slate-100 g-pt-0">
+    <ArticleContainer className="g-bg-slate-100">
       <ArticleTextContainer className="g-max-w-screen-xl">
         {isNoneEmptyArray(collections) && (
           <Card className="g-relative g-overflow-x-auto g-rounded g-border g-mb-4">
