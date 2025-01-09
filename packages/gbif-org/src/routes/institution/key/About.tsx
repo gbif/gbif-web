@@ -27,6 +27,7 @@ import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import { useInstitutionKeyLoaderData } from '.';
+import { GrSciCollMetadata } from './MetaData';
 // import { MdMap } from 'react-icons/md';
 
 export default function About() {
@@ -149,7 +150,6 @@ export default function About() {
                   {isNoneEmptyArray(institution.email) && (
                     <Property
                       labelId="grscicoll.email"
-                      className="g-prose"
                       value={institution.email}
                       formatter={(email) => (
                         <a href={`mailto:${email}`} className="">
@@ -374,6 +374,7 @@ export default function About() {
             </aside>
           )}
         </div>
+        {institution && <GrSciCollMetadata entity={institution} />}
       </ArticleTextContainer>
     </ArticleContainer>
   );
