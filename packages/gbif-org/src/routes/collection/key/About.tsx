@@ -20,6 +20,7 @@ import Properties, { Property, Term, Value } from '@/components/properties';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
@@ -64,7 +65,7 @@ export default function About() {
                   <FormattedMessage id="dataset.description" />
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="[&_a]:g-text-primary-500">
                 <div className="g-prose g-mb-6 g-max-w-full">
                   {collection?.description && (
                     <div dangerouslySetInnerHTML={{ __html: collection.description }}></div>
@@ -90,11 +91,7 @@ export default function About() {
                   />
                   {collection.notes && (
                     <Property value={collection.notes} labelId="grscicoll.notes">
-                      <HyperText
-                        className="dataProse [&_a]:g-underline"
-                        text={collection.notes}
-                        fallback
-                      />
+                      <HyperText className="dataProse [&_a]:g-underline" text={collection.notes} />
                     </Property>
                   )}
                   <Property value={collection.code} labelId="grscicoll.code" showEmpty />
@@ -104,7 +101,9 @@ export default function About() {
                   />
                   {!loading && count > 0 && (
                     <Property labelId="grscicoll.specimensViaGbif">
-                      <FormattedNumber value={count} />
+                      <DynamicLink to="./specimens">
+                        <FormattedNumber value={count} />
+                      </DynamicLink>
                     </Property>
                   )}
                   {/* {occurrenceSearch?.documents?.total > 0 && <Property value={occurrenceSearch?.documents?.total} labelId="grscicoll.specimensViaGbif" formatter={count => {
@@ -112,16 +111,28 @@ export default function About() {
                       <FormattedNumber value={count} />
                     </ResourceLink>
                   }} />} */}
-                  <Property
-                    value={collection.catalogUrls}
-                    labelId="grscicoll.catalogUrl"
-                    formatter={(url) => (
-                      <a className="g-underline" href={url}>
-                        {url}
-                      </a>
-                    )}
-                  />
-                  <Property value={collection.apiUrls} labelId="grscicoll.apiUrl" />
+                  <Property value={collection.catalogUrls} labelId="grscicoll.catalogUrl">
+                    <ul>
+                      {collection.catalogUrls.map((url, i) => (
+                        <li key={i}>
+                          <a key={url} href={url} target="_blank" rel="noreferrer">
+                            {url}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </Property>
+                  <Property labelId="grscicoll.apiUrl" value={collection.apiUrls}>
+                    <ul>
+                      {collection.apiUrls.map((url, i) => (
+                        <li key={i}>
+                          <a key={url} href={url} target="_blank" rel="noreferrer">
+                            {url}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </Property>
                   <Property
                     value={collection.contentTypes}
                     labelId="collection.contentTypes"
@@ -216,7 +227,7 @@ export default function About() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <Properties useDefaultTermWidths className="g-mb-8">
+                <Properties useDefaultTermWidths className="g-mb-8 [&_a]:g-text-primary-500">
                   {isNoneEmptyArray(collection.email) && (
                     <Property
                       labelId="grscicoll.email"
@@ -332,7 +343,7 @@ export default function About() {
                   <FormattedMessage id="grscicoll.identifiers" />
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="[&_a]:g-text-primary-500">
                 <Properties
                   style={{ fontSize: 16, marginBottom: 12 }}
                   useDefaultTermWidths
@@ -379,7 +390,7 @@ export default function About() {
                                   defaultMessage={type}
                                 />
                               </div>
-                              <div className="g-prose">
+                              <div>
                                 <a href={link}>{text}</a>
                               </div>
                             </li>
@@ -415,7 +426,7 @@ export default function About() {
                                 />
                               </div>
                               <div>
-                                <HyperText className="g-prose" text={identifier} inline />
+                                <HyperText text={identifier} inline />
                               </div>
                             </li>
                           );

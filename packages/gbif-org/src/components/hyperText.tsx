@@ -59,7 +59,7 @@ export const HyperText = ({
 }: {
   text: string | boolean | undefined | null | React.ReactNode;
   sanitizeOptions?: any; // DOMPurify.Config,
-  fallback?: string;
+  fallback?: string | boolean;
   [key: string]: any;
 }) => {
   if (text === false || text === true) {

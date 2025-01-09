@@ -58,12 +58,12 @@ export function CollectionKey({
   const deletedAt = collection.deleted;
 
   // const collections = collectionCollections?.collections;
-  const tabs = [{ to: '.', children: 'About' }];
+  const tabs = [{ to: '.', children: <FormattedMessage id="grscicoll.tabs.about" /> }];
 
   // if there is occurrences, then add a specimens tab
   if (occurrenceSearch?.documents.total > 0) {
-    tabs.push({ to: 'dashboard', children: 'Dashboard' });
-    tabs.push({ to: 'specimen', children: 'Specimens' });
+    tabs.push({ to: 'dashboard', children: <FormattedMessage id="grscicoll.dashboard" /> });
+    tabs.push({ to: 'specimens', children: <FormattedMessage id="grscicoll.specimens" /> });
   }
 
   // if there is at least a countryCode for thee address, then use that, else fall back to the mailing address

@@ -27,7 +27,7 @@ export const collectionKeyRoute: RouteObjectWithPlugins = {
       element: <CollectionKeyAbout />,
     },
     {
-      path: 'specimen',
+      path: 'specimens',
       element: <CollectionKeySpecimens />,
     },
     {
