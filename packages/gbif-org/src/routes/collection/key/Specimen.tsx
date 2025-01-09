@@ -51,7 +51,7 @@ export default function Specimen() {
   }, [baseConfig, contentMetrics, key, occurrenceSearchConfig]);
 
   return (
-    <ArticleContainer className="g-bg-slate-100 g-pt-0">
+    <ArticleContainer className="g-bg-slate-100">
       <ArticleTextContainer className="g-max-w-screen-xl">
         {config && (
           <SearchContextProvider searchContext={config}>

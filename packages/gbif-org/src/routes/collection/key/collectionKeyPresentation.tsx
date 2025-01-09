@@ -222,7 +222,7 @@ export function CollectionKey({
                         </FeatureList>
                       ))}
                   </HeaderInfoMain>
-                  <HeaderInfoEdit className="g-flex">
+                  <HeaderInfoEdit className="g-flex g-mt-4">
                     {/* TODO Phew it is quite a few lines just to add a tooltip, I wonder if an abstraction would be appreciated. Here I repeat the provider, which doesn't help, but it didn't properly disappear and reappear without it*/}
                     <Tooltip delayDuration={0}>
                       <TooltipTrigger>

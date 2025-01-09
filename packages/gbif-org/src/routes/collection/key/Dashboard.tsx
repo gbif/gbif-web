@@ -14,7 +14,7 @@ export default function Dashboard() {
     value: data?.collection?.key,
   };
   return (
-    <ArticleContainer className="g-bg-slate-100 g-pt-2 md:g-pt-4">
+    <ArticleContainer className="g-bg-slate-100">
       <ArticleTextContainer className="g-max-w-screen-xl">
         <div className="g-mb-2 g-text-slate-500">
           <FormattedMessage id="dashboard.metricsFromGbifData" />
