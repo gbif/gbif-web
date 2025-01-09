@@ -17,10 +17,10 @@ type Props = {
   routes: RouteObjectWithPlugins[];
   loadingElement?: React.ReactNode;
   url: string;
+  config: Config;
 };
 
-export function StandaloneWrapper({ routes, url, loadingElement }: Props) {
-  const config = useConfig();
+export function StandaloneWrapper({ routes, url, loadingElement, config }: Props) {
   const rootNavigate = useNavigate();
   const ref = useRef<HTMLDivElement>(null);
   const routerRef = useRef<ReturnType<typeof createMemoryRouter>>();

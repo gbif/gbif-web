@@ -5,12 +5,18 @@ import { useEffect, useMemo, useRef } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { occurrenceKeyRoutes } from '.';
 import { OccurrenceKeySkeleton } from './occurrenceKey';
+import { useConfig } from '@/config/config';
 
 type Props = {
   occurrenceKey?: string | null;
 };
 
 export function StandaloneOccurrenceKeyPage({ occurrenceKey }: Props) {
+  const rootConfig = useConfig();
+  const standaloneConfig = useMemo(
+    () => ({ ...rootConfig, availableCatalogues: [] }),
+    [rootConfig]
+  );
   const [, setEntity] = useStringParam({ key: 'entity' });
   const setEntityParam = useRef((id: string) => {
     setEntity(`o_${id}`);
@@ -28,6 +34,7 @@ export function StandaloneOccurrenceKeyPage({ occurrenceKey }: Props) {
 
   return (
     <StandaloneWrapper
+      config={standaloneConfig}
       loadingElement={<OccurrenceKeySkeleton />}
       routes={routes}
       url={`/occurrence/${occurrenceKey}`}
