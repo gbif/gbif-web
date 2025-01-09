@@ -38,6 +38,12 @@ export default function Collections() {
                   >
                     <FormattedMessage id="grscicoll.specimens" />
                   </th>
+                  <th
+                    scope="col"
+                    className="g-px-6 g-py-3 g-font-normal g-text-right rtl:g-text-left"
+                  >
+                    <FormattedMessage id="tableHeaders.gbifNumberSpecimens" />
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -79,6 +85,12 @@ export default function Collections() {
                           <FormattedNumber value={collection.numberSpecimens} />
                         )}
                         {!notNull(collection.numberSpecimens) && <Unknown />}
+                      </td>
+                      <td className="g-px-6 g-py-3 g-text-right rtl:g-text-left">
+                        {notNull(collection.occurrenceCount) && (
+                          <FormattedNumber value={collection.occurrenceCount} />
+                        )}
+                        {!notNull(collection.occurrenceCount) && <Unknown />}
                       </td>
                     </tr>
                   );

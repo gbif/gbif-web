@@ -198,6 +198,7 @@ const SLOW_QUERY = /* GraphQL */ `
         active
         numberSpecimens
         richness
+        occurrenceCount
       }
     }
     withImages: occurrenceSearch(predicate: $imagePredicate) {
