@@ -17,7 +17,6 @@ import EmptyValue from '@/components/emptyValue';
 import { HyperText } from '@/components/hyperText';
 import { AdHocMapThumbnail } from '@/components/mapThumbnail';
 import Properties, { Property, Term, Value } from '@/components/properties';
-import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -40,7 +39,7 @@ export default function About() {
     v1Endpoint: '/occurrence/search',
     params: { collectionKey: key },
   });
-  const removeSidebar = useBelow(1100);
+  const removeSidebarThreshold = useBelow(1100);
   const useInlineImage = useBelow(700);
   const { collection } = data;
 
@@ -57,6 +56,7 @@ export default function About() {
 
   const imageUrl = collection.featuredImageUrl ?? collection.featuredImageUrl_fallback;
 
+  const removeSidebar = removeSidebarThreshold || (count ?? 0) < 1;
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl">
@@ -444,29 +444,25 @@ export default function About() {
 
           {!removeSidebar && (
             <aside className="g-flex-none g-w-96 g-ms-4">
-              {!!count && count > 0 && (
-                <>
-                  {contentMetrics?.withCoordinates?.documents?.total > 0 && (
-                    <div className="g-max-w-64 md:g-max-w-96 g-mb-4">
-                      <AdHocMapThumbnail
-                        params={
-                          contentMetrics?.withCoordinates?.documents?.total < 100
-                            ? { bin: 'hex', hexPerTile: '20', style: 'red.poly' }
-                            : null
-                        }
-                        filter={{ collectionKey: collection.key }}
-                        className="g-rounded g-border"
-                      />
-                    </div>
-                  )}
-                  <ClientSideOnly>
-                    <charts.OccurrenceSummary predicate={predicate} className="g-mb-4" />
-                    <charts.DataQuality predicate={predicate} className="g-mb-4" />
-                  </ClientSideOnly>
-                </>
-              )}
-
-              <GbifLinkCard path={`/grscicoll/collection/${collection.key}`} />
+              <>
+                {contentMetrics?.withCoordinates?.documents?.total > 0 && (
+                  <div className="g-max-w-64 md:g-max-w-96 g-mb-4">
+                    <AdHocMapThumbnail
+                      params={
+                        contentMetrics?.withCoordinates?.documents?.total < 100
+                          ? { bin: 'hex', hexPerTile: '20', style: 'red.poly' }
+                          : null
+                      }
+                      filter={{ collectionKey: collection.key }}
+                      className="g-rounded g-border"
+                    />
+                  </div>
+                )}
+                <ClientSideOnly>
+                  <charts.OccurrenceSummary predicate={predicate} className="g-mb-4" />
+                  <charts.DataQuality predicate={predicate} className="g-mb-4" />
+                </ClientSideOnly>
+              </>
             </aside>
           )}
         </div>
