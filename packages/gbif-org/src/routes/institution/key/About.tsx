@@ -36,7 +36,7 @@ export default function About() {
     params: { institutionKey: key },
   });
   const removeSidebar = true; //useBelow(1100);
-  const useInlineImage = useBelow(700);
+  const useInlineImage = useBelow(800);
   const { institution } = data;
 
   const tableOfContents = [

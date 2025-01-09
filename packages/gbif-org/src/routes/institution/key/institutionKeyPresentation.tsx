@@ -50,7 +50,7 @@ export function InstitutionKey({
   institutionMetrics?: InstitutionSummaryMetricsQuery;
   fallbackImage: string;
 }) {
-  const useInlineImage = useBelow(700);
+  const useInlineImage = useBelow(800);
   if (data.institution == null) throw new Error('404');
   const { institution } = data;
   const { occurrenceSearch } = institutionMetrics ?? {};
@@ -70,7 +70,7 @@ export function InstitutionKey({
     });
   }
 
-  // if there is occurrences, then add a specimens tab
+  // if there ire occurrences, then add a specimens tab
   if (occurrenceSearch?.documents.total > 0) {
     tabs.push({ to: 'specimen', children: <FormattedMessage id="grscicoll.specimens" /> });
   }
@@ -100,7 +100,7 @@ export function InstitutionKey({
             <div className="g-flex g-pb-4">
               {imageUrl && !useInlineImage && (
                 <div className="g-flex-none g-me-4">
-                  <div className="g-bg-slate-200 g-rounded g-w-36 lg:g-w-96 g-overflow-hidden">
+                  <div className="g-bg-slate-200 g-rounded g-w-64 lg:g-w-96 g-overflow-hidden">
                     <FeaturedImageContent
                       featuredImageUrl={imageUrl}
                       featuredImageLicense={
@@ -183,7 +183,7 @@ export function InstitutionKey({
                       </FeatureList>
                     )}
                   </HeaderInfoMain>
-                  <HeaderInfoEdit className="g-flex">
+                  <HeaderInfoEdit className="g-flex g-mt-4">
                     {/* TODO Phew it is quite a few lines just to add a tooltip, I wonder if an abstraction would be appreciated. Here I repeat the provider, which doesn't help, but it didn't properly disappear and reappear without it*/}
                     <Tooltip delayDuration={0}>
                       <TooltipTrigger>
