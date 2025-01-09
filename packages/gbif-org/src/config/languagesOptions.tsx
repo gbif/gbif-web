@@ -35,6 +35,7 @@ const languageOptions: LanguageOption[] = [
     default: false,
     textDirection: 'ltr',
     cmsLocale: 'es', // what locale code to use when fetching data from the cms endpoints
+    vocabularyLocale: 'es-ES', // what locale code to use when fetching data from the vocabulary endpoints
   },
   {
     code: 'ar',

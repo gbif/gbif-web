@@ -1,5 +1,6 @@
 import { VocabularyConceptQuery, VocabularyConceptQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
+import { useI18n } from '@/reactRouterPlugins';
 import { useEffect } from 'react';
 import { SimpleTooltip } from './simpleTooltip';
 
@@ -16,6 +17,8 @@ export const ConceptValue = ({
   name: string;
   includeContext?: boolean;
 }) => {
+  const { locale } = useI18n();
+
   const { data, error, loading, load } = useQuery<
     VocabularyConceptQuery,
     VocabularyConceptQueryVariables
@@ -23,8 +26,10 @@ export const ConceptValue = ({
 
   useEffect(() => {
     if (!vocabulary || !name) return;
-    load({ variables: { vocabulary, concept: name, language: 'en' } });
-  }, [vocabulary, name]);
+    load({
+      variables: { vocabulary, concept: name, language: locale.vocabularyLocale ?? locale.code },
+    });
+  }, [vocabulary, name, locale, load]);
 
   const concept = data?.concept;
 

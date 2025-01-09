@@ -1,6 +1,6 @@
 const getTranslatedValue =
   (field, { useNameAsFallback } = {}) =>
-  (item, { language = 'en' }, { dataSources }) => {
+  (item, { language = 'en' }) => {
     // transform label array to map using language as key
     const label = item[field];
     const labelMap = label.reduce((acc, cur) => {
@@ -9,7 +9,7 @@ const getTranslatedValue =
     }, {});
     return (
       labelMap[language] ||
-      labelMap['en'] ||
+      labelMap.en ||
       (useNameAsFallback ? item.name : null)
     );
   };

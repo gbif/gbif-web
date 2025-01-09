@@ -108,14 +108,6 @@ export default function About() {
                   {institution.foundingDate && (
                     <Property labelId="grscicoll.foundingDate">{institution.foundingDate}</Property>
                   )}
-                  {institution.type && (
-                    <Property labelId="institution.type">
-                      <FormattedMessage
-                        id={`enums.institutionType.${institution.type}`}
-                        defaultMessage={institution.type}
-                      />
-                    </Property>
-                  )}
                   <Property
                     value={institution.types}
                     labelId="institution.type"
@@ -372,7 +364,7 @@ export default function About() {
           </div>
           {!removeSidebar && (
             <aside className="g-sticky">
-              {institution.longitude && (
+              {institution?.latitude && Math.abs(institution.latitude) < 85 && (
                 <CardSmall className="">
                   <a
                     className="g-block"
