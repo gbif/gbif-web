@@ -722,7 +722,7 @@ export type CollectionDescriptorGroupResults = {
   endOfRecords?: Maybe<Scalars['Boolean']['output']>;
   limit?: Maybe<Scalars['Int']['output']>;
   offset?: Maybe<Scalars['Int']['output']>;
-  results?: Maybe<Array<Maybe<CollectionDescriptorGroup>>>;
+  results: Array<Maybe<CollectionDescriptorGroup>>;
 };
 
 export type CollectionDescriptorResults = {
@@ -1791,13 +1791,13 @@ export type DescriptorMatches = {
   __typename?: 'DescriptorMatches';
   country?: Maybe<Country>;
   descriptorSetKey?: Maybe<Scalars['ID']['output']>;
-  identifiedBy?: Maybe<Array<Scalars['String']['output']>>;
+  identifiedBy: Array<Scalars['String']['output']>;
   individualCount?: Maybe<Scalars['Long']['output']>;
-  issues?: Maybe<Array<OccurrenceIssue>>;
+  issues: Array<OccurrenceIssue>;
   key?: Maybe<Scalars['ID']['output']>;
-  recordedBy?: Maybe<Array<Scalars['String']['output']>>;
+  recordedBy: Array<Scalars['String']['output']>;
   taxon?: Maybe<Taxon>;
-  typeStatus?: Maybe<Array<TypeStatus>>;
+  typeStatus: Array<TypeStatus>;
   usageKey?: Maybe<Scalars['Long']['output']>;
   usageName?: Maybe<Scalars['String']['output']>;
   usageRank?: Maybe<Rank>;
@@ -8451,7 +8451,7 @@ export type HeaderQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type HeaderQuery = { __typename?: 'Query', gbifHome?: { __typename?: 'Home', title: string, summary?: string | null, children?: Array<{ __typename?: 'MenuItem', id: string, externalLink?: boolean | null, link?: string | null, title: string, children?: Array<{ __typename?: 'MenuItem', id: string, externalLink?: boolean | null, link?: string | null, title: string, children?: Array<{ __typename?: 'MenuItem', id: string, externalLink?: boolean | null, link?: string | null, title: string }> | null }> | null }> | null } | null };
 
-export type CollectionResultFragment = { __typename?: 'CollectionSearchEntity', key: string, name?: string | null, active?: boolean | null, code?: string | null, excerpt?: string | null, numberSpecimens?: any | null, occurrenceCount?: any | null, institutionName?: string | null, institutionKey?: string | null, featuredImageLicense?: License | null, featuredImageUrl?: string | null, descriptorMatches: Array<{ __typename?: 'DescriptorMatches', key?: string | null, usageName?: string | null, country?: Country | null, individualCount?: any | null, recordedBy?: Array<string> | null, typeStatus?: Array<TypeStatus> | null, identifiedBy?: Array<string> | null, taxon?: { __typename?: 'Taxon', kingdom?: string | null, phylum?: string | null, class?: string | null, order?: string | null, family?: string | null, genus?: string | null, species?: string | null } | null }> };
+export type CollectionResultFragment = { __typename?: 'CollectionSearchEntity', key: string, name?: string | null, active?: boolean | null, code?: string | null, excerpt?: string | null, numberSpecimens?: any | null, occurrenceCount?: any | null, institutionName?: string | null, institutionKey?: string | null, featuredImageLicense?: License | null, featuredImageUrl?: string | null, descriptorMatches: Array<{ __typename?: 'DescriptorMatches', key?: string | null, usageName?: string | null, country?: Country | null, individualCount?: any | null, recordedBy: Array<string>, typeStatus: Array<TypeStatus>, identifiedBy: Array<string>, taxon?: { __typename?: 'Taxon', kingdom?: string | null, phylum?: string | null, class?: string | null, order?: string | null, family?: string | null, genus?: string | null, species?: string | null } | null }> };
 
 export type CollectionQueryVariables = Exact<{
   key: Scalars['ID']['input'];
@@ -8475,7 +8475,7 @@ export type CollectionSearchQueryVariables = Exact<{
 }>;
 
 
-export type CollectionSearchQuery = { __typename?: 'Query', collectionSearch?: { __typename?: 'CollectionSearchResults', count: number, limit: number, offset: number, results: Array<{ __typename?: 'CollectionSearchEntity', key: string, name?: string | null, active?: boolean | null, code?: string | null, excerpt?: string | null, numberSpecimens?: any | null, occurrenceCount?: any | null, institutionName?: string | null, institutionKey?: string | null, featuredImageLicense?: License | null, featuredImageUrl?: string | null, descriptorMatches: Array<{ __typename?: 'DescriptorMatches', key?: string | null, usageName?: string | null, country?: Country | null, individualCount?: any | null, recordedBy?: Array<string> | null, typeStatus?: Array<TypeStatus> | null, identifiedBy?: Array<string> | null, taxon?: { __typename?: 'Taxon', kingdom?: string | null, phylum?: string | null, class?: string | null, order?: string | null, family?: string | null, genus?: string | null, species?: string | null } | null }> } | null> } | null };
+export type CollectionSearchQuery = { __typename?: 'Query', collectionSearch?: { __typename?: 'CollectionSearchResults', count: number, limit: number, offset: number, results: Array<{ __typename?: 'CollectionSearchEntity', key: string, name?: string | null, active?: boolean | null, code?: string | null, excerpt?: string | null, numberSpecimens?: any | null, occurrenceCount?: any | null, institutionName?: string | null, institutionKey?: string | null, featuredImageLicense?: License | null, featuredImageUrl?: string | null, descriptorMatches: Array<{ __typename?: 'DescriptorMatches', key?: string | null, usageName?: string | null, country?: Country | null, individualCount?: any | null, recordedBy: Array<string>, typeStatus: Array<TypeStatus>, identifiedBy: Array<string>, taxon?: { __typename?: 'Taxon', kingdom?: string | null, phylum?: string | null, class?: string | null, order?: string | null, family?: string | null, genus?: string | null, species?: string | null } | null }> } | null> } | null };
 
 export type CollectionRecordedByFacetQueryVariables = Exact<{
   query?: InputMaybe<CollectionSearchInput>;

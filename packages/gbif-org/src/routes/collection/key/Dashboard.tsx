@@ -3,6 +3,7 @@ import * as charts from '@/components/dashboard';
 import DashBoardLayout from '@/components/dashboard/DashboardLayout';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { FormattedMessage } from 'react-intl';
 import { useCollectionKeyLoaderData } from '.';
 
 export default function Dashboard() {
@@ -15,6 +16,9 @@ export default function Dashboard() {
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-2 md:g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl">
+        <div className="g-mb-2 g-text-slate-500">
+          <FormattedMessage id="dashboard.metricsFromGbifData" />
+        </div>
         <ClientSideOnly>
           <DashBoardLayout>
             <charts.OccurrenceSummary predicate={predicate} className="g-mb-2" />
