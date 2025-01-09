@@ -1,11 +1,15 @@
+import { getAsQuery } from '@/components/filters/filterTools';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { useStringParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { useContext, useEffect, useState } from 'react';
-import { ControlledTreeEnvironment, Tree, TreeItemIndex } from 'react-complex-tree';
+import { ControlledTreeEnvironment, Tree, TreeItem, TreeItemIndex } from 'react-complex-tree';
 import 'react-complex-tree/lib/style-modern.css';
+import { searchConfig } from '../../searchConfig';
 import TreeNode from './treeNode';
+
+type ItemsType = Record<string, TreeItem>;
 
 const CHILDREN_SEARCH_QUERY = /* GraphQL */ `
   query TaxonChildren($key: ID!, $limit: Int, $offset: Int) {
@@ -76,11 +80,13 @@ const CHECKLIST_ROOTS = /* GraphQL */ `
 `;
 
 export function TaxonTree({ size: defaultSize = 100 }) {
+  const searchContext = useSearchContext();
+  const { filter, filterHash } = useContext(FilterContext);
   const [, setPreviewKey] = useStringParam({ key: 'entity' });
 
   const [expandedItems, setExpandedItems] = useState<TreeItemIndex[]>([]);
   const [focusedItem, setFocusedItem] = useState<TreeItemIndex | null>(null);
-  const [items, setItems] = useState({});
+  const [items, setItems] = useState<ItemsType>({});
   const currentFilterContext = useContext(FilterContext);
   const { scope } = useSearchContext();
   const {
@@ -110,11 +116,20 @@ export function TaxonTree({ size: defaultSize = 100 }) {
   useEffect(() => {
     load({
       keepDataWhileLoading: true,
-      variables: { datasetKey: scope?.datasetKey[0], limit: size },
+      variables: { datasetKey: scope?.datasetKey?.[0], limit: size },
     });
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFilterContext.filterHash, scope, load, size]);
+
+  useEffect(() => {
+    const query = getAsQuery({ filter, searchContext, searchConfig });
+    console.log(query);
+
+    // We use a filterHash to trigger a reload when the filter changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [load, filterHash, searchContext, filter, searchConfig]);
+
   useEffect(() => {
     if (rootData?.checklistRoots?.results) {
       setItems(

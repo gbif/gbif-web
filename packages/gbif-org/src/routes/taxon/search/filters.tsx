@@ -1,16 +1,16 @@
 import {
-    IdentityLabel,
-    TaxonLabel,
-    TaxonRankLabel,
-    TaxonStatusLabel
+  IdentityLabel,
+  TaxonLabel,
+  TaxonRankLabel,
+  TaxonStatusLabel,
 } from '@/components/filters/displayNames';
 import {
-    filterConfigTypes,
-    filterEnumConfig,
-    filterFreeTextConfig,
-    FilterSetting,
-    filterSuggestConfig,
-    generateFilters
+  filterConfigTypes,
+  filterEnumConfig,
+  filterFreeTextConfig,
+  FilterSetting,
+  filterSuggestConfig,
+  generateFilters,
 } from '@/components/filters/filterTools';
 import { SuggestFnProps } from '@/components/filters/suggest';
 import { HelpText } from '@/components/helpText';
@@ -74,9 +74,9 @@ export const statusConfig: filterEnumConfig = {
 
 export const highertaxonKeyConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
-  filterHandle: 'highertaxonKey',
+  filterHandle: 'higherTaxonKey',
   displayName: TaxonLabel,
-  filterTranslation: 'filters.highertaxonKey.name',
+  filterTranslation: 'filters.higherTaxonKey.name',
   suggestConfig: taxonKeySuggest,
   allowExistence: false,
   allowNegations: false,
@@ -84,7 +84,7 @@ export const highertaxonKeyConfig: filterSuggestConfig = {
     query TaxonStatusFacet($query: TaxonSearchInput) {
       search: taxonSearch(query: $query) {
         facet {
-          field: highertaxonKey {
+          field: higherTaxonKey {
             name
             count
             item: taxon {
@@ -130,7 +130,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
       rank: generateFilters({ config: rankConfig, searchConfig, formatMessage }),
       status: generateFilters({ config: statusConfig, searchConfig, formatMessage }),
-      highertaxonKey: generateFilters({
+      higherTaxonKey: generateFilters({
         config: highertaxonKeyConfig,
         searchConfig,
         formatMessage,

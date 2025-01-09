@@ -73,7 +73,7 @@ export default {
   TaxonFacet: {
     rank: getTaxonFacet('rank'),
     status: getTaxonFacet('status'),
-    highertaxonKey: getTaxonFacet('highertaxonKey'),
+    higherTaxonKey: getTaxonFacet('highertaxonKey'),
     issue: getTaxonFacet('issue'),
   },
   TaxonFacetResult: {

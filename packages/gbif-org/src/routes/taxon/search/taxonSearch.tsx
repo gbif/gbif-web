@@ -63,6 +63,8 @@ export function TaxonSearchPageInner(): React.ReactElement {
   const visibleFilters = useMemo(() => {
     if (view === 'table') {
       return filters;
+    } else if (view === 'tree') {
+      return { higherTaxonKey: filters.higherTaxonKey };
     } else if (filters.q) {
       return { q: filters.q };
     } else {
