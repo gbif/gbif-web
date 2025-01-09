@@ -48,7 +48,7 @@ export function InstitutionKey({
 }: {
   data: InstitutionQuery;
   institutionMetrics?: InstitutionSummaryMetricsQuery;
-  fallbackImage: string;
+  fallbackImage?: string | null;
 }) {
   const useInlineImage = useBelow(800);
   if (data.institution == null) throw new Error('404');

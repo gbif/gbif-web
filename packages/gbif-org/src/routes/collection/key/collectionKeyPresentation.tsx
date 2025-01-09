@@ -48,9 +48,11 @@ export const CollectionKeyContext = createContext<{
 export function CollectionKey({
   data,
   collectionMetrics,
+  fallbackImage,
 }: {
   data: CollectionQuery;
   collectionMetrics?: CollectionSummaryMetricsQuery;
+  fallbackImage?: string | null;
 }) {
   // const hideSideBar = useBelow(1100);
   const useInlineImage = useBelow(700);
@@ -78,7 +80,8 @@ export function CollectionKey({
     .filter((x) => x?.firstName || x?.lastName)
     .map((x) => `${x?.firstName ?? ''} ${x?.lastName ?? ''}`);
 
-  const imageUrl = collection.featuredImageUrl ?? collection.featuredImageUrl_fallback;
+  const imageUrl =
+    collection.featuredImageUrl ?? collection.featuredImageUrl_fallback ?? fallbackImage;
   return (
     <>
       <Helmet>

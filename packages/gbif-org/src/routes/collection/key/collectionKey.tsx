@@ -1,5 +1,7 @@
 import { NotFoundError } from '@/errors';
 import {
+  CollectionFallbackImageQuery,
+  CollectionFallbackImageQueryVariables,
   CollectionQuery,
   CollectionQueryVariables,
   CollectionSummaryMetricsQuery,
@@ -28,6 +30,14 @@ export function CollectionKey() {
   >(SLOW_QUERY, {
     lazyLoad: true,
     throwAllErrors: true,
+  });
+
+  const { data: imageData, load: imageLoad } = useQuery<
+    CollectionFallbackImageQuery,
+    CollectionFallbackImageQueryVariables
+  >(IMAGE_QUERY, {
+    lazyLoad: true,
+    throwAllErrors: false,
   });
 
   useEffect(() => {
@@ -64,11 +74,18 @@ export function CollectionKey() {
           },
         },
       });
+      imageLoad({ variables: { key: id } });
     }
-  }, [data.collection?.key]);
+  }, [data.collection?.key, imageLoad, slowLoad]);
 
   if (data.collection == null) throw new NotFoundError();
-  return <Presentation data={data} collectionMetrics={collectionMetrics} />;
+  return (
+    <Presentation
+      data={data}
+      collectionMetrics={collectionMetrics}
+      fallbackImage={imageData?.collection?.featuredImageUrl_fallback}
+    />
+  );
 }
 
 export { CollectionPageSkeleton } from './collectionKeyPresentation';
@@ -103,7 +120,7 @@ const COLLECTION_QUERY = /* GraphQL */ `
 
       featuredImageUrl: thumbor(width: 1000, height: 667)
       featuredImageLicense
-      featuredImageUrl_fallback: homepageOGImageUrl_volatile(onlyIfNoImageUrl: true)
+      featuredImageUrl_fallback: homepageOGImageUrl_volatile(onlyIfNoImageUrl: true, timeoutMs: 300)
 
       created
       deleted
@@ -191,6 +208,17 @@ const SLOW_QUERY = /* GraphQL */ `
       documents(size: 0) {
         total
       }
+    }
+  }
+`;
+
+const IMAGE_QUERY = /* GraphQL */ `
+  query CollectionFallbackImage($key: ID!) {
+    collection(key: $key) {
+      featuredImageUrl_fallback: homepageOGImageUrl_volatile(
+        onlyIfNoImageUrl: true
+        timeoutMs: 3000
+      )
     }
   }
 `;
