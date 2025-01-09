@@ -187,11 +187,11 @@ export function CollectionKey({
                     {(collection?.catalogUrls?.length ?? 0) > 0 ||
                       (contacts.length > 0 && (
                         <FeatureList>
-                          {collection.catalogUrls && (
+                          {collection?.catalogUrls && collection?.catalogUrls?.length > 0 && (
                             <GenericFeature>
                               <CatalogIcon />
                               <span>
-                                <a href={collection.catalogUrls[0]}>
+                                <a href={collection?.catalogUrls[0]}>
                                   <FormattedMessage
                                     id="grscicoll.dataCatalog"
                                     defaultMessage="Data catalog"
