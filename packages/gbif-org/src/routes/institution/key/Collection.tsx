@@ -1,10 +1,12 @@
 import { FormattedNumber } from '@/components/dashboard/shared';
+import { Unknown } from '@/components/message';
 import { Tag } from '@/components/resultCards';
 import { Card } from '@/components/ui/largeCard';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
+import { notNull } from '@/utils/notNull';
 import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { InstitutionKeyContext } from './institutionKeyPresentation';
@@ -73,7 +75,10 @@ export default function Collections() {
                         ></div>
                       </td>
                       <td className="g-px-6 g-py-3 g-text-right rtl:g-text-left">
-                        <FormattedNumber value={collection.numberSpecimens} />
+                        {notNull(collection.numberSpecimens) && (
+                          <FormattedNumber value={collection.numberSpecimens} />
+                        )}
+                        {!notNull(collection.numberSpecimens) && <Unknown />}
                       </td>
                     </tr>
                   );

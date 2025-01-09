@@ -6,6 +6,7 @@ import {
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { useEffect } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 export default function OrphanedCollectionCodes({ institutionKey }: { institutionKey: string }) {
   const { data, error, loading, load } = useQuery<
@@ -47,11 +48,18 @@ export default function OrphanedCollectionCodes({ institutionKey }: { institutio
   return (
     <div className="g-py-12 g-text-slate-500">
       <div className="g-text-orange-500 g-font-semibold g-mb-4">
-        We see these unknown collection codes being used in published data
+        <FormattedMessage id="institution.unknownCollectionCodesForInstitution" />
       </div>
       <ul style={{ fontFamily: 'monospace' }}>
         {data?.orphaned?.facet?.collectionCode &&
-          data?.orphaned?.facet?.collectionCode.map((code) => <li key={code.key}>{code.key}</li>)}
+          data?.orphaned?.facet?.collectionCode.map((code) => (
+            <li key={code.key}>
+              <span className="g-font-semibold">{code.key}:</span>
+              <span className="g-mx-2 g-text-slate-500">
+                <FormattedMessage id="counts.nRecords" values={{ total: code.count }} />
+              </span>
+            </li>
+          ))}
       </ul>
     </div>
   );
