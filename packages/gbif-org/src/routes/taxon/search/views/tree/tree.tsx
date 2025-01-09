@@ -1,9 +1,11 @@
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
+import { useStringParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { useContext, useEffect, useState } from 'react';
 import { ControlledTreeEnvironment, Tree, TreeItemIndex } from 'react-complex-tree';
 import 'react-complex-tree/lib/style-modern.css';
+import TreeNode from './treeNode';
 
 const CHILDREN_SEARCH_QUERY = /* GraphQL */ `
   query TaxonChildren($key: ID!, $limit: Int, $offset: Int) {
@@ -74,7 +76,8 @@ const CHECKLIST_ROOTS = /* GraphQL */ `
 `;
 
 export function TaxonTree({ size: defaultSize = 100 }) {
-  const [from, setFrom] = useState(0);
+  const [, setPreviewKey] = useStringParam({ key: 'entity' });
+
   const [expandedItems, setExpandedItems] = useState<TreeItemIndex[]>([]);
   const [focusedItem, setFocusedItem] = useState<TreeItemIndex | null>(null);
   const [items, setItems] = useState({});
@@ -111,7 +114,7 @@ export function TaxonTree({ size: defaultSize = 100 }) {
     });
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [from, currentFilterContext.filterHash, scope, load, size]);
+  }, [currentFilterContext.filterHash, scope, load, size]);
   useEffect(() => {
     if (rootData?.checklistRoots?.results) {
       setItems(
@@ -125,6 +128,17 @@ export function TaxonTree({ size: defaultSize = 100 }) {
               data: cur,
               canRename: false,
             };
+            if (cur.children.endOfRecords === false) {
+              const loadMoreChildrenNode = {
+                index: `${cur.key}-load-more`,
+                canMove: false,
+                isFolder: false,
+                data: {},
+                canRename: false,
+              };
+              items[loadMoreChildrenNode.index] = loadMoreChildrenNode;
+              acc[cur.key].children.push(loadMoreChildrenNode.index);
+            }
             for (let i = 0; i < cur.children.results.length; i++) {
               acc[cur.children.results[i].key] = {
                 index: cur.children.results[i].key,
@@ -194,32 +208,19 @@ export function TaxonTree({ size: defaultSize = 100 }) {
     }
   }, [childrenData]);
 
-  const total = rootData?.checklistRoots?.cardinality?.treeKey;
-
   return (
     <ControlledTreeEnvironment
       items={items}
-      getItemTitle={(item) =>
-        item.index.toString().endsWith('load-more') ? (
-          <div
-            onClick={() => {
-              const parent = items[item.index.replace('-load-more', '')];
-              loadChildren({
-                keepDataWhileLoading: true,
-                variables: {
-                  key: parent.data.key,
-                  limit: 25,
-                  offset: (parent.data.childOffset || 0) + 25,
-                },
-              });
-            }}
-          >
-            More..
-          </div>
-        ) : (
-          <div>{`${item.data.scientificName} (${item.data.numDescendants})`}</div>
-        )
-      }
+      getItemTitle={() => items?.data?.scientificName}
+      renderItemTitle={(props) => (
+        <TreeNode
+          item={props.item}
+          loadChildren={loadChildren}
+          items={items}
+          showPreview={setPreviewKey}
+        />
+      )}
+      loading={loading}
       viewState={{
         ['tree-1']: {
           focusedItem,
@@ -228,17 +229,19 @@ export function TaxonTree({ size: defaultSize = 100 }) {
       }}
       onFocusItem={(item) => setFocusedItem(item.index)}
       onExpandItem={(item) => {
-        loadChildren({
-          keepDataWhileLoading: true,
-          variables: { key: item.data.key, limit: 25, offset: item.data.childOffset || 0 },
-        });
+        if (!item.data.endOfChildren) {
+          loadChildren({
+            keepDataWhileLoading: true,
+            variables: { key: item.data.key, limit: 25, offset: item.data.childOffset || 0 },
+          });
+        }
         setExpandedItems([...expandedItems, item.index]);
       }}
-      onCollapseItem={(item) =>
+      onCollapseItem={(item) => {
         setExpandedItems(
           expandedItems.filter((expandedItemIndex) => expandedItemIndex !== item.index)
-        )
-      }
+        );
+      }}
       /*     onSelectItems={items => setSelectedItems(items)}
        */
     >
