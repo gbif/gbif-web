@@ -19,6 +19,7 @@ import { TableOfContents } from '@/components/tableOfContents';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { FeaturedImageContent } from '@/routes/collection/key/collectionKeyPresentation';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -84,7 +85,9 @@ export default function About() {
                   />
                   {!loading && count > 0 && (
                     <Property labelId="grscicoll.specimensViaGbif">
-                      <FormattedNumber value={count} />
+                      <DynamicLink to="./specimens">
+                        <FormattedNumber value={count} />
+                      </DynamicLink>
                     </Property>
                   )}
                   {institution.catalogUrls && (
