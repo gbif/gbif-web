@@ -353,7 +353,7 @@ export default function About() {
                                 />
                               </div>
                               <div>
-                                <HyperText text={identifier} inline />
+                                <HyperText text={identifier} />
                               </div>
                             </li>
                           );
