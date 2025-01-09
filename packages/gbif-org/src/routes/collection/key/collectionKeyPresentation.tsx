@@ -187,7 +187,7 @@ export function CollectionKey({
                     {(collection?.catalogUrls?.length ?? 0) > 0 ||
                       (contacts.length > 0 && (
                         <FeatureList>
-                          {collection?.catalogUrls && collection?.catalogUrls?.length > 0 && (
+                          {collection?.catalogUrls?.length > 0 && (
                             <GenericFeature>
                               <CatalogIcon />
                               <span>

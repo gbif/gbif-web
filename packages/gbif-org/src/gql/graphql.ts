@@ -425,24 +425,24 @@ export type Collection = {
   accessionStatus?: Maybe<Scalars['String']['output']>;
   active?: Maybe<Scalars['Boolean']['output']>;
   address?: Maybe<Address>;
-  alternativeCodes?: Maybe<Array<Maybe<AlternativeCode>>>;
-  apiUrls?: Maybe<Array<Scalars['String']['output']>>;
-  catalogUrls?: Maybe<Array<Scalars['String']['output']>>;
+  alternativeCodes: Array<AlternativeCode>;
+  apiUrls: Array<Scalars['String']['output']>;
+  catalogUrls: Array<Scalars['String']['output']>;
   code?: Maybe<Scalars['String']['output']>;
   /** Deprecated */
   collectionSummary?: Maybe<Scalars['JSON']['output']>;
   comments?: Maybe<Comment>;
   contactPersons: Array<ContactPerson>;
   /** The contacts type is deprecated and will no longer be updated */
-  contacts?: Maybe<Array<Maybe<StaffMember>>>;
-  contentTypes?: Maybe<Array<Scalars['String']['output']>>;
+  contacts: Array<Maybe<StaffMember>>;
+  contentTypes: Array<Scalars['String']['output']>;
   created?: Maybe<Scalars['DateTime']['output']>;
   createdBy?: Maybe<Scalars['String']['output']>;
   deleted?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   descriptorGroups?: Maybe<CollectionDescriptorGroupResults>;
   doi?: Maybe<Scalars['String']['output']>;
-  email?: Maybe<Array<Scalars['String']['output']>>;
+  email: Array<Scalars['String']['output']>;
   excerpt?: Maybe<Scalars['String']['output']>;
   featuredImageLicense?: Maybe<License>;
   featuredImageUrl?: Maybe<Scalars['String']['output']>;
@@ -450,14 +450,14 @@ export type Collection = {
   homepage?: Maybe<Scalars['URL']['output']>;
   /** This can be used as a backup, but since it works by fetching the homepage url and extracting the open graph tags it can be slow. Use with caution. */
   homepageOGImageUrl_volatile?: Maybe<Scalars['String']['output']>;
-  identifiers?: Maybe<Array<Identifier>>;
+  identifiers: Array<Identifier>;
   /** Deprecated */
   importantCollectors?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  incorporatedCollections?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  incorporatedCollections: Array<Maybe<Scalars['String']['output']>>;
   institution?: Maybe<Institution>;
   institutionKey?: Maybe<Scalars['ID']['output']>;
   key: Scalars['ID']['output'];
-  machineTags?: Maybe<Array<Maybe<MachineTag>>>;
+  machineTags: Array<Maybe<MachineTag>>;
   mailingAddress?: Maybe<Address>;
   modified?: Maybe<Scalars['DateTime']['output']>;
   modifiedBy?: Maybe<Scalars['String']['output']>;
@@ -466,12 +466,12 @@ export type Collection = {
   numberSpecimens?: Maybe<Scalars['Int']['output']>;
   occurrenceCount?: Maybe<Scalars['Int']['output']>;
   personalCollection?: Maybe<Scalars['Boolean']['output']>;
-  phone?: Maybe<Array<Scalars['String']['output']>>;
-  preservationTypes?: Maybe<Array<Scalars['String']['output']>>;
+  phone: Array<Scalars['String']['output']>;
+  preservationTypes: Array<Scalars['String']['output']>;
   replacedBy?: Maybe<Scalars['ID']['output']>;
   replacedByCollection?: Maybe<Collection>;
   richness?: Maybe<Scalars['Float']['output']>;
-  tags?: Maybe<Array<Maybe<Tag>>>;
+  tags: Array<Maybe<Tag>>;
   taxonomicCoverage?: Maybe<Scalars['String']['output']>;
   temporalCoverage?: Maybe<Scalars['String']['output']>;
   thumbor?: Maybe<Scalars['String']['output']>;
@@ -889,13 +889,13 @@ export type CollectionSearchEntity = {
   __typename?: 'CollectionSearchEntity';
   accessionStatus?: Maybe<Scalars['String']['output']>;
   active?: Maybe<Scalars['Boolean']['output']>;
-  alternativeCodes?: Maybe<Array<Maybe<AlternativeCode>>>;
+  alternativeCodes: Array<AlternativeCode>;
   city?: Maybe<Scalars['String']['output']>;
   code?: Maybe<Scalars['String']['output']>;
-  contentTypes?: Maybe<Array<Scalars['String']['output']>>;
+  contentTypes: Array<Scalars['String']['output']>;
   country?: Maybe<Country>;
   description?: Maybe<Scalars['String']['output']>;
-  descriptorMatches?: Maybe<Array<DescriptorMatches>>;
+  descriptorMatches: Array<DescriptorMatches>;
   excerpt?: Maybe<Scalars['String']['output']>;
   featuredImageLicense?: Maybe<License>;
   featuredImageUrl?: Maybe<Scalars['String']['output']>;
@@ -908,7 +908,7 @@ export type CollectionSearchEntity = {
   numberSpecimens?: Maybe<Scalars['Long']['output']>;
   occurrenceCount?: Maybe<Scalars['Long']['output']>;
   personalCollection?: Maybe<Scalars['Boolean']['output']>;
-  preservationTypes?: Maybe<Array<Scalars['String']['output']>>;
+  preservationTypes: Array<Scalars['String']['output']>;
   taxonomicCoverage?: Maybe<Scalars['String']['output']>;
   temporalCoverage?: Maybe<Scalars['String']['output']>;
   thumbor?: Maybe<Scalars['String']['output']>;
@@ -8451,14 +8451,14 @@ export type HeaderQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type HeaderQuery = { __typename?: 'Query', gbifHome?: { __typename?: 'Home', title: string, summary?: string | null, children?: Array<{ __typename?: 'MenuItem', id: string, externalLink?: boolean | null, link?: string | null, title: string, children?: Array<{ __typename?: 'MenuItem', id: string, externalLink?: boolean | null, link?: string | null, title: string, children?: Array<{ __typename?: 'MenuItem', id: string, externalLink?: boolean | null, link?: string | null, title: string }> | null }> | null }> | null } | null };
 
-export type CollectionResultFragment = { __typename?: 'CollectionSearchEntity', key: string, name?: string | null, active?: boolean | null, code?: string | null, excerpt?: string | null, numberSpecimens?: any | null, occurrenceCount?: any | null, institutionName?: string | null, institutionKey?: string | null, featuredImageLicense?: License | null, featuredImageUrl?: string | null, descriptorMatches?: Array<{ __typename?: 'DescriptorMatches', key?: string | null, usageName?: string | null, country?: Country | null, individualCount?: any | null, recordedBy?: Array<string> | null, typeStatus?: Array<TypeStatus> | null, identifiedBy?: Array<string> | null, taxon?: { __typename?: 'Taxon', kingdom?: string | null, phylum?: string | null, class?: string | null, order?: string | null, family?: string | null, genus?: string | null, species?: string | null } | null }> | null };
+export type CollectionResultFragment = { __typename?: 'CollectionSearchEntity', key: string, name?: string | null, active?: boolean | null, code?: string | null, excerpt?: string | null, numberSpecimens?: any | null, occurrenceCount?: any | null, institutionName?: string | null, institutionKey?: string | null, featuredImageLicense?: License | null, featuredImageUrl?: string | null, descriptorMatches: Array<{ __typename?: 'DescriptorMatches', key?: string | null, usageName?: string | null, country?: Country | null, individualCount?: any | null, recordedBy?: Array<string> | null, typeStatus?: Array<TypeStatus> | null, identifiedBy?: Array<string> | null, taxon?: { __typename?: 'Taxon', kingdom?: string | null, phylum?: string | null, class?: string | null, order?: string | null, family?: string | null, genus?: string | null, species?: string | null } | null }> };
 
 export type CollectionQueryVariables = Exact<{
   key: Scalars['ID']['input'];
 }>;
 
 
-export type CollectionQuery = { __typename?: 'Query', collection?: { __typename?: 'Collection', key: string, active?: boolean | null, code?: string | null, name?: string | null, description?: string | null, taxonomicCoverage?: string | null, geographicCoverage?: string | null, temporalCoverage?: string | null, notes?: string | null, homepage?: any | null, numberSpecimens?: number | null, incorporatedCollections?: Array<string | null> | null, contentTypes?: Array<string> | null, personalCollection?: boolean | null, email?: Array<string> | null, phone?: Array<string> | null, catalogUrls?: Array<string> | null, apiUrls?: Array<string> | null, preservationTypes?: Array<string> | null, accessionStatus?: string | null, featuredImageLicense?: License | null, created?: string | null, deleted?: string | null, modified?: string | null, modifiedBy?: string | null, institutionKey?: string | null, featuredImageUrl?: string | null, featuredImageUrl_fallback?: string | null, replacedByCollection?: { __typename?: 'Collection', name?: string | null, key: string } | null, identifiers?: Array<{ __typename?: 'Identifier', key: string, type: IdentifierType, identifier: string }> | null, contactPersons: Array<{ __typename?: 'ContactPerson', key?: string | null, firstName?: string | null, lastName?: string | null, phone: Array<string | null>, email: Array<string | null>, taxonomicExpertise: Array<string | null>, primary?: boolean | null, position: Array<string | null>, userIds: Array<{ __typename?: 'UserId', type?: string | null, id?: string | null } | null> }>, alternativeCodes?: Array<{ __typename?: 'AlternativeCode', code: string, description?: string | null } | null> | null, institution?: { __typename?: 'Institution', code?: string | null, name?: string | null, key: string } | null, mailingAddress?: { __typename?: 'Address', address?: string | null, city?: string | null, province?: string | null, postalCode?: string | null, country?: Country | null } | null, address?: { __typename?: 'Address', address?: string | null, city?: string | null, province?: string | null, postalCode?: string | null, country?: Country | null } | null } | null };
+export type CollectionQuery = { __typename?: 'Query', collection?: { __typename?: 'Collection', key: string, active?: boolean | null, code?: string | null, name?: string | null, description?: string | null, taxonomicCoverage?: string | null, geographicCoverage?: string | null, temporalCoverage?: string | null, notes?: string | null, homepage?: any | null, numberSpecimens?: number | null, incorporatedCollections: Array<string | null>, contentTypes: Array<string>, personalCollection?: boolean | null, email: Array<string>, phone: Array<string>, catalogUrls: Array<string>, apiUrls: Array<string>, preservationTypes: Array<string>, accessionStatus?: string | null, featuredImageLicense?: License | null, created?: string | null, deleted?: string | null, modified?: string | null, modifiedBy?: string | null, institutionKey?: string | null, featuredImageUrl?: string | null, featuredImageUrl_fallback?: string | null, replacedByCollection?: { __typename?: 'Collection', name?: string | null, key: string } | null, identifiers: Array<{ __typename?: 'Identifier', key: string, type: IdentifierType, identifier: string }>, contactPersons: Array<{ __typename?: 'ContactPerson', key?: string | null, firstName?: string | null, lastName?: string | null, phone: Array<string | null>, email: Array<string | null>, taxonomicExpertise: Array<string | null>, primary?: boolean | null, position: Array<string | null>, userIds: Array<{ __typename?: 'UserId', type?: string | null, id?: string | null } | null> }>, alternativeCodes: Array<{ __typename?: 'AlternativeCode', code: string, description?: string | null }>, institution?: { __typename?: 'Institution', code?: string | null, name?: string | null, key: string } | null, mailingAddress?: { __typename?: 'Address', address?: string | null, city?: string | null, province?: string | null, postalCode?: string | null, country?: Country | null } | null, address?: { __typename?: 'Address', address?: string | null, city?: string | null, province?: string | null, postalCode?: string | null, country?: Country | null } | null } | null };
 
 export type CollectionSummaryMetricsQueryVariables = Exact<{
   predicate?: InputMaybe<Predicate>;
@@ -8475,7 +8475,7 @@ export type CollectionSearchQueryVariables = Exact<{
 }>;
 
 
-export type CollectionSearchQuery = { __typename?: 'Query', collectionSearch?: { __typename?: 'CollectionSearchResults', count: number, limit: number, offset: number, results: Array<{ __typename?: 'CollectionSearchEntity', key: string, name?: string | null, active?: boolean | null, code?: string | null, excerpt?: string | null, numberSpecimens?: any | null, occurrenceCount?: any | null, institutionName?: string | null, institutionKey?: string | null, featuredImageLicense?: License | null, featuredImageUrl?: string | null, descriptorMatches?: Array<{ __typename?: 'DescriptorMatches', key?: string | null, usageName?: string | null, country?: Country | null, individualCount?: any | null, recordedBy?: Array<string> | null, typeStatus?: Array<TypeStatus> | null, identifiedBy?: Array<string> | null, taxon?: { __typename?: 'Taxon', kingdom?: string | null, phylum?: string | null, class?: string | null, order?: string | null, family?: string | null, genus?: string | null, species?: string | null } | null }> | null } | null> } | null };
+export type CollectionSearchQuery = { __typename?: 'Query', collectionSearch?: { __typename?: 'CollectionSearchResults', count: number, limit: number, offset: number, results: Array<{ __typename?: 'CollectionSearchEntity', key: string, name?: string | null, active?: boolean | null, code?: string | null, excerpt?: string | null, numberSpecimens?: any | null, occurrenceCount?: any | null, institutionName?: string | null, institutionKey?: string | null, featuredImageLicense?: License | null, featuredImageUrl?: string | null, descriptorMatches: Array<{ __typename?: 'DescriptorMatches', key?: string | null, usageName?: string | null, country?: Country | null, individualCount?: any | null, recordedBy?: Array<string> | null, typeStatus?: Array<TypeStatus> | null, identifiedBy?: Array<string> | null, taxon?: { __typename?: 'Taxon', kingdom?: string | null, phylum?: string | null, class?: string | null, order?: string | null, family?: string | null, genus?: string | null, species?: string | null } | null }> } | null> } | null };
 
 export type CollectionRecordedByFacetQueryVariables = Exact<{
   query?: InputMaybe<CollectionSearchInput>;

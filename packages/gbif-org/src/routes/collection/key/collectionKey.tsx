@@ -1,10 +1,10 @@
 import { NotFoundError } from '@/errors';
 import {
-    CollectionQuery,
-    CollectionQueryVariables,
-    CollectionSummaryMetricsQuery,
-    CollectionSummaryMetricsQueryVariables,
-    PredicateType
+  CollectionQuery,
+  CollectionQueryVariables,
+  CollectionSummaryMetricsQuery,
+  CollectionSummaryMetricsQueryVariables,
+  PredicateType,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { LoaderArgs } from '@/reactRouterPlugins';
