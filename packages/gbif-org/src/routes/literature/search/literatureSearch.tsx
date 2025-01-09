@@ -43,18 +43,9 @@ export function LiteratureSearchPage(): React.ReactElement {
   );
 }
 
-const defaultTabs = ['table', 'list'];
-
 export function LiteratureSearch(): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
-  const config = useConfig();
-  const defaultView = config.literatureSearch?.defaultTab ?? 'table';
-  const [view] = useStringParam({
-    key: 'view',
-    defaultValue: defaultView,
-    hideDefault: true,
-  });
 
   return (
     <>
@@ -63,13 +54,7 @@ export function LiteratureSearch(): React.ReactElement {
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
-      >
-        <LiteartureViewTabs
-          tabs={config.literatureSearch?.tabs ?? defaultTabs}
-          view={view}
-          defaultView={defaultView}
-        />
-      </DataHeader>
+      ></DataHeader>
 
       <section className="">
         <FilterBar>
@@ -77,52 +62,13 @@ export function LiteratureSearch(): React.ReactElement {
         </FilterBar>
       </section>
 
-      <Views view={view} className="g-py-2 g-px-4 g-bg-slate-100" />
-    </>
-  );
-}
-
-function Views({ view, className }: { view?: string; className?: string }) {
-  const fixedHeight = ['table'].includes(view ?? '');
-
-  return (
-    <ErrorBoundary invalidateOn={view}>
-      <div className={className}>
-        {fixedHeight && (
+      <ErrorBoundary>
+        <div className="g-py-2 g-px-4 g-bg-slate-100">
           <DynamicHeightDiv minPxHeight={500}>
-            {view === 'table' && <LiteratureTable />}
+            <LiteratureTable />
           </DynamicHeightDiv>
-        )}
-        {!fixedHeight && (
-          <DynamicHeightDiv minPxHeight={500} onlySetMinHeight>
-            {view === 'list' && <LiteratureListView />}
-          </DynamicHeightDiv>
-        )}
-      </div>
-    </ErrorBoundary>
-  );
-}
-
-function LiteartureViewTabs({
-  view,
-  defaultView,
-  tabs = ['table', 'list'],
-}: {
-  view?: string;
-  defaultView?: string;
-  tabs?: string[];
-}) {
-  const { getParams } = useUpdateViewParams(['from', 'sort', 'limit', 'offset']); // Removes 'from' and 'sort'
-
-  return (
-    <Tabs
-      className="g-border-none"
-      disableAutoDetectActive
-      links={tabs.map((tab) => ({
-        isActive: view === tab,
-        to: { search: getParams(tab, defaultView).toString() },
-        children: <FormattedMessage id={`search.tabs.${tab}`} defaultMessage={tab} />,
-      }))}
-    />
+        </div>
+      </ErrorBoundary>
+    </>
   );
 }
