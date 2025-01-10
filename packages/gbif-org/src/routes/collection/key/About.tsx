@@ -170,12 +170,22 @@ export default function About() {
                 </Properties>
               </CardContent>
             </Card>
-            {true && (
+            {collection?.descriptorGroups?.count > 0 && (
               <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
-                    <FormattedMessage id="collection.collectionDescriptors" />
+                    <FormattedMessage
+                      id="grscicoll.collectionDescriptorsHeadline"
+                      deafultMessage="Collection description"
+                    />
                   </CardTitle>
+
+                  <div className="g-text-slate-500 g-mb-4">
+                    <FormattedMessage
+                      id="grscicoll.collectionDescriptorsIntroduction"
+                      deafultMessage="Collection description"
+                    />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <DescriptorGroups collectionKey={key} />

@@ -175,6 +175,9 @@ const COLLECTION_QUERY = /* GraphQL */ `
         postalCode
         country
       }
+      descriptorGroups(limit: 0) {
+        count
+      }
     }
   }
 `;
