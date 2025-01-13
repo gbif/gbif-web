@@ -96,7 +96,7 @@ export function useLink() {
 
       // If preview=true is present in the query params, add it to the link
       const preview = new URLSearchParams(location.search).get('preview') === 'true';
-      if (preview) {
+      if (link && preview) {
         link = `${link}${link.includes('?') ? '&' : '?'}preview=true`;
       }
 
