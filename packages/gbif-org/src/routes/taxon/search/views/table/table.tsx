@@ -70,7 +70,7 @@ const createRowLinkDirect = (row: Row<SingleTaxonSearchResult>): DynamicLinkProp
 
 const createRowLinkDrawer = (row: Row<SingleTaxonSearchResult>): DynamicLinkProps<typeof Link> => ({
   pageId: 'speciesSearch',
-  searchParams: { entity: row.original.key },
+  searchParams: { entity: `t_${row.original.key}` },
 });
 
 const DEFAULT_ENABLED_TABLE_COLUMNS = Object.freeze([

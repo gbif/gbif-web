@@ -135,7 +135,7 @@ const createRowLinkDrawer = (
   row: Row<SingleOccurrenceSearchResult>
 ): DynamicLinkProps<typeof Link> => ({
   pageId: 'occurrenceSearch',
-  searchParams: { entity: row.original.key },
+  searchParams: { entity: `o_${row.original.key}` },
 });
 
 export function OccurrenceTable() {
