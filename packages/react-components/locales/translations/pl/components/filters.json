@@ -26,12 +26,12 @@
   },
   "taxonomicStatus": {
     "name": "Status",
-    "count": "",
+    "count": "{num, plural, one { status } few {# statusy} many {# statusów} other {# statusów}}",
     "description": "Liczba przechowywanych okazów określona w opisie. Liczba ta nie odzwierciedla liczby zdigitalizowanych i udostępnionych zapisów."
   },
   "taxonRank": {
-    "name": "",
-    "count": "",
+    "name": "Kategoria",
+    "count": "{num, plural, one { kategoria } few {# kategorie} many {# kategorii} other {# kategorii}}",
     "description": "Liczba przechowywanych okazów określona w opisie. Liczba ta nie odzwierciedla liczby zdigitalizowanych i udostępnionych zapisów."
   },
   "numberSpecimens": {
@@ -436,13 +436,13 @@
     "description": ""
   },
   "activeInstitution": {
-    "name": "",
-    "count": "",
+    "name": "Aktywne",
+    "count": "Aktywne",
     "description": ""
   },
   "activeCollection": {
-    "name": "",
-    "count": "",
+    "name": "Aktywne",
+    "count": "Aktywne",
     "description": ""
   },
   "personalCollection": {
