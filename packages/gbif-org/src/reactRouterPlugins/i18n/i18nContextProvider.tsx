@@ -43,6 +43,13 @@ export function I18nContextProvider({ children, locale, defaultLocale, available
         defaultLocale.code
       );
 
+      // Handle root links
+      const currentPath = currentLocale === defaultLocale.code ? '/' : `/${currentLocale}`;
+      const tagetPath = targetLocale === defaultLocale.code ? '/' : `/${targetLocale}`;
+
+      if (link === currentPath) return link.replace(currentPath, tagetPath);
+
+      // Handle sub pages
       const currentPrefix = currentLocale === defaultLocale.code ? '/' : `/${currentLocale}/`;
       const targetPrefix = targetLocale === defaultLocale.code ? '/' : `/${targetLocale}/`;
 

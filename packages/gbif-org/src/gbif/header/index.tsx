@@ -61,9 +61,9 @@ export function Header({ menu }: { menu: HeaderQuery }) {
           }
         />
         <Button variant="ghost" asChild className="g-text-xl g-px-2 g-mx-0.5">
-          <Link to="/system-health" className="g-opacity-80">
+          <DynamicLink to="/system-health" className="g-opacity-80">
             <FiActivity />
-          </Link>
+          </DynamicLink>
         </Button>
         <div className="g-inline-block lg:g-hidden">
           <MobileMenu menu={menu} />
