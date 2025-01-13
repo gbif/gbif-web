@@ -1,3 +1,4 @@
+import { useLink } from '@/reactRouterPlugins/dynamicLink';
 import { phylotree } from 'phylotree';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -53,6 +54,7 @@ export const Phylogeny = ({
   const [treeData, setTreeData] = useState<TreeData>({});
   const spacingX = 14;
   const spacingY = 30;
+  const createLink = useLink();
 
   useEffect(() => {
     const fileExtension = phyloTreeFileName.split('.').pop() || '';
@@ -170,7 +172,7 @@ export const Phylogeny = ({
           if (data?.data?.name && !data.children) {
             element.style('cursor', 'pointer');
           }
-          element.on('click', function (e: any) {
+          element.on('click', function (event: any) {
             data.selected_xx = true;
             console.log(data);
             if (data.data.name && !data.children) {
@@ -188,7 +190,15 @@ export const Phylogeny = ({
                 }
               }
 
-              navigate(`/occurrence/search?q=${searchTerm}&datasetKey=${datasetKey}&view=table`);
+              // the createlink fn do not handle redirecting to gbif.org, so in cases where we do not get a link back
+              // we need to manually state the default url used. and then leave it to the router to redirect as needed.
+              let { to } = createLink({
+                pageId: 'occurrenceSearch',
+                searchParams: { q: searchTerm, datasetKey, view: 'table' },
+              });
+              if (!to)
+                to = `/occurrence/search?q=${searchTerm}&datasetKey=${datasetKey}&view=table`;
+              navigate(to);
             }
           });
         },

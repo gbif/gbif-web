@@ -15,6 +15,97 @@ export type DynamicLinkProps<T extends React.ElementType> = {
 } & Omit<React.ComponentPropsWithoutRef<T>, 'to'> &
   Partial<Pick<LinkProps, 'to'>>;
 
+type CreateLink = ({
+  pageId,
+  variables,
+  searchParams,
+}: {
+  pageId: string;
+  variables?: object;
+  searchParams?: ParamQuery;
+}) => { to?: string; type: 'href' | 'link' };
+
+/**
+ * This is not ideal as it doesn't handle disabled routes and redirects to gbif.org
+ */
+export function useLink() {
+  const { localizeLink } = useI18n();
+  const location = useLocation();
+  const currentPages = useContext(PageContext);
+  const parentPages = useContext(ParentPagesContext);
+  const pages = parentPages ?? currentPages;
+
+  const createLink = useMemo(() => {
+    return ({
+      pageId,
+      variables,
+      searchParams,
+    }: {
+      pageId: string;
+      variables?: object;
+      searchParams?: ParamQuery;
+    }) => {
+      let isHref = false;
+      let link: string | null = null;
+      // if a pageId is provided, use the pageId to get the link
+      if (pageId && pages) {
+        // first find the page with the provided pageId
+        const page = pages.find((page) => page.id === pageId);
+        if (page?.isCustom) {
+          isHref = true;
+        }
+        if (page?.path) {
+          // use the path provided
+
+          link = page.path;
+          // if path do not start with http and not with a slash, then add a slash to the begining
+          if (!link.startsWith('http') && !link.startsWith('/')) {
+            link = `/${link}`;
+          }
+
+          if (variables) {
+            // replace the variables in the path
+            Object.entries(variables).forEach(([key, value]) => {
+              link = (link as string).replace(`:${key}`, value);
+            });
+          }
+          if (searchParams) {
+            if (link.includes('?')) {
+              link = `${link}&${stringify(searchParams)}`;
+            } else {
+              link = `${link}?${stringify(searchParams)}`;
+            }
+          }
+          link = localizeLink(link);
+
+          if (page.isCustom) {
+            return { to: link, type: 'href' };
+          }
+        } else {
+          return { to: null, type: 'href' };
+        }
+      }
+
+      // if (redirectToGbifLink) {
+      //   return { to: redirectToGbifLink, type: 'href' };
+      // }
+
+      if (isHref) {
+        return { to: link, type: 'href' };
+      }
+
+      // If preview=true is present in the query params, add it to the link
+      const preview = new URLSearchParams(location.search).get('preview') === 'true';
+      if (preview) {
+        link = `${link}${link.includes('?') ? '&' : '?'}preview=true`;
+      }
+
+      return { to: link, type: 'link' };
+    };
+  }, [pages, localizeLink, location.search]);
+  return createLink;
+}
+
 export function useDynamicLink({
   to = '.',
   variables,
