@@ -1,3 +1,4 @@
+import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -83,14 +84,14 @@ function DescriptorGroupPresentation({
             </a>
           </Button>
 
-          <label>
-            <Checkbox
-              checked={showPreview}
-              style={{ marginLeft: 16, marginRight: 4 }}
-              onCheckedChange={(checked) => {
-                setShowPreview(checked === true);
-              }}
-            />
+          <Checkbox
+            checked={showPreview}
+            style={{ marginLeft: 16, marginRight: 4, verticalAlign: 'middle' }}
+            onCheckedChange={(checked) => {
+              setShowPreview(checked === true);
+            }}
+          />
+          <label style={{ verticalAlign: 'middle' }}>
             <FormattedMessage id="phrases.preview" />
           </label>
         </div>
@@ -111,7 +112,8 @@ interface TableProps {
 
 function Table({ collectionKey, groupKey }: TableProps) {
   const { data, error, loading, load } = useQuery(DESCRIPTOR_GROUP, { lazyLoad: true });
-
+  const limit = 20;
+  const [offset, setOffset] = useState(0);
   useEffect(() => {
     if (typeof collectionKey !== 'undefined' && typeof groupKey !== 'undefined') {
       const query = {
@@ -119,13 +121,13 @@ function Table({ collectionKey, groupKey }: TableProps) {
         variables: {
           key: groupKey,
           collectionKey: collectionKey,
-          limit: 10,
-          offset: 0,
+          limit,
+          offset,
         },
       };
       load(query);
     }
-  }, [collectionKey, groupKey]);
+  }, [collectionKey, groupKey, load, offset]);
 
   const hasResults = data?.collectionDescriptorGroup?.descriptors?.results?.length > 0;
   const keys = hasResults
@@ -140,7 +142,10 @@ function Table({ collectionKey, groupKey }: TableProps) {
     <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
       {!hasResults && <Skeleton />}
       {hasResults && (
-        <div className="g-w-full g-max-w-full g-overflow-auto g-pb-2">
+        <div
+          id={`${collectionKey}-${groupKey}`}
+          className="g-w-full g-max-w-full g-overflow-auto g-pb-2"
+        >
           <table className="gbif-table-style g-whitespace-nowrap g-text-sm">
             <thead>
               <tr>
@@ -159,6 +164,14 @@ function Table({ collectionKey, groupKey }: TableProps) {
               ))}
             </tbody>
           </table>
+
+          <PaginationFooter
+            offset={descriptors?.offset}
+            count={descriptors?.count}
+            limit={descriptors?.limit}
+            onChange={(x) => setOffset(x)}
+            anchor={`${collectionKey}-${groupKey}`}
+          />
         </div>
       )}
     </div>
