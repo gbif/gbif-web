@@ -57,6 +57,8 @@ export type Config = Endpoints & {
   disableInlineTableFilterButtons?: boolean;
   /** Key string value pairs for translations. E.g. {en: Record<string, string>, es: Record<string, string>} */
   messages?: Record<string, Record<string, string>>;
+  /** Whether or not clicking on table rows on the search pages will open the item in a drawer or navigate to the item page (true by default for backwards compatibility) */
+  openDrawerOnTableRowClick?: boolean;
   datasetKey?: {
     literatureSearch: PartialSearchMetadata;
     occurrenceSearch: PartialSearchMetadata;

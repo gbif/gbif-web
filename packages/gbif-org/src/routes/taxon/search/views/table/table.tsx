@@ -63,9 +63,14 @@ type ExtractPaginatedResult<T extends { results: any[] } | null | undefined> = N
 
 export type SingleTaxonSearchResult = ExtractPaginatedResult<TaxonSearchQuery['taxonSearch']>;
 
-const createRowLink = (row: Row<SingleTaxonSearchResult>): DynamicLinkProps<typeof Link> => ({
+const createRowLinkDirect = (row: Row<SingleTaxonSearchResult>): DynamicLinkProps<typeof Link> => ({
   pageId: 'speciesKey',
   variables: { key: row.original.key },
+});
+
+const createRowLinkDrawer = (row: Row<SingleTaxonSearchResult>): DynamicLinkProps<typeof Link> => ({
+  pageId: 'speciesSearch',
+  searchParams: { entity: row.original.key },
 });
 
 const DEFAULT_ENABLED_TABLE_COLUMNS = Object.freeze([
@@ -143,6 +148,10 @@ export function Table() {
     ],
     [config]
   );
+
+  const createRowLink = config.openDrawerOnTableRowClick
+    ? createRowLinkDrawer
+    : createRowLinkDirect;
 
   return (
     <div className="g-flex g-flex-col g-h-full">

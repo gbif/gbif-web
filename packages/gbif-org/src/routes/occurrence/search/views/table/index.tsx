@@ -124,9 +124,18 @@ export type SingleOccurrenceSearchResult = ExtractPaginatedResult<
   OccurrenceSearchQuery['occurrenceSearch']
 >;
 
-const createRowLink = (row: Row<SingleOccurrenceSearchResult>): DynamicLinkProps<typeof Link> => ({
+const createRowLinkDirect = (
+  row: Row<SingleOccurrenceSearchResult>
+): DynamicLinkProps<typeof Link> => ({
   pageId: 'occurrenceKey',
   variables: { key: row.original.key },
+});
+
+const createRowLinkDrawer = (
+  row: Row<SingleOccurrenceSearchResult>
+): DynamicLinkProps<typeof Link> => ({
+  pageId: 'occurrenceSearch',
+  searchParams: { entity: row.original.key },
 });
 
 export function OccurrenceTable() {
@@ -199,6 +208,10 @@ export function OccurrenceTable() {
     ],
     [config]
   );
+
+  const createRowLink = config.openDrawerOnTableRowClick
+    ? createRowLinkDrawer
+    : createRowLinkDirect;
 
   return (
     <div className="g-flex g-flex-col g-h-full">

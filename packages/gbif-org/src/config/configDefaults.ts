@@ -1,6 +1,7 @@
 import { Config } from './config';
 
 export const configDefault: Partial<Config> = {
+  openDrawerOnTableRowClick: true,
   availableCatalogues: [
     'OCCURRENCE',
     'INSTITUTION',
