@@ -71,19 +71,19 @@ function DatasetResult({
         to={`/dataset/${item.dataset.key}`}
         pageId="datasetKey"
         variables={{ key: item.dataset.key }}
-        // onClick={(event) => {
-        //   if (
-        //     event.ctrlKey ||
-        //     event.shiftKey ||
-        //     event.metaKey || // apple
-        //     (event.button && event.button == 1) // middle click, >IE9 + everyone else
-        //   ) {
-        //     return;
-        //   } else {
-        //     onSelect(item);
-        //     event.preventDefault();
-        //   }
-        // }}
+        onClick={(event) => {
+          if (
+            event.ctrlKey ||
+            event.shiftKey ||
+            event.metaKey || // apple
+            (event.button && event.button == 1) // middle click, >IE9 + everyone else
+          ) {
+            return;
+          } else {
+            onSelect(item);
+            event.preventDefault();
+          }
+        }}
       ></DynamicLink>
       <div className="title g-flex g-flex-nowrap g-text-sm g-z-1">
         <div className="g-flex-auto">{item.dataset.title}</div>

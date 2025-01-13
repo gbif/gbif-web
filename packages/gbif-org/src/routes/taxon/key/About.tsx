@@ -26,7 +26,6 @@ import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import { useTaxonKeyLoaderData } from '.';
-import { FeaturedImageContent } from './taxonKeyPresentation';
 
 export default function About() {
   const { key } = useParams();
@@ -150,15 +149,6 @@ export default function About() {
                 </Properties>
               </CardContent>
             </Card>
-
-            {useInlineImage && (
-              <Card className="g-mb-4">
-                <FeaturedImageContent
-                  featuredImageUrl={imageUrl}
-                  featuredImageLicense={taxon.featuredImageUrl ? taxon.featuredImageLicense : null}
-                />
-              </Card>
-            )}
 
             {/* <AdHocMapThumbnail
                 filter={{ taxonKey: taxon.key }}

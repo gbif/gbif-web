@@ -5,13 +5,24 @@ import { useMemo } from 'react';
 import { OccurrenceKeySkeleton } from './occurrenceKey';
 
 type Props = {
-  occurrenceKey?: string | null;
+  url: string;
 };
 
-export function StandaloneOccurrenceKeyPage({ occurrenceKey }: Props) {
+export function StandaloneOccurrenceKeyPage({ url }: Props) {
   const rootConfig = useConfig();
   const standaloneConfig = useMemo(
-    () => ({ ...rootConfig, availableCatalogues: [], pages: [{ id: 'occurrenceKey' }] }),
+    () => ({
+      ...rootConfig,
+      availableCatalogues: [],
+      pages: [
+        { id: 'occurrenceKey' },
+        { id: 'datasetKey' },
+        { id: 'publisherKey' },
+        { id: 'collectionKey' },
+        { id: 'institutionKey' },
+        { id: 'speciesKey' },
+      ],
+    }),
     [rootConfig]
   );
 
@@ -20,7 +31,7 @@ export function StandaloneOccurrenceKeyPage({ occurrenceKey }: Props) {
       config={standaloneConfig}
       loadingElement={<OccurrenceKeySkeleton />}
       routes={dataRoutes}
-      url={`/occurrence/${occurrenceKey}`}
+      url={url}
     />
   );
 }

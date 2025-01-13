@@ -16,12 +16,12 @@ type DynamicLinkProps<T extends React.ElementType> = {
   Partial<Pick<LinkProps, 'to'>>;
 
 export function useDynamicLink({
-  to,
+  to = '.',
   variables,
   pageId,
   searchParams,
 }: {
-  to: To;
+  to?: To;
   variables?: object;
   pageId?: string;
   searchParams?: ParamQuery;
