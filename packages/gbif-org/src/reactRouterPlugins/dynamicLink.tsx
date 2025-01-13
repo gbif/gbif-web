@@ -6,7 +6,7 @@ import { PageContext } from './applyPagePaths/plugin';
 import { useGetRedirectUrl } from './enablePages';
 import { useI18n } from './i18n';
 
-type DynamicLinkProps<T extends React.ElementType> = {
+export type DynamicLinkProps<T extends React.ElementType> = {
   to?: To;
   as?: T;
   variables?: object;

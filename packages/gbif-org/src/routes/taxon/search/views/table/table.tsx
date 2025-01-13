@@ -15,6 +15,8 @@ import { useContext, useEffect, useMemo } from 'react';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
 import { useTaxonColumns } from './columns';
+import { DynamicLinkProps } from '@/reactRouterPlugins/dynamicLink';
+import { Link } from 'react-router-dom';
 
 const TAXON_SEARCH_QUERY = /* GraphQL */ `
   query TaxonSearch($offset: Int, $limit: Int, $query: TaxonSearchInput) {
@@ -61,7 +63,10 @@ type ExtractPaginatedResult<T extends { results: any[] } | null | undefined> = N
 
 export type SingleTaxonSearchResult = ExtractPaginatedResult<TaxonSearchQuery['taxonSearch']>;
 
-const createRowLink = (row: Row<SingleTaxonSearchResult>) => `/species/${row.original.key}`;
+const createRowLink = (row: Row<SingleTaxonSearchResult>): DynamicLinkProps<typeof Link> => ({
+  pageId: 'speciesKey',
+  variables: { key: row.original.key },
+});
 
 const DEFAULT_ENABLED_TABLE_COLUMNS = Object.freeze([
   'scientificName',

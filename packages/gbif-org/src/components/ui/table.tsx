@@ -1,6 +1,8 @@
 import { DynamicLink } from '@/reactRouterPlugins';
+import { DynamicLinkProps } from '@/reactRouterPlugins/dynamicLink';
 import { cn } from '@/utils/shadcn';
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 
 const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(
   ({ className, ...props }, ref) => (
@@ -63,8 +65,8 @@ TableHead.displayName = 'TableHead';
 
 const TableCell = React.forwardRef<
   HTMLTableCellElement,
-  React.TdHTMLAttributes<HTMLTableCellElement> & { to?: string }
->(({ className, to, children, ...props }, ref) => (
+  React.TdHTMLAttributes<HTMLTableCellElement> & { linkProps?: DynamicLinkProps<typeof Link> }
+>(({ className, linkProps, children, ...props }, ref) => (
   <td
     ref={ref}
     className={cn(
@@ -73,7 +75,9 @@ const TableCell = React.forwardRef<
     )}
     {...props}
   >
-    {to && <DynamicLink to={to} className="g-absolute g-top-0 g-left-0 g-w-full g-h-full" />}
+    {linkProps && (
+      <DynamicLink {...linkProps} className="g-absolute g-top-0 g-left-0 g-w-full g-h-full" />
+    )}
     <div className="g-pointer-events-none g-relative">{children}</div>
   </td>
 ));

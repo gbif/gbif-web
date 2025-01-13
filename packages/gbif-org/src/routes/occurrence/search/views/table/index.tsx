@@ -16,6 +16,8 @@ import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
 import { useOrderedList } from '../browseList/useOrderedList';
 import { useOccurrenceColumns } from './columns';
+import { DynamicLinkProps } from '@/reactRouterPlugins/dynamicLink';
+import { Link } from 'react-router-dom';
 
 // TODO: Should maybe be moved to the configBuilder
 const DAFAULT_AVAILABLE_TABLE_COLUMNS = Object.freeze([
@@ -122,8 +124,10 @@ export type SingleOccurrenceSearchResult = ExtractPaginatedResult<
   OccurrenceSearchQuery['occurrenceSearch']
 >;
 
-const createRowLink = (row: Row<SingleOccurrenceSearchResult>) =>
-  `/occurrence/search?entity=${row.original.key}`;
+const createRowLink = (row: Row<SingleOccurrenceSearchResult>): DynamicLinkProps<typeof Link> => ({
+  pageId: 'occurrenceKey',
+  variables: { key: row.original.key },
+});
 
 export function OccurrenceTable() {
   const searchContext = useSearchContext();

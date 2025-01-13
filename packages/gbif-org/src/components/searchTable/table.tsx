@@ -3,12 +3,12 @@ import { useIsElementHorizontallyScrolled } from '@/hooks/useIsElementHorizontal
 import { interopDefault } from '@/utils/interopDefault';
 import { cn } from '@/utils/shadcn';
 import {
-    ColumnDef,
-    getCoreRowModel,
-    PaginationState,
-    Row,
-    useReactTable,
-    VisibilityState
+  ColumnDef,
+  getCoreRowModel,
+  PaginationState,
+  Row,
+  useReactTable,
+  VisibilityState,
 } from '@tanstack/react-table';
 import { memo, useEffect, useRef } from 'react';
 import _useLocalStorage from 'use-local-storage';
@@ -17,6 +17,8 @@ import { Head } from './components/head';
 import { InitialSkeletonTable } from './components/initialSkeletonTable';
 import { TableFooter } from './components/tableFooter';
 import { FirstColumLockProvider } from './firstColumLock';
+import { Link } from 'react-router-dom';
+import { DynamicLinkProps } from '@/reactRouterPlugins/dynamicLink';
 // Used to import commonjs module as es6 module
 const useLocalStorage = interopDefault(_useLocalStorage);
 
@@ -32,7 +34,7 @@ interface Props<TData, TValue> {
   defaultEnabledTableColumns: string[];
   lockColumnLocalStoreKey?: string;
   selectedColumnsLocalStoreKey?: string;
-  createRowLink?: (row: Row<TData>) => string;
+  createRowLink?: (row: Row<TData>) => DynamicLinkProps<typeof Link>;
 }
 
 export default memo(SearchTable) as typeof SearchTable;
@@ -126,7 +128,7 @@ function SearchTable<TData, TValue>({
                   >
                     {row.getVisibleCells().map((cell) => (
                       <Cell
-                        to={createRowLink?.(row)}
+                        linkProps={createRowLink?.(row)}
                         key={cell.id}
                         cell={cell}
                         loading={loading}

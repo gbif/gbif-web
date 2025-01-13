@@ -3,20 +3,22 @@ import { cn } from '@/utils/shadcn';
 import { Cell as CellType, flexRender } from '@tanstack/react-table';
 import { useFirstColumLock } from '../firstColumLock';
 import { InlineSkeletonWrapper } from './inlineSkeletonWrapper';
+import { DynamicLinkProps } from '@/reactRouterPlugins/dynamicLink';
+import { Link } from 'react-router-dom';
 
 type Props<TData> = {
   loading: boolean;
   cell: CellType<TData, unknown>;
-  to?: string;
+  linkProps?: DynamicLinkProps<typeof Link>;
   isScrolled?: boolean;
 };
 
-export function Cell<TData>({ loading, cell, to, isScrolled }: Props<TData>) {
+export function Cell<TData>({ loading, cell, linkProps, isScrolled }: Props<TData>) {
   const { locked } = useFirstColumLock();
 
   return (
     <TableCell
-      to={to}
+      linkProps={linkProps}
       className={cn(
         'g-transition-colors',
         // Darken the background color when the table is scrolled and the column is locked
@@ -24,7 +26,7 @@ export function Cell<TData>({ loading, cell, to, isScrolled }: Props<TData>) {
         {
           'g-left-0 g-z-10 g-sticky g-border-r-0 g-box-shadow-r':
             locked && cell.column.getIsFirstColumn(),
-          'group-hover:g-bg-gray-100': to,
+          'group-hover:g-bg-gray-100': linkProps != null,
         }
       )}
     >
