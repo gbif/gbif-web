@@ -85,7 +85,7 @@ function DatasetResult({
           }
         }}
       ></DynamicLink>
-      <div className="title g-flex g-flex-nowrap g-text-sm g-z-1">
+      <div className="g-flex g-flex-nowrap g-text-sm g-z-1">
         <div className="g-flex-auto">{item.dataset.title}</div>
         <span className="g-text-slate-500">
           <FormattedNumber value={item.count} />
