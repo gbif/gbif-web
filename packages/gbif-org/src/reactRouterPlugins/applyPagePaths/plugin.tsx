@@ -1,18 +1,17 @@
 import { Config, PageConfig } from '@/config/config';
 import { createContext } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Context, RouteObjectWithPlugins } from '..';
+import { RouteObjectWithPlugins } from '..';
 
 export const PageContext = createContext<PageConfig[]>([]);
 
 export function applyPagePathsPlugin(
   routes: RouteObjectWithPlugins[],
-  config: Config,
-  context: Context
+  config: Config
 ): RouteObjectWithPlugins[] {
   // If the routes that are being processed are part of a standalone page they should not be filtered and overwriten
   // A hosted portal could disable a single dataset page, but still show the standalone dataset page in a drawer
-  const customPages = context.standalone ? [] : config?.pages;
+  const customPages = JSON.parse(JSON.stringify(config?.pages));
 
   const pages: PageConfig[] = [];
   // following line push items to pages array
@@ -37,7 +36,7 @@ function addPaths(
   pages: PageConfig[],
   customPages?: PageConfig[]
 ): RouteObjectWithPlugins[] {
-  return routes
+  const filteredRoutes = routes
     .map((route) => {
       const routeCopy = { ...route };
 
@@ -66,4 +65,14 @@ function addPaths(
       return routeCopy;
     })
     .filter((route) => !!route && !route.isCustom);
+
+  // iterate over all custom configured pages and add them to the pages array if they are not already there and if it is a custom page with a defined path
+  if (customPages) {
+    customPages.forEach((page) => {
+      if (!pages.find((p) => p.id === page.id) && page.isCustom) {
+        pages.push(page);
+      }
+    });
+  }
+  return filteredRoutes;
 }

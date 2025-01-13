@@ -1,6 +1,6 @@
 import { Config } from '@/config/config';
 import { Outlet, redirectDocument } from 'react-router-dom';
-import { Context, RouteObjectWithPlugins } from '..';
+import { RouteObjectWithPlugins } from '..';
 import { createGetRedirectUrl } from './createGetRedirectUrl';
 import { RedirectToGbifProvider } from './redirectToGBIFProvider';
 
@@ -8,13 +8,8 @@ export type DisabledRoutes = Record<string, RouteObjectWithPlugins>;
 
 export function applyEnablePagesPlugin(
   routes: RouteObjectWithPlugins[],
-  config: Config,
-  context: Context
+  config: Config
 ): RouteObjectWithPlugins[] {
-  // If the routes that are being processed are part of a standalone page they should not be filtered
-  // A hosted portal could disable a single dataset page, but still show the standalone dataset page in a drawer
-  if (context.standalone) return routes;
-
   // If pages has not been configured we keep all the routes
   if (!config.pages) return routes;
 
@@ -85,6 +80,5 @@ function isRouteEnabled(route: RouteObjectWithPlugins, config: Config): boolean 
 
   // If the route is enabled it should be marked as enabled
   if (config.pages!.some((config) => config.id === route.id)) return true;
-
   return false;
 }

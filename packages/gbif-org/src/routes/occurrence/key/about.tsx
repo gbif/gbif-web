@@ -1,4 +1,4 @@
-import { Separator, TocLi as Li } from '@/components/TocHelp';
+import { TocLi as Li, Separator } from '@/components/TocHelp';
 import { Card } from '@/components/ui/largeCard';
 import { useConfig } from '@/config/config';
 import { Term } from '@/gql/graphql';

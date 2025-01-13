@@ -42,6 +42,11 @@ export function I18nContextProvider({ children, locale, defaultLocale, available
         availableLocales.map((localOption) => localOption.code),
         defaultLocale.code
       );
+      // If full url with http, then consider it hardcoded and do not localize, but just use it as is. It is probably an external link
+      // this has been added to accomodate the case where a hosted portal is referencing a dataset outside our control
+      if (/^https?:\/\//.test(link)) {
+        return link;
+      }
 
       const currentPrefix = currentLocale === defaultLocale.code ? '/' : `/${currentLocale}/`;
       const targetPrefix = targetLocale === defaultLocale.code ? '/' : `/${targetLocale}/`;

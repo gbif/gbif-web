@@ -1,6 +1,7 @@
-import { Config, useConfig } from '@/config/config';
+import { Config } from '@/config/config';
 import { applyReactRouterPlugins, RouteObjectWithPlugins, useI18n } from '@/reactRouterPlugins';
-import { useEffect, useRef, useState } from 'react';
+import { PageContext } from '@/reactRouterPlugins/applyPagePaths/plugin';
+import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   createMemoryRouter,
@@ -10,8 +11,8 @@ import {
   RouterProvider,
   useNavigate,
 } from 'react-router-dom';
-import { StandaloneRoot } from './root';
 import { LoadingIndicator } from './loadingIndicator';
+import { StandaloneRoot } from './root';
 
 type Props = {
   routes: RouteObjectWithPlugins[];
@@ -28,6 +29,7 @@ export function StandaloneWrapper({ routes, url, loadingElement, config }: Props
   const { localizeLink } = useI18n();
   const [routerIsReady, setRouterIsReady] = useState(false);
   const [initialRenderDone, setInitialRenderDone] = useState(false);
+  const parentPages = useContext(PageContext);
 
   useEffect(() => {
     const renderTimeout = setTimeout(() => {
@@ -43,9 +45,13 @@ export function StandaloneWrapper({ routes, url, loadingElement, config }: Props
         setRouterIsReady(true);
 
         rootRef.current.render(
-          <StandaloneRoot config={config}>
-            <RouterProvider router={routerRef.current} />
-          </StandaloneRoot>
+          <ParentPagesContext.Provider
+            value={parentPages.map((page) => ({ ...page, isCustom: true }))}
+          >
+            <StandaloneRoot config={config}>
+              <RouterProvider router={routerRef.current} />
+            </StandaloneRoot>
+          </ParentPagesContext.Provider>
         );
       }
     });
@@ -118,3 +124,5 @@ function OnRenderDone({ onDone }: { onDone: () => void }) {
 
   return null;
 }
+
+export const ParentPagesContext = createContext<RouteObjectWithPlugins[]>(null!);
