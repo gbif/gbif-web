@@ -11,7 +11,7 @@ export function applyPagePathsPlugin(
 ): RouteObjectWithPlugins[] {
   // If the routes that are being processed are part of a standalone page they should not be filtered and overwriten
   // A hosted portal could disable a single dataset page, but still show the standalone dataset page in a drawer
-  const customPages = JSON.parse(JSON.stringify(config?.pages));
+  const customPages = structuredClone(config.pages);
 
   const pages: PageConfig[] = [];
   // following line push items to pages array
