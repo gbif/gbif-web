@@ -30,6 +30,8 @@ import { CollectionResult } from '../collectionResult';
 import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './help';
 import { searchConfig } from './searchConfig';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { Button } from '@/components/ui/button';
 
 const COLLECTION_SEARCH_QUERY = /* GraphQL */ `
   query CollectionSearch($query: CollectionSearchInput) {
@@ -170,7 +172,18 @@ function Results({
       )}
       {!loading && collections?.count === 0 && (
         <>
-          <NoRecords />
+          <NoRecords>
+            <div className="g-mt-4 g-max-w-sm g-mx-auto g-border g-rounded-sm g-bg-white g-p-6 g-text-center">
+              <div className="g-pb-6 g-text-sm">
+                <FormattedMessage id="grscicoll.collectionSearchNoResultsMessage" />
+              </div>
+              <Button asChild>
+                <DynamicLink pageId="occurrenceSearch" searchParams={{}}>
+                  <FormattedMessage id="grscicoll.searchForSpecimens" />
+                </DynamicLink>
+              </Button>
+            </div>
+          </NoRecords>
         </>
       )}
       {collections && collections.count > 0 && (

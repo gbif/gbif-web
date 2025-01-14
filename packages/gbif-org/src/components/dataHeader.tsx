@@ -101,7 +101,7 @@ function CatalogSelector({
       <DropdownMenu>
         <DropdownMenuTrigger>
           <div className="g-flex g-justify-center g-items-center g-px-2 g-pt-2.5 g-pb-2.5">
-            <MdApps /> {title && <span className="g-ms-2 g-hidden lg:g-inline">{title}</span>}
+            <MdApps /> {title && <span className="g-ms-2 g-hidden md:g-block">{title}</span>}
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start">

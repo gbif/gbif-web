@@ -2,6 +2,7 @@ import { Config, ConfigProvider, OverwriteConfigProvider } from '@/config/config
 import React from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { TooltipProvider } from './ui/tooltip';
+import '@/index.css';
 
 type Props = {
   config: Config;

@@ -6,12 +6,7 @@ module.exports = {
   },
   prefix: 'g-', // prefix all classes with g- to avoid conflicts with other css frameworks
   darkMode: ['class'],
-  content: [
-    './pages/**/*.{ts,tsx,jsx}',
-    './components/**/*.{ts,tsx,jsx}',
-    './app/**/*.{ts,tsx,jsx}',
-    './src/**/*.{ts,tsx,jsx}',
-  ],
+  content: ['./src/**/*.{ts,tsx,jsx,js}'],
   theme: {
     container: {
       center: true,
