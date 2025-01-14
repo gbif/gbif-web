@@ -12,6 +12,7 @@ export type DynamicLinkProps<T extends React.ElementType> = {
   variables?: object;
   pageId?: string;
   searchParams?: ParamQuery;
+  keepExistingSearchParams?: boolean;
 } & Omit<React.ComponentPropsWithoutRef<T>, 'to'> &
   Partial<Pick<LinkProps, 'to'>>;
 
@@ -111,11 +112,13 @@ export function useDynamicLink({
   variables,
   pageId,
   searchParams,
+  keepExistingSearchParams = false,
 }: {
   to?: To;
   variables?: object;
   pageId?: string;
   searchParams?: ParamQuery;
+  keepExistingSearchParams?: boolean;
 }): { to: string; type: 'href' | 'link' } {
   const { localizeLink } = useI18n();
   const location = useLocation();
@@ -161,6 +164,11 @@ export function useDynamicLink({
             link = `${link}?${stringify(searchParams)}`;
           }
         }
+
+        if (keepExistingSearchParams && location.search) {
+          link = `${link}${link.includes('?') ? '&' : '?'}${location.search.slice(1)}`;
+        }
+
         link = localizeLink(link);
 
         if (page.isCustom) {
@@ -193,6 +201,7 @@ export function useDynamicLink({
     toLocalized,
     localizeLink,
     redirectToGbifLink,
+    keepExistingSearchParams,
   ]);
 
   return result;
@@ -204,9 +213,10 @@ export function DynamicLink<T extends React.ElementType = typeof Link>({
   variables,
   pageId,
   searchParams,
+  keepExistingSearchParams,
   ...props
 }: DynamicLinkProps<T>): React.ReactElement {
-  const link = useDynamicLink({ to, variables, pageId, searchParams });
+  const link = useDynamicLink({ to, variables, pageId, searchParams, keepExistingSearchParams });
   if (link.type === 'href') {
     return <a {...props} href={link.to} />;
   } else {
