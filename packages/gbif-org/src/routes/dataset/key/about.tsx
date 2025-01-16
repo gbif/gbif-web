@@ -195,7 +195,7 @@ export function DatasetKeyAbout() {
             )}
 
             <Card className="g-mb-4" id="description">
-              <CardHeader>
+              <CardHeader className="gbif-word-break">
                 <CardTitle>
                   <FormattedMessage id="dataset.description" />
                 </CardTitle>
@@ -203,7 +203,7 @@ export function DatasetKeyAbout() {
               <CardContent>
                 {dataset?.description && (
                   <div
-                    className="g-prose g-mb-6 g-max-w-full"
+                    className="gbif-word-break g-prose g-mb-6 g-max-w-full"
                     dangerouslySetInnerHTML={{ __html: dataset.description }}
                   ></div>
                 )}
@@ -218,7 +218,7 @@ export function DatasetKeyAbout() {
             )}
 
             {toc.purpose && (
-              <Card className="g-mb-4" id="purpose">
+              <Card className="g-mb-4 gbif-word-break" id="purpose">
                 <CardHeader>
                   <CardTitle>
                     <FormattedMessage id="dataset.purpose" />
@@ -234,12 +234,12 @@ export function DatasetKeyAbout() {
             )}
             {toc?.geographicDescription && (
               <Card className="g-mb-4" id="geographic-description">
-                <CardHeader>
+                <CardHeader className="gbif-word-break">
                   <CardTitle>
                     <FormattedMessage id="dataset.geographicCoverages" />
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="gbif-word-break">
                   <GeographicCoverages geographicCoverages={dataset.geographicCoverages} />
                 </CardContent>
                 {total > 0 && (
@@ -266,12 +266,12 @@ export function DatasetKeyAbout() {
             )}
             {toc?.temporalDescription && (
               <Card className="g-mb-4" id="temporal-description">
-                <CardHeader>
+                <CardHeader className="gbif-word-break">
                   <CardTitle>
                     <FormattedMessage id="dataset.temporalCoverages" />
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="gbif-word-break">
                   <TemporalCoverages temporalCoverages={dataset.temporalCoverages} />
                 </CardContent>
                 {total > 0 && (
@@ -300,12 +300,12 @@ export function DatasetKeyAbout() {
             )}
             {toc?.taxonomicDescription && (
               <Card className="g-mb-4" id="taxonomic-description">
-                <CardHeader>
+                <CardHeader className="gbif-word-break">
                   <CardTitle>
                     <FormattedMessage id="dataset.taxonomicCoverages" />
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="gbif-word-break">
                   <TaxonomicCoverages taxonomicCoverages={dataset.taxonomicCoverages} />
                 </CardContent>
                 {total > 0 && (
@@ -324,7 +324,7 @@ export function DatasetKeyAbout() {
               </Card>
             )}
             {toc?.methodology && (
-              <Card className="g-mb-4" id="methodology">
+              <Card className="g-mb-4 gbif-word-break" id="methodology">
                 <CardHeader>
                   <CardTitle>
                     <FormattedMessage id="dataset.methodology" />
@@ -381,7 +381,7 @@ export function DatasetKeyAbout() {
               </section>
             )}
             {toc?.additionalInfo && (
-              <Card className="g-mb-4" id="additional-info">
+              <Card className="g-mb-4 gbif-word-break" id="additional-info">
                 <CardHeader>
                   <CardTitle>
                     <FormattedMessage id="dataset.additionalInfo" />
@@ -396,7 +396,7 @@ export function DatasetKeyAbout() {
               </Card>
             )}
             {toc?.bibliography && (
-              <Card className="g-mb-4" id="bibliography">
+              <Card className="g-mb-4 gbif-word-break" id="bibliography">
                 <CardHeader>
                   <CardTitle>
                     <FormattedMessage id="dataset.bibliography" />
@@ -410,7 +410,7 @@ export function DatasetKeyAbout() {
               </Card>
             )}
             {toc?.contacts && (
-              <Card className="g-mb-4" id="contacts">
+              <Card className="g-mb-4 gbif-word-break" id="contacts">
                 <CardHeader>
                   <CardTitle>
                     <FormattedMessage id="dataset.contacts" />
@@ -421,7 +421,7 @@ export function DatasetKeyAbout() {
                 </CardContent>
               </Card>
             )}
-            <Card className="g-mb-4" id="registration">
+            <Card className="g-mb-4 gbif-word-break" id="registration">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.registration" />
@@ -431,7 +431,7 @@ export function DatasetKeyAbout() {
                 <Registration dataset={dataset} />
               </CardContent>
             </Card>
-            <Card className="g-mb-4" id="citation">
+            <Card className="g-mb-4 gbif-word-break" id="citation">
               <CardHeader>
                 <CardTitle>
                   <FormattedMessage id="dataset.citation" />
@@ -445,7 +445,7 @@ export function DatasetKeyAbout() {
           {!removeSidebar && (
             <Aside>
               {data?.literatureSearch?.documents.total > 0 && (
-                <Card className="g-mb-4">
+                <Card className="g-mb-4 gbif-word-break">
                   <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
                     <div className="g-flex-none g-me-2">
                       <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
@@ -464,7 +464,7 @@ export function DatasetKeyAbout() {
                 </Card>
               )}
               {dataset.type === 'CHECKLIST' && (
-                <Card className="g-mb-4">
+                <Card className="g-mb-4 gbif-word-break">
                   <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
                     <div className="g-flex-none g-me-2">
                       <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
@@ -523,7 +523,7 @@ export function DatasetKeyAbout() {
               )}
 
               {(total > 0 || dataset.type === 'OCCURRENCE') && (
-                <Card className="g-mb-4">
+                <Card className="g-mb-4 gbif-word-break">
                   {hasPreprocessedMap && (
                     <MapThumbnail type={MapTypes.DatasetKey} identifier={dataset.key} />
                   )}
@@ -575,7 +575,7 @@ export function DatasetKeyAbout() {
               )}
 
               {hasDna && (
-                <Card className="g-mb-4">
+                <Card className="g-mb-4 gbif-word-break">
                   <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
                     <div className="g-flex-none g-me-2">
                       <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
@@ -601,7 +601,7 @@ export function DatasetKeyAbout() {
               )}
 
               {labelAsEventDataset && (
-                <Card className="g-mb-4">
+                <Card className="g-mb-4 gbif-word-break">
                   <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
                     <div className="g-flex-none g-me-2">
                       <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
@@ -621,7 +621,7 @@ export function DatasetKeyAbout() {
               )}
 
               {isGridded && (
-                <Card className="g-mb-4">
+                <Card className="gbif-word-break g-mb-4">
                   <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
                     <div className="g-flex-none g-me-2">
                       <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
@@ -643,7 +643,7 @@ export function DatasetKeyAbout() {
               <AsideSticky className="-g-mt-4">
                 <Card>
                   <nav>
-                    <ul className="g-list-none g-m-0 g-p-0 g-my-2">
+                    <ul className="gbif-word-break g-list-none g-m-0 g-p-0 g-my-2">
                       <TocLi to="#description">Description</TocLi>
                       {toc?.geographicDescription && (
                         <TocLi to="#geographic-description">Geographic description</TocLi>

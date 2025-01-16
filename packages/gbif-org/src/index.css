@@ -760,3 +760,8 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     }
   }
 }
+
+.gbif-word-break {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
