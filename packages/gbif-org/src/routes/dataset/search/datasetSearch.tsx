@@ -108,6 +108,7 @@ export function DatasetSearch(): React.ReactElement {
   return (
     <>
       <DataHeader
+        className="g-bg-white"
         title={<FormattedMessage id="catalogues.datasets" defaultMessage="Datasets" />}
         hasBorder
         aboutContent={<AboutContent />}

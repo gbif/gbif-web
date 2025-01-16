@@ -20,6 +20,7 @@ export function DataHeader({
   apiContent,
   hasBorder,
   hideCatalogueSelector,
+  className,
 }: {
   children?: React.ReactNode;
   title?: React.ReactNode;
@@ -27,14 +28,17 @@ export function DataHeader({
   aboutContent?: React.ReactElement;
   apiContent?: React.ReactElement;
   hideCatalogueSelector?: boolean;
+  className?: string;
 }) {
   const { availableCatalogues = [] } = useConfig();
 
   return (
     <div
-      className={`g-flex g-justify-center g-items-center g-px-2 g-h-12 ${
-        hasBorder ? 'g-border-b g-border-slate-200' : ''
-      }`}
+      className={cn(
+        `g-flex g-justify-center g-items-center g-px-2 g-h-12`,
+        hasBorder ? 'g-border-b g-border-slate-200' : '',
+        className
+      )}
     >
       {!hideCatalogueSelector && availableCatalogues.length > 1 && (
         <>

@@ -89,6 +89,7 @@ export function CollectionKey({
         {/* TODO we need much richer meta data. */}
       </Helmet>
       <DataHeader
+        className="g-bg-white"
         aboutContent={<AboutContent />}
         apiContent={<ApiContent id={collection?.key?.toString()} />}
       ></DataHeader>
@@ -230,7 +231,10 @@ export function CollectionKey({
                     <Tooltip delayDuration={0}>
                       <TooltipTrigger>
                         <Button variant="outline" asChild>
-                          <a href={`${GBIF_REGISTRY_ENDPOINT}/collection/${collection.key}`}>
+                          <a
+                            className="g-text-inherit"
+                            href={`${GBIF_REGISTRY_ENDPOINT}/collection/${collection.key}`}
+                          >
                             <FormattedMessage id="grscicoll.edit" defaultMessage="Edit" />
                           </a>
                         </Button>
@@ -251,6 +255,7 @@ export function CollectionKey({
                           style={{ fontSize: '1.2em' }}
                         >
                           <a
+                            className="g-text-inherit"
                             href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(
                               `NHC: ${collection.name}`
                             )}&body=${encodeURIComponent(feedbackTemplate)}`}

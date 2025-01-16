@@ -1,4 +1,5 @@
 import { TypeStatusLabel } from '@/components/filters/displayNames';
+import { GbifLogoIcon } from '@/components/icons/icons';
 import { Tag } from '@/components/resultCards';
 import { Card } from '@/components/ui/largeCard';
 import { CollectionResultFragment } from '@/gql/graphql';
@@ -57,6 +58,7 @@ export function CollectionResult({
               <div className="g-flex-grow">
                 <h3 className="g-text-base g-font-semibold g-mb-2">
                   <DynamicLink
+                    className="hover:g-text-primary-500"
                     to={`/collection/${collection.key}`}
                     pageId="collectionKey"
                     variables={{ key: collection.key }}
@@ -85,7 +87,7 @@ export function CollectionResult({
                       values={{
                         institution: (
                           <DynamicLink
-                            className="g-underline"
+                            className="g-underline g-text-inherit"
                             pageId="institutionKey"
                             variables={{ key: collection.institutionKey }}
                             to={`/institution/${collection.institutionKey}`}
@@ -129,11 +131,14 @@ export function CollectionResult({
                 </Tag>
               )}
               {collection.occurrenceCount > 0 && (
-                <Tag className="g-bg-primary-500 g-text-primaryContrast-500">
-                  <FormattedMessage
-                    id="counts.inGbif"
-                    values={{ total: collection.occurrenceCount }}
-                  />
+                <Tag className="">
+                  <span className="g-flex g-items-center">
+                    <GbifLogoIcon className="g-w-3 g-h-3 g-me-1" />
+                    <FormattedMessage
+                      id="counts.inGbif"
+                      values={{ total: collection.occurrenceCount }}
+                    />
+                  </span>
                 </Tag>
               )}
             </div>

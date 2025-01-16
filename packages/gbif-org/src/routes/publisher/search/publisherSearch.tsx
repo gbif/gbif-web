@@ -173,6 +173,7 @@ export function PublisherSearch(): React.ReactElement {
       </FormattedMessage>
 
       <DataHeader
+        className="g-bg-white"
         title={<FormattedMessage id="catalogues.publishers" defaultMessage="Publishers" />}
         hasBorder
         aboutContent={<AboutContent />}

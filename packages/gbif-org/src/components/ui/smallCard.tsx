@@ -60,7 +60,7 @@ const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HT
   ({ className, ...props }, ref) => (
     <h4
       ref={ref}
-      className={cn('g-text-l g-font-semibold g-leading-none g-tracking-tight', className)}
+      className={cn('g-text-base g-font-semibold g-leading-none g-tracking-tight', className)}
       {...props}
     />
   )
@@ -93,4 +93,4 @@ const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
 );
 CardFooter.displayName = 'CardFooter';
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };
+export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle };

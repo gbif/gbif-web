@@ -114,6 +114,7 @@ export function CollectionSearch(): React.ReactElement {
   return (
     <>
       <DataHeader
+        className="g-bg-white"
         title={<FormattedMessage id="catalogues.collections" defaultMessage="Collections" />}
         hasBorder
         aboutContent={<AboutContent />}

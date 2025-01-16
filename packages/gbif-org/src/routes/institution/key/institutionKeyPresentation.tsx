@@ -91,6 +91,7 @@ export function InstitutionKey({
         {/* TODO we need much richer meta data. */}
       </Helmet>
       <DataHeader
+        className="g-bg-white"
         aboutContent={<AboutContent />}
         apiContent={<ApiContent id={institution?.key?.toString()} />}
       ></DataHeader>

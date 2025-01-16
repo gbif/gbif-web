@@ -66,6 +66,7 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
     <>
       <EntityDrawer />
       <DataHeader
+        className="g-bg-white"
         title={<FormattedMessage id="catalogues.occurrences" defaultMessage="Occurrences" />}
         hasBorder
         aboutContent={<AboutContent />}

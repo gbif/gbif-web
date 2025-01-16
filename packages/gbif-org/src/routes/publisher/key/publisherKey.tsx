@@ -153,6 +153,7 @@ export function PublisherPage() {
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
       <DataHeader
+        className="g-bg-white"
         aboutContent={<AboutContent />}
         apiContent={<ApiContent id={publisher?.key?.toString()} />}
       ></DataHeader>

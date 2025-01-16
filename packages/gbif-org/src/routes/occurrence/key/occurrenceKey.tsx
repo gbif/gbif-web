@@ -313,6 +313,7 @@ export function OccurrenceKey() {
         <title>{occurrence.scientificName}</title>
       </Helmet>
       <DataHeader
+        className="g-bg-white"
         aboutContent={<AboutContent />}
         apiContent={<ApiContent id={data?.occurrence?.key?.toString()} />}
       ></DataHeader>

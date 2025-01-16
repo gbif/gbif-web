@@ -74,6 +74,7 @@ export function TaxonSearchPageInner(): React.ReactElement {
     <>
       <EntityDrawer />
       <DataHeader
+        className="g-bg-white"
         title={<FormattedMessage id="catalogues.species" defaultMessage="Taxon" />}
         hasBorder
         aboutContent={<AboutContent />}

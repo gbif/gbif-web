@@ -142,6 +142,7 @@ export function InstitutionSearch(): React.ReactElement {
   return (
     <>
       <DataHeader
+        className="g-bg-white"
         title={<FormattedMessage id="catalogues.institutions" defaultMessage="Institutions" />}
         hasBorder
         aboutContent={<AboutContent />}
