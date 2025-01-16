@@ -232,7 +232,7 @@ export function CollectionKey({
                       <TooltipTrigger>
                         <Button variant="outline" asChild>
                           <a
-                            className="g-text-inherit"
+                            className="g-text-inherit hover:g-text-primary-500"
                             href={`${GBIF_REGISTRY_ENDPOINT}/collection/${collection.key}`}
                           >
                             <FormattedMessage id="grscicoll.edit" defaultMessage="Edit" />
@@ -255,7 +255,7 @@ export function CollectionKey({
                           style={{ fontSize: '1.2em' }}
                         >
                           <a
-                            className="g-text-inherit"
+                            className="g-text-inherit hover:g-text-primary-500"
                             href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(
                               `NHC: ${collection.name}`
                             )}&body=${encodeURIComponent(feedbackTemplate)}`}

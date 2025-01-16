@@ -173,7 +173,10 @@ export function InstitutionKey({
                         <GenericFeature>
                           <CatalogIcon />
                           <span>
-                            <a href={institution.catalogUrls[0]}>
+                            <a
+                              className="g-text-inherit hover:g-underline"
+                              href={institution.catalogUrls[0]}
+                            >
                               <FormattedMessage
                                 id="grscicoll.dataCatalog"
                                 defaultMessage="Data catalog"
@@ -189,7 +192,10 @@ export function InstitutionKey({
                     <Tooltip delayDuration={0}>
                       <TooltipTrigger>
                         <Button variant="outline" asChild>
-                          <a href={`${GBIF_REGISTRY_ENDPOINT}/institution/${institution.key}`}>
+                          <a
+                            className="g-text-inherit hover:g-text-primary-500"
+                            href={`${GBIF_REGISTRY_ENDPOINT}/institution/${institution.key}`}
+                          >
                             <FormattedMessage id="grscicoll.edit" defaultMessage="Edit" />
                           </a>
                         </Button>
@@ -210,6 +216,7 @@ export function InstitutionKey({
                           style={{ fontSize: '1.2em' }}
                         >
                           <a
+                            className="g-text-inherit hover:g-text-primary-500"
                             href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(
                               `NHC: ${institution.name}`
                             )}&body=${encodeURIComponent(feedbackTemplate)}`}
