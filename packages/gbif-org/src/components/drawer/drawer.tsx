@@ -2,8 +2,8 @@ import { Button } from '@/components/ui/button';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
 import * as Dialog from '@radix-ui/react-dialog';
-import { useEffect } from 'react';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { useEffect } from 'react';
 import { FaChevronLeft as LeftIcon, FaChevronRight as RightIcon } from 'react-icons/fa';
 import { IoClose as CloseIcon } from 'react-icons/io5';
 
@@ -56,7 +56,7 @@ export function Drawer({
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => !open && close()}>
       <Dialog.Portal>
-        <Dialog.Overlay className="g-fixed g-w-full g-h-screen g-right-0 g-top-0 g-bg-gray-500 g-transition-all g-z-50 g-bg-opacity-50">
+        <Dialog.Overlay className="gbif g-fixed g-w-full g-h-screen g-right-0 g-top-0 g-bg-gray-500 g-transition-all g-z-50 g-bg-opacity-50">
           <Dialog.Content
             onCloseAutoFocus={onCloseAutoFocus}
             style={{ maxWidth: '95%', width: '1200px' }}
