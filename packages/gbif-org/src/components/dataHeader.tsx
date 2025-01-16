@@ -111,28 +111,28 @@ function CatalogSelector({
         <DropdownMenuContent align="start">
           {lookup.OCCURRENCE && (
             <DropdownMenuItem>
-              <DynamicLink pageId="occurrenceSearch">
+              <DynamicLink className="g-text-inherit" pageId="occurrenceSearch">
                 <FormattedMessage id="catalogues.occurrences" />
               </DynamicLink>
             </DropdownMenuItem>
           )}
           {lookup.DATASET && (
             <DropdownMenuItem>
-              <DynamicLink pageId="datasetSearch">
+              <DynamicLink className="g-text-inherit" pageId="datasetSearch">
                 <FormattedMessage id="catalogues.datasets" />
               </DynamicLink>
             </DropdownMenuItem>
           )}
           {lookup.PUBLISHER && (
             <DropdownMenuItem>
-              <DynamicLink pageId="publisherSearch">
+              <DynamicLink className="g-text-inherit" pageId="publisherSearch">
                 <FormattedMessage id="catalogues.publishers" />
               </DynamicLink>
             </DropdownMenuItem>
           )}
           {lookup.TAXON && (
             <DropdownMenuItem>
-              <DynamicLink pageId="speciesSearch">
+              <DynamicLink className="g-text-inherit" pageId="speciesSearch">
                 <FormattedMessage id="catalogues.species" />
               </DynamicLink>
             </DropdownMenuItem>
@@ -140,14 +140,14 @@ function CatalogSelector({
           {(lookup.INSTITUTION || lookup.COLLECTION) && <DropdownMenuSeparator />}
           {lookup.INSTITUTION && (
             <DropdownMenuItem>
-              <DynamicLink pageId="institutionSearch">
+              <DynamicLink className="g-text-inherit" pageId="institutionSearch">
                 <FormattedMessage id="catalogues.institutions" />
               </DynamicLink>
             </DropdownMenuItem>
           )}
           {lookup.COLLECTION && (
             <DropdownMenuItem>
-              <DynamicLink pageId="collectionSearch">
+              <DynamicLink className="g-text-inherit" pageId="collectionSearch">
                 <FormattedMessage id="catalogues.collections" />
               </DynamicLink>
             </DropdownMenuItem>
@@ -156,7 +156,7 @@ function CatalogSelector({
             <>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <DynamicLink pageId="literatureSearch">
+                <DynamicLink className="g-text-inherit" pageId="literatureSearch">
                   <FormattedMessage id="catalogues.literature" />
                 </DynamicLink>
               </DropdownMenuItem>
