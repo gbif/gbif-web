@@ -27,7 +27,7 @@ export function SetAsFilterList<T>({
 
         return (
           <SetAsFilter
-            key={filterValue}
+            key={idx}
             filterIsActive={filterIsActive}
             field={field}
             value={filterValue}
