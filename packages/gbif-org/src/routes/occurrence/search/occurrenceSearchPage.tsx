@@ -127,7 +127,9 @@ export function OccurrenceSearchInner(): React.ReactElement {
   );
 }
 
-function Views({ view, className }: { view?: string; className?: string }) {
+function Views({ view: unknownCaseView, className }: { view?: string; className?: string }) {
+  // lower case view to match the tabs
+  const view = unknownCaseView?.toLowerCase();
   const fixedHeight = ['table', 'map', 'clusters'].includes(view ?? '');
   return (
     <ErrorBoundary invalidateOn={view}>
@@ -145,7 +147,7 @@ function Views({ view, className }: { view?: string; className?: string }) {
         )}
         {!fixedHeight && (
           <DynamicHeightDiv minPxHeight={500} onlySetMinHeight>
-            {view === 'media' && <Media />}
+            {view === 'gallery' && <Media />}
             {view === 'datasets' && <Dataset />}
             {view === 'download' && <Download />}
             {view === 'dashboard' && <Dashboard />}
@@ -159,7 +161,7 @@ function Views({ view, className }: { view?: string; className?: string }) {
 function OccurrenceViewTabs({
   view,
   defaultView,
-  tabs = ['table', 'map', 'media', 'clusters', 'datasets', 'dashboard', 'download'],
+  tabs = ['table', 'map', 'gallery', 'clusters', 'datasets', 'dashboard', 'download'],
   className,
 }: {
   defaultView?: string;
