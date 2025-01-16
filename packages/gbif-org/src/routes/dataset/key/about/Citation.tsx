@@ -12,13 +12,18 @@ export function Citation({ data = {}, loading, error, ...props }) {
           <Button asChild variant="outline">
             <a
               href={`https://data.crosscite.org/application/x-research-info-systems/${doi}`}
-              className="g-me-1"
+              className="g-me-1 g-text-inherit"
             >
               RIS
             </a>
           </Button>
           <Button asChild variant="outline">
-            <a href={`https://data.crosscite.org/application/x-bibtex/${doi}`}>BibTex</a>
+            <a
+              className="g-text-inherit"
+              href={`https://data.crosscite.org/application/x-bibtex/${doi}`}
+            >
+              BibTex
+            </a>
           </Button>
         </div>
       )}

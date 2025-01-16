@@ -5,15 +5,17 @@ export function Message({
   id,
   defaultMessage,
   values,
+  className,
   ...props
 }: {
   id: string;
   defaultMessage?: string;
   values?: Record<string, string | number>;
+  className?: string;
 }) {
   const { formatMessage } = useIntl();
   const dirty = formatMessage({ ...{ id, defaultMessage, values } });
-  return <HyperText text={dirty} {...props} />;
+  return <HyperText text={dirty} className={className} {...props} />;
 }
 
 export function Unknown({ id = 'phrases.unknown', ...props }) {

@@ -13,7 +13,7 @@ export function GbifLinkCard({ path, className }: { path: string; className?: st
       <nav>
         <ul className="g-list-none g-m-0 g-p-0 g-my-2">
           <TocLi>
-            <a href={`${import.meta.env.PUBLIC_GBIF_ORG}${path}`}>
+            <a className="g-text-inherit" href={`${import.meta.env.PUBLIC_GBIF_ORG}${path}`}>
               <FormattedMessage id="phrases.viewOnGBif" />
             </a>
           </TocLi>
@@ -40,7 +40,7 @@ export function TocLi({
   if (to) {
     return (
       <li className={className} {...props}>
-        <HashLink to={to} replace>
+        <HashLink to={to} replace className="g-text-inherit">
           {children}
         </HashLink>
       </li>

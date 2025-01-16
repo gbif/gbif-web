@@ -146,6 +146,7 @@ export function OccurrenceKeyAbout() {
                       <ul className="g-list-none g-m-0 g-p-0 g-my-2">
                         <Li>
                           <a
+                            className="g-text-inherit"
                             href={`${import.meta.env.PUBLIC_GBIF_ORG}/occurrence/${occurrence.key}`}
                           >
                             View on GBIF.org

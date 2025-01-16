@@ -1,9 +1,10 @@
 import { Button } from '@/components/ui/button';
 import {
-    Card, CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from '@/components/ui/largeCard';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -95,7 +96,10 @@ export function DatasetKeyDownload() {
         </div>
         <div className="g-mt-4 g-text-slate-600">
           For diagnostics you might want to look at the EML record after normalisation.{' '}
-          <a className="g-underline" href={`${import.meta.env.API_V1}/dataset/${key}/document`}>
+          <a
+            className="g-underline g-text-inherit"
+            href={`${import.meta.env.API_V1}/dataset/${key}/document`}
+          >
             Download processed EML
           </a>
         </div>

@@ -220,6 +220,7 @@ function Provenance({
             to={`/dataset/${occurrence.datasetKey}`}
             pageId="datasetKey"
             variables={{ key: occurrence.datasetKey }}
+            className="g-text-inherit"
           >
             {occurrence.datasetTitle}
           </DynamicLink>
@@ -831,10 +832,18 @@ function Debug({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
           <BasicField label="API access">
             <BulletList>
               <li>
-                <a href={`https://api.gbif.org/v1/occurrence/${occurrence.key}`}>Processed</a>
+                <a
+                  className="g-text-inherit"
+                  href={`https://api.gbif.org/v1/occurrence/${occurrence.key}`}
+                >
+                  Processed
+                </a>
               </li>
               <li>
-                <a href={`https://api.gbif.org/v1/occurrence/${occurrence.key}/fragment`}>
+                <a
+                  className="g-text-inherit"
+                  href={`https://api.gbif.org/v1/occurrence/${occurrence.key}/fragment`}
+                >
                   Fragment
                 </a>
               </li>
@@ -845,6 +854,7 @@ function Debug({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
               to={`/dataset/${occurrence.datasetKey}`}
               pageId="datasetKey"
               variables={{ key: occurrence.datasetKey }}
+              className="g-text-inherit"
             >
               {occurrence.datasetTitle}
             </DynamicLink>
@@ -855,6 +865,7 @@ function Debug({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
               to={`/publisher/${occurrence.publishingOrgKey}`}
               pageId="publisherKey"
               variables={{ key: occurrence.publishingOrgKey }}
+              className="g-text-inherit"
             >
               {occurrence.publisherTitle}
             </DynamicLink>

@@ -93,12 +93,27 @@ export const gbifConfig: Config = {
   //   },
   //   {
   //     id: 'datasetSearch',
-  //     path: 'test/dataset/whatever',
+  //     path: 'test/dataset',
+  //   },
+  //   // {
+  //   //   id: 'datasetKey',
+  //   //   path: 'test/dataset/:key',
+  //   //   // isCustom: true,
+  //   // },
+  //   {
+  //     id: 'publisherKey',
   //   },
   //   {
-  //     id: 'datasetKey',
-  //     path: 'test/dataset/:key',
-  //     isCustom: false,
+  //     id: 'collectionKey',
+  //   },
+  //   {
+  //     id: 'institutionKey',
+  //   },
+  //   {
+  //     id: 'speciesSearch',
+  //   },
+  //   {
+  //     id: 'speciesKey',
   //   },
   // ],
   defaultTitle: 'GBIF',

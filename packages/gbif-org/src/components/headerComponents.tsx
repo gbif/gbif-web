@@ -43,7 +43,7 @@ export function Hostname({
   try {
     const hostname = new URL(href).hostname;
     return (
-      <a href={href} {...props} className={cn('hover:g-underline', className)}>
+      <a href={href} {...props} className={cn('hover:g-underline g-text-inherit', className)}>
         {hostname}
       </a>
     );

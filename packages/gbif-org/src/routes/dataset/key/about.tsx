@@ -473,6 +473,7 @@ export function DatasetKeyAbout() {
                     </div>
                     <div className="g-flex-auto g-mt-0.5 g-mb-2">
                       <a
+                        className="g-text-inherit"
                         href={`${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
                           dataset.key
                         }/imports`}
@@ -535,6 +536,7 @@ export function DatasetKeyAbout() {
                     </div>
                     <div className="g-flex-auto g-mt-0.5 g-mb-2">
                       <DynamicLink
+                        className="g-text-inherit"
                         pageId="occurrenceSearch"
                         searchParams={{ datasetKey: dataset.key }}
                       >
@@ -584,6 +586,7 @@ export function DatasetKeyAbout() {
                     </div>
                     <div className="g-flex-auto g-mt-0.5 g-mb-2">
                       <DynamicLink
+                        className="g-text-inherit"
                         pageId="occurrenceSearch"
                         searchParams={{ datasetKey: dataset.key, isSequenced: true }}
                         to={`/occurrence/search?datasetKey=${dataset.key}&isSequenced=true`}
@@ -632,7 +635,7 @@ export function DatasetKeyAbout() {
                       <h5 className="g-font-bold">
                         <FormattedMessage id="dataset.griddedData" />
                       </h5>
-                      <div className="g-text-slate-500 [&_a]:g-underline">
+                      <div className="g-text-slate-500 [&_a]:g-underline [&_a]:g-text-inherit">
                         <Message id="dataset.griddedDataDescription" />
                       </div>
                     </div>

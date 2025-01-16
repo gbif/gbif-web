@@ -69,7 +69,7 @@ function Contact({ contact, ...props }) {
             </a>
           )}
           {contact?.email?.length > 0 && (
-            <a href={`mailto:${contact.email[0]}`}>
+            <a className="g-text-inherit" href={`mailto:${contact.email[0]}`}>
               <MdMail style={{ pointerEvents: 'none' }} />
             </a>
           )}
