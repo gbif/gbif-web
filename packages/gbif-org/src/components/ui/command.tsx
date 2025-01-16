@@ -26,7 +26,7 @@ interface CommandDialogProps extends DialogProps {}
 const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
   return (
     <Dialog {...props}>
-      <DialogContent className="g-overflow-hidden g-p-0">
+      <DialogContent className="gbif g-overflow-hidden g-p-0">
         <Command className="[&_[cmdk-group-heading]]:g-px-2 [&_[cmdk-group-heading]]:g-font-medium [&_[cmdk-group-heading]]:g-text-muted-foreground [&_[cmdk-group]:g-not([hidden])_~[cmdk-group]] [&_[cmdk-group]]:g-px-2 [&_[cmdk-input-wrapper]_svg]:g-h-5 [&_[cmdk-input-wrapper]_svg]:g-w-5 [&_[cmdk-input]]:g-h-12 [&_[cmdk-item]]:g-px-2 [&_[cmdk-item]]:g-py-3 [&_[cmdk-item]_svg]:g-h-5 [&_[cmdk-item]_svg]:g-w-5">
           {children}
         </Command>
@@ -131,14 +131,13 @@ const CommandShortcut = ({ className, ...props }: React.HTMLAttributes<HTMLSpanE
 CommandShortcut.displayName = 'CommandShortcut';
 
 export {
-    Command,
-    CommandDialog,
-    CommandInput,
-    CommandList,
-    CommandEmpty,
-    CommandGroup,
-    CommandItem,
-    CommandShortcut,
-    CommandSeparator,
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+  CommandShortcut,
 };
-
