@@ -95,7 +95,7 @@ function TreeResult({
   );
 }
 
-function TreeSkeleton() {
+export function TreeSkeleton() {
   return (
     <>
       <Skeleton className="g-h-24 g-mb-2" />

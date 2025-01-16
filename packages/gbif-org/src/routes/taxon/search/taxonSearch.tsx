@@ -148,7 +148,11 @@ function Views({ view, className }: { view?: string; className?: string }) {
           <DynamicHeightDiv minPxHeight={500}>{view === 'table' && <Table />}</DynamicHeightDiv>
         )}
         {!fixedHeight && (
-          <DynamicHeightDiv minPxHeight={500} onlySetMinHeight>
+          <DynamicHeightDiv
+            minPxHeight={500}
+            onlySetMinHeight
+            className="g-bg-white g-flex-1 g-border g-basis-full g-h-1 g-flex g-flex-col"
+          >
             {view === 'tree' && <TaxonTree />}
           </DynamicHeightDiv>
         )}

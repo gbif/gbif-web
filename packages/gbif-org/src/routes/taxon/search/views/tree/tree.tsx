@@ -3,33 +3,14 @@ import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { useStringParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
-import { useContext, useEffect, useState } from 'react';
-import { ControlledTreeEnvironment, Tree, TreeItem, TreeItemIndex } from 'react-complex-tree';
+import { createContext, useContext, useEffect, useReducer, useState } from 'react';
+import { ControlledTreeEnvironment, Tree, TreeItemIndex } from 'react-complex-tree';
 import 'react-complex-tree/lib/style-modern.css';
 import { searchConfig } from '../../searchConfig';
 import TreeNode from './treeNode';
+import { getChildren, getParents, reducer } from './treeUtil';
 
-type ItemsType = Record<string, TreeItem>;
-
-const CHILDREN_SEARCH_QUERY = /* GraphQL */ `
-  query TaxonChildren($key: ID!, $limit: Int, $offset: Int) {
-    taxon(key: $key) {
-      key
-      scientificName
-      children(limit: $limit, offset: $offset) {
-        limit
-        endOfRecords
-        offset
-        results {
-          key
-          numDescendants
-          scientificName
-          formattedName
-        }
-      }
-    }
-  }
-`;
+const childLimit = 25;
 
 const CHECKLIST_ROOTS = /* GraphQL */ `
   query RootSearch($datasetKey: ID!, $offset: Int, $limit: Int) {
@@ -42,16 +23,7 @@ const CHECKLIST_ROOTS = /* GraphQL */ `
         scientificName
         formattedName
         kingdom
-        children {
-          limit
-          endOfRecords
-          results {
-            key
-            parentKey
-            numDescendants
-            scientificName
-          }
-        }
+
         phylum
         class
         order
@@ -78,15 +50,20 @@ const CHECKLIST_ROOTS = /* GraphQL */ `
     }
   }
 `;
+const TreeContext = createContext<TreeItemIndex[]>([]);
 
-export function TaxonTree({ size: defaultSize = 100 }) {
+export function TaxonTree() {
   const searchContext = useSearchContext();
+  const [loadingTreeNodes, setLoadingTreeNodes] = useState<TreeItemIndex[]>([]);
   const { filter, filterHash } = useContext(FilterContext);
   const [, setPreviewKey] = useStringParam({ key: 'entity' });
-
   const [expandedItems, setExpandedItems] = useState<TreeItemIndex[]>([]);
   const [focusedItem, setFocusedItem] = useState<TreeItemIndex | null>(null);
-  const [items, setItems] = useState<ItemsType>({});
+  const [selectedItems, setSelectedItems] = useState<TreeItemIndex[]>([]);
+  const [items, dispatch] = useReducer(reducer, {});
+
+  const [higherTaxonKey, setHigherTaxonKey] = useState<string | null>(null);
+  const [rootsLoaded, setRootsLoaded] = useState(false);
   const currentFilterContext = useContext(FilterContext);
   const { scope } = useSearchContext();
   const {
@@ -98,72 +75,49 @@ export function TaxonTree({ size: defaultSize = 100 }) {
     throwAllErrors: true,
   });
 
-  const {
-    data: childrenData,
-    loading: childrenLoading,
-    load: loadChildren,
-  } = useQuery(CHILDREN_SEARCH_QUERY, {
-    lazyLoad: true,
-    throwAllErrors: true,
-  });
-
-  const [size, setSize] = useState(defaultSize);
-
-  useEffect(() => {
-    setSize(defaultSize);
-  }, [currentFilterContext.filterHash, defaultSize]);
-
   useEffect(() => {
     load({
       keepDataWhileLoading: true,
-      variables: { datasetKey: scope?.datasetKey?.[0], limit: size },
+      variables: { datasetKey: scope?.datasetKey?.[0], limit: childLimit },
     });
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentFilterContext.filterHash, scope, load, size]);
+  }, [currentFilterContext.filterHash, scope, load]);
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
     console.log(query);
-
+    if (query?.higherTaxonKey?.[0]) {
+      setHigherTaxonKey(query.higherTaxonKey[0]);
+    }
     // We use a filterHash to trigger a reload when the filter changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [load, filterHash, searchContext, filter, searchConfig]);
+  }, [filterHash, searchContext, filter, searchConfig]);
 
   useEffect(() => {
+    if (higherTaxonKey && rootsLoaded) {
+      loadParents({ key: higherTaxonKey });
+    }
+    // We use a filterHash to trigger a reload when the filter changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [higherTaxonKey, rootsLoaded]);
+  useEffect(() => {}, [items, loadingTreeNodes]);
+  useEffect(() => {
     if (rootData?.checklistRoots?.results) {
-      setItems(
-        rootData?.checklistRoots.results.reduce(
+      dispatch({
+        type: 'initRoots',
+        payload: rootData?.checklistRoots.results.reduce(
           (acc, cur) => {
             acc[cur.key] = {
               index: cur.key,
               canMove: false,
               isFolder: cur.numDescendants > 0,
-              children: cur.children.results.map((item) => item.key),
-              data: cur,
+              children: [],
+              data: {
+                ...cur,
+              },
               canRename: false,
             };
-            if (cur.children.endOfRecords === false) {
-              const loadMoreChildrenNode = {
-                index: `${cur.key}-load-more`,
-                canMove: false,
-                isFolder: false,
-                data: {},
-                canRename: false,
-              };
-              items[loadMoreChildrenNode.index] = loadMoreChildrenNode;
-              acc[cur.key].children.push(loadMoreChildrenNode.index);
-            }
-            for (let i = 0; i < cur.children.results.length; i++) {
-              acc[cur.children.results[i].key] = {
-                index: cur.children.results[i].key,
-                canMove: false,
-                isFolder: cur.children.results[i].numDescendants > 0,
-                children: [],
-                data: cur.children.results[i],
-                canRename: false,
-              };
-            }
             return acc;
           },
           {
@@ -176,91 +130,193 @@ export function TaxonTree({ size: defaultSize = 100 }) {
               canRename: false,
             },
           }
-        )
-      );
+        ),
+      });
+
+      setRootsLoaded(true);
     }
   }, [rootData]);
 
-  useEffect(() => {
-    if (childrenData?.taxon?.children?.results) {
-      const parent = items[childrenData?.taxon?.key];
-      if (parent?.children?.[parent?.children?.length - 1]?.toString().endsWith('load-more')) {
-        parent.children.pop();
-        delete items[`${parent?.data?.key}-load-more`];
-      }
-      parent.data.childOffset = childrenData?.taxon?.children?.offset;
-      parent.children = [
-        ...(parent.children || []),
-        ...childrenData?.taxon?.children?.results.map((item) => item.key),
-      ];
-      if (childrenData?.taxon?.children?.endOfRecords === true) {
-        parent.data.endOfChildren = true;
-      } else {
-        parent.data.endOfChildren = false;
-        const loadMoreChildrenNode = {
-          index: `${parent?.data?.key}-load-more`,
-          canMove: false,
-          isFolder: false,
-          data: {},
-          canRename: false,
-        };
-        items[loadMoreChildrenNode.index] = loadMoreChildrenNode;
-        parent.children.push(loadMoreChildrenNode.index);
-      }
-      setItems({
-        ...items,
-        ...childrenData?.taxon?.children?.results.reduce((acc, cur) => {
-          acc[cur.key] = {
-            index: cur.key,
+  const loadChildren = async ({ key, limit, offset }) => {
+    try {
+      const { promise, cancel } = getChildren({ key, limit, offset });
+      const taxon = await promise;
+      setLoadingTreeNodes(loadingTreeNodes.filter((node) => node !== `${key}-load-more`));
+      if (taxon?.children?.results) {
+        let parent;
+        if (items[taxon.key]) {
+          parent = { ...items[taxon.key] };
+        } else {
+          parent = {
+            index: taxon.key,
             canMove: false,
-            isFolder: cur.numDescendants > 0,
-            data: cur,
+            isFolder: taxon.numDescendants > 0,
+            children: [],
+            data: taxon,
             canRename: false,
           };
-          return acc;
-        }, {}),
-      });
+          // dispatch({ type: 'setItems', payload: { [taxon.key]: parent } });
+          //items[taxon.key] = parent;
+        }
+        //const parent = items[taxon?.key];
+        if (parent?.children?.[parent?.children?.length - 1]?.toString().endsWith('load-more')) {
+          parent.children = parent.children.slice(0, -1);
+        }
+        parent.data.childOffset = taxon?.children?.offset + taxon?.children?.limit;
+        parent.children = [
+          ...(parent?.children || []),
+          ...taxon?.children?.results.map((item) => item.key),
+        ];
+        if (taxon?.children?.endOfRecords === true) {
+          parent.data.endOfChildren = true;
+          dispatch({ type: 'deleteItem', payload: `${parent?.data?.key}-load-more` });
+        } else {
+          parent.data.endOfChildren = false;
+          const loadMoreChildrenNode = {
+            index: `${parent?.data?.key}-load-more`,
+            canMove: false,
+            isFolder: false,
+            data: {},
+            canRename: false,
+          };
+          // items[loadMoreChildrenNode.index] = loadMoreChildrenNode;
+          dispatch({
+            type: 'setItems',
+            payload: { [loadMoreChildrenNode.index]: loadMoreChildrenNode },
+          });
+          parent.children.push(loadMoreChildrenNode.index);
+        }
+        const newItems = {
+          [parent.data.key]: parent,
+          ...taxon?.children?.results.reduce((acc, cur) => {
+            acc[cur.key] = {
+              index: cur.key,
+              canMove: false,
+              isFolder: cur.numDescendants > 0,
+              data: cur,
+              canRename: false,
+            };
+            return acc;
+          }, {}),
+        };
+        dispatch({ type: 'setItems', payload: newItems });
+        // setItems(newItems);
+      }
+    } catch (error) {
+      console.error(error);
     }
-  }, [childrenData]);
+  };
+
+  const loadParents = async ({ key }) => {
+    try {
+      const { promise, cancel } = getParents({ key });
+      const taxon = await promise;
+
+      const data = {};
+      for (const parent of taxon?.parents) {
+        data[parent.key] = {
+          index: parent.key,
+          canMove: false,
+          isFolder: true,
+          children: parent.children.results.map((c) => c.key),
+          data: {
+            ...parent,
+            childOffset: parent.children.offset + parent.children.limit,
+            endOfChildren: parent.children.endOfRecords,
+          },
+          canRename: false,
+        };
+        if (!parent.children.endOfRecords) {
+          const loadMoreChildrenNode = {
+            index: `${parent.key}-load-more`,
+            canMove: false,
+            isFolder: false,
+            data: {},
+            canRename: false,
+          };
+          data[loadMoreChildrenNode.index] = loadMoreChildrenNode;
+          data[parent.key].children.push(loadMoreChildrenNode.index);
+        }
+        for (const child of parent.children.results) {
+          data[child.key] = {
+            index: child.key,
+            canMove: false,
+            isFolder: child.numDescendants > 0,
+            children: [],
+            data: child,
+            canRename: false,
+          };
+        }
+      }
+      dispatch({ type: 'setItems', payload: data });
+      setExpandedItems([
+        ...new Set([...expandedItems, ...taxon?.parents.map((parent) => parent.key)]),
+      ]);
+      setSelectedItems([taxon.key]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <ControlledTreeEnvironment
-      items={items}
-      getItemTitle={() => items?.data?.scientificName}
-      renderItemTitle={(props) => (
-        <TreeNode
-          item={props.item}
-          loadChildren={loadChildren}
-          items={items}
-          showPreview={setPreviewKey}
-        />
-      )}
-      loading={loading}
-      viewState={{
-        ['tree-1']: {
-          focusedItem,
-          expandedItems,
-        },
-      }}
-      onFocusItem={(item) => setFocusedItem(item.index)}
-      onExpandItem={(item) => {
-        if (!item.data.endOfChildren) {
-          loadChildren({
-            keepDataWhileLoading: true,
-            variables: { key: item.data.key, limit: 25, offset: item.data.childOffset || 0 },
-          });
-        }
-        setExpandedItems([...expandedItems, item.index]);
-      }}
-      onCollapseItem={(item) => {
-        setExpandedItems(
-          expandedItems.filter((expandedItemIndex) => expandedItemIndex !== item.index)
-        );
-      }}
-      /*     onSelectItems={items => setSelectedItems(items)}
-       */
-    >
-      <Tree treeId="tree-1" rootItem="root" treeLabel="Tree Example" />
-    </ControlledTreeEnvironment>
+    <TreeContext.Provider value={loadingTreeNodes}>
+      <ControlledTreeEnvironment
+        items={items}
+        getItemTitle={() => items?.data?.scientificName}
+        renderItemTitle={(props) => (
+          <TreeNode
+            loadingTreeNodes={loadingTreeNodes}
+            setLoadingTreeNodes={setLoadingTreeNodes}
+            item={props.item}
+            loadChildren={loadChildren}
+            items={items}
+            showPreview={setPreviewKey}
+          />
+        )}
+        loading={loading}
+        viewState={{
+          ['tree-1']: {
+            focusedItem,
+            expandedItems,
+            selectedItems,
+          },
+        }}
+        onFocusItem={(item) => setFocusedItem(item.index)}
+        onExpandItem={async (item) => {
+          setExpandedItems([...new Set([...expandedItems, item.index])]);
+          if (!item.data.endOfChildren) {
+            dispatch({
+              type: 'setItems',
+              payload: {
+                [item.index]: { ...item, children: [`${item.index}-skeleton`] },
+                [`${item.index}-skeleton`]: {
+                  index: `${item.index}-skeleton`,
+                  canMove: false,
+                  isFolder: false,
+                  data: {},
+                  canRename: false,
+                },
+              },
+            });
+            await loadChildren({
+              key: item.data.key,
+              limit: childLimit,
+              offset: item.data.childOffset || 0,
+            });
+          }
+          // When the user expands an item, we want to remove all selections
+          setSelectedItems([]);
+        }}
+        onCollapseItem={(item) => {
+          setExpandedItems(
+            expandedItems.filter((expandedItemIndex) => expandedItemIndex !== item.index)
+          );
+        }}
+        /*     onSelectItems={items => setSelectedItems(items)}
+         */
+      >
+        <Tree treeId="tree-1" rootItem="root" treeLabel="Tree Example" />
+      </ControlledTreeEnvironment>
+    </TreeContext.Provider>
   );
 }
