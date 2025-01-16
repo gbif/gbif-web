@@ -201,7 +201,7 @@ export function PublisherPage() {
                   <GenericFeature>
                     <OccurrenceIcon />
                     <DynamicLink
-                      className="hover:g-underline"
+                      className="hover:g-underline g-text-inherit"
                       pageId="occurrenceSearch"
                       searchParams={{ publishingOrg: publisher.key }}
                     >
@@ -215,7 +215,7 @@ export function PublisherPage() {
                 {(publisher?.numPublishedDatasets ?? 0) > 0 && (
                   <GenericFeature>
                     <DynamicLink
-                      className="hover:g-underline"
+                      className="hover:g-underline g-text-inherit"
                       pageId="datasetSearch"
                       searchParams={{ publishingOrg: publisher.key }}
                     >
@@ -229,7 +229,7 @@ export function PublisherPage() {
                 {hostedDatasets?.count > 0 && (
                   <GenericFeature>
                     <DynamicLink
-                      className="hover:g-underline"
+                      className="hover:g-underline g-text-inherit"
                       pageId="datasetSearch"
                       searchParams={{ hostingOrg: publisher.key }}
                     >
@@ -244,7 +244,7 @@ export function PublisherPage() {
                   <GenericFeature>
                     <CitationIcon />
                     <DynamicLink
-                      className="hover:g-underline"
+                      className="hover:g-underline g-text-inherit"
                       pageId="literatureSearch"
                       searchParams={{ publishingOrganizationKey: publisher.key }}
                     >
