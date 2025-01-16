@@ -31,6 +31,7 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
           <div className="g-flex-grow">
             <h3 className="g-text-base g-font-semibold g-mb-1">
               <DynamicLink
+                className="hover:g-text-primary-500"
                 to={`/publisher/${publisher.key}`}
                 pageId="publisherKey"
                 variables={{ key: publisher.key }}

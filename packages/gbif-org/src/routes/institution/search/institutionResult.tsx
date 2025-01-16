@@ -47,6 +47,7 @@ export function InstitutionResult({
               <div className="g-flex-grow">
                 <h3 className="g-text-base g-font-semibold g-mb-2">
                   <DynamicLink
+                    className="hover:g-text-primary-500"
                     to={`/institution/${institution.key}`}
                     pageId="institutionKey"
                     variables={{ key: institution.key }}

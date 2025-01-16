@@ -39,7 +39,11 @@ export function DatasetResult({
         <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
           <div className="g-flex-grow">
             <h3 className="g-text-base g-font-semibold g-mb-2">
-              <DynamicLink pageId="datasetKey" variables={{ key: dataset.key }}>
+              <DynamicLink
+                className="hover:g-text-primary-500"
+                pageId="datasetKey"
+                variables={{ key: dataset.key }}
+              >
                 {dataset.title}
               </DynamicLink>
             </h3>
