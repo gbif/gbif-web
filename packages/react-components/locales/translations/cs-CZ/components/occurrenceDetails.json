@@ -7,7 +7,7 @@
   "publisher": "Vydavatel",
   "institution": "",
   "institutionGrSciColl": "",
-  "collection": "",
+  "collection": "Sbírka",
   "collectionGrSciColl": "",
   "recordedAndIdentifiedBy": "",
   "screenReader": {
@@ -429,8 +429,8 @@
         "editorList": "",
         "created": "Vytvořeno",
         "language": "Jazyk",
-        "uri": "",
-        "doi": "",
+        "uri": "URI",
+        "doi": "DOI",
         "localityName": ""
       }
     },
