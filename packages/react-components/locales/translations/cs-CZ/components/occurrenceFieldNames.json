@@ -135,5 +135,8 @@
   "species": "Druh",
   "genericName": "Obecný název",
   "protocol": "Protokol",
-  "associatedMedia": "Přidružená média"
+  "associatedMedia": "Přidružená média",
+  "country": "Země nebo oblast",
+  "minimumDepthInMeters": "Minimální hloubka v metrech",
+  "maximumDepthInMeters": "Maximální hloubka v metrech"
 }
