@@ -183,6 +183,7 @@ async function getOGImage({ homepage, timeoutMs = 5000 }) {
       body: null,
       method: 'GET',
     });
+    if (response.status !== 200) return null;
 
     const html = await response.text();
     const ogImageMatch = html.match(
