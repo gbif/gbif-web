@@ -53,6 +53,7 @@ function convertedConfig(config: object): Partial<Config> {
       defaultEnabledTableColumns: config?.occurrence?.defaultTableColumns,
       // lowercase tab names
       tabs: config?.occurrence?.occurrenceSearchTabs?.map((tab: string) => tab.toLowerCase()),
+      mapSettings: config?.occurrence?.mapSettings,
     },
     collectionSearch: {
       scope: config?.collection?.rootFilter,

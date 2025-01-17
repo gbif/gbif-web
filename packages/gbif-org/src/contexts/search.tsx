@@ -12,6 +12,14 @@ export type SearchMetadata = {
   defaultTab?: string;
 };
 
+export type OccurrenceSearchMetadata = SearchMetadata & {
+  mapSettings?: {
+    lat: number;
+    lng: number;
+    zoom: number;
+  };
+};
+
 const SearchMetadataContext = React.createContext<SearchMetadata | null>(null);
 
 type Props = {

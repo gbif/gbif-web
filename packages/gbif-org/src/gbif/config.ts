@@ -124,6 +124,7 @@ export const gbifConfig: Config = {
     // primary: '#69AA69',
     stickyOffset: '0px',
     borderRadius: 3,
+    // mapDensityColors: ['#ffd300', '#f4b456', '#e9928a', '#d96cc1', '#b93bff'],
   },
   openGraph: {
     site_name: 'GBIF',

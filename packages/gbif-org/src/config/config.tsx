@@ -1,6 +1,6 @@
 import mergeWith from 'lodash/mergeWith';
 import React from 'react';
-import { SearchMetadata } from '../contexts/search';
+import { OccurrenceSearchMetadata, SearchMetadata } from '../contexts/search';
 import { configDefault } from './configDefaults';
 import { Endpoints, GbifEnv } from './endpoints';
 import themeBuilder from './theme/index';
@@ -71,7 +71,7 @@ export type Config = Endpoints & {
   institutionKey?: {
     occurrenceSearch: PartialSearchMetadata;
   };
-  occurrenceSearch?: SearchMetadata;
+  occurrenceSearch?: OccurrenceSearchMetadata;
   publisherSearch?: SearchMetadata;
   publisherKey?: {
     literatureSearch: PartialSearchMetadata;

@@ -16,12 +16,19 @@ import { useResizeDetector } from 'react-resize-detector';
 // import { useDialogState } from "reakit/Dialog";
 // import ListBox from './ListBox';
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu';
-import { MdLanguage, MdMyLocation, MdOutlineFilterAlt as ExploreAreaIcon, MdOutlineLayers, MdZoomIn, MdZoomOut } from 'react-icons/md';
+import {
+  MdOutlineFilterAlt as ExploreAreaIcon,
+  MdLanguage,
+  MdMyLocation,
+  MdOutlineLayers,
+  MdZoomIn,
+  MdZoomOut,
+} from 'react-icons/md';
 // import { ViewHeader } from '../ViewHeader';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import StripeLoader from '@/components/stripeLoader';
