@@ -1,8 +1,8 @@
 {
   "dwcaExtension": {
-    "name": "",
+    "name": "DWCA rozšíření",
     "count": "",
-    "description": ""
+    "description": "Zde by měl být uveden krátký popis součásti."
   },
   "locationId": {
     "name": "ID polohy",
@@ -10,8 +10,8 @@
     "description": ""
   },
   "hasCoordinate": {
-    "name": "",
-    "count": "",
+    "name": "Má souřadnici",
+    "count": "Má souřadnice",
     "description": ""
   },
   "hasGeospatialIssues": {
@@ -35,7 +35,7 @@
     "description": ""
   },
   "numberSpecimens": {
-    "name": "",
+    "name": "Počet exemplářů",
     "count": "",
     "description": ""
   },
@@ -116,7 +116,7 @@
     "description": ""
   },
   "preservationType": {
-    "name": "",
+    "name": "Typ konzervace",
     "count": "",
     "description": ""
   },
@@ -131,10 +131,10 @@
     "description": ""
   },
   "basisOfRecord": {
-    "name": "",
+    "name": "Základ záznamu",
     "count": "",
-    "isNotNull": "",
-    "isNull": "",
+    "isNotNull": "Má základ záznamu",
+    "isNull": "Nemá základ záznamu",
     "description": ""
   },
   "institutionCode": {
@@ -183,15 +183,15 @@
     "description": ""
   },
   "coordinates": {
-    "name": ""
+    "name": "Souřadnice"
   },
   "elevation": {
-    "name": "",
+    "name": "Nadmořská výška",
     "count": "",
     "description": ""
   },
   "license": {
-    "name": "",
+    "name": "Licence",
     "count": "",
     "description": ""
   },
@@ -206,7 +206,7 @@
     "description": ""
   },
   "gbifPublisherKey": {
-    "name": "",
+    "name": "GBIF vydavatel",
     "count": "",
     "description": ""
   },
@@ -216,7 +216,7 @@
     "description": ""
   },
   "country": {
-    "name": "",
+    "name": "Země nebo oblast",
     "count": ""
   },
   "countriesOfCoverage": {
@@ -296,12 +296,12 @@
     "description": ""
   },
   "recordedBy": {
-    "name": "",
+    "name": "Zaznamenáno od",
     "count": "",
     "description": ""
   },
   "recordNumber": {
-    "name": "",
+    "name": "Číslo záznamu",
     "count": "",
     "description": ""
   },
@@ -431,23 +431,23 @@
     "description": ""
   },
   "active": {
-    "name": "",
-    "count": "",
+    "name": "Aktivní",
+    "count": "Aktivní",
     "description": ""
   },
   "activeInstitution": {
-    "name": "",
-    "count": "",
+    "name": "Aktivní",
+    "count": "Aktivní",
     "description": ""
   },
   "activeCollection": {
-    "name": "",
-    "count": "",
+    "name": "Aktivní",
+    "count": "Aktivní",
     "description": ""
   },
   "personalCollection": {
-    "name": "",
-    "count": "",
+    "name": "Osobní sbírka",
+    "count": "Osobní sbírka",
     "description": ""
   },
   "datasetType": {
@@ -461,7 +461,7 @@
     "description": ""
   },
   "institutionKey": {
-    "name": "",
+    "name": "Instituce",
     "count": "",
     "description": ""
   },
@@ -477,7 +477,7 @@
     "description": ""
   },
   "code": {
-    "name": "",
+    "name": "Kód",
     "count": "",
     "description": ""
   },
