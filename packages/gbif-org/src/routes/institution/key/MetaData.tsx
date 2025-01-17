@@ -34,25 +34,25 @@ export function GrSciCollMetadata({
           </span>
           {entity.masterSourceMetadata.source === 'ORGANIZATION' && (
             <DynamicLink
+              className="g-underline g-text-inherit"
               pageId="publisherKey"
               variables={{ key: entity.masterSourceMetadata.sourceId }}
-              className="g-underline"
             >
               GBIF publisher
             </DynamicLink>
           )}
           {entity.masterSourceMetadata.source === 'DATASET' && (
             <DynamicLink
+              className="g-underline g-text-inherit"
               pageId="datasetKey"
               variables={{ key: entity.masterSourceMetadata.sourceId }}
-              className="g-underline"
             >
               GBIF Dataset
             </DynamicLink>
           )}
           {entity.masterSourceMetadata.source === 'IH_IRN' && (
             <a
-              className="g-underline"
+              className="g-underline g-text-inherit"
               href={`http://sweetgum.nybg.org/science/ih/herbarium-details/?irn=${entity.masterSourceMetadata.sourceId}`}
             >
               Index Herbariorum

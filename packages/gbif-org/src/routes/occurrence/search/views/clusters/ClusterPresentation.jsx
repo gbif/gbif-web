@@ -422,7 +422,7 @@ function InfoCard({ headline, children, style, className, collapsible = true, co
       </CardHeader>
       {expanded && (
         <CardContent>
-          <div className="content g-text-sm">{children}</div>
+          <div className="g-text-sm">{children}</div>
         </CardContent>
       )}
     </Card>
