@@ -115,10 +115,10 @@
         "dateIdentified": "",
         "taxonCount": "",
         "subjectPart": "",
-        "sex": "",
-        "lifeStage": "",
+        "sex": "Pohlaví",
+        "lifeStage": "Životní fáze",
         "subjectOrientation": "",
-        "preparations": "",
+        "preparations": "Preparace",
         "LocationCreated": "",
         "digitizationDate": "",
         "captureDevice": "",
@@ -314,10 +314,10 @@
         "genus": "Rod",
         "genericName": "Obecný název",
         "subgenus": "podrod",
-        "infragenericEpithet": "",
+        "infragenericEpithet": "Infragenerický epiteton",
         "specificEpithet": "",
         "infraspecificEpithet": "",
-        "cultivarEpithet": "",
+        "cultivarEpithet": "Epithet odrůdy",
         "taxonRank": "",
         "verbatimTaxonRank": "",
         "scientificNameAuthorship": "",
@@ -543,7 +543,7 @@
         "preparationMaterials": "",
         "preparedBy": "",
         "preparationDate": "",
-        "associatedReferences": ""
+        "associatedReferences": "Související odkazy"
       }
     },
     "preservation": {
