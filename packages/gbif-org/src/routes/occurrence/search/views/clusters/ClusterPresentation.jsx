@@ -10,7 +10,11 @@ import { useNumberParam } from '@/hooks/useParam';
 import { cn } from '@/utils/shadcn';
 import { useEffect, useRef, useState } from 'react';
 import {
-    MdChevronLeft, MdChevronRight, MdExpandLess, MdExpandMore, MdFirstPage
+  MdChevronLeft,
+  MdChevronRight,
+  MdExpandLess,
+  MdExpandMore,
+  MdFirstPage,
 } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { useOrderedList } from '../browseList/useOrderedList';
@@ -123,13 +127,13 @@ export const ClusterPresentation = ({
           )}
           {!error && (
             <Card
-              className="clusterWrapper g-flex-auto g-basis-full g-flex g-flex-col g-border g-rounded g-bg-white"
+              className="g-flex-auto g-basis-full g-flex g-flex-col g-border g-rounded g-bg-white"
               style={useMobileLayout && mobileTab !== 'clusters' ? { display: 'none' } : {}}
             >
               <div className="g-w-full g-flex-auto g-overflow-hidden g-relative">
                 <div
                   id="gb-cluster-tooltip"
-                  className="tooltipWrapper g-absolute g-invisible g-z-[1000] g-pointer-events-none"
+                  className="g-absolute g-invisible g-z-[1000] g-pointer-events-none"
                 >
                   <div
                     id="gb-cluster-tooltip-content"
@@ -236,9 +240,9 @@ export const ClusterPresentation = ({
                 )}
               </div>
               {next && (
-                <div className="footer g-bg-white g-rounded-b g-h-10 g-flex g-flex-row g-px-2 g-items-center g-border-t">
+                <div className="g-bg-white g-rounded-b g-h-10 g-flex g-flex-row g-px-2 g-items-center g-border-t">
                   {total > 0 && (
-                    <span className="footerText g-flex-grow g-text-xs">
+                    <span className="g-flex-grow g-text-xs">
                       <FormattedMessage
                         id="pagination.pageXofY"
                         defaultMessage={'Loading'}
@@ -252,7 +256,7 @@ export const ClusterPresentation = ({
                   {first && page > 2 && (
                     <Button
                       variant="ghost"
-                      className="footerItem"
+                      className=""
                       tip={intl.formatMessage({ id: 'pagination.first' })}
                       onClick={first}
                     >
@@ -262,7 +266,7 @@ export const ClusterPresentation = ({
                   {prev && page > 1 && (
                     <Button
                       variant="ghost"
-                      className="footerItem"
+                      className=""
                       tip={intl.formatMessage({ id: 'pagination.previous' })}
                       onClick={prev}
                     >
@@ -272,7 +276,7 @@ export const ClusterPresentation = ({
                   {next && page < totalPages && (
                     <Button
                       variant="ghost"
-                      className="footerItem"
+                      className=""
                       tip={intl.formatMessage({ id: 'pagination.next' })}
                       onClick={next}
                     >
