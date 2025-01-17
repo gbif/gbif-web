@@ -18,8 +18,12 @@ export function Institution({ termMap, showAll, occurrence }) {
       <V>
         <Properties horizontal={false}>
           <InstitutionKey {...{ occurrence }} />
-          <PlainTextField term={termMap.institutionCode} showDetails={showAll} />
-          <HtmlField term={termMap.institutionID} showDetails={showAll} />
+          {!occurrence.institution && (
+            <>
+              <PlainTextField term={termMap.institutionCode} showDetails={showAll} />
+              <HtmlField term={termMap.institutionID} showDetails={showAll} />
+            </>
+          )}
           <PlainTextField term={termMap.ownerInstitutionCode} showDetails={showAll} />
         </Properties>
       </V>
@@ -48,11 +52,12 @@ export function Collection({ termMap, showAll, occurrence }) {
   );
 }
 
-function InstitutionKey({ occurrence }) {
+export function InstitutionKey({ occurrence }) {
   if (!occurrence?.institution?.key) return null;
   return (
     <BasicField label="occurrenceDetails.institutionGrSciColl">
       <DynamicLink
+        className="g-underline"
         to={`/institution/${occurrence?.institution?.key}`}
         pageId="institutionKey"
         variables={{ key: occurrence?.institution?.key }}
@@ -63,11 +68,12 @@ function InstitutionKey({ occurrence }) {
   );
 }
 
-function CollectionKey({ occurrence }) {
+export function CollectionKey({ occurrence }) {
   if (!occurrence?.collection?.key) return null;
   return (
     <BasicField label="occurrenceDetails.collectionGrSciColl">
       <DynamicLink
+        className="g-underline"
         to={`/collection/${occurrence?.collection?.key}`}
         pageId="collectionKey"
         variables={{ key: occurrence?.collection?.key }}

@@ -12,9 +12,9 @@ import { BasicField, EnumField, HtmlField, PlainTextField } from '../properties'
 import {
   AcceptedScientificName,
   AgentIds,
-  Collection,
+  CollectionKey,
   DynamicProperties,
-  Institution,
+  InstitutionKey,
   ScientificName,
 } from './customValues';
 import {
@@ -243,8 +243,16 @@ function Record({
   // no reason to test this, this group is always present since basisOfRecord is always present
   return (
     <PropGroup label="occurrenceDetails.groups.record" id="record">
-      <Institution {...{ showAll, termMap, occurrence }} />
-      <Collection {...{ showAll, termMap, occurrence }} />
+      {/* <Institution {...{ showAll, termMap, occurrence }} /> */}
+      <InstitutionKey {...{ occurrence }} />
+      <PlainTextField term={termMap.institutionCode} showDetails={showAll} />
+      <HtmlField term={termMap.institutionID} showDetails={showAll} />
+      <PlainTextField term={termMap.ownerInstitutionCode} showDetails={showAll} />
+
+      {/* <Collection {...{ showAll, termMap, occurrence }} /> */}
+      <CollectionKey {...{ occurrence }} />
+      <PlainTextField term={termMap.collectionCode} showDetails={showAll} />
+      <HtmlField term={termMap.collectionID} showDetails={showAll} />
 
       <HtmlField term={termMap.datasetID} showDetails={showAll} />
       <PlainTextField term={termMap.datasetName} showDetails={showAll} />

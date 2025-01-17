@@ -26,7 +26,9 @@ export function HtmlField(props: { term: OccurrenceTermFragment; showDetails?: b
     <Field {...props}>
       <AutomaticPropertyValue
         value={htmlValue}
-        formatter={(val) => <span dangerouslySetInnerHTML={{ __html: val }} />}
+        formatter={(val) => (
+          <span className="[&_a]:g-underline" dangerouslySetInnerHTML={{ __html: val }} />
+        )}
       />
     </Field>
   );
