@@ -83,7 +83,7 @@ export function NetworkPage() {
         apiContent={<ApiContent id={network?.key?.toString()} />}
       ></DataHeader>
       <article>
-        <PageContainer topPadded hasDataHeader bottomPadded className="g-bg-white">
+        <PageContainer topPadded hasDataHeader className="g-bg-white">
           <ArticleTextContainer>
             <ArticlePreTitle
               secondary={

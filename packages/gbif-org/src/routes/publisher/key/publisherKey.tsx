@@ -158,7 +158,7 @@ export function PublisherPage() {
         apiContent={<ApiContent id={publisher?.key?.toString()} />}
       ></DataHeader>
 
-      <PageContainer topPadded bottomPadded hasDataHeader className="g-bg-white">
+      <PageContainer topPadded hasDataHeader className="g-bg-white">
         <ArticleTextContainer className="g-max-w-screen-xl">
           <ArticlePreTitle
             secondary={

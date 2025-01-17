@@ -83,7 +83,7 @@ export function InstallationPage() {
         apiContent={<ApiContent id={installation?.key?.toString()} />}
       ></DataHeader>
 
-      <PageContainer topPadded bottomPadded hasDataHeader>
+      <PageContainer topPadded hasDataHeader>
         <ArticleTextContainer className="g-max-w-screen-lg">
           <ArticlePreTitle
             secondary={
