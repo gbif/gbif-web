@@ -55,7 +55,7 @@ export function OccurrenceFragment() {
 
   return (
     <article>
-      <PageContainer topPadded className="g-bg-white">
+      <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer>
           <ArticlePreTitle>
             <DynamicLink pageId="occurrenceSearch">Occurrence</DynamicLink>

@@ -96,7 +96,7 @@ export function InstitutionKey({
         apiContent={<ApiContent id={institution?.key?.toString()} />}
       ></DataHeader>
       <article>
-        <PageContainer topPadded className="g-bg-white">
+        <PageContainer topPadded hasDataHeader bottomPadded className="g-bg-white">
           <ArticleTextContainer className="g-max-w-screen-xl">
             <div className="g-flex g-pb-4">
               {imageUrl && !useInlineImage && (

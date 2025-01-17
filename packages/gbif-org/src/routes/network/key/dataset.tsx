@@ -38,7 +38,7 @@ export function NetworkKeyDataset() {
 
   if (loading || !data)
     return (
-      <PageContainer topPadded bottomPadded className="g-bg-slate-100">
+      <PageContainer topPadded hasDataHeader bottomPadded className="g-bg-slate-100">
         <ArticleTextContainer>
           <CardListSkeleton />
         </ArticleTextContainer>
@@ -48,7 +48,7 @@ export function NetworkKeyDataset() {
   const datasets = data?.network?.constituents;
 
   return (
-    <PageContainer topPadded bottomPadded className="g-bg-slate-100">
+    <PageContainer topPadded hasDataHeader bottomPadded className="g-bg-slate-100">
       <ArticleTextContainer>
         {datasets?.count === 0 && (
           <>

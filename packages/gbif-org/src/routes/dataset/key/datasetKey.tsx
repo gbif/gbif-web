@@ -349,7 +349,7 @@ export function DatasetPage() {
         apiContent={<ApiContent id={dataset?.key?.toString()} />}
       ></DataHeader>
       <article>
-        <PageContainer topPadded className="g-bg-white">
+        <PageContainer topPadded hasDataHeader className="g-bg-white">
           <ArticleTextContainer className="g-max-w-screen-xl">
             <ArticlePreTitle
               secondary={

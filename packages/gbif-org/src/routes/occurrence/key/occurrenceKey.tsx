@@ -318,7 +318,7 @@ export function OccurrenceKey() {
         apiContent={<ApiContent id={data?.occurrence?.key?.toString()} />}
       ></DataHeader>
       <article>
-        <PageContainer topPadded className="g-bg-white">
+        <PageContainer topPadded hasDataHeader bottomPadded className="g-bg-white">
           <ArticleTextContainer className="g-max-w-screen-xl">
             <div className="g-flex">
               {!hideGlobe && data?.occurrence?.volatile?.globe && (
