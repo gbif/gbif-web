@@ -1,3 +1,4 @@
+// @ts-nocheck
 import StandaloneWrapper from '../../StandaloneWrapper';
 import DashBoardLayout from './DashboardLayout';
 import * as charts from './index';
