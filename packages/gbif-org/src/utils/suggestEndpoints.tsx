@@ -271,9 +271,8 @@ export const taxonKeySuggest = {
 export const taxonKeyVernacularSuggest = {
   placeholder: 'search.placeholders.default',
   // how to get the list of suggestion data
-  getSuggestions: ({ q, siteConfig, locale }: SuggestFnProps): SuggestResponseType => {
-    // const language = localeContext?.localeMap?.iso3LetterCode ?? 'eng';
-    const language = 'eng';
+  getSuggestions: ({ q, siteConfig, currentLocale }: SuggestFnProps): SuggestResponseType => {
+    const language = currentLocale.iso3LetterCode ?? 'eng';
 
     const abortController = new AbortController();
     const graphqlService = new GraphQLService({

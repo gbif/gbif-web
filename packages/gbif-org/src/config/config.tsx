@@ -20,6 +20,7 @@ export type LanguageOption = {
   cmsLocale?: string; // this is the locale code used by the CMS
   reactIntlLocale?: string; // this is the locale code used by react-intl
   vocabularyLocale?: string; // this is the locale code used by the vocabulary server
+  iso3LetterCode?: string;
 };
 
 type PartialSearchMetadata = Pick<

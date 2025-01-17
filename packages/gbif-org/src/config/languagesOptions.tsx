@@ -7,6 +7,7 @@ const languageOptions: LanguageOption[] = [
     label: 'English',
     default: true,
     textDirection: 'ltr',
+    iso3LetterCode: 'eng',
   },
   {
     code: 'en-ZZ',
@@ -28,6 +29,7 @@ const languageOptions: LanguageOption[] = [
     default: false,
     textDirection: 'ltr',
     cmsLocale: 'fr', // what locale code to use when fetching data from the cms endpoints
+    iso3LetterCode: 'fra',
   },
   {
     code: 'es',
@@ -36,6 +38,7 @@ const languageOptions: LanguageOption[] = [
     textDirection: 'ltr',
     cmsLocale: 'es', // what locale code to use when fetching data from the cms endpoints
     vocabularyLocale: 'es-ES', // what locale code to use when fetching data from the vocabulary endpoints
+    iso3LetterCode: 'spa',
   },
   {
     code: 'ar',
@@ -43,6 +46,7 @@ const languageOptions: LanguageOption[] = [
     default: false,
     textDirection: 'rtl',
     reactIntlLocale: 'ar-SA',
+    iso3LetterCode: 'ara',
   },
 ];
 
