@@ -1,4 +1,4 @@
-import { TocLi as Li, Separator } from '@/components/TocHelp';
+import { GbifLinkCard, TocLi as Li, Separator } from '@/components/TocHelp';
 import { Card } from '@/components/ui/largeCard';
 import { useConfig } from '@/config/config';
 import { Term } from '@/gql/graphql';
@@ -6,6 +6,7 @@ import useBelow from '@/hooks/useBelow';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useCallback, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { HashLink } from 'react-router-hash-link';
 import { useOccurrenceKeyLoaderData } from '.';
 import { Groups } from './About/groups';
@@ -110,51 +111,75 @@ export function OccurrenceKeyAbout() {
                       {toc['geological-context'] && (
                         <Li to="#geological-context">Geological Context</Li>
                       )}
-                      <Li to="#record">Record</Li>
-                      <Li to="#taxon">Taxon</Li>
-                      <Li to="#location">Location</Li>
-                      {toc['event'] && <Li to="#event">Event</Li>}
-                      <Li to="#occurrence">Occurrence</Li>
-                      {toc['organism'] && <Li to="#organism">Organism</Li>}
-                      {toc['material-sample'] && <Li to="#material-sample">Material Sample</Li>}
-                      {toc['identification'] && <Li to="#identification">Identification</Li>}
-                      <Li to="#other">Other</Li>
+                      <Li to="#record">
+                        <FormattedMessage id="occurrenceDetails.groups.record" />
+                      </Li>
+                      <Li to="#taxon">
+                        <FormattedMessage id="occurrenceDetails.groups.taxon" />
+                      </Li>
+                      <Li to="#location">
+                        <FormattedMessage id="occurrenceDetails.groups.location" />
+                      </Li>
+                      {toc['event'] && (
+                        <Li to="#event">
+                          <FormattedMessage id="occurrenceDetails.groups.event" />
+                        </Li>
+                      )}
+                      <Li to="#occurrence">
+                        <FormattedMessage id="occurrenceDetails.groups.occurrence" />
+                      </Li>
+                      {toc['organism'] && (
+                        <Li to="#organism">
+                          <FormattedMessage id="occurrenceDetails.groups.organism" />
+                        </Li>
+                      )}
+                      {toc['material-sample'] && (
+                        <Li to="#material-sample">
+                          <FormattedMessage id="occurrenceDetails.groups.materialSample" />
+                        </Li>
+                      )}
+                      {toc['identification'] && (
+                        <Li to="#identification">
+                          <FormattedMessage id="occurrenceDetails.groups.identification" />
+                        </Li>
+                      )}
+                      <Li to="#other">
+                        <FormattedMessage id="occurrenceDetails.groups.other" />
+                      </Li>
                       <Separator />
                       {showExtensions && (
                         <>
-                          <Li style={{ color: '#888', fontSize: '85%' }}>Extensions</Li>
+                          <Li style={{ color: '#888', fontSize: '85%' }}>
+                            <FormattedMessage id="occurrenceDetails.groups.extensions" />
+                          </Li>
                           {extensions.map((section) => {
                             if (!toc[section]) return null;
                             return (
                               <Li key={section} toc={toc} to={`#${section}`}>
                                 {section}
+                                <FormattedMessage
+                                  id={`occurrenceDetails.extensions.${section}.name`}
+                                  defaultMessage={section}
+                                />
                               </Li>
                             );
                           })}
                           <Separator />
                         </>
                       )}
-                      <Li to="#citation">Citation</Li>
+                      <Li to="#citation">
+                        <FormattedMessage id="phrases.citation" />
+                      </Li>
                     </ul>
                     {/* <div onClick={() => setShowAll(!showAll)}>Toggle debug view</div> */}
                   </nav>
                 </Card>
 
                 {config.linkToGbifOrg && (
-                  <Card className="g-mt-4">
-                    <nav>
-                      <ul className="g-list-none g-m-0 g-p-0 g-my-2">
-                        <Li>
-                          <a
-                            className="g-text-inherit"
-                            href={`${import.meta.env.PUBLIC_GBIF_ORG}/occurrence/${occurrence.key}`}
-                          >
-                            View on GBIF.org
-                          </a>
-                        </Li>
-                      </ul>
-                    </nav>
-                  </Card>
+                  <GbifLinkCard
+                    className="g-mt-4"
+                    path={`${import.meta.env.PUBLIC_GBIF_ORG}/occurrence/${occurrence.key}`}
+                  />
                 )}
               </AsideSticky>
             </Aside>

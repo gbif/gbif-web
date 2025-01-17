@@ -1,5 +1,13 @@
 {
+  "tabs": {
+    "details": "Details",
+    "cluster": "Related records",
+    "phylotree": "Phylogenies"
+  },
   "occurrence": "Occurrence",
+  "specimen": "Specimen",
+  "processed": "Processed",
+  "fragment": "Fragment",
   "showAllFields": "Show all fields",
   "morePhotos": "More photos",
   "about": "About",
@@ -30,7 +38,8 @@
     "organism": "Organism",
     "materialSample": "Material sample",
     "geologicalContext": "Geological context",
-    "other": "Other"
+    "other": "Other",
+    "extensions": "Extensions"
   },
   "features": {
     "isClustered": "Clustered",
@@ -46,6 +55,15 @@
     "isSpecimen": "Specimen",
     "eventDate": "Event date",
     "isType": "Type specimen"
+  },
+  "cluster": {
+    "current": "Current",
+    "relatedOccurrences": "Related occurrences",
+    "similarBecause": "Similar because",
+    "clusterTags": "Cluster tags",
+    "matchedRecord": "Matched record",
+    "noMatches": "No candidate relations",
+    "explainer": "This is an experimental feature that highlights possible duplicate and/or related occurrences."
   },
   "extensions": {
     "audubon": {

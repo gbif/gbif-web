@@ -294,13 +294,27 @@ export function OccurrenceKey() {
 
   const hasRelated = occurrence.related?.count && occurrence.related?.count > 0;
 
-  const tabs = [{ to: '.', children: 'Overview' }];
-  if (hasRelated) tabs.push({ to: 'related', children: 'Related' });
+  const tabs = [
+    {
+      to: '.',
+      children: <FormattedMessage id="occurrenceDetails.tabs.details" defaultMessage="About" />,
+    },
+  ];
+  if (hasRelated)
+    tabs.push({
+      to: 'related',
+      children: <FormattedMessage id="occurrenceDetails.tabs.cluster" defaultMessage="Related" />,
+    });
   if (occurrence?.dynamicProperties) {
     try {
       const parsedDynamicProperties = JSON.parse(occurrence.dynamicProperties);
       if (parsedDynamicProperties?.phylogenies?.[0]?.phyloTreeFileName) {
-        tabs.push({ to: 'phylogenies', children: 'Phylogenies' });
+        tabs.push({
+          to: 'phylogenies',
+          children: (
+            <FormattedMessage id="occurrenceDetails.tabs.phylotree" defaultMessage="Phylogenies" />
+          ),
+        });
       }
     } catch (error) {
       /* empty */
@@ -340,10 +354,13 @@ export function OccurrenceKey() {
                   }
                 >
                   {occurrence.volatile?.features?.isSpecimen && (
-                    <FormattedMessage id="specimen" defaultMessage="Specimen" />
+                    <FormattedMessage id="occurrenceDetails.specimen" defaultMessage="Specimen" />
                   )}
                   {!occurrence.volatile?.features?.isSpecimen && (
-                    <FormattedMessage id="observation" defaultMessage="Observation" />
+                    <FormattedMessage
+                      id="occurrenceDetails.occurrence"
+                      defaultMessage="Occurrence"
+                    />
                   )}
                 </ArticlePreTitle>
                 {/* <ArticleTitle
@@ -381,21 +398,28 @@ export function OccurrenceKey() {
                           </span>
                         </TooltipTrigger>
                         <TooltipContent>
-                          This name could not be matched confidently to the GBIF backbone. The
-                          clostest match is{' '}
-                          <span
-                            dangerouslySetInnerHTML={{
-                              __html:
-                                occurrence?.gbifClassification?.usage?.formattedName ??
-                                occurrence.scientificName ??
-                                'Uknown scientific name',
-                            }}
-                          />
+                          <FormattedMessage id="enums.issueHelp.TAXON_MATCH_HIGHERRANK" />
                         </TooltipContent>
                       </Tooltip>
                     </>
                   )}
                 </ArticleTitle>
+                {/* <div className="g-bg-orange-300 g-p-4 g-rounded g-mt-4">
+                  <p>
+                    <FormattedMessage id="enums.issueHelp.TAXON_MATCH_HIGHERRANK" />
+                  </p>
+                  <p>
+                    Interpreted as :{' '}
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html:
+                          occurrence?.gbifClassification?.usage?.formattedName ??
+                          occurrence.scientificName ??
+                          'Uknown scientific name',
+                      }}
+                    />
+                  </p>
+                </div> */}
                 {occurrence.organismName && <h2>Organism name: {occurrence.organismName}</h2>}
                 <HeaderInfo>
                   <HeaderInfoMain>

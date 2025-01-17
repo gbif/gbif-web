@@ -7,7 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeC
 import { OccurrenceQuery, Term } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import React, { useEffect, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { MdAudiotrack, MdImage } from 'react-icons/md';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { BasicField, EnumField, HtmlField, PlainTextField } from '../properties';
 import {
   AcceptedScientificName,
@@ -783,15 +784,18 @@ function MediaSummary({
 
   const hasMore =
     occurrence.stillImageCount + occurrence.movingImageCount > 1 || occurrence?.soundCount > 0;
+  const count = occurrence.stillImageCount + occurrence.movingImageCount + occurrence.soundCount;
+  const Icon = occurrence.stillImageCount > 0 ? MdImage : MdAudiotrack;
   return (
     <Card className="g-mb-4">
       <div style={{ position: 'relative', background: '#eee' }}>
         {hasMore && (
           <a
             href="#media"
-            className="g-absolute g-top-0 g-end-0 g-m-2 g-bg-neutral-800 g-rounded g-text-slate-100 g-px-2 g-py-1"
+            className="g-flex g-items-center g-absolute g-top-0 g-end-0 g-m-2 g-bg-neutral-800 g-rounded g-text-slate-100 g-px-2 g-py-1"
           >
-            See all
+            <Icon className="g-me-1" />
+            <FormattedNumber value={count} />
           </a>
         )}
         {hasPlayableVideo && occurrence?.movingImages[0] && (
@@ -841,18 +845,18 @@ function Debug({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
             <BulletList>
               <li>
                 <a
-                  className="g-text-inherit"
-                  href={`https://api.gbif.org/v1/occurrence/${occurrence.key}`}
+                  className="g-text-inherit g-underline"
+                  href={`${import.meta.env.PUBLIC_API_V1}/occurrence/${occurrence.key}`}
                 >
-                  Processed
+                  <FormattedMessage id="occurrenceDetails.processed" />
                 </a>
               </li>
               <li>
                 <a
-                  className="g-text-inherit"
-                  href={`https://api.gbif.org/v1/occurrence/${occurrence.key}/fragment`}
+                  className="g-text-inherit g-underline"
+                  href={`${import.meta.env.PUBLIC_API_V1}/occurrence/${occurrence.key}/fragment`}
                 >
-                  Fragment
+                  <FormattedMessage id="occurrenceDetails.fragment" />
                 </a>
               </li>
             </BulletList>
@@ -862,7 +866,7 @@ function Debug({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
               to={`/dataset/${occurrence.datasetKey}`}
               pageId="datasetKey"
               variables={{ key: occurrence.datasetKey }}
-              className="g-text-inherit"
+              className="g-text-inherit g-underline"
             >
               {occurrence.datasetTitle}
             </DynamicLink>
@@ -873,7 +877,7 @@ function Debug({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
               to={`/publisher/${occurrence.publishingOrgKey}`}
               pageId="publisherKey"
               variables={{ key: occurrence.publishingOrgKey }}
-              className="g-text-inherit"
+              className="g-text-inherit g-underline"
             >
               {occurrence.publisherTitle}
             </DynamicLink>

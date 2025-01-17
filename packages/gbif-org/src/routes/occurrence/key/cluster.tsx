@@ -62,7 +62,9 @@ export function OccurrenceKeyCluster() {
       <ArticleTextContainer className="g-max-w-screen-xl xl:g-flex g-gap-x-4">
         <div className="g-flex-1">
           <CardHeader>
-            <CardTitle>Current</CardTitle>
+            <CardTitle>
+              <FormattedMessage id="occurrenceDetails.cluster.current" />
+            </CardTitle>
           </CardHeader>
           <RelatedRecord
             occurrence={data.occurrence?.related?.currentOccurrence?.occurrence}
@@ -71,7 +73,9 @@ export function OccurrenceKeyCluster() {
         </div>
         <div className="g-flex-1">
           <CardHeader>
-            <CardTitle>Related</CardTitle>
+            <CardTitle>
+              <FormattedMessage id="occurrenceDetails.cluster.relatedOccurrences" />
+            </CardTitle>
           </CardHeader>
           {data.occurrence?.related?.relatedOccurrences?.map(
             (relatedOccurrence: RelatedOccurrenceFragment | null, key: number) => {
@@ -110,6 +114,7 @@ function RelatedRecord({
           <div className="g-flex-grow">
             <h3 className="g-text-base g-font-semibold g-mb-2">
               <DynamicLink
+                className="hover:g-text-primary-500 g-underline"
                 to={`/occurrence/${stub?.gbifId}`}
                 pageId="occurrenceKey"
                 variables={{ key: stub?.gbifId }}
@@ -125,7 +130,7 @@ function RelatedRecord({
               </DynamicLink>
             </h3>
             <p className="g-font-normal g-text-slate-700 g-text-sm">
-              Dataset:{' '}
+              <FormattedMessage id="occurrenceDetails.dataset" />:{' '}
               <DynamicLink
                 to={`/dataset/${stub?.datasetKey}`}
                 pageId="datasetKey"
@@ -135,7 +140,7 @@ function RelatedRecord({
               </DynamicLink>
             </p>
             <p className="g-font-normal g-text-slate-700 g-text-sm">
-              Publisher:{' '}
+              <FormattedMessage id="occurrenceDetails.publisher" />:{' '}
               <DynamicLink
                 to={`/publisher/${stub?.publishingOrgKey}`}
                 pageId="publisherKey"
@@ -145,7 +150,7 @@ function RelatedRecord({
               </DynamicLink>
             </p>
             <p className="g-font-normal g-text-slate-700 g-text-sm">
-              Basis of record:{' '}
+              <FormattedMessage id="occurrenceFieldNames.basisOfRecord" />:{' '}
               <FormattedMessage id={`enums.basisOfRecord.${occurrence.basisOfRecord}`} />
             </p>
             <FeatureList className="">
@@ -163,7 +168,9 @@ function RelatedRecord({
         {reasons && (
           <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
             <hr className="g-border" />
-            <span>Cluster tags</span>
+            <span>
+              <FormattedMessage id="occurrenceDetails.cluster.clusterTags" />
+            </span>
             {reasons.map((reason: string, key: number) => {
               return <Tag key={key}>{reason}</Tag>;
             })}
