@@ -148,7 +148,7 @@
     "description": ""
   },
   "mediaType": {
-    "name": "",
+    "name": "Typ média",
     "count": "",
     "description": ""
   },
@@ -168,7 +168,7 @@
     "description": ""
   },
   "preparations": {
-    "name": "",
+    "name": "Preparace",
     "count": "",
     "description": ""
   },
@@ -261,7 +261,7 @@
     "description": ""
   },
   "organismQuantity": {
-    "name": "",
+    "name": "Množství organismů",
     "count": "",
     "description": ""
   },
@@ -406,7 +406,7 @@
     "description": ""
   },
   "occurrenceStatus": {
-    "name": "",
+    "name": "Status výskytu",
     "count": "",
     "description": ""
   },
