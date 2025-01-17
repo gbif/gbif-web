@@ -15,9 +15,17 @@ import {
 import { FormattedDateRange } from '@/components/message';
 import { Tabs } from '@/components/tabs';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { OccurrenceIssue, OccurrenceQuery, OccurrenceQueryVariables, Term } from '@/gql/graphql';
+import {
+  OccurrenceCommonNameQuery,
+  OccurrenceCommonNameQueryVariables,
+  OccurrenceIssue,
+  OccurrenceQuery,
+  OccurrenceQueryVariables,
+  Term,
+} from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
-import { LoaderArgs } from '@/reactRouterPlugins';
+import useQuery from '@/hooks/useQuery';
+import { LoaderArgs, useI18n } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -25,7 +33,7 @@ import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { fragmentManager } from '@/services/fragmentManager';
 import { required } from '@/utils/required';
-import { createContext } from 'react';
+import { createContext, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { BsLightningFill } from 'react-icons/bs';
 import { FormattedMessage } from 'react-intl';
@@ -33,7 +41,7 @@ import { Outlet, redirect, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 
 const OCCURRENCE_QUERY = /* GraphQL */ `
-  query Occurrence($key: ID!, $language: String!) {
+  query Occurrence($key: ID!) {
     occurrence(key: $key) {
       key
       coordinates
@@ -190,15 +198,6 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
         key
         title
       }
-
-      acceptedTaxon {
-        vernacularNames(limit: 1, language: $language) {
-          results {
-            vernacularName
-            source
-          }
-        }
-      }
     }
     literatureSearch(gbifOccurrenceKey: [$key]) {
       documents(size: 100) {
@@ -215,6 +214,21 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
             doi
           }
           websites
+        }
+      }
+    }
+  }
+`;
+
+const OCCURRENCE_COMMON_NAME_QUERY = /* GraphQL */ `
+  query OccurrenceCommonName($key: ID!, $language: String!) {
+    occurrence(key: $key) {
+      acceptedTaxon {
+        vernacularNames(limit: 1, language: $language) {
+          results {
+            vernacularName
+            source
+          }
         }
       }
     }
@@ -256,7 +270,6 @@ export async function occurrenceKeyLoader({ params, graphql }: LoaderArgs) {
     OCCURRENCE_QUERY,
     {
       key,
-      language: 'eng',
     }
   );
 
@@ -276,7 +289,28 @@ export const OccurrenceKeyContext = createContext<{
 
 export function OccurrenceKey() {
   const { data } = useLoaderData() as { data: OccurrenceQuery };
+  const { locale } = useI18n();
   const hideGlobe = useBelow(800);
+
+  const { data: slowData, load: slowLoad } = useQuery<
+    OccurrenceCommonNameQuery,
+    OccurrenceCommonNameQueryVariables
+  >(OCCURRENCE_COMMON_NAME_QUERY, {
+    lazyLoad: true,
+    throwAllErrors: true,
+  });
+
+  useEffect(() => {
+    if (data?.occurrence?.key) {
+      slowLoad({
+        variables: {
+          key: data.occurrence.key,
+          language: locale.iso3LetterCode ?? 'eng',
+        },
+      });
+    }
+  }, [data?.occurrence?.key, slowLoad, locale?.iso3LetterCode]);
+
   if (data.occurrence == null) throw new Error('404');
   const occurrence = data.occurrence;
 
@@ -290,7 +324,8 @@ export function OccurrenceKey() {
   // const recorderAndIndentiferIsDifferent =
   //   JSON.stringify(termMap?.recordedBy?.value) !== JSON.stringify(termMap?.identifiedBy?.value);
 
-  const vernacularName = occurrence?.acceptedTaxon?.vernacularNames?.results?.[0]?.vernacularName;
+  const vernacularName =
+    slowData?.occurrence?.acceptedTaxon?.vernacularNames?.results?.[0]?.vernacularName;
 
   const hasRelated = occurrence.related?.count && occurrence.related?.count > 0;
 
