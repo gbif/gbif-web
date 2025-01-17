@@ -5,7 +5,7 @@
   "about": "",
   "dataset": "Datová sada",
   "publisher": "Vydavatel",
-  "institution": "",
+  "institution": "Instituce",
   "institutionGrSciColl": "",
   "collection": "Sbírka",
   "collectionGrSciColl": "",
@@ -360,7 +360,7 @@
       }
     },
     "measurementOrFact": {
-      "name": "",
+      "name": "Měření nebo fakt",
       "properties": {
         "measurementID": "",
         "measurementType": "",
@@ -412,7 +412,7 @@
       }
     },
     "eolReference": {
-      "name": "",
+      "name": "EOL Reference",
       "properties": {
         "identifier": "",
         "publicationType": "",
@@ -435,7 +435,7 @@
       }
     },
     "resourceRelationship": {
-      "name": "",
+      "name": "Vztah ke zdroji",
       "properties": {
         "resourceRelationshipID": "",
         "resourceID": "",
@@ -536,7 +536,7 @@
       }
     },
     "preparation": {
-      "name": "",
+      "name": "Preparace",
       "properties": {
         "preparationType": "",
         "preparationProcess": "",
@@ -547,7 +547,7 @@
       }
     },
     "preservation": {
-      "name": "",
+      "name": "Konzervace",
       "properties": {
         "preservationType": "",
         "preservationTemperature": "",
