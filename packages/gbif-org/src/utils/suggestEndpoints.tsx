@@ -470,59 +470,30 @@ function extractTitle(vocabularyLocale: string) {
   };
 }
 
-export const establishmentMeansSuggest = {
-  getSuggestions: ({ q, siteConfig, currentLocale }: SuggestFnProps): SuggestResponseType => {
-    const vocabularyLocale = currentLocale.vocabularyLocale ?? currentLocale.code ?? 'en';
-    const { cancel, promise } = fetchWithCancel(
-      `${siteConfig.v1Endpoint}/vocabularies/EstablishmentMeans/concepts?limit=100&q=${q}&lang=${vocabularyLocale}`
-    );
-    const result = promise
-      .then((res) => res.json())
-      .then(extractTitle(vocabularyLocale))
-      .then((response) => {
-        return response.data.results.map((item) => ({
-          key: item.name,
-          title: item.title,
-        }));
-      });
-    return { cancel, promise: result };
-  },
-};
+export const establishmentMeansSuggest = vocabularySuggest('EstablishmentMeans');
+export const institutionDisciplineSuggest = vocabularySuggest('Discipline');
+export const institutionTypeSuggest = vocabularySuggest('InstitutionType');
+export const preservationTypeSuggest = vocabularySuggest('PreservationType');
+export const collectionContentTypeSuggest = vocabularySuggest('CollectionContentType');
+export const typeStatusSuggest = vocabularySuggest('TypeStatus');
 
-export const institutionDisciplineSuggest = {
-  getSuggestions: ({ q, siteConfig, currentLocale }: SuggestFnProps): SuggestResponseType => {
-    const vocabularyLocale = currentLocale.vocabularyLocale ?? currentLocale.code ?? 'en';
-    const { cancel, promise } = fetchWithCancel(
-      `${siteConfig.v1Endpoint}/vocabularies/Discipline/concepts?limit=100&q=${q}&lang=${vocabularyLocale}`
-    );
-    const result = promise
-      .then((res) => res.json())
-      .then(extractTitle(vocabularyLocale))
-      .then((response) => {
-        return response.data.results.map((item) => ({
-          key: item.name,
-          title: item.title,
-        }));
-      });
-    return { cancel, promise: result };
-  },
-};
-
-export const institutionTypeSuggest = {
-  getSuggestions: ({ q, siteConfig, currentLocale }: SuggestFnProps): SuggestResponseType => {
-    const vocabularyLocale = currentLocale.vocabularyLocale ?? currentLocale.code ?? 'en';
-    const { cancel, promise } = fetchWithCancel(
-      `${siteConfig.v1Endpoint}/vocabularies/InstitutionType/concepts?limit=100&q=${q}&lang=${vocabularyLocale}`
-    );
-    const result = promise
-      .then((res) => res.json())
-      .then(extractTitle(vocabularyLocale))
-      .then((response) => {
-        return response.data.results.map((item) => ({
-          key: item.name,
-          title: item.title,
-        }));
-      });
-    return { cancel, promise: result };
-  },
-};
+function vocabularySuggest(vocabularyName: string) {
+  return {
+    getSuggestions: ({ q, siteConfig, currentLocale }: SuggestFnProps): SuggestResponseType => {
+      const vocabularyLocale = currentLocale.vocabularyLocale ?? currentLocale.code ?? 'en';
+      const { cancel, promise } = fetchWithCancel(
+        `${siteConfig.v1Endpoint}/vocabularies/${vocabularyName}/concepts?limit=100&q=${q}&lang=${vocabularyLocale}`
+      );
+      const result = promise
+        .then((res) => res.json())
+        .then(extractTitle(vocabularyLocale))
+        .then((response) => {
+          return response.data.results.map((item) => ({
+            key: item.name,
+            title: item.title,
+          }));
+        });
+      return { cancel, promise: result };
+    },
+  };
+}

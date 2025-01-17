@@ -22,7 +22,13 @@ import { SuggestFnProps } from '@/components/filters/suggest';
 import { HelpText } from '@/components/helpText';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import country from '@/enums/basic/country.json';
-import { institutionKeySuggest, taxonKeySuggest } from '@/utils/suggestEndpoints';
+import {
+  collectionContentTypeSuggest,
+  institutionKeySuggest,
+  preservationTypeSuggest,
+  taxonKeySuggest,
+  typeStatusSuggest,
+} from '@/utils/suggestEndpoints';
 import { matchSorter } from 'match-sorter';
 import hash from 'object-hash';
 import { useCallback, useEffect, useState } from 'react';
@@ -206,6 +212,7 @@ export const contentTypeConfig: filterSuggestConfig = {
   filterHandle: 'contentType',
   displayName: collectionContentTypeLabel,
   filterTranslation: 'filters.collectionContentType.name',
+  suggestConfig: collectionContentTypeSuggest,
   facetQuery: /* GraphQL */ `
     query CollectionContentTypeFacet($query: CollectionSearchInput) {
       search: collectionSearch(query: $query) {
@@ -226,6 +233,7 @@ export const preservationTypeConfig: filterSuggestConfig = {
   filterHandle: 'preservationType',
   displayName: preservationTypeLabel,
   filterTranslation: 'filters.preservationType.name',
+  suggestConfig: preservationTypeSuggest,
   facetQuery: /* GraphQL */ `
     query CollectionPreservationTypeFacet($query: CollectionSearchInput) {
       search: collectionSearch(query: $query) {
@@ -246,6 +254,7 @@ export const typeStatusConfig: filterSuggestConfig = {
   filterHandle: 'typeStatus',
   displayName: TypeStatusLabel,
   filterTranslation: 'filters.typeStatus.name',
+  suggestConfig: typeStatusSuggest,
   facetQuery: /* GraphQL */ `
     query CollectionTypeStatusFacet($query: CollectionSearchInput) {
       search: collectionSearch(query: $query) {
