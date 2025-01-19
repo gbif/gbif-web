@@ -1,3 +1,13 @@
 {
-  "DATA_MANAGEMENT": "Správa dat"
+  "AGRICULTURE": "Zemědělství",
+  "CITIZEN_SCIENCE": "Občanská věda",
+  "CLIMATE_CHANGE": "Změna klimatu",
+  "DATA_MANAGEMENT": "Správa dat",
+  "DATA_PAPER": "Datové dokumenty",
+  "ECOLOGY": "Ekologie",
+  "EVOLUTION": "Evoluce",
+  "MARINE": "Mořské",
+  "INFRASTRUCTURE": "Infrastruktura",
+  "DNA": "DNA",
+  "TAXONOMY": "Taxonomie"
 }
