@@ -14,7 +14,7 @@ export function BibliographicCitations({ bibliographicCitations = [], ...props }
       : bibliographicCitations.slice(0, threshold);
   const hasHidden = bibliographicCitations.length > citations.length;
   return (
-    <div className="g-prose">
+    <div className="g-prose g-max-w-full">
       <ul>
         {citations.map((x, index) => (
           <BibiliographicCitation key={index} citation={x} />

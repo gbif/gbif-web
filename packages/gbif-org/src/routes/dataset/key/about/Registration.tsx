@@ -40,7 +40,7 @@ export function Registration({ dataset = {}, ...props }) {
 
   return (
     <div>
-      <Properties className="" useDefaultTermWidths>
+      <Properties className="dataProse [&_a]:g-underline" useDefaultTermWidths>
         {created && (
           <>
             <T>
