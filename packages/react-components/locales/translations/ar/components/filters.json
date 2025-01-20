@@ -445,6 +445,11 @@
     "count": "نشط",
     "description": "أرشيف شروح \"جيبف\""
   },
+  "publicationDate": {
+    "name": "تاريخ النشر",
+    "count": "أرشيف شروح \"جيبف\"",
+    "description": "أرشيف شروح \"جيبف\""
+  },
   "personalCollection": {
     "name": "مجموعة شخصية",
     "count": "مجموعة شخصية",
