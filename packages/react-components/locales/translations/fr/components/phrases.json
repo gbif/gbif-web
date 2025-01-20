@@ -20,6 +20,7 @@
   "publishers": "Fournisseurs de données",
   "hostedDatasets": "Jeux de données hébergés",
   "occurrenceMetrics": "Statistique sur les occurrences",
+  "citationMetrics": "Archive annotée par GBIF",
   "project": "Projet",
   "license": "Licence",
   "downloadAsTsv": "Télécharger en tant que TSV",
@@ -40,6 +41,7 @@
   "download": "Télécharger",
   "discard": "Archive annotée par GBIF",
   "keep": "Archive annotée par GBIF",
+  "addressUnknown": "Archive annotée par GBIF",
   "copyToClipboard": "Archive annotée par GBIF",
   "fromCountry": "De {country}",
   "copiedToClipboard": "Copié dans le presse-papier",
@@ -47,5 +49,6 @@
     "description": "Description",
     "contacts": "Contacts"
   },
+  "pageToc": "Archive annotée par GBIF",
   "noResults": "Archive annotée par GBIF"
 }
