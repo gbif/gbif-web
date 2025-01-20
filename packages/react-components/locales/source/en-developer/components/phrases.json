@@ -42,6 +42,7 @@
   "discard": "Discard",
   "keep": "Keep",
   "addressUnknown": "Unknown address",
+  "emptyValueProvided": "Empty value provided",
   "copyToClipboard": "Copy to clipboard",
   "fromCountry": "From {country}",
   "copiedToClipboard": "Copied to clipboard",
