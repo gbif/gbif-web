@@ -445,6 +445,11 @@
     "count": "Activo",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
+  "publicationDate": {
+    "name": "Fecha de publicación",
+    "count": "Aquí debe colocarse una breve descripción del componente",
+    "description": "Aquí debe colocarse una breve descripción del componente"
+  },
   "personalCollection": {
     "name": "Colección personal",
     "count": "Colección personal",
