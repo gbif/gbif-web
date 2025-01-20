@@ -445,6 +445,11 @@
     "count": "Active",
     "description": ""
   },
+  "publicationDate": {
+    "name": "Publication date",
+    "count": "",
+    "description": ""
+  },
   "personalCollection": {
     "name": "Personal collection",
     "count": "Personal collection",
