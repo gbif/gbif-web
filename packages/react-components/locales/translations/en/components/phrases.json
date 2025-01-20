@@ -52,7 +52,7 @@
   "pageToc": "",
   "apiAccess": "API access",
   "lastCrawled": "Last crawled",
-  "goToRecord": "",
-  "commonNameAccordingTo": "",
+  "goToRecord": "Go to record",
+  "commonNameAccordingTo": "Common name according to: {source}",
   "noResults": ""
 }
