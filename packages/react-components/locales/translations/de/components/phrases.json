@@ -20,6 +20,7 @@
   "publishers": "Herausgeber",
   "hostedDatasets": "Gehostete Datasets",
   "occurrenceMetrics": "",
+  "citationMetrics": "Stadt zum Fundort.",
   "project": "Projekt",
   "license": "",
   "downloadAsTsv": "",
@@ -40,6 +41,7 @@
   "download": "",
   "discard": "Stadt zum Fundort.",
   "keep": "Stadt zum Fundort.",
+  "addressUnknown": "Stadt zum Fundort.",
   "copyToClipboard": "Stadt zum Fundort.",
   "fromCountry": "",
   "copiedToClipboard": "",
@@ -47,5 +49,6 @@
     "description": "",
     "contacts": ""
   },
+  "pageToc": "Stadt zum Fundort.",
   "noResults": "Stadt zum Fundort."
 }
