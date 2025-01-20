@@ -42,12 +42,12 @@ export default {
     speciesProfiles: taxonDetails('speciesProfiles'),
     vernacularNames: (
       parent,
-      { limit = 10, offset = 0, language },
+      { limit = 10, offset = 0, language, source },
       { dataSources },
     ) => {
       // if the language parameter is present, then we need to fetch all the data and then manually filter it for the language, and the apply limit and offset
-      let newQuery = { limit, offset, language };
-      if (language) {
+      const newQuery = { limit, offset, language, source }; // language and source are ignored by the API
+      if (language || source) {
         newQuery.limit = 1000;
         newQuery.offset = 0;
       }
@@ -58,6 +58,7 @@ export default {
           query: newQuery,
         })
         .then((response) => {
+          let apiResponse = response;
           if (language) {
             const filtered = response.results.filter(
               (item) => item.language === language,
@@ -73,13 +74,24 @@ export default {
             );
 
             const endOfRecords = offset + limit > filtered.length;
-            return {
-              ...response,
+            apiResponse = {
+              ...apiResponse,
               endOfRecords,
               results: filtered.slice(offset, offset + limit),
             };
           }
-          return response;
+          if (source) {
+            const filtered = apiResponse.results.filter(
+              (item) => item.source === source,
+            );
+            const endOfRecords = offset + limit > filtered.length;
+            apiResponse = {
+              ...apiResponse,
+              endOfRecords,
+              results: filtered.slice(offset, offset + limit),
+            };
+          }
+          return apiResponse;
         });
     },
     typeSpecimens: taxonDetails('typeSpecimens'),

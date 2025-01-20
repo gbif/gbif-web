@@ -199,6 +199,10 @@ const typeDef = gql`
       limit: Int
       offset: Int
       language: String
+      """
+      The title of the source. Not the datasetKey. Neither language nor source is part of the official API filters. And datasetKey is not in the response. So this is the best we can do at this point
+      """
+      source: String
     ): TaxonVernacularNameResult
 
     """
