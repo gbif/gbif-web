@@ -12,12 +12,14 @@ import { cn } from '@/utils/shadcn';
 import React from 'react';
 import { MdApps, MdCode, MdInfo } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
+import { DoiTag } from './identifierTag';
 
 export function DataHeader({
   children,
   title,
   aboutContent,
   apiContent,
+  doi,
   hasBorder,
   hideCatalogueSelector,
   className,
@@ -28,6 +30,7 @@ export function DataHeader({
   aboutContent?: React.ReactElement;
   apiContent?: React.ReactElement;
   hideCatalogueSelector?: boolean;
+  doi?: string;
   className?: string;
 }) {
   const { availableCatalogues = [] } = useConfig();
@@ -48,14 +51,23 @@ export function DataHeader({
       )}
       <div className="g-flex-auto g-min-w-0">{children}</div>
       <div className="g-flex-none g-mx-2">
-        <div className="g-flex g-justify-center g-text-slate-400">
+        <div className="g-flex g-justify-center g-items-center">
+          {doi && <DoiTag id={doi} className="g-me-2 g-text-xs" />}
           {aboutContent && (
-            <Popup trigger={<MdInfo className="g-mx-1 hover:g-text-slate-700" />}>
+            <Popup
+              trigger={
+                <MdInfo className="g-mx-1 hover:g-text-slate-700 g-text-slate-400 g-block" />
+              }
+            >
               {aboutContent}
             </Popup>
           )}
           {apiContent && (
-            <Popup trigger={<MdCode className="g-mx-1 hover:g-text-slate-700" />}>
+            <Popup
+              trigger={
+                <MdCode className="g-mx-1 hover:g-text-slate-700 g-text-slate-400 g-block" />
+              }
+            >
               {apiContent}
             </Popup>
           )}

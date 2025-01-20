@@ -6,7 +6,7 @@ import {
   HeaderInfoMain,
 } from '@/components/headerComponents';
 import { FeatureList, GenericFeature, Homepage, PeopleIcon } from '@/components/highlights';
-import { LicenceTag } from '@/components/identifierTag';
+import { DoiTag, LicenceTag } from '@/components/identifierTag';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { NotFoundError } from '@/errors';
@@ -347,6 +347,7 @@ export function DatasetPage() {
         className="g-bg-white"
         aboutContent={<AboutContent />}
         apiContent={<ApiContent id={dataset?.key?.toString()} />}
+        // doi={dataset.doi}
       ></DataHeader>
       <article>
         <PageContainer topPadded hasDataHeader className="g-bg-white">
@@ -409,6 +410,9 @@ export function DatasetPage() {
                   <Homepage url={dataset.homepage} />
                   <GenericFeature>
                     <LicenceTag value={dataset.license} />
+                  </GenericFeature>
+                  <GenericFeature>
+                    <DoiTag id={dataset.doi} />
                   </GenericFeature>
                 </FeatureList>
               </HeaderInfoMain>
