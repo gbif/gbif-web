@@ -50,5 +50,7 @@
     "contacts": "Contacts"
   },
   "pageToc": "Sections",
+  "apiAccess": "API access",
+  "lastCrawled": "Last crawled",
   "noResults": "No results"
 }

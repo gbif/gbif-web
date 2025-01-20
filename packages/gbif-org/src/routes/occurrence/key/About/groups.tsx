@@ -14,6 +14,7 @@ import {
   AcceptedScientificName,
   AgentIds,
   CollectionKey,
+  DatasetKey,
   DynamicProperties,
   InstitutionKey,
   ScientificName,
@@ -63,7 +64,7 @@ export function Groups({
       {/*<SequenceTeaser       {...{ updateToc, showAll, termMap, occurrence, setActiveImage }} />*/}
       {/* <Summary {...{ updateToc, showAll, termMap, occurrence }} /> */}
 
-      <Provenance {...{ updateToc, showAll, termMap, occurrence }} />
+      {/* <Provenance {...{ updateToc, showAll, termMap, occurrence }} /> */}
 
       <GeologicalContext {...{ updateToc, showAll, termMap, occurrence }} />
       <Record {...{ showAll, termMap, occurrence, updateToc }} />
@@ -203,34 +204,34 @@ function Summary({
   );
 }
 
-function Provenance({
-  showAll,
-  termMap,
-  occurrence,
-}: {
-  showAll: boolean;
-  termMap: any;
-  occurrence: any;
-}) {
-  return (
-    <Card className="g-mb-4 g-bg-slate-300 g-text-slate-600">
-      <div className="g-py-4 g-px-4 md:g-px-8">
-        This record is part of the dataset{' '}
-        <span className="g-underline">
-          <DynamicLink
-            to={`/dataset/${occurrence.datasetKey}`}
-            pageId="datasetKey"
-            variables={{ key: occurrence.datasetKey }}
-            className="g-text-inherit"
-          >
-            {occurrence.datasetTitle}
-          </DynamicLink>
-        </span>
-        .
-      </div>
-    </Card>
-  );
-}
+// function Provenance({
+//   showAll,
+//   termMap,
+//   occurrence,
+// }: {
+//   showAll: boolean;
+//   termMap: any;
+//   occurrence: any;
+// }) {
+//   return (
+//     <Card className="g-mb-4 g-bg-slate-300 g-text-slate-600">
+//       <div className="g-py-4 g-px-4 md:g-px-8">
+//         This record is part of the dataset{' '}
+//         <span className="g-underline">
+//           <DynamicLink
+//             to={`/dataset/${occurrence.datasetKey}`}
+//             pageId="datasetKey"
+//             variables={{ key: occurrence.datasetKey }}
+//             className="g-text-inherit"
+//           >
+//             {occurrence.datasetTitle}
+//           </DynamicLink>
+//         </span>
+//         .
+//       </div>
+//     </Card>
+//   );
+// }
 
 function Record({
   showAll,
@@ -244,19 +245,10 @@ function Record({
   // no reason to test this, this group is always present since basisOfRecord is always present
   return (
     <PropGroup label="occurrenceDetails.groups.record" id="record">
-      {/* <Institution {...{ showAll, termMap, occurrence }} /> */}
       <InstitutionKey {...{ occurrence }} />
-      <PlainTextField term={termMap.institutionCode} showDetails={showAll} />
-      <HtmlField term={termMap.institutionID} showDetails={showAll} />
-      <PlainTextField term={termMap.ownerInstitutionCode} showDetails={showAll} />
-
-      {/* <Collection {...{ showAll, termMap, occurrence }} /> */}
       <CollectionKey {...{ occurrence }} />
-      <PlainTextField term={termMap.collectionCode} showDetails={showAll} />
-      <HtmlField term={termMap.collectionID} showDetails={showAll} />
+      <DatasetKey {...{ occurrence }} />
 
-      <HtmlField term={termMap.datasetID} showDetails={showAll} />
-      <PlainTextField term={termMap.datasetName} showDetails={showAll} />
       <EnumField
         term={termMap.basisOfRecord}
         showDetails={showAll}
@@ -707,6 +699,16 @@ function Other({
         showDetails={showAll}
         getEnum={(value) => `enums.license.${value}`}
       />
+      {/* RECORD LEVEL Actually belongs on Record card, but it seems wrong to put it first on the page, so I've moved it here along with other identifiers */}
+      <PlainTextField term={termMap.institutionCode} showDetails={showAll} />
+      <HtmlField term={termMap.institutionID} showDetails={showAll} />
+      <PlainTextField term={termMap.ownerInstitutionCode} showDetails={showAll} />
+      <PlainTextField term={termMap.collectionCode} showDetails={showAll} />
+      <HtmlField term={termMap.collectionID} showDetails={showAll} />
+      <HtmlField term={termMap.datasetID} showDetails={showAll} />
+      <PlainTextField term={termMap.datasetName} showDetails={showAll} />
+      {/* END RECORD LEVEL */}
+
       <PlainTextField term={termMap.abstract} showDetails={showAll} />
       <PlainTextField term={termMap.accessRights} showDetails={showAll} />
       <PlainTextField term={termMap.accrualMethod} showDetails={showAll} />
@@ -841,7 +843,7 @@ function Debug({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
     <div className="g-mb-4 g-text-sm g-scroll-mt-24" id="provenance">
       <CardContent>
         <Properties breakpoint={800} className="[&>dt]:g-w-52">
-          <BasicField label="API access">
+          <BasicField label="phrases.apiAccess">
             <BulletList>
               <li>
                 <a
@@ -882,7 +884,7 @@ function Debug({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
               {occurrence.publisherTitle}
             </DynamicLink>
           </BasicField>
-          <BasicField label="Last crawled">{occurrence?.lastCrawled}</BasicField>
+          <BasicField label="phrases.lastCrawled">{occurrence?.lastCrawled}</BasicField>
         </Properties>
       </CardContent>
     </div>

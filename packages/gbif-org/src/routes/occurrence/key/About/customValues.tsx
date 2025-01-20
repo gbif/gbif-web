@@ -84,6 +84,21 @@ export function CollectionKey({ occurrence }) {
   );
 }
 
+export function DatasetKey({ occurrence }) {
+  return (
+    <BasicField label="occurrenceDetails.dataset">
+      <DynamicLink
+        className="g-underline"
+        to={`/dataset/${occurrence.datasetKey}`}
+        pageId="datasetKey"
+        variables={{ key: occurrence.datasetKey }}
+      >
+        {occurrence.datasetTitle}
+      </DynamicLink>
+    </BasicField>
+  );
+}
+
 export function ScientificName({ termMap, showAll, occurrence }) {
   return (
     <CustomValueField term={termMap.scientificName} showDetails={showAll}>
