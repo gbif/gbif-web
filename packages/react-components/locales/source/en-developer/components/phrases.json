@@ -53,5 +53,6 @@
   "apiAccess": "API access",
   "lastCrawled": "Last crawled",
   "goToRecord": "Go to record",
+  "commonNameAccordingTo": "Common name according to: {source}",
   "noResults": "No results"
 }

@@ -13,6 +13,7 @@ import {
   TypeStatus,
 } from '@/components/highlights';
 import { FormattedDateRange } from '@/components/message';
+import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { OccurrenceIssue, OccurrenceQuery, OccurrenceQueryVariables, Term } from '@/gql/graphql';
@@ -28,6 +29,7 @@ import { required } from '@/utils/required';
 import { createContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { BsLightningFill } from 'react-icons/bs';
+import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Outlet, redirect, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
@@ -291,7 +293,7 @@ export function OccurrenceKey() {
   // const recorderAndIndentiferIsDifferent =
   //   JSON.stringify(termMap?.recordedBy?.value) !== JSON.stringify(termMap?.identifiedBy?.value);
 
-  const vernacularName = occurrence?.acceptedTaxon?.vernacularNames?.results?.[0]?.vernacularName;
+  const vernacularNameInfo = occurrence?.acceptedTaxon?.vernacularNames?.results?.[0];
 
   const hasRelated = occurrence.related?.count && occurrence.related?.count > 0;
 
@@ -379,13 +381,23 @@ export function OccurrenceKey() {
                             'No title provided',
                         }}
                       />
-                      {vernacularName && (
-                        <span
-                          className="g-text-slate-300 g-inline-block"
-                          style={{ fontSize: '85%' }}
+                      {vernacularNameInfo && (
+                        <SimpleTooltip
+                          title={
+                            <FormattedMessage
+                              id="phrases.commonNameAccordingTo"
+                              values={{ source: vernacularNameInfo.source }}
+                            />
+                          }
                         >
-                          {vernacularName}
-                        </span>
+                          <span
+                            className="g-text-slate-300 g-inline-flex g-items-center"
+                            style={{ fontSize: '85%' }}
+                          >
+                            <span className="g-me-1">{vernacularNameInfo.vernacularName}</span>
+                            <MdInfoOutline />
+                          </span>
+                        </SimpleTooltip>
                       )}
                     </>
                   )}
