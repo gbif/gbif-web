@@ -55,7 +55,7 @@ export const configDefault: Partial<Config> = {
   },
   taxonSearch: {
     queryType: 'V1',
-    highlightedFilters: ['q', 'status', 'rank'],
+    highlightedFilters: ['q', 'status', 'rank', 'higherTaxonKey'],
   },
   literatureSearch: {
     queryType: 'PREDICATE',

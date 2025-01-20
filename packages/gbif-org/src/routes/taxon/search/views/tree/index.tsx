@@ -1,1 +1,1 @@
-export { Tree } from './tree';
+export { TaxonTree } from './tree';

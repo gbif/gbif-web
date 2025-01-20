@@ -20,7 +20,7 @@ import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './helpTexts';
 import { searchConfig } from './searchConfig';
 import { Table } from './views/table';
-import { Tree } from './views/tree';
+import { TaxonTree } from './views/tree';
 
 export function TaxonSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({
@@ -63,6 +63,8 @@ export function TaxonSearchPageInner(): React.ReactElement {
   const visibleFilters = useMemo(() => {
     if (view === 'table') {
       return filters;
+    } else if (view === 'tree') {
+      return { higherTaxonKey: filters.higherTaxonKey };
     } else if (filters.q) {
       return { q: filters.q };
     } else {
@@ -146,8 +148,12 @@ function Views({ view, className }: { view?: string; className?: string }) {
           <DynamicHeightDiv minPxHeight={500}>{view === 'table' && <Table />}</DynamicHeightDiv>
         )}
         {!fixedHeight && (
-          <DynamicHeightDiv minPxHeight={500} onlySetMinHeight>
-            {view === 'media' && <Tree />}
+          <DynamicHeightDiv
+            minPxHeight={500}
+            onlySetMinHeight
+            className="g-bg-white g-flex-1 g-border g-basis-full g-h-1 g-flex g-flex-col"
+          >
+            {view === 'tree' && <TaxonTree />}
           </DynamicHeightDiv>
         )}
       </div>

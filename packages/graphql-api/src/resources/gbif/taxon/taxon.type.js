@@ -8,7 +8,7 @@ const typeDef = gql`
       q: String
       datasetKey: [ID]
       rank: [Rank]
-      highertaxonKey: [ID]
+      higherTaxonKey: [ID]
       status: [TaxonomicStatus]
       isExtinct: Boolean
       habitat: [Habitat]
@@ -25,7 +25,7 @@ const typeDef = gql`
       offset: Int
       q: String
       rank: [Rank]
-      highertaxonKey: [ID]
+      higherTaxonKey: [ID]
       status: [TaxonomicStatus]
       isExtinct: Boolean
       habitat: [Habitat]
@@ -60,7 +60,7 @@ const typeDef = gql`
     q: String
     datasetKey: [ID]
     rank: [Rank]
-    highertaxonKey: [ID]
+    higherTaxonKey: [ID]
     status: [TaxonomicStatus]
     isExtinct: Boolean
     habitat: [Habitat]
@@ -158,7 +158,7 @@ const typeDef = gql`
       q: String
       datasetKey: [ID]
       rank: [Rank]
-      highertaxonKey: [ID]
+      higherTaxonKey: [ID]
       status: [TaxonomicStatus]
       isExtinct: Boolean
       habitat: [Habitat]
@@ -173,7 +173,7 @@ const typeDef = gql`
   type TaxonFacet {
     rank(limit: Int, offset: Int): [TaxonFacetResult]
     status(limit: Int, offset: Int): [TaxonFacetResult]
-    highertaxonKey(limit: Int, offset: Int): [TaxonBreakdown]
+    higherTaxonKey(limit: Int, offset: Int): [TaxonBreakdown]
     issue(limit: Int, offset: Int): [TaxonFacetResult]
   }
 
@@ -187,7 +187,7 @@ const typeDef = gql`
       q: String
       datasetKey: [ID]
       rank: [Rank]
-      highertaxonKey: [Int]
+      higherTaxonKey: [Int]
       status: [TaxonomicStatus]
       isExtinct: Boolean
       habitat: [Habitat]

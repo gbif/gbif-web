@@ -713,7 +713,7 @@ export function FilterButtons({
 
   const { visibleFilters, availableFilters } = getFilterConfig({
     currentFilter: filterContext.filter,
-    existingFilters: Object.keys(filters).map((x) => filters[x].handle ?? x),
+    existingFilters: Object.keys(filters).map((x) => filters[x]?.handle ?? x),
     excludedFilters: searchContext?.excludedFilters ?? [],
     highlightedFilters: searchContext?.highlightedFilters ?? [],
   });
