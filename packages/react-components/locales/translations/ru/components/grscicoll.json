@@ -6,6 +6,7 @@
   "additionalNames": "Другие названия",
   "description": "Описание",
   "code": "Акроним",
+  "name": "Имя",
   "active": "Действующая",
   "activeInstitution": "Действует",
   "activeCollection": "Действует",

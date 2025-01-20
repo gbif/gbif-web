@@ -6,6 +6,7 @@
   "additionalNames": "Autres noms",
   "description": "Description",
   "code": "Code",
+  "name": "Nom",
   "active": "Actif",
   "activeInstitution": "Activé",
   "activeCollection": "Activé",

@@ -445,6 +445,11 @@
     "count": "活動中",
     "description": "GBIFがアノーテーションしたアーカイブ"
   },
+  "publicationDate": {
+    "name": "公開日時",
+    "count": "GBIFがアノーテーションしたアーカイブ",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
   "personalCollection": {
     "name": "個人コレクション",
     "count": "個人コレクション",

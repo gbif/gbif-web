@@ -1,5 +1,13 @@
 {
+  "tabs": {
+    "details": "詳細",
+    "cluster": "クラスター",
+    "phylotree": "GBIFがアノーテーションしたアーカイブ"
+  },
   "occurrence": "オカレンス",
+  "specimen": "標本",
+  "processed": "GBIFがアノーテーションしたアーカイブ",
+  "fragment": "GBIFがアノーテーションしたアーカイブ",
   "showAllFields": "",
   "morePhotos": "",
   "about": "・・・について",
@@ -30,7 +38,8 @@
     "organism": "生物",
     "materialSample": "試料",
     "geologicalContext": "地質学的背景",
-    "other": "その他"
+    "other": "その他",
+    "extensions": "拡張モジュール"
   },
   "features": {
     "isClustered": "クラスター化された",
@@ -46,6 +55,15 @@
     "isSpecimen": "標本",
     "eventDate": "イベント日付",
     "isType": ""
+  },
+  "cluster": {
+    "current": "",
+    "relatedOccurrences": "関連付けされたオカレンス",
+    "similarBecause": "次の理由により類似している",
+    "clusterTags": "GBIFがアノーテーションしたアーカイブ",
+    "matchedRecord": "一致するレコード",
+    "noMatches": "",
+    "explainer": "この試験的な機能では、重複や関連するオカレンスの可能性があればハイライトします。"
   },
   "extensions": {
     "audubon": {

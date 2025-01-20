@@ -1,5 +1,13 @@
 {
+  "tabs": {
+    "details": "",
+    "cluster": "",
+    "phylotree": "Stadt zum Fundort."
+  },
   "occurrence": "Vorkommen",
+  "specimen": "Exemplar",
+  "processed": "Stadt zum Fundort.",
+  "fragment": "Stadt zum Fundort.",
   "showAllFields": "Alle Felder anzeigen",
   "morePhotos": "Weitere Fotos",
   "about": "Über",
@@ -30,7 +38,8 @@
     "organism": "Organismus",
     "materialSample": "Materialprobe",
     "geologicalContext": "Geologischer Kontext",
-    "other": "Andere"
+    "other": "Andere",
+    "extensions": ""
   },
   "features": {
     "isClustered": "Cluster",
@@ -46,6 +55,15 @@
     "isSpecimen": "Exemplar",
     "eventDate": "",
     "isType": ""
+  },
+  "cluster": {
+    "current": "",
+    "relatedOccurrences": "",
+    "similarBecause": "",
+    "clusterTags": "Stadt zum Fundort.",
+    "matchedRecord": "",
+    "noMatches": "",
+    "explainer": "Diese experimentelle Funktion hebt mögliche Duplikate und/oder damit zusammenhängende Vorkommen hervor."
   },
   "extensions": {
     "audubon": {

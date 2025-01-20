@@ -20,6 +20,7 @@
   "publishers": "الناشرون",
   "hostedDatasets": "",
   "occurrenceMetrics": "مقاييس التكرار",
+  "citationMetrics": "أرشيف شروح \"جيبف\"",
   "project": "مشروع",
   "license": "الرخصة",
   "downloadAsTsv": "",
@@ -40,6 +41,7 @@
   "download": "تنزيل",
   "discard": "أرشيف شروح \"جيبف\"",
   "keep": "أرشيف شروح \"جيبف\"",
+  "addressUnknown": "أرشيف شروح \"جيبف\"",
   "copyToClipboard": "أرشيف شروح \"جيبف\"",
   "fromCountry": "",
   "copiedToClipboard": "",
@@ -47,5 +49,6 @@
     "description": "التوصيف",
     "contacts": "جهات الاتصال"
   },
+  "pageToc": "أرشيف شروح \"جيبف\"",
   "noResults": "أرشيف شروح \"جيبف\""
 }

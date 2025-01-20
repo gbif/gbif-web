@@ -1,5 +1,13 @@
 {
+  "tabs": {
+    "details": "",
+    "cluster": "",
+    "phylotree": ""
+  },
   "occurrence": "Výskyt",
+  "specimen": "",
+  "processed": "",
+  "fragment": "",
   "showAllFields": "",
   "morePhotos": "",
   "about": "",
@@ -30,7 +38,8 @@
     "organism": "",
     "materialSample": "Vzorek materiálu",
     "geologicalContext": "",
-    "other": ""
+    "other": "",
+    "extensions": "Rozšíření"
   },
   "features": {
     "isClustered": "",
@@ -46,6 +55,15 @@
     "isSpecimen": "",
     "eventDate": "Datum události",
     "isType": ""
+  },
+  "cluster": {
+    "current": "",
+    "relatedOccurrences": "",
+    "similarBecause": "",
+    "clusterTags": "",
+    "matchedRecord": "",
+    "noMatches": "",
+    "explainer": ""
   },
   "extensions": {
     "audubon": {

@@ -6,6 +6,7 @@
   "additionalNames": "اسماء اضافية",
   "description": "التوصيف",
   "code": "الرمز",
+  "name": "الاسم",
   "active": "نشط",
   "activeInstitution": "نشط",
   "activeCollection": "نشط",

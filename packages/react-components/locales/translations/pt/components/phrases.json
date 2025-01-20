@@ -20,6 +20,7 @@
   "publishers": "Publicadores",
   "hostedDatasets": "Conjuntos de dados alojados",
   "occurrenceMetrics": "Métrica de ocorrências",
+  "citationMetrics": "Uma breve descrição do componente deve ser colocada aqui",
   "project": "Projeto",
   "license": "Licença",
   "downloadAsTsv": "",
@@ -40,6 +41,7 @@
   "download": "Transferir",
   "discard": "Uma breve descrição do componente deve ser colocada aqui",
   "keep": "Uma breve descrição do componente deve ser colocada aqui",
+  "addressUnknown": "Uma breve descrição do componente deve ser colocada aqui",
   "copyToClipboard": "Uma breve descrição do componente deve ser colocada aqui",
   "fromCountry": "",
   "copiedToClipboard": "",
@@ -47,5 +49,6 @@
     "description": "Descrição",
     "contacts": "Contatos"
   },
+  "pageToc": "Uma breve descrição do componente deve ser colocada aqui",
   "noResults": "Uma breve descrição do componente deve ser colocada aqui"
 }

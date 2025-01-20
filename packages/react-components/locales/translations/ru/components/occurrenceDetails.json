@@ -1,5 +1,13 @@
 {
+  "tabs": {
+    "details": "Подробнее",
+    "cluster": "",
+    "phylotree": "Архив, аннотированный GBIF"
+  },
   "occurrence": "Находка",
+  "specimen": "",
+  "processed": "Архив, аннотированный GBIF",
+  "fragment": "Архив, аннотированный GBIF",
   "showAllFields": "",
   "morePhotos": "",
   "about": "Об организациии",
@@ -30,7 +38,8 @@
     "organism": "Организм",
     "materialSample": "Образец из коллекции",
     "geologicalContext": "Геологические контекст",
-    "other": "Другая"
+    "other": "Другая",
+    "extensions": "Расширения"
   },
   "features": {
     "isClustered": "",
@@ -46,6 +55,15 @@
     "isSpecimen": "Образец",
     "eventDate": "Дата события",
     "isType": "Типовой образец"
+  },
+  "cluster": {
+    "current": "",
+    "relatedOccurrences": "",
+    "similarBecause": "",
+    "clusterTags": "Архив, аннотированный GBIF",
+    "matchedRecord": "",
+    "noMatches": "",
+    "explainer": ""
   },
   "extensions": {
     "audubon": {

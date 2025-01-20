@@ -1,5 +1,13 @@
 {
+  "tabs": {
+    "details": "",
+    "cluster": "",
+    "phylotree": ""
+  },
   "occurrence": "Stwierdzenie",
+  "specimen": "",
+  "processed": "",
+  "fragment": "",
   "showAllFields": "Pokaż wszystkie pola",
   "morePhotos": "Więcej zdjęć",
   "about": "Informacje",
@@ -30,7 +38,8 @@
     "organism": "Organizm",
     "materialSample": "Próbka",
     "geologicalContext": "Kontekst geologiczny",
-    "other": "Inne"
+    "other": "Inne",
+    "extensions": ""
   },
   "features": {
     "isClustered": "Klastrowany",
@@ -46,6 +55,15 @@
     "isSpecimen": "Okaz",
     "eventDate": "Data wydarzenia",
     "isType": "Typ okazu"
+  },
+  "cluster": {
+    "current": "",
+    "relatedOccurrences": "",
+    "similarBecause": "",
+    "clusterTags": "",
+    "matchedRecord": "",
+    "noMatches": "",
+    "explainer": "Ta eksperymentalna funkcja podkreślana możliwe duplikaty i/lub powiązane występowania."
   },
   "extensions": {
     "audubon": {

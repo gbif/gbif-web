@@ -445,6 +445,11 @@
     "count": "Aktivní",
     "description": ""
   },
+  "publicationDate": {
+    "name": "Datum zveřejnění",
+    "count": "",
+    "description": ""
+  },
   "personalCollection": {
     "name": "Osobní sbírka",
     "count": "Osobní sbírka",

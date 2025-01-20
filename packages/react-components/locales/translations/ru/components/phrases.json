@@ -20,6 +20,7 @@
   "publishers": "Организации",
   "hostedDatasets": "",
   "occurrenceMetrics": "Показатели встречаемости",
+  "citationMetrics": "Архив, аннотированный GBIF",
   "project": "Проект",
   "license": "Лицензия",
   "downloadAsTsv": "Скачать в формате TSV",
@@ -40,6 +41,7 @@
   "download": "Загрузить",
   "discard": "Архив, аннотированный GBIF",
   "keep": "Архив, аннотированный GBIF",
+  "addressUnknown": "Архив, аннотированный GBIF",
   "copyToClipboard": "Архив, аннотированный GBIF",
   "fromCountry": "Из {country}",
   "copiedToClipboard": "Скопировано в буфер обмена",
@@ -47,5 +49,6 @@
     "description": "Описание",
     "contacts": "Контакты"
   },
+  "pageToc": "Архив, аннотированный GBIF",
   "noResults": "Архив, аннотированный GBIF"
 }

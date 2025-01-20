@@ -1,5 +1,13 @@
 {
+  "tabs": {
+    "details": "Подробиці",
+    "cluster": "",
+    "phylotree": "Архів анотований GBIF"
+  },
   "occurrence": "Знахідка",
+  "specimen": "",
+  "processed": "Архів анотований GBIF",
+  "fragment": "Архів анотований GBIF",
   "showAllFields": "",
   "morePhotos": "",
   "about": "Відомості про видавця даних",
@@ -30,7 +38,8 @@
     "organism": "Організм",
     "materialSample": "Проба матеріалу",
     "geologicalContext": "Геологічний контекст",
-    "other": "Інше"
+    "other": "Інше",
+    "extensions": "Розширення"
   },
   "features": {
     "isClustered": "",
@@ -46,6 +55,15 @@
     "isSpecimen": "",
     "eventDate": "Дата події",
     "isType": ""
+  },
+  "cluster": {
+    "current": "",
+    "relatedOccurrences": "",
+    "similarBecause": "",
+    "clusterTags": "Архів анотований GBIF",
+    "matchedRecord": "",
+    "noMatches": "",
+    "explainer": "Ця експериментальна функція виділяє можливі дубльовані та/або пов'язані знахідки."
   },
   "extensions": {
     "audubon": {

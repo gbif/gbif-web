@@ -1,5 +1,13 @@
 {
+  "tabs": {
+    "details": "تفاصيل",
+    "cluster": "",
+    "phylotree": "أرشيف شروح \"جيبف\""
+  },
   "occurrence": "تكرار",
+  "specimen": "",
+  "processed": "أرشيف شروح \"جيبف\"",
+  "fragment": "أرشيف شروح \"جيبف\"",
   "showAllFields": "",
   "morePhotos": "",
   "about": "حول",
@@ -30,7 +38,8 @@
     "organism": "المتعضي",
     "materialSample": "عينة مادية",
     "geologicalContext": "السياق الجيولوجي",
-    "other": "أخرى"
+    "other": "أخرى",
+    "extensions": "اللاحقات"
   },
   "features": {
     "isClustered": "",
@@ -46,6 +55,15 @@
     "isSpecimen": "",
     "eventDate": "تاريخ الحدث",
     "isType": ""
+  },
+  "cluster": {
+    "current": "",
+    "relatedOccurrences": "",
+    "similarBecause": "",
+    "clusterTags": "أرشيف شروح \"جيبف\"",
+    "matchedRecord": "",
+    "noMatches": "",
+    "explainer": "تسلط هذه الميزة  التجريبية الضوء على التكرارات المحتملة و/أو ذات الصلة"
   },
   "extensions": {
     "audubon": {

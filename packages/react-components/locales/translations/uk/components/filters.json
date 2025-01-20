@@ -445,6 +445,11 @@
     "count": "Діяльна",
     "description": "Архів анотований GBIF"
   },
+  "publicationDate": {
+    "name": "Дата публікації",
+    "count": "Архів анотований GBIF",
+    "description": "Архів анотований GBIF"
+  },
   "personalCollection": {
     "name": "Приватна колекція",
     "count": "Приватна колекція",

@@ -20,6 +20,7 @@
   "publishers": "Forlæggere",
   "hostedDatasets": "",
   "occurrenceMetrics": "Observations-grafer",
+  "citationMetrics": "GBIF annoteret Arkiv",
   "project": "Projekt",
   "license": "Licens",
   "downloadAsTsv": "",
@@ -40,6 +41,7 @@
   "download": "Download",
   "discard": "GBIF annoteret Arkiv",
   "keep": "GBIF annoteret Arkiv",
+  "addressUnknown": "GBIF annoteret Arkiv",
   "copyToClipboard": "GBIF annoteret Arkiv",
   "fromCountry": "",
   "copiedToClipboard": "",
@@ -47,5 +49,6 @@
     "description": "Beskriveslse",
     "contacts": "Kontakter"
   },
+  "pageToc": "GBIF annoteret Arkiv",
   "noResults": "GBIF annoteret Arkiv"
 }

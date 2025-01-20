@@ -1,5 +1,13 @@
 {
+  "tabs": {
+    "details": "Plus d'informations",
+    "cluster": "",
+    "phylotree": "Archive annotée par GBIF"
+  },
   "occurrence": "occurrence",
+  "specimen": "Spécimen",
+  "processed": "Archive annotée par GBIF",
+  "fragment": "Archive annotée par GBIF",
   "showAllFields": "Afficher tous les champs",
   "morePhotos": "Plus de photos",
   "about": "À propos",
@@ -30,7 +38,8 @@
     "organism": "Organisme",
     "materialSample": "Matériel échantillonné",
     "geologicalContext": "Contexte géologique",
-    "other": "Autre"
+    "other": "Autre",
+    "extensions": "Extensions"
   },
   "features": {
     "isClustered": "Regroupés",
@@ -46,6 +55,15 @@
     "isSpecimen": "Spécimen",
     "eventDate": "Date de l'événement",
     "isType": "Spécimens type"
+  },
+  "cluster": {
+    "current": "",
+    "relatedOccurrences": "",
+    "similarBecause": "",
+    "clusterTags": "Archive annotée par GBIF",
+    "matchedRecord": "",
+    "noMatches": "",
+    "explainer": "Cette fonctionnalité expérimentale met en évidence la possibilité de doublons et/ou d'occurrences connexes."
   },
   "extensions": {
     "audubon": {

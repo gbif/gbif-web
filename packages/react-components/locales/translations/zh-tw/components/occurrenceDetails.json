@@ -1,5 +1,13 @@
 {
+  "tabs": {
+    "details": "詳細資料",
+    "cluster": "",
+    "phylotree": "GBIF 註記的存檔"
+  },
   "occurrence": "出現紀錄",
+  "specimen": "標本",
+  "processed": "GBIF 註記的存檔",
+  "fragment": "GBIF 註記的存檔",
   "showAllFields": "顯示所有欄位",
   "morePhotos": "更多照片",
   "about": "關於",
@@ -30,7 +38,8 @@
     "organism": "生物體",
     "materialSample": "材料樣品",
     "geologicalContext": "地理背景",
-    "other": "其它"
+    "other": "其它",
+    "extensions": "延伸集"
   },
   "features": {
     "isClustered": "已集聚",
@@ -46,6 +55,15 @@
     "isSpecimen": "標本",
     "eventDate": "事件日期",
     "isType": "模式標本"
+  },
+  "cluster": {
+    "current": "目前",
+    "relatedOccurrences": "相關出現紀錄",
+    "similarBecause": "相似因為",
+    "clusterTags": "GBIF 註記的存檔",
+    "matchedRecord": "吻合的紀錄",
+    "noMatches": "無候選關係",
+    "explainer": "這個實驗中的功能標註可能重覆或相關的物種出現紀錄。"
   },
   "extensions": {
     "audubon": {

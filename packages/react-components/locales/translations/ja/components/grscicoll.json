@@ -6,6 +6,7 @@
   "additionalNames": "その他の名称",
   "description": "説明",
   "code": "コード",
+  "name": "名前",
   "active": "活動中",
   "activeInstitution": "活動中",
   "activeCollection": "活動中",

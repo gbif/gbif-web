@@ -20,6 +20,7 @@
   "publishers": "Wydawcy",
   "hostedDatasets": "Hostowane zbiory danych",
   "occurrenceMetrics": "Metryki występowania",
+  "citationMetrics": "",
   "project": "Projekt",
   "license": "Licencja",
   "downloadAsTsv": "Pobierz jako TSV",
@@ -40,6 +41,7 @@
   "download": "Pobierz",
   "discard": "",
   "keep": "",
+  "addressUnknown": "",
   "copyToClipboard": "",
   "fromCountry": "Z {country}",
   "copiedToClipboard": "Skopiowano do schowka",
@@ -47,5 +49,6 @@
     "description": "Opis",
     "contacts": "Kontakty"
   },
+  "pageToc": "",
   "noResults": ""
 }

@@ -445,6 +445,11 @@
     "count": "Activé",
     "description": "Archive annotée par GBIF"
   },
+  "publicationDate": {
+    "name": "Date de publication",
+    "count": "Archive annotée par GBIF",
+    "description": "Archive annotée par GBIF"
+  },
   "personalCollection": {
     "name": "Collection personnelle",
     "count": "Collection personnelle",
