@@ -5,138 +5,218 @@ import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Group } from './groups';
 
-export function Preparation({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+export function Preparation({
+  occurrence,
+  updateToc = () => {},
+}: {
+  occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
+}) {
   const extensionName = 'preparation';
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.preparation.name"
       id="preparation"
+      updateToc={updateToc}
     />
   );
 }
 
 export function ResourceRelationship({
   occurrence,
+  updateToc = () => {},
 }: {
   occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
 }) {
   const extensionName = 'resourceRelationship';
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.resourceRelationship.name"
-      id="resource-relationship"
+      id={extensionName}
+      updateToc={updateToc}
     />
   );
 }
 
-export function Amplification({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+export function Amplification({
+  occurrence,
+  updateToc = () => {},
+}: {
+  occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
+}) {
   const extensionName = 'amplification';
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.amplification.name"
       id="amplification"
+      updateToc={updateToc}
     />
   );
 }
 
-export function Permit({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+export function Permit({
+  occurrence,
+  updateToc = () => {},
+}: {
+  occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
+}) {
   const extensionName = 'permit';
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.permit.name"
       id="permit"
+      updateToc={updateToc}
     />
   );
 }
 
-export function Loan({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+export function Loan({
+  occurrence,
+  updateToc = () => {},
+}: {
+  occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
+}) {
   const extensionName = 'loan';
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.loan.name"
       id="loan"
+      updateToc={updateToc}
     />
   );
 }
 
-export function Preservation({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+export function Preservation({
+  occurrence,
+  updateToc = () => {},
+}: {
+  occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
+}) {
   const extensionName = 'preservation';
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.preservation.name"
       id="preservation"
+      updateToc={updateToc}
     />
   );
 }
 
-export function MaterialSampleExt({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+export function MaterialSampleExt({
+  occurrence,
+  updateToc = () => {},
+}: {
+  occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
+}) {
   const extensionName = 'materialSample';
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.materialSample.name"
-      id="material-sample"
+      id={extensionName}
+      updateToc={updateToc}
     />
   );
 }
 
-export function Audubon({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+export function Audubon({
+  occurrence,
+  updateToc = () => {},
+}: {
+  occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
+}) {
   const extensionName = 'audubon';
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.audubon.name"
       id="audubon"
+      updateToc={updateToc}
     />
   );
 }
 
-export function DNADerivedData({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+export function DNADerivedData({
+  occurrence,
+  updateToc = () => {},
+}: {
+  occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
+}) {
   const extensionName = 'dnaDerivedData';
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.dnaDerivedData.name"
-      id="dna-derived-data"
+      id={extensionName}
+      updateToc={updateToc}
     />
   );
 }
 
-export function Cloning({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+export function Cloning({
+  occurrence,
+  updateToc = () => {},
+}: {
+  occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
+}) {
   const extensionName = 'cloning';
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.cloning.name"
       id="cloning"
+      updateToc={updateToc}
     />
   );
 }
 
-export function Reference({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+export function Reference({
+  occurrence,
+  updateToc = () => {},
+}: {
+  occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
+}) {
   const extensionName = 'reference';
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.reference.name"
       id="reference"
+      updateToc={updateToc}
     />
   );
 }
 
-export function EolReference({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+export function EolReference({
+  occurrence,
+  updateToc = () => {},
+}: {
+  occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
+}) {
   const extensionName = 'eolReference';
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.eolReference.name"
-      id="eol-reference"
+      id={extensionName}
+      updateToc={updateToc}
     />
   );
 }
@@ -153,121 +233,164 @@ export function GermplasmAccession({
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.germplasmAccession.name"
-      id="germplasm-accession"
-      updateToc={(visible) => updateToc('germplasm-accession', visible)}
+      id={extensionName}
+      updateToc={updateToc}
     />
   );
 }
 
 export function GermplasmMeasurementScore({
   occurrence,
+  updateToc = () => {},
 }: {
   occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
 }) {
   const extensionName = 'germplasmMeasurementScore';
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.germplasmMeasurementScore.name"
-      id="germplasm-measurement-score"
+      id={extensionName}
+      updateToc={updateToc}
     />
   );
 }
 
 export function GermplasmMeasurementTrait({
   occurrence,
+  updateToc = () => {},
 }: {
   occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
 }) {
   const extensionName = 'germplasmMeasurementTrait';
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.germplasmMeasurementTrait.name"
-      id="germplasm-measurement-trait"
+      id={extensionName}
+      updateToc={updateToc}
     />
   );
 }
 
 export function GermplasmMeasurementTrial({
   occurrence,
+  updateToc = () => {},
 }: {
   occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
 }) {
   const extensionName = 'germplasmMeasurementTrial';
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.germplasmMeasurementTrial.name"
-      id="germplasm-measurement-trial"
+      id={extensionName}
+      updateToc={updateToc}
     />
   );
 }
 
 export function IdentificationHistory({
   occurrence,
+  updateToc = () => {},
 }: {
   occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
 }) {
   const extensionName = 'identification';
+  const id = 'identificationHistory';
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.identification.name"
-      id="identification"
+      id={id}
+      updateToc={updateToc}
     />
   );
 }
 
-export function Identifier({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+export function Identifier({
+  occurrence,
+  updateToc = () => {},
+}: {
+  occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
+}) {
   const extensionName = 'identifier';
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.identifier.name"
       id="identifier"
+      updateToc={updateToc}
     />
   );
 }
 
-export function MeasurementOrFact({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+export function MeasurementOrFact({
+  occurrence,
+  updateToc = () => {},
+}: {
+  occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
+}) {
   const extensionName = 'measurementOrFact';
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.measurementOrFact.name"
-      id="measurement-or-fact"
+      id={extensionName}
+      updateToc={updateToc}
     />
   );
 }
 
 export function ExtendedMeasurementOrFact({
   occurrence,
+  updateToc = () => {},
 }: {
   occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
 }) {
   const extensionName = 'extendedMeasurementOrFact';
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.extendedMeasurementOrFact.name"
-      id="extended-measurement-or-fact"
+      id={extensionName}
+      updateToc={updateToc}
     />
   );
 }
 
-export function ChronometricAge({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+export function ChronometricAge({
+  occurrence,
+  updateToc = () => {},
+}: {
+  occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
+}) {
   const extensionName = 'chronometricAge';
   return (
     <GenericExtension
       {...{ occurrence, extensionName }}
       label="occurrenceDetails.extensions.chronometricAge.name"
-      id="chronometric-age"
+      id={extensionName}
+      updateToc={updateToc}
     />
   );
 }
 
-export function GelImage({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
+export function GelImage({
+  occurrence,
+  updateToc = () => {},
+}: {
+  occurrence: OccurrenceQuery['occurrence'];
+  updateToc: (id: string, visible: boolean) => void;
+}) {
   const extensionName = 'gelImage';
   return (
     <GenericExtension
@@ -284,7 +407,8 @@ export function GelImage({ occurrence }: { occurrence: OccurrenceQuery['occurren
         },
       }}
       label="occurrenceDetails.extensions.gelImage.name"
-      id="gel-image"
+      id={extensionName}
+      updateToc={updateToc}
     />
   );
 }
@@ -303,12 +427,14 @@ function GenericExtension({
   overwrites?: { [key: string]: (props: { item: any }) => React.ReactNode };
   label: string;
   id: string;
-  updateToc?: (visible: boolean) => void;
+  updateToc?: (id: string, visible: boolean) => void;
 }) {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
-    updateToc && updateToc(visible);
-  }, [visible]);
+    if (id && updateToc) {
+      updateToc && updateToc(id, visible);
+    }
+  }, [visible, updateToc, id]);
 
   const list = occurrence?.extensions?.[extensionName];
   if (!list || list.length === 0) {

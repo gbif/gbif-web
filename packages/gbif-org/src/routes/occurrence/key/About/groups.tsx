@@ -615,7 +615,7 @@ function GeologicalContext({
   const [visible, setVisible] = useState<boolean | undefined>();
   useEffect(() => {
     if (typeof visible === 'boolean') updateToc(sectionName, visible);
-  }, [visible]);
+  }, [visible, updateToc]);
 
   return (
     <RenderIfChildren
@@ -663,7 +663,7 @@ function Identification({
   const [visible, setVisible] = useState<boolean | undefined>();
   useEffect(() => {
     if (typeof visible === 'boolean') updateToc(sectionName, visible);
-  }, [visible]);
+  }, [visible, updateToc]);
 
   return (
     <RenderIfChildren

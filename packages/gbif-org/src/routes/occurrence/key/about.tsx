@@ -5,7 +5,7 @@ import { Term } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { useCallback, useState } from 'react';
+import { useCallback, useReducer } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { HashLink } from 'react-router-hash-link';
 import { useOccurrenceKeyLoaderData } from '.';
@@ -15,45 +15,55 @@ import { Aside, AsideSticky, SidebarLayout } from './pagelayouts';
 const extensions = [
   'media',
   'preparation',
-  'preparation',
-  'resource-relationship',
+  'preservation',
+  'resourceRelationship',
   'amplification',
   'permit',
   'loan',
   'preservation',
-  'material-sample-ext',
-  'dna-derived-data',
+  'materialSampleExt',
+  'dnaDerivedData',
   'cloning',
-  'gel-image',
+  'gelImage',
   'reference',
-  'eol-reference',
-  'germplasm-accession',
-  'germplasm-measurement-score',
-  'germplasm-measurement-trait',
-  'germplasm-measurement-trial',
-  'identification-history',
+  'eolReference',
+  'germplasmAccession',
+  'germplasmMeasurementScore',
+  'germplasmMeasurementTrait',
+  'germplasmMeasurementTrial',
+  'identificationHistory',
   'identifier',
-  'measurement-or-fact',
-  'extended-measurement-or-fact',
-  'chronometric-age',
+  'measurementOrFact',
+  'extendedMeasurementOrFact',
+  'chronometricAge',
 ];
+
+const tocReducer = (state, action) => {
+  switch (action.type) {
+    case 'ADD_SECTION':
+      return { ...state, [action.id]: action.visible };
+    case 'REMOVE_SECTION': {
+      const newState = { ...state };
+      delete newState[action.id];
+      return newState;
+    }
+    default:
+      return state;
+  }
+};
 
 export function OccurrenceKeyAbout() {
   const config = useConfig();
   const { data } = useOccurrenceKeyLoaderData();
   const hideSidebar = useBelow(1000);
-  const [toc, setToc] = useState(
+  const [toc, dispatch] = useReducer(
+    tocReducer,
     extensions.reduce((acc, section) => ({ ...acc, [section]: false }), {})
   );
 
-  const updateToc = useCallback(
-    (id: string, visible: boolean) => {
-      if (typeof id === 'string' && toc[id] !== visible) {
-        setToc({ ...toc, [id]: visible });
-      }
-    },
-    [toc]
-  );
+  const updateToc = useCallback((id: string, visible: boolean) => {
+    dispatch({ type: 'ADD_SECTION', id, visible });
+  }, []);
 
   if (data.occurrence == null) throw new Error('404');
   const { occurrence } = data;
@@ -156,10 +166,9 @@ export function OccurrenceKeyAbout() {
                             if (!toc[section]) return null;
                             return (
                               <Li key={section} toc={toc} to={`#${section}`}>
-                                {section}
                                 <FormattedMessage
                                   id={`occurrenceDetails.extensions.${section}.name`}
-                                  defaultMessage={section}
+                                  defaultMessage={section.replace(/-/g, ' ')}
                                 />
                               </Li>
                             );
@@ -176,10 +185,7 @@ export function OccurrenceKeyAbout() {
                 </Card>
 
                 {config.linkToGbifOrg && (
-                  <GbifLinkCard
-                    className="g-mt-4"
-                    path={`${import.meta.env.PUBLIC_GBIF_ORG}/occurrence/${occurrence.key}`}
-                  />
+                  <GbifLinkCard className="g-mt-4" path={`/occurrence/${occurrence.key}`} />
                 )}
               </AsideSticky>
             </Aside>
