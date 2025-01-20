@@ -186,7 +186,7 @@ const DATASET_QUERY = /* GraphQL */ `
         type
         url
       }
-      identifiers {
+      identifiers(limit: 50) {
         key
         type
         identifier

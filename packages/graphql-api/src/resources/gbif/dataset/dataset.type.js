@@ -152,7 +152,7 @@ const typeDef = gql`
     external: Boolean
     geographicCoverages: [GeographicCoverage]
     homepage: URL
-    identifiers: [Identifier]
+    identifiers(limit: Int): [Identifier]
     installationKey: ID
     keywordCollections: [KeywordCollection]
     keywords: [String!]
