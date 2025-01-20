@@ -445,6 +445,11 @@
     "count": "",
     "description": "GBIF annoteret Arkiv"
   },
+  "publicationDate": {
+    "name": "",
+    "count": "GBIF annoteret Arkiv",
+    "description": "GBIF annoteret Arkiv"
+  },
   "personalCollection": {
     "name": "",
     "count": "",
