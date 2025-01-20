@@ -455,7 +455,9 @@ function GenericExtension({
       )}
       {list.length > 1 && (
         <div>
-          <div style={{ fontSize: '12px' }}>{list.length} rows</div>
+          <div style={{ fontSize: '12px' }}>
+            <FormattedMessage id="counts.nRows" values={{ total: list.length }} />
+          </div>
           {list.map((item, i) => (
             <ListCard key={i}>
               <GenericExtensionContent
