@@ -72,11 +72,6 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
       >
-        {/* Our tabs component is very tied into a specific way to handle routes an actions. 
-        It would be nice to split it up into a more generic component that can be used in more contexts.
-        Could be this where we do search params or it could be links to other sites 
-        For now a quick and dirty mock to have the option to do views with a url search param
-        */}
         <OccurrenceViewTabs
           view={view}
           defaultView={defaultView}
@@ -107,7 +102,7 @@ export function OccurrenceSearchInner(): React.ReactElement {
   });
 
   return (
-    <>
+    <ErrorBoundary>
       <EntityDrawer />
       <section className="g-bg-white">
         <Card>
@@ -124,7 +119,7 @@ export function OccurrenceSearchInner(): React.ReactElement {
       </section>
 
       <Views view={view} className="g-py-2" />
-    </>
+    </ErrorBoundary>
   );
 }
 
