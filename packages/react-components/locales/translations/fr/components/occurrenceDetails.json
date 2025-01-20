@@ -1,7 +1,7 @@
 {
   "tabs": {
     "details": "Plus d'informations",
-    "cluster": "",
+    "cluster": "Enregistrements liés ",
     "phylotree": "Archive annotée par GBIF"
   },
   "occurrence": "occurrence",
@@ -57,12 +57,12 @@
     "isType": "Spécimens type"
   },
   "cluster": {
-    "current": "",
-    "relatedOccurrences": "",
-    "similarBecause": "",
+    "current": "Actuel",
+    "relatedOccurrences": "Occurrences liées ",
+    "similarBecause": "Similaire car",
     "clusterTags": "Archive annotée par GBIF",
-    "matchedRecord": "",
-    "noMatches": "",
+    "matchedRecord": "Enregistrements correspondants",
+    "noMatches": "Pas de relations entre candidats ",
     "explainer": "Cette fonctionnalité expérimentale met en évidence la possibilité de doublons et/ou d'occurrences connexes."
   },
   "extensions": {
