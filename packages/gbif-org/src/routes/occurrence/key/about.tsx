@@ -13,7 +13,7 @@ import { Groups } from './About/groups';
 import { Aside, AsideSticky, SidebarLayout } from './pagelayouts';
 
 const extensions = [
-  'media',
+  'multimedia',
   'preparation',
   'preservation',
   'resourceRelationship',

@@ -5,6 +5,7 @@ import { truncateMiddle } from '@/utils/truncateString';
 import { useEffect, useState } from 'react';
 import { MdFileDownload } from 'react-icons/md';
 import { RiExternalLinkLine } from 'react-icons/ri';
+import { FormattedMessage } from 'react-intl';
 import { BasicField } from '../properties';
 
 const supportedFormats = [
@@ -32,7 +33,7 @@ export function Media({
   updateToc: (id: string, visible: boolean) => void;
   className?: string;
 }) {
-  const sectionName = 'media';
+  const sectionName = 'multimedia';
   const [visible, setVisible] = useState<boolean | undefined>();
   useEffect(() => {
     if (typeof visible === 'boolean') updateToc(sectionName, visible);
@@ -51,9 +52,11 @@ export function Media({
   }
 
   return (
-    <div className="g-mb-4 g-scroll-mt-24" id="media">
+    <div className="g-mb-4 g-scroll-mt-24" id="multimedia">
       <CardHeader>
-        <CardTitle>Media</CardTitle>
+        <CardTitle>
+          <FormattedMessage id="occurrenceDetails.extensions.multimedia.name" />
+        </CardTitle>
       </CardHeader>
       <ul className="g-grid g-grid-cols-1 md:g-grid-cols-2 g-gap-4">
         <Sounds {...{ occurrence, termMap }} />

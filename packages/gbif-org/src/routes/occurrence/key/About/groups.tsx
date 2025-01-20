@@ -791,7 +791,7 @@ function MediaSummary({
       <div style={{ position: 'relative', background: '#eee' }}>
         {hasMore && (
           <a
-            href="#media"
+            href="#multimedia"
             className="g-flex g-items-center g-absolute g-top-0 g-end-0 g-m-2 g-bg-neutral-800 g-rounded g-text-slate-100 g-px-2 g-py-1"
           >
             <Icon className="g-me-1" />
