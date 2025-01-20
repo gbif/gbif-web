@@ -29,6 +29,10 @@ function convertedConfig(config: object): Partial<Config> {
       return page;
     });
   }
+  let occTabs = config?.occurrence?.occurrenceSearchTabs?.map((tab: string) => tab.toLowerCase());
+  if (occTabs && !occTabs.includes('download')) {
+    occTabs.push('download');
+  }
   const newConfig: Partial<Config> = {
     version: 3,
     pages: pages,
@@ -52,7 +56,7 @@ function convertedConfig(config: object): Partial<Config> {
       excludedFilters: config?.occurrence?.excludedFilters,
       defaultEnabledTableColumns: config?.occurrence?.defaultTableColumns,
       // lowercase tab names
-      tabs: config?.occurrence?.occurrenceSearchTabs?.map((tab: string) => tab.toLowerCase()),
+      tabs: occTabs,
       mapSettings: config?.occurrence?.mapSettings,
     },
     collectionSearch: {
