@@ -6,6 +6,7 @@ import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { useEffect } from 'react';
 import { FaChevronLeft as LeftIcon, FaChevronRight as RightIcon } from 'react-icons/fa';
 import { IoClose as CloseIcon } from 'react-icons/io5';
+import { FormattedMessage } from 'react-intl';
 
 type Props = {
   isOpen: boolean;
@@ -95,7 +96,9 @@ function BottomBar({
       </Dialog.Close>
       {viewOnGbifHref && (
         <Button className="g-h-6" variant="ghost" asChild>
-          <DynamicLink to={viewOnGbifHref}>Go to record</DynamicLink>
+          <DynamicLink to={viewOnGbifHref}>
+            <FormattedMessage id="phrases.goToRecord" />
+          </DynamicLink>
         </Button>
       )}
       <div>
