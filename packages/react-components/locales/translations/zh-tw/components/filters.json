@@ -445,6 +445,11 @@
     "count": "在線",
     "description": "GBIF 註記的存檔"
   },
+  "publicationDate": {
+    "name": "發布日期",
+    "count": "GBIF 註記的存檔",
+    "description": "GBIF 註記的存檔"
+  },
   "personalCollection": {
     "name": "私人典藏",
     "count": "私人典藏",
