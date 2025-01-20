@@ -1,1 +1,5 @@
-{}
+{
+  "percentWithCoordinates": "{percent}% se souřadnicemi",
+  "percentWithYear": "{percent}% s rokem",
+  "percentWithTaxonMatch": "{percent}% s odpovídajícím taxonem"
+}

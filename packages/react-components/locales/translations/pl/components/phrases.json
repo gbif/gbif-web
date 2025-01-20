@@ -23,6 +23,8 @@
   "project": "Projekt",
   "license": "Licencja",
   "downloadAsTsv": "Pobierz jako TSV",
+  "didYouKnow": "",
+  "explore": "Przeglądaj",
   "backHome": "Wróć na stronę główną",
   "pageNotFound": "404",
   "noInformation": "Brak informacji",
@@ -39,7 +41,7 @@
   "discard": "",
   "keep": "",
   "copyToClipboard": "",
-  "fromCountry": "",
+  "fromCountry": "Z {country}",
   "copiedToClipboard": "Skopiowano do schowka",
   "headers": {
     "description": "Opis",

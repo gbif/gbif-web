@@ -435,6 +435,16 @@
     "count": "",
     "description": "Stadt zum Fundort."
   },
+  "activeInstitution": {
+    "name": "",
+    "count": "",
+    "description": "Stadt zum Fundort."
+  },
+  "activeCollection": {
+    "name": "",
+    "count": "",
+    "description": "Stadt zum Fundort."
+  },
   "personalCollection": {
     "name": "",
     "count": "",

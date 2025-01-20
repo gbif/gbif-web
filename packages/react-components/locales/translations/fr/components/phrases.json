@@ -23,6 +23,8 @@
   "project": "Projet",
   "license": "Licence",
   "downloadAsTsv": "Télécharger en tant que TSV",
+  "didYouKnow": "Archive annotée par GBIF",
+  "explore": "Explorer ",
   "backHome": "Retour à la page d'accueil",
   "pageNotFound": "404",
   "noInformation": "Aucune information",

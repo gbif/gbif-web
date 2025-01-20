@@ -23,7 +23,7 @@
   "percentWithValue": "",
   "occurrences": "",
   "other": "",
-  "unknown": "",
+  "unknown": "Neznámý",
   "usingStartDates": "",
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
@@ -39,7 +39,7 @@
     "location": "Poloha",
     "geologicalContext": "",
     "identification": "Identifikace",
-    "provenance": "",
+    "provenance": "Původ",
     "other": "Jiné"
   }
 }

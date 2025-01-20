@@ -435,6 +435,16 @@
     "count": "活動中",
     "description": "GBIFがアノーテーションしたアーカイブ"
   },
+  "activeInstitution": {
+    "name": "活動中",
+    "count": "活動中",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "activeCollection": {
+    "name": "活動中",
+    "count": "活動中",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
   "personalCollection": {
     "name": "個人コレクション",
     "count": "個人コレクション",

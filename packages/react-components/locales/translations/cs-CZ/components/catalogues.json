@@ -1,4 +1,7 @@
 {
   "datasets": "Datové sady",
-  "species": "Druh"
+  "species": "Druh",
+  "literature": "Literatura",
+  "collections": "Sbírky",
+  "institutions": "Instituce"
 }

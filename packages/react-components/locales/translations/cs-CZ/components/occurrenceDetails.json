@@ -5,9 +5,9 @@
   "about": "",
   "dataset": "Datová sada",
   "publisher": "Vydavatel",
-  "institution": "",
+  "institution": "Instituce",
   "institutionGrSciColl": "",
-  "collection": "",
+  "collection": "Sbírka",
   "collectionGrSciColl": "",
   "recordedAndIdentifiedBy": "",
   "screenReader": {
@@ -28,7 +28,7 @@
     "taxon": "",
     "location": "Poloha",
     "organism": "",
-    "materialSample": "",
+    "materialSample": "Vzorek materiálu",
     "geologicalContext": "",
     "other": ""
   },
@@ -64,7 +64,7 @@
         "Rating": "",
         "commenterLiteral": "",
         "commenter": "",
-        "comments": "",
+        "comments": "Komentáře",
         "reviewerLiteral": "",
         "reviewer": "",
         "reviewerComments": "",
@@ -115,10 +115,10 @@
         "dateIdentified": "",
         "taxonCount": "",
         "subjectPart": "",
-        "sex": "",
-        "lifeStage": "",
+        "sex": "Pohlaví",
+        "lifeStage": "Životní fáze",
         "subjectOrientation": "",
-        "preparations": "",
+        "preparations": "Preparace",
         "LocationCreated": "",
         "digitizationDate": "",
         "captureDevice": "",
@@ -314,10 +314,10 @@
         "genus": "Rod",
         "genericName": "Obecný název",
         "subgenus": "podrod",
-        "infragenericEpithet": "",
+        "infragenericEpithet": "Infragenerický epiteton",
         "specificEpithet": "",
         "infraspecificEpithet": "",
-        "cultivarEpithet": "",
+        "cultivarEpithet": "Epithet odrůdy",
         "taxonRank": "",
         "verbatimTaxonRank": "",
         "scientificNameAuthorship": "",
@@ -360,7 +360,7 @@
       }
     },
     "measurementOrFact": {
-      "name": "",
+      "name": "Měření nebo fakt",
       "properties": {
         "measurementID": "",
         "measurementType": "",
@@ -412,7 +412,7 @@
       }
     },
     "eolReference": {
-      "name": "",
+      "name": "EOL Reference",
       "properties": {
         "identifier": "",
         "publicationType": "",
@@ -429,13 +429,13 @@
         "editorList": "",
         "created": "Vytvořeno",
         "language": "Jazyk",
-        "uri": "",
-        "doi": "",
+        "uri": "URI",
+        "doi": "DOI",
         "localityName": ""
       }
     },
     "resourceRelationship": {
-      "name": "",
+      "name": "Vztah ke zdroji",
       "properties": {
         "resourceRelationshipID": "",
         "resourceID": "",
@@ -499,7 +499,7 @@
       }
     },
     "materialSample": {
-      "name": "",
+      "name": "Vzorek materiálu",
       "properties": {
         "materialSampleType": "",
         "concentration": "",
@@ -536,18 +536,18 @@
       }
     },
     "preparation": {
-      "name": "",
+      "name": "Preparace",
       "properties": {
         "preparationType": "",
         "preparationProcess": "",
         "preparationMaterials": "",
         "preparedBy": "",
         "preparationDate": "",
-        "associatedReferences": ""
+        "associatedReferences": "Související odkazy"
       }
     },
     "preservation": {
-      "name": "",
+      "name": "Konzervace",
       "properties": {
         "preservationType": "",
         "preservationTemperature": "",

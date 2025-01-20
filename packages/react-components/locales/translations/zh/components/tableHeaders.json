@@ -13,5 +13,7 @@
   "institution": "机构",
   "collection": "馆藏",
   "collectionCount": "收集",
-  "active": "处于活跃状态"
+  "active": "处于活跃状态",
+  "activeInstitution": "处于活跃状态",
+  "activeCollection": "处于活跃状态"
 }

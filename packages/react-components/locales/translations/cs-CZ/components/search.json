@@ -6,7 +6,7 @@
     "media": "",
     "map": "",
     "datasets": "Datové sady",
-    "events": "",
+    "events": "Události",
     "download": "",
     "clusters": "",
     "dashboard": "Ovládací panel",
@@ -27,8 +27,8 @@
     "locationID": ""
   },
   "ternary": {
-    "yes": "",
-    "no": "",
+    "yes": "Ano",
+    "no": "Ne",
     "either": ""
   },
   "loadMore": "",
@@ -50,7 +50,7 @@
       "IMAGE": "",
       "TYPE": "",
       "TREATMENT": "",
-      "OBSERVATION": "",
+      "OBSERVATION": "Pozorování",
       "SPECIMEN": "",
       "SEQUENCE": ""
     }

@@ -1,3 +1,8 @@
 {
-  "http://rs.tdwg.org/dwc/terms/Occurrence": "Výskyt"
+  "http://rs.tdwg.org/dwc/terms/Occurrence": "Výskyt",
+  "http://data.ggbn.org/schemas/ggbn/terms/MaterialSample": "Vzorek materiálu",
+  "http://data.ggbn.org/schemas/ggbn/terms/Preparation": "Preparace",
+  "http://data.ggbn.org/schemas/ggbn/terms/Preservation": "Konzervace",
+  "http://rs.tdwg.org/dwc/terms/MeasurementOrFact": "Měření nebo fakt",
+  "http://rs.tdwg.org/dwc/terms/ResourceRelationship": "Vztah ke zdroji"
 }

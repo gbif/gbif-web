@@ -12,6 +12,7 @@
   "hosting": "Хостинг",
   "description": "Описание",
   "endorsedBy": "Одобрена",
+  "notYetEndorsed": "Архив, аннотированный GBIF",
   "pendingEndorsementBy": "Ожидает одобрения от",
   "endorsementWithheld": "Отказано в одобрении",
   "installations": "Поддерживаемые инсталляции",

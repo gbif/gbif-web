@@ -12,6 +12,7 @@
   "hosting": "ホスティング",
   "description": "説明",
   "endorsedBy": "承認",
+  "notYetEndorsed": "GBIFがアノーテーションしたアーカイブ",
   "pendingEndorsementBy": "～による承認が保留中",
   "endorsementWithheld": "",
   "installations": "インストール",

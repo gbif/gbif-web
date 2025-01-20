@@ -435,6 +435,16 @@
     "count": "Ativo",
     "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
+  "activeInstitution": {
+    "name": "Ativo",
+    "count": "Ativo",
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
+  },
+  "activeCollection": {
+    "name": "Ativo",
+    "count": "Ativo",
+    "description": "Uma breve descrição do componente deve ser colocada aqui"
+  },
   "personalCollection": {
     "name": "Coleção pessoal",
     "count": "Coleção pessoal",
