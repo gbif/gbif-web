@@ -20,6 +20,7 @@
   "publishers": "",
   "hostedDatasets": "",
   "occurrenceMetrics": "",
+  "citationMetrics": "",
   "project": "",
   "license": "",
   "downloadAsTsv": "",
@@ -40,6 +41,7 @@
   "download": "",
   "discard": "",
   "keep": "",
+  "addressUnknown": "",
   "copyToClipboard": "",
   "fromCountry": "",
   "copiedToClipboard": "",
@@ -47,5 +49,6 @@
     "description": "",
     "contacts": ""
   },
+  "pageToc": "",
   "noResults": ""
 }
