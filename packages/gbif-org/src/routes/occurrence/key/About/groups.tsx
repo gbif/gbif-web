@@ -337,7 +337,7 @@ function Location({
           <FormattedMessage id="occurrenceDetails.groups.location" />
         </CardTitle>
       </CardHeader>
-      <CardContent className="g-flex g-w-full">
+      <CardContent className="g-flex g-flex-col md:g-flex-row g-w-full">
         <div className="g-flex-auto">
           <Properties breakpoint={800} className="[&>dt]:g-w-52">
             <PlainTextField term={termMap.locationID} showDetails={showAll} />
