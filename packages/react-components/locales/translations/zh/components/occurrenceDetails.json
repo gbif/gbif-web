@@ -1,5 +1,13 @@
 {
+  "tabs": {
+    "details": "详细信息",
+    "cluster": "集群",
+    "phylotree": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
+  },
   "occurrence": "发生",
+  "specimen": "标本",
+  "processed": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+  "fragment": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
   "showAllFields": "显示所有字段",
   "morePhotos": "更多图片",
   "about": "关于",
@@ -30,7 +38,8 @@
     "organism": "生物",
     "materialSample": "材料样本",
     "geologicalContext": "地质背景",
-    "other": "其它"
+    "other": "其它",
+    "extensions": "扩展"
   },
   "features": {
     "isClustered": "群集的",
@@ -46,6 +55,15 @@
     "isSpecimen": "标本",
     "eventDate": "事件日期",
     "isType": "模式标本"
+  },
+  "cluster": {
+    "current": "当前的",
+    "relatedOccurrences": "相关的事件",
+    "similarBecause": "类似的，因为",
+    "clusterTags": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+    "matchedRecord": "匹配的记录",
+    "noMatches": "没有候选关系",
+    "explainer": "这个实验性的特性强调了可能的重复和/或相关的事件。"
   },
   "extensions": {
     "audubon": {
