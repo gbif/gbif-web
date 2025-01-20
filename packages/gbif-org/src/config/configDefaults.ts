@@ -16,6 +16,15 @@ export const configDefault: Partial<Config> = {
     highlightedFilters: ['q', 'type', 'publishingOrg', 'license'],
     queryType: 'V1',
   },
+  datasetKey: {
+    occurrenceSearch: {
+      excludedFilters: ['datasetKey'],
+      // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
+      // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
+      tabs: ['table', 'map', 'gallery', 'download'],
+      defaultTab: 'table',
+    },
+  },
   collectionSearch: {
     queryType: 'V1',
     highlightedFilters: [

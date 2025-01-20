@@ -151,6 +151,15 @@ export const gbifConfig: Config = {
     //   publishingCountry: ['DK'],
     // },
   },
+  datasetKey: {
+    occurrenceSearch: {
+      // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
+      // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
+      // tabs: ['table', 'map', 'gallery', 'download'],
+      // defaultTab: 'table',
+    },
+    // disableInPageOccurrenceSearch: false,
+  },
   collectionSearch: {
     highlightedFilters: [
       'q',

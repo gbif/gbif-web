@@ -9,12 +9,14 @@ import { FeatureList, GenericFeature, Homepage, PeopleIcon } from '@/components/
 import { DoiTag, LicenceTag } from '@/components/identifierTag';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
+import { useConfig } from '@/config/config';
 import { NotFoundError } from '@/errors';
 import {
   DatasetOccurrenceSearchQuery,
   DatasetOccurrenceSearchQueryVariables,
   DatasetQuery,
   DatasetQueryVariables,
+  PredicateType,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
@@ -24,7 +26,7 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { required } from '@/utils/required';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useMemo, useReducer, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
@@ -202,18 +204,15 @@ const DATASET_QUERY = /* GraphQL */ `
   }
 `;
 
-/* const FIRST_OCCURRENCE_QUERY = `
-  query firstOcc($predicate: Predicate){
-   occurrenceSearch(predicate: $predicate) {
-    documents(size: 1) {
-      results {
-        dynamicProperties
-      }
-    }
-}
-}`; */
 const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
-  query DatasetOccurrenceSearch($from: Int, $size: Int, $predicate: Predicate) {
+  query DatasetOccurrenceSearch(
+    $from: Int
+    $size: Int
+    $predicate: Predicate
+    $imagePredicate: Predicate
+    $coordinatePredicate: Predicate
+    $clusterPredicate: Predicate
+  ) {
     occurrenceSearch(predicate: $predicate) {
       documents(from: $from, size: $size) {
         from
@@ -224,13 +223,30 @@ const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
         }
       }
     }
+    withImages: occurrenceSearch(predicate: $imagePredicate) {
+      documents(size: 0) {
+        total
+      }
+    }
+    withCoordinates: occurrenceSearch(predicate: $coordinatePredicate) {
+      documents(size: 0) {
+        total
+      }
+    }
+    withClusters: occurrenceSearch(predicate: $clusterPredicate) {
+      documents(size: 0) {
+        total
+      }
+    }
   }
 `;
 
+// create context to pass data to children
 export const DatasetKeyContext = createContext<{
   key?: string;
   datasetKey?: string;
   dynamicProperties?: string;
+  contentMetrics?: DatasetOccurrenceSearchQuery;
 }>({});
 
 export function datasetLoader({ params, graphql }: LoaderArgs) {
@@ -241,13 +257,33 @@ export function datasetLoader({ params, graphql }: LoaderArgs) {
 
 export const DatasetPageSkeleton = ArticleSkeleton;
 
+const tocReducer = (state, action) => {
+  return { ...state, [action.id]: action.visible };
+};
+
+const tocList = ['about', 'taxonomy', 'phylogeny', 'occurrences', 'citations', 'download'];
+
 export function DatasetPage() {
+  const config = useConfig();
   const { data } = useLoaderData() as { data: DatasetQuery };
-  const [tabs, setTabs] = useState<{ to: string; children: React.ReactNode }[]>([
-    { to: '.', children: 'About' },
-    { to: 'occurrences', children: 'Occurrences' },
-    { to: 'download', children: 'Download' },
-  ]);
+  const tocMapping = {
+    about: { to: '.', children: 'About' },
+    taxonomy: { to: 'taxonomy', children: 'Taxonomy' },
+    phylogeny: { to: 'phylogeny', children: 'Phylogeny' },
+    occurrences: { to: 'occurrences', children: 'Occurrences' },
+    citations: { to: 'citations', children: 'Citations' },
+    download: { to: 'download', children: 'Download' },
+  };
+  const [defaultTabs] = useState<{ to: string; children: React.ReactNode }[]>(
+    ['about', 'download'].map((section) => tocMapping[section])
+  );
+  const [tabs, setTabs] = useState<{ to: string; children: React.ReactNode }[]>(defaultTabs);
+  const [toc, editToc] = useReducer(
+    tocReducer,
+    tocList.reduce((acc, section) => ({ ...acc, [section]: false }), {})
+  );
+  console.log(toc);
+
   if (data.dataset == null) throw new NotFoundError();
   const dataset = data.dataset;
 
@@ -268,52 +304,40 @@ export function DatasetPage() {
     }
   );
 
-  useEffect(() => {
-    load({
-      variables: {
-        predicate: {
-          key: 'datasetKey',
-          value: dataset.key,
-          type: 'equals',
-        },
-        size: 1,
-        from: 0,
-      },
-    });
-    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [load]);
-
-  useEffect(() => {
-    if (error) {
-      console.error(error);
+  // check for various tabs
+  let hasPhylogeny = false;
+  if (occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties) {
+    try {
+      const parsedDynamicProperties = JSON.parse(
+        occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties
+      );
+      if (parsedDynamicProperties?.phylogenies?.[0]?.phyloTreeFileName)
+        // is there a phylogeny by convention
+        hasPhylogeny = true;
+    } catch (error) {
+      // ignore parsing errors. it just means that the dynamicProperties are not a JSON object
+      hasPhylogeny = false;
     }
+  }
+  const hasTaxonomy = !!dataset?.checklistBankDataset?.key;
+  const hasOccurrences = !!(
+    !config?.datasetKey?.disableInPageOccurrenceSearch &&
+    occData?.occurrenceSearch?.documents?.total
+  );
+
+  const tabsToDisplay = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
+    const tabs: { to: string; children: React.ReactNode }[] = [{ to: '.', children: 'About' }];
     if (
-      occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties &&
-      !tabs.find((t) => t.to.includes('phylogenies'))
+      (dataset?.type === 'OCCURRENCE' || hasOccurrences) &&
+      !config?.datasetKey?.disableInPageOccurrenceSearch
     ) {
-      try {
-        const parsedDynamicProperties = JSON.parse(
-          occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties
-        );
-        if (parsedDynamicProperties?.phylogenies?.[0]?.phyloTreeFileName) {
-          console.log('pushing phylogenies');
-          //tabs.push({ to: 'phylogenies', children: 'Phylogenies' });
-          tabs.splice(2, 0, { to: 'phylogenies', children: 'Phylogenies' });
-          setTabs([...tabs]);
-        }
-      } catch (error) {
-        /* empty */
-      }
+      tabs.push({ to: 'occurrences', children: 'Occurrences' });
     }
-  }, [occData, error, dataset.key, tabs]);
-
-  useEffect(() => {
-    if (error) {
-      console.error(error);
+    if (hasPhylogeny) {
+      tabs.push({ to: 'phylogeny', children: 'Phylogenies' });
     }
-    if (dataset?.checklistBankDataset?.key && !tabs.find((t) => t.to.includes('classification'))) {
-      tabs.splice(2, 0, {
+    if (hasTaxonomy) {
+      tabs.push({
         to: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
           dataset.key
         }/classification`,
@@ -333,9 +357,55 @@ export function DatasetPage() {
           </>
         ),
       });
-      setTabs([...tabs]);
     }
-  }, [occData, error, dataset.key, dataset?.checklistBankDataset?.key, tabs]);
+    tabs.push({ to: 'citations', children: 'Citations' });
+    tabs.push({ to: 'download', children: 'Download' });
+    return tabs;
+  }, [
+    hasPhylogeny,
+    hasTaxonomy,
+    hasOccurrences,
+    dataset?.key,
+    dataset?.type,
+    config?.datasetKey?.disableInPageOccurrenceSearch,
+  ]);
+
+  useEffect(() => {
+    if (dataset.key === null) return;
+    const datasetPredicate = {
+      type: PredicateType.Equals,
+      key: 'datasetKey',
+      value: dataset.key,
+    };
+    load({
+      variables: {
+        predicate: datasetPredicate,
+        imagePredicate: {
+          type: PredicateType.And,
+          predicates: [
+            datasetPredicate,
+            { type: PredicateType.Equals, key: 'mediaType', value: 'StillImage' },
+          ],
+        },
+        coordinatePredicate: {
+          type: PredicateType.And,
+          predicates: [
+            datasetPredicate,
+            { type: PredicateType.Equals, key: 'hasCoordinate', value: 'true' },
+          ],
+        },
+        clusterPredicate: {
+          type: PredicateType.And,
+          predicates: [
+            datasetPredicate,
+            { type: PredicateType.Equals, key: 'isInCluster', value: 'true' },
+          ],
+        },
+        size: 1,
+        from: 0,
+      },
+    });
+  }, [load, dataset.key]);
 
   return (
     <>
@@ -418,7 +488,7 @@ export function DatasetPage() {
               </HeaderInfoMain>
             </HeaderInfo>
             <div className="g-border-b g-mt-4"></div>
-            <Tabs links={tabs} />
+            <Tabs links={tabsToDisplay} />
           </ArticleTextContainer>
         </PageContainer>
         <DatasetKeyContext.Provider
@@ -426,6 +496,7 @@ export function DatasetPage() {
             datasetKey: data?.dataset?.key,
             dynamicProperties:
               occData?.occurrenceSearch?.documents?.results?.[0]?.dynamicProperties || undefined,
+            contentMetrics: occData,
           }}
         >
           <Outlet />

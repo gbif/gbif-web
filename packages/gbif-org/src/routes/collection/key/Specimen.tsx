@@ -23,19 +23,20 @@ export default function Specimen() {
     let activeTabs = occurrenceSearchConfig?.tabs ?? [
       'table',
       'map',
-      'media',
+      'gallery',
       'clusters',
-      'dataset',
+      'datasets',
       'download',
     ];
     if (contentMetrics?.withCoordinates?.documents?.total === 0)
       activeTabs = removeStringFromArray(activeTabs, 'map');
     if (contentMetrics?.withImages?.documents?.total === 0)
-      activeTabs = removeStringFromArray(activeTabs, 'media');
+      activeTabs = removeStringFromArray(activeTabs, 'gallery');
     if (contentMetrics?.withClusters?.documents?.total === 0)
-      if (!activeTabs.includes('table'))
-        // if there is no table, then add it as the first tab
-        activeTabs.unshift('table');
+      activeTabs = removeStringFromArray(activeTabs, 'clusters');
+    if (!activeTabs.includes('table'))
+      // if there is no table, then add it as the first tab
+      activeTabs.unshift('table');
 
     const c = {
       ...baseConfig.occurrenceSearch,
