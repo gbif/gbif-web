@@ -98,7 +98,7 @@ export function DatasetKeyDownload() {
           For diagnostics you might want to look at the EML record after normalisation.{' '}
           <a
             className="g-underline g-text-inherit"
-            href={`${import.meta.env.API_V1}/dataset/${key}/document`}
+            href={`${import.meta.env.PUBLIC_API_V1}/dataset/${key}/document`}
           >
             Download processed EML
           </a>
