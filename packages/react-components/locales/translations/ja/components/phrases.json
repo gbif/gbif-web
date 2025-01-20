@@ -20,6 +20,7 @@
   "publishers": "出版者",
   "hostedDatasets": "ホストされたデータセット",
   "occurrenceMetrics": "オカレンスのデータ分析結果",
+  "citationMetrics": "GBIFがアノーテーションしたアーカイブ",
   "project": "プロジェクト",
   "license": "ライセンス",
   "downloadAsTsv": "",
@@ -40,6 +41,7 @@
   "download": "ダウンロード",
   "discard": "GBIFがアノーテーションしたアーカイブ",
   "keep": "GBIFがアノーテーションしたアーカイブ",
+  "addressUnknown": "GBIFがアノーテーションしたアーカイブ",
   "copyToClipboard": "GBIFがアノーテーションしたアーカイブ",
   "fromCountry": "",
   "copiedToClipboard": "",
@@ -47,5 +49,6 @@
     "description": "説明",
     "contacts": "連絡先"
   },
+  "pageToc": "GBIFがアノーテーションしたアーカイブ",
   "noResults": "GBIFがアノーテーションしたアーカイブ"
 }
