@@ -445,6 +445,11 @@
     "count": "Действует",
     "description": "Архив, аннотированный GBIF"
   },
+  "publicationDate": {
+    "name": "Дата публикации",
+    "count": "Архив, аннотированный GBIF",
+    "description": "Архив, аннотированный GBIF"
+  },
   "personalCollection": {
     "name": "Личная коллекция",
     "count": "Личная коллекция",
