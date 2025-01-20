@@ -2,6 +2,7 @@ import { DataHeader } from '@/components/dataHeader';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
+import { Card } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
 import { FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
@@ -32,14 +33,14 @@ export function LiteratureSearchPage(): React.ReactElement {
 
       <SearchContextProvider searchContext={config.literatureSearch}>
         <FilterProvider filter={filter} onChange={setFilter}>
-          <LiteratureSearch />
+          <LiteraturePageSearchInner />
         </FilterProvider>
       </SearchContextProvider>
     </>
   );
 }
 
-export function LiteratureSearch(): React.ReactElement {
+export function LiteraturePageSearchInner(): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
 
@@ -53,11 +54,11 @@ export function LiteratureSearch(): React.ReactElement {
         apiContent={<ApiContent />}
       ></DataHeader>
 
-      <section className="">
+      <Card className="">
         <FilterBar>
           <FilterButtons filters={filters} searchContext={searchContext} />
         </FilterBar>
-      </section>
+      </Card>
 
       <ErrorBoundary>
         <div className="g-py-2 g-px-4 g-bg-slate-100">
@@ -67,5 +68,28 @@ export function LiteratureSearch(): React.ReactElement {
         </div>
       </ErrorBoundary>
     </>
+  );
+}
+
+export function LiteratureSearchInner(): React.ReactElement {
+  const searchContext = useSearchContext();
+  const { filters } = useFilters({ searchConfig });
+
+  return (
+    <ErrorBoundary>
+      <Card>
+        <FilterBar>
+          <FilterButtons filters={filters} searchContext={searchContext} />
+        </FilterBar>
+      </Card>
+
+      <ErrorBoundary>
+        <div className="g-py-2">
+          <DynamicHeightDiv minPxHeight={500}>
+            <LiteratureTable />
+          </DynamicHeightDiv>
+        </div>
+      </ErrorBoundary>
+    </ErrorBoundary>
   );
 }

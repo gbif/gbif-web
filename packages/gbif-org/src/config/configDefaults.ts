@@ -24,6 +24,9 @@ export const configDefault: Partial<Config> = {
       tabs: ['table', 'map', 'gallery', 'download'],
       defaultTab: 'table',
     },
+    literatureSearch: {
+      excludedFilters: ['gbifDatasetKey'],
+    },
   },
   collectionSearch: {
     queryType: 'V1',

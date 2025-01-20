@@ -158,7 +158,10 @@ export const gbifConfig: Config = {
       // tabs: ['table', 'map', 'gallery', 'download'],
       // defaultTab: 'table',
     },
-    // disableInPageOccurrenceSearch: false,
+    disableInPageOccurrenceSearch: false,
+    literatureSearch: {
+      excludedFilters: ['gbifDatasetKey'],
+    },
   },
   collectionSearch: {
     highlightedFilters: [

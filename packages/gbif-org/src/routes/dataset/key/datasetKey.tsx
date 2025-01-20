@@ -26,7 +26,7 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { required } from '@/utils/required';
-import { createContext, useEffect, useMemo, useReducer, useState } from 'react';
+import { createContext, useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
@@ -257,36 +257,12 @@ export function datasetLoader({ params, graphql }: LoaderArgs) {
 
 export const DatasetPageSkeleton = ArticleSkeleton;
 
-const tocReducer = (state, action) => {
-  return { ...state, [action.id]: action.visible };
-};
-
-const tocList = ['about', 'taxonomy', 'phylogeny', 'occurrences', 'citations', 'download'];
-
 export function DatasetPage() {
   const config = useConfig();
   const { data } = useLoaderData() as { data: DatasetQuery };
-  const tocMapping = {
-    about: { to: '.', children: 'About' },
-    taxonomy: { to: 'taxonomy', children: 'Taxonomy' },
-    phylogeny: { to: 'phylogeny', children: 'Phylogeny' },
-    occurrences: { to: 'occurrences', children: 'Occurrences' },
-    citations: { to: 'citations', children: 'Citations' },
-    download: { to: 'download', children: 'Download' },
-  };
-  const [defaultTabs] = useState<{ to: string; children: React.ReactNode }[]>(
-    ['about', 'download'].map((section) => tocMapping[section])
-  );
-  const [tabs, setTabs] = useState<{ to: string; children: React.ReactNode }[]>(defaultTabs);
-  const [toc, editToc] = useReducer(
-    tocReducer,
-    tocList.reduce((acc, section) => ({ ...acc, [section]: false }), {})
-  );
-  console.log(toc);
 
   if (data.dataset == null) throw new NotFoundError();
   const dataset = data.dataset;
-
   const deletedAt = dataset.deleted;
   const contactThreshold = 6;
   const contactsCitation = dataset.contactsCitation?.filter((c) => c.abbreviatedName) || [];
@@ -325,19 +301,21 @@ export function DatasetPage() {
     occData?.occurrenceSearch?.documents?.total
   );
 
-  const tabsToDisplay = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
-    const tabs: { to: string; children: React.ReactNode }[] = [{ to: '.', children: 'About' }];
+  const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
+    const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
+      { to: '.', children: 'About' },
+    ];
     if (
       (dataset?.type === 'OCCURRENCE' || hasOccurrences) &&
       !config?.datasetKey?.disableInPageOccurrenceSearch
     ) {
-      tabs.push({ to: 'occurrences', children: 'Occurrences' });
+      tabsToDisplay.push({ to: 'occurrences', children: 'Occurrences' });
     }
     if (hasPhylogeny) {
-      tabs.push({ to: 'phylogeny', children: 'Phylogenies' });
+      tabsToDisplay.push({ to: 'phylogeny', children: 'Phylogenies' });
     }
     if (hasTaxonomy) {
-      tabs.push({
+      tabsToDisplay.push({
         to: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
           dataset.key
         }/classification`,
@@ -358,9 +336,9 @@ export function DatasetPage() {
         ),
       });
     }
-    tabs.push({ to: 'citations', children: 'Citations' });
-    tabs.push({ to: 'download', children: 'Download' });
-    return tabs;
+    tabsToDisplay.push({ to: 'citations', children: 'Citations' });
+    tabsToDisplay.push({ to: 'download', children: 'Download' });
+    return tabsToDisplay;
   }, [
     hasPhylogeny,
     hasTaxonomy,
@@ -488,7 +466,7 @@ export function DatasetPage() {
               </HeaderInfoMain>
             </HeaderInfo>
             <div className="g-border-b g-mt-4"></div>
-            <Tabs links={tabsToDisplay} />
+            <Tabs links={tabs} />
           </ArticleTextContainer>
         </PageContainer>
         <DatasetKeyContext.Provider

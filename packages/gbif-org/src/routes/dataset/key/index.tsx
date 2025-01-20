@@ -4,6 +4,7 @@ import { DatasetKeyAbout } from './about';
 import { DatasetKeyDashboard } from './dashboard';
 import { datasetLoader, DatasetPage, DatasetPageSkeleton } from './datasetKey';
 import { DatasetKeyDownload } from './download';
+import { DatasetKeyLiterature } from './literature';
 import { DatasetKeyOccurrences } from './occurrences';
 import { DatasetKeyPhylo } from './phylogenies';
 
@@ -32,6 +33,10 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
     {
       path: 'occurrences',
       element: <DatasetKeyOccurrences />,
+    },
+    {
+      path: 'citations',
+      element: <DatasetKeyLiterature />,
     },
     {
       path: 'phylogenies',
