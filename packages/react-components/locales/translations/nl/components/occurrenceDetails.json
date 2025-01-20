@@ -1,5 +1,13 @@
 {
+  "tabs": {
+    "details": "Gegevens",
+    "cluster": "",
+    "phylotree": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
   "occurrence": "voorkomen",
+  "specimen": "Exemplaar",
+  "processed": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+  "fragment": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
   "showAllFields": "Toon alle velden",
   "morePhotos": "Meer foto's",
   "about": "Over",
@@ -30,7 +38,8 @@
     "organism": "Organisme",
     "materialSample": "Materiaal monster",
     "geologicalContext": "Geologische context",
-    "other": "Andere"
+    "other": "Andere",
+    "extensions": "Extensies"
   },
   "features": {
     "isClustered": "Gegroepeerd",
@@ -46,6 +55,15 @@
     "isSpecimen": "Exemplaar",
     "eventDate": "Datum evenement",
     "isType": ""
+  },
+  "cluster": {
+    "current": "Huidig",
+    "relatedOccurrences": "",
+    "similarBecause": "",
+    "clusterTags": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "matchedRecord": "",
+    "noMatches": "",
+    "explainer": ""
   },
   "extensions": {
     "audubon": {
