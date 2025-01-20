@@ -1,5 +1,13 @@
 {
+  "tabs": {
+    "details": "",
+    "cluster": "",
+    "phylotree": ""
+  },
   "occurrence": "",
+  "specimen": "",
+  "processed": "",
+  "fragment": "",
   "showAllFields": "",
   "morePhotos": "",
   "about": "",
@@ -30,7 +38,8 @@
     "organism": "",
     "materialSample": "",
     "geologicalContext": "",
-    "other": ""
+    "other": "",
+    "extensions": ""
   },
   "features": {
     "isClustered": "",
@@ -46,6 +55,15 @@
     "isSpecimen": "",
     "eventDate": "",
     "isType": ""
+  },
+  "cluster": {
+    "current": "",
+    "relatedOccurrences": "",
+    "similarBecause": "",
+    "clusterTags": "",
+    "matchedRecord": "",
+    "noMatches": "",
+    "explainer": ""
   },
   "extensions": {
     "audubon": {
