@@ -60,6 +60,12 @@ export type Config = Endpoints & {
   messages?: Record<string, Record<string, string>>;
   /** Whether or not clicking on table rows on the search pages will open the item in a drawer or navigate to the item page (true by default for backwards compatibility) */
   openDrawerOnTableRowClick?: boolean;
+  vernacularNames?: {
+    /** the title of the source as it appears in the API for vernacular names https://api.gbif.org/v1/species/5353770/vernacularNames. This will be used to filter common names on individual occurrences. If nothing selected, then the most frequent appearing will be used */
+    sourceTitle?: string;
+    /** The datasetKey that will be used as the source for common names in suggest. If none then the gbif backbone will be used, which is an automatic mixture of multiple sources */
+    datasetKey?: string;
+  };
   datasetKey?: {
     literatureSearch: PartialSearchMetadata;
     occurrenceSearch: PartialSearchMetadata;

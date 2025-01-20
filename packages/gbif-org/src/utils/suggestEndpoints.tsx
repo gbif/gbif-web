@@ -282,8 +282,8 @@ export const taxonKeyVernacularSuggest = {
     });
 
     const SEARCH = `
-      query($q: String, $language: Language){
-        taxonSuggestions( q: $q, language: $language) {
+      query($q: String, $language: Language, $datasetKey: ID) {
+        taxonSuggestions( q: $q, language: $language, datasetKey: $datasetKey) {
           key
           scientificName
           vernacularName
@@ -295,7 +295,11 @@ export const taxonKeyVernacularSuggest = {
         }
       }    
     `;
-    const promise = graphqlService.query(SEARCH, { q, language: language });
+    const promise = graphqlService.query(SEARCH, {
+      q,
+      language: language,
+      datasetKey: siteConfig.vernacularNames?.datasetKey,
+    });
     return {
       promise: promise
         .then((res) => res.json())

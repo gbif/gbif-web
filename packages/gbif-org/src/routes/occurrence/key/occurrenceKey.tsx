@@ -33,7 +33,7 @@ import { Outlet, redirect, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 
 const OCCURRENCE_QUERY = /* GraphQL */ `
-  query Occurrence($key: ID!, $language: String!) {
+  query Occurrence($key: ID!, $language: String!, $source: String) {
     occurrence(key: $key) {
       key
       coordinates
@@ -192,7 +192,7 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
       }
 
       acceptedTaxon {
-        vernacularNames(limit: 1, language: $language) {
+        vernacularNames(limit: 1, language: $language, source: $source) {
           results {
             vernacularName
             source
@@ -249,7 +249,7 @@ fragmentManager.register(/* GraphQL */ `
   }
 `);
 
-export async function occurrenceKeyLoader({ params, graphql, locale }: LoaderArgs) {
+export async function occurrenceKeyLoader({ params, graphql, locale, config }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
 
   const response = await graphql.query<OccurrenceQuery, OccurrenceQueryVariables>(
@@ -257,6 +257,7 @@ export async function occurrenceKeyLoader({ params, graphql, locale }: LoaderArg
     {
       key,
       language: locale.iso3LetterCode ?? 'eng',
+      source: config?.vernacularNames?.sourceTitle,
     }
   );
 

@@ -77,7 +77,7 @@ export default {
             apiResponse = {
               ...apiResponse,
               endOfRecords,
-              results: filtered.slice(offset, offset + limit),
+              results: filtered,
             };
           }
           if (source) {
@@ -88,10 +88,13 @@ export default {
             apiResponse = {
               ...apiResponse,
               endOfRecords,
-              results: filtered.slice(offset, offset + limit),
+              results: filtered,
             };
           }
-          return apiResponse;
+          return {
+            ...apiResponse,
+            results: apiResponse.results.slice(offset, offset + limit),
+          };
         });
     },
     typeSpecimens: taxonDetails('typeSpecimens'),
