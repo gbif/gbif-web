@@ -6,6 +6,7 @@
   "additionalNames": "Додаткові назви",
   "description": "Опис",
   "code": "Код",
+  "name": "Ім’я",
   "active": "Діяльна",
   "activeInstitution": "Діяльна",
   "activeCollection": "Діяльна",
