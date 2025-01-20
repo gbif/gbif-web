@@ -60,6 +60,14 @@ export function DatasetKeyAbout() {
   const { formatMessage } = useIntl();
   const config = useConfig();
   const sitePredicate = config?.occurrenceSearch?.scope;
+  const disableInPageOccurrenceSearch = config.datasetKey?.disableInPageOccurrenceSearch;
+  const occDynamicLinkProps = disableInPageOccurrenceSearch
+    ? { pageId: 'occurrenceSearch', searchParams: { datasetKey: dataset?.key } }
+    : { to: './occurrences' };
+
+  const occDynamicLinkPropsMap = disableInPageOccurrenceSearch
+    ? { pageId: 'occurrenceSearch', searchParams: { datasetKey: dataset?.key, view: 'map' } }
+    : { to: './occurrences?view=map' };
 
   const {
     data: insights,
@@ -526,7 +534,9 @@ export function DatasetKeyAbout() {
               {(total > 0 || dataset.type === 'OCCURRENCE') && (
                 <Card className="g-mb-4 gbif-word-break">
                   {hasPreprocessedMap && (
-                    <MapThumbnail type={MapTypes.DatasetKey} identifier={dataset.key} />
+                    <DynamicLink {...occDynamicLinkPropsMap}>
+                      <MapThumbnail type={MapTypes.DatasetKey} identifier={dataset.key} />
+                    </DynamicLink>
                   )}
                   <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
                     <div className="g-flex-none g-me-2">
@@ -535,11 +545,7 @@ export function DatasetKeyAbout() {
                       </div>
                     </div>
                     <div className="g-flex-auto g-mt-0.5 g-mb-2">
-                      <DynamicLink
-                        className="g-text-inherit"
-                        pageId="occurrenceSearch"
-                        searchParams={{ datasetKey: dataset.key }}
-                      >
+                      <DynamicLink {...occDynamicLinkProps} className="g-text-inherit">
                         <h5 className="g-font-bold">
                           <FormattedMessage id="counts.nOccurrences" values={{ total }} />
                         </h5>
