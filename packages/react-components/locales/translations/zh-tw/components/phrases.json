@@ -20,6 +20,7 @@
   "publishers": "發布者",
   "hostedDatasets": "代管的資料集",
   "occurrenceMetrics": "出現紀錄指標",
+  "citationMetrics": "GBIF 註記的存檔",
   "project": "專案",
   "license": "授權",
   "downloadAsTsv": "下載為TSV",
@@ -40,6 +41,7 @@
   "download": "下載",
   "discard": "GBIF 註記的存檔",
   "keep": "GBIF 註記的存檔",
+  "addressUnknown": "GBIF 註記的存檔",
   "copyToClipboard": "GBIF 註記的存檔",
   "fromCountry": "",
   "copiedToClipboard": "",
@@ -47,5 +49,6 @@
     "description": "描述",
     "contacts": "聯絡資訊"
   },
+  "pageToc": "GBIF 註記的存檔",
   "noResults": "GBIF 註記的存檔"
 }
