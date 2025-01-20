@@ -32,7 +32,7 @@ export const configDefault: Partial<Config> = {
     occurrenceSearch: {
       // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
       // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
-      tabs: ['table', 'map', 'media', 'clusters', 'download'],
+      tabs: ['table', 'map', 'gallery', 'clusters', 'download'],
       defaultTab: 'table',
     },
   },
@@ -45,7 +45,7 @@ export const configDefault: Partial<Config> = {
       excludedFilters: ['institutionKey'],
       // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
       // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
-      tabs: ['table', 'media', 'map', 'dashboard', 'clusters', 'download'],
+      tabs: ['table', 'gallery', 'map', 'dashboard', 'clusters', 'download'],
       defaultTab: 'table',
     },
   },
@@ -64,7 +64,7 @@ export const configDefault: Partial<Config> = {
   occurrenceSearch: {
     queryType: 'PREDICATE',
     highlightedFilters: ['occurrenceStatus', 'taxonKey', 'year', 'country', 'issue', 'geometry'],
-    tabs: ['table', 'media', 'map', 'dashboard', 'download'],
+    tabs: ['table', 'gallery', 'map', 'dashboard', 'download'],
     defaultEnabledTableColumns: [
       'scientificName',
       'features',
