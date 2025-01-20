@@ -10,7 +10,7 @@ import { searchConfig } from '../../searchConfig';
 import TreeNode from './treeNode';
 import { getChildren, getParents, reducer } from './treeUtil';
 
-const childLimit = 25;
+export const childLimit = 10;
 
 const CHECKLIST_ROOTS = /* GraphQL */ `
   query RootSearch($datasetKey: ID!, $offset: Int, $limit: Int) {
@@ -155,17 +155,16 @@ export function TaxonTree() {
             data: taxon,
             canRename: false,
           };
-          // dispatch({ type: 'setItems', payload: { [taxon.key]: parent } });
-          //items[taxon.key] = parent;
         }
-        //const parent = items[taxon?.key];
         if (parent?.children?.[parent?.children?.length - 1]?.toString().endsWith('load-more')) {
           parent.children = parent.children.slice(0, -1);
         }
         parent.data.childOffset = taxon?.children?.offset + taxon?.children?.limit;
+        const childKeys = taxon?.children?.results.map((item) => item.key);
+        const childKeySet = new Set(childKeys);
         parent.children = [
-          ...(parent?.children || []),
-          ...taxon?.children?.results.map((item) => item.key),
+          ...(parent?.children?.filter((id) => !childKeySet.has(id)) || []),
+          ...childKeys,
         ];
         if (taxon?.children?.endOfRecords === true) {
           parent.data.endOfChildren = true;
@@ -193,6 +192,7 @@ export function TaxonTree() {
               index: cur.key,
               canMove: false,
               isFolder: cur.numDescendants > 0,
+              children: [...(items[cur.key]?.children || [])],
               data: cur,
               canRename: false,
             };
@@ -209,16 +209,21 @@ export function TaxonTree() {
 
   const loadParents = async ({ key }) => {
     try {
-      const { promise, cancel } = getParents({ key });
+      const { promise, cancel } = getParents({ key, limit: childLimit, offset: 0 });
       const taxon = await promise;
 
-      const data = {};
-      for (const parent of taxon?.parents) {
-        data[parent.key] = {
+      const data = taxon?.parents.reduce((acc, parent, idx) => {
+        const nexParent = taxon.parents[idx + 1];
+        const nextParentIsInfirstPageOfChildren = !!parent.children.results.find(
+          ({ key }) => key === nexParent?.key
+        );
+        acc[parent.key] = {
           index: parent.key,
           canMove: false,
           isFolder: true,
-          children: parent.children.results.map((c) => c.key),
+          children: nextParentIsInfirstPageOfChildren
+            ? parent.children.results.map((c) => c.key)
+            : [nexParent?.key, ...parent.children.results.map((c) => c.key)],
           data: {
             ...parent,
             childOffset: parent.children.offset + parent.children.limit,
@@ -226,6 +231,7 @@ export function TaxonTree() {
           },
           canRename: false,
         };
+
         if (!parent.children.endOfRecords) {
           const loadMoreChildrenNode = {
             index: `${parent.key}-load-more`,
@@ -234,11 +240,12 @@ export function TaxonTree() {
             data: {},
             canRename: false,
           };
-          data[loadMoreChildrenNode.index] = loadMoreChildrenNode;
-          data[parent.key].children.push(loadMoreChildrenNode.index);
+          acc[loadMoreChildrenNode.index] = loadMoreChildrenNode;
+          acc[parent.key].children.push(loadMoreChildrenNode.index);
         }
-        for (const child of parent.children.results) {
-          data[child.key] = {
+
+        parent.children.results.forEach((child) => {
+          acc[child.key] = {
             index: child.key,
             canMove: false,
             isFolder: child.numDescendants > 0,
@@ -246,8 +253,10 @@ export function TaxonTree() {
             data: child,
             canRename: false,
           };
-        }
-      }
+        });
+
+        return acc;
+      }, {});
       dispatch({ type: 'setItems', payload: data });
       setExpandedItems([
         ...new Set([...expandedItems, ...taxon?.parents.map((parent) => parent.key)]),

@@ -84,7 +84,7 @@ export const highertaxonKeyConfig: filterSuggestConfig = {
     query TaxonStatusFacet($query: TaxonSearchInput) {
       search: taxonSearch(query: $query) {
         facet {
-          field: higherTaxonKey {
+          field: higheraxonKey {
             name
             count
             item: taxon {

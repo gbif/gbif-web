@@ -1,5 +1,6 @@
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { GoSidebarExpand } from 'react-icons/go';
+import { childLimit } from './tree';
 import { TreeSkeleton } from './treePresentation';
 
 export const TreeNode = ({
@@ -20,8 +21,8 @@ export const TreeNode = ({
           const parent = items[item.index.replace('-load-more', '')];
           loadChildren({
             key: parent.data.key,
-            limit: 25,
-            offset: (parent.data.childOffset || 0) + 25,
+            limit: childLimit,
+            offset: parent.data.childOffset || 0,
           });
         }}
       >
