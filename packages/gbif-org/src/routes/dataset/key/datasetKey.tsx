@@ -300,6 +300,7 @@ export function DatasetPage() {
     !config?.datasetKey?.disableInPageOccurrenceSearch &&
     occData?.occurrenceSearch?.documents?.total
   );
+  const hasLiterature = data?.literatureSearch?.documents?.total > 0;
 
   const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
     const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
@@ -336,7 +337,7 @@ export function DatasetPage() {
         ),
       });
     }
-    tabsToDisplay.push({ to: 'citations', children: 'Citations' });
+    if (hasLiterature) tabsToDisplay.push({ to: 'citations', children: 'Citations' });
     tabsToDisplay.push({ to: 'download', children: 'Download' });
     return tabsToDisplay;
   }, [
@@ -437,6 +438,27 @@ export function DatasetPage() {
             )}
 
             {deletedAt && <DeletedMessage date={deletedAt} />}
+
+            {/* It would be great if we could point from a deleted dataset to the version it has been replaced with. But duplicates only exist in the API the opposite direction. So for now I've disabled this */}
+            {/* {dataset.duplicateOfDataset && (
+              <ErrorMessage>
+                <FormattedMessage
+                  id="phrases.replacedBy"
+                  values={{
+                    newItem: (
+                      <DynamicLink
+                        className="g-me-4"
+                        to={`/dataset/${dataset.duplicateOfDataset.key}`}
+                        pageId="datasetKey"
+                        variables={{ key: dataset.duplicateOfDataset.key }}
+                      >
+                        {dataset.duplicateOfDataset.title}
+                      </DynamicLink>
+                    ),
+                  }}
+                />
+              </ErrorMessage>
+            )} */}
 
             <HeaderInfo>
               <HeaderInfoMain>
