@@ -1,5 +1,13 @@
 {
+  "tabs": {
+    "details": "Detalles",
+    "cluster": "",
+    "phylotree": "Aquí debe colocarse una breve descripción del componente"
+  },
   "occurrence": "Registro biológico",
+  "specimen": "Espécimen",
+  "processed": "Aquí debe colocarse una breve descripción del componente",
+  "fragment": "Aquí debe colocarse una breve descripción del componente",
   "showAllFields": "Mostrar todos los campos",
   "morePhotos": "",
   "about": "Acerca de",
@@ -30,7 +38,8 @@
     "organism": "Organismo",
     "materialSample": "Muestra de material",
     "geologicalContext": "Contexto geológico",
-    "other": "Otro"
+    "other": "Otro",
+    "extensions": "Extensiones"
   },
   "features": {
     "isClustered": "Agrupación",
@@ -46,6 +55,15 @@
     "isSpecimen": "Espécimen",
     "eventDate": "Fecha del Evento",
     "isType": "Espécimen tipo"
+  },
+  "cluster": {
+    "current": "",
+    "relatedOccurrences": "",
+    "similarBecause": "",
+    "clusterTags": "Aquí debe colocarse una breve descripción del componente",
+    "matchedRecord": "",
+    "noMatches": "",
+    "explainer": "Esta característica experimental resalta posibles registros biológicos duplicados o relacionados."
   },
   "extensions": {
     "audubon": {
