@@ -61,9 +61,9 @@
     "relatedOccurrences": "Сопутствующие находки",
     "similarBecause": "Причина схожести",
     "clusterTags": "Архив, аннотированный GBIF",
-    "matchedRecord": "",
-    "noMatches": "",
-    "explainer": ""
+    "matchedRecord": "Соответствующая запись",
+    "noMatches": "Нет вариантов связи",
+    "explainer": "Эта экспериментальная функция выявляет возможные дублирующие и/или связанные явления."
   },
   "extensions": {
     "audubon": {
