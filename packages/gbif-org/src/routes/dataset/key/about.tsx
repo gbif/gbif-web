@@ -12,6 +12,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Progress } from '@/components/ui/progress';
 import { CardContent as CardContentSmall } from '@/components/ui/smallCard';
+import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
 import {
   DatasetInsightsQuery,
@@ -48,6 +49,7 @@ import { TaxonomicCoverages } from './about/TaxonomicCoverages';
 import { TemporalCoverages } from './about/TemporalCoverages';
 
 export function DatasetKeyAbout() {
+  const { toast } = useToast();
   const { data } = useDatasetKeyLoaderData();
   const { dataset, totalTaxa, accepted, synonyms } = data;
   const defaultToc = getToc(data);
@@ -75,7 +77,7 @@ export function DatasetKeyAbout() {
     load,
     loading,
   } = useQuery<DatasetInsightsQuery, DatasetInsightsQueryVariables>(DATASET_SLOW, {
-    throwAllErrors: true,
+    throwAllErrors: false,
     lazyLoad: true,
   });
 
@@ -130,6 +132,17 @@ export function DatasetKeyAbout() {
       },
     });
   }, [dataset?.key, sitePredicate, load]);
+
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: 'Unable to load all content',
+        description: error.message,
+        variant: 'destructive',
+      });
+      console.error(error);
+    }
+  }, [error, toast]);
 
   if (!dataset) {
     return null; //TODO return loader or error

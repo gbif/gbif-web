@@ -2,6 +2,7 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 // import { FormattedMessage } from 'react-intl';
 import useQuery from '@/hooks/useQuery';
 import { FormattedMessage } from 'react-intl';
+import { ErrorBoundary } from '../ErrorBoundary';
 import { Card, CardContent, CardTitle } from '../ui/smallCard';
 import { CardHeader, FormattedNumber, Table } from './shared';
 
@@ -52,72 +53,74 @@ export function OccurrenceSummary({ predicate, ...props }) {
 
   return (
     <Card {...props} loading={!summary} error={!!error}>
-      <CardHeader>
-        <CardTitle>
-          <FormattedMessage id="dashboard.statistics" defaultMessage="Statistics" />
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div>
-          <Table>
-            <tbody
-            // css={css`
-            // >tr > td > div {
-            //   display: flex;
-            //   align-items: center;
-            // }
-            // `}
-            >
-              <tr>
-                <td>
-                  <div>
-                    <FormattedMessage
-                      id="dashboard.occurrenceRecords"
-                      defaultMessage="Occurrence records"
-                    />
-                  </div>
-                </td>
-                <td>
-                  <FormattedNumber value={summary?.documents?.total} />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <FormattedMessage id="dashboard.species" defaultMessage="Species" />
-                </td>
-                <td>
-                  <FormattedNumber value={summary?.cardinality?.speciesKey} />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <FormattedMessage id="dashboard.taxa" defaultMessage="Taxa" />
-                </td>
-                <td>
-                  <FormattedNumber value={summary?.cardinality.taxonKey} />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <FormattedMessage id="dashboard.yearRange" defaultMessage="Year range" />
-                </td>
-                <td>
-                  {summary?.stats?.year?.min ? (
-                    <span>
+      <ErrorBoundary>
+        <CardHeader>
+          <CardTitle>
+            <FormattedMessage id="dashboard.statistics" defaultMessage="Statistics" />
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div>
+            <Table>
+              <tbody
+              // css={css`
+              // >tr > td > div {
+              //   display: flex;
+              //   align-items: center;
+              // }
+              // `}
+              >
+                <tr>
+                  <td>
+                    <div>
                       <FormattedMessage
-                        id="intervals.description.between"
-                        values={{ from: summary.stats.year.min, to: summary.stats.year.max }}
+                        id="dashboard.occurrenceRecords"
+                        defaultMessage="Occurrence records"
                       />
-                    </span>
-                  ) : (
-                    <FormattedMessage id="dashboard.noData" />
-                  )}
-                </td>
-              </tr>
-            </tbody>
-          </Table>
-        </div>
-      </CardContent>
+                    </div>
+                  </td>
+                  <td>
+                    <FormattedNumber value={summary?.documents?.total} />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <FormattedMessage id="dashboard.species" defaultMessage="Species" />
+                  </td>
+                  <td>
+                    <FormattedNumber value={summary?.cardinality?.speciesKey} />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <FormattedMessage id="dashboard.taxa" defaultMessage="Taxa" />
+                  </td>
+                  <td>
+                    <FormattedNumber value={summary?.cardinality?.taxonKey} />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <FormattedMessage id="dashboard.yearRange" defaultMessage="Year range" />
+                  </td>
+                  <td>
+                    {summary?.stats?.year?.min ? (
+                      <span>
+                        <FormattedMessage
+                          id="intervals.description.between"
+                          values={{ from: summary.stats.year.min, to: summary.stats.year.max }}
+                        />
+                      </span>
+                    ) : (
+                      <FormattedMessage id="dashboard.noData" />
+                    )}
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
+          </div>
+        </CardContent>
+      </ErrorBoundary>
     </Card>
   );
 }
