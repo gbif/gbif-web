@@ -13,7 +13,6 @@ import {
   generateFilters,
 } from '@/components/filters/filterTools';
 import { SuggestFnProps } from '@/components/filters/suggest';
-import { HelpText } from '@/components/helpText';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import country from '@/enums/basic/country.json';
 import taxonStatusOptions from '@/enums/basic/taxonomicStatus.json';
@@ -48,7 +47,7 @@ export const rankConfig: filterEnumConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  // about: () => <Message id="filters.identifiedBy.description" />,
 };
 
 export const statusConfig: filterEnumConfig = {
@@ -69,7 +68,7 @@ export const statusConfig: filterEnumConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  // about: () => <Message id="filters.identifiedBy.description" />,
 };
 
 export const highertaxonKeyConfig: filterSuggestConfig = {
@@ -95,7 +94,7 @@ export const highertaxonKeyConfig: filterSuggestConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  // about: () => <Message id="filters.identifiedBy.description" />,
 };
 
 export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }): {

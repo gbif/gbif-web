@@ -16,7 +16,7 @@ import {
   generateFilters,
 } from '@/components/filters/filterTools';
 import { SuggestFnProps } from '@/components/filters/suggest';
-import { HelpText } from '@/components/helpText';
+import { Message } from '@/components/message';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import country from '@/enums/basic/country.json';
 import { institutionDisciplineSuggest, institutionTypeSuggest } from '@/utils/suggestEndpoints';
@@ -31,7 +31,7 @@ export const activeConfig: filterBoolConfig = {
   displayName: booleanLabel,
   disableFacetsForSelected: true,
   filterTranslation: 'filters.activeInstitution.name',
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.activeInstitution.description" />,
 };
 
 const countryConfig: filterSuggestConfig = {
@@ -74,7 +74,7 @@ export const codeConfig: filterSuggestConfig = {
   displayName: IdentityLabel,
   disableFacetsForSelected: true,
   filterTranslation: 'filters.code.name',
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.code.description" />,
 };
 
 export const alternativeCodeConfig: filterSuggestConfig = {
@@ -83,7 +83,7 @@ export const alternativeCodeConfig: filterSuggestConfig = {
   displayName: IdentityLabel,
   disableFacetsForSelected: true,
   filterTranslation: 'filters.alternativeCode.name',
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.alternativeCode.description" />,
 };
 
 export const cityConfig: filterSuggestConfig = {
@@ -103,7 +103,7 @@ export const cityConfig: filterSuggestConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.city.description" />,
 };
 
 export const occurrenceCountConfig: filterRangeConfig = {
@@ -111,7 +111,7 @@ export const occurrenceCountConfig: filterRangeConfig = {
   filterHandle: 'occurrenceCount',
   displayName: QuantityLabel,
   filterTranslation: 'filters.specimensInGbif.name',
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.specimensInGbif.description" />,
 };
 
 export const numberSpecimensConfig: filterRangeConfig = {
@@ -119,7 +119,7 @@ export const numberSpecimensConfig: filterRangeConfig = {
   filterHandle: 'numberSpecimens',
   displayName: QuantityLabel,
   filterTranslation: 'filters.numberSpecimens.name',
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.numberSpecimens.description" />,
 };
 
 export const disciplineConfig: filterSuggestConfig = {
@@ -141,7 +141,7 @@ export const disciplineConfig: filterSuggestConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.discipline.description" />,
 };
 
 export const typeConfig: filterSuggestConfig = {
@@ -163,7 +163,7 @@ export const typeConfig: filterSuggestConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.institutionType.description" />,
 };
 
 export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }): {
