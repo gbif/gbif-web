@@ -610,7 +610,7 @@ export function DatasetKeyAbout() {
                 </Card>
               )}
 
-              {(total > 0 || dataset.type === 'OCCURRENCE') && (
+              {total > 0 && (
                 <Card className="g-mb-4 gbif-word-break">
                   {hasPreprocessedMap && (
                     <DynamicLink {...occDynamicLinkPropsMap}>
