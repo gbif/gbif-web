@@ -1,25 +1,14 @@
-// @ts-nocheck
-import StandaloneWrapper from '../../StandaloneWrapper';
+import React from 'react';
 import DashBoardLayout from './DashboardLayout';
 import * as charts from './index';
+import { Predicate } from '@/gql/graphql';
 
-export function Standalone({ siteConfig, ...props }) {
-  return (
-    <StandaloneWrapper siteConfig={siteConfig}>
-      <Dashboard {...props} />
-    </StandaloneWrapper>
-  );
-}
+type Props = {
+  predicate: Predicate;
+  charts?: string[];
+};
 
-export default function Dashboard({
-  data = {},
-  loading,
-  error,
-  predicate,
-  charts = [],
-  className,
-  ...props
-}) {
+export default function StaticDashboard({ predicate, charts = [] }: Props) {
   const chartsToRender = charts.map((chart) => {
     const Chart = lookup[chart];
     return <Chart predicate={predicate} key={chart} />;
@@ -31,7 +20,7 @@ export default function Dashboard({
   );
 }
 
-const lookup = {
+const lookup: Record<string, React.FC<any>> = {
   iucn: ({ predicate, ...props }) => <charts.Iucn predicate={predicate} {...props} />,
   license: ({ predicate, ...props }) => <charts.Licenses predicate={predicate} {...props} />,
   basisOfRecord: ({ predicate, ...props }) => (

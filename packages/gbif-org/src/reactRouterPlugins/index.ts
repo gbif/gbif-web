@@ -44,11 +44,10 @@ export type RouteObjectWithPlugins = {
 
 export function applyReactRouterPlugins(
   routes: RouteObjectWithPlugins[],
-  config: Config,
-  context: Context = { standalone: false }
+  config: Config
 ): RouteObject[] {
-  const withCorrectedPaths = applyPagePathsPlugin(routes, config, context);
-  const withFilteredRoutes = applyEnablePagesPlugin(withCorrectedPaths, config, context);
+  const withCorrectedPaths = applyPagePathsPlugin(routes, config);
+  const withFilteredRoutes = applyEnablePagesPlugin(withCorrectedPaths, config);
   const withExtraOccurrenceSearchPages = applyExtraOccurrenceSearchPages(
     withFilteredRoutes,
     config
