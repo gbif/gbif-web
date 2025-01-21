@@ -6,7 +6,7 @@ import {
   HeaderInfoMain,
 } from '@/components/headerComponents';
 import { FeatureList, GenericFeature, Homepage, PeopleIcon } from '@/components/highlights';
-import { DoiTag, LicenceTag } from '@/components/identifierTag';
+import { LicenceTag } from '@/components/identifierTag';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { useConfig } from '@/config/config';
@@ -323,7 +323,7 @@ export function DatasetPage() {
     }
     if (hasPhylogeny) {
       tabsToDisplay.push({
-        to: 'phylogeny',
+        to: 'phylogenies',
         children: <FormattedMessage id="dataset.tabs.phylogeny" />,
       });
     }
@@ -417,7 +417,7 @@ export function DatasetPage() {
         className="g-bg-white"
         aboutContent={<AboutContent />}
         apiContent={<ApiContent id={dataset?.key?.toString()} />}
-        // doi={dataset.doi}
+        doi={dataset.doi}
       ></DataHeader>
       <article>
         <PageContainer topPadded hasDataHeader className="g-bg-white">
@@ -502,9 +502,9 @@ export function DatasetPage() {
                   <GenericFeature>
                     <LicenceTag value={dataset.license} />
                   </GenericFeature>
-                  <GenericFeature>
+                  {/* <GenericFeature>
                     <DoiTag id={dataset.doi} />
-                  </GenericFeature>
+                  </GenericFeature> */}
                 </FeatureList>
               </HeaderInfoMain>
             </HeaderInfo>
