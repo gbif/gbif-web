@@ -1,3 +1,4 @@
+import EmptyTab from '@/components/EmptyTab';
 import { useConfig } from '@/config/config';
 import { FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, SearchMetadata } from '@/contexts/search';
@@ -50,6 +51,8 @@ export function DatasetKeyOccurrences() {
     };
     setConfig(c);
   }, [baseConfig, contentMetrics, datasetKey, occurrenceSearchConfig]);
+
+  if (contentMetrics?.occurrenceSearch?.documents.total < 1) return <EmptyTab />;
 
   return (
     <ArticleContainer className="g-bg-slate-100">
