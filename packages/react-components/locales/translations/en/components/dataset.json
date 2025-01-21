@@ -14,6 +14,15 @@
     "acceptedNames": "Accepted names",
     "synonyms": "Synonyms"
   },
+  "tabs": {
+    "about": "About",
+    "occurrences": "Occurrences",
+    "citations": "Citations",
+    "project": "Project",
+    "taxonomy": "Taxonomy",
+    "download": "Download",
+    "phylogeny": ""
+  },
   "noStatsForMetadata": "No statistics available for metadata only datasets",
   "siteScopeSmallerThanDataset": "Not all records from the dataset are included on this site. Visit [GBIF.org]({datasetUrl}) to explore the full dataset.",
   "viewArticle": "View article",
