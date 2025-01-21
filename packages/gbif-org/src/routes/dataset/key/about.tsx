@@ -7,7 +7,8 @@ import { HyperText } from '@/components/hyperText';
 import { MapThumbnail, MapTypes, useHasMap } from '@/components/mapThumbnail';
 import { Message } from '@/components/message';
 import { SimpleTooltip } from '@/components/simpleTooltip';
-import { GbifLinkCard, TocLi } from '@/components/TocHelp';
+import { TableOfContents } from '@/components/tableOfContents';
+import { GbifLinkCard } from '@/components/TocHelp';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Progress } from '@/components/ui/progress';
@@ -27,7 +28,7 @@ import { Aside, AsideSticky, SidebarLayout } from '@/routes/occurrence/key/pagel
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import formatAsPercentage from '@/utils/formatAsPercentage';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { GiDna1 } from 'react-icons/gi';
 import {
   MdFormatQuote,
@@ -144,9 +145,10 @@ export function DatasetKeyAbout() {
     }
   }, [error, toast]);
 
-  if (!dataset) {
-    return null; //TODO return loader or error
-  }
+  // when dataset or insights change, then recalculate which items go into the table of contents
+  useEffect(() => {
+    setToc(getToc(data, insights));
+  }, [data, insights]);
 
   const scopeSmallerThanDatasetMessage = formatMessage(
     {
@@ -161,6 +163,75 @@ export function DatasetKeyAbout() {
     key: 'datasetKey',
     value: dataset?.key,
   };
+
+  const tableOfContents = useMemo(() => {
+    if (!dataset || !toc) return [];
+    const tableOfContents = [{ id: 'abstract', title: <FormattedMessage id="dataset.abstract" /> }];
+    if (toc.purpose) {
+      tableOfContents.push({
+        id: 'purpose',
+        title: <FormattedMessage id="dataset.purpose" />,
+      });
+    }
+    if (toc.geographicDescription) {
+      tableOfContents.push({
+        id: 'geographic-description',
+        title: <FormattedMessage id="dataset.geographicCoverages" />,
+      });
+    }
+    if (toc.temporalDescription) {
+      tableOfContents.push({
+        id: 'temporal-description',
+        title: <FormattedMessage id="dataset.temporalCoverages" />,
+      });
+    }
+    if (toc.taxonomicDescription) {
+      tableOfContents.push({
+        id: 'taxonomic-description',
+        title: <FormattedMessage id="dataset.taxonomicCoverages" />,
+      });
+    }
+    if (toc.methodology) {
+      tableOfContents.push({
+        id: 'methodology',
+        title: <FormattedMessage id="dataset.methodology" />,
+      });
+    }
+    if (toc.metrics) {
+      tableOfContents.push({
+        id: 'metrics',
+        title: <FormattedMessage id="dataset.metrics" />,
+      });
+    }
+    if (toc.additionalInfo) {
+      tableOfContents.push({
+        id: 'additional-info',
+        title: <FormattedMessage id="dataset.additionalInfo" />,
+      });
+    }
+    if (toc.bibliography) {
+      tableOfContents.push({
+        id: 'bibliography',
+        title: <FormattedMessage id="dataset.bibliography" />,
+      });
+    }
+    if (toc.contacts) {
+      tableOfContents.push({
+        id: 'contacts',
+        title: <FormattedMessage id="dataset.contacts" />,
+      });
+    }
+    tableOfContents.push({
+      id: 'registration',
+      title: <FormattedMessage id="dataset.registration" />,
+    });
+    tableOfContents.push({ id: 'citation', title: <FormattedMessage id="dataset.citation" /> });
+    return tableOfContents;
+  }, [dataset, toc]);
+
+  if (!dataset) {
+    return null; //TODO return loader or error
+  }
 
   const isGridded = dataset?.gridded?.[0]?.percent > 0.5; // threshold decided in https://github.com/gbif/gridded-datasets/issues/3
   const hasDna = (insights?.unfiltered?.facet?.dwcaExtension || []).find(
@@ -185,11 +256,6 @@ export function DatasetKeyAbout() {
   const withEventId = insights?.unfiltered?.cardinality?.eventId;
   const labelAsEventDataset =
     dataset.type === 'SAMPLING_EVENT' || (withEventId > 1 && withEventId / total < 0.99); // Threshold chosen somewhat randomly. The issue is that some datasets assign random unique eventIds to all their occurrences. Those aren't really event datasets, it is a misunderstanding.
-
-  // when dataset or insights change, then recalculate which items go into the table of contents
-  useEffect(() => {
-    setToc(getToc(data, insights));
-  }, [data, insights]);
 
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
@@ -267,7 +333,7 @@ export function DatasetKeyAbout() {
                   <CardContent>
                     <hr className="g-my-4" />
                     <p className="g-text-slate-400 g-mb-2 g-text-sm">
-                      Derived from occurrence data
+                      <FormattedMessage id="phrases.derivedFromOccurrenceData" />
                     </p>
                     <DashBoardLayout>
                       <charts.Country
@@ -299,7 +365,7 @@ export function DatasetKeyAbout() {
                   <CardContent>
                     <hr className="g-my-4" />
                     <p className="g-text-slate-400 g-mb-2 g-text-sm">
-                      Derived from occurrence data
+                      <FormattedMessage id="phrases.derivedFromOccurrenceData" />
                     </p>
                     <DashBoardLayout>
                       <charts.EventDate
@@ -333,7 +399,7 @@ export function DatasetKeyAbout() {
                   <CardContent>
                     <hr className="g-my-4" />
                     <p className="g-text-slate-400 g-mb-2 g-text-sm">
-                      Derived from occurrence data
+                      <FormattedMessage id="phrases.derivedFromOccurrenceData" />
                     </p>
                     <charts.Taxa
                       predicate={predicate}
@@ -664,26 +730,11 @@ export function DatasetKeyAbout() {
 
               <AsideSticky className="-g-mt-4">
                 <Card>
-                  <nav>
-                    <ul className="gbif-word-break g-list-none g-m-0 g-p-0 g-my-2">
-                      <TocLi to="#description">Description</TocLi>
-                      {toc?.geographicDescription && (
-                        <TocLi to="#geographic-description">Geographic description</TocLi>
-                      )}
-                      {toc?.temporalDescription && (
-                        <TocLi to="#temporal-description">Temporal description</TocLi>
-                      )}
-                      {toc?.taxonomicDescription && (
-                        <TocLi to="#taxonomic-description">Taxonomic description</TocLi>
-                      )}
-                      {toc?.methodology && <TocLi to="#methodology">Methodology</TocLi>}
-                      {toc?.metrics && <TocLi to="#metrics">Metrics</TocLi>}
-                      {toc?.additionalInfo && <TocLi to="#additional-info">Additional info</TocLi>}
-                      {toc?.bibliography && <TocLi to="#bibliography">Bibliography</TocLi>}
-                      {toc?.contacts && <TocLi to="#contacts">Contacts</TocLi>}
-                      <TocLi to="#registration">GBIF registration</TocLi>
-                      <TocLi to="#citation">Citation</TocLi>
-                    </ul>
+                  <h4 className="g-text-sm g-font-semibold g-mx-4 g-mt-3 g-text-slate-600">
+                    <FormattedMessage id="phrases.pageToc" />
+                  </h4>
+                  <nav className="g-pb-2">
+                    <TableOfContents sections={tableOfContents} />
                   </nav>
                 </Card>
                 <GbifLinkCard path={`/dataset/${dataset.key}`} className="g-mt-4" />

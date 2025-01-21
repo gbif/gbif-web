@@ -7632,7 +7632,7 @@ export type Taxon = {
   parent?: Maybe<Scalars['String']['output']>;
   parentKey?: Maybe<Scalars['Int']['output']>;
   /** Lists all parent usages for a name usage */
-  parents?: Maybe<Array<Maybe<Taxon>>>;
+  parents?: Maybe<Array<Taxon>>;
   phylum?: Maybe<Scalars['String']['output']>;
   phylumKey?: Maybe<Scalars['Int']['output']>;
   rank?: Maybe<Rank>;
@@ -7866,7 +7866,7 @@ export type TaxonListResult = {
   endOfRecords: Scalars['Boolean']['output'];
   limit: Scalars['Int']['output'];
   offset: Scalars['Int']['output'];
-  results: Array<Maybe<Taxon>>;
+  results: Array<Taxon>;
 };
 
 export type TaxonMedia = {
@@ -9166,7 +9166,7 @@ export type RootSearchQueryVariables = Exact<{
 }>;
 
 
-export type RootSearchQuery = { __typename?: 'Query', checklistRoots?: { __typename?: 'TaxonListResult', offset: number, endOfRecords: boolean, results: Array<{ __typename?: 'Taxon', key: number, nubKey?: number | null, scientificName?: string | null, formattedName?: string | null, kingdom?: string | null, phylum?: string | null, class?: string | null, order?: string | null, family?: string | null, genus?: string | null, species?: string | null, taxonomicStatus?: string | null, rank?: Rank | null, datasetKey?: string | null, accepted?: string | null, acceptedKey?: number | null, numDescendants?: number | null, dataset?: { __typename?: 'Dataset', title?: string | null } | null, vernacularNames?: { __typename?: 'TaxonVernacularNameResult', results: Array<{ __typename?: 'TaxonVernacularName', vernacularName: string, source?: string | null, sourceTaxonKey: number } | null> } | null } | null> } | null };
+export type RootSearchQuery = { __typename?: 'Query', checklistRoots?: { __typename?: 'TaxonListResult', offset: number, endOfRecords: boolean, results: Array<{ __typename?: 'Taxon', key: number, nubKey?: number | null, scientificName?: string | null, formattedName?: string | null, kingdom?: string | null, phylum?: string | null, class?: string | null, order?: string | null, family?: string | null, genus?: string | null, species?: string | null, taxonomicStatus?: string | null, rank?: Rank | null, datasetKey?: string | null, accepted?: string | null, acceptedKey?: number | null, numDescendants?: number | null, dataset?: { __typename?: 'Dataset', title?: string | null } | null, vernacularNames?: { __typename?: 'TaxonVernacularNameResult', results: Array<{ __typename?: 'TaxonVernacularName', vernacularName: string, source?: string | null, sourceTaxonKey: number } | null> } | null }> } | null };
 
 export type TaxonChildrenQueryVariables = Exact<{
   key: Scalars['ID']['input'];
@@ -9175,7 +9175,7 @@ export type TaxonChildrenQueryVariables = Exact<{
 }>;
 
 
-export type TaxonChildrenQuery = { __typename?: 'Query', taxon?: { __typename?: 'Taxon', key: number, scientificName?: string | null, numDescendants?: number | null, children?: { __typename?: 'TaxonListResult', limit: number, endOfRecords: boolean, offset: number, results: Array<{ __typename?: 'Taxon', key: number, numDescendants?: number | null, scientificName?: string | null, formattedName?: string | null } | null> } | null } | null };
+export type TaxonChildrenQuery = { __typename?: 'Query', taxon?: { __typename?: 'Taxon', key: number, scientificName?: string | null, numDescendants?: number | null, children?: { __typename?: 'TaxonListResult', limit: number, endOfRecords: boolean, offset: number, results: Array<{ __typename?: 'Taxon', key: number, numDescendants?: number | null, scientificName?: string | null, formattedName?: string | null }> } | null } | null };
 
 export type TaxonParentKeysQueryVariables = Exact<{
   key: Scalars['ID']['input'];
@@ -9184,7 +9184,7 @@ export type TaxonParentKeysQueryVariables = Exact<{
 }>;
 
 
-export type TaxonParentKeysQuery = { __typename?: 'Query', taxon?: { __typename?: 'Taxon', key: number, parents?: Array<{ __typename?: 'Taxon', key: number, numDescendants?: number | null, scientificName?: string | null, formattedName?: string | null, children?: { __typename?: 'TaxonListResult', limit: number, endOfRecords: boolean, offset: number, results: Array<{ __typename?: 'Taxon', key: number, numDescendants?: number | null, scientificName?: string | null, formattedName?: string | null } | null> } | null } | null> | null } | null };
+export type TaxonParentKeysQuery = { __typename?: 'Query', taxon?: { __typename?: 'Taxon', key: number, parents?: Array<{ __typename?: 'Taxon', key: number, numDescendants?: number | null, scientificName?: string | null, formattedName?: string | null, children?: { __typename?: 'TaxonListResult', limit: number, endOfRecords: boolean, offset: number, results: Array<{ __typename?: 'Taxon', key: number, numDescendants?: number | null, scientificName?: string | null, formattedName?: string | null }> } | null }> | null } | null };
 
 export type TaxonResultFragment = { __typename?: 'Taxon', key: number, nubKey?: number | null, scientificName?: string | null, formattedName?: string | null, kingdom?: string | null, phylum?: string | null, class?: string | null, order?: string | null, family?: string | null, genus?: string | null, taxonomicStatus?: string | null };
 

@@ -1,3 +1,4 @@
+import { Message } from '@/components/message';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -8,6 +9,7 @@ import {
 } from '@/components/ui/largeCard';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { MdDownload } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import { useDatasetKeyLoaderData } from '.';
@@ -34,23 +36,13 @@ export function DatasetKeyDownload() {
           <div>
             <Card className="g-flex-none md:g-w-96 g-max-w-full g-mx-4 g-mb-4">
               <CardHeader>
-                <CardTitle>GBIF annotated occurrence archive</CardTitle>
+                <CardTitle>
+                  <FormattedMessage id="dataset.processedOccurrences" />
+                </CardTitle>
                 <CardDescription className="g-text-base g-prose g-pt-6">
-                  <p>
-                    Download the occurrence records after GBIF processing. During processing, names,
-                    dates etc are normalised. The data is also enriched with information from other
-                    sources.
-                  </p>
-                  <p>Be aware that an account is needed to download the content.</p>
+                  <Message id="dataset.processedOccurrencesDescription" />
                 </CardDescription>
               </CardHeader>
-              {/* <CardContent>
-            <p>
-              Download the occurrence records after GBIF processing. During processing, names, dates
-              etc are normalised. The data is also enriched with information from other sources.
-            </p>
-            <p>Be aware that an account is needed to download the content.</p>
-          </CardContent> */}
               <CardFooter>
                 <Button variant="default" className="g-text-center g-w-full" asChild>
                   <a
@@ -67,16 +59,42 @@ export function DatasetKeyDownload() {
               </CardFooter>
             </Card>
           </div>
+          {dataset?.checklistBankDataset?.key && (
+            <div>
+              <Card className="g-flex-none md:g-w-96 g-max-w-full g-mx-4 g-mb-4">
+                <CardHeader>
+                  <CardTitle>
+                    <FormattedMessage id="dataset.checklistBankDownload" />
+                  </CardTitle>
+                  <CardDescription className="g-text-base g-prose g-pt-6">
+                    <Message id="dataset.checklistBankDownloadDescription" />
+                  </CardDescription>
+                </CardHeader>
+                <CardFooter>
+                  <Button variant="default" className="g-text-center g-w-full" asChild>
+                    <a
+                      href={`${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
+                        dataset.key
+                      }/download`}
+                      rel="noopener noreferrer"
+                      className="g-text-white"
+                    >
+                      <FormattedMessage id="phrases.continue" />
+                    </a>
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+          )}
           {dwcAEndpoint && (
             <div>
-              <Card className="g-flex-none md:g-w-96 g-max-w-full g-mx-4">
+              <Card className="g-flex-none md:g-w-96 g-max-w-full g-mx-4 g-mb-4">
                 <CardHeader>
-                  <CardTitle>Source archive</CardTitle>
+                  <CardTitle>
+                    <FormattedMessage id="dataset.originalArchive" />
+                  </CardTitle>
                   <CardDescription className="g-text-base g-prose g-pt-6">
-                    <p>
-                      The source archive is the data as published to GBIF without any normalization
-                      or processing via GBIF.
-                    </p>
+                    <Message id="dataset.originalArchiveDescription" />
                   </CardDescription>
                 </CardHeader>
                 <CardFooter>
@@ -86,7 +104,7 @@ export function DatasetKeyDownload() {
                       rel="noopener noreferrer"
                       className="g-text-white"
                     >
-                      Source archive
+                      <FormattedMessage id="phrases.download" />
                     </a>
                   </Button>
                 </CardFooter>
@@ -95,12 +113,14 @@ export function DatasetKeyDownload() {
           )}
         </div>
         <div className="g-mt-4 g-text-slate-600">
-          For diagnostics you might want to look at the EML record after normalisation.{' '}
           <a
-            className="g-underline g-text-inherit"
+            className="g-underline g-text-inherit g-flex-inline g-items-center"
             href={`${import.meta.env.PUBLIC_API_V1}/dataset/${key}/document`}
           >
-            Download processed EML
+            <MdDownload />
+            <span className="g-ms-2">
+              <FormattedMessage id="dataset.annotatedEml" />
+            </span>
           </a>
         </div>
       </ArticleTextContainer>

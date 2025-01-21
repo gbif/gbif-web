@@ -304,19 +304,28 @@ export function DatasetPage() {
 
   const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
     const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
-      { to: '.', children: 'About' },
+      { to: '.', children: <FormattedMessage id="dataset.tabs.about" /> },
     ];
     if (
       (dataset?.type === 'OCCURRENCE' || hasOccurrences) &&
       !config?.datasetKey?.disableInPageOccurrenceSearch
     ) {
-      tabsToDisplay.push({ to: 'occurrences', children: 'Occurrences' });
+      tabsToDisplay.push({
+        to: 'occurrences',
+        children: <FormattedMessage id="dataset.tabs.occurrences" />,
+      });
     }
     if (dataset.project) {
-      tabsToDisplay.push({ to: 'project', children: 'Project' });
+      tabsToDisplay.push({
+        to: 'project',
+        children: <FormattedMessage id="dataset.tabs.project" />,
+      });
     }
     if (hasPhylogeny) {
-      tabsToDisplay.push({ to: 'phylogeny', children: 'Phylogenies' });
+      tabsToDisplay.push({
+        to: 'phylogeny',
+        children: <FormattedMessage id="dataset.tabs.phylogeny" />,
+      });
     }
     if (hasTaxonomy) {
       tabsToDisplay.push({
@@ -333,15 +342,22 @@ export function DatasetPage() {
                 />
               }
             >
-              <FormattedMessage id="dataset.exploreInChecklistBank" defaultMessage="Taxonomy" />
+              <FormattedMessage id="dataset.tabs.taxonomy" defaultMessage="Taxonomy" />
               <MdLink />
             </SimpleTooltip>
           </>
         ),
       });
     }
-    if (hasLiterature) tabsToDisplay.push({ to: 'citations', children: 'Citations' });
-    tabsToDisplay.push({ to: 'download', children: 'Download' });
+    if (hasLiterature)
+      tabsToDisplay.push({
+        to: 'citations',
+        children: <FormattedMessage id="dataset.tabs.citations" />,
+      });
+    tabsToDisplay.push({
+      to: 'download',
+      children: <FormattedMessage id="dataset.tabs.download" />,
+    });
     return tabsToDisplay;
   }, [
     hasPhylogeny,
