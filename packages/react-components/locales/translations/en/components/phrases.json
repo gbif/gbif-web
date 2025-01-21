@@ -46,10 +46,12 @@
   "copyToClipboard": "",
   "fromCountry": "From {country}",
   "copiedToClipboard": "Copied to clipboard",
+  "continue": "Continue",
   "headers": {
     "description": "Description",
     "contacts": "Contacts"
   },
+  "derivedFromOccurrenceData": "",
   "pageToc": "On this page",
   "apiAccess": "API access",
   "lastCrawled": "Last crawled",
