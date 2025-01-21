@@ -1,6 +1,6 @@
 import { IdentityLabel } from '@/components/filters/displayNames';
 import { filterConfigTypes, filterSuggestConfig } from '@/components/filters/filterTools';
-import { HelpText } from '@/components/helpText';
+import { Message } from '@/components/message';
 
 export const projectIdConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
@@ -19,7 +19,7 @@ export const projectIdConfig: filterSuggestConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.projectId.description" />,
 };
 
 export const recordedByIdConfig: filterSuggestConfig = {
@@ -27,7 +27,7 @@ export const recordedByIdConfig: filterSuggestConfig = {
   filterHandle: 'recordedById',
   displayName: IdentityLabel,
   filterTranslation: 'filters.recordedById.name',
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.recordedById.description" />,
 };
 
 export const identifiedByIdConfig: filterSuggestConfig = {
@@ -35,7 +35,7 @@ export const identifiedByIdConfig: filterSuggestConfig = {
   filterHandle: 'identifiedById',
   displayName: IdentityLabel,
   filterTranslation: 'filters.identifiedById.name',
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.identifiedById.description" />,
 };
 
 export const occurrenceIdConfig: filterSuggestConfig = {
@@ -43,7 +43,7 @@ export const occurrenceIdConfig: filterSuggestConfig = {
   filterHandle: 'occurrenceId',
   displayName: IdentityLabel,
   filterTranslation: 'filters.occurrenceId.name',
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.occurrenceId.description" />,
 };
 
 export const organismIdConfig: filterSuggestConfig = {
@@ -63,7 +63,7 @@ export const organismIdConfig: filterSuggestConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.organismId.description" />,
 };
 
 export const higherGeographyConfig: filterSuggestConfig = {
@@ -83,7 +83,7 @@ export const higherGeographyConfig: filterSuggestConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.higherGeography.description" />,
 };
 
 export const eventIdConfig: filterSuggestConfig = {
@@ -91,5 +91,5 @@ export const eventIdConfig: filterSuggestConfig = {
   filterHandle: 'eventId',
   displayName: IdentityLabel,
   filterTranslation: 'filters.eventId.name',
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.eventId.description" />,
 };

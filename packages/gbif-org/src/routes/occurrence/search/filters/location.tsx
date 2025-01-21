@@ -1,6 +1,6 @@
 import { IdentityLabel } from '@/components/filters/displayNames';
 import { filterConfigTypes, filterLocationConfig } from '@/components/filters/filterTools';
-import { HelpText } from '@/components/helpText';
+import { Message } from '@/components/message';
 import set from 'lodash/set';
 
 export const locationConfig: filterLocationConfig = {
@@ -26,5 +26,5 @@ export const locationConfig: filterLocationConfig = {
       filterContext.setFilter(newFilter);
     },
   },
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.geometry.description" />,
 };

@@ -1,6 +1,6 @@
 import { WildcardLabel } from '@/components/filters/displayNames';
 import { filterConfigTypes, filterWildcardConfig } from '@/components/filters/filterTools';
-import { HelpText } from '@/components/helpText';
+import { Message } from '@/components/message';
 
 export const waterBodyConfig: filterWildcardConfig = {
   filterType: filterConfigTypes.WILDCARD,
@@ -25,7 +25,7 @@ export const waterBodyConfig: filterWildcardConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.waterBody.description" />,
 };
 
 export const catalogNumberConfig: filterWildcardConfig = {
@@ -51,7 +51,7 @@ export const catalogNumberConfig: filterWildcardConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.catalogNumber.description" />,
 };
 
 export const sampleSizeUnitConfig: filterWildcardConfig = {
@@ -77,7 +77,7 @@ export const sampleSizeUnitConfig: filterWildcardConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.sampleSizeUnit.description" />,
 };
 
 export const localityConfig: filterWildcardConfig = {
@@ -103,7 +103,7 @@ export const localityConfig: filterWildcardConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.locality.description" />,
 };
 
 export const stateProvinceConfig: filterWildcardConfig = {
@@ -129,7 +129,7 @@ export const stateProvinceConfig: filterWildcardConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.stateProvince.description" />,
 };
 
 export const samplingProtocolConfig: filterWildcardConfig = {
@@ -155,7 +155,7 @@ export const samplingProtocolConfig: filterWildcardConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.samplingProtocol.description" />,
 };
 
 export const verbatimScientificNameConfig: filterWildcardConfig = {
@@ -180,7 +180,7 @@ export const verbatimScientificNameConfig: filterWildcardConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.verbatimScientificName.description" />,
 };
 
 export const recordedByConfig: filterWildcardConfig = {
@@ -206,7 +206,7 @@ export const recordedByConfig: filterWildcardConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.recordedBy.description" />,
 };
 
 export const identifiedByConfig: filterWildcardConfig = {
@@ -232,5 +232,5 @@ export const identifiedByConfig: filterWildcardConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.identifiedBy.description" />,
 };

@@ -1,14 +1,18 @@
 import {
-    BasisOfRecordLabel,
-    ContinentLabel,
-    DwcaExtensionLabel,
-    EndpointTypeLabel, IucnRedListCategoryLabel, LicenceLabel,
-    MediaTypeLabel,
-    MonthLabel, occurrenceIssueLabel,
-    occurrenceStatusLabel, typeStatusLabel
+  BasisOfRecordLabel,
+  ContinentLabel,
+  DwcaExtensionLabel,
+  EndpointTypeLabel,
+  IucnRedListCategoryLabel,
+  LicenceLabel,
+  MediaTypeLabel,
+  MonthLabel,
+  occurrenceIssueLabel,
+  occurrenceStatusLabel,
+  typeStatusLabel,
 } from '@/components/filters/displayNames';
 import { filterConfigTypes, filterEnumConfig } from '@/components/filters/filterTools';
-import { HelpText } from '@/components/helpText';
+import { Message } from '@/components/message';
 import basisOfRecordOptions from '@/enums/basic/basisOfRecord.json';
 import continentOptions from '@/enums/basic/continent.json';
 import dwcaExtensionOptions from '@/enums/basic/dwcaExtension.json';
@@ -39,7 +43,7 @@ export const licenceConfig: filterEnumConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.license.description" />,
 };
 
 export const basisOfRecordConfig: filterEnumConfig = {
@@ -60,7 +64,7 @@ export const basisOfRecordConfig: filterEnumConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.basisOfRecord.description" />,
 };
 
 export const mediaTypeConfig: filterEnumConfig = {
@@ -83,7 +87,7 @@ export const mediaTypeConfig: filterEnumConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.mediaType.description" />,
 };
 
 export const monthConfig: filterEnumConfig = {
@@ -106,7 +110,7 @@ export const monthConfig: filterEnumConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.month.description" />,
 };
 
 export const continentConfig: filterEnumConfig = {
@@ -129,7 +133,7 @@ export const continentConfig: filterEnumConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.continent.description" />,
 };
 
 export const protocolConfig: filterEnumConfig = {
@@ -152,7 +156,7 @@ export const protocolConfig: filterEnumConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.protocol.description" />,
 };
 
 export const dwcaExtensionConfig: filterEnumConfig = {
@@ -175,7 +179,7 @@ export const dwcaExtensionConfig: filterEnumConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  // about: () => <Message id="filters.isSequenced.description" />,
 };
 
 export const iucnRedListCategoryConfig: filterEnumConfig = {
@@ -196,7 +200,7 @@ export const iucnRedListCategoryConfig: filterEnumConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.iucnRedListCategory.description" />,
 };
 
 export const typeStatusConfig: filterEnumConfig = {
@@ -219,7 +223,7 @@ export const typeStatusConfig: filterEnumConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.typeStatus.description" />,
 };
 
 export const occurrenceIssueConfig: filterEnumConfig = {
@@ -242,7 +246,7 @@ export const occurrenceIssueConfig: filterEnumConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.occurrenceIssue.description" />,
 };
 
 export const occurrenceStatusConfig: filterEnumConfig = {
@@ -263,5 +267,5 @@ export const occurrenceStatusConfig: filterEnumConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.occurrenceStatus.description" />,
 };

@@ -1,27 +1,28 @@
 import {
-    CollectionLabel,
-    CountryLabel,
-    DatasetLabel,
-    GadmGidLabel,
-    IdentityLabel,
-    InstitutionLabel,
-    NetworkLabel,
-    PublisherLabel,
-    TaxonLabel
+  CollectionLabel,
+  CountryLabel,
+  DatasetLabel,
+  GadmGidLabel,
+  IdentityLabel,
+  InstitutionLabel,
+  NetworkLabel,
+  PublisherLabel,
+  TaxonLabel,
 } from '@/components/filters/displayNames';
 import { filterConfigTypes, filterSuggestConfig } from '@/components/filters/filterTools';
-import { HelpText } from '@/components/helpText';
+import { Message } from '@/components/message';
 import {
-    collectionCodeSuggest,
-    collectionKeySuggest,
-    datasetKeyOccurrenceSuggest,
-    gadGidSuggest,
-    institutionCodeSuggest,
-    institutionKeySuggest,
-    networkKeySuggest,
-    publisherKeyOccurrenceSuggest,
-    publisherKeySuggest,
-    recordNumberSuggest, taxonKeyVernacularSuggest
+  collectionCodeSuggest,
+  collectionKeySuggest,
+  datasetKeyOccurrenceSuggest,
+  gadGidSuggest,
+  institutionCodeSuggest,
+  institutionKeySuggest,
+  networkKeySuggest,
+  publisherKeyOccurrenceSuggest,
+  publisherKeySuggest,
+  recordNumberSuggest,
+  taxonKeyVernacularSuggest,
 } from '@/utils/suggestEndpoints';
 
 export const institutionKeyConfig: filterSuggestConfig = {
@@ -44,7 +45,7 @@ export const institutionKeyConfig: filterSuggestConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.institutionKey.description" />,
 };
 
 export const taxonKeyConfig: filterSuggestConfig = {
@@ -70,7 +71,7 @@ export const taxonKeyConfig: filterSuggestConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.taxonKey.description" />,
 };
 
 export const collectionKeyConfig: filterSuggestConfig = {
@@ -93,7 +94,7 @@ export const collectionKeyConfig: filterSuggestConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.collectionKey.description" />,
 };
 
 export const datasetKeyConfig: filterSuggestConfig = {
@@ -116,7 +117,7 @@ export const datasetKeyConfig: filterSuggestConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.datasetKey.description" />,
 };
 
 // export const datasetKeyScopedConfig: filterConfig = {
@@ -153,7 +154,7 @@ export const publisherKeyConfig: filterSuggestConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.publisherKey.description" />,
 };
 
 export const hostingOrganizationKeyConfig: filterSuggestConfig = {
@@ -176,7 +177,7 @@ export const hostingOrganizationKeyConfig: filterSuggestConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.hostingOrganizationKey.description" />,
 };
 
 export const networkKeyConfig: filterSuggestConfig = {
@@ -199,7 +200,7 @@ export const networkKeyConfig: filterSuggestConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  // about: () => <Message id="filters.hostingOrganizationKey.description" />
 };
 
 export const gadmGidConfig: filterSuggestConfig = {
@@ -222,7 +223,7 @@ export const gadmGidConfig: filterSuggestConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.gadmGid.description" />,
 };
 
 export const countryConfig: filterSuggestConfig = {
@@ -245,7 +246,7 @@ export const countryConfig: filterSuggestConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.occurrenceCountry.description" />,
 };
 
 export const publishingCountryConfig: filterSuggestConfig = {
@@ -268,7 +269,7 @@ export const publishingCountryConfig: filterSuggestConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.publishingCountryCode.description" />,
 };
 
 export const institutionCodeConfig: filterSuggestConfig = {
@@ -291,7 +292,7 @@ export const institutionCodeConfig: filterSuggestConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.institutionCode.description" />,
 };
 
 export const collectionCodeConfig: filterSuggestConfig = {
@@ -314,7 +315,7 @@ export const collectionCodeConfig: filterSuggestConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.collectionCode.description" />,
 };
 
 export const recordNumberConfig: filterSuggestConfig = {
@@ -337,5 +338,5 @@ export const recordNumberConfig: filterSuggestConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.recordNumber.description" />,
 };

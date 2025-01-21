@@ -1,6 +1,6 @@
 import { establishmentMeansLabel } from '@/components/filters/displayNames';
 import { filterConfigTypes, filterEnumConfig } from '@/components/filters/filterTools';
-import { HelpText } from '@/components/helpText';
+import { Message } from '@/components/message';
 // import { establishmentMeansSuggest } from '@/utils/suggestEndpoints';
 
 export const establishmentMeansConfig: filterEnumConfig = {
@@ -21,5 +21,5 @@ export const establishmentMeansConfig: filterEnumConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.establishmentMeans.description" />,
 };

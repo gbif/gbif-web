@@ -1,21 +1,21 @@
 import {
-    CoordinateUncertaintyLabel,
-    DepthLabel,
-    ElevationLabel,
-    OrganismQuantityLabel,
-    RelativeOrganismQuantityLabel,
-    SampleSizeValueLabel,
-    YearLabel
+  CoordinateUncertaintyLabel,
+  DepthLabel,
+  ElevationLabel,
+  OrganismQuantityLabel,
+  RelativeOrganismQuantityLabel,
+  SampleSizeValueLabel,
+  YearLabel,
 } from '@/components/filters/displayNames';
 import { filterConfigTypes, filterRangeConfig } from '@/components/filters/filterTools';
-import { HelpText } from '@/components/helpText';
+import { Message } from '@/components/message';
 
 export const yearConfig: filterRangeConfig = {
   filterType: filterConfigTypes.RANGE,
   filterHandle: 'year',
   displayName: YearLabel,
   filterTranslation: 'filters.year.name',
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.year.description" />,
 };
 
 export const coordinateUncertaintyConfig: filterRangeConfig = {
@@ -23,7 +23,7 @@ export const coordinateUncertaintyConfig: filterRangeConfig = {
   filterHandle: 'coordinateUncertainty',
   displayName: CoordinateUncertaintyLabel,
   filterTranslation: 'filters.coordinateUncertainty.name',
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.coordinateUncertainty.description" />,
 };
 
 export const depthConfig: filterRangeConfig = {
@@ -31,7 +31,7 @@ export const depthConfig: filterRangeConfig = {
   filterHandle: 'depth',
   displayName: DepthLabel,
   filterTranslation: 'filters.depth.name',
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.depth.description" />,
 };
 
 export const organismQuantityConfig: filterRangeConfig = {
@@ -39,7 +39,7 @@ export const organismQuantityConfig: filterRangeConfig = {
   filterHandle: 'organismQuantity',
   displayName: OrganismQuantityLabel,
   filterTranslation: 'filters.organismQuantity.name',
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.organismQuantity.description" />,
 };
 
 export const sampleSizeValueConfig: filterRangeConfig = {
@@ -47,7 +47,7 @@ export const sampleSizeValueConfig: filterRangeConfig = {
   filterHandle: 'sampleSizeValue',
   displayName: SampleSizeValueLabel,
   filterTranslation: 'filters.sampleSizeValue.name',
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.sampleSizeValue.description" />,
 };
 
 export const relativeOrganismQuantityConfig: filterRangeConfig = {
@@ -55,7 +55,7 @@ export const relativeOrganismQuantityConfig: filterRangeConfig = {
   filterHandle: 'relativeOrganismQuantity',
   displayName: RelativeOrganismQuantityLabel,
   filterTranslation: 'filters.relativeOrganismQuantity.name',
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.relativeOrganismQuantity.description" />,
 };
 
 export const elevationConfig: filterRangeConfig = {
@@ -63,5 +63,5 @@ export const elevationConfig: filterRangeConfig = {
   filterHandle: 'elevation',
   displayName: ElevationLabel,
   filterTranslation: 'filters.elevation.name',
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.elevation.description" />,
 };

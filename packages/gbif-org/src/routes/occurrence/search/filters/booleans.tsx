@@ -1,6 +1,6 @@
 import { booleanLabel } from '@/components/filters/displayNames';
 import { filterBoolConfig, filterConfigTypes } from '@/components/filters/filterTools';
-import { HelpText } from '@/components/helpText';
+import { Message } from '@/components/message';
 
 export const isInClusterConfig: filterBoolConfig = {
   filterType: filterConfigTypes.OPTIONAL_BOOL,
@@ -19,7 +19,7 @@ export const isInClusterConfig: filterBoolConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.isInCluster.description" />,
 };
 
 export const isSequencedConfig: filterBoolConfig = {
@@ -39,5 +39,5 @@ export const isSequencedConfig: filterBoolConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />,
+  about: () => <Message id="filters.isSequenced.description" />,
 };
