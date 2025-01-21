@@ -363,8 +363,10 @@ export function DatasetPage() {
     hasPhylogeny,
     hasTaxonomy,
     hasOccurrences,
+    hasLiterature,
     dataset?.key,
     dataset?.type,
+    dataset?.project,
     config?.datasetKey?.disableInPageOccurrenceSearch,
   ]);
 
