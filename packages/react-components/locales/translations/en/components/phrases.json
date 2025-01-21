@@ -51,7 +51,7 @@
     "description": "Description",
     "contacts": "Contacts"
   },
-  "derivedFromOccurrenceData": "",
+  "derivedFromOccurrenceData": "Derived from occurrence data",
   "pageToc": "On this page",
   "apiAccess": "API access",
   "lastCrawled": "Last crawled",
