@@ -1,8 +1,13 @@
 import { cn } from '@/utils/shadcn';
 import React from 'react';
 
-export default function DashBoardLayout({ children, className, ...props }) {
-  const childrenArray = (Array.isArray(children) ? children : [children]).map((child, index) =>
+type Props = {
+  className?: string;
+  children: React.ReactNode;
+};
+
+export default function DashBoardLayout({ children, className }: Props) {
+  const childrenArray = (Array.isArray(children) ? children : [children]).map((child) =>
     React.cloneElement(child, { style: { marginBottom: 12 } })
   );
 

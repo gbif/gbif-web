@@ -110,10 +110,7 @@ function createRoutesWithPlugins(
         ],
       },
     ],
-    config,
-    {
-      standalone: true,
-    }
+    config
   );
 }
 
