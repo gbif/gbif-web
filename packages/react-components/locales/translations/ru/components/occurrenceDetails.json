@@ -1,11 +1,11 @@
 {
   "tabs": {
     "details": "Подробнее",
-    "cluster": "",
+    "cluster": "Связанные записи",
     "phylotree": "Архив, аннотированный GBIF"
   },
   "occurrence": "Находка",
-  "specimen": "",
+  "specimen": "Образец",
   "processed": "Архив, аннотированный GBIF",
   "fragment": "Архив, аннотированный GBIF",
   "showAllFields": "",
@@ -57,9 +57,9 @@
     "isType": "Типовой образец"
   },
   "cluster": {
-    "current": "",
-    "relatedOccurrences": "",
-    "similarBecause": "",
+    "current": "Текущий",
+    "relatedOccurrences": "Сопутствующие находки",
+    "similarBecause": "Причина схожести",
     "clusterTags": "Архив, аннотированный GBIF",
     "matchedRecord": "",
     "noMatches": "",
