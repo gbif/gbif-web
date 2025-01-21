@@ -71,44 +71,50 @@ export function DatasetKeyProject() {
               </CardContent>
             </Card>
 
-            <Card className="g-mb-4" id="studyAreaDescription">
-              <CardHeader className="gbif-word-break">
-                <CardTitle>
-                  <FormattedMessage id="dataset.studyArea" />
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="g-prose g-max-w-full">
-                  <HyperText text={project.studyAreaDescription} fallback />
-                </div>
-              </CardContent>
-            </Card>
+            {project.studyAreaDescription && (
+              <Card className="g-mb-4" id="studyAreaDescription">
+                <CardHeader className="gbif-word-break">
+                  <CardTitle>
+                    <FormattedMessage id="dataset.studyArea" />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="g-prose g-max-w-full">
+                    <HyperText text={project.studyAreaDescription} fallback />
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
-            <Card className="g-mb-4" id="designDescription">
-              <CardHeader className="gbif-word-break">
-                <CardTitle>
-                  <FormattedMessage id="dataset.description" />
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="g-prose g-max-w-full">
-                  <HyperText text={project.designDescription} fallback />
-                </div>
-              </CardContent>
-            </Card>
+            {project.designDescription && (
+              <Card className="g-mb-4" id="designDescription">
+                <CardHeader className="gbif-word-break">
+                  <CardTitle>
+                    <FormattedMessage id="dataset.description" />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="g-prose g-max-w-full">
+                    <HyperText text={project.designDescription} fallback />
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
-            <Card className="g-mb-4" id="funding">
-              <CardHeader className="gbif-word-break">
-                <CardTitle>
-                  <FormattedMessage id="dataset.funding" />
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="g-prose g-max-w-full">
-                  <HyperText text={project.funding} fallback />
-                </div>
-              </CardContent>
-            </Card>
+            {project.funding && (
+              <Card className="g-mb-4" id="funding">
+                <CardHeader className="gbif-word-break">
+                  <CardTitle>
+                    <FormattedMessage id="dataset.funding" />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="g-prose g-max-w-full">
+                    <HyperText text={project.funding} fallback />
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
             {project.contacts && (
               <Card className="g-mb-4" id="contacts">
