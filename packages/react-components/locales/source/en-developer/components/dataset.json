@@ -53,6 +53,7 @@
   "nDownloadEvents": "{NUMBER_FORMATED} {NUMBER, plural, one{download event} other{download events}}",
   "nFromDataset": "{NUMBER_FORMATED} {NUMBER, plural, one{occurrence from this dataset} other{occurrences from this dataset}}",
   "funding": "Funding",
+  "abstract": "Abstract",
   "contacts": "Contacts",
   "registration": "GBIF registration",
   "dataDescription": "Data description",

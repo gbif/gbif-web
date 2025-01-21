@@ -1,7 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/smallCard';
 import { cn } from '@/utils/shadcn';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { HashLink } from 'react-router-hash-link';
 
 type Props = {
   sections: Array<{
@@ -9,9 +8,10 @@ type Props = {
     title: React.ReactElement;
     hidden?: boolean;
   }>;
+  className?: string;
 };
 
-export function TableOfContents({ sections }: Props) {
+export function TableOfContents({ sections, className }: Props) {
   const sectionsToDisplay = useMemo(
     () => sections.filter((section) => !section.hidden),
     [sections]
@@ -42,32 +42,24 @@ export function TableOfContents({ sections }: Props) {
   }, [sectionsToDisplay]);
 
   return (
-    <Card className="g-mb-4">
-      <CardHeader>
-        <CardTitle>
-          <FormattedMessage id="phrases.pageToc" />
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <ul>
-          {sectionsToDisplay.map((section) => (
-            <li key={section.id} className="g-py-1">
-              <a
-                href={`#${section.id}`}
-                className={cn({
-                  'g-text-primary-500 g-font-semibold': activeId === section.id,
-                })}
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector(`#${section.id}`)?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                {section.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </CardContent>
-    </Card>
+    <ul className={cn('gbif-word-break g-list-none g-m-0 g-p-0', className)}>
+      {sectionsToDisplay.map((section) => (
+        <li key={section.id}>
+          <HashLink
+            to={`#${section.id}`}
+            replace
+            // href={`#${section.id}`}
+            className={cn(
+              'g-block g-border-l g-text-sm g-px-4 g-py-1 g-border-transparent hover:g-border-slate-400 dark:hover:g-border-slate-500 g-text-slate-700 dark:g-text-slate-400 dark:hover:g-text-slate-300 hover:g-text-primary-600',
+              {
+                'g-text-primary-500 g-font-semibold': activeId === section.id,
+              }
+            )}
+          >
+            {section.title}
+          </HashLink>
+        </li>
+      ))}
+    </ul>
   );
 }

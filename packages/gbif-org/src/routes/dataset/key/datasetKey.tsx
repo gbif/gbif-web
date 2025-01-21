@@ -312,6 +312,9 @@ export function DatasetPage() {
     ) {
       tabsToDisplay.push({ to: 'occurrences', children: 'Occurrences' });
     }
+    if (dataset.project) {
+      tabsToDisplay.push({ to: 'project', children: 'Project' });
+    }
     if (hasPhylogeny) {
       tabsToDisplay.push({ to: 'phylogeny', children: 'Phylogenies' });
     }
