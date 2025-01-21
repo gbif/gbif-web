@@ -13,6 +13,22 @@
         <a href="/danish-occurrence/search">Danish Occurrence Search</a>
         <a href="/dataset/search">Dataset Search (disabled)</a>
       </nav>
+      <!-- Language selector -->
+      <div>
+        <select id="languageSelector">
+          <option value="/dashboard">English</option>
+          <option value="/es/dashboard">Español</option>
+        </select>
+        <script>
+          // Handle change
+          document.getElementById('languageSelector').addEventListener('change', (event) => {
+            window.location = event.target.value;
+          });
+
+          // Set selected
+          document.getElementById('languageSelector').value = window.location.pathname;
+        </script>
+      </div>
     </header>
 
     <div id="dashboard" class="gbif"></div>
@@ -20,7 +36,14 @@
     <div id="root" class="gbif"></div>
 
     <script type="module">
-      import { renderDashboard } from '/gbif-lib.js';
+      import { renderDashboard, languages } from '/gbif-lib.js';
+
+      const warnIfNull = (value, message) => {
+        if (value == null) {
+          console.warn(message);
+        }
+        return value;
+      };
 
       const config = {
         gbifEnv: 'staging',
@@ -50,24 +73,14 @@
           },
         ],
         languages: [
-          {
-            code: 'en',
-            label: 'English',
-            default: true,
-            textDirection: 'ltr',
-          },
-          {
-            code: 'da',
-            label: 'Dansk',
-            default: false,
-            textDirection: 'ltr',
-          },
-          {
-            code: 'ar',
-            label: 'العربية',
-            default: false,
-            textDirection: 'rtl',
-          },
+          warnIfNull(
+            languages.find((l) => l.code === 'en'),
+            'English language not found. (Maybe disabled in the .env)'
+          ),
+          warnIfNull(
+            languages.find((l) => l.code === 'es'),
+            'Spanish language not found. (Maybe disabled in the .env)'
+          ),
         ],
         occurrencePredicate: {
           type: 'and',
@@ -131,9 +144,13 @@
         },
       };
 
+      const localeCode = window.location.pathname.split('/')[1] ?? 'en';
+      console.log(languages);
+
       renderDashboard({
         rootElement: document.getElementById('dashboard'),
         config,
+        locale: languages.find((l) => l.code === localeCode),
         predicate: {
           type: 'or',
           predicates: [

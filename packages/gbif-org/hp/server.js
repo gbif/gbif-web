@@ -8,6 +8,10 @@ app.get('/dashboard', (_, res) => {
   res.sendFile('hp/dashboard.html', { root: process.cwd() });
 });
 
+app.get('/:locale/dashboard', (_, res) => {
+  res.sendFile('hp/dashboard.html', { root: process.cwd() });
+});
+
 app.get('*', (_, res) => {
   res.sendFile('hp/index.html', { root: process.cwd() });
 });

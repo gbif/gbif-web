@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import { prepareConfig } from './prepareConfig';
-import { Config } from '@/config/config';
+import { Config, LanguageOption } from '@/config/config';
 import { Root } from '@/components/root';
 import { createMemoryRouter, Outlet, RouterProvider } from 'react-router-dom';
 import { applyReactRouterPlugins } from '@/reactRouterPlugins';
@@ -13,9 +13,10 @@ type Props = {
   config: Config;
   predicate: Predicate;
   charts: string[];
+  locale: LanguageOption;
 };
 
-function DashboardApp({ config, predicate, charts }: Props) {
+function DashboardApp({ config, predicate, charts, locale }: Props) {
   const routes = applyReactRouterPlugins(
     [
       {
@@ -32,7 +33,10 @@ function DashboardApp({ config, predicate, charts }: Props) {
     config
   );
 
-  const router = createMemoryRouter(routes);
+  const localizedInitialRoute = locale.default ? '/' : `/${locale.code}`;
+  const router = createMemoryRouter(routes, {
+    initialEntries: [localizedInitialRoute],
+  });
 
   return (
     <Root config={config}>
@@ -46,6 +50,7 @@ type Options = {
   config?: Config;
   charts?: string[];
   rootElement?: HTMLElement;
+  locale?: LanguageOption;
 };
 
 export function renderDashboard(options: Options) {
@@ -57,9 +62,17 @@ export function renderDashboard(options: Options) {
 
   const fullConfig = prepareConfig(options.config);
 
-  console.log('ready to render dashboard');
+  const locale = options.locale ?? fullConfig.languages.find((lang) => lang.default)!;
+  if (!options.locale) {
+    console.warn(`No locale provided in dashboard, using default locale: ${locale.code}`);
+  }
 
   createRoot(options.rootElement).render(
-    <DashboardApp config={fullConfig} predicate={options.predicate} charts={options.charts} />
+    <DashboardApp
+      locale={locale}
+      config={fullConfig}
+      predicate={options.predicate}
+      charts={options.charts}
+    />
   );
 }
