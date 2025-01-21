@@ -83,7 +83,7 @@ const typeDef = gql`
   }
 
   type TaxonListResult {
-    results: [Taxon]!
+    results: [Taxon!]!
     limit: Int!
     offset: Int!
     endOfRecords: Boolean!

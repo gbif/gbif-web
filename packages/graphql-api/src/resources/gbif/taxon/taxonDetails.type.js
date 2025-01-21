@@ -152,7 +152,7 @@ const typeDef = gql`
     """
     Lists all parent usages for a name usage
     """
-    parents: [Taxon]
+    parents: [Taxon!]
     """
     Lists all related name usages in other checklists
     """

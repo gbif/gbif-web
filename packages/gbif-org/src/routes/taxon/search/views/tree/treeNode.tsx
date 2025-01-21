@@ -1,8 +1,22 @@
 import { SimpleTooltip } from '@/components/simpleTooltip';
+import { Skeleton } from '@/components/ui/skeleton';
+import { TreeItem, TreeItemIndex } from 'react-complex-tree';
 import { GoSidebarExpand } from 'react-icons/go';
 import { childLimit } from './tree';
-import { TreeSkeleton } from './treePresentation';
 
+export function TreeSkeleton() {
+  return (
+    <>
+      <Skeleton className="g-h-24 g-mb-2" />
+      <Skeleton className="g-h-24 g-mb-2" />
+      <Skeleton className="g-h-24 g-mb-2" />
+      <Skeleton className="g-h-24 g-mb-2" />
+      <Skeleton className="g-h-24 g-mb-2" />
+      <Skeleton className="g-h-24 g-mb-2" />
+      <Skeleton className="g-h-24 g-mb-2" />
+    </>
+  );
+}
 export const TreeNode = ({
   item,
   loadChildren,
@@ -10,6 +24,13 @@ export const TreeNode = ({
   showPreview,
   loadingTreeNodes,
   setLoadingTreeNodes,
+}: {
+  item: TreeItem;
+  loadChildren: (arg: { key: string; limit: number; offset: number }) => void;
+  items: { [key: TreeItemIndex]: TreeItem };
+  showPreview: (id: string) => void;
+  loadingTreeNodes: TreeItemIndex[];
+  setLoadingTreeNodes: (nodes: TreeItemIndex[]) => void;
 }) => {
   if (item.index.toString().endsWith('load-more')) {
     return loadingTreeNodes?.includes(item.index.toString()) ? (
@@ -18,7 +39,7 @@ export const TreeNode = ({
       <div
         onClick={() => {
           setLoadingTreeNodes([...loadingTreeNodes, item.index.toString()]);
-          const parent = items[item.index.replace('-load-more', '')];
+          const parent = items[item.index.toString().replace('-load-more', '')];
           loadChildren({
             key: parent.data.key,
             limit: childLimit,

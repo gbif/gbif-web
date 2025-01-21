@@ -1,12 +1,19 @@
+import {
+  TaxonChildrenQuery,
+  TaxonChildrenQueryVariables,
+  TaxonParentKeysQuery,
+  TaxonParentKeysQueryVariables,
+} from '@/gql/graphql';
 import { GraphQLService } from '@/services/graphQLService';
 import { CANCEL_REQUEST } from '@/utils/fetchWithCancel';
 import { TreeItem, TreeItemIndex } from 'react-complex-tree';
+
 interface GetChildrenParams {
   key: string;
   limit: number;
   offset: number;
 }
-type ItemsType = Record<string, TreeItem>;
+export type ItemsType = Record<string, TreeItem>;
 
 export const getChildren = ({ key, limit, offset }: GetChildrenParams) => {
   const abortController = new AbortController();
@@ -21,6 +28,7 @@ export const getChildren = ({ key, limit, offset }: GetChildrenParams) => {
       taxon(key: $key) {
         key
         scientificName
+        numDescendants
         children(limit: $limit, offset: $offset) {
           limit
           endOfRecords
@@ -35,9 +43,12 @@ export const getChildren = ({ key, limit, offset }: GetChildrenParams) => {
       }
     }
   `;
-  const promise = graphqlService.query(CHILDREN_SEARCH_QUERY, { key, limit, offset });
+  const promise = graphqlService.query<TaxonChildrenQuery, TaxonChildrenQueryVariables>(
+    CHILDREN_SEARCH_QUERY,
+    { key, limit, offset }
+  );
   return {
-    promise: promise.then((res) => res.json()).then((response) => response?.data?.taxon),
+    promise: promise.then((res) => res.json()).then(({ data }) => data?.taxon),
     cancel: () => abortController.abort(CANCEL_REQUEST),
   };
 };
@@ -82,9 +93,12 @@ export const getParents = ({
       }
     }
   `;
-  const promise = graphqlService.query(TAXON_PARENT_KEYS, { key, limit, offset });
+  const promise = graphqlService.query<TaxonParentKeysQuery, TaxonParentKeysQueryVariables>(
+    TAXON_PARENT_KEYS,
+    { key, limit, offset }
+  );
   return {
-    promise: promise.then((res) => res.json()).then((response) => response?.data?.taxon),
+    promise: promise.then((res) => res.json()).then(({ data }) => data?.taxon),
     cancel: () => abortController.abort(CANCEL_REQUEST),
   };
 };
