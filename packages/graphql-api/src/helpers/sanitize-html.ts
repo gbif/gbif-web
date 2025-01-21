@@ -1,13 +1,13 @@
+import config from '#/config';
+import logger from '#/logger';
+import * as cheerio from 'cheerio';
+import { ParserOptions } from 'htmlparser2';
+import { merge } from 'lodash';
 import sanitize, {
   AllowedAttribute,
   IOptions,
   Transformer,
 } from 'sanitize-html';
-import { ParserOptions } from 'htmlparser2';
-import * as cheerio from 'cheerio';
-import { merge } from 'lodash';
-import config from '#/config';
-import logger from '#/logger';
 
 const DEFAULT_TRUST_LEVEL = 'untrusted';
 
@@ -39,7 +39,8 @@ export const untrustedHeaderOptions: DefaultOptions = {
 };
 
 // The trustedDefaultOptions inherits from the untrustedDefaultOptions
-const trustedDefaultOptions = merge<DefaultOptions, DefaultOptions>(
+const trustedDefaultOptions = merge<unknown, DefaultOptions, DefaultOptions>(
+  {},
   untrustedDefaultOptions,
   {
     allowedTags: [
@@ -189,7 +190,7 @@ const trustedDefaultOptions = merge<DefaultOptions, DefaultOptions>(
       ...GBIF_ORIGINS,
     ],
     transformTags: {
-      img: function (tagName, attr) {
+      img(tagName, attr) {
         attr.src = prefixLinkUrl(attr.src);
         return {
           tagName,
@@ -218,15 +219,6 @@ type SanitizeOptions = {
   locale?: string;
 };
 
-export function sanitizeHtml(dirty: string, options: SanitizeOptions): string {
-  const sanitizeOptions = createIOptions(options);
-  const clean = sanitize(dirty, sanitizeOptions);
-
-  if (options.wrapTables) return wrapTables(clean);
-
-  return clean;
-}
-
 // This function creates the IOptions object that is required by the sanitize-html library based on a set of options provided by the user
 function createIOptions(options: SanitizeOptions): IOptions {
   let trustLevel: keyof typeof defaultOptionsMap = DEFAULT_TRUST_LEVEL;
@@ -246,7 +238,7 @@ function createIOptions(options: SanitizeOptions): IOptions {
   const defaultOptions = defaultOptionsMap[trustLevel];
 
   // Get the allowedTags by the trustLevel
-  let allowedTags = defaultOptions.allowedTags;
+  let { allowedTags } = defaultOptions;
 
   // If the user has provided a custom list of allowedTags, pick the ones that are allowed by the trustLevel
   if (options.allowedTags) {
@@ -256,7 +248,7 @@ function createIOptions(options: SanitizeOptions): IOptions {
   }
 
   // Get the allowedAttributes by the trustLevel
-  let allowedAttributes = defaultOptions.allowedAttributes;
+  let { allowedAttributes } = defaultOptions;
 
   // If the user has provided a custom list of allowedAttributes, pick the ones that are allowed by the trustLevel
   if (options.allowedAttributes) {
@@ -277,10 +269,10 @@ function createIOptions(options: SanitizeOptions): IOptions {
   }
 
   // Lozalize links
-  let transformTags = defaultOptions.transformTags;
+  let { transformTags } = defaultOptions;
   if (transformTags == null) transformTags = {};
 
-  transformTags['a'] = function (tagName, attr) {
+  transformTags.a = function (tagName, attr) {
     attr.href = prefixLinkUrl(attr.href, options.locale);
     return {
       tagName,
@@ -289,10 +281,10 @@ function createIOptions(options: SanitizeOptions): IOptions {
   };
 
   return {
-    allowedTags: allowedTags,
-    allowedAttributes: allowedAttributes,
+    allowedTags,
+    allowedAttributes,
     allowedIframeHostnames: defaultOptions.allowedIframeHostnames,
-    transformTags: transformTags,
+    transformTags,
     parser: defaultOptions.parser,
   };
 }
@@ -308,6 +300,15 @@ function wrapTables(html: string): string {
   });
 
   return $.html();
+}
+
+export function sanitizeHtml(dirty: string, options: SanitizeOptions): string {
+  const sanitizeOptions = createIOptions(options);
+  const clean = sanitize(dirty, sanitizeOptions);
+
+  if (options.wrapTables) return wrapTables(clean);
+
+  return clean;
 }
 
 const supportedLocales = ['en-GB', 'da', 'fr', 'es', 'ar'];
