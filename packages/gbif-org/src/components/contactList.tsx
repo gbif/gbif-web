@@ -54,25 +54,27 @@ function Contact({ contact, ...props }) {
           {/* <div className='gb-discreet'>{roles && Roles}</div> */}
         </div>
       </div>
-      <div className="g-flex-auto g-w-1/3 g-text-slate-500">{roles.length > 0 && Roles}</div>
-      <div className="g-flex-auto g-w-1/3 g-flex g-justify-end">
-        <div className="g-flex g-items-center">
-          {orcid && (
-            <a
-              href={orcid}
-              style={{ marginRight: 16, width: 16, height: 16, display: 'inline-block' }}
-            >
-              <img
-                style={{ pointerEvents: 'none' }}
-                src="https://www.gbif.org/img/orcid_16x16.gif"
-              />
-            </a>
-          )}
-          {contact?.email?.length > 0 && (
-            <a className="g-text-inherit" href={`mailto:${contact.email[0]}`}>
-              <MdMail style={{ pointerEvents: 'none' }} />
-            </a>
-          )}
+      <div className="g-flex-auto g-w-2/3 g-text-slate-500 g-flex g-flex-row g-items-start">
+        {roles.length > 0 && <div className="g-grow">{Roles}</div>}
+        <div className="g-flex g-grow-0 g-justify-end">
+          <div className="g-flex g-items-center">
+            {orcid && (
+              <a
+                href={orcid}
+                style={{ marginRight: 16, width: 16, height: 16, display: 'inline-block' }}
+              >
+                <img
+                  style={{ pointerEvents: 'none' }}
+                  src="https://www.gbif.org/img/orcid_16x16.gif"
+                />
+              </a>
+            )}
+            {contact?.email?.length > 0 && (
+              <a className="g-text-inherit" href={`mailto:${contact.email[0]}`}>
+                <MdMail style={{ pointerEvents: 'none' }} />
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </div>
