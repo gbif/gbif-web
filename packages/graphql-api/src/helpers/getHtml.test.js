@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 import assert from 'assert';
-import { getHtml } from './getHtml';
 import config from '../config';
+import { getHtml } from './getHtml';
 
 describe('Transform to html and sanitize', () => {
   it('it transform markdown and wrap in paragraph', () => {
@@ -15,9 +15,12 @@ describe('Transform to html and sanitize', () => {
   });
 
   it('it transform markdown and respect code', () => {
-    const result = getHtml(`code to follow\n\`\`\`
+    const result = getHtml(
+      `code to follow\n\`\`\`
 const a = 1;
-\`\`\``);
+\`\`\``,
+      { trustLevel: 'trusted' },
+    );
     assert.strictEqual(
       result,
       '<p>code to follow</p><pre><code>const a = 1;</code></pre>',
@@ -27,7 +30,7 @@ const a = 1;
   it('it should respect tags in code', () => {
     const result = getHtml(
       `Code \`<script>alert('hi')</script>\` <span>respected</span>`,
-      { inline: true },
+      { inline: true, trustLevel: 'trusted' },
     );
     assert.strictEqual(
       result,
@@ -75,6 +78,21 @@ const a = 1;
     );
   });
 
+  it('it should remove code and script tags when untrusted (default)', () => {
+    const result = getHtml(
+      `This is <code>code that goes here</code> and \`\`\`
+      markdown code
+      \`\`\` and then comes scripting<script>alert('hi')</script>`,
+      {
+        inline: true,
+      },
+    );
+    assert.strictEqual(
+      result,
+      `This is code that goes here and       markdown code       and then comes scripting`,
+    );
+  });
+
   it('it should support wrapping tables in a div with a class', () => {
     // input is markdown with a table and should be wrapped in a div - this is to ease styling and have the option to handle overflows with scrolls
     const result = getHtml(
@@ -82,7 +100,7 @@ const a = 1;
 |---|
 | 1 |
 `,
-      { wrapTables: true },
+      { wrapTables: true, trustLevel: 'trusted' },
     );
     assert.strictEqual(
       result,
