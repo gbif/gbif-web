@@ -42,13 +42,20 @@
   "discard": "",
   "keep": "",
   "addressUnknown": "",
+  "emptyValueProvided": "",
   "copyToClipboard": "",
   "fromCountry": "Z {country}",
   "copiedToClipboard": "Skopiowano do schowka",
+  "continue": "Kontynuuj",
   "headers": {
     "description": "Opis",
     "contacts": "Kontakty"
   },
+  "derivedFromOccurrenceData": "",
   "pageToc": "",
+  "apiAccess": "",
+  "lastCrawled": "",
+  "goToRecord": "",
+  "commonNameAccordingTo": "",
   "noResults": ""
 }
