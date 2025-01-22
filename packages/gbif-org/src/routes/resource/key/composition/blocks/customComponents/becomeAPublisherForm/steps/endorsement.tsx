@@ -65,7 +65,7 @@ export function Endorsment({ suggestedNodeCountry }: Props) {
                 )}
 
                 <RadioItem
-                  value={config.OBISKey}
+                  value={config.hardcodedKeys.OBISKey}
                   label="Marine data publishers: request endorsement for OBIS (Ocean Biogeographic Information System) related data"
                 />
               </RadioGroup>

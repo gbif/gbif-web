@@ -33,6 +33,9 @@ type PartialSearchMetadata = Pick<
   | 'highlightedFilters'
 >;
 
+type ApiKeysType = {
+  maptiler?: string;
+};
 // TODO: The config object should probably be refactored in the future with logical nesting
 export type Config = Endpoints & {
   version: number;
@@ -49,8 +52,10 @@ export type Config = Endpoints & {
   openGraph?: {
     site_name: string; // e.g. 'GBIF'
   };
-  OBISKey: string;
-  taiwanNodeidentifier: string;
+  hardcodedKeys: {
+    OBISKey: string;
+    taiwanNodeidentifier: string;
+  };
   linkToGbifOrg?: boolean;
   datasetSearch?: SearchMetadata;
   /** Never add options to table cells to modify filters */
@@ -101,6 +106,7 @@ export type Config = Endpoints & {
     | 'TAXON'
     | 'LITERATURE'
   )[];
+  apiKeys?: ApiKeysType;
   maps: {
     locale?: string;
     mapStyles: {
@@ -117,7 +123,7 @@ export type Config = Endpoints & {
       mapStyleServer: string;
       language: string;
       pixelRatio: number;
-      apiKeys: string[];
+      apiKeys?: ApiKeysType;
       mapComponents: {
         OpenlayersMap: React.ComponentType;
         MapboxMap: React.ComponentType;

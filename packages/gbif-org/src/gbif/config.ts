@@ -103,12 +103,17 @@ export const gbifConfig: Config = {
   openGraph: {
     site_name: 'GBIF',
   },
+  apiKeys: {
+    maptiler: import.meta.env.PUBLIC_API_KEY_MAPTILER,
+  },
   // vernacularNames: {
   //   sourceTitle: 'The IUCN Red List of Threatened Species',
   //   datasetKey: '66dd0960-2d7d-46ee-a491-87b9adcfe7b1',
   // },
-  OBISKey: 'ba0670b9-4186-41e6-8e70-f9cb3065551a',
-  taiwanNodeidentifier: '239',
+  hardcodedKeys: {
+    OBISKey: 'ba0670b9-4186-41e6-8e70-f9cb3065551a',
+    taiwanNodeidentifier: '239',
+  },
   linkToGbifOrg: true,
   publisherSearch: {
     queryType: 'V1',
