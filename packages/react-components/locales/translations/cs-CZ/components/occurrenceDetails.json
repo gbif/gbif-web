@@ -353,7 +353,7 @@
         "title": "",
         "subject": "Předmět",
         "format": "Formát",
-        "datasetID": ""
+        "datasetID": "ID datové sady"
       }
     },
     "image": {
@@ -373,8 +373,8 @@
         "publisher": "Vydavatel",
         "audience": "Sledovanost",
         "license": "",
-        "rightsHolder": "",
-        "datasetID": ""
+        "rightsHolder": "Držitel práv",
+        "datasetID": "ID datové sady"
       }
     },
     "measurementOrFact": {
@@ -407,8 +407,8 @@
         "audience": "Sledovanost",
         "source": "",
         "license": "",
-        "rightsHolder": "",
-        "datasetID": ""
+        "rightsHolder": "Držitel práv",
+        "datasetID": "ID datové sady"
       }
     },
     "reference": {
@@ -426,7 +426,7 @@
         "rights": "Práva",
         "taxonRemarks": "",
         "type": "Typ",
-        "datasetID": ""
+        "datasetID": "ID datové sady"
       }
     },
     "eolReference": {
