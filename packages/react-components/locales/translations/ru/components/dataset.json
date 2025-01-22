@@ -15,7 +15,7 @@
     "synonyms": "{NUMBER, plural,\n0 {Синонимов}\none {Синоним}\nfew {Синонима}\nmany {Синонимов}\nother {Синонимов}\n}"
   },
   "tabs": {
-    "about": "Об организациии",
+    "about": "Подробно",
     "occurrences": "Находки",
     "citations": "Цитирования",
     "project": "Проект",
