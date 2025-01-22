@@ -23,6 +23,7 @@
   "placeholders": {
     "default": "Search",
     "range": "Range or single value",
+    "rangeExample": "",
     "wildcard": "Search using * and ? as wildcards",
     "locationID": "Search by location ID (case sensitive)"
   },
