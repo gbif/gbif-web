@@ -75,8 +75,7 @@ export const gbifConfig: Config = {
   // suggest: {
   //   gadm: {
   //     type: 'PARAMS',
-  //     value: {gadmGid: 'DEU'}
-  //     },
+  //     value: { gadmGid: 'DEU' },
   //   },
   // },
   // pages: [

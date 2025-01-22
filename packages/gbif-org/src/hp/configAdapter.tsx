@@ -52,6 +52,7 @@ function convertedConfig(config: object): Partial<Config> {
       styleLookup: config?.maps?.styleLookup,
     },
     languages: config.languages,
+    suggest: config.suggest,
     occurrenceSearch: {
       scope: config?.occurrence?.rootPredicate,
       highlightedFilters: config?.occurrence?.highlightedFilters,
