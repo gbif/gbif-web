@@ -5,7 +5,6 @@ That should make it easy to copy it to the source file for the user.
 */
 
 import { Config, PageConfig } from '@/config/config';
-import { GbifEnv } from '@/config/endpoints';
 
 export function configAdapter(config: object): Partial<Config> {
   if (config?.version === 3) {
@@ -40,7 +39,6 @@ function convertedConfig(config: object): Partial<Config> {
     disableInlineTableFilterButtons: config?.disableInlineTableFilterButtons ?? false,
     availableCatalogues: config?.availableCatalogues ?? [],
     theme: config?.theme,
-    gbifEnv: GbifEnv.Uat,
     maps: {
       locale: config?.maps?.locale,
       mapStyles: {

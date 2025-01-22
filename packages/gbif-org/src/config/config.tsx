@@ -2,7 +2,7 @@ import mergeWith from 'lodash/mergeWith';
 import React from 'react';
 import { OccurrenceSearchMetadata, SearchMetadata } from '../contexts/search';
 import { configDefault } from './configDefaults';
-import { Endpoints, GbifEnv } from './endpoints';
+import { Endpoints } from './endpoints';
 import themeBuilder from './theme/index';
 import { Theme } from './theme/theme';
 
@@ -36,11 +36,10 @@ type PartialSearchMetadata = Pick<
 // TODO: The config object should probably be refactored in the future with logical nesting
 export type Config = Endpoints & {
   version: number;
-  suggest: {
-    gadm: { type: 'PARAMS'; value: { gadmGid: string } };
+  suggest?: {
+    gadm?: { type: 'PARAMS'; value: { gadmGid: string } };
   };
   defaultTitle?: string;
-  gbifEnv: GbifEnv;
   languages: LanguageOption[];
   pages?: PageConfig[];
   theme?: Partial<Theme>;
