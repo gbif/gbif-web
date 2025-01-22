@@ -42,7 +42,7 @@
   "discard": "Archive annotée par GBIF",
   "keep": "Archive annotée par GBIF",
   "addressUnknown": "Archive annotée par GBIF",
-  "emptyValueProvided": "",
+  "emptyValueProvided": "Valeur vide fournie",
   "copyToClipboard": "Archive annotée par GBIF",
   "fromCountry": "De {country}",
   "copiedToClipboard": "Copié dans le presse-papier",
@@ -51,11 +51,11 @@
     "description": "Description",
     "contacts": "Contacts"
   },
-  "derivedFromOccurrenceData": "",
+  "derivedFromOccurrenceData": "Dérivé de l'occurrence",
   "pageToc": "",
-  "apiAccess": "",
+  "apiAccess": "Accès API",
   "lastCrawled": "Dernière indexation",
-  "goToRecord": "",
-  "commonNameAccordingTo": "",
+  "goToRecord": "Aller à l'enregistrement",
+  "commonNameAccordingTo": "Nom commun selon : {source}",
   "noResults": "Archive annotée par GBIF"
 }
