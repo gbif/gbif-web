@@ -50,7 +50,7 @@ export function useSuggestedNodeCountry() {
     async (countryCode: string) => {
       const graphqlService = new GraphQLService({
         endpoint: graphqlEndpoint,
-        locale: locale.cmsLocale || locale.code,
+        locale: locale.cmsLocale || locale.localeCode,
       });
 
       const node =
@@ -88,7 +88,7 @@ export function useSuggestedNodeCountry() {
     [
       graphqlEndpoint,
       locale.cmsLocale,
-      locale.code,
+      locale.localeCode,
       setSuggestedNodeCountry,
       config.hardcodedKeys.taiwanNodeidentifier,
     ]

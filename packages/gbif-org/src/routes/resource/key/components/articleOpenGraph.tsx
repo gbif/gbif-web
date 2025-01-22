@@ -40,9 +40,9 @@ export function ArticleOpenGraph({ resource }: Props) {
         <meta property="og:image:alt" content={resource.primaryImage.description} />
       )}
       <meta property="og:url" content={url} />
-      <meta property="og:locale" content={locale.code} />
+      <meta property="og:locale" content={locale.localeCode} />
       {alternativeLocales.map((lang) => (
-        <meta property="og:locale:alternate" content={lang.code} key={lang.code} />
+        <meta property="og:locale:alternate" content={lang.localeCode} key={lang.code} />
       ))}
     </Helmet>
   );

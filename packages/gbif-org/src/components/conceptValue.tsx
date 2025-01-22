@@ -27,7 +27,11 @@ export const ConceptValue = ({
   useEffect(() => {
     if (!vocabulary || !name) return;
     load({
-      variables: { vocabulary, concept: name, language: locale.vocabularyLocale ?? locale.code },
+      variables: {
+        vocabulary,
+        concept: name,
+        language: locale.vocabularyLocale ?? locale.localeCode,
+      },
     });
   }, [vocabulary, name, locale, load]);
 

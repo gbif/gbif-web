@@ -13,7 +13,9 @@ export type PageConfig = {
 };
 
 export type LanguageOption = {
-  code: string; // this codes are passed to react-intl, so they must be valid locale codes. Altenatively we need an extra field for the locale code used by react-intl
+  /** code is really just a prefix */
+  code: string; // this is really just a prefix and identifier for the language
+  localeCode: string; // this codes are passed to react-intl, so they must be valid locale codes.
   label: string;
   default: boolean;
   textDirection: 'ltr' | 'rtl';

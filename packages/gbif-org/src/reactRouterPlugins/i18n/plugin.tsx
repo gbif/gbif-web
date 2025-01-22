@@ -37,12 +37,12 @@ export function applyI18nPlugin(
         const translations = await translationsPromise;
         // now get the actual messages for the locale
         const messages = await fetch(
-          translations?.[localeOption.code]?.messages ?? translations?.en?.messages
+          translations?.[localeOption.localeCode]?.messages ?? translations?.en?.messages
         )
           .then((r) => r.json())
           .catch((err) => {
             console.error('Failed to load translations for language');
-            console.error('Failed language: ', localeOption.code);
+            console.error('Failed language: ', localeOption.code, localeOption.localeCode);
             throw err;
           });
         return { messages: { ...messages, ...localeLanguage } };
