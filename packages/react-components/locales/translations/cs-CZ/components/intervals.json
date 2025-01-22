@@ -1,29 +1,29 @@
 {
   "description": {
-    "lt": "",
-    "lte": "",
-    "gt": "",
-    "gte": "",
-    "e": "",
-    "between": ""
+    "lt": "Méně než {to}",
+    "lte": "Méně nebo rovno {to}",
+    "gt": "Větší než {from}",
+    "gte": "Větší nebo rovno {from}",
+    "e": "Rovná se {from}",
+    "between": "Od {from} do {to}"
   },
   "compact": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "{from} do {to}",
+    "lt": "Pod {to}",
+    "gt": "Nad {from}",
+    "e": "{from}"
   },
   "compactMeters": {
-    "between": "",
-    "lt": "",
-    "gt": "",
+    "between": "{from} do {to}",
+    "lt": "Pod {to}",
+    "gt": "Nad {from}",
     "e": ""
   },
   "compactTime": {
-    "between": "",
+    "between": "{from} do {to}",
     "lt": "",
     "gt": "",
-    "e": ""
+    "e": "{from}"
   },
   "year": {
     "between": "",
@@ -53,7 +53,7 @@
     "between": "",
     "lt": "",
     "gt": "",
-    "e": ""
+    "e": "Hodnota velikosti vzorku je {from}"
   },
   "relativeOrganismQuantity": {
     "between": "",
@@ -73,10 +73,10 @@
   },
   "units": {
     "name": {
-      "km": "",
-      "m": "",
-      "mi": "",
-      "ft": ""
+      "km": "kilometry",
+      "m": "metry",
+      "mi": "míle",
+      "ft": "stopy"
     }
   }
 }
