@@ -51,11 +51,11 @@
     "description": "Описание",
     "contacts": "Контакты"
   },
-  "derivedFromOccurrenceData": "",
+  "derivedFromOccurrenceData": "Получено из данных о находках",
   "pageToc": "",
-  "apiAccess": "",
-  "lastCrawled": "Последний обход",
-  "goToRecord": "",
-  "commonNameAccordingTo": "",
+  "apiAccess": "доступ к API",
+  "lastCrawled": "Последний просмотр",
+  "goToRecord": "Перейти к записи",
+  "commonNameAccordingTo": "Общее название в соответствии с: {source}",
   "noResults": "Архив, аннотированный GBIF"
 }
