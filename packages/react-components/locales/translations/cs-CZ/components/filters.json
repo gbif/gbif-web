@@ -416,19 +416,19 @@
     "description": ""
   },
   "identifiedBy": {
-    "name": "",
+    "name": "Identifikováno od",
     "count": "",
     "description": ""
   },
   "isInCluster": {
-    "name": "",
+    "name": "je ve shluku",
     "count": "",
     "description": ""
   },
   "isSequenced": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Zda záznam obsahuje informace o sekvenci."
   },
   "active": {
     "name": "Aktivní",
@@ -461,7 +461,7 @@
     "description": ""
   },
   "datasetSubtype": {
-    "name": "",
+    "name": "Podtyp datové sady",
     "count": "",
     "description": ""
   },
@@ -471,7 +471,7 @@
     "description": ""
   },
   "name": {
-    "name": "",
+    "name": "Název",
     "count": "",
     "description": "",
     "searchPlaceholder": ""
@@ -487,18 +487,18 @@
     "description": ""
   },
   "verbatimScientificName": {
-    "name": "",
+    "name": "Doslovný vědecký název",
     "count": "",
     "description": ""
   },
   "networkKey": {
-    "name": "",
+    "name": "Síť",
     "count": "",
     "description": ""
   },
   "literatureType": {
-    "name": "",
+    "name": "Typ literatury",
     "count": "",
-    "description": ""
+    "description": "Z jakého typu literatury citace pochází."
   }
 }
