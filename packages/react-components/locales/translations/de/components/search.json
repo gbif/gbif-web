@@ -23,6 +23,7 @@
   "placeholders": {
     "default": "Suche",
     "range": "Bereich oder einzelner Wert",
+    "rangeExample": "Stadt zum Fundort.",
     "wildcard": "",
     "locationID": ""
   },
