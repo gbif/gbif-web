@@ -23,6 +23,7 @@
   "placeholders": {
     "default": "Wyszukaj",
     "range": "Przedział albo pojedyncza wartość",
+    "rangeExample": "",
     "wildcard": "szukaj używając * i ? jako symboli wieloznacznych",
     "locationID": ""
   },
