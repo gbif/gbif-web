@@ -227,7 +227,9 @@ export const gbifConfig: Config = {
     // },
   },
   disableInlineTableFilterButtons: false,
-  // messages: {} // no messages to overwrite for gbif.org
+  // messages: {
+  //   en: { 'filters.taxonKey.name': 'hallo' },
+  // }, // no messages to overwrite for gbif.org
   maps: {
     locale: 'en',
     mapStyles: {
