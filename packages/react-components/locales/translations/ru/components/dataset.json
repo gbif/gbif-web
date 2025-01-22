@@ -21,7 +21,7 @@
     "project": "Проект",
     "taxonomy": "Таксономия",
     "download": "Загрузить",
-    "phylogeny": ""
+    "phylogeny": "Филогения"
   },
   "noStatsForMetadata": "",
   "siteScopeSmallerThanDataset": "Не все записи из набора данных представлены на этом сайте. Посетите [GBIF.org]({datasetUrl}) для просмотра полного набора данных.",
