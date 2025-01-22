@@ -138,7 +138,7 @@
     "description": ""
   },
   "institutionCode": {
-    "name": "",
+    "name": "Kód instituce",
     "count": "",
     "description": ""
   },
@@ -306,7 +306,7 @@
     "description": ""
   },
   "collectionCode": {
-    "name": "",
+    "name": "Kód sbírky",
     "count": "",
     "description": ""
   },
