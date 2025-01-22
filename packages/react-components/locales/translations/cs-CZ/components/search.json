@@ -23,6 +23,7 @@
   "placeholders": {
     "default": "",
     "range": "",
+    "rangeExample": "",
     "wildcard": "",
     "locationID": ""
   },
