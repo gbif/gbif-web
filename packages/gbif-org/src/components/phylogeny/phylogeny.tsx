@@ -83,9 +83,7 @@ export const Phylogeny = ({
   useEffect(() => {
     if (treeData?.nwk) {
       const { nwk, tipTranslation } = treeData;
-      console.time('new phylotree(nwk)');
       const tree = new phylotree(nwk);
-      console.timeEnd('new phylotree(nwk)');
 
       if (tipTranslation) {
         const internals = tree.getInternals();
@@ -157,7 +155,6 @@ export const Phylogeny = ({
           },
           data: {
             children: any;
-            selected_xx: boolean;
             data: {
               name: {
                 split: (arg0: string) => any;
@@ -173,8 +170,6 @@ export const Phylogeny = ({
             element.style('cursor', 'pointer');
           }
           element.on('click', function (event: any) {
-            data.selected_xx = true;
-            console.log(data);
             if (data.data.name && !data.children) {
               let searchTerm = '';
               const parts = data.data.name.split('_');

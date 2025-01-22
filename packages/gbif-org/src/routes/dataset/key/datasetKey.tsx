@@ -322,10 +322,7 @@ export function DatasetPage() {
       });
     }
     if (hasPhylogeny) {
-      tabsToDisplay.push({
-        to: 'phylogenies',
-        children: <FormattedMessage id="dataset.tabs.phylogeny" />,
-      });
+      tabsToDisplay.push({ to: 'phylogenies', children: 'Phylogenies' });
     }
     if (hasTaxonomy) {
       tabsToDisplay.push({
