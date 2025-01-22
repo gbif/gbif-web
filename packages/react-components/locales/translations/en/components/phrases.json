@@ -42,13 +42,20 @@
   "discard": "",
   "keep": "",
   "addressUnknown": "",
+  "emptyValueProvided": "Empty value provided",
   "copyToClipboard": "",
   "fromCountry": "From {country}",
   "copiedToClipboard": "Copied to clipboard",
+  "continue": "Continue",
   "headers": {
     "description": "Description",
     "contacts": "Contacts"
   },
-  "pageToc": "",
+  "derivedFromOccurrenceData": "Derived from occurrence data",
+  "pageToc": "On this page",
+  "apiAccess": "API access",
+  "lastCrawled": "Last crawled",
+  "goToRecord": "Go to record",
+  "commonNameAccordingTo": "Common name according to: {source}",
   "noResults": ""
 }
