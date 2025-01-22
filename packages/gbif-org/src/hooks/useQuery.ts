@@ -240,7 +240,7 @@ export class QueryError extends Error {
           const errorMessage = graphQLError?.message
             ? graphQLError.message
             : 'Error message not found.';
-          message += `GraphQL error: ${errorMessage}\n`;
+          message += `${errorMessage}\n`;
         });
       }
 
@@ -254,7 +254,7 @@ export class QueryError extends Error {
             const errorMessage = graphQLError?.message
               ? graphQLError.message
               : 'Error message not found.';
-            message += `GraphQL error: ${errorMessage}\n`;
+            message += `${errorMessage}\n`;
           });
         }
       }

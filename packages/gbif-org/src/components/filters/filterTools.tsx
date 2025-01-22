@@ -767,11 +767,11 @@ export function ApplyCancel({
   return (
     <div className="g-flex-none g-py-2 g-px-2 g-flex g-justify-between">
       <Button size="sm" variant="outline" onClick={onCancel}>
-        Cancel
+        <FormattedMessage id="filterSupport.cancel" />
       </Button>
       {!pristine && (
         <Button type="submit" role="button" size="sm" onClick={() => onApply({ keepOpen: false })}>
-          Apply
+          <FormattedMessage id="filterSupport.apply" />
         </Button>
       )}
     </div>

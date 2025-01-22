@@ -1,15 +1,12 @@
 import { SearchInput } from '@/components/searchInput';
-import { Button } from '@/components/ui/button';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { cn } from '@/utils/shadcn';
 import React, { useContext, useEffect, useState } from 'react';
-import {
-    MdDeleteOutline
-} from 'react-icons/md';
-import { FormattedMessage } from 'react-intl';
+import { MdDeleteOutline } from 'react-icons/md';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { AboutButton } from './aboutButton';
-import { AdditionalFilterProps, filterRangeConfig } from './filterTools';
+import { AdditionalFilterProps, ApplyCancel, filterRangeConfig } from './filterTools';
 import { Option } from './option';
 
 type RangeProps = Omit<filterRangeConfig, 'filterType' | 'filterTranslation'> &
@@ -22,7 +19,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
     {
       className,
       searchConfig,
-      regex,
+      regex = /^((-)?[0-9]{0,10})(,)?((-)?[0-9]{0,10})$/,
       filterHandle,
       displayName: DisplayName,
       onApply,
@@ -33,12 +30,17 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
     ref
   ) => {
     const searchContext = useSearchContext();
+    const { formatMessage } = useIntl();
     const currentFilterContext = useContext(FilterContext);
     const { filter, toggle, add, setFullField, filterHash } = currentFilterContext;
     const [selected, setSelected] = useState<(string | number | object)[]>([]);
     const [filterBeforeHash, setFilterBeforeHash] = useState<string | undefined>(undefined);
     const [q, setQ] = useState<string>('');
-    const { upperBound = 'lte', lowerBound = 'gte', placeholder = 'E.g. 100,200' } = {};
+    const {
+      upperBound = 'lte',
+      lowerBound = 'gte',
+      placeholder = 'search.placeholders.rangeExample',
+    } = {};
 
     const About = about;
 
@@ -89,7 +91,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
                   setQ(value);
                 }
               }}
-              placeholder="Search"
+              placeholder={formatMessage({ id: placeholder })}
               className="g-w-full g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset"
               onKeyDown={(e) => {
                 // if user press enter, then update the value
@@ -119,14 +121,15 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
           )}
         >
           {selected.length > -1 && (
-            <div className="g-flex-none g-text-xs g-font-bold">{selected?.length} selected</div>
+            <div className="g-flex-none g-text-xs g-font-bold">
+              <FormattedMessage id="counts.nSelected" values={{ total: selected?.length }} />
+            </div>
           )}
           {options}
         </div>
         {selected.length === 0 && (
           <div className="g-pointer-events-none g-text-slate-700 g-text-sm g-bg-slate-100 g-p-4 g-border g-left-0 g-right-0 g-mx-2 g-rounded">
-            Enter a range or a single value. E.g. 100,200 or 100. Or use blanks to have open ends
-            like: 100,
+            <FormattedMessage id="filterSupport.rangeHelp" />
           </div>
         )}
         <div className="g-flex-auto g-overflow-auto">
@@ -198,23 +201,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
             </div>
           )}
         </div>
-        {onApply && onCancel && (
-          <div className="g-flex-none g-py-2 g-px-2 g-flex g-justify-between">
-            <Button size="sm" variant="outline" onClick={onCancel}>
-              Cancel
-            </Button>
-            {!pristine && (
-              <Button
-                type="submit"
-                role="button"
-                size="sm"
-                onClick={() => onApply({ keepOpen: false })}
-              >
-                Apply
-              </Button>
-            )}
-          </div>
-        )}
+        <ApplyCancel onApply={onApply} onCancel={onCancel} pristine={pristine} />
       </div>
     );
   }

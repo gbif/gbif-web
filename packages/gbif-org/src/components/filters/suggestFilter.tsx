@@ -8,22 +8,24 @@ import cloneDeep from 'lodash/cloneDeep';
 import hash from 'object-hash';
 import React, { useContext, useEffect, useState } from 'react';
 import {
-    MdDeleteOutline, MdOutlineRemoveCircle, MdOutlineRemoveCircleOutline
+  MdDeleteOutline,
+  MdOutlineRemoveCircle,
+  MdOutlineRemoveCircleOutline,
 } from 'react-icons/md';
 import { PiEmptyBold } from 'react-icons/pi';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import StripeLoader from '../stripeLoader';
 import { AboutButton } from './aboutButton';
 import { Exists } from './exists';
 import {
-    AdditionalFilterProps,
-    ApplyCancel,
-    AsyncOptions,
-    FacetQuery,
-    filterSuggestConfig,
-    FilterSummaryType,
-    getAsQuery,
-    getFilterSummary
+  AdditionalFilterProps,
+  ApplyCancel,
+  AsyncOptions,
+  FacetQuery,
+  filterSuggestConfig,
+  FilterSummaryType,
+  getAsQuery,
+  getFilterSummary,
 } from './filterTools';
 import { Option } from './option';
 import { Suggest } from './suggest';
@@ -53,6 +55,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
     ref
   ) => {
     const searchContext = useSearchContext();
+    const { formatMessage } = useIntl();
     const currentFilterContext = useContext(FilterContext);
     const { filter, toggle, add, setFullField, setFilter, filterHash, negateField } =
       currentFilterContext;
@@ -159,13 +162,10 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
     useEffect(() => {
       // map selectedFacetData to a lookup so that we have easy access to the counts per publisher key
       const selectedFacetLookup =
-        selectedFacetData?.search?.facet?.field?.reduce(
-          (acc, x) => {
-            acc[x.name] = x.count;
-            return acc;
-          },
-          {} as Record<string, number>
-        ) ?? {};
+        selectedFacetData?.search?.facet?.field?.reduce((acc, x) => {
+          acc[x.name] = x.count;
+          return acc;
+        }, {} as Record<string, number>) ?? {};
       setFacetLookup(selectedFacetLookup);
     }, [selectedFacetData]);
 
@@ -198,7 +198,11 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                     setUseNegations(!useNegations);
                   }}
                 >
-                  <SimpleTooltip delayDuration={300} title="Exclude selected" asChild>
+                  <SimpleTooltip
+                    delayDuration={300}
+                    title={<FormattedMessage id="filterSupport.excludeSelected" />}
+                    asChild
+                  >
                     <span>
                       {useNegations && <MdOutlineRemoveCircle />}
                       {!useNegations && <MdOutlineRemoveCircleOutline />}
@@ -218,7 +222,11 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                 setFullField(filterHandle, [{ type: 'isNotNull' }], []);
               }}
             >
-              <SimpleTooltip delayDuration={300} title="Filter by existence" asChild>
+              <SimpleTooltip
+                delayDuration={300}
+                title={<FormattedMessage id="filterSupport.existence" />}
+                asChild
+              >
                 <span>
                   <PiEmptyBold />
                 </span>
@@ -304,7 +312,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                 ref={ref}
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
-                placeholder="Search"
+                placeholder={formatMessage({ id: 'search.placeholders.default' })}
                 className="g-w-full g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset"
                 onKeyDown={(e) => {
                   // if user press enter, then update the value
@@ -377,7 +385,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
           )}
           {facetSuggestions && facetSuggestions.length === 0 && selected?.length === 0 && (
             <div className="g-p-4 g-text-center g-text-sm g-text-slate-400">
-              No matching records.
+              <FormattedMessage id="filterSupport.noSuggestions" />
             </div>
           )}
           <AsyncOptions

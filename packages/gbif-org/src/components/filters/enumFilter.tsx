@@ -7,8 +7,10 @@ import cloneDeep from 'lodash/cloneDeep';
 import hash from 'object-hash';
 import React, { useContext, useEffect, useState } from 'react';
 import {
-  MdDeleteOutline, MdOutlineRemoveCircle, MdOutlineRemoveCircleOutline,
-  MdShuffle
+  MdDeleteOutline,
+  MdOutlineRemoveCircle,
+  MdOutlineRemoveCircleOutline,
+  MdShuffle,
 } from 'react-icons/md';
 import { PiEmptyBold } from 'react-icons/pi';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
@@ -21,7 +23,7 @@ import {
   filterEnumConfig,
   FilterSummaryType,
   getAsQuery,
-  getFilterSummary
+  getFilterSummary,
 } from './filterTools';
 import { Option } from './option';
 
@@ -145,8 +147,8 @@ export const EnumFilter = React.forwardRef(
 
     const useFacetOptions = !enumOptions && noFilterFacetData?.search?.facet?.field;
     const valueOptions = useFacetOptions
-      ? (noFilterFacetData?.search?.facet?.field?.filter((x) => x).map((x) => x.name) ?? [])
-      : (enumOptions ?? []);
+      ? noFilterFacetData?.search?.facet?.field?.filter((x) => x).map((x) => x.name) ?? []
+      : enumOptions ?? [];
 
     const About = about;
     const options = (
@@ -170,7 +172,11 @@ export const EnumFilter = React.forwardRef(
                 setUseNegations(!useNegations);
               }}
             >
-              <SimpleTooltip delayDuration={300} title="Exclude selected" asChild>
+              <SimpleTooltip
+                delayDuration={300}
+                title={<FormattedMessage id="filterSupport.excludeSelected" />}
+                asChild
+              >
                 <span>
                   {useNegations && <MdOutlineRemoveCircle />}
                   {!useNegations && <MdOutlineRemoveCircleOutline />}
@@ -188,7 +194,11 @@ export const EnumFilter = React.forwardRef(
                 setFullField(filterHandle, [{ type: 'isNotNull' }], []);
               }}
             >
-              <SimpleTooltip delayDuration={300} title="Filter by existence" asChild>
+              <SimpleTooltip
+                delayDuration={300}
+                title={<FormattedMessage id="filterSupport.existence" />}
+                asChild
+              >
                 <span>
                   <PiEmptyBold />
                 </span>
@@ -196,7 +206,11 @@ export const EnumFilter = React.forwardRef(
             </button>
           )}
 
-          <SimpleTooltip delayDuration={300} title="Invert selection" asChild>
+          <SimpleTooltip
+            delayDuration={300}
+            title={<FormattedMessage id="filterSupport.invert" />}
+            asChild
+          >
             <span>
               <button
                 className="g-px-1"
@@ -288,7 +302,14 @@ export const EnumFilter = React.forwardRef(
           )}
         >
           {selected.length > -1 && (
-            <div className="g-flex-none g-text-xs g-font-bold">{selected?.length} selected</div>
+            <div className="g-flex-none g-text-xs g-font-bold">
+              {useNegations && (
+                <FormattedMessage id="counts.nExcluded" values={{ total: selected?.length }} />
+              )}
+              {!useNegations && (
+                <FormattedMessage id="counts.nSelected" values={{ total: selected?.length }} />
+              )}
+            </div>
           )}
           {options}
         </div>

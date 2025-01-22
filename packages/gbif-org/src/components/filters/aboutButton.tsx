@@ -1,6 +1,7 @@
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { cn } from '@/utils/shadcn';
 import { MdInfoOutline } from 'react-icons/md';
+import { FormattedMessage } from 'react-intl';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 
 export function AboutButton({
@@ -14,7 +15,12 @@ export function AboutButton({
     <Popover>
       <PopoverTrigger>
         <span>
-          <SimpleTooltip delayDuration={300} title="About this filter" side="top" asChild>
+          <SimpleTooltip
+            delayDuration={300}
+            title={<FormattedMessage id="filterSupport.aboutThisFilter" />}
+            side="top"
+            asChild
+          >
             <span>
               <MdInfoOutline className={cn('', className)} />
             </span>

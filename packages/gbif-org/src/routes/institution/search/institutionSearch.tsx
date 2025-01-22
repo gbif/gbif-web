@@ -1,6 +1,7 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
 import { DownloadAsTSVLink } from '@/components/downloadAsTSVLink';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
 import { NoRecords } from '@/components/noDataMessages';
 import { PaginationFooter } from '@/components/pagination';
@@ -88,7 +89,7 @@ export function InstitutionSearch(): React.ReactElement {
     InstitutionSearchQuery,
     InstitutionSearchQueryVariables
   >(INSTITUTION_SEARCH_QUERY, {
-    throwAllErrors: true,
+    throwAllErrors: false,
     lazyLoad: true,
     forceLoadingTrueOnMount: true,
   });
@@ -153,18 +154,21 @@ export function InstitutionSearch(): React.ReactElement {
         <FilterBar>
           <FilterButtons filters={filters} searchContext={searchContext} />
         </FilterBar>
-        <ArticleContainer className="g-bg-slate-100 g-flex">
-          <ArticleTextContainer className="g-flex-auto g-w-full">
-            <Results
-              excludedFilters={searchContext.excludedFilters}
-              tsvUrl={tsvUrl}
-              loading={loading}
-              institutions={institutions}
-              setOffset={setOffset}
-              {...{ geojson, geojsonLoading, geojsonError }}
-            />
-          </ArticleTextContainer>
-        </ArticleContainer>
+        <ErrorBoundary>
+          <ArticleContainer className="g-bg-slate-100 g-flex">
+            <ArticleTextContainer className="g-flex-auto g-w-full">
+              <Results
+                excludedFilters={searchContext.excludedFilters}
+                tsvUrl={tsvUrl}
+                loading={loading}
+                error={error}
+                institutions={institutions}
+                setOffset={setOffset}
+                {...{ geojson, geojsonLoading, geojsonError }}
+              />
+            </ArticleTextContainer>
+          </ArticleContainer>
+        </ErrorBoundary>
       </section>
     </>
   );
@@ -172,6 +176,7 @@ export function InstitutionSearch(): React.ReactElement {
 
 function Results({
   loading,
+  error,
   institutions,
   setOffset,
   geojson,
@@ -181,6 +186,7 @@ function Results({
   excludedFilters,
 }: {
   loading: boolean;
+  error?: Error;
   institutions?: InstitutionSearchQuery['institutionSearch'];
   setOffset: (x: number) => void;
   geojson?: GeoJSON.FeatureCollection;
@@ -191,6 +197,9 @@ function Results({
 }) {
   const excludeCode = excludedFilters?.includes('code');
   const excludeCountry = excludedFilters?.includes('country');
+  if (error) {
+    throw error;
+  }
   return (
     <>
       {loading && (

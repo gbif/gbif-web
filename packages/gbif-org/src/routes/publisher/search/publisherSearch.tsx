@@ -394,9 +394,9 @@ function Filters() {
             results={results ?? []}
             labelSelector={(value) => value.title}
             keySelector={(value) => value.key}
-            noSearchResultsPlaceholder={<span>No countries found</span>}
+            noSearchResultsPlaceholder={<FormattedMessage id="phrases.noResults" />}
             noSelectionPlaceholder={<span>Country</span>}
-            searchInputPlaceholder="Search countries..."
+            searchInputPlaceholder={formatMessage({ id: 'search.placeholders.default' })}
           />
         </FilterPopover>
       )}
