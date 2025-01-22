@@ -23,6 +23,7 @@
   "placeholders": {
     "default": "بحث",
     "range": "",
+    "rangeExample": "أرشيف شروح \"جيبف\"",
     "wildcard": "",
     "locationID": ""
   },
