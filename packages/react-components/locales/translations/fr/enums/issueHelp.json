@@ -25,7 +25,7 @@
   "DISTRIBUTION_INVALID": "Au moins un des enregistrements de l'extension distribution attaché à ce nom utilisé est non-valide.",
   "ZERO_COORDINATE": "La coordonnée correspond exactement à la coordonnée 0/0, indiquant souvent une mauvaise coordonnée nulle.",
   "TAXON_MATCH_FUZZY": "La correspondant au squelette taxonomique ne peut se faire qu'à l’aide d’une correspondance floue, non exacte.",
-  "DEPTH_NOT_METRIC": "Défini si la profondeur fournie n'est pas donnée dans le système métrique, par example en pieds à la place des mètres",
+  "DEPTH_NOT_METRIC": "Défini si la profondeur fournie n'est pas donnée dans le système métrique, par examole en pieds à la place des mètres",
   "COORDINATE_ROUNDED": "Coordonnées originales modifiées en arrondissant à 5 décimales.",
   "GEODETIC_DATUM_INVALID": "Le référentiel géodésique fourni ne peut être interprété.",
   "COORDINATE_INVALID": "Les valeurs de coordonnées ont été dans un format particulier mais GBIF est dans l'incapacité de les interpréter.",
