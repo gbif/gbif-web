@@ -306,7 +306,6 @@ export function OccurrenceKey() {
     locale?.iso3LetterCode,
     config?.vernacularNames?.sourceTitle,
   ]);
-  console.log(slowData);
 
   if (data?.occurrence == null) throw new Error('404');
   const occurrence = data.occurrence;
