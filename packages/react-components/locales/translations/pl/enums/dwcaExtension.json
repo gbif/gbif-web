@@ -3,8 +3,22 @@
   "http://rs.tdwg.org/ac/terms/Multimedia": "Multimedia Audubon",
   "http://data.ggbn.org/schemas/ggbn/terms/Amplification": "Amplifikacja",
   "http://data.ggbn.org/schemas/ggbn/terms/Cloning": "Klonowanie",
+  "http://data.ggbn.org/schemas/ggbn/terms/GelImage": "Obraz z żelu",
+  "http://data.ggbn.org/schemas/ggbn/terms/Loan": "Wypożyczenie",
   "http://data.ggbn.org/schemas/ggbn/terms/MaterialSample": "Próbka materiału",
   "http://data.ggbn.org/schemas/ggbn/terms/Permit": "Pozwolenie",
   "http://data.ggbn.org/schemas/ggbn/terms/Preparation": "Przygotowanie",
-  "http://rs.gbif.org/terms/1.0/Image": "Obraz"
+  "http://data.ggbn.org/schemas/ggbn/terms/Preservation": "Sposób konserwacji",
+  "http://rs.iobis.org/obis/terms/ExtendedMeasurementOrFact": "Rozszerzony pomiar lub fakt",
+  "http://rs.tdwg.org/chrono/terms/ChronometricAge": "Wiek chronometryczny",
+  "http://purl.org/germplasm/germplasmTerm#GermplasmAccession": "Germplasm: akcesja Germplasm ",
+  "http://purl.org/germplasm/germplasmTerm#MeasurementScore": "Germplasm: wynik pomiaru",
+  "http://purl.org/germplasm/germplasmTerm#MeasurementTrait": "Germplasm: cecha pomiaru",
+  "http://purl.org/germplasm/germplasmTerm#MeasurementTrial": "Germplasm: próba pomiaru",
+  "http://rs.gbif.org/terms/1.0/Identifier": "Identyfikator",
+  "http://rs.gbif.org/terms/1.0/Image": "Obraz",
+  "http://rs.tdwg.org/dwc/terms/MeasurementOrFact": "Pomiar lub fakt",
+  "http://rs.gbif.org/terms/1.0/Multimedia": "Multimedia",
+  "http://rs.gbif.org/terms/1.0/Reference": "Odwołania",
+  "http://rs.tdwg.org/dwc/terms/ResourceRelationship": "Powiązania zasobów"
 }
