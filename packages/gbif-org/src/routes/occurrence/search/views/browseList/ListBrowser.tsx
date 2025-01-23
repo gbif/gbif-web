@@ -1,11 +1,11 @@
 import { Drawer } from '@/components/drawer/drawer';
-import { useStringParam } from '@/hooks/useParam';
 import usePrevious from '@/hooks/usePrevious';
 import { useDynamicLink } from '@/reactRouterPlugins/dynamicLink';
 import { StandaloneOccurrenceKeyPage } from '@/routes/occurrence/key/standalone';
 import { useEffect, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useOrderedList } from './useOrderedList';
+import { useEntityDrawer } from './useEntityDrawer';
 
 const entityTypes = {
   o: 'occurrence',
@@ -20,7 +20,7 @@ const entityTypes = {
 
 export default function EntityDrawer() {
   const { orderedList } = useOrderedList();
-  const [previewKey, setPreviewKey] = useStringParam({ key: 'entity' });
+  const [previewKey, setPreviewKey] = useEntityDrawer();
   // use a switch to set type from previewKey. If it starts with o_ it is an occurrence key, d_ is dataset key, p_ is publisher key, c_ is collection key, i_ is institution key, n_ is network key, in_ is installation key
   let type;
   if (previewKey) {

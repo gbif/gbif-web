@@ -2,7 +2,6 @@ import { getAsQuery } from '@/components/filters/filterTools';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { RootSearchQuery, RootSearchQueryVariables } from '@/gql/graphql';
-import { useStringParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { createContext, useContext, useEffect, useReducer, useState } from 'react';
 import { ControlledTreeEnvironment, Tree, TreeItem, TreeItemIndex } from 'react-complex-tree';
@@ -10,6 +9,7 @@ import 'react-complex-tree/lib/style-modern.css';
 import { searchConfig } from '../../searchConfig';
 import TreeNode from './treeNode';
 import { getChildren, getParents, ItemsType, reducer } from './treeUtil';
+import { useEntityDrawer } from '@/routes/occurrence/search/views/browseList/useEntityDrawer';
 export const childLimit = 10;
 
 const CHECKLIST_ROOTS = /* GraphQL */ `
@@ -55,7 +55,7 @@ export function TaxonTree() {
   const searchContext = useSearchContext();
   const [loadingTreeNodes, setLoadingTreeNodes] = useState<TreeItemIndex[]>([]);
   const { filter, filterHash } = useContext(FilterContext);
-  const [, setPreviewKey] = useStringParam({ key: 'entity' });
+  const [, setPreviewKey] = useEntityDrawer();
   const [expandedItems, setExpandedItems] = useState<TreeItemIndex[]>([]);
   const [focusedItem, setFocusedItem] = useState<TreeItemIndex | null>(null);
   const [selectedItems, setSelectedItems] = useState<TreeItemIndex[]>([]);

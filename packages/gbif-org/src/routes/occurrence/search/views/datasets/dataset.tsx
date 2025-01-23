@@ -1,12 +1,12 @@
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { filter2predicate } from '@/dataManagement/filterAdapter';
-import { useStringParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { searchConfig } from '../../searchConfig';
 import { useOrderedList } from '../browseList/useOrderedList';
 import { DatasetPresentation } from './datasetPresentation';
+import { useEntityDrawer } from '../browseList/useEntityDrawer';
 
 const OCCURRENCE_DATASETS = `
 query occurrenceDatasets($predicate: Predicate, $size: Int) {
@@ -38,7 +38,7 @@ export function Dataset({ size: defaultSize = 100 }) {
     throwAllErrors: true,
   });
   const { setOrderedList } = useOrderedList();
-  const [, setPreviewKey] = useStringParam({ key: 'entity' });
+  const [, setPreviewKey] = useEntityDrawer();
   const [size, setSize] = useState(defaultSize);
 
   const [allData, setAllData] = useState([]);

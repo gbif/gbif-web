@@ -37,10 +37,10 @@ import { Spinner } from '@/components/ui/spinner';
 import { useToast } from '@/components/ui/use-toast';
 import { ViewHeader } from '@/components/ViewHeader';
 import { useConfig } from '@/config/config';
-import { useStringParam } from '@/hooks/useParam';
 import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
 import { useOrderedList } from '../../browseList/useOrderedList';
+import { useEntityDrawer } from '../../browseList/useEntityDrawer';
 import ListBox from './ListBox';
 import MapComponentML from './MapLibreMap';
 import MapComponentOL from './OpenlayersMap';
@@ -115,7 +115,7 @@ function Map({
   const [basemapOptions, setBasemapOptions] = useState();
   const [listVisible, showList] = useState(false);
   const { toast } = useToast();
-  const [, setPreviewKey] = useStringParam({ key: 'entity' });
+  const [, setPreviewKey] = useEntityDrawer();
   const [mapLoading, setMapLoading] = useState(false);
   const items = React.useMemo(
     () => pointData?.occurrenceSearch?.documents?.results || [],

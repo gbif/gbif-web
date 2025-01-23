@@ -51,7 +51,10 @@ export function useStringParam({
   key: string;
   defaultValue?: string;
   hideDefault?: boolean;
-}): [string | undefined, (value?: string, replace?: boolean) => void] {
+}): [
+  string | undefined,
+  (value?: string, replace?: boolean, preventScrollReset?: boolean) => void
+] {
   const [value, setValue] = useParam({
     key,
     defaultValue: defaultValue,
@@ -111,7 +114,7 @@ function useParam<T>({
   serialize?: (value?: T) => string | undefined;
   defaultValue?: string | number;
   hideDefault?: boolean;
-}): [T, (value: T, replace?: boolean) => void] {
+}): [T, (value: T, replace?: boolean, preventScrollReset?: boolean) => void] {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const value = parse(
@@ -126,7 +129,7 @@ function useParam<T>({
   }, [setSearchParams]);
 
   const setValue = useCallback(
-    (value: T, replace?: boolean) => {
+    (value: T, replace?: boolean, preventScrollReset?: boolean) => {
       setSearchParamsRef.current(
         (params) => {
           const clone = new URLSearchParams(params);
@@ -137,7 +140,7 @@ function useParam<T>({
           }
           return clone;
         },
-        { replace }
+        { replace, preventScrollReset }
       );
     },
     [key, serialize, defaultValue, hideDefault]

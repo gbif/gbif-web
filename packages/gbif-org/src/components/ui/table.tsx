@@ -76,7 +76,11 @@ const TableCell = React.forwardRef<
     {...props}
   >
     {linkProps && (
-      <DynamicLink {...linkProps} className="g-absolute g-top-0 g-left-0 g-w-full g-h-full" />
+      <DynamicLink
+        {...linkProps}
+        preventScrollReset
+        className="g-absolute g-top-0 g-left-0 g-w-full g-h-full"
+      />
     )}
     <div className="g-pointer-events-none g-relative">{children}</div>
   </td>

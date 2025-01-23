@@ -1,12 +1,12 @@
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { filter2predicate } from '@/dataManagement/filterAdapter';
-import { useStringParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { searchConfig } from '../../searchConfig';
 import { useOrderedList } from '../browseList/useOrderedList';
 import { MediaPresentation } from './mediaPresentation';
+import { useEntityDrawer } from '../browseList/useEntityDrawer';
 
 const OCCURRENCE_MEDIA = `
 query occurrenceMedia($predicate: Predicate, $size: Int, $from: Int) {
@@ -57,7 +57,7 @@ export function Media({ size: defaultSize = 50 }) {
     throwAllErrors: true,
   });
   const { setOrderedList } = useOrderedList();
-  const [, setPreviewKey] = useStringParam({ key: 'entity' });
+  const [, setPreviewKey] = useEntityDrawer();
 
   const [allData, setAllData] = useState([]);
 

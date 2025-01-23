@@ -17,6 +17,7 @@ import { searchConfig } from '../../searchConfig';
 import { useTaxonColumns } from './columns';
 import { DynamicLinkProps } from '@/reactRouterPlugins/dynamicLink';
 import { Link } from 'react-router-dom';
+import { useEntityDrawer } from '@/routes/occurrence/search/views/browseList/useEntityDrawer';
 
 const TAXON_SEARCH_QUERY = /* GraphQL */ `
   query TaxonSearch($offset: Int, $limit: Int, $query: TaxonSearchInput) {
@@ -88,7 +89,7 @@ export function Table() {
   const config = useConfig();
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
-  const [, setPreviewKey] = useStringParam({ key: 'entity' });
+  const [, setPreviewKey] = useEntityDrawer();
 
   // Go back to the first page when the filters change
   useEffect(() => {
