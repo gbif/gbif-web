@@ -1,4 +1,5 @@
 import Properties, { Term as T, Value as V } from '@/components/properties';
+import { OccurrenceAssociatedIdFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import equal from 'fast-deep-equal/react';
 import { FormattedDate, FormattedMessage } from 'react-intl';
@@ -137,15 +138,15 @@ export function AgentIds({ termMap, showAll, occurrence }) {
   }
 }
 
-function RecordedById({ termMap, showAll, occurrence }) {
+export function RecordedById({ occurrence }) {
   return <Agents label="occurrenceFieldNames.recordedByID" value={occurrence.recordedByIDs} />;
 }
 
-function IdentifiedById({ termMap, showAll, occurrence }) {
+export function IdentifiedById({ occurrence }) {
   return <Agents label="occurrenceFieldNames.identifiedByID" value={occurrence.identifiedByIDs} />;
 }
 
-function Agents({ label, value }) {
+function Agents({ label, value }: { label: string; value: OccurrenceAssociatedIdFragment[] }) {
   if (!value?.[0]) return null;
   return (
     <BasicField label={label}>
@@ -162,50 +163,6 @@ function Agents({ label, value }) {
         })}
       </ul>
     </BasicField>
-  );
-}
-
-export function AgentSummary({ agent, ...props }) {
-  const { person } = agent;
-  return (
-    <div className="g-rounded g-border g-bg-white dark:g-bg-slate-500 g-shadow-sm g-inline-flex g-overflow-hidden">
-      <div className="g-flex-none">
-        {person?.image?.value && (
-          <img
-            className="g-block"
-            src={person?.image?.value}
-            height={80}
-            style={{ maxWidth: 80 }}
-          />
-        )}
-      </div>
-      <div className="g-flex-auto g-px-4 g-py-2 g-text-sm">
-        <h4 className="g-font-bold">{person?.name?.value}</h4>
-        {person?.birthDate?.value && (
-          <div>
-            <FormattedDate
-              value={person?.birthDate?.value}
-              year="numeric"
-              month="long"
-              day="2-digit"
-            />
-            {person?.deathDate?.value && (
-              <span>
-                {' '}
-                -{' '}
-                <FormattedDate
-                  value={person?.deathDate?.value}
-                  year="numeric"
-                  month="long"
-                  day="2-digit"
-                />
-              </span>
-            )}
-          </div>
-        )}
-        <a href={agent.value}>{agent.value}</a>
-      </div>
-    </div>
   );
 }
 
@@ -235,5 +192,46 @@ export function DynamicProperties({ termMap }) {
       </T>
       <V style={{ overflow: 'hidden' }}>{content}</V>
     </>
+  );
+}
+
+export function AgentSummary({ agent }: { agent: OccurrenceAssociatedIdFragment }) {
+  const { person } = agent;
+  return (
+    <div className="g-rounded g-border g-bg-white g-overflow-hidden g-shadow-sm g-flex g-flex-wrap">
+      <div className="g-flex-none">
+        {person?.image?.value && <img className="g-block g-max-w-16" src={person?.image?.value} />}
+      </div>
+      <div className="g-flex-auto g-p-2">
+        <h4 className="g-m-0 g-mb-1">{person?.name?.value}</h4>
+        {person?.birthDate?.value && (
+          <div className="g-mb-1">
+            <FormattedDate
+              value={person?.birthDate?.value}
+              year="numeric"
+              month="long"
+              day="2-digit"
+            />
+            {person?.deathDate?.value && (
+              <span>
+                {' '}
+                -{' '}
+                <FormattedDate
+                  value={person?.deathDate?.value}
+                  year="numeric"
+                  month="long"
+                  day="2-digit"
+                />
+              </span>
+            )}
+          </div>
+        )}
+        {agent.value && (
+          <a className="g-underline" href={agent.value}>
+            {agent.value}
+          </a>
+        )}
+      </div>
+    </div>
   );
 }

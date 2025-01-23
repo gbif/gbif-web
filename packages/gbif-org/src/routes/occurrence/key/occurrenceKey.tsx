@@ -87,22 +87,10 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
       }
       institutionCode
       recordedByIDs {
-        value
-        person(expand: true) {
-          name
-          birthDate
-          deathDate
-          image
-        }
+        ...OccurrenceAssociatedID
       }
       identifiedByIDs {
-        value
-        person(expand: true) {
-          name
-          birthDate
-          deathDate
-          image
-        }
+        ...OccurrenceAssociatedID
       }
 
       extensions {
@@ -248,6 +236,18 @@ fragmentManager.register(/* GraphQL */ `
     htmlValue
     remarks
     issues
+  }
+`);
+
+fragmentManager.register(/* GraphQL */ `
+  fragment OccurrenceAssociatedID on AssociatedID {
+    value
+    person(expand: true) {
+      name
+      birthDate
+      deathDate
+      image
+    }
   }
 `);
 
