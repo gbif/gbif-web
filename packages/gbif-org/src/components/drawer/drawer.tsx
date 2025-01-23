@@ -61,7 +61,7 @@ export function Drawer({
           <Dialog.Content
             onCloseAutoFocus={onCloseAutoFocus}
             style={{ maxWidth: '95%', width: '1200px' }}
-            className="g-fixed g-h-screen g-right-0 g-top-0 g-bg-white g-flex g-justify-end g-transition-all g-z-50"
+            className="drawer g-fixed g-h-screen g-right-0 g-top-0 g-bg-white g-flex g-justify-end g-transition-all g-z-50"
           >
             <VisuallyHidden>
               <Dialog.Title>{screenReaderTitle}</Dialog.Title>(
