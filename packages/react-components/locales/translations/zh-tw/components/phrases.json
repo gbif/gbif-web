@@ -42,13 +42,20 @@
   "discard": "GBIF 註記的存檔",
   "keep": "GBIF 註記的存檔",
   "addressUnknown": "GBIF 註記的存檔",
+  "emptyValueProvided": "",
   "copyToClipboard": "GBIF 註記的存檔",
   "fromCountry": "",
   "copiedToClipboard": "",
+  "continue": "繼續操作",
   "headers": {
     "description": "描述",
     "contacts": "聯絡資訊"
   },
-  "pageToc": "GBIF 註記的存檔",
+  "derivedFromOccurrenceData": "",
+  "pageToc": "",
+  "apiAccess": "",
+  "lastCrawled": "上次檢索",
+  "goToRecord": "",
+  "commonNameAccordingTo": "",
   "noResults": "GBIF 註記的存檔"
 }

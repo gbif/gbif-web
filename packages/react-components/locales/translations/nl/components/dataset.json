@@ -14,6 +14,15 @@
     "acceptedNames": "Geaccepteerde namen",
     "synonyms": "Synoniemen"
   },
+  "tabs": {
+    "about": "Over",
+    "occurrences": "",
+    "citations": "Citaties",
+    "project": "Project",
+    "taxonomy": "",
+    "download": "Download",
+    "phylogeny": ""
+  },
   "noStatsForMetadata": "Geen statistieken beschikbaar voor datasets met alleen metadata",
   "siteScopeSmallerThanDataset": "Niet alle gegevens van de dataset zijn opgenomen op deze site. Bezoek [GBIF.org]({datasetUrl}) om de volledige data te bekijken.",
   "viewArticle": "Bekijk artikel",
@@ -53,6 +62,7 @@
   "nDownloadEvents": "",
   "nFromDataset": "",
   "funding": "Financiering",
+  "abstract": "",
   "contacts": "Contacten",
   "registration": "GBIF registratie",
   "dataDescription": "Beschrijving van de data",

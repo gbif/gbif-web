@@ -23,6 +23,7 @@
   "placeholders": {
     "default": "Søg",
     "range": "",
+    "rangeExample": "GBIF annoteret Arkiv",
     "wildcard": "",
     "locationID": ""
   },

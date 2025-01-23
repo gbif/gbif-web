@@ -11,7 +11,9 @@ import { SuggestConfig } from '@/utils/suggestEndpoints';
 import React, { useContext } from 'react';
 import { FormattedMessage, IntlShape } from 'react-intl';
 import { Button } from '../ui/button';
+import { AboutButton } from './aboutButton';
 import { EnumFilter } from './enumFilter';
+import { Exists } from './exists';
 import { FilterButton } from './filterButton';
 import { FilterPopover } from './filterPopover';
 import { GeometryFilter } from './geometryFilter';
@@ -93,6 +95,7 @@ export type filterEnumConfig = filterConfigShared & {
 export type filterRangeConfig = filterConfigShared & {
   filterType: filterConfigTypes.RANGE;
   regex?: RegExp;
+  allowExistence?: boolean;
 };
 
 export type filterLocationConfig = filterConfigShared & {
@@ -258,11 +261,8 @@ const getWildcardFilter = ({
       return (
         <WildcardFilter
           ref={ref}
-          suggestQuery={config.suggestQuery}
-          filterHandle={config.filterHandle}
-          displayName={config.displayName}
+          {...config}
           searchConfig={searchConfig}
-          about={config.about}
           {...{ onApply, onCancel, className, style, pristine }}
         />
       );
@@ -832,4 +832,70 @@ export function getFilterSummary(filter: FilterType, handle: string): FilterSumm
     isNotNull,
     firstValue: must?.length > 0 ? must?.[0] : mustNot?.[0],
   };
+}
+
+export function ExistsSection({
+  className,
+  backupFilter,
+  setFilter,
+  setFullField,
+  filterHandle,
+  About,
+  filterSummary,
+  onApply,
+  onCancel,
+  pristine,
+}: {
+  className?: string;
+  backupFilter?: FilterType;
+  setFilter: (filter: FilterType) => void;
+  setFullField: (field: string, must: unknown[], mustNot: unknown[]) => FilterType;
+  filterHandle: string;
+  About?: React.FC;
+  filterSummary?: FilterSummaryType;
+  onApply?: () => void;
+  onCancel?: () => void;
+  pristine?: boolean;
+}) {
+  return (
+    <>
+      <div
+        className={cn(
+          'g-flex g-flex-none g-text-sm g-text-slate-400 g-py-1.5 g-px-4 g-items-center g-pt-2',
+          className
+        )}
+      >
+        <button
+          onClick={() => {
+            if (backupFilter) setFilter(backupFilter);
+            else setFullField(filterHandle, [], []);
+          }}
+        >
+          <FormattedMessage id="filterSupport.backToSelect" />
+        </button>
+
+        <div className="g-flex-auto"></div>
+        <div className="g-flex-none g-text-base" style={{ marginTop: '-0.2em' }}>
+          {About && (
+            <AboutButton className="-g-me-1">
+              <About />
+            </AboutButton>
+          )}
+        </div>
+      </div>
+      <div className="g-py-1.5 g-px-4 g-w-full">
+        <Exists
+          isEmpty={!!filterSummary?.isNull}
+          onChange={({ isEmpty }: { isEmpty: boolean }) => {
+            if (isEmpty) {
+              setFullField(filterHandle, [{ type: 'isNull' }], []);
+            } else {
+              setFullField(filterHandle, [{ type: 'isNotNull' }], []);
+            }
+          }}
+        />
+      </div>
+      <ApplyCancel onApply={onApply} onCancel={onCancel} pristine={pristine} />
+    </>
+  );
 }

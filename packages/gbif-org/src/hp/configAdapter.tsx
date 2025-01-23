@@ -4,8 +4,8 @@ And to make it even easier we will log the corrected version to the console.
 That should make it easy to copy it to the source file for the user.
 */
 
-import { Config, PageConfig } from '@/config/config';
-import { GbifEnv } from '@/config/endpoints';
+import { Config, LanguageOption, PageConfig } from '@/config/config';
+import { languagesOptions } from '@/config/languagesOptions';
 
 export function configAdapter(config: object): Partial<Config> {
   if (config?.version === 3) {
@@ -34,13 +34,32 @@ function convertedConfig(config: object): Partial<Config> {
   if (occTabs && !occTabs.includes('download')) {
     occTabs.push('download');
   }
+  const supportedLanguages = languagesOptions;
+  // map provided languages to supported languages
+  const mappedLanguages = config?.languages.map((lang: LanguageOption) => {
+    const matchedLanguage = supportedLanguages.find(
+      (targetLang: LanguageOption) => (lang.localeCode ?? lang.code) === targetLang.localeCode
+    );
+    if (matchedLanguage) {
+      return { ...matchedLanguage, ...lang, default: lang.default ?? false };
+    } else {
+      // get english as default
+      const english = supportedLanguages.find((lang: LanguageOption) => lang.code === 'en');
+      return {
+        ...english,
+        code: lang.code,
+        default: lang.default ?? false,
+      };
+    }
+  });
+
   const newConfig: Partial<Config> = {
     version: 3,
     pages: pages,
     disableInlineTableFilterButtons: config?.disableInlineTableFilterButtons ?? false,
     availableCatalogues: config?.availableCatalogues ?? [],
     theme: config?.theme,
-    gbifEnv: GbifEnv.Uat,
+    apiKeys: config?.apiKeys,
     maps: {
       locale: config?.maps?.locale,
       mapStyles: {
@@ -51,7 +70,7 @@ function convertedConfig(config: object): Partial<Config> {
       addMapStyles: config?.maps?.addMapStyles,
       styleLookup: config?.maps?.styleLookup,
     },
-    languages: config.languages,
+    languages: mappedLanguages,
     suggest: config.suggest,
     messages: config.languages.reduce((acc: any, curr: string) => {
       acc[curr.code] = config?.messages?.[curr.code] ?? config.messages;

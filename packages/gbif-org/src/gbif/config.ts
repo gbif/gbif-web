@@ -1,21 +1,13 @@
 import { Config } from '@/config/config';
-import {
-  GbifEnv,
-  getDefaultEndpointsBasedOnGbifEnv,
-  InvalidGbifEnvError,
-  isGbifEnv,
-} from '@/config/endpoints';
+import { getEndpoints } from '@/config/endpoints';
 import { languagesOptions } from '@/config/languagesOptions';
-import { merge } from 'ts-deepmerge';
 
 // The env options
 type Options = {
-  gbifEnv: GbifEnv;
   baseUrl: string;
   translationsEntryEndpoint: string;
-  countEndpoint: string;
   v1Endpoint: string;
-  webApiEndpoint: string;
+  contentSearchEndpoint: string;
   // When running e2e tests, we need a separate endpoint for the server and client as the server needs the endpoint in on the
   // internal docker network and the client needs the endpoint on the host machine
   graphqlEndpoint: string;
@@ -27,33 +19,16 @@ type Options = {
 };
 
 // Extract config options from the environment variables
-const envConfig = {
-  gbifEnv: import.meta.env.PUBLIC_GBIF_ENV,
+const options = {
   baseUrl: import.meta.env.PUBLIC_BASE_URL,
-  translationsEntryEndpoint: import.meta.env.PUBLIC_TRANSLATIONS_ENTRY_ENDPOINT,
-  countEndpoint: import.meta.env.PUBLIC_COUNT_ENDPOINT,
-  v1Endpoint: import.meta.env.PUBLIC_V1_ENDPOINT,
-  webApiEndpoint: import.meta.env.PUBLIC_WEB_API_ENDPOINT,
-  graphqlEndpoint: import.meta.env.PUBLIC_GRAPHQL_ENDPOINT,
+  ...getEndpoints(),
   graphqlEndpointServer: import.meta.env.PUBLIC_GRAPHQL_ENDPOINT_SERVER,
   graphqlEndpointClient: import.meta.env.PUBLIC_GRAPHQL_ENDPOINT_CLIENT,
-  formsEndpoint: import.meta.env.PUBLIC_FORMS_ENDPOINT,
   formsEndpointServer: import.meta.env.PUBLIC_FORMS_ENDPOINT_SERVER,
   formsEndpointClient: import.meta.env.PUBLIC_FORMS_ENDPOINT_CLIENT,
-} as Partial<Options>;
+} as Options;
 
-// Validate that the required config options are present and valid
-if (!envConfig.gbifEnv) throw new Error('Missing PUBLIC_GBIF_ENV env variable');
-if (!isGbifEnv(envConfig.gbifEnv)) throw new InvalidGbifEnvError(envConfig.gbifEnv);
-
-if (!envConfig.baseUrl) throw new Error('Missing PUBLIC_BASE_URL env variable');
-
-// Merge the config based on the priority order: ENV > default
-const options = merge.withOptions(
-  { allowUndefinedOverrides: false },
-  getDefaultEndpointsBasedOnGbifEnv(envConfig.gbifEnv),
-  envConfig
-) as Options;
+if (!options.baseUrl) throw new Error('Missing PUBLIC_BASE_URL env variable');
 
 const isServer = () => typeof window === 'undefined';
 
@@ -128,12 +103,17 @@ export const gbifConfig: Config = {
   openGraph: {
     site_name: 'GBIF',
   },
+  apiKeys: {
+    maptiler: import.meta.env.PUBLIC_API_KEY_MAPTILER,
+  },
   // vernacularNames: {
   //   sourceTitle: 'The IUCN Red List of Threatened Species',
   //   datasetKey: '66dd0960-2d7d-46ee-a491-87b9adcfe7b1',
   // },
-  OBISKey: 'ba0670b9-4186-41e6-8e70-f9cb3065551a',
-  taiwanNodeidentifier: '239',
+  hardcodedKeys: {
+    OBISKey: 'ba0670b9-4186-41e6-8e70-f9cb3065551a',
+    taiwanNodeidentifier: '239',
+  },
   linkToGbifOrg: true,
   publisherSearch: {
     queryType: 'V1',

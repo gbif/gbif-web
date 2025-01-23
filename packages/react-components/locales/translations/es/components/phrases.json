@@ -42,13 +42,20 @@
   "discard": "Aquí debe colocarse una breve descripción del componente",
   "keep": "Aquí debe colocarse una breve descripción del componente",
   "addressUnknown": "Aquí debe colocarse una breve descripción del componente",
+  "emptyValueProvided": "",
   "copyToClipboard": "Aquí debe colocarse una breve descripción del componente",
   "fromCountry": "De {country}",
   "copiedToClipboard": "Copiado al portapapeles",
+  "continue": "Continuar",
   "headers": {
     "description": "Descripción",
     "contacts": "Contactos"
   },
-  "pageToc": "Aquí debe colocarse una breve descripción del componente",
+  "derivedFromOccurrenceData": "",
+  "pageToc": "",
+  "apiAccess": "",
+  "lastCrawled": "Último rasteo",
+  "goToRecord": "",
+  "commonNameAccordingTo": "",
   "noResults": "Aquí debe colocarse una breve descripción del componente"
 }

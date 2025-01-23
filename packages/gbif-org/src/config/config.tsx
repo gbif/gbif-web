@@ -2,7 +2,7 @@ import mergeWith from 'lodash/mergeWith';
 import React from 'react';
 import { OccurrenceSearchMetadata, SearchMetadata } from '../contexts/search';
 import { configDefault } from './configDefaults';
-import { Endpoints, GbifEnv } from './endpoints';
+import { Endpoints } from './endpoints';
 import themeBuilder from './theme/index';
 import { Theme } from './theme/theme';
 
@@ -13,7 +13,9 @@ export type PageConfig = {
 };
 
 export type LanguageOption = {
-  code: string; // this codes are passed to react-intl, so they must be valid locale codes. Altenatively we need an extra field for the locale code used by react-intl
+  /** code is really just a prefix */
+  code: string; // this is really just a prefix and identifier for the language
+  localeCode: string; // this codes are passed to react-intl, so they must be valid locale codes.
   label: string;
   default: boolean;
   textDirection: 'ltr' | 'rtl';
@@ -33,14 +35,16 @@ type PartialSearchMetadata = Pick<
   | 'highlightedFilters'
 >;
 
+type ApiKeysType = {
+  maptiler?: string;
+};
 // TODO: The config object should probably be refactored in the future with logical nesting
 export type Config = Endpoints & {
   version: number;
-  suggest: {
-    gadm: { type: 'PARAMS'; value: { gadmGid: string } };
+  suggest?: {
+    gadm?: { type: 'PARAMS'; value: { gadmGid: string } };
   };
   defaultTitle?: string;
-  gbifEnv: GbifEnv;
   languages: LanguageOption[];
   pages?: PageConfig[];
   theme?: Partial<Theme>;
@@ -50,8 +54,10 @@ export type Config = Endpoints & {
   openGraph?: {
     site_name: string; // e.g. 'GBIF'
   };
-  OBISKey: string;
-  taiwanNodeidentifier: string;
+  hardcodedKeys: {
+    OBISKey: string;
+    taiwanNodeidentifier: string;
+  };
   linkToGbifOrg?: boolean;
   datasetSearch?: SearchMetadata;
   /** Never add options to table cells to modify filters */
@@ -102,6 +108,7 @@ export type Config = Endpoints & {
     | 'TAXON'
     | 'LITERATURE'
   )[];
+  apiKeys?: ApiKeysType;
   maps: {
     locale?: string;
     mapStyles: {
@@ -118,7 +125,7 @@ export type Config = Endpoints & {
       mapStyleServer: string;
       language: string;
       pixelRatio: number;
-      apiKeys: string[];
+      apiKeys?: ApiKeysType;
       mapComponents: {
         OpenlayersMap: React.ComponentType;
         MapboxMap: React.ComponentType;

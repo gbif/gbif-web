@@ -3,12 +3,17 @@ import MapComponentOL from './OpenlayersMap';
 const pixelRatio = window.devicePixelRatio || 1;
 
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
-const API_KEY_MAPTILER = import.meta.env.PUBLIC_API_KEY_MAPTILER;
 
 export function getMapStyles({ apiKeys = {}, language = 'en' }) {
-  const natural = `styleName=natural&background=${encodeURIComponent('#e5e9cd')}&language=${language}&pixelRatio=${pixelRatio}`;
-  const light = `styleName=geyser&background=${encodeURIComponent('#f3f3f1')}&language=${language}&pixelRatio=${pixelRatio}`;
-  const dark = `styleName=tuatara&background=${encodeURIComponent('#363332')}&language=${language}&pixelRatio=${pixelRatio}`;
+  const natural = `styleName=natural&background=${encodeURIComponent(
+    '#e5e9cd'
+  )}&language=${language}&pixelRatio=${pixelRatio}`;
+  const light = `styleName=geyser&background=${encodeURIComponent(
+    '#f3f3f1'
+  )}&language=${language}&pixelRatio=${pixelRatio}`;
+  const dark = `styleName=tuatara&background=${encodeURIComponent(
+    '#363332'
+  )}&language=${language}&pixelRatio=${pixelRatio}`;
   return {
     NATURAL_ARCTIC: {
       labelKey: 'map.styles.natural',
@@ -62,7 +67,7 @@ export function getMapStyles({ apiKeys = {}, language = 'en' }) {
       labelKey: 'map.styles.satellite',
       component: MapComponentML,
       mapConfig: {
-        basemapStyle: `${MAP_STYLES}/3857/satellite_maptiler?maptilerApiKey=${API_KEY_MAPTILER}`,
+        basemapStyle: `${MAP_STYLES}/3857/satellite_maptiler?maptilerApiKey=${apiKeys.maptiler}`,
         projection: 'EPSG_3857',
       },
     },
@@ -78,7 +83,7 @@ export function getMapStyles({ apiKeys = {}, language = 'en' }) {
       labelKey: 'map.styles.natural',
       component: MapComponentML,
       mapConfig: {
-        basemapStyle: `${MAP_STYLES}/3857/gbif-raster-hillshade?${natural}&maptilerApiKey=${API_KEY_MAPTILER}`,
+        basemapStyle: `${MAP_STYLES}/3857/gbif-raster-hillshade?${natural}&maptilerApiKey=${apiKeys.maptiler}`,
         projection: 'EPSG_3857',
       },
     },

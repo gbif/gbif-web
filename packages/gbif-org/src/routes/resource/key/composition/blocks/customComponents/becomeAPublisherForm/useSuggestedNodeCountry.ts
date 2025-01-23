@@ -1,9 +1,9 @@
 import { useConfig } from '@/config/config';
 import {
-    NodeCountryQuery,
-    NodeCountryQueryVariables,
-    TaiwanNodeQuery,
-    TaiwanNodeQueryVariables
+  NodeCountryQuery,
+  NodeCountryQueryVariables,
+  TaiwanNodeQuery,
+  TaiwanNodeQueryVariables,
 } from '@/gql/graphql';
 import { useI18n } from '@/reactRouterPlugins';
 import { GraphQLService } from '@/services/graphQLService';
@@ -50,14 +50,14 @@ export function useSuggestedNodeCountry() {
     async (countryCode: string) => {
       const graphqlService = new GraphQLService({
         endpoint: graphqlEndpoint,
-        locale: locale.cmsLocale || locale.code,
+        locale: locale.cmsLocale || locale.localeCode,
       });
 
       const node =
         countryCode === 'TW'
           ? await graphqlService
               .query<TaiwanNodeQuery, TaiwanNodeQueryVariables>(TAIWAN_NODE_QUERY, {
-                identifier: config.taiwanNodeidentifier,
+                identifier: config.hardcodedKeys.taiwanNodeidentifier,
               })
               .then((response) => response.json())
               .then((json) => json.data.nodeSearch?.results[0])
@@ -88,9 +88,9 @@ export function useSuggestedNodeCountry() {
     [
       graphqlEndpoint,
       locale.cmsLocale,
-      locale.code,
+      locale.localeCode,
       setSuggestedNodeCountry,
-      config.taiwanNodeidentifier,
+      config.hardcodedKeys.taiwanNodeidentifier,
     ]
   );
 

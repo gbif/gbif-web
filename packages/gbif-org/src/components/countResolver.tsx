@@ -1,4 +1,3 @@
-import { useConfig } from '@/config/config';
 import { useEffect, useState } from 'react';
 
 type Props = {
@@ -14,11 +13,10 @@ export function CountResolver({ countPart }: Props) {
 }
 
 function CountFetcher({ countPart }: Props) {
-  const config = useConfig();
   const [count, setCount] = useState<string | null>(null);
 
   useEffect(() => {
-    const endpoint = createEndpoint(config.countEndpoint, countPart);
+    const endpoint = createEndpoint(countPart);
 
     fetch(endpoint)
       .then((response) => response.json() as Promise<unknown>)
@@ -27,7 +25,7 @@ function CountFetcher({ countPart }: Props) {
         setCount(count);
       })
       .catch((error) => console.error(error));
-  }, [config.countEndpoint, countPart]);
+  }, [countPart]);
 
   return count;
 }
@@ -36,10 +34,10 @@ const isAbsoluteEndpoint = (countPart: string) => countPart.startsWith('http');
 
 const isRelativeEndpoint = (countPart: string) => countPart.startsWith('/api/');
 
-const createEndpoint = (countEndpoint: string, countPart: string): string => {
+const createEndpoint = (countPart: string): string => {
   if (isAbsoluteEndpoint(countPart)) return countPart;
   const queryParams = countPart.split('?')[1];
-  return `${countEndpoint}/content?${queryParams}`;
+  return `${import.meta.env.PUBLIC_CONTENT_SEARCH}?${queryParams}`;
 };
 
 const isObject = (value: unknown): value is Record<string, unknown> => {

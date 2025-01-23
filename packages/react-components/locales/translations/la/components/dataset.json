@@ -14,6 +14,15 @@
     "acceptedNames": "",
     "synonyms": ""
   },
+  "tabs": {
+    "about": "",
+    "occurrences": "",
+    "citations": "",
+    "project": "",
+    "taxonomy": "",
+    "download": "",
+    "phylogeny": ""
+  },
   "noStatsForMetadata": "",
   "siteScopeSmallerThanDataset": "",
   "viewArticle": "",
@@ -53,6 +62,7 @@
   "nDownloadEvents": "",
   "nFromDataset": "",
   "funding": "",
+  "abstract": "",
   "contacts": "",
   "registration": "",
   "dataDescription": "",

@@ -31,7 +31,7 @@ export function useSuggestedNonCountryNode() {
     async (identifier: string) => {
       const graphqlService = new GraphQLService({
         endpoint: graphqlEndpoint,
-        locale: locale.cmsLocale || locale.code,
+        locale: locale.cmsLocale || locale.localeCode,
       });
 
       const node = await graphqlService
@@ -50,7 +50,7 @@ export function useSuggestedNonCountryNode() {
         setSuggestedNonCountryNode(undefined);
       }
     },
-    [graphqlEndpoint, locale.cmsLocale, locale.code]
+    [graphqlEndpoint, locale.cmsLocale, locale.localeCode]
   );
 
   return { suggestedNonCountryNode, updateSuggestedNonCountryNode };

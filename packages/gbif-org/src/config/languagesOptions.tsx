@@ -4,13 +4,16 @@ import { LanguageOption } from './config';
 const languageOptions: LanguageOption[] = [
   {
     code: 'en',
+    localeCode: 'en',
     label: 'English',
     default: true,
     textDirection: 'ltr',
     iso3LetterCode: 'eng',
+    cmsLocale: 'en-GB',
   },
   {
-    code: 'en-ZZ',
+    code: 'nonsense',
+    localeCode: 'en-ZZ',
     label: 'Test',
     default: false,
     textDirection: 'ltr',
@@ -18,21 +21,25 @@ const languageOptions: LanguageOption[] = [
     reactIntlLocale: 'ar-SA',
   },
   {
-    code: 'en-DK', // TODO, developer english.  while developing it is convinent to have developer english when text change so taht we can see changes immeadiately
+    code: 'danglish', // TODO, developer english.  while developing it is convinent to have developer english when text change so taht we can see changes immeadiately
+    localeCode: 'en-DK',
     label: 'Danglish',
     default: false,
     textDirection: 'ltr',
   },
   {
     code: 'fr',
+    localeCode: 'fr',
     label: 'Français',
     default: false,
     textDirection: 'ltr',
     cmsLocale: 'fr', // what locale code to use when fetching data from the cms endpoints
     iso3LetterCode: 'fra',
+    vocabularyLocale: 'fr-FR',
   },
   {
     code: 'es',
+    localeCode: 'es',
     label: 'Español',
     default: false,
     textDirection: 'ltr',
@@ -41,7 +48,18 @@ const languageOptions: LanguageOption[] = [
     iso3LetterCode: 'spa',
   },
   {
+    code: 'de',
+    localeCode: 'de',
+    label: 'Deutsch',
+    default: false,
+    textDirection: 'ltr',
+    reactIntlLocale: 'de-DE',
+    iso3LetterCode: 'deu',
+    vocabularyLocale: 'de-DE',
+  },
+  {
     code: 'ar',
+    localeCode: 'ar',
     label: 'العربية',
     default: false,
     textDirection: 'rtl',

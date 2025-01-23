@@ -42,13 +42,20 @@
   "discard": "Архів анотований GBIF",
   "keep": "Архів анотований GBIF",
   "addressUnknown": "Архів анотований GBIF",
+  "emptyValueProvided": "",
   "copyToClipboard": "Архів анотований GBIF",
   "fromCountry": "",
   "copiedToClipboard": "",
+  "continue": "Продовжити",
   "headers": {
     "description": "Опис",
     "contacts": "Контакти"
   },
-  "pageToc": "Архів анотований GBIF",
+  "derivedFromOccurrenceData": "",
+  "pageToc": "",
+  "apiAccess": "",
+  "lastCrawled": "Останній просканований",
+  "goToRecord": "",
+  "commonNameAccordingTo": "",
   "noResults": "Архів анотований GBIF"
 }

@@ -70,7 +70,7 @@ function HomePage(): React.ReactElement {
 
   // call endpoint to get users location
   useEffect(() => {
-    fetch(`${config.webApiEndpoint}/unstable-api/user-info?lang=${locale.code}`, {
+    fetch(`${import.meta.env.PUBLIC_WEB_UTILS}/user-info?lang=${locale.localeCode}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

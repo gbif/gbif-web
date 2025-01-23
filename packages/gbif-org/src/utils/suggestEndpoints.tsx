@@ -483,7 +483,7 @@ export const typeStatusSuggest = vocabularySuggest('TypeStatus');
 function vocabularySuggest(vocabularyName: string) {
   return {
     getSuggestions: ({ q, siteConfig, currentLocale }: SuggestFnProps): SuggestResponseType => {
-      const vocabularyLocale = currentLocale.vocabularyLocale ?? currentLocale.code ?? 'en';
+      const vocabularyLocale = currentLocale.vocabularyLocale ?? currentLocale.localeCode ?? 'en';
       const { cancel, promise } = fetchWithCancel(
         `${siteConfig.v1Endpoint}/vocabularies/${vocabularyName}/concepts?limit=100&q=${q}&lang=${vocabularyLocale}`
       );

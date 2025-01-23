@@ -42,13 +42,20 @@
   "discard": "Архив, аннотированный GBIF",
   "keep": "Архив, аннотированный GBIF",
   "addressUnknown": "Архив, аннотированный GBIF",
+  "emptyValueProvided": "Введено пустое значение",
   "copyToClipboard": "Архив, аннотированный GBIF",
   "fromCountry": "Из {country}",
   "copiedToClipboard": "Скопировано в буфер обмена",
+  "continue": "Продолжить",
   "headers": {
     "description": "Описание",
     "contacts": "Контакты"
   },
-  "pageToc": "Архив, аннотированный GBIF",
+  "derivedFromOccurrenceData": "Получено из данных о находках",
+  "pageToc": "",
+  "apiAccess": "доступ к API",
+  "lastCrawled": "Последний просмотр",
+  "goToRecord": "Перейти к записи",
+  "commonNameAccordingTo": "Общее название в соответствии с: {source}",
   "noResults": "Архив, аннотированный GBIF"
 }

@@ -23,6 +23,7 @@
   "placeholders": {
     "default": "Поиск",
     "range": "",
+    "rangeExample": "Архив, аннотированный GBIF",
     "wildcard": "Поиск с использованием шаблонов * и ? ",
     "locationID": ""
   },

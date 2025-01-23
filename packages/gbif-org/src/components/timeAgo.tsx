@@ -6,7 +6,7 @@ type Props = {
 
 export function TimeAgo({ date }: Props) {
   const { locale } = useI18n();
-  return <>{timeAgo(date, locale.code)}</>;
+  return <>{timeAgo(date, locale.localeCode)}</>;
 }
 
 function timeAgo(date: Date, locale: string) {

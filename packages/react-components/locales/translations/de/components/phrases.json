@@ -42,13 +42,20 @@
   "discard": "Stadt zum Fundort.",
   "keep": "Stadt zum Fundort.",
   "addressUnknown": "Stadt zum Fundort.",
+  "emptyValueProvided": "",
   "copyToClipboard": "Stadt zum Fundort.",
   "fromCountry": "",
   "copiedToClipboard": "",
+  "continue": "Weiter",
   "headers": {
     "description": "",
     "contacts": ""
   },
-  "pageToc": "Stadt zum Fundort.",
+  "derivedFromOccurrenceData": "",
+  "pageToc": "",
+  "apiAccess": "",
+  "lastCrawled": "",
+  "goToRecord": "",
+  "commonNameAccordingTo": "",
   "noResults": "Stadt zum Fundort."
 }

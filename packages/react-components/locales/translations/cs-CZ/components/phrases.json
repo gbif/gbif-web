@@ -42,13 +42,20 @@
   "discard": "",
   "keep": "",
   "addressUnknown": "",
+  "emptyValueProvided": "",
   "copyToClipboard": "",
   "fromCountry": "",
   "copiedToClipboard": "",
+  "continue": "Pokračovat",
   "headers": {
     "description": "",
     "contacts": "Kontakty"
   },
+  "derivedFromOccurrenceData": "",
   "pageToc": "",
+  "apiAccess": "",
+  "lastCrawled": "",
+  "goToRecord": "",
+  "commonNameAccordingTo": "",
   "noResults": ""
 }

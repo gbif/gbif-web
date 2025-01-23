@@ -17,11 +17,11 @@ import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import StripeLoader from '../stripeLoader';
 import { Button } from '../ui/button';
 import { AboutButton } from './aboutButton';
-import { Exists } from './exists';
 import {
   AdditionalFilterProps,
   ApplyCancel,
   AsyncOptions,
+  ExistsSection,
   FilterSummaryType,
   filterWildcardConfig,
   getFilterSummary,
@@ -235,45 +235,18 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
 
     if (filterType === 'EXISTS') {
       return (
-        <>
-          <div
-            className={cn(
-              'g-flex g-flex-none g-text-sm g-text-slate-400 g-py-1.5 g-px-4 g-items-center g-pt-2',
-              className
-            )}
-          >
-            <button
-              onClick={() => {
-                if (backupFilter) setFilter(backupFilter);
-                else setFullField(filterHandle, [], []);
-              }}
-            >
-              <FormattedMessage id="filterSupport.backToSelect" />
-            </button>
-
-            <div className="g-flex-auto"></div>
-            <div className="g-flex-none g-text-base" style={{ marginTop: '-0.2em' }}>
-              {About && (
-                <AboutButton className="-g-me-1">
-                  <About />
-                </AboutButton>
-              )}
-            </div>
-          </div>
-          <div className="g-py-1.5 g-px-4 g-w-full">
-            <Exists
-              isEmpty={!!filterSummary?.isNull}
-              onChange={({ isEmpty }: { isEmpty: boolean }) => {
-                if (isEmpty) {
-                  setFullField(filterHandle, [{ type: 'isNull' }], []);
-                } else {
-                  setFullField(filterHandle, [{ type: 'isNotNull' }], []);
-                }
-              }}
-            />
-          </div>
-          <ApplyCancel onApply={onApply} onCancel={onCancel} pristine={pristine} />
-        </>
+        <ExistsSection
+          className={className}
+          backupFilter={backupFilter}
+          setFilter={setFilter}
+          setFullField={setFullField}
+          filterHandle={filterHandle}
+          About={About}
+          filterSummary={filterSummary}
+          onApply={onApply}
+          onCancel={onCancel}
+          pristine={pristine}
+        />
       );
     }
 

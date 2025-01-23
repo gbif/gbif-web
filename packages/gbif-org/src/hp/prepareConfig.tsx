@@ -1,7 +1,7 @@
+import { Config } from '@/config/config';
+import { getEndpoints } from '@/config/endpoints';
 import { merge } from 'ts-deepmerge';
 import { configAdapter } from './configAdapter';
-import { GbifEnv, getDefaultEndpointsBasedOnGbifEnv } from '@/config/endpoints';
-import { Config } from '@/config/config';
 
 export function prepareConfig(config: unknown): Config {
   if (typeof config !== 'object' || config === null) {
@@ -12,7 +12,7 @@ export function prepareConfig(config: unknown): Config {
   const configWithDefaults = merge.withOptions(
     { allowUndefinedOverrides: false },
     convertedConfig,
-    getDefaultEndpointsBasedOnGbifEnv(convertedConfig.gbifEnv ?? GbifEnv.Prod)
+    getEndpoints()
   ) as Config;
 
   return configWithDefaults;
