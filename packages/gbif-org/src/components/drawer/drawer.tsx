@@ -64,10 +64,8 @@ export function Drawer({
             className="g-fixed g-h-screen g-right-0 g-top-0 g-bg-white g-flex g-justify-end g-transition-all g-z-50"
           >
             <VisuallyHidden>
-              {screenReaderTitle && <Dialog.Title>{screenReaderTitle}</Dialog.Title>}
-              {screenReaderDescription && (
-                <Dialog.Description>{screenReaderDescription}</Dialog.Description>
-              )}
+              <Dialog.Title>{screenReaderTitle}</Dialog.Title>(
+              <Dialog.Description>{screenReaderDescription}</Dialog.Description>)
             </VisuallyHidden>
             <div className="g-flex g-flex-col g-bg-white g-w-full">
               <div className="g-overflow-y-auto g-overflow-x-hidden g-flex-grow g-w-full">
