@@ -23,6 +23,7 @@
   "placeholders": {
     "default": "Buscar",
     "range": "Rango o valor único",
+    "rangeExample": "Aquí debe colocarse una breve descripción del componente",
     "wildcard": "Buscar utilizando * y ? como comodines",
     "locationID": ""
   },

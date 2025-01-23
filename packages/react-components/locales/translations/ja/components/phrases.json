@@ -42,13 +42,20 @@
   "discard": "GBIFがアノーテーションしたアーカイブ",
   "keep": "GBIFがアノーテーションしたアーカイブ",
   "addressUnknown": "GBIFがアノーテーションしたアーカイブ",
+  "emptyValueProvided": "",
   "copyToClipboard": "GBIFがアノーテーションしたアーカイブ",
   "fromCountry": "",
   "copiedToClipboard": "",
+  "continue": "次へ",
   "headers": {
     "description": "説明",
     "contacts": "連絡先"
   },
-  "pageToc": "GBIFがアノーテーションしたアーカイブ",
+  "derivedFromOccurrenceData": "",
+  "pageToc": "",
+  "apiAccess": "",
+  "lastCrawled": "最終クロール日",
+  "goToRecord": "",
+  "commonNameAccordingTo": "",
   "noResults": "GBIFがアノーテーションしたアーカイブ"
 }

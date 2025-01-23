@@ -42,13 +42,20 @@
   "discard": "GBIF annoteret Arkiv",
   "keep": "GBIF annoteret Arkiv",
   "addressUnknown": "GBIF annoteret Arkiv",
+  "emptyValueProvided": "",
   "copyToClipboard": "GBIF annoteret Arkiv",
   "fromCountry": "",
   "copiedToClipboard": "",
+  "continue": "Fortsæt",
   "headers": {
     "description": "Beskriveslse",
     "contacts": "Kontakter"
   },
-  "pageToc": "GBIF annoteret Arkiv",
+  "derivedFromOccurrenceData": "",
+  "pageToc": "",
+  "apiAccess": "",
+  "lastCrawled": "",
+  "goToRecord": "",
+  "commonNameAccordingTo": "",
   "noResults": "GBIF annoteret Arkiv"
 }

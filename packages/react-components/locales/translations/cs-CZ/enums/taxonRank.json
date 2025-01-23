@@ -1,6 +1,10 @@
 {
     "UNKNOWN": "Neznámý",
+    "KINGDOM": "Říše",
+    "PHYLUM": "Kmen",
     "CLASS": "Třída",
+    "ORDER": "Řád",
+    "FAMILY": "Čeleď",
     "GENUS": "Rod",
     "SUBGENUS": "podrod",
     "SPECIES": "Druh"

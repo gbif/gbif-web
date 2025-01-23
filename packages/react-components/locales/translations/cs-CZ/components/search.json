@@ -23,6 +23,7 @@
   "placeholders": {
     "default": "",
     "range": "",
+    "rangeExample": "",
     "wildcard": "",
     "locationID": ""
   },
@@ -48,7 +49,7 @@
     "currentRecord": "",
     "nodeType": {
       "IMAGE": "",
-      "TYPE": "",
+      "TYPE": "Typový vzorek",
       "TREATMENT": "",
       "OBSERVATION": "Pozorování",
       "SPECIMEN": "",

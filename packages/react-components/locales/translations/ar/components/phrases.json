@@ -42,13 +42,20 @@
   "discard": "أرشيف شروح \"جيبف\"",
   "keep": "أرشيف شروح \"جيبف\"",
   "addressUnknown": "أرشيف شروح \"جيبف\"",
+  "emptyValueProvided": "",
   "copyToClipboard": "أرشيف شروح \"جيبف\"",
   "fromCountry": "",
   "copiedToClipboard": "",
+  "continue": "متابعة",
   "headers": {
     "description": "التوصيف",
     "contacts": "جهات الاتصال"
   },
-  "pageToc": "أرشيف شروح \"جيبف\"",
+  "derivedFromOccurrenceData": "",
+  "pageToc": "",
+  "apiAccess": "",
+  "lastCrawled": "آخر تقدم بطيء",
+  "goToRecord": "",
+  "commonNameAccordingTo": "",
   "noResults": "أرشيف شروح \"جيبف\""
 }
