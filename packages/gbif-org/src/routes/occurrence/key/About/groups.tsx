@@ -16,7 +16,9 @@ import {
   CollectionKey,
   DatasetKey,
   DynamicProperties,
+  IdentifiedById,
   InstitutionKey,
+  RecordedById,
   ScientificName,
 } from './customValues';
 import {
@@ -451,6 +453,7 @@ function Occurrence({
       <PlainTextField term={termMap.catalogNumber} showDetails={showAll} />
       <PlainTextField term={termMap.recordNumber} showDetails={showAll} />
       <PlainTextField term={termMap.recordedBy} showDetails={showAll} />
+      <RecordedById {...{ showAll, termMap, occurrence }} />
       <PlainTextField term={termMap.individualCount} showDetails={showAll} />
       <PlainTextField term={termMap.organismQuantity} showDetails={showAll} />
       <PlainTextField term={termMap.organismQuantityType} showDetails={showAll} />
@@ -674,6 +677,7 @@ function Identification({
         getEnum={(value) => `enums.typeStatus.${value}`}
       />
       <PlainTextField term={termMap.identifiedBy} showDetails={showAll} />
+      <IdentifiedById {...{ showAll, termMap, occurrence }} />
       <PlainTextField term={termMap.dateIdentified} showDetails={showAll} />
       <HtmlField term={termMap.identificationReferences} showDetails={showAll} />
       <PlainTextField term={termMap.identificationVerificationStatus} showDetails={showAll} />
