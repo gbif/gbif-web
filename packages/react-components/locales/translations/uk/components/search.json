@@ -23,7 +23,7 @@
   "placeholders": {
     "default": "Пошук",
     "range": "",
-    "rangeExample": "Архів анотований GBIF",
+    "rangeExample": "",
     "wildcard": "",
     "locationID": ""
   },
