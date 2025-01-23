@@ -63,16 +63,10 @@ export function FilterPopover({
     setPristine(false);
   }, []);
 
-  const portalContainer =
-    typeof window === 'undefined'
-      ? undefined
-      : document.querySelector<HTMLElement>('.drawer') ?? document.body;
-
   return (
     <Popover open={controlledOpen} onOpenChange={setControlledOpen}>
       <PopoverTrigger asChild>{trigger ?? <span>test</span>}</PopoverTrigger>
       <PopoverContent
-        container={portalContainer}
         onPointerDownOutside={() => onApply({ keepOpen: false })}
         onOpenAutoFocus={(event) => {
           if (focusRef?.current) {

@@ -9,10 +9,9 @@ const PopoverTrigger = PopoverPrimitive.Trigger;
 
 const PopoverContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> &
-    Pick<PopoverPrimitive.PopoverPortalProps, 'container'>
->(({ className, align = 'center', sideOffset = 4, style, container, ...props }, ref) => (
-  <PopoverPrimitive.Portal container={container}>
+  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
+>(({ className, align = 'center', sideOffset = 4, style, ...props }, ref) => (
+  <PopoverPrimitive.Portal container={getPopoverContainer()}>
     <div className="gbif">
       <PopoverPrimitive.Content
         ref={ref}
@@ -37,3 +36,8 @@ const PopoverContent = React.forwardRef<
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
 export { Popover, PopoverTrigger, PopoverContent };
+
+function getPopoverContainer() {
+  if (typeof window === 'undefined') return undefined;
+  return document.querySelector<HTMLElement>('.drawer-popover-container') ?? document.body;
+}
