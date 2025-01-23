@@ -87,7 +87,7 @@ export const highertaxonKeyConfig: filterSuggestConfig = {
             name
             count
             item: taxon {
-              formattedName
+              formattedName(useFallback: true)
             }
           }
         }

@@ -170,11 +170,11 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
         }
         usage {
           rank
-          formattedName
+          formattedName(useFallback: true)
           key
         }
         acceptedUsage {
-          formattedName
+          formattedName(useFallback: true)
           key
         }
       }

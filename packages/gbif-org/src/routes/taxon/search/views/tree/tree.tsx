@@ -3,13 +3,13 @@ import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { RootSearchQuery, RootSearchQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
+import { useEntityDrawer } from '@/routes/occurrence/search/views/browseList/useEntityDrawer';
 import { createContext, useContext, useEffect, useReducer, useState } from 'react';
 import { ControlledTreeEnvironment, Tree, TreeItem, TreeItemIndex } from 'react-complex-tree';
 import 'react-complex-tree/lib/style-modern.css';
 import { searchConfig } from '../../searchConfig';
 import TreeNode from './treeNode';
 import { getChildren, getParents, ItemsType, reducer } from './treeUtil';
-import { useEntityDrawer } from '@/routes/occurrence/search/views/browseList/useEntityDrawer';
 export const childLimit = 10;
 
 const CHECKLIST_ROOTS = /* GraphQL */ `
@@ -21,7 +21,7 @@ const CHECKLIST_ROOTS = /* GraphQL */ `
         key
         nubKey
         scientificName
-        formattedName
+        formattedName(useFallback: true)
         kingdom
         phylum
         class

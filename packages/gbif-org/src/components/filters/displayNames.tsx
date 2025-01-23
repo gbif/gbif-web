@@ -164,7 +164,7 @@ export function TaxonLabel({ id }: { id: string | number | object }) {
       `${config.graphqlEndpoint}?query=${encodeURIComponent(
         `query {
               taxon(key: "${id}") {
-                formattedName
+                formattedName(useFallback: true)
               }
             }`
       )}`

@@ -6,18 +6,17 @@ import { useConfig } from '@/config/config';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { TaxonSearchQuery, TaxonSearchQueryVariables } from '@/gql/graphql';
-import { useStringParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
+import { DynamicLinkProps } from '@/reactRouterPlugins/dynamicLink';
+import { useEntityDrawer } from '@/routes/occurrence/search/views/browseList/useEntityDrawer';
 import { useOrderedList } from '@/routes/occurrence/search/views/browseList/useOrderedList';
 import { notNull } from '@/utils/notNull';
 import { Row } from '@tanstack/react-table';
 import { useContext, useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
 import { useTaxonColumns } from './columns';
-import { DynamicLinkProps } from '@/reactRouterPlugins/dynamicLink';
-import { Link } from 'react-router-dom';
-import { useEntityDrawer } from '@/routes/occurrence/search/views/browseList/useEntityDrawer';
 
 const TAXON_SEARCH_QUERY = /* GraphQL */ `
   query TaxonSearch($offset: Int, $limit: Int, $query: TaxonSearchInput) {
@@ -29,7 +28,7 @@ const TAXON_SEARCH_QUERY = /* GraphQL */ `
         key
         nubKey
         scientificName
-        formattedName
+        formattedName(useFallback: true)
         kingdom
         phylum
         class

@@ -7,7 +7,7 @@ fragmentManager.register(/* GraphQL */ `
     key
     nubKey
     scientificName
-    formattedName
+    formattedName(useFallback: true)
     kingdom
     phylum
     class

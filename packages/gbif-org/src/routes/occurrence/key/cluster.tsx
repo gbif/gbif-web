@@ -239,7 +239,7 @@ fragmentManager.register(/* GraphQL */ `
     }
     gbifClassification {
       usage {
-        formattedName
+        formattedName(useFallback: true)
       }
     }
     volatile {

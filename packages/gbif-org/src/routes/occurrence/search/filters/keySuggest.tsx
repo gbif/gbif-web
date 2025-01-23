@@ -64,7 +64,7 @@ export const taxonKeyConfig: filterSuggestConfig = {
             name: key
             count
             item: taxon {
-              formattedName
+              formattedName(useFallback: true)
             }
           }
         }

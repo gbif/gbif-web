@@ -32,7 +32,7 @@ query point($predicate: Predicate){
         gbifClassification{
           usage {
             rank
-            formattedName
+            formattedName(useFallback: true)
           }
         }
         primaryImage {

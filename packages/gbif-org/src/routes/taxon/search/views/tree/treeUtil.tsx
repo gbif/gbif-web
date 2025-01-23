@@ -37,7 +37,7 @@ export const getChildren = ({ key, limit, offset }: GetChildrenParams) => {
             key
             numDescendants
             scientificName
-            formattedName
+            formattedName(useFallback: true)
           }
         }
       }
@@ -77,7 +77,7 @@ export const getParents = ({
           key
           numDescendants
           scientificName
-          formattedName
+          formattedName(useFallback: true)
           children(limit: $limit, offset: $offset) {
             limit
             endOfRecords
@@ -86,7 +86,7 @@ export const getParents = ({
               key
               numDescendants
               scientificName
-              formattedName
+              formattedName(useFallback: true)
             }
           }
         }
