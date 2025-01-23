@@ -687,10 +687,8 @@ export default {
     // plazi this won't work in other environments than prod for now. all in all we should have a better way to detect treatments
     isTreament: ({ publishingOrgKey }) =>
       publishingOrgKey === '7ce8aef0-9e92-11dc-8738-b8a03c50a862',
-    isClustered: ({ key }, _args, { dataSources }) => {
-      return dataSources.occurrenceAPI
-        .getRelated({ key })
-        .then((response) => response.relatedOccurrences.length > 0);
+    isClustered: ({ isInCluster }) => {
+      return isInCluster;
     },
     isSequenced: (occurrence, _args, { dataSources }) => {
       return dataSources.occurrenceAPI
