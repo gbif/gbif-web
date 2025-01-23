@@ -19,6 +19,7 @@ export const projectIdConfig: filterSuggestConfig = {
       }
     }
   `,
+  allowExistence: true,
   about: () => <Message id="filters.projectId.description" />,
 };
 
@@ -27,6 +28,7 @@ export const recordedByIdConfig: filterSuggestConfig = {
   filterHandle: 'recordedById',
   displayName: IdentityLabel,
   filterTranslation: 'filters.recordedById.name',
+  allowExistence: true,
   about: () => <Message id="filters.recordedById.description" />,
 };
 
@@ -35,6 +37,7 @@ export const identifiedByIdConfig: filterSuggestConfig = {
   filterHandle: 'identifiedById',
   displayName: IdentityLabel,
   filterTranslation: 'filters.identifiedById.name',
+  allowExistence: true,
   about: () => <Message id="filters.identifiedById.description" />,
 };
 
@@ -63,6 +66,7 @@ export const organismIdConfig: filterSuggestConfig = {
       }
     }
   `,
+  allowExistence: true,
   about: () => <Message id="filters.organismId.description" />,
 };
 
@@ -83,6 +87,7 @@ export const higherGeographyConfig: filterSuggestConfig = {
       }
     }
   `,
+  allowExistence: true,
   about: () => <Message id="filters.higherGeography.description" />,
 };
 
@@ -91,5 +96,6 @@ export const eventIdConfig: filterSuggestConfig = {
   filterHandle: 'eventId',
   displayName: IdentityLabel,
   filterTranslation: 'filters.eventId.name',
+  allowExistence: true,
   about: () => <Message id="filters.eventId.description" />,
 };
