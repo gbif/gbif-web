@@ -28,7 +28,6 @@ export function MediaPresentation({
   next: () => void;
   onSelect: ({ key }: { key: string }) => void;
 }) {
-  console.log('render again presentation');
   return (
     <div className="">
       <ViewHeader total={total} loading={loading} message="counts.nResultsWithImages" />

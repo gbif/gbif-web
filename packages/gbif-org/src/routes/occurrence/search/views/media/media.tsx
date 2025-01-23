@@ -136,7 +136,6 @@ export function Media({ size: defaultSize = 50 }) {
     setFrom(Math.max(0, from + size));
   }, [from, size]);
 
-  console.log('render again');
   return (
     <ErrorBoundary>
       <MediaPresentation
