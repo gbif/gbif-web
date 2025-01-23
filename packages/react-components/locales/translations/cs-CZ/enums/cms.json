@@ -7,10 +7,10 @@
     "undefined": "Neuvedeno"
   },
   "projectStatus": {
-    "APPROVED": "",
-    "CLOSED": "",
-    "IN_PROGRESS": "",
-    "DISCONTINUED": "",
-    "undefined": ""
+    "APPROVED": "Schváleno",
+    "CLOSED": "Uzavřeno",
+    "IN_PROGRESS": "Probíhá",
+    "DISCONTINUED": "Zrušeno",
+    "undefined": "Nespecifikováno"
   }
 }
