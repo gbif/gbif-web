@@ -231,6 +231,7 @@ function reduce(item) {
     basisOfRecord: source.basisOfRecord,
     catalogNumber: source.catalogNumber,
     isInCluster: source.isClustered,
+    isSequenced: source.isSequenced,
     collectionCode: source.collectionCode,
     continent: source.continent,
     coordinatePrecision: source.coordinatePrecision,

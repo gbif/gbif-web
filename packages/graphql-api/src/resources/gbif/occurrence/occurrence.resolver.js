@@ -4,7 +4,6 @@ import getGlobe from '#/helpers/globe';
 import {
   formattedCoordinates,
   getFirstIIIFImage,
-  isOccurrenceSequenced,
   simplifyUrlObjectKeys,
 } from '#/helpers/utils';
 import _ from 'lodash';
@@ -690,10 +689,8 @@ export default {
     isClustered: ({ isInCluster }) => {
       return isInCluster;
     },
-    isSequenced: (occurrence, _args, { dataSources }) => {
-      return dataSources.occurrenceAPI
-        .getVerbatim({ key: occurrence.key })
-        .then((verbatim) => isOccurrenceSequenced({ occurrence, verbatim }));
+    isSequenced: ({ isSequenced }) => {
+      return isSequenced;
     },
     isSamplingEvent: (occurrence) =>
       !!occurrence.eventId && !!occurrence.samplingProtocol,
