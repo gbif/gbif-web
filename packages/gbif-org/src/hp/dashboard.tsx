@@ -11,7 +11,7 @@ import { Predicate } from '@/gql/graphql';
 
 type Props = {
   config: Config;
-  predicate: Predicate;
+  predicate?: Predicate;
   charts: string[];
   locale: LanguageOption;
 };
@@ -56,7 +56,6 @@ type Options = {
 export function renderDashboard(options: Options) {
   if (options.rootElement == null)
     return console.error('rootElement is required for the dashboard');
-  if (options.predicate == null) return console.error('predicate is required for the dashboard');
   if (options.charts == null) return console.error('charts is required for the dashboard');
   if (options.config == null) return console.error('config is required for the dashboard');
 

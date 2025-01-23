@@ -4,7 +4,7 @@ import * as charts from './index';
 import { Predicate } from '@/gql/graphql';
 
 type Props = {
-  predicate: Predicate;
+  predicate?: Predicate;
   charts?: string[];
 };
 

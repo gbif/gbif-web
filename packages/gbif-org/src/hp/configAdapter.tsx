@@ -54,7 +54,7 @@ function convertedConfig(config: object): Partial<Config> {
     languages: config.languages,
     suggest: config.suggest,
     messages: config.languages.reduce((acc: any, curr: string) => {
-      acc[curr.code] = config.messages[curr.code] ?? config.messages;
+      acc[curr.code] = config?.messages?.[curr.code] ?? config.messages;
       return acc;
     }, {}),
     occurrenceSearch: {
