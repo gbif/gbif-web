@@ -124,6 +124,7 @@ function SearchTable<TData, TValue>({
                     data-state={row.getIsSelected() && 'selected'}
                     className={cn('g-border-b', {
                       'g-group': typeof createRowLink === 'function',
+                      'g-pointer-events-none': loading,
                     })}
                   >
                     {row.getVisibleCells().map((cell) => (
