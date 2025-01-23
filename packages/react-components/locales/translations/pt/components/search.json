@@ -23,7 +23,7 @@
   "placeholders": {
     "default": "Pesquisa",
     "range": "",
-    "rangeExample": "Uma breve descrição do componente deve ser colocada aqui",
+    "rangeExample": "",
     "wildcard": "",
     "locationID": ""
   },
