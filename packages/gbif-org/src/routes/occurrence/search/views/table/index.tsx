@@ -7,17 +7,17 @@ import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { OccurrenceSearchQuery, OccurrenceSearchQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
+import { DynamicLinkProps } from '@/reactRouterPlugins/dynamicLink';
 import { ExtractPaginatedResult } from '@/types';
 import { notNull } from '@/utils/notNull';
 import { Row } from '@tanstack/react-table';
 import { useContext, useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
+import { useEntityDrawer } from '../browseList/useEntityDrawer';
 import { useOrderedList } from '../browseList/useOrderedList';
 import { useOccurrenceColumns } from './columns';
-import { DynamicLinkProps } from '@/reactRouterPlugins/dynamicLink';
-import { Link } from 'react-router-dom';
-import { useEntityDrawer } from '../browseList/useEntityDrawer';
 
 // TODO: Should maybe be moved to the configBuilder
 const DAFAULT_AVAILABLE_TABLE_COLUMNS = Object.freeze([
@@ -65,7 +65,7 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
             verbatimScientificName
             usage {
               rank
-              formattedName
+              formattedName(useFallback: true)
               key
             }
           }

@@ -495,7 +495,7 @@ const typeDef = gql`
     key: Int!
     name: String!
     rank: String!
-    formattedName: String!
+    formattedName(useFallback: Boolean): String!
   }
 
   type UsageParsedName {

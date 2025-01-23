@@ -50,8 +50,23 @@ export default {
   Taxon: {
     dataset: ({ datasetKey }, args, { dataSources }) =>
       dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
-    formattedName: ({ key }, args, { dataSources }) =>
-      dataSources.taxonAPI.getParsedName({ key }),
+    formattedName: (
+      { key, scientificName },
+      { useFallback },
+      { dataSources },
+    ) => {
+      return dataSources.taxonAPI
+        .getParsedName({ key })
+        .then((formattedName) => {
+          return formattedName;
+        })
+        .catch((err) => {
+          if (useFallback) {
+            return name;
+          }
+          throw err;
+        });
+    },
     wikiData: ({ key }, args, { dataSources }) =>
       dataSources.wikidataAPI.getWikiDataTaxonData(key),
     backboneTaxon: ({ key, nubKey }, args, { dataSources }) => {

@@ -28,26 +28,23 @@ export function MediaPresentation({
   next: () => void;
   onSelect: ({ key }: { key: string }) => void;
 }) {
+  console.log('render again presentation');
   return (
     <div className="">
       <ViewHeader total={total} loading={loading} message="counts.nResultsWithImages" />
       {total === 0 && !loading && <NoRecords />}
       <div className="g-flex g-flex-wrap g-mb-12 -g-mx-2 -g-mt-2">
         {results.map((result) => {
-          let identifier = result.primaryImage?.identifier;
-          if (result.key === 4028668553) {
-            identifier = 'https://placehold.co/1000x50';
-          }
-          if (result.key === 1318519005) {
-            identifier = 'https://placehold.co/50x1000';
-          }
+          const identifier = result.primaryImage?.identifier;
 
           return (
             <GalleryItem
               onClick={() => onSelect({ key: result.key })}
               key={result.key}
               identifier={identifier}
-              formattedName={result.gbifClassification.usage.formattedName}
+              formattedName={
+                result?.gbifClassification?.usage?.formattedName ?? result.scientificName
+              }
               countryCode={result.countryCode}
               eventDate={result.eventDate}
             />

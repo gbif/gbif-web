@@ -494,8 +494,23 @@ export default {
     },
   },
   OccurrenceNameUsage: {
-    formattedName: ({ key }, _args, { dataSources }) =>
-      dataSources.taxonAPI.getParsedName({ key }),
+    formattedName: (
+      { key, name },
+      { useFallback = false },
+      { dataSources },
+    ) => {
+      return dataSources.taxonAPI
+        .getParsedName({ key })
+        .then((formattedName) => {
+          return formattedName;
+        })
+        .catch((err) => {
+          if (useFallback) {
+            return name;
+          }
+          throw err;
+        });
+    },
   },
   OccurrenceStats,
   OccurrenceFacet,

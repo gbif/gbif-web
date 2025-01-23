@@ -132,7 +132,7 @@ const typeDef = gql`
     rank: Rank
     remarks: String
     scientificName: String
-    formattedName: String
+    formattedName(useFallback: Boolean): String
     sourceTaxonKey: Int
     synonym: Boolean
     taxonID: String

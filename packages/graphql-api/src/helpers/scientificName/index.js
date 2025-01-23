@@ -1,5 +1,5 @@
-import ranks from './ranks.json';
 import rankMarkerMap from './rankMarkerMap.json';
+import ranks from './ranks.json';
 
 // Calculate family & species rank index
 const FAMILY_RANK_INDEX = ranks.indexOf('FAMILY'); // 15;
