@@ -95,7 +95,7 @@ export function I18nContextProvider({ children, locale, defaultLocale, available
     <I18nContext.Provider value={value}>
       <IntlProvider
         messages={messages || {}}
-        locale={defaultLocale.reactIntlLocale ?? defaultLocale.code}
+        locale={locale.reactIntlLocale ?? locale.code}
         defaultLocale={defaultLocale.reactIntlLocale ?? defaultLocale.code}
       >
         {children}
