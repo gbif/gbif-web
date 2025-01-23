@@ -16,12 +16,12 @@ import { Message } from '@/components/message';
 import basisOfRecordOptions from '@/enums/basic/basisOfRecord.json';
 import continentOptions from '@/enums/basic/continent.json';
 import dwcaExtensionOptions from '@/enums/basic/dwcaExtension.json';
-import endpointTypeOptions from '@/enums/basic/endpointType.json';
 import iucnRedListCategoryOptions from '@/enums/basic/iucnRedListCategory.json';
 import licenseOptions from '@/enums/basic/license.json';
 import mediaTypeOptions from '@/enums/basic/mediaType.json';
 import monthOptions from '@/enums/basic/month.json';
 import occurrenceIssueOptions from '@/enums/basic/occurrenceIssue.json';
+import protocolOptions from '@/enums/basic/occurrenceProtocols.json';
 import occurrenceStatusOptions from '@/enums/basic/occurrenceStatus.json';
 import typeStatusOptions from '@/enums/basic/typeStatus.json';
 
@@ -140,7 +140,7 @@ export const protocolConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'protocol',
   displayName: EndpointTypeLabel,
-  options: endpointTypeOptions,
+  options: protocolOptions, // this is just a subset of endpointTypes, but since not all endpoints can provide occurrence data we only show those that are relevant
   allowExistence: true,
   allowNegations: false,
   filterTranslation: 'filters.protocol.name',
