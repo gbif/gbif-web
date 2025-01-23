@@ -18,6 +18,7 @@
   "collection": "Collection",
   "collectionGrSciColl": "GrSciColl collection",
   "recordedAndIdentifiedBy": "Recorded and identified by",
+  "tryPublisherSiteForFailingMedia": "",
   "screenReader": {
     "title": "Occurrence details"
   },
