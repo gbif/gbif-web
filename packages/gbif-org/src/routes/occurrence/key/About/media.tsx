@@ -121,7 +121,8 @@ function Sounds({
                     {
                       <CardContent>
                         <a href={termMap?.references?.value || media.identifier}>
-                          If it isn't working try the publishers site instead <RiExternalLinkLine />
+                          <FormattedMessage id="occurrenceDetails.tryPublisherSiteForFailingMedia" />{' '}
+                          <RiExternalLinkLine />
                         </a>
                       </CardContent>
                     }
@@ -168,7 +169,8 @@ function MovingImages({
                           href={termMap?.references?.value || media.identifier}
                           className="g-px-2 g-py-1 g-bg-slate-300 g-block"
                         >
-                          If it isn't working try the publishers site instead <RiExternalLinkLine />
+                          <FormattedMessage id="occurrenceDetails.tryPublisherSiteForFailingMedia" />{' '}
+                          <RiExternalLinkLine />
                         </a>
                       </div>
                     )}
