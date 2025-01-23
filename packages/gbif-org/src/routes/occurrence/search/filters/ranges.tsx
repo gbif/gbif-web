@@ -15,6 +15,7 @@ export const yearConfig: filterRangeConfig = {
   filterHandle: 'year',
   displayName: YearLabel,
   filterTranslation: 'filters.year.name',
+  allowExistence: true,
   about: () => <Message id="filters.year.description" />,
 };
 

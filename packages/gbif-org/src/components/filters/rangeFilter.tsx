@@ -1,12 +1,22 @@
 import { SearchInput } from '@/components/searchInput';
-import { FilterContext } from '@/contexts/filter';
+import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { cn } from '@/utils/shadcn';
+import cloneDeep from 'lodash/cloneDeep';
 import React, { useContext, useEffect, useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
+import { PiEmptyBold } from 'react-icons/pi';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { SimpleTooltip } from '../simpleTooltip';
 import { AboutButton } from './aboutButton';
-import { AdditionalFilterProps, ApplyCancel, filterRangeConfig } from './filterTools';
+import {
+  AdditionalFilterProps,
+  ApplyCancel,
+  ExistsSection,
+  filterRangeConfig,
+  FilterSummaryType,
+  getFilterSummary,
+} from './filterTools';
 import { Option } from './option';
 
 type RangeProps = Omit<filterRangeConfig, 'filterType' | 'filterTranslation'> &
@@ -26,16 +36,24 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
       onCancel,
       pristine,
       about,
+      allowExistence,
     }: RangeProps,
     ref
   ) => {
     const searchContext = useSearchContext();
     const { formatMessage } = useIntl();
     const currentFilterContext = useContext(FilterContext);
-    const { filter, toggle, add, setFullField, filterHash } = currentFilterContext;
+    const { filter, toggle, add, setFullField, setFilter, filterHash } = currentFilterContext;
     const [selected, setSelected] = useState<(string | number | object)[]>([]);
     const [filterBeforeHash, setFilterBeforeHash] = useState<string | undefined>(undefined);
     const [q, setQ] = useState<string>('');
+    const [backupFilter, setBackupFilter] = useState<FilterType | undefined>(undefined);
+    const [filterSummary, setFilterSummary] = useState<FilterSummaryType>(
+      getFilterSummary(filter, filterHandle)
+    );
+    const [filterType, setFilterType] = useState(
+      filterSummary?.isNotNull || filterSummary?.isNull ? 'EXISTS' : 'SELECT'
+    );
     const {
       upperBound = 'lte',
       lowerBound = 'gte',
@@ -48,9 +66,21 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
       // filter has changed updateed the listed of selected values
       const selectedList = filter?.must?.[filterHandle] ?? [];
       setSelected(selectedList);
+
+      const filterSummary = getFilterSummary(filter, filterHandle);
+      setFilterSummary(filterSummary);
       // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filterHash, filterHandle]);
+    }, [filterHash, filterHandle, setFilterSummary]);
+
+    // watch filter summary and update filter type
+    useEffect(() => {
+      if (filterSummary?.isNotNull || filterSummary?.isNull) {
+        setFilterType('EXISTS');
+      } else {
+        setFilterType('SELECT');
+      }
+    }, [filterSummary]);
 
     const options = (
       <>
@@ -65,6 +95,27 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
             </button>
           )}
 
+          {allowExistence && (
+            <button
+              className="g-px-1"
+              onClick={() => {
+                const backup = cleanUpFilter(cloneDeep(filter));
+                setBackupFilter(backup);
+                setFullField(filterHandle, [{ type: 'isNotNull' }], []);
+              }}
+            >
+              <SimpleTooltip
+                delayDuration={300}
+                title={<FormattedMessage id="filterSupport.existence" />}
+                asChild
+              >
+                <span>
+                  <PiEmptyBold />
+                </span>
+              </SimpleTooltip>
+            </button>
+          )}
+
           {About && (
             <AboutButton className="-g-me-1">
               <About />
@@ -73,6 +124,23 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
         </div>
       </>
     );
+
+    if (filterType === 'EXISTS') {
+      return (
+        <ExistsSection
+          className={className}
+          backupFilter={backupFilter}
+          setFilter={setFilter}
+          setFullField={setFullField}
+          filterHandle={filterHandle}
+          About={About}
+          filterSummary={filterSummary}
+          onApply={onApply}
+          onCancel={onCancel}
+          pristine={pristine}
+        />
+      );
+    }
 
     return (
       <div className={cn('g-flex g-flex-col g-max-h-[100dvh]', className)}>
