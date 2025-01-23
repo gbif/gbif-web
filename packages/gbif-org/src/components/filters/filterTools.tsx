@@ -261,11 +261,8 @@ const getWildcardFilter = ({
       return (
         <WildcardFilter
           ref={ref}
-          suggestQuery={config.suggestQuery}
-          filterHandle={config.filterHandle}
-          displayName={config.displayName}
+          {...config}
           searchConfig={searchConfig}
-          about={config.about}
           {...{ onApply, onCancel, className, style, pristine }}
         />
       );
