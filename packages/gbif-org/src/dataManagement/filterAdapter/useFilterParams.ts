@@ -1,4 +1,5 @@
 import { asStringParams, ParamQuery, parseParams } from '@/utils/querystring';
+import { Base64 } from 'js-base64';
 import isPlainObject from 'lodash/isPlainObject';
 import objectHash from 'object-hash';
 import { useCallback, useEffect, useState } from 'react';
@@ -61,7 +62,7 @@ export function useFilterParams({
       const { filter: v1Filter, errors } = filter2v1(nextFilter, filterConfig);
       if (errors) {
         // if we cannot serialize the filter to version 1 API, then just serialize the json and put it in the filter param
-        setQuery({ ...emptyQuery, filter: nextFilter });
+        setQuery({ ...emptyQuery, filter: Base64JsonParam.encode(nextFilter) });
       } else {
         setQuery({ ...emptyQuery, ...v1Filter });
       }
@@ -75,7 +76,8 @@ export function useFilterParams({
   useEffect(() => {
     let f;
     if (query?.filter) {
-      f = Array.isArray(query.filter) ? query.filter[0] : query.filter;
+      const encodedFilter = Array.isArray(query.filter) ? query.filter[0] : query.filter;
+      f = Base64JsonParam.decode(encodedFilter);
     } else {
       f = v12filter(query, filterConfig);
     }
@@ -114,3 +116,18 @@ function useQueryParams({ observedParams }: { observedParams: string[] }) {
 
   return [query, updateQuery] as [ParamQuery, (query: ParamQuery) => void];
 }
+
+export const Base64JsonParam = {
+  encode: (obj: object) => (obj ? Base64.encode(JSON.stringify(obj)) : undefined),
+  decode: (obj: string) => {
+    try {
+      const value = obj ? Base64.decode(obj) : obj;
+      const parsedValue = JSON.parse(value);
+      return parsedValue;
+    } catch (err) {
+      return undefined;
+    }
+  },
+};
+
+export default Base64JsonParam;
