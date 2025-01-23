@@ -196,10 +196,10 @@ async function getOGImage({ homepage, timeoutMs = 5000 }) {
   }
 }
 
-const getFirstIIIFImage = ({ occurrence, verbatim }) => {
+const getFirstIIIFImage = ({ occurrence }) => {
   // return 'test';
   const multimediaExtension =
-    verbatim?.extensions?.['http://rs.tdwg.org/ac/terms/Multimedia'];
+    occurrence?.extensions?.['http://rs.tdwg.org/ac/terms/Multimedia'];
   if (multimediaExtension) {
     const iiifUris = multimediaExtension
       .filter((e) => {

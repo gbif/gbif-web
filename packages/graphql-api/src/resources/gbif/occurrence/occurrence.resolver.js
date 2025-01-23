@@ -694,10 +694,8 @@ export default {
     },
     isSamplingEvent: (occurrence) =>
       !!occurrence.eventId && !!occurrence.samplingProtocol,
-    firstIIIF: (occurrence, _args, { dataSources }) => {
-      return dataSources.occurrenceAPI
-        .getVerbatim({ key: occurrence.key })
-        .then((verbatim) => getFirstIIIFImage({ occurrence, verbatim }));
+    firstIIIF: (occurrence) => {
+      return getFirstIIIFImage({ occurrence });
     },
   },
   RelatedOccurrence: {
