@@ -15,12 +15,12 @@
   "notYetEndorsed": "",
   "pendingEndorsementBy": "",
   "endorsementWithheld": "",
-  "installations": "",
+  "installations": "Instalace",
   "getDownloadReport": "",
   "contacts": "Kontakty",
   "administrativeContact": "",
   "header": {
     "publisher": "Vydavatel",
-    "sinceDate": ""
+    "sinceDate": "Od {DATE}"
   }
 }
