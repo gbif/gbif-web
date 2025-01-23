@@ -16,9 +16,18 @@ import { FormattedDateRange } from '@/components/message';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { OccurrenceIssue, OccurrenceQuery, OccurrenceQueryVariables, Term } from '@/gql/graphql';
+import { useConfig } from '@/config/config';
+import {
+  OccurrenceIssue,
+  OccurrenceQuery,
+  OccurrenceQueryVariables,
+  SlowOccurrenceKeyQuery,
+  SlowOccurrenceKeyQueryVariables,
+  Term,
+} from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
-import { LoaderArgs } from '@/reactRouterPlugins';
+import useQuery from '@/hooks/useQuery';
+import { LoaderArgs, useI18n } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -26,7 +35,7 @@ import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { fragmentManager } from '@/services/fragmentManager';
 import { required } from '@/utils/required';
-import { createContext } from 'react';
+import { createContext, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { BsLightningFill } from 'react-icons/bs';
 import { MdInfoOutline } from 'react-icons/md';
@@ -35,7 +44,7 @@ import { Outlet, redirect, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 
 const OCCURRENCE_QUERY = /* GraphQL */ `
-  query Occurrence($key: ID!, $language: String!, $source: String) {
+  query Occurrence($key: ID!) {
     occurrence(key: $key) {
       key
       coordinates
@@ -50,17 +59,9 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
       issues
       basisOfRecord
       dynamicProperties
-      institution {
-        name
-        key
-      }
-      collection {
-        name
-        key
-      }
-      related {
-        count
-      }
+      institutionKey
+      collectionKey
+      isInCluster
       volatile {
         globe(sphere: false, land: false, graticule: false) {
           svg
@@ -86,12 +87,6 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
         }
       }
       institutionCode
-      recordedByIDs {
-        ...OccurrenceAssociatedID
-      }
-      identifiedByIDs {
-        ...OccurrenceAssociatedID
-      }
 
       extensions {
         audubon
@@ -166,19 +161,34 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
           key
         }
       }
-
       primaryImage {
         identifier
       }
-
       terms {
         ...OccurrenceTerm
       }
-
       scientificName
-      dataset {
-        key
-        title
+      recordedByIDs {
+        type
+        value
+      }
+      identifiedByIDs {
+        type
+        value
+      }
+    }
+  }
+`;
+
+const SLOW_OCCURRENCE_QUERY = /* GraphQL */ `
+  query SlowOccurrenceKey($key: ID!, $language: String!, $source: String) {
+    occurrence(key: $key) {
+      key
+      institution {
+        name
+      }
+      collection {
+        name
       }
 
       acceptedTaxon {
@@ -239,27 +249,13 @@ fragmentManager.register(/* GraphQL */ `
   }
 `);
 
-fragmentManager.register(/* GraphQL */ `
-  fragment OccurrenceAssociatedID on AssociatedID {
-    value
-    person(expand: true) {
-      name
-      birthDate
-      deathDate
-      image
-    }
-  }
-`);
-
-export async function occurrenceKeyLoader({ params, graphql, locale, config }: LoaderArgs) {
+export async function occurrenceKeyLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
 
   const response = await graphql.query<OccurrenceQuery, OccurrenceQueryVariables>(
     OCCURRENCE_QUERY,
     {
       key,
-      language: locale.iso3LetterCode ?? 'eng',
-      source: config?.vernacularNames?.sourceTitle,
     }
   );
 
@@ -275,13 +271,46 @@ export const OccurrenceKeyContext = createContext<{
   key?: string;
   datasetKey?: string;
   dynamicProperties?: string;
+  slowOccurrence?: SlowOccurrenceKeyQuery['occurrence'];
+  occurrence?: OccurrenceQuery['occurrence'];
 }>({});
 
 export function OccurrenceKey() {
   const { data } = useLoaderData() as { data: OccurrenceQuery };
   const hideGlobe = useBelow(800);
-  if (data.occurrence == null) throw new Error('404');
+  const config = useConfig();
+  const { locale } = useI18n();
+
+  const {
+    data: slowData,
+    loading: slowLoading,
+    error: slowError,
+    load: slowLoad,
+  } = useQuery<SlowOccurrenceKeyQuery, SlowOccurrenceKeyQueryVariables>(SLOW_OCCURRENCE_QUERY, {
+    lazyLoad: true,
+    throwAllErrors: false,
+  });
+
+  useEffect(() => {
+    if (!data?.occurrence?.key) return;
+    slowLoad({
+      variables: {
+        key: '' + data?.occurrence?.key,
+        language: locale.iso3LetterCode ?? 'eng',
+        source: config?.vernacularNames?.sourceTitle,
+      },
+    });
+  }, [
+    slowLoad,
+    data?.occurrence?.key,
+    locale?.iso3LetterCode,
+    config?.vernacularNames?.sourceTitle,
+  ]);
+  console.log(slowData);
+
+  if (data?.occurrence == null) throw new Error('404');
   const occurrence = data.occurrence;
+  const slowOccurrence = slowData?.occurrence;
 
   const { terms } = occurrence;
   const termMap: { [key: string]: Term } =
@@ -293,9 +322,7 @@ export function OccurrenceKey() {
   // const recorderAndIndentiferIsDifferent =
   //   JSON.stringify(termMap?.recordedBy?.value) !== JSON.stringify(termMap?.identifiedBy?.value);
 
-  const vernacularNameInfo = occurrence?.acceptedTaxon?.vernacularNames?.results?.[0];
-
-  const hasRelated = occurrence.related?.count && occurrence.related?.count > 0;
+  const vernacularNameInfo = slowOccurrence?.acceptedTaxon?.vernacularNames?.results?.[0];
 
   const tabs = [
     {
@@ -303,7 +330,7 @@ export function OccurrenceKey() {
       children: <FormattedMessage id="occurrenceDetails.tabs.details" defaultMessage="About" />,
     },
   ];
-  if (hasRelated)
+  if (occurrence.isInCluster)
     tabs.push({
       to: 'related',
       children: <FormattedMessage id="occurrenceDetails.tabs.cluster" defaultMessage="Related" />,
@@ -332,18 +359,15 @@ export function OccurrenceKey() {
       <DataHeader
         className="g-bg-white"
         aboutContent={<AboutContent />}
-        apiContent={<ApiContent id={data?.occurrence?.key?.toString()} />}
+        apiContent={<ApiContent id={occurrence?.key?.toString()} />}
       ></DataHeader>
       <article>
         <PageContainer topPadded hasDataHeader className="g-bg-white">
           <ArticleTextContainer className="g-max-w-screen-xl">
             <div className="g-flex">
-              {!hideGlobe && data?.occurrence?.volatile?.globe && (
+              {!hideGlobe && occurrence?.volatile?.globe && (
                 <div className="g-flex">
-                  <Globe
-                    {...data?.occurrence?.volatile?.globe}
-                    className="g-w-32 g-h-32 g-me-4 g-mb-4"
-                  />
+                  <Globe {...occurrence?.volatile?.globe} className="g-w-32 g-h-32 g-me-4 g-mb-4" />
                 </div>
               )}
               <div className="g-flex-grow">
@@ -383,6 +407,7 @@ export function OccurrenceKey() {
                       />
                       {vernacularNameInfo && (
                         <SimpleTooltip
+                          asChild
                           title={
                             <FormattedMessage
                               id="phrases.commonNameAccordingTo"
@@ -526,9 +551,11 @@ export function OccurrenceKey() {
         </PageContainer>
         <OccurrenceKeyContext.Provider
           value={{
-            key: data?.occurrence?.key,
-            datasetKey: data?.occurrence?.datasetKey,
-            dynamicProperties: data?.occurrence?.dynamicProperties,
+            key: occurrence?.key,
+            datasetKey: occurrence?.datasetKey,
+            dynamicProperties: occurrence?.dynamicProperties,
+            slowOccurrence,
+            occurrence,
           }}
         >
           <Outlet />

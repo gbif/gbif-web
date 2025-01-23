@@ -1,85 +1,55 @@
-import Properties, { Term as T, Value as V } from '@/components/properties';
-import { OccurrenceAssociatedIdFragment } from '@/gql/graphql';
+import { Term as T, Value as V } from '@/components/properties';
+import {
+  OccurrenceQuery,
+  PersonKeyQuery,
+  PersonKeyQueryVariables,
+  SlowOccurrenceKeyQuery,
+} from '@/gql/graphql';
+import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import equal from 'fast-deep-equal/react';
 import { FormattedDate, FormattedMessage } from 'react-intl';
-import { BasicField, CustomValueField, HtmlField, PlainTextField } from '../properties';
+import { BasicField, CustomValueField } from '../properties';
 
-export function Institution({ termMap, showAll, occurrence }) {
-  const code = termMap.institutionCode?.value;
-  const id = termMap.institutionID?.value;
-  const inst = occurrence.institution;
-  if (!code && !id && !inst) return null;
-
-  return (
-    <>
-      <T>
-        <FormattedMessage id={`occurrenceDetails.institution`} defaultMessage={'Institution'} />
-      </T>
-      <V>
-        <Properties horizontal={false}>
-          <InstitutionKey {...{ occurrence }} />
-          {!occurrence.institution && (
-            <>
-              <PlainTextField term={termMap.institutionCode} showDetails={showAll} />
-              <HtmlField term={termMap.institutionID} showDetails={showAll} />
-            </>
-          )}
-          <PlainTextField term={termMap.ownerInstitutionCode} showDetails={showAll} />
-        </Properties>
-      </V>
-    </>
-  );
-}
-
-export function Collection({ termMap, showAll, occurrence }) {
-  const code = termMap.collectionCode?.value;
-  const id = termMap.collectionID?.value;
-  const inst = occurrence.collection;
-  if (!code && !id && !inst) return null;
-  return (
-    <>
-      <T>
-        <FormattedMessage id={`occurrenceDetails.collection`} defaultMessage={'Collection'} />
-      </T>
-      <V>
-        <Properties horizontal={false}>
-          <CollectionKey {...{ occurrence }} />
-          <PlainTextField term={termMap.collectionCode} showDetails={showAll} />
-          <HtmlField term={termMap.collectionID} showDetails={showAll} />
-        </Properties>
-      </V>
-    </>
-  );
-}
-
-export function InstitutionKey({ occurrence }) {
-  if (!occurrence?.institution?.key) return null;
+export function InstitutionKey({
+  occurrence,
+  slowOccurrence,
+}: {
+  occurrence: OccurrenceQuery['occurrence'];
+  slowOccurrence: SlowOccurrenceKeyQuery['occurrence'];
+}) {
+  if (!occurrence?.institutionKey) return null;
   return (
     <BasicField label="occurrenceDetails.institutionGrSciColl">
       <DynamicLink
         className="g-underline"
-        to={`/institution/${occurrence?.institution?.key}`}
+        to={`/institution/${occurrence?.institutionKey}`}
         pageId="institutionKey"
-        variables={{ key: occurrence?.institution?.key }}
+        variables={{ key: occurrence?.institutionKey }}
       >
-        {occurrence.institution.name}
+        {slowOccurrence?.institution?.name ?? occurrence.institutionKey}
       </DynamicLink>
     </BasicField>
   );
 }
 
-export function CollectionKey({ occurrence }) {
-  if (!occurrence?.collection?.key) return null;
+export function CollectionKey({
+  occurrence,
+  slowOccurrence,
+}: {
+  occurrence: OccurrenceQuery['occurrence'];
+  slowOccurrence: SlowOccurrenceKeyQuery['occurrence'];
+}) {
+  if (!occurrence?.collectionKey) return null;
   return (
     <BasicField label="occurrenceDetails.collectionGrSciColl">
       <DynamicLink
         className="g-underline"
-        to={`/collection/${occurrence?.collection?.key}`}
+        to={`/collection/${occurrence?.collectionKey}`}
         pageId="collectionKey"
-        variables={{ key: occurrence?.collection?.key }}
+        variables={{ key: occurrence?.collectionKey }}
       >
-        {occurrence.collection.name}
+        {slowOccurrence?.collection?.name ?? occurrence.collectionKey}
       </DynamicLink>
     </BasicField>
   );
@@ -146,21 +116,16 @@ export function IdentifiedById({ occurrence }) {
   return <Agents label="occurrenceFieldNames.identifiedByID" value={occurrence.identifiedByIDs} />;
 }
 
-function Agents({ label, value }: { label: string; value: OccurrenceAssociatedIdFragment[] }) {
+function Agents({ label, value }: { label: string; value: { type: string; value: string }[] }) {
   if (!value?.[0]) return null;
   return (
     <BasicField label={label}>
       <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-        {value.map((x) => {
-          if (!x.person) {
-            return <li key={x.value}>{x.value}</li>;
-          }
-          return (
-            <li key={x.value} style={{ marginBottom: 4 }}>
-              <AgentSummary agent={x} />
-            </li>
-          );
-        })}
+        {value.map((x) => (
+          <li key={x.value}>
+            <AgentSummary agent={x} />
+          </li>
+        ))}
       </ul>
     </BasicField>
   );
@@ -195,8 +160,25 @@ export function DynamicProperties({ termMap }) {
   );
 }
 
-export function AgentSummary({ agent }: { agent: OccurrenceAssociatedIdFragment }) {
-  const { person } = agent;
+const PERSON_QUERY = /* GraphQL */ `
+  query PersonKey($type: String!, $value: String!) {
+    person(type: $type, value: $value) {
+      name
+      birthDate
+      deathDate
+      image
+    }
+  }
+`;
+
+export function AgentSummary({ agent }: { agent: { type: string; value: string } }) {
+  const { data, loading, error } = useQuery<PersonKeyQuery, PersonKeyQueryVariables>(PERSON_QUERY, {
+    throwAllErrors: false,
+    variables: { type: agent.type, value: agent.value },
+  });
+  if (!data?.person || loading || error) return agent.value;
+  const { person } = data;
+
   return (
     <div className="g-rounded g-border g-bg-white g-overflow-hidden g-shadow-sm g-flex g-flex-wrap">
       <div className="g-flex-none">

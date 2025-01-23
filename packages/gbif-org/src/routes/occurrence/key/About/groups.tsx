@@ -4,7 +4,7 @@ import Properties from '@/components/properties';
 import { RenderIfChildren } from '@/components/renderIfChildren';
 import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { OccurrenceQuery, Term } from '@/gql/graphql';
+import { OccurrenceQuery, SlowOccurrenceKeyQuery, Term } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import React, { useEffect, useState } from 'react';
 import { MdAudiotrack, MdImage } from 'react-icons/md';
@@ -50,11 +50,13 @@ const Map = React.lazy(() => import('@/components/map'));
 
 export function Groups({
   occurrence,
+  slowOccurrence,
   showAll,
   updateToc,
   termMap,
 }: {
   occurrence: OccurrenceQuery['occurrence'];
+  slowOccurrence: SlowOccurrenceKeyQuery['occurrence'];
   showAll: boolean;
   updateToc: (id: string, visible: boolean) => void;
   termMap: { [key: string]: Term };
@@ -69,7 +71,7 @@ export function Groups({
       {/* <Provenance {...{ updateToc, showAll, termMap, occurrence }} /> */}
 
       <GeologicalContext {...{ updateToc, showAll, termMap, occurrence }} />
-      <Record {...{ showAll, termMap, occurrence, updateToc }} />
+      <Record {...{ showAll, termMap, occurrence, slowOccurrence, updateToc }} />
       <Taxon {...{ updateToc, showAll, termMap, occurrence }} />
       <Identification {...{ updateToc, showAll, termMap, occurrence }} />
       <Location {...{ updateToc, showAll, termMap, occurrence }} />
@@ -239,16 +241,18 @@ function Record({
   showAll,
   termMap,
   occurrence,
+  slowOccurrence,
 }: {
   showAll: boolean;
   termMap: any;
-  occurrence: any;
+  occurrence: OccurrenceQuery['occurrence'];
+  slowOccurrence: SlowOccurrenceKeyQuery['occurrence'];
 }) {
   // no reason to test this, this group is always present since basisOfRecord is always present
   return (
     <PropGroup label="occurrenceDetails.groups.record" id="record">
-      <InstitutionKey {...{ occurrence }} />
-      <CollectionKey {...{ occurrence }} />
+      <InstitutionKey {...{ occurrence, slowOccurrence }} />
+      <CollectionKey {...{ occurrence, slowOccurrence }} />
       <DatasetKey {...{ occurrence }} />
 
       <EnumField
@@ -767,7 +771,7 @@ function Other({
       <PlainTextField term={termMap.title} showDetails={showAll} />
       <PlainTextField term={termMap.type} showDetails={showAll} />
       <PlainTextField term={termMap.valid} showDetails={showAll} />
-      <BasicField label="occurrenceFieldNames.gbifID">{termMap.gbifID.value}</BasicField>
+      <BasicField label="occurrenceFieldNames.gbifID">{termMap?.gbifID?.value}</BasicField>
     </PropGroup>
   );
 }

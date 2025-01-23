@@ -5,11 +5,12 @@ import { Term } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { useCallback, useReducer } from 'react';
+import { useCallback, useContext, useReducer } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { HashLink } from 'react-router-hash-link';
 import { useOccurrenceKeyLoaderData } from '.';
 import { Groups } from './About/groups';
+import { OccurrenceKeyContext } from './occurrenceKey';
 import { Aside, AsideSticky, SidebarLayout } from './pagelayouts';
 
 const extensions = [
@@ -53,6 +54,7 @@ const tocReducer = (state, action) => {
 };
 
 export function OccurrenceKeyAbout() {
+  const { slowOccurrence } = useContext(OccurrenceKeyContext);
   const config = useConfig();
   const { data } = useOccurrenceKeyLoaderData();
   const hideSidebar = useBelow(1000);
@@ -92,6 +94,7 @@ export function OccurrenceKeyAbout() {
           <div className="g-order-last">
             <Groups
               occurrence={occurrence}
+              slowOccurrence={slowOccurrence}
               showAll={showAll}
               termMap={termMap}
               updateToc={updateToc}
