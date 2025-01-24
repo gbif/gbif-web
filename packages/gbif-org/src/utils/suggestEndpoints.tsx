@@ -356,7 +356,7 @@ export const taxonKeyVernacularSuggest = {
 export const gadGidSuggest = {
   getSuggestions: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {
     const gadmSuggest = siteConfig?.suggest?.gadm;
-    const extraParams = gadmSuggest.type === 'PARAMS' ? stringify(gadmSuggest?.value ?? {}) : '';
+    const extraParams = gadmSuggest?.type === 'PARAMS' ? stringify(gadmSuggest?.value ?? {}) : '';
     const { cancel, promise } = fetchWithCancel(
       `${siteConfig.v1Endpoint}/geocode/gadm/search?limit=100&q=${q}&${extraParams}`
     );
