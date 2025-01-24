@@ -32,7 +32,7 @@
   "notes": "Poznámky",
   "collectionCode": "Kód sbírky",
   "institutionCode": "Kód instituce",
-  "specimensViaGbif": "",
+  "specimensViaGbif": "Záznamy vzorků sdílené s GBIF",
   "specimens": "Exempláře",
   "identifiers": "Identifikátory",
   "importantCollectors": "Důležití sběratelé",
