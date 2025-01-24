@@ -124,10 +124,10 @@ export type Config = Endpoints & {
       defaultProjection: 'MERCATOR' | 'PLATE_CAREE' | 'ARCTIC' | 'ANTARCTIC';
       defaultMapStyle: MapStyleType;
       options: {
-        ARCTIC: MapStyleType[];
-        PLATE_CAREE: MapStyleType[];
-        MERCATOR: MapStyleType[];
-        ANTARCTIC: MapStyleType[];
+        ARCTIC?: MapStyleType[];
+        PLATE_CAREE?: MapStyleType[];
+        MERCATOR?: MapStyleType[];
+        ANTARCTIC?: MapStyleType[];
       };
     };
     addMapStyles?: (args: {
@@ -207,6 +207,9 @@ export function ConfigProvider({ config, children }: Props): React.ReactElement 
       config,
       customizer
     );
+    if (config?.maps?.mapStyles?.options) {
+      mergedConfig.maps.mapStyles.options = config?.maps?.mapStyles?.options;
+    }
     return {
       style: `:root { ${cssVariables.map((v) => `${v.name}: ${v.value};`).join('\n')} }`,
       config: mergedConfig,
