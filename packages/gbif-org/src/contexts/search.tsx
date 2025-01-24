@@ -14,9 +14,10 @@ export type SearchMetadata = {
 
 export type OccurrenceSearchMetadata = SearchMetadata & {
   mapSettings?: {
-    lat: number;
-    lng: number;
-    zoom: number;
+    userLocationEnabled?: boolean;
+    lat?: number;
+    lng?: number;
+    zoom?: number;
   };
 };
 

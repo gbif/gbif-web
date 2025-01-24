@@ -191,6 +191,9 @@ export const gbifConfig: Config = {
     highlightedFilters: ['q', 'year'],
   },
   occurrenceSearch: {
+    mapSettings: {
+      userLocationEnabled: false,
+    },
     highlightedFilters: [
       // 'occurrenceStatus',
       'taxonKey',

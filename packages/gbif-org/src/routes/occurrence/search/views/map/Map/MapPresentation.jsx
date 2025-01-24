@@ -85,7 +85,7 @@ function Map({
   ...props
 }) {
   const config = useConfig();
-  const userLocationEnabled = true; //config?.occurrence?.mapSettings?.userLocationEnabled;
+  const userLocationEnabled = config?.occurrenceSearch?.mapSettings?.userLocationEnabled;
   const styleLookup = config?.maps?.styleLookup || {};
   const { setOrderedList } = useOrderedList();
   const mapStyles = config?.maps?.mapStyles?.options || defaultLayerOptions;
