@@ -166,7 +166,9 @@ export function DatasetKeyAbout() {
 
   const tableOfContents = useMemo(() => {
     if (!dataset || !toc) return [];
-    const tableOfContents = [{ id: 'abstract', title: <FormattedMessage id="dataset.abstract" /> }];
+    const tableOfContents = [
+      { id: 'description', title: <FormattedMessage id="dataset.description" /> },
+    ];
     if (toc.purpose) {
       tableOfContents.push({
         id: 'purpose',
