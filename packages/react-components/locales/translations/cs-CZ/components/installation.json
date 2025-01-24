@@ -4,5 +4,6 @@
   "homepage": "Domovská stránka",
   "installationType": "Typ instalace",
   "hostedBy": "Hostuje",
+  "registered": "Registrován",
   "endpoints": "Koncové body"
 }
