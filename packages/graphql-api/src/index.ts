@@ -1,3 +1,4 @@
+import { setMaxListeners } from 'node:events';
 import { ApolloServerPluginCacheControl } from 'apollo-server-core';
 import { ApolloServer } from 'apollo-server-express';
 import bodyParser from 'body-parser';
@@ -46,6 +47,8 @@ async function initializeServer() {
       // I haven't been able to find any examples of people doing anything with cancellation - which I find odd.
       // Perhaps the overhead isn't worth it in most cases?
       const controller = new AbortController();
+      // Default is 10, we exceed this sometimes with nested resolves that utilize cancellation
+      setMaxListeners(50, controller.signal);
       req.on('close', () => {
         controller.abort();
       });
