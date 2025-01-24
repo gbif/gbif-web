@@ -15,6 +15,10 @@ export const configDefault: Partial<Config> = {
     'TAXON',
     'LITERATURE',
   ],
+  dataHeader: {
+    enableApiPopup: true,
+    enableInfoPopup: true,
+  },
   datasetSearch: {
     excludedFilters: [],
     highlightedFilters: ['q', 'type', 'publishingOrg', 'license'],

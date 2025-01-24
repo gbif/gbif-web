@@ -100,6 +100,10 @@ export const gbifConfig: Config = {
     borderRadius: 3,
     // mapDensityColors: ['#ffd300', '#f4b456', '#e9928a', '#d96cc1', '#b93bff'],
   },
+  dataHeader: {
+    enableApiPopup: true,
+    enableInfoPopup: true,
+  },
   openGraph: {
     site_name: 'GBIF',
   },

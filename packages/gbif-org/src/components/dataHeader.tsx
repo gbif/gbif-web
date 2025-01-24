@@ -33,7 +33,7 @@ export function DataHeader({
   doi?: string;
   className?: string;
 }) {
-  const { availableCatalogues = [] } = useConfig();
+  const { availableCatalogues = [], dataHeader } = useConfig();
 
   return (
     <div
@@ -53,7 +53,7 @@ export function DataHeader({
       <div className="g-flex-none g-mx-2">
         <div className="g-flex g-justify-center g-items-center">
           {doi && <DoiTag id={doi} className="g-me-2 g-text-xs" />}
-          {aboutContent && (
+          {aboutContent && dataHeader.enableInfoPopup && (
             <Popup
               trigger={
                 <MdInfo className="g-mx-1 hover:g-text-slate-700 g-text-slate-400 g-block" />
@@ -62,7 +62,7 @@ export function DataHeader({
               {aboutContent}
             </Popup>
           )}
-          {apiContent && (
+          {apiContent && dataHeader.enableApiPopup && (
             <Popup
               trigger={
                 <MdCode className="g-mx-1 hover:g-text-slate-700 g-text-slate-400 g-block" />

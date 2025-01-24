@@ -54,6 +54,11 @@ export type Config = Endpoints & {
   openGraph?: {
     site_name: string; // e.g. 'GBIF'
   };
+  // The data header info and api popups are not translated yet, so we want the options to disable them for now
+  dataHeader: {
+    enableApiPopup: boolean;
+    enableInfoPopup: boolean;
+  };
   hardcodedKeys: {
     OBISKey: string;
     taiwanNodeidentifier: string;
