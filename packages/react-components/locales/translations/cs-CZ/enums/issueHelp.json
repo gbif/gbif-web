@@ -1,1 +1,7 @@
-{}
+{
+  "ELEVATION_NON_NUMERIC": "Nastavit, pokud je nadmořská výška nečíselná hodnota",
+  "ACCEPTED_NAME_MISSING": "Synonymum, kterému chybí přijatý název",
+  "RESOURCE_CREATOR_MISSING_OR_INCOMPLETE": "Chybí tvůrce zdroje nebo je neúplný",
+  "RANK_INVALID": "Dwc:taxonRank nelze interpretovat",
+  "CLASSIFICATION_RANK_ORDER_INVALID": "(popis chybí)"
+}

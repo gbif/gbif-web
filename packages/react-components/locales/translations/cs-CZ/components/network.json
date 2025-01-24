@@ -1,9 +1,9 @@
 {
-  "network": "",
+  "network": "Síť",
   "tabs": {
     "summary": "Shrnutí",
-    "metrics": "",
+    "metrics": "Metriky",
     "datasets": "Datové sady",
-    "publishers": ""
+    "publishers": "Vydavatelé"
   }
 }

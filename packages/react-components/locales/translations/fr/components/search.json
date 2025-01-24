@@ -23,7 +23,7 @@
   "placeholders": {
     "default": "Rechercher",
     "range": "Intervalle ou valeur unique",
-    "rangeExample": "Archive annotée par GBIF",
+    "rangeExample": "",
     "wildcard": "Rechercher avec * et ? comme caractères génériques",
     "locationID": ""
   },

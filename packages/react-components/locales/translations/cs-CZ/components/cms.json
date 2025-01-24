@@ -1,9 +1,9 @@
 {
   "contentType": {
-    "event": "",
-    "news": "",
-    "resource": "",
-    "dataUse": "",
+    "event": "Událost",
+    "news": "Novinky",
+    "resource": "Zdroj",
+    "dataUse": "Užití dat",
     "project": "Projekt",
     "participant": "Účastník",
     "programme": "Program",
@@ -32,7 +32,7 @@
     "programme": "Program",
     "contractCountry": "Země nebo oblast",
     "newsAndEvents": "",
-    "call": "",
+    "call": "Výzva",
     "projectLead": "",
     "contactDetalils": "Detaily kontaktu",
     "partners": "Partneři"
@@ -65,7 +65,7 @@
     "howToLinkEvents": "",
     "when": "Kdy",
     "language": "Jazyk",
-    "viewOnGBIF": "",
+    "viewOnGBIF": "Zobrazit na GBIF",
     "published": "Publikováno",
     "programme": "Program",
     "fundedBy": "Financován",

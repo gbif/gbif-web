@@ -23,7 +23,7 @@
   "placeholders": {
     "default": "搜索",
     "range": "范围或单个值",
-    "rangeExample": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+    "rangeExample": "",
     "wildcard": "使用*和?作为通配符搜索",
     "locationID": ""
   },
