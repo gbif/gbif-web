@@ -167,10 +167,14 @@ export function OccurrenceKeyAbout() {
                           </Li>
                           {extensions.map((section) => {
                             if (!toc[section]) return null;
+                            let sectionLabel = `occurrenceDetails.extensions.${section}.name`;
+                            if (section === 'identificationHistory') {
+                              sectionLabel = 'occurrenceDetails.extensions.identification.name';
+                            }
                             return (
                               <Li key={section} toc={toc} to={`#${section}`}>
                                 <FormattedMessage
-                                  id={`occurrenceDetails.extensions.${section}.name`}
+                                  id={sectionLabel}
                                   defaultMessage={section.replace(/-/g, ' ')}
                                 />
                               </Li>
