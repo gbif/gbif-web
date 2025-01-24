@@ -112,7 +112,7 @@ interface TableProps {
 
 function Table({ collectionKey, groupKey }: TableProps) {
   const { data, error, loading, load } = useQuery(DESCRIPTOR_GROUP, { lazyLoad: true });
-  const limit = 20;
+  const limit = 10;
   const [offset, setOffset] = useState(0);
   useEffect(() => {
     if (typeof collectionKey !== 'undefined' && typeof groupKey !== 'undefined') {
