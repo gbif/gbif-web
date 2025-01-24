@@ -155,7 +155,7 @@ function Table({ collectionKey, groupKey }: TableProps) {
               </tr>
             </thead>
             <tbody>
-              {descriptors.results.slice(0, 3).map((d) => (
+              {descriptors.results.map((d) => (
                 <tr key={d.key}>
                   {keys.map((k) => (
                     <td key={k}>{d.verbatim[k]}</td>
