@@ -18,7 +18,7 @@
   "collection": "Sbírka",
   "collectionGrSciColl": "Sbírka GrSciColl",
   "recordedAndIdentifiedBy": "Zaznamenáno a identifikováno od",
-  "tryPublisherSiteForFailingMedia": "",
+  "tryPublisherSiteForFailingMedia": "Pokud se médium nezobrazuje správně, zkuste místo toho navštívit stránky vydavatele.",
   "screenReader": {
     "title": "Detaily výskytu"
   },
@@ -68,20 +68,20 @@
   },
   "extensions": {
     "audubon": {
-      "name": "",
+      "name": "Audubon multimedia",
       "properties": {
-        "identifier": "",
+        "identifier": "Identifikátor",
         "type": "Typ",
-        "subtypeLiteral": "",
-        "subtype": "",
-        "title": "",
+        "subtypeLiteral": "Doslovný podtyp",
+        "subtype": "Podtyp",
+        "title": "Název",
         "modified": "Změněno",
-        "MetadataDate": "",
-        "metadataLanguageLiteral": "",
-        "metadataLanguage": "",
-        "providerManagedID": "",
-        "Rating": "",
-        "commenterLiteral": "",
+        "MetadataDate": "Datum metadat",
+        "metadataLanguageLiteral": "Doslovný jazyk metadat",
+        "metadataLanguage": "Jazyk metadat",
+        "providerManagedID": "Id spravované poskytovatelem",
+        "Rating": "Hodnocení",
+        "commenterLiteral": "Komentář doslovný",
         "commenter": "",
         "comments": "Komentáře",
         "reviewerLiteral": "",
@@ -90,7 +90,7 @@
         "available": "Dostupné",
         "hasServiceAccessPoint": "",
         "rights": "Práva",
-        "Owner": "",
+        "Owner": "Vlastník",
         "UsageTerms": "",
         "WebStatement": "",
         "licenseLogoURL": "",
@@ -98,7 +98,7 @@
         "attributionLogoURL": "",
         "attributionLinkURL": "",
         "fundingAttribution": "",
-        "source": "",
+        "source": "Zdroj",
         "creator": "Autor",
         "providerLiteral": "",
         "provider": "",
@@ -106,7 +106,7 @@
         "metadataCreator": "",
         "metadataProviderLiteral": "",
         "metadataProvider": "",
-        "description": "",
+        "description": "Popis",
         "caption": "",
         "language": "Jazyk",
         "physicalSetting": "",
@@ -125,9 +125,9 @@
         "timeOfDay": "",
         "taxonCoverage": "",
         "scientificName": "Vědecký název",
-        "identificationQualifier": "",
+        "identificationQualifier": "Identifikační kvalifikátor",
         "vernacularName": "",
-        "nameAccordingTo": "",
+        "nameAccordingTo": "Název podle",
         "scientificNameID": "ID vědeckého názvu",
         "otherScientificName": "",
         "identifiedBy": "Identifikováno od",
@@ -163,7 +163,7 @@
       }
     },
     "amplification": {
-      "name": "",
+      "name": "Zesílení",
       "properties": {
         "amplificationDate": "",
         "amplificationStaff": "",
@@ -296,16 +296,16 @@
       }
     },
     "identification": {
-      "name": "",
+      "name": "Historie identifikace",
       "properties": {
         "identificationID": "",
-        "verbatimIdentification": "",
-        "identificationQualifier": "",
-        "typeStatus": "",
+        "verbatimIdentification": "Doslovná identifikace",
+        "identificationQualifier": "Identifikační kvalifikátor",
+        "typeStatus": "Typ stratusu",
         "identifiedBy": "Identifikováno od",
-        "identifiedByID": "",
+        "identifiedByID": "Identifikováno podle ID",
         "dateIdentified": "Datum identifikace",
-        "identificationReferences": "",
+        "identificationReferences": "Odkazy na identifikaci",
         "identificationVerificationStatus": "",
         "identificationRemarks": "",
         "taxonID": "ID taxonu",
@@ -322,7 +322,7 @@
         "originalNameUsage": "",
         "nameAccordingTo": "",
         "namePublishedIn": "",
-        "namePublishedInYear": "",
+        "namePublishedInYear": "Název zveřejněný v roce",
         "higherClassification": "Vyšší zařazení",
         "kingdom": "Říše",
         "phylum": "Kmen",
@@ -344,27 +344,27 @@
         "nomenclaturalCode": "Kód názvosloví",
         "taxonomicStatus": "Taxonomický stav",
         "nomenclaturalStatus": "Stav názvosloví",
-        "taxonRemarks": ""
+        "taxonRemarks": "Poznámky k taxonu"
       }
     },
     "identifier": {
-      "name": "",
+      "name": "Identifikátor",
       "properties": {
-        "identifier": "",
-        "title": "",
+        "identifier": "Identifikátor",
+        "title": "Název",
         "subject": "Předmět",
         "format": "Formát",
         "datasetID": "ID datové sady"
       }
     },
     "image": {
-      "name": "",
+      "name": "Obrázek",
       "properties": {
-        "identifier": "",
-        "references": "",
-        "title": "",
-        "description": "",
-        "spatial": "",
+        "identifier": "Identifikátor",
+        "references": "Odkazy",
+        "title": "Název",
+        "description": "Popis",
+        "spatial": "Prostorové",
         "latitude": "",
         "longitude": "",
         "format": "Formát",
@@ -373,7 +373,7 @@
         "contributor": "Přispěvatel",
         "publisher": "Vydavatel",
         "audience": "Sledovanost",
-        "license": "",
+        "license": "Licence",
         "rightsHolder": "Držitel práv",
         "datasetID": "ID datové sady"
       }
@@ -393,39 +393,39 @@
       }
     },
     "multimedia": {
-      "name": "",
+      "name": "Multimédia",
       "properties": {
         "type": "Typ",
         "format": "Formát",
-        "identifier": "",
-        "references": "",
-        "title": "",
-        "description": "",
+        "identifier": "Identifikátor",
+        "references": "Odkazy",
+        "title": "Název",
+        "description": "Popis",
         "created": "Vytvořeno",
         "creator": "Autor",
         "contributor": "Přispěvatel",
         "publisher": "Vydavatel",
         "audience": "Sledovanost",
-        "source": "",
-        "license": "",
+        "source": "Zdroj",
+        "license": "Licence",
         "rightsHolder": "Držitel práv",
         "datasetID": "ID datové sady"
       }
     },
     "reference": {
-      "name": "",
+      "name": "Reference",
       "properties": {
-        "identifier": "",
+        "identifier": "Identifikátor",
         "bibliographicCitation": "Bibliografická citace",
-        "title": "",
+        "title": "Název",
         "creator": "Autor",
-        "date": "",
-        "source": "",
-        "description": "",
+        "date": "Datum",
+        "source": "Zdroj",
+        "description": "Popis",
         "subject": "Předmět",
         "language": "Jazyk",
         "rights": "Práva",
-        "taxonRemarks": "",
+        "taxonRemarks": "Poznámky k taxonu",
         "type": "Typ",
         "datasetID": "ID datové sady"
       }
@@ -433,24 +433,24 @@
     "eolReference": {
       "name": "EOL Reference",
       "properties": {
-        "identifier": "",
-        "publicationType": "",
-        "full_reference": "",
-        "primaryTitle": "",
-        "title": "",
-        "pages": "",
-        "pageStart": "",
-        "pageEnd": "",
-        "volume": "",
-        "edition": "",
+        "identifier": "Identifikátor",
+        "publicationType": "Typ publikace",
+        "full_reference": "Plný odkaz",
+        "primaryTitle": "Primární název",
+        "title": "Název",
+        "pages": "Stránky",
+        "pageStart": "Začátek strany",
+        "pageEnd": "Konec strany",
+        "volume": "Objem",
+        "edition": "Vydání",
         "publisher": "Vydavatel",
-        "authorList": "",
-        "editorList": "",
+        "authorList": "Seznam autorů",
+        "editorList": "Seznam editorů",
         "created": "Vytvořeno",
         "language": "Jazyk",
         "uri": "URI",
         "doi": "DOI",
-        "localityName": ""
+        "localityName": "Název místa"
       }
     },
     "resourceRelationship": {
@@ -467,7 +467,7 @@
       }
     },
     "cloning": {
-      "name": "",
+      "name": "Klonování",
       "properties": {
         "cloningDate": "",
         "cloningStaff": "",
@@ -490,7 +490,7 @@
     "gelImage": {
       "name": "",
       "properties": {
-        "identifier": "",
+        "identifier": "Identifikátor",
         "DNAThreshold": "",
         "gelBuffer": "",
         "gelConcentration": "",
@@ -505,7 +505,7 @@
       }
     },
     "loan": {
-      "name": "",
+      "name": "Půjčka",
       "properties": {
         "blockedUntil": "",
         "blocked": "",
@@ -545,7 +545,7 @@
       }
     },
     "permit": {
-      "name": "",
+      "name": "Povolení",
       "properties": {
         "permitType": "",
         "permitStatus": "",
@@ -575,10 +575,10 @@
       }
     },
     "extendedMeasurementOrFact": {
-      "name": "",
+      "name": "Rozšířené měření nebo skutečnost",
       "properties": {
         "measurementID": "",
-        "occurrenceID": "",
+        "occurrenceID": "id Výskytu",
         "measurementType": "",
         "measurementTypeID": "",
         "measurementValue": "",
@@ -593,7 +593,7 @@
       }
     },
     "chronometricAge": {
-      "name": "",
+      "name": "Chronometrický věk",
       "properties": {
         "chronometricAgeID": "",
         "verbatimChronometricAge": "",
@@ -616,7 +616,7 @@
       }
     },
     "dnaDerivedData": {
-      "name": "",
+      "name": "Data odvozená z DNA",
       "properties": {}
     }
   }
