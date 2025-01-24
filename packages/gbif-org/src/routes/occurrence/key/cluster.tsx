@@ -1,7 +1,7 @@
 import { Coordinates, FeatureList, Sequenced, TypeStatus } from '@/components/highlights';
 import { Tag } from '@/components/resultCards';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
-import { Card, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import {
   OccurrenceClusterQuery,
   OccurrenceClusterQueryVariables,
@@ -24,7 +24,7 @@ export function OccurrenceKeyCluster() {
     OccurrenceClusterQuery,
     OccurrenceClusterQueryVariables
   >(RELATED_OCCURRENCES_QUERY, {
-    throwAllErrors: true,
+    throwAllErrors: false,
     lazyLoad: true,
   });
 
@@ -39,6 +39,9 @@ export function OccurrenceKeyCluster() {
     });
   }, [key]);
 
+  if (error) {
+    // check if fatal error
+  }
   if (loading || !data)
     return (
       <ArticleContainer className="g-bg-slate-100">
@@ -105,7 +108,16 @@ function RelatedRecord({
   occurrence?: RelatedOccurrenceDetailsFragment;
 }) {
   if (!occurrence) {
-    return <Card>Record has since been deleted</Card>;
+    return (
+      <Card className="g-bg-red-500 g-text-white g-mb-4">
+        <CardHeader>
+          <FormattedMessage id="search.occurrenceClustersView.isDeleted" />
+        </CardHeader>
+        <CardContent>
+          <pre>{JSON.stringify(stub, null, 2)}</pre>
+        </CardContent>
+      </Card>
+    );
   }
   return (
     <Card className="g-mb-4">

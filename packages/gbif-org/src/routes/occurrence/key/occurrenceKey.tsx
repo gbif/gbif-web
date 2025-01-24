@@ -1,4 +1,5 @@
 import { DataHeader } from '@/components/dataHeader';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import Globe from '@/components/globe';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import {
@@ -548,17 +549,19 @@ export function OccurrenceKey() {
             <Tabs links={tabs} />
           </ArticleTextContainer>
         </PageContainer>
-        <OccurrenceKeyContext.Provider
-          value={{
-            key: occurrence?.key,
-            datasetKey: occurrence?.datasetKey,
-            dynamicProperties: occurrence?.dynamicProperties,
-            slowOccurrence,
-            occurrence,
-          }}
-        >
-          <Outlet />
-        </OccurrenceKeyContext.Provider>
+        <ErrorBoundary invalidateOn={occurrence?.key}>
+          <OccurrenceKeyContext.Provider
+            value={{
+              key: occurrence?.key,
+              datasetKey: occurrence?.datasetKey,
+              dynamicProperties: occurrence?.dynamicProperties,
+              slowOccurrence,
+              occurrence,
+            }}
+          >
+            <Outlet />
+          </OccurrenceKeyContext.Provider>
+        </ErrorBoundary>
       </article>
     </>
   );
