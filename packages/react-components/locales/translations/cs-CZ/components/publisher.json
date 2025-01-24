@@ -1,24 +1,24 @@
 {
-  "searchTitle": "",
+  "searchTitle": "Vyhledávání vydavatele",
   "tabs": {
     "aboutPublisher": "O",
     "metrics": "Metriky",
     "publishersHomepage": "Domácí stránka"
   },
   "joinedDate": "",
-  "newPublisher": "",
+  "newPublisher": "Nový vydavatel",
   "technicalContact": "Technický kontakt",
   "country": "Země nebo oblast",
   "hosting": "Hosting",
   "description": "Popis",
-  "endorsedBy": "",
+  "endorsedBy": "Schváleno od",
   "notYetEndorsed": "",
-  "pendingEndorsementBy": "",
-  "endorsementWithheld": "",
+  "pendingEndorsementBy": "Čeká se na schválení od",
+  "endorsementWithheld": "Schválení odmítnuto",
   "installations": "Instalace",
-  "getDownloadReport": "",
+  "getDownloadReport": "Stáhnout hlášení o aktivitě",
   "contacts": "Kontakty",
-  "administrativeContact": "",
+  "administrativeContact": "Administrativní kontakt",
   "header": {
     "publisher": "Vydavatel",
     "sinceDate": "Od {DATE}"
