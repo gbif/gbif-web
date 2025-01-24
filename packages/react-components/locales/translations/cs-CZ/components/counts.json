@@ -1,4 +1,5 @@
 {
+  "nResults": "{total, plural, one {# výsledek} few {# výsledky} many {# výsledků} other {# výsledků}}",
   "percentWithCoordinates": "{percent}% se souřadnicemi",
   "percentWithYear": "{percent}% s rokem",
   "percentWithTaxonMatch": "{percent}% s odpovídajícím taxonem"
