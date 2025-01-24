@@ -7,8 +7,8 @@
         "outdoor": ""
     },
     "projections": {
-        "ARCTIC": "",
-        "MERCATOR": "",
+        "ARCTIC": "Arktický",
+        "MERCATOR": "Mercator",
         "ANTARCTIC": "",
         "PLATE_CAREE": ""
     },
