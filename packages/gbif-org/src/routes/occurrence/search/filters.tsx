@@ -1,9 +1,9 @@
 import { IdentityLabel } from '@/components/filters/displayNames';
 import {
-    filterConfig,
-    filterConfigTypes,
-    FilterSetting,
-    generateFilters
+  filterConfig,
+  filterConfigTypes,
+  FilterSetting,
+  generateFilters,
 } from '@/components/filters/filterTools';
 import { SuggestFnProps } from '@/components/filters/suggest';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
@@ -14,63 +14,63 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { isInClusterConfig, isSequencedConfig } from './filters/booleans';
 import {
-    basisOfRecordConfig,
-    continentConfig,
-    dwcaExtensionConfig,
-    iucnRedListCategoryConfig,
-    licenceConfig,
-    mediaTypeConfig,
-    monthConfig,
-    occurrenceIssueConfig,
-    occurrenceStatusConfig,
-    protocolConfig,
-    typeStatusConfig
+  basisOfRecordConfig,
+  continentConfig,
+  dwcaExtensionConfig,
+  iucnRedListCategoryConfig,
+  licenceConfig,
+  mediaTypeConfig,
+  monthConfig,
+  occurrenceIssueConfig,
+  occurrenceStatusConfig,
+  protocolConfig,
+  typeStatusConfig,
 } from './filters/enums';
 import {
-    collectionCodeConfig,
-    collectionKeyConfig,
-    countryConfig,
-    datasetKeyConfig,
-    gadmGidConfig,
-    hostingOrganizationKeyConfig,
-    institutionCodeConfig,
-    institutionKeyConfig,
-    networkKeyConfig,
-    publisherKeyConfig,
-    publishingCountryConfig,
-    recordNumberConfig,
-    taxonKeyConfig
+  collectionCodeConfig,
+  collectionKeyConfig,
+  countryConfig,
+  datasetKeyConfig,
+  gadmGidConfig,
+  hostingOrganizationKeyConfig,
+  institutionCodeConfig,
+  institutionKeyConfig,
+  networkKeyConfig,
+  publisherKeyConfig,
+  publishingCountryConfig,
+  recordNumberConfig,
+  taxonKeyConfig,
 } from './filters/keySuggest';
 import { locationConfig } from './filters/location';
 import {
-    coordinateUncertaintyConfig,
-    depthConfig,
-    elevationConfig,
-    organismQuantityConfig,
-    relativeOrganismQuantityConfig,
-    sampleSizeValueConfig,
-    yearConfig
+  coordinateUncertaintyConfig,
+  depthConfig,
+  elevationConfig,
+  organismQuantityConfig,
+  relativeOrganismQuantityConfig,
+  sampleSizeValueConfig,
+  yearConfig,
 } from './filters/ranges';
 import {
-    eventIdConfig,
-    higherGeographyConfig,
-    identifiedByIdConfig,
-    occurrenceIdConfig,
-    organismIdConfig,
-    projectIdConfig,
-    recordedByIdConfig
+  eventIdConfig,
+  higherGeographyConfig,
+  identifiedByIdConfig,
+  occurrenceIdConfig,
+  organismIdConfig,
+  projectIdConfig,
+  recordedByIdConfig,
 } from './filters/textOnly';
 import { establishmentMeansConfig } from './filters/vocabulary';
 import {
-    catalogNumberConfig,
-    identifiedByConfig,
-    localityConfig,
-    recordedByConfig,
-    sampleSizeUnitConfig,
-    samplingProtocolConfig,
-    stateProvinceConfig,
-    verbatimScientificNameConfig,
-    waterBodyConfig
+  catalogNumberConfig,
+  identifiedByConfig,
+  localityConfig,
+  recordedByConfig,
+  sampleSizeUnitConfig,
+  samplingProtocolConfig,
+  stateProvinceConfig,
+  verbatimScientificNameConfig,
+  waterBodyConfig,
 } from './filters/wildcard';
 
 const freeTextConfig: filterConfig = {
@@ -172,7 +172,11 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         formatMessage,
       }),
       typeStatus: generateFilters({ config: typeStatusConfig, searchConfig, formatMessage }),
-      issue: generateFilters({ config: occurrenceIssueConfig, searchConfig, formatMessage }),
+      occurrenceIssue: generateFilters({
+        config: occurrenceIssueConfig,
+        searchConfig,
+        formatMessage,
+      }),
       occurrenceStatus: generateFilters({
         config: occurrenceStatusConfig,
         searchConfig,

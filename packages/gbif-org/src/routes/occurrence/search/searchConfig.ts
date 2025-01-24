@@ -84,7 +84,7 @@ const otherParams = [
   'dwcaExtension',
   'iucnRedListCategory',
   'typeStatus',
-  'issue',
+  'occurrenceIssue',
   'occurrenceStatus',
 
   'projectId',

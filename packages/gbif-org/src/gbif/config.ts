@@ -199,7 +199,7 @@ export const gbifConfig: Config = {
       'taxonKey',
       'year',
       'country',
-      'issue',
+      'occurrenceIssue',
       'geometry',
       'recordedBy',
     ],
