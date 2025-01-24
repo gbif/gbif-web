@@ -1,6 +1,10 @@
 import mergeWith from 'lodash/mergeWith';
 import React from 'react';
-import { OccurrenceSearchMetadata, SearchMetadata } from '../contexts/search';
+import {
+  OccurrenceSearchMetadata,
+  PublisherSearchMetadata,
+  SearchMetadata,
+} from '../contexts/search';
 import { configDefault } from './configDefaults';
 import { Endpoints } from './endpoints';
 import themeBuilder from './theme/index';
@@ -91,7 +95,7 @@ export type Config = Endpoints & {
     occurrenceSearch: PartialSearchMetadata;
   };
   occurrenceSearch?: OccurrenceSearchMetadata;
-  publisherSearch?: SearchMetadata;
+  publisherSearch?: PublisherSearchMetadata;
   publisherKey?: {
     literatureSearch: PartialSearchMetadata;
   };

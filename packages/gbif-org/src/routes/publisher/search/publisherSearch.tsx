@@ -234,9 +234,11 @@ function Results({
   userCountry: { country: string; countryName: string } | undefined;
   setField: (field: string, value: string[]) => void;
 }) {
+  const config = useConfig();
   const reactIntl = useIntl();
   const countryName = reactIntl.formatMessage({ id: `enums.countryCode.${userCountry?.country}` });
-  const sidebarContent = !userCountry?.countryName ? null : (
+  const showSidebar = config.publisherSearch?.enableUserCountryInfo && userCountry?.countryName;
+  const sidebarContent = !showSidebar ? null : (
     <section className="g-ms-4 g-text-sm g-max-w-96">
       <SmallHeader className="!g-px-0 !g-pt-0">
         <SmallTitle className="g-text-slate-500">

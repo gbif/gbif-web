@@ -20,6 +20,10 @@ export type OccurrenceSearchMetadata = SearchMetadata & {
   };
 };
 
+export type PublisherSearchMetadata = SearchMetadata & {
+  enableUserCountryInfo?: boolean;
+};
+
 const SearchMetadataContext = React.createContext<SearchMetadata | null>(null);
 
 type Props = {

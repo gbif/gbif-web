@@ -120,6 +120,7 @@ export const gbifConfig: Config = {
   },
   linkToGbifOrg: true,
   publisherSearch: {
+    enableUserCountryInfo: true,
     queryType: 'V1',
     // scope: {
     //   country: 'DK',
