@@ -15,30 +15,30 @@
     "project": "Projekt",
     "projectId": "ID Projektu",
     "projectIdentifier": "Identifikátor projektu",
-    "grantType": "",
+    "grantType": "Typ grantu",
     "duration": "Doba trvání",
     "title": "Název",
     "start": "Začátek",
     "end": "Konec",
-    "fundsAllocated": "",
-    "matchingFunds": "",
+    "fundsAllocated": "Přidělené prostředky",
+    "matchingFunds": "Odhad spolufinancování",
     "funding": "Financování",
     "coFunding": "Spolufinancování",
     "fundedBy": "Financován",
-    "coFundedBy": "",
-    "typeOfGrant": "",
+    "coFundedBy": "Spolufinancováno",
+    "typeOfGrant": "Typ grantu",
     "projectStart": "Zahájení projektu",
     "status": "Stav",
     "programme": "Program",
     "contractCountry": "Země nebo oblast",
-    "newsAndEvents": "",
+    "newsAndEvents": "Novinky a události",
     "call": "Výzva",
-    "projectLead": "",
+    "projectLead": "Vedoucí projektu",
     "contactDetalils": "Detaily kontaktu",
     "partners": "Partneři"
   },
   "datause": {
-    "dataViaGbif": ""
+    "dataViaGbif": "Použité zdroje dat zprostředkované GBIF"
   },
   "literature": {
     "keywords": "Klíčová slova"
@@ -46,7 +46,7 @@
   "auxiliary": {
     "subject": "Předmět",
     "citation": "Citace",
-    "organisingParticipants": ""
+    "organisingParticipants": "Organizování účastníků"
   },
   "document": {
     "download": "Stáhnout",
@@ -54,15 +54,15 @@
   },
   "resource": {
     "resources": "Zdroje",
-    "contactHelpdesk": "",
+    "contactHelpdesk": "Kontakt na helpdesk",
     "addToCalendar": "Přidat do kalendáře",
     "venue": "Místo konání",
     "location": "Poloha",
     "country": "Země nebo oblast",
-    "noDatasets": "",
-    "noNewsOrEvents": "",
-    "howToLinkDatasets": "",
-    "howToLinkEvents": "",
+    "noDatasets": "Nejsou žádné datové soubory k zobrazení",
+    "noNewsOrEvents": "Nejsou žádné novinky ani události",
+    "howToLinkDatasets": "Jak propojit datovou sadu s projektem",
+    "howToLinkEvents": "Jak přidat události na stránku projektu",
     "when": "Kdy",
     "language": "Jazyk",
     "viewOnGBIF": "Zobrazit na GBIF",
@@ -74,8 +74,8 @@
     "rightsHolder": "Držitel práv",
     "author": "Autor",
     "datasets": "Datové sady",
-    "gbifWillAttend": "",
-    "dataUsedInStudy": "",
-    "resourceDescription": ""
+    "gbifWillAttend": "Účast sekretariátu GBIF",
+    "dataUsedInStudy": "Data uvedená ve studii",
+    "resourceDescription": "Vyhledávání zdrojů v Global Biodiversity Information Facility. Volný a otevřený přístup k údajům o biologické rozmanitosti."
   }
 }
