@@ -2,6 +2,7 @@ import { Coordinates, FeatureList, Sequenced, TypeStatus } from '@/components/hi
 import { Tag } from '@/components/resultCards';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { useToast } from '@/components/ui/use-toast';
 import {
   OccurrenceClusterQuery,
   OccurrenceClusterQueryVariables,
@@ -19,6 +20,7 @@ import { useParams } from 'react-router-dom';
 
 export function OccurrenceKeyCluster() {
   const { key } = useParams<{ key: string }>();
+  const { toast } = useToast();
 
   const { data, error, load, loading } = useQuery<
     OccurrenceClusterQuery,
@@ -40,7 +42,10 @@ export function OccurrenceKeyCluster() {
   }, [key]);
 
   if (error) {
-    // check if fatal error
+    toast({
+      title: 'Unable to load all content',
+      variant: 'destructive',
+    });
   }
   if (loading || !data)
     return (
@@ -55,7 +60,9 @@ export function OccurrenceKeyCluster() {
   if (data.occurrence?.related?.count === 0) {
     return (
       <ArticleContainer className="g-bg-slate-100">
-        <ArticleTextContainer>No related occurrences</ArticleTextContainer>
+        <ArticleTextContainer>
+          <FormattedMessage id="occurrenceDetails.cluster.noMatches" />
+        </ArticleTextContainer>
       </ArticleContainer>
     );
   }

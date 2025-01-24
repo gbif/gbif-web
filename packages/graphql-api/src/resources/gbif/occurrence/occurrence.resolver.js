@@ -700,9 +700,20 @@ export default {
   },
   RelatedOccurrence: {
     occurrence: (related, _args, { dataSources }) =>
-      dataSources.occurrenceAPI.getOccurrenceByKey({
-        key: related.occurrence.gbifId,
-      }),
+      dataSources.occurrenceAPI
+        .getOccurrenceByKey({
+          key: related.occurrence.gbifId,
+        })
+        .then((occurrence) => {
+          return occurrence;
+        })
+        .catch((err) => {
+          // if a 404 error, then just ignore. it is expected that some related occurrences are not found as they can have been deleted
+          if (err?.extensions?.response?.status === 404) {
+            return null;
+          }
+          throw err;
+        }),
     stub: (related) => related.occurrence,
   },
   RelatedCurrentOccurrence: {
