@@ -81,6 +81,7 @@ function convertedConfig(config: object): Partial<Config> {
       highlightedFilters: config?.occurrence?.highlightedFilters,
       excludedFilters: config?.occurrence?.excludedFilters,
       defaultEnabledTableColumns: config?.occurrence?.defaultTableColumns,
+      availableTableColumns: config?.occurrence?.availableTableColumns,
       // lowercase tab names
       tabs: occTabs,
       mapSettings: config?.occurrence?.mapSettings,
@@ -108,6 +109,13 @@ function convertedConfig(config: object): Partial<Config> {
       highlightedFilters: config?.publisher?.highlightedFilters,
       excludedFilters: config?.publisher?.excludedFilters,
       defaultEnabledTableColumns: config?.publisher?.defaultTableColumns,
+    },
+    literatureSearch: {
+      scope: config?.literature?.rootPredicate,
+      highlightedFilters: config?.literature?.highlightedFilters,
+      excludedFilters: config?.literature?.excludedFilters,
+      defaultEnabledTableColumns: config?.literature?.defaultTableColumns,
+      availableTableColumns: config?.literature?.availableTableColumns,
     },
   };
   console.log('Converted config to version 3:');
