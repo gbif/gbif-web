@@ -298,7 +298,7 @@
     "identification": {
       "name": "Historie identifikace",
       "properties": {
-        "identificationID": "",
+        "identificationID": "ID Identifikace",
         "verbatimIdentification": "Doslovná identifikace",
         "identificationQualifier": "Identifikační kvalifikátor",
         "typeStatus": "Typ stratusu",
