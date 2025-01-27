@@ -61,10 +61,11 @@ const freeTextConfig: filterFreeTextConfig = {
   filterTranslation: 'filters.q.name',
 };
 
-const nameConfig: filterFreeTextConfig = {
-  filterType: filterConfigTypes.FREE_TEXT,
+const nameConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'name',
   displayName: IdentityLabel,
+  disableFacetsForSelected: true,
   filterTranslation: 'filters.name.name',
 };
 
