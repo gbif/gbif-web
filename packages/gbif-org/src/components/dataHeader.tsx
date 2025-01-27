@@ -122,60 +122,56 @@ function CatalogSelector({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start">
           {lookup.OCCURRENCE && (
-            <DropdownMenuItem>
-              <DynamicLink className="g-text-inherit" pageId="occurrenceSearch">
-                <FormattedMessage id="catalogues.occurrences" />
-              </DynamicLink>
-            </DropdownMenuItem>
+            <MenuItem pageId="occurrenceSearch">
+              <FormattedMessage id="catalogues.occurrences" />
+            </MenuItem>
           )}
           {lookup.DATASET && (
-            <DropdownMenuItem>
-              <DynamicLink className="g-text-inherit" pageId="datasetSearch">
-                <FormattedMessage id="catalogues.datasets" />
-              </DynamicLink>
-            </DropdownMenuItem>
+            <MenuItem pageId="datasetSearch">
+              <FormattedMessage id="catalogues.datasets" />
+            </MenuItem>
           )}
           {lookup.PUBLISHER && (
-            <DropdownMenuItem>
-              <DynamicLink className="g-text-inherit" pageId="publisherSearch">
-                <FormattedMessage id="catalogues.publishers" />
-              </DynamicLink>
-            </DropdownMenuItem>
+            <MenuItem pageId="publisherSearch">
+              <FormattedMessage id="catalogues.publishers" />
+            </MenuItem>
           )}
           {lookup.TAXON && (
-            <DropdownMenuItem>
-              <DynamicLink className="g-text-inherit" pageId="speciesSearch">
-                <FormattedMessage id="catalogues.species" />
-              </DynamicLink>
-            </DropdownMenuItem>
+            <MenuItem pageId="speciesSearch">
+              <FormattedMessage id="catalogues.species" />
+            </MenuItem>
           )}
           {(lookup.INSTITUTION || lookup.COLLECTION) && <DropdownMenuSeparator />}
           {lookup.INSTITUTION && (
-            <DropdownMenuItem>
-              <DynamicLink className="g-text-inherit" pageId="institutionSearch">
-                <FormattedMessage id="catalogues.institutions" />
-              </DynamicLink>
-            </DropdownMenuItem>
+            <MenuItem pageId="institutionSearch">
+              <FormattedMessage id="catalogues.institutions" />
+            </MenuItem>
           )}
           {lookup.COLLECTION && (
-            <DropdownMenuItem>
-              <DynamicLink className="g-text-inherit" pageId="collectionSearch">
-                <FormattedMessage id="catalogues.collections" />
-              </DynamicLink>
-            </DropdownMenuItem>
+            <MenuItem pageId="collectionSearch">
+              <FormattedMessage id="catalogues.collections" />
+            </MenuItem>
           )}
           {lookup.LITERATURE && (
             <>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <DynamicLink className="g-text-inherit" pageId="literatureSearch">
-                  <FormattedMessage id="catalogues.literature" />
-                </DynamicLink>
-              </DropdownMenuItem>
+              <MenuItem pageId="literatureSearch">
+                <FormattedMessage id="catalogues.literature" />
+              </MenuItem>
             </>
           )}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
+  );
+}
+
+function MenuItem({ pageId, children }: { pageId: string; children: React.ReactNode }) {
+  return (
+    <DropdownMenuItem className="g-p-0">
+      <DynamicLink className="g-text-inherit g-px-2 g-py-1.5" pageId={pageId}>
+        {children}
+      </DynamicLink>
+    </DropdownMenuItem>
   );
 }
