@@ -31,7 +31,7 @@ const typeDef = gql`
 
       recordedBy: [String!]
       descriptorCountry: [Country!]
-      typeStatus: [TypeStatus!]
+      typeStatus: [String!]
       taxonKey: [ID!]
       query: CollectionSearchInput
     ): CollectionSearchResults
@@ -64,7 +64,7 @@ const typeDef = gql`
     displayOnNHCPortal: [Boolean!]
     recordedBy: [String!]
     descriptorCountry: [Country!]
-    typeStatus: [TypeStatus!]
+    typeStatus: [String!]
     taxonKey: [ID!]
     sortBy: CollectionsSortField
     sortOrder: SortOrder
@@ -171,7 +171,7 @@ const typeDef = gql`
     individualCount: Long
     issues: [OccurrenceIssue!]!
     recordedBy: [String!]!
-    typeStatus: [TypeStatus!]!
+    typeStatus: [String!]!
     identifiedBy: [String!]!
     taxon: Taxon
   }
@@ -214,7 +214,7 @@ const typeDef = gql`
     issues: [OccurrenceIssue!]
     taxonClassification: [Classification!]
     recordedBy: [String!]
-    typeStatus: [TypeStatus!]
+    typeStatus: [String!]
     identifiedBy: [String!]
   }
 

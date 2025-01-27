@@ -6801,7 +6801,7 @@ export type QueryCollectionSearchArgs = {
   sortBy?: InputMaybe<CollectionsSortField>;
   sortOrder?: InputMaybe<SortOrder>;
   taxonKey?: InputMaybe<Array<Scalars['ID']['input']>>;
-  typeStatus?: InputMaybe<Array<TypeStatus>>;
+  typeStatus?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 
