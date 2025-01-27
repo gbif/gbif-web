@@ -14,6 +14,8 @@ export type PageConfig = {
   id: string;
   isCustom?: boolean;
   path?: string;
+  redirect?: boolean;
+  gbifRedirect?: (params: Record<string, string | undefined>) => string | null;
 };
 
 export type LanguageOption = {

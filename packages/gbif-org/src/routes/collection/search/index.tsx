@@ -6,7 +6,7 @@ export const collectionSearchRoute: RouteObjectWithPlugins = {
   id: 'collectionSearch',
   path: 'collection/search',
   gbifRedirect: () => {
-    return `/collection/search`;
+    return `${import.meta.env.PUBLIC_GRSCICOLL}/collection/search`;
   },
   element: (
     <ErrorBoundary>

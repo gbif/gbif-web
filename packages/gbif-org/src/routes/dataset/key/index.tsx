@@ -16,7 +16,7 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
   gbifRedirect: (params) => {
     if (typeof params.key !== 'string') throw new Error('Invalid key');
     if (params.key === 'search') return null;
-    return `/dataset/${params.key}`;
+    return `${import.meta.env.PUBLIC_GBIF_ORG}/dataset/${params.key}`;
   },
   path: 'dataset/:key',
   loader: datasetLoader,

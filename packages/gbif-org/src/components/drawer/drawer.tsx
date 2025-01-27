@@ -11,7 +11,7 @@ import { FormattedMessage } from 'react-intl';
 type Props = {
   isOpen: boolean;
   close: () => void;
-  viewOnGbifHref?: string;
+  viewOnGbifHref?: string | null;
   children: React.ReactNode;
   next?: () => void;
   previous?: () => void;

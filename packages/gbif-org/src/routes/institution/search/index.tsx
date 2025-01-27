@@ -6,7 +6,7 @@ export const institutionSearchRoute: RouteObjectWithPlugins = {
   id: 'institutionSearch',
   path: 'institution/search',
   gbifRedirect: () => {
-    return `/institution/search`;
+    return `${import.meta.env.PUBLIC_GRSCICOLL}/institution/search`;
   },
   element: (
     <ErrorBoundary>

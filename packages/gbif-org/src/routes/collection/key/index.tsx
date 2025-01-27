@@ -13,7 +13,7 @@ export const collectionKeyRoute: RouteObjectWithPlugins = {
   gbifRedirect: (params) => {
     if (typeof params.key !== 'string') throw new Error('Invalid key');
     if (params.key === 'search') return null;
-    return `/collection/${params.key}`;
+    return `${import.meta.env.PUBLIC_GRSCICOLL}/collection/${params.key}`;
   },
   loader: collectionLoader,
   shouldRevalidate({ currentUrl, nextUrl, defaultShouldRevalidate }) {

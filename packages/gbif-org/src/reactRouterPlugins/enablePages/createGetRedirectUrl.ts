@@ -9,7 +9,7 @@ export function createGetRedirectUrl(disabledRoutes: DisabledRoutes): GetRedirec
       const matchResult = matchPath({ path: pattern, end: true }, path);
       if (matchResult && route.gbifRedirect && !route.isCustom) {
         const redirectPath = route.gbifRedirect?.(matchResult.params);
-        if (redirectPath) return 'https://www.gbif.org' + redirectPath;
+        if (redirectPath) return redirectPath;
       }
     }
 

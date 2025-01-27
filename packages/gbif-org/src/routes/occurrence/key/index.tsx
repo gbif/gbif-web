@@ -16,7 +16,7 @@ export const occurrenceKeyRoutes: RouteObjectWithPlugins[] = [
     gbifRedirect: (params) => {
       if (typeof params.key !== 'string') throw new Error('Invalid key');
       if (params.key === 'search') return null;
-      return `/occurrence/${params.key}`;
+      return `${import.meta.env.PUBLIC_GBIF_ORG}/occurrence/${params.key}`;
     },
     loadingElement: <OccurrenceKeySkeleton />,
     element: <OccurrenceKey />,

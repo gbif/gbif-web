@@ -11,7 +11,7 @@ export const publisherKeyRoute: RouteObjectWithPlugins = {
   gbifRedirect: (params) => {
     if (typeof params.key !== 'string') throw new Error('Invalid key');
     if (params.key === 'search') return null;
-    return `/publisher/${params.key}`;
+    return `${import.meta.env.PUBLIC_GBIF_ORG}/publisher/${params.key}`;
   },
   path: 'publisher/:key',
   loader: publisherLoader,

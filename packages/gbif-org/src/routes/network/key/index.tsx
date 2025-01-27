@@ -13,7 +13,7 @@ export const networkKeyRoute: RouteObjectWithPlugins = {
   gbifRedirect: (params) => {
     if (typeof params.key !== 'string') throw new Error('Invalid key');
     if (params.key === 'search') return null;
-    return `/network/${params.key}`;
+    return `${import.meta.env.PUBLIC_GBIF_ORG}/network/${params.key}`;
   },
   path: 'network/:key',
   loader: networkLoader,

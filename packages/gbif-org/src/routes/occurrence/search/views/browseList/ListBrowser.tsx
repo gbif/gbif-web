@@ -1,26 +1,26 @@
 import { Drawer } from '@/components/drawer/drawer';
 import usePrevious from '@/hooks/usePrevious';
-import { useDynamicLink } from '@/reactRouterPlugins/dynamicLink';
+import { useLink } from '@/reactRouterPlugins/dynamicLink';
 import { StandaloneOccurrenceKeyPage } from '@/routes/occurrence/key/standalone';
-import { useEffect, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useOrderedList } from './useOrderedList';
 import { useEntityDrawer } from './useEntityDrawer';
+import { useOrderedList } from './useOrderedList';
 
 const entityTypes = {
-  o: 'occurrence',
-  d: 'dataset',
-  p: 'publisher',
-  t: 'species',
-  c: 'collection',
-  i: 'institution',
-  n: 'network',
-  in: 'installation',
+  o: 'occurrenceKey',
+  d: 'datasetKey',
+  p: 'publisherKey',
+  t: 'speciesKey',
+  c: 'collectionKey',
+  i: 'institutionKey',
+  n: 'networkKey',
+  in: 'installationKey',
 };
 
 export default function EntityDrawer() {
   const { orderedList } = useOrderedList();
   const [previewKey, setPreviewKey] = useEntityDrawer();
+  const createLink = useLink();
   // use a switch to set type from previewKey. If it starts with o_ it is an occurrence key, d_ is dataset key, p_ is publisher key, c_ is collection key, i_ is institution key, n_ is network key, in_ is installation key
   let type;
   if (previewKey) {
@@ -28,31 +28,15 @@ export default function EntityDrawer() {
     if (abbreviation) {
       type = entityTypes[abbreviation as keyof typeof entityTypes];
     } else {
-      type = 'occurrence';
+      type = 'occurrenceKey';
     }
   }
   const key = previewKey ? previewKey.split('_')[1] ?? previewKey : undefined;
-  const entitylink = useDynamicLink({ pageId: `${type}Key`, variables: { key: key } });
+  const entitylink = key ? createLink({ pageId: `${type}`, variables: { key: key } }) : null;
 
-  // We need to keep track of the history of keys to be able to go back and forth
-  // This is because the drawer can display related occurrences that has an id that is not in the orderedList
-  // If we encounter such an id, we need to be able to go back to the previous id in the history until we find an id that is in the orderedList
-  const keyHistory = useRef<string[]>([]);
-
-  const getCurrentIndex = (key: string | undefined = previewKey) => {
-    if (key == null) return -1;
-
-    const index = orderedList.findIndex((o) => o.toString() === key?.toString());
-    if (index !== -1) return index;
-
-    return getCurrentIndex(keyHistory.current.pop());
+  const getCurrentIndex = () => {
+    return orderedList.findIndex((o) => o?.toString() === previewKey?.toString());
   };
-
-  useEffect(() => {
-    if (previewKey) {
-      keyHistory.current.push(previewKey);
-    }
-  }, [previewKey]);
 
   const handleNext = () => {
     // Logic to go to the next item in `orderedList`
@@ -83,12 +67,12 @@ export default function EntityDrawer() {
     <Drawer
       isOpen={typeof key === 'string'}
       close={() => setPreviewKey()}
-      viewOnGbifHref={entitylink.to}
+      viewOnGbifHref={entitylink?.to}
       next={isFirst ? undefined : handleNext}
       previous={isLast ? undefined : handlePrevious}
       onCloseAutoFocus={(e) => handleCloseAutoFocus(e, prevPreviewKey)}
       screenReaderTitle={
-        type === 'occurrence' ? (
+        type === 'occurrenceKey' ? (
           <FormattedMessage
             id={'occurrenceDetails.screenReader.title'}
             defaultMessage="Occurrence details"
@@ -97,14 +81,14 @@ export default function EntityDrawer() {
       }
       screenReaderDescription={undefined}
     >
-      {type === 'occurrence' && <StandaloneOccurrenceKeyPage url={`/occurrence/${key}`} />}
-      {type === 'dataset' && <StandaloneOccurrenceKeyPage url={`/dataset/${key}`} />}
-      {type === 'publisher' && <StandaloneOccurrenceKeyPage url={`/publisher/${key}`} />}
-      {type === 'collection' && <StandaloneOccurrenceKeyPage url={`/collection/${key}`} />}
-      {type === 'institution' && <StandaloneOccurrenceKeyPage url={`/institution/${key}`} />}
-      {type === 'network' && <StandaloneOccurrenceKeyPage url={`/network/${key}`} />}
-      {type === 'installation' && <StandaloneOccurrenceKeyPage url={`/installation/${key}`} />}
-      {type === 'species' && <StandaloneOccurrenceKeyPage url={`/species/${key}`} />}
+      {type === 'occurrenceKey' && <StandaloneOccurrenceKeyPage url={`/occurrence/${key}`} />}
+      {type === 'datasetKey' && <StandaloneOccurrenceKeyPage url={`/dataset/${key}`} />}
+      {type === 'publisherKey' && <StandaloneOccurrenceKeyPage url={`/publisher/${key}`} />}
+      {type === 'collectionKey' && <StandaloneOccurrenceKeyPage url={`/collection/${key}`} />}
+      {type === 'institutionKey' && <StandaloneOccurrenceKeyPage url={`/institution/${key}`} />}
+      {type === 'networkKey' && <StandaloneOccurrenceKeyPage url={`/network/${key}`} />}
+      {type === 'installationKey' && <StandaloneOccurrenceKeyPage url={`/installation/${key}`} />}
+      {type === 'speciesKey' && <StandaloneOccurrenceKeyPage url={`/species/${key}`} />}
     </Drawer>
   );
 }

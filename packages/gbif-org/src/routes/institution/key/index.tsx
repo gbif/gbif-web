@@ -12,7 +12,7 @@ export const institutionKeyRoute: RouteObjectWithPlugins = {
   gbifRedirect: (params) => {
     if (typeof params.key !== 'string') throw new Error('Invalid key');
     if (params.key === 'search') return null;
-    return `/institution/${params.key}`;
+    return `${import.meta.env.PUBLIC_GRSCICOLL}/institution/${params.key}`;
   },
   path: 'institution/:key',
   loader: institutionLoader,

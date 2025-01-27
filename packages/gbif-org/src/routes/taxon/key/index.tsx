@@ -11,7 +11,7 @@ export const taxonKeyRoute: RouteObjectWithPlugins = {
   gbifRedirect: (params) => {
     if (typeof params.key !== 'string') throw new Error('Invalid key');
     if (params.key === 'search') return null;
-    return `/species/${params.key}`;
+    return `${import.meta.env.PUBLIC_GBIF_ORG}/species/${params.key}`;
   },
   loader: taxonLoader,
   shouldRevalidate({ currentUrl, nextUrl, defaultShouldRevalidate }) {

@@ -40,39 +40,48 @@ function addPaths(
     .map((route) => {
       const routeCopy = { ...route };
 
-      if (customPages) {
-        // find matching config.pages entry if any
+      // if a pages array is enabled, then only some pages are enabled and som ecan be on custom paths or have custom implementations
+      if (customPages && route.id) {
+        // first see if there is a match for this route in the custom pages.
         const pageConfig = customPages!.find((page) => page.id === route.id);
 
-        if (pageConfig?.isCustom) {
-          // no need to do more, this route should be removed completely and will be removed in filter below
-          routeCopy.isCustom = pageConfig?.isCustom;
-          return routeCopy;
+        // if no page match, then the user have not enabled this page, so we should remove it
+        if (!pageConfig) {
+          // the route is not included on the site, so we should remove it
+          // but add it to the pages array so we can rewrite links to it to point to gbif.org
+          if (routeCopy.id) {
+            pages.push({
+              id: routeCopy.id,
+              path: routeCopy.path,
+              redirect: true,
+              gbifRedirect: routeCopy.gbifRedirect,
+            });
+          }
+          return null;
         }
 
         if (pageConfig?.path) {
           routeCopy.path = pageConfig.path;
         }
-      }
 
-      if (route.children) {
-        routeCopy.children = addPaths(route.children, pages, customPages);
+        if (pageConfig?.isCustom) {
+          // no need to do more, this route should be removed completely as the user have a custom implementation for it.
+          // It will be removed in filter below
+          routeCopy.isCustom = pageConfig?.isCustom;
+        }
       }
       if (route.id) {
         pages.push({ id: route.id, path: routeCopy.path, isCustom: routeCopy.isCustom });
       }
 
+      if (route.children) {
+        routeCopy.children = addPaths(route.children, pages, customPages);
+      }
+
       return routeCopy;
     })
+    // remove all routes that are not enabled
     .filter((route) => !!route && !route.isCustom);
 
-  // iterate over all custom configured pages and add them to the pages array if they are not already there and if it is a custom page with a defined path
-  if (customPages) {
-    customPages.forEach((page) => {
-      if (!pages.find((p) => p.id === page.id) && page.isCustom) {
-        pages.push(page);
-      }
-    });
-  }
   return filteredRoutes;
 }

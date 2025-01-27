@@ -59,7 +59,7 @@ function addRedirectToLoader(
       routeCopy.loader = (...args) => {
         const redirectPath = route.gbifRedirect?.(args[0].params);
         if (redirectPath && !routeCopy.isCustom) {
-          return redirectDocument('https://www.gbif.org' + redirectPath);
+          return redirectDocument(redirectPath);
         }
 
         return originalLoader?.(...args);

@@ -4,7 +4,7 @@ import { LiteratureSearchPage } from './literatureSearch';
 
 export const literatureSearchRoute: RouteObjectWithPlugins = {
   id: 'literatureSearch',
-  gbifRedirect: () => '/literature/search',
+  gbifRedirect: () => `${import.meta.env.PUBLIC_GBIF_ORG}/literature/search`,
   path: 'literature/search',
   element: (
     <ErrorBoundary>

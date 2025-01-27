@@ -1,4 +1,4 @@
-import { Config } from '@/config/config';
+import { Config, PageConfig } from '@/config/config';
 import { applyReactRouterPlugins, RouteObjectWithPlugins, useI18n } from '@/reactRouterPlugins';
 import { PageContext } from '@/reactRouterPlugins/applyPagePaths/plugin';
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
@@ -122,4 +122,4 @@ function OnRenderDone({ onDone }: { onDone: () => void }) {
   return null;
 }
 
-export const ParentPagesContext = createContext<RouteObjectWithPlugins[]>(null!);
+export const ParentPagesContext = createContext<PageConfig[]>(null!);

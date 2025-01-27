@@ -10,7 +10,7 @@ export const installationKeyRoute: RouteObjectWithPlugins = {
   gbifRedirect: (params) => {
     if (typeof params.key !== 'string') throw new Error('Invalid key');
     if (params.key === 'search') return null;
-    return `/installation/${params.key}`;
+    return `${import.meta.env.PUBLIC_GBIF_ORG}/installation/${params.key}`;
   },
   path: 'installation/:key',
   loader: installationLoader,
