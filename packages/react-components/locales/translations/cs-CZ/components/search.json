@@ -50,7 +50,7 @@
     "nodeType": {
       "IMAGE": "Obrázek",
       "TYPE": "Typový vzorek",
-      "TREATMENT": "",
+      "TREATMENT": "Ošetření",
       "OBSERVATION": "Pozorování",
       "SPECIMEN": "Vzorek",
       "SEQUENCE": ""
