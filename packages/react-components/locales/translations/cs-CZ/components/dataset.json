@@ -17,10 +17,10 @@
   "tabs": {
     "about": "O",
     "occurrences": "",
-    "citations": "",
+    "citations": "Citace",
     "project": "",
     "taxonomy": "Taxonomie",
-    "download": "",
+    "download": "Stáhnout",
     "phylogeny": ""
   },
   "noStatsForMetadata": "",
@@ -99,7 +99,7 @@
   "longitude": "",
   "verbatim": "",
   "occurrenceCount": "Počet výskytů",
-  "inDataset": "",
+  "inDataset": "V",
   "samplingArticleLink": "",
   "includesDna": "",
   "includesDnaDescription": "",
