@@ -640,6 +640,17 @@ export function getFilterConfig({
   // get available defined as existing minus excluded
   const availableFilters = new Set(existingFilters.filter((x) => !excludedFilters.includes(x)));
 
+  // if the site is configured to highlight or exlude a filter that do not exist, then log an error to console
+  highlightedFilters.forEach((filter) => {
+    if (!existingFilters.includes(filter)) {
+      console.warn(`Filter ${filter} is configured to be highlighted, but does not exist`);
+    }
+  });
+  excludedFilters.forEach((filter) => {
+    if (!existingFilters.includes(filter)) {
+      console.warn(`Filter ${filter} is configured to be excluded, but does not exist`);
+    }
+  });
   return {
     visibleFilters: Array.from(visibleFilters),
     availableFilters: Array.from(availableFilters),

@@ -117,8 +117,8 @@ function convertedConfig(config: object): Partial<Config> {
     }, {}),
     occurrenceSearch: {
       scope: config?.occurrence?.rootPredicate,
-      highlightedFilters: config?.occurrence?.highlightedFilters,
-      excludedFilters: config?.occurrence?.excludedFilters,
+      highlightedFilters: mapOccurrenceFilterNames(config?.occurrence?.highlightedFilters),
+      excludedFilters: mapOccurrenceFilterNames(config?.occurrence?.excludedFilters),
       defaultEnabledTableColumns: config?.occurrence?.defaultTableColumns,
       availableTableColumns: config?.occurrence?.availableTableColumns,
       // lowercase tab names
@@ -127,26 +127,26 @@ function convertedConfig(config: object): Partial<Config> {
     },
     collectionSearch: {
       scope: config?.collection?.rootFilter,
-      highlightedFilters: config?.collection?.highlightedFilters,
-      excludedFilters: config?.collection?.excludedFilters,
+      highlightedFilters: mapCollectionFilterNames(config?.collection?.highlightedFilters),
+      excludedFilters: mapCollectionFilterNames(config?.collection?.excludedFilters),
       defaultEnabledTableColumns: config?.collection?.defaultTableColumns,
     },
     institutionSearch: {
       scope: config?.institution?.rootFilter,
-      highlightedFilters: config?.institution?.highlightedFilters,
-      excludedFilters: config?.institution?.excludedFilters,
+      highlightedFilters: mapInstitutionFilterNames(config?.institution?.highlightedFilters),
+      excludedFilters: mapInstitutionFilterNames(config?.institution?.excludedFilters),
       defaultEnabledTableColumns: config?.institution?.defaultTableColumns,
     },
     datasetSearch: {
       scope: config?.dataset?.rootFilter,
-      highlightedFilters: config?.dataset?.highlightedFilters,
-      excludedFilters: config?.dataset?.excludedFilters,
+      highlightedFilters: mapDatasetFilterNames(config?.dataset?.highlightedFilters),
+      excludedFilters: mapDatasetFilterNames(config?.dataset?.excludedFilters),
       defaultEnabledTableColumns: config?.dataset?.defaultTableColumns,
     },
     publisherSearch: {
       scope: config?.publisher?.rootFilter,
-      highlightedFilters: config?.publisher?.highlightedFilters,
-      excludedFilters: config?.publisher?.excludedFilters,
+      highlightedFilters: mapPublisherFilterNames(config?.publisher?.highlightedFilters),
+      excludedFilters: mapPublisherFilterNames(config?.publisher?.excludedFilters),
       defaultEnabledTableColumns: config?.publisher?.defaultTableColumns,
     },
     literatureSearch: {
@@ -162,15 +162,79 @@ function convertedConfig(config: object): Partial<Config> {
   return newConfig as Config;
 }
 
-/*
-old config example
-we need to automatically generate the page paths from the enabledRoutes + definitions (as in e.g. occurrenceSearch below that defines an path)
-{
-routes: {
-    alwaysUseHrefs: true, // Update - there now is translations. since the site isn't translated we can use push for now. if true, then we will always use hrefs, if false we will use onClick events and push state to the history. I've added this because I just realize that the language picker doesn't work with pushState as the url of the translated site is not updated with the new url
-    enabledRoutes: ['occurrenceSearch', 'collectionSearch', 'collectionKey', 'institutionSearch', 'institutionKey'],
-    occurrenceSearch: {
-      route: '/specimen/search'
-    }
-  },}
-*/
+function mapDatasetFilterNames(list) {
+  if (!list) return undefined;
+  return list.map((name: string) => {
+    const mappedName = {
+      anyPublisherKey: 'publishingOrg',
+      datasetType: 'type',
+      publishingCountryCode: 'publishingCountry',
+      hostingOrganizationKey: 'hostingOrg',
+    };
+    return mappedName[name] || name;
+  });
+}
+
+function mapPublisherFilterNames(list) {
+  if (!list) return undefined;
+  return list.map((name: string) => {
+    const mappedName = {
+      countrySingle: 'country',
+    };
+    return mappedName[name] || name;
+  });
+}
+
+function mapCollectionFilterNames(list) {
+  if (!list) return undefined;
+  return list.map((name: string) => {
+    const mappedName = {
+      institutionKeySingle: 'institutionKey',
+      countryGrSciColl: 'country',
+      city: 'city',
+      personalCollection: 'personalCollection',
+      active: 'active',
+      numberSpecimens: 'numberSpecimens',
+      specimensInGbif: 'occurrenceCount',
+      name: 'name',
+      alternativeCode: 'alternativeCode',
+      collectionContentType: 'contentType',
+      preservationType: 'preservationType',
+      taxonKeyGrSciColl: 'taxonKey',
+      typeStatus: 'typeStatus',
+      collectionDescriptorCountry: 'descriptorCountry',
+      recordedByFreeText: 'recordedBy',
+    };
+    return mappedName[name] || name;
+  });
+}
+
+function mapInstitutionFilterNames(list) {
+  if (!list) return undefined;
+  return list.map((name: string) => {
+    const mappedName = {
+      q: 'q',
+      active: 'active',
+      countryGrSciColl: 'country',
+      institutionType: 'type',
+      discipline: 'discipline',
+      alternativeCode: 'alternativeCode',
+      city: 'city',
+      name: 'name',
+      code: 'code',
+      numberSpecimens: 'numberSpecimens',
+      specimensInGbif: 'occurrenceCount',
+    };
+    return mappedName[name] || name;
+  });
+}
+
+function mapOccurrenceFilterNames(list) {
+  if (!list) return undefined;
+  return list.map((name: string) => {
+    const mappedName = {
+      occurrenceIssue: 'issue',
+    };
+    return mappedName[name] || name;
+  });
+}
