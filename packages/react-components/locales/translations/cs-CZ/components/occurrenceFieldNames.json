@@ -168,6 +168,7 @@
   "scientificNameID": "ID vědeckého názvu",
   "scientificName": "Vědecký název",
   "acceptedNameUsage": "Přijaté použití názvu",
+  "acceptedName": "Přijatý název",
   "kingdom": "Říše",
   "phylum": "Kmen",
   "class": "Třída",
@@ -199,5 +200,6 @@
   "scientificNameAuthorship": "Autorství vědeckého názvu",
   "undefined": "Neznámé pole",
   "coordinatesTextual": "Tento záznam je zveřejněn bez souřadnic, ale obsahuje textový popis jeho umístění.",
-  "coordinatesMissing": "Chybí souřadnice"
+  "coordinatesMissing": "Chybí souřadnice",
+  "taxonomicClassification": "Klasifikace"
 }
