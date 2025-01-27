@@ -29,6 +29,7 @@ export const config: FilterConfigType = {
 const otherParams = [
   'active',
   'code',
+  'name',
   'personalCollection',
   'recordedBy',
   'contentType',
