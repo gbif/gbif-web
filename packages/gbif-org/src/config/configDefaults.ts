@@ -33,7 +33,7 @@ export const configDefault: Partial<Config> = {
       defaultTab: 'table',
     },
     literatureSearch: {
-      excludedFilters: ['gbifDatasetKey'],
+      highlightedFilters: ['q', 'year', 'countriesOfResearcher', 'dataset'],
     },
   },
   collectionSearch: {
