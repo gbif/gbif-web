@@ -30,6 +30,45 @@ function convertedConfig(config: object): Partial<Config> {
       return page;
     });
   }
+
+  // assume that if there is config for a type, then the page should be enabled
+  if (config?.occurrence) {
+    // if not already in pages, then add it
+    if (!pages.find((page: PageConfig) => page.id === 'occurrenceSearch')) {
+      pages.push({ id: 'occurrenceSearch' });
+    }
+  }
+  if (config?.dataset) {
+    // if not already in pages, then add it
+    if (!pages.find((page: PageConfig) => page.id === 'datasetSearch')) {
+      pages.push({ id: 'datasetSearch' });
+    }
+  }
+  if (config?.publisher) {
+    // if not already in pages, then add it
+    if (!pages.find((page: PageConfig) => page.id === 'publisherSearch')) {
+      pages.push({ id: 'publisherSearch' });
+    }
+  }
+  if (config?.institution) {
+    // if not already in pages, then add it
+    if (!pages.find((page: PageConfig) => page.id === 'institutionSearch')) {
+      pages.push({ id: 'institutionSearch' });
+    }
+  }
+  if (config?.collection) {
+    // if not already in pages, then add it
+    if (!pages.find((page: PageConfig) => page.id === 'collectionSearch')) {
+      pages.push({ id: 'collectionSearch' });
+    }
+  }
+  if (config?.literature) {
+    // if not already in pages, then add it
+    if (!pages.find((page: PageConfig) => page.id === 'literatureSearch')) {
+      pages.push({ id: 'literatureSearch' });
+    }
+  }
+
   let occTabs = config?.occurrence?.occurrenceSearchTabs?.map((tab: string) => tab.toLowerCase());
   if (occTabs && !occTabs.includes('download')) {
     occTabs.push('download');
