@@ -3,6 +3,12 @@ import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Skeleton } from '@/components/ui/skeleton';
+import {
+  DescriptorGroupQuery,
+  DescriptorGroupQueryVariables,
+  DescriptorGroupsQuery,
+  DescriptorGroupsQueryVariables,
+} from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { useEffect, useState } from 'react';
 import { BiSpreadsheet as SpreadSheetIcon } from 'react-icons/bi';
@@ -14,7 +20,10 @@ interface DescriptorGroupsProps {
 }
 
 export function DescriptorGroups({ collectionKey }: DescriptorGroupsProps) {
-  const { data, loading, load } = useQuery(DESCRIPTOR_GROUPS, { lazyLoad: true });
+  const { data, loading, load } = useQuery<DescriptorGroupsQuery, DescriptorGroupsQueryVariables>(
+    DESCRIPTOR_GROUPS,
+    { lazyLoad: true }
+  );
 
   useEffect(() => {
     if (typeof collectionKey !== 'undefined') {
@@ -31,12 +40,14 @@ export function DescriptorGroups({ collectionKey }: DescriptorGroupsProps) {
   /*   if (error) return <Card error={error} />; */
   if (!data || !data?.collection) return null;
 
-  return data?.collection?.descriptorGroups?.results?.map((group, index) => (
+  return (data?.collection?.descriptorGroups?.results ?? []).map((group, index) => (
     <DescriptorGroupPresentation
-      last={index === data.collection.descriptorGroups.results.length - 1}
-      key={group.key}
+      last={index === (data?.collection?.descriptorGroups?.results?.length || 0) - 1}
+      key={group?.key}
+      title={group?.title || ''}
+      description={group?.description || ''}
       collectionKey={collectionKey}
-      groupKey={group.key}
+      groupKey={group?.key || ''}
       {...group}
     />
   ));
@@ -45,8 +56,8 @@ export function DescriptorGroups({ collectionKey }: DescriptorGroupsProps) {
 interface DescriptorGroupPresentationProps {
   collectionKey: string;
   groupKey: string;
-  title: string;
-  description: string;
+  title: string | null;
+  description: string | null;
   last: boolean;
 }
 
@@ -111,7 +122,10 @@ interface TableProps {
 }
 
 function Table({ collectionKey, groupKey }: TableProps) {
-  const { data, error, loading, load } = useQuery(DESCRIPTOR_GROUP, { lazyLoad: true });
+  const { data, error, load } = useQuery<DescriptorGroupQuery, DescriptorGroupQueryVariables>(
+    DESCRIPTOR_GROUP,
+    { lazyLoad: true }
+  );
   const limit = 10;
   const [offset, setOffset] = useState(0);
   useEffect(() => {
@@ -129,9 +143,9 @@ function Table({ collectionKey, groupKey }: TableProps) {
     }
   }, [collectionKey, groupKey, load, offset]);
 
-  const hasResults = data?.collectionDescriptorGroup?.descriptors?.results?.length > 0;
+  const hasResults = (data?.collectionDescriptorGroup?.descriptors?.results?.length ?? 0) > 0;
   const keys = hasResults
-    ? Object.keys(data?.collectionDescriptorGroup?.descriptors?.results[0].verbatim)
+    ? Object.keys(data?.collectionDescriptorGroup?.descriptors?.results?.[0]?.verbatim ?? {})
     : [];
 
   if (error) return <FormattedMessage id="phrases.failedToLoadData" />;
@@ -155,7 +169,7 @@ function Table({ collectionKey, groupKey }: TableProps) {
               </tr>
             </thead>
             <tbody>
-              {descriptors.results.map((d) => (
+              {descriptors?.results?.map((d) => (
                 <tr key={d.key}>
                   {keys.map((k) => (
                     <td key={k}>{d.verbatim[k]}</td>
@@ -166,11 +180,10 @@ function Table({ collectionKey, groupKey }: TableProps) {
           </table>
 
           <PaginationFooter
-            offset={descriptors?.offset}
-            count={descriptors?.count}
-            limit={descriptors?.limit}
+            offset={descriptors?.offset || 0}
+            count={descriptors?.count || 0}
+            limit={descriptors?.limit || 0}
             onChange={(x) => setOffset(x)}
-            anchor={`${collectionKey}-${groupKey}`}
           />
         </div>
       )}
@@ -178,34 +191,34 @@ function Table({ collectionKey, groupKey }: TableProps) {
   );
 }
 
-const DESCRIPTOR_GROUPS = `
-    query DescriptorGroups($key: ID!) {
-      collection(key: $key) {
+const DESCRIPTOR_GROUPS = /* GraphQL */ `
+  query DescriptorGroups($key: ID!) {
+    collection(key: $key) {
       descriptorGroups(limit: 100) {
-      results {
-      key
-        title
-        description
+        results {
+          key
+          title
+          description
+        }
       }
     }
   }
-}
-    `;
+`;
 
-const DESCRIPTOR_GROUP = `
-query($key: ID!, $collectionKey: ID!, $limit: Int, $offset: Int) {
-  collectionDescriptorGroup(key: $key, collectionKey: $collectionKey) {
-  title
-    description
-    descriptors(limit: $limit, offset: $offset) {
-      count
-      offset
-      limit
-      results {
-      key
-        verbatim
+const DESCRIPTOR_GROUP = /* GraphQL */ `
+  query DescriptorGroup($key: ID!, $collectionKey: ID!, $limit: Int, $offset: Int) {
+    collectionDescriptorGroup(key: $key, collectionKey: $collectionKey) {
+      title
+      description
+      descriptors(limit: $limit, offset: $offset) {
+        count
+        offset
+        limit
+        results {
+          key
+          verbatim
+        }
       }
     }
   }
-}
-    `;
+`;
