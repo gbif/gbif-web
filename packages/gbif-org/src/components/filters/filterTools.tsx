@@ -714,7 +714,8 @@ export function FilterButtons({
 }) {
   const filterContext = useContext(FilterContext);
 
-  if (!filters) {
+  // if no filter or an empty object
+  if (!filters || Object.keys(filters).length === 0) {
     return null;
   }
   if (!filterContext) {
