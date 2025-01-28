@@ -60,7 +60,7 @@ function addPaths(
           return null;
         }
 
-        if (pageConfig?.path) {
+        if (typeof pageConfig?.path === 'string') {
           routeCopy.path = pageConfig.path;
         }
 
