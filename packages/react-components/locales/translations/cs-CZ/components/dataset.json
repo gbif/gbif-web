@@ -1,24 +1,24 @@
 {
-  "datasetSearchTitle": "",
+  "datasetSearchTitle": "Vyhledávání datové sady",
   "longType": {
-    "OCCURRENCE": "",
-    "CHECKLIST": "",
-    "SAMPLING_EVENT": "",
-    "METADATA": ""
+    "OCCURRENCE": "Datová sada o výskytu",
+    "CHECKLIST": "Datová sada kontrolního seznamu",
+    "SAMPLING_EVENT": "Událost odběru vzorku",
+    "METADATA": "Datová sada metadat"
   },
   "metricHighlights": {
     "occurrences": "Výskyty",
     "withTaxonMatch": "",
     "withCoordinates": "",
     "withYear": "",
-    "acceptedNames": "",
+    "acceptedNames": "Přijaté názvy",
     "synonyms": "Synonyma"
   },
   "tabs": {
     "about": "O",
     "occurrences": "Výskyty",
     "citations": "Citace",
-    "project": "",
+    "project": "Projekt",
     "taxonomy": "Taxonomie",
     "download": "Stáhnout",
     "phylogeny": ""
