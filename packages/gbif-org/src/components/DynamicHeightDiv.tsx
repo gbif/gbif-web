@@ -87,6 +87,23 @@ export default function DynamicHeightDiv({
   );
 }
 
-function getDynamicViewportHeight() {
-  return window.visualViewport ? window.visualViewport.height : window.innerHeight;
+export function getDynamicViewportHeight() {
+  // return window.visualViewport ? window.visualViewport.height : window.innerHeight;
+  // insert a hidden div with height set to 100svh and read the height so we know what the smallest viewport height is.
+  // insert it at root and make it invisible to the user and screen readers. This is a hack, but it is the only way I can think of to get the correct value.
+  // if the elemt already exists, then just read that value. Asume a fixed ID
+  const id = 'smallViewportHeightElement';
+  let element = document.getElementById(id);
+  if (!element) {
+    element = document.createElement('div');
+    element.id = id;
+    element.style.height = '100svh';
+    element.style.width = '0';
+    element.style.position = 'fixed';
+    element.style.top = '0';
+    element.style.left = '0';
+    element.style.visibility = 'hidden';
+    document.body.appendChild(element);
+  }
+  return element.clientHeight;
 }
