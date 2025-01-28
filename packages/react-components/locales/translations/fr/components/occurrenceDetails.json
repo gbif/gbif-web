@@ -18,6 +18,7 @@
   "collection": "Collection",
   "collectionGrSciColl": "Collection GrSciColl",
   "recordedAndIdentifiedBy": "Enregistré et identifié par",
+  "tryPublisherSiteForFailingMedia": "Si le média ne s'affiche pas correctement, essayez plutôt le site de l'éditeur",
   "screenReader": {
     "title": "Détails de l'occurrence"
   },

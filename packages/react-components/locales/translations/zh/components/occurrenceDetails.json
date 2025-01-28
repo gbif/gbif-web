@@ -18,6 +18,7 @@
   "collection": "馆藏",
   "collectionGrSciColl": "科学馆收藏",
   "recordedAndIdentifiedBy": "记录并识别由",
+  "tryPublisherSiteForFailingMedia": "",
   "screenReader": {
     "title": "发生细节"
   },

@@ -12,15 +12,15 @@
     "withCoordinates": "",
     "withYear": "",
     "acceptedNames": "",
-    "synonyms": ""
+    "synonyms": "Synonyma"
   },
   "tabs": {
     "about": "O",
     "occurrences": "",
-    "citations": "",
+    "citations": "Citace",
     "project": "",
     "taxonomy": "Taxonomie",
-    "download": "",
+    "download": "Stáhnout",
     "phylogeny": ""
   },
   "noStatsForMetadata": "",
@@ -83,7 +83,7 @@
   "checklistBankDownload": "",
   "checklistBankDownloadDescription": "",
   "annotatedEml": "popsaná metadata GBIF",
-  "license": "",
+  "license": "Licence",
   "recommended": "",
   "processedOccurrences": "",
   "processedOccurrencesDescription": "",
@@ -99,7 +99,7 @@
   "longitude": "",
   "verbatim": "",
   "occurrenceCount": "Počet výskytů",
-  "inDataset": "",
+  "inDataset": "V",
   "samplingArticleLink": "",
   "includesDna": "",
   "includesDnaDescription": "",

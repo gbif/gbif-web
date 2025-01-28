@@ -1,1 +1,7 @@
-{}
+{
+  "ZERO_COORDINATE": "Nulové souřadnice",
+  "COORDINATE_OUT_OF_RANGE": "Souřadnice mimo rozsah",
+  "COORDINATE_INVALID": "Neplatné souřadnice",
+  "COORDINATE_ROUNDED": "Zaokrouhlené souřadnice",
+  "GEODETIC_DATUM_INVALID": "Neplatný geodetický datum"
+}

@@ -1,3 +1,9 @@
 {
+  "EXTINCT": "Vyhynulý",
+  "EXTINCT_IN_THE_WILD": "Vyhynulý ve volné přírodě",
+  "CRITICALLY_ENDANGERED": "Kriticky ohrožený",
+  "ENDANGERED": "Ohrožený",
+  "VULNERABLE": "Zranitelný",
+  "DATA_DEFICIENT": "Chybějící údaje",
   "NOT_EVALUATED": "Není hodnoceno"
 }

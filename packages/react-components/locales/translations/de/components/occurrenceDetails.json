@@ -18,6 +18,7 @@
   "collection": "Sammlung",
   "collectionGrSciColl": "GrSciColl Sammlung",
   "recordedAndIdentifiedBy": "Sammler/Bestimmer",
+  "tryPublisherSiteForFailingMedia": "",
   "screenReader": {
     "title": ""
   },

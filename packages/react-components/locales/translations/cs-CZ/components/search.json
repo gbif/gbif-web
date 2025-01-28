@@ -1,30 +1,30 @@
 {
   "tabs": {
-    "table": "",
+    "table": "Tabulka",
     "tree": "",
-    "gallery": "",
+    "gallery": "Galerie",
     "media": "",
-    "map": "",
+    "map": "Mapa",
     "datasets": "Datové sady",
     "events": "Události",
-    "download": "",
+    "download": "Stáhnout",
     "clusters": "",
     "dashboard": "Ovládací panel",
     "sites": "",
-    "list": ""
+    "list": "Seznam"
   },
   "table": {
-    "lockColumn": "",
+    "lockColumn": "Zamknout sloupec",
     "unlockColumn": "",
     "columnVisibility": "",
     "resetColumnVisibility": "",
     "openFilter": ""
   },
   "placeholders": {
-    "default": "",
-    "range": "",
+    "default": "Hledat",
+    "range": "Rozsah nebo samostatná hodnota",
     "rangeExample": "",
-    "wildcard": "",
+    "wildcard": "Hledejte s pomocí * a ? jako zástupnými znaky",
     "locationID": ""
   },
   "ternary": {
@@ -32,7 +32,7 @@
     "no": "Ne",
     "either": ""
   },
-  "loadMore": "",
+  "loadMore": "Více",
   "noResults": "",
   "occurrenceClustersView": {
     "about": "O",
@@ -48,11 +48,11 @@
     "similarities": "",
     "currentRecord": "",
     "nodeType": {
-      "IMAGE": "",
+      "IMAGE": "Obrázek",
       "TYPE": "Typový vzorek",
-      "TREATMENT": "",
+      "TREATMENT": "Ošetření",
       "OBSERVATION": "Pozorování",
-      "SPECIMEN": "",
+      "SPECIMEN": "Vzorek",
       "SEQUENCE": ""
     }
   }

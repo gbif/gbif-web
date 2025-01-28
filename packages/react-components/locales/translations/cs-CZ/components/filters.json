@@ -234,7 +234,7 @@
     "count": ""
   },
   "typeStatus": {
-    "name": "",
+    "name": "Typ statusu",
     "count": "",
     "isNotNull": "",
     "isNull": "",
@@ -251,7 +251,7 @@
     "description": ""
   },
   "coordinateUncertainty": {
-    "name": "",
+    "name": "Neurčitost souřadnic",
     "count": "",
     "description": ""
   },
