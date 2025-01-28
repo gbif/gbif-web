@@ -97,6 +97,10 @@ function convertedConfig(config: object): Partial<Config> {
     pages: pages,
     disableInlineTableFilterButtons: config?.disableInlineTableFilterButtons ?? false,
     availableCatalogues: config?.availableCatalogues ?? [],
+    dataHeader: {
+      enableApiPopup: false,
+      enableInfoPopup: false,
+    },
     theme: config?.theme,
     apiKeys: config?.apiKeys,
     maps: {
