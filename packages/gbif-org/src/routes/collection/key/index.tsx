@@ -10,10 +10,10 @@ const id = 'collectionKey';
 export const collectionKeyRoute: RouteObjectWithPlugins = {
   id,
   path: 'collection/:key',
-  gbifRedirect: (params) => {
-    if (typeof params.key !== 'string') throw new Error('Invalid key');
-    if (params.key === 'search') return null;
-    return `${import.meta.env.PUBLIC_GRSCICOLL}/collection/${params.key}`;
+  gbifRedirect: ({ key } = {}, { grSciCollLocalePrefix = '' }) => {
+    if (typeof key !== 'string') throw new Error('Invalid key');
+    if (key === 'search') return null;
+    return `${import.meta.env.PUBLIC_GRSCICOLL}${grSciCollLocalePrefix}/collection/${key}`;
   },
   loader: collectionLoader,
   shouldRevalidate({ currentUrl, nextUrl, defaultShouldRevalidate }) {

@@ -7,7 +7,6 @@ import {
   RouteObject,
 } from 'react-router-dom';
 import { applyPagePathsPlugin } from './applyPagePaths';
-import { applyEnablePagesPlugin } from './enablePages';
 import { applyExtendedLoaderPlugin } from './extendedLoader';
 import { applyExtraOccurrenceSearchPages } from './extraOccurrenceSearchPages';
 import { applyI18nPlugin } from './i18n';
@@ -32,7 +31,10 @@ export type RouteObjectWithPlugins = {
   internalPluginId?: string;
   loader?: (args: LoaderArgs) => unknown;
   overrideConfig?: Partial<Config>;
-  gbifRedirect?: (params: Record<string, string | undefined>) => string | null;
+  gbifRedirect?: (
+    params: Record<string, string | undefined>,
+    locale: LanguageOption
+  ) => string | null;
   isCustom?: boolean;
   isSlugified?: boolean;
 } & (
@@ -47,9 +49,9 @@ export function applyReactRouterPlugins(
   config: Config
 ): RouteObject[] {
   const withCorrectedPaths = applyPagePathsPlugin(routes, config);
-  const withFilteredRoutes = applyEnablePagesPlugin(withCorrectedPaths, config);
+  // const withFilteredRoutes = applyEnablePagesPlugin(withCorrectedPaths, config);
   const withExtraOccurrenceSearchPages = applyExtraOccurrenceSearchPages(
-    withFilteredRoutes,
+    withCorrectedPaths,
     config
   );
   const withI18n = applyI18nPlugin(withExtraOccurrenceSearchPages, config);

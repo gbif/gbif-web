@@ -8,10 +8,10 @@ const id = 'publisherKey';
 
 export const publisherKeyRoute: RouteObjectWithPlugins = {
   id,
-  gbifRedirect: (params) => {
-    if (typeof params.key !== 'string') throw new Error('Invalid key');
-    if (params.key === 'search') return null;
-    return `${import.meta.env.PUBLIC_GBIF_ORG}/publisher/${params.key}`;
+  gbifRedirect: ({ gbifOrgLocalePrefix = '', key } = {}) => {
+    if (typeof key !== 'string') throw new Error('Invalid key');
+    if (key === 'search') return null;
+    return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/publisher/${key}`;
   },
   path: 'publisher/:key',
   loader: publisherLoader,

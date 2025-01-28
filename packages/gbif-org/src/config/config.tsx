@@ -15,7 +15,10 @@ export type PageConfig = {
   isCustom?: boolean;
   path?: string;
   redirect?: boolean;
-  gbifRedirect?: (params: Record<string, string | undefined>) => string | null;
+  gbifRedirect?: (
+    params: Record<string, string | undefined>,
+    locale: LanguageOption
+  ) => string | null;
 };
 
 export type LanguageOption = {
@@ -29,6 +32,8 @@ export type LanguageOption = {
   reactIntlLocale?: string; // this is the locale code used by react-intl
   vocabularyLocale?: string; // this is the locale code used by the vocabulary server
   iso3LetterCode?: string;
+  gbifOrgLocalePrefix?: string;
+  grSciCollLocalePrefix?: string;
 };
 
 type PartialSearchMetadata = Pick<

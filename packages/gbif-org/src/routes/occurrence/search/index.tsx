@@ -5,8 +5,8 @@ export const occurrenceSearchRouteId = 'occurrenceSearch';
 
 export const occurrenceSearchRoute: RouteObjectWithPlugins = {
   id: occurrenceSearchRouteId,
-  gbifRedirect: () => {
-    return `${import.meta.env.PUBLIC_GBIF_ORG}/occurrence/search`;
+  gbifRedirect: (_, { gbifOrgLocalePrefix = '' }) => {
+    return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/occurrence/search`;
   },
   path: 'occurrence/search',
   element: <OccurrenceSearchPage />,

@@ -9,10 +9,10 @@ const id = 'institutionKey';
 
 export const institutionKeyRoute: RouteObjectWithPlugins = {
   id,
-  gbifRedirect: (params) => {
-    if (typeof params.key !== 'string') throw new Error('Invalid key');
-    if (params.key === 'search') return null;
-    return `${import.meta.env.PUBLIC_GRSCICOLL}/institution/${params.key}`;
+  gbifRedirect: ({ key } = {}, { grSciCollLocalePrefix = '' }) => {
+    if (typeof key !== 'string') throw new Error('Invalid key');
+    if (key === 'search') return null;
+    return `${import.meta.env.PUBLIC_GRSCICOLL}${grSciCollLocalePrefix}/institution/${key}`;
   },
   path: 'institution/:key',
   loader: institutionLoader,

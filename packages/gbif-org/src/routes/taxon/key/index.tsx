@@ -8,10 +8,10 @@ const id = 'speciesKey';
 export const taxonKeyRoute: RouteObjectWithPlugins = {
   id,
   path: 'species/:key',
-  gbifRedirect: (params) => {
-    if (typeof params.key !== 'string') throw new Error('Invalid key');
-    if (params.key === 'search') return null;
-    return `${import.meta.env.PUBLIC_GBIF_ORG}/species/${params.key}`;
+  gbifRedirect: ({ key } = {}, { gbifOrgLocalePrefix = '' }) => {
+    if (typeof key !== 'string') throw new Error('Invalid key');
+    if (key === 'search') return null;
+    return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/species/${key}`;
   },
   loader: taxonLoader,
   shouldRevalidate({ currentUrl, nextUrl, defaultShouldRevalidate }) {

@@ -19,7 +19,7 @@ export type DynamicLinkProps<T extends React.ElementType> = {
  * This is not ideal as it doesn't handle disabled routes and redirects to gbif.org
  */
 export function useLink() {
-  const { localizeLink } = useI18n();
+  const { localizeLink, locale } = useI18n();
   const location = useLocation();
   const currentPages = useContext(PageContext);
   const parentPages = useContext(ParentPagesContext);
@@ -28,7 +28,7 @@ export function useLink() {
   const createLink = useMemo(() => {
     return ({
       pageId,
-      variables,
+      variables = {},
       searchParams,
       keepExistingSearchParams = false,
     }: {
@@ -53,7 +53,8 @@ export function useLink() {
         }
         // if the page is disabled, return the redirect link
         if (page.redirect) {
-          const redirectLink = page.gbifRedirect?.(variables ?? {});
+          // merge variables from props with local variables
+          const redirectLink = page.gbifRedirect?.(variables, locale);
           return { to: redirectLink ?? null, type: 'href' };
         }
 
@@ -110,7 +111,7 @@ export function useLink() {
 
       return { to: link, type: 'link' };
     };
-  }, [pages, localizeLink, location.search]);
+  }, [pages, localizeLink, locale, location.search]);
   return createLink;
 }
 

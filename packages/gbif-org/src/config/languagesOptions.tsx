@@ -10,6 +10,7 @@ const languageOptions: LanguageOption[] = [
     textDirection: 'ltr',
     iso3LetterCode: 'eng',
     cmsLocale: 'en-GB',
+    gbifOrgLocalePrefix: '',
   },
   {
     code: 'nonsense',
@@ -19,6 +20,8 @@ const languageOptions: LanguageOption[] = [
     textDirection: 'ltr',
     cmsLocale: 'es',
     reactIntlLocale: 'ar-SA',
+    gbifOrgLocalePrefix: '',
+    grSciCollLocalePrefix: '',
   },
   {
     code: 'danglish', // TODO, developer english.  while developing it is convinent to have developer english when text change so taht we can see changes immeadiately
@@ -26,6 +29,8 @@ const languageOptions: LanguageOption[] = [
     label: 'Danglish',
     default: false,
     textDirection: 'ltr',
+    gbifOrgLocalePrefix: '',
+    grSciCollLocalePrefix: '',
   },
   {
     code: 'fr',
@@ -36,6 +41,8 @@ const languageOptions: LanguageOption[] = [
     cmsLocale: 'fr', // what locale code to use when fetching data from the cms endpoints
     iso3LetterCode: 'fra',
     vocabularyLocale: 'fr-FR',
+    gbifOrgLocalePrefix: '/fr',
+    grSciCollLocalePrefix: '',
   },
   {
     code: 'es',
@@ -46,6 +53,8 @@ const languageOptions: LanguageOption[] = [
     cmsLocale: 'es', // what locale code to use when fetching data from the cms endpoints
     vocabularyLocale: 'es-ES', // what locale code to use when fetching data from the vocabulary endpoints
     iso3LetterCode: 'spa',
+    gbifOrgLocalePrefix: '/es',
+    grSciCollLocalePrefix: '/es',
   },
   {
     code: 'de',
@@ -56,6 +65,8 @@ const languageOptions: LanguageOption[] = [
     reactIntlLocale: 'de-DE',
     iso3LetterCode: 'deu',
     vocabularyLocale: 'de-DE',
+    gbifOrgLocalePrefix: '/de',
+    grSciCollLocalePrefix: '',
   },
   {
     code: 'ar',
@@ -65,6 +76,8 @@ const languageOptions: LanguageOption[] = [
     textDirection: 'rtl',
     reactIntlLocale: 'ar-SA',
     iso3LetterCode: 'ara',
+    gbifOrgLocalePrefix: '/ar',
+    grSciCollLocalePrefix: '',
   },
 ];
 
