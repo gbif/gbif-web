@@ -113,6 +113,7 @@ export function DatasetSearch(): React.ReactElement {
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
+        hideIfNoCatalogue={true}
       >
         {/* <Tabs
           className="g-border-none"

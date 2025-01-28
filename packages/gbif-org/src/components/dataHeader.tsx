@@ -23,6 +23,8 @@ export function DataHeader({
   hasBorder,
   hideCatalogueSelector,
   className,
+  /**If there are no catalogues, then there is only about and api info available. And that looks odd. In those cases we will just hide it. Notice that this is only relevant for hosted portals */
+  hideIfNoCatalogue,
 }: {
   children?: React.ReactNode;
   title?: React.ReactNode;
@@ -32,8 +34,11 @@ export function DataHeader({
   hideCatalogueSelector?: boolean;
   doi?: string;
   className?: string;
+  hideIfNoCatalogue?: boolean;
 }) {
   const { availableCatalogues = [], dataHeader } = useConfig();
+
+  if (hideIfNoCatalogue && (availableCatalogues.length < 2 || hideCatalogueSelector)) return null;
 
   return (
     <div

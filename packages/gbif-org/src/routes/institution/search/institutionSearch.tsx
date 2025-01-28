@@ -148,6 +148,7 @@ export function InstitutionSearch(): React.ReactElement {
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
+        hideIfNoCatalogue={true}
       />
 
       <section className="">

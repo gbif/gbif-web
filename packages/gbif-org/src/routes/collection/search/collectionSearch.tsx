@@ -119,6 +119,7 @@ export function CollectionSearch(): React.ReactElement {
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
+        hideIfNoCatalogue={true}
       />
 
       <section className="">

@@ -52,6 +52,7 @@ export function LiteraturePageSearchInner(): React.ReactElement {
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
+        hideIfNoCatalogue={true}
       ></DataHeader>
 
       <Card className="">

@@ -178,6 +178,7 @@ export function PublisherSearch(): React.ReactElement {
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
+        hideIfNoCatalogue={true}
       ></DataHeader>
 
       <section className="">
