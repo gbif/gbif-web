@@ -10,7 +10,7 @@
   "replacedBy": "",
   "showAll": "Zobrazit vše",
   "share": "",
-  "identifier": "",
+  "identifier": "Identifikátor",
   "unknownDate": "Neznámé datum",
   "about": "O",
   "legend": "",
@@ -48,7 +48,7 @@
   "copiedToClipboard": "",
   "continue": "Pokračovat",
   "headers": {
-    "description": "",
+    "description": "Popis",
     "contacts": "Kontakty"
   },
   "derivedFromOccurrenceData": "",
