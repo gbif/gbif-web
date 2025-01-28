@@ -13,6 +13,7 @@ import {
 } from 'react-router-dom';
 import { LoadingIndicator } from './loadingIndicator';
 import { StandaloneRoot } from './root';
+import { RootErrorPage } from '@/routes/rootErrorPage';
 
 type Props = {
   routes: RouteObjectWithPlugins[];
@@ -95,6 +96,12 @@ function createRoutesWithPlugins(
             <LoadingIndicator />
             <OnRenderDone onDone={onRenderDone} />
             <Outlet />
+          </>
+        ),
+        errorElement: (
+          <>
+            <RootErrorPage />
+            <OnRenderDone onDone={onRenderDone} />
           </>
         ),
         children: [
