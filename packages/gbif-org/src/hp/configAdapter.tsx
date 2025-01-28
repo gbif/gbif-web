@@ -102,9 +102,9 @@ function convertedConfig(config: object): Partial<Config> {
     maps: {
       locale: config?.maps?.locale,
       mapStyles: {
-        defaultProjection: config?.maps?.defaultProjection,
-        defaultMapStyle: config?.maps?.defaultMapStyle,
-        options: config?.maps?.mapStyles,
+        defaultProjection: config?.maps?.defaultProjection ?? 'MERCATOR',
+        defaultMapStyle: config?.maps?.defaultMapStyle ?? 'BRIGHT',
+        options: config?.maps?.mapStyles ?? { MERCATOR: ['BRIGHT', 'NATURAL'] },
       },
       addMapStyles: config?.maps?.addMapStyles,
       styleLookup: config?.maps?.styleLookup,
