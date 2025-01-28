@@ -57,11 +57,11 @@ export function Drawer({
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => !open && close()}>
       <Dialog.Portal>
-        <Dialog.Overlay className="gbif g-fixed g-w-full g-h-screen g-right-0 g-top-0 g-bg-gray-500 g-transition-all g-z-50 g-bg-opacity-50">
+        <Dialog.Overlay className="gbif g-fixed g-w-full g-h-dvh g-right-0 g-top-0 g-bg-gray-500 g-transition-all g-z-50 g-bg-opacity-50">
           <Dialog.Content
             onCloseAutoFocus={onCloseAutoFocus}
             style={{ maxWidth: '95%', width: '1200px' }}
-            className="drawer-popover-container g-fixed g-h-screen g-right-0 g-top-0 g-bg-white g-flex g-justify-end g-transition-all g-z-50"
+            className="drawer-popover-container g-fixed g-h-dvh g-right-0 g-top-0 g-bg-white g-flex g-justify-end g-transition-all g-z-50"
           >
             <VisuallyHidden>
               <Dialog.Title>{screenReaderTitle}</Dialog.Title>(
