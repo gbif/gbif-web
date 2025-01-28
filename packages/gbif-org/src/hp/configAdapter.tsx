@@ -234,6 +234,7 @@ function mapOccurrenceFilterNames(list) {
   return list.map((name: string) => {
     const mappedName = {
       occurrenceIssue: 'issue',
+      publishingCountryCode: 'publishingCountry',
     };
     return mappedName[name] || name;
   });
