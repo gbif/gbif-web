@@ -1,12 +1,12 @@
-import { jsx, css } from '@emotion/react';
-import React, { useContext } from "react";
-import StandardSearchTable from '../../../StandardSearchTable';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
-import RouteContext from '../../../../dataManagement/RouteContext';
-import { Button, ResourceLink, ResourceSearchLink } from '../../../../components';
-import { InlineFilterChip, LinkOption } from '../../../../widgets/Filter/utils/FilterChip';
+import { css } from '@emotion/react';
 import qs from 'query-string';
+import React, { useContext } from 'react';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import env from '../../../../../.env.json';
+import { Button, ResourceLink, ResourceSearchLink } from '../../../../components';
+import RouteContext from '../../../../dataManagement/RouteContext';
+import { InlineFilterChip, LinkOption } from '../../../../widgets/Filter/utils/FilterChip';
+import StandardSearchTable from '../../../StandardSearchTable';
 
 const QUERY = `
 query list($preservationType: [String!], $contentType: [String!], $identifier: String, $alternativeCode: String, $personalCollection: Boolean, $occurrenceCount: String, $code: String, $q: String, $offset: Int, $limit: Int, $country: [Country], $city: String, $name: String, $active: Boolean, $numberSpecimens: String, $displayOnNHCPortal: Boolean, $institutionKey: [GUID], $institution: [GUID], $taxonKey: [ID!], $recordedBy: [String!], $typeStatus: [TypeStatus!], $descriptorCountry: [Country!]){
@@ -36,31 +36,54 @@ const defaultTableConfig = {
       trKey: 'tableHeaders.title',
       value: {
         key: 'name',
-        formatter: (value, item) => <div>
+        formatter: (value, item) => (
           <div>
-            <ResourceLink type='collectionKey' id={item.key} data-loader style={{ marginRight: 4 }}>{value}</ResourceLink>
-            {!item.active && <span style={{ padding: '0 3px', background: 'tomato', color: 'white', borderRadius: 2 }}>Inactive</span>}
+            <div>
+              <ResourceLink
+                type="collectionKey"
+                id={item.key}
+                data-loader
+                style={{ marginRight: 4 }}
+              >
+                {value}
+              </ResourceLink>
+              {!item.active && (
+                <span
+                  style={{
+                    padding: '0 3px',
+                    background: 'tomato',
+                    color: 'white',
+                    borderRadius: 2,
+                  }}
+                >
+                  Inactive
+                </span>
+              )}
+            </div>
+            <div style={{ color: '#aaa' }}>
+              {item.institutionKey && (
+                <LinkOption discreet type="institutionKey" id={item.institutionKey}>
+                  <InlineFilterChip filterName="institutionKey" values={[item.institutionKey]}>
+                    <span data-loader>{item.institutionName}</span>
+                  </InlineFilterChip>
+                </LinkOption>
+              )}
+              {!item.institutionKey && (
+                <span style={{ fontStyle: 'italic' }} data-loader>
+                  <FormattedMessage id="collection.institutionUnknown" />
+                </span>
+              )}
+            </div>
           </div>
-          <div style={{ color: '#aaa' }}>
-            {item.institutionKey && <LinkOption discreet type='institutionKey' id={item.institutionKey} >
-              <InlineFilterChip filterName="institutionKey" values={[item.institutionKey]}>
-                <span data-loader>{item.institutionName}</span>
-              </InlineFilterChip>
-            </LinkOption>
-            }
-            {!item.institutionKey && <span style={{ fontStyle: 'italic' }} data-loader>
-              <FormattedMessage id="collection.institutionUnknown" />
-            </span>}
-          </div>
-        </div>,
+        ),
       },
-      width: 'wide'
+      width: 'wide',
     },
     {
       trKey: 'filters.code.name',
       value: {
         key: 'code',
-        hideFalsy: true
+        hideFalsy: true,
       },
       filterKey: 'code',
       cellFilter: true,
@@ -71,12 +94,13 @@ const defaultTableConfig = {
         key: 'key',
         formatter: (value, item) => {
           const countryCode = item.country;
-          return countryCode ? <InlineFilterChip filterName="country" values={[countryCode]}>
-            <FormattedMessage
-              id={`enums.countryCode.${countryCode}`}
-            /></InlineFilterChip> : null;
+          return countryCode ? (
+            <InlineFilterChip filterName="country" values={[countryCode]}>
+              <FormattedMessage id={`enums.countryCode.${countryCode}`} />
+            </InlineFilterChip>
+          ) : null;
         },
-        hideFalsy: true
+        hideFalsy: true,
       },
       filterKey: 'countryGrSciColl',
     },
@@ -87,9 +111,13 @@ const defaultTableConfig = {
         key: 'key',
         formatter: (value, item) => {
           const city = item.city;
-          return city ? <InlineFilterChip filterName="city" values={[city]}>{city}</InlineFilterChip> : null;
+          return city ? (
+            <InlineFilterChip filterName="city" values={[city]}>
+              {city}
+            </InlineFilterChip>
+          ) : null;
         },
-        hideFalsy: true
+        hideFalsy: true,
       },
       filterKey: 'city',
     },
@@ -100,8 +128,8 @@ const defaultTableConfig = {
         key: 'numberSpecimens',
         formatter: (value, item) => <FormattedNumber value={value} />,
         hideFalsy: true,
-        rightAlign: true
-      }
+        rightAlign: true,
+      },
     },
     {
       trKey: 'tableHeaders.gbifNumberSpecimens',
@@ -109,8 +137,8 @@ const defaultTableConfig = {
         key: 'occurrenceCount',
         formatter: (value, item) => <FormattedNumber value={value} />,
         hideFalsy: true,
-        rightAlign: true
-      }
+        rightAlign: true,
+      },
     },
     // {
     //   trKey: 'tableHeaders.active',
@@ -125,7 +153,7 @@ const defaultTableConfig = {
     //   },
     //   filterKey: 'active'
     // }
-  ]
+  ],
 };
 
 function Table() {
@@ -135,12 +163,12 @@ function Table() {
   function AdditionalEmptyMessage({ currentFilterContext, rootPredicate }) {
     const query = {
       basisOfRecord: [
-        "PRESERVED_SPECIMEN",
-        "FOSSIL_SPECIMEN",
-        "MATERIAL_SAMPLE",
-        "LIVING_SPECIMEN",
-        "MATERIAL_CITATION"
-      ]
+        'PRESERVED_SPECIMEN',
+        'FOSSIL_SPECIMEN',
+        'MATERIAL_SAMPLE',
+        'LIVING_SPECIMEN',
+        'MATERIAL_CITATION',
+      ],
     };
     if (currentFilterContext?.filter?.must?.taxonKeyGrSciColl?.length > 0) {
       query.taxonKey = currentFilterContext.filter.must.taxonKeyGrSciColl;
@@ -162,34 +190,55 @@ function Table() {
     }
     // if (Object.keys(query).length > 0) {
     const queryString = qs.stringify(query);
-    return <div css={css`max-width: 400px; margin: 12px; margin-top: 36px; color: var(--color600);`}>
-      <div css={css`
-          background: var(--paperBackground);
-          border: 1px solid var(--paperBorderColor);
-          border-radius: var(--borderRadiusPx);
-          padding: 24px;
-        `}>
-        <div css={css`margin-bottom: 12px;`}>
-          <FormattedMessage id="grscicoll.collectionSearchNoResultsMessage" />
+    return (
+      <div
+        css={css`
+          max-width: 400px;
+          margin: 12px;
+          margin-top: 36px;
+          color: var(--color600);
+        `}
+      >
+        <div
+          css={css`
+            background: var(--paperBackground);
+            border: 1px solid var(--paperBorderColor);
+            border-radius: var(--borderRadiusPx);
+            padding: 24px;
+          `}
+        >
+          <div
+            css={css`
+              margin-bottom: 12px;
+            `}
+          >
+            <FormattedMessage id="grscicoll.collectionSearchNoResultsMessage" />
+          </div>
+          <ResourceSearchLink
+            type="occurrenceSearch"
+            queryString={`&${queryString}`}
+            style={{ fontSize: 14 }}
+          >
+            <Button>
+              <FormattedMessage id="grscicoll.searchForSpecimens" />
+            </Button>
+          </ResourceSearchLink>
         </div>
-        <ResourceSearchLink type='occurrenceSearch' queryString={`&${queryString}`} style={{ fontSize: 14 }}>
-          <Button>
-            <FormattedMessage id="grscicoll.searchForSpecimens" />
-          </Button>
-        </ResourceSearchLink>
       </div>
-    </div>
-    // }
-    return null;
+    );
   }
 
-  return <StandardSearchTable
-    graphQuery={QUERY}
-    AdditionalEmptyMessage={AdditionalEmptyMessage}
-    resultKey='collectionSearch'
-    defaultTableConfig={defaultTableConfig}
-    exportTemplate={({ filter }) => `${env.API_V1}/grscicoll/collection/export?format=TSV&${filter ? qs.stringify(filter) : ''}`}
-  />
+  return (
+    <StandardSearchTable
+      graphQuery={QUERY}
+      AdditionalEmptyMessage={AdditionalEmptyMessage}
+      resultKey="collectionSearch"
+      defaultTableConfig={defaultTableConfig}
+      exportTemplate={({ filter }) =>
+        `${env.API_V1}/grscicoll/collection/export?format=TSV&${filter ? qs.stringify(filter) : ''}`
+      }
+    />
+  );
 }
 
 export default Table;
