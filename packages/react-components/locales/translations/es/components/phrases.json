@@ -42,7 +42,7 @@
   "discard": "Aquí debe colocarse una breve descripción del componente",
   "keep": "Aquí debe colocarse una breve descripción del componente",
   "addressUnknown": "Aquí debe colocarse una breve descripción del componente",
-  "emptyValueProvided": "",
+  "emptyValueProvided": "Valor vacío proporcionado",
   "copyToClipboard": "Aquí debe colocarse una breve descripción del componente",
   "fromCountry": "De {country}",
   "copiedToClipboard": "Copiado al portapapeles",
@@ -51,11 +51,11 @@
     "description": "Descripción",
     "contacts": "Contactos"
   },
-  "derivedFromOccurrenceData": "",
+  "derivedFromOccurrenceData": "Derivado del registro biológico",
   "pageToc": "",
-  "apiAccess": "",
+  "apiAccess": "Acceso API",
   "lastCrawled": "Último rasteo",
-  "goToRecord": "",
-  "commonNameAccordingTo": "",
+  "goToRecord": "Ir al registro",
+  "commonNameAccordingTo": "Nombre común según: {source}",
   "noResults": "Aquí debe colocarse una breve descripción del componente"
 }
