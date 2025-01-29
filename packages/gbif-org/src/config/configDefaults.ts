@@ -88,7 +88,23 @@ export const configDefault: Partial<Config> = {
   },
   institutionKey: {
     occurrenceSearch: {
-      excludedFilters: ['institutionKey'],
+      excludedFilters: [
+        'occurrenceStatus',
+        'networkKey',
+        'hostingOrganizationKey',
+        'protocol',
+        'publishingCountryCode',
+        'institutionCode',
+        'institutionKey',
+      ],
+      highlightedFilters: [
+        'taxonKey',
+        'verbatimScientificName',
+        'catalogNumber',
+        'recordedBy',
+        'identifiedBy',
+        'collectionKey',
+      ],
       // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
       // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
       tabs: ['table', 'gallery', 'map', 'dashboard', 'clusters', 'download'],
