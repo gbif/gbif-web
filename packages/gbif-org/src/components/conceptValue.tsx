@@ -38,7 +38,7 @@ export const ConceptValue = ({
   const concept = data?.concept;
 
   if (loading) return <>Loading</>;
-  if (!vocabulary || !name || !data || !concept) return <>Unknown</>;
+  if (!vocabulary || !name || !data || !concept) return <>{name || 'Unknown'}</>;
   if (error) return <>Error</>;
 
   const parentLabels =
