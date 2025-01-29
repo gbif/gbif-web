@@ -228,7 +228,7 @@ export const typeStatusConfig: filterEnumConfig = {
 
 export const occurrenceIssueConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
-  filterHandle: 'occurrenceIssue',
+  filterHandle: 'issue',
   displayName: occurrenceIssueLabel,
   options: occurrenceIssueOptions,
   allowNegations: true,

@@ -172,7 +172,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         formatMessage,
       }),
       typeStatus: generateFilters({ config: typeStatusConfig, searchConfig, formatMessage }),
-      occurrenceIssue: generateFilters({
+      issue: generateFilters({
         config: occurrenceIssueConfig,
         searchConfig,
         formatMessage,
