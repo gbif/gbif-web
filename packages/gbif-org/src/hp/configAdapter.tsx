@@ -154,7 +154,7 @@ function convertedConfig(config: object): Partial<Config> {
       defaultEnabledTableColumns: config?.publisher?.defaultTableColumns,
     },
     literatureSearch: {
-      scope: config?.literature?.rootPredicate ?? config?.literature?.rootFilter,
+      scope: config?.literature?.rootPredicate ?? config?.literature?.rootFilter?.predicate,
       highlightedFilters: config?.literature?.highlightedFilters,
       excludedFilters: config?.literature?.excludedFilters,
       defaultEnabledTableColumns: config?.literature?.defaultTableColumns,
