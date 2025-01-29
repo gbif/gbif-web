@@ -33,12 +33,13 @@ export default function DynamicHeightDiv({
         // get position relative to document top
         const absoluteTop = window.scrollY + relativetop;
 
+        const innerHeight = getDynamicViewportHeight();
         // Calculate the remaining height
         // default behaviour is relative to the window, but it can be relative to the viewport. The latter will mean that the div will grow when scrolling
-        const availableHeight = window.innerHeight - (sizeByViewport ? relativetop : absoluteTop);
+        const availableHeight = innerHeight - (sizeByViewport ? relativetop : absoluteTop);
 
         // get maximium height - the default is viewport height, but it can be set to a fixed value
-        const maximumHeight = Math.max(minPxHeight, maxPxHeight ?? getDynamicViewportHeight());
+        const maximumHeight = Math.max(minPxHeight, maxPxHeight ?? innerHeight);
 
         // Set the height, ensuring it is between min and max heights
         const height = Math.max(minPxHeight, Math.min(availableHeight, maximumHeight));
@@ -105,5 +106,5 @@ export function getDynamicViewportHeight() {
     element.style.visibility = 'hidden';
     document.body.appendChild(element);
   }
-  return element.clientHeight;
+  return element.clientHeight - 10;
 }
