@@ -110,7 +110,10 @@ export default function About() {
                     formatter={(val) => <ConceptValue vocabulary="Discipline" name={val} />}
                   />
                   {institution.foundingDate && (
-                    <Property labelId="grscicoll.foundingDate">{institution.foundingDate}</Property>
+                    <Property
+                      labelId="grscicoll.foundingDate"
+                      value={institution.foundingDate}
+                    ></Property>
                   )}
                   <Property
                     value={institution.types}
