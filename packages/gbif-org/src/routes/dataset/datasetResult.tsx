@@ -64,7 +64,7 @@ export function DatasetResult({
               </p>
             )}
           </div>
-          <div className="g-max-w-48 md:g-max-w-64 ">
+          <div className="g-max-w-48 md:g-max-w-64 g-flex-none">
             <MapThumbnail
               type={MapTypes.DatasetKey}
               identifier={dataset.key}
