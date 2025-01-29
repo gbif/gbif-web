@@ -160,8 +160,8 @@
     "description": "Los tipos de alertas de potencial interés identificados durante el procesamiento de los datos.\n"
   },
   "occurrenceCountry": {
-    "name": "País",
-    "count": "{num, plural, one {país} other {# países}}",
+    "name": "Área o país",
+    "count": "{num, plural, one {país} other {# áreas o países}}",
     "description": "El país o territorio donde ocurrió el evento"
   },
   "grsciCollCountry": {
@@ -217,7 +217,7 @@
   },
   "country": {
     "name": "País",
-    "count": "{num, plural, one {país} other {# países}}"
+    "count": "{num, plural, one {país} other {# áreas o países}}"
   },
   "countriesOfCoverage": {
     "name": "País de cobertura",
