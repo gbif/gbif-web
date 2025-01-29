@@ -220,6 +220,7 @@ function mapInstitutionFilterNames(list) {
       q: 'q',
       active: 'active',
       countryGrSciColl: 'country',
+      countrySingleGrSciColl: 'country',
       institutionType: 'type',
       discipline: 'discipline',
       alternativeCode: 'alternativeCode',
