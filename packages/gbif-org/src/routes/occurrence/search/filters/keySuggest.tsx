@@ -134,9 +134,9 @@ export const datasetKeyConfig: filterSuggestConfig = {
 //   },
 // };
 
-export const publisherKeyConfig: filterSuggestConfig = {
+export const publishingOrgConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
-  filterHandle: 'publisherKey',
+  filterHandle: 'publishingOrg',
   displayName: PublisherLabel,
   filterTranslation: 'filters.publisherKey.name',
   suggestConfig: publisherKeyOccurrenceSuggest, //publisherKeySuggest,

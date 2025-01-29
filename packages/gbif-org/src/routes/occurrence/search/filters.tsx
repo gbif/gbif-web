@@ -36,8 +36,8 @@ import {
   institutionCodeConfig,
   institutionKeyConfig,
   networkKeyConfig,
-  publisherKeyConfig,
   publishingCountryConfig,
+  publishingOrgConfig,
   recordNumberConfig,
   taxonKeyConfig,
 } from './filters/keySuggest';
@@ -132,7 +132,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       collectionKey: generateFilters({ config: collectionKeyConfig, searchConfig, formatMessage }),
       datasetKey: generateFilters({ config: datasetKeyConfig, searchConfig, formatMessage }),
       taxonKey: generateFilters({ config: taxonKeyConfig, searchConfig, formatMessage }),
-      publisherKey: generateFilters({ config: publisherKeyConfig, searchConfig, formatMessage }),
+      publishingOrg: generateFilters({ config: publishingOrgConfig, searchConfig, formatMessage }),
       hostingOrganizationKey: generateFilters({
         config: hostingOrganizationKeyConfig,
         searchConfig,

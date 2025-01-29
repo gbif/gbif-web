@@ -13,9 +13,6 @@ const config: FilterConfigType = {
     country: {
       singleValue: true,
     },
-    type: {
-      defaultKey: 'type',
-    },
   },
 };
 const otherParams = [
@@ -28,6 +25,7 @@ const otherParams = [
   'hostingCountry',
   'taxonKey',
   'subtype',
+  'type',
   'endorsingNodeKey',
   'installationKey',
   'endpointType',

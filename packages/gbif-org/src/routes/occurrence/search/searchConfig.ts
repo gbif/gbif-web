@@ -16,9 +16,6 @@ const config: FilterConfigType = {
         supportedTypes: ['within'],
       },
     },
-    publisherKey: {
-      defaultKey: 'publishingOrg',
-    },
     year: {
       v1: {
         supportedTypes: ['range', 'equals'],
@@ -59,9 +56,9 @@ const config: FilterConfigType = {
 
 const otherParams = [
   'gadmGid',
+  'publishingOrg',
   'hostingOrganizationKey',
   'networkKey',
-  'publisherKey',
   'country',
   'publishingCountry',
   'taxonKey',
