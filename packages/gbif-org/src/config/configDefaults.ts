@@ -126,7 +126,7 @@ export const configDefault: Partial<Config> = {
   occurrenceSearch: {
     queryType: 'PREDICATE',
     highlightedFilters: ['occurrenceStatus', 'taxonKey', 'year', 'country', 'issue', 'geometry'],
-    tabs: ['table', 'gallery', 'map', 'dashboard', 'download'],
+    tabs: ['table', 'gallery', 'map', 'download'],
     defaultEnabledTableColumns: [
       'scientificName',
       'features',
