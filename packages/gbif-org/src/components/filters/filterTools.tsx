@@ -644,11 +644,13 @@ export function getFilterConfig({
   highlightedFilters.forEach((filter) => {
     if (!existingFilters.includes(filter)) {
       console.warn(`Filter ${filter} is configured to be highlighted, but does not exist`);
+      console.warn(`Existing filter names are: ${existingFilters.join(', ')}`);
     }
   });
   excludedFilters.forEach((filter) => {
     if (!existingFilters.includes(filter)) {
       console.warn(`Filter ${filter} is configured to be excluded, but does not exist`);
+      console.warn(`Existing filter names are: ${existingFilters.join(', ')}`);
     }
   });
   return {
