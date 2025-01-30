@@ -31,6 +31,8 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       pagination: getFile(locale, `../${folder}/${locale}/components/pagination`),
       search: getFile(locale, `../${folder}/${locale}/components/search`),
       phrases: getFile(locale, `../${folder}/${locale}/components/phrases`),
+      taxon: getFile(locale, `../${folder}/${locale}/components/taxon`),
+
       occurrenceFieldNames: getFile(
         locale,
         `../${folder}/${locale}/components/occurrenceFieldNames`,
@@ -62,6 +64,8 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         institutionType: getFile(locale, `../${folder}/${locale}/enums/institutionType`),
         month: getFile(locale, `../${folder}/${locale}/enums/month`),
         continent: getFile(locale, `../${folder}/${locale}/enums/continent`),
+        language: getFile(locale, `../${folder}/${locale}/enums/language`),
+
         endpointType: getFile(locale, `../${folder}/${locale}/enums/endpointType`),
         installationType: getFile(locale, `../${folder}/${locale}/enums/installationType`),
         establishmentMeans: getFile(locale, `../${folder}/${locale}/enums/establishmentMeans`),

@@ -100,4 +100,8 @@ export default {
     typeSpecimens: taxonDetails('typeSpecimens'),
     iucnRedListCategory: taxonDetails('iucnRedListCategory'),
   },
+  TaxonVernacularName: {
+    sourceTaxon: (parent, args, { dataSources }) =>
+      dataSources.taxonAPI.getTaxonByKey({ key: parent.sourceTaxonKey }),
+  },
 };

@@ -73,6 +73,11 @@ export default {
       if (typeof nubKey === 'undefined' || key === nubKey) return null;
       return dataSources.taxonAPI.getTaxonByKey({ key: nubKey });
     },
+    acceptedTaxon: ({ key, acceptedKey }, args, { dataSources }) => {
+      if (typeof acceptedKey === 'undefined' || key === acceptedKey)
+        return null;
+      return dataSources.taxonAPI.getTaxonByKey({ key: acceptedKey });
+    },
     taxonImages_volatile: ({ key, nubKey }, { size }, { dataSources }) =>
       dataSources.taxonMediaAPI.getRepresentativeImages({
         taxon: nubKey ?? key,

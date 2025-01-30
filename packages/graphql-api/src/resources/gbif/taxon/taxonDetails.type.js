@@ -119,6 +119,7 @@ const typeDef = gql`
     sourceTaxonKey: Int!
     taxonKey: Int!
     vernacularName: String!
+    sourceTaxon: Taxon
   }
 
   type TaxonTypeSpecimenResult {

@@ -1,9 +1,10 @@
 import { NotFoundError } from '@/errors';
 import {
-    PredicateType, TaxonQuery,
-    TaxonQueryVariables,
-    TaxonSummaryMetricsQuery,
-    TaxonSummaryMetricsQueryVariables
+  PredicateType,
+  TaxonQuery,
+  TaxonQueryVariables,
+  TaxonSummaryMetricsQuery,
+  TaxonSummaryMetricsQueryVariables,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { LoaderArgs } from '@/reactRouterPlugins';
@@ -57,6 +58,19 @@ const TAXON_QUERY = /* GraphQL */ `
       key
       scientificName
       kingdom
+      formattedName(useFallback: true)
+      rank
+      taxonomicStatus
+      publishedIn
+      parents {
+        rank
+        scientificName
+        key
+      }
+      acceptedTaxon {
+        key
+        formattedName
+      }
     }
   }
 `;

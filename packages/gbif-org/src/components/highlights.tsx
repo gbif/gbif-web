@@ -135,14 +135,16 @@ export function TaxonClassification({
   classification,
   majorOnly,
   className,
+  showIcon = true,
 }: {
   classification: { rank?: string | null; name?: string | null }[];
   majorOnly?: boolean;
   className?: string;
+  showIcon?: boolean;
 }) {
   return (
     <GenericFeature className={className}>
-      <NameTagIcon />
+      {showIcon && <NameTagIcon />}
       <TaxonClassificationList classification={classification} majorOnly={majorOnly} />
     </GenericFeature>
   );
