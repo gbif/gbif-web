@@ -60,6 +60,7 @@ export function Head<TData>({ header, table, isScrolled = false, orderedColumns 
 
         {header.column.getIsFirstColumn() && !hideLock && (
           <SimpleTooltip
+            side="right"
             asChild
             i18nDefaultMessage={locked ? 'Unlock column' : 'Lock column'}
             i18nKey={locked ? 'search.table.unlockColumn ' : 'search.table.lockColumn'}
@@ -80,7 +81,7 @@ function ColumnVisibilityPopover<TData>({
 }: Pick<Props<TData>, 'table' | 'orderedColumns'>) {
   return (
     <Popover>
-      <SimpleTooltip i18nKey="search.table.columnVisibility" asChild>
+      <SimpleTooltip i18nKey="search.table.columnVisibility" asChild side="right">
         <PopoverTrigger className="g-pr-3 g-pl-1 hover:g-text-primary-500">
           {/* This 16px width match the drawer icon in the left most cell */}
           <div className="g-w-[16px]">
