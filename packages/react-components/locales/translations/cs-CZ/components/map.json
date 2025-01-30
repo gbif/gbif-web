@@ -10,7 +10,7 @@
         "ARCTIC": "Arktický",
         "MERCATOR": "Mercator",
         "ANTARCTIC": "",
-        "PLATE_CAREE": ""
+        "PLATE_CAREE": "Čtvercová projekce"
     },
     "failedToGetUserLocation": {
         "title": "",

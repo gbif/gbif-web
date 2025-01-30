@@ -1,11 +1,26 @@
 {
+    "undefined": "Neznámý taxon",
     "UNKNOWN": "Neznámý",
+    "DOMAIN": "Doména",
     "KINGDOM": "Říše",
     "PHYLUM": "Kmen",
+    "SUPERCLASS": "nadtřída",
     "CLASS": "Třída",
+    "SUBCLASS": "Podtřída",
+    "INFRACLASS": "Infratřída",
     "ORDER": "Řád",
     "FAMILY": "Čeleď",
     "GENUS": "Rod",
     "SUBGENUS": "podrod",
-    "SPECIES": "Druh"
+    "SECTION": "Sekce",
+    "SUBSECTION": "Podsekce",
+    "SERIES": "Série",
+    "SPECIES": "Druh",
+    "SUBSPECIES": "poddruh",
+    "CULTIVAR_GROUP": "skupina kultivaru",
+    "ABERRATION": "Aberace",
+    "VARIETY": "odrůda",
+    "FORM": "Forma",
+    "CULTIVAR": "Kultivar",
+    "UNRANKED": "Nehodnoceno"
 }

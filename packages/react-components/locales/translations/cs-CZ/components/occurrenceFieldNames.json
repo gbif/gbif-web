@@ -202,5 +202,6 @@
   "undefined": "Neznámé pole",
   "coordinatesTextual": "Tento záznam je zveřejněn bez souřadnic, ale obsahuje textový popis jeho umístění.",
   "coordinatesMissing": "Chybí souřadnice",
-  "taxonomicClassification": "Klasifikace"
+  "taxonomicClassification": "Klasifikace",
+  "images": "Multimédia"
 }

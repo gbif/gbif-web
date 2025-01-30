@@ -96,7 +96,7 @@
     "description": ""
   },
   "identifier": {
-    "name": "",
+    "name": "Identifikátor",
     "count": "",
     "description": ""
   },
@@ -311,7 +311,7 @@
     "description": ""
   },
   "projectId": {
-    "name": "",
+    "name": "ID Projektu",
     "count": "",
     "description": ""
   },

@@ -5,6 +5,7 @@
   "rights": "Derechos",
   "providerLiteral": "Proveedor",
   "description": "Descripción",
+  "accessURI": "URL",
   "format": "Formato",
   "pixelXDimension": "Ancho"
 }

@@ -1,24 +1,24 @@
 {
-  "datasetSearchTitle": "",
+  "datasetSearchTitle": "Vyhledávání datové sady",
   "longType": {
-    "OCCURRENCE": "",
-    "CHECKLIST": "",
-    "SAMPLING_EVENT": "",
-    "METADATA": ""
+    "OCCURRENCE": "Datová sada o výskytu",
+    "CHECKLIST": "Datová sada kontrolního seznamu",
+    "SAMPLING_EVENT": "Událost odběru vzorku",
+    "METADATA": "Datová sada metadat"
   },
   "metricHighlights": {
-    "occurrences": "",
+    "occurrences": "Výskyty",
     "withTaxonMatch": "",
     "withCoordinates": "",
     "withYear": "",
-    "acceptedNames": "",
+    "acceptedNames": "Přijaté názvy",
     "synonyms": "Synonyma"
   },
   "tabs": {
     "about": "O",
-    "occurrences": "",
+    "occurrences": "Výskyty",
     "citations": "Citace",
-    "project": "",
+    "project": "Projekt",
     "taxonomy": "Taxonomie",
     "download": "Stáhnout",
     "phylogeny": ""
@@ -51,7 +51,7 @@
   "description": "Popis",
   "metadataLanguage": "Jazyk metadat",
   "dataLanguage": "jazyk dat",
-  "dataDescriptions": "",
+  "dataDescriptions": "Popisy externích dat",
   "purpose": "Účel",
   "methodology": "Metodika",
   "studyExtent": "",
@@ -110,7 +110,7 @@
   "registry": {
     "failedSinceSuccess": "",
     "lastFailed": "",
-    "registrationDate": "",
+    "registrationDate": "Datum registrace",
     "lastSuccess": "",
     "lastWithChange": "",
     "noEntries": "",
@@ -119,9 +119,9 @@
     "completionReasons": "",
     "unfinished": "",
     "total": "",
-    "endpoints": "",
+    "endpoints": "Koncové body",
     "installationContacts": "",
-    "installation": "",
+    "installation": "Instalace",
     "dataLastChanged": "Poslední změna dat",
     "pubDate": "Datum zveřejnění",
     "hostedBy": "Hostuje",

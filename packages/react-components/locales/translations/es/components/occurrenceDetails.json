@@ -9,15 +9,15 @@
   "processed": "Aquí debe colocarse una breve descripción del componente",
   "fragment": "Aquí debe colocarse una breve descripción del componente",
   "showAllFields": "Mostrar todos los campos",
-  "morePhotos": "",
+  "morePhotos": "Más fotografías",
   "about": "Acerca de",
   "dataset": "Conjunto de datos",
   "publisher": "Publicador",
   "institution": "Institución",
-  "institutionGrSciColl": "",
+  "institutionGrSciColl": "Institución GrSciColl",
   "collection": "Colección",
-  "collectionGrSciColl": "",
-  "recordedAndIdentifiedBy": "",
+  "collectionGrSciColl": "Colección GrSciColl",
+  "recordedAndIdentifiedBy": "Registrado e identificado por",
   "tryPublisherSiteForFailingMedia": "Si los medios no se muestran correctamente, pruebe con el sitio del editor.",
   "screenReader": {
     "title": "Detalles del registro biológico"
@@ -296,7 +296,7 @@
       }
     },
     "identification": {
-      "name": "",
+      "name": "Historial de Identificación",
       "properties": {
         "identificationID": "ID de la Identificación",
         "verbatimIdentification": "",
@@ -333,7 +333,7 @@
         "genus": "Género",
         "genericName": "Nombre genérico",
         "subgenus": "Subgénero",
-        "infragenericEpithet": "",
+        "infragenericEpithet": "Epíteto infra genérico",
         "specificEpithet": "Epíteto específico",
         "infraspecificEpithet": "Epíteto infraespecífico",
         "cultivarEpithet": "",
@@ -379,7 +379,7 @@
       }
     },
     "measurementOrFact": {
-      "name": "",
+      "name": "Medida o hecho",
       "properties": {
         "measurementID": "",
         "measurementType": "Aquí debe colocarse una breve descripción del componente",
@@ -454,7 +454,7 @@
       }
     },
     "resourceRelationship": {
-      "name": "",
+      "name": "Relación con el recurso",
       "properties": {
         "resourceRelationshipID": "",
         "resourceID": "",
@@ -616,7 +616,7 @@
       }
     },
     "dnaDerivedData": {
-      "name": "",
+      "name": "Datos derivados de ADN",
       "properties": {}
     }
   }

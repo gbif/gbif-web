@@ -45,9 +45,9 @@
     "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "iucnRedListCategory": {
-    "name": "",
+    "name": "Categoría en la Lista Roja de la UICN",
     "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
-    "description": ""
+    "description": "La Lista Roja de Especies Amenazadas de la UICN agrupa los taxones según su grado de amenaza."
   },
   "geoDistance": {
     "name": "Distancia de coordenadas",
@@ -160,8 +160,8 @@
     "description": "Los tipos de alertas de potencial interés identificados durante el procesamiento de los datos.\n"
   },
   "occurrenceCountry": {
-    "name": "País",
-    "count": "{num, plural, one {país} other {# países}}",
+    "name": "Área o país",
+    "count": "{num, plural, one {país} other {# áreas o países}}",
     "description": "El país o territorio donde ocurrió el evento"
   },
   "grsciCollCountry": {
@@ -217,7 +217,7 @@
   },
   "country": {
     "name": "País",
-    "count": "{num, plural, one {país} other {# países}}"
+    "count": "{num, plural, one {país} other {# áreas o países}}"
   },
   "countriesOfCoverage": {
     "name": "País de cobertura",

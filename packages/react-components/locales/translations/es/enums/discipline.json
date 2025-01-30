@@ -18,5 +18,7 @@
   "ATMOSPHERIC_METEOROLOGY": "Meteorología atmosférica",
   "CHEMICAL": "Química",
   "CHEMICAL_ANALYTICAL": "Química analítica",
-  "CHEMICAL_ASTROCHEMISTRY": "Química astroquímica"
+  "CHEMICAL_ASTROCHEMISTRY": "Química astroquímica",
+  "HEALTH": "Salud",
+  "MATERIAL": "Material"
 }

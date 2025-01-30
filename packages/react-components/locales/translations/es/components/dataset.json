@@ -21,7 +21,7 @@
     "project": "Proyecto",
     "taxonomy": "Taxonomía",
     "download": "Descargar",
-    "phylogeny": ""
+    "phylogeny": "Filogenias"
   },
   "noStatsForMetadata": "No hay estadísticas disponibles para los conjuntos de solo metadatos.",
   "siteScopeSmallerThanDataset": "No todos los registros del conjunto de datos están incluidos en este sitio. Visite [GBIF.org]({datasetUrl}) para explorar el conjunto de datos completo.",

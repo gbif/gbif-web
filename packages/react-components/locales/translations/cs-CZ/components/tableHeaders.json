@@ -1,6 +1,9 @@
 {
   "citations": "Citace",
+  "occurrences": "Výskyty",
   "numberSpecimens": "Počet exemplářů",
+  "title": "Název",
+  "registered": "Registrováno",
   "institution": "Instituce",
   "collection": "Sbírka",
   "collectionCount": "Sbírky"

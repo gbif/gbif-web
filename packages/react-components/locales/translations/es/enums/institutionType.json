@@ -1,1 +1,7 @@
-{}
+{
+  "HERBARIUM": "Herbario",
+  "LIVING_ORGANISM_COLLECTION": "Colección de organismos vivos",
+  "MEDICAL_RESEARCH_INSTITUTE": "Instituto de investigación médica",
+  "MUSEUM": "Museo",
+  "MUSEUM_HERBARIUM_PRIVATE_NON_PROFIT": "Herbario de museo privado sin fines de lucro"
+}
