@@ -31,7 +31,7 @@ export function usePaginationState({ pageSize: size }: { pageSize?: number } = {
         newState = updaterOrValue;
       }
 
-      setFrom(newState.pageIndex * newState.pageSize, true);
+      setFrom(newState.pageIndex * newState.pageSize);
       setPageSize(newState.pageSize);
     },
     [setFrom, setPageSize]

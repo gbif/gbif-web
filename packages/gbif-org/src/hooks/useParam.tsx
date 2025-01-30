@@ -2,64 +2,45 @@ import { Base64 } from 'js-base64';
 import { useCallback, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
+type Options<T> = {
+  key: string;
+  defaultValue?: T;
+  hideDefault?: boolean;
+  preventScrollReset?: boolean;
+  replace?: boolean;
+};
+
 // hook to get and set number param from url
 const numberParser = (str?: string) => parseFloat(str ?? '0');
-export function useNumberParam({
-  key,
-  defaultValue,
-  hideDefault,
-}: {
-  key: string;
-  defaultValue?: string | number;
-  hideDefault?: boolean;
-}): [number, (value: number, replace?: boolean) => void] {
+export function useNumberParam(
+  options: Options<string | number>
+): [number, (value: number) => void] {
   const [value, setValue] = useParam({
-    key,
-    defaultValue: defaultValue ?? 0,
+    ...options,
+    defaultValue: options.defaultValue ?? 0,
     parse: numberParser,
-    hideDefault,
   });
   return [value, setValue];
 }
 
 const intParser = (str?: string) => parseInt(str ?? '0');
-export function useIntParam({
-  key,
-  defaultValue,
-  hideDefault,
-}: {
-  key: string;
-  defaultValue?: number;
-  hideDefault?: boolean;
-}): [number, (value: number, replace?: boolean) => void] {
+export function useIntParam(options: Options<number>): [number, (value: number) => void] {
   const [value, setValue] = useParam({
-    key,
-    defaultValue: defaultValue ?? 0,
+    ...options,
+    defaultValue: options.defaultValue ?? 0,
     parse: intParser,
-    hideDefault,
   });
 
   return [value, setValue];
 }
 
 const stringParser = (str?: string) => str;
-export function useStringParam({
-  key,
-  defaultValue,
-  hideDefault,
-}: {
-  key: string;
-  defaultValue?: string;
-  hideDefault?: boolean;
-}): [
-  string | undefined,
-  (value?: string, replace?: boolean, preventScrollReset?: boolean) => void
-] {
+export function useStringParam(
+  options: Options<string>
+): [string | undefined, (value?: string) => void] {
   const [value, setValue] = useParam({
-    key,
-    defaultValue: defaultValue,
+    ...options,
     parse: stringParser,
-    hideDefault,
   });
   return [value, setValue];
 }
@@ -83,21 +64,14 @@ const jsonEncoder = (v?: object) => {
   }
 };
 
-export function useJsonParam({
-  key,
-  defaultValue,
-  hideDefault,
-}: {
-  key: string;
-  defaultValue?: object;
-  hideDefault?: boolean;
-}): [object | undefined, (value: object, replace?: boolean) => void] {
+export function useJsonParam(
+  options: Options<object>
+): [object | undefined, (value: object) => void] {
   const [value, setValue] = useParam({
-    key,
-    defaultValue: jsonEncoder(defaultValue),
+    ...options,
+    defaultValue: jsonEncoder(options.defaultValue),
     parse: jsonParser,
     serialize: jsonEncoder,
-    hideDefault,
   });
   return [value, setValue];
 }
@@ -108,13 +82,17 @@ function useParam<T>({
   serialize,
   defaultValue,
   hideDefault,
+  replace,
+  preventScrollReset = true,
 }: {
   key: string;
   parse: (value?: string) => T;
   serialize?: (value?: T) => string | undefined;
   defaultValue?: string | number;
   hideDefault?: boolean;
-}): [T, (value: T, replace?: boolean, preventScrollReset?: boolean) => void] {
+  replace?: boolean;
+  preventScrollReset?: boolean;
+}): [T, (value: T) => void] {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const value = parse(
@@ -129,7 +107,7 @@ function useParam<T>({
   }, [setSearchParams]);
 
   const setValue = useCallback(
-    (value: T, replace?: boolean, preventScrollReset?: boolean) => {
+    (value: T) => {
       setSearchParamsRef.current(
         (params) => {
           const clone = new URLSearchParams(params);
@@ -143,7 +121,7 @@ function useParam<T>({
         { replace, preventScrollReset }
       );
     },
-    [key, serialize, defaultValue, hideDefault]
+    [key, serialize, defaultValue, hideDefault, replace, preventScrollReset]
   );
 
   return [value, setValue];

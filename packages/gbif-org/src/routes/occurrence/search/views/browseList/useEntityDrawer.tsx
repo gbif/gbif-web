@@ -1,8 +1,9 @@
 import { useStringParam } from '@/hooks/useParam';
 
-// Used to abstract away the fact that preventScrollReset is always true when opening/closing the drawer
 export function useEntityDrawer() {
-  const [previewKey, setPreviewKey] = useStringParam({ key: 'entity' });
+  const [previewKey, setPreviewKey] = useStringParam({
+    key: 'entity',
+  });
 
-  return [previewKey, (key?: string | undefined) => setPreviewKey(key, false, true)] as const;
+  return [previewKey, (key?: string | undefined) => setPreviewKey(key)] as const;
 }
