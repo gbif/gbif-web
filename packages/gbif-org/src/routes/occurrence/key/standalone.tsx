@@ -1,6 +1,7 @@
 import { StandaloneWrapper } from '@/components/standaloneWrapper';
 import { useConfig } from '@/config/config';
 import { dataRoutes } from '@/config/routes';
+import cloneDeep from 'lodash/cloneDeep';
 import set from 'lodash/set';
 import { useMemo } from 'react';
 import { OccurrenceKeySkeleton } from './occurrenceKey';
@@ -13,7 +14,7 @@ export function StandaloneOccurrenceKeyPage({ url }: Props) {
   const rootConfig = useConfig();
   const standaloneConfig = useMemo(() => {
     const conf = {
-      ...rootConfig,
+      ...cloneDeep(rootConfig),
       availableCatalogues: [],
       pages: [
         { id: 'occurrenceKey' },
