@@ -23,11 +23,11 @@ export const institutionKeyRoute: RouteObjectWithPlugins = {
       element: <InstitutionKeyAbout />,
     },
     {
-      path: 'specimen',
+      path: 'specimens',
       element: <InstitutionKeySpecimens />,
     },
     {
-      path: 'collection',
+      path: 'collections',
       element: <InstitutionKeyCollection />,
     },
   ],
