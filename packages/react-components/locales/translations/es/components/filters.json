@@ -45,9 +45,9 @@
     "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "iucnRedListCategory": {
-    "name": "",
+    "name": "Categoría en la Lista Roja de la UICN",
     "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
-    "description": ""
+    "description": "La Lista Roja de Especies Amenazadas de la UICN agrupa los taxones según su grado de amenaza."
   },
   "geoDistance": {
     "name": "Distancia de coordenadas",
