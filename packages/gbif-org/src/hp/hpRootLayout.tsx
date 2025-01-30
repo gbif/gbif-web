@@ -28,7 +28,7 @@ function UrlChangeNotifier() {
     const url = location.pathname + (location.search ?? '');
 
     window.dispatchEvent(
-      new CustomEvent('urlChange', {
+      new CustomEvent('gbifUrlChange', {
         detail: { url, localizeLink },
       })
     );
