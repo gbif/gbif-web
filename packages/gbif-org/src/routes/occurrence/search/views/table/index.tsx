@@ -18,37 +18,10 @@ import { searchConfig } from '../../searchConfig';
 import { useEntityDrawer } from '../browseList/useEntityDrawer';
 import { useOrderedList } from '../browseList/useOrderedList';
 import { useOccurrenceColumns } from './columns';
-
-// TODO: Should maybe be moved to the configBuilder
-const DAFAULT_AVAILABLE_TABLE_COLUMNS = Object.freeze([
-  'scientificName',
-  'features',
-  'country',
-  'coordinates',
-  'year',
-  'eventDate',
-  'basisOfRecord',
-  'dataset',
-  'publisher',
-  'catalogNumber',
-  'recordedBy',
-  'identifiedBy',
-  'recordNumber',
-  'typeStatus',
-  'preparations',
-  'collectionCode',
-  'institutionCode',
-  'institutionKey',
-  'collectionKey',
-  'locality',
-  'higherGeography',
-  'stateProvince',
-  'establishmentMeans',
-  'iucnRedListCategory',
-  'datasetName',
-]);
-
-const DEFAULT_ENABLED_TABLE_COLUMNS = Object.freeze([...DAFAULT_AVAILABLE_TABLE_COLUMNS]);
+import {
+  FallbackTableOptions,
+  useAvailableAndDefaultEnabledColumns,
+} from '@/components/searchTable/useAvailableAndDefaultEnabledColumns';
 
 const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
   query OccurrenceSearch($from: Int, $size: Int, $predicate: Predicate) {
@@ -139,6 +112,19 @@ const createRowLinkDrawer = (
   keepExistingSearchParams: true,
 });
 
+const fallbackOptions: FallbackTableOptions = {
+  prefixColumns: ['scientificName'],
+  defaultEnabledTableColumns: [
+    'features',
+    'country',
+    'coordinates',
+    'year',
+    'basisOfRecord',
+    'dataset',
+    'publisher',
+  ],
+};
+
 export function OccurrenceTable() {
   const searchContext = useSearchContext();
   const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
@@ -193,22 +179,12 @@ export function OccurrenceTable() {
     setOrderedList(occurrences.map((item) => `o_${item.key}`));
   }, [occurrences, setOrderedList]);
 
-  // TODO: Should the logic be located in the config?
-  const availableTableColumns = useMemo(
-    () => [
-      'scientificName',
-      ...(config?.occurrenceSearch?.availableTableColumns ?? DAFAULT_AVAILABLE_TABLE_COLUMNS),
-    ],
-    [config]
-  );
-
-  const defaultEnabledTableColumns = useMemo(
-    () => [
-      'scientificName',
-      ...(config?.occurrenceSearch?.defaultEnabledTableColumns ?? DEFAULT_ENABLED_TABLE_COLUMNS),
-    ],
-    [config]
-  );
+  const { availableTableColumns, defaultEnabledTableColumns } =
+    useAvailableAndDefaultEnabledColumns({
+      searchMetadata: searchContext,
+      columns,
+      fallbackOptions,
+    });
 
   const createRowLink = config.openDrawerOnTableRowClick
     ? createRowLinkDrawer

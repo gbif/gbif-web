@@ -10,7 +10,7 @@ import {
   useReactTable,
   VisibilityState,
 } from '@tanstack/react-table';
-import { memo, useEffect, useRef } from 'react';
+import { memo, useEffect, useMemo, useRef } from 'react';
 import _useLocalStorage from 'use-local-storage';
 import { Cell } from './components/cell';
 import { Head } from './components/head';
@@ -19,6 +19,7 @@ import { TableFooter } from './components/tableFooter';
 import { FirstColumLockProvider } from './firstColumLock';
 import { Link } from 'react-router-dom';
 import { DynamicLinkProps } from '@/reactRouterPlugins/dynamicLink';
+import { toRecord } from '@/utils/toRecord';
 // Used to import commonjs module as es6 module
 const useLocalStorage = interopDefault(_useLocalStorage);
 
@@ -52,9 +53,13 @@ function SearchTable<TData, TValue>({
   lockColumnLocalStoreKey = 'searchTableLockColumn',
   selectedColumnsLocalStoreKey = 'selectedColumnsLocalStoreKey',
 }: Props<TData, TValue>) {
+  const initialColumnVisibilityState = useMemo(
+    () => createInitialColumnVisibilityState(availableTableColumns, defaultEnabledTableColumns),
+    [availableTableColumns, defaultEnabledTableColumns]
+  );
   const [columnVisibility, setColumnVisibility] = useLocalStorage(
     selectedColumnsLocalStoreKey,
-    createInitialColumnVisibilityState(availableTableColumns, defaultEnabledTableColumns)
+    initialColumnVisibilityState
   );
 
   const table = useReactTable({
@@ -65,6 +70,7 @@ function SearchTable<TData, TValue>({
     onPaginationChange: setPaginationState,
     initialState: {
       columnOrder: availableTableColumns,
+      columnVisibility: initialColumnVisibilityState,
     },
     state: {
       pagination,
@@ -89,6 +95,12 @@ function SearchTable<TData, TValue>({
 
   const isHorizontallyScrolled = useIsElementHorizontallyScrolled(tableWrapperRef);
 
+  const orderedColumns = useMemo(() => {
+    const columns = table.getAllFlatColumns();
+    const columnsRecord = toRecord(columns, (col) => col.id);
+    return availableTableColumns.map((columnId) => columnsRecord[columnId]);
+  }, [availableTableColumns]);
+
   return (
     <FirstColumLockProvider lockColumnLocalStoreKey={lockColumnLocalStoreKey}>
       <div
@@ -106,6 +118,7 @@ function SearchTable<TData, TValue>({
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
                     <Head
+                      orderedColumns={orderedColumns}
                       key={header.id}
                       table={table}
                       header={header}

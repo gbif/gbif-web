@@ -17,6 +17,10 @@ import { Link } from 'react-router-dom';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
 import { useTaxonColumns } from './columns';
+import {
+  FallbackTableOptions,
+  useAvailableAndDefaultEnabledColumns,
+} from '@/components/searchTable/useAvailableAndDefaultEnabledColumns';
 
 const TAXON_SEARCH_QUERY = /* GraphQL */ `
   query TaxonSearch($offset: Int, $limit: Int, $query: TaxonSearchInput) {
@@ -74,12 +78,10 @@ const createRowLinkDrawer = (row: Row<SingleTaxonSearchResult>): DynamicLinkProp
   keepExistingSearchParams: true,
 });
 
-const DEFAULT_ENABLED_TABLE_COLUMNS = Object.freeze([
-  'scientificName',
-  'taxonomicStatus',
-  'rank',
-  'taxonomy',
-]);
+const fallbackOptions: FallbackTableOptions = {
+  prefixColumns: ['scientificName'],
+  defaultEnabledTableColumns: ['taxonomicStatus', 'rank', 'taxonomy'],
+};
 
 export function Table() {
   const searchContext = useSearchContext();
@@ -133,22 +135,12 @@ export function Table() {
     setOrderedList(taxons.map((item) => `t_${item.key}`));
   }, [taxons, setOrderedList]);
 
-  // TODO: Should the logic be located in the config?
-  const availableTableColumns = useMemo(
-    () => [
-      'scientificName',
-      ...(config?.taxonSearch?.availableTableColumns ?? DEFAULT_ENABLED_TABLE_COLUMNS),
-    ],
-    [config]
-  );
-
-  const defaultEnabledTableColumns = useMemo(
-    () => [
-      'scientificName',
-      ...(config?.taxonSearch?.defaultEnabledTableColumns ?? DEFAULT_ENABLED_TABLE_COLUMNS),
-    ],
-    [config]
-  );
+  const { availableTableColumns, defaultEnabledTableColumns } =
+    useAvailableAndDefaultEnabledColumns({
+      searchMetadata: searchContext,
+      columns,
+      fallbackOptions,
+    });
 
   const createRowLink = config.openDrawerOnTableRowClick
     ? createRowLinkDrawer

@@ -7,7 +7,7 @@ export type SearchMetadata = {
   scope?: unknown;
   queryType?: QueryTypeEnum;
   availableTableColumns?: string[]; // Default all columns are available
-  defaultEnabledTableColumns?: string[]; // TODO: What should the default value be?
+  defaultEnabledTableColumns?: string[]; // Default is defined by the individual tabels
   tabs?: string[];
   defaultTab?: string;
 };

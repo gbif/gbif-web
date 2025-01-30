@@ -3,7 +3,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { TableHead } from '@/components/ui/table';
 import { cn } from '@/utils/shadcn';
-import { Header, Table } from '@tanstack/react-table';
+import { Column, Header, Table } from '@tanstack/react-table';
 import { LuListFilter as FilterIcon } from 'react-icons/lu';
 import { MdLock, MdLockOpen } from 'react-icons/md';
 import { SlOptionsVertical } from 'react-icons/sl';
@@ -14,9 +14,10 @@ type Props<TData> = {
   header: Header<TData, unknown>;
   table: Table<TData>;
   isScrolled?: boolean;
+  orderedColumns: Column<TData, unknown>[];
 };
 
-export function Head<TData>({ header, table, isScrolled = false }: Props<TData>) {
+export function Head<TData>({ header, table, isScrolled = false, orderedColumns }: Props<TData>) {
   const { locked, setLocked, hideLock } = useFirstColumLock();
   const filter = header.column.columnDef.meta?.filter;
 
@@ -38,7 +39,9 @@ export function Head<TData>({ header, table, isScrolled = false }: Props<TData>)
     >
       <div className="g-inline-flex g-items-center g-justify-between g-w-full">
         <div className="g-inline-flex">
-          {header.column.getIsFirstColumn() && <ColumnVisibilityPopover table={table} />}
+          {header.column.getIsFirstColumn() && (
+            <ColumnVisibilityPopover orderedColumns={orderedColumns} table={table} />
+          )}
 
           {!header.isPlaceholder && (
             <FormattedMessage id={headerIsString(header.column.columnDef.header)} />
@@ -71,7 +74,10 @@ export function Head<TData>({ header, table, isScrolled = false }: Props<TData>)
   );
 }
 
-function ColumnVisibilityPopover<TData>({ table }: Pick<Props<TData>, 'table'>) {
+function ColumnVisibilityPopover<TData>({
+  table,
+  orderedColumns,
+}: Pick<Props<TData>, 'table' | 'orderedColumns'>) {
   return (
     <Popover>
       <SimpleTooltip i18nKey="search.table.columnVisibility" asChild>
@@ -84,7 +90,7 @@ function ColumnVisibilityPopover<TData>({ table }: Pick<Props<TData>, 'table'>) 
       </SimpleTooltip>
       <PopoverContent className="g-p-3 g-flex g-flex-col g-gap-3 g-overflow-y-scroll g-max-h-96">
         {/* TODO: This only shows the headers that are visible, wich makes it useless */}
-        {table.getAllFlatColumns().map((column) => (
+        {orderedColumns.map((column) => (
           <div key={column.id} className="g-flex g-items-center g-gap-2">
             <Checkbox
               checked={column.getIsVisible()}

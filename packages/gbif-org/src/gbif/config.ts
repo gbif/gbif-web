@@ -205,14 +205,6 @@ export const gbifConfig: Config = {
     ],
     tabs: ['table', 'gallery', 'map', 'clusters', 'datasets', 'dashboard', 'download'],
     defaultTab: 'table',
-    defaultEnabledTableColumns: ['scientificName', 'features', 'catalogNumber'],
-    // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
-    // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
-    // scope: {
-    //   type: 'equals',
-    //   key: 'country',
-    //   value: 'DK',
-    // },
   },
   disableInlineTableFilterButtons: false,
   // messages: {

@@ -13,17 +13,15 @@ import { useContext, useEffect, useMemo } from 'react';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
 import { useLiteratureColumns } from './columns';
+import {
+  FallbackTableOptions,
+  useAvailableAndDefaultEnabledColumns,
+} from '@/components/searchTable/useAvailableAndDefaultEnabledColumns';
 
-// TODO: Should maybe be moved to the configBuilder
-const DAFAULT_AVAILABLE_TABLE_COLUMNS = Object.freeze([
-  'titleAndAbstract',
-  'literatureType',
-  'year',
-  'relevance',
-  'topics',
-]);
-
-const DEFAULT_ENABLED_TABLE_COLUMNS = Object.freeze([...DAFAULT_AVAILABLE_TABLE_COLUMNS]);
+const fallbackOptions: FallbackTableOptions = {
+  prefixColumns: ['titleAndAbstract'],
+  defaultEnabledTableColumns: ['literatureType', 'year', 'relevance', 'topics'],
+};
 
 const LITERATURE_TABLE_SEARCH = /* GraphQL */ `
   query LiteratureTableSearch($from: Int, $size: Int, $predicate: Predicate) {
@@ -116,22 +114,12 @@ export function LiteratureTable() {
     [data]
   );
 
-  // TODO: Should the logic be located in the config?
-  const availableTableColumns = useMemo(
-    () => [
-      'titleAndAbstract',
-      ...(config?.literatureSearch?.availableTableColumns ?? DAFAULT_AVAILABLE_TABLE_COLUMNS),
-    ],
-    [config]
-  );
-
-  const defaultEnabledTableColumns = useMemo(
-    () => [
-      'title',
-      ...(config?.literatureSearch?.defaultEnabledTableColumns ?? DEFAULT_ENABLED_TABLE_COLUMNS),
-    ],
-    [config]
-  );
+  const { availableTableColumns, defaultEnabledTableColumns } =
+    useAvailableAndDefaultEnabledColumns({
+      searchMetadata: searchContext,
+      columns,
+      fallbackOptions,
+    });
 
   return (
     <div className="g-flex g-flex-col g-h-full">
