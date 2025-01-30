@@ -1,7 +1,10 @@
 {
+  "BIOMEDICAL_RESEARCH_INSTITUTE": "Instituto de investigación biomédica",
+  "BOTANICAL_GARDEN": "Jardín botánico",
   "HERBARIUM": "Herbario",
   "LIVING_ORGANISM_COLLECTION": "Colección de organismos vivos",
   "MEDICAL_RESEARCH_INSTITUTE": "Instituto de investigación médica",
   "MUSEUM": "Museo",
-  "MUSEUM_HERBARIUM_PRIVATE_NON_PROFIT": "Herbario de museo privado sin fines de lucro"
+  "MUSEUM_HERBARIUM_PRIVATE_NON_PROFIT": "Herbario de museo privado sin fines de lucro",
+  "OTHER_INSTITUTIONAL_TYPE": "Otro tipo institucional"
 }
