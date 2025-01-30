@@ -9,12 +9,10 @@ import { LiteratureTableSearchQuery, LiteratureTableSearchQueryVariables } from 
 import useQuery from '@/hooks/useQuery';
 import { ExtractPaginatedResult } from '@/types';
 import { notNull } from '@/utils/notNull';
-import { useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo } from 'react';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
 import { useLiteratureColumns } from './columns';
-import { stringify } from '@/utils/querystring';
-import { DownloadAsTSVLink } from '@/components/downloadAsTSVLink';
 
 // TODO: Should maybe be moved to the configBuilder
 const DAFAULT_AVAILABLE_TABLE_COLUMNS = Object.freeze([
@@ -77,7 +75,6 @@ export function LiteratureTable() {
   const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
   const filterContext = useContext(FilterContext);
   const config = useConfig();
-  const [tsvUrl, setTsvUrl] = useState('');
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
 
@@ -92,11 +89,6 @@ export function LiteratureTable() {
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
-
-    const downloadUrl = `${import.meta.env.PUBLIC_API_V1}/literature/export?format=TSV&${
-      query ? stringify(query) : ''
-    }`;
-    setTsvUrl(downloadUrl);
 
     load({
       variables: {
@@ -149,7 +141,6 @@ export function LiteratureTable() {
           loading={loading}
           message="counts.nResults"
         />
-        <DownloadAsTSVLink tsvUrl={tsvUrl} />
       </div>
       <SearchTable
         lockColumnLocalStoreKey="literatureSearchTableLockColumn"
