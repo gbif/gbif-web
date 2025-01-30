@@ -55,21 +55,30 @@ const ContentWrapper = React.forwardRef(
             <CommandEmpty>No matching filters</CommandEmpty>
             <CommandList>
               <CommandGroup>
-                {Object.keys(filters).map((filterHandle) => {
-                  const { translatedFilterName } = filters[filterHandle];
-                  return (
-                    <CommandItem
-                      key={filterHandle}
-                      value={translatedFilterName}
-                      className="g-flex g-items-center g-justify-between g-w-full"
-                      onSelect={() => {
-                        setActiveFilterHandle(filterHandle);
-                      }}
-                    >
-                      {translatedFilterName}
-                    </CommandItem>
-                  );
-                })}
+                {Object.keys(filters)
+                  .sort((x, y) => {
+                    // sort filters by translatedFilterName
+                    const xName = filters[x]?.translatedFilterName ?? x;
+                    const yName = filters[y]?.translatedFilterName ?? y;
+                    if (xName < yName) return -1;
+                    if (xName > yName) return 1;
+                    return 0;
+                  })
+                  .map((filterHandle) => {
+                    const { translatedFilterName } = filters[filterHandle];
+                    return (
+                      <CommandItem
+                        key={filterHandle}
+                        value={translatedFilterName}
+                        className="g-flex g-items-center g-justify-between g-w-full"
+                        onSelect={() => {
+                          setActiveFilterHandle(filterHandle);
+                        }}
+                      >
+                        {translatedFilterName}
+                      </CommandItem>
+                    );
+                  })}
               </CommandGroup>
             </CommandList>
           </Command>
