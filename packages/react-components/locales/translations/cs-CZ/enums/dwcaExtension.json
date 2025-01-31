@@ -1,6 +1,8 @@
 {
   "http://rs.tdwg.org/dwc/terms/Occurrence": "Výskyt",
+  "http://data.ggbn.org/schemas/ggbn/terms/Loan": "Půjčka",
   "http://data.ggbn.org/schemas/ggbn/terms/MaterialSample": "Vzorek materiálu",
+  "http://data.ggbn.org/schemas/ggbn/terms/Permit": "Povolení",
   "http://data.ggbn.org/schemas/ggbn/terms/Preparation": "Preparace",
   "http://data.ggbn.org/schemas/ggbn/terms/Preservation": "Konzervace",
   "http://rs.tdwg.org/dwc/terms/Identification": "Identifikace",
