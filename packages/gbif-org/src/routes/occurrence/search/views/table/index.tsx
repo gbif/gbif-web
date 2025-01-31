@@ -107,7 +107,6 @@ const createRowLinkDirect = (
 const createRowLinkDrawer = (
   row: Row<SingleOccurrenceSearchResult>
 ): DynamicLinkProps<typeof Link> => ({
-  pageId: 'occurrenceSearch',
   searchParams: { entity: `o_${row.original.key}` },
   keepExistingSearchParams: true,
 });

@@ -32,7 +32,7 @@ export function useLink() {
       searchParams,
       keepExistingSearchParams = false,
     }: {
-      pageId: string;
+      pageId?: string;
       variables?: Record<string, string>;
       searchParams?: ParamQuery;
       keepExistingSearchParams?: boolean;
@@ -103,6 +103,20 @@ export function useLink() {
         return { to: link, type: 'href' };
       }
 
+      if (!pageId && searchParams) {
+        link = location.pathname;
+
+        if (link.includes('?')) {
+          link = `${link}&${stringify(searchParams)}`;
+        } else {
+          link = `${link}?${stringify(searchParams)}`;
+        }
+
+        if (keepExistingSearchParams && location.search) {
+          link = `${link}${link.includes('?') ? '&' : '?'}${location.search.slice(1)}`;
+        }
+      }
+
       // If preview=true is present in the query params, add it to the link
       const preview = new URLSearchParams(location.search).get('preview') === 'true';
       if (link && preview) {
@@ -111,7 +125,7 @@ export function useLink() {
 
       return { to: link, type: 'link' };
     };
-  }, [pages, localizeLink, locale, location.search]);
+  }, [pages, localizeLink, locale, location.search, location.pathname]);
   return createLink;
 }
 
@@ -135,8 +149,8 @@ export function useDynamicLink({
   const pages = parentPages ?? currentPages;
 
   const result = useMemo<{ to: string; type: 'link' | 'href' }>(() => {
-    // if a pageId is provided, use the pageId to get the link
-    if (pageId && pages) {
+    // if a pageId is provided, use the pageId to get the link (this also works for links without a pageId, but with searchParams)
+    if ((pageId || searchParams) && pages) {
       const { to: link, type } = createLink({
         pageId,
         variables,
