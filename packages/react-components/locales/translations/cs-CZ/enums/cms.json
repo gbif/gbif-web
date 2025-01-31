@@ -1,9 +1,9 @@
 {
   "projectGrantType": {
-    "REGIONAL": "",
-    "SMALL": "",
-    "NATIONAL": "",
-    "DATA_USE": "",
+    "REGIONAL": "Regionální granty na mobilizaci dat o biologické rozmanitosti",
+    "SMALL": "Grant na mobilizaci dat o biologické rozmanitosti na úrovni institucí",
+    "NATIONAL": "Národní granty na mobilizaci dat o biologické rozmanitosti",
+    "DATA_USE": "Grant na využití dat",
     "undefined": "Neuvedeno"
   },
   "projectStatus": {
