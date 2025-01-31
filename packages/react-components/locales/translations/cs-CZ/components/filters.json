@@ -220,17 +220,17 @@
     "count": ""
   },
   "countriesOfCoverage": {
-    "name": "",
+    "name": "Země nebo oblast pokrytí",
     "count": "",
     "description": ""
   },
   "collectionDescriptorCountry": {
-    "name": "",
+    "name": "Země nebo oblast pokrytí",
     "count": "",
     "description": ""
   },
   "countriesOfResearcher": {
-    "name": "",
+    "name": "Země nebo oblast výzkumného pracovníka",
     "count": ""
   },
   "typeStatus": {
