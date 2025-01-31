@@ -1,10 +1,19 @@
 {
+  "features": "Vlastnosti",
   "citations": "Citace",
   "occurrences": "Výskyty",
   "numberSpecimens": "Počet exemplářů",
+  "gbifNumberSpecimens": "Exempláře v GBIF",
   "title": "Název",
+  "titleAndAbstract": "Název a abstrakt",
   "registered": "Registrováno",
+  "hostedDatasets": "Hostované datové sady",
+  "pubDatasets": "Zveřejněné datové sady",
+  "parents": "Nadřazený",
   "institution": "Instituce",
   "collection": "Sbírka",
-  "collectionCount": "Sbírky"
+  "collectionCount": "Sbírky",
+  "active": "Je aktivní",
+  "activeInstitution": "Je aktivní",
+  "activeCollection": "Je aktivní"
 }
