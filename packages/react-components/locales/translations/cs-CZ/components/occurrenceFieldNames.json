@@ -209,5 +209,7 @@
   "coordinatesTextual": "Tento záznam je zveřejněn bez souřadnic, ale obsahuje textový popis jeho umístění.",
   "coordinatesMissing": "Chybí souřadnice",
   "taxonomicClassification": "Klasifikace",
-  "images": "Multimédia"
+  "images": "Multimédia",
+  "eventTypeHierarchyJoined": "Struktura",
+  "eventType": "Typ události"
 }
