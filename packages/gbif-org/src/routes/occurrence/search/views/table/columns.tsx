@@ -521,5 +521,5 @@ export function useOccurrenceColumns({
         },
       },
     ];
-  }, [showPreview, filters]);
+  }, [showPreview, filters, disableCellFilters]);
 }

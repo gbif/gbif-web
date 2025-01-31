@@ -2,7 +2,7 @@ import { asStringParams, ParamQuery, parseParams } from '@/utils/querystring';
 import { Base64 } from 'js-base64';
 import isPlainObject from 'lodash/isPlainObject';
 import objectHash from 'object-hash';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { filter2v1 } from '.';
 import { cleanUpFilter, FilterType } from '../../contexts/filter';
@@ -27,7 +27,6 @@ export function useFilterParams({
   paramsToRemove: string[];
 }): [FilterType, (filter: FilterType) => void] {
   const [remove] = useState(paramsToRemove ?? []);
-  const [filter, setPublicFilter] = useState({});
   const [emptyQuery, setEmptyQuery] = useState({});
   const [observedParams, setObservedParams] = useState<string[]>([]);
   const [query, setQuery] = useQueryParams({ observedParams });
@@ -52,6 +51,19 @@ export function useFilterParams({
     setEmptyQuery(empty);
   }, [filterConfig, remove]);
 
+  // Transform the query from the url to the naming the consumer prefers.
+  // Field names can change according to the configuration
+  const filter = useMemo(() => {
+    let f;
+    if (query?.filter) {
+      const encodedFilter = Array.isArray(query.filter) ? query.filter[0] : query.filter;
+      f = Base64JsonParam.decode(encodedFilter);
+    } else {
+      f = v12filter(query, filterConfig);
+    }
+    return f;
+  }, [query, filterConfig]);
+
   // transform the filter to a string that can go into the url.
   // Field names can change according to the configuration
   const setFilter = useCallback(
@@ -70,19 +82,6 @@ export function useFilterParams({
     },
     [filterConfig, emptyQuery, filter, setQuery]
   );
-
-  // Transform the query from the url to the naming the consumer prefers.
-  // Field names can change according to the configuration
-  useEffect(() => {
-    let f;
-    if (query?.filter) {
-      const encodedFilter = Array.isArray(query.filter) ? query.filter[0] : query.filter;
-      f = Base64JsonParam.decode(encodedFilter);
-    } else {
-      f = v12filter(query, filterConfig);
-    }
-    setPublicFilter(f);
-  }, [query, filterConfig]);
 
   return [filter, setFilter];
 }

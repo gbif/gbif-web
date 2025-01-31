@@ -1,9 +1,7 @@
 import { useStringParam } from '@/hooks/useParam';
 
 export function useEntityDrawer() {
-  const [previewKey, setPreviewKey] = useStringParam({
+  return useStringParam({
     key: 'entity',
   });
-
-  return [previewKey, (key?: string | undefined) => setPreviewKey(key)] as const;
 }

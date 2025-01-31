@@ -86,18 +86,13 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
   filters: Filters;
 } {
   const { formatMessage } = useIntl();
-  const [countries, setCountries] = useState<{ key: string; title: string }[]>([]);
 
-  // first translate relevant enums
-  useEffect(() => {
-    const countryValues = country.map((code) => ({
+  const countries: { key: string; title: string }[] = useMemo(() => {
+    return country.map((code) => ({
       key: code,
       title: formatMessage({ id: `enums.countryCode.${code}` }),
     }));
-    if (hash(countries) !== hash(countryValues)) {
-      setCountries(countryValues);
-    }
-  }, [formatMessage, countries]);
+  }, [formatMessage]);
 
   const countrySuggest = useCallback(
     ({ q }: SuggestFnProps) => {
