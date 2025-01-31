@@ -75,14 +75,14 @@ export function ContactActions({ children }: { children: React.ReactNode }) {
 }
 
 export function ContactAction({ children }: { children: React.ReactNode }) {
-  return <div className="g-text-slate-400 [&_svg]:g-me-4 g-mb-1">{children}</div>;
+  return <div className="g-text-slate-500 [&_svg]:g-me-4 g-mb-1">{children}</div>;
 }
 
 export function ContactTelephone({ tel }: { tel?: string | null }) {
   if (!tel) return null;
   return (
     <ContactAction>
-      <a href={`tel:${tel}`} className="g-flex g-items-center">
+      <a href={`tel:${tel}`} className="g-flex g-items-center g-text-inherit">
         <PhoneIcon />
         {tel}
       </a>
@@ -94,7 +94,7 @@ export function ContactEmail({ email }: { email?: string | null }) {
   if (!email) return null;
   return (
     <ContactAction>
-      <a href={`mailto:${email}`} className="g-flex g-items-center">
+      <a href={`mailto:${email}`} className="g-flex g-items-center g-text-inherit">
         <MailIcon />
         {email}
       </a>
