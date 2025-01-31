@@ -1,0 +1,11 @@
+{
+  "tabs": {
+    "about": "À propos",
+    "typeMaterial": "Archive annotée par GBIF",
+    "metrics": "Statistiques"
+  },
+  "publishedIn": "Publié dans",
+  "vernacularNames": "Noms vernaculaires",
+  "rank": "Niveau du taxon",
+  "source": "Source"
+}
