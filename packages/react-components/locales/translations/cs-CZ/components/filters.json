@@ -40,7 +40,7 @@
     "description": ""
   },
   "specimensInGbif": {
-    "name": "",
+    "name": "Exempláře v GBIF",
     "count": "",
     "description": ""
   },
@@ -331,7 +331,7 @@
     "description": ""
   },
   "organismId": {
-    "name": "",
+    "name": "Organism id",
     "count": "",
     "description": ""
   },
