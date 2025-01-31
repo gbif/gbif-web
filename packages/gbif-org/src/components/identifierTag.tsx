@@ -139,7 +139,7 @@ export const IdentifierTag = React.forwardRef(
         dir="ltr"
         ref={ref}
         className={cn(
-          'g-inline-block g-text-sm g-no-underline [&>.gbif-identifierType]:hover:g-primary-600 [&>.gbif-identifierType]:hover:g-text-primaryContrast-600',
+          'g-inline-block g-text-sm g-text-inherit g-no-underline [&>.gbif-identifierType]:hover:g-primary-600 [&>.gbif-identifierType]:hover:g-text-primaryContrast-600',
           className
         )}
         {...props}
