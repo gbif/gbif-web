@@ -17,23 +17,23 @@
     "between": "{from} do {to}",
     "lt": "Pod {to}",
     "gt": "Nad {from}",
-    "e": ""
+    "e": "{from}m"
   },
   "compactTime": {
     "between": "{from} do {to}",
-    "lt": "",
-    "gt": "",
+    "lt": "Před {to}",
+    "gt": "Po {from}",
     "e": "{from}"
   },
   "year": {
-    "between": "",
-    "lt": "",
-    "gt": "",
+    "between": "Rok {from} do {to}",
+    "lt": "Před rokem {to}",
+    "gt": "Po roce {from}",
     "e": ""
   },
   "coordinateUncertainty": {
-    "between": "",
-    "lt": "",
+    "between": "Souřadnicová neurčitost {from}m do {to}m",
+    "lt": "Souřadnicová neurčitost pod {to}m",
     "gt": "",
     "e": ""
   },
