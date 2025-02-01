@@ -41,5 +41,6 @@
   "COORDINATE_REPROJECTION_SUSPICIOUS": "Indikuje úspěšnou reprojekci souřadnic podle zadaného vzoru, která však vede k posunu vzoru o více než 0,1 desetinného stupně.",
   "BASIONYM_AUTHOR_MISMATCH": "Autorství původního názvu se neshoduje s autorstvím v závorce skutečného názvu.",
   "COUNTRY_DERIVED_FROM_COORDINATES": "Interpretovaná země je založena na souřadnicích, nikoli na doslovných řetězcových informacích.",
-  "RECORD_NOT_UNIQUELY_IDENTIFIED": "Záznam v základním souboru není jednoznačně identifikován"
+  "RECORD_NOT_UNIQUELY_IDENTIFIED": "Záznam v základním souboru není jednoznačně identifikován",
+  "RECORD_IDENTIFIER_NOT_FOUND": "V souboru nebyl nalezen žádný identifikátor záznamu"
 }
