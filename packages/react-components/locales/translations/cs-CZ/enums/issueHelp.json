@@ -1,4 +1,5 @@
 {
+  "BASIS_OF_RECORD_INVALID": "Hodnota basisOfRecord buď chybí, nebo je neplatná. Hodnota musí odpovídat slovníku Darwin Core Type Vocabulary.",
   "ELEVATION_NON_NUMERIC": "Nastavit, pokud je nadmořská výška nečíselná hodnota",
   "TAXON_MATCH_FUZZY": "Přiřazení k taxonomické páteři lze provést pouze pomocí neurčité, nikoli přesné shody.",
   "DEPTH_NOT_METRIC": "Nastavit, pokud není dodaná hloubka uvedena v metrické soustavě, například s použitím stop místo metrů.",
