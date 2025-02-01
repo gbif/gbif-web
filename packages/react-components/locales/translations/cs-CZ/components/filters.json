@@ -98,7 +98,7 @@
   "identifier": {
     "name": "Identifikátor",
     "count": "",
-    "description": ""
+    "description": "Zde by měl být uveden krátký popis součásti."
   },
   "institutionType": {
     "name": "Typ",
@@ -458,17 +458,17 @@
   "datasetType": {
     "name": "Typ datové sady",
     "count": "",
-    "description": ""
+    "description": "Zde by měl být uveden krátký popis součásti."
   },
   "datasetSubtype": {
     "name": "Podtyp datové sady",
     "count": "",
-    "description": ""
+    "description": "Zde by měl být uveden krátký popis součásti."
   },
   "institutionKey": {
     "name": "Instituce",
     "count": "",
-    "description": ""
+    "description": "Název instituce, která má v úschově předmět(y) nebo informace uvedené v záznamu."
   },
   "name": {
     "name": "Název",
@@ -489,12 +489,12 @@
   "verbatimScientificName": {
     "name": "Doslovný vědecký název",
     "count": "",
-    "description": ""
+    "description": "Vědecký název uvedený vydavatelem dat bez normalizace."
   },
   "networkKey": {
     "name": "Síť",
     "count": "",
-    "description": ""
+    "description": "Zde by měl být uveden krátký popis součásti."
   },
   "literatureType": {
     "name": "Typ literatury",
