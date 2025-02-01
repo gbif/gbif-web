@@ -15,8 +15,8 @@
     "description": ""
   },
   "hasGeospatialIssues": {
-    "name": "",
-    "count": "",
+    "name": "Má geoprostorové problémy",
+    "count": "Má geoprostorové problémy",
     "description": ""
   },
   "collectionKey": {
@@ -173,7 +173,7 @@
     "description": ""
   },
   "publishingCountryCode": {
-    "name": "",
+    "name": "Země nebo oblast zveřejnění",
     "count": "",
     "description": ""
   },
