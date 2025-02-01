@@ -243,67 +243,67 @@
   "year": {
     "name": "Rok",
     "count": "",
-    "description": ""
+    "description": "Rok, ve kterém k události došlo."
   },
   "sampleSizeUnit": {
     "name": "Jednotka velikosti vzorku",
     "count": "",
-    "description": ""
+    "description": "Měrná jednotka pro \"hodnotu velikosti vzorku\"."
   },
   "coordinateUncertainty": {
     "name": "Neurčitost souřadnic",
     "count": "",
-    "description": ""
+    "description": "Měřítko minimální vzdálenosti v metrech od souřadnice, v rámci které může být lokalita interpretována."
   },
   "depth": {
     "name": "Hloubka",
     "count": "",
-    "description": ""
+    "description": "Vzdálenost pod místním povrchem v metrech."
   },
   "organismQuantity": {
     "name": "Množství organismů",
     "count": "",
-    "description": ""
+    "description": "Hodnota množství organismů, kde typ měření je uveden v poli \"Typ množství organismů\"."
   },
   "sampleSizeValue": {
     "name": "Hodnota velikosti vzorku",
     "count": "",
-    "description": ""
+    "description": "Hodnota velikosti vzorku, kde měrné jednotky jsou uvedeny v \"Jednotce velikosti vzorku\"."
   },
   "relativeOrganismQuantity": {
-    "name": "",
+    "name": "Relativní množství organismu",
     "count": "",
-    "description": ""
+    "description": "Množství biologického materiálu vztažené k velikosti vzorku, vypočtené jako organismQuantity na sampleSize, pokud jsou organismQuantityType a sampleSizeUnit jednoznačné."
   },
   "month": {
     "name": "Měsíc",
     "count": "",
-    "description": ""
+    "description": "Celé číslo měsíce, ve kterém k události došlo."
   },
   "continent": {
     "name": "Kontinent",
     "count": "",
-    "description": ""
+    "description": "Název kontinentu, na kterém se lokalita nachází.  Toto pole není odvozeno, ale vyplňuje se pouze tehdy, pokud je poskytnuto vydavatelem datové sady. Použití tohoto filtru může vyloučit příslušné záznamy."
   },
   "protocol": {
-    "name": "",
+    "name": "Publikační protokol",
     "count": "",
-    "description": ""
+    "description": "Technický protokol, jehož prostřednictvím je datová sada sdílena."
   },
   "establishmentMeans": {
-    "name": "",
+    "name": "Zavedení znamená",
     "count": "",
-    "description": ""
+    "description": "Způsob, jakým se organismus dostal na dané místo v daném čase."
   },
   "recordedBy": {
     "name": "Zaznamenáno od",
     "count": "",
-    "description": ""
+    "description": "Jména osoby, osob, skupin nebo organizací odpovědných za zaznamenání původní události."
   },
   "recordNumber": {
     "name": "Číslo záznamu",
     "count": "",
-    "description": ""
+    "description": "Identifikátor přidělený události v době jejího zaznamenání."
   },
   "collectionCode": {
     "name": "Kód sbírky",
@@ -316,9 +316,9 @@
     "description": ""
   },
   "recordedById": {
-    "name": "",
+    "name": "Zaznamenáno podle ID",
     "count": "",
-    "description": ""
+    "description": "Identifikátor osoby, osob, skupin nebo organizací odpovědných za zaznamenání původního výskytu."
   },
   "identifiedById": {
     "name": "",
@@ -403,30 +403,30 @@
   "samplingProtocol": {
     "name": "Protokol o odběru vzorků",
     "count": "",
-    "description": ""
+    "description": "Název, odkaz nebo popis metody nebo protokolu použitého během události."
   },
   "occurrenceStatus": {
     "name": "Status výskytu",
     "count": "",
-    "description": ""
+    "description": "Přítomnost nebo nepřítomnost organismů daného taxonu."
   },
   "gadmGid": {
-    "name": "",
+    "name": "Správní oblast",
     "count": "",
-    "description": ""
+    "description": "Název libovolné správní oblasti z GADM.org určený při zpracování záznamu."
   },
   "identifiedBy": {
     "name": "Identifikováno od",
     "count": "",
-    "description": ""
+    "description": "Osoba, lidé, skupiny nebo organizace odpovědné za určení vědeckého názvu organismu."
   },
   "isInCluster": {
     "name": "je ve shluku",
     "count": "",
-    "description": ""
+    "description": "Zda bylo zjištěno, že záznam obsahuje související záznamy."
   },
   "isSequenced": {
-    "name": "",
+    "name": "Je sekvencován",
     "count": "",
     "description": "Zda záznam obsahuje informace o sekvenci."
   },
