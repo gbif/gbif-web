@@ -35,5 +35,8 @@
   "TAXONOMIC_STATUS_INVALID": "Dwc:taxonomicStatus nelze interpretovat",
   "ML_NOT_FOUND": "Nebyl nalezen dokument EML",
   "MODIFIED_DATE_INVALID": "Pro dc:modified je uvedeno (částečně) neplatné datum, například neexistující datum, neplatný měsíc s nulou atd.",
-  "REQUIRED_TERM_MISSING": "Chybí požadovaný výraz pro jádro/rozšíření"
+  "REQUIRED_TERM_MISSING": "Chybí požadovaný výraz pro jádro/rozšíření",
+  "PARENT_NAME_USAGE_ID_INVALID": "(popis chybí)",
+  "COORDINATE_REPROJECTION_SUSPICIOUS": "Indikuje úspěšnou reprojekci souřadnic podle zadaného vzoru, která však vede k posunu vzoru o více než 0,1 desetinného stupně.",
+  "BASIONYM_AUTHOR_MISMATCH": "Autorství původního názvu se neshoduje s autorstvím v závorce skutečného názvu."
 }
