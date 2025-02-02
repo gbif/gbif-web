@@ -1,3 +1,7 @@
 {
+  "TAXONOMIC_AUTHORITY": "Taxonomická autorita",
+  "NOMENCLATOR_AUTHORITY": "Nomenklaturní autorita",
+  "INVENTORY_THEMATIC": "Tematický inventář",
+  "SPECIMEN": "Exemplář",
   "OBSERVATION": "Pozorování"
 }
