@@ -13,10 +13,11 @@ export const notImplementedRoutes: RouteObjectWithPlugins[] = [
   },
   {
     id: 'countryKey',
-    gbifRedirect: (params) => {
-      if (typeof params.key !== 'string') throw new Error('Invalid key');
-      if (params.key === 'search') return null;
-      return `/country/${params.key}`;
+    gbifRedirect: ({ key }) => {
+      if (typeof key !== 'string' && typeof key !== 'number')
+        throw new Error(`'Invalid key (key is of type ${typeof key})`);
+      if (key === 'search') return null;
+      return `/country/${key}`;
     },
     path: 'country/:key',
     element: <NotImplemented />,

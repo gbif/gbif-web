@@ -11,7 +11,8 @@ export const collectionKeyRoute: RouteObjectWithPlugins = {
   id,
   path: 'collection/:key',
   gbifRedirect: ({ key } = {}, { grSciCollLocalePrefix = '' }) => {
-    if (typeof key !== 'string') throw new Error('Invalid key');
+    if (typeof key !== 'string' && typeof key !== 'number')
+      throw new Error(`'Invalid key (key is of type ${typeof key})`);
     if (key === 'search') return null;
     return `${import.meta.env.PUBLIC_GRSCICOLL}${grSciCollLocalePrefix}/collection/${key}`;
   },

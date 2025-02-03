@@ -17,10 +17,13 @@
     <div id="root" class="gbif"></div>
 
     <script type="module">
-      import { render } from '/gbif-lib.js';
+      import { render, renderDashboard, languages } from '/gbif-lib.js';
 
-      render(document.getElementById('root'), {
+      const root = document.getElementById('root');
+
+      const config = {
         gbifEnv: 'staging',
+        pages: [{ id: 'occurrenceSearch' }, { id: 'datasetSearch' }, { id: 'datasetKey' }],
         extraOccurrenceSearchPages: [
           {
             path: 'danish-occurrence/search',
@@ -38,34 +41,7 @@
             },
           },
         ],
-        pages: [
-          {
-            id: 'occurrenceSearch',
-          },
-          {
-            id: 'collectionSearch',
-          },
-        ],
-        languages: [
-          {
-            code: 'en',
-            label: 'English',
-            default: true,
-            textDirection: 'ltr',
-          },
-          {
-            code: 'da',
-            label: 'Dansk',
-            default: false,
-            textDirection: 'ltr',
-          },
-          {
-            code: 'ar',
-            label: 'العربية',
-            default: false,
-            textDirection: 'rtl',
-          },
-        ],
+        languages: languages.filter((lang) => ['en', 'fr', 'es'].includes(lang.code)),
         occurrencePredicate: {
           type: 'and',
           predicates: [
@@ -125,6 +101,47 @@
               GEOLOGY: 'GEOLOGY',
             },
           },
+        },
+      };
+
+      // render(root, config);
+
+      renderDashboard({
+        rootElement: root,
+        config,
+        locale: languages.find((lang) => lang.code === 'en'),
+        charts: [
+          'taxa',
+          'synonyms',
+          'continent',
+          'country',
+          'stateProvince',
+          'year',
+          'month',
+          'recordedBy',
+          'collectionKey',
+          'institutionKey',
+          'typeStatus',
+          'iucn',
+          'datasetKey',
+          'occurrenceSummary',
+          'occurrenceIssue',
+          'dataQuality',
+        ],
+        predicate: {
+          type: 'or',
+          predicates: [
+            {
+              type: 'equals',
+              key: 'countryCode',
+              value: 'DK',
+            },
+            {
+              type: 'equals',
+              key: 'countryCode',
+              value: 'SE',
+            },
+          ],
         },
       });
     </script>

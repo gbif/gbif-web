@@ -7,6 +7,8 @@ import { RootErrorPage } from '@/routes/rootErrorPage';
 import { Outlet } from 'react-router-dom';
 import { HpRootLayout } from './hpRootLayout';
 
+export const hostedPortalRoutes = [...dataRoutes, ...notImplementedRoutes, notFoundRoute];
+
 export function createHostedPortalRoutes(config: Config) {
   return applyReactRouterPlugins(
     [
@@ -15,7 +17,7 @@ export function createHostedPortalRoutes(config: Config) {
         children: [
           {
             errorElement: <RootErrorPage />,
-            children: [...dataRoutes, ...notImplementedRoutes, notFoundRoute],
+            children: hostedPortalRoutes,
           },
         ],
       },

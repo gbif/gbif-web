@@ -85,3 +85,11 @@ function addPaths(
 
   return filteredRoutes;
 }
+
+export function getStandalonePageContext(config: Config, routes: RouteObjectWithPlugins[]) {
+  const pages: PageConfig[] = [];
+  // following line push items to pages array
+  addPaths(routes, pages, structuredClone(config.pages));
+
+  return pages.map((page) => ({ ...page, isCustom: true }));
+}

@@ -8,6 +8,9 @@ import { HpRootLayout } from './hpRootLayout';
 import { RootErrorPage } from '@/routes/rootErrorPage';
 import StaticDashboard from '@/components/dashboard/StaticDashboard';
 import { Predicate } from '@/gql/graphql';
+import { getStandalonePageContext, PageContext } from '@/reactRouterPlugins/applyPagePaths/plugin';
+import { hostedPortalRoutes } from './routes';
+import { useMemo } from 'react';
 
 type Props = {
   config: Config;
@@ -17,6 +20,8 @@ type Props = {
 };
 
 function DashboardApp({ config, predicate, charts, locale }: Props) {
+  const pageContext = useMemo(() => getStandalonePageContext(config, hostedPortalRoutes), []);
+
   const routes = applyReactRouterPlugins(
     [
       {
@@ -25,7 +30,11 @@ function DashboardApp({ config, predicate, charts, locale }: Props) {
           {
             index: true,
             errorElement: <RootErrorPage />,
-            element: <StaticDashboard predicate={predicate} charts={charts} />,
+            element: (
+              <PageContext.Provider value={pageContext}>
+                <StaticDashboard predicate={predicate} charts={charts} />
+              </PageContext.Provider>
+            ),
           },
         ],
       },

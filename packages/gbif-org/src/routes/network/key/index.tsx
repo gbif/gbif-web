@@ -11,7 +11,8 @@ const id = 'networkKey';
 export const networkKeyRoute: RouteObjectWithPlugins = {
   id,
   gbifRedirect: ({ key } = {}, { gbifOrgLocalePrefix = '' }) => {
-    if (typeof key !== 'string') throw new Error('Invalid key');
+    if (typeof key !== 'string' && typeof key !== 'number')
+      throw new Error(`'Invalid key (key is of type ${typeof key})`);
     if (key === 'search') return null;
     return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/network/${key}`;
   },
