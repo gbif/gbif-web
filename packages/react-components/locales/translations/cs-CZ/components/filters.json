@@ -53,16 +53,16 @@
     "name": "",
     "count": "",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
+    "placeholderLat": "Zeměpisná šířka",
+    "placeholderLon": "Zeměpisná délka",
     "placeholderDist": ""
   },
   "geometry": {
     "name": "Poloha",
     "count": "",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
+    "placeholderLat": "Zeměpisná šířka",
+    "placeholderLon": "Zeměpisná délka",
     "placeholderDist": ""
   },
   "relevance": {
