@@ -8,11 +8,11 @@ import useBelow from '@/hooks/useBelow';
 import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
 import { Resizable } from 're-resizable';
 import {
-    MdAddChart,
-    MdBrokenImage,
-    MdDeleteOutline as MdClose,
-    MdOutlineDragIndicator as MdDragHandle,
-    MdShare
+  MdAddChart,
+  MdBrokenImage,
+  MdDeleteOutline as MdClose,
+  MdOutlineDragIndicator as MdDragHandle,
+  MdShare,
 } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useUncontrolledProp } from 'uncontrollable';
@@ -111,10 +111,10 @@ function DashboardBuilder({
   const deviceSize = isBelow800
     ? 'small'
     : isBelow1200
-      ? 'medium'
-      : isBelow1800
-        ? 'large'
-        : 'xlarge';
+    ? 'medium'
+    : isBelow1800
+    ? 'large'
+    : 'xlarge';
   const maxGroups =
     deviceSize === 'small' ? 1 : deviceSize === 'medium' ? 2 : deviceSize === 'large' ? 3 : 4;
   const disableAdd = maxGroups < state.length;
