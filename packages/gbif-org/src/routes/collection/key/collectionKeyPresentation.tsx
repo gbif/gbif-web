@@ -198,7 +198,7 @@ export function CollectionKey({
                             <GenericFeature>
                               <CatalogIcon />
                               <span>
-                                <a href={collection?.catalogUrls[0]}>
+                                <a href={collection?.catalogUrls[0]} className="g-text-inherit">
                                   <FormattedMessage
                                     id="grscicoll.dataCatalog"
                                     defaultMessage="Data catalog"
@@ -210,7 +210,7 @@ export function CollectionKey({
                           {contacts.length > 0 && (
                             <GenericFeature>
                               <PeopleIcon />
-                              <HashLink to="#contact">
+                              <HashLink to="#contact" className="g-text-inherit">
                                 {contacts.length < contactThreshold && (
                                   <span>{contacts.join(' • ')}</span>
                                 )}
