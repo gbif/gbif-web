@@ -597,6 +597,7 @@ const chartGroups = {
       'verbatimTaxonId',
       'scientificName',
       'verbatimScientificName',
+      'synonyms',
     ],
   },
   provenance: {
