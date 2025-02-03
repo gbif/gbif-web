@@ -29,17 +29,17 @@
     "between": "Rok {from} do {to}",
     "lt": "Před rokem {to}",
     "gt": "Po roce {from}",
-    "e": ""
+    "e": "Rok je {from}"
   },
   "coordinateUncertainty": {
     "between": "Souřadnicová neurčitost {from}m do {to}m",
     "lt": "Souřadnicová neurčitost pod {to}m",
-    "gt": "",
-    "e": ""
+    "gt": "Neurčitost souřadnic nad {from}m",
+    "e": "Neurčitost souřadnic je {from}m"
   },
   "depth": {
-    "between": "",
-    "lt": "",
+    "between": "Hloubka {from} do {to}",
+    "lt": "Hloubka pod {to}",
     "gt": "",
     "e": ""
   },
