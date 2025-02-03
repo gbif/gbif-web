@@ -27,17 +27,17 @@
   "taxonomicStatus": {
     "name": "Stav",
     "count": "",
-    "description": ""
+    "description": "Počet držených exemplářů uvedený v popisu. Tento počet neodráží, kolik záznamů bylo digitalizováno a sdíleno."
   },
   "taxonRank": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Počet držených exemplářů uvedený v popisu. Tento počet neodráží, kolik záznamů bylo digitalizováno a sdíleno."
   },
   "numberSpecimens": {
     "name": "Počet exemplářů",
     "count": "",
-    "description": ""
+    "description": "Počet držených exemplářů uvedený v popisu. Tento počet neodráží, kolik záznamů bylo digitalizováno a sdíleno."
   },
   "specimensInGbif": {
     "name": "Exempláře v GBIF",
@@ -83,7 +83,7 @@
   "purposes": {
     "name": "Téma",
     "count": "",
-    "description": ""
+    "description": "Jaké jsou účely zdroje."
   },
   "eventDate": {
     "name": "Datum události",
@@ -123,7 +123,7 @@
   "taxonKey": {
     "name": "Vědecký název",
     "count": "",
-    "description": ""
+    "description": "Vědecký název, jak je uveden v páteřní taxonomii GBIF. Tyto názvy jsou normalizovány, aby se usnadnilo vyhledávání napříč datovými sadami. Je možné, že původně uvedený název může být nesprávně interpretován nebo neznámý. Pro vyhledávání v poskytnutých názvech použijte filtr \"Doslovný vědecký název\"."
   },
   "taxonKeyGrSciColl": {
     "name": "Vědecký název",
@@ -135,34 +135,34 @@
     "count": "",
     "isNotNull": "Má základ záznamu",
     "isNull": "Nemá základ záznamu",
-    "description": ""
+    "description": "Povaha důkazů, na nichž je záznam založen."
   },
   "institutionCode": {
     "name": "Kód instituce",
     "count": "",
-    "description": ""
+    "description": "Kód (nebo zkratka) instituce, která má v péči předmět(y) nebo informace uvedené v záznamu."
   },
   "catalogNumber": {
     "name": "Katalogové číslo",
     "count": "",
-    "description": ""
+    "description": "Identifikátor záznamu v rámci katalogu nebo sbírky."
   },
   "mediaType": {
     "name": "Typ média",
     "count": "",
-    "description": ""
+    "description": "Typy médií přístupné pro tento záznam."
   },
   "occurrenceIssue": {
     "name": "",
     "count": "",
     "isNotNull": "",
     "isNull": "",
-    "description": ""
+    "description": "Typy problémů nebo příznaků potenciálního zájmu zjištěných při zpracování dat."
   },
   "occurrenceCountry": {
     "name": "Země nebo oblast",
     "count": "",
-    "description": ""
+    "description": "Země nebo území, kde k události došlo"
   },
   "grsciCollCountry": {
     "description": ""
@@ -175,7 +175,7 @@
   "publishingCountryCode": {
     "name": "Země nebo oblast zveřejnění",
     "count": "",
-    "description": ""
+    "description": "Kód ISO země nebo území, ve kterém se nachází vydavatel dat."
   },
   "q": {
     "name": "",
