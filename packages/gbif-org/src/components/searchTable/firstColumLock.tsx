@@ -1,50 +1,23 @@
 import useBelow from '@/hooks/useBelow';
+import { Setter } from '@/types';
 import { interopDefault } from '@/utils/interopDefault';
-import { createContext, useContext, useMemo } from 'react';
 import _useLocalStorage from 'use-local-storage';
 // Used to import commonjs module as es6 module
 const useLocalStorage = interopDefault(_useLocalStorage);
 
-// TODO: This funcionaly is built into the table library, but for development speed i don't want to refactor it now.
-
-type FirstColumLockContextType = {
-  locked: boolean;
-  setLocked: React.Dispatch<React.SetStateAction<boolean | undefined>>;
-  hideLock: boolean;
-};
-const FirstColumLockContext = createContext<FirstColumLockContextType | undefined>(undefined);
-
-type Props = {
-  children: React.ReactNode;
-  lockColumnLocalStoreKey: string;
+type Result = {
+  firstColumnIsLocked: boolean;
+  setFirstColumnIsLocked: Setter<boolean>;
+  hideFirstColumnLock: boolean;
 };
 
-export function FirstColumLockProvider({ children, lockColumnLocalStoreKey }: Props) {
-  const [locked, setLocked] = useLocalStorage(lockColumnLocalStoreKey, true);
-
+export function useFirstColumLock(localStorageKey: string): Result {
+  const [locked, setLocked] = useLocalStorage(localStorageKey, true);
   const isMobile = useBelow(600, true);
 
-  const context: FirstColumLockContextType = useMemo(() => {
-    let _locked: boolean;
-    if (isMobile) _locked = false;
-    else _locked = locked;
-
-    return {
-      locked: _locked,
-      setLocked,
-      hideLock: isMobile,
-    };
-  }, [locked, setLocked, isMobile]);
-
-  return (
-    <FirstColumLockContext.Provider value={context}>{children}</FirstColumLockContext.Provider>
-  );
-}
-
-export function useFirstColumLock() {
-  const context = useContext(FirstColumLockContext);
-  if (context === undefined) {
-    throw new Error('useFirstColumLock must be used within a FirstColumLockProvider');
-  }
-  return context;
+  return {
+    firstColumnIsLocked: isMobile ? false : locked,
+    setFirstColumnIsLocked: setLocked,
+    hideFirstColumnLock: isMobile,
+  };
 }

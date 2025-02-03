@@ -2,36 +2,47 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { TableHead } from '@/components/ui/table';
+import { Setter } from '@/types';
 import { cn } from '@/utils/shadcn';
 import { Column, Header, Table } from '@tanstack/react-table';
 import { LuListFilter as FilterIcon } from 'react-icons/lu';
 import { MdLock, MdLockOpen } from 'react-icons/md';
 import { SlOptionsVertical } from 'react-icons/sl';
 import { FormattedMessage } from 'react-intl';
-import { useFirstColumLock } from '../firstColumLock';
 
 type Props<TData> = {
   header: Header<TData, unknown>;
   table: Table<TData>;
-  isScrolled?: boolean;
+  isScrolled: boolean;
   orderedColumns: Column<TData, unknown>[];
+  firstColumnIsLocked: boolean;
+  hideFirstColumnLock: boolean;
+  setFirstColumnIsLocked: Setter<boolean>;
 };
 
-export function Head<TData>({ header, table, isScrolled = false, orderedColumns }: Props<TData>) {
-  const { locked, setLocked, hideLock } = useFirstColumLock();
+export function Head<TData>({
+  header,
+  table,
+  isScrolled,
+  orderedColumns,
+  firstColumnIsLocked,
+  hideFirstColumnLock,
+  setFirstColumnIsLocked,
+}: Props<TData>) {
   const filter = header.column.columnDef.meta?.filter;
+  const isFirstColumn = header.column.getIsFirstColumn();
 
   return (
     <TableHead
       key={header.id}
       className={cn(
         'g-transition-colors g-sticky g-top-0 g-text-nowrap',
-        locked && header.column.getIsFirstColumn()
+        firstColumnIsLocked && isFirstColumn
           ? 'g-left-0 g-z-20 g-box-shadow-br g-border-r-0'
           : 'g-box-shadow-b',
-        header.column.getIsFirstColumn() ? 'g-z-20' : 'g-z-10',
+        isFirstColumn ? 'g-z-20' : 'g-z-10',
         // Darken the background color when the table is scrolled and the column is locked
-        isScrolled && locked && !header.column.getIsFirstColumn() ? 'g-bg-gray-50' : 'g-bg-white'
+        isScrolled && firstColumnIsLocked && !isFirstColumn ? 'g-bg-gray-50' : 'g-bg-white'
       )}
       style={{
         minWidth: header.column.columnDef.minSize ?? 'unset',
@@ -39,7 +50,7 @@ export function Head<TData>({ header, table, isScrolled = false, orderedColumns 
     >
       <div className="g-inline-flex g-items-center g-justify-between g-w-full">
         <div className="g-inline-flex">
-          {header.column.getIsFirstColumn() && (
+          {isFirstColumn && (
             <ColumnVisibilityPopover orderedColumns={orderedColumns} table={table} />
           )}
 
@@ -58,15 +69,15 @@ export function Head<TData>({ header, table, isScrolled = false, orderedColumns 
           )}
         </div>
 
-        {header.column.getIsFirstColumn() && !hideLock && (
+        {isFirstColumn && !hideFirstColumnLock && (
           <SimpleTooltip
             side="right"
             asChild
-            i18nDefaultMessage={locked ? 'Unlock column' : 'Lock column'}
-            i18nKey={locked ? 'search.table.unlockColumn ' : 'search.table.lockColumn'}
+            i18nDefaultMessage={firstColumnIsLocked ? 'Unlock column' : 'Lock column'}
+            i18nKey={firstColumnIsLocked ? 'search.table.unlockColumn ' : 'search.table.lockColumn'}
           >
-            <button onClick={() => setLocked((v) => !v)}>
-              {locked ? <MdLock /> : <MdLockOpen />}
+            <button onClick={() => setFirstColumnIsLocked?.((v) => !v)}>
+              {firstColumnIsLocked ? <MdLock /> : <MdLockOpen />}
             </button>
           </SimpleTooltip>
         )}

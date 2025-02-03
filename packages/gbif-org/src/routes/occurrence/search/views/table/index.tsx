@@ -185,9 +185,9 @@ export function OccurrenceTable() {
       fallbackOptions,
     });
 
-  const createRowLink = config.openDrawerOnTableRowClick
-    ? createRowLinkDrawer
-    : createRowLinkDirect;
+  // const createRowLink = config.openDrawerOnTableRowClick
+  //   ? createRowLinkDrawer
+  //   : createRowLinkDirect;
 
   return (
     <div className="g-flex g-flex-col g-h-full">
@@ -197,7 +197,7 @@ export function OccurrenceTable() {
         message="counts.nResults"
       />
       <SearchTable
-        createRowLink={createRowLink}
+        // createRowLink={createRowLink}
         lockColumnLocalStoreKey="occurrenceSearchTableLockColumn"
         selectedColumnsLocalStoreKey="occurrenceSearchSelectedColumns"
         columns={columns}

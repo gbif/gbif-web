@@ -16,7 +16,7 @@ import { Cell } from './components/cell';
 import { Head } from './components/head';
 import { InitialSkeletonTable } from './components/initialSkeletonTable';
 import { TableFooter } from './components/tableFooter';
-import { FirstColumLockProvider } from './firstColumLock';
+import { useFirstColumLock } from './firstColumLock';
 import { Link } from 'react-router-dom';
 import { DynamicLinkProps } from '@/reactRouterPlugins/dynamicLink';
 import { toRecord } from '@/utils/toRecord';
@@ -101,62 +101,64 @@ function SearchTable<TData, TValue>({
     return availableTableColumns.map((columnId) => columnsRecord[columnId]);
   }, [availableTableColumns]);
 
+  const { firstColumnIsLocked, setFirstColumnIsLocked, hideFirstColumnLock } =
+    useFirstColumLock(lockColumnLocalStoreKey);
+
   return (
-    <FirstColumLockProvider lockColumnLocalStoreKey={lockColumnLocalStoreKey}>
-      <div
-        className={cn(
-          'g-bg-white g-flex-1 g-border g-basis-full g-h-1 g-flex g-flex-col',
-          className
-        )}
-      >
-        <div ref={tableWrapperRef} className="g-relative g-w-full g-overflow-auto g-h-full">
-          {/* https://limebrains.com/blog/2021-03-02T13:00-heigh-100-inside-table-td/ */}
-          {/* Without this 1px height the a tags in the table cells won't be able to match the height of the td with height: 100% */}
-          <Table className="g-h-1">
-            <TableHeader>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <Head
-                      orderedColumns={orderedColumns}
-                      key={header.id}
-                      table={table}
-                      header={header}
+    <div
+      className={cn('g-bg-white g-flex-1 g-border g-basis-full g-h-1 g-flex g-flex-col', className)}
+    >
+      <div ref={tableWrapperRef} className="g-relative g-w-full g-overflow-auto g-h-full">
+        {/* https://limebrains.com/blog/2021-03-02T13:00-heigh-100-inside-table-td/ */}
+        {/* Without this 1px height the a tags in the table cells won't be able to match the height of the td with height: 100% */}
+        <Table className="g-h-1">
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <Head
+                    key={header.id}
+                    header={header}
+                    table={table}
+                    isScrolled={isHorizontallyScrolled}
+                    orderedColumns={orderedColumns}
+                    hideFirstColumnLock={hideFirstColumnLock}
+                    firstColumnIsLocked={firstColumnIsLocked}
+                    setFirstColumnIsLocked={setFirstColumnIsLocked}
+                  />
+                ))}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {initialLoading && <InitialSkeletonTable table={table} />}
+            {initialLoading ||
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && 'selected'}
+                  className={cn('g-border-b', {
+                    'g-group': typeof createRowLink === 'function',
+                    'g-pointer-events-none': loading,
+                  })}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <Cell
+                      linkProps={createRowLink?.(row)}
+                      key={cell.id}
+                      cell={cell}
+                      loading={loading}
                       isScrolled={isHorizontallyScrolled}
+                      firstColumnIsLocked={firstColumnIsLocked}
                     />
                   ))}
                 </TableRow>
               ))}
-            </TableHeader>
-            <TableBody>
-              {initialLoading && <InitialSkeletonTable table={table} />}
-              {initialLoading ||
-                table.getRowModel().rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && 'selected'}
-                    className={cn('g-border-b', {
-                      'g-group': typeof createRowLink === 'function',
-                      'g-pointer-events-none': loading,
-                    })}
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <Cell
-                        linkProps={createRowLink?.(row)}
-                        key={cell.id}
-                        cell={cell}
-                        loading={loading}
-                        isScrolled={isHorizontallyScrolled}
-                      />
-                    ))}
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </div>
-        <TableFooter table={table} loading={loading} />
+          </TableBody>
+        </Table>
       </div>
-    </FirstColumLockProvider>
+      <TableFooter table={table} loading={loading} />
+    </div>
   );
 }
 
