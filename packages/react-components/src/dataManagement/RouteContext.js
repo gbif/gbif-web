@@ -8,137 +8,157 @@ export const defaultContext = {
   alwaysUseHrefs: false,
   // enabledRoutes: ['datasetSearch', 'occurrenceSearch', 'institutionKey', 'institutionSearch', 'publisherSearch', 'collectionSearch', 'collectionKey', 'datasetKey'],
   occurrenceSearch: {
-    url: ({route, queryString, basename}) => `${basename ? `/${basename}` : ''}${route}${queryString ? `?${queryString}` : ''}`,
-    gbifUrl: ({route, queryString, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/occurrence/search${queryString ? `?${queryString}` : ''}`,
+    url: ({ route, queryString, basename }) =>
+      `${basename ? `/${basename}` : ''}${route}${queryString ? `?${queryString}` : ''}`,
+    gbifUrl: ({ route, queryString, gbifOrgLocalePrefix }) =>
+      `${gbifOrg}${gbifOrgLocalePrefix}/occurrence/search${queryString ? `?${queryString}` : ''}`,
     route: '/occurrence/search',
     isHref: false,
   },
   collectionKey: {
-    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/collection/${key}`,
-    gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/collection/${key}`,
+    url: ({ key, basename }) => `${basename ? `/${basename}` : ''}/collection/${key}`,
+    gbifUrl: ({ key, gbifOrgLocalePrefix }) =>
+      `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/collection/${key}`,
     isHref: false,
-    route: '/collection/:key'
+    route: '/collection/:key',
   },
   collectionSearch: {
-    url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/collection/search`,
-    gbifUrl: ({route, queryString, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/collection/search${queryString ? `?${queryString}` : ''}`,
+    url: ({ queryString, basename }) => `${basename ? `/${basename}` : ''}/collection/search`,
+    gbifUrl: ({ route, queryString, gbifOrgLocalePrefix }) =>
+      `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/collection/search${
+        queryString ? `?${queryString}` : ''
+      }`,
     isHref: false,
-    route: '/collection/search'
+    route: '/collection/search',
   },
   collectionKeySpecimens: {
     parent: 'collectionKey',
-    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/collection/${key}/specimens`,
-    gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/collection/${key}`,
+    url: ({ key, basename }) => `${basename ? `/${basename}` : ''}/collection/${key}/specimens`,
+    gbifUrl: ({ key, gbifOrgLocalePrefix }) =>
+      `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/collection/${key}`,
     isHref: false,
-    route: '/collection/:key/specimens'
+    route: '/collection/:key/specimens',
   },
   collectionKeyDashboard: {
     parent: 'collectionKey',
-    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/collection/${key}/dashboard`,
-    gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/collection/${key}/metrics`,
+    url: ({ key, basename }) => `${basename ? `/${basename}` : ''}/collection/${key}/dashboard`,
+    gbifUrl: ({ key, gbifOrgLocalePrefix }) =>
+      `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/collection/${key}/metrics`,
     isHref: false,
-    route: '/collection/:key/dashboard'
+    route: '/collection/:key/dashboard',
   },
 
   institutionKey: {
-    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/institution/${key}`,
-    gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/institution/${key}`,
+    url: ({ key, basename }) => `${basename ? `/${basename}` : ''}/institution/${key}`,
+    gbifUrl: ({ key, gbifOrgLocalePrefix }) =>
+      `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/institution/${key}`,
     isHref: false,
-    route: '/institution/:key'
+    route: '/institution/:key',
   },
   institutionKeySpecimens: {
     parent: 'institutionKey',
-    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/institution/${key}/specimens`,
-    gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/institution/${key}`,
+    url: ({ key, basename }) => `${basename ? `/${basename}` : ''}/institution/${key}/specimens`,
+    gbifUrl: ({ key, gbifOrgLocalePrefix }) =>
+      `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/institution/${key}`,
     isHref: false,
-    route: '/institution/:key/specimens'
+    route: '/institution/:key/specimens',
   },
   institutionKeyCollections: {
     parent: 'institutionKey',
-    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/collections`,
-    gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/institution/${key}`,
+    url: ({ key, basename }) => `${basename ? `/${basename}` : ''}/collections`,
+    gbifUrl: ({ key, gbifOrgLocalePrefix }) =>
+      `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/institution/${key}`,
     isHref: false,
-    route: '/institution/:key/collections'
+    route: '/institution/:key/collections',
   },
   institutionSearch: {
-    url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/institution/search`,
-    gbifUrl: ({route, queryString, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/institution/search${queryString ? `?${queryString}` : ''}`,
+    url: ({ queryString, basename }) => `${basename ? `/${basename}` : ''}/institution/search`,
+    gbifUrl: ({ route, queryString, gbifOrgLocalePrefix }) =>
+      `${gbifOrg}${gbifOrgLocalePrefix}/grscicoll/institution/search${
+        queryString ? `?${queryString}` : ''
+      }`,
     isHref: false,
-    route: '/institution/search'
+    route: '/institution/search',
   },
 
   datasetKey: {
-    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/dataset/${key}`,
-    gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
+    url: ({ key, basename }) => `${basename ? `/${basename}` : ''}/dataset/${key}`,
+    gbifUrl: ({ key, gbifOrgLocalePrefix }) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
     isHref: false,
-    route: '/dataset/:key'
+    route: '/dataset/:key',
   },
   datasetKeyCitations: {
     parent: 'datasetKey',
-    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/dataset/${key}/citations`,
-    gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
+    url: ({ key, basename }) => `${basename ? `/${basename}` : ''}/dataset/${key}/citations`,
+    gbifUrl: ({ key, gbifOrgLocalePrefix }) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
     isHref: false,
-    route: '/dataset/:key/citations'
+    route: '/dataset/:key/citations',
   },
   datasetKeyDownload: {
     parent: 'datasetKey',
-    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/dataset/${key}/download`,
-    gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
+    url: ({ key, basename }) => `${basename ? `/${basename}` : ''}/dataset/${key}/download`,
+    gbifUrl: ({ key, gbifOrgLocalePrefix }) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
     isHref: false,
-    route: '/dataset/:key/download'
+    route: '/dataset/:key/download',
   },
   datasetKeyProject: {
     parent: 'datasetKey',
-    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/dataset/${key}/project`,
-    gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
+    url: ({ key, basename }) => `${basename ? `/${basename}` : ''}/dataset/${key}/project`,
+    gbifUrl: ({ key, gbifOrgLocalePrefix }) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/${key}`,
     isHref: false,
-    route: '/dataset/:key/project'
+    route: '/dataset/:key/project',
   },
   datasetSearch: {
-    url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/dataset/search?${queryString}`,
-    gbifUrl: ({route, queryString, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/dataset/search${queryString ? `?${queryString}` : ''}`,
+    url: ({ queryString, basename }) =>
+      `${basename ? `/${basename}` : ''}/dataset/search?${queryString}`,
+    gbifUrl: ({ route, queryString, gbifOrgLocalePrefix }) =>
+      `${gbifOrg}${gbifOrgLocalePrefix}/dataset/search${queryString ? `?${queryString}` : ''}`,
     isHref: false,
-    route: '/dataset/search'
+    route: '/dataset/search',
   },
 
   publisherKey: {
-    url: ({key, basename}) => `${basename ? `/${basename}` : ''}/publisher/${key}`,
-    gbifUrl: ({key, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/publisher/${key}`,
+    url: ({ key, basename }) => `${basename ? `/${basename}` : ''}/publisher/${key}`,
+    gbifUrl: ({ key, gbifOrgLocalePrefix }) => `${gbifOrg}${gbifOrgLocalePrefix}/publisher/${key}`,
     isHref: false,
-    route: '/publisher/:key'
+    route: '/publisher/:key',
   },
   publisherSearch: {
-    url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/publisher/search`,
-    gbifUrl: ({route, queryString, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/publisher/search${queryString ? `?${queryString}` : ''}`,
+    url: ({ queryString, basename }) => `${basename ? `/${basename}` : ''}/publisher/search`,
+    gbifUrl: ({ route, queryString, gbifOrgLocalePrefix }) =>
+      `${gbifOrg}${gbifOrgLocalePrefix}/publisher/search${queryString ? `?${queryString}` : ''}`,
     isHref: false,
-    route: '/publisher/search'
+    route: '/publisher/search',
   },
 
   literatureSearch: {
-    url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/literature/search`,
-    gbifUrl: ({route, queryString, gbifOrgLocalePrefix}) => `${gbifOrg}${gbifOrgLocalePrefix}/resource/search?contentType=literature&${queryString ? `${queryString}` : ''}`,
+    url: ({ queryString, basename }) => `${basename ? `/${basename}` : ''}/literature/search`,
+    gbifUrl: ({ route, queryString, gbifOrgLocalePrefix }) =>
+      `${gbifOrg}${gbifOrgLocalePrefix}/resource/search?contentType=literature&${
+        queryString ? `${queryString}` : ''
+      }`,
     isHref: false,
-    route: '/literature/search'
+    route: '/literature/search',
   },
 
   eventKey: {
     // url: ({key}) => `/publisher/${key}`,
     // url: ({key, otherIds}) => `${gbifOrg}/dataset/${otherIds.datasetKey}/event/${key}`,
-    url: ({key, otherIds}) => `https://collections.ala.org.au/public/showDataResource/${otherIds.datasetKey}?event=${key}`,
+    url: ({ key, otherIds }) =>
+      `https://collections.ala.org.au/public/showDataResource/${otherIds.datasetKey}?event=${key}`,
     isHref: true,
-    route: '/event/:key'
+    route: '/event/:key',
   },
   eventSearch: {
-    url: ({queryString, basename}) => `${basename ? `/${basename}` : ''}/event/search`,
+    url: ({ queryString, basename }) => `${basename ? `/${basename}` : ''}/event/search`,
     isHref: true,
-    route: '/publisher/search'
+    route: '/publisher/search',
   },
   taxonKey: {
-    // url: ({ key }) => `https://gbif.org/species/${key}`,
-    url: ({ key }) => `https://bie.ala.org.au/species/${key}`,
+    url: ({ key }) => `${gbifOrg}/species/${key}`,
     isHref: true,
-    route: '/taxon/:key'
-  }
+    route: '/taxon/:key',
+  },
 };
 
 export default React.createContext(defaultContext);
