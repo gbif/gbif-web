@@ -1,4 +1,3 @@
-import { setMaxListeners } from 'node:events';
 import { ApolloServerPluginCacheControl } from 'apollo-server-core';
 import { ApolloServer } from 'apollo-server-express';
 import bodyParser from 'body-parser';
@@ -6,6 +5,7 @@ import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
 import { get } from 'lodash';
+import { setMaxListeners } from 'node:events';
 // recommended in the apollo docs https://github.com/stems/graphql-depth-limit
 import depthLimit from 'graphql-depth-limit';
 
@@ -29,12 +29,15 @@ import polygonName from './api-utils/polygonName.ctrl.js';
 import sourceArchiveCtrl from './api-utils/sourceArchive.ctrl.js';
 import suggestFilter from './api-utils/suggestFilter.ctrl.js';
 import extractUser from './helpers/auth/extractUser';
+import logger from './logger';
 import { explicitNoCacheWhenErrorsPlugin } from './plugins/explicitNoCacheWhenErrorsPlugin';
 import { loggingPlugin } from './plugins/loggingPlugin';
 
 // we are doing this async as we need to load the various enumerations from the APIs
 // and generate the schema from those
 async function initializeServer() {
+  logger.info('Starting GraphQL server');
+
   // this is async as we generate parts of the schema from the live enumeration API
   const typeDefs = await getSchema();
   const server = new ApolloServer({
