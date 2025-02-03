@@ -1,3 +1,8 @@
 {
-    "HOMONYM": "Homonymum"
+    "BACKBONE_MATCH_NONE": "Nelze přiřadit k páteři GBIF",
+    "BACKBONE_MATCH_FUZZY": "Neurčité přiřazení GBIF páteře",
+    "PARENT_NAME_NOT_UNIQUE": "Nadřazený název není unikátní",
+    "HOMONYM": "Homonymum",
+    "UNPARSABLE": "Název neanalyzovatelný",
+    "PARTIALLY_PARSABLE": "Název částečně zpracován"
 }
