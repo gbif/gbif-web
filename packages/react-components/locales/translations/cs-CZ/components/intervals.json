@@ -56,8 +56,8 @@
     "e": "Hodnota velikosti vzorku je {from}"
   },
   "relativeOrganismQuantity": {
-    "between": "",
-    "lt": "",
+    "between": "Relativní množství organismů {from} do {to}",
+    "lt": "Relativní množství organismů pod {to}",
     "gt": "",
     "e": ""
   },
