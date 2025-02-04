@@ -11,7 +11,7 @@ const logger = winston.createLogger({
     // class: 'web',
     // service: 'graphql',
     // environment: 'dev', // config.environment,
-    environment: 'dev',
+    environment: 'uat',
     class: 'web',
     service: 'portal',
   },
