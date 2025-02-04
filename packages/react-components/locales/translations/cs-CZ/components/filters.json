@@ -73,7 +73,7 @@
   "topics": {
     "name": "Téma",
     "count": "",
-    "description": ""
+    "description": "Jaká jsou témata záznamu."
   },
   "audiences": {
     "name": "Sledovanost",
@@ -153,10 +153,10 @@
     "description": "Typy médií přístupné pro tento záznam."
   },
   "occurrenceIssue": {
-    "name": "",
+    "name": "Problémy a příznaky",
     "count": "",
-    "isNotNull": "",
-    "isNull": "",
+    "isNotNull": "Má problémy",
+    "isNull": "Nemá problémy",
     "description": "Typy problémů nebo příznaků potenciálního zájmu zjištěných při zpracování dat."
   },
   "occurrenceCountry": {
@@ -178,7 +178,7 @@
     "description": "Kód ISO země nebo území, ve kterém se nachází vydavatel dat."
   },
   "q": {
-    "name": "",
+    "name": "Textové vyhledávání",
     "count": "",
     "description": ""
   },
@@ -321,12 +321,12 @@
     "description": "Identifikátor osoby, osob, skupin nebo organizací odpovědných za zaznamenání původního výskytu."
   },
   "identifiedById": {
-    "name": "",
+    "name": "Identifikováno podle ID",
     "count": "",
     "description": ""
   },
   "occurrenceId": {
-    "name": "",
+    "name": "ID Výskytu",
     "count": "",
     "description": ""
   },
