@@ -52,10 +52,10 @@
   "geoDistance": {
     "name": "Vzdálenost od souřadnic",
     "count": "",
-    "description": "",
+    "description": "Filtrovat záznamy v dané vzdálenosti od bodu",
     "placeholderLat": "Zeměpisná šířka",
     "placeholderLon": "Zeměpisná délka",
-    "placeholderDist": ""
+    "placeholderDist": "Vzdálenost"
   },
   "geometry": {
     "name": "Poloha",
@@ -63,12 +63,12 @@
     "description": "",
     "placeholderLat": "Zeměpisná šířka",
     "placeholderLon": "Zeměpisná délka",
-    "placeholderDist": ""
+    "placeholderDist": "Vzdálenost"
   },
   "relevance": {
     "name": "Relevance",
     "count": "",
-    "description": ""
+    "description": "Jak je GBIF používán v literatuře."
   },
   "topics": {
     "name": "Téma",
