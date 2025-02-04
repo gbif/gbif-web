@@ -2,7 +2,11 @@ import { Table } from '@/components/dashboard/shared';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Skeleton } from '@/components/ui/skeleton';
-import { TaxonVernacularNamesQuery, TaxonVernacularNamesQueryVariables } from '@/gql/graphql';
+import {
+  Dataset,
+  TaxonVernacularNamesQuery,
+  TaxonVernacularNamesQueryVariables,
+} from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import React, { useEffect, useState } from 'react';
@@ -13,13 +17,14 @@ const limit = 10;
 interface VernacularNameTableProps {
   columnTitle?: string;
   taxonKey: number;
+  total: number;
 }
 
-export function VernacularNameTable({ taxonKey }: VernacularNameTableProps) {
+export function VernacularNameTable({ taxonKey, total }: VernacularNameTableProps) {
   interface VernacularName {
     vernacularName: string;
     language: string;
-    datasets: any[];
+    datasets: Dataset[];
   }
 
   const [processedVernaculars, setProcessedVernaculars] = useState<{
@@ -43,18 +48,18 @@ export function VernacularNameTable({ taxonKey }: VernacularNameTableProps) {
     if (taxonKey) {
       vernacularNamesLoad({
         variables: {
-          key: taxonKey,
+          key: taxonKey.toString(),
           limit: 200,
           offset: 0,
         },
       });
     }
-  }, [taxonKey]);
+  }, [taxonKey, vernacularNamesLoad]);
 
   useEffect(() => {
     if (vernacularNames?.taxon?.vernacularNames?.results) {
       const names = vernacularNames.taxon.vernacularNames;
-      const namesWithLanguage: { [key: string]: { [key: string]: any[] } } = {};
+      const namesWithLanguage: { [key: string]: { [key: string]: VernacularName[] } } = {};
       const namesWithoutLanguage = [];
 
       for (let i = 0; i < names.results.length; i++) {
@@ -86,7 +91,7 @@ export function VernacularNameTable({ taxonKey }: VernacularNameTableProps) {
         });
       });
 
-      const results: { vernacularName: string; language: string; datasets: any[] }[] = [];
+      const results: { vernacularName: string; language: string; datasets: Dataset[] }[] = [];
 
       Object.entries(namesWithLanguage).forEach(([lang, val]) => {
         Object.entries(val).forEach(([k, v]) => {
@@ -97,12 +102,12 @@ export function VernacularNameTable({ taxonKey }: VernacularNameTableProps) {
     }
   }, [vernacularNames]);
 
-  if (loading) {
+  if (total > 0 && processedVernaculars.count === 0) {
     return (
       <div>
-        {[1, 2].map((x) => (
-          <React.Fragment key={x}>
-            <Skeleton className="g-h-6" width="60%" style={{ marginBottom: 12 }} />
+        {Array.from({ length: total }).map((x, i) => (
+          <React.Fragment key={i}>
+            <Skeleton className="g-h-6" style={{ width: '60%', marginBottom: 12 }} />
             <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
           </React.Fragment>
         ))}
@@ -113,7 +118,7 @@ export function VernacularNameTable({ taxonKey }: VernacularNameTableProps) {
   return (
     <>
       <div className="g-text-sm g-text-slate-500 g-mb-1">
-        {loading && <Skeleton className="g-h-6 g-mb-2" width="100px" />}
+        {loading && <Skeleton className="g-h-6 g-mb-2" style={{ width: '100px' }} />}
         {!loading && (
           <>
             <FormattedMessage id="counts.nResults" values={{ total: processedVernaculars.count }} />

@@ -2,10 +2,12 @@ import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import { TaxonClassification } from '@/components/highlights';
+import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
-import { TaxonQuery, TaxonSummaryMetricsQuery, TaxonVernacularNamesQuery } from '@/gql/graphql';
+import { SlowTaxonQuery, TaxonKeyQuery } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins/dynamicLink';
+import EntityDrawer from '@/routes/occurrence/search/views/browseList/ListBrowser';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -13,43 +15,56 @@ import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { createContext, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Outlet } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 
 // create context to pass data to children
-export const TaxonKeyContext = createContext<{ key?: string; contentMetrics?: unknown }>({});
+export const TaxonKeyContext = createContext<{
+  key?: string;
+  contentMetrics?: unknown;
+  data: TaxonKeyQuery;
+  slowTaxon?: SlowTaxonQuery;
+}>({
+  data: {
+    __typename: undefined,
+    taxon: undefined,
+    imagesCount: undefined,
+    typesSpecimenCount: undefined,
+  },
+  slowTaxon: {
+    __typename: undefined,
+    taxon: undefined,
+  },
+});
 
-export function TaxonKey({
-  data,
-  taxonMetrics,
-}: {
-  data: TaxonQuery;
-  taxonMetrics?: TaxonSummaryMetricsQuery;
-  vernacularNames?: TaxonVernacularNamesQuery;
-}) {
+export function TaxonKey({ data, slowTaxon }: { data: TaxonKeyQuery; slowTaxon?: SlowTaxonQuery }) {
   const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
     const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
       { to: '.', children: <FormattedMessage id="taxon.tabs.about" /> },
     ];
-    if (true) {
+    /* if (true) {
       tabsToDisplay.push({
         to: 'type-material',
         children: <FormattedMessage id="taxon.tabs.typeMaterial" />,
       });
-    }
+    } */
 
     return tabsToDisplay;
   }, []);
 
   if (data.taxon == null) throw new Error('404');
   const { taxon } = data;
+  const vernacularNameInfo = slowTaxon?.taxon?.vernacularNames?.results?.[0];
   return (
     <>
       <Helmet>
         <title>{taxon.scientificName}</title>
         {/* TODO we need much richer meta data. */}
       </Helmet>
+      <EntityDrawer />
+
       <DataHeader
         className="g-bg-white"
         aboutContent={<AboutContent />}
@@ -70,18 +85,50 @@ export function TaxonKey({
               <FormattedMessage id={`enums.rank.${taxon.rank}`} defaultMessage={taxon.rank || ''} />
             </ArticlePreTitle>
             {/* it would be nice to know for sure which fields to expect */}
-            <ArticleTitle
-              dangerouslySetTitle={{ __html: taxon.formattedName || 'No name provided' }}
-            ></ArticleTitle>
+            <ArticleTitle className="lg:g-text-3xl">
+              <span
+                className="g-me-4"
+                dangerouslySetInnerHTML={{
+                  __html: taxon?.formattedName || taxon?.scientificName || '',
+                }}
+              />
+              {vernacularNameInfo && (
+                <SimpleTooltip
+                  asChild
+                  title={
+                    <FormattedMessage
+                      id="phrases.commonNameAccordingTo"
+                      values={{ source: vernacularNameInfo.source }}
+                    />
+                  }
+                >
+                  <span
+                    className="g-text-slate-300 g-inline-flex g-items-center"
+                    style={{ fontSize: '85%' }}
+                  >
+                    <span className="g-me-1">{vernacularNameInfo.vernacularName}</span>
+                    <MdInfoOutline />
+                  </span>
+                </SimpleTooltip>
+              )}
+            </ArticleTitle>
             <HeaderInfo>
               <HeaderInfoMain className="g-text-sm g-text-slate-500">
                 {taxon.acceptedTaxon && (
                   <>
                     <FormattedMessage id="taxon.synonymOf" defaultMessage={'Synonym of'} />
                     <Button asChild variant="link" className="g-p-1">
-                      <DynamicLink pageId="speciesKey" variables={{ key: taxon.acceptedTaxon.key }}>
+                      <DynamicLink
+                        pageId="speciesKey"
+                        variables={{ key: taxon?.acceptedTaxon?.key.toString() }}
+                      >
                         <span
-                          dangerouslySetInnerHTML={{ __html: taxon.acceptedTaxon.formattedName }}
+                          dangerouslySetInnerHTML={{
+                            __html:
+                              taxon?.acceptedTaxon?.formattedName ||
+                              taxon?.acceptedTaxon?.scientificName ||
+                              '',
+                          }}
                         ></span>
                       </DynamicLink>
                     </Button>
@@ -118,6 +165,7 @@ export function TaxonKey({
           <TaxonKeyContext.Provider
             value={{
               data: data,
+              slowTaxon: slowTaxon,
             }}
           >
             <Outlet />

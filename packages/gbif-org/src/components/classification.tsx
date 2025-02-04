@@ -1,6 +1,6 @@
+import { DynamicLink } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
 import styles from './classification.module.css';
-
 const majorRanks = ['KINGDOM', 'PHYLUM', 'CLASS', 'ORDER', 'FAMILY', 'GENUS', 'SPECIES'];
 
 export function Classification({
@@ -36,7 +36,9 @@ export function TaxonClassification({
     <Classification className={className}>
       {classificationFiltered.map((c, i) => (
         <span key={i}>
-          <span>{c.name}</span>
+          <DynamicLink pageId="speciesKey" variables={{ key: c.key }}>
+            <span>{c.name}</span>
+          </DynamicLink>
         </span>
       ))}
     </Classification>
