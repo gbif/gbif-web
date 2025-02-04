@@ -45,6 +45,7 @@ export function Dashboard() {
           'gallery',
           'occurrenceSummary',
           'dataQuality',
+          'synonyms',
           'taxa',
           ...chartsTypes,
         ]}
