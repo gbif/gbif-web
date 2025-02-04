@@ -7,5 +7,12 @@
   "publishedIn": "Published in",
   "vernacularNames": "Vernacular names",
   "rank": "Rank",
-  "source": "Source"
+  "source": "Source",
+  "specimenIsTypeOf": "",
+  "typeMaterial": "",
+  "more": "more",
+  "less": "",
+  "dna": "DNA",
+  "occurenceImages": "",
+  "taxonIdentifiers": "Taxon identifiers"
 }
