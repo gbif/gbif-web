@@ -7,7 +7,7 @@ const typeDef = gql`
       limit: Int
       offset: Int
     ): DatasetDownloadListResults
-    download(key: String!): Download
+    download(key: ID!): Download
   }
 
   type DatasetDownloadListResults {
