@@ -42,19 +42,19 @@
   "discard": "",
   "keep": "",
   "addressUnknown": "",
-  "emptyValueProvided": "",
+  "emptyValueProvided": "Uvedena prázdná hodnota",
   "copyToClipboard": "",
-  "fromCountry": "",
+  "fromCountry": "Z {country}",
   "copiedToClipboard": "Zkopírováno do schránky",
   "continue": "Pokračovat",
   "headers": {
     "description": "Popis",
     "contacts": "Kontakty"
   },
-  "derivedFromOccurrenceData": "",
+  "derivedFromOccurrenceData": "Odvozeno z dat o výskytu",
   "pageToc": "",
   "apiAccess": "Přístup API",
-  "lastCrawled": "",
+  "lastCrawled": "Naposledy zpracováno",
   "goToRecord": "Přejít na záznam",
   "commonNameAccordingTo": "Běžný název podle: {source}",
   "noResults": ""

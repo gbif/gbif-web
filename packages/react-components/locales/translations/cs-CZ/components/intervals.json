@@ -29,19 +29,19 @@
     "between": "Rok {from} do {to}",
     "lt": "Před rokem {to}",
     "gt": "Po roce {from}",
-    "e": ""
+    "e": "Rok je {from}"
   },
   "coordinateUncertainty": {
     "between": "Souřadnicová neurčitost {from}m do {to}m",
     "lt": "Souřadnicová neurčitost pod {to}m",
-    "gt": "",
-    "e": ""
+    "gt": "Neurčitost souřadnic nad {from}m",
+    "e": "Neurčitost souřadnic je {from}m"
   },
   "depth": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Hloubka {from} do {to}",
+    "lt": "Hloubka pod {to}",
+    "gt": "Hloubka nad {from}",
+    "e": "Hloubka je {from}"
   },
   "organismQuantity": {
     "between": "",
@@ -65,11 +65,11 @@
     "between": "",
     "lt": "",
     "gt": "",
-    "e": ""
+    "e": "Nadmořská výška je {from}"
   },
   "geoDistance": {
-    "short": "",
-    "description": ""
+    "short": "Do {distance} od {latitude}, {longitude}",
+    "description": "Zeměpisná šířka {latitude}, zeměpisná délka: {longitude}, vzdálenost: {distance}"
   },
   "units": {
     "name": {

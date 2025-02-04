@@ -22,22 +22,22 @@
   "collectionKey": {
     "name": "Sbírka",
     "count": "",
-    "description": ""
+    "description": "Sbírka v GrSciColl, ke které byl tento záznam přiřazen"
   },
   "taxonomicStatus": {
     "name": "Stav",
     "count": "",
-    "description": ""
+    "description": "Počet držených exemplářů uvedený v popisu. Tento počet neodráží, kolik záznamů bylo digitalizováno a sdíleno."
   },
   "taxonRank": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Počet držených exemplářů uvedený v popisu. Tento počet neodráží, kolik záznamů bylo digitalizováno a sdíleno."
   },
   "numberSpecimens": {
     "name": "Počet exemplářů",
     "count": "",
-    "description": ""
+    "description": "Počet držených exemplářů uvedený v popisu. Tento počet neodráží, kolik záznamů bylo digitalizováno a sdíleno."
   },
   "specimensInGbif": {
     "name": "Exempláře v GBIF",
@@ -47,33 +47,33 @@
   "iucnRedListCategory": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Červený seznam ohrožených druhů IUCN rozděluje taxony podle toho, jak moc jsou ohrožené."
   },
   "geoDistance": {
-    "name": "",
+    "name": "Vzdálenost od souřadnic",
     "count": "",
-    "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
-    "placeholderDist": ""
+    "description": "Filtrovat záznamy v dané vzdálenosti od bodu",
+    "placeholderLat": "Zeměpisná šířka",
+    "placeholderLon": "Zeměpisná délka",
+    "placeholderDist": "Vzdálenost"
   },
   "geometry": {
     "name": "Poloha",
     "count": "",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
-    "placeholderDist": ""
+    "placeholderLat": "Zeměpisná šířka",
+    "placeholderLon": "Zeměpisná délka",
+    "placeholderDist": "Vzdálenost"
   },
   "relevance": {
     "name": "Relevance",
     "count": "",
-    "description": ""
+    "description": "Jak je GBIF používán v literatuře."
   },
   "topics": {
     "name": "Téma",
     "count": "",
-    "description": ""
+    "description": "Jaká jsou témata záznamu."
   },
   "audiences": {
     "name": "Sledovanost",
@@ -83,7 +83,7 @@
   "purposes": {
     "name": "Téma",
     "count": "",
-    "description": ""
+    "description": "Jaké jsou účely zdroje."
   },
   "eventDate": {
     "name": "Datum události",
@@ -123,7 +123,7 @@
   "taxonKey": {
     "name": "Vědecký název",
     "count": "",
-    "description": ""
+    "description": "Vědecký název, jak je uveden v páteřní taxonomii GBIF. Tyto názvy jsou normalizovány, aby se usnadnilo vyhledávání napříč datovými sadami. Je možné, že původně uvedený název může být nesprávně interpretován nebo neznámý. Pro vyhledávání v poskytnutých názvech použijte filtr \"Doslovný vědecký název\"."
   },
   "taxonKeyGrSciColl": {
     "name": "Vědecký název",
@@ -135,34 +135,34 @@
     "count": "",
     "isNotNull": "Má základ záznamu",
     "isNull": "Nemá základ záznamu",
-    "description": ""
+    "description": "Povaha důkazů, na nichž je záznam založen."
   },
   "institutionCode": {
     "name": "Kód instituce",
     "count": "",
-    "description": ""
+    "description": "Kód (nebo zkratka) instituce, která má v péči předmět(y) nebo informace uvedené v záznamu."
   },
   "catalogNumber": {
     "name": "Katalogové číslo",
     "count": "",
-    "description": ""
+    "description": "Identifikátor záznamu v rámci katalogu nebo sbírky."
   },
   "mediaType": {
     "name": "Typ média",
     "count": "",
-    "description": ""
+    "description": "Typy médií přístupné pro tento záznam."
   },
   "occurrenceIssue": {
-    "name": "",
+    "name": "Problémy a příznaky",
     "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "isNotNull": "Má problémy",
+    "isNull": "Nemá problémy",
+    "description": "Typy problémů nebo příznaků potenciálního zájmu zjištěných při zpracování dat."
   },
   "occurrenceCountry": {
     "name": "Země nebo oblast",
     "count": "",
-    "description": ""
+    "description": "Země nebo území, kde k události došlo"
   },
   "grsciCollCountry": {
     "description": ""
@@ -175,10 +175,10 @@
   "publishingCountryCode": {
     "name": "Země nebo oblast zveřejnění",
     "count": "",
-    "description": ""
+    "description": "Kód ISO země nebo území, ve kterém se nachází vydavatel dat."
   },
   "q": {
-    "name": "",
+    "name": "Textové vyhledávání",
     "count": "",
     "description": ""
   },
@@ -188,32 +188,32 @@
   "elevation": {
     "name": "Nadmořská výška",
     "count": "",
-    "description": ""
+    "description": "Vzdálenost nad vertikálním referenčním bodem (obvykle střední hladina moře nebo geoid) v metrech."
   },
   "license": {
     "name": "Licence",
     "count": "",
-    "description": ""
+    "description": "Zákonná licence nebo výjimka, na jejímž základě je záznam sdílen."
   },
   "datasetKey": {
     "name": "Datová sada",
     "count": "",
-    "description": ""
+    "description": "Název datové sady, pod kterou je záznam sdílen."
   },
   "publisherKey": {
     "name": "Vydavatel",
     "count": "",
-    "description": ""
+    "description": "Název organizace odpovědné za sdílení datové sady, v níž je záznam obsažen."
   },
   "gbifPublisherKey": {
     "name": "GBIF vydavatel",
     "count": "",
-    "description": ""
+    "description": "Název organizace odpovědné za sdílení datové sady, v níž je záznam obsažen."
   },
   "hostingOrganizationKey": {
-    "name": "",
+    "name": "Hostitelská organizace",
     "count": "",
-    "description": ""
+    "description": "Název organizace, která je hostitelem datové sady, v níž je záznam zveřejněn."
   },
   "country": {
     "name": "Země nebo oblast",
@@ -236,9 +236,9 @@
   "typeStatus": {
     "name": "Typ statusu",
     "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "isNotNull": "Má status typu",
+    "isNull": "Status typu",
+    "description": "Typové označení exempláře"
   },
   "year": {
     "name": "Rok",
@@ -321,12 +321,12 @@
     "description": "Identifikátor osoby, osob, skupin nebo organizací odpovědných za zaznamenání původního výskytu."
   },
   "identifiedById": {
-    "name": "",
+    "name": "Identifikováno podle ID",
     "count": "",
     "description": ""
   },
   "occurrenceId": {
-    "name": "",
+    "name": "ID Výskytu",
     "count": "",
     "description": ""
   },
@@ -343,7 +343,7 @@
   "waterBody": {
     "name": "Vodní plocha",
     "count": "",
-    "description": ""
+    "description": "Název vodního útvaru, ve kterém se lokalita nachází."
   },
   "higherGeography": {
     "name": "Vyšší geografie",
@@ -353,17 +353,17 @@
   "stateProvince": {
     "name": "Provincie státu",
     "count": "",
-    "description": ""
+    "description": "Název nejbližšího správního regionu menšího než stát, ve kterém se lokalita nachází."
   },
   "eventId": {
     "name": "ID události",
     "count": "",
-    "description": ""
+    "description": "Jedinečný identifikátor události v záznamu."
   },
   "eventID": {
     "name": "ID události",
     "count": "",
-    "description": ""
+    "description": "Jedinečný identifikátor události v záznamu."
   },
   "parentEventId": {
     "name": "ID nadřazené události",
