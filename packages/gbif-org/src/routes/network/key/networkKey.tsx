@@ -14,7 +14,7 @@ import {
 } from '@/components/highlights';
 import { Tabs } from '@/components/tabs';
 import { NetworkQuery, NetworkQueryVariables, PredicateType } from '@/gql/graphql';
-import { LoaderArgs } from '@/reactRouterPlugins';
+import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -113,10 +113,16 @@ export function NetworkPage() {
                   {homepage && <Homepage url={homepage} testId="network-homepage-link" />}
                   <GenericFeature testId="network-occurrence-count">
                     <OccurrenceIcon />
-                    <FormattedMessage
-                      id="counts.nOccurrences"
-                      values={{ total: occurrenceSearch?.documents.total }}
-                    />
+                    <DynamicLink
+                      className="g-text-inherit"
+                      pageId="occurrenceSearch"
+                      searchParams={{ networkKey: network.key }}
+                    >
+                      <FormattedMessage
+                        id="counts.nOccurrences"
+                        values={{ total: occurrenceSearch?.documents.total }}
+                      />
+                    </DynamicLink>
                   </GenericFeature>
                   <GenericFeature testId="network-datset-count">
                     <FormattedMessage
@@ -126,10 +132,16 @@ export function NetworkPage() {
                   </GenericFeature>
                   <GenericFeature testId="network-citation-count">
                     <CitationIcon />
-                    <FormattedMessage
-                      id="counts.nCitations"
-                      values={{ total: literatureSearch?.documents.total }}
-                    />
+                    <DynamicLink
+                      className="g-text-inherit"
+                      pageId="literatureSearch"
+                      searchParams={{ gbifNetworkKey: network.key }}
+                    >
+                      <FormattedMessage
+                        id="counts.nCitations"
+                        values={{ total: literatureSearch?.documents.total }}
+                      />
+                    </DynamicLink>
                   </GenericFeature>
                 </FeatureList>
               </HeaderInfoMain>
