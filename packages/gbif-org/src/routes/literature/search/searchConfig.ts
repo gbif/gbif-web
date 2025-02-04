@@ -29,6 +29,7 @@ const otherParams = [
   'countriesOfResearcher',
   'countriesOfCoverage',
   'gbifTaxonKey',
+  'gbifNetworkKey',
 ];
 
 otherParams.forEach((filter) => {

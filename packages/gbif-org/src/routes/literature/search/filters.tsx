@@ -1,22 +1,23 @@
 import {
-    CountryLabel,
-    DatasetLabel,
-    IdentityLabel,
-    LiteratureTypeLabel,
-    PublisherLabel,
-    RelevanceLabel,
-    TaxonLabel,
-    TopicsLabel,
-    YearLabel
+  CountryLabel,
+  DatasetLabel,
+  IdentityLabel,
+  LiteratureTypeLabel,
+  NetworkLabel,
+  PublisherLabel,
+  RelevanceLabel,
+  TaxonLabel,
+  TopicsLabel,
+  YearLabel,
 } from '@/components/filters/displayNames';
 import {
-    filterConfigTypes,
-    filterEnumConfig,
-    filterFreeTextConfig,
-    filterRangeConfig,
-    FilterSetting,
-    filterSuggestConfig,
-    generateFilters
+  filterConfigTypes,
+  filterEnumConfig,
+  filterFreeTextConfig,
+  filterRangeConfig,
+  FilterSetting,
+  filterSuggestConfig,
+  generateFilters,
 } from '@/components/filters/filterTools';
 import { SuggestFnProps } from '@/components/filters/suggest';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
@@ -24,7 +25,12 @@ import country from '@/enums/basic/country.json';
 import literatureTypeOptions from '@/enums/cms/literatureType.json';
 import relevanceOptions from '@/enums/cms/relevance.json';
 import topicsOptions from '@/enums/cms/topics.json';
-import { datasetKeySuggest, publisherKeySuggest, taxonKeySuggest } from '@/utils/suggestEndpoints';
+import {
+  datasetKeySuggest,
+  networkKeySuggest,
+  publisherKeySuggest,
+  taxonKeySuggest,
+} from '@/utils/suggestEndpoints';
 import { matchSorter } from 'match-sorter';
 import hash from 'object-hash';
 import { useCallback, useEffect, useState } from 'react';
@@ -69,6 +75,30 @@ const datasetConfig: filterSuggestConfig = {
             name: key
             count
             item: dataset {
+              title
+            }
+          }
+        }
+      }
+    }
+  `,
+};
+
+const gbifNetworkKeyConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'gbifNetworkKey',
+  displayName: NetworkLabel,
+  filterTranslation: 'filters.networkKey.name',
+  disableFacetsForSelected: true,
+  suggestConfig: networkKeySuggest,
+  facetQuery: `
+    query LiteratureNetworkFacet($predicate: Predicate, $size: Int = 10) {
+      search: literatureSearch(predicate: $predicate) {
+        facet {
+          field: gbifNetworkKey(size: $size) {
+            name: key
+            count
+            item: network {
               title
             }
           }
@@ -262,6 +292,11 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       }),
       gbifTaxonKey: generateFilters({
         config: { ...taxonKeyConfig },
+        searchConfig,
+        formatMessage,
+      }),
+      gbifNetworkKey: generateFilters({
+        config: { ...gbifNetworkKeyConfig },
         searchConfig,
         formatMessage,
       }),

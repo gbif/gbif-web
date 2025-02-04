@@ -1,9 +1,17 @@
 import { excerpt } from '#/helpers/utils';
 import {
-  getAutoDateHistogram, getCardinality, getFacet, getHistogram, getStats
+  getAutoDateHistogram,
+  getCardinality,
+  getFacet,
+  getHistogram,
+  getStats,
 } from '../getMetrics';
 import {
-  cardinalityFields, dateHistogramFields, facetFields, histogramFields, statsFields
+  cardinalityFields,
+  dateHistogramFields,
+  facetFields,
+  histogramFields,
+  statsFields,
 } from './helpers/fields';
 
 const getSourceSearch = (dataSources) => (args) =>
@@ -121,6 +129,15 @@ export default {
       const id = key ?? name;
       if (typeof id === 'undefined') return null;
       return dataSources.datasetAPI.getDatasetByKey({
+        key: id,
+      });
+    },
+  },
+  NetworkFacet: {
+    network: ({ key, name }, args, { dataSources }) => {
+      const id = key ?? name;
+      if (typeof id === 'undefined') return null;
+      return dataSources.networkAPI.getNetworkByKey({
         key: id,
       });
     },

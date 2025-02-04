@@ -74,6 +74,7 @@ const typeDef = gql`
     countriesOfResearcher(size: Int, from: Int): [GenericFacetResult_string]
     publishingOrganizationKey(size: Int, from: Int): [OrganizationFacet]
     gbifDatasetKey(size: Int, from: Int): [DatasetFacet]
+    gbifNetworkKey(size: Int, from: Int): [NetworkFacet]
   }
 
   type LiteratureStats {
@@ -128,6 +129,13 @@ const typeDef = gql`
     count: Int!
     _predicate: JSON
     dataset: Dataset
+  }
+
+  type NetworkFacet {
+    key: String!
+    count: Int!
+    _predicate: JSON
+    network: Network
   }
 
   type GenericFacetResult_float {
