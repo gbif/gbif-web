@@ -40,8 +40,8 @@
   "depth": {
     "between": "Hloubka {from} do {to}",
     "lt": "Hloubka pod {to}",
-    "gt": "",
-    "e": ""
+    "gt": "Hloubka nad {from}",
+    "e": "Hloubka je {from}"
   },
   "organismQuantity": {
     "between": "",
@@ -65,11 +65,11 @@
     "between": "",
     "lt": "",
     "gt": "",
-    "e": ""
+    "e": "Nadmořská výška je {from}"
   },
   "geoDistance": {
-    "short": "",
-    "description": ""
+    "short": "Do {distance} od {latitude}, {longitude}",
+    "description": "Zeměpisná šířka {latitude}, zeměpisná délka: {longitude}, vzdálenost: {distance}"
   },
   "units": {
     "name": {
