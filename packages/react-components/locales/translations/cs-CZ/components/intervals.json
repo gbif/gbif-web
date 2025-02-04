@@ -44,15 +44,15 @@
     "e": "Hloubka je {from}"
   },
   "organismQuantity": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Množství organismu {from} do {to}",
+    "lt": "Množství organismů pod {to}",
+    "gt": "Množství organismů nad {from}",
+    "e": "Množství organismů je {from}"
   },
   "sampleSizeValue": {
-    "between": "",
-    "lt": "",
-    "gt": "",
+    "between": "Hodnota velikosti vzorku {from} do {to}",
+    "lt": "Hodnota velikosti vzorku pod {to}",
+    "gt": "Hodnota velikosti vzorku nad {from}",
     "e": "Hodnota velikosti vzorku je {from}"
   },
   "relativeOrganismQuantity": {
