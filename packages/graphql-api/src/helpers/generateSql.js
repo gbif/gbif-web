@@ -2,13 +2,35 @@ import config from '#/config';
 
 const defaultUncertainty = 1000;
 
+async function getWhereClause({ predicate }) {
+  if (!predicate) {
+    return '';
+  }
+  const sqlResponse = await fetch(
+    `${config.apiv1}/occurrence/download/request/sql`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ predicate }),
+    },
+  ).then((response) => response.json());
+  // replace newlines with spaces and replace double spaces with single spaces
+  const sqlString = sqlResponse.sql.replace(/\n/g, ' ').replace(/\s\s/g, ' ');
+
+  // get rest of text after "WHERE" upper case
+  const whereIndex = sqlString.toUpperCase().indexOf('WHERE');
+  const sqlWhereClause = sqlString.substring(whereIndex);
+  return ` ${sqlWhereClause} `;
+}
+
 const template = `SELECT 
   {{DIMENSIONS}},
   {{MEASUREMENTS}}
 FROM
-  occurrence
-WHERE 
-  {{FILTERS}}
+  occurrence 
+{{FILTERS}}
 GROUP BY
   {{GROUP_BY}}`;
 
@@ -21,10 +43,16 @@ export default async function generateSql({
   higherGroups,
   includeTemporalUncertainty,
   includeSpatialUncertainty,
+  predicate,
 }) {
   // generate SQL query
   const dimensions = [];
-  const filters = `"year" > 2000`; //  TODO we need a way to get the filter as SQL https://github.com/gbif/occurrence/issues/356
+  let filters = '';
+  try {
+    filters = predicate ? await getWhereClause({ predicate }) : ''; //  TODO we need a way to get the filter as SQL https://github.com/gbif/occurrence/issues/356
+  } catch (error) {
+    return { error: error.message, sql: null };
+  }
   const groupBy = ['taxonRank', 'taxonomicStatus'];
   const measurements = ['COUNT(*) AS occurrences'];
   if (includeTemporalUncertainty === 'YES') {
