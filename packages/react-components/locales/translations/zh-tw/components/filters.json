@@ -24,6 +24,16 @@
     "count": "{num, plural,one {#蒐藏}other {#蒐藏}}",
     "description": "這個紀錄與在 GrSciColl 中的蒐藏相符合"
   },
+  "taxonomicStatus": {
+    "name": "狀態",
+    "count": "",
+    "description": "描述裡記載持有標本的數量。此數量並未反映有多少筆紀錄已經數位化且共享。"
+  },
+  "taxonRank": {
+    "name": "分類位階",
+    "count": "",
+    "description": "描述裡記載持有標本的數量。此數量並未反映有多少筆紀錄已經數位化且共享。"
+  },
   "numberSpecimens": {
     "name": "標本數量",
     "count": "",
@@ -335,6 +345,11 @@
     "count": "{num, plural, one {水體} other {#水體}}",
     "description": "發生事件地點的水體名稱"
   },
+  "higherGeography": {
+    "name": "高階地理",
+    "count": "GBIF 註記的存檔",
+    "description": "GBIF 註記的存檔"
+  },
   "stateProvince": {
     "name": "州/省",
     "count": "{num, plural, one {州省} other {#州省}}",
@@ -418,6 +433,21 @@
   "active": {
     "name": "在線",
     "count": "在線",
+    "description": "GBIF 註記的存檔"
+  },
+  "activeInstitution": {
+    "name": "在線",
+    "count": "在線",
+    "description": "GBIF 註記的存檔"
+  },
+  "activeCollection": {
+    "name": "在線",
+    "count": "在線",
+    "description": "GBIF 註記的存檔"
+  },
+  "publicationDate": {
+    "name": "發布日期",
+    "count": "GBIF 註記的存檔",
     "description": "GBIF 註記的存檔"
   },
   "personalCollection": {

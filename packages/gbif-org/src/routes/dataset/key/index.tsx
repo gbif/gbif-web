@@ -1,19 +1,23 @@
+import { DatasetQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
-import { datasetLoader, DatasetPage, DatasetPageSkeleton } from './datasetKey';
 import { DatasetKeyAbout } from './about';
 import { DatasetKeyDashboard } from './dashboard';
-import { DatasetKeyOccurrences } from './occurrences';
+import { datasetLoader, DatasetPage, DatasetPageSkeleton } from './datasetKey';
 import { DatasetKeyDownload } from './download';
-import { DatasetQuery } from '@/gql/graphql';
+import { DatasetKeyLiterature } from './literature';
+import { DatasetKeyOccurrences } from './occurrences';
+import { DatasetKeyPhylo } from './phylogenies';
+import { DatasetKeyProject } from './project';
 
-const id = 'dataset-key';
+const id = 'datasetKey';
 
 export const datasetKeyRoute: RouteObjectWithPlugins = {
   id,
-  gbifRedirect: (params) => {
-    if (typeof params.key !== 'string') throw new Error('Invalid key');
-    if (params.key === 'search') return null;
-    return `/dataset/${params.key}`;
+  gbifRedirect: ({ key } = {}, { gbifOrgLocalePrefix = '' }) => {
+    if (typeof key !== 'string' && typeof key !== 'number')
+      throw new Error(`'Invalid key (key is of type ${typeof key})`);
+    if (key === 'search') return null;
+    return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/dataset/${key}`;
   },
   path: 'dataset/:key',
   loader: datasetLoader,
@@ -31,6 +35,18 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
     {
       path: 'occurrences',
       element: <DatasetKeyOccurrences />,
+    },
+    {
+      path: 'citations',
+      element: <DatasetKeyLiterature />,
+    },
+    {
+      path: 'project',
+      element: <DatasetKeyProject />,
+    },
+    {
+      path: 'phylogenies',
+      element: <DatasetKeyPhylo />,
     },
     {
       path: 'download',

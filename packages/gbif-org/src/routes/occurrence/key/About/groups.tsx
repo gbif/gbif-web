@@ -1,26 +1,28 @@
-import React, { useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { PlainTextField, HtmlField, EnumField, BasicField } from '../properties';
-import {
-  Institution,
-  Collection,
-  ScientificName,
-  AcceptedScientificName,
-  AgentIds,
-  DynamicProperties,
-} from './customValues';
-import { FormattedMessage } from 'react-intl';
+import { BulletList } from '@/components/bulletList';
+import { GadmClassification, TaxonClassification } from '@/components/classification';
 import Properties from '@/components/properties';
 import { RenderIfChildren } from '@/components/renderIfChildren';
-import { useState } from 'react';
-import { GadmClassification, TaxonClassification } from '@/components/classification';
+import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { OccurrenceQuery, SlowOccurrenceKeyQuery, Term } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
-import { Media } from './media';
-import { OccurrenceQuery, Term } from '@/gql/graphql';
-import { BulletList } from '@/components/bulletList';
+import React, { useEffect, useState } from 'react';
+import { MdAudiotrack, MdImage } from 'react-icons/md';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { BasicField, EnumField, HtmlField, PlainTextField } from '../properties';
+import {
+  AcceptedScientificName,
+  AgentIds,
+  CollectionKey,
+  DatasetKey,
+  DynamicProperties,
+  IdentifiedById,
+  InstitutionKey,
+  RecordedById,
+  ScientificName,
+} from './customValues';
 import {
   Amplification,
-  Audubon,
   ChronometricAge,
   Cloning,
   DNADerivedData,
@@ -42,17 +44,19 @@ import {
   Reference,
   ResourceRelationship,
 } from './extensions';
-import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
+import { Media } from './media';
 
 const Map = React.lazy(() => import('@/components/map'));
 
 export function Groups({
   occurrence,
+  slowOccurrence,
   showAll,
   updateToc,
   termMap,
 }: {
   occurrence: OccurrenceQuery['occurrence'];
+  slowOccurrence: SlowOccurrenceKeyQuery['occurrence'];
   showAll: boolean;
   updateToc: (id: string, visible: boolean) => void;
   termMap: { [key: string]: Term };
@@ -64,10 +68,10 @@ export function Groups({
       {/*<SequenceTeaser       {...{ updateToc, showAll, termMap, occurrence, setActiveImage }} />*/}
       {/* <Summary {...{ updateToc, showAll, termMap, occurrence }} /> */}
 
-      <Provenance {...{ updateToc, showAll, termMap, occurrence }} />
+      {/* <Provenance {...{ updateToc, showAll, termMap, occurrence }} /> */}
 
       <GeologicalContext {...{ updateToc, showAll, termMap, occurrence }} />
-      <Record {...{ showAll, termMap, occurrence, updateToc }} />
+      <Record {...{ showAll, termMap, occurrence, slowOccurrence, updateToc }} />
       <Taxon {...{ updateToc, showAll, termMap, occurrence }} />
       <Identification {...{ updateToc, showAll, termMap, occurrence }} />
       <Location {...{ updateToc, showAll, termMap, occurrence }} />
@@ -174,13 +178,21 @@ function Summary({
       )}
 
       <BasicField label="occurrenceDetails.dataset">
-        <DynamicLink to={`/dataset/${occurrence.datasetKey}`}>
+        <DynamicLink
+          to={`/dataset/${occurrence.datasetKey}`}
+          pageId="datasetKey"
+          variables={{ key: occurrence.datasetKey }}
+        >
           {occurrence.datasetTitle}
         </DynamicLink>
       </BasicField>
 
       <BasicField label="occurrenceFieldNames.publisher">
-        <DynamicLink to={`/publisher/${occurrence.publishingOrgKey}`}>
+        <DynamicLink
+          to={`/publisher/${occurrence.publishingOrgKey}`}
+          pageId="publisherKey"
+          variables={{ key: occurrence.publishingOrgKey }}
+        >
           {occurrence.publisherTitle}
         </DynamicLink>
       </BasicField>
@@ -196,47 +208,53 @@ function Summary({
   );
 }
 
-function Provenance({
-  showAll,
-  termMap,
-  occurrence,
-}: {
-  showAll: boolean;
-  termMap: any;
-  occurrence: any;
-}) {
-  return (
-    <Card className="g-mb-4 g-bg-slate-300 g-text-slate-600">
-      <div className="g-py-4 g-px-4 md:g-px-8">
-        This record is part of the dataset{' '}
-        <span className="g-underline">
-          <DynamicLink to={`/dataset/${occurrence.datasetKey}`}>
-            {occurrence.datasetTitle}
-          </DynamicLink>
-        </span>
-        .
-      </div>
-    </Card>
-  );
-}
+// function Provenance({
+//   showAll,
+//   termMap,
+//   occurrence,
+// }: {
+//   showAll: boolean;
+//   termMap: any;
+//   occurrence: any;
+// }) {
+//   return (
+//     <Card className="g-mb-4 g-bg-slate-300 g-text-slate-600">
+//       <div className="g-py-4 g-px-4 md:g-px-8">
+//         This record is part of the dataset{' '}
+//         <span className="g-underline">
+//           <DynamicLink
+//             to={`/dataset/${occurrence.datasetKey}`}
+//             pageId="datasetKey"
+//             variables={{ key: occurrence.datasetKey }}
+//             className="g-text-inherit"
+//           >
+//             {occurrence.datasetTitle}
+//           </DynamicLink>
+//         </span>
+//         .
+//       </div>
+//     </Card>
+//   );
+// }
 
 function Record({
   showAll,
   termMap,
   occurrence,
+  slowOccurrence,
 }: {
   showAll: boolean;
   termMap: any;
-  occurrence: any;
+  occurrence: OccurrenceQuery['occurrence'];
+  slowOccurrence: SlowOccurrenceKeyQuery['occurrence'];
 }) {
   // no reason to test this, this group is always present since basisOfRecord is always present
   return (
     <PropGroup label="occurrenceDetails.groups.record" id="record">
-      <Institution {...{ showAll, termMap, occurrence }} />
-      <Collection {...{ showAll, termMap, occurrence }} />
+      <InstitutionKey {...{ occurrence, slowOccurrence }} />
+      <CollectionKey {...{ occurrence, slowOccurrence }} />
+      <DatasetKey {...{ occurrence }} />
 
-      <HtmlField term={termMap.datasetID} showDetails={showAll} />
-      <PlainTextField term={termMap.datasetName} showDetails={showAll} />
       <EnumField
         term={termMap.basisOfRecord}
         showDetails={showAll}
@@ -325,7 +343,7 @@ function Location({
           <FormattedMessage id="occurrenceDetails.groups.location" />
         </CardTitle>
       </CardHeader>
-      <CardContent className="g-flex g-w-full">
+      <CardContent className="g-flex g-flex-col md:g-flex-row g-w-full">
         <div className="g-flex-auto">
           <Properties breakpoint={800} className="[&>dt]:g-w-52">
             <PlainTextField term={termMap.locationID} showDetails={showAll} />
@@ -411,10 +429,10 @@ function Location({
         {occurrence.coordinates.lon && (
           <div className="g-ms-4 g-flex-auto g-w-1/2 g-min-w-64">
             <StaticRenderSuspence fallback={<div>Loading map...</div>}>
-              <Map
+              {/* <Map
                 coordinates={occurrence.coordinates}
                 className="g-w-full g-rounded g-overflow-hidden"
-              />
+              /> */}
             </StaticRenderSuspence>
           </div>
         )}
@@ -439,6 +457,7 @@ function Occurrence({
       <PlainTextField term={termMap.catalogNumber} showDetails={showAll} />
       <PlainTextField term={termMap.recordNumber} showDetails={showAll} />
       <PlainTextField term={termMap.recordedBy} showDetails={showAll} />
+      <RecordedById {...{ showAll, termMap, occurrence }} />
       <PlainTextField term={termMap.individualCount} showDetails={showAll} />
       <PlainTextField term={termMap.organismQuantity} showDetails={showAll} />
       <PlainTextField term={termMap.organismQuantityType} showDetails={showAll} />
@@ -595,7 +614,7 @@ function GeologicalContext({
   const [visible, setVisible] = useState<boolean | undefined>();
   useEffect(() => {
     if (typeof visible === 'boolean') updateToc(sectionName, visible);
-  }, [visible]);
+  }, [visible, updateToc]);
 
   return (
     <RenderIfChildren
@@ -643,7 +662,7 @@ function Identification({
   const [visible, setVisible] = useState<boolean | undefined>();
   useEffect(() => {
     if (typeof visible === 'boolean') updateToc(sectionName, visible);
-  }, [visible]);
+  }, [visible, updateToc]);
 
   return (
     <RenderIfChildren
@@ -662,6 +681,7 @@ function Identification({
         getEnum={(value) => `enums.typeStatus.${value}`}
       />
       <PlainTextField term={termMap.identifiedBy} showDetails={showAll} />
+      <IdentifiedById {...{ showAll, termMap, occurrence }} />
       <PlainTextField term={termMap.dateIdentified} showDetails={showAll} />
       <HtmlField term={termMap.identificationReferences} showDetails={showAll} />
       <PlainTextField term={termMap.identificationVerificationStatus} showDetails={showAll} />
@@ -687,6 +707,16 @@ function Other({
         showDetails={showAll}
         getEnum={(value) => `enums.license.${value}`}
       />
+      {/* RECORD LEVEL Actually belongs on Record card, but it seems wrong to put it first on the page, so I've moved it here along with other identifiers */}
+      <PlainTextField term={termMap.institutionCode} showDetails={showAll} />
+      <HtmlField term={termMap.institutionID} showDetails={showAll} />
+      <PlainTextField term={termMap.ownerInstitutionCode} showDetails={showAll} />
+      <PlainTextField term={termMap.collectionCode} showDetails={showAll} />
+      <HtmlField term={termMap.collectionID} showDetails={showAll} />
+      <HtmlField term={termMap.datasetID} showDetails={showAll} />
+      <PlainTextField term={termMap.datasetName} showDetails={showAll} />
+      {/* END RECORD LEVEL */}
+
       <PlainTextField term={termMap.abstract} showDetails={showAll} />
       <PlainTextField term={termMap.accessRights} showDetails={showAll} />
       <PlainTextField term={termMap.accrualMethod} showDetails={showAll} />
@@ -741,7 +771,7 @@ function Other({
       <PlainTextField term={termMap.title} showDetails={showAll} />
       <PlainTextField term={termMap.type} showDetails={showAll} />
       <PlainTextField term={termMap.valid} showDetails={showAll} />
-      <BasicField label="occurrenceFieldNames.gbifID">{termMap.gbifID.value}</BasicField>
+      <BasicField label="occurrenceFieldNames.gbifID">{termMap?.gbifID?.value}</BasicField>
     </PropGroup>
   );
 }
@@ -764,15 +794,18 @@ function MediaSummary({
 
   const hasMore =
     occurrence.stillImageCount + occurrence.movingImageCount > 1 || occurrence?.soundCount > 0;
+  const count = occurrence.stillImageCount + occurrence.movingImageCount + occurrence.soundCount;
+  const Icon = occurrence.stillImageCount > 0 ? MdImage : MdAudiotrack;
   return (
     <Card className="g-mb-4">
       <div style={{ position: 'relative', background: '#eee' }}>
         {hasMore && (
           <a
-            href="#media"
-            className="g-absolute g-top-0 g-end-0 g-m-2 g-bg-neutral-800 g-rounded g-text-slate-100 g-px-2 g-py-1"
+            href="#multimedia"
+            className="g-flex g-items-center g-absolute g-top-0 g-end-0 g-m-2 g-bg-neutral-800 g-rounded g-text-slate-100 g-px-2 g-py-1"
           >
-            See all
+            <Icon className="g-me-1" />
+            <FormattedNumber value={count} />
           </a>
         )}
         {hasPlayableVideo && occurrence?.movingImages[0] && (
@@ -818,30 +851,48 @@ function Debug({ occurrence }: { occurrence: OccurrenceQuery['occurrence'] }) {
     <div className="g-mb-4 g-text-sm g-scroll-mt-24" id="provenance">
       <CardContent>
         <Properties breakpoint={800} className="[&>dt]:g-w-52">
-          <BasicField label="API access">
+          <BasicField label="phrases.apiAccess">
             <BulletList>
               <li>
-                <a href={`https://api.gbif.org/v1/occurrence/${occurrence.key}`}>Processed</a>
+                <a
+                  className="g-text-inherit g-underline"
+                  href={`${import.meta.env.PUBLIC_API_V1}/occurrence/${occurrence.key}`}
+                >
+                  <FormattedMessage id="occurrenceDetails.processed" />
+                </a>
               </li>
               <li>
-                <a href={`https://api.gbif.org/v1/occurrence/${occurrence.key}/fragment`}>
-                  Fragment
+                <a
+                  className="g-text-inherit g-underline"
+                  href={`${import.meta.env.PUBLIC_API_V1}/occurrence/${occurrence.key}/fragment`}
+                >
+                  <FormattedMessage id="occurrenceDetails.fragment" />
                 </a>
               </li>
             </BulletList>
           </BasicField>
           <BasicField label="occurrenceDetails.dataset">
-            <DynamicLink to={`/dataset/${occurrence.datasetKey}`}>
+            <DynamicLink
+              to={`/dataset/${occurrence.datasetKey}`}
+              pageId="datasetKey"
+              variables={{ key: occurrence.datasetKey }}
+              className="g-text-inherit g-underline"
+            >
               {occurrence.datasetTitle}
             </DynamicLink>
           </BasicField>
 
           <BasicField label="occurrenceFieldNames.publisher">
-            <DynamicLink to={`/publisher/${occurrence.publishingOrgKey}`}>
+            <DynamicLink
+              to={`/publisher/${occurrence.publishingOrgKey}`}
+              pageId="publisherKey"
+              variables={{ key: occurrence.publishingOrgKey }}
+              className="g-text-inherit g-underline"
+            >
               {occurrence.publisherTitle}
             </DynamicLink>
           </BasicField>
-          <BasicField label="Last crawled">{occurrence?.lastCrawled}</BasicField>
+          <BasicField label="phrases.lastCrawled">{occurrence?.lastCrawled}</BasicField>
         </Properties>
       </CardContent>
     </div>

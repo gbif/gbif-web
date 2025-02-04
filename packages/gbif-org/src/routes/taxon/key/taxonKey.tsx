@@ -1,0 +1,129 @@
+import { NotFoundError } from '@/errors';
+import {
+  SlowTaxonQuery,
+  SlowTaxonQueryVariables,
+  TaxonKeyQuery,
+  TaxonKeyQueryVariables,
+} from '@/gql/graphql';
+import useQuery from '@/hooks/useQuery';
+import { LoaderArgs, useI18n } from '@/reactRouterPlugins';
+import { required } from '@/utils/required';
+import { useEffect } from 'react';
+import { useLoaderData } from 'react-router-dom';
+import { TaxonKey as Presentation } from './taxonKeyPresentation';
+import { imagePredicate, typeSpecimenPredicate } from './taxonUtil';
+
+export async function taxonLoader({ params, graphql }: LoaderArgs) {
+  const key = required(params.key, 'No key was provided in the URL');
+
+  return graphql.query<TaxonKeyQuery, TaxonKeyQueryVariables>(TAXON_QUERY, {
+    key,
+    predicate: typeSpecimenPredicate(Number(key)),
+    imagePredicate: imagePredicate(Number(key)),
+  });
+}
+
+export function TaxonKey() {
+  const { data } = useLoaderData() as { data: TaxonKeyQuery };
+  const { locale } = useI18n();
+  const { data: slowTaxon, load: slowTaxonLoad } = useQuery<
+    SlowTaxonQuery,
+    SlowTaxonQueryVariables
+  >(SLOW_TAXON, {
+    lazyLoad: true,
+    throwAllErrors: true,
+  });
+  /* const { data: taxonMetrics, load: slowLoad } = useQuery<
+    TaxonSummaryMetricsQuery,
+    TaxonSummaryMetricsQueryVariables
+  >(SLOW_QUERY, {
+    lazyLoad: true,
+    throwAllErrors: true,
+  }); */
+
+  useEffect(() => {
+    const id = data.taxon?.key;
+    if (typeof id !== 'undefined') {
+      slowTaxonLoad({
+        variables: {
+          language: locale?.iso3LetterCode ?? 'eng',
+          key: id.toString(),
+        },
+      });
+    }
+  }, [data?.taxon?.key]);
+
+  if (data?.taxon == null) throw new NotFoundError();
+  return (
+    <Presentation
+      data={data}
+      /* taxonMetrics={taxonMetrics} */ slowTaxon={slowTaxon} /* taxonMetrics={taxonMetrics} */
+    />
+  );
+}
+
+export { TaxonPageSkeleton } from './taxonKeyPresentation';
+
+const TAXON_QUERY = /* GraphQL */ `
+  query TaxonKey($key: ID!, $predicate: Predicate, $imagePredicate: Predicate) {
+    taxon(key: $key) {
+      key
+      scientificName
+      kingdom
+      formattedName(useFallback: true)
+      rank
+      taxonomicStatus
+      publishedIn
+      vernacularCount: vernacularNames(limit: 10, offset: 0) {
+        results {
+          taxonKey
+        }
+      }
+      parents {
+        rank
+        scientificName
+        key
+      }
+      acceptedTaxon {
+        key
+        formattedName
+        scientificName
+      }
+    }
+    imagesCount: occurrenceSearch(predicate: $imagePredicate) {
+      documents(size: 0) {
+        total
+      }
+    }
+    typesSpecimenCount: occurrenceSearch(predicate: $predicate) {
+      documents(from: 0, size: 0) {
+        total
+      }
+    }
+  }
+`;
+
+const SLOW_TAXON = /* GraphQL */ `
+  query SlowTaxon($key: ID!, $language: String) {
+    taxon(key: $key) {
+      vernacularNames(limit: 1, language: $language) {
+        results {
+          vernacularName
+          source
+        }
+      }
+      wikiData {
+        source {
+          id
+          url
+        }
+        identifiers {
+          id
+          label
+          description
+          url
+        }
+      }
+    }
+  }
+`;

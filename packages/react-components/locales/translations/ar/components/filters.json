@@ -24,6 +24,16 @@
     "count": "",
     "description": ""
   },
+  "taxonomicStatus": {
+    "name": "الحالة",
+    "count": "",
+    "description": ""
+  },
+  "taxonRank": {
+    "name": "ترتيب",
+    "count": "",
+    "description": ""
+  },
   "numberSpecimens": {
     "name": "",
     "count": "",
@@ -335,6 +345,11 @@
     "count": "",
     "description": ""
   },
+  "higherGeography": {
+    "name": "الجغرافيا العليا",
+    "count": "أرشيف شروح \"جيبف\"",
+    "description": "أرشيف شروح \"جيبف\""
+  },
   "stateProvince": {
     "name": "الولاية/المقاطعة/المحافظة",
     "count": "",
@@ -418,6 +433,21 @@
   "active": {
     "name": "نشط",
     "count": "نشط",
+    "description": "أرشيف شروح \"جيبف\""
+  },
+  "activeInstitution": {
+    "name": "نشط",
+    "count": "نشط",
+    "description": "أرشيف شروح \"جيبف\""
+  },
+  "activeCollection": {
+    "name": "نشط",
+    "count": "نشط",
+    "description": "أرشيف شروح \"جيبف\""
+  },
+  "publicationDate": {
+    "name": "تاريخ النشر",
+    "count": "أرشيف شروح \"جيبف\"",
     "description": "أرشيف شروح \"جيبف\""
   },
   "personalCollection": {

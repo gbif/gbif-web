@@ -1,10 +1,12 @@
-import React from 'react';
-import { ScrollRestoration, useLoaderData } from 'react-router-dom';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { NoscriptNotification } from '@/components/noscriptNotification';
 import { Toaster } from '@/components/ui/toaster';
 import { HeaderQuery, HeaderQueryVariables } from '@/gql/graphql';
-import { NoscriptNotification } from '@/components/noscriptNotification';
-import { Header } from './header';
 import { LoaderArgs } from '@/reactRouterPlugins';
+import React from 'react';
+import { ScrollRestoration, useLoaderData } from 'react-router-dom';
+import { Header } from './header';
+import { LoadingIndicator } from '@/components/loadingIndicator';
 
 const HEADER_QUERY = /* GraphQL */ `
   query Header {
@@ -46,18 +48,19 @@ export function GbifRootLayout({ children }: Props) {
 
   return (
     <div className="g-flex g-flex-col g-min-h-[100dvh]">
+      <LoadingIndicator />
       <Header menu={data} />
       <main className="g-flex-auto">
         <NoscriptNotification />
         <ScrollRestoration />
         <Toaster />
-        {children}
+        <ErrorBoundary>{children}</ErrorBoundary>
         {/* Visualization of the table of contents IntersectionObserver area
         <div className="g-fixed g-pointer-events-none g-top-0 g-left-0 g-w-screen g-h-screen">
           <div className="g-mt-[200px] g-mb-[60%] g-bg-red-300 g-h-[calc(100vh-60%-200px)] g-opacity-10"></div>
         </div> */}
       </main>
-      <footer className="g-flex-none g-h-96 g-bg-gray-100 g-p-4 g-text-center">
+      <footer className="g-flex-none g-h-96 g-bg-gray-100 g-p-4 g-text-center g-border-t">
         <div className="g-text-sm">Footer</div>
       </footer>
     </div>

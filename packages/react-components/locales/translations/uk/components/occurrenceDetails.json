@@ -1,5 +1,13 @@
 {
+  "tabs": {
+    "details": "Подробиці",
+    "cluster": "",
+    "phylotree": "Архів анотований GBIF"
+  },
   "occurrence": "Знахідка",
+  "specimen": "",
+  "processed": "Архів анотований GBIF",
+  "fragment": "Архів анотований GBIF",
   "showAllFields": "",
   "morePhotos": "",
   "about": "Відомості про видавця даних",
@@ -10,6 +18,10 @@
   "collection": "Колекція",
   "collectionGrSciColl": "",
   "recordedAndIdentifiedBy": "",
+  "tryPublisherSiteForFailingMedia": "",
+  "screenReader": {
+    "title": ""
+  },
   "info": {
     "original": "вихідний",
     "excluded": "Виключено",
@@ -27,7 +39,8 @@
     "organism": "Організм",
     "materialSample": "Проба матеріалу",
     "geologicalContext": "Геологічний контекст",
-    "other": "Інше"
+    "other": "Інше",
+    "extensions": "Розширення"
   },
   "features": {
     "isClustered": "",
@@ -43,6 +56,15 @@
     "isSpecimen": "",
     "eventDate": "Дата події",
     "isType": ""
+  },
+  "cluster": {
+    "current": "",
+    "relatedOccurrences": "",
+    "similarBecause": "",
+    "clusterTags": "Архів анотований GBIF",
+    "matchedRecord": "",
+    "noMatches": "",
+    "explainer": "Ця експериментальна функція виділяє можливі дубльовані та/або пов'язані знахідки."
   },
   "extensions": {
     "audubon": {
@@ -187,8 +209,8 @@
         "biologicalStatus": "Архів анотований GBIF",
         "storageCondition": "Архів анотований GBIF",
         "collectingInstituteID": "",
-        "latitude": "",
-        "longitude": "",
+        "latitude": "Широта",
+        "longitude": "Довгота",
         "altitude": "",
         "locationID": "ID місцезнаходження",
         "breedingID": "",
@@ -268,8 +290,8 @@
         "measurementTrailRemarks": "Архів анотований GBIF",
         "locationID": "ID місцезнаходження",
         "location": "Місцезнаходження",
-        "longitude": "",
-        "latitude": "",
+        "longitude": "Довгота",
+        "latitude": "Широта",
         "altitude": ""
       }
     },
@@ -343,8 +365,8 @@
         "title": "Назва",
         "description": "Опис",
         "spatial": "Просторовий",
-        "latitude": "",
-        "longitude": "",
+        "latitude": "Широта",
+        "longitude": "Довгота",
         "format": "Формат",
         "created": "Створений",
         "creator": "Автор",

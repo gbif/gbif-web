@@ -10,8 +10,11 @@
   "registered": "Registered",
   "hostedDatasets": "Hosted datasets",
   "pubDatasets": "Published datasets",
+  "parents": "Parents",
   "institution": "Institution",
   "collection": "Collection",
   "collectionCount": "Collections",
-  "active": "Is active"
+  "active": "Is active",
+  "activeInstitution": "Is active",
+  "activeCollection": "Is active"
 }

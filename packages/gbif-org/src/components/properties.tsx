@@ -1,10 +1,10 @@
-import { cn } from '@/utils/shadcn';
-import useBelow from '@/hooks/useBelow';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { MdInfoOutline } from 'react-icons/md';
-import { HelpLine } from '@/components/helpText';
-import EmptyValue from '@/components/emptyValue';
 import { BulletList } from '@/components/bulletList';
+import EmptyValue from '@/components/emptyValue';
+import { HelpLine } from '@/components/helpText';
+import useBelow from '@/hooks/useBelow';
+import { cn } from '@/utils/shadcn';
+import { MdInfoOutline } from 'react-icons/md';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 export default function Properties({
   breakpoint,
@@ -186,10 +186,9 @@ export function Property({
 } & React.HTMLAttributes<HTMLDivElement>) {
   // if there is no value, and the user do not ask to show empty values, then do not show anything
   if (
-    (typeof value === 'undefined' ||
-      value === null ||
-      (Array.isArray(value) && value.length === 0)) &&
-    !children
+    typeof value === 'undefined' ||
+    value === null ||
+    (Array.isArray(value) && value.length === 0)
   ) {
     if (!props.showEmpty) return null;
   }

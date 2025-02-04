@@ -4,4 +4,4 @@ import typeDef from './tool.type';
 export default {
   resolver,
   typeDef,
-}
+};

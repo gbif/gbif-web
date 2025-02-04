@@ -1,18 +1,18 @@
+import { PublisherQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
-import { publisherLoader, PublisherPage, PublisherPageSkeleton } from './publisherKey';
 import { PublisherKeyAbout } from './about';
 import { PublisherKeyMetrics } from './metrics';
-import { PublisherKeyCitations } from './citations';
-import { PublisherQuery } from '@/gql/graphql';
+import { publisherLoader, PublisherPage, PublisherPageSkeleton } from './publisherKey';
 
-const id = 'publisher-key';
+const id = 'publisherKey';
 
 export const publisherKeyRoute: RouteObjectWithPlugins = {
   id,
-  gbifRedirect: (params) => {
-    if (typeof params.key !== 'string') throw new Error('Invalid key');
-    if (params.key === 'search') return null;
-    return `/publisher/${params.key}`;
+  gbifRedirect: ({ gbifOrgLocalePrefix = '', key } = {}) => {
+    if (typeof key !== 'string' && typeof key !== 'number')
+      throw new Error(`'Invalid key (key is of type ${typeof key})`);
+    if (key === 'search') return null;
+    return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/publisher/${key}`;
   },
   path: 'publisher/:key',
   loader: publisherLoader,
@@ -27,10 +27,10 @@ export const publisherKeyRoute: RouteObjectWithPlugins = {
       path: 'metrics',
       element: <PublisherKeyMetrics />,
     },
-    {
-      path: 'citations',
-      element: <PublisherKeyCitations />,
-    },
+    // {
+    //   path: 'citations',
+    //   element: <PublisherKeyCitations />,
+    // },
   ],
 };
 

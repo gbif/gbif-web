@@ -5,5 +5,9 @@
   "LIVING_ORGANISM_COLLECTION": "Collection d'organismes vivants",
   "MEDICAL_RESEARCH_INSTITUTE": "Institut de recherche médicale",
   "MUSEUM": "Musée",
-  "OTHER_INSTITUTIONAL_TYPE": "Autre type d'institution"
+  "MUSEUM_HERBARIUM_PRIVATE_NON_PROFIT": "Herbier privé à but non lucratif",
+  "OTHER_INSTITUTIONAL_TYPE": "Autre type d'institution",
+  "OTHER_TYPE_RESEARCH_INSTITUTION_BIOREPOSITORY": "Dépôt biologique d'un autre type d'institution de recherche",
+  "UNIVERSITY_COLLEGE": "Collège universitaire",
+  "ZOO_AQUARIUM": "Aquarium zoologique"
 }

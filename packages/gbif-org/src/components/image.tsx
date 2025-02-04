@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MdBrokenImage, MdImage } from 'react-icons/md';
 
 export function ClientImage({ wrapperProps, onLoad, defaultSize, style = {}, src, ...props }) {
@@ -10,7 +10,6 @@ export function ClientImage({ wrapperProps, onLoad, defaultSize, style = {}, src
   useEffect(() => {
     markAsFailed(false);
     setLoading(true);
-    console.log('set as loading');
   }, [src]);
 
   // because we do server side rendering, we need to check if the image is already loaded. Since it could have finished loading before the component was mounted and hence won't trigger the onLoad function during hydration. Luckily there is a complete property on the image element that we can use.

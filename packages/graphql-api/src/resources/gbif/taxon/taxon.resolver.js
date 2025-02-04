@@ -5,27 +5,27 @@
  */
 const getTaxonFacet =
   (facetKey) =>
-    (parent, { limit = 10, offset = 0 }, { dataSources }) => {
-      // generate the species search query, by inherting from the parent query, and map limit/offset to facet equivalents
-      const query = {
-        ...parent._query,
-        limit: 0,
-        facet: facetKey,
-        facetLimit: limit,
-        facetOffset: offset,
-      };
-      // query the API, and throw away anything but the facet counts
-      return dataSources.taxonAPI.searchTaxa({ query }).then((data) => [
-        ...data.facets[0].counts.map((facet) => ({
-          ...facet,
-          // attach the query, but add the facet as a filter
-          _query: {
-            ...parent._query,
-            [facetKey]: facet.name,
-          },
-        })),
-      ]);
+  (parent, { limit = 10, offset = 0 }, { dataSources }) => {
+    // generate the species search query, by inherting from the parent query, and map limit/offset to facet equivalents
+    const query = {
+      ...parent._query,
+      limit: 0,
+      facet: facetKey,
+      facetLimit: limit,
+      facetOffset: offset,
     };
+    // query the API, and throw away anything but the facet counts
+    return dataSources.taxonAPI.searchTaxa({ query }).then((data) => [
+      ...data.facets[0].counts.map((facet) => ({
+        ...facet,
+        // attach the query, but add the facet as a filter
+        _query: {
+          ...parent._query,
+          [facetKey]: facet.name,
+        },
+      })),
+    ]);
+  };
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -36,30 +36,54 @@ const getTaxonFacet =
  */
 export default {
   Query: {
-    taxonSearch: (parent, query, { dataSources }) =>
-      dataSources.taxonAPI.searchTaxa({ query }),
-    backboneSearch: (parent, query, { dataSources }) =>
-      dataSources.taxonAPI.searchBackbone({ query }),
+    taxonSearch: (parent, { query = {}, ...args } = {}, { dataSources }) =>
+      dataSources.taxonAPI.searchTaxa({ query: { ...args, ...query } }),
+    backboneSearch: (parent, { query = {}, ...args } = {}, { dataSources }) =>
+      dataSources.taxonAPI.searchBackbone({ query: { ...args, ...query } }),
     taxon: (parent, { key }, { dataSources }) =>
       dataSources.taxonAPI.getTaxonByKey({ key }),
     checklistRoots: (parent, { datasetKey: key, ...query }, { dataSources }) =>
       dataSources.taxonAPI.getChecklistRoots({ key, query }),
     taxonSuggestions: (parent, query, { dataSources }) =>
-      dataSources.taxonAPI.getSuggestions(query)
+      dataSources.taxonAPI.getSuggestions(query),
   },
   Taxon: {
     dataset: ({ datasetKey }, args, { dataSources }) =>
       dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
-    formattedName: ({ key }, args, { dataSources }) =>
-      dataSources.taxonAPI.getParsedName({ key }),
+    formattedName: (
+      { key, scientificName },
+      { useFallback },
+      { dataSources },
+    ) => {
+      return dataSources.taxonAPI
+        .getParsedName({ key })
+        .then((formattedName) => {
+          return formattedName;
+        })
+        .catch((err) => {
+          if (useFallback) {
+            return name;
+          }
+          throw err;
+        });
+    },
     wikiData: ({ key }, args, { dataSources }) =>
       dataSources.wikidataAPI.getWikiDataTaxonData(key),
     backboneTaxon: ({ key, nubKey }, args, { dataSources }) => {
       if (typeof nubKey === 'undefined' || key === nubKey) return null;
       return dataSources.taxonAPI.getTaxonByKey({ key: nubKey });
     },
+    acceptedTaxon: ({ key, acceptedKey }, args, { dataSources }) => {
+      if (typeof acceptedKey === 'undefined' || key === acceptedKey)
+        return null;
+      return dataSources.taxonAPI.getTaxonByKey({ key: acceptedKey });
+    },
     taxonImages_volatile: ({ key, nubKey }, { size }, { dataSources }) =>
-      dataSources.taxonMediaAPI.getRepresentativeImages({ taxon: nubKey ?? key, dataSources, size }),
+      dataSources.taxonMediaAPI.getRepresentativeImages({
+        taxon: nubKey ?? key,
+        dataSources,
+        size,
+      }),
   },
   TaxonSearchResult: {
     facet: (parent) => ({
@@ -69,7 +93,7 @@ export default {
   TaxonFacet: {
     rank: getTaxonFacet('rank'),
     status: getTaxonFacet('status'),
-    higherTaxon: getTaxonFacet('highertaxonKey'),
+    higherTaxonKey: getTaxonFacet('highertaxonKey'),
     issue: getTaxonFacet('issue'),
   },
   TaxonFacetResult: {

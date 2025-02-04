@@ -1,7 +1,7 @@
-import * as React from 'react';
 import * as SheetPrimitive from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import { cva, type VariantProps } from 'class-variance-authority';
+import * as React from 'react';
 
 import { cn } from '@/utils/shadcn';
 
@@ -57,14 +57,18 @@ const SheetContent = React.forwardRef<
 >(({ side = 'right', className, children, ...props }, ref) => (
   <SheetPortal>
     <div className="gbif">
-    <SheetOverlay />
-    <SheetPrimitive.Content ref={ref} className={cn(sheetVariants({ side }), className)} {...props}>
-      <SheetPrimitive.Close className="g-absolute g-right-4 g-top-4 g-rounded-sm g-opacity-70 g-ring-offset-background g-transition-opacity hover:g-opacity-100 focus:g-outline-none focus:g-ring-2 focus:g-ring-ring focus:g-ring-offset-2 disabled:g-pointer-events-none data-[state=open]:g-bg-secondary">
-        <Cross2Icon className="g-h-4 g-w-4" />
-        <span className="g-sr-only">Close</span>
-      </SheetPrimitive.Close>
-      {children}
-    </SheetPrimitive.Content>
+      <SheetOverlay />
+      <SheetPrimitive.Content
+        ref={ref}
+        className={cn(sheetVariants({ side }), className)}
+        {...props}
+      >
+        <SheetPrimitive.Close className="g-absolute g-right-4 g-top-4 g-rounded-sm g-opacity-70 g-ring-offset-background g-transition-opacity hover:g-opacity-100 focus:g-outline-none focus:g-ring-2 focus:g-ring-ring focus:g-ring-offset-2 disabled:g-pointer-events-none data-[state=open]:g-bg-secondary">
+          <Cross2Icon className="g-h-4 g-w-4" />
+          <span className="g-sr-only">Close</span>
+        </SheetPrimitive.Close>
+        {children}
+      </SheetPrimitive.Content>
     </div>
   </SheetPortal>
 ));
@@ -114,14 +118,15 @@ const SheetDescription = React.forwardRef<
 SheetDescription.displayName = SheetPrimitive.Description.displayName;
 
 export {
-  Sheet,
-  SheetPortal,
-  SheetOverlay,
-  SheetTrigger,
-  SheetClose,
-  SheetContent,
-  SheetHeader,
-  SheetFooter,
-  SheetTitle,
-  SheetDescription,
+    Sheet,
+    SheetPortal,
+    SheetOverlay,
+    SheetTrigger,
+    SheetClose,
+    SheetContent,
+    SheetHeader,
+    SheetFooter,
+    SheetTitle,
+    SheetDescription,
 };
+

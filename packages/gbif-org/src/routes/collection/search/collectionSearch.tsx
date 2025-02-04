@@ -1,33 +1,35 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
+import { ClientSideOnly } from '@/components/clientSideOnly';
+import { DataHeader } from '@/components/dataHeader';
+import { DownloadAsTSVLink } from '@/components/downloadAsTSVLink';
+import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
+import { PaginationFooter } from '@/components/pagination';
+import { CardListSkeleton } from '@/components/skeletonLoaders';
+import { CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useConfig } from '@/config/config';
+import { FilterContext, FilterProvider } from '@/contexts/filter';
+import { SearchContextProvider, useSearchContext } from '@/contexts/search';
+import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
+import {
+  CollectionSearchQuery,
+  CollectionSearchQueryVariables,
+  CollectionsSortField,
+  SortOrder,
+} from '@/gql/graphql';
+import { useNumberParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
-import { Card } from '@/components/ui/smallCard';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { CollectionSearchQuery, CollectionSearchQueryVariables } from '@/gql/graphql';
-import { CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { notNull } from '@/utils/notNull';
+import { stringify } from '@/utils/querystring';
+import React, { useContext, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
-import { PaginationFooter } from '@/components/pagination';
-import { NoRecords } from '@/components/noDataMessages';
-import { Skeleton } from '@/components/ui/skeleton';
-import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { CollectionResult } from '../collectionResult';
-import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import { FilterContext, FilterProvider } from '@/contexts/filter';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
-import { HelpText } from '@/components/helpText';
-import { ClientSideOnly } from '@/components/clientSideOnly';
-import { searchConfig } from './searchConfig';
 import { useFilters } from './filters';
-import { useConfig } from '@/config/config';
-import { SearchContextProvider, useSearchContext } from '@/contexts/search';
-import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
-import { DataHeader } from '@/components/dataHeader';
+import { AboutContent, ApiContent } from './help';
+import { NoResultsMessage } from './noResultsMessage';
+import { searchConfig } from './searchConfig';
 
 const COLLECTION_SEARCH_QUERY = /* GraphQL */ `
   query CollectionSearch($query: CollectionSearchInput) {
@@ -43,13 +45,22 @@ const COLLECTION_SEARCH_QUERY = /* GraphQL */ `
 `;
 
 export function CollectionSearchPage(): React.ReactElement {
-  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
+  const [filter, setFilter] = useFilterParams({
+    filterConfig: searchConfig,
+    paramsToRemove: ['offset'],
+  });
   const config = useConfig();
+
   return (
     <>
-      <Helmet>
-        <title>Collection search</title>
-      </Helmet>
+      <FormattedMessage id="catalogues.collections" defaultMessage="Collections">
+        {(title) => (
+          <Helmet>
+            <title>{title}</title>
+          </Helmet>
+        )}
+      </FormattedMessage>
+
       <SearchContextProvider searchContext={config.collectionSearch}>
         <FilterProvider filter={filter} onChange={setFilter}>
           <CollectionSearch />
@@ -60,53 +71,70 @@ export function CollectionSearchPage(): React.ReactElement {
 }
 
 export function CollectionSearch(): React.ReactElement {
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useNumberParam({ key: 'offset', defaultValue: 0, hideDefault: true });
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
+  const [tsvUrl, setTsvUrl] = useState('');
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
-  const tabClassName = 'g-pt-2 g-pb-1.5';
 
-  const { data, error, load, loading } = useQuery<CollectionSearchQuery, CollectionSearchQueryVariables>(
-    COLLECTION_SEARCH_QUERY,
-    {
-      throwAllErrors: true,
-      lazyLoad: true,
-    }
-  );
+  const { data, error, load, loading } = useQuery<
+    CollectionSearchQuery,
+    CollectionSearchQueryVariables
+  >(COLLECTION_SEARCH_QUERY, {
+    throwAllErrors: true,
+    lazyLoad: true,
+    forceLoadingTrueOnMount: true,
+  });
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
+    const downloadUrl = `${import.meta.env.PUBLIC_API_V1}/grscicoll/institution/export?format=TSV&${
+      query ? stringify(query) : ''
+    }`;
+    setTsvUrl(downloadUrl);
     load({
       variables: {
         query: {
           ...query,
+          sortBy: CollectionsSortField.NumberSpecimens,
+          sortOrder: SortOrder.Desc,
           limit: 20,
           offset,
         },
       },
     });
-  }, [load, offset, filterHash, searchConfig]);
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [load, offset, filterHash, searchContext]);
 
   const collections = data?.collectionSearch;
-  
+
   return (
     <>
       <DataHeader
-        title="Collections"
+        className="g-bg-white"
+        title={<FormattedMessage id="catalogues.collections" defaultMessage="Collections" />}
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
-      ></DataHeader>
+        hideIfNoCatalogue={true}
+      />
 
       <section className="">
         <FilterBar>
-          <FilterButtons filters={filters} searchContext={searchContext}/>
+          <FilterButtons filters={filters} searchContext={searchContext} />
         </FilterBar>
-        <ArticleContainer className="g-bg-slate-100">
-          <ArticleTextContainer className="g-m-0">
-            <Results loading={loading} collections={collections} setOffset={setOffset} />
+        <ArticleContainer className="g-bg-slate-100 g-flex">
+          <ArticleTextContainer className="g-flex-auto g-w-full">
+            <Results
+              tsvUrl={tsvUrl}
+              excludedFilters={searchContext.excludedFilters}
+              loading={loading}
+              collections={collections}
+              setOffset={setOffset}
+            />
           </ArticleTextContainer>
         </ArticleContainer>
       </section>
@@ -118,11 +146,17 @@ function Results({
   loading,
   collections,
   setOffset,
+  tsvUrl,
+  excludedFilters,
 }: {
   loading: boolean;
   collections?: CollectionSearchQuery['collectionSearch'];
   setOffset: (x: number) => void;
+  tsvUrl: string;
+  excludedFilters?: string[];
 }) {
+  const excludeInstitution = excludedFilters?.includes('institutionKey');
+
   return (
     <>
       {loading && (
@@ -137,85 +171,38 @@ function Results({
           <CardListSkeleton />
         </>
       )}
-      {!loading && collections?.count === 0 && (
-        <>
-          <NoRecords />
-        </>
-      )}
+      {!loading && collections?.count === 0 && <NoResultsMessage />}
       {collections && collections.count > 0 && (
         <>
-          <CardHeader id="collections">
+          <CardHeader
+            id="collections"
+            className="g-flex-col md:g-flex-row g-items-start md:g-items-center g-justify-between"
+          >
             <CardTitle>
-              <FormattedMessage id="counts.nCollections" values={{ total: collections.count ?? 0 }} />
+              <FormattedMessage
+                id="counts.nCollections"
+                values={{ total: collections.count ?? 0 }}
+              />
             </CardTitle>
+            <DownloadAsTSVLink tsvUrl={tsvUrl} />
           </CardHeader>
+          {collections.results.filter(notNull).map((item) => (
+            <CollectionResult key={item.key} collection={item} {...{ excludeInstitution }} />
+          ))}
           <ClientSideOnly>
-            {collections &&
-              collections.results.map((item) => <CollectionResult key={item.key} collection={item} />)}
-
-            {collections?.count && collections?.count > collections?.limit && (
+            {collections.count && collections.count > collections.limit && (
               <PaginationFooter
                 offset={collections.offset}
                 count={collections.count}
                 limit={collections.limit}
-                onChange={(x) => setOffset(x)}
-                anchor="collections"
+                onChange={(x) => {
+                  setOffset(x);
+                }}
               />
             )}
           </ClientSideOnly>
         </>
       )}
     </>
-  );
-}
-
-function AboutContent() {
-  return (
-    <div>
-      <Accordion type="single" collapsible className="w-full">
-        <AccordionItem value="item-1">
-          <AccordionTrigger>What is a collection?</AccordionTrigger>
-          <AccordionContent className="g-prose g-text-sm">
-            Data is loaded from contentful help items async. E.g.
-            <HelpText
-              identifier={'which-coordinate-systems-are-used-for-gbif-occurence-downloads'}
-            />
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-2">
-          <AccordionTrigger>Other example entry</AccordionTrigger>
-          <AccordionContent>Data is loaded from contentful help items async</AccordionContent>
-        </AccordionItem>
-      </Accordion>
-    </div>
-  );
-}
-
-function ApiContent() {
-  return (
-    <div className="g-text-sm g-prose">
-      <h3>API access</h3>
-      <p>
-        All data is available via the{' '}
-        <a href="https://techdocs.gbif.org/en/openapi/v1/registry#/Collections">GBIF API</a>. No
-        registration or API key is required.
-      </p>
-      <p>
-        Please remember to properly cite usage and to throttle requests in scripts. Most endpoint
-        types support download/export. Use those if you need large data volumes.
-      </p>
-      <h4>Examples</h4>
-      <Card className="g-p-2 g-mb-2">
-        Get all collections <br />
-        <a href="https://api.gbif.org/v1/collection/search">https://api.gbif.org/v1/collection/search</a>
-      </Card>
-      <Card className="g-p-2">
-        First 2 collection published from Denmark with free text "fungi" in the title or description
-        <br />
-        <a href="https://api.gbif.org/v1/collection/search?q=fungi&publishingCountry=DK&limit=2&offset=0">
-          https://api.gbif.org/v1/collection/search?q=fungi&publishingCountry=DK&limit=2&offset=0
-        </a>
-      </Card>
-    </div>
   );
 }

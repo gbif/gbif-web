@@ -1,18 +1,18 @@
+import { cn } from '@/utils/shadcn';
 import React from 'react';
-import { Button } from '../ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '../ui/command';
 import { IoMdCheckmark as Checkmark } from 'react-icons/io';
 import { LuChevronsUpDown as ChevronsUpDown } from 'react-icons/lu';
-import { cn } from '@/utils/shadcn';
 import { useUncontrolledProp } from 'uncontrollable';
+import { Button } from '../ui/button';
+import {
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList
+} from '../ui/command';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 
 type Props<T> = {
   search(searchTerm: string): void;
@@ -72,7 +72,11 @@ export function SearchSuggest<T>({
           <ChevronsUpDown className="g-ml-2 g-h-4 g-w-4 g-shrink-0 g-opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent style={{ width: 'var(--radix-popover-trigger-width)' }} className="g-p-0" align="start">
+      <PopoverContent
+        style={{ width: 'var(--radix-popover-trigger-width)' }}
+        className="g-p-0"
+        align="start"
+      >
         <Command shouldFilter={false}>
           <CommandInput
             value={searchTerm}

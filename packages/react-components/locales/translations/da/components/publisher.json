@@ -12,6 +12,7 @@
   "hosting": "Vært",
   "description": "Beskriveslse",
   "endorsedBy": "Godkendt af",
+  "notYetEndorsed": "GBIF annoteret Arkiv",
   "pendingEndorsementBy": "Afventer godkendelse fra",
   "endorsementWithheld": "",
   "installations": "Installationer",

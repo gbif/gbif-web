@@ -1,188 +1,181 @@
-import { Drawer } from '@/components/drawer/drawer';
-import { InternalScrollHandler } from '@/components/internalScrollHandler';
-import { TableFilters } from '@/components/tableFilters/tableFilters';
-import { DataTable } from '@/components/ui/dataTable';
-import { useConfig } from '@/config/config';
-import { OccurrenceSearchQuery, OccurrenceSearchQueryVariables } from '@/gql/graphql';
-import useQuery from '@/hooks/useQuery';
-import { useColumns } from '@/routes/occurrence/search/columns';
-import { ExtractPaginatedResult } from '@/types';
-import { notNull } from '@/utils/notNull';
-import React, { useContext, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { useSearchParams } from 'react-router-dom';
-import { StandaloneOccurrenceKeyPage } from '../key/standalone';
+import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
+import DynamicHeightDiv from '@/components/DynamicHeightDiv';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
 import { Tabs } from '@/components/tabs';
-import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
-import { FilterContext, FilterProvider } from '@/contexts/filter';
+import { Card } from '@/components/ui/smallCard';
+import { useConfig } from '@/config/config';
+import { FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
-import { searchConfig } from './searchConfig';
-import { useFilters } from './filters';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import { AboutContent, ApiContent } from './helpTexts';
-
-const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
-  query OccurrenceSearch($from: Int, $predicate: Predicate) {
-    occurrenceSearch(predicate: $predicate) {
-      documents(from: $from) {
-        from
-        size
-        total
-        results {
-          key
-          scientificName
-          eventDate
-          coordinates
-          county
-          countryCode
-          basisOfRecord
-          datasetName
-          publisherTitle
-        }
-      }
-    }
-  }
-`;
-
-export type SingleOccurrenceSearchResult = ExtractPaginatedResult<
-  OccurrenceSearchQuery['occurrenceSearch']
->;
-
-const PAGE_SIZE = 20;
+import { useStringParam } from '@/hooks/useParam';
+import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
+import { cn } from '@/utils/shadcn';
+import React from 'react';
+import { Helmet } from 'react-helmet-async';
+import { FormattedMessage } from 'react-intl';
+import { useFilters } from './filters';
+import { AboutContent, ApiContent } from './help';
+import { searchConfig } from './searchConfig';
+import EntityDrawer from './views/browseList/ListBrowser';
+import { Clusters } from './views/clusters';
+import { Dashboard } from './views/dashboard';
+import { Dataset } from './views/datasets';
+import { Download } from './views/download';
+import { Map } from './views/map';
+import { Media } from './views/media';
+import { OccurrenceTable } from './views/table';
 
 export function OccurrenceSearchPage(): React.ReactElement {
-  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
+  const [filter, setFilter] = useFilterParams({
+    filterConfig: searchConfig,
+    paramsToRemove: ['offset', 'from'],
+  });
   const config = useConfig();
   return (
     <>
-      <Helmet>
-        <title>Occurrence search</title>
-      </Helmet>
+      <FormattedMessage id="occurrence.pageTitle" defaultMessage="Occurrence search">
+        {(title) => (
+          <Helmet>
+            <title>{title}</title>
+          </Helmet>
+        )}
+      </FormattedMessage>
+
       <SearchContextProvider searchContext={config.occurrenceSearch}>
         <FilterProvider filter={filter} onChange={setFilter}>
-          <OccurrenceSearch />
+          <OccurrenceSearchPageInner />
         </FilterProvider>
       </SearchContextProvider>
     </>
   );
 }
 
-export function OccurrenceSearch(): React.ReactElement {
-  const filterContext = useContext(FilterContext);
+export function OccurrenceSearchPageInner(): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
-
-  const { filter, filterHash } = filterContext || { filter: { must: {} } };
-  const tabClassName = 'g-pt-2 g-pb-1.5';
-
-  const [previewKey, setPreviewKey] = useState<string | null>();
-
-  const { data, error, load, loading } = useQuery<OccurrenceSearchQuery, OccurrenceSearchQueryVariables>(
-    OCCURRENCE_SEARCH_QUERY,
-    {
-      throwAllErrors: true,
-      lazyLoad: true,
-    }
-  );
-
-  useEffect(() => {
-    const query = getAsQuery({ filter, searchContext, searchConfig });
-    load({
-      variables: {
-        predicate: {
-          ...query,
-        },
-        limit: 20,
-      },
-    });
-  }, [load, filterHash, searchContext]);
-
-
-  const columns = useColumns({ showPreview: setPreviewKey, filters });
-
-  const occurrences = React.useMemo(
-    () => data?.occurrenceSearch?.documents.results.filter(notNull) ?? [],
-    [data]
-  );
-
-  const totalResults = React.useMemo(() => data?.occurrenceSearch?.documents.total, [data]);
-
-  const currentPageNumber = data?.occurrenceSearch?.documents.from
-    ? Math.floor(data.occurrenceSearch.documents.from / PAGE_SIZE)
-    : 0;
-  const totalPagesCount = data?.occurrenceSearch?.documents.total
-    ? Math.ceil(data.occurrenceSearch.documents.total / PAGE_SIZE)
-    : 0;
+  const defaultView = searchContext.defaultTab ?? searchContext?.tabs?.[0] ?? 'table';
+  const [view] = useStringParam({
+    key: 'view',
+    defaultValue: defaultView,
+    hideDefault: true,
+  });
 
   return (
     <>
-      <Helmet>
-        <title>Occurrence search</title>
-      </Helmet>
-
-      <Drawer
-        isOpen={typeof previewKey === 'string'}
-        close={() => setPreviewKey(null)}
-        viewOnGbifHref={`/occurrence/${previewKey}`}
-        next={() => {
-          const currentIndex = occurrences.findIndex((o) => o.key?.toString() === previewKey);
-          const nextIndex = currentIndex + 1;
-          if (nextIndex < occurrences.length) {
-            setPreviewKey(occurrences[nextIndex].key?.toString());
-          }
-        }}
-        previous={() => {
-          const currentIndex = occurrences.findIndex((o) => o.key?.toString() === previewKey);
-          const previousIndex = currentIndex - 1;
-          if (previousIndex >= 0) {
-            setPreviewKey(occurrences[previousIndex].key?.toString());
-          }
-        }}
-      >
-        <StandaloneOccurrenceKeyPage occurrenceKey={previewKey} />
-      </Drawer>
-
+      <EntityDrawer />
       <DataHeader
-        title="Occurrences"
+        className="g-bg-white"
+        title={<FormattedMessage id="catalogues.occurrences" defaultMessage="Occurrences" />}
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
       >
-        <Tabs
+        <OccurrenceViewTabs
+          view={view}
+          defaultView={defaultView}
+          tabs={searchContext.tabs}
           className="g-border-none"
-          links={[
-            {
-              to: '/dataset/search',
-              children: 'List',
-              className: tabClassName,
-            },
-          ]}
         />
       </DataHeader>
 
       <section className="">
         <FilterBar>
-          <FilterButtons filters={filters} searchContext={searchContext}/>
+          <FilterButtons filters={filters} searchContext={searchContext} />
         </FilterBar>
       </section>
 
-      <InternalScrollHandler headerHeight={200}>
-        <div className="g-bg-gray-100 g-p-2 g-flex g-flex-col g-flex-1 g-min-h-0">
-          <p className="g-text-sm g-pb-1 g-text-gray-500">
-            {typeof totalResults === 'number' && <>{totalResults} results</>}
-          </p>
-          <DataTable
-            className="g-bg-white g-flex-1 g-min-h-0"
-            columns={columns}
-            data={occurrences}
-            loading={loading}
-            pageSize={PAGE_SIZE}
-            currentPageNumber={currentPageNumber}
-            totalPagesCount={totalPagesCount}
-          />
-        </div>
-      </InternalScrollHandler>
+      <Views view={view} className="g-py-2 g-px-4 g-bg-slate-100" />
     </>
+  );
+}
+
+export function OccurrenceSearchInner(): React.ReactElement {
+  const searchContext = useSearchContext();
+  const { filters } = useFilters({ searchConfig });
+  const defaultView = searchContext?.tabs?.[0] ?? 'table';
+  const [view] = useStringParam({
+    key: 'view',
+    defaultValue: defaultView,
+    hideDefault: true,
+  });
+
+  return (
+    <ErrorBoundary>
+      <EntityDrawer />
+      <section className="g-bg-white">
+        <Card>
+          <OccurrenceViewTabs
+            view={view}
+            defaultView={defaultView}
+            tabs={searchContext.tabs}
+            className="g-border-b"
+          />
+          <FilterBar>
+            <FilterButtons filters={filters} searchContext={searchContext} />
+          </FilterBar>
+        </Card>
+      </section>
+
+      <Views view={view} className="g-py-2" />
+    </ErrorBoundary>
+  );
+}
+
+function Views({ view: unknownCaseView, className }: { view?: string; className?: string }) {
+  // lower case view to match the tabs
+  const view = unknownCaseView?.toLowerCase();
+  const fixedHeight = ['table', 'map', 'clusters'].includes(view ?? '');
+  return (
+    <ErrorBoundary invalidateOn={view}>
+      <div className={cn('', className)}>
+        {fixedHeight && (
+          <DynamicHeightDiv minPxHeight={500}>
+            {view === 'table' && (
+              <ClientSideOnly>
+                <OccurrenceTable />
+              </ClientSideOnly>
+            )}
+            {view === 'map' && <Map />}
+            {view === 'clusters' && <Clusters />}
+          </DynamicHeightDiv>
+        )}
+        {!fixedHeight && (
+          <DynamicHeightDiv minPxHeight={500} onlySetMinHeight>
+            {view === 'gallery' && <Media />}
+            {view === 'datasets' && <Dataset />}
+            {view === 'download' && <Download />}
+            {view === 'dashboard' && <Dashboard />}
+          </DynamicHeightDiv>
+        )}
+      </div>
+    </ErrorBoundary>
+  );
+}
+
+function OccurrenceViewTabs({
+  view,
+  defaultView,
+  tabs = ['table', 'map', 'gallery', 'clusters', 'datasets', 'dashboard', 'download'],
+  className,
+}: {
+  defaultView?: string;
+  view?: string;
+  tabs?: string[];
+  className?: string;
+}) {
+  const { getParams } = useUpdateViewParams(['from', 'sort', 'limit', 'offset']); // Removes 'from' and 'sort'
+
+  return (
+    <Tabs
+      disableAutoDetectActive
+      className={className}
+      links={tabs.map((tab) => ({
+        isActive: view === tab,
+        to: { search: getParams(tab, defaultView).toString() },
+        children: <FormattedMessage id={`search.tabs.${tab}`} defaultMessage={tab} />,
+      }))}
+    />
   );
 }

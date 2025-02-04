@@ -1,21 +1,29 @@
 {
   "tabs": {
     "table": "表",
+    "tree": "",
     "gallery": "圖片集",
+    "media": "GBIF 註記的存檔",
     "map": "地圖",
     "datasets": "資料集",
     "events": "事件",
     "download": "下載",
     "clusters": "",
     "dashboard": "統計面板",
-    "sites": "GBIF 註記的存檔"
+    "sites": "GBIF 註記的存檔",
+    "list": ""
   },
   "table": {
-    "lockColumn": "鎖定欄位"
+    "lockColumn": "鎖定欄位",
+    "unlockColumn": "GBIF 註記的存檔",
+    "columnVisibility": "GBIF 註記的存檔",
+    "resetColumnVisibility": "GBIF 註記的存檔",
+    "openFilter": "GBIF 註記的存檔"
   },
   "placeholders": {
     "default": "搜尋",
     "range": "範圍或單一數值",
+    "rangeExample": "",
     "wildcard": "使用 * 和 ? 作為萬用字元進行搜尋",
     "locationID": ""
   },
@@ -25,6 +33,7 @@
     "either": "GBIF 註記的存檔"
   },
   "loadMore": "更多",
+  "noResults": "GBIF 註記的存檔",
   "occurrenceClustersView": {
     "about": "關於",
     "clusters": "",

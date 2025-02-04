@@ -1,8 +1,8 @@
+import { LanguageOption } from '@/config/config';
 import { createContext, useCallback, useContext, useEffect, useMemo } from 'react';
+import { IntlProvider } from 'react-intl';
 import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { extractLocaleFromPathname } from './extractLocaleFromURL';
-import { LanguageOption } from '@/config/config';
-import { IntlProvider } from 'react-intl';
 
 type I18nContextValue = {
   locale: LanguageOption;
@@ -42,7 +42,19 @@ export function I18nContextProvider({ children, locale, defaultLocale, available
         availableLocales.map((localOption) => localOption.code),
         defaultLocale.code
       );
+      // If full url with http, then consider it hardcoded and do not localize, but just use it as is. It is probably an external link
+      // this has been added to accomodate the case where a hosted portal is referencing a dataset outside our control
+      if (/^https?:\/\//.test(link)) {
+        return link;
+      }
 
+      // Handle root links
+      const currentPath = currentLocale === defaultLocale.code ? '/' : `/${currentLocale}`;
+      const tagetPath = targetLocale === defaultLocale.code ? '/' : `/${targetLocale}`;
+
+      if (link === currentPath) return link.replace(currentPath, tagetPath);
+
+      // Handle sub pages
       const currentPrefix = currentLocale === defaultLocale.code ? '/' : `/${currentLocale}/`;
       const targetPrefix = targetLocale === defaultLocale.code ? '/' : `/${targetLocale}/`;
 
@@ -53,9 +65,11 @@ export function I18nContextProvider({ children, locale, defaultLocale, available
 
   const setLocale = useCallback(
     (locale: string) => {
-      navigate(localizeLink(location.pathname, locale));
+      let targetLink = localizeLink(location.pathname, locale);
+      if (location.search) targetLink += location.search;
+      navigate(targetLink);
     },
-    [navigate, location.pathname, localizeLink]
+    [navigate, location.pathname, location.search, localizeLink]
   );
 
   const value: I18nContextValue = useMemo(
@@ -81,7 +95,7 @@ export function I18nContextProvider({ children, locale, defaultLocale, available
     <I18nContext.Provider value={value}>
       <IntlProvider
         messages={messages || {}}
-        locale={defaultLocale.reactIntlLocale ?? defaultLocale.code}
+        locale={locale.reactIntlLocale ?? locale.code}
         defaultLocale={defaultLocale.reactIntlLocale ?? defaultLocale.code}
       >
         {children}

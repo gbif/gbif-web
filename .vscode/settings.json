@@ -1,3 +1,21 @@
 {
-  "tailwindPrefixer.prefix": "g-"
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "files.autoSaveWorkspaceFilesOnly": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always",
+    "source.fixAll": "always",
+    "source.organizeImports": "always",
+    "source.sortMembers": "always"
+  },
+  "editor.rulers": [80],
+  "typescript.autoClosingTags": true,
+  "prettier.printWidth": 140,
+  "prettier.singleQuote": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "notebook.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.requireConfig": false
 }

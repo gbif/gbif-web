@@ -1,16 +1,17 @@
-import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
-import { installationLoader, InstallationPage, InstallationPageSkeleton } from './installationKey';
-import { InstallationKeyAbout } from './about';
 import { InstallationQuery } from '@/gql/graphql';
+import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
+import { InstallationKeyAbout } from './about';
+import { installationLoader, InstallationPage, InstallationPageSkeleton } from './installationKey';
 
-const id = 'installation-key';
+const id = 'installationKey';
 
 export const installationKeyRoute: RouteObjectWithPlugins = {
   id,
-  gbifRedirect: (params) => {
-    if (typeof params.key !== 'string') throw new Error('Invalid key');
-    if (params.key === 'search') return null;
-    return `/installation/${params.key}`;
+  gbifRedirect: ({ key } = {}, { gbifOrgLocalePrefix = '' }) => {
+    if (typeof key !== 'string' && typeof key !== 'number')
+      throw new Error(`'Invalid key (key is of type ${typeof key})`);
+    if (key === 'search') return null;
+    return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/installation/${key}`;
   },
   path: 'installation/:key',
   loader: installationLoader,

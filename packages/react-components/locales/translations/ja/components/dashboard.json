@@ -24,6 +24,7 @@
   "occurrences": "オカレンス",
   "other": "その他",
   "unknown": "不明",
+  "usingStartDates": "GBIFがアノーテーションしたアーカイブ",
   "iucnThreatStatus": "GBIFがアノーテーションしたアーカイブ",
   "iucnThreatStatusDescription": "GBIFがアノーテーションしたアーカイブ",
   "metricsFromGbifData": "",

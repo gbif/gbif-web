@@ -1,6 +1,8 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { Step, StepperForm } from '@/components/stepperForm';
 import { useToast } from '@/components/ui/use-toast';
+import { useConfig } from '@/config/config';
+import { cn } from '@/utils/shadcn';
 import { withIndex } from '@/utils/withIndex';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo } from 'react';
@@ -8,11 +10,10 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { BlockContainer } from '../../_shared';
 import {
-  OptionalStringSchema,
-  RequiredEmailSchema,
-  RequiredStringSchema,
-  createTypedCheckboxField,
-  createTypedTextField,
+    createTypedCheckboxField,
+    createTypedTextField, OptionalStringSchema,
+    RequiredEmailSchema,
+    RequiredStringSchema
 } from '../_shared';
 import { CheckRegistration } from './steps/checkRegistration';
 import { Contacts } from './steps/contacts';
@@ -23,8 +24,6 @@ import { OrganizationDetails } from './steps/organizationDetails';
 import { TermsAndConditions } from './steps/termsAndConditions';
 import { WhatAndHow } from './steps/whatAndHow';
 import { useSuggestedNodeCountry } from './useSuggestedNodeCountry';
-import { useConfig } from '@/config/config';
-import { cn } from '@/utils/shadcn';
 
 const ContactSchema = z.object({
   firstName: RequiredStringSchema,

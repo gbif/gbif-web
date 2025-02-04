@@ -3,11 +3,11 @@
  * Much of the data can be public though, but be cautious when adding new fields.
  */
 
-import { RESTDataSource } from 'apollo-datasource-rest';
-import { stringify } from 'qs';
-import pick from 'lodash/pick';
-import { getDefaultAgent } from '#/requestAgents';
 import { createSignedGetHeader } from '#/helpers/auth/authenticatedGet';
+import { getDefaultAgent } from '#/requestAgents';
+import { RESTDataSource } from 'apollo-datasource-rest';
+import pick from 'lodash/pick';
+import { stringify } from 'qs';
 
 class DirectoryPersonAPI extends RESTDataSource {
   constructor(config) {
@@ -18,7 +18,7 @@ class DirectoryPersonAPI extends RESTDataSource {
 
   willSendRequest(request) {
     const header = createSignedGetHeader(request.path, this.config);
-    Object.keys(header).forEach(x => request.headers.set(x, header[x]));
+    Object.keys(header).forEach((x) => request.headers.set(x, header[x]));
     request.headers.set('User-Agent', this.context.userAgent);
     request.headers.set('referer', this.context.referer);
     request.agent = getDefaultAgent(this.baseURL, request.path);
@@ -95,7 +95,10 @@ class DirectoryPersonAPI extends RESTDataSource {
 
   async getProfilePicture({ key, query }) {
     try {
-      const image = await this.get(`/directory/person/${key}/profilePicture`, stringify(query, { indices: false }));
+      const image = await this.get(
+        `/directory/person/${key}/profilePicture`,
+        stringify(query, { indices: false }),
+      );
       return image;
     } catch (err) {
       // no image found

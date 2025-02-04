@@ -15,10 +15,12 @@ class InstitutionAPI extends RESTDataSource {
   }
 
   async searchInstitutions({ query }) {
-    return this.get(
-      '/grscicoll/institution',
+    const response = await this.get(
+      '/grscicoll/institution/search',
       stringify(query, { indices: false }),
     );
+    response._query = query;
+    return response;
   }
 
   async getInstitutionByKey({ key }) {

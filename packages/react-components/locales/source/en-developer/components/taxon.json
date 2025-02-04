@@ -1,0 +1,18 @@
+{
+  "tabs": {
+    "about": "About",
+    "typeMaterial": "Type material",
+    "metrics": "Metrics"
+  },
+  "publishedIn": "Published in",
+  "vernacularNames": "Vernacular names",
+  "rank": "Rank",
+  "source": "Source",
+  "specimenIsTypeOf": "{typeStatus} of {name}",
+  "typeMaterial": "Type material",
+  "more": "more",
+  "less": "less",
+  "dna": "DNA",
+  "occurenceImages": "Occurence images",
+  "taxonIdentifiers": "Taxon identifiers"
+}

@@ -1,21 +1,29 @@
 {
   "tabs": {
     "table": "Tableau",
+    "tree": "",
     "gallery": "Galerie",
+    "media": "Archive annotée par GBIF",
     "map": "Carte",
     "datasets": "Jeux de données",
     "events": "Évènements",
     "download": "Télécharger",
     "clusters": "",
     "dashboard": "Tableau de bord",
-    "sites": "Archive annotée par GBIF"
+    "sites": "Archive annotée par GBIF",
+    "list": "Liste"
   },
   "table": {
-    "lockColumn": "Verrouiller la colonne"
+    "lockColumn": "Verrouiller la colonne",
+    "unlockColumn": "Archive annotée par GBIF",
+    "columnVisibility": "Archive annotée par GBIF",
+    "resetColumnVisibility": "Archive annotée par GBIF",
+    "openFilter": "Archive annotée par GBIF"
   },
   "placeholders": {
     "default": "Rechercher",
     "range": "Intervalle ou valeur unique",
+    "rangeExample": "",
     "wildcard": "Rechercher avec * et ? comme caractères génériques",
     "locationID": ""
   },
@@ -25,6 +33,7 @@
     "either": "Archive annotée par GBIF"
   },
   "loadMore": "Plus",
+  "noResults": "Archive annotée par GBIF",
   "occurrenceClustersView": {
     "about": "À propos",
     "clusters": "",

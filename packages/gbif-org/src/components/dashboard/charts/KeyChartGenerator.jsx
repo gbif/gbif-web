@@ -32,18 +32,30 @@ export function KeyChartGenerator({
           }
         }
       }
-      ${!disableUnknown ? `isNotNull: ${searchType}(predicate: $hasPredicate) {
+      ${
+        !disableUnknown
+          ? `isNotNull: ${searchType}(predicate: $hasPredicate) {
         documents(size: 0) {
           total
         }
-      }` : ''}
+      }`
+          : ''
+      }
     }
   `;
-  return <ChartWrapper {...{
-    predicate, detailsRoute, gqlQuery: GQL_QUERY, currentFilter,
-    disableOther,
-    disableUnknown,
-    predicateKey: fieldName,
-    facetSize,
-  }} {...props} />
+  return (
+    <ChartWrapper
+      {...{
+        predicate,
+        detailsRoute,
+        gqlQuery: GQL_QUERY,
+        currentFilter,
+        disableOther,
+        disableUnknown,
+        predicateKey: fieldName,
+        facetSize,
+      }}
+      {...props}
+    />
+  );
 }

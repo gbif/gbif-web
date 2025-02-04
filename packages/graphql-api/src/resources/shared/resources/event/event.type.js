@@ -11,8 +11,15 @@ export default gql`
 
     event(eventID: String, datasetKey: String): Event
 
-    occurrences(eventID: String, datasetKey: String, locationID: String, month:Int, year:Int
-      size: Int, from: Int): SimpleOccurrenceResults
+    occurrences(
+      eventID: String
+      datasetKey: String
+      locationID: String
+      month: Int
+      year: Int
+      size: Int
+      from: Int
+    ): SimpleOccurrenceResults
 
     location(locationID: String): Event
   }
@@ -76,7 +83,7 @@ export default gql`
 
   type Event {
     eventID: String
-    surveyID:String
+    surveyID: String
     type: String
     eventType: EventType
     eventName: String
@@ -179,33 +186,45 @@ export default gql`
   }
 
   type EventMultiFacet {
-    locationIDStateProvince(size: Int, include: String): [EventMultiFacetResult_string]
+    locationIDStateProvince(
+      size: Int
+      include: String
+    ): [EventMultiFacetResult_string]
   }
 
   type EventFacet {
-    kingdomKey(size: Int, include: String):                 [EventFacetResult_string]
-    phylumKey(size: Int, include: String):                    [EventFacetResult_string]
-    classKey(size: Int, include: String):                  [EventFacetResult_string]
-    orderKey(size: Int, include: String):                   [EventFacetResult_string]
-    familyKey(size: Int, include: String):                 [EventFacetResult_string]
-    genusKey(size: Int, include: String):                   [EventFacetResult_string]
-    speciesKey(size: Int, include: String):                  [EventFacetResult_string]
-    eventHierarchyJoined(size: Int, include: String):     [EventFacetResult_string]
-    eventHierarchy(size: Int, include: String):           [EventFacetResult_string]
-    eventTypeHierarchyJoined(size: Int, include: String): [EventFacetResult_string]
-    eventTypeHierarchy(size: Int, include: String):       [EventFacetResult_string]
-    surveyID(size: Int, from: Int, include: String):      [EventFacetResult_string]
-    locality(size: Int, include: String):                 [EventFacetResult_string]
-    samplingProtocol(size: Int, include: String):         [EventFacetResult_string]
-    measurementOrFactTypes(size: Int, include: String):   [EventFacetResult_string]
-    stateProvince(size: Int, include: String):            [EventFacetResult_string]
-    datasetKey(size: Int, include: String):               [EventFacetResult_dataset]
-    measurementOfFactTypes(size: Int, include: String):   [EventFacetResult_dataset]
-    locationID(size: Int, from: Int):                     [EventFacetResult_string]
-    year(size: Int, from: Int):                           [EventFacetResult_float]
-    month(size: Int, from: Int):                          [EventFacetResult_float]
-    eventType(size: Int, include: String):                [EventFacetResult_string]
-    scientificNames(size: Int, include: String):          [EventFacetResult_string]
+    kingdomKey(size: Int, include: String): [EventFacetResult_string]
+    phylumKey(size: Int, include: String): [EventFacetResult_string]
+    classKey(size: Int, include: String): [EventFacetResult_string]
+    orderKey(size: Int, include: String): [EventFacetResult_string]
+    familyKey(size: Int, include: String): [EventFacetResult_string]
+    genusKey(size: Int, include: String): [EventFacetResult_string]
+    speciesKey(size: Int, include: String): [EventFacetResult_string]
+    eventHierarchyJoined(size: Int, include: String): [EventFacetResult_string]
+    eventHierarchy(size: Int, include: String): [EventFacetResult_string]
+    eventTypeHierarchyJoined(
+      size: Int
+      include: String
+    ): [EventFacetResult_string]
+    eventTypeHierarchy(size: Int, include: String): [EventFacetResult_string]
+    surveyID(size: Int, from: Int, include: String): [EventFacetResult_string]
+    locality(size: Int, include: String): [EventFacetResult_string]
+    samplingProtocol(size: Int, include: String): [EventFacetResult_string]
+    measurementOrFactTypes(
+      size: Int
+      include: String
+    ): [EventFacetResult_string]
+    stateProvince(size: Int, include: String): [EventFacetResult_string]
+    datasetKey(size: Int, include: String): [EventFacetResult_dataset]
+    measurementOfFactTypes(
+      size: Int
+      include: String
+    ): [EventFacetResult_dataset]
+    locationID(size: Int, from: Int): [EventFacetResult_string]
+    year(size: Int, from: Int): [EventFacetResult_float]
+    month(size: Int, from: Int): [EventFacetResult_float]
+    eventType(size: Int, include: String): [EventFacetResult_string]
+    scientificNames(size: Int, include: String): [EventFacetResult_string]
   }
 
   type EventCardinality {
@@ -302,30 +321,66 @@ export default gql`
   }
 
   type EventOccurrenceFacet {
-    datasetKey(size: Int, include: String):       [EventOccurrenceFacetResult_string]
-    kingdomKey(size: Int, include: String):          [EventOccurrenceFacetResult_string]
-    phylumKey(size: Int, include: String):           [EventOccurrenceFacetResult_string]
-    classKey(size: Int, include: String):            [EventOccurrenceFacetResult_string]
-    orderKey(size: Int, include: String):            [EventOccurrenceFacetResult_string]
-    familyKey(size: Int, include: String):           [EventOccurrenceFacetResult_string]
-    genusKey(size: Int, include: String):            [EventOccurrenceFacetResult_string]
-    speciesKey(size: Int, include: String):          [EventOccurrenceFacetResult_string]
-    samplingProtocol(size: Int, include: String): [EventOccurrenceFacetResult_string]
-    locationID(size: Int, include: String):       [EventOccurrenceFacetResult_string]
-    basisOfRecord(size: Int, include: String):    [EventOccurrenceFacetResult_string]
-    occurrenceStatus(size: Int, include: String): [EventOccurrenceFacetResult_string]
-    stateProvince(size: Int, include: String):    [EventOccurrenceFacetResult_string]
-    recordedBy(size: Int, include: String):       [EventOccurrenceFacetResult_string]
-    recordedById(size: Int, include: String):     [EventOccurrenceFacetResult_string]
-    identifiedBy(size: Int, include: String):     [EventOccurrenceFacetResult_string]
-    identifiedById(size: Int, include: String):   [EventOccurrenceFacetResult_string]
-    scientificNames(size: Int, include: String):  [EventOccurrenceFacetResult_string]
-    month(size: Int, include: String):            [EventOccurrenceFacetResult_string]
-    year(size: Int, include: String):             [EventOccurrenceFacetResult_string]
-    eventHierarchyJoined(size: Int, include: String):     [EventOccurrenceFacetResult_string]
-    eventHierarchy(size: Int, include: String):           [EventOccurrenceFacetResult_string]
-    eventTypeHierarchyJoined(size: Int, include: String): [EventOccurrenceFacetResult_string]
-    eventTypeHierarchy(size: Int, include: String):       [EventOccurrenceFacetResult_string]
+    datasetKey(size: Int, include: String): [EventOccurrenceFacetResult_string]
+    kingdomKey(size: Int, include: String): [EventOccurrenceFacetResult_string]
+    phylumKey(size: Int, include: String): [EventOccurrenceFacetResult_string]
+    classKey(size: Int, include: String): [EventOccurrenceFacetResult_string]
+    orderKey(size: Int, include: String): [EventOccurrenceFacetResult_string]
+    familyKey(size: Int, include: String): [EventOccurrenceFacetResult_string]
+    genusKey(size: Int, include: String): [EventOccurrenceFacetResult_string]
+    speciesKey(size: Int, include: String): [EventOccurrenceFacetResult_string]
+    samplingProtocol(
+      size: Int
+      include: String
+    ): [EventOccurrenceFacetResult_string]
+    locationID(size: Int, include: String): [EventOccurrenceFacetResult_string]
+    basisOfRecord(
+      size: Int
+      include: String
+    ): [EventOccurrenceFacetResult_string]
+    occurrenceStatus(
+      size: Int
+      include: String
+    ): [EventOccurrenceFacetResult_string]
+    stateProvince(
+      size: Int
+      include: String
+    ): [EventOccurrenceFacetResult_string]
+    recordedBy(size: Int, include: String): [EventOccurrenceFacetResult_string]
+    recordedById(
+      size: Int
+      include: String
+    ): [EventOccurrenceFacetResult_string]
+    identifiedBy(
+      size: Int
+      include: String
+    ): [EventOccurrenceFacetResult_string]
+    identifiedById(
+      size: Int
+      include: String
+    ): [EventOccurrenceFacetResult_string]
+    scientificNames(
+      size: Int
+      include: String
+    ): [EventOccurrenceFacetResult_string]
+    month(size: Int, include: String): [EventOccurrenceFacetResult_string]
+    year(size: Int, include: String): [EventOccurrenceFacetResult_string]
+    eventHierarchyJoined(
+      size: Int
+      include: String
+    ): [EventOccurrenceFacetResult_string]
+    eventHierarchy(
+      size: Int
+      include: String
+    ): [EventOccurrenceFacetResult_string]
+    eventTypeHierarchyJoined(
+      size: Int
+      include: String
+    ): [EventOccurrenceFacetResult_string]
+    eventTypeHierarchy(
+      size: Int
+      include: String
+    ): [EventOccurrenceFacetResult_string]
   }
 
   type EventOccurrenceFacetResult_string {

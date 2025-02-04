@@ -24,6 +24,16 @@
     "count": "{num, plural, one {# collection } other {# collections}}",
     "description": "La collection de GrSciColl à laquelle cet enregistrement a été associé"
   },
+  "taxonomicStatus": {
+    "name": "Statut",
+    "count": "{num, plural, one { statut } other {# statuts}}",
+    "description": "Le nombre de spécimens détenus indiqué dans la description. Ce nombre ne correspond pas au nombre d'enregistrements qui ont été numérisés et partagés."
+  },
+  "taxonRank": {
+    "name": "Niveau du taxon",
+    "count": "{num, plural, one { rang } other {# rangs}}",
+    "description": "Le nombre de spécimens détenus indiqué dans la description. Ce nombre ne correspond pas au nombre d'enregistrements qui ont été numérisés et partagés."
+  },
   "numberSpecimens": {
     "name": "Nombre de spécimens",
     "count": "",
@@ -335,6 +345,11 @@
     "count": "",
     "description": "Le nom du plan d'eau dans lequel se trouve la localité."
   },
+  "higherGeography": {
+    "name": "Géographie supérieure",
+    "count": "Archive annotée par GBIF",
+    "description": "Archive annotée par GBIF"
+  },
   "stateProvince": {
     "name": "État/Province",
     "count": "",
@@ -418,6 +433,21 @@
   "active": {
     "name": "Activé",
     "count": "Activé",
+    "description": "Archive annotée par GBIF"
+  },
+  "activeInstitution": {
+    "name": "Activé",
+    "count": "Activé",
+    "description": "Archive annotée par GBIF"
+  },
+  "activeCollection": {
+    "name": "Activé",
+    "count": "Activé",
+    "description": "Archive annotée par GBIF"
+  },
+  "publicationDate": {
+    "name": "Date de publication",
+    "count": "Archive annotée par GBIF",
     "description": "Archive annotée par GBIF"
   },
   "personalCollection": {

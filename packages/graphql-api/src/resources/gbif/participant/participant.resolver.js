@@ -7,9 +7,12 @@
  */
 export default {
   Query: {
-    participantSearch: (parent, args, { dataSources, locale }) => 
-      dataSources.participantAPI.searchParticipants({ query: args }, locale), 
-    participant:  (parent, { key }, { dataSources, locale }) => 
-      dataSources.participantAPI.getParticipantByDirectoryId({ id: key, locale }),
-  }
+    participantSearch: (parent, args, { dataSources, locale }) =>
+      dataSources.participantAPI.searchParticipants({ query: args }, locale),
+    participant: (parent, { key }, { dataSources, locale }) =>
+      dataSources.participantAPI.getParticipantByDirectoryId({
+        id: key,
+        locale,
+      }),
+  },
 };

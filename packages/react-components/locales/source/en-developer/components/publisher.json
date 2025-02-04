@@ -12,6 +12,7 @@
   "hosting": "Hosting",
   "description": "Description",
   "endorsedBy": "Endorsed by",
+  "notYetEndorsed": "Not yet endorsed",
   "pendingEndorsementBy": "Pending endorsement by",
   "endorsementWithheld": "Endorsement withheld",
   "installations": "Installations",

@@ -12,6 +12,7 @@
   "hosting": "Хостинг",
   "description": "Опис",
   "endorsedBy": "Схвалено",
+  "notYetEndorsed": "Архів анотований GBIF",
   "pendingEndorsementBy": "Очікує на схвалення",
   "endorsementWithheld": "",
   "installations": "Інстальовані сервери публікування даних",

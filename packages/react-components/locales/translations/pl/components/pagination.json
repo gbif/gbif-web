@@ -1,1 +1,8 @@
-{}
+{
+  "first": "Pierwszy/pierwsza",
+  "previous": "Poprzednia strona",
+  "next": "",
+  "options": "Opcje",
+  "pageXofY": "Strona {current} z {total}",
+  "moreFilters": "więcej "
+}

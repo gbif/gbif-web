@@ -3,39 +3,46 @@ import {
   DatasetTypeLabel,
   IdentityLabel,
   LicenceLabel,
+  NetworkLabel,
   PublisherLabel,
 } from '@/components/filters/displayNames';
 import {
-  filterConfig,
   filterConfigTypes,
+  filterEnumConfig,
+  filterFreeTextConfig,
   FilterSetting,
+  filterSuggestConfig,
   generateFilters,
 } from '@/components/filters/filterTools';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { SuggestFnProps, SuggestResponseType } from '@/components/filters/suggest';
+import { Message } from '@/components/message';
+import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
+import country from '@/enums/basic/country.json';
+import datasetTypeOptions from '@/enums/basic/datasetType.json';
+import licenseOptions from '@/enums/basic/license.json';
+import { fetchWithCancel } from '@/utils/fetchWithCancel';
+import { networkKeySuggest } from '@/utils/suggestEndpoints';
 import { matchSorter } from 'match-sorter';
 import hash from 'object-hash';
-import country from '@/enums/basic/country.json';
-import licenseOptions from '@/enums/basic/license.json';
-import datasetTypeOptions from '@/enums/basic/datasetType.json';
-import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import { useCallback, useEffect, useState } from 'react';
-import { SuggestFnProps } from '@/components/filters/suggest';
-import { HelpText } from '@/components/helpText';
+import { useIntl } from 'react-intl';
 
 // shared vairables for the various components
-const publisherConfig: filterConfig = {
+const publisherConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'publishingOrg',
   displayName: PublisherLabel,
   filterTranslation: 'filters.publisherKey.name',
-  suggest: ({ q, siteConfig }: SuggestFnProps) => {
-    return fetch(`${siteConfig.v1Endpoint}/organization/suggest?limit=20&q=${q}`)
-      .then((res) => res.json())
-      .then((data) => {
-        return data;
-      });
+  suggestConfig: {
+    getSuggestions: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {
+      const { cancel, promise } = fetchWithCancel(
+        `${siteConfig.v1Endpoint}/organization/suggest?limit=20&q=${q}`
+      );
+      const result = promise.then((res) => res.json());
+      return { cancel, promise: result };
+    },
   },
-  facetQuery: /* GraphQL */ `
+  facetQuery: `
     query DatasetPublisherFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
         facet {
@@ -50,30 +57,25 @@ const publisherConfig: filterConfig = {
       }
     }
   `,
-  about: () => (
-    <div>
-      {/* TODO */}
-      The publisher of the data
-      {/* <FormattedMessage id="filters.publisherKey.description" />
-    <HelpText identifier="how-to-link-datasets-to-my-project-page" /> */}
-    </div>
-  ),
+  // about: () => <Message id="filters.publisherKey.description" />,
 };
 
-const hostingOrgConfig: filterConfig = {
+const hostingOrgConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'hostingOrg',
   displayName: PublisherLabel,
   filterTranslation: 'filters.hostingOrganizationKey.name',
-  suggest: ({ q, siteConfig }: SuggestFnProps) => {
-    return fetch(`${siteConfig.v1Endpoint}/organization/suggest?limit=20&q=${q}`)
-      .then((res) => res.json())
-      .then((data) => {
-        return data;
-      });
+  suggestConfig: {
+    getSuggestions: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {
+      const { cancel, promise } = fetchWithCancel(
+        `${siteConfig.v1Endpoint}/organization/suggest?limit=20&q=${q}`
+      );
+      const result = promise.then((res) => res.json());
+      return { cancel, promise: result };
+    },
   },
   facetQuery: /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
+    query DatasetHostingFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
         facet {
           field: hostingOrg {
@@ -87,10 +89,10 @@ const hostingOrgConfig: filterConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
+  // about: () => <Message id="filters.hostingOrganizationKey.description" />,
 };
 
-const projectIdConfig: filterConfig = {
+const projectIdConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'projectId',
   displayName: IdentityLabel,
@@ -99,7 +101,7 @@ const projectIdConfig: filterConfig = {
   // },
   filterTranslation: 'filters.projectId.name',
   facetQuery: /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
+    query DatasetProjectFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
         facet {
           field: projectId {
@@ -110,16 +112,16 @@ const projectIdConfig: filterConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
+  about: () => <Message id="filters.projectId.description" />,
 };
 
-const publishingCountryConfig: filterConfig = {
+const publishingCountryConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'publishingCountry',
   displayName: CountryLabel,
   filterTranslation: 'filters.publishingCountryCode.name',
   facetQuery: /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
+    query DatasetPublishingCountryFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
         facet {
           field: publishingCountry {
@@ -130,17 +132,17 @@ const publishingCountryConfig: filterConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
+  about: () => <Message id="filters.publishingCountryCode.description" />,
 };
 
-const licenceConfig: filterConfig = {
+const licenceConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'license',
   displayName: LicenceLabel,
   options: licenseOptions,
   filterTranslation: 'filters.license.name',
   facetQuery: /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
+    query DatasetLicenceFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
         facet {
           field: license {
@@ -151,17 +153,17 @@ const licenceConfig: filterConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
+  about: () => <Message id="filters.license.description" />,
 };
 
-const datasetTypeConfig: filterConfig = {
+const datasetTypeConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'type',
   displayName: DatasetTypeLabel,
   options: datasetTypeOptions,
   filterTranslation: 'filters.datasetType.name',
   facetQuery: /* GraphQL */ `
-    query DatasetPublisherFacet($query: DatasetSearchInput) {
+    query DatasetTypeFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
         facet {
           field: type {
@@ -172,10 +174,33 @@ const datasetTypeConfig: filterConfig = {
       }
     }
   `,
-  about: () => <HelpText identifier="how-to-link-datasets-to-my-project-page" />
+  about: () => <Message id="filters.datasetType.description" />,
 };
 
-const freeTextConfig: filterConfig = {
+export const networkKeyConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'networkKey',
+  displayName: NetworkLabel,
+  filterTranslation: 'filters.networkKey.name',
+  suggestConfig: networkKeySuggest,
+  allowExistence: false,
+  allowNegations: false,
+  facetQuery: `
+    query OccurrencePublisherFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: networkKey {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  // about: () => <Message id="filters.identifiedBy.description" />,
+};
+
+const freeTextConfig: filterFreeTextConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
   filterHandle: 'q',
   displayName: IdentityLabel,
@@ -203,8 +228,8 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
   const countrySuggest = useCallback(
     ({ q }: SuggestFnProps) => {
       // instead of just using indexOf or similar. This has the benefit of reshuffling records based on the match, check for abrivations etc
-      const filtered = matchSorter(countries, q, { keys: ['title', 'key'] });
-      return Promise.resolve(filtered);
+      const filtered = matchSorter(countries, q ?? '', { keys: ['title', 'key'] });
+      return { promise: Promise.resolve(filtered), cancel: () => {} };
     },
     [countries]
   );
@@ -214,8 +239,9 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       publishingOrg: generateFilters({ config: publisherConfig, searchConfig, formatMessage }),
       hostingOrg: generateFilters({ config: hostingOrgConfig, searchConfig, formatMessage }),
       projectId: generateFilters({ config: projectIdConfig, searchConfig, formatMessage }),
+      networkKey: generateFilters({ config: networkKeyConfig, searchConfig, formatMessage }),
       publishingCountry: generateFilters({
-        config: { ...publishingCountryConfig, suggest: countrySuggest },
+        config: { ...publishingCountryConfig, suggestConfig: { getSuggestions: countrySuggest } },
         searchConfig,
         formatMessage,
       }),

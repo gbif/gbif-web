@@ -1,10 +1,10 @@
-import { DynamicLink } from '@/reactRouterPlugins';
-import { PublisherResultFragment } from '@/gql/graphql';
-import { fragmentManager } from '@/services/fragmentManager';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { defaultDateFormatProps } from '@/components/headerComponents';
 import { CountTag, Tag } from '@/components/resultCards';
 import { Card } from '@/components/ui/largeCard';
-import { defaultDateFormatProps } from '@/components/headerComponents';
+import { PublisherResultFragment } from '@/gql/graphql';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { fragmentManager } from '@/services/fragmentManager';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment PublisherResult on Organization {
@@ -30,18 +30,27 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
         <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
           <div className="g-flex-grow">
             <h3 className="g-text-base g-font-semibold g-mb-1">
-              <DynamicLink to={`/publisher/${publisher.key}`}>{publisher.title}</DynamicLink>
+              <DynamicLink
+                className="hover:g-text-primary-500"
+                to={`/publisher/${publisher.key}`}
+                pageId="publisherKey"
+                variables={{ key: publisher.key }}
+              >
+                {publisher.title}
+              </DynamicLink>
             </h3>
             {publisher.created && (
               <p className="g-mb-4 g-text-sm g-text-slate-500">
-                <FormattedMessage
-                  id="publisher.joinedDate"
-                  values={{
-                    date: <FormattedDate {...defaultDateFormatProps} value={publisher.created} />,
-                  }}
-                />
+                <span className="g-me-2">
+                  <FormattedMessage
+                    id="publisher.joinedDate"
+                    values={{
+                      date: <FormattedDate {...defaultDateFormatProps} value={publisher.created} />,
+                    }}
+                  />
+                </span>
                 {isNew && (
-                  <span className="g-text-xs g-bg-primary-500 g-px-2 g-py-1 g-text-white g-ml-2 g-rounded">
+                  <span className="g-text-xs g-bg-primary-500 g-px-2 g-py-1 g-text-white g-rounded g-inline-block">
                     <FormattedMessage id="publisher.newPublisher" />
                   </span>
                 )}

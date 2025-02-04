@@ -24,6 +24,16 @@
     "count": "",
     "description": ""
   },
+  "taxonomicStatus": {
+    "name": "ステータス",
+    "count": "",
+    "description": ""
+  },
+  "taxonRank": {
+    "name": "分類階級",
+    "count": "",
+    "description": ""
+  },
   "numberSpecimens": {
     "name": "",
     "count": "",
@@ -335,6 +345,11 @@
     "count": "",
     "description": ""
   },
+  "higherGeography": {
+    "name": "採集地を含む地域",
+    "count": "GBIFがアノーテーションしたアーカイブ",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
   "stateProvince": {
     "name": "州/地方または都道府県",
     "count": "",
@@ -418,6 +433,21 @@
   "active": {
     "name": "活動中",
     "count": "活動中",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "activeInstitution": {
+    "name": "活動中",
+    "count": "活動中",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "activeCollection": {
+    "name": "活動中",
+    "count": "活動中",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "publicationDate": {
+    "name": "公開日時",
+    "count": "GBIFがアノーテーションしたアーカイブ",
     "description": "GBIFがアノーテーションしたアーカイブ"
   },
   "personalCollection": {

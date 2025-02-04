@@ -24,6 +24,16 @@
     "count": "",
     "description": ""
   },
+  "taxonomicStatus": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "taxonRank": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "numberSpecimens": {
     "name": "",
     "count": "",
@@ -335,6 +345,11 @@
     "count": "",
     "description": ""
   },
+  "higherGeography": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "stateProvince": {
     "name": "",
     "count": "",
@@ -416,6 +431,21 @@
     "description": ""
   },
   "active": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "activeInstitution": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "activeCollection": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "publicationDate": {
     "name": "",
     "count": "",
     "description": ""

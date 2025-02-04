@@ -10,8 +10,11 @@
   "registered": "Enregistré",
   "hostedDatasets": "Jeux de données hébergés",
   "pubDatasets": "Jeux de données publiés",
+  "parents": "Parents",
   "institution": "Institution",
   "collection": "Collection",
   "collectionCount": "Collections",
-  "active": "Est actif"
+  "active": "Est actif",
+  "activeInstitution": "Est actif",
+  "activeCollection": "Est actif"
 }

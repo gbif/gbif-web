@@ -1,9 +1,9 @@
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleBody } from '@/routes/resource/key/components/articleBody';
-import { fragmentManager } from '@/services/fragmentManager';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
+import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { fragmentManager } from '@/services/fragmentManager';
 import { useNetworkKeyLoaderData } from '.';
 
 fragmentManager.register(/* GraphQL */ `

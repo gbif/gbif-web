@@ -1,12 +1,15 @@
-const getTranslatedValue = ({ name, label = [] }, { language = 'en' }, { dataSources }) => {
+const getTranslatedValue = (
+  { name, label = [] },
+  { language = 'en' },
+  { dataSources },
+) => {
   // transform label array to map using language as key
   const labelMap = label.reduce((acc, cur) => {
     acc[cur.language] = cur.value;
     return acc;
-  }
-  , {});
+  }, {});
   return labelMap[language] || labelMap['en'] || name;
-}
+};
 
 /**
  * fieldName: (parent, args, context, info) => data;

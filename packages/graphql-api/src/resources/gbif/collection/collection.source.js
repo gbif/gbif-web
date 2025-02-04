@@ -35,22 +35,27 @@ class CollectionAPI extends RESTDataSource {
   }
 
   async getCollectionDescriptorGroup({ key, collectionKey }) {
-    return this.get(`/grscicoll/collection/${collectionKey}/descriptorGroup/${key}`);
+    return this.get(
+      `/grscicoll/collection/${collectionKey}/descriptorGroup/${key}`,
+    );
   }
 
   async getCollectionDescriptor({ key, collectionKey, limit, offset }) {
-    return this.get(`/grscicoll/collection/${collectionKey}/descriptorGroup/${key}/descriptor`, {
-      limit,
-      offset,
-    });
+    return this.get(
+      `/grscicoll/collection/${collectionKey}/descriptorGroup/${key}/descriptor`,
+      {
+        limit,
+        offset,
+      },
+    );
   }
 
   async getCollectionsByInstitutionKey({ key, limit = 20, offset = 0 }) {
-    return this.get('/grscicoll/collection', {
+    return this.get('/grscicoll/collection/search', {
       institutionKey: key,
       limit,
       offset,
-    }).then((res) => res.results);
+    });
   }
 
   /*

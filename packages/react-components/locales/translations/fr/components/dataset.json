@@ -14,6 +14,15 @@
     "acceptedNames": "Noms acceptés",
     "synonyms": "Synonymes"
   },
+  "tabs": {
+    "about": "À propos",
+    "occurrences": "Occurrences",
+    "citations": "Citations",
+    "project": "Projet",
+    "taxonomy": "Taxonomie",
+    "download": "Télécharger",
+    "phylogeny": "Phylogénie"
+  },
   "noStatsForMetadata": "Aucune statistique disponible pour les jeux de données de métadonnées",
   "siteScopeSmallerThanDataset": "Tous les enregistrements du jeu de données ne sont pas inclus sur ce site. Visitez [GBIF.org]({datasetUrl}) pour explorer l'ensemble des données.",
   "viewArticle": "Afficher l’article",
@@ -53,6 +62,7 @@
   "nDownloadEvents": "{NUMBER_FORMATED} {NUMBER, select, 1{évènement de téléchargement} other{évènements de téléchargement}}",
   "nFromDataset": "{NUMBER_FORMATED} {NUMBER, select, 1{occurrence de ce jeu de données} other{occurrences de ce jeu de données}}",
   "funding": "Financement",
+  "abstract": "Résumé",
   "contacts": "Contacts",
   "registration": "Enregistrement dans le réseau GBIF",
   "dataDescription": "Description des données",

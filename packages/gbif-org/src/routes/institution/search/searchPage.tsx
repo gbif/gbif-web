@@ -1,9 +1,8 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
-import { DynamicLink } from '@/reactRouterPlugins';
 import useQuery from '@/hooks/useQuery';
+import { DynamicLink } from '@/reactRouterPlugins';
+import React from 'react';
 
-const INSTITUTION_SEARCH_QUERY = /* GraphQL */ `
+const INSTITUTION_SEARCH_QUERY = `
   query InstitutionSearch($offset: Int) {
     list: institutionSearch(
       offset: $offset
@@ -24,10 +23,6 @@ export function InstitutionSearchPage(): React.ReactElement {
 
   return (
     <>
-      <Helmet>
-        <title>Institution search</title>
-      </Helmet>
-
       <section className="g-m-4">
         <h1 className="g-text-2xl g-mb-2 g-font-bold">
           This page is a crude stub for search. For now it serves as a placeholder and easy access
@@ -37,7 +32,13 @@ export function InstitutionSearchPage(): React.ReactElement {
           <ul className="g-text-blue-400">
             {data.list.results.map((item) => (
               <li key={item.key}>
-                <DynamicLink to={`/institution/${item.key}`}>{item.title}</DynamicLink>
+                <DynamicLink
+                  to={`/institution/${item.key}`}
+                  pageId="institutionKey"
+                  variables={{ key: item.key }}
+                >
+                  {item.title}
+                </DynamicLink>
               </li>
             ))}
           </ul>

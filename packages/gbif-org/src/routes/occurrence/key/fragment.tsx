@@ -1,6 +1,5 @@
-import { DynamicLink } from '@/reactRouterPlugins';
 import { OccurrenceExistsQuery, OccurrenceExistsQueryVariables } from '@/gql/graphql';
-import { LoaderArgs } from '@/reactRouterPlugins';
+import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
 import { ArticleIntro } from '@/routes/resource/key/components/articleIntro';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -56,10 +55,10 @@ export function OccurrenceFragment() {
 
   return (
     <article>
-      <PageContainer topPadded className="g-bg-white">
+      <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer>
           <ArticlePreTitle>
-            <DynamicLink to="/occurrence/search">Occurrence</DynamicLink>
+            <DynamicLink pageId="occurrenceSearch">Occurrence</DynamicLink>
           </ArticlePreTitle>
           <ArticleTitle>Occurrence {key}</ArticleTitle>
           <ArticleIntro>

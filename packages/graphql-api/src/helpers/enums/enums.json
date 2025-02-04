@@ -100,6 +100,25 @@
     "RECORDS_MAPS",
     "RECORDS_RECORDINGS"
   ],
+  "CollectionFacetParameter": [
+    "COUNTRY",
+    "CITY",
+    "PRESERVATION_TYPE",
+    "CONTENT_TYPE",
+    "ACCESSION_STATUS",
+    "INSTITUTION_KEY",
+    "TYPE_STATUS",
+    "DESCRIPTOR_COUNTRY",
+    "KINGDOM_KEY",
+    "PHYLUM_KEY",
+    "CLASS_KEY",
+    "ORDER_KEY",
+    "FAMILY_KEY",
+    "GENUS_KEY",
+    "SPECIES_KEY",
+    "OBJECT_CLASSIFICATION",
+    "RECORDED_BY"
+  ],
   "CollectionsSortField": [
     "NUMBER_SPECIMENS"
   ],
@@ -614,6 +633,10 @@
     "OAI_PMH",
     "COLDP",
     "CAMTRAP_DP",
+    "BIOM_1_0",
+    "BIOM_2_1",
+    "ACEF",
+    "TEXT_TREE",
     "OTHER"
   ],
   "EstablishmentMeans": [
@@ -656,6 +679,10 @@
     "CHRONOMETRIC_AGE",
     "CHRONOMETRIC_DATE",
     "DNA_DERIVED_DATA"
+  ],
+  "Format": [
+    "DEFAULT",
+    "LATIMER_CORE"
   ],
   "GbifRegion": [
     "AFRICA",
@@ -701,7 +728,9 @@
     "CITES",
     "SYMBIOTA_UUID",
     "WIKIDATA",
-    "NCBI_BIOCOLLECTION"
+    "NCBI_BIOCOLLECTION",
+    "ISIL",
+    "CLB_DATASET_KEY"
   ],
   "InstallationType": [
     "IPT_INSTALLATION",
@@ -710,7 +739,14 @@
     "BIOCASE_INSTALLATION",
     "HTTP_INSTALLATION",
     "SYMBIOTA_INSTALLATION",
-    "EARTHCAPE_INSTALLATION"
+    "EARTHCAPE_INSTALLATION",
+    "MDT_INSTALLATION"
+  ],
+  "InstitutionFacetParameter": [
+    "COUNTRY",
+    "CITY",
+    "TYPE",
+    "DISCIPLINE"
   ],
   "InstitutionGovernance": [
     "ACADEMIC_FEDERAL",
@@ -1027,9 +1063,11 @@
     "LITERATURE_TYPE",
     "RELEVANCE",
     "YEAR",
+    "WEBSITES",
     "TOPICS",
     "GBIF_DATASET_KEY",
     "PUBLISHING_ORGANIZATION_KEY",
+    "PUBLISHING_COUNTRY",
     "PEER_REVIEW",
     "OPEN_ACCESS",
     "GBIF_DOWNLOAD_KEY",
@@ -1043,7 +1081,11 @@
     "DOI",
     "SOURCE",
     "PUBLISHER",
-    "LANGUAGE"
+    "LANGUAGE",
+    "ADDED",
+    "PUBLISHED",
+    "DISCOVERED",
+    "MODIFIED"
   ],
   "LiteratureTopic": [
     "AGRICULTURE",
@@ -1299,6 +1341,7 @@
     "IDENTIFIED_DATE_INVALID",
     "BASIS_OF_RECORD_INVALID",
     "TYPE_STATUS_INVALID",
+    "SUSPECTED_TYPE",
     "MULTIMEDIA_DATE_INVALID",
     "MULTIMEDIA_URI_INVALID",
     "REFERENCES_URI_INVALID",
@@ -1342,6 +1385,7 @@
     "START_DAY_OF_YEAR",
     "END_DAY_OF_YEAR",
     "EVENT_DATE",
+    "EVENT_DATE_GTE",
     "EVENT_ID",
     "PARENT_EVENT_ID",
     "SAMPLING_PROTOCOL",

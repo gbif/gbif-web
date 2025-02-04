@@ -24,6 +24,16 @@
     "count": "",
     "description": ""
   },
+  "taxonomicStatus": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "taxonRank": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "numberSpecimens": {
     "name": "",
     "count": "",
@@ -335,6 +345,11 @@
     "count": "{num, plural, one { Gewässer} other {# Gewässer}}",
     "description": "Gewässer des Fundorts."
   },
+  "higherGeography": {
+    "name": "",
+    "count": "Stadt zum Fundort.",
+    "description": "Stadt zum Fundort."
+  },
   "stateProvince": {
     "name": "Bundesland/Kanton/Provinz",
     "count": "{num, plural, one { Bundesland/Kanton/Provinz} other {# Bundesländer/Kantone/Provinzen}}",
@@ -418,6 +433,21 @@
   "active": {
     "name": "",
     "count": "",
+    "description": "Stadt zum Fundort."
+  },
+  "activeInstitution": {
+    "name": "",
+    "count": "",
+    "description": "Stadt zum Fundort."
+  },
+  "activeCollection": {
+    "name": "",
+    "count": "",
+    "description": "Stadt zum Fundort."
+  },
+  "publicationDate": {
+    "name": "",
+    "count": "Stadt zum Fundort.",
     "description": "Stadt zum Fundort."
   },
   "personalCollection": {

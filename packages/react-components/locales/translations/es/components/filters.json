@@ -24,6 +24,16 @@
     "count": "{num, plural, one {# colección } other {# colecciones}}",
     "description": "La colección en GrSciColl este registro es coincidente con"
   },
+  "taxonomicStatus": {
+    "name": "Estado",
+    "count": "{num, plural, one {estado} other {# estados}}",
+    "description": "El número de especímenes reportados que se indican en la descripción. Este número no refleja cuántos registros han sido digitalizados y compartidos."
+  },
+  "taxonRank": {
+    "name": "Rango",
+    "count": "{num, plural, one { rango} other {# rangos}}",
+    "description": "El número de especímenes reportados que se indican en la descripción. Este número no refleja cuántos registros han sido digitalizados y compartidos."
+  },
   "numberSpecimens": {
     "name": "Número de especímenes",
     "count": "",
@@ -35,9 +45,9 @@
     "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "iucnRedListCategory": {
-    "name": "",
+    "name": "Categoría en la Lista Roja de la UICN",
     "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
-    "description": ""
+    "description": "La Lista Roja de Especies Amenazadas de la UICN agrupa los taxones según su grado de amenaza."
   },
   "geoDistance": {
     "name": "Distancia de coordenadas",
@@ -150,8 +160,8 @@
     "description": "Los tipos de alertas de potencial interés identificados durante el procesamiento de los datos.\n"
   },
   "occurrenceCountry": {
-    "name": "País",
-    "count": "{num, plural, one {país} other {# países}}",
+    "name": "Área o país",
+    "count": "{num, plural, one {país} other {# áreas o países}}",
     "description": "El país o territorio donde ocurrió el evento"
   },
   "grsciCollCountry": {
@@ -207,7 +217,7 @@
   },
   "country": {
     "name": "País",
-    "count": "{num, plural, one {país} other {# países}}"
+    "count": "{num, plural, one {país} other {# áreas o países}}"
   },
   "countriesOfCoverage": {
     "name": "País de cobertura",
@@ -335,6 +345,11 @@
     "count": "{num, plural, one { cuerpo de agua } other {# cuerpos de agua}}",
     "description": "El nombre del cuerpo de agua en la que se presenta la ubicación.\n"
   },
+  "higherGeography": {
+    "name": "Geografía superior",
+    "count": "Aquí debe colocarse una breve descripción del componente",
+    "description": "Aquí debe colocarse una breve descripción del componente"
+  },
   "stateProvince": {
     "name": "Departamento/Estado/Provincia",
     "count": "{num, plural, one { departamento/estado/provincia } other {# departamentos/estados/provincias}}",
@@ -418,6 +433,21 @@
   "active": {
     "name": "Activo",
     "count": "Activo",
+    "description": "Aquí debe colocarse una breve descripción del componente"
+  },
+  "activeInstitution": {
+    "name": "Activo",
+    "count": "Activo",
+    "description": "Aquí debe colocarse una breve descripción del componente"
+  },
+  "activeCollection": {
+    "name": "Activo",
+    "count": "Activo",
+    "description": "Aquí debe colocarse una breve descripción del componente"
+  },
+  "publicationDate": {
+    "name": "Fecha de publicación",
+    "count": "Aquí debe colocarse una breve descripción del componente",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "personalCollection": {

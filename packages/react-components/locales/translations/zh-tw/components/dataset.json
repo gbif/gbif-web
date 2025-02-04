@@ -14,6 +14,15 @@
     "acceptedNames": "有效名",
     "synonyms": "同種異名"
   },
+  "tabs": {
+    "about": "關於",
+    "occurrences": "出現紀錄",
+    "citations": "引用",
+    "project": "專案",
+    "taxonomy": "分類學",
+    "download": "下載",
+    "phylogeny": ""
+  },
   "noStatsForMetadata": "純詮釋資料集無統計數據",
   "siteScopeSmallerThanDataset": "此網站並未包含資料集中的所有記錄。 造訪 [GBIF.org]({datasetUrl}) 探索完整資料集。",
   "viewArticle": "觀看文章",
@@ -53,6 +62,7 @@
   "nDownloadEvents": "{NUMBER_FORMATED} {NUMBER, select,1{下載事件} other{下載事件}}",
   "nFromDataset": "{NUMBER_FORMATED} {NUMBER, select, 1{來自此資料集的出現紀錄} other{來自此資料集的出現紀錄}}",
   "funding": "經費來源",
+  "abstract": "摘要",
   "contacts": "聯絡資訊",
   "registration": "GBIF 註冊資訊",
   "dataDescription": "資料說明",

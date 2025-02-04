@@ -1,5 +1,13 @@
 {
+  "tabs": {
+    "details": "Detaljer",
+    "cluster": "",
+    "phylotree": "GBIF annoteret Arkiv"
+  },
   "occurrence": "",
+  "specimen": "",
+  "processed": "GBIF annoteret Arkiv",
+  "fragment": "GBIF annoteret Arkiv",
   "showAllFields": "",
   "morePhotos": "",
   "about": "Om",
@@ -10,6 +18,10 @@
   "collection": "",
   "collectionGrSciColl": "",
   "recordedAndIdentifiedBy": "",
+  "tryPublisherSiteForFailingMedia": "",
+  "screenReader": {
+    "title": ""
+  },
   "info": {
     "original": "",
     "excluded": "Ekskluderet",
@@ -27,7 +39,8 @@
     "organism": "Organisme",
     "materialSample": "Materiale prøve",
     "geologicalContext": "Geologisk kontekst",
-    "other": ""
+    "other": "",
+    "extensions": ""
   },
   "features": {
     "isClustered": "",
@@ -43,6 +56,15 @@
     "isSpecimen": "",
     "eventDate": "",
     "isType": ""
+  },
+  "cluster": {
+    "current": "",
+    "relatedOccurrences": "",
+    "similarBecause": "",
+    "clusterTags": "GBIF annoteret Arkiv",
+    "matchedRecord": "",
+    "noMatches": "",
+    "explainer": ""
   },
   "extensions": {
     "audubon": {

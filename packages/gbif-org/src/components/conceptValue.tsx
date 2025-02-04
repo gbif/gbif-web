@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
-import { SimpleTooltip } from './simpleTooltip';
 import { VocabularyConceptQuery, VocabularyConceptQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
+import { useI18n } from '@/reactRouterPlugins';
+import { useEffect } from 'react';
+import { SimpleTooltip } from './simpleTooltip';
 
 /**
  * Component will show given content only partially
@@ -16,6 +17,8 @@ export const ConceptValue = ({
   name: string;
   includeContext?: boolean;
 }) => {
+  const { locale } = useI18n();
+
   const { data, error, loading, load } = useQuery<
     VocabularyConceptQuery,
     VocabularyConceptQueryVariables
@@ -23,13 +26,19 @@ export const ConceptValue = ({
 
   useEffect(() => {
     if (!vocabulary || !name) return;
-    load({ variables: { vocabulary, concept: name, language: 'en' } });
-  }, [vocabulary, name]);
+    load({
+      variables: {
+        vocabulary,
+        concept: name,
+        language: locale.vocabularyLocale ?? locale.localeCode,
+      },
+    });
+  }, [vocabulary, name, locale, load]);
 
   const concept = data?.concept;
 
   if (loading) return <>Loading</>;
-  if (!vocabulary || !name || !data || !concept) return <>Unknown</>;
+  if (!vocabulary || !name || !data || !concept) return <>{name || 'Unknown'}</>;
   if (error) return <>Error</>;
 
   const parentLabels =

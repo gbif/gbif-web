@@ -1,70 +1,70 @@
-import { PlainTextField, HtmlField, BasicField, CustomValueField } from '../properties';
-import { FormattedDate, FormattedMessage } from 'react-intl';
-import Properties, { Term as T, Value as V } from '@/components/properties';
+import { Term as T, Value as V } from '@/components/properties';
+import {
+  OccurrenceQuery,
+  PersonKeyQuery,
+  PersonKeyQueryVariables,
+  SlowOccurrenceKeyQuery,
+} from '@/gql/graphql';
+import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import equal from 'fast-deep-equal/react';
+import { FormattedDate, FormattedMessage } from 'react-intl';
+import { BasicField, CustomValueField } from '../properties';
 
-export function Institution({ termMap, showAll, occurrence }) {
-  const code = termMap.institutionCode?.value;
-  const id = termMap.institutionID?.value;
-  const inst = occurrence.institution;
-  if (!code && !id && !inst) return null;
-
-  return (
-    <>
-      <T>
-        <FormattedMessage id={`occurrenceDetails.institution`} defaultMessage={'Institution'} />
-      </T>
-      <V>
-        <Properties horizontal={false}>
-          <InstitutionKey {...{ occurrence }} />
-          <PlainTextField term={termMap.institutionCode} showDetails={showAll} />
-          <HtmlField term={termMap.institutionID} showDetails={showAll} />
-          <PlainTextField term={termMap.ownerInstitutionCode} showDetails={showAll} />
-        </Properties>
-      </V>
-    </>
-  );
-}
-
-export function Collection({ termMap, showAll, occurrence }) {
-  const code = termMap.collectionCode?.value;
-  const id = termMap.collectionID?.value;
-  const inst = occurrence.collection;
-  if (!code && !id && !inst) return null;
-  return (
-    <>
-      <T>
-        <FormattedMessage id={`occurrenceDetails.collection`} defaultMessage={'Collection'} />
-      </T>
-      <V>
-        <Properties horizontal={false}>
-          <CollectionKey {...{ occurrence }} />
-          <PlainTextField term={termMap.collectionCode} showDetails={showAll} />
-          <HtmlField term={termMap.collectionID} showDetails={showAll} />
-        </Properties>
-      </V>
-    </>
-  );
-}
-
-function InstitutionKey({ occurrence }) {
-  if (!occurrence?.institution?.key) return null;
+export function InstitutionKey({
+  occurrence,
+  slowOccurrence,
+}: {
+  occurrence: OccurrenceQuery['occurrence'];
+  slowOccurrence: SlowOccurrenceKeyQuery['occurrence'];
+}) {
+  if (!occurrence?.institutionKey) return null;
   return (
     <BasicField label="occurrenceDetails.institutionGrSciColl">
-      <DynamicLink to={`/institution/${occurrence?.institution?.key}`}>
-        {occurrence.institution.name}
+      <DynamicLink
+        className="g-underline"
+        to={`/institution/${occurrence?.institutionKey}`}
+        pageId="institutionKey"
+        variables={{ key: occurrence?.institutionKey }}
+      >
+        {slowOccurrence?.institution?.name ?? occurrence.institutionKey}
       </DynamicLink>
     </BasicField>
   );
 }
 
-function CollectionKey({ occurrence }) {
-  if (!occurrence?.collection?.key) return null;
+export function CollectionKey({
+  occurrence,
+  slowOccurrence,
+}: {
+  occurrence: OccurrenceQuery['occurrence'];
+  slowOccurrence: SlowOccurrenceKeyQuery['occurrence'];
+}) {
+  if (!occurrence?.collectionKey) return null;
   return (
     <BasicField label="occurrenceDetails.collectionGrSciColl">
-      <DynamicLink to={`/collection/${occurrence?.collection?.key}`}>
-        {occurrence.collection.name}
+      <DynamicLink
+        className="g-underline"
+        to={`/collection/${occurrence?.collectionKey}`}
+        pageId="collectionKey"
+        variables={{ key: occurrence?.collectionKey }}
+      >
+        {slowOccurrence?.collection?.name ?? occurrence.collectionKey}
+      </DynamicLink>
+    </BasicField>
+  );
+}
+
+export function DatasetKey({ occurrence }) {
+  return (
+    <BasicField label="occurrenceDetails.dataset">
+      <DynamicLink
+        className="g-underline"
+        to={`/dataset/${occurrence.datasetKey}`}
+        pageId="datasetKey"
+        variables={{ key: occurrence.datasetKey }}
+      >
+        {occurrence.datasetTitle}
       </DynamicLink>
     </BasicField>
   );
@@ -108,75 +108,26 @@ export function AgentIds({ termMap, showAll, occurrence }) {
   }
 }
 
-function RecordedById({ termMap, showAll, occurrence }) {
+export function RecordedById({ occurrence }) {
   return <Agents label="occurrenceFieldNames.recordedByID" value={occurrence.recordedByIDs} />;
 }
 
-function IdentifiedById({ termMap, showAll, occurrence }) {
+export function IdentifiedById({ occurrence }) {
   return <Agents label="occurrenceFieldNames.identifiedByID" value={occurrence.identifiedByIDs} />;
 }
 
-function Agents({ label, value }) {
+function Agents({ label, value }: { label: string; value: { type: string; value: string }[] }) {
   if (!value?.[0]) return null;
   return (
     <BasicField label={label}>
       <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-        {value.map((x) => {
-          if (!x.person) {
-            return <li key={x.value}>{x.value}</li>;
-          }
-          return (
-            <li key={x.value} style={{ marginBottom: 4 }}>
-              <AgentSummary agent={x} />
-            </li>
-          );
-        })}
+        {value.map((x) => (
+          <li key={x.value}>
+            <AgentSummary agent={x} />
+          </li>
+        ))}
       </ul>
     </BasicField>
-  );
-}
-
-export function AgentSummary({ agent, ...props }) {
-  const { person } = agent;
-  return (
-    <div className="g-rounded g-border g-bg-white dark:g-bg-slate-500 g-shadow-sm g-inline-flex g-overflow-hidden">
-      <div className="g-flex-none">
-        {person?.image?.value && (
-          <img
-            className="g-block"
-            src={person?.image?.value}
-            height={80}
-            style={{ maxWidth: 80 }}
-          />
-        )}
-      </div>
-      <div className="g-flex-auto g-px-4 g-py-2 g-text-sm">
-        <h4 className="g-font-bold">{person?.name?.value}</h4>
-        {person?.birthDate?.value && (
-          <div>
-            <FormattedDate
-              value={person?.birthDate?.value}
-              year="numeric"
-              month="long"
-              day="2-digit"
-            />
-            {person?.deathDate?.value && (
-              <span>
-                {' '}
-                -{' '}
-                <FormattedDate
-                  value={person?.deathDate?.value}
-                  year="numeric"
-                  month="long"
-                  day="2-digit"
-                />
-              </span>
-            )}
-          </div>
-        )}
-        <a href={agent.value}>{agent.value}</a>
-      </div>
-    </div>
   );
 }
 
@@ -206,5 +157,63 @@ export function DynamicProperties({ termMap }) {
       </T>
       <V style={{ overflow: 'hidden' }}>{content}</V>
     </>
+  );
+}
+
+const PERSON_QUERY = /* GraphQL */ `
+  query PersonKey($type: String!, $value: String!) {
+    person(type: $type, value: $value) {
+      name
+      birthDate
+      deathDate
+      image
+    }
+  }
+`;
+
+export function AgentSummary({ agent }: { agent: { type: string; value: string } }) {
+  const { data, loading, error } = useQuery<PersonKeyQuery, PersonKeyQueryVariables>(PERSON_QUERY, {
+    throwAllErrors: false,
+    variables: { type: agent.type, value: agent.value },
+  });
+  if (!data?.person || loading || error) return agent.value;
+  const { person } = data;
+
+  return (
+    <div className="g-rounded g-border g-bg-white g-overflow-hidden g-shadow-sm g-flex g-flex-wrap">
+      <div className="g-flex-none">
+        {person?.image?.value && <img className="g-block g-max-w-16" src={person?.image?.value} />}
+      </div>
+      <div className="g-flex-auto g-p-2">
+        <h4 className="g-m-0 g-mb-1">{person?.name?.value}</h4>
+        {person?.birthDate?.value && (
+          <div className="g-mb-1">
+            <FormattedDate
+              value={person?.birthDate?.value}
+              year="numeric"
+              month="long"
+              day="2-digit"
+            />
+            {person?.deathDate?.value && (
+              <span>
+                {' '}
+                -{' '}
+                <FormattedDate
+                  value={person?.deathDate?.value}
+                  year="numeric"
+                  month="long"
+                  day="2-digit"
+                />
+              </span>
+            )}
+          </div>
+        )}
+        {agent.value && (
+          <a className="g-underline" href={agent.value}>
+            {agent.value}
+          </a>
+        )}
+      </div>
+    </div>
   );
 }

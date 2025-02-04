@@ -12,10 +12,11 @@
   "hosting": "Alojamiento",
   "description": "Descripción",
   "endorsedBy": "Respaldado por",
+  "notYetEndorsed": "Aquí debe colocarse una breve descripción del componente",
   "pendingEndorsementBy": "Pendiente de respaldo por",
-  "endorsementWithheld": "",
+  "endorsementWithheld": "Aval denegado",
   "installations": "Instalaciones",
-  "getDownloadReport": "",
+  "getDownloadReport": "Descargar el reporte de actividad",
   "contacts": "Contactos",
   "administrativeContact": "Contacto administrativo",
   "header": {

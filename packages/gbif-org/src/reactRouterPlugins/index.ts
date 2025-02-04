@@ -1,21 +1,19 @@
+import { Config, LanguageOption } from '@/config/config';
+import { GraphQLService } from '@/services/graphQLService';
 import {
   IndexRouteObject,
   LoaderFunctionArgs,
   NonIndexRouteObject,
   RouteObject,
 } from 'react-router-dom';
-import { applySkeletonLoadingPlugin } from './skeletonLoading';
-export type { ErrorPageProps } from './skeletonLoading';
-import { applyI18nPlugin } from './i18n';
+import { applyPagePathsPlugin } from './applyPagePaths';
 import { applyExtendedLoaderPlugin } from './extendedLoader';
 import { applyExtraOccurrenceSearchPages } from './extraOccurrenceSearchPages';
-import { applyEnablePagesPlugin } from './enablePages';
+import { applyI18nPlugin } from './i18n';
 import { applySlugifiedPlugin } from './slugified';
-import { Config, LanguageOption } from '@/config/config';
-import { GraphQLService } from '@/services/graphQLService';
+export { DynamicLink } from './dynamicLink';
 export { useI18n } from './i18n';
 export { useRenderedRouteLoaderData } from './useRenderedRouteLoaderData';
-export { DynamicLink } from './dynamicLink';
 
 export type Context = {
   standalone: boolean;
@@ -33,7 +31,11 @@ export type RouteObjectWithPlugins = {
   internalPluginId?: string;
   loader?: (args: LoaderArgs) => unknown;
   overrideConfig?: Partial<Config>;
-  gbifRedirect?: (params: Record<string, string | undefined>) => string | null;
+  gbifRedirect?: (
+    params: Record<string, string | undefined>,
+    locale: LanguageOption
+  ) => string | null;
+  isCustom?: boolean;
   isSlugified?: boolean;
 } & (
   | Omit<IndexRouteObject, 'loader'>
@@ -44,18 +46,17 @@ export type RouteObjectWithPlugins = {
 
 export function applyReactRouterPlugins(
   routes: RouteObjectWithPlugins[],
-  config: Config,
-  context: Context = { standalone: false }
+  config: Config
 ): RouteObject[] {
-  const withFilteredRoutes = applyEnablePagesPlugin(routes, config, context);
+  const withCorrectedPaths = applyPagePathsPlugin(routes, config);
+  // const withFilteredRoutes = applyEnablePagesPlugin(withCorrectedPaths, config);
   const withExtraOccurrenceSearchPages = applyExtraOccurrenceSearchPages(
-    withFilteredRoutes,
+    withCorrectedPaths,
     config
   );
   const withI18n = applyI18nPlugin(withExtraOccurrenceSearchPages, config);
   const withSlugified = applySlugifiedPlugin(withI18n, config);
-  const withSkeletonLoading = applySkeletonLoadingPlugin(withSlugified);
-  const withExtendedLoader = applyExtendedLoaderPlugin(withSkeletonLoading, config);
+  const withExtendedLoader = applyExtendedLoaderPlugin(withSlugified, config);
 
   return withExtendedLoader as RouteObject[];
 }

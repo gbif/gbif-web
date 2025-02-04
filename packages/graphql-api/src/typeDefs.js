@@ -1,8 +1,8 @@
+import { getEnumTypeDefs } from '#/helpers/enums';
 import { gql } from 'apollo-server';
 import { get } from 'lodash';
-import { getEnumTypeDefs } from '#/helpers/enums';
-import * as resources from './resources';
 import config from './config';
+import * as resources from './resources';
 
 const inputTypeDef = gql`
   input Predicate {
@@ -25,6 +25,7 @@ const inputTypeDef = gql`
     in
     within
     isNotNull
+    isNull
     like
     fuzzy
     nested
@@ -50,13 +51,11 @@ async function getSchema() {
 
   // Map each organisation string to an aggregate array containing all of its typeDefs
   const organization = config.organization;
-  const orgTypeDefs = Object.keys(resources[organization]).map(resource => get(resources, `${organization}.${resource}.typeDef`));
+  const orgTypeDefs = Object.keys(resources[organization]).map((resource) =>
+    get(resources, `${organization}.${resource}.typeDef`),
+  );
 
-  const typeDefs = [
-    rootQuery,
-    inputTypeDef,
-    ...orgTypeDefs
-  ].flat();
+  const typeDefs = [rootQuery, inputTypeDef, ...orgTypeDefs].flat();
 
   return typeDefs;
 }

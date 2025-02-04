@@ -24,6 +24,16 @@
     "count": "",
     "description": ""
   },
+  "taxonomicStatus": {
+    "name": "Статус",
+    "count": "{num, plural, one { статус } few {# статусов} many {# статусов} other {# статусов}}",
+    "description": "Количество хранящихся образцов, указанных в описании. Это число не отражает количество записей, которые были оцифрованы и распространены."
+  },
+  "taxonRank": {
+    "name": "Ранг",
+    "count": "{num, plural, one { ранг } few {# рангов} many {# рангов} other {# рангов}}",
+    "description": "Количество хранящихся образцов, указанных в описании. Это число не отражает количество записей, которые были оцифрованы и распространены."
+  },
   "numberSpecimens": {
     "name": "",
     "count": "",
@@ -335,6 +345,11 @@
     "count": "",
     "description": ""
   },
+  "higherGeography": {
+    "name": "Вышестоящие географические единицы",
+    "count": "Архив, аннотированный GBIF",
+    "description": "Архив, аннотированный GBIF"
+  },
   "stateProvince": {
     "name": "Регион",
     "count": "",
@@ -418,6 +433,21 @@
   "active": {
     "name": "Действующая",
     "count": "Действующая",
+    "description": "Архив, аннотированный GBIF"
+  },
+  "activeInstitution": {
+    "name": "Действует",
+    "count": "Действует",
+    "description": "Архив, аннотированный GBIF"
+  },
+  "activeCollection": {
+    "name": "Действует",
+    "count": "Действует",
+    "description": "Архив, аннотированный GBIF"
+  },
+  "publicationDate": {
+    "name": "Дата публикации",
+    "count": "Архив, аннотированный GBIF",
     "description": "Архив, аннотированный GBIF"
   },
   "personalCollection": {

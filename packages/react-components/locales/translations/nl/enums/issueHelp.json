@@ -1,0 +1,13 @@
+{
+  "BASIS_OF_RECORD_INVALID": "Het waarde van 'basisofRecord' is ofwel niet aanwezig of ongeldig. Het waarde moet matchen met Darwin Core Type Vocabularia. ",
+  "TAXONOMIC_STATUS_MISMATCH": "(beschrijving ontbreekt)",
+  "TITLE_MISSING_OR_TOO_SHORT": "De titel van de dataset is niet aanwezig of te kort. ",
+  "DEPTH_UNLIKELY": "Instellen als de diepte groter is dan 11.000 m of negatief.",
+  "DWCA_UNREADABLE": "Onmogelijk om de DarwinCore Archief te lezen of extracten. ",
+  "RANK_INVALID": "Dwc:taxonRank kan niet geïnterpreteerd worden.",
+  "CLASSIFICATION_RANK_ORDER_INVALID": "(beschrijving ontbreekt)",
+  "TAXONOMIC_STATUS_INVALID": "Dwc:taxonomicStatus kan niet geïnterpreteerd worden.",
+  "ML_NOT_FOUND": "Geen EML-document kon gevonden worden. ",
+  "PARENT_NAME_USAGE_ID_INVALID": "(beschrijving ontbreekt)",
+  "DWCA_META_XML_NOT_FOUND": "Onmogelijk om de meta.xml bestand te vinden. "
+}

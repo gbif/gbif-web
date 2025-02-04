@@ -1,8 +1,8 @@
-import { Outlet } from 'react-router-dom';
-import { I18nContextProvider } from './i18nContextProvider';
-import { RouteObjectWithPlugins } from '..';
-import { localizeRouteId } from './useLocalizedRouteId';
 import { Config } from '@/config/config';
+import { Outlet } from 'react-router-dom';
+import { RouteObjectWithPlugins } from '..';
+import { I18nContextProvider } from './i18nContextProvider';
+import { localizeRouteId } from './useLocalizedRouteId';
 
 export function applyI18nPlugin(
   routes: RouteObjectWithPlugins[],
@@ -13,33 +13,39 @@ export function applyI18nPlugin(
       'The root route should not have route: "/" when using the i18n react-router-dom plugin'
     );
   }
-
+  const { messages: customMessages = {} } = config;
   const defaultLanguage = config.languages.find((language) => language.default);
   if (!defaultLanguage) throw new Error('No default language found');
 
+  const translationsPromise = fetch(config.translationsEntryEndpoint)
+    .then((r) => r.json())
+    .catch((err) => {
+      console.error('Failed to load translations entry file');
+      throw err;
+    });
+
   return config.languages.map((localeOption) => {
+    const localeLanguage = customMessages[localeOption.code] ?? {};
     return {
       description: `Root route for ${localeOption.label}`,
       path: defaultLanguage.code === localeOption.code ? '/' : localeOption.code,
+      shouldRevalidate() {
+        return false;
+      },
       loader: async () => {
         // fetch the entry translation file
-        const translations = await fetch(config.translationsEntryEndpoint)
-          .then((r) => r.json())
-          .catch((err) => {
-            console.error('Failed to load translations entry file');
-            throw err;
-          });
+        const translations = await translationsPromise;
         // now get the actual messages for the locale
         const messages = await fetch(
-          translations?.[localeOption.code]?.messages ?? translations?.en?.messages
+          translations?.[localeOption.localeCode]?.messages ?? translations?.en?.messages
         )
           .then((r) => r.json())
           .catch((err) => {
             console.error('Failed to load translations for language');
-            console.error('Failed language: ', localeOption.code);
+            console.error('Failed language: ', localeOption.code, localeOption.localeCode);
             throw err;
           });
-        return { messages };
+        return { messages: { ...messages, ...localeLanguage } };
       },
       element: (
         <I18nContextProvider

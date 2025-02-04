@@ -11,4 +11,5 @@ export default [
   'countriesOfResearcher',
   'publishingOrganizationKey',
   'gbifDatasetKey',
+  'gbifNetworkKey',
 ];

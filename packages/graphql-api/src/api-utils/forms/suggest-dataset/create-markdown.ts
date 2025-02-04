@@ -6,7 +6,8 @@ export function createMarkdown(data: SuggestDatasetDTO): string {
 
   markdownJson.push({ h1: data.title });
 
-  if (data.datasetLink) markdownJson.push({ p: `Dataset link: ${data.datasetLink}` });
+  if (data.datasetLink)
+    markdownJson.push({ p: `Dataset link: ${data.datasetLink}` });
 
   markdownJson.push({ p: `Region: ${data.region}` });
 
@@ -14,19 +15,29 @@ export function createMarkdown(data: SuggestDatasetDTO): string {
 
   markdownJson.push({ p: `Type: ${data.type}` });
 
-  if (data.datasetImportance) markdownJson.push({ p: `Why is this important: ${data.datasetImportance}` });
+  if (data.datasetImportance)
+    markdownJson.push({
+      p: `Why is this important: ${data.datasetImportance}`,
+    });
 
   if (data.priority) markdownJson.push({ p: `Priority: ${data.priority}` });
 
   markdownJson.push({ p: `License: ${data.license}` });
 
-  if (data.datasetBibliographicDoi) markdownJson.push({ p: `Bibliographic reference: ${data.datasetBibliographicDoi}` });
+  if (data.datasetBibliographicDoi)
+    markdownJson.push({
+      p: `Bibliographic reference: ${data.datasetBibliographicDoi}`,
+    });
 
   if (data.comments) markdownJson.push({ p: `Comments: ${data.comments}` });
 
-  if (data.datasetHolderContact) markdownJson.push({ p: `Dataholders contact information: ${data.datasetHolderContact}` });
-  
-  if (data.userContact) markdownJson.push({ p: `Users contact info: ${data.userContact}` });
+  if (data.datasetHolderContact)
+    markdownJson.push({
+      p: `Dataholders contact information: ${data.datasetHolderContact}`,
+    });
+
+  if (data.userContact)
+    markdownJson.push({ p: `Users contact info: ${data.userContact}` });
 
   return json2md(markdownJson);
 }

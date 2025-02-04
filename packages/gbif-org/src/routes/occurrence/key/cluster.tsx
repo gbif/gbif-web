@@ -1,8 +1,8 @@
-import { DynamicLink } from '@/reactRouterPlugins';
 import { Coordinates, FeatureList, Sequenced, TypeStatus } from '@/components/highlights';
 import { Tag } from '@/components/resultCards';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
-import { Card, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { useToast } from '@/components/ui/use-toast';
 import {
   OccurrenceClusterQuery,
   OccurrenceClusterQueryVariables,
@@ -10,6 +10,7 @@ import {
   RelatedOccurrenceStubFragment,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { fragmentManager } from '@/services/fragmentManager';
@@ -19,12 +20,13 @@ import { useParams } from 'react-router-dom';
 
 export function OccurrenceKeyCluster() {
   const { key } = useParams<{ key: string }>();
+  const { toast } = useToast();
 
   const { data, error, load, loading } = useQuery<
     OccurrenceClusterQuery,
     OccurrenceClusterQueryVariables
   >(RELATED_OCCURRENCES_QUERY, {
-    throwAllErrors: true,
+    throwAllErrors: false,
     lazyLoad: true,
   });
 
@@ -39,6 +41,12 @@ export function OccurrenceKeyCluster() {
     });
   }, [key]);
 
+  if (error) {
+    toast({
+      title: 'Unable to load all content',
+      variant: 'destructive',
+    });
+  }
   if (loading || !data)
     return (
       <ArticleContainer className="g-bg-slate-100">
@@ -52,7 +60,9 @@ export function OccurrenceKeyCluster() {
   if (data.occurrence?.related?.count === 0) {
     return (
       <ArticleContainer className="g-bg-slate-100">
-        <ArticleTextContainer>No related occurrences</ArticleTextContainer>
+        <ArticleTextContainer>
+          <FormattedMessage id="occurrenceDetails.cluster.noMatches" />
+        </ArticleTextContainer>
       </ArticleContainer>
     );
   }
@@ -62,7 +72,9 @@ export function OccurrenceKeyCluster() {
       <ArticleTextContainer className="g-max-w-screen-xl xl:g-flex g-gap-x-4">
         <div className="g-flex-1">
           <CardHeader>
-            <CardTitle>Current</CardTitle>
+            <CardTitle>
+              <FormattedMessage id="occurrenceDetails.cluster.current" />
+            </CardTitle>
           </CardHeader>
           <RelatedRecord
             occurrence={data.occurrence?.related?.currentOccurrence?.occurrence}
@@ -71,7 +83,9 @@ export function OccurrenceKeyCluster() {
         </div>
         <div className="g-flex-1">
           <CardHeader>
-            <CardTitle>Related</CardTitle>
+            <CardTitle>
+              <FormattedMessage id="occurrenceDetails.cluster.relatedOccurrences" />
+            </CardTitle>
           </CardHeader>
           {data.occurrence?.related?.relatedOccurrences?.map(
             (relatedOccurrence: RelatedOccurrenceFragment | null, key: number) => {
@@ -101,7 +115,16 @@ function RelatedRecord({
   occurrence?: RelatedOccurrenceDetailsFragment;
 }) {
   if (!occurrence) {
-    return <Card>Record has since been deleted</Card>;
+    return (
+      <Card className="g-bg-red-500 g-text-white g-mb-4">
+        <CardHeader>
+          <FormattedMessage id="search.occurrenceClustersView.isDeleted" />
+        </CardHeader>
+        <CardContent>
+          <pre>{JSON.stringify(stub, null, 2)}</pre>
+        </CardContent>
+      </Card>
+    );
   }
   return (
     <Card className="g-mb-4">
@@ -109,7 +132,12 @@ function RelatedRecord({
         <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
           <div className="g-flex-grow">
             <h3 className="g-text-base g-font-semibold g-mb-2">
-              <DynamicLink to={`/occurrence/${stub?.gbifId}`}>
+              <DynamicLink
+                className="hover:g-text-primary-500 g-underline"
+                to={`/occurrence/${stub?.gbifId}`}
+                pageId="occurrenceKey"
+                variables={{ key: stub?.gbifId }}
+              >
                 <span
                   dangerouslySetInnerHTML={{
                     __html:
@@ -121,19 +149,27 @@ function RelatedRecord({
               </DynamicLink>
             </h3>
             <p className="g-font-normal g-text-slate-700 g-text-sm">
-              Dataset:{' '}
-              <DynamicLink to={`/dataset/${stub?.datasetKey}`}>
+              <FormattedMessage id="occurrenceDetails.dataset" />:{' '}
+              <DynamicLink
+                to={`/dataset/${stub?.datasetKey}`}
+                pageId="datasetKey"
+                variables={{ key: stub?.datasetKey }}
+              >
                 {occurrence?.datasetTitle}
               </DynamicLink>
             </p>
             <p className="g-font-normal g-text-slate-700 g-text-sm">
-              Publisher:{' '}
-              <DynamicLink to={`/publisher/${stub?.publishingOrgKey}`}>
+              <FormattedMessage id="occurrenceDetails.publisher" />:{' '}
+              <DynamicLink
+                to={`/publisher/${stub?.publishingOrgKey}`}
+                pageId="publisherKey"
+                variables={{ key: stub?.publishingOrgKey }}
+              >
                 {stub?.publishingOrgName}
               </DynamicLink>
             </p>
             <p className="g-font-normal g-text-slate-700 g-text-sm">
-              Basis of record:{' '}
+              <FormattedMessage id="occurrenceFieldNames.basisOfRecord" />:{' '}
               <FormattedMessage id={`enums.basisOfRecord.${occurrence.basisOfRecord}`} />
             </p>
             <FeatureList className="">
@@ -151,7 +187,9 @@ function RelatedRecord({
         {reasons && (
           <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
             <hr className="g-border" />
-            <span>Cluster tags</span>
+            <span>
+              <FormattedMessage id="occurrenceDetails.cluster.clusterTags" />
+            </span>
             {reasons.map((reason: string, key: number) => {
               return <Tag key={key}>{reason}</Tag>;
             })}
@@ -220,7 +258,7 @@ fragmentManager.register(/* GraphQL */ `
     }
     gbifClassification {
       usage {
-        formattedName
+        formattedName(useFallback: true)
       }
     }
     volatile {

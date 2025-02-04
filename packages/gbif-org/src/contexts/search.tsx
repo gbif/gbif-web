@@ -1,11 +1,28 @@
 import React from 'react';
 
-export type QueryTypeEnum = 'V1' | 'PREDICATE';// | 'DATASET' | 'OCCURRENCE' | 'COLLECTION' | 'INSTITUTION' | 'PUBLISHER';
+export type QueryTypeEnum = 'V1' | 'PREDICATE'; // | 'DATASET' | 'OCCURRENCE' | 'COLLECTION' | 'INSTITUTION' | 'PUBLISHER';
 export type SearchMetadata = {
   excludedFilters?: string[];
   highlightedFilters?: string[];
   scope?: unknown;
   queryType?: QueryTypeEnum;
+  availableTableColumns?: string[]; // Default all columns are available
+  defaultEnabledTableColumns?: string[]; // Default is defined by the individual tabels
+  tabs?: string[];
+  defaultTab?: string;
+};
+
+export type OccurrenceSearchMetadata = SearchMetadata & {
+  mapSettings?: {
+    userLocationEnabled?: boolean;
+    lat?: number;
+    lng?: number;
+    zoom?: number;
+  };
+};
+
+export type PublisherSearchMetadata = SearchMetadata & {
+  enableUserCountryInfo?: boolean;
 };
 
 const SearchMetadataContext = React.createContext<SearchMetadata | null>(null);

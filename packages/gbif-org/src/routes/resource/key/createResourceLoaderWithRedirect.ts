@@ -1,6 +1,6 @@
 import { NotFoundError, UnexpectedLoaderError } from '@/errors';
-import { fragmentManager } from '@/services/fragmentManager';
 import { LoaderArgs } from '@/reactRouterPlugins';
+import { fragmentManager } from '@/services/fragmentManager';
 import { required } from '@/utils/required';
 import { slugify } from '@/utils/slugify';
 import { redirect } from 'react-router-dom';
@@ -134,7 +134,7 @@ export function createResourceLoaderWithRedirect(options: Options) {
     }
 
     // If the resource type and the slugified key are correct, return the resource
-    if (options.resourceType === resource.__typename && params.slugifiedTitle === slugifiedTitle) {
+    if (options.resourceType === resource.__typename && params.slug === slugifiedTitle) {
       return data;
     }
 

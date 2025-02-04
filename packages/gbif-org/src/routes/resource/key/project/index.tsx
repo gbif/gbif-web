@@ -1,13 +1,13 @@
+import { ProjectDatasetsTabFragment, ProjectPageFragment } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import { ProjectPage, projectPageLoader, ProjectPageSkeleton } from './project';
 import { ProjectAboutTab } from './projectAboutTab';
-import {
-  projectNewsAndEventsLoader,
-  ProjectNewsAndEventsTab,
-  ProjectNewsAndEventsTabSkeleton,
-} from './projectNewsAndEventsTab';
 import { ProjectDatasetsTab } from './projectDatasetsTab';
-import { ProjectDatasetsTabFragment, ProjectPageFragment } from '@/gql/graphql';
+import {
+    projectNewsAndEventsLoader,
+    ProjectNewsAndEventsTab,
+    ProjectNewsAndEventsTabSkeleton
+} from './projectNewsAndEventsTab';
 
 const id = 'project-key';
 

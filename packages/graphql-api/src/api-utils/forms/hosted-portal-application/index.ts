@@ -1,9 +1,7 @@
 import { Router } from 'express';
 import { validateRequest } from 'zod-express-middleware';
 import { z } from 'zod';
-import {
-  createGitHubIssue,
-} from '../helpers/create-github-issue';
+import { createGitHubIssue } from '../helpers/create-github-issue';
 import { createMarkdown } from './create-markdown';
 import {
   RequiredStringSchema,
@@ -91,7 +89,10 @@ export function registerHostedPortalApplicationForm(router: Router) {
         });
         res.status(200).json({ message: 'From submitted succesfully' });
       } catch (error) {
-        logger.error({ message: 'Failed to submit "hosted-portal-application" form', error });
+        logger.error({
+          message: 'Failed to submit "hosted-portal-application" form',
+          error,
+        });
         res.status(200).json({ message: 'From submitted succesfully' });
       }
     },

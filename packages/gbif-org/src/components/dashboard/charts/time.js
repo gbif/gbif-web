@@ -1,16 +1,16 @@
 export function getTimeSeriesOptions({ serie, onClick, interactive, translations }) {
-  const categories = serie?.data?.map(x => x.name);
+  const categories = serie?.data?.map((x) => x.name);
   const options = {
     responsive: true,
     maintainAspectRatio: false,
     chart: {
       height: 300,
       animation: false,
-      type: 'column'
+      type: 'column',
     },
     tooltip: {
       pointFormat: '{series.name}: <b>{point.y}</b>',
-      followPointer: false
+      followPointer: false,
     },
     plotOptions: {
       series: {
@@ -19,12 +19,12 @@ export function getTimeSeriesOptions({ serie, onClick, interactive, translations
             x1: 0,
             x2: 0,
             y1: 0,
-            y2: 1
+            y2: 1,
           },
           stops: [
             [0, 'rgb(var(--primary))'],
-            [1, 'rgb(var(--primary200))']
-          ]
+            [1, 'rgb(var(--primary200))'],
+          ],
         },
         borderWidth: 0,
         // shadow: {
@@ -40,29 +40,31 @@ export function getTimeSeriesOptions({ serie, onClick, interactive, translations
         animation: false,
         cursor: interactive ? 'pointer' : 'default',
         dataLabels: {
-          enabled: false
+          enabled: false,
         },
         showInLegend: true,
-        point: interactive ? {
-          events: {
-            click: function () {
-              onClick({ filter: this.filter, name: this.name, count: this.y }, this)
+        point: interactive
+          ? {
+              events: {
+                click: function () {
+                  onClick({ filter: this.filter, name: this.name, count: this.y }, this);
+                },
+              },
             }
-          }
-        } : {}
-      }
+          : {},
+      },
     },
     credits: {
-      enabled: false
+      enabled: false,
     },
     title: {
-      text: ''
+      text: '',
     },
     xAxis: {
       type: 'datetime',
-      labels: { 
-        enabled: true
-    },
+      labels: {
+        enabled: true,
+      },
       // crosshair: true,//!!categories && data.results.length > 1,
       // labels: {
       //   formatter: function () {
@@ -73,7 +75,7 @@ export function getTimeSeriesOptions({ serie, onClick, interactive, translations
     },
     yAxis: {
       title: {
-        text: translations.occurrences || 'Occurrences'
+        text: translations.occurrences || 'Occurrences',
       },
       gridLineDashStyle: 'LongDash',
       lineColor: '#d0d2da',
@@ -82,18 +84,18 @@ export function getTimeSeriesOptions({ serie, onClick, interactive, translations
     exporting: {
       buttons: {
         contextButton: {
-          enabled: false
-        }
-      }
+          enabled: false,
+        },
+      },
     },
     legend: {
       enabled: false,
       itemStyle: {
         width: '200px',
         textOverflow: 'ellipsis',
-        overflow: 'hidden'
-      }
-    }
-  }
+        overflow: 'hidden',
+      },
+    },
+  };
   return options;
 }

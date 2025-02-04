@@ -8,7 +8,7 @@ const typeDef = gql`
       q: String
       datasetKey: [ID]
       rank: [Rank]
-      highertaxonKey: [ID]
+      higherTaxonKey: [ID]
       status: [TaxonomicStatus]
       isExtinct: Boolean
       habitat: [Habitat]
@@ -18,21 +18,23 @@ const typeDef = gql`
       issue: [NameUsageIssue]
       hl: Boolean
       qField: [TaxonSearchQField]
+      query: TaxonSearchInput
     ): TaxonSearchResult!
     backboneSearch(
       limit: Int
       offset: Int
       q: String
       rank: [Rank]
-      highertaxonKey: [ID]
+      higherTaxonKey: [ID]
       status: [TaxonomicStatus]
       isExtinct: Boolean
       habitat: [Habitat]
       nameType: [NameType]
       nomenclaturalStatus: [NomenclaturalStatus]
       issue: [NameUsageIssue]
-      hl: Boolean,
+      hl: Boolean
       qField: [TaxonSearchQField]
+      query: TaxonSearchInput
     ): TaxonSearchResult!
     taxon(key: ID!): Taxon
     checklistRoots(datasetKey: ID!, limit: Int, offset: Int): TaxonListResult
@@ -52,6 +54,24 @@ const typeDef = gql`
     ): [TaxonSuggestion]!
   }
 
+  input TaxonSearchInput {
+    limit: Int
+    offset: Int
+    q: String
+    datasetKey: [ID]
+    rank: [Rank]
+    higherTaxonKey: [ID]
+    status: [TaxonomicStatus]
+    isExtinct: Boolean
+    habitat: [Habitat]
+    origin: [Origin]
+    nameType: [NameType]
+    nomenclaturalStatus: [NomenclaturalStatus]
+    issue: [NameUsageIssue]
+    hl: Boolean
+    qField: [TaxonSearchQField]
+  }
+
   type TaxonSearchResult {
     results: [Taxon]!
     limit: Int!
@@ -63,7 +83,7 @@ const typeDef = gql`
   }
 
   type TaxonListResult {
-    results: [Taxon]!
+    results: [Taxon!]!
     limit: Int!
     offset: Int!
     endOfRecords: Boolean!
@@ -109,10 +129,11 @@ const typeDef = gql`
     origin: Origin
     parent: String
     parentKey: Int
+    publishedIn: String
     rank: Rank
     remarks: String
     scientificName: String
-    formattedName: String
+    formattedName(useFallback: Boolean): String
     sourceTaxonKey: Int
     synonym: Boolean
     taxonID: String
@@ -121,7 +142,7 @@ const typeDef = gql`
 
     wikiData: WikiDataTaxonData
     backboneTaxon: Taxon
-
+    acceptedTaxon: Taxon
     """
     This is an experiment that might be stopped at any time. It is not part of the stable API. It will attempt ti find a nice image to represent the taxon.
     """
@@ -138,7 +159,7 @@ const typeDef = gql`
       q: String
       datasetKey: [ID]
       rank: [Rank]
-      highertaxonKey: [ID]
+      higherTaxonKey: [ID]
       status: [TaxonomicStatus]
       isExtinct: Boolean
       habitat: [Habitat]
@@ -153,7 +174,7 @@ const typeDef = gql`
   type TaxonFacet {
     rank(limit: Int, offset: Int): [TaxonFacetResult]
     status(limit: Int, offset: Int): [TaxonFacetResult]
-    higherTaxon(limit: Int, offset: Int): [TaxonBreakdown]
+    higherTaxonKey(limit: Int, offset: Int): [TaxonBreakdown]
     issue(limit: Int, offset: Int): [TaxonFacetResult]
   }
 
@@ -167,7 +188,7 @@ const typeDef = gql`
       q: String
       datasetKey: [ID]
       rank: [Rank]
-      highertaxonKey: [Int]
+      higherTaxonKey: [Int]
       status: [TaxonomicStatus]
       isExtinct: Boolean
       habitat: [Habitat]

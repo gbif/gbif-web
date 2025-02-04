@@ -24,6 +24,16 @@
     "count": "{num, plural, one {# 收藏品 } other {# 收藏品}}",
     "description": "该记录与GrSciColl中相匹配的收藏品"
   },
+  "taxonomicStatus": {
+    "name": "状态",
+    "count": "",
+    "description": "说明中所述的持有标本数量。这个数字并不反映有多少记录已经被数字化和共享。"
+  },
+  "taxonRank": {
+    "name": "类群排名",
+    "count": "",
+    "description": "说明中所述的持有标本数量。这个数字并不反映有多少记录已经被数字化和共享。"
+  },
   "numberSpecimens": {
     "name": "标本数",
     "count": "",
@@ -335,6 +345,11 @@
     "count": "{num, plural, one { 水体 } other {# 水体}}",
     "description": "该位置所在的水体的名称。"
   },
+  "higherGeography": {
+    "name": "较高一级地区",
+    "count": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+    "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
+  },
   "stateProvince": {
     "name": "州/省",
     "count": "{num, plural, one { 州省 } other {# 州省}}",
@@ -418,6 +433,21 @@
   "active": {
     "name": "活跃的",
     "count": "活跃的",
+    "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
+  },
+  "activeInstitution": {
+    "name": "活跃的",
+    "count": "活跃的",
+    "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
+  },
+  "activeCollection": {
+    "name": "活跃的",
+    "count": "活跃的",
+    "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
+  },
+  "publicationDate": {
+    "name": "发布日期",
+    "count": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
     "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
   },
   "personalCollection": {

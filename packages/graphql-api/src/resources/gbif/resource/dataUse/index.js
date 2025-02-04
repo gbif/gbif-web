@@ -4,4 +4,4 @@ import typeDef from './dataUse.type';
 export default {
   resolver,
   typeDef,
-}
+};

@@ -12,6 +12,7 @@
   "hosting": "Hébergement",
   "description": "Description",
   "endorsedBy": "Approuvée par",
+  "notYetEndorsed": "Archive annotée par GBIF",
   "pendingEndorsementBy": "Approbation en attente par",
   "endorsementWithheld": "",
   "installations": "Installations",

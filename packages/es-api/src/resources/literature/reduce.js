@@ -5,7 +5,37 @@ const _ = require('lodash');
 //   return obj;
 // }
 
-const whitelist = ['createdAt', 'authors', 'countriesOfCoverage', 'countriesOfResearcher', 'day', 'gbifDownloadKey', 'gbifOccurrenceKey', 'gbifTaxonKey', 'gbifHigherTaxonKey', 'citationType', 'gbifRegion', 'id', 'identifiers', 'keywords', 'language', 'literatureType', 'month', 'notes', 'openAccess', 'peerReview', 'publisher', 'relevance', 'source', 'tags', 'title', 'topics', 'websites', 'year', 'abstract'];
+const whitelist = [
+  'createdAt',
+  'authors',
+  'countriesOfCoverage',
+  'countriesOfResearcher',
+  'day',
+  'gbifDownloadKey',
+  'gbifOccurrenceKey',
+  'gbifTaxonKey',
+  'gbifHigherTaxonKey',
+  'citationType',
+  'gbifRegion',
+  'id',
+  'identifiers',
+  'keywords',
+  'language',
+  'literatureType',
+  'month',
+  'notes',
+  'openAccess',
+  'peerReview',
+  'publisher',
+  'relevance',
+  'source',
+  'tags',
+  'title',
+  'topics',
+  'websites',
+  'year',
+  'abstract',
+];
 
 //api v1
 // ['discovered', 'authors', 'countriesOfCoverage', 'countriesOfResearcher', 'added', 'published', 'day', 'gbifDownloadKey', 'gbifOccurrenceKey', 'gbifTaxonKey', 'gbifHigherTaxonKey', 'citationType', 'gbifRegion', 'id', 'identifiers', 'keywords', 'language', 'literatureType', 'month', 'notes', 'openAccess', 'peerReview', 'publisher', 'relevance', 'source', 'tags', 'title', 'topics', 'modified', 'websites', 'year', 'abstract'];
@@ -30,5 +60,5 @@ function reduce(item) {
 }
 
 module.exports = {
-  reduce
-}
+  reduce,
+};

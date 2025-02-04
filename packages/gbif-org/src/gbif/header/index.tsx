@@ -1,15 +1,14 @@
 import { GbifLogoIcon } from '@/components/icons/icons';
-import { Link, NavLink, useLocation } from 'react-router-dom';
-import { MainNavigation } from './mainNav';
-import { HeaderQuery } from '@/gql/graphql';
-import { MobileMenu } from './mobileMenu';
-import { MdOutlineFeedback, MdSearch, MdTranslate } from 'react-icons/md';
 import { Button } from '@/components/ui/button';
+import { HeaderQuery } from '@/gql/graphql';
+import { DynamicLink, useI18n } from '@/reactRouterPlugins';
 import { FiActivity } from 'react-icons/fi';
-import { LanguageSelector } from './languageSelector';
+import { MdOutlineFeedback, MdSearch, MdTranslate } from 'react-icons/md';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { FeedbackPopover } from './feedback';
-import { useI18n } from '@/reactRouterPlugins';
-import { DynamicLink } from '@/reactRouterPlugins';
+import { LanguageSelector } from './languageSelector';
+import MainNavigation from './mainNav';
+import MobileMenu from './mobileMenu';
 
 export function Header({ menu }: { menu: HeaderQuery }) {
   const { locale } = useI18n();
@@ -29,7 +28,7 @@ export function Header({ menu }: { menu: HeaderQuery }) {
         <DynamicLink
           as={NavLink}
           to="/"
-          className={`g-p-2 ${isTransparent ? 'g-text-white' : 'g-text-primary-500'}`}
+          className={`g-py-2 ${isTransparent ? 'g-text-white' : 'g-text-primary-500'}`}
         >
           <GbifLogoIcon style={{ fontSize: 25 }} />
         </DynamicLink>
@@ -62,9 +61,9 @@ export function Header({ menu }: { menu: HeaderQuery }) {
           }
         />
         <Button variant="ghost" asChild className="g-text-xl g-px-2 g-mx-0.5">
-          <Link to="/system-health" className="g-opacity-80">
+          <DynamicLink to="/system-health" className="g-opacity-80">
             <FiActivity />
-          </Link>
+          </DynamicLink>
         </Button>
         <div className="g-inline-block lg:g-hidden">
           <MobileMenu menu={menu} />

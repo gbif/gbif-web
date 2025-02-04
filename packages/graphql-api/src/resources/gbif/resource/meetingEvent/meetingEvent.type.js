@@ -1,4 +1,4 @@
-import { gql } from "apollo-server";
+import { gql } from 'apollo-server';
 
 const typeDef = gql`
   extend type Query {
@@ -35,6 +35,6 @@ const typeDef = gql`
     gbifsAttendee: String
     meta: JSON
   }
-`
+`;
 
 export default typeDef;

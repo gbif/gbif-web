@@ -13,5 +13,7 @@
   "institution": "機構",
   "collection": "蒐藏集",
   "collectionCount": "蒐藏集",
-  "active": "使用中"
+  "active": "使用中",
+  "activeInstitution": "使用中",
+  "activeCollection": "使用中"
 }

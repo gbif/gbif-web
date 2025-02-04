@@ -1,21 +1,29 @@
 {
   "tabs": {
     "table": "Tabel",
+    "tree": "",
     "gallery": "Afbeeldingen",
+    "media": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
     "map": "Kaart",
     "datasets": "Datasets",
     "events": "Evenementen",
     "download": "Downloaden",
     "clusters": "",
     "dashboard": "Dashboard",
-    "sites": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+    "sites": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "list": ""
   },
   "table": {
-    "lockColumn": "Vergrendel kolom"
+    "lockColumn": "Vergrendel kolom",
+    "unlockColumn": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "columnVisibility": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "resetColumnVisibility": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "openFilter": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
   "placeholders": {
     "default": "Zoeken",
     "range": "Bereik of enkele waarde",
+    "rangeExample": "",
     "wildcard": "Zoek met * en ? als wildcards",
     "locationID": ""
   },
@@ -25,6 +33,7 @@
     "either": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
   "loadMore": "Meer",
+  "noResults": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
   "occurrenceClustersView": {
     "about": "Over",
     "clusters": "",

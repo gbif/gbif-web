@@ -90,7 +90,7 @@ function truncateText(sourceText, maxLength) {
   if (sourceText.length <= maxLength) return sourceText;
   const truncatedText = sourceText.slice(0, maxLength);
   const lastSpaceIndex = truncatedText.lastIndexOf(' ');
-  return truncatedText.slice(0, lastSpaceIndex) + '…';
+  return `${truncatedText.slice(0, lastSpaceIndex)}…`;
 }
 
 function excerpt({ summary, body }, { maxLength = 200, locale } = {}) {
@@ -156,32 +156,39 @@ function renameProperty(obj, from, to) {
   return obj;
 }
 
-async function getOGImage({ homepage }) {
+async function getOGImage({ homepage, timeoutMs = 5000 }) {
   if (!homepage) return null;
 
   try {
     const response = await fetch(homepage, {
-      "headers": {
-        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-        "accept-language": "en-US,en;q=0.9,es;q=0.8,fr;q=0.7,ar;q=0.6,zh;q=0.5,es-ES;q=0.4,da;q=0.3,ru;q=0.2,de-CH;q=0.1,de;q=0.1,ko;q=0.1",
-        "cache-control": "no-cache",
-        "pragma": "no-cache",
-        "priority": "u=0, i",
-        "sec-ch-ua": "\"Google Chrome\";v=\"125\", \"Chromium\";v=\"125\", \"Not.A/Brand\";v=\"24\"",
-        "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": "\"macOS\"",
-        "sec-fetch-dest": "document",
-        "sec-fetch-mode": "navigate",
-        "sec-fetch-site": "same-origin",
-        "sec-fetch-user": "?1",
-        "Referer": "https://www.gbif.org"
+      signal: AbortSignal.timeout(timeoutMs),
+      headers: {
+        accept:
+          'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+        'accept-language':
+          'en-US,en;q=0.9,es;q=0.8,fr;q=0.7,ar;q=0.6,zh;q=0.5,es-ES;q=0.4,da;q=0.3,ru;q=0.2,de-CH;q=0.1,de;q=0.1,ko;q=0.1',
+        'cache-control': 'no-cache',
+        pragma: 'no-cache',
+        priority: 'u=0, i',
+        'sec-ch-ua':
+          '"Google Chrome";v="125", "Chromium";v="125", "Not.A/Brand";v="24"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"macOS"',
+        'sec-fetch-dest': 'document',
+        'sec-fetch-mode': 'navigate',
+        'sec-fetch-site': 'same-origin',
+        'sec-fetch-user': '?1',
+        Referer: 'https://www.gbif.org',
       },
-      "body": null,
-      "method": "GET"
+      body: null,
+      method: 'GET',
     });
+    if (response.status !== 200) return null;
 
     const html = await response.text();
-    const ogImageMatch = html.match(/<meta.property="og:image"\s* content="([^"]+)".*>/);
+    const ogImageMatch = html.match(
+      /<meta.property="og:image"\s* content="([^"]+)".*>/,
+    );
     const ogImage = ogImageMatch ? ogImageMatch[1] : null;
     return ogImage ?? null;
   } catch (error) {
@@ -189,19 +196,50 @@ async function getOGImage({ homepage }) {
   }
 }
 
-
+const getFirstIIIFImage = ({ occurrence }) => {
+  // return 'test';
+  const multimediaExtension =
+    occurrence?.extensions?.['http://rs.tdwg.org/ac/terms/Multimedia'];
+  if (multimediaExtension) {
+    const iiifUris = multimediaExtension
+      .filter((e) => {
+        return (
+          e['http://purl.org/dc/elements/1.1/format'] ===
+            'application/ld+json' &&
+          e['http://rs.tdwg.org/ac/terms/serviceExpectation'] &&
+          e['http://rs.tdwg.org/ac/terms/serviceExpectation'].toLowerCase() ===
+            'iiif'
+        );
+      })
+      .map((e) => {
+        return e['http://rs.tdwg.org/ac/terms/accessURI'];
+      });
+    if (iiifUris.length > 0) {
+      try {
+        return `${
+          iiifUris[0].split('://')[0]
+        }://labs.gbif.org/mirador/?manifest=${iiifUris[0]}`;
+      } catch (error) {
+        return null;
+      }
+    }
+    return null;
+  }
+  return null;
+};
 
 export {
-  getOGImage,
+  createLocalizedGbifHref,
+  excerpt,
   formattedCoordinates,
-  isOccurrenceSequenced,
-  getHtml,
   getExcerpt,
+  getFirstIIIFImage,
+  getHtml,
+  getOGImage,
+  isNoneEmptyArray,
+  isOccurrenceSequenced,
+  objectToQueryString,
+  renameProperty,
   simplifyUrlObjectKeys,
   translateContentfulResponse,
-  excerpt,
-  objectToQueryString,
-  createLocalizedGbifHref,
-  isNoneEmptyArray,
-  renameProperty,
 };

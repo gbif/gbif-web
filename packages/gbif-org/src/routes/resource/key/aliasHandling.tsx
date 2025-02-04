@@ -1,15 +1,15 @@
 import {
-  AliasHandlingQuery,
-  AliasHandlingQueryVariables,
-  ArticlePageFragment,
-  CompositionPageFragment,
+    AliasHandlingQuery,
+    AliasHandlingQueryVariables,
+    ArticlePageFragment,
+    CompositionPageFragment
 } from '@/gql/graphql';
 import { LoaderArgs } from '@/reactRouterPlugins';
 import { required } from '@/utils/required';
-import { ArticlePage, articlePageLoader } from './article/article';
-import { CompositionPage, compositionPageLoader } from './composition/composition';
 import { useLoaderData } from 'react-router-dom';
+import { ArticlePage, articlePageLoader } from './article/article';
 import { ArticleSkeleton } from './components/articleSkeleton';
+import { CompositionPage, compositionPageLoader } from './composition/composition';
 
 export const AliasHandlingSkeleton = ArticleSkeleton;
 

@@ -4,27 +4,27 @@ const config = {
       type: 'text',
       field: '_all',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     audiences: {
       type: 'keyword',
-      field: 'audiences'
+      field: 'audiences',
     },
     citation: {
       type: 'text',
       field: 'citation',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     contentType: {
       type: 'keyword',
-      field: 'contentType'
+      field: 'contentType',
     },
     countriesOfCoverage: {
       type: 'keyword',
-      field: 'countriesOfCoverage'
+      field: 'countriesOfCoverage',
     },
     createdAt: {
       type: 'date',
@@ -32,35 +32,35 @@ const config = {
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     gbifProgrammeAcronym: {
       type: 'keyword',
-      field: 'gbifProgrammeAcronym'
+      field: 'gbifProgrammeAcronym',
     },
     gbifRegion: {
       type: 'keyword',
-      field: 'gbifRegion'
+      field: 'gbifRegion',
     },
     homepage: {
       type: 'boolean',
-      field: 'homepage'
+      field: 'homepage',
     },
     id: {
       type: 'keyword',
-      field: 'id'
+      field: 'id',
     },
     keywords: {
       type: 'keyword',
       field: 'keywords.keyword',
       get: {
-        type: 'keyword'
-      }
+        type: 'keyword',
+      },
     },
     locale: {
       type: 'keyword',
-      field: 'locale'
+      field: 'locale',
     },
     meta: {
       type: 'nested',
@@ -74,8 +74,8 @@ const config = {
             get: {
               type: 'range_or_term',
               defaultUpperBound: 'gte',
-              defaultLowerBound: 'lte'
-            }
+              defaultLowerBound: 'lte',
+            },
           },
           drupal_modified: {
             type: 'date',
@@ -83,8 +83,8 @@ const config = {
             get: {
               type: 'range_or_term',
               defaultUpperBound: 'gte',
-              defaultLowerBound: 'lte'
-            }
+              defaultLowerBound: 'lte',
+            },
           },
           drupal_nodeId: {
             type: 'numeric',
@@ -92,29 +92,29 @@ const config = {
             get: {
               type: 'range_or_term',
               defaultUpperBound: 'gte',
-              defaultLowerBound: 'lte'
-            }
+              defaultLowerBound: 'lte',
+            },
           },
           drupal_user: {
             type: 'text',
             field: 'drupal.user',
             get: {
-              type: 'fuzzy'
-            }
+              type: 'fuzzy',
+            },
           },
           drupal_aliases_alias: {
             type: 'text',
             field: 'drupal.aliases.alias',
             get: {
-              type: 'fuzzy'
-            }
+              type: 'fuzzy',
+            },
           },
           drupal_aliases_language: {
             type: 'text',
             field: 'drupal.aliases.language',
             get: {
-              type: 'fuzzy'
-            }
+              type: 'fuzzy',
+            },
           },
           drupal_englishVersionId_target: {
             type: 'numeric',
@@ -122,72 +122,70 @@ const config = {
             get: {
               type: 'range_or_term',
               defaultUpperBound: 'gte',
-              defaultLowerBound: 'lte'
-            }
+              defaultLowerBound: 'lte',
+            },
           },
           drupal_language_language: {
             type: 'text',
             field: 'drupal.language.language',
             get: {
-              type: 'fuzzy'
-            }
+              type: 'fuzzy',
+            },
           },
           drupal_audience: {
             type: 'text',
             field: 'drupal.audience',
             get: {
-              type: 'fuzzy'
-            }
+              type: 'fuzzy',
+            },
           },
           drupal_contactInfo: {
             type: 'text',
             field: 'drupal.contactInfo',
             get: {
-              type: 'fuzzy'
-            }
+              type: 'fuzzy',
+            },
           },
           drupal_legacyDate: {
             type: 'text',
             field: 'drupal.legacyDate',
             get: {
-              type: 'fuzzy'
-            }
+              type: 'fuzzy',
+            },
           },
           drupal_resources: {
             type: 'text',
             field: 'drupal.resources',
             get: {
-              type: 'fuzzy'
-            }
+              type: 'fuzzy',
+            },
           },
           drupal_status: {
             type: 'text',
             field: 'drupal.status',
             get: {
-              type: 'fuzzy'
-            }
-          }
-        }
+              type: 'fuzzy',
+            },
+          },
+        },
       },
       get: {
         type: 'delimted',
         delimter: '__',
-        termOrder: [
-          'drupal'
-        ]
-      }
+        termOrder: ['drupal'],
+      },
     },
     programmeTag: {
       type: 'keyword',
-      field: 'programmeTag'
+      field: 'programmeTag',
     },
     projectTag: {
       type: 'keyword',
-      field: 'projectTag'
+      field: 'projectTag',
     },
     purposes: {
       type: 'keyword',
-      field: 'purposes'
+      field: 'purposes',
     },
     revision: {
       type: 'numeric',
@@ -195,20 +193,20 @@ const config = {
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     searchable: {
       type: 'boolean',
-      field: 'searchable'
+      field: 'searchable',
     },
     topics: {
       type: 'keyword',
-      field: 'topics'
+      field: 'topics',
     },
     type: {
       type: 'keyword',
-      field: 'type'
+      field: 'type',
     },
     updatedAt: {
       type: 'date',
@@ -216,63 +214,63 @@ const config = {
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     environment_sys_id: {
       type: 'keyword',
-      field: 'environment.sys.id'
+      field: 'environment.sys.id',
     },
     environment_sys_linkType: {
       type: 'text',
       field: 'environment.sys.linkType',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     environment_sys_type: {
       type: 'text',
       field: 'environment.sys.type',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     space_sys_id: {
       type: 'keyword',
-      field: 'space.sys.id'
+      field: 'space.sys.id',
     },
     space_sys_linkType: {
       type: 'text',
       field: 'space.sys.linkType',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     space_sys_type: {
       type: 'text',
       field: 'space.sys.type',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     countriesOfResearcher: {
       type: 'keyword',
-      field: 'countriesOfResearcher'
+      field: 'countriesOfResearcher',
     },
     allDayEvent: {
       type: 'boolean',
-      field: 'allDayEvent'
+      field: 'allDayEvent',
     },
     attendees: {
       type: 'text',
       field: 'attendees',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     country: {
       type: 'keyword',
-      field: 'country'
+      field: 'country',
     },
     end: {
       type: 'date',
@@ -280,27 +278,27 @@ const config = {
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     gbifsAttendee: {
       type: 'keyword',
-      field: 'gbifsAttendee'
+      field: 'gbifsAttendee',
     },
     gbifsCalendar: {
       type: 'boolean',
-      field: 'gbifsCalendar'
+      field: 'gbifsCalendar',
     },
     gbifsNotes: {
       type: 'text',
       field: 'gbifsNotes',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     location: {
       type: 'keyword',
-      field: 'location'
+      field: 'location',
     },
     organisingParticipants: {
       type: 'nested',
@@ -312,24 +310,20 @@ const config = {
             type: 'text',
             field: 'country',
             get: {
-              type: 'fuzzy'
-            }
+              type: 'fuzzy',
+            },
           },
           id: {
             type: 'keyword',
-            field: 'id'
-          }
-        }
+            field: 'id',
+          },
+        },
       },
       get: {
         type: 'delimted',
         delimter: '__',
-        termOrder: [
-          'country',
-          'id',
-          'title'
-        ]
-      }
+        termOrder: ['country', 'id', 'title'],
+      },
     },
     start: {
       type: 'date',
@@ -337,12 +331,12 @@ const config = {
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     venue: {
       type: 'keyword',
-      field: 'venue'
+      field: 'venue',
     },
     coordinates_lat: {
       type: 'numeric',
@@ -350,8 +344,8 @@ const config = {
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     coordinates_lon: {
       type: 'numeric',
@@ -359,16 +353,16 @@ const config = {
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     eventLanguage: {
       type: 'keyword',
-      field: 'eventLanguage.en-GB'
+      field: 'eventLanguage.en-GB',
     },
     contractCountry: {
       type: 'keyword',
-      field: 'contractCountry'
+      field: 'contractCountry',
     },
     fundsAllocated: {
       type: 'numeric',
@@ -376,19 +370,19 @@ const config = {
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     grantType: {
       type: 'keyword',
-      field: 'grantType'
+      field: 'grantType',
     },
     leadContact: {
       type: 'text',
       field: 'leadContact',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     matchingFunds: {
       type: 'numeric',
@@ -396,31 +390,31 @@ const config = {
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     officialTitle: {
       type: 'keyword',
-      field: 'officialTitle'
+      field: 'officialTitle',
     },
     projectId: {
       type: 'keyword',
-      field: 'projectId'
+      field: 'projectId',
     },
     status: {
       type: 'keyword',
-      field: 'status'
+      field: 'status',
     },
     acronym: {
       type: 'keyword',
-      field: 'acronym'
+      field: 'acronym',
     },
     abstract: {
       type: 'text',
       field: 'abstract',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     accessed: {
       type: 'date',
@@ -428,36 +422,36 @@ const config = {
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     authored: {
       type: 'boolean',
-      field: 'authored'
+      field: 'authored',
     },
     chapter: {
       type: 'keyword',
-      field: 'chapter'
+      field: 'chapter',
     },
     citationKey: {
       type: 'keyword',
-      field: 'citationKey'
+      field: 'citationKey',
     },
     citationType: {
       type: 'keyword',
-      field: 'citationType'
+      field: 'citationType',
     },
     city: {
       type: 'keyword',
-      field: 'city'
+      field: 'city',
     },
     code: {
       type: 'keyword',
-      field: 'code'
+      field: 'code',
     },
     confirmed: {
       type: 'boolean',
-      field: 'confirmed'
+      field: 'confirmed',
     },
     created: {
       type: 'date',
@@ -465,8 +459,8 @@ const config = {
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     day: {
       type: 'numeric',
@@ -474,71 +468,71 @@ const config = {
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     department: {
       type: 'keyword',
-      field: 'department'
+      field: 'department',
     },
     edition: {
       type: 'keyword',
-      field: 'edition'
+      field: 'edition',
     },
     fileAttached: {
       type: 'boolean',
-      field: 'fileAttached'
+      field: 'fileAttached',
     },
     gbifDatasetKey: {
       type: 'keyword',
-      field: 'gbifDatasetKey'
+      field: 'gbifDatasetKey',
     },
     gbifDerivedDatasetDoi: {
       type: 'text',
       field: 'gbifDerivedDatasetDoi',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     gbifDownloadKey: {
       type: 'keyword',
-      field: 'gbifDownloadKey'
+      field: 'gbifDownloadKey',
     },
     gbifFeatureId: {
       type: 'keyword',
-      field: 'gbifFeatureId'
+      field: 'gbifFeatureId',
     },
     gbifHigherTaxonKey: {
       type: 'keyword',
-      field: 'gbifHigherTaxonKey'
+      field: 'gbifHigherTaxonKey',
     },
     gbifNetworkKey: {
       type: 'keyword',
-      field: 'gbifNetworkKey'
+      field: 'gbifNetworkKey',
     },
     gbifOccurrenceKey: {
       type: 'keyword',
-      field: 'gbifOccurrenceKey'
+      field: 'gbifOccurrenceKey',
     },
     gbifProjectIdentifier: {
       type: 'keyword',
-      field: 'gbifProjectIdentifier'
+      field: 'gbifProjectIdentifier',
     },
     gbifTaxonKey: {
       type: 'keyword',
-      field: 'gbifTaxonKey'
+      field: 'gbifTaxonKey',
     },
     genre: {
       type: 'keyword',
-      field: 'genre'
+      field: 'genre',
     },
     groupId: {
       type: 'keyword',
-      field: 'groupId'
+      field: 'groupId',
     },
     hidden: {
       type: 'boolean',
-      field: 'hidden'
+      field: 'hidden',
     },
     identifiers: {
       type: 'nested',
@@ -548,57 +542,51 @@ const config = {
         options: {
           arxiv: {
             type: 'keyword',
-            field: 'arxiv'
+            field: 'arxiv',
           },
           doi: {
             type: 'keyword',
-            field: 'doi'
+            field: 'doi',
           },
           isbn: {
             type: 'keyword',
-            field: 'isbn'
+            field: 'isbn',
           },
           issn: {
             type: 'keyword',
-            field: 'issn'
+            field: 'issn',
           },
           pmid: {
             type: 'keyword',
-            field: 'pmid'
-          }
-        }
+            field: 'pmid',
+          },
+        },
       },
       get: {
         type: 'delimted',
         delimter: '__',
-        termOrder: [
-          'arxiv',
-          'doi',
-          'isbn',
-          'issn',
-          'pmid'
-        ]
-      }
+        termOrder: ['arxiv', 'doi', 'isbn', 'issn', 'pmid'],
+      },
     },
     institution: {
       type: 'keyword',
-      field: 'institution'
+      field: 'institution',
     },
     issue: {
       type: 'keyword',
-      field: 'issue'
+      field: 'issue',
     },
     language: {
       type: 'keyword',
-      field: 'language'
+      field: 'language',
     },
     literatureType: {
       type: 'keyword',
-      field: 'literatureType'
+      field: 'literatureType',
     },
     medium: {
       type: 'keyword',
-      field: 'medium'
+      field: 'medium',
     },
     month: {
       type: 'numeric',
@@ -606,102 +594,102 @@ const config = {
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     notes: {
       type: 'text',
       field: 'notes',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     openAccess: {
       type: 'boolean',
-      field: 'openAccess'
+      field: 'openAccess',
     },
     pages: {
       type: 'keyword',
-      field: 'pages'
+      field: 'pages',
     },
     patentApplicationNumber: {
       type: 'keyword',
-      field: 'patentApplicationNumber'
+      field: 'patentApplicationNumber',
     },
     patentLegalStatus: {
       type: 'keyword',
-      field: 'patentLegalStatus'
+      field: 'patentLegalStatus',
     },
     patentOwner: {
       type: 'keyword',
-      field: 'patentOwner'
+      field: 'patentOwner',
     },
     peerReview: {
       type: 'boolean',
-      field: 'peerReview'
+      field: 'peerReview',
     },
     privatePublication: {
       type: 'boolean',
-      field: 'privatePublication'
+      field: 'privatePublication',
     },
     profileId: {
       type: 'keyword',
-      field: 'profileId'
+      field: 'profileId',
     },
     publisher: {
       type: 'keyword',
-      field: 'publisher'
+      field: 'publisher',
     },
     publishingOrganizationKey: {
       type: 'keyword',
-      field: 'publishingOrganizationKey'
+      field: 'publishingOrganizationKey',
     },
     read: {
       type: 'boolean',
-      field: 'read'
+      field: 'read',
     },
     relevance: {
       type: 'keyword',
-      field: 'relevance'
+      field: 'relevance',
     },
     reprintEdition: {
       type: 'keyword',
-      field: 'reprintEdition'
+      field: 'reprintEdition',
     },
     series: {
       type: 'keyword',
-      field: 'series'
+      field: 'series',
     },
     seriesEditor: {
       type: 'keyword',
-      field: 'seriesEditor'
+      field: 'seriesEditor',
     },
     shortTitle: {
       type: 'keyword',
-      field: 'shortTitle'
+      field: 'shortTitle',
     },
     source: {
       type: 'keyword',
-      field: 'source'
+      field: 'source',
     },
     sourceType: {
       type: 'keyword',
-      field: 'sourceType'
+      field: 'sourceType',
     },
     starred: {
       type: 'boolean',
-      field: 'starred'
+      field: 'starred',
     },
     tags: {
       type: 'keyword',
-      field: 'tags'
+      field: 'tags',
     },
     title: {
       type: 'text',
       field: 'title',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     translators: {
       type: 'nested',
@@ -711,34 +699,31 @@ const config = {
         options: {
           firstName: {
             type: 'keyword',
-            field: 'firstName'
+            field: 'firstName',
           },
           lastName: {
             type: 'keyword',
-            field: 'lastName'
-          }
-        }
+            field: 'lastName',
+          },
+        },
       },
       get: {
         type: 'delimted',
         delimter: '__',
-        termOrder: [
-          'firstName',
-          'lastName'
-        ]
-      }
+        termOrder: ['firstName', 'lastName'],
+      },
     },
     userContext: {
       type: 'keyword',
-      field: 'userContext'
+      field: 'userContext',
     },
     volume: {
       type: 'keyword',
-      field: 'volume'
+      field: 'volume',
     },
     websites: {
       type: 'keyword',
-      field: 'websites'
+      field: 'websites',
     },
     year: {
       type: 'numeric',
@@ -746,27 +731,27 @@ const config = {
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     machineIdentifier: {
       type: 'keyword',
-      field: 'machineIdentifier'
+      field: 'machineIdentifier',
     },
     urlAlias: {
       type: 'keyword',
-      field: 'urlAlias'
+      field: 'urlAlias',
     },
     identifier: {
       type: 'keyword',
-      field: 'identifier'
+      field: 'identifier',
     },
     author: {
       type: 'text',
       field: 'author',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     publicationDate: {
       type: 'date',
@@ -774,38 +759,38 @@ const config = {
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     rights: {
       type: 'text',
       field: 'rights',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     rightsHolder: {
       type: 'keyword',
-      field: 'rightsHolder'
+      field: 'rightsHolder',
     },
     externalLink: {
       type: 'boolean',
-      field: 'externalLink'
+      field: 'externalLink',
     },
     link: {
       type: 'keyword',
-      field: 'link'
+      field: 'link',
     },
     roles: {
       type: 'text',
       field: 'roles',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     url: {
       type: 'keyword',
-      field: 'url'
+      field: 'url',
     },
     directoryId: {
       type: 'numeric',
@@ -813,8 +798,8 @@ const config = {
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     nodeEstablishmentDate: {
       type: 'date',
@@ -822,43 +807,43 @@ const config = {
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     nodeHasMandate: {
       type: 'boolean',
-      field: 'nodeHasMandate'
+      field: 'nodeHasMandate',
     },
     networkKey: {
       type: 'keyword',
-      field: 'networkKey'
+      field: 'networkKey',
     },
     summary: {
       type: 'text',
       field: 'summary',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     articleType: {
       type: 'keyword',
-      field: 'articleType'
+      field: 'articleType',
     },
     displayDate: {
       type: 'boolean',
-      field: 'displayDate'
+      field: 'displayDate',
     },
     notificationType: {
       type: 'keyword',
-      field: 'notificationType'
+      field: 'notificationType',
     },
     severity: {
       type: 'keyword',
-      field: 'severity'
-    }
-  }
-}
+      field: 'severity',
+    },
+  },
+};
 
 module.exports = {
-  config
-}
+  config,
+};

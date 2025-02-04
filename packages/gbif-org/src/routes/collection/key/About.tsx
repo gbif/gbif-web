@@ -1,3 +1,5 @@
+import { ClientSideOnly } from '@/components/clientSideOnly';
+import { ConceptValue } from '@/components/conceptValue';
 import {
   ContactActions,
   ContactAvatar,
@@ -9,33 +11,35 @@ import {
   ContactTelephone,
   ContactTitle,
 } from '@/components/contact';
-import Properties, { Property, Term, Value } from '@/components/properties';
-import { ClientSideOnly } from '@/components/clientSideOnly';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import useBelow from '@/hooks/useBelow';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { FeaturedImageContent } from './collectionKeyPresentation';
+import { useCount } from '@/components/count';
+import * as charts from '@/components/dashboard';
+import EmptyValue from '@/components/emptyValue';
 import { HyperText } from '@/components/hyperText';
 import { AdHocMapThumbnail } from '@/components/mapThumbnail';
-import { ConceptValue } from '@/components/conceptValue';
-import * as charts from '@/components/dashboard';
-import { GbifLinkCard } from '@/components/TocHelp';
-import { useParams } from 'react-router-dom';
-import { useCount } from '@/components/count';
-import EmptyValue from '@/components/emptyValue';
-import { useCollectionKeyLoaderData } from '.';
+import Properties, { Property, Term, Value } from '@/components/properties';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import useBelow from '@/hooks/useBelow';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { GrSciCollMetadata } from '@/routes/institution/key/MetaData';
+import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
+import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
+import { useContext } from 'react';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { useParams } from 'react-router-dom';
+import { useCollectionKeyLoaderData } from '.';
+import { CollectionKeyContext, FeaturedImageContent } from './collectionKeyPresentation';
+import { DescriptorGroups } from './DescriptorGroups';
 
 export default function About() {
   const { key } = useParams();
   const { data } = useCollectionKeyLoaderData();
+  const { contentMetrics } = useContext(CollectionKeyContext);
   const { count, loading } = useCount({
     v1Endpoint: '/occurrence/search',
     params: { collectionKey: key },
   });
-  const removeSidebar = useBelow(1100);
+  const removeSidebarThreshold = useBelow(1100);
   const useInlineImage = useBelow(700);
   const { collection } = data;
 
@@ -52,6 +56,7 @@ export default function About() {
 
   const imageUrl = collection.featuredImageUrl ?? collection.featuredImageUrl_fallback;
 
+  const removeSidebar = removeSidebarThreshold || (count ?? 0) < 1;
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl">
@@ -63,7 +68,7 @@ export default function About() {
                   <FormattedMessage id="dataset.description" />
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="[&_a]:g-text-primary-500">
                 <div className="g-prose g-mb-6 g-max-w-full">
                   {collection?.description && (
                     <div dangerouslySetInnerHTML={{ __html: collection.description }}></div>
@@ -89,11 +94,7 @@ export default function About() {
                   />
                   {collection.notes && (
                     <Property value={collection.notes} labelId="grscicoll.notes">
-                      <HyperText
-                        className="dataProse [&_a]:g-underline"
-                        text={collection.notes}
-                        fallback
-                      />
+                      <HyperText className="dataProse [&_a]:g-underline" text={collection.notes} />
                     </Property>
                   )}
                   <Property value={collection.code} labelId="grscicoll.code" showEmpty />
@@ -103,24 +104,38 @@ export default function About() {
                   />
                   {!loading && count > 0 && (
                     <Property labelId="grscicoll.specimensViaGbif">
-                      <FormattedNumber value={count} />
+                      <DynamicLink to="./specimens">
+                        <FormattedNumber value={count} />
+                      </DynamicLink>
                     </Property>
                   )}
-                  {/* {occurrenceSearch?.documents?.total > 0 && <Property value={occurrenceSearch?.documents?.total} labelId="grscicoll.specimensViaGbif" formatter={count => {
-                    return <ResourceLink type="collectionKeySpecimens" id={collection.key}>
-                      <FormattedNumber value={count} />
-                    </ResourceLink>
-                  }} />} */}
-                  <Property
-                    value={collection.catalogUrls}
-                    labelId="grscicoll.catalogUrl"
-                    formatter={(url) => (
-                      <a className="g-underline" href={url}>
-                        {url}
-                      </a>
-                    )}
-                  />
-                  <Property value={collection.apiUrls} labelId="grscicoll.apiUrl" />
+                  <Property value={collection.catalogUrls} labelId="grscicoll.catalogUrl">
+                    <ul>
+                      {collection.catalogUrls.map((url, i) => (
+                        <li key={i}>
+                          <a key={url} href={url} target="_blank" rel="noreferrer">
+                            {url}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </Property>
+                  <Property labelId="grscicoll.apiUrl" value={collection.apiUrls}>
+                    <ul>
+                      {collection.apiUrls.map((url, i) => (
+                        <li key={i}>
+                          <a key={url} href={url} target="_blank" rel="noreferrer">
+                            {url}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </Property>
+                  {collection.homepage && (
+                    <Property value={collection.homepage} labelId="grscicoll.homepage" showEmpty>
+                      <HyperText text={collection.homepage} />
+                    </Property>
+                  )}
                   <Property
                     value={collection.contentTypes}
                     labelId="collection.contentTypes"
@@ -155,6 +170,28 @@ export default function About() {
                 </Properties>
               </CardContent>
             </Card>
+            {collection?.descriptorGroups?.count > 0 && (
+              <Card className="g-mb-4">
+                <CardHeader>
+                  <CardTitle>
+                    <FormattedMessage
+                      id="grscicoll.collectionDescriptorsHeadline"
+                      deafultMessage="Collection description"
+                    />
+                  </CardTitle>
+
+                  <div className="g-text-slate-500 g-mb-4">
+                    <FormattedMessage
+                      id="grscicoll.collectionDescriptorsIntroduction"
+                      deafultMessage="Collection description"
+                    />
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <DescriptorGroups collectionKey={key} />
+                </CardContent>
+              </Card>
+            )}
 
             {useInlineImage && (
               <Card className="g-mb-4">
@@ -203,7 +240,7 @@ export default function About() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <Properties useDefaultTermWidths className="g-mb-8">
+                <Properties useDefaultTermWidths className="g-mb-8 [&_a]:g-text-primary-500">
                   {isNoneEmptyArray(collection.email) && (
                     <Property
                       labelId="grscicoll.email"
@@ -319,7 +356,7 @@ export default function About() {
                   <FormattedMessage id="grscicoll.identifiers" />
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="[&_a]:g-text-primary-500">
                 <Properties
                   style={{ fontSize: 16, marginBottom: 12 }}
                   useDefaultTermWidths
@@ -366,7 +403,7 @@ export default function About() {
                                   defaultMessage={type}
                                 />
                               </div>
-                              <div className="g-prose">
+                              <div>
                                 <a href={link}>{text}</a>
                               </div>
                             </li>
@@ -402,7 +439,7 @@ export default function About() {
                                 />
                               </div>
                               <div>
-                                <HyperText className="g-prose" text={identifier} inline />
+                                <HyperText text={identifier} />
                               </div>
                             </li>
                           );
@@ -417,22 +454,29 @@ export default function About() {
 
           {!removeSidebar && (
             <aside className="g-flex-none g-w-96 g-ms-4">
-              <div className="g-max-w-64 md:g-max-w-96 g-mb-4">
-                <AdHocMapThumbnail
-                  filter={{ collectionKey: collection.key }}
-                  className="g-rounded g-border"
-                />
-              </div>
-              <ClientSideOnly>
-                <charts.OccurrenceSummary predicate={predicate} className="g-mb-4" />
-                <charts.DataQuality predicate={predicate} className="g-mb-4" />
-                {/* <charts.Taxa predicate={predicate} className='g-mb-2' /> */}
-              </ClientSideOnly>
-
-              <GbifLinkCard path={`/grscicoll/collection/${collection.key}`} />
+              <>
+                {contentMetrics?.withCoordinates?.documents?.total > 0 && (
+                  <div className="g-max-w-64 md:g-max-w-96 g-mb-4">
+                    <AdHocMapThumbnail
+                      params={
+                        contentMetrics?.withCoordinates?.documents?.total < 100
+                          ? { bin: 'hex', hexPerTile: '20', style: 'red.poly' }
+                          : null
+                      }
+                      filter={{ collectionKey: collection.key }}
+                      className="g-rounded g-border"
+                    />
+                  </div>
+                )}
+                <ClientSideOnly>
+                  <charts.OccurrenceSummary predicate={predicate} className="g-mb-4" />
+                  <charts.DataQuality predicate={predicate} className="g-mb-4" />
+                </ClientSideOnly>
+              </>
             </aside>
           )}
         </div>
+        {collection && <GrSciCollMetadata entity={collection} />}
       </ArticleTextContainer>
     </ArticleContainer>
   );

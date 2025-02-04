@@ -1,12 +1,12 @@
-import React from 'react';
-import { useUncontrolledProp } from 'uncontrollable';
 import cloneDeep from 'lodash/cloneDeep';
-import uniqWith from 'lodash/uniqWith';
+import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import pickBy from 'lodash/pickBy';
-import get from 'lodash/get';
-import isEqual from 'react-fast-compare';
+import uniqWith from 'lodash/uniqWith';
 import hash from 'object-hash';
+import React, { useCallback } from 'react';
+import isEqual from 'react-fast-compare';
+import { useUncontrolledProp } from 'uncontrollable';
 
 export const FilterContext = React.createContext<FilterContextType>({
   setField: () => ({}),
@@ -37,34 +37,59 @@ export type FilterContextType = {
   filterHash: string;
 };
 
-export function FilterProvider({ filter: controlledFilter, onChange: controlledOnChange, children }: { filter?: FilterType; onChange?: (filter: FilterType) => void; children: React.ReactNode }) {
+export function FilterProvider({
+  filter: controlledFilter,
+  onChange: controlledOnChange,
+  children,
+}: {
+  filter?: FilterType;
+  onChange?: (filter: FilterType) => void;
+  children: React.ReactNode;
+}) {
   const [currentFilter, onChange] = useUncontrolledProp(controlledFilter, {}, controlledOnChange);
 
-  const setFilter = (filter: FilterType): FilterType => {
-    if (isEqual(filter, currentFilter)) {
-      return currentFilter;
-    }
-    if (typeof filter === 'object') {
-      filter = cleanUpFilter(cloneDeep(filter));
-      if (isEmpty(filter?.must)) delete filter.must;
-      if (isEmpty(filter?.mustNot)) delete filter.mustNot;
-      if (Object.keys(filter).length === 0) filter = {};
-    }
-    onChange(filter || {});
-    return filter;
+  const hashObj = {
+    must: currentFilter?.must || {},
+    mustNot: currentFilter?.mustNot || {},
   };
 
-  const setField = (field: string, value: any[], isNegated?: boolean): FilterType => {
-    const filter = currentFilter ? cloneDeep(currentFilter) : {};
-    const type = isNegated ? 'mustNot' : 'must';
-    return setFilter({
-      ...filter,
-      [type]: {
-        ...filter[type],
-        [field]: value.filter((v) => v !== undefined),
-      },
-    });
-  };
+  const filterHash = hash(hashObj);
+
+  const setFilter = useCallback(
+    (filter: FilterType): FilterType => {
+      if (isEqual(filter, currentFilter)) {
+        return currentFilter;
+      }
+      if (typeof filter === 'object') {
+        filter = cleanUpFilter(cloneDeep(filter));
+        if (isEmpty(filter?.must)) delete filter.must;
+        if (isEmpty(filter?.mustNot)) delete filter.mustNot;
+        if (Object.keys(filter).length === 0) filter = {};
+      }
+      onChange(filter || {});
+      return filter;
+    },
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [filterHash, onChange]
+  );
+
+  const setField = useCallback(
+    (field: string, value: any[], isNegated?: boolean): FilterType => {
+      const filter = currentFilter ? cloneDeep(currentFilter) : {};
+      const type = isNegated ? 'mustNot' : 'must';
+      return setFilter({
+        ...filter,
+        [type]: {
+          ...filter[type],
+          [field]: value.filter((v) => v !== undefined),
+        },
+      });
+    },
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [filterHash, setFilter]
+  );
 
   const setFullField = (field: string, must: any[], mustNot: any[]): FilterType => {
     const filter = currentFilter ? cloneDeep(currentFilter) : {};
@@ -82,57 +107,86 @@ export function FilterProvider({ filter: controlledFilter, onChange: controlledO
     return result;
   };
 
-  const negateField = (field: string, isNegated?: boolean): FilterType => {
-    const filter = currentFilter ? cloneDeep(currentFilter) : {};
-    const must = get(filter, `must.${field}`, []);
-    const mustNot = get(filter, `mustNot.${field}`, []);
-    const value = [...must, ...mustNot];
-    const uniqValues = uniqWith(value, isEqual);
-    const typeToSet = isNegated ? 'mustNot' : 'must';
-    const typeToRemove = !isNegated ? 'mustNot' : 'must';
-    return setFilter({
-      ...filter,
-      [typeToSet]: {
-        ...filter[typeToSet],
-        [field]: uniqValues,
-      },
-      [typeToRemove]: {
-        ...filter[typeToRemove],
-        [field]: [],
-      },
-    });
-  };
+  const negateField = useCallback(
+    (field: string, isNegated?: boolean): FilterType => {
+      const filter = currentFilter ? cloneDeep(currentFilter) : {};
+      const must = get(filter, `must.${field}`, []);
+      const mustNot = get(filter, `mustNot.${field}`, []);
+      const value = [...must, ...mustNot];
+      const uniqValues = uniqWith(value, isEqual);
+      const typeToSet = isNegated ? 'mustNot' : 'must';
+      const typeToRemove = !isNegated ? 'mustNot' : 'must';
+      return setFilter({
+        ...filter,
+        [typeToSet]: {
+          ...filter[typeToSet],
+          [field]: uniqValues,
+        },
+        [typeToRemove]: {
+          ...filter[typeToRemove],
+          [field]: [],
+        },
+      });
+    },
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [filterHash, setFilter]
+  );
 
-  const add = (field: string, value: any, isNegated?: boolean): FilterType => {
-    const type = isNegated ? 'mustNot' : 'must';
-    let values = get(currentFilter, `${type}.${field}`, []);
-    values = values.concat(value);
-    values = uniqWith(values, isEqual);
-    return setField(field, values, isNegated);
-  };
+  const add = useCallback(
+    (field: string, value: any, isNegated?: boolean): FilterType => {
+      const type = isNegated ? 'mustNot' : 'must';
+      let values = get(currentFilter, `${type}.${field}`, []);
+      values = values.concat(value);
+      values = uniqWith(values, isEqual);
+      return setField(field, values, isNegated);
+    },
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [filterHash, setField]
+  );
 
-  const remove = (field: string, value: any, isNegated?: boolean): FilterType => {
-    const type = isNegated ? 'mustNot' : 'must';
-    let values = get(currentFilter, `${type}.${field}`, []);
-    values = values.filter((e) => !isEqual(e, value));
-    return setField(field, values, isNegated);
-  };
+  const remove = useCallback(
+    (field: string, value: any, isNegated?: boolean): FilterType => {
+      const type = isNegated ? 'mustNot' : 'must';
+      let values = get(currentFilter, `${type}.${field}`, []);
+      values = values.filter((e) => {
+        //check if strings or numbers, then just do a string comparison
+        if (typeof e === 'string' || typeof e === 'number') {
+          return e.toString() !== value.toString();
+        }
+        return !isEqual(e, value);
+      });
+      return setField(field, values, isNegated);
+    },
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [filterHash, setField]
+  );
 
-  const toggle = (field: string, value: any, isNegated?: boolean): FilterType => {
-    const type = isNegated ? 'mustNot' : 'must';
-    const values = get(currentFilter, `${type}.${field}`, []);
-    if (values.some((e) => isEqual(e, value))) {
-      return remove(field, value, isNegated);
-    } else {
-      return add(field, value, isNegated);
-    }
-  };
+  const toggle = useCallback(
+    (field: string, value: any, isNegated?: boolean): FilterType => {
+      const type = isNegated ? 'mustNot' : 'must';
+      const values = get(currentFilter, `${type}.${field}`, []);
+      if (
+        values.some((e) => {
+          //check if strins or numbers, then just do a string comparison
+          if (typeof e === 'string' || typeof e === 'number') {
+            return e.toString() === value.toString();
+          }
+          return isEqual(e, value);
+        })
+      ) {
+        return remove(field, value, isNegated);
+      } else {
+        return add(field, value, isNegated);
+      }
+    },
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [add, filterHash, remove]
+  );
 
-  const hashObj = {
-    must: currentFilter?.must || {},
-    mustNot: currentFilter?.mustNot || {},
-  };
-  const filterHash = hash(hashObj);
   const contextValue = {
     setField, // updates a single field
     setFullField, // updates a single field both must and mustNot. Ugly hack as I couldn't get it to work begint to calls. The problem is that the filter isn't updated between the two calls in the event loop and hence the first update is ignored

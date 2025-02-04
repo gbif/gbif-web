@@ -1,18 +1,21 @@
 import { useConfig } from '@/config/config';
-import { Card } from './ui/smallCard';
 import { cn } from '@/utils/shadcn';
+import { FormattedMessage } from 'react-intl';
 import { HashLink } from 'react-router-hash-link';
+import { Card } from './ui/smallCard';
 
 export function GbifLinkCard({ path, className }: { path: string; className?: string }) {
   const config = useConfig();
   if (!config.linkToGbifOrg) return null;
 
   return (
-    <Card className={cn('g-mt-4', className)}>
+    <Card className={cn('', className)}>
       <nav>
         <ul className="g-list-none g-m-0 g-p-0 g-my-2">
           <TocLi>
-            <a href={`${import.meta.env.PUBLIC_GBIF_ORG}${path}`}>View on GBIF.org</a>
+            <a className="g-text-inherit" href={`${import.meta.env.PUBLIC_GBIF_ORG}${path}`}>
+              <FormattedMessage id="phrases.viewOnGBif" />
+            </a>
           </TocLi>
         </ul>
       </nav>
@@ -37,7 +40,7 @@ export function TocLi({
   if (to) {
     return (
       <li className={className} {...props}>
-        <HashLink to={to} replace>
+        <HashLink to={to} replace className="g-text-inherit">
           {children}
         </HashLink>
       </li>

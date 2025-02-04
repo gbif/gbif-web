@@ -1,21 +1,26 @@
+import { CollectionQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
-import { CollectionKey, collectionLoader } from './collectionKey';
 import CollectionKeyAbout from './About';
+import { CollectionKey, collectionLoader } from './collectionKey';
 import CollectionKeyDashboard from './Dashboard';
 import CollectionKeySpecimens from './Specimen';
-import { CollectionQuery } from '@/gql/graphql';
 
-const id = 'collection-key';
+const id = 'collectionKey';
 
 export const collectionKeyRoute: RouteObjectWithPlugins = {
   id,
   path: 'collection/:key',
-  gbifRedirect: (params) => {
-    if (typeof params.key !== 'string') throw new Error('Invalid key');
-    if (params.key === 'search') return null;
-    return `/collection/${params.key}`;
+  gbifRedirect: ({ key } = {}, { grSciCollLocalePrefix = '' }) => {
+    if (typeof key !== 'string' && typeof key !== 'number')
+      throw new Error(`'Invalid key (key is of type ${typeof key})`);
+    if (key === 'search') return null;
+    return `${import.meta.env.PUBLIC_GRSCICOLL}${grSciCollLocalePrefix}/collection/${key}`;
   },
   loader: collectionLoader,
+  shouldRevalidate({ currentUrl, nextUrl, defaultShouldRevalidate }) {
+    if (currentUrl.pathname === nextUrl.pathname) return false;
+    return defaultShouldRevalidate;
+  },
   element: <CollectionKey />,
   children: [
     {
@@ -23,7 +28,7 @@ export const collectionKeyRoute: RouteObjectWithPlugins = {
       element: <CollectionKeyAbout />,
     },
     {
-      path: 'specimen',
+      path: 'specimens',
       element: <CollectionKeySpecimens />,
     },
     {

@@ -70,7 +70,7 @@ function GeographicCoverage({ coverage }) {
         <FormattedMessage id="dataset.description" />
       </Term>
       <Value>
-        <HyperText className="g-prose" text={coverage.description} />
+        <HyperText className="g-prose" text={coverage.description} fallback />
       </Value>
       {geoJSON && (
         <>

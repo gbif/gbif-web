@@ -17,10 +17,13 @@
     <div id="root" class="gbif"></div>
 
     <script type="module">
-      import { render } from '/gbif-lib.js';
+      import { render, renderDashboard, languages } from '/gbif-lib.js';
 
-      render(document.getElementById('root'), {
-        gbifEnv: 'dev',
+      const root = document.getElementById('root');
+
+      const config = {
+        gbifEnv: 'staging',
+        pages: [{ id: 'occurrenceSearch' }, { id: 'datasetSearch' }, { id: 'datasetKey' }],
         extraOccurrenceSearchPages: [
           {
             path: 'danish-occurrence/search',
@@ -38,31 +41,7 @@
             },
           },
         ],
-        pages: [
-          {
-            id: 'occurrence-search',
-          },
-        ],
-        languages: [
-          {
-            code: 'en',
-            label: 'English',
-            default: true,
-            textDirection: 'ltr',
-          },
-          {
-            code: 'da',
-            label: 'Dansk',
-            default: false,
-            textDirection: 'ltr',
-          },
-          {
-            code: 'ar',
-            label: 'العربية',
-            default: false,
-            textDirection: 'rtl',
-          },
-        ],
+        languages: languages.filter((lang) => ['en', 'fr', 'es'].includes(lang.code)),
         occurrencePredicate: {
           type: 'and',
           predicates: [
@@ -84,6 +63,86 @@
         },
         OBISKey: 'ba0670b9-4186-41e6-8e70-f9cb3065551a',
         taiwanNodeidentifier: '239',
+        occurrenceSearch: {
+          queryType: 'PREDICATE',
+          highlightedFilters: [
+            'occurrenceStatus',
+            'taxonKey',
+            'year',
+            'country',
+            'issue',
+            'geometry',
+            'recordedBy',
+          ],
+          tabs: ['table', 'media', 'map', 'clusters', 'datasets', 'dashboard', 'download'],
+          // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
+          // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
+          // scope: {
+          //   type: 'equals',
+          //   key: 'country',
+          //   value: 'DK',
+          // },
+        },
+        maps: {
+          locale: 'en',
+          mapStyles: {
+            defaultProjection: 'MERCATOR',
+            defaultMapStyle: 'NATURAL',
+            options: {
+              ARCTIC: ['NATURAL', 'BRIGHT'],
+              PLATE_CAREE: ['NATURAL', 'BRIGHT', 'DARK'],
+              MERCATOR: ['NATURAL', 'BRIGHT', 'SATELLITE', 'DARK', 'GEOLOGY'],
+              ANTARCTIC: ['NATURAL', 'BRIGHT', 'DARK'],
+            },
+          },
+          // rewire style names to show a different style
+          styleLookup: {
+            MERCATOR: {
+              GEOLOGY: 'GEOLOGY',
+            },
+          },
+        },
+      };
+
+      // render(root, config);
+
+      renderDashboard({
+        rootElement: root,
+        config,
+        locale: languages.find((lang) => lang.code === 'en'),
+        charts: [
+          'taxa',
+          'synonyms',
+          'continent',
+          'country',
+          'stateProvince',
+          'year',
+          'month',
+          'recordedBy',
+          'collectionKey',
+          'institutionKey',
+          'typeStatus',
+          'iucn',
+          'datasetKey',
+          'occurrenceSummary',
+          'occurrenceIssue',
+          'dataQuality',
+        ],
+        predicate: {
+          type: 'or',
+          predicates: [
+            {
+              type: 'equals',
+              key: 'countryCode',
+              value: 'DK',
+            },
+            {
+              type: 'equals',
+              key: 'countryCode',
+              value: 'SE',
+            },
+          ],
+        },
       });
     </script>
   </body>

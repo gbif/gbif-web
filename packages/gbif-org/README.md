@@ -1,5 +1,22 @@
 # New GBIF.org
 
+## Quick start
+The `.env`-file should be placed in root and can be found in `gbif-configuration/gbif-web`.
+
+Make sure you have the correct version on Node installed. We manage node versions with [nvm](https://github.com/nvm-sh/nvm). Type `nvm use` to install the required version. You can also do so manually, see `.nvmrc` for the required version.
+
+```
+npm install
+```
+
+Start developing with
+```
+npm run develop
+```
+
+It needs the [graphql server](https://github.com/gbif/gbif-web/tree/master/packages/graphql-api) and [translations endpoints](https://github.com/gbif/gbif-web/blob/master/packages/react-components/README.md) to start.
+
+
 ## Table of Contents
 
 - [New GBIF.org](#new-gbiforg)
@@ -52,7 +69,7 @@
 
 ## Get Up and Running
 
-This project requires Node.js version `v20.7.0`.
+This project requires Node.js version `v22.3.0`.
 
 ### How to Start the New GBIF.org in Development Mode
 

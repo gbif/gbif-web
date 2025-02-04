@@ -1,19 +1,19 @@
 import { ParticipantOrFundingOrganisationDetailsFragment } from '@/gql/graphql';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
-import { ArticleTextContainer } from '../components/articleTextContainer';
+import { ArticleAuxiliary } from '../components/articleAuxiliary';
 import { ArticleBody } from '../components/articleBody';
 import { ArticleTags } from '../components/articleTags';
-import { ArticleAuxiliary } from '../components/articleAuxiliary';
+import { ArticleTextContainer } from '../components/articleTextContainer';
 
-import { SecondaryLinks } from '../components/secondaryLinks';
-import { Documents } from '../components/documents';
-import { KeyValuePair } from '../components/keyValuePair';
-import { FormattedDate, FormattedMessage, FormattedNumber } from 'react-intl';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
-import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
 import { notNull } from '@/utils/notNull';
+import { FormattedDate, FormattedMessage, FormattedNumber } from 'react-intl';
 import { useProjectKeyLoaderData } from '.';
+import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
+import { Documents } from '../components/documents';
+import { KeyValuePair } from '../components/keyValuePair';
+import { SecondaryLinks } from '../components/secondaryLinks';
 
 fragmentManager.register(/* GraphQL */ `
   fragment ProjectAboutTab on GbifProject {

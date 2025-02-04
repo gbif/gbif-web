@@ -1,3 +1,18 @@
+## Quick start
+The `.env`-file should be placed in root and can be found in `gbif-configuration/gbif-web`.
+
+Make sure you have the correct version on Node installed. We manage node versions with [nvm](https://github.com/nvm-sh/nvm). Type `nvm use` to install the required version. You can also do so manually, see `.nvmrc` for the required version.
+
+```
+npm install
+```
+
+Start developing with
+```
+npm run start
+```
+
+
 # A wrapper for the GBIF Elastic Search indices
 This project takes an Elastic Search index and expose it with an API similar to GBIF APIv1 + a predicate search API similar to GBIF download API.
 
@@ -28,8 +43,6 @@ The current configurations are generated from the ES `_mapping` endpoint. But no
 requires node v16.13.1
 `npm i`
 
-# env file
-The `.env`-file should be placed in root and can be found in `gbif-configuration/gbif-web`
 
 Environment file example:
 ```yml

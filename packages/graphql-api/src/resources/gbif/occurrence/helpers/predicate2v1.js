@@ -127,6 +127,11 @@ function convertIsNotNull(obj) {
       type: 'isNotNull',
       parameter: obj.key,
     };
+  } else if (obj.type === 'isNull') {
+    return {
+      type: 'isNull',
+      parameter: obj.key,
+    };
   }
   return obj;
 }

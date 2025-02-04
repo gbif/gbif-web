@@ -1,4 +1,4 @@
-import { getHtml, excerpt, createLocalizedGbifHref } from "#/helpers/utils";
+import { getHtml, excerpt, createLocalizedGbifHref } from '#/helpers/utils';
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -10,17 +10,19 @@ import { getHtml, excerpt, createLocalizedGbifHref } from "#/helpers/utils";
 export default {
   Query: {
     tool: (_, { id }, { dataSources, locale, preview }) =>
-      dataSources.resourceAPI.getEntryById({ id, preview, locale })
+      dataSources.resourceAPI.getEntryById({ id, preview, locale }),
   },
   Tool: {
     title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
     summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
-    body: (src, _, { locale }) => getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
+    body: (src, _, { locale }) =>
+      getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
     excerpt: (src, _, { locale }) => excerpt(src, { locale }),
-    gbifHref: (src, _, { locale }) => createLocalizedGbifHref(locale, 'tool', src.id),
+    gbifHref: (src, _, { locale }) =>
+      createLocalizedGbifHref(locale, 'tool', src.id),
     rightsHolder: (src, _, { locale }) => getHtml(src.rightsHolder, { locale }),
     rights: (src, _, { locale }) => getHtml(src.rights, { locale }),
     author: (src, _, { locale }) => getHtml(src.author, { locale }),
-    citation: (src, _, { locale }) => getHtml(src.citation, { locale}),
-  }
-}
+    citation: (src, _, { locale }) => getHtml(src.citation, { locale }),
+  },
+};

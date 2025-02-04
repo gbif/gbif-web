@@ -24,6 +24,16 @@
     "count": "",
     "description": ""
   },
+  "taxonomicStatus": {
+    "name": "Статус",
+    "count": "",
+    "description": ""
+  },
+  "taxonRank": {
+    "name": "Ранг",
+    "count": "",
+    "description": ""
+  },
   "numberSpecimens": {
     "name": "",
     "count": "",
@@ -43,16 +53,16 @@
     "name": "",
     "count": "",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
+    "placeholderLat": "Широта",
+    "placeholderLon": "Довгота",
     "placeholderDist": ""
   },
   "geometry": {
     "name": "Місцезнаходження",
     "count": "",
     "description": "Архів анотований GBIF",
-    "placeholderLat": "",
-    "placeholderLon": "",
+    "placeholderLat": "Широта",
+    "placeholderLon": "Довгота",
     "placeholderDist": ""
   },
   "relevance": {
@@ -335,6 +345,11 @@
     "count": "",
     "description": ""
   },
+  "higherGeography": {
+    "name": "Географічна місцевість у широкому масштабі",
+    "count": "Архів анотований GBIF",
+    "description": "Архів анотований GBIF"
+  },
   "stateProvince": {
     "name": "Область/район",
     "count": "",
@@ -418,6 +433,21 @@
   "active": {
     "name": "Діяльна",
     "count": "Діяльна",
+    "description": "Архів анотований GBIF"
+  },
+  "activeInstitution": {
+    "name": "Діяльна",
+    "count": "Діяльна",
+    "description": "Архів анотований GBIF"
+  },
+  "activeCollection": {
+    "name": "Діяльна",
+    "count": "Діяльна",
+    "description": "Архів анотований GBIF"
+  },
+  "publicationDate": {
+    "name": "Дата публікації",
+    "count": "Архів анотований GBIF",
     "description": "Архів анотований GBIF"
   },
   "personalCollection": {

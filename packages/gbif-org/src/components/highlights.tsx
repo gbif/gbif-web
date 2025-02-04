@@ -1,26 +1,34 @@
+import { TypeStatus as TypeStatusEnums } from '@/gql/graphql';
 import { cn } from '@/utils/shadcn';
-import { MdLink } from 'react-icons/md';
-import { Hostname } from './headerComponents';
-import { FormattedMessage } from 'react-intl';
-export { IoPinSharp as OccurrenceIcon } from 'react-icons/io5';
-export {
-  MdFormatQuote as CitationIcon,
-  MdOutlineScreenSearchDesktop as CatalogIcon,
-  MdPeople as PeopleIcon,
-} from 'react-icons/md';
-import { GiDna1 as DnaIcon } from 'react-icons/gi';
-import { FaGlobeAfrica as GlobeIcon } from 'react-icons/fa';
 import { AiFillTag as NameTagIcon } from 'react-icons/ai';
-import { MdGridOn as SamplingEventIcon, MdStar as TypeStatusIcon } from 'react-icons/md';
-
+import { FaGlobeAfrica as GlobeIcon } from 'react-icons/fa';
+import { GiDna1 as DnaIcon } from 'react-icons/gi';
+import { MdLink, MdGridOn as SamplingEventIcon, MdStar as TypeStatusIcon } from 'react-icons/md';
+import { FormattedMessage } from 'react-intl';
 import {
   Classification,
-  TaxonClassification as TaxonClassificationList,
   GadmClassification as GadmClassificationList,
+  TaxonClassification as TaxonClassificationList,
 } from './classification';
-import { TypeStatus as TypeStatusEnums } from '@/gql/graphql';
+import { Hostname } from './headerComponents';
+import { IIIFLogoIcon } from './icons/icons';
+import { Skeleton } from './ui/skeleton';
+export { IoPinSharp as OccurrenceIcon } from 'react-icons/io5';
+export {
+  MdOutlineScreenSearchDesktop as CatalogIcon,
+  MdFormatQuote as CitationIcon,
+  MdPeople as PeopleIcon,
+} from 'react-icons/md';
 
-export { SamplingEventIcon, TypeStatusIcon, DnaIcon, GlobeIcon };
+export { DnaIcon, GlobeIcon, IIIFLogoIcon, SamplingEventIcon, TypeStatusIcon };
+
+export function GenericFeatureSkeleton() {
+  return (
+    <GenericFeature>
+      <Skeleton className="g-w-32">Loading</Skeleton>
+    </GenericFeature>
+  );
+}
 
 export function GenericFeature({
   className,
@@ -127,14 +135,16 @@ export function TaxonClassification({
   classification,
   majorOnly,
   className,
+  showIcon = true,
 }: {
   classification: { rank?: string | null; name?: string | null }[];
   majorOnly?: boolean;
   className?: string;
+  showIcon?: boolean;
 }) {
   return (
     <GenericFeature className={className}>
-      <NameTagIcon />
+      {showIcon && <NameTagIcon />}
       <TaxonClassificationList classification={classification} majorOnly={majorOnly} />
     </GenericFeature>
   );
@@ -223,6 +233,16 @@ export function TypeStatus({
       <span style={typeStyle}>
         <FormattedMessage id={`enums.typeStatus.${typeStatus}`} />
       </span>
+    </GenericFeature>
+  );
+}
+
+export function IIIF({ url }: { url: string }) {
+  return (
+    <GenericFeature>
+      <a href={url} target="_blank" rel="noopener noreferrer">
+        <IIIFLogoIcon />
+      </a>
     </GenericFeature>
   );
 }

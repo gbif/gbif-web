@@ -69,7 +69,7 @@ function getPath(url: string) {
       message: 'Failed to parse URL in request.ts',
       url: url,
       error: err,
-    })
+    });
     return url;
   }
 }

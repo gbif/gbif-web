@@ -1,10 +1,11 @@
+import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { Helmet } from 'react-helmet-async';
-import { PageContainer } from '../resource/key/components/pageContainer';
+import { ArticleIntro } from '../resource/key/components/articleIntro';
+import { ArticleSkeleton } from '../resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '../resource/key/components/articleTextContainer';
 import { ArticleTitle } from '../resource/key/components/articleTitle';
+import { PageContainer } from '../resource/key/components/pageContainer';
 import { SuggestDatasetForm } from '../resource/key/composition/blocks/customComponents/suggestDatasetForm';
-import { ArticleIntro } from '../resource/key/components/articleIntro';
-import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 
 function SuggestDatasetPage() {
   return (
@@ -29,4 +30,6 @@ function SuggestDatasetPage() {
 export const suggestDatasetRoute: RouteObjectWithPlugins = {
   id: 'suggest-dataset',
   element: <SuggestDatasetPage />,
+  loadingElement: <ArticleSkeleton />,
+  path: 'suggest-dataset',
 };

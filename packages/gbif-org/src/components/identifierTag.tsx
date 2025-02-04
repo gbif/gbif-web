@@ -1,7 +1,7 @@
-import { FormattedMessage } from 'react-intl';
 import licenses from '@/enums/basic/license.json';
-import React from 'react';
 import { cn } from '@/utils/shadcn';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 const url2enum: Record<string, string> = {
   '//creativecommons.org/publicdomain/zero/1.0/legalcode': 'CC0_1_0',
@@ -55,7 +55,13 @@ export function DoiTag({ id = '', ...props }) {
 export function OrcId({ href, className }: { href: string; className?: string }) {
   return (
     <a dir="ltr" className={cn('g-inline-block g-no-underline', className)} href={href}>
-      <img alt="ORCID logo" className='g-mr-1 g-inline-block' src="https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png" width="16" height="16" />
+      <img
+        alt="ORCID logo"
+        className="g-mr-1 g-inline-block"
+        src="https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png"
+        width="16"
+        height="16"
+      />
       {href}
     </a>
   );
@@ -103,7 +109,8 @@ export function IdentifierValue({
 }) {
   return (
     <span
-      className={cn('g-px-2 g-rounded-e g-border-solid g-border g-border-s-0 g-border-slate-800 g-border-opacity-20 ',
+      className={cn(
+        'g-px-2 g-rounded-e g-border-solid g-border g-border-s-0 g-border-slate-800 g-border-opacity-20 ',
         className
       )}
       {...props}
@@ -131,7 +138,8 @@ export const IdentifierTag = React.forwardRef(
       <Div
         dir="ltr"
         ref={ref}
-        className={cn('g-inline-block g-text-sm g-no-underline [&>.gbif-identifierType]:hover:g-primary-600 [&>.gbif-identifierType]:hover:g-text-primaryContrast-600',
+        className={cn(
+          'g-inline-block g-text-sm g-text-inherit g-no-underline [&>.gbif-identifierType]:hover:g-primary-600 [&>.gbif-identifierType]:hover:g-text-primaryContrast-600',
           className
         )}
         {...props}

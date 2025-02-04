@@ -1,12 +1,7 @@
 import { useState } from 'react';
-import { CardHeader } from './shared';
 import { GroupBy, Pagging, useFacets } from './charts/GroupByTable';
+import { CardHeader } from './shared';
 // import { Classification, DropdownButton, Tooltip } from '../../components';
-import { FormattedMessage } from 'react-intl';
-import ChartClickWrapper from './charts/ChartClickWrapper';
-import { SimpleTooltip } from '../simpleTooltip';
-import { Classification } from '../classification';
-import { Card, CardContent, CardDescription, CardTitle } from '../ui/smallCard';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,7 +9,12 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu';
 import { MdMoreHoriz } from 'react-icons/md';
+import { FormattedMessage } from 'react-intl';
+import { Classification } from '../classification';
+import { SimpleTooltip } from '../simpleTooltip';
 import { Button } from '../ui/button';
+import { Card, CardContent, CardDescription, CardTitle } from '../ui/smallCard';
+import ChartClickWrapper from './charts/ChartClickWrapper';
 
 const majorRanks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'];
 function TaxaMain({
@@ -40,7 +40,7 @@ function TaxaMain({
       <CardHeader
         options={
           <DropdownMenu>
-            <DropdownMenuTrigger>
+            <DropdownMenuTrigger asChild>
               <Button variant="outline">
                 <MdMoreHoriz />
               </Button>
@@ -67,7 +67,9 @@ function TaxaMain({
         <CardTitle>
           <FormattedMessage id={`enums.taxonRank.${rank.toUpperCase()}`} defaultMessage={rank} />
         </CardTitle>
-        <CardDescription>Number of occurrences</CardDescription>
+        <CardDescription>
+          <FormattedMessage id="dashboard.numberOfOccurrences" />
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <GroupBy
@@ -257,7 +259,7 @@ export function Iucn(props) {
 
 function IucnCategory({ code, category }) {
   return (
-    <SimpleTooltip title={<FormattedMessage id={`enums.threatStatus.${category}`} />}>
+    <SimpleTooltip i18nKey={`enums.threatStatus.${category}`}>
       <span className="g-bg-[#7a443a] g-text-white g-px-1 g-py-0.5 g-text-xs g-font-bold g-rounded-md g-mr-2">
         {code}
       </span>

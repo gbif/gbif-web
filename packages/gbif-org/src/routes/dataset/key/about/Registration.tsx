@@ -1,10 +1,10 @@
-import { HelpLine, HelpText } from '@/components/helpText';
+import { HelpLine } from '@/components/helpText';
 import { HyperText } from '@/components/hyperText';
 import Properties, { Term as T, Value as V } from '@/components/properties';
 import { Button } from '@/components/ui/button';
 import React, { useState } from 'react';
 import { MdLink } from 'react-icons/md';
-import { FormattedMessage, FormattedDate } from 'react-intl';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 
 export function Registration({ dataset = {}, ...props }) {
   const {
@@ -20,7 +20,7 @@ export function Registration({ dataset = {}, ...props }) {
   const { organization: hostingOrganization } = installation;
   const urlEndpoints = endpoints.filter((x) => x.url);
   const availableIdentifiers = identifiers.filter(
-    (x) => ['DOI', 'URL', 'LSID', 'FTP', 'UNKNOWN'].indexOf(x.type) > -1
+    (x) => ['DOI', 'URL', 'LSID', 'FTP', 'UNKNOWN'].indexOf(x?.type) > -1
   );
 
   const orphanMachineTag = machineTags.find(
@@ -40,7 +40,7 @@ export function Registration({ dataset = {}, ...props }) {
 
   return (
     <div>
-      <Properties className="" useDefaultTermWidths>
+      <Properties className="dataProse [&_a]:g-underline" useDefaultTermWidths>
         {created && (
           <>
             <T>
@@ -120,7 +120,8 @@ export function Registration({ dataset = {}, ...props }) {
               <FormattedMessage id="dataset.registry.hostingStatus" />
             </T>
             <V>
-              <FormattedMessage id={`dataset.registry.${hostingStatus}`} /><HelpLine id="what-is-an-orphan-dataset" icon />
+              <FormattedMessage id={`dataset.registry.${hostingStatus}`} />
+              <HelpLine id="what-is-an-orphan-dataset" icon />
             </V>
           </>
         )}
@@ -162,7 +163,10 @@ export function Registration({ dataset = {}, ...props }) {
 
       <div className="g-mt-6">
         <Button asChild variant="outline">
-          <a href={`https://registry.gbif.org/dataset/${dataset.key}/ingestion-history`}>
+          <a
+            className="g-text-inherit"
+            href={`https://registry.gbif.org/dataset/${dataset.key}/ingestion-history`}
+          >
             <FormattedMessage id="dataset.registry.registrationDetails" />{' '}
             <MdLink className="g-ms-2" />
           </a>

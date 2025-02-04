@@ -1,7 +1,7 @@
-import React from 'react';
-import { Term as T, Value as V, AutomaticPropertyValue } from '@/components/properties';
-import { FormattedMessage } from 'react-intl';
+import { AutomaticPropertyValue, Term as T, Value as V } from '@/components/properties';
 import { OccurrenceTermFragment } from '@/gql/graphql';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 // import { prettifyEnum } from '../../../utils/labelMaker/config2labels';
 
@@ -26,7 +26,9 @@ export function HtmlField(props: { term: OccurrenceTermFragment; showDetails?: b
     <Field {...props}>
       <AutomaticPropertyValue
         value={htmlValue}
-        formatter={(val) => <span dangerouslySetInnerHTML={{ __html: val }} />}
+        formatter={(val) => (
+          <span className="[&_a]:g-underline" dangerouslySetInnerHTML={{ __html: val }} />
+        )}
       />
     </Field>
   );

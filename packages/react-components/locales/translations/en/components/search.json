@@ -1,21 +1,29 @@
 {
   "tabs": {
     "table": "Table",
+    "tree": "Tree",
     "gallery": "Gallery",
+    "media": "",
     "map": "Map",
     "datasets": "Datasets",
     "events": "Events",
     "download": "Download",
     "clusters": "Related",
     "dashboard": "Dashboard",
-    "sites": ""
+    "sites": "",
+    "list": "List"
   },
   "table": {
-    "lockColumn": "Lock column"
+    "lockColumn": "Lock column",
+    "unlockColumn": "",
+    "columnVisibility": "",
+    "resetColumnVisibility": "",
+    "openFilter": ""
   },
   "placeholders": {
     "default": "Search",
     "range": "Range or single value",
+    "rangeExample": "E.g. 1000,2000",
     "wildcard": "Search using * and ? as wildcards",
     "locationID": "Search by location ID (case sensitive)"
   },
@@ -25,6 +33,7 @@
     "either": ""
   },
   "loadMore": "More",
+  "noResults": "",
   "occurrenceClustersView": {
     "about": "About",
     "clusters": "Related",

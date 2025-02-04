@@ -14,40 +14,42 @@ export function getDependencyWheelOptions({ serie, onClick, interactive }) {
         animation: false,
         cursor: interactive ? 'pointer' : 'default',
         dataLabels: {
-          enabled: true
+          enabled: true,
         },
         showInLegend: false,
-        point: interactive ? {
-          events: {
-            click: function () {
-              onClick({ filter: this.filter, name: this.name, count: this.y }, this)
+        point: interactive
+          ? {
+              events: {
+                click: function () {
+                  onClick({ filter: this.filter, name: this.name, count: this.y }, this);
+                },
+              },
             }
-          }
-        } : {}
-      }
+          : {},
+      },
     },
     credits: {
-      enabled: false
+      enabled: false,
     },
     title: {
-      text: ''
+      text: '',
     },
     series: [serie],
     exporting: {
       buttons: {
         contextButton: {
-          enabled: false
-        }
-      }
+          enabled: false,
+        },
+      },
     },
     legend: {
       floating: false,
       itemStyle: {
         width: '200px',
         textOverflow: 'ellipsis',
-        overflow: 'hidden'
-      }
-    }
-  }
+        overflow: 'hidden',
+      },
+    },
+  };
   return options;
 }

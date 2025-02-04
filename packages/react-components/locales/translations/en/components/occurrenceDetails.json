@@ -1,5 +1,13 @@
 {
+  "tabs": {
+    "details": "Details",
+    "cluster": "Related records",
+    "phylotree": ""
+  },
   "occurrence": "Occurrence",
+  "specimen": "Specimen",
+  "processed": "",
+  "fragment": "",
   "showAllFields": "Show all fields",
   "morePhotos": "More photos",
   "about": "About",
@@ -10,6 +18,10 @@
   "collection": "Collection",
   "collectionGrSciColl": "GrSciColl collection",
   "recordedAndIdentifiedBy": "Recorded and identified by",
+  "tryPublisherSiteForFailingMedia": "If the media is not displaying properly, try the publisher's site instead",
+  "screenReader": {
+    "title": "Occurrence details"
+  },
   "info": {
     "original": "original",
     "excluded": "Excluded",
@@ -27,7 +39,8 @@
     "organism": "Organism",
     "materialSample": "Material sample",
     "geologicalContext": "Geological context",
-    "other": "Other"
+    "other": "Other",
+    "extensions": "Extensions"
   },
   "features": {
     "isClustered": "Clustered",
@@ -43,6 +56,15 @@
     "isSpecimen": "Specimen",
     "eventDate": "Event date",
     "isType": "Type specimen"
+  },
+  "cluster": {
+    "current": "Current",
+    "relatedOccurrences": "Related occurrences",
+    "similarBecause": "Similar because",
+    "clusterTags": "",
+    "matchedRecord": "Matched record",
+    "noMatches": "No candidate relations",
+    "explainer": "This experimental feature highlights possible duplicate and/or related occurrences."
   },
   "extensions": {
     "audubon": {

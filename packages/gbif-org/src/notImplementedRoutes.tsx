@@ -12,25 +12,18 @@ export const notImplementedRoutes: RouteObjectWithPlugins[] = [
     loader: () => redirectDocument('https://techdocs.gbif.org/en/openapi'),
   },
   {
-    id: 'country-key',
-    gbifRedirect: (params) => {
-      if (typeof params.key !== 'string') throw new Error('Invalid key');
-      if (params.key === 'search') return null;
-      return `/country/${params.key}`;
+    id: 'countryKey',
+    gbifRedirect: ({ key }) => {
+      if (typeof key !== 'string' && typeof key !== 'number')
+        throw new Error(`'Invalid key (key is of type ${typeof key})`);
+      if (key === 'search') return null;
+      return `/country/${key}`;
     },
     path: 'country/:key',
     element: <NotImplemented />,
   },
   {
     path: 'participant/:key',
-    element: <NotImplemented />,
-  },
-  {
-    path: 'species/search',
-    element: <NotImplemented />,
-  },
-  {
-    path: 'species/:key',
     element: <NotImplemented />,
   },
   {
@@ -100,7 +93,9 @@ export const notImplementedRoutes: RouteObjectWithPlugins[] = [
 function NotImplemented() {
   return (
     <main className="g-h-full g-text-center">
-      <h1 className="g-mt-48 g-text-4xl g-font-bold g-text-slate-400">Not implemented yet</h1>
+      <h1 className="g-pt-48 g-text-4xl g-font-bold g-text-slate-400 g-min-h-[80dvh]">
+        Not implemented yet
+      </h1>
     </main>
   );
 }

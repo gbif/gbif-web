@@ -1,5 +1,5 @@
-import { FormattedMessage, FormattedDate } from 'react-intl';
 import { cn } from '@/utils/shadcn';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 import { ErrorMessage } from './errorMessage';
 
 type DateType = string | number | Date | null | undefined;
@@ -43,13 +43,13 @@ export function Hostname({
   try {
     const hostname = new URL(href).hostname;
     return (
-      <a href={href} {...props} className={cn('hover:g-underline', className)}>
+      <a href={href} {...props} className={cn('hover:g-underline g-text-inherit', className)}>
         {hostname}
       </a>
     );
   } catch (err) {
     return (
-      <a href={href} className='g-text-red-400' {...props}>
+      <a href={href} className="g-text-red-400" {...props}>
         {href}
       </a>
     );
@@ -77,9 +77,7 @@ export function HeaderInfoEdit({
 }: {
   className?: string;
 } & React.ComponentProps<'div'>) {
-  return (
-    <div className={cn('g-flex-shrink', className)} {...props} />
-  );
+  return <div className={cn('g-flex-shrink', className)} {...props} />;
 }
 
 export function HeaderInfo({
@@ -91,9 +89,8 @@ export function HeaderInfo({
   children: React.ReactNode;
 } & React.ComponentProps<'div'>) {
   return (
-    <div className={cn('g-mt-6 g-flex g-items-end', className)} {...props}>
+    <div className={cn('g-mt-4 g-block md:g-flex g-items-end', className)} {...props}>
       {children}
     </div>
   );
 }
-

@@ -1,3 +1,4 @@
+import { ClientSideOnly } from '@/components/clientSideOnly';
 import {
   ContactActions,
   ContactAvatar,
@@ -10,9 +11,8 @@ import {
   ContactTitle,
 } from '@/components/contact';
 import EmptyValue from '@/components/emptyValue';
+import { HelpText } from '@/components/helpText';
 import { GbifLinkCard } from '@/components/TocHelp';
-import { ClientSideOnly } from '@/components/clientSideOnly';
-import { DynamicLink } from '@/reactRouterPlugins';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import {
   CardContent as CardContentSmall,
@@ -21,12 +21,13 @@ import {
   CardTitle as CardTitleSmall,
 } from '@/components/ui/smallCard';
 import useBelow from '@/hooks/useBelow';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
 import { MdDownload, MdMap } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { usePublisherKeyLoaderData } from '.';
-import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
 
 export function PublisherKeyAbout() {
   const { data } = usePublisherKeyLoaderData();
@@ -37,8 +38,6 @@ export function PublisherKeyAbout() {
   if (!publisher) {
     return null;
   }
-
-  const technicalContact = publisher.contacts?.find((x) => x.type === 'TECHNICAL_POINT_OF_CONTACT');
 
   const ActivityReport = () => (
     <CardSmall className="g-mb-4">
@@ -89,7 +88,7 @@ export function PublisherKeyAbout() {
   const Map = () => {
     return (
       <CardSmall className="g-mb-4">
-        {publisher.longitude && (
+        {publisher?.latitude && Math.abs(publisher.latitude) < 85 && (
           <a
             className="g-block"
             href={`http://www.google.com/maps/place/${publisher.latitude},${publisher.longitude}`}
@@ -119,7 +118,9 @@ export function PublisherKeyAbout() {
                       ))}
                     </>
                   ) : (
-                    <span style={{ color: '#aaa' }}>No known postal address</span>
+                    <span style={{ color: '#aaa' }}>
+                      <FormattedMessage id="phrases.addressUnknown" />
+                    </span>
                   )}
                 </div>
                 {publisher.city && <div>{publisher.city}</div>}
@@ -155,74 +156,67 @@ export function PublisherKeyAbout() {
           {publisher.endorsingNode && (
             <div style={{ marginBottom: 18 }}>
               <CardTitleSmall className="g-mb-2">
-                Endorsed by:{' '}
+                <FormattedMessage id="publisher.endorsedBy" />:{' '}
                 <a href={`https://www.gbif.org/node/${publisher.endorsingNodeKey}`}>
                   {publisher.endorsingNode.title}
                 </a>
               </CardTitleSmall>
               <div className="g-text-sm g-text-slate-600">
-                Publishers need to be endorsed by a GBIF Participant Node. This endorsement confirms
-                that the publisher is a legitimate organization and that it is committed to sharing
-                biodiversity data through GBIF.
+                <HelpText identifier="what-is-publisher-endorsement" className="[&_p]:g-mt-0" />
               </div>
             </div>
           )}
           {publisher?.installation?.count === 1 && (
             <div style={{ marginBottom: 18 }}>
               <CardTitleSmall className="g-mb-2">
-                Installations:{' '}
+                <FormattedMessage id="publisher.installations" />:{' '}
                 {publisher?.installation.results.map((x) => (
-                  <DynamicLink to={`/installation/${x.key}`}>{x.title}</DynamicLink>
+                  <DynamicLink
+                    key={x.key}
+                    to={`/installation/${x.key}`}
+                    pageId="installationKey"
+                    variables={{ key: x.key }}
+                  >
+                    {x.title}
+                  </DynamicLink>
                 ))}
               </CardTitleSmall>
               <div className="g-text-sm g-text-slate-600">
-                Some publishers run their own technical installations through which data is
-                published to GBIF. Some installations are collaborations and may be shared by
-                multiple publishers.
+                <HelpText identifier="what-is-an-installation" className="[&_p]:g-mt-0" />
               </div>
             </div>
           )}
           {publisher?.installation?.count > 1 && (
             <div style={{ marginBottom: 18 }}>
               <CardTitleSmall className="g-mb-2">
-                Installations:{' '}
+                <FormattedMessage id="publisher.installations" />:{' '}
                 <ul>
                   {publisher?.installation?.results.map((x) => (
                     <li key={x.key}>
-                      <DynamicLink to={`/installation/${x.key}`}>{x.title}</DynamicLink>
+                      <DynamicLink
+                        to={`/installation/${x.key}`}
+                        pageId="installationKey"
+                        variables={{ key: x.key }}
+                      >
+                        {x.title}
+                      </DynamicLink>
                     </li>
                   ))}
                 </ul>
               </CardTitleSmall>
               <div className="g-text-sm g-text-slate-600">
-                Some publishers run their own technical installations through which data is
-                published to GBIF. Some installations are collaborations and may be shared by
-                multiple publishers.
-              </div>
-            </div>
-          )}
-          {technicalContact?.email && (
-            <div style={{ marginBottom: 18 }}>
-              <CardTitleSmall className="g-mb-2">
-                Techincal contact:{' '}
-                <a href={`mailto:${technicalContact.email}`}>
-                  {technicalContact.firstName} {technicalContact.lastName}
-                </a>
-              </CardTitleSmall>
-              <div className="g-text-sm g-text-slate-600">
-                Who to get in contact with in case of IT related questions. Not for biodiversity
-                specific questions.
+                <HelpText identifier="what-is-an-installation" className="[&_p]:g-mt-0" />
               </div>
             </div>
           )}
           {publisher.country && (
             <div style={{ marginBottom: 18 }}>
               <CardTitleSmall className="g-mb-2">
-                Country or area: <FormattedMessage id={`enums.countryCode.${publisher.country}`} />
+                <FormattedMessage id="publisher.country" />:{' '}
+                <FormattedMessage id={`enums.countryCode.${publisher.country}`} />
               </CardTitleSmall>
               <div className="g-text-sm g-text-slate-600">
-                The country or area where the publisher is located. For international organizations,
-                this is the country where the main office is located.
+                <HelpText identifier="about-publisher-country" className="[&_p]:g-mt-0" />
               </div>
             </div>
           )}

@@ -1,14 +1,14 @@
-import { useFormContext } from 'react-hook-form';
-import { Inputs } from '../becomeAPublisherForm';
+import { ParticipantSelect, ValidParticipant } from '@/components/select/participantSelect';
 import { FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { RadioGroup } from '@/components/ui/radio-group';
-import { RadioItem } from '../../_shared';
+import { useConfig } from '@/config/config';
 import { NodeType, ParticipationStatus } from '@/gql/graphql';
-import { ParticipantSelect, ValidParticipant } from '@/components/select/participantSelect';
 import { useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { RadioItem } from '../../_shared';
+import { Inputs } from '../becomeAPublisherForm';
 import { SuggestedNodeCountry } from '../useSuggestedNodeCountry';
 import { useSuggestedNonCountryNode } from '../useSuggestedNonCountryNode';
-import { useConfig } from '@/config/config';
 
 type Props = {
   suggestedNodeCountry: SuggestedNodeCountry | undefined;
@@ -65,7 +65,7 @@ export function Endorsment({ suggestedNodeCountry }: Props) {
                 )}
 
                 <RadioItem
-                  value={config.OBISKey}
+                  value={config.hardcodedKeys.OBISKey}
                   label="Marine data publishers: request endorsement for OBIS (Ocean Biogeographic Information System) related data"
                 />
               </RadioGroup>

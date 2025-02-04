@@ -29,7 +29,7 @@ const typeDef = gql`
     dctermsidentifier: Int
     dctermsreferences: Int
   }
-  
+
   type ChecklistBankDwcTaxon {
     dwcaID: Int
     dwctaxonID: Int
@@ -41,25 +41,25 @@ const typeDef = gql`
     dwcparentNameUsageID: Int
     dwcscientificNameAuthorship: Int
   }
-  
+
   type ChecklistBankVerbatimByRowTypeCount {
     gbifMultimedia: ChecklistBankGbifMultimedia
     dwcTaxon: ChecklistBankDwcTaxon
   }
-  
+
   type ChecklistBankVerbatimByTermCount {
     gbifMultimedia: Int
     dwcTaxon: Int
   }
-  
+
   type ChecklistBankUsagesByOriginCount {
     source: Int
   }
-  
+
   type ChecklistBankUsagesByStatusCount {
     accepted: Int
   }
-  
+
   type ChecklistBankTaxaByRankCount {
     unranked: Int
     species: Int
@@ -72,7 +72,7 @@ const typeDef = gql`
     phylum: Int
     kingdom: Int
   }
-  
+
   type ChecklistBankNamesByTypeCount {
     otu: Int
     scientific: Int
@@ -81,11 +81,11 @@ const typeDef = gql`
     placeholder: Int
     hybridformula: Int
   }
-  
+
   type ChecklistBankNamesByStatusCount {
     notestablished: Int
   }
-  
+
   type ChecklistBankNamesByRankCount {
     unranked: Int
     species: Int
@@ -98,15 +98,15 @@ const typeDef = gql`
     phylum: Int
     kingdom: Int
   }
-  
+
   type ChecklistBankNamesByCodeCount {
     zoological: Int
   }
-  
+
   type ChecklistBankMediaByTypeCount {
     image: Int
   }
-  
+
   type ChecklistBankIssuesCount {
     partiallyparsablename: Int
     indetermined: Int
@@ -132,7 +132,7 @@ const typeDef = gql`
     identifierwithoutscope: Int
     parentspeciesmissing: Int
   }
-  
+
   type ChecklistBankImport {
     datasetKey: Int
     attempt: Int

@@ -6,7 +6,8 @@ import config from '../config';
 const router = Router();
 ip3country.init();
 const minute = 60;
-const translationEndpoint = config.translations || 'https://react-components.gbif.org/lib/translations';
+const translationEndpoint =
+  config.translations || 'https://react-components.gbif.org/lib/translations';
 
 export default (app) => {
   app.use('/unstable-api', router);
@@ -38,7 +39,8 @@ router.get('/user-info', async (req, res, next) => {
         countryName = await getCountryName('en', countryCode);
       }
       if (!countryName) {
-        translation.translationError = 'Unable to find a translation for that language code and language'
+        translation.translationError =
+          'Unable to find a translation for that language code and language';
       } else {
         translation.countryName = countryName;
       }

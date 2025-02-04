@@ -221,7 +221,6 @@ export default async function generateSql({
     .replace('{{MEASUREMENTS}}', measurements.join(', '))
     .replace('{{FILTERS}}', filters)
     .replace('{{GROUP_BY}}', groupBy.join(', '));
-
   return { error: null, sql };
 }
 

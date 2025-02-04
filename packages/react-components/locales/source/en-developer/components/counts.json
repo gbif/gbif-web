@@ -11,8 +11,11 @@
   "inGbif": "{total, plural, one {# in GBIF} other {# in GBIF}}",
   "nSpecimens": "{total, plural, one {# specimen} other {# specimens}}",
   "nCollections": "{total, plural, one {# collection} other {# collections}}",
+  "nRows": "{total, plural, one {# row} other {# rows}}",
+  "nInstitutions": "{total, plural, one {# institution} other {# institutions}}",
   "nRecordsTotal": "{total, plural, one {# record in total} other {# records in total}}",
   "nSelected": "{total, plural, other {# selected}}",
+  "nExcluded": "{total, plural, other {# excluded}}",
   "nQualityFlags": "{total, plural, one {# quality flag} other {# quality flags}}",
   "nAudioFiles": "{total, plural, one {# sound file} other {# sound files}}",
   "nVideos": "{total, plural, one {# video} other {# videos}}",
@@ -33,5 +36,7 @@
   "nParticipatingPublishers": "{total, plural, one {# participating publisher} other {# participating publishers}}",
   "nPublishersInCountry": "{total, plural, one {There is # publisher} other {There are # publishers}} in {country}",
   "nStaffMembers": "{total, plural, one {# staff member} other {# staff members}}",
-  "nOccurrencesHosted": "{total, plural, one {# hosted occurrence} other {# hosted occurrences}}"
+  "nOccurrencesHosted": "{total, plural, one {# hosted occurrence} other {# hosted occurrences}}",
+  "nPercentOfTotal": "{percentage, plural, other {#% of total}}",
+  "nMoreDatasets": "{total, plural, one {+ # more dataset} other {+ # more datasets}}"
 }

@@ -14,12 +14,12 @@
  *  }
  * }
  */
-import { pick, isNil } from 'lodash';
+import interpretationRemark from '#/helpers/enums/interpretationRemark';
 import createDOMPurify from 'dompurify';
 import { JSDOM } from 'jsdom';
+import { isNil, pick } from 'lodash';
 import mdit from 'markdown-it';
 import terms from '../groups/terms.json';
-import interpretationRemark from '#/helpers/enums/interpretationRemark';
 
 const md = mdit({
   html: true,

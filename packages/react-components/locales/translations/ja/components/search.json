@@ -1,21 +1,29 @@
 {
   "tabs": {
     "table": "表",
+    "tree": "",
     "gallery": "ギャラリー",
+    "media": "GBIFがアノーテーションしたアーカイブ",
     "map": "マップ",
     "datasets": "データセット",
     "events": "イベント",
     "download": "ダウンロード",
     "clusters": "",
     "dashboard": "",
-    "sites": "GBIFがアノーテーションしたアーカイブ"
+    "sites": "GBIFがアノーテーションしたアーカイブ",
+    "list": ""
   },
   "table": {
-    "lockColumn": ""
+    "lockColumn": "",
+    "unlockColumn": "GBIFがアノーテーションしたアーカイブ",
+    "columnVisibility": "GBIFがアノーテーションしたアーカイブ",
+    "resetColumnVisibility": "GBIFがアノーテーションしたアーカイブ",
+    "openFilter": "GBIFがアノーテーションしたアーカイブ"
   },
   "placeholders": {
     "default": "検索",
     "range": "範囲または単一値",
+    "rangeExample": "",
     "wildcard": "",
     "locationID": ""
   },
@@ -25,6 +33,7 @@
     "either": "GBIFがアノーテーションしたアーカイブ"
   },
   "loadMore": "もっと読み込む",
+  "noResults": "GBIFがアノーテーションしたアーカイブ",
   "occurrenceClustersView": {
     "about": "・・・について",
     "clusters": "",

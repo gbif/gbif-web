@@ -34,6 +34,7 @@ export const filters = [
   'organismId',
   'locality',
   'waterBody',
+  'higherGeography',
   'stateProvince',
   'eventId',
   'samplingProtocol',

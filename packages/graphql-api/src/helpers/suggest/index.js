@@ -4,10 +4,11 @@
 // thomas: publishers
 import axios from 'axios';
 import config from '../../config';
-import { matchSorter } from 'match-sorter'
+import { matchSorter } from 'match-sorter';
 import colSuggest from '#/resources/gbif/taxon/colSuggest';
 
-const translationEndpoint = config.translations || 'https://react-components.gbif.org/lib/translations';
+const translationEndpoint =
+  config.translations || 'https://react-components.gbif.org/lib/translations';
 // local cache for translations
 const translations = {};
 
@@ -79,7 +80,7 @@ const filters = [
   'iucnRedListCategory',
   'verbatimScientificName',
   'dwcaExtension',
-  'geometry'
+  'geometry',
 ];
 
 export async function getFieldNames(lang) {
@@ -88,16 +89,18 @@ export async function getFieldNames(lang) {
     console.error('No translations found');
     return [];
   }
-  const filterNames = filters.map(f => ({ filter: f, label: translations[`filters.${f}.name`] || f })).sort();
+  const filterNames = filters
+    .map((f) => ({ filter: f, label: translations[`filters.${f}.name`] || f }))
+    .sort();
   // map to format for filters [{filter: 'country', label: 'Denmark', alternativeLabels: []}]
-  return filterNames.map(f => {
+  return filterNames.map((f) => {
     return {
       filter: f.filter,
       label: f.label,
       alsoKnownAs: [f.filter],
       alternativeLabels: [f.filter],
-      type: 'FILTER'
-    }
+      type: 'FILTER',
+    };
   });
 }
 async function getYearSuggestions({ q } = {}) {
@@ -108,12 +111,12 @@ async function getYearSuggestions({ q } = {}) {
 
   // parse q as number
   const parts = q.split(/[,\-]/);
-  const [start, end] = parts.map(x => {
+  const [start, end] = parts.map((x) => {
     const v = x.trim();
-    if (v === '' || v === '*') return '*' // empty string is a wildcard
+    if (v === '' || v === '*') return '*'; // empty string is a wildcard
     return parseInt(v);
   });
-  
+
   // if there is only a start and it isn't a number, then return nothing
   if (isNaN(start) && !end) {
     return [];
@@ -126,18 +129,32 @@ async function getYearSuggestions({ q } = {}) {
     if (end !== '*' && (end < minYear || end > maxYear)) {
       return [];
     } else if (end !== '*' && start !== '*' && start >= end) {
-      // it would be nice to suggest a valid range to the user that still respects what they have entered. 
+      // it would be nice to suggest a valid range to the user that still respects what they have entered.
       // E.g. if they enter 1800,18 then suggest 1800-1899 or such. 1930-193 => 1930-1939 , 1930,194 => 1930-1949
       return [];
     } else if (end === '*' && start === '*') {
       return [];
     }
     // The range should be within 1500- this year + 10
-    return [{ filter: 'year', value: `${start},${end}`, label: `${start}-${end}`, alternativeLabels: [] }];
+    return [
+      {
+        filter: 'year',
+        value: `${start},${end}`,
+        label: `${start}-${end}`,
+        alternativeLabels: [],
+      },
+    ];
   }
   // if it is a number, then check if it is within the range
   if (start > minYear && start <= maxYear) {
-    return [{ filter: 'year', value: start, label: `${start}`, alternativeLabels: [] }];
+    return [
+      {
+        filter: 'year',
+        value: start,
+        label: `${start}`,
+        alternativeLabels: [],
+      },
+    ];
   }
   return [];
 }
@@ -147,12 +164,14 @@ async function getCountryNames(lang) {
   if (!translations) {
     return [];
   }
-  // all country codes are listed in enums.countryCode.DK etc. 
+  // all country codes are listed in enums.countryCode.DK etc.
   // extract them all as a list of key value pairs {key: 'DK', label: 'Denmark'}
-  const countryNames = Object.keys(translations).filter(k => k.startsWith('enums.countryCode.')).map(k => ({ key: k.split('.').pop(), label: translations[k] }));
+  const countryNames = Object.keys(translations)
+    .filter((k) => k.startsWith('enums.countryCode.'))
+    .map((k) => ({ key: k.split('.').pop(), label: translations[k] }));
 
   // map to format for filters [{filter: 'country', value: 'DK', label: 'Denmark', alternativeLabels: []}]
-  countryNames.forEach(c => {
+  countryNames.forEach((c) => {
     c.filter = 'country';
     c.value = c.key;
     c.label = c.label;
@@ -177,12 +196,12 @@ async function getDatasetSuggestions({ q, limit = 2 }) {
 async function getDatasets({ q }) {
   const suggestions = await getDatasetSuggestions({ q });
   // map to format for filters [{filter: 'datasetKey', value: 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c', label: 'GBIF Backbone Taxonomy'}]
-  return suggestions.map(s => {
+  return suggestions.map((s) => {
     return {
       filter: 'datasetKey',
       value: s.key,
       label: s.title,
-      alternativeLabels: ['dataset', 'ds']
+      alternativeLabels: ['dataset', 'ds'],
     };
   });
 }
@@ -193,8 +212,8 @@ export async function getSpeciesSuggestions({ q, lang, taxonKeys }) {
     en: 'eng',
     da: 'dan',
     es: 'spa',
-    de: 'deu'
-  }
+    de: 'deu',
+  };
   const knownLang = langMap[lang] ?? 'en';
 
   const result = await colSuggest({ language: knownLang, q, taxonKeys });
@@ -213,8 +232,10 @@ export async function getSpeciesSuggestions({ q, lang, taxonKeys }) {
       }
     }
   }        
-  `
-  const apiUrl = `${config.origin}/graphql?query=${encodeURIComponent(queryString)}`;
+  `;
+  const apiUrl = `${config.origin}/graphql?query=${encodeURIComponent(
+    queryString,
+  )}`;
   // const apiUrl = `${config.apiv1}/species/suggest?datasetKey=d7dddbf4-2cf0-4f39-9b2a-bb099caae36c&limit=20&limit=200&q=${q}`;
   try {
     const response = await axios.get(apiUrl);
@@ -227,7 +248,7 @@ export async function getSpeciesSuggestions({ q, lang, taxonKeys }) {
     response.data = response.data.concat(matches);
     // remove duplicates based on nubkey
     const uniqueMatches = response.data.reduce((acc, current) => {
-      const x = acc.find(item => item.nubKey === current.nubKey);
+      const x = acc.find((item) => item.nubKey === current.nubKey);
       if (!x) {
         return acc.concat([current]);
       } else {
@@ -236,10 +257,22 @@ export async function getSpeciesSuggestions({ q, lang, taxonKeys }) {
     }, []);
     // if taxonKeys are provided, filter out records that do not match in either kingdomKey, phylumKey, classKey, orderKey, familyKey, genusKey or speciesKey
     if (taxonKeys && taxonKeys.length > 0) {
-      const taxonKeyStrings = taxonKeys.map(k => k.toString());
-      return uniqueMatches.filter(r => {
-        const recordTaxonKeys = [r.kingdomKey, r.phylumKey, r.classKey, r.orderKey, r.familyKey, r.genusKey, r.speciesKey].filter(x => typeof x !== 'undefined').map(k => k.toString());
-        const hasOverlappingKeys = recordTaxonKeys.some(k => taxonKeyStrings.includes(k));
+      const taxonKeyStrings = taxonKeys.map((k) => k.toString());
+      return uniqueMatches.filter((r) => {
+        const recordTaxonKeys = [
+          r.kingdomKey,
+          r.phylumKey,
+          r.classKey,
+          r.orderKey,
+          r.familyKey,
+          r.genusKey,
+          r.speciesKey,
+        ]
+          .filter((x) => typeof x !== 'undefined')
+          .map((k) => k.toString());
+        const hasOverlappingKeys = recordTaxonKeys.some((k) =>
+          taxonKeyStrings.includes(k),
+        );
         return hasOverlappingKeys;
       });
     } else {
@@ -269,25 +302,37 @@ export async function getSpeciesMatches({ q, taxonKeys }) {
 export async function getSpecies({ q, taxonKeys, lang }) {
   const suggestions = await getSpeciesSuggestions({ q, taxonKeys, lang });
   // map to format for filters [{filter: 'taxonKey', value: 5, label: 'Aves', alternativeLabels: []}]
-  return suggestions.map(s => {
-    const result = {
-      filter: 'taxonKey',
-      value: s.key,
-      label: s.scientificName,
-      alsoKnownAs: [s.vernacularName, s.acceptedNameOf, s.canonicalName].filter(x => x),
-      alternativeLabels: ['taxon', 'species', 'sp', s.vernacularName, s.acceptedNameOf].filter(x => x),
-      item: s
-    };
-    if (s.acceptedNameOf) {
-      result.description = result.description ?? [];
-      result.description.push(`Accepted name of: ${s.acceptedNameOf}`);
-    }
-    if (s.vernacularName) {
-      result.description = result.description ?? [];
-      result.description.push(`Common name: ${s.vernacularName}`);
-    }
-    return result;
-  }).slice(0, 5);
+  return suggestions
+    .map((s) => {
+      const result = {
+        filter: 'taxonKey',
+        value: s.key,
+        label: s.scientificName,
+        alsoKnownAs: [
+          s.vernacularName,
+          s.acceptedNameOf,
+          s.canonicalName,
+        ].filter((x) => x),
+        alternativeLabels: [
+          'taxon',
+          'species',
+          'sp',
+          s.vernacularName,
+          s.acceptedNameOf,
+        ].filter((x) => x),
+        item: s,
+      };
+      if (s.acceptedNameOf) {
+        result.description = result.description ?? [];
+        result.description.push(`Accepted name of: ${s.acceptedNameOf}`);
+      }
+      if (s.vernacularName) {
+        result.description = result.description ?? [];
+        result.description.push(`Common name: ${s.vernacularName}`);
+      }
+      return result;
+    })
+    .slice(0, 5);
 }
 
 async function getGadmSuggestions({ q, gadmId, limit = 2 }) {
@@ -296,24 +341,27 @@ async function getGadmSuggestions({ q, gadmId, limit = 2 }) {
   try {
     const response = await axios.get(apiUrl);
     // map to format for filters [{filter: 'gadmGid', value: 'DK.02', label: 'København', alternativeLabels: []}]
-    return response.data.results.
-      filter(x => {
+    return response.data.results
+      .filter((x) => {
         // remove gadm level 0
         return x.gadmLevel > 0;
-      }).map(s => {
+      })
+      .map((s) => {
         const result = {
           filter: 'gadmGid',
           value: s.id,
           label: s.name,
-          alternativeLabels: ['gadm']
+          alternativeLabels: ['gadm'],
         };
         if (s.higherRegions && s.higherRegions.length > 0) {
           result.description = result.description ?? [];
-          result.description.push(s.higherRegions.map(x => x.name).join(' > '));
+          result.description.push(
+            s.higherRegions.map((x) => x.name).join(' > '),
+          );
         }
         return result;
-      }
-      ).slice(0, limit);
+      })
+      .slice(0, limit);
   } catch (error) {
     console.log(error);
     return [];
@@ -327,18 +375,32 @@ async function getCandidates({ lang = 'en', query, taxonKeys }) {
   // get datasets, countries, species and field names
   // and concatenate them into a single array
   // fetch them all at the same time
-  const [datasets, countries, species, fields, gadm, years] = await Promise.all([
-    getDatasets({ q: query }),
-    getCountryNames(lang),
-    getSpecies({ q: query, taxonKeys, lang }),
-    getFieldNames(lang),
-    getGadmSuggestions({ q: query }),
-    getYearSuggestions({ q: query }),
-  ]);
+  const [datasets, countries, species, fields, gadm, years] = await Promise.all(
+    [
+      getDatasets({ q: query }),
+      getCountryNames(lang),
+      getSpecies({ q: query, taxonKeys, lang }),
+      getFieldNames(lang),
+      getGadmSuggestions({ q: query }),
+      getYearSuggestions({ q: query }),
+    ],
+  );
   return datasets
-    .concat(filterSuggestions({ list: countries, q: query, threshold: matchSorter.rankings.WORD_STARTS_WITH }))
+    .concat(
+      filterSuggestions({
+        list: countries,
+        q: query,
+        threshold: matchSorter.rankings.WORD_STARTS_WITH,
+      }),
+    )
     .concat(species)
-    .concat(filterSuggestions({ list: fields, q: query, threshold: matchSorter.rankings.WORD_STARTS_WITH }))
+    .concat(
+      filterSuggestions({
+        list: fields,
+        q: query,
+        threshold: matchSorter.rankings.WORD_STARTS_WITH,
+      }),
+    )
     .concat(gadm)
     .concat(years);
 }
@@ -355,19 +417,24 @@ function filterSuggestions({ list, q, threshold }) {
   // if spaces, then split and search for each word
   const parts = q.split(' ');
   const results = [];
-  parts.forEach(part => {
+  parts.forEach((part) => {
     const sorted = matchSorter(list, part, {
       threshold: threshold,
-      keys: ['label', { threshold: matchSorter.rankings.CONTAINS, key: 'alternativeLabels' }],
+      keys: [
+        'label',
+        { threshold: matchSorter.rankings.CONTAINS, key: 'alternativeLabels' },
+      ],
       // use index to sort the results
       baseSort: (a, b) => {
-        return a.index > b.index ? -1 : 1
-      }
+        return a.index > b.index ? -1 : 1;
+      },
     });
     results.push(sorted);
   });
   // if there are multiple parts, then return the intersection of the results
-  const intersection = results.reduce((acc, val) => acc.filter(x => val.includes(x)));
+  const intersection = results.reduce((acc, val) =>
+    acc.filter((x) => val.includes(x)),
+  );
   return intersection;
 }
 
@@ -377,10 +444,17 @@ export async function getSuggestions({ lang, q, taxonKeys }) {
   // if spaces, then split and search for each word
   const parts = q.split(' ');
   const results = [];
-  parts.forEach(part => {
+  parts.forEach((part) => {
     const sorted = matchSorter(candidates, part, {
       threshold: matchSorter.rankings.NO_MATCH,
-      keys: ['label', { maxRanking: matchSorter.rankings.CASE_SENSITIVE_EQUAL, key: 'alsoKnownAs' }, { maxRanking: matchSorter.rankings.CONTAINS, key: 'alternativeLabels' }],
+      keys: [
+        'label',
+        {
+          maxRanking: matchSorter.rankings.CASE_SENSITIVE_EQUAL,
+          key: 'alsoKnownAs',
+        },
+        { maxRanking: matchSorter.rankings.CONTAINS, key: 'alternativeLabels' },
+      ],
       // use index to sort the results
       baseSort: (a, b) => {
         //lineas 2346677
@@ -397,11 +471,14 @@ export async function getSuggestions({ lang, q, taxonKeys }) {
             country: 800,
             continent: 700,
             gadmGid: 600,
-          }
+          };
           if (item.filter && boosts[item.filter]) {
             v += boosts[item.filter];
           }
-          if (item.filter === 'taxonKey' && item?.item?.taxon?.status === 'accepted') {
+          if (
+            item.filter === 'taxonKey' &&
+            item?.item?.taxon?.status === 'accepted'
+          ) {
             v += 10000;
           }
           return v;
@@ -410,22 +487,24 @@ export async function getSuggestions({ lang, q, taxonKeys }) {
         const bVal = decorate(b);
 
         return aVal > bVal ? -1 : 1;
-      }
+      },
     });
     // move all dataset results to the bottom
-    const datasetResults = sorted.filter(x => x.filter === 'datasetKey');
-    const otherResults = sorted.filter(x => x.filter !== 'datasetKey');
+    const datasetResults = sorted.filter((x) => x.filter === 'datasetKey');
+    const otherResults = sorted.filter((x) => x.filter !== 'datasetKey');
     const combined = otherResults.concat(datasetResults);
 
     // always show filters on top
-    const filters = combined.filter(x => x.type === 'FILTER');
-    const others = combined.filter(x => x.type !== 'FILTER');
+    const filters = combined.filter((x) => x.type === 'FILTER');
+    const others = combined.filter((x) => x.type !== 'FILTER');
     const filterSorted = filters.concat(others);
 
     results.push(filterSorted);
   });
   // if there are multiple parts, then return the intersection of the results
-  const intersection = results.reduce((acc, val) => acc.filter(x => val.includes(x)));
+  const intersection = results.reduce((acc, val) =>
+    acc.filter((x) => val.includes(x)),
+  );
   return intersection;
 }
 

@@ -113,6 +113,7 @@ const typeDef = gql`
     higherGeography: [String]
     higherGeographyID: String
     highestBiostratigraphicZone: String
+    hostingOrganizationKey: ID
     identificationID: String
     identificationQualifier: String
     identificationReferences: String
@@ -400,6 +401,10 @@ const typeDef = gql`
     Duck typing various features that is worth highlighting
     """
     features: OccurrenceFeatures
+    """
+    Feedback options for the occurrence
+    """
+    feedback: OccurrenceFeedback
   }
 
   type OccurrenceFeatures {
@@ -423,6 +428,21 @@ const typeDef = gql`
     The occurrence has fields that are intended for use by sampling events
     """
     isSamplingEvent: Boolean
+    """
+    The occurrence has an IIIF endpoint
+    """
+    firstIIIF: String
+  }
+
+  type OccurrenceFeedback {
+    gbifGithub: String!
+    publisherFeedbackSystem: OccurrenceFeedbackValue
+    datasetContactEmail: OccurrenceFeedbackValue
+  }
+
+  type OccurrenceFeedbackValue {
+    value: String!
+    title: String!
   }
 
   type Globe {
@@ -475,7 +495,7 @@ const typeDef = gql`
     key: Int!
     name: String!
     rank: String!
-    formattedName: String!
+    formattedName(useFallback: Boolean): String!
   }
 
   type UsageParsedName {

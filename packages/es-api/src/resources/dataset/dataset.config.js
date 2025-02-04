@@ -1,50 +1,49 @@
-const config = 
-{
+const config = {
   options: {
     abbreviation: {
       type: 'keyword',
-      field: 'abbreviation'
+      field: 'abbreviation',
     },
     additionalInfo: {
       type: 'text',
       field: 'additionalInfo',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     alias: {
       type: 'text',
       field: 'alias',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     q: {
       type: 'text',
       field: 'all',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     city: {
       type: 'keyword',
-      field: 'city'
+      field: 'city',
     },
     collectionKey: {
       type: 'keyword',
-      field: 'collectionKey'
+      field: 'collectionKey',
     },
     continent: {
       type: 'keyword',
-      field: 'continent'
+      field: 'continent',
     },
     country: {
       type: 'keyword',
-      field: 'country'
+      field: 'country',
     },
     countryCoverage: {
       type: 'keyword',
-      field: 'countryCoverage'
+      field: 'countryCoverage',
     },
     created: {
       type: 'date',
@@ -52,16 +51,16 @@ const config =
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     createdBy: {
       type: 'keyword',
-      field: 'createdBy'
+      field: 'createdBy',
     },
     dataLanguage: {
       type: 'keyword',
-      field: 'dataLanguage'
+      field: 'dataLanguage',
     },
     dataScore: {
       type: 'numeric',
@@ -69,8 +68,8 @@ const config =
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     decade: {
       type: 'numeric',
@@ -78,8 +77,8 @@ const config =
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     deleted: {
       type: 'date',
@@ -87,96 +86,96 @@ const config =
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     description: {
       type: 'text',
       field: 'description',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     doi: {
       type: 'keyword',
-      field: 'doi'
+      field: 'doi',
     },
     duplicateOfDatasetKey: {
       type: 'keyword',
-      field: 'duplicateOfDatasetKey'
+      field: 'duplicateOfDatasetKey',
     },
     external: {
       type: 'boolean',
-      field: 'external'
+      field: 'external',
     },
     homepage: {
       type: 'keyword',
-      field: 'homepage'
+      field: 'homepage',
     },
     hostingOrganizationKey: {
       type: 'keyword',
-      field: 'hostingOrganizationKey'
+      field: 'hostingOrganizationKey',
     },
     hostingOrganizationTitle: {
       type: 'keyword',
-      field: 'hostingOrganizationTitle'
+      field: 'hostingOrganizationTitle',
     },
     installationKey: {
       type: 'keyword',
-      field: 'installationKey'
+      field: 'installationKey',
     },
     installationTitle: {
       type: 'keyword',
-      field: 'installationTitle'
+      field: 'installationTitle',
     },
     institutionKey: {
       type: 'keyword',
-      field: 'institutionKey'
+      field: 'institutionKey',
     },
     key: {
       type: 'keyword',
-      field: 'key'
+      field: 'key',
     },
     keyword: {
       type: 'keyword',
-      field: 'keyword'
+      field: 'keyword',
     },
     language: {
       type: 'keyword',
-      field: 'language'
+      field: 'language',
     },
     license: {
       type: 'keyword',
-      field: 'license'
+      field: 'license',
     },
     lockedForAutoUpdate: {
       type: 'boolean',
-      field: 'lockedForAutoUpdate'
+      field: 'lockedForAutoUpdate',
     },
     logoUrl: {
       type: 'keyword',
-      field: 'logoUrl'
+      field: 'logoUrl',
     },
     maintenanceDescription: {
       type: 'text',
       field: 'maintenanceDescription',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     maintenanceUpdateFrequency: {
       type: 'text',
       field: 'maintenanceUpdateFrequency',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     metadata: {
       type: 'text',
       field: 'metadata',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     modified: {
       type: 'date',
@@ -184,12 +183,12 @@ const config =
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     modifiedBy: {
       type: 'keyword',
-      field: 'modifiedBy'
+      field: 'modifiedBy',
     },
     nameUsagesPercentage: {
       type: 'numeric',
@@ -197,8 +196,8 @@ const config =
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     numConstituents: {
       type: 'numeric',
@@ -206,8 +205,8 @@ const config =
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     occurrencePercentage: {
       type: 'numeric',
@@ -215,28 +214,28 @@ const config =
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     parentDatasetKey: {
       type: 'keyword',
-      field: 'parentDatasetKey'
+      field: 'parentDatasetKey',
     },
     postalCode: {
       type: 'keyword',
-      field: 'postalCode'
+      field: 'postalCode',
     },
     programmeAcronym: {
       type: 'keyword',
-      field: 'programmeAcronym'
+      field: 'programmeAcronym',
     },
     projectId: {
       type: 'keyword',
-      field: 'project.identifier'
+      field: 'project.identifier',
     },
     province: {
       type: 'keyword',
-      field: 'province'
+      field: 'province',
     },
     pubDate: {
       type: 'date',
@@ -244,60 +243,60 @@ const config =
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
     publishingCountry: {
       type: 'keyword',
-      field: 'publishingCountry'
+      field: 'publishingCountry',
     },
     publishingOrganizationKey: {
       type: 'keyword',
-      field: 'publishingOrganizationKey'
+      field: 'publishingOrganizationKey',
     },
     publishingOrganizationTitle: {
       type: 'keyword',
-      field: 'publishingOrganizationTitle'
+      field: 'publishingOrganizationTitle',
     },
     purpose: {
       type: 'text',
       field: 'purpose',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     rights: {
       type: 'text',
       field: 'rights',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     subtype: {
       type: 'keyword',
-      field: 'subtype'
+      field: 'subtype',
     },
     taxonKey: {
       type: 'keyword',
-      field: 'taxonKey'
+      field: 'taxonKey',
     },
     title: {
       type: 'text',
       field: 'title',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     type: {
       type: 'keyword',
-      field: 'type'
+      field: 'type',
     },
     version: {
       type: 'text',
       field: 'version',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
     year: {
       type: 'numeric',
@@ -305,80 +304,80 @@ const config =
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
-    'collections_identifier': {
+    collections_identifier: {
       type: 'keyword',
-      field: 'collections.identifier'
+      field: 'collections.identifier',
     },
-    'collections_name': {
+    collections_name: {
       type: 'text',
       field: 'collections.name',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
-    'collections_parentIdentifier': {
+    collections_parentIdentifier: {
       type: 'text',
       field: 'collections.parentIdentifier',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
-    'collections_specimenPreservationMethod': {
+    collections_specimenPreservationMethod: {
       type: 'text',
       field: 'collections.specimenPreservationMethod',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
-    'collections_curatorialUnits_count': {
+    collections_curatorialUnits_count: {
       type: 'numeric',
       field: 'collections.curatorialUnits.count',
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
-    'collections_curatorialUnits_deviation': {
+    collections_curatorialUnits_deviation: {
       type: 'numeric',
       field: 'collections.curatorialUnits.deviation',
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
-    'collections_curatorialUnits_lower': {
+    collections_curatorialUnits_lower: {
       type: 'numeric',
       field: 'collections.curatorialUnits.lower',
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
-    'collections_curatorialUnits_typeVerbatim': {
+    collections_curatorialUnits_typeVerbatim: {
       type: 'text',
       field: 'collections.curatorialUnits.typeVerbatim',
       get: {
-        type: 'fuzzy'
-      }
+        type: 'fuzzy',
+      },
     },
-    'collections_curatorialUnits_upper': {
+    collections_curatorialUnits_upper: {
       type: 'numeric',
       field: 'collections.curatorialUnits.upper',
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte'
-      }
+        defaultLowerBound: 'lte',
+      },
     },
-  }
+  },
 };
 
 module.exports = {
-  config
-}
+  config,
+};

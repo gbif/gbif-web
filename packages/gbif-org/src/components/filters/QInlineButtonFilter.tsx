@@ -1,22 +1,29 @@
 import { SearchInput } from '@/components/searchInput';
 import { Button } from '@/components/ui/button';
+import { FilterContext } from '@/contexts/filter';
+import { cn } from '@/utils/shadcn';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { MdClose } from 'react-icons/md';
-import { cn } from '@/utils/shadcn';
-import { FilterContext } from '@/contexts/filter';
+import { useIntl } from 'react-intl';
 
-export function QInlineButtonFilter({ className }: { className?: string }) {
+export function QInlineButtonFilter({
+  className,
+  filterHandle = 'q',
+}: {
+  className?: string;
+  filterHandle?: string;
+}) {
   const { filter, setField } = useContext(FilterContext);
   return (
     <QFilter
-      className={cn('g-min-w-48 g-mx-1 g-mb-1', className)}
-      value={filter.must?.q?.[0]}
+      className={cn('g-min-w-48 g-mx-1 g-mb-1 g-max-w-full', className)}
+      value={filter.must?.[filterHandle]?.[0]}
       onChange={(x) => {
         if (x !== '' && x) {
-          setField('q', [x]);
+          setField(filterHandle, [x]);
         } else {
           // if (filter.must?.q?.[0]) {
-            setField('q', []);
+          setField(filterHandle, []);
           // }
         }
       }}
@@ -35,6 +42,7 @@ function QFilter({
 }) {
   const [isInputHidden, setIsInputHidden] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { formatMessage } = useIntl();
 
   const handleClearClick = () => {
     onChange();
@@ -42,7 +50,7 @@ function QFilter({
 
   useEffect(() => {
     if (!isInputHidden && inputRef.current) {
-      inputRef.current.focus();
+      inputRef.current.focus({ preventScroll: true });
     }
   }, [isInputHidden]);
 
@@ -59,13 +67,17 @@ function QFilter({
       onClear={handleClearClick}
       onOpen={() => setIsInputHidden(false)}
       isInputHidden={isInputHidden}
-      selectedLabel={<span>“{value}”</span>}
+      selectedLabel={
+        <span className="g-overflow-hidden g-whitespace-nowrap g-text-ellipsis g-max-w-[250px]">
+          “{value}”
+        </span>
+      }
       className={cn('', className)}
     >
       <SearchInput
         defaultValue={value}
         ref={inputRef}
-        placeholder="Text search"
+        placeholder={formatMessage({ id: 'filters.q.name' })}
         className={cn(
           'g-h-9 g-px-2 g-py-2 g-rounded-md g-w-auto g-border g-border-primary-500',
           className
@@ -112,10 +124,19 @@ function FilterButton({
   return (
     <div className={cn('g-inline-block g-items-center', className)}>
       <div className="g-inline-flex g-w-full g-rounded-md g-shadow-sm" role="group">
-        <Button onClick={onOpen} type="button" className="g-flex-auto g-rounded-e-none g-rounded-s g-justify-start">
+        <Button
+          onClick={onOpen}
+          type="button"
+          className="g-flex-auto g-rounded-e-none g-rounded-s g-justify-start g-overflow-hidden g-whitespace-nowrap g-text-ellipsis"
+        >
           {selectedLabel}
         </Button>
-        <Button onClick={onClear} type="button" aria-label="Clear filter" className="g-rounded-s-none g-rounded-e g-px-2">
+        <Button
+          onClick={onClear}
+          type="button"
+          aria-label="Clear filter"
+          className="g-rounded-s-none g-rounded-e g-px-2"
+        >
           <span>
             <MdClose />
           </span>

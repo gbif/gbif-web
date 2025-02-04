@@ -4,4 +4,4 @@ import resolver from './menuItem.resolver';
 export default {
   typeDef,
   resolver,
-}
+};

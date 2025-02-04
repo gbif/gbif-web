@@ -1,4 +1,4 @@
-import { gql } from "apollo-server-core";
+import { gql } from 'apollo-server-core';
 import { SEARCH_RESULT_OPTIONS } from './resourceSearch.constants';
 
 const typeDef = gql`
@@ -32,10 +32,12 @@ const typeDef = gql`
     end
   }
 
-  union SingleSearchResult = ${SEARCH_RESULT_OPTIONS.map(option => option.graphQLType).join(' | ')}
+  union SingleSearchResult = ${SEARCH_RESULT_OPTIONS.map(
+    (option) => option.graphQLType,
+  ).join(' | ')}
 
   enum ContentType {
-    ${SEARCH_RESULT_OPTIONS.map(option => option.enumContentType).join('\n')}
+    ${SEARCH_RESULT_OPTIONS.map((option) => option.enumContentType).join('\n')}
   }
 
   type PaginatedSearchResult {

@@ -1,7 +1,7 @@
 {
   "STORAGE_OUTDOORS": "Przechowywane na zewnątrz",
   "STORAGE_INDOORS": "Przechowywane w pomieszczeniach",
-  "STORAGE_CONTROLLED_ATMOSPHERE": "Kontrolowane warunki przechowywania",
+  "STORAGE_CONTROLLED_ATMOSPHERE": "Przechowywane w atmosferze kontrolowanej",
   "STORAGE_FROZEN_MINUS_20": "Przechowywane zamrożone minus 20",
   "STORAGE_FROZEN_MINUS_80": "Przechowywane zamrożone minus 80",
   "STORAGE_FROZEN_BETWEEN_MINUS_132_AND_MINUS_196": "Przechowywane zamrożone między minus 132 a minus 196",
@@ -12,7 +12,7 @@
   "SAMPLE_CRYOPRESERVED": "próbka poddana krioprezerwacji",
   "SAMPLE_DRIED": "Próbka wysuszona",
   "SAMPLE_EMBEDDED": "Próbka osadzona",
-  "SAMPLE_FLUID_PRESERVED": "Zachowana próbka płynu",
+  "SAMPLE_FLUID_PRESERVED": "Próbka płynu zachowana",
   "SAMPLE_PINNED": "Próbka przypięta",
   "SAMPLE_PRESSED": "Wytłoczona próbka",
   "SAMPLE_SKELETONIZED": "Próbka szkieletowana",

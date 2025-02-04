@@ -1,19 +1,17 @@
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
-import * as charts from '@/components/dashboard';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { useParams } from 'react-router-dom';
-import DashBoardLayout from '@/components/dashboard/DashboardLayout';
 import { ClientSideOnly } from '@/components/clientSideOnly';
+import * as charts from '@/components/dashboard';
+import DashBoardLayout from '@/components/dashboard/DashboardLayout';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { FormattedMessage } from 'react-intl';
-import { SimpleTooltip } from '@/components/SimpleTooltip';
-import { MdInfoOutline } from 'react-icons/md';
-import useQuery from '@/hooks/useQuery';
 import { PublisherCountsQuery, PublisherCountsQueryVariables } from '@/gql/graphql';
+import useQuery from '@/hooks/useQuery';
+import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
+import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useEffect } from 'react';
+import { FormattedMessage } from 'react-intl';
+import { useParams } from 'react-router-dom';
 
 export function PublisherKeyMetrics() {
-  let { key } = useParams();
+  const { key } = useParams();
   const { load, data, loading, error } = useQuery<
     PublisherCountsQuery,
     PublisherCountsQueryVariables
@@ -57,7 +55,9 @@ export function PublisherKeyMetrics() {
             <section>
               <CardHeader>
                 <CardTitle>
-                  <span className="g-me-2">Citation metrics</span>
+                  <span className="g-me-2">
+                    <FormattedMessage id="phrases.citationMetrics" />
+                  </span>
                 </CardTitle>
               </CardHeader>
               <DashBoardLayout>
@@ -87,7 +87,9 @@ export function PublisherKeyMetrics() {
             <section>
               <CardHeader>
                 <CardTitle>
-                  <span className="g-me-2">Occurrence metrics</span>
+                  <span className="g-me-2">
+                    <FormattedMessage id="phrases.occurrenceMetrics" />
+                  </span>
                 </CardTitle>
               </CardHeader>
               <DashBoardLayout>

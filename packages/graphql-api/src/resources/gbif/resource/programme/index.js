@@ -4,4 +4,4 @@ import resolver from './programme.resolver';
 export default {
   typeDef,
   resolver,
-}
+};

@@ -1,14 +1,21 @@
-# GraphQL API - under development
-Notes for discussion with Tim and Thomas
+# GraphQL API
+Not a stable API that should be used for production systems outside GBIFS.
 
-## Project structure
-Use node 16.*
-Run in dev (watch) with `npm start`. You will need an .env file with
+## Quick start
+The `.env`-file should be placed in root and can be found in `gbif-configuration/gbif-web`.
+
+Make sure you have the correct version on Node installed. We manage node versions with [nvm](https://github.com/nvm-sh/nvm). Type `nvm use` to install the required version. You can also do so manually, see `.nvmrc` for the required version.
+
 ```
-API_V1=https://api.gbif.org/v1
-APP_KEY
-APP_SECRET
+npm install
 ```
+
+Start developing with
+```
+npm run develop
+```
+
+It needs the [es-api](https://github.com/gbif/gbif-web/tree/master/packages/es-api) to start. Either running locally or pointing to a deployed version
 
 ## How deep to go
 How far to resolve.

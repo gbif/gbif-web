@@ -1,8 +1,16 @@
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { CollectionSearchPage } from './collectionSearch';
 
 export const collectionSearchRoute: RouteObjectWithPlugins = {
-  id: 'collection-search',
+  id: 'collectionSearch',
   path: 'collection/search',
-  element: <CollectionSearchPage />,
+  gbifRedirect: (_, { grSciCollLocalePrefix = '' }) => {
+    return `${import.meta.env.PUBLIC_GRSCICOLL}${grSciCollLocalePrefix}/collection/search`;
+  },
+  element: (
+    <ErrorBoundary>
+      <CollectionSearchPage />
+    </ErrorBoundary>
+  ),
 };

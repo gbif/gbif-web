@@ -4,4 +4,4 @@ import resolver from './news.resolver';
 export default {
   typeDef,
   resolver,
-}
+};

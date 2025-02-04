@@ -1,8 +1,8 @@
+import { GlobeQuery, GlobeQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { cn } from '@/utils/shadcn';
 import { useEffect } from 'react';
 import css from './globe.module.css';
-import { GlobeQuery, GlobeQueryVariables } from '@/gql/graphql';
 
 export default function Globe({
   lat,
@@ -20,7 +20,9 @@ export default function Globe({
   children?: React.ReactNode;
   isTrackingData?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>) {
-  const { data, error, loading, load } = useQuery<GlobeQuery, GlobeQueryVariables>(GLOBE, { lazyLoad: true });
+  const { data, error, loading, load } = useQuery<GlobeQuery, GlobeQueryVariables>(GLOBE, {
+    lazyLoad: true,
+  });
 
   useEffect(() => {
     if (typeof lat !== 'undefined') {
@@ -48,9 +50,9 @@ export default function Globe({
 }
 
 const GLOBE = /* GraphQL */ `
-query globe($lat: Float!, $lon: Float!){
-  globe(cLat: $lat, cLon: $lon) {
-    svg
+  query globe($lat: Float!, $lon: Float!) {
+    globe(cLat: $lat, cLon: $lon) {
+      svg
+    }
   }
-}
 `;

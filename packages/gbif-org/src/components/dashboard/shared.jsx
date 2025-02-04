@@ -82,12 +82,14 @@ export function Card({ padded = true, loading, error, className, children, ...pr
 
 export function CardHeader({ padded = true, options, children, ...props }) {
   return (
-    <CardHeaderSmall className='g-flex' {...props}>
-      <div className='g-flex'>
-        <div className='g-flex-auto'>{children}</div>
-        {options && <div className='g-flex-none'>
-          <div>{options}</div>
-        </div>}
+    <CardHeaderSmall className="g-flex" {...props}>
+      <div className="g-flex">
+        <div className="g-flex-auto">{children}</div>
+        {options && (
+          <div className="g-flex-none">
+            <div>{options}</div>
+          </div>
+        )}
       </div>
     </CardHeaderSmall>
   );
@@ -108,11 +110,11 @@ export function Table({ padded = true, removeBorder, ...props }) {
 export function BarItem({ children, percent = 0, ...props }) {
   return (
     <div
-      className='g-relative'
-    // css={css`position: relative;`}
+      className="g-relative"
+      // css={css`position: relative;`}
     >
       <div
-        className='g-absolute g-left-0 g-bg-primary g-opacity-20 g-rounded'
+        className="g-absolute g-left-0 g-bg-primary g-opacity-20 g-rounded"
         style={{ width: `${percent}%`, height: '1.6em' }}
         // css={css`
         //   position: absolute;
@@ -126,8 +128,8 @@ export function BarItem({ children, percent = 0, ...props }) {
         {...props}
       ></div>
       <div
-      className='g-z-10 g-ms-1'
-      // css={css`z-index: 1; margin-left: 6px;`}
+        className="g-z-10 g-ms-1"
+        // css={css`z-index: 1; margin-left: 6px;`}
       >
         {children}
       </div>

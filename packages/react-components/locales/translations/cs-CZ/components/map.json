@@ -1,0 +1,20 @@
+{
+    "styles": {
+        "satellite": "Satelitní",
+        "natural": "Příroda",
+        "bright": "Světlý",
+        "dark": "Tmavý",
+        "outdoor": "Venkovní"
+    },
+    "projections": {
+        "ARCTIC": "Arktický",
+        "MERCATOR": "Mercator",
+        "ANTARCTIC": "Antarktický",
+        "PLATE_CAREE": "Čtvercová projekce"
+    },
+    "failedToGetUserLocation": {
+        "title": "",
+        "message": ""
+    },
+    "filterByView": "Použít viditelnou oblast jako filtr"
+}

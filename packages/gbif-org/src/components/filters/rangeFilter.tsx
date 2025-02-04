@@ -1,73 +1,86 @@
 import { SearchInput } from '@/components/searchInput';
-import { Button } from '@/components/ui/button';
-import React, { useContext, useEffect, useState } from 'react';
-import {
-  MdDeleteOutline,
-  MdOutlineRemoveCircleOutline,
-  MdInfo,
-  MdInfoOutline,
-  MdShuffle,
-  MdPieChart,
-  MdPieChartOutline,
-} from 'react-icons/md';
-import { PiEmptyBold, PiEmptyFill } from 'react-icons/pi';
-import { TiArrowShuffle as InvertIcon } from 'react-icons/ti';
-import { cn } from '@/utils/shadcn';
 import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
-import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
-import useQuery from '@/hooks/useQuery';
-import hash from 'object-hash';
-import cloneDeep from 'lodash/cloneDeep';
-import { Suggest, SuggestionItem } from './suggest';
-import { HelpLine } from '@/components/helpText';
-import { FormattedMessage, FormattedNumber, IntlShape } from 'react-intl';
-import { SimpleTooltip } from '@/components/simpleTooltip';
-import { Option, SkeletonOption } from './option';
-import { FacetQuery, getAsQuery } from './filterTools';
 import { useSearchContext } from '@/contexts/search';
-import unionBy from 'lodash/unionBy';
+import { cn } from '@/utils/shadcn';
+import cloneDeep from 'lodash/cloneDeep';
+import React, { useContext, useEffect, useState } from 'react';
+import { MdDeleteOutline } from 'react-icons/md';
+import { PiEmptyBold } from 'react-icons/pi';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { SimpleTooltip } from '../simpleTooltip';
+import { AboutButton } from './aboutButton';
+import {
+  AdditionalFilterProps,
+  ApplyCancel,
+  ExistsSection,
+  filterRangeConfig,
+  FilterSummaryType,
+  getFilterSummary,
+} from './filterTools';
+import { Option } from './option';
 
-type RangeProps = {
-  className?: string;
-  searchConfig: FilterConfigType;
-  filterHandle: string;
-  DisplayName: React.FC<{ id: string }>;
-  facetQuery?: string;
-  getSuggestions?: ({ q, intl }: { q: string; intl?: IntlShape }) => Promise<SuggestionItem[]>;
-  onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
-  onCancel?: () => void;
-  pristine?: boolean;
-  regex?: RegExp;
-};
+type RangeProps = Omit<filterRangeConfig, 'filterType' | 'filterTranslation'> &
+  AdditionalFilterProps & {
+    className?: string;
+  };
 
-export const RangeFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
+export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
   (
     {
       className,
       searchConfig,
-      regex,
+      regex = /^((-)?[0-9]{0,10})(,)?((-)?[0-9]{0,10})$/,
       filterHandle,
-      DisplayName,
-      getSuggestions, // function that takes a query string and returns a promise of suggestions
+      displayName: DisplayName,
       onApply,
       onCancel,
       pristine,
+      about,
+      allowExistence,
     }: RangeProps,
     ref
   ) => {
     const searchContext = useSearchContext();
+    const { formatMessage } = useIntl();
     const currentFilterContext = useContext(FilterContext);
-    const { filter, toggle, add, setFullField, filterHash } = currentFilterContext;
+    const { filter, toggle, add, setFullField, setFilter, filterHash } = currentFilterContext;
     const [selected, setSelected] = useState<(string | number | object)[]>([]);
     const [filterBeforeHash, setFilterBeforeHash] = useState<string | undefined>(undefined);
     const [q, setQ] = useState<string>('');
-    const { upperBound = 'lte', lowerBound = 'gte', placeholder = 'E.g. 100,200' } = {};
+    const [backupFilter, setBackupFilter] = useState<FilterType | undefined>(undefined);
+    const [filterSummary, setFilterSummary] = useState<FilterSummaryType>(
+      getFilterSummary(filter, filterHandle)
+    );
+    const [filterType, setFilterType] = useState(
+      filterSummary?.isNotNull || filterSummary?.isNull ? 'EXISTS' : 'SELECT'
+    );
+    const {
+      upperBound = 'lte',
+      lowerBound = 'gte',
+      placeholder = 'search.placeholders.rangeExample',
+    } = {};
+
+    const About = about;
 
     useEffect(() => {
       // filter has changed updateed the listed of selected values
       const selectedList = filter?.must?.[filterHandle] ?? [];
       setSelected(selectedList);
-    }, [filterHash, filterHandle]);
+
+      const filterSummary = getFilterSummary(filter, filterHandle);
+      setFilterSummary(filterSummary);
+      // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filterHash, filterHandle, setFilterSummary]);
+
+    // watch filter summary and update filter type
+    useEffect(() => {
+      if (filterSummary?.isNotNull || filterSummary?.isNull) {
+        setFilterType('EXISTS');
+      } else {
+        setFilterType('SELECT');
+      }
+    }, [filterSummary]);
 
     const options = (
       <>
@@ -81,41 +94,56 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
               <MdDeleteOutline />
             </button>
           )}
-          {/* <SimpleTooltip delayDuration={300} title="Exclude selected">
-          <button
-            className="g-px-1"
-            onClick={() => {
-              // negateField('publishingOrg', true)
-            }}
-          >
-            <MdOutlineRemoveCircleOutline />
-          </button>
-        </SimpleTooltip> */}
-          {/* <SimpleTooltip delayDuration={300} title="Invert selection">
-          <button className="g-px-1">
-            <MdShuffle />
-          </button>
-        </SimpleTooltip>
-        <SimpleTooltip delayDuration={300} title="Filter by existence">
-          <button className="g-px-1">
-            <PiEmptyBold />
-          </button>
-        </SimpleTooltip> */}
 
-          <SimpleTooltip delayDuration={300} title="About this filter">
-            <span>
-              <HelpLine
-                id="how-to-link-datasets-to-my-project-page"
-                title={<MdInfoOutline className="-g-me-1" />}
-              />
-            </span>
-          </SimpleTooltip>
+          {allowExistence && (
+            <button
+              className="g-px-1"
+              onClick={() => {
+                const backup = cleanUpFilter(cloneDeep(filter));
+                setBackupFilter(backup);
+                setFullField(filterHandle, [{ type: 'isNotNull' }], []);
+              }}
+            >
+              <SimpleTooltip
+                delayDuration={300}
+                title={<FormattedMessage id="filterSupport.existence" />}
+                asChild
+              >
+                <span>
+                  <PiEmptyBold />
+                </span>
+              </SimpleTooltip>
+            </button>
+          )}
+
+          {About && (
+            <AboutButton className="-g-me-1">
+              <About />
+            </AboutButton>
+          )}
         </div>
       </>
     );
 
+    if (filterType === 'EXISTS') {
+      return (
+        <ExistsSection
+          className={className}
+          backupFilter={backupFilter}
+          setFilter={setFilter}
+          setFullField={setFullField}
+          filterHandle={filterHandle}
+          About={About}
+          filterSummary={filterSummary}
+          onApply={onApply}
+          onCancel={onCancel}
+          pristine={pristine}
+        />
+      );
+    }
+
     return (
-      <div className="g-flex g-flex-col">
+      <div className={cn('g-flex g-flex-col g-max-h-[100dvh]', className)}>
         <div className="g-flex g-flex-none">
           <div className="g-p-2 g-w-full g-relative g-group">
             <SearchInput
@@ -131,9 +159,9 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                   setQ(value);
                 }
               }}
-              placeholder="Search"
+              placeholder={formatMessage({ id: placeholder })}
               className="g-w-full g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset"
-              onKeyUp={(e) => {
+              onKeyDown={(e) => {
                 // if user press enter, then update the value
                 const value = e.currentTarget.value;
                 if (e.key === 'Enter') {
@@ -142,30 +170,11 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                     // const filters = unionBy([q], selected, hash);
                     add(filterHandle, rangeQuery);
                     setQ('');
+                    e.preventDefault();
                   } else {
                     onApply?.();
                   }
                 }
-                // const value = e.currentTarget.value;
-                // if (e.which === keyCodes.ENTER) {
-                //   if (value === '') {
-                //     onApply({ filter, hide });
-                //   } else {
-                //     const q = rangeOrTerm(value, upperBound, lowerBound);
-                //     setValue('');
-                //     const allOptions = unionBy([q], options, hash);
-                //     setOptions(allOptions);
-                //     if (singleSelect) {
-                //       setOptions([q]);
-                //       setFullField(filterHandle, [q], [])
-                //         .then(responseFilter => onApply({ filter: responseFilter, hide }))
-                //         .catch(err => console.log(err));
-                //     } else {
-                //       toggle(filterHandle, q);
-                //     }
-                //     // toggle(filterHandle, q);
-                //   }
-                // }
               }}
             />
             {/* {selected.length === 0 && <div className="g-hidden group-focus-within:g-block g-pointer-events-none g-absolute g-text-white g-text-sm g-bg-slate-500 g-p-4 g-border g-shadow-md g-left-0 g-right-0 g-mx-2 g-rounded">
@@ -180,13 +189,17 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
           )}
         >
           {selected.length > -1 && (
-            <div className="g-flex-none g-text-xs g-font-bold">{selected?.length} selected</div>
+            <div className="g-flex-none g-text-xs g-font-bold">
+              <FormattedMessage id="counts.nSelected" values={{ total: selected?.length }} />
+            </div>
           )}
           {options}
         </div>
-        {selected.length === 0 && <div className="g-pointer-events-none g-text-slate-700 g-text-sm g-bg-slate-100 g-p-4 g-border g-left-0 g-right-0 g-mx-2 g-rounded">
-          Enter a range or a single value. E.g. 100,200 or 100. Or use blanks to have open ends like: 100,
-        </div>}
+        {selected.length === 0 && (
+          <div className="g-pointer-events-none g-text-slate-700 g-text-sm g-bg-slate-100 g-p-4 g-border g-left-0 g-right-0 g-mx-2 g-rounded">
+            <FormattedMessage id="filterSupport.rangeHelp" />
+          </div>
+        )}
         <div className="g-flex-auto g-overflow-auto">
           {selected.length > 0 && (
             <div className={cn('g-text-base g-mt-2 g-px-4', className)}>
@@ -198,7 +211,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                       <FormattedMessage
                         id={`intervals.description.e`}
                         defaultMessage={'Filter name'}
-                        values={{ is: option }}
+                        values={{ from: option }}
                       />
                     );
                   } else if (option?.type === 'equals') {
@@ -206,7 +219,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                       <FormattedMessage
                         id={`intervals.description.e`}
                         defaultMessage={'Filter name'}
-                        values={{ is: option.value }}
+                        values={{ from: option.value, is: option.value }}
                       />
                     );
                   } else {
@@ -256,23 +269,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
             </div>
           )}
         </div>
-        {onApply && onCancel && (
-          <div className="g-flex-none g-py-2 g-px-2 g-flex g-justify-between">
-            <Button size="sm" variant="outline" onClick={onCancel}>
-              Cancel
-            </Button>
-            {!pristine && (
-              <Button
-                type="submit"
-                role="button"
-                size="sm"
-                onClick={() => onApply({ keepOpen: false })}
-              >
-                Apply
-              </Button>
-            )}
-          </div>
-        )}
+        <ApplyCancel onApply={onApply} onCancel={onCancel} pristine={pristine} />
       </div>
     );
   }
@@ -300,7 +297,7 @@ export function rangeOrTerm(value, lowerBound = 'gte', upperBound = 'lte') {
       value: value,
     };
   } else {
-    let values = value.split(delimter);
+    const values = value.split(delimter);
     const cleanedValues = values
       .map((s) => s.trim())
       .map((s) => (s === '*' || s === '' ? undefined : s));

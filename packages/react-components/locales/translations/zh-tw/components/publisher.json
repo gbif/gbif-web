@@ -12,6 +12,7 @@
   "hosting": "託管",
   "description": "描述",
   "endorsedBy": "認可者：",
+  "notYetEndorsed": "GBIF 註記的存檔",
   "pendingEndorsementBy": "待認可",
   "endorsementWithheld": "認可保留中",
   "installations": "安裝",

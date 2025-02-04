@@ -1,10 +1,10 @@
-import * as React from 'react';
 import { type DialogProps } from '@radix-ui/react-dialog';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { Command as CommandPrimitive } from 'cmdk';
+import * as React from 'react';
 
-import { cn } from '@/utils/shadcn';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { cn } from '@/utils/shadcn';
 
 const Command = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive>,
@@ -26,7 +26,7 @@ interface CommandDialogProps extends DialogProps {}
 const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
   return (
     <Dialog {...props}>
-      <DialogContent className="g-overflow-hidden g-p-0">
+      <DialogContent className="gbif g-overflow-hidden g-p-0">
         <Command className="[&_[cmdk-group-heading]]:g-px-2 [&_[cmdk-group-heading]]:g-font-medium [&_[cmdk-group-heading]]:g-text-muted-foreground [&_[cmdk-group]:g-not([hidden])_~[cmdk-group]] [&_[cmdk-group]]:g-px-2 [&_[cmdk-input-wrapper]_svg]:g-h-5 [&_[cmdk-input-wrapper]_svg]:g-w-5 [&_[cmdk-input]]:g-h-12 [&_[cmdk-item]]:g-px-2 [&_[cmdk-item]]:g-py-3 [&_[cmdk-item]_svg]:g-h-5 [&_[cmdk-item]_svg]:g-w-5">
           {children}
         </Command>
@@ -133,11 +133,11 @@ CommandShortcut.displayName = 'CommandShortcut';
 export {
   Command,
   CommandDialog,
-  CommandInput,
-  CommandList,
   CommandEmpty,
   CommandGroup,
+  CommandInput,
   CommandItem,
-  CommandShortcut,
+  CommandList,
   CommandSeparator,
+  CommandShortcut,
 };

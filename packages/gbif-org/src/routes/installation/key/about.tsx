@@ -1,16 +1,3 @@
-import { useEffect, useState } from 'react';
-import {
-  InstallationDatasetsQuery,
-  InstallationDatasetsQueryVariables,
-  InstallationQuery,
-} from '@/gql/graphql';
-import useQuery from '@/hooks/useQuery';
-import { DatasetResult } from '@/routes/dataset/datasetResult';
-import { CardListSkeleton } from '@/components/skeletonLoaders';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import Properties, { Property } from '@/components/properties';
-import { FormattedMessage } from 'react-intl';
-import { DynamicLink } from '@/reactRouterPlugins';
 import {
   ContactActions,
   ContactAvatar,
@@ -23,6 +10,15 @@ import {
   ContactTitle,
 } from '@/components/contact';
 import { PaginationFooter } from '@/components/pagination';
+import Properties, { Property } from '@/components/properties';
+import { CardListSkeleton } from '@/components/skeletonLoaders';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { InstallationDatasetsQuery, InstallationDatasetsQueryVariables } from '@/gql/graphql';
+import useQuery from '@/hooks/useQuery';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { DatasetResult } from '@/routes/dataset/datasetResult';
+import { useEffect, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useInstallationKeyLoaderData } from '.';
 
 export function InstallationKeyAbout() {
@@ -83,6 +79,8 @@ export function InstallationKeyAbout() {
                 <Property labelId={'installation.hostedBy'}>
                   <DynamicLink
                     to={`/publisher/${installation.organization.key}`}
+                    pageId="publisherKey"
+                    variables={{ key: installation.organization.key }}
                     className="g-underline"
                   >
                     {installation.organization.title}

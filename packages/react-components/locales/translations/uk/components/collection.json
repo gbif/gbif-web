@@ -1,6 +1,8 @@
 {
+  "institutionUnknown": "Установа невідома",
   "contentTypes": "Вміст колекції",
   "preservationTypes": "Типи зберігання",
   "personalCollection": "Приватна колекція",
-  "accessionStatus": "Можливість доступу"
+  "accessionStatus": "Можливість доступу",
+  "numberSpecimens": "Кількість зразків у колекції"
 }

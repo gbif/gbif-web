@@ -1,28 +1,23 @@
+import { OccurrenceQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
-import { OccurrenceKey, occurrenceKeyLoader, OccurrenceKeySkeleton } from './occurrenceKey';
 import { OccurrenceKeyAbout } from './about';
 import { OccurrenceKeyCluster } from './cluster';
-import { OccurrenceKeyPhylo } from './phylogenies';
 import { OccurrenceFragment, occurrenceFragmentLoader } from './fragment';
-import { OccurrenceQuery } from '@/gql/graphql';
+import { OccurrenceKey, occurrenceKeyLoader, OccurrenceKeySkeleton } from './occurrenceKey';
+import { OccurrenceKeyPhylo } from './phylogenies';
 
-const id = 'occurrence-key';
+const id = 'occurrenceKey';
 
 export const occurrenceKeyRoutes: RouteObjectWithPlugins[] = [
-  // Used by standalone occurrence key page to show loading before the data is loaded
-  {
-    id: id + '-loading',
-    path: 'occurrence/loading',
-    element: <OccurrenceKeySkeleton />,
-  },
   {
     id,
     path: 'occurrence/:key',
     loader: occurrenceKeyLoader,
-    gbifRedirect: (params) => {
-      if (typeof params.key !== 'string') throw new Error('Invalid key');
-      if (params.key === 'search') return null;
-      return `/occurrence/${params.key}`;
+    gbifRedirect: ({ key } = {}, { gbifOrgLocalePrefix = '' }) => {
+      if (typeof key !== 'string' && typeof key !== 'number')
+        throw new Error(`'Invalid key (key is of type ${typeof key})`);
+      if (key === 'search') return null;
+      return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/occurrence/${key}`;
     },
     loadingElement: <OccurrenceKeySkeleton />,
     element: <OccurrenceKey />,

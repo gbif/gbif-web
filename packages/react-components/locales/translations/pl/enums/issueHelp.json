@@ -1,0 +1,7 @@
+{
+  "TAXONOMIC_STATUS_MISMATCH": "(brak opisu)",
+  "TITLE_MISSING_OR_TOO_SHORT": "Brak tytułu bazy danych lub jest on zbyt krótki",
+  "CLASSIFICATION_RANK_ORDER_INVALID": "(brak opisu)",
+  "PARENT_NAME_USAGE_ID_INVALID": "(brak opisu)",
+  "DESCRIPTION_MISSING_OR_TOO_SHORT": "Brak opisu bazy danych lub jest on zbyt krótki"
+}

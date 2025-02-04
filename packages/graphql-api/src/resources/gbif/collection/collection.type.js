@@ -31,7 +31,7 @@ const typeDef = gql`
 
       recordedBy: [String!]
       descriptorCountry: [Country!]
-      typeStatus: [TypeStatus!]
+      typeStatus: [String!]
       taxonKey: [ID!]
       query: CollectionSearchInput
     ): CollectionSearchResults
@@ -64,7 +64,7 @@ const typeDef = gql`
     displayOnNHCPortal: [Boolean!]
     recordedBy: [String!]
     descriptorCountry: [Country!]
-    typeStatus: [TypeStatus!]
+    typeStatus: [String!]
     taxonKey: [ID!]
     sortBy: CollectionsSortField
     sortOrder: SortOrder
@@ -84,23 +84,39 @@ const typeDef = gql`
   type CollectionFacet {
     institutionKey(limit: Int, offset: Int): [CollectionFacetResult]
     country(limit: Int, offset: Int): [CollectionFacetResult]
+    city(limit: Int, offset: Int): [CollectionFacetResult]
     kingdomKey(limit: Int, offset: Int): [CollectionFacetResult]
     phylumKey(limit: Int, offset: Int): [CollectionFacetResult]
+    classKey(limit: Int, offset: Int): [CollectionFacetResult]
+    orderKey(limit: Int, offset: Int): [CollectionFacetResult]
+    familyKey(limit: Int, offset: Int): [CollectionFacetResult]
+    genusKey(limit: Int, offset: Int): [CollectionFacetResult]
+    speciesKey(limit: Int, offset: Int): [CollectionFacetResult]
+    recordedBy(limit: Int, offset: Int): [CollectionFacetResult]
     descriptorCountry(limit: Int, offset: Int): [CollectionFacetResult]
     contentType(limit: Int, offset: Int): [CollectionFacetResult]
     preservationType(limit: Int, offset: Int): [CollectionFacetResult]
     accessionStatus(limit: Int, offset: Int): [CollectionFacetResult]
+    typeStatus(limit: Int, offset: Int): [CollectionFacetResult]
   }
 
   type CollectionCardinality {
     institutionKey(limit: Int, offset: Int): Int!
     country(limit: Int, offset: Int): Int!
+    city(limit: Int, offset: Int): Int!
     kingdomKey(limit: Int, offset: Int): Int!
     phylumKey(limit: Int, offset: Int): Int!
+    classKey(limit: Int, offset: Int): Int!
+    orderKey(limit: Int, offset: Int): Int!
+    familyKey(limit: Int, offset: Int): Int!
+    genusKey(limit: Int, offset: Int): Int!
+    speciesKey(limit: Int, offset: Int): Int!
+    recordedBy(limit: Int, offset: Int): Int!
     descriptorCountry(limit: Int, offset: Int): Int!
     contentType(limit: Int, offset: Int): Int!
     preservationType(limit: Int, offset: Int): Int!
     accessionStatus(limit: Int, offset: Int): Int!
+    typeStatus(limit: Int, offset: Int): Int!
   }
 
   type CollectionInstitutionFacet {
@@ -123,10 +139,10 @@ const typeDef = gql`
     description: String
     country: Country
     city: String
-    contentTypes: [String!]
+    contentTypes: [String!]!
     active: Boolean
     personalCollection: Boolean
-    preservationTypes: [String!]
+    preservationTypes: [String!]!
     accessionStatus: String
     institutionKey: ID
     institutionName: String
@@ -135,13 +151,13 @@ const typeDef = gql`
     taxonomicCoverage: String
     geographicCoverage: String
     temporalCoverage: String
-    alternativeCodes: [AlternativeCode]
+    alternativeCodes: [AlternativeCode!]!
     occurrenceCount: Long
     typeSpecimenCount: Long
     featuredImageUrl: String
     featuredImageLicense: License
     thumbor(width: Int, height: Int, fitIn: Boolean): String
-    descriptorMatches: [DescriptorMatches!]
+    descriptorMatches: [DescriptorMatches!]!
     excerpt: String
   }
 
@@ -153,10 +169,11 @@ const typeDef = gql`
     usageRank: Rank
     country: Country
     individualCount: Long
-    issues: [OccurrenceIssue!]
-    recordedBy: [String!]
-    typeStatus: [TypeStatus!]
-    identifiedBy: [String!]
+    issues: [OccurrenceIssue!]!
+    recordedBy: [String!]!
+    typeStatus: [String!]!
+    identifiedBy: [String!]!
+    taxon: Taxon
   }
 
   type CollectionDescriptorGroupResults {
@@ -164,7 +181,7 @@ const typeDef = gql`
     limit: Int
     endOfRecords: Boolean
     count: Int
-    results: [CollectionDescriptorGroup]
+    results: [CollectionDescriptorGroup]!
   }
 
   type CollectionDescriptorGroup {
@@ -197,7 +214,7 @@ const typeDef = gql`
     issues: [OccurrenceIssue!]
     taxonClassification: [Classification!]
     recordedBy: [String!]
-    typeStatus: [TypeStatus!]
+    typeStatus: [String!]
     identifiedBy: [String!]
   }
 
@@ -206,16 +223,16 @@ const typeDef = gql`
     code: String
     name: String
     description: String
-    contentTypes: [String!]
+    contentTypes: [String!]!
     active: Boolean
     personalCollection: Boolean
     doi: String
-    email: [String!]
-    phone: [String!]
+    email: [String!]!
+    phone: [String!]!
     homepage: URL
-    catalogUrls: [String!]
-    apiUrls: [String!]
-    preservationTypes: [String!]
+    catalogUrls: [String!]!
+    apiUrls: [String!]!
+    preservationTypes: [String!]!
     accessionStatus: String
     institutionKey: ID
     institution: Institution
@@ -228,20 +245,20 @@ const typeDef = gql`
     deleted: DateTime
     replacedBy: ID
     replacedByCollection: Collection
-    tags:[Tag]
-    identifiers: [Identifier!]
+    tags: [Tag]!
+    identifiers: [Identifier!]!
     """
     The contacts type is deprecated and will no longer be updated
     """
-    contacts: [StaffMember]
+    contacts: [StaffMember]!
     contactPersons: [ContactPerson!]!
     numberSpecimens: Int
-    machineTags: [MachineTag]
+    machineTags: [MachineTag]!
     taxonomicCoverage: String
     geographicCoverage: String
     temporalCoverage: String
     notes: String
-    incorporatedCollections: [String]
+    incorporatedCollections: [String]!
     """
     Deprecated
     """
@@ -250,7 +267,7 @@ const typeDef = gql`
     Deprecated
     """
     collectionSummary: JSON
-    alternativeCodes: [AlternativeCode]
+    alternativeCodes: [AlternativeCode!]!
     comments: Comment
 
     featuredImageUrl: String
@@ -259,7 +276,10 @@ const typeDef = gql`
     """
     This can be used as a backup, but since it works by fetching the homepage url and extracting the open graph tags it can be slow. Use with caution.
     """
-    homepageOGImageUrl_volatile: String
+    homepageOGImageUrl_volatile(
+      onlyIfNoImageUrl: Boolean
+      timeoutMs: Int
+    ): String
 
     occurrenceCount: Int
     excerpt: String

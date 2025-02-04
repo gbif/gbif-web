@@ -6,6 +6,9 @@ export default {
   metadata: {
     'gb:reproject': false,
   },
+  sprite: 'https://openmaptiles.github.io/positron-gl-style/sprite',
+  glyphs:
+    'https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=wFxbBf3Tv2e75QQfYOOW',
   sources: {
     openmaptiles: {
       type: 'raster',

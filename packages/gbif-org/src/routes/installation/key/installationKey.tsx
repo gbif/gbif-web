@@ -1,22 +1,24 @@
+import { DataHeader } from '@/components/dataHeader';
+import {
+  defaultDateFormatProps,
+  DeletedMessage,
+  HeaderInfo,
+  HeaderInfoMain,
+} from '@/components/headerComponents';
+import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
 import { InstallationQuery, InstallationQueryVariables } from '@/gql/graphql';
-import { required } from '@/utils/required';
-import { Helmet } from 'react-helmet-async';
-import { Outlet, useLoaderData } from 'react-router-dom';
+import { LoaderArgs } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
-import { FormattedDate, FormattedMessage } from 'react-intl';
-import {
-  DeletedMessage,
-  HeaderInfo,
-  HeaderInfoMain,
-  defaultDateFormatProps,
-} from '@/components/headerComponents';
-import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { LoaderArgs } from '@/reactRouterPlugins';
+import { required } from '@/utils/required';
+import { Helmet } from 'react-helmet-async';
+import { FormattedDate, FormattedMessage } from 'react-intl';
+import { Outlet, useLoaderData } from 'react-router-dom';
+import { AboutContent, ApiContent } from './help';
 
 const INSTALLATION_QUERY = /* GraphQL */ `
   query Installation($key: ID!) {
@@ -71,13 +73,17 @@ export function InstallationPage() {
   const deletedAt = installation.deleted;
 
   return (
-    <article>
+    <article className="g-bg-background">
       <Helmet>
         <title>{installation.title}</title>
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
+      <DataHeader
+        aboutContent={<AboutContent />}
+        apiContent={<ApiContent id={installation?.key?.toString()} />}
+      ></DataHeader>
 
-      <PageContainer topPadded bottomPadded className="g-bg-background">
+      <PageContainer topPadded hasDataHeader>
         <ArticleTextContainer className="g-max-w-screen-lg">
           <ArticlePreTitle
             secondary={

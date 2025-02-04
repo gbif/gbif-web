@@ -1,10 +1,10 @@
-import { DynamicLink } from '@/reactRouterPlugins';
-import { DatasetResultFragment, DatasetStubResultFragment } from '@/gql/graphql';
-import { fragmentManager } from '@/services/fragmentManager';
-import { FormattedMessage } from 'react-intl';
 import { MapThumbnail, MapTypes } from '@/components/mapThumbnail';
 import { CountTag, Tag } from '@/components/resultCards';
 import { Card } from '@/components/ui/largeCard';
+import { DatasetResultFragment, DatasetStubResultFragment } from '@/gql/graphql';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { fragmentManager } from '@/services/fragmentManager';
+import { FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment DatasetStubResult on DatasetSearchStub {
@@ -28,32 +28,43 @@ fragmentManager.register(/* GraphQL */ `
 
 export function DatasetResult({
   dataset,
+  hidePublisher,
 }: {
   dataset: DatasetStubResultFragment | DatasetResultFragment;
+  hidePublisher: boolean;
 }) {
   return (
     <Card className="g-mb-4">
-      <article className="g-p-8">
+      <article className="g-p-4 lg:g-p-8">
         <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
           <div className="g-flex-grow">
             <h3 className="g-text-base g-font-semibold g-mb-2">
-              <DynamicLink to={`/dataset/${dataset.key}`}>{dataset.title}</DynamicLink>
+              <DynamicLink
+                className="hover:g-text-primary-500"
+                pageId="datasetKey"
+                variables={{ key: dataset.key }}
+              >
+                {dataset.title}
+              </DynamicLink>
             </h3>
             {dataset.excerpt && (
-              <p className="g-font-normal g-text-slate-700 g-text-sm">{dataset.excerpt}</p>
+              <p className="g-font-normal g-text-slate-700 g-text-sm g-break-words">
+                {dataset.excerpt}
+              </p>
             )}
             {!dataset.excerpt && (
               <p className="g-font-normal g-text-slate-400 g-text-sm">
                 <FormattedMessage id="phrases.noDescriptionProvided" />
               </p>
             )}
-
-            <p className="g-font-normal g-text-slate-500 g-text-sm g-mt-2">
-              <FormattedMessage id="dataset.publishedBy" />{' '}
-              <span>{dataset.publishingOrganizationTitle}</span>
-            </p>
+            {!hidePublisher && (
+              <p className="g-font-normal g-text-slate-500 g-text-sm g-mt-2">
+                <FormattedMessage id="dataset.publishedBy" />{' '}
+                <span>{dataset.publishingOrganizationTitle}</span>
+              </p>
+            )}
           </div>
-          <div className="g-max-w-48 md:g-max-w-64 ">
+          <div className="g-max-w-48 md:g-max-w-64 g-flex-none">
             <MapThumbnail
               type={MapTypes.DatasetKey}
               identifier={dataset.key}
@@ -66,7 +77,7 @@ export function DatasetResult({
           <Tag>
             <FormattedMessage id={`dataset.longType.${dataset.type}`} />
           </Tag>
-          <div className="g-flex-grow"></div>
+          <div className="g-flex-grow g-hidden sm:g-block"></div>
           <CountTag
             v1Endpoint="/occurrence/search"
             params={{ datasetKey: dataset.key }}

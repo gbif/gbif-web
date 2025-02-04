@@ -1,19 +1,20 @@
-import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
-import { networkLoader, NetworkPage, NetworkPageSkeleton } from './networkKey';
-import { NetworkKeyAbout } from './about';
-import { NetworkKeyMetrics } from './metrics';
-import { NetworkKeyDataset } from './dataset';
-import { NetworkKeyPublisher } from './publisher';
 import { NetworkQuery } from '@/gql/graphql';
+import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
+import { NetworkKeyAbout } from './about';
+import { NetworkKeyDataset } from './dataset';
+import { NetworkKeyMetrics } from './metrics';
+import { networkLoader, NetworkPage, NetworkPageSkeleton } from './networkKey';
+import { NetworkKeyPublisher } from './publisher';
 
-const id = 'network-key';
+const id = 'networkKey';
 
 export const networkKeyRoute: RouteObjectWithPlugins = {
   id,
-  gbifRedirect: (params) => {
-    if (typeof params.key !== 'string') throw new Error('Invalid key');
-    if (params.key === 'search') return null;
-    return `/network/${params.key}`;
+  gbifRedirect: ({ key } = {}, { gbifOrgLocalePrefix = '' }) => {
+    if (typeof key !== 'string' && typeof key !== 'number')
+      throw new Error(`'Invalid key (key is of type ${typeof key})`);
+    if (key === 'search') return null;
+    return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/network/${key}`;
   },
   path: 'network/:key',
   loader: networkLoader,

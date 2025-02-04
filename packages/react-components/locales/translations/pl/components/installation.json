@@ -4,5 +4,6 @@
   "homepage": "Strona główna",
   "installationType": "Typ instalacji",
   "hostedBy": "Udostępniane przez",
-  "registered": "Zarejestrowano"
+  "registered": "Zarejestrowano",
+  "endpoints": "Endpoint"
 }

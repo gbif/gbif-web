@@ -1,5 +1,5 @@
-import { shadeHexColor, shadeBlend, colourIsLight } from './colorUtils';
-import { defaultTheme, darkTheme } from './baseThemes';
+import { darkTheme, defaultTheme } from './baseThemes';
+import { colourIsLight, shadeBlend, shadeHexColor } from './colorUtils';
 import { Theme } from './theme';
 
 /**

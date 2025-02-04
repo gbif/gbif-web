@@ -11,14 +11,17 @@ export default (app) => {
 // GBIF Natural
 router.get('/simplify/gadm/:level/:id', async (req, res, next) => {
   try {
-    const response = await axios.get(`https://api.gbif-uat.org/v1/geocode/feature/gadm${req.params.level}.json?id=${req.params.id}`);
+    const response = await axios.get(
+      `https://api.gbif-uat.org/v1/geocode/feature/gadm${req.params.level}.json?id=${req.params.id}`,
+    );
     let geojson = response.data;
 
     const input = {
       'input.geojson': JSON.stringify(geojson),
-      percentage: 0.1
+      percentage: 0.1,
     };
-    const cmd = '-i input.geojson -simplify resolution=100x100 -o output.geojson';
+    const cmd =
+      '-i input.geojson -simplify resolution=100x100 -o output.geojson';
 
     // using Promise
     const output = await mapshaper.applyCommands(cmd, input);

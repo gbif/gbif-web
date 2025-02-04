@@ -1,5 +1,6 @@
 import { Skeleton } from '@/components/ui/skeleton';
-import { Config, useConfig } from '@/config/config';
+import { Config, LanguageOption, useConfig } from '@/config/config';
+import { useI18n } from '@/reactRouterPlugins';
 import { CANCEL_REQUEST } from '@/utils/fetchWithCancel';
 import React, { useEffect } from 'react';
 import { IntlShape, useIntl } from 'react-intl';
@@ -8,6 +9,7 @@ export type DisplayNameGetDataProps = {
   id: string | number | object;
   intl: IntlShape;
   config: Config;
+  currentLocale: LanguageOption;
 };
 
 export type DisplayNameResponseType = {
@@ -23,15 +25,12 @@ export default function DisplayName({
   id,
   useHtml,
 }: {
-  getData: ({
-    id,
-    intl,
-    config,
-  }: DisplayNameGetDataProps) => DisplayNameResponseType;
+  getData: ({ id, intl, config }: DisplayNameGetDataProps) => DisplayNameResponseType;
   id: string | number | object;
   useHtml: boolean;
 }) {
   const intl = useIntl();
+  const { locale: currentLocale } = useI18n();
   const config = useConfig();
   const [title, setTitle] = React.useState<string | number | React.ReactElement | undefined>(
     undefined
@@ -41,7 +40,7 @@ export default function DisplayName({
   useEffect(() => {
     if (typeof id === 'undefined') return;
     setLoading(true);
-    const { promise, cancel } = getData({ id, intl, config });
+    const { promise, cancel } = getData({ id, intl, config, currentLocale });
 
     if (promise) {
       promise
@@ -68,7 +67,7 @@ export default function DisplayName({
       }
       setTitle(undefined);
     };
-  }, [id, useHtml, getData, config, intl]);
+  }, [id, useHtml, getData, config, intl, currentLocale]);
 
   if (loading) {
     return (
@@ -79,15 +78,11 @@ export default function DisplayName({
   }
 
   if (title) {
-    return (
-      useHtml ? (
-        <span dangerouslySetInnerHTML={{ __html: title.toString() }}></span>
-      ) : (
-        <span>{title}</span>
-      )
-    )
+    return useHtml ? (
+      <span dangerouslySetInnerHTML={{ __html: title.toString() }}></span>
+    ) : (
+      <span>{title}</span>
+    );
   }
-  return <span className="g-text-red-700">
-    {id.toString()}
-  </span>
+  return <span className="g-text-red-700">{id?.toString() || 'Failed to load'}</span>;
 }

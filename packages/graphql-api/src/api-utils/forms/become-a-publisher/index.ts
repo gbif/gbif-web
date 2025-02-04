@@ -83,8 +83,8 @@ export function registerBecomeAPublisherForm(router: Router) {
         console.log(response);
         res.status(201).json({ success: true });
       } catch (error) {
-        logger.error({ 
-          message: 'Failed to create publisher', 
+        logger.error({
+          message: 'Failed to create publisher',
           error,
           body: req.body,
         });

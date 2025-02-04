@@ -4,8 +4,11 @@
   "title": "Название",
   "registered": "Зарегистрирована",
   "pubDatasets": "{NUMBER, plural,\n0 {Опубликованных наборов данных}\none {Опубликованный набор данных}\nfew {Опубликованных набора данных}\nmany {Опубликованных наборов данных}\nother {Опубликованных набора данных}\n}",
+  "parents": "Предки",
   "institution": "Организация",
   "collection": "Коллекция",
   "collectionCount": "Коллекции",
-  "active": "Активен"
+  "active": "Активен",
+  "activeInstitution": "Действует",
+  "activeCollection": "Действует"
 }

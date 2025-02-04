@@ -1,4 +1,4 @@
-import { getHtml, excerpt } from '#/helpers/utils';
+import { excerpt, getHtml } from '#/helpers/utils';
 import { getFacet } from '../getQueryMetrics';
 import { getContributors } from './helpers/contributors';
 
@@ -111,6 +111,10 @@ export const Dataset = {
   ) => {
     if (typeof key === 'undefined') return null;
     return dataSources.organizationAPI.getOrganizationByKey({ key });
+  },
+  identifiers: ({ identifiers }, { limit }) => {
+    // cap the number of identifiers returned
+    return identifiers.slice(0, limit);
   },
   parentDataset: ({ parentDatasetKey: key }, args, { dataSources }) => {
     if (typeof key === 'undefined') return null;

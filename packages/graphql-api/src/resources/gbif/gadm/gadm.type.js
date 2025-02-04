@@ -15,7 +15,7 @@ const typeDef = gql`
     variantName: [String]
   }
   type GadmHigherRegions {
-    id: String 
+    id: String
     name: String
   }
 `;

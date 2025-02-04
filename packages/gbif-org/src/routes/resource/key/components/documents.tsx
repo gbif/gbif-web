@@ -1,12 +1,12 @@
-import { cn } from '@/utils/shadcn';
-import { MdArchive, MdAudiotrack, MdFileDownload, MdImage, MdVideocam } from 'react-icons/md';
-import { BsTable, BsFilePdfFill as PdfIcon } from 'react-icons/bs';
-import { LuPresentation as PresentationIcon } from 'react-icons/lu';
-import { GrTextAlignLeft } from 'react-icons/gr';
-import styles from './documents.module.css';
-import { fragmentManager } from '@/services/fragmentManager';
-import { DocumentPreviewFragment } from '@/gql/graphql';
 import { Separator } from '@/components/ui/separator';
+import { DocumentPreviewFragment } from '@/gql/graphql';
+import { fragmentManager } from '@/services/fragmentManager';
+import { cn } from '@/utils/shadcn';
+import { BsFilePdfFill as PdfIcon, BsTable } from 'react-icons/bs';
+import { GrTextAlignLeft } from 'react-icons/gr';
+import { LuPresentation as PresentationIcon } from 'react-icons/lu';
+import { MdArchive, MdAudiotrack, MdFileDownload, MdImage, MdVideocam } from 'react-icons/md';
+import styles from './documents.module.css';
 
 fragmentManager.register(/* GraphQL */ `
   fragment DocumentPreview on DocumentAsset {
@@ -34,10 +34,10 @@ export function Documents({ documents, className }: Props) {
       {documents.filter(isValid).map((document, index) => (
         <li
           key={index}
-          className='g-border g-border-transparent hover:g-border-slate-100 g-p-3 hover:g-shadow-md dark:g-bg-zinc-800 dark:g-text-slate-800 g-text-white'
+          className="g-border g-border-transparent hover:g-border-slate-100 g-p-3 hover:g-shadow-md dark:g-bg-zinc-800 dark:g-text-slate-800 g-text-white"
         >
           <a
-            className='g-flex g-flex-row g-cursor-pointer'
+            className="g-flex g-flex-row g-cursor-pointer"
             href={document?.file?.url ?? ''}
             target="_blank"
             rel="noopener noreferrer"
@@ -65,12 +65,12 @@ function DocumentContnet({ document }: { document: DocumentPreviewFragment }) {
       <div className={`${color} g-me-4 ${styles.note} g-flex-none`}>
         <div>{content}</div>
       </div>
-      <div className='g-break-word dark:g-text-slate-200 g-text-slate-500'>
-        <div className='g-font-medium'>{document?.title ?? document?.file?.fileName}</div>
-        <div className='g-text-sm g-text-slate-400 g-flex g-gap-2 g-items-center'>
+      <div className="g-break-word dark:g-text-slate-200 g-text-slate-500">
+        <div className="g-font-medium">{document?.title ?? document?.file?.fileName}</div>
+        <div className="g-text-sm g-text-slate-400 g-flex g-gap-2 g-items-center">
           {showSize && <span>{getFormattedBits(document?.file?.details?.size ?? 0)}</span>}
           {showSize && extension.length < 5 && (
-            <Separator orientation="vertical" className='g-h-4 g-w-[2px] g-bg-slate-200' />
+            <Separator orientation="vertical" className="g-h-4 g-w-[2px] g-bg-slate-200" />
           )}
           {extension.length < 5 && <span>.{extension}</span>}
         </div>

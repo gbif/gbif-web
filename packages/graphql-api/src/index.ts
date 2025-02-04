@@ -1,19 +1,18 @@
-import express from 'express';
-import cors from 'cors';
-import compression from 'compression';
+import { ApolloServerPluginCacheControl } from 'apollo-server-core';
 import { ApolloServer } from 'apollo-server-express';
-import {
-  ApolloServerPluginCacheControl,
-} from 'apollo-server-core';
-import { get } from 'lodash';
 import bodyParser from 'body-parser';
+import compression from 'compression';
+import cors from 'cors';
+import express from 'express';
+import { get } from 'lodash';
+import { setMaxListeners } from 'node:events';
 // recommended in the apollo docs https://github.com/stems/graphql-depth-limit
 import depthLimit from 'graphql-depth-limit';
 
 // Local imports
 import config from './config';
-import { hashMiddleware, graphqlExplorer } from './middleware';
 import health from './health';
+import { graphqlExplorer, hashMiddleware } from './middleware';
 // get the full schema of what types, enums, scalars and queries are available
 import getSchema from './typeDefs';
 // define how to resolve the various types, fields and queries
@@ -21,14 +20,16 @@ import resolvers from './resolvers';
 // how to fetch the actual data and possible format/remap it to match the schemas
 import api from './dataSources';
 // we will attach a user if an authorization header is present.
-import extractUser from './helpers/auth/extractUser';
-import mapController from './api-utils/maps/index.ctrl.js';
-import ipController from './api-utils/ip2country.ctrl.js';
-import polygonName from './api-utils/polygonName.ctrl.js';
-import suggestFilter from './api-utils/suggestFilter.ctrl.js';
 import formController from './api-utils/forms/index.ctrl';
 import geometryController from './api-utils/geometry/index.ctrl.js';
 import helperController from './api-utils/helpers.ctrl.js';
+import ipController from './api-utils/ip2country.ctrl.js';
+import mapController from './api-utils/maps/index.ctrl.js';
+import polygonName from './api-utils/polygonName.ctrl.js';
+import sourceArchiveCtrl from './api-utils/sourceArchive.ctrl.js';
+import suggestFilter from './api-utils/suggestFilter.ctrl.js';
+import extractUser from './helpers/auth/extractUser';
+import { explicitNoCacheWhenErrorsPlugin } from './plugins/explicitNoCacheWhenErrorsPlugin';
 import { loggingPlugin } from './plugins/loggingPlugin';
 
 // we are doing this async as we need to load the various enumerations from the APIs
@@ -46,6 +47,8 @@ async function initializeServer() {
       // I haven't been able to find any examples of people doing anything with cancellation - which I find odd.
       // Perhaps the overhead isn't worth it in most cases?
       const controller = new AbortController();
+      // Default is 10, we exceed this sometimes with nested resolves that utilize cancellation
+      setMaxListeners(50, controller.signal);
       req.on('close', () => {
         controller.abort();
       });
@@ -62,20 +65,22 @@ async function initializeServer() {
     },
     typeDefs,
     resolvers,
-    dataSources: () => Object.keys(api).reduce(
-      (prev, cur) => ({
-        ...prev,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        [cur]: new (api as { [key: string]: any })[cur](config),
-      }),
-      {},
-    ), // Every request should have its own instance, see https://github.com/apollographql/apollo-server/issues/1562
+    dataSources: () =>
+      Object.keys(api).reduce(
+        (prev, cur) => ({
+          ...prev,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          [cur]: new (api as { [key: string]: any })[cur](config),
+        }),
+        {},
+      ), // Every request should have its own instance, see https://github.com/apollographql/apollo-server/issues/1562
     validationRules: [depthLimit(14)], // this likely have to be much higher than 6, but let us increase it as needed and not before
     plugins: [
       ApolloServerPluginCacheControl({
         defaultMaxAge: config.debug ? 0 : 600,
       }),
       loggingPlugin,
+      explicitNoCacheWhenErrorsPlugin,
     ],
     logger: console,
   });
@@ -88,7 +93,7 @@ async function initializeServer() {
     }),
   );
   app.use(express.static('public'));
-  app.use(bodyParser.json({limit: '1mb'}));
+  app.use(bodyParser.json({ limit: '1mb' }));
 
   // extract query and variables from store if a hash is provided instead of a query or variable
   // app.use(hashMiddleware);
@@ -115,7 +120,7 @@ async function initializeServer() {
   suggestFilter(app);
   geometryController(app);
   helperController(app);
-
+  sourceArchiveCtrl(app);
   await server.start();
   server.applyMiddleware({ app });
 

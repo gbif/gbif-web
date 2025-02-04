@@ -1,30 +1,27 @@
 import { Config } from '@/config/config';
-import { Context, RouteObjectWithPlugins } from '..';
-import { RedirectToGbifProvider } from './redirectToGBIFProvider';
 import { Outlet, redirectDocument } from 'react-router-dom';
+import { RouteObjectWithPlugins } from '..';
 import { createGetRedirectUrl } from './createGetRedirectUrl';
+import { RedirectToGbifProvider } from './redirectToGBIFProvider';
 
 export type DisabledRoutes = Record<string, RouteObjectWithPlugins>;
 
 export function applyEnablePagesPlugin(
   routes: RouteObjectWithPlugins[],
-  config: Config,
-  context: Context
+  config: Config
 ): RouteObjectWithPlugins[] {
-  // If the routes that are being processed are part of a standalone page they should not be filtered
-  // A hosted portal could disable a single dataset page, but still show the standalone dataset page in a drawer
-  if (context.standalone) return routes;
-
   // If pages has not been configured we keep all the routes
   if (!config.pages) return routes;
 
   const disabledRoutes: DisabledRoutes = {};
 
+  const modifiedRoutes = addRedirectToLoader(routes, disabledRoutes, config);
+
   return [
     {
       description: 'Redirect to GBIF',
       // The disabledRoutes object will be modified by the addRedirectToLoader function
-      children: addRedirectToLoader(routes, disabledRoutes, config),
+      children: modifiedRoutes,
       element: (
         <RedirectToGbifProvider getRedirectUrl={createGetRedirectUrl(disabledRoutes)}>
           <Outlet />
@@ -61,8 +58,8 @@ function addRedirectToLoader(
       // TODO: Do we want to redirect to GBIF.org in this case? A 404 page could maybe be more appropriate
       routeCopy.loader = (...args) => {
         const redirectPath = route.gbifRedirect?.(args[0].params);
-        if (redirectPath) {
-          return redirectDocument('https://www.gbif.org' + redirectPath);
+        if (redirectPath && !routeCopy.isCustom) {
+          return redirectDocument(redirectPath);
         }
 
         return originalLoader?.(...args);
@@ -83,6 +80,5 @@ function isRouteEnabled(route: RouteObjectWithPlugins, config: Config): boolean 
 
   // If the route is enabled it should be marked as enabled
   if (config.pages!.some((config) => config.id === route.id)) return true;
-
   return false;
 }

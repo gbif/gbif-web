@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HP Test</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/occurrence/search">Occurrence Search</a>
+        <a href="/danish-occurrence/search">Danish Occurrence Search</a>
+        <a href="/dataset/search">Dataset Search (disabled)</a>
+      </nav>
+      <!-- Language selector -->
+      <div>
+        <select id="languageSelector">
+          <option value="/dashboard">English</option>
+          <option value="/es/dashboard">Español</option>
+        </select>
+        <script>
+          // Handle change
+          document.getElementById('languageSelector').addEventListener('change', (event) => {
+            window.location = event.target.value;
+          });
+
+          // Set selected
+          document.getElementById('languageSelector').value = window.location.pathname;
+        </script>
+      </div>
+    </header>
+
+    <div id="dashboard" class="gbif"></div>
+
+    <div id="root" class="gbif"></div>
+
+    <script type="module">
+      import { renderDashboard, languages } from '/gbif-lib.js';
+
+      const warnIfNull = (value, message) => {
+        if (value == null) {
+          console.warn(message);
+        }
+        return value;
+      };
+
+      const config = {
+        gbifEnv: 'staging',
+        extraOccurrenceSearchPages: [
+          {
+            path: 'danish-occurrence/search',
+            overwriteConfig: {
+              occurrencePredicate: {
+                type: 'and',
+                predicates: [
+                  {
+                    type: 'equals',
+                    key: 'countryCode',
+                    value: 'DK',
+                  },
+                ],
+              },
+            },
+          },
+        ],
+        pages: [
+          {
+            id: 'occurrenceSearch',
+          },
+          {
+            id: 'collectionSearch',
+          },
+        ],
+        languages: [
+          warnIfNull(
+            languages.find((l) => l.code === 'en'),
+            'English language not found. (Maybe disabled in the .env)'
+          ),
+          warnIfNull(
+            languages.find((l) => l.code === 'es'),
+            'Spanish language not found. (Maybe disabled in the .env)'
+          ),
+        ],
+        occurrencePredicate: {
+          type: 'and',
+          predicates: [
+            {
+              type: 'range',
+              key: 'year',
+              value: {
+                gte: '2009',
+                lte: '2012',
+              },
+            },
+          ],
+        },
+        theme: {
+          colors: {
+            primary: 'blue',
+          },
+          borderRadius: 0,
+        },
+        OBISKey: 'ba0670b9-4186-41e6-8e70-f9cb3065551a',
+        taiwanNodeidentifier: '239',
+        occurrenceSearch: {
+          queryType: 'PREDICATE',
+          highlightedFilters: [
+            'occurrenceStatus',
+            'taxonKey',
+            'year',
+            'country',
+            'issue',
+            'geometry',
+            'recordedBy',
+          ],
+          tabs: ['table', 'media', 'map', 'clusters', 'datasets', 'dashboard', 'download'],
+          // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
+          // defaultEnabledTableColumns: ['country', 'year', 'basisOfRecord', 'dataset'],
+          // scope: {
+          //   type: 'equals',
+          //   key: 'country',
+          //   value: 'DK',
+          // },
+        },
+        maps: {
+          locale: 'en',
+          mapStyles: {
+            defaultProjection: 'MERCATOR',
+            defaultMapStyle: 'NATURAL',
+            options: {
+              ARCTIC: ['NATURAL', 'BRIGHT'],
+              PLATE_CAREE: ['NATURAL', 'BRIGHT', 'DARK'],
+              MERCATOR: ['NATURAL', 'BRIGHT', 'SATELLITE', 'DARK', 'GEOLOGY'],
+              ANTARCTIC: ['NATURAL', 'BRIGHT', 'DARK'],
+            },
+          },
+          // rewire style names to show a different style
+          styleLookup: {
+            MERCATOR: {
+              GEOLOGY: 'GEOLOGY',
+            },
+          },
+        },
+      };
+
+      const localeCode = window.location.pathname.split('/')[1] ?? 'en';
+      console.log(languages);
+
+      renderDashboard({
+        rootElement: document.getElementById('dashboard'),
+        config,
+        locale: languages.find((l) => l.code === localeCode),
+        predicate: {
+          type: 'or',
+          predicates: [
+            {
+              type: 'equals',
+              key: 'countryCode',
+              value: 'DK',
+            },
+            {
+              type: 'equals',
+              key: 'countryCode',
+              value: 'SE',
+            },
+          ],
+        },
+        charts: ['datasetKey', 'month', 'taxa', 'year'],
+      });
+    </script>
+  </body>
+</html>

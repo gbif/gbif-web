@@ -1,10 +1,9 @@
 import {
   CountryLabel,
   DatasetLabel,
-  DatasetTypeLabel,
   IdentityLabel,
-  LicenceLabel,
   LiteratureTypeLabel,
+  NetworkLabel,
   PublisherLabel,
   RelevanceLabel,
   TaxonLabel,
@@ -12,36 +11,38 @@ import {
   YearLabel,
 } from '@/components/filters/displayNames';
 import {
-  filterConfig,
   filterConfigTypes,
+  filterEnumConfig,
+  filterFreeTextConfig,
+  filterRangeConfig,
   FilterSetting,
+  filterSuggestConfig,
   generateFilters,
 } from '@/components/filters/filterTools';
-import { useIntl } from 'react-intl';
-import { matchSorter } from 'match-sorter';
-import hash from 'object-hash';
+import { SuggestFnProps } from '@/components/filters/suggest';
+import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import country from '@/enums/basic/country.json';
 import literatureTypeOptions from '@/enums/cms/literatureType.json';
 import relevanceOptions from '@/enums/cms/relevance.json';
 import topicsOptions from '@/enums/cms/topics.json';
-import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
+import {
+  datasetKeySuggest,
+  networkKeySuggest,
+  publisherKeySuggest,
+  taxonKeySuggest,
+} from '@/utils/suggestEndpoints';
+import { matchSorter } from 'match-sorter';
+import hash from 'object-hash';
 import { useCallback, useEffect, useState } from 'react';
-import { SuggestFnProps } from '@/components/filters/suggest';
+import { useIntl } from 'react-intl';
 
-
-const publisherConfig: filterConfig = {
+const publisherConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'publishingOrganizationKey',
   displayName: PublisherLabel,
   filterTranslation: 'filters.publisherKey.name',
   disableFacetsForSelected: true,
-  suggest: ({ q, siteConfig }: SuggestFnProps) => {
-    return fetch(`${siteConfig.v1Endpoint}/organization/suggest?limit=20&q=${q}`)
-      .then((res) => res.json())
-      .then((data) => {
-        return data;
-      });
-  },
+  suggestConfig: publisherKeySuggest,
   facetQuery: `
     query LiteraturePublisherFacet($predicate: Predicate) {
       search: literatureSearch(predicate: $predicate) {
@@ -59,19 +60,13 @@ const publisherConfig: filterConfig = {
   `,
 };
 
-const datasetConfig: filterConfig = {
+const datasetConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'gbifDatasetKey',
   displayName: DatasetLabel,
   filterTranslation: 'filters.datasetKey.name',
   disableFacetsForSelected: true,
-  suggest: ({ q, siteConfig }: SuggestFnProps) => {
-    return fetch(`${siteConfig.v1Endpoint}/dataset/suggest?limit=20&q=${q}`)
-      .then((res) => res.json())
-      .then((data) => {
-        return data.map((item) => ({title: item.title, key: item.key}));
-      });
-  },
+  suggestConfig: datasetKeySuggest,
   facetQuery: `
     query LiteratureDatasetFacet($predicate: Predicate, $size: Int = 10) {
       search: literatureSearch(predicate: $predicate) {
@@ -89,19 +84,23 @@ const datasetConfig: filterConfig = {
   `,
 };
 
-const literatureTypeConfig: filterConfig = {
-  filterType: filterConfigTypes.ENUM,
-  filterHandle: 'literatureType',
-  displayName: LiteratureTypeLabel,
-  options: literatureTypeOptions,
-  filterTranslation: 'filters.literatureType.name',
-  facetQuery: /* GraphQL */ `
-    query LiteratureTypeFacet($predicate: Predicate) {
+const gbifNetworkKeyConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'gbifNetworkKey',
+  displayName: NetworkLabel,
+  filterTranslation: 'filters.networkKey.name',
+  disableFacetsForSelected: true,
+  suggestConfig: networkKeySuggest,
+  facetQuery: `
+    query LiteratureNetworkFacet($predicate: Predicate, $size: Int = 10) {
       search: literatureSearch(predicate: $predicate) {
         facet {
-          field: literatureType(size: 100) {
+          field: gbifNetworkKey(size: $size) {
             name: key
             count
+            item: network {
+              title
+            }
           }
         }
       }
@@ -109,53 +108,13 @@ const literatureTypeConfig: filterConfig = {
   `,
 };
 
-const literatureRelevanceConfig: filterConfig = {
-  filterType: filterConfigTypes.ENUM,
-  filterHandle: 'relevance',
-  displayName: RelevanceLabel,
-  options: relevanceOptions,
-  filterTranslation: 'filters.relevance.name',
-  facetQuery: /* GraphQL */ `
-    query LiteratureTypeFacet($predicate: Predicate) {
-      search: literatureSearch(predicate: $predicate) {
-        facet {
-          field: relevance(size: 100) {
-            name: key
-            count
-          }
-        }
-      }
-    }
-  `,
-};
-
-const topicsConfig: filterConfig = {
-  filterType: filterConfigTypes.ENUM,
-  filterHandle: 'topics',
-  displayName: TopicsLabel,
-  options: topicsOptions,
-  filterTranslation: 'filters.topics.name',
-  facetQuery: /* GraphQL */ `
-    query LiteratureTypeFacet($predicate: Predicate) {
-      search: literatureSearch(predicate: $predicate) {
-        facet {
-          field: topics(size: 100) {
-            name: key
-            count
-          }
-        }
-      }
-    }
-  `,
-};
-
-const countriesOfCoverageConfig: filterConfig = {
+const countriesOfCoverageConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'countriesOfCoverage',
   displayName: CountryLabel,
   filterTranslation: 'filters.countriesOfCoverage.name',
   facetQuery: /* GraphQL */ `
-    query LiteratureResearcherCountryFacet($predicate: Predicate) {
+    query LiteratureCoverageCountryFacet($predicate: Predicate) {
       search: literatureSearch(predicate: $predicate) {
         facet {
           field: countriesOfCoverage {
@@ -168,12 +127,12 @@ const countriesOfCoverageConfig: filterConfig = {
   `,
 };
 
-const countriesOfResearcherConfig: filterConfig = {
+const countriesOfResearcherConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'countriesOfResearcher',
   displayName: CountryLabel,
   filterTranslation: 'filters.countriesOfResearcher.name',
-  facetQuery: /* GraphQL */ `
+  facetQuery: `
     query LiteratureResearcherCountryFacet($predicate: Predicate) {
       search: literatureSearch(predicate: $predicate) {
         facet {
@@ -187,36 +146,87 @@ const countriesOfResearcherConfig: filterConfig = {
   `,
 };
 
-const freeTextConfig: filterConfig = {
+const taxonKeyConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'gbifTaxonKey',
+  displayName: TaxonLabel,
+  filterTranslation: 'filters.taxonKey.name',
+  suggestConfig: taxonKeySuggest,
+};
+
+const literatureTypeConfig: filterEnumConfig = {
+  filterType: filterConfigTypes.ENUM,
+  filterHandle: 'literatureType',
+  displayName: LiteratureTypeLabel,
+  options: literatureTypeOptions,
+  filterTranslation: 'filters.literatureType.name',
+  facetQuery: `
+    query LiteratureTypeFacet($predicate: Predicate) {
+      search: literatureSearch(predicate: $predicate) {
+        facet {
+          field: literatureType(size: 100) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+};
+
+const literatureRelevanceConfig: filterEnumConfig = {
+  filterType: filterConfigTypes.ENUM,
+  filterHandle: 'relevance',
+  displayName: RelevanceLabel,
+  options: relevanceOptions,
+  filterTranslation: 'filters.relevance.name',
+  facetQuery: /* GraphQL */ `
+    query LiteratureRelevanceFacet($predicate: Predicate) {
+      search: literatureSearch(predicate: $predicate) {
+        facet {
+          field: relevance(size: 100) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+};
+
+const topicsConfig: filterEnumConfig = {
+  filterType: filterConfigTypes.ENUM,
+  filterHandle: 'topics',
+  displayName: TopicsLabel,
+  options: topicsOptions,
+  filterTranslation: 'filters.topics.name',
+  facetQuery: /* GraphQL */ `
+    query LiteratureTopicsFacet($predicate: Predicate) {
+      search: literatureSearch(predicate: $predicate) {
+        facet {
+          field: topics(size: 100) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+};
+
+const freeTextConfig: filterFreeTextConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
   filterHandle: 'q',
   displayName: IdentityLabel,
   filterTranslation: 'filters.q.name',
 };
 
-const yearConfig: filterConfig = {
+const yearConfig: filterRangeConfig = {
   filterType: filterConfigTypes.RANGE,
   filterHandle: 'year',
   regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/,
   displayName: YearLabel,
   filterTranslation: 'filters.year.name',
-};
-
-const taxonKeyConfig: filterConfig = {
-  filterType: filterConfigTypes.SUGGEST,
-  filterHandle: 'gbifTaxonKey',
-  displayName: TaxonLabel,
-  filterTranslation: 'filters.taxonKey.name',
-  suggest: ({ q, siteConfig }: SuggestFnProps) => {
-    return fetch(`${siteConfig.v1Endpoint}/species/suggest?limit=20&q=${q}`)
-      .then((res) => res.json())
-      .then((data) => {
-        return data.map((item) => ({
-          key: item.key,
-          title: item.scientificName,
-        }));
-      });
-  },
 };
 
 export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }): {
@@ -240,8 +250,8 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
   const countrySuggest = useCallback(
     ({ q }: SuggestFnProps) => {
       // instead of just using indexOf or similar. This has the benefit of reshuffling records based on the match, check for abrivations etc
-      const filtered = matchSorter(countries, q, { keys: ['title', 'key'] });
-      return Promise.resolve(filtered);
+      const filtered = matchSorter(countries, q ?? '', { keys: ['title', 'key'] });
+      return { promise: Promise.resolve(filtered), cancel: () => {} };
     },
     [countries]
   );
@@ -249,24 +259,44 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
   useEffect(() => {
     const nextFilters = {
       year: generateFilters({ config: yearConfig, searchConfig, formatMessage }),
-      literatureType: generateFilters({ config: literatureTypeConfig, searchConfig, formatMessage }),
-      relevance: generateFilters({ config: literatureRelevanceConfig, searchConfig, formatMessage }),
+      literatureType: generateFilters({
+        config: literatureTypeConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      relevance: generateFilters({
+        config: literatureRelevanceConfig,
+        searchConfig,
+        formatMessage,
+      }),
       topics: generateFilters({ config: topicsConfig, searchConfig, formatMessage }),
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
-      publishingOrganizationKey: generateFilters({ config: publisherConfig, searchConfig, formatMessage }),
+      publishingOrganizationKey: generateFilters({
+        config: publisherConfig,
+        searchConfig,
+        formatMessage,
+      }),
       gbifDatasetKey: generateFilters({ config: datasetConfig, searchConfig, formatMessage }),
       countriesOfResearcher: generateFilters({
-        config: { ...countriesOfResearcherConfig, suggest: countrySuggest },
+        config: {
+          ...countriesOfResearcherConfig,
+          suggestConfig: { getSuggestions: countrySuggest },
+        },
         searchConfig,
         formatMessage,
       }),
       countriesOfCoverage: generateFilters({
-        config: { ...countriesOfCoverageConfig, suggest: countrySuggest },
+        config: { ...countriesOfCoverageConfig, suggestConfig: { getSuggestions: countrySuggest } },
         searchConfig,
         formatMessage,
       }),
       gbifTaxonKey: generateFilters({
         config: { ...taxonKeyConfig },
+        searchConfig,
+        formatMessage,
+      }),
+      gbifNetworkKey: generateFilters({
+        config: { ...gbifNetworkKeyConfig },
         searchConfig,
         formatMessage,
       }),

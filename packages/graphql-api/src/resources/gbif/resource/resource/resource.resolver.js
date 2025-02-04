@@ -1,7 +1,9 @@
 import { RESORUCE_OPTIONS } from './resource.constants';
 
 function elasticSearchTypeToGraphQLType(elasticSearchType) {
-  return RESORUCE_OPTIONS.find(option => option.elasticSearchType === elasticSearchType).graphQLType;
+  return RESORUCE_OPTIONS.find(
+    (option) => option.elasticSearchType === elasticSearchType,
+  ).graphQLType;
 }
 
 /**
@@ -19,17 +21,22 @@ export default {
       }
 
       if (typeof alias === 'string') {
-        return dataSources.resourceSearchAPI.getFirstEntryByQuery({ urlAlias: alias }, locale);
+        return dataSources.resourceSearchAPI.getFirstEntryByQuery(
+          { urlAlias: alias },
+          locale,
+        );
       }
 
       throw new Error('Either id or alias must be provided');
-    }
+    },
   },
   Resource: {
-    __resolveType: src => {
+    __resolveType: (src) => {
       const graphqlType = elasticSearchTypeToGraphQLType(src.contentType);
       if (graphqlType) return graphqlType;
-      console.warn(`Unknown content type in resource.resolver.js: ${src.contentType}`);
-    }
-  }
-}
+      console.warn(
+        `Unknown content type in resource.resolver.js: ${src.contentType}`,
+      );
+    },
+  },
+};

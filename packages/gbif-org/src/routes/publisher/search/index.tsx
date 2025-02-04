@@ -1,8 +1,16 @@
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { PublisherSearchPage } from './publisherSearch';
 
 export const publisherSearchRoute: RouteObjectWithPlugins = {
-  id: 'publisher-search',
+  id: 'publisherSearch',
   path: 'publisher/search',
-  element: <PublisherSearchPage />,
+  gbifRedirect: (_, { gbifOrgLocalePrefix = '' }) => {
+    return `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/publisher/search`;
+  },
+  element: (
+    <ErrorBoundary>
+      <PublisherSearchPage />
+    </ErrorBoundary>
+  ),
 };

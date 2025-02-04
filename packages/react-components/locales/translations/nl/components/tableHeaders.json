@@ -12,5 +12,7 @@
   "institution": "Instelling",
   "collection": "Verzameling",
   "collectionCount": "Collecties",
-  "active": "Is actief"
+  "active": "Is actief",
+  "activeInstitution": "Is actief",
+  "activeCollection": "Is actief"
 }

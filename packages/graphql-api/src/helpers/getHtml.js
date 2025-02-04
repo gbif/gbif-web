@@ -1,13 +1,13 @@
 import mdit from 'markdown-it';
-import { sanitizeHtml } from './sanitize-html';
 import mdAnchor from 'markdown-it-anchor';
 import mdVideo from 'markdown-it-video';
+import { sanitizeHtml } from './sanitize-html';
 
 const md = mdit({
   html: true,
   linkify: true,
   typographer: false,
-  breaks: true
+  breaks: true,
 });
 
 // adding anchor headers to markdown would be nice, but the problem is the navbar offset

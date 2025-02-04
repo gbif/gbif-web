@@ -13,7 +13,7 @@ export const KNOWN_FEATURE_TYPES = Object.freeze({
   feature: 'Feature',
   news: 'News',
   event: 'MeetingEvent',
-  dataUse: 'DataUse'
+  dataUse: 'DataUse',
 });
 
 export const KNOWN_CAROUSEL_BLOCKS = Object.freeze({

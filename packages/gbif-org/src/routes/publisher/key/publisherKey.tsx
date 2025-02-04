@@ -1,32 +1,42 @@
+import { DataHeader } from '@/components/dataHeader';
+import { ErrorMessage } from '@/components/errorMessage';
+import {
+  defaultDateFormatProps,
+  DeletedMessage,
+  HeaderInfo,
+  HeaderInfoMain,
+} from '@/components/headerComponents';
+import {
+  CitationIcon,
+  FeatureList,
+  GenericFeature,
+  GenericFeatureSkeleton,
+  Homepage,
+  OccurrenceIcon,
+} from '@/components/highlights';
 import { Tabs } from '@/components/tabs';
-import { PublisherQuery, PublisherQueryVariables } from '@/gql/graphql';
-import { required } from '@/utils/required';
-import { Helmet } from 'react-helmet-async';
-import { Outlet, useLoaderData } from 'react-router-dom';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
+import {
+  PublisherQuery,
+  PublisherQueryVariables,
+  PublisherStatsQuery,
+  PublisherStatsQueryVariables,
+} from '@/gql/graphql';
+import useQuery from '@/hooks/useQuery';
+import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
-import { FormattedDate, FormattedMessage } from 'react-intl';
-import {
-  DeletedMessage,
-  HeaderInfo,
-  HeaderInfoMain,
-  defaultDateFormatProps,
-} from '@/components/headerComponents';
-import {
-  Homepage,
-  FeatureList,
-  GenericFeature,
-  OccurrenceIcon,
-  CitationIcon,
-} from '@/components/highlights';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { LoaderArgs } from '@/reactRouterPlugins';
+import { required } from '@/utils/required';
+import { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { FormattedDate, FormattedMessage } from 'react-intl';
+import { Outlet, useLoaderData } from 'react-router-dom';
+import { AboutContent, ApiContent } from './help';
 
 const PUBLISHER_QUERY = /* GraphQL */ `
-  query Publisher($key: ID!, $jsonKey: JSON!) {
+  query Publisher($key: ID!) {
     publisher: organization(key: $key) {
       key
       title
@@ -80,6 +90,11 @@ const PUBLISHER_QUERY = /* GraphQL */ `
         userId
       }
     }
+  }
+`;
+
+const SLOW_PUBLISHER_QUERY = /* GraphQL */ `
+  query PublisherStats($key: ID!, $jsonKey: JSON!) {
     occurrenceSearch(predicate: { type: equals, key: "publishingOrg", value: $jsonKey }) {
       documents(size: 0) {
         total
@@ -101,26 +116,34 @@ export async function publisherLoader({ params, graphql }: LoaderArgs) {
 
   return graphql.query<PublisherQuery, PublisherQueryVariables>(PUBLISHER_QUERY, {
     key,
-    jsonKey: key,
   });
 }
 
 export function PublisherPage() {
   const { data } = useLoaderData() as { data: PublisherQuery };
+  const {
+    data: slowData,
+    load,
+    error,
+    loading,
+  } = useQuery<PublisherStatsQuery, PublisherStatsQueryVariables>(SLOW_PUBLISHER_QUERY);
+
+  useEffect(() => {
+    if (data.publisher) {
+      load({ variables: { key: data.publisher.key, jsonKey: data.publisher.key } });
+    }
+  }, [data.publisher, load]);
 
   if (data.publisher == null) throw new Error('404');
-  const { publisher, occurrenceSearch, hostedDatasets, literatureSearch } = data;
+  const { publisher } = data;
+  const { occurrenceSearch, hostedDatasets, literatureSearch } = slowData ?? {};
 
   const deletedAt = publisher.deleted;
 
-  const tabs = [{ to: '.', children: 'About' }];
+  const tabs = [{ to: '.', children: <FormattedMessage id="publisher.tabs.aboutPublisher" /> }];
   // only add occurrence tab if there are occurrences
   if (occurrenceSearch?.documents.total > 0) {
-    tabs.push({ to: 'metrics', children: 'Metrics' });
-  }
-  // only add ciations tab if there are citations
-  if (literatureSearch?.documents.total > 0) {
-    tabs.push({ to: 'citations', children: 'Citations' });
+    tabs.push({ to: 'metrics', children: <FormattedMessage id="publisher.tabs.metrics" /> });
   }
 
   return (
@@ -129,8 +152,13 @@ export function PublisherPage() {
         <title>{publisher.title}</title>
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
+      <DataHeader
+        className="g-bg-white"
+        aboutContent={<AboutContent />}
+        apiContent={<ApiContent id={publisher?.key?.toString()} />}
+      ></DataHeader>
 
-      <PageContainer topPadded className="g-bg-white">
+      <PageContainer topPadded hasDataHeader className="g-bg-white">
         <ArticleTextContainer className="g-max-w-screen-xl">
           <ArticlePreTitle
             secondary={
@@ -155,6 +183,11 @@ export function PublisherPage() {
           ></ArticleTitle>
 
           {deletedAt && <DeletedMessage date={deletedAt} />}
+          {!deletedAt && !publisher.endorsementApproved && (
+            <ErrorMessage>
+              <FormattedMessage id="publisher.notYetEndorsed" />
+            </ErrorMessage>
+          )}
 
           <HeaderInfo>
             <HeaderInfoMain>
@@ -164,38 +197,63 @@ export function PublisherPage() {
                 </FeatureList>
               )}
               <FeatureList>
+                {!error && !slowData && <GenericFeatureSkeleton />}
                 {occurrenceSearch?.documents.total > 0 && (
                   <GenericFeature>
                     <OccurrenceIcon />
-                    <FormattedMessage
-                      id="counts.nOccurrences"
-                      values={{ total: occurrenceSearch?.documents.total }}
-                    />
+                    <DynamicLink
+                      className="hover:g-underline g-text-inherit"
+                      pageId="occurrenceSearch"
+                      searchParams={{ publishingOrg: publisher.key }}
+                    >
+                      <FormattedMessage
+                        id="counts.nOccurrences"
+                        values={{ total: occurrenceSearch?.documents.total }}
+                      />
+                    </DynamicLink>
                   </GenericFeature>
                 )}
                 {(publisher?.numPublishedDatasets ?? 0) > 0 && (
                   <GenericFeature>
-                    <FormattedMessage
-                      id="counts.nPublishedDatasets"
-                      values={{ total: publisher.numPublishedDatasets ?? 0 }}
-                    />
+                    <DynamicLink
+                      className="hover:g-underline g-text-inherit"
+                      pageId="datasetSearch"
+                      searchParams={{ publishingOrg: publisher.key }}
+                    >
+                      <FormattedMessage
+                        id="counts.nPublishedDatasets"
+                        values={{ total: publisher.numPublishedDatasets ?? 0 }}
+                      />
+                    </DynamicLink>
                   </GenericFeature>
                 )}
                 {hostedDatasets?.count > 0 && (
                   <GenericFeature>
-                    <FormattedMessage
-                      id="counts.nHostedDatasets"
-                      values={{ total: hostedDatasets?.count }}
-                    />
+                    <DynamicLink
+                      className="hover:g-underline g-text-inherit"
+                      pageId="datasetSearch"
+                      searchParams={{ hostingOrg: publisher.key }}
+                    >
+                      <FormattedMessage
+                        id="counts.nHostedDatasets"
+                        values={{ total: hostedDatasets?.count }}
+                      />
+                    </DynamicLink>
                   </GenericFeature>
                 )}
                 {literatureSearch?.documents.total > 0 && (
                   <GenericFeature>
                     <CitationIcon />
-                    <FormattedMessage
-                      id="counts.nCitations"
-                      values={{ total: literatureSearch?.documents.total }}
-                    />
+                    <DynamicLink
+                      className="hover:g-underline g-text-inherit"
+                      pageId="literatureSearch"
+                      searchParams={{ publishingOrganizationKey: publisher.key }}
+                    >
+                      <FormattedMessage
+                        id="counts.nCitations"
+                        values={{ total: literatureSearch?.documents.total }}
+                      />
+                    </DynamicLink>
                   </GenericFeature>
                 )}
               </FeatureList>

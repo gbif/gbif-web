@@ -1,9 +1,9 @@
-import { useFormContext } from 'react-hook-form';
-import { CheckboxField, Inputs, TextField } from '../becomeAPublisherForm';
-import { DynamicLink } from '@/reactRouterPlugins';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { RadioItem } from '../../_shared';
 import { RadioGroup } from '@/components/ui/radio-group';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { useFormContext } from 'react-hook-form';
+import { RadioItem } from '../../_shared';
+import { CheckboxField, Inputs, TextField } from '../becomeAPublisherForm';
 
 export function WhatAndHow() {
   const form = useFormContext<Partial<Inputs>>();

@@ -7,6 +7,8 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
+import useBelow from '@/hooks/useBelow';
+import { cn } from '@/utils/shadcn';
 
 function getPages({
   offset,
@@ -47,52 +49,64 @@ export function PaginationFooter({
   offset,
   limit = 20,
   count,
-  maxPages = 5,
   onChange,
-  anchor = '',
 }: {
   offset: number;
   limit: number;
   count: number;
-  maxPages?: number;
-  anchor?: string;
   onChange: (offset: number) => void;
 }) {
+  const isMobile = useBelow(640 /* sm from tailwind */);
+
   const { pages, currentPage, previousPageOffset, nextPageOffset, hasBefore, hasAfter } = getPages({
     offset,
     limit,
     count,
-    maxPages,
+    maxPages: isMobile ? 3 : 5,
   });
 
   return (
     <Pagination>
       <PaginationContent>
         {currentPage > 1 && (
-          <PaginationItem onClick={() => onChange(previousPageOffset)}>
-            <PaginationPrevious href={`#${anchor}`} />
+          <PaginationItem
+            className="g-text-inherit g-cursor-pointer"
+            onClick={() => onChange(previousPageOffset)}
+          >
+            <PaginationPrevious className="g-text-inherit" />
           </PaginationItem>
         )}
         {hasBefore && (
-          <PaginationItem>
+          <PaginationItem className="g-text-inherit">
             <PaginationEllipsis />
           </PaginationItem>
         )}
-        {pages.map((page) => (
-          <PaginationItem key={page.pageNumber} onClick={() => onChange(page.offset)}>
-            <PaginationLink href={`#${anchor}`} isActive={currentPage === page.pageNumber}>
-              {page.pageNumber}
-            </PaginationLink>
-          </PaginationItem>
-        ))}
+        {pages.map((page) => {
+          const isActive = currentPage === page.pageNumber;
+
+          return (
+            <PaginationItem
+              className={cn({ 'g-cursor-pointer': !isActive, 'g-pointer-events-none': isActive })}
+              key={page.pageNumber}
+              onClick={() => onChange(page.offset)}
+            >
+              <PaginationLink isActive={isActive} className="g-text-inherit">
+                {page.pageNumber}
+              </PaginationLink>
+            </PaginationItem>
+          );
+        })}
         {hasAfter && (
-          <PaginationItem>
+          <PaginationItem className="g-text-inherit">
             <PaginationEllipsis />
           </PaginationItem>
         )}
         {offset + limit < count && (
-          <PaginationItem onClick={() => onChange(nextPageOffset)}>
-            <PaginationNext href={`#${anchor}`} />
+          <PaginationItem
+            className="g-text-inherit g-cursor-pointer"
+            onClick={() => onChange(nextPageOffset)}
+          >
+            <PaginationNext className="g-text-inherit" />
           </PaginationItem>
         )}
       </PaginationContent>

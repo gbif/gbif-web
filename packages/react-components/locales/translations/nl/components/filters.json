@@ -24,6 +24,16 @@
     "count": "{num, plural, one {# verzameling } other {# verzamelingen}}",
     "description": "De verzameling in GrSciColl dit record werd gekoppeld met"
   },
+  "taxonomicStatus": {
+    "name": "Status",
+    "count": "",
+    "description": "Het aantal beschikbare specimens zoals vermeld in de beschrijving. Dit nummer geeft niet weer hoeveel records gedigitaliseerd en gedeeld zijn."
+  },
+  "taxonRank": {
+    "name": "",
+    "count": "",
+    "description": "Het aantal beschikbare specimens zoals vermeld in de beschrijving. Dit nummer geeft niet weer hoeveel records gedigitaliseerd en gedeeld zijn."
+  },
   "numberSpecimens": {
     "name": "Aantal specimens",
     "count": "",
@@ -335,6 +345,11 @@
     "count": "",
     "description": "De naam van het waterlichaam waarin de vindplaats ligt."
   },
+  "higherGeography": {
+    "name": "",
+    "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
   "stateProvince": {
     "name": "Staat/provincie",
     "count": "",
@@ -418,6 +433,21 @@
   "active": {
     "name": "Actief",
     "count": "Actief",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
+  "activeInstitution": {
+    "name": "Actief",
+    "count": "Actief",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
+  "activeCollection": {
+    "name": "Actief",
+    "count": "Actief",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
+  "publicationDate": {
+    "name": "Publicatiedatum",
+    "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
   "personalCollection": {

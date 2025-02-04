@@ -1,21 +1,29 @@
 {
   "tabs": {
     "table": "جدول",
+    "tree": "",
     "gallery": "معرض صور",
+    "media": "أرشيف شروح \"جيبف\"",
     "map": "خارطة",
     "datasets": "مجموعات البيانات",
     "events": "أحداث",
     "download": "تنزيل",
     "clusters": "",
     "dashboard": "",
-    "sites": "أرشيف شروح \"جيبف\""
+    "sites": "أرشيف شروح \"جيبف\"",
+    "list": ""
   },
   "table": {
-    "lockColumn": ""
+    "lockColumn": "",
+    "unlockColumn": "أرشيف شروح \"جيبف\"",
+    "columnVisibility": "أرشيف شروح \"جيبف\"",
+    "resetColumnVisibility": "أرشيف شروح \"جيبف\"",
+    "openFilter": "أرشيف شروح \"جيبف\""
   },
   "placeholders": {
     "default": "بحث",
     "range": "",
+    "rangeExample": "",
     "wildcard": "",
     "locationID": ""
   },
@@ -25,6 +33,7 @@
     "either": "أرشيف شروح \"جيبف\""
   },
   "loadMore": "مزيد",
+  "noResults": "أرشيف شروح \"جيبف\"",
   "occurrenceClustersView": {
     "about": "حول",
     "clusters": "",

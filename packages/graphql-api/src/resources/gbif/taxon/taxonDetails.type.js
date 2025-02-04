@@ -119,6 +119,7 @@ const typeDef = gql`
     sourceTaxonKey: Int!
     taxonKey: Int!
     vernacularName: String!
+    sourceTaxon: Taxon
   }
 
   type TaxonTypeSpecimenResult {
@@ -152,7 +153,7 @@ const typeDef = gql`
     """
     Lists all parent usages for a name usage
     """
-    parents: [Taxon]
+    parents: [Taxon!]
     """
     Lists all related name usages in other checklists
     """
@@ -195,7 +196,15 @@ const typeDef = gql`
     """
     Lists all vernacular names for a name usage. The language paramter isn't supported in the official API, so paging will not work properly when using the language parameter
     """
-    vernacularNames(limit: Int, offset: Int, language: String): TaxonVernacularNameResult
+    vernacularNames(
+      limit: Int
+      offset: Int
+      language: String
+      """
+      The title of the source. Not the datasetKey. Neither language nor source is part of the official API filters. And datasetKey is not in the response. So this is the best we can do at this point
+      """
+      source: String
+    ): TaxonVernacularNameResult
 
     """
     Lists all type specimens for a name usage, see also lmitations: https://github.com/gbif/portal-feedback/issues/1146#issuecomment-366260607

@@ -24,6 +24,16 @@
     "count": "",
     "description": ""
   },
+  "taxonomicStatus": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "taxonRank": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "numberSpecimens": {
     "name": "",
     "count": "",
@@ -335,6 +345,11 @@
     "count": "",
     "description": ""
   },
+  "higherGeography": {
+    "name": "",
+    "count": "GBIF annoteret Arkiv",
+    "description": "GBIF annoteret Arkiv"
+  },
   "stateProvince": {
     "name": "",
     "count": "",
@@ -418,6 +433,21 @@
   "active": {
     "name": "",
     "count": "",
+    "description": "GBIF annoteret Arkiv"
+  },
+  "activeInstitution": {
+    "name": "",
+    "count": "",
+    "description": "GBIF annoteret Arkiv"
+  },
+  "activeCollection": {
+    "name": "",
+    "count": "",
+    "description": "GBIF annoteret Arkiv"
+  },
+  "publicationDate": {
+    "name": "",
+    "count": "GBIF annoteret Arkiv",
     "description": "GBIF annoteret Arkiv"
   },
   "personalCollection": {

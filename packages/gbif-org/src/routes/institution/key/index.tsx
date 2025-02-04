@@ -1,18 +1,19 @@
-import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
-import { InstitutionKey, institutionLoader } from './institutionKey';
-import InstitutionKeyAbout from './About';
-import InstitutionKeySpecimens from './Specimen';
-import InstitutionKeyCollection from './Collection';
 import { InstitutionQuery } from '@/gql/graphql';
+import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
+import InstitutionKeyAbout from './About';
+import InstitutionKeyCollection from './Collection';
+import { InstitutionKey, institutionLoader } from './institutionKey';
+import InstitutionKeySpecimens from './Specimen';
 
-const id = 'institution-key';
+const id = 'institutionKey';
 
 export const institutionKeyRoute: RouteObjectWithPlugins = {
   id,
-  gbifRedirect: (params) => {
-    if (typeof params.key !== 'string') throw new Error('Invalid key');
-    if (params.key === 'search') return null;
-    return `/institution/${params.key}`;
+  gbifRedirect: ({ key } = {}, { grSciCollLocalePrefix = '' }) => {
+    if (typeof key !== 'string' && typeof key !== 'number')
+      throw new Error(`'Invalid key (key is of type ${typeof key})`);
+    if (key === 'search') return null;
+    return `${import.meta.env.PUBLIC_GRSCICOLL}${grSciCollLocalePrefix}/institution/${key}`;
   },
   path: 'institution/:key',
   loader: institutionLoader,
@@ -23,11 +24,11 @@ export const institutionKeyRoute: RouteObjectWithPlugins = {
       element: <InstitutionKeyAbout />,
     },
     {
-      path: 'specimen',
+      path: 'specimens',
       element: <InstitutionKeySpecimens />,
     },
     {
-      path: 'collection',
+      path: 'collections',
       element: <InstitutionKeyCollection />,
     },
   ],

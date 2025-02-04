@@ -1,11 +1,5 @@
-import Properties, { Property, Term, Value } from '@/components/properties';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { FormattedMessage } from 'react-intl';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import useBelow from '@/hooks/useBelow';
-import { HyperText } from '@/components/hyperText';
-import { FeaturedImageContent } from '@/routes/collection/key/collectionKeyPresentation';
+import { BulletList } from '@/components/bulletList';
+import { ConceptValue } from '@/components/conceptValue';
 import {
   ContactActions,
   ContactAvatar,
@@ -17,24 +11,23 @@ import {
   ContactTelephone,
   ContactTitle,
 } from '@/components/contact';
-import { ConceptValue } from '@/components/conceptValue';
-import { Tag } from '@/components/resultCards';
-import { DynamicLink } from '@/reactRouterPlugins';
-import { FormattedNumber } from '@/components/dashboard/shared';
-import {
-  CardContent as CardContentSmall,
-  CardHeader as CardHeaderSmall,
-  Card as CardSmall,
-  CardTitle as CardTitleSmall,
-} from '@/components/ui/smallCard';
-import { BulletList } from '@/components/bulletList';
 import { useCount } from '@/components/count';
-import { useParams } from 'react-router-dom';
+import { FormattedNumber } from '@/components/dashboard/shared';
+import { HyperText } from '@/components/hyperText';
+import Properties, { Property, Term, Value } from '@/components/properties';
 import { TableOfContents } from '@/components/tableOfContents';
-import { useMemo } from 'react';
 import { GbifLinkCard } from '@/components/TocHelp';
-import { useInstitutionKeyLoaderData } from '.';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import useBelow from '@/hooks/useBelow';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { FeaturedImageContent } from '@/routes/collection/key/collectionKeyPresentation';
+import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
+import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
+import { FormattedMessage } from 'react-intl';
+import { useParams } from 'react-router-dom';
+import { useInstitutionKeyLoaderData } from '.';
+import { GrSciCollMetadata } from './MetaData';
 // import { MdMap } from 'react-icons/md';
 
 export default function About() {
@@ -44,23 +37,15 @@ export default function About() {
     v1Endpoint: '/occurrence/search',
     params: { institutionKey: key },
   });
-  const removeSidebar = useBelow(1100);
-  const useInlineImage = useBelow(700);
+  const removeSidebar = true; //useBelow(1100);
+  const useInlineImage = useBelow(800);
   const { institution } = data;
 
-  const tableOfContents = useMemo(
-    () => [
-      { id: 'description', title: <FormattedMessage id="Description" /> },
-      {
-        id: 'collections',
-        title: <FormattedMessage id="Collections" />,
-        hidden: !institution?.collections?.length,
-      },
-      { id: 'contacts', title: <FormattedMessage id="Contacts" /> },
-      { id: 'identifiers', title: <FormattedMessage id="Identifiers" /> },
-    ],
-    [institution]
-  );
+  const tableOfContents = [
+    { id: 'description', title: <FormattedMessage id="grscicoll.description" /> },
+    { id: 'contacts', title: <FormattedMessage id="grscicoll.contacts" /> },
+    { id: 'identifiers', title: <FormattedMessage id="grscicoll.identifiers" /> },
+  ];
 
   if (!institution) return null;
 
@@ -85,7 +70,7 @@ export default function About() {
                   <FormattedMessage id="dataset.description" />
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="[&_a]:g-text-primary-500">
                 {institution?.description && (
                   <div
                     className="g-prose g-mb-6 g-max-w-full"
@@ -101,10 +86,22 @@ export default function About() {
                   />
                   {!loading && count > 0 && (
                     <Property labelId="grscicoll.specimensViaGbif">
-                      <FormattedNumber value={count} />
+                      <DynamicLink to="./specimens">
+                        <FormattedNumber value={count} />
+                      </DynamicLink>
                     </Property>
                   )}
-                  <Property value={institution.catalogUrls} labelId="grscicoll.catalogUrl" />
+                  {institution.catalogUrls && (
+                    <Property
+                      value={institution.catalogUrls}
+                      formatter={(x) => (
+                        <a href={x} target="_blank" rel="noreferrer" key={x}>
+                          {x}
+                        </a>
+                      )}
+                      labelId="grscicoll.catalogUrl"
+                    />
+                  )}
                   <Property value={institution.apiUrls} labelId="grscicoll.apiUrl" />
                   <Property
                     value={institution.disciplines}
@@ -113,15 +110,10 @@ export default function About() {
                     formatter={(val) => <ConceptValue vocabulary="Discipline" name={val} />}
                   />
                   {institution.foundingDate && (
-                    <Property labelId="grscicoll.foundingDate">{institution.foundingDate}</Property>
-                  )}
-                  {institution.type && (
-                    <Property labelId="institution.type">
-                      <FormattedMessage
-                        id={`enums.institutionType.${institution.type}`}
-                        defaultMessage={institution.type}
-                      />
-                    </Property>
+                    <Property
+                      labelId="grscicoll.foundingDate"
+                      value={institution.foundingDate}
+                    ></Property>
                   )}
                   <Property
                     value={institution.types}
@@ -150,76 +142,6 @@ export default function About() {
               </Card>
             )}
 
-            {isNoneEmptyArray(institution.collections) && (
-              <div id="collections" className="g-scroll-mt-24">
-                <CardHeader>
-                  <CardTitle>
-                    <FormattedMessage id="institution.collections" defaultMessage="Collections" />
-                  </CardTitle>
-                </CardHeader>
-                <Card className="g-relative g-overflow-x-auto g-rounded g-border g-mb-4">
-                  <table className="g-w-full g-text-sm g-text-left rtl:g-text-right g-text-gray-500 dark:g-text-gray-400">
-                    <thead className="g-text-slate-500 g-font-light g-bg-gray-50 dark:g-bg-gray-700 dark:g-text-gray-400 g-border-b">
-                      <tr>
-                        <th scope="col" className="g-px-6 g-py-3 g-font-normal">
-                          Name
-                        </th>
-                        <th scope="col" className="g-px-1 g-py-3 g-font-normal">
-                          Code
-                        </th>
-                        <th scope="col" className="g-px-1 g-py-3 g-font-normal">
-                          Description
-                        </th>
-                        <th
-                          scope="col"
-                          className="g-px-6 g-py-3 g-font-normal g-text-right rtl:g-text-left"
-                        >
-                          Specimens
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {institution?.collections?.map((collection) => {
-                        return (
-                          <tr
-                            key={collection.key}
-                            className="g-bg-white g-border-b last:g-border-0 dark:g-bg-gray-800 dark:g-border-gray-700"
-                          >
-                            <td
-                              scope="row"
-                              className="g-px-6 g-py-3 g-font-medium g-text-slate-900 dark:g-text-white g-min-w-80"
-                            >
-                              <DynamicLink
-                                className="g-underline"
-                                to={`/collection/${collection.key}`}
-                              >
-                                {collection.name}
-                              </DynamicLink>{' '}
-                              {!collection.active && (
-                                <Tag className="g-bg-red-700 g-text-white">Inactive</Tag>
-                              )}
-                            </td>
-                            <td className="g-px-1 g-py-3">
-                              <Tag className="g-whitespace-nowrap">{collection.code}</Tag>
-                            </td>
-                            <td className="g-px-1 g-py-3">
-                              <div
-                                className="g-line-clamp-2"
-                                dangerouslySetInnerHTML={{ __html: collection.excerpt }}
-                              ></div>
-                            </td>
-                            <td className="g-px-6 g-py-3 g-text-right rtl:g-text-left">
-                              <FormattedNumber value={collection.numberSpecimens} />
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </Card>
-              </div>
-            )}
-
             <Card className="g-mb-4" id="contacts">
               <CardHeader>
                 <CardTitle>
@@ -227,11 +149,10 @@ export default function About() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <Properties useDefaultTermWidths className="g-mb-8">
+                <Properties useDefaultTermWidths className="g-mb-8 [&_a]:g-text-primary-500">
                   {isNoneEmptyArray(institution.email) && (
                     <Property
                       labelId="grscicoll.email"
-                      className="g-prose"
                       value={institution.email}
                       formatter={(email) => (
                         <a href={`mailto:${email}`} className="">
@@ -241,7 +162,7 @@ export default function About() {
                     ></Property>
                   )}
                   <Property labelId="grscicoll.homepage">
-                    <HyperText className="g-prose" text={institution?.homepage} />
+                    <HyperText text={institution?.homepage} />
                   </Property>
                   <Property
                     value={institution?.address?.country}
@@ -352,7 +273,7 @@ export default function About() {
                   <FormattedMessage id="grscicoll.identifiers" />
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="[&_a]:g-text-primary-500">
                 <Properties
                   style={{ fontSize: 16, marginBottom: 12 }}
                   useDefaultTermWidths
@@ -399,7 +320,7 @@ export default function About() {
                                   defaultMessage={type}
                                 />
                               </div>
-                              <div className="g-prose">
+                              <div>
                                 <a href={link}>{text}</a>
                               </div>
                             </li>
@@ -435,7 +356,7 @@ export default function About() {
                                 />
                               </div>
                               <div>
-                                <HyperText className="g-prose" text={identifier} inline />
+                                <HyperText text={identifier} />
                               </div>
                             </li>
                           );
@@ -449,63 +370,14 @@ export default function About() {
           </div>
           {!removeSidebar && (
             <aside className="g-sticky">
-              {institution.longitude && (
-                <CardSmall className="">
-                  <a
-                    className="g-block"
-                    href={`http://www.google.com/maps/place/${institution.latitude},${institution.longitude}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <img
-                      style={{ width: '100%', display: 'block' }}
-                      src={`https://api.mapbox.com/styles/v1/mapbox/streets-v9/static/pin-s-circle+285A98(${institution.longitude},${institution.latitude})/${institution.longitude},${institution.latitude},15,0/400x250@2x?access_token=pk.eyJ1IjoiaG9mZnQiLCJhIjoiY2llaGNtaGRiMDAxeHNxbThnNDV6MG95OSJ9.p6Dj5S7iN-Mmxic6Z03BEA`}
-                    />
-                  </a>
-
-                  {/* <CardContentSmall className='g-mt-4'>
-                  <div className='g-flex'>
-                    <div className='g-flex-none g-me-2'>
-                      <div className='g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center'>
-                        <MdMap />
-                      </div>
-                    </div>
-                    <div className='g-flex-auto g-text-sm g-prose'>
-                      <address style={{ fontStyle: 'normal' }}>
-                        {institutionAddress.address && <div>
-                          {institutionAddress.address}
-                        </div>}
-                        {institutionAddress.city && <div>{institutionAddress.city}</div>}
-                        {institutionAddress.province && <div>{institutionAddress.province}</div>}
-                        {institutionAddress.postalCode && <div>{institutionAddress.postalCode}</div>}
-                        {institutionAddress.country && (
-                          <div>
-                            <FormattedMessage id={`enums.countryCode.${institutionAddress.country}`} />
-                          </div>
-                        )}
-                        {institutionAddress.email && (
-                          <div>
-                            <a href={`mailto:${institutionAddress.email}`}>{institutionAddress.email}</a>
-                          </div>
-                        )}
-                        {institutionAddress.phone && (
-                          <div>
-                            <a href={`tel:${institutionAddress.phone}`}>{institutionAddress.phone}</a>
-                          </div>
-                        )}
-                      </address>
-                    </div>
-                  </div>
-                </CardContentSmall> */}
-                </CardSmall>
-              )}
-              <div className="g-pt-4 g-sticky g-top-[--stickyOffset]">
+              <div className="-g-mt-4 g-pt-4 g-sticky g-top-[--stickyOffset]">
                 <TableOfContents sections={tableOfContents} />
                 <GbifLinkCard path={`/grscicoll/institution/${institution.key}`} />
               </div>
             </aside>
           )}
         </div>
+        {institution && <GrSciCollMetadata entity={institution} />}
       </ArticleTextContainer>
     </ArticleContainer>
   );

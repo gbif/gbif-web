@@ -5,7 +5,36 @@ const _ = require('lodash');
 //   return obj;
 // }
 
-const includeList = ['authors', 'countriesOfCoverage', 'countriesOfResearcher', 'day', 'gbifDownloadKey', 'gbifOccurrenceKey', 'gbifTaxonKey', 'gbifHigherTaxonKey', 'citationType', 'gbifRegion', 'id', 'identifiers', 'keywords', 'language', 'literatureType', 'month', 'notes', 'openAccess', 'peerReview', 'publisher', 'relevance', 'source', 'tags', 'title', 'topics', 'websites', 'year', 'abstract'];
+const includeList = [
+  'authors',
+  'countriesOfCoverage',
+  'countriesOfResearcher',
+  'day',
+  'gbifDownloadKey',
+  'gbifOccurrenceKey',
+  'gbifTaxonKey',
+  'gbifHigherTaxonKey',
+  'citationType',
+  'gbifRegion',
+  'id',
+  'identifiers',
+  'keywords',
+  'language',
+  'literatureType',
+  'month',
+  'notes',
+  'openAccess',
+  'peerReview',
+  'publisher',
+  'relevance',
+  'source',
+  'tags',
+  'title',
+  'topics',
+  'websites',
+  'year',
+  'abstract',
+];
 
 function reduce(item) {
   const source = item._source;
@@ -14,5 +43,5 @@ function reduce(item) {
 }
 
 module.exports = {
-  reduce
-}
+  reduce,
+};

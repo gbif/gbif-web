@@ -1,7 +1,11 @@
 {
+  "nResults": "{total, plural, one {# resultaat } other {# resultaten}}",
   "nOccurrences": "{total, plural, one {# keer} other {# keer}}",
   "nRecords": "{total, plural, one {# keer} other {# keer}}",
+  "nTaxa": "{total, plural, one {# taxon} other {# taxa}}",
+  "nCitations": "{total, plural, one {# citaat} other {# citaten}}",
   "nSpecimensInGbif": "{total, plural, one {# specimen in GBIF} other {# specimens in GBIF}}",
+  "nNames": "{total, plural, one {# naam} other {# namen}}",
   "nSynonyms": "{total, plural, one {# synoniem} other {# synoniemen}}",
   "inGbif": "{total, plural, one {# in GBIF} other {# in GBIF}}",
   "nSpecimens": "{total, plural, one {# exemplaar} other {# exemplaren}}",

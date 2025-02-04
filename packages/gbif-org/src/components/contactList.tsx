@@ -1,12 +1,12 @@
-import React from 'react';
+import { cn } from '@/utils/shadcn';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { MdMail } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
-import EmptyValue from './emptyValue';
 import { Details } from './details';
+import EmptyValue from './emptyValue';
 import Properties, { Property, Term, Value } from './properties';
 import { Card, CardContent } from './ui/largeCard';
-import { cn } from '@/utils/shadcn';
 
 export function ContactList({ contacts = [], className, ...props }) {
   return (
@@ -29,7 +29,7 @@ function Contact({ contact, ...props }) {
       ? `${contact.firstName || ''} ${contact.lastName || ''}`.trim()
       : undefined;
 
-  let roles = contact.roles || (contact.type ? [contact.type] : []);
+  const roles = contact.roles || (contact.type ? [contact.type] : []);
   const Roles = (
     <>
       {roles.map((r) => (
@@ -54,25 +54,27 @@ function Contact({ contact, ...props }) {
           {/* <div className='gb-discreet'>{roles && Roles}</div> */}
         </div>
       </div>
-      <div className="g-flex-auto g-w-1/3 g-text-slate-500">{roles.length > 0 && Roles}</div>
-      <div className="g-flex-auto g-w-1/3 g-flex g-justify-end">
-        <div className="g-flex g-items-center">
-          {orcid && (
-            <a
-              href={orcid}
-              style={{ marginRight: 16, width: 16, height: 16, display: 'inline-block' }}
-            >
-              <img
-                style={{ pointerEvents: 'none' }}
-                src="https://www.gbif.org/img/orcid_16x16.gif"
-              />
-            </a>
-          )}
-          {contact?.email?.length > 0 && (
-            <a href={`mailto:${contact.email[0]}`}>
-              <MdMail style={{ pointerEvents: 'none' }} />
-            </a>
-          )}
+      <div className="g-flex-auto g-w-2/3 g-text-slate-500 g-flex g-flex-row g-items-start">
+        {roles.length > 0 && <div className="g-grow">{Roles}</div>}
+        <div className="g-flex g-grow-0 g-justify-end">
+          <div className="g-flex g-items-center">
+            {orcid && (
+              <a
+                href={orcid}
+                style={{ marginRight: 16, width: 16, height: 16, display: 'inline-block' }}
+              >
+                <img
+                  style={{ pointerEvents: 'none' }}
+                  src="https://www.gbif.org/img/orcid_16x16.gif"
+                />
+              </a>
+            )}
+            {contact?.email?.length > 0 && (
+              <a className="g-text-inherit" href={`mailto:${contact.email[0]}`}>
+                <MdMail style={{ pointerEvents: 'none' }} />
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </div>

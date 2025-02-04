@@ -24,6 +24,16 @@
     "count": "{num, plural, one { collection } other {# collection}}",
     "description": "The collection in GrSciColl this record was matched to"
   },
+  "taxonomicStatus": {
+    "name": "Status",
+    "count": "{num, plural, one { status } other {# Statuses}}",
+    "description": "The number of held specimens stated in the description. This number does not say anything about how many records have been digitized and shared."
+  },
+  "taxonRank": {
+    "name": "Rank",
+    "count": "{num, plural, one { rank } other {# ranks}}",
+    "description": "The number of held specimens stated in the description. This number does not say anything about how many records have been digitized and shared."
+  },
   "numberSpecimens": {
     "name": "Number of specimens",
     "count": "{num, plural, one { specimen count } other {# Specimen counts filters}}",
@@ -335,6 +345,11 @@
     "count": "{num, plural, one { water body } other {# water bodies}}",
     "description": "The name of the water body in which the Location occurs."
   },
+  "higherGeography": {
+    "name": "Higher geography",
+    "count": "{num, plural, one { water body } other {# higher geography}}",
+    "description": "Higher geography in which the record is located. This is not an interpreted field, but the original data as provided by the publisher. Multiple values can be provided."
+  },
   "stateProvince": {
     "name": "State province",
     "count": "{num, plural, one { state province } other {# state provinces}}",
@@ -349,7 +364,7 @@
     "name": "Event ID",
     "count": "{num, plural, one { event id } other {# event ids}}",
     "description": "The unique identifier for the Event in the record."
-  },  
+  },
   "parentEventId": {
     "name": "Parent event ID",
     "count": "{num, plural, one { event id } other {# event ids}}",
@@ -419,6 +434,21 @@
     "name": "Active",
     "count": "Active",
     "description": "Whether the entry correspond to an active collection/institution or a historical listing that no longer exists."
+  },
+  "activeInstitution": {
+    "name": "Active",
+    "count": "Active",
+    "description": "Whether the entry correspond to an active institution or a historical listing that no longer exists."
+  },
+  "activeCollection": {
+    "name": "Active",
+    "count": "Active",
+    "description": "Whether the entry correspond to an active collection or a historical listing that no longer exists."
+  },
+  "publicationDate": {
+    "name": "Publication date",
+    "count": "{num, plural, one { publication date } other {# publication dates}}",
+    "description": "When was the record was published"
   },
   "personalCollection": {
     "name": "Personal collection",

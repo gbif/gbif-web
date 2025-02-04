@@ -1,15 +1,15 @@
+import { ConditionalWrapper } from '@/components/conditionalWrapper';
 import {
   OrganizationOption,
   OrganizationSearchSugget,
 } from '@/components/searchSelect/organizationSearchSuggest';
-import { useState } from 'react';
-import { CheckboxField } from '../becomeAPublisherForm';
-import { cn } from '@/utils/shadcn';
-import { ConditionalWrapper } from '@/components/conditionalWrapper';
 import { TimeAgo } from '@/components/timeAgo';
-import { DynamicLink } from '@/reactRouterPlugins';
 import { OrganizationPreviewQuery, OrganizationPreviewQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { cn } from '@/utils/shadcn';
+import { useState } from 'react';
+import { CheckboxField } from '../becomeAPublisherForm';
 
 export function CheckRegistration() {
   const [organization, setOrganization] = useState<OrganizationOption | null | undefined>();
@@ -70,7 +70,7 @@ function OrganizationPreview({ id, className }: { id: string; className?: string
       </p>
       {organization && (
         <div className="g-bg-white g-mt-2 g-border">
-          <DynamicLink to={`/publisher/${id}`}>
+          <DynamicLink to={`/publisher/${id}`} pageId="publisherKey" variables={{ key: id }}>
             <h3 className="g-p-2 g-text-base g-font-semibold g-text-blue-500 hover:g-underline">
               {organization.title}
             </h3>

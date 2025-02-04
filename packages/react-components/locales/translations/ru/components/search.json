@@ -1,21 +1,29 @@
 {
   "tabs": {
     "table": "Таблица",
+    "tree": "",
     "gallery": "Галерея",
+    "media": "Архив, аннотированный GBIF",
     "map": "Карта",
     "datasets": "Опубликованных наборов данных",
     "events": "Мероприятия",
     "download": "Загрузить",
     "clusters": "",
     "dashboard": "Панель управления",
-    "sites": "Архив, аннотированный GBIF"
+    "sites": "Архив, аннотированный GBIF",
+    "list": "Список"
   },
   "table": {
-    "lockColumn": ""
+    "lockColumn": "",
+    "unlockColumn": "Архив, аннотированный GBIF",
+    "columnVisibility": "Архив, аннотированный GBIF",
+    "resetColumnVisibility": "Архив, аннотированный GBIF",
+    "openFilter": "Архив, аннотированный GBIF"
   },
   "placeholders": {
     "default": "Поиск",
     "range": "",
+    "rangeExample": "",
     "wildcard": "Поиск с использованием шаблонов * и ? ",
     "locationID": ""
   },
@@ -25,6 +33,7 @@
     "either": "Архив, аннотированный GBIF"
   },
   "loadMore": "Еще",
+  "noResults": "Архив, аннотированный GBIF",
   "occurrenceClustersView": {
     "about": "Подробно",
     "clusters": "",

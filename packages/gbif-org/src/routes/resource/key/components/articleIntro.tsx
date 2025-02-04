@@ -20,9 +20,9 @@ export function ArticleIntro({ dangerouslySetIntro, className, ...props }: Props
 export function ArticleIntroSkeleton({ className }: Pick<Props, 'className'>) {
   return (
     <div className={className}>
-      <Skeleton className='g-w-full g-h-6' />
-      <Skeleton className='g-w-5/6 g-h-6 g-mt-1' />
-      <Skeleton className='g-w-2/6 g-h-6 g-mt-1' />
+      <Skeleton className="g-w-full g-h-6" />
+      <Skeleton className="g-w-5/6 g-h-6 g-mt-1" />
+      <Skeleton className="g-w-2/6 g-h-6 g-mt-1" />
     </div>
   );
 }

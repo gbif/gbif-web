@@ -1,16 +1,18 @@
 import {
+  InstitutionFallbackImageQuery,
+  InstitutionFallbackImageQueryVariables,
   InstitutionQuery,
   InstitutionQueryVariables,
   InstitutionSummaryMetricsQuery,
   InstitutionSummaryMetricsQueryVariables,
   PredicateType,
 } from '@/gql/graphql';
+import useQuery from '@/hooks/useQuery';
+import { LoaderArgs } from '@/reactRouterPlugins';
 import { required } from '@/utils/required';
+import { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { InstitutionKey as Presentation } from './institutionKeyPresentation';
-import useQuery from '@/hooks/useQuery';
-import { useEffect } from 'react';
-import { LoaderArgs } from '@/reactRouterPlugins';
 
 export async function institutionLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
@@ -27,6 +29,14 @@ export function InstitutionKey() {
   >(SLOW_QUERY, {
     lazyLoad: true,
     throwAllErrors: true,
+  });
+
+  const { data: imageData, load: imageLoad } = useQuery<
+    InstitutionFallbackImageQuery,
+    InstitutionFallbackImageQueryVariables
+  >(IMAGE_QUERY, {
+    lazyLoad: true,
+    throwAllErrors: false,
   });
 
   useEffect(() => {
@@ -64,11 +74,18 @@ export function InstitutionKey() {
           },
         },
       });
+      imageLoad({ variables: { key: id } });
     }
-  }, [data.institution?.key]);
+  }, [data.institution?.key, slowLoad, imageLoad]);
 
   if (data.institution == null) throw new Error('404');
-  return <Presentation data={data} institutionMetrics={institutionMetrics} />;
+  return (
+    <Presentation
+      data={data}
+      institutionMetrics={institutionMetrics}
+      fallbackImage={imageData?.institution?.featuredImageUrl_fallback}
+    />
+  );
 }
 
 export { InstitutionPageSkeleton } from './institutionKeyPresentation';
@@ -102,7 +119,7 @@ const INSTITUTION_QUERY = /* GraphQL */ `
 
       featuredImageUrl: thumbor(width: 1000, height: 667)
       featuredImageLicense
-      featuredImageUrl_fallback: homepageOGImageUrl_volatile
+      featuredImageUrl_fallback: homepageOGImageUrl_volatile(onlyIfNoImageUrl: true, timeoutMs: 300)
 
       masterSourceMetadata {
         key
@@ -153,15 +170,7 @@ const INSTITUTION_QUERY = /* GraphQL */ `
         postalCode
         country
       }
-      collections(limit: 200) {
-        key
-        excerpt
-        code
-        name
-        active
-        numberSpecimens
-        richness
-      }
+      collectionCount
     }
   }
 `;
@@ -183,8 +192,13 @@ const SLOW_QUERY = /* GraphQL */ `
       key
       collections(limit: 200) {
         key
-        occurrenceCount
+        excerpt
+        code
+        name
+        active
+        numberSpecimens
         richness
+        occurrenceCount
       }
     }
     withImages: occurrenceSearch(predicate: $imagePredicate) {
@@ -201,6 +215,17 @@ const SLOW_QUERY = /* GraphQL */ `
       documents(size: 0) {
         total
       }
+    }
+  }
+`;
+
+const IMAGE_QUERY = /* GraphQL */ `
+  query InstitutionFallbackImage($key: ID!) {
+    institution(key: $key) {
+      featuredImageUrl_fallback: homepageOGImageUrl_volatile(
+        onlyIfNoImageUrl: true
+        timeoutMs: 3000
+      )
     }
   }
 `;

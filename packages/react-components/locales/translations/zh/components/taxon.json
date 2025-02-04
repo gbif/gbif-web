@@ -1,0 +1,11 @@
+{
+  "tabs": {
+    "about": "关于",
+    "typeMaterial": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+    "metrics": "指标"
+  },
+  "publishedIn": "已发布",
+  "vernacularNames": "俗名",
+  "rank": "类群排名",
+  "source": "来源"
+}

@@ -1,5 +1,13 @@
 {
+  "tabs": {
+    "details": "Plus d'informations",
+    "cluster": "Enregistrements liés ",
+    "phylotree": "Archive annotée par GBIF"
+  },
   "occurrence": "occurrence",
+  "specimen": "Spécimen",
+  "processed": "Archive annotée par GBIF",
+  "fragment": "Archive annotée par GBIF",
   "showAllFields": "Afficher tous les champs",
   "morePhotos": "Plus de photos",
   "about": "À propos",
@@ -10,6 +18,10 @@
   "collection": "Collection",
   "collectionGrSciColl": "Collection GrSciColl",
   "recordedAndIdentifiedBy": "Enregistré et identifié par",
+  "tryPublisherSiteForFailingMedia": "Si le média ne s'affiche pas correctement, essayez plutôt le site de l'éditeur",
+  "screenReader": {
+    "title": "Détails de l'occurrence"
+  },
   "info": {
     "original": "original",
     "excluded": "Exclu",
@@ -27,7 +39,8 @@
     "organism": "Organisme",
     "materialSample": "Matériel échantillonné",
     "geologicalContext": "Contexte géologique",
-    "other": "Autre"
+    "other": "Autre",
+    "extensions": "Extensions"
   },
   "features": {
     "isClustered": "Regroupés",
@@ -43,6 +56,15 @@
     "isSpecimen": "Spécimen",
     "eventDate": "Date de l'événement",
     "isType": "Spécimens type"
+  },
+  "cluster": {
+    "current": "Actuel",
+    "relatedOccurrences": "Occurrences liées ",
+    "similarBecause": "Similaire car",
+    "clusterTags": "Archive annotée par GBIF",
+    "matchedRecord": "Enregistrements correspondants",
+    "noMatches": "Pas de relations entre candidats ",
+    "explainer": "Cette fonctionnalité expérimentale met en évidence la possibilité de doublons et/ou d'occurrences connexes."
   },
   "extensions": {
     "audubon": {

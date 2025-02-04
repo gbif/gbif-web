@@ -1,5 +1,5 @@
-import { RESTDataSource } from 'apollo-datasource-rest';
 import { getDefaultAgent } from '#/requestAgents';
+import { RESTDataSource } from 'apollo-datasource-rest';
 
 class CollectionAPI extends RESTDataSource {
   constructor(config) {
@@ -19,14 +19,6 @@ class CollectionAPI extends RESTDataSource {
 
   async getCollectionByKey({ key }) {
     return this.get(`/grscicoll/collection/${key}`);
-  }
-
-  async getCollectionsByInstitutionKey({ key, limit = 20, offset = 0 }) {
-    return this.get('/grscicoll/collection', {
-      institution: key,
-      limit,
-      offset,
-    }).then((res) => res.results);
   }
 
   /*

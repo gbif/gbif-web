@@ -1,43 +1,44 @@
-import React, { useEffect, useState, useContext, useCallback } from 'react';
-import { Helmet } from 'react-helmet-async';
-import country from '@/enums/basic/country.json';
-import hash from 'object-hash';
-import useQuery from '@/hooks/useQuery';
-import { MdApps, MdCode, MdInfo } from 'react-icons/md';
-import { Tabs } from '@/components/tabs';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { cn } from '@/utils/shadcn';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
-import { HelpText } from '@/components/helpText';
-import { Card } from '@/components/ui/smallCard';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
-import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { PublisherResult } from '../publisherResult';
-import { CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { PaginationFooter } from '@/components/pagination';
-import { NoRecords } from '@/components/noDataMessages';
-import { PublisherSearchQuery, PublisherSearchQueryVariables } from '@/gql/graphql';
 import { CountProps, useCount } from '@/components/count';
-import { CardListSkeleton } from '@/components/skeletonLoaders';
-import { Skeleton } from '@/components/ui/skeleton';
-import { FilterContext, FilterProvider } from '@/contexts/filter';
-import { filter2v1 } from '@/dataManagement/filterAdapter';
-import { searchConfig } from './searchConfig';
-import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import { QInlineButtonFilter } from '@/components/filters/QInlineButtonFilter';
-import { FilterBar } from '@/components/filters/filterTools';
+import { DataHeader } from '@/components/dataHeader';
+import { CountryLabel } from '@/components/filters/displayNames';
 import { FilterButton } from '@/components/filters/filterButton';
 import { FilterPopover } from '@/components/filters/filterPopover';
-import { CountryLabel } from '@/components/filters/displayNames';
-import { SearchCommand } from '../../../components/filters/SearchCommand';
+import { FilterBar, getAsQuery } from '@/components/filters/filterTools';
+import { QInlineButtonFilter } from '@/components/filters/QInlineButtonFilter';
+import { NoRecords } from '@/components/noDataMessages';
+import { PaginationFooter } from '@/components/pagination';
+import { CardListSkeleton } from '@/components/skeletonLoaders';
+import { Button } from '@/components/ui/button';
+import { CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { Skeleton } from '@/components/ui/skeleton';
+import {
+  CardContent,
+  CardHeader as SmallHeader,
+  CardTitle as SmallTitle,
+} from '@/components/ui/smallCard';
+import { useConfig } from '@/config/config';
+import { FilterContext, FilterProvider } from '@/contexts/filter';
+import { SearchContextProvider, useSearchContext } from '@/contexts/search';
+import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
+import country from '@/enums/basic/country.json';
+import { PublisherSearchQuery, PublisherSearchQueryVariables } from '@/gql/graphql';
+import { useIntParam } from '@/hooks/useParam';
+import useQuery from '@/hooks/useQuery';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
+import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { CANCEL_REQUEST, fetchWithCancel } from '@/utils/fetchWithCancel';
+import { stringify } from '@/utils/querystring';
 import { matchSorter } from 'match-sorter';
-import { DataHeader } from '@/components/dataHeader';
+import hash from 'object-hash';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { SearchCommand } from '../../../components/filters/SearchCommand';
+import { PublisherResult } from '../publisherResult';
+import { AboutContent, ApiContent } from './help';
+import { Map } from './map/map';
+import { searchConfig } from './searchConfig';
 
 const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
   query PublisherSearch(
@@ -70,21 +71,31 @@ const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
 `;
 
 export function PublisherSearchPage(): React.ReactElement {
-  const [filter, setFilter] = useFilterParams({ filterConfig: searchConfig });
+  const [filter, setFilter] = useFilterParams({
+    filterConfig: searchConfig,
+    paramsToRemove: ['offset'],
+  });
+  const config = useConfig();
+
   return (
-    <FilterProvider filter={filter} onChange={setFilter}>
-      <PublisherSearch />
-    </FilterProvider>
+    <SearchContextProvider searchContext={config.publisherSearch}>
+      <FilterProvider filter={filter} onChange={setFilter}>
+        <PublisherSearch />
+      </FilterProvider>
+    </SearchContextProvider>
   );
 }
 
 export function PublisherSearch(): React.ReactElement {
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useIntParam({ key: 'offset', defaultValue: 0, hideDefault: true });
   const filterContext = useContext(FilterContext);
+  const searchContext = useSearchContext();
+  const [geojson, setGeojson] = useState<GeoJSON.FeatureCollection | undefined>();
+  const [geojsonError, setGeojsonError] = useState(false);
+  const [geojsonLoading, setGeojsonLoading] = useState(true);
   const [userCountry, setUserCountry] = useState<{ country: string; countryName: string }>();
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
-  const tabClassName = 'g-pt-2 g-pb-1.5';
 
   const { data, error, load, loading } = useQuery<
     PublisherSearchQuery,
@@ -92,88 +103,97 @@ export function PublisherSearch(): React.ReactElement {
   >(PUBLISHER_SEARCH_QUERY, {
     throwAllErrors: true,
     lazyLoad: true,
+    forceLoadingTrueOnMount: true,
   });
 
   useEffect(() => {
-    const v1 = filter2v1(filter, searchConfig);
+    const query = getAsQuery({ filter, searchContext, searchConfig });
     load({
       variables: {
-        ...v1.filter,
+        ...query,
         limit: 20,
         offset,
         isEndorsed: true,
       },
     });
-  }, [offset, filterHash, searchConfig, load]);
+
+    setGeojsonLoading(true);
+    setGeojsonError(false);
+    const { promise, cancel } = fetchWithCancel(
+      `${import.meta.env.PUBLIC_API_V1}/organization/geojson?${stringify(query)}`
+    );
+    promise
+      .then((res) => res.json())
+      .then((data) => {
+        setGeojson(data);
+        setGeojsonLoading(false);
+        setGeojsonError(false);
+      })
+      .catch((err) => {
+        if (err.reason === CANCEL_REQUEST) {
+          return;
+        } else {
+          setGeojsonLoading(false);
+          setGeojsonError(true);
+        }
+      });
+
+    return () => cancel();
+
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [offset, filterHash, load]);
 
   // call https://graphql.gbif-staging.org/unstable-api/user-info?lang=en to get the users country: response {country, countryName}
   // then use the country code to get a count of publishers from that country
   useEffect(() => {
-    fetch('https://graphql.gbif-staging.org/unstable-api/user-info?lang=en')
+    fetch(`${import.meta.env.PUBLIC_WEB_UTILS}/user-info?lang=en`)
       .then((res) => res.json())
       .then((data) => {
-        // setUserCountry({ country: 'DK', countryName: 'Denmark' });
         setUserCountry(data);
+        // setUserCountry({ country: 'DK', countryName: 'Denmark' });
       });
   }, []);
+
+  //decide if we should show the info about the country. This is only relevant if there is no country filter already set
+  const showCountryInfo =
+    !filter?.must?.country &&
+    userCountry?.country &&
+    !searchContext?.excludedFilters?.includes('country');
 
   const publishers = data?.list;
   return (
     <>
-      <Helmet>
-        <title>Publisher search</title>
-      </Helmet>
+      <FormattedMessage id="catalogues.publishers" defaultMessage="Publishers">
+        {(title) => (
+          <Helmet>
+            <title>{title}</title>
+          </Helmet>
+        )}
+      </FormattedMessage>
+
       <DataHeader
-        title="Publishers"
+        className="g-bg-white"
+        title={<FormattedMessage id="catalogues.publishers" defaultMessage="Publishers" />}
         hasBorder
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
-      >
-        <Tabs
-          className="g-border-none"
-          links={[
-            {
-              to: '/publisher/search',
-              children: 'List',
-              className: tabClassName,
-            },
-            {
-              to: '/publisher/search/map',
-              children: 'Map',
-              className: tabClassName,
-            },
-          ]}
-        />
-      </DataHeader>
+        hideIfNoCatalogue={true}
+      ></DataHeader>
 
       <section className="">
         <FilterBar>
           <Filters />
         </FilterBar>
-        <ArticleContainer className="g-bg-slate-100 g-flex">
-          <ArticleTextContainer className="g-flex-auto">
-            <Results loading={loading} publishers={publishers} setOffset={setOffset} />
-          </ArticleTextContainer>
-          {/* {userCountry?.country && (
-            <aside className="g-flex-none">
-              <section>
-                <h2>Did you know?</h2>
-                <Card>
-                  <p>
-                    <CountMessage
-                      message="counts.nPublishersInCountry"
-                      messageValues={{ country: userCountry?.countryName }}
-                      countProps={{
-                        v1Endpoint: '/organization',
-                        params: { country: userCountry?.country },
-                      }}
-                    />
-                  </p>
-                  <Button onClick={() => setField('country', [userCountry?.country])}>View</Button>
-                </Card>
-              </section>
-            </aside>
-          )} */}
+        <ArticleContainer className="g-bg-slate-100">
+          <Results
+            setField={filterContext?.setField}
+            loading={loading}
+            publishers={publishers}
+            setOffset={setOffset}
+            userCountry={showCountryInfo ? userCountry : undefined}
+            {...{ geojson, geojsonLoading, geojsonError }}
+          />
         </ArticleContainer>
       </section>
     </>
@@ -200,15 +220,59 @@ function Results({
   loading,
   publishers,
   setOffset,
+  geojson,
+  geojsonLoading,
+  geojsonError,
+  userCountry,
+  setField,
 }: {
   loading: boolean;
   publishers: PublisherSearchQuery['list'];
   setOffset: (x: number) => void;
+  geojson: GeoJSON.FeatureCollection | undefined;
+  geojsonLoading: boolean;
+  geojsonError: boolean;
+  userCountry: { country: string; countryName: string } | undefined;
+  setField: (field: string, value: string[]) => void;
 }) {
+  const config = useConfig();
+  const reactIntl = useIntl();
+  const countryName = reactIntl.formatMessage({ id: `enums.countryCode.${userCountry?.country}` });
+  const showSidebar = config.publisherSearch?.enableUserCountryInfo && userCountry?.countryName;
+  const sidebarContent = !showSidebar ? null : (
+    <section className="g-ms-4 g-text-sm g-max-w-96">
+      <SmallHeader className="!g-px-0 !g-pt-0">
+        <SmallTitle className="g-text-slate-500">
+          <FormattedMessage id="phrases.didYouKnow" />
+        </SmallTitle>
+      </SmallHeader>
+      <CardContent className="!g-px-0">
+        <p>
+          <CountMessage
+            message="counts.nPublishersInCountry"
+            messageValues={{ country: countryName }}
+            countProps={{
+              v1Endpoint: '/organization',
+              params: { country: userCountry?.country, isEndorsed: 'true' },
+            }}
+          />
+        </p>
+        <Button
+          className="g-mt-2"
+          variant="primaryOutline"
+          size="sm"
+          onClick={() => setField('country', [userCountry?.country])}
+        >
+          <FormattedMessage id="phrases.explore" />
+        </Button>
+      </CardContent>
+    </section>
+  );
+
   return (
     <>
       {loading && (
-        <>
+        <ArticleTextContainer>
           <CardHeader>
             <Skeleton className="g-max-w-64">
               <CardTitle>
@@ -217,32 +281,60 @@ function Results({
             </Skeleton>
           </CardHeader>
           <CardListSkeleton />
-        </>
+        </ArticleTextContainer>
       )}
       {!loading && publishers?.count === 0 && (
-        <>
+        <ArticleTextContainer>
           <NoRecords />
-        </>
+        </ArticleTextContainer>
       )}
       {publishers && publishers.count > 0 && (
         <>
-          <CardHeader id="publishers">
-            <CardTitle>
-              <FormattedMessage id="counts.nPublishers" values={{ total: publishers.count ?? 0 }} />
-            </CardTitle>
-          </CardHeader>
-          {publishers &&
-            publishers.results.map((item) => <PublisherResult key={item.key} publisher={item} />)}
-
-          {publishers?.count && publishers?.count > publishers?.limit && (
-            <PaginationFooter
-              offset={publishers.offset}
-              count={publishers.count}
-              limit={publishers.limit}
-              onChange={(x) => setOffset(x)}
-              anchor="publishers"
-            />
-          )}
+          <SideBarWrapper sidebar={<span></span>}>
+            <CardHeader id="publishers">
+              <CardTitle>
+                <FormattedMessage
+                  id="counts.nPublishers"
+                  values={{ total: publishers.count ?? 0 }}
+                />
+              </CardTitle>
+            </CardHeader>
+          </SideBarWrapper>
+          <SideBarWrapper sidebar={sidebarContent}>
+            {publishers &&
+              publishers.results
+                .slice(0, 2)
+                .map((item) => <PublisherResult key={item.key} publisher={item} />)}
+            {publishers.offset === 0 &&
+              !!geojson?.features?.length &&
+              geojson?.features?.length > 0 && (
+                <div className="g-relative">
+                  <div className="g-absolute g-top-0 g-start-0 g-text-xs g-border g-rounded g-z-10 g-bg-slate-100 g-text-slate-800 g-py-0 g-px-1 g-m-2">
+                    <FormattedMessage
+                      id="counts.nResultsWithCoordinates"
+                      values={{ total: geojson.features.length ?? 0 }}
+                    />
+                  </div>
+                  <Map
+                    className="g-z-0"
+                    {...{ geojson, geojsonLoading, geojsonError }}
+                    PopupContent={PopupContent}
+                  />
+                </div>
+              )}
+            {publishers &&
+              publishers.results
+                .slice(2)
+                .map((item) => <PublisherResult key={item.key} publisher={item} />)}
+            {publishers?.count && publishers?.count > publishers?.limit && (
+              <PaginationFooter
+                offset={publishers.offset}
+                count={publishers.count}
+                limit={publishers.limit}
+                onChange={(x) => setOffset(x)}
+              />
+            )}
+          </SideBarWrapper>
         </>
       )}
     </>
@@ -250,6 +342,7 @@ function Results({
 }
 
 function Filters() {
+  const searchContext = useSearchContext();
   const filterContext = useContext(FilterContext);
   const { formatMessage } = useIntl();
   const [countries, setCountries] = useState<{ key: string; title: string }[]>([]);
@@ -281,84 +374,74 @@ function Filters() {
 
   const { filter, setField } = filterContext;
 
+  const hideCountryFilter = searchContext?.excludedFilters?.includes('country');
+
   return (
     <>
       <QInlineButtonFilter className="g-min-w-36" />
-      <FilterPopover
-        trigger={
-          <FilterButton
-            className="g-mx-1 g-mb-1 g-max-w-md g-text-slate-600"
-            filterHandle="country"
-            DisplayName={CountryLabel}
-            titleTranslationKey="filters.country.name"
+      {!hideCountryFilter && (
+        <FilterPopover
+          trigger={
+            <FilterButton
+              className="g-mx-1 g-mb-1 g-max-w-md g-text-slate-600"
+              filterHandle="country"
+              displayName={CountryLabel}
+              titleTranslationKey="filters.country.name"
+            />
+          }
+        >
+          <SearchCommand<{ key: string; title: string }>
+            setSelected={(x) => setField('country', x ? [x.key] : [])}
+            selectedKey={filter?.must?.country?.[0]}
+            search={countrySearch}
+            results={results ?? []}
+            labelSelector={(value) => value.title}
+            keySelector={(value) => value.key}
+            noSearchResultsPlaceholder={<FormattedMessage id="phrases.noResults" />}
+            noSelectionPlaceholder={<span>Country</span>}
+            searchInputPlaceholder={formatMessage({ id: 'search.placeholders.default' })}
           />
-        }
-      >
-        <SearchCommand<{ key: string; title: string }>
-          setSelected={(x) => setField('country', x ? [x.key] : [])}
-          selectedKey={filter?.must?.country?.[0]}
-          search={countrySearch}
-          results={results ?? []}
-          labelSelector={(value) => value.title}
-          keySelector={(value) => value.key}
-          noSearchResultsPlaceholder={<span>No countries found</span>}
-          noSelectionPlaceholder={<span>Country</span>}
-          searchInputPlaceholder="Search countries..."
-        />
-      </FilterPopover>
+        </FilterPopover>
+      )}
     </>
   );
 }
 
-function AboutContent() {
+function PopupContent({ features }: { features: { key: string; title: string }[] }) {
   return (
-    <div>
-      <Accordion type="single" collapsible className="w-full">
-        <AccordionItem value="item-1">
-          <AccordionTrigger>What is a publisher?</AccordionTrigger>
-          <AccordionContent className="g-prose g-text-sm">
-            Data is loaded from contentful help items async. E.g.
-            <HelpText
-              identifier={'which-coordinate-systems-are-used-for-gbif-occurence-downloads'}
-            />
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-2">
-          <AccordionTrigger>How to search for publishers</AccordionTrigger>
-          <AccordionContent>Data is loaded from contentful help items async</AccordionContent>
-        </AccordionItem>
-      </Accordion>
-    </div>
+    <ul className="g-list-disc g-px-2">
+      {features.map((x) => (
+        <li key={x.key}>
+          <DynamicLink
+            className="g-underline"
+            to={`/publisher/${x.key}`}
+            pageId="publisherKey"
+            variables={{ key: x.key }}
+          >
+            {x.title}
+          </DynamicLink>
+        </li>
+      ))}
+    </ul>
   );
 }
 
-function ApiContent() {
+function SideBarWrapper({
+  children,
+  sidebar,
+}: {
+  children: React.ReactNode;
+  sidebar: React.ReactNode;
+}) {
   return (
-    <div className="g-text-sm g-prose">
-      <h3>API access</h3>
-      <p>
-        All data is available via the{' '}
-        <a href="https://techdocs.gbif.org/en/openapi/v1/registry#/Publishing%20organizations">
-          GBIF API
-        </a>
-        . No registration or API key is required.
-      </p>
-      <p>
-        Please remember to properly cite usage and to throttle requests in scripts. Most endpoint
-        types support download/export. Use those if you need large data volumes.
-      </p>
-      <h4>Examples</h4>
-      <Card className="g-p-2 g-mb-2">
-        Get all publishers <br />
-        <a href="https://api.gbif.org/v1/organization">https://api.gbif.org/v1/organization</a>
-      </Card>
-      <Card className="g-p-2">
-        First 2 German publishers with free text "animals"
-        <br />
-        <a href="https://api.gbif.org/v1/organization?country=DE&q=animals&limit=2&offset=0">
-          https://api.gbif.org/v1/organization?country=DE&q=animals&limit=2&offset=0
-        </a>
-      </Card>
+    <div className="g-flex">
+      {sidebar && <div className="g-hidden xl:g-block g-flex-grow g-flex-shrink g-w-full"></div>}
+      <ArticleTextContainer className="g-flex-auto g-flex-grow-0 g-flex-shrink-0 g-w-full">
+        {children}
+      </ArticleTextContainer>
+      {sidebar && (
+        <aside className="g-flex-grow g-flex-shrink g-w-full g-hidden lg:g-block">{sidebar}</aside>
+      )}
     </div>
   );
 }

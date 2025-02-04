@@ -1,21 +1,29 @@
 {
   "tabs": {
     "table": "Tabla",
+    "tree": "",
     "gallery": "Galería",
+    "media": "Aquí debe colocarse una breve descripción del componente",
     "map": "Mapa",
     "datasets": "Conjuntos de datos",
     "events": "Eventos",
     "download": "Descargar",
     "clusters": "",
     "dashboard": "Panel de control",
-    "sites": "Aquí debe colocarse una breve descripción del componente"
+    "sites": "Aquí debe colocarse una breve descripción del componente",
+    "list": "Lista"
   },
   "table": {
-    "lockColumn": "Inmovilizar columna"
+    "lockColumn": "Inmovilizar columna",
+    "unlockColumn": "Aquí debe colocarse una breve descripción del componente",
+    "columnVisibility": "Aquí debe colocarse una breve descripción del componente",
+    "resetColumnVisibility": "Aquí debe colocarse una breve descripción del componente",
+    "openFilter": "Aquí debe colocarse una breve descripción del componente"
   },
   "placeholders": {
     "default": "Buscar",
     "range": "Rango o valor único",
+    "rangeExample": "",
     "wildcard": "Buscar utilizando * y ? como comodines",
     "locationID": ""
   },
@@ -25,6 +33,7 @@
     "either": "Aquí debe colocarse una breve descripción del componente"
   },
   "loadMore": "Más",
+  "noResults": "Aquí debe colocarse una breve descripción del componente",
   "occurrenceClustersView": {
     "about": "Acerca de",
     "clusters": "",

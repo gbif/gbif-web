@@ -1,10 +1,9 @@
+import { Button } from '@/components/ui/button';
+import { DynamicLink, LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { required } from '@/utils/required';
-import { useLoaderData, useSearchParams } from 'react-router-dom';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
 import { MdErrorOutline } from 'react-icons/md';
-import { DynamicLink } from '@/reactRouterPlugins';
-import { Button } from '@/components/ui/button';
-import { LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
+import { useLoaderData, useSearchParams } from 'react-router-dom';
 
 type LoaderResult =
   | {
@@ -57,7 +56,11 @@ function ConfirmEndorsmentPage() {
         <MdErrorOutline color="orange" size={120} />
         <p className="font-semibold pb-8 pt-4">The publisher is already endorsed</p>
         <Button asChild variant="default">
-          <DynamicLink to={`/publisher/${searchParams.get('key')}`}>
+          <DynamicLink
+            to={`/publisher/${searchParams.get('key')}`}
+            pageId="publisherKey"
+            variables={{ key: searchParams.get('key') }}
+          >
             Go to publisher page
           </DynamicLink>
         </Button>
@@ -71,7 +74,11 @@ function ConfirmEndorsmentPage() {
         <IoIosCheckmarkCircle color="green" size={120} />
         <p className="font-semibold pb-8 pt-4">Publisher has now been endorsed!</p>
         <Button asChild variant="default">
-          <DynamicLink to={`/publisher/${searchParams.get('key')}`}>
+          <DynamicLink
+            to={`/publisher/${searchParams.get('key')}`}
+            pageId="publisherKey"
+            variables={{ key: searchParams.get('key') }}
+          >
             Go to publisher page
           </DynamicLink>
         </Button>

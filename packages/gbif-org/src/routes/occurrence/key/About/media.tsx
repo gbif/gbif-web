@@ -1,11 +1,12 @@
-import { RiExternalLinkLine } from 'react-icons/ri';
-import { MdFileDownload } from 'react-icons/md';
-import Properties, { Term as T, Value as V } from '@/components/properties';
+import Properties from '@/components/properties';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { OccurrenceMediaDetailsFragment, OccurrenceQuery, Term } from '@/gql/graphql';
-import { BasicField } from '../properties';
-import { useEffect, useState } from 'react';
 import { truncateMiddle } from '@/utils/truncateString';
+import { useEffect, useState } from 'react';
+import { MdFileDownload } from 'react-icons/md';
+import { RiExternalLinkLine } from 'react-icons/ri';
+import { FormattedMessage } from 'react-intl';
+import { BasicField } from '../properties';
 
 const supportedFormats = [
   'audio/ogg',
@@ -32,7 +33,7 @@ export function Media({
   updateToc: (id: string, visible: boolean) => void;
   className?: string;
 }) {
-  const sectionName = 'media';
+  const sectionName = 'multimedia';
   const [visible, setVisible] = useState<boolean | undefined>();
   useEffect(() => {
     if (typeof visible === 'boolean') updateToc(sectionName, visible);
@@ -51,9 +52,11 @@ export function Media({
   }
 
   return (
-    <div className="g-mb-4 g-scroll-mt-24" id="media">
+    <div className="g-mb-4 g-scroll-mt-24" id="multimedia">
       <CardHeader>
-        <CardTitle>Media</CardTitle>
+        <CardTitle>
+          <FormattedMessage id="occurrenceDetails.extensions.multimedia.name" />
+        </CardTitle>
       </CardHeader>
       <ul className="g-grid g-grid-cols-1 md:g-grid-cols-2 g-gap-4">
         <Sounds {...{ occurrence, termMap }} />
@@ -118,7 +121,8 @@ function Sounds({
                     {
                       <CardContent>
                         <a href={termMap?.references?.value || media.identifier}>
-                          If it isn't working try the publishers site instead <RiExternalLinkLine />
+                          <FormattedMessage id="occurrenceDetails.tryPublisherSiteForFailingMedia" />{' '}
+                          <RiExternalLinkLine />
                         </a>
                       </CardContent>
                     }
@@ -165,7 +169,8 @@ function MovingImages({
                           href={termMap?.references?.value || media.identifier}
                           className="g-px-2 g-py-1 g-bg-slate-300 g-block"
                         >
-                          If it isn't working try the publishers site instead <RiExternalLinkLine />
+                          <FormattedMessage id="occurrenceDetails.tryPublisherSiteForFailingMedia" />{' '}
+                          <RiExternalLinkLine />
                         </a>
                       </div>
                     )}
@@ -198,8 +203,12 @@ function Caption({
   occurrence: OccurrenceQuery['occurrence'];
 }) {
   return (
-    <figcaption className='g-px-4 g-py-2 [&_a]:g-underline'>
-      {!media.identifier && <div className='g-bg-slate-200 g-rounded g-text-slate-800 g-px-2 g-py-1 g-mb-2'>Identifier missing</div>}
+    <figcaption className="g-px-4 g-py-2 [&_a]:g-underline">
+      {!media.identifier && (
+        <div className="g-bg-slate-200 g-rounded g-text-slate-800 g-px-2 g-py-1 g-mb-2">
+          Identifier missing
+        </div>
+      )}
       <Properties style={{ fontSize: '85%' }} dense>
         {media.description && (
           <BasicField label={`occurrenceFieldNames.description`}>{media.description}</BasicField>
