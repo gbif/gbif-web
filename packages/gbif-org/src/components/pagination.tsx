@@ -69,12 +69,15 @@ export function PaginationFooter({
     <Pagination>
       <PaginationContent>
         {currentPage > 1 && (
-          <PaginationItem className="g-cursor-pointer" onClick={() => onChange(previousPageOffset)}>
-            <PaginationPrevious />
+          <PaginationItem
+            className="g-text-inherit g-cursor-pointer"
+            onClick={() => onChange(previousPageOffset)}
+          >
+            <PaginationPrevious className="g-text-inherit" />
           </PaginationItem>
         )}
         {hasBefore && (
-          <PaginationItem>
+          <PaginationItem className="g-text-inherit">
             <PaginationEllipsis />
           </PaginationItem>
         )}
@@ -87,18 +90,23 @@ export function PaginationFooter({
               key={page.pageNumber}
               onClick={() => onChange(page.offset)}
             >
-              <PaginationLink isActive={isActive}>{page.pageNumber}</PaginationLink>
+              <PaginationLink isActive={isActive} className="g-text-inherit">
+                {page.pageNumber}
+              </PaginationLink>
             </PaginationItem>
           );
         })}
         {hasAfter && (
-          <PaginationItem>
+          <PaginationItem className="g-text-inherit">
             <PaginationEllipsis />
           </PaginationItem>
         )}
         {offset + limit < count && (
-          <PaginationItem className="g-cursor-pointer" onClick={() => onChange(nextPageOffset)}>
-            <PaginationNext />
+          <PaginationItem
+            className="g-text-inherit g-cursor-pointer"
+            onClick={() => onChange(nextPageOffset)}
+          >
+            <PaginationNext className="g-text-inherit" />
           </PaginationItem>
         )}
       </PaginationContent>
