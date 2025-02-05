@@ -110,6 +110,7 @@ const typeDef = gql`
 
     accepted: String
     acceptedKey: Int
+    basionymKey: Int
     authorship: String
     canonicalName: String
     constituentKey: ID

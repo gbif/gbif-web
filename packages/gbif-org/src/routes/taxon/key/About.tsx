@@ -12,14 +12,14 @@ import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import { useTaxonKeyLoaderData } from '.';
 import OccurrenceImages from './OccurrenceImages';
+import Synonyms from './Synonyms';
 import { TaxonKeyContext } from './taxonKeyPresentation';
 import { useIsFamilyOrAbove, useIsSpeciesOrBelow } from './taxonUtil';
 import TypeMaterial from './TypeSpecimens';
 import { VernacularNameTable } from './VernacularNameTable';
 import WikiDataIdentifiers from './WikiDataIdentifiers';
-
 export default function About() {
-  const { slowTaxon } = useContext(TaxonKeyContext);
+  const { slowTaxon, slowTaxonLoading } = useContext(TaxonKeyContext);
 
   const { key } = useParams();
   const { data } = useTaxonKeyLoaderData();
@@ -53,16 +53,34 @@ export default function About() {
       <ArticleTextContainer className="g-max-w-screen-xl">
         <div className={`${removeSidebar ? '' : 'g-flex'}`}>
           <div className="g-flex-grow">
-            <Card className="g-mb-4">
-              <CardHeader>
-                <CardTitle>
-                  <FormattedMessage id="taxon.occurenceImages" />
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <OccurrenceImages total={numberOfImages} taxonKey={taxon.key} />
-              </CardContent>
-            </Card>
+            {numberOfImages > 0 && (
+              <Card className="g-mb-4">
+                <CardHeader>
+                  <CardTitle>
+                    <FormattedMessage id="taxon.occurenceImages" />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <OccurrenceImages total={numberOfImages} taxonKey={taxon.key} />
+                </CardContent>
+              </Card>
+            )}
+            {data.taxon.taxonomicStatus === 'ACCEPTED' && (
+              <Card className="g-mb-4">
+                <CardHeader>
+                  <CardTitle>
+                    <FormattedMessage id="taxon.synonymsAndCombinations" />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Synonyms
+                    loading={slowTaxonLoading}
+                    total={data?.taxon?.synonyms?.results?.length}
+                  />
+                </CardContent>
+              </Card>
+            )}
+
             {isSpeciesOrBelow && numberOfTypeSpecimens > 0 && (
               <Card className="g-mb-4">
                 <CardHeader>

@@ -26,10 +26,11 @@ export async function taxonLoader({ params, graphql }: LoaderArgs) {
 export function TaxonKey() {
   const { data } = useLoaderData() as { data: TaxonKeyQuery };
   const { locale } = useI18n();
-  const { data: slowTaxon, load: slowTaxonLoad } = useQuery<
-    SlowTaxonQuery,
-    SlowTaxonQueryVariables
-  >(SLOW_TAXON, {
+  const {
+    data: slowTaxon,
+    load: slowTaxonLoad,
+    loading: slowTaxonLoading,
+  } = useQuery<SlowTaxonQuery, SlowTaxonQueryVariables>(SLOW_TAXON, {
     lazyLoad: true,
     throwAllErrors: true,
   });
@@ -54,12 +55,7 @@ export function TaxonKey() {
   }, [data?.taxon?.key]);
 
   if (data?.taxon == null) throw new NotFoundError();
-  return (
-    <Presentation
-      data={data}
-      /* taxonMetrics={taxonMetrics} */ slowTaxon={slowTaxon} /* taxonMetrics={taxonMetrics} */
-    />
-  );
+  return <Presentation data={data} slowTaxon={slowTaxon} slowTaxonLoading={slowTaxonLoading} />;
 }
 
 export { TaxonPageSkeleton } from './taxonKeyPresentation';
@@ -89,6 +85,11 @@ const TAXON_QUERY = /* GraphQL */ `
         formattedName
         scientificName
       }
+      synonyms(limit: 10, offset: 0) {
+        results {
+          key
+        }
+      }
     }
     imagesCount: occurrenceSearch(predicate: $imagePredicate) {
       documents(size: 0) {
@@ -106,10 +107,41 @@ const TAXON_QUERY = /* GraphQL */ `
 const SLOW_TAXON = /* GraphQL */ `
   query SlowTaxon($key: ID!, $language: String) {
     taxon(key: $key) {
+      key
+      basionymKey
       vernacularNames(limit: 1, language: $language) {
         results {
           vernacularName
           source
+        }
+      }
+      combinations {
+        key
+        nameKey
+        acceptedKey
+        canonicalName
+        authorship
+        scientificName
+        formattedName
+        rank
+        taxonomicStatus
+        numDescendants
+      }
+      synonyms(limit: 100, offset: 0) {
+        limit
+        offset
+        endOfRecords
+        results {
+          key
+          nameKey
+          acceptedKey
+          canonicalName
+          authorship
+          scientificName
+          formattedName
+          rank
+          taxonomicStatus
+          numDescendants
         }
       }
       wikiData {

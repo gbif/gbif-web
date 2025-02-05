@@ -33,6 +33,7 @@ export default {
     parents: taxonDetails('parents'),
     related: taxonDetails('related'),
     synonyms: taxonDetails('synonyms'),
+    combinations: taxonDetails('combinations'),
     verbatim: optionalTaxonDetails('verbatim'),
     media: taxonDetails('media'),
     name: taxonDetails('name'),

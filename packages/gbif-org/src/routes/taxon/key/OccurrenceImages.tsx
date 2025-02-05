@@ -93,7 +93,7 @@ const TaxonOccurrenceImages = ({ taxonKey, total }: { taxonKey: number; total: n
     });
   }, [taxonKey, load]);
 
-  return <Images taxonKey={taxonKey} total={total} images={data?.images} />;
+  return <Images taxonKey={taxonKey} total={total} images={data?.images ?? undefined} />;
 };
 
 function ImageSkeleton() {

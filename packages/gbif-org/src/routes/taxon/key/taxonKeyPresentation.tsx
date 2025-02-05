@@ -23,9 +23,9 @@ import { AboutContent, ApiContent } from './help';
 // create context to pass data to children
 export const TaxonKeyContext = createContext<{
   key?: string;
-  contentMetrics?: unknown;
   data: TaxonKeyQuery;
   slowTaxon?: SlowTaxonQuery;
+  slowTaxonLoading?: boolean;
 }>({
   data: {
     __typename: undefined,
@@ -39,7 +39,15 @@ export const TaxonKeyContext = createContext<{
   },
 });
 
-export function TaxonKey({ data, slowTaxon }: { data: TaxonKeyQuery; slowTaxon?: SlowTaxonQuery }) {
+export function TaxonKey({
+  data,
+  slowTaxon,
+  slowTaxonLoading,
+}: {
+  data: TaxonKeyQuery;
+  slowTaxon?: SlowTaxonQuery;
+  slowTaxonLoading: boolean;
+}) {
   const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
     const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
       { to: '.', children: <FormattedMessage id="taxon.tabs.about" /> },
@@ -166,6 +174,7 @@ export function TaxonKey({ data, slowTaxon }: { data: TaxonKeyQuery; slowTaxon?:
             value={{
               data: data,
               slowTaxon: slowTaxon,
+              slowTaxonLoading: slowTaxonLoading,
             }}
           >
             <Outlet />
