@@ -76,7 +76,7 @@ const TableCell = React.forwardRef<
     {linkData && (
       <DynamicLinkPresentation
         linkData={linkData}
-        preventScrollReset
+        preventScrollReset={linkData.to?.includes('entity=')}
         className="g-absolute g-top-0 g-left-0 g-w-full g-h-full"
       />
     )}
