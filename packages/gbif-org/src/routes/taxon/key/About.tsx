@@ -14,7 +14,7 @@ import { useTaxonKeyLoaderData } from '.';
 import OccurrenceImages from './OccurrenceImages';
 import { TaxonKeyContext } from './taxonKeyPresentation';
 import { useIsFamilyOrAbove, useIsSpeciesOrBelow } from './taxonUtil';
-import TypeMaterial from './TypeMaterial';
+import TypeMaterial from './TypeSpecimens';
 import { VernacularNameTable } from './VernacularNameTable';
 import WikiDataIdentifiers from './WikiDataIdentifiers';
 
