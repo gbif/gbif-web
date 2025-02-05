@@ -1,17 +1,13 @@
-import { ConditionalWrapper } from '../../conditionalWrapper';
-import { Skeleton } from '../../ui/skeleton';
+import { cn } from '@/utils/shadcn';
+import { skeletonClasses } from '../../ui/skeleton';
 
 type Props = {
   loading: boolean;
   children: React.ReactNode;
 };
 
+const classes = skeletonClasses + ' g-inline';
+
 export function InlineSkeletonWrapper({ loading, children }: Props) {
-  return (
-    <ConditionalWrapper
-      condition={loading}
-      wrapper={(children) => <Skeleton className="g-inline">{children}</Skeleton>}
-      children={children}
-    />
-  );
+  return <div className={cn({ [classes]: loading })}>{children}</div>;
 }

@@ -1,8 +1,5 @@
 import { getAsQuery } from '@/components/filters/filterTools';
-import SearchTable from '@/components/searchTable/table';
-import { usePaginationState } from '@/components/searchTable/usePaginationState';
 import { ViewHeader } from '@/components/ViewHeader';
-import { useConfig } from '@/config/config';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { LiteratureTableSearchQuery, LiteratureTableSearchQueryVariables } from '@/gql/graphql';
@@ -12,11 +9,13 @@ import { notNull } from '@/utils/notNull';
 import { useContext, useEffect, useMemo } from 'react';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
-import { useLiteratureColumns } from './columns';
+import { columns } from './columns';
 import {
   FallbackTableOptions,
   useAvailableAndDefaultEnabledColumns,
-} from '@/components/searchTable/useAvailableAndDefaultEnabledColumns';
+  usePaginationState,
+  SearchTable,
+} from '@/components/searchTable';
 
 const fallbackOptions: FallbackTableOptions = {
   prefixColumns: ['titleAndAbstract'],
@@ -68,11 +67,12 @@ export type SingleLiteratureSearchResult = ExtractPaginatedResult<
   LiteratureTableSearchQuery['literatureSearch']
 >;
 
+const keySelector = (item: SingleLiteratureSearchResult) => item.id;
+
 export function LiteratureTable() {
   const searchContext = useSearchContext();
   const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
   const filterContext = useContext(FilterContext);
-  const config = useConfig();
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
 
@@ -104,11 +104,6 @@ export function LiteratureTable() {
 
   const { filters } = useFilters({ searchConfig });
 
-  const columns = useLiteratureColumns({
-    filters,
-    disableCellFilters: config.disableInlineTableFilterButtons,
-  });
-
   const literature = useMemo(
     () => data?.literatureSearch?.documents.results.filter(notNull) ?? [],
     [data]
@@ -131,13 +126,15 @@ export function LiteratureTable() {
         />
       </div>
       <SearchTable
+        filters={filters}
+        keySelector={keySelector}
         lockColumnLocalStoreKey="literatureSearchTableLockColumn"
         selectedColumnsLocalStoreKey="literatureSearchSelectedColumns"
         columns={columns}
         data={literature}
         loading={loading}
         rowCount={data?.literatureSearch?.documents.total}
-        pagination={paginationState}
+        paginationState={paginationState}
         setPaginationState={setPaginationState}
         availableTableColumns={availableTableColumns}
         defaultEnabledTableColumns={defaultEnabledTableColumns}

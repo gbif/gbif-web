@@ -1,26 +1,25 @@
 import { getAsQuery } from '@/components/filters/filterTools';
-import SearchTable from '@/components/searchTable/table';
-import { usePaginationState } from '@/components/searchTable/usePaginationState';
 import { ViewHeader } from '@/components/ViewHeader';
 import { useConfig } from '@/config/config';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { TaxonSearchQuery, TaxonSearchQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
-import { DynamicLinkProps } from '@/reactRouterPlugins/dynamicLink';
 import { useEntityDrawer } from '@/routes/occurrence/search/views/browseList/useEntityDrawer';
 import { useOrderedList } from '@/routes/occurrence/search/views/browseList/useOrderedList';
 import { notNull } from '@/utils/notNull';
-import { Row } from '@tanstack/react-table';
 import { useContext, useEffect, useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
 import { useTaxonColumns } from './columns';
 import {
+  RowLinkOptions,
+  useRowLink,
   FallbackTableOptions,
   useAvailableAndDefaultEnabledColumns,
-} from '@/components/searchTable/useAvailableAndDefaultEnabledColumns';
+  usePaginationState,
+  SearchTable,
+} from '@/components/searchTable';
 
 const TAXON_SEARCH_QUERY = /* GraphQL */ `
   query TaxonSearch($offset: Int, $limit: Int, $query: TaxonSearchInput) {
@@ -67,15 +66,15 @@ type ExtractPaginatedResult<T extends { results: any[] } | null | undefined> = N
 
 export type SingleTaxonSearchResult = ExtractPaginatedResult<TaxonSearchQuery['taxonSearch']>;
 
-const createRowLinkDirect = (row: Row<SingleTaxonSearchResult>): DynamicLinkProps<typeof Link> => ({
-  pageId: 'speciesKey',
-  variables: { key: row.original.key },
-});
+const keySelector = (item: SingleTaxonSearchResult) => item.key?.toString() ?? '';
 
-const createRowLinkDrawer = (row: Row<SingleTaxonSearchResult>): DynamicLinkProps<typeof Link> => ({
-  searchParams: { entity: `t_${row.original.key}` },
-  keepExistingSearchParams: true,
-});
+const rowLinkOptionsDirect: RowLinkOptions<SingleTaxonSearchResult> = {
+  pageId: 'speciesKey',
+};
+
+const rowLinkOptionsDrawer: RowLinkOptions<SingleTaxonSearchResult> = {
+  createDrawerKey: ({ key }) => `t_${key}`,
+};
 
 const fallbackOptions: FallbackTableOptions = {
   prefixColumns: ['scientificName'],
@@ -90,11 +89,6 @@ export function Table() {
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
   const [, setPreviewKey] = useEntityDrawer();
-
-  // Go back to the first page when the filters change
-  useEffect(() => {
-    setPaginationState((prev) => ({ ...prev, pageIndex: 0 }));
-  }, [filterHash]);
 
   const { data, load, loading } = useQuery<TaxonSearchQuery, TaxonSearchQueryVariables>(
     TAXON_SEARCH_QUERY,
@@ -123,7 +117,7 @@ export function Table() {
 
   const { filters } = useFilters({ searchConfig });
 
-  const columns = useTaxonColumns({ showPreview: setPreviewKey, filters });
+  const columns = useTaxonColumns({ showPreview: setPreviewKey });
 
   const taxons = useMemo(() => data?.taxonSearch?.results.filter(notNull) ?? [], [data]);
 
@@ -141,21 +135,26 @@ export function Table() {
       fallbackOptions,
     });
 
-  const createRowLink = config.openDrawerOnTableRowClick
-    ? createRowLinkDrawer
-    : createRowLinkDirect;
+  const rowLinkOptions = config.openDrawerOnTableRowClick
+    ? rowLinkOptionsDrawer
+    : rowLinkOptionsDirect;
+
+  const createRowLink = useRowLink({ rowLinkOptions, keySelector });
 
   return (
     <div className="g-flex g-flex-col g-h-full">
       <ViewHeader total={data?.taxonSearch?.count} loading={loading} message="counts.nResults" />
       <SearchTable
+        filters={filters}
         createRowLink={createRowLink}
+        keySelector={keySelector}
         lockColumnLocalStoreKey="taxonSearchTableLockColumn"
+        selectedColumnsLocalStoreKey="taxonSearchTableSelectedColumns"
         columns={columns}
         data={taxons}
         loading={loading}
         rowCount={data?.taxonSearch?.count}
-        pagination={paginationState}
+        paginationState={paginationState}
         setPaginationState={setPaginationState}
         availableTableColumns={availableTableColumns}
         defaultEnabledTableColumns={defaultEnabledTableColumns}

@@ -25,7 +25,7 @@ import { Dataset } from './views/datasets';
 import { Download } from './views/download';
 import { Map } from './views/map';
 import { Media } from './views/media';
-import { OccurrenceTable } from './views/table';
+import { OccurrenceTable } from './views/table/occurrenceTable';
 
 export function OccurrenceSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({

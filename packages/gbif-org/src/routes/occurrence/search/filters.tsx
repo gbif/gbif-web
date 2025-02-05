@@ -9,8 +9,7 @@ import { SuggestFnProps } from '@/components/filters/suggest';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import country from '@/enums/basic/country.json';
 import { matchSorter } from 'match-sorter';
-import hash from 'object-hash';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { isInClusterConfig, isSequencedConfig } from './filters/booleans';
 import {
@@ -80,7 +79,7 @@ const freeTextConfig: filterConfig = {
   filterTranslation: 'filters.q.name',
 };
 
-type Filters = Record<string, FilterSetting>;
+export type Filters = Record<string, FilterSetting>;
 
 export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }): {
   filters: Filters;

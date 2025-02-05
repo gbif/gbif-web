@@ -1,20 +1,20 @@
 import { SimpleTooltip } from '@/components/simpleTooltip';
-import { FilterContext } from '@/contexts/filter';
+import { useConfig } from '@/config/config';
+import { AddFilterEvent } from '@/contexts/filter';
 import { cn } from '@/utils/shadcn';
-import React, { useContext } from 'react';
+import React from 'react';
 
 type Props = {
-  filterIsActive: boolean;
   children: null | undefined | React.ReactNode;
   field: string;
   value: any;
   className?: string;
 };
 
-export function SetAsFilter({ filterIsActive, children, field, value, className }: Props) {
-  const { add } = useContext(FilterContext);
+export function SetAsFilter({ children, field, value, className }: Props) {
+  const { disableInlineTableFilterButtons } = useConfig();
   if (!children) return null;
-  if (!filterIsActive) return <span className={className}>{children}</span>;
+  if (disableInlineTableFilterButtons) return <span className={className}>{children}</span>;
 
   return (
     <SimpleTooltip i18nKey="filterSupport.setFilter" side="right" asChild>
@@ -25,7 +25,7 @@ export function SetAsFilter({ filterIsActive, children, field, value, className 
           'hover:g-bg-primary-300 g-box-decoration-clone g-p-0.5 -g-ml-0.5 g-pointer-events-auto',
           className
         )}
-        onClick={() => add(field, value)}
+        onClick={() => window.dispatchEvent(new AddFilterEvent(field, value))}
       >
         {children}
       </span>

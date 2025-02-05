@@ -5,6 +5,11 @@ import { Link, LinkProps, useLocation } from 'react-router-dom';
 import { PageContext } from './applyPagePaths/plugin';
 import { useI18n } from './i18n';
 
+export type LinkData = {
+  to: string | null;
+  type: 'href' | 'link';
+};
+
 export type DynamicLinkProps<T extends React.ElementType> = {
   to?: string;
   as?: T;
@@ -36,10 +41,7 @@ export function useLink() {
       variables?: Record<string, string>;
       searchParams?: ParamQuery;
       keepExistingSearchParams?: boolean;
-    }): {
-      to: string | null;
-      type: 'href' | 'link';
-    } => {
+    }): LinkData => {
       let isHref = false;
       let link: string | null = null;
       // if a pageId is provided, use the pageId to get the link
@@ -181,11 +183,33 @@ export function DynamicLink<T extends React.ElementType = typeof Link>({
   keepExistingSearchParams,
   ...props
 }: DynamicLinkProps<T>): React.ReactElement {
-  const link = useDynamicLink({ to, variables, pageId, searchParams, keepExistingSearchParams });
-  if (link.type === 'href') {
-    return <a {...props} href={link.to} />;
+  const linkData = useDynamicLink({
+    to,
+    variables,
+    pageId,
+    searchParams,
+    keepExistingSearchParams,
+  });
+
+  return <DynamicLinkPresentation linkData={linkData} as={as} {...props} />;
+}
+
+type DynamicLinkPresentationProps<T extends React.ElementType> = {
+  linkData: LinkData;
+  as?: T;
+  children?: React.ReactNode;
+  [key: string]: any; // For remaining props
+};
+
+export function DynamicLinkPresentation<T extends React.ElementType = typeof Link>({
+  linkData,
+  as,
+  ...props
+}: DynamicLinkPresentationProps<T>): React.ReactElement {
+  if (linkData.type === 'href') {
+    return <a {...props} href={linkData.to!} />;
   } else {
     const LinkComponent = as ?? Link;
-    return <LinkComponent to={link.to} {...props} />;
+    return <LinkComponent to={linkData.to!} {...props} />;
   }
 }

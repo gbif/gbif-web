@@ -2,20 +2,13 @@ import { InlineLineClamp } from '@/components/inlineLineClamp';
 import { SetAsFilter } from './setAsFilter';
 
 type Props<T> = {
-  filterIsActive: boolean;
   field: string;
   items: T[] | undefined | null;
   selectFilterValue?: (value: T) => any;
   renderValue?: (value: T) => React.ReactNode;
 };
 
-export function SetAsFilterList<T>({
-  filterIsActive,
-  field,
-  items,
-  selectFilterValue,
-  renderValue,
-}: Props<T>) {
+export function SetAsFilterList<T>({ field, items, selectFilterValue, renderValue }: Props<T>) {
   if (!items) return null;
 
   return (
@@ -26,13 +19,7 @@ export function SetAsFilterList<T>({
         const renderedValue = typeof renderValue === 'function' ? renderValue(item) : item;
 
         return (
-          <SetAsFilter
-            key={idx}
-            filterIsActive={filterIsActive}
-            field={field}
-            value={filterValue}
-            className="g-ml-0"
-          >
+          <SetAsFilter key={idx} field={field} value={filterValue} className="g-ml-0">
             {renderedValue as any}
             {idx < items.length - 1 && ', '}
           </SetAsFilter>

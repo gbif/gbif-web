@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl';
 import useLocalStorage from 'use-local-storage';
 import { Map } from '../map';
 import { Media } from '../media';
-import { OccurrenceTable as Table } from '../table';
+import { OccurrenceTable as Table } from '../table/occurrenceTable';
 import DashboardBuilder from './DashboardBuilder';
 
 export function Dashboard({ predicate, chartsTypes: chartsTypesProp, ...props }) {

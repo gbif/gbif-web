@@ -16,7 +16,7 @@ import {
 import { FormattedDateRange } from '@/components/message';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useConfig } from '@/config/config';
 import {
   OccurrenceIssue,
@@ -429,16 +429,18 @@ export function OccurrenceKey() {
                   {occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
                     <>
                       <span>{termMap.scientificName.verbatim}</span>
-                      <Tooltip delayDuration={0}>
-                        <TooltipTrigger>
-                          <span style={{ marginInlineStart: 8 }}>
-                            <BsLightningFill style={{ color: 'orange' }} />
-                          </span>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <FormattedMessage id="enums.issueHelp.TAXON_MATCH_HIGHERRANK" />
-                        </TooltipContent>
-                      </Tooltip>
+                      <TooltipProvider>
+                        <Tooltip delayDuration={0}>
+                          <TooltipTrigger>
+                            <span style={{ marginInlineStart: 8 }}>
+                              <BsLightningFill style={{ color: 'orange' }} />
+                            </span>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <FormattedMessage id="enums.issueHelp.TAXON_MATCH_HIGHERRANK" />
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     </>
                   )}
                 </ArticleTitle>

@@ -1,11 +1,18 @@
 import { useIntParam } from '@/hooks/useParam';
 import { useStateAsRef } from '@/hooks/useStateAsRef';
-import { PaginationState } from '@tanstack/react-table';
+import { Setter } from '@/types';
 import { useCallback, useMemo, useState } from 'react';
+
+export type PaginationState = {
+  pageIndex: number;
+  pageSize: number;
+};
+
+export type SetPaginationState = Setter<PaginationState>;
 
 export function usePaginationState({ pageSize: size }: { pageSize?: number } = {}): [
   PaginationState,
-  React.Dispatch<React.SetStateAction<PaginationState>>
+  SetPaginationState
 ] {
   const [from, setFrom] = useIntParam({
     key: 'from',
@@ -21,7 +28,7 @@ export function usePaginationState({ pageSize: size }: { pageSize?: number } = {
   // This ref is used to help limit the amount of renrenders the table does when changing filters
   const stateRef = useStateAsRef(state);
 
-  const setPaginationState = useCallback(
+  const setPaginationState: SetPaginationState = useCallback(
     (updaterOrValue: React.SetStateAction<PaginationState>) => {
       let newState: PaginationState;
 

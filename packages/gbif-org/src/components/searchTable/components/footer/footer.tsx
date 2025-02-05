@@ -1,27 +1,39 @@
-import { Table } from '@tanstack/react-table';
 import { MdChevronLeft, MdChevronRight, MdFirstPage } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { FooterButton } from './footerButton';
-import { InlineSkeletonWrapper } from './inlineSkeletonWrapper';
+import { InlineSkeletonWrapper } from '../inlineSkeletonWrapper';
+import { usePagination } from '../../hooks/usePagination';
+import { PaginationState, SetPaginationState } from '../../hooks/usePaginationState';
 
-type Props<TData> = {
-  table: Table<TData>;
+type Props = {
   loading: boolean;
+  paginationState: PaginationState;
+  setPaginationState: SetPaginationState;
+  rowCount?: number;
 };
 
-export function TableFooter<TData>({ table, loading }: Props<TData>) {
+export function Footer({ loading, paginationState, setPaginationState, rowCount }: Props) {
+  const { hasPreviousPage, firstPage, previousPage, pageNumber, pageCount, hasNextPage, nextPage } =
+    usePagination({
+      paginationState,
+      setPaginationState,
+      rowCount,
+    });
+
   return (
     <div className="g-flex g-justify-between g-items-center g-border-t g-px-2">
       <div className="g-flex g-flex-1">
-        {table.getCanPreviousPage() && (
+        {hasPreviousPage && (
           <>
             <FooterButton
-              onClick={table.firstPage}
+              disable={loading}
+              onClick={firstPage}
               icon={<MdFirstPage />}
               toolTip={<FormattedMessage id="pagination.first" />}
             />
             <FooterButton
-              onClick={table.previousPage}
+              disable={loading}
+              onClick={previousPage}
               icon={<MdChevronLeft />}
               toolTip={<FormattedMessage id="pagination.previous" />}
             />
@@ -34,16 +46,17 @@ export function TableFooter<TData>({ table, loading }: Props<TData>) {
             id="pagination.pageXofY"
             defaultMessage={'Loading'}
             values={{
-              current: <FormattedNumber value={table.getState().pagination.pageIndex + 1} />,
-              total: <FormattedNumber value={table.getPageCount()} />,
+              current: <FormattedNumber value={pageNumber} />,
+              total: <FormattedNumber value={pageCount ?? 0} />,
             }}
           />
         </span>
       </InlineSkeletonWrapper>
       <div className="g-flex g-flex-1 g-justify-end">
-        {table.getCanNextPage() && (
+        {hasNextPage && (
           <FooterButton
-            onClick={table.nextPage}
+            disable={loading}
+            onClick={nextPage}
             icon={<MdChevronRight />}
             toolTip={<FormattedMessage id="pagination.next" />}
           />

@@ -1,89 +1,70 @@
-import { Table, TableBody, TableHeader, TableRow } from '@/components/ui/table';
 import { useIsElementHorizontallyScrolled } from '@/hooks/useIsElementHorizontallyScrolled';
-import { interopDefault } from '@/utils/interopDefault';
 import { cn } from '@/utils/shadcn';
-import {
-  ColumnDef,
-  getCoreRowModel,
-  PaginationState,
-  Row,
-  useReactTable,
-  VisibilityState,
-} from '@tanstack/react-table';
 import { memo, useEffect, useMemo, useRef } from 'react';
-import _useLocalStorage from 'use-local-storage';
-import { Cell } from './components/cell';
-import { Head } from './components/head';
-import { InitialSkeletonTable } from './components/initialSkeletonTable';
-import { TableFooter } from './components/tableFooter';
-import { useFirstColumLock } from './firstColumLock';
-import { Link } from 'react-router-dom';
-import { DynamicLinkProps } from '@/reactRouterPlugins/dynamicLink';
-import { toRecord } from '@/utils/toRecord';
-// Used to import commonjs module as es6 module
-const useLocalStorage = interopDefault(_useLocalStorage);
+import { Footer } from './components/footer/footer';
+import { PaginationState } from './hooks/usePaginationState';
+import { useColumnVisibility } from './hooks/useColumnVisibility';
+import { useFirstColumLock } from './hooks/useFirstColumLock';
+import { useOrderedColumns } from './hooks/useOrderedColumns';
+import Header from './components/header/header';
+import Body from './components/body/body';
+import { Table } from '../ui/table';
+import { CreateRowLink } from './hooks/useRowLink';
+import { Filters } from '@/routes/occurrence/search/filters';
+import { ColumnDef } from '.';
 
-interface Props<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+interface Props<T> {
+  columns: ColumnDef<T>[];
+  data: T[];
   className?: string;
   loading: boolean;
   rowCount?: number;
-  pagination: PaginationState;
+  paginationState: PaginationState;
   setPaginationState: React.Dispatch<React.SetStateAction<PaginationState>>;
   availableTableColumns: string[];
   defaultEnabledTableColumns: string[];
   lockColumnLocalStoreKey?: string;
   selectedColumnsLocalStoreKey?: string;
-  createRowLink?: (row: Row<TData>) => DynamicLinkProps<typeof Link>;
+  keySelector(item: T): string;
+  createRowLink?: CreateRowLink<T>;
+  filters?: Filters;
 }
 
 export default memo(SearchTable) as typeof SearchTable;
-function SearchTable<TData, TValue>({
+function SearchTable<T>({
   columns,
   data,
   className,
   loading,
   rowCount,
-  pagination,
+  paginationState,
   setPaginationState,
   availableTableColumns,
   defaultEnabledTableColumns,
-  createRowLink,
+  keySelector,
   lockColumnLocalStoreKey = 'searchTableLockColumn',
   selectedColumnsLocalStoreKey = 'selectedColumnsLocalStoreKey',
-}: Props<TData, TValue>) {
-  const initialColumnVisibilityState = useMemo(
-    () => createInitialColumnVisibilityState(availableTableColumns, defaultEnabledTableColumns),
-    [availableTableColumns, defaultEnabledTableColumns]
-  );
-  const [columnVisibility, setColumnVisibility] = useLocalStorage(
+  createRowLink,
+  filters,
+}: Props<T>) {
+  const { visibleColumns, resetColumnVisibility, toggleColumnVisibility } = useColumnVisibility({
     selectedColumnsLocalStoreKey,
-    initialColumnVisibilityState
-  );
-
-  const table = useReactTable({
-    data: data ?? [],
-    columns: columns.filter((column) => availableTableColumns.includes(column.id!)),
-    getCoreRowModel: getCoreRowModel(),
-    rowCount: rowCount,
-    onPaginationChange: setPaginationState,
-    initialState: {
-      columnOrder: availableTableColumns,
-      columnVisibility: initialColumnVisibilityState,
-    },
-    state: {
-      pagination,
-      columnVisibility,
-    },
-    // @ts-ignore
-    onColumnVisibilityChange: setColumnVisibility,
-    // We use server side pagination and sorting
-    manualPagination: true,
-    manualSorting: true,
+    defaultEnabledTableColumns,
+    availableTableColumns,
   });
 
-  const initialLoading = loading && data.length === 0;
+  const orderedColumns = useOrderedColumns({
+    columns,
+    availableTableColumns,
+  });
+
+  const filteredColumns = useMemo(
+    () => orderedColumns.filter((col) => visibleColumns.has(col.id)),
+    [orderedColumns, visibleColumns]
+  );
+
+  const { firstColumnIsLocked, setFirstColumnIsLocked, hideFirstColumnLock } =
+    useFirstColumLock(lockColumnLocalStoreKey);
 
   // Scroll to the top of the table when pagination.pageIndex changes
   const tableWrapperRef = useRef<HTMLDivElement>(null);
@@ -95,15 +76,6 @@ function SearchTable<TData, TValue>({
 
   const isHorizontallyScrolled = useIsElementHorizontallyScrolled(tableWrapperRef);
 
-  const orderedColumns = useMemo(() => {
-    const columns = table.getAllFlatColumns();
-    const columnsRecord = toRecord(columns, (col) => col.id);
-    return availableTableColumns.map((columnId) => columnsRecord[columnId]);
-  }, [availableTableColumns]);
-
-  const { firstColumnIsLocked, setFirstColumnIsLocked, hideFirstColumnLock } =
-    useFirstColumLock(lockColumnLocalStoreKey);
-
   return (
     <div
       className={cn('g-bg-white g-flex-1 g-border g-basis-full g-h-1 g-flex g-flex-col', className)}
@@ -112,64 +84,35 @@ function SearchTable<TData, TValue>({
         {/* https://limebrains.com/blog/2021-03-02T13:00-heigh-100-inside-table-td/ */}
         {/* Without this 1px height the a tags in the table cells won't be able to match the height of the td with height: 100% */}
         <Table className="g-h-1">
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <Head
-                    key={header.id}
-                    header={header}
-                    table={table}
-                    isScrolled={isHorizontallyScrolled}
-                    orderedColumns={orderedColumns}
-                    hideFirstColumnLock={hideFirstColumnLock}
-                    firstColumnIsLocked={firstColumnIsLocked}
-                    setFirstColumnIsLocked={setFirstColumnIsLocked}
-                  />
-                ))}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {initialLoading && <InitialSkeletonTable table={table} />}
-            {initialLoading ||
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                  className={cn('g-border-b', {
-                    'g-group': typeof createRowLink === 'function',
-                    'g-pointer-events-none': loading,
-                  })}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <Cell
-                      linkProps={createRowLink?.(row)}
-                      key={cell.id}
-                      cell={cell}
-                      loading={loading}
-                      isScrolled={isHorizontallyScrolled}
-                      firstColumnIsLocked={firstColumnIsLocked}
-                    />
-                  ))}
-                </TableRow>
-              ))}
-          </TableBody>
+          <Header
+            filters={filters}
+            filteredColumns={filteredColumns}
+            orderedColumns={orderedColumns}
+            isHorizontallyScrolled={isHorizontallyScrolled}
+            firstColumnIsLocked={firstColumnIsLocked}
+            hideFirstColumnLock={hideFirstColumnLock}
+            setFirstColumnIsLocked={setFirstColumnIsLocked}
+            resetColumnVisibility={resetColumnVisibility}
+            toggleColumnVisibility={toggleColumnVisibility}
+            visibleColumns={visibleColumns}
+          />
+          <Body
+            items={data}
+            loading={loading}
+            filteredColumns={filteredColumns}
+            isHorizontallyScrolled={isHorizontallyScrolled}
+            firstColumnIsLocked={firstColumnIsLocked}
+            keySelector={keySelector}
+            createRowLink={createRowLink}
+          />
         </Table>
       </div>
-      <TableFooter table={table} loading={loading} />
+      <Footer
+        loading={loading}
+        paginationState={paginationState}
+        setPaginationState={setPaginationState}
+        rowCount={rowCount}
+      />
     </div>
   );
-}
-
-function createInitialColumnVisibilityState(
-  availableTableColumns: string[],
-  defaultEnabledTableColumns: string[]
-): VisibilityState {
-  const defaultEnabledTableColumnsSet = new Set(defaultEnabledTableColumns);
-
-  return availableTableColumns.reduce<VisibilityState>((record, columnName) => {
-    record[columnName] = defaultEnabledTableColumnsSet.has(columnName);
-    return record;
-  }, {});
 }

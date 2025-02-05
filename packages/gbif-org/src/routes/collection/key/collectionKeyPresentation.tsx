@@ -18,7 +18,7 @@ import {
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { CollectionQuery, CollectionSummaryMetricsQuery } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -228,46 +228,50 @@ export function CollectionKey({
                   </HeaderInfoMain>
                   <HeaderInfoEdit className="g-flex g-mt-4">
                     {/* TODO Phew it is quite a few lines just to add a tooltip, I wonder if an abstraction would be appreciated. Here I repeat the provider, which doesn't help, but it didn't properly disappear and reappear without it*/}
-                    <Tooltip delayDuration={0}>
-                      <TooltipTrigger>
-                        <Button variant="outline" asChild>
-                          <a
-                            className="g-text-inherit hover:g-text-primary-500"
-                            href={`${GBIF_REGISTRY_ENDPOINT}/collection/${collection.key}`}
+                    <TooltipProvider>
+                      <Tooltip delayDuration={0}>
+                        <TooltipTrigger>
+                          <Button variant="outline" asChild>
+                            <a
+                              className="g-text-inherit hover:g-text-primary-500"
+                              href={`${GBIF_REGISTRY_ENDPOINT}/collection/${collection.key}`}
+                            >
+                              <FormattedMessage id="grscicoll.edit" defaultMessage="Edit" />
+                            </a>
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <FormattedMessage
+                            id="grscicoll.editHelpText"
+                            defaultMessage="No login required"
+                          />
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                    <TooltipProvider>
+                      <Tooltip delayDuration={0}>
+                        <TooltipTrigger>
+                          <Button
+                            variant="ghost"
+                            asChild
+                            className="g-ms-2"
+                            style={{ fontSize: '1.2em' }}
                           >
-                            <FormattedMessage id="grscicoll.edit" defaultMessage="Edit" />
-                          </a>
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <FormattedMessage
-                          id="grscicoll.editHelpText"
-                          defaultMessage="No login required"
-                        />
-                      </TooltipContent>
-                    </Tooltip>
-                    <Tooltip delayDuration={0}>
-                      <TooltipTrigger>
-                        <Button
-                          variant="ghost"
-                          asChild
-                          className="g-ms-2"
-                          style={{ fontSize: '1.2em' }}
-                        >
-                          <a
-                            className="g-text-inherit hover:g-text-primary-500"
-                            href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(
-                              `NHC: ${collection.name}`
-                            )}&body=${encodeURIComponent(feedbackTemplate)}`}
-                          >
-                            <Github />
-                          </a>
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <FormattedMessage id="grscicoll.githubHelpText" defaultMessage="Github" />
-                      </TooltipContent>
-                    </Tooltip>
+                            <a
+                              className="g-text-inherit hover:g-text-primary-500"
+                              href={`https://github.com/gbif/portal-feedback/issues/new?title=${encodeURIComponent(
+                                `NHC: ${collection.name}`
+                              )}&body=${encodeURIComponent(feedbackTemplate)}`}
+                            >
+                              <Github />
+                            </a>
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <FormattedMessage id="grscicoll.githubHelpText" defaultMessage="Github" />
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   </HeaderInfoEdit>
                 </HeaderInfo>
               </div>

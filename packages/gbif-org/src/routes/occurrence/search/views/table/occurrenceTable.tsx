@@ -1,18 +1,13 @@
 import { getAsQuery } from '@/components/filters/filterTools';
-import SearchTable from '@/components/searchTable/table';
-import { usePaginationState } from '@/components/searchTable/usePaginationState';
 import { ViewHeader } from '@/components/ViewHeader';
 import { useConfig } from '@/config/config';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { OccurrenceSearchQuery, OccurrenceSearchQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
-import { DynamicLinkProps } from '@/reactRouterPlugins/dynamicLink';
 import { ExtractPaginatedResult } from '@/types';
 import { notNull } from '@/utils/notNull';
-import { Row } from '@tanstack/react-table';
 import { useContext, useEffect, useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
 import { useEntityDrawer } from '../browseList/useEntityDrawer';
@@ -21,7 +16,11 @@ import { useOccurrenceColumns } from './columns';
 import {
   FallbackTableOptions,
   useAvailableAndDefaultEnabledColumns,
-} from '@/components/searchTable/useAvailableAndDefaultEnabledColumns';
+  RowLinkOptions,
+  useRowLink,
+  usePaginationState,
+  SearchTable,
+} from '@/components/searchTable';
 
 const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
   query OccurrenceSearch($from: Int, $size: Int, $predicate: Predicate) {
@@ -97,19 +96,15 @@ export type SingleOccurrenceSearchResult = ExtractPaginatedResult<
   OccurrenceSearchQuery['occurrenceSearch']
 >;
 
-const createRowLinkDirect = (
-  row: Row<SingleOccurrenceSearchResult>
-): DynamicLinkProps<typeof Link> => ({
-  pageId: 'occurrenceKey',
-  variables: { key: row.original.key },
-});
+const keySelector = (item: SingleOccurrenceSearchResult) => item.key?.toString() ?? '';
 
-const createRowLinkDrawer = (
-  row: Row<SingleOccurrenceSearchResult>
-): DynamicLinkProps<typeof Link> => ({
-  searchParams: { entity: `o_${row.original.key}` },
-  keepExistingSearchParams: true,
-});
+const rowLinkOptionsDirect: RowLinkOptions<SingleOccurrenceSearchResult> = {
+  pageId: 'occurrenceKey',
+};
+
+const rowLinkOptionsDrawer: RowLinkOptions<SingleOccurrenceSearchResult> = {
+  createDrawerKey: ({ key }) => `o_${key}`,
+};
 
 const fallbackOptions: FallbackTableOptions = {
   prefixColumns: ['scientificName'],
@@ -128,10 +123,8 @@ export function OccurrenceTable() {
   const searchContext = useSearchContext();
   const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
   const filterContext = useContext(FilterContext);
-  const config = useConfig();
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
-  const [, setPreviewKey] = useEntityDrawer();
 
   const { data, load, loading } = useQuery<OccurrenceSearchQuery, OccurrenceSearchQueryVariables>(
     OCCURRENCE_SEARCH_QUERY,
@@ -160,10 +153,9 @@ export function OccurrenceTable() {
 
   const { filters } = useFilters({ searchConfig });
 
+  const [, showPreview] = useEntityDrawer();
   const columns = useOccurrenceColumns({
-    showPreview: setPreviewKey,
-    filters,
-    disableCellFilters: config.disableInlineTableFilterButtons,
+    showPreview,
   });
 
   const occurrences = useMemo(
@@ -185,9 +177,10 @@ export function OccurrenceTable() {
       fallbackOptions,
     });
 
-  const createRowLink = config.openDrawerOnTableRowClick
-    ? createRowLinkDrawer
-    : createRowLinkDirect;
+  const { openDrawerOnTableRowClick } = useConfig();
+  const rowLinkOptions = openDrawerOnTableRowClick ? rowLinkOptionsDrawer : rowLinkOptionsDirect;
+
+  const createRowLink = useRowLink({ rowLinkOptions, keySelector });
 
   return (
     <div className="g-flex g-flex-col g-h-full">
@@ -197,14 +190,16 @@ export function OccurrenceTable() {
         message="counts.nResults"
       />
       <SearchTable
+        filters={filters}
         createRowLink={createRowLink}
+        keySelector={keySelector}
         lockColumnLocalStoreKey="occurrenceSearchTableLockColumn"
         selectedColumnsLocalStoreKey="occurrenceSearchSelectedColumns"
         columns={columns}
         data={occurrences}
         loading={loading}
         rowCount={data?.occurrenceSearch?.documents.total}
-        pagination={paginationState}
+        paginationState={paginationState}
         setPaginationState={setPaginationState}
         availableTableColumns={availableTableColumns}
         defaultEnabledTableColumns={defaultEnabledTableColumns}

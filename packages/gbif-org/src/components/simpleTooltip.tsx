@@ -1,6 +1,6 @@
 import { TooltipContentProps } from '@radix-ui/react-tooltip';
 import { FormattedMessage } from 'react-intl';
-import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
 
 type Props = {
   title?: React.ReactNode;
@@ -24,13 +24,15 @@ export function SimpleTooltip({
   asChild,
 }: Props) {
   return (
-    <Tooltip delayDuration={delayDuration} disableHoverableContent={disableHoverableContent}>
-      <TooltipTrigger className="g-pointer-events-auto" tabIndex={-1} asChild={asChild}>
-        {children}
-      </TooltipTrigger>
-      <TooltipContent className="g-max-w-96 g-pointer-events-none g-z-30" side={side}>
-        {i18nKey ? <FormattedMessage id={i18nKey} defaultMessage={i18nDefaultMessage} /> : title}
-      </TooltipContent>
-    </Tooltip>
+    <TooltipProvider>
+      <Tooltip delayDuration={delayDuration} disableHoverableContent={disableHoverableContent}>
+        <TooltipTrigger className="g-pointer-events-auto" tabIndex={-1} asChild={asChild}>
+          {children}
+        </TooltipTrigger>
+        <TooltipContent className="g-max-w-96 g-pointer-events-none g-z-30" side={side}>
+          {i18nKey ? <FormattedMessage id={i18nKey} defaultMessage={i18nDefaultMessage} /> : title}
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 }

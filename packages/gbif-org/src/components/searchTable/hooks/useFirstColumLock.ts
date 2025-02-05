@@ -5,9 +5,11 @@ import _useLocalStorage from 'use-local-storage';
 // Used to import commonjs module as es6 module
 const useLocalStorage = interopDefault(_useLocalStorage);
 
+export type SetFirstColumnIsLocked = Setter<boolean>;
+
 type Result = {
   firstColumnIsLocked: boolean;
-  setFirstColumnIsLocked: Setter<boolean>;
+  setFirstColumnIsLocked: SetFirstColumnIsLocked;
   hideFirstColumnLock: boolean;
 };
 
@@ -17,7 +19,7 @@ export function useFirstColumLock(localStorageKey: string): Result {
 
   return {
     firstColumnIsLocked: isMobile ? false : locked,
-    setFirstColumnIsLocked: setLocked,
+    setFirstColumnIsLocked: setLocked as SetFirstColumnIsLocked,
     hideFirstColumnLock: isMobile,
   };
 }
