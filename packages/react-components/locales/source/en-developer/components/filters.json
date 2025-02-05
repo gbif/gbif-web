@@ -500,5 +500,10 @@
     "name": "Literature type",
     "count": "{num, plural, one { Literature type } other {# Literature types}}",
     "description": "What type of literature does the citation come from."
+  },
+  "higherTaxonKey": {
+    "name": "Higher taxon",
+    "count": "{num, plural, one {higher taxon} other {# higher taxa}}",
+    "description": "A Higher taxon to filter by."
   }
 }
