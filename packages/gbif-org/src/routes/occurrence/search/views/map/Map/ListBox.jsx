@@ -34,7 +34,7 @@ function ListItem({ id, item, onClick = (id) => {}, ...props }) {
           </div> */}
         </div>
         {item.primaryImage?.identifier && (
-          <div className="g-flex-grow-0 g-block g-w-[60px] g-h-[60px] g-bg-slate-100 g-rounded g-border">
+          <div className="g-flex-none g-block g-w-[60px] g-h-[60px] g-bg-slate-100 g-rounded g-border">
             <img src={item.primaryImage?.identifier} className="g-w-full g-h-full g-rounded" />
           </div>
         )}
