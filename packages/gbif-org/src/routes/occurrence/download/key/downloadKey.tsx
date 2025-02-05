@@ -1,6 +1,7 @@
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { defaultDateFormatProps, HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
+import { LicenceTag } from '@/components/identifierTag';
 import Properties from '@/components/properties';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
@@ -264,6 +265,20 @@ export function DownloadKey() {
                   </CardContent>
                 </Card>
               )}
+
+              <Card className="g-mb-4">
+                <CardHeader>
+                  <CardTitle>Filter</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Properties breakpoint={800} className="[&>dt]:g-w-52">
+                    <BasicField label="phrases.license">
+                      <LicenceTag value={download.license} />
+                      {download.license}
+                    </BasicField>
+                  </Properties>
+                </CardContent>
+              </Card>
             </ArticleTextContainer>
           </ArticleContainer>
         </article>
