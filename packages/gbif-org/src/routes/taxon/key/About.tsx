@@ -11,6 +11,7 @@ import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import { useTaxonKeyLoaderData } from '.';
+import Citation from './Citation';
 import OccurrenceImages from './OccurrenceImages';
 import Synonyms from './Synonyms';
 import { TaxonKeyContext } from './taxonKeyPresentation';
@@ -18,6 +19,7 @@ import { useIsFamilyOrAbove, useIsSpeciesOrBelow } from './taxonUtil';
 import TypeMaterial from './TypeSpecimens';
 import { VernacularNameTable } from './VernacularNameTable';
 import WikiDataIdentifiers from './WikiDataIdentifiers';
+
 export default function About() {
   const { slowTaxon, slowTaxonLoading } = useContext(TaxonKeyContext);
 
@@ -74,6 +76,7 @@ export default function About() {
                 </CardHeader>
                 <CardContent>
                   <Synonyms
+                    taxonKey={taxon.key}
                     loading={slowTaxonLoading}
                     total={data?.taxon?.synonyms?.results?.length}
                   />
@@ -153,6 +156,16 @@ export default function About() {
                 </CardContent>
               </Card>
             )}
+            <Card className="g-mb-4" id="citation">
+              <CardHeader>
+                <CardTitle>
+                  <FormattedMessage id="phrases.citation" />
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Citation taxon={taxon} />
+              </CardContent>
+            </Card>
           </div>
 
           {!removeSidebar && (

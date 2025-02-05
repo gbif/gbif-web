@@ -70,6 +70,12 @@ const TAXON_QUERY = /* GraphQL */ `
       rank
       taxonomicStatus
       publishedIn
+      dataset {
+        citation {
+          text
+          citationProvidedBySource
+        }
+      }
       vernacularCount: vernacularNames(limit: 10, offset: 0) {
         results {
           taxonKey

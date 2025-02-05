@@ -8,7 +8,7 @@ import { TaxonKeyContext } from './taxonKeyPresentation';
 import { Paging } from './VernacularNameTable';
 const limit = 10;
 
-const Synonyms = ({ total, loading }) => {
+const Synonyms = ({ total, loading, taxonKey }) => {
   const { slowTaxon } = useContext(TaxonKeyContext);
   const [data, setData] = useState([]);
   const [offset, setOffset] = useState(0);
@@ -34,12 +34,13 @@ const Synonyms = ({ total, loading }) => {
       setData(synonyms?.sort((a, b) => (a.taxonomicStatus === 'HOMOTYPIC_SYNONYM' ? -1 : 1)));
     }
   }, [
+    taxonKey,
     slowTaxon?.taxon?.synonyms?.results,
     slowTaxon?.taxon?.combinations,
     slowTaxon?.taxon?.basionymKey,
   ]);
 
-  if (total > 0 && !slowTaxon?.taxon?.synonyms?.results) {
+  if (total > 0 && (loading || !slowTaxon?.taxon?.synonyms?.results)) {
     return (
       <div>
         {Array.from({ length: total }).map((x, i) => (
@@ -64,38 +65,40 @@ const Synonyms = ({ total, loading }) => {
           </>
         )}
       </div>
-      <div style={{ overflow: 'auto' }}>
-        <Table removeBorder={false}>
-          <tbody className="[&_td]:g-align-baseline [&_th]:g-text-sm [&_th]:g-font-normal">
-            {data.slice(offset, offset + limit).map((e, i) => {
-              return (
-                <tr key={i}>
-                  <td>
-                    <div className="g-text-sm g-text-slate-500">
-                      <span className="g-mr-1">
-                        {e.taxonomicStatus == 'HOMOTYPIC_SYNONYM' ? '≡' : '='}
-                      </span>
-                      <DynamicLink pageId="speciesKey" variables={{ key: e?.key.toString() }}>
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: e?.formattedName || e?.scientificName,
-                          }}
-                        />
-                      </DynamicLink>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-        <Paging
-          next={() => setOffset(offset + limit)}
-          prev={() => setOffset(offset - limit)}
-          isFirstPage={offset === 0}
-          isLastPage={offset + limit >= data.length}
-        />
-      </div>
+      {!loading && (
+        <div style={{ overflow: 'auto' }}>
+          <Table removeBorder={false}>
+            <tbody className="[&_td]:g-align-baseline [&_th]:g-text-sm [&_th]:g-font-normal">
+              {data.slice(offset, offset + limit).map((e, i) => {
+                return (
+                  <tr key={i}>
+                    <td>
+                      <div className="g-text-sm g-text-slate-500">
+                        <span className="g-mr-1">
+                          {e.taxonomicStatus == 'HOMOTYPIC_SYNONYM' ? '≡' : '='}
+                        </span>
+                        <DynamicLink pageId="speciesKey" variables={{ key: e?.key.toString() }}>
+                          <span
+                            dangerouslySetInnerHTML={{
+                              __html: e?.formattedName || e?.scientificName,
+                            }}
+                          />
+                        </DynamicLink>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
+          <Paging
+            next={() => setOffset(offset + limit)}
+            prev={() => setOffset(offset - limit)}
+            isFirstPage={offset === 0}
+            isLastPage={offset + limit >= data.length}
+          />
+        </div>
+      )}
     </>
   );
 };

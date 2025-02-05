@@ -8,6 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { MdMoreHoriz } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Classification } from '../classification';
@@ -81,7 +82,11 @@ function TaxaMain({
               return data?.search?.facet?.results?.map((x) => {
                 return {
                   key: x?.key,
-                  title: x?.entity?.title,
+                  title: (
+                    <DynamicLink pageId="speciesKey" variables={{ key: x?.key.toString() }}>
+                      {x?.entity?.title}
+                    </DynamicLink>
+                  ),
                   count: x.count,
                   filter: { taxonKey: [x.key] },
                   description: (
