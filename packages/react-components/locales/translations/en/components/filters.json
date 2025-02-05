@@ -503,7 +503,7 @@
   },
   "higherTaxonKey": {
     "name": "Higher taxon",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {higher taxon} other {# higher taxa}}",
+    "description": "A higher taxon to filter by."
   }
 }
