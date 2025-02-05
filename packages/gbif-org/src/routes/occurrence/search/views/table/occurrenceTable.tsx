@@ -21,6 +21,8 @@ import {
   usePaginationState,
   SearchTable,
 } from '@/components/searchTable';
+import { ClientSideOnly } from '@/components/clientSideOnly';
+import { SearchTableServerFallback } from '@/components/searchTable/table';
 
 const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
   query OccurrenceSearch($from: Int, $size: Int, $predicate: Predicate) {
@@ -189,21 +191,24 @@ export function OccurrenceTable() {
         loading={loading}
         message="counts.nResults"
       />
-      <SearchTable
-        filters={filters}
-        createRowLink={createRowLink}
-        keySelector={keySelector}
-        lockColumnLocalStoreKey="occurrenceSearchTableLockColumn"
-        selectedColumnsLocalStoreKey="occurrenceSearchSelectedColumns"
-        columns={columns}
-        data={occurrences}
-        loading={loading}
-        rowCount={data?.occurrenceSearch?.documents.total}
-        paginationState={paginationState}
-        setPaginationState={setPaginationState}
-        availableTableColumns={availableTableColumns}
-        defaultEnabledTableColumns={defaultEnabledTableColumns}
-      />
+
+      <ClientSideOnly fallback={<SearchTableServerFallback />}>
+        <SearchTable
+          filters={filters}
+          createRowLink={createRowLink}
+          keySelector={keySelector}
+          lockColumnLocalStoreKey="occurrenceSearchTableLockColumn"
+          selectedColumnsLocalStoreKey="occurrenceSearchSelectedColumns"
+          columns={columns}
+          data={occurrences}
+          loading={loading}
+          rowCount={data?.occurrenceSearch?.documents.total}
+          paginationState={paginationState}
+          setPaginationState={setPaginationState}
+          availableTableColumns={availableTableColumns}
+          defaultEnabledTableColumns={defaultEnabledTableColumns}
+        />
+      </ClientSideOnly>
     </div>
   );
 }

@@ -16,6 +16,8 @@ import {
   usePaginationState,
   SearchTable,
 } from '@/components/searchTable';
+import { ClientSideOnly } from '@/components/clientSideOnly';
+import { SearchTableServerFallback } from '@/components/searchTable/table';
 
 const fallbackOptions: FallbackTableOptions = {
   prefixColumns: ['titleAndAbstract'],
@@ -125,20 +127,22 @@ export function LiteratureTable() {
           message="counts.nResults"
         />
       </div>
-      <SearchTable
-        filters={filters}
-        keySelector={keySelector}
-        lockColumnLocalStoreKey="literatureSearchTableLockColumn"
-        selectedColumnsLocalStoreKey="literatureSearchSelectedColumns"
-        columns={columns}
-        data={literature}
-        loading={loading}
-        rowCount={data?.literatureSearch?.documents.total}
-        paginationState={paginationState}
-        setPaginationState={setPaginationState}
-        availableTableColumns={availableTableColumns}
-        defaultEnabledTableColumns={defaultEnabledTableColumns}
-      />
+      <ClientSideOnly fallback={<SearchTableServerFallback />}>
+        <SearchTable
+          filters={filters}
+          keySelector={keySelector}
+          lockColumnLocalStoreKey="literatureSearchTableLockColumn"
+          selectedColumnsLocalStoreKey="literatureSearchSelectedColumns"
+          columns={columns}
+          data={literature}
+          loading={loading}
+          rowCount={data?.literatureSearch?.documents.total}
+          paginationState={paginationState}
+          setPaginationState={setPaginationState}
+          availableTableColumns={availableTableColumns}
+          defaultEnabledTableColumns={defaultEnabledTableColumns}
+        />
+      </ClientSideOnly>
     </div>
   );
 }

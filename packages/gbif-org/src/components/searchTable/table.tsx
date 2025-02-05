@@ -116,3 +116,7 @@ function SearchTable<T>({
     </div>
   );
 }
+
+export function SearchTableServerFallback() {
+  return <div className="g-bg-white g-flex-1 g-border g-basis-full g-h-1 g-flex g-flex-col" />;
+}

@@ -1,4 +1,3 @@
-import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
@@ -40,11 +39,9 @@ export function TaxonSearchPage(): React.ReactElement {
       </FormattedMessage>
 
       <SearchContextProvider searchContext={config.taxonSearch}>
-        <ClientSideOnly>
-          <FilterProvider filter={filter} onChange={setFilter}>
-            <TaxonSearchPageInner />
-          </FilterProvider>
-        </ClientSideOnly>
+        <FilterProvider filter={filter} onChange={setFilter}>
+          <TaxonSearchPageInner />
+        </FilterProvider>
       </SearchContextProvider>
     </>
   );
@@ -143,7 +140,7 @@ function Views({ view, className }: { view?: string; className?: string }) {
   const fixedHeight = ['table'].includes(view ?? '');
   return (
     <ErrorBoundary invalidateOn={view}>
-      <div className={cn('', className)}>
+      <div className={className}>
         {fixedHeight && (
           <DynamicHeightDiv minPxHeight={500}>{view === 'table' && <Table />}</DynamicHeightDiv>
         )}

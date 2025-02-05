@@ -20,6 +20,8 @@ import {
   usePaginationState,
   SearchTable,
 } from '@/components/searchTable';
+import { ClientSideOnly } from '@/components/clientSideOnly';
+import { SearchTableServerFallback } from '@/components/searchTable/table';
 
 const TAXON_SEARCH_QUERY = /* GraphQL */ `
   query TaxonSearch($offset: Int, $limit: Int, $query: TaxonSearchInput) {
@@ -144,21 +146,23 @@ export function Table() {
   return (
     <div className="g-flex g-flex-col g-h-full">
       <ViewHeader total={data?.taxonSearch?.count} loading={loading} message="counts.nResults" />
-      <SearchTable
-        filters={filters}
-        createRowLink={createRowLink}
-        keySelector={keySelector}
-        lockColumnLocalStoreKey="taxonSearchTableLockColumn"
-        selectedColumnsLocalStoreKey="taxonSearchTableSelectedColumns"
-        columns={columns}
-        data={taxons}
-        loading={loading}
-        rowCount={data?.taxonSearch?.count}
-        paginationState={paginationState}
-        setPaginationState={setPaginationState}
-        availableTableColumns={availableTableColumns}
-        defaultEnabledTableColumns={defaultEnabledTableColumns}
-      />
+      <ClientSideOnly fallback={<SearchTableServerFallback />}>
+        <SearchTable
+          filters={filters}
+          createRowLink={createRowLink}
+          keySelector={keySelector}
+          lockColumnLocalStoreKey="taxonSearchTableLockColumn"
+          selectedColumnsLocalStoreKey="taxonSearchTableSelectedColumns"
+          columns={columns}
+          data={taxons}
+          loading={loading}
+          rowCount={data?.taxonSearch?.count}
+          paginationState={paginationState}
+          setPaginationState={setPaginationState}
+          availableTableColumns={availableTableColumns}
+          defaultEnabledTableColumns={defaultEnabledTableColumns}
+        />
+      </ClientSideOnly>
     </div>
   );
 }

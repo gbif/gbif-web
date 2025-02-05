@@ -65,9 +65,7 @@ export function LiteraturePageSearchInner(): React.ReactElement {
       <ErrorBoundary>
         <div className="g-py-2 g-px-4 g-bg-slate-100">
           <DynamicHeightDiv minPxHeight={500}>
-            <ClientSideOnly>
-              <LiteratureTable />
-            </ClientSideOnly>
+            <LiteratureTable />
           </DynamicHeightDiv>
         </div>
       </ErrorBoundary>

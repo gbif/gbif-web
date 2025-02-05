@@ -1,4 +1,3 @@
-import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
@@ -11,7 +10,6 @@ import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import { useStringParam } from '@/hooks/useParam';
 import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
-import { cn } from '@/utils/shadcn';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
@@ -129,14 +127,10 @@ function Views({ view: unknownCaseView, className }: { view?: string; className?
   const fixedHeight = ['table', 'map', 'clusters'].includes(view ?? '');
   return (
     <ErrorBoundary invalidateOn={view}>
-      <div className={cn('', className)}>
+      <div className={className}>
         {fixedHeight && (
           <DynamicHeightDiv minPxHeight={500}>
-            {view === 'table' && (
-              <ClientSideOnly>
-                <OccurrenceTable />
-              </ClientSideOnly>
-            )}
+            {view === 'table' && <OccurrenceTable />}
             {view === 'map' && <Map />}
             {view === 'clusters' && <Clusters />}
           </DynamicHeightDiv>
