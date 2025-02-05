@@ -191,7 +191,11 @@ function RelatedRecord({
               <FormattedMessage id="occurrenceDetails.cluster.clusterTags" />
             </span>
             {reasons.map((reason: string, key: number) => {
-              return <Tag key={key}>{reason}</Tag>;
+              return (
+                <Tag key={key}>
+                  <FormattedMessage id={`enums.clusterReasons.${reason}`} />
+                </Tag>
+              );
             })}
             <div className="g-flex-grow"></div>
           </div>
