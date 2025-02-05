@@ -173,7 +173,7 @@ function RelatedRecord({
               <FormattedMessage id={`enums.basisOfRecord.${occurrence.basisOfRecord}`} />
             </p>
             <FeatureList className="">
-              <Sequenced />
+              {occurrence.volatile?.features?.isSequenced && <Sequenced />}
               <Coordinates str={occurrence?.formattedCoordinates} />
               {occurrence?.typeStatus && <TypeStatus types={occurrence?.typeStatus} />}
             </FeatureList>
