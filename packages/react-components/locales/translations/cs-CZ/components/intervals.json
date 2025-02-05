@@ -59,12 +59,12 @@
     "between": "Relativní množství organismů {from} do {to}",
     "lt": "Relativní množství organismů pod {to}",
     "gt": "Relativní množství organismů nad {from}",
-    "e": ""
+    "e": "Relativní množství organismů nad {from}"
   },
   "elevation": {
-    "between": "",
-    "lt": "",
-    "gt": "",
+    "between": "Nadmořská výška {from} do {to}",
+    "lt": "Nadmořská výška pod {to}",
+    "gt": "Nadmořská výška nad {from}",
     "e": "Nadmořská výška je {from}"
   },
   "geoDistance": {
