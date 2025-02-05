@@ -58,7 +58,7 @@
   "relativeOrganismQuantity": {
     "between": "Relativní množství organismů {from} do {to}",
     "lt": "Relativní množství organismů pod {to}",
-    "gt": "",
+    "gt": "Relativní množství organismů nad {from}",
     "e": ""
   },
   "elevation": {
