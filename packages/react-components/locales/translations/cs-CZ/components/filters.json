@@ -78,7 +78,7 @@
   "audiences": {
     "name": "Sledovanost",
     "count": "",
-    "description": ""
+    "description": "Pro koho je zdroj určen."
   },
   "purposes": {
     "name": "Téma",
