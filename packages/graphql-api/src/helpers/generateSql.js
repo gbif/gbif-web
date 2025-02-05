@@ -2,12 +2,14 @@ import config from '#/config';
 
 const defaultUncertainty = 1000;
 
+const sqlEndpoint = config.sqlapi ?? config.apiv1;
+
 async function getWhereClause({ predicate }) {
   if (!predicate) {
     return '';
   }
   const sqlResponse = await fetch(
-    `${config.apiv1}/occurrence/download/request/sql`,
+    `${sqlEndpoint}/occurrence/download/request/sql`,
     {
       method: 'POST',
       headers: {
@@ -232,7 +234,7 @@ export async function getSql({ query }) {
 
   // post to https://api.gbif.org/v1/occurrence/download/request/validate to validate the sql
   const validation = await fetch(
-    `${config.apiv1}/occurrence/download/request/validate`,
+    `${sqlEndpoint}/occurrence/download/request/validate`,
     {
       method: 'POST',
       headers: {
