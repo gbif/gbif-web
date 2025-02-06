@@ -86,7 +86,7 @@
   "license": "授权条款",
   "recommended": "推荐",
   "processedOccurrences": "GBIF附加说明的归档",
-  "processedOccurrencesDescription": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+  "processedOccurrencesDescription": "等于 {is}",
   "noDescriptionProvided": "无可用描述",
   "pNetwork": "{NUMBER, plural, 1{网络} other{网络}}",
   "parentEvent": "父事件",
