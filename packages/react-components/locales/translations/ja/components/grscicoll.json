@@ -53,8 +53,8 @@
     "explore": ""
   },
   "citesPermitNumber": "CITES許可番号",
-  "collectionDescriptorsHeadline": "GBIFがアノーテーションしたアーカイブ",
-  "collectionDescriptorsIntroduction": "GBIFがアノーテーションしたアーカイブ",
-  "collectionSearchNoResultsMessage": "GBIFがアノーテーションしたアーカイブ",
-  "searchForSpecimens": "GBIFがアノーテーションしたアーカイブ"
+  "collectionDescriptorsHeadline": "",
+  "collectionDescriptorsIntroduction": "",
+  "collectionSearchNoResultsMessage": "",
+  "searchForSpecimens": ""
 }
