@@ -247,12 +247,12 @@
       "name": "Germplasm: Measurement score",
       "properties": {
         "measurementID": "Measurement ID",
-        "measurementValue": "",
-        "measurementUnit": "",
-        "measurementAccuracy": "",
-        "measurementDeterminedDate": "",
-        "measurementDeterminedBy": "",
-        "measurementType": "",
+        "measurementValue": "Whether the record has geospatial issues.",
+        "measurementUnit": "Measurement unit",
+        "measurementAccuracy": "Measurement accuracy",
+        "measurementDeterminedDate": "Measurement determined date",
+        "measurementDeterminedBy": "Measurement determined by",
+        "measurementType": "Measurement type",
         "measurementMethod": "",
         "measurementRemarks": "",
         "germplasmID": "Germplasm ID",
@@ -276,7 +276,7 @@
         "measurementTraitScale": "",
         "measurementTraitSource": "",
         "measurementTraitRemarks": "",
-        "measurementType": "",
+        "measurementType": "Measurement type",
         "measurementMethod": ""
       }
     },
@@ -382,12 +382,12 @@
       "name": "Measurement or fact",
       "properties": {
         "measurementID": "Measurement ID",
-        "measurementType": "",
-        "measurementValue": "",
-        "measurementAccuracy": "",
-        "measurementUnit": "",
-        "measurementDeterminedDate": "",
-        "measurementDeterminedBy": "",
+        "measurementType": "Measurement type",
+        "measurementValue": "Whether the record has geospatial issues.",
+        "measurementAccuracy": "Measurement accuracy",
+        "measurementUnit": "Measurement unit",
+        "measurementDeterminedDate": "Measurement determined date",
+        "measurementDeterminedBy": "Measurement determined by",
         "measurementMethod": "",
         "measurementRemarks": ""
       }
@@ -579,15 +579,15 @@
       "properties": {
         "measurementID": "Measurement ID",
         "occurrenceID": "Occurrence id",
-        "measurementType": "",
+        "measurementType": "Measurement type",
         "measurementTypeID": "Measurement type ID",
-        "measurementValue": "",
+        "measurementValue": "Whether the record has geospatial issues.",
         "measurementValueID": "Measurement value ID",
-        "measurementAccuracy": "",
-        "measurementUnit": "",
+        "measurementAccuracy": "Measurement accuracy",
+        "measurementUnit": "Measurement unit",
         "measurementUnitID": "Measurement unit ID",
-        "measurementDeterminedDate": "",
-        "measurementDeterminedBy": "",
+        "measurementDeterminedDate": "Measurement determined date",
+        "measurementDeterminedBy": "Measurement determined by",
         "measurementMethod": "",
         "measurementRemarks": ""
       }
