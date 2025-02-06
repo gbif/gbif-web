@@ -78,7 +78,7 @@
   "audiences": {
     "name": "Sledovanost",
     "count": "",
-    "description": ""
+    "description": "Pro koho je zdroj určen."
   },
   "purposes": {
     "name": "Téma",
@@ -323,22 +323,22 @@
   "identifiedById": {
     "name": "Identifikováno podle ID",
     "count": "",
-    "description": ""
+    "description": "Identifikátor osoby, osob, skupin nebo organizací odpovědných za určení vědeckého názvu organismu."
   },
   "occurrenceId": {
     "name": "ID Výskytu",
     "count": "",
-    "description": ""
+    "description": "Jedinečný identifikátor záznamu výskytu."
   },
   "organismId": {
     "name": "Organism id",
     "count": "",
-    "description": ""
+    "description": "Jedinečný identifikátor organismu v záznamu."
   },
   "locality": {
     "name": "Lokalita",
     "count": "",
-    "description": ""
+    "description": "Konkrétní část popisu místa."
   },
   "waterBody": {
     "name": "Vodní plocha",
