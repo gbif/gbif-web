@@ -3,22 +3,22 @@
     "table": "表",
     "tree": "",
     "gallery": "圖片集",
-    "media": "GBIF 註記的存檔",
+    "media": "等於 {is}",
     "map": "地圖",
     "datasets": "資料集",
     "events": "事件",
     "download": "下載",
     "clusters": "",
     "dashboard": "統計面板",
-    "sites": "GBIF 註記的存檔",
+    "sites": "等於 {is}",
     "list": ""
   },
   "table": {
     "lockColumn": "鎖定欄位",
-    "unlockColumn": "GBIF 註記的存檔",
-    "columnVisibility": "GBIF 註記的存檔",
-    "resetColumnVisibility": "GBIF 註記的存檔",
-    "openFilter": "GBIF 註記的存檔"
+    "unlockColumn": "等於 {is}",
+    "columnVisibility": "等於 {is}",
+    "resetColumnVisibility": "等於 {is}",
+    "openFilter": "等於 {is}"
   },
   "placeholders": {
     "default": "搜尋",
@@ -30,10 +30,10 @@
   "ternary": {
     "yes": "是",
     "no": "否",
-    "either": "GBIF 註記的存檔"
+    "either": "等於 {is}"
   },
   "loadMore": "更多",
-  "noResults": "GBIF 註記的存檔",
+  "noResults": "等於 {is}",
   "occurrenceClustersView": {
     "about": "關於",
     "clusters": "",
