@@ -3,22 +3,22 @@
     "table": "表格",
     "tree": "",
     "gallery": "图库",
-    "media": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+    "media": "等于 {is}",
     "map": "地图",
     "datasets": "数据集",
     "events": "事件",
     "download": "下载",
     "clusters": "",
     "dashboard": "仪表板",
-    "sites": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+    "sites": "等于 {is}",
     "list": ""
   },
   "table": {
     "lockColumn": "锁定列",
-    "unlockColumn": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-    "columnVisibility": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-    "resetColumnVisibility": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-    "openFilter": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
+    "unlockColumn": "等于 {is}",
+    "columnVisibility": "等于 {is}",
+    "resetColumnVisibility": "等于 {is}",
+    "openFilter": "等于 {is}"
   },
   "placeholders": {
     "default": "搜索",
@@ -30,10 +30,10 @@
   "ternary": {
     "yes": "是",
     "no": "否",
-    "either": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
+    "either": "等于 {is}"
   },
   "loadMore": "更多",
-  "noResults": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+  "noResults": "等于 {is}",
   "occurrenceClustersView": {
     "about": "关于",
     "clusters": "",
