@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "Met coördinaat",
     "count": "Met coördinaten",
-    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+    "description": "Gelijk aan {is}"
   },
   "hasGeospatialIssues": {
     "name": "",
     "count": "",
-    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+    "description": "Gelijk aan {is}"
   },
   "collectionKey": {
     "name": "Verzameling",
@@ -60,7 +60,7 @@
   "geometry": {
     "name": "Locatie",
     "count": "",
-    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "description": "Gelijk aan {is}",
     "placeholderLat": "Breedtegraad",
     "placeholderLon": "Lengtegraad",
     "placeholderDist": "Afstand"
@@ -93,7 +93,7 @@
   "alternativeCode": {
     "name": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
     "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+    "description": "Gelijk aan {is}"
   },
   "identifier": {
     "name": "Identifier",
@@ -108,7 +108,7 @@
   "discipline": {
     "name": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
     "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+    "description": "Gelijk aan {is}"
   },
   "collectionContentType": {
     "name": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
@@ -128,7 +128,7 @@
   "taxonKeyGrSciColl": {
     "name": "Wetenschappelijke naam",
     "count": "{num, plural, one {wetenschappelijk naam} other {# wetenschappelijk namen}}",
-    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+    "description": "Gelijk aan {is}"
   },
   "basisOfRecord": {
     "name": "Gegevens gebaseerd op",
@@ -222,12 +222,12 @@
   "countriesOfCoverage": {
     "name": "Land van dekking",
     "count": "",
-    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+    "description": "Gelijk aan {is}"
   },
   "collectionDescriptorCountry": {
     "name": "Land of regio van dekking",
     "count": "",
-    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+    "description": "Gelijk aan {is}"
   },
   "countriesOfResearcher": {
     "name": "Land van onderzoeker",
@@ -347,8 +347,8 @@
   },
   "higherGeography": {
     "name": "",
-    "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+    "count": "Gelijk aan {is}",
+    "description": "Gelijk aan {is}"
   },
   "stateProvince": {
     "name": "Staat/provincie",
@@ -433,22 +433,22 @@
   "active": {
     "name": "Actief",
     "count": "Actief",
-    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+    "description": ""
   },
   "activeInstitution": {
     "name": "Actief",
     "count": "Actief",
-    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+    "description": "Gelijk aan {is}"
   },
   "activeCollection": {
     "name": "Actief",
     "count": "Actief",
-    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+    "description": "Gelijk aan {is}"
   },
   "publicationDate": {
     "name": "Publicatiedatum",
-    "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+    "count": "Gelijk aan {is}",
+    "description": "Gelijk aan {is}"
   },
   "personalCollection": {
     "name": "Persoonlijke collectie",
@@ -474,12 +474,12 @@
     "name": "Naam",
     "count": "",
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-    "searchPlaceholder": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+    "searchPlaceholder": "Gelijk aan {is}"
   },
   "city": {
     "name": "Stad",
     "count": "",
-    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+    "description": ""
   },
   "code": {
     "name": "Code",
@@ -498,6 +498,11 @@
   },
   "literatureType": {
     "name": "Type literatuur",
+    "count": "",
+    "description": ""
+  },
+  "higherTaxonKey": {
+    "name": "",
     "count": "",
     "description": ""
   }
