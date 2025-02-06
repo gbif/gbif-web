@@ -86,7 +86,7 @@
   "license": "Licencia",
   "recommended": "Recomendado",
   "processedOccurrences": "Archivo GBIF de registro biológico comentado",
-  "processedOccurrencesDescription": "Aquí debe colocarse una breve descripción del componente",
+  "processedOccurrencesDescription": "Igual a {is}",
   "noDescriptionProvided": "No hay descripción disponible",
   "pNetwork": "{NUMBER, plural, one{Red} other{Redes}}",
   "parentEvent": "Evento parental",
