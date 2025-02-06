@@ -19,7 +19,8 @@
     "test": "npm run build && npm run build:hp && npm run vitest",
     "type-check": "tsc --noEmit",
     "cy:open": "cypress open",
-    "saucectl": "saucectl"
+    "saucectl": "saucectl",
+    "serve:hp": "npx serve ./dist/hp --cors -p 3030"
   },
   "dependencies": {
     "@hello-pangea/dnd": "^17.0.0",

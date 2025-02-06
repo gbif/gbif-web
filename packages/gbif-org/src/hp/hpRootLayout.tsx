@@ -6,13 +6,14 @@ import { ScrollRestoration, useLocation } from 'react-router-dom';
 
 type Props = {
   children: React.ReactNode;
+  disableScrollRestoration?: boolean;
 };
 
-export function HpRootLayout({ children }: Props) {
+export function HpRootLayout({ children, disableScrollRestoration = false }: Props) {
   return (
     <>
       <UrlChangeNotifier />
-      <ScrollRestoration />
+      {!disableScrollRestoration && <ScrollRestoration />}
       <Toaster />
       <ErrorBoundary>{children}</ErrorBoundary>
     </>
