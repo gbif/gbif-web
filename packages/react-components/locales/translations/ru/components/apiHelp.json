@@ -1,3 +1,24 @@
 {
-  "search": "Поиск"
+  "example": "Пример",
+  "examples": "Примеры",
+  "singleEntry": "Получить единственную запись.",
+  "singleOccurrence": "Показать единичный случай",
+  "searchOccurrences": "Показать все случаи",
+  "searchOccurrencesExample": "Первые пять случаев нахождения таксона с номером 9778871 (Flabellina McMurtrie, 1831), которые были зарегистрированы в мае в период с 2000 по 2024 год.",
+  "relatedOccurrences": "Связанные с этим события (экспериментальные).",
+  "occurrenceFragment": "Запись до интерпретации.",
+  "singleInstallation": "Найти одну сборку.",
+  "singleOrganization": "Найти одного издателя",
+  "searchOrganizations": "Поиск издателей.",
+  "searchInstallations": "Поиск сборок",
+  "search": "Поиск",
+  "singleNetwork": "Получить одну сеть.",
+  "singleCollection": "Получить одну коллекцию.",
+  "searchCollections": "Поиск коллекций.",
+  "singleInstitution": "Получить одно учреждение.",
+  "searchInstitutions": "Поиск учреждений.",
+  "singleDataset": "Получить один набор данных.",
+  "searchDatasetsExample": "Первые два набора данных, опубликованные в Дании, содержат свободный текст \"грибы\" в названии или описании.",
+  "searchExample": "Первые две записи с произвольным текстом \"днк\".",
+  "searchDatasets": "Получить все наборы данных."
 }
