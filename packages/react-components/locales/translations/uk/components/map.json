@@ -13,8 +13,8 @@
         "PLATE_CAREE": "Плате-Карре"
     },
     "failedToGetUserLocation": {
-        "title": "Архів анотований GBIF",
-        "message": "Архів анотований GBIF"
+        "title": "",
+        "message": ""
     },
     "filterByView": ""
 }
