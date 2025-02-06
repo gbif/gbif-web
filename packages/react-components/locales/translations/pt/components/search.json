@@ -3,22 +3,22 @@
     "table": "Tabela",
     "tree": "",
     "gallery": "Galeria",
-    "media": "Uma breve descrição do componente deve ser colocada aqui",
+    "media": "Iguais {is}",
     "map": "Mapa",
     "datasets": "Conjuntos de dados",
     "events": "Eventos",
     "download": "Transferir",
     "clusters": "",
     "dashboard": "",
-    "sites": "Uma breve descrição do componente deve ser colocada aqui",
+    "sites": "Iguais {is}",
     "list": ""
   },
   "table": {
     "lockColumn": "",
-    "unlockColumn": "Uma breve descrição do componente deve ser colocada aqui",
-    "columnVisibility": "Uma breve descrição do componente deve ser colocada aqui",
-    "resetColumnVisibility": "Uma breve descrição do componente deve ser colocada aqui",
-    "openFilter": "Uma breve descrição do componente deve ser colocada aqui"
+    "unlockColumn": "Iguais {is}",
+    "columnVisibility": "Iguais {is}",
+    "resetColumnVisibility": "Iguais {is}",
+    "openFilter": "Iguais {is}"
   },
   "placeholders": {
     "default": "Pesquisa",
@@ -30,10 +30,10 @@
   "ternary": {
     "yes": "Sim",
     "no": "Não",
-    "either": "Uma breve descrição do componente deve ser colocada aqui"
+    "either": "Iguais {is}"
   },
   "loadMore": "Mais",
-  "noResults": "Uma breve descrição do componente deve ser colocada aqui",
+  "noResults": "Iguais {is}",
   "occurrenceClustersView": {
     "about": "Sobre",
     "clusters": "",
