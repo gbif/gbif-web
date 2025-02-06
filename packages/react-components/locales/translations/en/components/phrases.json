@@ -20,7 +20,7 @@
   "publishers": "Publishers",
   "hostedDatasets": "Hosted datasets",
   "occurrenceMetrics": "Occurrence metrics",
-  "citationMetrics": "",
+  "citationMetrics": "Citation metrics",
   "project": "Project",
   "license": "Licence",
   "downloadAsTsv": "Download as TSV",
