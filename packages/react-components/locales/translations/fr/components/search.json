@@ -3,22 +3,22 @@
     "table": "Tableau",
     "tree": "",
     "gallery": "Galerie",
-    "media": "Archive annotée par GBIF",
+    "media": "",
     "map": "Carte",
     "datasets": "Jeux de données",
     "events": "Évènements",
     "download": "Télécharger",
     "clusters": "",
     "dashboard": "Tableau de bord",
-    "sites": "Archive annotée par GBIF",
+    "sites": "",
     "list": "Liste"
   },
   "table": {
     "lockColumn": "Verrouiller la colonne",
-    "unlockColumn": "Archive annotée par GBIF",
-    "columnVisibility": "Archive annotée par GBIF",
-    "resetColumnVisibility": "Archive annotée par GBIF",
-    "openFilter": "Archive annotée par GBIF"
+    "unlockColumn": "",
+    "columnVisibility": "",
+    "resetColumnVisibility": "",
+    "openFilter": ""
   },
   "placeholders": {
     "default": "Rechercher",
@@ -30,10 +30,10 @@
   "ternary": {
     "yes": "Oui",
     "no": "Non",
-    "either": "Archive annotée par GBIF"
+    "either": ""
   },
   "loadMore": "Plus",
-  "noResults": "Archive annotée par GBIF",
+  "noResults": "",
   "occurrenceClustersView": {
     "about": "À propos",
     "clusters": "",
