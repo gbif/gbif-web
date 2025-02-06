@@ -3,22 +3,22 @@
     "table": "Tabel",
     "tree": "",
     "gallery": "Afbeeldingen",
-    "media": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "media": "Gelijk aan {is}",
     "map": "Kaart",
     "datasets": "Datasets",
     "events": "Evenementen",
     "download": "Downloaden",
     "clusters": "",
     "dashboard": "Dashboard",
-    "sites": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "sites": "Gelijk aan {is}",
     "list": ""
   },
   "table": {
     "lockColumn": "Vergrendel kolom",
-    "unlockColumn": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-    "columnVisibility": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-    "resetColumnVisibility": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-    "openFilter": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+    "unlockColumn": "Gelijk aan {is}",
+    "columnVisibility": "Gelijk aan {is}",
+    "resetColumnVisibility": "Gelijk aan {is}",
+    "openFilter": "Gelijk aan {is}"
   },
   "placeholders": {
     "default": "Zoeken",
@@ -30,10 +30,10 @@
   "ternary": {
     "yes": "Ja",
     "no": "Nee",
-    "either": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+    "either": "Gelijk aan {is}"
   },
   "loadMore": "Meer",
-  "noResults": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+  "noResults": "Gelijk aan {is}",
   "occurrenceClustersView": {
     "about": "Over",
     "clusters": "",
