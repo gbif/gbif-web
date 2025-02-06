@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "ذو احداثيات",
     "count": "",
-    "description": "أرشيف شروح \"جيبف\""
+    "description": "التساويات { is }"
   },
   "hasGeospatialIssues": {
     "name": "ذو مشاكل جغرافية مكانية",
     "count": "ذو مشاكل جغرافية مكانية",
-    "description": "أرشيف شروح \"جيبف\""
+    "description": "التساويات { is }"
   },
   "collectionKey": {
     "name": "مجموعة",
@@ -60,7 +60,7 @@
   "geometry": {
     "name": "موقع",
     "count": "",
-    "description": "أرشيف شروح \"جيبف\"",
+    "description": "التساويات { is }",
     "placeholderLat": "",
     "placeholderLon": "",
     "placeholderDist": ""
@@ -93,7 +93,7 @@
   "alternativeCode": {
     "name": "أرشيف شروح \"جيبف\"",
     "count": "أرشيف شروح \"جيبف\"",
-    "description": "أرشيف شروح \"جيبف\""
+    "description": "التساويات { is }"
   },
   "identifier": {
     "name": "المعرِّف",
@@ -108,7 +108,7 @@
   "discipline": {
     "name": "أرشيف شروح \"جيبف\"",
     "count": "أرشيف شروح \"جيبف\"",
-    "description": "أرشيف شروح \"جيبف\""
+    "description": "التساويات { is }"
   },
   "collectionContentType": {
     "name": "أرشيف شروح \"جيبف\"",
@@ -128,7 +128,7 @@
   "taxonKeyGrSciColl": {
     "name": "الاسم العلمي",
     "count": "",
-    "description": "أرشيف شروح \"جيبف\""
+    "description": "التساويات { is }"
   },
   "basisOfRecord": {
     "name": "قاعدة السجل",
@@ -222,12 +222,12 @@
   "countriesOfCoverage": {
     "name": "بلد أو منطقة التغطية",
     "count": "",
-    "description": "أرشيف شروح \"جيبف\""
+    "description": "التساويات { is }"
   },
   "collectionDescriptorCountry": {
     "name": "بلد أو منطقة التغطية",
     "count": "",
-    "description": "أرشيف شروح \"جيبف\""
+    "description": "التساويات { is }"
   },
   "countriesOfResearcher": {
     "name": "بلد أو منطقة الباحث",
@@ -347,8 +347,8 @@
   },
   "higherGeography": {
     "name": "الجغرافيا العليا",
-    "count": "أرشيف شروح \"جيبف\"",
-    "description": "أرشيف شروح \"جيبف\""
+    "count": "التساويات { is }",
+    "description": "التساويات { is }"
   },
   "stateProvince": {
     "name": "الولاية/المقاطعة/المحافظة",
@@ -433,22 +433,22 @@
   "active": {
     "name": "نشط",
     "count": "نشط",
-    "description": "أرشيف شروح \"جيبف\""
+    "description": ""
   },
   "activeInstitution": {
     "name": "نشط",
     "count": "نشط",
-    "description": "أرشيف شروح \"جيبف\""
+    "description": "التساويات { is }"
   },
   "activeCollection": {
     "name": "نشط",
     "count": "نشط",
-    "description": "أرشيف شروح \"جيبف\""
+    "description": "التساويات { is }"
   },
   "publicationDate": {
     "name": "تاريخ النشر",
-    "count": "أرشيف شروح \"جيبف\"",
-    "description": "أرشيف شروح \"جيبف\""
+    "count": "التساويات { is }",
+    "description": "التساويات { is }"
   },
   "personalCollection": {
     "name": "مجموعة شخصية",
@@ -474,12 +474,12 @@
     "name": "الاسم",
     "count": "",
     "description": "أرشيف شروح \"جيبف\"",
-    "searchPlaceholder": "أرشيف شروح \"جيبف\""
+    "searchPlaceholder": "التساويات { is }"
   },
   "city": {
     "name": "المدينة",
     "count": "",
-    "description": "أرشيف شروح \"جيبف\""
+    "description": ""
   },
   "code": {
     "name": "الرمز",
@@ -498,6 +498,11 @@
   },
   "literatureType": {
     "name": "نمط  المراجع",
+    "count": "",
+    "description": ""
+  },
+  "higherTaxonKey": {
+    "name": "وحدة تصنيفية عليا",
     "count": "",
     "description": ""
   }
