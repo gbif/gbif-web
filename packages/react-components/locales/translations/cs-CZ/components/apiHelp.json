@@ -1,4 +1,6 @@
 {
+  "example": "Příklad",
+  "examples": "Příklady",
   "search": "Hledat",
   "searchDatasetsExample": "První dvě datové sady publikované z Dánska s volným textem \"fungi\" v názvu nebo popisu.",
   "searchExample": "První dvě položky s volným textem \"dna\"."
