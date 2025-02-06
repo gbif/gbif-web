@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "Has coordinate",
     "count": "Has coordinates",
-    "description": ""
+    "description": "Whether the record has coordinates."
   },
   "hasGeospatialIssues": {
     "name": "Has geospatial issues",
     "count": "Has geospatial issues",
-    "description": ""
+    "description": "Whether the record has geospatial issues."
   },
   "collectionKey": {
     "name": "Collection",
