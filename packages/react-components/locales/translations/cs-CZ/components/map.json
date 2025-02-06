@@ -13,8 +13,8 @@
         "PLATE_CAREE": "Čtvercová projekce"
     },
     "failedToGetUserLocation": {
-        "title": "",
-        "message": ""
+        "title": "Rovná se {from}",
+        "message": "Rovná se {from}"
     },
     "filterByView": "Použít viditelnou oblast jako filtr"
 }
