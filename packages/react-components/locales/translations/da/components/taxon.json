@@ -1,11 +1,19 @@
 {
   "tabs": {
     "about": "Om",
-    "typeMaterial": "GBIF annoteret Arkiv",
+    "typeMaterial": "",
     "metrics": "Grafer"
   },
   "publishedIn": "Publiceret i",
   "vernacularNames": "Almindelige navne",
   "rank": "",
-  "source": "Kilde"
+  "source": "Kilde",
+  "specimenIsTypeOf": "",
+  "typeMaterial": "",
+  "more": "mere",
+  "less": "",
+  "dna": "",
+  "occurenceImages": "",
+  "taxonIdentifiers": "",
+  "synonymsAndCombinations": ""
 }
