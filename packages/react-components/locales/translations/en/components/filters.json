@@ -479,7 +479,7 @@
   "city": {
     "name": "City",
     "count": "{num, plural, one { city } other {# cities}}",
-    "description": ""
+    "description": "City where the institution/collection can be found."
   },
   "code": {
     "name": "Code",
@@ -500,5 +500,10 @@
     "name": "Literature type",
     "count": "{num, plural, one { literature type } other {# literature types}}",
     "description": "What type of literature does the citation come from."
+  },
+  "higherTaxonKey": {
+    "name": "Higher taxon",
+    "count": "{num, plural, one {higher taxon} other {# higher taxa}}",
+    "description": "A higher taxon to filter by."
   }
 }

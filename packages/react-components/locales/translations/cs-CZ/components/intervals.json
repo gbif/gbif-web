@@ -44,27 +44,27 @@
     "e": "Hloubka je {from}"
   },
   "organismQuantity": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Množství organismu {from} do {to}",
+    "lt": "Množství organismů pod {to}",
+    "gt": "Množství organismů nad {from}",
+    "e": "Množství organismů je {from}"
   },
   "sampleSizeValue": {
-    "between": "",
-    "lt": "",
-    "gt": "",
+    "between": "Hodnota velikosti vzorku {from} do {to}",
+    "lt": "Hodnota velikosti vzorku pod {to}",
+    "gt": "Hodnota velikosti vzorku nad {from}",
     "e": "Hodnota velikosti vzorku je {from}"
   },
   "relativeOrganismQuantity": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Relativní množství organismů {from} do {to}",
+    "lt": "Relativní množství organismů pod {to}",
+    "gt": "Relativní množství organismů nad {from}",
+    "e": "Relativní množství organismů nad {from}"
   },
   "elevation": {
-    "between": "",
-    "lt": "",
-    "gt": "",
+    "between": "Nadmořská výška {from} do {to}",
+    "lt": "Nadmořská výška pod {to}",
+    "gt": "Nadmořská výška nad {from}",
     "e": "Nadmořská výška je {from}"
   },
   "geoDistance": {

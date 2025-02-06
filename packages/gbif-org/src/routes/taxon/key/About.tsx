@@ -1,21 +1,28 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { useCount } from '@/components/count';
 import * as charts from '@/components/dashboard';
-import EmptyValue from '@/components/emptyValue';
 import { AdHocMapThumbnail } from '@/components/mapThumbnail';
-import Properties, { Property } from '@/components/properties';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import { useTaxonKeyLoaderData } from '.';
+import Citation from './Citation';
 import OccurrenceImages from './OccurrenceImages';
+import Synonyms from './Synonyms';
+import { TaxonKeyContext } from './taxonKeyPresentation';
 import { useIsFamilyOrAbove, useIsSpeciesOrBelow } from './taxonUtil';
+import TypeMaterial from './TypeSpecimens';
 import { VernacularNameTable } from './VernacularNameTable';
+import WikiDataIdentifiers from './WikiDataIdentifiers';
+
 export default function About() {
+  const { slowTaxon, slowTaxonLoading } = useContext(TaxonKeyContext);
+
   const { key } = useParams();
   const { data } = useTaxonKeyLoaderData();
   const { count, loading } = useCount({
@@ -24,7 +31,15 @@ export default function About() {
   });
   const removeSidebar = useBelow(1100);
   const useInlineImage = useBelow(700);
-  const { taxon } = data;
+  const {
+    taxon,
+    typesSpecimenCount: {
+      documents: { total: numberOfTypeSpecimens },
+    },
+    imagesCount: {
+      documents: { total: numberOfImages },
+    },
+  } = data;
   const isFamilyOrAbove = useIsFamilyOrAbove(taxon?.rank);
   const isSpeciesOrBelow = useIsSpeciesOrBelow(taxon?.rank);
 
@@ -34,48 +49,53 @@ export default function About() {
     value: taxon?.key,
   };
 
-  /*   const addressesIdentical =
-    JSON.stringify(taxon?.mailingAddress) === JSON.stringify(taxon?.address);
-  const contacts = taxon?.contactPersons.filter((x) => x.firstName);
-
-  const imageUrl = taxon.featuredImageUrl ?? taxon.featuredImageUrl_fallback; */
-  console.log(data);
   if (!taxon) return null;
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl">
         <div className={`${removeSidebar ? '' : 'g-flex'}`}>
           <div className="g-flex-grow">
-            <Card className="g-mb-4">
-              <CardHeader>
-                <CardTitle>
-                  <FormattedMessage id="taxon.images" />
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <OccurrenceImages taxonKey={taxon.key} />
-              </CardContent>
-            </Card>
+            {numberOfImages > 0 && (
+              <Card className="g-mb-4">
+                <CardHeader>
+                  <CardTitle>
+                    <FormattedMessage id="taxon.occurenceImages" />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <OccurrenceImages total={numberOfImages} taxonKey={taxon.key} />
+                </CardContent>
+              </Card>
+            )}
+            {data.taxon.taxonomicStatus === 'ACCEPTED' && (
+              <Card className="g-mb-4">
+                <CardHeader>
+                  <CardTitle>
+                    <FormattedMessage id="taxon.synonymsAndCombinations" />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Synonyms
+                    taxonKey={taxon.key}
+                    loading={slowTaxonLoading}
+                    total={data?.taxon?.synonyms?.results?.length}
+                  />
+                </CardContent>
+              </Card>
+            )}
 
-            <Card className="g-mb-4">
-              <CardHeader>
-                <CardTitle>
-                  <FormattedMessage id="dataset.description" />
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="g-prose g-mb-6 g-max-w-full">
-                  {taxon?.description && (
-                    <div dangerouslySetInnerHTML={{ __html: taxon.description }}></div>
-                  )}
-                  {!taxon.description && <EmptyValue />}
-                </div>
-                <Properties style={{ fontSize: 16, marginBottom: 12 }} breakpoint={800}>
-                  {/* <Property value={taxon.description} labelId="grscicoll.description" showEmpty /> */}
-                  <Property value={taxon.rank} labelId="taxon.rank" showEmpty />
-                </Properties>
-              </CardContent>
-            </Card>
+            {isSpeciesOrBelow && numberOfTypeSpecimens > 0 && (
+              <Card className="g-mb-4">
+                <CardHeader>
+                  <CardTitle>
+                    <FormattedMessage id="taxon.typeMaterial" />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <TypeMaterial total={numberOfTypeSpecimens} taxonKey={taxon.key} />
+                </CardContent>
+              </Card>
+            )}
 
             {/* <AdHocMapThumbnail
                 filter={{ taxonKey: taxon.key }}
@@ -106,18 +126,44 @@ export default function About() {
               </ClientSideOnly>
             </section> */}
 
-            <Card className="g-mb-4" id="vernacularNames">
+            {(taxon?.vernacularCount?.results?.length ?? 0) > 0 && (
+              <Card className="g-mb-4" id="vernacularNames">
+                <CardHeader>
+                  <CardTitle>
+                    <FormattedMessage id="taxon.vernacularNames" />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <VernacularNameTable
+                    total={taxon?.vernacularCount?.results?.length || 0}
+                    taxonKey={taxon.key}
+                  />
+                </CardContent>
+              </Card>
+            )}
+            {(slowTaxon?.taxon?.wikiData?.identifiers?.length ?? 0) > 0 && (
+              <Card className="g-mb-4" id="taxonIdentifiers">
+                <CardHeader>
+                  <CardTitle>
+                    <FormattedMessage id="taxon.taxonIdentifiers" />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <WikiDataIdentifiers
+                    source={slowTaxon?.taxon?.wikiData?.source}
+                    identifiers={slowTaxon?.taxon?.wikiData?.identifiers}
+                  />
+                </CardContent>
+              </Card>
+            )}
+            <Card className="g-mb-4" id="citation">
               <CardHeader>
                 <CardTitle>
-                  <FormattedMessage id="taxon.vernacularNames" />
+                  <FormattedMessage id="phrases.citation" />
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <VernacularNameTable
-                  taxonKey={taxon.key}
-                  columnTitle={undefined}
-                  onClick={undefined}
-                />
+                <Citation taxon={taxon} />
               </CardContent>
             </Card>
           </div>

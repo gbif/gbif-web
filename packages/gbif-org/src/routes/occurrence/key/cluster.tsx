@@ -173,7 +173,7 @@ function RelatedRecord({
               <FormattedMessage id={`enums.basisOfRecord.${occurrence.basisOfRecord}`} />
             </p>
             <FeatureList className="">
-              <Sequenced />
+              {occurrence.volatile?.features?.isSequenced && <Sequenced />}
               <Coordinates str={occurrence?.formattedCoordinates} />
               {occurrence?.typeStatus && <TypeStatus types={occurrence?.typeStatus} />}
             </FeatureList>
@@ -191,7 +191,11 @@ function RelatedRecord({
               <FormattedMessage id="occurrenceDetails.cluster.clusterTags" />
             </span>
             {reasons.map((reason: string, key: number) => {
-              return <Tag key={key}>{reason}</Tag>;
+              return (
+                <Tag key={key}>
+                  <FormattedMessage id={`enums.clusterReasons.${reason}`} />
+                </Tag>
+              );
             })}
             <div className="g-flex-grow"></div>
           </div>

@@ -4,9 +4,11 @@ import isEmpty from 'lodash/isEmpty';
 import pickBy from 'lodash/pickBy';
 import uniqWith from 'lodash/uniqWith';
 import hash from 'object-hash';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import isEqual from 'react-fast-compare';
 import { useUncontrolledProp } from 'uncontrollable';
+
+const ADD_FILTER_EVENT = 'GBIF_ADD_FILTER_EVENT';
 
 export const FilterContext = React.createContext<FilterContextType>({
   setField: () => ({}),
@@ -187,6 +189,17 @@ export function FilterProvider({
     [add, filterHash, remove]
   );
 
+  // Used by the table cell filters to reduce unnecessary rerenders
+  useEffect(() => {
+    const handleAddFilter = (e: Event) => {
+      const customEvent = e as CustomEvent<{ field: string; value: any }>;
+      add(customEvent.detail.field, customEvent.detail.value);
+    };
+
+    window.addEventListener(ADD_FILTER_EVENT, handleAddFilter);
+    return () => window.removeEventListener(ADD_FILTER_EVENT, handleAddFilter);
+  }, [add]);
+
   const contextValue = {
     setField, // updates a single field
     setFullField, // updates a single field both must and mustNot. Ugly hack as I couldn't get it to work begint to calls. The problem is that the filter isn't updated between the two calls in the event loop and hence the first update is ignored
@@ -212,3 +225,12 @@ export const cleanUpFilter = (filter: FilterType): FilterType => {
   const mustNot = pickBy(get(filter, 'mustNot', {}), (x) => !isEmpty(x));
   return { must, mustNot };
 };
+
+export class AddFilterEvent extends CustomEvent<{ field: string; value: any }> {
+  constructor(field: string, value: any) {
+    super(ADD_FILTER_EVENT, {
+      detail: { field, value },
+      bubbles: true,
+    });
+  }
+}

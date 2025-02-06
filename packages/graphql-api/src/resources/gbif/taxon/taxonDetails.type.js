@@ -163,6 +163,10 @@ const typeDef = gql`
     """
     synonyms(limit: Int, offset: Int): TaxonListResult
     """
+    Lists all combinations for a name usage
+    """
+    combinations: [Taxon]
+    """
     Gets the verbatim name usage
     """
     verbatim: JSON

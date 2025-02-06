@@ -8,15 +8,15 @@ import { BsLightningFill } from 'react-icons/bs';
 import { FaGlobeAfrica } from 'react-icons/fa';
 import { GiDna1 } from 'react-icons/gi';
 import {
-    MdEvent,
-    MdGridOn,
-    MdImage,
-    MdInsertDriveFile,
-    MdLabel,
-    MdLocationOn,
-    MdPhotoLibrary,
-    MdStar,
-    MdVideocam
+  MdEvent,
+  MdGridOn,
+  MdImage,
+  MdInsertDriveFile,
+  MdLabel,
+  MdLocationOn,
+  MdPhotoLibrary,
+  MdStar,
+  MdVideocam,
 } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 

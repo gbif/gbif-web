@@ -1,8 +1,6 @@
-import { DynamicLink } from '@/reactRouterPlugins';
-import { DynamicLinkProps } from '@/reactRouterPlugins/dynamicLink';
+import { DynamicLinkPresentation, LinkData } from '@/reactRouterPlugins/dynamicLink';
 import { cn } from '@/utils/shadcn';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 
 const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(
   ({ className, ...props }, ref) => (
@@ -65,8 +63,8 @@ TableHead.displayName = 'TableHead';
 
 const TableCell = React.forwardRef<
   HTMLTableCellElement,
-  React.TdHTMLAttributes<HTMLTableCellElement> & { linkProps?: DynamicLinkProps<typeof Link> }
->(({ className, linkProps, children, ...props }, ref) => (
+  React.TdHTMLAttributes<HTMLTableCellElement> & { linkData?: LinkData }
+>(({ className, linkData, children, ...props }, ref) => (
   <td
     ref={ref}
     className={cn(
@@ -75,10 +73,10 @@ const TableCell = React.forwardRef<
     )}
     {...props}
   >
-    {linkProps && (
-      <DynamicLink
-        {...linkProps}
-        preventScrollReset
+    {linkData && (
+      <DynamicLinkPresentation
+        linkData={linkData}
+        preventScrollReset={linkData.to?.includes('entity=')}
         className="g-absolute g-top-0 g-left-0 g-w-full g-h-full"
       />
     )}

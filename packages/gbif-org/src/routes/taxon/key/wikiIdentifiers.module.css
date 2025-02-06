@@ -1,0 +1,16 @@
+.wikidataIdentifiers {
+  & > span:after {
+    font-style: normal;
+    content: ' \25CF ';
+    font-size: 80%;
+    color: rgb(2, 8, 23);
+    display: inline-block;
+    padding: 0 3px;
+  }
+  & > span:last-of-type:after {
+    display: none;
+  }
+  a {
+    color: rgb(71, 135, 251);
+  }
+}

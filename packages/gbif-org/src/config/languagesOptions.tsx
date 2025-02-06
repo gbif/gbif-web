@@ -65,7 +65,7 @@ const languageOptions: LanguageOption[] = [
     reactIntlLocale: 'de-DE',
     iso3LetterCode: 'deu',
     vocabularyLocale: 'de-DE',
-    gbifOrgLocalePrefix: '/de',
+    gbifOrgLocalePrefix: '',
     grSciCollLocalePrefix: '',
   },
   {

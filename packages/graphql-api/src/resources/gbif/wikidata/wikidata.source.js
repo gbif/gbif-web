@@ -1,10 +1,10 @@
 /* eslint-disable class-methods-use-this */
 
-import { get } from 'lodash';
+import { getDefaultAgent } from '#/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
+import { get } from 'lodash';
 import wikibase from 'wikibase-sdk';
 import { decorateProperty, getItemData, getIUCNRedListData } from './helpers';
-import { getDefaultAgent } from '#/requestAgents';
 
 const USER_AGENT = 'gbif-graphql/1.0';
 const WIKI_GBIF_TAXON_IDENTIFIER = 'P846';
@@ -125,19 +125,24 @@ class WikiDataAPI extends RESTDataSource {
   }
 
   async getTaxonSourceItem(key) {
-    const reverseClaimResponse = await this.getReverseClaims(
-      WIKI_GBIF_TAXON_IDENTIFIER,
-      key,
-    );
-    const entitiesIds = this.wdk.simplify.sparqlResults(reverseClaimResponse);
-    if (entitiesIds.length === 0) {
-      return null; // throw new Error('not found');
+    try {
+      const reverseClaimResponse = await this.getReverseClaims(
+        WIKI_GBIF_TAXON_IDENTIFIER,
+        key,
+      );
+      const entitiesIds = this.wdk.simplify.sparqlResults(reverseClaimResponse);
+      if (entitiesIds.length === 0) {
+        return null; // throw new Error('not found');
+      }
+      const id = get(entitiesIds, '[0].subject');
+      return {
+        id,
+        url: `https://www.wikidata.org/wiki/${id}`,
+      };
+    } catch (error) {
+      console.log(error);
+      throw error;
     }
-    const wikidataId = get(entitiesIds, '[0].subject');
-    return {
-      wikidataId,
-      wikidataUrl: `https://www.wikidata.org/wiki/${wikidataId}`,
-    };
   }
 
   async getIUCNIdentifier(key, locale) {

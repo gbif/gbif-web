@@ -1,7 +1,7 @@
 import { SearchMetadata } from '@/contexts/search';
 import { unique } from '@/utils/unique';
-import { ColumnDef } from '@tanstack/react-table';
 import { useMemo } from 'react';
+import { ColumnDef } from '..';
 
 export type FallbackTableOptions = {
   defaultEnabledTableColumns: NonNullable<SearchMetadata['defaultEnabledTableColumns']>;
@@ -11,8 +11,7 @@ export type FallbackTableOptions = {
 type Options = {
   searchMetadata?: SearchMetadata;
   fallbackOptions: FallbackTableOptions;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  columns: ColumnDef<any>[];
+  columns: ColumnDef<unknown>[];
 };
 
 type Result = {

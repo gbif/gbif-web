@@ -110,6 +110,7 @@ export const gbifConfig: Config = {
   apiKeys: {
     maptiler: import.meta.env.PUBLIC_API_KEY_MAPTILER,
   },
+  openDrawerOnTableRowClick: false,
   // vernacularNames: {
   //   sourceTitle: 'The IUCN Red List of Threatened Species',
   //   datasetKey: '66dd0960-2d7d-46ee-a491-87b9adcfe7b1',
@@ -199,14 +200,13 @@ export const gbifConfig: Config = {
       'taxonKey',
       'year',
       'country',
-      'occurrenceIssue',
+      // 'occurrenceIssue',
       'geometry',
       'recordedBy',
     ],
     tabs: ['table', 'gallery', 'map', 'clusters', 'datasets', 'dashboard', 'download'],
     defaultTab: 'table',
   },
-  disableInlineTableFilterButtons: false,
   // messages: {
   //   en: { 'filters.taxonKey.name': 'hallo' },
   // }, // no messages to overwrite for gbif.org

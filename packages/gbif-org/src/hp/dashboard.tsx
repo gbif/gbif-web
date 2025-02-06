@@ -25,7 +25,7 @@ function DashboardApp({ config, predicate, charts, locale }: Props) {
   const routes = applyReactRouterPlugins(
     [
       {
-        element: <HpRootLayout children={<Outlet />} />,
+        element: <HpRootLayout children={<Outlet />} disableScrollRestoration />,
         children: [
           {
             index: true,

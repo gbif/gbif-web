@@ -29,7 +29,7 @@ export type Props = {
 export function Tabs({ links, className, disableAutoDetectActive = false }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const dropdownMenuTriggerRef = useRef<HTMLButtonElement>(null);
-  const [visibleTabCount, setVisibleTabCount] = useState(0);
+  const [visibleTabCount, setVisibleTabCount] = useState<number | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { locale } = useI18n();
 
@@ -77,7 +77,7 @@ export function Tabs({ links, className, disableAutoDetectActive = false }: Prop
     >
       <ul className="g-flex g-whitespace-nowrap g-overflow-hidden -g-mb-px">
         {links.map(({ to, children, className: cls, isActive }, idx) => {
-          const visible = idx < visibleTabCount;
+          const visible = visibleTabCount == null || idx < visibleTabCount;
 
           return (
             <li key={to2Key(to)} className={cn({ 'g-invisible': !visible }, 'g-pr-1')}>
@@ -98,7 +98,7 @@ export function Tabs({ links, className, disableAutoDetectActive = false }: Prop
           ref={dropdownMenuTriggerRef}
           className={cn(
             {
-              'g-invisible': visibleTabCount === links.length,
+              'g-invisible': visibleTabCount == null || visibleTabCount === links.length,
               'g-right-0 g-pr-3': locale.textDirection === 'ltr',
               'g-left-0 g-pl-3': locale.textDirection === 'rtl',
             },
@@ -108,18 +108,19 @@ export function Tabs({ links, className, disableAutoDetectActive = false }: Prop
           <MdMoreHoriz className="g-text-2xl" />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          {links.slice(visibleTabCount).map(({ to, children }) => (
-            <DropdownMenuItem key={to2Key(to)}>
-              <DynamicLink
-                preventScrollReset
-                onClick={() => setIsDropdownOpen(false)}
-                to={to}
-                className="g-w-full g-justify-center"
-              >
-                {children}
-              </DynamicLink>
-            </DropdownMenuItem>
-          ))}
+          {visibleTabCount &&
+            links.slice(visibleTabCount).map(({ to, children }) => (
+              <DropdownMenuItem key={to2Key(to)}>
+                <DynamicLink
+                  preventScrollReset
+                  onClick={() => setIsDropdownOpen(false)}
+                  to={to}
+                  className="g-w-full g-justify-center"
+                >
+                  {children}
+                </DynamicLink>
+              </DropdownMenuItem>
+            ))}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
