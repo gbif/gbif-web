@@ -1,11 +1,19 @@
 {
   "tabs": {
     "about": "Over",
-    "typeMaterial": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "typeMaterial": "Gelijk aan {is}",
     "metrics": "Metrieken"
   },
   "publishedIn": "Gepubliceerd in",
   "vernacularNames": "Volksnamen",
   "rank": "",
-  "source": "Bron"
+  "source": "Bron",
+  "specimenIsTypeOf": "Gelijk aan {is}",
+  "typeMaterial": "Gelijk aan {is}",
+  "more": "meer",
+  "less": "Gelijk aan {is}",
+  "dna": "",
+  "occurenceImages": "Gelijk aan {is}",
+  "taxonIdentifiers": "",
+  "synonymsAndCombinations": ""
 }
