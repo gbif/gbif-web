@@ -2,6 +2,7 @@ import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import { TaxonClassification } from '@/components/highlights';
+import { HyperText } from '@/components/hyperText';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
@@ -52,12 +53,11 @@ export function TaxonKey({
     const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
       { to: '.', children: <FormattedMessage id="taxon.tabs.about" /> },
     ];
-    /* if (true) {
-      tabsToDisplay.push({
-        to: 'type-material',
-        children: <FormattedMessage id="taxon.tabs.typeMaterial" />,
-      });
-    } */
+
+    tabsToDisplay.push({
+      to: 'metrics',
+      children: <FormattedMessage id="taxon.tabs.metrics" />,
+    });
 
     return tabsToDisplay;
   }, []);
@@ -159,7 +159,8 @@ export function TaxonKey({
                 </div>
                 {taxon.publishedIn && (
                   <div>
-                    <FormattedMessage id="taxon.publishedIn" /> {taxon.publishedIn}
+                    <FormattedMessage id="taxon.publishedIn" />{' '}
+                    <HyperText text={taxon.publishedIn} />
                   </div>
                 )}
               </HeaderInfoMain>
