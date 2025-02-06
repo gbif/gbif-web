@@ -67,6 +67,7 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
       {
         id: 'taxonomicStatus',
         header: 'filters.taxonomicStatus.name',
+        filterKey: 'status', // default is same as id
         cell: ({ taxonomicStatus, accepted, acceptedKey }) => (
           <div>
             <SetAsFilter field="status" value={taxonomicStatus}>

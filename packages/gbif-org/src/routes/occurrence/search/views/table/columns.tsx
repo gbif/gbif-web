@@ -21,6 +21,7 @@ export function useOccurrenceColumns({
       {
         id: 'scientificName',
         header: 'filters.taxonKey.name',
+        filterKey: 'taxonKey', // default is same as id
         disableHiding: true,
         minWidth: 250,
         cell: (occurrence) => {
