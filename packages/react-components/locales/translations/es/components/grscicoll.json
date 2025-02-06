@@ -53,8 +53,8 @@
     "explore": ""
   },
   "citesPermitNumber": "Número de permisos de citas",
-  "collectionDescriptorsHeadline": "Aquí debe colocarse una breve descripción del componente",
-  "collectionDescriptorsIntroduction": "Aquí debe colocarse una breve descripción del componente",
-  "collectionSearchNoResultsMessage": "Aquí debe colocarse una breve descripción del componente",
-  "searchForSpecimens": "Aquí debe colocarse una breve descripción del componente"
+  "collectionDescriptorsHeadline": "Igual a {is}",
+  "collectionDescriptorsIntroduction": "Igual a {is}",
+  "collectionSearchNoResultsMessage": "Igual a {is}",
+  "searchForSpecimens": "Igual a {is}"
 }
