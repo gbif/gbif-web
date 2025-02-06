@@ -53,8 +53,8 @@
     "explore": ""
   },
   "citesPermitNumber": "",
-  "collectionDescriptorsHeadline": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-  "collectionDescriptorsIntroduction": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-  "collectionSearchNoResultsMessage": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-  "searchForSpecimens": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  "collectionDescriptorsHeadline": "Gelijk aan {is}",
+  "collectionDescriptorsIntroduction": "Gelijk aan {is}",
+  "collectionSearchNoResultsMessage": "Gelijk aan {is}",
+  "searchForSpecimens": "Gelijk aan {is}"
 }
