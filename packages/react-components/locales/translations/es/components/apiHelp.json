@@ -2,5 +2,7 @@
   "example": "Ejemplo",
   "examples": "Ejemplos",
   "search": "Buscar",
-  "searchInstitutions": "Búsqueda por organizaciones."
+  "searchInstitutions": "Búsqueda por instituciones.",
+  "searchDatasetsExample": "Primeros dos conjuntos de datos publicados por Dinamarca con el texto \"fungi\"  en el título o la descripción.",
+  "searchExample": "Primeros dos elementos con el texto \"adn\"."
 }
