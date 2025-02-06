@@ -15,5 +15,14 @@
   "dna": "DNA",
   "occurenceImages": "",
   "taxonIdentifiers": "Taxon identifiers",
-  "synonymsAndCombinations": "Synonyms and combinations"
+  "synonymsAndCombinations": "Synonyms and combinations",
+  "rankPlural": {
+    "KINGDOM": "Kingdoms",
+    "PHYLUM": "Phyla",
+    "CLASS": "Classes",
+    "ORDER": "Orders",
+    "FAMILY": "Families",
+    "GENUS": "Genera",
+    "SPECIES": "Species"
+  }
 }
