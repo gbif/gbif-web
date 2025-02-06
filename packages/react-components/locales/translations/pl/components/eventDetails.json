@@ -14,7 +14,7 @@
   "eventTypeHierarchyJoined": "",
   "eventHierarchyJoined": "",
   "map": "",
-  "backToTaxa": "",
+  "backToTaxa": "Równy {from}",
   "siteLocation": "",
   "info": {
     "original": "Oryginalne",
@@ -27,7 +27,7 @@
     "record": "Stwierdzenie",
     "occurrence": "Stwierdzenie",
     "event": "Wydarzenie",
-    "dataStructure": "",
+    "dataStructure": "Równy {from}",
     "identification": "Oznaczenie",
     "taxon": "Takson",
     "location": "Lokalizacja",
