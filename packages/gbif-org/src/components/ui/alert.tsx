@@ -13,6 +13,7 @@ const alertVariants = cva(
         destructive:
           'g-border-destructive/50 g-text-destructive dark:g-border-destructive [&>svg]:g-text-destructive',
         info: 'g-bg-blue-400 g-text-white g-border-blue-400/50 dark:g-border-blue-400 [&>svg]:g-text-white',
+        warning: 'g-bg-amber-100 g-border-amber-200/50 dark:g-border-amber-100',
       },
     },
     defaultVariants: {
@@ -48,4 +49,4 @@ const AlertDescription = React.forwardRef<
 ));
 AlertDescription.displayName = 'AlertDescription';
 
-export { Alert, AlertTitle, AlertDescription };
+export { Alert, AlertDescription, AlertTitle };

@@ -1,8 +1,11 @@
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { ErrorMessage } from '@/components/errorMessage';
 import { defaultDateFormatProps, HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
-import { LicenceTag } from '@/components/identifierTag';
+import { HyperText } from '@/components/hyperText';
 import Properties from '@/components/properties';
+import { Tag } from '@/components/resultCards';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { useConfig } from '@/config/config';
@@ -15,7 +18,7 @@ import {
 } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
 import useQuery from '@/hooks/useQuery';
-import { LoaderArgs, useI18n } from '@/reactRouterPlugins';
+import { DynamicLink, LoaderArgs, useI18n } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
@@ -26,7 +29,7 @@ import { required } from '@/utils/required';
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedDate, FormattedMessage } from 'react-intl';
-import { redirect, useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import { BasicField } from '../../key/properties';
 import { AboutContent, ApiContent } from './help';
 
@@ -96,17 +99,9 @@ const SLOW_DOWNLOAD_QUERY = /* GraphQL */ `
 export async function downloadKeyLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
 
-  const response = await graphql.query<OccurrenceQuery, OccurrenceQueryVariables>(DOWNLOAD_QUERY, {
+  return graphql.query<OccurrenceQuery, OccurrenceQueryVariables>(DOWNLOAD_QUERY, {
     key,
   });
-
-  // If the occurrence does not exist, we try to redirect to the occurrence tombstone page
-  const result = await response.json();
-  if (result.errors?.some((error) => error.message === '404: Not Found')) {
-    return redirect('fragment');
-  }
-
-  return result;
 }
 
 export function DownloadKey() {
@@ -145,6 +140,21 @@ export function DownloadKey() {
   const download = data.download;
   const slowOccurrence = slowData?.occurrence;
 
+  const datasets = [
+    {
+      key: 'ser',
+      title: 'hej med dig',
+    },
+    {
+      key: 'ser',
+      title: 'hej med dig',
+    },
+    {
+      key: 'ser',
+      title: 'hej med dig',
+    },
+  ];
+
   return (
     <>
       <Helmet>
@@ -175,6 +185,10 @@ export function DownloadKey() {
                 845,705 occurrences included in download
               </ArticleTitle>
               {/* deleted information could go here */}
+              <ErrorMessage>
+                This file has been deleted. You can still access all metadata of the original query
+                and rerun the same query on data currently available. Contact helpdesk
+              </ErrorMessage>
               <HeaderInfo>
                 <HeaderInfoMain>
                   {download.downloadLink && (
@@ -224,59 +238,147 @@ export function DownloadKey() {
           </PageContainer>
           <ArticleContainer className="g-bg-slate-100 g-pt-4">
             <ArticleTextContainer className="g-max-w-screen-xl">
-              {download?.created && (
-                <Card className="g-mb-4">
-                  <CardHeader>
-                    <CardTitle>
-                      <FormattedMessage id="phrases.citation" />
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <Properties breakpoint={800} className="[&>dt]:g-w-52">
-                      <BasicField label="phrases.citeAs">
+              <Alert variant="warning" className="g-mb-4">
+                <AlertDescription>
+                  <HyperText
+                    className="[&_a]:g-underline [&_a]:g-text-inherit"
+                    text={
+                      'Unless GBIF discovers citations of this download, the data file is eligible for deletion after March 14, 2019.\n\nRead more about our deletion policy.'
+                    }
+                    sanitizeOptions={{ ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br'] }}
+                  />
+                  <Button className="g-mt-2" variant="outline">
+                    Postpone deletion
+                  </Button>
+                </AlertDescription>
+              </Alert>
+
+              <Card className="g-mb-4 g-pt-8">
+                <CardContent>
+                  <Properties breakpoint={800} className="[&>dt]:g-w-52">
+                    <BasicField label="phrases.license">{download.license}</BasicField>
+                    <BasicField label="phrases.file">955 Bytes Simple</BasicField>
+                    <BasicField label="Involved datasets">1</BasicField>
+                    <BasicField label="Involved publishers">1</BasicField>
+                    <BasicField label="Involved publishing countries">1</BasicField>
+                    <BasicField label="Please cite as">
+                      <div>
                         <div>
-                          <div>
-                            GBIF.org (
-                            <FormattedDate value={download?.created} {...defaultDateFormatProps} />)
-                            GBIF Occurrence Download{' '}
-                            {download?.doi ? `https://doi.org/${download.doi}` : ''}
-                          </div>
-                          <div style={{ marginTop: '1em' }}>
-                            <Button asChild variant="outline">
-                              <a
-                                href={`https://data.crosscite.org/application/x-research-info-systems/${download.doi}`}
-                                className="g-me-1 g-text-inherit"
-                              >
-                                RIS
-                              </a>
-                            </Button>
-                            <Button asChild variant="outline">
-                              <a
-                                className="g-text-inherit"
-                                href={`https://data.crosscite.org/application/x-bibtex/${download.doi}`}
-                              >
-                                BibTex
-                              </a>
-                            </Button>
-                          </div>
+                          GBIF.org (
+                          <FormattedDate value={download?.created} {...defaultDateFormatProps} />)
+                          GBIF Occurrence Download{' '}
+                          {download?.doi ? `https://doi.org/${download.doi}` : ''}
                         </div>
-                      </BasicField>
-                    </Properties>
-                  </CardContent>
-                </Card>
-              )}
+                        <div style={{ marginTop: '1em' }}>
+                          <Button asChild variant="outline" size="sm">
+                            <a
+                              href={`https://data.crosscite.org/application/x-research-info-systems/${download.doi}`}
+                              className="g-me-1 g-text-inherit"
+                            >
+                              RIS
+                            </a>
+                          </Button>
+                          <Button asChild variant="outline" size="sm">
+                            <a
+                              className="g-text-inherit"
+                              href={`https://data.crosscite.org/application/x-bibtex/${download.doi}`}
+                            >
+                              BibTex
+                            </a>
+                          </Button>
+                        </div>
+                      </div>
+                    </BasicField>
+                  </Properties>
+                  <div>Make sure to read the data user agreement and citation guidelines.</div>
+                </CardContent>
+              </Card>
 
               <Card className="g-mb-4">
                 <CardHeader>
-                  <CardTitle>Filter</CardTitle>
+                  <CardTitle>Query</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <Properties breakpoint={800} className="[&>dt]:g-w-52">
-                    <BasicField label="phrases.license">
-                      <LicenceTag value={download.license} />
-                      {download.license}
+                    <BasicField label="User' comment">
+                      I made this download for my thesis
                     </BasicField>
                   </Properties>
+                  <div>Predicate + SQL + machineDescription</div>
+                </CardContent>
+              </Card>
+
+              <Card className="g-mb-4">
+                <CardHeader>
+                  <CardTitle>Includes records from 1 dataset</CardTitle>
+                </CardHeader>
+                <CardContent className="!g-px-0">
+                  <table className="g-w-full g-text-sm g-text-left rtl:g-text-right g-text-gray-500 dark:g-text-gray-400">
+                    <thead className="g-text-slate-500 g-font-light g-bg-gray-50 dark:g-bg-gray-700 dark:g-text-gray-400 g-border-b">
+                      <tr>
+                        <th scope="col" className="g-px-6 g-py-3 g-font-normal">
+                          <FormattedMessage id="grscicoll.name" />
+                        </th>
+                        <th scope="col" className="g-px-1 g-py-3 g-font-normal">
+                          <FormattedMessage id="grscicoll.code" />
+                        </th>
+                        <th scope="col" className="g-px-1 g-py-3 g-font-normal">
+                          <FormattedMessage id="grscicoll.description" />
+                        </th>
+                        <th
+                          scope="col"
+                          className="g-px-6 g-py-3 g-font-normal g-text-right rtl:g-text-left"
+                        >
+                          <FormattedMessage id="grscicoll.specimens" />
+                        </th>
+                        <th
+                          scope="col"
+                          className="g-px-6 g-py-3 g-font-normal g-text-right rtl:g-text-left"
+                        >
+                          <FormattedMessage id="tableHeaders.gbifNumberSpecimens" />
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {datasets?.map((dataset) => {
+                        return (
+                          <tr
+                            key={dataset.key}
+                            className="g-bg-white g-border-b last:g-border-0 dark:g-bg-gray-800 dark:g-border-gray-700"
+                          >
+                            <td
+                              scope="row"
+                              className="g-px-6 g-py-3 g-font-medium g-text-slate-900 dark:g-text-white g-min-w-80"
+                            >
+                              <DynamicLink
+                                className="g-underline"
+                                to={`/dataset/${dataset.key}`}
+                                pageId="datasetKey"
+                                variables={{ key: dataset.key }}
+                              >
+                                {dataset.title}
+                              </DynamicLink>{' '}
+                              {!dataset.active && (
+                                <Tag className="g-bg-red-700 g-text-white">
+                                  <FormattedMessage id="grscicoll.inactiveCollection" />
+                                </Tag>
+                              )}
+                            </td>
+                            <td className="g-px-1 g-py-3">
+                              <Tag className="g-whitespace-nowrap">{dataset.code}</Tag>
+                            </td>
+                            <td className="g-px-1 g-py-3">
+                              <div
+                                className="g-line-clamp-2"
+                                dangerouslySetInnerHTML={{ __html: dataset.excerpt ?? '' }}
+                              ></div>
+                            </td>
+                            <td className="g-px-6 g-py-3 g-text-right rtl:g-text-left">10</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
                 </CardContent>
               </Card>
             </ArticleTextContainer>
