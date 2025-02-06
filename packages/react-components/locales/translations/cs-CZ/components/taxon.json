@@ -6,7 +6,7 @@
   },
   "publishedIn": "Zveřejněno v",
   "vernacularNames": "Místní názvy",
-  "rank": "",
+  "rank": "Pořadí",
   "source": "Zdroj",
   "specimenIsTypeOf": "Rovná se {from}",
   "typeMaterial": "Rovná se {from}",
@@ -14,6 +14,6 @@
   "less": "Rovná se {from}",
   "dna": "DNA",
   "occurenceImages": "Rovná se {from}",
-  "taxonIdentifiers": "",
-  "synonymsAndCombinations": ""
+  "taxonIdentifiers": "Identifikátory taxonu",
+  "synonymsAndCombinations": "Synonyma a kombinace"
 }
