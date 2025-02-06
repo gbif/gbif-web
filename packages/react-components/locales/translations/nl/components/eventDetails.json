@@ -14,7 +14,7 @@
   "eventTypeHierarchyJoined": "",
   "eventHierarchyJoined": "",
   "map": "",
-  "backToTaxa": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+  "backToTaxa": "Gelijk aan {is}",
   "siteLocation": "",
   "info": {
     "original": "Origineel",
@@ -27,7 +27,7 @@
     "record": "Record",
     "occurrence": "Voorkomen",
     "event": "Evenement",
-    "dataStructure": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "dataStructure": "Gelijk aan {is}",
     "identification": "Identificatie",
     "taxon": "Taxon",
     "location": "Locatie",
