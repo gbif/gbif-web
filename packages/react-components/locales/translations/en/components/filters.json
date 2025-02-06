@@ -479,7 +479,7 @@
   "city": {
     "name": "City",
     "count": "{num, plural, one { city } other {# cities}}",
-    "description": ""
+    "description": "City where the institution/collection can be found."
   },
   "code": {
     "name": "Code",
