@@ -511,7 +511,6 @@ function Event({
     >
       <PlainTextField term={termMap.eventID} showDetails={showAll} />
       <PlainTextField term={termMap.parentEventID} showDetails={showAll} />
-      <PlainTextField term={termMap.parentEventID} showDetails={showAll} />
       <PlainTextField term={termMap.eventDate} showDetails={showAll} />
       <PlainTextField term={termMap.eventTime} showDetails={showAll} />
       {showAll && <PlainTextField term={termMap.startDayOfYear} showDetails={showAll} />}
