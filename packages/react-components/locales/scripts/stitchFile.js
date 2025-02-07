@@ -33,6 +33,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       phrases: getFile(locale, `../${folder}/${locale}/components/phrases`),
       taxon: getFile(locale, `../${folder}/${locale}/components/taxon`),
       footer: getFile(locale, `../${folder}/${locale}/components/footer`).footer,
+      downloadKey: getFile(locale, `../${folder}/${locale}/components/downloads`).downloadKey,
 
       occurrenceFieldNames: getFile(
         locale,
@@ -50,6 +51,8 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         basisOfRecord: getFile(locale, `../${folder}/${locale}/enums/basisOfRecord`),
         countryCode: getFile(locale, `../${folder}/${locale}/enums/countryCode`),
         clusterReasons: getFile(locale, `../${folder}/${locale}/enums/clusterReasons`), // sourced from https://github.com/gbif/pipelines/blob/dev/sdks/core/src/main/java/org/gbif/pipelines/core/parsers/clustering/RelationshipAssertion.java#L16C1-L36C4
+        downloadFormat: getFile(locale, `../${folder}/${locale}/enums/downloadFormat`)
+          .downloadFormat,
         mediaType: getFile(locale, `../${folder}/${locale}/enums/mediaType`),
         occurrenceIssue: getFile(locale, `../${folder}/${locale}/enums/occurrenceIssue`),
         typeStatus: getFile(locale, `../${folder}/${locale}/enums/typeStatus`),

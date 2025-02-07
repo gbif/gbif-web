@@ -766,3 +766,164 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   overflow-wrap: anywhere;
   word-break: break-word;
 }
+
+.gbif-predicates {
+  &.isSimplePredicate {
+    .leaf {
+      .node {
+        min-width: 170px;
+      }
+    }
+  }
+  font-size: 14px;
+  ul {
+    padding: 5px;
+    ul {
+      transition: background-color 300ms ease;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.02);
+      }
+    }
+  }
+  ul.not {
+    padding: 0;
+  }
+  ul ul .join,
+  ul .leaf {
+    &:after {
+      content: '';
+      display: block;
+      height: 2px;
+      background: #aaa;
+      width: 35px;
+      position: absolute;
+      top: 15px;
+      left: 0px;
+      z-index: 1;
+    }
+  }
+  ul ul.not .join,
+  ul .leaf {
+    &:after {
+      top: 9px;
+    }
+  }
+  ul.not > li > ul {
+    padding-top: 0;
+  }
+
+  ul {
+    > .join {
+      > .discreet {
+        opacity: 0;
+        transition: opacity 300ms ease;
+      }
+    }
+    &:hover {
+      > .join {
+        > .discreet {
+          opacity: 1;
+        }
+      }
+    }
+  }
+  .node {
+    display: inline-block;
+    background: #666;
+    color: white;
+    padding: 0px 10px;
+    margin-right: 10px;
+    z-index: 2;
+    position: relative;
+  }
+  .node-value {
+    span {
+      padding: 0 3px;
+    }
+  }
+  .not .leaf .node {
+    background: tomato;
+  }
+  .leaf {
+    .node {
+      background: rgb(var(--primary500) / var(--tw-bg-opacity));
+    }
+  }
+  ul > li {
+    position: relative;
+    padding-left: 30px;
+    margin-left: 10px;
+    margin-top: 10px;
+    &:before {
+      content: '';
+      display: block;
+      border-radius: 50%;
+      height: 10px;
+      width: 10px;
+      border: 2px solid #aaa;
+      background: #fff;
+      position: absolute;
+      left: -4px;
+      top: 5px;
+      z-index: 2;
+    }
+    &.hasChildren {
+      &:before {
+        top: 11px;
+      }
+    }
+    .pipe {
+      width: 2px;
+      background: #aaa;
+      position: absolute;
+      left: 0;
+      top: 15px;
+      bottom: -22px;
+    }
+    &:first-of-type {
+      > .pipe {
+        top: -10px;
+      }
+    }
+    &:last-of-type {
+      > .pipe {
+        display: none;
+      }
+    }
+    &:only-of-type > .pipe {
+      display: block;
+      bottom: initial;
+      height: 20px;
+    }
+  }
+}
+
+.rtl {
+  .gbif-predicates {
+    ul ul .join,
+    ul .leaf {
+      &:after {
+        right: 0px;
+        left: auto;
+      }
+    }
+    .node {
+      margin-right: 0;
+      margin-left: 10px;
+    }
+    ul > li {
+      padding-left: 0;
+      padding-right: 30px;
+      margin-right: 10px;
+      margin-left: 0;
+      &:before {
+        right: -4px;
+        left: auto;
+      }
+      .pipe {
+        left: auto;
+        right: 0;
+      }
+    }
+  }
+}

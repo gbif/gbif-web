@@ -1,11 +1,10 @@
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { ErrorMessage } from '@/components/errorMessage';
-import { defaultDateFormatProps, HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
+import { defaultDateFormatProps } from '@/components/headerComponents';
+import { FeatureList, SamplingEvent } from '@/components/highlights';
 import { HyperText } from '@/components/hyperText';
+import { licenseUrl2enum } from '@/components/identifierTag';
 import Properties from '@/components/properties';
-import { Tag } from '@/components/resultCards';
-import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { useConfig } from '@/config/config';
@@ -16,22 +15,22 @@ import {
   SlowDownloadKeyQuery,
   SlowDownloadKeyQueryVariables,
 } from '@/gql/graphql';
-import useBelow from '@/hooks/useBelow';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink, LoaderArgs, useI18n } from '@/reactRouterPlugins';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
+import { formatBytes } from '@/utils/formatBytes';
 import { required } from '@/utils/required';
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedDate, FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
 import { BasicField } from '../../key/properties';
 import { AboutContent, ApiContent } from './help';
+import { PredicateDisplay } from './predicate';
 
 const DOWNLOAD_QUERY = /* GraphQL */ `
   query DownloadKey($key: ID!) {
@@ -106,9 +105,9 @@ export async function downloadKeyLoader({ params, graphql }: LoaderArgs) {
 
 export function DownloadKey() {
   const { data } = useLoaderData() as { data: DownloadKeyQuery };
-  const hideGlobe = useBelow(800);
   const config = useConfig();
   const { locale } = useI18n();
+  const { formatMessage } = useIntl();
 
   const {
     data: slowData,
@@ -155,6 +154,11 @@ export function DownloadKey() {
     },
   ];
 
+  const { size, unit } = formatBytes(download.size ?? 0, 0);
+
+  const licenseEnum =
+    licenseUrl2enum[(download.license ?? '').replace(/http(s)?:/, '')] || 'UNSUPPORTED';
+
   return (
     <>
       <Helmet>
@@ -185,60 +189,11 @@ export function DownloadKey() {
                 845,705 occurrences included in download
               </ArticleTitle>
               {/* deleted information could go here */}
-              <ErrorMessage>
+              {/* <ErrorMessage>
                 This file has been deleted. You can still access all metadata of the original query
                 and rerun the same query on data currently available. Contact helpdesk
-              </ErrorMessage>
-              <HeaderInfo>
-                <HeaderInfoMain>
-                  {download.downloadLink && (
-                    <Button className="g-mt-4" variant="default" asChild>
-                      <a href={download.downloadLink} download>
-                        Download
-                      </a>
-                    </Button>
-                  )}
-                  {/* <div>
-                        {occurrence.gbifClassification?.classification && (
-                          <div>
-                            <TaxonClassification
-                              className="g-flex g-mb-2"
-                              majorOnly
-                              classification={occurrence.gbifClassification?.classification}
-                            />
-                          </div>
-                        )}
-
-                        {occurrence.gadm?.level1 && (
-                          <GadmClassification className="g-flex g-mb-1" gadm={occurrence.gadm}>
-                            {occurrence.locality && <div>{occurrence.locality}</div>}
-                          </GadmClassification>
-                        )}
-                        {!occurrence?.gadm?.level1 && occurrence.countryCode && (
-                          <Location
-                            countryCode={occurrence.countryCode}
-                            city={occurrence.stateProvince}
-                          />
-                        )}
-                      </div> */}
-                  {/* <FeatureList className="g-mt-2">
-                      {occurrence.volatile?.features?.isSamplingEvent && <SamplingEvent />}
-                      {occurrence.typeStatus && occurrence.typeStatus?.length > 0 && (
-                        <TypeStatus types={occurrence.typeStatus} />
-                      )}
-                      {occurrence?.references && <Homepage url={occurrence?.references} />}
-                      {occurrence?.volatile?.features?.isSequenced && <Sequenced />}
-                      {occurrence?.volatile?.features?.firstIIIF && (
-                        <IIIF url={occurrence?.volatile?.features?.firstIIIF} />
-                      )}
-                    </FeatureList> */}
-                </HeaderInfoMain>
-              </HeaderInfo>
-            </ArticleTextContainer>
-          </PageContainer>
-          <ArticleContainer className="g-bg-slate-100 g-pt-4">
-            <ArticleTextContainer className="g-max-w-screen-xl">
-              <Alert variant="warning" className="g-mb-4">
+              </ErrorMessage> */}
+              {/* <Alert variant="warning" className="g-mt-4">
                 <AlertDescription>
                   <HyperText
                     className="[&_a]:g-underline [&_a]:g-text-inherit"
@@ -251,23 +206,43 @@ export function DownloadKey() {
                     Postpone deletion
                   </Button>
                 </AlertDescription>
-              </Alert>
+              </Alert> */}
 
-              <Card className="g-mb-4 g-pt-8">
+              {/* <HeaderInfo>
+                <HeaderInfoMain></HeaderInfoMain>
+              </HeaderInfo> */}
+
+              <Card className="g-mb-4 g-pt-8 g-mt-8">
                 <CardContent>
                   <Properties breakpoint={800} className="[&>dt]:g-w-52">
-                    <BasicField label="phrases.license">{download.license}</BasicField>
-                    <BasicField label="phrases.file">955 Bytes Simple</BasicField>
-                    <BasicField label="Involved datasets">1</BasicField>
-                    <BasicField label="Involved publishers">1</BasicField>
-                    <BasicField label="Involved publishing countries">1</BasicField>
-                    <BasicField label="Please cite as">
+                    <BasicField label="downloadKey.license">
+                      <a href={download.license} className="g-underline">
+                        <FormattedMessage id={`enums.license.${licenseEnum}`} />
+                      </a>
+                    </BasicField>
+                    <BasicField label="downloadKey.file">
+                      <span>
+                        <span>
+                          <FormattedNumber value={size} /> {unit}
+                        </span>
+                        <span className="g-text-slate-400 g-ms-4">
+                          <FormattedMessage
+                            id={`enums.downloadFormat.${download?.request?.format}`}
+                          />
+                        </span>
+                      </span>
+                    </BasicField>
+                    <BasicField label="phrases.pleaseCiteAs">
                       <div>
                         <div>
                           GBIF.org (
                           <FormattedDate value={download?.created} {...defaultDateFormatProps} />)
                           GBIF Occurrence Download{' '}
-                          {download?.doi ? `https://doi.org/${download.doi}` : ''}
+                          {download?.doi
+                            ? `https://doi.org/${download.doi}`
+                            : `${import.meta.env.PUBLIC_GBIF_ORG}/occurrence/download/${
+                                download.key
+                              }`}
                         </div>
                         <div style={{ marginTop: '1em' }}>
                           <Button asChild variant="outline" size="sm">
@@ -290,8 +265,22 @@ export function DownloadKey() {
                       </div>
                     </BasicField>
                   </Properties>
-                  <div>Make sure to read the data user agreement and citation guidelines.</div>
                 </CardContent>
+                {download.downloadLink && (
+                  <CardContent className="g-border-t g-border-gray-200 g-flex g-items-center !g-py-2">
+                    <Button className="" variant="default" asChild>
+                      <a href={download.downloadLink} download>
+                        Download
+                      </a>
+                    </Button>
+                    <div className="g-ms-4 g-text-slate-800">
+                      <HyperText
+                        text={formatMessage({ id: 'downloadKey.readDatauseAndTerms' })}
+                        className="[&_a]:g-underline"
+                      />
+                    </div>
+                  </CardContent>
+                )}
               </Card>
 
               <Card className="g-mb-4">
@@ -305,12 +294,21 @@ export function DownloadKey() {
                     </BasicField>
                   </Properties>
                   <div>Predicate + SQL + machineDescription</div>
+                  <div className="gbif-predicates">
+                    <PredicateDisplay predicate={download?.request?.predicate} />
+                  </div>
                 </CardContent>
               </Card>
 
               <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>Includes records from 1 dataset</CardTitle>
+                  <FeatureList className="g-mt-2">
+                    <SamplingEvent />
+                    <BasicField label="Involved datasets">1</BasicField>
+                    <BasicField label="Involved publishers">1</BasicField>
+                    <BasicField label="Involved publishing countries">1</BasicField>
+                  </FeatureList>
                 </CardHeader>
                 <CardContent className="!g-px-0">
                   <table className="g-w-full g-text-sm g-text-left rtl:g-text-right g-text-gray-500 dark:g-text-gray-400">
@@ -319,23 +317,11 @@ export function DownloadKey() {
                         <th scope="col" className="g-px-6 g-py-3 g-font-normal">
                           <FormattedMessage id="grscicoll.name" />
                         </th>
-                        <th scope="col" className="g-px-1 g-py-3 g-font-normal">
-                          <FormattedMessage id="grscicoll.code" />
-                        </th>
-                        <th scope="col" className="g-px-1 g-py-3 g-font-normal">
-                          <FormattedMessage id="grscicoll.description" />
-                        </th>
                         <th
                           scope="col"
                           className="g-px-6 g-py-3 g-font-normal g-text-right rtl:g-text-left"
                         >
-                          <FormattedMessage id="grscicoll.specimens" />
-                        </th>
-                        <th
-                          scope="col"
-                          className="g-px-6 g-py-3 g-font-normal g-text-right rtl:g-text-left"
-                        >
-                          <FormattedMessage id="tableHeaders.gbifNumberSpecimens" />
+                          <FormattedMessage id="Records" />
                         </th>
                       </tr>
                     </thead>
@@ -358,20 +344,6 @@ export function DownloadKey() {
                               >
                                 {dataset.title}
                               </DynamicLink>{' '}
-                              {!dataset.active && (
-                                <Tag className="g-bg-red-700 g-text-white">
-                                  <FormattedMessage id="grscicoll.inactiveCollection" />
-                                </Tag>
-                              )}
-                            </td>
-                            <td className="g-px-1 g-py-3">
-                              <Tag className="g-whitespace-nowrap">{dataset.code}</Tag>
-                            </td>
-                            <td className="g-px-1 g-py-3">
-                              <div
-                                className="g-line-clamp-2"
-                                dangerouslySetInnerHTML={{ __html: dataset.excerpt ?? '' }}
-                              ></div>
                             </td>
                             <td className="g-px-6 g-py-3 g-text-right rtl:g-text-left">10</td>
                           </tr>
@@ -382,7 +354,7 @@ export function DownloadKey() {
                 </CardContent>
               </Card>
             </ArticleTextContainer>
-          </ArticleContainer>
+          </PageContainer>
         </article>
       </ErrorBoundary>
     </>
