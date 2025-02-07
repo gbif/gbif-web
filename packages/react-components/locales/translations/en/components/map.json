@@ -13,8 +13,8 @@
         "PLATE_CAREE": "Plate Carrée"
     },
     "failedToGetUserLocation": {
-        "title": "",
-        "message": ""
+        "title": "Failed to get your location",
+        "message": "Please check your browser settings and try again."
     },
     "filterByView": "Use visible area as filter"
 }
