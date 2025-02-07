@@ -1,6 +1,7 @@
 import { TaxonQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import TaxonKeyAbout from './About';
+import Metrics from './Metrics';
 import { TaxonKey, taxonLoader } from './taxonKey';
 const id = 'speciesKey';
 
@@ -23,11 +24,11 @@ export const taxonKeyRoute: RouteObjectWithPlugins = {
     {
       index: true,
       element: <TaxonKeyAbout />,
-    } /* ,
+    },
     {
-      path: 'type-material',
-      element: <TypeMaterial />,
-    }, */,
+      path: 'metrics',
+      element: <Metrics />,
+    },
   ],
 };
 

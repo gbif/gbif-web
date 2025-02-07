@@ -7,6 +7,7 @@ import React from 'react';
 import { ScrollRestoration, useLoaderData } from 'react-router-dom';
 import { Header } from './header';
 import { LoadingIndicator } from '@/components/loadingIndicator';
+import { Footer } from './footer';
 
 const HEADER_QUERY = /* GraphQL */ `
   query Header {
@@ -60,9 +61,7 @@ export function GbifRootLayout({ children }: Props) {
           <div className="g-mt-[200px] g-mb-[60%] g-bg-red-300 g-h-[calc(100vh-60%-200px)] g-opacity-10"></div>
         </div> */}
       </main>
-      <footer className="g-flex-none g-h-96 g-bg-gray-100 g-p-4 g-text-center g-border-t">
-        <div className="g-text-sm">Footer</div>
-      </footer>
+      <Footer />
     </div>
   );
 }
