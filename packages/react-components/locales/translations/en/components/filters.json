@@ -347,7 +347,7 @@
   },
   "higherGeography": {
     "name": "Higher geography",
-    "count": "",
+    "count": "{num, plural, one { higher geography } other {# higher geographies}}",
     "description": "Higher geography in which the record is located. This is not an interpreted field, but the original data as provided by the publisher. Multiple values can be provided."
   },
   "stateProvince": {
@@ -474,7 +474,7 @@
     "name": "Name",
     "count": "{num, plural, one { name } other {# names}}",
     "description": "The entity's name",
-    "searchPlaceholder": ""
+    "searchPlaceholder": "Search by title/name"
   },
   "city": {
     "name": "City",
