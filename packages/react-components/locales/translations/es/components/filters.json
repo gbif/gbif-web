@@ -503,7 +503,7 @@
   },
   "higherTaxonKey": {
     "name": "Taxón superior",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {taxón superior} other {# taxa superior}}",
+    "description": "Un taxón superior para filtrar."
   }
 }
