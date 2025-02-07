@@ -229,11 +229,22 @@ export default {
     },
     stillImages: ({ media, key }) => {
       if (!Array.isArray(media)) return null;
-      return media
-        .filter((x) => x.type === 'StillImage')
-        .map((x) => {
-          return { ...x, occurrenceKey: key };
-        });
+      return (
+        media
+          .filter((x) => x.type === 'StillImage')
+          // this isn't ideal. I would prefer to keep the order from the API. But the API do not reflect the order the publisher provided. So for now sorting by date is probably preferable.
+          .sort((a, b) => {
+            // sort by created if available. Else just keep the order
+            if (a.created && b.created) {
+              // just compare them as strings
+              return a.created.localeCompare(b.created);
+            }
+            return 0;
+          })
+          .map((x) => {
+            return { ...x, occurrenceKey: key };
+          })
+      );
     },
     movingImages: ({ media }) => {
       if (!Array.isArray(media)) return null;
