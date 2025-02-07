@@ -1,8 +1,24 @@
 {
   "example": "Ejemplo",
   "examples": "Ejemplos",
+  "singleEntry": "Obtenga una sola entrada.",
+  "singleOccurrence": "Obtenga un solo registro biológico.",
+  "searchOccurrences": "Obtenga todos los registros biológicos.",
+  "searchOccurrencesExample": "Primeras cinco apariciones de taxón con taxonKey 9778871 (Flabellina McMurtrie, 1831) que se registraron en mayo entre los años 2000 y 2024.",
+  "relatedOccurrences": "Sucesos relacionados (experimentales).",
+  "occurrenceFragment": "Registro antes de la interpretación.",
+  "singleInstallation": "Consigue una única instalación.",
+  "singleOrganization": "Consigue un único editor.",
+  "searchOrganizations": "Busque editores.",
+  "searchInstallations": "Búsqueda de instalaciones.",
   "search": "Buscar",
+  "singleNetwork": "Búsqueda de instalaciones.",
+  "singleCollection": "Consigue una única colección.",
+  "searchCollections": "Búsqueda de colecciones.",
+  "singleInstitution": "Consigue una sola institución.",
   "searchInstitutions": "Búsqueda por instituciones.",
+  "singleDataset": "Obtenga un único conjunto de datos.",
   "searchDatasetsExample": "Primeros dos conjuntos de datos publicados por Dinamarca con el texto \"fungi\"  en el título o la descripción.",
-  "searchExample": "Primeros dos elementos con el texto \"adn\"."
+  "searchExample": "Primeros dos elementos con el texto \"adn\".",
+  "searchDatasets": "Obtenga todos los conjuntos de datos."
 }
