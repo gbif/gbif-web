@@ -8,9 +8,9 @@
   },
   "metricHighlights": {
     "occurrences": "Výskyty",
-    "withTaxonMatch": "",
-    "withCoordinates": "",
-    "withYear": "",
+    "withTaxonMatch": "S odpovídajícím taxonem",
+    "withCoordinates": "Se souřadnicemi",
+    "withYear": "S rokem",
     "acceptedNames": "Přijaté názvy",
     "synonyms": "Synonyma"
   },
