@@ -45,7 +45,7 @@
     "description": ""
   },
   "iucnRedListCategory": {
-    "name": "",
+    "name": "Kategorie globálního červeného seznamu IUCN",
     "count": "",
     "description": "Červený seznam ohrožených druhů IUCN rozděluje taxony podle toho, jak moc jsou ohrožené."
   },
@@ -502,7 +502,7 @@
     "description": "Z jakého typu literatury citace pochází."
   },
   "higherTaxonKey": {
-    "name": "",
+    "name": "Vyšší taxon",
     "count": "",
     "description": ""
   }
