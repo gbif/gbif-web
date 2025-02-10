@@ -1,6 +1,7 @@
 {
   "identifier": "ID (идентификатор)",
   "type": "Тип записи",
+  "subtypeLiteral": "Подтип",
   "title": "Название",
   "rights": "Права",
   "providerLiteral": "Провайдер",
