@@ -1,6 +1,7 @@
 {
   "identifier": "ID",
   "type": "Typ",
+  "subtypeLiteral": "Podtyp",
   "title": "Název",
   "rights": "Práva",
   "providerLiteral": "Poskytovatel",
