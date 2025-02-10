@@ -1,19 +1,28 @@
 {
   "tabs": {
     "about": "About",
-    "typeMaterial": "",
+    "typeMaterial": "Type material",
     "metrics": "Metrics"
   },
   "publishedIn": "Published in",
   "vernacularNames": "Vernacular names",
   "rank": "Rank",
   "source": "Source",
-  "specimenIsTypeOf": "",
-  "typeMaterial": "",
+  "specimenIsTypeOf": "{typeStatus} of {name}",
+  "typeMaterial": "Type material",
   "more": "more",
-  "less": "",
+  "less": "less",
   "dna": "DNA",
-  "occurenceImages": "",
+  "occurenceImages": "Occurence images",
   "taxonIdentifiers": "Taxon identifiers",
-  "synonymsAndCombinations": "Synonyms and combinations"
+  "synonymsAndCombinations": "Synonyms and combinations",
+  "rankPlural": {
+    "KINGDOM": "Kingdoms",
+    "PHYLUM": "Phyla",
+    "CLASS": "Classes",
+    "ORDER": "Orders",
+    "FAMILY": "Families",
+    "GENUS": "Genera",
+    "SPECIES": "Species"
+  }
 }
