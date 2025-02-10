@@ -6,7 +6,7 @@ import { PageContext } from './applyPagePaths/plugin';
 import { useI18n } from './i18n';
 
 export type LinkData = {
-  to: string | null;
+  to: string | object | null;
   type: 'href' | 'link';
 };
 
@@ -138,19 +138,20 @@ export function useDynamicLink({
   searchParams,
   keepExistingSearchParams = false,
 }: {
-  to?: string;
+  to?: string | object;
   variables?: Record<string, string>;
   pageId?: string;
   searchParams?: ParamQuery;
   keepExistingSearchParams?: boolean;
-}): { to: string; type: 'href' | 'link' } {
+}): LinkData {
   const createLink = useLink();
+  const { localizeLink } = useI18n();
   const currentPages = useContext(PageContext);
   const parentPages = useContext(ParentPagesContext);
 
   const pages = parentPages ?? currentPages;
 
-  const result = useMemo<{ to: string; type: 'link' | 'href' }>(() => {
+  const result = useMemo<LinkData>(() => {
     // if a pageId is provided, use the pageId to get the link (this also works for links without a pageId, but with searchParams)
     if ((pageId || searchParams) && pages) {
       const { to: link, type } = createLink({
@@ -163,13 +164,26 @@ export function useDynamicLink({
         console.warn(`Page with id ${pageId} not found`);
       }
       return { to: link ?? '', type };
+    } else if (typeof to === 'string' && to !== '') {
+      const localizedTo = localizeLink(to);
+
+      return { to: localizedTo, type: 'link' };
     } else {
       if (!to) {
         console.warn('No pageId or "to" provided');
       }
       return { to: to ?? '', type: 'link' };
     }
-  }, [variables, pageId, searchParams, pages, to, createLink, keepExistingSearchParams]);
+  }, [
+    variables,
+    pageId,
+    searchParams,
+    pages,
+    to,
+    createLink,
+    keepExistingSearchParams,
+    localizeLink,
+  ]);
 
   return result;
 }
