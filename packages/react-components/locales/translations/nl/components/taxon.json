@@ -15,5 +15,14 @@
   "dna": "",
   "occurenceImages": "Gelijk aan {is}",
   "taxonIdentifiers": "",
-  "synonymsAndCombinations": ""
+  "synonymsAndCombinations": "",
+  "rankPlural": {
+    "KINGDOM": "Rijken",
+    "PHYLUM": "Stammen",
+    "CLASS": "Klassen",
+    "ORDER": "",
+    "FAMILY": "Families",
+    "GENUS": "",
+    "SPECIES": "Soorten"
+  }
 }
