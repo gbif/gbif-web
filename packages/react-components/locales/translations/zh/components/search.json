@@ -33,7 +33,7 @@
     "either": "等于 {is}"
   },
   "loadMore": "更多",
-  "noResults": "等于 {is}",
+  "noResults": "",
   "occurrenceClustersView": {
     "about": "关于",
     "clusters": "",
@@ -53,7 +53,7 @@
       "TREATMENT": "治疗",
       "OBSERVATION": "观察",
       "SPECIMEN": "标本",
-      "SEQUENCE": ""
+      "SEQUENCE": "等于 {is}"
     }
   }
 }
