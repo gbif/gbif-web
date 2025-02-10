@@ -568,7 +568,7 @@
     "preservation": {
       "name": "保存",
       "properties": {
-        "preservationType": "",
+        "preservationType": "GBIFがアノーテーションしたアーカイブ",
         "preservationTemperature": "",
         "preservationDateBegin": "",
         "sequence": ""
