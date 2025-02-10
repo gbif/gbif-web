@@ -3,22 +3,22 @@
     "table": "Tabela",
     "tree": "",
     "gallery": "Galeria",
-    "media": "Równy {from}",
+    "media": "",
     "map": "Mapa",
     "datasets": "Zbiory danych",
     "events": "Zdarzenia",
     "download": "Pobierz",
     "clusters": "",
     "dashboard": "Kokpit",
-    "sites": "Równy {from}",
+    "sites": "",
     "list": "Lista"
   },
   "table": {
     "lockColumn": "Zablokuj kolumnę",
-    "unlockColumn": "Równy {from}",
-    "columnVisibility": "Równy {from}",
-    "resetColumnVisibility": "Równy {from}",
-    "openFilter": "Równy {from}"
+    "unlockColumn": "",
+    "columnVisibility": "",
+    "resetColumnVisibility": "",
+    "openFilter": ""
   },
   "placeholders": {
     "default": "Wyszukaj",
@@ -30,10 +30,10 @@
   "ternary": {
     "yes": "Tak",
     "no": "Nie",
-    "either": "Równy {from}"
+    "either": ""
   },
   "loadMore": "Więcej",
-  "noResults": "Równy {from}",
+  "noResults": "",
   "occurrenceClustersView": {
     "about": "Informacje",
     "clusters": "",
