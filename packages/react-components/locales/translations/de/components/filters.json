@@ -12,7 +12,7 @@
   "hasCoordinate": {
     "name": "",
     "count": "",
-    "description": "Gleich {is}"
+    "description": ""
   },
   "hasGeospatialIssues": {
     "name": "",
@@ -60,7 +60,7 @@
   "geometry": {
     "name": "",
     "count": "",
-    "description": "Gleich {is}",
+    "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
     "placeholderDist": ""
@@ -93,7 +93,7 @@
   "alternativeCode": {
     "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
     "count": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
-    "description": "Gleich {is}"
+    "description": ""
   },
   "identifier": {
     "name": "",
@@ -108,7 +108,7 @@
   "discipline": {
     "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
     "count": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
-    "description": "Gleich {is}"
+    "description": ""
   },
   "collectionContentType": {
     "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
@@ -128,7 +128,7 @@
   "taxonKeyGrSciColl": {
     "name": "",
     "count": "{num, plural, one {wissenschaftlicher Name} other {# wissenschaftliche Namen}}",
-    "description": "Gleich {is}"
+    "description": ""
   },
   "basisOfRecord": {
     "name": "Basis of record",
@@ -222,12 +222,12 @@
   "countriesOfCoverage": {
     "name": "Länderabdeckung",
     "count": "{num, plural, one {Länderabdeckung} other {# Länderabdeckungen}}",
-    "description": "Gleich {is}"
+    "description": ""
   },
   "collectionDescriptorCountry": {
     "name": "",
     "count": "{num, plural, one {Länderabdeckung} other {# Länderabdeckungen}}",
-    "description": "Gleich {is}"
+    "description": ""
   },
   "countriesOfResearcher": {
     "name": "Land des Forschers",
@@ -347,8 +347,8 @@
   },
   "higherGeography": {
     "name": "",
-    "count": "Gleich {is}",
-    "description": "Gleich {is}"
+    "count": "",
+    "description": ""
   },
   "stateProvince": {
     "name": "Bundesland/Kanton/Provinz",
@@ -438,17 +438,17 @@
   "activeInstitution": {
     "name": "",
     "count": "",
-    "description": "Gleich {is}"
+    "description": ""
   },
   "activeCollection": {
     "name": "",
     "count": "",
-    "description": "Gleich {is}"
+    "description": ""
   },
   "publicationDate": {
     "name": "",
-    "count": "Gleich {is}",
-    "description": "Gleich {is}"
+    "count": "",
+    "description": ""
   },
   "personalCollection": {
     "name": "",
@@ -474,7 +474,7 @@
     "name": "Name",
     "count": "{num, plural, one { Name } other {# Namen}}",
     "description": "A short description of the component should be placed here",
-    "searchPlaceholder": "Gleich {is}"
+    "searchPlaceholder": ""
   },
   "city": {
     "name": "Stadt",
