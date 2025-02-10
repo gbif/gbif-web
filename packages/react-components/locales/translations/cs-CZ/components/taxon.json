@@ -15,5 +15,14 @@
   "dna": "DNA",
   "occurenceImages": "Rovná se {from}",
   "taxonIdentifiers": "Identifikátory taxonu",
-  "synonymsAndCombinations": "Synonyma a kombinace"
+  "synonymsAndCombinations": "Synonyma a kombinace",
+  "rankPlural": {
+    "KINGDOM": "Říše",
+    "PHYLUM": "Kmeny",
+    "CLASS": "Třídy",
+    "ORDER": "Řády",
+    "FAMILY": "Čeledi",
+    "GENUS": "Rody",
+    "SPECIES": "Druh"
+  }
 }
