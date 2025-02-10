@@ -1,11 +1,19 @@
 {
   "tabs": {
     "about": "",
-    "typeMaterial": "Stadt zum Fundort.",
+    "typeMaterial": "Gleich {is}",
     "metrics": "Kennzahlen"
   },
   "publishedIn": "",
   "vernacularNames": "",
   "rank": "",
-  "source": ""
+  "source": "",
+  "specimenIsTypeOf": "Gleich {is}",
+  "typeMaterial": "Gleich {is}",
+  "more": "",
+  "less": "Gleich {is}",
+  "dna": "",
+  "occurenceImages": "Gleich {is}",
+  "taxonIdentifiers": "",
+  "synonymsAndCombinations": ""
 }

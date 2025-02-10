@@ -3,22 +3,22 @@
     "table": "Liste",
     "tree": "",
     "gallery": "Galerie",
-    "media": "Stadt zum Fundort.",
+    "media": "Gleich {is}",
     "map": "Karte",
     "datasets": "Datasets",
     "events": "",
     "download": "Download",
     "clusters": "",
     "dashboard": "",
-    "sites": "Stadt zum Fundort.",
+    "sites": "Gleich {is}",
     "list": ""
   },
   "table": {
     "lockColumn": "Spalte fixieren",
-    "unlockColumn": "Stadt zum Fundort.",
-    "columnVisibility": "Stadt zum Fundort.",
-    "resetColumnVisibility": "Stadt zum Fundort.",
-    "openFilter": "Stadt zum Fundort."
+    "unlockColumn": "Gleich {is}",
+    "columnVisibility": "Gleich {is}",
+    "resetColumnVisibility": "Gleich {is}",
+    "openFilter": "Gleich {is}"
   },
   "placeholders": {
     "default": "Suche",
@@ -30,10 +30,10 @@
   "ternary": {
     "yes": "",
     "no": "",
-    "either": "Stadt zum Fundort."
+    "either": "Gleich {is}"
   },
   "loadMore": "Mehr",
-  "noResults": "Stadt zum Fundort.",
+  "noResults": "Gleich {is}",
   "occurrenceClustersView": {
     "about": "",
     "clusters": "",

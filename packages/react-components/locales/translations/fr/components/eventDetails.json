@@ -14,7 +14,7 @@
   "eventTypeHierarchyJoined": "",
   "eventHierarchyJoined": "",
   "map": "",
-  "backToTaxa": "Archive annotée par GBIF",
+  "backToTaxa": "",
   "siteLocation": "",
   "info": {
     "original": "Original",
@@ -27,7 +27,7 @@
     "record": "Enregistrement",
     "occurrence": "Une occurrence",
     "event": "Événement",
-    "dataStructure": "Archive annotée par GBIF",
+    "dataStructure": "",
     "identification": "Identification",
     "taxon": "Taxon",
     "location": "Lieu",

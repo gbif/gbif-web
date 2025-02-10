@@ -1,11 +1,19 @@
 {
   "tabs": {
     "about": "・・・について",
-    "typeMaterial": "GBIFがアノーテーションしたアーカイブ",
+    "typeMaterial": "",
     "metrics": "メトリクス"
   },
   "publishedIn": "出典",
   "vernacularNames": "コモンネームまたは和名",
   "rank": "分類階級",
-  "source": "参照元"
+  "source": "参照元",
+  "specimenIsTypeOf": "",
+  "typeMaterial": "",
+  "more": "詳細",
+  "less": "",
+  "dna": "",
+  "occurenceImages": "",
+  "taxonIdentifiers": "分類群ID",
+  "synonymsAndCombinations": ""
 }

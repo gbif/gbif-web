@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "Tem coordenadas",
     "count": "",
-    "description": "Uma breve descrição do componente deve ser colocada aqui"
+    "description": "Iguais {is}"
   },
   "hasGeospatialIssues": {
     "name": "Tem problemas geoespaciais",
     "count": "Tem problemas geoespaciais",
-    "description": "Uma breve descrição do componente deve ser colocada aqui"
+    "description": "Iguais {is}"
   },
   "collectionKey": {
     "name": "Coleção",
@@ -60,7 +60,7 @@
   "geometry": {
     "name": "Localização",
     "count": "",
-    "description": "Uma breve descrição do componente deve ser colocada aqui",
+    "description": "Iguais {is}",
     "placeholderLat": "",
     "placeholderLon": "",
     "placeholderDist": ""
@@ -93,7 +93,7 @@
   "alternativeCode": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
     "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
-    "description": "Uma breve descrição do componente deve ser colocada aqui"
+    "description": "Iguais {is}"
   },
   "identifier": {
     "name": "Identificador",
@@ -108,7 +108,7 @@
   "discipline": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
     "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
-    "description": "Uma breve descrição do componente deve ser colocada aqui"
+    "description": "Iguais {is}"
   },
   "collectionContentType": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
@@ -128,7 +128,7 @@
   "taxonKeyGrSciColl": {
     "name": "Nome científico",
     "count": "{num, plural, one {nome científico} other {# nomes científicos}}",
-    "description": "Uma breve descrição do componente deve ser colocada aqui"
+    "description": "Iguais {is}"
   },
   "basisOfRecord": {
     "name": "Base do registo",
@@ -222,12 +222,12 @@
   "countriesOfCoverage": {
     "name": "País de cobertura",
     "count": "{num, plural, one {país de cobertura} other {# países de cobertura}}",
-    "description": "Uma breve descrição do componente deve ser colocada aqui"
+    "description": "Iguais {is}"
   },
   "collectionDescriptorCountry": {
     "name": "País ou área de cobertura",
     "count": "{num, plural, one {país de cobertura} other {# países de cobertura}}",
-    "description": "Uma breve descrição do componente deve ser colocada aqui"
+    "description": "Iguais {is}"
   },
   "countriesOfResearcher": {
     "name": "País do investigador",
@@ -347,8 +347,8 @@
   },
   "higherGeography": {
     "name": "Geografia superior",
-    "count": "Uma breve descrição do componente deve ser colocada aqui",
-    "description": "Uma breve descrição do componente deve ser colocada aqui"
+    "count": "Iguais {is}",
+    "description": "Iguais {is}"
   },
   "stateProvince": {
     "name": "Estado/Província",
@@ -433,22 +433,22 @@
   "active": {
     "name": "Ativo",
     "count": "Ativo",
-    "description": "Uma breve descrição do componente deve ser colocada aqui"
+    "description": ""
   },
   "activeInstitution": {
     "name": "Ativo",
     "count": "Ativo",
-    "description": "Uma breve descrição do componente deve ser colocada aqui"
+    "description": "Iguais {is}"
   },
   "activeCollection": {
     "name": "Ativo",
     "count": "Ativo",
-    "description": "Uma breve descrição do componente deve ser colocada aqui"
+    "description": "Iguais {is}"
   },
   "publicationDate": {
     "name": "Data de publicação",
-    "count": "Uma breve descrição do componente deve ser colocada aqui",
-    "description": "Uma breve descrição do componente deve ser colocada aqui"
+    "count": "Iguais {is}",
+    "description": "Iguais {is}"
   },
   "personalCollection": {
     "name": "Coleção pessoal",
@@ -474,12 +474,12 @@
     "name": "Nome",
     "count": "{num, plural, one { nome } other {# nomes}}",
     "description": "Uma breve descrição do componente deve ser colocada aqui",
-    "searchPlaceholder": "Uma breve descrição do componente deve ser colocada aqui"
+    "searchPlaceholder": "Iguais {is}"
   },
   "city": {
     "name": "Cidade",
     "count": "{num, plural, one { cidade } other {# cidades}}",
-    "description": "Uma breve descrição do componente deve ser colocada aqui"
+    "description": ""
   },
   "code": {
     "name": "Código",
@@ -500,5 +500,10 @@
     "name": "Tipo de bibliografia",
     "count": "{num, plural, one { tipo de literatura } other {# tipos de literatura}}",
     "description": "De que tipo de literatura é originada a citação."
+  },
+  "higherTaxonKey": {
+    "name": "Taxon superior",
+    "count": "",
+    "description": ""
   }
 }

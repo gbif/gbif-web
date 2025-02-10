@@ -1,11 +1,19 @@
 {
   "tabs": {
     "about": "Об организациии",
-    "typeMaterial": "Архив, аннотированный GBIF",
+    "typeMaterial": "",
     "metrics": "Показатели"
   },
   "publishedIn": "Опубликовано в",
   "vernacularNames": "Народные названия",
   "rank": "Ранг",
-  "source": "Источник"
+  "source": "Источник",
+  "specimenIsTypeOf": "",
+  "typeMaterial": "",
+  "more": "подробнее",
+  "less": "",
+  "dna": "ДНК",
+  "occurenceImages": "",
+  "taxonIdentifiers": "Идентификаторы таксона",
+  "synonymsAndCombinations": "Синонимы и комбинации"
 }

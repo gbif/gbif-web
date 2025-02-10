@@ -1,11 +1,19 @@
 {
   "tabs": {
     "about": "關於",
-    "typeMaterial": "GBIF 註記的存檔",
+    "typeMaterial": "等於 {is}",
     "metrics": "指標"
   },
   "publishedIn": "發布於",
   "vernacularNames": "俗名",
   "rank": "分類位階",
-  "source": "來源"
+  "source": "來源",
+  "specimenIsTypeOf": "等於 {is}",
+  "typeMaterial": "等於 {is}",
+  "more": "更多",
+  "less": "等於 {is}",
+  "dna": "去氧核醣核酸",
+  "occurenceImages": "等於 {is}",
+  "taxonIdentifiers": "分類群辨識碼",
+  "synonymsAndCombinations": ""
 }

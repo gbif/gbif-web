@@ -86,7 +86,7 @@
   "license": "Licencja",
   "recommended": "Polecane",
   "processedOccurrences": "",
-  "processedOccurrencesDescription": "",
+  "processedOccurrencesDescription": "Równy {from}",
   "noDescriptionProvided": "Opis niedostępny",
   "pNetwork": "{NUMBER, plural, one{sieć} few {sieci} many {sieci} other{sieci}}",
   "parentEvent": "Nadrzędne zdarzenie",

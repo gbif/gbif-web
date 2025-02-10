@@ -14,7 +14,7 @@
   "eventTypeHierarchyJoined": "",
   "eventHierarchyJoined": "",
   "map": "",
-  "backToTaxa": "Uma breve descrição do componente deve ser colocada aqui",
+  "backToTaxa": "Iguais {is}",
   "siteLocation": "",
   "info": {
     "original": "Original",
@@ -27,7 +27,7 @@
     "record": "Registo",
     "occurrence": "Ocorrência",
     "event": "Evento",
-    "dataStructure": "Uma breve descrição do componente deve ser colocada aqui",
+    "dataStructure": "Iguais {is}",
     "identification": "Identificação",
     "taxon": "Táxon",
     "location": "Localização",

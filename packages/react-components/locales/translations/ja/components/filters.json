@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "座標あり",
     "count": "",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "hasGeospatialIssues": {
     "name": "地理空間情報の解釈に問題あり",
     "count": "地理空間情報の解釈に問題あり",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "collectionKey": {
     "name": "コレクション",
@@ -60,7 +60,7 @@
   "geometry": {
     "name": "位置情報",
     "count": "",
-    "description": "GBIFがアノーテーションしたアーカイブ",
+    "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
     "placeholderDist": ""
@@ -93,7 +93,7 @@
   "alternativeCode": {
     "name": "GBIFがアノーテーションしたアーカイブ",
     "count": "GBIFがアノーテーションしたアーカイブ",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "identifier": {
     "name": "ID",
@@ -108,7 +108,7 @@
   "discipline": {
     "name": "GBIFがアノーテーションしたアーカイブ",
     "count": "GBIFがアノーテーションしたアーカイブ",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "collectionContentType": {
     "name": "GBIFがアノーテーションしたアーカイブ",
@@ -128,7 +128,7 @@
   "taxonKeyGrSciColl": {
     "name": "学名",
     "count": "",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "basisOfRecord": {
     "name": "データレコードの種類",
@@ -222,12 +222,12 @@
   "countriesOfCoverage": {
     "name": "範囲の国または地域",
     "count": "",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "collectionDescriptorCountry": {
     "name": "範囲の国または地域",
     "count": "",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "countriesOfResearcher": {
     "name": "研究者の出身国または地域",
@@ -347,8 +347,8 @@
   },
   "higherGeography": {
     "name": "採集地を含む地域",
-    "count": "GBIFがアノーテーションしたアーカイブ",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "count": "",
+    "description": ""
   },
   "stateProvince": {
     "name": "州/地方または都道府県",
@@ -433,22 +433,22 @@
   "active": {
     "name": "活動中",
     "count": "活動中",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "activeInstitution": {
     "name": "活動中",
     "count": "活動中",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "activeCollection": {
     "name": "活動中",
     "count": "活動中",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "publicationDate": {
     "name": "公開日時",
-    "count": "GBIFがアノーテーションしたアーカイブ",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "count": "",
+    "description": ""
   },
   "personalCollection": {
     "name": "個人コレクション",
@@ -474,12 +474,12 @@
     "name": "名前",
     "count": "",
     "description": "GBIFがアノーテーションしたアーカイブ",
-    "searchPlaceholder": "GBIFがアノーテーションしたアーカイブ"
+    "searchPlaceholder": ""
   },
   "city": {
     "name": "市",
     "count": "",
-    "description": "GBIFがアノーテーションしたアーカイブ"
+    "description": ""
   },
   "code": {
     "name": "コード",
@@ -498,6 +498,11 @@
   },
   "literatureType": {
     "name": "文献の種類",
+    "count": "",
+    "description": ""
+  },
+  "higherTaxonKey": {
+    "name": "上位の分類群",
     "count": "",
     "description": ""
   }

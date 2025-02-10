@@ -8,9 +8,9 @@
   },
   "metricHighlights": {
     "occurrences": "Výskyty",
-    "withTaxonMatch": "",
-    "withCoordinates": "",
-    "withYear": "",
+    "withTaxonMatch": "S odpovídajícím taxonem",
+    "withCoordinates": "Se souřadnicemi",
+    "withYear": "S rokem",
     "acceptedNames": "Přijaté názvy",
     "synonyms": "Synonyma"
   },
@@ -86,7 +86,7 @@
   "license": "Licence",
   "recommended": "Doporučeno",
   "processedOccurrences": "",
-  "processedOccurrencesDescription": "",
+  "processedOccurrencesDescription": "Rovná se {from}",
   "noDescriptionProvided": "Popis není k dispozici",
   "pNetwork": "",
   "parentEvent": "Nadřazená událost",

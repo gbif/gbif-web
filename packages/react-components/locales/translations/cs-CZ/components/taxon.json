@@ -1,11 +1,19 @@
 {
   "tabs": {
     "about": "O",
-    "typeMaterial": "",
+    "typeMaterial": "Rovná se {from}",
     "metrics": "Metriky"
   },
   "publishedIn": "Zveřejněno v",
   "vernacularNames": "Místní názvy",
-  "rank": "",
-  "source": "Zdroj"
+  "rank": "Pořadí",
+  "source": "Zdroj",
+  "specimenIsTypeOf": "Rovná se {from}",
+  "typeMaterial": "Rovná se {from}",
+  "more": "více",
+  "less": "Rovná se {from}",
+  "dna": "DNA",
+  "occurenceImages": "Rovná se {from}",
+  "taxonIdentifiers": "Identifikátory taxonu",
+  "synonymsAndCombinations": "Synonyma a kombinace"
 }

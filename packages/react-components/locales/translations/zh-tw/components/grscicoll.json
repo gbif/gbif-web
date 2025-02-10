@@ -53,8 +53,8 @@
     "explore": ""
   },
   "citesPermitNumber": "城市許可編號",
-  "collectionDescriptorsHeadline": "GBIF 註記的存檔",
-  "collectionDescriptorsIntroduction": "GBIF 註記的存檔",
-  "collectionSearchNoResultsMessage": "GBIF 註記的存檔",
-  "searchForSpecimens": "GBIF 註記的存檔"
+  "collectionDescriptorsHeadline": "等於 {is}",
+  "collectionDescriptorsIntroduction": "等於 {is}",
+  "collectionSearchNoResultsMessage": "等於 {is}",
+  "searchForSpecimens": "等於 {is}"
 }

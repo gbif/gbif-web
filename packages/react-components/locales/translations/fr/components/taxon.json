@@ -1,11 +1,19 @@
 {
   "tabs": {
     "about": "À propos",
-    "typeMaterial": "Archive annotée par GBIF",
+    "typeMaterial": "",
     "metrics": "Statistiques"
   },
   "publishedIn": "Publié dans",
   "vernacularNames": "Noms vernaculaires",
   "rank": "Niveau du taxon",
-  "source": "Source"
+  "source": "Source",
+  "specimenIsTypeOf": "",
+  "typeMaterial": "",
+  "more": "plus",
+  "less": "",
+  "dna": "ADN",
+  "occurenceImages": "",
+  "taxonIdentifiers": "Identifiants de taxon",
+  "synonymsAndCombinations": "synonymes et combinaisons"
 }

@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "",
     "count": "",
-    "description": "Stadt zum Fundort."
+    "description": "Gleich {is}"
   },
   "hasGeospatialIssues": {
     "name": "",
     "count": "",
-    "description": "Stadt zum Fundort."
+    "description": "Gleich {is}"
   },
   "collectionKey": {
     "name": "",
@@ -60,7 +60,7 @@
   "geometry": {
     "name": "",
     "count": "",
-    "description": "Stadt zum Fundort.",
+    "description": "Gleich {is}",
     "placeholderLat": "",
     "placeholderLon": "",
     "placeholderDist": ""
@@ -93,7 +93,7 @@
   "alternativeCode": {
     "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
     "count": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
-    "description": "Stadt zum Fundort."
+    "description": "Gleich {is}"
   },
   "identifier": {
     "name": "",
@@ -108,7 +108,7 @@
   "discipline": {
     "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
     "count": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
-    "description": "Stadt zum Fundort."
+    "description": "Gleich {is}"
   },
   "collectionContentType": {
     "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
@@ -128,7 +128,7 @@
   "taxonKeyGrSciColl": {
     "name": "",
     "count": "{num, plural, one {wissenschaftlicher Name} other {# wissenschaftliche Namen}}",
-    "description": "Stadt zum Fundort."
+    "description": "Gleich {is}"
   },
   "basisOfRecord": {
     "name": "Basis of record",
@@ -222,12 +222,12 @@
   "countriesOfCoverage": {
     "name": "Länderabdeckung",
     "count": "{num, plural, one {Länderabdeckung} other {# Länderabdeckungen}}",
-    "description": "Stadt zum Fundort."
+    "description": "Gleich {is}"
   },
   "collectionDescriptorCountry": {
     "name": "",
     "count": "{num, plural, one {Länderabdeckung} other {# Länderabdeckungen}}",
-    "description": "Stadt zum Fundort."
+    "description": "Gleich {is}"
   },
   "countriesOfResearcher": {
     "name": "Land des Forschers",
@@ -347,8 +347,8 @@
   },
   "higherGeography": {
     "name": "",
-    "count": "Stadt zum Fundort.",
-    "description": "Stadt zum Fundort."
+    "count": "Gleich {is}",
+    "description": "Gleich {is}"
   },
   "stateProvince": {
     "name": "Bundesland/Kanton/Provinz",
@@ -438,17 +438,17 @@
   "activeInstitution": {
     "name": "",
     "count": "",
-    "description": "Stadt zum Fundort."
+    "description": "Gleich {is}"
   },
   "activeCollection": {
     "name": "",
     "count": "",
-    "description": "Stadt zum Fundort."
+    "description": "Gleich {is}"
   },
   "publicationDate": {
     "name": "",
-    "count": "Stadt zum Fundort.",
-    "description": "Stadt zum Fundort."
+    "count": "Gleich {is}",
+    "description": "Gleich {is}"
   },
   "personalCollection": {
     "name": "",
@@ -474,7 +474,7 @@
     "name": "Name",
     "count": "{num, plural, one { Name } other {# Namen}}",
     "description": "A short description of the component should be placed here",
-    "searchPlaceholder": "Stadt zum Fundort."
+    "searchPlaceholder": "Gleich {is}"
   },
   "city": {
     "name": "Stadt",
@@ -500,5 +500,10 @@
     "name": "Literatur-Typ",
     "count": "{num, plural, one { Literatur-Typ } other {# Literatur-Typen}}",
     "description": "Art der Literatur, aus der die Zitierung stammt."
+  },
+  "higherTaxonKey": {
+    "name": "Höheres Taxon",
+    "count": "",
+    "description": ""
   }
 }

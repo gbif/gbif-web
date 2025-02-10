@@ -1,3 +1,24 @@
 {
-  "search": "Buscar"
+  "example": "Ejemplo",
+  "examples": "Ejemplos",
+  "singleEntry": "Obtenga una sola entrada.",
+  "singleOccurrence": "Obtenga un solo registro biológico.",
+  "searchOccurrences": "Obtener todos los registros biológicos.",
+  "searchOccurrencesExample": "Primeras cinco apariciones de taxón con taxonKey 9778871 (Flabellina McMurtrie, 1831) que se registraron en mayo entre los años 2000 y 2024.",
+  "relatedOccurrences": "Sucesos relacionados (experimentales).",
+  "occurrenceFragment": "Registro antes de ser interpretado.",
+  "singleInstallation": "Consigue una única instalación.",
+  "singleOrganization": "Consigue un único editor.",
+  "searchOrganizations": "Búsqueda por publicadores.",
+  "searchInstallations": "Búsqueda de instalaciones.",
+  "search": "Buscar",
+  "singleNetwork": "Obtener una sola red.",
+  "singleCollection": "Conseguir una sola colección.",
+  "searchCollections": "Búsqueda de colecciones.",
+  "singleInstitution": "Obtener una sola institución.",
+  "searchInstitutions": "Búsqueda por instituciones.",
+  "singleDataset": "Obtener un único conjunto de datos.",
+  "searchDatasetsExample": "Primeros dos conjuntos de datos publicados por Dinamarca con el texto \"fungi\"  en el título o la descripción.",
+  "searchExample": "Primeros dos elementos con el texto \"adn\".",
+  "searchDatasets": "Obtener todos los conjuntos de datos."
 }

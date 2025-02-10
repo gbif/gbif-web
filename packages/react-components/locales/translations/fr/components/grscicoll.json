@@ -53,8 +53,8 @@
     "explore": ""
   },
   "citesPermitNumber": "Numéro de permis Cites",
-  "collectionDescriptorsHeadline": "Archive annotée par GBIF",
-  "collectionDescriptorsIntroduction": "Archive annotée par GBIF",
-  "collectionSearchNoResultsMessage": "Archive annotée par GBIF",
-  "searchForSpecimens": "Archive annotée par GBIF"
+  "collectionDescriptorsHeadline": "",
+  "collectionDescriptorsIntroduction": "",
+  "collectionSearchNoResultsMessage": "",
+  "searchForSpecimens": ""
 }

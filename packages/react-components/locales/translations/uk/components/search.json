@@ -3,22 +3,22 @@
     "table": "Таблиця",
     "tree": "",
     "gallery": "Галерея",
-    "media": "Архів анотований GBIF",
+    "media": "",
     "map": "Мапа",
     "datasets": "Наборів даних",
     "events": "Заходи",
     "download": "Завантажити",
     "clusters": "",
     "dashboard": "",
-    "sites": "Архів анотований GBIF",
+    "sites": "",
     "list": ""
   },
   "table": {
     "lockColumn": "",
-    "unlockColumn": "Архів анотований GBIF",
-    "columnVisibility": "Архів анотований GBIF",
-    "resetColumnVisibility": "Архів анотований GBIF",
-    "openFilter": "Архів анотований GBIF"
+    "unlockColumn": "",
+    "columnVisibility": "",
+    "resetColumnVisibility": "",
+    "openFilter": ""
   },
   "placeholders": {
     "default": "Пошук",
@@ -30,10 +30,10 @@
   "ternary": {
     "yes": "Так",
     "no": "Ні",
-    "either": "Архів анотований GBIF"
+    "either": ""
   },
   "loadMore": "Більше",
-  "noResults": "Архів анотований GBIF",
+  "noResults": "",
   "occurrenceClustersView": {
     "about": "Відомості про видавця даних",
     "clusters": "",

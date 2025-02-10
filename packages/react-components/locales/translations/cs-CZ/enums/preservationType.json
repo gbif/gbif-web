@@ -1,1 +1,12 @@
-{}
+{
+  "STORAGE_OUTDOORS": "Úložiště ve venkovním prostředí",
+  "STORAGE_INDOORS": "Úložiště ve vnitřních prostorách",
+  "STORAGE_CONTROLLED_ATMOSPHERE": "Úložiště s řízenou atmosférou",
+  "STORAGE_FROZEN_MINUS_20": "Úložiště ve zmrazeném stavu minus 20",
+  "STORAGE_FROZEN_MINUS_80": "Úložiště ve zmrazeném stavu minus 80",
+  "STORAGE_FROZEN_BETWEEN_MINUS_132_AND_MINUS_196": "Úložiště zmrazené mezi mínus 132 a mínus 196",
+  "STORAGE_OTHER": "Úložiště jiné",
+  "STORAGE_REFRIGERATED": "Úložiště chlazené",
+  "STORAGE_RECORDED": "Úložiště záznamu",
+  "STORAGE_VACUUM": "Úložiště vakuové"
+}

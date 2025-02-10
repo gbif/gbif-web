@@ -13,8 +13,8 @@
         "PLATE_CAREE": "可利投影"
     },
     "failedToGetUserLocation": {
-        "title": "GBIF 註記的存檔",
-        "message": "GBIF 註記的存檔"
+        "title": "等於 {is}",
+        "message": "等於 {is}"
     },
     "filterByView": "使用可見區域作為篩選"
 }

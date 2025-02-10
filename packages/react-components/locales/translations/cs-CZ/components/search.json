@@ -3,22 +3,22 @@
     "table": "Tabulka",
     "tree": "",
     "gallery": "Galerie",
-    "media": "",
+    "media": "Rovná se {from}",
     "map": "Mapa",
     "datasets": "Datové sady",
     "events": "Události",
     "download": "Stáhnout",
     "clusters": "",
     "dashboard": "Ovládací panel",
-    "sites": "",
+    "sites": "Rovná se {from}",
     "list": "Seznam"
   },
   "table": {
     "lockColumn": "Zamknout sloupec",
-    "unlockColumn": "",
-    "columnVisibility": "",
-    "resetColumnVisibility": "",
-    "openFilter": ""
+    "unlockColumn": "Rovná se {from}",
+    "columnVisibility": "Rovná se {from}",
+    "resetColumnVisibility": "Rovná se {from}",
+    "openFilter": "Rovná se {from}"
   },
   "placeholders": {
     "default": "Hledat",
@@ -30,10 +30,10 @@
   "ternary": {
     "yes": "Ano",
     "no": "Ne",
-    "either": ""
+    "either": "Rovná se {from}"
   },
   "loadMore": "Více",
-  "noResults": "",
+  "noResults": "Rovná se {from}",
   "occurrenceClustersView": {
     "about": "O",
     "clusters": "",

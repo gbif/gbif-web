@@ -1,11 +1,19 @@
 {
   "tabs": {
     "about": "Acerca de",
-    "typeMaterial": "Aquí debe colocarse una breve descripción del componente",
+    "typeMaterial": "Igual a {is}",
     "metrics": "Estadísticas"
   },
   "publishedIn": "Publicado en",
   "vernacularNames": "Nombres comunes",
   "rank": "Rango",
-  "source": "Origen"
+  "source": "Origen",
+  "specimenIsTypeOf": "Igual a {is}",
+  "typeMaterial": "Igual a {is}",
+  "more": "más",
+  "less": "Igual a {is}",
+  "dna": "ADN",
+  "occurenceImages": "Igual a {is}",
+  "taxonIdentifiers": "Identificadores de taxón",
+  "synonymsAndCombinations": "Sinónimos y combinaciones"
 }

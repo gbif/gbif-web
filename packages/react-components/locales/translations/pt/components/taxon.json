@@ -1,11 +1,19 @@
 {
   "tabs": {
     "about": "Sobre",
-    "typeMaterial": "Uma breve descrição do componente deve ser colocada aqui",
+    "typeMaterial": "Iguais {is}",
     "metrics": "Métricas"
   },
   "publishedIn": "Publicado em",
   "vernacularNames": "Nomes comuns",
   "rank": "Nível",
-  "source": "Fonte"
+  "source": "Fonte",
+  "specimenIsTypeOf": "Iguais {is}",
+  "typeMaterial": "Iguais {is}",
+  "more": "mais",
+  "less": "Iguais {is}",
+  "dna": "",
+  "occurenceImages": "Iguais {is}",
+  "taxonIdentifiers": "Identificadores de taxon",
+  "synonymsAndCombinations": ""
 }

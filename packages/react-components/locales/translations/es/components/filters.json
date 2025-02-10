@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "Incluye coordenada",
     "count": "Tiene coordenadas",
-    "description": "Aquí debe colocarse una breve descripción del componente"
+    "description": "Igual a {is}"
   },
   "hasGeospatialIssues": {
     "name": "Tiene un problema geoespacial",
     "count": "Tiene un problema geoespacial",
-    "description": "Aquí debe colocarse una breve descripción del componente"
+    "description": "Igual a {is}"
   },
   "collectionKey": {
     "name": "Colección",
@@ -60,7 +60,7 @@
   "geometry": {
     "name": "Localización/ubicación",
     "count": "{num, plural, one { filtro } other {# filtros }}",
-    "description": "Aquí debe colocarse una breve descripción del componente",
+    "description": "Igual a {is}",
     "placeholderLat": "Latitud",
     "placeholderLon": "Longitud",
     "placeholderDist": "Distancia"
@@ -108,7 +108,7 @@
   "discipline": {
     "name": "",
     "count": "",
-    "description": "Aquí debe colocarse una breve descripción del componente"
+    "description": "Igual a {is}"
   },
   "collectionContentType": {
     "name": "",
@@ -128,7 +128,7 @@
   "taxonKeyGrSciColl": {
     "name": "Nombre científico",
     "count": "{num, plural, one {nombre científico} other {# nombres científicos}}",
-    "description": "Aquí debe colocarse una breve descripción del componente"
+    "description": "Igual a {is}"
   },
   "basisOfRecord": {
     "name": "Base del registro",
@@ -222,12 +222,12 @@
   "countriesOfCoverage": {
     "name": "País de cobertura",
     "count": "{num, plural, one {país de cobertura} other {# países de cobertura}}",
-    "description": "Aquí debe colocarse una breve descripción del componente"
+    "description": "Igual a {is}"
   },
   "collectionDescriptorCountry": {
     "name": "País o área de cobertura",
     "count": "{num, plural, one {país o área de cobertura} other {# países o áreas de cobertura}}",
-    "description": "Aquí debe colocarse una breve descripción del componente"
+    "description": "Igual a {is}"
   },
   "countriesOfResearcher": {
     "name": "País o área del investigador",
@@ -347,8 +347,8 @@
   },
   "higherGeography": {
     "name": "Geografía superior",
-    "count": "Aquí debe colocarse una breve descripción del componente",
-    "description": "Aquí debe colocarse una breve descripción del componente"
+    "count": "Igual a {is}",
+    "description": "Igual a {is}"
   },
   "stateProvince": {
     "name": "Departamento/Estado/Provincia",
@@ -433,22 +433,22 @@
   "active": {
     "name": "Activo",
     "count": "Activo",
-    "description": "Aquí debe colocarse una breve descripción del componente"
+    "description": ""
   },
   "activeInstitution": {
     "name": "Activo",
     "count": "Activo",
-    "description": "Aquí debe colocarse una breve descripción del componente"
+    "description": "Igual a {is}"
   },
   "activeCollection": {
     "name": "Activo",
     "count": "Activo",
-    "description": "Aquí debe colocarse una breve descripción del componente"
+    "description": "Igual a {is}"
   },
   "publicationDate": {
     "name": "Fecha de publicación",
-    "count": "Aquí debe colocarse una breve descripción del componente",
-    "description": "Aquí debe colocarse una breve descripción del componente"
+    "count": "Igual a {is}",
+    "description": "Igual a {is}"
   },
   "personalCollection": {
     "name": "Colección personal",
@@ -474,12 +474,12 @@
     "name": "Nombre",
     "count": "{num, plural, one { nombre } other {# nombres}}",
     "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
-    "searchPlaceholder": "Aquí debe colocarse una breve descripción del componente"
+    "searchPlaceholder": "Igual a {is}"
   },
   "city": {
     "name": "Ciudad",
     "count": "{num, plural, one { ciudad } other {# ciudades}}",
-    "description": "Aquí debe colocarse una breve descripción del componente"
+    "description": ""
   },
   "code": {
     "name": "Código",
@@ -500,5 +500,10 @@
     "name": "Tipo de literatura",
     "count": "{num, plural, one { tipo de literatura } other {# tipos de literatura}}",
     "description": "De qué tipo de literatura proviene la cita."
+  },
+  "higherTaxonKey": {
+    "name": "Taxón superior",
+    "count": "{num, plural, one {taxón superior} other {# taxa superior}}",
+    "description": "Un taxón superior para filtrar."
   }
 }

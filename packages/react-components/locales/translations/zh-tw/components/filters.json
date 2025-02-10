@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "具有座標",
     "count": "具有座標",
-    "description": "GBIF 註記的存檔"
+    "description": "等於 {is}"
   },
   "hasGeospatialIssues": {
     "name": "有地理空間問題",
     "count": "有地理空間問題",
-    "description": "GBIF 註記的存檔"
+    "description": "等於 {is}"
   },
   "collectionKey": {
     "name": "蒐藏集",
@@ -60,7 +60,7 @@
   "geometry": {
     "name": "地點",
     "count": "{num, plural, one {# 篩選} other {# 篩選}}",
-    "description": "GBIF 註記的存檔",
+    "description": "等於 {is}",
     "placeholderLat": "緯度",
     "placeholderLon": "經度",
     "placeholderDist": "距離"
@@ -93,7 +93,7 @@
   "alternativeCode": {
     "name": "GBIF 註記的存檔",
     "count": "GBIF 註記的存檔",
-    "description": "GBIF 註記的存檔"
+    "description": "等於 {is}"
   },
   "identifier": {
     "name": "識別碼",
@@ -108,7 +108,7 @@
   "discipline": {
     "name": "GBIF 註記的存檔",
     "count": "GBIF 註記的存檔",
-    "description": "GBIF 註記的存檔"
+    "description": "等於 {is}"
   },
   "collectionContentType": {
     "name": "GBIF 註記的存檔",
@@ -128,7 +128,7 @@
   "taxonKeyGrSciColl": {
     "name": "學名",
     "count": "{num, plural,one {科學命名} other {#科學命名}}",
-    "description": "GBIF 註記的存檔"
+    "description": "等於 {is}"
   },
   "basisOfRecord": {
     "name": "紀錄類型",
@@ -222,12 +222,12 @@
   "countriesOfCoverage": {
     "name": "國家覆蓋率",
     "count": "{num, plural,one {國家或包含區域}other {#國家或包含區域}}",
-    "description": "GBIF 註記的存檔"
+    "description": "等於 {is}"
   },
   "collectionDescriptorCountry": {
     "name": "國家或覆蓋地區",
     "count": "{num, plural,one {國家或包含區域}other {#國家或包含區域}}",
-    "description": "GBIF 註記的存檔"
+    "description": "等於 {is}"
   },
   "countriesOfResearcher": {
     "name": "研究者的國家",
@@ -347,8 +347,8 @@
   },
   "higherGeography": {
     "name": "高階地理",
-    "count": "GBIF 註記的存檔",
-    "description": "GBIF 註記的存檔"
+    "count": "等於 {is}",
+    "description": "等於 {is}"
   },
   "stateProvince": {
     "name": "州/省",
@@ -433,22 +433,22 @@
   "active": {
     "name": "在線",
     "count": "在線",
-    "description": "GBIF 註記的存檔"
+    "description": ""
   },
   "activeInstitution": {
     "name": "在線",
     "count": "在線",
-    "description": "GBIF 註記的存檔"
+    "description": "等於 {is}"
   },
   "activeCollection": {
     "name": "在線",
     "count": "在線",
-    "description": "GBIF 註記的存檔"
+    "description": "等於 {is}"
   },
   "publicationDate": {
     "name": "發布日期",
-    "count": "GBIF 註記的存檔",
-    "description": "GBIF 註記的存檔"
+    "count": "等於 {is}",
+    "description": "等於 {is}"
   },
   "personalCollection": {
     "name": "私人典藏",
@@ -474,12 +474,12 @@
     "name": "名稱",
     "count": "",
     "description": "GBIF 註記的存檔",
-    "searchPlaceholder": "GBIF 註記的存檔"
+    "searchPlaceholder": "等於 {is}"
   },
   "city": {
     "name": "城市",
     "count": "{num, plural, one {# 城市} other {# 城市}}",
-    "description": "GBIF 註記的存檔"
+    "description": ""
   },
   "code": {
     "name": "蒐藏代碼",
@@ -500,5 +500,10 @@
     "name": "文獻類型",
     "count": "{num, plural, one { 文獻類型 } other {# 文獻類型}}",
     "description": "引用文來自什麼類型的文獻。"
+  },
+  "higherTaxonKey": {
+    "name": "高階分類群",
+    "count": "",
+    "description": ""
   }
 }

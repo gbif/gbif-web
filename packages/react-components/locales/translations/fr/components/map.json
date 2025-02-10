@@ -13,8 +13,8 @@
         "PLATE_CAREE": "Plate carrée"
     },
     "failedToGetUserLocation": {
-        "title": "Archive annotée par GBIF",
-        "message": "Archive annotée par GBIF"
+        "title": "",
+        "message": ""
     },
     "filterByView": "Utiliser la zone visible comme filtre"
 }

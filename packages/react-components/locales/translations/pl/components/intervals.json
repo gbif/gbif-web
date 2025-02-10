@@ -4,7 +4,7 @@
     "lte": "Mniejszy lub równy {to}",
     "gt": "Większy niż {from}",
     "gte": "Większy lub równy {from}",
-    "e": "Równy {is}",
+    "e": "Równy {from}",
     "between": "Od {from} do {to}"
   },
   "compact": {

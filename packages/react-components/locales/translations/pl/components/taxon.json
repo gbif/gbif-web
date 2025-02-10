@@ -1,11 +1,19 @@
 {
   "tabs": {
     "about": "",
-    "typeMaterial": "",
+    "typeMaterial": "Równy {from}",
     "metrics": ""
   },
   "publishedIn": "Opublikowany w",
   "vernacularNames": "Nazwy zwyczajowe",
   "rank": "",
-  "source": "Źródło"
+  "source": "Źródło",
+  "specimenIsTypeOf": "Równy {from}",
+  "typeMaterial": "Równy {from}",
+  "more": "",
+  "less": "Równy {from}",
+  "dna": "DNA",
+  "occurenceImages": "Równy {from}",
+  "taxonIdentifiers": "",
+  "synonymsAndCombinations": ""
 }

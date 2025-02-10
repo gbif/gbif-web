@@ -13,8 +13,8 @@
         "PLATE_CAREE": "صفيحة كاري"
     },
     "failedToGetUserLocation": {
-        "title": "أرشيف شروح \"جيبف\"",
-        "message": "أرشيف شروح \"جيبف\""
+        "title": "التساويات { is }",
+        "message": "التساويات { is }"
     },
     "filterByView": "استخدم المنطقة المرئية كمرشح"
 }
