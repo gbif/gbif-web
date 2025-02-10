@@ -12,7 +12,7 @@
   "hasCoordinate": {
     "name": "Tem coordenadas",
     "count": "",
-    "description": "Iguais {is}"
+    "description": ""
   },
   "hasGeospatialIssues": {
     "name": "Tem problemas geoespaciais",
@@ -60,7 +60,7 @@
   "geometry": {
     "name": "Localização",
     "count": "",
-    "description": "Iguais {is}",
+    "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
     "placeholderDist": ""
@@ -93,7 +93,7 @@
   "alternativeCode": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
     "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
-    "description": "Iguais {is}"
+    "description": ""
   },
   "identifier": {
     "name": "Identificador",
@@ -108,7 +108,7 @@
   "discipline": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
     "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
-    "description": "Iguais {is}"
+    "description": ""
   },
   "collectionContentType": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
@@ -128,7 +128,7 @@
   "taxonKeyGrSciColl": {
     "name": "Nome científico",
     "count": "{num, plural, one {nome científico} other {# nomes científicos}}",
-    "description": "Iguais {is}"
+    "description": ""
   },
   "basisOfRecord": {
     "name": "Base do registo",
@@ -222,12 +222,12 @@
   "countriesOfCoverage": {
     "name": "País de cobertura",
     "count": "{num, plural, one {país de cobertura} other {# países de cobertura}}",
-    "description": "Iguais {is}"
+    "description": ""
   },
   "collectionDescriptorCountry": {
     "name": "País ou área de cobertura",
     "count": "{num, plural, one {país de cobertura} other {# países de cobertura}}",
-    "description": "Iguais {is}"
+    "description": ""
   },
   "countriesOfResearcher": {
     "name": "País do investigador",
@@ -347,8 +347,8 @@
   },
   "higherGeography": {
     "name": "Geografia superior",
-    "count": "Iguais {is}",
-    "description": "Iguais {is}"
+    "count": "",
+    "description": ""
   },
   "stateProvince": {
     "name": "Estado/Província",
@@ -438,17 +438,17 @@
   "activeInstitution": {
     "name": "Ativo",
     "count": "Ativo",
-    "description": "Iguais {is}"
+    "description": ""
   },
   "activeCollection": {
     "name": "Ativo",
     "count": "Ativo",
-    "description": "Iguais {is}"
+    "description": ""
   },
   "publicationDate": {
     "name": "Data de publicação",
-    "count": "Iguais {is}",
-    "description": "Iguais {is}"
+    "count": "",
+    "description": ""
   },
   "personalCollection": {
     "name": "Coleção pessoal",
@@ -474,7 +474,7 @@
     "name": "Nome",
     "count": "{num, plural, one { nome } other {# nomes}}",
     "description": "Uma breve descrição do componente deve ser colocada aqui",
-    "searchPlaceholder": "Iguais {is}"
+    "searchPlaceholder": ""
   },
   "city": {
     "name": "Cidade",
