@@ -86,7 +86,7 @@
   "license": "Licence",
   "recommended": "Doporučeno",
   "processedOccurrences": "",
-  "processedOccurrencesDescription": "Rovná se {from}",
+  "processedOccurrencesDescription": "",
   "noDescriptionProvided": "Popis není k dispozici",
   "pNetwork": "",
   "parentEvent": "Nadřazená událost",
