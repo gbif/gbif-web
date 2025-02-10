@@ -3,8 +3,13 @@ import { useToast } from '@/components/ui/use-toast';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { filter2predicate } from '@/dataManagement/filterAdapter';
-import { OccurrenceMediaSearchQuery, OccurrenceMediaSearchQueryVariables } from '@/gql/graphql';
+import {
+  OccurrenceMediaSearchQuery,
+  OccurrenceMediaSearchQueryVariables,
+  Predicate,
+} from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
+import { PredicateDisplay } from '@/routes/occurrence/download/key/predicate';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { searchConfig } from '../../searchConfig';
 import { useEntityDrawer } from '../browseList/useEntityDrawer';
@@ -64,6 +69,7 @@ export function Media({ size: defaultSize = 50 }) {
   const [, setPreviewKey] = useEntityDrawer();
 
   const [allData, setAllData] = useState([]);
+  const [predicate, setPredicate] = useState<Predicate>();
 
   const updateList = useCallback(() => {
     setOrderedList(allData.map((item) => `o_${item.key}`));
@@ -109,11 +115,13 @@ export function Media({ size: defaultSize = 50 }) {
   }, [error, allData, toast]);
 
   useEffect(() => {
+    const currentPredicate = filter2predicate(currentFilterContext.filter, searchConfig);
+    setPredicate(currentPredicate);
     const predicate = {
       type: 'and',
       predicates: [
         scope,
-        filter2predicate(currentFilterContext.filter, searchConfig),
+        currentPredicate,
         {
           type: 'in',
           key: 'mediaType',
@@ -138,6 +146,9 @@ export function Media({ size: defaultSize = 50 }) {
 
   return (
     <ErrorBoundary>
+      <div className="gbif-predicates">
+        <PredicateDisplay predicate={predicate} />
+      </div>
       <MediaPresentation
         mediaTypes={mediaTypes}
         results={allData}

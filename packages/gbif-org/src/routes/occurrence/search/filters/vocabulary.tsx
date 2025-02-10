@@ -1,4 +1,4 @@
-import { establishmentMeansLabel } from '@/components/filters/displayNames';
+import { EstablishmentMeansLabel } from '@/components/filters/displayNames';
 import { filterConfigTypes, filterEnumConfig } from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
 // import { establishmentMeansSuggest } from '@/utils/suggestEndpoints';
@@ -6,7 +6,7 @@ import { Message } from '@/components/message';
 export const establishmentMeansConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM, // could be a SUGGEST as well, but there isn't much to suggest as there aren't many options
   filterHandle: 'establishmentMeans',
-  displayName: establishmentMeansLabel,
+  displayName: EstablishmentMeansLabel,
   filterTranslation: 'filters.establishmentMeans.name',
   // suggestConfig: establishmentMeansSuggest,
   facetQuery: `

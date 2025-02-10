@@ -166,7 +166,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
                 const value = e.currentTarget.value;
                 if (e.key === 'Enter') {
                   if (value !== '') {
-                    const rangeQuery = rangeOrTerm(value, upperBound, lowerBound);
+                    const rangeQuery = rangeOrTerm(value, lowerBound, upperBound);
                     // const filters = unionBy([q], selected, hash);
                     add(filterHandle, rangeQuery);
                     setQ('');
@@ -304,8 +304,8 @@ export function rangeOrTerm(value, lowerBound = 'gte', upperBound = 'lte') {
     return {
       type: 'range',
       value: {
-        [upperBound]: cleanedValues[0],
-        [lowerBound]: cleanedValues[1],
+        [lowerBound]: cleanedValues[0],
+        [upperBound]: cleanedValues[1],
       },
     };
   }

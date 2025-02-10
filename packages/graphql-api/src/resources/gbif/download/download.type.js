@@ -7,6 +7,11 @@ const typeDef = gql`
       limit: Int
       offset: Int
     ): DatasetDownloadListResults
+    datasetsByDownload(
+      key: ID!
+      limit: Int
+      offset: Int
+    ): DatasetDownloadListResults
     download(key: ID!): Download
   }
 
@@ -37,6 +42,8 @@ const typeDef = gql`
     license: String
     modified: DateTime
     numberDatasets: Int
+    numberOrganizations: Int
+    numberPublishingCountries: Int
     request: DownloadRequest
     size: Int
     status: String
@@ -47,6 +54,10 @@ const typeDef = gql`
     predicate: JSON
     sendNotification: Boolean
     format: String
+    sql: String
+    description: String
+    machineDescription: JSON
+    gbifMachineDescription: JSON
   }
 `;
 

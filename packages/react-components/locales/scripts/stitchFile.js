@@ -34,6 +34,8 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       taxon: getFile(locale, `../${folder}/${locale}/components/taxon`),
       footer: getFile(locale, `../${folder}/${locale}/components/footer`).footer,
       downloadKey: getFile(locale, `../${folder}/${locale}/components/downloads`).downloadKey,
+      customSqlDownload: getFile(locale, `../${folder}/${locale}/components/downloads`)
+        .customSqlDownload,
 
       occurrenceFieldNames: getFile(
         locale,
@@ -83,6 +85,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         identifierType: getFile(locale, `../${folder}/${locale}/enums/identifierType`),
         yesNo: getFile(locale, `../${folder}/${locale}/enums/yesNo`),
         threatStatus: getFile(locale, `../${folder}/${locale}/enums/threatStatus`),
+        region: getFile(locale, `../${folder}/${locale}/enums/gbifRegion`).gbifRegion,
         iucnRedListCategory: getFile(locale, `../${folder}/${locale}/enums/iucnRedListCategory`),
         relevance: getFile(locale, `../${folder}/${locale}/enums/relevance`),
         topics: getFile(locale, `../${folder}/${locale}/enums/topics`),

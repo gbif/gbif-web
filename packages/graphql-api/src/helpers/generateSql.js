@@ -1,4 +1,5 @@
 import config from '#/config';
+import { signJson } from './utils';
 
 const defaultUncertainty = 1000;
 
@@ -36,17 +37,18 @@ FROM
 GROUP BY
   {{GROUP_BY}}`;
 
-export default async function generateSql({
-  taxonomy,
-  temporal,
-  spatial,
-  resolution,
-  randomize,
-  higherGroups,
-  includeTemporalUncertainty,
-  includeSpatialUncertainty,
-  predicate,
-}) {
+export default async function generateSql(parameters) {
+  const {
+    taxonomy,
+    temporal,
+    spatial,
+    resolution,
+    randomize,
+    higherGroups,
+    includeTemporalUncertainty,
+    includeSpatialUncertainty,
+    predicate,
+  } = parameters;
   // generate SQL query
   const dimensions = [];
   let filters = '';
@@ -223,11 +225,18 @@ export default async function generateSql({
     .replace('{{MEASUREMENTS}}', measurements.join(', '))
     .replace('{{FILTERS}}', filters)
     .replace('{{GROUP_BY}}', groupBy.join(', '));
-  return { error: null, sql };
+
+  const signature = signJson(parameters);
+
+  return {
+    error: null,
+    sql,
+    machineDescription: { type: 'CUBE', signature, parameters },
+  };
 }
 
 export async function getSql({ query }) {
-  const { error, sql } = await generateSql(query);
+  const { error, sql, machineDescription } = await generateSql(query);
   if (error) {
     return { error, sql };
   }
@@ -255,6 +264,7 @@ export async function getSql({ query }) {
       'This is an experimental endpoint to generate SQL queries for the occurrence download service. Currently filters (WHERE) is hardcoded and is waiting for https://github.com/gbif/occurrence/issues/356',
     error,
     sql,
+    machineDescription,
     validationResponse: validation,
   };
 }
