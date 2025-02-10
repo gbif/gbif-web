@@ -30,7 +30,7 @@
   "location": {
     "geometry": "Geometri",
     "map": "Kort",
-    "wktPlaceholder": "",
+    "wktPlaceholder": "WKT eller GeoJSON — multipolygoner understøttes ikke",
     "range": "Interval",
     "recent": "Senest anvendt",
     "add": "Tilføj",

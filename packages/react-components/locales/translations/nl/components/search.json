@@ -33,7 +33,7 @@
     "either": "Gelijk aan {is}"
   },
   "loadMore": "Meer",
-  "noResults": "Gelijk aan {is}",
+  "noResults": "",
   "occurrenceClustersView": {
     "about": "Over",
     "clusters": "",
@@ -53,7 +53,7 @@
       "TREATMENT": "Behandeling",
       "OBSERVATION": "Waarneming",
       "SPECIMEN": "Exemplaar",
-      "SEQUENCE": ""
+      "SEQUENCE": "Gelijk aan {is}"
     }
   }
 }

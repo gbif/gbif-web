@@ -441,7 +441,7 @@
         "pages": "页面",
         "pageStart": "",
         "pageEnd": "",
-        "volume": "",
+        "volume": "等于 {is}",
         "edition": "版本：",
         "publisher": "发布者",
         "authorList": "作者列表",
@@ -568,7 +568,7 @@
     "preservation": {
       "name": "保存",
       "properties": {
-        "preservationType": "等于 {is}",
+        "preservationType": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
         "preservationTemperature": "等于 {is}",
         "preservationDateBegin": "等于 {is}",
         "sequence": "等于 {is}"

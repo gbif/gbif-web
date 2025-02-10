@@ -53,8 +53,8 @@
     "explore": "Przeglądaj katalog"
   },
   "citesPermitNumber": "Numer pozwolenia CITES",
-  "collectionDescriptorsHeadline": "Równy {from}",
-  "collectionDescriptorsIntroduction": "Równy {from}",
-  "collectionSearchNoResultsMessage": "Równy {from}",
-  "searchForSpecimens": "Równy {from}"
+  "collectionDescriptorsHeadline": "",
+  "collectionDescriptorsIntroduction": "",
+  "collectionSearchNoResultsMessage": "",
+  "searchForSpecimens": ""
 }

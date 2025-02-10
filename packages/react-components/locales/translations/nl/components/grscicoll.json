@@ -53,8 +53,8 @@
     "explore": ""
   },
   "citesPermitNumber": "",
-  "collectionDescriptorsHeadline": "Gelijk aan {is}",
-  "collectionDescriptorsIntroduction": "Gelijk aan {is}",
-  "collectionSearchNoResultsMessage": "Gelijk aan {is}",
-  "searchForSpecimens": "Gelijk aan {is}"
+  "collectionDescriptorsHeadline": "",
+  "collectionDescriptorsIntroduction": "",
+  "collectionSearchNoResultsMessage": "",
+  "searchForSpecimens": ""
 }

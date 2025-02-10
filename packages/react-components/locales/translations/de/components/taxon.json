@@ -15,5 +15,14 @@
   "dna": "",
   "occurenceImages": "Gleich {is}",
   "taxonIdentifiers": "",
-  "synonymsAndCombinations": ""
+  "synonymsAndCombinations": "",
+  "rankPlural": {
+    "KINGDOM": "",
+    "PHYLUM": "",
+    "CLASS": "",
+    "ORDER": "",
+    "FAMILY": "",
+    "GENUS": "",
+    "SPECIES": ""
+  }
 }

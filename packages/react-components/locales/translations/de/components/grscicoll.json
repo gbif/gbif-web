@@ -53,8 +53,8 @@
     "explore": ""
   },
   "citesPermitNumber": "Anzahl der erlaubten Zitierungen",
-  "collectionDescriptorsHeadline": "Gleich {is}",
-  "collectionDescriptorsIntroduction": "Gleich {is}",
-  "collectionSearchNoResultsMessage": "Gleich {is}",
-  "searchForSpecimens": "Gleich {is}"
+  "collectionDescriptorsHeadline": "",
+  "collectionDescriptorsIntroduction": "",
+  "collectionSearchNoResultsMessage": "",
+  "searchForSpecimens": ""
 }

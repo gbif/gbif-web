@@ -568,7 +568,7 @@
     "preservation": {
       "name": "",
       "properties": {
-        "preservationType": "Gelijk aan {is}",
+        "preservationType": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
         "preservationTemperature": "Gelijk aan {is}",
         "preservationDateBegin": "Gelijk aan {is}",
         "sequence": "Gelijk aan {is}"

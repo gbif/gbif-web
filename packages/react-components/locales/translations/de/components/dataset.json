@@ -86,7 +86,7 @@
   "license": "Lizenz",
   "recommended": "Empfohlen",
   "processedOccurrences": "GBIF-kommentiertes Archiv",
-  "processedOccurrencesDescription": "Gleich {is}",
+  "processedOccurrencesDescription": "",
   "noDescriptionProvided": "Keine Beschreibung verfügbar",
   "pNetwork": "{NUMBER, plural, one{Netzwerk} other{Netzwerke}}",
   "parentEvent": "Übergeordnetes Ereignis",

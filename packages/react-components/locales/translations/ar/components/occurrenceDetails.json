@@ -441,7 +441,7 @@
         "pages": "",
         "pageStart": "",
         "pageEnd": "",
-        "volume": "",
+        "volume": "التساويات { is }",
         "edition": "",
         "publisher": "الناشر",
         "authorList": "",
@@ -568,7 +568,7 @@
     "preservation": {
       "name": "حفظ",
       "properties": {
-        "preservationType": "التساويات { is }",
+        "preservationType": "أرشيف شروح \"جيبف\"",
         "preservationTemperature": "التساويات { is }",
         "preservationDateBegin": "التساويات { is }",
         "sequence": "التساويات { is }"

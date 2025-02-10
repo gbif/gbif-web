@@ -1,6 +1,7 @@
 {
   "identifier": "ID",
   "type": "Type",
+  "subtypeLiteral": "Subtype",
   "title": "Titel",
   "rights": "rechten",
   "providerLiteral": "Leverancier",

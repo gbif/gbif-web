@@ -14,7 +14,7 @@
   "eventTypeHierarchyJoined": "",
   "eventHierarchyJoined": "",
   "map": "",
-  "backToTaxa": "Rovná se {from}",
+  "backToTaxa": "",
   "siteLocation": "",
   "info": {
     "original": "Původní",
@@ -27,7 +27,7 @@
     "record": "Záznam",
     "occurrence": "Výskyt",
     "event": "Událost",
-    "dataStructure": "Rovná se {from}",
+    "dataStructure": "",
     "identification": "Identifikace",
     "taxon": "Taxon",
     "location": "Poloha",

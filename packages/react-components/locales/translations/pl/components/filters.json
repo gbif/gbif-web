@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "Ma współrzędne",
     "count": "Ma współrzędne",
-    "description": "Równy {from}"
+    "description": ""
   },
   "hasGeospatialIssues": {
     "name": "Ma problemy geoprzestrzenne",
     "count": "Ma problemy geoprzestrzenne",
-    "description": "Równy {from}"
+    "description": ""
   },
   "collectionKey": {
     "name": "Kolekcja",
@@ -60,7 +60,7 @@
   "geometry": {
     "name": "Lokalizacja",
     "count": "{num, plural, one { filtr } few {# filtry } many {# filtrów } other {# filtry }}",
-    "description": "Równy {from}",
+    "description": "",
     "placeholderLat": "Szerokość geograficzna",
     "placeholderLon": "Długość geograficzna",
     "placeholderDist": "Odległość"
@@ -93,7 +93,7 @@
   "alternativeCode": {
     "name": "",
     "count": "",
-    "description": "Równy {from}"
+    "description": ""
   },
   "identifier": {
     "name": "Identyfikator",
@@ -108,7 +108,7 @@
   "discipline": {
     "name": "",
     "count": "",
-    "description": "Równy {from}"
+    "description": ""
   },
   "collectionContentType": {
     "name": "",
@@ -128,7 +128,7 @@
   "taxonKeyGrSciColl": {
     "name": "Nazwa naukowa",
     "count": "{num, plural, one {nazwa naukowa} few {# nazwy naukowe} many {# nazw naukowych} other {# nazwy naukowe}}",
-    "description": "Równy {from}"
+    "description": ""
   },
   "basisOfRecord": {
     "name": "Podstawa zapisu",
@@ -222,12 +222,12 @@
   "countriesOfCoverage": {
     "name": "Kraj lub obszar zasięgu",
     "count": "{num, plural, one {kraj lub obszar zasięgu} few {# kraje lub obszary zasięgu} many {# krajów lub obszarów zasięgu} other {# kraje lub obszary zasięgu}}",
-    "description": "Równy {from}"
+    "description": ""
   },
   "collectionDescriptorCountry": {
     "name": "Kraj lub obszar zasięgu",
     "count": "{num, plural, one {kraj lub obszar zasięgu} few {# kraje lub obszary zasięgu} many {# krajów lub obszarów zasięgu} other {# kraje lub obszary zasięgu}}",
-    "description": "Równy {from}"
+    "description": ""
   },
   "countriesOfResearcher": {
     "name": "Kraj lub obszar badacza",
@@ -347,8 +347,8 @@
   },
   "higherGeography": {
     "name": "Geografia wyższego rzędu",
-    "count": "Równy {from}",
-    "description": "Równy {from}"
+    "count": "",
+    "description": ""
   },
   "stateProvince": {
     "name": "Region",
@@ -433,22 +433,22 @@
   "active": {
     "name": "Aktywny",
     "count": "Aktywny",
-    "description": "Równy {from}"
+    "description": ""
   },
   "activeInstitution": {
     "name": "Aktywne",
     "count": "Aktywne",
-    "description": "Równy {from}"
+    "description": ""
   },
   "activeCollection": {
     "name": "Aktywne",
     "count": "Aktywne",
-    "description": "Równy {from}"
+    "description": ""
   },
   "publicationDate": {
     "name": "",
-    "count": "Równy {from}",
-    "description": "Równy {from}"
+    "count": "",
+    "description": ""
   },
   "personalCollection": {
     "name": "Kolekcja osobista",
@@ -474,7 +474,7 @@
     "name": "Nazwa",
     "count": "{num, plural, one { nazwa } few {# nazwy} many {# nazw} other {# nazwy}}",
     "description": "",
-    "searchPlaceholder": "Równy {from}"
+    "searchPlaceholder": ""
   },
   "city": {
     "name": "Miasto",
