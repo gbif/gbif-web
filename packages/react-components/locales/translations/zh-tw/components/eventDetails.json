@@ -14,7 +14,7 @@
   "eventTypeHierarchyJoined": "",
   "eventHierarchyJoined": "",
   "map": "",
-  "backToTaxa": "等於 {is}",
+  "backToTaxa": "",
   "siteLocation": "",
   "info": {
     "original": "原始的",
@@ -27,7 +27,7 @@
     "record": "紀錄",
     "occurrence": "出現",
     "event": "活動",
-    "dataStructure": "等於 {is}",
+    "dataStructure": "",
     "identification": "鑑定",
     "taxon": "分類群",
     "location": "地點",
