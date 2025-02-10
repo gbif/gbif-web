@@ -568,7 +568,7 @@
     "preservation": {
       "name": "Preservación",
       "properties": {
-        "preservationType": "Igual a {is}",
+        "preservationType": "",
         "preservationTemperature": "Igual a {is}",
         "preservationDateBegin": "Igual a {is}",
         "sequence": "Igual a {is}"
