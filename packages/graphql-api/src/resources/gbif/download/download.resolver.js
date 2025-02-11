@@ -43,46 +43,5 @@ export default {
         return null;
       }
     },
-    predicate: () => {
-      return {
-        type: 'and',
-        predicates: [
-          {
-            type: 'not',
-            predicate: {
-              type: 'in',
-              key: 'RECORDED_BY',
-              values: ['erik vikkelso rasmussen (4500era)'],
-            },
-          },
-          {
-            type: 'not',
-            predicate: {
-              type: 'in',
-              key: 'COLLECTION_KEY',
-              values: ['b2190553-4505-4fdd-8fff-065c8ca26f72'],
-            },
-          },
-          {
-            type: 'not',
-            predicate: {
-              type: 'in',
-              key: 'DWCA_EXTENSION',
-              values: [
-                'http://purl.org/germplasm/germplasmTerm#GermplasmAccession',
-              ],
-            },
-          },
-          {
-            type: 'not',
-            predicate: {
-              type: 'in',
-              key: 'ISSUE',
-              values: ['GEODETIC_DATUM_ASSUMED_WGS84', 'COORDINATE_ROUNDED'],
-            },
-          },
-        ],
-      };
-    },
   },
 };

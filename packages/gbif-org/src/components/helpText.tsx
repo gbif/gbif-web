@@ -47,11 +47,11 @@ export function HelpText({
   children?: React.ReactNode;
 } & React.HTMLAttributes<HTMLElement>) {
   const { title, body, error, loading } = useHelp(identifier);
-
+  const failed = !loading && (error || !title);
   return (
     <div {...props}>
       {loading && <HelpTextSkeleton includeTitle={includeTitle} />}
-      {!loading && error && (
+      {failed && (
         <div style={{ textAlign: 'center' }}>
           <div>
             <Failed />
@@ -128,21 +128,25 @@ export function HelpLine({
   icon,
   children,
   className,
+  contentClassName,
 }: {
   id?: string;
   title?: React.ReactNode;
   icon?: boolean | React.ReactNode;
   children?: React.ReactNode;
   className?: string;
+  contentClassName?: string;
 }) {
   const hasTitle = title || id;
   return (
     <Popover>
-      <PopoverTrigger>
-        {hasTitle && <>{title || <HelpTitle id={id ?? ''} />} </>}
-        {icon && (typeof icon === 'boolean' ? <MdInfoOutline /> : icon)}
+      <PopoverTrigger className={cn('g-inline-flex g-text-start', className)}>
+        <span className="g-flex-inline g-gap-2">
+          {hasTitle && <>{title || <HelpTitle id={id ?? ''} />} </>}
+          {icon && (typeof icon === 'boolean' ? <MdInfoOutline className="-g-mt-1" /> : icon)}
+        </span>
       </PopoverTrigger>
-      <PopoverContent className={cn('g-prose g-w-96', className)}>
+      <PopoverContent className={cn('g-prose g-w-96', contentClassName)}>
         {id && <HelpText identifier={id} />}
         {!id && children}
       </PopoverContent>

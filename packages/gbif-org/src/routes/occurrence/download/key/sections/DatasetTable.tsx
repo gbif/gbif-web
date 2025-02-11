@@ -44,7 +44,7 @@ export function DatasetTable({
   }, [downloadKey, load, limit, offset]);
 
   const { results } = data?.datasetsByDownload || {};
-  if (!initialDatasets.length === 0) return null;
+  if (initialDatasets.length === 0) return null;
 
   const datasets = results ?? initialDatasets;
 
@@ -54,13 +54,13 @@ export function DatasetTable({
         <thead className="g-text-slate-500 g-font-light g-bg-gray-50 dark:g-bg-gray-700 dark:g-text-gray-400 g-border-b">
           <tr>
             <th scope="col" className="g-px-4 md:g-px-8 g-py-3 g-font-normal">
-              <FormattedMessage id="grscicoll.name" />
+              <FormattedMessage id="downloadKey.title" />
             </th>
             <th
               scope="col"
               className="g-px-4 md:g-px-8 g-py-3 g-font-normal g-text-right rtl:g-text-left"
             >
-              <FormattedMessage id="Records" />
+              <FormattedMessage id="downloadKey.records" />
             </th>
           </tr>
         </thead>

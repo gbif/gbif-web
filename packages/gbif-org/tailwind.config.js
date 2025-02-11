@@ -124,6 +124,9 @@ module.exports = {
       flexBasis: {
         content: 'content',
       },
+      boxShadow: {
+        blocker: '0 0 10000px 10000px rgba(0, 0, 0, 0.1)',
+      },
     },
   },
   plugins: [addRtlSupport(require('@tailwindcss/typography')), require('tailwindcss-animate')],

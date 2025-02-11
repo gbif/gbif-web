@@ -32,7 +32,7 @@ export function DataHeader({
   aboutContent?: React.ReactElement;
   apiContent?: React.ReactElement;
   hideCatalogueSelector?: boolean;
-  doi?: string;
+  doi?: string | null;
   className?: string;
   hideIfNoCatalogue?: boolean;
 }) {
@@ -57,7 +57,7 @@ export function DataHeader({
       <div className="g-flex-auto g-min-w-0">{children}</div>
       <div className="g-flex-none g-mx-2">
         <div className="g-flex g-justify-center g-items-center">
-          {doi && <DoiTag id={doi} className="g-me-2 g-text-xs" />}
+          {doi && <DoiTag id={doi} className="g-me-2 g-text-xs g-hidden md:g-inline" />}
           {aboutContent && dataHeader.enableInfoPopup && (
             <Popup
               trigger={

@@ -288,7 +288,7 @@ export const PredicateDisplay = ({ predicate }) => {
       }
       return value;
     };
-  }, []);
+  }, [getTranslation]);
 
   if (!predicate) return null;
 

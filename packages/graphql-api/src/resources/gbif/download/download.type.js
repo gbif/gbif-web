@@ -34,7 +34,7 @@ const typeDef = gql`
   }
 
   type Download {
-    created: DateTime
+    created: DateTime!
     doi: String
     downloadLink: String
     eraseAfter: String
@@ -46,7 +46,7 @@ const typeDef = gql`
     numberPublishingCountries: Int
     request: DownloadRequest
     size: Int
-    status: String
+    status: Download_Status
     totalRecords: Int
   }
 
