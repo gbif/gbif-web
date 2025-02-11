@@ -1,5 +1,10 @@
 {
   "example": "Przykład",
   "examples": "Przykłady",
-  "search": "Wyszukaj"
+  "searchOrganizations": "Szukaj wydawców",
+  "search": "Wyszukaj",
+  "singleInstitution": "Pobierz pojedynczą instytucję",
+  "searchInstitutions": "Szukaj instytucji",
+  "singleDataset": "Pobierz pojedynczy zbiór danych",
+  "searchDatasets": "Pobierz wszystkie zbiory danych"
 }
