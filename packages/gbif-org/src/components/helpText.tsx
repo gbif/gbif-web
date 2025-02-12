@@ -116,9 +116,9 @@ export function useHelp(helpIdentifier: string, { titleOnly }: { titleOnly?: boo
 
 export function Failed() {
   return (
-    <div className="g-bg-red-600 g-rounded g-text-white g-p-1 g-px-2">
+    <span className="g-bg-red-600 g-rounded g-text-white g-p-1 g-px-2">
       <FormattedMessage id="phrases.failedToLoadData" />
-    </div>
+    </span>
   );
 }
 

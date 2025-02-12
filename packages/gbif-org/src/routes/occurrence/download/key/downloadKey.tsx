@@ -24,6 +24,7 @@ import { FormattedDate, FormattedMessage, useIntl } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 import { DatasetCard } from './sections/datasetCard';
+import { DeletionNotice } from './sections/deletionNotice';
 import { FileCard } from './sections/fileCard';
 import { NotReadyDownload } from './sections/notReadyDownload';
 import { QueryCard } from './sections/queryCard';
@@ -112,6 +113,8 @@ export function DownloadKey() {
   const download = data?.download;
   if (!download) throw new Error('404');
 
+  download.status = 'RUNNING';
+
   const literatureCount = slowData?.literatureSearch?.documents?.total;
   if (slowError) {
     // TODO, notify users that we couldn't load all data. specifically liteature in this case
@@ -157,6 +160,7 @@ export function DownloadKey() {
           </PageContainer>
           <PageContainer className="g-bg-slate-100 g-overflow-hidden">
             <ArticleTextContainer className="g-max-w-screen-xl g-pb-4 g-pt-4">
+              <DeletionNotice download={download} />
               {showCitation && <FileCard download={download} />}
               {!showCitation && (
                 <NotReadyDownload status={download.status ?? Download_Status.Failed} />
@@ -207,21 +211,21 @@ function Title({ download }: { download: DownloadKeyQuery['download'] }) {
       return (
         <FormattedMessage
           id="downloadKey.nRecordsDownloaded"
-          values={{ NUMBER: download.totalRecords, NUMBER_FORMATTED: download.totalRecords }}
+          values={{ total: download.totalRecords }}
         />
       );
     } else if (download?.request?.format === 'SQL_TSV_ZIP') {
       return (
         <FormattedMessage
           id="downloadKey.nRowsDownloaded"
-          values={{ NUMBER: download.totalRecords, NUMBER_FORMATTED: download.totalRecords }}
+          values={{ total: download.totalRecords }}
         />
       );
     } else if (download?.request?.format === 'DWCA' || download?.request?.format === 'SIMPLE_CSV') {
       return (
         <FormattedMessage
           id="downloadKey.nOccurrencesDownloaded"
-          values={{ NUMBER: download.totalRecords, NUMBER_FORMATTED: download.totalRecords }}
+          values={{ total: download.totalRecords }}
         />
       );
     } else if (download.totalRecords === 0) {
@@ -230,7 +234,7 @@ function Title({ download }: { download: DownloadKeyQuery['download'] }) {
       return (
         <FormattedMessage
           id="downloadKey.nRecordsDownloaded"
-          values={{ NUMBER: download.totalRecords, NUMBER_FORMATTED: download.totalRecords }}
+          values={{ total: download.totalRecords }}
         />
       );
     }

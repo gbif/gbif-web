@@ -10,9 +10,9 @@
     "originalDownloadDOI": "Original download"
   },
   "downloadKey": {
-    "nOccurrencesDownloaded": "{NUMBER_FORMATTED} {NUMBER, plural, one{occurrence} other{occurrences}} downloaded",
-    "nRecordsDownloaded": "{NUMBER_FORMATTED} {NUMBER, plural, one{record} other{records}} downloaded",
-    "nRowsDownloaded": "{NUMBER_FORMATTED} {NUMBER, plural, one{row} other{rows}} downloaded",
+    "nOccurrencesDownloaded": "{total, plural, one {# occurrence } other {# occurrences}} downloaded",
+    "nRecordsDownloaded": "{total, plural, one {# record } other {# records}} downloaded",
+    "nRowsDownloaded": "{total, plural, one {# row } other {# rows}} downloaded",
     "nConstituentDatasets": "Includes records from {total, plural, one {# dataset} other {# datasets}}",
     "fileNotAvailable": "This file is no longer available for download",
     "downloadDeletionWarning": "This download hasn't been cited and is eligible for deletion after {DATE}.",
@@ -49,6 +49,7 @@
     "downloadKilled": "The download request was unsuccessful. Please try it again or get in touch.",
     "downloadDeleted": "This file has been deleted. You can still access all metadata of the original query and rerun the same query on data currently available.",
     "downloadCancelled": "The download was cancelled by the creator.",
+    "downloadSuspended": "The download processing has been suspended.",
     "storageDurationTeaser": "For how long will GBIF store this data?",
     "predatesDoi": "This download predates our use of DOIs",
     "file": "File",

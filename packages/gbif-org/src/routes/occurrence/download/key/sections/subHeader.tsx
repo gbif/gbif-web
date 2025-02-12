@@ -1,10 +1,7 @@
 import { ErrorMessage } from '@/components/errorMessage';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import { CitationIcon, FeatureList, GenericFeature } from '@/components/highlights';
-import { HyperText } from '@/components/hyperText';
 import { LicenceTag } from '@/components/identifierTag';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
 import { DownloadKeyQuery } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { FormattedMessage } from 'react-intl';
@@ -43,23 +40,6 @@ export function SubHeader({
               </GenericFeature>
             )}
           </FeatureList>
-        )}
-
-        {showPostponeOption && (
-          <Alert variant="warning" className="g-mt-4">
-            <AlertDescription>
-              <HyperText
-                className="[&_a]:g-underline [&_a]:g-text-inherit"
-                text={
-                  'Unless GBIF discovers citations of this download, the data file is eligible for deletion after March 14, 2019.\n\nRead more about our deletion policy.'
-                }
-                sanitizeOptions={{ ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br'] }}
-              />
-              <Button className="g-mt-2" variant="outline">
-                Postpone deletion
-              </Button>
-            </AlertDescription>
-          </Alert>
         )}
 
         {download?.status === 'FILE_ERASED' && (

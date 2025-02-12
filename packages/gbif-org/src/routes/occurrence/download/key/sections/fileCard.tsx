@@ -9,6 +9,7 @@ import { BasicField } from '@/routes/occurrence/key/properties';
 import { formatBytes } from '@/utils/formatBytes';
 import { useMemo } from 'react';
 import { createIntl, FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
+import { downloadCompleted } from '../utils';
 
 export function FileCard({ download }: { download: DownloadKeyQuery['download'] }) {
   const { formatMessage } = useIntl();
@@ -28,6 +29,8 @@ export function FileCard({ download }: { download: DownloadKeyQuery['download'] 
       ? `https://doi.org/${download.doi}`
       : `${import.meta.env.PUBLIC_GBIF_ORG}/occurrence/download/${download.key}`
   }`;
+
+  const hasCompleted = downloadCompleted(download);
 
   return (
     <Card className="g-mb-4 g-pt-8">
@@ -67,6 +70,11 @@ export function FileCard({ download }: { download: DownloadKeyQuery['download'] 
             </div>
           </BasicField>
         </Properties>
+        {!download.doi && hasCompleted && (
+          <div className="g-text-slate-600 g-mt-4">
+            <FormattedMessage id="downloadKey.predatesDoi" />
+          </div>
+        )}
       </CardContent>
       {download.downloadLink && download?.status === 'SUCCEEDED' && (
         <CardContent className="g-border-t g-border-gray-200 !g-py-4 g-flex g-gap-4 g-flex-col md:g-flex-row">
