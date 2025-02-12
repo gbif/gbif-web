@@ -14,7 +14,6 @@ import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './help';
 import { searchConfig } from './searchConfig';
 import { LiteratureTable } from './views/table';
-import { ClientSideOnly } from '@/components/clientSideOnly';
 
 export function LiteratureSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({

@@ -12,4 +12,5 @@ export default [
   'publishingOrganizationKey',
   'gbifDatasetKey',
   'gbifNetworkKey',
+  'gbifProgrammeAcronym',
 ];
