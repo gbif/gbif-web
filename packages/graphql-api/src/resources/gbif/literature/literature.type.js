@@ -62,6 +62,7 @@ const typeDef = gql`
   }
 
   type LiteratureFacet {
+    gbifProgrammeAcronym(size: Int, from: Int): [GenericFacetResult_string]
     publisher(size: Int, from: Int): [GenericFacetResult_string]
     year(size: Int, from: Int): [GenericFacetResult_float]
     topics(size: Int, from: Int): [GenericFacetResult_string]

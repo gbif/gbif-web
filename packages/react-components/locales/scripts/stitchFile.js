@@ -33,6 +33,8 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       phrases: getFile(locale, `../${folder}/${locale}/components/phrases`),
       taxon: getFile(locale, `../${folder}/${locale}/components/taxon`),
       footer: getFile(locale, `../${folder}/${locale}/components/footer`).footer,
+      resourceSearch: getFile(locale, `../${folder}/${locale}/components/resourceSearch`).resourceSearch,
+      filterNames: getFile(locale, `../${folder}/${locale}/components/filterNames`).filterNames,
 
       occurrenceFieldNames: getFile(
         locale,
