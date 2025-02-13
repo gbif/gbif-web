@@ -15,7 +15,7 @@
   "nInstitutions": "{total, plural, one {# institución} other {# instituciones}}",
   "nRecordsTotal": "{total, plural, one {# registro en total} other {# registros en total}}\n",
   "nSelected": "{total, plural, other {# seleccionados}}\n",
-  "nExcluded": "{total, plural, one {}other {# excluido}}",
+  "nExcluded": "{total, plural, one {}other {# excluidos}}",
   "nQualityFlags": "{total, plural, one {# alerta} other {# alertas}}",
   "nAudioFiles": "{total, plural, one {# archivo de sonido} other {# archivos de sonido}}",
   "nVideos": "{total, plural, one {# video} other {# videos}}",
@@ -38,5 +38,5 @@
   "nStaffMembers": "{total, plural, one {# miembro del equipo} other {# miembros del equipo}}",
   "nOccurrencesHosted": "{total, plural, one {# registro biológico alojado} other {# registros biológicos alojados}}",
   "nPercentOfTotal": "{percentage, plural, one {}other {#% del total}}",
-  "nMoreDatasets": "{total, plural, one {+ # más conjuntos de datos} other {+ # más conjuntos de datos}}"
+  "nMoreDatasets": "{total, plural, one {+ # conjuntos de datos más} other {+ # conjuntos de datos más}}"
 }
