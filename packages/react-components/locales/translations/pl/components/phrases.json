@@ -42,7 +42,7 @@
   "discard": "",
   "keep": "",
   "addressUnknown": "",
-  "emptyValueProvided": "",
+  "emptyValueProvided": "Podana pusta wartość",
   "copyToClipboard": "",
   "fromCountry": "Z {country}",
   "copiedToClipboard": "Skopiowano do schowka",
@@ -51,11 +51,11 @@
     "description": "Opis",
     "contacts": "Kontakty"
   },
-  "derivedFromOccurrenceData": "",
+  "derivedFromOccurrenceData": "Pochodzący z danych o występowaniu",
   "pageToc": "",
-  "apiAccess": "",
-  "lastCrawled": "",
-  "goToRecord": "",
-  "commonNameAccordingTo": "",
+  "apiAccess": "Dostęp do API",
+  "lastCrawled": "Ostatnio przeszukane",
+  "goToRecord": "Przejdź do zapisu",
+  "commonNameAccordingTo": "Nazwa zwyczajowa według: {source}",
   "noResults": ""
 }
