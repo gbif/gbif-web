@@ -1,11 +1,11 @@
 {
   "tabs": {
-    "details": "",
-    "cluster": "",
+    "details": "Szczegóły",
+    "cluster": "Powiązane rekordy",
     "phylotree": ""
   },
   "occurrence": "Stwierdzenie",
-  "specimen": "",
+  "specimen": "Okaz",
   "processed": "",
   "fragment": "",
   "showAllFields": "Pokaż wszystkie pola",
@@ -18,7 +18,7 @@
   "collection": "Kolekcja",
   "collectionGrSciColl": "Kolekcja GrSciColl",
   "recordedAndIdentifiedBy": "Stwierdzony i zidentyfikowany przez",
-  "tryPublisherSiteForFailingMedia": "",
+  "tryPublisherSiteForFailingMedia": "Jeśli media nie wyświetlają się prawidłowo, spróbuj na stronie publikującego ",
   "screenReader": {
     "title": "Szczegóły stwierdzenia"
   },
@@ -40,7 +40,7 @@
     "materialSample": "Próbka",
     "geologicalContext": "Kontekst geologiczny",
     "other": "Inne",
-    "extensions": ""
+    "extensions": "Rozszerzenia"
   },
   "features": {
     "isClustered": "Klastrowany",
@@ -58,12 +58,12 @@
     "isType": "Typ okazu"
   },
   "cluster": {
-    "current": "",
-    "relatedOccurrences": "",
-    "similarBecause": "",
+    "current": "Obecny",
+    "relatedOccurrences": "Powiązane stwierdzenia",
+    "similarBecause": "Podobne, ponieważ",
     "clusterTags": "",
-    "matchedRecord": "",
-    "noMatches": "",
+    "matchedRecord": "Dopasowany zapis",
+    "noMatches": "Brak kandydatur relacji",
     "explainer": "Ta eksperymentalna funkcja podkreślana możliwe duplikaty i/lub powiązane występowania."
   },
   "extensions": {
