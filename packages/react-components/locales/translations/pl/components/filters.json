@@ -446,7 +446,7 @@
     "description": ""
   },
   "publicationDate": {
-    "name": "",
+    "name": "Data publikacji",
     "count": "",
     "description": ""
   },
@@ -502,8 +502,8 @@
     "description": "Z jakim typem bibliografii wiąże się cytowanie."
   },
   "higherTaxonKey": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Wyższy takson",
+    "count": "{num, plural, one {wyższy takson} few {# wyższe taksony} many {# wyższych taksonów} other {# wyższych taksonów}}",
+    "description": "Filtrowanie po wyższym taksonie."
   }
 }
