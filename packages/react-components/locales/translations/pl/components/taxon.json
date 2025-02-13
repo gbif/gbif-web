@@ -1,21 +1,21 @@
 {
   "tabs": {
-    "about": "",
+    "about": "Informacje",
     "typeMaterial": "",
     "metrics": "Metryka"
   },
   "publishedIn": "Opublikowany w",
   "vernacularNames": "Nazwy zwyczajowe",
-  "rank": "",
+  "rank": "Ranga",
   "source": "Źródło",
   "specimenIsTypeOf": "",
   "typeMaterial": "",
-  "more": "",
+  "more": "więcej ",
   "less": "",
   "dna": "DNA",
   "occurenceImages": "",
-  "taxonIdentifiers": "",
-  "synonymsAndCombinations": "",
+  "taxonIdentifiers": "Identyfikatory taksonu",
+  "synonymsAndCombinations": "Synonimy i kombinacje",
   "rankPlural": {
     "KINGDOM": "Królestwa",
     "PHYLUM": "Typ",
