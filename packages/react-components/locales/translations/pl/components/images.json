@@ -4,9 +4,12 @@
   "subtypeLiteral": "Podtyp",
   "title": "Tytuł",
   "rights": "Prawa",
+  "credit": "Prawa autorskie",
   "providerLiteral": "Dostawca",
   "description": "Opis",
   "accessURI": "URL",
+  "accessOriginalURI": "Pierwotny adres URL",
   "format": "Format",
-  "pixelXDimension": "Szerokość"
+  "pixelXDimension": "Szerokość",
+  "pixelYDimension": "Wysokość"
 }
