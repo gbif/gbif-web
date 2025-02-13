@@ -1,4 +1,10 @@
 {
+  "BASIS_OF_RECORD_INVALID": "Brak wartości basisOfRecord lub jest nieprawidłowa. Wartość musi być zgodna ze słownikiem Darwin Core Vocabulary.",
+  "COORDINATE_REPROJECTION_FAILED": "Podana dziesiętna wysokość i szerokość geograficzna nie mogą być przeliczone na WGS84 w oparciu o podany układ odniesienia.",
+  "NO_SPECIES": "W grupie (obecnie testowanej tylko z rodzajami) nie ma żadnych zaakceptowanych gatunków. Problem związany z rdzeniem GBIF.",
+  "RECORDED_DATE_INVALID": "Podano (częściowo) nieprawidłową datę, taką jak nieistniejąca data, niepoprawny miesiąc zerowy itp.",
+  "PRESUMED_NEGATED_LATITUDE": "Wygląda na to, że szerokość geograficzna jest zanegowana, np. 32.3 zamiast -32.3",
+  "UNKNOWN_TERM": "Nieznane wyrażenie użyte w definicji rdzenia/rozszerzenia.",
   "TAXONOMIC_STATUS_MISMATCH": "(brak opisu)",
   "TITLE_MISSING_OR_TOO_SHORT": "Brak tytułu bazy danych lub jest on zbyt krótki",
   "CLASSIFICATION_RANK_ORDER_INVALID": "(brak opisu)",
