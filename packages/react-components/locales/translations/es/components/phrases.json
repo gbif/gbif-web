@@ -53,7 +53,7 @@
   },
   "derivedFromOccurrenceData": "Derivado del registro biológico",
   "pageToc": "",
-  "apiAccess": "Acceso API",
+  "apiAccess": "Acceso a la API",
   "lastCrawled": "Último rasteo",
   "goToRecord": "Ir al registro",
   "commonNameAccordingTo": "Nombre común según: {source}",
