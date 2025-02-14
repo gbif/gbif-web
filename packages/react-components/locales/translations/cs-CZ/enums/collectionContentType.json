@@ -60,5 +60,10 @@
   "RECORDS_SEISMOGRAMS": "Záznamy - seismografy",
   "RECORDS_RADIOGRAPH": "Záznamy - radiografy",
   "RECORDS_IMAGES": "Záznamy - fotografie",
-  "RECORDS_DOCUMENTS": "Záznamy - dokumenty"
+  "RECORDS_DOCUMENTS": "Záznamy - dokumenty",
+  "RECORDS_DOCUMENTATION": "Záznamy - dokumentace",
+  "RECORDS_DERIVED_DATA": "Záznamy - odvozená data",
+  "RECORDS_ASSOCIATED_DATA": "Záznamy - přidružená data",
+  "RECORDS_MAPS": "Záznamy - mapy",
+  "RECORDS_RECORDINGS": "Záznamy - nahrávky"
 }
