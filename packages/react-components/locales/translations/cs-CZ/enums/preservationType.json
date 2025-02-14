@@ -20,5 +20,6 @@
   "SAMPLE_SURFACE_COATING": "Vzorek s povrchovou úpravou",
   "SAMPLE_TANNED": "Vzorek opálený",
   "SAMPLE_WAX_BLOCK": "Vzorek ve voskovém bloku",
-  "SAMPLE_OTHER": "Vzorek ostatní"
+  "SAMPLE_OTHER": "Vzorek ostatní",
+  "SAMPLE_FREEZE_DRYING": "Lyofilizace vzorků"
 }
