@@ -45,7 +45,7 @@
     "description": ""
   },
   "iucnRedListCategory": {
-    "name": "",
+    "name": "Kategorie zagrożenia na czerwonych listach IUCN",
     "count": "",
     "description": "Czerwona Księga Gatunków Zagrożonych IUCN grupuje taksony według stopnia ich zagrożenia."
   },
