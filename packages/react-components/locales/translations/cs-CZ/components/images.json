@@ -4,9 +4,12 @@
   "subtypeLiteral": "Podtyp",
   "title": "Název",
   "rights": "Práva",
+  "credit": "Kredit",
   "providerLiteral": "Poskytovatel",
   "description": "Popis",
   "accessURI": "URL",
+  "accessOriginalURI": "Původní URL",
   "format": "Formát",
-  "pixelXDimension": "Šířka"
+  "pixelXDimension": "Šířka",
+  "pixelYDimension": "Výška"
 }
