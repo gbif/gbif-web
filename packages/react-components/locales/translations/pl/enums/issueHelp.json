@@ -22,6 +22,10 @@
   "ELEVATION_NON_NUMERIC": "Ustaw, jeśli wysokość nie jest wartością liczbową",
   "COORDINATE_UNCERTAINTY_METERS_INVALID": "Oznacza nieprawidłowy lub bardzo mało prawdopodobny dwc:uncertaintyInMeters.",
   "MODIFIED_DATE_UNLIKELY": "Data podana dla 'dc:modified' jest datą w przyszłości lub wcześniejszą niż data powstania systemu UNIX (1970).",
+  "DISTRIBUTION_INVALID": "Co najmniej jeden rekord rozszerzenia dystrybucji dołączony do tej nazwy jest nieprawidłowy.",
+  "ZERO_COORDINATE": "Współrzędna to dokładna współrzędna 0/0, często wskazująca na błędną współrzędną zerową.",
+  "TAXON_MATCH_FUZZY": "Dopasowanie do szkieletu taksonomicznego jest możliwe wyłącznie za pomocą dopasowania rozmytego i niedokładnego.",
+  "DEPTH_NOT_METRIC": "Ustaw, jeśli dostarczona głębokość nie jest podana w systemie metrycznym, np. używając stóp zamiast metrów",
   "CLASSIFICATION_RANK_ORDER_INVALID": "(brak opisu)",
   "PARENT_NAME_USAGE_ID_INVALID": "(brak opisu)",
   "DESCRIPTION_MISSING_OR_TOO_SHORT": "Brak opisu bazy danych lub jest on zbyt krótki"
