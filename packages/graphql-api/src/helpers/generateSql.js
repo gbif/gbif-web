@@ -4,10 +4,165 @@ const defaultUncertainty = 1000;
 
 const sqlEndpoint = config.sqlapi ?? config.apiv1;
 
-async function getWhereClause({ predicate }) {
-  if (!predicate) {
-    return '';
+const WHERE_PREDICATE_RESTRICTIONS = {
+  taxonomicDimension: {
+    KINGDOM: [
+      {
+        type: 'isNotNull',
+        parameter: 'KINGDOM_KEY',
+      },
+    ],
+    PHYLUM: [
+      {
+        type: 'isNotNull',
+        parameter: 'PHYLUM_KEY',
+      },
+    ],
+    CLASS: [
+      {
+        type: 'isNotNull',
+        parameter: 'CLASS_KEY',
+      },
+    ],
+    ORDER: [
+      {
+        type: 'isNotNull',
+        parameter: 'ORDER_KEY',
+      },
+    ],
+    FAMILY: [
+      {
+        type: 'isNotNull',
+        parameter: 'FAMILY_KEY',
+      },
+    ],
+    GENUS: [
+      {
+        type: 'isNotNull',
+        parameter: 'GENUS_KEY',
+      },
+    ],
+    SPECIES: [
+      {
+        type: 'isNotNull',
+        parameter: 'SPECIES_KEY',
+      },
+    ],
+    EXACT_TAXON: [
+      {
+        type: 'isNotNull',
+        parameter: 'TAXON_KEY',
+      },
+    ],
+    ACCEPTED_TAXON: [
+      {
+        type: 'isNotNull',
+        parameter: 'ACCEPTED_TAXON_KEY',
+      },
+    ],
+  },
+  temporalDimension: {
+    YEAR: [
+      {
+        type: 'isNotNull',
+        parameter: 'YEAR',
+      },
+    ],
+    YEARMONTH: [
+      {
+        type: 'isNotNull',
+        parameter: 'YEAR',
+      },
+      {
+        type: 'isNotNull',
+        parameter: 'MONTH',
+      },
+    ],
+    DATE: [
+      {
+        type: 'isNotNull',
+        parameter: 'YEAR',
+      },
+      {
+        type: 'isNotNull',
+        parameter: 'MONTH',
+      },
+      {
+        type: 'isNotNull',
+        parameter: 'DAY',
+      },
+    ],
+  },
+  spatialDimension: {
+    EEA_REFERENCE_GRID: [
+      {
+        type: 'equals',
+        key: 'HAS_COORDINATE',
+        value: 'true',
+      },
+    ],
+    EXTENDED_QUARTER_DEGREE_GRID: [
+      {
+        type: 'equals',
+        key: 'HAS_COORDINATE',
+        value: 'true',
+      },
+    ],
+    ISEA3H_GRID: [
+      {
+        type: 'equals',
+        key: 'HAS_COORDINATE',
+        value: 'true',
+      },
+    ],
+    MILITARY_GRID_REFERENCE_SYSTEM: [
+      {
+        type: 'equals',
+        key: 'HAS_COORDINATE',
+        value: 'true',
+      },
+    ],
+  },
+};
+async function getWhereClause({
+  predicate,
+  taxonomicDimension,
+  temporalDimension,
+  spatialDimension,
+}) {
+  const restrictions = [];
+  if (taxonomicDimension) {
+    const taxonomicRestrictions =
+      WHERE_PREDICATE_RESTRICTIONS.taxonomicDimension[taxonomicDimension];
+    if (taxonomicRestrictions) {
+      restrictions.push(...taxonomicRestrictions);
+    }
   }
+  if (temporalDimension) {
+    const temporalRestrictions =
+      WHERE_PREDICATE_RESTRICTIONS.temporalDimension[temporalDimension];
+    if (temporalRestrictions) {
+      restrictions.push(...temporalRestrictions);
+    }
+  }
+  if (spatialDimension) {
+    const spatialRestrictions =
+      WHERE_PREDICATE_RESTRICTIONS.spatialDimension[spatialDimension];
+    if (spatialRestrictions) {
+      restrictions.push(...spatialRestrictions);
+    }
+  }
+  if (restrictions.length === 0) {
+    throw new Error(
+      'No restrictions found, which is unexpected as there should always be at least one dimension.',
+    );
+  }
+  const restrictionsPredicate = { type: 'and', predicates: restrictions };
+
+  const combinedPredicate = predicate
+    ? { type: 'and', predicates: [predicate, restrictionsPredicate] }
+    : restrictionsPredicate;
+
   const sqlResponse = await fetch(
     `${sqlEndpoint}/occurrence/download/request/sql`,
     {
@@ -15,7 +170,7 @@ async function getWhereClause({ predicate }) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ predicate }),
+      body: JSON.stringify({ predicate: combinedPredicate }),
     },
   ).then((response) => response.json());
   // replace newlines with spaces and replace double spaces with single spaces
@@ -51,7 +206,12 @@ export default async function generateSql({
   const dimensions = [];
   let filters = '';
   try {
-    filters = predicate ? await getWhereClause({ predicate }) : ''; //  TODO we need a way to get the filter as SQL https://github.com/gbif/occurrence/issues/356
+    filters = await getWhereClause({
+      predicate,
+      taxonomicDimension: taxonomy,
+      temporalDimension: temporal,
+      spatialDimension: spatial,
+    });
   } catch (error) {
     return { error: error.message, sql: null };
   }
@@ -217,9 +377,10 @@ export default async function generateSql({
       dimensions.push(lookup[rank]);
     });
   }
-
+  // remove undefined and null values from dimensions
+  const filteredDimensions = dimensions.filter((dimension) => dimension);
   const sql = template
-    .replace('{{DIMENSIONS}}', dimensions.join(', '))
+    .replace('{{DIMENSIONS}}', filteredDimensions.join(', '))
     .replace('{{MEASUREMENTS}}', measurements.join(', '))
     .replace('{{FILTERS}}', filters)
     .replace('{{GROUP_BY}}', groupBy.join(', '));
@@ -252,7 +413,7 @@ export async function getSql({ query }) {
   }
   return {
     comment:
-      'This is an experimental endpoint to generate SQL queries for the occurrence download service. Currently filters (WHERE) is hardcoded and is waiting for https://github.com/gbif/occurrence/issues/356',
+      'This is an unstable endpoint to generate SQL queries for the occurrence download service.',
     error,
     sql,
     validationResponse: validation,
