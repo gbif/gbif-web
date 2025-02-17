@@ -5,6 +5,7 @@
   "nInstitutions": "{total, plural, one {# instituce} few {# instituce} many {# institucí} other {# institucí}}",
   "nRecordsTotal": "{total, plural, one {# záznam celkem} few {# záznamy celkem} many {# záznamů celkem} other {# záznamů celkem}}",
   "nSelected": "{total, plural, one {vybrán} few {# vybrány} many {# vybráno}other {# vybráno}}",
+  "nExcluded": "{total, plural, one {vyloučen} few {# vyloučeny} many {# vyloučeno}other {# vyloučeno}}",
   "nVideos": "{total, plural, one {# video} few {# videa} many {# videí} other {# videí}}",
   "nImages": "{total, plural, one {# obrázek} few {# obrázky} many {# obrázků} other {# obrázků}}",
   "nAuthors": "{total, plural, one {# autor} few {# autoři} many {# autorů} other {# autorů}}",
