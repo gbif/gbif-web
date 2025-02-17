@@ -2,7 +2,7 @@
 
 import { getDefaultAgent } from '#/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
-import { get } from 'lodash';
+import { get, merge } from 'lodash';
 import wikibase from 'wikibase-sdk';
 import { decorateProperty, getItemData, getIUCNRedListData } from './helpers';
 
@@ -55,11 +55,12 @@ class WikiDataAPI extends RESTDataSource {
   async decorateWithPropertyDescriptions(properties, locale = 'en') {
     if (properties.length === 0) return '';
     try {
-      const res = await this.get(
-        this.wdk.getEntities(
-          properties.map((k) => get(k, `mainsnak.property`)),
-        ),
+      const urls = this.wdk.getManyEntities(
+        properties.map((k) => get(k, `mainsnak.property`)),
       );
+
+      const responses = await Promise.all(urls.map((url) => this.get(url)));
+      const res = merge({}, ...responses);
       return properties.map((p) => decorateProperty(p, res, locale));
     } catch (err) {
       // Handle the error, logging?
