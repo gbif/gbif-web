@@ -181,6 +181,7 @@
   "identificationRemarks": "Poznámky k identifikaci",
   "taxonID": "ID taxonu",
   "scientificNameID": "ID vědeckého názvu",
+  "taxonConceptID": "Taxon concept ID",
   "scientificName": "Vědecký název",
   "acceptedNameUsage": "Přijaté použití názvu",
   "acceptedName": "Přijatý název",
