@@ -6,7 +6,7 @@
   "additionalNames": "Dodatkowe nazwy",
   "description": "Opis",
   "code": "Kod",
-  "name": "",
+  "name": "Nazwa",
   "active": "Aktywny",
   "activeInstitution": "Aktywne",
   "activeCollection": "Aktywne",
@@ -53,8 +53,8 @@
     "explore": "Przeglądaj katalog"
   },
   "citesPermitNumber": "Numer pozwolenia CITES",
-  "collectionDescriptorsHeadline": "Równy {from}",
-  "collectionDescriptorsIntroduction": "Równy {from}",
-  "collectionSearchNoResultsMessage": "Równy {from}",
-  "searchForSpecimens": "Równy {from}"
+  "collectionDescriptorsHeadline": "",
+  "collectionDescriptorsIntroduction": "",
+  "collectionSearchNoResultsMessage": "",
+  "searchForSpecimens": ""
 }

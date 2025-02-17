@@ -14,7 +14,7 @@
   "eventTypeHierarchyJoined": "",
   "eventHierarchyJoined": "",
   "map": "",
-  "backToTaxa": "Gelijk aan {is}",
+  "backToTaxa": "",
   "siteLocation": "",
   "info": {
     "original": "Origineel",
@@ -27,7 +27,7 @@
     "record": "Record",
     "occurrence": "Voorkomen",
     "event": "Evenement",
-    "dataStructure": "Gelijk aan {is}",
+    "dataStructure": "",
     "identification": "Identificatie",
     "taxon": "Taxon",
     "location": "Locatie",

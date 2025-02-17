@@ -30,7 +30,7 @@
   "location": {
     "geometry": "Géométrie",
     "map": "Carte",
-    "wktPlaceholder": "",
+    "wktPlaceholder": "WKT ou GeoJSON — les polygones multiples ne sont pas supportés",
     "range": "Couverture",
     "recent": "Récemment utilisé",
     "add": "Ajouter",

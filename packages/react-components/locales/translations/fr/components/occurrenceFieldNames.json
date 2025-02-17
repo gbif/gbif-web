@@ -259,6 +259,8 @@
   "gadmClassification": "Localisation selon GADM",
   "images": "Multimedia",
   "eventTypeHierarchyJoined": "Identifiant de Structure",
+  "measurementOrFactTypes": "Mesures ou Faits",
+  "temporalCoverage": "Couverture temporelle",
   "eventType": "Type d'évènement",
   "iucnRedListCategory": "Catégorie de la liste rouge de l'UICN"
 }

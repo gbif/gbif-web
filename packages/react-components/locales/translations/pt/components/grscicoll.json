@@ -53,8 +53,8 @@
     "explore": ""
   },
   "citesPermitNumber": "Número da autorização Cites",
-  "collectionDescriptorsHeadline": "Iguais {is}",
-  "collectionDescriptorsIntroduction": "Iguais {is}",
-  "collectionSearchNoResultsMessage": "Iguais {is}",
-  "searchForSpecimens": "Iguais {is}"
+  "collectionDescriptorsHeadline": "",
+  "collectionDescriptorsIntroduction": "",
+  "collectionSearchNoResultsMessage": "",
+  "searchForSpecimens": ""
 }

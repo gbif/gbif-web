@@ -8,5 +8,18 @@
   "STORAGE_OTHER": "Úložiště jiné",
   "STORAGE_REFRIGERATED": "Úložiště chlazené",
   "STORAGE_RECORDED": "Úložiště záznamu",
-  "STORAGE_VACUUM": "Úložiště vakuové"
+  "STORAGE_VACUUM": "Úložiště vakuové",
+  "SAMPLE_CRYOPRESERVED": "Kryokonzervovaný vzorek",
+  "SAMPLE_DRIED": "Vysušený vzorek",
+  "SAMPLE_EMBEDDED": "Vložený vzorek",
+  "SAMPLE_FLUID_PRESERVED": "Uchovávaný vzorek tekutiny",
+  "SAMPLE_PINNED": "Přišpendlený vzorek",
+  "SAMPLE_PRESSED": "Lisovaný vzorek",
+  "SAMPLE_SKELETONIZED": "Vzorek kostry",
+  "SAMPLE_SLIDE_MOUNT": "Vzorek na podložním sklíčku",
+  "SAMPLE_SURFACE_COATING": "Vzorek s povrchovou úpravou",
+  "SAMPLE_TANNED": "Vzorek opálený",
+  "SAMPLE_WAX_BLOCK": "Vzorek ve voskovém bloku",
+  "SAMPLE_OTHER": "Vzorek ostatní",
+  "SAMPLE_FREEZE_DRYING": "Lyofilizace vzorků"
 }

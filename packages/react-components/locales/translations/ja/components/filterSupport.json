@@ -30,7 +30,7 @@
   "location": {
     "geometry": "ジオメトリ",
     "map": "マップ",
-    "wktPlaceholder": "",
+    "wktPlaceholder": "WKT または GeoJSON",
     "range": "範囲",
     "recent": "最近使用された",
     "add": "追加",

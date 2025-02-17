@@ -33,7 +33,7 @@
     "either": "Gleich {is}"
   },
   "loadMore": "Mehr",
-  "noResults": "Gleich {is}",
+  "noResults": "",
   "occurrenceClustersView": {
     "about": "",
     "clusters": "",
@@ -53,7 +53,7 @@
       "TREATMENT": "",
       "OBSERVATION": "Beobachtung",
       "SPECIMEN": "Exemplar",
-      "SEQUENCE": ""
+      "SEQUENCE": "Gleich {is}"
     }
   }
 }

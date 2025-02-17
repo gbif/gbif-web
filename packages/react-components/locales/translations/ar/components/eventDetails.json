@@ -14,7 +14,7 @@
   "eventTypeHierarchyJoined": "",
   "eventHierarchyJoined": "",
   "map": "",
-  "backToTaxa": "التساويات { is }",
+  "backToTaxa": "",
   "siteLocation": "",
   "info": {
     "original": "أصلي",
@@ -27,7 +27,7 @@
     "record": "سجل",
     "occurrence": "تكرار",
     "event": "الحدث",
-    "dataStructure": "التساويات { is }",
+    "dataStructure": "",
     "identification": "التعريف",
     "taxon": "الوحدة التصنيفية",
     "location": "موقع",

@@ -1,11 +1,15 @@
 {
   "identifier": "ID",
   "type": "Type ",
+  "subtypeLiteral": "Sous-type",
   "title": "Titre",
   "rights": "Droits",
+  "credit": "Crédit",
   "providerLiteral": "Fournisseur",
   "description": "Description",
   "accessURI": "URL",
+  "accessOriginalURI": "URL d'origine",
   "format": "Format",
-  "pixelXDimension": "Largeur"
+  "pixelXDimension": "Largeur",
+  "pixelYDimension": "Hauteur"
 }

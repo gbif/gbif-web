@@ -86,7 +86,7 @@
   "license": "授权条款",
   "recommended": "推荐",
   "processedOccurrences": "GBIF附加说明的归档",
-  "processedOccurrencesDescription": "等于 {is}",
+  "processedOccurrencesDescription": "",
   "noDescriptionProvided": "无可用描述",
   "pNetwork": "{NUMBER, plural, 1{网络} other{网络}}",
   "parentEvent": "父事件",
