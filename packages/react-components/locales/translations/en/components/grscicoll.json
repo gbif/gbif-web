@@ -52,7 +52,7 @@
     "about": "About",
     "explore": "Explore catalog"
   },
-  "citesPermitNumber": "Cites permit number",
+  "citesPermitNumber": "CITES permit number",
   "collectionDescriptorsHeadline": "Collection descriptors",
   "collectionDescriptorsIntroduction": "Collection descriptors allows a collection to be described in more detail. This can be useful for collections that are not yet digitized or for collections that have specific characteristics that are not covered by the standard collection metadata.",
   "collectionSearchNoResultsMessage": "Collection metadata are often high level and not exhaustive. Consider broadening your scope or try searching for digitized specimens.",
