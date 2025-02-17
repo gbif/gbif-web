@@ -504,6 +504,6 @@
   "higherTaxonKey": {
     "name": "Vyšší taxon",
     "count": "",
-    "description": ""
+    "description": "Vyšší taxon, podle kterého se filtruje."
   }
 }
