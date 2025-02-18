@@ -198,7 +198,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       isSequenced: generateFilters({ config: isSequencedConfig, searchConfig, formatMessage }),
 
       year: generateFilters({ config: yearConfig, searchConfig, formatMessage }),
-      coordinateUncertainty: generateFilters({
+      coordinateUncertaintyInMeters: generateFilters({
         config: coordinateUncertaintyConfig,
         searchConfig,
         formatMessage,
