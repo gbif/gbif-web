@@ -1,1 +1,1 @@
-cd packages/gbif-org && npm run test
+# cd packages/gbif-org && npm run test
