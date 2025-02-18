@@ -1,8 +1,31 @@
 import config from '#/config';
+import { signJson, verifyJson } from './utils';
 
 const defaultUncertainty = 1000;
 
 const sqlEndpoint = config.sqlapi ?? config.apiv1;
+
+function generateMachineDescription(parameters, sql) {
+  const signature = signJson({ sql, parameters });
+  return { type: 'CUBE', signature, parameters };
+}
+
+export function getGbifMachineDescription(machineDescription, sql) {
+  // check if the machineDescription is an object, if not return null
+  if (typeof machineDescription !== 'object') return null;
+  // check if the machineDescription is signed by us
+  const { signature, parameters } = machineDescription;
+  if (!signature || !parameters) return null;
+
+  // sign the parameters and compare
+  const signedByUs = verifyJson({ sql, parameters }, signature);
+  if (signedByUs) {
+    // return the machineDescription except signature
+    const { signature: _, ...rest } = machineDescription;
+    return rest;
+  }
+  return null;
+}
 
 const WHERE_PREDICATE_RESTRICTIONS = {
   taxonomicDimension: {
@@ -124,6 +147,7 @@ const WHERE_PREDICATE_RESTRICTIONS = {
     ],
   },
 };
+
 async function getWhereClause({
   predicate,
   taxonomicDimension,
@@ -191,17 +215,18 @@ FROM
 GROUP BY
   {{GROUP_BY}}`;
 
-export default async function generateSql({
-  taxonomy,
-  temporal,
-  spatial,
-  resolution,
-  randomize,
-  higherGroups,
-  includeTemporalUncertainty,
-  includeSpatialUncertainty,
-  predicate,
-}) {
+export default async function generateSql(parameters) {
+  const {
+    taxonomy,
+    temporal,
+    spatial,
+    resolution,
+    randomize,
+    higherGroups,
+    includeTemporalUncertainty,
+    includeSpatialUncertainty,
+    predicate,
+  } = parameters;
   // generate SQL query
   const dimensions = [];
   let filters = '';
@@ -384,11 +409,15 @@ export default async function generateSql({
     .replace('{{MEASUREMENTS}}', measurements.join(', '))
     .replace('{{FILTERS}}', filters)
     .replace('{{GROUP_BY}}', groupBy.join(', '));
-  return { error: null, sql };
+
+  return {
+    error: null,
+    sql,
+  };
 }
 
-export async function getSql({ query }) {
-  const { error, sql } = await generateSql(query);
+export async function getSql({ query: parameters }) {
+  const { error, sql } = await generateSql(parameters);
   if (error) {
     return { error, sql };
   }
@@ -411,11 +440,18 @@ export async function getSql({ query }) {
       validationResponse: validation,
     };
   }
+
+  const machineDescription = generateMachineDescription(
+    parameters,
+    validation.sql,
+  );
+
+  // create and sign the machineDescription
   return {
     comment:
-      'This is an unstable endpoint to generate SQL queries for the occurrence download service.',
+      'This endpoint is not part of a stable public API. It is an internal endpoint to generate SQL for the occurrence download B cube service.',
     error,
-    sql,
-    validationResponse: validation,
+    sql: validation.sql,
+    machineDescription,
   };
 }
