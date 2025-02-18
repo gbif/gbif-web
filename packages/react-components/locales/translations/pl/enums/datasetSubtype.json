@@ -1,5 +1,10 @@
 {
   "TAXONOMIC_AUTHORITY": "Autorytet taksonomiczny",
   "NOMENCLATOR_AUTHORITY": "Autorytet nazewnictwa",
+  "INVENTORY_THEMATIC": "Spis tematyczny",
+  "INVENTORY_REGIONAL": "Spis regionalny",
+  "GLOBAL_SPECIES_DATASET": "Globalny zbiór danych o gatunkach",
+  "DERIVED_FROM_OCCURRENCE": "Pochodzący z występowania",
+  "SPECIMEN": "Okaz",
   "OBSERVATION": "Obserwacja"
 }

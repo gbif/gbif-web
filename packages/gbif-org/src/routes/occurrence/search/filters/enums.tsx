@@ -9,7 +9,7 @@ import {
   MonthLabel,
   occurrenceIssueLabel,
   occurrenceStatusLabel,
-  typeStatusLabel,
+  TypeStatusVocabularyLabel,
 } from '@/components/filters/displayNames';
 import { filterConfigTypes, filterEnumConfig } from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
@@ -23,7 +23,6 @@ import monthOptions from '@/enums/basic/month.json';
 import occurrenceIssueOptions from '@/enums/basic/occurrenceIssue.json';
 import protocolOptions from '@/enums/basic/occurrenceProtocols.json';
 import occurrenceStatusOptions from '@/enums/basic/occurrenceStatus.json';
-import typeStatusOptions from '@/enums/basic/typeStatus.json';
 
 export const licenceConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
@@ -206,8 +205,8 @@ export const iucnRedListCategoryConfig: filterEnumConfig = {
 export const typeStatusConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'typeStatus',
-  displayName: typeStatusLabel,
-  options: typeStatusOptions,
+  displayName: TypeStatusVocabularyLabel,
+  // options: typeStatusOptions,
   allowNegations: true,
   allowExistence: true,
   filterTranslation: 'filters.typeStatus.name',

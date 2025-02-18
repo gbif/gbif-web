@@ -1,6 +1,7 @@
 import { BulletList } from '@/components/bulletList';
 import { GadmClassification, TaxonClassification } from '@/components/classification';
-import Properties from '@/components/properties';
+import { ConceptValue } from '@/components/conceptValue';
+import Properties, { Property } from '@/components/properties';
 import { RenderIfChildren } from '@/components/renderIfChildren';
 import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
@@ -461,7 +462,10 @@ function Occurrence({
       <PlainTextField term={termMap.individualCount} showDetails={showAll} />
       <PlainTextField term={termMap.organismQuantity} showDetails={showAll} />
       <PlainTextField term={termMap.organismQuantityType} showDetails={showAll} />
-      <PlainTextField term={termMap.sex} showDetails={showAll} />
+      {/* <PlainTextField term={termMap.sex} showDetails={showAll} /> */}
+      <BasicField label="occurrenceFieldNames.sex">
+        {termMap?.sex?.value && <ConceptValue vocabulary="Sex" name={termMap?.sex?.value} />}
+      </BasicField>
       <PlainTextField term={termMap.lifeStage} showDetails={showAll} />
       <PlainTextField term={termMap.reproductiveCondition} showDetails={showAll} />
       <PlainTextField term={termMap.behavior} showDetails={showAll} />
@@ -674,10 +678,10 @@ function Identification({
     >
       <HtmlField term={termMap.identificationID} showDetails={showAll} />
       <PlainTextField term={termMap.identificationQualifier} showDetails={showAll} />
-      <EnumField
-        term={termMap.typeStatus}
-        showDetails={showAll}
-        getEnum={(value) => `enums.typeStatus.${value}`}
+      <Property
+        value={termMap?.typeStatus?.value}
+        labelId="occurrenceFieldNames.typeStatus"
+        formatter={(val) => <ConceptValue vocabulary="TypeStatus" name={val} />}
       />
       <PlainTextField term={termMap.identifiedBy} showDetails={showAll} />
       <IdentifiedById {...{ showAll, termMap, occurrence }} />

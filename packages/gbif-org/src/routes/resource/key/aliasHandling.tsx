@@ -1,11 +1,10 @@
 import {
-    AliasHandlingQuery,
-    AliasHandlingQueryVariables,
-    ArticlePageFragment,
-    CompositionPageFragment
+  AliasHandlingQuery,
+  AliasHandlingQueryVariables,
+  ArticlePageFragment,
+  CompositionPageFragment,
 } from '@/gql/graphql';
 import { LoaderArgs } from '@/reactRouterPlugins';
-import { required } from '@/utils/required';
 import { useLoaderData } from 'react-router-dom';
 import { ArticlePage, articlePageLoader } from './article/article';
 import { ArticleSkeleton } from './components/articleSkeleton';
@@ -24,7 +23,7 @@ const ALIAS_HANDLING_FRAGMENT = /* GraphQL */ `
 export async function aliasHandlingLoader(args: LoaderArgs) {
   const { graphql, params } = args;
 
-  const alias = required(params.alias, 'No alias provided');
+  const alias = params['*'];
 
   const response = await graphql.query<AliasHandlingQuery, AliasHandlingQueryVariables>(
     ALIAS_HANDLING_FRAGMENT,

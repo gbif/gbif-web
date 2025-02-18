@@ -13,8 +13,8 @@
         "PLATE_CAREE": "равнопромежуточная Плате-Карре"
     },
     "failedToGetUserLocation": {
-        "title": "Архив, аннотированный GBIF",
-        "message": "Архив, аннотированный GBIF"
+        "title": "",
+        "message": ""
     },
     "filterByView": "Использовать видимую область как фильтр"
 }

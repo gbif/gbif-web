@@ -1,11 +1,11 @@
 {
   "tabs": {
-    "details": "",
-    "cluster": "",
+    "details": "Szczegóły",
+    "cluster": "Powiązane rekordy",
     "phylotree": ""
   },
   "occurrence": "Stwierdzenie",
-  "specimen": "",
+  "specimen": "Okaz",
   "processed": "",
   "fragment": "",
   "showAllFields": "Pokaż wszystkie pola",
@@ -18,7 +18,7 @@
   "collection": "Kolekcja",
   "collectionGrSciColl": "Kolekcja GrSciColl",
   "recordedAndIdentifiedBy": "Stwierdzony i zidentyfikowany przez",
-  "tryPublisherSiteForFailingMedia": "",
+  "tryPublisherSiteForFailingMedia": "Jeśli media nie wyświetlają się prawidłowo, spróbuj na stronie publikującego ",
   "screenReader": {
     "title": "Szczegóły stwierdzenia"
   },
@@ -40,7 +40,7 @@
     "materialSample": "Próbka",
     "geologicalContext": "Kontekst geologiczny",
     "other": "Inne",
-    "extensions": ""
+    "extensions": "Rozszerzenia"
   },
   "features": {
     "isClustered": "Klastrowany",
@@ -58,12 +58,12 @@
     "isType": "Typ okazu"
   },
   "cluster": {
-    "current": "",
-    "relatedOccurrences": "",
-    "similarBecause": "",
+    "current": "Obecny",
+    "relatedOccurrences": "Powiązane stwierdzenia",
+    "similarBecause": "Podobne, ponieważ",
     "clusterTags": "",
-    "matchedRecord": "",
-    "noMatches": "",
+    "matchedRecord": "Dopasowany zapis",
+    "noMatches": "Brak kandydatur relacji",
     "explainer": "Ta eksperymentalna funkcja podkreślana możliwe duplikaty i/lub powiązane występowania."
   },
   "extensions": {
@@ -128,7 +128,7 @@
         "identificationQualifier": "Kwalifikator identyfikacji",
         "vernacularName": "Nazwa zwyczajowa",
         "nameAccordingTo": "Nazwa zgodna z",
-        "scientificNameID": "",
+        "scientificNameID": "Identyfikator nazwy naukowej",
         "otherScientificName": "",
         "identifiedBy": "Zidentyfikowany przez",
         "dateIdentified": "Data identyfikacji",
@@ -212,7 +212,7 @@
         "latitude": "Szerokość geograficzna",
         "longitude": "Długość geograficzna",
         "altitude": "",
-        "locationID": "",
+        "locationID": "Identyfikator lokalizacji",
         "breedingID": "",
         "breedingIdentifier": "",
         "breedingYear": "",
@@ -288,7 +288,7 @@
         "measurementTrailYear": "",
         "measurementTrailReport": "",
         "measurementTrailRemarks": "",
-        "locationID": "",
+        "locationID": "Identyfikator lokalizacji",
         "location": "Lokalizacja",
         "longitude": "Długość geograficzna",
         "latitude": "Szerokość geograficzna",
@@ -298,7 +298,7 @@
     "identification": {
       "name": "Historia identyfikacji",
       "properties": {
-        "identificationID": "",
+        "identificationID": "Identyfikator identyfikacji",
         "verbatimIdentification": "Identyfikacja jak pierwotnie podana",
         "identificationQualifier": "Kwalifikator identyfikacji",
         "typeStatus": "Status typu",
@@ -308,14 +308,14 @@
         "identificationReferences": "Odnośniki dla identyfikacji",
         "identificationVerificationStatus": "Status weryfikacji identyfikacji",
         "identificationRemarks": "Uwagi na temat identyfikacji",
-        "taxonID": "",
-        "scientificNameID": "",
-        "acceptedNameUsageID": "",
-        "parentNameUsageID": "",
-        "originalNameUsageID": "",
-        "nameAccordingToID": "",
-        "namePublishedInID": "",
-        "taxonConceptID": "",
+        "taxonID": "Identyfikator taksonu",
+        "scientificNameID": "Identyfikator nazwy naukowej",
+        "acceptedNameUsageID": "Identyfikator zaakceptowanego użycia nazwy",
+        "parentNameUsageID": "Identyfikator użycia nazwy nadrzędnej",
+        "originalNameUsageID": "Identyfikator użycia nazwy oryginalnej",
+        "nameAccordingToID": "Identyfikator zgodności nazwy z",
+        "namePublishedInID": "Identyfikator opublikowania nazwy",
+        "taxonConceptID": "Identyfikator koncpcji taksonu",
         "scientificName": "Nazwa naukowa",
         "acceptedNameUsage": "Zaakceptowane użycie nazwy",
         "parentNameUsage": "Użycie nazwy nadrzędnej",

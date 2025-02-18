@@ -45,7 +45,7 @@
     "description": ""
   },
   "iucnRedListCategory": {
-    "name": "",
+    "name": "Kategorie zagrożenia na czerwonych listach IUCN",
     "count": "",
     "description": "Czerwona Księga Gatunków Zagrożonych IUCN grupuje taksony według stopnia ich zagrożenia."
   },
@@ -446,7 +446,7 @@
     "description": ""
   },
   "publicationDate": {
-    "name": "",
+    "name": "Data publikacji",
     "count": "",
     "description": ""
   },
@@ -500,5 +500,10 @@
     "name": "Typ bibliografii",
     "count": "{num, plural, one { typ bibliografii } few {# typy bibliografii} many {# typów bibliografii} other {# typy bibliografii}}",
     "description": "Z jakim typem bibliografii wiąże się cytowanie."
+  },
+  "higherTaxonKey": {
+    "name": "Wyższy takson",
+    "count": "{num, plural, one {wyższy takson} few {# wyższe taksony} many {# wyższych taksonów} other {# wyższych taksonów}}",
+    "description": "Filtrowanie po wyższym taksonie."
   }
 }

@@ -259,6 +259,8 @@
   "gadmClassification": "Ubicación según GADM",
   "images": "Multimedia",
   "eventTypeHierarchyJoined": "Estructura",
+  "measurementOrFactTypes": "Mediciones o Hechos (Measurements or Facts)",
+  "temporalCoverage": "Cobertura temporal",
   "eventType": "Tipo de evento",
   "iucnRedListCategory": "Categoría en la Lista Roja de la UICN"
 }

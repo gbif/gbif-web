@@ -1,6 +1,5 @@
 import { Config } from '@/config/config';
 import { dataRoutes } from '@/config/routes';
-import { notFoundRoute } from '@/notFoundPage';
 import { notImplementedRoutes } from '@/notImplementedRoutes';
 import { applyReactRouterPlugins } from '@/reactRouterPlugins';
 import { becomeAPublisherRoute } from '@/routes/custom/becomeAPublisher';
@@ -26,15 +25,15 @@ export function createGbifRoutes(config: Config) {
             children: [
               homePageRoute,
 
-              ...dataRoutes,
-
               // custom pages
               becomeAPublisherRoute,
               confirmEndorsmentRoute,
               suggestDatasetRoute,
 
               ...notImplementedRoutes,
-              notFoundRoute,
+
+              // Must be last as alias handling will require match on whildcard
+              ...dataRoutes,
             ],
           },
         ],

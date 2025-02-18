@@ -1,7 +1,6 @@
 @import 'ol/ol.css';
 @import 'maplibre-gl/dist/maplibre-gl.css';
 @import 'maplibre-gl/dist/maplibre-gl.css';
-@import './gbifIcons.css';
 
 @tailwind base;
 @tailwind components;

@@ -3,22 +3,22 @@
     "table": "表",
     "tree": "",
     "gallery": "ギャラリー",
-    "media": "GBIFがアノーテーションしたアーカイブ",
+    "media": "",
     "map": "マップ",
     "datasets": "データセット",
     "events": "イベント",
     "download": "ダウンロード",
     "clusters": "",
     "dashboard": "",
-    "sites": "GBIFがアノーテーションしたアーカイブ",
+    "sites": "",
     "list": ""
   },
   "table": {
     "lockColumn": "",
-    "unlockColumn": "GBIFがアノーテーションしたアーカイブ",
-    "columnVisibility": "GBIFがアノーテーションしたアーカイブ",
-    "resetColumnVisibility": "GBIFがアノーテーションしたアーカイブ",
-    "openFilter": "GBIFがアノーテーションしたアーカイブ"
+    "unlockColumn": "",
+    "columnVisibility": "",
+    "resetColumnVisibility": "",
+    "openFilter": ""
   },
   "placeholders": {
     "default": "検索",
@@ -30,10 +30,10 @@
   "ternary": {
     "yes": "はい",
     "no": "いいえ",
-    "either": "GBIFがアノーテーションしたアーカイブ"
+    "either": ""
   },
   "loadMore": "もっと読み込む",
-  "noResults": "GBIFがアノーテーションしたアーカイブ",
+  "noResults": "",
   "occurrenceClustersView": {
     "about": "・・・について",
     "clusters": "",

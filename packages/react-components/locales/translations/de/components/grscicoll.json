@@ -53,8 +53,8 @@
     "explore": ""
   },
   "citesPermitNumber": "Anzahl der erlaubten Zitierungen",
-  "collectionDescriptorsHeadline": "Stadt zum Fundort.",
-  "collectionDescriptorsIntroduction": "Stadt zum Fundort.",
-  "collectionSearchNoResultsMessage": "Stadt zum Fundort.",
-  "searchForSpecimens": "Stadt zum Fundort."
+  "collectionDescriptorsHeadline": "",
+  "collectionDescriptorsIntroduction": "",
+  "collectionSearchNoResultsMessage": "",
+  "searchForSpecimens": ""
 }

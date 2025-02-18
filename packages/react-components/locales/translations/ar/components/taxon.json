@@ -1,11 +1,28 @@
 {
   "tabs": {
     "about": "حول",
-    "typeMaterial": "أرشيف شروح \"جيبف\"",
+    "typeMaterial": "التساويات { is }",
     "metrics": "المقاييس"
   },
   "publishedIn": "تم نشره في",
   "vernacularNames": "الأسماء العامية الدارجة",
   "rank": "ترتيب",
-  "source": "مصدر"
+  "source": "مصدر",
+  "specimenIsTypeOf": "التساويات { is }",
+  "typeMaterial": "التساويات { is }",
+  "more": "المزيد",
+  "less": "التساويات { is }",
+  "dna": "",
+  "occurenceImages": "التساويات { is }",
+  "taxonIdentifiers": "معرفو الوحدة التصنيفية",
+  "synonymsAndCombinations": "",
+  "rankPlural": {
+    "KINGDOM": "الممالك",
+    "PHYLUM": "الشُعَب",
+    "CLASS": "الصفوف",
+    "ORDER": "الرُتَب",
+    "FAMILY": "الفصائل",
+    "GENUS": "الأجناس",
+    "SPECIES": "نوع"
+  }
 }

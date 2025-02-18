@@ -20,5 +20,6 @@
   "SAMPLE_SURFACE_COATING": "Próbka z powlekaną powierzchnią",
   "SAMPLE_TANNED": "Próbka garbowana",
   "SAMPLE_WAX_BLOCK": "Próbka w bloku woskowym",
-  "SAMPLE_OTHER": "Inna próbka"
+  "SAMPLE_OTHER": "Inna próbka",
+  "SAMPLE_FREEZE_DRYING": "Liofilizacja próbki"
 }

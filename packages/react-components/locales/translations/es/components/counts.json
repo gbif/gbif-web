@@ -15,6 +15,7 @@
   "nInstitutions": "{total, plural, one {# institución} other {# instituciones}}",
   "nRecordsTotal": "{total, plural, one {# registro en total} other {# registros en total}}\n",
   "nSelected": "{total, plural, other {# seleccionados}}\n",
+  "nExcluded": "{total, plural, one {}other {# excluidos}}",
   "nQualityFlags": "{total, plural, one {# alerta} other {# alertas}}",
   "nAudioFiles": "{total, plural, one {# archivo de sonido} other {# archivos de sonido}}",
   "nVideos": "{total, plural, one {# video} other {# videos}}",
@@ -25,7 +26,7 @@
   "percentWithYear": "{percent}% con año",
   "percentWithTaxonMatch": "",
   "nResultsWithImages": "{total, plural, one {# resultado } other {# resultados}} con imágenes",
-  "gbifOverlapPercent": "{percent}% de coincidencia con el  Backbone de GBIF",
+  "gbifOverlapPercent": "{percent}% de coincidencia con el árbol taxonómico de GBIF",
   "colOverlapPercent": "{percent}% de Coincidencia con el Catálogo de la Vida",
   "nPublishedDatasets": "{total, plural, one {# conjunto de datos} other {# conjuntos de datos}}",
   "nDatasets": "{total, plural, one {# conjunto de datos publicado} other {# conjuntos de datos publicados}}",
@@ -35,5 +36,7 @@
   "nParticipatingPublishers": "{total, plural, one {# publicador participante} other {# publicadores participantes}}",
   "nPublishersInCountry": "{total, plural, one {Hay # publicador} other {Hay # publicadores}} en {country}",
   "nStaffMembers": "{total, plural, one {# miembro del equipo} other {# miembros del equipo}}",
-  "nOccurrencesHosted": "{total, plural, one {# registro biológico alojado} other {# registros biológicos alojados}}"
+  "nOccurrencesHosted": "{total, plural, one {# registro biológico alojado} other {# registros biológicos alojados}}",
+  "nPercentOfTotal": "{percentage, plural, one {}other {#% del total}}",
+  "nMoreDatasets": "{total, plural, one {+ # conjuntos de datos más} other {+ # conjuntos de datos más}}"
 }

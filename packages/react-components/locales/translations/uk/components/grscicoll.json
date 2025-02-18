@@ -53,8 +53,8 @@
     "explore": ""
   },
   "citesPermitNumber": "Номер дозволу Cites",
-  "collectionDescriptorsHeadline": "Архів анотований GBIF",
-  "collectionDescriptorsIntroduction": "Архів анотований GBIF",
-  "collectionSearchNoResultsMessage": "Архів анотований GBIF",
-  "searchForSpecimens": "Архів анотований GBIF"
+  "collectionDescriptorsHeadline": "",
+  "collectionDescriptorsIntroduction": "",
+  "collectionSearchNoResultsMessage": "",
+  "searchForSpecimens": ""
 }

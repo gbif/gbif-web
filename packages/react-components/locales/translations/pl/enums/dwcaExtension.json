@@ -15,6 +15,7 @@
   "http://purl.org/germplasm/germplasmTerm#MeasurementScore": "Germplasm: wynik pomiaru",
   "http://purl.org/germplasm/germplasmTerm#MeasurementTrait": "Germplasm: cecha pomiaru",
   "http://purl.org/germplasm/germplasmTerm#MeasurementTrial": "Germplasm: próba pomiaru",
+  "http://rs.tdwg.org/dwc/terms/Identification": "Identyfikacja",
   "http://rs.gbif.org/terms/1.0/Identifier": "Identyfikator",
   "http://rs.gbif.org/terms/1.0/Image": "Obraz",
   "http://rs.tdwg.org/dwc/terms/MeasurementOrFact": "Pomiar lub fakt",

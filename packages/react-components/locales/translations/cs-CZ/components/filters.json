@@ -17,7 +17,7 @@
   "hasGeospatialIssues": {
     "name": "Má geoprostorové problémy",
     "count": "Má geoprostorové problémy",
-    "description": ""
+    "description": "Rovná se {from}"
   },
   "collectionKey": {
     "name": "Sbírka",
@@ -45,7 +45,7 @@
     "description": ""
   },
   "iucnRedListCategory": {
-    "name": "",
+    "name": "Kategorie globálního červeného seznamu IUCN",
     "count": "",
     "description": "Červený seznam ohrožených druhů IUCN rozděluje taxony podle toho, jak moc jsou ohrožené."
   },
@@ -500,5 +500,10 @@
     "name": "Typ literatury",
     "count": "",
     "description": "Z jakého typu literatury citace pochází."
+  },
+  "higherTaxonKey": {
+    "name": "Vyšší taxon",
+    "count": "",
+    "description": "Vyšší taxon, podle kterého se filtruje."
   }
 }

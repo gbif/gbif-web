@@ -14,7 +14,7 @@
   "eventTypeHierarchyJoined": "",
   "eventHierarchyJoined": "",
   "map": "",
-  "backToTaxa": "GBIF 註記的存檔",
+  "backToTaxa": "",
   "siteLocation": "",
   "info": {
     "original": "原始的",
@@ -27,7 +27,7 @@
     "record": "紀錄",
     "occurrence": "出現",
     "event": "活動",
-    "dataStructure": "GBIF 註記的存檔",
+    "dataStructure": "",
     "identification": "鑑定",
     "taxon": "分類群",
     "location": "地點",

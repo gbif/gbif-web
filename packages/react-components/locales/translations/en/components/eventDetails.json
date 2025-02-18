@@ -14,7 +14,7 @@
   "eventTypeHierarchyJoined": "Event type hierarchy",
   "eventHierarchyJoined": "Event hierarchy",
   "map": "Map of location",
-  "backToTaxa": "",
+  "backToTaxa": "Back to event taxa",
   "siteLocation": "Site location",
   "info": {
     "original": "Original",
@@ -27,7 +27,7 @@
     "record": "Record",
     "occurrence": "Occurrence",
     "event": "Event",
-    "dataStructure": "",
+    "dataStructure": "Data Structure",
     "identification": "Identification",
     "taxon": "Taxon",
     "location": "Location",

@@ -86,7 +86,7 @@
   "license": "ライセンス",
   "recommended": "推奨",
   "processedOccurrences": "GBIFがアノーテーションしたアーカイブ",
-  "processedOccurrencesDescription": "GBIFがアノーテーションしたアーカイブ",
+  "processedOccurrencesDescription": "",
   "noDescriptionProvided": "説明はありません。",
   "pNetwork": "{NUMBER, plural, one{ネットワーク} other{ネットワーク}}",
   "parentEvent": "親イベント",

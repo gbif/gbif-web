@@ -231,7 +231,10 @@ const getFirstIIIFImage = ({ occurrence }) => {
 
 export function signJson(obj) {
   const jsonString = JSON.stringify(obj);
-  const hmac = crypto.createHmac('sha256', config.jsonSignatureSecret);
+  const hmac = crypto.createHmac(
+    'sha256',
+    config.downloadMachineDescriptionSecret,
+  );
   hmac.update(jsonString);
   return hmac.digest('hex');
 }

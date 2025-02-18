@@ -257,6 +257,8 @@
   "taxonomicClassification": "Классификация",
   "images": "Мультимедиа",
   "eventTypeHierarchyJoined": "Структура",
+  "measurementOrFactTypes": "Измерения или фактические данные",
+  "temporalCoverage": "Временной охват",
   "eventType": "Тип события",
   "iucnRedListCategory": "Категория красного списка МСОП (IUCN Red List)"
 }

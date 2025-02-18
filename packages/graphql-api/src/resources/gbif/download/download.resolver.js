@@ -1,4 +1,4 @@
-import { verifyJson } from '#/helpers/utils';
+import { getGbifMachineDescription } from '#/helpers/generateSql';
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -24,21 +24,13 @@ export default {
       dataSources.downloadAPI.getDownloadByKey({ key }),
   },
   DownloadRequest: {
-    gbifMachineDescription: ({ machineDescription }) => {
+    gbifMachineDescription: ({ sql, machineDescription }) => {
       try {
-        // check if the machineDescription is an object, if not return null
-        if (typeof machineDescription !== 'object') return null;
-        // check if the machineDescription is signed by us
-        const { signature, parameters } = machineDescription;
-        if (!signature || !parameters) return null;
-        // sign the parameters and compare
-        const signedByUs = verifyJson(parameters, signature);
-        if (signedByUs) {
-          // return the machineDescription except signature
-          const { signature: _, ...rest } = machineDescription;
-          return rest;
-        }
-        return null;
+        const gbifMachineDescription = getGbifMachineDescription(
+          machineDescription,
+          sql,
+        );
+        return gbifMachineDescription;
       } catch (err) {
         return null;
       }

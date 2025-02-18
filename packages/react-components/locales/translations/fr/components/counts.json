@@ -15,6 +15,7 @@
   "nInstitutions": "{total, plural, one {# institution} other {# institutions}}",
   "nRecordsTotal": "{total, plural, one {# enregistrement au total} other {# enregistrements au total}}",
   "nSelected": "{total, plural, one {}other {# sélectionné}}",
+  "nExcluded": "{total, plural, one {}other {# exclus}}",
   "nQualityFlags": "{total, plural, one {# drapeau de qualité} other {# drapeaux de qualité}}",
   "nAudioFiles": "{total, plural, one {# fichier sonore} other {# fichiers sonores}}",
   "nVideos": "{total, plural, one {# vidéo} other {# vidéos}}",
@@ -35,5 +36,7 @@
   "nParticipatingPublishers": "{total, plural, one {# éditeur participant} other {# éditeurs participants}}",
   "nPublishersInCountry": "{total, plural, one {Il y a # éditeur} other {Il y a # éditeurs}} en/au(x) {country}",
   "nStaffMembers": "{total, plural, one {# membre de l'équipe} other {# membres de l'équipe}}",
-  "nOccurrencesHosted": "{total, plural, one {# occurrence hébergée} other {# occurrences hébergées}}"
+  "nOccurrencesHosted": "{total, plural, one {# occurrence hébergée} other {# occurrences hébergées}}",
+  "nPercentOfTotal": "{percentage, plural, one {}other {#% du total}}",
+  "nMoreDatasets": "{total, plural, one {+ # jeu de données supplémentaire} other {+ # jeux de données supplémentaires}}"
 }

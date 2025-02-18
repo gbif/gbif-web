@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "A des coordonnées",
     "count": "A des coordonnées",
-    "description": "Archive annotée par GBIF"
+    "description": ""
   },
   "hasGeospatialIssues": {
     "name": "Présente des problèmes géospatiaux",
     "count": "Présente des problèmes géospatiaux",
-    "description": "Archive annotée par GBIF"
+    "description": ""
   },
   "collectionKey": {
     "name": "Collection",
@@ -60,7 +60,7 @@
   "geometry": {
     "name": "Lieu",
     "count": "{num, plural, one { filtre } other {# filtres }}",
-    "description": "Archive annotée par GBIF",
+    "description": "",
     "placeholderLat": "Latitude",
     "placeholderLon": "Longitude",
     "placeholderDist": "Distance"
@@ -93,7 +93,7 @@
   "alternativeCode": {
     "name": "Archive annotée par GBIF",
     "count": "Archive annotée par GBIF",
-    "description": "Archive annotée par GBIF"
+    "description": ""
   },
   "identifier": {
     "name": "Identifiant",
@@ -108,7 +108,7 @@
   "discipline": {
     "name": "Archive annotée par GBIF",
     "count": "Archive annotée par GBIF",
-    "description": "Archive annotée par GBIF"
+    "description": ""
   },
   "collectionContentType": {
     "name": "Archive annotée par GBIF",
@@ -128,7 +128,7 @@
   "taxonKeyGrSciColl": {
     "name": "Nom scientifique du taxon",
     "count": "{num, plural, one {nom scientifique} other {# noms scientifiques}}",
-    "description": "Archive annotée par GBIF"
+    "description": ""
   },
   "basisOfRecord": {
     "name": "Base de registre",
@@ -222,12 +222,12 @@
   "countriesOfCoverage": {
     "name": "Pays ou région de couverture",
     "count": "",
-    "description": "Archive annotée par GBIF"
+    "description": ""
   },
   "collectionDescriptorCountry": {
     "name": "Pays ou région de couverture",
     "count": "{num, plural, one {pays ou zone de couverture} other {# pays ou zones de couverture}}",
-    "description": "Archive annotée par GBIF"
+    "description": ""
   },
   "countriesOfResearcher": {
     "name": "Pays ou région du chercheur",
@@ -347,8 +347,8 @@
   },
   "higherGeography": {
     "name": "Géographie supérieure",
-    "count": "Archive annotée par GBIF",
-    "description": "Archive annotée par GBIF"
+    "count": "",
+    "description": ""
   },
   "stateProvince": {
     "name": "État/Province",
@@ -433,22 +433,22 @@
   "active": {
     "name": "Activé",
     "count": "Activé",
-    "description": "Archive annotée par GBIF"
+    "description": ""
   },
   "activeInstitution": {
     "name": "Activé",
     "count": "Activé",
-    "description": "Archive annotée par GBIF"
+    "description": ""
   },
   "activeCollection": {
     "name": "Activé",
     "count": "Activé",
-    "description": "Archive annotée par GBIF"
+    "description": ""
   },
   "publicationDate": {
     "name": "Date de publication",
-    "count": "Archive annotée par GBIF",
-    "description": "Archive annotée par GBIF"
+    "count": "",
+    "description": ""
   },
   "personalCollection": {
     "name": "Collection personnelle",
@@ -474,12 +474,12 @@
     "name": "Nom",
     "count": "",
     "description": "Archive annotée par GBIF",
-    "searchPlaceholder": "Archive annotée par GBIF"
+    "searchPlaceholder": ""
   },
   "city": {
     "name": "Ville",
     "count": "",
-    "description": "Archive annotée par GBIF"
+    "description": ""
   },
   "code": {
     "name": "Code",
@@ -500,5 +500,10 @@
     "name": "Type de littérature",
     "count": "",
     "description": "De quel type de littérature provient la citation."
+  },
+  "higherTaxonKey": {
+    "name": "Taxon supérieur",
+    "count": "{num, plural, one {# taxon} other {# taxons}}",
+    "description": "Taxon supérieur pour filtrage"
   }
 }

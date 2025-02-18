@@ -2,9 +2,9 @@ import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { AliasHandling, aliasHandlingLoader, AliasHandlingSkeleton } from './aliasHandling';
 import { ArticlePage, articlePageLoader, ArticlePageSkeleton } from './article/article';
 import {
-    CompositionPage,
-    compositionPageLoader,
-    CompositionPageSkeleton
+  CompositionPage,
+  compositionPageLoader,
+  CompositionPageSkeleton,
 } from './composition/composition';
 import { DataUsePage, dataUsePageLoader, DataUsePageSkeleton } from './dataUse/dataUse';
 import { DocumentPage, documentPageLoader, DocumentPageSkeleton } from './document/document';
@@ -94,7 +94,7 @@ export const resourceKeyRoutes: RouteObjectWithPlugins[] = [
   },
   {
     id: 'alias-handling',
-    path: ':alias',
+    path: '*',
     loader: aliasHandlingLoader,
     loadingElement: <AliasHandlingSkeleton />,
     element: <AliasHandling />,

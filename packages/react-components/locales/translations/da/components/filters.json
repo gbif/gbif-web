@@ -12,12 +12,12 @@
   "hasCoordinate": {
     "name": "",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "hasGeospatialIssues": {
     "name": "",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "collectionKey": {
     "name": "",
@@ -60,7 +60,7 @@
   "geometry": {
     "name": "",
     "count": "",
-    "description": "GBIF annoteret Arkiv",
+    "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
     "placeholderDist": ""
@@ -93,7 +93,7 @@
   "alternativeCode": {
     "name": "GBIF annoteret Arkiv",
     "count": "GBIF annoteret Arkiv",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "identifier": {
     "name": "Identifikator",
@@ -108,7 +108,7 @@
   "discipline": {
     "name": "GBIF annoteret Arkiv",
     "count": "GBIF annoteret Arkiv",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "collectionContentType": {
     "name": "GBIF annoteret Arkiv",
@@ -128,7 +128,7 @@
   "taxonKeyGrSciColl": {
     "name": "Videnskabeligt navn",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "basisOfRecord": {
     "name": "Observationstype",
@@ -222,12 +222,12 @@
   "countriesOfCoverage": {
     "name": "Land eller område der diskuteres",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "collectionDescriptorCountry": {
     "name": "Land eller område der diskuteres",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "countriesOfResearcher": {
     "name": "Forskers land eller område",
@@ -347,8 +347,8 @@
   },
   "higherGeography": {
     "name": "",
-    "count": "GBIF annoteret Arkiv",
-    "description": "GBIF annoteret Arkiv"
+    "count": "",
+    "description": ""
   },
   "stateProvince": {
     "name": "",
@@ -433,22 +433,22 @@
   "active": {
     "name": "",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "activeInstitution": {
     "name": "",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "activeCollection": {
     "name": "",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "publicationDate": {
     "name": "",
-    "count": "GBIF annoteret Arkiv",
-    "description": "GBIF annoteret Arkiv"
+    "count": "",
+    "description": ""
   },
   "personalCollection": {
     "name": "",
@@ -474,12 +474,12 @@
     "name": "Navn",
     "count": "",
     "description": "GBIF annoteret Arkiv",
-    "searchPlaceholder": "GBIF annoteret Arkiv"
+    "searchPlaceholder": ""
   },
   "city": {
     "name": "",
     "count": "",
-    "description": "GBIF annoteret Arkiv"
+    "description": ""
   },
   "code": {
     "name": "",
@@ -498,6 +498,11 @@
   },
   "literatureType": {
     "name": "Litteraturtype",
+    "count": "",
+    "description": ""
+  },
+  "higherTaxonKey": {
+    "name": "Højere takson",
     "count": "",
     "description": ""
   }

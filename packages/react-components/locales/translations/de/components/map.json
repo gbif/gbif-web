@@ -13,8 +13,8 @@
         "PLATE_CAREE": "Plattenkarte"
     },
     "failedToGetUserLocation": {
-        "title": "Stadt zum Fundort.",
-        "message": "Stadt zum Fundort."
+        "title": "Gleich {is}",
+        "message": "Gleich {is}"
     },
     "filterByView": ""
 }

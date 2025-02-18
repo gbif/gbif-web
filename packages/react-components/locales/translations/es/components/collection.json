@@ -4,5 +4,6 @@
   "preservationTypes": "Tipos de preservación",
   "personalCollection": "Colección personal",
   "accessionStatus": "Categoría de la afiliación",
-  "numberSpecimens": "Número de especímenes en la colección"
+  "numberSpecimens": "Número de especímenes en la colección",
+  "collectionDescriptors": "Descriptores de colección"
 }

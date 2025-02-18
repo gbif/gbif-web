@@ -30,7 +30,7 @@
   "location": {
     "geometry": "Geometrie",
     "map": "Mapa",
-    "wktPlaceholder": "",
+    "wktPlaceholder": "WKT nebo GeoJSON",
     "range": "Rozsah",
     "recent": "Naposledy použito",
     "add": "Přidat",

@@ -4,5 +4,6 @@
   "preservationTypes": "Typy konzervace",
   "personalCollection": "Osobní sbírka",
   "accessionStatus": "Stav přírůstku",
-  "numberSpecimens": "Počet exemplářů ve sbírce"
+  "numberSpecimens": "Počet exemplářů ve sbírce",
+  "collectionDescriptors": "Deskriptory sbírky"
 }

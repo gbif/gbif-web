@@ -30,7 +30,7 @@
   "location": {
     "geometry": "Geometria",
     "map": "Mapa",
-    "wktPlaceholder": "",
+    "wktPlaceholder": "WKT lub GeoJSON",
     "range": "Zasięg",
     "recent": "Ostatnio używane",
     "add": "Dodaj",

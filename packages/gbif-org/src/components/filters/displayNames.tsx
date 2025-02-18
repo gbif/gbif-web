@@ -249,7 +249,6 @@ export const TaxonStatusLabel = getEnumLabel({ template: (id) => `enums.taxonomi
 export const IucnRedListCategoryLabel = getEnumLabel({
   template: (id) => `enums.iucnRedListCategory.${id}`,
 });
-export const typeStatusLabel = getEnumLabel({ template: (id) => `enums.typeStatus.${id}` });
 export const occurrenceIssueLabel = getEnumLabel({
   template: (id) => `enums.occurrenceIssue.${id}`,
 });
@@ -261,6 +260,11 @@ export const booleanLabel = getEnumLabel({ template: (id) => `enums.yesNo.${id}`
 export const GadmGidLabel = getEndpointLabel({
   template: ({ id, v1Endpoint }) => `${v1Endpoint}/geocode/gadm/${id}`,
   transform: (response) => ({ title: response?.name }),
+});
+
+export const TypeStatusVocabularyLabel = getEndpointLabel({
+  template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/TypeStatus/concepts/${id}`,
+  transform: getVocabularyLabel,
 });
 
 export const EstablishmentMeansLabel = getEndpointLabel({

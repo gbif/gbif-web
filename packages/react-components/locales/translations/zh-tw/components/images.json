@@ -1,6 +1,7 @@
 {
   "identifier": "身份",
   "type": "類型",
+  "subtypeLiteral": "子類型",
   "title": "標題",
   "rights": "權利",
   "providerLiteral": "提供者",

@@ -3,5 +3,6 @@
   "type": "Institution Type",
   "addCollection": "Add collection",
   "disciplines": "Institutional disciplines",
-  "numberSpecimens": "Number of specimens in institution"
+  "numberSpecimens": "Number of specimens in institution",
+  "unknownCollectionCodesForInstitution": "These unknown collection codes are linked to this institution"
 }

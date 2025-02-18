@@ -1,4 +1,4 @@
-import { RouteObjectWithPlugins } from './reactRouterPlugins';
+// This page should not be added to the route config, as the alias handling route matches with a wildcard, and will render this page if no other route is found in contentful.
 
 export function NotFoundPage() {
   return (
@@ -7,8 +7,3 @@ export function NotFoundPage() {
     </main>
   );
 }
-
-export const notFoundRoute: RouteObjectWithPlugins = {
-  path: '*',
-  element: <NotFoundPage />,
-};

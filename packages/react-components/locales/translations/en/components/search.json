@@ -3,22 +3,22 @@
     "table": "Table",
     "tree": "Tree",
     "gallery": "Gallery",
-    "media": "",
+    "media": "Media",
     "map": "Map",
     "datasets": "Datasets",
     "events": "Events",
     "download": "Download",
     "clusters": "Related",
     "dashboard": "Dashboard",
-    "sites": "",
+    "sites": "Sites",
     "list": "List"
   },
   "table": {
     "lockColumn": "Lock column",
-    "unlockColumn": "",
-    "columnVisibility": "",
-    "resetColumnVisibility": "",
-    "openFilter": ""
+    "unlockColumn": "Unlock column",
+    "columnVisibility": "Toggle columns",
+    "resetColumnVisibility": "Reset",
+    "openFilter": "Open filter"
   },
   "placeholders": {
     "default": "Search",
@@ -30,10 +30,10 @@
   "ternary": {
     "yes": "Yes",
     "no": "No",
-    "either": ""
+    "either": "Either"
   },
   "loadMore": "More",
-  "noResults": "",
+  "noResults": "No results",
   "occurrenceClustersView": {
     "about": "About",
     "clusters": "Related",

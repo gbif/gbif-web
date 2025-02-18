@@ -86,7 +86,7 @@
   "license": "Licence",
   "recommended": "Recommended",
   "processedOccurrences": "GBIF annotated occurrence archive",
-  "processedOccurrencesDescription": "",
+  "processedOccurrencesDescription": "Download the occurrence records after GBIF processing. During processing, names, dates, etc. are normalized. The data is also enriched with information from other sources.\n\nNote that an account is needed to download the content.",
   "noDescriptionProvided": "No description available",
   "pNetwork": "{NUMBER, plural, one{Network} other{Networks}}",
   "parentEvent": "Parent event",

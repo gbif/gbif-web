@@ -3,5 +3,6 @@
   "type": "Tipo de institución",
   "addCollection": "Añadir una colección",
   "disciplines": "Disciplinas institucionales",
-  "numberSpecimens": "Número de especímenes en la institución"
+  "numberSpecimens": "Número de especímenes en la institución",
+  "unknownCollectionCodesForInstitution": "Estos códigos de colección desconocidos están vinculados a esta institución."
 }

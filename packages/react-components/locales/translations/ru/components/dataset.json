@@ -86,7 +86,7 @@
   "license": "Лицензия",
   "recommended": "рекомендуется",
   "processedOccurrences": "Архив, аннотированный GBIF",
-  "processedOccurrencesDescription": "Архив, аннотированный GBIF",
+  "processedOccurrencesDescription": "",
   "noDescriptionProvided": "Описание недоступно",
   "pNetwork": "{NUMBER, plural,\n0 {записей}\none {запись}\nfew {записи}\nmany {записей}\nother {записей}\n}",
   "parentEvent": "Родительское описание, учет или сбор",

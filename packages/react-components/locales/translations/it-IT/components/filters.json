@@ -121,12 +121,12 @@
     "description": ""
   },
   "taxonKey": {
-    "name": "",
+    "name": "Nome scientifico",
     "count": "",
     "description": ""
   },
   "taxonKeyGrSciColl": {
-    "name": "",
+    "name": "Nome scientifico",
     "count": "",
     "description": ""
   },
@@ -497,6 +497,11 @@
     "description": ""
   },
   "literatureType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "higherTaxonKey": {
     "name": "",
     "count": "",
     "description": ""

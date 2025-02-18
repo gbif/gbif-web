@@ -36,5 +36,6 @@ export const dataRoutes = [
   downloadKeyRoute,
   publisherKeyRoute,
   taxonKeyRoute,
+  // Must be last as alias handling will require match on whildcard
   ...resourceKeyRoutes,
 ];

@@ -3,22 +3,22 @@
     "table": "Tabel",
     "tree": "",
     "gallery": "Galleri",
-    "media": "GBIF annoteret Arkiv",
+    "media": "",
     "map": "Kort",
     "datasets": "Datasæt",
     "events": "Arrangementer",
     "download": "Download",
     "clusters": "",
     "dashboard": "",
-    "sites": "GBIF annoteret Arkiv",
+    "sites": "",
     "list": ""
   },
   "table": {
     "lockColumn": "",
-    "unlockColumn": "GBIF annoteret Arkiv",
-    "columnVisibility": "GBIF annoteret Arkiv",
-    "resetColumnVisibility": "GBIF annoteret Arkiv",
-    "openFilter": "GBIF annoteret Arkiv"
+    "unlockColumn": "",
+    "columnVisibility": "",
+    "resetColumnVisibility": "",
+    "openFilter": ""
   },
   "placeholders": {
     "default": "Søg",
@@ -30,10 +30,10 @@
   "ternary": {
     "yes": "",
     "no": "",
-    "either": "GBIF annoteret Arkiv"
+    "either": ""
   },
   "loadMore": "Flere",
-  "noResults": "GBIF annoteret Arkiv",
+  "noResults": "",
   "occurrenceClustersView": {
     "about": "Om",
     "clusters": "",

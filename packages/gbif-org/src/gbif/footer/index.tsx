@@ -2,6 +2,13 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import { FormattedMessage } from 'react-intl';
 import gbifLogoUrl from './full-gbif-logo-white.svg';
 import gbcLogoUrl from './gbc.svg';
+import { FiInstagram } from 'react-icons/fi';
+import { IoLogoVimeo } from 'react-icons/io5';
+import { FaYoutube } from 'react-icons/fa';
+import { FaLinkedinIn } from 'react-icons/fa';
+import { FaFacebookF } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
+import { FaMastodon } from 'react-icons/fa';
 
 const cssSeparator = "after:g-content-['|'] after:g-p-2";
 
@@ -13,53 +20,53 @@ export function Footer() {
           <ul className="g-flex g-justify-center g-w-full g-flex-wrap">
             <li className={cssSeparator}>
               <DynamicLink to="/what-is-gbif">
-                <FormattedMessage id="footer.whatIsGbif" />
+                <FormattedMessage id="footer.whatIsGbif" defaultMessage="What is GBIF?" />
               </DynamicLink>
             </li>
             <li className={cssSeparator}>
               <DynamicLink to="/developer/summary">
-                <FormattedMessage id="footer.api" />
+                <FormattedMessage id="footer.api" defaultMessage="API" />
               </DynamicLink>
             </li>
             <li className={cssSeparator}>
               <DynamicLink to="/faq">
-                <FormattedMessage id="footer.faq" />
+                <FormattedMessage id="footer.faq" defaultMessage="FAQ" />
               </DynamicLink>
             </li>
             <li className={cssSeparator}>
               <DynamicLink to="/newsletters">
-                <FormattedMessage id="footer.newsletter" />
+                <FormattedMessage id="footer.newsletter" defaultMessage="Newsletter" />
               </DynamicLink>
             </li>
             <li className={cssSeparator}>
               <DynamicLink to="/terms/privacy-policy">
-                <FormattedMessage id="footer.privacy" />
+                <FormattedMessage id="footer.privacy" defaultMessage="Privacy" />
               </DynamicLink>
             </li>
             <li className={cssSeparator}>
               <DynamicLink to="/terms">
-                <FormattedMessage id="footer.terms" />
+                <FormattedMessage id="footer.terms" defaultMessage="Terms and agreements" />
               </DynamicLink>
             </li>
             <li className={cssSeparator}>
               <DynamicLink to="/citation-guidelines">
-                <FormattedMessage id="footer.citation" />
+                <FormattedMessage id="footer.citation" defaultMessage="Citation" />
               </DynamicLink>
             </li>
             <li className={cssSeparator}>
               <DynamicLink to="/code-of-conduct">
-                <FormattedMessage id="footer.codeOfConduct" />
+                <FormattedMessage id="footer.codeOfConduct" defaultMessage="Code of Conduct" />
               </DynamicLink>
             </li>
             <li>
               <DynamicLink to="/acknowledgements">
-                <FormattedMessage id="footer.acknowledgements" />
+                <FormattedMessage id="footer.acknowledgements" defaultMessage="Acknowledgements" />
               </DynamicLink>
             </li>
           </ul>
           <address className="g-pt-4 g-not-italic g-flex g-w-full g-justify-center g-flex-wrap">
             <DynamicLink to="/contact-us" className={cssSeparator}>
-              <FormattedMessage id="footer.contact" />
+              <FormattedMessage id="footer.contact" defaultMessage="Contact" />
             </DynamicLink>
             <span className={cssSeparator}>
               <span className="g-font-semibold">GBIF Secretariat</span> Universitetsparken 15
@@ -84,7 +91,7 @@ export function Footer() {
               href="https://www.facebook.com/gbifnews"
               className="g-w-8 g-h-8 g-bg-white g-rounded-full g-flex g-justify-center g-items-center"
             >
-              <i className="gb-icon-facebook" />
+              <FaFacebookF />
             </a>
           </li>
           <li>
@@ -93,15 +100,15 @@ export function Footer() {
               rel="me"
               className="g-w-8 g-h-8 g-bg-white g-rounded-full g-flex g-justify-center g-items-center"
             >
-              <i className="gb-icon-mastodon" />
+              <FaMastodon size={18} />
             </a>
           </li>
           <li>
             <a
-              href="https://twitter.com/GBIF"
+              href="https://x.com/GBIF"
               className="g-w-8 g-h-8 g-bg-white g-rounded-full g-flex g-justify-center g-items-center"
             >
-              <i className="gb-icon-twitter" />
+              <FaXTwitter />
             </a>
           </li>
           <li>
@@ -109,7 +116,7 @@ export function Footer() {
               href="https://www.linkedin.com/company/gbif"
               className="g-w-8 g-h-8 g-bg-white g-rounded-full g-flex g-justify-center g-items-center"
             >
-              <i className="gb-icon-linkedin" />
+              <FaLinkedinIn />
             </a>
           </li>
           <li>
@@ -117,7 +124,7 @@ export function Footer() {
               href="https://www.youtube.com/user/GBIFvideo"
               className="g-w-8 g-h-8 g-bg-white g-rounded-full g-flex g-justify-center g-items-center"
             >
-              <i className="gb-icon-youtube" />
+              <FaYoutube size={20} />
             </a>
           </li>
           <li>
@@ -125,7 +132,7 @@ export function Footer() {
               href="https://vimeo.com/gbif"
               className="g-w-8 g-h-8 g-bg-white g-rounded-full g-flex g-justify-center g-items-center"
             >
-              <i className="gb-icon-vimeo" />
+              <IoLogoVimeo size={18} />
             </a>
           </li>
           <li>
@@ -133,7 +140,7 @@ export function Footer() {
               href="https://www.instagram.com/gbifs/"
               className="g-w-8 g-h-8 g-bg-white g-rounded-full g-flex g-justify-center g-items-center"
             >
-              <i className="gb-icon-instagram" />
+              <FiInstagram />
             </a>
           </li>
         </ul>

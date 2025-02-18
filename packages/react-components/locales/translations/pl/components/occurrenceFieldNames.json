@@ -259,6 +259,8 @@
   "gadmClassification": "Lokalizacja zgodnie z GADM",
   "images": "Multimedia",
   "eventTypeHierarchyJoined": "Struktura",
+  "measurementOrFactTypes": "Pomiar lub fakt",
+  "temporalCoverage": "Pokrycie czasowe",
   "eventType": "Typ zdarzenia",
   "iucnRedListCategory": "Kategorie zagrożenia na czerwonych listach IUCN"
 }

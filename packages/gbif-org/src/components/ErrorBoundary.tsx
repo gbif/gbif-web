@@ -55,9 +55,13 @@ export function ErrorPage({ error }: { error: Error }): React.ReactElement {
   // An error has occurred
   let errorMessage = `Thank you for reporting this issue. Please describe what happened.\n\n\n\n`;
 
-  if (typeof error?.stack === 'string')
+  if (typeof error?.stack === 'string') {
     errorMessage += '\n**Error message for diagnostics**\n```\n' + error?.stack + '\n```';
-  errorMessage += `\nLocation: ${window.location}`;
+  }
+
+  if (typeof window !== 'undefined') {
+    errorMessage += `\nLocation: ${window.location}`;
+  }
 
   return (
     <div className="g-flex g-flex-col g-items-center g-justify-center g-text-center g-w-full g-h-full g-py-48 g-px-2 g-min-h-[80dvh] g-bg-white">
