@@ -270,12 +270,12 @@
     "id": "TAXON_MATCH_FUZZY",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/genus",
       "http://rs.tdwg.org/dwc/terms/kingdom",
+      "http://rs.tdwg.org/dwc/terms/genus",
       "http://rs.tdwg.org/dwc/terms/scientificNameID",
       "http://rs.tdwg.org/dwc/terms/genericName",
-      "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
       "http://rs.tdwg.org/dwc/terms/class",
+      "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
       "http://rs.tdwg.org/dwc/terms/scientificNameAuthorship",
@@ -289,12 +289,12 @@
     "id": "TAXON_MATCH_HIGHERRANK",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/genus",
       "http://rs.tdwg.org/dwc/terms/kingdom",
+      "http://rs.tdwg.org/dwc/terms/genus",
       "http://rs.tdwg.org/dwc/terms/scientificNameID",
       "http://rs.tdwg.org/dwc/terms/genericName",
-      "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
       "http://rs.tdwg.org/dwc/terms/class",
+      "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
       "http://rs.tdwg.org/dwc/terms/scientificNameAuthorship",
@@ -308,12 +308,12 @@
     "id": "TAXON_MATCH_AGGREGATE",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/genus",
       "http://rs.tdwg.org/dwc/terms/kingdom",
+      "http://rs.tdwg.org/dwc/terms/genus",
       "http://rs.tdwg.org/dwc/terms/scientificNameID",
       "http://rs.tdwg.org/dwc/terms/genericName",
-      "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
       "http://rs.tdwg.org/dwc/terms/class",
+      "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
       "http://rs.tdwg.org/dwc/terms/scientificNameAuthorship",
@@ -379,12 +379,12 @@
     "id": "TAXON_MATCH_NONE",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/genus",
       "http://rs.tdwg.org/dwc/terms/kingdom",
+      "http://rs.tdwg.org/dwc/terms/genus",
       "http://rs.tdwg.org/dwc/terms/scientificNameID",
       "http://rs.tdwg.org/dwc/terms/genericName",
-      "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
       "http://rs.tdwg.org/dwc/terms/class",
+      "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
       "http://rs.tdwg.org/dwc/terms/scientificNameAuthorship",
@@ -398,12 +398,12 @@
     "id": "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/genus",
       "http://rs.tdwg.org/dwc/terms/kingdom",
+      "http://rs.tdwg.org/dwc/terms/genus",
       "http://rs.tdwg.org/dwc/terms/scientificNameID",
       "http://rs.tdwg.org/dwc/terms/genericName",
-      "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
       "http://rs.tdwg.org/dwc/terms/class",
+      "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
       "http://rs.tdwg.org/dwc/terms/scientificNameAuthorship",
@@ -664,6 +664,158 @@
       "http://rs.tdwg.org/dwc/terms/institutionCode",
       "http://rs.tdwg.org/dwc/terms/ownerInstitutionCode",
       "http://rs.tdwg.org/dwc/terms/institutionID"
+    ]
+  },
+  {
+    "id": "ERA_OR_ERATHEM_INFERRED_FROM_PARENT_RANK",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/earliestEraOrLowestErathem",
+      "http://rs.tdwg.org/dwc/terms/latestEraOrHighestErathem"
+    ]
+  },
+  {
+    "id": "PERIOD_OR_SYSTEM_INFERRED_FROM_PARENT_RANK",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/earliestPeriodOrLowestSystem",
+      "http://rs.tdwg.org/dwc/terms/latestPeriodOrHighestSystem"
+    ]
+  },
+  {
+    "id": "EPOCH_OR_SERIES_INFERRED_FROM_PARENT_RANK",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/latestEpochOrHighestSeries",
+      "http://rs.tdwg.org/dwc/terms/earliestEpochOrLowestSeries"
+    ]
+  },
+  {
+    "id": "AGE_OR_STAGE_INFERRED_FROM_PARENT_RANK",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/earliestAgeOrLowestStage",
+      "http://rs.tdwg.org/dwc/terms/latestAgeOrHighestStage"
+    ]
+  },
+  {
+    "id": "EON_OR_EONOTHEM_RANK_MISMATCH",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/latestEonOrHighestEonothem",
+      "http://rs.tdwg.org/dwc/terms/earliestEonOrLowestEonothem"
+    ]
+  },
+  {
+    "id": "ERA_OR_ERATHEM_RANK_MISMATCH",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/earliestEraOrLowestErathem",
+      "http://rs.tdwg.org/dwc/terms/latestEraOrHighestErathem"
+    ]
+  },
+  {
+    "id": "PERIOD_OR_SYSTEM_RANK_MISMATCH",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/earliestPeriodOrLowestSystem",
+      "http://rs.tdwg.org/dwc/terms/latestPeriodOrHighestSystem"
+    ]
+  },
+  {
+    "id": "EPOCH_OR_SERIES_RANK_MISMATCH",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/latestEpochOrHighestSeries",
+      "http://rs.tdwg.org/dwc/terms/earliestEpochOrLowestSeries"
+    ]
+  },
+  {
+    "id": "AGE_OR_STAGE_RANK_MISMATCH",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/earliestAgeOrLowestStage",
+      "http://rs.tdwg.org/dwc/terms/latestAgeOrHighestStage"
+    ]
+  },
+  {
+    "id": "EON_OR_EONOTHEM_INVALID_RANGE",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/latestEonOrHighestEonothem",
+      "http://rs.tdwg.org/dwc/terms/earliestEonOrLowestEonothem"
+    ]
+  },
+  {
+    "id": "ERA_OR_ERATHEM_INVALID_RANGE",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/earliestEraOrLowestErathem",
+      "http://rs.tdwg.org/dwc/terms/latestEraOrHighestErathem"
+    ]
+  },
+  {
+    "id": "PERIOD_OR_SYSTEM_INVALID_RANGE",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/earliestPeriodOrLowestSystem",
+      "http://rs.tdwg.org/dwc/terms/latestPeriodOrHighestSystem"
+    ]
+  },
+  {
+    "id": "EPOCH_OR_SERIES_INVALID_RANGE",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/latestEpochOrHighestSeries",
+      "http://rs.tdwg.org/dwc/terms/earliestEpochOrLowestSeries"
+    ]
+  },
+  {
+    "id": "AGE_OR_STAGE_INVALID_RANGE",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/earliestAgeOrLowestStage",
+      "http://rs.tdwg.org/dwc/terms/latestAgeOrHighestStage"
+    ]
+  },
+  {
+    "id": "EON_OR_EONOTHEM_AND_ERA_OR_ERATHEM_MISMATCH",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/latestEonOrHighestEonothem",
+      "http://rs.tdwg.org/dwc/terms/earliestEraOrLowestErathem",
+      "http://rs.tdwg.org/dwc/terms/latestEraOrHighestErathem",
+      "http://rs.tdwg.org/dwc/terms/earliestEonOrLowestEonothem"
+    ]
+  },
+  {
+    "id": "ERA_OR_ERATHEM_AND_PERIOD_OR_SYSTEM_MISMATCH",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/earliestEraOrLowestErathem",
+      "http://rs.tdwg.org/dwc/terms/latestEraOrHighestErathem",
+      "http://rs.tdwg.org/dwc/terms/earliestPeriodOrLowestSystem",
+      "http://rs.tdwg.org/dwc/terms/latestPeriodOrHighestSystem"
+    ]
+  },
+  {
+    "id": "PERIOD_OR_SYSTEM_AND_EPOCH_OR_SERIES_MISMATCH",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/latestEpochOrHighestSeries",
+      "http://rs.tdwg.org/dwc/terms/earliestPeriodOrLowestSystem",
+      "http://rs.tdwg.org/dwc/terms/latestPeriodOrHighestSystem",
+      "http://rs.tdwg.org/dwc/terms/earliestEpochOrLowestSeries"
+    ]
+  },
+  {
+    "id": "EPOCH_OR_SERIES_AND_AGE_OR_STAGE_MISMATCH",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/dwc/terms/earliestAgeOrLowestStage",
+      "http://rs.tdwg.org/dwc/terms/latestEpochOrHighestSeries",
+      "http://rs.tdwg.org/dwc/terms/latestAgeOrHighestStage",
+      "http://rs.tdwg.org/dwc/terms/earliestEpochOrLowestSeries"
     ]
   },
   {
