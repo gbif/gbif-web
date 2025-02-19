@@ -568,7 +568,7 @@
     "preservation": {
       "name": "Konzervace",
       "properties": {
-        "preservationType": "Rovná se {from}",
+        "preservationType": "Typ konzervace",
         "preservationTemperature": "Rovná se {from}",
         "preservationDateBegin": "Rovná se {from}",
         "sequence": "Rovná se {from}"

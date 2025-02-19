@@ -12,7 +12,7 @@
   "hasCoordinate": {
     "name": "Incluye coordenada",
     "count": "Tiene coordenadas",
-    "description": "Igual a {is}"
+    "description": ""
   },
   "hasGeospatialIssues": {
     "name": "Tiene un problema geoespacial",
@@ -60,7 +60,7 @@
   "geometry": {
     "name": "Localización/ubicación",
     "count": "{num, plural, one { filtro } other {# filtros }}",
-    "description": "Igual a {is}",
+    "description": "",
     "placeholderLat": "Latitud",
     "placeholderLon": "Longitud",
     "placeholderDist": "Distancia"
@@ -108,7 +108,7 @@
   "discipline": {
     "name": "",
     "count": "",
-    "description": "Igual a {is}"
+    "description": ""
   },
   "collectionContentType": {
     "name": "",
@@ -123,12 +123,12 @@
   "taxonKey": {
     "name": "Nombre científico",
     "count": "{num, plural, one {nombre científico} other {# nombres científicos}}",
-    "description": "El nombre científico tal y como aparece en el backbone taxonómico de GBIF. Estos nombres están normalizados para facilitar la búsqueda en los conjuntos de datos. Es posible que un nombre originalmente proporcionado sea malinterpretado o desconocido. Para buscar los nombres tal y como se proporcionaron, utilice el filtro \"Nombre científico original\"."
+    "description": "El nombre científico tal y como aparece en el árbol taxonómico de GBIF. Estos nombres están normalizados para facilitar la búsqueda en los conjuntos de datos. Es posible que un nombre originalmente proporcionado sea malinterpretado o desconocido. Para buscar los nombres tal y como se proporcionaron, utilice el filtro \"Nombre científico original\"."
   },
   "taxonKeyGrSciColl": {
     "name": "Nombre científico",
     "count": "{num, plural, one {nombre científico} other {# nombres científicos}}",
-    "description": "Igual a {is}"
+    "description": ""
   },
   "basisOfRecord": {
     "name": "Base del registro",
@@ -222,12 +222,12 @@
   "countriesOfCoverage": {
     "name": "País de cobertura",
     "count": "{num, plural, one {país de cobertura} other {# países de cobertura}}",
-    "description": "Igual a {is}"
+    "description": ""
   },
   "collectionDescriptorCountry": {
     "name": "País o área de cobertura",
     "count": "{num, plural, one {país o área de cobertura} other {# países o áreas de cobertura}}",
-    "description": "Igual a {is}"
+    "description": ""
   },
   "countriesOfResearcher": {
     "name": "País o área del investigador",
@@ -347,8 +347,8 @@
   },
   "higherGeography": {
     "name": "Geografía superior",
-    "count": "Igual a {is}",
-    "description": "Igual a {is}"
+    "count": "",
+    "description": ""
   },
   "stateProvince": {
     "name": "Departamento/Estado/Provincia",
@@ -438,17 +438,17 @@
   "activeInstitution": {
     "name": "Activo",
     "count": "Activo",
-    "description": "Igual a {is}"
+    "description": ""
   },
   "activeCollection": {
     "name": "Activo",
     "count": "Activo",
-    "description": "Igual a {is}"
+    "description": ""
   },
   "publicationDate": {
     "name": "Fecha de publicación",
-    "count": "Igual a {is}",
-    "description": "Igual a {is}"
+    "count": "",
+    "description": ""
   },
   "personalCollection": {
     "name": "Colección personal",
@@ -474,7 +474,7 @@
     "name": "Nombre",
     "count": "{num, plural, one { nombre } other {# nombres}}",
     "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
-    "searchPlaceholder": "Igual a {is}"
+    "searchPlaceholder": ""
   },
   "city": {
     "name": "Ciudad",
@@ -503,7 +503,7 @@
   },
   "higherTaxonKey": {
     "name": "Taxón superior",
-    "count": "{num, plural, one {taxón superior} other {# taxa superior}}",
+    "count": "{num, plural, one {taxón superior} other {# taxa superiores}}",
     "description": "Un taxón superior para filtrar."
   }
 }

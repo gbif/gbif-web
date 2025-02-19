@@ -561,7 +561,7 @@ const config = {
     },
     typeStatus: {
       type: 'keyword',
-      field: 'typeStatus',
+      field: 'typeStatus.concepts',
     },
     typifiedName: {
       type: 'keyword',

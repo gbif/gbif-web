@@ -14,7 +14,7 @@
   "eventTypeHierarchyJoined": "",
   "eventHierarchyJoined": "",
   "map": "",
-  "backToTaxa": "等于 {is}",
+  "backToTaxa": "",
   "siteLocation": "",
   "info": {
     "original": "默认",
@@ -27,7 +27,7 @@
     "record": "记录",
     "occurrence": "出现记录",
     "event": "活动",
-    "dataStructure": "等于 {is}",
+    "dataStructure": "",
     "identification": "标识",
     "taxon": "分类群",
     "location": "位置",

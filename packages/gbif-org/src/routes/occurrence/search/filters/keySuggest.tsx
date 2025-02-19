@@ -8,6 +8,7 @@ import {
   NetworkLabel,
   PublisherLabel,
   TaxonLabel,
+  TypeStatusVocabularyLabel,
 } from '@/components/filters/displayNames';
 import { filterConfigTypes, filterSuggestConfig } from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
@@ -23,6 +24,7 @@ import {
   publisherKeySuggest,
   recordNumberSuggest,
   taxonKeyVernacularSuggest,
+  typeStatusSuggest,
 } from '@/utils/suggestEndpoints';
 
 export const institutionKeyConfig: filterSuggestConfig = {
@@ -339,4 +341,25 @@ export const recordNumberConfig: filterSuggestConfig = {
     }
   `,
   about: () => <Message id="filters.recordNumber.description" />,
+};
+
+export const typeStatusSuggestConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'typeStatus',
+  displayName: TypeStatusVocabularyLabel,
+  filterTranslation: 'filters.typeStatus.name',
+  suggestConfig: typeStatusSuggest,
+  facetQuery: /* GraphQL */ `
+    query OccurrenceTypeStatusFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: typeStatus(size: 100) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.typeStatus.description" />,
 };

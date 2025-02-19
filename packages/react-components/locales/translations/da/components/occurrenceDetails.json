@@ -568,7 +568,7 @@
     "preservation": {
       "name": "",
       "properties": {
-        "preservationType": "",
+        "preservationType": "GBIF annoteret Arkiv",
         "preservationTemperature": "",
         "preservationDateBegin": "",
         "sequence": ""

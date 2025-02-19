@@ -568,7 +568,7 @@
     "preservation": {
       "name": "保存",
       "properties": {
-        "preservationType": "等於 {is}",
+        "preservationType": "GBIF 註記的存檔",
         "preservationTemperature": "等於 {is}",
         "preservationDateBegin": "等於 {is}",
         "sequence": "等於 {is}"

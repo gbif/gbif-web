@@ -13,5 +13,10 @@
   "BIOCASE": "BioCASe",
   "BIOCASE_XML_ARCHIVE": "Archiwum BioCASe XML",
   "OAI_PMH": "OAI-PMH",
+  "COLDP": "Pakiet Danych COL",
+  "BIOM_1_0": "BIOM 1.0",
+  "BIOM_2_1": "BIOM 2.1",
+  "ACEF": "ACEF",
+  "TEXT_TREE": "TextTree",
   "OTHER": "Inne"
 }

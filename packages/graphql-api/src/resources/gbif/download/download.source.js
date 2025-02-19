@@ -17,7 +17,11 @@ class DownloadAPI extends RESTDataSource {
   }
 
   async getDownloadByKey({ key }) {
-    return this.get(`/occurrence/download/${key}`);
+    return this.get(`/occurrence/download/${key}?statistics=true`);
+  }
+
+  async getContributingDatasetsByDownloadKey({ key, query }) {
+    return this.get(`/occurrence/download/${key}/datasets`, query);
   }
 
   /*

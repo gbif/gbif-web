@@ -1,19 +1,28 @@
 {
   "tabs": {
-    "about": "",
-    "typeMaterial": "Równy {from}",
-    "metrics": ""
+    "about": "Informacje",
+    "typeMaterial": "",
+    "metrics": "Metryka"
   },
   "publishedIn": "Opublikowany w",
   "vernacularNames": "Nazwy zwyczajowe",
-  "rank": "",
+  "rank": "Ranga",
   "source": "Źródło",
-  "specimenIsTypeOf": "Równy {from}",
-  "typeMaterial": "Równy {from}",
-  "more": "",
-  "less": "Równy {from}",
+  "specimenIsTypeOf": "",
+  "typeMaterial": "",
+  "more": "więcej ",
+  "less": "",
   "dna": "DNA",
-  "occurenceImages": "Równy {from}",
-  "taxonIdentifiers": "",
-  "synonymsAndCombinations": ""
+  "occurenceImages": "",
+  "taxonIdentifiers": "Identyfikatory taksonu",
+  "synonymsAndCombinations": "Synonimy i kombinacje",
+  "rankPlural": {
+    "KINGDOM": "Królestwa",
+    "PHYLUM": "Typ",
+    "CLASS": "Gromady",
+    "ORDER": "Rzędy",
+    "FAMILY": "Rodziny",
+    "GENUS": "Rodzaje",
+    "SPECIES": "Gatunek\n"
+  }
 }

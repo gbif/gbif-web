@@ -253,7 +253,7 @@ const typeDef = gql`
     temporal: String
     title: String
     type: String
-    typeStatus: [TypeStatus]
+    typeStatus: [String]
     typifiedName: String
     valid: String
     verbatimCoordinateSystem: String

@@ -2108,7 +2108,7 @@ export type DocumentAssetFileDetails = {
 
 export type Download = {
   __typename?: 'Download';
-  created?: Maybe<Scalars['DateTime']['output']>;
+  created: Scalars['DateTime']['output'];
   doi?: Maybe<Scalars['String']['output']>;
   downloadLink?: Maybe<Scalars['String']['output']>;
   eraseAfter?: Maybe<Scalars['String']['output']>;
@@ -2116,9 +2116,11 @@ export type Download = {
   license?: Maybe<Scalars['String']['output']>;
   modified?: Maybe<Scalars['DateTime']['output']>;
   numberDatasets?: Maybe<Scalars['Int']['output']>;
+  numberOrganizations?: Maybe<Scalars['Int']['output']>;
+  numberPublishingCountries?: Maybe<Scalars['Int']['output']>;
   request?: Maybe<DownloadRequest>;
   size?: Maybe<Scalars['Int']['output']>;
-  status?: Maybe<Scalars['String']['output']>;
+  status?: Maybe<Download_Status>;
   totalRecords?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -2136,9 +2138,13 @@ export enum DownloadFormat {
 
 export type DownloadRequest = {
   __typename?: 'DownloadRequest';
+  description?: Maybe<Scalars['String']['output']>;
   format?: Maybe<Scalars['String']['output']>;
+  gbifMachineDescription?: Maybe<Scalars['JSON']['output']>;
+  machineDescription?: Maybe<Scalars['JSON']['output']>;
   predicate?: Maybe<Scalars['JSON']['output']>;
   sendNotification?: Maybe<Scalars['Boolean']['output']>;
+  sql?: Maybe<Scalars['String']['output']>;
 };
 
 export enum DownloadType {
@@ -4816,7 +4822,7 @@ export type Occurrence = {
   terms?: Maybe<Array<Maybe<Term>>>;
   title?: Maybe<Scalars['String']['output']>;
   type?: Maybe<Scalars['String']['output']>;
-  typeStatus?: Maybe<Array<Maybe<TypeStatus>>>;
+  typeStatus?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   typifiedName?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['String']['output']>;
   verbatimCoordinateSystem?: Maybe<Scalars['String']['output']>;
@@ -6075,6 +6081,9 @@ export type OccurrenceHistogramYearArgs = {
 };
 
 export enum OccurrenceIssue {
+  AgeOrStageInferredFromParentRank = 'AGE_OR_STAGE_INFERRED_FROM_PARENT_RANK',
+  AgeOrStageInvalidRange = 'AGE_OR_STAGE_INVALID_RANGE',
+  AgeOrStageRankMismatch = 'AGE_OR_STAGE_RANK_MISMATCH',
   AmbiguousCollection = 'AMBIGUOUS_COLLECTION',
   AmbiguousInstitution = 'AMBIGUOUS_INSTITUTION',
   BasisOfRecordInvalid = 'BASIS_OF_RECORD_INVALID',
@@ -6108,6 +6117,17 @@ export enum OccurrenceIssue {
   ElevationNonNumeric = 'ELEVATION_NON_NUMERIC',
   ElevationNotMetric = 'ELEVATION_NOT_METRIC',
   ElevationUnlikely = 'ELEVATION_UNLIKELY',
+  EonOrEonothemAndEraOrErathemMismatch = 'EON_OR_EONOTHEM_AND_ERA_OR_ERATHEM_MISMATCH',
+  EonOrEonothemInvalidRange = 'EON_OR_EONOTHEM_INVALID_RANGE',
+  EonOrEonothemRankMismatch = 'EON_OR_EONOTHEM_RANK_MISMATCH',
+  EpochOrSeriesAndAgeOrStageMismatch = 'EPOCH_OR_SERIES_AND_AGE_OR_STAGE_MISMATCH',
+  EpochOrSeriesInferredFromParentRank = 'EPOCH_OR_SERIES_INFERRED_FROM_PARENT_RANK',
+  EpochOrSeriesInvalidRange = 'EPOCH_OR_SERIES_INVALID_RANGE',
+  EpochOrSeriesRankMismatch = 'EPOCH_OR_SERIES_RANK_MISMATCH',
+  EraOrErathemAndPeriodOrSystemMismatch = 'ERA_OR_ERATHEM_AND_PERIOD_OR_SYSTEM_MISMATCH',
+  EraOrErathemInferredFromParentRank = 'ERA_OR_ERATHEM_INFERRED_FROM_PARENT_RANK',
+  EraOrErathemInvalidRange = 'ERA_OR_ERATHEM_INVALID_RANGE',
+  EraOrErathemRankMismatch = 'ERA_OR_ERATHEM_RANK_MISMATCH',
   FootprintSrsInvalid = 'FOOTPRINT_SRS_INVALID',
   FootprintWktInvalid = 'FOOTPRINT_WKT_INVALID',
   FootprintWktMismatch = 'FOOTPRINT_WKT_MISMATCH',
@@ -6130,6 +6150,10 @@ export enum OccurrenceIssue {
   OccurrenceStatusInferredFromBasisOfRecord = 'OCCURRENCE_STATUS_INFERRED_FROM_BASIS_OF_RECORD',
   OccurrenceStatusInferredFromIndividualCount = 'OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT',
   OccurrenceStatusUnparsable = 'OCCURRENCE_STATUS_UNPARSABLE',
+  PeriodOrSystemAndEpochOrSeriesMismatch = 'PERIOD_OR_SYSTEM_AND_EPOCH_OR_SERIES_MISMATCH',
+  PeriodOrSystemInferredFromParentRank = 'PERIOD_OR_SYSTEM_INFERRED_FROM_PARENT_RANK',
+  PeriodOrSystemInvalidRange = 'PERIOD_OR_SYSTEM_INVALID_RANGE',
+  PeriodOrSystemRankMismatch = 'PERIOD_OR_SYSTEM_RANK_MISMATCH',
   PossiblyOnLoan = 'POSSIBLY_ON_LOAN',
   PresumedNegatedLatitude = 'PRESUMED_NEGATED_LATITUDE',
   PresumedNegatedLongitude = 'PRESUMED_NEGATED_LONGITUDE',
@@ -6190,6 +6214,7 @@ export enum OccurrenceSearchParameter {
   AssociatedSequences = 'ASSOCIATED_SEQUENCES',
   BasisOfRecord = 'BASIS_OF_RECORD',
   Bed = 'BED',
+  Biostratigraphy = 'BIOSTRATIGRAPHY',
   CatalogNumber = 'CATALOG_NUMBER',
   ClassKey = 'CLASS_KEY',
   CollectionCode = 'COLLECTION_CODE',
@@ -6229,6 +6254,7 @@ export enum OccurrenceSearchParameter {
   GbifId = 'GBIF_ID',
   GbifRegion = 'GBIF_REGION',
   GenusKey = 'GENUS_KEY',
+  GeologicalTime = 'GEOLOGICAL_TIME',
   Geometry = 'GEOMETRY',
   GeoreferencedBy = 'GEOREFERENCED_BY',
   GeoDistance = 'GEO_DISTANCE',
@@ -6258,6 +6284,7 @@ export enum OccurrenceSearchParameter {
   LatestPeriodOrHighestSystem = 'LATEST_PERIOD_OR_HIGHEST_SYSTEM',
   License = 'LICENSE',
   LifeStage = 'LIFE_STAGE',
+  Lithostratigraphy = 'LITHOSTRATIGRAPHY',
   Locality = 'LOCALITY',
   LowestBiostratigraphicZone = 'LOWEST_BIOSTRATIGRAPHIC_ZONE',
   MediaType = 'MEDIA_TYPE',
@@ -6687,6 +6714,7 @@ export type Query = {
   datasetDownloads?: Maybe<DatasetDownloadListResults>;
   datasetList: DatasetListResults;
   datasetSearch: DatasetSearchResults;
+  datasetsByDownload?: Maybe<DatasetDownloadListResults>;
   directoryAmbassadors?: Maybe<DirectoryContactRoleSearchResults>;
   directoryAwardWinners: Array<Maybe<DirectoryPerson>>;
   directoryMentors?: Maybe<DirectoryContactRoleSearchResults>;
@@ -6879,6 +6907,13 @@ export type QueryDatasetSearchArgs = {
 };
 
 
+export type QueryDatasetsByDownloadArgs = {
+  key: Scalars['ID']['input'];
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
 export type QueryDirectoryAmbassadorsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -6903,7 +6938,7 @@ export type QueryDirectoryTranslatorsArgs = {
 
 
 export type QueryDownloadArgs = {
-  key: Scalars['String']['input'];
+  key: Scalars['ID']['input'];
 };
 
 
@@ -8826,11 +8861,11 @@ export type OccurrenceClusterQueryVariables = Exact<{
 }>;
 
 
-export type OccurrenceClusterQuery = { __typename?: 'Query', occurrence?: { __typename?: 'Occurrence', related?: { __typename?: 'RelatedOccurrences', count?: number | null, currentOccurrence: { __typename?: 'RelatedCurrentOccurrence', stub?: { __typename?: 'RelatedOccurrenceStub', gbifId?: string | null, occurrenceID?: string | null, catalogNumber?: string | null, publishingOrgKey?: string | null, publishingOrgName?: string | null, datasetKey?: string | null, scientificName?: string | null } | null, occurrence?: { __typename?: 'Occurrence', key?: number | null, basisOfRecord?: string | null, datasetTitle?: string | null, publisherTitle?: string | null, coordinates?: any | null, typeStatus?: Array<TypeStatus | null> | null, soundCount?: number | null, stillImageCount?: number | null, movingImageCount?: number | null, formattedCoordinates?: string | null, eventDate?: string | null, primaryImage?: { __typename?: 'MultimediaItem', identifier?: string | null } | null, gbifClassification?: { __typename?: 'GbifClassification', usage?: { __typename?: 'OccurrenceNameUsage', formattedName: string } | null } | null, volatile?: { __typename?: 'VolatileOccurrenceData', features?: { __typename?: 'OccurrenceFeatures', isSequenced?: boolean | null, isSamplingEvent?: boolean | null, isTreament?: boolean | null } | null } | null } | null }, relatedOccurrences?: Array<{ __typename?: 'RelatedOccurrence', reasons: Array<string | null>, stub?: { __typename?: 'RelatedOccurrenceStub', gbifId?: string | null, occurrenceID?: string | null, catalogNumber?: string | null, publishingOrgKey?: string | null, publishingOrgName?: string | null, datasetKey?: string | null, scientificName?: string | null } | null, occurrence?: { __typename?: 'Occurrence', key?: number | null, basisOfRecord?: string | null, datasetTitle?: string | null, publisherTitle?: string | null, coordinates?: any | null, typeStatus?: Array<TypeStatus | null> | null, soundCount?: number | null, stillImageCount?: number | null, movingImageCount?: number | null, formattedCoordinates?: string | null, eventDate?: string | null, primaryImage?: { __typename?: 'MultimediaItem', identifier?: string | null } | null, gbifClassification?: { __typename?: 'GbifClassification', usage?: { __typename?: 'OccurrenceNameUsage', formattedName: string } | null } | null, volatile?: { __typename?: 'VolatileOccurrenceData', features?: { __typename?: 'OccurrenceFeatures', isSequenced?: boolean | null, isSamplingEvent?: boolean | null, isTreament?: boolean | null } | null } | null } | null } | null> | null } | null } | null };
+export type OccurrenceClusterQuery = { __typename?: 'Query', occurrence?: { __typename?: 'Occurrence', related?: { __typename?: 'RelatedOccurrences', count?: number | null, currentOccurrence: { __typename?: 'RelatedCurrentOccurrence', stub?: { __typename?: 'RelatedOccurrenceStub', gbifId?: string | null, occurrenceID?: string | null, catalogNumber?: string | null, publishingOrgKey?: string | null, publishingOrgName?: string | null, datasetKey?: string | null, scientificName?: string | null } | null, occurrence?: { __typename?: 'Occurrence', key?: number | null, basisOfRecord?: string | null, datasetTitle?: string | null, publisherTitle?: string | null, coordinates?: any | null, typeStatus?: Array<string | null> | null, soundCount?: number | null, stillImageCount?: number | null, movingImageCount?: number | null, formattedCoordinates?: string | null, eventDate?: string | null, primaryImage?: { __typename?: 'MultimediaItem', identifier?: string | null } | null, gbifClassification?: { __typename?: 'GbifClassification', usage?: { __typename?: 'OccurrenceNameUsage', formattedName: string } | null } | null, volatile?: { __typename?: 'VolatileOccurrenceData', features?: { __typename?: 'OccurrenceFeatures', isSequenced?: boolean | null, isSamplingEvent?: boolean | null, isTreament?: boolean | null } | null } | null } | null }, relatedOccurrences?: Array<{ __typename?: 'RelatedOccurrence', reasons: Array<string | null>, stub?: { __typename?: 'RelatedOccurrenceStub', gbifId?: string | null, occurrenceID?: string | null, catalogNumber?: string | null, publishingOrgKey?: string | null, publishingOrgName?: string | null, datasetKey?: string | null, scientificName?: string | null } | null, occurrence?: { __typename?: 'Occurrence', key?: number | null, basisOfRecord?: string | null, datasetTitle?: string | null, publisherTitle?: string | null, coordinates?: any | null, typeStatus?: Array<string | null> | null, soundCount?: number | null, stillImageCount?: number | null, movingImageCount?: number | null, formattedCoordinates?: string | null, eventDate?: string | null, primaryImage?: { __typename?: 'MultimediaItem', identifier?: string | null } | null, gbifClassification?: { __typename?: 'GbifClassification', usage?: { __typename?: 'OccurrenceNameUsage', formattedName: string } | null } | null, volatile?: { __typename?: 'VolatileOccurrenceData', features?: { __typename?: 'OccurrenceFeatures', isSequenced?: boolean | null, isSamplingEvent?: boolean | null, isTreament?: boolean | null } | null } | null } | null } | null> | null } | null } | null };
 
 export type RelatedOccurrenceStubFragment = { __typename?: 'RelatedOccurrenceStub', gbifId?: string | null, occurrenceID?: string | null, catalogNumber?: string | null, publishingOrgKey?: string | null, publishingOrgName?: string | null, datasetKey?: string | null, scientificName?: string | null };
 
-export type RelatedOccurrenceDetailsFragment = { __typename?: 'Occurrence', key?: number | null, basisOfRecord?: string | null, datasetTitle?: string | null, publisherTitle?: string | null, coordinates?: any | null, typeStatus?: Array<TypeStatus | null> | null, soundCount?: number | null, stillImageCount?: number | null, movingImageCount?: number | null, formattedCoordinates?: string | null, eventDate?: string | null, primaryImage?: { __typename?: 'MultimediaItem', identifier?: string | null } | null, gbifClassification?: { __typename?: 'GbifClassification', usage?: { __typename?: 'OccurrenceNameUsage', formattedName: string } | null } | null, volatile?: { __typename?: 'VolatileOccurrenceData', features?: { __typename?: 'OccurrenceFeatures', isSequenced?: boolean | null, isSamplingEvent?: boolean | null, isTreament?: boolean | null } | null } | null };
+export type RelatedOccurrenceDetailsFragment = { __typename?: 'Occurrence', key?: number | null, basisOfRecord?: string | null, datasetTitle?: string | null, publisherTitle?: string | null, coordinates?: any | null, typeStatus?: Array<string | null> | null, soundCount?: number | null, stillImageCount?: number | null, movingImageCount?: number | null, formattedCoordinates?: string | null, eventDate?: string | null, primaryImage?: { __typename?: 'MultimediaItem', identifier?: string | null } | null, gbifClassification?: { __typename?: 'GbifClassification', usage?: { __typename?: 'OccurrenceNameUsage', formattedName: string } | null } | null, volatile?: { __typename?: 'VolatileOccurrenceData', features?: { __typename?: 'OccurrenceFeatures', isSequenced?: boolean | null, isSamplingEvent?: boolean | null, isTreament?: boolean | null } | null } | null };
 
 export type OccurrenceExistsQueryVariables = Exact<{
   key: Scalars['ID']['input'];
@@ -8844,7 +8879,7 @@ export type OccurrenceQueryVariables = Exact<{
 }>;
 
 
-export type OccurrenceQuery = { __typename?: 'Query', occurrence?: { __typename?: 'Occurrence', key?: number | null, coordinates?: any | null, organismName?: string | null, lastCrawled?: string | null, countryCode?: Country | null, stateProvince?: string | null, locality?: string | null, eventDate?: string | null, typeStatus?: Array<TypeStatus | null> | null, references?: string | null, issues?: Array<OccurrenceIssue | null> | null, basisOfRecord?: string | null, dynamicProperties?: string | null, institutionKey?: string | null, collectionKey?: string | null, isInCluster?: boolean | null, datasetKey?: string | null, datasetTitle?: string | null, publishingOrgKey?: string | null, publisherTitle?: string | null, institutionCode?: string | null, gadm?: any | null, stillImageCount?: number | null, movingImageCount?: number | null, soundCount?: number | null, scientificName?: string | null, volatile?: { __typename?: 'VolatileOccurrenceData', globe?: { __typename?: 'Globe', svg: string, lat: number, lon: number } | null, features?: { __typename?: 'OccurrenceFeatures', isSpecimen?: boolean | null, isTreament?: boolean | null, isSequenced?: boolean | null, isClustered?: boolean | null, isSamplingEvent?: boolean | null, firstIIIF?: string | null } | null } | null, dataset?: { __typename?: 'Dataset', citation?: { __typename?: 'Citation', text: string } | null } | null, extensions?: { __typename?: 'OccurrenceExtensions', audubon?: Array<any | null> | null, amplification?: Array<any | null> | null, germplasmAccession?: Array<any | null> | null, germplasmMeasurementScore?: Array<any | null> | null, germplasmMeasurementTrait?: Array<any | null> | null, germplasmMeasurementTrial?: Array<any | null> | null, identification?: Array<any | null> | null, identifier?: Array<any | null> | null, image?: Array<any | null> | null, measurementOrFact?: Array<any | null> | null, multimedia?: Array<any | null> | null, reference?: Array<any | null> | null, eolReference?: Array<any | null> | null, resourceRelationship?: Array<any | null> | null, cloning?: Array<any | null> | null, gelImage?: Array<any | null> | null, loan?: Array<any | null> | null, materialSample?: Array<any | null> | null, permit?: Array<any | null> | null, preparation?: Array<any | null> | null, preservation?: Array<any | null> | null, extendedMeasurementOrFact?: Array<any | null> | null, chronometricAge?: Array<any | null> | null, dnaDerivedData?: Array<any | null> | null } | null, stillImages?: Array<{ __typename?: 'MultimediaItem', title?: string | null, type?: string | null, format?: string | null, identifier?: string | null, created?: string | null, creator?: string | null, license?: string | null, publisher?: string | null, references?: string | null, rightsHolder?: string | null, description?: string | null, thumbor?: string | null }> | null, sounds?: Array<{ __typename?: 'MultimediaItem', title?: string | null, type?: string | null, format?: string | null, identifier?: string | null, created?: string | null, creator?: string | null, license?: string | null, publisher?: string | null, references?: string | null, rightsHolder?: string | null, description?: string | null, thumbor?: string | null }> | null, movingImages?: Array<{ __typename?: 'MultimediaItem', title?: string | null, type?: string | null, format?: string | null, identifier?: string | null, created?: string | null, creator?: string | null, license?: string | null, publisher?: string | null, references?: string | null, rightsHolder?: string | null, description?: string | null, thumbor?: string | null }> | null, gbifClassification?: { __typename?: 'GbifClassification', kingdom?: string | null, kingdomKey?: number | null, phylum?: string | null, phylumKey?: number | null, class?: string | null, classKey?: number | null, order?: string | null, orderKey?: number | null, family?: string | null, familyKey?: number | null, genus?: string | null, genusKey?: number | null, species?: string | null, speciesKey?: number | null, synonym?: boolean | null, classification?: Array<{ __typename?: 'Classification', key?: number | null, rank?: string | null, name?: string | null } | null> | null, usage?: { __typename?: 'OccurrenceNameUsage', rank: string, formattedName: string, key: number } | null, acceptedUsage?: { __typename?: 'OccurrenceNameUsage', formattedName: string, key: number } | null } | null, primaryImage?: { __typename?: 'MultimediaItem', identifier?: string | null } | null, terms?: Array<{ __typename?: 'Term', simpleName?: string | null, verbatim?: any | null, value?: any | null, htmlValue?: any | null, remarks?: string | null, issues?: Array<any> | null } | null> | null, recordedByIDs?: Array<{ __typename?: 'AssociatedID', type?: string | null, value?: string | null } | null> | null, identifiedByIDs?: Array<{ __typename?: 'AssociatedID', type?: string | null, value?: string | null } | null> | null } | null };
+export type OccurrenceQuery = { __typename?: 'Query', occurrence?: { __typename?: 'Occurrence', key?: number | null, coordinates?: any | null, organismName?: string | null, lastCrawled?: string | null, countryCode?: Country | null, stateProvince?: string | null, locality?: string | null, eventDate?: string | null, typeStatus?: Array<string | null> | null, references?: string | null, issues?: Array<OccurrenceIssue | null> | null, basisOfRecord?: string | null, dynamicProperties?: string | null, institutionKey?: string | null, collectionKey?: string | null, isInCluster?: boolean | null, datasetKey?: string | null, datasetTitle?: string | null, publishingOrgKey?: string | null, publisherTitle?: string | null, institutionCode?: string | null, gadm?: any | null, stillImageCount?: number | null, movingImageCount?: number | null, soundCount?: number | null, scientificName?: string | null, volatile?: { __typename?: 'VolatileOccurrenceData', globe?: { __typename?: 'Globe', svg: string, lat: number, lon: number } | null, features?: { __typename?: 'OccurrenceFeatures', isSpecimen?: boolean | null, isTreament?: boolean | null, isSequenced?: boolean | null, isClustered?: boolean | null, isSamplingEvent?: boolean | null, firstIIIF?: string | null } | null } | null, dataset?: { __typename?: 'Dataset', citation?: { __typename?: 'Citation', text: string } | null } | null, extensions?: { __typename?: 'OccurrenceExtensions', audubon?: Array<any | null> | null, amplification?: Array<any | null> | null, germplasmAccession?: Array<any | null> | null, germplasmMeasurementScore?: Array<any | null> | null, germplasmMeasurementTrait?: Array<any | null> | null, germplasmMeasurementTrial?: Array<any | null> | null, identification?: Array<any | null> | null, identifier?: Array<any | null> | null, image?: Array<any | null> | null, measurementOrFact?: Array<any | null> | null, multimedia?: Array<any | null> | null, reference?: Array<any | null> | null, eolReference?: Array<any | null> | null, resourceRelationship?: Array<any | null> | null, cloning?: Array<any | null> | null, gelImage?: Array<any | null> | null, loan?: Array<any | null> | null, materialSample?: Array<any | null> | null, permit?: Array<any | null> | null, preparation?: Array<any | null> | null, preservation?: Array<any | null> | null, extendedMeasurementOrFact?: Array<any | null> | null, chronometricAge?: Array<any | null> | null, dnaDerivedData?: Array<any | null> | null } | null, stillImages?: Array<{ __typename?: 'MultimediaItem', title?: string | null, type?: string | null, format?: string | null, identifier?: string | null, created?: string | null, creator?: string | null, license?: string | null, publisher?: string | null, references?: string | null, rightsHolder?: string | null, description?: string | null, thumbor?: string | null }> | null, sounds?: Array<{ __typename?: 'MultimediaItem', title?: string | null, type?: string | null, format?: string | null, identifier?: string | null, created?: string | null, creator?: string | null, license?: string | null, publisher?: string | null, references?: string | null, rightsHolder?: string | null, description?: string | null, thumbor?: string | null }> | null, movingImages?: Array<{ __typename?: 'MultimediaItem', title?: string | null, type?: string | null, format?: string | null, identifier?: string | null, created?: string | null, creator?: string | null, license?: string | null, publisher?: string | null, references?: string | null, rightsHolder?: string | null, description?: string | null, thumbor?: string | null }> | null, gbifClassification?: { __typename?: 'GbifClassification', kingdom?: string | null, kingdomKey?: number | null, phylum?: string | null, phylumKey?: number | null, class?: string | null, classKey?: number | null, order?: string | null, orderKey?: number | null, family?: string | null, familyKey?: number | null, genus?: string | null, genusKey?: number | null, species?: string | null, speciesKey?: number | null, synonym?: boolean | null, classification?: Array<{ __typename?: 'Classification', key?: number | null, rank?: string | null, name?: string | null } | null> | null, usage?: { __typename?: 'OccurrenceNameUsage', rank: string, formattedName: string, key: number } | null, acceptedUsage?: { __typename?: 'OccurrenceNameUsage', formattedName: string, key: number } | null } | null, primaryImage?: { __typename?: 'MultimediaItem', identifier?: string | null } | null, terms?: Array<{ __typename?: 'Term', simpleName?: string | null, verbatim?: any | null, value?: any | null, htmlValue?: any | null, remarks?: string | null, issues?: Array<any> | null } | null> | null, recordedByIDs?: Array<{ __typename?: 'AssociatedID', type?: string | null, value?: string | null } | null> | null, identifiedByIDs?: Array<{ __typename?: 'AssociatedID', type?: string | null, value?: string | null } | null> | null } | null };
 
 export type SlowOccurrenceKeyQueryVariables = Exact<{
   key: Scalars['ID']['input'];
@@ -8978,7 +9013,7 @@ export type OccurrenceMediaSearchQueryVariables = Exact<{
 }>;
 
 
-export type OccurrenceMediaSearchQuery = { __typename?: 'Query', occurrenceSearch?: { __typename?: 'OccurrenceSearchResult', documents: { __typename?: 'OccurrenceDocuments', total: any, size: number, from: number, results: Array<{ __typename?: 'Occurrence', key?: number | null, countryCode?: Country | null, locality?: string | null, basisOfRecord?: string | null, scientificName?: string | null, typeStatus?: Array<TypeStatus | null> | null, eventDate?: string | null, formattedCoordinates?: string | null, gbifClassification?: { __typename?: 'GbifClassification', usage?: { __typename?: 'OccurrenceNameUsage', formattedName: string } | null } | null, primaryImage?: { __typename?: 'MultimediaItem', identifier?: string | null } | null, volatile?: { __typename?: 'VolatileOccurrenceData', features?: { __typename?: 'OccurrenceFeatures', isSpecimen?: boolean | null } | null } | null } | null> } } | null };
+export type OccurrenceMediaSearchQuery = { __typename?: 'Query', occurrenceSearch?: { __typename?: 'OccurrenceSearchResult', documents: { __typename?: 'OccurrenceDocuments', total: any, size: number, from: number, results: Array<{ __typename?: 'Occurrence', key?: number | null, countryCode?: Country | null, locality?: string | null, basisOfRecord?: string | null, scientificName?: string | null, typeStatus?: Array<string | null> | null, eventDate?: string | null, formattedCoordinates?: string | null, gbifClassification?: { __typename?: 'GbifClassification', usage?: { __typename?: 'OccurrenceNameUsage', formattedName: string } | null } | null, primaryImage?: { __typename?: 'MultimediaItem', identifier?: string | null } | null, volatile?: { __typename?: 'VolatileOccurrenceData', features?: { __typename?: 'OccurrenceFeatures', isSpecimen?: boolean | null } | null } | null } | null> } } | null };
 
 export type OccurrenceSearchQueryVariables = Exact<{
   from?: InputMaybe<Scalars['Int']['input']>;
@@ -8987,7 +9022,7 @@ export type OccurrenceSearchQueryVariables = Exact<{
 }>;
 
 
-export type OccurrenceSearchQuery = { __typename?: 'Query', occurrenceSearch?: { __typename?: 'OccurrenceSearchResult', documents: { __typename?: 'OccurrenceDocuments', from: number, size: number, total: any, results: Array<{ __typename?: 'Occurrence', key?: number | null, taxonKey?: string | null, hasTaxonIssues?: boolean | null, eventDate?: string | null, coordinates?: any | null, formattedCoordinates?: string | null, country?: string | null, countryCode?: Country | null, basisOfRecord?: string | null, datasetTitle?: string | null, datasetKey?: string | null, publishingOrgKey?: string | null, publisherTitle?: string | null, catalogNumber?: string | null, recordedBy?: Array<string | null> | null, identifiedBy?: Array<string | null> | null, recordNumber?: string | null, typeStatus?: Array<TypeStatus | null> | null, preparations?: Array<string | null> | null, collectionCode?: string | null, locality?: string | null, higherGeography?: Array<string | null> | null, stateProvince?: string | null, establishmentMeans?: string | null, iucnRedListCategory?: string | null, datasetName?: Array<string | null> | null, stillImageCount?: number | null, movingImageCount?: number | null, soundCount?: number | null, issues?: Array<OccurrenceIssue | null> | null, gbifClassification?: { __typename?: 'GbifClassification', verbatimScientificName?: string | null, usage?: { __typename?: 'OccurrenceNameUsage', rank: string, formattedName: string, key: number } | null } | null, institution?: { __typename?: 'Institution', code?: string | null, name?: string | null, key: string } | null, collection?: { __typename?: 'Collection', code?: string | null, name?: string | null, key: string } | null, volatile?: { __typename?: 'VolatileOccurrenceData', features?: { __typename?: 'OccurrenceFeatures', isSequenced?: boolean | null, isTreament?: boolean | null, isClustered?: boolean | null, isSamplingEvent?: boolean | null } | null } | null } | null> } } | null };
+export type OccurrenceSearchQuery = { __typename?: 'Query', occurrenceSearch?: { __typename?: 'OccurrenceSearchResult', documents: { __typename?: 'OccurrenceDocuments', from: number, size: number, total: any, results: Array<{ __typename?: 'Occurrence', key?: number | null, taxonKey?: string | null, hasTaxonIssues?: boolean | null, eventDate?: string | null, coordinates?: any | null, formattedCoordinates?: string | null, country?: string | null, countryCode?: Country | null, basisOfRecord?: string | null, datasetTitle?: string | null, datasetKey?: string | null, publishingOrgKey?: string | null, publisherTitle?: string | null, catalogNumber?: string | null, recordedBy?: Array<string | null> | null, identifiedBy?: Array<string | null> | null, recordNumber?: string | null, typeStatus?: Array<string | null> | null, preparations?: Array<string | null> | null, collectionCode?: string | null, locality?: string | null, higherGeography?: Array<string | null> | null, stateProvince?: string | null, establishmentMeans?: string | null, iucnRedListCategory?: string | null, datasetName?: Array<string | null> | null, stillImageCount?: number | null, movingImageCount?: number | null, soundCount?: number | null, issues?: Array<OccurrenceIssue | null> | null, gbifClassification?: { __typename?: 'GbifClassification', verbatimScientificName?: string | null, usage?: { __typename?: 'OccurrenceNameUsage', rank: string, formattedName: string, key: number } | null } | null, institution?: { __typename?: 'Institution', code?: string | null, name?: string | null, key: string } | null, collection?: { __typename?: 'Collection', code?: string | null, name?: string | null, key: string } | null, volatile?: { __typename?: 'VolatileOccurrenceData', features?: { __typename?: 'OccurrenceFeatures', isSequenced?: boolean | null, isTreament?: boolean | null, isClustered?: boolean | null, isSamplingEvent?: boolean | null } | null } | null } | null> } } | null };
 
 export type PublisherCountsQueryVariables = Exact<{
   key: Scalars['ID']['input'];
@@ -9228,7 +9263,7 @@ export type TaxonTypeSpecimensQueryVariables = Exact<{
 }>;
 
 
-export type TaxonTypeSpecimensQuery = { __typename?: 'Query', occurrenceSearch?: { __typename?: 'OccurrenceSearchResult', _meta?: any | null, documents: { __typename?: 'OccurrenceDocuments', from: number, size: number, total: any, results: Array<{ __typename?: 'Occurrence', key?: number | null, taxonKey?: string | null, scientificName?: string | null, typeStatus?: Array<TypeStatus | null> | null, typifiedName?: string | null, catalogNumber?: string | null, recordedBy?: Array<string | null> | null, year?: number | null, country?: string | null, institutionCode?: string | null, collectionCode?: string | null, occurrenceID?: string | null, dataset?: { __typename?: 'Dataset', key: string, title?: string | null } | null, extensions?: { __typename?: 'OccurrenceExtensions', dnaDerivedData?: Array<any | null> | null } | null } | null> } } | null };
+export type TaxonTypeSpecimensQuery = { __typename?: 'Query', occurrenceSearch?: { __typename?: 'OccurrenceSearchResult', _meta?: any | null, documents: { __typename?: 'OccurrenceDocuments', from: number, size: number, total: any, results: Array<{ __typename?: 'Occurrence', key?: number | null, taxonKey?: string | null, scientificName?: string | null, typeStatus?: Array<string | null> | null, typifiedName?: string | null, catalogNumber?: string | null, recordedBy?: Array<string | null> | null, year?: number | null, country?: string | null, institutionCode?: string | null, collectionCode?: string | null, occurrenceID?: string | null, dataset?: { __typename?: 'Dataset', key: string, title?: string | null } | null, extensions?: { __typename?: 'OccurrenceExtensions', dnaDerivedData?: Array<any | null> | null } | null } | null> } } | null };
 
 export type TaxonVernacularNamesQueryVariables = Exact<{
   key: Scalars['ID']['input'];

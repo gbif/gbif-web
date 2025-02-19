@@ -441,7 +441,7 @@
         "pages": "",
         "pageStart": "",
         "pageEnd": "",
-        "volume": "",
+        "volume": "Gleich {is}",
         "edition": "",
         "publisher": "",
         "authorList": "",
@@ -568,7 +568,7 @@
     "preservation": {
       "name": "Konservierung",
       "properties": {
-        "preservationType": "Gleich {is}",
+        "preservationType": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
         "preservationTemperature": "Gleich {is}",
         "preservationDateBegin": "Gleich {is}",
         "sequence": "Gleich {is}"

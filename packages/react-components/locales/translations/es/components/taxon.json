@@ -14,6 +14,15 @@
   "less": "Igual a {is}",
   "dna": "ADN",
   "occurenceImages": "Igual a {is}",
-  "taxonIdentifiers": "Identificadores de taxón",
-  "synonymsAndCombinations": "Sinónimos y combinaciones"
+  "taxonIdentifiers": "Identificadores del taxón",
+  "synonymsAndCombinations": "Sinónimos y combinaciones",
+  "rankPlural": {
+    "KINGDOM": "Reinos",
+    "PHYLUM": "Filos",
+    "CLASS": "Clases",
+    "ORDER": "Órdenes",
+    "FAMILY": "Familias",
+    "GENUS": "Géneros",
+    "SPECIES": "Especies"
+  }
 }

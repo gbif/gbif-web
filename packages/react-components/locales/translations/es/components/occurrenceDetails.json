@@ -18,7 +18,7 @@
   "collection": "Colección",
   "collectionGrSciColl": "Colección GrSciColl",
   "recordedAndIdentifiedBy": "Registrado e identificado por",
-  "tryPublisherSiteForFailingMedia": "Si los medios no se muestran correctamente, pruebe con el sitio del editor.",
+  "tryPublisherSiteForFailingMedia": "Si el contenido multimedia no se muestran correctamente, pruebe con el sitio del editor.",
   "screenReader": {
     "title": "Detalles del registro biológico"
   },
@@ -59,10 +59,10 @@
   },
   "cluster": {
     "current": "Actual",
-    "relatedOccurrences": "Observaciones o especímenes asociados",
+    "relatedOccurrences": "Registros biológicos relacionados",
     "similarBecause": "Similar porque",
     "clusterTags": "Igual a {is}",
-    "matchedRecord": "Registro igualado",
+    "matchedRecord": "Registro coincidente",
     "noMatches": "Sin relaciones con candidatos",
     "explainer": "Esta característica experimental resalta posibles registros biológicos duplicados o relacionados."
   },
@@ -568,7 +568,7 @@
     "preservation": {
       "name": "Preservación",
       "properties": {
-        "preservationType": "Igual a {is}",
+        "preservationType": "",
         "preservationTemperature": "Igual a {is}",
         "preservationDateBegin": "Igual a {is}",
         "sequence": "Igual a {is}"

@@ -12,7 +12,7 @@
   "hasCoordinate": {
     "name": "Má souřadnici",
     "count": "Má souřadnice",
-    "description": "Rovná se {from}"
+    "description": ""
   },
   "hasGeospatialIssues": {
     "name": "Má geoprostorové problémy",
@@ -60,7 +60,7 @@
   "geometry": {
     "name": "Poloha",
     "count": "",
-    "description": "Rovná se {from}",
+    "description": "",
     "placeholderLat": "Zeměpisná šířka",
     "placeholderLon": "Zeměpisná délka",
     "placeholderDist": "Vzdálenost"
@@ -93,7 +93,7 @@
   "alternativeCode": {
     "name": "",
     "count": "",
-    "description": "Rovná se {from}"
+    "description": ""
   },
   "identifier": {
     "name": "Identifikátor",
@@ -108,7 +108,7 @@
   "discipline": {
     "name": "",
     "count": "",
-    "description": "Rovná se {from}"
+    "description": ""
   },
   "collectionContentType": {
     "name": "",
@@ -128,7 +128,7 @@
   "taxonKeyGrSciColl": {
     "name": "Vědecký název",
     "count": "",
-    "description": "Rovná se {from}"
+    "description": ""
   },
   "basisOfRecord": {
     "name": "Základ záznamu",
@@ -222,12 +222,12 @@
   "countriesOfCoverage": {
     "name": "Země nebo oblast pokrytí",
     "count": "",
-    "description": "Rovná se {from}"
+    "description": ""
   },
   "collectionDescriptorCountry": {
     "name": "Země nebo oblast pokrytí",
     "count": "",
-    "description": "Rovná se {from}"
+    "description": ""
   },
   "countriesOfResearcher": {
     "name": "Země nebo oblast výzkumného pracovníka",
@@ -347,8 +347,8 @@
   },
   "higherGeography": {
     "name": "Vyšší geografie",
-    "count": "Rovná se {from}",
-    "description": "Rovná se {from}"
+    "count": "",
+    "description": ""
   },
   "stateProvince": {
     "name": "Provincie státu",
@@ -433,22 +433,22 @@
   "active": {
     "name": "Aktivní",
     "count": "Aktivní",
-    "description": "Rovná se {from}"
+    "description": ""
   },
   "activeInstitution": {
     "name": "Aktivní",
     "count": "Aktivní",
-    "description": "Rovná se {from}"
+    "description": ""
   },
   "activeCollection": {
     "name": "Aktivní",
     "count": "Aktivní",
-    "description": "Rovná se {from}"
+    "description": ""
   },
   "publicationDate": {
     "name": "Datum zveřejnění",
-    "count": "Rovná se {from}",
-    "description": "Rovná se {from}"
+    "count": "",
+    "description": ""
   },
   "personalCollection": {
     "name": "Osobní sbírka",
@@ -474,7 +474,7 @@
     "name": "Název",
     "count": "",
     "description": "",
-    "searchPlaceholder": "Rovná se {from}"
+    "searchPlaceholder": ""
   },
   "city": {
     "name": "Město",
@@ -504,6 +504,6 @@
   "higherTaxonKey": {
     "name": "Vyšší taxon",
     "count": "",
-    "description": ""
+    "description": "Vyšší taxon, podle kterého se filtruje."
   }
 }

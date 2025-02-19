@@ -1,3 +1,24 @@
 {
-  "search": "Wyszukaj"
+  "example": "Przykład",
+  "examples": "Przykłady",
+  "singleEntry": "Pobierz pojedynczy wpis",
+  "singleOccurrence": "Pobierz pojedyncze stwierdzenie",
+  "searchOccurrences": "Pobierz wszystkie stwierdzenia.",
+  "searchOccurrencesExample": "Pierwsze pięć wystąpień taksonu z taxonKey 9778871 (Flabellina McMurtrie, 1831), które zostały stwierdzone w maju w latach 2000 - 2024.",
+  "relatedOccurrences": "Powiązane wystąpienia (eksperymentalne)",
+  "occurrenceFragment": "Stwierdzenie przed interpretacją.",
+  "singleInstallation": "Pobierz pojedynczą instalację.",
+  "singleOrganization": "Pobierz pojedynczego wydawcę.",
+  "searchOrganizations": "Szukaj wydawców",
+  "searchInstallations": "Szukaj instalacji.",
+  "search": "Wyszukaj",
+  "singleNetwork": "Pobierz pojedynczą sieć. ",
+  "singleCollection": "Pobierz pojedynczą kolekcję.",
+  "searchCollections": "Szukaj kolekcji.",
+  "singleInstitution": "Pobierz pojedynczą instytucję",
+  "searchInstitutions": "Szukaj instytucji",
+  "singleDataset": "Pobierz pojedynczy zbiór danych",
+  "searchDatasetsExample": "Pierwsze dwa zbiory danych opublikowane w Danii ze swobodnym określeniem \"grzyby\" w tytule lub opisie.",
+  "searchExample": "Pierwsze dwa wpisy ze swobodnym określeniem \"dna\".",
+  "searchDatasets": "Pobierz wszystkie zbiory danych"
 }

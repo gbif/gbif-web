@@ -15,13 +15,13 @@
     "synonyms": "Synonimy"
   },
   "tabs": {
-    "about": "",
-    "occurrences": "",
-    "citations": "",
+    "about": "Informacje",
+    "occurrences": "Wystąpienia",
+    "citations": "Cytowania",
     "project": "Projekt",
     "taxonomy": "Taksonomia",
     "download": "Pobierz",
-    "phylogeny": ""
+    "phylogeny": "Filogeneza"
   },
   "noStatsForMetadata": "Brak dostępnych statystyk dla zbiorów zawierających tylko metadane",
   "siteScopeSmallerThanDataset": "Nie wszystkie wyniki z zestawu danych są uwzględnione na tej stronie. Korzystanie z pełnego zestawu możliwe po wejściu na [GBIF.org]({datasetUrl}).",
@@ -86,7 +86,7 @@
   "license": "Licencja",
   "recommended": "Polecane",
   "processedOccurrences": "",
-  "processedOccurrencesDescription": "Równy {from}",
+  "processedOccurrencesDescription": "",
   "noDescriptionProvided": "Opis niedostępny",
   "pNetwork": "{NUMBER, plural, one{sieć} few {sieci} many {sieci} other{sieci}}",
   "parentEvent": "Nadrzędne zdarzenie",

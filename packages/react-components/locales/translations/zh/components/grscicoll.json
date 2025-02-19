@@ -53,8 +53,8 @@
     "explore": ""
   },
   "citesPermitNumber": "引用许可数量",
-  "collectionDescriptorsHeadline": "等于 {is}",
-  "collectionDescriptorsIntroduction": "等于 {is}",
-  "collectionSearchNoResultsMessage": "等于 {is}",
-  "searchForSpecimens": "等于 {is}"
+  "collectionDescriptorsHeadline": "",
+  "collectionDescriptorsIntroduction": "",
+  "collectionSearchNoResultsMessage": "",
+  "searchForSpecimens": ""
 }

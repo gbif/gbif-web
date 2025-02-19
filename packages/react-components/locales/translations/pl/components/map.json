@@ -14,7 +14,7 @@
     },
     "failedToGetUserLocation": {
         "title": "",
-        "message": "Równy {from}"
+        "message": ""
     },
     "filterByView": "Użyj widocznego obszaru jako filtru"
 }
