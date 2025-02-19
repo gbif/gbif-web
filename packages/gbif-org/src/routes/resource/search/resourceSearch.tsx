@@ -198,30 +198,39 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
             </>
           )}
           {!loading && resources.length > 0 && (
-            <ul>
-              {resources.map((resource) => (
-                <li>
-                  <ResourceSearchResult
-                    key={resource.id}
-                    resource={resource}
-                    className="g-bg-white"
+            <>
+              <CardHeader className="g-flex-col md:g-flex-row g-items-start md:g-items-center g-justify-between">
+                <CardTitle>
+                  {/* TODO translate and pick the correct phrase based on the tab */}
+                  <FormattedMessage id="counts.nCollections" values={{ total: count ?? 0 }} />
+                </CardTitle>
+                {/* TODO show differet buttons based on the tab */}
+              </CardHeader>
+              <ul>
+                {resources.map((resource) => (
+                  <li>
+                    <ResourceSearchResult
+                      key={resource.id}
+                      resource={resource}
+                      className="g-bg-white"
+                    />
+                  </li>
+                ))}
+              </ul>
+              <ClientSideOnly>
+                {count != null && limit != null && count > limit && (
+                  <PaginationFooter
+                    offset={offset}
+                    count={count}
+                    limit={limit}
+                    onChange={(x) => {
+                      setOffset(x);
+                    }}
                   />
-                </li>
-              ))}
-            </ul>
+                )}
+              </ClientSideOnly>
+            </>
           )}
-          <ClientSideOnly>
-            {count != null && limit != null && count > limit && (
-              <PaginationFooter
-                offset={offset}
-                count={count}
-                limit={limit}
-                onChange={(x) => {
-                  setOffset(x);
-                }}
-              />
-            )}
-          </ClientSideOnly>
         </ArticleTextContainer>
       </ArticleContainer>
     </>
