@@ -1,5 +1,5 @@
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import { useStringParam } from '@/hooks/useParam';
+import { useNumberParam, useStringParam } from '@/hooks/useParam';
 import React, { useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
@@ -13,6 +13,11 @@ import { ResourceSearchResult } from './resourceSearchResult';
 import { DataHeader } from '@/components/dataHeader';
 import { ArticleContainer } from '../key/components/articleContainer';
 import { ArticleTextContainer } from '../key/components/articleTextContainer';
+import { CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { Skeleton } from '@/components/ui/skeleton';
+import { CardListSkeleton } from '@/components/skeletonLoaders';
+import { ClientSideOnly } from '@/components/clientSideOnly';
+import { PaginationFooter } from '@/components/pagination';
 
 const tabs = [
   'all',
@@ -53,8 +58,8 @@ function isValidTab(tab: string | undefined): tab is Tab {
 const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
   query ResourceSearch($input: ResourceSearchInput!) {
     resourceSearch(input: $input) {
+      limit
       count
-      endOfRecords
       results {
         __typename
         ... on News {
@@ -130,6 +135,7 @@ type Props = {
 };
 
 function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactElement {
+  const [offset, setOffset] = useNumberParam({ key: 'offset', defaultValue: 0, hideDefault: true });
   const { getParams } = useUpdateViewParams(['from', 'sort', 'limit', 'offset'], 'contentType'); // Removes 'from' and 'sort'
 
   const { data, loading } = useQuery<ResourceSearchQuery, ResourceSearchQueryVariables>(
@@ -137,15 +143,19 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
     {
       throwAllErrors: true,
       keepDataWhileLoading: true,
+      forceLoadingTrueOnMount: true,
       variables: {
         input: {
           contentType: tabsToActiveContentTypeLookup[activeTab],
+          offset: offset,
         },
       },
     }
   );
 
   const resources = useMemo(() => extractValidResources(data), [data]);
+
+  const { count, limit } = data?.resourceSearch || {};
 
   return (
     <>
@@ -169,9 +179,49 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
 
       <ArticleContainer className="g-bg-slate-100 g-flex">
         <ArticleTextContainer className="g-flex-auto g-w-full">
-          {resources.map((resource) => (
-            <ResourceSearchResult key={resource.id} resource={resource} className="g-bg-white" />
-          ))}
+          {loading && (
+            <>
+              <CardHeader>
+                <Skeleton className="g-max-w-64">
+                  <CardTitle>
+                    <FormattedMessage id="phrases.loading" />
+                  </CardTitle>
+                </Skeleton>
+              </CardHeader>
+              <CardListSkeleton />
+            </>
+          )}
+          {!loading && resources.length === 0 && (
+            <>
+              {/* TODO create a pretty and translated message */}
+              <p>No results</p>
+            </>
+          )}
+          {!loading && resources.length > 0 && (
+            <ul>
+              {resources.map((resource) => (
+                <li>
+                  <ResourceSearchResult
+                    key={resource.id}
+                    resource={resource}
+                    className="g-bg-white"
+                  />
+                </li>
+              ))}
+            </ul>
+          )}
+          <ClientSideOnly>
+            {count != null && limit != null && count > limit && (
+              <PaginationFooter
+                offset={offset}
+                count={count}
+                limit={limit}
+                onChange={(x) => {
+                  setOffset(x);
+                }}
+              />
+            )}
+          </ClientSideOnly>
         </ArticleTextContainer>
       </ArticleContainer>
     </>
