@@ -4,6 +4,7 @@ import { FormattedDate, FormattedMessage } from 'react-intl';
 import { GbifLogoIcon } from '@/components/icons/icons';
 import { EventResultFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
+import { cn } from '@/utils/shadcn';
 
 fragmentManager.register(/* GraphQL */ `
   fragment EventResult on MeetingEvent {
@@ -25,15 +26,18 @@ fragmentManager.register(/* GraphQL */ `
 
 type Props = {
   event: EventResultFragment;
+  className?: string;
 };
 
-export function EventResult({ event }: Props) {
+export function EventResult({ event, className }: Props) {
   // event starts and ends the same day
   const sameDay = event?.start?.substring(0, 10) === event?.end?.substring(0, 10);
   const primaryLink = event.primaryLink?.url ?? `/event/${event.id}`;
 
   return (
-    <article className="g-bg-slate-50 g-p-4 g-flex g-flex-col g-rounded g-border g-mb-4">
+    <article
+      className={cn('g-bg-slate-50 g-p-4 g-flex g-flex-col g-rounded g-border g-mb-4', className)}
+    >
       <div className="g-pb-1">
         <h3 className="g-inline">
           <a className="g-text-base g-font-semibold" href={primaryLink}>

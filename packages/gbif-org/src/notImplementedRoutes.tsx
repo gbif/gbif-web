@@ -27,10 +27,6 @@ export const notImplementedRoutes: RouteObjectWithPlugins[] = [
     element: <NotImplemented />,
   },
   {
-    path: 'resource/search',
-    element: <NotImplemented />,
-  },
-  {
     path: 'tools/species-lookup',
     element: <NotImplemented />,
   },

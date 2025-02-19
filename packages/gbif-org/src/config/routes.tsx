@@ -12,6 +12,7 @@ import { occurrenceSearchRoute } from '@/routes/occurrence/search';
 import { publisherKeyRoute } from '@/routes/publisher/key';
 import { publisherSearchRoute } from '@/routes/publisher/search';
 import { resourceKeyRoutes } from '@/routes/resource/key';
+import { resourceSearchRoute } from '@/routes/resource/search';
 import { taxonKeyRoute } from '@/routes/taxon/key';
 import { taxonSearchRoute } from '@/routes/taxon/search';
 
@@ -24,6 +25,7 @@ export const dataRoutes = [
   taxonSearchRoute,
   publisherSearchRoute,
   literatureSearchRoute,
+  resourceSearchRoute,
 
   // detail routes
   collectionKeyRoute,
