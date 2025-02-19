@@ -6,13 +6,13 @@
   },
   "locationId": {
     "name": "Identyfikator lokalizacji",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { ID lokalizacji } few {# ID lokalizacji } many {# ID lokalizacji } other {# ID lokalizacji}}",
+    "description": "Publikujący mogą zdecydować o przydzieleniu ID do lokalizacji, Ten obszar nie jest znormalizowany, co oznacza, że przegląda się dane tak, jak przedstawił je publikujący."
   },
   "hasCoordinate": {
     "name": "Ma współrzędne",
     "count": "Ma współrzędne",
-    "description": ""
+    "description": "Czy zapis ma współrzędne."
   },
   "hasGeospatialIssues": {
     "name": "Ma problemy geoprzestrzenne",
@@ -36,17 +36,17 @@
   },
   "numberSpecimens": {
     "name": "Liczba okazów",
-    "count": "",
+    "count": "{num, plural, one { liczba okazów } few {# filtry liczby okazów} many {# filtrów liczby okazów} other {# filtry liczby okazów, # filtrów liczby okazów}}",
     "description": "Liczba przechowywanych okazów określona w opisie. Liczba ta nie odzwierciedla liczby zdigitalizowanych i udostępnionych zapisów."
   },
   "specimensInGbif": {
     "name": "Okazy w GBIF",
     "count": "{num, plural, one { okaz w GBIF } few {# okazy w GBIF} many {# okazów w GBIF} other {# okazy w GBIF}}",
-    "description": ""
+    "description": "Liczba zapisów osobników/okazów opublikowanych przez GBIF i posiadających linki do wpisu instytucji."
   },
   "iucnRedListCategory": {
     "name": "Kategorie zagrożenia na czerwonych listach IUCN",
-    "count": "",
+    "count": "{num, plural, one { kategoria Ogólnoświatowej Czerwonej Listy IUCN  } few {# kategorie Ogólnoświatowej Czerwonej Listy IUCN} many {# kategorii Ogólnoświatowej Czerwonej Listy IUCN} other {# kategorie Ogólnoświatowej Czerwonej Listy IUCN # kategorii Ogólnoświatowej Czerwonej Listy IUCN}}",
     "description": "Czerwona Księga Gatunków Zagrożonych IUCN grupuje taksony według stopnia ich zagrożenia."
   },
   "geoDistance": {
@@ -60,7 +60,7 @@
   "geometry": {
     "name": "Lokalizacja",
     "count": "{num, plural, one { filtr } few {# filtry } many {# filtrów } other {# filtry }}",
-    "description": "",
+    "description": "Filtruj zapisy w danym obszarze geometrycznym. Obszar ten może być punktem, wielokątem, lub ramką wydzielającą.",
     "placeholderLat": "Szerokość geograficzna",
     "placeholderLon": "Długość geograficzna",
     "placeholderDist": "Odległość"
@@ -87,31 +87,31 @@
   },
   "eventDate": {
     "name": "Data wydarzenia",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# data zdarzenia } few {# daty zdarzenia } many {# dat zdarzenia} other {# daty zdarzenia # dat zdarzenia}}",
+    "description": "Kiedy zapis został zebrany lub zaobserwowany."
   },
   "alternativeCode": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Alternatywny kod",
+    "count": "{num, plural, one {# alternatywny kod } few {# alternatywne kody} many {# alternatywnych kodów} other {# alternatywne kody # alternatywnych kodów}}",
+    "description": "Jakikolwiek alternatywny kod, jaki jest w użyciu dla tego samego zapisu w innych kontekstach (np. archiwalne kody)"
   },
   "identifier": {
     "name": "Identyfikator",
-    "count": "",
+    "count": "{num, plural, one {# identyfikator } few {# identyfikatory} many {# identyfikatorów} other {# identyfikatory # identyfikatorów}}",
     "description": "Tutaj należy umieścić krótki opis komponentu "
   },
   "institutionType": {
     "name": "Typ",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# typ } few {# typy} many {# typów} other {# typy # typów}}",
+    "description": "Typ instytucji (muzeum, herbarium, itp.)"
   },
   "discipline": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Dyscyplina",
+    "count": "{num, plural, one {# dyscyplina } few {# dyscypliny} many {# dyscyplin} other {# dyscypliny # dyscyplin}}",
+    "description": "Dyscypliny badań wspieranych przez instytucję."
   },
   "collectionContentType": {
-    "name": "",
+    "name": "Rodzaj treści",
     "count": "",
     "description": ""
   },
@@ -123,7 +123,7 @@
   "taxonKey": {
     "name": "Nazwa naukowa",
     "count": "{num, plural, one {nazwa naukowa} few {# nazwy naukowe} many {# nazw naukowych} other {# nazwy naukowe}}",
-    "description": "Nazwa naukowa w takiej postaci, w jakiej widnieje w Rdzeniu Taksonomicznym GBIF. Nazwy te są zestandaryzowane w celu ułatwienia wyszukiwania w zbiorach danych. Istnieje możliwość, że oryginalnie nadana nazwa może zostać źle zinterpretowana lub być nieznana. Aby wyszukać oryginalnie nadane nazwy, użyj filtru \"Nazwa naukowa verbatim\"."
+    "description": "Nazwa naukowa w takiej postaci, w jakiej widnieje w Rdzeniu Taksonomicznym GBIF. Nazwy te są znormalizowane w celu ułatwienia wyszukiwania w zbiorach danych. Istnieje możliwość, że oryginalnie nadana nazwa może zostać źle zinterpretowana lub być nieznana. Aby wyszukać oryginalnie nadane nazwy, użyj filtru \"Nazwa naukowa verbatim\"."
   },
   "taxonKeyGrSciColl": {
     "name": "Nazwa naukowa",
@@ -153,7 +153,7 @@
     "description": "Typy nośników dostępne dla tego zapisu."
   },
   "occurrenceIssue": {
-    "name": "Problemy",
+    "name": "Problemy i komentarze",
     "count": "{num, plural, one {problem} few {# problemy} many {# problemów} other {# problemy}}",
     "isNotNull": "Występują problemy",
     "isNull": "Nie wystąpiły problemy",
