@@ -51,6 +51,17 @@ const tabsToActiveContentTypeLookup: Record<Tab, ContentType[]> = {
   document: [ContentType.Document],
 };
 
+const tabsToCountLookup: Record<Tab, string> = {
+  all: 'counts.nResults',
+  news: 'counts.nNews',
+  dataUse: 'counts.nDataUse',
+  event: 'counts.nEvents',
+  project: 'counts.nProjects',
+  programme: 'counts.nProgrammes',
+  tool: 'counts.nTools',
+  document: 'counts.nDocuments',
+};
+
 function isValidTab(tab: string | undefined): tab is Tab {
   return tab != null && tabs.includes(tab as Tab);
 }
@@ -202,7 +213,10 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
               <CardHeader className="g-flex-col md:g-flex-row g-items-start md:g-items-center g-justify-between">
                 <CardTitle>
                   {/* TODO translate and pick the correct phrase based on the tab */}
-                  <FormattedMessage id="counts.nCollections" values={{ total: count ?? 0 }} />
+                  <FormattedMessage
+                    id={tabsToCountLookup[activeTab]}
+                    values={{ total: count ?? 0 }}
+                  />
                 </CardTitle>
                 {/* TODO show differet buttons based on the tab */}
               </CardHeader>
