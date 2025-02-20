@@ -325,7 +325,7 @@ function DashboardBuilder({
                   setTimeout(() => {
                     navigator.clipboard.writeText(window.location.href);
                     toast({
-                      title: 'TODO',
+                      description: <FormattedMessage id="phrases.copiedToClipboard" />,
                       variant: 'default',
                     });
                   }, 200);
