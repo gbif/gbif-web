@@ -85,7 +85,7 @@ export function EventResult({ event, className }: Props) {
               <FormattedMessage id="cms.resource.gbifWillAttend" />
             </div>
           )}
-          <div className="g-mt-2">
+          <div className="g-mt-2 g-flex g-gap-4">
             {!isPast(event) && (
               <Button asChild variant="secondary">
                 <a
@@ -98,7 +98,7 @@ export function EventResult({ event, className }: Props) {
               </Button>
             )}
             {event.primaryLink?.url && (
-              <Button className="g-ms-4" asChild variant="ghost">
+              <Button asChild variant="ghost">
                 <a href={`/event/${event.id}`}>
                   <FormattedMessage id="phrases.seeDetails" />
                 </a>
