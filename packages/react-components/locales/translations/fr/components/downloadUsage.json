@@ -7,7 +7,7 @@
             "type": "Type ",
             "authors": "Auteur·e(s)",
             "authorsPlaceholder": "Auteur·e(s) de la publication/du produit",
-            "link": "",
+            "link": "URL",
             "linkPlaceholder": "Lien/DOI de la publication/du produit, si disponible en ligne",
             "date": "Date ",
             "comments": "Commentaires",
