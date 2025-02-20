@@ -99,6 +99,7 @@ const otherParams = [
   'identifiedBy',
 
   'catalogNumber',
+  'preparations',
   'sampleSizeUnit',
   'locality',
   'waterBody',

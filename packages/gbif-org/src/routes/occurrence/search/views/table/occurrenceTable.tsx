@@ -1,4 +1,14 @@
+import { ClientSideOnly } from '@/components/clientSideOnly';
 import { getAsQuery } from '@/components/filters/filterTools';
+import {
+  FallbackTableOptions,
+  RowLinkOptions,
+  SearchTable,
+  useAvailableAndDefaultEnabledColumns,
+  usePaginationState,
+  useRowLink,
+} from '@/components/searchTable';
+import { SearchTableServerFallback } from '@/components/searchTable/table';
 import { ViewHeader } from '@/components/ViewHeader';
 import { useConfig } from '@/config/config';
 import { FilterContext } from '@/contexts/filter';
@@ -13,16 +23,6 @@ import { searchConfig } from '../../searchConfig';
 import { useEntityDrawer } from '../browseList/useEntityDrawer';
 import { useOrderedList } from '../browseList/useOrderedList';
 import { useOccurrenceColumns } from './columns';
-import {
-  FallbackTableOptions,
-  useAvailableAndDefaultEnabledColumns,
-  RowLinkOptions,
-  useRowLink,
-  usePaginationState,
-  SearchTable,
-} from '@/components/searchTable';
-import { ClientSideOnly } from '@/components/clientSideOnly';
-import { SearchTableServerFallback } from '@/components/searchTable/table';
 
 const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
   query OccurrenceSearch($from: Int, $size: Int, $predicate: Predicate) {
@@ -44,6 +44,7 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
             }
           }
           eventDate
+          year
           coordinates
           formattedCoordinates
           country

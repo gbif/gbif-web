@@ -1,13 +1,13 @@
 import { InlineLineClamp } from '@/components/inlineLineClamp';
 import { FormattedDateRange } from '@/components/message';
+import { ColumnDef, LinkOption, SetAsFilter, SetAsFilterList } from '@/components/searchTable';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { VocabularyValue } from '@/components/vocabularyValue';
 import { useMemo } from 'react';
 import { GoSidebarExpand } from 'react-icons/go';
 import { FormattedMessage } from 'react-intl';
-import { SingleOccurrenceSearchResult } from './occurrenceTable';
 import { IconFeatures } from './iconFeatures';
-import { SetAsFilter, SetAsFilterList, LinkOption, ColumnDef } from '@/components/searchTable';
+import { SingleOccurrenceSearchResult } from './occurrenceTable';
 
 type Args = {
   showPreview?: ((id: string) => void) | false;
@@ -103,13 +103,9 @@ export function useOccurrenceColumns({
       {
         id: 'year',
         header: 'filters.year.name',
-        cell: ({ eventDate }) => (
-          <SetAsFilter
-            // TODO How do we add a date range to the filter?
-            field="year"
-            value={new Date(eventDate!)?.getFullYear().toString()}
-          >
-            <FormattedDateRange date={eventDate ?? undefined} format={{ year: 'numeric' }} />
+        cell: ({ year }) => (
+          <SetAsFilter field="year" value={year}>
+            {year}
           </SetAsFilter>
         ),
       },
