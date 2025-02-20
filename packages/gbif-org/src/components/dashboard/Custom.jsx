@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu';
 import { DynamicLink } from '@/reactRouterPlugins';
-import { MdMoreHoriz } from 'react-icons/md';
+import { MdLink, MdMoreHoriz } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Classification } from '../classification';
 import { SimpleTooltip } from '../simpleTooltip';
@@ -83,9 +83,18 @@ function TaxaMain({
                 return {
                   key: x?.key,
                   title: (
-                    <DynamicLink pageId="speciesKey" variables={{ key: x?.key.toString() }}>
-                      {x?.entity?.title}
-                    </DynamicLink>
+                    <span>
+                      {x?.entity?.title}{' '}
+                      <DynamicLink
+                        pageId="speciesKey"
+                        variables={{ key: x?.key.toString() }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                      >
+                        <MdLink />
+                      </DynamicLink>
+                    </span>
                   ),
                   count: x.count,
                   filter: { taxonKey: [x.key] },

@@ -30,7 +30,13 @@ export function Datasets({
               title: (
                 <span>
                   {x?.entity?.title}{' '}
-                  <DynamicLink pageId="datasetKey" variables={{ key: x.key }}>
+                  <DynamicLink
+                    pageId="datasetKey"
+                    variables={{ key: x.key }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
                     <MdLink />
                   </DynamicLink>
                 </span>
@@ -75,6 +81,9 @@ export function Publishers({
                 <span>
                   {x?.entity?.title}{' '}
                   <DynamicLink
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
                     to={`/publisher/${x.key}`}
                     pageId="publisherKey"
                     variables={{ key: x.key }}
@@ -128,6 +137,9 @@ export function HostingOrganizations({
                 <span>
                   {x?.entity?.title}{' '}
                   <DynamicLink
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
                     to={`/publisher/${x.key}`}
                     pageId="publisherKey"
                     variables={{ key: x.key }}
@@ -175,6 +187,9 @@ export function Collections({
                 <span>
                   {x?.entity?.title}{' '}
                   <DynamicLink
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
                     to={`/collection/${x.key}`}
                     pageId="collectionKey"
                     variables={{ key: x.key }}
@@ -223,6 +238,9 @@ export function Institutions({
                 <span>
                   {x?.entity?.title}{' '}
                   <DynamicLink
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
                     to={`/institution/${x.key}`}
                     pageId="institutionKey"
                     variables={{ key: x.key }}
@@ -271,6 +289,9 @@ export function Networks({
                 <span>
                   {x?.entity?.title}{' '}
                   <DynamicLink
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
                     to={`/network/${x.key}`}
                     pageId="networkKey"
                     variables={{ key: x.key }}
@@ -380,6 +401,9 @@ export function Synonyms({
                 <span>
                   {x?.entity?.title}{' '}
                   <DynamicLink
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
                     to={`/species/${x.key}`}
                     pageId="speciesKey"
                     variables={{ key: x.key }}
@@ -397,6 +421,9 @@ export function Synonyms({
                   <span>
                     {x?.entity?.accepted}{' '}
                     <DynamicLink
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
                       to={`/species/${x?.entity?.acceptedKey}`}
                       pageId="speciesKey"
                       variables={{ key: x?.entity?.acceptedKey }}
