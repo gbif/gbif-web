@@ -47,7 +47,7 @@ const DOWNLOAD_QUERY = /* GraphQL */ `
       numberPublishingCountries
       request {
         predicate
-        sql
+        sql: sqlFormatted
         format
         description
         gbifMachineDescription
@@ -112,8 +112,6 @@ export function DownloadKey() {
 
   const download = data?.download;
   if (!download) throw new Error('404');
-
-  download.status = 'RUNNING';
 
   const literatureCount = slowData?.literatureSearch?.documents?.total;
   if (slowError) {

@@ -9,7 +9,6 @@ import {
   Predicate,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
-import { PredicateDisplay } from '@/routes/occurrence/download/key/predicate';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { searchConfig } from '../../searchConfig';
 import { useEntityDrawer } from '../browseList/useEntityDrawer';
@@ -146,9 +145,6 @@ export function Media({ size: defaultSize = 50 }) {
 
   return (
     <ErrorBoundary>
-      <div className="gbif-predicates">
-        <PredicateDisplay predicate={predicate} />
-      </div>
       <MediaPresentation
         mediaTypes={mediaTypes}
         results={allData}

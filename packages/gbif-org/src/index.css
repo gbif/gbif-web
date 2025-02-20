@@ -10,18 +10,6 @@
   @apply g-underline g-underline-offset-1;
 }
 
-.inlineBulletList {
-  @apply g-inline;
-}
-
-.inlineBulletList li {
-  @apply g-inline;
-}
-
-.inlineBulletList li:not(:last-child)::after {
-  @apply g-content-['\25CF'] g-mx-1 g-text-sm;
-}
-
 .gb-button {
   @apply g-inline-flex g-items-center g-justify-center g-rounded-md g-text-sm g-font-medium g-transition-colors focus-visible:g-outline-none focus-visible:g-ring-1 focus-visible:g-ring-ring disabled:g-pointer-events-none disabled:g-opacity-50;
 }
@@ -564,10 +552,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   }
 }
 
-.underlineLinks a {
-  @apply g-underline g-underline-offset-1;
-}
-
 .inlineBulletList {
   @apply g-inline;
 }
@@ -580,20 +564,22 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   @apply g-content-['\25CF'] g-mx-1 g-text-sm;
 }
 
-.gb-button {
-  @apply g-inline-flex g-items-center g-justify-center g-rounded-md g-text-sm g-font-medium g-transition-colors focus-visible:g-outline-none focus-visible:g-ring-1 focus-visible:g-ring-ring disabled:g-pointer-events-none disabled:g-opacity-50;
-}
-
-.gb-button-variant-default {
-  @apply g-bg-primary g-text-primaryContrast g-shadow hover:g-bg-primary/90;
-}
-
-.gb-button-size-default {
-  @apply g-h-9 g-px-4 g-py-2;
-}
-
-.gb-button--brand {
-  @apply gb-button gb-button-size-default gb-button-variant-default;
+.gbif-bulletList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  & > li {
+    display: inline-block;
+    &:after {
+      font-style: normal;
+      content: '●';
+      font-size: 80%;
+      padding: 0 3px;
+    }
+    &:last-of-type:after {
+      display: none;
+    }
+  }
 }
 
 .g-box-shadow-b {
@@ -840,5 +826,38 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
         right: 0;
       }
     }
+  }
+}
+
+.gbif-sqlInput {
+  white-space: pre-wrap;
+  font-family: monospace;
+
+  .sql-hl-keyword {
+    color: tomato;
+  }
+  .sql-hl-function {
+    color: blue;
+  }
+  .sql-hl-number {
+    color: green;
+  }
+  .sql-hl-identifier {
+    color: blue;
+  }
+  .sql-hl-string {
+    color: black;
+  }
+  .sql-hl-special {
+    color: #ab5656;
+  }
+  .sql-hl-bracket {
+    color: blue;
+  }
+  .sql-hl-comment {
+    color: rgb(113, 113, 113);
+  }
+  .sql-hl-clear {
+    color: rgb(108, 108, 108);
   }
 }

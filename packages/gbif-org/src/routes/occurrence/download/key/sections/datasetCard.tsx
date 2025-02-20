@@ -1,4 +1,5 @@
 import { DownloadAsTSVLink } from '@/components/downloadAsTSVLink';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FeatureList, GenericFeature } from '@/components/highlights';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { DownloadKeyQuery } from '@/gql/graphql';
@@ -45,12 +46,14 @@ export function DatasetCard({
       </CardHeader>
       {datasetsByDownload && (download?.numberDatasets ?? 0) > 0 && (
         <CardContent className="!g-px-0 g-border-t g-overflow-auto">
-          <DatasetTable
-            downloadKey={download.key}
-            initialDatasets={datasetsByDownload.results}
-            limit={datasetsByDownload.limit}
-            count={datasetsByDownload.count}
-          />
+          <ErrorBoundary type="BLOCK" publicDescription="Failed to load datasets on download page">
+            <DatasetTable
+              downloadKey={download.key}
+              initialDatasets={datasetsByDownload.results}
+              limit={datasetsByDownload.limit}
+              count={datasetsByDownload.count}
+            />
+          </ErrorBoundary>
         </CardContent>
       )}
     </Card>

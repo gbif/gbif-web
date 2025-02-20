@@ -1,3 +1,4 @@
+import { BulletList } from '@/components/bulletList';
 import Properties from '@/components/properties';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
@@ -58,7 +59,7 @@ export function QueryCard({ download }: { download: DownloadKeyQuery['download']
       {parameters && (
         <CardContent>
           <div>
-            <div className="g-mb-4">
+            <div className="g-mb-8">
               <FormattedMessage id="customSqlDownload.sqlMachineDescriptionIntro" />
             </div>
             <Properties breakpoint={800} className="[&>dt]:g-w-52">
@@ -69,12 +70,12 @@ export function QueryCard({ download }: { download: DownloadKeyQuery['download']
               )}
               {parameters?.temporal && (
                 <BasicField label="customSqlDownload.temporalDimension">
-                  <FormattedMessage id={`customSqlDownload.taxon.${parameters.temporal}`} />
+                  <FormattedMessage id={`customSqlDownload.time.${parameters.temporal}`} />
                 </BasicField>
               )}
               {parameters?.spatial && (
                 <BasicField label="customSqlDownload.spatialDimension">
-                  <FormattedMessage id={`customSqlDownload.taxon.${parameters.spatial}`} />
+                  <FormattedMessage id={`customSqlDownload.grid.${parameters.spatial}`} />
                 </BasicField>
               )}
               {parameters?.resolution && (
@@ -84,19 +85,61 @@ export function QueryCard({ download }: { download: DownloadKeyQuery['download']
                   />
                 </BasicField>
               )}
+              {parameters?.randomize && (
+                <BasicField label="customSqlDownload.randomPoints">
+                  <FormattedMessage id={`customSqlDownload.boolean.${parameters.randomize}`} />
+                </BasicField>
+              )}
+              {parameters?.higherGroups && (
+                <BasicField label="customSqlDownload.countHigherTaxonomy">
+                  <BulletList>
+                    {parameters.higherGroups.map((group) => (
+                      <li key={group}>
+                        <FormattedMessage id={`customSqlDownload.taxon.${group}`} />
+                      </li>
+                    ))}
+                  </BulletList>
+                </BasicField>
+              )}
+              {parameters?.includeSpatialUncertainty && (
+                <BasicField label="customSqlDownload.coordinateUncertainty">
+                  <FormattedMessage
+                    id={`customSqlDownload.boolean.${parameters.includeSpatialUncertainty}`}
+                  />
+                </BasicField>
+              )}
+              {parameters?.randomize && (
+                <BasicField label="customSqlDownload.randomPoints">
+                  <FormattedMessage id={`customSqlDownload.boolean.${parameters.randomize}`} />
+                </BasicField>
+              )}
             </Properties>
           </div>
         </CardContent>
       )}
-      <CardContent className="g-border-t g-border-gray-200 g-pt-4 md:g-pt-8 g-overflow-auto">
-        <div className="gbif-predicates g-min-w-[500px]">
-          <PredicateDisplay predicate={download?.request?.predicate} />
-        </div>
-      </CardContent>
+      {download?.request?.gbifMachineDescription?.parameters?.predicate && (
+        <CardContent className="g-border-t g-border-gray-200 g-pt-4 md:g-pt-8 g-overflow-auto">
+          <div className="gbif-predicates g-min-w-[500px]">
+            <PredicateDisplay
+              predicate={download?.request?.gbifMachineDescription.parameters.predicate}
+            />
+          </div>
+        </CardContent>
+      )}
+      {download?.request?.predicate && (
+        <CardContent className="g-border-t g-border-gray-200 g-pt-4 md:g-pt-8 g-overflow-auto">
+          <div className="gbif-predicates g-min-w-[500px]">
+            <PredicateDisplay predicate={download?.request?.predicate} />
+          </div>
+        </CardContent>
+      )}
       {download?.request?.sql && (
         <CardContent className="g-border-t g-border-gray-200 !g-p-0">
           <div className="g-text-sm">
-            <pre className="g-max-full g-overflow-auto g-p-4 md:g-p-8">{download?.request.sql}</pre>
+            <pre
+              className="g-max-full g-overflow-auto g-p-4 md:g-p-8 gbif-sqlInput"
+              dangerouslySetInnerHTML={{ __html: download?.request.sql }}
+            />
           </div>
         </CardContent>
       )}
