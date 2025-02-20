@@ -55,6 +55,7 @@ const typeDef = gql`
     sendNotification: Boolean
     format: String
     sql: String
+    sqlFormatted: String
     description: String
     machineDescription: JSON
     gbifMachineDescription: JSON

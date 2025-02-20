@@ -15,6 +15,7 @@ const entityTypes = {
   i: 'institutionKey',
   n: 'networkKey',
   in: 'installationKey',
+  dl: 'downloadKey',
 };
 
 export default function EntityDrawer() {
@@ -89,6 +90,9 @@ export default function EntityDrawer() {
       {type === 'networkKey' && <StandaloneOccurrenceKeyPage url={`/network/${key}`} />}
       {type === 'installationKey' && <StandaloneOccurrenceKeyPage url={`/installation/${key}`} />}
       {type === 'speciesKey' && <StandaloneOccurrenceKeyPage url={`/species/${key}`} />}
+      {type === 'downloadKey' && (
+        <StandaloneOccurrenceKeyPage url={`/occurrence/download/${key}`} />
+      )}
     </Drawer>
   );
 }

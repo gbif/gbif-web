@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import stringify from 'json-stable-stringify';
 import config from '../config';
 import { getHtml } from './getHtml';
 
@@ -230,7 +231,7 @@ const getFirstIIIFImage = ({ occurrence }) => {
 };
 
 export function signJson(obj) {
-  const jsonString = JSON.stringify(obj);
+  const jsonString = stringify(obj);
   const hmac = crypto.createHmac(
     'sha256',
     config.downloadMachineDescriptionSecret,

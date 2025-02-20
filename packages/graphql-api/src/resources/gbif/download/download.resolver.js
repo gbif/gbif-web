@@ -1,4 +1,5 @@
 import { getGbifMachineDescription } from '#/helpers/generateSql';
+import { highlight } from 'sql-highlight';
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -33,6 +34,16 @@ export default {
         return gbifMachineDescription;
       } catch (err) {
         return null;
+      }
+    },
+    sqlFormatted: ({ sql }) => {
+      try {
+        const highlighted = highlight(sql, {
+          html: true,
+        });
+        return highlighted;
+      } catch (err) {
+        return sql;
       }
     },
   },
