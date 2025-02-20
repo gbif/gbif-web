@@ -1,6 +1,7 @@
 {
   "loading": "a carregar",
   "loadError": "Não foi possível carregar",
+  "pleaseCiteAs": "",
   "unknown": "Desconhecido",
   "notProvided": "",
   "close": "Fechar",
@@ -44,6 +45,7 @@
   "addressUnknown": "",
   "emptyValueProvided": "",
   "copyToClipboard": "",
+  "copy": "Copiar",
   "fromCountry": "",
   "copiedToClipboard": "",
   "continue": "Continuar",
