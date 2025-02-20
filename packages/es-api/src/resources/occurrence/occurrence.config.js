@@ -419,6 +419,7 @@ const config = {
     occurrenceStatus: {
       type: 'keyword',
       field: 'occurrenceStatus',
+      transformValue: (v) => v.toUpperCase(),
     },
     organismId: {
       type: 'keyword',

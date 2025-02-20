@@ -77,6 +77,8 @@ function transform(p, config, isRootQuery) {
     };
   }
 
+  const valueTransform = config?.options?.[p.key]?.transformValue ?? ((x) => x);
+
   switch (p.type) {
     case 'and': {
       // bool queries is essentially an AND of: must, filter, mut_not and should (if minimum_should_match set to 1)
@@ -130,14 +132,14 @@ function transform(p, config, isRootQuery) {
       // }
       return {
         term: {
-          [fieldName]: p.value,
+          [fieldName]: valueTransform(p.value),
         },
       };
     }
     case 'in': {
       return {
         terms: {
-          [fieldName]: p.values,
+          [fieldName]: p.values.map((x) => valueTransform(x)),
         },
       };
     }
