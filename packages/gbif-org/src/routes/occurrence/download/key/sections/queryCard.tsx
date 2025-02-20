@@ -133,6 +133,13 @@ export function QueryCard({ download }: { download: DownloadKeyQuery['download']
           </div>
         </CardContent>
       )}
+      {!download?.request?.predicate && !download?.request?.sql && (
+        <CardContent className="g-border-t g-border-gray-200 g-pt-4 md:g-pt-8">
+          <div className="g-text-slate-600">
+            <FormattedMessage id="downloadKey.noFiltersApplied" />
+          </div>
+        </CardContent>
+      )}
       {download?.request?.sql && (
         <CardContent className="g-border-t g-border-gray-200 !g-p-0">
           <div className="g-text-sm">

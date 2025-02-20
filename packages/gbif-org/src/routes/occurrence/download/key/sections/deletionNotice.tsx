@@ -17,7 +17,7 @@ export function DeletionNotice({ download }: { download: DownloadKeyQuery['downl
     { DATE: formatDate(download.eraseAfter, defaultDateFormatProps) }
   );
 
-  const isUsersDownload = true; // TODO: check if the user is the creator of the download
+  const isUsersDownload = false; // TODO: check if the user is the creator of the download
 
   return (
     <Alert variant="warning" className="g-mb-4">
