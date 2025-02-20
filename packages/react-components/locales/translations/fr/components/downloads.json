@@ -54,7 +54,7 @@
     "predatesDoi": "Ce téléchargement est antérieure à notre utilisation des DOI",
     "file": "Fichier",
     "constituentDatasets": "Jeu de données inclus",
-    "constituentOrganizations": "",
+    "constituentOrganizations": "Éditeurs impliqués",
     "constituentPublishingCountries": "",
     "noFiltersApplied": "Aucun filtre défini",
     "apiUsageDescription": "Pour répéter le téléchargement des données selectionnées aujourd'hui à l’aide de l’API, vous pouvez utiliser la requête ci-dessous.",
@@ -218,7 +218,7 @@
     "invalidJson": "JSON non valide",
     "title": "Créer un nouveau téléchargement",
     "invalidUrlPredicate": "Le prédicat dans l'URL est invalide",
-    "redirectNotice": ""
+    "redirectNotice": "Il semble que vous ayez été redirigé ici depuis un autre site. Pour télécharger, vous devez d'abord vous connecter ou vous inscrire."
   },
   "customSqlDownload": {
     "invalidSQL": "SQL non valide",
@@ -248,7 +248,7 @@
       "YES": "Oui",
       "NO": "Non"
     },
-    "sqlMachineDescriptionIntro": "",
+    "sqlMachineDescriptionIntro": "Le téléchargement SQL a été généré sur la base des paramètres fournis par l'utilisateur",
     "occurrenceMeasurements": "Nombre d'occurrences (toujours inclus)",
     "grid": {
       "EEA_REFERENCE_GRID": "Grille de référence de l'AEE - Europe uniquement",
@@ -300,7 +300,7 @@
         "22": "Niveau 22"
       },
       "MILITARY_GRID_REFERENCE_SYSTEM": {
-        "0": "",
+        "0": "Résolution la plus fine",
         "1": "1 mètre",
         "10": "10 mètres",
         "100": "100 mètres",
@@ -308,7 +308,7 @@
         "10000": "10 000 mètres"
       }
     },
-    "noneSelected": "",
+    "noneSelected": "Aucune sélection",
     "dimensions": "Dimensions",
     "taxonomicDimension": "Dimension taxonomique",
     "temporalDimension": "Dimension temporelle",
@@ -317,8 +317,8 @@
     "randomPoints": "",
     "measurements": "Mesures",
     "countHigherTaxonomy": "Nombre d'occurrences à un niveau taxonomique supérieur",
-    "coordinateUncertainty": "",
-    "errorMinimumDimension": "",
+    "coordinateUncertainty": "Inclure une incertitude de coordonnées minimale",
+    "errorMinimumDimension": "Au moins une dimension doit être sélectionnée",
     "editSql": "",
     "temporalUncertainty": "",
     "documentation": "",
