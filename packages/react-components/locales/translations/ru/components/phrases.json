@@ -1,7 +1,7 @@
 {
   "loading": "",
   "loadError": "",
-  "pleaseCiteAs": "",
+  "pleaseCiteAs": "Пожалуйста, используйте эту цитату в публикациях",
   "unknown": "Неизвестно",
   "notProvided": "Не указано",
   "close": "",
@@ -45,7 +45,7 @@
   "addressUnknown": "",
   "emptyValueProvided": "Введено пустое значение",
   "copyToClipboard": "",
-  "copy": "",
+  "copy": "Копировать",
   "fromCountry": "Из {country}",
   "copiedToClipboard": "Скопировано в буфер обмена",
   "continue": "Продолжить",
