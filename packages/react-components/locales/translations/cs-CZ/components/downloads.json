@@ -332,7 +332,7 @@
       "randomizePoints": "Měla by se pro záznamy o výskytu s nejistotou souřadnic, které pokrývají více než jednu buňku sítě, vybrat náhodná buňka? Pokud ne, použije se buňka obsahující centroid záznamu.",
       "measurements": "Vypočtená kvantitativní hodnota pro každou kombinaci rozměrů.",
       "occurrenceCount": "Počet výskytů.",
-      "higherTaxonomy": "Další vyšší taxonomické stupně, u nichž by měl být rovněž uveden počet výskytů. Užitečné pro potvrzení zkreslení sběru vzorků.",
+      "higherTaxonomy": "Další vyšší taxonomické zařazení, u nichž by měl být rovněž uveden počet výskytů. Užitečné pro potvrzení zkreslení sběru vzorků.",
       "minCoordinateUncertainty": "Nejnižší zaznamenaná neurčitost souřadnic (v metrech). Slouží k potvrzení prostorové přesnosti dat.",
       "minTemporalUncertainty": "Nejnižší zaznamenaná časová nejistota (v sekundách). Slouží k potvrzení časové přesnosti dat.",
       "editSql": "Nejjednodušší způsob stahování a zkoumání dat je prostřednictvím uživatelského rozhraní pro vyhledávání výskytů. Pro složité dotazy a agregace však editor SQL poskytuje větší volnost."
