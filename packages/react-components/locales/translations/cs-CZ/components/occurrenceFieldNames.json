@@ -201,6 +201,7 @@
   "subgenus": "podrod",
   "specificEpithet": "Specifický epithet",
   "infraspecificEpithet": "Infraspecifický epithet",
+  "taxonRank": "Zařazení",
   "vernacularName": "Místní název",
   "nomenclaturalCode": "Kód názvosloví",
   "taxonomicStatus": "Taxonomický status",
