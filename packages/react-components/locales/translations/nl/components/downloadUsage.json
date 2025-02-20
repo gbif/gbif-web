@@ -1,0 +1,43 @@
+{
+    "downloadUsage": {
+        "title": "",
+        "form": {
+            "title": "Titel",
+            "titlePlaceholder": "",
+            "type": "Type",
+            "authors": "Auteur(s)",
+            "authorsPlaceholder": "Auteur(s) van de publicatie/product",
+            "link": "URL",
+            "linkPlaceholder": "Link/DOI naar publicatie/product, als online beschikbaar",
+            "date": "Datum",
+            "comments": "Opmerkingen",
+            "commentsPlaceholder": "Extra informatie over de publicatie/product (vooral als het geen traditionele journal artikel is)",
+            "submit": "Indienen",
+            "saveFailure": "Er is een fout opgetreden bij het opslaan van het formulier. Gelieve het opnieuw te proberen.",
+            "saveSuccess": ""
+        },
+        "types": {
+            "JOURNAL_ARTICLE": "journal artikel",
+            "BOOK": "boek",
+            "BOOK_CHAPTER": "hoofdstuk boek",
+            "CONFERENCE_PAPER_PROCEEDINGS": "conferentie paper / proceedings",
+            "PREPRINT_WORKING_PAPER": "",
+            "REPORT": "rapport",
+            "WEB_PAGE": "webpagina",
+            "THESIS_DISSERTATION": "thesis / dissertatie",
+            "COURSE_TEACHING_MATERIALS": "cursus / onderwijsmateriaal",
+            "MAGAZINE_ARTICLE": "Artikel in tijdschrift",
+            "STATUTE": "",
+            "PATENT": "patent",
+            "NEWSPAPER_ARTICLE": "Artikel in nieuwsblad",
+            "SOFTWARE_COMPUTER_PROGRAM": "software / computerprogramma",
+            "HEARING": "",
+            "TELEVISION_BROADCAST": "",
+            "ENCYCLOPEDIA_ARTICLE": "encyclopedieartikel",
+            "CASE": "",
+            "FILM": "film",
+            "BILL": "wetsvoorstel",
+            "OTHER": "Ander (meer gegevens aanvullen bij 'opmerkingen' onderaan)"
+        }
+    }
+}
