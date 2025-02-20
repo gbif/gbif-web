@@ -1,6 +1,7 @@
 {
   "loading": "加载",
   "loadError": "未能加载",
+  "pleaseCiteAs": "请在出版物中使用此引文",
   "unknown": "未知的",
   "notProvided": "未提供",
   "close": "关闭",
@@ -44,6 +45,7 @@
   "addressUnknown": "",
   "emptyValueProvided": "",
   "copyToClipboard": "",
+  "copy": "复制",
   "fromCountry": "",
   "copiedToClipboard": "",
   "continue": "继续",
