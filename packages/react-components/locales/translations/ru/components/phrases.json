@@ -1,6 +1,7 @@
 {
   "loading": "",
   "loadError": "",
+  "pleaseCiteAs": "",
   "unknown": "Неизвестно",
   "notProvided": "Не указано",
   "close": "",
@@ -44,6 +45,7 @@
   "addressUnknown": "",
   "emptyValueProvided": "Введено пустое значение",
   "copyToClipboard": "",
+  "copy": "",
   "fromCountry": "Из {country}",
   "copiedToClipboard": "Скопировано в буфер обмена",
   "continue": "Продолжить",
