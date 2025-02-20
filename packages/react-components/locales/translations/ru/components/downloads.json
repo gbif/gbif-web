@@ -1,10 +1,10 @@
 {
   "derivedDatasetKey": {
-    "nRecordsAtTime": "",
-    "derivedDataset": "",
-    "sourceUrl": "",
-    "headlineDatasets": "",
-    "headlineOccurrences": "",
+    "nRecordsAtTime": "{NUMBER_FORMATED} {NUMBER, plural, one{запись} few {записей} many {записей} other{записи}} из набора данных",
+    "derivedDataset": "Производный набор данных",
+    "sourceUrl": "Доступ к производному набору данных",
+    "headlineDatasets": "записи из {NUMBER_FORMATED} {NUMBER, plural, one{набор данных} few {наборов данных} many {наборов данных} other{наборы данных}} в производном наборе данных",
+    "headlineOccurrences": "{NUMBER_FORMATED} {NUMBER, plural, one{событие} few {событитй} many {событий} other{события}} в производном наборе данных",
     "title": "Название",
     "description": "Описание",
     "originalDownloadDOI": ""
