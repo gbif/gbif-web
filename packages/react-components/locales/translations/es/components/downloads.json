@@ -218,7 +218,7 @@
     "invalidJson": "JSON inválido",
     "title": "Crear una nueva descarga",
     "invalidUrlPredicate": "",
-    "redirectNotice": ""
+    "redirectNotice": "Parece que ha sido dirigido aquí desde otro sitio. Para realizar la descarga, primero debe iniciar sesión o registrarse."
   },
   "customSqlDownload": {
     "invalidSQL": "SQL inválido",
@@ -300,7 +300,7 @@
         "22": "Nivel 22"
       },
       "MILITARY_GRID_REFERENCE_SYSTEM": {
-        "0": "",
+        "0": "Resolución más precisa",
         "1": "1 metro",
         "10": "10 metros",
         "100": "100 metros",
@@ -314,13 +314,13 @@
     "temporalDimension": "Dimensión temporal",
     "spatialDimension": "Dimensión espacial",
     "spatialResolution": "Resolución espacial",
-    "randomPoints": "",
+    "randomPoints": "Aleatorizar puntos dentro del círculo de incertidumbre",
     "measurements": "Medidas",
-    "countHigherTaxonomy": "",
-    "coordinateUncertainty": "",
-    "errorMinimumDimension": "",
-    "editSql": "",
-    "temporalUncertainty": "",
+    "countHigherTaxonomy": "Recuento de ocurrencias a nivel taxonómico superior",
+    "coordinateUncertainty": "Incluir incertidumbre de coordenadas mínima",
+    "errorMinimumDimension": "Debe seleccionarse al menos una dimensión",
+    "editSql": "Editar como SQL",
+    "temporalUncertainty": "Incluir incertidumbre temporal mínima",
     "documentation": "Documentación",
     "help": {
       "whatIsThis": "",
@@ -328,13 +328,13 @@
       "taxonomicDimension": "",
       "temporalDimension": "",
       "grid": "",
-      "gridResolution": "",
-      "randomizePoints": "",
-      "measurements": "",
+      "gridResolution": "El tamaño de cada celda de la cuadrícula.",
+      "randomizePoints": "Para los registros biológicos con una incertidumbre de coordenadas que abarca más de una celda de la cuadrícula, ¿debe elegirse una celda al azar? En caso negativo, se utiliza la celda que contiene el centroide del registro.",
+      "measurements": "Un valor cuantitativo calculado para cada combinación de dimensiones.",
       "occurrenceCount": "Número de registros biológicos.",
-      "higherTaxonomy": "",
+      "higherTaxonomy": "Rangos taxonómicos superiores adicionales para los que también debe incluirse el número de ocurrencias. Útil para afirmar el sesgo de muestreo.",
       "minCoordinateUncertainty": "La incertidumbre de coordenadas más baja registrada (en metros). Útil para afirmar la precisión espacial de los datos.",
-      "minTemporalUncertainty": "",
+      "minTemporalUncertainty": "La incertidumbre temporal más baja registrada (en segundos). Útil para afirmar la precisión temporal de los datos.",
       "editSql": "La forma más sencilla de descargar y explorar datos es a través de la interfaz de usuario de búsqueda de registros biológicos. Pero para consultas y agregaciones complejas, el editor SQL ofrece más libertad."
     }
   }
