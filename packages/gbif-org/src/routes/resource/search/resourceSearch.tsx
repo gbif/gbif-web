@@ -1,5 +1,5 @@
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import { useNumberParam, useStringParam } from '@/hooks/useParam';
+import { useNumberParam, useParam } from '@/hooks/useParam';
 import React, { useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
@@ -18,6 +18,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { PaginationFooter } from '@/components/pagination';
+import { HeaderActionButtons } from './headerActionButtons';
 
 const tabs = [
   'all',
@@ -30,7 +31,7 @@ const tabs = [
   'document',
 ] as const;
 
-type Tab = (typeof tabs)[number];
+export type Tab = (typeof tabs)[number];
 
 const tabsToActiveContentTypeLookup: Record<Tab, ContentType[]> = {
   all: [
@@ -62,8 +63,8 @@ const tabsToCountLookup: Record<Tab, string> = {
   document: 'counts.nDocuments',
 };
 
-function isValidTab(tab: string | undefined): tab is Tab {
-  return tab != null && tabs.includes(tab as Tab);
+function isValidTab(tab: unknown): tab is Tab {
+  return typeof tab === 'string' && tabs.includes(tab as Tab);
 }
 
 const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
@@ -111,12 +112,12 @@ function extractValidResources(data: ResourceSearchQuery | undefined): Resource[
 const DEFAULT_TAB: Tab = 'all';
 
 export function ResourceSearchPage(): React.ReactElement {
-  const [_tab] = useStringParam({
+  const [tab] = useParam({
     hideDefault: true,
-    defaultValue: DEFAULT_TAB,
     key: 'contentType',
+    parse: (value) => (isValidTab(value) ? value : DEFAULT_TAB),
   });
-  const tab = isValidTab(_tab) ? _tab : DEFAULT_TAB;
+
   const [filter, setFilter] = useFilterParams({
     filterConfig: searchConfig,
     paramsToRemove: ['offset', 'from'],
@@ -147,7 +148,6 @@ type Props = {
 
 function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactElement {
   const [offset, setOffset] = useNumberParam({ key: 'offset', defaultValue: 0, hideDefault: true });
-  const { getParams } = useUpdateViewParams(['from', 'sort', 'limit', 'offset'], 'contentType'); // Removes 'from' and 'sort'
 
   const { data, loading } = useQuery<ResourceSearchQuery, ResourceSearchQueryVariables>(
     RESOURCE_SEARCH_QUERY,
@@ -177,15 +177,7 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
         // aboutContent={<AboutContent />}
         // apiContent={<ApiContent />}
       >
-        <Tabs
-          disableAutoDetectActive
-          links={tabs.map((tab) => ({
-            isActive: activeTab === tab,
-            to: { search: getParams(tab, defaultTab).toString() },
-            // TODO translate
-            children: <FormattedMessage id="temp" defaultMessage={tab} />,
-          }))}
-        />
+        <ResourceSearchTabs activeTab={activeTab} defaultTab={defaultTab} />
       </DataHeader>
 
       <ArticleContainer className="g-bg-slate-100 g-flex">
@@ -218,7 +210,8 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
                     values={{ total: count ?? 0 }}
                   />
                 </CardTitle>
-                {/* TODO show differet buttons based on the tab */}
+
+                <HeaderActionButtons activeTab={activeTab} />
               </CardHeader>
               <ul>
                 {resources.map((resource) => (
@@ -248,5 +241,29 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
         </ArticleTextContainer>
       </ArticleContainer>
     </>
+  );
+}
+
+type ResourceSearchTabsProps = {
+  activeTab: Tab;
+  defaultTab: Tab;
+};
+
+function ResourceSearchTabs({
+  activeTab,
+  defaultTab,
+}: ResourceSearchTabsProps): React.ReactElement {
+  const { getParams } = useUpdateViewParams(['from', 'sort', 'limit', 'offset'], 'contentType'); // Removes 'from' and 'sort'
+
+  return (
+    <Tabs
+      disableAutoDetectActive
+      links={tabs.map((tab) => ({
+        isActive: activeTab === tab,
+        to: { search: getParams(tab, defaultTab).toString() },
+        // TODO translate
+        children: <FormattedMessage id="temp" defaultMessage={tab} />,
+      }))}
+    />
   );
 }

@@ -1,6 +1,6 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
-import { DownloadAsTSVLink } from '@/components/downloadAsTSVLink';
+import { DownloadAsTSVLink } from '@/components/cardHeaderActions/downloadAsTSVLink';
 import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
 import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
