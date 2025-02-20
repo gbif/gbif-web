@@ -1,6 +1,7 @@
 {
   "loading": "načítání",
   "loadError": "Načítání selhalo",
+  "pleaseCiteAs": "V publikacích používejte tuto citaci",
   "unknown": "Neznámý",
   "notProvided": "Neposkytnuto",
   "close": "Zavřít",
@@ -44,6 +45,7 @@
   "addressUnknown": "",
   "emptyValueProvided": "Uvedena prázdná hodnota",
   "copyToClipboard": "",
+  "copy": "Kopírovat",
   "fromCountry": "Z {country}",
   "copiedToClipboard": "Zkopírováno do schránky",
   "continue": "Pokračovat",
