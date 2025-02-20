@@ -1,6 +1,7 @@
 {
   "loading": "wczytywanie",
   "loadError": "Nie udało się załadować",
+  "pleaseCiteAs": "Proszę użyć tego cytowania w publikacji",
   "unknown": "Nieznane",
   "notProvided": "Nie podano",
   "close": "zamknij",
@@ -44,6 +45,7 @@
   "addressUnknown": "",
   "emptyValueProvided": "Podana pusta wartość",
   "copyToClipboard": "",
+  "copy": "Kopiuj",
   "fromCountry": "Z {country}",
   "copiedToClipboard": "Skopiowano do schowka",
   "continue": "Kontynuuj",
