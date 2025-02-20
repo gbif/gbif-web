@@ -1,6 +1,7 @@
 {
   "loading": "loading",
   "loadError": "Failed to load",
+  "pleaseCiteAs": "Please use this citation in publications",
   "unknown": "Unknown",
   "notProvided": "Not provided",
   "close": "Close",
@@ -44,6 +45,7 @@
   "addressUnknown": "Unknown address",
   "emptyValueProvided": "Empty value provided",
   "copyToClipboard": "Copy to clipboard",
+  "copy": "Copy",
   "fromCountry": "From {country}",
   "copiedToClipboard": "Copied to clipboard",
   "continue": "Continue",
