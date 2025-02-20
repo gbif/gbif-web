@@ -305,10 +305,10 @@
         "10": "10 metrů",
         "100": "100 metrů",
         "1000": "1000 metrů",
-        "10000": ""
+        "10000": "10 000 metrů"
       }
     },
-    "noneSelected": "",
+    "noneSelected": "Není nic vybráno",
     "dimensions": "",
     "taxonomicDimension": "",
     "temporalDimension": "",
