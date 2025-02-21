@@ -18,6 +18,34 @@ const PORT = parseInt(env.PORT || 3000);
 async function main() {
   const app = express();
 
+  // Add middleware for parsing requests
+  app.use(
+    express.json({
+      limit: '1mb',
+    })
+  );
+  app.use(express.urlencoded({ extended: true }));
+  app.use(cookieParser());
+  app.use(compress());
+
+  // Middleware to set default Cache-Control header
+  app.use((req, res, next) => {
+    res.set('Cache-Control', 'public, max-age=600, must-revalidate'); // Default cache for 10 minutes
+    next();
+  });
+
+  // Middleware to set shorter cache for responses with status code above 400
+  app.use((req, res, next) => {
+    const originalSend = res.send;
+    res.send = function (body) {
+      if (res.statusCode >= 400) {
+        res.set('Cache-Control', 'public, max-age=60, must-revalidate'); // Short cache for 1 minute
+      }
+      originalSend.call(this, body);
+    };
+    next();
+  });
+
   if (IS_PRODUCTION) {
     const environmentEndpoints = [
       env.PUBLIC_BASE_URL,
@@ -52,16 +80,6 @@ async function main() {
     app.use(express.static('dist/gbif/client', { index: false }));
     app.use(express.static('public', { index: false }));
   }
-
-  // Add middleware for parsing requests
-  app.use(
-    express.json({
-      limit: '1mb',
-    })
-  );
-  app.use(express.urlencoded({ extended: true }));
-  app.use(cookieParser());
-  app.use(compress());
 
   registerUser(app);
 
@@ -117,6 +135,21 @@ async function main() {
 
   app.listen(PORT, () => {
     console.log(`🚀 Server ready at http://localhost:${PORT}`);
+  });
+
+  process.on('unhandledRejection', function (reason, p) {
+    console.error('Unhandled Rejection at root: Promise ', p, ' reason: ', reason);
+    // There is not much else to do here. Keep track of the logs and make sure this never happens. There should be no unhandled rejections.
+  });
+  process.on('uncaughtException', function (err) {
+    // eslint-disable-next-line no-console
+    console.error('FATAL: Uncaught exception.');
+    console.error(err.stack || err);
+    setTimeout(function () {
+      process.exit(1);
+    }, 200);
+    // log.error('FATAL: Uncaught exception.');
+    // log.error(err.stack || err);
   });
 }
 

@@ -69,7 +69,7 @@ export function Header({ menu }: { menu: HeaderQuery }) {
           <MobileMenu menu={menu} />
         </div>
         <Button asChild className="g-text-sm lg:g-inline-block g-hidden" variant="outline">
-          <Link to="/login">Login</Link>
+          <Link to="/user/login">Login</Link>
         </Button>
       </div>
     </div>
