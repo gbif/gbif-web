@@ -1,3 +1,5 @@
+import compress from 'compression';
+import cookieParser from 'cookie-parser';
 import express from 'express';
 import helmet from 'helmet';
 import fsp from 'node:fs/promises';
@@ -58,6 +60,8 @@ async function main() {
     })
   );
   app.use(express.urlencoded({ extended: true }));
+  app.use(cookieParser());
+  app.use(compress());
 
   registerUser(app);
 
