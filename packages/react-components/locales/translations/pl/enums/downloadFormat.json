@@ -9,7 +9,7 @@
     "IUCN": "Eksport IUCN",
     "BIONOMIA": "Eksport Bionomia",
     "SIMPLE_PARQUET": "Simple Parquet",
-    "SQL_TSV_ZIP": "",
-    "CUBE": ""
+    "SQL_TSV_ZIP": "SQL TSV zip",
+    "CUBE": "Cube"
   }
 }
