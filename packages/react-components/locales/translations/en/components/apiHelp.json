@@ -2,6 +2,8 @@
   "example": "Example",
   "examples": "Examples",
   "singleEntry": "Get a single entry.",
+  "downloadKeyDatasets": "Datasets contributing data to a download.",
+  "downloadKeyDatasetsExport": "Download list of datasets contributing data to a download.",
   "singleOccurrence": "Get a single occurrence.",
   "searchOccurrences": "Get all occurrences.",
   "searchOccurrencesExample": "First five occurrences of taxon with taxonKey 9778871 (Flabellina McMurtrie, 1831) that have been recorded in May between years 2000 and 2024.",
