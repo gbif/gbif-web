@@ -98,6 +98,7 @@ const taxonKeyConfig: filterSuggestConfig = {
   displayName: TaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
   suggestConfig: taxonKeySuggest,
+  disableFacetsForSelected: true,
 };
 
 const descriptorCountryConfig: filterSuggestConfig = {

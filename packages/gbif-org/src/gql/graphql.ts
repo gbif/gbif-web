@@ -4905,6 +4905,7 @@ export type OccurrenceCardinality = {
   repatriated: Scalars['Long']['output'];
   sampleSizeUnit: Scalars['Long']['output'];
   samplingProtocol: Scalars['Long']['output'];
+  sex: Scalars['Long']['output'];
   speciesKey: Scalars['Long']['output'];
   stateProvince: Scalars['Long']['output'];
   taxonKey: Scalars['Long']['output'];
@@ -5089,12 +5090,12 @@ export type OccurrenceFacet = {
   sampleSizeUnit?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   sampleSizeValue?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
   samplingProtocol?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
-  sex?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
+  sex?: Maybe<Array<Maybe<OccurrenceFacetResult_Sex>>>;
   speciesKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
   startDayOfYear?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
   stateProvince?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   taxonKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
-  typeStatus?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
+  typeStatus?: Maybe<Array<Maybe<OccurrenceFacetResult_TypeStatus>>>;
   typifiedName?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   verbatimScientificName?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   waterBody?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
@@ -6006,6 +6007,21 @@ export type OccurrenceFacetResult_RecordedByOccurrencesIdentifiedByArgs = {
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
+export type OccurrenceFacetResult_Sex = {
+  __typename?: 'OccurrenceFacetResult_sex';
+  _predicate?: Maybe<Scalars['JSON']['output']>;
+  concept?: Maybe<VocabularyConcept>;
+  count: Scalars['Long']['output'];
+  key: Scalars['String']['output'];
+  occurrences: OccurrenceSearchResult;
+};
+
+
+export type OccurrenceFacetResult_SexOccurrencesArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
 export type OccurrenceFacetResult_String = {
   __typename?: 'OccurrenceFacetResult_string';
   _predicate?: Maybe<Scalars['JSON']['output']>;
@@ -6031,6 +6047,21 @@ export type OccurrenceFacetResult_Taxon = {
 
 
 export type OccurrenceFacetResult_TaxonOccurrencesArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type OccurrenceFacetResult_TypeStatus = {
+  __typename?: 'OccurrenceFacetResult_typeStatus';
+  _predicate?: Maybe<Scalars['JSON']['output']>;
+  concept?: Maybe<VocabularyConcept>;
+  count: Scalars['Long']['output'];
+  key: Scalars['String']['output'];
+  occurrences: OccurrenceSearchResult;
+};
+
+
+export type OccurrenceFacetResult_TypeStatusOccurrencesArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -8992,7 +9023,7 @@ export type OccurrenceTypeStatusFacetQueryVariables = Exact<{
 }>;
 
 
-export type OccurrenceTypeStatusFacetQuery = { __typename?: 'Query', search?: { __typename?: 'OccurrenceSearchResult', facet?: { __typename?: 'OccurrenceFacet', field?: Array<{ __typename?: 'OccurrenceFacetResult_string', count: any, name: string } | null> | null } | null } | null };
+export type OccurrenceTypeStatusFacetQuery = { __typename?: 'Query', search?: { __typename?: 'OccurrenceSearchResult', facet?: { __typename?: 'OccurrenceFacet', field?: Array<{ __typename?: 'OccurrenceFacetResult_typeStatus', count: any, name: string } | null> | null } | null } | null };
 
 export type OccurrenceIssueFacetQueryVariables = Exact<{
   predicate?: InputMaybe<Predicate>;
