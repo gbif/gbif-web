@@ -319,9 +319,9 @@
     "countHigherTaxonomy": "Nombre d'occurrences à un niveau taxonomique supérieur",
     "coordinateUncertainty": "Inclure une incertitude de coordonnées minimale",
     "errorMinimumDimension": "Au moins une dimension doit être sélectionnée",
-    "editSql": "",
+    "editSql": "Editer en SQL",
     "temporalUncertainty": "",
-    "documentation": "",
+    "documentation": "Documentation",
     "help": {
       "whatIsThis": "",
       "dimensions": "",
