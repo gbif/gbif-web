@@ -4,6 +4,7 @@ import fsp from 'node:fs/promises';
 import { merge } from 'ts-deepmerge';
 import { loadEnv } from 'vite';
 import { helmetConfig } from './helmetConfig.js';
+import { register as registerUser } from './routes/user.ctrl.mjs';
 
 // Load environment variables from .env files and merge them with process.env.
 const envFile = loadEnv('', process.cwd(), ['PUBLIC_']);
@@ -49,6 +50,16 @@ async function main() {
     app.use(express.static('dist/gbif/client', { index: false }));
     app.use(express.static('public', { index: false }));
   }
+
+  // Add middleware for parsing requests
+  app.use(
+    express.json({
+      limit: '1mb',
+    })
+  );
+  app.use(express.urlencoded({ extended: true }));
+
+  registerUser(app);
 
   // Handle server-side rendering.
   app.use('*', async (req, res) => {

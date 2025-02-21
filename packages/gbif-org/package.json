@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "develop": "concurrently --kill-others \"NODE_ENV=development node gbif/server.js\"  \"graphql-codegen --config codegen.ts --watch\"",
+    "develop-server": "concurrently --kill-others \"NODE_ENV=development npx nodemon --watch gbif gbif/server.js\"  \"graphql-codegen --config codegen.ts --watch\"",
     "build:client": "vite build --config gbif/vite.config.ts --ssrManifest",
     "build:server": "vite build --config gbif/vite.config.ts --outDir ./dist/gbif/server --ssr ./src/gbif/entry.server.tsx",
     "build": "npm run build:client && npm run build:server",
