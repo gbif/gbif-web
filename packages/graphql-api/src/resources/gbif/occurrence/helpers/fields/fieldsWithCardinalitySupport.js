@@ -16,6 +16,7 @@ export default [
   'eventId',
   'month',
   'license',
+  'sex',
   'basisOfRecord',
   'issue',
   'isSequenced',

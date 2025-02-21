@@ -1,7 +1,7 @@
 import { DynamicLink } from '@/reactRouterPlugins';
 import { MdLink } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
-import { KeyChartGenerator } from './KeyChartGenerator';
+import { KeyChartGenerator, VocabularyChartGenerator } from './KeyChartGenerator';
 // import LocaleContext from '../../../dataManagement/LocaleProvider/LocaleContext';
 
 export function Datasets({
@@ -433,6 +433,92 @@ export function Synonyms({
                   </span>
                 </div>
               ),
+            };
+          });
+        },
+      }}
+      {...props}
+    />
+  );
+}
+
+export function TypeStatus({
+  predicate,
+  detailsRoute,
+  currentFilter = {}, //excluding root predicate
+  ...props
+}) {
+  return (
+    <VocabularyChartGenerator
+      {...{
+        predicate,
+        detailsRoute,
+        currentFilter,
+        fieldName: 'typeStatus',
+        disableUnknown: true,
+        disableOther: false,
+        facetSize: 10,
+        gqlEntity: `concept {
+          title: uiLabel(language: $vocabularyLocale)
+          uiDefinition(language: $vocabularyLocale)
+          parents {
+            uiLabel(language: $vocabularyLocale)
+          }
+        }`,
+        title: <FormattedMessage id="filters.typeStatus.name" defaultMessage="Type status" />,
+        subtitleKey: 'dashboard.numberOfOccurrences',
+        transform: (data) => {
+          return data?.search?.facet?.results?.map((x) => {
+            return {
+              key: x.key,
+              title: x?.entity?.title,
+              plainTextTitle: x?.entity?.title,
+              count: x.count,
+              description: x.entity.description,
+              filter: { datasetKey: [x.key] },
+            };
+          });
+        },
+      }}
+      {...props}
+    />
+  );
+}
+
+export function Sex({
+  predicate,
+  detailsRoute,
+  currentFilter = {}, //excluding root predicate
+  ...props
+}) {
+  return (
+    <VocabularyChartGenerator
+      {...{
+        predicate,
+        detailsRoute,
+        currentFilter,
+        fieldName: 'sex',
+        disableUnknown: true,
+        disableOther: false,
+        facetSize: 10,
+        gqlEntity: `concept {
+          title: uiLabel(language: $vocabularyLocale)
+          uiDefinition(language: $vocabularyLocale)
+          parents {
+            uiLabel(language: $vocabularyLocale)
+          }
+        }`,
+        title: <FormattedMessage id="filters.sex.name" defaultMessage="Sex" />,
+        subtitleKey: 'dashboard.numberOfOccurrences',
+        transform: (data) => {
+          return data?.search?.facet?.results?.map((x) => {
+            return {
+              key: x.key,
+              title: x?.entity?.title,
+              plainTextTitle: x?.entity?.title,
+              count: x.count,
+              description: x.entity.description,
+              filter: { datasetKey: [x.key] },
             };
           });
         },

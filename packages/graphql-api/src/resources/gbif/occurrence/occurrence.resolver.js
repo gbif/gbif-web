@@ -609,6 +609,26 @@ export default {
     },
     occurrences: facetOccurrenceSearch,
   },
+  OccurrenceFacetResult_typeStatus: {
+    concept: ({ key }, _args, { dataSources }) => {
+      if (!key) return null;
+      return dataSources.vocabularyAPI.getConcept({
+        vocabulary: 'typeStatus',
+        concept: key,
+      });
+    },
+    occurrences: facetOccurrenceSearch,
+  },
+  OccurrenceFacetResult_sex: {
+    concept: ({ key }, _args, { dataSources }) => {
+      if (!key) return null;
+      return dataSources.vocabularyAPI.getConcept({
+        vocabulary: 'sex',
+        concept: key,
+      });
+    },
+    occurrences: facetOccurrenceSearch,
+  },
   OccurrenceFacetResult_recordedBy: {
     occurrences: facetOccurrenceSearch,
     occurrencesIdentifiedBy: (parent) => {
