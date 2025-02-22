@@ -230,7 +230,7 @@ const yearConfig: filterRangeConfig = {
   filterHandle: 'year',
   regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/,
   displayName: YearLabel,
-  filterTranslation: 'filters.year.name',
+  filterTranslation: 'resourceSearch.filters.year',
 };
 
 const openAccessConfig: filterBoolConfig = {
