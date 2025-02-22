@@ -68,6 +68,7 @@
     "PHAGOVAR": "Phagotyp",
     "SEROVAR": "Serotyp",
     "CHEMOFORM": "Chemoform",
+    "FORMA_SPECIALIS": "Forma specialis",
     "CULTIVAR": "Kultivar",
     "OTHER": "Jiné",
     "UNRANKED": "Nezařazeno"
