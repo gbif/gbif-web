@@ -51,6 +51,11 @@ const typeDef = gql`
 
   type ResourceFacet {
     countriesOfCoverage(size: Int, from: Int): [GenericFacetResult_string]
+    topics(size: Int, from: Int): [GenericFacetResult_string]
+    countriesOfResearcher(size: Int, from: Int): [GenericFacetResult_string]
+    contractCountry(size: Int, from: Int): [GenericFacetResult_string]
+    gbifProgrammeAcronym(size: Int, from: Int): [GenericFacetResult_string]
+    purposes(size: Int, from: Int): [GenericFacetResult_string]
   }
 
   type ResourceDocuments {

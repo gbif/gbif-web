@@ -1,1 +1,8 @@
-export default ['countriesOfCoverage'];
+export default [
+  'countriesOfCoverage',
+  'topics',
+  'countriesOfResearcher',
+  'contractCountry',
+  'gbifProgrammeAcronym',
+  'purposes',
+];

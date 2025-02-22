@@ -20,6 +20,7 @@ const otherParams = [
   'contractCountry',
   'gbifProgrammeAcronym',
   'purposes',
+  '_showPastEvents',
 ];
 
 otherParams.forEach((filter) => {

@@ -1,4 +1,4 @@
-import { DownloadAsTSVLink } from '@/components/downloadAsTSVLink';
+import { DownloadAsTSVLink } from '@/components/cardHeaderActions/downloadAsTSVLink';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FeatureList, GenericFeature } from '@/components/highlights';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';

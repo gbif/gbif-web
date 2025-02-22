@@ -7,7 +7,7 @@ const tabToRelavantFiltersLookup: Record<Tab, string[]> = {
   all: ['q'],
   news: ['q', 'countriesOfCoverage', 'topics'],
   dataUse: ['q', 'countriesOfResearcher', 'countriesOfCoverage', 'topics'],
-  event: ['q'], // TODO _showPastEvents
+  event: ['q', '_showPastEvents'],
   project: ['q', 'contractCountry', 'gbifProgrammeAcronym', 'purposes'],
   programme: ['q'],
   tool: ['q'],
