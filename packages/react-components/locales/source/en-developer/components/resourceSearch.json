@@ -9,6 +9,7 @@
         "suggestEvent": "Suggest event",
         "citationExplainer": "Read more about literature, how it’s discovered and linked to GBIF-mediated data.",
         "types": {
+            "all": "All",
             "events": "Events",
             "news": "News",
             "resources": "Resources",

@@ -68,6 +68,17 @@ const tabsToCountLookup: Record<Tab, string> = {
   document: 'counts.nDocuments',
 };
 
+const tabsToTranslationLookup: Record<Tab, string> = {
+  all: 'resourceSearch.types.all',
+  news: 'resourceSearch.types.news',
+  dataUse: 'resourceSearch.types.dataUse',
+  event: 'resourceSearch.types.events',
+  project: 'resourceSearch.types.projects',
+  programme: 'resourceSearch.types.programmes',
+  tool: 'resourceSearch.types.tools',
+  document: 'resourceSearch.types.documents',
+};
+
 function isValidTab(tab: unknown): tab is Tab {
   return typeof tab === 'string' && tabs.includes(tab as Tab);
 }
@@ -306,7 +317,7 @@ function ResourceSearchTabs({
         isActive: activeTab === tab,
         to: { search: getParams(tab, defaultTab).toString() },
         // TODO translate
-        children: <FormattedMessage id="temp" defaultMessage={tab} />,
+        children: <FormattedMessage id={tabsToTranslationLookup[tab]} defaultMessage={tab} />,
       }))}
     />
   );
