@@ -22,6 +22,7 @@ import {
   generateFilters,
 } from '@/components/filters/filterTools';
 import { SuggestFnProps } from '@/components/filters/suggest';
+import { Message } from '@/components/message';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import country from '@/enums/basic/country.json';
 import literatureTypeOptions from '@/enums/cms/literatureType.json';
@@ -154,6 +155,7 @@ const taxonKeyConfig: filterSuggestConfig = {
   displayName: TaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
   suggestConfig: taxonKeySuggest,
+  about: () => <Message id="resourceSearch.helpText.gbifTaxonKey" />,
 };
 
 const literatureTypeConfig: filterEnumConfig = {
