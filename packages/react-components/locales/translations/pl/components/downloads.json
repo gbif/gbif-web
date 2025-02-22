@@ -68,7 +68,7 @@
       "SUSPENDED": "Zawieszono",
       "RUNNING": "W toku",
       "CANCELLED": "Anulowano",
-      "KILLED": "przerwano"
+      "KILLED": "Przerwano"
     },
     "predicate": {
       "joinDescriptions": {
@@ -103,7 +103,7 @@
         "SUBGENUS_KEY": "Podrodzaj",
         "HAS_GEOSPATIAL_ISSUE": "",
         "INSTITUTION_CODE": "",
-        "REPATRIATED": "repatriowany",
+        "REPATRIATED": "Ponownie wprowadzony ",
         "YEAR": "Rok",
         "STATE_PROVINCE": "Województwo, powiat",
         "GEO_DISTANCE": "",
@@ -236,7 +236,7 @@
       "ACCEPTED_TAXON": "Przyjęty takson",
       "EXACT_TAXON": "Dokładny takson"
     },
-    "cubeTitle": "pobierz kostkę",
+    "cubeTitle": "Pobierz kostkę",
     "cubeDescription": "Symbol zastępczy opisu",
     "readMore": "Zobacz więcej",
     "time": {
@@ -290,7 +290,7 @@
         "12": "Poziom 12",
         "13": "Poziom 13",
         "14": "Poziom 14",
-        "15": "poziom 15",
+        "15": "Poziom 15",
         "16": "Poziom 16",
         "17": "Poziom 17",
         "18": "Poziom 18",
@@ -325,16 +325,16 @@
     "help": {
       "whatIsThis": "Ten format pobierania umożliwia agregowanie wystąpień według ich właściwości taksonomicznych, czasowych i/lub przestrzennych. Na przykład sześcian danych można skonfigurować tak, aby agregował wystąpienia według rodziny, miesiąca i komórki siatki odniesienia Europejskiej Agencji Środowiska (trzy wymiary) i zliczał liczbę wystąpień (miarę) na kombinację. Wynikiem jest plik CSV.\n\nPo skonfigurowaniu zostanie utworzone zapytanie SQL w celu wygenerowania sześcianu danych. W celu bardziej zaawansowanego użycia możliwe jest dalsze dostosowanie żądanego pobierania poprzez edycję zapytania SQL.\n",
       "dimensions": "Wymiar reprezentuje aspekt, wzdłuż którego dane mogą być agregowane. Wybranie wyższej rozdzielczości (np. gatunek ponad rodzinę, data ponad rok, 100 m ponad 10 km) spowoduje więcej kategorii, a zatem więcej rekordów.",
-      "taxonomicDimension": "Ten wymiar agreguje wystąpienia według ich rangi taksonomicznej.",
-      "temporalDimension": "Ten wymiar agreguje zdarzenia według czasu.",
-      "grid": "Ten wymiar agreguje wystąpienia w siatce przestrzennej.",
+      "taxonomicDimension": "Ten wymiar zbiera wystąpienia według ich rangi taksonomicznej.",
+      "temporalDimension": "Ten wymiar zbiera zdarzenia według czasu.",
+      "grid": "Ten wymiar zbiera wystąpienia w siatce przestrzennej.",
       "gridResolution": "Rozmiar każdej komórki siatki.",
-      "randomizePoints": "W przypadku rekordów wystąpień z niepewnością współrzędnych obejmującą więcej niż jedną komórkę siatki, czy należy wybrać losową komórkę? Jeśli nie, używana jest komórka zawierająca centroid rekordu.",
+      "randomizePoints": "W przypadku zapisów wystąpień z niepewnością współrzędnych obejmującą więcej niż jedną komórkę siatki, czy należy wybrać losową komórkę? Jeśli nie, używana jest komórka zawierająca centroid rekordu.",
       "measurements": "Obliczona wartość liczbowa dla każdej kombinacji wymiarów.",
       "occurrenceCount": "Liczba stwierdzeń.",
       "higherTaxonomy": "Dodatkowe wyższe rangi taksonomiczne, dla których należy również uwzględnić liczbę wystąpień. Przydatne do stwierdzenia błędów próbkowania.",
-      "minCoordinateUncertainty": "Najniższa zarejestrowana niepewność współrzędnych (w metrach). Przydatne do stwierdzenia precyzji przestrzennej danych.",
-      "minTemporalUncertainty": "Najniższa zarejestrowana niepewność czasowa (w sekundach). Przydatne do stwierdzenia precyzji czasowej danych.",
+      "minCoordinateUncertainty": "Najniższa zarejestrowana niepewność współrzędnych (w metrach). Przydatna do stwierdzenia precyzji przestrzennej danych.",
+      "minTemporalUncertainty": "Najniższa zarejestrowana niepewność czasowa (w sekundach). Przydatna do stwierdzenia precyzji czasowej danych.",
       "editSql": "Najprostszym sposobem na pobieranie i przeglądanie danych to użycie interfejsu użytkownika wyszukiwarki stwierdzeń. Jednak dla złożonych zapytań i zbiorów edytor SQL daje więcej możliwości."
     }
   }
