@@ -28,7 +28,7 @@
     "RELATIONSHIP_MISSING": "Brakująca relacja",
     "ORIGINAL_NAME_DERIVED": "Pochodna relacja bazonimu",
     "CONFLICTING_BASIONYM_COMBINATION": "Sprzeczne zestawienie bazonimów",
-    "NO_SPECIES": "Brak wspomnianych gatunków",
+    "NO_SPECIES": "Brak uwzględnionych gatunków",
     "NAME_PARENT_MISMATCH": "Niezgodność nazwy nadrzędnej",
     "ORTHOGRAPHIC_VARIANT": "Wariant ortograficzny",
     "HOMONYM": "Homonim",
