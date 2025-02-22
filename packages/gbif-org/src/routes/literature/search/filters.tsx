@@ -1,4 +1,5 @@
 import {
+  booleanLabel,
   CountryLabel,
   DatasetLabel,
   IdentityLabel,
@@ -11,6 +12,7 @@ import {
   YearLabel,
 } from '@/components/filters/displayNames';
 import {
+  filterBoolConfig,
   filterConfigTypes,
   filterEnumConfig,
   filterFreeTextConfig,
@@ -20,6 +22,7 @@ import {
   generateFilters,
 } from '@/components/filters/filterTools';
 import { SuggestFnProps } from '@/components/filters/suggest';
+import { Message } from '@/components/message';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import country from '@/enums/basic/country.json';
 import literatureTypeOptions from '@/enums/cms/literatureType.json';
@@ -36,7 +39,7 @@ import hash from 'object-hash';
 import { useCallback, useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 
-const publisherConfig: filterSuggestConfig = {
+const publishingOrganizationKeyConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'publishingOrganizationKey',
   displayName: PublisherLabel,
@@ -152,6 +155,7 @@ const taxonKeyConfig: filterSuggestConfig = {
   displayName: TaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
   suggestConfig: taxonKeySuggest,
+  about: () => <Message id="resourceSearch.helpText.gbifTaxonKey" />,
 };
 
 const literatureTypeConfig: filterEnumConfig = {
@@ -226,7 +230,134 @@ const yearConfig: filterRangeConfig = {
   filterHandle: 'year',
   regex: /^((-)?[0-9]{0,4})(,)?((-)?[0-9]{0,4})$/,
   displayName: YearLabel,
-  filterTranslation: 'filters.year.name',
+  filterTranslation: 'resourceSearch.filters.year',
+};
+
+const openAccessConfig: filterBoolConfig = {
+  filterType: filterConfigTypes.OPTIONAL_BOOL,
+  filterHandle: 'openAccess',
+  displayName: booleanLabel,
+  filterTranslation: 'resourceSearch.filters.openAccess',
+  facetQuery: /* GraphQL */ `
+    query LiteratureOpenAccessFacet($predicate: Predicate) {
+      search: literatureSearch(predicate: $predicate) {
+        facet {
+          field: openAccess {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+};
+
+const peerReviewConfig: filterBoolConfig = {
+  filterType: filterConfigTypes.OPTIONAL_BOOL,
+  filterHandle: 'peerReview',
+  displayName: booleanLabel,
+  filterTranslation: 'resourceSearch.filters.peerReview',
+  facetQuery: /* GraphQL */ `
+    query LiteraturePeerReviewFacet($predicate: Predicate) {
+      search: literatureSearch(predicate: $predicate) {
+        facet {
+          field: peerReview {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+};
+
+const publisherConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'publisher',
+  displayName: IdentityLabel,
+  filterTranslation: 'resourceSearch.filters.litPublisher',
+  facetQuery: /* GraphQL */ `
+    query LiteraturePublisherFacet($predicate: Predicate) {
+      search: literatureSearch(predicate: $predicate) {
+        facet {
+          field: publisher(size: 20) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+};
+
+const sourceConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'source',
+  displayName: IdentityLabel,
+  filterTranslation: 'resourceSearch.filters.litSource',
+  facetQuery: /* GraphQL */ `
+    query LiteratureSourceFacet($predicate: Predicate) {
+      search: literatureSearch(predicate: $predicate) {
+        facet {
+          field: source(size: 20) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+};
+
+const gbifProgrammeAcronymConfig: filterEnumConfig = {
+  filterType: filterConfigTypes.ENUM,
+  filterHandle: 'gbifProgrammeAcronym',
+  displayName: IdentityLabel,
+  filterTranslation: 'resourceSearch.filters.programme',
+  facetQuery: /* GraphQL */ `
+    query LiteratureGbifProgrammeAcronymFacet($predicate: Predicate) {
+      search: literatureSearch(predicate: $predicate) {
+        facet {
+          field: gbifProgrammeAcronym(size: 20) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+};
+
+const gbifProjectIdentifierConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'gbifProjectIdentifier',
+  displayName: IdentityLabel,
+  filterTranslation: 'resourceSearch.filters.projectId',
+  disableFacetsForSelected: true,
+};
+
+const gbifDownloadKeyConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'gbifDownloadKey',
+  displayName: IdentityLabel,
+  filterTranslation: 'resourceSearch.filters.gbifDownloadKey',
+  disableFacetsForSelected: true,
+};
+
+const gbifDerivedDatasetDoiConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'gbifDerivedDatasetDoi',
+  displayName: IdentityLabel,
+  filterTranslation: 'resourceSearch.filters.gbifDerivedDatasetDoi',
+  disableFacetsForSelected: true,
+};
+
+const doiConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'doi',
+  displayName: IdentityLabel,
+  filterTranslation: 'resourceSearch.filters.paperDoi',
+  disableFacetsForSelected: true,
 };
 
 export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }): {
@@ -258,6 +389,31 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
 
   useEffect(() => {
     const nextFilters = {
+      doi: generateFilters({ config: doiConfig, searchConfig, formatMessage }),
+      gbifDerivedDatasetDoi: generateFilters({
+        config: gbifDerivedDatasetDoiConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      gbifDownloadKey: generateFilters({
+        config: gbifDownloadKeyConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      gbifProjectIdentifier: generateFilters({
+        config: gbifProjectIdentifierConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      gbifProgrammeAcronym: generateFilters({
+        config: gbifProgrammeAcronymConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      source: generateFilters({ config: sourceConfig, searchConfig, formatMessage }),
+      publisher: generateFilters({ config: publisherConfig, searchConfig, formatMessage }),
+      peerReview: generateFilters({ config: peerReviewConfig, searchConfig, formatMessage }),
+      openAccess: generateFilters({ config: openAccessConfig, searchConfig, formatMessage }),
       year: generateFilters({ config: yearConfig, searchConfig, formatMessage }),
       literatureType: generateFilters({
         config: literatureTypeConfig,
@@ -272,7 +428,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       topics: generateFilters({ config: topicsConfig, searchConfig, formatMessage }),
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
       publishingOrganizationKey: generateFilters({
-        config: publisherConfig,
+        config: publishingOrganizationKeyConfig,
         searchConfig,
         formatMessage,
       }),

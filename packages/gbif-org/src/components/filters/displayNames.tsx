@@ -228,6 +228,7 @@ function getVocabularyLabel(
   return { title };
 }
 
+export const ProgrammeLabel = getEnumLabel({ template: (id) => `enums.programme.${id}` });
 export const LiteratureTypeLabel = getEnumLabel({ template: (id) => `enums.literatureType.${id}` });
 export const LicenceLabel = getEnumLabel({ template: (id) => `enums.license.${id}` });
 export const DatasetTypeLabel = getEnumLabel({ template: (id) => `enums.datasetType.${id}` });
