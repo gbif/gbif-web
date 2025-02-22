@@ -311,7 +311,7 @@ const gbifProgrammeAcronymConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'gbifProgrammeAcronym',
   displayName: IdentityLabel,
-  filterTranslation: 'filterNames.programme',
+  filterTranslation: 'resourceSearch.filters.programme',
   facetQuery: /* GraphQL */ `
     query LiteratureGbifProgrammeAcronymFacet($predicate: Predicate) {
       search: literatureSearch(predicate: $predicate) {
@@ -330,7 +330,7 @@ const gbifProjectIdentifierConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'gbifProjectIdentifier',
   displayName: IdentityLabel,
-  filterTranslation: 'filterNames.projectId',
+  filterTranslation: 'resourceSearch.filters.projectId',
   disableFacetsForSelected: true,
 };
 

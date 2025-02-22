@@ -20,6 +20,8 @@
             "literature": "Literature"
         },
         "filters": {
+            "projectId": "Project",
+            "programme": "Programme",
             "countriesOfCoverage": "Country or area of coverage",
             "countriesOfResearcher": "Country or area of researcher",
             "literatureType": "Literature type",
