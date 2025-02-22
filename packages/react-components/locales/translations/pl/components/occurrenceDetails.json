@@ -120,7 +120,7 @@
         "ProvinceState": "",
         "City": "Miasto",
         "Sublocation": "",
-        "temporal": "Tymczasowe",
+        "temporal": "Czasowe",
         "CreateDate": "",
         "timeOfDay": "",
         "taxonCoverage": "",
@@ -202,7 +202,7 @@
       }
     },
     "germplasmAccession": {
-      "name": "Germplasm: Germplasm akcesja",
+      "name": "Germplasm: dostęp do Germplasm",
       "properties": {
         "germplasmID": "",
         "germplasmIdentifier": "",
@@ -244,7 +244,7 @@
       }
     },
     "germplasmMeasurementScore": {
-      "name": "Germplasm: wynik pomiaru",
+      "name": "Germplasm: Wynik pomiaru",
       "properties": {
         "measurementID": "",
         "measurementValue": "",
@@ -267,7 +267,7 @@
       }
     },
     "germplasmMeasurementTrait": {
-      "name": "Germplasm: cecha pomiaru",
+      "name": "Germplasm: Cecha pomiaru",
       "properties": {
         "measurementTraitID": "",
         "measurementTraitIdentifier": "",
@@ -281,7 +281,7 @@
       }
     },
     "germplasmMeasurementTrial": {
-      "name": "Germplasm: próba pomiaru",
+      "name": "Germplasm: Próba pomiaru",
       "properties": {
         "measurementTrailID": "",
         "measurementTrailIdentifier": "",
