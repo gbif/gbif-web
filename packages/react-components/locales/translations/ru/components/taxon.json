@@ -15,5 +15,14 @@
   "dna": "ДНК",
   "occurenceImages": "",
   "taxonIdentifiers": "Идентификаторы таксона",
-  "synonymsAndCombinations": "Синонимы и комбинации"
+  "synonymsAndCombinations": "Синонимы и комбинации",
+  "rankPlural": {
+    "KINGDOM": "Царство",
+    "PHYLUM": "Тип",
+    "CLASS": "Класс",
+    "ORDER": "Отряд / Порядок",
+    "FAMILY": "Семейство",
+    "GENUS": "Род",
+    "SPECIES": "Вид"
+  }
 }

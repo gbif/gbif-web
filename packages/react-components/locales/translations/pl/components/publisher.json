@@ -12,7 +12,7 @@
   "hosting": "Hosting",
   "description": "Opis",
   "endorsedBy": "Poparte przez",
-  "notYetEndorsed": "Równy {from}",
+  "notYetEndorsed": "",
   "pendingEndorsementBy": "Oczekuje poparcia przez",
   "endorsementWithheld": "Poparcie wstrzymane",
   "installations": "Instalacja",

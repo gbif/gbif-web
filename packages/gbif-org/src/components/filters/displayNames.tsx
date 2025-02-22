@@ -35,6 +35,38 @@ function rangeOrEqualLabel(path: string) {
           values={{ from: value?.value, is: value?.value }}
         />
       );
+    } else if (value?.type === 'greaterThanOrEquals') {
+      return (
+        <FormattedMessage
+          id="intervals.description.gte"
+          defaultMessage={`>= ${value?.value}`}
+          values={{ from: value.value }}
+        />
+      );
+    } else if (value?.type === 'lessThanOrEquals') {
+      return (
+        <FormattedMessage
+          id="intervals.description.lte"
+          defaultMessage={`<= ${value?.value}`}
+          values={{ to: value.value }}
+        />
+      );
+    } else if (value?.type === 'lessThan') {
+      return (
+        <FormattedMessage
+          id="intervals.description.lt"
+          defaultMessage={`< ${value?.value}`}
+          values={{ from: value.value }}
+        />
+      );
+    } else if (value?.type === 'greaterThan') {
+      return (
+        <FormattedMessage
+          id="intervals.description.gt"
+          defaultMessage={`> ${value?.value}`}
+          values={{ to: value.value }}
+        />
+      );
     } else {
       return <FormattedMessage id={`invalidValue`} defaultMessage={'Invalid value'} />;
     }
@@ -180,7 +212,10 @@ export function TaxonLabel({ id }: { id: string | number | object }) {
   return <DisplayName useHtml getData={getData} id={id} />;
 }
 
-function getVocabularyLabel(result: VocabularyType, { currentLocale }: DisplayNameGetDataProps) {
+function getVocabularyLabel(
+  result: VocabularyType,
+  { currentLocale, id }: DisplayNameGetDataProps
+) {
   const vocabularyLocale = currentLocale?.vocabularyLocale ?? currentLocale.code ?? 'en';
 
   // transform result labels to an object with language as keys
@@ -189,7 +224,7 @@ function getVocabularyLabel(result: VocabularyType, { currentLocale }: DisplayNa
     return acc;
   }, {});
 
-  const title = labels[vocabularyLocale] || labels.en || result.name || 'Unknown';
+  const title = labels[vocabularyLocale] || labels.en || result.name || id.toString();
   return { title };
 }
 
@@ -212,7 +247,6 @@ export const TaxonStatusLabel = getEnumLabel({ template: (id) => `enums.taxonomi
 export const IucnRedListCategoryLabel = getEnumLabel({
   template: (id) => `enums.iucnRedListCategory.${id}`,
 });
-export const typeStatusLabel = getEnumLabel({ template: (id) => `enums.typeStatus.${id}` });
 export const occurrenceIssueLabel = getEnumLabel({
   template: (id) => `enums.occurrenceIssue.${id}`,
 });
@@ -226,8 +260,19 @@ export const GadmGidLabel = getEndpointLabel({
   transform: (response) => ({ title: response?.name }),
 });
 
-export const establishmentMeansLabel = getEndpointLabel({
+export const TypeStatusVocabularyLabel = getEndpointLabel({
+  template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/TypeStatus/concepts/${id}`,
+  transform: getVocabularyLabel,
+});
+
+export const EstablishmentMeansLabel = getEndpointLabel({
   template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/EstablishmentMeans/concepts/${id}`,
+  transform: getVocabularyLabel,
+});
+
+export const DegreeOfEstablishmentLabel = getEndpointLabel({
+  template: ({ id, v1Endpoint }) =>
+    `${v1Endpoint}/vocabularies/DegreeOfEstablishment/concepts/${id}`,
   transform: getVocabularyLabel,
 });
 
@@ -252,6 +297,26 @@ export const InstitutionDisciplineLabel = getEndpointLabel({
   transform: getVocabularyLabel,
 });
 
+export const PathwayLabel = getEndpointLabel({
+  template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/Pathway/concepts/${id}`,
+  transform: getVocabularyLabel,
+});
+
+export const GeoTimeLabel = getEndpointLabel({
+  template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/GeoTime/concepts/${id}`,
+  transform: getVocabularyLabel,
+});
+
+export const SexLabel = getEndpointLabel({
+  template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/Sex/concepts/${id}`,
+  transform: getVocabularyLabel,
+});
+
+export const LifeStageLabel = getEndpointLabel({
+  template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/LifeStage/concepts/${id}`,
+  transform: getVocabularyLabel,
+});
+
 export const CollectionLabel = getGraphQlLabel({
   query: `query($key:ID!) {item:collection(key: $key) {title: name}}`,
 });
@@ -266,6 +331,9 @@ export const PublisherLabel = getGraphQlLabel({
 });
 export const NetworkLabel = getGraphQlLabel({
   query: `query($key:ID!) {item:network(key: $key) {title}}`,
+});
+export const InstallationLabel = getGraphQlLabel({
+  query: `query($key:ID!) {item:installation(key: $key) {title}}`,
 });
 
 export function prettifyEnum(text: string) {

@@ -441,7 +441,7 @@
         "pages": "",
         "pageStart": "",
         "pageEnd": "",
-        "volume": "",
+        "volume": "Iguais {is}",
         "edition": "",
         "publisher": "Publicador",
         "authorList": "",
@@ -568,7 +568,7 @@
     "preservation": {
       "name": "Preservação",
       "properties": {
-        "preservationType": "Iguais {is}",
+        "preservationType": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
         "preservationTemperature": "Iguais {is}",
         "preservationDateBegin": "Iguais {is}",
         "sequence": "Iguais {is}"

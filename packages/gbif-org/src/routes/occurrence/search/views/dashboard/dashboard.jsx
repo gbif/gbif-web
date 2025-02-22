@@ -177,6 +177,11 @@ const preconfiguredCharts = {
       return <charts.TypeStatus predicate={predicate} interactive {...props} />;
     },
   },
+  sex: {
+    component: ({ predicate, ...props }) => {
+      return <charts.Sex predicate={predicate} {...props} />;
+    },
+  },
   waterBody: {
     component: ({ predicate, ...props }) => {
       return <charts.WaterBody predicate={predicate} interactive {...props} />;

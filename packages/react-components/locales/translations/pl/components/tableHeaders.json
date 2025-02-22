@@ -10,6 +10,8 @@
   "registered": "Zarejestrowano",
   "hostedDatasets": "Hostowane zbiory danych",
   "pubDatasets": "Opublikowane zbiory danych",
+  "species": "Liczba gatunków",
+  "parents": "Pochodzenie",
   "institution": "Instytucja",
   "collection": "Kolekcja",
   "collectionCount": "Kolekcje",

@@ -15,5 +15,14 @@
   "dna": "去氧核醣核酸",
   "occurenceImages": "等於 {is}",
   "taxonIdentifiers": "分類群辨識碼",
-  "synonymsAndCombinations": ""
+  "synonymsAndCombinations": "",
+  "rankPlural": {
+    "KINGDOM": "界",
+    "PHYLUM": "門",
+    "CLASS": "綱",
+    "ORDER": "目",
+    "FAMILY": "科",
+    "GENUS": "屬",
+    "SPECIES": "種"
+  }
 }

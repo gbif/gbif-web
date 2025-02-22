@@ -23,7 +23,6 @@ import {
   occurrenceIssueConfig,
   occurrenceStatusConfig,
   protocolConfig,
-  typeStatusConfig,
 } from './filters/enums';
 import {
   collectionCodeConfig,
@@ -39,6 +38,7 @@ import {
   publishingOrgConfig,
   recordNumberConfig,
   taxonKeyConfig,
+  typeStatusSuggestConfig,
 } from './filters/keySuggest';
 import { locationConfig } from './filters/location';
 import {
@@ -64,6 +64,7 @@ import {
   catalogNumberConfig,
   identifiedByConfig,
   localityConfig,
+  preparationsConfig,
   recordedByConfig,
   sampleSizeUnitConfig,
   samplingProtocolConfig,
@@ -165,7 +166,8 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         searchConfig,
         formatMessage,
       }),
-      typeStatus: generateFilters({ config: typeStatusConfig, searchConfig, formatMessage }),
+      typeStatus: generateFilters({ config: typeStatusSuggestConfig, searchConfig, formatMessage }),
+      // typeStatus: generateFilters({ config: typeStatusConfig, searchConfig, formatMessage }),
       issue: generateFilters({
         config: occurrenceIssueConfig,
         searchConfig,
@@ -197,7 +199,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       isSequenced: generateFilters({ config: isSequencedConfig, searchConfig, formatMessage }),
 
       year: generateFilters({ config: yearConfig, searchConfig, formatMessage }),
-      coordinateUncertainty: generateFilters({
+      coordinateUncertaintyInMeters: generateFilters({
         config: coordinateUncertaintyConfig,
         searchConfig,
         formatMessage,
@@ -221,6 +223,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       elevation: generateFilters({ config: elevationConfig, searchConfig, formatMessage }),
 
       catalogNumber: generateFilters({ config: catalogNumberConfig, searchConfig, formatMessage }),
+      preparations: generateFilters({ config: preparationsConfig, searchConfig, formatMessage }),
       sampleSizeUnit: generateFilters({
         config: sampleSizeUnitConfig,
         searchConfig,

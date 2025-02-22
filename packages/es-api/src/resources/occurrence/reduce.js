@@ -19,6 +19,16 @@ function vocabularFallback(obj) {
     return obj;
   }
 }
+
+function vocabularyConcepts(obj) {
+  if (obj && typeof obj === 'object' && obj.concepts && Array.isArray(obj.concepts)) {
+    // concatenate all concepts with a pipe
+    return obj.concepts;
+  } else {
+    return [obj];
+  }
+}
+
 /**
  * Map ES response to something similar to v1
  */
@@ -286,10 +296,10 @@ function reduce(item) {
     sampleSizeUnit: source.sampleSizeUnit,
     sampleSizeValue: source.sampleSizeValue,
     samplingProtocol: source.samplingProtocol,
-    sex: source.sex,
+    sex: source.sex?.concept,
     // startDayOfYear:                     source.startDayOfYear,
     stateProvince: source.stateProvince,
-    typeStatus: source.typeStatus,
+    typeStatus: vocabularyConcepts(source.typeStatus),
     typifiedName: source.typifiedName,
     waterBody: source.waterBody,
     year: source.year,

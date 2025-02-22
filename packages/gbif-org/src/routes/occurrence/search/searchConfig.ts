@@ -21,7 +21,7 @@ const config: FilterConfigType = {
         supportedTypes: ['range', 'equals'],
       },
     },
-    coordinateUncertainty: {
+    coordinateUncertaintyInMeters: {
       v1: {
         supportedTypes: ['range', 'equals'],
       },
@@ -99,6 +99,7 @@ const otherParams = [
   'identifiedBy',
 
   'catalogNumber',
+  'preparations',
   'sampleSizeUnit',
   'locality',
   'waterBody',

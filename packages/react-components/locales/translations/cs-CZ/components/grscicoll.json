@@ -53,8 +53,8 @@
     "explore": ""
   },
   "citesPermitNumber": "Cituje číslo povolení",
-  "collectionDescriptorsHeadline": "Rovná se {from}",
-  "collectionDescriptorsIntroduction": "Rovná se {from}",
-  "collectionSearchNoResultsMessage": "Rovná se {from}",
-  "searchForSpecimens": "Rovná se {from}"
+  "collectionDescriptorsHeadline": "",
+  "collectionDescriptorsIntroduction": "",
+  "collectionSearchNoResultsMessage": "",
+  "searchForSpecimens": ""
 }

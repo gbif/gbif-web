@@ -7,4 +7,34 @@ function Skeleton({ className, ...props }: React.HTMLAttributes<HTMLDivElement>)
   return <div aria-hidden className={cn(skeletonClasses, className)} {...props} />;
 }
 
-export { Skeleton };
+function SkeletonTable({ rows, columns }: { rows: number; columns: number }) {
+  return (
+    <table className="g-w-full g-text-sm g-text-left rtl:g-text-right g-text-gray-500 dark:g-text-gray-400">
+      <thead className="g-text-slate-500 g-font-light g-bg-gray-50 dark:g-bg-gray-700 dark:g-text-gray-400 g-border-b">
+        <tr>
+          {Array.from({ length: columns }).map((_, i) => (
+            <th key={i} className="g-px-4 md:g-px-8 g-py-3 g-font-normal">
+              <Skeleton className="g-w-12">&nbsp;</Skeleton>
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {Array.from({ length: rows }).map((_, i) => (
+          <tr
+            key={i}
+            className="g-bg-white g-border-b last:g-border-0 dark:g-bg-gray-800 dark:g-border-gray-700"
+          >
+            {Array.from({ length: columns }).map((_, j) => (
+              <td key={j} className="g-px-4 md:g-px-8 g-py-3">
+                <Skeleton className="g-w-24">&nbsp;</Skeleton>
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+export { Skeleton, SkeletonTable };

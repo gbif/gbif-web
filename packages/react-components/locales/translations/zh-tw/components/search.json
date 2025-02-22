@@ -33,7 +33,7 @@
     "either": "等於 {is}"
   },
   "loadMore": "更多",
-  "noResults": "等於 {is}",
+  "noResults": "",
   "occurrenceClustersView": {
     "about": "關於",
     "clusters": "",
@@ -53,7 +53,7 @@
       "TREATMENT": "分類處理",
       "OBSERVATION": "觀察",
       "SPECIMEN": "標本",
-      "SEQUENCE": ""
+      "SEQUENCE": "等於 {is}"
     }
   }
 }

@@ -21,7 +21,7 @@ export const yearConfig: filterRangeConfig = {
 
 export const coordinateUncertaintyConfig: filterRangeConfig = {
   filterType: filterConfigTypes.RANGE,
-  filterHandle: 'coordinateUncertainty',
+  filterHandle: 'coordinateUncertaintyInMeters',
   displayName: CoordinateUncertaintyLabel,
   filterTranslation: 'filters.coordinateUncertainty.name',
   about: () => <Message id="filters.coordinateUncertainty.description" />,

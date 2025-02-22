@@ -1,3 +1,5 @@
+import crypto from 'crypto';
+import stringify from 'json-stable-stringify';
 import config from '../config';
 import { getHtml } from './getHtml';
 
@@ -227,6 +229,20 @@ const getFirstIIIFImage = ({ occurrence }) => {
   }
   return null;
 };
+
+export function signJson(obj) {
+  const jsonString = stringify(obj);
+  const hmac = crypto.createHmac(
+    'sha256',
+    config.downloadMachineDescriptionSecret,
+  );
+  hmac.update(jsonString);
+  return hmac.digest('hex');
+}
+
+export function verifyJson(obj, signature) {
+  return signJson(obj) === signature;
+}
 
 export {
   createLocalizedGbifHref,

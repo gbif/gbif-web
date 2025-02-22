@@ -52,9 +52,9 @@
     "about": "關於",
     "explore": ""
   },
-  "citesPermitNumber": "城市許可編號",
-  "collectionDescriptorsHeadline": "等於 {is}",
-  "collectionDescriptorsIntroduction": "等於 {is}",
-  "collectionSearchNoResultsMessage": "等於 {is}",
-  "searchForSpecimens": "等於 {is}"
+  "citesPermitNumber": "",
+  "collectionDescriptorsHeadline": "",
+  "collectionDescriptorsIntroduction": "",
+  "collectionSearchNoResultsMessage": "",
+  "searchForSpecimens": ""
 }

@@ -13,13 +13,16 @@
   "COORDINATE_UNCERTAINTY_METERS_INVALID": "Neplatné metry neurčitosti souřadnic",
   "COORDINATE_PRECISION_UNCERTAINTY_MISMATCH": "Nesoulad neurčitosti přesnosti souřadnic",
   "FOOTPRINT_SRS_INVALID": "Stopa SRS neplatná",
+  "FOOTPRINT_WKT_MISMATCH": "Nesoulad stopy WKT",
   "FOOTPRINT_WKT_INVALID": "Stopa WKT neplatná",
   "COUNTRY_COORDINATE_MISMATCH": "Nesoulad souřadnic země",
   "COUNTRY_MISMATCH": "Nesoulad země",
   "COUNTRY_INVALID": "Země je neplatná",
   "COUNTRY_DERIVED_FROM_COORDINATES": "Země je odvozena ze souřadnic",
+  "CONTINENT_COORDINATE_MISMATCH": "Nesoulad souřadnic kontinentu",
   "CONTINENT_COUNTRY_MISMATCH": "Nesoulad země kontinentu",
   "CONTINENT_INVALID": "Kontinent neplatný",
+  "CONTINENT_DERIVED_FROM_COUNTRY": "Kontinent odvozen od země",
   "CONTINENT_DERIVED_FROM_COORDINATES": "Kontinent odvozený ze souřadnic",
   "PRESUMED_SWAPPED_COORDINATE": "Pravděpodobně prohozené souřadnice",
   "PRESUMED_NEGATED_LONGITUDE": "Předpokládaná negovaná zeměpisná délka",
@@ -64,5 +67,9 @@
   "COLLECTION_MATCH_FUZZY": "Shoda sbírek neurčitá",
   "INSTITUTION_COLLECTION_MISMATCH": "Sbírka instituce v nesouladu",
   "POSSIBLY_ON_LOAN": "Možné zapůjčení",
-  "DIFFERENT_OWNER_INSTITUTION": "Jiný vlastník instituce"
+  "DIFFERENT_OWNER_INSTITUTION": "Jiný vlastník instituce",
+  "TAXON_MATCH_SCIENTIFIC_NAME_ID_IGNORED": "Shoda taxonu s vědeckým názvem ID ignorováno",
+  "TAXON_CONCEPT_ID_NOT_FOUND": "Taxon concept ID nenalezen",
+  "TAXON_ID_NOT_FOUND": "Taxon ID nenalezen",
+  "SCIENTIFIC_NAME_AND_ID_INCONSISTENT": "Vědecký název a ID nejsou konzistentní"
 }

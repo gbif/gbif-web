@@ -2,5 +2,6 @@
   "institutionalGovernance": "Управление организацией",
   "type": "Тип организации",
   "addCollection": "Добавить коллекцию",
-  "disciplines": "Направления исследований"
+  "disciplines": "Направления исследований",
+  "unknownCollectionCodesForInstitution": "Такие неизвестные коды сбора коллекций связаны с этим учреждением"
 }

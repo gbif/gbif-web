@@ -2,6 +2,7 @@
   "unsupported.title": "Requête non prise en charge",
   "unsupported.description": "La recherche de texte libre peut être utilisée pour l'exploration mais n'est pas prise en charge pour le téléchargement.",
   "unsupported.remove": "Supprimer le filtre",
+  "unsupported.error": "Cette requête semble ne pas être prise en charge",
   "download": "Télécharger",
   "redirectNotice": "Vous êtes sur le point de télécharger des données et, pour cela, vous serez redirigé vers GBIF.org. {br}{br} Sachez qu'un compte est nécessaire sur GBIF.org pour télécharger le contenu.",
   "continueToGBIF": "Continuer"

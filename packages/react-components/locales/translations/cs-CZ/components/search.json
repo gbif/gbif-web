@@ -33,7 +33,7 @@
     "either": "Rovná se {from}"
   },
   "loadMore": "Více",
-  "noResults": "Rovná se {from}",
+  "noResults": "",
   "occurrenceClustersView": {
     "about": "O",
     "clusters": "",
@@ -53,7 +53,7 @@
       "TREATMENT": "Ošetření",
       "OBSERVATION": "Pozorování",
       "SPECIMEN": "Vzorek",
-      "SEQUENCE": ""
+      "SEQUENCE": "Rovná se {from}"
     }
   }
 }

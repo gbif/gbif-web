@@ -568,7 +568,7 @@
     "preservation": {
       "name": "Сохранение",
       "properties": {
-        "preservationType": "",
+        "preservationType": "Архив, аннотированный GBIF",
         "preservationTemperature": "",
         "preservationDateBegin": "",
         "sequence": ""

@@ -1,4 +1,3 @@
-import { TypeStatus as TypeStatusEnums } from '@/gql/graphql';
 import { cn } from '@/utils/shadcn';
 import { AiFillTag as NameTagIcon } from 'react-icons/ai';
 import { FaGlobeAfrica as GlobeIcon } from 'react-icons/fa';
@@ -10,6 +9,7 @@ import {
   GadmClassification as GadmClassificationList,
   TaxonClassification as TaxonClassificationList,
 } from './classification';
+import { ConceptValue } from './conceptValue';
 import { Hostname } from './headerComponents';
 import { IIIFLogoIcon } from './icons/icons';
 import { Skeleton } from './ui/skeleton';
@@ -198,40 +198,26 @@ export function Sequenced({ className }: { className?: string }) {
   );
 }
 
-export function TypeStatus({
-  types,
-  className,
-}: {
-  className?: string;
-  types?: [TypeStatusEnums] | null;
-}) {
+export function TypeStatus({ types, className }: { className?: string; types?: [string] | null }) {
   if (!types) return null;
   const typeStatus = types?.[0];
   // if the list of types is empty or a single value `NOTATYPE` then return null
-  if (!typeStatus || typeStatus === TypeStatusEnums.Notatype) return null;
+  if (!typeStatus || typeStatus === 'NotAType') return null;
 
   // now we need to select a style for the label based on the type. We are just going to select the first one
   let typeStyle = {};
-  if (
-    [TypeStatusEnums.Holotype, TypeStatusEnums.Lectotype, TypeStatusEnums.Neotype].includes(
-      typeStatus
-    )
-  )
+  if (['Holotype', 'Lectotype', 'Neotype'].includes(typeStatus))
     typeStyle = { background: '#e2614a', color: 'white', padding: '0 8px', borderRadius: 2 };
-  if (
-    [TypeStatusEnums.Paratype, TypeStatusEnums.Paralectotype, TypeStatusEnums.Syntype].includes(
-      typeStatus
-    )
-  )
+  if (['Paratype', 'Paralectotype', 'Syntype'].includes(typeStatus))
     typeStyle = { background: '#f1eb0b', padding: '0 8px', borderRadius: 2 };
-  if ([TypeStatusEnums.Allotype].includes(typeStatus))
+  if (['Allotype'].includes(typeStatus))
     typeStyle = { background: '#7edaff', color: 'white', padding: '0 8px', borderRadius: 2 };
 
   return (
     <GenericFeature className={className}>
       <TypeStatusIcon />{' '}
       <span style={typeStyle}>
-        <FormattedMessage id={`enums.typeStatus.${typeStatus}`} />
+        <ConceptValue vocabulary="TypeStatus" name={typeStatus} />
       </span>
     </GenericFeature>
   );

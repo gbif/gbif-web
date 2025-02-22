@@ -36,7 +36,11 @@ export function TaxonClassification({
     <Classification className={className}>
       {classificationFiltered.map((c, i) => (
         <span key={i}>
-          <DynamicLink pageId="speciesKey" variables={{ key: c.key }}>
+          <DynamicLink
+            pageId="speciesKey"
+            variables={{ key: c.key }}
+            className="g-text-inherit hover:g-underline"
+          >
             <span>{c.name}</span>
           </DynamicLink>
         </span>

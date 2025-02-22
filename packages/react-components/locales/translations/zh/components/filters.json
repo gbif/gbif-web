@@ -12,7 +12,7 @@
   "hasCoordinate": {
     "name": "有坐标",
     "count": "有坐标",
-    "description": "等于 {is}"
+    "description": ""
   },
   "hasGeospatialIssues": {
     "name": "有地理空间问题",
@@ -60,7 +60,7 @@
   "geometry": {
     "name": "位置",
     "count": "{num, plural, one { 过滤 } other {# 过滤 }}",
-    "description": "等于 {is}",
+    "description": "",
     "placeholderLat": "纬度",
     "placeholderLon": "经度",
     "placeholderDist": "距离"
@@ -93,7 +93,7 @@
   "alternativeCode": {
     "name": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
     "count": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-    "description": "等于 {is}"
+    "description": ""
   },
   "identifier": {
     "name": "标识符",
@@ -108,7 +108,7 @@
   "discipline": {
     "name": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
     "count": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-    "description": "等于 {is}"
+    "description": ""
   },
   "collectionContentType": {
     "name": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
@@ -128,7 +128,7 @@
   "taxonKeyGrSciColl": {
     "name": "学名",
     "count": "{num, plural, one {科学名称} other {# 科学名称}}",
-    "description": "等于 {is}"
+    "description": ""
   },
   "basisOfRecord": {
     "name": "记录基础",
@@ -222,12 +222,12 @@
   "countriesOfCoverage": {
     "name": "覆盖国家",
     "count": "{num, plural, one {覆盖国家} other {# 覆盖国家}}",
-    "description": "等于 {is}"
+    "description": ""
   },
   "collectionDescriptorCountry": {
     "name": "覆盖的国家或地区",
     "count": "{num, plural, one {覆盖国家} other {# 覆盖国家}}",
-    "description": "等于 {is}"
+    "description": ""
   },
   "countriesOfResearcher": {
     "name": "研究人员的国家",
@@ -347,8 +347,8 @@
   },
   "higherGeography": {
     "name": "较高一级地区",
-    "count": "等于 {is}",
-    "description": "等于 {is}"
+    "count": "",
+    "description": ""
   },
   "stateProvince": {
     "name": "州/省",
@@ -438,17 +438,17 @@
   "activeInstitution": {
     "name": "活跃的",
     "count": "活跃的",
-    "description": "等于 {is}"
+    "description": ""
   },
   "activeCollection": {
     "name": "活跃的",
     "count": "活跃的",
-    "description": "等于 {is}"
+    "description": ""
   },
   "publicationDate": {
     "name": "发布日期",
-    "count": "等于 {is}",
-    "description": "等于 {is}"
+    "count": "",
+    "description": ""
   },
   "personalCollection": {
     "name": "个人收藏",
@@ -474,7 +474,7 @@
     "name": "名字",
     "count": "{num, plural, one { 名称 } other {# 名称}}",
     "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-    "searchPlaceholder": "等于 {is}"
+    "searchPlaceholder": ""
   },
   "city": {
     "name": "城市",

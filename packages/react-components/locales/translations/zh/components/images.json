@@ -1,6 +1,7 @@
 {
   "identifier": "ID",
   "type": "类型",
+  "subtypeLiteral": "子类型",
   "title": "标题",
   "rights": "权限",
   "providerLiteral": "提供者",

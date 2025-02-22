@@ -30,7 +30,7 @@
   "location": {
     "geometry": "Геометрия",
     "map": "Карта",
-    "wktPlaceholder": "",
+    "wktPlaceholder": "Мультиполигоны WKT и GeoJSON не поддерживаются",
     "range": "Диапазон",
     "recent": "Недавно использованные",
     "add": "Добавить",

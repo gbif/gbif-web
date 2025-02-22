@@ -12,7 +12,7 @@
   "hasCoordinate": {
     "name": "具有座標",
     "count": "具有座標",
-    "description": "等於 {is}"
+    "description": ""
   },
   "hasGeospatialIssues": {
     "name": "有地理空間問題",
@@ -60,7 +60,7 @@
   "geometry": {
     "name": "地點",
     "count": "{num, plural, one {# 篩選} other {# 篩選}}",
-    "description": "等於 {is}",
+    "description": "",
     "placeholderLat": "緯度",
     "placeholderLon": "經度",
     "placeholderDist": "距離"
@@ -93,7 +93,7 @@
   "alternativeCode": {
     "name": "GBIF 註記的存檔",
     "count": "GBIF 註記的存檔",
-    "description": "等於 {is}"
+    "description": ""
   },
   "identifier": {
     "name": "識別碼",
@@ -108,7 +108,7 @@
   "discipline": {
     "name": "GBIF 註記的存檔",
     "count": "GBIF 註記的存檔",
-    "description": "等於 {is}"
+    "description": ""
   },
   "collectionContentType": {
     "name": "GBIF 註記的存檔",
@@ -128,7 +128,7 @@
   "taxonKeyGrSciColl": {
     "name": "學名",
     "count": "{num, plural,one {科學命名} other {#科學命名}}",
-    "description": "等於 {is}"
+    "description": ""
   },
   "basisOfRecord": {
     "name": "紀錄類型",
@@ -222,12 +222,12 @@
   "countriesOfCoverage": {
     "name": "國家覆蓋率",
     "count": "{num, plural,one {國家或包含區域}other {#國家或包含區域}}",
-    "description": "等於 {is}"
+    "description": ""
   },
   "collectionDescriptorCountry": {
     "name": "國家或覆蓋地區",
     "count": "{num, plural,one {國家或包含區域}other {#國家或包含區域}}",
-    "description": "等於 {is}"
+    "description": ""
   },
   "countriesOfResearcher": {
     "name": "研究者的國家",
@@ -347,8 +347,8 @@
   },
   "higherGeography": {
     "name": "高階地理",
-    "count": "等於 {is}",
-    "description": "等於 {is}"
+    "count": "",
+    "description": ""
   },
   "stateProvince": {
     "name": "州/省",
@@ -438,17 +438,17 @@
   "activeInstitution": {
     "name": "在線",
     "count": "在線",
-    "description": "等於 {is}"
+    "description": ""
   },
   "activeCollection": {
     "name": "在線",
     "count": "在線",
-    "description": "等於 {is}"
+    "description": ""
   },
   "publicationDate": {
     "name": "發布日期",
-    "count": "等於 {is}",
-    "description": "等於 {is}"
+    "count": "",
+    "description": ""
   },
   "personalCollection": {
     "name": "私人典藏",
@@ -474,7 +474,7 @@
     "name": "名稱",
     "count": "",
     "description": "GBIF 註記的存檔",
-    "searchPlaceholder": "等於 {is}"
+    "searchPlaceholder": ""
   },
   "city": {
     "name": "城市",

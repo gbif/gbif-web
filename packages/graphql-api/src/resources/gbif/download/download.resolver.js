@@ -1,3 +1,6 @@
+import { getGbifMachineDescription } from '#/helpers/generateSql';
+import { highlight } from 'sql-highlight';
+
 /**
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type
@@ -9,13 +12,39 @@ export default {
   Query: {
     datasetDownloads: (parent, args, { dataSources }) =>
       dataSources.downloadAPI.datasetDownloads({ query: args }),
+    datasetsByDownload: (
+      parent,
+      { key, limit = 10, offset = 0 },
+      { dataSources },
+    ) =>
+      dataSources.downloadAPI.getContributingDatasetsByDownloadKey({
+        key,
+        query: { limit, offset },
+      }),
     download: (parent, { key }, { dataSources }) =>
       dataSources.downloadAPI.getDownloadByKey({ key }),
   },
-  Download: {
-    // someField: ({ fieldWithKey: key }, args, { dataSources }) => {
-    //   if (typeof key === 'undefined') return null;
-    //   dataSources.someAPI.getSomethingByKey({ key })
-    // },
+  DownloadRequest: {
+    gbifMachineDescription: ({ sql, machineDescription }) => {
+      try {
+        const gbifMachineDescription = getGbifMachineDescription(
+          machineDescription,
+          sql,
+        );
+        return gbifMachineDescription;
+      } catch (err) {
+        return null;
+      }
+    },
+    sqlFormatted: ({ sql }) => {
+      try {
+        const highlighted = highlight(sql, {
+          html: true,
+        });
+        return highlighted;
+      } catch (err) {
+        return sql;
+      }
+    },
   },
 };

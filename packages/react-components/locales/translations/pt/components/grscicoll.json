@@ -52,9 +52,9 @@
     "about": "Sobre",
     "explore": ""
   },
-  "citesPermitNumber": "Número da autorização Cites",
-  "collectionDescriptorsHeadline": "Iguais {is}",
-  "collectionDescriptorsIntroduction": "Iguais {is}",
-  "collectionSearchNoResultsMessage": "Iguais {is}",
-  "searchForSpecimens": "Iguais {is}"
+  "citesPermitNumber": "",
+  "collectionDescriptorsHeadline": "",
+  "collectionDescriptorsIntroduction": "",
+  "collectionSearchNoResultsMessage": "",
+  "searchForSpecimens": ""
 }

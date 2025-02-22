@@ -568,7 +568,7 @@
     "preservation": {
       "name": "Conservation",
       "properties": {
-        "preservationType": "",
+        "preservationType": "Archive annotée par GBIF",
         "preservationTemperature": "",
         "preservationDateBegin": "",
         "sequence": ""

@@ -1,4 +1,5 @@
 {
+  "unsupported.error": "Похоже, этот запрос не поддерживается",
   "download": "Загрузить",
   "continueToGBIF": "Продолжить"
 }

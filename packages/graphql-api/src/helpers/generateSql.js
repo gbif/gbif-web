@@ -1,13 +1,192 @@
 import config from '#/config';
+import { signJson, verifyJson } from './utils';
 
 const defaultUncertainty = 1000;
 
 const sqlEndpoint = config.sqlapi ?? config.apiv1;
 
-async function getWhereClause({ predicate }) {
-  if (!predicate) {
-    return '';
+function generateMachineDescription(parameters, sql) {
+  const signature = signJson({ sql, parameters });
+  return { type: 'CUBE', signature, parameters };
+}
+
+export function getGbifMachineDescription(machineDescription, sql) {
+  // check if the machineDescription is an object, if not return null
+  if (typeof machineDescription !== 'object') return null;
+  // check if the machineDescription is signed by us
+  const { signature, parameters } = machineDescription;
+  if (!signature || !parameters) return null;
+
+  // sign the parameters and compare
+  const signedByUs = verifyJson({ sql, parameters }, signature);
+  if (signedByUs) {
+    // return the machineDescription except signature
+    const { signature: _, ...rest } = machineDescription;
+    return rest;
   }
+  return null;
+}
+
+const WHERE_PREDICATE_RESTRICTIONS = {
+  taxonomicDimension: {
+    KINGDOM: [
+      {
+        type: 'isNotNull',
+        parameter: 'KINGDOM_KEY',
+      },
+    ],
+    PHYLUM: [
+      {
+        type: 'isNotNull',
+        parameter: 'PHYLUM_KEY',
+      },
+    ],
+    CLASS: [
+      {
+        type: 'isNotNull',
+        parameter: 'CLASS_KEY',
+      },
+    ],
+    ORDER: [
+      {
+        type: 'isNotNull',
+        parameter: 'ORDER_KEY',
+      },
+    ],
+    FAMILY: [
+      {
+        type: 'isNotNull',
+        parameter: 'FAMILY_KEY',
+      },
+    ],
+    GENUS: [
+      {
+        type: 'isNotNull',
+        parameter: 'GENUS_KEY',
+      },
+    ],
+    SPECIES: [
+      {
+        type: 'isNotNull',
+        parameter: 'SPECIES_KEY',
+      },
+    ],
+    EXACT_TAXON: [
+      {
+        type: 'isNotNull',
+        parameter: 'TAXON_KEY',
+      },
+    ],
+    ACCEPTED_TAXON: [
+      {
+        type: 'isNotNull',
+        parameter: 'ACCEPTED_TAXON_KEY',
+      },
+    ],
+  },
+  temporalDimension: {
+    YEAR: [
+      {
+        type: 'isNotNull',
+        parameter: 'YEAR',
+      },
+    ],
+    YEARMONTH: [
+      {
+        type: 'isNotNull',
+        parameter: 'YEAR',
+      },
+      {
+        type: 'isNotNull',
+        parameter: 'MONTH',
+      },
+    ],
+    DATE: [
+      {
+        type: 'isNotNull',
+        parameter: 'YEAR',
+      },
+      {
+        type: 'isNotNull',
+        parameter: 'MONTH',
+      },
+      {
+        type: 'isNotNull',
+        parameter: 'DAY',
+      },
+    ],
+  },
+  spatialDimension: {
+    EEA_REFERENCE_GRID: [
+      {
+        type: 'equals',
+        key: 'HAS_COORDINATE',
+        value: 'true',
+      },
+    ],
+    EXTENDED_QUARTER_DEGREE_GRID: [
+      {
+        type: 'equals',
+        key: 'HAS_COORDINATE',
+        value: 'true',
+      },
+    ],
+    ISEA3H_GRID: [
+      {
+        type: 'equals',
+        key: 'HAS_COORDINATE',
+        value: 'true',
+      },
+    ],
+    MILITARY_GRID_REFERENCE_SYSTEM: [
+      {
+        type: 'equals',
+        key: 'HAS_COORDINATE',
+        value: 'true',
+      },
+    ],
+  },
+};
+
+async function getWhereClause({
+  predicate,
+  taxonomicDimension,
+  temporalDimension,
+  spatialDimension,
+}) {
+  const restrictions = [];
+  if (taxonomicDimension) {
+    const taxonomicRestrictions =
+      WHERE_PREDICATE_RESTRICTIONS.taxonomicDimension[taxonomicDimension];
+    if (taxonomicRestrictions) {
+      restrictions.push(...taxonomicRestrictions);
+    }
+  }
+  if (temporalDimension) {
+    const temporalRestrictions =
+      WHERE_PREDICATE_RESTRICTIONS.temporalDimension[temporalDimension];
+    if (temporalRestrictions) {
+      restrictions.push(...temporalRestrictions);
+    }
+  }
+  if (spatialDimension) {
+    const spatialRestrictions =
+      WHERE_PREDICATE_RESTRICTIONS.spatialDimension[spatialDimension];
+    if (spatialRestrictions) {
+      restrictions.push(...spatialRestrictions);
+    }
+  }
+  if (restrictions.length === 0) {
+    throw new Error(
+      'No restrictions found, which is unexpected as there should always be at least one dimension.',
+    );
+  }
+  const restrictionsPredicate = { type: 'and', predicates: restrictions };
+
+  const combinedPredicate = predicate
+    ? { type: 'and', predicates: [predicate, restrictionsPredicate] }
+    : restrictionsPredicate;
+
   const sqlResponse = await fetch(
     `${sqlEndpoint}/occurrence/download/request/sql`,
     {
@@ -15,7 +194,7 @@ async function getWhereClause({ predicate }) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ predicate }),
+      body: JSON.stringify({ predicate: combinedPredicate }),
     },
   ).then((response) => response.json());
   // replace newlines with spaces and replace double spaces with single spaces
@@ -36,22 +215,28 @@ FROM
 GROUP BY
   {{GROUP_BY}}`;
 
-export default async function generateSql({
-  taxonomy,
-  temporal,
-  spatial,
-  resolution,
-  randomize,
-  higherGroups,
-  includeTemporalUncertainty,
-  includeSpatialUncertainty,
-  predicate,
-}) {
+export default async function generateSql(parameters) {
+  const {
+    taxonomy,
+    temporal,
+    spatial,
+    resolution,
+    randomize,
+    higherGroups,
+    includeTemporalUncertainty,
+    includeSpatialUncertainty,
+    predicate,
+  } = parameters;
   // generate SQL query
   const dimensions = [];
   let filters = '';
   try {
-    filters = predicate ? await getWhereClause({ predicate }) : ''; //  TODO we need a way to get the filter as SQL https://github.com/gbif/occurrence/issues/356
+    filters = await getWhereClause({
+      predicate,
+      taxonomicDimension: taxonomy,
+      temporalDimension: temporal,
+      spatialDimension: spatial,
+    });
   } catch (error) {
     return { error: error.message, sql: null };
   }
@@ -217,17 +402,22 @@ export default async function generateSql({
       dimensions.push(lookup[rank]);
     });
   }
-
+  // remove undefined and null values from dimensions
+  const filteredDimensions = dimensions.filter((dimension) => dimension);
   const sql = template
-    .replace('{{DIMENSIONS}}', dimensions.join(', '))
+    .replace('{{DIMENSIONS}}', filteredDimensions.join(', '))
     .replace('{{MEASUREMENTS}}', measurements.join(', '))
     .replace('{{FILTERS}}', filters)
     .replace('{{GROUP_BY}}', groupBy.join(', '));
-  return { error: null, sql };
+
+  return {
+    error: null,
+    sql,
+  };
 }
 
-export async function getSql({ query }) {
-  const { error, sql } = await generateSql(query);
+export async function getSql({ query: parameters }) {
+  const { error, sql } = await generateSql(parameters);
   if (error) {
     return { error, sql };
   }
@@ -250,11 +440,18 @@ export async function getSql({ query }) {
       validationResponse: validation,
     };
   }
+
+  const machineDescription = generateMachineDescription(
+    parameters,
+    validation.sql,
+  );
+
+  // create and sign the machineDescription
   return {
     comment:
-      'This is an experimental endpoint to generate SQL queries for the occurrence download service. Currently filters (WHERE) is hardcoded and is waiting for https://github.com/gbif/occurrence/issues/356',
+      'This endpoint is not part of a stable public API. It is an internal endpoint to generate SQL for the occurrence download B cube service.',
     error,
-    sql,
-    validationResponse: validation,
+    sql: validation.sql,
+    machineDescription,
   };
 }

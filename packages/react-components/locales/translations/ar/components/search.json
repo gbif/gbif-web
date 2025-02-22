@@ -33,7 +33,7 @@
     "either": "التساويات { is }"
   },
   "loadMore": "مزيد",
-  "noResults": "التساويات { is }",
+  "noResults": "",
   "occurrenceClustersView": {
     "about": "حول",
     "clusters": "",
@@ -53,7 +53,7 @@
       "TREATMENT": "معالجة",
       "OBSERVATION": "ملاحظة",
       "SPECIMEN": "نموذج",
-      "SEQUENCE": ""
+      "SEQUENCE": "التساويات { is }"
     }
   }
 }

@@ -4,5 +4,6 @@
   "preservationTypes": "Typy ochrony",
   "personalCollection": "Kolekcja osobista",
   "accessionStatus": "Stan dostępu",
-  "numberSpecimens": "Liczba okazów w kolekcji"
+  "numberSpecimens": "Liczba okazów w kolekcji",
+  "collectionDescriptors": "Deskryptory kolekcji"
 }

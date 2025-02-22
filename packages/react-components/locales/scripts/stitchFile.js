@@ -34,6 +34,9 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       taxon: getFile(locale, `../${folder}/${locale}/components/taxon`),
       footer: getFile(locale, `../${folder}/${locale}/components/footer`).footer,
       resourceSearch: getFile(locale, `../${folder}/${locale}/components/resourceSearch`).resourceSearch,
+      downloadKey: getFile(locale, `../${folder}/${locale}/components/downloads`).downloadKey,
+      customSqlDownload: getFile(locale, `../${folder}/${locale}/components/downloads`)
+        .customSqlDownload,
 
       occurrenceFieldNames: getFile(
         locale,
@@ -51,6 +54,8 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         basisOfRecord: getFile(locale, `../${folder}/${locale}/enums/basisOfRecord`),
         countryCode: getFile(locale, `../${folder}/${locale}/enums/countryCode`),
         clusterReasons: getFile(locale, `../${folder}/${locale}/enums/clusterReasons`), // sourced from https://github.com/gbif/pipelines/blob/dev/sdks/core/src/main/java/org/gbif/pipelines/core/parsers/clustering/RelationshipAssertion.java#L16C1-L36C4
+        downloadFormat: getFile(locale, `../${folder}/${locale}/enums/downloadFormat`)
+          .downloadFormat,
         mediaType: getFile(locale, `../${folder}/${locale}/enums/mediaType`),
         occurrenceIssue: getFile(locale, `../${folder}/${locale}/enums/occurrenceIssue`),
         typeStatus: getFile(locale, `../${folder}/${locale}/enums/typeStatus`),
@@ -81,6 +86,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         identifierType: getFile(locale, `../${folder}/${locale}/enums/identifierType`),
         yesNo: getFile(locale, `../${folder}/${locale}/enums/yesNo`),
         threatStatus: getFile(locale, `../${folder}/${locale}/enums/threatStatus`),
+        region: getFile(locale, `../${folder}/${locale}/enums/gbifRegion`).gbifRegion,
         iucnRedListCategory: getFile(locale, `../${folder}/${locale}/enums/iucnRedListCategory`),
         relevance: getFile(locale, `../${folder}/${locale}/enums/relevance`),
         topics: getFile(locale, `../${folder}/${locale}/enums/topics`),

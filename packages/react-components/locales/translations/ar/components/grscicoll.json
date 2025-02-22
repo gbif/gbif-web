@@ -52,9 +52,9 @@
     "about": "حول",
     "explore": ""
   },
-  "citesPermitNumber": "رقم ترخيص السايتس",
-  "collectionDescriptorsHeadline": "التساويات { is }",
-  "collectionDescriptorsIntroduction": "التساويات { is }",
-  "collectionSearchNoResultsMessage": "التساويات { is }",
-  "searchForSpecimens": "التساويات { is }"
+  "citesPermitNumber": "",
+  "collectionDescriptorsHeadline": "",
+  "collectionDescriptorsIntroduction": "",
+  "collectionSearchNoResultsMessage": "",
+  "searchForSpecimens": ""
 }

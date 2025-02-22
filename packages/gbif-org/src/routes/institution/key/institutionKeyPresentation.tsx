@@ -60,7 +60,7 @@ export function InstitutionKey({
   const tabs = [{ to: '.', children: <FormattedMessage id="grscicoll.tabs.about" /> }];
   if (institution.collectionCount && institution.collectionCount > 0) {
     tabs.push({
-      to: 'collection',
+      to: 'collections',
       children: (
         <FormattedMessage
           id="counts.nCollections"
@@ -72,7 +72,7 @@ export function InstitutionKey({
 
   // if there ire occurrences, then add a specimens tab
   if (occurrenceSearch?.documents.total > 0) {
-    tabs.push({ to: 'specimen', children: <FormattedMessage id="grscicoll.specimens" /> });
+    tabs.push({ to: 'specimens', children: <FormattedMessage id="grscicoll.specimens" /> });
   }
 
   // if there is at least a countryCode for thee address, then use that, else fall back to the mailing address

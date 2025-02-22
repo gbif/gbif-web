@@ -54,7 +54,7 @@ export default function DisplayName({
         })
         .catch((err) => {
           if (err === CANCEL_REQUEST) return;
-          setTitle('Unknown');
+          setTitle(id?.toString() || 'Failed to load');
           setLoading(false);
         });
     } else {

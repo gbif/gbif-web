@@ -469,11 +469,7 @@ function Identification({ showAll, termMap, occurrence, setActiveImage }) {
       <Properties css={css.properties} breakpoint={800}>
         <HtmlField term={termMap.identificationID} showDetails={showAll} />
         <PlainTextField term={termMap.identificationQualifier} showDetails={showAll} />
-        <EnumField
-          term={termMap.typeStatus}
-          showDetails={showAll}
-          getEnum={(value) => `enums.typeStatus.${value}`}
-        />
+        <PlainTextField term={termMap.typeStatus} showDetails={showAll} />
         <PlainTextField term={termMap.identifiedBy} showDetails={showAll} />
         <IdentifiedById {...{ showAll, termMap, occurrence }} />
         <PlainTextField term={termMap.verbatimIdentification} showDetails={showAll} />

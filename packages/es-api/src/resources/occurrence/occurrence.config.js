@@ -543,7 +543,7 @@ const config = {
     },
     sex: {
       type: 'keyword',
-      field: 'sex',
+      field: 'sex.concept',
     },
     startDayOfYear: {
       type: 'numeric',
@@ -561,7 +561,7 @@ const config = {
     },
     typeStatus: {
       type: 'keyword',
-      field: 'typeStatus',
+      field: 'typeStatus.concepts',
     },
     typifiedName: {
       type: 'keyword',

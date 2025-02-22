@@ -86,7 +86,7 @@
   "license": "Licença",
   "recommended": "Recomendado",
   "processedOccurrences": "Ficheiros registados no GBIF",
-  "processedOccurrencesDescription": "Iguais {is}",
+  "processedOccurrencesDescription": "",
   "noDescriptionProvided": "Não há descrição disponível",
   "pNetwork": "{NUMBER, plural, one{rede} other{redes}}",
   "parentEvent": "Evento pai",
