@@ -1,5 +1,4 @@
 import { cn } from '@/utils/shadcn';
-import css from './bulletList.module.css';
 
 export function BulletList({
   children,
@@ -10,7 +9,7 @@ export function BulletList({
 } & React.HTMLAttributes<HTMLUListElement>) {
   // what is the correct type here, I cannot see dd as a type
   return (
-    <ul className={cn(css.bulletList, className)} {...props}>
+    <ul className={cn('gbif-bulletList', className)} {...props}>
       {children}
     </ul>
   );

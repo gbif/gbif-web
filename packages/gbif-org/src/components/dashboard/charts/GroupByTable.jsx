@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Skeleton } from '@/components/ui/skeleton';
 import useQuery from '@/hooks/useQuery';
+import { useI18n } from '@/reactRouterPlugins';
 import formatAsPercentage from '@/utils/formatAsPercentage';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import useDeepCompareEffect from 'use-deep-compare-effect';
@@ -54,44 +55,53 @@ export function GroupByTable({
           {results.map((e, i) => {
             const fractionOfTotal = e.count / total;
             return (
-              <tr key={e.key}>
-                <td style={interactive ? { cursor: 'pointer' } : {}}>
-                  {e.filter && (
-                    <div
-                      onClick={() => {
-                        if (interactive) onClick({ filter: e.filter });
-                      }}
+              <>
+                <tr key={e.key}>
+                  <td style={interactive ? { cursor: 'pointer' } : {}}>
+                    {e.filter && (
+                      <div
+                        onClick={() => {
+                          if (interactive) onClick({ filter: e.filter });
+                        }}
+                      >
+                        {e.title}
+                      </div>
+                    )}
+                    {!e.filter && <div>{e.title}</div>}
+                    {/* {e.description && (
+                      <div className="g-text-slate-400 g-text-sm g-mb-1">{e.description}</div>
+                    )} */}
+                  </td>
+                  <td className="g-text-end">
+                    <FormattedNumber value={e.count} />
+                  </td>
+                  <td className="g-w-20">
+                    <Tooltip
+                      title={
+                        <FormattedMessage
+                          id="counts.nPercentOfTotal"
+                          values={{ percentage: formatAsPercentage(fractionOfTotal) }}
+                        />
+                      }
+                      side="left"
                     >
-                      {e.title}
-                    </div>
-                  )}
-                  {!e.filter && <div>{e.title}</div>}
-                  {e.description && (
-                    <div className="g-text-slate-400 g-text-sm g-mb-1">{e.description}</div>
-                  )}
-                </td>
-                <td className="g-text-end">
-                  <FormattedNumber value={e.count} />
-                </td>
-                <td className="g-w-20">
-                  <Tooltip
-                    title={
-                      <FormattedMessage
-                        id="counts.nPercentOfTotal"
-                        values={{ percentage: formatAsPercentage(fractionOfTotal) }}
-                      />
-                    }
-                    side="left"
-                  >
-                    <div>
-                      <Progress
-                        value={(100 * e.count) / maxCount}
-                        className="g-w-20 g-relative g-h-[1em] g-top-0.5"
-                      />
-                    </div>
-                  </Tooltip>
-                </td>
-              </tr>
+                      <div>
+                        <Progress
+                          value={(100 * e.count) / maxCount}
+                          className="g-w-20 g-relative g-h-[1em] g-top-0.5"
+                        />
+                      </div>
+                    </Tooltip>
+                  </td>
+                </tr>
+                {e.description && (
+                  <tr className="!g-border-t-0">
+                    <td colSpan={3} className="!g-p-0">
+                      <div className="g-text-slate-400 g-text-sm g-mb-1">{e.description}</div>
+                    </td>
+                  </tr>
+                )}
+              </>
             );
           })}
         </tbody>
@@ -165,6 +175,7 @@ export function useFacets({
 }) {
   const [from = 0, setFrom] = useState(0);
   const intl = useIntl();
+  const { locale } = useI18n();
   const { data, error, loading, load } = useQuery(query, { lazyLoad: true, queue: 'dashboard' });
 
   useDeepCompareEffect(() => {
@@ -175,10 +186,11 @@ export function useFacets({
         ...otherVariables,
         from,
         size,
+        vocabularyLocale: locale.vocabularyLocale ?? locale.localeCode,
       },
       queue: { name: 'dashboard' },
     });
-  }, [predicate, query, from, size]);
+  }, [predicate, query, from, size, locale]);
 
   useDeepCompareEffect(() => {
     setFrom(0);

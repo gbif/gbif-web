@@ -1,11 +1,15 @@
+import { cn } from '@/utils/shadcn';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Button } from './ui/button';
 import { ErrorImage } from './icons/icons';
+import { Button } from './ui/button';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
   invalidateOn?: string | number | boolean | object | null; // invalidate the error if this value change
+  type?: 'PAGE' | 'BLOCK'; // PAGE will show a full page error, BLOCK will show a block error. Will default to PAGE
+  className?: string;
+  publicDescription?: string; // additional description of where the error happened. E.g. which component or section
 }
 
 interface ErrorBoundaryState {
@@ -45,13 +49,28 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
       return this.props.children;
     }
 
-    return <ErrorPage error={error} />;
+    return (
+      <ErrorComponent
+        error={error}
+        type={this.props.type ?? 'PAGE'}
+        className={this.props.className}
+        description={this.props.publicDescription}
+      />
+    );
   }
 }
 
-export function ErrorPage({ error }: { error: Error }): React.ReactElement {
-  const [showStack, setShowStack] = useState(false);
-
+function ErrorComponent({
+  error,
+  type,
+  className,
+  description,
+}: {
+  error: Error;
+  type: 'PAGE' | 'BLOCK';
+  className?: string;
+  description?: string;
+}): React.ReactElement {
   // An error has occurred
   let errorMessage = `Thank you for reporting this issue. Please describe what happened.\n\n\n\n`;
 
@@ -62,6 +81,53 @@ export function ErrorPage({ error }: { error: Error }): React.ReactElement {
   if (typeof window !== 'undefined') {
     errorMessage += `\nLocation: ${window.location}`;
   }
+
+  if (description) {
+    errorMessage += `\nDescription: ${description}`;
+  }
+
+  if (type === 'BLOCK') {
+    return <ErrorBlock errorMessage={errorMessage} className={className} />;
+  }
+  return <ErrorPage error={error} errorMessage={errorMessage} />;
+}
+
+function ErrorBlock({
+  errorMessage,
+  className,
+}: {
+  errorMessage: string;
+  className?: string;
+}): React.ReactElement {
+  return (
+    <div className={cn('g-flex g-gap-4 g-py-4', className)}>
+      <ErrorImage className="g-w-24" />
+      <div>
+        <h1 className="g-mb-0 g-text-slate-500 g-font-bold">
+          <FormattedMessage id="error.generic" defaultMessage="Something went wrong" />
+        </h1>
+        <a
+          href=""
+          onClick={() => {
+            window?.location?.reload();
+          }}
+          className="g-mt-2 g-text-sm g-underline g-text-slate-500"
+        >
+          <FormattedMessage id="error.reloadPage" defaultMessage="Try to reload page" />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+export function ErrorPage({
+  error,
+  errorMessage,
+}: {
+  error: Error;
+  errorMessage: string;
+}): React.ReactElement {
+  const [showStack, setShowStack] = useState(false);
 
   return (
     <div className="g-flex g-flex-col g-items-center g-justify-center g-text-center g-w-full g-h-full g-py-48 g-px-2 g-min-h-[80dvh] g-bg-white">

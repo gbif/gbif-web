@@ -54,6 +54,32 @@ export const catalogNumberConfig: filterWildcardConfig = {
   about: () => <Message id="filters.catalogNumber.description" />,
 };
 
+export const preparationsConfig: filterWildcardConfig = {
+  filterType: filterConfigTypes.WILDCARD,
+  filterHandle: 'preparations',
+  queryKey: 'preparations',
+  displayName: WildcardLabel,
+  filterTranslation: 'filters.preparations.name',
+  allowExistence: true,
+  allowNegations: true,
+  suggestQuery: `
+    query OccurrencePreparationsFacet($predicate: Predicate, $size: Int){
+      search: occurrenceSearch(predicate: $predicate) {
+        cardinality {
+          total: preparations
+        }
+        facet {
+          field: preparations(size: $size) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.preparations.description" />,
+};
+
 export const sampleSizeUnitConfig: filterWildcardConfig = {
   filterType: filterConfigTypes.WILDCARD,
   filterHandle: 'sampleSizeUnit',

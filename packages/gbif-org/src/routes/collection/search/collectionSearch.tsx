@@ -90,7 +90,7 @@ export function CollectionSearch(): React.ReactElement {
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
-    const downloadUrl = `${import.meta.env.PUBLIC_API_V1}/grscicoll/institution/export?format=TSV&${
+    const downloadUrl = `${import.meta.env.PUBLIC_API_V1}/grscicoll/collection/export?format=TSV&${
       query ? stringify(query) : ''
     }`;
     setTsvUrl(downloadUrl);

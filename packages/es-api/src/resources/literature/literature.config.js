@@ -360,6 +360,10 @@ const config = {
       type: 'keyword',
       field: 'source',
     },
+    gbifProgrammeAcronym: {
+      type: 'keyword',
+      field: 'gbifProgrammeAcronym',
+    },
     sourceType: {
       type: 'keyword',
       field: 'sourceType',

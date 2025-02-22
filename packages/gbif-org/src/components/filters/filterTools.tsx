@@ -471,6 +471,9 @@ export type FilterSetting = {
   handle: string;
   displayName: React.FC<{ id: string | number | object }>;
   translatedFilterName: string;
+  allowNegations?: boolean;
+  allowExistence?: boolean;
+  filterType: string;
 };
 
 type FilterSettingDefaults = {
@@ -537,6 +540,9 @@ export function generateFilter({
 
   return {
     // ...config,
+    allowExistence: config?.allowExistence ?? false,
+    allowNegations: config?.allowNegations ?? false,
+    filterType: config.filterType,
     Button: FilterButtonPopover,
     Popover: PopoverFilter,
     Content: Content,

@@ -122,6 +122,7 @@ const typeDef = gql`
     projectId: Long!
     higherGeography: Long!
     isSequenced: Long!
+    sex: Long!
   }
 
   type OccurrenceHistogram {
@@ -200,9 +201,9 @@ const typeDef = gql`
     recordNumber(size: Int, from: Int): [OccurrenceFacetResult_string]
     sampleSizeUnit(size: Int, from: Int): [OccurrenceFacetResult_string]
     samplingProtocol(size: Int, from: Int): [OccurrenceFacetResult_string]
-    sex(size: Int, from: Int): [OccurrenceFacetResult_string]
+    sex(size: Int, from: Int): [OccurrenceFacetResult_sex]
     stateProvince(size: Int, from: Int): [OccurrenceFacetResult_string]
-    typeStatus(size: Int, from: Int): [OccurrenceFacetResult_string]
+    typeStatus(size: Int, from: Int): [OccurrenceFacetResult_typeStatus]
     typifiedName(size: Int, from: Int): [OccurrenceFacetResult_string]
     waterBody(size: Int, from: Int): [OccurrenceFacetResult_string]
     agentIds_type(size: Int, from: Int): [OccurrenceFacetResult_string]
@@ -450,6 +451,22 @@ const typeDef = gql`
   type OccurrenceFacetResult_string {
     key: String!
     count: Long!
+    occurrences(size: Int, from: Int): OccurrenceSearchResult!
+    _predicate: JSON
+  }
+
+  type OccurrenceFacetResult_typeStatus {
+    key: String!
+    count: Long!
+    concept: VocabularyConcept
+    occurrences(size: Int, from: Int): OccurrenceSearchResult!
+    _predicate: JSON
+  }
+
+  type OccurrenceFacetResult_sex {
+    key: String!
+    count: Long!
+    concept: VocabularyConcept
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }

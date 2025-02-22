@@ -50,6 +50,7 @@
     "@turf/simplify": "^7.1.0",
     "@types/lodash": "^4.17.7",
     "@types/react-router-hash-link": "^2.4.9",
+    "change-case": "^5.4.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^1.0.0",

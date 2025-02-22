@@ -64,6 +64,7 @@ import {
   catalogNumberConfig,
   identifiedByConfig,
   localityConfig,
+  preparationsConfig,
   recordedByConfig,
   sampleSizeUnitConfig,
   samplingProtocolConfig,
@@ -222,6 +223,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       elevation: generateFilters({ config: elevationConfig, searchConfig, formatMessage }),
 
       catalogNumber: generateFilters({ config: catalogNumberConfig, searchConfig, formatMessage }),
+      preparations: generateFilters({ config: preparationsConfig, searchConfig, formatMessage }),
       sampleSizeUnit: generateFilters({
         config: sampleSizeUnitConfig,
         searchConfig,

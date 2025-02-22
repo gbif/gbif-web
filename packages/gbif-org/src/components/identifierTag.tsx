@@ -3,13 +3,15 @@ import { cn } from '@/utils/shadcn';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-const url2enum: Record<string, string> = {
+export const licenseUrl2enum: Record<string, string> = {
   '//creativecommons.org/publicdomain/zero/1.0/legalcode': 'CC0_1_0',
   '//creativecommons.org/licenses/by/4.0/legalcode': 'CC_BY_4_0',
   '//creativecommons.org/licenses/by-nc/4.0/legalcode': 'CC_BY_NC_4_0',
+  unsupported: 'UNSUPPORTED',
+  unspecified: 'UNSPECIFIED',
 };
 
-const enum2url: Record<string, string> = {
+export const enum2licenseUrl: Record<string, string> = {
   CC0_1_0: '//creativecommons.org/publicdomain/zero/1.0/legalcode',
   CC_BY_4_0: '//creativecommons.org/licenses/by/4.0/legalcode',
   CC_BY_NC_4_0: '//creativecommons.org/licenses/by-nc/4.0/legalcode',
@@ -24,9 +26,9 @@ export function LicenceTag({
 } & React.ComponentProps<typeof IdentifierTag>) {
   const fallback = value ?? 'unknown';
   const val = fallback.replace(/http(s)?:/, '');
-  let licenceEnum = url2enum[val] || fallback;
+  let licenceEnum = licenseUrl2enum[val] || fallback;
   if (licenses.indexOf(licenceEnum) === -1) licenceEnum = 'UNSUPPORTED';
-  const url = enum2url[licenceEnum];
+  const url = enum2licenseUrl[licenceEnum];
 
   const licenseProps = url ? { as: 'a' as const, href: url } : {};
 

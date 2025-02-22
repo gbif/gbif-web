@@ -30,6 +30,15 @@ const otherParams = [
   'countriesOfCoverage',
   'gbifTaxonKey',
   'gbifNetworkKey',
+  'openAccess',
+  'peerReview',
+  'publisher',
+  'source',
+  'gbifProgrammeAcronym',
+  'gbifProjectIdentifier',
+  'gbifDownloadKey',
+  'gbifDerivedDatasetDoi',
+  'doi',
 ];
 
 otherParams.forEach((filter) => {

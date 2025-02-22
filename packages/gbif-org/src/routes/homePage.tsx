@@ -332,6 +332,11 @@ function TmpOverview() {
                   </DynamicLink>
                 </li>
                 <li>
+                  <DynamicLink className="g-me-4" to="/occurrence/download/0041327-241126133413365">
+                    Download page
+                  </DynamicLink>
+                </li>
+                <li>
                   Download, species, participant, country and profile pages have not been started
                 </li>
               </ul>

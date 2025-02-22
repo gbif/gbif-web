@@ -23,6 +23,7 @@ export function StandaloneOccurrenceKeyPage({ url }: Props) {
         { id: 'collectionKey' },
         { id: 'institutionKey' },
         { id: 'speciesKey' },
+        { id: 'downloadKey' },
       ],
     };
     set(conf, 'datasetKey.disableInPageOccurrenceSearch', true);

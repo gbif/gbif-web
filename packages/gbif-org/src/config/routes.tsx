@@ -7,6 +7,7 @@ import { institutionKeyRoute } from '@/routes/institution/key';
 import { institutionSearchRoute } from '@/routes/institution/search';
 import { literatureSearchRoute } from '@/routes/literature/search';
 import { networkKeyRoute } from '@/routes/network/key';
+import { downloadKeyRoute } from '@/routes/occurrence/download/key';
 import { occurrenceKeyRoutes } from '@/routes/occurrence/key';
 import { occurrenceSearchRoute } from '@/routes/occurrence/search';
 import { publisherKeyRoute } from '@/routes/publisher/key';
@@ -34,6 +35,7 @@ export const dataRoutes = [
   institutionKeyRoute,
   networkKeyRoute,
   ...occurrenceKeyRoutes,
+  downloadKeyRoute,
   publisherKeyRoute,
   taxonKeyRoute,
   // Must be last as alias handling will require match on whildcard
