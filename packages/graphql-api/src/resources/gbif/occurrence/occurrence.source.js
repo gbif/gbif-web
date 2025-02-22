@@ -1,8 +1,7 @@
-import { getOccurrenceAgent } from '#/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
 import { stringify } from 'qs';
-
-const urlSizeLimit = 2000; // use GET for requests that serialized is less than N characters
+import { getOccurrenceAgent } from '#/requestAgents';
+import { urlSizeLimit } from '#/helpers/utils-ts';
 
 class OccurrenceAPI extends RESTDataSource {
   constructor(config) {

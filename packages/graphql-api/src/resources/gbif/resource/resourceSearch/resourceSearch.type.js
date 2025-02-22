@@ -3,22 +3,24 @@ import { SEARCH_RESULT_OPTIONS } from './resourceSearch.constants';
 
 const typeDef = gql`
   extend type Query {
-    resourceSearch(input: ResourceSearchInput): PaginatedSearchResult
-  }
-
-  input ResourceSearchInput {
-    q: String
-    limit: Int
-    offset: Int
-    contentType: [ContentType!]
-    id: [ID!]
-    locale: [String!]
-    topics: [String!]
-    countriesOfCoverage: [String!]
-    countriesOfResearcher: [String!]
-    sortBy: ResourceSortBy
-    sortOrder: ResourceSortOrder
-    start: String
+    resourceSearch(
+      size: Int
+      from: Int
+      predicate: Predicate
+      q: String
+      contentType: [ContentType!]
+      topics: [String!]
+      countriesOfCoverage: [String!]
+      countriesOfResearcher: [String!]
+      sortBy: ResourceSortBy
+      sortOrder: ResourceSortOrder
+      start: String
+      id: [ID!]
+      """
+      Different from the locale header in that only translated resources will be returned
+      """
+      locale: [String!]
+    ): ResourceSearchResult
   }
 
   enum ResourceSortOrder {
@@ -32,7 +34,7 @@ const typeDef = gql`
     end
   }
 
-  union SingleSearchResult = ${SEARCH_RESULT_OPTIONS.map(
+  union Resource = ${SEARCH_RESULT_OPTIONS.map(
     (option) => option.graphQLType,
   ).join(' | ')}
 
@@ -40,12 +42,22 @@ const typeDef = gql`
     ${SEARCH_RESULT_OPTIONS.map((option) => option.enumContentType).join('\n')}
   }
 
-  type PaginatedSearchResult {
-    results: [SingleSearchResult]
-    limit: Int
-    offset: Int
-    count: Int
-    endOfRecords: Boolean
+  type ResourceSearchResult {
+    documents(size: Int, from: Int): ResourceDocuments!
+    facet: ResourceFacet
+    _predicate: JSON
+    _meta: JSON
+  }
+
+  type ResourceFacet {
+    countriesOfCoverage(size: Int, from: Int): [GenericFacetResult_string]
+  }
+
+  type ResourceDocuments {
+    results: [Resource]!
+    size: Int!
+    from: Int!
+    total: Long!
   }
 `;
 

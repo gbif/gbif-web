@@ -1,10 +1,10 @@
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import { useNumberParam, useParam } from '@/hooks/useParam';
-import React, { useMemo } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { searchConfig } from './searchConfig';
-import { FilterProvider } from '@/contexts/filter';
+import { FilterContext, FilterProvider } from '@/contexts/filter';
 import { Tabs } from '@/components/tabs';
 import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
 import useQuery from '@/hooks/useQuery';
@@ -13,12 +13,17 @@ import { ResourceSearchResult } from './resourceSearchResult';
 import { DataHeader } from '@/components/dataHeader';
 import { ArticleContainer } from '../key/components/articleContainer';
 import { ArticleTextContainer } from '../key/components/articleTextContainer';
-import { CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { Card, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { PaginationFooter } from '@/components/pagination';
 import { HeaderActionButtons } from './headerActionButtons';
+import { useFilters } from './filters';
+import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
+import { SearchContextProvider, useSearchContext } from '@/contexts/search';
+import { useResourceSearchMetadata } from './resourceSearchMetadata';
+import { ExtractPaginatedResult } from '@/types';
 
 const tabs = [
   'all',
@@ -68,32 +73,40 @@ function isValidTab(tab: unknown): tab is Tab {
 }
 
 const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
-  query ResourceSearch($input: ResourceSearchInput!) {
-    resourceSearch(input: $input) {
-      limit
-      count
-      results {
-        __typename
-        ... on News {
-          ...NewsResult
-        }
-        ... on DataUse {
-          ...DataUseResult
-        }
-        ... on MeetingEvent {
-          ...EventResult
-        }
-        ... on GbifProject {
-          ...ProjectResult
-        }
-        ... on Programme {
-          ...ProgrammeResult
-        }
-        ... on Tool {
-          ...ToolResult
-        }
-        ... on Document {
-          ...DocumentResult
+  query ResourceSearch(
+    $from: Int
+    $size: Int
+    $predicate: Predicate
+    $contentType: [ContentType!]
+  ) {
+    resourceSearch(predicate: $predicate, contentType: $contentType) {
+      documents(from: $from, size: $size) {
+        from
+        size
+        total
+        results {
+          __typename
+          ... on News {
+            ...NewsResult
+          }
+          ... on DataUse {
+            ...DataUseResult
+          }
+          ... on MeetingEvent {
+            ...EventResult
+          }
+          ... on GbifProject {
+            ...ProjectResult
+          }
+          ... on Programme {
+            ...ProgrammeResult
+          }
+          ... on Tool {
+            ...ToolResult
+          }
+          ... on Document {
+            ...DocumentResult
+          }
         }
       }
     }
@@ -101,12 +114,16 @@ const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
 `;
 
 export type Resource = Extract<
-  NonNullable<NonNullable<NonNullable<ResourceSearchQuery['resourceSearch']>['results']>[number]>,
+  ExtractPaginatedResult<ResourceSearchQuery['resourceSearch']>,
   { id: string }
 >;
 
 function extractValidResources(data: ResourceSearchQuery | undefined): Resource[] {
-  return data?.resourceSearch?.results?.filter((result) => result != null && 'id' in result) || [];
+  return (
+    data?.resourceSearch?.documents?.results?.filter(
+      (result) => result != null && 'id' in result
+    ) || []
+  );
 }
 
 const DEFAULT_TAB: Tab = 'all';
@@ -123,6 +140,8 @@ export function ResourceSearchPage(): React.ReactElement {
     paramsToRemove: ['offset', 'from'],
   });
 
+  const searchMetadata = useResourceSearchMetadata(tab);
+
   return (
     <>
       {/* TODO transalte */}
@@ -133,10 +152,11 @@ export function ResourceSearchPage(): React.ReactElement {
           </Helmet>
         )}
       </FormattedMessage>
-
-      <FilterProvider filter={filter} onChange={setFilter}>
-        <ResourceSearchPageInner activeTab={tab} defaultTab={DEFAULT_TAB} />
-      </FilterProvider>
+      <SearchContextProvider searchContext={searchMetadata}>
+        <FilterProvider filter={filter} onChange={setFilter}>
+          <ResourceSearchPageInner activeTab={tab} defaultTab={DEFAULT_TAB} />
+        </FilterProvider>
+      </SearchContextProvider>
     </>
   );
 }
@@ -147,26 +167,44 @@ type Props = {
 };
 
 function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactElement {
+  const searchContext = useSearchContext();
+  const { filters } = useFilters({ searchConfig });
   const [offset, setOffset] = useNumberParam({ key: 'offset', defaultValue: 0, hideDefault: true });
+  const filterContext = useContext(FilterContext);
 
-  const { data, loading } = useQuery<ResourceSearchQuery, ResourceSearchQueryVariables>(
+  const { filter, filterHash } = filterContext || { filter: { must: {} } };
+
+  const { data, load, loading } = useQuery<ResourceSearchQuery, ResourceSearchQueryVariables>(
     RESOURCE_SEARCH_QUERY,
     {
       throwAllErrors: true,
       keepDataWhileLoading: true,
       forceLoadingTrueOnMount: true,
-      variables: {
-        input: {
-          contentType: tabsToActiveContentTypeLookup[activeTab],
-          offset: offset,
-        },
-      },
+      lazyLoad: true,
     }
   );
 
+  useEffect(() => {
+    const query = getAsQuery({ filter, searchContext, searchConfig });
+
+    load({
+      variables: {
+        contentType: tabsToActiveContentTypeLookup[activeTab],
+        predicate: {
+          ...query,
+        },
+        size: 20,
+        from: offset,
+      },
+    });
+
+    // We use a filterHash to trigger a reload when the filter changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [load, filterHash, searchContext, activeTab, offset]);
+
   const resources = useMemo(() => extractValidResources(data), [data]);
 
-  const { count, limit } = data?.resourceSearch || {};
+  const { total, size } = data?.resourceSearch?.documents || {};
 
   return (
     <>
@@ -179,6 +217,12 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
       >
         <ResourceSearchTabs activeTab={activeTab} defaultTab={defaultTab} />
       </DataHeader>
+
+      <Card>
+        <FilterBar>
+          <FilterButtons filters={filters} searchContext={searchContext} />
+        </FilterBar>
+      </Card>
 
       <ArticleContainer className="g-bg-slate-100 g-flex">
         <ArticleTextContainer className="g-flex-auto g-w-full">
@@ -207,7 +251,7 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
                   {/* TODO translate and pick the correct phrase based on the tab */}
                   <FormattedMessage
                     id={tabsToCountLookup[activeTab]}
-                    values={{ total: count ?? 0 }}
+                    values={{ total: total ?? 0 }}
                   />
                 </CardTitle>
 
@@ -225,11 +269,11 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
                 ))}
               </ul>
               <ClientSideOnly>
-                {count != null && limit != null && count > limit && (
+                {total != null && size != null && total > size && (
                   <PaginationFooter
                     offset={offset}
-                    count={count}
-                    limit={limit}
+                    count={total}
+                    limit={size}
                     onChange={(x) => {
                       setOffset(x);
                     }}

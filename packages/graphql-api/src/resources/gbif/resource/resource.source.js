@@ -1,9 +1,10 @@
+import { RESTDataSource } from 'apollo-datasource-rest';
 import {
   translateContentfulResponse,
-  objectToQueryString,
+  // objectToQueryString,
 } from '#/helpers/utils';
 import { getDefaultAgent } from '#/requestAgents';
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { urlSizeLimit } from '#/helpers/utils-ts';
 
 export class ResourceAPI extends RESTDataSource {
   constructor(config) {
@@ -38,13 +39,44 @@ export class ResourceSearchAPI extends RESTDataSource {
     request.agent = getDefaultAgent(this.baseURL, request.path);
   }
 
-  search = async (params, locale) => {
-    const response = await this.get(`/content`, objectToQueryString(params));
-    return translateContentfulResponse(response.documents, locale);
-  };
-
-  async getFirstEntryByQuery(params, locale) {
-    const response = await this.search(params, locale);
-    return response.results[0];
+  async searchResourceDocuments({ query }, locale) {
+    const response = await this.searchResources({ query }, locale);
+    return response.documents;
   }
+
+  async searchResources({ query }, locale) {
+    const body = { ...query, includeMeta: true };
+    let response;
+    if (JSON.stringify(body).length < urlSizeLimit) {
+      response = await this.get(
+        '/content',
+        { body: JSON.stringify(body) },
+        { signal: this.context.abortController.signal },
+      );
+    } else {
+      response = await this.post('/content', body, {
+        signal: this.context.abortController.signal,
+      });
+    }
+    // map to support APIv1 naming
+    response.documents.count = response.documents.total;
+    response.documents.limit = response.documents.size;
+    response.documents.offset = response.documents.from;
+    response._predicate = body.predicate;
+    response.documents.results = translateContentfulResponse(
+      response.documents.results,
+      locale,
+    );
+    return response;
+  }
+
+  // search = async (params, locale) => {
+  //   const response = await this.get(`/content`, objectToQueryString(params));
+  //   return translateContentfulResponse(response.documents, locale);
+  // };
+
+  // async getFirstEntryByQuery(params, locale) {
+  //   const response = await this.search(params, locale);
+  //   return response.results[0];
+  // }
 }

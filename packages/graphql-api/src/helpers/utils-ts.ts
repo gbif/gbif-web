@@ -5,3 +5,5 @@ export const dynamicImport = new Function(
   'modulePath',
   'return import(modulePath)',
 ) as <T = any>(modulePath: string) => Promise<T>;
+
+export const urlSizeLimit = 2000; // use GET for requests that serialized is less than N characters

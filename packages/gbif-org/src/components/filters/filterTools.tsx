@@ -712,7 +712,7 @@ export function FilterButtons({
   searchContext,
 }: {
   filters?: Record<string, FilterSetting>;
-  searchContext: SearchMetadata;
+  searchContext?: SearchMetadata;
 }) {
   const filterContext = useContext(FilterContext);
 

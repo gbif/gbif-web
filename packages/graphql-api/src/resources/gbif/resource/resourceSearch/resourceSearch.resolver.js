@@ -1,4 +1,19 @@
 import { SEARCH_RESULT_OPTIONS } from './resourceSearch.constants';
+import { facetFields } from './helpers/fields';
+import { getFacet } from '../../getMetrics';
+
+const getSourceSearch = (dataSources) => (args) =>
+  dataSources.resourceSearchAPI.searchResources.call(
+    dataSources.resourceSearchAPI,
+    args,
+  );
+
+// there are many fields that support facets. This function creates the resolvers for all of them
+const facetReducer = (dictionary, facetName) => {
+  dictionary[facetName] = getFacet(facetName, getSourceSearch);
+  return dictionary;
+};
+const ResourceFacet = facetFields.reduce(facetReducer, {});
 
 function emumContentTypeToElasticSearchType(enumContentType) {
   return SEARCH_RESULT_OPTIONS.find(
@@ -21,41 +36,69 @@ function elasticSearchTypeToGraphQLType(elasticSearchType) {
  */
 export default {
   Query: {
-    resourceSearch: async (_, args, { dataSources, locale }) => {
-      // Map the GraphQL input to the ElasticSearch input
-      const { limit: size, offset: from, contentType, ...rest } = args?.input;
-      let elasticSearchInput = {
-        size,
-        from,
-        ...rest,
-        // By default, restrict the search options to the ones the API supports
-        contentType:
-          contentType?.map(emumContentTypeToElasticSearchType) ??
-          SEARCH_RESULT_OPTIONS.map((option) => option.elasticSearchType),
-      };
+    // resourceSearch: async (_, args, { dataSources, locale }) => {
+    //   // Map the GraphQL input to the ElasticSearch input
+    //   const { limit: size, offset: from, contentType, ...rest } = args?.input;
+    //   let elasticSearchInput = {
+    //     size,
+    //     from,
+    //     ...rest,
+    //     // By default, restrict the search options to the ones the API supports
+    //     contentType:
+    //       contentType?.map(emumContentTypeToElasticSearchType) ??
+    //       SEARCH_RESULT_OPTIONS.map((option) => option.elasticSearchType),
+    //   };
 
-      // Remove the null values from the input
-      Object.entries(elasticSearchInput).forEach(([key, value]) => {
-        if (key in elasticSearchInput && value == null)
-          delete elasticSearchInput[key];
-      });
+    //   // Remove the null values from the input
+    //   Object.entries(elasticSearchInput).forEach(([key, value]) => {
+    //     if (key in elasticSearchInput && value == null)
+    //       delete elasticSearchInput[key];
+    //   });
 
-      const searchResult = await dataSources.resourceSearchAPI.search(
-        elasticSearchInput,
-        locale,
-      );
+    //   const searchResult = await dataSources.resourceSearchAPI.search(
+    //     elasticSearchInput,
+    //     locale,
+    //   );
 
+    //   return {
+    //     count: searchResult.total,
+    //     endOfRecords:
+    //       searchResult.total <= searchResult.from + searchResult.size,
+    //     limit: elasticSearchInput?.size ?? 10,
+    //     offset: searchResult.from,
+    //     results: searchResult.results,
+    //   };
+    // },
+    resourceSearch: async (_parent, { predicate, ...params }) => {
       return {
-        count: searchResult.total,
-        endOfRecords:
-          searchResult.total <= searchResult.from + searchResult.size,
-        limit: elasticSearchInput?.size ?? 10,
-        offset: searchResult.from,
-        results: searchResult.results,
+        _predicate: predicate,
+        _params: params,
       };
     },
   },
-  SingleSearchResult: {
+  ResourceSearchResult: {
+    documents: (parent, query, { dataSources, locale }) => {
+      // By default, restrict the search results to the contentTypes the Resource type can resolve to
+      const contentType =
+        parent._params.contentType?.map(emumContentTypeToElasticSearchType) ??
+        SEARCH_RESULT_OPTIONS.map((option) => option.elasticSearchType);
+
+      return dataSources.resourceSearchAPI.searchResourceDocuments({
+        query: {
+          predicate: parent._predicate,
+          ...parent._params,
+          ...query,
+          contentType,
+        },
+        locale,
+      });
+    },
+    facet: (parent) => {
+      return { _predicate: parent._predicate };
+    },
+  },
+  ResourceFacet,
+  Resource: {
     __resolveType: (src) => {
       const graphqlType = elasticSearchTypeToGraphQLType(src.contentType);
       if (graphqlType) return graphqlType;
