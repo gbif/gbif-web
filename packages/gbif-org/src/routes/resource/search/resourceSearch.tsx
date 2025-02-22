@@ -1,87 +1,29 @@
+import { ClientSideOnly } from '@/components/clientSideOnly';
+import { DataHeader } from '@/components/dataHeader';
+import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
+import { PaginationFooter } from '@/components/pagination';
+import { CardListSkeleton } from '@/components/skeletonLoaders';
+import { Card, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { Skeleton } from '@/components/ui/skeleton';
+import { FilterContext, FilterProvider } from '@/contexts/filter';
+import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
+import { ResourceSearchQuery, ResourceSearchQueryVariables } from '@/gql/graphql';
 import { useNumberParam, useParam } from '@/hooks/useParam';
+import useQuery from '@/hooks/useQuery';
+import { ExtractPaginatedResult } from '@/types';
 import React, { useContext, useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
-import { searchConfig } from './searchConfig';
-import { FilterContext, FilterProvider } from '@/contexts/filter';
-import { Tabs } from '@/components/tabs';
-import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
-import useQuery from '@/hooks/useQuery';
-import { ContentType, ResourceSearchQuery, ResourceSearchQueryVariables } from '@/gql/graphql';
-import { ResourceSearchResult } from './resourceSearchResult';
-import { DataHeader } from '@/components/dataHeader';
 import { ArticleContainer } from '../key/components/articleContainer';
 import { ArticleTextContainer } from '../key/components/articleTextContainer';
-import { Card, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { Skeleton } from '@/components/ui/skeleton';
-import { CardListSkeleton } from '@/components/skeletonLoaders';
-import { ClientSideOnly } from '@/components/clientSideOnly';
-import { PaginationFooter } from '@/components/pagination';
-import { HeaderActionButtons } from './headerActionButtons';
 import { useFilters } from './filters';
-import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
-import { SearchContextProvider, useSearchContext } from '@/contexts/search';
+import { HeaderActionButtons } from './headerActionButtons';
 import { useResourceSearchMetadata } from './resourceSearchMetadata';
-import { ExtractPaginatedResult } from '@/types';
-
-const tabs = [
-  'all',
-  'news',
-  'dataUse',
-  'event',
-  'project',
-  'programme',
-  'tool',
-  'document',
-] as const;
-
-export type Tab = (typeof tabs)[number];
-
-const tabsToActiveContentTypeLookup: Record<Tab, ContentType[]> = {
-  all: [
-    ContentType.News,
-    ContentType.DataUse,
-    ContentType.Event,
-    ContentType.Project,
-    ContentType.Programme,
-    ContentType.Tool,
-    ContentType.Document,
-  ],
-  news: [ContentType.News],
-  dataUse: [ContentType.DataUse],
-  event: [ContentType.Event],
-  project: [ContentType.Project],
-  programme: [ContentType.Programme],
-  tool: [ContentType.Tool],
-  document: [ContentType.Document],
-};
-
-const tabsToCountLookup: Record<Tab, string> = {
-  all: 'counts.nResults',
-  news: 'counts.nNews',
-  dataUse: 'counts.nDataUse',
-  event: 'counts.nEvents',
-  project: 'counts.nProjects',
-  programme: 'counts.nProgrammes',
-  tool: 'counts.nTools',
-  document: 'counts.nDocuments',
-};
-
-const tabsToTranslationLookup: Record<Tab, string> = {
-  all: 'resourceSearch.types.all',
-  news: 'resourceSearch.types.news',
-  dataUse: 'resourceSearch.types.dataUse',
-  event: 'resourceSearch.types.events',
-  project: 'resourceSearch.types.projects',
-  programme: 'resourceSearch.types.programmes',
-  tool: 'resourceSearch.types.tools',
-  document: 'resourceSearch.types.documents',
-};
-
-function isValidTab(tab: unknown): tab is Tab {
-  return typeof tab === 'string' && tabs.includes(tab as Tab);
-}
+import { ResourceSearchResult } from './resourceSearchResult';
+import { ResourceSearchTabs } from './resourceSearchTabs';
+import { searchConfig } from './searchConfig';
+import { orderedTabs, tabsConfig } from './tabsConfig';
 
 const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
   query ResourceSearch(
@@ -137,13 +79,14 @@ function extractValidResources(data: ResourceSearchQuery | undefined): Resource[
   );
 }
 
-const DEFAULT_TAB: Tab = 'all';
+const DEFAULT_TAB = 'all';
 
 export function ResourceSearchPage(): React.ReactElement {
   const [tab] = useParam({
     hideDefault: true,
     key: 'contentType',
-    parse: (value) => (isValidTab(value) ? value : DEFAULT_TAB),
+    parse: (value) =>
+      typeof value === 'string' && orderedTabs.includes(value) ? value : DEFAULT_TAB,
   });
 
   const [filter, setFilter] = useFilterParams({
@@ -173,8 +116,8 @@ export function ResourceSearchPage(): React.ReactElement {
 }
 
 type Props = {
-  activeTab: Tab;
-  defaultTab: Tab;
+  activeTab: string;
+  defaultTab: string;
 };
 
 function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactElement {
@@ -200,7 +143,6 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
 
     load({
       variables: {
-        contentType: tabsToActiveContentTypeLookup[activeTab],
         predicate: {
           ...query,
         },
@@ -259,9 +201,8 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
             <>
               <CardHeader className="g-flex-col md:g-flex-row g-items-start md:g-items-center g-justify-between">
                 <CardTitle>
-                  {/* TODO translate and pick the correct phrase based on the tab */}
                   <FormattedMessage
-                    id={tabsToCountLookup[activeTab]}
+                    id={tabsConfig[activeTab].countKey}
                     values={{ total: total ?? 0 }}
                   />
                 </CardTitle>
@@ -296,29 +237,5 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
         </ArticleTextContainer>
       </ArticleContainer>
     </>
-  );
-}
-
-type ResourceSearchTabsProps = {
-  activeTab: Tab;
-  defaultTab: Tab;
-};
-
-function ResourceSearchTabs({
-  activeTab,
-  defaultTab,
-}: ResourceSearchTabsProps): React.ReactElement {
-  const { getParams } = useUpdateViewParams(['from', 'sort', 'limit', 'offset'], 'contentType'); // Removes 'from' and 'sort'
-
-  return (
-    <Tabs
-      disableAutoDetectActive
-      links={tabs.map((tab) => ({
-        isActive: activeTab === tab,
-        to: { search: getParams(tab, defaultTab).toString() },
-        // TODO translate
-        children: <FormattedMessage id={tabsToTranslationLookup[tab]} defaultMessage={tab} />,
-      }))}
-    />
   );
 }

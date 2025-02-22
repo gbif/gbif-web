@@ -1,4 +1,3 @@
-import { Tab } from './resourceSearch';
 import { RssLink } from '@/components/cardHeaderActions/rssLink';
 import { BaseHeaderActionLink } from '@/components/cardHeaderActions/baseHeaderActionLink';
 import { MdAdd } from 'react-icons/md';
@@ -6,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { useConfig } from '@/config/config';
 
 type Props = {
-  activeTab: Tab;
+  activeTab: string;
 };
 
 export function HeaderActionButtons({ activeTab }: Props) {
@@ -23,19 +22,14 @@ export function HeaderActionButtons({ activeTab }: Props) {
       {activeTab === 'event' && (
         <>
           <BaseHeaderActionLink icon={MdAdd} url="/suggest-event">
-            <FormattedMessage
-              // TODO translate
-              id="phrases.suggestEvent"
-              defaultMessage="Suggest event"
-            />
+            <FormattedMessage id="resourceSearch.suggestEvent" defaultMessage="Suggest event" />
           </BaseHeaderActionLink>
           <BaseHeaderActionLink
             icon={MdAdd}
             url={`${v1WebcalEndpoint}/newsroom/events/calendar/upcoming.ics`}
           >
             <FormattedMessage
-              // TODO translate
-              id="phrases.subscribeToCalendar"
+              id="resourceSearch.subscribeToCalendar"
               defaultMessage="Subscribe to calendar"
             />
           </BaseHeaderActionLink>
