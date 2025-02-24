@@ -4,12 +4,12 @@
     "SIMPLE_CSV": "Basique",
     "DWCA": "Archive Darwin Core",
     "SPECIES_LIST": "",
-    "SIMPLE_WITH_VERBATIM_AVRO": "",
-    "MAP_OF_LIFE": "",
-    "IUCN": "",
+    "SIMPLE_WITH_VERBATIM_AVRO": "Apache Avro avec les champs interprétés communs et tous les champs verbatim",
+    "MAP_OF_LIFE": "Exportation de Map of Life",
+    "IUCN": "Exportation de l'UICN",
     "BIONOMIA": "Export Bionomia",
     "SIMPLE_PARQUET": "Parquet simple",
-    "SQL_TSV_ZIP": "",
-    "CUBE": ""
+    "SQL_TSV_ZIP": "SQL TSV zip",
+    "CUBE": "Cube"
   }
 }
