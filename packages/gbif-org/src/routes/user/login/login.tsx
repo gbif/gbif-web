@@ -22,7 +22,7 @@ export function LoginPage() {
       <article>
         <PageContainer topPadded hasDataHeader className="g-bg-white">
           <ArticleTextContainer className="g-max-w-screen-xl ">
-            <div className="g-flex g-gap-4 g-h-full g-pb-16 lg:g-min-h-[90vh] g-flex-row">
+            <div className="g-flex g-gap-4 g-h-full g-pb-16 g-flex-row">
               <div className="g-flex-1 ">
                 <LoginBox>
                   <LoginForm />
@@ -54,7 +54,7 @@ export function RegistrationPage() {
       <article>
         <PageContainer topPadded hasDataHeader className="g-bg-white">
           <ArticleTextContainer className="g-max-w-screen-xl ">
-            <div className="g-flex g-gap-4 g-h-full g-pb-16 lg:g-min-h-[90vh] g-flex-row">
+            <div className="g-flex g-gap-4 g-h-full g-pb-16 g-flex-row">
               <div className="g-flex-1">
                 <LoginBox>
                   <RegisterForm />
@@ -245,14 +245,20 @@ export function LoginForm() {
       </div>
 
       <div className="g-grid g-grid-cols-2 g-gap-3">
-        <button className="g-flex g-items-center g-justify-center g-px-4 g-py-2 g-border g-border-gray-300 g-rounded-lg g-shadow-sm g-bg-white hover:g-bg-gray-50 focus:g-outline-none focus:g-ring-2 focus:g-ring-offset-2 focus:g-ring-indigo-500">
+        <a
+          href="/auth/google/login"
+          className="g-flex g-items-center g-justify-center g-px-4 g-py-2 g-border g-border-gray-300 g-rounded-lg g-shadow-sm g-bg-white hover:g-bg-gray-50 focus:g-outline-none focus:g-ring-2 focus:g-ring-offset-2 focus:g-ring-indigo-500"
+        >
           <SocialIconGoogle className="g-h-5 g-w-5 g-text-gray-700" />
           <span className="g-ml-2 g-text-gray-700">Google</span>
-        </button>
-        <button className="g-flex g-items-center g-justify-center g-px-4 g-py-2 g-border g-border-gray-300 g-rounded-lg g-shadow-sm g-bg-white hover:g-bg-gray-50 focus:g-outline-none focus:g-ring-2 focus:g-ring-offset-2 focus:g-ring-indigo-500">
+        </a>
+        <a
+          href="/auth/github/login"
+          className="g-flex g-items-center g-justify-center g-px-4 g-py-2 g-border g-border-gray-300 g-rounded-lg g-shadow-sm g-bg-white hover:g-bg-gray-50 focus:g-outline-none focus:g-ring-2 focus:g-ring-offset-2 focus:g-ring-indigo-500"
+        >
           <SocialIconGithub className="g-h-5 g-w-5 g-text-gray-700" />
           <span className="g-ml-2 g-text-gray-700">GitHub</span>
-        </button>
+        </a>
       </div>
 
       <p className="g-text-center g-text-sm g-text-gray-500">
