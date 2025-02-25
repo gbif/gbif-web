@@ -52,7 +52,7 @@ export function ProjectResult({ project, className }: Props) {
             {project.purposes && (
               <div className="g-pt-2 g-flex g-gap-2">
                 {project.purposes.map((x) => (
-                  <SimpleTooltip i18nKey="filterSupport.setFilter" side="right">
+                  <SimpleTooltip key={x} i18nKey="filterSupport.setFilter" side="right" asChild>
                     <ResultCard.Tag
                       key={x}
                       onClick={() => window.dispatchEvent(new AddFilterEvent('purposes', x))}
