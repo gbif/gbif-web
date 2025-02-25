@@ -24,6 +24,7 @@ import { ResourceSearchResult } from './resourceSearchResult';
 import { ResourceSearchTabs } from './resourceSearchTabs';
 import { searchConfig } from './searchConfig';
 import { orderedTabs, tabsConfig } from './tabsConfig';
+import useUpdateEffect from '@/hooks/useUpdateEffect';
 
 const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
   query ResourceSearch(
@@ -153,6 +154,11 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
     // We use a filterHash to trigger a reload when the filter changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [load, filterHash, searchContext, activeTab, offset]);
+
+  // Scroll to top when changing filter or offset
+  useUpdateEffect(() => {
+    window.scrollTo(0, 0);
+  }, [filterHash, offset]);
 
   const resources = useMemo(() => extractValidResources(data), [data]);
 
