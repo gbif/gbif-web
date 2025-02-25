@@ -475,7 +475,7 @@ export function TypeStatus({
               plainTextTitle: x?.entity?.title,
               count: x.count,
               description: x.entity.description,
-              filter: { datasetKey: [x.key] },
+              filter: { typeStatus: [x.key] },
             };
           });
         },
