@@ -98,8 +98,7 @@ export function ResourceSearchPage(): React.ReactElement {
 
   return (
     <>
-      {/* TODO transalte */}
-      <FormattedMessage id="resourceSearch.pageTitle" defaultMessage="Resource search">
+      <FormattedMessage id="resourceSearch.title">
         {(title) => (
           <Helmet>
             <title>{title}</title>
@@ -192,10 +191,9 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
             </>
           )}
           {!loading && resources.length === 0 && (
-            <>
-              {/* TODO create a pretty and translated message */}
-              <p>No results</p>
-            </>
+            <div className="g-min-h-52 g-flex g-items-center g-justify-center">
+              <FormattedMessage id="resourceSearch.noResults" />
+            </div>
           )}
           {!loading && resources.length > 0 && (
             <>

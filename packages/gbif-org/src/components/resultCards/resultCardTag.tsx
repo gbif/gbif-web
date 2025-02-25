@@ -7,7 +7,7 @@ type Props = {
 };
 
 const baseClasses =
-  'g-align-middle g-bg-slate-300/50 g-text-slate-800 g-text-xs g-font-medium g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300';
+  'g-text-nowrap g-align-middle g-bg-slate-300/50 g-text-slate-800 g-text-xs g-font-medium g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300';
 
 export function ResultCardTag({ children, onClick }: Props) {
   if (!onClick) return <span className={baseClasses}>{children}</span>;

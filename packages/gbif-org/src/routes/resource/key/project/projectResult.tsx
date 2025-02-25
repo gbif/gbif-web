@@ -39,7 +39,7 @@ export function ProjectResult({ project, className }: Props) {
           <ResultCard.Metadata>
             {project.programme && (
               <div>
-                Programme:{' '}
+                <FormattedMessage id="cms.project.programme" />:{' '}
                 <DynamicLink
                   className="hover:g-underline"
                   pageId="programme-key"

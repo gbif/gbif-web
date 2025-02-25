@@ -2,7 +2,7 @@ import { ResultCard } from '@/components/resultCards/index';
 import { DataUseResultFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 import { MdCalendarToday } from 'react-icons/md';
-import { FormattedDate } from 'react-intl';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment DataUseResult on DataUse {
@@ -31,7 +31,7 @@ export function DataUseResult({ dataUse, className }: Props) {
         <ResultCard.Content>
           {dataUse.excerpt}
           <ResultCard.Metadata className="g-flex g-items-center">
-            <MdCalendarToday className="g-me-2" /> Published{' '}
+            <MdCalendarToday className="g-me-2" /> <FormattedMessage id="cms.resource.published" />{' '}
             <FormattedDate value={dataUse.createdAt} year="numeric" month="short" day="numeric" />
           </ResultCard.Metadata>
         </ResultCard.Content>

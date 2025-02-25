@@ -31,7 +31,7 @@ export function NewsResult({ news, className }: Props) {
         <ResultCard.Content>
           {news.excerpt}
           <ResultCard.Metadata className="g-flex g-items-center">
-            <MdCalendarToday className="g-me-2" /> Published{' '}
+            <MdCalendarToday className="g-me-2" /> <FormattedMessage id="cms.resource.published" />{' '}
             <FormattedDate value={news.createdAt} year="numeric" month="short" day="numeric" />
           </ResultCard.Metadata>
         </ResultCard.Content>

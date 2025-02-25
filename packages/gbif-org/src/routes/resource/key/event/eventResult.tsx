@@ -41,12 +41,12 @@ export function EventResult({ event, className }: Props) {
             {event.primaryLink?.url && <MdLink className="g-inline-block g-align-middle" />}
             {isPast(event) && (
               <span className="g-inline-flex g-items-center g-bg-red-100 g-text-red-800 g-text-xs g-font-medium g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300">
-                <FormattedMessage id="Past" />
+                <FormattedMessage id="resourceSearch.past" />
               </span>
             )}
             {isCurrent(event) && (
               <span className="g-inline-block g-items-center g-bg-green-100 g-text-green-800 g-text-xs g-font-medium g-px-2.5 g-py-0.5 g-rounded dark:g-bg-green-900 dark:g-text-green-300">
-                <FormattedMessage id="Happening now" />
+                <FormattedMessage id="resourceSearch.happeningNow" />
               </span>
             )}
           </span>

@@ -3,6 +3,7 @@ import {
   booleanLabel,
   CountryLabel,
   IdentityLabel,
+  PurposesLabel,
   TopicsLabel,
 } from '@/components/filters/displayNames';
 import {
@@ -109,7 +110,7 @@ const gbifProgrammeAcronymConfig: filterEnumConfig = {
 const purposesConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'purposes',
-  displayName: IdentityLabel,
+  displayName: PurposesLabel,
   filterTranslation: 'resourceSearch.filters.purposes',
   facetQuery: /* GraphQL */ `
     query ResourcePurposesFacet($predicate: Predicate) {

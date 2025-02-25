@@ -9,6 +9,7 @@ import { HelpLine } from '../../../../components/helpText';
 import { NoResultsTab } from '../components/noResultsTab';
 import { EventResult } from '../event/eventResult';
 import { NewsResult } from '../news/newsResult';
+import { FormattedMessage } from 'react-intl';
 
 const PROJECT_NEWS_QUERY = /* GraphQL */ `
   query ProjectNewsAndEvents($key: String!) {
@@ -63,9 +64,10 @@ export function ProjectNewsAndEventsTab() {
         <HelpLine title={help?.title} id="how-to-add-events-to-my-project-page" icon />
       </p>
 
-      {/* TODO: Needs translation */}
       {sortedNewsAndEvents.length === 0 && (
-        <NoResultsTab>No news and events linked to this project</NoResultsTab>
+        <NoResultsTab>
+          <FormattedMessage id="cms.resource.noNewsOrEvents" />
+        </NoResultsTab>
       )}
 
       {sortedNewsAndEvents.map((item) => {
