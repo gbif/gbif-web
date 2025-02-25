@@ -145,12 +145,12 @@ const contractCountryConfig: filterSuggestConfig = {
   `,
 };
 
-const showPastEventsConfig: filterBoolConfig = {
-  filterType: filterConfigTypes.OPTIONAL_BOOL,
-  filterHandle: '_showPastEvents',
-  displayName: booleanLabel,
-  filterTranslation: 'resourceSearch.filters.showPastEvents',
-};
+// const showPastEventsConfig: filterBoolConfig = {
+//   filterType: filterConfigTypes.OPTIONAL_BOOL,
+//   filterHandle: '_showPastEvents',
+//   displayName: booleanLabel,
+//   filterTranslation: 'resourceSearch.filters.showPastEvents',
+// };
 
 export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }): {
   filters: Record<string, FilterSetting>;
@@ -209,11 +209,11 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         formatMessage,
       }),
       purposes: generateFilters({ config: purposesConfig, searchConfig, formatMessage }),
-      _showPastEvents: generateFilters({
-        config: showPastEventsConfig,
-        searchConfig,
-        formatMessage,
-      }),
+      // _showPastEvents: generateFilters({
+      //   config: showPastEventsConfig,
+      //   searchConfig,
+      //   formatMessage,
+      // }),
     };
     setFilters(nextFilters);
   }, [searchConfig, formatMessage, countrySuggest]);
