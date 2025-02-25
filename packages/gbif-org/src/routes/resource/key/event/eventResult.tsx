@@ -4,7 +4,7 @@ import { FormattedDate, FormattedMessage } from 'react-intl';
 import { GbifLogoIcon } from '@/components/icons/icons';
 import { EventResultFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
-import { cn } from '@/utils/shadcn';
+import { ResultCard } from '@/components/resultCards/index';
 
 fragmentManager.register(/* GraphQL */ `
   fragment EventResult on MeetingEvent {
@@ -30,84 +30,93 @@ type Props = {
 };
 
 export function EventResult({ event, className }: Props) {
-  // event starts and ends the same day
-  const sameDay = event?.start?.substring(0, 10) === event?.end?.substring(0, 10);
   const primaryLink = event.primaryLink?.url ?? `/event/${event.id}`;
 
   return (
-    <article
-      className={cn('g-bg-slate-50 g-p-4 g-flex g-flex-col g-rounded g-border g-mb-4', className)}
-    >
-      <div className="g-pb-1">
-        <h3 className="g-inline">
-          <a className="g-text-base g-font-semibold" href={primaryLink}>
-            {event.title}{' '}
-            {event.primaryLink?.url && <MdLink className="g-inline-block g-ml-1 g-align-middle" />}
-          </a>
-        </h3>
-        {isPast(event) && (
-          <span className="g-inline-flex g-items-center g-bg-red-100 g-text-red-800 g-text-xs g-font-medium g-ms-2 g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300">
-            <FormattedMessage id="Past" />
+    <ResultCard.Container className={className}>
+      <ResultCard.Header
+        title={
+          <span className="g-flex g-items-center g-flex-wrap g-gap-2">
+            {event.title}
+            {event.primaryLink?.url && <MdLink className="g-inline-block g-align-middle" />}
+            {isPast(event) && (
+              <span className="g-inline-flex g-items-center g-bg-red-100 g-text-red-800 g-text-xs g-font-medium g-px-2.5 g-py-0.5 g-rounded dark:g-bg-red-900 dark:g-text-red-300">
+                <FormattedMessage id="Past" />
+              </span>
+            )}
+            {isCurrent(event) && (
+              <span className="g-inline-block g-items-center g-bg-green-100 g-text-green-800 g-text-xs g-font-medium g-px-2.5 g-py-0.5 g-rounded dark:g-bg-green-900 dark:g-text-green-300">
+                <FormattedMessage id="Happening now" />
+              </span>
+            )}
           </span>
-        )}
-        {isCurrent(event) && (
-          <span className="g-inline-block g-items-center g-bg-green-100 g-text-green-800 g-text-xs g-font-medium g-ms-2 g-px-2.5 g-py-0.5 g-rounded dark:g-bg-green-900 dark:g-text-green-300">
-            <FormattedMessage id="Happening now" />
-          </span>
-        )}
-      </div>
+        }
+        link={primaryLink}
+        contentType="event"
+      />
 
       <div className="g-flex-auto">
-        <div className="g-font-normal g-text-slate-500 g-text-sm">{event.excerpt}</div>
-        <div className="g-text-sm g-text-slate-500 g-mt-2">
-          <Location {...event} />
-          <div className="g-flex g-items-center">
-            <MdCalendarToday className="g-me-2" />
-            {/* format start and end dates. if same day, then only show time. if different day, then show date and time. */}
-            <FormattedDate value={event.start} year="numeric" month="short" day="numeric" />
-            {/* if starts and ends same day and not an allDayEvent, then show time interval */}
-            {sameDay && !event.allDayEvent && (
-              <>
-                {' '}
-                <FormattedDate value={event.start} hour="numeric" minute="numeric" />
-              </>
-            )}
-            {event.end && !sameDay && (
-              <>
-                {' - '}
-                <FormattedDate value={event.end} year="numeric" month="short" day="numeric" />
-              </>
-            )}
-          </div>
-          {event.gbifsAttendee && (
-            <div>
-              <GbifLogoIcon className="g-me-2" />{' '}
-              <FormattedMessage id="cms.resource.gbifWillAttend" />
-            </div>
-          )}
-          <div className="g-mt-2 g-flex g-gap-4">
-            {!isPast(event) && (
-              <Button asChild variant="secondary">
-                <a
-                  href={`https://www.gbif.org/api/newsroom/events/${event.id}.ics`}
-                  className="g-flex g-gap-2"
-                >
-                  <MdCalendarMonth />
-                  <FormattedMessage id="cms.resource.addToCalendar" />
-                </a>
-              </Button>
-            )}
-            {event.primaryLink?.url && (
-              <Button asChild variant="ghost">
-                <a href={`/event/${event.id}`}>
-                  <FormattedMessage id="phrases.seeDetails" />
-                </a>
-              </Button>
-            )}
-          </div>
-        </div>
+        <ResultCard.Content>
+          {event.excerpt}
+          <EventMetadata event={event} />
+        </ResultCard.Content>
       </div>
-    </article>
+    </ResultCard.Container>
+  );
+}
+
+function EventMetadata({ event }: Pick<Props, 'event'>) {
+  // event starts and ends the same day
+  const sameDay = event?.start?.substring(0, 10) === event?.end?.substring(0, 10);
+
+  return (
+    <ResultCard.Metadata className="g-mt-2">
+      <Location {...event} />
+      <div className="g-flex g-items-center">
+        <MdCalendarToday className="g-me-2" />
+        {/* format start and end dates. if same day, then only show time. if different day, then show date and time. */}
+        <FormattedDate value={event.start} year="numeric" month="short" day="numeric" />
+        {/* if starts and ends same day and not an allDayEvent, then show time interval */}
+        {sameDay && !event.allDayEvent && (
+          <>
+            {' '}
+            <FormattedDate value={event.start} hour="numeric" minute="numeric" />
+          </>
+        )}
+        {event.end && !sameDay && (
+          <>
+            {' - '}
+            <FormattedDate value={event.end} year="numeric" month="short" day="numeric" />
+          </>
+        )}
+      </div>
+      {event.gbifsAttendee && (
+        <div>
+          <GbifLogoIcon className="g-me-2" />
+          <FormattedMessage id="cms.resource.gbifWillAttend" />
+        </div>
+      )}
+      <div className="g-mt-2 g-flex g-gap-4">
+        {!isPast(event) && (
+          <Button asChild variant="secondary">
+            <a
+              href={`https://www.gbif.org/api/newsroom/events/${event.id}.ics`}
+              className="g-flex g-gap-2"
+            >
+              <MdCalendarMonth />
+              <FormattedMessage id="cms.resource.addToCalendar" />
+            </a>
+          </Button>
+        )}
+        {event.primaryLink?.url && (
+          <Button asChild variant="ghost">
+            <a href={`/event/${event.id}`}>
+              <FormattedMessage id="phrases.seeDetails" />
+            </a>
+          </Button>
+        )}
+      </div>
+    </ResultCard.Metadata>
   );
 }
 

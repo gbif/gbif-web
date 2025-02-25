@@ -17,6 +17,7 @@ const documents = {
     "\n  query globe($lat: Float!, $lon: Float!) {\n    globe(cLat: $lat, cLon: $lon) {\n      svg\n    }\n  }\n": types.GlobeDocument,
     "\n  query HelpText($identifier: String!, $locale: String) {\n    help(identifier: $identifier, locale: $locale) {\n      id\n      identifier\n      title\n      body\n    }\n  }\n": types.HelpTextDocument,
     "\n  query HelpTitle($identifier: String!, $locale: String) {\n    help(identifier: $identifier, locale: $locale) {\n      id\n      identifier\n      title\n    }\n  }\n": types.HelpTitleDocument,
+    "\n  fragment ResultCardImage on AssetImage {\n    file {\n      url: thumbor(width: 180, height: 120)\n    }\n  }\n": types.ResultCardImageFragmentDoc,
     "\n  query ParticipantSelect($type: NodeType, $participationStatus: ParticipationStatus, $limit: Int) {\n    participantSearch(type: $type, participationStatus: $participationStatus, limit: $limit) {\n      endOfRecords\n      count\n      results {\n        id\n        name\n      }\n    }\n  }\n": types.ParticipantSelectDocument,
     "\n  query Header {\n    gbifHome {\n      title\n      summary\n      children {\n        id\n        externalLink\n        link\n        title\n        children {\n          id\n          externalLink\n          link\n          title\n          children {\n            id\n            externalLink\n            link\n            title\n          }\n        }\n      }\n    }\n  }\n": types.HeaderDocument,
     "\n  fragment CollectionResult on CollectionSearchEntity {\n    key\n    name\n    active\n    code\n    excerpt\n    numberSpecimens\n    occurrenceCount\n    institutionName\n    institutionKey\n    featuredImageUrl: thumbor(width: 300, height: 200)\n    featuredImageLicense\n    descriptorMatches {\n      key\n      usageName\n      country\n      individualCount\n      recordedBy\n      typeStatus\n      identifiedBy\n      taxon {\n        kingdom\n        phylum\n        class\n        order\n        family\n        genus\n        species\n      }\n    }\n  }\n": types.CollectionResultFragmentDoc,
@@ -130,15 +131,15 @@ const documents = {
     "\n  fragment ProseCardImg on AssetImage {\n    file {\n      mobile: thumbor(width: 500, height: 400)\n    }\n    title\n    description\n  }\n": types.ProseCardImgFragmentDoc,
     "\n  fragment ResourceRedirectDetails on Resource {\n    __typename\n    ... on Article {\n      id\n      title\n      urlAlias\n    }\n    ... on Composition {\n      id\n      maybeTitle: title\n      urlAlias\n    }\n    ... on DataUse {\n      id\n      title\n    }\n    ... on Document {\n      id\n      title\n    }\n    ... on MeetingEvent {\n      id\n      title\n    }\n    ... on News {\n      id\n      title\n    }\n    ... on Programme {\n      id\n      title\n    }\n    ... on GbifProject {\n      id\n      title\n    }\n    ... on Tool {\n      id\n      title\n    }\n  }\n": types.ResourceRedirectDetailsFragmentDoc,
     "\n  fragment DataUsePage on DataUse {\n    id\n    title\n    summary\n    resourceUsed\n    excerpt\n    body\n    primaryImage {\n      ...ArticleBanner\n    }\n    primaryLink {\n      label\n      url\n    }\n    secondaryLinks {\n      label\n      url\n    }\n    countriesOfCoverage\n    topics\n    purposes\n    audiences\n    citation\n    createdAt\n  }\n": types.DataUsePageFragmentDoc,
-    "\n  fragment DataUseResult on DataUse {\n    id\n    title\n    excerpt\n    primaryImage {\n      file {\n        url: thumbor(width: 300, height: 150)\n      }\n    }\n    createdAt\n  }\n": types.DataUseResultFragmentDoc,
+    "\n  fragment DataUseResult on DataUse {\n    id\n    title\n    excerpt\n    primaryImage {\n      ...ResultCardImage\n    }\n    createdAt\n  }\n": types.DataUseResultFragmentDoc,
     "\n  fragment DocumentPage on Document {\n    id\n    title\n    createdAt\n    excerpt\n    summary\n    primaryLink {\n      label\n      url\n    }\n    document {\n      title\n      description\n      file {\n        fileName\n        url\n      }\n    }\n    body\n    citation\n  }\n": types.DocumentPageFragmentDoc,
     "\n  fragment DocumentResult on Document {\n    id\n    title\n    excerpt\n  }\n": types.DocumentResultFragmentDoc,
     "\n  fragment EventPage on MeetingEvent {\n    id\n    title\n    summary\n    excerpt\n    body\n    primaryImage {\n      ...ArticleBanner\n    }\n    primaryLink {\n      label\n      url\n    }\n    secondaryLinks {\n      label\n      url\n    }\n    location\n    country\n    start\n    end\n    eventLanguage\n    venue\n    allDayEvent\n    documents {\n      ...DocumentPreview\n    }\n  }\n": types.EventPageFragmentDoc,
     "\n  fragment EventResult on MeetingEvent {\n    id\n    title\n    excerpt\n    country\n    location\n    venue\n    start\n    end\n    primaryLink {\n      url\n    }\n    gbifsAttendee\n    allDayEvent\n  }\n": types.EventResultFragmentDoc,
     "\n  fragment NewsPage on News {\n    id\n    title\n    summary\n    excerpt\n    body\n    primaryImage {\n      ...ArticleBanner\n    }\n    primaryLink {\n      label\n      url\n    }\n    secondaryLinks {\n      label\n      url\n    }\n    countriesOfCoverage\n    topics\n    purposes\n    audiences\n    citation\n    createdAt\n  }\n": types.NewsPageFragmentDoc,
-    "\n  fragment NewsResult on News {\n    id\n    title\n    excerpt\n    primaryImage {\n      file {\n        url: thumbor(width: 300, height: 150)\n      }\n    }\n    createdAt\n  }\n": types.NewsResultFragmentDoc,
+    "\n  fragment NewsResult on News {\n    id\n    title\n    excerpt\n    primaryImage {\n      ...ResultCardImage\n    }\n    createdAt\n  }\n": types.NewsResultFragmentDoc,
     "\n  fragment ProgrammePage on Programme {\n    title\n    excerpt\n    blocks {\n      ...BlockItemDetails\n    }\n    ...ProgrammeFundingBanner\n  }\n": types.ProgrammePageFragmentDoc,
-    "\n  fragment ProgrammeResult on Programme {\n    id\n    title\n    excerpt\n    primaryImage {\n      file {\n        url: thumbor(width: 300, height: 150)\n      }\n    }\n  }\n": types.ProgrammeResultFragmentDoc,
+    "\n  fragment ProgrammeResult on Programme {\n    id\n    title\n    excerpt\n    primaryImage {\n      ...ResultCardImage\n    }\n  }\n": types.ProgrammeResultFragmentDoc,
     "\n  fragment ProjectPage on GbifProject {\n    # Define the values used by this page\n    title\n    excerpt\n    status\n    start\n    end\n    fundsAllocated\n    primaryLink {\n      label\n      url\n    }\n    ...ProjectFundingBanner\n    # The Project About tab uses the data from this loader and defines its own data needs in this fragment\n    ...ProjectAboutTab\n  }\n": types.ProjectPageFragmentDoc,
     "\n    query Project($key: String!) {\n      resource(id: $key) {\n        ...ResourceRedirectDetails\n        ... on GbifProject {\n          ...ProjectPage\n        }\n      }\n      # The Project Datasets tab also uses some data from this loader and defines its own data needs in this fragment\n      ...ProjectDatasetsTab\n    }\n  ": types.ProjectDocument,
     "\n  fragment ProjectAboutTab on GbifProject {\n    projectId\n    id\n    body\n    start\n    end\n    status\n    fundsAllocated\n    matchingFunds\n    grantType\n    purposes\n    leadPartner {\n      ...ParticipantOrFundingOrganisationDetails\n    }\n    additionalPartners {\n      ...ParticipantOrFundingOrganisationDetails\n    }\n    leadContact\n    fundingOrganisations {\n      ...ParticipantOrFundingOrganisationDetails\n    }\n    programme {\n      fundingOrganisations {\n        ...ParticipantOrFundingOrganisationDetails\n      }\n    }\n    overrideProgrammeFunding {\n      ...ParticipantOrFundingOrganisationDetails\n    }\n    programme {\n      id\n      title\n    }\n    primaryImage {\n      ...ArticleBanner\n    }\n    primaryLink {\n      label\n      url\n    }\n    secondaryLinks {\n      label\n      url\n    }\n    documents {\n      ...DocumentPreview\n    }\n  }\n": types.ProjectAboutTabFragmentDoc,
@@ -146,10 +147,10 @@ const documents = {
     "\n  fragment ProjectDatasetsTab on Query {\n    gbifProject(id: $key) {\n      projectId\n    }\n    datasetsHelp: help(identifier: \"how-to-link-datasets-to-my-project-page\") {\n      title\n    }\n  }\n": types.ProjectDatasetsTabFragmentDoc,
     "\n  query ProjectDatasets($projectId: ID!) {\n    datasetSearch(projectId: [$projectId], limit: 500) {\n      count\n      limit\n      offset\n      results {\n        ...DatasetStubResult\n      }\n    }\n  }\n": types.ProjectDatasetsDocument,
     "\n  query ProjectNewsAndEvents($key: String!) {\n    gbifProject(id: $key) {\n      news {\n        __typename\n        createdAt\n        ...NewsResult\n      }\n      events {\n        __typename\n        start\n        ...EventResult\n      }\n    }\n    help(identifier: \"how-to-add-events-to-my-project-page\") {\n      title\n    }\n  }\n": types.ProjectNewsAndEventsDocument,
-    "\n  fragment ProjectResult on GbifProject {\n    id\n    title\n    excerpt\n    primaryImage {\n      file {\n        url: thumbor(width: 300, height: 150)\n      }\n    }\n    createdAt\n  }\n": types.ProjectResultFragmentDoc,
+    "\n  fragment ProjectResult on GbifProject {\n    id\n    title\n    excerpt\n    primaryImage {\n      ...ResultCardImage\n    }\n    createdAt\n    programme {\n      id\n      title\n    }\n    purposes\n  }\n": types.ProjectResultFragmentDoc,
     "\n  query ResourceRedirect($id: String!) {\n    resource(id: $id) {\n      __typename\n    }\n  }\n": types.ResourceRedirectDocument,
     "\n  fragment ToolPage on Tool {\n    id\n    title\n    summary\n    body\n    primaryImage {\n      ...ArticleBanner\n    }\n    primaryLink {\n      label\n      url\n    }\n    secondaryLinks {\n      label\n      url\n    }\n    citation\n    createdAt\n    author\n    rights\n    rightsHolder\n    publicationDate\n  }\n": types.ToolPageFragmentDoc,
-    "\n  fragment ToolResult on Tool {\n    id\n    title\n    excerpt\n    primaryImage {\n      file {\n        url: thumbor(width: 300, height: 150)\n      }\n    }\n  }\n": types.ToolResultFragmentDoc,
+    "\n  fragment ToolResult on Tool {\n    id\n    title\n    excerpt\n    primaryImage {\n      ...ResultCardImage\n    }\n  }\n": types.ToolResultFragmentDoc,
     "\n    query ResourceCoverageCountryFacet($predicate: Predicate) {\n      search: resourceSearch(predicate: $predicate) {\n        facet {\n          field: countriesOfCoverage {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.ResourceCoverageCountryFacetDocument,
     "\n    query ResourceTopicsFacet($predicate: Predicate) {\n      search: resourceSearch(predicate: $predicate) {\n        facet {\n          field: topics(size: 100) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.ResourceTopicsFacetDocument,
     "\n    query ResourceResearcherCountryFacet($predicate: Predicate) {\n      search: resourceSearch(predicate: $predicate) {\n        facet {\n          field: countriesOfResearcher {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.ResourceResearcherCountryFacetDocument,
@@ -201,6 +202,10 @@ export function graphql(source: "\n  query HelpText($identifier: String!, $local
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query HelpTitle($identifier: String!, $locale: String) {\n    help(identifier: $identifier, locale: $locale) {\n      id\n      identifier\n      title\n    }\n  }\n"): (typeof documents)["\n  query HelpTitle($identifier: String!, $locale: String) {\n    help(identifier: $identifier, locale: $locale) {\n      id\n      identifier\n      title\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  fragment ResultCardImage on AssetImage {\n    file {\n      url: thumbor(width: 180, height: 120)\n    }\n  }\n"): (typeof documents)["\n  fragment ResultCardImage on AssetImage {\n    file {\n      url: thumbor(width: 180, height: 120)\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -656,7 +661,7 @@ export function graphql(source: "\n  fragment DataUsePage on DataUse {\n    id\n
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment DataUseResult on DataUse {\n    id\n    title\n    excerpt\n    primaryImage {\n      file {\n        url: thumbor(width: 300, height: 150)\n      }\n    }\n    createdAt\n  }\n"): (typeof documents)["\n  fragment DataUseResult on DataUse {\n    id\n    title\n    excerpt\n    primaryImage {\n      file {\n        url: thumbor(width: 300, height: 150)\n      }\n    }\n    createdAt\n  }\n"];
+export function graphql(source: "\n  fragment DataUseResult on DataUse {\n    id\n    title\n    excerpt\n    primaryImage {\n      ...ResultCardImage\n    }\n    createdAt\n  }\n"): (typeof documents)["\n  fragment DataUseResult on DataUse {\n    id\n    title\n    excerpt\n    primaryImage {\n      ...ResultCardImage\n    }\n    createdAt\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -680,7 +685,7 @@ export function graphql(source: "\n  fragment NewsPage on News {\n    id\n    ti
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment NewsResult on News {\n    id\n    title\n    excerpt\n    primaryImage {\n      file {\n        url: thumbor(width: 300, height: 150)\n      }\n    }\n    createdAt\n  }\n"): (typeof documents)["\n  fragment NewsResult on News {\n    id\n    title\n    excerpt\n    primaryImage {\n      file {\n        url: thumbor(width: 300, height: 150)\n      }\n    }\n    createdAt\n  }\n"];
+export function graphql(source: "\n  fragment NewsResult on News {\n    id\n    title\n    excerpt\n    primaryImage {\n      ...ResultCardImage\n    }\n    createdAt\n  }\n"): (typeof documents)["\n  fragment NewsResult on News {\n    id\n    title\n    excerpt\n    primaryImage {\n      ...ResultCardImage\n    }\n    createdAt\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -688,7 +693,7 @@ export function graphql(source: "\n  fragment ProgrammePage on Programme {\n    
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment ProgrammeResult on Programme {\n    id\n    title\n    excerpt\n    primaryImage {\n      file {\n        url: thumbor(width: 300, height: 150)\n      }\n    }\n  }\n"): (typeof documents)["\n  fragment ProgrammeResult on Programme {\n    id\n    title\n    excerpt\n    primaryImage {\n      file {\n        url: thumbor(width: 300, height: 150)\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  fragment ProgrammeResult on Programme {\n    id\n    title\n    excerpt\n    primaryImage {\n      ...ResultCardImage\n    }\n  }\n"): (typeof documents)["\n  fragment ProgrammeResult on Programme {\n    id\n    title\n    excerpt\n    primaryImage {\n      ...ResultCardImage\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -720,7 +725,7 @@ export function graphql(source: "\n  query ProjectNewsAndEvents($key: String!) {
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment ProjectResult on GbifProject {\n    id\n    title\n    excerpt\n    primaryImage {\n      file {\n        url: thumbor(width: 300, height: 150)\n      }\n    }\n    createdAt\n  }\n"): (typeof documents)["\n  fragment ProjectResult on GbifProject {\n    id\n    title\n    excerpt\n    primaryImage {\n      file {\n        url: thumbor(width: 300, height: 150)\n      }\n    }\n    createdAt\n  }\n"];
+export function graphql(source: "\n  fragment ProjectResult on GbifProject {\n    id\n    title\n    excerpt\n    primaryImage {\n      ...ResultCardImage\n    }\n    createdAt\n    programme {\n      id\n      title\n    }\n    purposes\n  }\n"): (typeof documents)["\n  fragment ProjectResult on GbifProject {\n    id\n    title\n    excerpt\n    primaryImage {\n      ...ResultCardImage\n    }\n    createdAt\n    programme {\n      id\n      title\n    }\n    purposes\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -732,7 +737,7 @@ export function graphql(source: "\n  fragment ToolPage on Tool {\n    id\n    ti
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment ToolResult on Tool {\n    id\n    title\n    excerpt\n    primaryImage {\n      file {\n        url: thumbor(width: 300, height: 150)\n      }\n    }\n  }\n"): (typeof documents)["\n  fragment ToolResult on Tool {\n    id\n    title\n    excerpt\n    primaryImage {\n      file {\n        url: thumbor(width: 300, height: 150)\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  fragment ToolResult on Tool {\n    id\n    title\n    excerpt\n    primaryImage {\n      ...ResultCardImage\n    }\n  }\n"): (typeof documents)["\n  fragment ToolResult on Tool {\n    id\n    title\n    excerpt\n    primaryImage {\n      ...ResultCardImage\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

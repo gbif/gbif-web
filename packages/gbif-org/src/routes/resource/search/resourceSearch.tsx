@@ -211,12 +211,8 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
               </CardHeader>
               <ul>
                 {resources.map((resource) => (
-                  <li>
-                    <ResourceSearchResult
-                      key={resource.id}
-                      resource={resource}
-                      className="g-bg-white"
-                    />
+                  <li key={resource.id}>
+                    <ResourceSearchResult resource={resource} className="g-bg-white" />
                   </li>
                 ))}
               </ul>
