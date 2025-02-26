@@ -244,7 +244,7 @@ export default async function generateSql(parameters) {
   const measurements = ['COUNT(*) AS occurrences'];
   if (includeTemporalUncertainty === 'YES') {
     measurements.push(
-      'MIN(GBIF_TemporalUncertainty(eventDate)) AS minTemporalUncertainty',
+      'MIN(GBIF_TEMPORALUNCERTAINTY(eventdate, eventtime)) AS minTemporalUncertainty',
     );
   }
   if (includeSpatialUncertainty === 'YES') {
