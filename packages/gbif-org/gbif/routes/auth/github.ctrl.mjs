@@ -6,30 +6,11 @@ import { generateToken } from './utils.mjs';
 dotenv.config();
 
 export function register(app) {
-  // Routes
-  app.post('/api/user/login', (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
-      if (err) {
-        return res.status(500).json({ message: 'Internal server error' });
-      }
-      if (!user) {
-        return res.status(401).json({ message: info.message || 'Authentication failed' });
-      }
-
-      // Generate token and set it as httpsOnly cookie
-      const token = generateToken(user);
-      res.cookie('token', token, { httpOnly: true });
-      res.json({ user });
-    })(req, res, next);
-  });
-
   // GitHub OAuth routes
   app.get('/auth/github/login', (req, res, next) => {
     let state = { action: 'LOGIN', target: req.headers.referer || '/' };
     let stateB64 = btoa(JSON.stringify(state));
     passport.authenticate('github', { scope: ['user:email'], state: stateB64 })(req, res, next);
-
-    // passport.authenticate('github', { scope: ['user:email'] });
   });
 
   app.get(

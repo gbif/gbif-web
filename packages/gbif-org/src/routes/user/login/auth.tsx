@@ -12,7 +12,7 @@ interface RegisterData {
 
 export async function login(data: LoginData) {
   try {
-    const response = await fetch('/api/user/login', {
+    const response = await fetch('/auth/basic/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

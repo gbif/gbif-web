@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet-async';
 import { FaGithub as SocialIconGithub, FaGoogle as SocialIconGoogle } from 'react-icons/fa';
 import { IoMdGlobe } from 'react-icons/io';
 import { MdArrowRight, MdLock, MdMail, MdPerson } from 'react-icons/md';
+import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { login } from './auth';
 
@@ -120,11 +121,21 @@ export function LoginForm() {
       await login(values);
       // Handle successful login here (e.g., redirect, set auth state, etc.)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed');
+      setError('BASIC_LOGIN_FAILED');
     } finally {
       setIsLoading(false);
     }
   };
+
+  let errorMessage = 'Unable to log in';
+  // switch based on the possible error enums
+  switch (error) {
+    case 'BASIC_LOGIN_FAILED':
+      errorMessage = 'profile.unknownUser';
+      break;
+    default:
+      errorMessage = 'Unable to log in'; // TODO replace with a generic transslation error message
+  }
 
   return (
     <>
@@ -135,7 +146,7 @@ export function LoginForm() {
 
       {error && (
         <div className="g-bg-red-50 g-border g-border-red-200 g-text-red-600 g-rounded-lg g-p-4 g-text-sm">
-          {error}
+          {error && <FormattedMessage id={errorMessage} />}
         </div>
       )}
 

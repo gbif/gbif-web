@@ -10,4 +10,16 @@ export function register(app) {
   registerLocal(app);
   registerGoogle(app);
   registerGitHub(app);
+
+  // app.get('/api/user/:username', (req, res, next) => {
+  //   console.log('GET /api/user/profile');
+  //   getByUserName(req.params.username)
+  //     .then((user) => {
+  //       res.json(user);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //       res.status(500).json({ message: err.message });
+  //     });
+  // });
 }

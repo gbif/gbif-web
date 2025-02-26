@@ -1,12 +1,19 @@
 import dotenv from 'dotenv';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
+import { generateToken } from './utils.mjs';
 
 dotenv.config();
 
 export function register(app) {
+  // on any get or post to routes strting with /auth/ disable caching
+  app.use('/auth', (req, res, next) => {
+    res.set('Cache-Control', 'no-store');
+    next();
+  });
+
   // Routes
-  app.post('/api/user/login', (req, res, next) => {
+  app.post('/auth/basic/login', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
       if (err) {
         return res.status(500).json({ message: 'Internal server error' });
@@ -26,8 +33,7 @@ export function register(app) {
 // GBIF API authentication
 const authenticateGBIF = async (email, password) => {
   try {
-    console.log('Authenticating with GBIF API...');
-    const response = await fetch('https://registry-api.gbif.org/user/login', {
+    const response = await fetch(`${process.env.REGISTRY_API_V1}/user/login`, {
       method: 'POST',
       headers: {
         Authorization: 'Basic ' + Buffer.from(`${email}:${password}`).toString('base64'),
@@ -35,7 +41,6 @@ const authenticateGBIF = async (email, password) => {
       },
     });
 
-    console.log(response);
     if (!response.ok) {
       throw new Error('Authentication failed');
     }
