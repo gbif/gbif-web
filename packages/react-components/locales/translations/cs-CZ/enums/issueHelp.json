@@ -60,7 +60,7 @@
   "ML_NOT_FOUND": "Nebyl nalezen dokument EML",
   "MODIFIED_DATE_INVALID": "Pro dc:modified je uvedeno (částečně) neplatné datum, například neexistující datum, neplatný měsíc s nulou atd.",
   "REQUIRED_TERM_MISSING": "Chybí požadovaný výraz pro jádro/rozšíření",
-  "GEODETIC_DATUM_ASSUMED_WGS84": "Uvádí, že interpretované souřadnice jsou založeny na souřadnicovém systému WGS84, protože souřadnicový systém nebyl uveden nebo nebyl interpretovatelný. Viz GEODETIC_DATUM_INVALID.",
+  "GEODETIC_DATUM_ASSUMED_WGS84": "Uvádí, že interpretované souřadnice jsou založeny na souřadnicovém systému WGS84, protože Geodetický referenční bod nebyl uveden nebo nebyl interpretovatelný. Viz GEODETIC_DATUM_INVALID.",
   "COUNTRY_MISMATCH": "Interpretovaná země pro dwc:country a dwc:countryCode si odporují.",
   "UNKNOWN_ROWTYPE": "RowType použitý pro core/extension je neznámý.",
   "BIB_REFERENCE_INVALID": "Alespoň jeden záznam rozšíření bibliografického odkazu připojený k tomuto použití názvu je neplatný.",
