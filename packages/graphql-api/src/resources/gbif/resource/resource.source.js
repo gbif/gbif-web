@@ -70,13 +70,11 @@ export class ResourceSearchAPI extends RESTDataSource {
     return response;
   }
 
-  // search = async (params, locale) => {
-  //   const response = await this.get(`/content`, objectToQueryString(params));
-  //   return translateContentfulResponse(response.documents, locale);
-  // };
-
-  // async getFirstEntryByQuery(params, locale) {
-  //   const response = await this.search(params, locale);
-  //   return response.results[0];
-  // }
+  async getFirstEntryByQuery(query, locale) {
+    const response = await this.searchResourceDocuments(
+      { query: { ...query, limit: 1 } },
+      locale,
+    );
+    return response.results[0];
+  }
 }
