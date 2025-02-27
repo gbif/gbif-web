@@ -112,7 +112,7 @@ const WHERE_PREDICATE_RESTRICTIONS = {
       },
       {
         type: 'isNotNull',
-        parameter: 'DAY',
+        parameter: 'START_DAY_OF_YEAR',
       },
     ],
   },
@@ -220,7 +220,7 @@ export default async function generateSql(parameters) {
     taxonomy,
     temporal,
     spatial,
-    resolution,
+    resolution = 0,
     randomize,
     higherGroups,
     includeTemporalUncertainty,
@@ -317,70 +317,75 @@ export default async function generateSql(parameters) {
     groupBy.push(lookup[taxonomy].groupBy);
   }
 
+  const temporalLookup = {
+    YEAR: {
+      dimension: `"year"`,
+      groupBy: `"year"`,
+    },
+    YEARMONTH: {
+      dimension: `PRINTF('%04d-%02d', "year", "month")`,
+      groupBy: `yearMonth`,
+    },
+    DATE: {
+      dimension: `PRINTF('%04d-%02d-%02d', "year", "month", "day")`,
+      groupBy: `yearMonthDay`,
+    },
+  };
   if (temporal) {
-    const lookup = {
-      YEAR: {
-        dimension: `"year"`,
-        groupBy: `"year"`,
-      },
-      YEARMONTH: {
-        dimension: `PRINTF('%04d-%02d', "year", "month") AS yearMonth`,
-        groupBy: `yearMonth`,
-      },
-      DATE: {
-        dimension: `PRINTF('%04d-%02d-%02d', "year", "month", "day") AS yearMonthDay`,
-        groupBy: `yearMonthDay`,
-      },
-    };
-    dimensions.push(lookup[temporal].dimension);
-    groupBy.push(lookup[temporal].groupBy);
+    dimensions.push(
+      `${temporalLookup[temporal].dimension} AS ${temporalLookup[temporal].groupBy}`,
+    );
+    groupBy.push(temporalLookup[temporal].groupBy);
   }
 
+  // SPATIAL SECTION
+  let coordinateUncertaintyInMeters = 0;
+  if (randomize === 'YES') {
+    coordinateUncertaintyInMeters = `COALESCE(coordinateUncertaintyInMeters, ${defaultUncertainty})`;
+  }
+  const spatialLookup = {
+    EEA_REFERENCE_GRID: {
+      dimension: `GBIF_EEARGCode(
+          ${resolution},
+          decimalLatitude,
+          decimalLongitude,
+          ${coordinateUncertaintyInMeters}
+        )`,
+      groupBy: `eeaCellCode`,
+    },
+    EXTENDED_QUARTER_DEGREE_GRID: {
+      dimension: `GBIF_EQDGCCode(
+          ${resolution},
+          decimalLatitude,
+          decimalLongitude,
+          ${coordinateUncertaintyInMeters}
+        )`,
+      groupBy: 'eqdCellCode',
+    },
+    ISEA3H_GRID: {
+      dimension: `GBIF_ISEA3HCode(
+          ${resolution},
+          decimalLatitude,
+          decimalLongitude,
+          ${coordinateUncertaintyInMeters}
+        )`,
+      groupBy: 'isea3hCellCode',
+    },
+    MILITARY_GRID_REFERENCE_SYSTEM: {
+      dimension: `GBIF_MGRSCode(
+          ${resolution},
+          decimalLatitude,
+          decimalLongitude,
+          ${coordinateUncertaintyInMeters}
+        )`,
+      groupBy: 'mgrsCellCode',
+    },
+  };
   if (spatial) {
-    let coordinateUncertaintyInMeters = 0;
-    if (randomize === 'YES') {
-      coordinateUncertaintyInMeters = `COALESCE(coordinateUncertaintyInMeters, ${defaultUncertainty})`;
-    }
-    const lookup = {
-      EEA_REFERENCE_GRID: {
-        dimension: `GBIF_EEARGCode(
-          ${resolution},
-          decimalLatitude,
-          decimalLongitude,
-          ${coordinateUncertaintyInMeters}
-        ) AS eeaCellCode`,
-        groupBy: `eeaCellCode`,
-      },
-      EXTENDED_QUARTER_DEGREE_GRID: {
-        dimension: `GBIF_EQDGCCode(
-          ${resolution},
-          decimalLatitude,
-          decimalLongitude,
-          ${coordinateUncertaintyInMeters}
-        ) AS eqdCellCode`,
-        groupBy: 'eqdCellCode',
-      },
-      ISEA3H_GRID: {
-        dimension: `GBIF_ISEA3HCode(
-          ${resolution},
-          decimalLatitude,
-          decimalLongitude,
-          ${coordinateUncertaintyInMeters}
-        ) AS isea3hCellCode`,
-        groupBy: 'isea3hCellCode',
-      },
-      MILITARY_GRID_REFERENCE_SYSTEM: {
-        dimension: `GBIF_MGRSCode(
-          ${resolution},
-          decimalLatitude,
-          decimalLongitude,
-          ${coordinateUncertaintyInMeters}
-        ) AS mgrsCellCode`,
-        groupBy: 'mgrsCellCode',
-      },
-    };
-    dimensions.push(lookup[spatial].dimension);
-    groupBy.push(lookup[spatial].groupBy);
+    dimensions.push(
+      `${spatialLookup[spatial].dimension} AS ${spatialLookup[spatial].groupBy}`,
+    );
+    groupBy.push(spatialLookup[spatial].groupBy);
   }
 
   // cast higherGroups as array
@@ -388,8 +393,18 @@ export default async function generateSql(parameters) {
     higherGroups && Array.isArray(higherGroups) ? higherGroups : [higherGroups];
 
   if (higherGroupsArray.length > 0) {
-    const generate = (rank) =>
-      `IF(ISNULL(${rank}Key), NULL, SUM(COUNT(*)) OVER (PARTITION BY ${rank}Key)) AS ${rank}Count`;
+    const generate = (rank) => {
+      const parts = [`${rank}Key`];
+      if (spatial) {
+        parts.push(spatialLookup[spatial].dimension);
+      }
+      if (temporal) {
+        parts.push(temporalLookup[temporal].dimension);
+      }
+      return `IF(ISNULL(${rank}Key), NULL, SUM(COUNT(*)) OVER (PARTITION BY ${parts.join(
+        ', ',
+      )})) AS ${rank}Count`;
+    };
     const lookup = {
       KINGDOM: generate('kingdom'),
       PHYLUM: generate('phylum'),
