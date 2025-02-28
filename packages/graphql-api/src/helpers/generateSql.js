@@ -339,7 +339,7 @@ export default async function generateSql(parameters) {
   }
 
   // SPATIAL SECTION
-  let coordinateUncertaintyInMeters = 0;
+  let coordinateUncertaintyInMeters = '0.0';
   if (randomize === 'YES') {
     coordinateUncertaintyInMeters = `COALESCE(coordinateUncertaintyInMeters, ${defaultUncertainty})`;
   }
