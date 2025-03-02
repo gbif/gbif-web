@@ -323,7 +323,7 @@
     "temporalUncertainty": "Incluir incertidumbre temporal mínima",
     "documentation": "Documentación",
     "help": {
-      "whatIsThis": "",
+      "whatIsThis": "Este formato de descarga le permite agregar los registros biológicos por sus características taxonómicas, temporales o espaciales. Por ejemplo, un cubo de datos se puede configurar para agregar registros por familia, mes y celda de la cuadrícula (grilla) de referencia de la Agencia Europea de Medio Ambiente (tres dimensiones) y contar la cantidad de registros (una medida) por combinación. El resultado es un archivo CSV.\n\nUna vez configurado, se creará una consulta SQL para generar el cubo de datos. Para un uso más avanzado, es posible personalizar aún más la descarga solicitada editando la consulta SQL.\n",
       "dimensions": "Una dimensión representa un aspecto a lo largo del cual se pueden agrupar los datos. Seleccionar una resolución más alta (por ejemplo, especie en lugar de familia, fecha en lugar de año, 100 m en lugar de 10 km) dará como resultado más categorías y, por lo tanto, más registros.",
       "taxonomicDimension": "Esta dimensión agrupa los registros biológicos por rango taxonómico.",
       "temporalDimension": "Esta dimensión agrupa los registros biológicos por temporalidad.",
