@@ -2,6 +2,8 @@
   "example": "Exemple",
   "examples": "Exemples",
   "singleEntry": "Obtenir une seule entrée.",
+  "downloadKeyDatasets": "Jeux de données contribuant aux données d'un téléchargement.",
+  "downloadKeyDatasetsExport": "Télécharger la liste des jeux de données contribuant aux données d'un téléchargement.",
   "singleOccurrence": "Obtenir une seule occurrence.",
   "searchOccurrences": "Obtenir toutes les occurrences.",
   "searchOccurrencesExample": "Cinq premières occurrences du taxon dont la clé est 9778871 (Flabellina McMurtrie, 1831) qui ont été enregistrés entre 2000 et 2024.",
