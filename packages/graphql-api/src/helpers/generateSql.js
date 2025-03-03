@@ -320,21 +320,22 @@ export default async function generateSql(parameters) {
   const temporalLookup = {
     YEAR: {
       dimension: `"year"`,
+      select: `"year"`,
       groupBy: `"year"`,
     },
     YEARMONTH: {
       dimension: `PRINTF('%04d-%02d', "year", "month")`,
+      select: `PRINTF('%04d-%02d', "year", "month") AS yearMonth`,
       groupBy: `yearMonth`,
     },
     DATE: {
       dimension: `PRINTF('%04d-%02d-%02d', "year", "month", "day")`,
+      select: `PRINTF('%04d-%02d-%02d', "year", "month", "day") AS yearMonthDay`,
       groupBy: `yearMonthDay`,
     },
   };
   if (temporal) {
-    dimensions.push(
-      `${temporalLookup[temporal].dimension} AS ${temporalLookup[temporal].groupBy}`,
-    );
+    if (temporal) dimensions.push(`${temporalLookup[temporal].select}`);
     groupBy.push(temporalLookup[temporal].groupBy);
   }
 
