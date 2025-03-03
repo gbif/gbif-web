@@ -299,7 +299,7 @@
       "name": "Historie identifikace",
       "properties": {
         "identificationID": "ID Identifikace",
-        "verbatimIdentification": "Doslovná identifikace",
+        "verbatimIdentification": "Přesná identifikace",
         "identificationQualifier": "Identifikační kvalifikátor",
         "typeStatus": "Typ stratusu",
         "identifiedBy": "Identifikováno od",
@@ -338,7 +338,7 @@
         "infraspecificEpithet": "Infraspecifický epithet",
         "cultivarEpithet": "Epithet odrůdy",
         "taxonRank": "",
-        "verbatimTaxonRank": "",
+        "verbatimTaxonRank": "Přesné zařazení taxonu",
         "scientificNameAuthorship": "Autorství vědeckého názvu",
         "vernacularName": "Místní název",
         "nomenclaturalCode": "Kód názvosloví",
@@ -596,7 +596,7 @@
       "name": "Chronometrický věk",
       "properties": {
         "chronometricAgeID": "",
-        "verbatimChronometricAge": "Rovná se {from}",
+        "verbatimChronometricAge": "Přesné chronometrické stáří",
         "chronometricAgeProtocol": "Rovná se {from}",
         "uncalibratedChronometricAge": "Rovná se {from}",
         "chronometricAgeConversionProtocol": "Rovná se {from}",
