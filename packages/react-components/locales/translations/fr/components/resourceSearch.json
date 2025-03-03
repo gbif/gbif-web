@@ -9,7 +9,7 @@
         "subscribeToCalendar": "S'abonner au calendrier",
         "suggestEvent": "Suggérer un événement",
         "citationExplainer": "En savoir plus sur la littérature, comment elle est découverte et liée au données sur GBIF.",
-        "noResults": "",
+        "noResults": "Aucun résultat : essayez d'élargir les filtres de recherche",
         "types": {
             "all": "Tout",
             "events": "Évènements",
@@ -42,7 +42,7 @@
             "openAccess": "le libre accès",
             "gbifDownloadKey": "Clé de téléchargement",
             "gbifDerivedDatasetDoi": "DOI du jeu de données dérivé",
-            "paperDoi": "",
+            "paperDoi": "DOI",
             "litSource": "Journal",
             "gbifTaxonKey": "Nom scientifique du taxon",
             "litPublisher": "Éditeur de journaux"
