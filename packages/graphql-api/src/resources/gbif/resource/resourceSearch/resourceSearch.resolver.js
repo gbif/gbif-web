@@ -89,6 +89,7 @@ export default {
           ...parent._params,
           ...query,
           contentType,
+          searchable: true,
         },
         locale,
       });
