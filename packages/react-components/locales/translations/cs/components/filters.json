@@ -123,7 +123,7 @@
   "taxonKey": {
     "name": "Vědecký název",
     "count": "",
-    "description": "Vědecký název, jak je uveden v páteřní taxonomii GBIF. Tyto názvy jsou normalizovány, aby se usnadnilo vyhledávání napříč datovými sadami. Je možné, že původně uvedený název může být nesprávně interpretován nebo neznámý. Pro vyhledávání v poskytnutých názvech použijte filtr \"Doslovný vědecký název\"."
+    "description": "Vědecký název, jak je uveden v páteřní taxonomii GBIF. Tyto názvy jsou normalizovány, aby se usnadnilo vyhledávání napříč datovými sadami. Je možné, že původně uvedený název může být nesprávně interpretován nebo neznámý. Pro vyhledávání v poskytnutých názvech použijte filtr \"Přesný vědecký název\"."
   },
   "taxonKeyGrSciColl": {
     "name": "Vědecký název",
@@ -212,7 +212,7 @@
   },
   "hostingOrganizationKey": {
     "name": "Hostitelská organizace",
-    "count": "",
+    "count": "{num, plural, one {hostitel} few {# hostitelé} many {# hostitelů} other {# hostitelů}}",
     "description": "Název organizace, která je hostitelem datové sady, v níž je záznam zveřejněn."
   },
   "country": {
@@ -487,8 +487,8 @@
     "description": ""
   },
   "verbatimScientificName": {
-    "name": "Doslovný vědecký název",
-    "count": "",
+    "name": "Přesný vědecký název",
+    "count": "{num, plural, one {přesný vědecký název} few {# přesné vědecké názvy} many {# přesných vědeckých názvů} other {# přesných vědeckých názvů}}",
     "description": "Vědecký název uvedený vydavatelem dat bez normalizace."
   },
   "networkKey": {
