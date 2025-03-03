@@ -21,22 +21,19 @@ import {
   filterSuggestConfig,
   generateFilters,
 } from '@/components/filters/filterTools';
-import { SuggestFnProps } from '@/components/filters/suggest';
 import { Message } from '@/components/message';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
-import country from '@/enums/basic/country.json';
 import literatureTypeOptions from '@/enums/cms/literatureType.json';
 import relevanceOptions from '@/enums/cms/relevance.json';
 import topicsOptions from '@/enums/cms/topics.json';
+import { useCountrySuggest } from '@/hooks/useCountrySuggest';
 import {
   datasetKeySuggest,
   networkKeySuggest,
   publisherKeySuggest,
   taxonKeySuggest,
 } from '@/utils/suggestEndpoints';
-import { matchSorter } from 'match-sorter';
-import hash from 'object-hash';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 
 const publishingOrganizationKeyConfig: filterSuggestConfig = {
@@ -364,28 +361,8 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
   filters: Record<string, FilterSetting>;
 } {
   const { formatMessage } = useIntl();
-  const [countries, setCountries] = useState<{ key: string; title: string }[]>([]);
   const [filters, setFilters] = useState<Record<string, FilterSetting>>({});
-
-  // first translate relevant enums
-  useEffect(() => {
-    const countryValues = country.map((code) => ({
-      key: code,
-      title: formatMessage({ id: `enums.countryCode.${code}` }),
-    }));
-    if (hash(countries) !== hash(countryValues)) {
-      setCountries(countryValues);
-    }
-  }, [formatMessage, countries]);
-
-  const countrySuggest = useCallback(
-    ({ q }: SuggestFnProps) => {
-      // instead of just using indexOf or similar. This has the benefit of reshuffling records based on the match, check for abrivations etc
-      const filtered = matchSorter(countries, q ?? '', { keys: ['title', 'key'] });
-      return { promise: Promise.resolve(filtered), cancel: () => {} };
-    },
-    [countries]
-  );
+  const countrySuggest = useCountrySuggest();
 
   useEffect(() => {
     const nextFilters = {
