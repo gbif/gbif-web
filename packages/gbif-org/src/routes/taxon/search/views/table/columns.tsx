@@ -1,4 +1,5 @@
 import { TaxonClassification } from '@/components/classification';
+import { ColumnDef, SetAsFilter } from '@/components/searchTable';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { useMemo } from 'react';
@@ -6,7 +7,6 @@ import { GoSidebarExpand } from 'react-icons/go';
 import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { SingleTaxonSearchResult } from './table';
-import { ColumnDef, SetAsFilter } from '@/components/searchTable';
 
 type Args = {
   showPreview?: ((id: string) => void) | false;

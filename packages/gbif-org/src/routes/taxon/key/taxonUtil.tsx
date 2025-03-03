@@ -2,22 +2,23 @@ import rankEnum from '@/enums/basic/rank.json';
 import { PredicateType } from '@/gql/graphql';
 import { useEffect, useState } from 'react';
 
+const fmIndex = rankEnum.indexOf('FAMILY');
+const spIndex = rankEnum.indexOf('SPECIES');
+
 export function useIsSpeciesOrBelow(rank: string) {
   const [isSpeciesOrBelow, setIsSpeciesOrBelow] = useState(false);
-  const spIndex = rankEnum.indexOf('SPECIES');
   useEffect(() => {
     setIsSpeciesOrBelow(rankEnum.indexOf(rank) >= spIndex);
-  }, [rank, spIndex]);
+  }, [rank]);
 
   return isSpeciesOrBelow;
 }
 
 export function useIsFamilyOrAbove(rank: string) {
   const [isSpeciesOrBelow, setIsSpeciesOrBelow] = useState(false);
-  const fmIndex = rankEnum.indexOf('FAMILY');
   useEffect(() => {
     setIsSpeciesOrBelow(rankEnum.indexOf(rank) <= fmIndex);
-  }, [rank, fmIndex]);
+  }, [rank]);
 
   return isSpeciesOrBelow;
 }

@@ -15,9 +15,10 @@ import {
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import taxonStatusOptions from '@/enums/basic/taxonomicStatus.json';
 import { useCountrySuggest } from '@/hooks/useCountrySuggest';
-import { taxonKeySuggest } from '@/utils/suggestEndpoints';
+
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
+import { taxonKeySuggest } from './higherTaxonKeySuggest';
 
 const freeTextConfig: filterFreeTextConfig = {
   filterType: filterConfigTypes.FREE_TEXT,

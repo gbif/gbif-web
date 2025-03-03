@@ -1,4 +1,14 @@
+import { ClientSideOnly } from '@/components/clientSideOnly';
 import { getAsQuery } from '@/components/filters/filterTools';
+import {
+  FallbackTableOptions,
+  RowLinkOptions,
+  SearchTable,
+  useAvailableAndDefaultEnabledColumns,
+  usePaginationState,
+  useRowLink,
+} from '@/components/searchTable';
+import { SearchTableServerFallback } from '@/components/searchTable/table';
 import { ViewHeader } from '@/components/ViewHeader';
 import { useConfig } from '@/config/config';
 import { FilterContext } from '@/contexts/filter';
@@ -12,16 +22,6 @@ import { useContext, useEffect, useMemo } from 'react';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
 import { useTaxonColumns } from './columns';
-import {
-  RowLinkOptions,
-  useRowLink,
-  FallbackTableOptions,
-  useAvailableAndDefaultEnabledColumns,
-  usePaginationState,
-  SearchTable,
-} from '@/components/searchTable';
-import { ClientSideOnly } from '@/components/clientSideOnly';
-import { SearchTableServerFallback } from '@/components/searchTable/table';
 
 const TAXON_SEARCH_QUERY = /* GraphQL */ `
   query TaxonSearch($offset: Int, $limit: Int, $query: TaxonSearchInput) {

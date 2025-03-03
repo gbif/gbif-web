@@ -1,3 +1,4 @@
+import { FormattedNumber } from '@/components/dashboard/shared';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Skeleton } from '@/components/ui/skeleton';
 import { TreeItem, TreeItemIndex } from 'react-complex-tree';
@@ -24,6 +25,7 @@ export const TreeNode = ({
   showPreview,
   loadingTreeNodes,
   setLoadingTreeNodes,
+  setSelectedItems,
 }: {
   item: TreeItem;
   loadChildren: (arg: { key: string; limit: number; offset: number }) => void;
@@ -31,6 +33,7 @@ export const TreeNode = ({
   showPreview: (id: string) => void;
   loadingTreeNodes: TreeItemIndex[];
   setLoadingTreeNodes: (nodes: TreeItemIndex[]) => void;
+  setSelectedItems: (nodes: TreeItemIndex[]) => void;
 }) => {
   if (item.index.toString().endsWith('load-more')) {
     return loadingTreeNodes?.includes(item.index.toString()) ? (
@@ -58,14 +61,21 @@ export const TreeNode = ({
         <span
           dangerouslySetInnerHTML={{ __html: item.data.formattedName || item.data.scientificName }}
         />{' '}
-        {item.data.numDescendants > 0 && `(${item.data.numDescendants})`}{' '}
+        {item.data.numDescendants > 0 && (
+          <span className="g-ml-1">
+            (<FormattedNumber value={item.data.numDescendants} />)
+          </span>
+        )}
         {typeof showPreview === 'function' && (
           <div
             className="g-pr-3 g-pl-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
             onClick={(e) => {
               // Prevent the parent link from being triggered
-              if (item.data.key) showPreview(`t_${item.data.key.toString()}`);
               e.preventDefault();
+              if (item.data.key) {
+                setSelectedItems([item.data.key]);
+                showPreview(`t_${item.data.key.toString()}`);
+              }
             }}
           >
             <SimpleTooltip i18nKey="filterSupport.viewDetails" side="right">

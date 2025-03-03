@@ -7,22 +7,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeC
 import useBelow from '@/hooks/useBelow';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import { useTaxonKeyLoaderData } from '.';
 import Citation from './Citation';
-import OccurrenceImages from './OccurrenceImages';
 import Synonyms from './Synonyms';
-import { TaxonKeyContext } from './taxonKeyPresentation';
+import TaxonImages from './TaxonImages';
 import { useIsFamilyOrAbove, useIsSpeciesOrBelow } from './taxonUtil';
-import TypeMaterial from './TypeSpecimens';
 import { VernacularNameTable } from './VernacularNameTable';
-import WikiDataIdentifiers from './WikiDataIdentifiers';
-
-export default function About() {
-  const { slowTaxon, slowTaxonLoading } = useContext(TaxonKeyContext);
-
+export default function AboutNonBackbone({ slowTaxon, slowTaxonLoading }) {
   const { key } = useParams();
   const { data } = useTaxonKeyLoaderData();
   const { count, loading } = useCount({
@@ -31,15 +24,7 @@ export default function About() {
   });
   const removeSidebar = useBelow(1100);
   const useInlineImage = useBelow(700);
-  const {
-    taxon,
-    typesSpecimenCount: {
-      documents: { total: numberOfTypeSpecimens },
-    },
-    imagesCount: {
-      documents: { total: numberOfImages },
-    },
-  } = data;
+  const { taxon } = data;
   const isFamilyOrAbove = useIsFamilyOrAbove(taxon?.rank);
   const isSpeciesOrBelow = useIsSpeciesOrBelow(taxon?.rank);
 
@@ -55,15 +40,15 @@ export default function About() {
       <ArticleTextContainer className="g-max-w-screen-xl">
         <div className={`${removeSidebar ? '' : 'g-flex'}`}>
           <div className="g-flex-grow">
-            {numberOfImages > 0 && (
+            {slowTaxon?.taxon?.media?.results?.length > 0 && (
               <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
-                    <FormattedMessage id="taxon.occurenceImages" />
+                    <FormattedMessage id="taxon.taxonImages" />
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <OccurrenceImages total={numberOfImages} taxonKey={taxon.key} />
+                  <TaxonImages taxonKey={taxon?.key} images={slowTaxon?.taxon?.media} />
                 </CardContent>
               </Card>
             )}
@@ -77,23 +62,10 @@ export default function About() {
                 <CardContent>
                   <Synonyms
                     taxonKey={taxon.key}
-                    slowTaxon={slowTaxon}
                     loading={slowTaxonLoading}
+                    slowTaxon={slowTaxon}
                     total={data?.taxon?.synonyms?.results?.length}
                   />
-                </CardContent>
-              </Card>
-            )}
-
-            {isSpeciesOrBelow && numberOfTypeSpecimens > 0 && (
-              <Card className="g-mb-4">
-                <CardHeader>
-                  <CardTitle>
-                    <FormattedMessage id="taxon.typeMaterial" />
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <TypeMaterial total={numberOfTypeSpecimens} taxonKey={taxon.key} />
                 </CardContent>
               </Card>
             )}
@@ -142,21 +114,7 @@ export default function About() {
                 </CardContent>
               </Card>
             )}
-            {(slowTaxon?.taxon?.wikiData?.identifiers?.length ?? 0) > 0 && (
-              <Card className="g-mb-4" id="taxonIdentifiers">
-                <CardHeader>
-                  <CardTitle>
-                    <FormattedMessage id="taxon.taxonIdentifiers" />
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <WikiDataIdentifiers
-                    source={slowTaxon?.taxon?.wikiData?.source}
-                    identifiers={slowTaxon?.taxon?.wikiData?.identifiers}
-                  />
-                </CardContent>
-              </Card>
-            )}
+
             <Card className="g-mb-4" id="citation">
               <CardHeader>
                 <CardTitle>

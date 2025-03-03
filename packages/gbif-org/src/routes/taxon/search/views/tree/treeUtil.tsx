@@ -72,7 +72,39 @@ export const getParents = ({
   const TAXON_PARENT_KEYS = /* GraphQL */ `
     query TaxonParentKeys($key: ID!, $limit: Int, $offset: Int) {
       taxon(key: $key) {
+        acceptedTaxon {
+          key
+          numDescendants
+          scientificName
+          formattedName(useFallback: true)
+          children(limit: $limit, offset: $offset) {
+            limit
+            endOfRecords
+            offset
+            results {
+              key
+              numDescendants
+              scientificName
+              formattedName(useFallback: true)
+            }
+          }
+        }
+        acceptedKey
         key
+        numDescendants
+        scientificName
+        formattedName(useFallback: true)
+        children(limit: $limit, offset: $offset) {
+          limit
+          endOfRecords
+          offset
+          results {
+            key
+            numDescendants
+            scientificName
+            formattedName(useFallback: true)
+          }
+        }
         parents {
           key
           numDescendants

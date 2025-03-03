@@ -34,6 +34,7 @@ const typeDef = gql`
     publisher: String
     references: URL
     source: String
+    rightsHolder: String
     taxonKey: Int
     title: String
     type: MediaType

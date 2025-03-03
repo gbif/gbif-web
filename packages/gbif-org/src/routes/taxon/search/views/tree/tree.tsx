@@ -221,11 +221,12 @@ export function TaxonTree() {
     try {
       const { promise, cancel } = getParents({ key, limit: childLimit, offset: 0 });
       const taxon = await promise;
-      const parents = taxon?.parents || [];
+      const parents = [...(taxon?.parents || []), taxon?.acceptedTaxon || taxon];
+      // const parents = taxon?.parents || [];
       const data = parents.reduce((acc, parent, idx) => {
         const nexParent = parents[idx + 1];
         const nextParentIsInfirstPageOfChildren = !!parent?.children?.results.find(
-          ({ key }) => key === nexParent?.key
+          ({ key, acceptedKey }) => key === nexParent?.key /* || acceptedKey === nexParent?.key */
         );
         acc[parent.key] = {
           index: parent.key,
@@ -276,10 +277,10 @@ export function TaxonTree() {
       setExpandedItems([
         ...new Set([
           ...expandedItems,
-          ...(taxon?.parents || []).map((parent) => parent?.key as TreeItemIndex),
+          ...(parents || []).map((parent) => parent?.key as TreeItemIndex),
         ]),
       ]);
-      setSelectedItems([taxon?.key as TreeItemIndex]);
+      setSelectedItems([(taxon?.acceptedTaxon?.key || taxon?.key) as TreeItemIndex]);
     } catch (error) {
       console.error(error);
     }
@@ -292,6 +293,7 @@ export function TaxonTree() {
         getItemTitle={() => items?.data?.scientificName}
         renderItemTitle={(props) => (
           <TreeNode
+            setSelectedItems={setSelectedItems}
             loadingTreeNodes={loadingTreeNodes}
             setLoadingTreeNodes={setLoadingTreeNodes}
             item={props.item}
@@ -332,7 +334,7 @@ export function TaxonTree() {
             });
           }
           // When the user expands an item, we want to remove all selections
-          setSelectedItems([]);
+          setSelectedItems([item.data.key]);
         }}
         onCollapseItem={(item) => {
           setExpandedItems(

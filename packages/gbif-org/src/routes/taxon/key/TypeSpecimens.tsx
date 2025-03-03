@@ -1,5 +1,6 @@
 import { Table } from '@/components/dashboard/shared';
 import { Skeleton } from '@/components/ui/skeleton';
+import { VocabularyValue } from '@/components/vocabularyValue';
 import { TaxonTypeSpecimensQuery, TaxonTypeSpecimensQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -8,6 +9,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import DNAsequence from './DNAsequence';
 import { Paging } from './VernacularNameTable';
 import { typeSpecimenPredicate } from './taxonUtil';
+
 const limit = 10;
 
 const TypeMaterial = ({ taxonKey, total }: { taxonKey: number; total: number }) => {
@@ -70,13 +72,16 @@ const TypeMaterial = ({ taxonKey, total }: { taxonKey: number; total: number }) 
                   .map((ts, j) => (
                     <tr key={`${i}-${j}`}>
                       <td>
-                        <FormattedMessage
+                        <VocabularyValue vocabulary="TypeStatus" value={ts} />{' '}
+                        <FormattedMessage id={`taxon.specimenIsTypeOf`} />{' '}
+                        <span>{occ.typifiedName || occ.scientificName}</span>
+                        {/* <FormattedMessage
                           id={`taxon.specimenIsTypeOf`}
                           values={{
                             typeStatus: intl.formatMessage({ id: `enums.typeStatus.${ts}` }),
                             name: occ.typifiedName || occ.scientificName,
                           }}
-                        />
+                        /> */}
                         {occ.recordedBy && (
                           <span>
                             <span className="g-m-1">{occ.recordedBy}</span>

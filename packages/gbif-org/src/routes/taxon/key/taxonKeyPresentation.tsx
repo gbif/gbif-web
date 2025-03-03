@@ -19,6 +19,7 @@ import { Helmet } from 'react-helmet-async';
 import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Outlet } from 'react-router-dom';
+import AboutNonBackbone from './AboutNonBackbone';
 import { AboutContent, ApiContent } from './help';
 
 // create context to pass data to children
@@ -49,22 +50,57 @@ export function TaxonKey({
   slowTaxon?: SlowTaxonQuery;
   slowTaxonLoading: boolean;
 }) {
+  if (data.taxon == null) throw new Error('404');
+
+  const vernacularNameInfo = slowTaxon?.taxon?.vernacularNames?.results?.[0];
+
+  return (
+    <PageHeader data={data} vernacularNameInfo={vernacularNameInfo}>
+      <TaxonKeyContext.Provider
+        value={{
+          data: data,
+          slowTaxon: slowTaxon,
+          slowTaxonLoading: slowTaxonLoading,
+        }}
+      >
+        <Outlet />
+      </TaxonKeyContext.Provider>
+    </PageHeader>
+  );
+}
+
+export const NonBackbonePresentation = ({
+  data,
+  slowTaxon,
+  slowTaxonLoading,
+}: {
+  data: TaxonKeyQuery;
+  slowTaxon?: SlowTaxonQuery;
+  slowTaxonLoading: boolean;
+}) => {
+  return (
+    <PageHeader data={data} vernacularNameInfo={undefined}>
+      <AboutNonBackbone slowTaxon={slowTaxon} slowTaxonLoading={slowTaxonLoading} />
+    </PageHeader>
+  );
+};
+
+const PageHeader = ({ data, vernacularNameInfo, children }) => {
+  const { taxon } = data;
+  const isNub = taxon?.nubKey === taxon?.key;
   const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
     const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
       { to: '.', children: <FormattedMessage id="taxon.tabs.about" /> },
     ];
-
-    tabsToDisplay.push({
-      to: 'metrics',
-      children: <FormattedMessage id="taxon.tabs.metrics" />,
-    });
+    if (isNub) {
+      tabsToDisplay.push({
+        to: 'metrics',
+        children: <FormattedMessage id="taxon.tabs.metrics" />,
+      });
+    }
 
     return tabsToDisplay;
   }, []);
-
-  if (data.taxon == null) throw new Error('404');
-  const { taxon } = data;
-  const vernacularNameInfo = slowTaxon?.taxon?.vernacularNames?.results?.[0];
   return (
     <>
       <Helmet>
@@ -163,6 +199,11 @@ export function TaxonKey({
                     <HyperText text={taxon.publishedIn} />
                   </div>
                 )}
+                {!isNub && taxon?.references && (
+                  <a href={taxon?.references} target="_blank" rel="noreferrer">
+                    source
+                  </a>
+                )}
               </HeaderInfoMain>
             </HeaderInfo>
           </ArticleTextContainer>
@@ -170,20 +211,10 @@ export function TaxonKey({
 
           <Tabs links={tabs} />
         </PageContainer>
-        <ErrorBoundary invalidateOn={data.taxon?.key}>
-          <TaxonKeyContext.Provider
-            value={{
-              data: data,
-              slowTaxon: slowTaxon,
-              slowTaxonLoading: slowTaxonLoading,
-            }}
-          >
-            <Outlet />
-          </TaxonKeyContext.Provider>
-        </ErrorBoundary>
+        <ErrorBoundary invalidateOn={data.taxon?.key}>{children}</ErrorBoundary>
       </article>
     </>
   );
-}
+};
 
 export const TaxonPageSkeleton = ArticleSkeleton;
