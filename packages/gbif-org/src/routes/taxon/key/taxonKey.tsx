@@ -42,13 +42,6 @@ const BackboneTaxon = () => {
     lazyLoad: true,
     throwAllErrors: true,
   });
-  /* const { data: taxonMetrics, load: slowLoad } = useQuery<
-    TaxonSummaryMetricsQuery,
-    TaxonSummaryMetricsQueryVariables
-  >(SLOW_QUERY, {
-    lazyLoad: true,
-    throwAllErrors: true,
-  }); */
 
   useEffect(() => {
     const id = data.taxon?.key;
@@ -68,7 +61,6 @@ const BackboneTaxon = () => {
 
 const NonBackboneTaxon = () => {
   const { data } = useLoaderData() as { data: TaxonKeyQuery };
-  const { locale } = useI18n();
 
   const {
     data: slowTaxon,
@@ -94,7 +86,6 @@ const NonBackboneTaxon = () => {
     if (typeof id !== 'undefined') {
       slowTaxonLoad({
         variables: {
-          language: locale?.iso3LetterCode ?? 'eng',
           key: id.toString(),
         },
       });
@@ -122,7 +113,15 @@ const TAXON_QUERY = /* GraphQL */ `
       rank
       taxonomicStatus
       publishedIn
+      references
+      distributionsCount: distributions(limit: 10, offset: 0) {
+        results {
+          taxonKey
+        }
+      }
       dataset {
+        title
+        key
         citation {
           text
           citationProvidedBySource
@@ -149,6 +148,7 @@ const TAXON_QUERY = /* GraphQL */ `
         }
       }
     }
+
     imagesCount: occurrenceSearch(predicate: $imagePredicate) {
       documents(size: 0) {
         total

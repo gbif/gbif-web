@@ -12,14 +12,15 @@ import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import { useTaxonKeyLoaderData } from '.';
 import Citation from './Citation';
-import { DistributionsTable } from './Distributions';
+import OccurrenceImages from './OccurrenceImages';
 import Synonyms from './Synonyms';
-import TaxonImages from './TaxonImages';
 import { TaxonKeyContext } from './taxonKeyPresentation';
 import { useIsFamilyOrAbove, useIsSpeciesOrBelow } from './taxonUtil';
+import TypeMaterial from './TypeSpecimens';
 import { VernacularNameTable } from './VernacularNameTable';
+import WikiDataIdentifiers from './WikiDataIdentifiers';
 
-export default function AboutNonBackbone() {
+export default function AboutBackbone() {
   const { slowTaxon, slowTaxonLoading } = useContext(TaxonKeyContext);
 
   const { key } = useParams();
@@ -30,7 +31,15 @@ export default function AboutNonBackbone() {
   });
   const removeSidebar = useBelow(1100);
   const useInlineImage = useBelow(700);
-  const { taxon } = data;
+  const {
+    taxon,
+    typesSpecimenCount: {
+      documents: { total: numberOfTypeSpecimens },
+    },
+    imagesCount: {
+      documents: { total: numberOfImages },
+    },
+  } = data;
   const isFamilyOrAbove = useIsFamilyOrAbove(taxon?.rank);
   const isSpeciesOrBelow = useIsSpeciesOrBelow(taxon?.rank);
 
@@ -46,15 +55,15 @@ export default function AboutNonBackbone() {
       <ArticleTextContainer className="g-max-w-screen-xl">
         <div className={`${removeSidebar ? '' : 'g-flex'}`}>
           <div className="g-flex-grow">
-            {slowTaxon?.taxon?.media?.results?.length > 0 && (
+            {numberOfImages > 0 && (
               <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
-                    <FormattedMessage id="taxon.taxonImages" />
+                    <FormattedMessage id="taxon.occurenceImages" />
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <TaxonImages taxonKey={taxon?.key} images={slowTaxon?.taxon?.media} />
+                  <OccurrenceImages total={numberOfImages} taxonKey={taxon.key} />
                 </CardContent>
               </Card>
             )}
@@ -68,42 +77,26 @@ export default function AboutNonBackbone() {
                 <CardContent>
                   <Synonyms
                     taxonKey={taxon.key}
-                    loading={slowTaxonLoading}
                     slowTaxon={slowTaxon}
+                    loading={slowTaxonLoading}
                     total={data?.taxon?.synonyms?.results?.length}
                   />
                 </CardContent>
               </Card>
             )}
 
-            {/* <AdHocMapThumbnail
-                filter={{ taxonKey: taxon.key }}
-                className='g-rounded g-border'
-              /> */}
-
-            {/* <section>
-              <CardHeader>
-                <CardTitle>
-                  <span className='g-me-2'>
-                    <FormattedMessage id="dataset.metrics" />
-                  </span>
-                  <SimpleTooltip
-                    title={<FormattedMessage id="dataset.metricsOccurrenceHelpText" />}
-                  >
-                    <span>
-                      <MdInfoOutline style={{ verticalAlign: 'middle' }} />
-                    </span>
-                  </SimpleTooltip>
-                </CardTitle>
-              </CardHeader>
-              <ClientSideOnly>
-                <DashBoardLayout>
-                  <charts.OccurrenceSummary predicate={predicate} className='g-mb-2' />
-                  <charts.DataQuality predicate={predicate} className='g-mb-2' />
-                  <charts.Taxa predicate={predicate} className='g-mb-2' />
-                </DashBoardLayout>
-              </ClientSideOnly>
-            </section> */}
+            {isSpeciesOrBelow && numberOfTypeSpecimens > 0 && (
+              <Card className="g-mb-4">
+                <CardHeader>
+                  <CardTitle>
+                    <FormattedMessage id="taxon.typeMaterial" />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <TypeMaterial total={numberOfTypeSpecimens} taxonKey={taxon.key} />
+                </CardContent>
+              </Card>
+            )}
 
             {(taxon?.vernacularCount?.results?.length ?? 0) > 0 && (
               <Card className="g-mb-4" id="vernacularNames">
@@ -120,22 +113,21 @@ export default function AboutNonBackbone() {
                 </CardContent>
               </Card>
             )}
-            {(taxon?.distributionsCount?.results?.length ?? 0) > 0 && (
-              <Card className="g-mb-4" id="distributions">
+            {(slowTaxon?.taxon?.wikiData?.identifiers?.length ?? 0) > 0 && (
+              <Card className="g-mb-4" id="taxonIdentifiers">
                 <CardHeader>
                   <CardTitle>
-                    <FormattedMessage id="taxon.distributions" />
+                    <FormattedMessage id="taxon.taxonIdentifiers" />
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <DistributionsTable
-                    total={taxon?.distributionsCount?.results?.length || 0}
-                    taxonKey={taxon.key}
+                  <WikiDataIdentifiers
+                    source={slowTaxon?.taxon?.wikiData?.source}
+                    identifiers={slowTaxon?.taxon?.wikiData?.identifiers}
                   />
                 </CardContent>
               </Card>
             )}
-
             <Card className="g-mb-4" id="citation">
               <CardHeader>
                 <CardTitle>

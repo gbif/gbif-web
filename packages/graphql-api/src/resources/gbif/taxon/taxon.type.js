@@ -132,6 +132,7 @@ const typeDef = gql`
     parentKey: Int
     publishedIn: String
     rank: Rank
+    references: String
     remarks: String
     scientificName: String
     formattedName(useFallback: Boolean): String

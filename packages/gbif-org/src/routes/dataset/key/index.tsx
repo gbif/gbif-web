@@ -8,7 +8,8 @@ import { DatasetKeyLiterature } from './literature';
 import { DatasetKeyOccurrences } from './occurrences';
 import { DatasetKeyPhylo } from './phylogenies';
 import { DatasetKeyProject } from './project';
-import { DatasetKeyTaxonomy } from './taxonomy';
+import { DatasetKeyTaxonSearch } from './taxonSearch';
+
 const id = 'datasetKey';
 
 export const datasetKeyRoute: RouteObjectWithPlugins = {
@@ -50,7 +51,7 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
     },
     {
       path: 'species',
-      element: <DatasetKeyTaxonomy />,
+      element: <DatasetKeyTaxonSearch />,
     },
     {
       path: 'download',

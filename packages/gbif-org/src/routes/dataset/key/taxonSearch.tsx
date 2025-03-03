@@ -57,11 +57,11 @@ export function TaxonSearchPageInner(): React.ReactElement {
           </div>
         </ArticleTextContainer>
       </article>
-      <Views view={view} className="g-py-2 g-px-4 g-bg-slate-100" />
+      <Views view={view} entityDrawerPrefix="tx" className="g-py-2 g-px-4 g-bg-slate-100" />
     </>
   );
 }
-export const DatasetKeyTaxonomy = () => {
+export const DatasetKeyTaxonSearch = () => {
   const { datasetKey } = useContext(DatasetKeyContext);
   const config = useConfig();
   const [filter, setFilter] = useFilterParams({

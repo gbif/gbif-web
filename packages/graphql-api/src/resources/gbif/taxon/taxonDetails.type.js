@@ -117,7 +117,7 @@ const typeDef = gql`
     country: Country
     language: String # can be empty
     source: String
-    sourceTaxonKey: Int!
+    sourceTaxonKey: Int
     taxonKey: Int!
     vernacularName: String!
     sourceTaxon: Taxon
@@ -191,7 +191,7 @@ const typeDef = gql`
     """
     Lists all references for a name usage
     """
-    references(limit: Int, offset: Int): TaxonReferenceResult
+    reference(limit: Int, offset: Int): TaxonReferenceResult
 
     """
     Lists all species profiles for a name usage

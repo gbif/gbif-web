@@ -1,7 +1,7 @@
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
-import { TaxonClassification } from '@/components/highlights';
+import { FeatureList, Homepage, TaxonClassification } from '@/components/highlights';
 import { HyperText } from '@/components/hyperText';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
@@ -19,7 +19,6 @@ import { Helmet } from 'react-helmet-async';
 import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Outlet } from 'react-router-dom';
-import AboutNonBackbone from './AboutNonBackbone';
 import { AboutContent, ApiContent } from './help';
 
 // create context to pass data to children
@@ -80,7 +79,17 @@ export const NonBackbonePresentation = ({
 }) => {
   return (
     <PageHeader data={data} vernacularNameInfo={undefined}>
-      <AboutNonBackbone slowTaxon={slowTaxon} slowTaxonLoading={slowTaxonLoading} />
+      <TaxonKeyContext.Provider
+        value={{
+          data: data,
+          slowTaxon: slowTaxon,
+          slowTaxonLoading: slowTaxonLoading,
+        }}
+      >
+        <Outlet />
+      </TaxonKeyContext.Provider>
+      {/*       <AboutNonBackbone slowTaxon={slowTaxon} slowTaxonLoading={slowTaxonLoading} />
+       */}{' '}
     </PageHeader>
   );
 };
@@ -96,6 +105,12 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
       tabsToDisplay.push({
         to: 'metrics',
         children: <FormattedMessage id="taxon.tabs.metrics" />,
+      });
+    }
+    if (!isNub) {
+      tabsToDisplay.push({
+        to: 'verbatim',
+        children: <FormattedMessage id="taxon.tabs.verbatim" />,
       });
     }
 
@@ -156,6 +171,26 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                 </SimpleTooltip>
               )}
             </ArticleTitle>
+            {!isNub && taxon.dataset && (
+              <div className="g-mt-2">
+                <FormattedMessage
+                  id="taxon.inChecklist"
+                  values={{
+                    checklist: (
+                      <DynamicLink
+                        className="hover:g-underline g-text-primary-500 g-ml-1"
+                        to={`/dataset/${taxon.dataset.key}`}
+                        pageId="datasetKey"
+                        variables={{ key: taxon.dataset.key }}
+                      >
+                        {taxon.dataset.title}
+                      </DynamicLink>
+                    ),
+                  }}
+                />
+              </div>
+            )}
+
             <HeaderInfo>
               <HeaderInfoMain className="g-text-sm g-text-slate-500">
                 {taxon.acceptedTaxon && (
@@ -199,11 +234,9 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                     <HyperText text={taxon.publishedIn} />
                   </div>
                 )}
-                {!isNub && taxon?.references && (
-                  <a href={taxon?.references} target="_blank" rel="noreferrer">
-                    source
-                  </a>
-                )}
+                <FeatureList>
+                  {!isNub && taxon?.references && <Homepage url={taxon.references} />}
+                </FeatureList>
               </HeaderInfoMain>
             </HeaderInfo>
           </ArticleTextContainer>
