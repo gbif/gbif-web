@@ -1,0 +1,15 @@
+{
+  "downloadFormat": {
+    "SIMPLE_AVRO": "Apache Avro",
+    "SIMPLE_CSV": "Простой поиск",
+    "DWCA": "Архив Darwin Core",
+    "SPECIES_LIST": "",
+    "SIMPLE_WITH_VERBATIM_AVRO": "Apache Avro с общими интерпретируемыми полями и всеми словесными полями",
+    "MAP_OF_LIFE": "Экспорт Карты Жизни",
+    "IUCN": "Экспорт МСОП",
+    "BIONOMIA": "Экспорт данных в Bionomia",
+    "SIMPLE_PARQUET": "Простой паркет",
+    "SQL_TSV_ZIP": "SQL TSV zip",
+    "CUBE": "Куб"
+  }
+}

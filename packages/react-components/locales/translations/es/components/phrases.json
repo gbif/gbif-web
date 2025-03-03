@@ -1,6 +1,7 @@
 {
   "loading": "cargando",
   "loadError": "Error al cargar",
+  "pleaseCiteAs": "Por favor, utilice esta cita en sus publicaciones",
   "unknown": "Desconocida",
   "notProvided": "No especificado",
   "close": "Cerrar",
@@ -44,6 +45,7 @@
   "addressUnknown": "",
   "emptyValueProvided": "Valor vacío proporcionado",
   "copyToClipboard": "",
+  "copy": "Copiar",
   "fromCountry": "De {country}",
   "copiedToClipboard": "Copiado al portapapeles",
   "continue": "Continuar",

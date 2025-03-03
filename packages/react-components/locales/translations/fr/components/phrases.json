@@ -1,6 +1,7 @@
 {
   "loading": "en cours de chargement",
   "loadError": "Échec du chargement",
+  "pleaseCiteAs": "Veuillez utiliser cette citation dans les publications",
   "unknown": "Inconnu",
   "notProvided": "Non fourni",
   "close": "Fermer",
@@ -44,6 +45,7 @@
   "addressUnknown": "",
   "emptyValueProvided": "Valeur vide fournie",
   "copyToClipboard": "",
+  "copy": "Copier",
   "fromCountry": "De {country}",
   "copiedToClipboard": "Copié dans le presse-papier",
   "continue": "Continuer",

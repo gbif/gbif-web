@@ -1,6 +1,7 @@
 {
   "loading": "載入中...",
   "loadError": "載入失敗",
+  "pleaseCiteAs": "請在發表中引用",
   "unknown": "未知",
   "notProvided": "並未提供",
   "close": "關閉",
@@ -44,6 +45,7 @@
   "addressUnknown": "",
   "emptyValueProvided": "",
   "copyToClipboard": "",
+  "copy": "複製",
   "fromCountry": "",
   "copiedToClipboard": "",
   "continue": "繼續操作",
