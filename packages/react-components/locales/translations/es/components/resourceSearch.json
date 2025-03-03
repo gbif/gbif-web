@@ -9,7 +9,7 @@
         "subscribeToCalendar": "Suscribirse al calendario",
         "suggestEvent": "Evento sugerido",
         "citationExplainer": "Leer más sobre literatura, cómo se descubre y cómo se relaciona con los datos mediados de GBIF.",
-        "noResults": "",
+        "noResults": "No hay resultados: intente ampliar los filtros de búsqueda",
         "types": {
             "all": "Todos",
             "events": "Eventos",
@@ -43,9 +43,9 @@
             "gbifDownloadKey": "Descargar clave",
             "gbifDerivedDatasetDoi": "DOI del conjunto de datos derivado",
             "paperDoi": "DOI",
-            "litSource": "",
+            "litSource": "Revista",
             "gbifTaxonKey": "Nombre científico",
-            "litPublisher": ""
+            "litPublisher": "Editor de la revista"
         },
         "helpText": {
             "gbifTaxonKey": "Nota: La aplicación de este filtro excluirá los trabajos que no se centren explícitamente en un taxón/taxa específico"
