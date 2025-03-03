@@ -9,7 +9,7 @@
         "subscribeToCalendar": "Přihlaste se k odběru kalendáře",
         "suggestEvent": "Navrhnout událost",
         "citationExplainer": "Přečtěte si více o literatuře, jejím vyhledávání a propojení s daty zprostředkovanými GBIF.",
-        "noResults": "",
+        "noResults": "Žádné výsledky: zkuste rozšířit vyhledávací filtry",
         "types": {
             "all": "Vše",
             "events": "Události",
