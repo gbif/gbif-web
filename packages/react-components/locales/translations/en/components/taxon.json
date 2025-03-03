@@ -1,21 +1,23 @@
 {
   "tabs": {
     "about": "About",
-    "typeMaterial": "Type material",
+    "verbatim": "Verbatim",
     "metrics": "Metrics"
   },
   "publishedIn": "Published in",
   "vernacularNames": "Vernacular names",
   "rank": "Rank",
   "source": "Source",
-  "specimenIsTypeOf": "{typeStatus} of {name}",
+  "specimenIsTypeOf": "",
   "typeMaterial": "Type material",
   "more": "more",
   "less": "less",
   "dna": "DNA",
   "occurenceImages": "Occurence images",
+  "taxonImages": "",
   "taxonIdentifiers": "Taxon identifiers",
   "synonymsAndCombinations": "Synonyms and combinations",
+  "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "Kingdoms",
     "PHYLUM": "Phyla",
@@ -24,5 +26,19 @@
     "FAMILY": "Families",
     "GENUS": "Genera",
     "SPECIES": "Species"
+  },
+  "distributions": "Distributions",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "Establishment means",
+    "status": "Status",
+    "locality": "Locality",
+    "locationId": "Location ID",
+    "country": "Country"
+  },
+  "verbatim": {
+    "term": "Term",
+    "value": "Value",
+    "coreRecord": ""
   }
 }
