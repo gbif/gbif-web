@@ -360,7 +360,7 @@ async function changePassword(auth, newPassword) {
     });
 }
 
-function getClientUser(user) {
+export function getClientUser(user) {
   // sanitize user somehow? iThere isn't anything in the response that cannot go out at this point. later perhaps some configurations that are for internal only
   return {
     userName: user.userName,
@@ -386,19 +386,19 @@ function getClientUser(user) {
   };
 }
 
-function sanitizeUpdatedUser(user) {
-  return {
-    userName: user.userName,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    email: user.email,
-    settings: {
-      country: user.settings.country,
-      locale: user.settings.locale,
-      has_read_gdpr_terms: user.settings.has_read_gdpr_terms,
-    },
-  };
-}
+// function sanitizeUpdatedUser(user) {
+//   return {
+//     userName: user.userName,
+//     firstName: user.firstName,
+//     lastName: user.lastName,
+//     email: user.email,
+//     settings: {
+//       country: user.settings.country,
+//       locale: user.settings.locale,
+//       has_read_gdpr_terms: user.settings.has_read_gdpr_terms,
+//     },
+//   };
+// }
 
 function ensureString(value, name) {
   if (typeof value !== 'string') {

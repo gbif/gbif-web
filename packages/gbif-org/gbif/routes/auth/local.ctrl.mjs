@@ -1,14 +1,15 @@
 import dotenv from 'dotenv';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import { generateToken } from './utils.mjs';
+import { getByUserName, getClientUser } from '../user/user.model.mjs';
+import { generateToken, setNoCache, setTokenCookie } from './utils.mjs';
 
 dotenv.config();
 
 export function register(app) {
   // on any get or post to routes strting with /auth/ disable caching
   app.use('/auth', (req, res, next) => {
-    res.set('Cache-Control', 'no-store');
+    setNoCache(res); // set it for all routes starting with /auth
     next();
   });
 
@@ -16,16 +17,29 @@ export function register(app) {
   app.post('/auth/basic/login', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
       if (err) {
-        return res.status(500).json({ message: 'Internal server error' });
+        return res.status(500).json({ messageId: 'SERVER_ERROR' });
       }
       if (!user) {
-        return res.status(401).json({ message: info.message || 'Authentication failed' });
+        return res.status(401).json({ messageId: 'AUTH_ERROR' });
       }
+      getByUserName(user.userName)
+        .then((user) => {
+          if (user) {
+            const clientUser = getClientUser(user);
+            const token = generateToken(clientUser);
+            setTokenCookie(res, token);
+            setNoCache(res); // should be set at parent route, but just in case
 
-      // Generate token and set it as httpsOnly cookie
-      const token = generateToken(user);
-      res.cookie('token', token, { httpOnly: true });
-      res.json({ user });
+            res.json({ user: clientUser });
+          } else {
+            // we should never get here since the user exists
+            return res.status(500).json({ messageId: 'SERVER_ERROR' });
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          res.status(500).json({ messageId: 'SERVER_ERROR' });
+        });
     })(req, res, next);
   });
 }
@@ -33,7 +47,7 @@ export function register(app) {
 // GBIF API authentication
 const authenticateGBIF = async (email, password) => {
   try {
-    const response = await fetch(`${process.env.REGISTRY_API_V1}/user/login`, {
+    const response = await fetch(`${process.env.REGISTRY_API_V1}/user/login_`, {
       method: 'POST',
       headers: {
         Authorization: 'Basic ' + Buffer.from(`${email}:${password}`).toString('base64'),
@@ -41,15 +55,17 @@ const authenticateGBIF = async (email, password) => {
       },
     });
 
-    if (!response.ok) {
-      throw new Error('Authentication failed');
+    if (response.status === 401) {
+      return null;
+    } else if (!response.ok) {
+      throw new Error('UNHANDLED_ERROR');
     }
 
     const userData = await response.json();
     return userData;
   } catch (error) {
-    console.error('GBIF authentication error:', error);
-    return null;
+    console.error('GBIF authentication error:', error); // TODO replace with logger with error level
+    throw new Error('UNHANDLED_ERROR');
   }
 };
 
@@ -59,7 +75,7 @@ passport.use(
     try {
       const user = await authenticateGBIF(email, password);
       if (!user) {
-        return done(null, false, { message: 'Invalid credentials' });
+        return done(null, false, { messageId: 'AUTH_ERROR' });
       }
       return done(null, user);
     } catch (error) {

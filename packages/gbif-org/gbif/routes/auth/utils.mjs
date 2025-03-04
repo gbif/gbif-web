@@ -4,6 +4,11 @@ import passport from 'passport';
 
 dotenv.config();
 
+const useSecureCookie = process.env.USE_SECURE_COOKIE !== 'false';
+const minute = 60000;
+const hour = 60 * minute;
+const day = 24 * hour;
+
 passport.serializeUser((user, done) => {
   done(null, user);
 });
@@ -13,17 +18,54 @@ passport.deserializeUser((user, done) => {
 });
 
 // Generate JWT token
-export const generateToken = (user) => {
-  return jwt.sign(
-    {
-      id: user.id,
-      email: user.email,
-      username: user.userName,
-    },
-    process.env.JWT_SECRET || 'your-jwt-secret',
-    { expiresIn: '24h' }
-  );
+export const generateToken = (user, ttl) => {
+  const tokenContent = {
+    userName: user.userName,
+    firstName: user.firstName,
+    lastName: user.lastName,
+  };
+  if (user.roles) {
+    tokenContent.roles = JSON.stringify(user.roles);
+  }
+  return jwt.sign(tokenContent, process.env.JWT_SECRET || 'your-jwt-secret', {
+    expiresIn: ttl || '24h',
+  });
 };
+
+/**
+ * Sets the token as a secure cookie
+ */
+export function setTokenCookie(res, token) {
+  let options = {
+    maxAge: day * 7,
+    secure: useSecureCookie,
+    httpOnly: true,
+    sameSite: useSecureCookie,
+  };
+  res.cookie('token', token, options);
+}
+
+/**
+ * Remove token cookie
+ */
+export function removeTokenCookie(res) {
+  let options = {
+    maxAge: 1,
+    secure: useSecureCookie,
+    httpOnly: false,
+    sameSite: useSecureCookie,
+  };
+  res.cookie('token', '', options);
+}
+
+/**
+ * Don't cache anything if it is an authorized endpoint
+ */
+export function setNoCache(res) {
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Pragma', 'no-cache');
+  res.header('Expires', '0');
+}
 
 class LoginError extends Error {
   constructor(message) {
