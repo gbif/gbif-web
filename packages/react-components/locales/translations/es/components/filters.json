@@ -206,7 +206,7 @@
     "description": "El nombre de la organización responsable que ha compartido el conjunto de datos en el que se incluye el registro."
   },
   "gbifPublisherKey": {
-    "name": "",
+    "name": "Publicador GBIF",
     "count": "",
     "description": "El nombre de la organización responsable que ha compartido el conjunto de datos en el que se incluye el registro."
   },

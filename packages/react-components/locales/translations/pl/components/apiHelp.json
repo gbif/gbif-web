@@ -2,6 +2,8 @@
   "example": "Przykład",
   "examples": "Przykłady",
   "singleEntry": "Pobierz pojedynczy wpis",
+  "downloadKeyDatasets": "Zestawy danych dostarczające dane do pobrania.",
+  "downloadKeyDatasetsExport": "Pobierz listę zestawów danych dostarczających dane do pobrania.",
   "singleOccurrence": "Pobierz pojedyncze stwierdzenie",
   "searchOccurrences": "Pobierz wszystkie stwierdzenia.",
   "searchOccurrencesExample": "Pierwsze pięć wystąpień taksonu z taxonKey 9778871 (Flabellina McMurtrie, 1831), które zostały stwierdzone w maju w latach 2000 - 2024.",

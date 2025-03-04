@@ -1,0 +1,54 @@
+{
+    "resourceSearch": {
+        "title": "",
+        "upcoming": "Aankomende",
+        "past": "Verleden",
+        "happeningNow": "",
+        "searchForNewsEventsDocuments": "",
+        "occurrenceSearch": "",
+        "subscribeToCalendar": "Abonneer op agenda",
+        "suggestEvent": "Stel evenement voor",
+        "citationExplainer": "Lees meer over literatuur, hoe het ontdekt is en gelinkt aan GBIF-mediated data",
+        "noResults": "",
+        "types": {
+            "all": "Alle",
+            "events": "Evenementen",
+            "news": "Nieuws",
+            "resources": "",
+            "projects": "Projecten",
+            "programmes": "",
+            "documents": "Documenten",
+            "tools": "Gereedschappen",
+            "dataUse": "Data gebruik",
+            "literature": "Literatuur"
+        },
+        "filters": {
+            "projectId": "Project",
+            "programme": "Programma",
+            "countriesOfCoverage": "Land of regio van dekking",
+            "countriesOfResearcher": "Land of regio van onderzoeker",
+            "literatureType": "Type literatuur",
+            "contractCountry": "Land of regio",
+            "topics": "Onderwerp",
+            "audiences": "",
+            "purposes": "Doel",
+            "relevance": "Relevantie",
+            "language": "Taal",
+            "year": "Jaar van publicatie",
+            "gbifDatasetKey": "Dataset",
+            "publishingOrganizationKey": "Uitgever",
+            "networkKey": "Netwerk",
+            "peerReview": "",
+            "openAccess": "Openaccess",
+            "gbifDownloadKey": "Download sleutel",
+            "gbifDerivedDatasetDoi": "",
+            "paperDoi": "DOI",
+            "litSource": "Tijdschrift",
+            "gbifTaxonKey": "Wetenschappelijke naam",
+            "litPublisher": ""
+        },
+        "helpText": {
+            "gbifTaxonKey": ""
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{
+  "example": "Příklad",
+  "examples": "Příklady",
+  "singleEntry": "Získejte jeden záznam.",
+  "downloadKeyDatasets": "Datové sady přispívající daty ke stažení.",
+  "downloadKeyDatasetsExport": "Stáhnout seznam datových sad, které přispívají daty ke stažení.",
+  "singleOccurrence": "Získejte jeden výskyt.",
+  "searchOccurrences": "Získat všechny výskyty.",
+  "searchOccurrencesExample": "Prvních pět výskytů taxonu s taxonovým klíčem 9778871 (Flabellina McMurtrie, 1831), které byly zaznamenány v květnu v letech 2000-2024.",
+  "relatedOccurrences": "Související výskyty (experimentální).",
+  "occurrenceFragment": "Záznam před interpretací.",
+  "singleInstallation": "Získejte jednu instalaci.",
+  "searchOrganizations": "Hledat vydavatele.",
+  "searchInstallations": "Vyhledávání instalací.",
+  "search": "Hledat",
+  "searchCollections": "Hledat sbírky.",
+  "searchDatasetsExample": "První dvě datové sady publikované z Dánska s volným textem \"fungi\" v názvu nebo popisu.",
+  "searchExample": "První dvě položky s volným textem \"dna\"."
+}
