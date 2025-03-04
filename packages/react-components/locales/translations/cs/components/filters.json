@@ -122,12 +122,12 @@
   },
   "taxonKey": {
     "name": "Vědecký název",
-    "count": "",
+    "count": "{num, plural, one {vědecký název} few {# vědecké názvy} many {# vědeckých názvů} other {# vědeckých názvů}}",
     "description": "Vědecký název, jak je uveden v páteřní taxonomii GBIF. Tyto názvy jsou normalizovány, aby se usnadnilo vyhledávání napříč datovými sadami. Je možné, že původně uvedený název může být nesprávně interpretován nebo neznámý. Pro vyhledávání v poskytnutých názvech použijte filtr \"Přesný vědecký název\"."
   },
   "taxonKeyGrSciColl": {
     "name": "Vědecký název",
-    "count": "",
+    "count": "{num, plural, one {vědecký název} few {# vědecké názvy} many {# vědeckých názvů} other {# vědeckých názvů}}",
     "description": ""
   },
   "basisOfRecord": {
@@ -139,12 +139,12 @@
   },
   "institutionCode": {
     "name": "Kód instituce",
-    "count": "",
+    "count": "{num, plural, one {kód instituce} few {# kódy instituce} many {# kódů instituce} other {# kódů instituce}}",
     "description": "Kód (nebo zkratka) instituce, která má v péči předmět(y) nebo informace uvedené v záznamu."
   },
   "catalogNumber": {
     "name": "Katalogové číslo",
-    "count": "",
+    "count": "{num, plural, one {katalogové číslo} few {# katalogová čísla} many {# katalogových čísel} other {# katalogových čísel}}",
     "description": "Identifikátor záznamu v rámci katalogu nebo sbírky."
   },
   "mediaType": {
@@ -161,7 +161,7 @@
   },
   "occurrenceCountry": {
     "name": "Země nebo oblast",
-    "count": "",
+    "count": "{num, plural, one {země nebo oblast} few {# země nebo oblasti} many {# zemí nebo oblastí} other {# zemí nebo oblastí}}",
     "description": "Země nebo území, kde k události došlo"
   },
   "grsciCollCountry": {
@@ -174,7 +174,7 @@
   },
   "publishingCountryCode": {
     "name": "Země nebo oblast zveřejnění",
-    "count": "",
+    "count": "{num, plural, one {vydávající země nebo oblast} few {# vydávající země nebo oblasti} many {# vydávajících zemí nebo oblastí} other {# vydávajících zemí nebo oblastí}}",
     "description": "Kód ISO země nebo území, ve kterém se nachází vydavatel dat."
   },
   "q": {
@@ -217,7 +217,7 @@
   },
   "country": {
     "name": "Země nebo oblast",
-    "count": ""
+    "count": "{num, plural, one {země nebo oblast} few {# země nebo oblasti} many {# zemí nebo oblastí} other {# zemí nebo oblastí}}"
   },
   "countriesOfCoverage": {
     "name": "Země nebo oblast pokrytí",
@@ -327,12 +327,12 @@
   },
   "occurrenceId": {
     "name": "ID Výskytu",
-    "count": "",
+    "count": "{num, plural, one { ID výskytu } few {# ID výskytu} many {# ID výskytu} other {# ID výskytu}}",
     "description": "Jedinečný identifikátor záznamu výskytu."
   },
   "organismId": {
     "name": "Organism id",
-    "count": "",
+    "count": "{num, plural, one { ID organismu } few {# ID organismu} many {# ID organismu} other {# ID organismu}}",
     "description": "Jedinečný identifikátor organismu v záznamu."
   },
   "locality": {
@@ -422,12 +422,12 @@
   },
   "isInCluster": {
     "name": "je ve shluku",
-    "count": "",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
     "description": "Zda bylo zjištěno, že záznam obsahuje související záznamy."
   },
   "isSequenced": {
     "name": "Je sekvencován",
-    "count": "",
+    "count": "{num, plural, one {Je sekvenován} few {# jsou sekvenovány} many {# je sekvenováno} other {# je sekvenováno}}",
     "description": "Zda záznam obsahuje informace o sekvenci."
   },
   "active": {
@@ -457,12 +457,12 @@
   },
   "datasetType": {
     "name": "Typ datové sady",
-    "count": "",
+    "count": "{num, plural, one {typ datové sady} few {# typy datové sady} many {# typů datové sady} other {# typů datové sady}}",
     "description": "Zde by měl být uveden krátký popis součásti."
   },
   "datasetSubtype": {
     "name": "Podtyp datové sady",
-    "count": "",
+    "count": "{num, plural, one {subtyp datové sady} few {# subtypy datové sady} many {# subtypů datové sady} other {# subtypů datové sady}}",
     "description": "Zde by měl být uveden krátký popis součásti."
   },
   "institutionKey": {
