@@ -21,6 +21,10 @@ function vocabularFallback(obj) {
 }
 
 function vocabularyConcepts(obj) {
+  // if no object, return empty array
+  if (!obj) {
+    return [];
+  }
   if (obj && typeof obj === 'object' && obj.concepts && Array.isArray(obj.concepts)) {
     // concatenate all concepts with a pipe
     return obj.concepts;

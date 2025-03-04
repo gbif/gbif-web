@@ -1,3 +1,4 @@
+import { ConceptValue } from '@/components/conceptValue';
 import { InlineLineClamp } from '@/components/inlineLineClamp';
 import { FormattedDateRange } from '@/components/message';
 import { ColumnDef, LinkOption, SetAsFilter, SetAsFilterList } from '@/components/searchTable';
@@ -192,7 +193,10 @@ export function useOccurrenceColumns({
           <SetAsFilterList
             field="typeStatus"
             items={typeStatus}
-            renderValue={(value) => <FormattedMessage id={`enums.typeStatus.${value}`} />}
+            renderValue={(value) => {
+              if (!value) return null;
+              return <ConceptValue vocabulary="TypeStatus" name={value} hideTooltip />;
+            }}
           />
         ),
       },
