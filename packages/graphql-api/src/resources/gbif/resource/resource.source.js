@@ -39,7 +39,7 @@ export class ResourceSearchAPI extends RESTDataSource {
     request.agent = getDefaultAgent(this.baseURL, request.path);
   }
 
-  async searchResourceDocuments({ query }, locale) {
+  async searchResourceDocuments({ query, locale }) {
     const response = await this.searchResources({ query }, locale);
     return response.documents;
   }
