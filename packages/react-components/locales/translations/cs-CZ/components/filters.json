@@ -30,7 +30,7 @@
     "description": "Počet držených exemplářů uvedený v popisu. Tento počet neodráží, kolik záznamů bylo digitalizováno a sdíleno."
   },
   "taxonRank": {
-    "name": "",
+    "name": "Zařazení",
     "count": "",
     "description": "Počet držených exemplářů uvedený v popisu. Tento počet neodráží, kolik záznamů bylo digitalizováno a sdíleno."
   },

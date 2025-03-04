@@ -28,6 +28,7 @@ interface Props<T> {
   keySelector(item: T): string;
   createRowLink?: CreateRowLink<T>;
   filters?: Filters;
+  hideColumnVisibilityDropdown?: boolean;
 }
 
 export default memo(SearchTable) as typeof SearchTable;
@@ -46,6 +47,7 @@ function SearchTable<T>({
   selectedColumnsLocalStoreKey = 'selectedColumnsLocalStoreKey',
   createRowLink,
   filters,
+  hideColumnVisibilityDropdown = false,
 }: Props<T>) {
   const { visibleColumns, resetColumnVisibility, toggleColumnVisibility } = useColumnVisibility({
     selectedColumnsLocalStoreKey,
@@ -92,6 +94,7 @@ function SearchTable<T>({
             firstColumnIsLocked={firstColumnIsLocked}
             hideFirstColumnLock={hideFirstColumnLock}
             setFirstColumnIsLocked={setFirstColumnIsLocked}
+            hideColumnVisibilityDropdown={hideColumnVisibilityDropdown}
             resetColumnVisibility={resetColumnVisibility}
             toggleColumnVisibility={toggleColumnVisibility}
             visibleColumns={visibleColumns}

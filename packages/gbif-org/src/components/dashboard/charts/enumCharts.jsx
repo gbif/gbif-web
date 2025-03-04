@@ -109,20 +109,6 @@ export function OccurrenceIssue(props) {
   );
 }
 
-export function TypeStatus(props) {
-  return (
-    <StandardEnumChart
-      {...{
-        ...props,
-        fieldName: 'typeStatus',
-        translationTemplate: 'enums.typeStatus.{key}',
-        titleTranslationId: 'filters.typeStatus.name',
-        options: ['TABLE'],
-      }}
-    />
-  );
-}
-
 export function Country(props) {
   return (
     <StandardEnumChart

@@ -1,0 +1,15 @@
+{
+  "downloadFormat": {
+    "SIMPLE_AVRO": "Apache Avro",
+    "SIMPLE_CSV": "基本",
+    "DWCA": "ダーウィンコアアーカイブ",
+    "SPECIES_LIST": "",
+    "SIMPLE_WITH_VERBATIM_AVRO": "共通解釈されたフィールドとすべての元データフィールドを持つApache Avro",
+    "MAP_OF_LIFE": "マップオブライフのエクスポート",
+    "IUCN": "IUCNのエクスポート",
+    "BIONOMIA": "Bionomiaへエクスポート",
+    "SIMPLE_PARQUET": "シンプルなパケット",
+    "SQL_TSV_ZIP": "",
+    "CUBE": ""
+  }
+}

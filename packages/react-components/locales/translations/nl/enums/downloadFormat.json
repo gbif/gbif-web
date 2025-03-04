@@ -1,0 +1,15 @@
+{
+  "downloadFormat": {
+    "SIMPLE_AVRO": "",
+    "SIMPLE_CSV": "",
+    "DWCA": "Darwin Core Archief",
+    "SPECIES_LIST": "",
+    "SIMPLE_WITH_VERBATIM_AVRO": "",
+    "MAP_OF_LIFE": "Map of Life export",
+    "IUCN": "IUCN Export",
+    "BIONOMIA": "Bionomia export",
+    "SIMPLE_PARQUET": "",
+    "SQL_TSV_ZIP": "",
+    "CUBE": ""
+  }
+}

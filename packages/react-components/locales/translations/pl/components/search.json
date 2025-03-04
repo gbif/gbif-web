@@ -24,7 +24,7 @@
     "default": "Wyszukaj",
     "range": "Przedział albo pojedyncza wartość",
     "rangeExample": "",
-    "wildcard": "szukaj używając * i ? jako symboli wieloznacznych",
+    "wildcard": "Szukaj używając * i ? jako symboli wieloznacznych",
     "locationID": ""
   },
   "ternary": {
@@ -50,7 +50,7 @@
     "nodeType": {
       "IMAGE": "Zdjęcie",
       "TYPE": "Typ okazu",
-      "TREATMENT": "Leczenie",
+      "TREATMENT": "Traktowanie",
       "OBSERVATION": "Obserwacja",
       "SPECIMEN": "Okaz",
       "SEQUENCE": "Sekwencja"

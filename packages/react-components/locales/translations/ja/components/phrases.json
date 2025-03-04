@@ -1,6 +1,7 @@
 {
   "loading": "読み込み中",
   "loadError": "読み込みに失敗しました",
+  "pleaseCiteAs": "出版物ではこの引用を使用してください",
   "unknown": "不明",
   "notProvided": "",
   "close": "閉じる",
@@ -44,6 +45,7 @@
   "addressUnknown": "",
   "emptyValueProvided": "",
   "copyToClipboard": "",
+  "copy": "コピー",
   "fromCountry": "",
   "copiedToClipboard": "",
   "continue": "次へ",

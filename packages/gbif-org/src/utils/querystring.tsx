@@ -48,7 +48,7 @@ export function parseParams(params: URLSearchParams, asArrays?: boolean): ParamQ
   return result;
 }
 
-function tryParse(value: string): string | number | JSON {
+export function tryParse(value: string): string | number | JSON {
   let jsonValue = value;
   try {
     jsonValue = JSON.parse(value);

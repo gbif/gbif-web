@@ -58,4 +58,9 @@ export const SEARCH_RESULT_OPTIONS = Object.freeze([
     graphQLType: 'Literature',
     enumContentType: 'LITERATURE',
   },
+  {
+    elasticSearchType: 'programme',
+    graphQLType: 'Programme',
+    enumContentType: 'PROGRAMME',
+  }
 ]);

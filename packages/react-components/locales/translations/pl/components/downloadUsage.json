@@ -1,0 +1,43 @@
+{
+    "downloadUsage": {
+        "title": "Powiadom GBIF o użyciu danych o występowaniu w publikacji (lub podobnym)",
+        "form": {
+            "title": "Tytuł",
+            "titlePlaceholder": "Tytuł/nazwa publikacji/produktu, w którym dane zostały wykorzystane",
+            "type": "Typ",
+            "authors": "Autor/autorzy",
+            "authorsPlaceholder": "Autor/autorzy publikacji/produktu",
+            "link": "URL",
+            "linkPlaceholder": "Link/DOI do publikacji/produktu, jeśli jest dostępny online",
+            "date": "Data",
+            "comments": "Komentarze",
+            "commentsPlaceholder": "Dodatkowe informacje o publikacji/produkcie (szczególnie, jeśli nie jest to tradycyjny artykuł do czasopisma)",
+            "submit": "Wyślij",
+            "saveFailure": "Podczas zapisywania formularza wystąpił błąd. Proszę spróbować ponownie.",
+            "saveSuccess": "Dziękujemy za informację. Załączymy link do opisanej publikacji/produktu. Proszę pamiętać o cytowaniu pobrania zgodnie z wytycznymi na stronie pobrań. Teraz możesz zamknąć to okno. "
+        },
+        "types": {
+            "JOURNAL_ARTICLE": "artykuł naukowy",
+            "BOOK": "książka",
+            "BOOK_CHAPTER": "rozdział książki",
+            "CONFERENCE_PAPER_PROCEEDINGS": "materiały konferencyjne",
+            "PREPRINT_WORKING_PAPER": "prepublikacja / praca w toku",
+            "REPORT": "raport",
+            "WEB_PAGE": "strona internetowa",
+            "THESIS_DISSERTATION": "praca dyplomowa / rozprawa",
+            "COURSE_TEACHING_MATERIALS": "kurs / materiały dydaktyczne",
+            "MAGAZINE_ARTICLE": "artykuł w czasopiśmie",
+            "STATUTE": "statut",
+            "PATENT": "patent",
+            "NEWSPAPER_ARTICLE": "artykuł w gazecie",
+            "SOFTWARE_COMPUTER_PROGRAM": "program komputerowy",
+            "HEARING": "rozprawa",
+            "TELEVISION_BROADCAST": "transmisja telewizyjna",
+            "ENCYCLOPEDIA_ARTICLE": "artykuł w encyklopedii",
+            "CASE": "przykład",
+            "FILM": "film",
+            "BILL": "postulat",
+            "OTHER": "inne (rozwiń proszę w komentarzach)"
+        }
+    }
+}

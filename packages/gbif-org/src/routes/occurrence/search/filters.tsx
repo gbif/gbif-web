@@ -5,11 +5,8 @@ import {
   FilterSetting,
   generateFilters,
 } from '@/components/filters/filterTools';
-import { SuggestFnProps } from '@/components/filters/suggest';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
-import country from '@/enums/basic/country.json';
-import { matchSorter } from 'match-sorter';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { isInClusterConfig, isSequencedConfig } from './filters/booleans';
 import {
@@ -72,6 +69,7 @@ import {
   verbatimScientificNameConfig,
   waterBodyConfig,
 } from './filters/wildcard';
+import { useCountrySuggest } from '@/hooks/useCountrySuggest';
 
 const freeTextConfig: filterConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
@@ -86,22 +84,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
   filters: Filters;
 } {
   const { formatMessage } = useIntl();
-
-  const countries: { key: string; title: string }[] = useMemo(() => {
-    return country.map((code) => ({
-      key: code,
-      title: formatMessage({ id: `enums.countryCode.${code}` }),
-    }));
-  }, [formatMessage]);
-
-  const countrySuggest = useCallback(
-    ({ q }: SuggestFnProps) => {
-      // instead of just using indexOf or similar. This has the benefit of reshuffling records based on the match, check for abrivations etc
-      const filtered = matchSorter(countries, q ?? '', { keys: ['title', 'key'] });
-      return { promise: Promise.resolve(filtered), cancel: () => {} };
-    },
-    [countries]
-  );
+  const countrySuggest = useCountrySuggest();
 
   const filters: Filters = useMemo(() => {
     const tmpFilters = {

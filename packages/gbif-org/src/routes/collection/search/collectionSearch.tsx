@@ -1,6 +1,6 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
-import { DownloadAsTSVLink } from '@/components/downloadAsTSVLink';
+import { DownloadAsTSVLink } from '@/components/cardHeaderActions/downloadAsTSVLink';
 import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
 import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
@@ -90,7 +90,7 @@ export function CollectionSearch(): React.ReactElement {
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
-    const downloadUrl = `${import.meta.env.PUBLIC_API_V1}/grscicoll/institution/export?format=TSV&${
+    const downloadUrl = `${import.meta.env.PUBLIC_API_V1}/grscicoll/collection/export?format=TSV&${
       query ? stringify(query) : ''
     }`;
     setTsvUrl(downloadUrl);

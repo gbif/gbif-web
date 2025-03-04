@@ -6,6 +6,7 @@ import { fragmentManager } from '@/services/fragmentManager';
 import { useProjectKeyLoaderData } from '.';
 import { HelpLine } from '../../../../components/helpText';
 import { NoResultsTab } from '../components/noResultsTab';
+import { FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment ProjectDatasetsTab on Query {
@@ -56,9 +57,10 @@ export function ProjectDatasetsTab() {
         <HelpLine title={datasetsHelp?.title} id="how-to-link-datasets-to-my-project-page" icon />
       </p>
 
-      {/* TODO: Needs translation */}
       {datasets.data.datasetSearch.results.length === 0 && (
-        <NoResultsTab>No datasets linked to this project</NoResultsTab>
+        <NoResultsTab>
+          <FormattedMessage id="cms.resource.noDatasets" />
+        </NoResultsTab>
       )}
 
       {datasets.data.datasetSearch.results.map((item) => (

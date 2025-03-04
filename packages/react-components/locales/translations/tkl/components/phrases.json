@@ -1,6 +1,7 @@
 {
   "loading": "",
   "loadError": "",
+  "pleaseCiteAs": "",
   "unknown": "",
   "notProvided": "",
   "close": "",
@@ -44,6 +45,7 @@
   "addressUnknown": "",
   "emptyValueProvided": "",
   "copyToClipboard": "",
+  "copy": "",
   "fromCountry": "",
   "copiedToClipboard": "",
   "continue": "",

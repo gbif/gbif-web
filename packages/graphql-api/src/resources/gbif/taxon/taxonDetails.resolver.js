@@ -39,7 +39,7 @@ export default {
     name: taxonDetails('name'),
     descriptions: taxonDetails('descriptions'),
     distributions: taxonDetails('distributions'),
-    references: taxonDetails('references'),
+    reference: taxonDetails('references'),
     speciesProfiles: taxonDetails('speciesProfiles'),
     vernacularNames: (
       parent,
@@ -103,6 +103,8 @@ export default {
   },
   TaxonVernacularName: {
     sourceTaxon: (parent, args, { dataSources }) =>
-      dataSources.taxonAPI.getTaxonByKey({ key: parent.sourceTaxonKey }),
+      parent.sourceTaxonKey
+        ? dataSources.taxonAPI.getTaxonByKey({ key: parent.sourceTaxonKey })
+        : null,
   },
 };

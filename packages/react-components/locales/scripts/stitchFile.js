@@ -34,6 +34,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       profile: getFile(locale, `../${folder}/${locale}/components/profile`).profile,
       taxon: getFile(locale, `../${folder}/${locale}/components/taxon`),
       footer: getFile(locale, `../${folder}/${locale}/components/footer`).footer,
+      resourceSearch: getFile(locale, `../${folder}/${locale}/components/resourceSearch`).resourceSearch,
       downloadKey: getFile(locale, `../${folder}/${locale}/components/downloads`).downloadKey,
       customSqlDownload: getFile(locale, `../${folder}/${locale}/components/downloads`)
         .customSqlDownload,

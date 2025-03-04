@@ -13,10 +13,13 @@ export function KeyChartGenerator({
   currentFilter = {}, // excluding root predicate
   gqlEntity, // e.g. `dataset {title}`
   searchType = 'occurrenceSearch',
+  isVocabulary = false,
   ...props
 }) {
   const GQL_QUERY = `
-    query summary($predicate: Predicate${!disableUnknown ? ', $hasPredicate: Predicate' : ''}, $size: Int, $from: Int){
+    query summary($predicate: Predicate${!disableUnknown ? ', $hasPredicate: Predicate' : ''}, ${
+    isVocabulary ? '$vocabularyLocale: String,' : ''
+  } $size: Int, $from: Int){
       search: ${searchType}(predicate: $predicate) {
         documents(size: 0) {
           total
@@ -58,4 +61,8 @@ export function KeyChartGenerator({
       {...props}
     />
   );
+}
+
+export function VocabularyChartGenerator({ isVocabulary = false, ...props }) {
+  return <KeyChartGenerator isVocabulary {...props} />;
 }

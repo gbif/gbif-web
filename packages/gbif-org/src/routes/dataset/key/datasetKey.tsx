@@ -7,7 +7,6 @@ import {
 } from '@/components/headerComponents';
 import { FeatureList, GenericFeature, Homepage, PeopleIcon } from '@/components/highlights';
 import { LicenceTag } from '@/components/identifierTag';
-import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { useConfig } from '@/config/config';
 import { NotFoundError } from '@/errors';
@@ -28,7 +27,6 @@ import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { required } from '@/utils/required';
 import { createContext, useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
@@ -325,7 +323,8 @@ export function DatasetPage() {
       tabsToDisplay.push({ to: 'phylogenies', children: 'Phylogenies' });
     }
     if (hasTaxonomy) {
-      tabsToDisplay.push({
+      tabsToDisplay.push({ to: 'species', children: 'Species' });
+      /* tabsToDisplay.push({
         to: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
           dataset.key
         }/classification`,
@@ -344,7 +343,7 @@ export function DatasetPage() {
             </SimpleTooltip>
           </>
         ),
-      });
+      }); */
     }
     if (hasLiterature)
       tabsToDisplay.push({

@@ -129,6 +129,7 @@ export function LiteratureTable() {
       </div>
       <ClientSideOnly fallback={<SearchTableServerFallback />}>
         <SearchTable
+          hideColumnVisibilityDropdown
           filters={filters}
           keySelector={keySelector}
           lockColumnLocalStoreKey="literatureSearchTableLockColumn"

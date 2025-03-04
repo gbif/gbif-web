@@ -2,7 +2,6 @@ import { DataHeader } from '@/components/dataHeader';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
-import { Card } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
 import { FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
@@ -98,12 +97,12 @@ export function TaxonSearchPageInner(): React.ReactElement {
         </FilterBar>
       </section>
 
-      <Views view={view} className="g-py-2 g-px-4 g-bg-slate-100" />
+      <Views view={view} entityDrawerPrefix="t" className="g-py-2 g-px-4 g-bg-slate-100" />
     </>
   );
 }
 
-export function TaxonSearchInner(): React.ReactElement {
+/* export function TaxonSearchInner(): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
   const defaultView = searchContext?.tabs?.[0] ?? 'table';
@@ -134,15 +133,25 @@ export function TaxonSearchInner(): React.ReactElement {
       <Views view={view} className="g-py-2" />
     </>
   );
-}
+} */
 
-function Views({ view, className }: { view?: string; className?: string }) {
+export function Views({
+  view,
+  className,
+  entityDrawerPrefix,
+}: {
+  view?: string;
+  className?: string;
+  entityDrawerPrefix: string;
+}) {
   const fixedHeight = ['table'].includes(view ?? '');
   return (
     <ErrorBoundary invalidateOn={view}>
       <div className={className}>
         {fixedHeight && (
-          <DynamicHeightDiv minPxHeight={500}>{view === 'table' && <Table />}</DynamicHeightDiv>
+          <DynamicHeightDiv minPxHeight={500}>
+            {view === 'table' && <Table entityDrawerPrefix={entityDrawerPrefix} />}
+          </DynamicHeightDiv>
         )}
         {!fixedHeight && (
           <DynamicHeightDiv
@@ -150,7 +159,7 @@ function Views({ view, className }: { view?: string; className?: string }) {
             onlySetMinHeight
             className="g-bg-white g-flex-1 g-border g-basis-full g-h-1 g-flex g-flex-col"
           >
-            {view === 'tree' && <TaxonTree />}
+            {view === 'tree' && <TaxonTree entityDrawerPrefix={entityDrawerPrefix} />}
           </DynamicHeightDiv>
         )}
       </div>
@@ -159,7 +168,7 @@ function Views({ view, className }: { view?: string; className?: string }) {
 }
 
 // temporary view selector until we have a proper tabs implementation
-function TaxonViewTabs({
+export function TaxonViewTabs({
   view,
   defaultView,
   tabs = ['table', 'tree'],

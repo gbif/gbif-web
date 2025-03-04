@@ -2,14 +2,12 @@ import { Table } from '@/components/dashboard/shared';
 import { Skeleton } from '@/components/ui/skeleton';
 
 import { DynamicLink } from '@/reactRouterPlugins';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { TaxonKeyContext } from './taxonKeyPresentation';
 import { Paging } from './VernacularNameTable';
 const limit = 10;
 
-const Synonyms = ({ total, loading, taxonKey }) => {
-  const { slowTaxon } = useContext(TaxonKeyContext);
+const Synonyms = ({ slowTaxon, total, loading, taxonKey }) => {
   const [data, setData] = useState([]);
   const [offset, setOffset] = useState(0);
 
@@ -55,8 +53,10 @@ const Synonyms = ({ total, loading, taxonKey }) => {
   return (
     <>
       <div className="g-text-sm g-text-slate-500 g-mb-1">
-        {loading && <Skeleton className="g-h-6 g-mb-2" style={{ width: '100px' }} />}
-        {!loading && (
+        {(loading || !slowTaxon?.taxon?.synonyms?.results) && (
+          <Skeleton className="g-h-6 g-mb-2" style={{ width: '100px' }} />
+        )}
+        {!loading && slowTaxon?.taxon?.synonyms?.results && (
           <>
             <FormattedMessage
               id="counts.nResults"

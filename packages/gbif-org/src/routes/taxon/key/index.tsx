@@ -2,6 +2,7 @@ import { TaxonQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import TaxonKeyAbout from './About';
 import Metrics from './Metrics';
+import VerbatimTaxon from './Verbatim';
 import { TaxonKey, taxonLoader } from './taxonKey';
 const id = 'speciesKey';
 
@@ -28,6 +29,10 @@ export const taxonKeyRoute: RouteObjectWithPlugins = {
     {
       path: 'metrics',
       element: <Metrics />,
+    },
+    {
+      path: 'verbatim',
+      element: <VerbatimTaxon />,
     },
   ],
 };

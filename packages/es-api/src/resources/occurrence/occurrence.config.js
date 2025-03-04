@@ -543,7 +543,7 @@ const config = {
     },
     sex: {
       type: 'keyword',
-      field: 'sex',
+      field: 'sex.concept',
     },
     startDayOfYear: {
       type: 'numeric',

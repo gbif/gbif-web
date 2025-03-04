@@ -1,6 +1,7 @@
 {
   "loading": "",
   "loadError": "",
+  "pleaseCiteAs": "",
   "unknown": "غير معروف",
   "notProvided": "غير مزود",
   "close": "",
@@ -44,6 +45,7 @@
   "addressUnknown": "",
   "emptyValueProvided": "",
   "copyToClipboard": "",
+  "copy": "",
   "fromCountry": "",
   "copiedToClipboard": "",
   "continue": "متابعة",

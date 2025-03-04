@@ -1,6 +1,7 @@
 {
   "loading": "Wird geladen",
   "loadError": "Konnte nicht geladen werden.",
+  "pleaseCiteAs": "",
   "unknown": "Unbekannt",
   "notProvided": "",
   "close": "Schließen",
@@ -44,6 +45,7 @@
   "addressUnknown": "",
   "emptyValueProvided": "",
   "copyToClipboard": "",
+  "copy": "",
   "fromCountry": "",
   "copiedToClipboard": "",
   "continue": "Weiter",

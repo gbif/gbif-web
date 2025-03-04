@@ -123,6 +123,7 @@ export type Config = Endpoints & {
     | 'PUBLISHER'
     | 'TAXON'
     | 'LITERATURE'
+    | 'RESOURCE'
   )[];
   apiKeys?: ApiKeysType;
   maps: {

@@ -228,6 +228,7 @@ function getVocabularyLabel(
   return { title };
 }
 
+export const ProgrammeLabel = getEnumLabel({ template: (id) => `enums.programme.${id}` });
 export const LiteratureTypeLabel = getEnumLabel({ template: (id) => `enums.literatureType.${id}` });
 export const LicenceLabel = getEnumLabel({ template: (id) => `enums.license.${id}` });
 export const DatasetTypeLabel = getEnumLabel({ template: (id) => `enums.datasetType.${id}` });
@@ -235,6 +236,7 @@ export const TypeStatusLabel = getEnumLabel({ template: (id) => `enums.typeStatu
 export const CountryLabel = getEnumLabel({ template: (id) => `enums.countryCode.${id}` });
 export const RelevanceLabel = getEnumLabel({ template: (id) => `enums.relevance.${id}` });
 export const TopicsLabel = getEnumLabel({ template: (id) => `enums.topics.${id}` });
+export const PurposesLabel = getEnumLabel({ template: (id) => `enums.purposes.${id}` });
 export const BasisOfRecordLabel = getEnumLabel({ template: (id) => `enums.basisOfRecord.${id}` });
 export const MediaTypeLabel = getEnumLabel({ template: (id) => `enums.mediaType.${id}` });
 export const MonthLabel = getEnumLabel({ template: (id) => `enums.month.${id}` });

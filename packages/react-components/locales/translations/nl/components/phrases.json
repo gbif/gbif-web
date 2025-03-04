@@ -1,6 +1,7 @@
 {
   "loading": "laden",
   "loadError": "Laden mislukt",
+  "pleaseCiteAs": "Gelieve deze bronvermelding in publicaties te gebruiken",
   "unknown": "Onbekend",
   "notProvided": "",
   "close": "Sluiten",
@@ -44,6 +45,7 @@
   "addressUnknown": "",
   "emptyValueProvided": "",
   "copyToClipboard": "",
+  "copy": "Kopie",
   "fromCountry": "",
   "copiedToClipboard": "Gekopieerd naar het klembord",
   "continue": "Ga verder",

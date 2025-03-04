@@ -21,6 +21,7 @@ type Props = {
   resetColumnVisibility: ResetColumnVisibility;
   toggleColumnVisibility: ToggleColumnVisibility;
   visibleColumns: VisibleColumns;
+  hideColumnVisibilityDropdown: boolean;
 };
 
 export default memo(Header);
@@ -35,6 +36,7 @@ function Header({
   toggleColumnVisibility,
   visibleColumns,
   filters,
+  hideColumnVisibilityDropdown,
 }: Props) {
   return (
     <>
@@ -56,6 +58,7 @@ function Header({
               resetColumnVisibility={resetColumnVisibility}
               toggleColumnVisibility={toggleColumnVisibility}
               visibleColumns={visibleColumns}
+              hideColumnVisibilityDropdown={hideColumnVisibilityDropdown}
             />
           ))}
         </TableRow>

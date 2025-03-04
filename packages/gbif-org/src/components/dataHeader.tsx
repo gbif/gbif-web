@@ -165,6 +165,14 @@ function CatalogSelector({
               </MenuItem>
             </>
           )}
+          {lookup.RESOURCE && (
+            <>
+              <DropdownMenuSeparator />
+              <MenuItem pageId="resourceSearch">
+                <FormattedMessage id="catalogues.resources" />
+              </MenuItem>
+            </>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

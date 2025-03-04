@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu';
 import { DynamicLink } from '@/reactRouterPlugins';
+import { tryParse } from '@/utils/querystring';
 import { MdLink, MdMoreHoriz } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Classification } from '../classification';
@@ -97,7 +98,7 @@ function TaxaMain({
                     </span>
                   ),
                   count: x.count,
-                  filter: { taxonKey: [x.key] },
+                  filter: { taxonKey: [tryParse(x.key)] },
                   description: (
                     <Classification>
                       {majorRanks.map((rank) => {

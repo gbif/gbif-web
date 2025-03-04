@@ -17,7 +17,7 @@
   "hasGeospatialIssues": {
     "name": "Ma problemy geoprzestrzenne",
     "count": "Ma problemy geoprzestrzenne",
-    "description": ""
+    "description": "Czy zapis posiada problemy geoprzestrzenne."
   },
   "collectionKey": {
     "name": "Kolekcja",

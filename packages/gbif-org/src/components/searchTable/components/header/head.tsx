@@ -26,6 +26,7 @@ type Props = {
   toggleColumnVisibility: ToggleColumnVisibility;
   visibleColumns: VisibleColumns;
   filter?: FilterSetting;
+  hideColumnVisibilityDropdown: boolean;
 };
 
 export function Head({
@@ -40,6 +41,7 @@ export function Head({
   toggleColumnVisibility,
   visibleColumns,
   filter,
+  hideColumnVisibilityDropdown,
 }: Props) {
   return (
     <TableHead
@@ -61,7 +63,7 @@ export function Head({
     >
       <div className="g-inline-flex g-items-center g-justify-between g-w-full">
         <div className="g-inline-flex">
-          {isFirstColumn && (
+          {isFirstColumn && !hideColumnVisibilityDropdown && (
             <ColumnVisibilityPopover
               orderedColumns={orderedColumns}
               resetColumnVisibility={resetColumnVisibility}

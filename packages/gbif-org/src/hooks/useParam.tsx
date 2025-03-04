@@ -76,7 +76,7 @@ export function useJsonParam(
   return [value, setValue];
 }
 
-function useParam<T>({
+export function useParam<T>({
   key,
   parse,
   serialize,

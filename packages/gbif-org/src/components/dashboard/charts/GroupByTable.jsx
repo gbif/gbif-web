@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Skeleton } from '@/components/ui/skeleton';
 import useQuery from '@/hooks/useQuery';
+import { useI18n } from '@/reactRouterPlugins';
 import formatAsPercentage from '@/utils/formatAsPercentage';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import useDeepCompareEffect from 'use-deep-compare-effect';
@@ -174,6 +175,7 @@ export function useFacets({
 }) {
   const [from = 0, setFrom] = useState(0);
   const intl = useIntl();
+  const { locale } = useI18n();
   const { data, error, loading, load } = useQuery(query, { lazyLoad: true, queue: 'dashboard' });
 
   useDeepCompareEffect(() => {
@@ -184,10 +186,11 @@ export function useFacets({
         ...otherVariables,
         from,
         size,
+        vocabularyLocale: locale.vocabularyLocale ?? locale.localeCode,
       },
       queue: { name: 'dashboard' },
     });
-  }, [predicate, query, from, size]);
+  }, [predicate, query, from, size, locale]);
 
   useDeepCompareEffect(() => {
     setFrom(0);

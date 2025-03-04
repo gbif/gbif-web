@@ -47,6 +47,7 @@ export function Dashboard() {
           'dataQuality',
           'synonyms',
           'taxa',
+          'sex',
           ...chartsTypes,
         ]}
       />

@@ -396,7 +396,7 @@ function Item({ item, index, onDelete, onUpdateItem, predicate, lockedLayout, ch
     (() => (
       <div className="g-text-center g-bg-white">
         <MdBrokenImage className="g-text-sm g-mx-auto" />
-        <div>Broken. Please delete at recreate</div>
+        <div>Broken. Please delete or recreate</div>
       </div>
     ));
   const content = (

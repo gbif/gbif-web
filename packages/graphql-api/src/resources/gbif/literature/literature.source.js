@@ -1,7 +1,6 @@
-import { getDefaultAgent } from '#/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
-
-const urlSizeLimit = 2000; // use GET for requests that serialized is less than N characters
+import { getDefaultAgent } from '#/requestAgents';
+import { urlSizeLimit } from '#/helpers/utils-ts';
 
 class LiteratureAPI extends RESTDataSource {
   constructor(config) {

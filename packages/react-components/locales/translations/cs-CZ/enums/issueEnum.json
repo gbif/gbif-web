@@ -2,6 +2,7 @@
     "PARENT_NAME_USAGE_ID_INVALID": "ParentNameUsageID neplatný",
     "ACCEPTED_NAME_USAGE_ID_INVALID": "AcceptedNameUsageID neplatný",
     "ORIGINAL_NAME_USAGE_ID_INVALID": "OriginalNameUsageID neplatný",
+    "RANK_INVALID": "Neznámé zařazení",
     "NOMENCLATURAL_STATUS_INVALID": "Stav názvosloví neznámý",
     "TAXONOMIC_STATUS_INVALID": "Stav taxonomie neznámý",
     "SCIENTIFIC_NAME_ASSEMBLED": "Vědecký název sestaven",

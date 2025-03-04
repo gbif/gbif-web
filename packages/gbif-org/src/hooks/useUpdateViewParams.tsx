@@ -1,7 +1,10 @@
 import { useCallback, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-export function useUpdateViewParams(paramsToRemove = [] as string[]): {
+export function useUpdateViewParams(
+  paramsToRemove = [] as string[],
+  paramName = 'view'
+): {
   params: URLSearchParams;
   getParams: (view?: string, defaultValue?: string) => URLSearchParams;
 } {
@@ -28,15 +31,15 @@ export function useUpdateViewParams(paramsToRemove = [] as string[]): {
       // Update or set the `view` parameter
       // Update or set the `view` parameter and remove default values
       if (view && view !== defaultValue) {
-        newSearchParams.set('view', view);
+        newSearchParams.set(paramName, view);
       } else {
-        newSearchParams.delete('view');
+        newSearchParams.delete(paramName);
       }
 
       // Return the cleaned up search parameters
       return newSearchParams;
     },
-    [params]
+    [params, paramName]
   );
 
   return {

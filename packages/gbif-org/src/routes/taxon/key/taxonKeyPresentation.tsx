@@ -1,7 +1,7 @@
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
-import { TaxonClassification } from '@/components/highlights';
+import { FeatureList, Homepage, TaxonClassification } from '@/components/highlights';
 import { HyperText } from '@/components/hyperText';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
@@ -49,22 +49,73 @@ export function TaxonKey({
   slowTaxon?: SlowTaxonQuery;
   slowTaxonLoading: boolean;
 }) {
+  if (data.taxon == null) throw new Error('404');
+
+  const vernacularNameInfo = slowTaxon?.taxon?.vernacularNames?.results?.[0];
+
+  return (
+    <PageHeader data={data} vernacularNameInfo={vernacularNameInfo}>
+      <TaxonKeyContext.Provider
+        value={{
+          data: data,
+          slowTaxon: slowTaxon,
+          slowTaxonLoading: slowTaxonLoading,
+        }}
+      >
+        <Outlet />
+      </TaxonKeyContext.Provider>
+    </PageHeader>
+  );
+}
+
+export const NonBackbonePresentation = ({
+  data,
+  slowTaxon,
+  slowTaxonLoading,
+}: {
+  data: TaxonKeyQuery;
+  slowTaxon?: SlowTaxonQuery;
+  slowTaxonLoading: boolean;
+}) => {
+  return (
+    <PageHeader data={data} vernacularNameInfo={undefined}>
+      <TaxonKeyContext.Provider
+        value={{
+          data: data,
+          slowTaxon: slowTaxon,
+          slowTaxonLoading: slowTaxonLoading,
+        }}
+      >
+        <Outlet />
+      </TaxonKeyContext.Provider>
+      {/*       <AboutNonBackbone slowTaxon={slowTaxon} slowTaxonLoading={slowTaxonLoading} />
+       */}{' '}
+    </PageHeader>
+  );
+};
+
+const PageHeader = ({ data, vernacularNameInfo, children }) => {
+  const { taxon } = data;
+  const isNub = taxon?.nubKey === taxon?.key;
   const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
     const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
       { to: '.', children: <FormattedMessage id="taxon.tabs.about" /> },
     ];
-
-    tabsToDisplay.push({
-      to: 'metrics',
-      children: <FormattedMessage id="taxon.tabs.metrics" />,
-    });
+    if (isNub) {
+      tabsToDisplay.push({
+        to: 'metrics',
+        children: <FormattedMessage id="taxon.tabs.metrics" />,
+      });
+    }
+    if (!isNub) {
+      tabsToDisplay.push({
+        to: 'verbatim',
+        children: <FormattedMessage id="taxon.tabs.verbatim" />,
+      });
+    }
 
     return tabsToDisplay;
   }, []);
-
-  if (data.taxon == null) throw new Error('404');
-  const { taxon } = data;
-  const vernacularNameInfo = slowTaxon?.taxon?.vernacularNames?.results?.[0];
   return (
     <>
       <Helmet>
@@ -120,6 +171,26 @@ export function TaxonKey({
                 </SimpleTooltip>
               )}
             </ArticleTitle>
+            {!isNub && taxon.dataset && (
+              <div className="g-mt-2">
+                <FormattedMessage
+                  id="taxon.inChecklist"
+                  values={{
+                    checklist: (
+                      <DynamicLink
+                        className="hover:g-underline g-text-primary-500 g-ml-1"
+                        to={`/dataset/${taxon.dataset.key}`}
+                        pageId="datasetKey"
+                        variables={{ key: taxon.dataset.key }}
+                      >
+                        {taxon.dataset.title}
+                      </DynamicLink>
+                    ),
+                  }}
+                />
+              </div>
+            )}
+
             <HeaderInfo>
               <HeaderInfoMain className="g-text-sm g-text-slate-500">
                 {taxon.acceptedTaxon && (
@@ -163,6 +234,9 @@ export function TaxonKey({
                     <HyperText text={taxon.publishedIn} />
                   </div>
                 )}
+                <FeatureList>
+                  {!isNub && taxon?.references && <Homepage url={taxon.references} />}
+                </FeatureList>
               </HeaderInfoMain>
             </HeaderInfo>
           </ArticleTextContainer>
@@ -170,20 +244,10 @@ export function TaxonKey({
 
           <Tabs links={tabs} />
         </PageContainer>
-        <ErrorBoundary invalidateOn={data.taxon?.key}>
-          <TaxonKeyContext.Provider
-            value={{
-              data: data,
-              slowTaxon: slowTaxon,
-              slowTaxonLoading: slowTaxonLoading,
-            }}
-          >
-            <Outlet />
-          </TaxonKeyContext.Provider>
-        </ErrorBoundary>
+        <ErrorBoundary invalidateOn={data.taxon?.key}>{children}</ErrorBoundary>
       </article>
     </>
   );
-}
+};
 
 export const TaxonPageSkeleton = ArticleSkeleton;

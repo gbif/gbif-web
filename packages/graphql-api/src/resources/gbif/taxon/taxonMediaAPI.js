@@ -95,6 +95,8 @@ class TaxonMediaAPI extends RESTDataSource {
       format: x.format,
       accessURI: x.identifier,
       accessOriginalURI: x.identifier,
+      creator: x.creator,
+      rightsHolder: x.rightsHolder,
     }));
 
     if (checklistResults.length > 0) {
