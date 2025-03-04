@@ -149,7 +149,7 @@
   },
   "mediaType": {
     "name": "Typ média",
-    "count": "",
+    "count": "{num, plural, one {typ média} few {# typy média} many {# typů média} other {# typů média}}",
     "description": "Typy médií přístupné pro tento záznam."
   },
   "occurrenceIssue": {
@@ -179,7 +179,7 @@
   },
   "q": {
     "name": "Textové vyhledávání",
-    "count": "",
+    "count": "{num, plural, one {textový řetězec} few {# vyhledávací řetězce} many {# vyhledávacích řetězců} other {# vyhledávacích řetězců}}",
     "description": ""
   },
   "coordinates": {
@@ -187,12 +187,12 @@
   },
   "elevation": {
     "name": "Nadmořská výška",
-    "count": "",
+    "count": "{num, plural, one {výškový filtr} few {# výškové filtry} many {# výškových filtrů} other {# výškových filtrů}}",
     "description": "Vzdálenost nad vertikálním referenčním bodem (obvykle střední hladina moře nebo geoid) v metrech."
   },
   "license": {
     "name": "Licence",
-    "count": "",
+    "count": "{num, plural, one {license} few {# license} many {# licensí} other {# licensí}}",
     "description": "Zákonná licence nebo výjimka, na jejímž základě je záznam sdílen."
   },
   "datasetKey": {
@@ -202,12 +202,12 @@
   },
   "publisherKey": {
     "name": "Vydavatel",
-    "count": "",
+    "count": "{num, plural, one {vydavatel} few {# vydavatelé} many {# vydavatelů} other {# vydavatelů}}",
     "description": "Název organizace odpovědné za sdílení datové sady, v níž je záznam obsažen."
   },
   "gbifPublisherKey": {
     "name": "GBIF vydavatel",
-    "count": "",
+    "count": "{num, plural, one {GBIF vydavatel} few {# GBIF vydavatelé} many {# GBIF vydavatelů} other {# GBIF vydavatelů}}",
     "description": "Název organizace odpovědné za sdílení datové sady, v níž je záznam obsažen."
   },
   "hostingOrganizationKey": {
@@ -221,12 +221,12 @@
   },
   "countriesOfCoverage": {
     "name": "Země nebo oblast pokrytí",
-    "count": "",
+    "count": "{num, plural, one {země nebo oblast pokrytí} few {# země nebo oblasti pokrytí} many {# zemí nebo oblastí pokrytí} other {# zemí nebo oblastí pokrytí}}",
     "description": ""
   },
   "collectionDescriptorCountry": {
     "name": "Země nebo oblast pokrytí",
-    "count": "",
+    "count": "{num, plural, one {země nebo oblast pokrytí} few {# země nebo oblasti pokrytí} many {# zemí nebo oblastí pokrytí} other {# zemí nebo oblastí pokrytí}}",
     "description": ""
   },
   "countriesOfResearcher": {
@@ -407,17 +407,17 @@
   },
   "occurrenceStatus": {
     "name": "Status výskytu",
-    "count": "",
+    "count": "{num, plural, one { stav výskytu } few {# stavy výskytu} many {# stavů výskytu} other {# stavů výskytu}}",
     "description": "Přítomnost nebo nepřítomnost organismů daného taxonu."
   },
   "gadmGid": {
     "name": "Správní oblast",
-    "count": "",
+    "count": "{num, plural, one {administrativní oblast} few {# administrtivní oblasti} many {# administrativních oblastí} other {# administrativních oblastí}}",
     "description": "Název libovolné správní oblasti z GADM.org určený při zpracování záznamu."
   },
   "identifiedBy": {
     "name": "Identifikováno od",
-    "count": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}",
     "description": "Osoba, lidé, skupiny nebo organizace odpovědné za určení vědeckého názvu organismu."
   },
   "isInCluster": {
@@ -498,7 +498,7 @@
   },
   "literatureType": {
     "name": "Typ literatury",
-    "count": "",
+    "count": "{num, plural, one { typ literatury } few {# typy literatury} many {# typů literatury} other {# typů literatury}}",
     "description": "Z jakého typu literatury citace pochází."
   },
   "higherTaxonKey": {
