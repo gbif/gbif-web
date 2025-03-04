@@ -1,7 +1,7 @@
 {
   "dwcaExtension": {
     "name": "DWCA rozšíření",
-    "count": "",
+    "count": "{num, plural, one {DWCA rozšíření} few {# DWCA rozšíření} many {# DWCA rozšíření} other {# DWCA rozšíření}}",
     "description": "Zde by měl být uveden krátký popis součásti."
   },
   "locationId": {
@@ -21,17 +21,17 @@
   },
   "collectionKey": {
     "name": "Sbírka",
-    "count": "",
+    "count": "{num, plural, one {# sbírka} few {# sbírky} many {# sbírek} other {# sbírek}}",
     "description": "Sbírka v GrSciColl, ke které byl tento záznam přiřazen"
   },
   "taxonomicStatus": {
     "name": "Stav",
-    "count": "",
+    "count": "{num, plural, one {stav} few {# stavy} many {# stavů} other {# stavů}}",
     "description": "Počet držených exemplářů uvedený v popisu. Tento počet neodráží, kolik záznamů bylo digitalizováno a sdíleno."
   },
   "taxonRank": {
     "name": "Zařazení",
-    "count": "",
+    "count": "{num, plural, one {zařazení} few {# zařazení} many {# zařazení} other {# zařazení}}",
     "description": "Počet držených exemplářů uvedený v popisu. Tento počet neodráží, kolik záznamů bylo digitalizováno a sdíleno."
   },
   "numberSpecimens": {
@@ -51,7 +51,7 @@
   },
   "geoDistance": {
     "name": "Vzdálenost od souřadnic",
-    "count": "",
+    "count": "{num, plural, one {filtr} few {# filtry} many {# filtrů} other {# filtrů}}",
     "description": "Filtrovat záznamy v dané vzdálenosti od bodu",
     "placeholderLat": "Zeměpisná šířka",
     "placeholderLon": "Zeměpisná délka",
@@ -59,7 +59,7 @@
   },
   "geometry": {
     "name": "Poloha",
-    "count": "",
+    "count": "{num, plural, one {filtr} few {# filtry} many {# filtrů} other {# filtrů}}",
     "description": "",
     "placeholderLat": "Zeměpisná šířka",
     "placeholderLon": "Zeměpisná délka",
@@ -82,7 +82,7 @@
   },
   "purposes": {
     "name": "Téma",
-    "count": "",
+    "count": "{num, plural, one {účel} few {# účely} many {# účelů} other {# účelů}}",
     "description": "Jaké jsou účely zdroje."
   },
   "eventDate": {
@@ -277,7 +277,7 @@
   },
   "month": {
     "name": "Měsíc",
-    "count": "",
+    "count": "{num, plural, one {měsíc} few {# měsíce} many {# měsíců} other {# měsíců}}",
     "description": "Celé číslo měsíce, ve kterém k události došlo."
   },
   "continent": {
@@ -337,7 +337,7 @@
   },
   "locality": {
     "name": "Lokalita",
-    "count": "",
+    "count": "{num, plural, one {lokalita} few {# lokality} many {# lokalit} other {# lokalit}}",
     "description": "Konkrétní část popisu místa."
   },
   "waterBody": {
