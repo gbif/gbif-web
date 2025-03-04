@@ -197,7 +197,7 @@
   },
   "datasetKey": {
     "name": "Datová sada",
-    "count": "",
+    "count": "{num, plural, one {datová sada} few {# datové sady} many {# datových sad} other {# datových sad}}",
     "description": "Název datové sady, pod kterou je záznam sdílen."
   },
   "publisherKey": {
@@ -467,23 +467,23 @@
   },
   "institutionKey": {
     "name": "Instituce",
-    "count": "",
+    "count": "{num, plural, one {instituce} few {# instituce} many {# institucí} other {# institucí}}",
     "description": "Název instituce, která má v úschově předmět(y) nebo informace uvedené v záznamu."
   },
   "name": {
     "name": "Název",
-    "count": "",
+    "count": "{num, plural, one {název} few {# názvy} many {# názvů} other {# názvů}}",
     "description": "",
     "searchPlaceholder": ""
   },
   "city": {
     "name": "Město",
-    "count": "",
+    "count": "{num, plural, one {město} few {# města} many {# měst} other {# měst}}",
     "description": ""
   },
   "code": {
     "name": "Kód",
-    "count": "",
+    "count": "{num, plural, one {kód} few {# kódy} many {# kódů} other {# kódů}}",
     "description": ""
   },
   "verbatimScientificName": {
@@ -503,7 +503,7 @@
   },
   "higherTaxonKey": {
     "name": "Vyšší taxon",
-    "count": "",
+    "count": "{num, plural, one {vyšší taxon} few {# vyšší taxony} many {# vyšších taxonů} other {# vyšších taxonů}}",
     "description": "Vyšší taxon, podle kterého se filtruje."
   }
 }
