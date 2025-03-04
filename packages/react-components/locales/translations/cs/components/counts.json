@@ -31,6 +31,12 @@
   "nPublishedDatasets": "{total, plural, one {# vydaná datová sada} few {# vydané datové sady} many {# vydaných datových sad} other {# vydaných datových sad}}",
   "nDatasets": "{total, plural, one {# datová sada} few {# datové sady} many {# datových sad} other {# datových sad}}",
   "nPublishers": "{total, plural, one {# vydavatel} few {# vydavatelé} many {# vydavatelů} other {# vydavatelů}}",
+  "nHostedDatasets": "{total, plural, one {# hostovaná datová sada} few {# hostovné datové sady} many {# hostovaných datových sad} other {# hostovaných datových sad}}",
+  "nParticipatingDatasets": "{total, plural, one {# participující datová sada} few {# participující datové sady} many {# participujících datových sad} other {# participujících datových sad}}",
+  "nParticipatingPublishers": "{total, plural, one {# participující vydavatel} few {# participující vydavatelé} many {# participujících vydavatelů} other {# participujících vydavatelů}}",
+  "nPublishersInCountry": "V {country} {total, plural, one {je # vydavatel} few {jsou # vydavatelé} many {je # vydavatelů} other {je # vydavatelů}}",
+  "nStaffMembers": "{total, plural, one {# člen týmu} few {# členové týmu} many {# členů týmů} other {# členů týmu}}",
+  "nOccurrencesHosted": "{total, plural, one {# hostovaný výskyt} few {# hostované výskyty} many {# hostovaných výskytů} other {# hostovaných výskytů}}",
   "nPercentOfTotal": "{percentage, plural, one {% celkem} few {#% celkem} many {#% celkem}other {#% celkem}}",
   "nMoreDatasets": "{total, plural, one {+ # další datová sada} few {+ # další datové sady} many {+ # dalších datových sad} other {+ # dalších datových sad}}"
 }
