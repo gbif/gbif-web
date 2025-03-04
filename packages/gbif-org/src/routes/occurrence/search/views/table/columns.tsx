@@ -140,7 +140,7 @@ export function useOccurrenceColumns({
         minWidth: 350,
         cell: ({ datasetKey, datasetTitle }) => (
           <InlineLineClamp className="-g-ml-0.5">
-            <SetAsFilter field="dataset" value={datasetKey} className="g-ml-0">
+            <SetAsFilter field="datasetKey" value={datasetKey} className="g-ml-0">
               {datasetTitle}
             </SetAsFilter>
           </InlineLineClamp>
@@ -151,7 +151,7 @@ export function useOccurrenceColumns({
         header: 'filters.publisherKey.name',
         minWidth: 250,
         cell: ({ publishingOrgKey, publisherTitle }) => (
-          <SetAsFilter field="publisherKey" value={publishingOrgKey}>
+          <SetAsFilter field="publishingOrg" value={publishingOrgKey}>
             {publisherTitle}
           </SetAsFilter>
         ),
@@ -208,12 +208,12 @@ export function useOccurrenceColumns({
       {
         id: 'collectionCode',
         header: 'occurrenceFieldNames.collectionCode',
-        cell: ({ collection }) => {
-          if (!collection) return null;
+        cell: ({ collectionCode }) => {
+          if (!collectionCode) return null;
 
           return (
-            <SetAsFilter field="collectionCode" value={collection.code}>
-              {collection.code}
+            <SetAsFilter field="collectionCode" value={collectionCode}>
+              {collectionCode}
             </SetAsFilter>
           );
         },
@@ -222,12 +222,12 @@ export function useOccurrenceColumns({
         id: 'institutionCode',
         header: 'occurrenceFieldNames.institutionCode',
         minWidth: 200,
-        cell: ({ institution }) => {
-          if (!institution) return null;
+        cell: ({ institutionCode }) => {
+          if (!institutionCode) return null;
 
           return (
-            <SetAsFilter field="institutionCode" value={institution.code}>
-              {institution?.code}
+            <SetAsFilter field="institutionCode" value={institutionCode}>
+              {institutionCode}
             </SetAsFilter>
           );
         },
@@ -259,7 +259,7 @@ export function useOccurrenceColumns({
 
           return (
             <LinkOption to={`/collection/${collection.key}`}>
-              <SetAsFilter field="collectionCode" value={collection.code}>
+              <SetAsFilter field="collectionKey" value={collection.key}>
                 <span>
                   {collection.name} <span>({collection.code})</span>
                 </span>
@@ -272,7 +272,13 @@ export function useOccurrenceColumns({
         id: 'locality',
         header: 'occurrenceFieldNames.locality',
         minWidth: 200,
-        cell: ({ locality }) => <InlineLineClamp>{locality}</InlineLineClamp>,
+        cell: ({ locality }) => (
+          <InlineLineClamp className="-g-ml-0.5">
+            <SetAsFilter field="locality" value={locality} className="g-ml-0">
+              {locality}
+            </SetAsFilter>
+          </InlineLineClamp>
+        ),
       },
       {
         id: 'higherGeography',
@@ -324,7 +330,13 @@ export function useOccurrenceColumns({
         id: 'datasetName',
         header: 'occurrenceFieldNames.datasetName',
         minWidth: 200,
-        cell: ({ datasetName }) => <SetAsFilterList field="datasetName" items={datasetName} />,
+        cell: ({ datasetName }) => (
+          <InlineLineClamp>
+            {datasetName?.map((name) => (
+              <span>{name}</span>
+            ))}
+          </InlineLineClamp>
+        ),
       },
     ];
 

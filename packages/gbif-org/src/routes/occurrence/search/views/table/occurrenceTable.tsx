@@ -60,12 +60,13 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
           recordNumber
           typeStatus
           preparations
-          collectionCode
+          institutionCode
           institution {
             code
             name
             key
           }
+          collectionCode
           collection {
             code
             name
