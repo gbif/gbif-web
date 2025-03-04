@@ -41,7 +41,7 @@
   },
   "specimensInGbif": {
     "name": "Exempláře v GBIF",
-    "count": "",
+    "count": "{num, plural, one {exemplář v GBIF} few {# exempláře v GBIF} many {# exemplářů v GBIF} other {# exemplářů v GBIF}}",
     "description": ""
   },
   "iucnRedListCategory": {
@@ -67,17 +67,17 @@
   },
   "relevance": {
     "name": "Relevance",
-    "count": "",
+    "count": "{num, plural, one {relevance} few {# relevantní filtry} many {# relevantních filtrů} other {# relevantních filtrů}}",
     "description": "Jak je GBIF používán v literatuře."
   },
   "topics": {
     "name": "Téma",
-    "count": "",
+    "count": "{num, plural, one {téma} few {# témata} many {# témat} other {# témat}}",
     "description": "Jaká jsou témata záznamu."
   },
   "audiences": {
     "name": "Sledovanost",
-    "count": "",
+    "count": "{num, plural, one { sledovanost } few {# prohlížející} many {# prohlížejících} other {# prohlížejících}}",
     "description": "Pro koho je zdroj určen."
   },
   "purposes": {
