@@ -9,7 +9,6 @@ import {
   MonthLabel,
   occurrenceIssueLabel,
   occurrenceStatusLabel,
-  TypeStatusVocabularyLabel,
 } from '@/components/filters/displayNames';
 import { filterConfigTypes, filterEnumConfig } from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
@@ -200,29 +199,6 @@ export const iucnRedListCategoryConfig: filterEnumConfig = {
     }
   `,
   about: () => <Message id="filters.iucnRedListCategory.description" />,
-};
-
-export const typeStatusConfig: filterEnumConfig = {
-  filterType: filterConfigTypes.ENUM,
-  filterHandle: 'typeStatus',
-  displayName: TypeStatusVocabularyLabel,
-  // options: typeStatusOptions,
-  allowNegations: true,
-  allowExistence: true,
-  filterTranslation: 'filters.typeStatus.name',
-  facetQuery: /* GraphQL */ `
-    query OccurrenceTypeStatusFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
-        facet {
-          field: typeStatus(size: 100) {
-            name: key
-            count
-          }
-        }
-      }
-    }
-  `,
-  about: () => <Message id="filters.typeStatus.description" />,
 };
 
 export const occurrenceIssueConfig: filterEnumConfig = {

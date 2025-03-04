@@ -349,6 +349,8 @@ export const typeStatusSuggestConfig: filterSuggestConfig = {
   displayName: TypeStatusVocabularyLabel,
   filterTranslation: 'filters.typeStatus.name',
   suggestConfig: typeStatusSuggest,
+  allowNegations: true,
+  allowExistence: true,
   facetQuery: /* GraphQL */ `
     query OccurrenceTypeStatusFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
