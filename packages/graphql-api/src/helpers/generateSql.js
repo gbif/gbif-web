@@ -3,7 +3,7 @@ import { signJson, verifyJson } from './utils';
 
 const defaultUncertainty = 1000;
 
-const sqlEndpoint = config.sqlapi ?? config.apiv1;
+const sqlEndpoint = config.apiv1;
 
 function generateMachineDescription(parameters, sql) {
   const signature = signJson({ sql, parameters });
