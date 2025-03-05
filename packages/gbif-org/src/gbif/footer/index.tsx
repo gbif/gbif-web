@@ -68,9 +68,8 @@ export function Footer() {
             <DynamicLink to="/contact-us" className={cssSeparator}>
               <FormattedMessage id="footer.contact" defaultMessage="Contact" />
             </DynamicLink>
-            <span className={cssSeparator}>
-              <span className="g-font-semibold">GBIF Secretariat</span> Universitetsparken 15
-            </span>
+            <span className="g-font-semibold">GBIF Secretariat&nbsp;</span>
+            <span className={cssSeparator}>Universitetsparken 15</span>
             <span className={cssSeparator}>DK-2100 Copenhagen Ø</span>
             <span>Denmark</span>
           </address>
@@ -85,7 +84,7 @@ export function Footer() {
         </DynamicLink>
       </section>
       <section className="g-bg-[#414141] g-text-[#414141] g-py-6 g-px-6">
-        <ul className="g-flex g-w-full g-justify-center g-items-center g-gap-5">
+        <ul className="g-flex g-w-full g-justify-center g-items-center g-gap-5 g-flex-wrap">
           <li>
             <a
               href="https://www.facebook.com/gbifnews"
