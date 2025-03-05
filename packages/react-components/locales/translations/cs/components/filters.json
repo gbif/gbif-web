@@ -41,7 +41,7 @@
   },
   "specimensInGbif": {
     "name": "Exempláře v GBIF",
-    "count": "",
+    "count": "{num, plural, one {exemplář v GBIF} few {# exempláře v GBIF} many {# exemplářů v GBIF} other {# exemplářů v GBIF}}",
     "description": ""
   },
   "iucnRedListCategory": {
@@ -67,17 +67,17 @@
   },
   "relevance": {
     "name": "Relevance",
-    "count": "",
+    "count": "{num, plural, one {relevance} few {# relevantní filtry} many {# relevantních filtrů} other {# relevantních filtrů}}",
     "description": "Jak je GBIF používán v literatuře."
   },
   "topics": {
     "name": "Téma",
-    "count": "",
+    "count": "{num, plural, one {téma} few {# témata} many {# témat} other {# témat}}",
     "description": "Jaká jsou témata záznamu."
   },
   "audiences": {
     "name": "Sledovanost",
-    "count": "",
+    "count": "{num, plural, one { sledovanost } few {# prohlížející} many {# prohlížejících} other {# prohlížejících}}",
     "description": "Pro koho je zdroj určen."
   },
   "purposes": {
@@ -122,46 +122,46 @@
   },
   "taxonKey": {
     "name": "Vědecký název",
-    "count": "",
+    "count": "{num, plural, one {vědecký název} few {# vědecké názvy} many {# vědeckých názvů} other {# vědeckých názvů}}",
     "description": "Vědecký název, jak je uveden v páteřní taxonomii GBIF. Tyto názvy jsou normalizovány, aby se usnadnilo vyhledávání napříč datovými sadami. Je možné, že původně uvedený název může být nesprávně interpretován nebo neznámý. Pro vyhledávání v poskytnutých názvech použijte filtr \"Přesný vědecký název\"."
   },
   "taxonKeyGrSciColl": {
     "name": "Vědecký název",
-    "count": "",
+    "count": "{num, plural, one {vědecký název} few {# vědecké názvy} many {# vědeckých názvů} other {# vědeckých názvů}}",
     "description": ""
   },
   "basisOfRecord": {
-    "name": "Základ záznamu",
-    "count": "",
-    "isNotNull": "Má základ záznamu",
-    "isNull": "Nemá základ záznamu",
-    "description": "Povaha důkazů, na nichž je záznam založen."
+    "name": "Původ záznamu",
+    "count": "{num, plural, one {původ záznamu} few {# původy záznamu} many {# původů záznamu} other {# původů záznamu}}",
+    "isNotNull": "Má původ záznamu",
+    "isNull": "Nemá původ záznamu",
+    "description": "Povaha důkazů, na nichž je původ založen."
   },
   "institutionCode": {
     "name": "Kód instituce",
-    "count": "",
+    "count": "{num, plural, one {kód instituce} few {# kódy instituce} many {# kódů instituce} other {# kódů instituce}}",
     "description": "Kód (nebo zkratka) instituce, která má v péči předmět(y) nebo informace uvedené v záznamu."
   },
   "catalogNumber": {
     "name": "Katalogové číslo",
-    "count": "",
+    "count": "{num, plural, one {katalogové číslo} few {# katalogová čísla} many {# katalogových čísel} other {# katalogových čísel}}",
     "description": "Identifikátor záznamu v rámci katalogu nebo sbírky."
   },
   "mediaType": {
     "name": "Typ média",
-    "count": "",
+    "count": "{num, plural, one {typ média} few {# typy média} many {# typů média} other {# typů média}}",
     "description": "Typy médií přístupné pro tento záznam."
   },
   "occurrenceIssue": {
     "name": "Problémy a příznaky",
-    "count": "",
+    "count": "{num, plural, one {problém nebo příznak} few {# problémy a příznaky} many {# problémů a příznaků} other {# problémů a příznaků}}",
     "isNotNull": "Má problémy",
     "isNull": "Nemá problémy",
     "description": "Typy problémů nebo příznaků potenciálního zájmu zjištěných při zpracování dat."
   },
   "occurrenceCountry": {
     "name": "Země nebo oblast",
-    "count": "",
+    "count": "{num, plural, one {země nebo oblast} few {# země nebo oblasti} many {# zemí nebo oblastí} other {# zemí nebo oblastí}}",
     "description": "Země nebo území, kde k události došlo"
   },
   "grsciCollCountry": {
@@ -174,12 +174,12 @@
   },
   "publishingCountryCode": {
     "name": "Země nebo oblast zveřejnění",
-    "count": "",
+    "count": "{num, plural, one {vydávající země nebo oblast} few {# vydávající země nebo oblasti} many {# vydávajících zemí nebo oblastí} other {# vydávajících zemí nebo oblastí}}",
     "description": "Kód ISO země nebo území, ve kterém se nachází vydavatel dat."
   },
   "q": {
     "name": "Textové vyhledávání",
-    "count": "",
+    "count": "{num, plural, one {textový řetězec} few {# vyhledávací řetězce} many {# vyhledávacích řetězců} other {# vyhledávacích řetězců}}",
     "description": ""
   },
   "coordinates": {
@@ -187,12 +187,12 @@
   },
   "elevation": {
     "name": "Nadmořská výška",
-    "count": "",
+    "count": "{num, plural, one {výškový filtr} few {# výškové filtry} many {# výškových filtrů} other {# výškových filtrů}}",
     "description": "Vzdálenost nad vertikálním referenčním bodem (obvykle střední hladina moře nebo geoid) v metrech."
   },
   "license": {
     "name": "Licence",
-    "count": "",
+    "count": "{num, plural, one {license} few {# license} many {# licensí} other {# licensí}}",
     "description": "Zákonná licence nebo výjimka, na jejímž základě je záznam sdílen."
   },
   "datasetKey": {
@@ -202,12 +202,12 @@
   },
   "publisherKey": {
     "name": "Vydavatel",
-    "count": "",
+    "count": "{num, plural, one {vydavatel} few {# vydavatelé} many {# vydavatelů} other {# vydavatelů}}",
     "description": "Název organizace odpovědné za sdílení datové sady, v níž je záznam obsažen."
   },
   "gbifPublisherKey": {
     "name": "GBIF vydavatel",
-    "count": "",
+    "count": "{num, plural, one {GBIF vydavatel} few {# GBIF vydavatelé} many {# GBIF vydavatelů} other {# GBIF vydavatelů}}",
     "description": "Název organizace odpovědné za sdílení datové sady, v níž je záznam obsažen."
   },
   "hostingOrganizationKey": {
@@ -217,62 +217,62 @@
   },
   "country": {
     "name": "Země nebo oblast",
-    "count": ""
+    "count": "{num, plural, one {země nebo oblast} few {# země nebo oblasti} many {# zemí nebo oblastí} other {# zemí nebo oblastí}}"
   },
   "countriesOfCoverage": {
     "name": "Země nebo oblast pokrytí",
-    "count": "",
+    "count": "{num, plural, one {země nebo oblast pokrytí} few {# země nebo oblasti pokrytí} many {# zemí nebo oblastí pokrytí} other {# zemí nebo oblastí pokrytí}}",
     "description": ""
   },
   "collectionDescriptorCountry": {
     "name": "Země nebo oblast pokrytí",
-    "count": "",
+    "count": "{num, plural, one {země nebo oblast pokrytí} few {# země nebo oblasti pokrytí} many {# zemí nebo oblastí pokrytí} other {# zemí nebo oblastí pokrytí}}",
     "description": ""
   },
   "countriesOfResearcher": {
     "name": "Země nebo oblast výzkumného pracovníka",
-    "count": ""
+    "count": "{num, plural, one {země nebo oblast výzkumníka} few {# země nebo oblasti výzkumníků} many {# zemí nebo oblastí výzkumníků} other {# zemí nebo oblastí výzkumníků}}"
   },
   "typeStatus": {
     "name": "Typ statusu",
-    "count": "",
+    "count": "{num, plural, one {stav typu} few {# stavy typu} many {# stavů typu} other {# stavů typu}}",
     "isNotNull": "Má status typu",
     "isNull": "Status typu",
     "description": "Typové označení exempláře"
   },
   "year": {
     "name": "Rok",
-    "count": "",
+    "count": "{num, plural, one {filtr roku} few {# filtrů roku} many {# filtrů roku} other {# filtrů roku}}",
     "description": "Rok, ve kterém k události došlo."
   },
   "sampleSizeUnit": {
     "name": "Jednotka velikosti vzorku",
-    "count": "",
+    "count": "{num, plural, one {jednotka velikosti vzorku} few {# jednotky velikosti vzorku} many {# jednootek velikosti vzorku} other {# jednotek velikosti vzorku}}",
     "description": "Měrná jednotka pro \"hodnotu velikosti vzorku\"."
   },
   "coordinateUncertainty": {
     "name": "Neurčitost souřadnic",
-    "count": "",
+    "count": "{num, plural, one {neurčitost souřadnic} few {# filtry neurčitosti souřadnic} many {# filtrů neurčitosti souřadnic} other {# filtrů neurčitosti souřadnic}}",
     "description": "Měřítko minimální vzdálenosti v metrech od souřadnice, v rámci které může být lokalita interpretována."
   },
   "depth": {
     "name": "Hloubka",
-    "count": "",
+    "count": "{num, plural, one {hloubka} few {# hloubky} many {# hloubek} other {# hloubek}}",
     "description": "Vzdálenost pod místním povrchem v metrech."
   },
   "organismQuantity": {
     "name": "Množství organismů",
-    "count": "",
+    "count": "{num, plural, one { množství organismu } few {# množství organismu} many {# množství organismu} other {# množství organismu}}",
     "description": "Hodnota množství organismů, kde typ měření je uveden v poli \"Typ množství organismů\"."
   },
   "sampleSizeValue": {
     "name": "Hodnota velikosti vzorku",
-    "count": "",
+    "count": "{num, plural, one {hodnota velikosti vzorku} few {# hodnoty velikosti vzorku} many {# hodnot velikosti vzorku} other {# hodnot velikoti vzorku}}",
     "description": "Hodnota velikosti vzorku, kde měrné jednotky jsou uvedeny v \"Jednotce velikosti vzorku\"."
   },
   "relativeOrganismQuantity": {
     "name": "Relativní množství organismu",
-    "count": "",
+    "count": "{num, plural, one { relativní množství organismu } few {# relativní množství organismu} many {# relativních množství organismu} other {# relativních množství organismu}}",
     "description": "Množství biologického materiálu vztažené k velikosti vzorku, vypočtené jako organismQuantity na sampleSize, pokud jsou organismQuantityType a sampleSizeUnit jednoznačné."
   },
   "month": {
@@ -282,32 +282,32 @@
   },
   "continent": {
     "name": "Kontinent",
-    "count": "",
+    "count": "{num, plural, one {kontinent} few {# kontinenty} many {# kontinentů} other {# kontinentů}}",
     "description": "Název kontinentu, na kterém se lokalita nachází.  Toto pole není odvozeno, ale vyplňuje se pouze tehdy, pokud je poskytnuto vydavatelem datové sady. Použití tohoto filtru může vyloučit příslušné záznamy."
   },
   "protocol": {
     "name": "Publikační protokol",
-    "count": "",
+    "count": "{num, plural, one { protokol } few {# protokoly} many {# protokolů} other {# protokolů}}",
     "description": "Technický protokol, jehož prostřednictvím je datová sada sdílena."
   },
   "establishmentMeans": {
     "name": "Zavedení znamená",
-    "count": "",
+    "count": "{num, plural, one { způsob zavedení } few {# způsoby zavedení} many {# způsobů zavedení} other {# způsobů zavedení}}",
     "description": "Způsob, jakým se organismus dostal na dané místo v daném čase."
   },
   "recordedBy": {
     "name": "Zaznamenáno od",
-    "count": "",
+    "count": "{num, plural, one { zaznamenáno od } few {# záznamů od} many {# záznamů od} other {# záznamů od}}",
     "description": "Jména osoby, osob, skupin nebo organizací odpovědných za zaznamenání původní události."
   },
   "recordNumber": {
     "name": "Číslo záznamu",
-    "count": "",
+    "count": "{num, plural, one { číslo záznamu } few {# čásla záznamu} many {# čísel záznamu} other {# čísel záznamu}}",
     "description": "Identifikátor přidělený události v době jejího zaznamenání."
   },
   "collectionCode": {
     "name": "Kód sbírky",
-    "count": "",
+    "count": "{num, plural, one { kód sbírky } few {# kódy sbírky} many {# kódů sbírky} other {# kódů sbírky}}",
     "description": ""
   },
   "projectId": {
@@ -317,22 +317,22 @@
   },
   "recordedById": {
     "name": "Zaznamenáno podle ID",
-    "count": "",
+    "count": "{num, plural, one {zaznamenáno od ID} few {# záznamy od iD} many {# záznamů od ID} other {# záznamů od ID}}",
     "description": "Identifikátor osoby, osob, skupin nebo organizací odpovědných za zaznamenání původního výskytu."
   },
   "identifiedById": {
     "name": "Identifikováno podle ID",
-    "count": "",
+    "count": "{num, plural, one {identifikace podle id} few {identifikováno podle #} many {identifikováno podle #} other {identifikováno podle #}}",
     "description": "Identifikátor osoby, osob, skupin nebo organizací odpovědných za určení vědeckého názvu organismu."
   },
   "occurrenceId": {
     "name": "ID Výskytu",
-    "count": "",
+    "count": "{num, plural, one { ID výskytu } few {# ID výskytu} many {# ID výskytu} other {# ID výskytu}}",
     "description": "Jedinečný identifikátor záznamu výskytu."
   },
   "organismId": {
     "name": "Organism id",
-    "count": "",
+    "count": "{num, plural, one { ID organismu } few {# ID organismu} many {# ID organismu} other {# ID organismu}}",
     "description": "Jedinečný identifikátor organismu v záznamu."
   },
   "locality": {
@@ -342,7 +342,7 @@
   },
   "waterBody": {
     "name": "Vodní plocha",
-    "count": "",
+    "count": "{num, plural, one { vodní plocha } few {# vodní plochy} many {# vodních ploch} other {# vodních ploch}}",
     "description": "Název vodního útvaru, ve kterém se lokalita nachází."
   },
   "higherGeography": {
@@ -351,28 +351,28 @@
     "description": ""
   },
   "stateProvince": {
-    "name": "Provincie státu",
-    "count": "",
+    "name": "Kraj státu",
+    "count": "{num, plural, one { kraj státu } few {# kraje státu} many {# krajů státu} other {# krajů státu}}",
     "description": "Název nejbližšího správního regionu menšího než stát, ve kterém se lokalita nachází."
   },
   "eventId": {
     "name": "ID události",
-    "count": "",
+    "count": "{num, plural, one { ID události } few {# ID události} many {# ID události} other {# ID události}}",
     "description": "Jedinečný identifikátor události v záznamu."
   },
   "eventID": {
     "name": "ID události",
-    "count": "",
+    "count": "{num, plural, one { ID události } few {# ID události} many {# ID události} other {# ID události}}",
     "description": "Jedinečný identifikátor události v záznamu."
   },
   "parentEventId": {
     "name": "ID nadřazené události",
-    "count": "",
+    "count": "{num, plural, one { ID události } few {# ID události} many {# ID události} other {# ID události}}",
     "description": ""
   },
   "locationID": {
     "name": "ID polohy",
-    "count": "",
+    "count": "{num, plural, one { ID události } few {# ID události} many {# ID události} other {# ID události}}",
     "description": ""
   },
   "measurementOrFactTypes": {
@@ -402,32 +402,32 @@
   },
   "samplingProtocol": {
     "name": "Protokol o odběru vzorků",
-    "count": "",
+    "count": "{num, plural, one { protokol vzorku } few {# protokoly vzorku} many {# protokolů vzorku} other {# protokolů vzorku}}",
     "description": "Název, odkaz nebo popis metody nebo protokolu použitého během události."
   },
   "occurrenceStatus": {
     "name": "Status výskytu",
-    "count": "",
+    "count": "{num, plural, one { stav výskytu } few {# stavy výskytu} many {# stavů výskytu} other {# stavů výskytu}}",
     "description": "Přítomnost nebo nepřítomnost organismů daného taxonu."
   },
   "gadmGid": {
     "name": "Správní oblast",
-    "count": "",
+    "count": "{num, plural, one {administrativní oblast} few {# administrtivní oblasti} many {# administrativních oblastí} other {# administrativních oblastí}}",
     "description": "Název libovolné správní oblasti z GADM.org určený při zpracování záznamu."
   },
   "identifiedBy": {
     "name": "Identifikováno od",
-    "count": "",
+    "count": "{num, plural, one {Identifikován} few {Identifikován od (#)} many {Identifikován od (#)} other {Identifikován od (#)}}",
     "description": "Osoba, lidé, skupiny nebo organizace odpovědné za určení vědeckého názvu organismu."
   },
   "isInCluster": {
     "name": "je ve shluku",
-    "count": "",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
     "description": "Zda bylo zjištěno, že záznam obsahuje související záznamy."
   },
   "isSequenced": {
     "name": "Je sekvencován",
-    "count": "",
+    "count": "{num, plural, one {Je sekvenován} few {# jsou sekvenovány} many {# je sekvenováno} other {# je sekvenováno}}",
     "description": "Zda záznam obsahuje informace o sekvenci."
   },
   "active": {
@@ -457,12 +457,12 @@
   },
   "datasetType": {
     "name": "Typ datové sady",
-    "count": "",
+    "count": "{num, plural, one {typ datové sady} few {# typy datové sady} many {# typů datové sady} other {# typů datové sady}}",
     "description": "Zde by měl být uveden krátký popis součásti."
   },
   "datasetSubtype": {
     "name": "Podtyp datové sady",
-    "count": "",
+    "count": "{num, plural, one {subtyp datové sady} few {# subtypy datové sady} many {# subtypů datové sady} other {# subtypů datové sady}}",
     "description": "Zde by měl být uveden krátký popis součásti."
   },
   "institutionKey": {
@@ -498,7 +498,7 @@
   },
   "literatureType": {
     "name": "Typ literatury",
-    "count": "",
+    "count": "{num, plural, one { typ literatury } few {# typy literatury} many {# typů literatury} other {# typů literatury}}",
     "description": "Z jakého typu literatury citace pochází."
   },
   "higherTaxonKey": {
