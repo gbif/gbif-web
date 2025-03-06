@@ -37,7 +37,7 @@ export function parseParams(params: URLSearchParams, asArrays?: boolean): ParamQ
   const result: ParamQuery = {};
 
   for (const key of params.keys()) {
-    const values = params.getAll(key);
+    const values = params.getAll(key).filter((x) => x !== undefined && x !== null && x !== '');
     if (asArrays) {
       result[key] = values.map(tryParse);
     } else {
