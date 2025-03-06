@@ -47,7 +47,7 @@ export function register(app) {
 // GBIF API authentication
 const authenticateGBIF = async (email, password) => {
   try {
-    const response = await fetch(`${process.env.REGISTRY_API_V1}/user/login_`, {
+    const response = await fetch(`${process.env.REGISTRY_API_V1}/user/login`, {
       method: 'POST',
       headers: {
         Authorization: 'Basic ' + Buffer.from(`${email}:${password}`).toString('base64'),

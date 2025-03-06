@@ -8,6 +8,13 @@ const appKey = process.env.APP_KEY;
 const secret = process.env.APP_SECRET;
 const NEWLINE = '\n';
 
+export class RequestError extends Error {
+  constructor(message, statusCode) {
+    super(message);
+    this.statusCode = statusCode;
+  }
+}
+
 export async function authenticatedRequest(options) {
   // https://github.com/gbif/gbif-common-ws/blob/master/src/main/java/org/gbif/ws/security/GbifAuthService.java
   if (typeof options !== 'object' || options === null) {
@@ -26,27 +33,36 @@ export async function authenticatedRequest(options) {
     throw new Error('POST/PUT requests require a canonicalPath (string) and body (object)');
   }
 
-  let expectJSON = options.json !== false;
+  let hasJsonBody = options.body && typeof options.body === 'object';
   let headers = createHeader(options);
-  signHeader(options.method, headers, expectJSON);
+  signHeader(options.method, headers, hasJsonBody);
 
   let fetchOptions = {
     method: options.method,
     headers,
     body: options.body ? JSON.stringify(options.body) : undefined,
-    retries: 5,
-    retryDelay: 5000,
   };
 
-  let response = await fetchWithRetry(options.url, fetchOptions);
+  const response = await fetchWithRetry(options.url, fetchOptions);
+
   if (!response.ok) {
-    throw new Error(`HTTP error! Status: ${response.status}`);
+    throw new RequestError('Request failed', response.status);
   }
+
+  let body;
   try {
-    return expectJSON ? await response.json() : await response.text();
+    body = await response.json();
   } catch (error) {
-    throw new Error('Failed to parse response');
+    // ignore error
   }
+  if (body === null) {
+    try {
+      body = await response.text();
+    } catch (error) {
+      // ignore error
+    }
+  }
+  return { body, statusCode: response.status };
 }
 
 function createHeader(options) {
@@ -58,14 +74,15 @@ function createHeader(options) {
       .createHash('md5')
       .update(JSON.stringify(options.body))
       .digest('base64');
+    headers['Content-Type'] = 'application/json';
   }
   return headers;
 }
 
-function signHeader(method, headers, isJson) {
+function signHeader(method, headers, hasJsonBody) {
   let stringToSign = method + NEWLINE + headers['x-url'];
   if (headers['Content-MD5']) {
-    if (isJson) {
+    if (hasJsonBody) {
       stringToSign += NEWLINE + 'application/json';
     }
     stringToSign += NEWLINE + headers['Content-MD5'];

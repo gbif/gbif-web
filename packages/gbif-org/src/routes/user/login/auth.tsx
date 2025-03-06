@@ -49,3 +49,33 @@ export async function register(data: RegisterData) {
     throw new Error(error instanceof Error ? error.message : 'Registration failed');
   }
 }
+
+export async function whoAmI() {
+  try {
+    const response = await fetch('/api/user/who-am-i', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('UNKNOWN_USER');
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw new Error('UNKNOWN_USER');
+  }
+}
+
+export async function logout() {
+  try {
+    const response = await fetch('/api/user/logout', {
+      method: 'GET',
+    });
+    return { success: response.ok };
+  } catch (error) {
+    throw new Error('UNALBE_TO_LOGOUT');
+  }
+}

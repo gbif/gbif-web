@@ -1,20 +1,7 @@
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { LoginPage, RegistrationPage } from './login/login';
-
-const UserLayout = () => {
-  return (
-    <div>
-      <header>
-        <h1>User Dashboard</h1>
-        {/* Render common user info like name, avatar, etc. */}
-      </header>
-      <main>
-        <Outlet />
-      </main>
-    </div>
-  );
-};
+import { Profile, UserProfileLayoutWrapper } from './profile/profile';
 
 export const userRoutes: RouteObjectWithPlugins[] = [
   {
@@ -43,7 +30,7 @@ export const userRoutes: RouteObjectWithPlugins[] = [
     path: 'user/',
     loader: () => <span>loading</span>,
     loadingElement: <span>loading</span>,
-    element: <UserLayout />,
+    element: <UserProfileLayoutWrapper />,
     children: [
       {
         index: true,
@@ -51,7 +38,7 @@ export const userRoutes: RouteObjectWithPlugins[] = [
       },
       {
         path: 'profile',
-        element: <span>profile</span>,
+        element: <Profile />,
       },
       {
         path: 'download',

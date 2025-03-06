@@ -3,7 +3,7 @@ import queryString from 'query-string';
 import { authenticatedRequest } from '../auth/gbifAuthRequest.mjs';
 import { fetchWithRetry } from '../auth/utils.mjs';
 
-const identityBaseUrl = 'https://api.gbif.org/v1/';
+const identityBaseUrl = 'http://api.gbif.org/v1/';
 const apiConfig = {
   user: {
     url: identityBaseUrl + 'user',
@@ -109,7 +109,7 @@ async function changeEmail(body) {
 /**
  * Provides admin access to user management, so make sure to only expose this to authenticated users
  */
-async function update(userName, body) {
+export async function update(userName, body) {
   let options = {
     method: 'PUT',
     body: body,
@@ -201,7 +201,11 @@ export async function getByUserName(userName) {
     url: apiConfig.userAdmin.url + userName,
     json: true,
   };
-  return authenticatedRequest(options);
+  const response = await authenticatedRequest(options);
+  if (response.statusCode !== 200) {
+    throw response;
+  }
+  return response.body;
 }
 
 export async function find(query) {
@@ -210,7 +214,11 @@ export async function find(query) {
     url: apiConfig.userFind.url + '?' + queryString.stringify(query),
     json: true,
   };
-  return authenticatedRequest(options);
+  const response = await authenticatedRequest(options);
+  if (response.statusCode !== 200) {
+    throw response;
+  }
+  return response.body;
 }
 
 /**
@@ -226,7 +234,11 @@ async function getDownloads(userName, query) {
     method: 'GET',
     json: true,
   };
-  return authenticatedRequest(options);
+  const response = await authenticatedRequest(options);
+  if (response.statusCode !== 200) {
+    throw response;
+  }
+  return response.body;
 }
 
 /**
@@ -246,7 +258,11 @@ async function createSimpleDownload(user, query) {
     method: 'GET',
     json: false,
   };
-  return authenticatedRequest(options);
+  const response = await authenticatedRequest(options);
+  if (response.statusCode !== 200) {
+    throw response;
+  }
+  return response.body;
 }
 
 /**
@@ -362,6 +378,9 @@ async function changePassword(auth, newPassword) {
 
 export function getClientUser(user) {
   // sanitize user somehow? iThere isn't anything in the response that cannot go out at this point. later perhaps some configurations that are for internal only
+  if (!user) {
+    return;
+  }
   return {
     userName: user.userName,
     firstName: user.firstName,
@@ -369,8 +388,8 @@ export function getClientUser(user) {
     email: user.email,
     roles: user.roles,
     settings: {
-      country: user.settings.country,
-      locale: user.settings.locale,
+      country: user?.settings?.country,
+      locale: user?.settings?.locale,
       has_read_gdpr_terms: user.settings.has_read_gdpr_terms,
     },
     connectedAcounts: {
