@@ -9,14 +9,13 @@ import {
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { LoaderArgs, useI18n } from '@/reactRouterPlugins';
-import { required } from '@/utils/required';
 import { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { NonBackbonePresentation, TaxonKey as Presentation } from './taxonKeyPresentation';
 import { imagePredicate, typeSpecimenPredicate } from './taxonUtil';
 
 export async function taxonLoader({ params, graphql }: LoaderArgs) {
-  const key = required(params.key, 'No key was provided in the URL');
+  const key = params.taxonKey || (params.key as string);
 
   return graphql.query<TaxonKeyQuery, TaxonKeyQueryVariables>(TAXON_QUERY, {
     key,
@@ -53,13 +52,13 @@ const BackboneTaxon = () => {
         },
       });
     }
-  }, [data?.taxon?.key]);
+  }, [data?.taxon?.key, locale, slowTaxonLoad]);
 
   if (data?.taxon == null) throw new NotFoundError();
   return <Presentation data={data} slowTaxon={slowTaxon} slowTaxonLoading={slowTaxonLoading} />;
 };
 
-const NonBackboneTaxon = () => {
+export const NonBackboneTaxon = ({ headLess = false }) => {
   const { data } = useLoaderData() as { data: TaxonKeyQuery };
 
   const {
@@ -73,13 +72,6 @@ const NonBackboneTaxon = () => {
       throwAllErrors: true,
     }
   );
-  /* const { data: taxonMetrics, load: slowLoad } = useQuery<
-    TaxonSummaryMetricsQuery,
-    TaxonSummaryMetricsQueryVariables
-  >(SLOW_QUERY, {
-    lazyLoad: true,
-    throwAllErrors: true,
-  }); */
 
   useEffect(() => {
     const id = data.taxon?.key;
@@ -90,9 +82,10 @@ const NonBackboneTaxon = () => {
         },
       });
     }
-  }, [data?.taxon?.key]);
+  }, [data.taxon?.key, slowTaxonLoad]);
   return (
     <NonBackbonePresentation
+      headLess={headLess}
       data={data}
       slowTaxon={slowTaxon}
       slowTaxonLoading={slowTaxonLoading}
@@ -114,6 +107,7 @@ const TAXON_QUERY = /* GraphQL */ `
       taxonomicStatus
       publishedIn
       references
+      datasetKey
       distributionsCount: distributions(limit: 10, offset: 0) {
         results {
           taxonKey
@@ -135,6 +129,7 @@ const TAXON_QUERY = /* GraphQL */ `
       parents {
         rank
         scientificName
+        canonicalName
         key
       }
       acceptedTaxon {

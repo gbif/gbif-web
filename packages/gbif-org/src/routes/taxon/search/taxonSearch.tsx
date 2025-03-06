@@ -2,6 +2,7 @@ import { DataHeader } from '@/components/dataHeader';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
+import { Tabs } from '@/components/tabs';
 import { useConfig } from '@/config/config';
 import { FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
@@ -9,11 +10,9 @@ import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams'
 import { useStringParam } from '@/hooks/useParam';
 import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
 import EntityDrawer from '@/routes/occurrence/search/views/browseList/ListBrowser';
-import { cn } from '@/utils/shadcn';
 import React, { useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
 import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './helpTexts';
 import { searchConfig } from './searchConfig';
@@ -167,7 +166,6 @@ export function Views({
   );
 }
 
-// temporary view selector until we have a proper tabs implementation
 export function TaxonViewTabs({
   view,
   defaultView,
@@ -183,25 +181,14 @@ export function TaxonViewTabs({
   const { getParams } = useUpdateViewParams(['from', 'sort', 'limit', 'offset']); // Removes 'from' and 'sort'
 
   return (
-    <div className={cn('g-relative g-border-slate-200 dark:g-border-slate-200/5', className)}>
-      <ul className="g-flex g-whitespace-nowrap g-overflow-hidden -g-mb-px">
-        {tabs.map((tab) => {
-          return (
-            <li
-              key={tab}
-              role="button"
-              className={cn(
-                'g-p-2 g-border-b-2 g-border-transparent',
-                view === tab && 'g-border-b-primary-500'
-              )}
-            >
-              <Link to={{ search: getParams(tab, defaultView).toString() }}>
-                <FormattedMessage id={`search.tabs.${tab}`} defaultMessage={tab} />
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+    <Tabs
+      disableAutoDetectActive
+      className={className}
+      links={tabs.map((tab) => ({
+        isActive: view === tab,
+        to: { search: getParams(tab, defaultView).toString() },
+        children: <FormattedMessage id={`search.tabs.${tab}`} defaultMessage={tab} />,
+      }))}
+    />
   );
 }

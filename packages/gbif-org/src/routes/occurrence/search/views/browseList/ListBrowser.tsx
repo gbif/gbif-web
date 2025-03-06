@@ -11,6 +11,7 @@ const entityTypes = {
   d: 'datasetKey',
   p: 'publisherKey',
   t: 'speciesKey',
+  tx: 'speciesKey',
   c: 'collectionKey',
   i: 'institutionKey',
   n: 'networkKey',
@@ -24,8 +25,9 @@ export default function EntityDrawer() {
   const createLink = useLink();
   // use a switch to set type from previewKey. If it starts with o_ it is an occurrence key, d_ is dataset key, p_ is publisher key, c_ is collection key, i_ is institution key, n_ is network key, in_ is installation key
   let type;
+  let abbreviation;
   if (previewKey) {
-    const abbreviation = previewKey?.indexOf('_') > 0 ? previewKey?.split('_')[0] : undefined;
+    abbreviation = previewKey?.indexOf('_') > 0 ? previewKey?.split('_')[0] : undefined;
     if (abbreviation) {
       type = entityTypes[abbreviation as keyof typeof entityTypes];
     } else {
@@ -33,7 +35,12 @@ export default function EntityDrawer() {
     }
   }
   const key = previewKey ? previewKey.split('_')[1] ?? previewKey : undefined;
-  const entitylink = key ? createLink({ pageId: `${type}`, variables: { key: key } }) : null;
+  const entitylink =
+    abbreviation === 'tx'
+      ? null
+      : key
+      ? createLink({ pageId: `${type}`, variables: { key: key } })
+      : null;
 
   const getCurrentIndex = () => {
     return orderedList.findIndex((o) => o?.toString() === previewKey?.toString());

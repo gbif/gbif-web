@@ -1,15 +1,16 @@
 import { Table } from '@/components/dashboard/shared';
 import { HyperText } from '@/components/hyperText';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { Skeleton } from '@/components/ui/skeleton';
 import { VerbatimTaxonQuery, VerbatimTaxonQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useTaxonKeyLoaderData } from '.';
+import { TaxonKeyContext } from './taxonKeyPresentation';
 const VerbatimTaxon = () => {
-  const { data } = useTaxonKeyLoaderData();
+  const { data } = useContext(TaxonKeyContext);
   const {
     data: verbatimTaxon,
     load: verbatimTaxonLoad,
@@ -29,6 +30,9 @@ const VerbatimTaxon = () => {
     }
   }, [data.taxon?.key, verbatimTaxonLoad]);
 
+  if (verbatimTaxonLoading) {
+    <Skeleton />;
+  }
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl">
@@ -93,16 +97,18 @@ const VerbatimTaxon = () => {
                       </tr>
                     </thead>
                     <tbody className="[&_td]:g-align-baseline [&_th]:g-text-sm [&_th]:g-font-normal">
-                      {verbatimTaxon?.taxon?.verbatim?.extensions[e].map((row, i) => {
-                        return Object.keys(row).map((key) => (
-                          <tr key={i}>
-                            <td className="g-text-sm g-text-slate-500">{key}</td>
-                            <td className="g-text-sm g-text-slate-500">
-                              <HyperText text={row[key]} />
-                            </td>
-                          </tr>
-                        ));
-                      })}
+                      {verbatimTaxon?.taxon?.verbatim?.extensions[e].map(
+                        (row: { [x: string]: string | number }) => {
+                          return Object.keys(row).map((key) => (
+                            <tr key={i}>
+                              <td className="g-text-sm g-text-slate-500">{key}</td>
+                              <td className="g-text-sm g-text-slate-500">
+                                <HyperText text={row[key]} />
+                              </td>
+                            </tr>
+                          ));
+                        }
+                      )}
                     </tbody>
                   </Table>
                 </CardContent>

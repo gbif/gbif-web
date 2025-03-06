@@ -6,9 +6,11 @@ import { HyperText } from '@/components/hyperText';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/largeCard';
 import { SlowTaxonQuery, TaxonKeyQuery } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins/dynamicLink';
 import EntityDrawer from '@/routes/occurrence/search/views/browseList/ListBrowser';
+import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -72,12 +74,14 @@ export const NonBackbonePresentation = ({
   data,
   slowTaxon,
   slowTaxonLoading,
+  headLess = false,
 }: {
   data: TaxonKeyQuery;
   slowTaxon?: SlowTaxonQuery;
   slowTaxonLoading: boolean;
+  headLess: boolean;
 }) => {
-  return (
+  return !headLess ? (
     <PageHeader data={data} vernacularNameInfo={undefined}>
       <TaxonKeyContext.Provider
         value={{
@@ -88,10 +92,49 @@ export const NonBackbonePresentation = ({
       >
         <Outlet />
       </TaxonKeyContext.Provider>
-      {/*       <AboutNonBackbone slowTaxon={slowTaxon} slowTaxonLoading={slowTaxonLoading} />
-       */}{' '}
     </PageHeader>
+  ) : (
+    <TaxonKeyContext.Provider
+      value={{
+        data: data,
+        slowTaxon: slowTaxon,
+        slowTaxonLoading: slowTaxonLoading,
+      }}
+    >
+      <ArticleContainer className="g-bg-slate-100 ">
+        <ArticleTextContainer className="g-max-w-screen-xl">
+          <Card>
+            <SectionTabs isNub={false} />
+          </Card>
+        </ArticleTextContainer>
+        <Outlet />
+      </ArticleContainer>
+    </TaxonKeyContext.Provider>
   );
+};
+
+const SectionTabs = ({ isNub }: { isNub: boolean }) => {
+  const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
+    const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
+      { to: '.', children: <FormattedMessage id="taxon.tabs.about" /> },
+    ];
+    if (isNub) {
+      tabsToDisplay.push({
+        to: 'metrics',
+        children: <FormattedMessage id="taxon.tabs.metrics" />,
+      });
+    }
+    if (!isNub) {
+      tabsToDisplay.push({
+        to: 'verbatim',
+        children: <FormattedMessage id="taxon.tabs.verbatim" />,
+      });
+    }
+
+    return tabsToDisplay;
+  }, []);
+
+  return <Tabs links={tabs} />;
 };
 
 const PageHeader = ({ data, vernacularNameInfo, children }) => {
@@ -222,7 +265,7 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                         majorOnly
                         classification={taxon.parents.map((p) => ({
                           ...p,
-                          name: p.scientificName,
+                          name: p.canonicalName,
                         }))}
                       />
                     </div>
@@ -239,10 +282,8 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                 </FeatureList>
               </HeaderInfoMain>
             </HeaderInfo>
+            <SectionTabs isNub={isNub} />
           </ArticleTextContainer>
-          <div className="g-border-b g-mt-4"></div>
-
-          <Tabs links={tabs} />
         </PageContainer>
         <ErrorBoundary invalidateOn={data.taxon?.key}>{children}</ErrorBoundary>
       </article>

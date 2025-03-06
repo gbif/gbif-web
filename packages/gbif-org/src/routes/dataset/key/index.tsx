@@ -1,5 +1,8 @@
 import { DatasetQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
+import TaxonKeyAbout from '@/routes/taxon/key/About';
+import { NonBackboneTaxon, taxonLoader } from '@/routes/taxon/key/taxonKey';
+import VerbatimTaxon from '@/routes/taxon/key/Verbatim';
 import { DatasetKeyAbout } from './about';
 import { DatasetKeyDashboard } from './dashboard';
 import { datasetLoader, DatasetPage, DatasetPageSkeleton } from './datasetKey';
@@ -9,7 +12,6 @@ import { DatasetKeyOccurrences } from './occurrences';
 import { DatasetKeyPhylo } from './phylogenies';
 import { DatasetKeyProject } from './project';
 import { DatasetKeyTaxonSearch } from './taxonSearch';
-
 const id = 'datasetKey';
 
 export const datasetKeyRoute: RouteObjectWithPlugins = {
@@ -52,6 +54,21 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
     {
       path: 'species',
       element: <DatasetKeyTaxonSearch />,
+    },
+    {
+      path: 'species/:taxonKey',
+      element: <NonBackboneTaxon headLess={true} />,
+      loader: taxonLoader,
+      children: [
+        {
+          index: true,
+          element: <TaxonKeyAbout headLess={true} />,
+        },
+        {
+          path: 'verbatim',
+          element: <VerbatimTaxon />,
+        },
+      ],
     },
     {
       path: 'download',

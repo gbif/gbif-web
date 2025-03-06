@@ -8,7 +8,12 @@ import { FormattedMessage } from 'react-intl';
 
 const limit = 10;
 
-export function DistributionsTable({ taxonKey, total }) {
+interface DistributionsTableProps {
+  taxonKey: string | number;
+  total: number;
+}
+
+export function DistributionsTable({ taxonKey, total }: DistributionsTableProps) {
   const [offset, setOffset] = useState(0);
   const {
     data,

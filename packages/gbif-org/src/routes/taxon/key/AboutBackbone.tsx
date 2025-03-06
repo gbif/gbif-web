@@ -10,7 +10,6 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
-import { useTaxonKeyLoaderData } from '.';
 import Citation from './Citation';
 import OccurrenceImages from './OccurrenceImages';
 import Synonyms from './Synonyms';
@@ -21,10 +20,9 @@ import { VernacularNameTable } from './VernacularNameTable';
 import WikiDataIdentifiers from './WikiDataIdentifiers';
 
 export default function AboutBackbone() {
-  const { slowTaxon, slowTaxonLoading } = useContext(TaxonKeyContext);
+  const { slowTaxon, slowTaxonLoading, data } = useContext(TaxonKeyContext);
 
   const { key } = useParams();
-  const { data } = useTaxonKeyLoaderData();
   const { count, loading } = useCount({
     v1Endpoint: '/occurrence/search',
     params: { taxonKey: key },

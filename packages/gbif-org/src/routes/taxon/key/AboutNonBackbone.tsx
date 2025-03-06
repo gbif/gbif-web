@@ -1,6 +1,8 @@
+import { TaxonClassification } from '@/components/classification';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { useCount } from '@/components/count';
 import * as charts from '@/components/dashboard';
+import { FeatureList, Homepage } from '@/components/highlights';
 import { AdHocMapThumbnail } from '@/components/mapThumbnail';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
@@ -10,7 +12,6 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
-import { useTaxonKeyLoaderData } from '.';
 import Citation from './Citation';
 import { DistributionsTable } from './Distributions';
 import Synonyms from './Synonyms';
@@ -19,11 +20,11 @@ import { TaxonKeyContext } from './taxonKeyPresentation';
 import { useIsFamilyOrAbove, useIsSpeciesOrBelow } from './taxonUtil';
 import { VernacularNameTable } from './VernacularNameTable';
 
-export default function AboutNonBackbone() {
-  const { slowTaxon, slowTaxonLoading } = useContext(TaxonKeyContext);
+export default function AboutNonBackbone({ headLess = false }: { headLess?: boolean }) {
+  const { slowTaxon, slowTaxonLoading, data } = useContext(TaxonKeyContext);
 
   const { key } = useParams();
-  const { data } = useTaxonKeyLoaderData();
+  // const { data } = useTaxonKeyLoaderData();
   const { count, loading } = useCount({
     v1Endpoint: '/occurrence/search',
     params: { taxonKey: key },
@@ -46,6 +47,44 @@ export default function AboutNonBackbone() {
       <ArticleTextContainer className="g-max-w-screen-xl">
         <div className={`${removeSidebar ? '' : 'g-flex'}`}>
           <div className="g-flex-grow">
+            {headLess && (
+              <Card className="g-mb-4">
+                <CardHeader>
+                  <CardTitle>
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: taxon?.formattedName || taxon?.scientificName || '',
+                      }}
+                    />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {taxon.parents && (
+                    <div>
+                      <TaxonClassification
+                        showIcon={false}
+                        className="g-flex g-mb-2"
+                        majorOnly
+                        datasetKey={taxon.datasetKey}
+                        classification={taxon.parents.map((p) => ({
+                          ...p,
+                          name: p.canonicalName,
+                        }))}
+                      />
+                    </div>
+                  )}
+                  {taxon.publishedIn && (
+                    <div>
+                      <FormattedMessage id="taxon.publishedIn" />{' '}
+                      <HyperText text={taxon.publishedIn} />
+                    </div>
+                  )}
+                  <FeatureList>
+                    {taxon?.references && <Homepage url={taxon.references} />}
+                  </FeatureList>
+                </CardContent>
+              </Card>
+            )}
             {slowTaxon?.taxon?.media?.results?.length > 0 && (
               <Card className="g-mb-4">
                 <CardHeader>
@@ -75,35 +114,6 @@ export default function AboutNonBackbone() {
                 </CardContent>
               </Card>
             )}
-
-            {/* <AdHocMapThumbnail
-                filter={{ taxonKey: taxon.key }}
-                className='g-rounded g-border'
-              /> */}
-
-            {/* <section>
-              <CardHeader>
-                <CardTitle>
-                  <span className='g-me-2'>
-                    <FormattedMessage id="dataset.metrics" />
-                  </span>
-                  <SimpleTooltip
-                    title={<FormattedMessage id="dataset.metricsOccurrenceHelpText" />}
-                  >
-                    <span>
-                      <MdInfoOutline style={{ verticalAlign: 'middle' }} />
-                    </span>
-                  </SimpleTooltip>
-                </CardTitle>
-              </CardHeader>
-              <ClientSideOnly>
-                <DashBoardLayout>
-                  <charts.OccurrenceSummary predicate={predicate} className='g-mb-2' />
-                  <charts.DataQuality predicate={predicate} className='g-mb-2' />
-                  <charts.Taxa predicate={predicate} className='g-mb-2' />
-                </DashBoardLayout>
-              </ClientSideOnly>
-            </section> */}
 
             {(taxon?.vernacularCount?.results?.length ?? 0) > 0 && (
               <Card className="g-mb-4" id="vernacularNames">

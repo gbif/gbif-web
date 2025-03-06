@@ -24,10 +24,12 @@ export function TaxonClassification({
   classification,
   majorOnly,
   className,
+  datasetKey,
 }: {
-  classification: { rank?: string | null; name?: string | null }[];
+  classification: { rank?: string | null; name?: string | null; key: string }[];
   majorOnly?: boolean;
   className?: string;
+  datasetKey?: string;
 }) {
   const classificationFiltered = majorOnly
     ? classification.filter((c) => c.rank && majorRanks.includes(c.rank) && c.name)
@@ -37,8 +39,8 @@ export function TaxonClassification({
       {classificationFiltered.map((c, i) => (
         <span key={i}>
           <DynamicLink
-            pageId="speciesKey"
-            variables={{ key: c.key }}
+            pageId={datasetKey ? 'datasetKey' : 'speciesKey'}
+            variables={{ key: datasetKey ? `${datasetKey}/species/${c.key}` : c.key }}
             className="g-text-inherit hover:g-underline"
           >
             <span>{c.name}</span>
