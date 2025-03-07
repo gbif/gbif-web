@@ -14,6 +14,8 @@ const GBIF_ORG = import.meta.env.PUBLIC_GBIF_ORG;
 
 const DOWNLOAD = `
 query($predicate: Predicate){
+  _queryId
+  _variablesId
   occurrenceSearch(predicate: $predicate, size: 0) {
     documents {
       total
@@ -51,6 +53,15 @@ export function Download() {
 
   const q = currentFilterContext?.filter?.must?.q;
   const hasFreeTextSearch = q && q.length > 0;
+
+  let downloadQueryParams = '';
+  try {
+    downloadQueryParams = data._variablesId
+      ? `?queryId=${data?._queryId}&variablesId=${data?._variablesId}`
+      : `?predicate=${encodeURIComponent(JSON.stringify(fullPredicate))}`;
+  } catch (e) {
+    // ignore
+  }
 
   return (
     <div className="g-my-20 g-w-96 g-max-w-full g-mx-auto">
@@ -117,9 +128,7 @@ export function Download() {
                     <a
                       href={`${GBIF_ORG}/${
                         localePrefix ? `${localePrefix}/` : ''
-                      }occurrence/download/request?predicate=${encodeURIComponent(
-                        JSON.stringify(fullPredicate)
-                      )}#create`}
+                      }occurrence/download/request${downloadQueryParams}#create`}
                     >
                       <Message id="download.continueToGBIF" />
                     </a>

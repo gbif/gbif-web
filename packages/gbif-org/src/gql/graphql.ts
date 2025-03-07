@@ -6731,6 +6731,8 @@ export type Query = {
   __typename?: 'Query';
   /** _empty is nonsense, and only here as we are not allowed to extend an empty type. */
   _empty?: Maybe<Scalars['String']['output']>;
+  _queryId: Scalars['String']['output'];
+  _variablesId?: Maybe<Scalars['String']['output']>;
   article?: Maybe<Article>;
   backboneSearch: TaxonSearchResult;
   call?: Maybe<Call>;

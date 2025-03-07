@@ -39,7 +39,7 @@ async function initializeServer() {
   const typeDefs = await getSchema();
   const server = new ApolloServer({
     debug: config.debug,
-    context: async ({ req }) => {
+    context: async ({ req, res }) => {
       // on all requests attach a user if present
       const user = await extractUser(get(req, 'headers.authorization'));
 
@@ -61,6 +61,8 @@ async function initializeServer() {
         referer: get(req, 'headers.referer') || null,
         locale: get(req, 'headers.locale') || 'en-GB',
         preview: get(req, 'headers.preview') === 'true',
+        queryId: res.get('X-Graphql-query-ID'),
+        variablesId: res.get('X-Graphql-variables-ID'),
       };
     },
     typeDefs,
