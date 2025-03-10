@@ -97,7 +97,7 @@
         "OCCURRENCE_STATUS": "Status výskytu",
         "PROJECT_ID": "ID Projektu",
         "LOWEST_BIOSTRATIGRAPHIC_ZONE": "Nejnižší biostratigrafická zóna",
-        "TAXON_CONCEPT_ID": "",
+        "TAXON_CONCEPT_ID": "Concept ID taxonu",
         "TAXON_KEY": "Vědecký název",
         "LATEST_EON_OR_HIGHEST_EONOTHEM": "Poslední eon nebo nejvyšší eonotém",
         "SUBGENUS_KEY": "podrod",
@@ -202,7 +202,7 @@
         "COORDINATE_UNCERTAINTY_IN_METERS": "Neurčitost souřadnic v metrech",
         "PARENT_EVENT_ID": "ID nadřazené události",
         "RECORDED_BY": "Zaznamenáno od",
-        "BASIS_OF_RECORD": "Základ záznamu",
+        "BASIS_OF_RECORD": "Původ záznamu",
         "BIOSTRATIGRAPHY": "",
         "DATASET_KEY": "Datová sada"
       }
