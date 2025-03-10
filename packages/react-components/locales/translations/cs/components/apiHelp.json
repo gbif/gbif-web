@@ -14,6 +14,10 @@
   "searchInstallations": "Vyhledávání instalací.",
   "search": "Hledat",
   "searchCollections": "Hledat sbírky.",
+  "singleInstitution": "Jak získat jednu instituci.",
+  "searchInstitutions": "Jak hledat instituce.",
+  "singleDataset": "Jak získat jednu datovou sadu.",
   "searchDatasetsExample": "První dvě datové sady publikované z Dánska s volným textem \"fungi\" v názvu nebo popisu.",
-  "searchExample": "První dvě položky s volným textem \"dna\"."
+  "searchExample": "První dvě položky s volným textem \"dna\".",
+  "searchDatasets": "Získat všechny datové sady."
 }
