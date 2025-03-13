@@ -3,6 +3,7 @@ import { ClientSideOnly } from '@/components/clientSideOnly';
 import { useCount } from '@/components/count';
 import * as charts from '@/components/dashboard';
 import { FeatureList, Homepage } from '@/components/highlights';
+import { HyperText } from '@/components/hyperText';
 import { AdHocMapThumbnail } from '@/components/mapThumbnail';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
@@ -12,6 +13,7 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
+import TaxonBreakdown from './BreakDown';
 import Citation from './Citation';
 import { DistributionsTable } from './Distributions';
 import Synonyms from './Synonyms';
@@ -19,7 +21,6 @@ import TaxonImages from './TaxonImages';
 import { TaxonKeyContext } from './taxonKeyPresentation';
 import { useIsFamilyOrAbove, useIsSpeciesOrBelow } from './taxonUtil';
 import { VernacularNameTable } from './VernacularNameTable';
-
 export default function AboutNonBackbone({ headLess = false }: { headLess?: boolean }) {
   const { slowTaxon, slowTaxonLoading, data } = useContext(TaxonKeyContext);
 
@@ -97,7 +98,10 @@ export default function AboutNonBackbone({ headLess = false }: { headLess?: bool
                 </CardContent>
               </Card>
             )}
-            {data.taxon.taxonomicStatus === 'ACCEPTED' && (
+            {isFamilyOrAbove && data?.taxon?.taxonomicStatus === 'ACCEPTED' && (
+              <TaxonBreakdown taxon={taxon} />
+            )}
+            {data?.taxon?.taxonomicStatus === 'ACCEPTED' && (
               <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>

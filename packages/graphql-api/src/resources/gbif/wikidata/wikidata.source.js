@@ -122,7 +122,7 @@ class WikiDataAPI extends RESTDataSource {
       locale,
     );
 
-    return identifiers;
+    return identifiers || [];
   }
 
   async getTaxonSourceItem(key) {

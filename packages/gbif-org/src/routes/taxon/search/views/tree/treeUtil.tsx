@@ -35,6 +35,7 @@ export const getChildren = ({ key, limit, offset }: GetChildrenParams) => {
           offset
           results {
             key
+            parentKey
             numDescendants
             scientificName
             formattedName(useFallback: true)

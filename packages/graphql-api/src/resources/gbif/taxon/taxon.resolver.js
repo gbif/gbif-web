@@ -1,3 +1,5 @@
+import config from '#/config';
+import axios from 'axios';
 /**
  * Convinent wrapper to generate the facet resolvers.
  * Given a string (facet name) then generate a query a map the result
@@ -46,6 +48,8 @@ export default {
       dataSources.taxonAPI.getChecklistRoots({ key, query }),
     taxonSuggestions: (parent, query, { dataSources }) =>
       dataSources.taxonAPI.getSuggestions(query),
+    taxonBySourceId: (parent, { sourceId, datasetKey }, { dataSources }) =>
+      dataSources.taxonAPI.getTaxonBySourceId({ sourceId, datasetKey }),
   },
   Taxon: {
     dataset: ({ datasetKey }, args, { dataSources }) =>
@@ -84,6 +88,46 @@ export default {
         dataSources,
         size,
       }),
+    speciesCount: ({ key }, args, { dataSources }) =>
+      getTaxonFacet('rank')(
+        { _query: { higherTaxonKey: key } },
+        { limit: 100 },
+        { dataSources },
+      ).then((data) => {
+        return data.find((d) => d.name === 'SPECIES')?.count || 0;
+      }),
+    checklistBankBreakdown: async ({ key }, args, { dataSources }) => {
+      const taxon = await dataSources.taxonAPI.getTaxonByKey({ key });
+      const dataset = await dataSources.datasetAPI.getDatasetByKey({
+        key: taxon.datasetKey,
+      });
+      const clbDatasetKey = dataset?.identifiers.find(
+        (i) => i.type === 'CLB_DATASET_KEY',
+      )?.identifier;
+
+      if (clbDatasetKey) {
+        const breakdown = await axios.get(
+          `https://api.checklistbank.org/dataset/${clbDatasetKey}/taxon/${
+            taxon.datasetKey === config.gbifBackboneUUID ? key : taxon.taxonID
+          }/breakdown`,
+        );
+        return breakdown.data
+          .filter((t) => t.species > 0)
+          .map((t) => ({
+            ...t,
+            children: t.children
+              .filter((c) => c.species > 0)
+              .sort((a, b) => b.species - a.species),
+          }))
+          .sort((a, b) => b.species - a.species);
+      }
+      console.log(
+        `No CLB_DATASET_KEY found in identifiers for dataset ${dataset?.key}`,
+      );
+      console.log(dataset?.identifiers);
+
+      return null;
+    },
   },
   TaxonSearchResult: {
     facet: (parent) => ({

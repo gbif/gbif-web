@@ -108,6 +108,7 @@ const TAXON_QUERY = /* GraphQL */ `
       publishedIn
       references
       datasetKey
+      speciesCount
       distributionsCount: distributions(limit: 10, offset: 0) {
         results {
           taxonKey

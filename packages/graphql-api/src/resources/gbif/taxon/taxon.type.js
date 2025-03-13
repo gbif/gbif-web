@@ -52,6 +52,8 @@ const typeDef = gql`
       datasetKey: ID
       taxonScope: [ID!]
     ): [TaxonSuggestion]!
+
+    taxonBySourceId(sourceId: ID!, datasetKey: ID!): Taxon
   }
 
   input TaxonSearchInput {
@@ -149,8 +151,19 @@ const typeDef = gql`
     This is an experiment that might be stopped at any time. It is not part of the stable API. It will attempt ti find a nice image to represent the taxon.
     """
     taxonImages_volatile(size: Int): [Image]!
+    speciesCount: Int
+    checklistBankBreakdown: [ChecklistBankBreakdownTaxon]
   }
-
+  type ChecklistBankBreakdownTaxon {
+    id: String
+    name: String
+    rank: String
+    status: String
+    label: String
+    labelHtml: String
+    species: Int
+    children: [ChecklistBankBreakdownTaxon]
+  }
   type TaxonBreakdown {
     name: String!
     count: Int!

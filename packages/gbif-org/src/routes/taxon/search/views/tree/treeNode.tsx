@@ -74,7 +74,7 @@ export const TreeNode = ({
               e.preventDefault();
               if (item.data.key) {
                 setSelectedItems([item.data.key]);
-                showPreview(`t_${item.data.key.toString()}`);
+                showPreview(item.data.key.toString());
               }
             }}
           >

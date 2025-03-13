@@ -10,6 +10,7 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
+import TaxonBreakdown from './Breakdown';
 import Citation from './Citation';
 import OccurrenceImages from './OccurrenceImages';
 import Synonyms from './Synonyms';
@@ -18,7 +19,6 @@ import { useIsFamilyOrAbove, useIsSpeciesOrBelow } from './taxonUtil';
 import TypeMaterial from './TypeSpecimens';
 import { VernacularNameTable } from './VernacularNameTable';
 import WikiDataIdentifiers from './WikiDataIdentifiers';
-
 export default function AboutBackbone() {
   const { slowTaxon, slowTaxonLoading, data } = useContext(TaxonKeyContext);
 
@@ -64,6 +64,9 @@ export default function AboutBackbone() {
                   <OccurrenceImages total={numberOfImages} taxonKey={taxon.key} />
                 </CardContent>
               </Card>
+            )}
+            {isFamilyOrAbove && data.taxon.taxonomicStatus === 'ACCEPTED' && (
+              <TaxonBreakdown taxon={taxon} className="g-mb-4" />
             )}
             {data.taxon.taxonomicStatus === 'ACCEPTED' && (
               <Card className="g-mb-4">
@@ -111,7 +114,7 @@ export default function AboutBackbone() {
                 </CardContent>
               </Card>
             )}
-            {(slowTaxon?.taxon?.wikiData?.identifiers?.length ?? 0) > 0 && (
+            {slowTaxon && (slowTaxon?.taxon?.wikiData?.identifiers?.length ?? 0) > 0 && (
               <Card className="g-mb-4" id="taxonIdentifiers">
                 <CardHeader>
                   <CardTitle>

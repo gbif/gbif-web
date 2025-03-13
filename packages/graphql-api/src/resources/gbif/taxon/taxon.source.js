@@ -1,9 +1,9 @@
-import { RESTDataSource } from 'apollo-datasource-rest';
-import { stringify } from 'qs';
 import { getParsedName } from '#/helpers/scientificName';
+import { getTaxonAgent } from '#/requestAgents';
+import { RESTDataSource } from 'apollo-datasource-rest';
 import { uniqBy } from 'lodash';
 import { matchSorter } from 'match-sorter';
-import { getTaxonAgent } from '#/requestAgents';
+import { stringify } from 'qs';
 
 class TaxonAPI extends RESTDataSource {
   constructor(config) {
@@ -49,6 +49,17 @@ class TaxonAPI extends RESTDataSource {
     return this.get(`/species/${key}`);
   }
 
+  async getTaxonBySourceId({ sourceId, datasetKey }) {
+    const data = await this.get(
+      `/species`,
+      stringify({ sourceId, datasetKey }, { indices: false }),
+    );
+    if (data?.results?.[0]) {
+      return data?.results?.[0];
+    }
+    return null;
+  }
+
   async getTaxonNameByKey({ key }) {
     return this.get(`/species/${key}/name`);
   }
@@ -81,7 +92,7 @@ class TaxonAPI extends RESTDataSource {
     taxonScope = [],
   }) {
     // get vernacular names
-    let responseVernacularPromise = language
+    const responseVernacularPromise = language
       ? this.searchTaxa({
           query: {
             datasetKey,
@@ -153,11 +164,10 @@ class TaxonAPI extends RESTDataSource {
 
     // if the datasetKey is not the backbone, then we need to get the backbone taxon
     if (datasetKey !== this.config.gbifBackboneUUID) {
-      let uniqueNubKeyResults = uniqBy(results, 'nubKey');
+      const uniqueNubKeyResults = uniqBy(results, 'nubKey');
       await promiseForEach(uniqueNubKeyResults, async (x) => {
         // for some reason only some results have a nubKey. There can be two results from the backbone dataset, one has a nubKey the other doesn't. Both accepted names.
         if (!x.nubKey) {
-          return;
         } else {
           const taxon = await this.getTaxonByKey({ key: x.nubKey });
           x.backboneTaxon = taxon;
@@ -185,13 +195,12 @@ class TaxonAPI extends RESTDataSource {
       uniqueResults = uniqueResults.map((x) => {
         if (!x.acceptedTaxon) {
           return x;
-        } else {
-          return {
-            ...x.acceptedTaxon,
-            acceptedNameOf: x.scientificName,
-            vernacularNames: x.vernacularNames,
-          };
         }
+        return {
+          ...x.acceptedTaxon,
+          acceptedNameOf: x.scientificName,
+          vernacularNames: x.vernacularNames,
+        };
       });
     }
 
@@ -227,9 +236,9 @@ class TaxonAPI extends RESTDataSource {
     }
 
     // map results more easily digestable format
-    let structuredResults = filteredResults.map((x) => {
+    const structuredResults = filteredResults.map((x) => {
       // create a classification list
-      let classification = [];
+      const classification = [];
       [
         'kingdom',
         'phylum',

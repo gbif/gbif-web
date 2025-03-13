@@ -15,12 +15,21 @@ export function useIsSpeciesOrBelow(rank: string) {
 }
 
 export function useIsFamilyOrAbove(rank: string) {
-  const [isSpeciesOrBelow, setIsSpeciesOrBelow] = useState(false);
+  const [isFamilyOrAbove, setIsFamilyOrAbove] = useState(false);
   useEffect(() => {
-    setIsSpeciesOrBelow(rankEnum.indexOf(rank) <= fmIndex);
+    setIsFamilyOrAbove(rankEnum.indexOf(rank) <= fmIndex);
   }, [rank]);
 
-  return isSpeciesOrBelow;
+  return isFamilyOrAbove;
+}
+
+export function useIsAboveFamily(rank: string) {
+  const [isAboveFamily, setIsAboveFamily] = useState(false);
+  useEffect(() => {
+    setIsAboveFamily(rankEnum.indexOf(rank) < fmIndex);
+  }, [rank]);
+
+  return isAboveFamily;
 }
 
 export const typeSpecimenPredicate = (taxonKey: number) => ({

@@ -4,12 +4,14 @@ import { useSearchContext } from '@/contexts/search';
 import { RootSearchQuery, RootSearchQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { useEntityDrawer } from '@/routes/occurrence/search/views/browseList/useEntityDrawer';
+import { useOrderedList } from '@/routes/occurrence/search/views/browseList/useOrderedList';
 import { createContext, useContext, useEffect, useReducer, useState } from 'react';
 import { ControlledTreeEnvironment, Tree, TreeItem, TreeItemIndex } from 'react-complex-tree';
 import 'react-complex-tree/lib/style-modern.css';
 import { searchConfig } from '../../searchConfig';
 import TreeNode from './treeNode';
 import { getChildren, getParents, ItemsType, reducer } from './treeUtil';
+
 export const childLimit = 10;
 
 const CHECKLIST_ROOTS = /* GraphQL */ `
@@ -51,7 +53,7 @@ const CHECKLIST_ROOTS = /* GraphQL */ `
 `;
 const TreeContext = createContext<TreeItemIndex[]>([]);
 
-export function TaxonTree() {
+export function TaxonTree({ entityDrawerPrefix }: { entityDrawerPrefix: string }) {
   const searchContext = useSearchContext();
   const [loadingTreeNodes, setLoadingTreeNodes] = useState<TreeItemIndex[]>([]);
   const { filter, filterHash } = useContext(FilterContext);
@@ -65,6 +67,8 @@ export function TaxonTree() {
   const [rootsLoaded, setRootsLoaded] = useState(false);
   const currentFilterContext = useContext(FilterContext);
   const { scope } = useSearchContext();
+  const { setOrderedList } = useOrderedList();
+
   const {
     data: rootData,
     loading,
@@ -136,6 +140,12 @@ export function TaxonTree() {
       });
 
       setRootsLoaded(true);
+      if (rootData?.checklistRoots?.results.length < 5) {
+        rootData?.checklistRoots?.results.forEach((root) => {
+          loadChildren({ key: root.key.toString(), limit: childLimit, offset: 0 });
+        });
+        setExpandedItems(rootData?.checklistRoots?.results.map((item) => item.key));
+      }
     }
   }, [rootData]);
 
@@ -299,7 +309,15 @@ export function TaxonTree() {
             item={props.item}
             loadChildren={loadChildren}
             items={items}
-            showPreview={setPreviewKey}
+            showPreview={(key) => {
+              const parentKey = items[key].data?.parentKey;
+              const siblings = items[parentKey]?.children || [];
+
+              setOrderedList(
+                siblings.map((c) => `${entityDrawerPrefix || 't'}_${items[c].data.key}`)
+              );
+              setPreviewKey(`${entityDrawerPrefix || 't'}_${key}`);
+            }}
           />
         )}
         loading={loading}
@@ -341,8 +359,6 @@ export function TaxonTree() {
             expandedItems.filter((expandedItemIndex) => expandedItemIndex !== item.index)
           );
         }}
-        /*     onSelectItems={items => setSelectedItems(items)}
-         */
       >
         <Tree treeId="tree-1" rootItem="root" treeLabel="Tree Example" />
       </ControlledTreeEnvironment>
