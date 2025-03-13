@@ -2,6 +2,7 @@ import Highcharts, { chartColors } from '@/components/dashboard/charts/highchart
 import { chartsClass } from '@/components/dashboard/charts/OneDimensionalChart';
 import { CardHeader } from '@/components/dashboard/shared';
 import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/smallCard';
+import rankEnum from '@/enums/basic/rank.json';
 import { useLink } from '@/reactRouterPlugins/dynamicLink';
 import HighchartsReact from 'highcharts-react-official';
 import _ from 'lodash';
@@ -9,17 +10,17 @@ import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
 import { getBreakdown, getSourceTaxon } from './breakdownUtil';
-import { useIsAboveFamily } from './taxonUtil';
+const fmIndex = rankEnum.indexOf('FAMILY');
 
 const TaxonBreakdown = ({ taxon, ...props }) => {
   const [chartOptions, setChartOptions] = useState(null);
-  const isAboveFamily = useIsAboveFamily(taxon?.rank);
   const createLink = useLink();
   const navigate = useNavigate();
 
   const isBackbone = taxon?.nubKey === taxon?.key;
 
   useEffect(() => {
+    setChartOptions({});
     if (taxon.key) {
       getData();
     }
@@ -59,7 +60,7 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
       let root;
       if (
         data.taxon?.checklistBankBreakdown.length > 25 ||
-        !isAboveFamily ||
+        rankEnum.indexOf(taxon.rank) >= fmIndex ||
         (data.taxon?.checklistBankBreakdown.length === 0 && taxon.speciesCount > 0)
       ) {
         root = [
@@ -67,7 +68,9 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
             id: data.taxon.key,
             label: data.taxon?.scientificName,
             rank: data.taxon?.rank,
-            species: taxon.speciesCount,
+            species:
+              taxon.speciesCount ||
+              data.taxon?.checklistBankBreakdown?.reduce((acc, cur) => acc + cur?.species, 0),
             children: data.taxon?.checklistBankBreakdown,
           },
         ];
@@ -257,8 +260,7 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
   };
 
   return (
-    <Card {...props}>
-      {/* <CardTitle options={(singleValue || (distinct === 0)) ? null : <ViewOptions options={options} view={view} setView={setView} />}> */}
+    <Card loading={!chartOptions} {...props}>
       <CardHeader options={null}>
         <CardTitle>
           <FormattedMessage id="taxon.breakdown" />
