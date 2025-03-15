@@ -1,0 +1,21 @@
+{
+  "features": "Caratteristiche",
+  "citations": "Citazioni",
+  "occurrences": "Occorrenze",
+  "numberSpecimens": "Numero di campioni",
+  "gbifNumberSpecimens": "Campioni presenti su GBIF",
+  "title": "Titolo",
+  "titleAndAbstract": "Titolo e riassunto",
+  "altmetric": "Altmetrico",
+  "registered": "Registrato",
+  "hostedDatasets": "Set di dati ospitati",
+  "pubDatasets": "Set di dati pubblicati",
+  "species": "Numero di specie",
+  "parents": "Genitori",
+  "institution": "Istituzione",
+  "collection": "Collezione",
+  "collectionCount": "Collezioni",
+  "active": "È attivo",
+  "activeInstitution": "È attivo",
+  "activeCollection": "È attivo"
+}
