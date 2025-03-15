@@ -7,7 +7,7 @@ import { Vector as VectorSource, XYZ } from 'ol/source';
 import Icon from 'ol/style/Icon';
 import Style from 'ol/style/Style';
 import React from 'react';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import Marker from './marker.svg';
 
 type Coordinates = {

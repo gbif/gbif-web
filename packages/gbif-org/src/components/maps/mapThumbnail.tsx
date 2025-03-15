@@ -3,7 +3,7 @@
 import { stringify } from '@/utils/querystring';
 import { cn } from '@/utils/shadcn';
 import { useEffect, useState } from 'react';
-import { ClientSideOnly } from './clientSideOnly';
+import { ClientSideOnly } from '@/components/clientSideOnly';
 
 export enum MapTypes {
   DatasetKey = 'datasetKey',

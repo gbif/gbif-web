@@ -4,7 +4,7 @@ import * as charts from '@/components/dashboard';
 import DashBoardLayout from '@/components/dashboard/DashboardLayout';
 import EmptyValue from '@/components/emptyValue';
 import { HyperText } from '@/components/hyperText';
-import { MapThumbnail, MapTypes, useHasMap } from '@/components/mapThumbnail';
+import { MapThumbnail, MapTypes, useHasMap } from '@/components/maps/mapThumbnail';
 import { Message } from '@/components/message';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { TableOfContents } from '@/components/tableOfContents';

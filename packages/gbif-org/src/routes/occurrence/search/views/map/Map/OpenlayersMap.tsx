@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { projections } from './openlayers/projections';
+import { projections } from '@/components/maps/openlayers/projections';
 
 import { apply, applyBackground, applyStyle, stylefunction } from 'ol-mapbox-style';
 import { defaults as olControlDefaults } from 'ol/control';
@@ -10,7 +10,7 @@ import { transform } from 'ol/proj';
 import VectorTileSource from 'ol/source/VectorTile';
 import ImageTile from 'ol/source/ImageTile';
 import TileGrid from 'ol/tilegrid/TileGrid';
-import klokantech from './openlayers/styles/klokantech.json';
+import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
 import BaseTileLayer from 'ol/layer/BaseTile';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import { OccurrenceSearchMetadata } from '@/contexts/search';

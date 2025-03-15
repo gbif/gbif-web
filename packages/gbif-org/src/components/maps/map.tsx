@@ -1,5 +1,7 @@
+// TODO: This file is not used. Should it be deleted or is it just not ready to be used yet?
+
 import { useOnMountUnsafe } from '@/hooks/useOnMountUnsafe';
-import { projections } from '@/routes/occurrence/search/views/map/Map/openlayers/projections';
+import { projections } from './openlayers/projections';
 import { getMapStyles } from '@/routes/occurrence/search/views/map/Map/standardMapStyles';
 import { cn } from '@/utils/shadcn';
 import { Map as OpenLayersMap } from 'ol';
