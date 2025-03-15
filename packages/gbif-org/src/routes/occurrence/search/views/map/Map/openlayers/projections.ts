@@ -5,7 +5,6 @@ import * as olProj from 'ol/proj';
 import { transform } from 'ol/proj';
 import { register } from 'ol/proj/proj4';
 import { VectorTile as VectorTileSource } from 'ol/source';
-import { Circle, Fill, Icon, Stroke, Style, Text } from 'ol/style';
 import { createXYZ } from 'ol/tilegrid';
 import TileGrid from 'ol/tilegrid/TileGrid';
 import View from 'ol/View';
@@ -25,37 +24,27 @@ proj4.defs(
 );
 register(proj4);
 
-const window = global?.window;
 // set up projections and shared variables
-var tileSize = 512;
-var maxZoom = 13;
-var maxZoomView = 18;
-var pixelRatio = window?.devicePixelRatio || 1;
+const tileSize = 512;
+const maxZoom = 13;
+const maxZoomView = 18;
+const pixelRatio = window?.devicePixelRatio || 1;
 
 function get4326() {
-  var extent = 180.0;
-  var resolutions = Array(maxZoom + 1)
-    .fill()
-    .map(function (x, i) {
-      return extent / tileSize / Math.pow(2, i);
-    });
+  const extent = 180.0;
+  const resolutions = Array.from(
+    new Array(maxZoom + 1),
+    (_, i) => extent / tileSize / Math.pow(2, i)
+  );
 
   const tileGridOptions = {
-    extent: olProj.get('EPSG:4326').getExtent(),
+    extent: olProj.get('EPSG:4326')?.getExtent(),
     minZoom: 0,
     maxZoom: maxZoom,
     resolutions: resolutions,
     tileSize: tileSize,
   };
-  var tileGrid = new TileGrid(tileGridOptions);
-
-  // var tileGrid14 = new TileGrid({
-  //   extent: olProj.get('EPSG:4326').getExtent(),
-  //   minZoom: 0,
-  //   maxZoom: maxZoom,
-  //   resolutions: resolutions,
-  //   tileSize: tileSize,
-  // });
+  const tileGrid = new TileGrid(tileGridOptions);
 
   return {
     name: 'EPSG_4326',
@@ -68,7 +57,7 @@ function get4326() {
     resolutions: resolutions,
     // extent: olProj.get('EPSG:4326').getExtent(),
     fitExtent: [-179, -1, 179, 1],
-    getView: function (lat, lon, zoom) {
+    getView: function (lat: number, lon: number, zoom: number) {
       lat = lat || 0;
       lon = lon || 0;
       zoom = zoom || 0;
@@ -101,7 +90,7 @@ function get4326() {
 }
 
 function get3857() {
-  var tileGrid16 = createXYZ({
+  const tileGrid16 = createXYZ({
     minZoom: 0,
     maxZoom: maxZoom,
     tileSize: tileSize,
@@ -115,7 +104,7 @@ function get3857() {
     tileGrid: tileGrid16,
     // resolutions: resolutions,
     fitExtent: olProj.transformExtent([-90, -75, 90, 75], 'EPSG:4326', 'EPSG:3857'),
-    getView: function (lat, lon, zoom) {
+    getView: function (lat: number, lon: number, zoom: number) {
       if (Math.abs(lat) > 85) {
         lat = 0;
         lon = 0;
@@ -155,14 +144,15 @@ function get3857() {
 
 function get3575() {
   const halfWidth = Math.sqrt(2) * 6371007.2;
-  var extent = [-halfWidth, -halfWidth, halfWidth, halfWidth];
-  olProj.get('EPSG:3575').setExtent(extent);
-  var resolutions = Array.from(new Array(maxZoom + 1), function (x, i) {
-    return halfWidth / (tileSize * Math.pow(2, i - 1));
-  });
+  const extent = [-halfWidth, -halfWidth, halfWidth, halfWidth];
+  olProj.get('EPSG:3575')?.setExtent(extent);
+  const resolutions = Array.from(
+    new Array(maxZoom + 1),
+    (_, i) => halfWidth / (tileSize * Math.pow(2, i - 1))
+  );
 
   const tileGridOptions = {
-    extent: olProj.get('EPSG:3575').getExtent(),
+    extent: olProj.get('EPSG:3575')?.getExtent(),
     origin: [-halfWidth, halfWidth],
     minZoom: 0,
     maxZoom: maxZoom,
@@ -170,7 +160,7 @@ function get3575() {
     tileSize: tileSize,
   };
 
-  var tileGrid16 = new TileGrid(tileGridOptions);
+  const tileGrid16 = new TileGrid(tileGridOptions);
 
   return {
     name: 'EPSG_3575',
@@ -182,7 +172,7 @@ function get3575() {
     tileGrid: tileGrid16,
     resolutions: resolutions,
     fitExtent: extent,
-    getView: function (lat, lon, zoom) {
+    getView: function (lat: number, lon: number, zoom: number) {
       if (lat < 45) {
         lat = 90;
         lon = 0;
@@ -197,7 +187,7 @@ function get3575() {
         minZoom: 0,
         center: [lon, lat],
         zoom: zoom,
-        projection: olProj.get('EPSG:3575'),
+        projection: olProj.get('EPSG:3575')!,
       });
     },
     getBaseLayer: function (params = {}) {
@@ -221,12 +211,13 @@ function get3575() {
 }
 
 function get3031() {
-  var halfWidth = 12367396.2185; // To the Equator
-  var extent = [-halfWidth, -halfWidth, halfWidth, halfWidth];
-  olProj.get('EPSG:3031').setExtent(extent);
-  var resolutions = Array.from(new Array(maxZoom + 1), function (x, i) {
-    return halfWidth / (tileSize * Math.pow(2, i - 1));
-  });
+  const halfWidth = 12367396.2185; // To the Equator
+  const extent = [-halfWidth, -halfWidth, halfWidth, halfWidth];
+  olProj.get('EPSG:3031')?.setExtent(extent);
+  const resolutions = Array.from(
+    new Array(maxZoom + 1),
+    (_, i) => halfWidth / (tileSize * Math.pow(2, i - 1))
+  );
 
   const tileGridOptions = {
     extent: extent,
@@ -237,7 +228,7 @@ function get3031() {
     tileSize: tileSize,
   };
 
-  var tileGrid16 = new TileGrid(tileGridOptions);
+  const tileGrid16 = new TileGrid(tileGridOptions);
 
   return {
     name: 'EPSG_3031',
@@ -248,7 +239,7 @@ function get3031() {
     tileGrid: tileGrid16,
     resolutions: resolutions,
     fitExtent: extent,
-    getView: function (lat, lon, zoom) {
+    getView: function (lat: number, lon: number, zoom: number) {
       if (lat > -20) {
         lat = -90;
         lon = 0;
@@ -263,7 +254,7 @@ function get3031() {
         minZoom: 0,
         center: [lon, lat],
         zoom: zoom,
-        projection: olProj.get('EPSG:3031'),
+        projection: olProj.get('EPSG:3031')!,
       });
     },
     getBaseLayer: function (params = {}) {
@@ -286,16 +277,17 @@ function get3031() {
   };
 }
 
-function getLayer(baseUrl, proj, params, name) {
+function getLayer(baseUrl: string, proj: any, params: Record<string, any>, name?: string) {
   params = params || {};
   params.srs = proj.srs;
-  var progress = params.progress;
+  const progress = params.progress;
   delete params.progress;
 
-  var source = new VectorTileSource({
+  const source = new VectorTileSource({
     format: new MVTFormat(),
     projection: proj.projection,
     tileGrid: proj.tileGrid,
+    // @ts-ignore Typescript doesn't like this property after the ol upgrade
     tilePixelRatio: pixelRatio,
     url: baseUrl + stringify(params),
     wrapX: proj.wrapX,
@@ -319,14 +311,15 @@ function getLayer(baseUrl, proj, params, name) {
     });
   }
 
-  let layer = new VectorTileLayer({
+  const layer = new VectorTileLayer({
     extent: proj.extent,
     source: source,
     useInterimTilesOnError: false,
     visible: true,
+    // @ts-ignore Typescript doesn't like this property after the ol upgrade
     name: name,
     declutter: true,
-    style: createBasicBaseMapStyle(Style, Fill, Stroke, Icon, Text),
+    style: createBasicBaseMapStyle(),
   });
   return layer;
 }
@@ -350,19 +343,20 @@ function getLayer(baseUrl, proj, params, name) {
 13: 2048
 14: 4096
 */
-function getAdhocLayer(baseUrl, proj, params, name = 'occurrences') {
+function getAdhocLayer(baseUrl: string, proj: any, params: any, name = 'occurrences') {
   params = params || {};
   params.srs = proj.srs;
-  var progress = params.progress;
+  const progress = params.progress;
   delete params.progress;
-  var onError = params.onError;
+  const onError = params.onError;
   delete params.onError;
-  var siteTheme = params.siteTheme;
+  const siteTheme = params.siteTheme;
   delete params.siteTheme;
-  var source = new VectorTileSource({
+  const source = new VectorTileSource({
     format: new MVTFormat(),
     projection: proj.projection,
     tileGrid: proj.tileGrid,
+    // @ts-ignore Typescript doesn't like this property after the ol upgrade
     tilePixelRatio: pixelRatio,
     url: baseUrl + stringify(params),
     wrapX: proj.wrapX,
@@ -392,6 +386,7 @@ function getAdhocLayer(baseUrl, proj, params, name = 'occurrences') {
     source: source,
     useInterimTilesOnError: false,
     visible: true,
+    // @ts-ignore Typescript doesn't like this property after the ol upgrade
     name: name,
     style: densityPoints(siteTheme),
     // className: 'occurrenceLayer'
@@ -405,29 +400,3 @@ export const projections = {
   EPSG_3031: get3031(),
   EPSG_3857: get3857(),
 };
-
-const testStyles = [
-  // new Style({
-  //   stroke: new Stroke({
-  //     color: 'blue',
-  //     width: 3,
-  //   }),
-  //   fill: new Fill({
-  //     color: 'rgba(0, 0, 255, 0.1)',
-  //   }),
-  // }),
-  new Style({
-    image: new Circle({
-      radius: 5,
-      fill: new Fill({
-        color: 'orange',
-      }),
-    }),
-    // geometry: function (feature) {
-    //   // return the coordinates of the first ring of the polygon
-    //   debugger;
-    //   const coordinates = feature.getGeometry().getCoordinates()[0];
-    //   return new MultiPoint(coordinates);
-    // },
-  }),
-];

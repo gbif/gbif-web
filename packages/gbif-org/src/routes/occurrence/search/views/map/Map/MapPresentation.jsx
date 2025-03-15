@@ -302,11 +302,15 @@ function Map({
             </MenuButton>
             {notPolarProjection && (
               <SimpleTooltip
+                asChild
                 title={
                   <FormattedMessage id="map.filterByView" defaultMessage="Use view as filter" />
                 }
               >
-                <MenuButton onClick={() => broadcastEvent({ type: 'EXPLORE_AREA' })}>
+                <MenuButton
+                  onClick={() => broadcastEvent({ type: 'EXPLORE_AREA' })}
+                  className="g-p-2"
+                >
                   <ExploreAreaIcon />
                 </MenuButton>
               </SimpleTooltip>
@@ -370,12 +374,12 @@ function Map({
 
 export default Map;
 
-const MenuButton = React.forwardRef(({ children, loading, ...props }, ref) => {
+const MenuButton = React.forwardRef(({ children, loading, className, ...props }, ref) => {
   return (
     <Button
       ref={ref}
       variant="ghost"
-      className="g-p-2 g-flex-auto g-text-xl g-text-slate-800 g-whitespace-nowrap"
+      className={cn('g-p-2 g-flex-auto g-text-xl g-text-slate-800 g-whitespace-nowrap', className)}
       {...props}
     >
       {loading ? <Spinner /> : children}

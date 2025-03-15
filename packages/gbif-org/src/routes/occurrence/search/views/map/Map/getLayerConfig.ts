@@ -1,4 +1,11 @@
-export function getLayerConfig({ tileString, theme }) {
+import { Theme } from '@/config/theme/theme';
+
+type Args = {
+  tileString: string;
+  theme: Theme;
+};
+
+export function getLayerConfig({ tileString, theme }: Args) {
   const mapDensityColors = theme?.mapDensityColors ?? [
     '#fed976',
     '#fd8d3c',

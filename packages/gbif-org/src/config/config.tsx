@@ -162,7 +162,7 @@ export type Config = Endpoints & {
   };
 };
 
-type Projection = 'EPSG_4326' | 'EPSG_3857' | 'EPSG_3031' | 'EPSG_3575';
+export type Projection = 'EPSG_4326' | 'EPSG_3857' | 'EPSG_3031' | 'EPSG_3575';
 type ProjectionName = 'PLATE_CAREE' | 'MERCATOR' | 'ARCTIC' | 'ANTARCTIC';
 type MapStyleType = 'NATURAL' | 'BRIGHT' | 'DARK' | 'SATELLITE' | string;
 
