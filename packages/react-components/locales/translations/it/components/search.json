@@ -1,0 +1,59 @@
+{
+  "tabs": {
+    "table": "Tabella",
+    "tree": "",
+    "gallery": "Galleria",
+    "media": "",
+    "map": "Mappa",
+    "datasets": "Set di dati",
+    "events": "Eventi",
+    "download": "Scaricare",
+    "clusters": "",
+    "dashboard": "Pannello di Controllo",
+    "sites": "",
+    "list": "Lista"
+  },
+  "table": {
+    "lockColumn": "Blocca colonna",
+    "unlockColumn": "",
+    "columnVisibility": "",
+    "resetColumnVisibility": "",
+    "openFilter": ""
+  },
+  "placeholders": {
+    "default": "Cerca",
+    "range": "Intervallo o valore singolo",
+    "rangeExample": "",
+    "wildcard": "Ricerca utilizzando * e ? come caratteri generici",
+    "locationID": ""
+  },
+  "ternary": {
+    "yes": "Sì",
+    "no": "No",
+    "either": ""
+  },
+  "loadMore": "Altro",
+  "noResults": "",
+  "occurrenceClustersView": {
+    "about": "Informazioni",
+    "clusters": "",
+    "legend": "",
+    "differentPublishers": "",
+    "samePublishers": "",
+    "entryPoint": "",
+    "hasMultipleTaxonKeys": "",
+    "aboutLink": "",
+    "isCapped": "",
+    "isDeleted": "",
+    "similarities": "",
+    "currentRecord": "",
+    "nodeType": {
+      "IMAGE": "Immagine",
+      "TYPE": "Tipo di campione",
+      "TREATMENT": "Trattamento",
+      "OBSERVATION": "Osservazione",
+      "SPECIMEN": "Campioni",
+      "SEQUENCE": ""
+    }
+  }
+}
