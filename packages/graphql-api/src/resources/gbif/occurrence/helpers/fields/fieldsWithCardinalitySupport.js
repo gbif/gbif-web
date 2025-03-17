@@ -1,5 +1,6 @@
 export default [
   'datasetKey',
+  'datasetId',
   'publishingOrg',
   'hostingOrganizationKey',
   'catalogNumber',

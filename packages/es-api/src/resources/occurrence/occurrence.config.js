@@ -96,7 +96,7 @@ const config = {
         defaultLowerBound: 'lte',
       },
     },
-    datasetID: {
+    datasetId: {
       type: 'keyword',
       field: 'datasetID',
     },

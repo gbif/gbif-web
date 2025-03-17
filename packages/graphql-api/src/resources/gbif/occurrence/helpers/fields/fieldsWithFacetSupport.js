@@ -9,6 +9,7 @@ export default [
   'countryCode',
   'crawlId',
   'datasetKey',
+  'datasetId',
   'datasetPublishingCountry',
   // "datasetTitle",
   'day',

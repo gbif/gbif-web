@@ -4891,6 +4891,7 @@ export type OccurrenceCardinality = {
   collectionKey: Scalars['Long']['output'];
   continent: Scalars['Long']['output'];
   countryCode: Scalars['Long']['output'];
+  datasetId: Scalars['Long']['output'];
   datasetKey: Scalars['Long']['output'];
   dwcaExtension: Scalars['Long']['output'];
   establishmentMeans: Scalars['Long']['output'];
@@ -5015,6 +5016,7 @@ export type OccurrenceFacet = {
   coordinateUncertaintyInMeters?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
   countryCode?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   crawlId?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
+  datasetId?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   datasetKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Dataset>>>;
   datasetPublishingCountry?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   day?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
@@ -5190,6 +5192,12 @@ export type OccurrenceFacetCountryCodeArgs = {
 
 
 export type OccurrenceFacetCrawlIdArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetDatasetIdArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };

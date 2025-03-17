@@ -506,6 +506,7 @@ const chartGroups = {
       'collectionCode',
       'collectionKey',
       'basisOfRecord',
+      'datasetId',
     ],
   },
   occurrence: {

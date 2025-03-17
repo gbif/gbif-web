@@ -291,6 +291,12 @@ const preconfiguredCharts = {
       return <charts.ProjectId predicate={predicate} interactive {...props} />;
     },
   },
+  datasetId: {
+    translation: 'filters.datasetId.name',
+    component: ({ predicate, ...props }) => {
+      return <charts.DatasetId predicate={predicate} interactive {...props} />;
+    },
+  },
   map: {
     translation: 'search.tabs.map',
     r: true, // resizable

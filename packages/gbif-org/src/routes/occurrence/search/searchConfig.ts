@@ -106,6 +106,7 @@ const otherParams = [
   'stateProvince',
   'samplingProtocol',
   'verbatimScientificName',
+  'datasetId',
 
   'geometry',
   'hasCoordinate',
