@@ -1,5 +1,12 @@
 {
   "nResults": "{total, plural, one {# wynik} few {# wyniki} many {# wyników} other {#wyniki, #wyników}}",
+  "nDocuments": "{total, plural, one {# dokument} few {# dokumenty} many {# dokumentów} other {# dokumenty, dokumentów}}",
+  "nTools": "{total, plural, one {# narzędzie} few {# narzędzia} many {# narzędzi} other {# narzędzia, narzędzi}}",
+  "nProgrammes": "{total, plural, one {# program} few {# programy} many {# programów} other {# programy, programów}}",
+  "nProjects": "{total, plural, one {# projekt} few {# projekty} many {# projektów} other {# projekty, projektów}}",
+  "nEvents": "{total, plural, one {# zdarzenie} few {# zdarzenia} many {# zdarzeń} other {# zdarzenia, zdarzeń}}",
+  "nNews": "{total, plural, one {# wiadomość} few {# wiadomości} many {# wiadomości} other {# wiadomości}}",
+  "nDataUse": "{total, plural, one {# podsumowanie użycia danych} few {# podsumowania użycia danych} many {# podsumowań użycia danych} other {# podsumowania użycia danych, podsumowań użycia danych}}",
   "nOccurrences": "{total, plural, one {# stwierdzenie} few {# stwierdzenia} many {# stwierdzeń} other {#stwierdzenia}}",
   "nRecords": "{total, plural, one {# stwierdzenie} few {# stwierdzenia} many {# stwierdzeń} other {#stwierdzenia, #stwierdzeń}}",
   "nTaxa": "{total, plural, one {# takson} few {# taksony} many {# taksonów} other {# taksony}}",
