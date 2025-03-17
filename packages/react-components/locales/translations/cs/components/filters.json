@@ -45,7 +45,7 @@
     "description": ""
   },
   "iucnRedListCategory": {
-    "name": "Kategorie globálního červeného seznamu IUCN",
+    "name": "Kategorie Globálního Červeného seznamu IUCN",
     "count": "",
     "description": "Červený seznam ohrožených druhů IUCN rozděluje taxony podle toho, jak moc jsou ohrožené."
   },
@@ -426,7 +426,7 @@
     "description": "Zda bylo zjištěno, že záznam obsahuje související záznamy."
   },
   "isSequenced": {
-    "name": "Je sekvencován",
+    "name": "Je sekvenováno",
     "count": "{num, plural, one {Je sekvenován} few {# jsou sekvenovány} many {# je sekvenováno} other {# je sekvenováno}}",
     "description": "Zda záznam obsahuje informace o sekvenci."
   },
