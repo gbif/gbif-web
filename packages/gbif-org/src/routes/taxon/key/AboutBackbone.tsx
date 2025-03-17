@@ -10,7 +10,7 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
-import TaxonBreakdown from './Breakdown';
+import TaxonBreakdown from './BreakDown';
 import Citation from './Citation';
 import OccurrenceImages from './OccurrenceImages';
 import Synonyms from './Synonyms';
