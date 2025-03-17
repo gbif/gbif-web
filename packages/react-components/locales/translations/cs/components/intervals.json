@@ -1,0 +1,82 @@
+{
+  "description": {
+    "lt": "Méně než {to}",
+    "lte": "Méně nebo rovno {to}",
+    "gt": "Větší než {from}",
+    "gte": "Větší nebo rovno {from}",
+    "e": "Rovná se {from}",
+    "between": "Od {from} do {to}"
+  },
+  "compact": {
+    "between": "{from} do {to}",
+    "lt": "Pod {to}",
+    "gt": "Nad {from}",
+    "e": "{from}"
+  },
+  "compactMeters": {
+    "between": "{from} do {to}",
+    "lt": "Pod {to}",
+    "gt": "Nad {from}",
+    "e": "{from}m"
+  },
+  "compactTime": {
+    "between": "{from} do {to}",
+    "lt": "Před {to}",
+    "gt": "Po {from}",
+    "e": "{from}"
+  },
+  "year": {
+    "between": "Rok {from} do {to}",
+    "lt": "Před rokem {to}",
+    "gt": "Po roce {from}",
+    "e": "Rok je {from}"
+  },
+  "coordinateUncertainty": {
+    "between": "Neurčitost souřadnic od {from}m do {to}m",
+    "lt": "Neurčitost souřadnic pod {to}m",
+    "gt": "Neurčitost souřadnic nad {from}m",
+    "e": "Neurčitost souřadnic je {from}m"
+  },
+  "depth": {
+    "between": "Hloubka {from} do {to}",
+    "lt": "Hloubka pod {to}",
+    "gt": "Hloubka nad {from}",
+    "e": "Hloubka je {from}"
+  },
+  "organismQuantity": {
+    "between": "Množství organismu {from} do {to}",
+    "lt": "Množství organismů pod {to}",
+    "gt": "Množství organismů nad {from}",
+    "e": "Množství organismů je {from}"
+  },
+  "sampleSizeValue": {
+    "between": "Hodnota velikosti vzorku {from} do {to}",
+    "lt": "Hodnota velikosti vzorku pod {to}",
+    "gt": "Hodnota velikosti vzorku nad {from}",
+    "e": "Hodnota velikosti vzorku je {from}"
+  },
+  "relativeOrganismQuantity": {
+    "between": "Relativní množství organismů {from} do {to}",
+    "lt": "Relativní množství organismů pod {to}",
+    "gt": "Relativní množství organismů nad {from}",
+    "e": "Relativní množství organismů nad {from}"
+  },
+  "elevation": {
+    "between": "Nadmořská výška {from} do {to}",
+    "lt": "Nadmořská výška pod {to}",
+    "gt": "Nadmořská výška nad {from}",
+    "e": "Nadmořská výška je {from}"
+  },
+  "geoDistance": {
+    "short": "Do {distance} od {latitude}, {longitude}",
+    "description": "Zeměpisná šířka {latitude}, zeměpisná délka: {longitude}, vzdálenost: {distance}"
+  },
+  "units": {
+    "name": {
+      "km": "kilometry",
+      "m": "metry",
+      "mi": "míle",
+      "ft": "stopy"
+    }
+  }
+}
