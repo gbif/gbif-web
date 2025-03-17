@@ -1,9 +1,10 @@
 {
   "tabs": {
     "about": "關於",
-    "typeMaterial": "等於 {is}",
+    "verbatim": "字面的",
     "metrics": "指標"
   },
+  "breakdown": "",
   "publishedIn": "發布於",
   "vernacularNames": "俗名",
   "rank": "分類位階",
@@ -14,8 +15,10 @@
   "less": "等於 {is}",
   "dna": "去氧核醣核酸",
   "occurenceImages": "等於 {is}",
+  "taxonImages": "",
   "taxonIdentifiers": "分類群辨識碼",
   "synonymsAndCombinations": "",
+  "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "界",
     "PHYLUM": "門",
@@ -24,5 +27,19 @@
     "FAMILY": "科",
     "GENUS": "屬",
     "SPECIES": "種"
+  },
+  "distributions": "分布",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "建立方法",
+    "status": "狀態",
+    "locality": "地區",
+    "locationId": "地點識別碼",
+    "country": "國家"
+  },
+  "verbatim": {
+    "term": "條款",
+    "value": "數值",
+    "coreRecord": ""
   }
 }

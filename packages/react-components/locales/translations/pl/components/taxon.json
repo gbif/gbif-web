@@ -1,9 +1,10 @@
 {
   "tabs": {
     "about": "Informacje",
-    "typeMaterial": "",
+    "verbatim": "Jak podano",
     "metrics": "Metryka"
   },
+  "breakdown": "",
   "publishedIn": "Opublikowany w",
   "vernacularNames": "Nazwy zwyczajowe",
   "rank": "Ranga",
@@ -14,8 +15,10 @@
   "less": "",
   "dna": "DNA",
   "occurenceImages": "",
+  "taxonImages": "",
   "taxonIdentifiers": "Identyfikatory taksonu",
   "synonymsAndCombinations": "Synonimy i kombinacje",
+  "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "Królestwa",
     "PHYLUM": "Typ",
@@ -24,5 +27,19 @@
     "FAMILY": "Rodziny",
     "GENUS": "Rodzaje",
     "SPECIES": "Gatunek\n"
+  },
+  "distributions": "Dystrybucja",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "Sposoby wprowadzenia",
+    "status": "Status",
+    "locality": "Miejscowość",
+    "locationId": "Identyfikator lokalizacji",
+    "country": "Kraj"
+  },
+  "verbatim": {
+    "term": "Pojęcie",
+    "value": "Wartość",
+    "coreRecord": ""
   }
 }

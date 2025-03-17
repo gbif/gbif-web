@@ -1,9 +1,10 @@
 {
   "tabs": {
     "about": "Acerca de",
-    "typeMaterial": "Igual a {is}",
+    "verbatim": "Original",
     "metrics": "Estadísticas"
   },
+  "breakdown": "",
   "publishedIn": "Publicado en",
   "vernacularNames": "Nombres comunes",
   "rank": "Rango",
@@ -14,8 +15,10 @@
   "less": "Igual a {is}",
   "dna": "ADN",
   "occurenceImages": "Igual a {is}",
+  "taxonImages": "",
   "taxonIdentifiers": "Identificadores del taxón",
   "synonymsAndCombinations": "Sinónimos y combinaciones",
+  "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "Reinos",
     "PHYLUM": "Filos",
@@ -24,5 +27,19 @@
     "FAMILY": "Familias",
     "GENUS": "Géneros",
     "SPECIES": "Especies"
+  },
+  "distributions": "Distribuciones",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "Medias establecidas",
+    "status": "Estado",
+    "locality": "Localidad",
+    "locationId": "ID de la Ubicación",
+    "country": "País"
+  },
+  "verbatim": {
+    "term": "Término",
+    "value": "Valor",
+    "coreRecord": ""
   }
 }

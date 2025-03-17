@@ -1,9 +1,10 @@
 {
   "tabs": {
     "about": "",
-    "typeMaterial": "Gleich {is}",
+    "verbatim": "",
     "metrics": "Kennzahlen"
   },
+  "breakdown": "",
   "publishedIn": "",
   "vernacularNames": "",
   "rank": "",
@@ -14,8 +15,10 @@
   "less": "Gleich {is}",
   "dna": "",
   "occurenceImages": "Gleich {is}",
+  "taxonImages": "",
   "taxonIdentifiers": "",
   "synonymsAndCombinations": "",
+  "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "",
     "PHYLUM": "",
@@ -24,5 +27,19 @@
     "FAMILY": "",
     "GENUS": "",
     "SPECIES": ""
+  },
+  "distributions": "",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "",
+    "status": "",
+    "locality": "",
+    "locationId": "",
+    "country": "Land"
+  },
+  "verbatim": {
+    "term": "",
+    "value": "",
+    "coreRecord": ""
   }
 }
