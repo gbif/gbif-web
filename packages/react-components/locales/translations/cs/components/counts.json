@@ -1,5 +1,11 @@
 {
   "nResults": "{total, plural, one {# výsledek} few {# výsledky} many {# výsledků} other {# výsledků}}",
+  "nDocuments": "{total, plural, one {# dokument} few {# dokumenty} many {# dokumentů} other {# dokumentů}}",
+  "nTools": "{total, plural, one {# nástroj} few {# nástroje} many {# nástrojů} other {# nástrojů}}",
+  "nProgrammes": "{total, plural, one {# program} few {# programy} many {# programů} other {# programů}}",
+  "nProjects": "{total, plural, one {# projekt} few {# projekty} many {# projektů} other {# projektů}}",
+  "nEvents": "{total, plural, one {# událost} few {# události} many {# událostí} other {# událostí}}",
+  "nNews": "{total, plural, one {# novinka} few {# novinky} many {# novinek} other {# novinek}}",
   "nOccurrences": "{total, plural, one{# výskyt} few {# výskyty} many {# výskytů} other{# výskytů}}",
   "nRecords": "{total, plural, one {# záznam} few {# záznamy} many {# záznamů} other {# záznamů}}",
   "nTaxa": "{total, plural, one {# taxon} few {# taxony} many {# taxonů} other {# taxonů}}",
