@@ -1,9 +1,10 @@
 {
   "tabs": {
     "about": "Over",
-    "typeMaterial": "Gelijk aan {is}",
+    "verbatim": "",
     "metrics": "Metrieken"
   },
+  "breakdown": "",
   "publishedIn": "Gepubliceerd in",
   "vernacularNames": "Volksnamen",
   "rank": "",
@@ -14,8 +15,10 @@
   "less": "Gelijk aan {is}",
   "dna": "",
   "occurenceImages": "Gelijk aan {is}",
+  "taxonImages": "",
   "taxonIdentifiers": "",
   "synonymsAndCombinations": "",
+  "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "Rijken",
     "PHYLUM": "Stammen",
@@ -24,5 +27,19 @@
     "FAMILY": "Families",
     "GENUS": "",
     "SPECIES": "Soorten"
+  },
+  "distributions": "Distributies",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "",
+    "status": "Status",
+    "locality": "",
+    "locationId": "Locatie ID",
+    "country": "Land"
+  },
+  "verbatim": {
+    "term": "",
+    "value": "Waarde",
+    "coreRecord": ""
   }
 }
