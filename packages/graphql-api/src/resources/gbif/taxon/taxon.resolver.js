@@ -98,6 +98,9 @@ export default {
       }),
     checklistBankBreakdown: async ({ key }, args, { dataSources }) => {
       const taxon = await dataSources.taxonAPI.getTaxonByKey({ key });
+      if (taxon.origin === 'DENORMED_CLASSIFICATION') {
+        return null;
+      }
       const dataset = await dataSources.datasetAPI.getDatasetByKey({
         key: taxon.datasetKey,
       });

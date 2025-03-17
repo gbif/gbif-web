@@ -104,7 +104,7 @@ export const NonBackbonePresentation = ({
       <ArticleContainer className="g-bg-slate-100 ">
         <ArticleTextContainer className="g-max-w-screen-xl">
           <Card>
-            <SectionTabs isNub={false} />
+            <SectionTabs isNub={false} hasVerbatim={data.taxon?.origin === 'SOURCE'} />
           </Card>
         </ArticleTextContainer>
         <Outlet />
@@ -113,7 +113,7 @@ export const NonBackbonePresentation = ({
   );
 };
 
-const SectionTabs = ({ isNub }: { isNub: boolean }) => {
+const SectionTabs = ({ isNub, hasVerbatim }: { isNub: boolean; hasVerbatim: boolean }) => {
   const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
     const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
       { to: '.', children: <FormattedMessage id="taxon.tabs.about" /> },
@@ -124,7 +124,7 @@ const SectionTabs = ({ isNub }: { isNub: boolean }) => {
         children: <FormattedMessage id="taxon.tabs.metrics" />,
       });
     }
-    if (!isNub) {
+    if (hasVerbatim && !isNub) {
       tabsToDisplay.push({
         to: 'verbatim',
         children: <FormattedMessage id="taxon.tabs.verbatim" />,
@@ -282,7 +282,7 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                 </FeatureList>
               </HeaderInfoMain>
             </HeaderInfo>
-            <SectionTabs isNub={isNub} />
+            <SectionTabs isNub={isNub} hasVerbatim={taxon?.origin === 'SOURCE'} />
           </ArticleTextContainer>
         </PageContainer>
         <ErrorBoundary invalidateOn={data.taxon?.key}>{children}</ErrorBoundary>
