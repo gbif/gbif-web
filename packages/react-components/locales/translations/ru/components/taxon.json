@@ -1,9 +1,10 @@
 {
   "tabs": {
     "about": "Об организациии",
-    "typeMaterial": "",
+    "verbatim": "По первоисточнику",
     "metrics": "Показатели"
   },
+  "breakdown": "",
   "publishedIn": "Опубликовано в",
   "vernacularNames": "Народные названия",
   "rank": "Ранг",
@@ -14,8 +15,10 @@
   "less": "",
   "dna": "ДНК",
   "occurenceImages": "",
+  "taxonImages": "",
   "taxonIdentifiers": "Идентификаторы таксона",
   "synonymsAndCombinations": "Синонимы и комбинации",
+  "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "Царство",
     "PHYLUM": "Тип",
@@ -24,5 +27,19 @@
     "FAMILY": "Семейство",
     "GENUS": "Род",
     "SPECIES": "Вид"
+  },
+  "distributions": "Распространение",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "Статус вида в данной местности",
+    "status": "Статус",
+    "locality": "Топоним",
+    "locationId": "ID местонахождения",
+    "country": "Страна"
+  },
+  "verbatim": {
+    "term": "Термин",
+    "value": "Значение",
+    "coreRecord": ""
   }
 }
