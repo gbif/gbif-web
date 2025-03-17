@@ -1,9 +1,10 @@
 {
   "tabs": {
     "about": "Відомості про видавця даних",
-    "typeMaterial": "",
+    "verbatim": "Першоджерело",
     "metrics": "Показники"
   },
+  "breakdown": "",
   "publishedIn": "Опубліковано у",
   "vernacularNames": "Назви національною мовою",
   "rank": "Ранг",
@@ -14,8 +15,10 @@
   "less": "",
   "dna": "",
   "occurenceImages": "",
+  "taxonImages": "",
   "taxonIdentifiers": "Ідентифікатори таксона",
   "synonymsAndCombinations": "",
+  "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "Царства",
     "PHYLUM": "Відділи",
@@ -24,5 +27,19 @@
     "FAMILY": "Родини",
     "GENUS": "Роди",
     "SPECIES": "Вид"
+  },
+  "distributions": "Поширення",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "Статус організму (наприклад, нативний, інтродукований, інвазійний тощо)",
+    "status": "Статус",
+    "locality": "Місцевість",
+    "locationId": "ID місцезнаходження",
+    "country": "Країна"
+  },
+  "verbatim": {
+    "term": "Термін",
+    "value": "Значення",
+    "coreRecord": ""
   }
 }
