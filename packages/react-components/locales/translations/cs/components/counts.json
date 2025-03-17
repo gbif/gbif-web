@@ -6,6 +6,7 @@
   "nProjects": "{total, plural, one {# projekt} few {# projekty} many {# projektů} other {# projektů}}",
   "nEvents": "{total, plural, one {# událost} few {# události} many {# událostí} other {# událostí}}",
   "nNews": "{total, plural, one {# novinka} few {# novinky} many {# novinek} other {# novinek}}",
+  "nDataUse": "{total, plural, one {# souhrn užití dat} few {# souhrny užití dat} many {# souhrnů užití dat} other {# souhrnů užití dat}}",
   "nOccurrences": "{total, plural, one{# výskyt} few {# výskyty} many {# výskytů} other{# výskytů}}",
   "nRecords": "{total, plural, one {# záznam} few {# záznamy} many {# záznamů} other {# záznamů}}",
   "nTaxa": "{total, plural, one {# taxon} few {# taxony} many {# taxonů} other {# taxonů}}",
