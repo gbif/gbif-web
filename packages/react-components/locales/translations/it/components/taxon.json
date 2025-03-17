@@ -1,0 +1,45 @@
+{
+  "tabs": {
+    "about": "",
+    "verbatim": "",
+    "metrics": ""
+  },
+  "breakdown": "",
+  "publishedIn": "",
+  "vernacularNames": "",
+  "rank": "",
+  "source": "",
+  "specimenIsTypeOf": "",
+  "typeMaterial": "",
+  "more": "",
+  "less": "",
+  "dna": "",
+  "occurenceImages": "",
+  "taxonImages": "",
+  "taxonIdentifiers": "",
+  "synonymsAndCombinations": "",
+  "inChecklist": "",
+  "rankPlural": {
+    "KINGDOM": "",
+    "PHYLUM": "",
+    "CLASS": "",
+    "ORDER": "",
+    "FAMILY": "",
+    "GENUS": "",
+    "SPECIES": ""
+  },
+  "distributions": "",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "",
+    "status": "",
+    "locality": "",
+    "locationId": "",
+    "country": ""
+  },
+  "verbatim": {
+    "term": "",
+    "value": "",
+    "coreRecord": ""
+  }
+}
