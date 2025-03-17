@@ -1,9 +1,10 @@
 {
   "tabs": {
     "about": "À propos",
-    "typeMaterial": "",
+    "verbatim": "Original",
     "metrics": "Statistiques"
   },
+  "breakdown": "",
   "publishedIn": "Publié dans",
   "vernacularNames": "Noms vernaculaires",
   "rank": "Niveau du taxon",
@@ -14,8 +15,10 @@
   "less": "",
   "dna": "ADN",
   "occurenceImages": "",
+  "taxonImages": "",
   "taxonIdentifiers": "Identifiants de taxon",
   "synonymsAndCombinations": "synonymes et combinaisons",
+  "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "Règnes",
     "PHYLUM": "Phyla",
@@ -24,5 +27,19 @@
     "FAMILY": "Familles",
     "GENUS": "Genres",
     "SPECIES": "Espèce"
+  },
+  "distributions": "Répartitions",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "Mode d'établissement",
+    "status": "Statut",
+    "locality": "Localité",
+    "locationId": "ID de localisation",
+    "country": "Pays"
+  },
+  "verbatim": {
+    "term": "Terme",
+    "value": "Valeur",
+    "coreRecord": ""
   }
 }
