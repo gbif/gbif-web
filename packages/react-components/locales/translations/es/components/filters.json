@@ -200,6 +200,11 @@
     "count": "{num, plural, one {conjunto de datos} other {# conjuntos de datos}}\n",
     "description": "El título del conjunto de datos con el que se compartió el registro."
   },
+  "datasetId": {
+    "name": "ID del conjunto de datos",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "Publicador",
     "count": "{num, plural, one {publicador} other {# publicadores}}",
