@@ -200,6 +200,11 @@
     "count": "{num, plural, one {数据集} other {# 数据集}}",
     "description": "在其下共享记录的数据集的标题。"
   },
+  "datasetId": {
+    "name": "数据集编号",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "发布者",
     "count": "{num, plural, one {发布者} other {# 发布者}}",
