@@ -200,6 +200,11 @@
     "count": "{num, plural, one {zbiór danych} few {# zbiory danych} many {# zbiorów danych} other {# zbiory danych}}",
     "description": "Tytuł zbioru danych, w którym udostępnione jest stwierdzenie."
   },
+  "datasetId": {
+    "name": "ID zbioru danych",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "Publikujący",
     "count": "{num, plural, one {publikujący} few {# publikujących} many {# publikujących} other {# publikujący}}",
