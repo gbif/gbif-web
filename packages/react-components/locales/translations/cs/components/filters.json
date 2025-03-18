@@ -6,13 +6,13 @@
   },
   "locationId": {
     "name": "ID polohy",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {ID polohy} few {# ID polohy} many {# ID polohy} other {# ID polohy}}",
+    "description": "Vydavatelé se mohou rozhodnout přiřadit ID k poloze. Toto pole není normalizované, což znamená, že vyhledáváte údaje tak, jak je poskytl vydavatel."
   },
   "hasCoordinate": {
     "name": "Má souřadnici",
     "count": "Má souřadnice",
-    "description": ""
+    "description": "Zda má záznam souřadnice."
   },
   "hasGeospatialIssues": {
     "name": "Má geoprostorové problémy",
@@ -36,17 +36,17 @@
   },
   "numberSpecimens": {
     "name": "Počet exemplářů",
-    "count": "",
+    "count": "{num, plural, one { počet exemplářů } few {# filtry počtu exemplářů} many {# filtrů počtu exemplářů} other {# filtrů počtu exemplářů}}",
     "description": "Počet držených exemplářů uvedený v popisu. Tento počet neodráží, kolik záznamů bylo digitalizováno a sdíleno."
   },
   "specimensInGbif": {
     "name": "Exempláře v GBIF",
     "count": "{num, plural, one {exemplář v GBIF} few {# exempláře v GBIF} many {# exemplářů v GBIF} other {# exemplářů v GBIF}}",
-    "description": ""
+    "description": "Počet záznamů o exemplářích zveřejněných v GBIF a propojených se záznamem instituce."
   },
   "iucnRedListCategory": {
-    "name": "Kategorie globálního červeného seznamu IUCN",
-    "count": "",
+    "name": "Kategorie Globálního Červeného seznamu IUCN",
+    "count": "{num, plural, one { kategorie Globálního Červeného seznamu IUCN } few {# kategorie Globálního Červeného seznamu IUCN} many {# kategorií Globálního Červeného seznamu IUCN} other {# kategorií Globálního Červeného seznamu IUCN}}",
     "description": "Červený seznam ohrožených druhů IUCN rozděluje taxony podle toho, jak moc jsou ohrožené."
   },
   "geoDistance": {
@@ -77,7 +77,7 @@
   },
   "audiences": {
     "name": "Sledovanost",
-    "count": "{num, plural, one { sledovanost } few {# prohlížející} many {# prohlížejících} other {# prohlížejících}}",
+    "count": "{num, plural, one { prohlížející } few {# prohlížející} many {# prohlížejících} other {# prohlížejících}}",
     "description": "Pro koho je zdroj určen."
   },
   "purposes": {
@@ -165,12 +165,12 @@
     "description": "Země nebo území, kde k události došlo"
   },
   "grsciCollCountry": {
-    "description": ""
+    "description": "Země nebo území v adrese záznamu"
   },
   "preparations": {
     "name": "Preparace",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# preparace} few {# preparace} many {# preparací} other {# preparací}}",
+    "description": "Jak byl exemplář preparován (např. vysušen)"
   },
   "publishingCountryCode": {
     "name": "Země nebo oblast zveřejnění",
@@ -180,7 +180,7 @@
   "q": {
     "name": "Textové vyhledávání",
     "count": "{num, plural, one {textový řetězec} few {# vyhledávací řetězce} many {# vyhledávacích řetězců} other {# vyhledávacích řetězců}}",
-    "description": ""
+    "description": "Volné vyhledávání textu v několika polích"
   },
   "coordinates": {
     "name": "Souřadnice"
@@ -222,12 +222,12 @@
   "countriesOfCoverage": {
     "name": "Země nebo oblast pokrytí",
     "count": "{num, plural, one {země nebo oblast pokrytí} few {# země nebo oblasti pokrytí} many {# zemí nebo oblastí pokrytí} other {# zemí nebo oblastí pokrytí}}",
-    "description": ""
+    "description": "Které země jsou v záznamu uvedeny."
   },
   "collectionDescriptorCountry": {
     "name": "Země nebo oblast pokrytí",
     "count": "{num, plural, one {země nebo oblast pokrytí} few {# země nebo oblasti pokrytí} many {# zemí nebo oblastí pokrytí} other {# zemí nebo oblastí pokrytí}}",
-    "description": ""
+    "description": "Z jakých zemí sbírka obsahuje exempláře. Všimněte si, že ne všechny sbírky mají tyto informace vyplněny."
   },
   "countriesOfResearcher": {
     "name": "Země nebo oblast výzkumného pracovníka",
@@ -312,12 +312,12 @@
   },
   "projectId": {
     "name": "ID Projektu",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { ID projektu } few {# ID projektu} many {# ID projektu} other {# ID projektu}}",
+    "description": "Jaké ID projektu je k záznamu přiřazeno."
   },
   "recordedById": {
     "name": "Zaznamenáno podle ID",
-    "count": "{num, plural, one {zaznamenáno od ID} few {# záznamy od iD} many {# záznamů od ID} other {# záznamů od ID}}",
+    "count": "{num, plural, one {zaznamenáno od ID} few {# záznamy od ID} many {# záznamů od ID} other {# záznamů od ID}}",
     "description": "Identifikátor osoby, osob, skupin nebo organizací odpovědných za zaznamenání původního výskytu."
   },
   "identifiedById": {
@@ -347,7 +347,7 @@
   },
   "higherGeography": {
     "name": "Vyšší geografie",
-    "count": "",
+    "count": "{num, plural, one { vyšší geografie } few {# vyšší geografie} many {# vyšších geografií} other {# vyšších geografií}}",
     "description": ""
   },
   "stateProvince": {
@@ -368,16 +368,16 @@
   "parentEventId": {
     "name": "ID nadřazené události",
     "count": "{num, plural, one { ID události } few {# ID události} many {# ID události} other {# ID události}}",
-    "description": ""
+    "description": "Jedinečný identifikátor nadřazené události v záznamu."
   },
   "locationID": {
     "name": "ID polohy",
     "count": "{num, plural, one { ID události } few {# ID události} many {# ID události} other {# ID události}}",
-    "description": ""
+    "description": "Jedinečný identifikátor místa v záznamu."
   },
   "measurementOrFactTypes": {
-    "name": "",
-    "count": "",
+    "name": "Typy měření",
+    "count": "{num, plural, one { typ měření } few {# typy měření} many {# typů měření} other {# typů měření}}",
     "description": ""
   },
   "measurementOrFactCount": {
@@ -426,7 +426,7 @@
     "description": "Zda bylo zjištěno, že záznam obsahuje související záznamy."
   },
   "isSequenced": {
-    "name": "Je sekvencován",
+    "name": "Je sekvenováno",
     "count": "{num, plural, one {Je sekvenován} few {# jsou sekvenovány} many {# je sekvenováno} other {# je sekvenováno}}",
     "description": "Zda záznam obsahuje informace o sekvenci."
   },
