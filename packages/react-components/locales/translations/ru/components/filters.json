@@ -200,6 +200,11 @@
     "count": "",
     "description": ""
   },
+  "datasetId": {
+    "name": "ID набора данных",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "Организация",
     "count": "",

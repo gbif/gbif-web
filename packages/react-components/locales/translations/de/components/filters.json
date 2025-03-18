@@ -200,6 +200,11 @@
     "count": "{num, plural, one {Dataset} other {# Datasets}}",
     "description": "Der Titel des Datasets, das den Datensatz enthält."
   },
+  "datasetId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "Publisher",
     "count": "{num, plural, one {Publisher} other {# Publisher}}",

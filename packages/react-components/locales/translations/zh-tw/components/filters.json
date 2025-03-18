@@ -200,6 +200,11 @@
     "count": "{num, plural, one{資料集} other{資料集}}",
     "description": "共享記錄的資料集標題。"
   },
+  "datasetId": {
+    "name": "資料集識別碼",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "發布者",
     "count": "{num, plural, one {發布者} other {# 發布者}}",
