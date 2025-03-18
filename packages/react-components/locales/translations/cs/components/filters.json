@@ -200,6 +200,11 @@
     "count": "{num, plural, one {datová sada} few {# datové sady} many {# datových sad} other {# datových sad}}",
     "description": "Název datové sady, pod kterou je záznam sdílen."
   },
+  "datasetId": {
+    "name": "ID datové sady",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "Vydavatel",
     "count": "{num, plural, one {vydavatel} few {# vydavatelé} many {# vydavatelů} other {# vydavatelů}}",
