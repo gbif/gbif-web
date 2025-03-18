@@ -200,6 +200,11 @@
     "count": "{num, plural, one {dataset} other {# datasets}}",
     "description": "The title of the dataset under which the record is shared."
   },
+  "datasetId": {
+    "name": "Dataset ID",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "Publisher",
     "count": "{num, plural, one {publisher} other {# publishers}}",
