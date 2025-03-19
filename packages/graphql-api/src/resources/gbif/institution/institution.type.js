@@ -101,7 +101,10 @@ const typeDef = gql`
     foundingDate: Int
     occurrenceCount: Long
     numberSpecimens: Long
-    collectionCount: Int
+    """
+    collection count will count up to a 1000. After that results will be capped to 1000. This is unlikely to be an issue, but you should worry if you see 1000 results exactly.
+    """
+    collectionCount(query: CollectionSearchInput): Int
     featuredImageUrl: String
     featuredImageLicense: License
     thumbor(width: Int, height: Int, fitIn: Boolean): String
@@ -149,11 +152,15 @@ const typeDef = gql`
     machineTags: [MachineTag!]
     alternativeCodes: [AlternativeCode!]
     comments: [Comment!]
-    collections(limit: Int, offset: Int): [Collection!]
+    collections(
+      limit: Int
+      offset: Int
+      query: CollectionSearchInput
+    ): [Collection!]
     """
     collection count will count up to a 1000. After that results will be capped to 1000. This is unlikely to be an issue, but you should worry if you see 1000 results exactly.
     """
-    collectionCount: Int
+    collectionCount(query: CollectionSearchInput): Int
 
     featuredImageUrl: String
     featuredImageLicense: License

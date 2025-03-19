@@ -17,7 +17,7 @@ fragmentManager.register(/* GraphQL */ `
     excerpt
     country
     mailingCountry
-    collectionCount
+    collectionCount(query: $collectionScope)
     numberSpecimens
     occurrenceCount
     featuredImageUrl: thumbor(width: 300, height: 200)
