@@ -1,0 +1,28 @@
+{
+  "gbifNetwork": {
+    "participationType": {
+      "VOTING": {
+        "title": "Voting"
+      },
+      "ASSOCIATE": {
+        "title": "Associate country"
+      },
+      "OTHER_ASSOCIATE": {
+        "title": "Other associate"
+      },
+      "FORMER": {
+        "title": "Former"
+      },
+      "OBSERVER": {
+        "title": "Observer"
+      },
+      "UNKNOWN": {
+        "title": "UNKNOWN"
+      },
+      "AFFILIATE": {
+        "title": "GBIF affiliate",
+        "description": "Institutions with a formal partnership agreement with GBIF Secretariat defining specific areas of collaboration, in the form of a Memorandum of Cooperation or equivalent."
+      }
+    }
+  }
+}

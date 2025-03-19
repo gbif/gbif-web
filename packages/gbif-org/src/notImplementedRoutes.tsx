@@ -23,6 +23,7 @@ export const notImplementedRoutes: RouteObjectWithPlugins[] = [
     element: <NotImplemented />,
   },
   {
+    id: 'participantKey',
     path: 'participant/:key',
     element: <NotImplemented />,
   },

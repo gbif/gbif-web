@@ -82,5 +82,14 @@ export default {
         key: id,
         query: args,
       }),
+    participants: ({ participants }, args, { dataSources }) => {
+      return Promise.all(
+        participants.map((participant) =>
+          dataSources.participantAPI.getParticipantByDirectoryId({
+            id: participant.participantId,
+          }),
+        ),
+      );
+    },
   },
 };

@@ -29,7 +29,7 @@ const typeDef = gql`
     abbreviation: String
     address: [JSON]
     comments: [Comment]
-    contacts: [Contact]
+    contacts(type: [String]): [Contact]
     continent: Continent
     country: Country
     created: DateTime

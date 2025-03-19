@@ -65,6 +65,7 @@ class DirectoryPersonAPI extends RESTDataSource {
       'languages',
       'areasExpertise',
       'profileDescriptions',
+      'participants',
       'created',
       'modified',
     ]);
@@ -75,7 +76,6 @@ class DirectoryPersonAPI extends RESTDataSource {
       '/directory/person_role',
       stringify(query, { indices: false }),
     );
-    console.log(response);
     // Sanitize the data before returning it, this data is from an authorized endpoint.
     // response.results = response.results.map((p) => this.reduceDirectoryPerson(p));
     return response;
