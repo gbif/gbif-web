@@ -200,6 +200,11 @@
     "count": "",
     "description": "De titel van de dataset waaronder de gegevens worden gedeeld."
   },
+  "datasetId": {
+    "name": "Dataset ID",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "Gepubliceerd door",
     "count": "",

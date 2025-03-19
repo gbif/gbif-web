@@ -200,6 +200,11 @@
     "count": "{num, plural, one {conjunto de dados} other {# conjuntos de dados}}",
     "description": "O título do conjunto de dados sob o qual o registo é partilhado."
   },
+  "datasetId": {
+    "name": "ID do conjunto de dados",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "Publicador",
     "count": "{num, plural, one {publicador} other {# publicadores}}",

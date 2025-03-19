@@ -46,7 +46,7 @@
     "isClustered": "Ve shluku",
     "isSamplingEvent": "Událost odběru vzorku",
     "isTreament": "Ošetření",
-    "isSequenced": "Sekvencované",
+    "isSequenced": "Sekvenováno",
     "hasIssues": "Problémy a připomínky",
     "hasCoordinates": "Má souřadnice",
     "hasCountry": "Země",
@@ -281,7 +281,7 @@
       }
     },
     "germplasmMeasurementTrial": {
-      "name": "Zárodečná plazma: měrná zkouška",
+      "name": "Zárodečná plazma: pokus měření",
       "properties": {
         "measurementTrailID": "",
         "measurementTrailIdentifier": "",

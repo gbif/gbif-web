@@ -200,6 +200,11 @@
     "count": "",
     "description": ""
   },
+  "datasetId": {
+    "name": "データセットID",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "出版者",
     "count": "",

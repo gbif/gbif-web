@@ -40,15 +40,15 @@
             "networkKey": "Síť",
             "peerReview": "Recenzované",
             "openAccess": "Otevřený přístup",
-            "gbifDownloadKey": "Stáhnout klíč",
-            "gbifDerivedDatasetDoi": "Odvozený soubor dat DOI",
+            "gbifDownloadKey": "Klíč pro stahování",
+            "gbifDerivedDatasetDoi": "Odvozená datová sada DOI",
             "paperDoi": "DOI",
             "litSource": "Recenzovaný časopis",
             "gbifTaxonKey": "Vědecký název",
             "litPublisher": "Vydavatel recenzovaného časopisu"
         },
         "helpText": {
-            "gbifTaxonKey": "Poznámka: Při použití tohoto filtru budou vyloučeny práce, které nejsou výslovně zaměřeny na (a) konkrétní taxon/taxa."
+            "gbifTaxonKey": "Poznámka: Při použití tohoto filtru budou vyloučeny práce, které nejsou výslovně zaměřeny na konkrétní taxon / taxony."
         }
     }
 }
