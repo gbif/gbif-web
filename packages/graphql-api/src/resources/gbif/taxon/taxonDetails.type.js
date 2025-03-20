@@ -70,7 +70,7 @@ const typeDef = gql`
     locality: String
     locationId: String
     source: String
-    sourceTaxonKey: Int!
+    sourceTaxonKey: Int
     status: OccurrenceStatus
     taxonKey: Int!
     threatStatus: String

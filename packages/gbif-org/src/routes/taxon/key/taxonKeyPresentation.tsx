@@ -1,7 +1,12 @@
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
-import { FeatureList, Homepage, TaxonClassification } from '@/components/highlights';
+import {
+  FeatureList,
+  GenericFeature,
+  Homepage,
+  TaxonClassification,
+} from '@/components/highlights';
 import { HyperText } from '@/components/hyperText';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
@@ -279,6 +284,16 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                 )}
                 <FeatureList>
                   {!isNub && taxon?.references && <Homepage url={taxon.references} />}
+                  {isNub && taxon?.iucnStatus?.distribution?.threatStatus && (
+                    <GenericFeature>
+                      <a href={taxon?.iucnStatus?.references} target="_blank">
+                        <img
+                          width={200}
+                          src={`/iucnStatus/${taxon?.iucnStatus?.distribution?.threatStatus}.png`}
+                        />
+                      </a>
+                    </GenericFeature>
+                  )}
                 </FeatureList>
               </HeaderInfoMain>
             </HeaderInfo>
