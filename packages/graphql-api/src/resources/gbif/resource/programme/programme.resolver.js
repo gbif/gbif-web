@@ -1,6 +1,4 @@
-import {
-  excerpt, getHtml, isNoneEmptyArray
-} from '#/helpers/utils';
+import { excerpt, getHtml, isNoneEmptyArray } from '#/helpers/utils';
 import logger from '#/logger';
 import { KNOWN_BLOCK_TYPES } from '../composition/acceptedTypes';
 
@@ -25,7 +23,11 @@ export default {
   },
   Programme: {
     title: (src, _, { locale }) =>
-      getHtml(src.title, { inline: true, allowedTags: ['em', 'i'], locale }),
+      getHtml(src.title, {
+        inline: true,
+        locale,
+        allowedTags: ['em', 'i', 'strong'],
+      }),
     body: (src, _, { locale }) =>
       getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
     summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
