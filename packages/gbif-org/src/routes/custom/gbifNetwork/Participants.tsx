@@ -94,10 +94,10 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
           return (
             multiplier *
             formatMessage({
-              id: `gbifNetwork.participationType.${a?.participationType ?? 'UNKNOWN'}.title`,
+              id: `gbifNetwork.participationType.${a?.participationType ?? 'UNKNOWN'}`,
             }).localeCompare(
               formatMessage({
-                id: `gbifNetwork.participationType.${b?.participationType ?? 'UNKNOWN'}.title`,
+                id: `gbifNetwork.participationType.${b?.participationType ?? 'UNKNOWN'}`,
               })
             )
           );
@@ -120,20 +120,15 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
       <ArticleTextContainer>
         <div className="g-mb-6">
           <div className="g-flex g-flex-wrap g-gap-2">
-            <button
+            <Button
+              variant={!selectedRegion && !selectedType ? 'default' : 'primaryOutline'}
               onClick={() => {
                 setSelectedType(null);
                 setSelectedRegion(null);
               }}
-              className={`g-px-4 g-py-2 g-text-sm g-font-medium g-rounded-md g-transition-colors
-                    ${
-                      !selectedRegion && !selectedType
-                        ? 'g-bg-primary-600 g-text-white'
-                        : 'g-bg-white g-text-gray-700 g-border g-border-gray-300 hover:g-bg-gray-50'
-                    }`}
             >
-              <FormattedMessage id="phrases.all" />
-            </button>
+              <FormattedMessage id="gbifNetwork.all" />
+            </Button>
             {uniqueRegions.map((region) => (
               <Button
                 key={region}
@@ -142,12 +137,6 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
                   setSelectedRegion(region);
                 }}
                 variant={selectedRegion === region ? 'default' : 'primaryOutline'}
-                xclassName={`g-px-4 g-py-2 g-text-sm g-font-medium g-rounded-md g-transition-colors
-                      ${
-                        selectedRegion === region
-                          ? 'g-bg-primary-500 g-text-white'
-                          : 'g-bg-white g-text-gray-700 g-border g-border-gray-300 hover:g-bg-gray-50'
-                      }`}
               >
                 <FormattedMessage id={`enums.region.${region}`} />
               </Button>
@@ -159,27 +148,21 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
                   setSelectedRegion(null);
                 }}
                 variant={selectedRegion === type ? 'default' : 'primaryOutline'}
-                xclassName={`g-px-4 g-py-2 g-text-sm g-font-medium g-rounded-md g-transition-colors
-                      ${
-                        selectedType === type
-                          ? 'g-bg-primary-500 g-text-white'
-                          : 'g-bg-white g-text-gray-700 g-border g-border-gray-300 hover:g-bg-gray-50'
-                      }`}
               >
-                <FormattedMessage id={`gbifNetwork.participationType.${type}.title`} />
+                <FormattedMessage id={`gbifNetwork.participationType.${type}`} />
               </Button>
             ))}
             {(selectedRegion || selectedType) && (
-              <button
+              <Button
                 onClick={() => {
                   setSelectedRegion(null);
                   setSelectedType(null);
                 }}
-                className="g-flex g-items-center g-gap-1 g-px-3 g-py-2 g-text-sm g-font-medium g-text-red-600 g-bg-red-50 g-rounded-md hover:g-bg-red-100 g-transition-colors"
+                variant="destructiveSecondary"
               >
                 <MdClear className="g-h-4 g-w-4" />
-                <FormattedMessage id="phrases.clear" />
-              </button>
+                <FormattedMessage id="gbifNetwork.clear" />
+              </Button>
             )}
           </div>
         </div>
@@ -196,7 +179,7 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
                 sortDirection={sortDirection}
                 onSort={handleSort}
               >
-                <FormattedMessage id="Participant" />
+                <FormattedMessage id="gbifNetwork.participant" />
               </Th>
               <Th
                 className="g-text-start"
@@ -206,7 +189,7 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
                 sortDirection={sortDirection}
                 onSort={handleSort}
               >
-                <FormattedMessage id="Type" />
+                <FormattedMessage id="gbifNetwork.type" />
               </Th>
               <Th
                 className="g-text-end"
@@ -216,7 +199,7 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
                 sortDirection={sortDirection}
                 onSort={handleSort}
               >
-                <FormattedMessage id="Member since" />
+                <FormattedMessage id="gbifNetwork.memberSince" />
               </Th>
             </thead>
             <tbody>
@@ -247,14 +230,10 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
                           }`}
                     >
                       <FormattedMessage
-                        id={`gbifNetwork.participationType.${participant.participationType}.title`}
+                        id={`gbifNetwork.participationType.${participant.participationType}`}
                       />
                       {participant.participationType === 'AFFILIATE' && (
-                        <SimpleTooltip
-                          title={
-                            <FormattedMessage id="gbifNetwork.participationType.AFFILIATE.description" />
-                          }
-                        >
+                        <SimpleTooltip title={<FormattedMessage id="gbifNetwork.affiliateHelp" />}>
                           <MdInfoOutline className="g-ms-1" />
                         </SimpleTooltip>
                       )}

@@ -11,7 +11,7 @@ const typeDef = gql`
       machineTagNamespace: String
       machineTagName: String
       machineTagValue: String
-    ): NodeSearchResults
+    ): NodeSearchResults! @cacheControl(maxAge: 3600, scope: PUBLIC)
     node(key: String!): Node
     nodeCountry(countryCode: String!): Node
   }

@@ -1,4 +1,5 @@
 import { GbifNetworkParticipantsQuery } from '@/gql/graphql';
+import { FormattedMessage } from 'react-intl';
 
 export default function NodeSteeringGroup({
   listData,
@@ -13,9 +14,15 @@ export default function NodeSteeringGroup({
   return (
     <table className="g-w-full">
       <thead>
-        <th className="g-text-left">Role</th>
-        <th className="g-text-left">Name</th>
-        <th className="g-text-left">Participant</th>
+        <th className="g-text-left">
+          <FormattedMessage id="gbifNetwork.role" />
+        </th>
+        <th className="g-text-left">
+          <FormattedMessage id="gbifNetwork.name" />
+        </th>
+        <th className="g-text-left">
+          <FormattedMessage id="gbifNetwork.participant" />
+        </th>
         {/* <th>Contact</th> */}
       </thead>
       <tbody>
@@ -23,14 +30,7 @@ export default function NodeSteeringGroup({
           <tr key={`${member?.name}${i}`}>
             <td>
               <div className="g-text-gray-900">
-                {member.role
-                  .split('_')
-                  .slice(2)
-                  .join(' ')
-                  .toLowerCase()
-                  .split(' ')
-                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                  .join(' ')}
+                <FormattedMessage id={`enums.gbifRole.${member.role}`} />
               </div>
             </td>
             <td className="">

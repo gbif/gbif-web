@@ -81,6 +81,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         occurrenceStatus: getFile(locale, `../${folder}/${locale}/enums/occurrenceStatus`),
         literatureType: getFile(locale, `../${folder}/${locale}/enums/literatureType`),
         role: getFile(locale, `../${folder}/${locale}/enums/role`),
+        gbifRole: getFile(locale, `../${folder}/${locale}/enums/gbifRole`).gbifRole,
         isInCluster: getFile(locale, `../${folder}/${locale}/enums/isInCluster`),
         datasetType: getFile(locale, `../${folder}/${locale}/enums/datasetType`),
         datasetSubtype: getFile(locale, `../${folder}/${locale}/enums/datasetSubtype`),

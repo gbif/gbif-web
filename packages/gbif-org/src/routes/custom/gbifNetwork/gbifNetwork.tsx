@@ -103,7 +103,6 @@ function GbifNetworkPage() {
   const { data } = useLoaderData() as { data: GbifNetworkPageQuery };
   const {
     data: listData,
-    load,
     loading,
     error,
   } = useQuery<GbifNetworkParticipantsQuery, GbifNetworkParticipantsQueryVariables>(
@@ -141,7 +140,9 @@ function GbifNetworkPage() {
           )}
 
           <div className="g-prose g-max-w-none dark:g-prose-invert">
-            <h2>Node Steering Group</h2>
+            <h2>
+              <FormattedMessage id="gbifNetwork.headlines.nodesSteeringGroup" />
+            </h2>
             {listData && <NodeSteeringGroup listData={listData} />}
           </div>
         </ArticleTextContainer>
@@ -150,7 +151,9 @@ function GbifNetworkPage() {
           <>
             <ArticleTextContainer className="g-mb-8">
               <div className="g-prose g-max-w-none dark:g-prose-invert">
-                <h2>Participants</h2>
+                <h2>
+                  <FormattedMessage id="gbifNetwork.headlines.participants" />
+                </h2>
                 <Participants listData={listData} />
               </div>
             </ArticleTextContainer>

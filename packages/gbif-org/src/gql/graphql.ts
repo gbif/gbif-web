@@ -173,6 +173,11 @@ export type BoundingBox = {
   minLongitude?: Maybe<Scalars['Float']['output']>;
 };
 
+export enum CacheControlScope {
+  Private = 'PRIVATE',
+  Public = 'PUBLIC'
+}
+
 export type Call = {
   __typename?: 'Call';
   acronym?: Maybe<Scalars['String']['output']>;
@@ -6825,7 +6830,7 @@ export type Query = {
   news?: Maybe<News>;
   node?: Maybe<Node>;
   nodeCountry?: Maybe<Node>;
-  nodeSearch?: Maybe<NodeSearchResults>;
+  nodeSearch: NodeSearchResults;
   nodeSteeringGroup?: Maybe<Array<NsgMember>>;
   notification?: Maybe<Notification>;
   occurrence?: Maybe<Occurrence>;
@@ -8783,7 +8788,7 @@ export type GbifNetworkPageQuery = { __typename?: 'Query', resource?: { __typena
 export type GbifNetworkParticipantsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GbifNetworkParticipantsQuery = { __typename?: 'Query', nodeSteeringGroup?: Array<{ __typename?: 'NsgMember', name?: string | null, title?: string | null, institutionName?: string | null, address?: string | null, addressCountry?: string | null, email?: string | null, role?: string | null, contact?: { __typename?: 'DirectoryContact', participants?: Array<{ __typename?: 'Participant', id: string, name?: string | null, gbifRegion?: GbifRegion | null } | null> | null } | null }> | null, nodeSearch?: { __typename?: 'NodeSearchResults', results: Array<{ __typename?: 'Node', type?: NodeType | null, country?: Country | null, identifiers?: Array<{ __typename?: 'Identifier', type: IdentifierType, identifier: string } | null> | null, participant?: { __typename?: 'Participant', id: string, participationStatus?: ParticipationStatus | null, membershipStart?: string | null, name?: string | null, gbifRegion?: GbifRegion | null, countryCode?: Country | null } | null, contacts?: Array<{ __typename?: 'Contact', firstName?: string | null, lastName?: string | null, type?: string | null } | null> | null } | null> } | null };
+export type GbifNetworkParticipantsQuery = { __typename?: 'Query', nodeSteeringGroup?: Array<{ __typename?: 'NsgMember', name?: string | null, title?: string | null, institutionName?: string | null, address?: string | null, addressCountry?: string | null, email?: string | null, role?: string | null, contact?: { __typename?: 'DirectoryContact', participants?: Array<{ __typename?: 'Participant', id: string, name?: string | null, gbifRegion?: GbifRegion | null } | null> | null } | null }> | null, nodeSearch: { __typename?: 'NodeSearchResults', results: Array<{ __typename?: 'Node', type?: NodeType | null, country?: Country | null, identifiers?: Array<{ __typename?: 'Identifier', type: IdentifierType, identifier: string } | null> | null, participant?: { __typename?: 'Participant', id: string, participationStatus?: ParticipationStatus | null, membershipStart?: string | null, name?: string | null, gbifRegion?: GbifRegion | null, countryCode?: Country | null } | null, contacts?: Array<{ __typename?: 'Contact', firstName?: string | null, lastName?: string | null, type?: string | null } | null> | null } | null> } };
 
 export type DatasetStubResultFragment = { __typename?: 'DatasetSearchStub', key: string, title?: string | null, excerpt?: string | null, type?: DatasetType | null, publishingOrganizationTitle?: string | null };
 
@@ -9344,7 +9349,7 @@ export type TaiwanNodeQueryVariables = Exact<{
 }>;
 
 
-export type TaiwanNodeQuery = { __typename?: 'Query', nodeSearch?: { __typename?: 'NodeSearchResults', results: Array<{ __typename?: 'Node', key: string, participantTitle?: string | null, participationStatus?: string | null, title?: string | null } | null> } | null };
+export type TaiwanNodeQuery = { __typename?: 'Query', nodeSearch: { __typename?: 'NodeSearchResults', results: Array<{ __typename?: 'Node', key: string, participantTitle?: string | null, participationStatus?: string | null, title?: string | null } | null> } };
 
 export type NodeCountryQueryVariables = Exact<{
   countryCode: Scalars['String']['input'];
@@ -9358,7 +9363,7 @@ export type NonCountryNodeQueryVariables = Exact<{
 }>;
 
 
-export type NonCountryNodeQuery = { __typename?: 'Query', nodeSearch?: { __typename?: 'NodeSearchResults', results: Array<{ __typename?: 'Node', key: string, participantTitle?: string | null } | null> } | null };
+export type NonCountryNodeQuery = { __typename?: 'Query', nodeSearch: { __typename?: 'NodeSearchResults', results: Array<{ __typename?: 'Node', key: string, participantTitle?: string | null } | null> } };
 
 export type ParticipantsQueryVariables = Exact<{ [key: string]: never; }>;
 

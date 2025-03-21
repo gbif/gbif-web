@@ -2,11 +2,11 @@
 Experimental endpoint to provide a human readable form for WKT polygons.
 The idea is to use our geocoding layers to provide results like: denmark, copenhagen area, gentofte and dragør.
 */
-import wellknown from 'wellknown';
-import { bbox, polygon, booleanPointInPolygon, area } from '@turf/turf';
+import { area, bbox, booleanPointInPolygon, polygon } from '@turf/turf';
 import axios from 'axios';
-import { uniq } from 'lodash';
 import { Router } from 'express';
+import { uniq } from 'lodash';
+import wellknown from 'wellknown';
 import config from '../config';
 
 const router = Router();
@@ -16,25 +16,23 @@ export default (app) => {
 };
 
 router.get('/polygon-name', async (req, res, next) => {
-  const wkt = req.query.wkt;
+  const { wkt } = req.query;
   if (!wkt) return res.status(400).json({ error: 'WKT parameter is required' });
   try {
     const { list, area } = await getPolygonName(wkt);
     const title = uniq(list.map((item) => item.title)).join(', ');
     // set cache control to 1 day
-    res.set('Cache-Control', 'public, max-age=86400');
+    res.set('Cache-Control', `public, max-age=${60 * 60 * 24}`);
     return res.json({
       title,
-      area: area,
+      area,
     });
   } catch (error) {
     console.error('Error in polygon-name:', error.message);
-    return res
-      .status(500)
-      .json({
-        error:
-          'Unable to name polygon. The most likely explanation is that it is an invalid WKT.',
-      });
+    return res.status(500).json({
+      error:
+        'Unable to name polygon. The most likely explanation is that it is an invalid WKT.',
+    });
   }
 });
 
@@ -117,7 +115,7 @@ function sortMetadataByFrequency(metadataList) {
     .map(([key, count]) => {
       const metadata = JSON.parse(key);
       if (metadata.source === 'https://www.marineregions.org/') {
-        metadata.title = metadata.title + ' (Marine Regions)';
+        metadata.title += ' (Marine Regions)';
       }
       return { title: metadata.title, frequency: count };
     })
