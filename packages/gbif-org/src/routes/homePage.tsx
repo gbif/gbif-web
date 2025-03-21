@@ -101,8 +101,7 @@ function HomePage(): React.ReactElement {
             <ArticleTextContainer className="g-max-w-6xl">
               <div className="g-w-[800px]">
                 <div className="g-text-white">
-                  <DynamicLink to="/resource/2">News</DynamicLink>
-                  <div className="g-mb-8 g-text-xl g-font-semibold">{home.title}</div>
+                  <div className="g-mb-8 g-text-lg">{home.title}</div>
                   <h1 data-cy="heading" className="g-text-5xl g-font-semibold g-text-white">
                     {home.summary}
                   </h1>
