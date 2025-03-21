@@ -202,8 +202,8 @@
   },
   "datasetId": {
     "name": "Dataset ID",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {dataset ID} other {# dataset IDs}}",
+    "description": "The publisher's internal ID for the dataset that the record is associated with. Notice, that this is different from the datasetKey used on GBIF for the dataset."
   },
   "publisherKey": {
     "name": "Publisher",
