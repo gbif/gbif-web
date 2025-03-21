@@ -101,6 +101,7 @@ const typeDef = gql`
     areasExpertise: [String]
     profileDescriptions: [ProfileDescription]
     profilePicture(base64: Boolean): String
+    participants: [Participant]
   }
 
   type Certification {

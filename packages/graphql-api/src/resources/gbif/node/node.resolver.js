@@ -30,6 +30,13 @@ export default {
     installation: ({ key }, args, { dataSources }) => {
       return dataSources.nodeAPI.getInstallations({ key, query: args });
     },
+    contacts: ({ contacts }, { type }) => {
+      // filter contacts on type (array of strings)
+      if (type) {
+        return contacts.filter((contact) => type.includes(contact.type));
+      }
+      return contacts;
+    },
     participant: (node, args, { dataSources, locale }) => {
       // First step is to extract the participantID from the list if identifiers on the node. This is a bit akward.
       const identifiers = node.identifiers || [];

@@ -4,6 +4,7 @@ The idea is to use our geocoding layers to provide results like: denmark, copenh
 */
 import { getSql } from '#/helpers/generateSql';
 import { Router } from 'express';
+import getNetworkCounts from './networkStats/networkCounts';
 
 const router = Router();
 
@@ -25,6 +26,15 @@ router.post('/generate-sql', async (req, res) => {
   try {
     // eslint-disable-next-line no-use-before-define
     const response = await getSql({ query: req.body });
+    res.json(response);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.get('/network-stats', async (req, res) => {
+  try {
+    const response = await getNetworkCounts();
     res.json(response);
   } catch (err) {
     res.status(500).json({ error: err.message });
