@@ -4,7 +4,8 @@ import { VectorTile as VectorTileLayer } from 'ol/layer';
 import * as olProj from 'ol/proj';
 import { transform } from 'ol/proj';
 import { register } from 'ol/proj/proj4';
-import { VectorTile as VectorTileSource } from 'ol/source';
+import VectorTileSource from 'ol/source/VectorTile';
+import ImageTile from 'ol/source/ImageTile';
 import { createXYZ } from 'ol/tilegrid';
 import TileGrid from 'ol/tilegrid/TileGrid';
 import View from 'ol/View';
@@ -12,6 +13,17 @@ import proj4 from 'proj4';
 import { basemaps } from './basemaps';
 import createBasicBaseMapStyle from './styles/basicBaseMap';
 import densityPoints from './styles/densityPoints';
+import { pixelRatio } from './helpers/pixelRatio';
+import TileLayer from 'ol/layer/Tile';
+import { Params } from '../mapWidget/options';
+import type Map from 'ol/Map';
+
+const occurrenceVectorLayerBaseUrl =
+  import.meta.env.PUBLIC_API_V2 + '/map/occurrence/density/{z}/{x}/{y}.mvt?';
+const occurrenceRasterLayerBaseUrl =
+  import.meta.env.PUBLIC_API_V2 + '/map/occurrence/density/{z}/{x}/{y}@' + pixelRatio + 'x.png?';
+const adhocVectorLayerBaseUrl =
+  import.meta.env.PUBLIC_API_V2 + '/map/occurrence/adhoc/{z}/{x}/{y}.mvt?';
 
 proj4.defs('EPSG:4326', '+proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees');
 proj4.defs(
@@ -28,8 +40,8 @@ register(proj4);
 const tileSize = 512;
 const maxZoom = 13;
 const maxZoomView = 18;
-const pixelRatio = window?.devicePixelRatio || 1;
 
+// Plate Carree projection
 function get4326() {
   const extent = 180.0;
   const resolutions = Array.from(
@@ -69,26 +81,25 @@ function get4326() {
         projection: 'EPSG:4326',
       });
     },
-    getBaseLayer: function (params = {}) {
-      return getLayer(basemaps.EPSG_4326.url, this, params, 'baseLayer');
+    getVectorBaseLayer: function (params: Params = {}) {
+      return getVectorLayer(basemaps.EPSG_4326.url.vector, this, params, 'baseLayer');
     },
-    getOccurrenceLayer: function (params = {}) {
-      return getLayer(
-        import.meta.env.PUBLIC_API_V2 + '/map/occurrence/density/{z}/{x}/{y}.mvt?',
-        this,
-        params
-      );
+    getRasterBaseLayer: function (params: Params = {}) {
+      return getRasterLayer(basemaps.EPSG_4326.url.raster, this, params, 'baseLayer');
     },
-    getAdhocLayer: function (params = {}) {
-      return getAdhocLayer(
-        import.meta.env.PUBLIC_API_V2 + '/map/occurrence/adhoc/{z}/{x}/{y}.mvt?',
-        this,
-        params
-      );
+    getOccurrenceVectorLayer: function (params: Params = {}) {
+      return getVectorLayer(occurrenceVectorLayerBaseUrl, this, params);
+    },
+    getOccurrenceRasterLayer: function (params: Params = {}) {
+      return getRasterLayer(occurrenceRasterLayerBaseUrl, this, params);
+    },
+    getAdhocVectorLayer: function (params: Params = {}) {
+      return getAdhocVectorLayer(adhocVectorLayerBaseUrl, this, params);
     },
   };
 }
 
+// Mercator projection
 function get3857() {
   const tileGrid16 = createXYZ({
     minZoom: 0,
@@ -108,7 +119,7 @@ function get3857() {
       if (Math.abs(lat) > 85) {
         lat = 0;
         lon = 0;
-        zoom = 1;
+        zoom = 0;
       }
       [lon, lat] = transform([lon, lat], 'EPSG:4326', 'EPSG:3857');
       lat = lat || 0;
@@ -122,26 +133,25 @@ function get3857() {
         projection: 'EPSG:3857',
       });
     },
-    getBaseLayer: function (params = {}) {
-      return getLayer(basemaps.EPSG_3857.url, this, params, 'baseLayer');
+    getVectorBaseLayer: function (params = {}) {
+      return getVectorLayer(basemaps.EPSG_3857.url.vector, this, params, 'baseLayer');
     },
-    getOccurrenceLayer: function (params = {}) {
-      return getLayer(
-        import.meta.env.PUBLIC_API_V2 + '/map/occurrence/density/{z}/{x}/{y}.mvt?',
-        this,
-        params
-      );
+    getRasterBaseLayer: function (params = {}) {
+      return getRasterLayer(basemaps.EPSG_3857.url.raster, this, params, 'baseLayer');
     },
-    getAdhocLayer: function (params = {}) {
-      return getAdhocLayer(
-        import.meta.env.PUBLIC_API_V2 + '/map/occurrence/adhoc/{z}/{x}/{y}.mvt?',
-        this,
-        params
-      );
+    getOccurrenceVectorLayer: function (params = {}) {
+      return getVectorLayer(occurrenceVectorLayerBaseUrl, this, params);
+    },
+    getOccurrenceRasterLayer: function (params = {}) {
+      return getRasterLayer(occurrenceRasterLayerBaseUrl, this, params);
+    },
+    getAdhocVectorLayer: function (params = {}) {
+      return getAdhocVectorLayer(adhocVectorLayerBaseUrl, this, params);
     },
   };
 }
 
+// Arctic projection
 function get3575() {
   const halfWidth = Math.sqrt(2) * 6371007.2;
   const extent = [-halfWidth, -halfWidth, halfWidth, halfWidth];
@@ -190,26 +200,33 @@ function get3575() {
         projection: olProj.get('EPSG:3575')!,
       });
     },
-    getBaseLayer: function (params = {}) {
-      return getLayer(basemaps.EPSG_3575.url, this, params, 'baseLayer');
+    getVectorBaseLayer: function (params = {}) {
+      return getVectorLayer(basemaps.EPSG_3575.url.vector, this, params, 'baseLayer');
     },
-    getOccurrenceLayer: function (params = {}) {
-      return getLayer(
-        import.meta.env.PUBLIC_API_V2 + '/map/occurrence/density/{z}/{x}/{y}.mvt?',
-        this,
-        params
-      );
+    getRasterBaseLayer: function (params = {}) {
+      return getRasterLayer(basemaps.EPSG_3575.url.raster, this, params, 'baseLayer');
     },
-    getAdhocLayer: function (params = {}) {
-      return getAdhocLayer(
-        import.meta.env.PUBLIC_API_V2 + '/map/occurrence/adhoc/{z}/{x}/{y}.mvt?',
-        this,
-        params
-      );
+    getOccurrenceVectorLayer: function (params = {}) {
+      return getVectorLayer(occurrenceVectorLayerBaseUrl, this, params);
+    },
+    getOccurrenceRasterLayer: function (params = {}) {
+      return getRasterLayer(occurrenceRasterLayerBaseUrl, this, params);
+    },
+    getAdhocVectorLayer: function (params = {}) {
+      return getAdhocVectorLayer(adhocVectorLayerBaseUrl, this, params);
+    },
+    zoomToFitContainer: function (map: Map) {
+      const extent = olProj.get('EPSG:3575')?.getExtent();
+      if (!extent) return;
+      map.getView().fit(extent, {
+        size: map.getSize(),
+        padding: [0, 0, 0, 0],
+      });
     },
   };
 }
 
+// Antarctic projection
 function get3031() {
   const halfWidth = 12367396.2185; // To the Equator
   const extent = [-halfWidth, -halfWidth, halfWidth, halfWidth];
@@ -257,27 +274,33 @@ function get3031() {
         projection: olProj.get('EPSG:3031')!,
       });
     },
-    getBaseLayer: function (params = {}) {
-      return getLayer(basemaps.EPSG_3031.url, this, params, 'baseLayer');
+    getVectorBaseLayer: function (params = {}) {
+      return getVectorLayer(basemaps.EPSG_3031.url.vector, this, params, 'baseLayer');
     },
-    getOccurrenceLayer: function (params = {}) {
-      return getLayer(
-        import.meta.env.PUBLIC_API_V2 + '/map/occurrence/density/{z}/{x}/{y}.mvt?',
-        this,
-        params
-      );
+    getRasterBaseLayer: function (params = {}) {
+      return getRasterLayer(basemaps.EPSG_3031.url.raster, this, params, 'baseLayer');
     },
-    getAdhocLayer: function (params = {}) {
-      return getAdhocLayer(
-        import.meta.env.PUBLIC_API_V2 + '/map/occurrence/adhoc/{z}/{x}/{y}.mvt?',
-        this,
-        params
-      );
+    getOccurrenceVectorLayer: function (params = {}) {
+      return getVectorLayer(occurrenceVectorLayerBaseUrl, this, params);
+    },
+    getOccurrenceRasterLayer: function (params = {}) {
+      return getRasterLayer(occurrenceRasterLayerBaseUrl, this, params);
+    },
+    getAdhocVectorLayer: function (params = {}) {
+      return getAdhocVectorLayer(adhocVectorLayerBaseUrl, this, params);
+    },
+    zoomToFitContainer: function (map: Map) {
+      const extent = olProj.get('EPSG:3031')?.getExtent();
+      if (!extent) return;
+      map.getView().fit(extent, {
+        size: map.getSize(),
+        padding: [0, 0, 0, 0],
+      });
     },
   };
 }
 
-function getLayer(baseUrl: string, proj: any, params: Record<string, any>, name?: string) {
+function getVectorLayer(baseUrl: string, proj: any, params: Params, name?: string) {
   params = params || {};
   params.srs = proj.srs;
   const progress = params.progress;
@@ -324,6 +347,53 @@ function getLayer(baseUrl: string, proj: any, params: Record<string, any>, name?
   return layer;
 }
 
+function getRasterLayer(baseUrl: string, proj: any, params: Params, name?: string) {
+  params = params || {};
+  params.srs = proj.srs;
+  const progress = params.progress;
+  delete params.progress;
+  const attributions = params.attributions;
+  delete params.attributions;
+
+  const source = new ImageTile({
+    projection: proj.projection,
+    tileGrid: proj.tileGrid,
+    // @ts-ignore Typescript doesn't like this property after the ol upgrade
+    tilePixelRatio: pixelRatio,
+    url: baseUrl + stringify(params),
+    wrapX: proj.wrapX,
+    attributions: [
+      ...(attributions || []),
+      '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      '© <a href="https://openmaptiles.org/" class="inherit">OpenMapTiles</a>',
+      '<a href="https://www.gbif.org/citation-guidelines">GBIF</a>',
+    ],
+  });
+
+  if (progress) {
+    source.on('tileloadstart', function () {
+      progress.addLoading();
+    });
+
+    source.on('tileloadend', function () {
+      progress.addLoaded();
+    });
+    source.on('tileloaderror', function () {
+      progress.addLoaded();
+    });
+  }
+
+  const layer = new TileLayer({
+    extent: proj.extent,
+    source: source,
+    useInterimTilesOnError: false,
+    visible: true,
+    // @ts-ignore Typescript doesn't like this property after the ol upgrade
+    name: name,
+  });
+  return layer;
+}
+
 // currently map resolution isn't too good.
 // it is neccessary to hardcode resolution to zoom levels
 /*
@@ -343,7 +413,7 @@ function getLayer(baseUrl: string, proj: any, params: Record<string, any>, name?
 13: 2048
 14: 4096
 */
-function getAdhocLayer(baseUrl: string, proj: any, params: any, name = 'occurrences') {
+function getAdhocVectorLayer(baseUrl: string, proj: any, params: Params, name = 'occurrences') {
   params = params || {};
   params.srs = proj.srs;
   const progress = params.progress;
@@ -400,3 +470,5 @@ export const projections = {
   EPSG_3031: get3031(),
   EPSG_3857: get3857(),
 };
+
+export type ProjectionHelpers = (typeof projections)[keyof typeof projections];

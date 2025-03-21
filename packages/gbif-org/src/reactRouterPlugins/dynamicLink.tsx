@@ -1,7 +1,7 @@
 import { ParentPagesContext } from '@/components/standaloneWrapper';
 import { ParamQuery, stringify } from '@/utils/querystring';
-import { useContext, useMemo } from 'react';
-import { Link, LinkProps, useLocation } from 'react-router-dom';
+import { useCallback, useContext, useMemo } from 'react';
+import { Link, LinkProps, useLocation, useNavigate } from 'react-router-dom';
 import { PageContext } from './applyPagePaths/plugin';
 import { useI18n } from './i18n';
 
@@ -226,4 +226,28 @@ export function DynamicLinkPresentation<T extends React.ElementType = typeof Lin
     const LinkComponent = as ?? Link;
     return <LinkComponent to={linkData.to!} {...props} />;
   }
+}
+
+export function useDynamicNavigate() {
+  const createLink = useLink();
+  const navigate = useNavigate();
+  const dynamicNavigate = useCallback(
+    (...args: Parameters<typeof createLink>) => {
+      const link = createLink(...args);
+      if (!link.to) return;
+
+      if (link.type === 'href' && typeof link.to === 'string') {
+        window.location.href = link.to;
+        return;
+      }
+
+      if (link.type === 'link') {
+        navigate(link.to);
+        return;
+      }
+    },
+    [createLink, navigate]
+  );
+
+  return dynamicNavigate;
 }

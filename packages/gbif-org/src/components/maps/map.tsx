@@ -37,7 +37,7 @@ export default function Map({ coordinates, className }: Props) {
     const lon = 0;
     const zoom = 0;
 
-    const baseLayer = currentProjection.getBaseLayer();
+    const baseLayer = currentProjection.getVectorBaseLayer();
     // const resolutions = baseLayer?.getSource()?.getTileGrid()?.getResolutions();
     // applyBackground(baseLayer, layerStyle, 'openmaptiles');
     // applyStyle(baseLayer, layerStyle, 'openmaptiles', undefined, resolutions);
@@ -54,7 +54,7 @@ export default function Map({ coordinates, className }: Props) {
     // apply(map, mapStyles.NATURAL_PLATE_CAREE.mapConfig.basemapStyle);
     const stylePromise = fetch(basemapStyle).then((response) => response.json());
     stylePromise.then((styleResponse) => {
-      const baseLayer = currentProjection.getBaseLayer();
+      const baseLayer = currentProjection.getVectorBaseLayer();
       const resolutions = baseLayer?.getSource()?.getTileGrid()?.getResolutions();
       applyBackground(
         baseLayer,

@@ -40,7 +40,9 @@ export function CoordinatesPicker({
       layers: [
         new TileLayer({
           source: new XYZ({
-            url: 'https://tile.gbif.org/3857/omt/{z}/{x}/{y}@1x.png?style=osm-bright-en&srs=EPSG%3A3857',
+            url: `${
+              import.meta.env.PUBLIC_TILE_API
+            }/3857/omt/{z}/{x}/{y}@1x.png?style=osm-bright-en&srs=EPSG%3A3857`,
           }),
         }),
       ],

@@ -2,8 +2,8 @@
 
 import { stringify } from '@/utils/querystring';
 import { cn } from '@/utils/shadcn';
-import { useEffect, useState } from 'react';
 import { ClientSideOnly } from '@/components/clientSideOnly';
+import { useCapabilities } from './mapWidget/outer/useCapabilities';
 
 export enum MapTypes {
   DatasetKey = 'datasetKey',
@@ -90,38 +90,8 @@ export function MapThumbnail({
 }
 
 export function useHasMap({ type, identifier }: PrimarySearch) {
-  const [hasMap, setHasMap] = useState(false);
-
-  useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-    fetch(
-      `${
-        import.meta.env.PUBLIC_API_V2
-      }/map/occurrence/density/capabilities.json?${type}=${identifier}`,
-      { signal }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.total > 0) {
-          setHasMap(true);
-        }
-      })
-      .catch((err) => {
-        if (err.name === 'AbortError') {
-          // ignore cancellation silently
-        } else {
-          // ignore error silently
-        }
-      });
-
-    return () => {
-      // cancel the request before unmounting
-      controller.abort();
-    };
-  }, [type, identifier]);
-
-  return hasMap;
+  const { data } = useCapabilities({ capabilitiesParams: { [type]: identifier } });
+  return data && data.total > 0;
 }
 
 export function AdHocMapThumbnail({

@@ -15,6 +15,8 @@ import BaseTileLayer from 'ol/layer/BaseTile';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import { OccurrenceSearchMetadata } from '@/contexts/search';
 import { Projection } from '@/config/config';
+import { getBoundingBox } from '@/components/maps/openlayers/helpers/getBoundingBox';
+import { BoundingBox } from '@/types';
 
 const interactions = olInteraction.defaults({
   altShiftDragRotate: false,
@@ -31,7 +33,7 @@ const mapStyles: Record<string, any> = {
 
 type MapEvent =
   | { type: 'ZOOM_TO'; lat: number; lng: number; zoom: number }
-  | { type: 'EXPLORE_AREA'; bbox?: { top: number; left: number; bottom: number; right: number } }
+  | { type: 'EXPLORE_AREA'; bbox?: BoundingBox }
   | { type: 'ZOOM_IN' }
   | { type: 'ZOOM_OUT' };
 
@@ -198,15 +200,10 @@ class Map extends Component<Props, State> {
     // get the current view of the map as a bounding box and send it to the parent component
     const { listener } = this.props;
     if (!listener || typeof listener !== 'function') return;
-    const view = this.map.getView();
-    const size = this.map.getSize();
-    const extent = view.calculateExtent(size);
-    const leftTop = transform([extent[0], extent[3]], view.getProjection(), 'EPSG:4326');
-    const rightBottom = transform([extent[2], extent[1]], view.getProjection(), 'EPSG:4326');
 
     listener({
       type: 'EXPLORE_AREA',
-      bbox: { top: leftTop[1], left: leftTop[0], bottom: rightBottom[1], right: rightBottom[0] },
+      bbox: getBoundingBox({ map: this.map }),
     });
   }
 
@@ -237,7 +234,7 @@ class Map extends Component<Props, State> {
     const basemapStyle = this.props.mapConfig?.basemapStyle || 'klokantech';
     const layerStyle = mapStyles[basemapStyle];
     if (layerStyle) {
-      const baseLayer = currentProjection.getBaseLayer();
+      const baseLayer = currentProjection.getVectorBaseLayer();
       const resolutions = baseLayer.getSource()?.getTileGrid()?.getResolutions();
       applyBackground(
         baseLayer,
@@ -254,7 +251,7 @@ class Map extends Component<Props, State> {
           : undefined;
 
       if (!styleResponse?.metadata?.['gb:reproject']) {
-        const baseLayer = currentProjection.getBaseLayer();
+        const baseLayer = currentProjection.getVectorBaseLayer();
         const resolutions = baseLayer.getSource()?.getTileGrid()?.getResolutions();
         applyBackground(
           baseLayer,
@@ -382,7 +379,7 @@ class Map extends Component<Props, State> {
     this.setState(function () {
       return { loadDiff: 0 };
     });
-    const occurrenceLayer = currentProjection.getAdhocLayer({
+    const occurrenceLayer = currentProjection.getAdhocVectorLayer({
       siteTheme: this.props.theme,
       style: 'scaled.circles',
       mode: 'GEO_CENTROID',

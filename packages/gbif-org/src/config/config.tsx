@@ -31,6 +31,7 @@ export type LanguageOption = {
   cmsLocale?: string; // this is the locale code used by the CMS
   reactIntlLocale?: string; // this is the locale code used by react-intl
   vocabularyLocale?: string; // this is the locale code used by the vocabulary server
+  mapTileLocale?: string; // this is the locale code used by the map tile server
   iso3LetterCode?: string;
   gbifOrgLocalePrefix?: string;
   grSciCollLocalePrefix?: string;

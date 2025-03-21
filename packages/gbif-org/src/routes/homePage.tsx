@@ -10,6 +10,7 @@ import _useLocalStorage from 'use-local-storage';
 import { ArticleTextContainer } from './resource/key/components/articleTextContainer';
 import { PageContainer } from './resource/key/components/pageContainer';
 import { BlockItem } from './resource/key/composition/blockItem';
+import { MapWidget } from '@/components/maps/mapWidget';
 // Used to import commonjs module as es6 module
 const useLocalStorage = interopDefault(_useLocalStorage);
 
@@ -147,6 +148,9 @@ function HomePage(): React.ReactElement {
         {home.blocks?.map((block, idx) => (
           <BlockItem resource={block} key={idx} />
         ))}
+
+        {/* It might make sense to only render this component if the user scrolls close to it */}
+        <MapWidget />
       </main>
     </ErrorBoundary>
   );
