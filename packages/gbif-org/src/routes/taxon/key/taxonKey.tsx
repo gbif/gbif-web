@@ -115,6 +115,13 @@ const TAXON_QUERY = /* GraphQL */ `
           taxonKey
         }
       }
+      iucnStatus {
+        references
+        distribution {
+          taxonKey
+          threatStatus
+        }
+      }
       dataset {
         title
         key
@@ -170,6 +177,17 @@ const SLOW_TAXON = /* GraphQL */ `
           source
         }
       }
+      invasiveInCountries {
+        country
+        isSubCountry
+        datasetKey
+        dataset
+        scientificName
+        nubKey
+        taxonKey
+        isInvasive
+      }
+
       combinations {
         key
         nameKey
