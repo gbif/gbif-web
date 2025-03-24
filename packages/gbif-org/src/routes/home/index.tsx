@@ -7,9 +7,10 @@ import { interopDefault } from '@/utils/interopDefault';
 import React, { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import _useLocalStorage from 'use-local-storage';
-import { ArticleTextContainer } from './resource/key/components/articleTextContainer';
-import { PageContainer } from './resource/key/components/pageContainer';
-import { BlockItem } from './resource/key/composition/blockItem';
+import { ArticleTextContainer } from '../resource/key/components/articleTextContainer';
+import { PageContainer } from '../resource/key/components/pageContainer';
+import { BlockItem } from '../resource/key/composition/blockItem';
+import { HomePageCounts } from './counts';
 // Used to import commonjs module as es6 module
 const useLocalStorage = interopDefault(_useLocalStorage);
 
@@ -26,30 +27,7 @@ const HOMEPAGE_QUERY = /* GraphQL */ `
         title
         description
       }
-      occurrenceIcon {
-        file {
-          url
-          thumbor
-        }
-      }
-      datasetIcon {
-        file {
-          url
-          thumbor
-        }
-      }
-      publisherIcon {
-        file {
-          url
-          thumbor
-        }
-      }
-      literatureIcon {
-        file {
-          url
-          thumbor
-        }
-      }
+      ...HomePageCountIcons
       blocks {
         ...BlockItemDetails
       }
@@ -117,7 +95,7 @@ function HomePage(): React.ReactElement {
                   <input
                     type="search"
                     placeholder="Search GBIF"
-                    className="g-p-4 g-w-full g-bg-white  g-shadow-lg"
+                    className="g-p-4 g-w-full g-bg-white g-shadow-lg"
                   />
                   <div className="g-bg-slate-950/50 g-overflow-hidden g-inline-block g-float-left">
                     <HeaderLink to="/what-is-gbif">What is GBIF?</HeaderLink>
@@ -142,6 +120,8 @@ function HomePage(): React.ReactElement {
             <ArticleTextContainer className="g-max-w-6xl">sdæflk sdfj</ArticleTextContainer>
           </PageContainer>
         </section> */}
+
+        <HomePageCounts iconData={home} />
 
         {home.blocks?.map((block, idx) => (
           <BlockItem resource={block} key={idx} />

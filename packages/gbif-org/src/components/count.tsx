@@ -17,6 +17,7 @@ export type CountProps = {
   params?: Record<string, undefined | string | number | (number | string)[]>;
   queueId?: string;
   property?: string;
+  responseIsNumber?: boolean;
 };
 
 type Props = CountProps & {
@@ -47,6 +48,7 @@ export function useCount({
   params = {},
   queueId = 'counts',
   property = 'count',
+  responseIsNumber = false,
 }: CountProps) {
   const [count, setCount] = useState<number>();
   const [loading, setLoading] = useState(true);
@@ -69,7 +71,7 @@ export function useCount({
         .then((data) => {
           setLoading(false);
           setError(false);
-          const total = get(data, property);
+          const total = responseIsNumber ? data : get(data, property);
           if (typeof total === 'number') {
             setCount(total);
           }
