@@ -1,0 +1,28 @@
+{
+  "gbifNetwork": {
+    "participationType": {
+      "VOTING": "",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
+      "FORMER": "Бывший",
+      "OBSERVER": "Наблюдатель",
+      "UNKNOWN": "",
+      "AFFILIATE": "Филиалы GBIF"
+    },
+    "affiliateHelp": "",
+    "mapCaptionPublishers": "",
+    "role": "Роль",
+    "name": "Имя",
+    "participant": "Участник",
+    "type": "Тип",
+    "memberSince": "Член с",
+    "all": "Все",
+    "countryParticipants": "",
+    "publishersPerCountry": "",
+    "clear": "Удалить",
+    "headlines": {
+      "nodesSteeringGroup": "Группа управления узлами",
+      "participants": "Участники"
+    }
+  }
+}
