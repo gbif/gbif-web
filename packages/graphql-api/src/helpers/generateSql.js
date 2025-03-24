@@ -112,7 +112,7 @@ const WHERE_PREDICATE_RESTRICTIONS = {
       },
       {
         type: 'isNotNull',
-        parameter: 'START_DAY_OF_YEAR',
+        parameter: 'DAY',
       },
     ],
   },
