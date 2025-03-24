@@ -112,8 +112,8 @@ export const NonBackbonePresentation = ({
             <SectionTabs isNub={false} hasVerbatim={data.taxon?.origin === 'SOURCE'} />
           </Card>
         </ArticleTextContainer>
-        <Outlet />
       </ArticleContainer>
+      <Outlet />
     </TaxonKeyContext.Provider>
   );
 };

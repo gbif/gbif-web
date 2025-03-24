@@ -100,7 +100,9 @@ export default function AboutNonBackbone({ headLess = false }: { headLess?: bool
             )}
             {isFamilyOrAbove &&
               data?.taxon?.taxonomicStatus === 'ACCEPTED' &&
-              data.taxon.origin !== 'DENORMED_CLASSIFICATION' && <TaxonBreakdown taxon={taxon} />}
+              data.taxon.origin !== 'DENORMED_CLASSIFICATION' && (
+                <TaxonBreakdown taxon={taxon} className="g-mb-4" />
+              )}
             {data?.taxon?.taxonomicStatus === 'ACCEPTED' && (
               <Card className="g-mb-4">
                 <CardHeader>
