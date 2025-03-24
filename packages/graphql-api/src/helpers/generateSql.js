@@ -240,7 +240,7 @@ export default async function generateSql(parameters) {
   } catch (error) {
     return { error: error.message, sql: null };
   }
-  const groupBy = ['taxonRank', 'taxonomicStatus'];
+  const groupBy = [];
   const measurements = ['COUNT(*) AS occurrences'];
   if (includeTemporalUncertainty === 'YES') {
     measurements.push(
