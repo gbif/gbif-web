@@ -4,12 +4,12 @@
     "verbatim": "Verbatim",
     "metrics": "Metrics"
   },
-  "recordedAsIntroducedIn": "",
+  "recordedAsIntroducedIn": "Recorded as introduced in",
   "accordingTo": "According to",
-  "evidenceOfImpact": "",
+  "evidenceOfImpact": "Evidence of impact",
   "occurrencesInGbif": "Occurrences in GBIF",
-  "recordedAsIntrodicedInNcontries": "",
-  "breakdown": "",
+  "recordedAsIntrodicedInNcontries": "Recorded as introduced in {total, plural, one {# country or area} other {# countries or areas}}",
+  "breakdown": "Breakdown",
   "publishedIn": "Published in",
   "vernacularNames": "Vernacular names",
   "rank": "Rank",
@@ -20,10 +20,10 @@
   "less": "less",
   "dna": "DNA",
   "occurenceImages": "Occurence images",
-  "taxonImages": "",
+  "taxonImages": "Taxon images",
   "taxonIdentifiers": "Taxon identifiers",
   "synonymsAndCombinations": "Synonyms and combinations",
-  "inChecklist": "",
+  "inChecklist": "In {checklist}",
   "rankPlural": {
     "KINGDOM": "Kingdoms",
     "PHYLUM": "Phyla",
@@ -35,7 +35,7 @@
   },
   "distributions": "Distributions",
   "distribution": {
-    "threatStatus": "",
+    "threatStatus": "Threat status",
     "establishmentMeans": "Establishment means",
     "status": "Status",
     "locality": "Locality",
@@ -45,6 +45,6 @@
   "verbatim": {
     "term": "Term",
     "value": "Value",
-    "coreRecord": ""
+    "coreRecord": "Core record"
   }
 }
