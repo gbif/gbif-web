@@ -1,0 +1,28 @@
+{
+  "gbifNetwork": {
+    "participationType": {
+      "VOTING": "",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
+      "FORMER": "",
+      "OBSERVER": "",
+      "UNKNOWN": "",
+      "AFFILIATE": "GBIF-filiaal"
+    },
+    "affiliateHelp": "",
+    "mapCaptionPublishers": "",
+    "role": "Rol",
+    "name": "Naam",
+    "participant": "Deelnemer",
+    "type": "Type",
+    "memberSince": "Lid sinds",
+    "all": "Alle",
+    "countryParticipants": "",
+    "publishersPerCountry": "",
+    "clear": "Leegmaken",
+    "headlines": {
+      "nodesSteeringGroup": "",
+      "participants": "Deelnemers"
+    }
+  }
+}

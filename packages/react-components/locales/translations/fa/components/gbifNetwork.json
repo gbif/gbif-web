@@ -1,0 +1,28 @@
+{
+  "gbifNetwork": {
+    "participationType": {
+      "VOTING": "",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
+      "FORMER": "",
+      "OBSERVER": "",
+      "UNKNOWN": "",
+      "AFFILIATE": ""
+    },
+    "affiliateHelp": "",
+    "mapCaptionPublishers": "",
+    "role": "نقش",
+    "name": "نام",
+    "participant": "",
+    "type": "نوع",
+    "memberSince": "",
+    "all": "",
+    "countryParticipants": "",
+    "publishersPerCountry": "",
+    "clear": "پاکسازی",
+    "headlines": {
+      "nodesSteeringGroup": "",
+      "participants": ""
+    }
+  }
+}
