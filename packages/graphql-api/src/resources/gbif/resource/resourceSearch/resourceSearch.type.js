@@ -12,6 +12,7 @@ const typeDef = gql`
       topics: [String!]
       countriesOfCoverage: [String!]
       countriesOfResearcher: [String!]
+      keywords: [String!]
       sortBy: ResourceSortBy
       sortOrder: ResourceSortOrder
       start: String

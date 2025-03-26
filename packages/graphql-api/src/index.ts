@@ -126,7 +126,7 @@ async function initializeServer() {
   formController(app);
   suggestFilter(app);
   geometryController(app);
-  helperController(app);
+  helperController(app, server);
   sourceArchiveCtrl(app);
 
   app.listen({ port: config.port }, () =>
