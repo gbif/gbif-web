@@ -101,7 +101,7 @@ export function useCount({
       // cancel the request before unmounting
       controller.abort();
     };
-  }, [v1Endpoint, property]);
+  }, [v1Endpoint, property, params]);
 
   return { count, loading, error };
 }

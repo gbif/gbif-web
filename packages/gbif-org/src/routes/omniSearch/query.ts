@@ -67,6 +67,9 @@ const OMNI_SEARCH = /* GraphQL */ `
           ... on Document {
             ...DocumentResult
           }
+          ... on NetworkProse {
+            ...NetworkProseResult
+          }
         }
       }
     }
@@ -98,6 +101,9 @@ const OMNI_SEARCH = /* GraphQL */ `
           }
           ... on Document {
             ...DocumentResult
+          }
+          ... on NetworkProse {
+            ...NetworkProseResult
           }
         }
       }

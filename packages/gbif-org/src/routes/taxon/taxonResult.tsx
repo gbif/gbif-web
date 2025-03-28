@@ -97,22 +97,22 @@ export function TaxonResult({
                   </p>
                 )}
               </div>
-              {taxon.taxonomicStatus === 'ACCEPTED' && (
-                <div className="g-max-w-48 md:g-max-w-64 g-flex-none">
-                  <DynamicLink
-                    className="g-text-primary-600"
-                    pageId="occurrenceSearch"
-                    searchParams={{ taxonKey: taxon.key, view: 'map' }}
-                  >
-                    <MapThumbnail
-                      type={MapTypes.TaxonKey}
-                      identifier={taxon.key}
-                      overlayStyle="classic-noborder.poly"
-                      className="g-rounded"
-                    />
-                  </DynamicLink>
-                </div>
-              )}
+              {/* {taxon.taxonomicStatus === 'ACCEPTED' && ( */}
+              <div className="g-max-w-48 md:g-max-w-64 g-flex-none">
+                <DynamicLink
+                  className="g-text-primary-600"
+                  pageId="occurrenceSearch"
+                  searchParams={{ taxonKey: taxon.key, view: 'map' }}
+                >
+                  <MapThumbnail
+                    type={MapTypes.TaxonKey}
+                    identifier={taxon.key}
+                    overlayStyle="classic-noborder.poly"
+                    className="g-rounded"
+                  />
+                </DynamicLink>
+              </div>
+              {/* )} */}
             </div>
             <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
               {/* <Tag>

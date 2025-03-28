@@ -50,4 +50,8 @@ export const RESORUCE_OPTIONS = Object.freeze([
     elasticSearchType: 'literature',
     graphQLType: 'Literature',
   },
+  {
+    elasticSearchType: 'network',
+    graphQLType: 'NetworkProse',
+  },
 ]);

@@ -7,17 +7,10 @@ import { PublisherResult } from '../publisher/publisherResult';
 import { ResourceSearchResult } from '../resource/search/resourceSearchResult';
 import { TaxonResult } from '../taxon/taxonResult';
 import { CategoryLinks } from './CategoryLinks';
+import { CountryResult } from './CountryResult';
+import { OtherParticipantResult } from './OtherParticipantResult';
 import { SearchInput } from './SearchInput';
 import OMNI_SEARCH from './query';
-
-export interface SearchResult {
-  id: string;
-  title: string;
-  description: string;
-  type: 'occurrence' | 'species' | 'dataset' | 'publisher' | 'article';
-  thumbnail?: string;
-  url: string;
-}
 
 export interface CategoryCount {
   type: string;
@@ -38,7 +31,7 @@ export function SearchPage() {
     defaultValue: '',
     hideDefault: true,
   });
-  const [results, setResults] = useState<SearchResult[]>([]);
+  const [serverResults, setServerResults] = useState({});
   const [counts, setCounts] = useState({
     species: 0,
     occurrence: 0,
@@ -50,8 +43,8 @@ export function SearchPage() {
 
   useEffect(() => {
     const fetchResults = async () => {
-      if (!searchQuery.trim()) {
-        setResults([]);
+      if (!searchQuery || !searchQuery.trim()) {
+        setServerResults({});
         setCounts({
           species: 0,
           occurrence: 0,
@@ -61,7 +54,8 @@ export function SearchPage() {
         });
         return;
       }
-      const q = searchQuery.trim();
+      const q = searchQuery.trim().replace(/\s\s/g, ' ');
+
       load({
         variables: {
           q: q,
@@ -82,7 +76,16 @@ export function SearchPage() {
               {
                 type: PredicateType.In,
                 key: 'contentType',
-                values: ['news', 'dataUse', 'event', 'project', 'programme', 'tool', 'document'],
+                values: [
+                  'news',
+                  'dataUse',
+                  'event',
+                  'project',
+                  'programme',
+                  'tool',
+                  'document',
+                  'network',
+                ],
               },
               {
                 type: PredicateType.Fuzzy,
@@ -97,7 +100,16 @@ export function SearchPage() {
               {
                 type: PredicateType.In,
                 key: 'contentType',
-                values: ['news', 'dataUse', 'event', 'project', 'programme', 'tool', 'document'],
+                values: [
+                  'news',
+                  'dataUse',
+                  'event',
+                  'project',
+                  'programme',
+                  'tool',
+                  'document',
+                  'network',
+                ],
               },
               {
                 type: PredicateType.Equals,
@@ -108,27 +120,15 @@ export function SearchPage() {
           },
         },
       });
-      if (!searchQuery.trim()) {
-        setResults([]);
-        setCounts({
-          species: 0,
-          occurrence: 0,
-          dataset: 0,
-          publisher: 0,
-          resource: 0,
-        });
-        return;
-      }
 
       setLoading(true);
       try {
-        const { results: newResults, counts: newCounts } = await fetch(
+        const serverResults = await fetch(
           `http://localhost:4002/unstable-api/cross-content-search?q=${encodeURIComponent(
             searchQuery
           )}`
         ).then((r) => r.json());
-        setResults(newResults);
-        setCounts(newCounts);
+        setServerResults(serverResults);
       } catch (error) {
         console.error('Error fetching results:', error);
       } finally {
@@ -140,8 +140,21 @@ export function SearchPage() {
     return () => clearTimeout(debounceTimer);
   }, [searchQuery, load]);
 
+  useEffect(() => {
+    // set counts
+    if (data) {
+      setCounts({
+        species: data.taxonSearch.count,
+        occurrence: 0,
+        dataset: data.datasetSearch.count,
+        publisher: data?.organizationSearch?.count,
+        resource: data.resourceSearch?.documents.total || 0,
+      });
+    }
+  }, [data]);
+
   return (
-    <div className="g-min-h-screen g-bg-gray-50 g-border-t g-border-gray-200">
+    <div className="g-min-h-screen g-bg-slate-100 g-border-t g-border-gray-200">
       <div className="g-max-w-7xl g-mx-auto g-px-4 g-py-8">
         <h1 className="g-text-3xl g-font-bold g-text-gray-900 g-mb-2">GBIF Search</h1>
         <p className="g-text-gray-600 g-mb-8">
@@ -159,18 +172,28 @@ export function SearchPage() {
 
         <div className="g-space-y-4">
           <h2 className="g-text-xl g-font-semibold g-text-gray-900 g-mb-4">
-            {loading ? (
-              <span className="g-text-gray-600">Searching...</span>
-            ) : searchQuery ? (
-              `Search Results (${results.length})`
-            ) : (
-              'Search Results'
-            )}
+            {loading && <span className="g-text-gray-600">Searching...</span>}
           </h2>
           <div className="g-max-w-3xl">
+            {serverResults?.country && (
+              <>
+                <CountryResult country={serverResults.country} />
+              </>
+            )}
+
+            {serverResults?.participant?.highlighted && (
+              <>
+                <OtherParticipantResult participant={serverResults.participant.highlighted} />
+              </>
+            )}
+
             {data?.resourceKeywordSearch?.documents.results.map((resource) => (
               <ResourceSearchResult key={resource.id} resource={resource} className="g-bg-white" />
             ))}
+            {serverResults?.taxa &&
+              serverResults?.taxa?.map((taxon) => (
+                <TaxonResult key={taxon.key} taxon={taxon.taxon} className="g-bg-white" />
+              ))}
             {data?.datasetSearch.results.map((result) => (
               <DatasetResult key={result.key} dataset={result} hidePublisher={false} />
             ))}
@@ -180,6 +203,11 @@ export function SearchPage() {
             {data?.taxonSearch?.results.map((result) => (
               <TaxonResult key={result.key} taxon={result} />
             ))}
+            {!serverResults?.participant?.highlighted && serverResults?.participant?.other && (
+              <>
+                <OtherParticipantResult participant={serverResults?.participant?.other[0]} />
+              </>
+            )}
             {data?.resourceSearch?.documents.results.map((resource) => (
               <ResourceSearchResult key={resource.id} resource={resource} className="g-bg-white" />
             ))}
@@ -189,11 +217,11 @@ export function SearchPage() {
             <ResultCard key={result.id} result={result} />
           ))} */}
 
-          {!loading && searchQuery && results.length === 0 && (
+          {/* {!loading && searchQuery && results.length === 0 && (
             <p className="g-text-gray-600 g-text-center g-py-8">
               No results found for "{searchQuery}"
             </p>
-          )}
+          )} */}
         </div>
       </div>
     </div>

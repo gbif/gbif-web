@@ -3,7 +3,7 @@ Experimental endpoint to provide a human readable form for WKT polygons.
 The idea is to use our geocoding layers to provide results like: denmark, copenhagen area, gentofte and dragør.
 */
 import { getSql } from '#/helpers/generateSql';
-import searchAll from '#/helpers/omniSearch';
+import searchAll from '#/helpers/omniSearch/omniSearch';
 import { Router } from 'express';
 import getNetworkCounts from './networkStats/networkCounts';
 
@@ -14,7 +14,11 @@ export default (app, server) => {
 
   router.get('/cross-content-search', async (req, res) => {
     try {
-      const response = await searchAll({ query: req.query.q, server });
+      const response = await searchAll({
+        query: req.query.q,
+        server,
+        locale: req.query.locale ?? 'en',
+      });
       res.json(response);
     } catch (err) {
       res.status(500).json({ error: err.message });

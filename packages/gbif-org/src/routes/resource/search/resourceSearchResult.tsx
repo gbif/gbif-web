@@ -1,3 +1,4 @@
+import { NetworkProseResult } from '@/routes/network/networkResult';
 import { DataUseResult } from '../key/dataUse/dataUseResult';
 import { DocumentResult } from '../key/document/documentResult';
 import { EventResult } from '../key/event/eventResult';
@@ -28,12 +29,7 @@ export function ResourceSearchResult({ resource, className }: Props) {
       return <ToolResult className={className} tool={resource} />;
     case 'Document':
       return <DocumentResult className={className} document={resource} />;
+    case 'NetworkProse':
+      return <NetworkProseResult className={className} network={resource} />;
   }
-
-  console.warn(
-    // @ts-ignore
-    `<ResourceSearchResult /> did not expect to receive a resource of __typename ${resource.__typename}`
-  );
-  console.log(resource);
-  return null;
 }
