@@ -131,7 +131,7 @@ function HomePage(): React.ReactElement {
 
 function HeaderLink({ children, to }) {
   return (
-    <DynamicLink to={to} className="g-inline-block g-p-2 g-px-4 g-text-white">
+    <DynamicLink to={to} className="g-inline-block g-p-2 g-px-4 g-text-white g-whitespace-nowrap">
       {children}
     </DynamicLink>
   );
