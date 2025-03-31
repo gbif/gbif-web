@@ -46,6 +46,9 @@ const OMNI_SEARCH = /* GraphQL */ `
         total
         results {
           __typename
+          ... on Article {
+            ...ArticleResult
+          }
           ... on News {
             ...NewsResult
           }
@@ -81,6 +84,9 @@ const OMNI_SEARCH = /* GraphQL */ `
         total
         results {
           __typename
+          ... on Article {
+            ...ArticleResult
+          }
           ... on News {
             ...NewsResult
           }
