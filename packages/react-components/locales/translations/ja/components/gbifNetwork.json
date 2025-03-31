@@ -1,0 +1,28 @@
+{
+  "gbifNetwork": {
+    "participationType": {
+      "VOTING": "",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
+      "FORMER": "以前の参加者",
+      "OBSERVER": "オブザーバー",
+      "UNKNOWN": "",
+      "AFFILIATE": "GBIF提携団体"
+    },
+    "affiliateHelp": "",
+    "mapCaptionPublishers": "",
+    "role": "役割",
+    "name": "名前",
+    "participant": "参加者",
+    "type": "タイプ",
+    "memberSince": "メンバー登録日",
+    "all": "すべて",
+    "countryParticipants": "",
+    "publishersPerCountry": "",
+    "clear": "消去",
+    "headlines": {
+      "nodesSteeringGroup": "ノード運営グループ",
+      "participants": "参加国および参加組織"
+    }
+  }
+}

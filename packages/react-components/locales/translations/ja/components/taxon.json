@@ -4,6 +4,11 @@
     "verbatim": "オリジナルのまま",
     "metrics": "メトリクス"
   },
+  "recordedAsIntroducedIn": "次の場所で侵入生物として記録されています。",
+  "accordingTo": "～によると",
+  "evidenceOfImpact": "インパクトの証拠",
+  "occurrencesInGbif": "GBIFにおけるオカレンス",
+  "recordedAsIntrodicedInNcontries": "",
   "breakdown": "",
   "publishedIn": "出典",
   "vernacularNames": "コモンネームまたは和名",

@@ -1,0 +1,28 @@
+{
+  "gbifNetwork": {
+    "participationType": {
+      "VOTING": "",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
+      "FORMER": "Tidligere",
+      "OBSERVER": "Observatør",
+      "UNKNOWN": "",
+      "AFFILIATE": ""
+    },
+    "affiliateHelp": "",
+    "mapCaptionPublishers": "",
+    "role": "Rolle",
+    "name": "Navn",
+    "participant": "Participant",
+    "type": "",
+    "memberSince": "Medlem siden",
+    "all": "Alle",
+    "countryParticipants": "",
+    "publishersPerCountry": "",
+    "clear": "",
+    "headlines": {
+      "nodesSteeringGroup": "",
+      "participants": "Participanter"
+    }
+  }
+}

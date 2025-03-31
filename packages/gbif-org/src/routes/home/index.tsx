@@ -1,6 +1,5 @@
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ClientSideOnly } from '@/components/clientSideOnly';
-import { useConfig } from '@/config/config';
 import { HomePageQuery, HomePageQueryVariables } from '@/gql/graphql';
 import { DynamicLink, LoaderArgs, RouteObjectWithPlugins, useI18n } from '@/reactRouterPlugins';
 import { interopDefault } from '@/utils/interopDefault';
@@ -35,13 +34,12 @@ const HOMEPAGE_QUERY = /* GraphQL */ `
   }
 `;
 
-function homepageLoader({ params, graphql }: LoaderArgs) {
+function homepageLoader({ graphql }: LoaderArgs) {
   return graphql.query<HomePageQuery, HomePageQueryVariables>(HOMEPAGE_QUERY, {});
 }
 
 function HomePage(): React.ReactElement {
   const { data } = useLoaderData() as { data: HomePageQuery };
-  const config = useConfig();
   const { locale } = useI18n();
   const [userInfo, setUserInfo] = useState<{ country?: string; countryName?: string } | null>(null);
   const home = data?.gbifHome;
@@ -77,15 +75,18 @@ function HomePage(): React.ReactElement {
         >
           <PageContainer>
             <ArticleTextContainer className="g-max-w-6xl">
-              <div className="g-w-[800px]">
+              <div className="g-max-w-[800px]">
                 <div className="g-text-white">
                   <div className="g-mb-8 g-text-lg">{home.title}</div>
-                  <h1 data-cy="heading" className="g-text-5xl g-font-semibold g-text-white">
+                  <h1
+                    data-cy="heading"
+                    className="g-text-4xl md:g-text-5xl g-font-semibold g-text-white"
+                  >
                     {home.summary}
                   </h1>
                 </div>
                 <div className="g-mt-4">
-                  <div className="g-bg-slate-950/50 g-overflow-hidden g-inline-block g-float-left">
+                  <div className="g-bg-slate-950/50 g-overflow-auto g-inline-flex g-max-w-full">
                     <HeaderLink to="/occurrence/search">Occurrences</HeaderLink>
                     <HeaderLink to="/species/search">Taxonomy</HeaderLink>
                     <HeaderLink to="/dataset/search">Datasets</HeaderLink>
@@ -144,7 +145,7 @@ function TmpOverview() {
   return (
     <section>
       <div
-        className="g-text-center g-text-sm g-font-bold g-bg-sky-500 g-text-white g-p-2 g-px-4 g-rounded-full g-cursor-pointer g-bottom-0 g-right-0 g-fixed g-m-8"
+        className="g-text-center g-text-sm g-font-bold g-bg-sky-500 g-text-white g-p-2 g-px-4 g-rounded-full g-cursor-pointer g-bottom-0 g-right-0 g-fixed g-m-8 g-z-10"
         onClick={() => setOpen(!open)}
       >
         Development site (click to toggle overview)

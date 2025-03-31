@@ -1,0 +1,28 @@
+{
+  "gbifNetwork": {
+    "participationType": {
+      "VOTING": "",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
+      "FORMER": "Anterior",
+      "OBSERVER": "Observador",
+      "UNKNOWN": "",
+      "AFFILIATE": "Afiliado do GBIF"
+    },
+    "affiliateHelp": "",
+    "mapCaptionPublishers": "",
+    "role": "Função",
+    "name": "Nome",
+    "participant": "Participante",
+    "type": "Tipo",
+    "memberSince": "Membro desde",
+    "all": "Todos",
+    "countryParticipants": "",
+    "publishersPerCountry": "",
+    "clear": "Limpar",
+    "headlines": {
+      "nodesSteeringGroup": "Grupo diretivo dos Nós",
+      "participants": "Participantes"
+    }
+  }
+}

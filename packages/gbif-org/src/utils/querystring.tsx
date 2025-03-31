@@ -41,7 +41,13 @@ export function parseParams(params: URLSearchParams, asArrays?: boolean): ParamQ
     if (asArrays) {
       result[key] = values.map(tryParse);
     } else {
-      result[key] = values.length === 1 ? tryParse(values[0]) : values.map(tryParse);
+      if (values.length === 0) {
+        result[key] = null;
+      } else if (values.length === 1) {
+        result[key] = tryParse(values[0]);
+      } else {
+        result[key] = values.map(tryParse);
+      }
     }
   }
 

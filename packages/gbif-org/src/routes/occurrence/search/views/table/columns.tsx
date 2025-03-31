@@ -47,7 +47,7 @@ export function useOccurrenceColumns({
               <div>
                 <SetAsFilter field="taxonKey" value={occurrence.taxonKey}>
                   <span
-                    className="g-pointer-events-auto"
+                    className="g-pointer-events-auto g-me-2"
                     dangerouslySetInnerHTML={{
                       __html: occurrence.gbifClassification?.usage?.formattedName as string,
                     }}
@@ -55,7 +55,11 @@ export function useOccurrenceColumns({
                 </SetAsFilter>
                 {occurrence.hasTaxonIssues && (
                   <SimpleTooltip side="right" i18nKey="filterSupport.nameWithTaxonMatchIssue">
-                    <div style={{ color: '#fea600' }} className="g-cursor-default" data-loader>
+                    <div
+                      style={{ color: '#fea600' }}
+                      className="g-cursor-default g-text-start"
+                      data-loader
+                    >
                       {occurrence.gbifClassification?.verbatimScientificName}
                     </div>
                   </SimpleTooltip>

@@ -1,5 +1,5 @@
 import { Card } from '@/components/ui/smallCard';
-import { GeoJsonMap } from '@/routes/institution/search/map/geoJsonMap';
+import { GeoJsonMap } from '@/routes/institution/search/map';
 
 export function Map({
   geojson,

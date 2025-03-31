@@ -1,0 +1,28 @@
+{
+  "gbifNetwork": {
+    "participationType": {
+      "VOTING": "",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
+      "FORMER": "Ancien",
+      "OBSERVER": "Observateur",
+      "UNKNOWN": "",
+      "AFFILIATE": "Affilié au GBIF"
+    },
+    "affiliateHelp": "",
+    "mapCaptionPublishers": "",
+    "role": "Rôle",
+    "name": "Nom",
+    "participant": "Participant",
+    "type": "Type ",
+    "memberSince": "Membre depuis",
+    "all": "Tout",
+    "countryParticipants": "",
+    "publishersPerCountry": "",
+    "clear": "Effacer",
+    "headlines": {
+      "nodesSteeringGroup": "Comité de pilotage des points nodaux",
+      "participants": "Participants"
+    }
+  }
+}

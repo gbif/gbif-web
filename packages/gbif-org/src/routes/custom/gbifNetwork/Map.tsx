@@ -1,10 +1,10 @@
 import { GbifNetworkParticipantsQuery } from '@/gql/graphql';
 import { cn } from '@/utils/shadcn';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import countries from '../../../enums/basic/country.json';
 import { getCss } from './css';
-import SvgMap from './SvgMap.jsx';
+const SvgMap = React.lazy(() => import('./SvgMap.jsx'));
 
 const gradients = {
   1: '#cbdbc5',

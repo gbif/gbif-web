@@ -1,0 +1,28 @@
+{
+  "gbifNetwork": {
+    "participationType": {
+      "VOTING": "",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
+      "FORMER": "السابق",
+      "OBSERVER": "مراقب",
+      "UNKNOWN": "",
+      "AFFILIATE": "منتسب الى المرفق العالمي للتنوع الحيوي"
+    },
+    "affiliateHelp": "",
+    "mapCaptionPublishers": "",
+    "role": "دور",
+    "name": "الاسم",
+    "participant": "مشارك",
+    "type": "نمط",
+    "memberSince": "عضو مُنذُ",
+    "all": "الكل",
+    "countryParticipants": "",
+    "publishersPerCountry": "",
+    "clear": "إزالة",
+    "headlines": {
+      "nodesSteeringGroup": "المجموعة التوجيهية لعقدة الربط",
+      "participants": "المشاركون"
+    }
+  }
+}

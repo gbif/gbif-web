@@ -1,0 +1,28 @@
+{
+  "gbifNetwork": {
+    "participationType": {
+      "VOTING": "",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
+      "FORMER": "Bývalý",
+      "OBSERVER": "Pozorovatel",
+      "UNKNOWN": "",
+      "AFFILIATE": "Přidružení GBIF"
+    },
+    "affiliateHelp": "",
+    "mapCaptionPublishers": "",
+    "role": "Role",
+    "name": "Jméno",
+    "participant": "Účastník",
+    "type": "Typ",
+    "memberSince": "Členem od",
+    "all": "Vše",
+    "countryParticipants": "",
+    "publishersPerCountry": "",
+    "clear": "Vymazat",
+    "headlines": {
+      "nodesSteeringGroup": "Řídicí skupina uzlů",
+      "participants": "Účastníci"
+    }
+  }
+}

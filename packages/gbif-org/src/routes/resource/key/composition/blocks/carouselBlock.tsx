@@ -1,10 +1,10 @@
 import {
-    Carousel,
-    CarouselApi,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious
+  Carousel,
+  CarouselApi,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
 } from '@/components/ui/carousel';
 import { CarouselBlockDetailsFragment } from '@/gql/graphql';
 import { useI18n } from '@/reactRouterPlugins';
@@ -58,10 +58,15 @@ export function CarouselBlock({ resource }: Props) {
   }, [api]);
 
   return (
-    <BlockContainer className={backgroundColor}>
-      {resource.title && <BlockHeading dangerouslySetHeading={{ __html: resource.title }} />}
+    <BlockContainer className={cn(backgroundColor, 'g-p-4 md:g-p-8')}>
+      {resource.title && (
+        <BlockHeading
+          className="g-pl-4 md:g-pl-0"
+          dangerouslySetHeading={{ __html: resource.title }}
+        />
+      )}
       {resource.body && (
-        <ArticleTextContainer className="g-mt-2 g-mb-10">
+        <ArticleTextContainer className="g-mt-2 g-mb-10 g-pl-4 md:g-pl-0">
           <ArticleBody dangerouslySetBody={{ __html: resource.body }} />
         </ArticleTextContainer>
       )}

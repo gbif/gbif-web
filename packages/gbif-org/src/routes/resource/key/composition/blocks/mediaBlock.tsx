@@ -44,7 +44,10 @@ export function MediaBlock({ resource, insideCarousel = false }: Props) {
       {resource.mediaTitle && (
         <BlockHeading dangerouslySetHeading={{ __html: resource.mediaTitle }} />
       )}
-      <MediaBlockContent className="g-max-w-6xl g-m-auto g-px-10 g-my-10" resource={resource} />
+      <MediaBlockContent
+        className={cn('g-max-w-6xl g-m-auto md:g-px-10 g-my-10', { 'g-px-10': insideCarousel })}
+        resource={resource}
+      />
     </BlockContainer>
   );
 }
