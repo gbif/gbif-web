@@ -10,6 +10,7 @@ import { ArticleTextContainer } from '../resource/key/components/articleTextCont
 import { PageContainer } from '../resource/key/components/pageContainer';
 import { BlockItem } from '../resource/key/composition/blockItem';
 import { HomePageCounts } from './counts';
+import { FormattedMessage, useIntl } from 'react-intl';
 // Used to import commonjs module as es6 module
 const useLocalStorage = interopDefault(_useLocalStorage);
 
@@ -40,28 +41,9 @@ function homepageLoader({ graphql }: LoaderArgs) {
 
 function HomePage(): React.ReactElement {
   const { data } = useLoaderData() as { data: HomePageQuery };
-  const { locale } = useI18n();
-  const [userInfo, setUserInfo] = useState<{ country?: string; countryName?: string } | null>(null);
   const home = data?.gbifHome;
-
-  // call endpoint to get users location
-  useEffect(() => {
-    fetch(`${import.meta.env.PUBLIC_WEB_UTILS}/user-info?lang=${locale.localeCode}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setUserInfo(data);
-      })
-      .catch((error) => {
-        setUserInfo(null);
-      });
-  }, []);
-
-  if (!home) return <div>Loading</div>;
+  const intl = useIntl();
+  const userInfo = useUserInfo();
 
   return (
     <ErrorBoundary>
@@ -77,32 +59,47 @@ function HomePage(): React.ReactElement {
             <ArticleTextContainer className="g-max-w-6xl">
               <div className="g-max-w-[800px]">
                 <div className="g-text-white">
-                  <div className="g-mb-8 g-text-lg">{home.title}</div>
+                  <div className="g-mb-8 g-text-lg">{home?.title}</div>
                   <h1
                     data-cy="heading"
                     className="g-text-4xl md:g-text-5xl g-font-semibold g-text-white"
                   >
-                    {home.summary}
+                    {home?.summary}
                   </h1>
                 </div>
                 <div className="g-mt-4">
                   <div className="g-bg-slate-950/50 g-overflow-auto g-inline-flex g-max-w-full">
-                    <HeaderLink to="/occurrence/search">Occurrences</HeaderLink>
-                    <HeaderLink to="/species/search">Taxonomy</HeaderLink>
-                    <HeaderLink to="/dataset/search">Datasets</HeaderLink>
-                    <HeaderLink to="/publisher/search">Publishers</HeaderLink>
-                    <HeaderLink to="/resource/search">Resources</HeaderLink>
+                    <HeaderLink to="/occurrence/search">
+                      <FormattedMessage id="catalogues.occurrences" />
+                    </HeaderLink>
+                    <HeaderLink to="/species/search">
+                      <FormattedMessage id="catalogues.species" />
+                    </HeaderLink>
+                    <HeaderLink to="/dataset/search">
+                      <FormattedMessage id="catalogues.datasets" />
+                    </HeaderLink>
+                    <HeaderLink to="/publisher/search">
+                      <FormattedMessage id="catalogues.publishers" />
+                    </HeaderLink>
+                    <HeaderLink to="/resource/search">
+                      <FormattedMessage id="catalogues.resources" />
+                    </HeaderLink>
                   </div>
                   <input
                     type="search"
-                    placeholder="Search GBIF"
+                    placeholder={intl.formatMessage({ id: 'homepage.search' })}
                     className="g-p-4 g-w-full g-bg-white g-shadow-lg g-rounded-none"
                   />
                   <div className="g-bg-slate-950/50 g-overflow-hidden g-inline-block g-float-left">
-                    <HeaderLink to="/what-is-gbif">What is GBIF?</HeaderLink>
-                    {userInfo && userInfo?.country && (
-                      <HeaderLink to={`/country/${userInfo?.country}`}>
-                        {userInfo?.countryName}
+                    <HeaderLink to="/what-is-gbif">
+                      <FormattedMessage id="homepage.whatIsGbif" />
+                    </HeaderLink>
+                    {userInfo && userInfo.country && userInfo.countryName && (
+                      <HeaderLink to={`/country/${userInfo.country}`}>
+                        <FormattedMessage
+                          id="homepage.aboutGbifCountry"
+                          values={{ COUNTRY: userInfo.countryName }}
+                        />
                       </HeaderLink>
                     )}
                   </div>
@@ -124,7 +121,7 @@ function HomePage(): React.ReactElement {
 
         <HomePageCounts iconData={home} />
 
-        {home.blocks?.map((block, idx) => (
+        {home?.blocks?.map((block, idx) => (
           <BlockItem resource={block} key={idx} />
         ))}
       </main>
@@ -388,6 +385,35 @@ function TmpOverview() {
       )}
     </section>
   );
+}
+
+type UserInfo = {
+  country?: string;
+  countryName?: string;
+};
+
+export function useUserInfo() {
+  const { locale } = useI18n();
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+
+  // call endpoint to get users location
+  useEffect(() => {
+    fetch(`${import.meta.env.PUBLIC_WEB_UTILS}/user-info?lang=${locale.localeCode}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setUserInfo(data);
+      })
+      .catch((error) => {
+        setUserInfo(null);
+      });
+  }, [locale.localeCode]);
+
+  return userInfo;
 }
 
 export const homePageRoute: RouteObjectWithPlugins = {
