@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { stringify, parse } from './querystring';
+import { parse, stringify } from './querystring';
 
 // the stringify function should take an object and return a string with the key value pairs. arrays are repeated as multie values. e.g foo=[1,2] becomes foo=1&foo=2
 test('stringify', () => {
@@ -19,7 +19,7 @@ test('stringify', () => {
 // the parse function should take the string and return an object with the key value pairs. arrays are repeated as multiple values. numbers are parsed as numbers
 test('parse', () => {
   expect(parse('datasetKey=abc')).toStrictEqual({ datasetKey: 'abc' });
-  expect(parse('datasetKey=abc&limit')).toStrictEqual({ datasetKey: 'abc', limit: '' });
+  expect(parse('datasetKey=abc&limit')).toStrictEqual({ datasetKey: 'abc', limit: null });
   expect(parse('datasetKey=abc&limit=10')).toStrictEqual({ datasetKey: 'abc', limit: 10 });
   expect(
     parse('identifier=https%3A%2F%2Fwww.gbif.org%2Foccurrence%2F4535504068%3Ftest%3D1%23anchor')
