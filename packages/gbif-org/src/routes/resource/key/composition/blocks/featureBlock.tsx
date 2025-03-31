@@ -72,7 +72,7 @@ export function FeatureBlock({ resource }: Props) {
         </ArticleTextContainer>
       )}
       <div
-        className={cn('g-max-w-6xl g-m-auto g-px-10 g-my-10 g-grid g-grid-cols-1 g-gap-5', {
+        className={cn('g-max-w-6xl g-m-auto md:g-px-10 g-my-10 g-grid g-grid-cols-1 g-gap-5', {
           'sm:g-grid-cols-2': maxPerRow >= 2,
           'lg:g-grid-cols-3': maxPerRow >= 3,
           'xl:g-grid-cols-4': maxPerRow >= 4,
