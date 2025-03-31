@@ -5,7 +5,7 @@ import uniqBy from 'lodash/uniqBy';
 import maplibre, { Map } from 'maplibre-gl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-export function GeoJsonMap({
+export default function GeoJsonMap({
   geojson,
   loading,
   error,

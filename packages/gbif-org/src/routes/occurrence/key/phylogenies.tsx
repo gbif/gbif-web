@@ -1,5 +1,5 @@
 // based on https://github.com/veg/phylotree.js/issues/437, but that didn't work for me. So I now add the crazy append myself
-import { Phylogeny } from '@/components/phylogeny/phylogeny';
+import { Phylogeny } from '@/components/phylogeny';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useContext, useEffect, useState } from 'react';
