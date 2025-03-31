@@ -96,7 +96,7 @@ function HomePage(): React.ReactElement {
                   <input
                     type="search"
                     placeholder="Search GBIF"
-                    className="g-p-4 g-w-full g-bg-white g-shadow-lg"
+                    className="g-p-4 g-w-full g-bg-white g-shadow-lg g-rounded-none"
                   />
                   <div className="g-bg-slate-950/50 g-overflow-hidden g-inline-block g-float-left">
                     <HeaderLink to="/what-is-gbif">What is GBIF?</HeaderLink>
