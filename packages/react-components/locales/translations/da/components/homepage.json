@@ -1,0 +1,13 @@
+{
+  "homepage": {
+    "counts": {
+      "occurrences": "Antal observationer",
+      "datasets": "Datasæt",
+      "publishers": "Forlæggere",
+      "literature": ""
+    },
+    "aboutGbifCountry": "Om GBIF {COUNTRY}",
+    "whatIsGbif": "Hvad er GBIF?",
+    "search": ""
+  }
+}
