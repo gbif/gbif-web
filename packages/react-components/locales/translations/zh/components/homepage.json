@@ -1,0 +1,13 @@
+{
+  "homepage": {
+    "counts": {
+      "occurrences": "物种出现记录",
+      "datasets": "数据集",
+      "publishers": "发布机构",
+      "literature": "使用数据发布的同行评审的文章"
+    },
+    "aboutGbifCountry": "关于 GBIF {COUNTRY}",
+    "whatIsGbif": "GBIF是什么？",
+    "search": ""
+  }
+}
