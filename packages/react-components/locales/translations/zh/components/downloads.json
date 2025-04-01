@@ -134,7 +134,7 @@
         "PATHWAY": "路径",
         "NETWORK_KEY": "网络",
         "DWCA_EXTENSION": "",
-        "ACCEPTED_TAXON_KEY": "",
+        "ACCEPTED_TAXON_KEY": "被接受的分类单元",
         "CONTINENT": "洲",
         "OTHER_CATALOG_NUMBERS": "其它目录编号",
         "TYPE_STATUS": "类型状态",
@@ -221,9 +221,9 @@
     "redirectNotice": "看起来您是从另一个站点被引导到这里的。 要下载，您需要先登录或注册。"
   },
   "customSqlDownload": {
-    "invalidSQL": "",
+    "invalidSQL": "无效网址",
     "title": "建立一个新的 sql 下载",
-    "notification": "",
+    "notification": "下载和探索数据的最简单方法是通过出现搜索用户界面。但对于复杂查询和聚合，SQL编辑器提供了更大的自由度。",
     "occurrenceSearch": "出现记录搜索",
     "taxon": {
       "KINGDOM": "界",
@@ -233,11 +233,11 @@
       "FAMILY": "科",
       "GENUS": "属",
       "SPECIES": "物种",
-      "ACCEPTED_TAXON": "",
-      "EXACT_TAXON": ""
+      "ACCEPTED_TAXON": "被接受的分类单元",
+      "EXACT_TAXON": "精确分类单元"
     },
     "cubeTitle": "下载通道",
-    "cubeDescription": "",
+    "cubeDescription": "描述占位符",
     "readMore": "阅读更多",
     "time": {
       "YEAR": "年份",
@@ -248,11 +248,11 @@
       "YES": "是",
       "NO": "否"
     },
-    "sqlMachineDescriptionIntro": "",
+    "sqlMachineDescriptionIntro": "SQL下载是基于用户提供的以下参数生成的：",
     "occurrenceMeasurements": "发生次数（总是包括）",
     "grid": {
-      "EEA_REFERENCE_GRID": "",
-      "EXTENDED_QUARTER_DEGREE_GRID": "",
+      "EEA_REFERENCE_GRID": "EEA参考网格 - 仅限欧洲",
+      "EXTENDED_QUARTER_DEGREE_GRID": "扩展的四分之一度网格（QDGC）",
       "ISEA3H_GRID": "",
       "MILITARY_GRID_REFERENCE_SYSTEM": "军事网格参考系统。"
     },
@@ -333,9 +333,9 @@
       "measurements": "",
       "occurrenceCount": "",
       "higherTaxonomy": "",
-      "minCoordinateUncertainty": "",
+      "minCoordinateUncertainty": "记录的最低坐标不确定性（以米为单位）。有助于评估数据的空间精度。",
       "minTemporalUncertainty": "",
-      "editSql": ""
+      "editSql": "下载和探索数据的最简单方法是通过出现搜索用户界面。但对于复杂查询和聚合，SQL编辑器提供了更大的自由度。"
     }
   }
 }
