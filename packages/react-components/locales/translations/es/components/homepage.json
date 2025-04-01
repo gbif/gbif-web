@@ -1,0 +1,13 @@
+{
+  "homepage": {
+    "counts": {
+      "occurrences": "Registros biológicos",
+      "datasets": "Conjuntos de datos",
+      "publishers": "Instituciones que publican",
+      "literature": "Artículos científicos usando datos"
+    },
+    "aboutGbifCountry": "Sobre GBIF {COUNTRY}",
+    "whatIsGbif": "¿Qué es GBIF?",
+    "search": ""
+  }
+}
