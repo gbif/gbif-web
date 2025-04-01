@@ -1,5 +1,5 @@
 import { ResultCard } from '@/components/resultCards/index';
-import { NewsResultFragment } from '@/gql/graphql';
+import { ArticleResultFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 
 fragmentManager.register(/* GraphQL */ `
@@ -14,7 +14,7 @@ fragmentManager.register(/* GraphQL */ `
 `);
 
 type Props = {
-  article: NewsResultFragment;
+  article: ArticleResultFragment;
   className?: string;
 };
 
@@ -23,7 +23,7 @@ export function ArticleResult({ article, className }: Props) {
 
   return (
     <ResultCard.Container className={className}>
-      <ResultCard.Header title={article.title} link={link} contentType="news" />
+      <ResultCard.Header title={article.title} link={link} contentType="article" />
       <div className="g-flex g-gap-4">
         <ResultCard.Content>{article.excerpt}</ResultCard.Content>
         {article.primaryImage && <ResultCard.Image image={article.primaryImage} link={link} />}

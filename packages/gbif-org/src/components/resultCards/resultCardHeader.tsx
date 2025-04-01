@@ -5,7 +5,7 @@ import { ResultCardTag } from './resultCardTag';
 type Props = {
   title: React.ReactNode;
   link: string;
-  contentType: string;
+  contentType?: string;
 };
 
 export function ResultCardHeader({ title, link, contentType }: Props) {
@@ -14,9 +14,11 @@ export function ResultCardHeader({ title, link, contentType }: Props) {
       <h3 className="g-flex-auto g-text-base g-font-semibold g-mb-2">
         <DynamicLink to={link}>{title}</DynamicLink>
       </h3>
-      <ResultCardTag>
-        <FormattedMessage id={`cms.contentType.${contentType}`} />
-      </ResultCardTag>
+      {contentType && (
+        <ResultCardTag>
+          <FormattedMessage id={`cms.contentType.${contentType}`} />
+        </ResultCardTag>
+      )}
     </div>
   );
 }

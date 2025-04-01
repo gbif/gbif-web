@@ -212,6 +212,8 @@ function transform(p, config, isRootQuery) {
         match: {
           [fieldName]: {
             query: p.value,
+            operator: 'AND',
+            // fuzziness: 'AUTO',
           },
         },
       };

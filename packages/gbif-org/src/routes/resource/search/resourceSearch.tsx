@@ -43,6 +43,9 @@ const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
           ... on News {
             ...NewsResult
           }
+          ... on Article {
+            ...ArticleResult
+          }
           ... on DataUse {
             ...DataUseResult
           }

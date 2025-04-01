@@ -78,6 +78,8 @@ export function SearchPage() {
                 key: 'contentType',
                 values: [
                   'news',
+                  'article',
+                  'composition',
                   'dataUse',
                   'event',
                   'project',
@@ -102,6 +104,8 @@ export function SearchPage() {
                 key: 'contentType',
                 values: [
                   'news',
+                  'article',
+                  'composition',
                   'dataUse',
                   'event',
                   'project',

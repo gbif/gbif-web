@@ -46,6 +46,9 @@ const OMNI_SEARCH = /* GraphQL */ `
         total
         results {
           __typename
+          ... on Composition {
+            ...CompositionResult
+          }
           ... on Article {
             ...ArticleResult
           }
@@ -84,6 +87,9 @@ const OMNI_SEARCH = /* GraphQL */ `
         total
         results {
           __typename
+          ... on Composition {
+            ...CompositionResult
+          }
           ... on Article {
             ...ArticleResult
           }

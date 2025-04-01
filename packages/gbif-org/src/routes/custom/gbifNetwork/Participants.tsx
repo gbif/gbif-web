@@ -57,6 +57,7 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
           }
           return x;
         });
+      console.log(activeNodes.length);
       setParticipants(activeNodes ?? []);
     }
   }, [listData]);
