@@ -44,69 +44,78 @@ function HomePage(): React.ReactElement {
   const home = data?.gbifHome;
   const intl = useIntl();
   const userInfo = useUserInfo();
+  const primaryImage = home?.primaryImage?.[0];
 
   return (
     <ErrorBoundary>
       <main className="">
         {/* A background image with title and a search bar */}
-        <section
-          className="g-bg-cover g-bg-center g-bg-no-repeat g-py-48"
-          style={{
-            backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, .3), rgba(0, 0, 0, 0)), linear-gradient(to bottom, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), url('${home.primaryImage?.[0]?.file?.thumbor}')`,
-          }}
-        >
-          <PageContainer>
-            <ArticleTextContainer className="g-max-w-6xl">
-              <div className="g-max-w-[800px]">
-                <div className="g-text-white">
-                  <div className="g-mb-8 g-text-lg">{home?.title}</div>
-                  <h1
-                    data-cy="heading"
-                    className="g-text-4xl md:g-text-5xl g-font-semibold g-text-white"
-                  >
-                    {home?.summary}
-                  </h1>
-                </div>
-                <div className="g-mt-4">
-                  <div className="g-bg-slate-950/50 g-overflow-auto g-inline-flex g-max-w-full">
-                    <HeaderLink to="/occurrence/search">
-                      <FormattedMessage id="catalogues.occurrences" />
-                    </HeaderLink>
-                    <HeaderLink to="/species/search">
-                      <FormattedMessage id="catalogues.species" />
-                    </HeaderLink>
-                    <HeaderLink to="/dataset/search">
-                      <FormattedMessage id="catalogues.datasets" />
-                    </HeaderLink>
-                    <HeaderLink to="/publisher/search">
-                      <FormattedMessage id="catalogues.publishers" />
-                    </HeaderLink>
-                    <HeaderLink to="/resource/search">
-                      <FormattedMessage id="catalogues.resources" />
-                    </HeaderLink>
+        <section className="g-relative">
+          <div
+            className="g-bg-cover g-bg-center g-bg-no-repeat g-py-48"
+            style={{
+              backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, .3), rgba(0, 0, 0, 0)), linear-gradient(to bottom, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), url('${primaryImage?.file?.thumbor}')`,
+            }}
+          >
+            <PageContainer>
+              <ArticleTextContainer className="g-max-w-6xl">
+                <div className="g-max-w-[800px]">
+                  <div className="g-text-white">
+                    <div className="g-mb-8 g-text-lg">{home?.title}</div>
+                    <h1
+                      data-cy="heading"
+                      className="g-text-4xl md:g-text-5xl g-font-semibold g-text-white"
+                    >
+                      {home?.summary}
+                    </h1>
                   </div>
-                  <input
-                    type="search"
-                    placeholder={intl.formatMessage({ id: 'homepage.search' })}
-                    className="g-p-4 g-w-full g-bg-white g-shadow-lg g-rounded-none"
-                  />
-                  <div className="g-bg-slate-950/50 g-overflow-hidden g-inline-block g-float-left">
-                    <HeaderLink to="/what-is-gbif">
-                      <FormattedMessage id="homepage.whatIsGbif" />
-                    </HeaderLink>
-                    {userInfo && userInfo.country && userInfo.countryName && (
-                      <HeaderLink to={`/country/${userInfo.country}`}>
-                        <FormattedMessage
-                          id="homepage.aboutGbifCountry"
-                          values={{ COUNTRY: userInfo.countryName }}
-                        />
+                  <div className="g-mt-4">
+                    <div className="g-bg-slate-950/50 g-overflow-auto g-inline-flex g-max-w-full">
+                      <HeaderLink to="/occurrence/search">
+                        <FormattedMessage id="catalogues.occurrences" />
                       </HeaderLink>
-                    )}
+                      <HeaderLink to="/species/search">
+                        <FormattedMessage id="catalogues.species" />
+                      </HeaderLink>
+                      <HeaderLink to="/dataset/search">
+                        <FormattedMessage id="catalogues.datasets" />
+                      </HeaderLink>
+                      <HeaderLink to="/publisher/search">
+                        <FormattedMessage id="catalogues.publishers" />
+                      </HeaderLink>
+                      <HeaderLink to="/resource/search">
+                        <FormattedMessage id="catalogues.resources" />
+                      </HeaderLink>
+                    </div>
+                    <input
+                      type="search"
+                      placeholder={intl.formatMessage({ id: 'homepage.search' })}
+                      className="g-p-4 g-w-full g-bg-white g-shadow-lg g-rounded-none"
+                    />
+                    <div className="g-bg-slate-950/50 g-overflow-hidden g-inline-block g-float-left">
+                      <HeaderLink to="/what-is-gbif">
+                        <FormattedMessage id="homepage.whatIsGbif" />
+                      </HeaderLink>
+                      {userInfo && userInfo.country && userInfo.countryName && (
+                        <HeaderLink to={`/country/${userInfo.country}`}>
+                          <FormattedMessage
+                            id="homepage.aboutGbifCountry"
+                            values={{ COUNTRY: userInfo.countryName }}
+                          />
+                        </HeaderLink>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </ArticleTextContainer>
-          </PageContainer>
+              </ArticleTextContainer>
+            </PageContainer>
+          </div>
+          {primaryImage?.description && (
+            <span
+              className="g-absolute g-right-0 g-bottom-0 g-text-xs g-text-white g-p-1.5 g-font-medium underlineLinks hover:g-bg-gray-900/30"
+              dangerouslySetInnerHTML={{ __html: primaryImage?.description }}
+            />
+          )}
         </section>
 
         <ClientSideOnly>
