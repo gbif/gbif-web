@@ -7,6 +7,7 @@ fragmentManager.register(/* GraphQL */ `
     id
     title
     excerpt
+    urlAlias
     primaryImage {
       ...ResultCardImage
     }
@@ -19,11 +20,11 @@ type Props = {
 };
 
 export function ArticleResult({ article, className }: Props) {
-  const link = `/article/${article.id}`;
+  const link = article.urlAlias ?? `/article/${article.id}`;
 
   return (
     <ResultCard.Container className={className}>
-      <ResultCard.Header title={article.title} link={link} contentType="article" />
+      <ResultCard.Header title={article.title} link={link} />
       <div className="g-flex g-gap-4">
         <ResultCard.Content>{article.excerpt}</ResultCard.Content>
         {article.primaryImage && <ResultCard.Image image={article.primaryImage} link={link} />}

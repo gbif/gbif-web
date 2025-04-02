@@ -40,6 +40,9 @@ const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
         total
         results {
           __typename
+          ... on Composition {
+            ...CompositionResult
+          }
           ... on News {
             ...NewsResult
           }

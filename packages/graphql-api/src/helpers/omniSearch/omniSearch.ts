@@ -12,13 +12,23 @@ export default async function searchAll({
   server: ApolloServer<ExpressContext>;
   locale: string;
 }) {
-  const taxonResults = await searchTaxa({ query, server });
-  const countryResult = await searchCountries(query, locale);
-  const participantResult = await searchParticipants(query);
+  try {
+    const taxonResults = await searchTaxa({ query, server });
+    const countryResult = await searchCountries(query, locale);
+    const participantResult = await searchParticipants(query);
+    // const documentationResults = await searchTechDocs(query);
 
-  return {
-    country: countryResult,
-    participant: participantResult,
-    taxa: taxonResults,
-  };
+    return {
+      country: countryResult,
+      participant: participantResult,
+      taxa: taxonResults,
+      // techDocs: documentationResults,
+    };
+  } catch (error) {
+    return {
+      error: {
+        message: 'An error occurred while searching.',
+      },
+    };
+  }
 }

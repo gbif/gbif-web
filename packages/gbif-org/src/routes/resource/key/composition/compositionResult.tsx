@@ -7,6 +7,7 @@ fragmentManager.register(/* GraphQL */ `
     id
     title
     excerpt
+    urlAlias
     primaryImage {
       ...ResultCardImage
     }
@@ -19,7 +20,7 @@ type Props = {
 };
 
 export function CompositionResult({ composition, className }: Props) {
-  const link = `/composition/${composition.id}`;
+  const link = composition.urlAlias ?? `/composition/${composition.id}`;
 
   return (
     <ResultCard.Container className={className}>

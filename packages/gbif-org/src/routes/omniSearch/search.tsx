@@ -1,4 +1,5 @@
 import { OmniSearchQuery, OmniSearchQueryVariables, PredicateType } from '@/gql/graphql';
+import useBelow from '@/hooks/useBelow';
 import { useStringParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { useEffect, useState } from 'react';
@@ -31,6 +32,7 @@ export function SearchPage() {
     defaultValue: '',
     hideDefault: true,
   });
+  const isSmallDevice = useBelow(1000);
   const [serverResults, setServerResults] = useState({});
   const [counts, setCounts] = useState({
     species: 0,
@@ -128,7 +130,7 @@ export function SearchPage() {
       setLoading(true);
       try {
         const serverResults = await fetch(
-          `http://localhost:4002/unstable-api/cross-content-search?q=${encodeURIComponent(
+          `${import.meta.env.PUBLIC_WEB_UTILS}/cross-content-search?q=${encodeURIComponent(
             searchQuery
           )}`
         ).then((r) => r.json());
@@ -168,64 +170,84 @@ export function SearchPage() {
         <div className="g-mb-8">
           <SearchInput value={searchQuery} onChange={setSearchQuery} />
         </div>
-
-        <div className="g-mb-8">
-          <h2 className="g-text-xl g-font-semibold g-text-gray-900 g-mb-4">Browse by Category</h2>
-          <CategoryLinks counts={counts} query={searchQuery} />
-        </div>
-
-        <div className="g-space-y-4">
-          <h2 className="g-text-xl g-font-semibold g-text-gray-900 g-mb-4">
-            {loading && <span className="g-text-gray-600">Searching...</span>}
-          </h2>
-          <div className="g-max-w-3xl">
-            {serverResults?.country && (
-              <>
-                <CountryResult country={serverResults.country} />
-              </>
+        <div className="g-flex g-gap-4">
+          <div className="g-space-y-4 g-flex-auto q-w-full">
+            {loading && (
+              <h2 className="g-text-xl g-font-semibold g-text-gray-900 g-mb-4">
+                <span className="g-text-gray-600">Searching...</span>
+              </h2>
             )}
+            <div className="q-w-full">
+              {serverResults?.country && (
+                <>
+                  <CountryResult country={serverResults.country} />
+                </>
+              )}
 
-            {serverResults?.participant?.highlighted && (
-              <>
-                <OtherParticipantResult participant={serverResults.participant.highlighted} />
-              </>
-            )}
+              {serverResults?.participant?.highlighted && (
+                <>
+                  <OtherParticipantResult participant={serverResults.participant.highlighted} />
+                </>
+              )}
 
-            {data?.resourceKeywordSearch?.documents.results.map((resource) => (
-              <ResourceSearchResult key={resource.id} resource={resource} className="g-bg-white" />
-            ))}
-            {serverResults?.taxa &&
-              serverResults?.taxa?.map((taxon) => (
-                <TaxonResult key={taxon.key} taxon={taxon.taxon} className="g-bg-white" />
+              {data?.resourceKeywordSearch?.documents.results.map((resource) => (
+                <ResourceSearchResult
+                  key={resource.id}
+                  resource={resource}
+                  className="g-bg-white"
+                />
               ))}
-            {data?.datasetSearch.results.map((result) => (
-              <DatasetResult key={result.key} dataset={result} hidePublisher={false} />
-            ))}
-            {data?.organizationSearch?.results.map((result) => (
-              <PublisherResult key={result.key} publisher={result} />
-            ))}
-            {data?.taxonSearch?.results.map((result) => (
-              <TaxonResult key={result.key} taxon={result} />
-            ))}
-            {!serverResults?.participant?.highlighted && serverResults?.participant?.other && (
-              <>
-                <OtherParticipantResult participant={serverResults?.participant?.other[0]} />
-              </>
-            )}
-            {data?.resourceSearch?.documents.results.map((resource) => (
-              <ResourceSearchResult key={resource.id} resource={resource} className="g-bg-white" />
-            ))}
-          </div>
+              {serverResults?.taxa &&
+                serverResults?.taxa?.map((taxon) => (
+                  <TaxonResult key={taxon.key} taxon={taxon.taxon} className="g-bg-white" />
+                ))}
 
-          {/* {results.map((result) => (
+              {data?.datasetSearch.results.slice(0, 1).map((result) => (
+                <DatasetResult key={result.key} dataset={result} hidePublisher={false} />
+              ))}
+
+              {isSmallDevice && <CategoryLinks counts={counts} query={searchQuery} />}
+
+              {data?.datasetSearch.results.slice(1).map((result) => (
+                <DatasetResult key={result.key} dataset={result} hidePublisher={false} />
+              ))}
+
+              {data?.organizationSearch?.results.map((result) => (
+                <PublisherResult key={result.key} publisher={result} />
+              ))}
+              {data?.taxonSearch?.results.map((result) => (
+                <TaxonResult key={result.key} taxon={result} />
+              ))}
+              {!serverResults?.participant?.highlighted && serverResults?.participant?.other && (
+                <>
+                  <OtherParticipantResult participant={serverResults?.participant?.other[0]} />
+                </>
+              )}
+              {data?.resourceSearch?.documents.results.map((resource) => (
+                <ResourceSearchResult
+                  key={resource.id}
+                  resource={resource}
+                  className="g-bg-white"
+                />
+              ))}
+            </div>
+
+            {/* {results.map((result) => (
             <ResultCard key={result.id} result={result} />
           ))} */}
 
-          {/* {!loading && searchQuery && results.length === 0 && (
+            {/* {!loading && searchQuery && results.length === 0 && (
             <p className="g-text-gray-600 g-text-center g-py-8">
               No results found for "{searchQuery}"
             </p>
           )} */}
+          </div>
+          {!isSmallDevice && (
+            <div className="g-mb-8 g-flex-auto">
+              {/* <h2 className="g-text-xl g-font-semibold g-text-gray-900 g-mb-4">Browse by Category</h2> */}
+              <CategoryLinks counts={counts} query={searchQuery} />
+            </div>
+          )}
         </div>
       </div>
     </div>

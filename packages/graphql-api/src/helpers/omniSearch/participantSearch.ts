@@ -5,6 +5,7 @@ import { normalizeString } from './countrySearch';
 export type Participant = {
   id: string;
   participationStatus: string;
+  participantUrl: string;
   type: string;
   countryCode: string;
   name: string;
@@ -17,6 +18,7 @@ function reduceResults(results: Participant[]) {
   return results.map((x: Participant) => ({
     id: x.id,
     participationStatus: x.participationStatus,
+    participantUrl: x.participantUrl, // nor provided by search api
     type: x.type,
     countryCode: x.countryCode,
     name: x.name,

@@ -10,13 +10,25 @@ type Props = {
 
 export function ResultCardHeader({ title, link, contentType }: Props) {
   return (
+    <ResultCardHeaderBasic messageId={contentType}>
+      <DynamicLink to={link}>{title}</DynamicLink>
+    </ResultCardHeaderBasic>
+  );
+}
+
+export function ResultCardHeaderBasic({
+  messageId,
+  children,
+}: {
+  messageId?: string;
+  children: React.ReactNode;
+}) {
+  return (
     <div className="g-flex g-items-start">
-      <h3 className="g-flex-auto g-text-base g-font-semibold g-mb-2">
-        <DynamicLink to={link}>{title}</DynamicLink>
-      </h3>
-      {contentType && (
+      <h3 className="g-flex-auto g-text-base g-font-semibold g-mb-2">{children}</h3>
+      {messageId && (
         <ResultCardTag>
-          <FormattedMessage id={`cms.contentType.${contentType}`} />
+          <FormattedMessage id={messageId} />
         </ResultCardTag>
       )}
     </div>
