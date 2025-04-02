@@ -20,6 +20,7 @@ import resolvers from './resolvers';
 // how to fetch the actual data and possible format/remap it to match the schemas
 import api from './dataSources';
 // we will attach a user if an authorization header is present.
+import citesController from './api-utils/cites.ctrl';
 import formController from './api-utils/forms/index.ctrl';
 import geometryController from './api-utils/geometry/index.ctrl.js';
 import helperController from './api-utils/helpers.ctrl.js';
@@ -128,7 +129,7 @@ async function initializeServer() {
   geometryController(app);
   helperController(app);
   sourceArchiveCtrl(app);
-
+  citesController(app);
   app.listen({ port: config.port }, () =>
     console.log(
       `🚀 Server ready at http://localhost:${config.port}${server.graphqlPath}`,

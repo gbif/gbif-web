@@ -101,6 +101,7 @@ const TAXON_QUERY = /* GraphQL */ `
       key
       nubKey
       scientificName
+      canonicalName
       origin
       kingdom
       formattedName(useFallback: true)

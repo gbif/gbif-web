@@ -26,8 +26,8 @@ import { Helmet } from 'react-helmet-async';
 import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Outlet } from 'react-router-dom';
+import Cites from './Cites';
 import { AboutContent, ApiContent } from './help';
-
 // create context to pass data to children
 export const TaxonKeyContext = createContext<{
   key?: string;
@@ -240,7 +240,7 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
             )}
 
             <HeaderInfo>
-              <HeaderInfoMain className="g-text-sm g-text-slate-500">
+              <HeaderInfoMain>
                 {taxon.acceptedTaxon && (
                   <>
                     <FormattedMessage id="taxon.synonymOf" defaultMessage={'Synonym of'} />
@@ -292,6 +292,11 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                           src={`/iucnStatus/${taxon?.iucnStatus?.distribution?.threatStatus}.png`}
                         />
                       </a>
+                    </GenericFeature>
+                  )}
+                  {isNub && (
+                    <GenericFeature>
+                      <Cites taxonName={data.taxon?.canonicalName} kingdom={data.taxon?.kingdom} />
                     </GenericFeature>
                   )}
                 </FeatureList>
