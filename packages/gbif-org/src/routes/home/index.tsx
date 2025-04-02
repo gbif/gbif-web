@@ -4,13 +4,16 @@ import { HomePageQuery, HomePageQueryVariables } from '@/gql/graphql';
 import { DynamicLink, LoaderArgs, RouteObjectWithPlugins, useI18n } from '@/reactRouterPlugins';
 import { interopDefault } from '@/utils/interopDefault';
 import React, { useEffect, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import _useLocalStorage from 'use-local-storage';
 import { ArticleTextContainer } from '../resource/key/components/articleTextContainer';
 import { PageContainer } from '../resource/key/components/pageContainer';
 import { BlockItem } from '../resource/key/composition/blockItem';
 import { HomePageCounts } from './counts';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { DynamicLinkProps } from '@/reactRouterPlugins/dynamicLink';
+import { cn } from '@/utils/shadcn';
+import { MdSearch } from 'react-icons/md';
 // Used to import commonjs module as es6 module
 const useLocalStorage = interopDefault(_useLocalStorage);
 
@@ -42,7 +45,6 @@ function homepageLoader({ graphql }: LoaderArgs) {
 function HomePage(): React.ReactElement {
   const { data } = useLoaderData() as { data: HomePageQuery };
   const home = data?.gbifHome;
-  const intl = useIntl();
   const userInfo = useUserInfo();
   const primaryImage = home?.primaryImage?.[0];
 
@@ -70,28 +72,7 @@ function HomePage(): React.ReactElement {
                     </h1>
                   </div>
                   <div className="g-mt-4">
-                    <div className="g-bg-slate-950/50 g-overflow-auto g-inline-flex g-max-w-full">
-                      <HeaderLink to="/occurrence/search">
-                        <FormattedMessage id="catalogues.occurrences" />
-                      </HeaderLink>
-                      <HeaderLink to="/species/search">
-                        <FormattedMessage id="catalogues.species" />
-                      </HeaderLink>
-                      <HeaderLink to="/dataset/search">
-                        <FormattedMessage id="catalogues.datasets" />
-                      </HeaderLink>
-                      <HeaderLink to="/publisher/search">
-                        <FormattedMessage id="catalogues.publishers" />
-                      </HeaderLink>
-                      <HeaderLink to="/resource/search">
-                        <FormattedMessage id="catalogues.resources" />
-                      </HeaderLink>
-                    </div>
-                    <input
-                      type="search"
-                      placeholder={intl.formatMessage({ id: 'homepage.search' })}
-                      className="g-p-4 g-w-full g-bg-white g-shadow-lg g-rounded-none"
-                    />
+                    <SearchBar />
                     <div className="g-bg-slate-950/50 g-overflow-hidden g-inline-block g-float-left">
                       <HeaderLink to="/what-is-gbif">
                         <FormattedMessage id="homepage.whatIsGbif" />
@@ -138,11 +119,58 @@ function HomePage(): React.ReactElement {
   );
 }
 
-function HeaderLink({ children, to }) {
+function HeaderLink(props: DynamicLinkProps<typeof Link>) {
   return (
-    <DynamicLink to={to} className="g-inline-block g-p-2 g-px-4 g-text-white g-whitespace-nowrap">
-      {children}
-    </DynamicLink>
+    <DynamicLink
+      {...props}
+      className={cn(
+        'g-inline-block g-p-2 g-px-4 g-text-white g-whitespace-nowrap',
+        props.className
+      )}
+    />
+  );
+}
+
+function SearchBar() {
+  const [q, setQ] = useState('');
+  const intl = useIntl();
+
+  return (
+    <>
+      <div className="g-bg-slate-950/50 g-overflow-auto g-inline-flex g-max-w-full">
+        <HeaderLink pageId="occurrenceSearch" searchParams={{ occurrenceStatus: 'PRESENT', q }}>
+          <FormattedMessage id="catalogues.occurrences" />
+        </HeaderLink>
+        <HeaderLink pageId="speciesSearch" searchParams={{ q }}>
+          <FormattedMessage id="catalogues.species" />
+        </HeaderLink>
+        <HeaderLink pageId="datasetSearch" searchParams={{ q }}>
+          <FormattedMessage id="catalogues.datasets" />
+        </HeaderLink>
+        <HeaderLink pageId="publisherSearch" searchParams={{ q }}>
+          <FormattedMessage id="catalogues.publishers" />
+        </HeaderLink>
+        <HeaderLink pageId="resourceSearch" searchParams={{ q }}>
+          <FormattedMessage id="catalogues.resources" />
+        </HeaderLink>
+      </div>
+      <form
+        action="search"
+        className="g-flex g-justify-center g-items-center g-w-full g-shadow-lg g-bg-white g-rounded-none focus-within:g-outline g-outline-2 g-outline-primary/70 -g-outline-offset-2"
+      >
+        <input
+          name="q"
+          type="search"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder={intl.formatMessage({ id: 'homepage.search' })}
+          className="g-p-4 g-flex-1 g-outline-none remove-search-clear-icon"
+        />
+        <DynamicLink className="g-p-4" to={`/search?q=${q}`}>
+          <MdSearch size={24} />
+        </DynamicLink>
+      </form>
+    </>
   );
 }
 
@@ -417,7 +445,7 @@ export function useUserInfo() {
       .then((data) => {
         setUserInfo(data);
       })
-      .catch((error) => {
+      .catch(() => {
         setUserInfo(null);
       });
   }, [locale.localeCode]);

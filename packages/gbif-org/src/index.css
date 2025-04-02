@@ -6,6 +6,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.remove-search-clear-icon::-webkit-search-cancel-button {
+  appearance: none;
+}
+
 .underlineLinks a {
   @apply g-underline g-underline-offset-1;
 }
