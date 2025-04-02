@@ -209,12 +209,16 @@ function transform(p, config, isRootQuery) {
     }
     case 'fuzzy': {
       return {
-        match: {
-          [fieldName]: {
-            query: p.value,
-            operator: 'AND',
-            // fuzziness: 'AUTO',
-          },
+        // match: {
+        //   [fieldName]: {
+        //     query: p.value,
+        //     operator: 'AND',
+        //     // fuzziness: 'AUTO',
+        //   },
+        // },
+        simple_query_string: {
+          default_operator: 'and',
+          query: p.value,
         },
       };
     }

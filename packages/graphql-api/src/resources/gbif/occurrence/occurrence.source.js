@@ -1,7 +1,7 @@
+import { urlSizeLimit } from '#/helpers/utils-ts';
+import { getOccurrenceAgent } from '#/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
 import { stringify } from 'qs';
-import { getOccurrenceAgent } from '#/requestAgents';
-import { urlSizeLimit } from '#/helpers/utils-ts';
 
 class OccurrenceAPI extends RESTDataSource {
   constructor(config) {
@@ -11,14 +11,6 @@ class OccurrenceAPI extends RESTDataSource {
   }
 
   willSendRequest(request) {
-    // if (this.context.user) {
-    //   // this of course do not make much sense. Currently is simply means, that you have to provide credentials to seach occurrences
-    //   request.params.set('apiKey', apiEsKey);
-    //   // request.headers.set('Authorization', `ApiKey-v1 ${this.config.apiEsKey}`);
-    // } else {
-    //   console.log('unauthorized attempt to do an occurrence search');
-    // }
-
     // now that we make a public version, we might as well just make it open since the key is shared with everyone
     request.headers.set('Authorization', `ApiKey-v1 ${this.config.apiEsKey}`);
     request.headers.set('User-Agent', this.context.userAgent);
