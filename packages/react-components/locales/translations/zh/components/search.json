@@ -11,7 +11,7 @@
     "clusters": "",
     "dashboard": "仪表板",
     "sites": "等于 {is}",
-    "list": ""
+    "list": "清单"
   },
   "table": {
     "lockColumn": "锁定列",
