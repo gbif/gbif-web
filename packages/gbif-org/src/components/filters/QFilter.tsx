@@ -35,7 +35,7 @@ export const QFilter = React.forwardRef<HTMLInputElement, QFilterProps>(
               setPristine(false);
             }}
             placeholder="Search"
-            className="g-border-slate-100 g-w-full g-py-1.5 g-px-4"
+            className="g-border-slate-100 g-w-full g-py-1.5 g-px-4 g-text-sm"
             onKeyDown={(e) => {
               // if user press enter, then update the value
               if (e.key === 'Enter') {

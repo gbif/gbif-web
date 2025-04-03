@@ -309,7 +309,7 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 placeholder={formatMessage({ id: 'search.placeholders.default' })}
-                className="g-w-full g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset"
+                className="g-text-sm g-w-full g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset"
                 onKeyDown={(e) => {
                   // if user press enter, then update the value
                   if (e.key === 'Enter') {
