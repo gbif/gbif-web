@@ -1,9 +1,12 @@
 import { FormattedNumber } from '@/components/dashboard/shared';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Skeleton } from '@/components/ui/skeleton';
+import { cn } from '@/utils/shadcn';
 import { TreeItem, TreeItemIndex } from 'react-complex-tree';
 import { GoSidebarExpand } from 'react-icons/go';
+import { FormattedMessage } from 'react-intl';
 import { childLimit } from './tree';
+import styles from './treeNode.module.css';
 
 export function TreeSkeleton() {
   return (
@@ -40,6 +43,7 @@ export const TreeNode = ({
       <TreeSkeleton />
     ) : (
       <div
+        className={cn(styles.loadMoreTreeNode)}
         onClick={() => {
           setLoadingTreeNodes([...loadingTreeNodes, item.index.toString()]);
           const parent = items[item.index.toString().replace('-load-more', '')];
@@ -50,7 +54,7 @@ export const TreeNode = ({
           });
         }}
       >
-        More..
+        <FormattedMessage id="taxon.loadMore" defaultMessage="More..." />
       </div>
     );
   } else if (item.index.toString().endsWith('skeleton')) {

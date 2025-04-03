@@ -4,7 +4,7 @@ import { HomePageCountIconsFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
 import { cn } from '@/utils/shadcn';
-import { FormattedNumber } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment HomePageCountIcons on Home {
@@ -32,7 +32,7 @@ fragmentManager.register(/* GraphQL */ `
 `);
 
 type Props = {
-  iconData: HomePageCountIconsFragment;
+  iconData?: HomePageCountIconsFragment | null;
 };
 
 export function HomePageCounts({ iconData }: Props) {
@@ -40,9 +40,9 @@ export function HomePageCounts({ iconData }: Props) {
     <div className="g-grid g-grid-cols-1 sm:g-grid-cols-2 lg:g-grid-cols-4 g-gap-8 g-max-w-6xl g-m-auto g-px-10 g-py-16">
       <DynamicLink pageId="occurrenceSearch" searchParams={{ occurrenceStatus: 'PRESENT' }}>
         <CountItem
-          icon={iconData.occurrenceIcon?.file.url}
+          icon={iconData?.occurrenceIcon?.file.url}
           defaultCount={3000000000}
-          label="Occurrence records"
+          label={<FormattedMessage id="homepage.counts.occurrences" />}
           countOptions={{
             v1Endpoint: '/occurrence/search',
             params: {
@@ -54,9 +54,9 @@ export function HomePageCounts({ iconData }: Props) {
 
       <DynamicLink pageId="datasetSearch">
         <CountItem
-          icon={iconData.datasetIcon?.file.url}
+          icon={iconData?.datasetIcon?.file.url}
           defaultCount={100000}
-          label="Datasets"
+          label={<FormattedMessage id="homepage.counts.datasets" />}
           countOptions={{
             v1Endpoint: '/dataset/search',
           }}
@@ -65,9 +65,9 @@ export function HomePageCounts({ iconData }: Props) {
 
       <DynamicLink pageId="publisherSearch">
         <CountItem
-          icon={iconData.publisherIcon?.file.url}
+          icon={iconData?.publisherIcon?.file.url}
           defaultCount={2400}
-          label="Publishing institutions"
+          label={<FormattedMessage id="homepage.counts.publishers" />}
           countOptions={{
             v1Endpoint: '/organization/count',
             responseIsNumber: true,
@@ -80,9 +80,9 @@ export function HomePageCounts({ iconData }: Props) {
         searchParams={{ literatureType: 'journal', relevance: 'GBIF_USED', peerReview: 'true' }}
       >
         <CountItem
-          icon={iconData.literatureIcon?.file.url}
+          icon={iconData?.literatureIcon?.file.url}
           defaultCount={12000}
-          label="Peer-reviewed papers using data"
+          label={<FormattedMessage id="homepage.counts.literature" />}
           countOptions={{
             v1Endpoint: '/literature/search',
             params: {
