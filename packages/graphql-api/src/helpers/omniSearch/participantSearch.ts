@@ -1,6 +1,7 @@
 import config from '#/config';
 import { createSignedGetHeader } from '../auth/authenticatedGet';
 import { normalizeString } from './countrySearch';
+import { OMNI_SEARCH_TIMEOUT } from './omniSearch';
 
 export type Participant = {
   id: string;
@@ -56,10 +57,15 @@ type ResponseType = {
 
 export async function searchParticipants(str: string): Promise<ResponseType> {
   const header = createSignedGetHeader('/directory/participant', config);
+  const controller = new AbortController();
+  const { signal } = controller;
+  setTimeout(() => controller.abort(), OMNI_SEARCH_TIMEOUT);
+
   const participantResults: Participant[] = await fetch(
     `${config.apiv1}/directory/participant?limit=3&q=${str}`,
     {
       headers: header,
+      signal,
     },
   )
     .then((res) => res.json())

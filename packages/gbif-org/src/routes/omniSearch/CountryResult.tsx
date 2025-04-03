@@ -20,11 +20,19 @@ export function CountryResult({
       <article className="g-p-4 lg:g-p-8">
         <ResultCardHeaderBasic>
           <DynamicLink
-            className="hover:g-text-primary-500"
+            className="hover:g-text-primary-500 g-flex g-items-center g-gap-2"
             pageId="countryKey"
             variables={{ key: country.countryCode }}
           >
-            <FormattedMessage id={`enums.countryCode.${country.countryCode}`} />
+            <div className="g-flex-1">
+              <FormattedMessage id={`enums.countryCode.${country.countryCode}`} />
+            </div>
+            <img
+              src={`https://flagcdn.com/${country.countryCode.toLowerCase()}.svg`}
+              alt="Country Flag"
+              style={{ width: '48px', height: 'auto' }}
+              className="g-border g-border-slate-200 g-inline-block"
+            />
           </DynamicLink>
         </ResultCardHeaderBasic>
         <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
@@ -63,14 +71,14 @@ export function CountryResult({
               </div>
             </>
           </div>
-          <div className="g-max-w-24 md:g-max-w-32 g-flex-none">
+          {/* <div className="g-max-w-24 md:g-max-w-32 g-flex-none">
             <img
               src={`https://flagcdn.com/${country.countryCode.toLowerCase()}.svg`}
               alt="Country Flag"
               style={{ width: '100%', height: 'auto' }}
               className="g-border g-border-slate-200"
             />
-          </div>
+          </div> */}
         </div>
         {messageId && (
           <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">

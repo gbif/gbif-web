@@ -98,7 +98,7 @@ function removeDiacrits(str: string) {
 }
 
 export function normalizeString(str: string) {
-  return removeDiacrits(str.toLowerCase());
+  return removeDiacrits(str.toLowerCase().trim());
 }
 
 function countrySuggest(

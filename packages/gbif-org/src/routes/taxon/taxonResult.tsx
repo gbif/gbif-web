@@ -105,6 +105,7 @@ export function TaxonResult({
                   searchParams={{ taxonKey: taxon.key, view: 'map' }}
                 >
                   <MapThumbnail
+                    blend
                     type={MapTypes.TaxonKey}
                     identifier={taxon.key}
                     overlayStyle="classic-noborder.poly"
