@@ -1,3 +1,4 @@
+import { hash } from '@/utils/hash';
 import { stringify } from '@/utils/querystring';
 import get from 'lodash/get';
 import Queue from 'queue-promise';
@@ -29,7 +30,7 @@ export function Count({ v1Endpoint, params, queueId, property, message }: Props)
 
   if (loading || typeof count === 'undefined') {
     return (
-      <Skeleton>
+      <Skeleton className="g-inline">
         <span className="g-opacity-0">Loading</span>
       </Skeleton>
     );
@@ -53,6 +54,13 @@ export function useCount({
   const [count, setCount] = useState<number>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+
+  const paramId = hash(
+    JSON.stringify({
+      v1Endpoint,
+      params,
+    })
+  );
 
   useEffect(() => {
     const controller = new AbortController();
@@ -101,7 +109,9 @@ export function useCount({
       // cancel the request before unmounting
       controller.abort();
     };
-  }, [v1Endpoint, property]);
+    // We are tracking the params via a calculated ID
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [v1Endpoint, property, paramId, queueId, responseIsNumber]);
 
   return { count, loading, error };
 }
