@@ -79,7 +79,7 @@ function QFilter({
         ref={inputRef}
         placeholder={formatMessage({ id: 'filters.q.name' })}
         className={cn(
-          'g-h-9 g-px-2 g-py-2 g-rounded-md g-w-auto g-border g-border-primary-500',
+          'g-h-9 g-px-2 g-py-2 g-rounded-md g-w-auto g-border g-border-primary-500 g-text-sm',
           className
         )}
         onBlur={(e) => {
