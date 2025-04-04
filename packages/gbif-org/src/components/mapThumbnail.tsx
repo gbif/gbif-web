@@ -41,6 +41,7 @@ type OverlayStyle =
 type Props = PrimarySearch & {
   basemapStyle?: BasemapStyle;
   overlayStyle?: OverlayStyle;
+  blend?: boolean;
   className?: string;
 };
 
@@ -49,6 +50,7 @@ export function MapThumbnail({
   identifier,
   basemapStyle = 'gbif-middle', // default value for basemapStyle
   overlayStyle = 'classic-noborder.poly', // default value for overlayStyle
+  blend, // how to blend overaly with basemap
   className,
 }: Props) {
   const hasMap = useHasMap({ type, identifier });
@@ -69,7 +71,10 @@ export function MapThumbnail({
           src={`${import.meta.env.PUBLIC_TILE_API}/4326/omt/0/1/0@1x.png?style=${basemapStyle}`}
         />
       </div>
-      <div className="g-absolute g-top-0 g-left-0">
+      <div
+        className="g-absolute g-top-0 g-left-0 g-w-full"
+        style={blend ? { mixBlendMode: 'lighten' } : {}}
+      >
         <img
           className="g-w-1/2 g-inline-block"
           onError={(e: any) => (e.target.style.visibility = 'hidden')}
