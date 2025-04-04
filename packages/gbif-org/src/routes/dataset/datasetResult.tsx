@@ -35,10 +35,17 @@ export function DatasetResult({
 }) {
   return (
     <Card className="g-mb-4">
-      <article className="g-p-4 lg:g-p-8">
+      <MapThumbnail
+        blend
+        type={MapTypes.DatasetKey}
+        identifier={dataset.key}
+        overlayStyle="classic-noborder.poly"
+        className="min-[500px]:g-hidden"
+      />
+      <article className="g-p-4">
         <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
           <div className="g-flex-grow">
-            <h3 className="g-text-base g-font-semibold g-mb-2">
+            <h3 className="g-text-base g-font-semibold">
               <DynamicLink
                 className="hover:g-text-primary-500"
                 pageId="datasetKey"
@@ -66,10 +73,11 @@ export function DatasetResult({
           </div>
           <div className="g-max-w-48 md:g-max-w-64 g-flex-none">
             <MapThumbnail
+              blend
               type={MapTypes.DatasetKey}
               identifier={dataset.key}
               overlayStyle="classic-noborder.poly"
-              className="g-rounded"
+              className="g-rounded g-hidden min-[500px]:g-block"
             />
           </div>
         </div>
