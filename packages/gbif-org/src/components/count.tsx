@@ -1,3 +1,4 @@
+import { hash } from '@/utils/hash';
 import { stringify } from '@/utils/querystring';
 import get from 'lodash/get';
 import Queue from 'queue-promise';
@@ -54,6 +55,13 @@ export function useCount({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
+  const paramId = hash(
+    JSON.stringify({
+      v1Endpoint,
+      params,
+    })
+  );
+
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
@@ -101,7 +109,9 @@ export function useCount({
       // cancel the request before unmounting
       controller.abort();
     };
-  }, [v1Endpoint, property, params]);
+    // We are tracking the params via a calculated ID
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [v1Endpoint, property, paramId, queueId, responseIsNumber]);
 
   return { count, loading, error };
 }
