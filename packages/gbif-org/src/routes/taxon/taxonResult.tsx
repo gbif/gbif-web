@@ -75,9 +75,9 @@ export function TaxonResult({
                   )}
                 </h3>
                 {taxon.parents && (
-                  <p className="g-font-normal g-text-slate-700 g-text-sm g-break-words">
+                  <div className="g-font-normal g-text-slate-700 g-text-sm g-break-words">
                     <TaxonClassification classification={taxon.parents} />
-                  </p>
+                  </div>
                 )}
                 {synonym && (
                   <p className="g-font-normal g-text-slate-400 g-text-sm g-mt-2">

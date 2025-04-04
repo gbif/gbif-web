@@ -309,7 +309,11 @@ export function SearchPage() {
                     ))}
                     {serverResults?.taxa &&
                       serverResults?.taxa?.map((taxon) => (
-                        <TaxonResult key={taxon.key} taxon={taxon.taxon} className="g-bg-white" />
+                        <TaxonResult
+                          key={taxon.taxon.key}
+                          taxon={taxon.taxon}
+                          className="g-bg-white"
+                        />
                       ))}
 
                     {data?.datasetSearch.results.slice(0, 1).map((result) => (

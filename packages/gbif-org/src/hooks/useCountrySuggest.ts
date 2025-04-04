@@ -1,14 +1,19 @@
+import { SuggestFnProps } from '@/components/filters/suggest';
+import country from '@/enums/basic/country.json';
+import { matchSorter } from 'match-sorter';
 import { useCallback, useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { matchSorter } from 'match-sorter';
-import country from '@/enums/basic/country.json';
-import { SuggestFnProps } from '@/components/filters/suggest';
+
+const countryCodesToRemove = ['AA', 'XX', 'XZ'];
+export const actualCountryCodes = country.filter((code) => {
+  return !countryCodesToRemove.includes(code);
+});
 
 export function useCountrySuggest() {
   const { formatMessage } = useIntl();
 
   const countries = useMemo(() => {
-    return country.map((code) => ({
+    return actualCountryCodes.map((code) => ({
       key: code,
       title: formatMessage({ id: `enums.countryCode.${code}` }),
     }));

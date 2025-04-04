@@ -22,7 +22,11 @@ export function ProgrammeResult({ programme, className }: Props) {
   const link = `/programme/${programme.id}`;
   return (
     <ResultCard.Container className={className}>
-      <ResultCard.Header title={programme.title} link={link} contentType="programme" />
+      <ResultCard.Header
+        title={programme.title}
+        link={link}
+        contentType="cms.contentType.programme"
+      />
       <div className="g-flex g-gap-4">
         <ResultCard.Content>{programme.excerpt}</ResultCard.Content>
         {programme.primaryImage && <ResultCard.Image image={programme.primaryImage} link={link} />}
