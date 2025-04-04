@@ -10,6 +10,7 @@ const ENDPOINTS = {
 const ARTICLE_QUERY = `
 query TaxonSearch(
   $taxonKey: ID!
+  $languageCode: String = "eng"
 ) {
   taxon(key: $taxonKey) {
     ...TaxonResult
@@ -41,7 +42,7 @@ fragment TaxonResult on Taxon {
   accepted
   acceptedKey
   numDescendants
-  vernacularNames(limit: 1, language: "eng") {
+  vernacularNames(limit: 1, language: $languageCode) {
     results {
       vernacularName
       source
@@ -54,20 +55,24 @@ fragment TaxonResult on Taxon {
 export default async function searchTaxa({
   query,
   server,
+  languageCode = 'eng',
 }: {
   query: string;
+  languageCode?: string;
   server: ApolloServer<ExpressContext>;
 }) {
   const candidates = await getTaxonCandidates(query);
 
   // for each candidate we should get taxon details using graphql and do a capabilities request
   const detailsPromises = candidates.map((c) =>
-    getTaxonDetails(c.usageKey, server).then(([taxon, capabilities]) => ({
-      taxon: taxon?.data?.taxon,
-      capabilities,
-      hasOccurrences: capabilities.total > 0,
-      occurrenceCount: null,
-    })),
+    getTaxonDetails(c.usageKey, languageCode, server).then(
+      ([taxon, capabilities]) => ({
+        taxon: taxon?.data?.taxon,
+        capabilities,
+        hasOccurrences: capabilities.total > 0,
+        occurrenceCount: null,
+      }),
+    ),
   );
   const details = await Promise.all(detailsPromises);
 
@@ -137,11 +142,12 @@ async function getTaxonCandidates(query: string) {
 
 async function getTaxonDetails(
   taxonKey: number,
+  languageCode: string,
   server: ApolloServer<ExpressContext>,
 ) {
   const taxonPromise = server.executeOperation({
     query: ARTICLE_QUERY,
-    variables: { taxonKey },
+    variables: { taxonKey, languageCode },
   });
 
   const capabilitiesPromise = fetch(

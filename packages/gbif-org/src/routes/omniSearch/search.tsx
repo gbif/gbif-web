@@ -4,6 +4,7 @@ import { OmniSearchQuery, OmniSearchQueryVariables, PredicateType } from '@/gql/
 import useBelow from '@/hooks/useBelow';
 import { useStringParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
+import { useI18n } from '@/reactRouterPlugins';
 import { fetchWithCancel } from '@/utils/fetchWithCancel';
 import { ParamQuery } from '@/utils/querystring';
 import { useEffect, useState } from 'react';
@@ -54,6 +55,7 @@ type ServerResults = {
 };
 
 export function SearchPage() {
+  const { locale } = useI18n();
   const { formatMessage } = useIntl();
   const {
     data,
@@ -174,9 +176,9 @@ export function SearchPage() {
       setLoading(true);
       try {
         const { promise, cancel } = fetchWithCancel(
-          `${import.meta.env.PUBLIC_WEB_UTILS}/cross-content-search?q=${encodeURIComponent(
-            searchQuery
-          )}`
+          `${import.meta.env.PUBLIC_WEB_UTILS}/cross-content-search?languageCode=${
+            locale.iso3LetterCode
+          }&q=${encodeURIComponent(searchQuery)}`
         );
         cancelFetch = cancel;
         const serverResults = await promise.then((r) => r.json());
@@ -255,6 +257,23 @@ export function SearchPage() {
   const placeholder = formatMessage({ id: 'search.crossContentSearch.placeholder' });
 
   const noSearchQuery = !searchQuery || searchQuery === '';
+
+  // remove duplicate results. server results should stay and duplicates in graphql results should be removed
+  const remainingTaxaResults =
+    data?.taxonSearch?.results.filter((result) => {
+      const isDuplicate = serverResults?.taxa?.some((taxon) => taxon.taxon.key === result.key);
+      return !isDuplicate;
+    }) ?? [];
+
+  // if already in resourceKeywordResults, then do not show it in resourceResults
+  const remainingResourceResults =
+    data?.resourceSearch?.documents.results.filter((result) => {
+      const isDuplicate = data?.resourceKeywordSearch?.documents.results.some(
+        (resource) => resource?.id === result?.id
+      );
+      return !isDuplicate;
+    }) ?? [];
+
   return (
     <>
       <Helmet>
@@ -365,7 +384,7 @@ export function SearchPage() {
                     {data?.organizationSearch?.results.map((result) => (
                       <PublisherResult key={result.key} publisher={result} />
                     ))}
-                    {data?.taxonSearch?.results.map((result) => (
+                    {remainingTaxaResults.map((result) => (
                       <TaxonResult key={result.key} taxon={result} />
                     ))}
                     {!serverResults?.participant?.highlighted &&
@@ -376,7 +395,7 @@ export function SearchPage() {
                           />
                         </>
                       )}
-                    {data?.resourceSearch?.documents.results.map((resource) => (
+                    {remainingResourceResults.map((resource) => (
                       <ResourceSearchResult
                         key={resource.id}
                         resource={resource}

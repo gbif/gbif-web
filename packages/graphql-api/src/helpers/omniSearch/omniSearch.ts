@@ -9,14 +9,20 @@ export const OMNI_SEARCH_TIMEOUT = 700; // it isn't used by all endpoints below,
 export default async function searchAll({
   query,
   locale,
+  languageCode = 'eng',
   server,
 }: {
   query: string;
+  languageCode: string;
   server: ApolloServer<ExpressContext>;
   locale: string;
 }) {
   try {
-    const taxonResults = await searchTaxa({ query, server });
+    const taxonResults = await searchTaxa({
+      query,
+      server,
+      languageCode,
+    });
     const countryResult = await searchCountries(query, locale);
     const participantResult = await searchParticipants(query);
     const occurrenceResults = await getOccurrenceMatches(query);

@@ -17,6 +17,7 @@ export default (app, server) => {
       const response = await searchAll({
         query: req.query.q,
         server,
+        languageCode: req.query.languageCode ?? 'eng',
         locale: req.query.locale ?? 'en',
       });
       res.json(response);
