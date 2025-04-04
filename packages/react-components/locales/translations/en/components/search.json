@@ -55,5 +55,19 @@
       "SPECIMEN": "Specimen",
       "SEQUENCE": "Sequence"
     }
+  },
+  "crossContentSearch": {
+    "title": "Search",
+    "description": "",
+    "noSearchTermsEntered": "No search terms entered",
+    "placeholder": "",
+    "categories": {
+      "speciesSearch": "Species",
+      "datasetSearch": "Datasets",
+      "publisherSearch": "Publishers",
+      "occurrenceSearch": "Occurrences",
+      "resourceSearch": ""
+    },
+    "seeAll": "See all"
   }
 }
