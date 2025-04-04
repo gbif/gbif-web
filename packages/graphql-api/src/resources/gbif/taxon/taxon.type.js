@@ -155,6 +155,11 @@ const typeDef = gql`
     checklistBankBreakdown: [ChecklistBankBreakdownTaxon]
     invasiveInCountries: [InvasiveInCountry]
     iucnStatus: IUCNstatus
+
+    """
+    Get capabilities from map server
+    """
+    mapCapabilities: MapCapabilities
   }
   type ChecklistBankBreakdownTaxon {
     id: String

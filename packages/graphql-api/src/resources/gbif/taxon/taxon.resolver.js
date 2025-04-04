@@ -156,6 +156,10 @@ export default {
         return null;
       return dataSources.taxonAPI.getTaxonByKey({ key: acceptedKey });
     },
+    mapCapabilities: ({ key }, args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+      return dataSources.occurrenceAPI.getMapCapabilities({ taxonKey: key });
+    },
     taxonImages_volatile: ({ key, nubKey }, { size }, { dataSources }) =>
       dataSources.taxonMediaAPI.getRepresentativeImages({
         taxon: nubKey ?? key,

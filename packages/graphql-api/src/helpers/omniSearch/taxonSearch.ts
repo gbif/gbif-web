@@ -34,6 +34,9 @@ fragment TaxonResult on Taxon {
   genus
   rank
   taxonomicStatus
+  mapCapabilities {
+    total
+  }
   parents {
     key
     name: canonicalName

@@ -42,7 +42,7 @@ export function DatasetResult({
         overlayStyle="classic-noborder.poly"
         className="min-[500px]:g-hidden"
       />
-      <article className="g-p-4 lg:g-p-8">
+      <article className="g-p-4">
         <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
           <div className="g-flex-grow">
             <h3 className="g-text-base g-font-semibold">

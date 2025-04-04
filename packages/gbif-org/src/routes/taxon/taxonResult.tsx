@@ -1,7 +1,5 @@
 import { TaxonClassification } from '@/components/classification';
 import { MapThumbnail, MapTypes } from '@/components/mapThumbnail';
-import { CountTag, Tag } from '@/components/resultCards';
-import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/largeCard';
 import { TaxonResultFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -28,6 +26,9 @@ fragmentManager.register(/* GraphQL */ `
       name: canonicalName
       rank
     }
+    mapCapabilities {
+      total
+    }
     accepted
     acceptedKey
     numDescendants
@@ -53,10 +54,10 @@ export function TaxonResult({
     return <TaxonResult taxon={acceptedTaxon} synonym={taxon} />;
   }
   return (
-    <div className="g-mb-4">
-      <Card className="g-mb-4">
+    <div className="g-mb-4 min-[500px]:g-flex g-gap-1">
+      <Card className="g-flex-1">
         <article>
-          <div className="g-p-4 lg:g-p-8 g-pb-0 lg:g-pb-0">
+          <div className="g-p-4">
             <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
               <div className="g-flex-grow">
                 <h3 className="g-text-base g-font-semibold g-mb-2">
@@ -93,75 +94,42 @@ export function TaxonResult({
                 )}
                 {taxon.vernacularNames?.results?.length > 0 && (
                   <p className="g-font-normal g-text-slate-500 g-text-sm g-mt-2">
+                    <FormattedMessage id="filterSupport.commonName" />:{' '}
                     <span>{taxon.vernacularNames?.results[0]?.vernacularName}</span>
                   </p>
                 )}
               </div>
-              {/* {taxon.taxonomicStatus === 'ACCEPTED' && ( */}
-              <div className="g-max-w-48 md:g-max-w-64 g-flex-none">
-                <DynamicLink
-                  className="g-text-primary-600"
-                  pageId="occurrenceSearch"
-                  searchParams={{ taxonKey: taxon.key, view: 'map' }}
-                >
-                  <MapThumbnail
-                    blend
-                    type={MapTypes.TaxonKey}
-                    identifier={taxon.key}
-                    overlayStyle="classic-noborder.poly"
-                    className="g-rounded"
-                  />
-                </DynamicLink>
-              </div>
-              {/* )} */}
-            </div>
-            <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
-              {/* <Tag>
-              <FormattedMessage id={`enums.taxonomicStatus.${taxon.taxonomicStatus}`} />
-            </Tag> */}
-              <Tag>
-                <FormattedMessage id={`enums.taxonRank.${taxon.rank}`} />
-              </Tag>
-              <div className="g-flex-grow g-hidden sm:g-block"></div>
-              <DynamicLink
-                className="g-text-primary-600"
-                pageId="occurrenceSearch"
-                searchParams={{ taxonKey: taxon.key }}
-              >
-                <CountTag
-                  v1Endpoint="/occurrence/search"
-                  params={{ taxonKey: taxon.key }}
-                  message="counts.nOccurrences"
-                />
-              </DynamicLink>
-            </div>
-          </div>
-          <div className="g-border-t g-border-gray-200 g-py-2 g-px-4 g-mt-4 g-flex g-items-center g-justify-between">
-            <div>
-              <Button variant="ghost" asChild>
-                <DynamicLink
-                  className="g-text-primary-600"
-                  pageId="speciesKey"
-                  variables={{ key: taxon.key + '' }}
-                >
-                  View taxon details
-                </DynamicLink>
-              </Button>
-            </div>
-            <div>
-              <Button variant="ghost" asChild>
-                <DynamicLink
-                  className="g-text-primary-600"
-                  pageId="occurrenceSearch"
-                  searchParams={{ taxonKey: taxon.key }}
-                >
-                  Explore species occurrences
-                </DynamicLink>
-              </Button>
             </div>
           </div>
         </article>
       </Card>
+      {taxon?.mapCapabilities?.total > 0 && (
+        <div className="g-flex-0 max-[500px]:g-hidden">
+          <Card>
+            <article>
+              <div className="">
+                <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
+                  <div className="g-w-64 g-flex-none">
+                    <DynamicLink
+                      className="g-text-primary-600"
+                      pageId="occurrenceSearch"
+                      searchParams={{ taxonKey: taxon.key, view: 'map' }}
+                    >
+                      <MapThumbnail
+                        blend
+                        type={MapTypes.TaxonKey}
+                        identifier={taxon.key}
+                        overlayStyle="classic-noborder.poly"
+                        className="g-rounded"
+                      />
+                    </DynamicLink>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }
