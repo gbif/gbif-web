@@ -37,6 +37,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         .resourceSearch,
       gbifNetwork: getFile(locale, `../${folder}/${locale}/components/gbifNetwork`).gbifNetwork,
       downloadKey: getFile(locale, `../${folder}/${locale}/components/downloads`).downloadKey,
+      participant: getFile(locale, `../${folder}/${locale}/components/participant`).participant,
       customSqlDownload: getFile(locale, `../${folder}/${locale}/components/downloads`)
         .customSqlDownload,
       homepage: getFile(locale, `../${folder}/${locale}/components/homepage`).homepage,

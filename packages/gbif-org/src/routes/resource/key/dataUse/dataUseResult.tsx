@@ -26,7 +26,7 @@ export function DataUseResult({ dataUse, className }: Props) {
 
   return (
     <ResultCard.Container className={className}>
-      <ResultCard.Header title={dataUse.title} link={link} contentType="dataUse" />
+      <ResultCard.Header title={dataUse.title} link={link} contentType="cms.contentType.dataUse" />
       <div className="g-flex g-gap-4">
         <ResultCard.Content>
           {dataUse.excerpt}

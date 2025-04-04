@@ -11,6 +11,7 @@ import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams'
 import { ResourceSearchQuery, ResourceSearchQueryVariables } from '@/gql/graphql';
 import { useNumberParam, useParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
+import useUpdateEffect from '@/hooks/useUpdateEffect';
 import { ExtractPaginatedResult } from '@/types';
 import React, { useContext, useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -24,7 +25,6 @@ import { ResourceSearchResult } from './resourceSearchResult';
 import { ResourceSearchTabs } from './resourceSearchTabs';
 import { searchConfig } from './searchConfig';
 import { orderedTabs, tabsConfig } from './tabsConfig';
-import useUpdateEffect from '@/hooks/useUpdateEffect';
 
 const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
   query ResourceSearch(
@@ -40,8 +40,14 @@ const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
         total
         results {
           __typename
+          ... on Composition {
+            ...CompositionResult
+          }
           ... on News {
             ...NewsResult
+          }
+          ... on Article {
+            ...ArticleResult
           }
           ... on DataUse {
             ...DataUseResult
@@ -60,6 +66,12 @@ const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
           }
           ... on Document {
             ...DocumentResult
+          }
+          ... on Document {
+            ...DocumentResult
+          }
+          ... on NetworkProse {
+            ...NetworkProseResult
           }
         }
       }

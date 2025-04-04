@@ -24,6 +24,7 @@ const typeDef = gql`
   type Participant {
     id: ID!
     abbreviatedName: String
+    participantUrl: String
     countryCode: Country
     gbifRegion: GbifRegion
     membershipStart: String

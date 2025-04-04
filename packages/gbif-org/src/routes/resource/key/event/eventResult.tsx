@@ -1,10 +1,10 @@
-import { Button } from '@/components/ui/button';
-import { MdCalendarMonth, MdCalendarToday, MdLink, MdLocationPin } from 'react-icons/md';
-import { FormattedDate, FormattedMessage } from 'react-intl';
 import { GbifLogoIcon } from '@/components/icons/icons';
+import { ResultCard } from '@/components/resultCards/index';
+import { Button } from '@/components/ui/button';
 import { EventResultFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
-import { ResultCard } from '@/components/resultCards/index';
+import { MdCalendarMonth, MdCalendarToday, MdLink, MdLocationPin } from 'react-icons/md';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment EventResult on MeetingEvent {
@@ -52,7 +52,7 @@ export function EventResult({ event, className }: Props) {
           </span>
         }
         link={primaryLink}
-        contentType="event"
+        contentType="cms.contentType.event"
       />
 
       <div className="g-flex-auto">

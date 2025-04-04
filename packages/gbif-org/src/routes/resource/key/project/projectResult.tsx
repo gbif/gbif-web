@@ -1,10 +1,10 @@
 import { ResultCard } from '@/components/resultCards/index';
+import { SimpleTooltip } from '@/components/simpleTooltip';
+import { AddFilterEvent } from '@/contexts/filter';
 import { ProjectResultFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
 import { FormattedMessage } from 'react-intl';
-import { AddFilterEvent } from '@/contexts/filter';
-import { SimpleTooltip } from '@/components/simpleTooltip';
 
 fragmentManager.register(/* GraphQL */ `
   fragment ProjectResult on GbifProject {
@@ -32,7 +32,7 @@ export function ProjectResult({ project, className }: Props) {
   const link = `/project/${project.id}`;
   return (
     <ResultCard.Container className={className}>
-      <ResultCard.Header title={project.title} link={link} contentType="project" />
+      <ResultCard.Header title={project.title} link={link} contentType="cms.contentType.project" />
       <div className="g-flex g-gap-4">
         <ResultCard.Content>
           {project.excerpt}

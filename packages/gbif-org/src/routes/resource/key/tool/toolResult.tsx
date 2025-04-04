@@ -22,7 +22,7 @@ export function ToolResult({ tool, className }: Props) {
   const link = `/tool/${tool.id}`;
   return (
     <ResultCard.Container className={className}>
-      <ResultCard.Header title={tool.title} link={link} contentType="tool" />
+      <ResultCard.Header title={tool.title} link={link} contentType="cms.contentType.tool" />
       <div className="g-flex g-gap-4">
         <ResultCard.Content>{tool.excerpt}</ResultCard.Content>
         {tool.primaryImage && <ResultCard.Image image={tool.primaryImage} link={link} />}

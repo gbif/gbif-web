@@ -1,10 +1,7 @@
-import { RESTDataSource } from 'apollo-datasource-rest';
-import {
-  translateContentfulResponse,
-  // objectToQueryString,
-} from '#/helpers/utils';
-import { getDefaultAgent } from '#/requestAgents';
+import { translateContentfulResponse } from '#/helpers/utils';
 import { urlSizeLimit } from '#/helpers/utils-ts';
+import { getDefaultAgent } from '#/requestAgents';
+import { RESTDataSource } from 'apollo-datasource-rest';
 
 export class ResourceAPI extends RESTDataSource {
   constructor(config) {
@@ -76,5 +73,11 @@ export class ResourceSearchAPI extends RESTDataSource {
       locale,
     );
     return response.results[0];
+  }
+
+  async meta({ query }) {
+    const body = { ...query, includeMeta: true };
+    const response = await this.post('/content/meta', body);
+    return response;
   }
 }
