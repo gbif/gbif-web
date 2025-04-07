@@ -1,5 +1,5 @@
 import { TaxonClassification } from '@/components/classification';
-import { MapThumbnail, MapTypes } from '@/components/mapThumbnail';
+import { MapThumbnail, MapTypes } from '@/components/maps/mapThumbnail';
 import { Card } from '@/components/ui/largeCard';
 import { TaxonResultFragment } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';

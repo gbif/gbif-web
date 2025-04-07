@@ -22,6 +22,7 @@ const buttonVariants = cva(
         ghost: 'hover:g-bg-accent hover:g-text-accent-foreground',
         link: 'g-text-primary g-underline-offset-4 hover:g-underline',
         linkDestructive: 'g-text-destructive g-underline-offset-4 hover:g-underline',
+        plain: '',
         destructiveSecondary: 'g-text-red-600 g-bg-red-50 hover:g-bg-red-100',
       },
       size: {

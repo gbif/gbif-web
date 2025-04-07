@@ -1,4 +1,4 @@
-import { MapThumbnail, MapTypes } from '@/components/mapThumbnail';
+import { MapThumbnail, MapTypes } from '@/components/maps/mapThumbnail';
 import { CountTag, Tag } from '@/components/resultCards';
 import { Card } from '@/components/ui/largeCard';
 import { DatasetResultFragment, DatasetStubResultFragment } from '@/gql/graphql';

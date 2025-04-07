@@ -1,5 +1,7 @@
+// TODO: This file is not used. Should it be deleted or is it just not ready to be used yet?
+
 import { useOnMountUnsafe } from '@/hooks/useOnMountUnsafe';
-import { projections } from '@/routes/occurrence/search/views/map/Map/openlayers/projections';
+import { projections } from './openlayers/projections';
 import { getMapStyles } from '@/routes/occurrence/search/views/map/Map/standardMapStyles';
 import { cn } from '@/utils/shadcn';
 import { Map as OpenLayersMap } from 'ol';
@@ -35,7 +37,7 @@ export default function Map({ coordinates, className }: Props) {
     const lon = 0;
     const zoom = 0;
 
-    const baseLayer = currentProjection.getBaseLayer();
+    const baseLayer = currentProjection.getVectorBaseLayer();
     // const resolutions = baseLayer?.getSource()?.getTileGrid()?.getResolutions();
     // applyBackground(baseLayer, layerStyle, 'openmaptiles');
     // applyStyle(baseLayer, layerStyle, 'openmaptiles', undefined, resolutions);
@@ -52,9 +54,9 @@ export default function Map({ coordinates, className }: Props) {
     // apply(map, mapStyles.NATURAL_PLATE_CAREE.mapConfig.basemapStyle);
     const stylePromise = fetch(basemapStyle).then((response) => response.json());
     stylePromise.then((styleResponse) => {
-      const baseLayer = currentProjection.getBaseLayer();
+      const baseLayer = currentProjection.getVectorBaseLayer();
       const resolutions = baseLayer?.getSource()?.getTileGrid()?.getResolutions();
-      applyBackground(baseLayer, styleResponse, 'openmaptiles');
+      applyBackground(baseLayer, styleResponse);
       stylefunction(baseLayer, styleResponse, 'openmaptiles', resolutions);
       map.addLayer(baseLayer);
     });

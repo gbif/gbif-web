@@ -1,27 +1,31 @@
 // Styles for the mapbox-streets-v6 vector tile data set. Loosely based on
 // https://docs.mapbox.com/vector-tiles/reference/mapbox-streets-v6/
 
-export default function basicBaseMap(Style, Fill, Stroke, Icon, Text) {
-  var fill = new Fill({ color: '' });
-  var stroke = new Stroke({ color: '', width: 1 });
-  var polygon = new Style({ fill: fill });
-  var strokedPolygon = new Style({ fill: fill, stroke: stroke });
-  var line = new Style({ stroke: stroke });
-  var text = new Style({
+import { type FeatureLike } from 'ol/Feature';
+import { Fill, Icon, Stroke, Style, Text } from 'ol/style';
+import { type StyleFunction } from 'ol/style/Style';
+
+export default function basicBaseMap(): StyleFunction {
+  const fill = new Fill({ color: '' });
+  const stroke = new Stroke({ color: '', width: 1 });
+  const polygon = new Style({ fill: fill });
+  const strokedPolygon = new Style({ fill: fill, stroke: stroke });
+  const line = new Style({ stroke: stroke });
+  const text = new Style({
     text: new Text({
       text: '',
       fill: fill,
       stroke: stroke,
     }),
   });
-  var iconCache = {};
-  function getIcon(iconName) {
-    var icon = iconCache[iconName];
+  const iconCache: Record<string, Style> = {};
+  function getIcon(iconName: string) {
+    let icon = iconCache[iconName];
     if (!icon) {
       icon = new Style({
         image: new Icon({
           src: 'https://unpkg.com/@mapbox/maki@4.0.0/icons/' + iconName + '-15.svg',
-          imgSize: [15, 15],
+          size: [15, 15],
           crossOrigin: 'anonymous',
         }),
       });
@@ -29,19 +33,19 @@ export default function basicBaseMap(Style, Fill, Stroke, Icon, Text) {
     }
     return icon;
   }
-  var styles = [];
-  return function (feature, resolution) {
-    var length = 0;
-    var layer = feature.get('layer');
-    var cls = feature.get('class');
-    var type = feature.get('type');
-    var scalerank = feature.get('scalerank');
-    var labelrank = feature.get('labelrank');
-    var adminLevel = feature.get('admin_level');
-    var maritime = feature.get('maritime');
-    var disputed = feature.get('disputed');
-    var maki = feature.get('maki');
-    var geom = feature.getGeometry().getType();
+  const styles: Style[] = [];
+  return function (feature: FeatureLike, resolution: number) {
+    let length = 0;
+    const layer = feature.get('layer');
+    const cls = feature.get('class');
+    const type = feature.get('type');
+    const scalerank = feature.get('scalerank');
+    const labelrank = feature.get('labelrank');
+    const adminLevel = feature.get('admin_level');
+    const maritime = feature.get('maritime');
+    const disputed = feature.get('disputed');
+    const maki = feature.get('maki');
+    const geom = feature.getGeometry()?.getType();
     if (layer == 'landuse' && cls == 'park') {
       fill.setColor('#d8e8c8');
       styles[length++] = polygon;
@@ -189,78 +193,78 @@ export default function basicBaseMap(Style, Fill, Stroke, Icon, Text) {
       stroke.setWidth(1);
       styles[length++] = line;
     } else if (layer == 'country_label' && scalerank === 1) {
-      text.getText().setText(feature.get('name_en'));
-      text.getText().setFont('bold 11px "Open Sans", "Arial Unicode MS"');
+      text.getText()?.setText(feature.get('name_en'));
+      text.getText()?.setFont('bold 11px "Open Sans", "Arial Unicode MS"');
       fill.setColor('#334');
       stroke.setColor('rgba(255,255,255,0.8)');
       stroke.setWidth(2);
       styles[length++] = text;
     } else if (layer == 'country_label' && scalerank === 2 && resolution <= 19567.87924100512) {
-      text.getText().setText(feature.get('name_en'));
-      text.getText().setFont('bold 10px "Open Sans", "Arial Unicode MS"');
+      text.getText()?.setText(feature.get('name_en'));
+      text.getText()?.setFont('bold 10px "Open Sans", "Arial Unicode MS"');
       fill.setColor('#334');
       stroke.setColor('rgba(255,255,255,0.8)');
       stroke.setWidth(2);
       styles[length++] = text;
     } else if (layer == 'country_label' && scalerank === 3 && resolution <= 9783.93962050256) {
-      text.getText().setText(feature.get('name_en'));
-      text.getText().setFont('bold 9px "Open Sans", "Arial Unicode MS"');
+      text.getText()?.setText(feature.get('name_en'));
+      text.getText()?.setFont('bold 9px "Open Sans", "Arial Unicode MS"');
       fill.setColor('#334');
       stroke.setColor('rgba(255,255,255,0.8)');
       stroke.setWidth(2);
       styles[length++] = text;
     } else if (layer == 'country_label' && scalerank === 4 && resolution <= 4891.96981025128) {
-      text.getText().setText(feature.get('name_en'));
-      text.getText().setFont('bold 8px "Open Sans", "Arial Unicode MS"');
+      text.getText()?.setText(feature.get('name_en'));
+      text.getText()?.setFont('bold 8px "Open Sans", "Arial Unicode MS"');
       fill.setColor('#334');
       stroke.setColor('rgba(255,255,255,0.8)');
       stroke.setWidth(2);
       styles[length++] = text;
     } else if (layer == 'marine_label' && labelrank === 1 && geom == 'Point') {
-      text.getText().setText(feature.get('name_en'));
-      text.getText().setFont('italic 11px "Open Sans", "Arial Unicode MS"');
+      text.getText()?.setText(feature.get('name_en'));
+      text.getText()?.setFont('italic 11px "Open Sans", "Arial Unicode MS"');
       fill.setColor('#74aee9');
       stroke.setColor('rgba(255,255,255,0.8)');
       stroke.setWidth(1);
       styles[length++] = text;
     } else if (layer == 'marine_label' && labelrank === 2 && geom == 'Point') {
-      text.getText().setText(feature.get('name_en'));
-      text.getText().setFont('italic 11px "Open Sans", "Arial Unicode MS"');
+      text.getText()?.setText(feature.get('name_en'));
+      text.getText()?.setFont('italic 11px "Open Sans", "Arial Unicode MS"');
       fill.setColor('#74aee9');
       stroke.setColor('rgba(255,255,255,0.8)');
       stroke.setWidth(1);
       styles[length++] = text;
     } else if (layer == 'marine_label' && labelrank === 3 && geom == 'Point') {
-      text.getText().setText(feature.get('name_en'));
-      text.getText().setFont('italic 10px "Open Sans", "Arial Unicode MS"');
+      text.getText()?.setText(feature.get('name_en'));
+      text.getText()?.setFont('italic 10px "Open Sans", "Arial Unicode MS"');
       fill.setColor('#74aee9');
       stroke.setColor('rgba(255,255,255,0.8)');
       stroke.setWidth(1);
       styles[length++] = text;
     } else if (layer == 'marine_label' && labelrank === 4 && geom == 'Point') {
-      text.getText().setText(feature.get('name_en'));
-      text.getText().setFont('italic 9px "Open Sans", "Arial Unicode MS"');
+      text.getText()?.setText(feature.get('name_en'));
+      text.getText()?.setFont('italic 9px "Open Sans", "Arial Unicode MS"');
       fill.setColor('#74aee9');
       stroke.setColor('rgba(255,255,255,0.8)');
       stroke.setWidth(1);
       styles[length++] = text;
     } else if (layer == 'place_label' && type == 'city' && resolution <= 1222.99245256282) {
-      text.getText().setText(feature.get('name_en'));
-      text.getText().setFont('11px "Open Sans", "Arial Unicode MS"');
+      text.getText()?.setText(feature.get('name_en'));
+      text.getText()?.setFont('11px "Open Sans", "Arial Unicode MS"');
       fill.setColor('#333');
       stroke.setColor('rgba(255,255,255,0.8)');
       stroke.setWidth(1);
       styles[length++] = text;
     } else if (layer == 'place_label' && type == 'town' && resolution <= 305.748113140705) {
-      text.getText().setText(feature.get('name_en'));
-      text.getText().setFont('9px "Open Sans", "Arial Unicode MS"');
+      text.getText()?.setText(feature.get('name_en'));
+      text.getText()?.setFont('9px "Open Sans", "Arial Unicode MS"');
       fill.setColor('#333');
       stroke.setColor('rgba(255,255,255,0.8)');
       stroke.setWidth(1);
       styles[length++] = text;
     } else if (layer == 'place_label' && type == 'village' && resolution <= 38.21851414258813) {
-      text.getText().setText(feature.get('name_en'));
-      text.getText().setFont('8px "Open Sans", "Arial Unicode MS"');
+      text.getText()?.setText(feature.get('name_en'));
+      text.getText()?.setFont('8px "Open Sans", "Arial Unicode MS"');
       fill.setColor('#333');
       stroke.setColor('rgba(255,255,255,0.8)');
       stroke.setWidth(1);
@@ -270,8 +274,8 @@ export default function basicBaseMap(Style, Fill, Stroke, Icon, Text) {
       resolution <= 19.109257071294063 &&
       (type == 'hamlet' || type == 'suburb' || type == 'neighbourhood')
     ) {
-      text.getText().setText(feature.get('name_en'));
-      text.getText().setFont('bold 9px "Arial Narrow"');
+      text.getText()?.setText(feature.get('name_en'));
+      text.getText()?.setFont('bold 9px "Arial Narrow"');
       fill.setColor('#633');
       stroke.setColor('rgba(255,255,255,0.8)');
       stroke.setWidth(1);

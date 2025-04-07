@@ -1,6 +1,8 @@
+import { type Theme } from '@/config/theme/theme';
 import { Circle, Fill, Stroke, Style } from 'ol/style';
+import { type StyleFunction } from 'ol/style/Style';
 
-const thresholds = function (total) {
+const thresholds = function (total: number) {
   if (total <= 10) return 0;
   if (total <= 100) return 1;
   if (total <= 1000) return 2;
@@ -8,7 +10,7 @@ const thresholds = function (total) {
   return 4;
 };
 
-function getDensityPoint(theme) {
+function getDensityPoint(theme?: Theme) {
   const densityColours = theme?.mapDensityColors ?? [
     '#fed976',
     '#fd8d3c',
@@ -64,10 +66,10 @@ function getDensityPoint(theme) {
   return densityPoints;
 }
 
-export default function (siteTheme) {
+export default function (siteTheme?: Theme): StyleFunction {
   const densityPoints = getDensityPoint(siteTheme);
-  return function (feature, resolution) {
-    var total = thresholds(feature.get('total'));
+  return function (feature) {
+    const total = thresholds(feature.get('total'));
     return densityPoints[total];
   };
 }

@@ -4,7 +4,7 @@ import { useCount } from '@/components/count';
 import * as charts from '@/components/dashboard';
 import { FeatureList, Homepage } from '@/components/highlights';
 import { HyperText } from '@/components/hyperText';
-import { AdHocMapThumbnail } from '@/components/mapThumbnail';
+import { AdHocMapThumbnail } from '@/components/maps/mapThumbnail';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';

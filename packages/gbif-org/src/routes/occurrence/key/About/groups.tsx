@@ -47,7 +47,7 @@ import {
 } from './extensions';
 import { Media } from './media';
 
-// const Map = React.lazy(() => import('@/components/map'));
+// const Map = React.lazy(() => import('@/components/maps/map'));
 
 export function Groups({
   occurrence,

@@ -15,7 +15,7 @@ import { useCount } from '@/components/count';
 import * as charts from '@/components/dashboard';
 import EmptyValue from '@/components/emptyValue';
 import { HyperText } from '@/components/hyperText';
-import { AdHocMapThumbnail } from '@/components/mapThumbnail';
+import { AdHocMapThumbnail } from '@/components/maps/mapThumbnail';
 import Properties, { Property, Term, Value } from '@/components/properties';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';

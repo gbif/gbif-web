@@ -1,7 +1,7 @@
 import maplibre from 'maplibre-gl';
 import React, { Component } from 'react';
 import { getLayerConfig } from './getLayerConfig';
-import klokantech from './openlayers/styles/klokantech.json';
+import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
 
 const PUBLIC_API_V2 = import.meta.env.PUBLIC_API_V2;
 

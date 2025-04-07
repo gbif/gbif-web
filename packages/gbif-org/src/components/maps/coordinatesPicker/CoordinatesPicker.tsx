@@ -3,12 +3,12 @@ import { Feature, Map as OpenLayersMap, View } from 'ol';
 import { Point } from 'ol/geom';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { transform } from 'ol/proj';
-import { Vector as VectorSource, XYZ } from 'ol/source';
+import { ImageTile, Vector as VectorSource } from 'ol/source';
 import Icon from 'ol/style/Icon';
 import Style from 'ol/style/Style';
 import React from 'react';
-import { Button } from '../ui/button';
 import Marker from './marker.svg';
+import { Button } from '@/components/ui/button';
 
 type Coordinates = {
   lat: number;
@@ -39,7 +39,7 @@ export default function CoordinatesPicker({
     mapRef.current = new OpenLayersMap({
       layers: [
         new TileLayer({
-          source: new XYZ({
+          source: new ImageTile({
             url: 'https://tile.gbif.org/3857/omt/{z}/{x}/{y}@1x.png?style=osm-bright-en&srs=EPSG%3A3857',
           }),
         }),
