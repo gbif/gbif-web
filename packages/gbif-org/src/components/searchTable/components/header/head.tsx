@@ -1,3 +1,4 @@
+import { FilterSetting } from '@/components/filters/filterTools';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { TableHead } from '@/components/ui/table';
 import { cn } from '@/utils/shadcn';
@@ -10,8 +11,9 @@ import {
 } from '../../hooks/useColumnVisibility';
 import { SetFirstColumnIsLocked } from '../../hooks/useFirstColumLock';
 import { ColumnVisibilityPopover } from './columnVisibilityPopover';
-import { FilterSetting } from '@/components/filters/filterTools';
-import { LuListFilter as FilterIcon } from 'react-icons/lu';
+// import { LuListFilter as FilterIcon } from 'react-icons/lu';
+import { MdOutlineFilterAlt as FilterIcon } from 'react-icons/md';
+
 import { ColumnDef } from '../..';
 
 type Props = {
@@ -78,7 +80,7 @@ export function Head({
             <filter.Popover
               trigger={
                 <button className="g-ml-2">
-                  <FilterIcon />
+                  <FilterIcon className="-g-mt-0.5" />
                 </button>
               }
             />
