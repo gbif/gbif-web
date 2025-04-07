@@ -2,22 +2,29 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 export const RangeInput = ({ onAdd }: { onAdd: ({ wkt }: { wkt: string[] }) => void }) => {
   const { toast } = useToast();
-  const [minLatitude, setMinLatitude] = useState(-50);
-  const [maxLatitude, setMaxLatitude] = useState(50);
-  const [minLongitude, setMinLongitude] = useState(-150);
-  const [maxLongitude, setMaxLongitude] = useState(150);
+  const [minLatitude, setMinLatitude] = useState('-50');
+  const [maxLatitude, setMaxLatitude] = useState('50');
+  const [minLongitude, setMinLongitude] = useState('-150');
+  const [maxLongitude, setMaxLongitude] = useState('150');
 
   const handleAdd = () => {
     try {
-      let N = maxLatitude;
-      let S = minLatitude;
-      let W = minLongitude;
-      let E = maxLongitude;
+      let N = Number.parseFloat(maxLatitude);
+      let S = Number.parseFloat(minLatitude);
+      let W = Number.parseFloat(minLongitude);
+      let E = Number.parseFloat(maxLongitude);
+      if (isNaN(N) || isNaN(S) || isNaN(W) || isNaN(E)) {
+        toast({
+          title: 'Invalid range',
+          variant: 'destructive',
+        });
+        return;
+      }
 
       // cap north and south to 90 and -90
       if (N > 90) {
@@ -72,6 +79,28 @@ export const RangeInput = ({ onAdd }: { onAdd: ({ wkt }: { wkt: string[] }) => v
     }
   };
 
+  const isValid = useCallback((value: string | number, absoluteRange: number) => {
+    if (value === undefined || value === null || value === '') {
+      return true;
+    }
+    // regex to check if float number
+    const isNumberRegEx = /^-?\d*\.?\d*$/;
+    // check if value is empty or a number
+    const isValid = isNumberRegEx.test(value + '');
+    if (!isValid) {
+      return false;
+    }
+    // check if value is within rage (e.g. -180 to 180)
+    const numberValue = Number.parseFloat(value + '');
+    if (isNaN(numberValue)) {
+      return false;
+    }
+    if (absoluteRange) {
+      return Math.abs(numberValue) <= absoluteRange;
+    }
+    return true;
+  }, []);
+
   // provide 2 rows. one with latitude from-to and one with longitude from-to. And then an add button
   return (
     <div>
@@ -81,8 +110,9 @@ export const RangeInput = ({ onAdd }: { onAdd: ({ wkt }: { wkt: string[] }) => v
           <Input
             className="g-mt-1"
             type="number"
+            style={{ color: !isValid(minLatitude, 90) ? 'tomato' : '' }}
             value={minLatitude}
-            onChange={(event) => setMinLatitude(Number.parseFloat(event.target.value) ?? 0)}
+            onChange={(event) => setMinLatitude(event.target.value)}
             placeholder="-90"
           />
         </label>
@@ -91,8 +121,9 @@ export const RangeInput = ({ onAdd }: { onAdd: ({ wkt }: { wkt: string[] }) => v
           <Input
             className="g-mt-1"
             type="number"
+            style={{ color: !isValid(maxLatitude, 90) ? 'tomato' : '' }}
             value={maxLatitude}
-            onChange={(event) => setMaxLatitude(Number.parseFloat(event.target.value) ?? 0)}
+            onChange={(event) => setMaxLatitude(event.target.value)}
             placeholder="90"
           />
         </label>
@@ -101,8 +132,9 @@ export const RangeInput = ({ onAdd }: { onAdd: ({ wkt }: { wkt: string[] }) => v
           <Input
             className="g-mt-1"
             type="number"
+            style={{ color: !isValid(minLongitude, 180) ? 'tomato' : '' }}
             value={minLongitude}
-            onChange={(event) => setMinLongitude(Number.parseFloat(event.target.value) ?? 0)}
+            onChange={(event) => setMinLongitude(event.target.value)}
             placeholder="-180"
           />
         </label>
@@ -111,8 +143,9 @@ export const RangeInput = ({ onAdd }: { onAdd: ({ wkt }: { wkt: string[] }) => v
           <Input
             className="g-mt-1"
             type="number"
+            style={{ color: !isValid(maxLongitude, 180) ? 'tomato' : '' }}
             value={maxLongitude}
-            onChange={(event) => setMaxLongitude(Number.parseFloat(event.target.value) ?? 0)}
+            onChange={(event) => setMaxLongitude(event.target.value)}
             placeholder="180"
           />
         </label>
