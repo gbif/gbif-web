@@ -330,18 +330,19 @@ export function useOccurrenceColumns({
           );
         },
       },
-      {
-        id: 'datasetName',
-        header: 'occurrenceFieldNames.datasetName',
-        minWidth: 200,
-        cell: ({ datasetName }) => (
-          <InlineLineClamp>
-            {datasetName?.map((name) => (
-              <span>{name}</span>
-            ))}
-          </InlineLineClamp>
-        ),
-      },
+      // I do not believe anyone has ever asked for this column. Lets just remove it for now.
+      // {
+      //   id: 'datasetName',
+      //   header: 'occurrenceFieldNames.datasetName',
+      //   minWidth: 200,
+      //   cell: ({ datasetName }) => (
+      //     <InlineLineClamp>
+      //       {datasetName?.map((name) => (
+      //         <span>{name}</span>
+      //       ))}
+      //     </InlineLineClamp>
+      //   ),
+      // },
     ];
 
     return columns;

@@ -77,7 +77,6 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
           stateProvince
           establishmentMeans
           iucnRedListCategory
-          datasetName
           stillImageCount
           movingImageCount
           soundCount
