@@ -1,4 +1,4 @@
 const max = 4;
-const fallback = 1;
+const dpr = window?.devicePixelRatio || 1;
 
-export const pixelRatio = Math.min(max, window?.devicePixelRatio || fallback);
+export const pixelRatio = Math.min(Math.ceil(dpr), max);
