@@ -1,31 +1,29 @@
-import React, { Component } from 'react';
 import { projections } from '@/components/maps/openlayers/projections';
+import React, { Component } from 'react';
 
+import { getBoundingBox } from '@/components/maps/openlayers/helpers/getBoundingBox';
+import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
+import { Projection } from '@/config/config';
+import { OccurrenceSearchMetadata } from '@/contexts/search';
+import { BoundingBox } from '@/types';
+import { pixelRatio } from '@/utils/pixelRatio';
 import { apply, applyBackground, applyStyle, stylefunction } from 'ol-mapbox-style';
 import { defaults as olControlDefaults } from 'ol/control';
 import { MVT as MVTFormat } from 'ol/format';
 import * as olInteraction from 'ol/interaction';
-import OlMap from 'ol/Map';
-import { transform } from 'ol/proj';
-import VectorTileSource from 'ol/source/VectorTile';
-import ImageTile from 'ol/source/ImageTile';
-import TileGrid from 'ol/tilegrid/TileGrid';
-import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
 import BaseTileLayer from 'ol/layer/BaseTile';
 import VectorTileLayer from 'ol/layer/VectorTile';
-import { OccurrenceSearchMetadata } from '@/contexts/search';
-import { Projection } from '@/config/config';
-import { getBoundingBox } from '@/components/maps/openlayers/helpers/getBoundingBox';
-import { BoundingBox } from '@/types';
+import OlMap from 'ol/Map';
+import { transform } from 'ol/proj';
+import ImageTile from 'ol/source/ImageTile';
+import VectorTileSource from 'ol/source/VectorTile';
+import TileGrid from 'ol/tilegrid/TileGrid';
 
 const interactions = olInteraction.defaults({
   altShiftDragRotate: false,
   pinchRotate: false,
   mouseWheelZoom: true,
 });
-
-// TODO: The pixel density is not as good as the current GBIF.org
-const devicePixelRatio = typeof window !== 'undefined' ? window.devicePixelRatio : 1;
 
 const mapStyles: Record<string, any> = {
   klokantech,
@@ -236,12 +234,7 @@ class Map extends Component<Props, State> {
     if (layerStyle) {
       const baseLayer = currentProjection.getVectorBaseLayer();
       const resolutions = baseLayer.getSource()?.getTileGrid()?.getResolutions();
-      applyBackground(
-        baseLayer,
-        layerStyle,
-        // @ts-ignore TODO: What is the meaning of this 'openmaptiles' string? (Typescript complains about it, and i can't find any documentation on it. This started when i upgraded openlayers)
-        'openmaptiles'
-      );
+      applyBackground(baseLayer, layerStyle);
       applyStyle(baseLayer, layerStyle, 'openmaptiles', undefined, resolutions);
       this.map.addLayer(baseLayer);
     } else if (epsg !== 'EPSG_3857') {
@@ -253,12 +246,7 @@ class Map extends Component<Props, State> {
       if (!styleResponse?.metadata?.['gb:reproject']) {
         const baseLayer = currentProjection.getVectorBaseLayer();
         const resolutions = baseLayer.getSource()?.getTileGrid()?.getResolutions();
-        applyBackground(
-          baseLayer,
-          styleResponse,
-          // @ts-ignore TODO: What is the meaning of this 'openmaptiles' string? (Typescript complains about it, and i can't find any documentation on it. This started when i upgraded openlayers)
-          'openmaptiles'
-        );
+        applyBackground(baseLayer, styleResponse);
         stylefunction(baseLayer, styleResponse, 'openmaptiles', resolutions);
         this.map.addLayer(baseLayer);
       } else {
@@ -280,7 +268,7 @@ class Map extends Component<Props, State> {
                 new VectorTileSource({
                   format: new MVTFormat(),
                   projection: sourceConfig.projection,
-                  tileSize: sourceConfig.tileSize * devicePixelRatio, // Source tile size
+                  tileSize: sourceConfig.tileSize * pixelRatio, // Source tile size
                   urls: source.getUrls(),
                   tileGrid: new TileGrid(sourceConfig.tilegridOptions),
                   wrapX: sourceConfig.wrapX,
@@ -306,7 +294,7 @@ class Map extends Component<Props, State> {
                   projection: sourceConfig.projection,
                   url: sourceConfig.tiles,
                   tileGrid: new TileGrid(sourceConfig.tilegridOptions),
-                  tileSize: sourceConfig.tileSize * devicePixelRatio, // Source tile size
+                  tileSize: sourceConfig.tileSize * pixelRatio, // Source tile size
                   wrapX: sourceConfig.wrapX,
                   maxZoom: sourceConfig.maxZoom,
                   attributions: [sourceConfig.attribution],
@@ -326,11 +314,11 @@ class Map extends Component<Props, State> {
     } else {
       await apply(
         this.map,
-        // TODO Why is the pixelRatio hardcoded to 2?
         this.props.mapConfig?.basemapStyle ||
           `${
             import.meta.env.PUBLIC_WEB_UTILS
-          }/map-styles/3857/gbif-raster?styleName=osm&background=%23f3f3f1&language=en&pixelRatio=2`
+          }/map-styles/3857/gbif-raster?styleName=osm&background=%23f3f3f1&language=en&pixelRatio=` +
+            pixelRatio
       );
     }
 
@@ -412,25 +400,12 @@ class Map extends Component<Props, State> {
     const map = this.map;
 
     map.on('moveend', function () {
-      // @ts-ignore TODO I can't find anything about this property
-      if (this.refreshingView) return;
       const { center, zoom } = map.getView().getState();
       const reprojectedCenter = transform(center, currentProjection.srs, 'EPSG:4326');
       sessionStorage.setItem('mapZoom', zoom.toString());
       sessionStorage.setItem('mapLng', reprojectedCenter[0].toString());
       sessionStorage.setItem('mapLat', reprojectedCenter[1].toString());
     });
-
-    // TODO: find a way to store current extent in a way it can be reused. Should ideallky be the same format as for mapbox: center, zoom
-    // const map = this.map
-    // if (!this.mapLoaded) {
-    //   // remember map position
-    //   map.on('zoomend', function () {
-    //     const center = map.getCenter();
-    //     sessionStorage.setItem('mapZoom', map.getZoom());
-    //     sessionStorage.setItem('mapLng', center.lng);
-    //     sessionStorage.setItem('mapLat', center.lat);
-    //   });
 
     const pointClickHandler = this.onPointClick;
     const clickHandler = this.props.onMapClick;

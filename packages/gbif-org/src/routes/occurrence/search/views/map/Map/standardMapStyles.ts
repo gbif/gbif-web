@@ -1,6 +1,6 @@
+import { pixelRatio } from '@/utils/pixelRatio';
 import MapComponentML from './MapLibreMap';
 import MapComponentOL from './OpenlayersMap';
-const pixelRatio = window.devicePixelRatio || 1;
 
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
 

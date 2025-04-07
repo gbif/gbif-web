@@ -30,11 +30,14 @@ import {
   MdZoomOut,
 } from 'react-icons/md';
 // import { ViewHeader } from '../ViewHeader';
+import { MapMenuButton as MenuButton } from '@/components/maps/mapMenuButton';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import StripeLoader from '@/components/stripeLoader';
 import { useToast } from '@/components/ui/use-toast';
 import { ViewHeader } from '@/components/ViewHeader';
 import { useConfig } from '@/config/config';
+import { boundingBoxToWKT } from '@/utils/boundingBoxToWKT';
+import { pixelRatio } from '@/utils/pixelRatio';
 import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
 import { useEntityDrawer } from '../../browseList/useEntityDrawer';
@@ -43,11 +46,7 @@ import ListBox from './ListBox';
 import MapComponentML from './MapLibreMap';
 import MapComponentOL from './OpenlayersMap';
 import { getMapStyles } from './standardMapStyles';
-import { boundingBoxToWKT } from '@/utils/boundingBoxToWKT';
-import { MapMenuButton as MenuButton } from '@/components/maps/mapMenuButton';
-
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
-const pixelRatio = window.devicePixelRatio || 1;
 const hasGeoLocation = 'geolocation' in navigator;
 
 const defaultLayerOptions = {
