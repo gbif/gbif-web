@@ -127,7 +127,7 @@ export function MapWidgetOuter({ className, capabilitiesParams = {} }: Props) {
                   onSearchAreaClick={(geometryFilter) => {
                     dynamicNavigate({
                       pageId: 'occurrenceSearch',
-                      searchParams: { geometry: geometryFilter },
+                      searchParams: { ...filterParams, geometry: geometryFilter },
                     });
                   }}
                 />
@@ -142,6 +142,7 @@ export function MapWidgetOuter({ className, capabilitiesParams = {} }: Props) {
               className="g-pr-2"
               boundingBox={boundingBox}
               projection={selectedProjection}
+              filterParams={filterParams}
             />
             <BasisOfRecordFilter
               selected={basisOfRecord}

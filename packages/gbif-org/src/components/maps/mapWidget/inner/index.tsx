@@ -84,6 +84,7 @@ export default function MapWidgetInner({
     map,
     onSearchAreaClick,
     enabledSearchAreaClick,
+    getProjectedCoordinate: projection.getProjectedCoordinate,
   });
 
   // Will update the geometry filter when the map is moved

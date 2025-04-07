@@ -8,7 +8,11 @@ export function useFilterParams(
   endYear?: number
 ) {
   return useMemo(() => {
-    const filterParams: Params = {};
+    const filterParams: Params = {
+      hasCoordinate: true,
+      hasGeospatialIssue: false,
+      occurrenceStatus: 'PRESENT',
+    };
 
     if (basisOfRecord.length > 0) {
       filterParams.basisOfRecord = basisOfRecord;

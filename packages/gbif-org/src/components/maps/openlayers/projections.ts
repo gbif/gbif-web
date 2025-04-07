@@ -17,6 +17,7 @@ import { pixelRatio } from './helpers/pixelRatio';
 import TileLayer from 'ol/layer/Tile';
 import { Params } from '../mapWidget/options';
 import type Map from 'ol/Map';
+import type { Coordinate } from 'ol/coordinate';
 
 const occurrenceVectorLayerBaseUrl =
   import.meta.env.PUBLIC_API_V2 + '/map/occurrence/density/{z}/{x}/{y}.mvt?';
@@ -96,6 +97,9 @@ function get4326() {
     getAdhocVectorLayer: function (params: Params = {}) {
       return getAdhocVectorLayer(adhocVectorLayerBaseUrl, this, params);
     },
+    getProjectedCoordinate: function (coordinate: Coordinate) {
+      return coordinate;
+    },
   };
 }
 
@@ -147,6 +151,9 @@ function get3857() {
     },
     getAdhocVectorLayer: function (params = {}) {
       return getAdhocVectorLayer(adhocVectorLayerBaseUrl, this, params);
+    },
+    getProjectedCoordinate: function (coordinate: Coordinate) {
+      return transform(coordinate, 'EPSG:3857', 'EPSG:4326');
     },
   };
 }
@@ -223,6 +230,9 @@ function get3575() {
         padding: [0, 0, 0, 0],
       });
     },
+    getProjectedCoordinate: function (coordinate: Coordinate) {
+      return transform(coordinate, 'EPSG:3575', 'EPSG:4326');
+    },
   };
 }
 
@@ -297,6 +307,9 @@ function get3031() {
         padding: [0, 0, 0, 0],
       });
     },
+    getProjectedCoordinate: function (coordinate: Coordinate) {
+      return transform(coordinate, 'EPSG:3031', 'EPSG:4326');
+    },
   };
 }
 
@@ -358,8 +371,6 @@ function getRasterLayer(baseUrl: string, proj: any, params: Params, name?: strin
   const source = new ImageTile({
     projection: proj.projection,
     tileGrid: proj.tileGrid,
-    // @ts-ignore Typescript doesn't like this property after the ol upgrade
-    tilePixelRatio: pixelRatio,
     url: baseUrl + stringify(params),
     wrapX: proj.wrapX,
     attributions: [
@@ -426,8 +437,6 @@ function getAdhocVectorLayer(baseUrl: string, proj: any, params: Params, name = 
     format: new MVTFormat(),
     projection: proj.projection,
     tileGrid: proj.tileGrid,
-    // @ts-ignore Typescript doesn't like this property after the ol upgrade
-    tilePixelRatio: pixelRatio,
     url: baseUrl + stringify(params),
     wrapX: proj.wrapX,
     maxZoom: 18,
@@ -456,7 +465,6 @@ function getAdhocVectorLayer(baseUrl: string, proj: any, params: Params, name = 
     source: source,
     useInterimTilesOnError: false,
     visible: true,
-    // @ts-ignore Typescript doesn't like this property after the ol upgrade
     name: name,
     style: densityPoints(siteTheme),
     // className: 'occurrenceLayer'

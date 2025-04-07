@@ -173,6 +173,11 @@ export type BoundingBox = {
   minLongitude?: Maybe<Scalars['Float']['output']>;
 };
 
+export enum CacheControlScope {
+  Private = 'PRIVATE',
+  Public = 'PUBLIC'
+}
+
 export type Call = {
   __typename?: 'Call';
   acronym?: Maybe<Scalars['String']['output']>;
@@ -1007,7 +1012,7 @@ export type Composition = {
   machineIdentifier?: Maybe<Scalars['String']['output']>;
   primaryImage?: Maybe<AssetImage>;
   summary?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
   urlAlias?: Maybe<Scalars['String']['output']>;
 };
@@ -1118,6 +1123,7 @@ export enum ContentType {
   Event = 'EVENT',
   Help = 'HELP',
   Literature = 'LITERATURE',
+  Network = 'NETWORK',
   News = 'NEWS',
   Notification = 'NOTIFICATION',
   Programme = 'PROGRAMME',
@@ -1847,6 +1853,7 @@ export type DirectoryContact = {
   modified?: Maybe<Scalars['DateTime']['output']>;
   modifiedBy?: Maybe<Scalars['String']['output']>;
   orcidId?: Maybe<Scalars['String']['output']>;
+  participants?: Maybe<Array<Maybe<Participant>>>;
   phone?: Maybe<Scalars['String']['output']>;
   profileDescriptions?: Maybe<Array<Maybe<ProfileDescription>>>;
   profilePicture?: Maybe<Scalars['String']['output']>;
@@ -3093,6 +3100,12 @@ export type Home = {
   title: Scalars['String']['output'];
 };
 
+export type IucNstatus = {
+  __typename?: 'IUCNstatus';
+  distribution?: Maybe<TaxonDistribution>;
+  references?: Maybe<Scalars['String']['output']>;
+};
+
 export enum IdType {
   Huh = 'HUH',
   IhIrn = 'IH_IRN',
@@ -3306,9 +3319,15 @@ export type Institution = {
 };
 
 
+export type InstitutionCollectionCountArgs = {
+  query?: InputMaybe<CollectionSearchInput>;
+};
+
+
 export type InstitutionCollectionsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
+  query?: InputMaybe<CollectionSearchInput>;
 };
 
 
@@ -3422,6 +3441,7 @@ export type InstitutionSearchEntity = {
   alternativeCodes?: Maybe<Array<AlternativeCode>>;
   city?: Maybe<Scalars['String']['output']>;
   code?: Maybe<Scalars['String']['output']>;
+  /** collection count will count up to a 1000. After that results will be capped to 1000. This is unlikely to be an issue, but you should worry if you see 1000 results exactly. */
   collectionCount?: Maybe<Scalars['Int']['output']>;
   country?: Maybe<Country>;
   description?: Maybe<Scalars['String']['output']>;
@@ -3442,6 +3462,11 @@ export type InstitutionSearchEntity = {
   occurrenceCount?: Maybe<Scalars['Long']['output']>;
   thumbor?: Maybe<Scalars['String']['output']>;
   types?: Maybe<Array<Scalars['String']['output']>>;
+};
+
+
+export type InstitutionSearchEntityCollectionCountArgs = {
+  query?: InputMaybe<CollectionSearchInput>;
 };
 
 
@@ -3555,6 +3580,18 @@ export enum InterpretationType_RecordType {
   Temporal = 'TEMPORAL',
   Verbatim = 'VERBATIM'
 }
+
+export type InvasiveInCountry = {
+  __typename?: 'InvasiveInCountry';
+  country: Scalars['String']['output'];
+  dataset?: Maybe<Scalars['String']['output']>;
+  datasetKey: Scalars['String']['output'];
+  isInvasive?: Maybe<Scalars['Boolean']['output']>;
+  isSubCountry?: Maybe<Scalars['Boolean']['output']>;
+  nubKey: Scalars['ID']['output'];
+  scientificName?: Maybe<Scalars['String']['output']>;
+  taxonKey: Scalars['ID']['output'];
+};
 
 export type IucnRedListCategoryResult = {
   __typename?: 'IucnRedListCategoryResult';
@@ -4419,10 +4456,14 @@ export type NetworkFacet = {
 export type NetworkProse = {
   __typename?: 'NetworkProse';
   body?: Maybe<Scalars['String']['output']>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  createdAt: Scalars['DateTime']['output'];
   excerpt?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  keywords?: Maybe<Array<Scalars['String']['output']>>;
+  networkKey?: Maybe<Scalars['ID']['output']>;
   primaryImage?: Maybe<AssetImage>;
   primaryLink?: Maybe<Link>;
+  searchable?: Maybe<Scalars['Boolean']['output']>;
   summary?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -4496,6 +4537,11 @@ export type Node = {
   tags?: Maybe<Array<Maybe<Tag>>>;
   title?: Maybe<Scalars['String']['output']>;
   type?: Maybe<NodeType>;
+};
+
+
+export type NodeContactsArgs = {
+  type?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type NodeSearchResults = {
@@ -4572,6 +4618,19 @@ export type Notification = {
   title?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
   url?: Maybe<Scalars['String']['output']>;
+};
+
+export type NsgMember = {
+  __typename?: 'NsgMember';
+  address?: Maybe<Scalars['String']['output']>;
+  addressCountry?: Maybe<Scalars['String']['output']>;
+  contact?: Maybe<DirectoryContact>;
+  email?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  institutionName?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  role?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
 };
 
 export type Occurrence = {
@@ -4891,6 +4950,7 @@ export type OccurrenceCardinality = {
   collectionKey: Scalars['Long']['output'];
   continent: Scalars['Long']['output'];
   countryCode: Scalars['Long']['output'];
+  datasetId: Scalars['Long']['output'];
   datasetKey: Scalars['Long']['output'];
   dwcaExtension: Scalars['Long']['output'];
   establishmentMeans: Scalars['Long']['output'];
@@ -5015,6 +5075,7 @@ export type OccurrenceFacet = {
   coordinateUncertaintyInMeters?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
   countryCode?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   crawlId?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
+  datasetId?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   datasetKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Dataset>>>;
   datasetPublishingCountry?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   day?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
@@ -5190,6 +5251,12 @@ export type OccurrenceFacetCountryCodeArgs = {
 
 
 export type OccurrenceFacetCrawlIdArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetDatasetIdArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -6573,6 +6640,7 @@ export type Participant = {
   nodeHistory?: Maybe<Scalars['String']['output']>;
   nodeMission?: Maybe<Scalars['String']['output']>;
   nodeStructure?: Maybe<Scalars['String']['output']>;
+  participantUrl?: Maybe<Scalars['String']['output']>;
   participationStatus?: Maybe<ParticipationStatus>;
   primaryLink?: Maybe<Link>;
   progressAndPlans?: Maybe<Scalars['String']['output']>;
@@ -6786,7 +6854,8 @@ export type Query = {
   news?: Maybe<News>;
   node?: Maybe<Node>;
   nodeCountry?: Maybe<Node>;
-  nodeSearch?: Maybe<NodeSearchResults>;
+  nodeSearch: NodeSearchResults;
+  nodeSteeringGroup?: Maybe<Array<NsgMember>>;
   notification?: Maybe<Notification>;
   occurrence?: Maybe<Occurrence>;
   occurrenceClusterSearch?: Maybe<OccurrenceClusterSearchResult>;
@@ -7270,6 +7339,7 @@ export type QueryResourceSearchArgs = {
   countriesOfResearcher?: InputMaybe<Array<Scalars['String']['input']>>;
   from?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Array<Scalars['ID']['input']>>;
+  keywords?: InputMaybe<Array<Scalars['String']['input']>>;
   locale?: InputMaybe<Array<Scalars['String']['input']>>;
   predicate?: InputMaybe<Predicate>;
   q?: InputMaybe<Scalars['String']['input']>;
@@ -7506,7 +7576,7 @@ export enum RelationType {
   Serves = 'SERVES'
 }
 
-export type Resource = Article | Composition | DataUse | Document | GbifProject | Help | Literature | MeetingEvent | News | Notification | Programme | Tool;
+export type Resource = Article | Composition | DataUse | Document | GbifProject | Help | Literature | MeetingEvent | NetworkProse | News | Notification | Programme | Tool;
 
 export type ResourceDocuments = {
   __typename?: 'ResourceDocuments';
@@ -7784,14 +7854,18 @@ export type Taxon = {
   formattedName?: Maybe<Scalars['String']['output']>;
   genus?: Maybe<Scalars['String']['output']>;
   genusKey?: Maybe<Scalars['Int']['output']>;
+  invasiveInCountries?: Maybe<Array<Maybe<InvasiveInCountry>>>;
   issues?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   /** Lists all type specimens for a name usage, see also lmitations: https://github.com/gbif/portal-feedback/issues/1146#issuecomment-366260607 */
   iucnRedListCategory?: Maybe<IucnRedListCategoryResult>;
+  iucnStatus?: Maybe<IucNstatus>;
   key: Scalars['Int']['output'];
   kingdom?: Maybe<Scalars['String']['output']>;
   kingdomKey?: Maybe<Scalars['Int']['output']>;
   lastCrawled?: Maybe<Scalars['String']['output']>;
   lastInterpreted?: Maybe<Scalars['String']['output']>;
+  /** Get capabilities from map server */
+  mapCapabilities?: Maybe<MapCapabilities>;
   /** Lists all media items for a name usage */
   media?: Maybe<MediaListResult>;
   /** Gets the parsed name for a name usage */
@@ -7973,7 +8047,7 @@ export type TaxonDistribution = {
   locality?: Maybe<Scalars['String']['output']>;
   locationId?: Maybe<Scalars['String']['output']>;
   source?: Maybe<Scalars['String']['output']>;
-  sourceTaxonKey: Scalars['Int']['output'];
+  sourceTaxonKey?: Maybe<Scalars['Int']['output']>;
   status?: Maybe<OccurrenceStatus>;
   taxonKey: Scalars['Int']['output'];
   threatStatus?: Maybe<Scalars['String']['output']>;
@@ -8733,7 +8807,7 @@ export type CollectionTypeStatusFacetQuery = { __typename?: 'Query', search?: { 
 export type BecomeAPublisherPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type BecomeAPublisherPageQuery = { __typename?: 'Query', resource?: { __typename: 'Article', id: string, title: string, summary?: string | null, excerpt?: string | null, body?: string | null, topics?: Array<string | null> | null, purposes?: Array<string | null> | null, audiences?: Array<string | null> | null, citation?: string | null, createdAt: string, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string } | null> | null, documents?: Array<{ __typename?: 'DocumentAsset', title?: string | null, file?: { __typename?: 'DocumentAssetFile', url?: string | null, fileName?: string | null, contentType?: string | null, volatile_documentType?: string | null, details?: { __typename?: 'DocumentAssetFileDetails', size?: number | null } | null } | null } | null> | null } | { __typename: 'Composition' } | { __typename: 'DataUse' } | { __typename: 'Document' } | { __typename: 'GbifProject' } | { __typename: 'Help' } | { __typename: 'Literature' } | { __typename: 'MeetingEvent' } | { __typename: 'News' } | { __typename: 'Notification' } | { __typename: 'Programme' } | { __typename: 'Tool' } | null };
+export type BecomeAPublisherPageQuery = { __typename?: 'Query', resource?: { __typename: 'Article', id: string, title: string, summary?: string | null, excerpt?: string | null, body?: string | null, topics?: Array<string | null> | null, purposes?: Array<string | null> | null, audiences?: Array<string | null> | null, citation?: string | null, createdAt: string, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string } | null> | null, documents?: Array<{ __typename?: 'DocumentAsset', title?: string | null, file?: { __typename?: 'DocumentAssetFile', url?: string | null, fileName?: string | null, contentType?: string | null, volatile_documentType?: string | null, details?: { __typename?: 'DocumentAssetFileDetails', size?: number | null } | null } | null } | null> | null } | { __typename: 'Composition' } | { __typename: 'DataUse' } | { __typename: 'Document' } | { __typename: 'GbifProject' } | { __typename: 'Help' } | { __typename: 'Literature' } | { __typename: 'MeetingEvent' } | { __typename: 'NetworkProse' } | { __typename: 'News' } | { __typename: 'Notification' } | { __typename: 'Programme' } | { __typename: 'Tool' } | null };
 
 export type DatasetStubResultFragment = { __typename?: 'DatasetSearchStub', key: string, title?: string | null, excerpt?: string | null, type?: DatasetType | null, publishingOrganizationTitle?: string | null };
 
@@ -9243,7 +9317,7 @@ export type AliasHandlingQueryVariables = Exact<{
 }>;
 
 
-export type AliasHandlingQuery = { __typename?: 'Query', resource?: { __typename: 'Article', id: string, title: string, urlAlias?: string | null } | { __typename: 'Composition', id: string, urlAlias?: string | null, maybeTitle?: string | null } | { __typename: 'DataUse', id: string, title: string } | { __typename: 'Document', id: string, title: string } | { __typename: 'GbifProject', id: string, title: string } | { __typename: 'Help' } | { __typename: 'Literature' } | { __typename: 'MeetingEvent', id: string, title: string } | { __typename: 'News', id: string, title: string } | { __typename: 'Notification' } | { __typename: 'Programme', id: string, title: string } | { __typename: 'Tool', id: string, title: string } | null };
+export type AliasHandlingQuery = { __typename?: 'Query', resource?: { __typename: 'Article', id: string, title: string, urlAlias?: string | null } | { __typename: 'Composition', id: string, urlAlias?: string | null, maybeTitle: string } | { __typename: 'DataUse', id: string, title: string } | { __typename: 'Document', id: string, title: string } | { __typename: 'GbifProject', id: string, title: string } | { __typename: 'Help' } | { __typename: 'Literature' } | { __typename: 'MeetingEvent', id: string, title: string } | { __typename: 'NetworkProse' } | { __typename: 'News', id: string, title: string } | { __typename: 'Notification' } | { __typename: 'Programme', id: string, title: string } | { __typename: 'Tool', id: string, title: string } | null };
 
 export type ArticlePageFragment = { __typename?: 'Article', id: string, title: string, summary?: string | null, excerpt?: string | null, body?: string | null, topics?: Array<string | null> | null, purposes?: Array<string | null> | null, audiences?: Array<string | null> | null, citation?: string | null, createdAt: string, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string } | null> | null, documents?: Array<{ __typename?: 'DocumentAsset', title?: string | null, file?: { __typename?: 'DocumentAssetFile', url?: string | null, fileName?: string | null, contentType?: string | null, volatile_documentType?: string | null, details?: { __typename?: 'DocumentAssetFileDetails', size?: number | null } | null } | null } | null> | null };
 
@@ -9291,7 +9365,7 @@ export type TaiwanNodeQueryVariables = Exact<{
 }>;
 
 
-export type TaiwanNodeQuery = { __typename?: 'Query', nodeSearch?: { __typename?: 'NodeSearchResults', results: Array<{ __typename?: 'Node', key: string, participantTitle?: string | null, participationStatus?: string | null, title?: string | null } | null> } | null };
+export type TaiwanNodeQuery = { __typename?: 'Query', nodeSearch: { __typename?: 'NodeSearchResults', results: Array<{ __typename?: 'Node', key: string, participantTitle?: string | null, participationStatus?: string | null, title?: string | null } | null> } };
 
 export type NodeCountryQueryVariables = Exact<{
   countryCode: Scalars['String']['input'];
@@ -9305,7 +9379,7 @@ export type NonCountryNodeQueryVariables = Exact<{
 }>;
 
 
-export type NonCountryNodeQuery = { __typename?: 'Query', nodeSearch?: { __typename?: 'NodeSearchResults', results: Array<{ __typename?: 'Node', key: string, participantTitle?: string | null } | null> } | null };
+export type NonCountryNodeQuery = { __typename?: 'Query', nodeSearch: { __typename?: 'NodeSearchResults', results: Array<{ __typename?: 'Node', key: string, participantTitle?: string | null } | null> } };
 
 export type ParticipantsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -9324,13 +9398,13 @@ export type MediaCountBlockDetailsFragment = { __typename: 'MediaCountBlock', id
 
 export type TextBlockDetailsFragment = { __typename?: 'TextBlock', title?: string | null, body?: string | null, hideTitle?: boolean | null, id: string, backgroundColour?: string | null };
 
-export type CompositionPageFragment = { __typename?: 'Composition', id: string, summary?: string | null, excerpt?: string | null, maybeTitle?: string | null, blocks?: Array<{ __typename: 'CarouselBlock', id: string, title?: string | null, body?: string | null, backgroundColour?: string | null, features?: Array<{ __typename: 'MediaBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', url: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null } | { __typename: 'MediaCountBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, titleCountPart: string, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null }> | null } | { __typename: 'CustomComponentBlock', id: string, componentType?: string | null, title?: string | null, width?: string | null, backgroundColour?: string | null, settings?: any | null } | { __typename: 'FeatureBlock', id: string, maxPerRow?: number | null, title?: string | null, hideTitle?: boolean | null, body?: string | null, backgroundColour?: string | null, features?: Array<{ __typename: 'DataUse', id: string, title: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null } | { __typename: 'Feature', id: string, title: string, url: string, primaryImage: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } } | { __typename: 'MeetingEvent', id: string, title: string, start: string, end?: string | null, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null } | { __typename: 'News', id: string, title: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null }> | null } | { __typename: 'FeaturedTextBlock', id: string, title?: string | null, hideTitle?: boolean | null, body?: string | null, backgroundColour?: string | null } | { __typename: 'HeaderBlock', id: string, title?: string | null, summary?: string | null, hideTitle?: boolean | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null } | { __typename: 'MediaBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', url: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null } | { __typename: 'MediaCountBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, titleCountPart: string, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null } | { __typename: 'TextBlock', id: string, title?: string | null, body?: string | null, hideTitle?: boolean | null, backgroundColour?: string | null }> | null };
+export type CompositionPageFragment = { __typename?: 'Composition', id: string, summary?: string | null, excerpt?: string | null, maybeTitle: string, blocks?: Array<{ __typename: 'CarouselBlock', id: string, title?: string | null, body?: string | null, backgroundColour?: string | null, features?: Array<{ __typename: 'MediaBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', url: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null } | { __typename: 'MediaCountBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, titleCountPart: string, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null }> | null } | { __typename: 'CustomComponentBlock', id: string, componentType?: string | null, title?: string | null, width?: string | null, backgroundColour?: string | null, settings?: any | null } | { __typename: 'FeatureBlock', id: string, maxPerRow?: number | null, title?: string | null, hideTitle?: boolean | null, body?: string | null, backgroundColour?: string | null, features?: Array<{ __typename: 'DataUse', id: string, title: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null } | { __typename: 'Feature', id: string, title: string, url: string, primaryImage: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } } | { __typename: 'MeetingEvent', id: string, title: string, start: string, end?: string | null, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null } | { __typename: 'News', id: string, title: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null }> | null } | { __typename: 'FeaturedTextBlock', id: string, title?: string | null, hideTitle?: boolean | null, body?: string | null, backgroundColour?: string | null } | { __typename: 'HeaderBlock', id: string, title?: string | null, summary?: string | null, hideTitle?: boolean | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null } | { __typename: 'MediaBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', url: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null } | { __typename: 'MediaCountBlock', id: string, body?: string | null, reverse?: boolean | null, subtitle?: string | null, titleCountPart: string, backgroundColour?: string | null, roundImage?: boolean | null, mediaTitle: string, optionalImg?: { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } } | null, callToAction?: Array<{ __typename?: 'Link', label: string, url: string }> | null } | { __typename: 'TextBlock', id: string, title?: string | null, body?: string | null, hideTitle?: boolean | null, backgroundColour?: string | null }> | null };
 
 export type ProseCardImgFragment = { __typename?: 'AssetImage', title?: string | null, description?: string | null, file: { __typename?: 'ImageFile', mobile: string } };
 
 type ResourceRedirectDetails_Article_Fragment = { __typename: 'Article', id: string, title: string, urlAlias?: string | null };
 
-type ResourceRedirectDetails_Composition_Fragment = { __typename: 'Composition', id: string, urlAlias?: string | null, maybeTitle?: string | null };
+type ResourceRedirectDetails_Composition_Fragment = { __typename: 'Composition', id: string, urlAlias?: string | null, maybeTitle: string };
 
 type ResourceRedirectDetails_DataUse_Fragment = { __typename: 'DataUse', id: string, title: string };
 
@@ -9344,6 +9418,8 @@ type ResourceRedirectDetails_Literature_Fragment = { __typename: 'Literature' };
 
 type ResourceRedirectDetails_MeetingEvent_Fragment = { __typename: 'MeetingEvent', id: string, title: string };
 
+type ResourceRedirectDetails_NetworkProse_Fragment = { __typename: 'NetworkProse' };
+
 type ResourceRedirectDetails_News_Fragment = { __typename: 'News', id: string, title: string };
 
 type ResourceRedirectDetails_Notification_Fragment = { __typename: 'Notification' };
@@ -9352,7 +9428,7 @@ type ResourceRedirectDetails_Programme_Fragment = { __typename: 'Programme', id:
 
 type ResourceRedirectDetails_Tool_Fragment = { __typename: 'Tool', id: string, title: string };
 
-export type ResourceRedirectDetailsFragment = ResourceRedirectDetails_Article_Fragment | ResourceRedirectDetails_Composition_Fragment | ResourceRedirectDetails_DataUse_Fragment | ResourceRedirectDetails_Document_Fragment | ResourceRedirectDetails_GbifProject_Fragment | ResourceRedirectDetails_Help_Fragment | ResourceRedirectDetails_Literature_Fragment | ResourceRedirectDetails_MeetingEvent_Fragment | ResourceRedirectDetails_News_Fragment | ResourceRedirectDetails_Notification_Fragment | ResourceRedirectDetails_Programme_Fragment | ResourceRedirectDetails_Tool_Fragment;
+export type ResourceRedirectDetailsFragment = ResourceRedirectDetails_Article_Fragment | ResourceRedirectDetails_Composition_Fragment | ResourceRedirectDetails_DataUse_Fragment | ResourceRedirectDetails_Document_Fragment | ResourceRedirectDetails_GbifProject_Fragment | ResourceRedirectDetails_Help_Fragment | ResourceRedirectDetails_Literature_Fragment | ResourceRedirectDetails_MeetingEvent_Fragment | ResourceRedirectDetails_NetworkProse_Fragment | ResourceRedirectDetails_News_Fragment | ResourceRedirectDetails_Notification_Fragment | ResourceRedirectDetails_Programme_Fragment | ResourceRedirectDetails_Tool_Fragment;
 
 export type DataUsePageFragment = { __typename?: 'DataUse', id: string, title: string, summary?: string | null, resourceUsed?: string | null, excerpt?: string | null, body?: string | null, countriesOfCoverage?: Array<string | null> | null, topics?: Array<string | null> | null, purposes?: Array<string | null> | null, audiences?: Array<string | null> | null, citation?: string | null, createdAt: string, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null, primaryLink?: { __typename?: 'Link', label: string, url: string } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string } | null> | null };
 
@@ -9381,7 +9457,7 @@ export type ProjectQueryVariables = Exact<{
 }>;
 
 
-export type ProjectQuery = { __typename?: 'Query', resource?: { __typename: 'Article', id: string, title: string, urlAlias?: string | null } | { __typename: 'Composition', id: string, urlAlias?: string | null, maybeTitle?: string | null } | { __typename: 'DataUse', id: string, title: string } | { __typename: 'Document', id: string, title: string } | { __typename: 'GbifProject', title: string, excerpt?: string | null, status?: string | null, start?: string | null, end?: string | null, fundsAllocated?: number | null, id: string, projectId?: string | null, body?: string | null, matchingFunds?: number | null, grantType?: string | null, purposes?: Array<string> | null, leadContact?: string | null, primaryLink?: { __typename?: 'Link', label: string, url: string } | null, programme?: { __typename: 'Programme', id: string, title: string, fundingOrganisations?: Array<{ __typename: 'FundingOrganisation', id: string, title?: string | null, url?: string | null, logo?: { __typename?: 'AssetImage', title?: string | null, file: { __typename?: 'ImageFile', url: string } } | null }> | null } | null, overrideProgrammeFunding?: Array<{ __typename: 'FundingOrganisation', id: string, title?: string | null, url?: string | null, logo?: { __typename?: 'AssetImage', title?: string | null, file: { __typename?: 'ImageFile', url: string } } | null } | null> | null, leadPartner?: { __typename: 'FundingOrganisation', id: string, title?: string | null, url?: string | null } | { __typename: 'Participant', id: string, title?: string | null } | null, additionalPartners?: Array<{ __typename: 'FundingOrganisation', id: string, title?: string | null, url?: string | null } | { __typename: 'Participant', id: string, title?: string | null } | null> | null, fundingOrganisations?: Array<{ __typename: 'FundingOrganisation', id: string, title?: string | null, url?: string | null } | { __typename: 'Participant', id: string, title?: string | null } | null> | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string }> | null, documents?: Array<{ __typename?: 'DocumentAsset', title?: string | null, file?: { __typename?: 'DocumentAssetFile', url?: string | null, fileName?: string | null, contentType?: string | null, volatile_documentType?: string | null, details?: { __typename?: 'DocumentAssetFileDetails', size?: number | null } | null } | null }> | null } | { __typename: 'Help' } | { __typename: 'Literature' } | { __typename: 'MeetingEvent', id: string, title: string } | { __typename: 'News', id: string, title: string } | { __typename: 'Notification' } | { __typename: 'Programme', id: string, title: string } | { __typename: 'Tool', id: string, title: string } | null, gbifProject?: { __typename?: 'GbifProject', projectId?: string | null } | null, datasetsHelp?: { __typename?: 'Help', title: string } | null };
+export type ProjectQuery = { __typename?: 'Query', resource?: { __typename: 'Article', id: string, title: string, urlAlias?: string | null } | { __typename: 'Composition', id: string, urlAlias?: string | null, maybeTitle: string } | { __typename: 'DataUse', id: string, title: string } | { __typename: 'Document', id: string, title: string } | { __typename: 'GbifProject', title: string, excerpt?: string | null, status?: string | null, start?: string | null, end?: string | null, fundsAllocated?: number | null, id: string, projectId?: string | null, body?: string | null, matchingFunds?: number | null, grantType?: string | null, purposes?: Array<string> | null, leadContact?: string | null, primaryLink?: { __typename?: 'Link', label: string, url: string } | null, programme?: { __typename: 'Programme', id: string, title: string, fundingOrganisations?: Array<{ __typename: 'FundingOrganisation', id: string, title?: string | null, url?: string | null, logo?: { __typename?: 'AssetImage', title?: string | null, file: { __typename?: 'ImageFile', url: string } } | null }> | null } | null, overrideProgrammeFunding?: Array<{ __typename: 'FundingOrganisation', id: string, title?: string | null, url?: string | null, logo?: { __typename?: 'AssetImage', title?: string | null, file: { __typename?: 'ImageFile', url: string } } | null } | null> | null, leadPartner?: { __typename: 'FundingOrganisation', id: string, title?: string | null, url?: string | null } | { __typename: 'Participant', id: string, title?: string | null } | null, additionalPartners?: Array<{ __typename: 'FundingOrganisation', id: string, title?: string | null, url?: string | null } | { __typename: 'Participant', id: string, title?: string | null } | null> | null, fundingOrganisations?: Array<{ __typename: 'FundingOrganisation', id: string, title?: string | null, url?: string | null } | { __typename: 'Participant', id: string, title?: string | null } | null> | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string }> | null, documents?: Array<{ __typename?: 'DocumentAsset', title?: string | null, file?: { __typename?: 'DocumentAssetFile', url?: string | null, fileName?: string | null, contentType?: string | null, volatile_documentType?: string | null, details?: { __typename?: 'DocumentAssetFileDetails', size?: number | null } | null } | null }> | null } | { __typename: 'Help' } | { __typename: 'Literature' } | { __typename: 'MeetingEvent', id: string, title: string } | { __typename: 'NetworkProse' } | { __typename: 'News', id: string, title: string } | { __typename: 'Notification' } | { __typename: 'Programme', id: string, title: string } | { __typename: 'Tool', id: string, title: string } | null, gbifProject?: { __typename?: 'GbifProject', projectId?: string | null } | null, datasetsHelp?: { __typename?: 'Help', title: string } | null };
 
 export type ProjectAboutTabFragment = { __typename?: 'GbifProject', projectId?: string | null, id: string, body?: string | null, start?: string | null, end?: string | null, status?: string | null, fundsAllocated?: number | null, matchingFunds?: number | null, grantType?: string | null, purposes?: Array<string> | null, leadContact?: string | null, leadPartner?: { __typename: 'FundingOrganisation', id: string, title?: string | null, url?: string | null } | { __typename: 'Participant', id: string, title?: string | null } | null, additionalPartners?: Array<{ __typename: 'FundingOrganisation', id: string, title?: string | null, url?: string | null } | { __typename: 'Participant', id: string, title?: string | null } | null> | null, fundingOrganisations?: Array<{ __typename: 'FundingOrganisation', id: string, title?: string | null, url?: string | null } | { __typename: 'Participant', id: string, title?: string | null } | null> | null, programme?: { __typename?: 'Programme', id: string, title: string, fundingOrganisations?: Array<{ __typename: 'FundingOrganisation', id: string, title?: string | null, url?: string | null }> | null } | null, overrideProgrammeFunding?: Array<{ __typename: 'FundingOrganisation', id: string, title?: string | null, url?: string | null } | null> | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null, primaryLink?: { __typename?: 'Link', label: string, url: string } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string }> | null, documents?: Array<{ __typename?: 'DocumentAsset', title?: string | null, file?: { __typename?: 'DocumentAssetFile', url?: string | null, fileName?: string | null, contentType?: string | null, volatile_documentType?: string | null, details?: { __typename?: 'DocumentAssetFileDetails', size?: number | null } | null } | null }> | null };
 
@@ -9414,7 +9490,7 @@ export type ResourceRedirectQueryVariables = Exact<{
 }>;
 
 
-export type ResourceRedirectQuery = { __typename?: 'Query', resource?: { __typename: 'Article' } | { __typename: 'Composition' } | { __typename: 'DataUse' } | { __typename: 'Document' } | { __typename: 'GbifProject' } | { __typename: 'Help' } | { __typename: 'Literature' } | { __typename: 'MeetingEvent' } | { __typename: 'News' } | { __typename: 'Notification' } | { __typename: 'Programme' } | { __typename: 'Tool' } | null };
+export type ResourceRedirectQuery = { __typename?: 'Query', resource?: { __typename: 'Article' } | { __typename: 'Composition' } | { __typename: 'DataUse' } | { __typename: 'Document' } | { __typename: 'GbifProject' } | { __typename: 'Help' } | { __typename: 'Literature' } | { __typename: 'MeetingEvent' } | { __typename: 'NetworkProse' } | { __typename: 'News' } | { __typename: 'Notification' } | { __typename: 'Programme' } | { __typename: 'Tool' } | null };
 
 export type ToolPageFragment = { __typename?: 'Tool', id: string, title: string, summary?: string | null, body?: string | null, citation?: string | null, createdAt: string, author?: string | null, rights?: string | null, rightsHolder?: string | null, publicationDate?: string | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null, primaryLink?: { __typename?: 'Link', label: string, url: string } | null, secondaryLinks?: Array<{ __typename?: 'Link', label: string, url: string } | null> | null };
 
@@ -9470,7 +9546,7 @@ export type ResourceSearchQueryVariables = Exact<{
 }>;
 
 
-export type ResourceSearchQuery = { __typename?: 'Query', resourceSearch?: { __typename?: 'ResourceSearchResult', documents: { __typename?: 'ResourceDocuments', from: number, size: number, total: any, results: Array<{ __typename: 'Article' } | { __typename: 'Composition' } | { __typename: 'DataUse', id: string, title: string, excerpt?: string | null, createdAt: string, primaryImage?: { __typename?: 'AssetImage', file: { __typename?: 'ImageFile', url: string } } | null } | { __typename: 'Document', id: string, title: string, excerpt?: string | null } | { __typename: 'GbifProject', id: string, title: string, excerpt?: string | null, createdAt: string, purposes?: Array<string> | null, primaryImage?: { __typename?: 'AssetImage', file: { __typename?: 'ImageFile', url: string } } | null, programme?: { __typename?: 'Programme', id: string, title: string } | null } | { __typename: 'Help' } | { __typename: 'Literature' } | { __typename: 'MeetingEvent', id: string, title: string, excerpt?: string | null, country?: string | null, location?: string | null, venue?: string | null, start: string, end?: string | null, gbifsAttendee?: string | null, allDayEvent?: boolean | null, primaryLink?: { __typename?: 'Link', url: string } | null } | { __typename: 'News', id: string, title: string, excerpt?: string | null, createdAt: string, primaryImage?: { __typename?: 'AssetImage', file: { __typename?: 'ImageFile', url: string } } | null } | { __typename: 'Notification' } | { __typename: 'Programme', id: string, title: string, excerpt?: string | null, primaryImage?: { __typename?: 'AssetImage', file: { __typename?: 'ImageFile', url: string } } | null } | { __typename: 'Tool', id: string, title: string, excerpt?: string | null, primaryImage?: { __typename?: 'AssetImage', file: { __typename?: 'ImageFile', url: string } } | null } | null> } } | null };
+export type ResourceSearchQuery = { __typename?: 'Query', resourceSearch?: { __typename?: 'ResourceSearchResult', documents: { __typename?: 'ResourceDocuments', from: number, size: number, total: any, results: Array<{ __typename: 'Article' } | { __typename: 'Composition' } | { __typename: 'DataUse', id: string, title: string, excerpt?: string | null, createdAt: string, primaryImage?: { __typename?: 'AssetImage', file: { __typename?: 'ImageFile', url: string } } | null } | { __typename: 'Document', id: string, title: string, excerpt?: string | null } | { __typename: 'GbifProject', id: string, title: string, excerpt?: string | null, createdAt: string, purposes?: Array<string> | null, primaryImage?: { __typename?: 'AssetImage', file: { __typename?: 'ImageFile', url: string } } | null, programme?: { __typename?: 'Programme', id: string, title: string } | null } | { __typename: 'Help' } | { __typename: 'Literature' } | { __typename: 'MeetingEvent', id: string, title: string, excerpt?: string | null, country?: string | null, location?: string | null, venue?: string | null, start: string, end?: string | null, gbifsAttendee?: string | null, allDayEvent?: boolean | null, primaryLink?: { __typename?: 'Link', url: string } | null } | { __typename: 'NetworkProse' } | { __typename: 'News', id: string, title: string, excerpt?: string | null, createdAt: string, primaryImage?: { __typename?: 'AssetImage', file: { __typename?: 'ImageFile', url: string } } | null } | { __typename: 'Notification' } | { __typename: 'Programme', id: string, title: string, excerpt?: string | null, primaryImage?: { __typename?: 'AssetImage', file: { __typename?: 'ImageFile', url: string } } | null } | { __typename: 'Tool', id: string, title: string, excerpt?: string | null, primaryImage?: { __typename?: 'AssetImage', file: { __typename?: 'ImageFile', url: string } } | null } | null> } } | null };
 
 export type TaxonDistributionsQueryVariables = Exact<{
   key: Scalars['ID']['input'];

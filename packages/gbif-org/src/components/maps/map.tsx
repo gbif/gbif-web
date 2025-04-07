@@ -56,12 +56,7 @@ export default function Map({ coordinates, className }: Props) {
     stylePromise.then((styleResponse) => {
       const baseLayer = currentProjection.getVectorBaseLayer();
       const resolutions = baseLayer?.getSource()?.getTileGrid()?.getResolutions();
-      applyBackground(
-        baseLayer,
-        styleResponse,
-        // @ts-ignore TODO: What is the meaning of this 'openmaptiles' string? (Typescript complains about it, and i can't find any documentation on it. This started when i upgraded openlayers)
-        'openmaptiles'
-      );
+      applyBackground(baseLayer, styleResponse);
       stylefunction(baseLayer, styleResponse, 'openmaptiles', resolutions);
       map.addLayer(baseLayer);
     });

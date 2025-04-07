@@ -1,5 +1,6 @@
 import { boundingBoxToWKT } from '@/utils/boundingBoxToWKT';
 import { isNumber } from 'lodash';
+import type { Coordinate } from 'ol/coordinate';
 import type Map from 'ol/Map';
 import type MapBrowserEvent from 'ol/MapBrowserEvent';
 import { useEffect } from 'react';
@@ -8,9 +9,15 @@ type Args = {
   map?: Map | null;
   onSearchAreaClick?: (geometryFilter: string) => void;
   enabledSearchAreaClick?: boolean;
+  getProjectedCoordinate?: (coordinate: Coordinate) => Coordinate;
 };
 
-export function useSearchAreaClick({ map, onSearchAreaClick, enabledSearchAreaClick }: Args) {
+export function useSearchAreaClick({
+  map,
+  onSearchAreaClick,
+  enabledSearchAreaClick,
+  getProjectedCoordinate = (coordinate: Coordinate) => coordinate,
+}: Args) {
   useEffect(() => {
     if (!map) return;
     if (!enabledSearchAreaClick) return;
@@ -19,13 +26,12 @@ export function useSearchAreaClick({ map, onSearchAreaClick, enabledSearchAreaCl
     function handleSearchAreaOnClick(event: MapBrowserEvent<any>) {
       if (!onSearchAreaClick) return;
 
-      let [lng, lat] = event.coordinate;
+      let [lng, lat] = getProjectedCoordinate(event.coordinate);
 
       const size = 30;
-      const [offsetLng, offsetLat] = map!.getCoordinateFromPixel([
-        event.pixel[0] + size,
-        event.pixel[1] + size,
-      ]);
+      const [offsetLng, offsetLat] = getProjectedCoordinate(
+        map!.getCoordinateFromPixel([event.pixel[0] + size, event.pixel[1] + size])
+      );
 
       // Calculate the offset to ensure the bounding box is valid.
       // This is a failsafe for polar projections where the coordinates can wrap around,
@@ -67,5 +73,5 @@ export function useSearchAreaClick({ map, onSearchAreaClick, enabledSearchAreaCl
       mapElement.removeEventListener('mouseenter', handleMouseEnter);
       mapElement.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [onSearchAreaClick, enabledSearchAreaClick, map]);
+  }, [onSearchAreaClick, enabledSearchAreaClick, map, getProjectedCoordinate]);
 }
