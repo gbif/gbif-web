@@ -1,0 +1,20 @@
+{
+    "styles": {
+        "satellite": "Satellite",
+        "natural": "Natura",
+        "bright": "Luminoso",
+        "dark": "Scuro",
+        "outdoor": "Esterno"
+    },
+    "projections": {
+        "ARCTIC": "Artico",
+        "MERCATOR": "Mercatore",
+        "ANTARCTIC": "Antartico",
+        "PLATE_CAREE": "Proiezione geografica"
+    },
+    "failedToGetUserLocation": {
+        "title": "",
+        "message": ""
+    },
+    "filterByView": "Utilizza aree visibili come filtro"
+}

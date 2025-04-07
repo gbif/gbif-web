@@ -40,7 +40,7 @@ export const typeSpecimenPredicate = (taxonKey: number) => ({
       predicate: {
         type: PredicateType.Equals,
         key: 'typeStatus',
-        value: 'NOTATYPE',
+        value: 'NotAType',
       },
     },
     {

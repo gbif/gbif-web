@@ -20,7 +20,18 @@ export const orderedTabs = [
 
 export const tabsConfig: Record<string, TabMetadata> = {
   all: {
-    contentTypes: ['news', 'dataUse', 'event', 'project', 'programme', 'tool', 'document'],
+    contentTypes: [
+      'news',
+      'dataUse',
+      'event',
+      'project',
+      'programme',
+      'tool',
+      'document',
+      'composition',
+      'article',
+      'network',
+    ],
     countKey: 'counts.nResults',
     tabKey: 'resourceSearch.types.all',
     filters: ['q'],

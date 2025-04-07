@@ -1,4 +1,4 @@
-import { getHtml, excerpt } from '#/helpers/utils';
+import { excerpt, getHtml } from '#/helpers/utils';
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -13,7 +13,12 @@ export default {
       dataSources.resourceAPI.getEntryById({ id, preview, locale }),
   },
   Call: {
-    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    title: (src, _, { locale }) =>
+      getHtml(src.title, {
+        inline: true,
+        locale,
+        allowedTags: ['em', 'i', 'strong'],
+      }),
     body: (src, _, { locale }) =>
       getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
     excerpt: (src, _, { locale }) => excerpt(src, { locale }),

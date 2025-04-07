@@ -33,6 +33,6 @@ export default {
     summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
     body: (src, _, { locale }) =>
       getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
-    excerpt: (src, _, { locale }) => excerpt(src, { locale }),
+    excerpt: (src, _, { locale }) => excerpt({ body: src.body }, { locale }),
   },
 };

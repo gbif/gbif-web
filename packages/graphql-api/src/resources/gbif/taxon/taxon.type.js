@@ -153,6 +153,13 @@ const typeDef = gql`
     taxonImages_volatile(size: Int): [Image]!
     speciesCount: Int
     checklistBankBreakdown: [ChecklistBankBreakdownTaxon]
+    invasiveInCountries: [InvasiveInCountry]
+    iucnStatus: IUCNstatus
+
+    """
+    Get capabilities from map server
+    """
+    mapCapabilities: MapCapabilities
   }
   type ChecklistBankBreakdownTaxon {
     id: String
@@ -164,6 +171,23 @@ const typeDef = gql`
     species: Int
     children: [ChecklistBankBreakdownTaxon]
   }
+
+  type InvasiveInCountry {
+    country: String!
+    isSubCountry: Boolean
+    datasetKey: String!
+    dataset: String
+    scientificName: String
+    nubKey: ID!
+    taxonKey: ID!
+    isInvasive: Boolean
+  }
+
+  type IUCNstatus {
+    distribution: TaxonDistribution
+    references: String
+  }
+
   type TaxonBreakdown {
     name: String!
     count: Int!

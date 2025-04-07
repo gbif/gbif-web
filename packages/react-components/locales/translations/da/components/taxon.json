@@ -1,9 +1,15 @@
 {
   "tabs": {
     "about": "Om",
-    "typeMaterial": "",
+    "verbatim": "Original",
     "metrics": "Grafer"
   },
+  "recordedAsIntroducedIn": "",
+  "accordingTo": "Ifølge",
+  "evidenceOfImpact": "",
+  "occurrencesInGbif": "Obervationer i GBIF",
+  "recordedAsIntrodicedInNcontries": "",
+  "breakdown": "",
   "publishedIn": "Publiceret i",
   "vernacularNames": "Almindelige navne",
   "rank": "",
@@ -14,8 +20,10 @@
   "less": "",
   "dna": "",
   "occurenceImages": "",
+  "taxonImages": "",
   "taxonIdentifiers": "",
   "synonymsAndCombinations": "",
+  "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "Riger",
     "PHYLUM": "Rækker",
@@ -24,5 +32,19 @@
     "FAMILY": "Familier",
     "GENUS": "Slægter",
     "SPECIES": "Art"
+  },
+  "distributions": "Udbredelse",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "",
+    "status": "",
+    "locality": "",
+    "locationId": "",
+    "country": "Land"
+  },
+  "verbatim": {
+    "term": "",
+    "value": "Værdi",
+    "coreRecord": ""
   }
 }

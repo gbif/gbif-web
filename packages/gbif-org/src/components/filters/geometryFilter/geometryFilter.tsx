@@ -23,7 +23,7 @@ type WildcardProps = Omit<filterLocationConfig, 'filterType' | 'filterTranslatio
     className?: string;
   };
 
-export const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
+const GeometryFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
   ({ className, filterHandle, onApply, onCancel, pristine, about }: WildcardProps, ref) => {
     const currentFilterContext = useContext(FilterContext);
     const { filter, toggle, setFullField, setFilter, filterHash } = currentFilterContext;
@@ -291,3 +291,5 @@ function Tertiary({
     </ToggleGroup>
   );
 }
+
+export default GeometryFilter;

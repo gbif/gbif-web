@@ -1,7 +1,12 @@
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
-import { FeatureList, Homepage, TaxonClassification } from '@/components/highlights';
+import {
+  FeatureList,
+  GenericFeature,
+  Homepage,
+  TaxonClassification,
+} from '@/components/highlights';
 import { HyperText } from '@/components/hyperText';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
@@ -21,8 +26,8 @@ import { Helmet } from 'react-helmet-async';
 import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Outlet } from 'react-router-dom';
+import Cites from './Cites';
 import { AboutContent, ApiContent } from './help';
-
 // create context to pass data to children
 export const TaxonKeyContext = createContext<{
   key?: string;
@@ -104,16 +109,16 @@ export const NonBackbonePresentation = ({
       <ArticleContainer className="g-bg-slate-100 ">
         <ArticleTextContainer className="g-max-w-screen-xl">
           <Card>
-            <SectionTabs isNub={false} />
+            <SectionTabs isNub={false} hasVerbatim={data.taxon?.origin === 'SOURCE'} />
           </Card>
         </ArticleTextContainer>
-        <Outlet />
       </ArticleContainer>
+      <Outlet />
     </TaxonKeyContext.Provider>
   );
 };
 
-const SectionTabs = ({ isNub }: { isNub: boolean }) => {
+const SectionTabs = ({ isNub, hasVerbatim }: { isNub: boolean; hasVerbatim: boolean }) => {
   const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
     const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
       { to: '.', children: <FormattedMessage id="taxon.tabs.about" /> },
@@ -124,7 +129,7 @@ const SectionTabs = ({ isNub }: { isNub: boolean }) => {
         children: <FormattedMessage id="taxon.tabs.metrics" />,
       });
     }
-    if (!isNub) {
+    if (hasVerbatim && !isNub) {
       tabsToDisplay.push({
         to: 'verbatim',
         children: <FormattedMessage id="taxon.tabs.verbatim" />,
@@ -235,7 +240,7 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
             )}
 
             <HeaderInfo>
-              <HeaderInfoMain className="g-text-sm g-text-slate-500">
+              <HeaderInfoMain>
                 {taxon.acceptedTaxon && (
                   <>
                     <FormattedMessage id="taxon.synonymOf" defaultMessage={'Synonym of'} />
@@ -279,10 +284,25 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                 )}
                 <FeatureList>
                   {!isNub && taxon?.references && <Homepage url={taxon.references} />}
+                  {isNub && taxon?.iucnStatus?.distribution?.threatStatus && (
+                    <GenericFeature>
+                      <a href={taxon?.iucnStatus?.references} target="_blank">
+                        <img
+                          width={200}
+                          src={`/iucnStatus/${taxon?.iucnStatus?.distribution?.threatStatus}.png`}
+                        />
+                      </a>
+                    </GenericFeature>
+                  )}
+                  {isNub && (
+                    <GenericFeature>
+                      <Cites taxonName={data.taxon?.canonicalName} kingdom={data.taxon?.kingdom} />
+                    </GenericFeature>
+                  )}
                 </FeatureList>
               </HeaderInfoMain>
             </HeaderInfo>
-            <SectionTabs isNub={isNub} />
+            <SectionTabs isNub={isNub} hasVerbatim={taxon?.origin === 'SOURCE'} />
           </ArticleTextContainer>
         </PageContainer>
         <ErrorBoundary invalidateOn={data.taxon?.key}>{children}</ErrorBoundary>

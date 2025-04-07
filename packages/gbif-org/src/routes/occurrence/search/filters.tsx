@@ -6,6 +6,7 @@ import {
   generateFilters,
 } from '@/components/filters/filterTools';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
+import { useCountrySuggest } from '@/hooks/useCountrySuggest';
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { isInClusterConfig, isSequencedConfig } from './filters/booleans';
@@ -59,6 +60,7 @@ import {
 import { establishmentMeansConfig } from './filters/vocabulary';
 import {
   catalogNumberConfig,
+  datasetIdConfig,
   identifiedByConfig,
   localityConfig,
   preparationsConfig,
@@ -69,7 +71,6 @@ import {
   verbatimScientificNameConfig,
   waterBodyConfig,
 } from './filters/wildcard';
-import { useCountrySuggest } from '@/hooks/useCountrySuggest';
 
 const freeTextConfig: filterConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
@@ -215,6 +216,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       locality: generateFilters({ config: localityConfig, searchConfig, formatMessage }),
       waterBody: generateFilters({ config: waterBodyConfig, searchConfig, formatMessage }),
       stateProvince: generateFilters({ config: stateProvinceConfig, searchConfig, formatMessage }),
+      datasetId: generateFilters({ config: datasetIdConfig, searchConfig, formatMessage }),
       samplingProtocol: generateFilters({
         config: samplingProtocolConfig,
         searchConfig,

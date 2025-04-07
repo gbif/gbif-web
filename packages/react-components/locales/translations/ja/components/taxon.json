@@ -1,9 +1,15 @@
 {
   "tabs": {
     "about": "・・・について",
-    "typeMaterial": "",
+    "verbatim": "オリジナルのまま",
     "metrics": "メトリクス"
   },
+  "recordedAsIntroducedIn": "次の場所で侵入生物として記録されています。",
+  "accordingTo": "～によると",
+  "evidenceOfImpact": "インパクトの証拠",
+  "occurrencesInGbif": "GBIFにおけるオカレンス",
+  "recordedAsIntrodicedInNcontries": "",
+  "breakdown": "",
   "publishedIn": "出典",
   "vernacularNames": "コモンネームまたは和名",
   "rank": "分類階級",
@@ -14,8 +20,10 @@
   "less": "",
   "dna": "",
   "occurenceImages": "",
+  "taxonImages": "",
   "taxonIdentifiers": "分類群ID",
   "synonymsAndCombinations": "",
+  "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "界",
     "PHYLUM": "門",
@@ -24,5 +32,19 @@
     "FAMILY": "科",
     "GENUS": "属",
     "SPECIES": "種"
+  },
+  "distributions": "分布",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "対象生物の由来",
+    "status": "ステータス",
+    "locality": "採集地・観測地",
+    "locationId": "採集地ID",
+    "country": "国"
+  },
+  "verbatim": {
+    "term": "用語",
+    "value": "値",
+    "coreRecord": ""
   }
 }

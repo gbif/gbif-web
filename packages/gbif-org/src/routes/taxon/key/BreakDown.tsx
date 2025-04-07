@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/s
 import rankEnum from '@/enums/basic/rank.json';
 import { useLink } from '@/reactRouterPlugins/dynamicLink';
 import HighchartsReact from 'highcharts-react-official';
-import _ from 'lodash';
+import isArray from 'lodash/isArray';
 import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
@@ -97,7 +97,7 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
       const colors = Highcharts.getOptions().colors;
       const categories = root.map((t) => t.label);
       const data = root.map((k, idx) => {
-        const children_ = _.isArray(k.children) ? k.children : k.children.results;
+        const children_ = isArray(k.children) ? k.children : k.children.results;
         const children = processChildren(children_ || []);
         const sum = (children_ || []).reduce((acc, cur) => acc + cur?.species, 0);
         const c =

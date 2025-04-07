@@ -40,7 +40,7 @@
     "description": ""
   },
   "specimensInGbif": {
-    "name": "",
+    "name": "Campioni presenti su GBIF",
     "count": "",
     "description": ""
   },
@@ -196,6 +196,11 @@
     "description": ""
   },
   "datasetKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "datasetId": {
     "name": "",
     "count": "",
     "description": ""

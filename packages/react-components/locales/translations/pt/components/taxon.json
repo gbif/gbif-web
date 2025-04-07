@@ -1,9 +1,15 @@
 {
   "tabs": {
     "about": "Sobre",
-    "typeMaterial": "Iguais {is}",
+    "verbatim": "Original",
     "metrics": "Métricas"
   },
+  "recordedAsIntroducedIn": "Registada como introduzida em",
+  "accordingTo": "De acordo com",
+  "evidenceOfImpact": "Evidência do impacto",
+  "occurrencesInGbif": "Ocorrências no GBIF",
+  "recordedAsIntrodicedInNcontries": "",
+  "breakdown": "",
   "publishedIn": "Publicado em",
   "vernacularNames": "Nomes comuns",
   "rank": "Nível",
@@ -14,8 +20,10 @@
   "less": "Iguais {is}",
   "dna": "",
   "occurenceImages": "Iguais {is}",
+  "taxonImages": "",
   "taxonIdentifiers": "Identificadores de taxon",
   "synonymsAndCombinations": "",
+  "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "Reinos",
     "PHYLUM": "Filos",
@@ -24,5 +32,19 @@
     "FAMILY": "Famílias",
     "GENUS": "Géneros",
     "SPECIES": "Espécie"
+  },
+  "distributions": "Distribuição",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "Forma de estabelecimento",
+    "status": "Estado",
+    "locality": "Localidade",
+    "locationId": "ID da Localização",
+    "country": "País"
+  },
+  "verbatim": {
+    "term": "Termo",
+    "value": "Valor",
+    "coreRecord": ""
   }
 }

@@ -1,3 +1,4 @@
+import { useConfig } from '@/config/config';
 import {
   InstitutionFallbackImageQuery,
   InstitutionFallbackImageQueryVariables,
@@ -14,14 +15,20 @@ import { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { InstitutionKey as Presentation } from './institutionKeyPresentation';
 
-export async function institutionLoader({ params, graphql }: LoaderArgs) {
+export async function institutionLoader({ params, graphql, config }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
+  const scope = config.collectionSearch?.scope;
 
-  return graphql.query<InstitutionQuery, InstitutionQueryVariables>(INSTITUTION_QUERY, { key });
+  return graphql.query<InstitutionQuery, InstitutionQueryVariables>(INSTITUTION_QUERY, {
+    key,
+    collectionScope: scope ?? {},
+  });
 }
 
 export function InstitutionKey() {
   const { data } = useLoaderData() as { data: InstitutionQuery };
+  const config = useConfig();
+  const collectionScope = config.collectionSearch?.scope;
 
   const { data: institutionMetrics, load: slowLoad } = useQuery<
     InstitutionSummaryMetricsQuery,
@@ -49,6 +56,7 @@ export function InstitutionKey() {
       };
       slowLoad({
         variables: {
+          collectionScope: collectionScope ?? {},
           key: id,
           predicate: institutionPredicate,
           imagePredicate: {
@@ -91,7 +99,7 @@ export function InstitutionKey() {
 export { InstitutionPageSkeleton } from './institutionKeyPresentation';
 
 const INSTITUTION_QUERY = /* GraphQL */ `
-  query Institution($key: ID!) {
+  query Institution($key: ID!, $collectionScope: CollectionSearchInput) {
     institution(key: $key) {
       key
       code
@@ -170,7 +178,7 @@ const INSTITUTION_QUERY = /* GraphQL */ `
         postalCode
         country
       }
-      collectionCount
+      collectionCount(query: $collectionScope)
     }
   }
 `;
@@ -178,6 +186,7 @@ const INSTITUTION_QUERY = /* GraphQL */ `
 const SLOW_QUERY = /* GraphQL */ `
   query InstitutionSummaryMetrics(
     $key: ID!
+    $collectionScope: CollectionSearchInput
     $predicate: Predicate
     $imagePredicate: Predicate
     $coordinatePredicate: Predicate
@@ -190,7 +199,7 @@ const SLOW_QUERY = /* GraphQL */ `
     }
     institution(key: $key) {
       key
-      collections(limit: 200) {
+      collections(limit: 200, query: $collectionScope) {
         key
         excerpt
         code

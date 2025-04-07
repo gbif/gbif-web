@@ -20,6 +20,7 @@ import resolvers from './resolvers';
 // how to fetch the actual data and possible format/remap it to match the schemas
 import api from './dataSources';
 // we will attach a user if an authorization header is present.
+import citesController from './api-utils/cites.ctrl';
 import formController from './api-utils/forms/index.ctrl';
 import geometryController from './api-utils/geometry/index.ctrl.js';
 import helperController from './api-utils/helpers.ctrl.js';
@@ -49,9 +50,11 @@ async function initializeServer() {
       const controller = new AbortController();
       // Default is 10, we exceed this sometimes with nested resolves that utilize cancellation
       setMaxListeners(50, controller.signal);
-      req.on('close', () => {
-        controller.abort();
-      });
+      if (req) {
+        req.on('close', () => {
+          controller.abort();
+        });
+      }
 
       return {
         user,
@@ -61,8 +64,8 @@ async function initializeServer() {
         referer: get(req, 'headers.referer') || null,
         locale: get(req, 'headers.locale') || 'en-GB',
         preview: get(req, 'headers.preview') === 'true',
-        queryId: res.get('X-Graphql-query-ID'),
-        variablesId: res.get('X-Graphql-variables-ID'),
+        queryId: res ? res.get('X-Graphql-query-ID') : null,
+        variablesId: res ? res.get('X-Graphql-variables-ID') : null,
       };
     },
     typeDefs,
@@ -115,17 +118,18 @@ async function initializeServer() {
 
   app.get('/health', health);
 
+  await server.start();
+  server.applyMiddleware({ app });
+
   mapController(app);
   ipController(app);
   polygonName(app);
   formController(app);
   suggestFilter(app);
   geometryController(app);
-  helperController(app);
+  helperController(app, server);
   sourceArchiveCtrl(app);
-  await server.start();
-  server.applyMiddleware({ app });
-
+  citesController(app);
   app.listen({ port: config.port }, () =>
     console.log(
       `🚀 Server ready at http://localhost:${config.port}${server.graphqlPath}`,

@@ -200,6 +200,11 @@
     "count": "",
     "description": "Le titre du jeu de données sous lequel l'enregistrement est partagé."
   },
+  "datasetId": {
+    "name": "ID du jeu de données",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "Fournisseurs de données",
     "count": "",

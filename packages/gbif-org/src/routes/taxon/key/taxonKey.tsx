@@ -101,6 +101,8 @@ const TAXON_QUERY = /* GraphQL */ `
       key
       nubKey
       scientificName
+      canonicalName
+      origin
       kingdom
       formattedName(useFallback: true)
       rank
@@ -112,6 +114,13 @@ const TAXON_QUERY = /* GraphQL */ `
       distributionsCount: distributions(limit: 10, offset: 0) {
         results {
           taxonKey
+        }
+      }
+      iucnStatus {
+        references
+        distribution {
+          taxonKey
+          threatStatus
         }
       }
       dataset {
@@ -169,6 +178,17 @@ const SLOW_TAXON = /* GraphQL */ `
           source
         }
       }
+      invasiveInCountries {
+        country
+        isSubCountry
+        datasetKey
+        dataset
+        scientificName
+        nubKey
+        taxonKey
+        isInvasive
+      }
+
       combinations {
         key
         nameKey

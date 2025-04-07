@@ -13,7 +13,12 @@ export default {
       dataSources.resourceAPI.getEntryById({ id, preview, locale }),
   },
   DataUse: {
-    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    title: (src, _, { locale }) =>
+      getHtml(src.title, {
+        inline: true,
+        locale,
+        allowedTags: ['em', 'i', 'strong'],
+      }),
     summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
     body: (src, _, { locale }) =>
       getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),

@@ -200,6 +200,11 @@
     "count": "",
     "description": ""
   },
+  "datasetId": {
+    "name": "معرف مجموعة البيانات",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "الناشر",
     "count": "",

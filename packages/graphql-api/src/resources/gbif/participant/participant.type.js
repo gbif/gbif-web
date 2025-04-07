@@ -10,6 +10,7 @@ const typeDef = gql`
       participationStatus: ParticipationStatus
     ): ParticipantSearchResults
     participant(key: String!): Participant
+    nodeSteeringGroup: [NsgMember!]
   }
 
   type ParticipantSearchResults {
@@ -23,6 +24,7 @@ const typeDef = gql`
   type Participant {
     id: ID!
     abbreviatedName: String
+    participantUrl: String
     countryCode: Country
     gbifRegion: GbifRegion
     membershipStart: String
@@ -43,6 +45,18 @@ const typeDef = gql`
     newsletters: [Link]
     rssFeeds: [Link]
     primaryLink: Link
+  }
+
+  type NsgMember {
+    id: ID!
+    name: String
+    title: String
+    institutionName: String
+    address: String
+    addressCountry: String
+    email: String
+    role: String
+    contact: DirectoryContact
   }
 `;
 

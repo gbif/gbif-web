@@ -33,10 +33,14 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       phrases: getFile(locale, `../${folder}/${locale}/components/phrases`),
       taxon: getFile(locale, `../${folder}/${locale}/components/taxon`),
       footer: getFile(locale, `../${folder}/${locale}/components/footer`).footer,
-      resourceSearch: getFile(locale, `../${folder}/${locale}/components/resourceSearch`).resourceSearch,
+      resourceSearch: getFile(locale, `../${folder}/${locale}/components/resourceSearch`)
+        .resourceSearch,
+      gbifNetwork: getFile(locale, `../${folder}/${locale}/components/gbifNetwork`).gbifNetwork,
       downloadKey: getFile(locale, `../${folder}/${locale}/components/downloads`).downloadKey,
+      participant: getFile(locale, `../${folder}/${locale}/components/participant`).participant,
       customSqlDownload: getFile(locale, `../${folder}/${locale}/components/downloads`)
         .customSqlDownload,
+      homepage: getFile(locale, `../${folder}/${locale}/components/homepage`).homepage,
 
       occurrenceFieldNames: getFile(
         locale,
@@ -79,6 +83,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         occurrenceStatus: getFile(locale, `../${folder}/${locale}/enums/occurrenceStatus`),
         literatureType: getFile(locale, `../${folder}/${locale}/enums/literatureType`),
         role: getFile(locale, `../${folder}/${locale}/enums/role`),
+        gbifRole: getFile(locale, `../${folder}/${locale}/enums/gbifRole`).gbifRole,
         isInCluster: getFile(locale, `../${folder}/${locale}/enums/isInCluster`),
         datasetType: getFile(locale, `../${folder}/${locale}/enums/datasetType`),
         datasetSubtype: getFile(locale, `../${folder}/${locale}/enums/datasetSubtype`),

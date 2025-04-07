@@ -44,7 +44,7 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
                 <span
                   className="g-pointer-events-auto"
                   dangerouslySetInnerHTML={{
-                    __html: (taxon.formattedName ?? taxon.scientificName) as string,
+                    __html: (taxon.formattedName || taxon.scientificName) as string,
                   }}
                 />
                 {vernacular && (

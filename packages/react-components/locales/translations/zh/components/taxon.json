@@ -1,9 +1,15 @@
 {
   "tabs": {
     "about": "关于",
-    "typeMaterial": "等于 {is}",
+    "verbatim": "逐字的",
     "metrics": "指标"
   },
+  "recordedAsIntroducedIn": "作为引入种而被记录",
+  "accordingTo": "根据",
+  "evidenceOfImpact": "影响的证据",
+  "occurrencesInGbif": "GBIF中的出现记录",
+  "recordedAsIntrodicedInNcontries": "",
+  "breakdown": "",
   "publishedIn": "已发布",
   "vernacularNames": "俗名",
   "rank": "类群排名",
@@ -14,8 +20,10 @@
   "less": "等于 {is}",
   "dna": "脱氧核糖核酸",
   "occurenceImages": "等于 {is}",
+  "taxonImages": "",
   "taxonIdentifiers": "分类群识别码",
   "synonymsAndCombinations": "",
+  "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "界",
     "PHYLUM": "门",
@@ -24,5 +32,19 @@
     "FAMILY": "科",
     "GENUS": "属",
     "SPECIES": "物种"
+  },
+  "distributions": "分布",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "确定方法",
+    "status": "状态",
+    "locality": "地点",
+    "locationId": "位置 ID",
+    "country": "国家"
+  },
+  "verbatim": {
+    "term": "术语",
+    "value": "值",
+    "coreRecord": ""
   }
 }

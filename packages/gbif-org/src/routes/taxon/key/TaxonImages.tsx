@@ -78,6 +78,7 @@ export function TaxonImages({ taxonKey, className = '', images, ...props }) {
         {images?.results.map((img) => {
           return (
             <Image
+              style={{ height: 'calc(var(--galleryHeight) + 24)' }}
               className="g-m-2"
               key={img?.key}
               src={img?.identifier}

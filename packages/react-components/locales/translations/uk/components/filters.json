@@ -200,6 +200,11 @@
     "count": "",
     "description": ""
   },
+  "datasetId": {
+    "name": "ID набору даних",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "Видавець",
     "count": "",

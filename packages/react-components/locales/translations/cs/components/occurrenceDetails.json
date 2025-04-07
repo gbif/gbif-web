@@ -46,7 +46,7 @@
     "isClustered": "Ve shluku",
     "isSamplingEvent": "Událost odběru vzorku",
     "isTreament": "Ošetření",
-    "isSequenced": "Sekvencované",
+    "isSequenced": "Sekvenováno",
     "hasIssues": "Problémy a připomínky",
     "hasCoordinates": "Má souřadnice",
     "hasCountry": "Země",
@@ -281,7 +281,7 @@
       }
     },
     "germplasmMeasurementTrial": {
-      "name": "Zárodečná plazma: měrná zkouška",
+      "name": "Zárodečná plazma: pokus měření",
       "properties": {
         "measurementTrailID": "",
         "measurementTrailIdentifier": "",
@@ -315,9 +315,9 @@
         "originalNameUsageID": "ID Užití původního názvu",
         "nameAccordingToID": "ID Názvu podle",
         "namePublishedInID": "ID Názvu zveřejněného v ",
-        "taxonConceptID": "",
+        "taxonConceptID": "Concept ID taxonu",
         "scientificName": "Vědecký název",
-        "acceptedNameUsage": "Přijaté použití názvu",
+        "acceptedNameUsage": "Použití přijatého názvu",
         "parentNameUsage": "Používání nadřazeného názvu",
         "originalNameUsage": "Používání původního názvu",
         "nameAccordingTo": "Název podle",
@@ -332,7 +332,7 @@
         "subfamily": "Podčeleď",
         "genus": "Rod",
         "genericName": "Obecný název",
-        "subgenus": "podrod",
+        "subgenus": "Podrod",
         "infragenericEpithet": "Infragenerický epiteton",
         "specificEpithet": "Specifický epithet",
         "infraspecificEpithet": "Infraspecifický epithet",

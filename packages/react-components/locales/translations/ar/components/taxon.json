@@ -1,9 +1,15 @@
 {
   "tabs": {
     "about": "حول",
-    "typeMaterial": "التساويات { is }",
+    "verbatim": "حرفي",
     "metrics": "المقاييس"
   },
+  "recordedAsIntroducedIn": "تم التسجيل أنه مُدخل في",
+  "accordingTo": "وفقاً لـ",
+  "evidenceOfImpact": "دليل الأثر",
+  "occurrencesInGbif": "التكرارات في المرفق العالمي لمعلومات التنوع الحيوي",
+  "recordedAsIntrodicedInNcontries": "",
+  "breakdown": "",
   "publishedIn": "تم نشره في",
   "vernacularNames": "الأسماء العامية الدارجة",
   "rank": "ترتيب",
@@ -14,8 +20,10 @@
   "less": "التساويات { is }",
   "dna": "",
   "occurenceImages": "التساويات { is }",
+  "taxonImages": "",
   "taxonIdentifiers": "معرفو الوحدة التصنيفية",
   "synonymsAndCombinations": "",
+  "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "الممالك",
     "PHYLUM": "الشُعَب",
@@ -24,5 +32,19 @@
     "FAMILY": "الفصائل",
     "GENUS": "الأجناس",
     "SPECIES": "نوع"
+  },
+  "distributions": "التوزعات",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "وسائل الاسترساء",
+    "status": "الحالة",
+    "locality": "موقع",
+    "locationId": "معرف الموقع",
+    "country": "بلد"
+  },
+  "verbatim": {
+    "term": "مصطلح",
+    "value": "قبمة",
+    "coreRecord": ""
   }
 }

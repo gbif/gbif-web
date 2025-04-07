@@ -10,8 +10,9 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
-import TaxonBreakdown from './Breakdown';
+import TaxonBreakdown from './BreakDown';
 import Citation from './Citation';
+import { InvasiveInCountries } from './InvasiveInCountries';
 import OccurrenceImages from './OccurrenceImages';
 import Synonyms from './Synonyms';
 import { TaxonKeyContext } from './taxonKeyPresentation';
@@ -19,6 +20,7 @@ import { useIsFamilyOrAbove, useIsSpeciesOrBelow } from './taxonUtil';
 import TypeMaterial from './TypeSpecimens';
 import { VernacularNameTable } from './VernacularNameTable';
 import WikiDataIdentifiers from './WikiDataIdentifiers';
+
 export default function AboutBackbone() {
   const { slowTaxon, slowTaxonLoading, data } = useContext(TaxonKeyContext);
 
@@ -111,6 +113,21 @@ export default function AboutBackbone() {
                     total={taxon?.vernacularCount?.results?.length || 0}
                     taxonKey={taxon.key}
                   />
+                </CardContent>
+              </Card>
+            )}
+            {slowTaxon && (slowTaxon?.taxon?.invasiveInCountries?.length ?? 0) > 0 && (
+              <Card className="g-mb-4" id="invasiveInCountries">
+                <CardHeader>
+                  <CardTitle>
+                    <FormattedMessage
+                      id="taxon.recordedAsIntrodicedInNcontries"
+                      values={{ total: slowTaxon?.taxon?.invasiveInCountries?.length }}
+                    />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <InvasiveInCountries slowTaxon={slowTaxon} />
                 </CardContent>
               </Card>
             )}

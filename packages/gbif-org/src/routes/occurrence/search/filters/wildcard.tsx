@@ -260,3 +260,29 @@ export const identifiedByConfig: filterWildcardConfig = {
   `,
   about: () => <Message id="filters.identifiedBy.description" />,
 };
+
+export const datasetIdConfig: filterWildcardConfig = {
+  filterType: filterConfigTypes.WILDCARD,
+  filterHandle: 'datasetId',
+  queryKey: 'datasetId',
+  displayName: WildcardLabel,
+  filterTranslation: 'filters.datasetId.name',
+  allowExistence: true,
+  allowNegations: true,
+  suggestQuery: `
+    query OccurrenceDatasetIdFacet($predicate: Predicate, $size: Int){
+      search: occurrenceSearch(predicate: $predicate) {
+        cardinality {
+          total: datasetId
+        }
+        facet {
+          field: datasetId(size: $size) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.datasetId.description" />,
+};

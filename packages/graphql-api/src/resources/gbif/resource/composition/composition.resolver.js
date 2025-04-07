@@ -1,10 +1,10 @@
 import { excerpt, getHtml, isNoneEmptyArray } from '#/helpers/utils';
+import logger from '#/logger';
 import {
   KNOWN_BLOCK_TYPES,
   KNOWN_CAROUSEL_BLOCKS,
   KNOWN_FEATURE_TYPES,
 } from './acceptedTypes';
-import logger from '#/logger';
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -22,7 +22,12 @@ export default {
     },
   },
   Composition: {
-    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    title: (src, _, { locale }) =>
+      getHtml(src.title, {
+        inline: true,
+        locale,
+        allowedTags: ['em', 'i', 'strong'],
+      }),
     summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
     excerpt: (src, _, { locale }) => excerpt(src, { locale }),
     blocks: ({ blocks }, _, { dataSources, locale, preview }) => {
@@ -75,7 +80,12 @@ export default {
         }),
       );
     },
-    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    title: (src, _, { locale }) =>
+      getHtml(src.title, {
+        inline: true,
+        locale,
+        allowedTags: ['em', 'i', 'strong'],
+      }),
     body: (src, _, { locale }) =>
       getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
   },
@@ -89,7 +99,12 @@ export default {
     },
   },
   CarouselBlock: {
-    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    title: (src, _, { locale }) =>
+      getHtml(src.title, {
+        inline: true,
+        locale,
+        allowedTags: ['em', 'i', 'strong'],
+      }),
     body: (src, _, { locale }) =>
       getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
     features: ({ features }, _, { dataSources, locale, preview }) => {
@@ -122,34 +137,64 @@ export default {
     },
   },
   HeaderBlock: {
-    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    title: (src, _, { locale }) =>
+      getHtml(src.title, {
+        inline: true,
+        locale,
+        allowedTags: ['em', 'i', 'strong'],
+      }),
     summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
   },
   TextBlock: {
-    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    title: (src, _, { locale }) =>
+      getHtml(src.title, {
+        inline: true,
+        locale,
+        allowedTags: ['em', 'i', 'strong'],
+      }),
     body: (src, _, { locale }) =>
       getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
   },
   FeaturedTextBlock: {
-    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    title: (src, _, { locale }) =>
+      getHtml(src.title, {
+        inline: true,
+        locale,
+        allowedTags: ['em', 'i', 'strong'],
+      }),
     body: (src, _, { locale }) =>
       getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
   },
   MediaBlock: {
-    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    title: (src, _, { locale }) =>
+      getHtml(src.title, {
+        inline: true,
+        locale,
+        allowedTags: ['em', 'i', 'strong'],
+      }),
     subtitle: (src, _, { locale }) =>
       getHtml(src.subtitle, { inline: true, locale }),
     body: (src, _, { locale }) =>
       getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
   },
   MediaCountBlock: {
-    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    title: (src, _, { locale }) =>
+      getHtml(src.title, {
+        inline: true,
+        locale,
+        allowedTags: ['em', 'i', 'strong'],
+      }),
     subtitle: (src, _, { locale }) =>
       getHtml(src.subtitle, { inline: true, locale }),
     body: (src, _, { locale }) =>
       getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
   },
   CustomComponentBlock: {
-    title: (src, _, { locale }) => getHtml(src.title, { inline: true, locale }),
+    title: (src, _, { locale }) =>
+      getHtml(src.title, {
+        inline: true,
+        locale,
+        allowedTags: ['em', 'i', 'strong'],
+      }),
   },
 };

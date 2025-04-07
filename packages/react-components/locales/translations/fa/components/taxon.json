@@ -1,9 +1,15 @@
 {
   "tabs": {
     "about": "درباره",
-    "typeMaterial": "",
+    "verbatim": "",
     "metrics": ""
   },
+  "recordedAsIntroducedIn": "",
+  "accordingTo": "",
+  "evidenceOfImpact": "",
+  "occurrencesInGbif": "",
+  "recordedAsIntrodicedInNcontries": "",
+  "breakdown": "",
   "publishedIn": "",
   "vernacularNames": "",
   "rank": "رتبه",
@@ -14,8 +20,10 @@
   "less": "",
   "dna": "",
   "occurenceImages": "",
+  "taxonImages": "",
   "taxonIdentifiers": "",
   "synonymsAndCombinations": "",
+  "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "",
     "PHYLUM": "",
@@ -24,5 +32,19 @@
     "FAMILY": "",
     "GENUS": "",
     "SPECIES": ""
+  },
+  "distributions": "",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "",
+    "status": "",
+    "locality": "",
+    "locationId": "",
+    "country": "کشور"
+  },
+  "verbatim": {
+    "term": "",
+    "value": "",
+    "coreRecord": ""
   }
 }

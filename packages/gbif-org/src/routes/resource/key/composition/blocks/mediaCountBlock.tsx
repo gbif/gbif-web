@@ -47,7 +47,7 @@ export function MediaCountBlock({ resource, insideCarousel = false }: Props) {
         <BlockHeading dangerouslySetHeading={{ __html: resource.mediaTitle }} />
       )}
       <MediaCountBlockContent
-        className="g-max-w-6xl g-m-auto g-px-10 g-my-10"
+        className={cn('g-max-w-6xl g-m-auto md:g-px-10 g-my-10', { 'g-px-10': insideCarousel })}
         resource={resource}
       />
     </BlockContainer>

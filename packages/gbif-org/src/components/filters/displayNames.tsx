@@ -75,11 +75,12 @@ function rangeOrEqualLabel(path: string) {
 
 export const WildcardLabel = ({ id }: { id: string | number | object }) => {
   const value = id?.value ?? id;
-  if (typeof value !== 'string') {
+  if (typeof value !== 'string' && typeof value !== 'number') {
     return <span>Unknown</span>;
   }
-  const trimmed = value?.trim();
-  const displayValue = trimmed.length !== value.length ? `"${value}"` : value;
+  const stringValue = value.toString();
+  const trimmed = stringValue.trim();
+  const displayValue = trimmed.length !== stringValue.length ? `"${stringValue}"` : stringValue;
 
   if (id?.type === 'like' && typeof id?.value === 'string') {
     return <i>{displayValue}</i>;

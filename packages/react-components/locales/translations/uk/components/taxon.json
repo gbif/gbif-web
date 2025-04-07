@@ -1,9 +1,15 @@
 {
   "tabs": {
     "about": "Відомості про видавця даних",
-    "typeMaterial": "",
+    "verbatim": "Першоджерело",
     "metrics": "Показники"
   },
+  "recordedAsIntroducedIn": "Відмічений як інвазивний",
+  "accordingTo": "Відповідно до",
+  "evidenceOfImpact": "Докази впливу",
+  "occurrencesInGbif": "Знахідки у GBIF",
+  "recordedAsIntrodicedInNcontries": "",
+  "breakdown": "",
   "publishedIn": "Опубліковано у",
   "vernacularNames": "Назви національною мовою",
   "rank": "Ранг",
@@ -14,8 +20,10 @@
   "less": "",
   "dna": "",
   "occurenceImages": "",
+  "taxonImages": "",
   "taxonIdentifiers": "Ідентифікатори таксона",
   "synonymsAndCombinations": "",
+  "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "Царства",
     "PHYLUM": "Відділи",
@@ -24,5 +32,19 @@
     "FAMILY": "Родини",
     "GENUS": "Роди",
     "SPECIES": "Вид"
+  },
+  "distributions": "Поширення",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "Статус організму (наприклад, нативний, інтродукований, інвазійний тощо)",
+    "status": "Статус",
+    "locality": "Місцевість",
+    "locationId": "ID місцезнаходження",
+    "country": "Країна"
+  },
+  "verbatim": {
+    "term": "Термін",
+    "value": "Значення",
+    "coreRecord": ""
   }
 }

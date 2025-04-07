@@ -4,6 +4,11 @@
     "verbatim": "Verbatim",
     "metrics": "Metrics"
   },
+  "recordedAsIntroducedIn": "Recorded as introduced in",
+  "accordingTo": "According to",
+  "evidenceOfImpact": "Evidence of impact",
+  "occurrencesInGbif": "Occurrences in GBIF",
+  "recordedAsIntrodicedInNcontries": "Recorded as introduced in {total, plural, one {# country or island} other {# countries or islands}}",
   "breakdown": "Breakdown",
   "publishedIn": "Published in",
   "vernacularNames": "Vernacular names",
@@ -41,5 +46,7 @@
     "term": "Term",
     "value": "Value",
     "coreRecord": "Core record"
-  }
+  },
+  "tradeRestrictions": "Trade restrictions",
+  "cites": "CITES"
 }

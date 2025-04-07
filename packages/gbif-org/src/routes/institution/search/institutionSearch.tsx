@@ -1,6 +1,6 @@
+import { DownloadAsTSVLink } from '@/components/cardHeaderActions/downloadAsTSVLink';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
-import { DownloadAsTSVLink } from '@/components/cardHeaderActions/downloadAsTSVLink';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
 import { NoRecords } from '@/components/noDataMessages';
@@ -35,7 +35,7 @@ import { Map } from './map/map';
 import { searchConfig } from './searchConfig';
 
 const INSTITUTION_SEARCH_QUERY = /* GraphQL */ `
-  query InstitutionSearch($query: InstitutionSearchInput) {
+  query InstitutionSearch($query: InstitutionSearchInput, $collectionScope: CollectionSearchInput) {
     institutionSearch(query: $query) {
       count
       limit
@@ -76,6 +76,7 @@ export function InstitutionSearchPage(): React.ReactElement {
 export function InstitutionSearch(): React.ReactElement {
   const [offset, setOffset] = useNumberParam({ key: 'offset', defaultValue: 0, hideDefault: true });
   const filterContext = useContext(FilterContext);
+  const config = useConfig();
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
   const [geojson, setGeojson] = useState<GeoJSON.FeatureCollection | undefined>();
@@ -110,6 +111,7 @@ export function InstitutionSearch(): React.ReactElement {
           limit: 20,
           offset,
         },
+        collectionScope: config.collectionSearch?.scope ?? {},
       },
     });
 

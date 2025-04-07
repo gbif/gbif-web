@@ -46,6 +46,11 @@ export const ProjectId = getStringChart({
   title: <FormattedMessage id="filters.projectId.name" defaultMessage="Project ID" />,
 });
 
+export const DatasetId = getStringChart({
+  fieldName: 'datasetId',
+  title: <FormattedMessage id="filters.datasetId.name" defaultMessage="Dataset ID" />,
+});
+
 export const CollectionCodes = getStringChart({
   fieldName: 'collectionCode',
   title: <FormattedMessage id="filters.collectionCode.name" defaultMessage="collection code" />,

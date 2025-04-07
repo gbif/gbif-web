@@ -3,13 +3,13 @@ import * as charts from '@/components/dashboard';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/smallCard';
 import { useJsonParam } from '@/hooks/useParam';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import useLocalStorage from 'use-local-storage';
 import { Map } from '../map';
 import { Media } from '../media';
 import { OccurrenceTable as Table } from '../table/occurrenceTable';
-import DashboardBuilder from './DashboardBuilder';
+const DashboardBuilder = React.lazy(() => import('./DashboardBuilder'));
 
 export function Dashboard({ predicate, chartsTypes: chartsTypesProp, ...props }) {
   const [urlLayout, setUrlLayout] = useJsonParam({ key: 'layout' });
@@ -289,6 +289,12 @@ const preconfiguredCharts = {
     translation: 'filters.projectId.name',
     component: ({ predicate, ...props }) => {
       return <charts.ProjectId predicate={predicate} interactive {...props} />;
+    },
+  },
+  datasetId: {
+    translation: 'filters.datasetId.name',
+    component: ({ predicate, ...props }) => {
+      return <charts.DatasetId predicate={predicate} interactive {...props} />;
     },
   },
   map: {

@@ -12,7 +12,7 @@ const typeDef = gql`
 
   type Composition {
     id: ID!
-    title: String
+    title: String!
     excerpt: String
     summary: String
     createdAt: DateTime!

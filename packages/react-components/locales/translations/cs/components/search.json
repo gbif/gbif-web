@@ -1,0 +1,59 @@
+{
+  "tabs": {
+    "table": "Tabulka",
+    "tree": "",
+    "gallery": "Galerie",
+    "media": "Rovná se {from}",
+    "map": "Mapa",
+    "datasets": "Datové sady",
+    "events": "Události",
+    "download": "Stáhnout",
+    "clusters": "",
+    "dashboard": "Ovládací panel",
+    "sites": "Rovná se {from}",
+    "list": "Seznam"
+  },
+  "table": {
+    "lockColumn": "Zamknout sloupec",
+    "unlockColumn": "Rovná se {from}",
+    "columnVisibility": "Rovná se {from}",
+    "resetColumnVisibility": "Rovná se {from}",
+    "openFilter": "Rovná se {from}"
+  },
+  "placeholders": {
+    "default": "Hledat",
+    "range": "Rozsah nebo samostatná hodnota",
+    "rangeExample": "",
+    "wildcard": "Hledejte s pomocí * a ? jako zástupnými znaky",
+    "locationID": ""
+  },
+  "ternary": {
+    "yes": "Ano",
+    "no": "Ne",
+    "either": "Rovná se {from}"
+  },
+  "loadMore": "Více",
+  "noResults": "Žádné výsledky",
+  "occurrenceClustersView": {
+    "about": "O",
+    "clusters": "",
+    "legend": "",
+    "differentPublishers": "",
+    "samePublishers": "",
+    "entryPoint": "",
+    "hasMultipleTaxonKeys": "",
+    "aboutLink": "",
+    "isCapped": "",
+    "isDeleted": "",
+    "similarities": "",
+    "currentRecord": "",
+    "nodeType": {
+      "IMAGE": "Obrázek",
+      "TYPE": "Typový vzorek",
+      "TREATMENT": "Ošetření",
+      "OBSERVATION": "Pozorování",
+      "SPECIMEN": "Vzorek",
+      "SEQUENCE": "Rovná se {from}"
+    }
+  }
+}

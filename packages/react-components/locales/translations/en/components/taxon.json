@@ -1,21 +1,29 @@
 {
   "tabs": {
     "about": "About",
-    "typeMaterial": "Type material",
+    "verbatim": "Verbatim",
     "metrics": "Metrics"
   },
+  "recordedAsIntroducedIn": "Recorded as introduced in",
+  "accordingTo": "According to",
+  "evidenceOfImpact": "Evidence of impact",
+  "occurrencesInGbif": "Occurrences in GBIF",
+  "recordedAsIntrodicedInNcontries": "Recorded as introduced in {total, plural, one {# country or area} other {# countries or areas}}",
+  "breakdown": "Breakdown",
   "publishedIn": "Published in",
   "vernacularNames": "Vernacular names",
   "rank": "Rank",
   "source": "Source",
-  "specimenIsTypeOf": "{typeStatus} of {name}",
+  "specimenIsTypeOf": "of",
   "typeMaterial": "Type material",
   "more": "more",
   "less": "less",
   "dna": "DNA",
   "occurenceImages": "Occurence images",
+  "taxonImages": "Taxon images",
   "taxonIdentifiers": "Taxon identifiers",
   "synonymsAndCombinations": "Synonyms and combinations",
+  "inChecklist": "In {checklist}",
   "rankPlural": {
     "KINGDOM": "Kingdoms",
     "PHYLUM": "Phyla",
@@ -24,5 +32,19 @@
     "FAMILY": "Families",
     "GENUS": "Genera",
     "SPECIES": "Species"
+  },
+  "distributions": "Distributions",
+  "distribution": {
+    "threatStatus": "Threat status",
+    "establishmentMeans": "Establishment means",
+    "status": "Status",
+    "locality": "Locality",
+    "locationId": "Location ID",
+    "country": "Country"
+  },
+  "verbatim": {
+    "term": "Term",
+    "value": "Value",
+    "coreRecord": "Core record"
   }
 }

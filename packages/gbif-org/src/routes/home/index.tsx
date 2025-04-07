@@ -1,16 +1,20 @@
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ClientSideOnly } from '@/components/clientSideOnly';
-import { useConfig } from '@/config/config';
 import { HomePageQuery, HomePageQueryVariables } from '@/gql/graphql';
 import { DynamicLink, LoaderArgs, RouteObjectWithPlugins, useI18n } from '@/reactRouterPlugins';
 import { interopDefault } from '@/utils/interopDefault';
 import React, { useEffect, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import _useLocalStorage from 'use-local-storage';
-import { ArticleTextContainer } from './resource/key/components/articleTextContainer';
-import { PageContainer } from './resource/key/components/pageContainer';
-import { BlockItem } from './resource/key/composition/blockItem';
 import { MapWidget } from '@/components/maps/mapWidget';
+import { ArticleTextContainer } from '../resource/key/components/articleTextContainer';
+import { PageContainer } from '../resource/key/components/pageContainer';
+import { BlockItem } from '../resource/key/composition/blockItem';
+import { HomePageCounts } from './counts';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { DynamicLinkProps } from '@/reactRouterPlugins/dynamicLink';
+import { cn } from '@/utils/shadcn';
+import { MdSearch } from 'react-icons/md';
 // Used to import commonjs module as es6 module
 const useLocalStorage = interopDefault(_useLocalStorage);
 
@@ -27,30 +31,7 @@ const HOMEPAGE_QUERY = /* GraphQL */ `
         title
         description
       }
-      occurrenceIcon {
-        file {
-          url
-          thumbor
-        }
-      }
-      datasetIcon {
-        file {
-          url
-          thumbor
-        }
-      }
-      publisherIcon {
-        file {
-          url
-          thumbor
-        }
-      }
-      literatureIcon {
-        file {
-          url
-          thumbor
-        }
-      }
+      ...HomePageCountIcons
       blocks {
         ...BlockItemDetails
       }
@@ -58,81 +39,65 @@ const HOMEPAGE_QUERY = /* GraphQL */ `
   }
 `;
 
-function homepageLoader({ params, graphql }: LoaderArgs) {
+function homepageLoader({ graphql }: LoaderArgs) {
   return graphql.query<HomePageQuery, HomePageQueryVariables>(HOMEPAGE_QUERY, {});
 }
 
 function HomePage(): React.ReactElement {
   const { data } = useLoaderData() as { data: HomePageQuery };
-  const config = useConfig();
-  const { locale } = useI18n();
-  const [userInfo, setUserInfo] = useState<{ country?: string; countryName?: string } | null>(null);
   const home = data?.gbifHome;
-
-  // call endpoint to get users location
-  useEffect(() => {
-    fetch(`${import.meta.env.PUBLIC_WEB_UTILS}/user-info?lang=${locale.localeCode}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setUserInfo(data);
-      })
-      .catch((error) => {
-        setUserInfo(null);
-      });
-  }, []);
-
-  if (!home) return <div>Loading</div>;
+  const userInfo = useUserInfo();
+  const primaryImage = home?.primaryImage?.[0];
 
   return (
     <ErrorBoundary>
       <main className="">
         {/* A background image with title and a search bar */}
-        <section
-          className="g-bg-cover g-bg-center g-bg-no-repeat g-py-48"
-          style={{
-            backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, .3), rgba(0, 0, 0, 0)), linear-gradient(to bottom, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), url('${home.primaryImage?.[0]?.file?.thumbor}')`,
-          }}
-        >
-          <PageContainer>
-            <ArticleTextContainer className="g-max-w-6xl">
-              <div className="g-w-[800px]">
-                <div className="g-text-white">
-                  <DynamicLink to="/resource/2">News</DynamicLink>
-                  <div className="g-mb-8 g-text-xl g-font-semibold">{home.title}</div>
-                  <h1 data-cy="heading" className="g-text-5xl g-font-semibold g-text-white">
-                    {home.summary}
-                  </h1>
-                </div>
-                <div className="g-mt-4">
-                  <div className="g-bg-slate-950/50 g-overflow-hidden g-inline-block g-float-left">
-                    <HeaderLink to="/occurrence/search">Occurrences</HeaderLink>
-                    <HeaderLink to="/species/search">Taxonomy</HeaderLink>
-                    <HeaderLink to="/dataset/search">Datasets</HeaderLink>
-                    <HeaderLink to="/publisher/search">Publishers</HeaderLink>
-                    <HeaderLink to="/resource/search">Resources</HeaderLink>
+        <section className="g-relative">
+          <div
+            className="g-bg-cover g-bg-center g-bg-no-repeat g-py-48"
+            style={{
+              backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, .3), rgba(0, 0, 0, 0)), linear-gradient(to bottom, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), url('${primaryImage?.file?.thumbor}')`,
+            }}
+          >
+            <PageContainer>
+              <ArticleTextContainer className="g-max-w-6xl">
+                <div className="g-max-w-[800px]">
+                  <div className="g-text-white">
+                    <div className="g-mb-8 g-text-lg">{home?.title}</div>
+                    <h1
+                      data-cy="heading"
+                      className="g-text-4xl md:g-text-5xl g-font-semibold g-text-white"
+                    >
+                      {home?.summary}
+                    </h1>
                   </div>
-                  <input
-                    type="search"
-                    placeholder="Search GBIF"
-                    className="g-p-4 g-w-full g-bg-white  g-shadow-lg"
-                  />
-                  <div className="g-bg-slate-950/50 g-overflow-hidden g-inline-block g-float-left">
-                    <HeaderLink to="/what-is-gbif">What is GBIF?</HeaderLink>
-                    {userInfo && userInfo?.country && (
-                      <HeaderLink to={`/country/${userInfo?.country}`}>
-                        {userInfo?.countryName}
+                  <div className="g-mt-4">
+                    <SearchBar />
+                    <div className="g-bg-slate-950/50 g-overflow-hidden g-inline-block g-float-left">
+                      <HeaderLink to="/what-is-gbif">
+                        <FormattedMessage id="homepage.whatIsGbif" />
                       </HeaderLink>
-                    )}
+                      {userInfo && userInfo.country && userInfo.countryName && (
+                        <HeaderLink to={`/country/${userInfo.country}`}>
+                          <FormattedMessage
+                            id="homepage.aboutGbifCountry"
+                            values={{ COUNTRY: userInfo.countryName }}
+                          />
+                        </HeaderLink>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </ArticleTextContainer>
-          </PageContainer>
+              </ArticleTextContainer>
+            </PageContainer>
+          </div>
+          {primaryImage?.description && (
+            <span
+              className="g-absolute g-right-0 g-bottom-0 g-text-xs g-text-white g-p-1.5 g-font-medium underlineLinks hover:g-bg-gray-900/30"
+              dangerouslySetInnerHTML={{ __html: primaryImage?.description }}
+            />
+          )}
         </section>
 
         <ClientSideOnly>
@@ -145,7 +110,9 @@ function HomePage(): React.ReactElement {
           </PageContainer>
         </section> */}
 
-        {home.blocks?.map((block, idx) => (
+        <HomePageCounts iconData={home} />
+
+        {home?.blocks?.map((block, idx) => (
           <BlockItem resource={block} key={idx} />
         ))}
 
@@ -156,11 +123,58 @@ function HomePage(): React.ReactElement {
   );
 }
 
-function HeaderLink({ children, to }) {
+function HeaderLink(props: DynamicLinkProps<typeof Link>) {
   return (
-    <DynamicLink to={to} className="g-inline-block g-p-2 g-px-4 g-text-white">
-      {children}
-    </DynamicLink>
+    <DynamicLink
+      {...props}
+      className={cn(
+        'g-inline-block g-p-2 g-px-4 g-text-white g-whitespace-nowrap',
+        props.className
+      )}
+    />
+  );
+}
+
+function SearchBar() {
+  const [q, setQ] = useState('');
+  const intl = useIntl();
+
+  return (
+    <>
+      <div className="g-bg-slate-950/50 g-overflow-auto g-inline-flex g-max-w-full">
+        <HeaderLink pageId="occurrenceSearch" searchParams={{ occurrenceStatus: 'PRESENT', q }}>
+          <FormattedMessage id="catalogues.occurrences" />
+        </HeaderLink>
+        <HeaderLink pageId="speciesSearch" searchParams={{ q }}>
+          <FormattedMessage id="catalogues.species" />
+        </HeaderLink>
+        <HeaderLink pageId="datasetSearch" searchParams={{ q }}>
+          <FormattedMessage id="catalogues.datasets" />
+        </HeaderLink>
+        <HeaderLink pageId="publisherSearch" searchParams={{ q }}>
+          <FormattedMessage id="catalogues.publishers" />
+        </HeaderLink>
+        <HeaderLink pageId="resourceSearch" searchParams={{ q }}>
+          <FormattedMessage id="catalogues.resources" />
+        </HeaderLink>
+      </div>
+      <form
+        action="search"
+        className="g-flex g-justify-center g-items-center g-w-full g-shadow-lg g-bg-white g-rounded-none focus-within:g-outline g-outline-2 g-outline-primary/70 -g-outline-offset-2"
+      >
+        <input
+          name="q"
+          type="search"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder={intl.formatMessage({ id: 'homepage.search' })}
+          className="g-p-4 g-flex-1 g-outline-none remove-search-clear-icon"
+        />
+        <DynamicLink className="g-p-4" to={`/search?q=${q}`}>
+          <MdSearch size={24} />
+        </DynamicLink>
+      </form>
+    </>
   );
 }
 
@@ -169,7 +183,7 @@ function TmpOverview() {
   return (
     <section>
       <div
-        className="g-text-center g-text-sm g-font-bold g-bg-sky-500 g-text-white g-p-2 g-px-4 g-rounded-full g-cursor-pointer g-bottom-0 g-right-0 g-fixed g-m-8"
+        className="g-text-center g-text-sm g-font-bold g-bg-sky-500 g-text-white g-p-2 g-px-4 g-rounded-full g-cursor-pointer g-bottom-0 g-right-0 g-fixed g-m-8 g-z-10"
         onClick={() => setOpen(!open)}
       >
         Development site (click to toggle overview)
@@ -412,6 +426,35 @@ function TmpOverview() {
       )}
     </section>
   );
+}
+
+type UserInfo = {
+  country?: string;
+  countryName?: string;
+};
+
+export function useUserInfo() {
+  const { locale } = useI18n();
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+
+  // call endpoint to get users location
+  useEffect(() => {
+    fetch(`${import.meta.env.PUBLIC_WEB_UTILS}/user-info?lang=${locale.localeCode}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setUserInfo(data);
+      })
+      .catch(() => {
+        setUserInfo(null);
+      });
+  }, [locale.localeCode]);
+
+  return userInfo;
 }
 
 export const homePageRoute: RouteObjectWithPlugins = {

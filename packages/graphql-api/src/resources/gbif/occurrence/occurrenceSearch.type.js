@@ -76,6 +76,7 @@ const typeDef = gql`
 
   type OccurrenceCardinality {
     datasetKey: Long!
+    datasetId: Long!
     publishingOrg: Long!
     hostingOrganizationKey: Long!
     recordedBy: Long!
@@ -208,6 +209,7 @@ const typeDef = gql`
     waterBody(size: Int, from: Int): [OccurrenceFacetResult_string]
     agentIds_type(size: Int, from: Int): [OccurrenceFacetResult_string]
     agentIds_value(size: Int, from: Int): [OccurrenceFacetResult_string]
+    datasetId(size: Int, from: Int): [OccurrenceFacetResult_string]
     gbifClassification_classificationPath(
       size: Int
       from: Int
