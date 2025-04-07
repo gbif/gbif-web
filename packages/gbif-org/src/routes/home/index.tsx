@@ -168,9 +168,9 @@ function SearchBar() {
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder={intl.formatMessage({ id: 'homepage.search' })}
-          className="g-p-4 g-flex-1 g-outline-none remove-search-clear-icon"
+          className="g-p-4 g-flex-1 g-outline-none remove-search-clear-icon g-bg-white"
         />
-        <DynamicLink className="g-p-4" to={`/search?q=${q}`}>
+        <DynamicLink className="g-p-4" pageId="omniSearch" searchParams={{ q }}>
           <MdSearch size={24} />
         </DynamicLink>
       </form>
