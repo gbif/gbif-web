@@ -1,4 +1,4 @@
-import { pixelRatio } from './helpers/pixelRatio';
+import { pixelRatio } from '@/utils/pixelRatio';
 
 export const basemaps = {
   EPSG_4326: {

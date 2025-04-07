@@ -13,7 +13,7 @@ import proj4 from 'proj4';
 import { basemaps } from './basemaps';
 import createBasicBaseMapStyle from './styles/basicBaseMap';
 import densityPoints from './styles/densityPoints';
-import { pixelRatio } from './helpers/pixelRatio';
+import { pixelRatio } from '@/utils/pixelRatio';
 import TileLayer from 'ol/layer/Tile';
 import { Params } from '../mapWidget/options';
 import type Map from 'ol/Map';
