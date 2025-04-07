@@ -34,7 +34,7 @@ const UPPER_LIMIT = new Date().getFullYear();
 const defaultRasterStyles = mapWidgetOptions.predefined.find((x) => x.name === 'GREEN')!;
 
 export function MapWidgetOuter({ className, capabilitiesParams = {} }: Props) {
-  const isSmallScreen = useBelow(800);
+  const isSmallScreen = useBelow(800, true);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const toggleFullScreen = () => setIsFullScreen((current) => !current);
 
