@@ -3,12 +3,12 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { SlOptionsVertical } from 'react-icons/sl';
 import { FormattedMessage } from 'react-intl';
+import { ColumnDef } from '../..';
 import {
   ResetColumnVisibility,
   ToggleColumnVisibility,
   VisibleColumns,
 } from '../../hooks/useColumnVisibility';
-import { ColumnDef } from '../..';
 
 type Props = {
   resetColumnVisibility: ResetColumnVisibility;
@@ -33,26 +33,31 @@ export function ColumnVisibilityPopover({
           </div>
         </PopoverTrigger>
       </SimpleTooltip>
-      <PopoverContent className="g-p-3 g-flex g-flex-col g-gap-3 g-overflow-y-scroll g-max-h-96">
-        {orderedColumns.map((column) => (
-          <div key={column.id} className="g-flex g-items-center g-gap-2">
-            <Checkbox
-              id={column.id}
-              checked={visibleColumns.has(column.id)}
-              disabled={column.disableHiding ?? false}
-              onCheckedChange={() => toggleColumnVisibility(column.id)}
-            />
-            <label
-              htmlFor={column.id}
-              className="g-cursor-pointer g-text-sm g-font-medium peer-disabled:g-cursor-not-allowed peer-disabled:g-opacity-70"
-            >
-              <FormattedMessage id={column.header} />
-            </label>
-          </div>
-        ))}
+      <PopoverContent className="g-flex g-flex-col g-p-0">
+        <div className="g-font-medium g-text-sm g-flex-none g-p-2 g-border-b">
+          <FormattedMessage id="search.table.columnVisibility" />
+        </div>
+        <div className="g-max-h-96 g-overflow-y-scroll g-flex-1 gbif-small-scrollbar">
+          {orderedColumns.map((column) => (
+            <div key={column.id} className="g-flex g-items-center g-gap-2 g-my-2 g-px-2">
+              <Checkbox
+                id={column.id}
+                checked={visibleColumns.has(column.id)}
+                disabled={column.disableHiding ?? false}
+                onCheckedChange={() => toggleColumnVisibility(column.id)}
+              />
+              <label
+                htmlFor={column.id}
+                className="g-cursor-pointer g-text-sm peer-disabled:g-cursor-not-allowed peer-disabled:g-opacity-70"
+              >
+                <FormattedMessage id={column.header} />
+              </label>
+            </div>
+          ))}
+        </div>
         <button
           onClick={resetColumnVisibility}
-          className="g-text-primary-500 g-font-medium g-text-sm"
+          className="g-text-primary-500 g-font-medium g-text-sm g-flex-none g-p-2 g-border-t"
         >
           <FormattedMessage id="search.table.resetColumnVisibility" />
         </button>
