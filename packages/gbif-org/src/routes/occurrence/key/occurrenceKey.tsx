@@ -1,5 +1,6 @@
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { prettifyEnum } from '@/components/filters/displayNames';
 import Globe from '@/components/globe';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import {
@@ -43,6 +44,7 @@ import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Outlet, redirect, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
+import { IssueTag, IssueTags } from './properties';
 
 const OCCURRENCE_QUERY = /* GraphQL */ `
   query Occurrence($key: ID!) {
@@ -276,6 +278,18 @@ export const OccurrenceKeyContext = createContext<{
   occurrence?: OccurrenceQuery['occurrence'];
 }>({});
 
+const notableCoordinateIssues = [
+  'COORDINATE_OUT_OF_RANGE',
+  'COORDINATE_INVALID',
+  'GEODETIC_DATUM_INVALID',
+  'COUNTRY_COORDINATE_MISMATCH',
+  'PRESUMED_SWAPPED_COORDINATE',
+  'PRESUMED_NEGATED_LATITUDE',
+  'PRESUMED_NEGATED_LONGITUDE',
+  'COORDINATE_REPROJECTION_SUSPICIOUS',
+  'ZERO_COORDINATE',
+];
+
 export function OccurrenceKey() {
   const { data } = useLoaderData() as { data: OccurrenceQuery };
   const hideGlobe = useBelow(800);
@@ -350,6 +364,10 @@ export function OccurrenceKey() {
       /* empty */
     }
   }
+
+  // if there are notable coordinate issues, then set a flag so we can show a warning in the header when we show the location
+  const coordinateIssues =
+    occurrence?.issues?.filter((issue) => notableCoordinateIssues.includes(issue)) ?? [];
 
   return (
     <>
@@ -476,7 +494,25 @@ export function OccurrenceKey() {
 
                       {occurrence.gadm?.level1 && (
                         <GadmClassification className="g-flex g-mb-1" gadm={occurrence.gadm}>
-                          {occurrence.locality && <div>{occurrence.locality}</div>}
+                          <div>
+                            <span className="g-me-1">{occurrence.locality}</span>
+                            {coordinateIssues.length > 0 && (
+                              <IssueTags>
+                                {coordinateIssues.map((issue: string) => {
+                                  // return <Tag className="g-bg-orange g-text-white">{issue}sdf</Tag>;
+                                  // return <Tag className="g-bg-amber-500 g-text-white">{issue}</Tag>;
+                                  return (
+                                    <IssueTag type="WARNING" key={issue}>
+                                      <FormattedMessage
+                                        id={`enums.occurrenceIssue.${issue}`}
+                                        defaultMessage={prettifyEnum(issue) ?? ''}
+                                      />
+                                    </IssueTag>
+                                  );
+                                })}
+                              </IssueTags>
+                            )}
+                          </div>
                         </GadmClassification>
                       )}
                       {!occurrence?.gadm?.level1 && occurrence.countryCode && (
@@ -485,7 +521,6 @@ export function OccurrenceKey() {
                           city={occurrence.stateProvince}
                         />
                       )}
-
                       {/* {(termMap.recordedBy?.verbatim || termMap.identifiedBy?.verbatim) && (
                       <GenericFeature className='g-flex g-mb-1'>
                         <PeopleIcon />

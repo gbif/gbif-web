@@ -253,3 +253,6 @@ function Tag({ type, children }: { type: string; children: React.ReactNode }) {
 function isEmpty(value: any) {
   return value === null || value === undefined || (Array.isArray(value) && value.length === 0);
 }
+
+export const IssueTag = Tag;
+export const IssueTags = Tags;
