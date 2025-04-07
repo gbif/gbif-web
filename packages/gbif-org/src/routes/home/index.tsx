@@ -12,7 +12,7 @@ import { PageContainer } from '../resource/key/components/pageContainer';
 import { BlockItem } from '../resource/key/composition/blockItem';
 import { HomePageCounts } from './counts';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { DynamicLinkProps } from '@/reactRouterPlugins/dynamicLink';
+import { DynamicLinkProps, useDynamicNavigate } from '@/reactRouterPlugins/dynamicLink';
 import { cn } from '@/utils/shadcn';
 import { MdSearch } from 'react-icons/md';
 // Used to import commonjs module as es6 module
@@ -138,6 +138,7 @@ function HeaderLink(props: DynamicLinkProps<typeof Link>) {
 function SearchBar() {
   const [q, setQ] = useState('');
   const intl = useIntl();
+  const dynamicNavigate = useDynamicNavigate();
 
   return (
     <>
@@ -159,7 +160,13 @@ function SearchBar() {
         </HeaderLink>
       </div>
       <form
-        action="search"
+        onSubmit={(e) => {
+          e.preventDefault();
+          dynamicNavigate({
+            pageId: 'omniSearch',
+            searchParams: { q },
+          });
+        }}
         className="g-flex g-justify-center g-items-center g-w-full g-shadow-lg g-bg-white g-rounded-none focus-within:g-outline g-outline-2 g-outline-primary/70 -g-outline-offset-2"
       >
         <input
