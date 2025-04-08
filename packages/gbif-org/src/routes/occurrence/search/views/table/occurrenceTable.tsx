@@ -156,7 +156,7 @@ export function OccurrenceTable() {
     const query = getAsQuery({ filter, searchContext, searchConfig });
     load({
       variables: {
-        language: 'dan', //locale.iso3LetterCode,
+        language: locale.iso3LetterCode,
         predicate: {
           ...query,
         },
