@@ -5,6 +5,7 @@ import { fragmentManager } from '@/services/fragmentManager';
 import { cn } from '@/utils/shadcn';
 import { ArticleBody } from '../../components/articleBody';
 import { backgroundColorMap, BlockContainer, BlockHeading } from './_shared';
+import { Skeleton } from '@/components/ui/skeleton';
 
 fragmentManager.register(/* GraphQL */ `
   fragment MediaCountBlockDetails on MediaCountBlock {
@@ -81,7 +82,10 @@ function MediaCountBlockContent({
       <div className="g-flex-1">
         {insideCarousel && <h4 className="g-text-xl g-font-medium">{resource.mediaTitle}</h4>}
         <span className="g-text-xl g-font-medium">
-          <CountResolver countPart={resource.titleCountPart} />
+          <CountResolver
+            countPart={resource.titleCountPart}
+            placeholder={<Skeleton className="g-inline-block g-w-20 g-h-4" />}
+          />
         </span>
         <p className="g-text-sm">{resource.subtitle}</p>
         {resource.body && (

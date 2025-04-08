@@ -112,7 +112,7 @@ function CountItem({
 
   return (
     <div className="g-flex g-flex-col g-items-center g-flex-1">
-      <img className="g-w-28" src={icon} />
+      <img className="g-w-28 g-aspect-square" src={icon} />
       <span
         className={cn('g-text-3xl g-font-medium g-text-gray-600 dark:g-text-slate-200', {
           'g-opacity-50': count == null,

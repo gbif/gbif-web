@@ -15,6 +15,7 @@ import { ArticleBody } from '../../components/articleBody';
 import { ArticleTextContainer } from '../../components/articleTextContainer';
 import { BlockItem } from '../blockItem';
 import { backgroundColorMap, BlockContainer, BlockHeading } from './_shared';
+import { Skeleton } from '@/components/ui/skeleton';
 
 fragmentManager.register(/* GraphQL */ `
   fragment CarouselBlockDetails on CarouselBlock {
@@ -96,6 +97,7 @@ export function CarouselBlock({ resource }: Props) {
                 onClick={() => api?.scrollTo(idx)}
               />
             ))}
+            {count === 0 && <Skeleton className="g-h-3 g-w-20" />}
           </div>
         </Carousel>
       </div>

@@ -21,16 +21,15 @@ type Props = {
 
 export function ProseCard({ title, url, image }: Props) {
   return (
-    <div className="g-mx-auto g-max-w-[min(24rem,100%)] g-bg-white g-border g-border-gray-200 g-rounded-lg g-shadow hover:g-shadow-md g-transition-shadow dark:g-bg-gray-800 dark:g-border-gray-700">
+    <div className="g-mx-auto g-max-w-[min(24rem,100%)] g-bg-white g-border g-border-gray-200 g-rounded-lg g-shadow hover:g-shadow-md g-transition-shadow dark:g-bg-gray-800 dark:g-border-gray-700 g-w-full">
       {image && (
         <ConditionalWrapper
           condition={typeof url === 'string'}
           wrapper={(children) => <DynamicLink to={url!}>{children}</DynamicLink>}
         >
           <img
-            className="g-rounded-t-lg"
+            className="g-rounded-t-lg g-aspect-[5/4] g-w-full"
             src={image.file.mobile}
-            alt={image.description ?? ''}
             title={image.title ?? ''}
           />
         </ConditionalWrapper>

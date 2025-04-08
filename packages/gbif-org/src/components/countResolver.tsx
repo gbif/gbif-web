@@ -2,17 +2,18 @@ import { useEffect, useState } from 'react';
 
 type Props = {
   countPart: string;
+  placeholder?: React.ReactNode;
 };
 
-export function CountResolver({ countPart }: Props) {
+export function CountResolver({ countPart, placeholder }: Props) {
   if (isAbsoluteEndpoint(countPart) || isRelativeEndpoint(countPart)) {
-    return <CountFetcher countPart={countPart} />;
+    return <CountFetcher countPart={countPart} placeholder={placeholder} />;
   }
 
   return countPart;
 }
 
-function CountFetcher({ countPart }: Props) {
+function CountFetcher({ countPart, placeholder }: Props) {
   const [count, setCount] = useState<string | null>(null);
 
   useEffect(() => {
@@ -27,7 +28,7 @@ function CountFetcher({ countPart }: Props) {
       .catch((error) => console.error(error));
   }, [countPart]);
 
-  return count;
+  return count ?? placeholder;
 }
 
 const isAbsoluteEndpoint = (countPart: string) => countPart.startsWith('http');
