@@ -58,7 +58,7 @@ export function useOccurrenceColumns({
                       checked={includeAuthorship}
                       onCheckedChange={() => setIncludeAuthorship(!includeAuthorship)}
                     >
-                      Include authorship
+                      <FormattedMessage id="tableHeaders.options.includeAuthorship" />
                     </DropdownMenuCheckboxItem>
                   </DropdownMenuContent>
                 </div>
@@ -288,7 +288,7 @@ export function useOccurrenceColumns({
       {
         id: 'institutionKey',
         header: 'tableHeaders.institution',
-        minWidth: 200,
+        minWidth: 300,
         cell: ({ institution }) => {
           if (!institution) return null;
 
@@ -306,7 +306,7 @@ export function useOccurrenceColumns({
       {
         id: 'collectionKey',
         header: 'tableHeaders.collection',
-        minWidth: 200,
+        minWidth: 300,
         cell: ({ collection }) => {
           if (!collection) return null;
 
@@ -335,6 +335,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'higherGeography',
+        minWidth: 350,
         header: 'occurrenceFieldNames.higherGeography',
         cell: ({ higherGeography }) => (
           <SetAsFilterList field="higherGeography" items={higherGeography} />

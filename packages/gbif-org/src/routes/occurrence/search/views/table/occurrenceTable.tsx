@@ -87,7 +87,7 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
           stillImageCount
           movingImageCount
           soundCount
-          issues
+          issues(types: ["WARNING", "ERROR"])
           volatile {
             features {
               isSequenced
