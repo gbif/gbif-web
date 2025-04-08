@@ -43,9 +43,9 @@
     "extensions": "Extensions"
   },
   "features": {
-    "isClustered": "Clustered",
+    "isClustered": "Has related records",
     "isSamplingEvent": "Sampling event",
-    "isTreament": "Treatment",
+    "isTreatment": "",
     "isSequenced": "Sequenced",
     "hasIssues": "Issues and remarks",
     "hasCoordinates": "Has coordinates",
