@@ -10,6 +10,8 @@
   "registered": "Registered",
   "hostedDatasets": "Hosted datasets",
   "pubDatasets": "Published datasets",
+  "commonName": "Common name",
+  "images": "Multimedia",
   "species": "Number of species",
   "parents": "Parents",
   "institution": "Institution",
