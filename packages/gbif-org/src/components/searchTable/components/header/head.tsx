@@ -2,6 +2,7 @@ import { FilterSetting } from '@/components/filters/filterTools';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { TableHead } from '@/components/ui/table';
 import { cn } from '@/utils/shadcn';
+import { LuSettings2 as FilterIcon } from 'react-icons/lu';
 import { MdLock, MdLockOpen } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import {
@@ -11,8 +12,6 @@ import {
 } from '../../hooks/useColumnVisibility';
 import { SetFirstColumnIsLocked } from '../../hooks/useFirstColumLock';
 import { ColumnVisibilityPopover } from './columnVisibilityPopover';
-// import { LuListFilter as FilterIcon } from 'react-icons/lu';
-import { MdOutlineFilterAlt as FilterIcon } from 'react-icons/md';
 
 import { ColumnDef } from '../..';
 
@@ -45,6 +44,7 @@ export function Head({
   filter,
   hideColumnVisibilityDropdown,
 }: Props) {
+  const AdditionalContent = column?.AdditionalContent;
   return (
     <TableHead
       key={column.id}
@@ -63,42 +63,50 @@ export function Head({
         minWidth: column.minWidth ?? 'unset',
       }}
     >
-      <div className="g-inline-flex g-items-center g-justify-between g-w-full">
-        <div className="g-inline-flex">
+      <div className="g-w-full">
+        <div className="g-inline-flex g-items-center g-w-full">
           {isFirstColumn && !hideColumnVisibilityDropdown && (
-            <ColumnVisibilityPopover
-              orderedColumns={orderedColumns}
-              resetColumnVisibility={resetColumnVisibility}
-              toggleColumnVisibility={toggleColumnVisibility}
-              visibleColumns={visibleColumns}
-            />
+            <div className="g-flex-0">
+              <ColumnVisibilityPopover
+                orderedColumns={orderedColumns}
+                resetColumnVisibility={resetColumnVisibility}
+                toggleColumnVisibility={toggleColumnVisibility}
+                visibleColumns={visibleColumns}
+              />
+            </div>
           )}
 
-          <FormattedMessage id={column.header} />
+          <div className="g-flex-1 g-pe-1 ">
+            <FormattedMessage id={column.header} />
+          </div>
 
-          {filter && (
-            <filter.Popover
-              trigger={
-                <button className="g-ml-2">
-                  <FilterIcon className="-g-mt-0.5" />
+          <div className="g-flex-0 g-inline-flex g-items-center g-gap-1">
+            {filter && (
+              <filter.Popover
+                trigger={
+                  <button className="g-ml-2">
+                    <FilterIcon className="-g-mt-0.5" />
+                  </button>
+                }
+              />
+            )}
+            {isFirstColumn && !hideFirstColumnLock && (
+              <SimpleTooltip
+                side="bottom"
+                asChild
+                i18nDefaultMessage={firstColumnIsLocked ? 'Unlock column' : 'Lock column'}
+                i18nKey={
+                  firstColumnIsLocked ? 'search.table.unlockColumn ' : 'search.table.lockColumn'
+                }
+              >
+                <button onClick={() => setFirstColumnIsLocked((v) => !v)}>
+                  {firstColumnIsLocked ? <MdLock /> : <MdLockOpen />}
                 </button>
-              }
-            />
-          )}
+              </SimpleTooltip>
+            )}
+            {AdditionalContent && <AdditionalContent />}
+          </div>
         </div>
-
-        {isFirstColumn && !hideFirstColumnLock && (
-          <SimpleTooltip
-            side="right"
-            asChild
-            i18nDefaultMessage={firstColumnIsLocked ? 'Unlock column' : 'Lock column'}
-            i18nKey={firstColumnIsLocked ? 'search.table.unlockColumn ' : 'search.table.lockColumn'}
-          >
-            <button onClick={() => setFirstColumnIsLocked((v) => !v)}>
-              {firstColumnIsLocked ? <MdLock /> : <MdLockOpen />}
-            </button>
-          </SimpleTooltip>
-        )}
       </div>
     </TableHead>
   );

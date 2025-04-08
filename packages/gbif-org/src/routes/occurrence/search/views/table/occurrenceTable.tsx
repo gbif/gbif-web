@@ -15,6 +15,7 @@ import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { OccurrenceSearchQuery, OccurrenceSearchQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
+import { useI18n } from '@/reactRouterPlugins';
 import { ExtractPaginatedResult } from '@/types';
 import { notNull } from '@/utils/notNull';
 import { useContext, useEffect, useMemo } from 'react';
@@ -25,7 +26,7 @@ import { useOrderedList } from '../browseList/useOrderedList';
 import { useOccurrenceColumns } from './columns';
 
 const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
-  query OccurrenceSearch($from: Int, $size: Int, $predicate: Predicate) {
+  query OccurrenceSearch($from: Int, $size: Int, $predicate: Predicate, $language: String) {
     occurrenceSearch(predicate: $predicate) {
       documents(from: $from, size: $size) {
         from
@@ -42,6 +43,12 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
               formattedName(useFallback: true)
               key
             }
+          }
+          taxon {
+            canonicalName
+          }
+          primaryImage {
+            thumbor(width: 80)
           }
           eventDate
           year
@@ -88,6 +95,12 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
               isClustered
               isSamplingEvent
             }
+            vernacularNames(language: $language, limit: 1) {
+              results {
+                vernacularName
+                source
+              }
+            }
           }
         }
       }
@@ -123,6 +136,7 @@ const fallbackOptions: FallbackTableOptions = {
 };
 
 export function OccurrenceTable() {
+  const { locale } = useI18n();
   const searchContext = useSearchContext();
   const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
   const filterContext = useContext(FilterContext);
@@ -142,6 +156,7 @@ export function OccurrenceTable() {
     const query = getAsQuery({ filter, searchContext, searchConfig });
     load({
       variables: {
+        language: 'dan', //locale.iso3LetterCode,
         predicate: {
           ...query,
         },

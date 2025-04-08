@@ -16,6 +16,7 @@ import {
   getHistogram,
   getStats,
 } from '../getMetrics';
+import getVernacularNames from '../taxon/getVernacularNames';
 import {
   cardinalityFields,
   dateHistogramFields,
@@ -665,6 +666,21 @@ export default {
   },
   Globe: {},
   VolatileOccurrenceData: {
+    vernacularNames: (
+      { taxonKey },
+      { limit = 10, offset = 0, language, source, removeDuplicates },
+      { dataSources },
+    ) => {
+      return getVernacularNames({
+        taxonKey,
+        limit,
+        offset,
+        language,
+        source,
+        dataSources,
+        removeDuplicates,
+      });
+    },
     features: (occurrence) => occurrence,
     globe: (
       { decimalLatitude, decimalLongitude },

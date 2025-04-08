@@ -3,12 +3,21 @@ import { InlineLineClamp } from '@/components/inlineLineClamp';
 import { FormattedDateRange } from '@/components/message';
 import { ColumnDef, LinkOption, SetAsFilter, SetAsFilterList } from '@/components/searchTable';
 import { SimpleTooltip } from '@/components/simpleTooltip';
+import { DropdownMenuCheckboxItem } from '@/components/ui/dropdownMenu';
 import { VocabularyValue } from '@/components/vocabularyValue';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuPortal,
+  DropdownMenuTrigger,
+} from '@radix-ui/react-dropdown-menu';
 import { useMemo } from 'react';
-import { GoSidebarExpand } from 'react-icons/go';
+import { MdInfoOutline, MdSettings } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
+import useLocalStorage from 'use-local-storage';
 import { IconFeatures } from './iconFeatures';
 import { SingleOccurrenceSearchResult } from './occurrenceTable';
+import ScientificNameColumn from './ScientificNameColumn';
 
 type Args = {
   showPreview?: ((id: string) => void) | false;
@@ -26,46 +35,64 @@ export function useOccurrenceColumns({
         disableHiding: true,
         minWidth: 250,
         cell: (occurrence) => {
-          const entityKey = `o_${occurrence?.key?.toString()}`;
+          return <ScientificNameColumn occurrence={occurrence} showPreview={showPreview} />;
+        },
+        AdditionalContent: () => {
+          const [includeAuthorship, setIncludeAuthorship] = useLocalStorage(
+            'includeAuthorship',
+            false
+          );
+          return (
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <MdSettings />
+              </DropdownMenuTrigger>
+              <DropdownMenuPortal>
+                <div className="gbif">
+                  <DropdownMenuContent
+                    className="g-bg-white g-shadow-blocker g-rounded g-border g-border-slate-200"
+                    style={{ zIndex: 100 }}
+                  >
+                    <DropdownMenuCheckboxItem
+                      className="DropdownMenuCheckboxItem"
+                      checked={includeAuthorship}
+                      onCheckedChange={() => setIncludeAuthorship(!includeAuthorship)}
+                    >
+                      Include authorship
+                    </DropdownMenuCheckboxItem>
+                  </DropdownMenuContent>
+                </div>
+              </DropdownMenuPortal>
+            </DropdownMenu>
+          );
+        },
+      },
+      {
+        id: 'commonName',
+        header: 'tableHeaders.commonName',
+        minWidth: 200,
+        cell: (occurrence) => {
+          if (!occurrence?.volatile?.vernacularNames?.results[0]?.vernacularName) return null;
 
           return (
-            <div className="g-inline-flex g-items-center g-w-full">
-              {typeof showPreview === 'function' && (
-                <button
-                  // Used to refocus this button after closing the preview dialog
-                  data-entity-trigger={entityKey}
-                  className="g-pr-3 g-pl-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
-                  onClick={() => showPreview(entityKey)}
+            <InlineLineClamp>
+              <span>
+                <span className="g-me-1.5">
+                  {occurrence?.volatile?.vernacularNames?.results[0]?.vernacularName}
+                </span>
+                <SimpleTooltip
+                  side="right"
+                  title={
+                    <FormattedMessage
+                      id="phrases.commonNameAccordingTo"
+                      values={{ source: occurrence?.volatile?.vernacularNames?.results[0]?.source }}
+                    />
+                  }
                 >
-                  <SimpleTooltip i18nKey="filterSupport.viewDetails" side="right" asChild>
-                    <div className="g-flex g-items-center">
-                      <GoSidebarExpand size={16} />
-                    </div>
-                  </SimpleTooltip>
-                </button>
-              )}
-              <div>
-                <SetAsFilter field="taxonKey" value={occurrence.taxonKey}>
-                  <span
-                    className="g-pointer-events-auto g-me-2"
-                    dangerouslySetInnerHTML={{
-                      __html: occurrence.gbifClassification?.usage?.formattedName as string,
-                    }}
-                  />
-                </SetAsFilter>
-                {occurrence.hasTaxonIssues && (
-                  <SimpleTooltip side="right" i18nKey="filterSupport.nameWithTaxonMatchIssue">
-                    <div
-                      style={{ color: '#fea600' }}
-                      className="g-cursor-default g-text-start"
-                      data-loader
-                    >
-                      {occurrence.gbifClassification?.verbatimScientificName}
-                    </div>
-                  </SimpleTooltip>
-                )}
-              </div>
-            </div>
+                  <MdInfoOutline className="-g-mt-0.5 g-text-slate-400" />
+                </SimpleTooltip>
+              </span>
+            </InlineLineClamp>
           );
         },
       },
@@ -86,6 +113,28 @@ export function useOccurrenceColumns({
             issueCount={occurrence?.issues?.length}
           />
         ),
+      },
+      {
+        id: 'media',
+        header: 'tableHeaders.images',
+        minWidth: 80,
+        cell: (occurrence) => {
+          if (!occurrence?.primaryImage?.thumbor) return null;
+
+          return (
+            <div className="g-relative g-text-center">
+              {occurrence.stillImageCount && occurrence.stillImageCount > 1 && (
+                <div className="g-inline-block g-rounded-full g-absolute -g-top-0.5 -g-end-0.5 g-bg-slate-900 g-text-white g-text-xs g-px-1 g-text-center">
+                  {occurrence.stillImageCount}
+                </div>
+              )}
+              <img
+                className="g-rounded g-border g-border-slate-200"
+                src={occurrence?.primaryImage?.thumbor}
+              />
+            </div>
+          );
+        },
       },
       {
         id: 'country',

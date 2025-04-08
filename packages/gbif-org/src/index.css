@@ -865,3 +865,42 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     color: rgb(108, 108, 108);
   }
 }
+
+.gbif-tooltip {
+  &:hover {
+    position: relative;
+    &[tip]:before {
+      border-radius: 2px;
+      background-color: #333;
+      color: #fff;
+      content: attr(tip);
+      font-size: 12px;
+      padding: 5px 7px;
+      position: absolute;
+      /* white-space: nowrap; */
+      z-index: 10000;
+      line-height: 1.2em;
+      pointer-events: none;
+    }
+    &[direction='right']:before {
+      top: 50%;
+      left: 120%;
+      transform: translateY(-50%);
+    }
+    &[direction='left']:before {
+      top: 50%;
+      right: 120%;
+      transform: translateY(-50%);
+    }
+    &[direction='top']:before {
+      right: 50%;
+      bottom: 120%;
+      transform: translateX(50%);
+    }
+    &[direction='bottom']:before {
+      right: 50%;
+      top: 120%;
+      transform: translateX(50%);
+    }
+  }
+}

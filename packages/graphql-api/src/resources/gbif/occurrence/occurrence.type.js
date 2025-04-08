@@ -405,6 +405,19 @@ const typeDef = gql`
     Feedback options for the occurrence
     """
     feedback: OccurrenceFeedback
+    """
+    Lists all vernacular names for a name usage. The language paramter isn't supported in the official API, so paging will not work properly when using the language parameter
+    """
+    vernacularNames(
+      limit: Int
+      offset: Int
+      language: String
+      """
+      The title of the source. Not the datasetKey. Neither language nor source is part of the official API filters. And datasetKey is not in the response. So this is the best we can do at this point
+      """
+      source: String
+      removeDuplicates: Boolean
+    ): TaxonVernacularNameResult
   }
 
   type OccurrenceFeatures {
