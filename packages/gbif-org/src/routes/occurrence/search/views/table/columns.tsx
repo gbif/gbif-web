@@ -77,11 +77,8 @@ export function useOccurrenceColumns({
           return (
             <InlineLineClamp>
               <span>
-                <span className="g-me-1.5">
-                  {occurrence?.volatile?.vernacularNames?.results[0]?.vernacularName}
-                </span>
                 <SimpleTooltip
-                  side="right"
+                  side="bottom"
                   title={
                     <FormattedMessage
                       id="phrases.commonNameAccordingTo"
@@ -91,6 +88,9 @@ export function useOccurrenceColumns({
                 >
                   <MdInfoOutline className="-g-mt-0.5 g-text-slate-400" />
                 </SimpleTooltip>
+                <span className="g-ms-1.5">
+                  {occurrence?.volatile?.vernacularNames?.results[0]?.vernacularName}
+                </span>
               </span>
             </InlineLineClamp>
           );
