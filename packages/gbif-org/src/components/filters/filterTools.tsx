@@ -96,6 +96,7 @@ export type filterRangeConfig = filterConfigShared & {
   filterType: filterConfigTypes.RANGE;
   regex?: RegExp;
   allowExistence?: boolean;
+  rangeExample?: () => React.ReactNode;
 };
 
 export type filterLocationConfig = filterConfigShared & {

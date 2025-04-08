@@ -15,6 +15,7 @@
   "backToSelect": "Back to selection",
   "invert": "Reverse selection",
   "rangeHelp": "Enter a range or a single value. E.g. 100,200 or 100. Or use blanks to have open ends like: 100,",
+  "rangeHelpYear": "Enter a range or a single value. E.g. 2020,2023 or 1992. Or use blanks to have open ends like: 2000,",
   "wildcardHelp": "Searches are case insensitive, but every letter is distinct, so, to find records with Rio or Río, for example, you can use the pattern 'r?o'.",
   "useWildcardPattern": "Search for the pattern - * is a wildcard for any number of characters, ? is a wildcard for a single character",
   "useCaseInsensitiveValue": "Search for case insensitive match",

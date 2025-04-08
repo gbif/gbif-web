@@ -17,6 +17,7 @@ export const yearConfig: filterRangeConfig = {
   filterTranslation: 'filters.year.name',
   allowExistence: true,
   about: () => <Message id="filters.year.description" />,
+  rangeExample: () => <Message id="filterSupport.rangeHelpYear" />,
 };
 
 export const coordinateUncertaintyConfig: filterRangeConfig = {

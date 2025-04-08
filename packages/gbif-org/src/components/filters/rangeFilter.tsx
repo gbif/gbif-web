@@ -36,6 +36,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
       onCancel,
       pristine,
       about,
+      rangeExample,
       allowExistence,
     }: RangeProps,
     ref
@@ -61,6 +62,9 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
     } = {};
 
     const About = about;
+    const RangeHelp = rangeExample
+      ? rangeExample
+      : () => <FormattedMessage id={'filterSupport.rangeHelp'} />;
 
     useEffect(() => {
       // filter has changed updateed the listed of selected values
@@ -197,7 +201,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
         </div>
         {selected.length === 0 && (
           <div className="g-pointer-events-none g-text-slate-700 g-text-sm g-bg-slate-100 g-p-4 g-border g-left-0 g-right-0 g-mx-2 g-rounded">
-            <FormattedMessage id="filterSupport.rangeHelp" />
+            <RangeHelp />
           </div>
         )}
         <div className="g-flex-auto g-overflow-auto">
