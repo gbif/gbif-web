@@ -43,7 +43,7 @@
     "extensions": "Extensions"
   },
   "features": {
-    "isClustered": "Clustered",
+    "isClustered": "Has related records",
     "isSamplingEvent": "Sampling event",
     "isTreament": "Treatment",
     "isSequenced": "Sequenced",

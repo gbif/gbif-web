@@ -1,11 +1,11 @@
 {
   "nullOrNot": {
-    "isNotNull": "Must be defined",
-    "isNull": "Must not be defined"
+    "isNotNull": "Has a value",
+    "isNull": "Does not have a value"
   },
   "invalidValue": "Invalid value",
   "aboutThisFilter": "About this filter",
-  "existence": "Filter for existence",
+  "existence": "Filter by value present or missing",
   "showHelp": "Show help text",
   "back": "Back",
   "cancel": "Cancel",
