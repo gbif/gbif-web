@@ -1,5 +1,8 @@
 {
   "features": "Features",
+  "options": {
+    "includeAuthorship": "Include authorship"
+  },
   "citations": "Citations",
   "occurrences": "Occurrences",
   "numberSpecimens": "Number of specimens",
