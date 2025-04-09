@@ -270,7 +270,7 @@ export const DateRangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
 
                 return (
                   <Option
-                    key={option}
+                    key={JSON.stringify(option)}
                     className="g-mb-2"
                     onClick={() => {
                       toggle(filterHandle, option);
