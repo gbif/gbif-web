@@ -1,5 +1,6 @@
 import {
   CoordinateUncertaintyLabel,
+  DateLabel,
   DepthLabel,
   ElevationLabel,
   OrganismQuantityLabel,
@@ -7,7 +8,11 @@ import {
   SampleSizeValueLabel,
   YearLabel,
 } from '@/components/filters/displayNames';
-import { filterConfigTypes, filterRangeConfig } from '@/components/filters/filterTools';
+import {
+  filterConfigTypes,
+  filterDateRangeConfig,
+  filterRangeConfig,
+} from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
 
 export const yearConfig: filterRangeConfig = {
@@ -66,4 +71,13 @@ export const elevationConfig: filterRangeConfig = {
   displayName: ElevationLabel,
   filterTranslation: 'filters.elevation.name',
   about: () => <Message id="filters.elevation.description" />,
+};
+
+// date ranges
+export const eventDateConfig: filterDateRangeConfig = {
+  filterType: filterConfigTypes.DATE_RANGE,
+  filterHandle: 'eventDate',
+  displayName: DateLabel,
+  filterTranslation: 'filters.eventDate.name',
+  about: () => <Message id="filters.eventDate.description" />,
 };

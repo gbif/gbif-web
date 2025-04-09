@@ -289,11 +289,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
  */
 export function rangeOrTerm(value, lowerBound = 'gte', upperBound = 'lte') {
   // has a comma in the string
-  let delimter = value.indexOf(',') > -1 ? ',' : null;
-  if (!delimter) {
-    // no comma, but a dash, and since it isn't the first character then it isn't a negation
-    delimter = value.indexOf('-') > 0 ? '-' : null;
-  }
+  const delimter = value.indexOf(',') > -1 ? ',' : null;
 
   if (typeof value !== 'string' || !delimter) {
     return {

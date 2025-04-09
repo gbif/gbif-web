@@ -12,6 +12,7 @@ import React, { useContext } from 'react';
 import { FormattedMessage, IntlShape } from 'react-intl';
 import { Button } from '../ui/button';
 import { AboutButton } from './aboutButton';
+import { DateRangeFilter } from './dateRangeFilter';
 import { EnumFilter } from './enumFilter';
 import { Exists } from './exists';
 import { FilterButton } from './filterButton';
@@ -32,6 +33,7 @@ export enum filterConfigTypes {
   ENUM = 'ENUM',
   FREE_TEXT = 'FREE_TEXT',
   RANGE = 'RANGE',
+  DATE_RANGE = 'DATE_RANGE',
   OPTIONAL_BOOL = 'OPTIONAL_BOOL',
   WILDCARD = 'WILDCARD',
   LOCATION = 'LOCATION',
@@ -99,6 +101,12 @@ export type filterRangeConfig = filterConfigShared & {
   rangeExample?: () => React.ReactNode;
 };
 
+export type filterDateRangeConfig = filterConfigShared & {
+  filterType: filterConfigTypes.DATE_RANGE;
+  allowExistence?: boolean;
+  rangeExample?: () => React.ReactNode;
+};
+
 export type filterLocationConfig = filterConfigShared & {
   filterType: filterConfigTypes.LOCATION;
 };
@@ -115,6 +123,7 @@ export type filterConfig =
   | filterRangeConfig
   | filterFreeTextConfig
   | filterWildcardConfig
+  | filterDateRangeConfig
   | filterLocationConfig;
 
 // generic type for a facet query
@@ -457,6 +466,42 @@ const getRangeFilter = ({
   );
 };
 
+const getDateRangeFilter = ({
+  config,
+  searchConfig,
+}: {
+  config: filterDateRangeConfig;
+  searchConfig: FilterConfigType;
+}) => {
+  return React.forwardRef(
+    (
+      {
+        onApply,
+        onCancel,
+        className,
+        style,
+        pristine,
+      }: {
+        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+        onCancel?: () => void;
+        className?: string;
+        style?: React.CSSProperties;
+        pristine?: boolean;
+      },
+      ref
+    ) => {
+      return (
+        <DateRangeFilter
+          ref={ref}
+          {...config}
+          searchConfig={searchConfig}
+          {...{ onApply, onCancel, className, style, pristine }}
+        />
+      );
+    }
+  );
+};
+
 export type FilterSetting = {
   Button: React.FC<{ className?: string }>;
   Popover: React.FC<{ trigger: React.ReactNode }>;
@@ -586,6 +631,12 @@ export function generateFilters({
       config,
       formatMessage,
       Content: getRangeFilter({ config: config as filterRangeConfig, searchConfig }),
+    });
+  } else if (config.filterType === filterConfigTypes.DATE_RANGE) {
+    return generateFilter({
+      config,
+      formatMessage,
+      Content: getDateRangeFilter({ config: config as filterDateRangeConfig, searchConfig }),
     });
   } else if (config.filterType === filterConfigTypes.OPTIONAL_BOOL) {
     return generateFilter({

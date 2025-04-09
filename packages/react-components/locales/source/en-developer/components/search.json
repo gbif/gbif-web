@@ -25,6 +25,7 @@
     "range": "Range or single value",
     "rangeExample": "E.g. 1000,2000",
     "wildcard": "Search using * and ? as wildcards",
+    "dateTemplate": "yyyy-mm-dd",
     "locationID": "Search by location ID (case sensitive)"
   },
   "ternary": {

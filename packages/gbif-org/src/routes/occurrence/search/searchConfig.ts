@@ -51,6 +51,11 @@ const config: FilterConfigType = {
         supportedTypes: ['range', 'equals'],
       },
     },
+    eventDate: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
   },
 };
 

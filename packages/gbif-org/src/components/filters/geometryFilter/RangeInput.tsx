@@ -151,7 +151,7 @@ export const RangeInput = ({ onAdd }: { onAdd: ({ wkt }: { wkt: string[] }) => v
         </label>
       </div>
       <Button onClick={handleAdd} className="g-text-sm">
-        <FormattedMessage id="filterSupport.location.add" defaultMessage="Add" />
+        <FormattedMessage id="filterSupport.add" defaultMessage="Add" />
       </Button>
     </div>
   );

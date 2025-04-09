@@ -43,6 +43,7 @@ import {
   coordinateUncertaintyConfig,
   depthConfig,
   elevationConfig,
+  eventDateConfig,
   organismQuantityConfig,
   relativeOrganismQuantityConfig,
   sampleSizeValueConfig,
@@ -232,6 +233,8 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       identifiedBy: generateFilters({ config: identifiedByConfig, searchConfig, formatMessage }),
 
       geometry: generateFilters({ config: locationConfig, searchConfig, formatMessage }),
+
+      eventDate: generateFilters({ config: eventDateConfig, searchConfig, formatMessage }),
     };
     return tmpFilters;
   }, [searchConfig, countrySuggest, formatMessage]);
