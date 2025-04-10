@@ -48,6 +48,7 @@ export const institutionKeyConfig: filterSuggestConfig = {
     }
   `,
   about: () => <Message id="filters.institutionKey.description" />,
+  group: 'record',
 };
 
 export const taxonKeyConfig: filterSuggestConfig = {
@@ -74,6 +75,7 @@ export const taxonKeyConfig: filterSuggestConfig = {
     }
   `,
   about: () => <Message id="filters.taxonKey.description" />,
+  group: 'identification',
 };
 
 export const collectionKeyConfig: filterSuggestConfig = {
@@ -97,6 +99,7 @@ export const collectionKeyConfig: filterSuggestConfig = {
     }
   `,
   about: () => <Message id="filters.collectionKey.description" />,
+  group: 'record',
 };
 
 export const datasetKeyConfig: filterSuggestConfig = {
@@ -120,6 +123,7 @@ export const datasetKeyConfig: filterSuggestConfig = {
     }
   `,
   about: () => <Message id="filters.datasetKey.description" />,
+  group: 'provenance',
 };
 
 // export const datasetKeyScopedConfig: filterConfig = {
@@ -157,6 +161,7 @@ export const publishingOrgConfig: filterSuggestConfig = {
     }
   `,
   about: () => <Message id="filters.publisherKey.description" />,
+  group: 'provenance',
 };
 
 export const hostingOrganizationKeyConfig: filterSuggestConfig = {
@@ -180,6 +185,7 @@ export const hostingOrganizationKeyConfig: filterSuggestConfig = {
     }
   `,
   about: () => <Message id="filters.hostingOrganizationKey.description" />,
+  group: 'provenance',
 };
 
 export const networkKeyConfig: filterSuggestConfig = {
@@ -203,6 +209,7 @@ export const networkKeyConfig: filterSuggestConfig = {
     }
   `,
   // about: () => <Message id="filters.hostingOrganizationKey.description" />
+  group: 'provenance',
 };
 
 export const gadmGidConfig: filterSuggestConfig = {
@@ -226,6 +233,7 @@ export const gadmGidConfig: filterSuggestConfig = {
     }
   `,
   about: () => <Message id="filters.gadmGid.description" />,
+  group: 'location',
 };
 
 export const countryConfig: filterSuggestConfig = {
@@ -249,6 +257,7 @@ export const countryConfig: filterSuggestConfig = {
     }
   `,
   about: () => <Message id="filters.occurrenceCountry.description" />,
+  group: 'location',
 };
 
 export const publishingCountryConfig: filterSuggestConfig = {
@@ -272,6 +281,7 @@ export const publishingCountryConfig: filterSuggestConfig = {
     }
   `,
   about: () => <Message id="filters.publishingCountryCode.description" />,
+  group: 'provenance',
 };
 
 export const institutionCodeConfig: filterSuggestConfig = {
@@ -295,6 +305,7 @@ export const institutionCodeConfig: filterSuggestConfig = {
     }
   `,
   about: () => <Message id="filters.institutionCode.description" />,
+  group: 'record',
 };
 
 export const collectionCodeConfig: filterSuggestConfig = {
@@ -318,6 +329,7 @@ export const collectionCodeConfig: filterSuggestConfig = {
     }
   `,
   about: () => <Message id="filters.collectionCode.description" />,
+  group: 'record',
 };
 
 export const recordNumberConfig: filterSuggestConfig = {
@@ -341,6 +353,7 @@ export const recordNumberConfig: filterSuggestConfig = {
     }
   `,
   about: () => <Message id="filters.recordNumber.description" />,
+  group: 'occurrence', // Best guess based on Darwin Core
 };
 
 export const typeStatusSuggestConfig: filterSuggestConfig = {
@@ -364,4 +377,5 @@ export const typeStatusSuggestConfig: filterSuggestConfig = {
     }
   `,
   about: () => <Message id="filters.typeStatus.description" />,
+  group: 'identification',
 };

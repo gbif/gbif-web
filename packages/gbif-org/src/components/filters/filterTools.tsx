@@ -59,6 +59,8 @@ export type filterConfigShared = {
   };
   info?: React.FC;
   about?: React.FC;
+  group?: string;
+  order?: number;
 };
 
 export type filterBoolConfig = filterConfigShared & {
@@ -596,6 +598,8 @@ export function generateFilter({
     handle: config.filterHandle,
     displayName: config.displayName,
     translatedFilterName: formatMessage({ id: config.filterTranslation }),
+    group: config.group,
+    order: config.order,
   };
 }
 
@@ -768,9 +772,11 @@ export function getAsQuery({
 export function FilterButtons({
   filters,
   searchContext,
+  groups,
 }: {
   filters?: Record<string, FilterSetting>;
   searchContext?: SearchMetadata;
+  groups?: string[];
 }) {
   const filterContext = useContext(FilterContext);
 
@@ -807,7 +813,9 @@ export function FilterButtons({
         if (!filterConfig) return null;
         return <filterConfig.Button key={filterHandle} className="g-mx-1 g-mb-1" />;
       })}
-      {Object.keys(otherFilters).length > 0 && <MoreFilters filters={otherFilters} />}
+      {Object.keys(otherFilters).length > 0 && (
+        <MoreFilters filters={otherFilters} groups={groups} />
+      )}
     </>
   );
 }

@@ -22,6 +22,7 @@ export const establishmentMeansConfig: filterEnumConfig = {
     }
   `,
   about: () => <Message id="filters.establishmentMeans.description" />,
+  group: 'occurrence',
 };
 
 // export const typeStatusConfig: filterEnumConfig = {

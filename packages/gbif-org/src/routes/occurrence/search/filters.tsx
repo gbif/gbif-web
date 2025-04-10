@@ -78,6 +78,7 @@ const freeTextConfig: filterConfig = {
   filterHandle: 'q',
   displayName: IdentityLabel,
   filterTranslation: 'filters.q.name',
+  group: 'other',
 };
 
 export type Filters = Record<string, FilterSetting>;

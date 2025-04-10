@@ -6,13 +6,26 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
+  CommandSeparator,
 } from '@/components/ui/command';
 import { FilterType } from '@/contexts/filter';
 import React, { useEffect, useRef } from 'react';
 import { MdArrowBack } from 'react-icons/md';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { FilterPopover } from './filterPopover';
 
+type Filters = {
+  [key: string]: {
+    translatedFilterName: string;
+    Content: React.FC<{
+      onApply?: ({ keepOpen, filter }: { keepOpen?: boolean; filter?: FilterType }) => void;
+      onCancel?: () => void;
+      ref: React.ForwardedRef<unknown>;
+    }>;
+    group?: string;
+    order?: number;
+  };
+};
 const ContentWrapper = React.forwardRef(
   (
     {
@@ -20,23 +33,21 @@ const ContentWrapper = React.forwardRef(
       onCancel,
       pristine,
       filters,
+      groups,
     }: {
       onApply?: ({ keepOpen, filter }: { keepOpen?: boolean; filter?: FilterType }) => void;
       onCancel?: () => void;
       pristine?: boolean;
-      filters: {
-        [key: string]: {
-          translatedFilterName: string;
-          Content: React.FC<{
-            onApply?: ({ keepOpen, filter }: { keepOpen?: boolean; filter?: FilterType }) => void;
-            onCancel?: () => void;
-            ref: React.ForwardedRef<unknown>;
-          }>;
-        };
-      };
+      filters: Filters;
+      groups?: string[];
     },
     ref
   ) => {
+    const { formatMessage } = useIntl();
+    const placeholder = formatMessage({
+      id: 'search.placeholders.default',
+      defaultMessage: 'Search filters',
+    });
     const searchRef = useRef<HTMLInputElement>(null);
     const [activeFilterHandle, setActiveFilterHandle] = React.useState<string | null>(null);
     const Content = activeFilterHandle ? filters?.[activeFilterHandle]?.Content : null;
@@ -47,39 +58,49 @@ const ContentWrapper = React.forwardRef(
       }
     }, [activeFilterHandle]);
 
+    // filter groups to only show groups with filters in them
+    const filteredGroups = groups?.filter((group) =>
+      Object.keys(filters).some((filterHandle) => filters[filterHandle]?.group === group)
+    );
+
+    const hasGroups = filteredGroups && filteredGroups?.length > 0;
+
     return (
       <div>
         {!activeFilterHandle && (
           <Command>
-            <CommandInput placeholder="Select a filter" ref={searchRef} />
-            <CommandEmpty>No matching filters</CommandEmpty>
+            <CommandInput placeholder={placeholder} ref={searchRef} />
+            <CommandEmpty>
+              <FormattedMessage
+                id="filterSupport.noMathcingFilters"
+                defaultMessage="No matching filters"
+              />
+            </CommandEmpty>
             <CommandList>
-              <CommandGroup>
-                {Object.keys(filters)
-                  .sort((x, y) => {
-                    // sort filters by translatedFilterName
-                    const xName = filters[x]?.translatedFilterName ?? x;
-                    const yName = filters[y]?.translatedFilterName ?? y;
-                    if (xName < yName) return -1;
-                    if (xName > yName) return 1;
-                    return 0;
-                  })
-                  .map((filterHandle) => {
-                    const { translatedFilterName } = filters[filterHandle];
-                    return (
-                      <CommandItem
-                        key={filterHandle}
-                        value={translatedFilterName}
-                        className="g-flex g-items-center g-justify-between g-w-full"
-                        onSelect={() => {
+              {!hasGroups && (
+                <Group
+                  filters={filters}
+                  onSelect={(filterHandle) => {
+                    setActiveFilterHandle(filterHandle);
+                  }}
+                />
+              )}
+              {hasGroups &&
+                filteredGroups?.map((group, i) => {
+                  return (
+                    <>
+                      <Group
+                        key={group}
+                        name={group}
+                        filters={filters}
+                        onSelect={(filterHandle) => {
                           setActiveFilterHandle(filterHandle);
                         }}
-                      >
-                        {translatedFilterName}
-                      </CommandItem>
-                    );
-                  })}
-              </CommandGroup>
+                      />
+                      {i < filteredGroups.length - 1 && <CommandSeparator />}
+                    </>
+                  );
+                })}
             </CommandList>
           </Command>
         )}
@@ -109,7 +130,61 @@ const ContentWrapper = React.forwardRef(
   }
 );
 
-export default function MoreFilters({ filters }: { filters: { [key: string]: any } }) {
+function Group({
+  name,
+  filters,
+  onSelect,
+  title,
+}: {
+  name?: string;
+  title?: string;
+  filters: Filters;
+  onSelect: (filterHandle: string) => void;
+}) {
+  const header = title ?? (name ? `dashboard.group.${name}` : undefined);
+  return (
+    <CommandGroup heading={header ? <FormattedMessage id={header} /> : undefined}>
+      {Object.keys(filters)
+        .filter((filterHandle) => filters[filterHandle]?.group === name)
+        .sort((x, y) => {
+          // sort by order f available and else by translated filterName
+          const xOrder = filters[x]?.order ?? 1000;
+          const yOrder = filters[y]?.order ?? 1000;
+          if (xOrder < yOrder) return -1;
+          if (xOrder > yOrder) return 1;
+          // sort filters by translatedFilterName
+          const xName = filters[x]?.translatedFilterName ?? x;
+          const yName = filters[y]?.translatedFilterName ?? y;
+          if (xName < yName) return -1;
+          if (xName > yName) return 1;
+          return 0;
+        })
+        .map((filterHandle) => {
+          const { translatedFilterName } = filters[filterHandle];
+          return (
+            <CommandItem
+              key={filterHandle}
+              value={translatedFilterName}
+              className="g-flex g-items-center g-justify-between g-w-full"
+              onSelect={() => {
+                onSelect(filterHandle);
+              }}
+            >
+              {translatedFilterName}
+            </CommandItem>
+          );
+        })}
+    </CommandGroup>
+  );
+}
+
+export default function MoreFilters({
+  filters,
+  groups,
+}: {
+  filters: { [key: string]: any };
+  groups?: string[];
+}) {
   return (
     <FilterPopover
       trigger={
@@ -122,7 +197,7 @@ export default function MoreFilters({ filters }: { filters: { [key: string]: any
         </Button>
       }
     >
-      <ContentWrapper filters={filters} />
+      <ContentWrapper filters={filters} groups={groups} />
     </FilterPopover>
   );
 }

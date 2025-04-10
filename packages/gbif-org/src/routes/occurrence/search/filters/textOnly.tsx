@@ -21,6 +21,7 @@ export const projectIdConfig: filterSuggestConfig = {
   `,
   allowExistence: true,
   about: () => <Message id="filters.projectId.description" />,
+  group: 'provenance',
 };
 
 export const recordedByIdConfig: filterSuggestConfig = {
@@ -30,6 +31,7 @@ export const recordedByIdConfig: filterSuggestConfig = {
   filterTranslation: 'filters.recordedById.name',
   allowExistence: true,
   about: () => <Message id="filters.recordedById.description" />,
+  group: 'occurrence',
 };
 
 export const identifiedByIdConfig: filterSuggestConfig = {
@@ -39,6 +41,7 @@ export const identifiedByIdConfig: filterSuggestConfig = {
   filterTranslation: 'filters.identifiedById.name',
   allowExistence: true,
   about: () => <Message id="filters.identifiedById.description" />,
+  group: 'identification',
 };
 
 export const occurrenceIdConfig: filterSuggestConfig = {
@@ -47,6 +50,7 @@ export const occurrenceIdConfig: filterSuggestConfig = {
   displayName: IdentityLabel,
   filterTranslation: 'filters.occurrenceId.name',
   about: () => <Message id="filters.occurrenceId.description" />,
+  group: 'occurrence',
 };
 
 export const organismIdConfig: filterSuggestConfig = {
@@ -68,6 +72,7 @@ export const organismIdConfig: filterSuggestConfig = {
   `,
   allowExistence: true,
   about: () => <Message id="filters.organismId.description" />,
+  group: 'organism',
 };
 
 export const higherGeographyConfig: filterSuggestConfig = {
@@ -89,6 +94,7 @@ export const higherGeographyConfig: filterSuggestConfig = {
   `,
   allowExistence: true,
   about: () => <Message id="filters.higherGeography.description" />,
+  group: 'location',
 };
 
 export const eventIdConfig: filterSuggestConfig = {
@@ -98,4 +104,5 @@ export const eventIdConfig: filterSuggestConfig = {
   filterTranslation: 'filters.eventId.name',
   allowExistence: true,
   about: () => <Message id="filters.eventId.description" />,
+  group: 'event',
 };

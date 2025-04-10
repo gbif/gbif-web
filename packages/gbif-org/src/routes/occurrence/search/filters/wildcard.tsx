@@ -26,6 +26,7 @@ export const waterBodyConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.waterBody.description" />,
+  group: 'location',
 };
 
 export const catalogNumberConfig: filterWildcardConfig = {
@@ -52,6 +53,7 @@ export const catalogNumberConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.catalogNumber.description" />,
+  group: 'occurrence',
 };
 
 export const preparationsConfig: filterWildcardConfig = {
@@ -78,6 +80,7 @@ export const preparationsConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.preparations.description" />,
+  group: 'materialEntity',
 };
 
 export const sampleSizeUnitConfig: filterWildcardConfig = {
@@ -104,6 +107,7 @@ export const sampleSizeUnitConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.sampleSizeUnit.description" />,
+  group: 'event',
 };
 
 export const localityConfig: filterWildcardConfig = {
@@ -130,6 +134,7 @@ export const localityConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.locality.description" />,
+  group: 'location',
 };
 
 export const stateProvinceConfig: filterWildcardConfig = {
@@ -156,6 +161,7 @@ export const stateProvinceConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.stateProvince.description" />,
+  group: 'location',
 };
 
 export const samplingProtocolConfig: filterWildcardConfig = {
@@ -182,6 +188,7 @@ export const samplingProtocolConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.samplingProtocol.description" />,
+  group: 'event',
 };
 
 export const verbatimScientificNameConfig: filterWildcardConfig = {
@@ -207,6 +214,7 @@ export const verbatimScientificNameConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.verbatimScientificName.description" />,
+  group: 'identification',
 };
 
 export const recordedByConfig: filterWildcardConfig = {
@@ -233,6 +241,7 @@ export const recordedByConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.recordedBy.description" />,
+  group: 'occurrence',
 };
 
 export const identifiedByConfig: filterWildcardConfig = {
@@ -259,6 +268,7 @@ export const identifiedByConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.identifiedBy.description" />,
+  group: 'identification',
 };
 
 export const datasetIdConfig: filterWildcardConfig = {
@@ -285,4 +295,5 @@ export const datasetIdConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.datasetId.description" />,
+  group: 'record',
 };

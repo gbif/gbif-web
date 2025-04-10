@@ -24,6 +24,7 @@
   "exclude": "Exclude",
   "updateFilter": "Update filter",
   "setFilter": "Set as filter",
+  "noMathcingFilters": "No matching filters",
   "nameWithTaxonMatchIssue": "Name before normalisation",
   "commonName": "Common name",
   "acceptedNameOf": "Accepted name for",
