@@ -113,7 +113,11 @@ export default function MoreFilters({ filters }: { filters: { [key: string]: any
   return (
     <FilterPopover
       trigger={
-        <Button variant="primaryOutline" className="g-mx-1 g-mb-1 g-max-w-md g-text-slate-600">
+        <Button
+          variant="primaryOutline"
+          size="sm"
+          className="g-text-sm g-mx-1 g-mb-1 g-max-w-md g-text-slate-600"
+        >
           <FormattedMessage id="pagination.moreFilters" />
         </Button>
       }
