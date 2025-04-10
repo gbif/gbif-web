@@ -18,4 +18,8 @@ export type ColumnDef<T> = {
   cell(value: T): React.ReactNode;
   // a react component that is inserted in the header
   AdditionalContent?: React.FC;
+  sort?: {
+    sortBy: string; // the field to sort by
+    message?: React.ReactNode;
+  };
 };

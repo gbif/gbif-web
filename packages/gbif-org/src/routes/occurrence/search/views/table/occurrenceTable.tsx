@@ -19,6 +19,7 @@ import { useI18n } from '@/reactRouterPlugins';
 import { ExtractPaginatedResult } from '@/types';
 import { notNull } from '@/utils/notNull';
 import { useContext, useEffect, useMemo } from 'react';
+import useLocalStorage from 'use-local-storage';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
 import { useEntityDrawer } from '../browseList/useEntityDrawer';
@@ -26,9 +27,16 @@ import { useOrderedList } from '../browseList/useOrderedList';
 import { useOccurrenceColumns } from './columns';
 
 const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
-  query OccurrenceSearch($from: Int, $size: Int, $predicate: Predicate, $language: String) {
+  query OccurrenceSearch(
+    $from: Int
+    $size: Int
+    $predicate: Predicate
+    $language: String
+    $sortBy: OccurrenceSortBy
+    $sortOrder: SortOrder
+  ) {
     occurrenceSearch(predicate: $predicate) {
-      documents(from: $from, size: $size) {
+      documents(from: $from, size: $size, sortBy: $sortBy, sortOrder: $sortOrder) {
         from
         size
         total
@@ -135,7 +143,23 @@ const fallbackOptions: FallbackTableOptions = {
   ],
 };
 
+function getNotEmptyString(str: string | null | undefined): string | undefined {
+  return str && str.length > 0 && typeof str === 'string' ? str : undefined;
+}
+
 export function OccurrenceTable() {
+  return (
+    <div className="g-flex g-flex-col g-h-full">
+      <ClientSideOnly fallback={<SearchTableServerFallback />}>
+        <OccurrenceTableClient />
+      </ClientSideOnly>
+    </div>
+  );
+}
+
+export function OccurrenceTableClient() {
+  const [occurrenceSortBy] = useLocalStorage('occurrenceSortBy', '');
+  const [occurrenceSortOrder] = useLocalStorage('occurrenceSortOrder', '');
   const { locale } = useI18n();
   const searchContext = useSearchContext();
   const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
@@ -162,12 +186,22 @@ export function OccurrenceTable() {
         },
         size: paginationState.pageSize,
         from: paginationState.pageIndex * paginationState.pageSize,
+        sortBy: getNotEmptyString(occurrenceSortBy),
+        sortOrder: getNotEmptyString(occurrenceSortOrder),
       },
     });
 
     // We use a filterHash to trigger a reload when the filter changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [load, filterHash, searchContext, paginationState.pageIndex, paginationState.pageSize]);
+  }, [
+    load,
+    filterHash,
+    searchContext,
+    paginationState.pageIndex,
+    paginationState.pageSize,
+    occurrenceSortBy,
+    occurrenceSortOrder,
+  ]);
 
   const { filters } = useFilters({ searchConfig });
 
@@ -201,30 +235,27 @@ export function OccurrenceTable() {
   const createRowLink = useRowLink({ rowLinkOptions, keySelector });
 
   return (
-    <div className="g-flex g-flex-col g-h-full">
+    <>
       <ViewHeader
         total={data?.occurrenceSearch?.documents.total}
         loading={loading}
         message="counts.nResults"
       />
-
-      <ClientSideOnly fallback={<SearchTableServerFallback />}>
-        <SearchTable
-          filters={filters}
-          createRowLink={createRowLink}
-          keySelector={keySelector}
-          lockColumnLocalStoreKey="occurrenceSearchTableLockColumn"
-          selectedColumnsLocalStoreKey="occurrenceSearchSelectedColumns"
-          columns={columns}
-          data={occurrences}
-          loading={loading}
-          rowCount={data?.occurrenceSearch?.documents.total}
-          paginationState={paginationState}
-          setPaginationState={setPaginationState}
-          availableTableColumns={availableTableColumns}
-          defaultEnabledTableColumns={defaultEnabledTableColumns}
-        />
-      </ClientSideOnly>
-    </div>
+      <SearchTable
+        filters={filters}
+        createRowLink={createRowLink}
+        keySelector={keySelector}
+        lockColumnLocalStoreKey="occurrenceSearchTableLockColumn"
+        selectedColumnsLocalStoreKey="occurrenceSearchSelectedColumns"
+        columns={columns}
+        data={occurrences}
+        loading={loading}
+        rowCount={data?.occurrenceSearch?.documents.total}
+        paginationState={paginationState}
+        setPaginationState={setPaginationState}
+        availableTableColumns={availableTableColumns}
+        defaultEnabledTableColumns={defaultEnabledTableColumns}
+      />
+    </>
   );
 }

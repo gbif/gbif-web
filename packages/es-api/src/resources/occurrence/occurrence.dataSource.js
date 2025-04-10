@@ -21,6 +21,56 @@ const client = new Client({
   agent,
 });
 
+const allowedSortBy = {
+  basisOfRecord: 'basisOfRecord',
+  catalogNumber: 'catalogNumber.keyword',
+  collectionCode: 'collectionCode.keyword',
+  collectionCode: 'collectionCode.keyword',
+  collectionKey: 'collectionKey',
+  continent: 'continent',
+  coordinatePrecision: 'coordinatePrecision',
+  coordinateUncertaintyInMeters: 'coordinateUncertaintyInMeters',
+  countryCode: 'countryCode',
+  datasetID: 'datasetID',
+  publishingCountry: 'publishingCountry',
+  datasetKey: 'datasetTitle',
+  degreeOfEstablishment: 'degreeOfEstablishment.concept',
+  depth: 'depth',
+  distanceFromCentroidInMeters: 'distanceFromCentroidInMeters',
+  elevation: 'elevation',
+  establishmentMeans: 'establishmentMeans.concept',
+  eventDate: 'eventDateSingle',
+  eventId: 'eventId.keyword',
+  fieldNumber: 'fieldNumber',
+  taxonKey: 'gbifClassification.usage.name',
+  gbifId: 'gbifId',
+  gbifRegion: 'gbifRegion',
+  bed: 'geologicalContext.bed',
+  biostratigraphy: 'geologicalContext.biostratigraphy.keyword',
+  identifiedBy: 'identifiedByJoined',
+  individualCount: 'individualCount',
+  institutionCode: 'institutionCode.keyword',
+  institutionKey: 'institutionKey',
+  isClustered: 'isClustered',
+  isSequenced: 'isSequenced',
+  island: 'island',
+  license: 'license',
+  lifeStage: 'lifeStage.concept',
+  locality: 'locality.keyword',
+  month: 'month',
+  occurrenceId: 'occurrenceId.keyword',
+  occurrenceStatus: 'occurrenceStatus',
+  organismId: 'organismId.keyword',
+  preparations: 'preparationsJoined',
+  recordNumber: 'recordNumber.keyword',
+  recordedBy: 'recordedByJoined',
+  sex: 'sex.concept',
+  waterBody: 'waterBody.keyword',
+  year: 'year',
+  iucnRedListCategoryCode: 'gbifClassification.iucnRedListCategoryCode',
+  DATE: ['year', 'month', 'day'],
+};
+
 async function query({ query, aggs, size = 20, from = 0, metrics, sortBy, sortOrder, req }) {
   if (parseInt(from) + parseInt(size) > env.occurrence.maxResultWindow) {
     throw new ResponseError(
@@ -37,8 +87,8 @@ async function query({ query, aggs, size = 20, from = 0, metrics, sortBy, sortOr
   if (sortOrder && sortOrder !== 'asc' && sortOrder !== 'desc') {
     sortOrder = 'desc';
   }
-  // we only accept sorting by date, discard other values
-  if (sortBy && sortBy !== 'DATE') {
+  // we only accept sorting by DATE and a select list of other fields. Discard anything else
+  if (sortBy && !allowedSortBy[sortBy]) {
     sortBy = null;
   }
 
@@ -55,6 +105,8 @@ async function query({ query, aggs, size = 20, from = 0, metrics, sortBy, sortOr
       { day: { order: sortOrder } },
       { gbifId: 'asc' },
     ];
+  } else if (sortBy) {
+    sort = [{ [allowedSortBy[sortBy]]: { order: sortOrder } }, { gbifId: 'asc' }];
   }
 
   // metrics only included to allow "fake" pagination on facets

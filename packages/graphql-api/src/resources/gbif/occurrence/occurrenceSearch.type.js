@@ -22,6 +22,51 @@ const typeDef = gql`
 
   enum OccurrenceSortBy {
     DATE
+    basisOfRecord
+    catalogNumber
+    collectionCode
+    collectionKey
+    continent
+    coordinatePrecision
+    coordinateUncertaintyInMeters
+    countryCode
+    datasetID
+    publishingCountry
+    datasetKey
+    degreeOfEstablishment
+    depth
+    distanceFromCentroidInMeters
+    elevation
+    establishmentMeans
+    eventDate
+    eventId
+    fieldNumber
+    taxonKey
+    gbifId
+    gbifRegion
+    bed
+    biostratigraphy
+    identifiedBy
+    individualCount
+    institutionCode
+    institutionKey
+    isClustered
+    isSequenced
+    island
+    license
+    lifeStage
+    locality
+    month
+    occurrenceId
+    occurrenceStatus
+    organismId
+    preparations
+    recordNumber
+    recordedBy
+    sex
+    waterBody
+    year
+    iucnRedListCategoryCode
   }
 
   type OccurrenceSearchResult {
