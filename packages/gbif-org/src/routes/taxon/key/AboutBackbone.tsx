@@ -17,6 +17,7 @@ import OccurrenceImages from './OccurrenceImages';
 import Synonyms from './Synonyms';
 import { TaxonKeyContext } from './taxonKeyPresentation';
 import { useIsFamilyOrAbove, useIsSpeciesOrBelow } from './taxonUtil';
+import Treatments from './Treatments';
 import TypeMaterial from './TypeSpecimens';
 import { VernacularNameTable } from './VernacularNameTable';
 import WikiDataIdentifiers from './WikiDataIdentifiers';
@@ -131,6 +132,9 @@ export default function AboutBackbone() {
                 </CardContent>
               </Card>
             )}
+
+            <Treatments taxonKey={taxon?.key?.toString()} />
+
             {slowTaxon && (slowTaxon?.taxon?.wikiData?.identifiers?.length ?? 0) > 0 && (
               <Card className="g-mb-4" id="taxonIdentifiers">
                 <CardHeader>
