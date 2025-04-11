@@ -21,7 +21,6 @@ const typeDef = gql`
   }
 
   enum OccurrenceSortBy {
-    DATE
     basisOfRecord
     catalogNumber
     collectionCode

@@ -68,7 +68,6 @@ const allowedSortBy = {
   waterBody: 'waterBody.keyword',
   year: 'year',
   iucnRedListCategoryCode: 'gbifClassification.iucnRedListCategoryCode',
-  DATE: ['year', 'month', 'day'],
 };
 
 async function query({ query, aggs, size = 20, from = 0, metrics, sortBy, sortOrder, req }) {
@@ -97,16 +96,16 @@ async function query({ query, aggs, size = 20, from = 0, metrics, sortBy, sortOr
     '_doc', // I'm not sure, but i hope this will ensure sorting and be the fastest way to do so https://www.elastic.co/guide/en/elasticsearch/reference/current/sort-search-results.html
   ];
 
-  if (sortBy === 'DATE') {
+  if (sortBy) {
+    sort = [{ [allowedSortBy[sortBy]]: { order: sortOrder } }, { gbifId: 'asc' }];
+  } else {
     sort = [
       '_score', // if there is any score (but will this be slow even when there is no free text query?)
-      { year: { order: sortOrder } },
-      { month: { order: sortOrder } },
-      { day: { order: sortOrder } },
+      { year: { order: 'desc' } },
+      { month: { order: 'desc' } },
+      { day: { order: 'desc' } },
       { gbifId: 'asc' },
     ];
-  } else if (sortBy) {
-    sort = [{ [allowedSortBy[sortBy]]: { order: sortOrder } }, { gbifId: 'asc' }];
   }
 
   // metrics only included to allow "fake" pagination on facets

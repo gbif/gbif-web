@@ -6486,7 +6486,6 @@ export type OccurrenceSearchResultDocumentsArgs = {
 };
 
 export enum OccurrenceSortBy {
-  Date = 'DATE',
   BasisOfRecord = 'basisOfRecord',
   Bed = 'bed',
   Biostratigraphy = 'biostratigraphy',
