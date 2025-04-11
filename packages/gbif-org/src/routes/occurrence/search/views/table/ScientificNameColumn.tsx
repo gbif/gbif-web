@@ -14,6 +14,9 @@ export default function ScientificNameColumn({
   const [includeAuthorship] = useLocalStorage('includeAuthorship', false);
   const entityKey = `o_${occurrence?.key?.toString()}`;
 
+  const canonicalName = occurrence?.taxon?.canonicalName;
+  const showCanonicalName = canonicalName && !includeAuthorship;
+
   return (
     <div className="g-inline-flex g-items-start g-w-full">
       {typeof showPreview === 'function' && (
@@ -32,7 +35,7 @@ export default function ScientificNameColumn({
       )}
       <div>
         <SetAsFilter field="taxonKey" value={occurrence.taxonKey}>
-          {includeAuthorship && (
+          {!showCanonicalName && (
             <span
               className="g-pointer-events-auto g-me-2"
               dangerouslySetInnerHTML={{
@@ -40,7 +43,7 @@ export default function ScientificNameColumn({
               }}
             />
           )}
-          {!includeAuthorship && (
+          {showCanonicalName && (
             <span className="g-pointer-events-auto g-me-2">{occurrence?.taxon?.canonicalName}</span>
           )}
         </SetAsFilter>
