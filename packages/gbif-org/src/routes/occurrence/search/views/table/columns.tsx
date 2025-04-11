@@ -40,7 +40,11 @@ export function useOccurrenceColumns({
         cell: (occurrence) => {
           return <ScientificNameColumn occurrence={occurrence} showPreview={showPreview} />;
         },
-        AdditionalContent: () => {
+        AdditionalContent: ({
+          firstColumnIsLocked,
+          hideFirstColumnLock,
+          setFirstColumnIsLocked,
+        }) => {
           const [includeAuthorship, setIncludeAuthorship] = useLocalStorage(
             'includeAuthorship',
             false
@@ -63,6 +67,15 @@ export function useOccurrenceColumns({
                     >
                       <FormattedMessage id="tableHeaders.options.includeAuthorship" />
                     </DropdownMenuCheckboxItem>
+                    {!hideFirstColumnLock && (
+                      <DropdownMenuCheckboxItem
+                        className="DropdownMenuCheckboxItem"
+                        checked={firstColumnIsLocked}
+                        onCheckedChange={() => setFirstColumnIsLocked(!firstColumnIsLocked)}
+                      >
+                        <FormattedMessage id="Lock first column in place" />
+                      </DropdownMenuCheckboxItem>
+                    )}
                   </DropdownMenuContent>
                 </div>
               </DropdownMenuPortal>

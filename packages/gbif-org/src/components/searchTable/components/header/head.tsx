@@ -1,10 +1,8 @@
 import { FilterSetting } from '@/components/filters/filterTools';
-import { SimpleTooltip } from '@/components/simpleTooltip';
 import { TableHead } from '@/components/ui/table';
 import { cn } from '@/utils/shadcn';
 import { FaSortUp as SortAscIcon, FaSortDown as SortDescIcon } from 'react-icons/fa6';
 import { LuSettings2 as FilterIcon } from 'react-icons/lu';
-import { MdLock, MdLockOpen } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import {
   ResetColumnVisibility,
@@ -31,6 +29,12 @@ type Props = {
   visibleColumns: VisibleColumns;
   filter?: FilterSetting;
   hideColumnVisibilityDropdown: boolean;
+};
+
+export type AdditionalContentProps = {
+  firstColumnIsLocked: boolean;
+  hideFirstColumnLock: boolean;
+  setFirstColumnIsLocked: SetFirstColumnIsLocked;
 };
 
 export function Head({
@@ -98,21 +102,13 @@ export function Head({
                 }
               />
             )}
-            {isFirstColumn && !hideFirstColumnLock && (
-              <SimpleTooltip
-                side="bottom"
-                asChild
-                i18nDefaultMessage={firstColumnIsLocked ? 'Unlock column' : 'Lock column'}
-                i18nKey={
-                  firstColumnIsLocked ? 'search.table.unlockColumn ' : 'search.table.lockColumn'
-                }
-              >
-                <button onClick={() => setFirstColumnIsLocked((v) => !v)}>
-                  {firstColumnIsLocked ? <MdLock /> : <MdLockOpen />}
-                </button>
-              </SimpleTooltip>
+            {AdditionalContent && (
+              <AdditionalContent
+                firstColumnIsLocked={firstColumnIsLocked}
+                hideFirstColumnLock={hideFirstColumnLock}
+                setFirstColumnIsLocked={setFirstColumnIsLocked}
+              />
             )}
-            {AdditionalContent && <AdditionalContent />}
           </div>
         </div>
       </div>
@@ -124,40 +120,39 @@ function Sort({ sortBy, message }: { sortBy: string; message: React.ReactNode })
   const { toast } = useToast();
   const [occurrenceSortBy, setOccurrenceSortBy] = useLocalStorage('occurrenceSortBy', '');
   const [occurrenceSortOrder, setOccurrenceSortOrder] = useLocalStorage('occurrenceSortOrder', '');
-  if (sortBy === occurrenceSortBy) {
-    return occurrenceSortOrder === 'ASC' ? (
-      <span className="g-relative -g-mt-1" onClick={() => setOccurrenceSortOrder('DESC')}>
-        <SortAscIcon className="g-text-slate-600" />
-        <SortDescIcon className="g-text-slate-200 g-absolute g-left-0 g-bottom-0" />
-      </span>
-    ) : (
-      <span
-        className="g-relative -g-mt-1"
-        onClick={() => {
-          setOccurrenceSortBy(undefined);
-          setOccurrenceSortOrder('ASC');
-        }}
-      >
-        <SortAscIcon className="g-text-slate-200" />
-        <SortDescIcon className="g-text-slate-600 g-absolute g-left-0 g-bottom-0" />
-      </span>
-    );
-  }
+
   return (
     <span
-      className="g-relative -g-mt-1"
+      className="g-relative -g-mt-1 g-me-2"
       onClick={() => {
-        setOccurrenceSortBy(sortBy);
-        if (message) {
-          toast({
-            title: message,
-            variant: 'default',
-          });
+        if (sortBy === occurrenceSortBy) {
+          if (occurrenceSortOrder === 'ASC') {
+            setOccurrenceSortOrder('DESC');
+          } else {
+            setOccurrenceSortBy(undefined);
+            setOccurrenceSortOrder('ASC');
+          }
+        } else {
+          setOccurrenceSortBy(sortBy);
+          if (message) {
+            toast({
+              title: message,
+              variant: 'default',
+            });
+          }
         }
       }}
     >
-      <SortAscIcon className="g-text-slate-200" />
-      <SortDescIcon className="g-text-slate-200 g-absolute g-left-0 g-bottom-0" />
+      <SortAscIcon
+        className={cn('g-text-slate-200', {
+          'g-text-slate-600': occurrenceSortOrder === 'ASC' && sortBy === occurrenceSortBy,
+        })}
+      />
+      <SortDescIcon
+        className={cn('g-text-slate-200 g-absolute g-left-0 g-bottom-0', {
+          'g-text-slate-600': occurrenceSortOrder === 'DESC' && sortBy === occurrenceSortBy,
+        })}
+      />
     </span>
   );
 }
