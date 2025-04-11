@@ -2,6 +2,7 @@ import { TaxonClassification } from '@/components/classification';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { useCount } from '@/components/count';
 import * as charts from '@/components/dashboard';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FeatureList, Homepage } from '@/components/highlights';
 import { HyperText } from '@/components/hyperText';
 import { AdHocMapThumbnail } from '@/components/maps/mapThumbnail';
@@ -144,10 +145,12 @@ export default function AboutNonBackbone({ headLess = false }: { headLess?: bool
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <DistributionsTable
-                    total={taxon?.distributionsCount?.results?.length || 0}
-                    taxonKey={taxon.key}
-                  />
+                  <ErrorBoundary type="BLOCK" errorMessage="taxon.errors.distributions">
+                    <DistributionsTable
+                      total={taxon?.distributionsCount?.results?.length || 0}
+                      taxonKey={taxon.key}
+                    />
+                  </ErrorBoundary>
                 </CardContent>
               </Card>
             )}

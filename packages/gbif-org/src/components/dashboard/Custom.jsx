@@ -19,7 +19,11 @@ import { Card, CardContent, CardDescription, CardTitle } from '../ui/smallCard';
 import ChartClickWrapper from './charts/ChartClickWrapper';
 
 const majorRanks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'];
+const getDefaultRank = (rank) => {
+  return majorRanks.includes(rank) ? rank : 'family';
+};
 function TaxaMain({
+  defaultRank,
   predicate,
   handleRedirect,
   detailsRoute,
@@ -27,8 +31,8 @@ function TaxaMain({
   interactive,
   ...props
 }) {
-  const [query, setQuery] = useState(getTaxonQuery('familyKey'));
-  const [rank, setRank] = useState('FAMILY');
+  const [query, setQuery] = useState(getTaxonQuery(`${getDefaultRank(defaultRank)}Key`));
+  const [rank, setRank] = useState(getDefaultRank(defaultRank).toUpperCase());
   const facetResults = useFacets({ predicate, query });
 
   if (facetResults?.data?.search?.facet?.results?.length <= visibilityThreshold) return null;

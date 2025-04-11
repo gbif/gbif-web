@@ -14,13 +14,23 @@ const limit = 10;
 const Treatments = ({ taxonKey }: { taxonKey: string }) => {
   const [offset, setOffset] = useState(0);
   const intl = useIntl();
-  const { data, load, loading } = useQuery<TreatmentsQuery, TreatmentsQueryVariables>(
+  const { data, load, loading, error } = useQuery<TreatmentsQuery, TreatmentsQueryVariables>(
     TREATMENTS_QUERY,
     {
       lazyLoad: true,
       throwAllErrors: true,
     }
   );
+  /*   useEffect(() => {
+    if (error) {
+      toast({
+        title: 'Unable to load treatments',
+        description: error.message,
+        variant: 'destructive',
+      });
+      console.error(error);
+    }
+  }, [error]); */
 
   useEffect(() => {
     if (taxonKey) {
@@ -32,7 +42,7 @@ const Treatments = ({ taxonKey }: { taxonKey: string }) => {
     }
   }, [taxonKey, load]);
 
-  return data?.taxon?.treatments?.length ? (
+  return !error && data?.taxon?.treatments?.length ? (
     <Card className="g-mb-4" id="treatments">
       <CardHeader>
         <CardTitle>

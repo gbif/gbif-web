@@ -49,5 +49,13 @@
     "coreRecord": "Core record"
   },
   "tradeRestrictions": "Trade restrictions",
-  "cites": "CITES"
+  "cites": "CITES",
+  "immediateChildren": "Immediate children",
+  "errors": {
+    "treatments": "Could not load treatments",
+    "distributions": "Could not load distributions",
+    "verbatim": "Could not load verbatim taxon data",
+    "typeMaterial": "Could not load type material",
+    "vernacularNames": "Could not load vernacular names"
+  }
 }

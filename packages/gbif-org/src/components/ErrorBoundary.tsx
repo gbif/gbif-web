@@ -10,6 +10,7 @@ interface ErrorBoundaryProps {
   type?: 'PAGE' | 'BLOCK'; // PAGE will show a full page error, BLOCK will show a block error. Will default to PAGE
   className?: string;
   publicDescription?: string; // additional description of where the error happened. E.g. which component or section
+  errorMessage?: React.ReactNode; // error message to show. Will be shown in the ErrorComponent
 }
 
 interface ErrorBoundaryState {
@@ -55,6 +56,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
         type={this.props.type ?? 'PAGE'}
         className={this.props.className}
         description={this.props.publicDescription}
+        errorMessage={this.props.errorMessage}
       />
     );
   }
@@ -65,38 +67,40 @@ function ErrorComponent({
   type,
   className,
   description,
+  errorMessage,
 }: {
   error: Error;
   type: 'PAGE' | 'BLOCK';
   className?: string;
   description?: string;
+  errorMessage?: React.ReactNode;
 }): React.ReactElement {
   // An error has occurred
-  let errorMessage = `Thank you for reporting this issue. Please describe what happened.\n\n\n\n`;
+  let msg = `Thank you for reporting this issue. Please describe what happened.\n\n\n\n`;
 
   if (typeof error?.stack === 'string') {
-    errorMessage += '\n**Error message for diagnostics**\n```\n' + error?.stack + '\n```';
+    msg += '\n**Error message for diagnostics**\n```\n' + error?.stack + '\n```';
   }
 
   if (typeof window !== 'undefined') {
-    errorMessage += `\nLocation: ${window.location}`;
+    msg += `\nLocation: ${window.location}`;
   }
 
   if (description) {
-    errorMessage += `\nDescription: ${description}`;
+    msg += `\nDescription: ${description}`;
   }
 
   if (type === 'BLOCK') {
-    return <ErrorBlock errorMessage={errorMessage} className={className} />;
+    return <ErrorBlock errorMessage={errorMessage || msg} className={className} />;
   }
-  return <ErrorPage error={error} errorMessage={errorMessage} />;
+  return <ErrorPage error={error} errorMessage={errorMessage || msg} />;
 }
 
 function ErrorBlock({
   errorMessage,
   className,
 }: {
-  errorMessage: string;
+  errorMessage?: React.ReactNode;
   className?: string;
 }): React.ReactElement {
   return (
@@ -104,7 +108,9 @@ function ErrorBlock({
       <ErrorImage className="g-w-24" />
       <div>
         <h1 className="g-mb-0 g-text-slate-500 g-font-bold">
-          <FormattedMessage id="error.generic" defaultMessage="Something went wrong" />
+          {errorMessage || (
+            <FormattedMessage id="error.generic" defaultMessage="Something went wrong" />
+          )}
         </h1>
         <a
           href=""
@@ -133,14 +139,16 @@ export function ErrorPage({
     <div className="g-flex g-flex-col g-items-center g-justify-center g-text-center g-w-full g-h-full g-py-48 g-px-2 g-min-h-[80dvh] g-bg-white">
       <ErrorImage className="g-w-72 g-max-w-full" />
       <h1 className="g-mb-0 g-text-slate-500 g-text-xl g-mt-4 g-font-bold">
-        <FormattedMessage id="error.generic" defaultMessage="Something went wrong" />
+        {errorMessage || (
+          <FormattedMessage id="error.generic" defaultMessage="Something went wrong" />
+        )}
       </h1>
       <div className="g-mt-4 g-mb-8">
         <Button asChild>
           <a
             target="_blank"
             href={`https://github.com/gbif/gbif-web/issues/new?body=${encodeURIComponent(
-              errorMessage
+              error?.stack || ''
             )}`}
           >
             <FormattedMessage id="error.report" defaultMessage="Report issue" />

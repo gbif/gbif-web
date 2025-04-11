@@ -39,6 +39,7 @@ export const getChildren = ({ key, limit, offset }: GetChildrenParams) => {
             numDescendants
             scientificName
             formattedName(useFallback: true)
+            rank
           }
         }
       }

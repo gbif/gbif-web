@@ -305,6 +305,7 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
             <SectionTabs isNub={isNub} hasVerbatim={taxon?.origin === 'SOURCE'} />
           </ArticleTextContainer>
         </PageContainer>
+        {children}
         <ErrorBoundary invalidateOn={data.taxon?.key}>{children}</ErrorBoundary>
       </article>
     </>

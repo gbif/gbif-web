@@ -1,6 +1,7 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { useCount } from '@/components/count';
 import * as charts from '@/components/dashboard';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { AdHocMapThumbnail } from '@/components/maps/mapThumbnail';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
@@ -21,7 +22,6 @@ import Treatments from './Treatments';
 import TypeMaterial from './TypeSpecimens';
 import { VernacularNameTable } from './VernacularNameTable';
 import WikiDataIdentifiers from './WikiDataIdentifiers';
-
 export default function AboutBackbone() {
   const { slowTaxon, slowTaxonLoading, data } = useContext(TaxonKeyContext);
 
@@ -97,7 +97,12 @@ export default function AboutBackbone() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <TypeMaterial total={numberOfTypeSpecimens} taxonKey={taxon.key} />
+                  <ErrorBoundary
+                    type="BLOCK"
+                    errorMessage={<FormattedMessage id="taxon.errors.typeMaterial" />}
+                  >
+                    <TypeMaterial total={numberOfTypeSpecimens} taxonKey={taxon.key} />
+                  </ErrorBoundary>
                 </CardContent>
               </Card>
             )}
@@ -110,10 +115,15 @@ export default function AboutBackbone() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <VernacularNameTable
-                    total={taxon?.vernacularCount?.results?.length || 0}
-                    taxonKey={taxon.key}
-                  />
+                  <ErrorBoundary
+                    type="BLOCK"
+                    errorMessage={<FormattedMessage id="taxon.errors.vernacularNames" />}
+                  >
+                    <VernacularNameTable
+                      total={taxon?.vernacularCount?.results?.length || 0}
+                      taxonKey={taxon.key}
+                    />
+                  </ErrorBoundary>
                 </CardContent>
               </Card>
             )}
@@ -132,9 +142,12 @@ export default function AboutBackbone() {
                 </CardContent>
               </Card>
             )}
-
-            <Treatments taxonKey={taxon?.key?.toString()} />
-
+            <ErrorBoundary
+              type="BLOCK"
+              errorMessage={<FormattedMessage id="taxon.errors.treatments" />}
+            >
+              <Treatments taxonKey={taxon?.key?.toString()} />
+            </ErrorBoundary>
             {slowTaxon && (slowTaxon?.taxon?.wikiData?.identifiers?.length ?? 0) > 0 && (
               <Card className="g-mb-4" id="taxonIdentifiers">
                 <CardHeader>
@@ -164,6 +177,7 @@ export default function AboutBackbone() {
 
           {!removeSidebar && (
             <aside className="g-flex-none g-w-96 g-ms-4">
+              {/* <ClassificationSideBar taxon={taxon} /> */}
               {!!count && count > 0 && (
                 <>
                   <div className="g-max-w-64 md:g-max-w-96 g-mb-4">
