@@ -25,7 +25,7 @@ const MapWidgetInner = lazy(() => import('../inner'));
 
 type Props = {
   className?: string;
-  capabilitiesParams?: Record<string, string>;
+  capabilitiesParams?: Record<string, any>;
 };
 
 const LOWER_LIMIT = 1500;
@@ -119,7 +119,7 @@ export function MapWidgetOuter({ className, capabilitiesParams = {} }: Props) {
                   isFullSize={isFullScreen}
                   toggleFullScreen={toggleFullScreen}
                   generatedAt={capabilities?.generated}
-                  filterParams={filterParams}
+                  filterParams={{ ...filterParams, ...capabilitiesParams }}
                   selectedProjection={selectedProjection}
                   rasterStyles={rasterStyles}
                   setBoundingBox={setBoundingBox}

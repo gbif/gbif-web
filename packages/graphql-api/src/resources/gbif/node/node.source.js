@@ -51,7 +51,10 @@ class NodeAPI extends RESTDataSource {
   }
 
   async getNodeByCountryCode({ countryCode }) {
-    return this.get(`/node/country/${countryCode}`);
+    const response = await this.get(`/node/country/${countryCode}`);
+    // Will happen if a status of 204 (no content) is returned. Might also happen in other cases, the docs are unclear.
+    if (response === '') return null;
+    return response;
   }
 }
 
