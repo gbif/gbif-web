@@ -1,4 +1,4 @@
-import { AdditionalContentProps } from './components/header/head';
+import { ActionsProps } from './components/header/head';
 
 export { LinkOption } from './components/body/linkOption';
 export { SetAsFilter } from './components/body/setAsFilter';
@@ -18,10 +18,11 @@ export type ColumnDef<T> = {
   filterKey?: string; // default same as id
   minWidth?: number;
   cell(value: T): React.ReactNode;
-  // a react component that is inserted in the header. It should take the props AdditionalContentProps
-  AdditionalContent?: React.FC<AdditionalContentProps>;
+  // a react component that is inserted in the header.
+  Actions?: React.FC<ActionsProps>;
   sort?: {
     sortBy: string; // the field to sort by
     message?: React.ReactNode;
+    localStorageKey: string; // the key to use for local storage
   };
 };

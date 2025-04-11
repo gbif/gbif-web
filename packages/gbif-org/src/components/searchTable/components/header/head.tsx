@@ -31,7 +31,7 @@ type Props = {
   hideColumnVisibilityDropdown: boolean;
 };
 
-export type AdditionalContentProps = {
+export type ActionsProps = {
   firstColumnIsLocked: boolean;
   hideFirstColumnLock: boolean;
   setFirstColumnIsLocked: SetFirstColumnIsLocked;
@@ -51,7 +51,7 @@ export function Head({
   filter,
   hideColumnVisibilityDropdown,
 }: Props) {
-  const AdditionalContent = column?.AdditionalContent;
+  const Actions = column?.Actions;
   return (
     <TableHead
       key={column.id}
@@ -88,7 +88,11 @@ export function Head({
           </div>
           <div className="g-flex-1">
             {column.sort?.sortBy && (
-              <Sort sortBy={column.sort?.sortBy} message={column.sort.message} />
+              <Sort
+                sortByField={column.sort?.sortBy}
+                message={column.sort.message}
+                localStorageKey={column.sort.localStorageKey}
+              />
             )}
           </div>
 
@@ -102,8 +106,8 @@ export function Head({
                 }
               />
             )}
-            {AdditionalContent && (
-              <AdditionalContent
+            {Actions && (
+              <Actions
                 firstColumnIsLocked={firstColumnIsLocked}
                 hideFirstColumnLock={hideFirstColumnLock}
                 setFirstColumnIsLocked={setFirstColumnIsLocked}
@@ -116,24 +120,44 @@ export function Head({
   );
 }
 
-function Sort({ sortBy, message }: { sortBy: string; message: React.ReactNode }) {
+function Sort({
+  sortByField,
+  message,
+  localStorageKey,
+}: {
+  sortByField: string;
+  message: React.ReactNode;
+  localStorageKey: string;
+}) {
   const { toast } = useToast();
-  const [occurrenceSortBy, setOccurrenceSortBy] = useLocalStorage('occurrenceSortBy', '');
-  const [occurrenceSortOrder, setOccurrenceSortOrder] = useLocalStorage('occurrenceSortOrder', '');
+  const [sorter, setSorter] = useLocalStorage(localStorageKey, {
+    sortOrder: 'ASC',
+    sortBy: '',
+  });
+  const { sortBy, sortOrder } = sorter;
 
   return (
     <span
-      className="g-relative -g-mt-1 g-me-2"
+      className="g-relative -g-mt-1 g-me-2 g-text-slate-200"
       onClick={() => {
-        if (sortBy === occurrenceSortBy) {
-          if (occurrenceSortOrder === 'ASC') {
-            setOccurrenceSortOrder('DESC');
+        if (sortByField === sortBy) {
+          if (sortOrder === 'ASC') {
+            setSorter({
+              sortOrder: 'DESC',
+              sortBy: sortBy,
+            });
           } else {
-            setOccurrenceSortBy(undefined);
-            setOccurrenceSortOrder('ASC');
+            setSorter({
+              sortOrder: 'ASC',
+              sortBy: '',
+            });
           }
         } else {
-          setOccurrenceSortBy(sortBy);
+          setSorter({
+            sortOrder: 'ASC',
+            sortBy: sortByField,
+          });
+
           if (message) {
             toast({
               title: message,
@@ -144,13 +168,13 @@ function Sort({ sortBy, message }: { sortBy: string; message: React.ReactNode })
       }}
     >
       <SortAscIcon
-        className={cn('g-text-slate-200', {
-          'g-text-slate-600': occurrenceSortOrder === 'ASC' && sortBy === occurrenceSortBy,
+        className={cn({
+          'g-text-slate-600': sortOrder === 'ASC' && sortByField === sortBy,
         })}
       />
       <SortDescIcon
-        className={cn('g-text-slate-200 g-absolute g-left-0 g-bottom-0', {
-          'g-text-slate-600': occurrenceSortOrder === 'DESC' && sortBy === occurrenceSortBy,
+        className={cn('g-absolute g-left-0 g-bottom-0', {
+          'g-text-slate-600': sortOrder === 'DESC' && sortByField === sortBy,
         })}
       />
     </span>

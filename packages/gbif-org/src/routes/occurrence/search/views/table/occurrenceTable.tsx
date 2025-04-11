@@ -13,7 +13,12 @@ import { ViewHeader } from '@/components/ViewHeader';
 import { useConfig } from '@/config/config';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
-import { OccurrenceSearchQuery, OccurrenceSearchQueryVariables } from '@/gql/graphql';
+import {
+  OccurrenceSearchQuery,
+  OccurrenceSearchQueryVariables,
+  OccurrenceSortBy,
+  SortOrder,
+} from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { useI18n } from '@/reactRouterPlugins';
 import { ExtractPaginatedResult } from '@/types';
@@ -158,8 +163,11 @@ export function OccurrenceTable() {
 }
 
 export function OccurrenceTableClient() {
-  const [occurrenceSortBy] = useLocalStorage('occurrenceSortBy', '');
-  const [occurrenceSortOrder] = useLocalStorage('occurrenceSortOrder', '');
+  const [occurrenceSort] = useLocalStorage<{ sortBy?: OccurrenceSortBy; sortOrder: SortOrder }>(
+    'occurrenceSort',
+    { sortBy: undefined, sortOrder: SortOrder.Asc }
+  );
+  const { sortBy: occurrenceSortBy, sortOrder: occurrenceSortOrder } = occurrenceSort;
   const { locale } = useI18n();
   const searchContext = useSearchContext();
   const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
@@ -186,8 +194,8 @@ export function OccurrenceTableClient() {
         },
         size: paginationState.pageSize,
         from: paginationState.pageIndex * paginationState.pageSize,
-        sortBy: getNotEmptyString(occurrenceSortBy),
-        sortOrder: getNotEmptyString(occurrenceSortOrder),
+        sortBy: getNotEmptyString(occurrenceSortBy) as OccurrenceSortBy | undefined,
+        sortOrder: getNotEmptyString(occurrenceSortOrder) as SortOrder | undefined,
       },
     });
 
@@ -199,8 +207,7 @@ export function OccurrenceTableClient() {
     searchContext,
     paginationState.pageIndex,
     paginationState.pageSize,
-    occurrenceSortBy,
-    occurrenceSortOrder,
+    occurrenceSort,
   ]);
 
   const { filters } = useFilters({ searchConfig });

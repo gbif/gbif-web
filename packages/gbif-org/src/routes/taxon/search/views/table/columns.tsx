@@ -63,11 +63,7 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
             </div>
           );
         },
-        AdditionalContent: ({
-          hideFirstColumnLock,
-          setFirstColumnIsLocked,
-          firstColumnIsLocked,
-        }) => {
+        Actions: ({ hideFirstColumnLock, setFirstColumnIsLocked, firstColumnIsLocked }) => {
           return (
             <>
               {!hideFirstColumnLock && (

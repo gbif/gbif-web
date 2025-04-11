@@ -30,9 +30,7 @@ export function useOccurrenceColumns({
     const columns: ColumnDef<SingleOccurrenceSearchResult>[] = [
       {
         id: 'scientificName',
-        sort: {
-          sortBy: 'taxonKey',
-        },
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'taxonKey' },
         header: 'filters.taxonKey.name',
         filterKey: 'taxonKey', // default is same as id
         disableHiding: true,
@@ -40,11 +38,7 @@ export function useOccurrenceColumns({
         cell: (occurrence) => {
           return <ScientificNameColumn occurrence={occurrence} showPreview={showPreview} />;
         },
-        AdditionalContent: ({
-          firstColumnIsLocked,
-          hideFirstColumnLock,
-          setFirstColumnIsLocked,
-        }) => {
+        Actions: ({ firstColumnIsLocked, hideFirstColumnLock, setFirstColumnIsLocked }) => {
           const [includeAuthorship, setIncludeAuthorship] = useLocalStorage(
             'includeAuthorship',
             false
@@ -155,6 +149,7 @@ export function useOccurrenceColumns({
       {
         id: 'country',
         sort: {
+          localStorageKey: 'occurrenceSort',
           sortBy: 'countryCode',
           // message: <FormattedMessage id="Sorted by country code" />,
         },
@@ -176,9 +171,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'year',
-        sort: {
-          sortBy: 'year',
-        },
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'year' },
         header: 'filters.year.name',
         cell: ({ year }) => (
           <SetAsFilter field="year" value={year}>
@@ -188,9 +181,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'eventDate',
-        sort: {
-          sortBy: 'eventDate',
-        },
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'eventDate' },
         header: 'filters.eventDate.name',
         cell: ({ eventDate }) => {
           if (!eventDate) return null;
@@ -206,9 +197,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'basisOfRecord',
-        sort: {
-          sortBy: 'basisOfRecord',
-        },
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'basisOfRecord' },
         header: 'filters.basisOfRecord.name',
         cell: ({ basisOfRecord }) => (
           <SetAsFilter field="basisOfRecord" value={basisOfRecord}>
@@ -218,9 +207,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'dataset',
-        sort: {
-          sortBy: 'datasetKey',
-        },
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'datasetKey' },
         header: 'filters.datasetKey.name',
         minWidth: 350,
         cell: ({ datasetKey, datasetTitle }) => (
@@ -243,9 +230,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'catalogNumber',
-        sort: {
-          sortBy: 'catalogNumber',
-        },
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'catalogNumber' },
         header: 'filters.catalogNumber.name',
         cell: ({ catalogNumber }) => (
           <SetAsFilter field="catalogNumber" value={catalogNumber}>
@@ -255,27 +240,21 @@ export function useOccurrenceColumns({
       },
       {
         id: 'recordedBy',
-        sort: {
-          sortBy: 'recordedBy',
-        },
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'recordedBy' },
         header: 'filters.recordedBy.name',
         minWidth: 200,
         cell: ({ recordedBy }) => <SetAsFilterList field="recordedBy" items={recordedBy} />,
       },
       {
         id: 'identifiedBy',
-        sort: {
-          sortBy: 'identifiedBy',
-        },
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'identifiedBy' },
         header: 'filters.identifiedBy.name',
         minWidth: 200,
         cell: ({ identifiedBy }) => <SetAsFilterList field="identifiedBy" items={identifiedBy} />,
       },
       {
         id: 'recordNumber',
-        sort: {
-          sortBy: 'recordNumber',
-        },
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'recordNumber' },
         header: 'filters.recordNumber.name',
         cell: ({ recordNumber }) => (
           <SetAsFilter field="recordNumber" value={recordNumber}>
@@ -299,17 +278,13 @@ export function useOccurrenceColumns({
       },
       {
         id: 'preparations',
-        sort: {
-          sortBy: 'preparations',
-        },
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'preparations' },
         header: 'occurrenceFieldNames.preparations',
         cell: ({ preparations }) => <SetAsFilterList field="preparations" items={preparations} />,
       },
       {
         id: 'collectionCode',
-        sort: {
-          sortBy: 'collectionCode',
-        },
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'collectionCode' },
         header: 'occurrenceFieldNames.collectionCode',
         cell: ({ collectionCode }) => {
           if (!collectionCode) return null;
@@ -323,9 +298,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'institutionCode',
-        sort: {
-          sortBy: 'institutionCode',
-        },
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'institutionCode' },
         header: 'occurrenceFieldNames.institutionCode',
         minWidth: 200,
         cell: ({ institutionCode }) => {
@@ -376,9 +349,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'locality',
-        sort: {
-          sortBy: 'locality',
-        },
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'locality' },
         header: 'occurrenceFieldNames.locality',
         minWidth: 200,
         cell: ({ locality }) => (
@@ -399,9 +370,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'stateProvince',
-        sort: {
-          sortBy: 'stateProvince',
-        },
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'stateProvince' },
         header: 'occurrenceFieldNames.stateProvince',
         cell: ({ stateProvince }) => {
           if (!stateProvince) return null;
@@ -415,9 +384,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'establishmentMeans',
-        sort: {
-          sortBy: 'establishmentMeans',
-        },
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'establishmentMeans' },
         header: 'occurrenceFieldNames.establishmentMeans',
         cell: ({ establishmentMeans }) => {
           if (!establishmentMeans) return null;
@@ -431,9 +398,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'iucnRedListCategory',
-        sort: {
-          sortBy: 'iucnRedListCategoryCode',
-        },
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'iucnRedListCategoryCode' },
         header: 'occurrenceFieldNames.iucnRedListCategory',
         cell: ({ iucnRedListCategory }) => {
           if (!iucnRedListCategory) return null;
