@@ -9,6 +9,7 @@ import {
   useRowLink,
 } from '@/components/searchTable';
 import { SearchTableServerFallback } from '@/components/searchTable/table';
+import { useToast } from '@/components/ui/use-toast';
 import { ViewHeader } from '@/components/ViewHeader';
 import { useConfig } from '@/config/config';
 import { FilterContext } from '@/contexts/filter';
@@ -24,6 +25,7 @@ import { useI18n } from '@/reactRouterPlugins';
 import { ExtractPaginatedResult } from '@/types';
 import { notNull } from '@/utils/notNull';
 import { useContext, useEffect, useMemo } from 'react';
+import { FormattedMessage } from 'react-intl';
 import useLocalStorage from 'use-local-storage';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
@@ -81,16 +83,16 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
           typeStatus
           preparations
           institutionCode
+          institutionKey
           institution {
             code
             name
-            key
           }
           collectionCode
+          collectionKey
           collection {
             code
             name
-            key
           }
           locality
           higherGeography
@@ -175,14 +177,13 @@ export function OccurrenceTableClient() {
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
 
-  const { data, load, loading } = useQuery<OccurrenceSearchQuery, OccurrenceSearchQueryVariables>(
-    OCCURRENCE_SEARCH_QUERY,
-    {
-      throwAllErrors: true,
-      lazyLoad: true,
-      keepDataWhileLoading: true,
-    }
-  );
+  const { data, load, loading, error } = useQuery<
+    OccurrenceSearchQuery,
+    OccurrenceSearchQueryVariables
+  >(OCCURRENCE_SEARCH_QUERY, {
+    lazyLoad: true,
+    keepDataWhileLoading: true,
+  });
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
@@ -241,8 +242,13 @@ export function OccurrenceTableClient() {
 
   const createRowLink = useRowLink({ rowLinkOptions, keySelector });
 
+  if (!data?.occurrenceSearch?.documents && error) {
+    throw error;
+  }
+
   return (
     <>
+      {/* {!loading && error && <PartialDataWarning />} */}
       <ViewHeader
         total={data?.occurrenceSearch?.documents.total}
         loading={loading}
@@ -265,4 +271,24 @@ export function OccurrenceTableClient() {
       />
     </>
   );
+}
+
+function PartialDataWarning({
+  customMessageKey,
+  customDescriptionKey,
+}: {
+  customMessageKey?: string;
+  customDescriptionKey?: string;
+}) {
+  const { toast } = useToast();
+  useEffect(() => {
+    toast({
+      title: <FormattedMessage id={customMessageKey ?? 'Not all data could be loaded'} />,
+      description: customDescriptionKey ? (
+        <FormattedMessage id={customDescriptionKey} />
+      ) : undefined,
+      variant: 'destructive',
+    });
+  }, [customMessageKey, customDescriptionKey, toast]);
+  return null;
 }

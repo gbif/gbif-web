@@ -315,16 +315,33 @@ export function useOccurrenceColumns({
         id: 'institutionKey',
         header: 'tableHeaders.institution',
         minWidth: 300,
-        cell: ({ institution }) => {
-          if (!institution) return null;
+        cell: ({ institution, institutionKey }) => {
+          if (!institution) {
+            if (institutionKey) {
+              return (
+                <LinkOption to={`/institution/${institutionKey}`}>
+                  <SetAsFilter
+                    field="institutionKey"
+                    value={institutionKey}
+                    className="g-text-slate-400"
+                  >
+                    <FormattedMessage id="phrases.loadError" />
+                  </SetAsFilter>
+                </LinkOption>
+              );
+            } else {
+              return null;
+            }
+          }
 
           return (
-            <LinkOption to={`/institution/${institution.key}`}>
-              <SetAsFilter field="institutionKey" value={institution.key}>
-                <span>
-                  {institution.name} <span>{institution.code}</span>
-                </span>
+            <LinkOption to={`/institution/${institutionKey}`}>
+              <SetAsFilter field="institutionKey" value={institutionKey}>
+                <span className="g-me-1">{institution.name}</span>
               </SetAsFilter>
+              <span className="g-font-mono g-text-xs g-text-slate-400 g-inline-block">
+                {institution.code}
+              </span>
             </LinkOption>
           );
         },
@@ -333,16 +350,33 @@ export function useOccurrenceColumns({
         id: 'collectionKey',
         header: 'tableHeaders.collection',
         minWidth: 300,
-        cell: ({ collection }) => {
-          if (!collection) return null;
+        cell: ({ collection, collectionKey }) => {
+          if (!collection) {
+            if (collectionKey) {
+              return (
+                <LinkOption to={`/collection/${collectionKey}`}>
+                  <SetAsFilter
+                    field="collectionKey"
+                    value={collectionKey}
+                    className="g-text-slate-400"
+                  >
+                    <FormattedMessage id="phrases.loadError" />
+                  </SetAsFilter>
+                </LinkOption>
+              );
+            } else {
+              return null;
+            }
+          }
 
           return (
-            <LinkOption to={`/collection/${collection.key}`}>
-              <SetAsFilter field="collectionKey" value={collection.key}>
-                <span>
-                  {collection.name} <span>({collection.code})</span>
-                </span>
+            <LinkOption to={`/collection/${collectionKey}`}>
+              <SetAsFilter field="collectionKey" value={collectionKey}>
+                <span className="g-me-1">{collection.name}</span>
               </SetAsFilter>
+              <span className="g-font-mono g-text-xs g-text-slate-400 g-inline-block">
+                {collection.code}
+              </span>
             </LinkOption>
           );
         },
