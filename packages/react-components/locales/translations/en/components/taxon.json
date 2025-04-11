@@ -49,5 +49,13 @@
     "coreRecord": "Core record"
   },
   "tradeRestrictions": "Trade restrictions",
-  "cites": "CITES"
+  "cites": "CITES",
+  "immediateChildren": "Immediate children",
+  "errors": {
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": ""
+  }
 }
