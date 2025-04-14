@@ -140,6 +140,7 @@ const TAXON_QUERY = /* GraphQL */ `
         rank
         scientificName
         canonicalName
+        formattedName
         key
       }
       acceptedTaxon {

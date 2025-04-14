@@ -13,6 +13,7 @@ import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import TaxonBreakdown from './BreakDown';
 import Citation from './Citation';
+import ClassificationSideBar from './ClassificationSideBar';
 import { InvasiveInCountries } from './InvasiveInCountries';
 import OccurrenceImages from './OccurrenceImages';
 import Synonyms from './Synonyms';
@@ -177,7 +178,7 @@ export default function AboutBackbone() {
 
           {!removeSidebar && (
             <aside className="g-flex-none g-w-96 g-ms-4">
-              {/* <ClassificationSideBar taxon={taxon} /> */}
+              <ClassificationSideBar taxon={taxon} />
               {!!count && count > 0 && (
                 <>
                   <div className="g-max-w-64 md:g-max-w-96 g-mb-4">
