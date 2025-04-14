@@ -1,12 +1,7 @@
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
-import {
-  FeatureList,
-  GenericFeature,
-  Homepage,
-  TaxonClassification,
-} from '@/components/highlights';
+import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
 import { HyperText } from '@/components/hyperText';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
@@ -262,7 +257,7 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                   </>
                 )}
                 <div>
-                  {taxon.parents && (
+                  {/*  {taxon.parents && (
                     <div>
                       <TaxonClassification
                         showIcon={false}
@@ -274,7 +269,7 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                         }))}
                       />
                     </div>
-                  )}
+                  )} */}
                 </div>
                 {taxon.publishedIn && (
                   <div>

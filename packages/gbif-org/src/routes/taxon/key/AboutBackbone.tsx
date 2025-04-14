@@ -2,7 +2,7 @@ import { ClientSideOnly } from '@/components/clientSideOnly';
 import { useCount } from '@/components/count';
 import * as charts from '@/components/dashboard';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { AdHocMapThumbnail } from '@/components/maps/mapThumbnail';
+import { MapWidget } from '@/components/maps/mapWidget';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';
@@ -23,6 +23,7 @@ import Treatments from './Treatments';
 import TypeMaterial from './TypeSpecimens';
 import { VernacularNameTable } from './VernacularNameTable';
 import WikiDataIdentifiers from './WikiDataIdentifiers';
+
 export default function AboutBackbone() {
   const { slowTaxon, slowTaxonLoading, data } = useContext(TaxonKeyContext);
 
@@ -56,6 +57,11 @@ export default function AboutBackbone() {
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl">
         <div className={`${removeSidebar ? '' : 'g-flex'}`}>
+          {/*  {!removeSidebar && (
+            <aside className="g-flex-none g-w-48 g-ms-4">
+              <ClassificationSideBar taxon={taxon} />
+            </aside>
+          )} */}
           <div className="g-flex-grow">
             {numberOfImages > 0 && (
               <Card className="g-mb-4">
@@ -72,6 +78,21 @@ export default function AboutBackbone() {
             {isFamilyOrAbove && data.taxon.taxonomicStatus === 'ACCEPTED' && (
               <TaxonBreakdown taxon={taxon} className="g-mb-4" />
             )}
+            {/* <Card className="g-mb-4">
+              <CardHeader>
+                <CardTitle>
+                  <FormattedMessage id="taxon.distribution" />
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="g-p-0">
+                <MapWidget capabilitiesParams={{ taxonKey: taxon.key }} mapStyle="CLASSIC_HEX" />
+              </CardContent>
+            </Card> */}
+            <MapWidget
+              className="g-mb-4"
+              capabilitiesParams={{ taxonKey: taxon.key }}
+              mapStyle="CLASSIC_HEX"
+            />
             {data.taxon.taxonomicStatus === 'ACCEPTED' && (
               <Card className="g-mb-4">
                 <CardHeader>
@@ -179,23 +200,24 @@ export default function AboutBackbone() {
           {!removeSidebar && (
             <aside className="g-flex-none g-w-96 g-ms-4">
               <ClassificationSideBar taxon={taxon} />
+
               {!!count && count > 0 && (
                 <>
-                  <div className="g-max-w-64 md:g-max-w-96 g-mb-4">
+                  {/* <div className="g-max-w-64 md:g-max-w-96 g-mb-4">
                     <AdHocMapThumbnail
                       filter={{ taxonKey: taxon.key }}
                       className="g-rounded g-border"
                     />
-                  </div>
+                  </div> */}
                   <ClientSideOnly>
-                    <charts.OccurrenceSummary predicate={predicate} className="g-mb-4" />
+                    {/*                     <charts.OccurrenceSummary predicate={predicate} className="g-mb-4" />
+                     */}{' '}
                     {isFamilyOrAbove && <charts.Taxa predicate={predicate} className="g-mb-2" />}
-
-                    <charts.DataQuality predicate={predicate} className="g-mb-4" />
+                    {/*                     <charts.DataQuality predicate={predicate} className="g-mb-4" />
+                     */}{' '}
                   </ClientSideOnly>
                 </>
               )}
-
               <GbifLinkCard path={`/species/${taxon.key}`} />
             </aside>
           )}

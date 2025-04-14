@@ -42,6 +42,7 @@ export default function MapWidgetInner({
   generatedAt,
   isFullSize,
   toggleFullScreen,
+  capabilities,
 }: Props) {
   const mapId = useId();
   const [map, setMap] = useState<Map>();
@@ -66,6 +67,7 @@ export default function MapWidgetInner({
     projection,
     baseLayerStyle: rasterStyles.baseMapStyle,
     generatedAt,
+    capabilities,
   });
 
   const { hideLoadingProgress, progressHandler, loadingProgress } = useTileLoadingFeedback();

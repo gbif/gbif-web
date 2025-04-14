@@ -61,7 +61,7 @@ const ClassificationSideBar = ({ taxon }) => {
     }
   };
   return (
-    <>
+    <div className="g-mb-2">
       <div>
         <ul>
           {taxon.parents.map((parent, idx) => (
@@ -152,7 +152,7 @@ const ClassificationSideBar = ({ taxon }) => {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 };
 
