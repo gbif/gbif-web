@@ -355,7 +355,7 @@ export default async function generateSql(parameters) {
       groupBy: `eeaCellCode`,
     },
     EXTENDED_QUARTER_DEGREE_GRID: {
-      dimension: `GBIF_EQDGCCode(
+      dimension: `GBIF_EQDGCode(
           ${resolution},
           decimalLatitude,
           decimalLongitude,
