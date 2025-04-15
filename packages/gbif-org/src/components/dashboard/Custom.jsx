@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GroupBy, Pagging, useFacets } from './charts/GroupByTable';
 import { CardHeader } from './shared';
 // import { Classification, DropdownButton, Tooltip } from '../../components';
@@ -35,6 +35,10 @@ function TaxaMain({
   const [rank, setRank] = useState(getDefaultRank(defaultRank).toUpperCase());
   const facetResults = useFacets({ predicate, query });
 
+  useEffect(() => {
+    setRank(getDefaultRank(defaultRank).toUpperCase());
+    setQuery(getTaxonQuery(`${getDefaultRank(defaultRank)}Key`));
+  }, [defaultRank]);
   if (facetResults?.data?.search?.facet?.results?.length <= visibilityThreshold) return null;
 
   return (

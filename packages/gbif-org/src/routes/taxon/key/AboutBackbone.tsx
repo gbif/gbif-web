@@ -18,12 +18,11 @@ import { InvasiveInCountries } from './InvasiveInCountries';
 import OccurrenceImages from './OccurrenceImages';
 import Synonyms from './Synonyms';
 import { TaxonKeyContext } from './taxonKeyPresentation';
-import { useIsFamilyOrAbove, useIsSpeciesOrBelow } from './taxonUtil';
+import { useIsFamilyOrAbove, useIsSpeciesOrBelow, useNextMajorRank } from './taxonUtil';
 import Treatments from './Treatments';
 import TypeMaterial from './TypeSpecimens';
 import { VernacularNameTable } from './VernacularNameTable';
 import WikiDataIdentifiers from './WikiDataIdentifiers';
-
 export default function AboutBackbone() {
   const { slowTaxon, slowTaxonLoading, data } = useContext(TaxonKeyContext);
 
@@ -45,7 +44,7 @@ export default function AboutBackbone() {
   } = data;
   const isFamilyOrAbove = useIsFamilyOrAbove(taxon?.rank);
   const isSpeciesOrBelow = useIsSpeciesOrBelow(taxon?.rank);
-
+  const nextMajorRank = useNextMajorRank(taxon?.rank);
   const predicate = {
     type: 'equals',
     key: 'taxonKey',
@@ -212,7 +211,13 @@ export default function AboutBackbone() {
                   <ClientSideOnly>
                     {/*                     <charts.OccurrenceSummary predicate={predicate} className="g-mb-4" />
                      */}{' '}
-                    {isFamilyOrAbove && <charts.Taxa predicate={predicate} className="g-mb-2" />}
+                    {isFamilyOrAbove && (
+                      <charts.Taxa
+                        defaultRank={nextMajorRank?.toLowerCase() || 'family'}
+                        predicate={predicate}
+                        className="g-mb-2"
+                      />
+                    )}
                     {/*                     <charts.DataQuality predicate={predicate} className="g-mb-4" />
                      */}{' '}
                   </ClientSideOnly>
