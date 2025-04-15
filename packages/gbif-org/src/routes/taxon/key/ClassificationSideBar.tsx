@@ -16,6 +16,7 @@ const ClassificationSideBar = ({ taxon }) => {
   const [childrenLoading, setChildrenLoading] = useState(false);
   const [offset, setOffset] = useState(0);
   const [endOfRecords, setEndOfRecords] = useState(false);
+
   const limit = 25;
 
   const cancelChildrenRef = useRef(null);
@@ -77,9 +78,12 @@ const ClassificationSideBar = ({ taxon }) => {
                   !isFamilyOrAbove(parent.rank) ? 'g-italic' : ''
                 }`}
                 // TODO: This link is using two methods of navigation (pageid + variables method and to method). One should be removed
-                to={`/species/${parent.key}`}
-                pageId="speciesKey"
-                variables={{ key: parent.key }}
+                pageId={taxon?.key === taxon?.nubKey ? 'speciesKey' : 'datasetKey'}
+                variables={
+                  taxon?.key === taxon?.nubKey
+                    ? { key: parent.key }
+                    : { key: `${taxon.datasetKey}/species/${parent.key}` }
+                }
               >
                 {parent?.canonicalName || parent?.scientificName}
                 {/*                 <span dangerouslySetInnerHTML={{ __html: parent.formattedName }} />
@@ -122,9 +126,12 @@ const ClassificationSideBar = ({ taxon }) => {
                 <DynamicLink
                   className={`g-underline g-pointer-events-auto g.ml-${idx}`}
                   // TODO: This link is using two methods of navigation (pageid + variables method and to method). One should be removed
-                  to={`/species/${child.key}`}
-                  pageId="speciesKey"
-                  variables={{ key: child.key }}
+                  pageId={taxon?.key === taxon?.nubKey ? 'speciesKey' : 'datasetKey'}
+                  variables={
+                    taxon?.key === taxon?.nubKey
+                      ? { key: child.key }
+                      : { key: `${taxon.datasetKey}/species/${child.key}` }
+                  }
                 >
                   <span className={`${!isFamilyOrAbove(child.rank) ? 'g-italic' : ''}`}>
                     {child?.canonicalName || child?.scientificName}

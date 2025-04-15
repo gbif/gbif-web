@@ -1,11 +1,7 @@
-import { TaxonClassification } from '@/components/classification';
-import { ClientSideOnly } from '@/components/clientSideOnly';
 import { useCount } from '@/components/count';
-import * as charts from '@/components/dashboard';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FeatureList, Homepage } from '@/components/highlights';
 import { HyperText } from '@/components/hyperText';
-import { AdHocMapThumbnail } from '@/components/maps/mapThumbnail';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';
@@ -16,6 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import TaxonBreakdown from './BreakDown';
 import Citation from './Citation';
+import ClassificationSideBar from './ClassificationSideBar';
 import { DistributionsTable } from './Distributions';
 import Synonyms from './Synonyms';
 import TaxonImages from './TaxonImages';
@@ -61,7 +58,7 @@ export default function AboutNonBackbone({ headLess = false }: { headLess?: bool
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {taxon.parents && (
+                  {/*  {taxon.parents && (
                     <div>
                       <TaxonClassification
                         showIcon={false}
@@ -74,7 +71,7 @@ export default function AboutNonBackbone({ headLess = false }: { headLess?: bool
                         }))}
                       />
                     </div>
-                  )}
+                  )} */}
                   {taxon.publishedIn && (
                     <div>
                       <FormattedMessage id="taxon.publishedIn" />{' '}
@@ -169,7 +166,8 @@ export default function AboutNonBackbone({ headLess = false }: { headLess?: bool
 
           {!removeSidebar && (
             <aside className="g-flex-none g-w-96 g-ms-4">
-              {!!count && count > 0 && (
+              <ClassificationSideBar taxon={taxon} />
+              {/* {!!count && count > 0 && (
                 <>
                   <div className="g-max-w-64 md:g-max-w-96 g-mb-4">
                     <AdHocMapThumbnail
@@ -184,7 +182,7 @@ export default function AboutNonBackbone({ headLess = false }: { headLess?: bool
                     <charts.DataQuality predicate={predicate} className="g-mb-4" />
                   </ClientSideOnly>
                 </>
-              )}
+              )} */}
 
               <GbifLinkCard path={`/species/${taxon.key}`} />
             </aside>
