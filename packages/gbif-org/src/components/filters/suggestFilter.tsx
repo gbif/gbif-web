@@ -362,7 +362,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
             </div>
           )}
           <AsyncOptions
-            loading={facetLoading && (!facetSuggestions || facetSuggestions?.length === 0)}
+            loading={facetLoading || (!facetSuggestions && !!facetQuery)}
             error={facetError}
             className="g-p-2 g-pt-2 g-px-4"
           >

@@ -381,7 +381,7 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
 
             <AsyncOptions
               className="g-p-2 g-pt-0 g-px-4"
-              loading={loading && (!facetSuggestions || facetSuggestions?.length === 0)}
+              loading={loading || !facetSuggestions}
               error={error}
             >
               {facetSuggestions && facetSuggestions.length > 0 && (

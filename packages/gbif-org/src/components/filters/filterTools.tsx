@@ -879,16 +879,20 @@ export function AsyncOptions({
     );
   }
   if (loading) {
-    return (
-      <div className={cn(className)}>
-        <SkeletonOption className="g-w-full g-mb-2" />
-        <SkeletonOption className="g-w-36 g-max-w-full g-mb-2" />
-        <SkeletonOption className="g-max-w-full g-w-48 g-mb-2" />
-        <SkeletonOption className="g-max-w-full g-w-64 g-mb-2" />
-      </div>
-    );
+    return <SkeletonOptions className={className} />;
   }
   return children ?? null;
+}
+
+export function SkeletonOptions({ className }: { className?: string }) {
+  return (
+    <div className={cn(className)}>
+      <SkeletonOption className="g-w-full g-mb-2" />
+      <SkeletonOption className="g-w-36 g-max-w-full g-mb-2" />
+      <SkeletonOption className="g-max-w-full g-w-48 g-mb-2" />
+      <SkeletonOption className="g-max-w-full g-w-64 g-mb-2" />
+    </div>
+  );
 }
 
 export type FilterSummaryType = {
