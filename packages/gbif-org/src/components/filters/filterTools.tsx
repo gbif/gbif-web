@@ -86,6 +86,7 @@ export type filterWildcardConfig = filterConfigShared & {
   keepCase?: boolean;
   suggestQuery: string;
   disallowLikeFilters?: boolean;
+  defaultDescription?: () => React.ReactNode;
 };
 
 export type filterEnumConfig = filterConfigShared & {

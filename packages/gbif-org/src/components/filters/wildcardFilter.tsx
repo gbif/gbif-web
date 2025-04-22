@@ -24,6 +24,7 @@ import {
   ExistsSection,
   FilterSummaryType,
   filterWildcardConfig,
+  getAsQuery,
   getFilterSummary,
   WildcardQuery,
 } from './filterTools';
@@ -53,6 +54,7 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
       about,
       allowExistence,
       allowNegations,
+      defaultDescription,
     }: WildcardProps,
     ref
   ) => {
@@ -65,6 +67,7 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
     const [selected, setSelected] = useState<string[]>([]);
     const [filterBeforeHash, setFilterBeforeHash] = useState<string | undefined>(undefined);
     const [q, setQ] = useState<string>('');
+    const [prunedFilter, setPrunedFilter] = useState<FilterType>({});
     const [backupFilter, setBackupFilter] = useState<FilterType | undefined>(undefined);
     const [filterSummary, setFilterSummary] = useState<FilterSummaryType>(
       getFilterSummary(filter, filterHandle)
@@ -81,10 +84,8 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
     const About = about;
 
     useEffect(() => {
-      const predicates = [];
-      if (searchContext?.scope) {
-        predicates.push(searchContext.scope);
-      }
+      const query = getAsQuery({ filter: prunedFilter, searchContext, searchConfig });
+      const predicates = [query];
       let queryString = q;
       let postfix = '';
       if (queryString.indexOf('*') === -1 && queryString.indexOf('?') === -1) {
@@ -117,16 +118,24 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
           },
         },
       });
-    }, [size, q, filterBeforeHash, keepCase]);
+      // We are tracking filter changes via a hash in this case
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [
+      size,
+      q,
+      filterBeforeHash,
+      keepCase,
+      load,
+      searchContext,
+      filterHandle,
+      queryKey,
+      searchConfig,
+      filterBeforeHash,
+    ]);
 
     const loadMore = useCallback(() => {
       setSize(size + 50);
     }, [size]);
-
-    const search = useCallback((q: string) => {
-      setSize(initialSize);
-      setQ(q);
-    }, []);
 
     useEffect(() => {
       // filter has changed updateed the listed of selected values
@@ -136,7 +145,9 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
       // secondly keep track the facets without the current filter
       const prunedFilter = cleanUpFilter(cloneDeep(filter));
       delete prunedFilter.must?.[filterHandle];
+      delete prunedFilter.mustNot?.[filterHandle];
       setFilterBeforeHash(hash(prunedFilter));
+      setPrunedFilter(prunedFilter);
 
       const filterSummary = getFilterSummary(filter, filterHandle);
       setFilterSummary(filterSummary);
@@ -250,10 +261,15 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
       );
     }
 
+    const DefaultDescription = defaultDescription;
+
     const cardinality = data?.search?.cardinality?.total ?? 0;
     const hasSuggestions = data?.search?.facet?.field && data?.search?.facet?.field?.length > 0;
     const hasMoreSuggestions =
       hasSuggestions && cardinality > (data?.search?.facet?.field?.length ?? 0);
+    const hasFilters =
+      Object.keys(prunedFilter.must ?? {}).length > 0 ||
+      Object.keys(prunedFilter.mustNot ?? {}).length > 0;
 
     return (
       <div className={cn('g-flex g-flex-col g-max-h-[100dvh]', className)}>
@@ -330,6 +346,11 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
               />
             </div>
           </div>
+          {q === '' && DefaultDescription && (
+            <div className="g-text-slate-600 g-text-sm g-bg-slate-50 g-border g-border-slate-100 g-p-2 g-mx-2 g-px-4 g-rounded">
+              <DefaultDescription />
+            </div>
+          )}
           <div role="group" className="g-text-sm g-text-slate-700">
             <div className="g-p-2 g-pt-0 g-px-4">
               {!disallowLikeFilters && q !== '' && !patternAlreadySelected && (
@@ -366,6 +387,14 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
               {facetSuggestions && facetSuggestions.length > 0 && (
                 <div>
                   <StripeLoader active={loading} />
+                  {hasFilters && q !== '' && (
+                    <div className="g-text-slate-500 g-text-xs g-border-t g-mx-4 g-py-2">
+                      <FormattedMessage
+                        id="filterSupport.suggestionsWithinFilter"
+                        defaultMessage="Suggestions within your current filter"
+                      />
+                    </div>
+                  )}
                   <div className="g-p-2 g-pt-0 g-px-4">
                     {facetSuggestions.map((x) => {
                       return (

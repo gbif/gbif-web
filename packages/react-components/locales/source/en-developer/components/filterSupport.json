@@ -35,6 +35,7 @@
   "add": "Add",
   "invalidDate": "Invalid date",
   "invalidRange": "Invalid range",
+  "suggestionsWithinFilter": "Suggestions constrained by the current filter",
   "location": {
     "geometry": "Geometry",
     "map": "Map",

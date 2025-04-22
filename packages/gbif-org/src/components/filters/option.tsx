@@ -43,7 +43,7 @@ export const Option = React.forwardRef(
         {/* <Icon className="g-flex-none g-me-2 g-mt-1 g-text-primary-500" /> */}
         <div className="g-flex-auto g-overflow-hidden">
           <div className="">{children}</div>
-          {helpText && <div className="g-text-slate-400 g-text-sm">{helpText}</div>}
+          {helpText && <div className="g-text-slate-500 g-text-sm">{helpText}</div>}
         </div>
       </label>
     );
