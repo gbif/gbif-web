@@ -238,7 +238,11 @@ const typeDef = gql`
     organismId(size: Int, from: Int): [OccurrenceFacetResult_string]
     organismQuantityType(size: Int, from: Int): [OccurrenceFacetResult_string]
     parentEventId(size: Int, from: Int): [OccurrenceFacetResult_string]
-    preparations(size: Int, from: Int): [OccurrenceFacetResult_string]
+    preparations(
+      size: Int
+      from: Int
+      include: String
+    ): [OccurrenceFacetResult_string]
     programme(size: Int, from: Int): [OccurrenceFacetResult_string]
     projectId(size: Int, from: Int): [OccurrenceFacetResult_string]
     protocol(size: Int, from: Int): [OccurrenceFacetResult_string]

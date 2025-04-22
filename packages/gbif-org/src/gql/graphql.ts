@@ -5759,6 +5759,7 @@ export type OccurrenceFacetPhylumKeyArgs = {
 
 export type OccurrenceFacetPreparationsArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
+  include?: InputMaybe<Scalars['String']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 

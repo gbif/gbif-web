@@ -65,13 +65,13 @@ export const preparationsConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrencePreparationsFacet($predicate: Predicate, $size: Int){
+    query OccurrencePreparationsFacet($predicate: Predicate, $size: Int, $include: String){
       search: occurrenceSearch(predicate: $predicate) {
         cardinality {
           total: preparations
         }
         facet {
-          field: preparations(size: $size) {
+          field: preparations(size: $size, include: $include) {
             name: key
             count
           }
