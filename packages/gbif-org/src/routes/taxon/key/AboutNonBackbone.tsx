@@ -42,7 +42,7 @@ export default function AboutNonBackbone({ headLess = false }: { headLess?: bool
 
   if (!taxon) return null;
   return (
-    <ArticleContainer className="g-bg-slate-100 g-pt-4">
+    <ArticleContainer className={`g-bg-slate-100 ${headLess ? 'g-p-4 lg:g-pt-4' : ''}`}>
       <ArticleTextContainer className="g-max-w-screen-xl">
         <div className={`${removeSidebar ? '' : 'g-flex'}`}>
           <div className="g-flex-grow">

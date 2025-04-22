@@ -56,6 +56,7 @@ const TAXON_BREAKDOWN = /* GraphQL */ `
         children {
           id
           label
+          name
           rank
           species
         }

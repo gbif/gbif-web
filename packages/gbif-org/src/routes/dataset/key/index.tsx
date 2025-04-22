@@ -66,7 +66,7 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
         },
         {
           path: 'verbatim',
-          element: <VerbatimTaxon />,
+          element: <VerbatimTaxon headLess={true} />,
         },
       ],
     },

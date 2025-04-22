@@ -95,7 +95,7 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
     const totalCount = root.reduce((acc, cur) => acc + cur?.species, 0);
     try {
       const colors = Highcharts.getOptions().colors;
-      const categories = root.map((t) => t.label);
+      const categories = root.map((t) => t.name);
       const data = root.map((k, idx) => {
         const children_ = isArray(k.children) ? k.children : k.children.results;
         const children = processChildren(children_ || []);
@@ -105,7 +105,7 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
             ? [
                 ...children,
                 {
-                  label: `Other / Unknown ${children?.[0]?.rank || ''}`,
+                  name: `Other / Unknown ${children?.[0]?.rank || ''}`,
                   species: k?.species - sum,
                   color: chartColors.OTHER,
                 },
@@ -117,8 +117,8 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
           y: k?.species,
           _id: k.id,
           drilldown: {
-            name: k.label, //  k.name,
-            categories: c.map((c) => c.label),
+            name: k.name, //  k.name,
+            categories: c.map((c) => c.name),
             data: c,
           },
         };

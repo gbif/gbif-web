@@ -101,7 +101,7 @@ export const NonBackbonePresentation = ({
         slowTaxonLoading: slowTaxonLoading,
       }}
     >
-      <ArticleContainer className="g-bg-slate-100 ">
+      <ArticleContainer className="g-bg-slate-100 g-p-0 lg:g-pb-0">
         <ArticleTextContainer className="g-max-w-screen-xl">
           <Card>
             <SectionTabs isNub={false} hasVerbatim={data.taxon?.origin === 'SOURCE'} />
