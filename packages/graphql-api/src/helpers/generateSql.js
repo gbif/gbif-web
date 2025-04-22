@@ -145,6 +145,13 @@ const WHERE_PREDICATE_RESTRICTIONS = {
         value: 'true',
       },
     ],
+    COUNTRY: [
+      {
+        type: 'equals',
+        key: 'HAS_COORDINATE',
+        value: 'true',
+      },
+    ],
   },
 };
 
@@ -380,6 +387,10 @@ export default async function generateSql(parameters) {
           ${coordinateUncertaintyInMeters}
         )`,
       groupBy: 'mgrsCellCode',
+    },
+    COUNTRY: {
+      dimension: `countryCode`,
+      groupBy: 'countryCode',
     },
   };
   if (spatial) {
