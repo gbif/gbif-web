@@ -35,6 +35,7 @@
   "add": "Add",
   "invalidDate": "",
   "invalidRange": "",
+  "suggestionsWithinFilter": "",
   "location": {
     "geometry": "Geometry",
     "map": "Map",
