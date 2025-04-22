@@ -76,7 +76,7 @@ function ErrorComponent({
   errorMessage?: React.ReactNode;
 }): React.ReactElement {
   // An error has occurred
-  let msg = `Thank you for reporting this issue. Please describe what happened.\n\n\n\n`;
+  /*   let msg = `Thank you for reporting this issue. Please describe what happened.\n\n\n\n`;
 
   if (typeof error?.stack === 'string') {
     msg += '\n**Error message for diagnostics**\n```\n' + error?.stack + '\n```';
@@ -88,12 +88,12 @@ function ErrorComponent({
 
   if (description) {
     msg += `\nDescription: ${description}`;
-  }
+  } */
 
   if (type === 'BLOCK') {
-    return <ErrorBlock errorMessage={errorMessage || msg} className={className} />;
+    return <ErrorBlock errorMessage={errorMessage} className={className} />;
   }
-  return <ErrorPage error={error} errorMessage={errorMessage || msg} />;
+  return <ErrorPage error={error} errorMessage={errorMessage} />;
 }
 
 function ErrorBlock({
@@ -131,7 +131,7 @@ export function ErrorPage({
   errorMessage,
 }: {
   error: Error;
-  errorMessage: string;
+  errorMessage?: React.ReactNode;
 }): React.ReactElement {
   const [showStack, setShowStack] = useState(false);
 
