@@ -45,7 +45,7 @@
   "features": {
     "isClustered": "",
     "isSamplingEvent": "Описи, обліки або збори",
-    "isTreament": "Таксономічна картка",
+    "isTreatment": "",
     "isSequenced": "",
     "hasIssues": "",
     "hasCoordinates": "",
