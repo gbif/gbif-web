@@ -1,0 +1,42 @@
+{
+  "participant": {
+    "participationStatus": {
+      "longForm": {
+        "VOTING": "Participante votante",
+        "ASSOCIATE": "Participante asociado",
+        "OBSERVER": "Participante observador",
+        "AFFILIATE": "Afiliado",
+        "FORMER": "Antiguo participante",
+        "undefined": "Desconocida"
+      },
+      "description": {
+        "VOTING": "Un participante en GBIF con derecho a voto de",
+        "ASSOCIATE": "Un participante asociado de",
+        "OBSERVER": "Un País Observador de GBIF de",
+        "AFFILIATE": "Un participante afiliado de",
+        "FORMER": "Un Antiguo Participante en GBIF de",
+        "undefined": "Desconocida"
+      },
+      "type": {
+        "OTHER": {
+          "description": {
+            "VOTING": "Una organización participante en GBIF con derecho a voto de",
+            "ASSOCIATE": "Una organización participante asociada de",
+            "OBSERVER": "Una organización participante observadora de",
+            "AFFILIATE": "Una organización participante afiliada de ",
+            "FORMER": "Una organización antigua participante de",
+            "undefined": "Desconocida"
+          },
+          "longForm": {
+            "VOTING": "Organización participante con derecho a voto",
+            "ASSOCIATE": "Organización participante asociada",
+            "OBSERVER": "Organización participante observadora",
+            "AFFILIATE": "Organización afiliada",
+            "FORMER": "Organización antigua participante",
+            "undefined": "Desconocida"
+          }
+        }
+      }
+    }
+  }
+}
