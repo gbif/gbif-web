@@ -1,14 +1,22 @@
 {
   "features": "Eigenschappen",
+  "options": {
+    "includeAuthorship": "Moet worden gedefinieerd"
+  },
   "citations": "Citaties",
   "occurrences": "Voorkomens",
   "numberSpecimens": "Aantal exemplaren",
   "gbifNumberSpecimens": "Exemplaren in GBIF",
   "title": "Titel",
   "titleAndAbstract": "Titel en samenvatting",
+  "altmetric": "",
   "registered": "Geregistreerd",
   "hostedDatasets": "Gehoste datasets",
   "pubDatasets": "Gepubliceerde datasets",
+  "commonName": "Lokale naam",
+  "images": "Multimedia",
+  "species": "",
+  "parents": "",
   "institution": "Instelling",
   "collection": "Verzameling",
   "collectionCount": "Collecties",
