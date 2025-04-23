@@ -22,7 +22,7 @@ export function CountryResult({
           <DynamicLink
             className="hover:g-text-primary-500 g-flex g-items-center g-gap-2"
             pageId="countryKey"
-            variables={{ key: country.countryCode }}
+            variables={{ countryCode: country.countryCode }}
           >
             <div className="g-flex-1">
               <FormattedMessage id={`enums.countryCode.${country.countryCode}`} />
