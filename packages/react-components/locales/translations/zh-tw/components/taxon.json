@@ -16,6 +16,7 @@
   "source": "來源",
   "specimenIsTypeOf": "等於 {is}",
   "typeMaterial": "等於 {is}",
+  "treatments": "必須定義",
   "more": "更多",
   "less": "等於 {is}",
   "dna": "去氧核醣核酸",
@@ -46,5 +47,15 @@
     "term": "條款",
     "value": "數值",
     "coreRecord": ""
+  },
+  "tradeRestrictions": "貿易限制",
+  "cites": "",
+  "immediateChildren": "直接子代",
+  "errors": {
+    "treatments": "必須定義",
+    "distributions": "必須定義",
+    "verbatim": "必須定義",
+    "typeMaterial": "必須定義",
+    "vernacularNames": "必須定義"
   }
 }
