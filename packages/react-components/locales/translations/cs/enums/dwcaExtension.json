@@ -1,6 +1,7 @@
 {
   "http://rs.tdwg.org/dwc/terms/Occurrence": "Výskyt",
   "http://rs.tdwg.org/ac/terms/Multimedia": "Audubon multimedia",
+  "http://rs.gbif.org/terms/1.0/DNADerivedData": "Data odvozená z DNA",
   "http://data.ggbn.org/schemas/ggbn/terms/Amplification": "Zesílení",
   "http://data.ggbn.org/schemas/ggbn/terms/Cloning": "Klonování",
   "http://data.ggbn.org/schemas/ggbn/terms/GelImage": "GelImage",
@@ -21,5 +22,6 @@
   "http://rs.tdwg.org/dwc/terms/MeasurementOrFact": "Měření nebo fakt",
   "http://rs.gbif.org/terms/1.0/Multimedia": "Multimédia",
   "http://rs.gbif.org/terms/1.0/Reference": "Reference",
-  "http://rs.tdwg.org/dwc/terms/ResourceRelationship": "Vztah ke zdroji"
+  "http://rs.tdwg.org/dwc/terms/ResourceRelationship": "Vztah ke zdroji",
+  "http://eol.org/schema/reference/Reference": "EOL Reference"
 }
