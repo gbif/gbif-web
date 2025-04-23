@@ -29,7 +29,13 @@
     "between": "年 {from} 到 {to}",
     "lt": "年前 {to}",
     "gt": "年后 {from}",
-    "e": "年份是 {from}"
+    "e": "年份是 {from}",
+    "select": {
+      "equals": "是",
+      "between": "介于",
+      "lessThanOrEquals": "在结束前",
+      "greaterThanOrEquals": "开始后"
+    }
   },
   "coordinateUncertainty": {
     "between": "坐标不确定性 {from}米 到 {to}米",
