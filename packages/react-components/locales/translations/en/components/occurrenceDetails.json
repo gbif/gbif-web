@@ -45,7 +45,7 @@
   "features": {
     "isClustered": "Has related records",
     "isSamplingEvent": "Sampling event",
-    "isTreatment": "",
+    "isTreatment": "Taxonomic treatment",
     "isSequenced": "Sequenced",
     "hasIssues": "Issues and remarks",
     "hasCoordinates": "Has coordinates",
