@@ -16,6 +16,7 @@
   "source": "Fonte",
   "specimenIsTypeOf": "Iguais {is}",
   "typeMaterial": "Iguais {is}",
+  "treatments": "",
   "more": "mais",
   "less": "Iguais {is}",
   "dna": "",
@@ -46,5 +47,15 @@
     "term": "Termo",
     "value": "Valor",
     "coreRecord": ""
+  },
+  "tradeRestrictions": "Restrições comerciais",
+  "cites": "",
+  "immediateChildren": "Filhos imediatos",
+  "errors": {
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": ""
   }
 }
