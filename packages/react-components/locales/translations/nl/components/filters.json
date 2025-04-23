@@ -427,7 +427,7 @@
   },
   "isInCluster": {
     "name": "Is onderdeel van een cluster",
-    "count": "",
+    "count": "Moet worden gedefinieerd",
     "description": "Of er automatisch verwante gegevens zijn gevonden."
   },
   "isSequenced": {
