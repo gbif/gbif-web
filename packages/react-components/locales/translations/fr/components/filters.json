@@ -427,7 +427,7 @@
   },
   "isInCluster": {
     "name": "Est dans le regroupement",
-    "count": "",
+    "count": "Doit être défini",
     "description": "Est-ce que l'enregistrement a été déterminé à avoir des enregistrements liés."
   },
   "isSequenced": {
