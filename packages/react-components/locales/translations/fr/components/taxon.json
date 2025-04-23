@@ -16,6 +16,7 @@
   "source": "Source",
   "specimenIsTypeOf": "",
   "typeMaterial": "",
+  "treatments": "Doit être défini",
   "more": "plus",
   "less": "",
   "dna": "ADN",
@@ -46,5 +47,15 @@
     "term": "Terme",
     "value": "Valeur",
     "coreRecord": ""
+  },
+  "tradeRestrictions": "Restrictions commerciales",
+  "cites": "CITES",
+  "immediateChildren": "Descendants directs",
+  "errors": {
+    "treatments": "Doit être défini",
+    "distributions": "Doit être défini",
+    "verbatim": "Doit être défini",
+    "typeMaterial": "Doit être défini",
+    "vernacularNames": "Doit être défini"
   }
 }
