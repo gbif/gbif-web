@@ -25,6 +25,7 @@
     "range": "Range or single value",
     "rangeExample": "E.g. 1000,2000",
     "wildcard": "Search using * and ? as wildcards",
+    "dateTemplate": "",
     "locationID": "Search by location ID (case sensitive)"
   },
   "ternary": {
@@ -33,6 +34,7 @@
     "either": "Either"
   },
   "loadMore": "More",
+  "loading": "Loading",
   "noResults": "No results",
   "occurrenceClustersView": {
     "about": "About",
@@ -55,5 +57,19 @@
       "SPECIMEN": "Specimen",
       "SEQUENCE": "Sequence"
     }
+  },
+  "crossContentSearch": {
+    "title": "Search",
+    "description": "",
+    "noSearchTermsEntered": "No search terms entered",
+    "placeholder": "",
+    "categories": {
+      "speciesSearch": "Species",
+      "datasetSearch": "Datasets",
+      "publisherSearch": "Publishers",
+      "occurrenceSearch": "Occurrences",
+      "resourceSearch": ""
+    },
+    "seeAll": "See all"
   }
 }

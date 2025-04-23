@@ -16,6 +16,7 @@
   "source": "Source",
   "specimenIsTypeOf": "of",
   "typeMaterial": "Type material",
+  "treatments": "",
   "more": "more",
   "less": "less",
   "dna": "DNA",
@@ -46,5 +47,15 @@
     "term": "Term",
     "value": "Value",
     "coreRecord": "Core record"
+  },
+  "tradeRestrictions": "Trade restrictions",
+  "cites": "CITES",
+  "immediateChildren": "Immediate children",
+  "errors": {
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": ""
   }
 }

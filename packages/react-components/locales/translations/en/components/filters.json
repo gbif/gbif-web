@@ -426,9 +426,9 @@
     "description": "The person, people, groups or organizations responsible for determining the scientific name of the Organism."
   },
   "isInCluster": {
-    "name": "Is in cluster",
-    "count": "{num, plural, one { is in cluster } other {# are in clusters}}",
-    "description": "Whether the record was determined to have related records."
+    "name": "Has related records",
+    "count": "",
+    "description": ""
   },
   "isSequenced": {
     "name": "Is sequenced",
