@@ -1,5 +1,8 @@
 {
   "features": "Características",
+  "options": {
+    "includeAuthorship": ""
+  },
   "citations": "Citações",
   "occurrences": "Ocorrências",
   "numberSpecimens": "Número de espécimes",
@@ -10,7 +13,14 @@
   "registered": "Registado",
   "hostedDatasets": "Conjuntos de dados alojados",
   "pubDatasets": "Conjuntos de dados publicados",
+  "commonName": "",
+  "images": "Multimédia",
+  "species": "",
+  "parents": "",
   "institution": "Instituição",
   "collection": "Coleção",
-  "collectionCount": "Coleções"
+  "collectionCount": "Coleções",
+  "active": "",
+  "activeInstitution": "",
+  "activeCollection": ""
 }
