@@ -16,6 +16,7 @@
   "source": "来源",
   "specimenIsTypeOf": "等于 {is}",
   "typeMaterial": "等于 {is}",
+  "treatments": "必须定义",
   "more": "更多",
   "less": "等于 {is}",
   "dna": "脱氧核糖核酸",
@@ -46,5 +47,15 @@
     "term": "术语",
     "value": "值",
     "coreRecord": ""
+  },
+  "tradeRestrictions": "贸易限制",
+  "cites": "引用",
+  "immediateChildren": "直系亲属",
+  "errors": {
+    "treatments": "必须定义",
+    "distributions": "必须定义",
+    "verbatim": "必须定义",
+    "typeMaterial": "必须定义",
+    "vernacularNames": "必须定义"
   }
 }
