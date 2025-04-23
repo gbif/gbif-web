@@ -16,6 +16,7 @@
   "source": "Źródło",
   "specimenIsTypeOf": "",
   "typeMaterial": "",
+  "treatments": "Musi być zdefiniowany",
   "more": "więcej ",
   "less": "",
   "dna": "DNA",
@@ -46,5 +47,15 @@
     "term": "Pojęcie",
     "value": "Wartość",
     "coreRecord": ""
+  },
+  "tradeRestrictions": "Ograniczenia handlowe",
+  "cites": "Konwencja waszyngtońska (CITES)",
+  "immediateChildren": "Bezpośrednio podporządkowane taksony",
+  "errors": {
+    "treatments": "Musi być zdefiniowany",
+    "distributions": "Musi być zdefiniowany",
+    "verbatim": "Musi być zdefiniowany",
+    "typeMaterial": "Musi być zdefiniowany",
+    "vernacularNames": "Musi być zdefiniowany"
   }
 }
