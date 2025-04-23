@@ -25,6 +25,7 @@
     "range": "Przedział albo pojedyncza wartość",
     "rangeExample": "",
     "wildcard": "Szukaj używając * i ? jako symboli wieloznacznych",
+    "dateTemplate": "Musi być zdefiniowany",
     "locationID": ""
   },
   "ternary": {
@@ -33,6 +34,7 @@
     "either": ""
   },
   "loadMore": "Więcej",
+  "loading": "Ładowanie",
   "noResults": "",
   "occurrenceClustersView": {
     "about": "Informacje",
@@ -55,5 +57,19 @@
       "SPECIMEN": "Okaz",
       "SEQUENCE": "Sekwencja"
     }
+  },
+  "crossContentSearch": {
+    "title": "Wyszukaj",
+    "description": "Musi być zdefiniowany",
+    "noSearchTermsEntered": "Nie wpisano terminów wyszukiwania",
+    "placeholder": "Musi być zdefiniowany",
+    "categories": {
+      "speciesSearch": "Gatunek\n",
+      "datasetSearch": "Zbiory danych",
+      "publisherSearch": "Wydawcy",
+      "occurrenceSearch": "Wystąpienia",
+      "resourceSearch": "Musi być zdefiniowany"
+    },
+    "seeAll": "Zobacz wszystko"
   }
 }
