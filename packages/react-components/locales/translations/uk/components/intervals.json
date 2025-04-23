@@ -29,7 +29,13 @@
     "between": "",
     "lt": "",
     "gt": "",
-    "e": ""
+    "e": "",
+    "select": {
+      "equals": "Дорівнює",
+      "between": "Між",
+      "lessThanOrEquals": "До закінчення",
+      "greaterThanOrEquals": "Після початку"
+    }
   },
   "coordinateUncertainty": {
     "between": "",
