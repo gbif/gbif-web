@@ -16,6 +16,7 @@
   "source": "Zdroj",
   "specimenIsTypeOf": "Rovná se {from}",
   "typeMaterial": "Rovná se {from}",
+  "treatments": "Musí být definováno",
   "more": "více",
   "less": "Rovná se {from}",
   "dna": "DNA",
@@ -46,5 +47,15 @@
     "term": "Termín",
     "value": "Hodnota",
     "coreRecord": ""
+  },
+  "tradeRestrictions": "Obchodní omezení",
+  "cites": "CITES",
+  "immediateChildren": "přímo podřazená položka",
+  "errors": {
+    "treatments": "Musí být definováno",
+    "distributions": "Musí být definováno",
+    "verbatim": "Musí být definováno",
+    "typeMaterial": "Musí být definováno",
+    "vernacularNames": "Musí být definováno"
   }
 }
