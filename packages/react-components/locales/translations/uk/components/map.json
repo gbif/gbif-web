@@ -1,20 +1,70 @@
 {
-    "styles": {
-        "satellite": "",
-        "natural": "",
-        "bright": "",
-        "dark": "Темний",
-        "outdoor": ""
-    },
-    "projections": {
-        "ARCTIC": "Арктична",
-        "MERCATOR": "Меркатор",
-        "ANTARCTIC": "Антарктична",
-        "PLATE_CAREE": "Плате-Карре"
-    },
-    "failedToGetUserLocation": {
-        "title": "",
-        "message": ""
-    },
-    "filterByView": ""
+  "styles": {
+    "satellite": "",
+    "natural": "",
+    "bright": "",
+    "dark": "Темний",
+    "outdoor": ""
+  },
+  "projections": {
+    "ARCTIC": "Арктична",
+    "MERCATOR": "Меркатор",
+    "ANTARCTIC": "Антарктична",
+    "PLATE_CAREE": "Плате-Карре"
+  },
+  "failedToGetUserLocation": {
+    "title": "",
+    "message": ""
+  },
+  "filterByView": "",
+  "projection": "Проєкція карти",
+  "anyYear": "Будь-який рік",
+  "exploreArea": "Переглянути знахідки з поточної області",
+  "explore": "Переглянути",
+  "generatedDateAgo": "",
+  "style": "Відображення карти",
+  "filters": "Фільтри",
+  "select": "Обрати",
+  "custom": "Налаштувати",
+  "baseMap": "Стиль базової карти",
+  "binning": "Позначки",
+  "year": "Рік",
+  "chooseColors": "Кольори",
+  "clickToSearchArea": "Клікніть по карті для перегляду знахідок",
+  "predefined": {
+    "CLASSIC_HEX": "Класичні шестикутники",
+    "CLASSIC": "Класичні точки",
+    "STREETS": "Вулиці",
+    "GLACIER": "Льодовик",
+    "GREEN": "",
+    "CUSTOM": "Налаштувати"
+  },
+  "basemap": {
+    "CLASSIC": "Пурпуровий",
+    "LIGHT": "Світлий (без підписів)",
+    "LIGHT_DETAILS": "Світлий",
+    "DARK": "Темний (без підписів)",
+    "DARK_DETAILS": "Темний",
+    "OSM": "Шляхи"
+  },
+  "bin": {
+    "PIXEL": "Точки",
+    "SMALL_HEX": "Маленькі шестикутники",
+    "LARGE_HEX": "Шестикутники",
+    "SMALL_SQUARE": "Маленькі квадрати",
+    "LARGE_SQUARE": "Квадрати"
+  },
+  "colors": {
+    "CLASSIC": "Класичні",
+    "FIRE": "Полум'яні",
+    "GLACIER": "Льодовик",
+    "GREEN_POINT": "Зелені",
+    "PURPLE_YELLOW": "Пурпурово-жовті",
+    "PURPLE_HEAT": "Пурпуровогарячі",
+    "BLUE_HEAT": "Відтінки синього",
+    "ORANGE_HEAT": "Помаранчеві",
+    "GREEN": "Зелені",
+    "BLUE_CLUSTER": "Сині скупчення",
+    "ORANGE_CLUSTER": "Помаранчеві скупчення"
+  }
 }
