@@ -1,20 +1,70 @@
 {
-    "styles": {
-        "satellite": "Satellite",
-        "natural": "Nature",
-        "bright": "Lumineux",
-        "dark": "Sombre",
-        "outdoor": "Extérieur"
-    },
-    "projections": {
-        "ARCTIC": "Arctique",
-        "MERCATOR": "Mercator",
-        "ANTARCTIC": "Antarctique",
-        "PLATE_CAREE": "Plate carrée"
-    },
-    "failedToGetUserLocation": {
-        "title": "",
-        "message": ""
-    },
-    "filterByView": "Utiliser la zone visible comme filtre"
+  "styles": {
+    "satellite": "Satellite",
+    "natural": "Nature",
+    "bright": "Lumineux",
+    "dark": "Sombre",
+    "outdoor": "Extérieur"
+  },
+  "projections": {
+    "ARCTIC": "Arctique",
+    "MERCATOR": "Mercator",
+    "ANTARCTIC": "Antarctique",
+    "PLATE_CAREE": "Plate carrée"
+  },
+  "failedToGetUserLocation": {
+    "title": "",
+    "message": ""
+  },
+  "filterByView": "Utiliser la zone visible comme filtre",
+  "projection": "Projection",
+  "anyYear": "N'importe quelle année",
+  "exploreArea": "Explorez la zone",
+  "explore": "Explorer ",
+  "generatedDateAgo": "Doit être défini",
+  "style": "Style",
+  "filters": "Filtres",
+  "select": "Sélectionner",
+  "custom": "Personnalisé",
+  "baseMap": "Fond de carte",
+  "binning": "Groupement des données par classe",
+  "year": "Année",
+  "chooseColors": "Couleurs",
+  "clickToSearchArea": "Cliquez pour chercher une zone spécifique",
+  "predefined": {
+    "CLASSIC_HEX": "Hexagones classiques",
+    "CLASSIC": "Points classiques",
+    "STREETS": "Rues",
+    "GLACIER": "Glacier",
+    "GREEN": "Doit être défini",
+    "CUSTOM": "Personnalisé"
+  },
+  "basemap": {
+    "CLASSIC": "Magenta",
+    "LIGHT": "Clair (pas d’étiquettes)",
+    "LIGHT_DETAILS": "Clair",
+    "DARK": "Sombre (pas d’étiquettes)",
+    "DARK_DETAILS": "Sombre",
+    "OSM": "Routes"
+  },
+  "bin": {
+    "PIXEL": "Points",
+    "SMALL_HEX": "Petits hexagones",
+    "LARGE_HEX": "Hexagones",
+    "SMALL_SQUARE": "Petits carrés",
+    "LARGE_SQUARE": "Carrés"
+  },
+  "colors": {
+    "CLASSIC": "Classique",
+    "FIRE": "Feu",
+    "GLACIER": "Glacier",
+    "GREEN_POINT": "Vert",
+    "PURPLE_YELLOW": "Violet jaune",
+    "PURPLE_HEAT": "Violet chaud",
+    "BLUE_HEAT": "Bleu chaud",
+    "ORANGE_HEAT": "Orange chaud",
+    "GREEN": "Vert",
+    "BLUE_CLUSTER": "Groupe bleu",
+    "ORANGE_CLUSTER": "Groupe orange"
+  }
 }
