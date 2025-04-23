@@ -45,7 +45,7 @@
   "features": {
     "isClustered": "群集的",
     "isSamplingEvent": "采样事件",
-    "isTreament": "治疗",
+    "isTreatment": "必须定义",
     "isSequenced": "序列",
     "hasIssues": "问题和评论",
     "hasCoordinates": "有坐标",
