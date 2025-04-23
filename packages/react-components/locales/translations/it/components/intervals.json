@@ -1,0 +1,88 @@
+{
+  "description": {
+    "lt": "",
+    "lte": "",
+    "gt": "",
+    "gte": "",
+    "e": "",
+    "between": ""
+  },
+  "compact": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "compactMeters": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "compactTime": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "year": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": "",
+    "select": {
+      "equals": "",
+      "between": "",
+      "lessThanOrEquals": "",
+      "greaterThanOrEquals": ""
+    }
+  },
+  "coordinateUncertainty": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "depth": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "organismQuantity": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "sampleSizeValue": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "relativeOrganismQuantity": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "elevation": {
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "geoDistance": {
+    "short": "",
+    "description": ""
+  },
+  "units": {
+    "name": {
+      "km": "",
+      "m": "",
+      "mi": "",
+      "ft": ""
+    }
+  }
+}
