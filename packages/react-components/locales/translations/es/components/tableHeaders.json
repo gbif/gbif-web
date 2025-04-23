@@ -1,5 +1,8 @@
 {
   "features": "Atributos",
+  "options": {
+    "includeAuthorship": "Está documentado"
+  },
   "citations": "Citaciones",
   "occurrences": "Registros biológicos",
   "numberSpecimens": "Número de especímenes",
@@ -10,6 +13,8 @@
   "registered": "Registrado",
   "hostedDatasets": "Conjuntos de datos alojados",
   "pubDatasets": "Conjuntos de datos publicados",
+  "commonName": "Nombre común",
+  "images": "Multimedia",
   "species": "Número de especies",
   "parents": "Padres",
   "institution": "Institución",
