@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "",
-      "ASSOCIATE": "",
-      "OTHER_ASSOCIATE": "",
+      "VOTING": "Musí být definováno",
+      "ASSOCIATE": "Musí být definováno",
+      "OTHER_ASSOCIATE": "Musí být definováno",
       "FORMER": "Bývalý",
       "OBSERVER": "Pozorovatel",
-      "UNKNOWN": "",
+      "UNKNOWN": "Musí být definováno",
       "AFFILIATE": "Přidružení GBIF"
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "Musí být definováno",
+    "mapCaptionPublishers": "Musí být definováno",
     "role": "Role",
     "name": "Jméno",
     "participant": "Účastník",
     "type": "Typ",
     "memberSince": "Členem od",
     "all": "Vše",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
+    "countryParticipants": "Musí být definováno",
+    "publishersPerCountry": "Musí být definováno",
     "clear": "Vymazat",
     "headlines": {
       "nodesSteeringGroup": "Řídicí skupina uzlů",
