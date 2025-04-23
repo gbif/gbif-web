@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "",
-      "ASSOCIATE": "",
-      "OTHER_ASSOCIATE": "",
+      "VOTING": "必须定义",
+      "ASSOCIATE": "必须定义",
+      "OTHER_ASSOCIATE": "必须定义",
       "FORMER": "前任的",
       "OBSERVER": "观察员",
-      "UNKNOWN": "",
+      "UNKNOWN": "必须定义",
       "AFFILIATE": "GBIF 附属机构"
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "必须定义",
+    "mapCaptionPublishers": "必须定义",
     "role": "角色",
     "name": "名字",
     "participant": "成员",
     "type": "类型",
     "memberSince": "会员注册日期",
     "all": "全部",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
+    "countryParticipants": "必须定义",
+    "publishersPerCountry": "必须定义",
     "clear": "清除",
     "headlines": {
       "nodesSteeringGroup": "节点工作小组",
