@@ -1,0 +1,13 @@
+{
+  "homepage": {
+    "counts": {
+      "occurrences": "",
+      "datasets": "Datasets",
+      "publishers": "",
+      "literature": ""
+    },
+    "aboutGbifCountry": "Over GBIF {COUNTRY}",
+    "whatIsGbif": "Wat is GBIF?",
+    "search": ""
+  }
+}

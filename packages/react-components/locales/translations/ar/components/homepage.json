@@ -1,0 +1,13 @@
+{
+  "homepage": {
+    "counts": {
+      "occurrences": "سجلات التكرار",
+      "datasets": "مجموعات البيانات",
+      "publishers": "مؤسسات النشر",
+      "literature": "أبحاث علمية محكمة باستخدام بيانات"
+    },
+    "aboutGbifCountry": "حول \"جبيف\" {COUNTRY}",
+    "whatIsGbif": "ما هو  المرفق العالمي لمعلومات التنوع الحيوي \"جبيف\"",
+    "search": ""
+  }
+}
