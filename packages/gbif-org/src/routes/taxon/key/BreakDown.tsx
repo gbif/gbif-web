@@ -14,7 +14,8 @@ import { getBreakdown, getSourceTaxon } from './breakdownUtil';
 const fmIndex = rankEnum.indexOf('FAMILY');
 
 const TaxonBreakdown = ({ taxon, ...props }) => {
-  const [chartOptions, setChartOptions] = useState(null);
+  const [chartOptions, setChartOptions] = useState({});
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const createLink = useLink();
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
   const isBackbone = taxon?.nubKey === taxon?.key;
 
   useEffect(() => {
-    setChartOptions(null);
+    setChartOptions({});
     if (taxon.key) {
       getData();
     }
@@ -55,6 +56,8 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
 
   const getData = async () => {
     try {
+      setLoading(true);
+      setError(null);
       const { promise, cancel } = getBreakdown({ key: taxon.key });
       const { data, errors } = await promise;
       if (!data?.taxon?.checklistBankBreakdown) {
@@ -85,8 +88,11 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
         root = data.taxon?.checklistBankBreakdown;
       }
       initChart(root);
+      setLoading(false);
+      setError(null);
     } catch (error) {
       setError(error);
+      setLoading(false);
     }
   };
 
@@ -267,7 +273,7 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
   };
 
   return (
-    <Card loading={!chartOptions && !error} {...props}>
+    <Card loading={loading && !error} {...props}>
       <CardHeader options={null}>
         <CardTitle>
           <FormattedMessage id="taxon.breakdown" />

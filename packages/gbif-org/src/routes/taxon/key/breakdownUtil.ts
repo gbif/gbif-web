@@ -51,6 +51,7 @@ const TAXON_BREAKDOWN = /* GraphQL */ `
       checklistBankBreakdown {
         id
         label
+        name
         rank
         species
         children {
