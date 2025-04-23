@@ -1,6 +1,7 @@
 {
   "http://rs.tdwg.org/dwc/terms/Occurrence": "出現",
   "http://rs.tdwg.org/ac/terms/Multimedia": "奧杜邦多媒體",
+  "http://rs.gbif.org/terms/1.0/DNADerivedData": "衍生自 DNA 的資料",
   "http://data.ggbn.org/schemas/ggbn/terms/Amplification": "DNA 擴增",
   "http://data.ggbn.org/schemas/ggbn/terms/Cloning": "克隆",
   "http://data.ggbn.org/schemas/ggbn/terms/GelImage": "凝膠成像",
@@ -21,5 +22,6 @@
   "http://rs.tdwg.org/dwc/terms/MeasurementOrFact": "測量或事實",
   "http://rs.gbif.org/terms/1.0/Multimedia": "多媒體",
   "http://rs.gbif.org/terms/1.0/Reference": "參考文獻",
-  "http://rs.tdwg.org/dwc/terms/ResourceRelationship": "資源關係"
+  "http://rs.tdwg.org/dwc/terms/ResourceRelationship": "資源關係",
+  "http://eol.org/schema/reference/Reference": "EOL參考"
 }
