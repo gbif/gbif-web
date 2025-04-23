@@ -1,10 +1,10 @@
+import { ErrorBlock } from '@/components/ErrorBoundary';
 import { Button } from '@/components/ui/button';
+import rankEnum from '@/enums/basic/rank.json';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { useEffect, useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { getChildren } from '../search/views/tree/treeUtil';
-
-import rankEnum from '@/enums/basic/rank.json';
 
 const fmIndex = rankEnum.indexOf('FAMILY');
 
@@ -16,7 +16,7 @@ const ClassificationSideBar = ({ taxon }) => {
   const [childrenLoading, setChildrenLoading] = useState(false);
   const [offset, setOffset] = useState(0);
   const [endOfRecords, setEndOfRecords] = useState(false);
-
+  const [error, setError] = useState(null);
   const limit = 25;
 
   const cancelChildrenRef = useRef(null);
@@ -57,6 +57,9 @@ const ClassificationSideBar = ({ taxon }) => {
       setChildrenLoading(false);
     } catch (error) {
       setChildrenLoading(false);
+      if (error !== 'CANCEL_REQUEST') {
+        setError(error);
+      }
 
       console.error('Error loading children:', error);
     }
@@ -109,7 +112,18 @@ const ClassificationSideBar = ({ taxon }) => {
         {/*         <span dangerouslySetInnerHTML={{ __html: taxon?.formattedName }} />
          */}{' '}
       </div>
-      {children.length > 0 && (
+      {error && (
+        <ErrorBlock
+          errorMessage={
+            <FormattedMessage
+              id="taxon.errors.classificationChildren"
+              defaultMessage="Error loading children of this Taxon"
+            />
+          }
+        />
+      )}
+
+      {!error && children.length > 0 && (
         <div style={{ paddingLeft: '20px' }}>
           <span className="g-text-sm g-text-slate-500 g-mb-1">
             <FormattedMessage id="taxon.immediateChildren" />

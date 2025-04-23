@@ -100,6 +100,11 @@ const TAXON_QUERY = /* GraphQL */ `
     taxon(key: $key) {
       key
       nubKey
+      sourceTaxon {
+        key
+        references
+        datasetKey
+      }
       scientificName
       canonicalName
       origin

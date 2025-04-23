@@ -159,6 +159,7 @@ const typeDef = gql`
   }
 
   extend type Taxon {
+    sourceTaxon: Taxon
     """
     Lists all direct child usages for a name usage
     """

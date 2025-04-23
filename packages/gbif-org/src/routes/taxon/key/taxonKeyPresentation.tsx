@@ -23,6 +23,7 @@ import { FormattedMessage } from 'react-intl';
 import { Outlet } from 'react-router-dom';
 import Cites from './Cites';
 import { AboutContent, ApiContent } from './help';
+import SourceLink from './SourceLink';
 // create context to pass data to children
 export const TaxonKeyContext = createContext<{
   key?: string;
@@ -290,13 +291,13 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                     </GenericFeature>
                   )}
                   {isNub && (
-                    <GenericFeature>
-                      <Cites taxonName={data.taxon?.canonicalName} kingdom={data.taxon?.kingdom} />
-                    </GenericFeature>
+                    <Cites taxonName={data.taxon?.canonicalName} kingdom={data.taxon?.kingdom} />
                   )}
+                  {isNub && <SourceLink taxon={data.taxon} />}
                 </FeatureList>
               </HeaderInfoMain>
             </HeaderInfo>
+            <div className="g-border-b g-mt-4"></div>
             <SectionTabs isNub={isNub} hasVerbatim={taxon?.origin === 'SOURCE'} />
           </ArticleTextContainer>
         </PageContainer>

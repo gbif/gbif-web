@@ -242,6 +242,8 @@ export default {
   Taxon: {
     dataset: ({ datasetKey }, args, { dataSources }) =>
       dataSources.datasetAPI.getDatasetByKey({ key: datasetKey }),
+    sourceTaxon: ({ sourceTaxonKey }, args, { dataSources }) =>
+      dataSources.taxonAPI.getTaxonByKey({ key: sourceTaxonKey }),
     formattedName: (
       { key, scientificName },
       { useFallback },
@@ -301,20 +303,28 @@ export default {
       )?.identifier;
 
       if (clbDatasetKey) {
-        const breakdown = await axios.get(
-          `https://api.checklistbank.org/dataset/${clbDatasetKey}/taxon/${
-            taxon.datasetKey === config.gbifBackboneUUID ? key : taxon.taxonID
-          }/breakdown`,
-        );
-        return breakdown.data
-          .filter((t) => t.species > 0)
-          .map((t) => ({
-            ...t,
-            children: t.children
-              .filter((c) => c.species > 0)
-              .sort((a, b) => b.species - a.species),
-          }))
-          .sort((a, b) => b.species - a.species);
+        try {
+          const breakdown = await axios.get(
+            `https://api.checklistbank.org/dataset/${clbDatasetKey}/taxon/${
+              taxon.datasetKey === config.gbifBackboneUUID ? key : taxon.taxonID
+            }/breakdown`,
+          );
+          return breakdown.data
+            .filter((t) => t.species > 0)
+            .map((t) => ({
+              ...t,
+              children: t.children
+                .filter((c) => c.species > 0)
+                .sort((a, b) => b.species - a.species),
+            }))
+            .sort((a, b) => b.species - a.species);
+        } catch (e) {
+          throw new Error(
+            e?.response?.data?.message ||
+              e?.message ||
+              `An error occurred while fetching the breakdown for ChecklistBank dataset ${clbDatasetKey} and taxon ${taxon.taxonID}`,
+          );
+        }
       }
       console.log(
         `No CLB_DATASET_KEY found in identifiers for dataset ${dataset?.key}`,

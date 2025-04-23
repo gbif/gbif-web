@@ -51,11 +51,14 @@
   "tradeRestrictions": "Trade restrictions",
   "cites": "CITES",
   "immediateChildren": "Immediate children",
+  "referenceTaxon": "Reference taxon",
   "errors": {
     "treatments": "Could not load treatments",
     "distributions": "Could not load distributions",
     "verbatim": "Could not load verbatim taxon data",
     "typeMaterial": "Could not load type material",
-    "vernacularNames": "Could not load vernacular names"
+    "vernacularNames": "Could not load vernacular names",
+    "classificationChildren": "Could not load children of this Taxon",
+    "breakdown": "Could not load breakdown"
   }
 }

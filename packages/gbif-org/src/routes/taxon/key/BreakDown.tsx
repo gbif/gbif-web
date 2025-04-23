@@ -1,6 +1,7 @@
 import Highcharts, { chartColors } from '@/components/dashboard/charts/highcharts';
 import { chartsClass } from '@/components/dashboard/charts/OneDimensionalChart';
 import { CardHeader } from '@/components/dashboard/shared';
+import { ErrorBlock } from '@/components/ErrorBoundary';
 import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/smallCard';
 import rankEnum from '@/enums/basic/rank.json';
 import { useLink } from '@/reactRouterPlugins/dynamicLink';
@@ -14,18 +15,17 @@ const fmIndex = rankEnum.indexOf('FAMILY');
 
 const TaxonBreakdown = ({ taxon, ...props }) => {
   const [chartOptions, setChartOptions] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const createLink = useLink();
   const navigate = useNavigate();
 
   const isBackbone = taxon?.nubKey === taxon?.key;
 
   useEffect(() => {
-    setChartOptions({});
+    setChartOptions(null);
     if (taxon.key) {
       getData();
     }
-
-    //Highcharts.chart('taxonBreakdown', options);
   }, [taxon.key]);
 
   const navigateToTaxon = async (key) => {
@@ -56,12 +56,19 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
   const getData = async () => {
     try {
       const { promise, cancel } = getBreakdown({ key: taxon.key });
-      const { data } = await promise;
+      const { data, errors } = await promise;
+      if (!data?.taxon?.checklistBankBreakdown) {
+        if (errors?.[0]) {
+          throw errors[0].message;
+        } else {
+          throw 'Unable to load breakdown';
+        }
+      }
       let root;
       if (
-        data.taxon?.checklistBankBreakdown.length > 25 ||
+        data?.taxon?.checklistBankBreakdown?.length > 25 ||
         rankEnum.indexOf(taxon.rank) >= fmIndex ||
-        (data.taxon?.checklistBankBreakdown.length === 0 && taxon.speciesCount > 0)
+        (data?.taxon?.checklistBankBreakdown?.length === 0 && taxon.speciesCount > 0)
       ) {
         root = [
           {
@@ -79,7 +86,7 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
       }
       initChart(root);
     } catch (error) {
-      console.log(error);
+      setError(error);
     }
   };
 
@@ -260,7 +267,7 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
   };
 
   return (
-    <Card loading={!chartOptions} {...props}>
+    <Card loading={!chartOptions && !error} {...props}>
       <CardHeader options={null}>
         <CardTitle>
           <FormattedMessage id="taxon.breakdown" />
@@ -270,8 +277,15 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        {' '}
-        <HighchartsReact highcharts={Highcharts} options={chartOptions} className={chartsClass} />
+        {!error && (
+          <HighchartsReact highcharts={Highcharts} options={chartOptions} className={chartsClass} />
+        )}
+        {error && (
+          <ErrorBlock
+            errorMessage={<FormattedMessage id="taxon.errors.breakdown" />}
+            description={error}
+          />
+        )}
       </CardContent>
     </Card>
   );

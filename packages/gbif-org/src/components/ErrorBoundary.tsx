@@ -91,17 +91,21 @@ function ErrorComponent({
   } */
 
   if (type === 'BLOCK') {
-    return <ErrorBlock errorMessage={errorMessage} className={className} />;
+    return (
+      <ErrorBlock errorMessage={errorMessage} description={description} className={className} />
+    );
   }
   return <ErrorPage error={error} errorMessage={errorMessage} />;
 }
 
-function ErrorBlock({
+export function ErrorBlock({
   errorMessage,
   className,
+  description,
 }: {
   errorMessage?: React.ReactNode;
   className?: string;
+  description?: string;
 }): React.ReactElement {
   return (
     <div className={cn('g-flex g-gap-4 g-py-4', className)}>
@@ -112,6 +116,7 @@ function ErrorBlock({
             <FormattedMessage id="error.generic" defaultMessage="Something went wrong" />
           )}
         </h1>
+        {description && <p className="g-text-slate-500 g-mt-2">{description}</p>}
         <a
           href=""
           onClick={() => {
