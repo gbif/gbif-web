@@ -1,0 +1,82 @@
+{
+  "contentType": {
+    "event": "Evento",
+    "news": "Notizie",
+    "resource": "Risorsa",
+    "dataUse": "Uso dei dati",
+    "project": "Progetto",
+    "participant": "Partecipanti",
+    "programme": "Programma",
+    "document": "Documento",
+    "tool": "Strumento",
+    "network": "",
+    "literature": "Letteratura"
+  },
+  "project": {
+    "project": "Progetto",
+    "projectId": "Progetto ID",
+    "projectIdentifier": "Identificativo del progetto",
+    "grantType": "Tipi di concessioni",
+    "duration": "Durata",
+    "title": "Titolo",
+    "start": "Iniziare",
+    "end": "Fine",
+    "fundsAllocated": "Fondi stanziati",
+    "matchingFunds": "Cofinanziamento stimato",
+    "funding": "Fondi",
+    "coFunding": "Cofinanziamento",
+    "fundedBy": "Finanziato da",
+    "coFundedBy": "Cofinanziato da",
+    "typeOfGrant": "Tipi di concessioni",
+    "projectStart": "Avvio progetto",
+    "status": "Stato",
+    "programme": "Programma",
+    "contractCountry": "Paese o area",
+    "newsAndEvents": "Notizie & eventi",
+    "call": "Chiama",
+    "projectLead": "Capo del progetto",
+    "contactDetalils": "Dettagli di contatto",
+    "partners": "Partner"
+  },
+  "datause": {
+    "dataViaGbif": "Risorse dati utilizzate tramite GBIF"
+  },
+  "literature": {
+    "keywords": "Parole chiave"
+  },
+  "auxiliary": {
+    "subject": "Oggetto",
+    "citation": "Citazione",
+    "organisingParticipants": "Mobilitare i partecipanti"
+  },
+  "document": {
+    "download": "Scarica",
+    "readDocument": "Vai al documento"
+  },
+  "resource": {
+    "resources": "Risorse",
+    "contactHelpdesk": "Chiedi assistenza",
+    "addToCalendar": "Aggiungi al calendario",
+    "venue": "Luogo",
+    "location": "Posizione",
+    "country": "Paese o area",
+    "noDatasets": "Non ci sono dataset da mostrare",
+    "noNewsOrEvents": "Non ci sono notizie o eventi disponibili",
+    "howToLinkDatasets": "Come aggiungere un dataset al progetto",
+    "howToLinkEvents": "Come aggiungere eventi a una pagina di progetto",
+    "when": "Quando",
+    "language": "Lingua",
+    "viewOnGBIF": "Visualizza su GBIF",
+    "published": "Pubblicato",
+    "programme": "Programma",
+    "fundedBy": "Finanziato da",
+    "about": "Info",
+    "rights": "Diritti",
+    "rightsHolder": "Titolare dei diritti",
+    "author": "Autore",
+    "datasets": "Dataset",
+    "gbifWillAttend": "Partecipazione del segretariato GBIF",
+    "dataUsedInStudy": "Dati citati nello studio",
+    "resourceDescription": "Cerca risorse nel Global Biodiversity Information Facility. Accesso gratuito e aperto ai dati sulla biodiversità."
+  }
+}

@@ -29,7 +29,13 @@
     "between": "",
     "lt": "",
     "gt": "",
-    "e": ""
+    "e": "",
+    "select": {
+      "equals": "等しい",
+      "between": "間隔",
+      "lessThanOrEquals": "以前",
+      "greaterThanOrEquals": "以降"
+    }
   },
   "coordinateUncertainty": {
     "between": "",

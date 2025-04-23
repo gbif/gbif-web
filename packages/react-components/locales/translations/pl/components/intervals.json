@@ -29,7 +29,13 @@
     "between": "Rok {from} do {to}",
     "lt": "Przed rokiem {to}",
     "gt": "Po roku {from}",
-    "e": "Rok {from}"
+    "e": "Rok {from}",
+    "select": {
+      "equals": "Jest",
+      "between": "Pomiędzy",
+      "lessThanOrEquals": "Przed końcem",
+      "greaterThanOrEquals": "Po rozpoczęciu"
+    }
   },
   "coordinateUncertainty": {
     "between": "Niepewność współrzędnych od {from}m do {to}m",

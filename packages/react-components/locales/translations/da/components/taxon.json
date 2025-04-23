@@ -16,6 +16,7 @@
   "source": "Kilde",
   "specimenIsTypeOf": "",
   "typeMaterial": "",
+  "treatments": "",
   "more": "mere",
   "less": "",
   "dna": "",
@@ -46,5 +47,15 @@
     "term": "",
     "value": "Værdi",
     "coreRecord": ""
+  },
+  "tradeRestrictions": "Handelsristriktioner",
+  "cites": "",
+  "immediateChildren": "Umiddelbare børn",
+  "errors": {
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": ""
   }
 }

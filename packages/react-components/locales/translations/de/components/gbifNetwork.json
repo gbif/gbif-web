@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "",
-      "ASSOCIATE": "",
-      "OTHER_ASSOCIATE": "",
+      "VOTING": "Muss angegeben sein",
+      "ASSOCIATE": "Muss angegeben sein",
+      "OTHER_ASSOCIATE": "Muss angegeben sein",
       "FORMER": "",
       "OBSERVER": "",
-      "UNKNOWN": "",
+      "UNKNOWN": "Muss angegeben sein",
       "AFFILIATE": ""
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "Muss angegeben sein",
+    "mapCaptionPublishers": "Muss angegeben sein",
     "role": "",
     "name": "",
     "participant": "",
     "type": "",
     "memberSince": "Mitglied seit",
     "all": "",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
+    "countryParticipants": "Muss angegeben sein",
+    "publishersPerCountry": "Muss angegeben sein",
     "clear": "",
     "headlines": {
       "nodesSteeringGroup": "",

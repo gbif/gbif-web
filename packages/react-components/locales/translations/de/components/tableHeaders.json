@@ -1,5 +1,8 @@
 {
   "features": "Eigenschaften",
+  "options": {
+    "includeAuthorship": "Muss angegeben sein"
+  },
   "citations": "Zitierungen",
   "occurrences": "Occurrences",
   "numberSpecimens": "Anzahl der Sammlungsobjekte",
@@ -10,6 +13,10 @@
   "registered": "Registriert",
   "hostedDatasets": "Gehostete Datasets",
   "pubDatasets": "Veröffentlichte Datasets",
+  "commonName": "",
+  "images": "",
+  "species": "",
+  "parents": "",
   "institution": "Institution",
   "collection": "Sammlung",
   "collectionCount": "Sammlungen",

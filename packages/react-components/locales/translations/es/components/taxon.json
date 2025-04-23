@@ -16,6 +16,7 @@
   "source": "Origen",
   "specimenIsTypeOf": "Igual a {is}",
   "typeMaterial": "Igual a {is}",
+  "treatments": "Está documentado",
   "more": "más",
   "less": "Igual a {is}",
   "dna": "ADN",
@@ -46,5 +47,15 @@
     "term": "Término",
     "value": "Valor",
     "coreRecord": ""
+  },
+  "tradeRestrictions": "Restricciones comerciales",
+  "cites": "CITES",
+  "immediateChildren": "Subordinado inmediato",
+  "errors": {
+    "treatments": "Está documentado",
+    "distributions": "Está documentado",
+    "verbatim": "Está documentado",
+    "typeMaterial": "Está documentado",
+    "vernacularNames": "Está documentado"
   }
 }

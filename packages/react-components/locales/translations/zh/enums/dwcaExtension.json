@@ -1,6 +1,7 @@
 {
   "http://rs.tdwg.org/dwc/terms/Occurrence": "出现记录",
   "http://rs.tdwg.org/ac/terms/Multimedia": "奥杜邦多媒体",
+  "http://rs.gbif.org/terms/1.0/DNADerivedData": "DNA衍生的数据",
   "http://data.ggbn.org/schemas/ggbn/terms/Amplification": "扩增",
   "http://data.ggbn.org/schemas/ggbn/terms/Cloning": "无性繁殖",
   "http://data.ggbn.org/schemas/ggbn/terms/GelImage": "凝胶图像",
@@ -21,5 +22,6 @@
   "http://rs.tdwg.org/dwc/terms/MeasurementOrFact": "测量或事实",
   "http://rs.gbif.org/terms/1.0/Multimedia": "多媒体",
   "http://rs.gbif.org/terms/1.0/Reference": "参考文献",
-  "http://rs.tdwg.org/dwc/terms/ResourceRelationship": "资源关系"
+  "http://rs.tdwg.org/dwc/terms/ResourceRelationship": "资源关系",
+  "http://eol.org/schema/reference/Reference": "“生命大百科”（EOL）参考"
 }

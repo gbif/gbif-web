@@ -1,0 +1,42 @@
+{
+  "participant": {
+    "participationStatus": {
+      "longForm": {
+        "VOTING": "有选举权的成员",
+        "ASSOCIATE": "合作成员",
+        "OBSERVER": "观察成员",
+        "AFFILIATE": "联属",
+        "FORMER": "前成员",
+        "undefined": "未知的"
+      },
+      "description": {
+        "VOTING": "一个来自 {REGION} 的GBIF选举成员",
+        "ASSOCIATE": "一个来自 {REGION} 的GBIF合作成员",
+        "OBSERVER": "一个来自 {REGION} 的GBIF观察国",
+        "AFFILIATE": "一个来自 {REGION} 的附属机构",
+        "FORMER": "一个来自{REGION} 的 GBIF 前成员",
+        "undefined": "未知的"
+      },
+      "type": {
+        "OTHER": {
+          "description": {
+            "VOTING": "一个来自{REGION} 的 GBIF 投票成员组织",
+            "ASSOCIATE": "一个来自{REGION} 的合作成员组织",
+            "OBSERVER": "一个来自{REGION} 的观察成员组织",
+            "AFFILIATE": "一个来自{REGION}的附属组织",
+            "FORMER": "一个来自{REGION}的前会员组织",
+            "undefined": "未知的"
+          },
+          "longForm": {
+            "VOTING": "投票成员组织",
+            "ASSOCIATE": "合作机构",
+            "OBSERVER": "观察成员组织",
+            "AFFILIATE": "附属机构",
+            "FORMER": "前会员机构",
+            "undefined": "未知的"
+          }
+        }
+      }
+    }
+  }
+}

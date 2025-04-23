@@ -25,6 +25,7 @@
     "range": "Bereik of enkele waarde",
     "rangeExample": "",
     "wildcard": "Zoek met * en ? als wildcards",
+    "dateTemplate": "Moet worden gedefinieerd",
     "locationID": ""
   },
   "ternary": {
@@ -33,6 +34,7 @@
     "either": "Gelijk aan {is}"
   },
   "loadMore": "Meer",
+  "loading": "Laden",
   "noResults": "",
   "occurrenceClustersView": {
     "about": "Over",
@@ -55,5 +57,19 @@
       "SPECIMEN": "Exemplaar",
       "SEQUENCE": "Gelijk aan {is}"
     }
+  },
+  "crossContentSearch": {
+    "title": "Zoeken",
+    "description": "Moet worden gedefinieerd",
+    "noSearchTermsEntered": "",
+    "placeholder": "Moet worden gedefinieerd",
+    "categories": {
+      "speciesSearch": "Soorten",
+      "datasetSearch": "Datasets",
+      "publisherSearch": "Uitgevers",
+      "occurrenceSearch": "",
+      "resourceSearch": "Moet worden gedefinieerd"
+    },
+    "seeAll": "Alles weergeven"
   }
 }

@@ -12,5 +12,6 @@
   "http://rs.gbif.org/terms/1.0/Image": "Afbeelding",
   "http://rs.tdwg.org/dwc/terms/MeasurementOrFact": "Meetgegevens",
   "http://rs.gbif.org/terms/1.0/Multimedia": "Multimedia",
-  "http://rs.gbif.org/terms/1.0/Reference": "Verwijzing"
+  "http://rs.gbif.org/terms/1.0/Reference": "Verwijzing",
+  "http://eol.org/schema/reference/Reference": "EOL referentie"
 }

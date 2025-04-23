@@ -1,10 +1,26 @@
 {
+  "features": "",
+  "options": {
+    "includeAuthorship": ""
+  },
   "citations": "اقتباسات",
   "occurrences": "تكرارات",
+  "numberSpecimens": "",
+  "gbifNumberSpecimens": "",
   "title": "عنوان",
+  "titleAndAbstract": "",
+  "altmetric": "",
   "registered": "مُسجَّل",
+  "hostedDatasets": "",
   "pubDatasets": "مجموعات البيانات المنشورة",
+  "commonName": "",
+  "images": "وسائط متعددة",
+  "species": "",
+  "parents": "",
   "institution": "مؤسسة",
   "collection": "مجموعة",
-  "collectionCount": "مجموعات"
+  "collectionCount": "مجموعات",
+  "active": "",
+  "activeInstitution": "",
+  "activeCollection": ""
 }

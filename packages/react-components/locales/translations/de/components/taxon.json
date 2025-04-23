@@ -16,6 +16,7 @@
   "source": "",
   "specimenIsTypeOf": "Gleich {is}",
   "typeMaterial": "Gleich {is}",
+  "treatments": "Muss angegeben sein",
   "more": "",
   "less": "Gleich {is}",
   "dna": "",
@@ -46,5 +47,15 @@
     "term": "",
     "value": "",
     "coreRecord": ""
+  },
+  "tradeRestrictions": "",
+  "cites": "",
+  "immediateChildren": "",
+  "errors": {
+    "treatments": "Muss angegeben sein",
+    "distributions": "Muss angegeben sein",
+    "verbatim": "Muss angegeben sein",
+    "typeMaterial": "Muss angegeben sein",
+    "vernacularNames": "Muss angegeben sein"
   }
 }

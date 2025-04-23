@@ -1,5 +1,8 @@
 {
   "features": "Caratteristiche",
+  "options": {
+    "includeAuthorship": ""
+  },
   "citations": "Citazioni",
   "occurrences": "Occorrenze",
   "numberSpecimens": "Numero di campioni",
@@ -10,6 +13,8 @@
   "registered": "Registrato",
   "hostedDatasets": "Set di dati ospitati",
   "pubDatasets": "Set di dati pubblicati",
+  "commonName": "",
+  "images": "",
   "species": "Numero di specie",
   "parents": "Genitori",
   "institution": "Istituzione",

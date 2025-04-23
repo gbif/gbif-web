@@ -16,6 +16,7 @@
   "source": "Источник",
   "specimenIsTypeOf": "",
   "typeMaterial": "",
+  "treatments": "",
   "more": "подробнее",
   "less": "",
   "dna": "ДНК",
@@ -46,5 +47,15 @@
     "term": "Термин",
     "value": "Значение",
     "coreRecord": ""
+  },
+  "tradeRestrictions": "Торговые ограничения",
+  "cites": "Номер по Конвенции CITES",
+  "immediateChildren": "Нижестоящий таксон",
+  "errors": {
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": ""
   }
 }

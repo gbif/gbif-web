@@ -29,7 +29,13 @@
     "between": "Rok {from} do {to}",
     "lt": "Před rokem {to}",
     "gt": "Po roce {from}",
-    "e": "Rok je {from}"
+    "e": "Rok je {from}",
+    "select": {
+      "equals": "Je",
+      "between": "Mezi",
+      "lessThanOrEquals": "Před koncem",
+      "greaterThanOrEquals": "Po začátku"
+    }
   },
   "coordinateUncertainty": {
     "between": "Neurčitost souřadnic od {from}m do {to}m",

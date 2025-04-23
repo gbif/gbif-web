@@ -1,20 +1,70 @@
 {
-    "styles": {
-        "satellite": "衛星",
-        "natural": "自然",
-        "bright": "明亮",
-        "dark": "深色",
-        "outdoor": "戶外"
-    },
-    "projections": {
-        "ARCTIC": "北極",
-        "MERCATOR": "麥卡托投影",
-        "ANTARCTIC": "南極",
-        "PLATE_CAREE": "可利投影"
-    },
-    "failedToGetUserLocation": {
-        "title": "等於 {is}",
-        "message": "等於 {is}"
-    },
-    "filterByView": "使用可見區域作為篩選"
+  "styles": {
+    "satellite": "衛星",
+    "natural": "自然",
+    "bright": "明亮",
+    "dark": "深色",
+    "outdoor": "戶外"
+  },
+  "projections": {
+    "ARCTIC": "北極",
+    "MERCATOR": "麥卡托投影",
+    "ANTARCTIC": "南極",
+    "PLATE_CAREE": "可利投影"
+  },
+  "failedToGetUserLocation": {
+    "title": "等於 {is}",
+    "message": "等於 {is}"
+  },
+  "filterByView": "使用可見區域作為篩選",
+  "projection": "投影",
+  "anyYear": "任何年份",
+  "exploreArea": "探索區域",
+  "explore": "探索",
+  "generatedDateAgo": "必須定義",
+  "style": "樣式",
+  "filters": "篩選",
+  "select": "選取",
+  "custom": "自訂",
+  "baseMap": "底圖",
+  "binning": "分箱",
+  "year": "年",
+  "chooseColors": "顏色",
+  "clickToSearchArea": "點選以搜尋區域",
+  "predefined": {
+    "CLASSIC_HEX": "經典六邊形",
+    "CLASSIC": "經典圓點",
+    "STREETS": "街道",
+    "GLACIER": "冰河",
+    "GREEN": "必須定義",
+    "CUSTOM": "自訂"
+  },
+  "basemap": {
+    "CLASSIC": "洋紅",
+    "LIGHT": "淺色（無標籤）",
+    "LIGHT_DETAILS": "淺色",
+    "DARK": "深色（無標籤）",
+    "DARK_DETAILS": "深色",
+    "OSM": "道路"
+  },
+  "bin": {
+    "PIXEL": "點",
+    "SMALL_HEX": "小型六邊形",
+    "LARGE_HEX": "六邊形",
+    "SMALL_SQUARE": "小正方形",
+    "LARGE_SQUARE": "方形"
+  },
+  "colors": {
+    "CLASSIC": "經典樣式",
+    "FIRE": "火色",
+    "GLACIER": "冰河",
+    "GREEN_POINT": "綠色",
+    "PURPLE_YELLOW": "紫色 黃色",
+    "PURPLE_HEAT": "紫色熱圖",
+    "BLUE_HEAT": "藍色熱圖",
+    "ORANGE_HEAT": "橘色熱圖",
+    "GREEN": "綠色",
+    "BLUE_CLUSTER": "藍色集群",
+    "ORANGE_CLUSTER": "橙色集群"
+  }
 }

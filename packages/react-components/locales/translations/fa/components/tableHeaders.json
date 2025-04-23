@@ -1,7 +1,26 @@
 {
+  "features": "",
+  "options": {
+    "includeAuthorship": ""
+  },
   "citations": "استناد",
+  "occurrences": "",
+  "numberSpecimens": "",
+  "gbifNumberSpecimens": "",
   "title": "عنوان",
+  "titleAndAbstract": "",
+  "altmetric": "",
   "registered": "ثبت نام شده",
+  "hostedDatasets": "",
+  "pubDatasets": "",
+  "commonName": "",
+  "images": "",
+  "species": "",
+  "parents": "",
+  "institution": "",
   "collection": "مجموعه",
-  "collectionCount": "مجموعه ها"
+  "collectionCount": "مجموعه ها",
+  "active": "",
+  "activeInstitution": "",
+  "activeCollection": ""
 }

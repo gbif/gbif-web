@@ -1,5 +1,8 @@
 {
   "features": "功能",
+  "options": {
+    "includeAuthorship": "必須定義"
+  },
   "citations": "引用",
   "occurrences": "出現紀錄",
   "numberSpecimens": "標本數量",
@@ -10,6 +13,10 @@
   "registered": "已註冊",
   "hostedDatasets": "代管的資料集",
   "pubDatasets": "已發布的資料集",
+  "commonName": "俗名",
+  "images": "多媒體",
+  "species": "",
+  "parents": "",
   "institution": "機構",
   "collection": "蒐藏集",
   "collectionCount": "蒐藏集",

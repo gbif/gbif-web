@@ -25,6 +25,7 @@
     "range": "範圍或單一數值",
     "rangeExample": "",
     "wildcard": "使用 * 和 ? 作為萬用字元進行搜尋",
+    "dateTemplate": "必須定義",
     "locationID": ""
   },
   "ternary": {
@@ -33,6 +34,7 @@
     "either": "等於 {is}"
   },
   "loadMore": "更多",
+  "loading": "正在載入",
   "noResults": "",
   "occurrenceClustersView": {
     "about": "關於",
@@ -55,5 +57,19 @@
       "SPECIMEN": "標本",
       "SEQUENCE": "等於 {is}"
     }
+  },
+  "crossContentSearch": {
+    "title": "搜尋",
+    "description": "必須定義",
+    "noSearchTermsEntered": "未輸入搜尋字串",
+    "placeholder": "必須定義",
+    "categories": {
+      "speciesSearch": "種",
+      "datasetSearch": "資料集",
+      "publisherSearch": "發布者",
+      "occurrenceSearch": "出現紀錄",
+      "resourceSearch": "必須定義"
+    },
+    "seeAll": "查看全部"
   }
 }

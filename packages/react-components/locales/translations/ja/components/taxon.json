@@ -16,6 +16,7 @@
   "source": "参照元",
   "specimenIsTypeOf": "",
   "typeMaterial": "",
+  "treatments": "",
   "more": "詳細",
   "less": "",
   "dna": "",
@@ -46,5 +47,15 @@
     "term": "用語",
     "value": "値",
     "coreRecord": ""
+  },
+  "tradeRestrictions": "国際取引の制限",
+  "cites": "",
+  "immediateChildren": "直下の子階層",
+  "errors": {
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": ""
   }
 }
