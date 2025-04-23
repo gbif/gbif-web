@@ -1,9 +1,20 @@
 {
+  "features": "",
+  "options": {
+    "includeAuthorship": ""
+  },
   "citations": "Цитирования",
   "occurrences": "Находки",
+  "numberSpecimens": "",
+  "gbifNumberSpecimens": "",
   "title": "Название",
+  "titleAndAbstract": "",
+  "altmetric": "",
   "registered": "Зарегистрирована",
+  "hostedDatasets": "",
   "pubDatasets": "{NUMBER, plural,\n0 {Опубликованных наборов данных}\none {Опубликованный набор данных}\nfew {Опубликованных набора данных}\nmany {Опубликованных наборов данных}\nother {Опубликованных набора данных}\n}",
+  "commonName": "Общепринятое название",
+  "images": "Мультимедиа",
   "species": "Кооличество видов",
   "parents": "Предки",
   "institution": "Организация",
