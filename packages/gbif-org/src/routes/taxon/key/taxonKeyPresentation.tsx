@@ -1,3 +1,4 @@
+import { useCount } from '@/components/count';
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
@@ -141,25 +142,11 @@ const SectionTabs = ({ isNub, hasVerbatim }: { isNub: boolean; hasVerbatim: bool
 const PageHeader = ({ data, vernacularNameInfo, children }) => {
   const { taxon } = data;
   const isNub = taxon?.nubKey === taxon?.key;
-  const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
-    const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
-      { to: '.', children: <FormattedMessage id="taxon.tabs.about" /> },
-    ];
-    if (isNub) {
-      tabsToDisplay.push({
-        to: 'metrics',
-        children: <FormattedMessage id="taxon.tabs.metrics" />,
-      });
-    }
-    if (!isNub) {
-      tabsToDisplay.push({
-        to: 'verbatim',
-        children: <FormattedMessage id="taxon.tabs.verbatim" />,
-      });
-    }
+  const { count, loading: countLoading } = useCount({
+    v1Endpoint: '/occurrence/search',
+    params: { taxonKey: taxon.key },
+  });
 
-    return tabsToDisplay;
-  }, []);
   return (
     <>
       <Helmet>
@@ -293,7 +280,28 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                   {isNub && (
                     <Cites taxonName={data.taxon?.canonicalName} kingdom={data.taxon?.kingdom} />
                   )}
-                  {isNub && <SourceLink taxon={data.taxon} />}
+                  {isNub && (
+                    <GenericFeature>
+                      <SourceLink taxon={data.taxon} />
+                    </GenericFeature>
+                  )}
+                  {isNub && (
+                    <>
+                      <div className="g-flex-auto g-min-w-0" />
+                      <Button>
+                        <DynamicLink
+                          pageId="occurrenceSearch"
+                          searchParams={{ taxonKey: taxon.key.toString() }}
+                        >
+                          {countLoading ? (
+                            <FormattedMessage id="phrases.loading" />
+                          ) : (
+                            <FormattedMessage id="counts.nOccurrences" values={{ total: count }} />
+                          )}
+                        </DynamicLink>
+                      </Button>
+                    </>
+                  )}
                 </FeatureList>
               </HeaderInfoMain>
             </HeaderInfo>

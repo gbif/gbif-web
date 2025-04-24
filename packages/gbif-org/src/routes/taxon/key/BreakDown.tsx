@@ -76,7 +76,7 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
         root = [
           {
             id: data.taxon.key,
-            label: data.taxon?.scientificName,
+            name: data.taxon?.scientificName,
             rank: data.taxon?.rank,
             species:
               taxon.speciesCount ||

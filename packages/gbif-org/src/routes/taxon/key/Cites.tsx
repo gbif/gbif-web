@@ -15,7 +15,7 @@ const Cites = ({ taxonName, kingdom }) => {
   }, [taxonName, kingdom]);
 
   return data ? (
-    <>
+    <div className="g-me-12">
       <FormattedMessage id="taxon.tradeRestrictions" /> {data?.cites_listing}{' '}
       {updated && (
         <a
@@ -27,7 +27,7 @@ const Cites = ({ taxonName, kingdom }) => {
           <FormattedMessage id="taxon.cites" /> {updated} <MdLink />
         </a>
       )}
-    </>
+    </div>
   ) : null;
 };
 
