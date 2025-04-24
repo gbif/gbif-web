@@ -191,9 +191,10 @@ function removeFullTextSearchPredicates(obj) {
       delete obj.predicate;
     }
   } else if (obj.predicates && Array.isArray(obj.predicates)) {
-    obj.predicates = obj.predicates.filter(
-      (p) => !isFullTextSearchPredicate(p),
-    );
+    obj.predicates = obj.predicates
+      .map(removeFullTextSearchPredicates)
+      .filter((p) => !!p)
+      .filter((p) => !isFullTextSearchPredicate(p));
   } else if (isFullTextSearchPredicate(obj)) {
     return undefined;
   }
