@@ -59,6 +59,7 @@
     "typeMaterial": "Could not load type material",
     "vernacularNames": "Could not load vernacular names",
     "classificationChildren": "Could not load children of this Taxon",
-    "breakdown": "Could not load breakdown"
+    "breakdown": "Could not load breakdown",
+    "invasiveInCountries": "Could not load invasive species information"
   }
 }

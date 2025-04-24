@@ -148,20 +148,13 @@ export default function AboutBackbone() {
                 </CardContent>
               </Card>
             )}
-            {slowTaxon && (slowTaxon?.taxon?.invasiveInCountries?.length ?? 0) > 0 && (
-              <Card className="g-mb-4" id="invasiveInCountries">
-                <CardHeader>
-                  <CardTitle>
-                    <FormattedMessage
-                      id="taxon.recordedAsIntrodicedInNcontries"
-                      values={{ total: slowTaxon?.taxon?.invasiveInCountries?.length }}
-                    />
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <InvasiveInCountries slowTaxon={slowTaxon} />
-                </CardContent>
-              </Card>
+            {isSpeciesOrBelow && (
+              <ErrorBoundary
+                type="BLOCK"
+                errorMessage={<FormattedMessage id="taxon.errors.invasiveInCountries" />}
+              >
+                <InvasiveInCountries taxonKey={taxon.key.toString()} />
+              </ErrorBoundary>
             )}
             <ErrorBoundary
               type="BLOCK"

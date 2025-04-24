@@ -41,7 +41,7 @@ const Synonyms = ({ slowTaxon, total, loading, taxonKey }) => {
   if (total > 0 && (loading || !slowTaxon?.taxon?.synonyms?.results)) {
     return (
       <div>
-        {Array.from({ length: total }).map((x, i) => (
+        {Array.from({ length: Math.max(total, 10) }).map((x, i) => (
           <React.Fragment key={i}>
             <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
           </React.Fragment>

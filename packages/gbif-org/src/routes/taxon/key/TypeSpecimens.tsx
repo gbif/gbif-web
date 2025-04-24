@@ -39,7 +39,7 @@ const TypeMaterial = ({ taxonKey, total }: { taxonKey: number; total: number }) 
   if (total && !typeSecimens?.occurrenceSearch?.documents?.total) {
     return (
       <div>
-        {Array.from({ length: total }).map((x, i) => (
+        {Array.from({ length: Math.max(total, 10) }).map((x, i) => (
           <React.Fragment key={i}>
             <Skeleton className="g-h-6" style={{ marginBottom: 12, width: '60%' }} />
             <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />

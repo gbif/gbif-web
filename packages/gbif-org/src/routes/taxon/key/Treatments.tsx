@@ -6,14 +6,13 @@ import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { useEffect, useState } from 'react';
 import { MdLink } from 'react-icons/md';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { Paging } from './VernacularNameTable';
 
 const limit = 10;
 
 const Treatments = ({ taxonKey }: { taxonKey: string }) => {
   const [offset, setOffset] = useState(0);
-  const intl = useIntl();
   const { data, load, loading, error } = useQuery<TreatmentsQuery, TreatmentsQueryVariables>(
     TREATMENTS_QUERY,
     {

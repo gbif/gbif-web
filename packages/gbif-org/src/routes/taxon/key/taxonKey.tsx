@@ -39,7 +39,7 @@ const BackboneTaxon = () => {
     loading: slowTaxonLoading,
   } = useQuery<SlowTaxonQuery, SlowTaxonQueryVariables>(SLOW_TAXON, {
     lazyLoad: true,
-    throwAllErrors: true,
+    throwAllErrors: false,
   });
 
   useEffect(() => {
@@ -69,7 +69,7 @@ export const NonBackboneTaxon = ({ headLess = false }) => {
     NON_BACKBONE_SLOW_TAXON,
     {
       lazyLoad: true,
-      throwAllErrors: true,
+      throwAllErrors: false,
     }
   );
 
@@ -184,17 +184,6 @@ const SLOW_TAXON = /* GraphQL */ `
           source
         }
       }
-      invasiveInCountries {
-        country
-        isSubCountry
-        datasetKey
-        dataset
-        scientificName
-        nubKey
-        taxonKey
-        isInvasive
-      }
-
       combinations {
         key
         nameKey
