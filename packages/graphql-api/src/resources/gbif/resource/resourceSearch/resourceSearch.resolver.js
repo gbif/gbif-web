@@ -15,6 +15,12 @@ const facetReducer = (dictionary, facetName) => {
 };
 const ResourceFacet = facetFields.reduce(facetReducer, {});
 
+function emumContentTypeToElasticSearchType(enumContentType) {
+  return SEARCH_RESULT_OPTIONS.find(
+    (option) => option.enumContentType === enumContentType,
+  ).elasticSearchType;
+}
+
 function elasticSearchTypeToGraphQLType(elasticSearchType) {
   return SEARCH_RESULT_OPTIONS.find(
     (option) => option.elasticSearchType === elasticSearchType,
