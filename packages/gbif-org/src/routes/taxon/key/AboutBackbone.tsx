@@ -2,6 +2,7 @@ import { ClientSideOnly } from '@/components/clientSideOnly';
 import { useCount } from '@/components/count';
 import * as charts from '@/components/dashboard';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { MapTypes, useHasMap } from '@/components/maps/mapThumbnail';
 import { MapWidget } from '@/components/maps/mapWidget';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
@@ -31,6 +32,7 @@ export default function AboutBackbone() {
     v1Endpoint: '/occurrence/search',
     params: { taxonKey: key },
   });
+
   const removeSidebar = useBelow(1100);
   const useInlineImage = useBelow(700);
   const {
@@ -50,7 +52,10 @@ export default function AboutBackbone() {
     key: 'taxonKey',
     value: taxon?.key,
   };
-
+  const hasPreprocessedMap = useHasMap({
+    type: MapTypes.TaxonKey,
+    identifier: taxon?.key?.toString() ?? '',
+  });
   if (!taxon) return null;
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
@@ -87,11 +92,13 @@ export default function AboutBackbone() {
                 <MapWidget capabilitiesParams={{ taxonKey: taxon.key }} mapStyle="CLASSIC_HEX" />
               </CardContent>
             </Card> */}
-            <MapWidget
-              className="g-mb-4"
-              capabilitiesParams={{ taxonKey: taxon.key }}
-              mapStyle="CLASSIC_HEX"
-            />
+            {hasPreprocessedMap && (
+              <MapWidget
+                className="g-mb-4"
+                capabilitiesParams={{ taxonKey: taxon.key }}
+                mapStyle="CLASSIC_HEX"
+              />
+            )}
             {data.taxon.taxonomicStatus === 'ACCEPTED' && (
               <Card className="g-mb-4">
                 <CardHeader>
