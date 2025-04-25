@@ -3,6 +3,7 @@ import {
   DateLabel,
   DepthLabel,
   ElevationLabel,
+  IdentityLabel,
   OrganismQuantityLabel,
   RelativeOrganismQuantityLabel,
   SampleSizeValueLabel,
@@ -11,6 +12,7 @@ import {
 import {
   filterConfigTypes,
   filterDateRangeConfig,
+  filterGeologicalTimeConfig,
   filterRangeConfig,
 } from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
@@ -88,4 +90,14 @@ export const eventDateConfig: filterDateRangeConfig = {
   filterTranslation: 'filters.eventDate.name',
   about: () => <Message id="filters.eventDate.description" />,
   group: 'event',
+};
+
+// geological time ranges
+export const geologicalTimeConfig: filterGeologicalTimeConfig = {
+  filterType: filterConfigTypes.GEOLOGICAL_TIME,
+  filterHandle: 'geologicalTime',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.geologicalTime.name',
+  about: () => <Message id="filters.geologicalTime.description" />,
+  group: 'geologicalContext',
 };

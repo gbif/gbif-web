@@ -105,6 +105,9 @@ const otherParams = [
 
   'catalogNumber',
   'preparations',
+  'lithostratigraphy',
+  'biostratigraphy',
+  'geologicalTime',
   'sampleSizeUnit',
   'locality',
   'waterBody',

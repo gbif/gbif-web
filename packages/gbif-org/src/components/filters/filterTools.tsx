@@ -18,6 +18,7 @@ import { Exists } from './exists';
 import { FilterButton } from './filterButton';
 import { FilterPopover } from './filterPopover';
 import { GeometryFilter } from './geometryFilter';
+import { GeoTimeFilter } from './geoTimeFilter';
 import MoreFilters from './More';
 import { SkeletonOption } from './option';
 import { OptionalBooleanFilter } from './optionalBooleanFilter';
@@ -37,6 +38,7 @@ export enum filterConfigTypes {
   OPTIONAL_BOOL = 'OPTIONAL_BOOL',
   WILDCARD = 'WILDCARD',
   LOCATION = 'LOCATION',
+  GEOLOGICAL_TIME = 'GEOLOGICAL_TIME',
 }
 
 export type AdditionalFilterProps = {
@@ -110,6 +112,11 @@ export type filterDateRangeConfig = filterConfigShared & {
   rangeExample?: () => React.ReactNode;
 };
 
+export type filterGeologicalTimeConfig = filterConfigShared & {
+  filterType: filterConfigTypes.GEOLOGICAL_TIME;
+  allowExistence?: boolean;
+};
+
 export type filterLocationConfig = filterConfigShared & {
   filterType: filterConfigTypes.LOCATION;
 };
@@ -127,6 +134,7 @@ export type filterConfig =
   | filterFreeTextConfig
   | filterWildcardConfig
   | filterDateRangeConfig
+  | filterGeologicalTimeConfig
   | filterLocationConfig;
 
 // generic type for a facet query
@@ -505,6 +513,42 @@ const getDateRangeFilter = ({
   );
 };
 
+const getGeologicalTimeFilter = ({
+  config,
+  searchConfig,
+}: {
+  config: filterGeologicalTimeConfig;
+  searchConfig: FilterConfigType;
+}) => {
+  return React.forwardRef(
+    (
+      {
+        onApply,
+        onCancel,
+        className,
+        style,
+        pristine,
+      }: {
+        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+        onCancel?: () => void;
+        className?: string;
+        style?: React.CSSProperties;
+        pristine?: boolean;
+      },
+      ref
+    ) => {
+      return (
+        <GeoTimeFilter
+          ref={ref}
+          {...config}
+          searchConfig={searchConfig}
+          {...{ onApply, onCancel, className, style, pristine }}
+        />
+      );
+    }
+  );
+};
+
 export type FilterSetting = {
   Button: React.FC<{ className?: string }>;
   Popover: React.FC<{ trigger: React.ReactNode }>;
@@ -661,6 +705,15 @@ export function generateFilters({
       formatMessage,
       Content: getLocationFilter({ config: config as filterLocationConfig, searchConfig }),
       popoverClassName: 'g-w-[500px]',
+    });
+  } else if (config.filterType === filterConfigTypes.GEOLOGICAL_TIME) {
+    return generateFilter({
+      config,
+      formatMessage,
+      Content: getGeologicalTimeFilter({
+        config: config as filterGeologicalTimeConfig,
+        searchConfig,
+      }),
     });
   } else {
     throw new Error(`Unknown filter type ${config?.filterType}`);

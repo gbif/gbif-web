@@ -85,6 +85,62 @@ export const preparationsConfig: filterWildcardConfig = {
   defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
 };
 
+export const biostratigraphyConfig: filterWildcardConfig = {
+  filterType: filterConfigTypes.WILDCARD,
+  filterHandle: 'biostratigraphy',
+  queryKey: 'biostratigraphy',
+  displayName: WildcardLabel,
+  filterTranslation: 'filters.biostratigraphy.name',
+  allowExistence: true,
+  allowNegations: true,
+  suggestQuery: `
+    query OccurrenceBiostratigraphyFacet($predicate: Predicate, $size: Int, $include: String){
+      search: occurrenceSearch(predicate: $predicate) {
+        cardinality {
+          total: biostratigraphy
+        }
+        facet {
+          field: biostratigraphy(size: $size, include: $include) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.biostratigraphy.description" />,
+  group: 'geologicalContext',
+  defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
+};
+
+export const lithostratigraphyConfig: filterWildcardConfig = {
+  filterType: filterConfigTypes.WILDCARD,
+  filterHandle: 'lithostratigraphy',
+  queryKey: 'lithostratigraphy',
+  displayName: WildcardLabel,
+  filterTranslation: 'filters.lithostratigraphy.name',
+  allowExistence: true,
+  allowNegations: true,
+  suggestQuery: `
+    query OccurrenceLithostratigraphyFacet($predicate: Predicate, $size: Int, $include: String){
+      search: occurrenceSearch(predicate: $predicate) {
+        cardinality {
+          total: lithostratigraphy
+        }
+        facet {
+          field: lithostratigraphy(size: $size, include: $include) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.lithostratigraphy.description" />,
+  group: 'geologicalContext',
+  defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
+};
+
 export const sampleSizeUnitConfig: filterWildcardConfig = {
   filterType: filterConfigTypes.WILDCARD,
   filterHandle: 'sampleSizeUnit',

@@ -120,4 +120,6 @@ export default [
   'gbifClassification_usageParsedName_combinationAuthorship_empty',
   'gbifClassification_usageParsedName_combinationAuthorship_year',
   'gadmGid',
+  'biostratigraphy',
+  'lithostratigraphy',
 ];

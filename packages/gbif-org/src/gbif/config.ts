@@ -212,7 +212,7 @@ export const gbifConfig: Config = {
       'country',
       // 'occurrenceIssue',
       'geometry',
-      'recordedBy',
+      'geologicalTime',
     ],
     tabs: ['table', 'gallery', 'map', 'clusters', 'datasets', 'dashboard', 'download'],
     defaultTab: 'table',

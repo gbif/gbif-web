@@ -48,4 +48,6 @@ export default [
   'mediaType',
   'repatriated',
   'gadmGid',
+  'biostratigraphy',
+  'lithostratigraphy',
 ];

@@ -168,6 +168,8 @@ const typeDef = gql`
     higherGeography: Long!
     isSequenced: Long!
     sex: Long!
+    biostratigraphy: Long!
+    lithostratigraphy: Long!
   }
 
   type OccurrenceHistogram {
@@ -239,6 +241,16 @@ const typeDef = gql`
     organismQuantityType(size: Int, from: Int): [OccurrenceFacetResult_string]
     parentEventId(size: Int, from: Int): [OccurrenceFacetResult_string]
     preparations(
+      size: Int
+      from: Int
+      include: String
+    ): [OccurrenceFacetResult_string]
+    biostratigraphy(
+      size: Int
+      from: Int
+      include: String
+    ): [OccurrenceFacetResult_string]
+    lithostratigraphy(
       size: Int
       from: Int
       include: String
