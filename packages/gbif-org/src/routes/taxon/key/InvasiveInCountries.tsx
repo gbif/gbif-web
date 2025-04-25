@@ -28,7 +28,7 @@ export function InvasiveInCountries({ taxonKey }: { taxonKey: string }) {
       });
     }
   }, [taxonKey, load]);
-  return (
+  return loading || data?.taxon?.invasiveInCountries?.length === 0 ? null : (
     <Card className="g-mb-4" id="invasiveInCountries">
       <CardHeader>
         <CardTitle>
