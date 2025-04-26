@@ -20,5 +20,6 @@
   "SAMPLE_SURFACE_COATING": "样品表面涂层",
   "SAMPLE_TANNED": "鞣制的样本",
   "SAMPLE_WAX_BLOCK": "样本蜡块",
-  "SAMPLE_OTHER": "其他样本"
+  "SAMPLE_OTHER": "其他样本",
+  "SAMPLE_FREEZE_DRYING": "样本冷冻干燥"
 }
