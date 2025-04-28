@@ -9,6 +9,7 @@ import {
   CommandSeparator,
 } from '@/components/ui/command';
 import { FilterType } from '@/contexts/filter';
+import { normalizeString } from '@/utils/normalizeString';
 import React, { useEffect, useRef } from 'react';
 import { MdArrowBack } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -68,7 +69,12 @@ const ContentWrapper = React.forwardRef(
     return (
       <div>
         {!activeFilterHandle && (
-          <Command>
+          <Command
+            filter={(value, search) => {
+              if (normalizeString(value).includes(normalizeString(search))) return 1;
+              return 0;
+            }}
+          >
             <CommandInput placeholder={placeholder} ref={searchRef} />
             <CommandEmpty>
               <FormattedMessage
