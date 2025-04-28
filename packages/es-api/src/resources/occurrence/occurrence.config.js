@@ -719,7 +719,8 @@ const config = {
     },
     taxonKey: {
       type: 'keyword',
-      field: 'gbifClassification.taxonKey',
+      field: 'classifications.d7dddbf4-2cf0-4f39-9b2a-bb099caae36c.taxonKeys.keyword',
+      // field: 'gbifClassification.taxonKey',
     },
     verbatimScientificName: {
       type: 'keyword',
