@@ -1,7 +1,7 @@
 {
   "features": "Eigenschaften",
   "options": {
-    "includeAuthorship": "Muss angegeben sein"
+    "includeAuthorship": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
   },
   "citations": "Zitierungen",
   "occurrences": "Occurrences",
