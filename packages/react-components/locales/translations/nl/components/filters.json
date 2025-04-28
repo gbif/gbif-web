@@ -510,5 +510,12 @@
     "name": "",
     "count": "",
     "description": ""
+  },
+  "issueEnum": {
+    "name": "",
+    "count": "",
+    "isNotNull": "Heeft problemen",
+    "isNull": "Heeft geen problemen",
+    "description": "De soorten (mogelijke) problemen die automatisch werden vastgesteld bij het verwerken van de gegevens."
   }
 }
