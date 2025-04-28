@@ -510,5 +510,12 @@
     "name": "Higher taxon",
     "count": "{num, plural, one {higher taxon} other {# higher taxa}}",
     "description": "A higher taxon to filter by."
+  },
+  "issueEnum": {
+    "name": "Issues and flags",
+    "count": "{num, plural, one {issue or flag} other {# issues and flags}}",
+    "isNotNull": "Has issues",
+    "isNull": "Has no issues",
+    "description": "The types of issues or flags of potential interest discovered in processing the data."
   }
 }
