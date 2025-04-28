@@ -28,7 +28,7 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "",
-  "notVocabularyWarning": "Muss angegeben sein",
+  "notVocabularyWarning": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
   "group": {
     "views": "",
     "record": "",
