@@ -45,7 +45,7 @@
   "features": {
     "isClustered": "Ve shluku",
     "isSamplingEvent": "Událost odběru vzorku",
-    "isTreatment": "Musí být definováno",
+    "isTreatment": "",
     "isSequenced": "Sekvenováno",
     "hasIssues": "Problémy a připomínky",
     "hasCoordinates": "Má souřadnice",

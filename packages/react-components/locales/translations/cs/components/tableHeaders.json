@@ -1,7 +1,7 @@
 {
   "features": "Vlastnosti",
   "options": {
-    "includeAuthorship": "Musí být definováno"
+    "includeAuthorship": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
   },
   "citations": "Citace",
   "occurrences": "Výskyty",

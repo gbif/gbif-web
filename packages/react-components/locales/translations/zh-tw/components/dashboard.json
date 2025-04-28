@@ -28,7 +28,7 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "這些指標是來自GBIF所共享的紀錄",
-  "notVocabularyWarning": "必須定義",
+  "notVocabularyWarning": "{num, plural, one {# 在分群中} other {# 在分群中}}",
   "group": {
     "views": "",
     "record": "紀錄",

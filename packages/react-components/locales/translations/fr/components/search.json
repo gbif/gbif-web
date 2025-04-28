@@ -25,7 +25,7 @@
     "range": "Intervalle ou valeur unique",
     "rangeExample": "",
     "wildcard": "Rechercher avec * et ? comme caractères génériques",
-    "dateTemplate": "Doit être défini",
+    "dateTemplate": "",
     "locationID": ""
   },
   "ternary": {

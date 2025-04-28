@@ -51,11 +51,15 @@
   "tradeRestrictions": "Обмеження на торгівлю",
   "cites": "",
   "immediateChildren": "Безпосередньо підпорядковані таксони",
+  "referenceTaxon": "Референтний таксон",
   "errors": {
     "treatments": "",
     "distributions": "",
     "verbatim": "",
     "typeMaterial": "",
-    "vernacularNames": ""
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
   }
 }

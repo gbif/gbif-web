@@ -21,7 +21,7 @@
   "anyYear": "Cualquier año",
   "exploreArea": "Explora un área",
   "explore": "Explorar",
-  "generatedDateAgo": "Está documentado",
+  "generatedDateAgo": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
   "style": "Estilo",
   "filters": "Filtros",
   "select": "Seleccionar",
@@ -36,7 +36,7 @@
     "CLASSIC": "Puntos clásicos",
     "STREETS": "Calles",
     "GLACIER": "Glaciar",
-    "GREEN": "Está documentado",
+    "GREEN": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
     "CUSTOM": "Personalizar"
   },
   "basemap": {

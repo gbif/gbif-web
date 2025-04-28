@@ -428,7 +428,7 @@
   "isInCluster": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "この試験的な機能では、重複や関連するオカレンスの可能性があればハイライトします。"
   },
   "isSequenced": {
     "name": "",

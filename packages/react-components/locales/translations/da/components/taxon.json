@@ -51,11 +51,15 @@
   "tradeRestrictions": "Handelsristriktioner",
   "cites": "",
   "immediateChildren": "Umiddelbare børn",
+  "referenceTaxon": "Reference takson",
   "errors": {
     "treatments": "",
     "distributions": "",
     "verbatim": "",
     "typeMaterial": "",
-    "vernacularNames": ""
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
   }
 }

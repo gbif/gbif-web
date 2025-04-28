@@ -1,7 +1,7 @@
 {
   "features": "Atributos",
   "options": {
-    "includeAuthorship": "Está documentado"
+    "includeAuthorship": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
   },
   "citations": "Citaciones",
   "occurrences": "Registros biológicos",
