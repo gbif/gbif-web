@@ -144,24 +144,24 @@
   },
   "catalogNumber": {
     "name": "Numéro de catalogue",
-    "count": "",
+    "count": "{num, plural, one { catalogue number } other {# catalogue numbers}}",
     "description": "L'identifiant de l'enregistrement dans un catalogue ou une collection."
   },
   "mediaType": {
     "name": "Type de média",
-    "count": "",
+    "count": "{num, plural, one {media type} other {# media types}}",
     "description": "Les types de médias accessibles pour cet enregistrement."
   },
   "occurrenceIssue": {
     "name": "Problèmes et drapeaux",
-    "count": "",
+    "count": "{num, plural, one {issue or flag} other {# issues and flags}}",
     "isNotNull": "A des problèmes",
     "isNull": "N'a aucun problème",
     "description": "Les types de problèmes ou balises d'intérêt potentiel découverts dans le traitement des données."
   },
   "occurrenceCountry": {
     "name": "Pays",
-    "count": "",
+    "count": "{num, plural, one {country or area} other {# countries or areas}}",
     "description": "Pays ou territoire où l'événement s'est produit"
   },
   "grsciCollCountry": {
@@ -174,12 +174,12 @@
   },
   "publishingCountryCode": {
     "name": "Pays ou région qui publie",
-    "count": "",
+    "count": "{num, plural, one {publishing country or area} other {# publishing countries or areas}}",
     "description": "Le code ISO du pays ou du territoire où se trouve l'éditeur de données"
   },
   "q": {
     "name": "Recherche textuelle",
-    "count": "",
+    "count": "{num, plural, one {text string} other {# search strings}}",
     "description": "Archive annotée par GBIF"
   },
   "coordinates": {
@@ -187,17 +187,17 @@
   },
   "elevation": {
     "name": "Altitude",
-    "count": "",
+    "count": "{num, plural, one {elevation filter} other {# elevation filters}}",
     "description": "La distance au-dessus d'un point de référence vertical (généralement niveau moyen de la mer ou un géoïde) en mètres."
   },
   "license": {
     "name": "Licence",
-    "count": "",
+    "count": "{num, plural, one {licence} other {# licences}}",
     "description": "La licence légale ou la renonciation sous laquelle l'enregistrement est partagé."
   },
   "datasetKey": {
     "name": "Ensemble de données",
-    "count": "",
+    "count": "{num, plural, one {dataset} other {# datasets}}",
     "description": "Le titre du jeu de données sous lequel l'enregistrement est partagé."
   },
   "datasetId": {
@@ -207,7 +207,7 @@
   },
   "publisherKey": {
     "name": "Fournisseurs de données",
-    "count": "",
+    "count": "{num, plural, one {publisher} other {# publishers}}",
     "description": "Le nom de l'organisation responsable du partage du jeu de données dans lequel l'enregistrement est inclus."
   },
   "gbifPublisherKey": {
@@ -217,16 +217,16 @@
   },
   "hostingOrganizationKey": {
     "name": "Organisation hôte",
-    "count": "",
+    "count": "{num, plural, one {host} other {# hosts}}",
     "description": "Le nom de l'organisation hébergeant le jeu de données dans lequel l'enregistrement est publié."
   },
   "country": {
     "name": "Pays",
-    "count": ""
+    "count": "{num, plural, one {country or area} other {# countries or areas}}"
   },
   "countriesOfCoverage": {
     "name": "Pays ou région de couverture",
-    "count": "",
+    "count": "{num, plural, one {country or area of coverage} other {# countries or area of coverage}}",
     "description": ""
   },
   "collectionDescriptorCountry": {
@@ -236,83 +236,83 @@
   },
   "countriesOfResearcher": {
     "name": "Pays ou région du chercheur",
-    "count": ""
+    "count": "{num, plural, one {country or area of researcher} other {# countries or areas of researchers}}"
   },
   "typeStatus": {
     "name": "Statut du type",
-    "count": "",
+    "count": "{num, plural, one {type status} other {# type statuses}}",
     "isNotNull": "A un statut de type",
     "isNull": "Le statut du type",
     "description": "La désignation du type d'un spécimen."
   },
   "year": {
     "name": "Année",
-    "count": "",
+    "count": "{num, plural, one {year filter} other {# year filters}}",
     "description": "L'année au cours de laquelle l'événement s'est produit."
   },
   "sampleSizeUnit": {
     "name": "Unité de la taille d'échantillonnage",
-    "count": "",
+    "count": "{num, plural, one {sample size unit} other {# sample size units}}",
     "description": "L'unité de mesure pour la \"valeur de la taille de l'échantillon\"."
   },
   "coordinateUncertainty": {
     "name": "Incertitude des coordonnées",
-    "count": "",
+    "count": "{num, plural, one {Coordinate uncertainty} other {# coordinate uncertainty filters}}",
     "description": "Mesure de la distance minimale en mètres d'une coordonnée à l'intérieur de laquelle une localité peut être interprétée."
   },
   "depth": {
     "name": "Profondeur",
-    "count": "",
+    "count": "{num, plural, one { depth } other {# depths}}",
     "description": "La distance en dessous d'une surface locale, en mètres."
   },
   "organismQuantity": {
     "name": "Quantité de l’organisme",
-    "count": "",
+    "count": "{num, plural, one { organism quantity } other {# organism quantitys}}",
     "description": "La valeur pour la quantité des organismes, où le type de mesures est donné dans le \"type  de quantité d'organismes\". "
   },
   "sampleSizeValue": {
     "name": "Valeur de la taille d'échantillonnage",
-    "count": "",
+    "count": "{num, plural, one { sample size value } other {# sample size values}}",
     "description": "La valeur pour la taille de l'échantillon, où les unités de mesure sont données dans \"Unité de la taille de l'échantillon\". "
   },
   "relativeOrganismQuantity": {
     "name": "Quantité relative de l'organisme",
-    "count": "",
+    "count": "{num, plural, one { relative organism quantity } other {# relative organism quantities}}",
     "description": "La quantité de matière biologique relative à la taille d'un échantillon, calculée en tant qu'organismQuantity per sampleSize lorsque l'organismeQuantityType et sampleSizeUnit sont sans ambiguïté."
   },
   "month": {
     "name": "Mois",
-    "count": "",
+    "count": "{num, plural, one { month } other {# months}}",
     "description": "L' entier du mois au cours duquel l'événement s'est produit."
   },
   "continent": {
     "name": "Continent",
-    "count": "",
+    "count": "{num, plural, one { continent } other {# continents}}",
     "description": "Le nom du continent dans lequel se trouve la localité. Ce champ n'est pas inféré, mais seulement rempli si fourni par l'éditeur du jeu de données. L'application de ce filtre peut exclure les enregistrements pertinents."
   },
   "protocol": {
     "name": "Protocole de publication",
-    "count": "",
+    "count": "{num, plural, one { protocol } other {# protocols}}",
     "description": "Le protocole technique par lequel le jeu de données est partagé."
   },
   "establishmentMeans": {
     "name": "Mode d'établissement",
-    "count": "",
+    "count": "{num, plural, one { establishment means } other {# establishment means}}",
     "description": "Les moyens par lesquels l'organisme a été introduit à un endroit donné à un moment donné."
   },
   "recordedBy": {
     "name": "Enregistré par",
-    "count": "",
+    "count": "{num, plural, one { recorded by } other {# recorded bys}}",
     "description": "Les noms de la personne, des personnes, des groupes ou des organisations responsables de l'enregistrement de l'occurrence originale."
   },
   "recordNumber": {
     "name": "Numéro d'enregristrement",
-    "count": "",
+    "count": "{num, plural, one { record number } other {# record numbers}}",
     "description": "Un identifiant donné à l'occurrence au moment où elle a été enregistrée."
   },
   "collectionCode": {
     "name": "Code de la collection",
-    "count": "",
+    "count": "{num, plural, one { collection code } other {# collection codes}}",
     "description": "Une courte description du composant devrait être placée ici"
   },
   "projectId": {
@@ -322,32 +322,32 @@
   },
   "recordedById": {
     "name": "ID de Enregistré par",
-    "count": "",
+    "count": "{num, plural, one { recorded by ID } other {# recorded by IDs}}",
     "description": "L'identifiant de la personne, des personnes, des groupes ou des organisations responsables de l'enregistrement de l'occurrence originale."
   },
   "identifiedById": {
     "name": "ID de Identifié par",
-    "count": "",
+    "count": "{num, plural, one { identified by id } other {identified by #}}",
     "description": "L'identifiant de la personne, des personnes, des groupes ou des organisations responsables de la détermination du nom scientifique de l'organisme."
   },
   "occurrenceId": {
     "name": "ID de l'occurence",
-    "count": "",
+    "count": "{num, plural, one { occurrence ID } other {# occurrence IDs}}",
     "description": "L'identifiant unique pour l'enregistrement de l'occurrence."
   },
   "organismId": {
     "name": "ID de l’organisme",
-    "count": "",
+    "count": "{num, plural, one { organism ID } other {# organism IDs}}",
     "description": "L'identifiant unique pour l'organisme dans l'enregistrement."
   },
   "locality": {
     "name": "Localité",
-    "count": "",
+    "count": "{num, plural, one { locality } other {# localities}}",
     "description": "La partie spécifique de la description du lieu."
   },
   "waterBody": {
     "name": "Étendue d'eau",
-    "count": "",
+    "count": "{num, plural, one { water body } other {# water bodies}}",
     "description": "Le nom du plan d'eau dans lequel se trouve la localité."
   },
   "higherGeography": {
@@ -357,12 +357,12 @@
   },
   "stateProvince": {
     "name": "État/Province",
-    "count": "",
+    "count": "{num, plural, one { state province } other {# state provinces}}",
     "description": "Le nom de la région administrative la plus proche plus petite que le pays dans lequel se trouve l'emplacement."
   },
   "eventId": {
     "name": "ID de l'événement",
-    "count": "",
+    "count": "{num, plural, one { event ID } other {# event IDs}}",
     "description": "L'identifiant unique pour l'événement dans l'enregistrement."
   },
   "eventID": {
@@ -407,22 +407,22 @@
   },
   "samplingProtocol": {
     "name": "Protocole d'échantillonnage",
-    "count": "",
+    "count": "{num, plural, one { sampling protocol } other {# sampling protocols}}",
     "description": "Le nom, la référence ou la description de la méthode ou du protocole utilisé pendant un événement."
   },
   "occurrenceStatus": {
     "name": "Statut de l'occurrence",
-    "count": "",
+    "count": "{num, plural, one { occurrence status } other {# occurrence statuses}}",
     "description": "La présence ou l'absence d'organismes du taxon donné."
   },
   "gadmGid": {
     "name": "Zone administrative",
-    "count": "",
+    "count": "{num, plural, one { administrative area } other {# administrative areas}}",
     "description": "Le nom de toute zone administrative de GADM.org déterminée lors du traitement des enregistrements."
   },
   "identifiedBy": {
     "name": "Identifié par",
-    "count": "",
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}",
     "description": "La personne, les personnes, les groupes ou les organisations responsables de la détermination du nom scientifique de l'Organisme."
   },
   "isInCluster": {
@@ -433,7 +433,7 @@
   "isSequenced": {
     "name": "Est séquencé",
     "count": "{num, plural, one { Est séquencé } other {# Sont séquencés}}",
-    "description": ""
+    "description": "Si l'enregistrement a des informations sur les séquences "
   },
   "active": {
     "name": "Activé",
@@ -462,38 +462,38 @@
   },
   "datasetType": {
     "name": "Type de jeu de données",
-    "count": "",
+    "count": "{num, plural, one { dataset type } other {# dataset types}}",
     "description": "Une courte description du composant devrait être placée ici"
   },
   "datasetSubtype": {
     "name": "Sous-type du jeu de données",
-    "count": "",
+    "count": "{num, plural, one { dataset subtype } other {# dataset subtypes}}",
     "description": "Une courte description du composant devrait être placée ici"
   },
   "institutionKey": {
     "name": "Institution",
-    "count": "",
+    "count": "{num, plural, one { institution } other {# institutions}}",
     "description": "Le nom de l'institution ayant l'autorité sur les objet(s) ou des informations visées dans l'enregistrement."
   },
   "name": {
     "name": "Nom",
-    "count": "",
+    "count": "{num, plural, one { name } other {# names}}",
     "description": "Archive annotée par GBIF",
     "searchPlaceholder": ""
   },
   "city": {
     "name": "Ville",
-    "count": "",
+    "count": "{num, plural, one { city } other {# cities}}",
     "description": ""
   },
   "code": {
     "name": "Code",
-    "count": "",
+    "count": "{num, plural, one { code } other {# codes}}",
     "description": "Archive annotée par GBIF"
   },
   "verbatimScientificName": {
     "name": "Verbatim du nom scientifique",
-    "count": "",
+    "count": "{num, plural, one { verbatim scientific name } other {# verbatim scientific names}}",
     "description": "Le nom scientifique comme fourni par l'éditeur de données sans aucune normalisation."
   },
   "networkKey": {
@@ -503,7 +503,7 @@
   },
   "literatureType": {
     "name": "Type de littérature",
-    "count": "",
+    "count": "{num, plural, one { literature type } other {# literature types}}",
     "description": "De quel type de littérature provient la citation."
   },
   "higherTaxonKey": {
