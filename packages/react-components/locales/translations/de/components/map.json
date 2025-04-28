@@ -21,7 +21,7 @@
   "anyYear": "",
   "exploreArea": "",
   "explore": "",
-  "generatedDateAgo": "Muss angegeben sein",
+  "generatedDateAgo": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
   "style": "",
   "filters": "Filter",
   "select": "",
@@ -36,7 +36,7 @@
     "CLASSIC": "",
     "STREETS": "",
     "GLACIER": "",
-    "GREEN": "Muss angegeben sein",
+    "GREEN": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
     "CUSTOM": ""
   },
   "basemap": {
