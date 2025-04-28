@@ -45,7 +45,7 @@
   "features": {
     "isClustered": "Agrupación",
     "isSamplingEvent": "Evento de muestreo",
-    "isTreatment": "Está documentado",
+    "isTreatment": "",
     "isSequenced": "Secuenciado",
     "hasIssues": "Alertas y comentarios",
     "hasCoordinates": "Incluye coordenadas",
