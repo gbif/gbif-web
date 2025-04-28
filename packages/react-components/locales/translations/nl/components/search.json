@@ -25,7 +25,7 @@
     "range": "Bereik of enkele waarde",
     "rangeExample": "",
     "wildcard": "Zoek met * en ? als wildcards",
-    "dateTemplate": "Moet worden gedefinieerd",
+    "dateTemplate": "",
     "locationID": ""
   },
   "ternary": {
