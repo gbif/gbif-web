@@ -1,7 +1,7 @@
 {
   "features": "特征",
   "options": {
-    "includeAuthorship": "必须定义"
+    "includeAuthorship": "{num, plural, one { 在集群中 } other {# 在集群中}}"
   },
   "citations": "引用",
   "occurrences": "出现记录",
