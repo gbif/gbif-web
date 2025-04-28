@@ -16,7 +16,7 @@
   "source": "",
   "specimenIsTypeOf": "Gleich {is}",
   "typeMaterial": "Gleich {is}",
-  "treatments": "Muss angegeben sein",
+  "treatments": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
   "more": "",
   "less": "Gleich {is}",
   "dna": "",
@@ -51,11 +51,15 @@
   "tradeRestrictions": "",
   "cites": "",
   "immediateChildren": "",
+  "referenceTaxon": "",
   "errors": {
-    "treatments": "Muss angegeben sein",
-    "distributions": "Muss angegeben sein",
-    "verbatim": "Muss angegeben sein",
-    "typeMaterial": "Muss angegeben sein",
-    "vernacularNames": "Muss angegeben sein"
+    "treatments": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "distributions": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "verbatim": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "typeMaterial": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "vernacularNames": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "classificationChildren": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "breakdown": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "invasiveInCountries": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
   }
 }
