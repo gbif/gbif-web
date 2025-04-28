@@ -21,7 +21,7 @@
   "anyYear": "任何年份",
   "exploreArea": "探索区域",
   "explore": "探索",
-  "generatedDateAgo": "必须定义",
+  "generatedDateAgo": "{num, plural, one { 在集群中 } other {# 在集群中}}",
   "style": "风格",
   "filters": "筛选标签",
   "select": "选择",
@@ -36,7 +36,7 @@
     "CLASSIC": "经典点状",
     "STREETS": "街道",
     "GLACIER": "冰川",
-    "GREEN": "必须定义",
+    "GREEN": "{num, plural, one { 在集群中 } other {# 在集群中}}",
     "CUSTOM": "自定义"
   },
   "basemap": {
