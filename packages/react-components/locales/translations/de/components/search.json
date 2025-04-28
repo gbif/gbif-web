@@ -25,7 +25,7 @@
     "range": "Bereich oder einzelner Wert",
     "rangeExample": "",
     "wildcard": "",
-    "dateTemplate": "Muss angegeben sein",
+    "dateTemplate": "",
     "locationID": ""
   },
   "ternary": {
@@ -60,15 +60,15 @@
   },
   "crossContentSearch": {
     "title": "Suche",
-    "description": "Muss angegeben sein",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
     "noSearchTermsEntered": "Keine Suchbegriffe eingegeben",
-    "placeholder": "Muss angegeben sein",
+    "placeholder": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
     "categories": {
       "speciesSearch": "",
       "datasetSearch": "Datensätze",
       "publisherSearch": "Herausgeber",
       "occurrenceSearch": "",
-      "resourceSearch": "Muss angegeben sein"
+      "resourceSearch": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
     },
     "seeAll": "Alle ansehen"
   }
