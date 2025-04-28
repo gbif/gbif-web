@@ -164,6 +164,18 @@ export default function About() {
                   <Property labelId="grscicoll.homepage">
                     <HyperText text={institution?.homepage} />
                   </Property>
+                  {isNoneEmptyArray(institution.phone) && (
+                    <Property
+                      labelId="grscicoll.phone"
+                      className=""
+                      value={institution.phone}
+                      formatter={(phone) => (
+                        <a className="g-underline" href={`tel:${phone}`}>
+                          {phone}
+                        </a>
+                      )}
+                    ></Property>
+                  )}
                   <Property
                     value={institution?.address?.country}
                     labelId="grscicoll.country"
