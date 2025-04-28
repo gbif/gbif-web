@@ -10,5 +10,6 @@
   "accessURI": "全球资源定位器",
   "accessOriginalURI": "原始链接：",
   "format": "格式",
-  "pixelXDimension": "宽度"
+  "pixelXDimension": "宽度",
+  "pixelYDimension": "高度"
 }
