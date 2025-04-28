@@ -510,5 +510,12 @@
     "name": "Taxon supérieur",
     "count": "{num, plural, one {# taxon} other {# taxons}}",
     "description": "Taxon supérieur pour filtrage"
+  },
+  "issueEnum": {
+    "name": "Problèmes et drapeaux",
+    "count": "{num, plural, one {issue or flag} other {# issues and flags}}",
+    "isNotNull": "A des problèmes",
+    "isNull": "N'a aucun problème",
+    "description": "Les types de problèmes ou balises d'intérêt potentiel découverts dans le traitement des données."
   }
 }

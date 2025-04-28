@@ -510,5 +510,12 @@
     "name": "Вищий таксон",
     "count": "",
     "description": ""
+  },
+  "issueEnum": {
+    "name": "Проблеми та відмітки",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
   }
 }

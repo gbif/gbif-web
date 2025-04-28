@@ -510,5 +510,12 @@
     "name": "",
     "count": "",
     "description": ""
+  },
+  "issueEnum": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
   }
 }
