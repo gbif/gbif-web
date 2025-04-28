@@ -510,5 +510,12 @@
     "name": "وحدة تصنيفية عليا",
     "count": "",
     "description": ""
+  },
+  "issueEnum": {
+    "name": "مسائل و رايات",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
   }
 }
