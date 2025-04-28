@@ -1,7 +1,7 @@
 {
   "features": "Cechy",
   "options": {
-    "includeAuthorship": "Musi być zdefiniowany"
+    "includeAuthorship": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
   },
   "citations": "Cytowanie",
   "occurrences": "Wystąpienia",
