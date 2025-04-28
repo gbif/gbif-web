@@ -51,11 +51,15 @@
   "tradeRestrictions": "国際取引の制限",
   "cites": "",
   "immediateChildren": "直下の子階層",
+  "referenceTaxon": "文献の分類群",
   "errors": {
     "treatments": "",
     "distributions": "",
     "verbatim": "",
     "typeMaterial": "",
-    "vernacularNames": ""
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
   }
 }
