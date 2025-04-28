@@ -1,7 +1,7 @@
 {
   "features": "功能",
   "options": {
-    "includeAuthorship": "必須定義"
+    "includeAuthorship": "{num, plural, one {# 在分群中} other {# 在分群中}}"
   },
   "citations": "引用",
   "occurrences": "出現紀錄",
