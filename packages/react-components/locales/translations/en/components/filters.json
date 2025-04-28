@@ -428,7 +428,7 @@
   "isInCluster": {
     "name": "Has related records",
     "count": "",
-    "description": ""
+    "description": "This experimental feature highlights possible duplicate and/or related occurrences."
   },
   "isSequenced": {
     "name": "Is sequenced",
