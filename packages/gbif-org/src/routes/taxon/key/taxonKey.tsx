@@ -105,6 +105,7 @@ const TAXON_QUERY = /* GraphQL */ `
         references
         datasetKey
       }
+      issues
       scientificName
       canonicalName
       origin

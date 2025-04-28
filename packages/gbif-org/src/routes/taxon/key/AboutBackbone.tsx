@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeC
 import useBelow from '@/hooks/useBelow';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { cn } from '@/utils/shadcn';
 import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
@@ -24,6 +25,7 @@ import Treatments from './Treatments';
 import TypeMaterial from './TypeSpecimens';
 import { VernacularNameTable } from './VernacularNameTable';
 import WikiDataIdentifiers from './WikiDataIdentifiers';
+import styles from './wikiIdentifiers.module.css';
 export default function AboutBackbone() {
   const { slowTaxon, slowTaxonLoading, data } = useContext(TaxonKeyContext);
 
@@ -194,6 +196,22 @@ export default function AboutBackbone() {
                 <Citation taxon={taxon} />
               </CardContent>
             </Card>
+            {data.taxon?.issues?.length > 0 && (
+              <>
+                <FormattedMessage id="filters.occurrenceIssue.name" />
+                {': '}
+                <div
+                  style={{ display: 'inline-block' }}
+                  className={cn(styles.wikidataIdentifiers, 'g-text-sm g-text-slate-500')}
+                >
+                  {data.taxon?.issues?.map((issue) => (
+                    <span key={issue}>
+                      <FormattedMessage id={`enums.taxonIssue.${issue}`} />
+                    </span>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
           {!removeSidebar && (
