@@ -428,7 +428,7 @@
   "isInCluster": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "この試験的な機能では、重複や関連するオカレンスの可能性があればハイライトします。"
   },
   "isSequenced": {
     "name": "",
@@ -509,6 +509,13 @@
   "higherTaxonKey": {
     "name": "上位の分類群",
     "count": "",
+    "description": ""
+  },
+  "issueEnum": {
+    "name": "問題とフラグ",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
     "description": ""
   }
 }

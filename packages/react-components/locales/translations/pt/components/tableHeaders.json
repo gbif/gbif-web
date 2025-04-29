@@ -1,7 +1,7 @@
 {
   "features": "Características",
   "options": {
-    "includeAuthorship": ""
+    "includeAuthorship": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
   },
   "citations": "Citações",
   "occurrences": "Ocorrências",

@@ -1,35 +1,35 @@
 {
   "description": {
-    "lt": "",
-    "lte": "",
-    "gt": "",
-    "gte": "",
-    "e": "",
+    "lt": "Inférieur à {to}",
+    "lte": "Inférieur ou égal {to}",
+    "gt": "Supérieur à {from}",
+    "gte": "Supérieur ou égal {from}",
+    "e": "Égal {from}",
     "between": "De {from} à {to}"
   },
   "compact": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "{from} à {to}",
+    "lt": "En dessous de {to}",
+    "gt": "Au-dessus de {from}",
+    "e": "{from}"
   },
   "compactMeters": {
-    "between": "",
+    "between": "{from}m de {to}m",
     "lt": "Inférieur à {to}m",
     "gt": "Supérieur à {from}m",
-    "e": ""
+    "e": "{from}m"
   },
   "compactTime": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "{from} à {to}",
+    "lt": "Avant {to}",
+    "gt": "Après {from}",
+    "e": "{from}"
   },
   "year": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": "",
+    "between": "Année {from} de {to}",
+    "lt": "Avant l'année {to}",
+    "gt": "Après l'année {from}",
+    "e": "L'année est {from}",
     "select": {
       "equals": "Est",
       "between": "Entre",
@@ -38,8 +38,8 @@
     }
   },
   "coordinateUncertainty": {
-    "between": "",
-    "lt": "",
+    "between": "Incertitude des coordonnées {from}m à {to}m",
+    "lt": "Incertitude des coordonnées en dessous {to}m",
     "gt": "",
     "e": ""
   },

@@ -2,12 +2,14 @@ import { ClientSideOnly } from '@/components/clientSideOnly';
 import { useCount } from '@/components/count';
 import * as charts from '@/components/dashboard';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { MapTypes, useHasMap } from '@/components/maps/mapThumbnail';
 import { MapWidget } from '@/components/maps/mapWidget';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { cn } from '@/utils/shadcn';
 import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
@@ -23,6 +25,7 @@ import Treatments from './Treatments';
 import TypeMaterial from './TypeSpecimens';
 import { VernacularNameTable } from './VernacularNameTable';
 import WikiDataIdentifiers from './WikiDataIdentifiers';
+import styles from './wikiIdentifiers.module.css';
 export default function AboutBackbone() {
   const { slowTaxon, slowTaxonLoading, data } = useContext(TaxonKeyContext);
 
@@ -31,6 +34,7 @@ export default function AboutBackbone() {
     v1Endpoint: '/occurrence/search',
     params: { taxonKey: key },
   });
+
   const removeSidebar = useBelow(1100);
   const useInlineImage = useBelow(700);
   const {
@@ -50,7 +54,10 @@ export default function AboutBackbone() {
     key: 'taxonKey',
     value: taxon?.key,
   };
-
+  const hasPreprocessedMap = useHasMap({
+    type: MapTypes.TaxonKey,
+    identifier: taxon?.key?.toString() ?? '',
+  });
   if (!taxon) return null;
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
@@ -87,11 +94,13 @@ export default function AboutBackbone() {
                 <MapWidget capabilitiesParams={{ taxonKey: taxon.key }} mapStyle="CLASSIC_HEX" />
               </CardContent>
             </Card> */}
-            <MapWidget
-              className="g-mb-4"
-              capabilitiesParams={{ taxonKey: taxon.key }}
-              mapStyle="CLASSIC_HEX"
-            />
+            {hasPreprocessedMap && (
+              <MapWidget
+                className="g-mb-4"
+                capabilitiesParams={{ taxonKey: taxon.key }}
+                mapStyle="CLASSIC_HEX"
+              />
+            )}
             {data.taxon.taxonomicStatus === 'ACCEPTED' && (
               <Card className="g-mb-4">
                 <CardHeader>
@@ -187,6 +196,22 @@ export default function AboutBackbone() {
                 <Citation taxon={taxon} />
               </CardContent>
             </Card>
+            {data.taxon?.issues?.length > 0 && (
+              <>
+                <FormattedMessage id="filters.occurrenceIssue.name" />
+                {': '}
+                <div
+                  style={{ display: 'inline-block' }}
+                  className={cn(styles.wikidataIdentifiers, 'g-text-sm g-text-slate-500')}
+                >
+                  {data.taxon?.issues?.map((issue) => (
+                    <span key={issue}>
+                      <FormattedMessage id={`enums.taxonIssue.${issue}`} />
+                    </span>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
           {!removeSidebar && (

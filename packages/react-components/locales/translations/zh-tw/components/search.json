@@ -25,7 +25,7 @@
     "range": "範圍或單一數值",
     "rangeExample": "",
     "wildcard": "使用 * 和 ? 作為萬用字元進行搜尋",
-    "dateTemplate": "必須定義",
+    "dateTemplate": "",
     "locationID": ""
   },
   "ternary": {
@@ -60,15 +60,15 @@
   },
   "crossContentSearch": {
     "title": "搜尋",
-    "description": "必須定義",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}",
     "noSearchTermsEntered": "未輸入搜尋字串",
-    "placeholder": "必須定義",
+    "placeholder": "{num, plural, one {# 在分群中} other {# 在分群中}}",
     "categories": {
       "speciesSearch": "種",
       "datasetSearch": "資料集",
       "publisherSearch": "發布者",
       "occurrenceSearch": "出現紀錄",
-      "resourceSearch": "必須定義"
+      "resourceSearch": "{num, plural, one {# 在分群中} other {# 在分群中}}"
     },
     "seeAll": "查看全部"
   }

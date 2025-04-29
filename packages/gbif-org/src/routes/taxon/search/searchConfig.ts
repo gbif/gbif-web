@@ -13,7 +13,7 @@ export const config: FilterConfigType = {
   },
 };
 
-const otherParams = ['status', 'rank', 'higherTaxonKey'];
+const otherParams = ['status', 'rank', 'higherTaxonKey', 'issue'];
 
 otherParams.forEach((filter) => {
   config.fields = config.fields ?? {};

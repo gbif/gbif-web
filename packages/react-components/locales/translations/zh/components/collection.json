@@ -4,5 +4,6 @@
   "preservationTypes": "保存类型",
   "personalCollection": "个人收藏",
   "accessionStatus": "加入状态",
-  "numberSpecimens": "收集的标本数量"
+  "numberSpecimens": "收集的标本数量",
+  "collectionDescriptors": "集合描述符"
 }

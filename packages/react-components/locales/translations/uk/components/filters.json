@@ -428,7 +428,7 @@
   "isInCluster": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Ця експериментальна функція виділяє можливі дубльовані та/або пов'язані знахідки."
   },
   "isSequenced": {
     "name": "",
@@ -509,6 +509,13 @@
   "higherTaxonKey": {
     "name": "Вищий таксон",
     "count": "",
+    "description": ""
+  },
+  "issueEnum": {
+    "name": "Проблеми та відмітки",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
     "description": ""
   }
 }

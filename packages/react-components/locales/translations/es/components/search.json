@@ -25,7 +25,7 @@
     "range": "Rango o valor único",
     "rangeExample": "",
     "wildcard": "Buscar utilizando * y ? como comodines",
-    "dateTemplate": "Está documentado",
+    "dateTemplate": "",
     "locationID": ""
   },
   "ternary": {
@@ -60,15 +60,15 @@
   },
   "crossContentSearch": {
     "title": "Buscar",
-    "description": "Está documentado",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
     "noSearchTermsEntered": "No se ha introducido el término a buscar",
-    "placeholder": "Está documentado",
+    "placeholder": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
     "categories": {
       "speciesSearch": "Especies",
       "datasetSearch": "Conjuntos de datos",
       "publisherSearch": "Publicadores",
       "occurrenceSearch": "Registros de presencia",
-      "resourceSearch": "Está documentado"
+      "resourceSearch": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
     },
     "seeAll": "Ver todo"
   }

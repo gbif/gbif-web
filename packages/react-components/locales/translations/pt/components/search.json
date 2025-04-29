@@ -60,15 +60,15 @@
   },
   "crossContentSearch": {
     "title": "Pesquisa",
-    "description": "",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
     "noSearchTermsEntered": "Não há termos de pesquisa inseridos",
-    "placeholder": "",
+    "placeholder": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
     "categories": {
       "speciesSearch": "Espécie",
       "datasetSearch": "Conjuntos de dados",
       "publisherSearch": "Publicadores",
       "occurrenceSearch": "Ocorrências",
-      "resourceSearch": ""
+      "resourceSearch": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
     },
     "seeAll": "Ver todos"
   }

@@ -51,11 +51,15 @@
   "tradeRestrictions": "Торговые ограничения",
   "cites": "Номер по Конвенции CITES",
   "immediateChildren": "Нижестоящий таксон",
+  "referenceTaxon": "Референсный таксон",
   "errors": {
     "treatments": "",
     "distributions": "",
     "verbatim": "",
     "typeMaterial": "",
-    "vernacularNames": ""
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
   }
 }

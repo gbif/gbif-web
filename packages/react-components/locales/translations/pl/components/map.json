@@ -21,7 +21,7 @@
   "anyYear": "Dowolny rok",
   "exploreArea": "Przeglądaj obszar",
   "explore": "Przeglądaj",
-  "generatedDateAgo": "Musi być zdefiniowany",
+  "generatedDateAgo": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
   "style": "Styl",
   "filters": "Filtry",
   "select": "Wybierz",
@@ -36,7 +36,7 @@
     "CLASSIC": "Klasyczne punkty",
     "STREETS": "Ulice",
     "GLACIER": "Lodowiec",
-    "GREEN": "Musi być zdefiniowany",
+    "GREEN": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
     "CUSTOM": "Niestandardowe"
   },
   "basemap": {

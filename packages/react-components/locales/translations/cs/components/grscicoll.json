@@ -32,7 +32,7 @@
   "notes": "Poznámky",
   "collectionCode": "Kód sbírky",
   "institutionCode": "Kód instituce",
-  "specimensViaGbif": "Záznamy vzorků sdílené s GBIF",
+  "specimensViaGbif": "Záznamy exemplářů sdílené s GBIF",
   "specimens": "Exempláře",
   "identifiers": "Identifikátory",
   "importantCollectors": "Důležití sběratelé",
@@ -55,6 +55,6 @@
   "citesPermitNumber": "Cituje číslo povolení",
   "collectionDescriptorsHeadline": "",
   "collectionDescriptorsIntroduction": "",
-  "collectionSearchNoResultsMessage": "",
+  "collectionSearchNoResultsMessage": "Metadata sbírek jsou často na vysoké úrovni a nejsou vyčerpávající. Zvažte rozšíření svého záběru nebo zkuste vyhledat digitalizované exempláře.",
   "searchForSpecimens": ""
 }

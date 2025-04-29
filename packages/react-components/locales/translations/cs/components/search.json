@@ -25,7 +25,7 @@
     "range": "Rozsah nebo samostatná hodnota",
     "rangeExample": "",
     "wildcard": "Hledejte s pomocí * a ? jako zástupnými znaky",
-    "dateTemplate": "Musí být definováno",
+    "dateTemplate": "",
     "locationID": ""
   },
   "ternary": {
@@ -60,15 +60,15 @@
   },
   "crossContentSearch": {
     "title": "Hledat",
-    "description": "Musí být definováno",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
     "noSearchTermsEntered": "Nebyly zadány žádné hledané výrazy",
-    "placeholder": "Musí být definováno",
+    "placeholder": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
     "categories": {
       "speciesSearch": "Druhy",
       "datasetSearch": "Datové sady",
       "publisherSearch": "Vydavatelé",
       "occurrenceSearch": "Výskyty",
-      "resourceSearch": "Musí být definováno"
+      "resourceSearch": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
     },
     "seeAll": "Zobrazit vše"
   }

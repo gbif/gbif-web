@@ -25,6 +25,7 @@ import { Outlet } from 'react-router-dom';
 import Cites from './Cites';
 import { AboutContent, ApiContent } from './help';
 import SourceLink from './SourceLink';
+import { useIsSpeciesOrBelow } from './taxonUtil';
 // create context to pass data to children
 export const TaxonKeyContext = createContext<{
   key?: string;
@@ -147,6 +148,7 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
     params: { taxonKey: taxon.key },
   });
 
+  const isSpeciesOrBelow = useIsSpeciesOrBelow(taxon?.rank);
   return (
     <>
       <Helmet>
@@ -261,8 +263,11 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                 </div>
                 {taxon.publishedIn && (
                   <div>
-                    <FormattedMessage id="taxon.publishedIn" />{' '}
-                    <HyperText text={taxon.publishedIn} />
+                    <FormattedMessage id="taxon.publishedIn" />
+                    {': '}
+                    <span style={{ display: 'inline-block' }}>
+                      <HyperText text={taxon.publishedIn} />
+                    </span>
                   </div>
                 )}
                 <FeatureList>
@@ -277,7 +282,7 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                       </a>
                     </GenericFeature>
                   )}
-                  {isNub && (
+                  {isNub && isSpeciesOrBelow && (
                     <Cites taxonName={data.taxon?.canonicalName} kingdom={data.taxon?.kingdom} />
                   )}
                   {isNub && (
@@ -294,7 +299,7 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                           searchParams={{ taxonKey: taxon.key.toString() }}
                         >
                           {countLoading ? (
-                            <FormattedMessage id="phrases.loading" />
+                            <FormattedMessage id="taxon.loading" />
                           ) : (
                             <FormattedMessage id="counts.nOccurrences" values={{ total: count }} />
                           )}

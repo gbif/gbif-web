@@ -51,11 +51,15 @@
   "tradeRestrictions": "",
   "cites": "",
   "immediateChildren": "",
+  "referenceTaxon": "",
   "errors": {
     "treatments": "",
     "distributions": "",
     "verbatim": "",
     "typeMaterial": "",
-    "vernacularNames": ""
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
   }
 }

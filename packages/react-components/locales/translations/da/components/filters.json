@@ -510,5 +510,12 @@
     "name": "Højere takson",
     "count": "",
     "description": ""
+  },
+  "issueEnum": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
   }
 }

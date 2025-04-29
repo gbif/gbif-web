@@ -25,7 +25,7 @@
     "range": "范围或单个值",
     "rangeExample": "",
     "wildcard": "使用*和?作为通配符搜索",
-    "dateTemplate": "必须定义",
+    "dateTemplate": "",
     "locationID": ""
   },
   "ternary": {
@@ -60,15 +60,15 @@
   },
   "crossContentSearch": {
     "title": "搜索",
-    "description": "必须定义",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}",
     "noSearchTermsEntered": "没有输入搜索内容！",
-    "placeholder": "必须定义",
+    "placeholder": "{num, plural, one { 在集群中 } other {# 在集群中}}",
     "categories": {
       "speciesSearch": "物种",
       "datasetSearch": "数据集",
       "publisherSearch": "发布者",
       "occurrenceSearch": "出现记录",
-      "resourceSearch": "必须定义"
+      "resourceSearch": "{num, plural, one { 在集群中 } other {# 在集群中}}"
     },
     "seeAll": "查看全部"
   }

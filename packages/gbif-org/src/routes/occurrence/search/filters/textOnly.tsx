@@ -11,7 +11,7 @@ export const projectIdConfig: filterSuggestConfig = {
     query OccurrenceProjectIdFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
-          field: projectId(size: 10) {
+          field: projectId(size: 50) {
             name: key
             count
           }

@@ -13,6 +13,10 @@
   "BIOCASE": "生物馆藏检索服务",
   "BIOCASE_XML_ARCHIVE": "生物馆藏检索服务XML档案",
   "OAI_PMH": "OAI-PMH",
+  "COLDP": "哥伦比亚开放数据包",
+  "BIOM_1_0": "BIOM数据包1.0",
+  "BIOM_2_1": "BIOM数据包2.1",
+  "ACEF": "微生物学",
   "TEXT_TREE": "文本树",
   "OTHER": "其它"
 }

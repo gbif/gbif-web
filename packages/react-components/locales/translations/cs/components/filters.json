@@ -510,5 +510,12 @@
     "name": "Vyšší taxon",
     "count": "{num, plural, one {vyšší taxon} few {# vyšší taxony} many {# vyšších taxonů} other {# vyšších taxonů}}",
     "description": "Vyšší taxon, podle kterého se filtruje."
+  },
+  "issueEnum": {
+    "name": "Problémy a příznaky",
+    "count": "{num, plural, one {problém nebo příznak} few {# problémy a příznaky} many {# problémů a příznaků} other {# problémů a příznaků}}",
+    "isNotNull": "Má problémy",
+    "isNull": "Nemá problémy",
+    "description": "Typy problémů nebo příznaků potenciálního zájmu zjištěných při zpracování dat."
   }
 }

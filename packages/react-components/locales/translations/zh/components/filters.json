@@ -510,5 +510,12 @@
     "name": "较高的分类单位",
     "count": "",
     "description": ""
+  },
+  "issueEnum": {
+    "name": "问题和标志",
+    "count": "{num, plural, one {问题或标志} other {# 问题和标志}}",
+    "isNotNull": "有问题",
+    "isNull": "没有问题",
+    "description": "在处理数据时发现的问题类型或潜在兴趣标志。"
   }
 }

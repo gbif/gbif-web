@@ -510,5 +510,12 @@
     "name": "Taxón superior",
     "count": "{num, plural, one {taxón superior} other {# taxa superiores}}",
     "description": "Un taxón superior para filtrar."
+  },
+  "issueEnum": {
+    "name": "Problemas y banderas",
+    "count": "{num, plural, one {alerta} other {# alertas}}\n",
+    "isNotNull": "Tiene alertas",
+    "isNull": "No tiene alertas",
+    "description": "Los tipos de alertas de potencial interés identificados durante el procesamiento de los datos.\n"
   }
 }

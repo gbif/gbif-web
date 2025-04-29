@@ -510,5 +510,12 @@
     "name": "Wyższy takson",
     "count": "{num, plural, one {wyższy takson} few {# wyższe taksony} many {# wyższych taksonów} other {# wyższych taksonów}}",
     "description": "Filtrowanie po wyższym taksonie."
+  },
+  "issueEnum": {
+    "name": "Problemy i komentarze",
+    "count": "{num, plural, one {problem} few {# problemy} many {# problemów} other {# problemy}}",
+    "isNotNull": "Występują problemy",
+    "isNull": "Nie wystąpiły problemy",
+    "description": "Rodzaj problemów lub potencjalnych problemów odkrytych w procesowaniu danych. "
   }
 }

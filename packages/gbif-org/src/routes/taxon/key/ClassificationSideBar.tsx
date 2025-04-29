@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import rankEnum from '@/enums/basic/rank.json';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { useEffect, useRef, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { getChildren } from '../search/views/tree/treeUtil';
 
 const fmIndex = rankEnum.indexOf('FAMILY');
@@ -17,7 +17,7 @@ const ClassificationSideBar = ({ taxon }) => {
   const [offset, setOffset] = useState(0);
   const [endOfRecords, setEndOfRecords] = useState(false);
   const [error, setError] = useState(null);
-  const limit = 25;
+  const limit = 50;
 
   const cancelChildrenRef = useRef(null);
 
@@ -125,18 +125,23 @@ const ClassificationSideBar = ({ taxon }) => {
 
       {!error && children.length > 0 && (
         <div style={{ paddingLeft: '20px' }}>
-          <span className="g-text-sm g-text-slate-500 g-mb-1">
+          {/* <span className="g-text-sm g-text-slate-500 g-mb-1">
             <FormattedMessage id="taxon.immediateChildren" />
-          </span>
+          </span> */}
           <ul>
             {children.map((child, idx) => (
               <li key={child.key}>
-                <div style={{ width: '65px' }} className="g-text-sm g-text-slate-500">
-                  <FormattedMessage
-                    id={`enums.taxonRank.${child.rank}`}
-                    defaultMessage={child.rank || ''}
-                  />
-                </div>{' '}
+                {child?.rank !== children?.[idx - 1]?.rank && (
+                  <div
+                    style={{ width: '65px' }}
+                    className={`g-text-sm g-text-slate-500 ${idx > 0 ? 'g-mt-2' : ''}`}
+                  >
+                    <FormattedMessage
+                      id={`enums.taxonRank.${child.rank}`}
+                      defaultMessage={child.rank || ''}
+                    />
+                  </div>
+                )}
                 <DynamicLink
                   className={`g-underline g-pointer-events-auto g.ml-${idx}`}
                   // TODO: This link is using two methods of navigation (pageid + variables method and to method). One should be removed
@@ -149,11 +154,13 @@ const ClassificationSideBar = ({ taxon }) => {
                 >
                   <span className={`${!isFamilyOrAbove(child.rank) ? 'g-italic' : ''}`}>
                     {child?.canonicalName || child?.scientificName}
-                  </span>{' '}
+                  </span>
                   {/*                   <span dangerouslySetInnerHTML={{ __html: child?.formattedName }} />
-                   */}{' '}
+                   */}
                 </DynamicLink>{' '}
-                {child.numDescendants > 0 && <>({child.numDescendants})</>}
+                {child.numDescendants > 0 && (
+                  <>({<FormattedNumber value={child.numDescendants} />})</>
+                )}
               </li>
             ))}
           </ul>

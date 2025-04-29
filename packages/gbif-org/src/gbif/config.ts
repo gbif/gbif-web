@@ -195,7 +195,7 @@ export const gbifConfig: Config = {
     scope: {
       datasetKey: ['d7dddbf4-2cf0-4f39-9b2a-bb099caae36c'],
     },
-    highlightedFilters: ['q', 'status', 'rank', 'higherTaxonKey'],
+    highlightedFilters: ['q', 'status', 'rank', 'higherTaxonKey', 'issue'],
   },
   literatureSearch: {
     queryType: 'PREDICATE',

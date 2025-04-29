@@ -55,9 +55,9 @@
   },
   "derivedFromOccurrenceData": "",
   "pageToc": "",
-  "apiAccess": "",
+  "apiAccess": "API接口地址",
   "lastCrawled": "最后的爬网",
-  "goToRecord": "",
-  "commonNameAccordingTo": "",
+  "goToRecord": "调取存档",
+  "commonNameAccordingTo": "根据{来源}的通用名称",
   "noResults": ""
 }

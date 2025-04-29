@@ -1,4 +1,5 @@
 import { GadmClassification } from '@/components/classification';
+import { normalizeString } from '@/utils/normalizeString';
 import { FormattedMessage } from 'react-intl';
 import { KeyChartGenerator } from './KeyChartGenerator';
 
@@ -94,12 +95,6 @@ export const WaterBody = getStringChart({
   },
 });
 
-const getNormalizedName = (r) =>
-  r
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/\p{Diacritic}/gu, '');
-
 export const IdentifiedBy = getStringChart({
   fieldName: 'identifiedBy',
   title: <FormattedMessage id="filters.identifiedBy.name" defaultMessage="Identified by" />,
@@ -109,7 +104,7 @@ export const IdentifiedBy = getStringChart({
       // extract the identifiedBy value from the first result. Filter the recordedBy array by lower case matching and select the first match
       const title =
         x.entity?.documents?.results?.[0]?.identifiedBy?.find(
-          (r) => getNormalizedName(r) === x.key
+          (r) => normalizeString(r) === x.key
         ) ?? x.key;
       return {
         key: x.key,

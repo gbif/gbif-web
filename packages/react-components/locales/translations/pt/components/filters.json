@@ -510,5 +510,12 @@
     "name": "Taxon superior",
     "count": "",
     "description": ""
+  },
+  "issueEnum": {
+    "name": "Questões e sinalizadores",
+    "count": "{num, plural, one {problema ou sinais} other {# problemas e sinais}}",
+    "isNotNull": "Tem problemas",
+    "isNull": "Não tem problemas",
+    "description": "Os tipos de problemas ou sinais de potencial interesse descobertos ao processar os dados."
   }
 }

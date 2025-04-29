@@ -51,11 +51,15 @@
   "tradeRestrictions": "",
   "cites": "CITES",
   "immediateChildren": "",
+  "referenceTaxon": "",
   "errors": {
     "treatments": "Moet worden gedefinieerd",
     "distributions": "Moet worden gedefinieerd",
     "verbatim": "Moet worden gedefinieerd",
     "typeMaterial": "Moet worden gedefinieerd",
-    "vernacularNames": "Moet worden gedefinieerd"
+    "vernacularNames": "Moet worden gedefinieerd",
+    "classificationChildren": "Moet worden gedefinieerd",
+    "breakdown": "Moet worden gedefinieerd",
+    "invasiveInCountries": "Moet worden gedefinieerd"
   }
 }

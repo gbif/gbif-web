@@ -25,7 +25,7 @@
     "range": "Przedział albo pojedyncza wartość",
     "rangeExample": "",
     "wildcard": "Szukaj używając * i ? jako symboli wieloznacznych",
-    "dateTemplate": "Musi być zdefiniowany",
+    "dateTemplate": "",
     "locationID": ""
   },
   "ternary": {
@@ -60,15 +60,15 @@
   },
   "crossContentSearch": {
     "title": "Wyszukaj",
-    "description": "Musi być zdefiniowany",
+    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
     "noSearchTermsEntered": "Nie wpisano terminów wyszukiwania",
-    "placeholder": "Musi być zdefiniowany",
+    "placeholder": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
     "categories": {
       "speciesSearch": "Gatunek\n",
       "datasetSearch": "Zbiory danych",
       "publisherSearch": "Wydawcy",
       "occurrenceSearch": "Wystąpienia",
-      "resourceSearch": "Musi być zdefiniowany"
+      "resourceSearch": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
     },
     "seeAll": "Zobacz wszystko"
   }

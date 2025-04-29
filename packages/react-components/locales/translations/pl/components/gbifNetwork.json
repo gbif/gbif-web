@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "Musi być zdefiniowany",
-      "ASSOCIATE": "Musi być zdefiniowany",
-      "OTHER_ASSOCIATE": "Musi być zdefiniowany",
+      "VOTING": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+      "ASSOCIATE": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+      "OTHER_ASSOCIATE": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
       "FORMER": "Były",
       "OBSERVER": "Obserwator",
-      "UNKNOWN": "Musi być zdefiniowany",
+      "UNKNOWN": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
       "AFFILIATE": "Afiliowany przy GBIF"
     },
-    "affiliateHelp": "Musi być zdefiniowany",
-    "mapCaptionPublishers": "Musi być zdefiniowany",
+    "affiliateHelp": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+    "mapCaptionPublishers": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
     "role": "Funkcja",
     "name": "Nazwa",
     "participant": "Członek",
     "type": "Typ",
     "memberSince": "Członek od",
     "all": "Wszystko",
-    "countryParticipants": "Musi być zdefiniowany",
-    "publishersPerCountry": "Musi być zdefiniowany",
+    "countryParticipants": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+    "publishersPerCountry": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
     "clear": "Wyczyść",
     "headlines": {
       "nodesSteeringGroup": "Komisja Sterująca Węzłów",

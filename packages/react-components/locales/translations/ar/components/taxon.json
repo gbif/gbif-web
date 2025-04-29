@@ -51,11 +51,15 @@
   "tradeRestrictions": "القيود التجارية",
   "cites": "",
   "immediateChildren": "تفرعات مباشرة",
+  "referenceTaxon": "وحدة تصنيفية مرجعية",
   "errors": {
     "treatments": "",
     "distributions": "",
     "verbatim": "",
     "typeMaterial": "",
-    "vernacularNames": ""
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
   }
 }

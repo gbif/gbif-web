@@ -16,7 +16,7 @@
   "source": "來源",
   "specimenIsTypeOf": "等於 {is}",
   "typeMaterial": "等於 {is}",
-  "treatments": "必須定義",
+  "treatments": "{num, plural, one {# 在分群中} other {# 在分群中}}",
   "more": "更多",
   "less": "等於 {is}",
   "dna": "去氧核醣核酸",
@@ -51,11 +51,15 @@
   "tradeRestrictions": "貿易限制",
   "cites": "",
   "immediateChildren": "直接子代",
+  "referenceTaxon": "參考分類群",
   "errors": {
-    "treatments": "必須定義",
-    "distributions": "必須定義",
-    "verbatim": "必須定義",
-    "typeMaterial": "必須定義",
-    "vernacularNames": "必須定義"
+    "treatments": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "distributions": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "verbatim": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "typeMaterial": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "vernacularNames": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "classificationChildren": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "breakdown": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "invasiveInCountries": "{num, plural, one {# 在分群中} other {# 在分群中}}"
   }
 }

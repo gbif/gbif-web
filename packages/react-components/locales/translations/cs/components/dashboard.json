@@ -28,7 +28,7 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "Tyto metriky vycházejí ze záznamů sdílených prostřednictvím GBIF.",
-  "notVocabularyWarning": "Musí být definováno",
+  "notVocabularyWarning": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
   "group": {
     "views": "",
     "record": "Záznam",

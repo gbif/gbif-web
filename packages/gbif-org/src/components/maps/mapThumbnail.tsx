@@ -1,8 +1,8 @@
 // Docs: https://techdocs.gbif.org/en/openapi/v2/maps
 
+import { ClientSideOnly } from '@/components/clientSideOnly';
 import { stringify } from '@/utils/querystring';
 import { cn } from '@/utils/shadcn';
-import { ClientSideOnly } from '@/components/clientSideOnly';
 import { useCapabilities } from './mapWidget/outer/useCapabilities';
 
 export enum MapTypes {

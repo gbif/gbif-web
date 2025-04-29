@@ -28,7 +28,7 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "",
-  "notVocabularyWarning": "",
+  "notVocabularyWarning": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
   "group": {
     "views": "",
     "record": "Registo",

@@ -510,5 +510,12 @@
     "name": "高階分類群",
     "count": "",
     "description": ""
+  },
+  "issueEnum": {
+    "name": "問題和註記",
+    "count": "{num, plural, one {議題或標記} other {# 議題及標記}}",
+    "isNotNull": "存在問題",
+    "isNull": "不存在問題",
+    "description": "在處理資料時發現的問題類型或潛在感興趣的標誌"
   }
 }

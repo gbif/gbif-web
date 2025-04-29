@@ -51,11 +51,15 @@
   "tradeRestrictions": "Restrictions commerciales",
   "cites": "CITES",
   "immediateChildren": "Descendants directs",
+  "referenceTaxon": "Taxon de référence",
   "errors": {
     "treatments": "Doit être défini",
     "distributions": "Doit être défini",
     "verbatim": "Doit être défini",
     "typeMaterial": "Doit être défini",
-    "vernacularNames": "Doit être défini"
+    "vernacularNames": "Doit être défini",
+    "classificationChildren": "Doit être défini",
+    "breakdown": "Doit être défini",
+    "invasiveInCountries": "Doit être défini"
   }
 }
