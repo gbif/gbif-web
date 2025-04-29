@@ -64,9 +64,11 @@ export function DatasetKeyProject() {
             <Card className="g-mb-4" id="abstract">
               <CardHeader className="gbif-word-break">
                 <CardTitle>{project.title ?? <Unknown id="phrases.notProvided" />}</CardTitle>
-                <CardDescription>
-                  <FormattedMessage id="dataset.projectId" />: {project.identifier}
-                </CardDescription>
+                {project.identifier && (
+                  <CardDescription>
+                    <FormattedMessage id="dataset.projectId" />: {project.identifier}
+                  </CardDescription>
+                )}
               </CardHeader>
               <CardContent>
                 <div className="g-prose g-max-w-full">
