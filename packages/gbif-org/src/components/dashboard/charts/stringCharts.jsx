@@ -125,9 +125,8 @@ export const RecordedBy = getStringChart({
     return data?.search?.facet?.results?.map((x) => {
       // extract the recordedBy value from the first result. Filter the recordedBy array by lower case matching and select the first match
       const title =
-        x.entity?.documents?.results?.[0]?.recordedBy?.find(
-          (r) => getNormalizedName(r) === x.key
-        ) ?? x.key;
+        x.entity?.documents?.results?.[0]?.recordedBy?.find((r) => normalizeString(r) === x.key) ??
+        x.key;
       return {
         key: x.key,
         count: x.count,
@@ -206,7 +205,7 @@ export const SamplingProtocol = getStringChart({
       // extract the recordedBy value from the first result. Filter the recordedBy array by lower case matching and select the first match
       const title =
         x.entity?.documents?.results?.[0]?.samplingProtocol?.find(
-          (r) => getNormalizedName(r) === x.key
+          (r) => normalizeString(r) === x.key
         ) ?? x.key;
       return {
         key: x.key,

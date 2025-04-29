@@ -25,7 +25,7 @@
   "ACCEPTED_NAME_MISSING": "同义词缺少可接受的名称",
   "ACCEPTED_NAME_NOT_UNIQUE": "接受的名称不是唯一的",
   "PARENT_NAME_NOT_UNIQUE": "父名称不唯一",
-  "ORIGINAL_NAME_NOT_UNIQUE": "原始名称不是唯一的",
+  "ORIGINAL_NAME_NOT_UNIQUE": "原始名称不唯一的",
   "RELATIONSHIP_MISSING": "关系缺失",
   "ORIGINAL_NAME_DERIVED": "基名关系派生",
   "CONFLICTING_BASIONYM_COMBINATION": "矛盾的基名组合",
