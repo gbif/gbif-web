@@ -1,5 +1,6 @@
 import { Table } from '@/components/dashboard/shared';
 import { HyperText } from '@/components/hyperText';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { TreatmentsQuery, TreatmentsQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
@@ -9,10 +10,11 @@ import { MdLink } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Paging } from './VernacularNameTable';
 
-const limit = 10;
+const DEFAULT_LIMIT = 10;
 
 const Treatments = ({ taxonKey }: { taxonKey: string }) => {
   const [offset, setOffset] = useState(0);
+  const [limit, setLimit] = useState(DEFAULT_LIMIT);
   const { data, load, loading, error } = useQuery<TreatmentsQuery, TreatmentsQueryVariables>(
     TREATMENTS_QUERY,
     {
@@ -56,6 +58,28 @@ const Treatments = ({ taxonKey }: { taxonKey: string }) => {
                 id="counts.nResults"
                 values={{ total: data?.taxon?.treatments?.length || 0 }}
               />
+              {data?.taxon?.treatments?.length > limit && (
+                <Button
+                  variant="link"
+                  onClick={() => {
+                    setLimit(data?.taxon?.treatments?.length || 0);
+                    setOffset(0);
+                  }}
+                >
+                  <FormattedMessage id="taxon.showAll" />
+                </Button>
+              )}
+              {limit > DEFAULT_LIMIT && (
+                <Button
+                  variant="link"
+                  onClick={() => {
+                    setLimit(DEFAULT_LIMIT);
+                    setOffset(0);
+                  }}
+                >
+                  <FormattedMessage id="taxon.showLess" />
+                </Button>
+              )}
             </>
           )}
         </div>

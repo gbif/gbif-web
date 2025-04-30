@@ -1,4 +1,5 @@
 import { Table } from '@/components/dashboard/shared';
+import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { VocabularyValue } from '@/components/vocabularyValue';
 import { TaxonTypeSpecimensQuery, TaxonTypeSpecimensQueryVariables } from '@/gql/graphql';
@@ -10,10 +11,11 @@ import DNAsequence from './DNAsequence';
 import { Paging } from './VernacularNameTable';
 import { typeSpecimenPredicate } from './taxonUtil';
 
-const limit = 10;
+const DEFAULT_LIMIT = 10;
 
 const TypeMaterial = ({ taxonKey, total }: { taxonKey: number; total: number }) => {
   const [offset, setOffset] = useState(0);
+  const [limit, setLimit] = useState(DEFAULT_LIMIT);
   const intl = useIntl();
   const {
     data: typeSecimens,
@@ -39,7 +41,7 @@ const TypeMaterial = ({ taxonKey, total }: { taxonKey: number; total: number }) 
   if (total && !typeSecimens?.occurrenceSearch?.documents?.total) {
     return (
       <div>
-        {Array.from({ length: Math.max(total, 10) }).map((x, i) => (
+        {Array.from({ length: Math.min(total, 10) }).map((x, i) => (
           <React.Fragment key={i}>
             <Skeleton className="g-h-6" style={{ marginBottom: 12, width: '60%' }} />
             <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
@@ -58,6 +60,28 @@ const TypeMaterial = ({ taxonKey, total }: { taxonKey: number; total: number }) 
               id="counts.nResults"
               values={{ total: typeSecimens?.occurrenceSearch?.documents?.total || total }}
             />
+            {typeSecimens?.occurrenceSearch?.documents?.total > limit && (
+              <Button
+                variant="link"
+                onClick={() => {
+                  setLimit(typeSecimens?.occurrenceSearch?.documents?.total);
+                  setOffset(0);
+                }}
+              >
+                <FormattedMessage id="taxon.showAll" />
+              </Button>
+            )}
+            {limit > DEFAULT_LIMIT && (
+              <Button
+                variant="link"
+                onClick={() => {
+                  setLimit(DEFAULT_LIMIT);
+                  setOffset(0);
+                }}
+              >
+                <FormattedMessage id="taxon.showLess" />
+              </Button>
+            )}
           </>
         )}
       </div>

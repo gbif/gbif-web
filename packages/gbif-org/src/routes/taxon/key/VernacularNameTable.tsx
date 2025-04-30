@@ -12,21 +12,21 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-const limit = 10;
+const DEFAULT_LIMIT = 10;
 
 interface VernacularNameTableProps {
   columnTitle?: string;
   taxonKey: number;
   total: number;
 }
+interface VernacularName {
+  vernacularName: string;
+  language: string;
+  datasets: Dataset[];
+}
 
 export function VernacularNameTable({ taxonKey, total }: VernacularNameTableProps) {
-  interface VernacularName {
-    vernacularName: string;
-    language: string;
-    datasets: Dataset[];
-  }
-
+  const [limit, setLimit] = useState(DEFAULT_LIMIT);
   const [processedVernaculars, setProcessedVernaculars] = useState<{
     count: number;
     results: VernacularName[];
@@ -122,6 +122,28 @@ export function VernacularNameTable({ taxonKey, total }: VernacularNameTableProp
         {!loading && (
           <>
             <FormattedMessage id="counts.nResults" values={{ total: processedVernaculars.count }} />
+            {processedVernaculars.count > limit && (
+              <Button
+                variant="link"
+                onClick={() => {
+                  setLimit(processedVernaculars.count);
+                  setOffset(0);
+                }}
+              >
+                <FormattedMessage id="taxon.showAll" />
+              </Button>
+            )}
+            {limit > DEFAULT_LIMIT && (
+              <Button
+                variant="link"
+                onClick={() => {
+                  setLimit(DEFAULT_LIMIT);
+                  setOffset(0);
+                }}
+              >
+                <FormattedMessage id="taxon.showLess" />
+              </Button>
+            )}
           </>
         )}
       </div>
