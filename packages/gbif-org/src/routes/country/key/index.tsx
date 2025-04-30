@@ -1,4 +1,4 @@
-import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
+import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import { CountryKeyLayout, countryKeyLoader } from './layout';
 import { CountryKeySummary } from './summary';
 import { CountryKeyAbout } from './about';
@@ -7,9 +7,12 @@ import { CountryKeyParticipation } from './participation';
 import { CountryKeyPublicationsFrom } from './publications/from';
 import { CountryKeyPublicationsAbout } from './publications/about';
 import { redirectDocument } from 'react-router-dom';
+import { ParticipantQuery } from '@/gql/graphql';
+
+const id = 'countryKey';
 
 export const countryKeyRoute: RouteObjectWithPlugins = {
-  id: 'countryKey',
+  id,
   gbifRedirect: ({ key } = {}, { gbifOrgLocalePrefix = '' }) => {
     if (typeof key !== 'string' && typeof key !== 'number')
       throw new Error(`'Invalid key (key is of type ${typeof key})`);
@@ -59,3 +62,7 @@ export const countryKeyRoute: RouteObjectWithPlugins = {
     },
   ],
 };
+
+export function useCountryKeyLoaderData() {
+  return useRenderedRouteLoaderData(id) as { data: ParticipantQuery };
+}

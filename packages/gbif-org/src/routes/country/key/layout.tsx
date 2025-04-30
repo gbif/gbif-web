@@ -114,11 +114,7 @@ const PARTICIPANT_QUERY = /* GraphQL */ `
         membershipStart
         nodeEstablishmentDate
       }
-      contacts {
-        firstName
-        lastName
-        type
-      }
+      ...CountryKeySummary
     }
   }
 `;

@@ -7,12 +7,22 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeC
 import { FormattedMessage } from 'react-intl';
 import Properties, { Property } from '@/components/properties';
 import { fragmentManager } from '@/services/fragmentManager';
+import { CountryKeySummaryFragment } from '@/gql/graphql';
+import { useCountryKeyLoaderData } from '.';
+import { ContactList } from '@/components/contactList';
+import { notNull } from '@/utils/notNull';
+import { MaybeArray } from '@/types';
 
 export function CountryKeySummary() {
   const { countryCode } = useParams();
+  const { data } = useCountryKeyLoaderData();
+
+  console.log(data);
 
   // This will only happen if the page is mounted on the wrong route (without :countryCode in the path)
   if (!countryCode) throw new Error('Country code is required');
+
+  const preparedContacts = orderAndMergeContacts(data?.nodeCountry?.contacts);
 
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
@@ -53,16 +63,20 @@ export function CountryKeySummary() {
           </Card>
         </section>
 
-        <section>
-          <Card>
-            <CardHeader>
-              <CardTitle>
-                <FormattedMessage id="TODO" defaultMessage="Contacts" />
-              </CardTitle>
-            </CardHeader>
-            <CardContent></CardContent>
-          </Card>
-        </section>
+        {preparedContacts && (
+          <section>
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  <FormattedMessage id="TODO" defaultMessage="Contacts" />
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ContactList contacts={preparedContacts} />
+              </CardContent>
+            </Card>
+          </section>
+        )}
       </ArticleTextContainer>
     </ArticleContainer>
   );
@@ -73,10 +87,25 @@ fragmentManager.register(/* GraphQL */ `
     gbifRegion
     participationStatus
     contacts {
-      # Extract head of delegation
+      key
       firstName
       lastName
+
+      organization
+      position
+      roles
       type
+
+      address
+      city
+      postalCode
+      province
+      country
+
+      homepage
+      email
+      phone
+      userId
     }
     participant {
       membershipStart
@@ -84,3 +113,52 @@ fragmentManager.register(/* GraphQL */ `
     }
   }
 `);
+
+const contactOrder = ['HEAD_OF_DELEGATION', 'NODE_MANAGER'];
+
+type Contact = NonNullable<NonNullable<CountryKeySummaryFragment['contacts']>[number]>;
+type MergedContact = Contact & { type?: MaybeArray<Contact['type']> };
+
+function orderAndMergeContacts(
+  contacts: CountryKeySummaryFragment['contacts']
+): MergedContact[] | undefined {
+  if (!contacts) return;
+
+  // Order contacts by type using contactOrder array
+  const orderedContacts: Contact[] = contacts.filter(notNull).sort((a, b) => {
+    const aIndex = contactOrder.indexOf(a.type || '');
+    const bIndex = contactOrder.indexOf(b.type || '');
+
+    // If both types are in contactOrder, sort by their position
+    if (aIndex !== -1 && bIndex !== -1) {
+      return aIndex - bIndex;
+    }
+    // If only one type is in contactOrder, that one comes first
+    if (aIndex !== -1) return -1;
+    if (bIndex !== -1) return 1;
+    // If neither type is in contactOrder, maintain original order
+    return 0;
+  });
+
+  // Some contacts with the same key can appear multiple times in the contacts array with different type properties.
+  // Merge them into a single contact object.
+  const mergedContacts = orderedContacts.reduce<MergedContact[]>((acc, contact) => {
+    const existingContact = acc.find((c) => c.key === contact.key);
+    if (!existingContact) {
+      return [...acc, contact];
+    }
+
+    // Merge types
+    const types = [];
+
+    if (Array.isArray(existingContact.type)) types.push(...existingContact.type);
+    if (typeof existingContact.type === 'string') types.push(existingContact.type);
+
+    if (Array.isArray(contact.type)) types.push(...contact.type);
+    if (typeof contact.type === 'string') types.push(contact.type);
+
+    return acc;
+  }, []);
+
+  return mergedContacts;
+}
