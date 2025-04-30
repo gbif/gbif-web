@@ -8,6 +8,7 @@ import { CountryKeyPublicationsFrom } from './publications/from';
 import { CountryKeyPublicationsAbout } from './publications/about';
 import { redirectDocument } from 'react-router-dom';
 import { ParticipantQuery } from '@/gql/graphql';
+import { CountryKeyAlienSpecies } from './alienSpecies';
 
 const id = 'countryKey';
 
@@ -42,6 +43,10 @@ export const countryKeyRoute: RouteObjectWithPlugins = {
     {
       path: 'participation',
       element: <CountryKeyParticipation />,
+    },
+    {
+      path: 'alien-species',
+      element: <CountryKeyAlienSpecies />,
     },
     {
       path: 'publications',

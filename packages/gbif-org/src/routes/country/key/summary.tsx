@@ -17,8 +17,6 @@ export function CountryKeySummary() {
   const { countryCode } = useParams();
   const { data } = useCountryKeyLoaderData();
 
-  console.log(data);
-
   // This will only happen if the page is mounted on the wrong route (without :countryCode in the path)
   if (!countryCode) throw new Error('Country code is required');
 
