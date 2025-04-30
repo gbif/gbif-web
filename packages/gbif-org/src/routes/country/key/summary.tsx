@@ -24,6 +24,8 @@ export function CountryKeySummary() {
 
   const preparedContacts = orderAndMergeContacts(data?.nodeCountry?.contacts);
 
+  console.log(preparedContacts);
+
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl g-flex g-flex-col g-gap-4">
@@ -117,15 +119,17 @@ fragmentManager.register(/* GraphQL */ `
 const contactOrder = ['HEAD_OF_DELEGATION', 'NODE_MANAGER'];
 
 type Contact = NonNullable<NonNullable<CountryKeySummaryFragment['contacts']>[number]>;
-type MergedContact = Contact & { type?: MaybeArray<Contact['type']> };
+type MergedContact = Omit<Contact, 'type'> & { type?: MaybeArray<Contact['type']> };
 
 function orderAndMergeContacts(
   contacts: CountryKeySummaryFragment['contacts']
 ): MergedContact[] | undefined {
   if (!contacts) return;
 
+  const clonedContacts = structuredClone(contacts);
+
   // Order contacts by type using contactOrder array
-  const orderedContacts: Contact[] = contacts.filter(notNull).sort((a, b) => {
+  const orderedContacts: Contact[] = clonedContacts.filter(notNull).sort((a, b) => {
     const aIndex = contactOrder.indexOf(a.type || '');
     const bIndex = contactOrder.indexOf(b.type || '');
 
@@ -140,25 +144,28 @@ function orderAndMergeContacts(
     return 0;
   });
 
-  // Some contacts with the same key can appear multiple times in the contacts array with different type properties.
-  // Merge them into a single contact object.
-  const mergedContacts = orderedContacts.reduce<MergedContact[]>((acc, contact) => {
-    const existingContact = acc.find((c) => c.key === contact.key);
-    if (!existingContact) {
-      return [...acc, contact];
+  // get unique contacts
+  const uniqueContacts: MergedContact[] = orderedContacts.filter(
+    (contact, index, self) => self.findIndex((t) => t.key === contact.key) === index
+  );
+
+  // get duplicates
+  const duplicates = orderedContacts.filter(
+    (contact, index, self) => self.findIndex((t) => t.key === contact.key) !== index
+  );
+
+  // merge contact.type from duplicates to unique contacts
+  duplicates.forEach((contact) => {
+    const existingContact = uniqueContacts.find((c) => c.key === contact.key);
+    if (existingContact) {
+      const types: Contact['type'][] = [];
+      if (Array.isArray(existingContact.type)) types.push(...existingContact.type);
+      if (typeof existingContact.type === 'string') types.push(existingContact.type);
+      if (Array.isArray(contact.type)) types.push(...contact.type);
+      if (typeof contact.type === 'string') types.push(contact.type);
+      existingContact.type = types;
     }
+  });
 
-    // Merge types
-    const types = [];
-
-    if (Array.isArray(existingContact.type)) types.push(...existingContact.type);
-    if (typeof existingContact.type === 'string') types.push(existingContact.type);
-
-    if (Array.isArray(contact.type)) types.push(...contact.type);
-    if (typeof contact.type === 'string') types.push(contact.type);
-
-    return acc;
-  }, []);
-
-  return mergedContacts;
+  return uniqueContacts;
 }
