@@ -52,6 +52,8 @@
   "cites": "",
   "immediateChildren": "",
   "referenceTaxon": "",
+  "showLess": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+  "showAll": "",
   "errors": {
     "treatments": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
     "distributions": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",

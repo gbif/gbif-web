@@ -52,6 +52,8 @@
   "cites": "",
   "immediateChildren": "Безпосередньо підпорядковані таксони",
   "referenceTaxon": "Референтний таксон",
+  "showLess": "",
+  "showAll": "Показати все",
   "errors": {
     "treatments": "",
     "distributions": "",
