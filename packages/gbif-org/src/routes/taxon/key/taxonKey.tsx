@@ -12,15 +12,15 @@ import { LoaderArgs, useI18n } from '@/reactRouterPlugins';
 import { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { NonBackbonePresentation, TaxonKey as Presentation } from './taxonKeyPresentation';
-import { imagePredicate, typeSpecimenPredicate } from './taxonUtil';
+import { imagePredicate } from './taxonUtil';
 
 export async function taxonLoader({ params, graphql }: LoaderArgs) {
   const key = params.taxonKey || (params.key as string);
 
   return graphql.query<TaxonKeyQuery, TaxonKeyQueryVariables>(TAXON_QUERY, {
     key,
-    predicate: typeSpecimenPredicate(Number(key)),
-    imagePredicate: imagePredicate(Number(key)),
+    /*     predicate: typeSpecimenPredicate(Number(key)),
+     */ imagePredicate: imagePredicate(Number(key)),
   });
 }
 
@@ -96,7 +96,7 @@ export const NonBackboneTaxon = ({ headLess = false }) => {
 export { TaxonPageSkeleton } from './taxonKeyPresentation';
 
 const TAXON_QUERY = /* GraphQL */ `
-  query TaxonKey($key: ID!, $predicate: Predicate, $imagePredicate: Predicate) {
+  query TaxonKey($key: ID!, $imagePredicate: Predicate) {
     taxon(key: $key) {
       key
       nubKey
@@ -104,6 +104,9 @@ const TAXON_QUERY = /* GraphQL */ `
         key
         references
         datasetKey
+        dataset {
+          title
+        }
       }
       issues
       scientificName
@@ -163,11 +166,6 @@ const TAXON_QUERY = /* GraphQL */ `
 
     imagesCount: occurrenceSearch(predicate: $imagePredicate) {
       documents(size: 0) {
-        total
-      }
-    }
-    typesSpecimenCount: occurrenceSearch(predicate: $predicate) {
-      documents(from: 0, size: 0) {
         total
       }
     }
