@@ -1,9 +1,68 @@
+import { fragmentManager } from '@/services/fragmentManager';
+import { useCountryKeyLoaderData } from '.';
+import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
+import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { ArticleBody } from '@/routes/resource/key/components/articleBody';
+import { CountryKeyParticipationFragment } from '@/gql/graphql';
+import { Contacts } from './components/contacts';
+
 export function CountryKeyParticipation() {
+  const { data } = useCountryKeyLoaderData();
+
+  const participant = data?.nodeCountry?.participant;
+  const body = participant ? createBody(participant) : '';
+
   return (
-    <div>
-      <h1>Country Key Participation</h1>
-      <p>This is the participation page for the country key.</p>
-      {/* Add more content here as needed */}
-    </div>
+    <>
+      <ArticleContainer className="g-pt-4">
+        <ArticleTextContainer>
+          {body && <ArticleBody dangerouslySetBody={{ __html: body }} />}
+        </ArticleTextContainer>
+      </ArticleContainer>
+      <ArticleContainer className="g-bg-slate-100 g-pt-4">
+        <ArticleTextContainer className="g-max-w-screen-xl g-flex g-flex-col g-gap-4">
+          <Contacts contacts={data?.nodeCountry?.contacts} />
+        </ArticleTextContainer>
+      </ArticleContainer>
+    </>
   );
+}
+
+fragmentManager.register(/* GraphQL */ `
+  fragment CountryKeyParticipation on Node {
+    participant {
+      nodeMission
+      nodeFunding
+      nodeHistory
+      nodeStructure
+    }
+    ...NodeContacts
+  }
+`);
+
+// Done this way to let the g-prose class and ArticleBody component do the styling
+function createBody(participant: NonNullable<CountryKeyParticipationFragment['participant']>) {
+  let body = '';
+
+  if (participant.nodeMission) {
+    body += `<h3>Mission</h3>`;
+    body += participant.nodeMission;
+  }
+
+  if (participant.nodeFunding) {
+    body += `<h3>Funding</h3>`;
+    body += participant.nodeFunding;
+  }
+
+  if (participant.nodeHistory) {
+    body += `<h3>History</h3>`;
+    body += participant.nodeHistory;
+  }
+
+  if (participant.nodeStructure) {
+    body += `<h3>Structure</h3>`;
+    body += participant.nodeStructure;
+  }
+
+  return body;
 }

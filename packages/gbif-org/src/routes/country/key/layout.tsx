@@ -115,6 +115,7 @@ const PARTICIPANT_QUERY = /* GraphQL */ `
         nodeEstablishmentDate
       }
       ...CountryKeySummary
+      ...CountryKeyParticipation
     }
   }
 `;
