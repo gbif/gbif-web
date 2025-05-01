@@ -13,7 +13,7 @@ export function DataFromCountryMap({ countryCode }: DataFromCountryMapProps) {
       <Card>
         <CardHeader>
           <CardTitle className="g-pb-4">
-            <FormattedMessage id="TODO" defaultMessage="Data about Denmark" />
+            <FormattedMessage id="TODO" defaultMessage="Data from Denmark" />
           </CardTitle>
           <MapHeader.Container>
             <MapHeader.Item pageId="occurrenceSearch" searchParams={{ country: countryCode }}>
