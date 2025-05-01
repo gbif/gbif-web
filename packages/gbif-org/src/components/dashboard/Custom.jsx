@@ -25,6 +25,7 @@ const getDefaultRank = (rank) => {
 function TaxaMain({
   defaultRank,
   predicate,
+  q,
   handleRedirect,
   detailsRoute,
   visibilityThreshold,
@@ -33,7 +34,7 @@ function TaxaMain({
 }) {
   const [query, setQuery] = useState(getTaxonQuery(`${getDefaultRank(defaultRank)}Key`));
   const [rank, setRank] = useState(getDefaultRank(defaultRank).toUpperCase());
-  const facetResults = useFacets({ predicate, query });
+  const facetResults = useFacets({ predicate, otherVariables: { q }, query });
 
   useEffect(() => {
     setRank(getDefaultRank(defaultRank).toUpperCase());
@@ -135,8 +136,8 @@ export function Taxa(props) {
 }
 
 const getTaxonQuery = (rank) => `
-query summary($predicate: Predicate, $size: Int, $from: Int){
-  search: occurrenceSearch(predicate: $predicate) {
+query summary($q: String, $predicate: Predicate, $size: Int, $from: Int){
+  search: occurrenceSearch(q: $q, predicate: $predicate) {
     documents(size: 0) {
       total
     }
@@ -164,6 +165,7 @@ query summary($predicate: Predicate, $size: Int, $from: Int){
 
 function IucnMain({
   predicate,
+  q,
   handleRedirect,
   visibilityThreshold,
   detailsRoute,
@@ -171,10 +173,11 @@ function IucnMain({
   ...props
 }) {
   const facetResults = useFacets({
+    otherVariables: { q },
     predicate: {
       type: 'and',
       predicates: [
-        predicate,
+        predicate || {},
         {
           type: 'in',
           key: 'iucnRedListCategory',
@@ -242,8 +245,8 @@ function IucnMain({
   );
 }
 const IUCN_FACETS = `
-query summary($predicate: Predicate, $size: Int, $from: Int){
-  search: occurrenceSearch(predicate: $predicate) {
+query summary($q: String, $predicate: Predicate, $size: Int, $from: Int){
+  search: occurrenceSearch(q: $q, predicate: $predicate) {
     documents(size: 0) {
       total
     }

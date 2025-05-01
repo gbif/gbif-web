@@ -12,8 +12,8 @@ import { useOrderedList } from '../browseList/useOrderedList';
 import { MediaPresentation } from './mediaPresentation';
 
 const OCCURRENCE_MEDIA = /* GraphQL */ `
-  query occurrenceMediaSearch($predicate: Predicate, $size: Int, $from: Int) {
-    occurrenceSearch(predicate: $predicate) {
+  query occurrenceMediaSearch($q: String, $predicate: Predicate, $size: Int, $from: Int) {
+    occurrenceSearch(q: $q, predicate: $predicate) {
       documents(size: $size, from: $from) {
         total
         size

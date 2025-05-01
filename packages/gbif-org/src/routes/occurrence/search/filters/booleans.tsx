@@ -8,8 +8,8 @@ export const isInClusterConfig: filterBoolConfig = {
   displayName: booleanLabel,
   filterTranslation: 'filters.isInCluster.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceIsInClusterFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceIsInClusterFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: isInCluster(size: 100) {
             name: key
@@ -29,8 +29,8 @@ export const isSequencedConfig: filterBoolConfig = {
   displayName: booleanLabel,
   filterTranslation: 'filters.isSequenced.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceisSequencedFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceisSequencedFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: isSequenced(size: 100) {
             name: key

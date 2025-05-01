@@ -213,6 +213,7 @@ export const gbifConfig: Config = {
       // 'occurrenceIssue',
       'geometry',
       'recordedBy',
+      'q',
     ],
     tabs: ['table', 'gallery', 'map', 'clusters', 'datasets', 'dashboard', 'download'],
     defaultTab: 'table',

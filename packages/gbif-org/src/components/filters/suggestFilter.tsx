@@ -102,7 +102,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       if (searchContext.queryType === 'V1') {
         facetLoad({ variables: { query: query } });
       } else {
-        facetLoad({ variables: { predicate: query }, keepDataWhileLoading: true });
+        facetLoad({ variables: query, keepDataWhileLoading: true });
       }
     }, [facetQuery, filterBeforeHash, facetLoad, searchContext, searchConfig, filterHandle]);
 
@@ -121,7 +121,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       if (searchContext.queryType === 'V1') {
         selectedFacetLoad({ variables: { query: query, limit: selected?.length ?? 10 } });
       } else {
-        selectedFacetLoad({ variables: { predicate: query, size: selected?.length ?? 10 } });
+        selectedFacetLoad({ variables: { ...query, size: selected?.length ?? 10 } });
       }
     }, [
       facetQuery,

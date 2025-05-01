@@ -74,8 +74,8 @@ export const datasetKeyOccurrenceSuggest = {
 
     const rootPredicate = searchContext?.scope;
     const SEARCH = `
-    query keywordSearch($predicate: Predicate, $size: Int){
-      occurrenceSearch(predicate: $predicate) {
+    query keywordSearch($q: String, $predicate: Predicate, $size: Int){
+      occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           datasetKey(size: $size) {
             key
@@ -141,8 +141,8 @@ export const publisherKeyOccurrenceSuggest = {
 
     const rootPredicate = searchContext?.scope;
     const SEARCH = `
-    query keywordSearch($predicate: Predicate, $size: Int){
-      occurrenceSearch(predicate: $predicate) {
+    query keywordSearch($q: String, $predicate: Predicate, $size: Int){
+      occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           results: publishingOrg(size: $size) {
             key

@@ -8,7 +8,7 @@ import useQuery from '@/hooks/useQuery';
 import { useI18n } from '@/reactRouterPlugins';
 import formatAsPercentage from '@/utils/formatAsPercentage';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
-import useDeepCompareEffect from 'use-deep-compare-effect';
+import { useDeepCompareEffectNoCheck as useDeepCompareEffect } from 'use-deep-compare-effect';
 import { Table } from '../shared';
 
 export function GroupByTable({
@@ -190,11 +190,11 @@ export function useFacets({
       },
       queue: { name: 'dashboard' },
     });
-  }, [predicate, query, from, size, locale]);
+  }, [predicate, otherVariables, query, from, size, locale]);
 
   useDeepCompareEffect(() => {
     setFrom(0);
-  }, [predicate]);
+  }, [predicate, otherVariables]);
 
   const next = useCallback(() => {
     setFrom(Math.max(0, from + size));

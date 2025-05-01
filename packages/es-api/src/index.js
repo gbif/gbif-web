@@ -211,10 +211,10 @@ function searchResource(resource, metaOnly = false) {
   return async (req, res, next) => {
     try {
       // console.log(`queueLength: ${eventQueue.queue.getLength()}`);
-
       const {
         metrics,
         predicate,
+        q,
         size,
         from,
         randomSeed,
@@ -224,7 +224,7 @@ function searchResource(resource, metaOnly = false) {
         sortOrder,
       } = parseQuery(req, res, next, { get2predicate, get2metric });
       const aggs = metric2aggs(metrics);
-      const query = predicate2query(predicate);
+      const query = await predicate2query(predicate, q);
       if (metaOnly) {
         return res.json({
           predicate,
@@ -289,6 +289,7 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
       includeMeta = false,
       sortBy,
       sortOrder,
+      q,
       ...otherParams
     } = query;
 
@@ -321,6 +322,7 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
       includeMeta,
       sortBy,
       sortOrder,
+      q,
     };
     return result;
   } catch (err) {

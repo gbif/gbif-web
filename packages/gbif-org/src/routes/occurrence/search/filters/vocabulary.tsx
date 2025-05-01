@@ -10,8 +10,8 @@ export const establishmentMeansConfig: filterEnumConfig = {
   filterTranslation: 'filters.establishmentMeans.name',
   // suggestConfig: establishmentMeansSuggest,
   facetQuery: `
-    query OccurrenceEstablishmentMeansFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceEstablishmentMeansFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: establishmentMeans {
             name: key
@@ -34,8 +34,8 @@ export const establishmentMeansConfig: filterEnumConfig = {
 //   allowExistence: true,
 //   filterTranslation: 'filters.typeStatus.name',
 //   facetQuery: /* GraphQL */ `
-//     query OccurrenceTypeStatusFacet($predicate: Predicate) {
-//       search: occurrenceSearch(predicate: $predicate) {
+//     query OccurrenceTypeStatusFacet($q: String, $predicate: Predicate) {
+//       search: occurrenceSearch(q: $q, predicate: $predicate) {
 //         facet {
 //           field: typeStatus(size: 100) {
 //             name: key

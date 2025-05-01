@@ -5,6 +5,7 @@ const typeDef = gql`
     occurrenceSearch(
       apiKey: String
       predicate: Predicate
+      q: String
       size: Int
       from: Int
     ): OccurrenceSearchResult

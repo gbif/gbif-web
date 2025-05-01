@@ -81,12 +81,12 @@ const OccurrenceAutoDateHistogram = dateHistogramFields.reduce(
 
 const searchOccurrences = (parent, query, { dataSources }) => {
   return dataSources.occurrenceAPI.searchOccurrenceDocuments({
-    query: { predicate: parent._predicate, ...query },
+    query: { predicate: parent._predicate, q: parent._q, ...query },
   });
 };
 
 const facetOccurrenceSearch = (parent) => {
-  return { _predicate: parent._predicate };
+  return { _predicate: parent._predicate, _q: parent._q };
 };
 
 /**
@@ -106,6 +106,7 @@ export default {
       });
       return {
         _predicate: args.predicate,
+        _q: args.q,
         _downloadPredicate: v1Predicate,
         _v1PredicateHash: v1PredicateQStripped.predicate
           ? dataSources.occurrenceAPI.registerPredicate({
@@ -504,23 +505,23 @@ export default {
     documents: searchOccurrences,
     // this looks odd. I'm not sure what is the best way, but I want to transfer the current query to the child, so that it can be used when asking for the individual facets
     facet: (parent) => {
-      return { _predicate: parent._predicate };
+      return { _predicate: parent._predicate, _q: parent._q };
     },
     stats: (parent) => {
-      return { _predicate: parent._predicate };
+      return { _predicate: parent._predicate, _q: parent._q };
     },
     cardinality: (parent) => {
-      return { _predicate: parent._predicate };
+      return { _predicate: parent._predicate, _q: parent._q };
     },
     histogram: (parent) => {
-      return { _predicate: parent._predicate };
+      return { _predicate: parent._predicate, _q: parent._q };
     },
     autoDateHistogram: (parent) => {
-      return { _predicate: parent._predicate };
+      return { _predicate: parent._predicate, _q: parent._q };
     },
     _meta: (parent, _query, { dataSources }) => {
       return dataSources.occurrenceAPI.meta({
-        query: { predicate: parent._predicate },
+        query: { predicate: parent._predicate, q: parent._q },
       });
     },
   },

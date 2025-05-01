@@ -740,7 +740,7 @@ export function getAsQuery({
   searchContext: SearchMetadata;
   searchConfig: FilterConfigType;
   queryType?: QueryTypeEnum;
-}): object | Predicate | undefined {
+}): object | { predicate: Predicate | undefined; q: string | undefined } {
   // should we use get v1 syntax or predicates (we have later added predicates to v1, so the naming is less meaningful now)
   if (queryType === 'V1') {
     const v1Filter = filter2v1(filter, searchConfig);
@@ -752,14 +752,23 @@ export function getAsQuery({
   } else {
     // query by predicate
     const rootPredicate = searchContext.scope;
-    const currentPredicate = filter2predicate(filter, searchConfig);
+    let cleanedFilter = filter;
+    let q;
+    if (searchConfig?.fields?.q?.hoist) {
+      q = filter?.must?.q?.[0];
+      // remove q from the filter.must and keep the remaining filter as is
+      const { q: discard, ...rest } = filter?.must ?? {};
+      cleanedFilter = { ...filter, must: rest };
+    }
+
+    const currentPredicate = filter2predicate(cleanedFilter, searchConfig);
     const predicates = [rootPredicate, currentPredicate].filter((x) => x);
     if (predicates.length === 0) {
-      return undefined;
+      return { q, predicate: undefined };
     } else if (predicates.length === 1) {
-      return predicates[0];
+      return { predicate: predicates[0], q };
     } else {
-      return { type: 'and', predicates };
+      return { predicate: { type: 'and', predicates }, q };
     }
   }
 }

@@ -4,6 +4,7 @@ import { PredicateType } from '@/gql/graphql';
 const config: FilterConfigType = {
   fields: {
     q: {
+      hoist: true,
       singleValue: true,
       defaultType: PredicateType.Fuzzy,
       v1: {

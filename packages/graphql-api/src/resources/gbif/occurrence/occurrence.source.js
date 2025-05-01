@@ -38,6 +38,7 @@ class OccurrenceAPI extends RESTDataSource {
       });
     }
     response._predicate = body.predicate;
+    response._q = query.q;
     return response;
   }
 

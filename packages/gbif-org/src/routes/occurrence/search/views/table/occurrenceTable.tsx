@@ -38,11 +38,12 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
     $from: Int
     $size: Int
     $predicate: Predicate
+    $q: String
     $language: String
     $sortBy: OccurrenceSortBy
     $sortOrder: SortOrder
   ) {
-    occurrenceSearch(predicate: $predicate) {
+    occurrenceSearch(q: $q, predicate: $predicate) {
       documents(from: $from, size: $size, sortBy: $sortBy, sortOrder: $sortOrder) {
         from
         size
@@ -190,9 +191,7 @@ export function OccurrenceTableClient() {
     load({
       variables: {
         language: locale.iso3LetterCode,
-        predicate: {
-          ...query,
-        },
+        ...query,
         size: paginationState.pageSize,
         from: paginationState.pageIndex * paginationState.pageSize,
         sortBy: getNotEmptyString(occurrenceSortBy) as OccurrenceSortBy | undefined,

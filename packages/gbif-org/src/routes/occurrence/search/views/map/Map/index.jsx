@@ -9,8 +9,8 @@ import { searchConfig } from '../../../searchConfig';
 import MapPresentation from './MapPresentation';
 
 const OCCURRENCE_MAP = `
-query map($predicate: Predicate){
-  occurrenceSearch(predicate: $predicate) {
+query map($q: String, $predicate: Predicate){
+  occurrenceSearch(q: $q, predicate: $predicate) {
     _meta
     documents {
       total
@@ -21,8 +21,8 @@ query map($predicate: Predicate){
 `;
 
 const OCCURRENCE_POINT = `
-query point($predicate: Predicate){
-  occurrenceSearch(predicate: $predicate) {
+query point($q: String, $predicate: Predicate){
+  occurrenceSearch(q: $q, predicate: $predicate) {
     documents {
       total
       results {

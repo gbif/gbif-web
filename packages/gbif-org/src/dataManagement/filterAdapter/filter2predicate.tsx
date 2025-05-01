@@ -21,6 +21,7 @@ export type FieldType = {
   defaultType?: PredicateType;
   defaultKey?: string;
   singleValue?: boolean;
+  hoist: boolean; // for use with q param since the occurrence predicate API do not support fuzzy matching, but consider it a distinct parameter
   transformValue?: (value: any) => any;
   serializer?: ({
     filterName,
@@ -60,7 +61,9 @@ export function filter2predicate(
 
   const predicates = positive.concat(negated);
 
-  if (predicates.length === 1) {
+  if (predicates.length === 0) {
+    return null;
+  } else if (predicates.length === 1) {
     return predicates[0];
   } else {
     return {

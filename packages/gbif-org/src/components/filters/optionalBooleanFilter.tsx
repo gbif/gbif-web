@@ -9,11 +9,11 @@ import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 import { AboutButton } from './aboutButton';
 import {
-    AdditionalFilterProps,
-    ApplyCancel,
-    FacetQuery,
-    filterBoolConfig,
-    getAsQuery
+  AdditionalFilterProps,
+  ApplyCancel,
+  FacetQuery,
+  filterBoolConfig,
+  getAsQuery,
 } from './filterTools';
 
 type BoolProps = Omit<filterBoolConfig, 'filterType' | 'filterTranslation'> &
@@ -62,7 +62,7 @@ export const OptionalBooleanFilter = React.forwardRef(
       if (searchContext.queryType === 'V1') {
         facetLoad({ variables: { query: query } });
       } else {
-        facetLoad({ variables: { predicate: query }, keepDataWhileLoading: true });
+        facetLoad({ variables: query, keepDataWhileLoading: true });
       }
     }, [facetQuery, filterBeforeHash, facetLoad, searchContext, searchConfig, filterHandle]);
 

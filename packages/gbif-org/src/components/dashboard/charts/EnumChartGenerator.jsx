@@ -4,6 +4,7 @@ import { OneDimensionalChart } from './OneDimensionalChart';
 
 export function EnumChartGenerator({
   predicate,
+  q,
   detailsRoute,
   fieldName,
   enumKeys,
@@ -16,8 +17,10 @@ export function EnumChartGenerator({
   ...props
 }) {
   const GQL_QUERY = `
-    query summary($predicate: Predicate${!disableUnknown ? ', $hasPredicate: Predicate' : ''}, $size: Int, $from: Int){
-      search: ${searchType}(predicate: $predicate) {
+    query summary($q: String, $predicate: Predicate${
+      !disableUnknown ? ', $hasPredicate: Predicate' : ''
+    }, $size: Int, $from: Int){
+      search: ${searchType}(q: $q, predicate: $predicate) {
         documents(size: 0) {
           total
         }
@@ -33,7 +36,7 @@ export function EnumChartGenerator({
       }
       ${
         !disableUnknown
-          ? `isNotNull: ${searchType}(predicate: $hasPredicate) {
+          ? `isNotNull: ${searchType}(q: $q, predicate: $hasPredicate) {
         documents(size: 0) {
           total
         }
@@ -46,6 +49,7 @@ export function EnumChartGenerator({
     <ChartWrapper
       {...{
         predicate,
+        q,
         detailsRoute,
         gqlQuery: GQL_QUERY,
         currentFilter,
@@ -70,6 +74,7 @@ export function ChartWrapper({
   facetSize,
   disableOther,
   disableUnknown,
+  q,
   currentFilter = {}, //excluding root predicate
   ...props
 }) {
@@ -89,6 +94,7 @@ export function ChartWrapper({
     predicate,
     query: gqlQuery,
     otherVariables: {
+      q,
       hasPredicate: {
         type: 'and',
         predicates: hasPredicates,

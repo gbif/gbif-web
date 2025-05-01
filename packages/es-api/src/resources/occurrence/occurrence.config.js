@@ -1,12 +1,12 @@
 const config = {
   options: {
-    q: {
-      type: 'text',
-      field: 'all',
-      get: {
-        type: 'fuzzy',
-      },
-    },
+    // q: {
+    //   type: 'text',
+    //   field: 'all',
+    //   get: {
+    //     type: 'fuzzy',
+    //   },
+    // },
     amplificationItems: {
       field: 'amplificationItems',
       discarded: true,
@@ -719,7 +719,7 @@ const config = {
     },
     taxonKey: {
       type: 'keyword',
-      field: 'classifications.d7dddbf4-2cf0-4f39-9b2a-bb099caae36c.taxonKeys.keyword',
+      field: 'classifications.d7dddbf4-2cf0-4f39-9b2a-bb099caae36c.taxonKeys',
       // field: 'gbifClassification.taxonKey',
     },
     verbatimScientificName: {

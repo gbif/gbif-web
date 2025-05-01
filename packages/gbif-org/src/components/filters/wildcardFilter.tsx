@@ -85,7 +85,7 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
 
     useEffect(() => {
       const query = getAsQuery({ filter: prunedFilter, searchContext, searchConfig });
-      const predicates = [query];
+      const predicates = [query?.predicate];
       let queryString = q;
       let postfix = '';
       if (queryString.indexOf('*') === -1 && queryString.indexOf('?') === -1) {

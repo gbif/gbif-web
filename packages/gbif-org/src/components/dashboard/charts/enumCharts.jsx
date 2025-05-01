@@ -4,6 +4,7 @@ import { EnumChartGenerator } from './EnumChartGenerator';
 
 function StandardEnumChart({
   predicate,
+  q,
   detailsRoute,
   currentFilter = {}, //excluding root predicate
   fieldName,
@@ -21,6 +22,7 @@ function StandardEnumChart({
     <EnumChartGenerator
       {...{
         predicate,
+        q,
         detailsRoute,
         currentFilter,
         enumKeys,

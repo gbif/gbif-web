@@ -15,6 +15,7 @@ const inputTypeDef = gql`
     distance: String
     predicate: Predicate
     predicates: [Predicate]
+    checklistKey: String
   }
 
   enum PredicateType {

@@ -4,13 +4,13 @@ import { filter2predicate } from '@/dataManagement/filterAdapter';
 import useQuery from '@/hooks/useQuery';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { searchConfig } from '../../searchConfig';
+import { useEntityDrawer } from '../browseList/useEntityDrawer';
 import { useOrderedList } from '../browseList/useOrderedList';
 import { DatasetPresentation } from './datasetPresentation';
-import { useEntityDrawer } from '../browseList/useEntityDrawer';
 
 const OCCURRENCE_DATASETS = `
-query occurrenceDatasets($predicate: Predicate, $size: Int) {
-  occurrenceSearch(predicate: $predicate, size: 0, from: 0) {
+query occurrenceDatasets($q: String, $predicate: Predicate, $size: Int) {
+  occurrenceSearch(q: $q, predicate: $predicate, size: 0, from: 0) {
     cardinality {
       datasetKey
     }

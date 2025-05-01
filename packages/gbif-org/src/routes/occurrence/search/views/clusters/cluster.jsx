@@ -9,8 +9,8 @@ import { searchConfig } from '../../searchConfig';
 import { ClusterPresentation } from './ClusterPresentation';
 
 const OCCURRENCE_CLUSTERS = `
-query clusters($predicate: Predicate, $size: Int = 20, $from: Int = 0){
-  occurrenceSearch(predicate: $predicate, size: $size, from: $from) {
+query clusters($q: String, $predicate: Predicate, $size: Int = 20, $from: Int = 0){
+  occurrenceSearch(q: $q, predicate: $predicate, size: $size, from: $from) {
     documents(size: $size, from: $from) {
       total
       results {
