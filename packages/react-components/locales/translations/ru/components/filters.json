@@ -513,9 +513,9 @@
   },
   "issueEnum": {
     "name": "Автоматически обнаруженные несоответствия",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "count": "{num, plural, one {issue or flag} few {# issues and flags} many {# issues and flags} other {# issues and flags}}",
+    "isNotNull": "Есть проблемы",
+    "isNull": "Нет проблем",
+    "description": "Типы проблем или признаков потенциального интереса, обнаруженных при обработке данных."
   }
 }
