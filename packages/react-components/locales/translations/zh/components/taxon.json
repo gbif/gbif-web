@@ -52,6 +52,8 @@
   "cites": "引用",
   "immediateChildren": "直系亲属",
   "referenceTaxon": "参考分类",
+  "showLess": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+  "showAll": "显示全部",
   "errors": {
     "treatments": "{num, plural, one { 在集群中 } other {# 在集群中}}",
     "distributions": "{num, plural, one { 在集群中 } other {# 在集群中}}",
