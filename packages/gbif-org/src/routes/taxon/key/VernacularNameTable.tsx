@@ -78,9 +78,10 @@ export function VernacularNameTable({ taxonKey, total }: VernacularNameTableProp
           }
         }
       }
+      const results: { vernacularName: string; language: string; datasets: Dataset[] }[] = [];
 
       namesWithoutLanguage.forEach((n) => {
-        Object.values(namesWithLanguage).find((val) => {
+        const found = Object.values(namesWithLanguage).find((val) => {
           return Object.entries(val).find(([k, v]) => {
             if (n && n.vernacularName === k) {
               v.push(n);
@@ -89,9 +90,14 @@ export function VernacularNameTable({ taxonKey, total }: VernacularNameTableProp
             return false;
           });
         });
+        if (!found) {
+          results.push({
+            vernacularName: n.vernacularName,
+            language: '',
+            datasets: [n],
+          });
+        }
       });
-
-      const results: { vernacularName: string; language: string; datasets: Dataset[] }[] = [];
 
       Object.entries(namesWithLanguage).forEach(([lang, val]) => {
         Object.entries(val).forEach(([k, v]) => {
@@ -156,13 +162,15 @@ export function VernacularNameTable({ taxonKey, total }: VernacularNameTableProp
                   <td>
                     <div>
                       {e.vernacularName}{' '}
-                      <span className="g-text-sm g-text-slate-500">
-                        {' '}
-                        <FormattedMessage
-                          id={`enums.language.${e.language}`}
-                          defaultMessage={e.language}
-                        />
-                      </span>
+                      {e.language && (
+                        <span className="g-text-sm g-text-slate-500">
+                          {' '}
+                          <FormattedMessage
+                            id={`enums.language.${e.language}`}
+                            defaultMessage={e.language}
+                          />
+                        </span>
+                      )}
                     </div>
                     {e?.datasets?.[0]?.source && (
                       <div className="g-text-sm g-text-slate-500">
