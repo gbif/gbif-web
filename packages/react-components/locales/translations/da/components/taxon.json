@@ -52,6 +52,8 @@
   "cites": "",
   "immediateChildren": "Umiddelbare børn",
   "referenceTaxon": "Reference takson",
+  "showLess": "",
+  "showAll": "Vis alle",
   "errors": {
     "treatments": "",
     "distributions": "",

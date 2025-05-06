@@ -24,6 +24,7 @@ import { FormattedMessage } from 'react-intl';
 import { Outlet } from 'react-router-dom';
 import Cites from './Cites';
 import { AboutContent, ApiContent } from './help';
+import SourceDataset from './SourceDataset';
 import SourceLink from './SourceLink';
 import { useIsSpeciesOrBelow } from './taxonUtil';
 // create context to pass data to children
@@ -37,7 +38,8 @@ export const TaxonKeyContext = createContext<{
     __typename: undefined,
     taxon: undefined,
     imagesCount: undefined,
-    typesSpecimenCount: undefined,
+    /*     typesSpecimenCount: undefined,
+     */
   },
   slowTaxon: {
     __typename: undefined,
@@ -204,72 +206,60 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                 </SimpleTooltip>
               )}
             </ArticleTitle>
-            {!isNub && taxon.dataset && (
-              <div className="g-mt-2">
-                <FormattedMessage
-                  id="taxon.inChecklist"
-                  values={{
-                    checklist: (
-                      <DynamicLink
-                        className="hover:g-underline g-text-primary-500 g-ml-1"
-                        to={`/dataset/${taxon.dataset.key}`}
-                        pageId="datasetKey"
-                        variables={{ key: taxon.dataset.key }}
-                      >
-                        {taxon.dataset.title}
-                      </DynamicLink>
-                    ),
-                  }}
-                />
-              </div>
-            )}
+            <div>
+              {!isNub && taxon.dataset && (
+                <div className="g-mt-2">
+                  <FormattedMessage
+                    id="taxon.inChecklist"
+                    values={{
+                      checklist: (
+                        <DynamicLink
+                          className="hover:g-underline g-text-primary-500 g-ml-1"
+                          to={`/dataset/${taxon.dataset.key}`}
+                          pageId="datasetKey"
+                          variables={{ key: taxon.dataset.key }}
+                        >
+                          {taxon.dataset.title}
+                        </DynamicLink>
+                      ),
+                    }}
+                  />
+                </div>
+              )}
 
+              {taxon.acceptedTaxon && (
+                <>
+                  <FormattedMessage id="taxon.synonymOf" defaultMessage={'Synonym of'} />
+                  <Button asChild variant="link" className="g-p-1">
+                    <DynamicLink
+                      pageId="speciesKey"
+                      variables={{ key: taxon?.acceptedTaxon?.key.toString() }}
+                    >
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html:
+                            taxon?.acceptedTaxon?.formattedName ||
+                            taxon?.acceptedTaxon?.scientificName ||
+                            '',
+                        }}
+                      ></span>
+                    </DynamicLink>
+                  </Button>
+                </>
+              )}
+              {isNub && <SourceDataset taxon={data.taxon} />}
+              {taxon.publishedIn && (
+                <div>
+                  <FormattedMessage id="taxon.publishedIn" />
+                  {': '}
+                  <span style={{ display: 'inline-block' }}>
+                    <HyperText text={taxon.publishedIn} />
+                  </span>
+                </div>
+              )}
+            </div>
             <HeaderInfo>
               <HeaderInfoMain>
-                {taxon.acceptedTaxon && (
-                  <>
-                    <FormattedMessage id="taxon.synonymOf" defaultMessage={'Synonym of'} />
-                    <Button asChild variant="link" className="g-p-1">
-                      <DynamicLink
-                        pageId="speciesKey"
-                        variables={{ key: taxon?.acceptedTaxon?.key.toString() }}
-                      >
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html:
-                              taxon?.acceptedTaxon?.formattedName ||
-                              taxon?.acceptedTaxon?.scientificName ||
-                              '',
-                          }}
-                        ></span>
-                      </DynamicLink>
-                    </Button>
-                  </>
-                )}
-                <div>
-                  {/*  {taxon.parents && (
-                    <div>
-                      <TaxonClassification
-                        showIcon={false}
-                        className="g-flex g-mb-2"
-                        majorOnly
-                        classification={taxon.parents.map((p) => ({
-                          ...p,
-                          name: p.canonicalName,
-                        }))}
-                      />
-                    </div>
-                  )} */}
-                </div>
-                {taxon.publishedIn && (
-                  <div>
-                    <FormattedMessage id="taxon.publishedIn" />
-                    {': '}
-                    <span style={{ display: 'inline-block' }}>
-                      <HyperText text={taxon.publishedIn} />
-                    </span>
-                  </div>
-                )}
                 <FeatureList>
                   {!isNub && taxon?.references && <Homepage url={taxon.references} />}
                   {isNub && taxon?.iucnStatus?.distribution?.threatStatus && (
@@ -290,6 +280,7 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
                       <SourceLink taxon={data.taxon} />
                     </GenericFeature>
                   )}
+
                   {isNub && (
                     <>
                       <div className="g-flex-auto g-min-w-0" />

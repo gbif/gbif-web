@@ -52,6 +52,8 @@
   "cites": "Konwencja waszyngtońska (CITES)",
   "immediateChildren": "Bezpośrednio podporządkowane taksony",
   "referenceTaxon": "Takson odniesienia",
+  "showLess": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+  "showAll": "Pokaż całość",
   "errors": {
     "treatments": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
     "distributions": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
