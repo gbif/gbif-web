@@ -21,7 +21,6 @@ const extensions = [
   'amplification',
   'permit',
   'loan',
-  'preservation',
   'materialSampleExt',
   'dnaDerivedData',
   'cloning',
