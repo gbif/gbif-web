@@ -277,6 +277,8 @@ const typeDef = gql`
     Volatile: this is currently an exact mapping of the record in Elastic Search - the format is likely to change over time
     """
     gbifClassification: GbifClassification
+    classifications: [ChecklistClassification!]!
+    classification(checklistKey: ID): ChecklistClassification
 
     datasetTitle: String
     publisherTitle: String
@@ -464,13 +466,46 @@ const typeDef = gql`
     lon: Float!
   }
 
+  type ChecklistClassification {
+    iucnRedListCategoryCode: String
+    checklistKey: ID!
+    classification: [Classification!]
+    issues: [String!]
+    acceptedUsage: AcceptedUsage!
+    usage: Usage!
+  }
+
+  type Classification {
+    key: String
+    rank: String
+    name: String
+  }
+
+  type AcceptedUsage {
+    key: String
+    name: String
+    rank: String
+    authorship: String
+  }
+
+  type Usage {
+    key: String
+    name: String
+    rank: String
+    authorship: String
+    specificEpithet: String
+    infraspecificEpithet: String
+    genericName: String
+  }
+
+  """
+  Deprecated. Use the checklistClassification field instead
+  """
   type GbifClassification {
     acceptedUsage: OccurrenceNameUsage
     class: String
     classKey: Int
     classification: [Classification]
-    classificationPath: String
-    diagnostics: Diagnostics
     family: String
     familyKey: Int
     genus: String
@@ -489,19 +524,6 @@ const typeDef = gql`
     usage: OccurrenceNameUsage
     usageParsedName: UsageParsedName
     verbatimScientificName: String
-  }
-
-  type Classification {
-    key: Int
-    name: String
-    rank: String
-    synonym: Boolean
-  }
-
-  type Diagnostics {
-    matchType: String
-    note: String
-    status: String
   }
 
   type OccurrenceNameUsage {

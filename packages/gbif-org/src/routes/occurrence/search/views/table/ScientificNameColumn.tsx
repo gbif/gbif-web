@@ -14,7 +14,7 @@ export default function ScientificNameColumn({
   const [includeAuthorship] = useLocalStorage('includeAuthorship', false);
   const entityKey = `o_${occurrence?.key?.toString()}`;
 
-  const canonicalName = occurrence?.taxon?.canonicalName;
+  const canonicalName = occurrence.classification?.usage?.genericName;
   const showCanonicalName = canonicalName && !includeAuthorship;
 
   return (
@@ -39,12 +39,14 @@ export default function ScientificNameColumn({
             <span
               className="g-pointer-events-auto g-me-2"
               dangerouslySetInnerHTML={{
-                __html: occurrence.gbifClassification?.usage?.formattedName as string,
+                __html: occurrence.classification?.usage?.name as string,
               }}
             />
           )}
           {showCanonicalName && (
-            <span className="g-pointer-events-auto g-me-2">{occurrence?.taxon?.canonicalName}</span>
+            <span className="g-pointer-events-auto g-me-2">
+              {occurrence.classification?.usage?.genericName}
+            </span>
           )}
         </SetAsFilter>
         {occurrence.hasTaxonIssues && (

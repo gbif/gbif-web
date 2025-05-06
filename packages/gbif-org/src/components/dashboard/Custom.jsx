@@ -109,10 +109,16 @@ function TaxaMain({
                   count: x.count,
                   filter: { taxonKey: [tryParse(x.key)] },
                   description: (
-                    <Classification>
-                      {majorRanks.map((rank) => {
-                        if (!x?.entity?.[rank]) return null;
-                        return <span key={rank}>{x?.entity?.[rank]}</span>;
+                    <Classification className="g-text-xs g-text-slate-600">
+                      {x?.entity?.classification?.map((rank) => {
+                        return (
+                          <span key={rank.key}>
+                            <span>
+                              {rank.rank.charAt(0).toUpperCase() + rank.rank.slice(1).toLowerCase()}{' '}
+                            </span>
+                            {rank.name}
+                          </span>
+                        );
                       })}
                     </Classification>
                   ),
@@ -136,19 +142,27 @@ export function Taxa(props) {
 }
 
 const getTaxonQuery = (rank) => `
-query summary($q: String, $predicate: Predicate, $size: Int, $from: Int){
+query summary($q: String, $predicate: Predicate, $size: Int, $from: Int, $checklistKey: ID){
   search: occurrenceSearch(q: $q, predicate: $predicate) {
     documents(size: 0) {
       total
     }
     cardinality {
-      total: ${rank}
+      total: ${rank}(checklistKey: $checklistKey)
     }
     facet {
-      results: ${rank}(size: $size, from: $from) {
+      results: ${rank}(size: $size, from: $from, checklistKey: $checklistKey) {
         key
         count
-        entity: taxon {
+        entity: classification(checklistKey: $checklistKey) {
+          title: name
+          classification {
+            name
+            key
+            rank
+          }
+        }
+        entityTaxon: taxon {
           title: scientificName
           kingdom
           phylum
@@ -244,37 +258,6 @@ function IucnMain({
     </Card>
   );
 }
-const IUCN_FACETS = `
-query summary($q: String, $predicate: Predicate, $size: Int, $from: Int){
-  search: occurrenceSearch(q: $q, predicate: $predicate) {
-    documents(size: 0) {
-      total
-    }
-    cardinality {
-      total: speciesKey
-    }
-    facet {
-      results: speciesKey(size: $size, from: $from) {
-        key
-        count
-        entity: taxon {
-          title: scientificName
-          kingdom
-          phylum
-          class
-          order
-          family
-          genus
-          iucnRedListCategory {
-            category
-            code
-          }
-        }
-      }
-    }
-  }
-}
-`;
 export function Iucn(props) {
   return (
     <ChartClickWrapper {...props}>

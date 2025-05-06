@@ -42,6 +42,7 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
     $language: String
     $sortBy: OccurrenceSortBy
     $sortOrder: SortOrder
+    $checklistKey: ID
   ) {
     occurrenceSearch(q: $q, predicate: $predicate) {
       documents(from: $from, size: $size, sortBy: $sortBy, sortOrder: $sortOrder) {
@@ -52,8 +53,16 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
           key
           taxonKey
           hasTaxonIssues
+          verbatimScientificName
+          classification(checklistKey: $checklistKey) {
+            usage {
+              rank
+              name
+              key
+              genericName
+            }
+          }
           gbifClassification {
-            verbatimScientificName
             usage {
               rank
               formattedName(useFallback: true)

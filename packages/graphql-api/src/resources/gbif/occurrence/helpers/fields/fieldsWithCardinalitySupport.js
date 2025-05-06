@@ -13,7 +13,7 @@ export default [
   'protocol',
   'sampleSizeUnit',
   'verbatimScientificName',
-  'gbifClassification_usage_key',
+  'usageKey',
   'eventId',
   'month',
   'license',

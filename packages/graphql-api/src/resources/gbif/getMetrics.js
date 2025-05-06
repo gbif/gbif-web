@@ -1,4 +1,9 @@
 /* eslint-disable camelcase */
+import config from '../../config';
+
+const DEFAULT_CHECKLIST_KEY =
+  config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // Backbone key for classification
+
 /**
  * Convinent wrapper to generate the facet resolvers.
  * Given a string (facet name) then generate a query and map the result
@@ -6,7 +11,11 @@
  */
 const getFacet =
   (field, getSearchFunction) =>
-  (parent, { size = 10, from = 0, include }, { dataSources }) => {
+  (
+    parent,
+    { size = 10, from = 0, include, checklistKey = DEFAULT_CHECKLIST_KEY },
+    { dataSources },
+  ) => {
     // get SearchAPI
     const searchApi = getSearchFunction(dataSources);
     // generate the occurrence search facet query, by inherting from the parent query, and map limit/offset to facet equivalents
@@ -21,6 +30,7 @@ const getFacet =
           size,
           from,
           include,
+          checklistKey,
         },
       },
     };
@@ -83,7 +93,11 @@ const getStats =
  */
 const getCardinality =
   (field, getSearchFunction) =>
-  (parent, { precision_threshold = 10000 }, { dataSources }) => {
+  (
+    parent,
+    { precision_threshold = 10000, checklistKey = DEFAULT_CHECKLIST_KEY },
+    { dataSources },
+  ) => {
     // get SearchAPI
     const searchApi = getSearchFunction(dataSources);
     // generate the occurrence search facet query, by inherting from the parent query, and map limit/offset to facet equivalents
@@ -96,6 +110,7 @@ const getCardinality =
           type: 'cardinality',
           key: field,
           precision_threshold,
+          checklistKey,
         },
       },
     };

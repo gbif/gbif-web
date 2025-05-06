@@ -357,7 +357,7 @@ function reduce(item) {
     // taxonomicStatus: source.gbifClassification?.diagnostics?.status,
     // taxonRank: source.gbifClassification.usage?.rank,
     // typifiedName:                       source.typifiedName,
-    verbatimScientificName: source.gbifClassification.verbatimScientificName,
+    verbatimScientificName: source.verbatimScientificName,
     media: source.multimediaItems || [],
     facts: source.measurementOrFactItems || [],
     identifiers: [],
@@ -405,18 +405,15 @@ function reduce(item) {
         iucnRedListCategoryCode: c.iucnRedListCategoryCode,
         issues: c.issues,
         checklistKey: key,
-        classification: Object.keys(c.classificationDepth)
-          .sort()
-          .map((index) => {
-            const taxonKey = c.classificationDepth[index];
-            // get rank
-            const rank = keyToRank[taxonKey];
-            return {
-              key: taxonKey,
-              rank: rank,
-              name: c.classification[rank],
-            };
-          }),
+        classification: c.taxonKeys.map((taxonKey) => {
+          // get rank
+          const rank = keyToRank[taxonKey];
+          return {
+            key: taxonKey,
+            rank: rank,
+            name: c.classification[rank],
+          };
+        }),
       };
     });
     gbifSpecific.classifications = classifications;

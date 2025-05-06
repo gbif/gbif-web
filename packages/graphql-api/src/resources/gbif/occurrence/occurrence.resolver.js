@@ -30,6 +30,9 @@ import getLongitudeBounds from './helpers/longitudeBounds';
 import predicate2v1 from './helpers/predicate2v1';
 import termResolver from './helpers/terms/occurrenceTerms';
 
+const DEFAULT_CHECKLIST_KEY =
+  config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // Backbone key for classification
+
 const issueSeverityMap = interpretationRemark.reduce((acc, issue) => {
   acc[issue.id] = issue.severity;
   return acc;
@@ -289,6 +292,19 @@ export default {
     taxon: ({ taxonKey }, _args, { dataSources }) => {
       if (!taxonKey) return null;
       return dataSources.taxonAPI.getTaxonByKey({ key: taxonKey });
+    },
+    classification: ({ classifications }, { checklistKey }) => {
+      // just return one classification. if none provided, then fallback to default
+      if (!classifications) return null;
+      if (!checklistKey) {
+        checklistKey = DEFAULT_CHECKLIST_KEY;
+      }
+      const classification = classifications.find(
+        (x) => x.checklistKey === checklistKey,
+      );
+      if (!classification) return null;
+      // if classification, return the classification
+      return classification;
     },
     volatile: (occurrence) => occurrence,
     related: ({ key }, { from = 0, size = 20 }, { dataSources }) => {
@@ -599,7 +615,59 @@ export default {
   OccurrenceFacetResult_taxon: {
     taxon: ({ key }, _args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
-      return dataSources.taxonAPI.getTaxonByKey({ key });
+      return dataSources.taxonAPI.getTaxonByKey({ key }).catch((err) => {
+        // if a 404 error, then just ignore. it is expected that some taxonKeys are not found when we have multiple taxonomies and no species API to relfect it
+        if (
+          err?.extensions?.response?.status >= 400 &&
+          err?.extensions?.response?.status < 500
+        ) {
+          return null;
+        }
+        throw err;
+      });
+    },
+    classification: (
+      { key },
+      { checklistKey = DEFAULT_CHECKLIST_KEY },
+      { dataSources },
+    ) => {
+      // do an occurrence search for a single result, and then parse that to get the summary
+      // this is a bit of a hack, but there is no natural place to get checklist data with the multitaxonomy work at this phase.
+      return dataSources.occurrenceAPI
+        .searchOccurrenceDocuments({
+          query: {
+            predicate: {
+              type: 'equals',
+              key: 'taxonKey',
+              value: key,
+              checklistKey,
+            },
+            size: 1,
+          },
+        })
+        .then((response) => {
+          if (response?.total > 0) {
+            const classification = response.results[0].classifications?.filter(
+              (x) => x.checklistKey === checklistKey,
+            )[0]?.classification;
+            if (classification) {
+              // only use list upto the first classification.key that is not the same as the taxonKey. discard the rest of the list
+              const index = classification.findIndex((x) => x.key === key);
+              return {
+                name: classification[index].name,
+                classification: classification.slice(0, index),
+              };
+            }
+          }
+          return null;
+        })
+        .catch((err) => {
+          // if a 404 error, then just ignore. it is expected that some related occurrences are not found as they can have been deleted
+          if (err?.extensions?.response?.status === 404) {
+            return null;
+          }
+          throw err;
+        });
     },
     occurrences: facetOccurrenceSearch,
   },

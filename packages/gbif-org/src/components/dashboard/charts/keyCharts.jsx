@@ -382,7 +382,7 @@ export function Synonyms({
         predicate,
         detailsRoute,
         currentFilter,
-        fieldName: 'gbifClassification_usage_key',
+        fieldName: 'usageKey',
         disableUnknown: true,
         disableOther: true,
         facetSize: 10,
