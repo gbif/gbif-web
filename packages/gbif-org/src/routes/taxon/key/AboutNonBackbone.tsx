@@ -92,7 +92,9 @@ export default function AboutNonBackbone({ headLess = false }: { headLess?: bool
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <TaxonImages taxonKey={taxon?.key} images={slowTaxon?.taxon?.media} />
+                  <ErrorBoundary type="BLOCK" errorMessage="taxon.errors.images">
+                    <TaxonImages taxonKey={taxon?.key} images={slowTaxon?.taxon?.media} />
+                  </ErrorBoundary>
                 </CardContent>
               </Card>
             )}

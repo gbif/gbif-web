@@ -9,8 +9,9 @@ import {
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { LoaderArgs, useI18n } from '@/reactRouterPlugins';
+import { useLink } from '@/reactRouterPlugins/dynamicLink';
 import { useEffect } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Navigate, useLoaderData } from 'react-router-dom';
 import { NonBackbonePresentation, TaxonKey as Presentation } from './taxonKeyPresentation';
 import { imagePredicate } from './taxonUtil';
 
@@ -26,8 +27,18 @@ export async function taxonLoader({ params, graphql }: LoaderArgs) {
 
 export function TaxonKey() {
   const { data } = useLoaderData() as { data: TaxonKeyQuery };
+  const createLink = useLink();
 
-  return data?.taxon?.nubKey === data?.taxon?.key ? <BackboneTaxon /> : <NonBackboneTaxon />;
+  if (data?.taxon?.nubKey === data?.taxon?.key) {
+    return <BackboneTaxon />;
+  } else {
+    let { to } = createLink({
+      pageId: 'datasetKey',
+      variables: { key: `${data?.taxon?.datasetKey}/species/${data?.taxon?.key}` },
+    });
+    if (!to) to = `/dataset/${data?.taxon?.datasetKey}/species/${data?.taxon?.key}`;
+    return <Navigate to={to} />;
+  }
 }
 
 const BackboneTaxon = () => {
@@ -298,6 +309,16 @@ const NON_BACKBONE_SLOW_TAXON = /* GraphQL */ `
           numDescendants
         }
       }
+    }
+  }
+`;
+
+const TO_NUB_OR_NOT_TO_NUB = /* GraphQL */ `
+  query ToNubOrNotToNub($key: ID!) {
+    taxon(key: $key) {
+      nubKey
+      key
+      datasetKey
     }
   }
 `;
