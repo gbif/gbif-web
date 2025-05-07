@@ -4925,11 +4925,6 @@ export type Occurrence = {
 };
 
 
-export type OccurrenceIssuesArgs = {
-  types?: InputMaybe<Array<Scalars['String']['input']>>;
-};
-
-
 export type OccurrenceRelatedArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
@@ -5759,7 +5754,6 @@ export type OccurrenceFacetPhylumKeyArgs = {
 
 export type OccurrenceFacetPreparationsArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
-  include?: InputMaybe<Scalars['String']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -6487,51 +6481,7 @@ export type OccurrenceSearchResultDocumentsArgs = {
 };
 
 export enum OccurrenceSortBy {
-  BasisOfRecord = 'basisOfRecord',
-  Bed = 'bed',
-  Biostratigraphy = 'biostratigraphy',
-  CatalogNumber = 'catalogNumber',
-  CollectionCode = 'collectionCode',
-  CollectionKey = 'collectionKey',
-  Continent = 'continent',
-  CoordinatePrecision = 'coordinatePrecision',
-  CoordinateUncertaintyInMeters = 'coordinateUncertaintyInMeters',
-  CountryCode = 'countryCode',
-  DatasetId = 'datasetID',
-  DatasetKey = 'datasetKey',
-  DegreeOfEstablishment = 'degreeOfEstablishment',
-  Depth = 'depth',
-  DistanceFromCentroidInMeters = 'distanceFromCentroidInMeters',
-  Elevation = 'elevation',
-  EstablishmentMeans = 'establishmentMeans',
-  EventDate = 'eventDate',
-  EventId = 'eventId',
-  FieldNumber = 'fieldNumber',
-  GbifId = 'gbifId',
-  GbifRegion = 'gbifRegion',
-  IdentifiedBy = 'identifiedBy',
-  IndividualCount = 'individualCount',
-  InstitutionCode = 'institutionCode',
-  InstitutionKey = 'institutionKey',
-  IsClustered = 'isClustered',
-  IsSequenced = 'isSequenced',
-  Island = 'island',
-  IucnRedListCategoryCode = 'iucnRedListCategoryCode',
-  License = 'license',
-  LifeStage = 'lifeStage',
-  Locality = 'locality',
-  Month = 'month',
-  OccurrenceId = 'occurrenceId',
-  OccurrenceStatus = 'occurrenceStatus',
-  OrganismId = 'organismId',
-  Preparations = 'preparations',
-  PublishingCountry = 'publishingCountry',
-  RecordNumber = 'recordNumber',
-  RecordedBy = 'recordedBy',
-  Sex = 'sex',
-  TaxonKey = 'taxonKey',
-  WaterBody = 'waterBody',
-  Year = 'year'
+  Date = 'DATE'
 }
 
 export type OccurrenceStats = {
@@ -7943,7 +7893,6 @@ export type Taxon = {
   related?: Maybe<TaxonListResult>;
   remarks?: Maybe<Scalars['String']['output']>;
   scientificName?: Maybe<Scalars['String']['output']>;
-  sourceTaxon?: Maybe<Taxon>;
   sourceTaxonKey?: Maybe<Scalars['Int']['output']>;
   species?: Maybe<Scalars['String']['output']>;
   speciesCount?: Maybe<Scalars['Int']['output']>;
@@ -7957,7 +7906,6 @@ export type Taxon = {
   /** This is an experiment that might be stopped at any time. It is not part of the stable API. It will attempt ti find a nice image to represent the taxon. */
   taxonImages_volatile: Array<Maybe<Image>>;
   taxonomicStatus?: Maybe<Scalars['String']['output']>;
-  treatments?: Maybe<Array<Maybe<Treatment>>>;
   /** Lists all type specimens for a name usage, see also lmitations: https://github.com/gbif/portal-feedback/issues/1146#issuecomment-366260607 */
   typeSpecimens?: Maybe<TaxonTypeSpecimenResult>;
   /** Gets the verbatim name usage */
@@ -8431,19 +8379,6 @@ export type Tool = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-export type Treatment = {
-  __typename?: 'Treatment';
-  citation?: Maybe<Scalars['String']['output']>;
-  datasetKey?: Maybe<Scalars['String']['output']>;
-  datasetTitle?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  link?: Maybe<Scalars['URL']['output']>;
-  publisherHomepage?: Maybe<Scalars['String']['output']>;
-  publisherKey?: Maybe<Scalars['String']['output']>;
-  publisherTitle?: Maybe<Scalars['String']['output']>;
-  sourceTaxon?: Maybe<Taxon>;
-};
-
 export enum TypeDesignationType {
   AbsoluteTautonymy = 'ABSOLUTE_TAUTONYMY',
   LinnaeanTautonymy = 'LINNAEAN_TAUTONYMY',
@@ -8692,8 +8627,6 @@ export type VolatileOccurrenceData = {
   /** Feedback options for the occurrence */
   feedback?: Maybe<OccurrenceFeedback>;
   globe?: Maybe<Globe>;
-  /** Lists all vernacular names for a name usage. The language paramter isn't supported in the official API, so paging will not work properly when using the language parameter */
-  vernacularNames?: Maybe<TaxonVernacularNameResult>;
 };
 
 
@@ -8701,15 +8634,6 @@ export type VolatileOccurrenceDataGlobeArgs = {
   graticule?: InputMaybe<Scalars['Boolean']['input']>;
   land?: InputMaybe<Scalars['Boolean']['input']>;
   sphere?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type VolatileOccurrenceDataVernacularNamesArgs = {
-  language?: InputMaybe<Scalars['String']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  removeDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
-  source?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type WikiDataIdentifier = {

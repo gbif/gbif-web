@@ -41,6 +41,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       customSqlDownload: getFile(locale, `../${folder}/${locale}/components/downloads`)
         .customSqlDownload,
       homepage: getFile(locale, `../${folder}/${locale}/components/homepage`).homepage,
+      trends: getFile(locale, `../${folder}/${locale}/components/trends`).trends,
 
       occurrenceFieldNames: getFile(
         locale,
