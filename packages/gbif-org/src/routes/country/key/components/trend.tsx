@@ -1,4 +1,5 @@
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { createContext, useContext } from 'react';
 
 type Props = {
   title?: React.ReactNode;
@@ -7,9 +8,13 @@ type Props = {
 };
 
 // TODO: mode to config
-const analyticsFigureUrl = 'https://analytics-files.gbif.org/country/DK/publishedBy/figure/';
+const analyticsFigureUrl = 'https://analytics-files.gbif.org';
 
 export function Trend({ title, info, imgfile }: Props) {
+  const { type, countryCode } = useTrendContext();
+
+  const figureUrl = `${analyticsFigureUrl}/country/${countryCode}/${type}/figure/${imgfile}.svg`;
+
   return (
     <div className="g-flex g-flex-col">
       <div>
@@ -19,10 +24,10 @@ export function Trend({ title, info, imgfile }: Props) {
       <div className="g-mt-auto">
         <Dialog>
           <DialogTrigger>
-            <img src={`${analyticsFigureUrl}${imgfile}.svg`} />
+            <img src={figureUrl} />
           </DialogTrigger>
           <DialogContent className="g-p-4 g-max-w-screen-md">
-            <img src={`${analyticsFigureUrl}${imgfile}.svg`} />
+            <img src={figureUrl} />
           </DialogContent>
         </Dialog>
       </div>
@@ -32,4 +37,25 @@ export function Trend({ title, info, imgfile }: Props) {
 
 export function TrendContainer({ children }: { children: React.ReactNode }) {
   return <div className="g-grid g-grid-cols-3 g-gap-4">{children}</div>;
+}
+
+export type ITrendContext = {
+  type: 'publishedBy' | 'about';
+  countryCode: string;
+};
+
+const TrendContext = createContext<ITrendContext | undefined>(undefined);
+
+type TrendProviderProps = ITrendContext & {
+  children: React.ReactNode;
+};
+
+export function TrendProvider({ children, type, countryCode }: TrendProviderProps) {
+  return <TrendContext.Provider value={{ type, countryCode }}>{children}</TrendContext.Provider>;
+}
+
+export function useTrendContext() {
+  const context = useContext(TrendContext);
+  if (!context) throw new Error('TrendContext not found');
+  return context;
 }
