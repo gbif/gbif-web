@@ -483,7 +483,7 @@ const typeDef = gql`
     """
     Get whatever minimum shared data we can compile for both backbone and other checklists. The idea is to allow UIs to generate a nice diaplay label with classification
     """
-    classification(checklistKey: ID): OccurrenceTaxonFacetSummary
+    taxonMatch(checklistKey: ID): SpeciesMatchResult
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
   }

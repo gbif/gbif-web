@@ -54,6 +54,7 @@ const typeDef = gql`
     ): [TaxonSuggestion]!
 
     taxonBySourceId(sourceId: ID!, datasetKey: ID!): Taxon
+    speciesMatchByUsageKey(usageKey: ID!, checklistKey: ID): SpeciesMatchResult
   }
 
   input TaxonSearchInput {
@@ -161,6 +162,35 @@ const typeDef = gql`
     """
     mapCapabilities: MapCapabilities
   }
+
+  """
+  A smaller subset of the fields provided by the match service v2. This is used in lack of a species API for e.g. extended CoL.
+  """
+  type SpeciesMatchResult {
+    synonym: Boolean!
+    classification: [Classification]!
+    acceptedUsage: SpeciesMatchAcceptedUsage
+    usage: SpeciesMatchUsage!
+  }
+
+  type SpeciesMatchUsage {
+    key: ID!
+    name: String
+    canonicalName: String
+    rank: String
+    doubtful: Boolean
+    formattedName: String
+  }
+
+  type SpeciesMatchAcceptedUsage {
+    key: ID!
+    name: String
+    canonicalName: String
+    rank: String
+    doubtful: Boolean
+    formattedName: String
+  }
+
   type ChecklistBankBreakdownTaxon {
     id: String
     name: String

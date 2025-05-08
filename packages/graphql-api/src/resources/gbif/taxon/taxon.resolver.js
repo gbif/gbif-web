@@ -1,6 +1,9 @@
 import config from '#/config';
 import axios from 'axios';
 
+const DEFAULT_CHECKLIST_KEY =
+  config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // Backbone key for classification
+
 const { treatmentPublishers } = config;
 /**
  * Convinent wrapper to generate the facet resolvers.
@@ -238,6 +241,15 @@ export default {
       dataSources.taxonAPI.getSuggestions(query),
     taxonBySourceId: (parent, { sourceId, datasetKey }, { dataSources }) =>
       dataSources.taxonAPI.getTaxonBySourceId({ sourceId, datasetKey }),
+    speciesMatchByUsageKey: (
+      parent,
+      { usageKey, checklistKey = DEFAULT_CHECKLIST_KEY },
+      { dataSources },
+    ) =>
+      dataSources.taxonAPI.getSpeciesMatchByUsageKey({
+        usageKey,
+        checklistKey,
+      }),
   },
   Taxon: {
     dataset: ({ datasetKey }, args, { dataSources }) =>

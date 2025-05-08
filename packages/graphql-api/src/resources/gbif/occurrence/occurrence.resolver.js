@@ -205,6 +205,14 @@ export default {
       }
     },
   },
+  ChecklistClassification: {
+    taxonMatch: ({ checklistKey, usage }, _args, { dataSources }) => {
+      return dataSources.taxonAPI.getSpeciesMatchByUsageKey({
+        usageKey: usage.key,
+        checklistKey,
+      });
+    },
+  },
   Occurrence: {
     coordinates: ({ decimalLatitude, decimalLongitude }) => {
       if (typeof decimalLatitude === 'undefined') return null;
@@ -626,48 +634,15 @@ export default {
         throw err;
       });
     },
-    classification: (
+    taxonMatch: (
       { key },
       { checklistKey = DEFAULT_CHECKLIST_KEY },
       { dataSources },
     ) => {
-      // do an occurrence search for a single result, and then parse that to get the summary
-      // this is a bit of a hack, but there is no natural place to get checklist data with the multitaxonomy work at this phase.
-      return dataSources.occurrenceAPI
-        .searchOccurrenceDocuments({
-          query: {
-            predicate: {
-              type: 'equals',
-              key: 'taxonKey',
-              value: key,
-              checklistKey,
-            },
-            size: 1,
-          },
-        })
-        .then((response) => {
-          if (response?.total > 0) {
-            const classification = response.results[0].classifications?.filter(
-              (x) => x.checklistKey === checklistKey,
-            )[0]?.classification;
-            if (classification) {
-              // only use list upto the first classification.key that is not the same as the taxonKey. discard the rest of the list
-              const index = classification.findIndex((x) => x.key === key);
-              return {
-                name: classification[index].name,
-                classification: classification.slice(0, index),
-              };
-            }
-          }
-          return null;
-        })
-        .catch((err) => {
-          // if a 404 error, then just ignore. it is expected that some related occurrences are not found as they can have been deleted
-          if (err?.extensions?.response?.status === 404) {
-            return null;
-          }
-          throw err;
-        });
+      return dataSources.taxonAPI.getSpeciesMatchByUsageKey({
+        usageKey: key,
+        checklistKey,
+      });
     },
     occurrences: facetOccurrenceSearch,
   },

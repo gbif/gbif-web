@@ -14,7 +14,7 @@ export default function ScientificNameColumn({
   const [includeAuthorship] = useLocalStorage('includeAuthorship', false);
   const entityKey = `o_${occurrence?.key?.toString()}`;
 
-  const canonicalName = occurrence.classification?.usage?.genericName;
+  const canonicalName = occurrence.classification?.taxonMatch?.usage?.canonicalName;
   const showCanonicalName = canonicalName && !includeAuthorship;
 
   return (
@@ -39,20 +39,18 @@ export default function ScientificNameColumn({
             <span
               className="g-pointer-events-auto g-me-2"
               dangerouslySetInnerHTML={{
-                __html: occurrence.classification?.usage?.name as string,
+                __html: occurrence?.classification?.taxonMatch?.usage?.formattedName as string,
               }}
             />
           )}
           {showCanonicalName && (
-            <span className="g-pointer-events-auto g-me-2">
-              {occurrence.classification?.usage?.genericName}
-            </span>
+            <span className="g-pointer-events-auto g-me-2">{canonicalName}</span>
           )}
         </SetAsFilter>
         {occurrence.hasTaxonIssues && (
           <SimpleTooltip side="right" i18nKey="filterSupport.nameWithTaxonMatchIssue">
             <div style={{ color: '#fea600' }} className="g-cursor-default g-text-start" data-loader>
-              {occurrence.gbifClassification?.verbatimScientificName}
+              {occurrence.verbatimScientificName}
             </div>
           </SimpleTooltip>
         )}

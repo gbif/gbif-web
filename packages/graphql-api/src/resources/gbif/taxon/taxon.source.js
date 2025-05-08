@@ -81,6 +81,19 @@ class TaxonAPI extends RESTDataSource {
     return getParsedName(key, this);
   }
 
+  async getSpeciesMatchByUsageKey({
+    usageKey,
+    checklistKey = this.config.defaultChecklist,
+  }) {
+    return this.get(
+      `${this.config.apiv2}/species/match?`,
+      stringify({ checklistKey, usageKey }, { indices: false }),
+    ).then((result) => {
+      if (!result.usage) return null;
+      return result;
+    });
+  }
+
   async getSuggestions({
     datasetKey = this.config.gbifBackboneUUID,
     limit = 10,

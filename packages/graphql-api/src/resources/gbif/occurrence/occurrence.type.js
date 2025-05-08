@@ -473,6 +473,7 @@ const typeDef = gql`
     issues: [String!]
     acceptedUsage: AcceptedUsage!
     usage: Usage!
+    taxonMatch: SpeciesMatchResult
   }
 
   type Classification {

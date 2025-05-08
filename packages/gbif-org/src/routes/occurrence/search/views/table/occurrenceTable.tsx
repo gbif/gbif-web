@@ -59,7 +59,14 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
               rank
               name
               key
-              genericName
+            }
+            taxonMatch {
+              usage {
+                name
+                key
+                canonicalName
+                formattedName
+              }
             }
           }
           gbifClassification {

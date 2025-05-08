@@ -94,7 +94,7 @@ function TaxaMain({
                   key: x?.key,
                   title: (
                     <span>
-                      {x?.entity?.title}{' '}
+                      {x?.entity?.usage.name}{' '}
                       <DynamicLink
                         pageId="speciesKey"
                         variables={{ key: x?.key.toString() }}
@@ -154,22 +154,15 @@ query summary($q: String, $predicate: Predicate, $size: Int, $from: Int, $checkl
       results: ${rank}(size: $size, from: $from, checklistKey: $checklistKey) {
         key
         count
-        entity: classification(checklistKey: $checklistKey) {
-          title: name
+        entity: taxonMatch(checklistKey: $checklistKey) {
+          usage {
+            name
+          }
           classification {
             name
             key
             rank
           }
-        }
-        entityTaxon: taxon {
-          title: scientificName
-          kingdom
-          phylum
-          class
-          order
-          family
-          genus
         }
       }
     }
