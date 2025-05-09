@@ -1,11 +1,49 @@
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ErrorMessage } from '@/components/errorMessage';
 import { useConfig } from '@/config/config';
 import { cn } from '@/utils/shadcn';
 import uniqBy from 'lodash/uniqBy';
 import maplibre, { Map } from 'maplibre-gl';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 export default function GeoJsonMap({
+  geojson,
+  loading,
+  error,
+  className,
+  defaultMapSettings,
+  PopupContent,
+}: {
+  geojson: GeoJSON.FeatureCollection;
+  loading: boolean;
+  error: boolean;
+  className?: string;
+  defaultMapSettings?: { zoom: number; lat: number; lng: number };
+  PopupContent: React.FC<{ feature: GeoJSON.Feature }>;
+}) {
+  return (
+    <ErrorBoundary
+      type="BLOCK"
+      title={<FormattedMessage id="error.mapFailed" />}
+      errorMessage={<FormattedMessage id="error.mapBrowserIssue" />}
+      showReportButton={true}
+      debugTitle="GeoJsonMap"
+      className="g-mt-8 g-me-2"
+    >
+      <GeoJsonMapContent
+        geojson={geojson}
+        loading={loading}
+        error={error}
+        className={className}
+        defaultMapSettings={defaultMapSettings}
+        PopupContent={PopupContent}
+      />
+    </ErrorBoundary>
+  );
+}
+
+function GeoJsonMapContent({
   geojson,
   loading,
   error,

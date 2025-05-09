@@ -1,8 +1,11 @@
 {
   "generic": "An error occurred",
+  "genericDescription": "An unexpected error occurred. Please try again later.",
   "unknown": "Unknown error",
   "report": "Report issue",
   "reloadPage": "Refresh page",
   "hideDetails": "Hide details",
-  "showDetails": "Show details"
+  "showDetails": "Show details",
+  "mapFailed": "Unable to load map",
+  "mapBrowserIssue": "If the problem persists it is most likely because of browser extensions or settings that disallow the use of webgl and canvas."
 }
