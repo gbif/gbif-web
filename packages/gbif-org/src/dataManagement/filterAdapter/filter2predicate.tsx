@@ -46,7 +46,8 @@ export type FilterConfigType = {
 
 export function filter2predicate(
   filter: FilterType | undefined | null,
-  filterConfig?: FilterConfigType
+  filterConfig?: FilterConfigType,
+  checklistKey?: string
 ): Predicate | null {
   if (!filter) return null;
   if (filterConfig?.preFilterTransform) {
@@ -54,8 +55,8 @@ export function filter2predicate(
   }
   const { must, mustNot } = filter;
 
-  const positive = getPredicates({ filters: must, filterConfig });
-  const negated = getPredicates({ filters: mustNot, filterConfig }).map(
+  const positive = getPredicates({ filters: must, filterConfig, checklistKey });
+  const negated = getPredicates({ filters: mustNot, filterConfig, checklistKey }).map(
     (p): Predicate => ({ type: PredicateType.Not, predicate: p })
   );
 
@@ -76,13 +77,15 @@ export function filter2predicate(
 function getPredicates({
   filters,
   filterConfig,
+  checklistKey,
 }: {
   filters: Record<string, any[]> | null | undefined;
   filterConfig?: FilterConfigType;
+  checklistKey?: string;
 }): Predicate[] {
   if (!filters) return [];
   return Object.entries(filters)
-    .map(([filterName, values]) => getPredicate({ filterName, values, filterConfig }))
+    .map(([filterName, values]) => getPredicate({ filterName, values, filterConfig, checklistKey }))
     .filter((p) => p !== null); // remove filters that couldn't be transformed to a predicate
 }
 
@@ -90,17 +93,19 @@ function getPredicate({
   filterName,
   values = [],
   filterConfig,
+  checklistKey,
 }: {
   filterName: string;
   values: any[];
   filterConfig?: FilterConfigType;
+  checklistKey?: string;
 }): Predicate | null {
   // get the configuration for this filter if any is provided
   const config = filterConfig?.fields?.[filterName] ?? {};
 
   // if a custom serializer is specified then use that
   if (config.serializer) {
-    return config.serializer({ filterName, values, config });
+    return config.serializer({ filterName, values, config, checklistKey });
   }
 
   // if no values or an empty array is provided, then there it no predicates to create
@@ -119,13 +124,14 @@ function getPredicate({
         //if no default key is provided, then fall back to the filterName as a key
         key: config.defaultKey || filterName,
         values: mappedValues,
+        ...(checklistKey ? { checklistKey } : {}),
       };
     }
   }
 
   // the values are mixed or complex. Create an or if length > 1
   const predicates = mappedValues
-    .map((value) => getPredicateFromSingleValue({ filterName, value, config }))
+    .map((value) => getPredicateFromSingleValue({ filterName, value, config, checklistKey }))
     .filter((p) => p); // remove filters that couldn't be transformed to a predicate
   if (predicates.length === 1) {
     return predicates[0];
@@ -141,10 +147,12 @@ function getPredicateFromSingleValue({
   filterName,
   value,
   config,
+  checklistKey,
 }: {
   filterName: string;
   value: any;
   config: FieldConfigType;
+  checklistKey?: string;
 }): Predicate | null {
   // the values are expected to be either a predicate object (optionally missing key and type)
   // or a string/number
@@ -154,6 +162,7 @@ function getPredicateFromSingleValue({
       //if no default key is provided, then fall back to the filterName as a key
       key: config?.defaultKey || filterName,
       value: value,
+      ...(checklistKey ? { checklistKey } : {}),
     };
   } else if (typeof value === 'object' && value !== null) {
     if (value.type === 'geoDistance') {
@@ -163,6 +172,7 @@ function getPredicateFromSingleValue({
       type: config?.defaultType || PredicateType.Equals,
       key: config?.defaultKey || filterName,
       ...value, // overwrite type and key if it is defined in the value object
+      ...(checklistKey ? { checklistKey } : {}),
     };
   } else {
     console.warn('Invalid filter provided. It will be ignored. Provided: ', value);

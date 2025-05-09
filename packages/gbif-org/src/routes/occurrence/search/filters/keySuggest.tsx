@@ -59,15 +59,18 @@ export const taxonKeyConfig: filterSuggestConfig = {
   suggestConfig: taxonKeyVernacularSuggest, //taxonKeySuggest,
   allowExistence: false,
   allowNegations: true,
+  suggestionTitlePath: 'item.usage.canonicalName',
   facetQuery: `
-    query OccurrenceTaxonFacet($q: String, $predicate: Predicate) {
+    query OccurrenceTaxonFacet($q: String, $predicate: Predicate, $checklistKey: ID) {
       search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: taxonKey {
             name: key
             count
-            item: taxon {
-              formattedName(useFallback: true)
+            item: taxonMatch(checklistKey: $checklistKey) {
+              usage {
+                canonicalName
+              }
             }
           }
         }

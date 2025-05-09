@@ -76,6 +76,7 @@ export type filterSuggestConfig = filterConfigShared & {
   suggestConfig?: SuggestConfig;
   allowExistence?: boolean;
   allowNegations?: boolean;
+  suggestionTitlePath?: string;
 };
 
 export type filterWildcardConfig = filterConfigShared & {
@@ -735,11 +736,13 @@ export function getAsQuery({
   searchContext,
   searchConfig,
   queryType = searchContext.queryType,
+  checklistKey,
 }: {
   filter: FilterType;
   searchContext: SearchMetadata;
   searchConfig: FilterConfigType;
   queryType?: QueryTypeEnum;
+  checklistKey?: string;
 }): object | { predicate: Predicate | undefined; q: string | undefined } {
   // should we use get v1 syntax or predicates (we have later added predicates to v1, so the naming is less meaningful now)
   if (queryType === 'V1') {
@@ -761,7 +764,7 @@ export function getAsQuery({
       cleanedFilter = { ...filter, must: rest };
     }
 
-    const currentPredicate = filter2predicate(cleanedFilter, searchConfig);
+    const currentPredicate = filter2predicate(cleanedFilter, searchConfig, checklistKey);
     const predicates = [rootPredicate, currentPredicate].filter((x) => x);
     if (predicates.length === 0) {
       return { q, predicate: undefined };
