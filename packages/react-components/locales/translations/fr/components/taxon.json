@@ -52,6 +52,8 @@
   "cites": "CITES",
   "immediateChildren": "Descendants directs",
   "referenceTaxon": "Taxon de référence",
+  "showLess": "Doit être défini",
+  "showAll": "Tout afficher",
   "errors": {
     "treatments": "Doit être défini",
     "distributions": "Doit être défini",

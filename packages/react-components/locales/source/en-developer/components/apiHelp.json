@@ -6,6 +6,7 @@
   "downloadKeyDatasetsExport": "Download list of datasets contributing with data to a download.",
   "singleOccurrence": "Get a single occurrence.",
   "searchOccurrences": "Get all occurrences.",
+  "filterOccurrences": "Search for occurrences.",
   "searchOccurrencesExample": "First 5 occurrences of taxon 9778871 (Flabellina McMurtrie, 1831) that have been recorded in May between year 2000-2024.",
   "relatedOccurrences": "Related occurrences (experimental).",
   "occurrenceFragment": "Record before interpretation.",

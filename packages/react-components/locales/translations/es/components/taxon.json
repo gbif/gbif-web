@@ -52,6 +52,8 @@
   "cites": "CITES",
   "immediateChildren": "Subordinado inmediato",
   "referenceTaxon": "Taxón de referencia",
+  "showLess": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+  "showAll": "Mostrar todo",
   "errors": {
     "treatments": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
     "distributions": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",

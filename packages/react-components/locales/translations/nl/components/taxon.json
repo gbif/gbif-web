@@ -52,6 +52,8 @@
   "cites": "CITES",
   "immediateChildren": "",
   "referenceTaxon": "",
+  "showLess": "Moet worden gedefinieerd",
+  "showAll": "Alles weergeven",
   "errors": {
     "treatments": "Moet worden gedefinieerd",
     "distributions": "Moet worden gedefinieerd",

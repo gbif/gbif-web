@@ -296,8 +296,8 @@
     "description": "Technický protokol, jehož prostřednictvím je datová sada sdílena."
   },
   "establishmentMeans": {
-    "name": "Zavedení znamená",
-    "count": "{num, plural, one { způsob zavedení } few {# způsoby zavedení} many {# způsobů zavedení} other {# způsobů zavedení}}",
+    "name": "Způsob zavlečení",
+    "count": "{num, plural, one { způsob zavlečení } few {# způsoby zavlečení } many {# způsobů zavlečení } other {# způsobů zavlečení}}",
     "description": "Způsob, jakým se organismus dostal na dané místo v daném čase."
   },
   "recordedBy": {

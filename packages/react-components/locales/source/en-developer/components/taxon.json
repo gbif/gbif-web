@@ -52,6 +52,8 @@
   "cites": "CITES",
   "immediateChildren": "Immediate children",
   "referenceTaxon": "Reference taxon",
+  "showLess": "Show less",
+  "showAll": "Show all",
   "errors": {
     "treatments": "Could not load treatments",
     "distributions": "Could not load distributions",

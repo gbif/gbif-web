@@ -52,6 +52,8 @@
   "cites": "Номер по Конвенции CITES",
   "immediateChildren": "Нижестоящий таксон",
   "referenceTaxon": "Референсный таксон",
+  "showLess": "",
+  "showAll": "Показать всё",
   "errors": {
     "treatments": "",
     "distributions": "",

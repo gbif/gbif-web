@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
 // import { Image, StripeLoader, Button, Row, Col } from '../../../../components';
-import { FormattedDate } from 'react-intl';
 // import ThemeContext from '../../../../style/themes/ThemeContext';
 // import { styledScrollBars } from '../../../../style/shared';
 
@@ -22,7 +21,6 @@ function ListItem({ id, item, onClick = (id) => {}, ...props }) {
           ></h4>
           {item.eventDate && (
             <div className="g-text-slate-500">
-              <FormattedDate value={item.eventDate} year="numeric" month="long" day="2-digit" />
               <FormattedDateRange
                 date={item.eventDate}
                 format={{ year: 'numeric', month: 'short', day: 'numeric' }}

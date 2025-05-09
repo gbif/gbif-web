@@ -1,5 +1,6 @@
 import { Count } from '@/components/count';
 import { Table } from '@/components/dashboard/shared';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { InvasiveTaxonQuery, InvasiveTaxonQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
@@ -8,10 +9,11 @@ import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Paging } from './VernacularNameTable';
 
-const limit = 10;
+const DEFAULT_LIMIT = 10;
 
 export function InvasiveInCountries({ taxonKey }: { taxonKey: string }) {
   const [offset, setOffset] = useState(0);
+  const [limit, setLimit] = useState(DEFAULT_LIMIT);
   const { data, load, loading, error } = useQuery<InvasiveTaxonQuery, InvasiveTaxonQueryVariables>(
     INVASIVE_TAXON,
     {
@@ -45,6 +47,28 @@ export function InvasiveInCountries({ taxonKey }: { taxonKey: string }) {
               id="counts.nResults"
               values={{ total: data?.taxon?.invasiveInCountries?.length || 0 }}
             />
+            {(data?.taxon?.invasiveInCountries?.length || 0) > limit && (
+              <Button
+                variant="link"
+                onClick={() => {
+                  setLimit(data?.taxon?.invasiveInCountries?.length || 0);
+                  setOffset(0);
+                }}
+              >
+                <FormattedMessage id="taxon.showAll" />
+              </Button>
+            )}
+            {limit > DEFAULT_LIMIT && (
+              <Button
+                variant="link"
+                onClick={() => {
+                  setLimit(DEFAULT_LIMIT);
+                  setOffset(0);
+                }}
+              >
+                <FormattedMessage id="taxon.showLess" />
+              </Button>
+            )}
           </>
         </div>
         <div style={{ overflow: 'auto' }}>

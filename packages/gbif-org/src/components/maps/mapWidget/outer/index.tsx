@@ -132,7 +132,7 @@ export function MapWidgetOuter({ className, capabilitiesParams = {}, mapStyle }:
         })}
       >
         <div className="g-flex-1 g-w-full g-aspect-[2.5] g-min-h-[300px] g-bg-gray-100 g-border-t">
-          <ErrorBoundary type="BLOCK" publicDescription="Failed to load javascript to display map">
+          <ErrorBoundary type="BLOCK" errorMessage="Failed to load map">
             <div ref={ref} className="g-w-full g-h-full g-aspect-[2.5] g-min-h-[300px]">
               <StaticRenderSuspence>
                 <MapWidgetInner

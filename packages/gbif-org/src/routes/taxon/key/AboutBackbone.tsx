@@ -39,12 +39,12 @@ export default function AboutBackbone() {
   const useInlineImage = useBelow(700);
   const {
     taxon,
-    typesSpecimenCount: {
+    /*  typesSpecimenCount: {
       documents: { total: numberOfTypeSpecimens },
-    },
-    imagesCount: {
+    }, */
+    /*  imagesCount: {
       documents: { total: numberOfImages },
-    },
+    }, */
   } = data;
   const isFamilyOrAbove = useIsFamilyOrAbove(taxon?.rank);
   const isSpeciesOrBelow = useIsSpeciesOrBelow(taxon?.rank);
@@ -69,7 +69,7 @@ export default function AboutBackbone() {
             </aside>
           )} */}
           <div className="g-flex-grow">
-            {numberOfImages > 0 && (
+            {(data?.imagesCount?.documents?.total || 0) > 0 && (
               <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
@@ -77,7 +77,10 @@ export default function AboutBackbone() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <OccurrenceImages total={numberOfImages} taxonKey={taxon.key} />
+                  <OccurrenceImages
+                    total={data?.imagesCount?.documents?.total}
+                    taxonKey={taxon.key}
+                  />
                 </CardContent>
               </Card>
             )}
@@ -119,22 +122,13 @@ export default function AboutBackbone() {
               </Card>
             )}
 
-            {isSpeciesOrBelow && numberOfTypeSpecimens > 0 && (
-              <Card className="g-mb-4">
-                <CardHeader>
-                  <CardTitle>
-                    <FormattedMessage id="taxon.typeMaterial" />
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ErrorBoundary
-                    type="BLOCK"
-                    errorMessage={<FormattedMessage id="taxon.errors.typeMaterial" />}
-                  >
-                    <TypeMaterial total={numberOfTypeSpecimens} taxonKey={taxon.key} />
-                  </ErrorBoundary>
-                </CardContent>
-              </Card>
+            {isSpeciesOrBelow && (
+              <ErrorBoundary
+                type="BLOCK"
+                errorMessage={<FormattedMessage id="taxon.errors.typeMaterial" />}
+              >
+                <TypeMaterial taxonKey={taxon.key} />
+              </ErrorBoundary>
             )}
 
             {(taxon?.vernacularCount?.results?.length ?? 0) > 0 && (

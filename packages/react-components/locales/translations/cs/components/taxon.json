@@ -52,6 +52,8 @@
   "cites": "CITES",
   "immediateChildren": "přímo podřazená položka",
   "referenceTaxon": "Referenční taxon",
+  "showLess": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+  "showAll": "Zobrazit vše",
   "errors": {
     "treatments": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
     "distributions": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",

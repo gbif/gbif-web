@@ -46,7 +46,7 @@ export function DatasetCard({
       </CardHeader>
       {datasetsByDownload && (download?.numberDatasets ?? 0) > 0 && (
         <CardContent className="!g-px-0 g-border-t g-overflow-auto">
-          <ErrorBoundary type="BLOCK" publicDescription="Failed to load datasets on download page">
+          <ErrorBoundary type="BLOCK" debugTitle="Failed to load datasets on download page">
             <DatasetTable
               downloadKey={download.key}
               initialDatasets={datasetsByDownload.results}

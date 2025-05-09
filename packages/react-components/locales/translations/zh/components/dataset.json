@@ -21,7 +21,7 @@
     "project": "项目",
     "taxonomy": "分类学",
     "download": "下载",
-    "phylogeny": ""
+    "phylogeny": "系统发育"
   },
   "noStatsForMetadata": "没有可用的元数据统计信息只有数据集",
   "siteScopeSmallerThanDataset": "并非数据集中的所有记录都包含在此站点上。访问[GBIF.org]({datasetUrl}) 来浏览完整的数据集。",

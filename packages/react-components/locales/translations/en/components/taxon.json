@@ -52,6 +52,8 @@
   "cites": "CITES",
   "immediateChildren": "Immediate children",
   "referenceTaxon": "Reference taxon",
+  "showLess": "",
+  "showAll": "Show all",
   "errors": {
     "treatments": "",
     "distributions": "",
