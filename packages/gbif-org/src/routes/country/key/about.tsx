@@ -7,7 +7,6 @@ import { CardHeader } from '@/components/ui/largeCard';
 import { FormattedMessage } from 'react-intl';
 import { Trends } from './components/trends';
 import { OccurrencesPerKingdom } from './components/kingdoms/occurrencesPerKingdom';
-import { PredicateType } from '@/gql/graphql';
 
 export function CountryKeyAbout() {
   const { countryCode } = useParams();
@@ -19,9 +18,7 @@ export function CountryKeyAbout() {
       <ArticleTextContainer className="g-max-w-screen-xl g-flex g-flex-col g-gap-4">
         <DataAboutCountryMap countryCode={countryCode} />
 
-        <OccurrencesPerKingdom
-          predicate={{ key: 'country', type: PredicateType.Equals, value: countryCode }}
-        />
+        <OccurrencesPerKingdom type="about" countryCode={countryCode} />
 
         <CardHeader>
           <CardTitle>

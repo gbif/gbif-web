@@ -10,12 +10,15 @@ import virusesIconUrl from './icons/viruses.svg';
 import unknownIconUrl from './icons/unknown.svg';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import {
-  Predicate,
   OccurrencesPerKingdomQuery,
   OccurrencesPerKingdomQueryVariables,
+  PredicateType,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { Skeleton } from '@/components/ui/skeleton';
+import { DynamicLink } from '@/reactRouterPlugins';
+import { notNull } from '@/utils/notNull';
+import { useMemo } from 'react';
 
 export const kingdoms = [
   { id: 1, title: 'Animalia', icon: animaliaIconUrl },
@@ -30,10 +33,19 @@ export const kingdoms = [
 ];
 
 type Props = {
-  predicate: Predicate;
+  type: 'publishedBy' | 'about';
+  countryCode: string;
 };
 
-export function OccurrencesPerKingdom({ predicate }: Props) {
+export function OccurrencesPerKingdom({ countryCode, type }: Props) {
+  const predicate = useMemo(() => {
+    return {
+      key: type === 'publishedBy' ? 'publishingCountry' : 'country',
+      type: PredicateType.Equals,
+      value: countryCode,
+    };
+  }, [countryCode, type]);
+
   const { data } = useQuery<OccurrencesPerKingdomQuery, OccurrencesPerKingdomQueryVariables>(
     QUERY,
     {
@@ -59,26 +71,38 @@ export function OccurrencesPerKingdom({ predicate }: Props) {
         </CardTitle>
       </CardHeader>
       <CardContent className="g-flex g-gap-8 g-justify-around g-flex-wrap">
-        {kingdoms.map((kingdom) => {
+        {kingdoms.filter(notNull).map((kingdom) => {
+          const searchParams: Record<string, string> = {
+            taxonKey: kingdom.id.toString(),
+          };
+
+          if (type === 'publishedBy') {
+            searchParams.publishingCountry = countryCode;
+          } else {
+            searchParams.country = countryCode;
+          }
+
           return (
-            <div key={kingdom.id} className="g-flex g-flex-row g-items-center g-gap-2 g-min-w-44">
-              <div className="g-size-16 g-p-0.5 g-bg-primary-500 g-rounded-full g-flex g-items-center g-justify-evenly">
-                <img src={kingdom.icon} alt={kingdom.title} />
+            <DynamicLink pageId="occurrenceSearch" searchParams={searchParams} className="g-group">
+              <div key={kingdom.id} className="g-flex g-flex-row g-items-center g-gap-2 g-min-w-44">
+                <div className="g-size-16 g-p-0.5 g-bg-primary-500 group-hover:g-bg-primary-700 g-rounded-full g-flex g-items-center g-justify-evenly">
+                  <img src={kingdom.icon} alt={kingdom.title} />
+                </div>
+                <div className="g-flex g-flex-col">
+                  <span className="g-text-sm">{kingdom.title}</span>
+                  <span className="g-text-sm g-font-bold">
+                    {kingdomCountRecord == null ? (
+                      <div className="g-flex g-flex-row g-h-5 g-w-26 g-items-center">
+                        <Skeleton className="g-w-full g-h-4" />
+                      </div>
+                    ) : (
+                      <FormattedNumber value={kingdomCountRecord[kingdom.id.toString()]} />
+                    )}
+                  </span>
+                  <span className="g-text-xs">Occurrences</span>
+                </div>
               </div>
-              <div className="g-flex g-flex-col">
-                <span className="g-text-sm">{kingdom.title}</span>
-                <span className="g-text-sm g-font-bold">
-                  {kingdomCountRecord == null ? (
-                    <div className="g-flex g-flex-row g-h-5 g-w-26 g-items-center">
-                      <Skeleton className="g-w-full g-h-4" />
-                    </div>
-                  ) : (
-                    <FormattedNumber value={kingdomCountRecord[kingdom.id.toString()]} />
-                  )}
-                </span>
-                <span className="g-text-xs">Occurrences</span>
-              </div>
-            </div>
+            </DynamicLink>
           );
         })}
       </CardContent>
