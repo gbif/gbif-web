@@ -5,6 +5,8 @@ import { DataFromCountryMap } from './components/dataFromCountryMap';
 import { FormattedMessage } from 'react-intl';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Trends } from './components/trends';
+import { PredicateType } from '@/gql/graphql';
+import { OccurrencesPerKingdom } from './components/kingdoms/occurrencesPerKingdom';
 
 export function CountryKeyPublishing() {
   const { countryCode } = useParams();
@@ -16,6 +18,10 @@ export function CountryKeyPublishing() {
       <ArticleTextContainer className="g-max-w-screen-xl g-flex g-flex-col g-gap-4">
         <DataFromCountryMap countryCode={countryCode} />
 
+        <OccurrencesPerKingdom
+          predicate={{ key: 'publishingCountry', type: PredicateType.Equals, value: countryCode }}
+        />
+
         <CardHeader>
           <CardTitle>
             <FormattedMessage
@@ -25,6 +31,7 @@ export function CountryKeyPublishing() {
             />
           </CardTitle>
         </CardHeader>
+
         <Trends type="publishedBy" countryCode={countryCode} />
       </ArticleTextContainer>
     </ArticleContainer>
