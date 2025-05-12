@@ -112,7 +112,7 @@ export default function About() {
                   {institution.foundingDate && (
                     <Property
                       labelId="grscicoll.foundingDate"
-                      value={institution.foundingDate}
+                      value={institution.foundingDate.toString()}
                     ></Property>
                   )}
                   <Property
