@@ -147,6 +147,7 @@ const INSTITUTION_QUERY = /* GraphQL */ `
       identifiers {
         identifier
         type
+        primary
       }
       contactPersons {
         key

@@ -30,6 +30,8 @@ import { useInstitutionKeyLoaderData } from '.';
 import { GrSciCollMetadata } from './MetaData';
 // import { MdMap } from 'react-icons/md';
 
+const GBIF_REGISTRY_ENDPOINT = import.meta.env.PUBLIC_REGISTRY;
+
 export default function About() {
   const { key } = useParams();
   const { data } = useInstitutionKeyLoaderData();
@@ -56,6 +58,9 @@ export default function About() {
   const imageUrl = institution.featuredImageUrl ?? institution.featuredImageUrl_fallback;
 
   // const institutionAddress = institution?.mailingAddress ?? institution?.address;
+
+  // filter identifiers to to see if any if them as a primary flag set to true
+  const primaryIdentifiers = institution?.identifiers?.filter((x) => x.primary === true) ?? [];
 
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
@@ -320,7 +325,20 @@ export default function About() {
                       <ul
                       // css={css`padding: 0; margin: 0; list-style: none;`}
                       >
-                        {institution.identifiers.map((x, i) => {
+                        <li className="g-mb-4">
+                          <div
+                            // css={css`color: var(--color400); font-size: 0.9em;`}
+                            className="g-text-slate-500 g-text-sm"
+                          >
+                            <FormattedMessage
+                              id={`phrases.gbifIdentifier`}
+                              defaultMessage="GBIF identifier"
+                            />
+                          </div>
+                          <div>{institution.key}</div>
+                        </li>
+
+                        {primaryIdentifiers.map((x, i) => {
                           const IdentifierItem = ({ link, text, type }) => (
                             <li className="g-mb-4">
                               <div
@@ -373,6 +391,23 @@ export default function About() {
                             </li>
                           );
                         })}
+                        {primaryIdentifiers.length < institution.identifiers.length && (
+                          <li className="g-mb-4">
+                            <div
+                              // css={css`color: var(--color400); font-size: 0.9em;`}
+                              className="g-text-slate-500 g-text-sm"
+                            >
+                              <a
+                                href={`${GBIF_REGISTRY_ENDPOINT}/institution/${institution.key}/identifier`}
+                              >
+                                <FormattedMessage
+                                  id={`phrases.otherIdentifiers`}
+                                  defaultMessage="Other identifiers"
+                                />
+                              </a>
+                            </div>
+                          </li>
+                        )}
                       </ul>
                     </Property>
                   )}
