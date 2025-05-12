@@ -60,7 +60,8 @@ export default function About() {
   // const institutionAddress = institution?.mailingAddress ?? institution?.address;
 
   // filter identifiers to to see if any if them as a primary flag set to true
-  const primaryIdentifiers = institution?.identifiers?.filter((x) => x.primary === true) ?? [];
+  const identifiers = institution?.identifiers ?? [];
+  const primaryIdentifiers = identifiers?.filter((x) => x.primary === true);
 
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
@@ -320,97 +321,95 @@ export default function About() {
                     value={institution.additionalNames}
                     labelId="grscicoll.additionalNames"
                   />
-                  {isNoneEmptyArray(institution.identifiers) && (
-                    <Property value={institution.identifiers} labelId="grscicoll.identifiers">
-                      <ul
-                      // css={css`padding: 0; margin: 0; list-style: none;`}
-                      >
-                        <li className="g-mb-4">
-                          <div
-                            // css={css`color: var(--color400); font-size: 0.9em;`}
-                            className="g-text-slate-500 g-text-sm"
-                          >
-                            <FormattedMessage
-                              id={`phrases.gbifIdentifier`}
-                              defaultMessage="GBIF identifier"
-                            />
-                          </div>
-                          <div>{institution.key}</div>
-                        </li>
+                  <Property value={identifiers} labelId="grscicoll.identifiers">
+                    <ul
+                    // css={css`padding: 0; margin: 0; list-style: none;`}
+                    >
+                      <li className="g-mb-4">
+                        <div
+                          // css={css`color: var(--color400); font-size: 0.9em;`}
+                          className="g-text-slate-500 g-text-sm"
+                        >
+                          <FormattedMessage
+                            id={`phrases.gbifIdentifier`}
+                            defaultMessage="GBIF identifier"
+                          />
+                        </div>
+                        <div>{institution.key}</div>
+                      </li>
 
-                        {primaryIdentifiers.map((x, i) => {
-                          const IdentifierItem = ({ link, text, type }) => (
-                            <li className="g-mb-4">
-                              <div
-                                // css={css`color: var(--color400); font-size: 0.9em;`}
-                                className="g-text-slate-500 g-text-sm"
-                              >
-                                <FormattedMessage
-                                  id={`enums.identifierType.${type}`}
-                                  defaultMessage={type}
-                                />
-                              </div>
-                              <div>
-                                <a href={link}>{text}</a>
-                              </div>
-                            </li>
-                          );
-
-                          let identifier = x.identifier;
-                          if (['ROR', 'GRID', 'IH_IRN'].includes(x.type)) {
-                            if (x.type === 'ROR') {
-                              identifier = 'https://ror.org/' + x.identifier;
-                            } else if (x.type === 'GRID') {
-                              identifier = 'https://grid.ac/institutes/' + x.identifier; // GRID doesn't exists anymore. They left the space and refer to ROR as checked today September 2022
-                            } else if (x.type === 'IH_IRN') {
-                              identifier =
-                                'http://sweetgum.nybg.org/science/ih/herbarium-details/?irn=' +
-                                x.identifier.substr(12);
-                            }
-                            return (
-                              <IdentifierItem
-                                key={`${i}_${x.identifier}`}
-                                link={identifier}
-                                type={x.type}
-                                text={x.identifier}
-                              />
-                            );
-                          }
-
-                          return (
-                            <li key={`${i}_${x.identifier}`} className="g-mb-4">
-                              <div className="g-text-slate-500 g-text-sm">
-                                <FormattedMessage
-                                  id={`enums.identifierType.${x.type}`}
-                                  defaultMessage={x.type}
-                                />
-                              </div>
-                              <div>
-                                <HyperText text={identifier} />
-                              </div>
-                            </li>
-                          );
-                        })}
-                        {primaryIdentifiers.length < institution.identifiers.length && (
+                      {primaryIdentifiers.map((x, i) => {
+                        const IdentifierItem = ({ link, text, type }) => (
                           <li className="g-mb-4">
                             <div
                               // css={css`color: var(--color400); font-size: 0.9em;`}
                               className="g-text-slate-500 g-text-sm"
                             >
-                              <a
-                                href={`${GBIF_REGISTRY_ENDPOINT}/institution/${institution.key}/identifier`}
-                              >
-                                <FormattedMessage
-                                  id={`phrases.otherIdentifiers`}
-                                  defaultMessage="Other identifiers"
-                                />
-                              </a>
+                              <FormattedMessage
+                                id={`enums.identifierType.${type}`}
+                                defaultMessage={type}
+                              />
+                            </div>
+                            <div>
+                              <a href={link}>{text}</a>
                             </div>
                           </li>
-                        )}
-                      </ul>
-                    </Property>
-                  )}
+                        );
+
+                        let identifier = x.identifier;
+                        if (['ROR', 'GRID', 'IH_IRN'].includes(x.type)) {
+                          if (x.type === 'ROR') {
+                            identifier = 'https://ror.org/' + x.identifier;
+                          } else if (x.type === 'GRID') {
+                            identifier = 'https://grid.ac/institutes/' + x.identifier; // GRID doesn't exists anymore. They left the space and refer to ROR as checked today September 2022
+                          } else if (x.type === 'IH_IRN') {
+                            identifier =
+                              'http://sweetgum.nybg.org/science/ih/herbarium-details/?irn=' +
+                              x.identifier.substr(12);
+                          }
+                          return (
+                            <IdentifierItem
+                              key={`${i}_${x.identifier}`}
+                              link={identifier}
+                              type={x.type}
+                              text={x.identifier}
+                            />
+                          );
+                        }
+
+                        return (
+                          <li key={`${i}_${x.identifier}`} className="g-mb-4">
+                            <div className="g-text-slate-500 g-text-sm">
+                              <FormattedMessage
+                                id={`enums.identifierType.${x.type}`}
+                                defaultMessage={x.type}
+                              />
+                            </div>
+                            <div>
+                              <HyperText text={identifier} />
+                            </div>
+                          </li>
+                        );
+                      })}
+                      {primaryIdentifiers.length < identifiers?.length && (
+                        <li className="g-mb-4">
+                          <div
+                            // css={css`color: var(--color400); font-size: 0.9em;`}
+                            className="g-text-slate-500 g-text-sm"
+                          >
+                            <a
+                              href={`${GBIF_REGISTRY_ENDPOINT}/institution/${institution.key}/identifier`}
+                            >
+                              <FormattedMessage
+                                id={`phrases.otherIdentifiers`}
+                                defaultMessage="Other identifiers"
+                              />
+                            </a>
+                          </div>
+                        </li>
+                      )}
+                    </ul>
+                  </Property>
                 </Properties>
               </CardContent>
             </Card>
