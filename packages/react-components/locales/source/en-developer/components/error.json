@@ -7,5 +7,6 @@
   "hideDetails": "Hide details",
   "showDetails": "Show details",
   "mapFailed": "Unable to load map",
-  "mapBrowserIssue": "If the problem persists it is most likely because of browser extensions or settings that disallow the use of webgl and canvas."
+  "mapBrowserIssue": "If the problem persists it is most likely because of browser extensions or settings that disallow the use of webgl and canvas.",
+  "webglUnavailable": "WebGL is not available. Please check your browser settings or try a different browser. Plugins or extensions may also block WebGL."
 }

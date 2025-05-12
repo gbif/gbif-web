@@ -1,7 +1,10 @@
+import { ErrorMessage } from '@/components/errorMessage';
+import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
+import { isWebglSupported } from '@/utils/isWebglSupported';
 import maplibre from 'maplibre-gl';
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { getLayerConfig } from './getLayerConfig';
-import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
 
 const PUBLIC_API_V2 = import.meta.env.PUBLIC_API_V2;
 
@@ -9,7 +12,18 @@ const mapStyles = {
   klokantech,
 };
 
-class Map extends Component {
+function Map(props) {
+  if (isWebglSupported() === false) {
+    return (
+      <ErrorMessage className="g-mt-12">
+        <FormattedMessage id="error.webglUnavailable" />
+      </ErrorMessage>
+    );
+  }
+  return <MapLibreMap {...props} />;
+}
+
+class MapLibreMap extends Component {
   constructor(props) {
     super(props);
 
