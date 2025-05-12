@@ -16,6 +16,7 @@ const getFacet =
     { size = 10, from = 0, include, checklistKey = DEFAULT_CHECKLIST_KEY },
     { dataSources },
   ) => {
+    console.log(checklistKey);
     // get SearchAPI
     const searchApi = getSearchFunction(dataSources);
     // generate the occurrence search facet query, by inherting from the parent query, and map limit/offset to facet equivalents

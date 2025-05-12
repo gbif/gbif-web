@@ -20,8 +20,9 @@ type FieldConfigType = {
 export type FieldType = {
   defaultType?: PredicateType;
   defaultKey?: string;
+  takesChecklistKey?: boolean;
   singleValue?: boolean;
-  hoist: boolean; // for use with q param since the occurrence predicate API do not support fuzzy matching, but consider it a distinct parameter
+  hoist?: boolean; // for use with q param since the occurrence predicate API do not support fuzzy matching, but consider it a distinct parameter
   transformValue?: (value: any) => any;
   serializer?: ({
     filterName,
@@ -46,15 +47,13 @@ export type FilterConfigType = {
 
 export function filter2predicate(
   filter: FilterType | undefined | null,
-  filterConfig?: FilterConfigType,
-  checklistKey?: string
+  filterConfig?: FilterConfigType
 ): Predicate | null {
   if (!filter) return null;
   if (filterConfig?.preFilterTransform) {
     filter = filterConfig?.preFilterTransform(filter);
   }
-  const { must, mustNot } = filter;
-
+  const { must, mustNot, checklistKey } = filter;
   const positive = getPredicates({ filters: must, filterConfig, checklistKey });
   const negated = getPredicates({ filters: mustNot, filterConfig, checklistKey }).map(
     (p): Predicate => ({ type: PredicateType.Not, predicate: p })
@@ -124,7 +123,7 @@ function getPredicate({
         //if no default key is provided, then fall back to the filterName as a key
         key: config.defaultKey || filterName,
         values: mappedValues,
-        ...(checklistKey ? { checklistKey } : {}),
+        ...(config.takesChecklistKey && checklistKey ? { checklistKey } : {}),
       };
     }
   }

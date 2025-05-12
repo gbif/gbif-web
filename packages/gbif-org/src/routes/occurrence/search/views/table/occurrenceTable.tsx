@@ -20,7 +20,6 @@ import {
   OccurrenceSortBy,
   SortOrder,
 } from '@/gql/graphql';
-import { useStringParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { useI18n } from '@/reactRouterPlugins';
 import { ExtractPaginatedResult } from '@/types';
@@ -187,11 +186,6 @@ export function OccurrenceTableClient() {
     'occurrenceSort',
     { sortBy: undefined, sortOrder: SortOrder.Asc }
   );
-  const [checklistKey] = useStringParam({
-    key: 'checklistKey',
-    defaultValue: import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
-    hideDefault: true,
-  });
   const { sortBy: occurrenceSortBy, sortOrder: occurrenceSortOrder } = occurrenceSort;
   const { locale } = useI18n();
   const searchContext = useSearchContext();
@@ -209,7 +203,7 @@ export function OccurrenceTableClient() {
   });
 
   useEffect(() => {
-    const query = getAsQuery({ filter, searchContext, searchConfig, checklistKey });
+    const query = getAsQuery({ filter, searchContext, searchConfig });
     load({
       variables: {
         language: locale.iso3LetterCode,
@@ -230,7 +224,6 @@ export function OccurrenceTableClient() {
     paginationState.pageIndex,
     paginationState.pageSize,
     occurrenceSort,
-    checklistKey,
   ]);
 
   const { filters } = useFilters({ searchConfig });

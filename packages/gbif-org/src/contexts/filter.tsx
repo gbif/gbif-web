@@ -20,11 +20,13 @@ export const FilterContext = React.createContext<FilterContextType>({
   negateField: () => ({}),
   filter: { must: {} },
   filterHash: '',
+  setChecklistKey: () => ({}),
 });
 
 export type FilterType = {
   must?: Record<string, any[]>;
   mustNot?: Record<string, any[]>;
+  checklistKey?: string;
 };
 
 export type FilterContextType = {
@@ -37,6 +39,7 @@ export type FilterContextType = {
   negateField: (field: string, isNegated?: boolean) => FilterType;
   filter: FilterType;
   filterHash: string;
+  setChecklistKey: (key: string) => FilterType;
 };
 
 export function FilterProvider({
@@ -53,6 +56,7 @@ export function FilterProvider({
   const hashObj = {
     must: currentFilter?.must || {},
     mustNot: currentFilter?.mustNot || {},
+    checklistKey: currentFilter.checklistKey || import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
   };
 
   const filterHash = hash(hashObj);
@@ -74,6 +78,18 @@ export function FilterProvider({
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [filterHash, onChange]
+  );
+
+  const setChecklistKey = useCallback(
+    (key: string): FilterType => {
+      return setFilter({
+        ...currentFilter,
+        checklistKey: key,
+      });
+    },
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [filterHash, setFilter]
   );
 
   const setField = useCallback(
@@ -210,6 +226,7 @@ export function FilterProvider({
     negateField,
     filter: currentFilter,
     filterHash,
+    setChecklistKey,
   };
 
   return (
@@ -223,7 +240,7 @@ export function FilterProvider({
 export const cleanUpFilter = (filter: FilterType): FilterType => {
   const must = pickBy(get(filter, 'must', {}), (x) => !isEmpty(x));
   const mustNot = pickBy(get(filter, 'mustNot', {}), (x) => !isEmpty(x));
-  return { must, mustNot };
+  return { must, mustNot, checklistKey: filter.checklistKey };
 };
 
 export class AddFilterEvent extends CustomEvent<{ field: string; value: any }> {

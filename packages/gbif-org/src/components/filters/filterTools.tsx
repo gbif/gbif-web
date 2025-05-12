@@ -26,6 +26,7 @@ import { QInlineButtonFilter } from './QInlineButtonFilter';
 import { RangeFilter } from './rangeFilter';
 import { SuggestionItem } from './suggest';
 import { SuggestFilter } from './suggestFilter';
+import { TaxonFilter } from './taxonFilter';
 import { WildcardFilter } from './wildcardFilter';
 
 export enum filterConfigTypes {
@@ -37,6 +38,7 @@ export enum filterConfigTypes {
   OPTIONAL_BOOL = 'OPTIONAL_BOOL',
   WILDCARD = 'WILDCARD',
   LOCATION = 'LOCATION',
+  TAXON = 'TAXON',
 }
 
 export type AdditionalFilterProps = {
@@ -71,6 +73,16 @@ export type filterBoolConfig = filterConfigShared & {
 
 export type filterSuggestConfig = filterConfigShared & {
   filterType: filterConfigTypes.SUGGEST;
+  facetQuery?: string;
+  disableFacetsForSelected?: boolean;
+  suggestConfig?: SuggestConfig;
+  allowExistence?: boolean;
+  allowNegations?: boolean;
+  suggestionTitlePath?: string;
+};
+
+export type filterTaxonConfig = filterConfigShared & {
+  filterType: filterConfigTypes.TAXON;
   facetQuery?: string;
   disableFacetsForSelected?: boolean;
   suggestConfig?: SuggestConfig;
@@ -128,6 +140,7 @@ export type filterConfig =
   | filterFreeTextConfig
   | filterWildcardConfig
   | filterDateRangeConfig
+  | filterTaxonConfig
   | filterLocationConfig;
 
 // generic type for a facet query
@@ -238,6 +251,42 @@ const getSuggestFilter = ({
     ) => {
       return (
         <SuggestFilter
+          ref={ref}
+          {...config}
+          searchConfig={searchConfig}
+          {...{ onApply, onCancel, className, style, pristine }}
+        />
+      );
+    }
+  );
+};
+
+const getTaxonFilter = ({
+  config,
+  searchConfig,
+}: {
+  config: filterTaxonConfig;
+  searchConfig: FilterConfigType;
+}) => {
+  return React.forwardRef(
+    (
+      {
+        onApply,
+        onCancel,
+        className,
+        style,
+        pristine,
+      }: {
+        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+        onCancel?: () => void;
+        className?: string;
+        style?: React.CSSProperties;
+        pristine?: boolean;
+      },
+      ref
+    ) => {
+      return (
+        <TaxonFilter
           ref={ref}
           {...config}
           searchConfig={searchConfig}
@@ -620,6 +669,12 @@ export function generateFilters({
       formatMessage,
       Content: getSuggestFilter({ config: config as filterSuggestConfig, searchConfig }),
     });
+  } else if (config.filterType === filterConfigTypes.TAXON) {
+    return generateFilter({
+      config,
+      formatMessage,
+      Content: getTaxonFilter({ config: config as filterTaxonConfig, searchConfig }),
+    });
   } else if (config.filterType === filterConfigTypes.ENUM) {
     return generateFilter({
       config,
@@ -736,13 +791,11 @@ export function getAsQuery({
   searchContext,
   searchConfig,
   queryType = searchContext.queryType,
-  checklistKey,
 }: {
   filter: FilterType;
   searchContext: SearchMetadata;
   searchConfig: FilterConfigType;
   queryType?: QueryTypeEnum;
-  checklistKey?: string;
 }): object | { predicate: Predicate | undefined; q: string | undefined } {
   // should we use get v1 syntax or predicates (we have later added predicates to v1, so the naming is less meaningful now)
   if (queryType === 'V1') {
@@ -764,14 +817,14 @@ export function getAsQuery({
       cleanedFilter = { ...filter, must: rest };
     }
 
-    const currentPredicate = filter2predicate(cleanedFilter, searchConfig, checklistKey);
+    const currentPredicate = filter2predicate(cleanedFilter, searchConfig);
     const predicates = [rootPredicate, currentPredicate].filter((x) => x);
     if (predicates.length === 0) {
-      return { q, predicate: undefined };
+      return { q, predicate: undefined, checklistKey: filter.checklistKey };
     } else if (predicates.length === 1) {
-      return { predicate: predicates[0], q };
+      return { predicate: predicates[0], q, checklistKey: filter.checklistKey };
     } else {
-      return { predicate: { type: 'and', predicates }, q };
+      return { predicate: { type: 'and', predicates }, q, checklistKey: filter.checklistKey };
     }
   }
 }

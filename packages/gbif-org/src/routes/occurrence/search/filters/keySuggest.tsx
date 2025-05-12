@@ -10,7 +10,11 @@ import {
   TaxonLabel,
   TypeStatusVocabularyLabel,
 } from '@/components/filters/displayNames';
-import { filterConfigTypes, filterSuggestConfig } from '@/components/filters/filterTools';
+import {
+  filterConfigTypes,
+  filterSuggestConfig,
+  filterTaxonConfig,
+} from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
 import {
   collectionCodeSuggest,
@@ -51,8 +55,8 @@ export const institutionKeyConfig: filterSuggestConfig = {
   group: 'record',
 };
 
-export const taxonKeyConfig: filterSuggestConfig = {
-  filterType: filterConfigTypes.SUGGEST,
+export const taxonKeyConfig: filterTaxonConfig = {
+  filterType: filterConfigTypes.TAXON,
   filterHandle: 'taxonKey',
   displayName: TaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
@@ -64,7 +68,7 @@ export const taxonKeyConfig: filterSuggestConfig = {
     query OccurrenceTaxonFacet($q: String, $predicate: Predicate, $checklistKey: ID) {
       search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
-          field: taxonKey {
+          field: taxonKey(checklistKey: $checklistKey) {
             name: key
             count
             item: taxonMatch(checklistKey: $checklistKey) {

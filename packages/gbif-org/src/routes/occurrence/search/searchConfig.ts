@@ -57,6 +57,12 @@ const config: FilterConfigType = {
         supportedTypes: ['range', 'equals'],
       },
     },
+    taxonKey: {
+      takesChecklistKey: true,
+    },
+    iucnRedListCategory: {
+      takesChecklistKey: true,
+    },
   },
 };
 
@@ -67,7 +73,6 @@ const otherParams = [
   'networkKey',
   'country',
   'publishingCountry',
-  'taxonKey',
   'institutionKey',
   'collectionKey',
   'datasetKey',
@@ -85,7 +90,6 @@ const otherParams = [
   'continent',
   'protocol',
   'dwcaExtension',
-  'iucnRedListCategory',
   'typeStatus',
   'issue',
   'occurrenceStatus',

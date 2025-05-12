@@ -24,6 +24,8 @@ export default function v12filter(query: ParamQuery, filterConfig: FilterConfigT
   );
 
   Object.keys(query).forEach((field) => {
+    // checklistKey params are handled in a unique way for all filters. See further down.
+    if (field === 'checklistKey') return;
     const value = query[field];
     if (typeof value === 'undefined') return;
 
@@ -73,5 +75,9 @@ export default function v12filter(query: ParamQuery, filterConfig: FilterConfigT
       filter.must[name] = arrayValue;
     }
   });
+  const checklistKey = query?.checklistKey?.[0] ?? query?.checklistKey;
+  if (typeof checklistKey === 'string') {
+    filter.checklistKey = checklistKey;
+  }
   return filter;
 }
