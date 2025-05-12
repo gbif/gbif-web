@@ -33,7 +33,7 @@ import { FormattedMessage } from 'react-intl';
 import { Outlet } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 
-const GBIF_REGISTRY_ENDPOINT = 'https://registry.gbif.org';
+const GBIF_REGISTRY_ENDPOINT = import.meta.env.PUBLIC_REGISTRY;
 
 // create context to pass data to children
 export const InstitutionKeyContext = createContext<{

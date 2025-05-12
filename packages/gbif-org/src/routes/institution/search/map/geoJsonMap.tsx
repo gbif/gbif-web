@@ -1,6 +1,7 @@
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ErrorMessage } from '@/components/errorMessage';
 import { useConfig } from '@/config/config';
+import { isWebglSupported } from '@/utils/isWebglSupported';
 import { cn } from '@/utils/shadcn';
 import uniqBy from 'lodash/uniqBy';
 import maplibre, { Map } from 'maplibre-gl';
@@ -22,6 +23,13 @@ export default function GeoJsonMap({
   defaultMapSettings?: { zoom: number; lat: number; lng: number };
   PopupContent: React.FC<{ feature: GeoJSON.Feature }>;
 }) {
+  if (isWebglSupported() === false) {
+    return (
+      <ErrorMessage className="g-m-8">
+        <FormattedMessage id="error.webglUnavailable" />
+      </ErrorMessage>
+    );
+  }
   return (
     <ErrorBoundary
       type="BLOCK"
