@@ -44,6 +44,8 @@
   "keep": "Keep",
   "addressUnknown": "Unknown address",
   "emptyValueProvided": "Empty value provided",
+  "otherIdentifiers": "",
+  "gbifIdentifier": "",
   "copyToClipboard": "Copy to clipboard",
   "copy": "Copy",
   "fromCountry": "From {country}",
