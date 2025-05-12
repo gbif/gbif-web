@@ -1,3 +1,4 @@
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ErrorMessage } from '@/components/errorMessage';
 import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
 import { isWebglSupported } from '@/utils/isWebglSupported';
@@ -13,14 +14,25 @@ const mapStyles = {
 };
 
 function Map(props) {
-  if (isWebglSupported() === false) {
-    return (
-      <ErrorMessage className="g-mt-12">
-        <FormattedMessage id="error.webglUnavailable" />
-      </ErrorMessage>
-    );
-  }
-  return <MapLibreMap {...props} />;
+  return (
+    <>
+      {!isWebglSupported() && (
+        <ErrorMessage className="g-mt-12">
+          <FormattedMessage id="error.webglUnavailable" />
+        </ErrorMessage>
+      )}
+      <ErrorBoundary
+        type="BLOCK"
+        title={<FormattedMessage id="error.mapFailed" />}
+        errorMessage={<FormattedMessage id="error.mapBrowserIssue" />}
+        showReportButton={true}
+        debugTitle="GeoJsonMap"
+        className="g-mt-8 g-me-2"
+      >
+        <MapLibreMap {...props} />
+      </ErrorBoundary>
+    </>
+  );
 }
 
 class MapLibreMap extends Component {
