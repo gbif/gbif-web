@@ -101,7 +101,7 @@ export function ErrorComponent({
       {displayDescription && (
         <p className="g-text-slate-500 g-mt-2 g-text-sm">{displayDescription}</p>
       )}
-      <div className="g-flex g-flex-row g-gap-2 g-my-4">
+      <div className="g-flex g-flex-row g-gap-2 g-my-4 g-items-center g-justify-center">
         {showReportButton && (
           <Button asChild size="sm">
             <a
@@ -118,14 +118,16 @@ export function ErrorComponent({
           <a
             href=""
             onClick={() => {
-              window?.location?.reload();
+              if (typeof window !== 'undefined') {
+                window.location.reload();
+              }
             }}
             className="g-text-sm g-text-slate-500"
           >
             <FormattedMessage id="error.reloadPage" defaultMessage="Try to reload page" />
           </a>
         </Button>
-        {showStackTrace && (
+        {error?.stack && showStackTrace && (
           <Button
             variant="ghost"
             size="sm"
@@ -172,7 +174,7 @@ export function ErrorComponent({
 }
 
 function generateGithubIssueBody(error: Error, title?: string, additionalInfo?: string): string {
-  const url = window?.location?.href || 'Unknown URL';
+  const url = typeof window !== 'undefined' ? window.location.href : 'Unknown URL';
   return `Thank you for reporting this issue. Please describe what happened..
 
 
