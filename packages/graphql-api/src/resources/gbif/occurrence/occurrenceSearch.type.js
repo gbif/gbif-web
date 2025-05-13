@@ -260,7 +260,11 @@ const typeDef = gql`
     agentIds_value(size: Int, from: Int): [OccurrenceFacetResult_string]
     datasetId(size: Int, from: Int): [OccurrenceFacetResult_string]
     verbatimScientificName(size: Int, from: Int): [OccurrenceFacetResult_string]
-    iucnRedListCategory(size: Int, from: Int): [OccurrenceFacetResult_string]
+    iucnRedListCategory(
+      size: Int
+      from: Int
+      checklistKey: ID
+    ): [OccurrenceFacetResult_string]
     occurrenceStatus(size: Int): [OccurrenceFacetResult_string]
 
     coordinatePrecision(size: Int, from: Int): [OccurrenceFacetResult_float]

@@ -1,3 +1,4 @@
+import { useConfig } from '@/config/config';
 import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
@@ -51,12 +52,13 @@ export function FilterProvider({
   onChange?: (filter: FilterType) => void;
   children: React.ReactNode;
 }) {
+  const { defaultChecklistKey } = useConfig();
   const [currentFilter, onChange] = useUncontrolledProp(controlledFilter, {}, controlledOnChange);
 
   const hashObj = {
     must: currentFilter?.must || {},
     mustNot: currentFilter?.mustNot || {},
-    checklistKey: currentFilter.checklistKey || import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
+    checklistKey: currentFilter.checklistKey ?? defaultChecklistKey,
   };
 
   const filterHash = hash(hashObj);
@@ -84,7 +86,7 @@ export function FilterProvider({
     (key: string): FilterType => {
       return setFilter({
         ...currentFilter,
-        checklistKey: key,
+        checklistKey: key ?? defaultChecklistKey,
       });
     },
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere

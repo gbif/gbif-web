@@ -238,31 +238,34 @@ export function TaxonLabel({
     defaultValue: undefined,
     hideDefault: false,
   });
-  const getData = useCallback(({ id, config }: DisplayNameGetDataProps) => {
-    //TODO: get the checlistKey somehow and pass it to the query
-    const variables = {
-      checklistKey: checklistKey ?? urlChecklistKey ?? defaultChecklistKey,
-    };
-    const { promise, cancel } = fetchWithCancel(
-      `${config.graphqlEndpoint}?variables=${encodeURIComponent(
-        JSON.stringify(variables)
-      )}&query=${encodeURIComponent(
-        `query($checklistKey: ID) {
+  const getData = useCallback(
+    ({ id, config }: DisplayNameGetDataProps) => {
+      //TODO: get the checlistKey somehow and pass it to the query
+      const variables = {
+        checklistKey: checklistKey ?? urlChecklistKey ?? defaultChecklistKey,
+      };
+      const { promise, cancel } = fetchWithCancel(
+        `${config.graphqlEndpoint}?variables=${encodeURIComponent(
+          JSON.stringify(variables)
+        )}&query=${encodeURIComponent(
+          `query($checklistKey: ID) {
             taxon: speciesMatchByUsageKey(usageKey: "${id}", checklistKey: $checklistKey) {
               usage {
                 canonicalName
               }
             }
           }`
-      )}`
-    );
-    return {
-      promise: promise
-        .then((response) => response.json())
-        .then((response) => ({ title: response.data.taxon.usage.canonicalName })),
-      cancel,
-    };
-  }, []);
+        )}`
+      );
+      return {
+        promise: promise
+          .then((response) => response.json())
+          .then((response) => ({ title: response.data.taxon.usage.canonicalName })),
+        cancel,
+      };
+    },
+    [checklistKey, urlChecklistKey, defaultChecklistKey]
+  );
 
   return <DisplayName useHtml getData={getData} id={id} />;
 }

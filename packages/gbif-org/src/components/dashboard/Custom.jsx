@@ -8,6 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu';
+import { useChecklistKey } from '@/hooks/useChecklistKey';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { tryParse } from '@/utils/querystring';
 import { MdLink, MdMoreHoriz } from 'react-icons/md';
@@ -25,6 +26,7 @@ const getDefaultRank = (rank) => {
 function TaxaMain({
   defaultRank,
   predicate,
+  checklistKey,
   q,
   handleRedirect,
   detailsRoute,
@@ -32,9 +34,14 @@ function TaxaMain({
   interactive,
   ...props
 }) {
+  const defaultChecklistKey = useChecklistKey();
   const [query, setQuery] = useState(getTaxonQuery(`${getDefaultRank(defaultRank)}Key`));
   const [rank, setRank] = useState(getDefaultRank(defaultRank).toUpperCase());
-  const facetResults = useFacets({ predicate, otherVariables: { q }, query });
+  const facetResults = useFacets({
+    predicate,
+    otherVariables: { q, checklistKey: checklistKey ?? defaultChecklistKey },
+    query,
+  });
 
   useEffect(() => {
     setRank(getDefaultRank(defaultRank).toUpperCase());
@@ -97,7 +104,7 @@ function TaxaMain({
                       {x?.entity?.usage.name}{' '}
                       <DynamicLink
                         pageId="speciesKey"
-                        variables={{ key: x?.key.toString() }}
+                        variables={{ key: x?.key.toString(), checklistKey: x.entity.checklistKey }}
                         onClick={(e) => {
                           e.stopPropagation();
                         }}
@@ -163,6 +170,8 @@ query summary($q: String, $predicate: Predicate, $size: Int, $from: Int, $checkl
             key
             rank
           }
+          iucnStatus
+          iucnStatusCode
         }
       }
     }
@@ -172,6 +181,7 @@ query summary($q: String, $predicate: Predicate, $size: Int, $from: Int, $checkl
 
 function IucnMain({
   predicate,
+  checklistKey,
   q,
   handleRedirect,
   visibilityThreshold,
@@ -179,8 +189,9 @@ function IucnMain({
   interactive,
   ...props
 }) {
+  const defaultChecklistKey = useChecklistKey();
   const facetResults = useFacets({
-    otherVariables: { q },
+    otherVariables: { q, checklistKey: checklistKey ?? defaultChecklistKey },
     predicate: {
       type: 'and',
       predicates: [
@@ -225,19 +236,25 @@ function IucnMain({
                   title: (
                     <div>
                       <IucnCategory
-                        code={x?.entity?.iucnRedListCategory?.code}
-                        category={x?.entity?.iucnRedListCategory?.category}
+                        code={x?.entity?.iucnStatusCode}
+                        category={x?.entity?.iucnStatus}
                       />
-                      {x?.entity?.title}
+                      {x?.entity?.usage.canonicalName}
                     </div>
                   ),
                   count: x.count,
                   filter: { taxonKey: [x.key] },
                   description: (
-                    <Classification>
-                      {['kingdom', 'phylum', 'class', 'order', 'family', 'genus'].map((rank) => {
-                        if (!x?.entity?.[rank]) return null;
-                        return <span key={rank}>{x?.entity?.[rank]}</span>;
+                    <Classification className="g-text-xs g-text-slate-500">
+                      {x?.entity?.classification?.map((rank) => {
+                        return (
+                          <span key={rank.key}>
+                            <span>
+                              {rank.rank.charAt(0).toUpperCase() + rank.rank.slice(1).toLowerCase()}{' '}
+                            </span>
+                            {rank.name}
+                          </span>
+                        );
                       })}
                     </Classification>
                   ),
@@ -251,6 +268,52 @@ function IucnMain({
     </Card>
   );
 }
+
+const IUCN_FACETS = `
+query summary($q: String, $predicate: Predicate, $size: Int, $from: Int, $checklistKey: ID){
+  search: occurrenceSearch(q: $q, predicate: $predicate) {
+    documents(size: 0) {
+      total
+    }
+    cardinality {
+      total: speciesKey(checklistKey: $checklistKey)total: speciesKey
+    }
+    facet {
+      results: speciesKey(size: $size, from: $from, checklistKey: $checklistKey) {
+        key
+        count
+        entity: taxonMatch(checklistKey: $checklistKey) {
+          usage {
+            name
+            canonicalName
+          }
+          classification {
+            name
+            key
+            rank
+          }
+          iucnStatus
+          iucnStatusCode
+        }
+        entity2: taxon {
+          title: scientificName
+          kingdom
+          phylum
+          class
+          order
+          family
+          genus
+          iucnRedListCategory {
+            category
+            code
+          }
+        }
+      }
+    }
+  }
+}
+`;
+
 export function Iucn(props) {
   return (
     <ChartClickWrapper {...props}>

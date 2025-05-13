@@ -12,7 +12,13 @@ import { useOrderedList } from '../browseList/useOrderedList';
 import { MediaPresentation } from './mediaPresentation';
 
 const OCCURRENCE_MEDIA = /* GraphQL */ `
-  query occurrenceMediaSearch($q: String, $predicate: Predicate, $size: Int, $from: Int) {
+  query occurrenceMediaSearch(
+    $q: String
+    $predicate: Predicate
+    $size: Int
+    $from: Int
+    $checklistKey: ID
+  ) {
     occurrenceSearch(q: $q, predicate: $predicate) {
       documents(size: $size, from: $from) {
         total
@@ -26,9 +32,12 @@ const OCCURRENCE_MEDIA = /* GraphQL */ `
           scientificName
           typeStatus
           eventDate
-          gbifClassification {
-            usage {
-              formattedName(useFallback: true)
+          verbatimScientificName
+          classification(checklistKey: $checklistKey) {
+            taxonMatch {
+              usage {
+                canonicalName
+              }
             }
           }
           primaryImage {

@@ -69,13 +69,6 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
               }
             }
           }
-          gbifClassification {
-            usage {
-              rank
-              formattedName(useFallback: true)
-              key
-            }
-          }
           taxon {
             canonicalName
           }

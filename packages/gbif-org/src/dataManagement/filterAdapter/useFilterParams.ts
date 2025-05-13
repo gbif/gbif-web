@@ -1,3 +1,4 @@
+import { useConfig } from '@/config/config';
 import { asStringParams, ParamQuery, parseParams } from '@/utils/querystring';
 import { Base64 } from 'js-base64';
 import isPlainObject from 'lodash/isPlainObject';
@@ -26,6 +27,7 @@ export function useFilterParams({
   filterConfig: FilterConfigType;
   paramsToRemove: string[];
 }): [FilterType, (filter: FilterType) => void] {
+  const { defaultChecklistKey } = useConfig();
   const [remove] = useState(paramsToRemove ?? []);
   const [emptyQuery, setEmptyQuery] = useState({});
   const [observedParams, setObservedParams] = useState<string[]>([]);
@@ -63,7 +65,7 @@ export function useFilterParams({
       const encodedFilter = Array.isArray(query.filter) ? query.filter[0] : query.filter;
       f = Base64JsonParam.decode(encodedFilter);
     } else {
-      f = v12filter(query, filterConfig);
+      f = v12filter(query, filterConfig, defaultChecklistKey);
     }
     return f;
   }, [query, filterConfig]);

@@ -85,12 +85,27 @@ class TaxonAPI extends RESTDataSource {
     usageKey,
     checklistKey = this.config.defaultChecklist,
   }) {
+    const isIncertaeSedis = usageKey === 0 || usageKey === '0';
     return this.get(
       `${this.config.apiv2}/species/match?`,
-      stringify({ checklistKey, usageKey }, { indices: false }),
+      stringify(
+        { checklistKey: isIncertaeSedis ? undefined : checklistKey, usageKey },
+        { indices: false },
+      ),
     ).then((result) => {
-      if (!result.usage) return null;
-      return result;
+      if (!result.usage) {
+        return null;
+      }
+      // extract IUCN status if any
+      const iucnEntry = result?.additionalStatus?.find(
+        (x) => x.datasetAlias === 'IUCN',
+      );
+      return {
+        ...result,
+        checklistKey,
+        iucnStatus: iucnEntry?.status,
+        iucnStatusCode: iucnEntry?.statusCode,
+      };
     });
   }
 

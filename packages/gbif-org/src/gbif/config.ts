@@ -93,6 +93,7 @@ export const gbifConfig: Config = {
   defaultTitle: 'GBIF',
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: languagesOptions,
+  defaultChecklistKey: '7ddf754f-d193-4cc9-b351-99906754a03b',
   theme: {
     primary: '#4787fb', //'#69AA69',
     // primary: '#69AA69',
@@ -208,12 +209,12 @@ export const gbifConfig: Config = {
     highlightedFilters: [
       // 'occurrenceStatus',
       'taxonKey',
-      'year',
-      'country',
-      // 'occurrenceIssue',
-      'geometry',
-      'recordedBy',
-      'q',
+      // 'year',
+      // 'country',
+      // // 'occurrenceIssue',
+      // 'geometry',
+      // 'recordedBy',
+      // 'q',
     ],
     tabs: ['table', 'gallery', 'map', 'clusters', 'datasets', 'dashboard', 'download'],
     defaultTab: 'table',

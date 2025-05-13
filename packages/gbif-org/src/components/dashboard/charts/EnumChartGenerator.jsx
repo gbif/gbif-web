@@ -1,3 +1,4 @@
+import { useChecklistKey } from '@/hooks/useChecklistKey';
 import ChartClickWrapper from './ChartClickWrapper';
 import { OneDimensionalChart } from './OneDimensionalChart';
 // import ChartClickWrapper from './ChartClickWrapper';
@@ -67,6 +68,7 @@ export function EnumChartGenerator({
 
 export function ChartWrapper({
   predicate,
+  checklistKey,
   translationTemplate,
   gqlQuery,
   enumKeys,
@@ -78,10 +80,12 @@ export function ChartWrapper({
   currentFilter = {}, //excluding root predicate
   ...props
 }) {
+  const defaultChecklistKey = useChecklistKey();
   const hasPredicates = [
     {
       type: 'isNotNull',
       key: predicateKey,
+      checklistKey: checklistKey ?? defaultChecklistKey,
     },
   ];
   if (predicate) {
@@ -99,6 +103,7 @@ export function ChartWrapper({
         type: 'and',
         predicates: hasPredicates,
       },
+      checklistKey: checklistKey ?? defaultChecklistKey,
     },
   };
 

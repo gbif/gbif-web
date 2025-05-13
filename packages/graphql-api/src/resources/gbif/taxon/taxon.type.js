@@ -167,10 +167,13 @@ const typeDef = gql`
   A smaller subset of the fields provided by the match service v2. This is used in lack of a species API for e.g. extended CoL.
   """
   type SpeciesMatchResult {
+    checklistKey: ID!
     synonym: Boolean!
     classification: [Classification]!
     acceptedUsage: SpeciesMatchAcceptedUsage
     usage: SpeciesMatchUsage!
+    iucnStatus: String
+    iucnStatusCode: String
   }
 
   type SpeciesMatchUsage {

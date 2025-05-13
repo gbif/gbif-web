@@ -31,6 +31,7 @@ export function OccurrenceSearchPage(): React.ReactElement {
     paramsToRemove: ['offset', 'from'],
   });
   const config = useConfig();
+
   return (
     <>
       <FormattedMessage id="occurrence.pageTitle" defaultMessage="Occurrence search">
@@ -114,7 +115,7 @@ export function OccurrenceSearchInner(): React.ReactElement {
   });
 
   return (
-    <ErrorBoundary>
+    <ErrorBoundary showStackTrace>
       <EntityDrawer />
       <section className="g-bg-white">
         <Card>

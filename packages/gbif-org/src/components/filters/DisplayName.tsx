@@ -7,6 +7,7 @@ import { IntlShape, useIntl } from 'react-intl';
 
 export type DisplayNameGetDataProps = {
   id: string | number | object;
+  checklistKey?: string;
   intl: IntlShape;
   config: Config;
   currentLocale: LanguageOption;
@@ -24,10 +25,12 @@ export default function DisplayName({
   getData,
   id,
   useHtml,
+  checklistKey,
 }: {
-  getData: ({ id, intl, config }: DisplayNameGetDataProps) => DisplayNameResponseType;
+  getData: ({ id, intl, checklistKey, config }: DisplayNameGetDataProps) => DisplayNameResponseType;
   id: string | number | object;
   useHtml: boolean;
+  checklistKey?: string;
 }) {
   const intl = useIntl();
   const { locale: currentLocale } = useI18n();
@@ -40,7 +43,7 @@ export default function DisplayName({
   useEffect(() => {
     if (typeof id === 'undefined') return;
     setLoading(true);
-    const { promise, cancel } = getData({ id, intl, config, currentLocale });
+    const { promise, cancel } = getData({ id, intl, checklistKey, config, currentLocale });
 
     if (promise) {
       promise
@@ -67,7 +70,7 @@ export default function DisplayName({
       }
       setTitle(undefined);
     };
-  }, [id, useHtml, getData, config, intl, currentLocale]);
+  }, [id, useHtml, getData, checklistKey, config, intl, currentLocale]);
 
   if (loading) {
     return (

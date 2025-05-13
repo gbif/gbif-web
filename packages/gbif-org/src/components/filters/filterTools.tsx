@@ -51,7 +51,7 @@ export type AdditionalFilterProps = {
 export type filterConfigShared = {
   filterType: string;
   filterHandle: string;
-  displayName: React.FC<{ id: string | number | object }>;
+  displayName: React.FC<{ id: string | number | object; checklistKey?: string }>;
   filterTranslation: string;
   content?: React.FC;
   filterButtonProps?: {

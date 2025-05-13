@@ -177,7 +177,7 @@ export function useFacets({
   const intl = useIntl();
   const { locale } = useI18n();
   const { data, error, loading, load } = useQuery(query, { lazyLoad: true, queue: 'dashboard' });
-
+  console.log(otherVariables);
   useDeepCompareEffect(() => {
     load({
       keepDataWhileLoading: true,

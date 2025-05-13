@@ -1,6 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 // import monthEnum from '../../../enums/basic/month.json';
-import { EnumChartGenerator } from './EnumChartGenerator';
+import { ChartWrapper, EnumChartGenerator } from './EnumChartGenerator';
 
 function StandardEnumChart({
   predicate,
@@ -183,11 +183,54 @@ export function Protocol(props) {
 }
 
 export function IucnCounts(props) {
+  // return (
+  //   <StandardEnumChart
+  //     {...{
+  //       fieldName: 'iucnRedListCategory',
+  //       options: ['PIE', 'TABLE', 'COLUMN'],
+  //       ...props,
+  //     }}
+  //   />
+  // );
+  const GQL_QUERY = `
+    query summary($q: String, $hasPredicate: Predicate, $size: Int, $from: Int, $checklistKey: ID) {
+      search: occurrenceSearch(q: $q, predicate: $hasPredicate) {
+        documents(size: 0) {
+          total
+        }
+        cardinality {
+          total: iucnRedListCategory(checklistKey: $checklistKey)
+        }
+        facet {
+          results: iucnRedListCategory(size: $size, from: $from, checklistKey: $checklistKey) {
+            key
+            count
+          }
+        }
+      }
+    }
+  `;
   return (
-    <StandardEnumChart
+    <ChartWrapper
       {...{
         fieldName: 'iucnRedListCategory',
         options: ['PIE', 'TABLE', 'COLUMN'],
+        enableUnknown: false,
+        showUnknownInChart: false,
+        enableOther: false,
+        facetSize: 10,
+        disableUnknown: true,
+        disableOther: true,
+        subtitleKey: 'dashboard.numberOfOccurrences',
+        gqlQuery: GQL_QUERY,
+        predicateKey: 'iucnRedListCategory',
+        translationTemplate: 'enums.iucnRedListCategory.{key}',
+        title: (
+          <FormattedMessage
+            id="filters.iucnRedListCategory.name"
+            defaultMessage="iucnRedListCategory"
+          />
+        ),
         ...props,
       }}
     />

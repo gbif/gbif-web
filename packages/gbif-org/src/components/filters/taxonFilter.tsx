@@ -283,7 +283,8 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                 value={filter.checklistKey}
                 onChange={(event) => {
                   const selectedValue = event.target.value;
-                  setChecklistKey(selectedValue);
+                  const newFilter = setFullField(filterHandle, [], []);
+                  setFilter({ ...newFilter, checklistKey: selectedValue });
                 }}
               >
                 <option value="d7dddbf4-2cf0-4f39-9b2a-bb099caae36c">backbone</option>
@@ -345,7 +346,7 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                     >
                       <div className="g-flex g-items-center">
                         <span className="g-flex-auto">
-                          <DisplayName id={x} />
+                          <DisplayName id={x} checklistKey={filter.checklistKey} />
                         </span>
                         {!useNegations &&
                           !selectedFacetLoading &&

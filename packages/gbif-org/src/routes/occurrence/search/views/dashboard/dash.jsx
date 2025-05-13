@@ -52,6 +52,7 @@ export function Dashboard() {
           'synonyms',
           'taxa',
           'sex',
+          'occurrenceIssue',
           ...chartsTypes,
         ]}
       />
