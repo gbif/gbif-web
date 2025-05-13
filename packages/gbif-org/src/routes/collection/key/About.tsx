@@ -482,7 +482,7 @@ export default function About() {
                             className="g-text-slate-500 g-text-sm"
                           >
                             <a
-                              href={`${GBIF_REGISTRY_ENDPOINT}/institution/${collection.key}/identifier`}
+                              href={`${GBIF_REGISTRY_ENDPOINT}/collection/${collection.key}/identifier`}
                             >
                               <FormattedMessage
                                 id={`phrases.otherIdentifiers`}
