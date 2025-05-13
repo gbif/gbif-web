@@ -18,6 +18,7 @@ export function createGbifRoutes(config: Config) {
       {
         element: <GbifRootLayout children={<Outlet />} />,
         loader: headerLoader,
+        errorElement: <RootErrorPage />,
         shouldRevalidate() {
           return false;
         },
