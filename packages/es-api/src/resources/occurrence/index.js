@@ -40,6 +40,7 @@ function get2esQuery(getQuery, config) {
 
 function predicate2esQuery(predicate, q) {
   // first we normalize the predicate
+  console.log(predicate);
   const { predicate: normalizedPredicate, err } = normalizePredicate(predicate);
   if (err) {
     console.error('Error normalizing predicate:', err);
@@ -91,9 +92,8 @@ curl -X POST --header "Content-Type:application/json" -i http://api.gbif-uat.org
 {
  "q":"my free text query here",
  "predicate": {
-    "type":"equals",
-    "key":"TAXON_KEY",
-    "value":"5242507"
+    "type":"isNotNull",
+    "key":"IUCN_RED_LIST_CATEGORY",
   }
 }'
 */

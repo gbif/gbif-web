@@ -149,11 +149,13 @@ function convertIsNotNull(obj) {
     return {
       type: 'isNotNull',
       parameter: obj.key,
+      checklistKey: obj.checklistKey,
     };
   } else if (obj.type === 'isNull') {
     return {
       type: 'isNull',
       parameter: obj.key,
+      checklistKey: obj.checklistKey,
     };
   }
   return obj;

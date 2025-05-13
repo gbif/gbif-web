@@ -199,6 +199,7 @@ function IucnMain({
         {
           type: 'in',
           key: 'iucnRedListCategory',
+          checklistKey: checklistKey ?? defaultChecklistKey,
           values: ['EX', 'EW', 'CR', 'EN', 'VU', 'NT'],
         },
       ],
