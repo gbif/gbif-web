@@ -276,7 +276,7 @@ query summary($q: String, $predicate: Predicate, $size: Int, $from: Int, $checkl
       total
     }
     cardinality {
-      total: speciesKey(checklistKey: $checklistKey)total: speciesKey
+      total: speciesKey(checklistKey: $checklistKey)
     }
     facet {
       results: speciesKey(size: $size, from: $from, checklistKey: $checklistKey) {
