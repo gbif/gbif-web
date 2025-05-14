@@ -42,3 +42,13 @@ export function DataAboutCountryMap({ countryCode }: DataAboutCountryMapProps) {
     </section>
   );
 }
+
+const OCCURRENCE_COUNT_WITHIN_COUNTRY = /* GraphQL */ `
+  query OccurrenceCountWithinCountry($countryCode: JSON!) {
+    occurrenceSearch(predicate: { type: equals, value: $countryCode, key: "countryCode" }) {
+      documents(size: 0) {
+        total
+      }
+    }
+  }
+`;
