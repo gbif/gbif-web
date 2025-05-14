@@ -1,7 +1,9 @@
 // @ts-nocheck
+import { getAsQuery } from '@/components/filters/filterTools';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { filter2predicate } from '@/dataManagement/filterAdapter';
+import { PredicateType } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import Geohash from 'latlon-geohash';
 import { useCallback, useContext, useEffect } from 'react';
@@ -46,8 +48,9 @@ query point($q: String, $predicate: Predicate){
 const wktBBoxTemplate = '((W S,E S,E N,W N,W S))';
 
 function Map({ style, className, mapProps }) {
+  const searchContext = useSearchContext();
   const currentFilterContext = useContext(FilterContext);
-  const { scope, mapSettings } = useSearchContext();
+  const { scope, mapSettings } = searchContext;
   const { data, error, loading, load } = useQuery(OCCURRENCE_MAP, {
     lazyLoad: true,
     throwAllErrors: true,
@@ -59,12 +62,12 @@ function Map({ style, className, mapProps }) {
     load: pointLoad,
   } = useQuery(OCCURRENCE_POINT, { lazyLoad: true });
 
-  const loadHashAndCount = useCallback(({ filter, searchConfig, scope, load }) => {
+  const loadHashAndCount = useCallback(({ filter, searchContext, searchConfig, load }) => {
+    const query = getAsQuery({ filter, searchContext, searchConfig });
     const predicate = {
-      type: 'and',
+      type: PredicateType.And,
       predicates: [
-        scope,
-        filter2predicate(filter, searchConfig),
+        query.predicate,
         {
           type: 'equals',
           key: 'hasCoordinate',
@@ -72,19 +75,19 @@ function Map({ style, className, mapProps }) {
         },
       ].filter((x) => x),
     };
-    load({ keepDataWhileLoading: true, variables: { predicate } });
+    load({ keepDataWhileLoading: true, variables: { predicate, q: query.q } });
   }, []);
 
   useEffect(() => {
     loadHashAndCount({
       filter: currentFilterContext.filter,
       searchConfig,
-      scope,
       load,
+      searchContext,
     });
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentFilterContext.filterHash, scope, load, loadHashAndCount]);
+  }, [currentFilterContext.filterHash, searchContext, scope, load, loadHashAndCount]);
 
   let registrationEmbargo;
   /**
@@ -99,10 +102,10 @@ function Map({ style, className, mapProps }) {
     loadHashAndCount({
       filter: currentFilterContext.filter,
       searchConfig,
-      scope,
+      searchContext,
       load,
     });
-  }, [currentFilterContext.filterHash, scope, searchConfig, load]);
+  }, [currentFilterContext.filterHash, searchContext, searchConfig, load]);
 
   const loadPointData = useCallback(
     ({ geohash }) => {

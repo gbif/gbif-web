@@ -1,9 +1,14 @@
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { getAsQuery } from '@/components/filters/filterTools';
 import { useToast } from '@/components/ui/use-toast';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
-import { filter2predicate } from '@/dataManagement/filterAdapter';
-import { OccurrenceMediaSearchQuery, OccurrenceMediaSearchQueryVariables } from '@/gql/graphql';
+import {
+  OccurrenceMediaSearchQuery,
+  OccurrenceMediaSearchQueryVariables,
+  Predicate,
+  PredicateType,
+} from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { searchConfig } from '../../searchConfig';
@@ -57,6 +62,7 @@ const OCCURRENCE_MEDIA = /* GraphQL */ `
 
 export function Media({ size: defaultSize = 50 }) {
   const [from, setFrom] = useState(0);
+  const searchContext = useSearchContext();
   const size = defaultSize;
   const { toast } = useToast();
   const currentFilterContext = useContext(FilterContext);
@@ -118,11 +124,11 @@ export function Media({ size: defaultSize = 50 }) {
   }, [error, allData, toast]);
 
   useEffect(() => {
-    const predicate = {
-      type: 'and',
+    const query = getAsQuery({ filter: currentFilterContext.filter, searchContext, searchConfig });
+    const predicate: Predicate = {
+      type: PredicateType.And,
       predicates: [
-        scope,
-        filter2predicate(currentFilterContext.filter, searchConfig),
+        query.predicate,
         {
           type: 'in',
           key: 'mediaType',
@@ -131,7 +137,7 @@ export function Media({ size: defaultSize = 50 }) {
         },
       ].filter((x) => x),
     };
-    load({ keepDataWhileLoading: true, variables: { predicate, size, from } });
+    load({ keepDataWhileLoading: true, variables: { predicate, q: query.q, size, from } });
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [from, currentFilterContext.filterHash, scope, load, size]);

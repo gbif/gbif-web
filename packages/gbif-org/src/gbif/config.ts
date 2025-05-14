@@ -209,7 +209,7 @@ export const gbifConfig: Config = {
     highlightedFilters: [
       // 'occurrenceStatus',
       'taxonKey',
-      // 'year',
+      'datasetKey',
       // 'country',
       // // 'occurrenceIssue',
       // 'geometry',

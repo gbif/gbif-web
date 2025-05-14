@@ -1,6 +1,7 @@
+import { getAsQuery } from '@/components/filters/filterTools';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
-import { filter2predicate } from '@/dataManagement/filterAdapter';
+import { PredicateType } from '@/gql/graphql';
 import { useNumberParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import uniqBy from 'lodash/uniqBy';
@@ -139,18 +140,18 @@ function Clusters() {
 
   const size = 30;
   const currentFilterContext = useContext(FilterContext);
-  const { scope } = useSearchContext();
+  const searchContext = useSearchContext();
   const { data, error, loading, load } = useQuery(OCCURRENCE_CLUSTERS, {
     lazyLoad: true,
     throwNetworkErrors: true,
   });
 
   useEffect(() => {
+    const query = getAsQuery({ filter: currentFilterContext.filter, searchContext, searchConfig });
     const predicate = {
-      type: 'and',
+      type: PredicateType.And,
       predicates: [
-        scope,
-        filter2predicate(currentFilterContext.filter, searchConfig),
+        query.predicate,
         {
           type: 'equals',
           key: 'isInCluster',
@@ -158,11 +159,11 @@ function Clusters() {
         },
       ].filter((x) => x),
     };
-    load({ keepDataWhileLoading: true, variables: { predicate, size, from } });
+    load({ keepDataWhileLoading: true, variables: { predicate, q: query.q, size, from } });
     setCriticalError(false);
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentFilterContext.filterHash, scope, from, attempt, load]);
+  }, [currentFilterContext.filterHash, searchConfig, searchContext, from, attempt, load]);
 
   const next = useCallback(() => {
     setFrom(Math.max(0, from + size));
