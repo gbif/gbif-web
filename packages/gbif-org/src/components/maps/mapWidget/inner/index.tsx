@@ -17,6 +17,7 @@ import { useSetupMap } from './hooks/useSetupMap';
 import { useSyncBoundingBox } from './hooks/useSyncBoundingBox';
 import { useTileLoadingFeedback } from './hooks/useTileLoadingFeedback';
 import { useZoomInteraction } from './hooks/useZoomInteraction';
+import { useInitialZoom } from './hooks/useInitialZoom';
 
 type Props = {
   className?: string;
@@ -29,6 +30,12 @@ type Props = {
   generatedAt?: string;
   isFullSize: boolean;
   toggleFullScreen: () => void;
+  capabilities?: {
+    minLat: number;
+    maxLat: number;
+    minLng: number;
+    maxLng: number;
+  };
 };
 
 export default function MapWidgetInner({
@@ -42,6 +49,7 @@ export default function MapWidgetInner({
   generatedAt,
   isFullSize,
   toggleFullScreen,
+  capabilities,
 }: Props) {
   const mapId = useId();
   const [map, setMap] = useState<Map>();
@@ -66,6 +74,12 @@ export default function MapWidgetInner({
     projection,
     baseLayerStyle: rasterStyles.baseMapStyle,
     generatedAt,
+  });
+
+  // Will zoom to the capabilities extent when the map and capabilities are loaded
+  useInitialZoom({
+    map,
+    capabilities,
   });
 
   const { hideLoadingProgress, progressHandler, loadingProgress } = useTileLoadingFeedback();
