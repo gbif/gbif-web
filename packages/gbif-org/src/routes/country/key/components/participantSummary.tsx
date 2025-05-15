@@ -1,18 +1,20 @@
 import Properties, { Property } from '@/components/properties';
 import { ParticipantSummaryFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
+import { cn } from '@/utils/shadcn';
 import { Link } from 'react-router-dom';
 
 type Props = {
   participant: ParticipantSummaryFragment;
+  className?: string;
 };
 
-export function ParticipantSummary({ participant }: Props) {
+export function ParticipantSummary({ participant, className }: Props) {
   const headOfDelegation = participant.headOfDelegation?.[0];
   const participantNodeManager = participant.participantNodeManager?.[0];
 
   return (
-    <Properties className="[&_a]:g-text-primary-500">
+    <Properties className={cn('[&_a]:g-text-primary-500', className)}>
       <Property labelId="Memeber status" value={participant.participationStatus} />
       <Property labelId="GBIF participant since" value={participant.participant?.membershipStart} />
       <Property labelId="GBIF region" value={participant.gbifRegion} />

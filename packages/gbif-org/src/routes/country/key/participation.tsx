@@ -5,6 +5,8 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { ArticleBody } from '@/routes/resource/key/components/articleBody';
 import { CountryKeyParticipationFragment } from '@/gql/graphql';
 import { Contacts } from './components/contacts';
+import { ParticipantSummary } from './components/participantSummary';
+import { FormattedMessage } from 'react-intl';
 
 export function CountryKeyParticipation() {
   const { data } = useCountryKeyLoaderData();
@@ -16,6 +18,13 @@ export function CountryKeyParticipation() {
     <>
       <ArticleContainer className="g-pt-4">
         <ArticleTextContainer>
+          <div className="g-prose g-mb-4">
+            <h3>
+              <FormattedMessage id="TODO" defaultMessage="Participant Summary" />
+            </h3>
+          </div>
+          <ParticipantSummary participant={data.nodeCountry!} className="g-mb-8" />
+          <hr />
           {body && <ArticleBody dangerouslySetBody={{ __html: body }} />}
         </ArticleTextContainer>
       </ArticleContainer>
