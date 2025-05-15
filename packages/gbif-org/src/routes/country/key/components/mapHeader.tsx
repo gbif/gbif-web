@@ -23,7 +23,7 @@ type CountProps = Omit<ComponentProps<typeof FormattedNumber>, 'value'> & {
 };
 
 function Count({ loading, ...props }: CountProps) {
-  if (loading || !props.value) {
+  if (loading || props.value == null) {
     return (
       <span className="g-flex g-h-6 g-w-20 g-items-center g-justify-center">
         <Skeleton className="g-h-5 g-w-20" />
