@@ -1,3 +1,4 @@
+import { Skeleton } from '@/components/ui/skeleton';
 import { DynamicLink, DynamicLinkProps } from '@/reactRouterPlugins/dynamicLink';
 import { cn } from '@/utils/shadcn';
 import { ComponentProps, PropsWithChildren } from 'react';
@@ -16,10 +17,23 @@ function Item({ className, ...props }: DynamicLinkProps<typeof Link>) {
   return <DynamicLink className={cn('g-flex-1 g-group', className)} {...props} />;
 }
 
-function Count(props: ComponentProps<typeof FormattedNumber>) {
+type CountProps = Omit<ComponentProps<typeof FormattedNumber>, 'value'> & {
+  value?: number;
+  loading?: boolean;
+};
+
+function Count({ loading, ...props }: CountProps) {
+  if (loading || !props.value) {
+    return (
+      <span className="g-flex g-h-6 g-w-20 g-items-center g-justify-center">
+        <Skeleton className="g-h-5 g-w-20" />
+      </span>
+    );
+  }
+
   return (
     <span className="group-hover:g-underline g-font-semibold g-text-slate-800">
-      <FormattedNumber {...props} />
+      {loading ? <Skeleton className="g-h-3 g-w-20" /> : <FormattedNumber {...props} />}
     </span>
   );
 }

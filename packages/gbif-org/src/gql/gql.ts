@@ -33,7 +33,8 @@ const documents = {
     "\n    query CollectionPreservationTypeFacet($query: CollectionSearchInput) {\n      search: collectionSearch(query: $query) {\n        facet {\n          field: preservationType(limit: 10) {\n            name\n            count\n          }\n        }\n      }\n    }\n  ": types.CollectionPreservationTypeFacetDocument,
     "\n    query CollectionTypeStatusFacet($query: CollectionSearchInput) {\n      search: collectionSearch(query: $query) {\n        facet {\n          field: typeStatus(limit: 10) {\n            name\n            count\n          }\n        }\n      }\n    }\n  ": types.CollectionTypeStatusFacetDocument,
     "\n  fragment NodeContacts on Node {\n    contacts {\n      key\n      firstName\n      lastName\n\n      organization\n      position\n      roles\n      type\n\n      address\n      city\n      postalCode\n      province\n      country\n\n      homepage\n      email\n      phone\n      userId\n    }\n  }\n": types.NodeContactsFragmentDoc,
-    "\n  query OccurrenceCountWithinCountry($countryCode: JSON!) {\n    occurrenceSearch(predicate: { type: equals, value: $countryCode, key: \"countryCode\" }) {\n      documents(size: 0) {\n        total\n      }\n    }\n  }\n": types.OccurrenceCountWithinCountryDocument,
+    "\n  query CountryDetailAbout($isoCode: Country!) {\n    countryDetail(isoCode: $isoCode) {\n      aboutOccurrenceCount\n      aboutDatasetCount\n      aboutCountryCount\n      aboutPublisherCount\n    }\n  }\n": types.CountryDetailAboutDocument,
+    "\n  query CountryDetailFrom($isoCode: Country!) {\n    countryDetail(isoCode: $isoCode) {\n      fromOccurrenceCount\n      fromDatasetCount\n      fromCountryCount\n      fromPublisherCount\n    }\n  }\n": types.CountryDetailFromDocument,
     "\n  query OccurrencesPerKingdom($predicate: Predicate) {\n    occurrenceSearch(predicate: $predicate) {\n      facet {\n        kingdomKey {\n          key\n          count\n        }\n      }\n    }\n  }\n": types.OccurrencesPerKingdomDocument,
     "\n  query Participant($countryCode: String!) {\n    nodeCountry(countryCode: $countryCode) {\n      gbifRegion\n      participationStatus\n      participant {\n        membershipStart\n        nodeEstablishmentDate\n      }\n      ...CountryKeySummary\n      ...CountryKeyParticipation\n    }\n  }\n": types.ParticipantDocument,
     "\n  fragment CountryKeyParticipation on Node {\n    participant {\n      nodeMission\n      nodeFunding\n      nodeHistory\n      nodeStructure\n    }\n    ...NodeContacts\n  }\n": types.CountryKeyParticipationFragmentDoc,
@@ -287,7 +288,11 @@ export function graphql(source: "\n  fragment NodeContacts on Node {\n    contac
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query OccurrenceCountWithinCountry($countryCode: JSON!) {\n    occurrenceSearch(predicate: { type: equals, value: $countryCode, key: \"countryCode\" }) {\n      documents(size: 0) {\n        total\n      }\n    }\n  }\n"): (typeof documents)["\n  query OccurrenceCountWithinCountry($countryCode: JSON!) {\n    occurrenceSearch(predicate: { type: equals, value: $countryCode, key: \"countryCode\" }) {\n      documents(size: 0) {\n        total\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query CountryDetailAbout($isoCode: Country!) {\n    countryDetail(isoCode: $isoCode) {\n      aboutOccurrenceCount\n      aboutDatasetCount\n      aboutCountryCount\n      aboutPublisherCount\n    }\n  }\n"): (typeof documents)["\n  query CountryDetailAbout($isoCode: Country!) {\n    countryDetail(isoCode: $isoCode) {\n      aboutOccurrenceCount\n      aboutDatasetCount\n      aboutCountryCount\n      aboutPublisherCount\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query CountryDetailFrom($isoCode: Country!) {\n    countryDetail(isoCode: $isoCode) {\n      fromOccurrenceCount\n      fromDatasetCount\n      fromCountryCount\n      fromPublisherCount\n    }\n  }\n"): (typeof documents)["\n  query CountryDetailFrom($isoCode: Country!) {\n    countryDetail(isoCode: $isoCode) {\n      fromOccurrenceCount\n      fromDatasetCount\n      fromCountryCount\n      fromPublisherCount\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
