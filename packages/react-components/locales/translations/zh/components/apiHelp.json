@@ -1,6 +1,8 @@
 {
   "example": "示例 ",
   "singleEntry": "获取一个单条目",
+  "singleOccurrence": "出现一次记录",
+  "searchOccurrences": "获取全部出现次数",
   "search": "搜索",
   "singleDataset": "获取一个单条目",
   "searchDatasetsExample": "从丹麦发布的前两个数据集，标题或描述中包含自由文本 “fungi”",

@@ -41,7 +41,7 @@
   },
   "specimensInGbif": {
     "name": "Especímenes en GBIF",
-    "count": "",
+    "count": "{num, plural, one {# recuento de especímenes en GBIF} other {# especímenes en GBIF}}\n",
     "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "iucnRedListCategory": {
@@ -51,7 +51,7 @@
   },
   "geoDistance": {
     "name": "Distancia de coordenadas",
-    "count": "",
+    "count": "{num, plural, one { filtro } other {# filtros }}",
     "description": "Filtrar los registros dentro de una distancia determinada desde un punto",
     "placeholderLat": "Latitud",
     "placeholderLon": "Longitud",
@@ -67,12 +67,12 @@
   },
   "relevance": {
     "name": "Relevancia",
-    "count": "",
+    "count": "{num, plural, one { relevancia } other {# filtros de relevancia}}",
     "description": "¿Cómo se utiliza GBIF en la literatura?"
   },
   "topics": {
     "name": "Tema",
-    "count": "",
+    "count": "{num, plural, one { asunto } other {# asuntos}}",
     "description": "¿Cuáles son los temas del registro?"
   },
   "audiences": {
@@ -161,7 +161,7 @@
   },
   "occurrenceCountry": {
     "name": "Área o país",
-    "count": "{num, plural, one {país} other {# áreas o países}}",
+    "count": "{num, plural, one {área o país} other {# áreas o países}}",
     "description": "El país o territorio donde ocurrió el evento"
   },
   "grsciCollCountry": {
@@ -212,7 +212,7 @@
   },
   "gbifPublisherKey": {
     "name": "Publicador GBIF",
-    "count": "",
+    "count": "{num, plural, one {# publicador GBIF} other {# publicadores GBIF}}",
     "description": "El nombre de la organización responsable que ha compartido el conjunto de datos en el que se incluye el registro."
   },
   "hostingOrganizationKey": {
@@ -222,7 +222,7 @@
   },
   "country": {
     "name": "País",
-    "count": "{num, plural, one {país} other {# áreas o países}}"
+    "count": "{num, plural, one {área o país} other {# áreas o países}}"
   },
   "countriesOfCoverage": {
     "name": "País de cobertura",
