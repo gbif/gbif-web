@@ -270,13 +270,22 @@ function Taxon({
   showAll,
   termMap,
   occurrence,
-  updateToc = () => {},
 }: {
   showAll: boolean;
   termMap: any;
   occurrence: OccurrenceQuery['occurrence'];
   updateToc: (id: string, visible: boolean) => void;
 }) {
+  const enabledChecklists = import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS;
+  // filter occurrence.classifications to only show those in enabledChecklists. Use the ordering of the enabledChecklists
+  // to order the classifications
+  const filteredClassifications = occurrence?.classifications
+    .filter((classification) => enabledChecklists.includes(classification?.checklistKey))
+    .sort((a, b) => {
+      return (
+        enabledChecklists.indexOf(a?.checklistKey) - enabledChecklists.indexOf(b?.checklistKey)
+      );
+    });
   return (
     <>
       <Group label="occurrenceDetails.groups.taxon" id="taxon">
@@ -339,23 +348,19 @@ function Taxon({
           <VerbatimTextField term={termMap.nomenclaturalStatus} />
           <HtmlField term={termMap.taxonRemarks} showDetails={showAll} />
           <VerbatimTextField term={termMap.scientificNameAuthorship} />
-          {/* <EnumField
-            term={termMap.taxonRank}
-            showDetails={showAll}
-            getEnum={(value) => `enums.taxonRank.${value}`}
-          />
-          <EnumField
-            term={termMap.taxonomicStatus}
-            showDetails={showAll}
-            getEnum={(value) => `enums.taxonomicStatus.${value}`}
-          /> */}
+          <VerbatimTextField term={termMap.taxonomicStatus} />
         </Properties>
 
         <div className="g-mt-8">
           <div className="g-mb-2">
             Taxonomic Interpretations <MdInfoOutline />
+            <div className="g-bg-slate-200 g-p-2 g-rounded g-text-slate-600 g-text-xs">
+              Records are enriched with taxonomic interpretations. This is done to ease discovery
+              across spelling variations and synonyms. The original name is available for search
+              using the "verbatim scientific name" filter
+            </div>
           </div>
-          {occurrence?.classifications.map((classification) => (
+          {filteredClassifications.map((classification) => (
             <TaxonInterpretationCard classification={classification} />
           ))}
         </div>

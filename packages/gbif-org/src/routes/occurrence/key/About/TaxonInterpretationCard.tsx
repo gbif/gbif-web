@@ -45,7 +45,7 @@ export function TaxonInterpretationCard({
               )}
               {!useChecklistBankLink && (
                 <DynamicLink
-                  className="g-text-sm g-font-medium g-text-slate-600 hover:g-text-primary-500"
+                  className="g-text-sm g-font-medium g-text-slate-600 hover:g-text-primary-500 "
                   pageId="speciesKey"
                   variables={{ key: classification?.usage?.key }}
                 >
@@ -55,7 +55,7 @@ export function TaxonInterpretationCard({
             </div>
 
             <h4
-              className="g-text-lg g-font-medium g-text-gray-900"
+              className="g-text-lg g-font-medium g-text-gray-900 g-underline"
               dangerouslySetInnerHTML={{
                 __html:
                   classification.taxonMatch?.usage.formattedName ??
@@ -90,16 +90,11 @@ export function TaxonInterpretationCard({
                   </li>
                 ))}
               </BulletList>
-              {classification.taxonMatch?.synonym && (
-                <span className="g-ms-4 g-bg-orange-400 g-rounded-full g-px-2 g-text-white">
-                  <FormattedMessage id="enums.taxonomicStatus.SYNONYM" defaultMessage="Synonym" />
-                </span>
-              )}
             </div>
             {classification.acceptedUsage.key !== classification.usage.key && (
               <div className="g-text-xs g-text-slate-700 g-mt-2">
                 {classification.taxonMatch?.synonym && (
-                  <span className="g-ms-4 g-bg-orange-400 g-rounded-full g-px-2 g-text-white">
+                  <span className="g-me-4 g-bg-orange-400 g-rounded-full g-px-2 g-text-white">
                     <FormattedMessage id="enums.taxonomicStatus.SYNONYM" defaultMessage="Synonym" />
                   </span>
                 )}
@@ -107,6 +102,7 @@ export function TaxonInterpretationCard({
                   accepted name:{' '}
                   <DynamicLink
                     pageId="speciesKey"
+                    className="g-underline"
                     variables={{ key: classification.acceptedUsage.key }}
                   >
                     {classification.acceptedUsage.name}
