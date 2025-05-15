@@ -43,6 +43,7 @@ import {
   coordinateUncertaintyConfig,
   depthConfig,
   elevationConfig,
+  eventDateConfig,
   organismQuantityConfig,
   relativeOrganismQuantityConfig,
   sampleSizeValueConfig,
@@ -77,6 +78,7 @@ const freeTextConfig: filterConfig = {
   filterHandle: 'q',
   displayName: IdentityLabel,
   filterTranslation: 'filters.q.name',
+  group: 'other',
 };
 
 export type Filters = Record<string, FilterSetting>;
@@ -232,6 +234,8 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       identifiedBy: generateFilters({ config: identifiedByConfig, searchConfig, formatMessage }),
 
       geometry: generateFilters({ config: locationConfig, searchConfig, formatMessage }),
+
+      eventDate: generateFilters({ config: eventDateConfig, searchConfig, formatMessage }),
     };
     return tmpFilters;
   }, [searchConfig, countrySuggest, formatMessage]);

@@ -9,7 +9,7 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { useContext, useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { TaxonKeyContext } from './taxonKeyPresentation';
-const VerbatimTaxon = () => {
+const VerbatimTaxon = ({ headLess = false }) => {
   const { data } = useContext(TaxonKeyContext);
   const {
     data: verbatimTaxon,
@@ -31,7 +31,7 @@ const VerbatimTaxon = () => {
   }, [data.taxon?.key, verbatimTaxonLoad]);
 
   return (
-    <ArticleContainer className="g-bg-slate-100 g-pt-4">
+    <ArticleContainer className={`g-bg-slate-100 ${headLess ? 'g-p-4 lg:g-pt-4' : ''}`}>
       <ArticleTextContainer className="g-max-w-screen-xl">
         <Card className="g-mb-4">
           <CardHeader>

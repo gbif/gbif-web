@@ -1,10 +1,10 @@
 import { TableBody, TableRow } from '@/components/ui/table';
 import { cn } from '@/utils/shadcn';
-import { InitialSkeletonTable } from './initialSkeletonTable';
-import { Cell } from './cell';
 import { memo } from 'react';
-import { CreateRowLink } from '../../hooks/useRowLink';
 import { ColumnDef } from '../..';
+import { CreateRowLink } from '../../hooks/useRowLink';
+import { Cell } from './cell';
+import { InitialSkeletonTable } from './initialSkeletonTable';
 
 type Props<T> = {
   loading: boolean;

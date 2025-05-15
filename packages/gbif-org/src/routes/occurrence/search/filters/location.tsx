@@ -27,4 +27,5 @@ export const locationConfig: filterLocationConfig = {
     },
   },
   about: () => <Message id="filters.geometry.description" />,
+  group: 'location',
 };

@@ -5,7 +5,9 @@ export function useFilterParams(
   basisOfRecord: string[],
   isYearFilterActive: boolean,
   startYear?: number,
-  endYear?: number
+  endYear?: number,
+  taxonKey?: string,
+  country?: string
 ) {
   return useMemo(() => {
     const filterParams: Params = {
@@ -22,6 +24,13 @@ export function useFilterParams(
       filterParams.year = `${startYear},${endYear}`;
     }
 
+    if (country) {
+      filterParams.country = country;
+    }
+    if (taxonKey) {
+      filterParams.taxonKey = taxonKey;
+    }
+
     return filterParams;
-  }, [basisOfRecord, startYear, endYear, isYearFilterActive]);
+  }, [basisOfRecord, startYear, endYear, isYearFilterActive, taxonKey, country]);
 }

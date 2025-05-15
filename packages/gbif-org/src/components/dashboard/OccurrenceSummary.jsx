@@ -53,7 +53,7 @@ export function OccurrenceSummary({ predicate, ...props }) {
 
   return (
     <Card {...props} loading={!summary} error={!!error}>
-      <ErrorBoundary>
+      <ErrorBoundary debugTitle="OccurrenceSummary" showReportButton={false} type="BLOCK">
         <CardHeader>
           <CardTitle>
             <FormattedMessage id="dashboard.statistics" defaultMessage="Statistics" />

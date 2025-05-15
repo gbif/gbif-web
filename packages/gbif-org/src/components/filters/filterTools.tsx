@@ -12,6 +12,7 @@ import React, { useContext } from 'react';
 import { FormattedMessage, IntlShape } from 'react-intl';
 import { Button } from '../ui/button';
 import { AboutButton } from './aboutButton';
+import { DateRangeFilter } from './dateRangeFilter';
 import { EnumFilter } from './enumFilter';
 import { Exists } from './exists';
 import { FilterButton } from './filterButton';
@@ -32,6 +33,7 @@ export enum filterConfigTypes {
   ENUM = 'ENUM',
   FREE_TEXT = 'FREE_TEXT',
   RANGE = 'RANGE',
+  DATE_RANGE = 'DATE_RANGE',
   OPTIONAL_BOOL = 'OPTIONAL_BOOL',
   WILDCARD = 'WILDCARD',
   LOCATION = 'LOCATION',
@@ -57,6 +59,8 @@ export type filterConfigShared = {
   };
   info?: React.FC;
   about?: React.FC;
+  group?: string;
+  order?: number;
 };
 
 export type filterBoolConfig = filterConfigShared & {
@@ -82,6 +86,7 @@ export type filterWildcardConfig = filterConfigShared & {
   keepCase?: boolean;
   suggestQuery: string;
   disallowLikeFilters?: boolean;
+  defaultDescription?: () => React.ReactNode;
 };
 
 export type filterEnumConfig = filterConfigShared & {
@@ -96,6 +101,13 @@ export type filterRangeConfig = filterConfigShared & {
   filterType: filterConfigTypes.RANGE;
   regex?: RegExp;
   allowExistence?: boolean;
+  rangeExample?: () => React.ReactNode;
+};
+
+export type filterDateRangeConfig = filterConfigShared & {
+  filterType: filterConfigTypes.DATE_RANGE;
+  allowExistence?: boolean;
+  rangeExample?: () => React.ReactNode;
 };
 
 export type filterLocationConfig = filterConfigShared & {
@@ -114,6 +126,7 @@ export type filterConfig =
   | filterRangeConfig
   | filterFreeTextConfig
   | filterWildcardConfig
+  | filterDateRangeConfig
   | filterLocationConfig;
 
 // generic type for a facet query
@@ -456,6 +469,42 @@ const getRangeFilter = ({
   );
 };
 
+const getDateRangeFilter = ({
+  config,
+  searchConfig,
+}: {
+  config: filterDateRangeConfig;
+  searchConfig: FilterConfigType;
+}) => {
+  return React.forwardRef(
+    (
+      {
+        onApply,
+        onCancel,
+        className,
+        style,
+        pristine,
+      }: {
+        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+        onCancel?: () => void;
+        className?: string;
+        style?: React.CSSProperties;
+        pristine?: boolean;
+      },
+      ref
+    ) => {
+      return (
+        <DateRangeFilter
+          ref={ref}
+          {...config}
+          searchConfig={searchConfig}
+          {...{ onApply, onCancel, className, style, pristine }}
+        />
+      );
+    }
+  );
+};
+
 export type FilterSetting = {
   Button: React.FC<{ className?: string }>;
   Popover: React.FC<{ trigger: React.ReactNode }>;
@@ -550,6 +599,8 @@ export function generateFilter({
     handle: config.filterHandle,
     displayName: config.displayName,
     translatedFilterName: formatMessage({ id: config.filterTranslation }),
+    group: config.group,
+    order: config.order,
   };
 }
 
@@ -585,6 +636,12 @@ export function generateFilters({
       config,
       formatMessage,
       Content: getRangeFilter({ config: config as filterRangeConfig, searchConfig }),
+    });
+  } else if (config.filterType === filterConfigTypes.DATE_RANGE) {
+    return generateFilter({
+      config,
+      formatMessage,
+      Content: getDateRangeFilter({ config: config as filterDateRangeConfig, searchConfig }),
     });
   } else if (config.filterType === filterConfigTypes.OPTIONAL_BOOL) {
     return generateFilter({
@@ -716,9 +773,11 @@ export function getAsQuery({
 export function FilterButtons({
   filters,
   searchContext,
+  groups,
 }: {
   filters?: Record<string, FilterSetting>;
   searchContext?: SearchMetadata;
+  groups?: string[];
 }) {
   const filterContext = useContext(FilterContext);
 
@@ -755,7 +814,9 @@ export function FilterButtons({
         if (!filterConfig) return null;
         return <filterConfig.Button key={filterHandle} className="g-mx-1 g-mb-1" />;
       })}
-      {Object.keys(otherFilters).length > 0 && <MoreFilters filters={otherFilters} />}
+      {Object.keys(otherFilters).length > 0 && (
+        <MoreFilters filters={otherFilters} groups={groups} />
+      )}
     </>
   );
 }
@@ -768,7 +829,10 @@ export function FilterBar({
   className?: string;
 }) {
   return (
-    <div className={cn('g-border-b g-py-2 g-px-4 g-bg-paperBackground', className)} role="search">
+    <div
+      className={cn('g-border-b g-py-2 g-px-4 g-bg-paperBackground -g-mb-1', className)}
+      role="search"
+    >
       {children}
     </div>
   );
@@ -815,16 +879,20 @@ export function AsyncOptions({
     );
   }
   if (loading) {
-    return (
-      <div className={cn(className)}>
-        <SkeletonOption className="g-w-full g-mb-2" />
-        <SkeletonOption className="g-w-36 g-max-w-full g-mb-2" />
-        <SkeletonOption className="g-max-w-full g-w-48 g-mb-2" />
-        <SkeletonOption className="g-max-w-full g-w-64 g-mb-2" />
-      </div>
-    );
+    return <SkeletonOptions className={className} />;
   }
   return children ?? null;
+}
+
+export function SkeletonOptions({ className }: { className?: string }) {
+  return (
+    <div className={cn(className)}>
+      <SkeletonOption className="g-w-full g-mb-2" />
+      <SkeletonOption className="g-w-36 g-max-w-full g-mb-2" />
+      <SkeletonOption className="g-max-w-full g-w-48 g-mb-2" />
+      <SkeletonOption className="g-max-w-full g-w-64 g-mb-2" />
+    </div>
+  );
 }
 
 export type FilterSummaryType = {

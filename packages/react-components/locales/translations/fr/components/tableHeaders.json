@@ -1,5 +1,8 @@
 {
   "features": "Fonctionnalités",
+  "options": {
+    "includeAuthorship": "Doit être défini"
+  },
   "citations": "Citations",
   "occurrences": "Occurrences",
   "numberSpecimens": "Nombre de spécimens",
@@ -10,6 +13,8 @@
   "registered": "Enregistré",
   "hostedDatasets": "Jeux de données hébergés",
   "pubDatasets": "Jeux de données publiés",
+  "commonName": "Nom commun ",
+  "images": "Multimedia",
   "species": "Nombre d'espèces",
   "parents": "Parents",
   "institution": "Institution",

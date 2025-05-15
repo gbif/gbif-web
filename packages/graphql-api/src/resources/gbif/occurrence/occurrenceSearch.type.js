@@ -21,7 +21,51 @@ const typeDef = gql`
   }
 
   enum OccurrenceSortBy {
-    DATE
+    basisOfRecord
+    catalogNumber
+    collectionCode
+    collectionKey
+    continent
+    coordinatePrecision
+    coordinateUncertaintyInMeters
+    countryCode
+    datasetID
+    publishingCountry
+    datasetKey
+    degreeOfEstablishment
+    depth
+    distanceFromCentroidInMeters
+    elevation
+    establishmentMeans
+    eventDate
+    eventId
+    fieldNumber
+    taxonKey
+    gbifId
+    gbifRegion
+    bed
+    biostratigraphy
+    identifiedBy
+    individualCount
+    institutionCode
+    institutionKey
+    isClustered
+    isSequenced
+    island
+    license
+    lifeStage
+    locality
+    month
+    occurrenceId
+    occurrenceStatus
+    organismId
+    preparations
+    recordNumber
+    recordedBy
+    sex
+    waterBody
+    year
+    iucnRedListCategoryCode
   }
 
   type OccurrenceSearchResult {
@@ -194,7 +238,11 @@ const typeDef = gql`
     organismId(size: Int, from: Int): [OccurrenceFacetResult_string]
     organismQuantityType(size: Int, from: Int): [OccurrenceFacetResult_string]
     parentEventId(size: Int, from: Int): [OccurrenceFacetResult_string]
-    preparations(size: Int, from: Int): [OccurrenceFacetResult_string]
+    preparations(
+      size: Int
+      from: Int
+      include: String
+    ): [OccurrenceFacetResult_string]
     programme(size: Int, from: Int): [OccurrenceFacetResult_string]
     projectId(size: Int, from: Int): [OccurrenceFacetResult_string]
     protocol(size: Int, from: Int): [OccurrenceFacetResult_string]

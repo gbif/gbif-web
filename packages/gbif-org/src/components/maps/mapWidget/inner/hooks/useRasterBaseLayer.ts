@@ -1,19 +1,31 @@
 import { ProjectionHelpers } from '@/components/maps/openlayers/projections';
 import { useI18n } from '@/reactRouterPlugins';
+import { formatTimeAgo } from '@/utils/formatTimeAgo';
 import type Map from 'ol/Map';
 import { useEffect } from 'react';
-import { mapWidgetOptions } from '../../options';
 import { useIntl } from 'react-intl';
-import { formatTimeAgo } from '@/utils/formatTimeAgo';
+import { mapWidgetOptions } from '../../options';
 
 type Args = {
   map?: Map | null;
   projection: ProjectionHelpers;
   baseLayerStyle: string;
   generatedAt?: string;
+  capabilities?: {
+    minLng: number;
+    minLat: number;
+    maxLng: number;
+    maxLat: number;
+  };
 };
 
-export function useRasterBaseLayer({ map, projection, baseLayerStyle, generatedAt }: Args) {
+export function useRasterBaseLayer({
+  map,
+  projection,
+  baseLayerStyle,
+  generatedAt,
+  capabilities,
+}: Args) {
   const { locale } = useI18n();
   const { formatRelativeTime, formatMessage } = useIntl();
 
@@ -31,8 +43,21 @@ export function useRasterBaseLayer({ map, projection, baseLayerStyle, generatedA
         map.removeLayer(layer);
       }
     });
+    const view = projection.getView(0, 0, 0);
 
-    map.setView(projection.getView(0, 0, 0));
+    if (capabilities && capabilities.maxLng - capabilities.minLng < 180) {
+      view.fit([
+        capabilities.minLng,
+        capabilities.minLat,
+        capabilities.maxLng,
+        capabilities.maxLat,
+      ]);
+      //const v = map.getView(); // zoom out a bit see https://github.com/gbif/maps/issues/17
+      view.setZoom(view?.getZoom() - 0.5);
+    } else {
+      view.fit([-180, -90, 180, 90]);
+    }
+    map.setView(view);
     if ('zoomToFitContainer' in projection) {
       projection.zoomToFitContainer(map);
     }
@@ -53,5 +78,13 @@ export function useRasterBaseLayer({ map, projection, baseLayerStyle, generatedA
     });
 
     map.getLayers().insertAt(0, baseLayer);
-  }, [projection, map, generatedAt, localizedStyle, formatRelativeTime, formatMessage]);
+  }, [
+    projection,
+    map,
+    generatedAt,
+    localizedStyle,
+    formatRelativeTime,
+    formatMessage,
+    capabilities,
+  ]);
 }

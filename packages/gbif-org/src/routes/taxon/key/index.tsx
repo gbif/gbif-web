@@ -1,3 +1,4 @@
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { TaxonKeyQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import TaxonKeyAbout from './About';
@@ -32,7 +33,11 @@ export const taxonKeyRoute: RouteObjectWithPlugins = {
     },
     {
       path: 'verbatim',
-      element: <VerbatimTaxon />,
+      element: (
+        <ErrorBoundary type="PAGE" errorMessage="taxon.errors.verbatim">
+          <VerbatimTaxon />
+        </ErrorBoundary>
+      ),
     },
   ],
 };

@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "",
-      "ASSOCIATE": "",
-      "OTHER_ASSOCIATE": "",
+      "VOTING": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+      "ASSOCIATE": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+      "OTHER_ASSOCIATE": "{num, plural, one { 在集群中 } other {# 在集群中}}",
       "FORMER": "前任的",
       "OBSERVER": "观察员",
-      "UNKNOWN": "",
+      "UNKNOWN": "{num, plural, one { 在集群中 } other {# 在集群中}}",
       "AFFILIATE": "GBIF 附属机构"
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "mapCaptionPublishers": "{num, plural, one { 在集群中 } other {# 在集群中}}",
     "role": "角色",
     "name": "名字",
     "participant": "成员",
     "type": "类型",
     "memberSince": "会员注册日期",
     "all": "全部",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
+    "countryParticipants": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "publishersPerCountry": "{num, plural, one { 在集群中 } other {# 在集群中}}",
     "clear": "清除",
     "headlines": {
       "nodesSteeringGroup": "节点工作小组",

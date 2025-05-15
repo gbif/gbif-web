@@ -45,7 +45,7 @@
   "features": {
     "isClustered": "已集聚",
     "isSamplingEvent": "調查活動",
-    "isTreament": "分類處理",
+    "isTreatment": "",
     "isSequenced": "已序列化",
     "hasIssues": "問題和註記",
     "hasCoordinates": "具有座標",

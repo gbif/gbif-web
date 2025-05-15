@@ -1,8 +1,8 @@
 import { FilterSetting } from '@/components/filters/filterTools';
-import { SimpleTooltip } from '@/components/simpleTooltip';
 import { TableHead } from '@/components/ui/table';
 import { cn } from '@/utils/shadcn';
-import { MdLock, MdLockOpen } from 'react-icons/md';
+import { FaSortUp as SortAscIcon, FaSortDown as SortDescIcon } from 'react-icons/fa6';
+import { LuSettings2 as FilterIcon } from 'react-icons/lu';
 import { FormattedMessage } from 'react-intl';
 import {
   ResetColumnVisibility,
@@ -11,9 +11,9 @@ import {
 } from '../../hooks/useColumnVisibility';
 import { SetFirstColumnIsLocked } from '../../hooks/useFirstColumLock';
 import { ColumnVisibilityPopover } from './columnVisibilityPopover';
-// import { LuListFilter as FilterIcon } from 'react-icons/lu';
-import { MdOutlineFilterAlt as FilterIcon } from 'react-icons/md';
 
+import { useToast } from '@/components/ui/use-toast';
+import useLocalStorage from 'use-local-storage';
 import { ColumnDef } from '../..';
 
 type Props = {
@@ -31,6 +31,12 @@ type Props = {
   hideColumnVisibilityDropdown: boolean;
 };
 
+export type ActionsProps = {
+  firstColumnIsLocked: boolean;
+  hideFirstColumnLock: boolean;
+  setFirstColumnIsLocked: SetFirstColumnIsLocked;
+};
+
 export function Head({
   column,
   orderedColumns,
@@ -45,6 +51,7 @@ export function Head({
   filter,
   hideColumnVisibilityDropdown,
 }: Props) {
+  const Actions = column?.Actions;
   return (
     <TableHead
       key={column.id}
@@ -63,43 +70,113 @@ export function Head({
         minWidth: column.minWidth ?? 'unset',
       }}
     >
-      <div className="g-inline-flex g-items-center g-justify-between g-w-full">
-        <div className="g-inline-flex">
+      <div className="g-w-full">
+        <div className="g-inline-flex g-items-center g-w-full">
           {isFirstColumn && !hideColumnVisibilityDropdown && (
-            <ColumnVisibilityPopover
-              orderedColumns={orderedColumns}
-              resetColumnVisibility={resetColumnVisibility}
-              toggleColumnVisibility={toggleColumnVisibility}
-              visibleColumns={visibleColumns}
-            />
+            <div className="g-flex-0">
+              <ColumnVisibilityPopover
+                orderedColumns={orderedColumns}
+                resetColumnVisibility={resetColumnVisibility}
+                toggleColumnVisibility={toggleColumnVisibility}
+                visibleColumns={visibleColumns}
+              />
+            </div>
           )}
 
-          <FormattedMessage id={column.header} />
+          <div className="g-flex-0 g-pe-1 ">
+            <FormattedMessage id={column.header} />
+          </div>
+          <div className="g-flex-1">
+            {column.sort?.sortBy && (
+              <Sort
+                sortByField={column.sort?.sortBy}
+                message={column.sort.message}
+                localStorageKey={column.sort.localStorageKey}
+              />
+            )}
+          </div>
 
-          {filter && (
-            <filter.Popover
-              trigger={
-                <button className="g-ml-2">
-                  <FilterIcon className="-g-mt-0.5" />
-                </button>
-              }
-            />
-          )}
+          <div className="g-flex-0 g-inline-flex g-items-center g-gap-1">
+            {filter && (
+              <filter.Popover
+                trigger={
+                  <button className="g-ml-2">
+                    <FilterIcon className="-g-mt-0.5" />
+                  </button>
+                }
+              />
+            )}
+            {Actions && (
+              <Actions
+                firstColumnIsLocked={firstColumnIsLocked}
+                hideFirstColumnLock={hideFirstColumnLock}
+                setFirstColumnIsLocked={setFirstColumnIsLocked}
+              />
+            )}
+          </div>
         </div>
-
-        {isFirstColumn && !hideFirstColumnLock && (
-          <SimpleTooltip
-            side="right"
-            asChild
-            i18nDefaultMessage={firstColumnIsLocked ? 'Unlock column' : 'Lock column'}
-            i18nKey={firstColumnIsLocked ? 'search.table.unlockColumn ' : 'search.table.lockColumn'}
-          >
-            <button onClick={() => setFirstColumnIsLocked((v) => !v)}>
-              {firstColumnIsLocked ? <MdLock /> : <MdLockOpen />}
-            </button>
-          </SimpleTooltip>
-        )}
       </div>
     </TableHead>
+  );
+}
+
+function Sort({
+  sortByField,
+  message,
+  localStorageKey,
+}: {
+  sortByField: string;
+  message: React.ReactNode;
+  localStorageKey: string;
+}) {
+  const { toast } = useToast();
+  const [sorter, setSorter] = useLocalStorage(localStorageKey, {
+    sortOrder: 'ASC',
+    sortBy: '',
+  });
+  const { sortBy, sortOrder } = sorter;
+
+  return (
+    <span
+      className="g-relative -g-mt-1 g-me-2 g-text-slate-200"
+      onClick={() => {
+        if (sortByField === sortBy) {
+          if (sortOrder === 'ASC') {
+            setSorter({
+              sortOrder: 'DESC',
+              sortBy: sortBy,
+            });
+          } else {
+            setSorter({
+              sortOrder: 'ASC',
+              sortBy: '',
+            });
+          }
+        } else {
+          setSorter({
+            sortOrder: 'ASC',
+            sortBy: sortByField,
+          });
+
+          if (message) {
+            toast({
+              title: message,
+              variant: 'default',
+            });
+          }
+        }
+      }}
+    >
+      <SortAscIcon
+        className={cn({
+          'g-text-slate-600': sortOrder === 'ASC' && sortByField === sortBy,
+        })}
+      />
+      <SortDescIcon
+        className={cn('g-absolute g-left-0 g-bottom-0', {
+          'g-text-slate-600': sortOrder === 'DESC' && sortByField === sortBy,
+        })}
+      />
+    </span>
   );
 }

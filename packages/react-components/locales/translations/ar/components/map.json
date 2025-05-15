@@ -1,20 +1,70 @@
 {
-    "styles": {
-        "satellite": "",
-        "natural": "",
-        "bright": "",
-        "dark": "داكن",
-        "outdoor": ""
-    },
-    "projections": {
-        "ARCTIC": "قطبي شمالي",
-        "MERCATOR": "مركاتور(طريقة لرسم الخرائط)",
-        "ANTARCTIC": "القطبي الجنوبي",
-        "PLATE_CAREE": "صفيحة كاري"
-    },
-    "failedToGetUserLocation": {
-        "title": "التساويات { is }",
-        "message": "التساويات { is }"
-    },
-    "filterByView": "استخدم المنطقة المرئية كمرشح"
+  "styles": {
+    "satellite": "",
+    "natural": "",
+    "bright": "",
+    "dark": "داكن",
+    "outdoor": ""
+  },
+  "projections": {
+    "ARCTIC": "قطبي شمالي",
+    "MERCATOR": "مركاتور(طريقة لرسم الخرائط)",
+    "ANTARCTIC": "القطبي الجنوبي",
+    "PLATE_CAREE": "صفيحة كاري"
+  },
+  "failedToGetUserLocation": {
+    "title": "التساويات { is }",
+    "message": "التساويات { is }"
+  },
+  "filterByView": "استخدم المنطقة المرئية كمرشح",
+  "projection": "الإسقاط",
+  "anyYear": " اي سنة",
+  "exploreArea": "استكشف المنطقة",
+  "explore": "استكشف",
+  "generatedDateAgo": "",
+  "style": "نمط",
+  "filters": "المُرشِّحات",
+  "select": "اختيار",
+  "custom": "مُخصص",
+  "baseMap": "خريطة اساسية",
+  "binning": "تجميع بيانات",
+  "year": "السنة",
+  "chooseColors": "ألوان",
+  "clickToSearchArea": "انقر  للبحث عن منطقة",
+  "predefined": {
+    "CLASSIC_HEX": "مضلعات سداسية تقليدية",
+    "CLASSIC": "نقاط تقليدية",
+    "STREETS": "الشوارع",
+    "GLACIER": "نهر جليدي",
+    "GREEN": "",
+    "CUSTOM": "مُخصص"
+  },
+  "basemap": {
+    "CLASSIC": "أرجواني اللون",
+    "LIGHT": "فاتح (بدون ملصقات)",
+    "LIGHT_DETAILS": "فاتح",
+    "DARK": "داكن (بدون ملصقات)",
+    "DARK_DETAILS": "داكن",
+    "OSM": "طرقات"
+  },
+  "bin": {
+    "PIXEL": "نقاط",
+    "SMALL_HEX": "أشكال سداسية صغيرة",
+    "LARGE_HEX": "مضلعات سداسية",
+    "SMALL_SQUARE": "مربعات صغيرة",
+    "LARGE_SQUARE": "مربعات"
+  },
+  "colors": {
+    "CLASSIC": "تقليدي",
+    "FIRE": "النار",
+    "GLACIER": "نهر جليدي",
+    "GREEN_POINT": "أخضر",
+    "PURPLE_YELLOW": "أرجواني أصفر",
+    "PURPLE_HEAT": "حرارة أرجوانية",
+    "BLUE_HEAT": "حرارة زرقاء",
+    "ORANGE_HEAT": "حرارة برتقالية",
+    "GREEN": "أخضر",
+    "BLUE_CLUSTER": "مجموعة زرقاء",
+    "ORANGE_CLUSTER": "مجموعة برتقالية"
+  }
 }

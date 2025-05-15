@@ -16,6 +16,7 @@
   "source": "Zdroj",
   "specimenIsTypeOf": "Rovná se {from}",
   "typeMaterial": "Rovná se {from}",
+  "treatments": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
   "more": "více",
   "less": "Rovná se {from}",
   "dna": "DNA",
@@ -46,5 +47,21 @@
     "term": "Termín",
     "value": "Hodnota",
     "coreRecord": ""
+  },
+  "tradeRestrictions": "Obchodní omezení",
+  "cites": "CITES",
+  "immediateChildren": "přímo podřazená položka",
+  "referenceTaxon": "Referenční taxon",
+  "showLess": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+  "showAll": "Zobrazit vše",
+  "errors": {
+    "treatments": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "distributions": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "verbatim": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "typeMaterial": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "vernacularNames": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "classificationChildren": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "breakdown": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "invasiveInCountries": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
   }
 }

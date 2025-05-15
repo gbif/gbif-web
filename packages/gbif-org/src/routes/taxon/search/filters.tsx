@@ -1,5 +1,6 @@
 import {
   IdentityLabel,
+  TaxonIssueLabel,
   TaxonLabel,
   TaxonRankLabel,
   TaxonStatusLabel,
@@ -14,7 +15,6 @@ import {
 } from '@/components/filters/filterTools';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import taxonStatusOptions from '@/enums/basic/taxonomicStatus.json';
-import { useCountrySuggest } from '@/hooks/useCountrySuggest';
 
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
@@ -69,6 +69,27 @@ export const statusConfig: filterEnumConfig = {
   // about: () => <Message id="filters.identifiedBy.description" />,
 };
 
+export const issuesConfig: filterEnumConfig = {
+  filterType: filterConfigTypes.ENUM,
+  filterHandle: 'issue',
+  displayName: TaxonIssueLabel,
+  /*   options: taxonIssueOptions,
+   */ filterTranslation: 'filters.issueEnum.name',
+  facetQuery: /* GraphQL */ `
+    query TaxonIssueFacet($query: TaxonSearchInput) {
+      search: taxonSearch(query: $query) {
+        facet {
+          field: issue(limit: 100) {
+            name
+            count
+          }
+        }
+      }
+    }
+  `,
+  // about: () => <Message id="filters.identifiedBy.description" />,
+};
+
 export const highertaxonKeyConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'higherTaxonKey',
@@ -100,13 +121,13 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
 } {
   const { formatMessage } = useIntl();
   const [filters, setFilters] = useState<Record<string, FilterSetting>>({});
-  const countrySuggest = useCountrySuggest();
 
   useEffect(() => {
     const nextFilters = {
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
       rank: generateFilters({ config: rankConfig, searchConfig, formatMessage }),
       status: generateFilters({ config: statusConfig, searchConfig, formatMessage }),
+      issue: generateFilters({ config: issuesConfig, searchConfig, formatMessage }),
       higherTaxonKey: generateFilters({
         config: highertaxonKeyConfig,
         searchConfig,
@@ -114,7 +135,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       }),
     };
     setFilters(nextFilters);
-  }, [searchConfig, countrySuggest, formatMessage]);
+  }, [searchConfig, formatMessage]);
 
   return {
     filters,

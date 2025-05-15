@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "",
-      "ASSOCIATE": "",
-      "OTHER_ASSOCIATE": "",
+      "VOTING": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+      "ASSOCIATE": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+      "OTHER_ASSOCIATE": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
       "FORMER": "Bývalý",
       "OBSERVER": "Pozorovatel",
-      "UNKNOWN": "",
+      "UNKNOWN": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
       "AFFILIATE": "Přidružení GBIF"
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "mapCaptionPublishers": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
     "role": "Role",
     "name": "Jméno",
     "participant": "Účastník",
     "type": "Typ",
     "memberSince": "Členem od",
     "all": "Vše",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
+    "countryParticipants": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "publishersPerCountry": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
     "clear": "Vymazat",
     "headlines": {
       "nodesSteeringGroup": "Řídicí skupina uzlů",

@@ -50,6 +50,20 @@ export function OccurrenceSearchPage(): React.ReactElement {
   );
 }
 
+const groups = [
+  'record',
+  'occurrence',
+  'organism',
+  'materialEntity',
+  'event',
+  'location',
+  'geologicalContext',
+  'identification',
+  'taxon',
+  'provenance',
+  'other',
+];
+
 export function OccurrenceSearchPageInner(): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
@@ -80,7 +94,7 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
 
       <section className="">
         <FilterBar>
-          <FilterButtons filters={filters} searchContext={searchContext} />
+          <FilterButtons filters={filters} searchContext={searchContext} groups={groups} />
         </FilterBar>
       </section>
 

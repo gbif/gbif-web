@@ -4,7 +4,7 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { useMemo } from 'react';
 import { GoSidebarExpand } from 'react-icons/go';
-import { MdInfoOutline } from 'react-icons/md';
+import { MdInfoOutline, MdLock, MdLockOpen } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { SingleTaxonSearchResult } from './table';
 
@@ -61,6 +61,26 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
                 )}
               </div>
             </div>
+          );
+        },
+        Actions: ({ hideFirstColumnLock, setFirstColumnIsLocked, firstColumnIsLocked }) => {
+          return (
+            <>
+              {!hideFirstColumnLock && (
+                <SimpleTooltip
+                  side="bottom"
+                  asChild
+                  i18nDefaultMessage={firstColumnIsLocked ? 'Unlock column' : 'Lock column'}
+                  i18nKey={
+                    firstColumnIsLocked ? 'search.table.unlockColumn ' : 'search.table.lockColumn'
+                  }
+                >
+                  <button onClick={() => setFirstColumnIsLocked((v) => !v)}>
+                    {firstColumnIsLocked ? <MdLock /> : <MdLockOpen />}
+                  </button>
+                </SimpleTooltip>
+              )}
+            </>
           );
         },
       },

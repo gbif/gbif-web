@@ -16,6 +16,7 @@
   "source": "Source",
   "specimenIsTypeOf": "of",
   "typeMaterial": "Type material",
+  "treatments": "Treatments",
   "more": "more",
   "less": "less",
   "dna": "DNA",
@@ -48,5 +49,19 @@
     "coreRecord": "Core record"
   },
   "tradeRestrictions": "Trade restrictions",
-  "cites": "CITES"
+  "cites": "CITES",
+  "immediateChildren": "Immediate children",
+  "referenceTaxon": "Reference taxon",
+  "showLess": "Show less",
+  "showAll": "Show all",
+  "errors": {
+    "treatments": "Could not load treatments",
+    "distributions": "Could not load distributions",
+    "verbatim": "Could not load verbatim taxon data",
+    "typeMaterial": "Could not load type material",
+    "vernacularNames": "Could not load vernacular names",
+    "classificationChildren": "Could not load children of this Taxon",
+    "breakdown": "Could not load breakdown",
+    "invasiveInCountries": "Could not load invasive species information"
+  }
 }

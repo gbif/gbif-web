@@ -1,5 +1,8 @@
 {
   "features": "Cechy",
+  "options": {
+    "includeAuthorship": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+  },
   "citations": "Cytowanie",
   "occurrences": "Wystąpienia",
   "numberSpecimens": "Liczba okazów",
@@ -10,6 +13,8 @@
   "registered": "Zarejestrowano",
   "hostedDatasets": "Hostowane zbiory danych",
   "pubDatasets": "Opublikowane zbiory danych",
+  "commonName": "Nazwa zwyczajowa",
+  "images": "Multimedia",
   "species": "Liczba gatunków",
   "parents": "Pochodzenie",
   "institution": "Instytucja",

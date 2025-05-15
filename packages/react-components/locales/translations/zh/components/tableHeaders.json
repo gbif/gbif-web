@@ -1,5 +1,8 @@
 {
   "features": "特征",
+  "options": {
+    "includeAuthorship": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+  },
   "citations": "引用",
   "occurrences": "出现记录",
   "numberSpecimens": "标本数",
@@ -10,6 +13,9 @@
   "registered": "已注册",
   "hostedDatasets": "托管数据集",
   "pubDatasets": "已发布的数据集",
+  "commonName": "常用名",
+  "images": "多媒体",
+  "species": "物种数",
   "parents": "上级",
   "institution": "机构",
   "collection": "馆藏",

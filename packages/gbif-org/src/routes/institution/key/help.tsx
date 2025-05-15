@@ -28,9 +28,15 @@ export function ApiContent({ id = '4051783990' }: { id?: string }) {
         </a>
       </Card>
       <Card className="g-p-2 g-mb-2">
-        <FormattedMessage id="apiHelp.searchInstitutions" /> <br />
-        <a href={`https://api.gbif.org/v1/grscicoll/institution?q=dna`}>
-          https://api.gbif.org/v1/grscicoll/institution/search?q=dna
+        <FormattedMessage id="apiHelp.filterOccurrences" /> <br />
+        <a href={`https://api.gbif.org/v1/occurrence/search?institutionKey=${id}`}>
+          https://api.gbif.org/v1/occurrence/search?institutionKey={id}
+        </a>
+      </Card>
+      <Card className="g-p-2 g-mb-2">
+        <FormattedMessage id="apiHelp.searchCollections" /> <br />
+        <a href={`https://api.gbif.org/v1/grscicoll/collection?institutionKey=${id}`}>
+          https://api.gbif.org/v1/grscicoll/collection?institutionKey={id}
         </a>
       </Card>
     </div>

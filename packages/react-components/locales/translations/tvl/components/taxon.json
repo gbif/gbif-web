@@ -16,6 +16,7 @@
   "source": "",
   "specimenIsTypeOf": "",
   "typeMaterial": "",
+  "treatments": "",
   "more": "",
   "less": "",
   "dna": "",
@@ -46,5 +47,21 @@
     "term": "",
     "value": "",
     "coreRecord": ""
+  },
+  "tradeRestrictions": "",
+  "cites": "",
+  "immediateChildren": "",
+  "referenceTaxon": "",
+  "showLess": "",
+  "showAll": "",
+  "errors": {
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
   }
 }

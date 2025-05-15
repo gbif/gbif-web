@@ -1,20 +1,70 @@
 {
-    "styles": {
-        "satellite": "Satelita",
-        "natural": "Natura",
-        "bright": "Jasny",
-        "dark": "Ciemny",
-        "outdoor": "Plener"
-    },
-    "projections": {
-        "ARCTIC": "Arktyczny",
-        "MERCATOR": "Mercator",
-        "ANTARCTIC": "Antarktyka",
-        "PLATE_CAREE": "Plate Carrée"
-    },
-    "failedToGetUserLocation": {
-        "title": "",
-        "message": ""
-    },
-    "filterByView": "Użyj widocznego obszaru jako filtru"
+  "styles": {
+    "satellite": "Satelita",
+    "natural": "Natura",
+    "bright": "Jasny",
+    "dark": "Ciemny",
+    "outdoor": "Plener"
+  },
+  "projections": {
+    "ARCTIC": "Arktyczny",
+    "MERCATOR": "Mercator",
+    "ANTARCTIC": "Antarktyka",
+    "PLATE_CAREE": "Plate Carrée"
+  },
+  "failedToGetUserLocation": {
+    "title": "",
+    "message": ""
+  },
+  "filterByView": "Użyj widocznego obszaru jako filtru",
+  "projection": "Rzutowanie",
+  "anyYear": "Dowolny rok",
+  "exploreArea": "Przeglądaj obszar",
+  "explore": "Przeglądaj",
+  "generatedDateAgo": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+  "style": "Styl",
+  "filters": "Filtry",
+  "select": "Wybierz",
+  "custom": "Niestandardowe",
+  "baseMap": "Mapa podstawowa",
+  "binning": "Grupowanie",
+  "year": "Rok",
+  "chooseColors": "Kolory",
+  "clickToSearchArea": "Kliknij, aby wyszukać obszar",
+  "predefined": {
+    "CLASSIC_HEX": "Klasyczny sześciokąt",
+    "CLASSIC": "Klasyczne punkty",
+    "STREETS": "Ulice",
+    "GLACIER": "Lodowiec",
+    "GREEN": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+    "CUSTOM": "Niestandardowe"
+  },
+  "basemap": {
+    "CLASSIC": "Magenta",
+    "LIGHT": "Jasny (bez etykiet)",
+    "LIGHT_DETAILS": "Jasny",
+    "DARK": "Ciemny (bez etykiet)",
+    "DARK_DETAILS": "Ciemny",
+    "OSM": "Drogi"
+  },
+  "bin": {
+    "PIXEL": "Punkty",
+    "SMALL_HEX": "Małe sześciokąty",
+    "LARGE_HEX": "Sześciokąty",
+    "SMALL_SQUARE": "Małe kwadraty",
+    "LARGE_SQUARE": "Kwadraty"
+  },
+  "colors": {
+    "CLASSIC": "Klasyczny",
+    "FIRE": "Ogień",
+    "GLACIER": "Lodowiec",
+    "GREEN_POINT": "Zielony",
+    "PURPLE_YELLOW": "fioletowo-żółty (spektrum)",
+    "PURPLE_HEAT": "Fioletowy gradient",
+    "BLUE_HEAT": "Niebieski gradient",
+    "ORANGE_HEAT": "Pomarańczowy gradient",
+    "GREEN": "Zielony",
+    "BLUE_CLUSTER": "Grupy (niebieski)",
+    "ORANGE_CLUSTER": "Grupy (pomarańczowy)"
+  }
 }

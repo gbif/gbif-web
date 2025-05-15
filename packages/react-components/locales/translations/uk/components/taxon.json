@@ -16,6 +16,7 @@
   "source": "Джерело",
   "specimenIsTypeOf": "",
   "typeMaterial": "",
+  "treatments": "",
   "more": "Детальніше",
   "less": "",
   "dna": "",
@@ -46,5 +47,21 @@
     "term": "Термін",
     "value": "Значення",
     "coreRecord": ""
+  },
+  "tradeRestrictions": "Обмеження на торгівлю",
+  "cites": "",
+  "immediateChildren": "Безпосередньо підпорядковані таксони",
+  "referenceTaxon": "Референтний таксон",
+  "showLess": "",
+  "showAll": "Показати все",
+  "errors": {
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
   }
 }

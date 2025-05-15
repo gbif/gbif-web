@@ -51,11 +51,13 @@ const TAXON_BREAKDOWN = /* GraphQL */ `
       checklistBankBreakdown {
         id
         label
+        name
         rank
         species
         children {
           id
           label
+          name
           rank
           species
         }

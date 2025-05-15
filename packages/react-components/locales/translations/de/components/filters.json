@@ -510,5 +510,12 @@
     "name": "Höheres Taxon",
     "count": "",
     "description": ""
+  },
+  "issueEnum": {
+    "name": "Probleme und Flags",
+    "count": "{num, plural, one {Problem oder Flag} other {# Probleme und Flags}}",
+    "isNotNull": "Hat ein Problem",
+    "isNull": "Ohne Problem",
+    "description": "Die Arten der Probleme/Flags, die bei der Verarbeitung der Daten entdeckt wurden."
   }
 }

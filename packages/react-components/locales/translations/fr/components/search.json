@@ -25,6 +25,7 @@
     "range": "Intervalle ou valeur unique",
     "rangeExample": "",
     "wildcard": "Rechercher avec * et ? comme caractères génériques",
+    "dateTemplate": "",
     "locationID": ""
   },
   "ternary": {
@@ -33,6 +34,7 @@
     "either": ""
   },
   "loadMore": "Plus",
+  "loading": "Chargement en cours",
   "noResults": "",
   "occurrenceClustersView": {
     "about": "À propos",
@@ -55,5 +57,19 @@
       "SPECIMEN": "Spécimen",
       "SEQUENCE": ""
     }
+  },
+  "crossContentSearch": {
+    "title": "Rechercher",
+    "description": "Doit être défini",
+    "noSearchTermsEntered": "Aucun mot-clé renseigné",
+    "placeholder": "Doit être défini",
+    "categories": {
+      "speciesSearch": "Espèce",
+      "datasetSearch": "Jeux de données",
+      "publisherSearch": "Fournisseurs de données",
+      "occurrenceSearch": "Occurrences",
+      "resourceSearch": "Doit être défini"
+    },
+    "seeAll": "Tout voir"
   }
 }

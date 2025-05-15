@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "",
-      "ASSOCIATE": "",
-      "OTHER_ASSOCIATE": "",
+      "VOTING": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+      "ASSOCIATE": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+      "OTHER_ASSOCIATE": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
       "FORMER": "Były",
       "OBSERVER": "Obserwator",
-      "UNKNOWN": "",
+      "UNKNOWN": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
       "AFFILIATE": "Afiliowany przy GBIF"
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+    "mapCaptionPublishers": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
     "role": "Funkcja",
     "name": "Nazwa",
     "participant": "Członek",
     "type": "Typ",
     "memberSince": "Członek od",
     "all": "Wszystko",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
+    "countryParticipants": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+    "publishersPerCountry": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
     "clear": "Wyczyść",
     "headlines": {
       "nodesSteeringGroup": "Komisja Sterująca Węzłów",

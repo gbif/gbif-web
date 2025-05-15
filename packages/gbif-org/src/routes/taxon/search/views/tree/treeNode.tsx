@@ -10,7 +10,7 @@ import styles from './treeNode.module.css';
 
 export function TreeSkeleton() {
   return (
-    <>
+    <div>
       <Skeleton className="g-h-24 g-mb-2" />
       <Skeleton className="g-h-24 g-mb-2" />
       <Skeleton className="g-h-24 g-mb-2" />
@@ -18,7 +18,7 @@ export function TreeSkeleton() {
       <Skeleton className="g-h-24 g-mb-2" />
       <Skeleton className="g-h-24 g-mb-2" />
       <Skeleton className="g-h-24 g-mb-2" />
-    </>
+    </div>
   );
 }
 export const TreeNode = ({

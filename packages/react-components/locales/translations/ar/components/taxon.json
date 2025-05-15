@@ -16,6 +16,7 @@
   "source": "مصدر",
   "specimenIsTypeOf": "التساويات { is }",
   "typeMaterial": "التساويات { is }",
+  "treatments": "",
   "more": "المزيد",
   "less": "التساويات { is }",
   "dna": "",
@@ -46,5 +47,21 @@
     "term": "مصطلح",
     "value": "قبمة",
     "coreRecord": ""
+  },
+  "tradeRestrictions": "القيود التجارية",
+  "cites": "",
+  "immediateChildren": "تفرعات مباشرة",
+  "referenceTaxon": "وحدة تصنيفية مرجعية",
+  "showLess": "",
+  "showAll": "أظهر الكل",
+  "errors": {
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
   }
 }

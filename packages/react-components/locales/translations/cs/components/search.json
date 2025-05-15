@@ -25,6 +25,7 @@
     "range": "Rozsah nebo samostatná hodnota",
     "rangeExample": "",
     "wildcard": "Hledejte s pomocí * a ? jako zástupnými znaky",
+    "dateTemplate": "",
     "locationID": ""
   },
   "ternary": {
@@ -33,6 +34,7 @@
     "either": "Rovná se {from}"
   },
   "loadMore": "Více",
+  "loading": "Načítání",
   "noResults": "Žádné výsledky",
   "occurrenceClustersView": {
     "about": "O",
@@ -55,5 +57,19 @@
       "SPECIMEN": "Vzorek",
       "SEQUENCE": "Rovná se {from}"
     }
+  },
+  "crossContentSearch": {
+    "title": "Hledat",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "noSearchTermsEntered": "Nebyly zadány žádné hledané výrazy",
+    "placeholder": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "categories": {
+      "speciesSearch": "Druhy",
+      "datasetSearch": "Datové sady",
+      "publisherSearch": "Vydavatelé",
+      "occurrenceSearch": "Výskyty",
+      "resourceSearch": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    },
+    "seeAll": "Zobrazit vše"
   }
 }

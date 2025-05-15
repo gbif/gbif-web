@@ -426,9 +426,9 @@
     "description": "The people, groups, or organizations responsible for determining the scientific name of the Organism."
   },
   "isInCluster": {
-    "name": "Is in cluster",
-    "count": "{num, plural, one { Is in cluster } other {# Is in clusters}}",
-    "description": "Whether the record was determined to have related records."
+    "name": "Has related records",
+    "count": "{num, plural, one { Has related records } other {# Has related records}}",
+    "description": "This experimental feature highlights possible duplicate and/or related occurrences."
   },
   "isSequenced": {
     "name": "Is sequenced",
@@ -510,5 +510,12 @@
     "name": "Higher taxon",
     "count": "{num, plural, one {higher taxon} other {# higher taxa}}",
     "description": "A Higher taxon to filter by."
+  },
+  "issueEnum": {
+    "name": "Issues and flags",
+    "count": "{num, plural, one {issue or flag} other {# issues and flags}}",
+    "isNotNull": "Has issues",
+    "isNull": "Has no issues",
+    "description": "The types of issues or flags of potential interest discovered in processing the data."
   }
 }

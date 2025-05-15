@@ -3,12 +3,16 @@ import { VocabularyType } from '@/utils/suggestEndpoints';
 import { truncate } from '@/utils/truncate';
 import isUndefined from 'lodash/isUndefined';
 import { useCallback } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, IntlShape } from 'react-intl';
 import DisplayName, { DisplayNameGetDataProps } from './DisplayName';
 
 // utility function to generate label for range or equal filters
-function rangeOrEqualLabel(path: string) {
-  return ({ id: value }: { id: string | number | object }) => {
+function rangeOrEqualLabel(
+  path: string,
+  formatter?: (value: string | number, intl: IntlShape) => string
+) {
+  const formatValue = formatter ?? ((value: string | number) => value);
+  const getData = ({ id: value, intl }: { id: string | number | object; intl: IntlShape }) => {
     if (value?.type === 'range') {
       let translationKey;
       const from = value?.value?.gte || value?.value?.gt;
@@ -24,7 +28,7 @@ function rangeOrEqualLabel(path: string) {
         <FormattedMessage
           id={`${path}.${translationKey}`}
           defaultMessage={'Filter name'}
-          values={{ from, to }}
+          values={{ from: formatValue(from, intl), to: formatValue(to, intl) }}
         />
       );
     } else if (value?.type === 'equals') {
@@ -32,44 +36,56 @@ function rangeOrEqualLabel(path: string) {
         <FormattedMessage
           id={`${path}.e`}
           defaultMessage={'Filter name'}
-          values={{ from: value?.value, is: value?.value }}
+          values={{ from: formatValue(value?.value, intl), is: formatValue(value?.value, intl) }}
         />
       );
     } else if (value?.type === 'greaterThanOrEquals') {
       return (
         <FormattedMessage
           id="intervals.description.gte"
-          defaultMessage={`>= ${value?.value}`}
-          values={{ from: value.value }}
+          defaultMessage={`>= ${formatValue(value?.value, intl)}`}
+          values={{ from: formatValue(value.value, intl) }}
         />
       );
     } else if (value?.type === 'lessThanOrEquals') {
       return (
         <FormattedMessage
           id="intervals.description.lte"
-          defaultMessage={`<= ${value?.value}`}
-          values={{ to: value.value }}
+          defaultMessage={`<= ${formatValue(value?.value, intl)}`}
+          values={{ to: formatValue(value.value, intl) }}
         />
       );
     } else if (value?.type === 'lessThan') {
       return (
         <FormattedMessage
           id="intervals.description.lt"
-          defaultMessage={`< ${value?.value}`}
-          values={{ from: value.value }}
+          defaultMessage={`< ${formatValue(value?.value, intl)}`}
+          values={{ from: formatValue(value.value, intl) }}
         />
       );
     } else if (value?.type === 'greaterThan') {
       return (
         <FormattedMessage
           id="intervals.description.gt"
-          defaultMessage={`> ${value?.value}`}
-          values={{ to: value.value }}
+          defaultMessage={`> ${formatValue(value?.value, intl)}`}
+          values={{ to: formatValue(value.value, intl) }}
         />
       );
     } else {
       return <FormattedMessage id={`invalidValue`} defaultMessage={'Invalid value'} />;
     }
+  };
+  return ({ id }: { id: string | number | object }) => {
+    const fetch = useCallback(
+      ({ id, intl }: DisplayNameGetDataProps) => ({
+        promise: Promise.resolve({
+          title: getData({ id, intl }),
+        }),
+      }),
+      []
+    );
+
+    return <DisplayName getData={fetch} id={id} useHtml={false} />;
   };
 }
 
@@ -97,6 +113,22 @@ export const QuantityLabel = rangeOrEqualLabel('intervals.description');
 export const OrganismQuantityLabel = rangeOrEqualLabel('intervals.description');
 export const SampleSizeValueLabel = rangeOrEqualLabel('intervals.description');
 export const RelativeOrganismQuantityLabel = rangeOrEqualLabel('intervals.description');
+export const DateLabel = rangeOrEqualLabel('intervals.compactTime', (value, intl) => {
+  const date = new Date(value);
+  if (intl) {
+    const stringDate = intl.formatDate(value, {
+      year: 'numeric',
+      month: 'long',
+      day: '2-digit',
+    });
+    return stringDate;
+  }
+  return date.toLocaleDateString('da-DK', {
+    year: 'numeric',
+    month: 'long',
+    day: '2-digit',
+  });
+});
 
 function getEnumLabel({ template }: { template: (id: string) => string }) {
   return ({ id }: { id: string | number | object }) => {
@@ -246,6 +278,7 @@ export const EndpointTypeLabel = getEnumLabel({ template: (id) => `enums.endpoin
 export const DwcaExtensionLabel = getEnumLabel({ template: (id) => `enums.dwcaExtension.${id}` });
 export const TaxonRankLabel = getEnumLabel({ template: (id) => `enums.taxonRank.${id}` });
 export const TaxonStatusLabel = getEnumLabel({ template: (id) => `enums.taxonomicStatus.${id}` });
+export const TaxonIssueLabel = getEnumLabel({ template: (id) => `enums.taxonIssue.${id}` });
 export const IucnRedListCategoryLabel = getEnumLabel({
   template: (id) => `enums.iucnRedListCategory.${id}`,
 });

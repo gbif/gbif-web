@@ -1,0 +1,70 @@
+{
+  "styles": {
+    "satellite": "Satelitní",
+    "natural": "Příroda",
+    "bright": "Světlý",
+    "dark": "Tmavý",
+    "outdoor": "Venkovní"
+  },
+  "projections": {
+    "ARCTIC": "Arktický",
+    "MERCATOR": "Mercator",
+    "ANTARCTIC": "Antarktický",
+    "PLATE_CAREE": "Čtvercová projekce"
+  },
+  "failedToGetUserLocation": {
+    "title": "Rovná se {from}",
+    "message": "Rovná se {from}"
+  },
+  "filterByView": "Použít viditelnou oblast jako filtr",
+  "projection": "Projekce",
+  "anyYear": "Jakýkoliv rok",
+  "exploreArea": "Prozkoumat oblast",
+  "explore": "Procházet",
+  "generatedDateAgo": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+  "style": "Styl",
+  "filters": "Filtry",
+  "select": "Vybrat",
+  "custom": "Vlastní",
+  "baseMap": "Základní mapa",
+  "binning": "Zobrazení hustoty bodů",
+  "year": "Rok",
+  "chooseColors": "Barvy",
+  "clickToSearchArea": "Kliknutím prozkoumat oblast",
+  "predefined": {
+    "CLASSIC_HEX": "Klasické šestiúhelníky",
+    "CLASSIC": "Klasické body",
+    "STREETS": "Ulice",
+    "GLACIER": "Ledovec",
+    "GREEN": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "CUSTOM": "Vlastní"
+  },
+  "basemap": {
+    "CLASSIC": "Magenta",
+    "LIGHT": "Světlá (bez popisků)",
+    "LIGHT_DETAILS": "Světlý",
+    "DARK": "Tmavá (bez popisků)",
+    "DARK_DETAILS": "Tmavý",
+    "OSM": "Silnice"
+  },
+  "bin": {
+    "PIXEL": "Body",
+    "SMALL_HEX": "Malé šestiúhelníky",
+    "LARGE_HEX": "Šestiúhelníky",
+    "SMALL_SQUARE": "Malé čtverce",
+    "LARGE_SQUARE": "Čtverce"
+  },
+  "colors": {
+    "CLASSIC": "Klasický",
+    "FIRE": "Oheň",
+    "GLACIER": "Ledovec",
+    "GREEN_POINT": "Zelená",
+    "PURPLE_YELLOW": "Purpurovo žlutá",
+    "PURPLE_HEAT": "Purpurová",
+    "BLUE_HEAT": "Modrá",
+    "ORANGE_HEAT": "Oranžová",
+    "GREEN": "Zelená",
+    "BLUE_CLUSTER": "Modrý shluk",
+    "ORANGE_CLUSTER": "Oranžový shluk"
+  }
+}

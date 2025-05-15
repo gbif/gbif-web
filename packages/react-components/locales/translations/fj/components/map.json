@@ -1,20 +1,70 @@
 {
-    "styles": {
-        "satellite": "",
-        "natural": "",
-        "bright": "",
-        "dark": "",
-        "outdoor": ""
-    },
-    "projections": {
-        "ARCTIC": "",
-        "MERCATOR": "",
-        "ANTARCTIC": "",
-        "PLATE_CAREE": ""
-    },
-    "failedToGetUserLocation": {
-        "title": "",
-        "message": ""
-    },
-    "filterByView": ""
+  "styles": {
+    "satellite": "",
+    "natural": "",
+    "bright": "",
+    "dark": "",
+    "outdoor": ""
+  },
+  "projections": {
+    "ARCTIC": "",
+    "MERCATOR": "",
+    "ANTARCTIC": "",
+    "PLATE_CAREE": ""
+  },
+  "failedToGetUserLocation": {
+    "title": "",
+    "message": ""
+  },
+  "filterByView": "",
+  "projection": "",
+  "anyYear": "",
+  "exploreArea": "",
+  "explore": "",
+  "generatedDateAgo": "",
+  "style": "",
+  "filters": "",
+  "select": "",
+  "custom": "",
+  "baseMap": "",
+  "binning": "",
+  "year": "",
+  "chooseColors": "",
+  "clickToSearchArea": "",
+  "predefined": {
+    "CLASSIC_HEX": "",
+    "CLASSIC": "",
+    "STREETS": "",
+    "GLACIER": "",
+    "GREEN": "",
+    "CUSTOM": ""
+  },
+  "basemap": {
+    "CLASSIC": "",
+    "LIGHT": "",
+    "LIGHT_DETAILS": "",
+    "DARK": "",
+    "DARK_DETAILS": "",
+    "OSM": ""
+  },
+  "bin": {
+    "PIXEL": "",
+    "SMALL_HEX": "",
+    "LARGE_HEX": "",
+    "SMALL_SQUARE": "",
+    "LARGE_SQUARE": ""
+  },
+  "colors": {
+    "CLASSIC": "",
+    "FIRE": "",
+    "GLACIER": "",
+    "GREEN_POINT": "",
+    "PURPLE_YELLOW": "",
+    "PURPLE_HEAT": "",
+    "BLUE_HEAT": "",
+    "ORANGE_HEAT": "",
+    "GREEN": "",
+    "BLUE_CLUSTER": "",
+    "ORANGE_CLUSTER": ""
+  }
 }

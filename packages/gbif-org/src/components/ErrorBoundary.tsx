@@ -6,10 +6,15 @@ import { Button } from './ui/button';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
-  invalidateOn?: string | number | boolean | object | null; // invalidate the error if this value change
-  type?: 'PAGE' | 'BLOCK'; // PAGE will show a full page error, BLOCK will show a block error. Will default to PAGE
+  invalidateOn?: string | number | boolean | object | null;
+  type?: 'PAGE' | 'BLOCK';
   className?: string;
-  publicDescription?: string; // additional description of where the error happened. E.g. which component or section
+  title?: React.ReactNode;
+  errorMessage?: React.ReactNode;
+  showReportButton?: boolean;
+  showStackTrace?: boolean;
+  debugTitle?: string;
+  additionalDebugInfo?: string;
 }
 
 interface ErrorBoundaryState {
@@ -54,123 +59,151 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
         error={error}
         type={this.props.type ?? 'PAGE'}
         className={this.props.className}
-        description={this.props.publicDescription}
+        title={this.props.title}
+        errorMessage={this.props.errorMessage}
+        showReportButton={this.props.showReportButton}
+        showStackTrace={this.props.showStackTrace}
+        debugTitle={this.props.debugTitle}
+        additionalDebugInfo={this.props.additionalDebugInfo}
       />
     );
   }
 }
 
-function ErrorComponent({
+export function ErrorComponent({
   error,
   type,
   className,
-  description,
-}: {
-  error: Error;
-  type: 'PAGE' | 'BLOCK';
-  className?: string;
-  description?: string;
-}): React.ReactElement {
-  // An error has occurred
-  let errorMessage = `Thank you for reporting this issue. Please describe what happened.\n\n\n\n`;
-
-  if (typeof error?.stack === 'string') {
-    errorMessage += '\n**Error message for diagnostics**\n```\n' + error?.stack + '\n```';
-  }
-
-  if (typeof window !== 'undefined') {
-    errorMessage += `\nLocation: ${window.location}`;
-  }
-
-  if (description) {
-    errorMessage += `\nDescription: ${description}`;
-  }
-
-  if (type === 'BLOCK') {
-    return <ErrorBlock errorMessage={errorMessage} className={className} />;
-  }
-  return <ErrorPage error={error} errorMessage={errorMessage} />;
-}
-
-function ErrorBlock({
+  title,
   errorMessage,
-  className,
-}: {
-  errorMessage: string;
-  className?: string;
-}): React.ReactElement {
-  return (
-    <div className={cn('g-flex g-gap-4 g-py-4', className)}>
-      <ErrorImage className="g-w-24" />
-      <div>
-        <h1 className="g-mb-0 g-text-slate-500 g-font-bold">
-          <FormattedMessage id="error.generic" defaultMessage="Something went wrong" />
-        </h1>
-        <a
-          href=""
-          onClick={() => {
-            window?.location?.reload();
-          }}
-          className="g-mt-2 g-text-sm g-underline g-text-slate-500"
-        >
-          <FormattedMessage id="error.reloadPage" defaultMessage="Try to reload page" />
-        </a>
-      </div>
-    </div>
-  );
-}
-
-export function ErrorPage({
-  error,
-  errorMessage,
-}: {
-  error: Error;
-  errorMessage: string;
-}): React.ReactElement {
+  additionalDebugInfo,
+  showReportButton = true,
+  showStackTrace,
+  debugTitle,
+}: Omit<ErrorBoundaryProps, 'invalidateOn' | 'children'> & { error: Error }): React.ReactElement {
   const [showStack, setShowStack] = useState(false);
+  const displayTitle = title ?? (
+    <FormattedMessage id="error.generic" defaultMessage="Something went wrong" />
+  );
+  let displayDescription = errorMessage;
+  if (!displayDescription && type === 'PAGE') {
+    displayDescription = (
+      <FormattedMessage
+        id="error.genericDescription"
+        defaultMessage="An unexpected error occurred. Please try again later."
+      />
+    );
+  }
 
-  return (
-    <div className="g-flex g-flex-col g-items-center g-justify-center g-text-center g-w-full g-h-full g-py-48 g-px-2 g-min-h-[80dvh] g-bg-white">
-      <ErrorImage className="g-w-72 g-max-w-full" />
-      <h1 className="g-mb-0 g-text-slate-500 g-text-xl g-mt-4 g-font-bold">
-        <FormattedMessage id="error.generic" defaultMessage="Something went wrong" />
-      </h1>
-      <div className="g-mt-4 g-mb-8">
-        <Button asChild>
+  const commonContent = (
+    <div className="g-max-w-full">
+      <h1 className="g-mb-0 g-text-slate-500 g-font-bold">{displayTitle}</h1>
+      {displayDescription && (
+        <p className="g-text-slate-500 g-mt-2 g-text-sm">{displayDescription}</p>
+      )}
+      <div className="g-flex g-flex-row g-gap-2 g-my-4 g-items-center g-justify-center">
+        {showReportButton && (
+          <Button asChild size="sm">
+            <a
+              target="_blank"
+              href={`https://github.com/gbif/gbif-web/issues/new?body=${encodeURIComponent(
+                generateGithubIssueBody(error, debugTitle, additionalDebugInfo)
+              )}`}
+            >
+              <FormattedMessage id="error.report" defaultMessage="Report issue" />
+            </a>
+          </Button>
+        )}
+        <Button variant="ghost" size="sm" className="g-text-slate-500" asChild>
           <a
-            target="_blank"
-            href={`https://github.com/gbif/gbif-web/issues/new?body=${encodeURIComponent(
-              errorMessage
-            )}`}
+            href=""
+            onClick={() => {
+              if (typeof window !== 'undefined') {
+                window.location.reload();
+              }
+            }}
+            className="g-text-sm g-text-slate-500"
           >
-            <FormattedMessage id="error.report" defaultMessage="Report issue" />
+            <FormattedMessage id="error.reloadPage" defaultMessage="Try to reload page" />
           </a>
         </Button>
+        {error?.stack && showStackTrace && (
+          <Button
+            variant="ghost"
+            size="sm"
+            className="g-text-slate-500"
+            onClick={() => setShowStack(!showStack)}
+          >
+            <FormattedMessage
+              id={showStack ? 'error.hideDetails' : 'error.showDetails'}
+              defaultMessage={showStack ? 'Hide details' : 'Show details'}
+            />
+          </Button>
+        )}
       </div>
-      <Button
-        variant="ghost"
-        className="g-text-slate-500 g-mb-4"
-        onClick={() => setShowStack(!showStack)}
-      >
-        <FormattedMessage
-          id={showStack ? 'error.hideDetails' : 'error.showDetails'}
-          defaultMessage={showStack ? 'Hide details' : 'Show details'}
-        />
-      </Button>
       {error?.stack && showStack && (
-        <div className="g-flex g-flex-col g-text-start g-max-h-96 h-overflow-auto g-p-2 g-bg-white g-border g-rounded g-max-w-full">
-          <h4 style={{ marginTop: 12 }}>
+        <div className="g-max-w-full g-flex g-flex-col g-text-start g-max-h-96 h-overflow-auto g-p-2 g-bg-slate-50 g-border g-rounded">
+          <h4 className="g-my-4">
             {error?.message || (
               <FormattedMessage id="error.unknown" defaultMessage="Unknown error" />
             )}
           </h4>
-          <pre className="g-text-sm" style={{ fontFamily: 'monospace' }}>
+          <pre className="g-text-sm g-overflow-auto" style={{ fontFamily: 'monospace' }}>
             {error?.stack}
           </pre>
         </div>
       )}
     </div>
   );
+
+  if (type === 'BLOCK') {
+    return (
+      <div className={cn('g-flex g-gap-4 g-py-4 g-items-start g-p-2', className)}>
+        <ErrorImage className="g-w-24 g-flex-none" />
+        <div className="g-flex-1 g-w-96">{commonContent}</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="g-flex g-flex-col g-items-center g-justify-center g-text-center g-w-full g-h-full g-py-48 g-px-2 g-min-h-[80dvh] g-bg-white">
+      <ErrorImage className="g-w-72 g-max-w-full" />
+      {commonContent}
+    </div>
+  );
+}
+
+function generateGithubIssueBody(error: Error, title?: string, additionalInfo?: string): string {
+  const url = typeof window !== 'undefined' ? window.location.href : 'Unknown URL';
+  return `Thank you for reporting this issue. Please describe what happened..
+
+
+
+  
+  -----------
+\n\n\`\`\`
+**Error message for diagnostics:**
+${title ?? 'Unknown error'}
+${error.message ?? 'No message'}
+
+${error.stack || 'No stack trace available'}
+\`\`\`
+
+**Additional Info:**
+${additionalInfo || 'No additional information provided.'}
+
+**URL:**
+${url}
+
+**Note:** Please do not delete the stack trace or additional information when submitting this issue.`;
+}
+
+export function ErrorBlock(props) {
+  return <ErrorComponent {...props} type="BLOCK" />;
+}
+
+export function ErrorPage(props) {
+  return <ErrorComponent {...props} type="PAGE" />;
 }
 
 export { ErrorBoundary };

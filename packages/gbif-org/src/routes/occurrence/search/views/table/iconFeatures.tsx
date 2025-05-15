@@ -162,7 +162,7 @@ export function IconFeatures({
         </SimpleTooltip>
       )}
       {isTreament && (
-        <SimpleTooltip i18nKey="occurrenceDetails.features.isTreament">
+        <SimpleTooltip i18nKey="occurrenceDetails.features.isTreatment">
           <div className="g-inline-flex g-items-start g-m-1">
             <MdInsertDriveFile className="g-flex-none g-h-[1.2em]" />
             {!iconsOnly && (

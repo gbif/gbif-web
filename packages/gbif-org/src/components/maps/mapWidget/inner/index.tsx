@@ -17,7 +17,6 @@ import { useSetupMap } from './hooks/useSetupMap';
 import { useSyncBoundingBox } from './hooks/useSyncBoundingBox';
 import { useTileLoadingFeedback } from './hooks/useTileLoadingFeedback';
 import { useZoomInteraction } from './hooks/useZoomInteraction';
-import { useInitialZoom } from './hooks/useInitialZoom';
 
 type Props = {
   className?: string;
@@ -74,11 +73,6 @@ export default function MapWidgetInner({
     projection,
     baseLayerStyle: rasterStyles.baseMapStyle,
     generatedAt,
-  });
-
-  // Will zoom to the capabilities extent when the map and capabilities are loaded
-  useInitialZoom({
-    map,
     capabilities,
   });
 

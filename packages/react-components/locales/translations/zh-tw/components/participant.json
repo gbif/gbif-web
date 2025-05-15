@@ -1,0 +1,42 @@
+{
+  "participant": {
+    "participationStatus": {
+      "longForm": {
+        "VOTING": "投票會員",
+        "ASSOCIATE": "副會員",
+        "OBSERVER": "觀察員",
+        "AFFILIATE": "附屬會員",
+        "FORMER": "前會員",
+        "undefined": "未知"
+      },
+      "description": {
+        "VOTING": "來自{REGION}的 GBIF 投票會員",
+        "ASSOCIATE": "來自{REGION}的副會員",
+        "OBSERVER": "來自{REGION} 的 GBIF 觀察員國家",
+        "AFFILIATE": "來自{REGION}的附屬會員",
+        "FORMER": "來自{REGION}的 GBIF 前會員",
+        "undefined": "未知"
+      },
+      "type": {
+        "OTHER": {
+          "description": {
+            "VOTING": "來自{REGION}的 GBIF 投票組織會員",
+            "ASSOCIATE": "來自{REGION}的副組織會員",
+            "OBSERVER": "來自{REGION}的觀察員組織會員",
+            "AFFILIATE": "來自{REGION}的附屬組織會員",
+            "FORMER": "來自{REGION}的前組織會員",
+            "undefined": "未知"
+          },
+          "longForm": {
+            "VOTING": "投票組織會員",
+            "ASSOCIATE": "副組織會員",
+            "OBSERVER": "觀察員組織會員",
+            "AFFILIATE": "附屬組織會員",
+            "FORMER": "前組織會員",
+            "undefined": "未知"
+          }
+        }
+      }
+    }
+  }
+}

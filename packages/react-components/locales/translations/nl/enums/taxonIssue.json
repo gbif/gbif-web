@@ -1,0 +1,8 @@
+{
+  "TAXONOMIC_STATUS_INVALID": "Taxonomische status niet bekend",
+  "DESCRIPTION_INVALID": "Beschrijving ongeldig",
+  "MULTIMEDIA_INVALID": "Multimedia ongeldig",
+  "ACCEPTED_NAME_NOT_UNIQUE": "Geaccepteerde naam is niet uniek",
+  "ORIGINAL_NAME_NOT_UNIQUE": "Originele naam is niet uniek",
+  "RELATIONSHIP_MISSING": "Relatie ontbreekt"
+}

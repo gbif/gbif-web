@@ -25,6 +25,7 @@
     "range": "",
     "rangeExample": "",
     "wildcard": "",
+    "dateTemplate": "",
     "locationID": ""
   },
   "ternary": {
@@ -33,6 +34,7 @@
     "either": "Iguais {is}"
   },
   "loadMore": "Mais",
+  "loading": "A carregar",
   "noResults": "",
   "occurrenceClustersView": {
     "about": "Sobre",
@@ -55,5 +57,19 @@
       "SPECIMEN": "Espécime",
       "SEQUENCE": "Iguais {is}"
     }
+  },
+  "crossContentSearch": {
+    "title": "Pesquisa",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "noSearchTermsEntered": "Não há termos de pesquisa inseridos",
+    "placeholder": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "categories": {
+      "speciesSearch": "Espécie",
+      "datasetSearch": "Conjuntos de dados",
+      "publisherSearch": "Publicadores",
+      "occurrenceSearch": "Ocorrências",
+      "resourceSearch": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    },
+    "seeAll": "Ver todos"
   }
 }

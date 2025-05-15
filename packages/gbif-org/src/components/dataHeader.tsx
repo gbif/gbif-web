@@ -42,6 +42,7 @@ export function DataHeader({
 
   return (
     <div
+      style={{ fontSize: '0.9375rem' }}
       className={cn(
         `g-flex g-justify-center g-items-center g-px-2 g-h-12`,
         hasBorder ? 'g-border-b g-border-slate-200' : '',

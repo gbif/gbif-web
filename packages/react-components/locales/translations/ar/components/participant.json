@@ -1,0 +1,42 @@
+{
+  "participant": {
+    "participationStatus": {
+      "longForm": {
+        "VOTING": "مشارك ذو حق التصويت",
+        "ASSOCIATE": "مشارك مساعد",
+        "OBSERVER": "مشارك مراقب",
+        "AFFILIATE": "مُنتسب الى",
+        "FORMER": "مشارك سابق",
+        "undefined": "غير معروف"
+      },
+      "description": {
+        "VOTING": "مشارك في \"جبيف\" ذو حق التصويت من{REGION}",
+        "ASSOCIATE": "مشارك مساعد من{REGION}",
+        "OBSERVER": "بلد مراقب في \"جبيف\" من{REGION}",
+        "AFFILIATE": "منتسب من{REGION}",
+        "FORMER": "مشارك سابق في \"جبيف\" من{REGION}",
+        "undefined": "غير معروف"
+      },
+      "type": {
+        "OTHER": {
+          "description": {
+            "VOTING": "منظمة مشاركة في \"جبيف\" ذات حق التصويت من{REGION}",
+            "ASSOCIATE": "منظمة مشاركة مساعدة من{REGION}",
+            "OBSERVER": "منظمة مشاركة مراقبة من{REGION}",
+            "AFFILIATE": "منظمة منتسبة من{REGION}",
+            "FORMER": "منظمة مشاركة سابقاً من{REGION}",
+            "undefined": "غير معروف"
+          },
+          "longForm": {
+            "VOTING": "منظمة مشاركة ذات حق التصويت",
+            "ASSOCIATE": "منظمة مشاركة مساعدة",
+            "OBSERVER": "منظمة مشاركة مراقبة",
+            "AFFILIATE": "منظمة منتسبة",
+            "FORMER": "منظمة مشاركة سابقاً",
+            "undefined": "غير معروف"
+          }
+        }
+      }
+    }
+  }
+}

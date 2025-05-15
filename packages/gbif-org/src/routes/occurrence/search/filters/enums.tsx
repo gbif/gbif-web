@@ -42,6 +42,7 @@ export const licenceConfig: filterEnumConfig = {
     }
   `,
   about: () => <Message id="filters.license.description" />,
+  group: 'record',
 };
 
 export const basisOfRecordConfig: filterEnumConfig = {
@@ -63,6 +64,7 @@ export const basisOfRecordConfig: filterEnumConfig = {
     }
   `,
   about: () => <Message id="filters.basisOfRecord.description" />,
+  group: 'record',
 };
 
 export const mediaTypeConfig: filterEnumConfig = {
@@ -86,6 +88,7 @@ export const mediaTypeConfig: filterEnumConfig = {
     }
   `,
   about: () => <Message id="filters.mediaType.description" />,
+  group: 'occurrence',
 };
 
 export const monthConfig: filterEnumConfig = {
@@ -109,6 +112,7 @@ export const monthConfig: filterEnumConfig = {
     }
   `,
   about: () => <Message id="filters.month.description" />,
+  group: 'event',
 };
 
 export const continentConfig: filterEnumConfig = {
@@ -132,6 +136,7 @@ export const continentConfig: filterEnumConfig = {
     }
   `,
   about: () => <Message id="filters.continent.description" />,
+  group: 'location',
 };
 
 export const protocolConfig: filterEnumConfig = {
@@ -155,6 +160,7 @@ export const protocolConfig: filterEnumConfig = {
     }
   `,
   about: () => <Message id="filters.protocol.description" />,
+  group: 'provenance',
 };
 
 export const dwcaExtensionConfig: filterEnumConfig = {
@@ -178,6 +184,7 @@ export const dwcaExtensionConfig: filterEnumConfig = {
     }
   `,
   // about: () => <Message id="filters.isSequenced.description" />,
+  group: 'other',
 };
 
 export const iucnRedListCategoryConfig: filterEnumConfig = {
@@ -199,6 +206,7 @@ export const iucnRedListCategoryConfig: filterEnumConfig = {
     }
   `,
   about: () => <Message id="filters.iucnRedListCategory.description" />,
+  group: 'other',
 };
 
 export const occurrenceIssueConfig: filterEnumConfig = {
@@ -222,6 +230,7 @@ export const occurrenceIssueConfig: filterEnumConfig = {
     }
   `,
   about: () => <Message id="filters.occurrenceIssue.description" />,
+  group: 'other',
 };
 
 export const occurrenceStatusConfig: filterEnumConfig = {
@@ -243,4 +252,5 @@ export const occurrenceStatusConfig: filterEnumConfig = {
     }
   `,
   about: () => <Message id="filters.occurrenceStatus.description" />,
+  group: 'occurrence',
 };

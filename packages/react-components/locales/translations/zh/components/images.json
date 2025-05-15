@@ -4,9 +4,12 @@
   "subtypeLiteral": "子类型",
   "title": "标题",
   "rights": "权限",
+  "credit": "权益",
   "providerLiteral": "提供者",
   "description": "描述",
   "accessURI": "全球资源定位器",
+  "accessOriginalURI": "原始链接：",
   "format": "格式",
-  "pixelXDimension": "宽度"
+  "pixelXDimension": "宽度",
+  "pixelYDimension": "高度"
 }

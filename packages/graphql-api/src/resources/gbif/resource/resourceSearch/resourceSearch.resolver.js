@@ -15,6 +15,12 @@ const facetReducer = (dictionary, facetName) => {
 };
 const ResourceFacet = facetFields.reduce(facetReducer, {});
 
+function emumContentTypeToElasticSearchType(enumContentType) {
+  return SEARCH_RESULT_OPTIONS.find(
+    (option) => option.enumContentType === enumContentType,
+  ).elasticSearchType;
+}
+
 function elasticSearchTypeToGraphQLType(elasticSearchType) {
   return SEARCH_RESULT_OPTIONS.find(
     (option) => option.elasticSearchType === elasticSearchType,
@@ -25,11 +31,16 @@ function extendPredicateWithContentTypes(predicate) {
   const contentTypes = SEARCH_RESULT_OPTIONS.map(
     (option) => option.elasticSearchType,
   );
+
   const extraPredicate = {
     type: 'in',
     key: 'contentType',
     values: contentTypes,
   };
+
+  if (!predicate) {
+    return extraPredicate;
+  }
   // if the predicate is of type AND, then just add the extra to the array. Else wrap it in an AND
   if (predicate?.type === 'and') {
     return {
@@ -38,7 +49,7 @@ function extendPredicateWithContentTypes(predicate) {
     };
   }
   return {
-    type: 'AND',
+    type: 'and',
     predicates: [predicate, extraPredicate],
   };
 }
@@ -94,11 +105,16 @@ export default {
   },
   ResourceSearchResult: {
     documents: (parent, query, { dataSources, locale }) => {
+      const contentType =
+        parent._params.contentType?.map(emumContentTypeToElasticSearchType) ??
+        SEARCH_RESULT_OPTIONS.map((option) => option.elasticSearchType);
+
       return dataSources.resourceSearchAPI.searchResourceDocuments({
         query: {
           predicate: extendPredicateWithContentTypes(parent._predicate),
           ...parent._params,
           ...query,
+          contentType,
         },
         locale,
       });

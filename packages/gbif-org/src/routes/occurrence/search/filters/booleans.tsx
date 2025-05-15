@@ -20,6 +20,7 @@ export const isInClusterConfig: filterBoolConfig = {
     }
   `,
   about: () => <Message id="filters.isInCluster.description" />,
+  group: 'other',
 };
 
 export const isSequencedConfig: filterBoolConfig = {
@@ -40,4 +41,5 @@ export const isSequencedConfig: filterBoolConfig = {
     }
   `,
   about: () => <Message id="filters.isSequenced.description" />,
+  group: 'other',
 };

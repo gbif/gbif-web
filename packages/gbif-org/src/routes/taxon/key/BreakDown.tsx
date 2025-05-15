@@ -1,6 +1,7 @@
 import Highcharts, { chartColors } from '@/components/dashboard/charts/highcharts';
 import { chartsClass } from '@/components/dashboard/charts/OneDimensionalChart';
 import { CardHeader } from '@/components/dashboard/shared';
+import { ErrorBlock } from '@/components/ErrorBoundary';
 import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/smallCard';
 import rankEnum from '@/enums/basic/rank.json';
 import { useLink } from '@/reactRouterPlugins/dynamicLink';
@@ -13,7 +14,9 @@ import { getBreakdown, getSourceTaxon } from './breakdownUtil';
 const fmIndex = rankEnum.indexOf('FAMILY');
 
 const TaxonBreakdown = ({ taxon, ...props }) => {
-  const [chartOptions, setChartOptions] = useState(null);
+  const [chartOptions, setChartOptions] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const createLink = useLink();
   const navigate = useNavigate();
 
@@ -24,8 +27,6 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
     if (taxon.key) {
       getData();
     }
-
-    //Highcharts.chart('taxonBreakdown', options);
   }, [taxon.key]);
 
   const navigateToTaxon = async (key) => {
@@ -55,18 +56,27 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
 
   const getData = async () => {
     try {
+      setLoading(true);
+      setError(null);
       const { promise, cancel } = getBreakdown({ key: taxon.key });
-      const { data } = await promise;
+      const { data, errors } = await promise;
+      if (!data?.taxon?.checklistBankBreakdown) {
+        if (errors?.[0]) {
+          throw errors[0].message;
+        } else {
+          throw 'Unable to load breakdown';
+        }
+      }
       let root;
       if (
-        data.taxon?.checklistBankBreakdown.length > 25 ||
+        data?.taxon?.checklistBankBreakdown?.length > 25 ||
         rankEnum.indexOf(taxon.rank) >= fmIndex ||
-        (data.taxon?.checklistBankBreakdown.length === 0 && taxon.speciesCount > 0)
+        (data?.taxon?.checklistBankBreakdown?.length === 0 && taxon.speciesCount > 0)
       ) {
         root = [
           {
             id: data.taxon.key,
-            label: data.taxon?.scientificName,
+            name: data.taxon?.scientificName,
             rank: data.taxon?.rank,
             species:
               taxon.speciesCount ||
@@ -78,8 +88,11 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
         root = data.taxon?.checklistBankBreakdown;
       }
       initChart(root);
+      setLoading(false);
+      setError(null);
     } catch (error) {
-      console.log(error);
+      setError(error);
+      setLoading(false);
     }
   };
 
@@ -95,7 +108,7 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
     const totalCount = root.reduce((acc, cur) => acc + cur?.species, 0);
     try {
       const colors = Highcharts.getOptions().colors;
-      const categories = root.map((t) => t.label);
+      const categories = root.map((t) => t.name);
       const data = root.map((k, idx) => {
         const children_ = isArray(k.children) ? k.children : k.children.results;
         const children = processChildren(children_ || []);
@@ -105,7 +118,7 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
             ? [
                 ...children,
                 {
-                  label: `Other / Unknown ${children?.[0]?.rank || ''}`,
+                  name: `Other / Unknown ${children?.[0]?.rank || ''}`,
                   species: k?.species - sum,
                   color: chartColors.OTHER,
                 },
@@ -117,8 +130,8 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
           y: k?.species,
           _id: k.id,
           drilldown: {
-            name: k.label, //  k.name,
-            categories: c.map((c) => c.label),
+            name: k.name, //  k.name,
+            categories: c.map((c) => c.name),
             data: c,
           },
         };
@@ -260,7 +273,7 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
   };
 
   return (
-    <Card loading={!chartOptions} {...props}>
+    <Card loading={loading && !error} {...props}>
       <CardHeader options={null}>
         <CardTitle>
           <FormattedMessage id="taxon.breakdown" />
@@ -270,8 +283,15 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        {' '}
-        <HighchartsReact highcharts={Highcharts} options={chartOptions} className={chartsClass} />
+        {!error && (
+          <HighchartsReact highcharts={Highcharts} options={chartOptions} className={chartsClass} />
+        )}
+        {error && (
+          <ErrorBlock
+            errorMessage={<FormattedMessage id="taxon.errors.breakdown" />}
+            description={error}
+          />
+        )}
       </CardContent>
     </Card>
   );

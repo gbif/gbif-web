@@ -2,6 +2,7 @@
   "generic": "出现了一个错误",
   "unknown": "未知的错误",
   "report": "报告问题",
+  "reloadPage": "刷新页面",
   "hideDetails": "隐藏详细信息",
   "showDetails": "显示详细信息"
 }

@@ -66,6 +66,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         typeStatus: getFile(locale, `../${folder}/${locale}/enums/typeStatus`),
         taxonRank: getFile(locale, `../${folder}/${locale}/enums/taxonRank`),
         taxonomicStatus: getFile(locale, `../${folder}/${locale}/enums/taxonomicStatus`),
+        taxonIssue: getFile(locale, `../${folder}/${locale}/enums/taxonIssue`),
         license: getFile(locale, `../${folder}/${locale}/enums/license`),
         issueHelp: getFile(locale, `../${folder}/${locale}/enums/issueHelp`),
         discipline: getFile(locale, `../${folder}/${locale}/enums/discipline`),

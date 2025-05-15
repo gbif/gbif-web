@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import interpretationRemark from '#/helpers/enums/interpretationRemark';
 import getFeedbackOptions from '#/helpers/feedback';
 import getGlobe from '#/helpers/globe';
 import {
@@ -16,6 +17,7 @@ import {
   getHistogram,
   getStats,
 } from '../getMetrics';
+import getVernacularNames from '../taxon/getVernacularNames';
 import {
   cardinalityFields,
   dateHistogramFields,
@@ -27,6 +29,11 @@ import groupResolver from './helpers/groups/occurrenceGroups';
 import getLongitudeBounds from './helpers/longitudeBounds';
 import predicate2v1 from './helpers/predicate2v1';
 import termResolver from './helpers/terms/occurrenceTerms';
+
+const issueSeverityMap = interpretationRemark.reduce((acc, issue) => {
+  acc[issue.id] = issue.severity;
+  return acc;
+}, {});
 
 const getSourceSearch = (dataSources) => (args) =>
   dataSources.occurrenceAPI.searchOccurrences.call(
@@ -259,6 +266,20 @@ export default {
         lat: decimalLatitude,
         lon: decimalLongitude,
       });
+    },
+    issues: ({ issues }, { types }) => {
+      if (!issues) return null;
+      if (!types) return issues;
+      // remove issues that are not of the specific types based on the interpretation remarks that classify issues into types
+      const filteredIssues = issues.filter((issue) => {
+        const issueType = issueSeverityMap[issue];
+        if (issueType) {
+          // remove issues that are not of the specific types
+          return types.includes(issueType);
+        }
+        return false;
+      });
+      return filteredIssues;
     },
     acceptedTaxon: ({ acceptedTaxonKey }, _args, { dataSources }) => {
       if (!acceptedTaxonKey) return null;
@@ -665,6 +686,21 @@ export default {
   },
   Globe: {},
   VolatileOccurrenceData: {
+    vernacularNames: (
+      { taxonKey },
+      { limit = 10, offset = 0, language, source, removeDuplicates },
+      { dataSources },
+    ) => {
+      return getVernacularNames({
+        taxonKey,
+        limit,
+        offset,
+        language,
+        source,
+        dataSources,
+        removeDuplicates,
+      });
+    },
     features: (occurrence) => occurrence,
     globe: (
       { decimalLatitude, decimalLongitude },

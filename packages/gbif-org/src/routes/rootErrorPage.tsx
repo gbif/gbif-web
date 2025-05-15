@@ -16,5 +16,5 @@ export function RootErrorPage(): React.ReactElement {
     console.error(error);
   }
 
-  return <ErrorPage error={error} />;
+  return <ErrorPage error={error} showStackTrace />;
 }

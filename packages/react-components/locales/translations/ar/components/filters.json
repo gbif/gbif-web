@@ -428,7 +428,7 @@
   "isInCluster": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "تسلط هذه الميزة  التجريبية الضوء على التكرارات المحتملة و/أو ذات الصلة"
   },
   "isSequenced": {
     "name": "",
@@ -509,6 +509,13 @@
   "higherTaxonKey": {
     "name": "وحدة تصنيفية عليا",
     "count": "",
+    "description": ""
+  },
+  "issueEnum": {
+    "name": "مسائل و رايات",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
     "description": ""
   }
 }

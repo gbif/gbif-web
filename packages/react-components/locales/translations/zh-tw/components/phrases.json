@@ -44,6 +44,8 @@
   "keep": "",
   "addressUnknown": "",
   "emptyValueProvided": "",
+  "otherIdentifiers": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+  "gbifIdentifier": "{num, plural, one {# 在分群中} other {# 在分群中}}",
   "copyToClipboard": "",
   "copy": "複製",
   "fromCountry": "",

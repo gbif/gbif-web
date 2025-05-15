@@ -43,7 +43,9 @@
   "discard": "",
   "keep": "",
   "addressUnknown": "",
-  "emptyValueProvided": "",
+  "emptyValueProvided": "提供空白值",
+  "otherIdentifiers": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+  "gbifIdentifier": "{num, plural, one { 在集群中 } other {# 在集群中}}",
   "copyToClipboard": "",
   "copy": "复制",
   "fromCountry": "来自（国家）",
@@ -55,9 +57,9 @@
   },
   "derivedFromOccurrenceData": "",
   "pageToc": "",
-  "apiAccess": "",
+  "apiAccess": "API接口地址",
   "lastCrawled": "最后的爬网",
-  "goToRecord": "",
-  "commonNameAccordingTo": "",
+  "goToRecord": "调取存档",
+  "commonNameAccordingTo": "根据{来源}的通用名称",
   "noResults": ""
 }

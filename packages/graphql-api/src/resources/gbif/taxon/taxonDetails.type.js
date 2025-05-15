@@ -146,7 +146,20 @@ const typeDef = gql`
     code: String
   }
 
+  type Treatment {
+    description: String
+    sourceTaxon: Taxon
+    publisherTitle: String
+    publisherHomepage: String
+    publisherKey: String
+    datasetTitle: String
+    datasetKey: String
+    citation: String
+    link: URL
+  }
+
   extend type Taxon {
+    sourceTaxon: Taxon
     """
     Lists all direct child usages for a name usage
     """
@@ -220,6 +233,8 @@ const typeDef = gql`
     Lists all type specimens for a name usage, see also lmitations: https://github.com/gbif/portal-feedback/issues/1146#issuecomment-366260607
     """
     iucnRedListCategory: IucnRedListCategoryResult
+
+    treatments: [Treatment]
   }
 `;
 

@@ -16,13 +16,14 @@
   "source": "来源",
   "specimenIsTypeOf": "等于 {is}",
   "typeMaterial": "等于 {is}",
+  "treatments": "{num, plural, one { 在集群中 } other {# 在集群中}}",
   "more": "更多",
   "less": "等于 {is}",
   "dna": "脱氧核糖核酸",
   "occurenceImages": "等于 {is}",
   "taxonImages": "",
   "taxonIdentifiers": "分类群识别码",
-  "synonymsAndCombinations": "",
+  "synonymsAndCombinations": "同义词和组合",
   "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "界",
@@ -46,5 +47,21 @@
     "term": "术语",
     "value": "值",
     "coreRecord": ""
+  },
+  "tradeRestrictions": "贸易限制",
+  "cites": "引用",
+  "immediateChildren": "直系亲属",
+  "referenceTaxon": "参考分类",
+  "showLess": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+  "showAll": "显示全部",
+  "errors": {
+    "treatments": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "distributions": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "verbatim": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "typeMaterial": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "vernacularNames": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "classificationChildren": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "breakdown": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "invasiveInCountries": "{num, plural, one { 在集群中 } other {# 在集群中}}"
   }
 }

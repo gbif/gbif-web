@@ -25,6 +25,7 @@
     "range": "範囲または単一値",
     "rangeExample": "",
     "wildcard": "",
+    "dateTemplate": "",
     "locationID": ""
   },
   "ternary": {
@@ -33,6 +34,7 @@
     "either": ""
   },
   "loadMore": "もっと読み込む",
+  "loading": "読み込み中",
   "noResults": "",
   "occurrenceClustersView": {
     "about": "・・・について",
@@ -55,5 +57,19 @@
       "SPECIMEN": "標本",
       "SEQUENCE": ""
     }
+  },
+  "crossContentSearch": {
+    "title": "検索",
+    "description": "",
+    "noSearchTermsEntered": "検索文字列が入力されていません。",
+    "placeholder": "",
+    "categories": {
+      "speciesSearch": "種",
+      "datasetSearch": "データセット",
+      "publisherSearch": "出版者",
+      "occurrenceSearch": "オカレンス",
+      "resourceSearch": ""
+    },
+    "seeAll": "すべて表示"
   }
 }

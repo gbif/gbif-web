@@ -3,12 +3,21 @@ import { InlineLineClamp } from '@/components/inlineLineClamp';
 import { FormattedDateRange } from '@/components/message';
 import { ColumnDef, LinkOption, SetAsFilter, SetAsFilterList } from '@/components/searchTable';
 import { SimpleTooltip } from '@/components/simpleTooltip';
+import { DropdownMenuCheckboxItem } from '@/components/ui/dropdownMenu';
 import { VocabularyValue } from '@/components/vocabularyValue';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuPortal,
+  DropdownMenuTrigger,
+} from '@radix-ui/react-dropdown-menu';
 import { useMemo } from 'react';
-import { GoSidebarExpand } from 'react-icons/go';
+import { MdInfoOutline, MdSettings } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
+import useLocalStorage from 'use-local-storage';
 import { IconFeatures } from './iconFeatures';
 import { SingleOccurrenceSearchResult } from './occurrenceTable';
+import ScientificNameColumn from './ScientificNameColumn';
 
 type Args = {
   showPreview?: ((id: string) => void) | false;
@@ -21,51 +30,79 @@ export function useOccurrenceColumns({
     const columns: ColumnDef<SingleOccurrenceSearchResult>[] = [
       {
         id: 'scientificName',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'taxonKey' },
         header: 'filters.taxonKey.name',
         filterKey: 'taxonKey', // default is same as id
         disableHiding: true,
         minWidth: 250,
         cell: (occurrence) => {
-          const entityKey = `o_${occurrence?.key?.toString()}`;
+          return <ScientificNameColumn occurrence={occurrence} showPreview={showPreview} />;
+        },
+        Actions: ({ firstColumnIsLocked, hideFirstColumnLock, setFirstColumnIsLocked }) => {
+          const [includeAuthorship, setIncludeAuthorship] = useLocalStorage(
+            'includeAuthorship',
+            false
+          );
+          return (
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <MdSettings />
+              </DropdownMenuTrigger>
+              <DropdownMenuPortal>
+                <div className="gbif">
+                  <DropdownMenuContent
+                    className="g-bg-white g-shadow-blocker g-rounded g-border g-border-slate-200"
+                    style={{ zIndex: 100 }}
+                  >
+                    <DropdownMenuCheckboxItem
+                      className="DropdownMenuCheckboxItem"
+                      checked={includeAuthorship}
+                      onCheckedChange={() => setIncludeAuthorship(!includeAuthorship)}
+                    >
+                      <FormattedMessage id="tableHeaders.options.includeAuthorship" />
+                    </DropdownMenuCheckboxItem>
+                    {!hideFirstColumnLock && (
+                      <DropdownMenuCheckboxItem
+                        className="DropdownMenuCheckboxItem"
+                        checked={firstColumnIsLocked}
+                        onCheckedChange={() => setFirstColumnIsLocked(!firstColumnIsLocked)}
+                      >
+                        <FormattedMessage id="Lock first column in place" />
+                      </DropdownMenuCheckboxItem>
+                    )}
+                  </DropdownMenuContent>
+                </div>
+              </DropdownMenuPortal>
+            </DropdownMenu>
+          );
+        },
+      },
+      {
+        id: 'commonName',
+        header: 'tableHeaders.commonName',
+        minWidth: 200,
+        cell: (occurrence) => {
+          if (!occurrence?.volatile?.vernacularNames?.results[0]?.vernacularName) return null;
 
           return (
-            <div className="g-inline-flex g-items-center g-w-full">
-              {typeof showPreview === 'function' && (
-                <button
-                  // Used to refocus this button after closing the preview dialog
-                  data-entity-trigger={entityKey}
-                  className="g-pr-3 g-pl-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
-                  onClick={() => showPreview(entityKey)}
+            <InlineLineClamp>
+              <span>
+                <SimpleTooltip
+                  side="bottom"
+                  title={
+                    <FormattedMessage
+                      id="phrases.commonNameAccordingTo"
+                      values={{ source: occurrence?.volatile?.vernacularNames?.results[0]?.source }}
+                    />
+                  }
                 >
-                  <SimpleTooltip i18nKey="filterSupport.viewDetails" side="right" asChild>
-                    <div className="g-flex g-items-center">
-                      <GoSidebarExpand size={16} />
-                    </div>
-                  </SimpleTooltip>
-                </button>
-              )}
-              <div>
-                <SetAsFilter field="taxonKey" value={occurrence.taxonKey}>
-                  <span
-                    className="g-pointer-events-auto g-me-2"
-                    dangerouslySetInnerHTML={{
-                      __html: occurrence.gbifClassification?.usage?.formattedName as string,
-                    }}
-                  />
-                </SetAsFilter>
-                {occurrence.hasTaxonIssues && (
-                  <SimpleTooltip side="right" i18nKey="filterSupport.nameWithTaxonMatchIssue">
-                    <div
-                      style={{ color: '#fea600' }}
-                      className="g-cursor-default g-text-start"
-                      data-loader
-                    >
-                      {occurrence.gbifClassification?.verbatimScientificName}
-                    </div>
-                  </SimpleTooltip>
-                )}
-              </div>
-            </div>
+                  <MdInfoOutline className="-g-mt-0.5 g-text-slate-400" />
+                </SimpleTooltip>
+                <span className="g-ms-1.5">
+                  {occurrence?.volatile?.vernacularNames?.results[0]?.vernacularName}
+                </span>
+              </span>
+            </InlineLineClamp>
           );
         },
       },
@@ -88,7 +125,34 @@ export function useOccurrenceColumns({
         ),
       },
       {
+        id: 'media',
+        header: 'tableHeaders.images',
+        minWidth: 80,
+        cell: (occurrence) => {
+          if (!occurrence?.primaryImage?.thumbor) return null;
+
+          return (
+            <div className="g-relative g-text-center">
+              {occurrence.stillImageCount && occurrence.stillImageCount > 1 && (
+                <div className="g-inline-block g-rounded-full g-absolute -g-top-0.5 -g-end-0.5 g-bg-slate-900 g-text-white g-text-xs g-px-1 g-text-center">
+                  {occurrence.stillImageCount}
+                </div>
+              )}
+              <img
+                className="g-rounded g-border g-border-slate-200"
+                src={occurrence?.primaryImage?.thumbor}
+              />
+            </div>
+          );
+        },
+      },
+      {
         id: 'country',
+        sort: {
+          localStorageKey: 'occurrenceSort',
+          sortBy: 'countryCode',
+          // message: <FormattedMessage id="Sorted by country code" />,
+        },
         header: 'filters.occurrenceCountry.name',
         minWidth: 150,
         cell: ({ countryCode }) => (
@@ -107,6 +171,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'year',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'year' },
         header: 'filters.year.name',
         cell: ({ year }) => (
           <SetAsFilter field="year" value={year}>
@@ -116,6 +181,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'eventDate',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'eventDate' },
         header: 'filters.eventDate.name',
         cell: ({ eventDate }) => {
           if (!eventDate) return null;
@@ -131,6 +197,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'basisOfRecord',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'basisOfRecord' },
         header: 'filters.basisOfRecord.name',
         cell: ({ basisOfRecord }) => (
           <SetAsFilter field="basisOfRecord" value={basisOfRecord}>
@@ -140,6 +207,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'dataset',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'datasetKey' },
         header: 'filters.datasetKey.name',
         minWidth: 350,
         cell: ({ datasetKey, datasetTitle }) => (
@@ -162,6 +230,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'catalogNumber',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'catalogNumber' },
         header: 'filters.catalogNumber.name',
         cell: ({ catalogNumber }) => (
           <SetAsFilter field="catalogNumber" value={catalogNumber}>
@@ -171,18 +240,21 @@ export function useOccurrenceColumns({
       },
       {
         id: 'recordedBy',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'recordedBy' },
         header: 'filters.recordedBy.name',
         minWidth: 200,
         cell: ({ recordedBy }) => <SetAsFilterList field="recordedBy" items={recordedBy} />,
       },
       {
         id: 'identifiedBy',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'identifiedBy' },
         header: 'filters.identifiedBy.name',
         minWidth: 200,
         cell: ({ identifiedBy }) => <SetAsFilterList field="identifiedBy" items={identifiedBy} />,
       },
       {
         id: 'recordNumber',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'recordNumber' },
         header: 'filters.recordNumber.name',
         cell: ({ recordNumber }) => (
           <SetAsFilter field="recordNumber" value={recordNumber}>
@@ -206,11 +278,13 @@ export function useOccurrenceColumns({
       },
       {
         id: 'preparations',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'preparations' },
         header: 'occurrenceFieldNames.preparations',
         cell: ({ preparations }) => <SetAsFilterList field="preparations" items={preparations} />,
       },
       {
         id: 'collectionCode',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'collectionCode' },
         header: 'occurrenceFieldNames.collectionCode',
         cell: ({ collectionCode }) => {
           if (!collectionCode) return null;
@@ -224,6 +298,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'institutionCode',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'institutionCode' },
         header: 'occurrenceFieldNames.institutionCode',
         minWidth: 200,
         cell: ({ institutionCode }) => {
@@ -239,17 +314,34 @@ export function useOccurrenceColumns({
       {
         id: 'institutionKey',
         header: 'tableHeaders.institution',
-        minWidth: 200,
-        cell: ({ institution }) => {
-          if (!institution) return null;
+        minWidth: 300,
+        cell: ({ institution, institutionKey }) => {
+          if (!institution) {
+            if (institutionKey) {
+              return (
+                <LinkOption to={`/institution/${institutionKey}`}>
+                  <SetAsFilter
+                    field="institutionKey"
+                    value={institutionKey}
+                    className="g-text-slate-400"
+                  >
+                    <FormattedMessage id="phrases.loadError" />
+                  </SetAsFilter>
+                </LinkOption>
+              );
+            } else {
+              return null;
+            }
+          }
 
           return (
-            <LinkOption to={`/institution/${institution.key}`}>
-              <SetAsFilter field="institutionKey" value={institution.key}>
-                <span>
-                  {institution.name} <span>{institution.code}</span>
-                </span>
+            <LinkOption to={`/institution/${institutionKey}`}>
+              <SetAsFilter field="institutionKey" value={institutionKey}>
+                <span className="g-me-1">{institution.name}</span>
               </SetAsFilter>
+              <span className="g-font-mono g-text-xs g-text-slate-400 g-inline-block">
+                {institution.code}
+              </span>
             </LinkOption>
           );
         },
@@ -257,23 +349,41 @@ export function useOccurrenceColumns({
       {
         id: 'collectionKey',
         header: 'tableHeaders.collection',
-        minWidth: 200,
-        cell: ({ collection }) => {
-          if (!collection) return null;
+        minWidth: 300,
+        cell: ({ collection, collectionKey }) => {
+          if (!collection) {
+            if (collectionKey) {
+              return (
+                <LinkOption to={`/collection/${collectionKey}`}>
+                  <SetAsFilter
+                    field="collectionKey"
+                    value={collectionKey}
+                    className="g-text-slate-400"
+                  >
+                    <FormattedMessage id="phrases.loadError" />
+                  </SetAsFilter>
+                </LinkOption>
+              );
+            } else {
+              return null;
+            }
+          }
 
           return (
-            <LinkOption to={`/collection/${collection.key}`}>
-              <SetAsFilter field="collectionKey" value={collection.key}>
-                <span>
-                  {collection.name} <span>({collection.code})</span>
-                </span>
+            <LinkOption to={`/collection/${collectionKey}`}>
+              <SetAsFilter field="collectionKey" value={collectionKey}>
+                <span className="g-me-1">{collection.name}</span>
               </SetAsFilter>
+              <span className="g-font-mono g-text-xs g-text-slate-400 g-inline-block">
+                {collection.code}
+              </span>
             </LinkOption>
           );
         },
       },
       {
         id: 'locality',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'locality' },
         header: 'occurrenceFieldNames.locality',
         minWidth: 200,
         cell: ({ locality }) => (
@@ -286,6 +396,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'higherGeography',
+        minWidth: 350,
         header: 'occurrenceFieldNames.higherGeography',
         cell: ({ higherGeography }) => (
           <SetAsFilterList field="higherGeography" items={higherGeography} />
@@ -293,6 +404,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'stateProvince',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'stateProvince' },
         header: 'occurrenceFieldNames.stateProvince',
         cell: ({ stateProvince }) => {
           if (!stateProvince) return null;
@@ -306,6 +418,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'establishmentMeans',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'establishmentMeans' },
         header: 'occurrenceFieldNames.establishmentMeans',
         cell: ({ establishmentMeans }) => {
           if (!establishmentMeans) return null;
@@ -319,6 +432,7 @@ export function useOccurrenceColumns({
       },
       {
         id: 'iucnRedListCategory',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'iucnRedListCategoryCode' },
         header: 'occurrenceFieldNames.iucnRedListCategory',
         cell: ({ iucnRedListCategory }) => {
           if (!iucnRedListCategory) return null;

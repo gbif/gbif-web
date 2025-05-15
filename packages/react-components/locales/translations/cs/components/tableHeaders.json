@@ -1,0 +1,26 @@
+{
+  "features": "Vlastnosti",
+  "options": {
+    "includeAuthorship": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+  },
+  "citations": "Citace",
+  "occurrences": "Výskyty",
+  "numberSpecimens": "Počet exemplářů",
+  "gbifNumberSpecimens": "Exempláře v GBIF",
+  "title": "Název",
+  "titleAndAbstract": "Název a abstrakt",
+  "altmetric": "",
+  "registered": "Registrováno",
+  "hostedDatasets": "Hostované datové sady",
+  "pubDatasets": "Zveřejněné datové sady",
+  "commonName": "Běžný název",
+  "images": "Multimédia",
+  "species": "Počet druhů",
+  "parents": "Nadřazený",
+  "institution": "Instituce",
+  "collection": "Sbírka",
+  "collectionCount": "Sbírky",
+  "active": "Je aktivní",
+  "activeInstitution": "Je aktivní",
+  "activeCollection": "Je aktivní"
+}
