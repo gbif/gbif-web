@@ -19,7 +19,12 @@ const licenseMap = {
   CC_BY_NC_4_0: 'http://creativecommons.org/licenses/by-nc/4.0/legalcode',
 };
 
-export function HtmlField(props: { term: OccurrenceTermFragment; showDetails?: boolean }) {
+export function HtmlField(props: {
+  term: OccurrenceTermFragment;
+  showDetails?: boolean;
+  hideIssues?: boolean;
+  hideRemarks?: boolean;
+}) {
   if (!props.term) return null;
   const { htmlValue } = props.term;
   return (
@@ -34,13 +39,43 @@ export function HtmlField(props: { term: OccurrenceTermFragment; showDetails?: b
   );
 }
 
-export function PlainTextField(props: { term: OccurrenceTermFragment; showDetails?: boolean }) {
+export function PlainTextField(props: {
+  term: OccurrenceTermFragment;
+  showDetails?: boolean;
+  onlyShowVerbatim?: boolean;
+}) {
   if (!props.term) return null;
   const { value, htmlValue } = props.term;
   return (
     <Field {...props}>
       <AutomaticPropertyValue value={value} />
     </Field>
+  );
+}
+
+export function VerbatimTextField({
+  term,
+  label,
+}: {
+  term: OccurrenceTermFragment;
+  label?: string;
+}) {
+  if (!term) return null;
+  const { simpleName, verbatim } = term;
+  if (isEmpty(verbatim)) return null;
+
+  const fieldName = label || `occurrenceFieldNames.${simpleName}`;
+  return (
+    <React.Fragment>
+      <T>
+        <FormattedMessage id={fieldName} defaultMessage={startCase(simpleName) ?? ''} />
+      </T>
+      <V style={{ position: 'relative' }}>
+        <div style={{ display: 'inline-block', paddingRight: 8 }}>
+          <AutomaticPropertyValue value={verbatim} />
+        </div>
+      </V>
+    </React.Fragment>
   );
 }
 

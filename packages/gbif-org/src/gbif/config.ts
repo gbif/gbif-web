@@ -194,7 +194,7 @@ export const gbifConfig: Config = {
   },
   taxonSearch: {
     scope: {
-      datasetKey: ['d7dddbf4-2cf0-4f39-9b2a-bb099caae36c'],
+      datasetKey: [import.meta.env.PUBLIC_GBIF_DEFAULT_TAXONOMY_DATASET_KEY],
     },
     highlightedFilters: ['q', 'status', 'rank', 'higherTaxonKey', 'issue'],
   },

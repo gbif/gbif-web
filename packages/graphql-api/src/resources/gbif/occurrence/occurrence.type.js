@@ -474,6 +474,16 @@ const typeDef = gql`
     acceptedUsage: AcceptedUsage!
     usage: Usage!
     taxonMatch: SpeciesMatchResult
+    meta: ChecklistMeta
+  }
+
+  type ChecklistMeta {
+    mainIndex: ChecklistMetaMainIndex!
+  }
+
+  type ChecklistMetaMainIndex {
+    datasetKey: ID!
+    datasetTitle: String!
   }
 
   type Classification {

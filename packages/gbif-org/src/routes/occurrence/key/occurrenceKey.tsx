@@ -133,6 +133,40 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
         ...OccurrenceMediaDetails
       }
 
+      verbatimScientificName
+      classifications {
+        meta {
+          mainIndex {
+            datasetKey
+            datasetTitle
+          }
+        }
+        checklistKey
+        usage {
+          rank
+          name
+          key
+        }
+        acceptedUsage {
+          key
+          name
+        }
+        taxonMatch {
+          usage {
+            name
+            key
+            canonicalName
+            formattedName
+          }
+          synonym
+        }
+        classification {
+          key
+          rank
+          name
+        }
+        issues
+      }
       gbifClassification {
         kingdom
         kingdomKey
@@ -372,7 +406,7 @@ export function OccurrenceKey() {
   return (
     <>
       <Helmet>
-        <title>{occurrence.scientificName}</title>
+        <title>{occurrence.verbatimScientificName}</title>
       </Helmet>
       <DataHeader
         className="g-bg-white"
@@ -412,18 +446,26 @@ export function OccurrenceKey() {
                 dangerouslySetTitle={{ __html: occurrence.scientificName || 'No title provided' }}
               ></ArticleTitle> */}
                 <ArticleTitle className="lg:g-text-3xl">
-                  {!occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
-                    <>
-                      <span
-                        className="g-me-4"
-                        dangerouslySetInnerHTML={{
-                          __html:
-                            occurrence?.gbifClassification?.usage?.formattedName ??
-                            occurrence.scientificName ??
-                            'No title provided',
-                        }}
-                      />
-                      {vernacularNameInfo && (
+                  <>
+                    <span className="g-me-4">
+                      {occurrence.verbatimScientificName ?? 'No title provided'}
+                    </span>
+                    {occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
+                      <TooltipProvider>
+                        <Tooltip delayDuration={0}>
+                          <TooltipTrigger>
+                            <span style={{ marginInlineStart: 8 }}>
+                              <BsLightningFill style={{ color: 'orange' }} />
+                            </span>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <FormattedMessage id="enums.issueHelp.TAXON_MATCH_HIGHERRANK" />
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    )}
+                    {!occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) &&
+                      vernacularNameInfo && (
                         <SimpleTooltip
                           asChild
                           title={
@@ -442,42 +484,8 @@ export function OccurrenceKey() {
                           </span>
                         </SimpleTooltip>
                       )}
-                    </>
-                  )}
-                  {occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
-                    <>
-                      <span>{termMap.scientificName.verbatim}</span>
-                      <TooltipProvider>
-                        <Tooltip delayDuration={0}>
-                          <TooltipTrigger>
-                            <span style={{ marginInlineStart: 8 }}>
-                              <BsLightningFill style={{ color: 'orange' }} />
-                            </span>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <FormattedMessage id="enums.issueHelp.TAXON_MATCH_HIGHERRANK" />
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                    </>
-                  )}
+                  </>
                 </ArticleTitle>
-                {/* <div className="g-bg-orange-300 g-p-4 g-rounded g-mt-4">
-                  <p>
-                    <FormattedMessage id="enums.issueHelp.TAXON_MATCH_HIGHERRANK" />
-                  </p>
-                  <p>
-                    Interpreted as :{' '}
-                    <span
-                      dangerouslySetInnerHTML={{
-                        __html:
-                          occurrence?.gbifClassification?.usage?.formattedName ??
-                          occurrence.scientificName ??
-                          'Uknown scientific name',
-                      }}
-                    />
-                  </p>
-                </div> */}
                 {occurrence.organismName && <h2>Organism name: {occurrence.organismName}</h2>}
                 <HeaderInfo>
                   <HeaderInfoMain>

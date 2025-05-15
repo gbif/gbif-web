@@ -97,12 +97,16 @@ const typeDef = gql`
     histogram: OccurrenceHistogram
     autoDateHistogram: OccurrenceAutoDateHistogram
     _predicate: JSON
-    _downloadPredicate: JSON
+    _meta: JSON
     """
     Register the search predicate with the v1 endpoints and get a hash back. This can be used to query e.g. the tile API.
     """
-    _v1PredicateHash: String
-    _meta: JSON
+    metaPredicate: JSON
+  }
+
+  type OccurrenceMetaPredicate {
+    predicateHash: String
+    predicate: JSON
   }
 
   type OccurrenceDocuments {

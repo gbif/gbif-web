@@ -6,6 +6,7 @@ const cors = require('cors');
 const config = require('./config');
 var queue = require('express-queue');
 const { loggingMiddleware, errorLoggingMiddleware } = require('./middleware');
+const normalizePredicate = require('./requestAdapter/util/normalizePredicate');
 
 const queueOptions = {
   activeLimit: 10,
@@ -225,9 +226,11 @@ function searchResource(resource, metaOnly = false) {
       } = parseQuery(req, res, next, { get2predicate, get2metric });
       const aggs = metric2aggs(metrics);
       const query = await predicate2query(predicate, q);
+      const normalizedPredicate = normalizePredicate(predicate);
       if (metaOnly) {
         return res.json({
           predicate,
+          normalizedPredicate,
           metrics,
           query,
         });
@@ -247,6 +250,7 @@ function searchResource(resource, metaOnly = false) {
       const meta = {
         GET: req.query,
         predicate,
+        normalizedPredicate,
         metrics,
         esBody,
       };

@@ -40,7 +40,6 @@ function get2esQuery(getQuery, config) {
 
 function predicate2esQuery(predicate, q) {
   // first we normalize the predicate
-  console.log(predicate);
   const { predicate: normalizedPredicate, err } = normalizePredicate(predicate);
   if (err) {
     console.error('Error normalizing predicate:', err);
@@ -49,13 +48,6 @@ function predicate2esQuery(predicate, q) {
   if (!normalizedPredicate && !q) {
     return;
   }
-
-  console.log(
-    JSON.stringify({
-      q,
-      predicate: normalizedPredicate,
-    }),
-  );
 
   // then we convert it to an es query using the API
   return fetch(`${env.apiv1}/occurrence/search/predicate/toesquery`, {

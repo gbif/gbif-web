@@ -110,12 +110,6 @@ export default {
       return {
         _predicate: args.predicate,
         _q: args.q,
-        _downloadPredicate: v1Predicate,
-        _v1PredicateHash: v1PredicateQStripped.predicate
-          ? dataSources.occurrenceAPI.registerPredicate({
-              predicate: v1PredicateQStripped.predicate,
-            })
-          : null,
       };
     },
     occurrenceClusterSearch: (
@@ -208,6 +202,12 @@ export default {
   ChecklistClassification: {
     taxonMatch: ({ checklistKey, usage }, _args, { dataSources }) => {
       return dataSources.taxonAPI.getSpeciesMatchByUsageKey({
+        usageKey: usage.key,
+        checklistKey,
+      });
+    },
+    meta: ({ checklistKey, usage }, _args, { dataSources }) => {
+      return dataSources.taxonAPI.getChecklistMetadata({
         usageKey: usage.key,
         checklistKey,
       });
@@ -547,6 +547,18 @@ export default {
       return dataSources.occurrenceAPI.meta({
         query: { predicate: parent._predicate, q: parent._q },
       });
+    },
+    metaPredicate: (parent, _query, { dataSources }) => {
+      return dataSources.occurrenceAPI
+        .meta({
+          query: { predicate: parent._predicate, q: parent._q },
+        })
+        .then((meta) => {
+          console.log(meta.normalizedPredicate.predicate);
+          return dataSources.occurrenceAPI.registerPredicate({
+            predicate: meta.normalizedPredicate.predicate,
+          });
+        });
     },
   },
   OccurrenceNameUsage: {

@@ -75,6 +75,8 @@ class OccurrenceAPI extends RESTDataSource {
   }
 
   async registerPredicate({ predicate }) {
+    console.log(`${this.config.apiv2}/map/occurrence/adhoc/predicate/`);
+    console.log(JSON.stringify(predicate, null, 2));
     try {
       return await this.post(
         `${this.config.apiv2}/map/occurrence/adhoc/predicate/`,
@@ -82,6 +84,7 @@ class OccurrenceAPI extends RESTDataSource {
         { signal: this.context.abortController.signal },
       );
     } catch (err) {
+      console.log(err);
       return {
         err: {
           error: 'FAILED_TO_REGISTER_PREDICATE',

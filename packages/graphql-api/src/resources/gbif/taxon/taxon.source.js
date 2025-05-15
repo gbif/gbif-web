@@ -81,6 +81,13 @@ class TaxonAPI extends RESTDataSource {
     return getParsedName(key, this);
   }
 
+  async getChecklistMetadata({ checklistKey = this.config.defaultChecklist }) {
+    return this.get(
+      `${this.config.apiv2}/species/match/metadata?`,
+      stringify({ checklistKey }, { indices: false }),
+    );
+  }
+
   async getSpeciesMatchByUsageKey({
     usageKey,
     checklistKey = this.config.defaultChecklist,
