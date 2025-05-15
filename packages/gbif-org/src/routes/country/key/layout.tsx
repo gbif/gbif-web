@@ -1,7 +1,13 @@
 import { defaultDateFormatProps } from '@/components/headerComponents';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
-import { ParticipantQuery, ParticipantQueryVariables } from '@/gql/graphql';
+import {
+  CountProjectsQuery,
+  CountProjectsQueryVariables,
+  ParticipantQuery,
+  ParticipantQueryVariables,
+} from '@/gql/graphql';
+import useQuery from '@/hooks/useQuery';
 import { LoaderArgs } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -22,7 +28,12 @@ export function countryKeyLoader({ params, graphql }: LoaderArgs) {
 
 export function CountryKeyLayout() {
   const { countryCode } = useParams();
+
+  // This can't happen as long as the page is used on the correct route.
+  if (!countryCode) throw new Error('No countryCode was provided in the URL');
+
   const { data } = useLoaderData() as { data: ParticipantQuery };
+  const hasProjects = useHasProjects(countryCode);
 
   const participant = data.nodeCountry;
   const headOfDelegation = participant?.contacts?.find(
@@ -112,6 +123,11 @@ export function CountryKeyLayout() {
                 to: 'publications/about',
                 children: <FormattedMessage id="TODO" defaultMessage="Publications about" />,
               },
+              {
+                to: 'projects',
+                children: <FormattedMessage id="TODO" defaultMessage="Projects" />,
+                hidden: !hasProjects,
+              },
             ]}
           />
         </ArticleTextContainer>
@@ -132,6 +148,29 @@ const PARTICIPANT_QUERY = /* GraphQL */ `
       }
       ...ParticipantSummary
       ...CountryKeyParticipation
+    }
+  }
+`;
+
+function useHasProjects(countryCode: string) {
+  const { data } = useQuery<CountProjectsQuery, CountProjectsQueryVariables>(COUNT_PROJECTS_QUERY, {
+    variables: {
+      countryCode: countryCode,
+    },
+  });
+
+  return data?.resourceSearch?.documents.total > 0;
+}
+
+const COUNT_PROJECTS_QUERY = /* GraphQL */ `
+  query CountProjects($countryCode: JSON!) {
+    resourceSearch(
+      contentType: PROJECT
+      predicate: { key: "contractCountry", type: equals, value: $countryCode }
+    ) {
+      documents(size: 0) {
+        total
+      }
     }
   }
 `;
