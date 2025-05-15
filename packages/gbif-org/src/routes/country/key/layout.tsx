@@ -1,5 +1,6 @@
 import { defaultDateFormatProps } from '@/components/headerComponents';
 import { Tabs } from '@/components/tabs';
+import { Button } from '@/components/ui/button';
 import { ParticipantQuery, ParticipantQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
@@ -7,6 +8,7 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { required } from '@/utils/required';
+import { MdDownload as DownloadIcon } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData, useParams } from 'react-router-dom';
 
@@ -31,38 +33,52 @@ export function CountryKeyLayout() {
     <article>
       <PageContainer topPadded className="g-bg-white">
         <ArticleTextContainer className="g-max-w-screen-xl">
-          {participant == null && (
-            <ArticlePreTitle>
-              <FormattedMessage id="TODO" defaultMessage="Country" />
-            </ArticlePreTitle>
-          )}
+          <div className="g-flex g-justify-between g-items-end">
+            <div>
+              {participant == null && (
+                <ArticlePreTitle>
+                  <FormattedMessage id="TODO" defaultMessage="Country" />
+                </ArticlePreTitle>
+              )}
 
-          {participant?.participationStatus && (
-            <ArticlePreTitle
-              secondary={
-                <FormattedMessage
-                  id="TODO"
-                  defaultMessage="Memeber since {DATE}"
-                  values={{
-                    DATE: (
-                      <FormattedDate
-                        value={participant.participant?.membershipStart ?? undefined}
-                        {...defaultDateFormatProps}
-                      />
-                    ),
-                  }}
-                />
-              }
-            >
-              <FormattedMessage id="TODO" defaultMessage="A GBIF Voting participant" />
-            </ArticlePreTitle>
-          )}
+              {participant?.participationStatus && (
+                <ArticlePreTitle
+                  secondary={
+                    <FormattedMessage
+                      id="TODO"
+                      defaultMessage="Memeber since {DATE}"
+                      values={{
+                        DATE: (
+                          <FormattedDate
+                            value={participant.participant?.membershipStart ?? undefined}
+                            {...defaultDateFormatProps}
+                          />
+                        ),
+                      }}
+                    />
+                  }
+                >
+                  <FormattedMessage id="TODO" defaultMessage="A GBIF Voting participant" />
+                </ArticlePreTitle>
+              )}
 
-          <div className="g-flex g-gap-4 g-items-center">
-            <ArticleTitle>
-              <FormattedMessage id={`enums.countryCode.${countryCode}`} />
-            </ArticleTitle>
-            <img className="g-h-8" src={`/flags/${countryCode}.png`} />
+              <div className="g-flex g-gap-4 g-items-center">
+                <ArticleTitle>
+                  <FormattedMessage id={`enums.countryCode.${countryCode}`} />
+                </ArticleTitle>
+                <img className="g-h-8" src={`/flags/${countryCode}.png`} />
+              </div>
+            </div>
+
+            <Button size="sm" className="g-flex g-gap-2" asChild>
+              {/* TODO: move base url to env */}
+              <a
+                href={`https://analytics-files.gbif.org/country/${countryCode}/GBIF_CountryReport_${countryCode}.pdf`}
+              >
+                <FormattedMessage id="TODO" defaultMessage="Activity Report" />
+                <DownloadIcon className="g-w-4 g-h-4" />
+              </a>
+            </Button>
           </div>
 
           <div className="g-border-b g-mt-4" />
