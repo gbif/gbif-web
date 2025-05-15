@@ -5,10 +5,9 @@ import { DataAboutCountryMap } from './components/dataAboutCountryMap';
 import { DataFromCountryMap } from './components/dataFromCountryMap';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { FormattedMessage } from 'react-intl';
-import Properties, { Property } from '@/components/properties';
-import { fragmentManager } from '@/services/fragmentManager';
 import { useCountryKeyLoaderData } from '.';
 import { Contacts } from './components/contacts';
+import { ParticipantSummary } from './components/participantSummary';
 
 export function CountryKeySummary() {
   const { countryCode } = useParams();
@@ -32,26 +31,7 @@ export function CountryKeySummary() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <Properties className="[&_a]:g-text-primary-500">
-                <Property labelId="Memeber status" value="Voting" />
-                <Property labelId="GBIF participant since" value="2001" />
-                <Property labelId="GBIF region" value="Europe and Central Asia" />
-                {/* Add link to contacts section */}
-                <Property labelId="Head of delegation" value="Kim Steenstrup Pedersen" />
-                {/* Add link to contacts section */}
-                <Property
-                  labelId="Node name"
-                  value="DanBIF - Danish Biodiversity Information Facility"
-                />
-                <Property labelId="Node established" value="2001" />
-                <Property
-                  labelId="Website"
-                  value="http://www.danbif.dk"
-                  formatter={(v) => <a href={v}>{v}</a>}
-                />
-                {/* Add link to contacts section */}
-                <Property labelId="Participant node manager" value="Isabel Calabuig" />
-              </Properties>
+              <ParticipantSummary participant={data.nodeCountry!} />
             </CardContent>
           </Card>
         </section>
@@ -65,15 +45,3 @@ export function CountryKeySummary() {
     </ArticleContainer>
   );
 }
-
-fragmentManager.register(/* GraphQL */ `
-  fragment CountryKeySummary on Node {
-    gbifRegion
-    participationStatus
-    participant {
-      membershipStart
-      nodeEstablishmentDate
-    }
-    ...NodeContacts
-  }
-`);

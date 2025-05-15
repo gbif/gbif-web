@@ -64,8 +64,6 @@ export function MapWidgetOuter({ className, capabilitiesParams = {} }: Props) {
 
   const { data: capabilities } = useCapabilities({ capabilitiesParams });
 
-  console.log('capabilities', capabilities);
-
   // Update the start and end year based on the capabilities
   useEffect(() => {
     if (capabilities?.minYear) {

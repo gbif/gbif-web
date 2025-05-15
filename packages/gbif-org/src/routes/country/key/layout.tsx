@@ -130,7 +130,7 @@ const PARTICIPANT_QUERY = /* GraphQL */ `
         membershipStart
         nodeEstablishmentDate
       }
-      ...CountryKeySummary
+      ...ParticipantSummary
       ...CountryKeyParticipation
     }
   }
