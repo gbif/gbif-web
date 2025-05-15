@@ -44,6 +44,8 @@
   "keep": "",
   "addressUnknown": "",
   "emptyValueProvided": "Введено пустое значение",
+  "otherIdentifiers": "",
+  "gbifIdentifier": "",
   "copyToClipboard": "",
   "copy": "Копировать",
   "fromCountry": "Из {country}",
