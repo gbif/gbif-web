@@ -218,7 +218,7 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
 `;
 
 const SLOW_OCCURRENCE_QUERY = /* GraphQL */ `
-  query SlowOccurrenceKey($key: ID!, $language: String!, $source: String) {
+  query SlowOccurrenceKey($key: ID!, $language: String!) {
     occurrence(key: $key) {
       key
       institution {
@@ -228,11 +228,12 @@ const SLOW_OCCURRENCE_QUERY = /* GraphQL */ `
         name
       }
 
-      acceptedTaxon {
-        vernacularNames(limit: 1, language: $language, source: $source) {
-          results {
-            vernacularName
-            source
+      classification {
+        vernacularNames(lang: $language, maxLimit: 1) {
+          name
+          reference {
+            id
+            citation
           }
         }
       }
@@ -370,7 +371,7 @@ export function OccurrenceKey() {
   // const recorderAndIndentiferIsDifferent =
   //   JSON.stringify(termMap?.recordedBy?.value) !== JSON.stringify(termMap?.identifiedBy?.value);
 
-  const vernacularNameInfo = slowOccurrence?.acceptedTaxon?.vernacularNames?.results?.[0];
+  const vernacularNameInfo = slowOccurrence?.classification?.vernacularNames?.[0];
 
   const tabs = [
     {
@@ -471,7 +472,7 @@ export function OccurrenceKey() {
                           title={
                             <FormattedMessage
                               id="phrases.commonNameAccordingTo"
-                              values={{ source: vernacularNameInfo.source }}
+                              values={{ source: vernacularNameInfo.reference?.citation }}
                             />
                           }
                         >
@@ -479,7 +480,7 @@ export function OccurrenceKey() {
                             className="g-text-slate-300 g-inline-flex g-items-center"
                             style={{ fontSize: '85%' }}
                           >
-                            <span className="g-me-1">{vernacularNameInfo.vernacularName}</span>
+                            <span className="g-me-1">{vernacularNameInfo.name}</span>
                             <MdInfoOutline />
                           </span>
                         </SimpleTooltip>

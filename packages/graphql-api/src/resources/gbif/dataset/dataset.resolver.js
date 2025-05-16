@@ -165,12 +165,22 @@ export const Dataset = {
   },
 };
 
-export const ChecklistBankDataset = {
+export const ClbDataset = {
   import: ({ key }, args, { dataSources }) => {
     const query = Object.keys(args).length > 0 ? args : undefined;
     return dataSources.datasetAPI
       .getChecklistBankImport({ key, query })
       .then((response) => response?.[0]);
+  },
+};
+
+export const ClbVernacularName = {
+  reference: ({ datasetKey, referenceId }, args, { dataSources }) => {
+    if (typeof referenceId === 'undefined') return null;
+    return dataSources.datasetAPI.getClbReferenceByKey({
+      datasetKey,
+      referenceId,
+    });
   },
 };
 

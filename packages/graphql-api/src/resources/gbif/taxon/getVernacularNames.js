@@ -3,7 +3,7 @@ export default function getVernacularNames({
   limit,
   offset,
   language,
-  checklistKey,
+  checklistKey = 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c',
   dataSources,
   removeDuplicates = false,
 }) {
@@ -12,7 +12,7 @@ export default function getVernacularNames({
     limit,
     offset,
     language,
-    source,
+    checklistKey,
   }; // language and source are ignored by the API
   if (language || checklistKey) {
     newQuery.limit = 1000;
@@ -47,17 +47,17 @@ export default function getVernacularNames({
           results: filtered,
         };
       }
-      if (source) {
-        const filtered = apiResponse.results.filter(
-          (item) => item.source === source,
-        );
-        const endOfRecords = offset + limit > filtered.length;
-        apiResponse = {
-          ...apiResponse,
-          endOfRecords,
-          results: filtered,
-        };
-      }
+      // if (source) {
+      //   const filtered = apiResponse.results.filter(
+      //     (item) => item.source === source,
+      //   );
+      //   const endOfRecords = offset + limit > filtered.length;
+      //   apiResponse = {
+      //     ...apiResponse,
+      //     endOfRecords,
+      //     results: filtered,
+      //   };
+      // }
       if (removeDuplicates) {
         const filtered = apiResponse.results.filter(
           (item, index, self) =>

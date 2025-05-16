@@ -200,7 +200,7 @@ const typeDef = gql`
     """
     Get the dataset as it looks like in checklist bank. Only available for checklists. And not for all of them.
     """
-    checklistBankDataset: ChecklistBankDataset
+    checklistBankDataset: ClbDataset
     mapCapabilities: MapCapabilities
     """
     volatile shortened version of the description

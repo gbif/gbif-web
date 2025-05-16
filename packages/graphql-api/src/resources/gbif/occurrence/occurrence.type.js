@@ -414,7 +414,7 @@ const typeDef = gql`
       limit: Int
       offset: Int
       language: String
-      checklistKey: String
+      checklistKey: ID
       removeDuplicates: Boolean
     ): TaxonVernacularNameResult
   }
@@ -472,6 +472,7 @@ const typeDef = gql`
     usage: Usage!
     taxonMatch: SpeciesMatchResult
     meta: ChecklistMeta
+    vernacularNames(lang: String, maxLimit: Int): [ClbVernacularName]
   }
 
   type ChecklistMeta {

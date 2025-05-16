@@ -153,7 +153,7 @@ const typeDef = gql`
     """
     taxonImages_volatile(size: Int): [Image]!
     speciesCount: Int
-    checklistBankBreakdown: [ChecklistBankBreakdownTaxon]
+    checklistBankBreakdown: [ClbBreakdownTaxon]
     invasiveInCountries: [InvasiveInCountry]
     iucnStatus: IUCNstatus
 
@@ -194,7 +194,7 @@ const typeDef = gql`
     formattedName: String
   }
 
-  type ChecklistBankBreakdownTaxon {
+  type ClbBreakdownTaxon {
     id: String
     name: String
     rank: String
@@ -202,7 +202,7 @@ const typeDef = gql`
     label: String
     labelHtml: String
     species: Int
-    children: [ChecklistBankBreakdownTaxon]
+    children: [ClbBreakdownTaxon]
   }
 
   type InvasiveInCountry {

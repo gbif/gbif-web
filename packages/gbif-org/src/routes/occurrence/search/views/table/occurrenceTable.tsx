@@ -68,6 +68,17 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
                 formattedName
               }
             }
+            meta {
+              mainIndex {
+                datasetTitle
+              }
+            }
+            vernacularNames(lang: $language, maxLimit: 1) {
+              name
+              reference {
+                citation
+              }
+            }
           }
           taxon {
             canonicalName
@@ -119,12 +130,6 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
               isTreament
               isClustered
               isSamplingEvent
-            }
-            vernacularNames(language: $language, limit: 1, checklistKey: $checklistKey) {
-              results {
-                vernacularName
-                source
-              }
             }
           }
         }
