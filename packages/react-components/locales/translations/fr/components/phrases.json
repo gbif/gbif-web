@@ -44,6 +44,8 @@
   "keep": "",
   "addressUnknown": "",
   "emptyValueProvided": "Valeur vide fournie",
+  "otherIdentifiers": "Doit être défini",
+  "gbifIdentifier": "Doit être défini",
   "copyToClipboard": "",
   "copy": "Copier",
   "fromCountry": "De {country}",

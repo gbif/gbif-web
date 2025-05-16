@@ -19,6 +19,9 @@
   "CHEMICAL": "Química",
   "CHEMICAL_ANALYTICAL": "Química analítica",
   "CHEMICAL_ASTROCHEMISTRY": "Química astroquímica",
+  "AGRICULTURAL_SOIL_SCIENCES": "Edafología agrícola",
+  "AGRICULTURAL_WOOD_SCIENCE_AND_PULP_TECHNOLOGY": "Ciencia de la madera agrícola y tecnología de la pulpa",
+  "BIOLOGICAL_ANATOMY_AND_PHYSIOLOGY": "",
   "HEALTH": "Salud",
   "MATERIAL": "Material"
 }

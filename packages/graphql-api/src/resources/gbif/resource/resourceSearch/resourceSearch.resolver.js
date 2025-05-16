@@ -49,7 +49,7 @@ function extendPredicateWithContentTypes(predicate) {
     };
   }
   return {
-    type: 'AND',
+    type: 'and',
     predicates: [predicate, extraPredicate],
   };
 }

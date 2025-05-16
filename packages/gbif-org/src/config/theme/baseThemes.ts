@@ -16,7 +16,7 @@ export const defaultTheme = {
     '"Helvetica Neue", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica", "Arial", sans-serif',
   // fontFamily: "'Inter var', BlinkMacSystemFont, -apple-system, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
   borderRadius: 3,
-  drawerZIndex: 1000,
+  drawerZIndex: 50,
   stickyOffset: '0px',
 } as const satisfies Partial<Theme>;
 

@@ -44,6 +44,8 @@
   "keep": "",
   "addressUnknown": "",
   "emptyValueProvided": "Valor vacío proporcionado",
+  "otherIdentifiers": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+  "gbifIdentifier": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
   "copyToClipboard": "",
   "copy": "Copiar",
   "fromCountry": "De {country}",
