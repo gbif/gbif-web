@@ -1,6 +1,7 @@
 import { BulletList } from '@/components/bulletList';
 import { GadmClassification } from '@/components/classification';
 import { ConceptValue } from '@/components/conceptValue';
+import { HelpLine } from '@/components/helpText';
 import Properties, { Property } from '@/components/properties';
 import { RenderIfChildren } from '@/components/renderIfChildren';
 import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
@@ -8,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeC
 import { OccurrenceQuery, SlowOccurrenceKeyQuery, Term } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import React, { useEffect, useState } from 'react';
-import { MdAudiotrack, MdImage, MdInfoOutline } from 'react-icons/md';
+import { MdAudiotrack, MdImage } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { BasicField, EnumField, HtmlField, PlainTextField, VerbatimTextField } from '../properties';
 import {
@@ -351,14 +352,14 @@ function Taxon({
           <VerbatimTextField term={termMap.taxonomicStatus} />
         </Properties>
 
-        <div className="g-mt-8">
+        <div className="g-mt-4 g-border-t g-border-slate-300 g-pt-4">
           <div className="g-mb-2">
-            Taxonomic Interpretations <MdInfoOutline />
+            <HelpLine id={'taxonomic-interpretations'} icon />
+
+            {/* Taxonomic Interpretations <MdInfoOutline />
             <div className="g-bg-slate-200 g-p-2 g-rounded g-text-slate-600 g-text-xs">
-              Records are enriched with taxonomic interpretations. This is done to ease discovery
-              across spelling variations and synonyms. The original name is available for search
-              using the "verbatim scientific name" filter
-            </div>
+              <HelpText identifier={'taxonomic-interpretations'} />
+            </div> */}
           </div>
           {filteredClassifications.map((classification) => (
             <TaxonInterpretationCard classification={classification} />

@@ -658,7 +658,7 @@ const config = {
     },
     verbatimScientificName: {
       type: 'keyword',
-      field: 'verbatimScientificName.keyword',
+      field: 'verbatimScientificName',
     },
     usageKey: {
       type: 'keyword',
