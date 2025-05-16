@@ -117,7 +117,7 @@ class TaxonAPI extends RESTDataSource {
   }
 
   async getSuggestions({
-    datasetKey = this.config.gbifBackboneUUID,
+    datasetKey = this.config.defaultChecklist,
     limit = 10,
     q,
     language,

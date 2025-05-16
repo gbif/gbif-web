@@ -20,7 +20,7 @@ query($predicate: Predicate){
     documents {
       total
     }
-    _downloadPredicate
+    _meta
   }
 }
 `;
@@ -48,8 +48,8 @@ export function Download() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFilterContext.filterHash, scope, load]);
 
-  const fullPredicate = data?.occurrenceSearch?._downloadPredicate?.predicate;
-  const err = data?.occurrenceSearch?._downloadPredicate?.err;
+  const fullPredicate = data?.occurrenceSearch?._meta?.normalizedPredicate?.predicate;
+  const err = data?.occurrenceSearch?.meta?.normalizedPredicate?.err;
 
   const q = currentFilterContext?.filter?.must?.q;
   const hasFreeTextSearch = q && q.length > 0;
