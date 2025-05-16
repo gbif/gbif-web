@@ -3,7 +3,7 @@ export default function getVernacularNames({
   limit,
   offset,
   language,
-  source,
+  checklistKey,
   dataSources,
   removeDuplicates = false,
 }) {
@@ -14,7 +14,7 @@ export default function getVernacularNames({
     language,
     source,
   }; // language and source are ignored by the API
-  if (language || source) {
+  if (language || checklistKey) {
     newQuery.limit = 1000;
     newQuery.offset = 0;
   }

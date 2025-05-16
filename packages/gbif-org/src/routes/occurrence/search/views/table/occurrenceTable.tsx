@@ -120,7 +120,7 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
               isClustered
               isSamplingEvent
             }
-            vernacularNames(language: $language, limit: 1) {
+            vernacularNames(language: $language, limit: 1, checklistKey: $checklistKey) {
               results {
                 vernacularName
                 source

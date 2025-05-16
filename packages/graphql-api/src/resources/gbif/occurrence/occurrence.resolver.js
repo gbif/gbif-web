@@ -554,7 +554,6 @@ export default {
           query: { predicate: parent._predicate, q: parent._q },
         })
         .then((meta) => {
-          console.log(meta.normalizedPredicate.predicate);
           return dataSources.occurrenceAPI.registerPredicate({
             predicate: meta.normalizedPredicate.predicate,
           });
@@ -744,7 +743,7 @@ export default {
   VolatileOccurrenceData: {
     vernacularNames: (
       { taxonKey },
-      { limit = 10, offset = 0, language, source, removeDuplicates },
+      { limit = 10, offset = 0, language, checklistKey, removeDuplicates },
       { dataSources },
     ) => {
       return getVernacularNames({
@@ -752,7 +751,7 @@ export default {
         limit,
         offset,
         language,
-        source,
+        checklistKey,
         dataSources,
         removeDuplicates,
       });

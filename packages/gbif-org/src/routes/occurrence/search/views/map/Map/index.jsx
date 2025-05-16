@@ -17,7 +17,7 @@ query map($q: String, $predicate: Predicate){
     documents {
       total
     }
-    _v1PredicateHash
+    metaPredicate
   }
 }
 `;
@@ -150,7 +150,7 @@ function Map({ style, className, mapProps }) {
     error,
     total: data?.occurrenceSearch?.documents?.total,
     query: data?.occurrenceSearch?._meta?.query || {},
-    predicateHash: data?.occurrenceSearch?._v1PredicateHash,
+    predicateHash: data?.occurrenceSearch?.metaPredicate,
     rootPredicate: scope,
     predicateConfig: searchConfig,
     loadPointData,
