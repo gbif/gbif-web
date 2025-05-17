@@ -30,12 +30,42 @@ export default {
     installation: ({ key }, args, { dataSources }) => {
       return dataSources.nodeAPI.getInstallations({ key, query: args });
     },
-    contacts: ({ contacts }, { type }) => {
+    contacts: async (node, { type }, { dataSources, locale }) => {
+      let extendedContacts = node.contacts;
+
+      try {
+        // First step is to extract the participantID from the list if identifiers on the node. This is a bit akward.
+        const identifiers = node.identifiers || [];
+        const participantIdentifier = identifiers.find(
+          (i) => i.type === 'GBIF_PARTICIPANT',
+        );
+        const participant =
+          await dataSources.participantAPI.getParticipantByDirectoryId({
+            id: participantIdentifier.identifier,
+            locale,
+          });
+
+        extendedContacts = node.contacts.map((contact) => {
+          const person = participant.people.find(
+            (p) => p.person.id === contact.key,
+          )?.person;
+          return {
+            ...contact,
+            title: person?.title,
+            surname: person?.surname,
+          };
+        });
+      } catch (error) {
+        console.error(error);
+      }
+
       // filter contacts on type (array of strings)
       if (type) {
-        return contacts.filter((contact) => type.includes(contact.type));
+        return extendedContacts.filter((contact) =>
+          type.includes(contact.type),
+        );
       }
-      return contacts;
+      return extendedContacts;
     },
     participant: (node, args, { dataSources, locale }) => {
       // First step is to extract the participantID from the list if identifiers on the node. This is a bit akward.
