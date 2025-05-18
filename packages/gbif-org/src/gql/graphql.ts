@@ -1048,6 +1048,8 @@ export type Contact = {
   primary?: Maybe<Scalars['Boolean']['output']>;
   province?: Maybe<Scalars['String']['output']>;
   roles?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  surname?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
   type?: Maybe<Scalars['String']['output']>;
   userId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
 };
