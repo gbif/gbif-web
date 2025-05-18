@@ -36,9 +36,6 @@ export function CountryKeyLayout() {
   const hasProjects = useHasProjects(countryCode);
 
   const participant = data.nodeCountry;
-  const headOfDelegation = participant?.contacts?.find(
-    (contact) => contact?.type === 'HEAD_OF_DELEGATION'
-  );
 
   return (
     <article>
@@ -110,6 +107,7 @@ export function CountryKeyLayout() {
               {
                 to: 'participation',
                 children: <FormattedMessage id="TODO" defaultMessage="Participation" />,
+                hidden: !participant,
               },
               {
                 to: 'alien-species',
