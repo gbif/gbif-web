@@ -66,8 +66,7 @@ export function MapWidgetOuter({ className, capabilitiesParams = {}, mapStyle }:
     isYearFilterActive,
     startYear,
     endYear,
-    capabilitiesParams?.taxonKey,
-    capabilitiesParams?.country
+    capabilitiesParams
   );
 
   const dynamicNavigate = useDynamicNavigate();
