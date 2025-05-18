@@ -23,18 +23,20 @@ export function CountryKeySummary() {
 
         <DataFromCountryMap countryCode={countryCode} />
 
-        <section>
-          <Card>
-            <CardHeader>
-              <CardTitle>
-                <FormattedMessage id="TODO" defaultMessage="Participant summary" />
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ParticipantSummary participant={data.nodeCountry!} />
-            </CardContent>
-          </Card>
-        </section>
+        {data?.nodeCountry && (
+          <section>
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  <FormattedMessage id="TODO" defaultMessage="Participant summary" />
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ParticipantSummary participant={data.nodeCountry} />
+              </CardContent>
+            </Card>
+          </section>
+        )}
 
         {data?.nodeCountry?.contacts && (
           <section>
