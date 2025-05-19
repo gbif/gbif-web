@@ -32,10 +32,12 @@ export function ContactAvatar({
 }
 
 export function ContactTitle({
+  title,
   firstName,
   lastName,
   children,
 }: {
+  title?: string | null;
   firstName?: string | null;
   lastName?: string | null;
   children?: React.ReactNode;
@@ -47,10 +49,12 @@ export function ContactTitle({
       </h4>
     );
   }
+
+  const name = [title, firstName, lastName].filter(Boolean).join(' ');
   return (
     <h4 className="g-text-base">
       {children}
-      {firstName} {lastName}
+      {name}
     </h4>
   );
 }
@@ -70,8 +74,14 @@ export function ContactContent({
   return <div className={cn('g-text-slate-500', className)}>{children}</div>;
 }
 
-export function ContactActions({ children }: { children: React.ReactNode }) {
-  return <div>{children}</div>;
+export function ContactActions({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return <div className={className}>{children}</div>;
 }
 
 export function ContactAction({ children }: { children: React.ReactNode }) {

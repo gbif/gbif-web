@@ -1,17 +1,35 @@
-import { ContactList } from '@/components/contactList';
+import { BulletList } from '@/components/bulletList';
+import {
+  ContactActions,
+  ContactAvatar,
+  ContactContent,
+  ContactDescription,
+  ContactEmail,
+  ContactHeader,
+  ContactHeaderContent,
+  ContactTelephone,
+  ContactTitle,
+} from '@/components/contact';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { NodeContactsFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 import { MaybeArray } from '@/types';
+import { isNoneEmptyArray } from '@/utils/isNoneEmptyArray';
 import { notNull } from '@/utils/notNull';
+import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
+import { useLocation } from 'react-router-dom';
 
 type Props = {
   contacts: NodeContactsFragment['contacts'];
+  nodeTitle?: string | null;
+  nodeAddress?: null | (string | null)[];
 };
 
-export function Contacts({ contacts }: Props) {
+export function Contacts({ contacts, nodeTitle, nodeAddress }: Props) {
   const preparedContacts = orderAndMergeContacts(contacts);
+
+  const hash = useLocation().hash.replace('#', '');
 
   return (
     <Card>
@@ -20,9 +38,123 @@ export function Contacts({ contacts }: Props) {
           <FormattedMessage id="TODO" defaultMessage="Contacts" />
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <ContactList contacts={preparedContacts} />
+      <CardContent className="g-flex g-flex-wrap">
+        <NodeAddressCard
+          nodeTitle={nodeTitle}
+          nodeAddress={nodeAddress}
+          highlighted={hash === 'nodeAddress'}
+        />
+        {preparedContacts?.map((contact) => (
+          <PersonContactCard
+            key={contact.key}
+            contact={contact}
+            highlighted={hash === `contact${contact.key}`}
+          />
+        ))}
       </CardContent>
+    </Card>
+  );
+}
+
+type NodeAddressCardProps = {
+  nodeTitle?: string | null;
+  nodeAddress?: null | (string | null)[];
+  highlighted?: boolean;
+};
+
+function NodeAddressCard({ nodeTitle, nodeAddress, highlighted }: NodeAddressCardProps) {
+  return (
+    <Card
+      id="nodeAddress"
+      className={cn(
+        'g-px-6 g-py-4 g-flex-auto g-max-w-sm g-min-w-xs g-m-2 g-w-1/2',
+        highlighted && 'g-bg-slate-100'
+      )}
+    >
+      <ContactHeader>
+        <ContactAvatar organization={nodeTitle} />
+        <ContactHeaderContent>
+          <ContactTitle>{nodeTitle}</ContactTitle>
+        </ContactHeaderContent>
+      </ContactHeader>
+      <ContactContent>
+        <address>
+          {nodeAddress
+            ?.filter(notNull)
+            .map((address) => address.split('\n').map((line, i) => <div key={i}>{line}</div>))}
+        </address>
+      </ContactContent>
+    </Card>
+  );
+}
+
+type PersonContactCardProps = {
+  contact: MergedContact;
+  highlighted?: boolean;
+};
+
+function PersonContactCard({ contact, highlighted }: PersonContactCardProps) {
+  return (
+    <Card
+      className={cn(
+        'g-px-6 g-py-4 g-flex-auto g-max-w-sm g-min-w-xs g-m-2 g-w-1/2',
+        highlighted && 'g-bg-slate-100'
+      )}
+      key={contact.key}
+      id={`contact${contact.key}`}
+    >
+      <ContactHeader>
+        <ContactAvatar
+          firstName={contact.firstName}
+          lastName={contact.lastName || contact.surname}
+        />
+        <ContactHeaderContent>
+          <ContactTitle
+            title={contact.title}
+            firstName={contact.firstName}
+            lastName={contact.lastName || contact.surname}
+          />
+          <ContactDescription>
+            <BulletList>
+              {asArray(contact.type).map((type) => (
+                <li key={type}>
+                  <FormattedMessage id={`enums.gbifRole.${type}`} defaultMessage={type} />
+                </li>
+              ))}
+            </BulletList>
+          </ContactDescription>
+        </ContactHeaderContent>
+      </ContactHeader>
+      <ContactContent className="g-flex g-flex-col g-gap-1.5">
+        {/* TODO: why is this different from portal16? */}
+        {contact.organization && <p>{contact.organization}</p>}
+        {contact.address && (
+          <address>
+            {contact.address
+              .filter(notNull)
+              .map((address) => address.split('\n').map((line, i) => <div key={i}>{line}</div>))}
+            {contact.city ||
+              (contact.postalCode && (
+                <p>
+                  {contact.city} {contact.postalCode}
+                </p>
+              ))}
+            {contact.province && <p>{contact.province}</p>}
+            {contact.country && (
+              <FormattedMessage
+                id={`enums.countryCode.${contact.country}`}
+                defaultMessage={contact.country}
+              />
+            )}
+          </address>
+        )}
+      </ContactContent>
+      <ContactActions className="g-pt-2">
+        {isNoneEmptyArray(contact.email) &&
+          contact.email.map((email) => <ContactEmail key={email} email={email} />)}
+        {isNoneEmptyArray(contact.phone) &&
+          contact.phone.map((tel) => <ContactTelephone key={tel} tel={tel} />)}
+      </ContactActions>
     </Card>
   );
 }
@@ -31,7 +163,9 @@ fragmentManager.register(/* GraphQL */ `
   fragment NodeContacts on Node {
     contacts {
       key
+      title
       firstName
+      surname
       lastName
 
       organization
@@ -105,4 +239,10 @@ function orderAndMergeContacts(
   });
 
   return uniqueContacts;
+}
+
+function asArray<T>(value: MaybeArray<T | null | undefined>): T[] {
+  if (Array.isArray(value)) return value.filter(notNull);
+  if (value === null || value === undefined) return [];
+  return [value];
 }

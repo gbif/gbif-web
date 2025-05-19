@@ -1,12 +1,12 @@
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { useParams } from 'react-router-dom';
-import { DataAboutCountryMap } from './components/dataAboutCountryMap';
-import { DataFromCountryMap } from './components/dataFromCountryMap';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { FormattedMessage } from 'react-intl';
+import { useParams } from 'react-router-dom';
 import { useCountryKeyLoaderData } from '.';
 import { Contacts } from './components/contacts';
+import { DataAboutCountryMap } from './components/dataAboutCountryMap';
+import { DataFromCountryMap } from './components/dataFromCountryMap';
 import { ParticipantSummary } from './components/participantSummary';
 
 export function CountryKeySummary() {
@@ -40,7 +40,11 @@ export function CountryKeySummary() {
 
         {data?.nodeCountry?.contacts && (
           <section>
-            <Contacts contacts={data.nodeCountry.contacts} />
+            <Contacts
+              contacts={data.nodeCountry.contacts}
+              nodeTitle={data.nodeCountry.title}
+              nodeAddress={data.nodeCountry.address}
+            />
           </section>
         )}
       </ArticleTextContainer>

@@ -1,12 +1,12 @@
-import { fragmentManager } from '@/services/fragmentManager';
-import { useCountryKeyLoaderData } from '.';
+import { CountryKeyParticipationFragment } from '@/gql/graphql';
+import { ArticleBody } from '@/routes/resource/key/components/articleBody';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { ArticleBody } from '@/routes/resource/key/components/articleBody';
-import { CountryKeyParticipationFragment } from '@/gql/graphql';
+import { fragmentManager } from '@/services/fragmentManager';
+import { FormattedMessage } from 'react-intl';
+import { useCountryKeyLoaderData } from '.';
 import { Contacts } from './components/contacts';
 import { ParticipantSummary } from './components/participantSummary';
-import { FormattedMessage } from 'react-intl';
 
 export function CountryKeyParticipation() {
   const { data } = useCountryKeyLoaderData();
@@ -30,7 +30,11 @@ export function CountryKeyParticipation() {
       </ArticleContainer>
       <ArticleContainer className="g-bg-slate-100 g-pt-4">
         <ArticleTextContainer className="g-max-w-screen-xl g-flex g-flex-col g-gap-4">
-          <Contacts contacts={data?.nodeCountry?.contacts} />
+          <Contacts
+            contacts={data?.nodeCountry?.contacts}
+            nodeTitle={data?.nodeCountry?.title}
+            nodeAddress={data?.nodeCountry?.address}
+          />
         </ArticleTextContainer>
       </ArticleContainer>
     </>

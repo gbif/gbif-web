@@ -138,6 +138,8 @@ export function CountryKeyLayout() {
 const PARTICIPANT_QUERY = /* GraphQL */ `
   query Participant($countryCode: String!) {
     nodeCountry(countryCode: $countryCode) {
+      title
+      address
       gbifRegion
       participationStatus
       participant {
