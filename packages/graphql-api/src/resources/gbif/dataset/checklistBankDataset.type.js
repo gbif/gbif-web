@@ -1,6 +1,14 @@
 import { gql } from 'apollo-server';
 
 const typeDef = gql`
+  extend type Query {
+    clbNameUsageSuggest(
+      checklistKey: ID
+      q: String!
+      limit: Int
+    ): ClbNameUsageSuggestions
+  }
+
   type ClbDataset {
     created: DateTime
     createdBy: Int
@@ -18,6 +26,35 @@ const typeDef = gql`
     Stats about the dataset, defaulting to latest finished import
     """
     import(state: String, limit: Int): ClbImport
+  }
+
+  type ClbNameUsageSuggestions {
+    suggestions: [ClbNameUsageSuggestion]
+  }
+
+  type ClbNameUsageSuggestion {
+    match: String
+    usageId: ID
+    acceptedUsageId: ID
+    rank: String
+    status: String
+    nomCode: String
+    suggestion: String
+    context: String
+    group: String
+    taxGroup: ClbTaxGroup
+    acceptedName: String
+  }
+
+  type ClbTaxGroup {
+    description: String
+    icon: String
+    iconSVG: String
+    name: String
+    other: Boolean
+    phylopic: String
+    parents: [String]
+    codes: [String]
   }
 
   type ClbVernacularName {

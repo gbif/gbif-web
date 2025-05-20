@@ -27,7 +27,7 @@ import {
   publisherKeyOccurrenceSuggest,
   publisherKeySuggest,
   recordNumberSuggest,
-  taxonKeyVernacularSuggest,
+  taxonKeyClbSuggest,
   typeStatusSuggest,
 } from '@/utils/suggestEndpoints';
 
@@ -60,7 +60,7 @@ export const taxonKeyConfig: filterTaxonConfig = {
   filterHandle: 'taxonKey',
   displayName: TaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
-  suggestConfig: taxonKeyVernacularSuggest, //taxonKeySuggest,
+  suggestConfig: taxonKeyClbSuggest, //taxonKeyVernacularSuggest, //taxonKeySuggest,
   allowExistence: false,
   allowNegations: true,
   suggestionTitlePath: 'item.usage.canonicalName',

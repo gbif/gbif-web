@@ -206,9 +206,8 @@ export default {
         checklistKey,
       });
     },
-    meta: ({ checklistKey, usage }, _args, { dataSources }) => {
+    meta: ({ checklistKey }, _args, { dataSources }) => {
       return dataSources.taxonAPI.getChecklistMetadata({
-        usageKey: usage.key,
         checklistKey,
       });
     },

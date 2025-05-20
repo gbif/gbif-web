@@ -22,8 +22,8 @@ import {
   AsyncOptions,
   ExistsSection,
   FacetQuery,
-  filterSuggestConfig,
   FilterSummaryType,
+  filterTaxonConfig,
   getAsQuery,
   getFilterSummary,
 } from './filterTools';
@@ -36,12 +36,12 @@ const checklistMap = {
   worms: '22d59e5db-57ad-41ff-97d6-11f5fb2645276',
 };
 
-type SuggestProps = Omit<filterSuggestConfig, 'filterType' | 'filterTranslation'> &
+type TaxonSuggestProps = Omit<filterTaxonConfig, 'filterType' | 'filterTranslation'> &
   AdditionalFilterProps & {
     className?: string;
   };
 
-export const TaxonFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
+export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>(
   (
     {
       className,
@@ -58,22 +58,14 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       allowExistence,
       allowNegations,
       suggestionTitlePath,
-    }: SuggestProps,
+    }: TaxonSuggestProps,
     ref
   ) => {
     const searchContext = useSearchContext();
     const { formatMessage } = useIntl();
     const currentFilterContext = useContext(FilterContext);
-    const {
-      filter,
-      toggle,
-      add,
-      setFullField,
-      setFilter,
-      filterHash,
-      negateField,
-      setChecklistKey,
-    } = currentFilterContext;
+    const { filter, toggle, add, setFullField, setFilter, filterHash, negateField } =
+      currentFilterContext;
     const [selected, setSelected] = useState<string[]>([]);
     const [filterBeforeHash, setFilterBeforeHash] = useState<string | undefined>(undefined);
     const [facetLookup, setFacetLookup] = useState<Record<string, number>>({});
@@ -146,6 +138,10 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       searchContext,
       searchConfig,
       useNegations,
+      filter,
+      filterSummary?.isNotNull,
+      filterSummary?.isNull,
+      filterSummary?.mixed,
     ]);
 
     useEffect(() => {
@@ -295,12 +291,19 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
             {suggestConfig && (
               <Suggest
                 ref={ref}
-                onSelect={(item) => add(filterHandle, item.key, useNegations)}
+                onSelect={(item) =>
+                  add(filterHandle, item.acceptedUsageId ?? item.usageId ?? item.key, useNegations)
+                }
                 className={cn(
                   'g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset'
                 )}
                 selected={selected}
-                getSuggestions={suggestConfig.getSuggestions}
+                getSuggestions={(args) => {
+                  return suggestConfig.getSuggestions({
+                    ...args,
+                    checklistKey: filter.checklistKey,
+                  });
+                }}
                 render={suggestConfig.render}
                 getStringValue={suggestConfig.getStringValue}
                 onKeyDown={(e) => {

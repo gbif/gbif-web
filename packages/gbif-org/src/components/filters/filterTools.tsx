@@ -24,7 +24,7 @@ import { OptionalBooleanFilter } from './optionalBooleanFilter';
 import { QFilter } from './QFilter';
 import { QInlineButtonFilter } from './QInlineButtonFilter';
 import { RangeFilter } from './rangeFilter';
-import { SuggestionItem } from './suggest';
+import { SuggestFnProps, SuggestionItem, SuggestResponseType } from './suggest';
 import { SuggestFilter } from './suggestFilter';
 import { TaxonFilter } from './taxonFilter';
 import { WildcardFilter } from './wildcardFilter';
@@ -85,7 +85,12 @@ export type filterTaxonConfig = filterConfigShared & {
   filterType: filterConfigTypes.TAXON;
   facetQuery?: string;
   disableFacetsForSelected?: boolean;
-  suggestConfig?: SuggestConfig;
+  suggestConfig?: {
+    render?: (item: SuggestionItem) => React.ReactNode;
+    getSuggestions: (props: SuggestFnProps | { checklistKey?: string }) => SuggestResponseType;
+    placeholder?: string;
+    getStringValue?: (item: SuggestionItem) => string;
+  };
   allowExistence?: boolean;
   allowNegations?: boolean;
   suggestionTitlePath?: string;

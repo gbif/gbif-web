@@ -404,6 +404,26 @@ export type ClbMediaByTypeCount = {
   image?: Maybe<Scalars['Int']['output']>;
 };
 
+export type ClbNameUsageSuggestion = {
+  __typename?: 'ClbNameUsageSuggestion';
+  acceptedName?: Maybe<Scalars['String']['output']>;
+  acceptedUsageId?: Maybe<Scalars['ID']['output']>;
+  context?: Maybe<Scalars['String']['output']>;
+  group?: Maybe<Scalars['String']['output']>;
+  match?: Maybe<Scalars['String']['output']>;
+  nomCode?: Maybe<Scalars['String']['output']>;
+  rank?: Maybe<Scalars['String']['output']>;
+  status?: Maybe<Scalars['String']['output']>;
+  suggestion?: Maybe<Scalars['String']['output']>;
+  taxGroup?: Maybe<ClbTaxGroup>;
+  usageId?: Maybe<Scalars['ID']['output']>;
+};
+
+export type ClbNameUsageSuggestions = {
+  __typename?: 'ClbNameUsageSuggestions';
+  suggestions?: Maybe<Array<Maybe<ClbNameUsageSuggestion>>>;
+};
+
 export type ClbNamesByCodeCount = {
   __typename?: 'ClbNamesByCodeCount';
   zoological?: Maybe<Scalars['Int']['output']>;
@@ -442,6 +462,18 @@ export type ClbReference = {
   __typename?: 'ClbReference';
   citation?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type ClbTaxGroup = {
+  __typename?: 'ClbTaxGroup';
+  codes?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  description?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
+  iconSVG?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  other?: Maybe<Scalars['Boolean']['output']>;
+  parents?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  phylopic?: Maybe<Scalars['String']['output']>;
 };
 
 export type ClbTaxaByRankCount = {
@@ -6819,6 +6851,7 @@ export type Query = {
   backboneSearch: TaxonSearchResult;
   call?: Maybe<Call>;
   checklistRoots?: Maybe<TaxonListResult>;
+  clbNameUsageSuggest?: Maybe<ClbNameUsageSuggestions>;
   collection?: Maybe<Collection>;
   collectionDescriptorGroup?: Maybe<CollectionDescriptorGroup>;
   collectionSearch?: Maybe<CollectionSearchResults>;
@@ -6921,6 +6954,13 @@ export type QueryChecklistRootsArgs = {
   datasetKey: Scalars['ID']['input'];
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type QueryClbNameUsageSuggestArgs = {
+  checklistKey?: InputMaybe<Scalars['ID']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  q: Scalars['String']['input'];
 };
 
 
@@ -7415,7 +7455,7 @@ export type QueryTaxonSearchArgs = {
 
 
 export type QueryTaxonSuggestionsArgs = {
-  datasetKey?: InputMaybe<Scalars['ID']['input']>;
+  checklistKey?: InputMaybe<Scalars['ID']['input']>;
   language?: InputMaybe<Language>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   preferAccepted?: InputMaybe<Scalars['Boolean']['input']>;
@@ -8278,10 +8318,10 @@ export type TaxonSuggestion = {
   acceptedNameOf?: Maybe<Scalars['String']['output']>;
   canonicalName?: Maybe<Scalars['String']['output']>;
   classification?: Maybe<Array<Maybe<Classification>>>;
-  key: Scalars['Int']['output'];
-  rank?: Maybe<Rank>;
+  key: Scalars['ID']['output'];
+  rank?: Maybe<Scalars['String']['output']>;
   scientificName?: Maybe<Scalars['String']['output']>;
-  taxonomicStatus?: Maybe<TaxonomicStatus>;
+  taxonomicStatus?: Maybe<Scalars['String']['output']>;
   vernacularName?: Maybe<Scalars['String']['output']>;
 };
 

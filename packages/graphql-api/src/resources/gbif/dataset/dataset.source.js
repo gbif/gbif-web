@@ -118,6 +118,37 @@ class DatasetAPI extends RESTDataSource {
       `${this.config.checklistBank}/dataset/${datasetKey}/reference/${referenceId}`,
     );
   }
+
+  async getClbNameUsageSuggestions({
+    checklistKey,
+    q,
+    limit,
+    status = [
+      'ACCEPTED',
+      'PROVISIONALLY_ACCEPTED',
+      'SYNONYM',
+      'AMBIGUOUS_SYNONYM',
+      'MISAPPLIED',
+    ],
+  }) {
+    const response = await this.get(
+      `${this.config.checklistBank}/dataset/${checklistKey}/nameusage/suggest`,
+      stringify({ q, status, limit }, { indices: false }),
+    );
+    return response;
+  }
+
+  async getTaxGroupByName({ name }) {
+    const response = await this.get(
+      `${this.config.checklistBank}/vocab/taxgroup`,
+    );
+    const taxGroup = response.find((group) => group.name === name);
+    if (taxGroup) {
+      return taxGroup;
+    }
+    // If the tax group is not found, return an empty object or handle it as needed
+    return null;
+  }
 }
 
 export default DatasetAPI;

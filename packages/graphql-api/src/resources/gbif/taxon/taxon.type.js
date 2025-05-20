@@ -49,7 +49,7 @@ const typeDef = gql`
       preferAccepted: Boolean
       vernacularNamesOnly: Boolean
       strictMatching: Boolean
-      datasetKey: ID
+      checklistKey: ID
       taxonScope: [ID!]
     ): [TaxonSuggestion]!
 
@@ -278,13 +278,13 @@ const typeDef = gql`
   }
 
   type TaxonSuggestion {
-    key: Int!
+    key: ID!
     scientificName: String
     canonicalName: String
-    rank: Rank
+    rank: String
     classification: [Classification]
     vernacularName: String
-    taxonomicStatus: TaxonomicStatus
+    taxonomicStatus: String
     acceptedNameOf: String
   }
 `;

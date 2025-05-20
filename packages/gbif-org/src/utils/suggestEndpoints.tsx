@@ -268,10 +268,89 @@ export const taxonKeySuggest = {
   },
 };
 
+export type TaxonSuggestType = SuggestFnProps & { checklistKey?: string | number };
+
+export const taxonKeyClbSuggest = {
+  render: (item: SuggestionItem) => {
+    const isSynonym = ['ambiguous synonym', 'synonym'].includes(item.status);
+    return (
+      <div>
+        {item.match}
+        <div style={{ maxWidth: '100%', fontSize: '0.85em' }}>
+          {isSynonym && <div className="g-text-orange-500">Synonym for {item.acceptedName}</div>}
+          {!isSynonym && (
+            <div style={{ color: '#aaa' }}>
+              <FormattedMessage
+                id="search.rankInGroup"
+                values={{ rank: item.rankLabel, group: item.context }}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  },
+  getSuggestions: ({
+    q,
+    siteConfig,
+    checklistKey,
+    intl,
+  }: TaxonSuggestType): SuggestResponseType => {
+    const abortController = new AbortController();
+    const graphqlService = new GraphQLService({
+      endpoint: siteConfig.graphqlEndpoint,
+      abortSignal: abortController.signal,
+      locale: 'en',
+    });
+
+    const SEARCH = `
+      query($checklistKey: ID!, $q: String!) {
+        clbNameUsageSuggest(q: $q, checklistKey: $checklistKey) {
+          suggestions {
+            match
+            usageId
+            acceptedUsageId
+            acceptedName
+            rank
+            status
+            suggestion
+            context
+          }
+        }
+      }   
+    `;
+    const promise = graphqlService.query(SEARCH, {
+      q,
+      checklistKey: checklistKey,
+    });
+    return {
+      promise: promise
+        .then((res) => res.json())
+        .then((response) => {
+          return (response.data?.clbNameUsageSuggest?.suggestions ?? []).map((i) => ({
+            ...i,
+            title: i.suggestion,
+            key: i.usageId,
+            rankLabel: intl.formatMessage({
+              id: `enums.taxonRank.${i.rank.toUpperCase()}`,
+              defaultMessage: i.rank,
+            }),
+          }));
+        }),
+      cancel: () => abortController.abort(CANCEL_REQUEST),
+    };
+  },
+};
+
 export const taxonKeyVernacularSuggest = {
   placeholder: 'search.placeholders.default',
   // how to get the list of suggestion data
-  getSuggestions: ({ q, siteConfig, currentLocale }: SuggestFnProps): SuggestResponseType => {
+  getSuggestions: ({
+    q,
+    siteConfig,
+    currentLocale,
+    checklistKey,
+  }: TaxonSuggestType): SuggestResponseType => {
     const language = currentLocale.iso3LetterCode ?? 'eng';
 
     const abortController = new AbortController();
@@ -282,8 +361,8 @@ export const taxonKeyVernacularSuggest = {
     });
 
     const SEARCH = `
-      query($q: String, $language: Language, $datasetKey: ID) {
-        taxonSuggestions( q: $q, language: $language, datasetKey: $datasetKey) {
+      query($q: String, $language: Language, $checklistKey: ID) {
+        taxonSuggestions( q: $q, language: $language, checklistKey: $checklistKey) {
           key
           scientificName
           vernacularName
@@ -298,7 +377,7 @@ export const taxonKeyVernacularSuggest = {
     const promise = graphqlService.query(SEARCH, {
       q,
       language: language,
-      datasetKey: siteConfig.vernacularNames?.datasetKey,
+      checklistKey: checklistKey,
     });
     return {
       promise: promise
@@ -312,7 +391,7 @@ export const taxonKeyVernacularSuggest = {
   // how to map the results to a single string value
   // how to display the individual suggestions in the list
   render: (suggestion: SuggestionItem) => {
-    const ranks = suggestion.classification.map((rank, i) => <span key={i}>{rank.name}</span>);
+    const ranks = suggestion?.classification?.map((rank, i) => <span key={i}>{rank.name}</span>);
 
     return (
       <div style={{ maxWidth: '100%' }}>
