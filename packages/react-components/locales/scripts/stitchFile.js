@@ -105,6 +105,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         ),
         preservationType: getFile(locale, `../${folder}/${locale}/enums/preservationType`),
         cms: getFile(locale, `../${folder}/${locale}/enums/cms`),
+        participationStatus: getFile(locale, `../${folder}/${locale}/enums/participationStatus`).participationStatus,
         // -- Add enums above this line (required by plopfile.js) --
       },
     },

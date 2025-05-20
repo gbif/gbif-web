@@ -2,6 +2,7 @@ import Properties, { Property } from '@/components/properties';
 import { ParticipantSummaryFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 import { cn } from '@/utils/shadcn';
+import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 
 type Props = {
@@ -15,9 +16,19 @@ export function ParticipantSummary({ participant, className }: Props) {
 
   return (
     <Properties className={cn('[&_a]:g-text-primary-500', className)}>
-      <Property labelId="Memeber status" value={participant.participationStatus} />
+      <Property
+        labelId="Memeber status"
+        value={participant.participationStatus}
+        formatter={(value) => (
+          <FormattedMessage id={`enums.participationStatus.${value}`} defaultMessage={value} />
+        )}
+      />
       <Property labelId="GBIF participant since" value={participant.participant?.membershipStart} />
-      <Property labelId="GBIF region" value={participant.gbifRegion} />
+      <Property
+        labelId="GBIF region"
+        value={participant.gbifRegion}
+        formatter={(v) => <FormattedMessage id={`enums.region.${v}`} defaultMessage={v} />}
+      />
       {headOfDelegation && (
         <Property
           labelId="Head of delegation"
