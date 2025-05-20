@@ -1,9 +1,9 @@
-import { Card, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { FormattedMessage } from 'react-intl';
-import { MapHeader } from './mapHeader';
 import { MapWidget } from '@/components/maps/mapWidget';
+import { Card, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Country, CountryDetailFromQuery, CountryDetailFromQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
+import { FormattedMessage } from 'react-intl';
+import { MapHeader } from './mapHeader';
 
 type DataFromCountryMapProps = {
   countryCode: string;
@@ -37,7 +37,10 @@ export function DataFromCountryMap({ countryCode }: DataFromCountryMapProps) {
               <MapHeader.Text id="TODO" defaultMessage="Occurrences" />
             </MapHeader.Item>
 
-            <MapHeader.Item>
+            <MapHeader.Item
+              pageId="datasetSearch"
+              searchParams={{ publishingCountry: countryCode }}
+            >
               <MapHeader.Count
                 value={countryDetail.data?.countryDetail?.fromDatasetCount}
                 loading={countryDetail.loading}
@@ -53,7 +56,7 @@ export function DataFromCountryMap({ countryCode }: DataFromCountryMapProps) {
               <MapHeader.Text id="TODO" defaultMessage="Countries and areas contribute data" />
             </MapHeader.Item>
 
-            <MapHeader.Item>
+            <MapHeader.Item pageId="publisherSearch" searchParams={{ country: countryCode }}>
               <MapHeader.Count
                 value={countryDetail.data?.countryDetail?.fromPublisherCount}
                 loading={countryDetail.loading}
