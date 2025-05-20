@@ -4,6 +4,7 @@ import { redirectDocument } from 'react-router-dom';
 import { CountryKeyAbout } from './about';
 import { CountryKeyAlienSpecies } from './alienSpecies';
 import { CountryKeyLayout, countryKeyLoader } from './layout';
+import { CountryKeyNews } from './news';
 import { CountryKeyParticipation } from './participation';
 import { CountryKeyProjects } from './projects';
 import { CountryKeyPublicationsAbout } from './publications/about';
@@ -52,6 +53,10 @@ export const countryKeyRoute: RouteObjectWithPlugins = {
     {
       path: 'projects',
       element: <CountryKeyProjects />,
+    },
+    {
+      path: 'news',
+      element: <CountryKeyNews />,
     },
     {
       path: 'publications',

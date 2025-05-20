@@ -219,6 +219,7 @@ type ResourceSearchResultsProps = {
   size?: number;
   offset: number;
   setOffset: (offset: number) => void;
+  disableHeaderActionButtons?: boolean;
 };
 
 export function ResourceSearchResults({
@@ -229,6 +230,7 @@ export function ResourceSearchResults({
   size,
   offset,
   setOffset,
+  disableHeaderActionButtons,
 }: ResourceSearchResultsProps) {
   if (loading) {
     return (
@@ -261,7 +263,7 @@ export function ResourceSearchResults({
             <FormattedMessage id={tabsConfig[activeTab].countKey} values={{ total: total ?? 0 }} />
           </CardTitle>
 
-          <HeaderActionButtons activeTab={activeTab} />
+          {!disableHeaderActionButtons && <HeaderActionButtons activeTab={activeTab} />}
         </CardHeader>
         <ul>
           {resources.map((resource) => (

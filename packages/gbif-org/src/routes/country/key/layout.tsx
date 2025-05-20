@@ -2,6 +2,8 @@ import { defaultDateFormatProps } from '@/components/headerComponents';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
 import {
+  CountNewsQuery,
+  CountNewsQueryVariables,
   CountProjectsQuery,
   CountProjectsQueryVariables,
   ParticipantQuery,
@@ -34,7 +36,7 @@ export function CountryKeyLayout() {
 
   const { data } = useLoaderData() as { data: ParticipantQuery };
   const hasProjects = useHasProjects(countryCode);
-
+  const hasNews = useHasNews(countryCode);
   const participant = data.nodeCountry;
 
   return (
@@ -126,6 +128,11 @@ export function CountryKeyLayout() {
                 children: <FormattedMessage id="TODO" defaultMessage="Projects" />,
                 hidden: !hasProjects,
               },
+              {
+                to: 'news',
+                children: <FormattedMessage id="TODO" defaultMessage="News" />,
+                hidden: !hasNews,
+              },
             ]}
           />
         </ArticleTextContainer>
@@ -167,6 +174,29 @@ const COUNT_PROJECTS_QUERY = /* GraphQL */ `
     resourceSearch(
       contentType: PROJECT
       predicate: { key: "contractCountry", type: equals, value: $countryCode }
+    ) {
+      documents(size: 0) {
+        total
+      }
+    }
+  }
+`;
+
+function useHasNews(countryCode: string) {
+  const { data } = useQuery<CountNewsQuery, CountNewsQueryVariables>(COUNT_NEWS_QUERY, {
+    variables: {
+      countryCode: countryCode,
+    },
+  });
+
+  return data?.resourceSearch?.documents.total > 0;
+}
+
+const COUNT_NEWS_QUERY = /* GraphQL */ `
+  query CountNews($countryCode: JSON!) {
+    resourceSearch(
+      contentType: NEWS
+      predicate: { key: "countriesOfCoverage", type: equals, value: $countryCode }
     ) {
       documents(size: 0) {
         total
