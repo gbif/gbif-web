@@ -1,14 +1,15 @@
-import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
-import { CountryKeyLayout, countryKeyLoader } from './layout';
-import { CountryKeySummary } from './summary';
-import { CountryKeyAbout } from './about';
-import { CountryKeyPublishing } from './publishing';
-import { CountryKeyParticipation } from './participation';
-import { CountryKeyPublicationsFrom } from './publications/from';
-import { CountryKeyPublicationsAbout } from './publications/about';
-import { redirectDocument } from 'react-router-dom';
 import { ParticipantQuery } from '@/gql/graphql';
+import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
+import { redirectDocument } from 'react-router-dom';
+import { CountryKeyAbout } from './about';
 import { CountryKeyAlienSpecies } from './alienSpecies';
+import { CountryKeyLayout, countryKeyLoader } from './layout';
+import { CountryKeyParticipation } from './participation';
+import { CountryKeyProjects } from './projects';
+import { CountryKeyPublicationsAbout } from './publications/about';
+import { CountryKeyPublicationsFrom } from './publications/from';
+import { CountryKeyPublishing } from './publishing';
+import { CountryKeySummary } from './summary';
 
 const id = 'countryKey';
 
@@ -47,6 +48,10 @@ export const countryKeyRoute: RouteObjectWithPlugins = {
     {
       path: 'alien-species',
       element: <CountryKeyAlienSpecies />,
+    },
+    {
+      path: 'projects',
+      element: <CountryKeyProjects />,
     },
     {
       path: 'publications',
