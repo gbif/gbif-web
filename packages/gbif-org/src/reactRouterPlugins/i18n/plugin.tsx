@@ -1,4 +1,5 @@
 import { Config } from '@/config/config';
+import { RootErrorPage } from '@/routes/rootErrorPage';
 import { Outlet } from 'react-router-dom';
 import { RouteObjectWithPlugins } from '..';
 import { I18nContextProvider } from './i18nContextProvider';
@@ -47,6 +48,7 @@ export function applyI18nPlugin(
           });
         return { messages: { ...messages, ...localeLanguage } };
       },
+      errorElement: <RootErrorPage />,
       element: (
         <I18nContextProvider
           locale={localeOption}

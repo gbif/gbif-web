@@ -184,9 +184,9 @@ function generateGithubIssueBody(error: Error, title?: string, additionalInfo?: 
 \n\n\`\`\`
 **Error message for diagnostics:**
 ${title ?? 'Unknown error'}
-${error.message ?? 'No message'}
+${error?.message ?? 'No message'}
 
-${error.stack || 'No stack trace available'}
+${error?.stack || 'No stack trace available'}
 \`\`\`
 
 **Additional Info:**
