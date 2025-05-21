@@ -27,14 +27,6 @@ export type Scalars = {
   URL: { input: any; output: any; }
 };
 
-export type AcceptedUsage = {
-  __typename?: 'AcceptedUsage';
-  authorship?: Maybe<Scalars['String']['output']>;
-  key?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  rank?: Maybe<Scalars['String']['output']>;
-};
-
 export enum AccessionStatus {
   Institutional = 'INSTITUTIONAL',
   Project = 'PROJECT'
@@ -425,29 +417,6 @@ export type ChecklistBankVerbatimByTermCount = {
   gbifMultimedia?: Maybe<Scalars['Int']['output']>;
 };
 
-export type ChecklistClassification = {
-  __typename?: 'ChecklistClassification';
-  acceptedUsage: AcceptedUsage;
-  checklistKey: Scalars['ID']['output'];
-  classification?: Maybe<Array<Classification>>;
-  issues?: Maybe<Array<Scalars['String']['output']>>;
-  iucnRedListCategoryCode?: Maybe<Scalars['String']['output']>;
-  meta?: Maybe<ChecklistMeta>;
-  taxonMatch?: Maybe<SpeciesMatchResult>;
-  usage: Usage;
-};
-
-export type ChecklistMeta = {
-  __typename?: 'ChecklistMeta';
-  mainIndex: ChecklistMetaMainIndex;
-};
-
-export type ChecklistMetaMainIndex = {
-  __typename?: 'ChecklistMetaMainIndex';
-  datasetKey: Scalars['ID']['output'];
-  datasetTitle: Scalars['String']['output'];
-};
-
 export type Citation = {
   __typename?: 'Citation';
   citationProvidedBySource?: Maybe<Scalars['Boolean']['output']>;
@@ -462,9 +431,10 @@ export enum CitesAppendix {
 
 export type Classification = {
   __typename?: 'Classification';
-  key?: Maybe<Scalars['String']['output']>;
+  key?: Maybe<Scalars['Int']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   rank?: Maybe<Scalars['String']['output']>;
+  synonym?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type Collection = {
@@ -1858,6 +1828,13 @@ export type DescriptorMatches = {
   usageRank?: Maybe<Rank>;
 };
 
+export type Diagnostics = {
+  __typename?: 'Diagnostics';
+  matchType?: Maybe<Scalars['String']['output']>;
+  note?: Maybe<Scalars['String']['output']>;
+  status?: Maybe<Scalars['String']['output']>;
+};
+
 export type DirectoryContact = {
   __typename?: 'DirectoryContact';
   address?: Maybe<Scalars['String']['output']>;
@@ -2945,13 +2922,14 @@ export type GadmHigherRegions = {
   name?: Maybe<Scalars['String']['output']>;
 };
 
-/** Deprecated. Use the checklistClassification field instead */
 export type GbifClassification = {
   __typename?: 'GbifClassification';
   acceptedUsage?: Maybe<OccurrenceNameUsage>;
   class?: Maybe<Scalars['String']['output']>;
   classKey?: Maybe<Scalars['Int']['output']>;
   classification?: Maybe<Array<Maybe<Classification>>>;
+  classificationPath?: Maybe<Scalars['String']['output']>;
+  diagnostics?: Maybe<Diagnostics>;
   family?: Maybe<Scalars['String']['output']>;
   familyKey?: Maybe<Scalars['Int']['output']>;
   genus?: Maybe<Scalars['String']['output']>;
@@ -4687,8 +4665,6 @@ export type Occurrence = {
   catalogNumber?: Maybe<Scalars['String']['output']>;
   class?: Maybe<Scalars['String']['output']>;
   classKey?: Maybe<Scalars['ID']['output']>;
-  classification?: Maybe<ChecklistClassification>;
-  classifications: Array<ChecklistClassification>;
   collection?: Maybe<Collection>;
   collectionCode?: Maybe<Scalars['String']['output']>;
   collectionID?: Maybe<Scalars['String']['output']>;
@@ -4951,11 +4927,6 @@ export type Occurrence = {
 };
 
 
-export type OccurrenceClassificationArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
-};
-
-
 export type OccurrenceIssuesArgs = {
   types?: InputMaybe<Array<Scalars['String']['input']>>;
 };
@@ -4981,7 +4952,7 @@ export type OccurrenceCardinality = {
   __typename?: 'OccurrenceCardinality';
   basisOfRecord: Scalars['Long']['output'];
   catalogNumber: Scalars['Long']['output'];
-  classKey: Scalars['ID']['output'];
+  classKey: Scalars['Long']['output'];
   collectionCode: Scalars['Long']['output'];
   collectionKey: Scalars['Long']['output'];
   continent: Scalars['Long']['output'];
@@ -4991,9 +4962,10 @@ export type OccurrenceCardinality = {
   dwcaExtension: Scalars['Long']['output'];
   establishmentMeans: Scalars['Long']['output'];
   eventId: Scalars['Long']['output'];
-  familyKey: Scalars['ID']['output'];
+  familyKey: Scalars['Long']['output'];
   gadmGid: Scalars['Long']['output'];
-  genusKey: Scalars['ID']['output'];
+  gbifClassification_usage_key: Scalars['Long']['output'];
+  genusKey: Scalars['Long']['output'];
   higherGeography: Scalars['Long']['output'];
   hostingOrganizationKey: Scalars['Long']['output'];
   identifiedBy: Scalars['Long']['output'];
@@ -5002,14 +4974,14 @@ export type OccurrenceCardinality = {
   isSequenced: Scalars['Long']['output'];
   issue: Scalars['Long']['output'];
   iucnRedListCategory: Scalars['Long']['output'];
-  kingdomKey: Scalars['ID']['output'];
+  kingdomKey: Scalars['Long']['output'];
   license: Scalars['Long']['output'];
   locality: Scalars['Long']['output'];
   mediaType: Scalars['Long']['output'];
   month: Scalars['Long']['output'];
   networkKey: Scalars['Long']['output'];
-  orderKey: Scalars['ID']['output'];
-  phylumKey: Scalars['ID']['output'];
+  orderKey: Scalars['Long']['output'];
+  phylumKey: Scalars['Long']['output'];
   preparations: Scalars['Long']['output'];
   programme: Scalars['Long']['output'];
   projectId: Scalars['Long']['output'];
@@ -5021,63 +4993,12 @@ export type OccurrenceCardinality = {
   sampleSizeUnit: Scalars['Long']['output'];
   samplingProtocol: Scalars['Long']['output'];
   sex: Scalars['Long']['output'];
-  speciesKey: Scalars['ID']['output'];
+  speciesKey: Scalars['Long']['output'];
   stateProvince: Scalars['Long']['output'];
-  taxonKey: Scalars['ID']['output'];
+  taxonKey: Scalars['Long']['output'];
   typeStatus: Scalars['Long']['output'];
-  usageKey: Scalars['ID']['output'];
   verbatimScientificName: Scalars['Long']['output'];
   waterBody: Scalars['Long']['output'];
-};
-
-
-export type OccurrenceCardinalityClassKeyArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
-};
-
-
-export type OccurrenceCardinalityFamilyKeyArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
-};
-
-
-export type OccurrenceCardinalityGenusKeyArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
-};
-
-
-export type OccurrenceCardinalityIucnRedListCategoryArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
-};
-
-
-export type OccurrenceCardinalityKingdomKeyArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
-};
-
-
-export type OccurrenceCardinalityOrderKeyArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
-};
-
-
-export type OccurrenceCardinalityPhylumKeyArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
-};
-
-
-export type OccurrenceCardinalitySpeciesKeyArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
-};
-
-
-export type OccurrenceCardinalityTaxonKeyArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
-};
-
-
-export type OccurrenceCardinalityUsageKeyArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type OccurrenceClusterLink = {
@@ -5149,7 +5070,6 @@ export type OccurrenceExtensions = {
 
 export type OccurrenceFacet = {
   __typename?: 'OccurrenceFacet';
-  acceptedUsageKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
   agentIds_type?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   agentIds_value?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   basisOfRecord?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
@@ -5179,6 +5099,35 @@ export type OccurrenceFacet = {
   eventId?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   familyKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
   gadmGid?: Maybe<Array<Maybe<OccurrenceFacetResult_Gadm>>>;
+  gbifClassification_acceptedUsage_key?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
+  gbifClassification_acceptedUsage_rank?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
+  gbifClassification_classificationPath?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
+  gbifClassification_classification_key?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
+  gbifClassification_classification_rank?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
+  gbifClassification_classification_synonym?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  gbifClassification_diagnostics_matchType?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
+  gbifClassification_diagnostics_status?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
+  gbifClassification_synonym?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  gbifClassification_taxonID?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
+  gbifClassification_usageParsedName_abbreviated?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  gbifClassification_usageParsedName_autonym?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  gbifClassification_usageParsedName_basionymAuthorship_empty?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  gbifClassification_usageParsedName_basionymAuthorship_year?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
+  gbifClassification_usageParsedName_binomial?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  gbifClassification_usageParsedName_candidatus?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  gbifClassification_usageParsedName_combinationAuthorship_empty?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  gbifClassification_usageParsedName_combinationAuthorship_year?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
+  gbifClassification_usageParsedName_doubtful?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  gbifClassification_usageParsedName_incomplete?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  gbifClassification_usageParsedName_indetermined?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  gbifClassification_usageParsedName_notho?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
+  gbifClassification_usageParsedName_rank?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
+  gbifClassification_usageParsedName_state?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
+  gbifClassification_usageParsedName_trinomial?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  gbifClassification_usageParsedName_type?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
+  gbifClassification_usage_key?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
+  gbifClassification_usage_name?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
+  gbifClassification_usage_rank?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   genusKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
   hasCoordinate?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
   hasGeospatialIssue?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
@@ -5233,21 +5182,12 @@ export type OccurrenceFacet = {
   speciesKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
   startDayOfYear?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
   stateProvince?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
-  taxonID?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   taxonKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
   typeStatus?: Maybe<Array<Maybe<OccurrenceFacetResult_TypeStatus>>>;
   typifiedName?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
-  usageKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
   verbatimScientificName?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   waterBody?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   year?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
-};
-
-
-export type OccurrenceFacetAcceptedUsageKeyArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
-  from?: InputMaybe<Scalars['Int']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -5276,7 +5216,6 @@ export type OccurrenceFacetCatalogNumberArgs = {
 
 
 export type OccurrenceFacetClassKeyArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -5415,7 +5354,6 @@ export type OccurrenceFacetEventIdArgs = {
 
 
 export type OccurrenceFacetFamilyKeyArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -5427,8 +5365,181 @@ export type OccurrenceFacetGadmGidArgs = {
 };
 
 
+export type OccurrenceFacetGbifClassification_AcceptedUsage_KeyArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_AcceptedUsage_RankArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_ClassificationPathArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_Classification_KeyArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_Classification_RankArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_Classification_SynonymArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_Diagnostics_MatchTypeArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_Diagnostics_StatusArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_SynonymArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_TaxonIdArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_UsageParsedName_AbbreviatedArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_UsageParsedName_AutonymArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_UsageParsedName_BasionymAuthorship_EmptyArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_UsageParsedName_BasionymAuthorship_YearArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_UsageParsedName_BinomialArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_UsageParsedName_CandidatusArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_UsageParsedName_CombinationAuthorship_EmptyArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_UsageParsedName_CombinationAuthorship_YearArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_UsageParsedName_DoubtfulArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_UsageParsedName_IncompleteArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_UsageParsedName_IndeterminedArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_UsageParsedName_NothoArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_UsageParsedName_RankArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_UsageParsedName_StateArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_UsageParsedName_TrinomialArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_UsageParsedName_TypeArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_Usage_KeyArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_Usage_NameArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGbifClassification_Usage_RankArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
 export type OccurrenceFacetGenusKeyArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -5512,14 +5623,12 @@ export type OccurrenceFacetIssueArgs = {
 
 
 export type OccurrenceFacetIucnRedListCategoryArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type OccurrenceFacetKingdomKeyArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -5615,7 +5724,6 @@ export type OccurrenceFacetOccurrenceStatusArgs = {
 
 
 export type OccurrenceFacetOrderKeyArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -5646,7 +5754,6 @@ export type OccurrenceFacetParentEventIdArgs = {
 
 
 export type OccurrenceFacetPhylumKeyArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -5738,7 +5845,6 @@ export type OccurrenceFacetSexArgs = {
 
 
 export type OccurrenceFacetSpeciesKeyArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -5756,14 +5862,7 @@ export type OccurrenceFacetStateProvinceArgs = {
 };
 
 
-export type OccurrenceFacetTaxonIdArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
 export type OccurrenceFacetTaxonKeyArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -5776,13 +5875,6 @@ export type OccurrenceFacetTypeStatusArgs = {
 
 
 export type OccurrenceFacetTypifiedNameArgs = {
-  from?: InputMaybe<Scalars['Int']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type OccurrenceFacetUsageKeyArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -6045,21 +6137,13 @@ export type OccurrenceFacetResult_Taxon = {
   count: Scalars['Long']['output'];
   key: Scalars['String']['output'];
   occurrences: OccurrenceSearchResult;
-  /** Only apply to backbone taxa at the moment */
-  taxon?: Maybe<Taxon>;
-  /** Get whatever minimum shared data we can compile for both backbone and other checklists. The idea is to allow UIs to generate a nice diaplay label with classification */
-  taxonMatch?: Maybe<SpeciesMatchResult>;
+  taxon: Taxon;
 };
 
 
 export type OccurrenceFacetResult_TaxonOccurrencesArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type OccurrenceFacetResult_TaxonTaxonMatchArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type OccurrenceFacetResult_TypeStatus = {
@@ -6221,12 +6305,6 @@ export enum OccurrenceIssue {
   ZeroCoordinate = 'ZERO_COORDINATE'
 }
 
-export type OccurrenceMetaPredicate = {
-  __typename?: 'OccurrenceMetaPredicate';
-  predicate?: Maybe<Scalars['JSON']['output']>;
-  predicateHash?: Maybe<Scalars['String']['output']>;
-};
-
 export type OccurrenceNameUsage = {
   __typename?: 'OccurrenceNameUsage';
   formattedName: Scalars['String']['output'];
@@ -6384,8 +6462,11 @@ export enum OccurrenceSearchParameter {
 
 export type OccurrenceSearchResult = {
   __typename?: 'OccurrenceSearchResult';
+  _downloadPredicate?: Maybe<Scalars['JSON']['output']>;
   _meta?: Maybe<Scalars['JSON']['output']>;
   _predicate?: Maybe<Scalars['JSON']['output']>;
+  /** Register the search predicate with the v1 endpoints and get a hash back. This can be used to query e.g. the tile API. */
+  _v1PredicateHash?: Maybe<Scalars['String']['output']>;
   autoDateHistogram?: Maybe<OccurrenceAutoDateHistogram>;
   /** Get number of distinct values for a field. E.g. how many distinct datasetKeys in this result set */
   cardinality?: Maybe<OccurrenceCardinality>;
@@ -6395,8 +6476,6 @@ export type OccurrenceSearchResult = {
   facet?: Maybe<OccurrenceFacet>;
   /** Get histogram for a numeric field with the option to specify an interval size */
   histogram?: Maybe<OccurrenceHistogram>;
-  /** Register the search predicate with the v1 endpoints and get a hash back. This can be used to query e.g. the tile API. */
-  metaPredicate?: Maybe<Scalars['JSON']['output']>;
   /** Get statistics for a numeric field. Minimimum value, maximum etc. */
   stats?: Maybe<OccurrenceStats>;
 };
@@ -6469,12 +6548,6 @@ export enum OccurrenceStatus {
   Absent = 'ABSENT',
   Present = 'PRESENT'
 }
-
-export type OccurrenceTaxonFacetSummary = {
-  __typename?: 'OccurrenceTaxonFacetSummary';
-  classification?: Maybe<Array<Classification>>;
-  name: Scalars['String']['output'];
-};
 
 export type OrcId = {
   __typename?: 'OrcID';
@@ -6666,7 +6739,6 @@ export enum PipelineStep_Status {
 }
 
 export type Predicate = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
   distance?: InputMaybe<Scalars['String']['input']>;
   key?: InputMaybe<Scalars['String']['input']>;
   latitude?: InputMaybe<Scalars['JSON']['input']>;
@@ -6850,7 +6922,6 @@ export type Query = {
   programme?: Maybe<Programme>;
   resource?: Maybe<Resource>;
   resourceSearch?: Maybe<ResourceSearchResult>;
-  speciesMatchByUsageKey?: Maybe<SpeciesMatchResult>;
   staffMember?: Maybe<StaffMember>;
   staffMemberSearch?: Maybe<StaffMemberSearchResults>;
   taxon?: Maybe<Taxon>;
@@ -7242,7 +7313,6 @@ export type QueryOccurrenceSearchArgs = {
   apiKey?: InputMaybe<Scalars['String']['input']>;
   from?: InputMaybe<Scalars['Int']['input']>;
   predicate?: InputMaybe<Predicate>;
-  q?: InputMaybe<Scalars['String']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -7330,12 +7400,6 @@ export type QueryResourceSearchArgs = {
   sortOrder?: InputMaybe<ResourceSortOrder>;
   start?: InputMaybe<Scalars['String']['input']>;
   topics?: InputMaybe<Array<Scalars['String']['input']>>;
-};
-
-
-export type QuerySpeciesMatchByUsageKeyArgs = {
-  checklistKey?: InputMaybe<Scalars['ID']['input']>;
-  usageKey: Scalars['ID']['input'];
 };
 
 
@@ -7696,38 +7760,6 @@ export enum Source {
   IhIrn = 'IH_IRN',
   Organization = 'ORGANIZATION'
 }
-
-export type SpeciesMatchAcceptedUsage = {
-  __typename?: 'SpeciesMatchAcceptedUsage';
-  canonicalName?: Maybe<Scalars['String']['output']>;
-  doubtful?: Maybe<Scalars['Boolean']['output']>;
-  formattedName?: Maybe<Scalars['String']['output']>;
-  key: Scalars['ID']['output'];
-  name?: Maybe<Scalars['String']['output']>;
-  rank?: Maybe<Scalars['String']['output']>;
-};
-
-/** A smaller subset of the fields provided by the match service v2. This is used in lack of a species API for e.g. extended CoL. */
-export type SpeciesMatchResult = {
-  __typename?: 'SpeciesMatchResult';
-  acceptedUsage?: Maybe<SpeciesMatchAcceptedUsage>;
-  checklistKey: Scalars['ID']['output'];
-  classification: Array<Maybe<Classification>>;
-  iucnStatus?: Maybe<Scalars['String']['output']>;
-  iucnStatusCode?: Maybe<Scalars['String']['output']>;
-  synonym: Scalars['Boolean']['output'];
-  usage: SpeciesMatchUsage;
-};
-
-export type SpeciesMatchUsage = {
-  __typename?: 'SpeciesMatchUsage';
-  canonicalName?: Maybe<Scalars['String']['output']>;
-  doubtful?: Maybe<Scalars['Boolean']['output']>;
-  formattedName?: Maybe<Scalars['String']['output']>;
-  key: Scalars['ID']['output'];
-  name?: Maybe<Scalars['String']['output']>;
-  rank?: Maybe<Scalars['String']['output']>;
-};
 
 export type StaffMember = {
   __typename?: 'StaffMember';
@@ -8473,17 +8505,6 @@ export enum TypeStatus {
   TypeSpecies = 'TYPE_SPECIES'
 }
 
-export type Usage = {
-  __typename?: 'Usage';
-  authorship?: Maybe<Scalars['String']['output']>;
-  genericName?: Maybe<Scalars['String']['output']>;
-  infraspecificEpithet?: Maybe<Scalars['String']['output']>;
-  key?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  rank?: Maybe<Scalars['String']['output']>;
-  specificEpithet?: Maybe<Scalars['String']['output']>;
-};
-
 export type UsageParsedName = {
   __typename?: 'UsageParsedName';
   abbreviated?: Maybe<Scalars['Boolean']['output']>;
@@ -9205,7 +9226,7 @@ export type OccurrenceQueryVariables = Exact<{
 }>;
 
 
-export type OccurrenceQuery = { __typename?: 'Query', occurrence?: { __typename?: 'Occurrence', key?: number | null, coordinates?: any | null, organismName?: string | null, lastCrawled?: string | null, countryCode?: Country | null, stateProvince?: string | null, locality?: string | null, eventDate?: string | null, typeStatus?: Array<string | null> | null, references?: string | null, issues?: Array<OccurrenceIssue> | null, basisOfRecord?: string | null, dynamicProperties?: string | null, institutionKey?: string | null, collectionKey?: string | null, isInCluster?: boolean | null, datasetKey?: string | null, datasetTitle?: string | null, publishingOrgKey?: string | null, publisherTitle?: string | null, institutionCode?: string | null, gadm?: any | null, stillImageCount?: number | null, movingImageCount?: number | null, soundCount?: number | null, scientificName?: string | null, volatile?: { __typename?: 'VolatileOccurrenceData', globe?: { __typename?: 'Globe', svg: string, lat: number, lon: number } | null, features?: { __typename?: 'OccurrenceFeatures', isSpecimen?: boolean | null, isTreament?: boolean | null, isSequenced?: boolean | null, isClustered?: boolean | null, isSamplingEvent?: boolean | null, firstIIIF?: string | null } | null } | null, dataset?: { __typename?: 'Dataset', citation?: { __typename?: 'Citation', text: string } | null } | null, extensions?: { __typename?: 'OccurrenceExtensions', audubon?: Array<any | null> | null, amplification?: Array<any | null> | null, germplasmAccession?: Array<any | null> | null, germplasmMeasurementScore?: Array<any | null> | null, germplasmMeasurementTrait?: Array<any | null> | null, germplasmMeasurementTrial?: Array<any | null> | null, identification?: Array<any | null> | null, identifier?: Array<any | null> | null, image?: Array<any | null> | null, measurementOrFact?: Array<any | null> | null, multimedia?: Array<any | null> | null, reference?: Array<any | null> | null, eolReference?: Array<any | null> | null, resourceRelationship?: Array<any | null> | null, cloning?: Array<any | null> | null, gelImage?: Array<any | null> | null, loan?: Array<any | null> | null, materialSample?: Array<any | null> | null, permit?: Array<any | null> | null, preparation?: Array<any | null> | null, preservation?: Array<any | null> | null, extendedMeasurementOrFact?: Array<any | null> | null, chronometricAge?: Array<any | null> | null, dnaDerivedData?: Array<any | null> | null } | null, stillImages?: Array<{ __typename?: 'MultimediaItem', title?: string | null, type?: string | null, format?: string | null, identifier?: string | null, created?: string | null, creator?: string | null, license?: string | null, publisher?: string | null, references?: string | null, rightsHolder?: string | null, description?: string | null, thumbor?: string | null }> | null, sounds?: Array<{ __typename?: 'MultimediaItem', title?: string | null, type?: string | null, format?: string | null, identifier?: string | null, created?: string | null, creator?: string | null, license?: string | null, publisher?: string | null, references?: string | null, rightsHolder?: string | null, description?: string | null, thumbor?: string | null }> | null, movingImages?: Array<{ __typename?: 'MultimediaItem', title?: string | null, type?: string | null, format?: string | null, identifier?: string | null, created?: string | null, creator?: string | null, license?: string | null, publisher?: string | null, references?: string | null, rightsHolder?: string | null, description?: string | null, thumbor?: string | null }> | null, gbifClassification?: { __typename?: 'GbifClassification', kingdom?: string | null, kingdomKey?: number | null, phylum?: string | null, phylumKey?: number | null, class?: string | null, classKey?: number | null, order?: string | null, orderKey?: number | null, family?: string | null, familyKey?: number | null, genus?: string | null, genusKey?: number | null, species?: string | null, speciesKey?: number | null, synonym?: boolean | null, classification?: Array<{ __typename?: 'Classification', key?: string | null, rank?: string | null, name?: string | null } | null> | null, usage?: { __typename?: 'OccurrenceNameUsage', rank: string, formattedName: string, key: number } | null, acceptedUsage?: { __typename?: 'OccurrenceNameUsage', formattedName: string, key: number } | null } | null, primaryImage?: { __typename?: 'MultimediaItem', identifier?: string | null } | null, terms?: Array<{ __typename?: 'Term', simpleName?: string | null, verbatim?: any | null, value?: any | null, htmlValue?: any | null, remarks?: string | null, issues?: Array<any> | null } | null> | null, recordedByIDs?: Array<{ __typename?: 'AssociatedID', type?: string | null, value?: string | null } | null> | null, identifiedByIDs?: Array<{ __typename?: 'AssociatedID', type?: string | null, value?: string | null } | null> | null } | null };
+export type OccurrenceQuery = { __typename?: 'Query', occurrence?: { __typename?: 'Occurrence', key?: number | null, coordinates?: any | null, organismName?: string | null, lastCrawled?: string | null, countryCode?: Country | null, stateProvince?: string | null, locality?: string | null, eventDate?: string | null, typeStatus?: Array<string | null> | null, references?: string | null, issues?: Array<OccurrenceIssue> | null, basisOfRecord?: string | null, dynamicProperties?: string | null, institutionKey?: string | null, collectionKey?: string | null, isInCluster?: boolean | null, datasetKey?: string | null, datasetTitle?: string | null, publishingOrgKey?: string | null, publisherTitle?: string | null, institutionCode?: string | null, gadm?: any | null, stillImageCount?: number | null, movingImageCount?: number | null, soundCount?: number | null, scientificName?: string | null, volatile?: { __typename?: 'VolatileOccurrenceData', globe?: { __typename?: 'Globe', svg: string, lat: number, lon: number } | null, features?: { __typename?: 'OccurrenceFeatures', isSpecimen?: boolean | null, isTreament?: boolean | null, isSequenced?: boolean | null, isClustered?: boolean | null, isSamplingEvent?: boolean | null, firstIIIF?: string | null } | null } | null, dataset?: { __typename?: 'Dataset', citation?: { __typename?: 'Citation', text: string } | null } | null, extensions?: { __typename?: 'OccurrenceExtensions', audubon?: Array<any | null> | null, amplification?: Array<any | null> | null, germplasmAccession?: Array<any | null> | null, germplasmMeasurementScore?: Array<any | null> | null, germplasmMeasurementTrait?: Array<any | null> | null, germplasmMeasurementTrial?: Array<any | null> | null, identification?: Array<any | null> | null, identifier?: Array<any | null> | null, image?: Array<any | null> | null, measurementOrFact?: Array<any | null> | null, multimedia?: Array<any | null> | null, reference?: Array<any | null> | null, eolReference?: Array<any | null> | null, resourceRelationship?: Array<any | null> | null, cloning?: Array<any | null> | null, gelImage?: Array<any | null> | null, loan?: Array<any | null> | null, materialSample?: Array<any | null> | null, permit?: Array<any | null> | null, preparation?: Array<any | null> | null, preservation?: Array<any | null> | null, extendedMeasurementOrFact?: Array<any | null> | null, chronometricAge?: Array<any | null> | null, dnaDerivedData?: Array<any | null> | null } | null, stillImages?: Array<{ __typename?: 'MultimediaItem', title?: string | null, type?: string | null, format?: string | null, identifier?: string | null, created?: string | null, creator?: string | null, license?: string | null, publisher?: string | null, references?: string | null, rightsHolder?: string | null, description?: string | null, thumbor?: string | null }> | null, sounds?: Array<{ __typename?: 'MultimediaItem', title?: string | null, type?: string | null, format?: string | null, identifier?: string | null, created?: string | null, creator?: string | null, license?: string | null, publisher?: string | null, references?: string | null, rightsHolder?: string | null, description?: string | null, thumbor?: string | null }> | null, movingImages?: Array<{ __typename?: 'MultimediaItem', title?: string | null, type?: string | null, format?: string | null, identifier?: string | null, created?: string | null, creator?: string | null, license?: string | null, publisher?: string | null, references?: string | null, rightsHolder?: string | null, description?: string | null, thumbor?: string | null }> | null, gbifClassification?: { __typename?: 'GbifClassification', kingdom?: string | null, kingdomKey?: number | null, phylum?: string | null, phylumKey?: number | null, class?: string | null, classKey?: number | null, order?: string | null, orderKey?: number | null, family?: string | null, familyKey?: number | null, genus?: string | null, genusKey?: number | null, species?: string | null, speciesKey?: number | null, synonym?: boolean | null, classification?: Array<{ __typename?: 'Classification', key?: number | null, rank?: string | null, name?: string | null } | null> | null, usage?: { __typename?: 'OccurrenceNameUsage', rank: string, formattedName: string, key: number } | null, acceptedUsage?: { __typename?: 'OccurrenceNameUsage', formattedName: string, key: number } | null } | null, primaryImage?: { __typename?: 'MultimediaItem', identifier?: string | null } | null, terms?: Array<{ __typename?: 'Term', simpleName?: string | null, verbatim?: any | null, value?: any | null, htmlValue?: any | null, remarks?: string | null, issues?: Array<any> | null } | null> | null, recordedByIDs?: Array<{ __typename?: 'AssociatedID', type?: string | null, value?: string | null } | null> | null, identifiedByIDs?: Array<{ __typename?: 'AssociatedID', type?: string | null, value?: string | null } | null> | null } | null };
 
 export type SlowOccurrenceKeyQueryVariables = Exact<{
   key: Scalars['ID']['input'];
