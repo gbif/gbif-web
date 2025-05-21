@@ -6,7 +6,7 @@ const typeDef = gql`
       checklistKey: ID
       q: String!
       limit: Int
-    ): ClbNameUsageSuggestions
+    ): [ClbNameUsageSuggestion]
   }
 
   type ClbDataset {
@@ -26,10 +26,6 @@ const typeDef = gql`
     Stats about the dataset, defaulting to latest finished import
     """
     import(state: String, limit: Int): ClbImport
-  }
-
-  type ClbNameUsageSuggestions {
-    suggestions: [ClbNameUsageSuggestion]
   }
 
   type ClbNameUsageSuggestion {
