@@ -23,11 +23,11 @@ const ToastViewport = React.forwardRef<
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName;
 
 const toastVariants = cva(
-  'g-group g-pointer-events-auto g-relative g-flex g-w-full g-items-center g-justify-between g-space-x-2 g-overflow-hidden g-rounded-md g-border g-p-4 g-pr-6 g-shadow-lg g-transition-all data-[swipe=cancel]:g-translate-x-0 data-[swipe=end]:g-translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:g-translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:g-transition-none data-[state=open]:g-animate-in data-[state=closed]:g-animate-out data-[swipe=end]:g-animate-out data-[state=closed]:g-fade-out-80 data-[state=closed]:g-slide-out-to-right-full data-[state=open]:g-slide-in-from-top-full data-[state=open]:sm:g-slide-in-from-bottom-full',
+  'g-group g-pointer-events-auto g-relative g-flex g-w-full g-items-center g-justify-between g-space-x-2 g-overflow-hidden g-rounded-md g-border g-border-solid g-p-4 g-pr-6 g-shadow-lg g-transition-all data-[swipe=cancel]:g-translate-x-0 data-[swipe=end]:g-translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:g-translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:g-transition-none data-[state=open]:g-animate-in data-[state=closed]:g-animate-out data-[swipe=end]:g-animate-out data-[state=closed]:g-fade-out-80 data-[state=closed]:g-slide-out-to-right-full data-[state=open]:g-slide-in-from-top-full data-[state=open]:sm:g-slide-in-from-bottom-full',
   {
     variants: {
       variant: {
-        default: 'g-border g-bg-primary-500 g-text-primaryContrast-500',
+        default: 'g-border g-border-solid g-bg-primary-500 g-text-primaryContrast-500',
         destructive:
           'destructive g-group g-border-destructive g-bg-destructive g-text-destructive-foreground',
         warning: 'destructive g-group g-border-amber-600 g-bg-amber-500 g-text-white',
@@ -60,7 +60,7 @@ const ToastAction = React.forwardRef<
   <ToastPrimitives.Action
     ref={ref}
     className={cn(
-      'g-inline-flex g-h-8 g-shrink-0 g-items-center g-justify-center g-rounded-md g-border g-bg-transparent g-px-3 g-text-sm g-font-medium g-transition-colors hover:g-bg-secondary focus:g-outline-none focus:g-ring-1 focus:g-ring-ring disabled:g-pointer-events-none disabled:g-opacity-50 group-[.destructive]:g-border-muted/40 group-[.destructive]:g-hover group-[.destructive]:hover:g-bg-destructive group-[.destructive]:g-hover group-[.destructive]:focus:g-ring-destructive',
+      'g-inline-flex g-h-8 g-shrink-0 g-items-center g-justify-center g-rounded-md g-border g-border-solid g-bg-transparent g-px-3 g-text-sm g-font-medium g-transition-colors hover:g-bg-secondary focus:g-outline-none focus:g-ring-1 focus:g-ring-ring disabled:g-pointer-events-none disabled:g-opacity-50 group-[.destructive]:g-border-muted/40 group-[.destructive]:g-hover group-[.destructive]:hover:g-bg-destructive group-[.destructive]:g-hover group-[.destructive]:focus:g-ring-destructive',
       className
     )}
     {...props}

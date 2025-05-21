@@ -22,7 +22,7 @@ export function ResultCardImage({ image, link }: Props) {
         <img
           width={180}
           height={120}
-          className="g-border g-border-slate-200/50 g-rounded g-w-[180px] g-h-[120px]"
+          className="g-border-solid g-border-slate-200/50 g-rounded g-w-[180px] g-h-[120px]"
           src={image.file.url}
         />
       </DynamicLink>

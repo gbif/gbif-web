@@ -6,6 +6,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import { Skeleton } from '@/components/ui/skeleton';
 import { CarouselBlockDetailsFragment } from '@/gql/graphql';
 import { useI18n } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
@@ -15,7 +16,6 @@ import { ArticleBody } from '../../components/articleBody';
 import { ArticleTextContainer } from '../../components/articleTextContainer';
 import { BlockItem } from '../blockItem';
 import { backgroundColorMap, BlockContainer, BlockHeading } from './_shared';
-import { Skeleton } from '@/components/ui/skeleton';
 
 fragmentManager.register(/* GraphQL */ `
   fragment CarouselBlockDetails on CarouselBlock {
@@ -90,9 +90,12 @@ export function CarouselBlock({ resource }: Props) {
             {Array.from({ length: count }).map((_, idx) => (
               <button
                 key={idx}
-                className={cn('g-border-gray-600 g-border g-rounded-full g-h-3 g-w-3', {
-                  'g-bg-gray-600': idx === current,
-                })}
+                className={cn(
+                  'g-border-gray-600 g-border g-border-solid g-rounded-full g-h-3 g-w-3',
+                  {
+                    'g-bg-gray-600': idx === current,
+                  }
+                )}
                 disabled={idx === current}
                 onClick={() => api?.scrollTo(idx)}
               />

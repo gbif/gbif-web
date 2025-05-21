@@ -19,7 +19,7 @@ export default function Collections() {
     <ArticleContainer className="g-bg-slate-100">
       <ArticleTextContainer className="g-max-w-screen-xl">
         {isNoneEmptyArray(collections) && (
-          <Card className="g-relative g-overflow-x-auto g-rounded g-border g-mb-4">
+          <Card className="g-relative g-overflow-x-auto g-rounded g-border g-border-solid g-mb-4">
             <table className="g-w-full g-text-sm g-text-left rtl:g-text-right g-text-gray-500 dark:g-text-gray-400">
               <thead className="g-text-slate-500 g-font-light g-bg-gray-50 dark:g-bg-gray-700 dark:g-text-gray-400 g-border-b">
                 <tr>

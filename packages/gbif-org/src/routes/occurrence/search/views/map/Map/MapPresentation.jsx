@@ -292,7 +292,7 @@ function Map({
           <div className="g-z-10 g-absolute g-start-0 g-top-0 g-end-0">
             <StripeLoader active={mapLoading} className="g-w-full" />
           </div>
-          <div className="mapControls g-flex g-absolute g-bg-white g-z-10 g-border g-m-2 g-end-0 g-items-center">
+          <div className="mapControls g-flex g-absolute g-bg-white g-z-10 g-border g-border-solid g-m-2 g-end-0 g-items-center">
             <MenuButton onClick={() => broadcastEvent({ type: 'ZOOM_IN' })}>
               <MdZoomIn />
             </MenuButton>
@@ -351,7 +351,7 @@ function Map({
             defaultMapSettings={defaultMapSettings}
             predicateHash={predicateHash}
             q={q}
-            className="mapComponent g-relative [&>canvas:focus]:g-outline-none g-border g-border-slate-200 g-rounded g-flex g-flex-col g-h-full g-flex-auto g-z-0"
+            className="mapComponent g-relative [&>canvas:focus]:g-outline-none g-border g-border-solid g-border-slate-200 g-rounded g-flex g-flex-col g-h-full g-flex-auto g-z-0"
             query={query}
             onLoading={updateLoading}
             onMapClick={(e) => showList(false)}

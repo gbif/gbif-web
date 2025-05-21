@@ -74,7 +74,7 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
                 }}
                 src={publisher.logoUrl}
                 alt={'Publisher logo'}
-                className="g-rounded g-border g-border-slate-100 g-p-1 g-w-full"
+                className="g-rounded g-border g-border-solid g-border-slate-100 g-p-1 g-w-full"
               />
             </div>
           )}

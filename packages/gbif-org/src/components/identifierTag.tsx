@@ -91,7 +91,7 @@ export function IdentifierType({
     <span
       className={cn(
         className,
-        'gbif-identifierType g-px-2 g-rounded-s g-bg-primary-500 g-border g-border-primary-600 g-border-opacity-20 g-text-primaryContrast-500'
+        'gbif-identifierType g-px-2 g-rounded-s g-bg-primary-500 g-border g-border-solid g-border-primary-600 g-border-opacity-20 g-text-primaryContrast-500'
       )}
       {...props}
     >
@@ -112,7 +112,7 @@ export function IdentifierValue({
   return (
     <span
       className={cn(
-        'g-px-2 g-rounded-e g-border-solid g-border g-border-s-0 g-border-slate-800 g-border-opacity-20 ',
+        'g-px-2 g-rounded-e g-border-solid g-border g-border-solid g-border-s-0 g-border-slate-800 g-border-opacity-20 ',
         className
       )}
       {...props}

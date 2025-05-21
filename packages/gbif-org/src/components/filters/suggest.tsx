@@ -216,7 +216,7 @@ const Search = React.forwardRef(
         </div>
         <div className="g-absolute g-w-full g-z-10">
           <ul
-            className={`g-w-full g-bg-white g-shadow-2xl g-max-h-80 g-overflow-auto g-p-0 g-z-10 g-rounded g-border ${
+            className={`g-w-full g-bg-white g-shadow-2xl g-max-h-80 g-overflow-auto g-p-0 g-z-10 g-rounded g-border g-border-solid ${
               !isOpen && 'g-hidden'
             }`}
             {...getMenuProps()}

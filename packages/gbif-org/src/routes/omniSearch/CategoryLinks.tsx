@@ -92,7 +92,7 @@ function ListCard({
       <DynamicLink
         pageId={pageId}
         searchParams={searchParams}
-        className="g-flex g-items-center g-bg-white g-rounded-lg g-border g-border-gray-100 hover:g-border-primary-500 hover:g-shadow-md g-transition-all g-group"
+        className="g-flex g-items-center g-bg-white g-rounded-lg g-border g-border-solid g-border-gray-100 hover:g-border-primary-500 hover:g-shadow-md g-transition-all g-group"
       >
         <div className="g-flex g-flex-1 g-items-center g-gap-3 g-p-3 md:g-p-4">
           <div className="g-p-2 g-rounded-lg g-bg-primary-50 g-text-primary-600">

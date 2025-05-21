@@ -249,7 +249,7 @@ function Results({
                 ))}
             {institutions.offset === 0 && geojson?.features?.length > 0 && (
               <div className="g-relative">
-                <div className="g-absolute g-top-0 g-start-0 g-text-xs g-border g-rounded g-z-10 g-bg-slate-100 g-text-slate-800 g-py-0 g-px-1 g-m-2">
+                <div className="g-absolute g-top-0 g-start-0 g-text-xs g-border g-border-solid g-rounded g-z-10 g-bg-slate-100 g-text-slate-800 g-py-0 g-px-1 g-m-2">
                   <FormattedMessage
                     id="counts.nResultsWithCoordinates"
                     values={{ total: geojson.features.length ?? 0 }}

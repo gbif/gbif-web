@@ -83,7 +83,7 @@ export function Map({
           <div className="g-inline-block g-text-center g-mx-auto g-text-sm g-rounded-full g-bg-white g-shadow">
             <button
               className={cn(
-                'g-rounded-s-full g-border g-px-2 dark:g-bg-slate-700 dark:g-text-slate-100',
+                'g-rounded-s-full g-border g-border-solid g-px-2 dark:g-bg-slate-700 dark:g-text-slate-100',
                 {
                   'g-bg-slate-700 g-text-white g-border-slate-800 dark:g-bg-white dark:g-text-slate-700 dark:g-border-white':
                     mapType === 'participants',
@@ -95,7 +95,7 @@ export function Map({
             </button>
             <button
               className={cn(
-                'g-rounded-e-full g-border g-px-2 dark:g-bg-slate-700 dark:g-text-slate-100',
+                'g-rounded-e-full g-border g-border-solid g-px-2 dark:g-bg-slate-700 dark:g-text-slate-100',
                 {
                   'g-bg-slate-700 g-text-white g-border-slate-800 dark:g-bg-white dark:g-text-slate-700 dark:g-border-white':
                     mapType === 'publishers',

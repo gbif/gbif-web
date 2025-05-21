@@ -7,7 +7,9 @@ type Props = {
 
 export function ResultCardContainer({ className, children }: Props) {
   return (
-    <article className={cn('g-bg-slate-50 g-p-4 g-rounded g-border g-mb-4', className)}>
+    <article
+      className={cn('g-bg-slate-50 g-p-4 g-rounded g-border g-border-solid g-mb-4', className)}
+    >
       {children}
     </article>
   );

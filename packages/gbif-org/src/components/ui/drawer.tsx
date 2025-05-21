@@ -39,7 +39,7 @@ const DrawerContent = React.forwardRef<
       <DrawerPrimitive.Content
         ref={ref}
         className={cn(
-          'g-fixed g-inset-x-0 g-bottom-0 g-z-50 g-mt-24 g-flex g-h-auto g-flex-col g-rounded-t-[10px] g-border g-bg-background',
+          'g-fixed g-inset-x-0 g-bottom-0 g-z-50 g-mt-24 g-flex g-h-auto g-flex-col g-rounded-t-[10px] g-border g-border-solid g-bg-background',
           className
         )}
         {...props}
@@ -90,15 +90,14 @@ const DrawerDescription = React.forwardRef<
 DrawerDescription.displayName = DrawerPrimitive.Description.displayName;
 
 export {
-    Drawer,
-    DrawerPortal,
-    DrawerOverlay,
-    DrawerTrigger,
-    DrawerClose,
-    DrawerContent,
-    DrawerHeader,
-    DrawerFooter,
-    DrawerTitle,
-    DrawerDescription,
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerPortal,
+  DrawerTitle,
+  DrawerTrigger,
 };
-

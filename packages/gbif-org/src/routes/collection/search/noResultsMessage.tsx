@@ -12,7 +12,7 @@ export function NoResultsMessage() {
 
   return (
     <NoRecords>
-      <div className="g-mt-4 g-max-w-sm g-mx-auto g-border g-rounded-sm g-bg-white g-p-6 g-text-center">
+      <div className="g-mt-4 g-max-w-sm g-mx-auto g-border g-border-solid g-rounded-sm g-bg-white g-p-6 g-text-center">
         <div className="g-pb-6 g-text-sm">
           <FormattedMessage id="grscicoll.collectionSearchNoResultsMessage" />
         </div>
