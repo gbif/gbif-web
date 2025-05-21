@@ -306,16 +306,14 @@ export const taxonKeyClbSuggest = {
     const SEARCH = `
       query($checklistKey: ID!, $q: String!) {
         clbNameUsageSuggest(q: $q, checklistKey: $checklistKey) {
-          suggestions {
-            match
-            usageId
-            acceptedUsageId
-            acceptedName
-            rank
-            status
-            suggestion
-            context
-          }
+          match
+          usageId
+          acceptedUsageId
+          acceptedName
+          rank
+          status
+          suggestion
+          context
         }
       }   
     `;
@@ -327,7 +325,7 @@ export const taxonKeyClbSuggest = {
       promise: promise
         .then((res) => res.json())
         .then((response) => {
-          return (response.data?.clbNameUsageSuggest?.suggestions ?? []).map((i) => ({
+          return (response.data?.clbNameUsageSuggest ?? []).map((i) => ({
             ...i,
             title: i.suggestion,
             key: i.usageId,
