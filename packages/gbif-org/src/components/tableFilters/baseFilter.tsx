@@ -15,7 +15,7 @@ export function BaseFilter({ name, children, selectedOptions, isOpen, setIsOpen 
   return (
     <Popover key={name} onOpenChange={setIsOpen} modal open={isOpen}>
       <PopoverTrigger
-        className={cn('g-border g-py-1 g-px-2 ', {
+        className={cn('g-border g-border-solid g-py-1 g-px-2 ', {
           'g-border-primary g-text-primary': selectedOptions.length === 0,
           'g-bg-primary g-text-primary-foreground': selectedOptions.length > 0,
         })}
@@ -23,8 +23,8 @@ export function BaseFilter({ name, children, selectedOptions, isOpen, setIsOpen 
         {selectedOptions.length === 0
           ? name
           : selectedOptions.length === 1
-            ? `${name}: ${selectedOptions[0].label}`
-            : `${name}: ${selectedOptions.length}`}
+          ? `${name}: ${selectedOptions[0].label}`
+          : `${name}: ${selectedOptions.length}`}
       </PopoverTrigger>
       <PopoverContent className="g-p-0">
         <div className="g-p-4">{name}</div>

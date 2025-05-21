@@ -21,7 +21,7 @@ export function SecondaryLinks({ links, className }: Props) {
       {links.filter(isLinkWithUrl).map((link) => (
         <li
           key={link.url}
-          className="g-border g-border-transparent hover:g-border-slate-100 g-p-3 hover:g-shadow-md"
+          className="g-border g-border-solid g-border-transparent hover:g-border-slate-100 g-p-3 hover:g-shadow-md"
         >
           <a
             className="g-flex g-flex-row g-items-center g-underline"

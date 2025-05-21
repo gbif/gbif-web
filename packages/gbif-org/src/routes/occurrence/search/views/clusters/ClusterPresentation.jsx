@@ -127,7 +127,7 @@ export const ClusterPresentation = ({
           )}
           {!error && (
             <Card
-              className="g-flex-auto g-basis-full g-flex g-flex-col g-border g-rounded g-bg-white"
+              className="g-flex-auto g-basis-full g-flex g-flex-col g-border-solid g-rounded g-bg-white"
               style={useMobileLayout && mobileTab !== 'clusters' ? { display: 'none' } : {}}
             >
               <div className="g-w-full g-flex-auto g-overflow-hidden g-relative">

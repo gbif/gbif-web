@@ -21,7 +21,7 @@ type Props = {
 
 export function ProseCard({ title, url, image }: Props) {
   return (
-    <div className="g-mx-auto g-max-w-[min(24rem,100%)] g-bg-white g-border g-border-gray-200 g-rounded-lg g-shadow hover:g-shadow-md g-transition-shadow dark:g-bg-gray-800 dark:g-border-gray-700 g-w-full">
+    <div className="g-mx-auto g-max-w-[min(24rem,100%)] g-bg-white g-border g-border-solid g-border-gray-200 g-rounded-lg g-shadow hover:g-shadow-md g-transition-shadow dark:g-bg-gray-800 dark:g-border-gray-700 g-w-full">
       {image && (
         <ConditionalWrapper
           condition={typeof url === 'string'}

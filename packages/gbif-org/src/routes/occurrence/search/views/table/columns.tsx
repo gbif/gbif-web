@@ -51,7 +51,7 @@ export function useOccurrenceColumns({
               <DropdownMenuPortal>
                 <div className="gbif">
                   <DropdownMenuContent
-                    className="g-bg-white g-shadow-blocker g-rounded g-border g-border-slate-200"
+                    className="g-bg-white g-shadow-blocker g-rounded g-border g-border-solid g-border-slate-200"
                     style={{ zIndex: 100 }}
                   >
                     <DropdownMenuCheckboxItem
@@ -139,7 +139,7 @@ export function useOccurrenceColumns({
                 </div>
               )}
               <img
-                className="g-rounded g-border g-border-slate-200"
+                className="g-rounded g-border g-border-solid g-border-slate-200"
                 src={occurrence?.primaryImage?.thumbor}
               />
             </div>

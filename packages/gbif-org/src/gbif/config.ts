@@ -94,11 +94,18 @@ export const gbifConfig: Config = {
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: languagesOptions,
   theme: {
-    primary: '#4787fb', //'#69AA69',
-    // primary: '#69AA69',
-    stickyOffset: '0px',
-    borderRadius: 3,
-    // mapDensityColors: ['#ffd300', '#f4b456', '#e9928a', '#d96cc1', '#b93bff'],
+    dense: true,
+    primary: '#176f75',
+    linkColor: '#176f75',
+    fontSize: '15px',
+    background: '#E7E7E7',
+    paperBackground: '#ffffff',
+    paperBorderColor: '#e0e0e0',
+    color: '#162d3d',
+    fontFamily:
+      '"Roboto", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica", "Arial", sans-serif',
+    borderRadius: 4,
+    drawerZIndex: 50001,
   },
   dataHeader: {
     enableApiPopup: true,

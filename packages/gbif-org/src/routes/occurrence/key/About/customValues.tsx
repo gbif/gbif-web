@@ -180,7 +180,7 @@ export function AgentSummary({ agent }: { agent: { type: string; value: string }
   const { person } = data;
 
   return (
-    <div className="g-rounded g-border g-bg-white g-overflow-hidden g-shadow-sm g-flex g-flex-wrap">
+    <div className="g-rounded g-border g-border-solid g-bg-white g-overflow-hidden g-shadow-sm g-flex g-flex-wrap">
       <div className="g-flex-none">
         {person?.image?.value && <img className="g-block g-max-w-16" src={person?.image?.value} />}
       </div>

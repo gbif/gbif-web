@@ -335,7 +335,7 @@ const preconfiguredCharts = {
         <Card className="g-overflow-y-auto g-h-full g-p-2">
           <Media
             size={10}
-            className="g-pt-2 g-border g-rounded g-overflow-auto g-h-full"
+            className="g-pt-2 g-border g-border-solid g-rounded g-overflow-auto g-h-full"
             {...props}
           />
         </Card>

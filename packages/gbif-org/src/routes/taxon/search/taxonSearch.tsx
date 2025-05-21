@@ -156,7 +156,7 @@ export function Views({
           <DynamicHeightDiv
             minPxHeight={500}
             onlySetMinHeight
-            className="g-bg-white g-flex-1 g-border g-basis-full g-h-1 g-flex g-flex-col"
+            className="g-bg-white g-flex-1 g-border g-border-solid g-basis-full g-h-1 g-flex g-flex-col"
           >
             {view === 'tree' && <TaxonTree entityDrawerPrefix={entityDrawerPrefix} />}
           </DynamicHeightDiv>

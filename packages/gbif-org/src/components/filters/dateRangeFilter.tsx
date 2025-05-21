@@ -503,7 +503,7 @@ const DateInput = React.forwardRef<
       ref={ref}
       inputMode="numeric"
       className={cn(
-        'g-text-sm g-w-full g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset',
+        'g-text-sm g-w-full g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border g-border-solid focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset',
         className,
         {
           'g-text-red-500': colorAsError,

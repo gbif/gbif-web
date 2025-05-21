@@ -2,7 +2,7 @@ import { Separator } from '@/components/ui/separator';
 import { DocumentPreviewFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 import { cn } from '@/utils/shadcn';
-import { BsFilePdfFill as PdfIcon, BsTable } from 'react-icons/bs';
+import { BsTable, BsFilePdfFill as PdfIcon } from 'react-icons/bs';
 import { GrTextAlignLeft } from 'react-icons/gr';
 import { LuPresentation as PresentationIcon } from 'react-icons/lu';
 import { MdArchive, MdAudiotrack, MdFileDownload, MdImage, MdVideocam } from 'react-icons/md';
@@ -34,7 +34,7 @@ export function Documents({ documents, className }: Props) {
       {documents.filter(isValid).map((document, index) => (
         <li
           key={index}
-          className="g-border g-border-transparent hover:g-border-slate-100 g-p-3 hover:g-shadow-md dark:g-bg-zinc-800 dark:g-text-slate-800 g-text-white"
+          className="g-border g-border-solid g-border-transparent hover:g-border-slate-100 g-p-3 hover:g-shadow-md dark:g-bg-zinc-800 dark:g-text-slate-800 g-text-white"
         >
           <a
             className="g-flex g-flex-row g-cursor-pointer"

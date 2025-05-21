@@ -164,7 +164,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
                 }
               }}
               placeholder={formatMessage({ id: placeholder })}
-              className="g-text-sm g-w-full g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset"
+              className="g-text-sm g-w-full g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border g-border-solid focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset"
               onKeyDown={(e) => {
                 // if user press enter, then update the value
                 const value = e.currentTarget.value;
@@ -200,7 +200,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
           {options}
         </div>
         {selected.length === 0 && (
-          <div className="g-pointer-events-none g-text-slate-700 g-text-sm g-bg-slate-100 g-p-4 g-border g-left-0 g-right-0 g-mx-2 g-rounded">
+          <div className="g-pointer-events-none g-text-slate-700 g-text-sm g-bg-slate-100 g-p-4 g-border g-border-solid g-left-0 g-right-0 g-mx-2 g-rounded">
             <RangeHelp />
           </div>
         )}
