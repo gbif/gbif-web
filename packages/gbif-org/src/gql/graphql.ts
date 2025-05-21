@@ -419,11 +419,6 @@ export type ClbNameUsageSuggestion = {
   usageId?: Maybe<Scalars['ID']['output']>;
 };
 
-export type ClbNameUsageSuggestions = {
-  __typename?: 'ClbNameUsageSuggestions';
-  suggestions?: Maybe<Array<Maybe<ClbNameUsageSuggestion>>>;
-};
-
 export type ClbNamesByCodeCount = {
   __typename?: 'ClbNamesByCodeCount';
   zoological?: Maybe<Scalars['Int']['output']>;
@@ -6851,7 +6846,7 @@ export type Query = {
   backboneSearch: TaxonSearchResult;
   call?: Maybe<Call>;
   checklistRoots?: Maybe<TaxonListResult>;
-  clbNameUsageSuggest?: Maybe<ClbNameUsageSuggestions>;
+  clbNameUsageSuggest?: Maybe<Array<Maybe<ClbNameUsageSuggestion>>>;
   collection?: Maybe<Collection>;
   collectionDescriptorGroup?: Maybe<CollectionDescriptorGroup>;
   collectionSearch?: Maybe<CollectionSearchResults>;
