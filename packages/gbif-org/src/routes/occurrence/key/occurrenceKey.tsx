@@ -167,37 +167,6 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
         }
         issues
       }
-      gbifClassification {
-        kingdom
-        kingdomKey
-        phylum
-        phylumKey
-        class
-        classKey
-        order
-        orderKey
-        family
-        familyKey
-        genus
-        genusKey
-        species
-        speciesKey
-        synonym
-        classification {
-          key
-          rank
-          name
-        }
-        usage {
-          rank
-          formattedName(useFallback: true)
-          key
-        }
-        acceptedUsage {
-          formattedName(useFallback: true)
-          key
-        }
-      }
       primaryImage {
         identifier
       }
@@ -404,6 +373,10 @@ export function OccurrenceKey() {
   const coordinateIssues =
     occurrence?.issues?.filter((issue) => notableCoordinateIssues.includes(issue)) ?? [];
 
+  const defaultClassification =
+    occurrence?.classifications?.find(
+      (classification) => classification?.checklistKey === config.defaultChecklistKey
+    ) ?? occurrence?.classifications?.[0];
   return (
     <>
       <Helmet>
@@ -491,12 +464,12 @@ export function OccurrenceKey() {
                 <HeaderInfo>
                   <HeaderInfoMain>
                     <div>
-                      {occurrence.gbifClassification?.classification && (
+                      {defaultClassification.classification && (
                         <div>
                           <TaxonClassification
                             className="g-flex g-mb-2"
                             majorOnly
-                            classification={occurrence.gbifClassification?.classification}
+                            classification={defaultClassification?.classification}
                           />
                         </div>
                       )}

@@ -264,7 +264,6 @@ function GeoJsonMapContent({
       }
 
       newMap.on('load', () => {
-        console.log('loaded');
         setMap(newMap);
         addLayer(newMap, geojson);
       });

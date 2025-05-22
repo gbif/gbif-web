@@ -37,7 +37,6 @@ export function Dashboard() {
     setChartsTypes(availableFilters);
   }, [filters]);
 
-  console.log(query);
   return (
     <ClientSideOnly>
       <DashboardPresentation

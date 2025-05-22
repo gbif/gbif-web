@@ -120,8 +120,14 @@ function TaxaMain({
                       {x?.entity?.classification?.map((rank) => {
                         return (
                           <span key={rank.key}>
-                            <span>
-                              {rank.rank.charAt(0).toUpperCase() + rank.rank.slice(1).toLowerCase()}{' '}
+                            <span className="g-me-2">
+                              <FormattedMessage
+                                id={`enums.taxonRank.${rank.rank.toUpperCase()}`}
+                                defaultMessage={
+                                  rank.rank.charAt(0).toUpperCase() +
+                                  rank.rank.slice(1).toLowerCase()
+                                }
+                              />
                             </span>
                             {rank.name}
                           </span>
@@ -250,8 +256,14 @@ function IucnMain({
                       {x?.entity?.classification?.map((rank) => {
                         return (
                           <span key={rank.key}>
-                            <span>
-                              {rank.rank.charAt(0).toUpperCase() + rank.rank.slice(1).toLowerCase()}{' '}
+                            <span className="g-me-2">
+                              <FormattedMessage
+                                id={`enums.taxonRank.${rank.rank.toUpperCase()}`}
+                                defaultMessage={
+                                  rank.rank.charAt(0).toUpperCase() +
+                                  rank.rank.slice(1).toLowerCase()
+                                }
+                              />
                             </span>
                             {rank.name}
                           </span>

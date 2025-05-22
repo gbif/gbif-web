@@ -1,10 +1,13 @@
+import { useChecklistKey } from '@/hooks/useChecklistKey';
 import useQuery from '@/hooks/useQuery';
+import { removeEmptyPredicates } from '@/utils/removeEmptyPredicates';
 import { FormattedMessage } from 'react-intl';
 import { useDeepCompareEffectNoCheck as useDeepCompareEffect } from 'use-deep-compare-effect';
 import { Card, CardContent, CardTitle } from '../ui/smallCard';
 import { BarItem, CardHeader, FormattedNumber, Table } from './shared';
 
-export function DataQuality({ predicate, q, ...props }) {
+export function DataQuality({ predicate, q, checklistKey, ...props }) {
+  const defaultChecklistKey = useChecklistKey();
   const { data, error, loading, load } = useQuery(OCCURRENCE_STATS, { lazyLoad: true });
 
   useDeepCompareEffect(() => {
@@ -12,17 +15,18 @@ export function DataQuality({ predicate, q, ...props }) {
       variables: {
         predicate,
         q,
-        hasSpeciesRank: {
+        hasSpeciesRank: removeEmptyPredicates({
           type: 'and',
           predicates: [
             predicate,
             {
               type: 'isNotNull',
               key: 'speciesKey',
+              checklistKey: checklistKey ?? defaultChecklistKey,
             },
           ],
-        },
-        hasCoordinates: {
+        }),
+        hasCoordinates: removeEmptyPredicates({
           type: 'and',
           predicates: [
             predicate,
@@ -32,8 +36,8 @@ export function DataQuality({ predicate, q, ...props }) {
               value: true,
             },
           ],
-        },
-        hasMedia: {
+        }),
+        hasMedia: removeEmptyPredicates({
           type: 'and',
           predicates: [
             predicate,
@@ -42,8 +46,8 @@ export function DataQuality({ predicate, q, ...props }) {
               key: 'mediaType',
             },
           ],
-        },
-        hasCollector: {
+        }),
+        hasCollector: removeEmptyPredicates({
           type: 'and',
           predicates: [
             predicate,
@@ -52,8 +56,8 @@ export function DataQuality({ predicate, q, ...props }) {
               key: 'recordedBy',
             },
           ],
-        },
-        hasYear: {
+        }),
+        hasYear: removeEmptyPredicates({
           type: 'and',
           predicates: [
             predicate,
@@ -62,8 +66,8 @@ export function DataQuality({ predicate, q, ...props }) {
               key: 'year',
             },
           ],
-        },
-        hasSequence: {
+        }),
+        hasSequence: removeEmptyPredicates({
           type: 'and',
           predicates: [
             predicate,
@@ -73,11 +77,11 @@ export function DataQuality({ predicate, q, ...props }) {
               value: true,
             },
           ],
-        },
+        }),
       },
       queue: { name: 'dashboard' },
     });
-  }, [predicate, q, load]);
+  }, [predicate, q, load, checklistKey, defaultChecklistKey]);
 
   const noData = !data || loading;
   const summary = data?.occurrenceSearch;

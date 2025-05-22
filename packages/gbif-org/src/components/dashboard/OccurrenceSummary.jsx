@@ -1,23 +1,26 @@
 import { useDeepCompareEffectNoCheck as useDeepCompareEffect } from 'use-deep-compare-effect';
 // import { FormattedMessage } from 'react-intl';
+import { useChecklistKey } from '@/hooks/useChecklistKey';
 import useQuery from '@/hooks/useQuery';
 import { FormattedMessage } from 'react-intl';
 import { ErrorBoundary } from '../ErrorBoundary';
 import { Card, CardContent, CardTitle } from '../ui/smallCard';
 import { CardHeader, FormattedNumber, Table } from './shared';
 
-export function OccurrenceSummary({ predicate, q, ...props }) {
+export function OccurrenceSummary({ predicate, q, checklistKey, ...props }) {
+  const defaultChecklistKey = useChecklistKey();
   const { data, error, loading, load } = useQuery(OCCURRENCE_STATS, { lazyLoad: true });
 
   useDeepCompareEffect(() => {
     load({
       variables: {
         predicate,
+        checklistKey: checklistKey ?? defaultChecklistKey,
         q,
       },
       queue: { name: 'dashboard' },
     });
-  }, [predicate, q, load]);
+  }, [predicate, q, load, checklistKey, defaultChecklistKey]);
   const summary = data?.occurrenceSearch;
 
   return (
@@ -62,6 +65,17 @@ export function OccurrenceSummary({ predicate, q, ...props }) {
                 </tr>
                 <tr>
                   <td>
+                    <FormattedMessage
+                      id="dashboard.distinctNames"
+                      defaultMessage="Distinct names"
+                    />
+                  </td>
+                  <td>
+                    <FormattedNumber value={summary?.cardinality?.verbatimScientificName} />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
                     <FormattedMessage id="dashboard.taxa" defaultMessage="Taxa" />
                   </td>
                   <td>
@@ -95,14 +109,15 @@ export function OccurrenceSummary({ predicate, q, ...props }) {
 }
 
 const OCCURRENCE_STATS = `
-query summary($q: String, $predicate: Predicate){
+query summary($q: String, $predicate: Predicate, $checklistKey: ID){
   occurrenceSearch(q: $q, predicate: $predicate) {
     documents(size: 0) {
       total
     }
     cardinality {
-      speciesKey
-      taxonKey
+      speciesKey(checklistKey: $checklistKey)
+      taxonKey(checklistKey: $checklistKey)
+      verbatimScientificName
     }
 
     stats {

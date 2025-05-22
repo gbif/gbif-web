@@ -23,7 +23,7 @@ query map($q: String, $predicate: Predicate){
 `;
 
 const OCCURRENCE_POINT = `
-query point($q: String, $predicate: Predicate){
+query point($q: String, $predicate: Predicate, $checklistKey: ID){
   occurrenceSearch(q: $q, predicate: $predicate) {
     documents {
       total
@@ -31,10 +31,11 @@ query point($q: String, $predicate: Predicate){
         key
         basisOfRecord
         eventDate
-        gbifClassification{
-          usage {
-            rank
-            formattedName(useFallback: true)
+        classification(checklistKey: $checklistKey) {
+          taxonMatch {
+            usage {
+              canonicalName
+            }
           }
         }
         primaryImage {
