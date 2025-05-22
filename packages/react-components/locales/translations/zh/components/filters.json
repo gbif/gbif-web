@@ -300,10 +300,25 @@
     "count": "{num, plural, one { 建立方法 } other {# 建立方法}}",
     "description": "有机体在特定时间被引入到特定地点的方法。"
   },
+  "sex": {
+    "name": "性别",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+  },
+  "lifeStage": {
+    "name": "生命期",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+  },
   "recordedBy": {
     "name": "记录者",
     "count": "{num, plural, one { 记录者 } other {# 记录者}}",
     "description": "负责记录原始事件发生的人、人们、团体或组织的名称。"
+  },
+  "fieldNumber": {
+    "name": "现场编号",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
   },
   "recordNumber": {
     "name": "记录号",
