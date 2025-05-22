@@ -122,7 +122,7 @@ export function useOccurrenceColumns({
             isTreament={occurrence.volatile?.features?.isTreament}
             isClustered={occurrence.volatile?.features?.isClustered}
             isSamplingEvent={occurrence.volatile?.features?.isSamplingEvent}
-            issueCount={occurrence?.issues?.length}
+            // issueCount={occurrence?.issues?.length}
           />
         ),
       },
