@@ -362,7 +362,10 @@ function Taxon({
             </div> */}
           </div>
           {filteredClassifications.map((classification) => (
-            <TaxonInterpretationCard classification={classification} />
+            <TaxonInterpretationCard
+              key={classification.checklistKey}
+              classification={classification}
+            />
           ))}
         </div>
       </Group>
