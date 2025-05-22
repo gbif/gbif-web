@@ -300,10 +300,25 @@
     "count": "{num, plural, one { establishment means } other {# establishment means}}",
     "description": "The means by which the organism was introduced to a given place at a given time."
   },
+  "sex": {
+    "name": "Sex",
+    "count": "",
+    "description": ""
+  },
+  "lifeStage": {
+    "name": "Life stage",
+    "count": "",
+    "description": ""
+  },
   "recordedBy": {
     "name": "Recorded by",
     "count": "{num, plural, one { recorded by } other {# recorded bys}}",
     "description": "The names of the person, people, groups or organizations responsible for recording the original occurrence."
+  },
+  "fieldNumber": {
+    "name": "Field number",
+    "count": "",
+    "description": ""
   },
   "recordNumber": {
     "name": "Record number",
