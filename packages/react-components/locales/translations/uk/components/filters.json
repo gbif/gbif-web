@@ -300,8 +300,23 @@
     "count": "",
     "description": ""
   },
+  "sex": {
+    "name": "Стать",
+    "count": "",
+    "description": ""
+  },
+  "lifeStage": {
+    "name": "Життєва стадія",
+    "count": "",
+    "description": ""
+  },
   "recordedBy": {
     "name": "Хто створив запис",
+    "count": "",
+    "description": ""
+  },
+  "fieldNumber": {
+    "name": "Польовий номер",
     "count": "",
     "description": ""
   },

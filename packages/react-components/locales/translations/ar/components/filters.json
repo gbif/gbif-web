@@ -300,8 +300,23 @@
     "count": "",
     "description": ""
   },
+  "sex": {
+    "name": "الجندر",
+    "count": "",
+    "description": ""
+  },
+  "lifeStage": {
+    "name": "مرحلة الحياة",
+    "count": "",
+    "description": ""
+  },
   "recordedBy": {
     "name": "سجلت من قبل",
+    "count": "",
+    "description": ""
+  },
+  "fieldNumber": {
+    "name": "رقم الحقل",
     "count": "",
     "description": ""
   },

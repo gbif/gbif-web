@@ -300,10 +300,25 @@
     "count": "{num, plural, one { Etablierungsstatus } other {# Etablierungsstatus}}",
     "description": "Die Mittel, mit dem der Organismus zu einem bestimmten Zeitpunkt an einen bestimmten Ort etabliert wurde."
   },
+  "sex": {
+    "name": "",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
+  "lifeStage": {
+    "name": "",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
   "recordedBy": {
     "name": "Sammler/Beobachter",
     "count": "{num, plural, one { Sammler } other {# Sammler}}",
     "description": "Namen der Personen, Gruppen oder Organisationen, die den Beleg gesammelt bzw. die Beobachtung getätigt haben."
+  },
+  "fieldNumber": {
+    "name": "",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
   },
   "recordNumber": {
     "name": "Sammlernummer",
