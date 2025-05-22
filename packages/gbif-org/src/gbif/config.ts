@@ -239,16 +239,16 @@ export const gbifConfig: Config = {
     // ],
     tabs: ['table', 'gallery', 'map', 'clusters', 'datasets', 'dashboard', 'download'],
     defaultTab: 'table',
-    scope: {
-      type: 'and',
-      predicates: [
-        {
-          type: 'equals',
-          key: 'taxonKey',
-          value: '44',
-        },
-      ],
-    },
+    // scope: {
+    //   type: 'and',
+    //   predicates: [
+    //     {
+    //       type: 'equals',
+    //       key: 'taxonKey',
+    //       value: '44',
+    //     },
+    //   ],
+    // },
   },
   // messages: {
   //   en: { 'filters.taxonKey.name': 'hallo' },

@@ -110,7 +110,7 @@ export function Download() {
                 </Description>
               </>
             )}
-            {(loading || (!err && fullPredicate)) && (
+            {(loading || !err) && (
               <>
                 <Title>
                   <Message id="download.download" />
