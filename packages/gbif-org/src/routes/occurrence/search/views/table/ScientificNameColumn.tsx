@@ -48,11 +48,17 @@ export default function ScientificNameColumn({
           )}
         </SetAsFilter>
         {occurrence.hasTaxonIssues && (
-          <SimpleTooltip side="right" i18nKey="filterSupport.nameWithTaxonMatchIssue">
-            <div style={{ color: '#fea600' }} className="g-cursor-default g-text-start" data-loader>
-              {occurrence.gbifClassification?.verbatimScientificName}
-            </div>
-          </SimpleTooltip>
+          <div>
+            <SimpleTooltip side="right" i18nKey="filterSupport.nameWithTaxonMatchIssue">
+              <div
+                style={{ color: '#fea600' }}
+                className="g-cursor-default g-text-start g-block"
+                data-loader
+              >
+                {occurrence.gbifClassification?.verbatimScientificName}
+              </div>
+            </SimpleTooltip>
+          </div>
         )}
       </div>
     </div>
