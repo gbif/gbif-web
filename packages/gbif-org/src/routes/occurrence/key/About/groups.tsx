@@ -13,7 +13,6 @@ import { MdAudiotrack, MdImage } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { BasicField, EnumField, HtmlField, PlainTextField, VerbatimTextField } from '../properties';
 import {
-  AcceptedScientificName,
   AgentIds,
   CollectionKey,
   DatasetKey,
@@ -21,7 +20,6 @@ import {
   IdentifiedById,
   InstitutionKey,
   RecordedById,
-  ScientificName,
 } from './customValues';
 import {
   Amplification,
@@ -168,9 +166,6 @@ function Summary({
 }) {
   return (
     <RenderIfChildren as={PropGroup} label="occurrenceDetails.groups.summary" id="summary">
-      <ScientificName {...{ showAll, termMap, occurrence }} />
-      <AcceptedScientificName {...{ showAll, termMap, occurrence }} />
-
       {occurrence?.gadm?.level0 && (
         <BasicField label="occurrenceFieldNames.gadmClassification">
           <GadmClassification gadm={occurrence.gadm} />
@@ -326,7 +321,6 @@ function Taxon({
           />
           <VerbatimTextField term={termMap.taxonConceptID} />
           <VerbatimTextField term={termMap.acceptedNameUsage} />
-          {/* <AcceptedScientificName {...{ showAll, termMap, occurrence }} /> */}
           <VerbatimTextField term={termMap.parentNameUsage} />
           <VerbatimTextField term={termMap.originalNameUsage} />
           <VerbatimTextField term={termMap.nameAccordingTo} />
