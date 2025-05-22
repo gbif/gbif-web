@@ -43,6 +43,7 @@ import { searchConfig } from './searchConfig';
 const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
   query PublisherSearch(
     $country: Country
+    $networkKey: ID
     $q: String
     $isEndorsed: Boolean
     $limit: Int
@@ -51,6 +52,7 @@ const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
     list: organizationSearch(
       isEndorsed: $isEndorsed
       country: $country
+      networkKey: $networkKey
       q: $q
       offset: $offset
       limit: $limit
