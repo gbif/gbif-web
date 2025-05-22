@@ -300,8 +300,23 @@
     "count": "",
     "description": ""
   },
+  "sex": {
+    "name": "Пол",
+    "count": "",
+    "description": ""
+  },
+  "lifeStage": {
+    "name": "Стадия жизненного цикла",
+    "count": "",
+    "description": ""
+  },
   "recordedBy": {
     "name": "Кем сделана запись",
+    "count": "",
+    "description": ""
+  },
+  "fieldNumber": {
+    "name": "Полевой номер",
     "count": "",
     "description": ""
   },
