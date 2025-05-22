@@ -5,6 +5,8 @@ import { ColumnDef, LinkOption, SetAsFilter, SetAsFilterList } from '@/component
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { DropdownMenuCheckboxItem } from '@/components/ui/dropdownMenu';
 import { VocabularyValue } from '@/components/vocabularyValue';
+import { AddFilterEvent } from '@/contexts/filter';
+import { truncate } from '@/utils/truncate';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -293,6 +295,43 @@ export function useOccurrenceColumns({
             <SetAsFilter field="collectionCode" value={collectionCode}>
               {collectionCode}
             </SetAsFilter>
+          );
+        },
+      },
+      {
+        id: 'specimenTriplet',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'institutionCode' },
+        header: 'tableHeaders.specimenTriplet',
+        minWidth: 200,
+        cell: ({ institutionCode, collectionCode, catalogNumber }) => {
+          if (!institutionCode || !collectionCode || !catalogNumber) return null;
+          return (
+            <div>
+              <button
+                onClick={() =>
+                  window.dispatchEvent(new AddFilterEvent('institutionCode', institutionCode))
+                }
+                className="g-me-2 g-pointer-events-auto hover:g-bg-primary-300 hover:g-text-primaryContrast-400 g-box-decoration-clone"
+              >
+                {truncate(institutionCode, 8)}
+              </button>
+              <button
+                onClick={() =>
+                  window.dispatchEvent(new AddFilterEvent('collectionCode', collectionCode))
+                }
+                className="g-me-2 g-pointer-events-auto hover:g-bg-primary-300 hover:g-text-primaryContrast-400 g-box-decoration-clone"
+              >
+                {truncate(collectionCode, 10)}
+              </button>
+              <button
+                onClick={() =>
+                  window.dispatchEvent(new AddFilterEvent('catalogNumber', catalogNumber))
+                }
+                className="g-pointer-events-auto hover:g-bg-primary-300 hover:g-text-primaryContrast-400 g-box-decoration-clone"
+              >
+                {truncate(catalogNumber, 10)}
+              </button>
+            </div>
           );
         },
       },

@@ -221,8 +221,37 @@ export const gbifConfig: Config = {
       'geometry',
       'recordedBy',
     ],
+    defaultEnabledTableColumns: [
+      'features',
+      'specimenTriplet',
+      'commonName',
+      'institutionCode',
+      'collectionCode',
+      'catalogNumber',
+      'locality',
+      'recordedBy',
+      'sex',
+      'eventDate',
+      'coordinates',
+      'media',
+    ],
     tabs: ['table', 'gallery', 'map', 'clusters', 'datasets', 'dashboard', 'download'],
     defaultTab: 'table',
+    scope: {
+      type: 'and',
+      predicates: [
+        // {
+        //   type: 'equals',
+        //   key: 'networkKey',
+        //   value: '99d66b6c-9087-452f-a9d4-f15f2c2d0e7e',
+        // },
+        {
+          type: 'equals',
+          key: 'taxonKey',
+          value: '44',
+        },
+      ],
+    },
   },
   // messages: {
   //   en: { 'filters.taxonKey.name': 'hallo' },
