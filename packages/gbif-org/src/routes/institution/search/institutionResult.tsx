@@ -198,7 +198,7 @@ function Wrapper({ children, wrap }: { children: React.ReactNode; wrap?: boolean
     return <>{children}</>;
   } else {
     return (
-      <Card className="g-bg-primary-500 g-border-solid g-border-primary-500 g-text-primaryContrast-500 g-text-sm g-font-semibold">
+      <Card className="g-bg-primary-500 g-border g-border-solid g-border-primary-500 g-text-primaryContrast-500 g-text-sm g-font-semibold">
         <div className="g-px-8 g-py-1">Digitized records published to GBIF</div>
         {children}
       </Card>

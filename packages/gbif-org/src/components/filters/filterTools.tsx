@@ -830,7 +830,10 @@ export function FilterBar({
 }) {
   return (
     <div
-      className={cn('g-border-b g-py-2 g-px-4 g-bg-paperBackground -g-mb-1', className)}
+      className={cn(
+        'g-border-b g-border-solid g-py-2 g-px-4 g-bg-paperBackground -g-mb-1',
+        className
+      )}
       role="search"
     >
       {children}
