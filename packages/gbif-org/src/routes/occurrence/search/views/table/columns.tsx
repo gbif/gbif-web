@@ -395,6 +395,19 @@ export function useOccurrenceColumns({
         ),
       },
       {
+        id: 'fieldNumber',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'fieldNumber' },
+        header: 'occurrenceFieldNames.fieldNumber',
+        minWidth: 200,
+        cell: ({ fieldNumber }) => (
+          <InlineLineClamp className="-g-ml-0.5">
+            <SetAsFilter field="fieldNumber" value={fieldNumber} className="g-ml-0">
+              {fieldNumber}
+            </SetAsFilter>
+          </InlineLineClamp>
+        ),
+      },
+      {
         id: 'higherGeography',
         minWidth: 350,
         header: 'occurrenceFieldNames.higherGeography',
@@ -426,6 +439,34 @@ export function useOccurrenceColumns({
           return (
             <SetAsFilter field="establishmentMeans" value={establishmentMeans}>
               <VocabularyValue vocabulary="EstablishmentMeans" value={establishmentMeans} />
+            </SetAsFilter>
+          );
+        },
+      },
+      {
+        id: 'sex',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'sex' },
+        header: 'occurrenceFieldNames.sex',
+        cell: ({ sex }) => {
+          if (!sex) return null;
+
+          return (
+            <SetAsFilter field="sex" value={sex}>
+              <VocabularyValue vocabulary="Sex" value={sex} />
+            </SetAsFilter>
+          );
+        },
+      },
+      {
+        id: 'lifeStage',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'lifeStage' },
+        header: 'occurrenceFieldNames.lifeStage',
+        cell: ({ lifeStage }) => {
+          if (!lifeStage) return null;
+
+          return (
+            <SetAsFilter field="lifeStage" value={lifeStage}>
+              <VocabularyValue vocabulary="LifeStage" value={lifeStage} />
             </SetAsFilter>
           );
         },

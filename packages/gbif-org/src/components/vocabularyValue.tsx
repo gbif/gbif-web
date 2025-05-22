@@ -5,7 +5,7 @@ import { Skeleton } from './ui/skeleton';
 
 type Props = {
   value: string;
-  vocabulary: 'EstablishmentMeans'; // Add more options using a union type as needed;
+  vocabulary: 'EstablishmentMeans' | 'Sex' | 'LifeStage'; // Add more options using a union type as needed;
 };
 
 export function VocabularyValue({ value, vocabulary }: Props) {

@@ -79,6 +79,9 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
           catalogNumber
           recordedBy
           identifiedBy
+          fieldNumber
+          sex
+          lifeStage
           recordNumber
           typeStatus
           preparations
