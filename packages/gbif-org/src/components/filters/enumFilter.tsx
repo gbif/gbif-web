@@ -18,6 +18,7 @@ import { AboutButton } from './aboutButton';
 import {
   AdditionalFilterProps,
   ApplyCancel,
+  AsyncOptions,
   ExistsSection,
   FacetQuery,
   filterEnumConfig,
@@ -287,34 +288,47 @@ export const EnumFilter = React.forwardRef(
           {options}
         </div>
         <div className="g-flex-auto g-overflow-auto g-max-h-96 gbif-small-scrollbar">
-          <div className={cn('g-text-base g-mt-2 g-px-4', className)}>
-            <div role="group" className="g-text-sm">
-              {valueOptions &&
-                valueOptions.map((x, i) => {
-                  return (
-                    <Option
-                      isNegated={useNegations}
-                      key={x}
-                      ref={i === 0 ? ref : undefined}
-                      className="g-mb-2"
-                      onClick={() => {
-                        toggle(filterHandle, x, useNegations);
-                      }}
-                      checked={selected.includes(x.toString())}
-                      // helpText="Longer description can go here"
-                    >
-                      <div className="g-flex g-items-center">
-                        <span className="g-flex-auto">
-                          <DisplayName id={x} />
-                        </span>
-                        <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
-                          {facetSuggestions && <FormattedNumber value={facetSuggestions[x] ?? 0} />}
-                        </span>
-                      </div>
-                    </Option>
-                  );
-                })}
-            </div>
+          <div className={cn('g-text-base', className)}>
+            {facetSuggestions && facetSuggestions.length === 0 && selected?.length === 0 && (
+              <div className="g-p-4 g-text-center g-text-sm g-text-slate-400">
+                <FormattedMessage id="filterSupport.noSuggestions" />
+              </div>
+            )}
+            <AsyncOptions
+              loading={facetLoading || (!facetSuggestions && !!facetQuery)}
+              error={facetError}
+              className="g-p-2 g-pt-2 g-px-4"
+            >
+              <div role="group" className="g-text-sm g-p-2 g-pt-2 g-px-4">
+                {valueOptions &&
+                  valueOptions.map((x, i) => {
+                    return (
+                      <Option
+                        isNegated={useNegations}
+                        key={x}
+                        ref={i === 0 ? ref : undefined}
+                        className="g-mb-2"
+                        onClick={() => {
+                          toggle(filterHandle, x, useNegations);
+                        }}
+                        checked={selected.includes(x.toString())}
+                        // helpText="Longer description can go here"
+                      >
+                        <div className="g-flex g-items-center">
+                          <span className="g-flex-auto">
+                            <DisplayName id={x} />
+                          </span>
+                          <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
+                            {facetSuggestions && (
+                              <FormattedNumber value={facetSuggestions[x] ?? 0} />
+                            )}
+                          </span>
+                        </div>
+                      </Option>
+                    );
+                  })}
+              </div>
+            </AsyncOptions>
           </div>
         </div>
         <ApplyCancel onApply={onApply} onCancel={onCancel} pristine={pristine} />

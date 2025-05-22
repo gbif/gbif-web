@@ -462,7 +462,6 @@ function Occurrence({
       <PlainTextField term={termMap.individualCount} showDetails={showAll} />
       <PlainTextField term={termMap.organismQuantity} showDetails={showAll} />
       <PlainTextField term={termMap.organismQuantityType} showDetails={showAll} />
-      {/* <PlainTextField term={termMap.sex} showDetails={showAll} /> */}
       <BasicField label="occurrenceFieldNames.sex">
         {termMap?.sex?.value && <ConceptValue vocabulary="Sex" name={termMap?.sex?.value} />}
       </BasicField>

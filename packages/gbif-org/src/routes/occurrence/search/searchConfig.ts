@@ -72,6 +72,8 @@ const otherParams = [
   'datasetKey',
 
   'establishmentMeans',
+  'sex',
+  'lifeStage',
 
   'institutionCode',
   'collectionCode',

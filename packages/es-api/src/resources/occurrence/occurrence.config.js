@@ -308,7 +308,7 @@ const config = {
     },
     lifeStage: {
       type: 'keyword',
-      field: 'lifeStage',
+      field: 'lifeStage.concept',
     },
     locality: {
       type: 'keyword',

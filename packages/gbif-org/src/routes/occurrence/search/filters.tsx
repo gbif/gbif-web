@@ -58,7 +58,7 @@ import {
   projectIdConfig,
   recordedByIdConfig,
 } from './filters/textOnly';
-import { establishmentMeansConfig } from './filters/vocabulary';
+import { establishmentMeansConfig, lifeStageConfig, sexConfig } from './filters/vocabulary';
 import {
   catalogNumberConfig,
   datasetIdConfig,
@@ -135,6 +135,16 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       recordNumber: generateFilters({ config: recordNumberConfig, searchConfig, formatMessage }),
       establishmentMeans: generateFilters({
         config: establishmentMeansConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      sex: generateFilters({
+        config: sexConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      lifeStage: generateFilters({
+        config: lifeStageConfig,
         searchConfig,
         formatMessage,
       }),

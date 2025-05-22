@@ -300,6 +300,16 @@
     "count": "{num, plural, one { establishment means } other {# establishment means}}",
     "description": "The means by which the organism was introduced to a given place at a given time."
   },
+  "sex": {
+    "name": "Sex",
+    "count": "{num, plural, one { sex } other {# sexes}}",
+    "description": "What sex the organism was."
+  },
+  "lifeStage": {
+    "name": "Life stage",
+    "count": "{num, plural, one { life stage } other {# life stages}}",
+    "description": "What life stage the organism was in."
+  },
   "recordedBy": {
     "name": "Recorded by",
     "count": "{num, plural, one { recorded by } other {# recorded bys}}",
