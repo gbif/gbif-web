@@ -51,6 +51,7 @@ import {
 } from './filters/ranges';
 import {
   eventIdConfig,
+  fieldNumberConfig,
   higherGeographyConfig,
   identifiedByIdConfig,
   occurrenceIdConfig,
@@ -190,6 +191,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         formatMessage,
       }),
       eventId: generateFilters({ config: eventIdConfig, searchConfig, formatMessage }),
+      fieldNumber: generateFilters({ config: fieldNumberConfig, searchConfig, formatMessage }),
 
       isInCluster: generateFilters({ config: isInClusterConfig, searchConfig, formatMessage }),
       isSequenced: generateFilters({ config: isSequencedConfig, searchConfig, formatMessage }),

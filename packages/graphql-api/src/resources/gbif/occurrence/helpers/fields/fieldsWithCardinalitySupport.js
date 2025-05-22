@@ -19,6 +19,7 @@ export default [
   'license',
   'sex',
   'basisOfRecord',
+  'fieldNumber',
   'issue',
   'isSequenced',
   'collectionKey',

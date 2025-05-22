@@ -162,6 +162,7 @@ const typeDef = gql`
     mediaType: Long!
     protocol: Long!
     typeStatus: Long!
+    fieldNumber: Long!
     repatriated: Long!
     gadmGid: Long!
     projectId: Long!
@@ -224,6 +225,7 @@ const typeDef = gql`
     ): [OccurrenceFacetResult_string]
     dwcaExtension(size: Int, from: Int): [OccurrenceFacetResult_string]
     eventId(size: Int, from: Int): [OccurrenceFacetResult_string]
+    fieldNumber(size: Int, from: Int): [OccurrenceFacetResult_string]
     higherGeography(size: Int, from: Int): [OccurrenceFacetResult_string]
     id(size: Int, from: Int): [OccurrenceFacetResult_string]
     institutionCode(size: Int, from: Int): [OccurrenceFacetResult_string]

@@ -315,6 +315,11 @@
     "count": "{num, plural, one { recorded by } other {# recorded bys}}",
     "description": "The names of the people, groups, or organizations responsible for recording the original Occurrence."
   },
+  "fieldNumber": {
+    "name": "Field number",
+    "count": "{num, plural, one { field number } other {# field numbers}}",
+    "description": "The identifier assigned to the location by the collector."
+  },
   "recordNumber": {
     "name": "Record number",
     "count": "{num, plural, one { record number } other {# record numbers}}",

@@ -98,6 +98,7 @@ const otherParams = [
   'organismId',
   'higherGeography',
   'eventId',
+  'fieldNumber',
 
   'isInCluster',
   'isSequenced',

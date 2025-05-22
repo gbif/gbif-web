@@ -81,7 +81,7 @@ export const higherGeographyConfig: filterSuggestConfig = {
   displayName: IdentityLabel,
   filterTranslation: 'filters.higherGeography.name',
   facetQuery: /* GraphQL */ `
-    query OccurrencehigherGeographyFacet($predicate: Predicate) {
+    query OccurrenceHigherGeographyFacet($predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
           field: higherGeography(size: 10) {
@@ -93,6 +93,7 @@ export const higherGeographyConfig: filterSuggestConfig = {
     }
   `,
   allowExistence: true,
+  allowNegations: true,
   about: () => <Message id="filters.higherGeography.description" />,
   group: 'location',
 };
@@ -103,6 +104,42 @@ export const eventIdConfig: filterSuggestConfig = {
   displayName: IdentityLabel,
   filterTranslation: 'filters.eventId.name',
   allowExistence: true,
+  allowNegations: true,
   about: () => <Message id="filters.eventId.description" />,
+  facetQuery: /* GraphQL */ `
+    query OccurrenceEventIdFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: eventId(size: 10) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  group: 'event',
+};
+
+export const fieldNumberConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'fieldNumber',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.fieldNumber.name',
+  allowExistence: true,
+  allowNegations: true,
+  about: () => <Message id="filters.fieldNumber.description" />,
+  facetQuery: /* GraphQL */ `
+    query OccurrenceFieldNumberFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: fieldNumber(size: 10) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
   group: 'event',
 };

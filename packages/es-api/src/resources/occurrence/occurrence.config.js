@@ -228,6 +228,10 @@ const config = {
       field: 'eventId.keyword',
       suggestField: 'eventId.suggest',
     },
+    fieldNumber: {
+      type: 'keyword',
+      field: 'fieldNumber',
+    },
     gadmGid: {
       type: 'keyword',
       field: 'gadm.gids',
