@@ -38,7 +38,7 @@ function Body<T>({
           return (
             <TableRow
               key={keySelector(item)}
-              className={cn('g-border-b', {
+              className={cn('g-border-b g-border-solid', {
                 'g-group': typeof createRowLink === 'function',
                 'g-pointer-events-none': loading,
               })}
