@@ -300,10 +300,25 @@
     "count": "{num, plural,one {建立方法 }other {#建立方法 }}",
     "description": "在特定時間將生物體引進特定地點的方式。"
   },
+  "sex": {
+    "name": "性別",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+  },
+  "lifeStage": {
+    "name": "生活史階段",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+  },
   "recordedBy": {
     "name": "紀錄者：",
     "count": "{num, plural, one{紀錄} other{紀錄}}",
     "description": "負責記錄原始事件的人員、團體或組織的名稱。"
+  },
+  "fieldNumber": {
+    "name": "樣區事件編碼",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
   },
   "recordNumber": {
     "name": "紀錄編號",
