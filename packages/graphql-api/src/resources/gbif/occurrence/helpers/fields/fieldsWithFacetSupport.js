@@ -26,6 +26,7 @@ export default [
   'establishmentMeans',
   'eventId',
   'hasCoordinate',
+  'fieldNumber',
   'hasGeospatialIssue',
   'higherGeography',
   'id',

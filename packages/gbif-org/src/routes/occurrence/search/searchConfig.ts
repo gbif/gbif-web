@@ -78,6 +78,8 @@ const otherParams = [
   'datasetKey',
 
   'establishmentMeans',
+  'sex',
+  'lifeStage',
 
   'institutionCode',
   'collectionCode',
@@ -101,6 +103,7 @@ const otherParams = [
   'organismId',
   'higherGeography',
   'eventId',
+  'fieldNumber',
 
   'isInCluster',
   'isSequenced',

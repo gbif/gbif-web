@@ -51,6 +51,7 @@ import {
 } from './filters/ranges';
 import {
   eventIdConfig,
+  fieldNumberConfig,
   higherGeographyConfig,
   identifiedByIdConfig,
   occurrenceIdConfig,
@@ -58,7 +59,7 @@ import {
   projectIdConfig,
   recordedByIdConfig,
 } from './filters/textOnly';
-import { establishmentMeansConfig } from './filters/vocabulary';
+import { establishmentMeansConfig, lifeStageConfig, sexConfig } from './filters/vocabulary';
 import {
   catalogNumberConfig,
   datasetIdConfig,
@@ -138,6 +139,16 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         searchConfig,
         formatMessage,
       }),
+      sex: generateFilters({
+        config: sexConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      lifeStage: generateFilters({
+        config: lifeStageConfig,
+        searchConfig,
+        formatMessage,
+      }),
 
       // enums
       license: generateFilters({ config: licenceConfig, searchConfig, formatMessage }),
@@ -180,6 +191,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         formatMessage,
       }),
       eventId: generateFilters({ config: eventIdConfig, searchConfig, formatMessage }),
+      fieldNumber: generateFilters({ config: fieldNumberConfig, searchConfig, formatMessage }),
 
       isInCluster: generateFilters({ config: isInClusterConfig, searchConfig, formatMessage }),
       isSequenced: generateFilters({ config: isSequencedConfig, searchConfig, formatMessage }),

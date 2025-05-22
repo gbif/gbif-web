@@ -100,6 +100,9 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
           catalogNumber
           recordedBy
           identifiedBy
+          fieldNumber
+          sex
+          lifeStage
           recordNumber
           typeStatus
           preparations
@@ -230,6 +233,10 @@ export function OccurrenceTableClient() {
   const columns = useOccurrenceColumns({
     showPreview,
   });
+  if (typeof window !== 'undefined') {
+    window.gbif = window.gbif || {};
+    window.gbif.availableColumnOptions = columns.map((column) => column.id);
+  }
 
   const occurrences = useMemo(
     () => data?.occurrenceSearch?.documents.results.filter(notNull) ?? [],

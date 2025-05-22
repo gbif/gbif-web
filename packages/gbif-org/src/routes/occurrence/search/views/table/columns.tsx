@@ -5,6 +5,8 @@ import { ColumnDef, LinkOption, SetAsFilter, SetAsFilterList } from '@/component
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { DropdownMenuCheckboxItem } from '@/components/ui/dropdownMenu';
 import { VocabularyValue } from '@/components/vocabularyValue';
+import { AddFilterEvent } from '@/contexts/filter';
+import { truncate } from '@/utils/truncate';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -124,7 +126,7 @@ export function useOccurrenceColumns({
             isTreament={occurrence.volatile?.features?.isTreament}
             isClustered={occurrence.volatile?.features?.isClustered}
             isSamplingEvent={occurrence.volatile?.features?.isSamplingEvent}
-            issueCount={occurrence?.issues?.length}
+            // issueCount={occurrence?.issues?.length}
           />
         ),
       },
@@ -301,6 +303,43 @@ export function useOccurrenceColumns({
         },
       },
       {
+        id: 'specimenTriplet',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'institutionCode' },
+        header: 'tableHeaders.specimenTriplet',
+        minWidth: 200,
+        cell: ({ institutionCode, collectionCode, catalogNumber }) => {
+          if (!institutionCode || !collectionCode || !catalogNumber) return null;
+          return (
+            <div>
+              <button
+                onClick={() =>
+                  window.dispatchEvent(new AddFilterEvent('institutionCode', institutionCode))
+                }
+                className="g-me-2 g-pointer-events-auto hover:g-bg-primary-300 hover:g-text-primaryContrast-400 g-box-decoration-clone"
+              >
+                {truncate(institutionCode, 8)}
+              </button>
+              <button
+                onClick={() =>
+                  window.dispatchEvent(new AddFilterEvent('collectionCode', collectionCode))
+                }
+                className="g-me-2 g-pointer-events-auto hover:g-bg-primary-300 hover:g-text-primaryContrast-400 g-box-decoration-clone"
+              >
+                {truncate(collectionCode, 10)}
+              </button>
+              <button
+                onClick={() =>
+                  window.dispatchEvent(new AddFilterEvent('catalogNumber', catalogNumber))
+                }
+                className="g-pointer-events-auto hover:g-bg-primary-300 hover:g-text-primaryContrast-400 g-box-decoration-clone"
+              >
+                {truncate(catalogNumber, 10)}
+              </button>
+            </div>
+          );
+        },
+      },
+      {
         id: 'institutionCode',
         sort: { localStorageKey: 'occurrenceSort', sortBy: 'institutionCode' },
         header: 'occurrenceFieldNames.institutionCode',
@@ -399,6 +438,19 @@ export function useOccurrenceColumns({
         ),
       },
       {
+        id: 'fieldNumber',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'fieldNumber' },
+        header: 'occurrenceFieldNames.fieldNumber',
+        minWidth: 200,
+        cell: ({ fieldNumber }) => (
+          <InlineLineClamp className="-g-ml-0.5">
+            <SetAsFilter field="fieldNumber" value={fieldNumber} className="g-ml-0">
+              {fieldNumber}
+            </SetAsFilter>
+          </InlineLineClamp>
+        ),
+      },
+      {
         id: 'higherGeography',
         minWidth: 350,
         header: 'occurrenceFieldNames.higherGeography',
@@ -430,6 +482,34 @@ export function useOccurrenceColumns({
           return (
             <SetAsFilter field="establishmentMeans" value={establishmentMeans}>
               <VocabularyValue vocabulary="EstablishmentMeans" value={establishmentMeans} />
+            </SetAsFilter>
+          );
+        },
+      },
+      {
+        id: 'sex',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'sex' },
+        header: 'occurrenceFieldNames.sex',
+        cell: ({ sex }) => {
+          if (!sex) return null;
+
+          return (
+            <SetAsFilter field="sex" value={sex}>
+              <VocabularyValue vocabulary="Sex" value={sex} />
+            </SetAsFilter>
+          );
+        },
+      },
+      {
+        id: 'lifeStage',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'lifeStage' },
+        header: 'occurrenceFieldNames.lifeStage',
+        cell: ({ lifeStage }) => {
+          if (!lifeStage) return null;
+
+          return (
+            <SetAsFilter field="lifeStage" value={lifeStage}>
+              <VocabularyValue vocabulary="LifeStage" value={lifeStage} />
             </SetAsFilter>
           );
         },
