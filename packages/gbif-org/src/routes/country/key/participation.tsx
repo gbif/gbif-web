@@ -1,3 +1,4 @@
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { CountryKeyParticipationFragment } from '@/gql/graphql';
 import { ArticleBody } from '@/routes/resource/key/components/articleBody';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
@@ -16,19 +17,22 @@ export function CountryKeyParticipation() {
 
   return (
     <>
+      <ArticleContainer className="g-bg-slate-100 g-pt-4">
+        <ArticleTextContainer className="g-max-w-screen-xl g-flex g-flex-col g-gap-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <FormattedMessage id="TODO" defaultMessage="Participant summary" />
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ParticipantSummary participant={data.nodeCountry!} showSocialLinksSection />
+            </CardContent>
+          </Card>
+        </ArticleTextContainer>
+      </ArticleContainer>
       <ArticleContainer className="g-pt-4">
         <ArticleTextContainer>
-          <div className="g-prose g-mb-4">
-            <h3>
-              <FormattedMessage id="TODO" defaultMessage="Participant Summary" />
-            </h3>
-          </div>
-          <ParticipantSummary
-            participant={data.nodeCountry!}
-            className="g-mb-8"
-            showSocialLinksSection
-          />
-          <hr />
           {body && <ArticleBody dangerouslySetBody={{ __html: body }} />}
         </ArticleTextContainer>
       </ArticleContainer>
