@@ -194,10 +194,10 @@ export const iucnRedListCategoryConfig: filterEnumConfig = {
   options: iucnRedListCategoryOptions,
   filterTranslation: 'filters.iucnRedListCategory.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceIucnFacet($q: String, $predicate: Predicate) {
+    query OccurrenceIucnFacet($q: String, $predicate: Predicate, $checklistKey: ID) {
       search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
-          field: iucnRedListCategory(size: 100) {
+          field: iucnRedListCategory(size: 100, checklistKey: $checklistKey) {
             name: key
             count
           }
