@@ -12,7 +12,12 @@ export default function DashBoardLayout({ children, className }: Props) {
   );
 
   return (
-    <div className={cn('gbif-dashboardLayout g-grid lg:g-grid-cols-2 g-gap-2', className)}>
+    <div
+      className={cn(
+        'gbif-dashboardLayout g-grid g-grid-cols-1 lg:g-grid-cols-2 g-gap-2',
+        className
+      )}
+    >
       <div>
         {childrenArray
           .filter((x, i) => i % 2 === 0)

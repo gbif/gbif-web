@@ -51,7 +51,7 @@ export function CountryKeyLayout() {
     <article>
       <PageContainer topPadded className="g-bg-white">
         <ArticleTextContainer className="g-max-w-screen-xl">
-          <div className="g-flex g-justify-between g-items-end">
+          <div className="g-flex g-justify-between g-gap-4 g-flex-col md:g-flex-row g-items-start md:g-items-end">
             <div>
               {participant == null && (
                 <ArticlePreTitle>

@@ -25,7 +25,7 @@ export function Trend({ title, info, imgfile }: Props) {
           <DialogTrigger>
             <img src={figureUrl} />
           </DialogTrigger>
-          <DialogContent className="g-p-4 g-max-w-screen-md">
+          <DialogContent className="g-p-0 g-max-w-[min(95%,720px)]">
             <img src={figureUrl} />
           </DialogContent>
         </Dialog>
@@ -35,7 +35,9 @@ export function Trend({ title, info, imgfile }: Props) {
 }
 
 export function TrendContainer({ children }: { children: React.ReactNode }) {
-  return <div className="g-grid g-grid-cols-3 g-gap-4">{children}</div>;
+  return (
+    <div className="g-grid g-grid-cols-1 sm:g-grid-cols-2 md:g-grid-cols-3 g-gap-4">{children}</div>
+  );
 }
 
 export type ITrendContext = {
