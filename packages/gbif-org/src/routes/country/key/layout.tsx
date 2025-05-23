@@ -89,9 +89,11 @@ export function CountryKeyLayout() {
             </div>
 
             <Button size="sm" className="g-flex g-gap-2" asChild>
-              {/* TODO: move base url to env */}
               <a
-                href={`https://analytics-files.gbif.org/country/${countryCode}/GBIF_CountryReport_${countryCode}.pdf`}
+                href={
+                  import.meta.env.PUBLIC_ANALYTICS_FILES_URL +
+                  `/country/${countryCode}/GBIF_CountryReport_${countryCode}.pdf`
+                }
               >
                 <DownloadIcon className="g-w-4 g-h-4" />
                 <FormattedMessage id="TODO" defaultMessage="Activity Report" />

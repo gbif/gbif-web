@@ -7,13 +7,12 @@ type Props = {
   imgfile: string;
 };
 
-// TODO: mode to config
-const analyticsFigureUrl = 'https://analytics-files.gbif.org';
-
 export function Trend({ title, info, imgfile }: Props) {
   const { type, countryCode } = useTrendContext();
 
-  const figureUrl = `${analyticsFigureUrl}/country/${countryCode}/${type}/figure/${imgfile}.svg`;
+  const figureUrl = `${
+    import.meta.env.PUBLIC_ANALYTICS_FILES_URL
+  }/country/${countryCode}/${type}/figure/${imgfile}.svg`;
 
   return (
     <div className="g-flex g-flex-col">
