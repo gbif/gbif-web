@@ -1,6 +1,8 @@
 import { defaultDateFormatProps } from '@/components/headerComponents';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
+import countryCodes from '@/enums/basic/country.json';
+import { NotFoundError } from '@/errors';
 import {
   CountNewsQuery,
   CountNewsQueryVariables,
@@ -23,6 +25,11 @@ import { Outlet, useLoaderData, useParams } from 'react-router-dom';
 export function countryKeyLoader({ params, graphql }: LoaderArgs) {
   const countryCode = required(params.countryCode, 'No countryCode was provided in the URL');
 
+  // Validate country code
+  if (!countryCodes.includes(countryCode)) {
+    throw new NotFoundError();
+  }
+
   return graphql.query<ParticipantQuery, ParticipantQueryVariables>(PARTICIPANT_QUERY, {
     countryCode,
   });
@@ -35,6 +42,7 @@ export function CountryKeyLayout() {
   if (!countryCode) throw new Error('No countryCode was provided in the URL');
 
   const { data } = useLoaderData() as { data: ParticipantQuery };
+
   const hasProjects = useHasProjects(countryCode);
   const hasNews = useHasNews(countryCode);
   const participant = data.nodeCountry;
