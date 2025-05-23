@@ -356,7 +356,9 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
                           !selectedFacetError &&
                           !disableFacetsForSelected && (
                             <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
-                              <FormattedNumber value={facetLookup[x] ?? 0} />
+                              {typeof facetLookup[x] === 'number' && (
+                                <FormattedNumber value={facetLookup[x]} />
+                              )}
                             </span>
                           )}
                       </div>

@@ -74,8 +74,6 @@ class OccurrenceAPI extends RESTDataSource {
   }
 
   async registerPredicate({ predicate }) {
-    console.log(`${this.config.apiv2}/map/occurrence/adhoc/predicate/`);
-    console.log(JSON.stringify(predicate, null, 2));
     try {
       return await this.post(
         `${this.config.apiv2}/map/occurrence/adhoc/predicate/`,
