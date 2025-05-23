@@ -26,7 +26,6 @@ class OccurrenceAPI extends RESTDataSource {
   async searchOccurrences({ query }) {
     const body = { ...query, includeMeta: true };
     let response;
-    console.log(JSON.stringify(body));
     if (JSON.stringify(body).length < urlSizeLimit) {
       response = await this.get(
         '/occurrence',

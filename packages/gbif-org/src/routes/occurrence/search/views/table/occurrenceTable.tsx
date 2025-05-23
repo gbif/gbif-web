@@ -52,7 +52,6 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
         results {
           key
           taxonKey
-          hasTaxonIssues
           verbatimScientificName
           classification(checklistKey: $checklistKey) {
             usage {
@@ -79,6 +78,7 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
                 citation
               }
             }
+            hasTaxonIssues
           }
           taxon {
             canonicalName

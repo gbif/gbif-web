@@ -47,7 +47,7 @@ export default function ScientificNameColumn({
             <span className="g-pointer-events-auto g-me-2">{canonicalName}</span>
           )}
         </SetAsFilter>
-        {occurrence.hasTaxonIssues && (
+        {occurrence?.classification?.hasTaxonIssues && (
           <div>
             <SimpleTooltip side="right" i18nKey="filterSupport.nameWithTaxonMatchIssue">
               <div

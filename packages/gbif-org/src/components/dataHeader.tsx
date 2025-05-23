@@ -13,6 +13,7 @@ import React from 'react';
 import { MdApps, MdCode, MdInfo } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { DoiTag } from './identifierTag';
+import { Button } from './ui/button';
 
 export function DataHeader({
   children,
@@ -57,12 +58,12 @@ export function DataHeader({
       )}
       <div className="g-flex-auto g-min-w-0">{children}</div>
       <div className="g-flex-none g-mx-2">
-        <div className="g-flex g-justify-center g-items-center">
+        <div className="g-flex g-justify-center g-items-center g-gap-1">
           {doi && <DoiTag id={doi} className="g-me-2 g-text-xs g-hidden md:g-inline" />}
           {aboutContent && dataHeader.enableInfoPopup && (
             <Popup
               trigger={
-                <MdInfo className="g-mx-1 hover:g-text-slate-700 g-text-slate-400 g-block" />
+                <MdInfo className="hover:g-text-slate-700 g-text-slate-400 g-block g-text-base" />
               }
             >
               {aboutContent}
@@ -71,7 +72,7 @@ export function DataHeader({
           {apiContent && dataHeader.enableApiPopup && (
             <Popup
               trigger={
-                <MdCode className="g-mx-1 hover:g-text-slate-700 g-text-slate-400 g-block" />
+                <MdCode className="hover:g-text-slate-700 g-text-slate-400 g-block g-text-base" />
               }
             >
               {apiContent}
@@ -98,7 +99,11 @@ function Popup({
 }) {
   return (
     <Popover>
-      <PopoverTrigger>{trigger}</PopoverTrigger>
+      <PopoverTrigger asChild>
+        <Button variant="ghost" size="sm" className="g-px-1 g-text-slate-400">
+          {trigger}
+        </Button>
+      </PopoverTrigger>
       <PopoverContent className={cn('g-w-96', className)}>{children}</PopoverContent>
     </Popover>
   );

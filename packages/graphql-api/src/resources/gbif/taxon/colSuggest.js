@@ -129,7 +129,6 @@ export default async function colSuggest({
         // map suggestions to a more useful format
         return suggestions.map((s) => {
           // we need matchedName, acceptedKey, acceptedName as html, acceptedName as plain text, classification (text and key)
-          console.log(s);
           return {
             key: s.taxonID,
             vernacularName: s.name,

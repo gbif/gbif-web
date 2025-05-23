@@ -65,7 +65,6 @@ function Image({ defaultSize, style = {}, src, attribution, ...props }) {
             }}
             onLoad={(e) => {
               setLoading(false);
-              console.log('loaded');
               onLoad && onLoad(e);
             }}
             {...props}

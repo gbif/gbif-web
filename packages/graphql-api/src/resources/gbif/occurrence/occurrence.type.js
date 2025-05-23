@@ -321,10 +321,6 @@ const typeDef = gql`
     Volatile: these values are tightly coupled to the webview and are likely to change frequently
     """
     bionomia: BionomiaOccurrence
-    """
-    Volatile: these values are tightly coupled to the webview and are likely to change frequently
-    """
-    hasTaxonIssues: Boolean
   }
 
   type BionomiaOccurrence {
@@ -473,6 +469,11 @@ const typeDef = gql`
     taxonMatch: SpeciesMatchResult
     meta: ChecklistMeta
     vernacularNames(lang: String, maxLimit: Int): [ClbVernacularName]
+    """
+    Volatile: these values are tightly coupled to the webview and are likely to change frequently
+    A simple boolean to tell the UI if there are any issues with the taxon that are worth highlighting
+    """
+    hasTaxonIssues: Boolean
   }
 
   type ChecklistMeta {

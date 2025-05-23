@@ -45,14 +45,15 @@ export function useFilterParams({
       'checklistKey',
     ]);
 
-    const empty: { [key: string]: undefined } = [...Object.keys(fields), ...remove].reduce(
-      (accumulator: { [key: string]: undefined }, curr: string) => {
-        const fieldConfig = fields[curr];
-        accumulator[fieldConfig?.defaultKey || curr] = undefined;
-        return accumulator;
-      },
-      {}
-    );
+    const empty: { [key: string]: undefined } = [
+      ...Object.keys(fields),
+      'checklistKey',
+      ...remove,
+    ].reduce((accumulator: { [key: string]: undefined }, curr: string) => {
+      const fieldConfig = fields[curr];
+      accumulator[fieldConfig?.defaultKey || curr] = undefined;
+      return accumulator;
+    }, {});
     empty.filter = undefined;
     setEmptyQuery(empty);
   }, [filterConfig, remove]);
@@ -74,6 +75,7 @@ export function useFilterParams({
   // Field names can change according to the configuration
   const setFilter = useCallback(
     (nextFilter: FilterType) => {
+      console.log('setFilter');
       if (objectHash(cleanUpFilter(nextFilter)) === objectHash(cleanUpFilter(filter))) {
         return;
       }

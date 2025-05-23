@@ -211,6 +211,16 @@ export default {
         checklistKey,
       });
     },
+    hasTaxonIssues: ({ issues = [] }) => {
+      return (
+        _.intersection(issues, [
+          'TAXON_MATCH_FUZZY',
+          'TAXON_MATCH_HIGHERRANK',
+          'TAXON_MATCH_AGGREGATE',
+          'TAXON_MATCH_NONE',
+        ]).length > 0
+      );
+    },
     vernacularNames: (
       { checklistKey, usage },
       { lang, maxLimit },
@@ -357,16 +367,6 @@ export default {
       return dataSources.occurrenceAPI
         .getVerbatim({ key: occurrence.key })
         .then((verbatim) => groupResolver({ occurrence, verbatim }));
-    },
-    hasTaxonIssues: ({ issues = [] }) => {
-      return (
-        _.intersection(issues, [
-          'TAXON_MATCH_FUZZY',
-          'TAXON_MATCH_HIGHERRANK',
-          'TAXON_MATCH_AGGREGATE',
-          'TAXON_MATCH_NONE',
-        ]).length > 0
-      );
     },
     terms: (occurrence, _args, { dataSources }) => {
       return dataSources.occurrenceAPI

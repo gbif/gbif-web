@@ -84,9 +84,10 @@ export function FilterProvider({
 
   const setChecklistKey = useCallback(
     (key: string): FilterType => {
+      const { checklistKey, ...rest } = currentFilter || {};
       return setFilter({
-        ...currentFilter,
-        checklistKey: key ?? defaultChecklistKey,
+        ...rest,
+        checklistKey: key === defaultChecklistKey ? undefined : key,
       });
     },
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
