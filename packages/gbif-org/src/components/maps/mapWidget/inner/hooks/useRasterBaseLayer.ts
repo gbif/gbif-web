@@ -46,14 +46,30 @@ export function useRasterBaseLayer({
     const view = projection.getView(0, 0, 0);
 
     if (capabilities && capabilities.maxLng - capabilities.minLng < 180) {
-      view.fit([
+      const extent = [
         capabilities.minLng,
         capabilities.minLat,
         capabilities.maxLng,
         capabilities.maxLat,
-      ]);
-      //const v = map.getView(); // zoom out a bit see https://github.com/gbif/maps/issues/17
-      view.setZoom(view?.getZoom() - 0.5);
+      ];
+
+      // Add padding to the extent
+      const padding = 0.1; // 10% padding
+      const width = capabilities.maxLng - capabilities.minLng;
+      const height = capabilities.maxLat - capabilities.minLat;
+
+      const paddedExtent = [
+        extent[0] - width * padding,
+        extent[1] - height * padding,
+        extent[2] + width * padding,
+        extent[3] + height * padding,
+      ];
+
+      view.fit(paddedExtent, {
+        size: map.getSize(),
+        padding: [50, 50, 50, 50], // Add some padding around the edges
+        maxZoom: 18,
+      });
     } else {
       view.fit([-180, -90, 180, 90]);
     }
