@@ -23,7 +23,11 @@ export function CountryKeyParticipation() {
               <FormattedMessage id="TODO" defaultMessage="Participant Summary" />
             </h3>
           </div>
-          <ParticipantSummary participant={data.nodeCountry!} className="g-mb-8" />
+          <ParticipantSummary
+            participant={data.nodeCountry!}
+            className="g-mb-8"
+            showSocialLinksSection
+          />
           <hr />
           {body && <ArticleBody dangerouslySetBody={{ __html: body }} />}
         </ArticleTextContainer>
@@ -44,6 +48,7 @@ export function CountryKeyParticipation() {
 fragmentManager.register(/* GraphQL */ `
   fragment CountryKeyParticipation on Node {
     participant {
+      progressAndPlans
       nodeMission
       nodeFunding
       nodeHistory
@@ -56,6 +61,11 @@ fragmentManager.register(/* GraphQL */ `
 // Done this way to let the g-prose class and ArticleBody component do the styling
 function createBody(participant: NonNullable<CountryKeyParticipationFragment['participant']>) {
   let body = '';
+
+  if (participant.progressAndPlans) {
+    body += `<h3>Progress and Plans</h3>`;
+    body += participant.progressAndPlans;
+  }
 
   if (participant.nodeMission) {
     body += `<h3>Mission</h3>`;

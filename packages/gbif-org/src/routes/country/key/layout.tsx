@@ -85,8 +85,8 @@ export function CountryKeyLayout() {
               <a
                 href={`https://analytics-files.gbif.org/country/${countryCode}/GBIF_CountryReport_${countryCode}.pdf`}
               >
-                <FormattedMessage id="TODO" defaultMessage="Activity Report" />
                 <DownloadIcon className="g-w-4 g-h-4" />
+                <FormattedMessage id="TODO" defaultMessage="Activity Report" />
               </a>
             </Button>
           </div>

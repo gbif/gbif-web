@@ -28,6 +28,7 @@ export default {
     },
   },
   Participant: {
+    progressAndPlans: ({ progressAndPlans }) => getHtml(progressAndPlans),
     nodeMission: ({ nodeMission }) => getHtml(nodeMission),
     nodeHistory: ({ nodeHistory }) => getHtml(nodeHistory),
     nodeFunding: ({ nodeFunding }) => getHtml(nodeFunding),
