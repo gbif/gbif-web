@@ -1,24 +1,24 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import animaliaIconUrl from './icons/animalia.svg';
-import plantaeIconUrl from './icons/plantae.svg';
-import fungiIconUrl from './icons/fungi.svg';
-import archaeaIconUrl from './icons/archaea.svg';
-import bacteriaIconUrl from './icons/bacteria.svg';
-import chromistaIconUrl from './icons/chromista.svg';
-import protozoaIconUrl from './icons/protozoa.svg';
-import virusesIconUrl from './icons/viruses.svg';
-import unknownIconUrl from './icons/unknown.svg';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   OccurrencesPerKingdomQuery,
   OccurrencesPerKingdomQueryVariables,
   PredicateType,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
-import { Skeleton } from '@/components/ui/skeleton';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { notNull } from '@/utils/notNull';
 import { useMemo } from 'react';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
+import animaliaIconUrl from './icons/animalia.svg';
+import archaeaIconUrl from './icons/archaea.svg';
+import bacteriaIconUrl from './icons/bacteria.svg';
+import chromistaIconUrl from './icons/chromista.svg';
+import fungiIconUrl from './icons/fungi.svg';
+import plantaeIconUrl from './icons/plantae.svg';
+import protozoaIconUrl from './icons/protozoa.svg';
+import unknownIconUrl from './icons/unknown.svg';
+import virusesIconUrl from './icons/viruses.svg';
 
 export const kingdoms = [
   { id: 1, title: 'Animalia', icon: animaliaIconUrl },
@@ -83,7 +83,12 @@ export function OccurrencesPerKingdom({ countryCode, type }: Props) {
           }
 
           return (
-            <DynamicLink pageId="occurrenceSearch" searchParams={searchParams} className="g-group">
+            <DynamicLink
+              key={kingdom.id}
+              pageId="occurrenceSearch"
+              searchParams={searchParams}
+              className="g-group"
+            >
               <div key={kingdom.id} className="g-flex g-flex-row g-items-center g-gap-2 g-min-w-44">
                 <div className="g-size-16 g-p-0.5 g-bg-primary-500 group-hover:g-bg-primary-700 g-rounded-full g-flex g-items-center g-justify-evenly">
                   <img src={kingdom.icon} alt={kingdom.title} />
