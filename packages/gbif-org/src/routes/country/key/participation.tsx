@@ -7,13 +7,25 @@ import { fragmentManager } from '@/services/fragmentManager';
 import { FormattedMessage } from 'react-intl';
 import { useCountryKeyLoaderData } from '.';
 import { Contacts } from './components/contacts';
+import { EmptyCountryTab } from './components/emptyCountryTab';
 import { ParticipantSummary } from './components/participantSummary';
 
 export function CountryKeyParticipation() {
   const { data } = useCountryKeyLoaderData();
+  const nodeCountry = data?.nodeCountry;
 
-  const participant = data?.nodeCountry?.participant;
-  const body = participant ? createBody(participant) : '';
+  if (!nodeCountry) {
+    return (
+      <EmptyCountryTab
+        title={<FormattedMessage id="TODO" defaultMessage="Not a participant" />}
+        description={
+          <FormattedMessage id="TODO" defaultMessage="This country is not a participant of GBIF" />
+        }
+      />
+    );
+  }
+
+  const body = nodeCountry.participant ? createBody(nodeCountry.participant) : '';
 
   return (
     <>
@@ -26,7 +38,7 @@ export function CountryKeyParticipation() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <ParticipantSummary participant={data.nodeCountry!} showSocialLinksSection />
+              <ParticipantSummary participant={nodeCountry} showSocialLinksSection />
             </CardContent>
           </Card>
         </ArticleTextContainer>
@@ -39,9 +51,9 @@ export function CountryKeyParticipation() {
       <ArticleContainer className="g-bg-slate-100 g-pt-4">
         <ArticleTextContainer className="g-max-w-screen-xl g-flex g-flex-col g-gap-4">
           <Contacts
-            contacts={data?.nodeCountry?.contacts}
-            nodeTitle={data?.nodeCountry?.title}
-            nodeAddress={data?.nodeCountry?.address}
+            contacts={nodeCountry.contacts}
+            nodeTitle={nodeCountry.title}
+            nodeAddress={nodeCountry.address}
           />
         </ArticleTextContainer>
       </ArticleContainer>

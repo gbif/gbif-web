@@ -5,19 +5,35 @@ import useQuery from '@/hooks/useQuery';
 import { FormattedMessage } from 'react-intl';
 import { MapHeader } from './mapHeader';
 
-type DataFromCountryMapProps = {
+const COUNTRY_DETAIL_QUERY = /* GraphQL */ `
+  query CountryDetailFrom($isoCode: Country!) {
+    countryDetail(isoCode: $isoCode) {
+      fromOccurrenceCount
+      fromDatasetCount
+      fromCountryCount
+      fromPublisherCount
+    }
+  }
+`;
+
+export function useFromCountryDetails(countryCode: string) {
+  return useQuery<CountryDetailFromQuery, CountryDetailFromQueryVariables>(COUNTRY_DETAIL_QUERY, {
+    variables: { isoCode: countryCode as Country },
+    forceLoadingTrueOnMount: true,
+  });
+}
+
+type DataFromCountryMapPresentationProps = {
   countryCode: string;
+  fromCountryDetails: CountryDetailFromQuery['countryDetail'];
+  isLoading: boolean;
 };
 
-export function DataFromCountryMap({ countryCode }: DataFromCountryMapProps) {
-  const countryDetail = useQuery<CountryDetailFromQuery, CountryDetailFromQueryVariables>(
-    COUNTRY_DETAIL_QUERY,
-    {
-      variables: { isoCode: countryCode as Country },
-      forceLoadingTrueOnMount: true,
-    }
-  );
-
+export function DataFromCountryMapPresentation({
+  countryCode,
+  fromCountryDetails,
+  isLoading,
+}: DataFromCountryMapPresentationProps) {
   return (
     <section>
       <Card>
@@ -31,8 +47,8 @@ export function DataFromCountryMap({ countryCode }: DataFromCountryMapProps) {
               searchParams={{ publishingCountry: countryCode }}
             >
               <MapHeader.Count
-                value={countryDetail.data?.countryDetail?.fromOccurrenceCount}
-                loading={countryDetail.loading}
+                value={fromCountryDetails?.fromOccurrenceCount}
+                loading={isLoading}
               />
               <MapHeader.Text id="TODO" defaultMessage="Occurrences" />
             </MapHeader.Item>
@@ -41,26 +57,17 @@ export function DataFromCountryMap({ countryCode }: DataFromCountryMapProps) {
               pageId="datasetSearch"
               searchParams={{ publishingCountry: countryCode }}
             >
-              <MapHeader.Count
-                value={countryDetail.data?.countryDetail?.fromDatasetCount}
-                loading={countryDetail.loading}
-              />
+              <MapHeader.Count value={fromCountryDetails?.fromDatasetCount} loading={isLoading} />
               <MapHeader.Text id="TODO" defaultMessage="Datasets" />
             </MapHeader.Item>
 
             <MapHeader.Item>
-              <MapHeader.Count
-                value={countryDetail.data?.countryDetail?.fromCountryCount}
-                loading={countryDetail.loading}
-              />
+              <MapHeader.Count value={fromCountryDetails?.fromCountryCount} loading={isLoading} />
               <MapHeader.Text id="TODO" defaultMessage="Countries and areas contribute data" />
             </MapHeader.Item>
 
             <MapHeader.Item pageId="publisherSearch" searchParams={{ country: countryCode }}>
-              <MapHeader.Count
-                value={countryDetail.data?.countryDetail?.fromPublisherCount}
-                loading={countryDetail.loading}
-              />
+              <MapHeader.Count value={fromCountryDetails?.fromPublisherCount} loading={isLoading} />
               <MapHeader.Text id="TODO" defaultMessage="Publishers" />
             </MapHeader.Item>
           </MapHeader.Container>
@@ -71,13 +78,18 @@ export function DataFromCountryMap({ countryCode }: DataFromCountryMapProps) {
   );
 }
 
-const COUNTRY_DETAIL_QUERY = /* GraphQL */ `
-  query CountryDetailFrom($isoCode: Country!) {
-    countryDetail(isoCode: $isoCode) {
-      fromOccurrenceCount
-      fromDatasetCount
-      fromCountryCount
-      fromPublisherCount
-    }
-  }
-`;
+type DataFromCountryMapProps = {
+  countryCode: string;
+};
+
+export function DataFromCountryMap({ countryCode }: DataFromCountryMapProps) {
+  const { data, loading } = useFromCountryDetails(countryCode);
+
+  return (
+    <DataFromCountryMapPresentation
+      countryCode={countryCode}
+      fromCountryDetails={data?.countryDetail}
+      isLoading={loading}
+    />
+  );
+}

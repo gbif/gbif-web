@@ -1,19 +1,22 @@
+import { ClientSideOnly } from '@/components/clientSideOnly';
+import * as charts from '@/components/dashboard';
+import DashBoardLayout from '@/components/dashboard/DashboardLayout';
+import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { useParams } from 'react-router-dom';
-import { DataFromCountryMap } from './components/dataFromCountryMap';
-import { FormattedMessage } from 'react-intl';
-import { CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { Trends } from './components/trends';
-import { OccurrencesPerKingdom } from './components/kingdoms/occurrencesPerKingdom';
 import { useMemo } from 'react';
-import { ClientSideOnly } from '@/components/clientSideOnly';
-import DashBoardLayout from '@/components/dashboard/DashboardLayout';
-import * as charts from '@/components/dashboard';
+import { FormattedMessage } from 'react-intl';
+import { useParams } from 'react-router-dom';
+import {
+  DataFromCountryMapPresentation,
+  useFromCountryDetails,
+} from './components/dataFromCountryMap';
+import { EmptyCountryTab } from './components/emptyCountryTab';
+import { OccurrencesPerKingdom } from './components/kingdoms/occurrencesPerKingdom';
+import { Trends } from './components/trends';
 
 export function CountryKeyPublishing() {
   const { countryCode } = useParams();
-
   if (!countryCode) throw new Error('Country code is required');
 
   const predicate = useMemo(() => {
@@ -24,10 +27,30 @@ export function CountryKeyPublishing() {
     };
   }, [countryCode]);
 
+  const { data, loading } = useFromCountryDetails(countryCode);
+
+  if (!loading && (data?.countryDetail == null || data.countryDetail.fromPublisherCount === 0)) {
+    return (
+      <EmptyCountryTab
+        title={<FormattedMessage id="TODO" defaultMessage="No data publishing activity" />}
+        description={
+          <FormattedMessage
+            id="TODO"
+            defaultMessage="No institutions from this country/area have published data through GBIF"
+          />
+        }
+      />
+    );
+  }
+
   return (
     <ArticleContainer className="g-bg-slate-100 g-pt-4">
       <ArticleTextContainer className="g-max-w-screen-xl g-flex g-flex-col g-gap-4">
-        <DataFromCountryMap countryCode={countryCode} />
+        <DataFromCountryMapPresentation
+          countryCode={countryCode}
+          fromCountryDetails={data?.countryDetail}
+          isLoading={loading}
+        />
 
         <OccurrencesPerKingdom type="publishedBy" countryCode={countryCode} />
 
