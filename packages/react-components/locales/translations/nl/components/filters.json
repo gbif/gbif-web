@@ -300,10 +300,25 @@
     "count": "",
     "description": ""
   },
+  "sex": {
+    "name": "Geslacht",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
+  },
+  "lifeStage": {
+    "name": "Levensfase",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
+  },
   "recordedBy": {
     "name": "Vastgelegd door",
     "count": "",
     "description": "De naam/namen van de persoon/personen, groepen of organisaties die de oorspronkelijke gegevens hebben vastgelegd."
+  },
+  "fieldNumber": {
+    "name": "Veldnummer",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
   },
   "recordNumber": {
     "name": "Objectnummer",

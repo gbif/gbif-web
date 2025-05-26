@@ -300,10 +300,25 @@
     "count": "{num, plural, one { sposób wprowadzenia } few {# sposoby wprowadzenia} many {# sposobów wprowadzenia} other {# sposoby wprowadzenia}}",
     "description": "Sposoby wprowadzenia organizmu w dane miejsce o danym czasie."
   },
+  "sex": {
+    "name": "Płeć",
+    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+  },
+  "lifeStage": {
+    "name": "Stadium rozwoju",
+    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+  },
   "recordedBy": {
     "name": "Zarejestrowane przez",
     "count": "{num, plural, one { zarejestrowane przez } few {# zarejestrowane przez} many {# zarejestrowane przez} other {# zarejestrowane przez}}",
     "description": "Nazwiska osoby/osób, grup lub organizacji, które zarejestrowały oryginalne wystąpienie."
+  },
+  "fieldNumber": {
+    "name": "Numer pola",
+    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
   },
   "recordNumber": {
     "name": "Numer rekordu",
