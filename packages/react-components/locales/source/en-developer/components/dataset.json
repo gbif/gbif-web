@@ -146,5 +146,9 @@
     "outOfSync": "Out of sync",
     "becauseTrustedContact": "Because you are trusted contact",
     "registrationDetails": "GBIF registration details"
+  },
+  "errors": {
+    "evenList": "Error loading event list",
+    "occurrenceInfo": "Error loading occurrence info"
   }
 }

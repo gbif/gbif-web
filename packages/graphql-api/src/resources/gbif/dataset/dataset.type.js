@@ -119,7 +119,6 @@ const typeDef = gql`
     hostingOrganization: Organization
     occurrenceCount: Int
     literatureCount: Int
-
     """
     volatile shortened version of the description
     """
@@ -208,6 +207,27 @@ const typeDef = gql`
     excerpt: String
     occurrenceCount: Int
     literatureCount: Int
+    eventCount(optParentEventID: ID): Int
+
+    firstOccurrence: Occurrence
+    events(
+      key: ID!
+      limit: Int
+      offset: Int
+      eventID: ID
+      optParentEventID: ID
+    ): DatasetEvents
+  }
+
+  type DatasetEvents {
+    results: [Event]
+    limit: Int!
+    offset: Int!
+    endOfRecords: Boolean!
+  }
+  type Event {
+    eventId: ID
+    occurrenceCount: Int
     firstOccurrence: Occurrence
   }
 

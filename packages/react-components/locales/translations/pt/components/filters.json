@@ -300,10 +300,25 @@
     "count": "{num, plural, one { meio de estabelecimento } other {# meios de estabelecimento}}",
     "description": "O modo como o organismo foi introduzido num determinado local num dado momento."
   },
+  "sex": {
+    "name": "Sexo",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
+  "lifeStage": {
+    "name": "Estágio de desenvolvimento",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
   "recordedBy": {
     "name": "Registado por",
     "count": "{num, plural, one { registado por } other {# registados por}}",
     "description": "Os nomes da pessoa, pessoas, grupos ou organizações responsáveis pelo registo da ocorrência original."
+  },
+  "fieldNumber": {
+    "name": "Número de campo",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
   },
   "recordNumber": {
     "name": "Número de registo",

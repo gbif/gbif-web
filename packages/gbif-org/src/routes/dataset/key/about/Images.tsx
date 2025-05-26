@@ -7,7 +7,7 @@ import { MdImage } from 'react-icons/md';
 import { FormattedNumber } from 'react-intl';
 import styles from './images.module.css';
 
-export function Images({ dataset, className, images = [], ...props }) {
+export function Images({ dataset, className, images = [], link, ...props }) {
   if (!(images?.documents?.total > 0)) return null;
   return (
     <div className={cn(`galleryBar ${styles.galleryBar}`, className)} {...props}>
@@ -24,16 +24,20 @@ export function Images({ dataset, className, images = [], ...props }) {
       </div>
 
       <Button asChild>
-        <DynamicLink to={`./occurrences?view=GALLERY`}>
-          <SimpleTooltip title={<span>Records with images</span>} placement="auto">
-            <div className="g-flex g-place-items-center">
-              <MdImage style={{ marginRight: 8 }} />{' '}
-              <span>
-                <FormattedNumber value={images?.documents?.total} />
-              </span>
-            </div>
-          </SimpleTooltip>
-        </DynamicLink>
+        {link ? (
+          link
+        ) : (
+          <DynamicLink to={`./occurrences?view=GALLERY`}>
+            <SimpleTooltip title={<span>Records with images</span>} placement="auto">
+              <div className="g-flex g-place-items-center">
+                <MdImage style={{ marginRight: 8 }} />{' '}
+                <span>
+                  <FormattedNumber value={images?.documents?.total} />
+                </span>
+              </div>
+            </SimpleTooltip>
+          </DynamicLink>
+        )}
       </Button>
     </div>
   );

@@ -300,10 +300,25 @@
     "count": "{num, plural, one { establishment means } other {# establishment means}}",
     "description": "Les moyens par lesquels l'organisme a été introduit à un endroit donné à un moment donné."
   },
+  "sex": {
+    "name": "Sexe",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
+  },
+  "lifeStage": {
+    "name": "Stade de développement",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
+  },
   "recordedBy": {
     "name": "Enregistré par",
     "count": "{num, plural, one { recorded by } other {# recorded bys}}",
     "description": "Les noms de la personne, des personnes, des groupes ou des organisations responsables de l'enregistrement de l'occurrence originale."
+  },
+  "fieldNumber": {
+    "name": "Numéro de terrain",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
   },
   "recordNumber": {
     "name": "Numéro d'enregristrement",

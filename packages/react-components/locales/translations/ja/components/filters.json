@@ -300,8 +300,23 @@
     "count": "",
     "description": ""
   },
+  "sex": {
+    "name": "性別",
+    "count": "",
+    "description": ""
+  },
+  "lifeStage": {
+    "name": "ライフ ステージ",
+    "count": "",
+    "description": ""
+  },
   "recordedBy": {
     "name": "採集者・観察者",
+    "count": "",
+    "description": ""
+  },
+  "fieldNumber": {
+    "name": "フィールド番号",
     "count": "",
     "description": ""
   },

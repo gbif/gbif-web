@@ -7,6 +7,7 @@ import { DatasetKeyAbout } from './about';
 import { DatasetKeyDashboard } from './dashboard';
 import { datasetLoader, DatasetPage, DatasetPageSkeleton } from './datasetKey';
 import { DatasetKeyDownload } from './download';
+import { DatasetEventID, eventLoader, parentEventLoader } from './event/eventID';
 import { DatasetKeyLiterature } from './literature';
 import { DatasetKeyOccurrences } from './occurrences';
 import { DatasetKeyPhylo } from './phylogenies';
@@ -69,6 +70,16 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
           element: <VerbatimTaxon headLess={true} />,
         },
       ],
+    },
+    {
+      path: 'event/:eventID',
+      element: <DatasetEventID />,
+      loader: eventLoader,
+    },
+    {
+      path: 'parentevent/:parentEventID',
+      element: <DatasetEventID />,
+      loader: parentEventLoader,
     },
     {
       path: 'download',
