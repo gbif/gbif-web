@@ -35,7 +35,7 @@ const issueSeverityMap = interpretationRemark.reduce((acc, issue) => {
   return acc;
 }, {});
 
-const getSourceSearch = (dataSources) => (args) =>
+export const getSourceSearch = (dataSources) => (args) =>
   dataSources.occurrenceAPI.searchOccurrences.call(
     dataSources.occurrenceAPI,
     args,

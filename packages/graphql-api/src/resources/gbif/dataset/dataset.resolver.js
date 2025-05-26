@@ -1,5 +1,6 @@
 import { excerpt, getHtml } from '#/helpers/utils';
 import { getFacet } from '../getQueryMetrics';
+import { getDatasetEventCount, getDatasetEvents } from './event';
 import { getContributors } from './helpers/contributors';
 
 const getSourceSearch = (dataSources) => (args) =>
@@ -163,6 +164,8 @@ export const Dataset = {
       .searchLiterature({ query: { gbifDatasetKey: key, size: 0 } })
       .then((response) => response.documents.total);
   },
+  events: getDatasetEvents,
+  eventCount: getDatasetEventCount,
 };
 
 export const ChecklistBankDataset = {
