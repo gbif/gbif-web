@@ -8,8 +8,6 @@ const typeDef = gql`
     acceptedNameUsage: String
     acceptedNameUsageID: String
     acceptedScientificName: String
-    acceptedTaxonKey: ID
-    acceptedTaxon: Taxon
     accessRights: String
     accrualMethod: String
     accrualPeriodicity: String
@@ -246,7 +244,6 @@ const typeDef = gql`
     taxonConceptID: String
     taxonID: String
     taxonKey: ID
-    taxon: Taxon
     taxonRank: String
     taxonRemarks: String
     taxonomicStatus: String

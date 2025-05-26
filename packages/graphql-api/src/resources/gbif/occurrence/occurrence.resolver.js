@@ -327,14 +327,14 @@ export default {
       });
       return filteredIssues;
     },
-    acceptedTaxon: ({ acceptedTaxonKey }, _args, { dataSources }) => {
-      if (!acceptedTaxonKey) return null;
-      return dataSources.taxonAPI.getTaxonByKey({ key: acceptedTaxonKey });
-    },
-    taxon: ({ taxonKey }, _args, { dataSources }) => {
-      if (!taxonKey) return null;
-      return dataSources.taxonAPI.getTaxonByKey({ key: taxonKey });
-    },
+    // acceptedTaxon: ({ acceptedTaxonKey }, _args, { dataSources }) => {
+    //   if (!acceptedTaxonKey) return null;
+    //   return dataSources.taxonAPI.getTaxonByKey({ key: acceptedTaxonKey });
+    // },
+    // taxon: ({ taxonKey }, _args, { dataSources }) => {
+    //   if (!taxonKey) return null;
+    //   return dataSources.taxonAPI.getTaxonByKey({ key: taxonKey });
+    // },
     classification: ({ classifications }, { checklistKey }) => {
       // just return one classification. if none provided, then fallback to default
       if (!classifications) return null;

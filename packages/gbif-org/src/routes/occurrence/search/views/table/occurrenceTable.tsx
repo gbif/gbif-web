@@ -80,9 +80,6 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
             }
             hasTaxonIssues
           }
-          taxon {
-            canonicalName
-          }
           primaryImage {
             thumbor(width: 80)
           }

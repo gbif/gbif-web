@@ -22,7 +22,6 @@ export function GroupByTable({
   total = 800,
   ...props
 }) {
-  const totalPage = results.reduce((a, c) => a + (c.count || 0), 0);
   // maximum count on page
   const maxCount = results.reduce((a, c) => Math.max(a, c.count || 0), 0);
 
@@ -41,7 +40,7 @@ export function GroupByTable({
 
   return (
     <div style={{ overflow: 'auto' }}>
-      <Table>
+      <Table removeBorder={false}>
         {columnTitle && (
           <thead className="[&_th]:g-text-sm [&_th]:g-font-normal [&_th]:g-py-2 [&_th]:g-text-slate-500">
             <tr>
@@ -55,8 +54,8 @@ export function GroupByTable({
           {results.map((e, i) => {
             const fractionOfTotal = e.count / total;
             return (
-              <>
-                <tr key={e.key}>
+              <React.Fragment key={e.key}>
+                <tr className="g-border-t g-border-slate-200">
                   <td style={interactive ? { cursor: 'pointer' } : {}}>
                     {e.filter && (
                       <div
@@ -101,7 +100,7 @@ export function GroupByTable({
                     </td>
                   </tr>
                 )}
-              </>
+              </React.Fragment>
             );
           })}
         </tbody>

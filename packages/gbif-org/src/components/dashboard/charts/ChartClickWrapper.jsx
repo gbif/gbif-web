@@ -28,5 +28,6 @@ export default function ChartClickWrapper({ children, interactive, detailsRoute,
     [detailsRoute, location.pathname, filterContext, interactive, setFilter, navigate]
   );
 
+  // return React.cloneElement(children, { handleRedirect, interactive, ...props });
   return React.cloneElement(children, { handleRedirect, interactive, ...props });
 }
