@@ -7,6 +7,7 @@
   "occurrences": "Occurrences",
   "numberSpecimens": "Anzahl der Sammlungsobjekte",
   "gbifNumberSpecimens": "Belege in GBIF",
+  "specimenTriplet": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
   "title": "Titel",
   "titleAndAbstract": "Titel und Abstract",
   "altmetric": "Altmetrisch",
