@@ -112,6 +112,20 @@ export default {
         _q: args.q,
       };
     },
+    occurrenceDatasetSuggest: (
+      _parent,
+      { predicate, q, size = 10 },
+      { dataSources },
+    ) => {
+      return dataSources.occurrenceAPI.datasetSuggest({ predicate, q, size });
+    },
+    occurrencePublisherSuggest: (
+      _parent,
+      { predicate, q, size = 10 },
+      { dataSources },
+    ) => {
+      return dataSources.occurrenceAPI.publisherSuggest({ predicate, q, size });
+    },
     occurrenceClusterSearch: (
       _parent,
       { predicate, ...query },
@@ -623,6 +637,18 @@ export default {
       return dataSources.datasetAPI.getDatasetByKey({ key });
     },
     occurrences: facetOccurrenceSearch,
+  },
+  OccurrenceDatasetSuggestResult: {
+    dataset: ({ key }, _args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+      return dataSources.datasetAPI.getDatasetByKey({ key });
+    },
+  },
+  OccurrencePublisherSuggestResult: {
+    publisher: ({ key }, _args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+      return dataSources.organizationAPI.getOrganizationByKey({ key });
+    },
   },
   OccurrenceFacetResult_establishmentMeans: {
     concept: ({ key }, _args, { dataSources }) => {

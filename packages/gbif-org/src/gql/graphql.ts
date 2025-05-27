@@ -5154,6 +5154,13 @@ export type OccurrenceClusterSearchResult = {
   nodes?: Maybe<Array<Maybe<OccurrenceClusterNode>>>;
 };
 
+export type OccurrenceDatasetSuggestResult = {
+  __typename?: 'OccurrenceDatasetSuggestResult';
+  count: Scalars['Long']['output'];
+  dataset: Dataset;
+  key: Scalars['String']['output'];
+};
+
 export type OccurrenceDocuments = {
   __typename?: 'OccurrenceDocuments';
   from: Scalars['Int']['output'];
@@ -6304,6 +6311,13 @@ export enum OccurrencePersistenceStatus {
   Updated = 'UPDATED'
 }
 
+export type OccurrencePublisherSuggestResult = {
+  __typename?: 'OccurrencePublisherSuggestResult';
+  count: Scalars['Long']['output'];
+  key: Scalars['String']['output'];
+  publisher: Organization;
+};
+
 export enum OccurrenceSchemaType {
   Abcd_1_2 = 'ABCD_1_2',
   Abcd_2_0_6 = 'ABCD_2_0_6',
@@ -6897,6 +6911,8 @@ export type Query = {
   notification?: Maybe<Notification>;
   occurrence?: Maybe<Occurrence>;
   occurrenceClusterSearch?: Maybe<OccurrenceClusterSearchResult>;
+  occurrenceDatasetSuggest?: Maybe<Array<Maybe<OccurrenceDatasetSuggestResult>>>;
+  occurrencePublisherSuggest?: Maybe<Array<Maybe<OccurrencePublisherSuggestResult>>>;
   occurrenceSearch?: Maybe<OccurrenceSearchResult>;
   occurrences?: Maybe<SimpleOccurrenceResults>;
   orcid?: Maybe<OrcId>;
@@ -7299,6 +7315,20 @@ export type QueryOccurrenceClusterSearchArgs = {
   apiKey?: InputMaybe<Scalars['String']['input']>;
   from?: InputMaybe<Scalars['Int']['input']>;
   predicate?: InputMaybe<Predicate>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type QueryOccurrenceDatasetSuggestArgs = {
+  predicate?: InputMaybe<Predicate>;
+  q?: InputMaybe<Scalars['String']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type QueryOccurrencePublisherSuggestArgs = {
+  predicate?: InputMaybe<Predicate>;
+  q?: InputMaybe<Scalars['String']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
 

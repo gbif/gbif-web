@@ -32,10 +32,11 @@ module.exports = {
   getSuggestQuery: ({ key, text }) => getSuggestQuery(key, text, config),
   suggestConfig,
   suggestDatasetKey: async (req, res) => {
+    console.log(req.body.predicate);
     const result = await occurrenceSuggest({
-      q: req.query.q,
-      limit: req.query.limit,
-      predicate: req.query.predicate ? JSON.parse(req.query.predicate) : undefined,
+      q: req.body.q,
+      limit: req.body.limit,
+      predicate: req.body.predicate,
       field: 'datasetKey',
       regexField: 'datasetTitle',
       req,
@@ -44,9 +45,9 @@ module.exports = {
   },
   suggestPublisherKey: async (req, res) => {
     const result = await occurrenceSuggest({
-      q: req.query.q,
-      limit: req.query.limit,
-      predicate: req.query.predicate ? JSON.parse(req.query.predicate) : undefined,
+      q: req.body.q,
+      limit: req.body.limit,
+      predicate: req.body.predicate,
       field: 'publishingOrganizationKey',
       regexField: 'publisherTitle',
       req,
@@ -58,7 +59,7 @@ module.exports = {
 async function occurrenceSuggest({ q, limit, predicate, field, regexField, req }) {
   const esQuery = await extendPredicate(predicate, {
     wildcard: {
-      [regexField]: q ? `*${q}*` : '*',
+      [regexField]: `*${(q ?? '').replace(/\s/, '*')}*`,
     },
   });
   const esBody = getSuggestionsQuery({
@@ -105,7 +106,6 @@ function predicate2esQuery(predicate, q) {
   })
     .then((response) => {
       if (!response.ok) {
-        console.log(response);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       return response.json();

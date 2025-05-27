@@ -136,8 +136,8 @@ if (occurrence) {
   );
   app.get('/occurrence/key/:id', asyncMiddleware(keyResource(occurrence)));
 
-  app.get('/occurrence/suggest/datasetKey', asyncMiddleware(occurrence.suggestDatasetKey));
-  app.get('/occurrence/suggest/publisherKey', asyncMiddleware(occurrence.suggestPublisherKey));
+  app.post('/occurrence/suggest/datasetKey', asyncMiddleware(occurrence.suggestDatasetKey));
+  app.post('/occurrence/suggest/publisherKey', asyncMiddleware(occurrence.suggestPublisherKey));
 
   app.get(
     '/occurrence/suggest/:key',

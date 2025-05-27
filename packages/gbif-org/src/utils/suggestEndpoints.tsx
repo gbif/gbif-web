@@ -75,42 +75,27 @@ export const datasetKeyOccurrenceSuggest = {
     const rootPredicate = searchContext?.scope;
     const SEARCH = `
     query keywordSearch($q: String, $predicate: Predicate, $size: Int){
-      occurrenceSearch(q: $q, predicate: $predicate) {
-        facet {
-          datasetKey(size: $size) {
-            key
-            count
-            dataset {
-              title
-            }
-          }
+      occurrenceDatasetSuggest(q: $q, predicate: $predicate, size: $size) {
+        key
+        count
+        dataset {
+          title
         }
       }
     }
     `;
-    const qPredicate = {
-      type: 'like',
-      key: 'datasetTitle',
-      value: `*${(q ?? '').replace(/\s/, '*')}*`,
-    };
 
-    let predicate = qPredicate;
-    if (rootPredicate) {
-      predicate = {
-        type: 'and',
-        predicates: [rootPredicate, qPredicate],
-      };
-    }
     const variables = {
       size: 10,
-      predicate,
+      predicate: rootPredicate,
+      q,
     };
     const promise = graphqlService.query(SEARCH, variables);
     return {
       promise: promise
         .then((res) => res.json())
         .then((response) => {
-          return response.data?.occurrenceSearch?.facet?.datasetKey.map((i) => ({
+          return response.data?.occurrenceDatasetSuggest?.map((i) => ({
             ...i,
             title: i.dataset.title,
           }));
@@ -142,42 +127,27 @@ export const publisherKeyOccurrenceSuggest = {
     const rootPredicate = searchContext?.scope;
     const SEARCH = `
     query keywordSearch($q: String, $predicate: Predicate, $size: Int){
-      occurrenceSearch(q: $q, predicate: $predicate) {
-        facet {
-          results: publishingOrg(size: $size) {
-            key
-            count
-            item: publisher {
-              title
-            }
-          }
+      occurrencePublisherSuggest(q: $q, predicate: $predicate, size: $size) {
+        key
+        count
+        item: publisher {
+          title
         }
       }
     }
     `;
-    const qPredicate = {
-      type: 'like',
-      key: 'publisherTitle',
-      value: `*${(q ?? '').replace(/\s/, '*')}*`,
-    };
 
-    let predicate = qPredicate;
-    if (rootPredicate) {
-      predicate = {
-        type: 'and',
-        predicates: [rootPredicate, qPredicate],
-      };
-    }
     const variables = {
       size: 10,
-      predicate,
+      predicate: rootPredicate,
+      q,
     };
     const promise = graphqlService.query(SEARCH, variables);
     return {
       promise: promise
         .then((res) => res.json())
         .then((response) => {
-          return response.data?.occurrenceSearch?.facet?.results.map((i) => ({
+          return response.data?.occurrencePublisherSuggest?.map((i) => ({
             ...i,
             title: i.item.title,
           }));

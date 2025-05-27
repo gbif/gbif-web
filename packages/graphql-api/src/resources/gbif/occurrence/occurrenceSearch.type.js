@@ -19,6 +19,28 @@ const typeDef = gql`
       graticule: Boolean
       land: Boolean
     ): Globe
+    occurrenceDatasetSuggest(
+      q: String
+      size: Int
+      predicate: Predicate
+    ): [OccurrenceDatasetSuggestResult]
+    occurrencePublisherSuggest(
+      q: String
+      size: Int
+      predicate: Predicate
+    ): [OccurrencePublisherSuggestResult]
+  }
+
+  type OccurrenceDatasetSuggestResult {
+    key: String!
+    count: Long!
+    dataset: Dataset!
+  }
+
+  type OccurrencePublisherSuggestResult {
+    key: String!
+    count: Long!
+    publisher: Organization!
   }
 
   enum OccurrenceSortBy {

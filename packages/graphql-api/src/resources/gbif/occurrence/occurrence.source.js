@@ -73,6 +73,24 @@ class OccurrenceAPI extends RESTDataSource {
     return response;
   }
 
+  async publisherSuggest(query) {
+    const response = await this.post(
+      '/occurrence/suggest/publisherKey',
+      query,
+      {
+        signal: this.context.abortController.signal,
+      },
+    );
+    return response;
+  }
+
+  async datasetSuggest(query) {
+    const response = await this.post('/occurrence/suggest/datasetKey', query, {
+      signal: this.context.abortController.signal,
+    });
+    return response;
+  }
+
   async registerPredicate({ predicate }) {
     try {
       return await this.post(
