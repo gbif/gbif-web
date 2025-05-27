@@ -9,7 +9,7 @@ import { FilterConfigType } from './filter2predicate';
 export default function v12filter(
   query: ParamQuery,
   filterConfig: FilterConfigType,
-  defaultChecklistKey: string
+  defaultChecklistKey?: string
 ): FilterType {
   query = query || {};
   const filter: FilterType = { must: {} };

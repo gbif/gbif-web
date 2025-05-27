@@ -41,6 +41,7 @@ export function OccurrenceSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({
     filterConfig: searchConfig,
     paramsToRemove: ['offset', 'from'],
+    defaultChecklistKey: useConfig().defaultChecklistKey,
   });
   const config = useConfig();
 
