@@ -6,6 +6,7 @@ const { suggestGqlTypeFromAlias } = require('../../requestAdapter/util/suggestGr
 const { get2metric, metric2aggs } = require('../../requestAdapter/aggregations');
 const { getSuggestQuery } = require('../../requestAdapter/suggest');
 const normalizePredicate = require('../../requestAdapter/util/normalizePredicate');
+const dataSource = require('./occurrence.dataSource');
 
 function suggestConfig() {
   return suggestConfigFromAlias({
@@ -22,7 +23,7 @@ function suggestConfig() {
 }
 
 module.exports = {
-  dataSource: require('./occurrence.dataSource'),
+  dataSource: dataSource,
   get2predicate: (query) => get2predicate(query, config),
   get2query: (predicate) => get2esQuery(predicate, config),
   predicate2query: (predicate, q) => predicate2esQuery(predicate, q),
@@ -30,7 +31,49 @@ module.exports = {
   metric2aggs: (metrics) => metric2aggs(metrics, config),
   getSuggestQuery: ({ key, text }) => getSuggestQuery(key, text, config),
   suggestConfig,
+  suggestDatasetKey: async (req, res) => {
+    const result = await occurrenceSuggest({
+      q: req.query.q,
+      limit: req.query.limit,
+      predicate: req.query.predicate ? JSON.parse(req.query.predicate) : undefined,
+      field: 'datasetKey',
+      regexField: 'datasetTitle',
+      req,
+    });
+    return res.json(result);
+  },
+  suggestPublisherKey: async (req, res) => {
+    const result = await occurrenceSuggest({
+      q: req.query.q,
+      limit: req.query.limit,
+      predicate: req.query.predicate ? JSON.parse(req.query.predicate) : undefined,
+      field: 'publishingOrganizationKey',
+      regexField: 'publisherTitle',
+      req,
+    });
+    return res.json(result);
+  },
 };
+
+async function occurrenceSuggest({ q, limit, predicate, field, regexField, req }) {
+  const esQuery = await extendPredicate(predicate, {
+    wildcard: {
+      [regexField]: q ? `*${q}*` : '*',
+    },
+  });
+  const esBody = getSuggestionsQuery({
+    query: esQuery,
+    field: field,
+    limit: limit || 10,
+  });
+  const result = await dataSource.query({ query: esBody.query, aggs: esBody.aggs, size: 0, req });
+  return (
+    result?.result?.aggregations?.suggestions?.buckets.map((bucket) => ({
+      key: bucket.key,
+      count: bucket.doc_count,
+    })) || []
+  );
+}
 
 function get2esQuery(getQuery, config) {
   const predicate = get2predicate(getQuery, config);
@@ -76,16 +119,32 @@ function predicate2esQuery(predicate, q) {
     });
 }
 
-// suggestConfig().catch(err => console.log(err));
-
-/*
-Example for how to convert a predicate to an es query
-curl -X POST --header "Content-Type:application/json" -i http://api.gbif-uat.org/v1/occurrence/search/predicate/toesquery -d '
-{
- "q":"my free text query here",
- "predicate": {
-    "type":"isNotNull",
-    "key":"IUCN_RED_LIST_CATEGORY",
+async function extendPredicate(predicate, customEsFilter) {
+  const esQuery = await predicate2esQuery(predicate);
+  const extendedQuery = {
+    bool: {
+      filter: [customEsFilter],
+    },
+  };
+  if (esQuery) {
+    extendedQuery.bool.filter.push(esQuery);
   }
-}'
-*/
+  return extendedQuery;
+}
+
+function getSuggestionsQuery({ query, field, limit = 10 }) {
+  const aggs = {
+    suggestions: {
+      terms: {
+        field,
+        size: limit,
+        shard_size: 50020,
+      },
+    },
+  };
+  return {
+    size: 0,
+    query,
+    aggs,
+  };
+}

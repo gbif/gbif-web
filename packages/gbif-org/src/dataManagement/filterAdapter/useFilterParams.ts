@@ -1,4 +1,3 @@
-import { useConfig } from '@/config/config';
 import { asStringParams, ParamQuery, parseParams } from '@/utils/querystring';
 import { Base64 } from 'js-base64';
 import isPlainObject from 'lodash/isPlainObject';
@@ -22,12 +21,13 @@ import v12filter from './v12filter';
 
 export function useFilterParams({
   filterConfig,
+  defaultChecklistKey,
   paramsToRemove,
 }: {
   filterConfig: FilterConfigType;
+  defaultChecklistKey?: string;
   paramsToRemove: string[];
 }): [FilterType, (filter: FilterType) => void] {
-  const { defaultChecklistKey } = useConfig();
   const [remove] = useState(paramsToRemove ?? []);
   const [emptyQuery, setEmptyQuery] = useState({});
   const [observedParams, setObservedParams] = useState<string[]>([]);

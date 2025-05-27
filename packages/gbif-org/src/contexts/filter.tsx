@@ -1,4 +1,3 @@
-import { useConfig } from '@/config/config';
 import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
@@ -46,13 +45,14 @@ export type FilterContextType = {
 export function FilterProvider({
   filter: controlledFilter,
   onChange: controlledOnChange,
+  defaultChecklistKey,
   children,
 }: {
   filter?: FilterType;
   onChange?: (filter: FilterType) => void;
+  defaultChecklistKey?: string;
   children: React.ReactNode;
 }) {
-  const { defaultChecklistKey } = useConfig();
   const [currentFilter, onChange] = useUncontrolledProp(controlledFilter, {}, controlledOnChange);
 
   const hashObj = {
