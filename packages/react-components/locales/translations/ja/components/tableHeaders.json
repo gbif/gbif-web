@@ -7,6 +7,7 @@
   "occurrences": "オカレンス",
   "numberSpecimens": "標本数",
   "gbifNumberSpecimens": "GBIFの標本",
+  "specimenTriplet": "",
   "title": "タイトル",
   "titleAndAbstract": "タイトルおよび概要",
   "altmetric": "オルトメトリクス",
