@@ -255,6 +255,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       window.gbif = window.gbif || {};
       window.gbif.availableFilters = Object.keys(tmpFilters);
     }
+    return tmpFilters;
   }, [searchConfig, countrySuggest, formatMessage]);
 
   return {
