@@ -249,6 +249,11 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
 
       eventDate: generateFilters({ config: eventDateConfig, searchConfig, formatMessage }),
     };
+    // if window object is available and the domain includes gbif-staging.org, then log the filters to console
+    if (typeof window !== 'undefined' && window.location.hostname.includes('gbif-staging.org')) {
+      console.log('Available filters', Object.keys(tmpFilters));
+    }
+
     return tmpFilters;
   }, [searchConfig, countrySuggest, formatMessage]);
 
