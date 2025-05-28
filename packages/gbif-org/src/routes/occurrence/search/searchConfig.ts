@@ -63,6 +63,9 @@ const config: FilterConfigType = {
     iucnRedListCategory: {
       takesChecklistKey: true,
     },
+    taxonomicIssue: {
+      takesChecklistKey: true,
+    },
   },
 };
 

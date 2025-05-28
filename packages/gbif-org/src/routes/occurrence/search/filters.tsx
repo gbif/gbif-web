@@ -20,6 +20,7 @@ import {
   monthConfig,
   occurrenceIssueConfig,
   occurrenceStatusConfig,
+  occurrenceTaxonomicIssueConfig,
   protocolConfig,
 } from './filters/enums';
 import {
@@ -167,6 +168,11 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       // typeStatus: generateFilters({ config: typeStatusConfig, searchConfig, formatMessage }),
       issue: generateFilters({
         config: occurrenceIssueConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      taxonomicIssue: generateFilters({
+        config: occurrenceTaxonomicIssueConfig,
         searchConfig,
         formatMessage,
       }),

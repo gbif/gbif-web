@@ -19,9 +19,10 @@ import iucnRedListCategoryOptions from '@/enums/basic/iucnRedListCategory.json';
 import licenseOptions from '@/enums/basic/license.json';
 import mediaTypeOptions from '@/enums/basic/mediaType.json';
 import monthOptions from '@/enums/basic/month.json';
-import occurrenceIssueOptions from '@/enums/basic/occurrenceIssue.json';
+import occurrenceNonTaxonomicIssue from '@/enums/basic/occurrenceNonTaxonomicIssue.json';
 import protocolOptions from '@/enums/basic/occurrenceProtocols.json';
 import occurrenceStatusOptions from '@/enums/basic/occurrenceStatus.json';
+import occurrenceTaxonomicIssue from '@/enums/basic/occurrenceTaxonomicIssue.json';
 
 export const licenceConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
@@ -213,7 +214,7 @@ export const occurrenceIssueConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'issue',
   displayName: occurrenceIssueLabel,
-  options: occurrenceIssueOptions,
+  options: occurrenceNonTaxonomicIssue,
   allowNegations: true,
   allowExistence: true,
   filterTranslation: 'filters.occurrenceIssue.name',
@@ -235,14 +236,14 @@ export const occurrenceIssueConfig: filterEnumConfig = {
 
 export const occurrenceTaxonomicIssueConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
-  filterHandle: 'issue',
+  filterHandle: 'taxonomicIssue',
   displayName: occurrenceIssueLabel,
-  options: occurrenceIssueOptions,
+  options: occurrenceTaxonomicIssue,
   allowNegations: true,
   allowExistence: true,
   filterTranslation: 'filters.occurrenceTaxonomicIssue.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceIssueFacet($q: String, $predicate: Predicate, $checklistKey: ID) {
+    query OccurrenceTaxonomicIssueFacet($q: String, $predicate: Predicate, $checklistKey: ID) {
       search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: taxonomicIssue(size: 100, checklistKey: $checklistKey) {
