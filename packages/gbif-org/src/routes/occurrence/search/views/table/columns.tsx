@@ -447,6 +447,15 @@ export function useOccurrenceColumns({
         ),
       },
       {
+        id: 'individualCount',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'individualCount' },
+        header: 'occurrenceFieldNames.individualCount',
+        minWidth: 50,
+        cell: ({ individualCount }) => (
+          <InlineLineClamp className="-g-ml-0.5">{individualCount}</InlineLineClamp>
+        ),
+      },
+      {
         id: 'higherGeography',
         minWidth: 350,
         header: 'occurrenceFieldNames.higherGeography',
