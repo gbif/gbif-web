@@ -225,6 +225,13 @@ export function IdentityLabel({ id }: { id: string | number | object }) {
   return <DisplayName getData={getData} id={id} useHtml={false} />;
 }
 
+// a special taxonLabel that always use the defult checklistKey from the config
+export function DefaultTaxonLabel({ id }: { id: string | number | object }) {
+  return (
+    <TaxonLabel id={id} checklistKey={import.meta.env.PUBLIC_GBIF_DEFAULT_TAXONOMY_DATASET_KEY} />
+  );
+}
+
 export function TaxonLabel({
   id,
   checklistKey,
