@@ -36,6 +36,7 @@ export default [
   'institutionCode',
   'institutionKey',
   'issue',
+  'taxonomicIssue',
   'license',
   'lifeStage',
   'locality',

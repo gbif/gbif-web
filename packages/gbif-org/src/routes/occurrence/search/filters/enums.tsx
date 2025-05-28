@@ -233,6 +233,30 @@ export const occurrenceIssueConfig: filterEnumConfig = {
   group: 'other',
 };
 
+export const occurrenceTaxonomicIssueConfig: filterEnumConfig = {
+  filterType: filterConfigTypes.ENUM,
+  filterHandle: 'issue',
+  displayName: occurrenceIssueLabel,
+  options: occurrenceIssueOptions,
+  allowNegations: true,
+  allowExistence: true,
+  filterTranslation: 'filters.occurrenceTaxonomicIssue.name',
+  facetQuery: /* GraphQL */ `
+    query OccurrenceIssueFacet($q: String, $predicate: Predicate, $checklistKey: ID) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
+        facet {
+          field: taxonomicIssue(size: 100, checklistKey: $checklistKey) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.occurrenceTaxonomicIssue.description" />,
+  group: 'other',
+};
+
 export const occurrenceStatusConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'occurrenceStatus',

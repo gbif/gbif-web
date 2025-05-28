@@ -94,6 +94,7 @@ const otherParams = [
   'dwcaExtension',
   'typeStatus',
   'issue',
+  'taxonomicIssue',
   'occurrenceStatus',
 
   'projectId',
