@@ -101,6 +101,7 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
           sex
           lifeStage
           recordNumber
+          individualCount
           typeStatus
           preparations
           institutionCode

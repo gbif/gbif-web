@@ -249,7 +249,12 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
 
       eventDate: generateFilters({ config: eventDateConfig, searchConfig, formatMessage }),
     };
-    return tmpFilters;
+
+    // if window object is available then put the available filter keys in an global object for manager to use
+    if (typeof window !== 'undefined') {
+      window.gbif = window.gbif || {};
+      window.gbif.availableFilters = Object.keys(tmpFilters);
+    }
   }, [searchConfig, countrySuggest, formatMessage]);
 
   return {
