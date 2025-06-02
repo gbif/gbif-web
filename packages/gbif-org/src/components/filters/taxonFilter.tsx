@@ -302,7 +302,6 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
                 selected={selected}
                 getSuggestions={(args) => {
                   return suggestConfig.getSuggestions({
-                    q: '',
                     ...args,
                     checklistKey: filter.checklistKey,
                   });
