@@ -78,7 +78,7 @@ const EventList = ({
             <div className="g-flex-none g-font-semibold ">
               <FormattedMessage id="dataset.parentEvent" defaultMessage={`Parent Event`} />:{' '}
               <DynamicLink
-                to={`/dataset/${datasetKey}/parentevent/${parentEventID}`}
+                to={`/dataset/${datasetKey}/parentevent/${encodeURIComponent(parentEventID)}`}
                 className="g-text-primary"
               >
                 {parentEventID}
@@ -112,7 +112,9 @@ const EventList = ({
                         <DynamicLink
                           pageId={'datasetKey'}
                           variables={{
-                            key: `${datasetKey}/event/${evt?.firstOccurrence?.eventID}`,
+                            key: `${datasetKey}/event/${encodeURIComponent(
+                              evt?.firstOccurrence?.eventID
+                            )}`,
                           }}
                           className="g-text-primary"
                         >

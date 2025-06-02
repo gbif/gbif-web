@@ -424,6 +424,7 @@ export function DatasetKeyAbout() {
                 </CardContent>
               </Card>
             )}
+
             {toc?.metrics && (
               <section>
                 <CardHeader id="metrics">

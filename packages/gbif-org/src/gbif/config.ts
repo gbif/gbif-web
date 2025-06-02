@@ -163,6 +163,7 @@ export const gbifConfig: Config = {
       // defaultTab: 'table',
     },
     disableInPageOccurrenceSearch: false,
+    showEvents: true,
     literatureSearch: {
       excludedFilters: ['gbifDatasetKey'],
     },

@@ -1,3 +1,4 @@
+import { Classification } from '@/components/classification';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { Taxa } from '@/components/dashboard';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
@@ -21,7 +22,6 @@ import useBelow from '@/hooks/useBelow';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
 import { Aside, SidebarLayout } from '@/routes/occurrence/key/pagelayouts';
-import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import formatAsPercentage from '@/utils/formatAsPercentage';
 import { required } from '@/utils/required';
@@ -34,6 +34,7 @@ import { useLoaderData, useLocation } from 'react-router-dom';
 import { Images } from '../about/Images';
 import { DatasetKeyContext } from '../datasetKey';
 import EventList from './eventList';
+import EventTaxonomy from './eventTaxonomy';
 
 export function eventLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
@@ -165,8 +166,29 @@ export const DatasetEventID = () => {
   const sateliteZoom = 12;
 
   return (
-    <ArticleContainer className="g-bg-slate-100 g-pt-4">
-      <ArticleTextContainer className="g-max-w-screen-xl">
+    <div className="g-bg-slate-100">
+      <Classification className="g-m-auto g-max-w-screen-xl g-p-3">
+        <span>
+          <DynamicLink
+            pageId={'datasetKey'}
+            variables={{ key: `${datasetKey}/events` }}
+            className="g-text-inherit hover:g-underline"
+          >
+            <FormattedMessage id="dataset.events" defaultMessage={`Events`} />
+          </DynamicLink>
+        </span>
+        {!!parentEventIdFromPath && (
+          <span>
+            <FormattedMessage id="occurrenceFieldNames.parentEventID" />: {parentEventIdFromPath}
+          </span>
+        )}
+        {!parentEventIdFromPath && (
+          <span>
+            <FormattedMessage id="occurrenceFieldNames.eventID" />: {eventId}
+          </span>
+        )}
+      </Classification>
+      <ArticleTextContainer className="g-max-w-screen-xl g-pb-6">
         <SidebarLayout
           reverse
           className="g-grid-cols-[250px_1fr] xl:g-grid-cols-[300px_1fr]"
@@ -204,16 +226,19 @@ export const DatasetEventID = () => {
                     </div>
                   )}
                 </div>
-
-                <div className="g-p-0 md:g-p-4 g-pt-0 md:g-pt-4">
-                  <h2 className="g-text-2xl g-font-semibold g-leading-none g-tracking-tight">
-                    <FormattedMessage id="dataset.sampling" />
-                  </h2>
-                </div>
               </div>
-              <CardContent>
-                <HyperText text={data?.dataset?.samplingDescription?.sampling} />
-              </CardContent>
+              {!!data?.dataset?.samplingDescription?.sampling && (
+                <>
+                  <div className="g-p-0 md:g-p-8 g-pt-0 md:g-pt-8">
+                    <h2 className="g-text-2xl g-font-semibold g-leading-none g-tracking-tight">
+                      <FormattedMessage id="dataset.sampling" />
+                    </h2>
+                  </div>
+                  <CardContent>
+                    <HyperText text={data?.dataset?.samplingDescription?.sampling} />
+                  </CardContent>
+                </>
+              )}
             </Card>
             {insights?.images?.documents?.total > 0 && (
               <>
@@ -257,6 +282,17 @@ export const DatasetEventID = () => {
                 isParentEvent={!!parentEventIdFromPath}
               />
             </ErrorBoundary>
+            <ErrorBoundary
+              type="BLOCK"
+              errorMessage={<FormattedMessage id="dataset.errors.eventList" />}
+            >
+              <EventTaxonomy
+                datasetKey={data?.dataset?.key}
+                parentEventID={parentEventIdFromPath || firstOccurrence?.parentEventID}
+                eventID={firstOccurrence?.eventID || parentEventIdFromPath}
+                isParentEvent={!!parentEventIdFromPath}
+              />
+            </ErrorBoundary>
             <ClientSideOnly>
               <ErrorBoundary
                 type="BLOCK"
@@ -264,19 +300,27 @@ export const DatasetEventID = () => {
               >
                 <Taxa
                   defaultRank={'species'}
-                  predicate={
-                    parentEventIdFromPath
-                      ? {
-                          type: 'equals',
-                          key: 'parentEventId',
-                          value: parentEventIdFromPath,
-                        }
-                      : {
-                          type: 'equals',
-                          key: 'eventId',
-                          value: eventID,
-                        }
-                  }
+                  predicate={{
+                    type: PredicateType.And,
+                    predicates: [
+                      {
+                        type: PredicateType.Equals,
+                        key: 'datasetKey',
+                        value: data?.dataset?.key,
+                      },
+                      parentEventIdFromPath
+                        ? {
+                            type: PredicateType.Equals,
+                            key: 'parentEventId',
+                            value: parentEventIdFromPath,
+                          }
+                        : {
+                            type: PredicateType.Equals,
+                            key: 'eventId',
+                            value: eventID,
+                          },
+                    ],
+                  }}
                 />
               </ErrorBoundary>
             </ClientSideOnly>
@@ -392,7 +436,7 @@ export const DatasetEventID = () => {
           )}
         </SidebarLayout>
       </ArticleTextContainer>
-    </ArticleContainer>
+    </div>
   );
 };
 
