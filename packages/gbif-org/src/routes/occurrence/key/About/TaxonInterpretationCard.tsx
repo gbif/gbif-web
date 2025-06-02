@@ -7,7 +7,7 @@ import { BsLightningFill } from 'react-icons/bs';
 import { HiExternalLink as ExternalLinkIcon } from 'react-icons/hi';
 import { FormattedMessage } from 'react-intl';
 
-const speciesPageDatasetKey = import.meta.env.PUBLIC_GBIF_DEFAULT_TAXONOMY_DATASET_KEY;
+const speciesPageDatasetKey = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
 export function TaxonInterpretationCard({
   classification,
 }: {

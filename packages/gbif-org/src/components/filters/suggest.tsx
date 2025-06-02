@@ -104,6 +104,11 @@ const Search = React.forwardRef(
     });
 
     useEffect(() => {
+      if (q === '') {
+        setItems([]);
+        setIsLoading(false);
+        return;
+      }
       const { cancel, promise } = onSearch({
         q,
         intl,
@@ -127,7 +132,7 @@ const Search = React.forwardRef(
       return () => {
         if (cancel) cancel();
       };
-    }, [q, intl, searchContext, config, onSearch]);
+    }, [q, intl, searchContext, config, onSearch, currentLocale]);
 
     const {
       isOpen,

@@ -1,6 +1,7 @@
 import { DataHeader } from '@/components/dataHeader';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { DatasetLabel } from '@/components/filters/displayNames';
 import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
@@ -90,6 +91,8 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
     hideDefault: true,
   });
 
+  const availableChecklistKeys = siteConfig.availableChecklistKeys ?? [];
+
   return (
     <>
       <EntityDrawer />
@@ -115,44 +118,48 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
           </div>
           <div className="g-flex-1"></div>
           <div className="g-flex g-items-center g-gap-1 g-ps-2">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  size="sm"
-                  variant={
-                    currentFilterContext.filter.checklistKey !== siteConfig.defaultChecklistKey
-                      ? 'default'
-                      : 'ghost'
-                  }
-                  className="g-px-1 g-mb-1 g-text-slate-400"
-                >
-                  <TaxonomyIcon className="g-text-base" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>
-                  Supported checklists
-                  <a href={`/checklists`} className="g-ms-2">
-                    <MdInfo />
-                  </a>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuRadioGroup
-                  value={currentFilterContext.filter.checklistKey}
-                  onValueChange={(value) => currentFilterContext.setChecklistKey(value)}
-                >
-                  <DropdownMenuRadioItem value="7ddf754f-d193-4cc9-b351-99906754a03b">
-                    Col XR
-                  </DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="2d59e5db-57ad-41ff-97d6-11f5fb264527">
-                    WorMS
-                  </DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="d7dddbf4-2cf0-4f39-9b2a-bb099caae36c">
-                    Backbone
-                  </DropdownMenuRadioItem>
-                </DropdownMenuRadioGroup>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            {availableChecklistKeys.length > 1 && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    size="sm"
+                    variant={
+                      currentFilterContext.filter.checklistKey !== siteConfig.defaultChecklistKey
+                        ? 'default'
+                        : 'ghost'
+                    }
+                    className="g-px-1 g-mb-1 g-text-slate-400"
+                  >
+                    <TaxonomyIcon className="g-text-base" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>
+                    Supported checklists
+                    <a href={`/checklists`} className="g-ms-2">
+                      <MdInfo />
+                    </a>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuRadioGroup
+                    value={
+                      currentFilterContext.filter.checklistKey ?? siteConfig.defaultChecklistKey
+                    }
+                    onValueChange={(value) => currentFilterContext.setChecklistKey(value)}
+                  >
+                    {availableChecklistKeys.map((key) => (
+                      <DropdownMenuRadioItem
+                        key={key}
+                        value={key}
+                        className="g-text-sm g-text-slate-700"
+                      >
+                        <DatasetLabel id={key} />
+                      </DropdownMenuRadioItem>
+                    ))}
+                  </DropdownMenuRadioGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
             <Button
               size="sm"
               variant="ghost"

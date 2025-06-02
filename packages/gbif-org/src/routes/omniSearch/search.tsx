@@ -114,7 +114,7 @@ export function SearchPage() {
           },
           taxonQuery: {
             q: q,
-            datasetKey: [import.meta.env.PUBLIC_GBIF_DEFAULT_TAXONOMY_DATASET_KEY],
+            datasetKey: [import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY],
             limit: 3,
             offset: 0,
           },

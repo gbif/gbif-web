@@ -11,7 +11,6 @@ import {
   Location,
   SamplingEvent,
   Sequenced,
-  TaxonClassification,
   TypeStatus,
 } from '@/components/highlights';
 import { FormattedDateRange } from '@/components/message';
@@ -464,7 +463,8 @@ export function OccurrenceKey() {
                 <HeaderInfo>
                   <HeaderInfoMain>
                     <div>
-                      {defaultClassification.classification && (
+                      {/* 2 july 2025 - data products asked to hide the taxonomy - at least as an experiment */}
+                      {/* {defaultClassification.classification && (
                         <div>
                           <TaxonClassification
                             className="g-flex g-mb-2"
@@ -472,7 +472,7 @@ export function OccurrenceKey() {
                             classification={defaultClassification?.classification}
                           />
                         </div>
-                      )}
+                      )} */}
 
                       {occurrence.gadm?.level1 && (
                         <GadmClassification className="g-flex g-mb-1" gadm={occurrence.gadm}>

@@ -36,7 +36,7 @@ export function OccurrenceKeyCluster() {
     load({
       variables: {
         key,
-        clusteringChecklistKey: import.meta.env.PUBLIC_GBIF_DEFAULT_TAXONOMY_DATASET_KEY,
+        clusteringChecklistKey: import.meta.env.PUBLIC_CHECKLIST_KEY_FOR_CLUSTERING,
       },
     });
   }, [key, load]);

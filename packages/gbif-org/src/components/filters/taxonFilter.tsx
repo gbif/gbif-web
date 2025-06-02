@@ -1,4 +1,5 @@
 import { SimpleTooltip } from '@/components/simpleTooltip';
+import { useConfig } from '@/config/config';
 import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import useQuery from '@/hooks/useQuery';
@@ -16,6 +17,7 @@ import { PiEmptyBold } from 'react-icons/pi';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import StripeLoader from '../stripeLoader';
 import { AboutButton } from './aboutButton';
+import { DatasetLabel } from './displayNames';
 import {
   AdditionalFilterProps,
   ApplyCancel,
@@ -29,12 +31,6 @@ import {
 } from './filterTools';
 import { Option } from './option';
 import { Suggest } from './suggest';
-
-const checklistMap = {
-  backbone: 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c',
-  xcol: '7ddf754f-d193-4cc9-b351-99906754a03b',
-  worms: '22d59e5db-57ad-41ff-97d6-11f5fb2645276',
-};
 
 type TaxonSuggestProps = Omit<filterTaxonConfig, 'filterType' | 'filterTranslation'> &
   AdditionalFilterProps & {
@@ -61,6 +57,7 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
     }: TaxonSuggestProps,
     ref
   ) => {
+    const siteConfig = useConfig();
     const searchContext = useSearchContext();
     const { formatMessage } = useIntl();
     const currentFilterContext = useContext(FilterContext);
@@ -77,6 +74,7 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
       filterSummary?.isNotNull || filterSummary?.isNull ? 'EXISTS' : 'SELECT'
     );
     const [useNegations, setUseNegations] = useState(filterSummary?.hasNegations ?? false);
+    const availableChecklistKeys = siteConfig.availableChecklistKeys ?? [];
 
     const About = about;
     const {
@@ -274,20 +272,24 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
       <div className={cn('g-flex g-flex-col g-max-h-[100dvh]', className)}>
         <div className="g-flex g-flex-none">
           <div className="g-p-2 g-w-full">
-            <div className="g-text-xs g-text-slate-600 g-mb-0.5">
-              <select
-                value={filter.checklistKey}
-                onChange={(event) => {
-                  const selectedValue = event.target.value;
-                  const newFilter = setFullField(filterHandle, [], []);
-                  setFilter({ ...newFilter, checklistKey: selectedValue });
-                }}
-              >
-                <option value="d7dddbf4-2cf0-4f39-9b2a-bb099caae36c">backbone</option>
-                <option value="7ddf754f-d193-4cc9-b351-99906754a03b">xCol</option>
-                <option value="2d59e5db-57ad-41ff-97d6-11f5fb264527">worms</option>
-              </select>
-            </div>
+            {availableChecklistKeys.length > 1 && (
+              <div className="g-text-xs g-text-slate-600 g-mb-0.5">
+                <select
+                  value={filter.checklistKey}
+                  onChange={(event) => {
+                    const selectedValue = event.target.value;
+                    const newFilter = setFullField(filterHandle, [], []);
+                    setFilter({ ...newFilter, checklistKey: selectedValue });
+                  }}
+                >
+                  {availableChecklistKeys.map((key) => (
+                    <option key={key} value={key}>
+                      <DatasetLabel id={key} />
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
             {suggestConfig && (
               <Suggest
                 ref={ref}
@@ -375,7 +377,7 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
           )}
           <AsyncOptions
             loading={facetLoading || (!facetSuggestions && !!facetQuery)}
-            error={facetError}
+            error={facetError && !facetSuggestions}
             className="g-p-2 g-pt-2 g-px-4"
           >
             {facetSuggestions && facetSuggestions.length > 0 && (
@@ -400,7 +402,7 @@ export const TaxonFilter = React.forwardRef<HTMLInputElement, TaxonSuggestProps>
                         >
                           <div className="g-flex g-items-center">
                             <span className="g-flex-auto g-overflow-hidden g-text-ellipsis g-whitespace-nowrap">
-                              {get(x, suggestionTitlePath ?? 'item.title') ?? (
+                              {get(x, suggestionTitlePath ?? 'item.usage.canonicalName') ?? (
                                 <DisplayName id={x?.name} />
                               )}
                             </span>

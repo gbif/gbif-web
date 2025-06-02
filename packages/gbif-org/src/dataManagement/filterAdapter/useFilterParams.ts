@@ -69,24 +69,25 @@ export function useFilterParams({
       f = v12filter(query, filterConfig, defaultChecklistKey);
     }
     return f;
-  }, [query, filterConfig]);
+  }, [query, filterConfig, defaultChecklistKey]);
 
   // transform the filter to a string that can go into the url.
   // Field names can change according to the configuration
   const setFilter = useCallback(
     (nextFilter: FilterType) => {
-      console.log('setFilter');
       if (objectHash(cleanUpFilter(nextFilter)) === objectHash(cleanUpFilter(filter))) {
         return;
       }
       const { filter: v1Filter, errors } = filter2v1(nextFilter, filterConfig);
+      if (v1Filter && v1Filter?.checklistKey === defaultChecklistKey) {
+        delete v1Filter.checklistKey;
+      }
       if (errors) {
         // if we cannot serialize the filter to version 1 API, then just serialize the json and put it in the filter param
         setQuery({ ...emptyQuery, filter: Base64JsonParam.encode(nextFilter) });
       } else {
         setQuery({ ...emptyQuery, ...v1Filter });
       }
-      // setQuery({q: 'sdf', country: ['DK', 'DE', 'SE']});
     },
     [filterConfig, emptyQuery, filter, setQuery]
   );

@@ -94,7 +94,7 @@ export const gbifConfig: Config = {
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: languagesOptions,
   // defaultChecklistKey: '7ddf754f-d193-4cc9-b351-99906754a03b',
-  defaultChecklistKey: '2d59e5db-57ad-41ff-97d6-11f5fb264527',
+  // defaultChecklistKey: '2d59e5db-57ad-41ff-97d6-11f5fb264527',
   theme: {
     dense: true,
     primary: '#176f75',
@@ -203,7 +203,7 @@ export const gbifConfig: Config = {
   },
   taxonSearch: {
     scope: {
-      datasetKey: [import.meta.env.PUBLIC_GBIF_DEFAULT_TAXONOMY_DATASET_KEY],
+      datasetKey: [import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY],
     },
     highlightedFilters: ['q', 'status', 'rank', 'higherTaxonKey', 'issue'],
   },
@@ -218,10 +218,11 @@ export const gbifConfig: Config = {
     highlightedFilters: [
       // 'q',
       'taxonKey',
-      'datasetKey',
-      // 'country',
-      // // 'occurrenceIssue',
-      // 'geometry',
+      // 'datasetKey',
+      'country',
+      // 'occurrenceIssue',
+      // 'occurrenceIssue',
+      'geometry',
       // 'recordedBy',
       // 'q',
     ],
