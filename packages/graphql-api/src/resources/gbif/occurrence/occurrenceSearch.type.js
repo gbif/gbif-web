@@ -19,6 +19,28 @@ const typeDef = gql`
       graticule: Boolean
       land: Boolean
     ): Globe
+    occurrenceDatasetSuggest(
+      q: String
+      size: Int
+      predicate: Predicate
+    ): [OccurrenceDatasetSuggestResult]
+    occurrencePublisherSuggest(
+      q: String
+      size: Int
+      predicate: Predicate
+    ): [OccurrencePublisherSuggestResult]
+  }
+
+  type OccurrenceDatasetSuggestResult {
+    key: String!
+    count: Long!
+    dataset: Dataset!
+  }
+
+  type OccurrencePublisherSuggestResult {
+    key: String!
+    count: Long!
+    publisher: Organization!
   }
 
   enum OccurrenceSortBy {
@@ -142,6 +164,7 @@ const typeDef = gql`
     license: Long!
     basisOfRecord: Long!
     issue: Long!
+    taxonomicIssue: Long!
     collectionKey: Long!
     institutionKey: Long!
     collectionCode: Long!
@@ -235,6 +258,11 @@ const typeDef = gql`
     id(size: Int, from: Int): [OccurrenceFacetResult_string]
     institutionCode(size: Int, from: Int): [OccurrenceFacetResult_string]
     issue(size: Int, from: Int): [OccurrenceFacetResult_string]
+    taxonomicIssue(
+      size: Int
+      from: Int
+      checklistKey: ID
+    ): [OccurrenceFacetResult_string]
     license(size: Int, from: Int): [OccurrenceFacetResult_string]
     lifeStage(size: Int, from: Int): [OccurrenceFacetResult_string]
     locality(size: Int, from: Int): [OccurrenceFacetResult_string]

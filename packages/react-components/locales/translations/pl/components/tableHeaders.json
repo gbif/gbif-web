@@ -7,6 +7,7 @@
   "occurrences": "Wystąpienia",
   "numberSpecimens": "Liczba okazów",
   "gbifNumberSpecimens": "Okazy w GBIF",
+  "specimenTriplet": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
   "title": "Tytuł",
   "titleAndAbstract": "Tytuł i streszczenie",
   "altmetric": "Altmetryka",

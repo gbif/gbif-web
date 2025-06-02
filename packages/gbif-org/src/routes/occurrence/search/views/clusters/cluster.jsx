@@ -10,7 +10,7 @@ import { searchConfig } from '../../searchConfig';
 import { ClusterPresentation } from './ClusterPresentation';
 
 const OCCURRENCE_CLUSTERS = `
-query clusters($q: String, $predicate: Predicate, $size: Int = 20, $from: Int = 0){
+query clusters($q: String, $predicate: Predicate, $size: Int = 20, $from: Int = 0, $checklistKey: ID){
   occurrenceSearch(q: $q, predicate: $predicate, size: $size, from: $from) {
     documents(size: $size, from: $from) {
       total
@@ -27,7 +27,11 @@ query clusters($q: String, $predicate: Predicate, $size: Int = 20, $from: Int = 
         datasetKey
         datasetTitle
         typeStatus
-        taxonKey: acceptedTaxonKey
+        classification(checklistKey: $checklistKey) {
+          acceptedUsage {
+            key
+          }
+        }
         volatile {
           features {
             isSequenced
@@ -56,7 +60,11 @@ query clusters($q: String, $predicate: Predicate, $size: Int = 20, $from: Int = 
               datasetKey
               datasetTitle
               typeStatus
-              taxonKey: acceptedTaxonKey
+              classification(checklistKey: $checklistKey) {
+                acceptedUsage {
+                  key
+                }
+              }
               volatile {
                 features {
                   isSequenced
@@ -83,7 +91,11 @@ query clusters($q: String, $predicate: Predicate, $size: Int = 20, $from: Int = 
                     datasetKey
                     datasetTitle
                     typeStatus
-                    taxonKey: acceptedTaxonKey
+                    classification(checklistKey: $checklistKey) {
+                      acceptedUsage {
+                        key
+                      }
+                    }
                     volatile {
                       features {
                         isSequenced
@@ -110,7 +122,11 @@ query clusters($q: String, $predicate: Predicate, $size: Int = 20, $from: Int = 
                           datasetKey
                           datasetTitle
                           typeStatus
-                          taxonKey: acceptedTaxonKey
+                          classification(checklistKey: $checklistKey) {
+                            acceptedUsage {
+                              key
+                            }
+                          }
                           volatile {
                             features {
                               isSequenced
@@ -159,7 +175,16 @@ function Clusters() {
         },
       ].filter((x) => x),
     };
-    load({ keepDataWhileLoading: true, variables: { predicate, q: query.q, size, from } });
+    load({
+      keepDataWhileLoading: true,
+      variables: {
+        predicate,
+        q: query.q,
+        size,
+        from,
+        checklistKey: import.meta.env.PUBLIC_CHECKLIST_KEY_FOR_CLUSTERING,
+      },
+    });
     setCriticalError(false);
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -241,8 +266,7 @@ function getNodeFromOccurrence(o, isEntry, hasTooManyRelations, rootKey) {
     isSequenced: o?.volatile?.features?.isSequenced,
     stillImageCount: o.stillImageCount,
     publishingOrgKey: o.publishingOrgKey,
-    taxonKey: o.taxonKey,
-    // taxonKey: o.taxon,
+    taxonKey: o.classification.acceptedUsage.key,
     isEntry,
     capped: hasTooManyRelations,
     rootKey: rootKey || o.key,

@@ -7,6 +7,7 @@
   "occurrences": "Registros biológicos",
   "numberSpecimens": "Número de especímenes",
   "gbifNumberSpecimens": "Especímenes en GBIF",
+  "specimenTriplet": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
   "title": "Título",
   "titleAndAbstract": "Título y resumen",
   "altmetric": "Altmetric",

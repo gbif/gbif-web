@@ -21,6 +21,7 @@ export default [
   'basisOfRecord',
   'fieldNumber',
   'issue',
+  'taxonomicIssue',
   'isSequenced',
   'collectionKey',
   'institutionKey',

@@ -295,7 +295,14 @@ const config = {
     },
     issue: {
       type: 'keyword',
-      field: 'issues',
+      field: 'nonTaxonomicIssues',
+    },
+    taxonomicIssue: {
+      type: 'keyword',
+      field: 'classifications.{checklistKey}.issues',
+      defaultTemplateKeys: {
+        checklistKey: DEFAULT_CHECKLIST_KEY,
+      },
     },
     iucnRedListCategory: {
       type: 'keyword',

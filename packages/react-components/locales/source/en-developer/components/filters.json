@@ -159,6 +159,13 @@
     "isNull": "Has no issues",
     "description": "The types of issues or flags of potential interest discovered in processing the data."
   },
+  "occurrenceTaxonomicIssue": {
+    "name": "Taxonomic issues and flags",
+    "count": "{num, plural, one {taxon issue or flag} other {# taxon issues and flags}}",
+    "isNotNull": "Has taxonomic issues",
+    "isNull": "Has no taxonomic issues",
+    "description": "The types of taxonomic issues or flags of potential interest discovered in processing the data."
+  },
   "occurrenceCountry": {
     "name": "Country or area",
     "count": "{num, plural, one {country} other {# countries}}",

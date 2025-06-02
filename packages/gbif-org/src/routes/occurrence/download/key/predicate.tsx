@@ -31,7 +31,7 @@ export const PredicateDisplay = ({ predicate }) => {
 
   const getValueTranslation = useMemo(() => {
     return (predicate) => {
-      const { key, parameter, value, type } = predicate;
+      const { key, parameter, value, type, checklistKey } = predicate;
       // choose label based on key
       // if no label is found, return the value
       const predicateKey = constantCase(key);
@@ -68,11 +68,11 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'TAXON_CONCEPT_ID':
             return value;
           case 'TAXON_KEY':
-            return <TaxonLabel id={value} />;
+            return <TaxonLabel id={value} checklistKey={checklistKey} />;
           case 'LATEST_EON_OR_HIGHEST_EONOTHEM':
             return <GeoTimeLabel id={value} />;
           case 'SUBGENUS_KEY':
-            return <TaxonLabel id={value} />;
+            return <TaxonLabel id={value} checklistKey={checklistKey} />;
           case 'HAS_GEOSPATIAL_ISSUE':
             return getTranslation(`enums.yesNo.${camelCase(value)}`);
           case 'INSTITUTION_CODE':
@@ -138,7 +138,7 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'DWCA_EXTENSION':
             return value;
           case 'ACCEPTED_TAXON_KEY':
-            return <TaxonLabel id={value} />;
+            return <TaxonLabel id={value} checklistKey={checklistKey} />;
           case 'CONTINENT':
             return getTranslation(`enums.continent.${constantCase(value)}`);
           case 'OTHER_CATALOG_NUMBERS':
@@ -150,7 +150,7 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'MEMBER':
             return value;
           case 'SPECIES_KEY':
-            return <TaxonLabel id={value} />;
+            return <TaxonLabel id={value} checklistKey={checklistKey} />;
           case 'GADM_LEVEL_1_GID':
             return <GadmGidLabel id={value} />;
           case 'GADM_LEVEL_3_GID':
@@ -202,7 +202,7 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'MEDIA_TYPE':
             return getTranslation(`enums.mediaType.${constantCase(value)}`);
           case 'CLASS_KEY':
-            return <TaxonLabel id={value} />;
+            return <TaxonLabel id={value} checklistKey={checklistKey} />;
           case 'LIFE_STAGE':
             return <LifeStageLabel id={value} />;
           case 'LATEST_ERA_OR_HIGHEST_ERATHEM':
@@ -212,9 +212,9 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'SCIENTIFIC_NAME':
             return value;
           case 'PHYLUM_KEY':
-            return <TaxonLabel id={value} />;
+            return <TaxonLabel id={value} checklistKey={checklistKey} />;
           case 'FAMILY_KEY':
-            return <TaxonLabel id={value} />;
+            return <TaxonLabel id={value} checklistKey={checklistKey} />;
           case 'ESTABLISHMENT_MEANS':
             return <EstablishmentMeansLabel id={value} />;
           case 'WATER_BODY':
@@ -240,13 +240,13 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'LAST_INTERPRETED':
             return value;
           case 'KINGDOM_KEY':
-            return <TaxonLabel id={value} />;
+            return <TaxonLabel id={value} checklistKey={checklistKey} />;
           case 'ELEVATION':
             return <ElevationLabel id={predicate} />;
           case 'SEX':
             return <SexLabel id={value} />;
           case 'GENUS_KEY':
-            return <TaxonLabel id={value} />;
+            return <TaxonLabel id={value} checklistKey={checklistKey} />;
           case 'CRAWL_ID':
             return value;
           case 'HAS_COORDINATE':
@@ -258,7 +258,7 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'FORMATION':
             return value;
           case 'ORDER_KEY':
-            return <TaxonLabel id={value} />;
+            return <TaxonLabel id={value} checklistKey={checklistKey} />;
           case 'ISSUE':
             return getTranslation(`enums.occurrenceIssue.${constantCase(value)}`);
           case 'INSTALLATION_KEY':
@@ -343,7 +343,13 @@ export const PredicateDisplay = ({ predicate }) => {
                 className="node-value"
                 title={getTranslation(`downloadKey.predicate.joinDescriptions.or`)}
               >
-                <span dir="auto">{getValueTranslation({ key: predicate.key, value: option })}</span>
+                <span dir="auto">
+                  {getValueTranslation({
+                    key: predicate.key,
+                    value: option,
+                    checklistKey: predicate.checklistKey,
+                  })}
+                </span>
               </li>
             ))}
           </ol>
