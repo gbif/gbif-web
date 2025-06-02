@@ -272,7 +272,7 @@ function Taxon({
   occurrence: OccurrenceQuery['occurrence'];
   updateToc: (id: string, visible: boolean) => void;
 }) {
-  const enabledChecklists = import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS;
+  const enabledChecklists = import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS?.split(',');
   // filter occurrence.classifications to only show those in enabledChecklists. Use the ordering of the enabledChecklists
   // to order the classifications
   const filteredClassifications = occurrence?.classifications
