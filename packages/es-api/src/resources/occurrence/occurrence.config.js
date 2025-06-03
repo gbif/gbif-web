@@ -242,7 +242,7 @@ const config = {
     },
     lastInterpreted: {
       type: 'date',
-      field: 'lastCrawled',
+      field: 'created',
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
