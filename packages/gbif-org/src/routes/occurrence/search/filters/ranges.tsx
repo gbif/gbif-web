@@ -2,6 +2,7 @@ import {
   CoordinateUncertaintyLabel,
   DateLabel,
   DepthLabel,
+  distanceFromCentroidInMetersLabel,
   ElevationLabel,
   OrganismQuantityLabel,
   RelativeOrganismQuantityLabel,
@@ -32,6 +33,15 @@ export const coordinateUncertaintyConfig: filterRangeConfig = {
   displayName: CoordinateUncertaintyLabel,
   filterTranslation: 'filters.coordinateUncertainty.name',
   about: () => <Message id="filters.coordinateUncertainty.description" />,
+  group: 'location',
+};
+
+export const distanceFromCentroidInMetersConfig: filterRangeConfig = {
+  filterType: filterConfigTypes.RANGE,
+  filterHandle: 'distanceFromCentroidInMeters',
+  displayName: distanceFromCentroidInMetersLabel,
+  filterTranslation: 'filters.distanceFromCentroidInMeters.name',
+  about: () => <Message id="filters.distanceFromCentroidInMeters.description" />,
   group: 'location',
 };
 
@@ -88,4 +98,13 @@ export const eventDateConfig: filterDateRangeConfig = {
   filterTranslation: 'filters.eventDate.name',
   about: () => <Message id="filters.eventDate.description" />,
   group: 'event',
+};
+
+export const lastInterpretedConfig: filterDateRangeConfig = {
+  filterType: filterConfigTypes.DATE_RANGE,
+  filterHandle: 'lastInterpreted',
+  displayName: DateLabel,
+  filterTranslation: 'filters.lastInterpreted.name',
+  about: () => <Message id="filters.lastInterpreted.description" />,
+  group: 'other',
 };

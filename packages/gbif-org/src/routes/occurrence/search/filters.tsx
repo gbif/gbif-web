@@ -44,8 +44,10 @@ import { locationConfig } from './filters/location';
 import {
   coordinateUncertaintyConfig,
   depthConfig,
+  distanceFromCentroidInMetersConfig,
   elevationConfig,
   eventDateConfig,
+  lastInterpretedConfig,
   organismQuantityConfig,
   relativeOrganismQuantityConfig,
   sampleSizeValueConfig,
@@ -262,6 +264,11 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       programme: generateFilters({ config: programmeConfig, searchConfig, formatMessage }),
       datasetName: generateFilters({ config: datasetNameConfig, searchConfig, formatMessage }),
       gbifRegion: generateFilters({ config: gbifRegionConfig, searchConfig, formatMessage }),
+      lastInterpreted: generateFilters({
+        config: lastInterpretedConfig,
+        searchConfig,
+        formatMessage,
+      }),
       publishedByGbifRegion: generateFilters({
         config: publishedByGbifRegionConfig,
         searchConfig,
@@ -273,6 +280,11 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         formatMessage,
       }),
       repatriated: generateFilters({ config: repatriatedConfig, searchConfig, formatMessage }),
+      distanceFromCentroidInMeters: generateFilters({
+        config: distanceFromCentroidInMetersConfig,
+        searchConfig,
+        formatMessage,
+      }),
     };
 
     // if window object is available then put the available filter keys in an global object for manager to use

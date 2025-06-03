@@ -67,6 +67,15 @@ const config = {
         defaultLowerBound: 'lte',
       },
     },
+    distanceFromCentroidInMeters: {
+      type: 'numeric',
+      field: 'distanceFromCentroidInMeters',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte',
+      },
+    },
     coordinates: {
       field: 'coordinates',
       discarded: true,
@@ -225,6 +234,15 @@ const config = {
     eventDate: {
       type: 'date',
       field: 'eventDateSingle',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte',
+      },
+    },
+    lastInterpreted: {
+      type: 'date',
+      field: 'lastCrawled',
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',

@@ -56,6 +56,16 @@ const config: FilterConfigType = {
         supportedTypes: ['range', 'equals'],
       },
     },
+    lastInterpreted: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
+    distanceFromCentroidInMeters: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
   },
 };
 
@@ -129,6 +139,8 @@ const otherParams = [
   'geometry',
   'hasCoordinate',
   'hasGeospatialIssue',
+  'distanceFromCentroidInMeters',
+  'lastInterpreted',
 ];
 
 otherParams.forEach((filter) => {
