@@ -5,6 +5,7 @@ import { useSearchContext } from '@/contexts/search';
 import useQuery from '@/hooks/useQuery';
 import { cn } from '@/utils/shadcn';
 import cloneDeep from 'lodash/cloneDeep';
+import get from 'lodash/get';
 import hash from 'object-hash';
 import React, { useContext, useEffect, useState } from 'react';
 import {
@@ -50,6 +51,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       about,
       allowExistence,
       allowNegations,
+      suggestionTitlePath,
     }: SuggestProps,
     ref
   ) => {
@@ -101,7 +103,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       if (searchContext.queryType === 'V1') {
         facetLoad({ variables: { query: query } });
       } else {
-        facetLoad({ variables: { predicate: query }, keepDataWhileLoading: true });
+        facetLoad({ variables: query, keepDataWhileLoading: true });
       }
     }, [facetQuery, filterBeforeHash, facetLoad, searchContext, searchConfig, filterHandle]);
 
@@ -120,7 +122,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
       if (searchContext.queryType === 'V1') {
         selectedFacetLoad({ variables: { query: query, limit: selected?.length ?? 10 } });
       } else {
-        selectedFacetLoad({ variables: { predicate: query, size: selected?.length ?? 10 } });
+        selectedFacetLoad({ variables: { ...query, size: selected?.length ?? 10 } });
       }
     }, [
       facetQuery,
@@ -386,7 +388,9 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                         >
                           <div className="g-flex g-items-center">
                             <span className="g-flex-auto g-overflow-hidden g-text-ellipsis g-whitespace-nowrap">
-                              {x?.item?.title ?? <DisplayName id={x?.name} />}
+                              {get(x, suggestionTitlePath ?? 'item.title') ?? (
+                                <DisplayName id={x?.name} />
+                              )}
                             </span>
                             <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
                               <FormattedNumber value={x.count} />

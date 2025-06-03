@@ -1,4 +1,12 @@
+import { ClientSideOnly } from '@/components/clientSideOnly';
 import { getAsQuery } from '@/components/filters/filterTools';
+import {
+  FallbackTableOptions,
+  SearchTable,
+  useAvailableAndDefaultEnabledColumns,
+  usePaginationState,
+} from '@/components/searchTable';
+import { SearchTableServerFallback } from '@/components/searchTable/table';
 import { ViewHeader } from '@/components/ViewHeader';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
@@ -10,14 +18,6 @@ import { useContext, useEffect, useMemo } from 'react';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
 import { columns } from './columns';
-import {
-  FallbackTableOptions,
-  useAvailableAndDefaultEnabledColumns,
-  usePaginationState,
-  SearchTable,
-} from '@/components/searchTable';
-import { ClientSideOnly } from '@/components/clientSideOnly';
-import { SearchTableServerFallback } from '@/components/searchTable/table';
 
 const fallbackOptions: FallbackTableOptions = {
   prefixColumns: ['titleAndAbstract'],
@@ -92,9 +92,7 @@ export function LiteratureTable() {
 
     load({
       variables: {
-        predicate: {
-          ...query,
-        },
+        ...query,
         size: paginationState.pageSize,
         from: paginationState.pageIndex * paginationState.pageSize,
       },

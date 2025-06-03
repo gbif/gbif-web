@@ -114,7 +114,7 @@ export function SearchPage() {
           },
           taxonQuery: {
             q: q,
-            datasetKey: ['d7dddbf4-2cf0-4f39-9b2a-bb099caae36c'],
+            datasetKey: [import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY],
             limit: 3,
             offset: 0,
           },

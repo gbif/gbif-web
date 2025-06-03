@@ -14,7 +14,8 @@ export default function ScientificNameColumn({
   const [includeAuthorship] = useLocalStorage('includeAuthorship', false);
   const entityKey = `o_${occurrence?.key?.toString()}`;
 
-  const canonicalName = occurrence?.taxon?.canonicalName;
+  const hasClassification = occurrence?.classification;
+  const canonicalName = occurrence.classification?.taxonMatch?.usage?.canonicalName;
   const showCanonicalName = canonicalName && !includeAuthorship;
 
   return (
@@ -34,29 +35,50 @@ export default function ScientificNameColumn({
         </button>
       )}
       <div>
-        {/* <LinkOption to={`/species/${occurrence.taxonKey}`}> */}
-        <SetAsFilter field="taxonKey" value={occurrence.taxonKey}>
-          {!showCanonicalName && (
-            <span
-              className="g-pointer-events-auto g-me-2"
-              dangerouslySetInnerHTML={{
-                __html: occurrence.gbifClassification?.usage?.formattedName as string,
-              }}
-            />
-          )}
-          {showCanonicalName && (
-            <span className="g-pointer-events-auto g-me-2">{occurrence?.taxon?.canonicalName}</span>
-          )}
-        </SetAsFilter>
-        {occurrence.hasTaxonIssues && (
+        {!hasClassification && (
+          <>
+            {!occurrence.verbatimScientificName && (
+              <span className="g-text-slate-400">Unknown</span>
+            )}
+            {occurrence.verbatimScientificName && (
+              <div>
+                <SimpleTooltip side="right" i18nKey="filterSupport.nameWithTaxonMatchIssue">
+                  <div
+                    style={{ color: '#fea600' }}
+                    className="g-cursor-default g-text-start"
+                    data-loader
+                  >
+                    {occurrence.verbatimScientificName}
+                  </div>
+                </SimpleTooltip>
+              </div>
+            )}
+          </>
+        )}
+        {hasClassification && (
+          <SetAsFilter field="taxonKey" value={occurrence.taxonKey}>
+            {!showCanonicalName && (
+              <span
+                className="g-pointer-events-auto g-me-2"
+                dangerouslySetInnerHTML={{
+                  __html: occurrence?.classification?.taxonMatch?.usage?.formattedName as string,
+                }}
+              />
+            )}
+            {showCanonicalName && (
+              <span className="g-pointer-events-auto g-me-2">{canonicalName}</span>
+            )}
+          </SetAsFilter>
+        )}
+        {occurrence?.classification?.hasTaxonIssues && (
           <div>
             <SimpleTooltip side="right" i18nKey="filterSupport.nameWithTaxonMatchIssue">
               <div
                 style={{ color: '#fea600' }}
-                className="g-cursor-default g-text-start g-block"
+                className="g-cursor-default g-text-start"
                 data-loader
               >
-                {occurrence.gbifClassification?.verbatimScientificName}
+                {occurrence.verbatimScientificName}
               </div>
             </SimpleTooltip>
           </div>

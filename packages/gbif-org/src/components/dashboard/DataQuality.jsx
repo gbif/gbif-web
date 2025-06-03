@@ -1,28 +1,32 @@
+import { useChecklistKey } from '@/hooks/useChecklistKey';
 import useQuery from '@/hooks/useQuery';
+import { removeEmptyPredicates } from '@/utils/removeEmptyPredicates';
 import { FormattedMessage } from 'react-intl';
-import useDeepCompareEffect from 'use-deep-compare-effect';
+import { useDeepCompareEffectNoCheck as useDeepCompareEffect } from 'use-deep-compare-effect';
 import { Card, CardContent, CardTitle } from '../ui/smallCard';
 import { BarItem, CardHeader, FormattedNumber, Table } from './shared';
 
-export function DataQuality({ predicate, ...props }) {
+export function DataQuality({ predicate, q, checklistKey, ...props }) {
+  const defaultChecklistKey = useChecklistKey();
   const { data, error, loading, load } = useQuery(OCCURRENCE_STATS, { lazyLoad: true });
 
   useDeepCompareEffect(() => {
     load({
       variables: {
         predicate,
-        hasSpeciesRank: {
+        q,
+        hasSpeciesRank: removeEmptyPredicates({
           type: 'and',
           predicates: [
             predicate,
             {
-              type: 'equals',
-              key: 'gbifClassification_classification_rank',
-              value: 'SPECIES',
+              type: 'isNotNull',
+              key: 'speciesKey',
+              checklistKey: checklistKey ?? defaultChecklistKey,
             },
           ],
-        },
-        hasCoordinates: {
+        }),
+        hasCoordinates: removeEmptyPredicates({
           type: 'and',
           predicates: [
             predicate,
@@ -32,8 +36,8 @@ export function DataQuality({ predicate, ...props }) {
               value: true,
             },
           ],
-        },
-        hasMedia: {
+        }),
+        hasMedia: removeEmptyPredicates({
           type: 'and',
           predicates: [
             predicate,
@@ -42,8 +46,8 @@ export function DataQuality({ predicate, ...props }) {
               key: 'mediaType',
             },
           ],
-        },
-        hasCollector: {
+        }),
+        hasCollector: removeEmptyPredicates({
           type: 'and',
           predicates: [
             predicate,
@@ -52,8 +56,8 @@ export function DataQuality({ predicate, ...props }) {
               key: 'recordedBy',
             },
           ],
-        },
-        hasYear: {
+        }),
+        hasYear: removeEmptyPredicates({
           type: 'and',
           predicates: [
             predicate,
@@ -62,8 +66,8 @@ export function DataQuality({ predicate, ...props }) {
               key: 'year',
             },
           ],
-        },
-        hasSequence: {
+        }),
+        hasSequence: removeEmptyPredicates({
           type: 'and',
           predicates: [
             predicate,
@@ -73,11 +77,11 @@ export function DataQuality({ predicate, ...props }) {
               value: true,
             },
           ],
-        },
+        }),
       },
       queue: { name: 'dashboard' },
     });
-  }, [predicate]);
+  }, [predicate, q, load, checklistKey, defaultChecklistKey]);
 
   const noData = !data || loading;
   const summary = data?.occurrenceSearch;
@@ -203,38 +207,38 @@ export function DataQuality({ predicate, ...props }) {
 }
 
 const OCCURRENCE_STATS = `
-query summary($predicate: Predicate, $hasSpeciesRank: Predicate, $hasCoordinates: Predicate, $hasMedia: Predicate, $hasCollector: Predicate, $hasYear: Predicate, $hasSequence: Predicate){
-  occurrenceSearch(predicate: $predicate) {
+query summary($q: String, $predicate: Predicate, $hasSpeciesRank: Predicate, $hasCoordinates: Predicate, $hasMedia: Predicate, $hasCollector: Predicate, $hasYear: Predicate, $hasSequence: Predicate){
+  occurrenceSearch(q: $q, predicate: $predicate) {
     documents(size: 0) {
       total
     }
   }
-  rank: occurrenceSearch(predicate: $hasSpeciesRank) {
+  rank: occurrenceSearch(q: $q, predicate: $hasSpeciesRank) {
     documents(size: 0) {
       total
     }
   }
-  hasCoordinates: occurrenceSearch(predicate: $hasCoordinates) {
+  hasCoordinates: occurrenceSearch(q: $q, predicate: $hasCoordinates) {
     documents(size: 0) {
       total
     }
   }
-  hasMedia: occurrenceSearch(predicate: $hasMedia) {
+  hasMedia: occurrenceSearch(q: $q, predicate: $hasMedia) {
     documents(size: 0) {
       total
     }
   }
-  hasCollector: occurrenceSearch(predicate: $hasCollector) {
+  hasCollector: occurrenceSearch(q: $q, predicate: $hasCollector) {
     documents(size: 0) {
       total
     }
   }
-  hasYear: occurrenceSearch(predicate: $hasYear) {
+  hasYear: occurrenceSearch(q: $q, predicate: $hasYear) {
     documents(size: 0) {
       total
     }
   }
-  hasSequence: occurrenceSearch(predicate: $hasSequence) {
+  hasSequence: occurrenceSearch(q: $q, predicate: $hasSequence) {
     documents(size: 0) {
       total
     }

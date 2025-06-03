@@ -1,9 +1,11 @@
+import { useChecklistKey } from '@/hooks/useChecklistKey';
 import ChartClickWrapper from './ChartClickWrapper';
 import { OneDimensionalChart } from './OneDimensionalChart';
 // import ChartClickWrapper from './ChartClickWrapper';
 
 export function EnumChartGenerator({
   predicate,
+  q,
   detailsRoute,
   fieldName,
   enumKeys,
@@ -16,8 +18,10 @@ export function EnumChartGenerator({
   ...props
 }) {
   const GQL_QUERY = `
-    query summary($predicate: Predicate${!disableUnknown ? ', $hasPredicate: Predicate' : ''}, $size: Int, $from: Int){
-      search: ${searchType}(predicate: $predicate) {
+    query summary($q: String, $predicate: Predicate${
+      !disableUnknown ? ', $hasPredicate: Predicate' : ''
+    }, $size: Int, $from: Int){
+      search: ${searchType}(q: $q, predicate: $predicate) {
         documents(size: 0) {
           total
         }
@@ -33,7 +37,7 @@ export function EnumChartGenerator({
       }
       ${
         !disableUnknown
-          ? `isNotNull: ${searchType}(predicate: $hasPredicate) {
+          ? `isNotNull: ${searchType}(q: $q, predicate: $hasPredicate) {
         documents(size: 0) {
           total
         }
@@ -46,6 +50,7 @@ export function EnumChartGenerator({
     <ChartWrapper
       {...{
         predicate,
+        q,
         detailsRoute,
         gqlQuery: GQL_QUERY,
         currentFilter,
@@ -63,6 +68,7 @@ export function EnumChartGenerator({
 
 export function ChartWrapper({
   predicate,
+  checklistKey,
   translationTemplate,
   gqlQuery,
   enumKeys,
@@ -70,13 +76,16 @@ export function ChartWrapper({
   facetSize,
   disableOther,
   disableUnknown,
+  q,
   currentFilter = {}, //excluding root predicate
   ...props
 }) {
+  const defaultChecklistKey = useChecklistKey();
   const hasPredicates = [
     {
       type: 'isNotNull',
       key: predicateKey,
+      checklistKey: checklistKey ?? defaultChecklistKey,
     },
   ];
   if (predicate) {
@@ -89,10 +98,12 @@ export function ChartWrapper({
     predicate,
     query: gqlQuery,
     otherVariables: {
+      q,
       hasPredicate: {
         type: 'and',
         predicates: hasPredicates,
       },
+      checklistKey: checklistKey ?? defaultChecklistKey,
     },
   };
 

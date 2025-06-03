@@ -2,10 +2,10 @@
 // tims comments: search bor BID or a programme. For the homepage it could be useful.
 // my ideas: wkt, sequence, has sequence
 // thomas: publishers
-import axios from 'axios';
-import config from '../../config';
-import { matchSorter } from 'match-sorter';
 import colSuggest from '#/resources/gbif/taxon/colSuggest';
+import axios from 'axios';
+import { matchSorter } from 'match-sorter';
+import config from '../../config';
 
 const translationEndpoint =
   config.translations || 'https://react-components.gbif.org/lib/translations';
@@ -128,11 +128,13 @@ async function getYearSuggestions({ q } = {}) {
     }
     if (end !== '*' && (end < minYear || end > maxYear)) {
       return [];
-    } else if (end !== '*' && start !== '*' && start >= end) {
+    }
+    if (end !== '*' && start !== '*' && start >= end) {
       // it would be nice to suggest a valid range to the user that still respects what they have entered.
       // E.g. if they enter 1800,18 then suggest 1800-1899 or such. 1930-193 => 1930-1939 , 1930,194 => 1930-1949
       return [];
-    } else if (end === '*' && start === '*') {
+    }
+    if (end === '*' && start === '*') {
       return [];
     }
     // The range should be within 1500- this year + 10
@@ -218,70 +220,6 @@ export async function getSpeciesSuggestions({ q, lang, taxonKeys }) {
 
   const result = await colSuggest({ language: knownLang, q, taxonKeys });
   return result;
-
-  const queryString = `
-  query{
-    taxonSuggestions( q: "${q}", language: ${knownLang}) {
-      key
-      scientificName
-      vernacularName
-      taxonomicStatus
-      acceptedNameOf
-      classification {
-        name
-      }
-    }
-  }        
-  `;
-  const apiUrl = `${config.origin}/graphql?query=${encodeURIComponent(
-    queryString,
-  )}`;
-  // const apiUrl = `${config.apiv1}/species/suggest?datasetKey=d7dddbf4-2cf0-4f39-9b2a-bb099caae36c&limit=20&limit=200&q=${q}`;
-  try {
-    const response = await axios.get(apiUrl);
-
-    // this line because we use our graphql wrapper
-    response.data = response.data.data.taxonSuggestions;
-    return response.data;
-
-    const matches = await getSpeciesMatches({ q, taxonKeys });
-    response.data = response.data.concat(matches);
-    // remove duplicates based on nubkey
-    const uniqueMatches = response.data.reduce((acc, current) => {
-      const x = acc.find((item) => item.nubKey === current.nubKey);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
-    // if taxonKeys are provided, filter out records that do not match in either kingdomKey, phylumKey, classKey, orderKey, familyKey, genusKey or speciesKey
-    if (taxonKeys && taxonKeys.length > 0) {
-      const taxonKeyStrings = taxonKeys.map((k) => k.toString());
-      return uniqueMatches.filter((r) => {
-        const recordTaxonKeys = [
-          r.kingdomKey,
-          r.phylumKey,
-          r.classKey,
-          r.orderKey,
-          r.familyKey,
-          r.genusKey,
-          r.speciesKey,
-        ]
-          .filter((x) => typeof x !== 'undefined')
-          .map((k) => k.toString());
-        const hasOverlappingKeys = recordTaxonKeys.some((k) =>
-          taxonKeyStrings.includes(k),
-        );
-        return hasOverlappingKeys;
-      });
-    } else {
-      return uniqueMatches;
-    }
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
 }
 
 export async function getSpeciesMatches({ q, taxonKeys }) {
@@ -290,9 +228,8 @@ export async function getSpeciesMatches({ q, taxonKeys }) {
     const response = await axios.get(apiUrl); // will return a single result. confidence is a number between 0 and 100
     if (response.data.scientificName && response.data.confidence > 90) {
       return [{ ...response.data, nubKey: response.data.usageKey }];
-    } else {
-      return [];
     }
+    return [];
   } catch (error) {
     console.log(error);
     return [];
@@ -419,7 +356,7 @@ function filterSuggestions({ list, q, threshold }) {
   const results = [];
   parts.forEach((part) => {
     const sorted = matchSorter(list, part, {
-      threshold: threshold,
+      threshold,
       keys: [
         'label',
         { threshold: matchSorter.rankings.CONTAINS, key: 'alternativeLabels' },
@@ -457,13 +394,13 @@ export async function getSuggestions({ lang, q, taxonKeys }) {
       ],
       // use index to sort the results
       baseSort: (a, b) => {
-        //lineas 2346677
+        // lineas 2346677
         // lam: 7351755
         // some filters should go before others. The ordering should be field, taxonKey, country, other
         // field is of type=FILTER, the other has filter=taxonKey etc
         function decorate(x) {
           let v = x.index / 100 ?? 0;
-          const item = x.item;
+          const { item } = x;
           if (item.type === 'FILTER') v += 10000;
           const boosts = {
             year: 1000,

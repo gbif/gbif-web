@@ -1,54 +1,26 @@
-import useDeepCompareEffect from 'use-deep-compare-effect';
+import { useDeepCompareEffectNoCheck as useDeepCompareEffect } from 'use-deep-compare-effect';
 // import { FormattedMessage } from 'react-intl';
+import { useChecklistKey } from '@/hooks/useChecklistKey';
 import useQuery from '@/hooks/useQuery';
 import { FormattedMessage } from 'react-intl';
 import { ErrorBoundary } from '../ErrorBoundary';
 import { Card, CardContent, CardTitle } from '../ui/smallCard';
 import { CardHeader, FormattedNumber, Table } from './shared';
 
-export function OccurrenceSummary({ predicate, ...props }) {
+export function OccurrenceSummary({ predicate, q, checklistKey, ...props }) {
+  const defaultChecklistKey = useChecklistKey();
   const { data, error, loading, load } = useQuery(OCCURRENCE_STATS, { lazyLoad: true });
 
   useDeepCompareEffect(() => {
     load({
       variables: {
         predicate,
-        hasSpeciesRank: {
-          type: 'and',
-          predicates: [
-            predicate,
-            {
-              type: 'equals',
-              key: 'gbifClassification_classification_rank',
-              value: 'SPECIES',
-            },
-          ],
-        },
-        hasCoordinates: {
-          type: 'and',
-          predicates: [
-            predicate,
-            {
-              type: 'equals',
-              key: 'hasCoordinate',
-              value: true,
-            },
-          ],
-        },
-        hasMedia: {
-          type: 'and',
-          predicates: [
-            predicate,
-            {
-              type: 'isNotNull',
-              key: 'mediaType',
-            },
-          ],
-        },
+        checklistKey: checklistKey ?? defaultChecklistKey,
+        q,
       },
       queue: { name: 'dashboard' },
     });
-  }, [predicate]);
+  }, [predicate, q, load, checklistKey, defaultChecklistKey]);
   const summary = data?.occurrenceSearch;
 
   return (
@@ -93,6 +65,17 @@ export function OccurrenceSummary({ predicate, ...props }) {
                 </tr>
                 <tr>
                   <td>
+                    <FormattedMessage
+                      id="dashboard.distinctNames"
+                      defaultMessage="Distinct names"
+                    />
+                  </td>
+                  <td>
+                    <FormattedNumber value={summary?.cardinality?.verbatimScientificName} />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
                     <FormattedMessage id="dashboard.taxa" defaultMessage="Taxa" />
                   </td>
                   <td>
@@ -126,15 +109,15 @@ export function OccurrenceSummary({ predicate, ...props }) {
 }
 
 const OCCURRENCE_STATS = `
-query summary($predicate: Predicate){
-  occurrenceSearch(predicate: $predicate) {
+query summary($q: String, $predicate: Predicate, $checklistKey: ID){
+  occurrenceSearch(q: $q, predicate: $predicate) {
     documents(size: 0) {
       total
     }
     cardinality {
-      speciesKey
-      taxonKey
-      datasetKey
+      speciesKey(checklistKey: $checklistKey)
+      taxonKey(checklistKey: $checklistKey)
+      verbatimScientificName
     }
 
     stats {

@@ -1,7 +1,7 @@
 import {
+  DefaultTaxonLabel,
   IdentityLabel,
   TaxonIssueLabel,
-  TaxonLabel,
   TaxonRankLabel,
   TaxonStatusLabel,
 } from '@/components/filters/displayNames';
@@ -93,7 +93,7 @@ export const issuesConfig: filterEnumConfig = {
 export const highertaxonKeyConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'higherTaxonKey',
-  displayName: TaxonLabel,
+  displayName: DefaultTaxonLabel,
   filterTranslation: 'filters.higherTaxonKey.name',
   suggestConfig: taxonKeySuggest,
   allowExistence: false,

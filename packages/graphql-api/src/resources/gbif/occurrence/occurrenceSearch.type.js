@@ -5,6 +5,7 @@ const typeDef = gql`
     occurrenceSearch(
       apiKey: String
       predicate: Predicate
+      q: String
       size: Int
       from: Int
     ): OccurrenceSearchResult
@@ -18,6 +19,28 @@ const typeDef = gql`
       graticule: Boolean
       land: Boolean
     ): Globe
+    occurrenceDatasetSuggest(
+      q: String
+      size: Int
+      predicate: Predicate
+    ): [OccurrenceDatasetSuggestResult]
+    occurrencePublisherSuggest(
+      q: String
+      size: Int
+      predicate: Predicate
+    ): [OccurrencePublisherSuggestResult]
+  }
+
+  type OccurrenceDatasetSuggestResult {
+    key: String!
+    count: Long!
+    dataset: Dataset!
+  }
+
+  type OccurrencePublisherSuggestResult {
+    key: String!
+    count: Long!
+    publisher: Organization!
   }
 
   enum OccurrenceSortBy {
@@ -96,12 +119,16 @@ const typeDef = gql`
     histogram: OccurrenceHistogram
     autoDateHistogram: OccurrenceAutoDateHistogram
     _predicate: JSON
-    _downloadPredicate: JSON
+    _meta: JSON
     """
     Register the search predicate with the v1 endpoints and get a hash back. This can be used to query e.g. the tile API.
     """
-    _v1PredicateHash: String
-    _meta: JSON
+    metaPredicate: JSON
+  }
+
+  type OccurrenceMetaPredicate {
+    predicateHash: String
+    predicate: JSON
   }
 
   type OccurrenceDocuments {
@@ -137,22 +164,24 @@ const typeDef = gql`
     license: Long!
     basisOfRecord: Long!
     issue: Long!
+    taxonomicIssue: Long!
     collectionKey: Long!
     institutionKey: Long!
     collectionCode: Long!
     institutionCode: Long!
     networkKey: Long!
-    taxonKey: Long!
-    classKey: Long!
-    familyKey: Long!
-    genusKey: Long!
-    kingdomKey: Long!
-    orderKey: Long!
-    phylumKey: Long!
-    speciesKey: Long!
-    gbifClassification_usage_key: Long!
+    programme: Long!
+    taxonKey(checklistKey: ID): ID!
+    classKey(checklistKey: ID): ID!
+    familyKey(checklistKey: ID): ID!
+    genusKey(checklistKey: ID): ID!
+    kingdomKey(checklistKey: ID): ID!
+    orderKey(checklistKey: ID): ID!
+    phylumKey(checklistKey: ID): ID!
+    speciesKey(checklistKey: ID): ID!
+    usageKey(checklistKey: ID): ID!
     preparations: Long!
-    iucnRedListCategory: Long!
+    iucnRedListCategory(checklistKey: ID): Long!
     establishmentMeans: Long!
     countryCode: Long!
     publishingCountry: Long!
@@ -174,7 +203,6 @@ const typeDef = gql`
     island: Long!
     georeferencedBy: Long!
     datasetName: Long!
-    programme: Long!
     publishedByGbifRegion: Long!
     gbifRegion: Long!
     organismQuantityType: Long!
@@ -239,6 +267,11 @@ const typeDef = gql`
     id(size: Int, from: Int): [OccurrenceFacetResult_string]
     institutionCode(size: Int, from: Int): [OccurrenceFacetResult_string]
     issue(size: Int, from: Int): [OccurrenceFacetResult_string]
+    taxonomicIssue(
+      size: Int
+      from: Int
+      checklistKey: ID
+    ): [OccurrenceFacetResult_string]
     license(size: Int, from: Int): [OccurrenceFacetResult_string]
     lifeStage(size: Int, from: Int): [OccurrenceFacetResult_string]
     locality(size: Int, from: Int): [OccurrenceFacetResult_string]
@@ -286,55 +319,11 @@ const typeDef = gql`
       from: Int
     ): [OccurrenceFacetResult_string]
     verbatimScientificName(size: Int, from: Int): [OccurrenceFacetResult_string]
-    gbifClassification_acceptedUsage_rank(
+    iucnRedListCategory(
       size: Int
       from: Int
+      checklistKey: ID
     ): [OccurrenceFacetResult_string]
-    gbifClassification_classification_rank(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_string]
-    gbifClassification_diagnostics_matchType(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_string]
-    gbifClassification_diagnostics_status(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_string]
-    gbifClassification_usage_name(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_string]
-    gbifClassification_usage_rank(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_string]
-    gbifClassification_usageParsedName_notho(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_string]
-    gbifClassification_usageParsedName_rank(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_string]
-    gbifClassification_usageParsedName_state(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_string]
-    gbifClassification_usageParsedName_type(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_string]
-    gbifClassification_usageParsedName_basionymAuthorship_year(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_string]
-    gbifClassification_usageParsedName_combinationAuthorship_year(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_string]
-    iucnRedListCategory(size: Int, from: Int): [OccurrenceFacetResult_string]
     occurrenceStatus(size: Int): [OccurrenceFacetResult_string]
 
     coordinatePrecision(size: Int, from: Int): [OccurrenceFacetResult_float]
@@ -383,54 +372,6 @@ const typeDef = gql`
     hasCoordinate(size: Int): [OccurrenceFacetResult_boolean]
     hasGeospatialIssue(size: Int): [OccurrenceFacetResult_boolean]
     repatriated(size: Int): [OccurrenceFacetResult_boolean]
-    gbifClassification_synonym(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_boolean]
-    gbifClassification_classification_synonym(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_boolean]
-    gbifClassification_usageParsedName_abbreviated(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_boolean]
-    gbifClassification_usageParsedName_autonym(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_boolean]
-    gbifClassification_usageParsedName_binomial(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_boolean]
-    gbifClassification_usageParsedName_candidatus(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_boolean]
-    gbifClassification_usageParsedName_doubtful(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_boolean]
-    gbifClassification_usageParsedName_incomplete(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_boolean]
-    gbifClassification_usageParsedName_indetermined(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_boolean]
-    gbifClassification_usageParsedName_trinomial(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_boolean]
-    gbifClassification_usageParsedName_basionymAuthorship_empty(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_boolean]
-    gbifClassification_usageParsedName_combinationAuthorship_empty(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_boolean]
 
     isInCluster(size: Int, from: Int): [OccurrenceFacetResult_boolean]
     isSequenced(size: Int, from: Int): [OccurrenceFacetResult_boolean]
@@ -452,10 +393,7 @@ const typeDef = gql`
 
     gadmGid(size: Int, from: Int): [OccurrenceFacetResult_gadm]
 
-    gbifClassification_taxonID(
-      size: Int
-      from: Int
-    ): [OccurrenceFacetResult_string]
+    taxonID(size: Int, from: Int): [OccurrenceFacetResult_string]
     collectionKey(size: Int, from: Int): [OccurrenceFacetResult_collection]
     institutionKey(size: Int, from: Int): [OccurrenceFacetResult_institution]
     recordedBy(
@@ -469,25 +407,55 @@ const typeDef = gql`
       include: String
     ): [OccurrenceFacetResult_identifiedBy]
 
-    taxonKey(size: Int, from: Int): [OccurrenceFacetResult_taxon]
-    classKey(size: Int, from: Int): [OccurrenceFacetResult_taxon]
-    familyKey(size: Int, from: Int): [OccurrenceFacetResult_taxon]
-    genusKey(size: Int, from: Int): [OccurrenceFacetResult_taxon]
-    kingdomKey(size: Int, from: Int): [OccurrenceFacetResult_taxon]
-    orderKey(size: Int, from: Int): [OccurrenceFacetResult_taxon]
-    phylumKey(size: Int, from: Int): [OccurrenceFacetResult_taxon]
-    speciesKey(size: Int, from: Int): [OccurrenceFacetResult_taxon]
-    gbifClassification_acceptedUsage_key(
+    taxonKey(
       size: Int
       from: Int
+      checklistKey: ID
     ): [OccurrenceFacetResult_taxon]
-    gbifClassification_classification_key(
+    classKey(
       size: Int
       from: Int
+      checklistKey: ID
     ): [OccurrenceFacetResult_taxon]
-    gbifClassification_usage_key(
+    familyKey(
       size: Int
       from: Int
+      checklistKey: ID
+    ): [OccurrenceFacetResult_taxon]
+    genusKey(
+      size: Int
+      from: Int
+      checklistKey: ID
+    ): [OccurrenceFacetResult_taxon]
+    kingdomKey(
+      size: Int
+      from: Int
+      checklistKey: ID
+    ): [OccurrenceFacetResult_taxon]
+    orderKey(
+      size: Int
+      from: Int
+      checklistKey: ID
+    ): [OccurrenceFacetResult_taxon]
+    phylumKey(
+      size: Int
+      from: Int
+      checklistKey: ID
+    ): [OccurrenceFacetResult_taxon]
+    speciesKey(
+      size: Int
+      from: Int
+      checklistKey: ID
+    ): [OccurrenceFacetResult_taxon]
+    acceptedUsageKey(
+      size: Int
+      from: Int
+      checklistKey: ID
+    ): [OccurrenceFacetResult_taxon]
+    usageKey(
+      size: Int
+      from: Int
+      checklistKey: ID
     ): [OccurrenceFacetResult_taxon]
   }
 
@@ -587,9 +555,21 @@ const typeDef = gql`
   type OccurrenceFacetResult_taxon {
     key: String!
     count: Long!
-    taxon: Taxon!
+    """
+    Only apply to backbone taxa at the moment
+    """
+    taxon: Taxon
+    """
+    Get whatever minimum shared data we can compile for both backbone and other checklists. The idea is to allow UIs to generate a nice diaplay label with classification
+    """
+    taxonMatch(checklistKey: ID): SpeciesMatchResult
     occurrences(size: Int, from: Int): OccurrenceSearchResult!
     _predicate: JSON
+  }
+
+  type OccurrenceTaxonFacetSummary {
+    name: String!
+    classification: [Classification!]
   }
 
   type OccurrenceFacetResult_network {

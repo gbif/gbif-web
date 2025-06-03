@@ -74,43 +74,28 @@ export const datasetKeyOccurrenceSuggest = {
 
     const rootPredicate = searchContext?.scope;
     const SEARCH = `
-    query keywordSearch($predicate: Predicate, $size: Int){
-      occurrenceSearch(predicate: $predicate) {
-        facet {
-          datasetKey(size: $size) {
-            key
-            count
-            dataset {
-              title
-            }
-          }
+    query keywordSearch($q: String, $predicate: Predicate, $size: Int){
+      occurrenceDatasetSuggest(q: $q, predicate: $predicate, size: $size) {
+        key
+        count
+        dataset {
+          title
         }
       }
     }
     `;
-    const qPredicate = {
-      type: 'like',
-      key: 'datasetTitle',
-      value: `*${(q ?? '').replace(/\s/, '*')}*`,
-    };
 
-    let predicate = qPredicate;
-    if (rootPredicate) {
-      predicate = {
-        type: 'and',
-        predicates: [rootPredicate, qPredicate],
-      };
-    }
     const variables = {
       size: 10,
-      predicate,
+      predicate: rootPredicate,
+      q,
     };
     const promise = graphqlService.query(SEARCH, variables);
     return {
       promise: promise
         .then((res) => res.json())
         .then((response) => {
-          return response.data?.occurrenceSearch?.facet?.datasetKey.map((i) => ({
+          return response.data?.occurrenceDatasetSuggest?.map((i) => ({
             ...i,
             title: i.dataset.title,
           }));
@@ -141,43 +126,28 @@ export const publisherKeyOccurrenceSuggest = {
 
     const rootPredicate = searchContext?.scope;
     const SEARCH = `
-    query keywordSearch($predicate: Predicate, $size: Int){
-      occurrenceSearch(predicate: $predicate) {
-        facet {
-          results: publishingOrg(size: $size) {
-            key
-            count
-            item: publisher {
-              title
-            }
-          }
+    query keywordSearch($q: String, $predicate: Predicate, $size: Int){
+      occurrencePublisherSuggest(q: $q, predicate: $predicate, size: $size) {
+        key
+        count
+        item: publisher {
+          title
         }
       }
     }
     `;
-    const qPredicate = {
-      type: 'like',
-      key: 'publisherTitle',
-      value: `*${(q ?? '').replace(/\s/, '*')}*`,
-    };
 
-    let predicate = qPredicate;
-    if (rootPredicate) {
-      predicate = {
-        type: 'and',
-        predicates: [rootPredicate, qPredicate],
-      };
-    }
     const variables = {
       size: 10,
-      predicate,
+      predicate: rootPredicate,
+      q,
     };
     const promise = graphqlService.query(SEARCH, variables);
     return {
       promise: promise
         .then((res) => res.json())
         .then((response) => {
-          return response.data?.occurrenceSearch?.facet?.results.map((i) => ({
+          return response.data?.occurrencePublisherSuggest?.map((i) => ({
             ...i,
             title: i.item.title,
           }));
@@ -268,12 +238,34 @@ export const taxonKeySuggest = {
   },
 };
 
-export const taxonKeyVernacularSuggest = {
-  placeholder: 'search.placeholders.default',
-  // how to get the list of suggestion data
-  getSuggestions: ({ q, siteConfig, currentLocale }: SuggestFnProps): SuggestResponseType => {
-    const language = currentLocale.iso3LetterCode ?? 'eng';
+export type TaxonSuggestType = SuggestFnProps & { checklistKey?: string | number };
 
+export const taxonKeyClbSuggest = {
+  render: (item: SuggestionItem) => {
+    const isSynonym = ['ambiguous synonym', 'synonym'].includes(item.status);
+    return (
+      <div>
+        {item.match}
+        <div style={{ maxWidth: '100%', fontSize: '0.85em' }}>
+          {isSynonym && <div className="g-text-orange-500">Synonym for {item.acceptedName}</div>}
+          {!isSynonym && (
+            <div style={{ color: '#aaa' }}>
+              <FormattedMessage
+                id="search.rankInGroup"
+                values={{ rank: item.rankLabel, group: item.context }}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  },
+  getSuggestions: ({
+    q,
+    siteConfig,
+    checklistKey,
+    intl,
+  }: TaxonSuggestType): SuggestResponseType => {
     const abortController = new AbortController();
     const graphqlService = new GraphQLService({
       endpoint: siteConfig.graphqlEndpoint,
@@ -282,76 +274,131 @@ export const taxonKeyVernacularSuggest = {
     });
 
     const SEARCH = `
-      query($q: String, $language: Language, $datasetKey: ID) {
-        taxonSuggestions( q: $q, language: $language, datasetKey: $datasetKey) {
-          key
-          scientificName
-          vernacularName
-          taxonomicStatus
-          acceptedNameOf
-          classification {
-            name
-          }
+      query($checklistKey: ID!, $q: String!) {
+        clbNameUsageSuggest(q: $q, checklistKey: $checklistKey) {
+          match
+          usageId
+          acceptedUsageId
+          acceptedName
+          rank
+          status
+          suggestion
+          context
         }
-      }    
+      }   
     `;
     const promise = graphqlService.query(SEARCH, {
       q,
-      language: language,
-      datasetKey: siteConfig.vernacularNames?.datasetKey,
+      checklistKey: checklistKey,
     });
     return {
       promise: promise
         .then((res) => res.json())
         .then((response) => {
-          return response.data?.taxonSuggestions.map((i) => ({ ...i, title: i.scientificName }));
+          return (response.data?.clbNameUsageSuggest ?? []).map((i) => ({
+            ...i,
+            title: i.suggestion,
+            key: i.usageId,
+            rankLabel: intl.formatMessage({
+              id: `enums.taxonRank.${i.rank.toUpperCase()}`,
+              defaultMessage: i.rank,
+            }),
+          }));
         }),
       cancel: () => abortController.abort(CANCEL_REQUEST),
     };
   },
-  // how to map the results to a single string value
-  // how to display the individual suggestions in the list
-  render: (suggestion: SuggestionItem) => {
-    const ranks = suggestion.classification.map((rank, i) => <span key={i}>{rank.name}</span>);
-
-    return (
-      <div style={{ maxWidth: '100%' }}>
-        <div className="g-line-clamp-2">
-          {suggestion.taxonomicStatus !== 'ACCEPTED' && (
-            <span
-              className="g-inline-block g-me-1 g-bg-orange-400 g-text-xs g-rounded g-px-0.5 g-text-white"
-              style={{
-                fontSize: '10px',
-              }}
-            >
-              <FormattedMessage id={`enums.taxonomicStatus.${suggestion.taxonomicStatus}`} />
-            </span>
-          )}
-          <span>{suggestion.scientificName}</span>
-        </div>
-        {suggestion.vernacularName && (
-          <div className="g-text-slate-500 g-line-clamp-2 g-text-xs">
-            <div>
-              <FormattedMessage id="filterSupport.commonName" />:{' '}
-              <span className="g-text-slate-500">{suggestion.vernacularName}</span>
-            </div>
-          </div>
-        )}
-        {!suggestion.vernacularName && suggestion.acceptedNameOf && (
-          <div className="g-text-slate-500 g-line-clamp-2 g-text-xs">
-            <div>
-              <FormattedMessage id="filterSupport.acceptedNameOf" />:{' '}
-              <span className="g-text-slate-500">{suggestion.acceptedNameOf}</span>
-            </div>
-          </div>
-        )}
-        <div className="g-text-slate-400 g-text-xs g-mt-1.5">
-          <Classification>{ranks}</Classification>
-        </div>
-      </div>
-    );
-  },
 };
+
+// export const taxonKeyVernacularSuggest = {
+//   placeholder: 'search.placeholders.default',
+//   // how to get the list of suggestion data
+//   getSuggestions: ({
+//     q,
+//     siteConfig,
+//     currentLocale,
+//     checklistKey,
+//   }: TaxonSuggestType): SuggestResponseType => {
+//     const language = currentLocale.iso3LetterCode ?? 'eng';
+
+//     const abortController = new AbortController();
+//     const graphqlService = new GraphQLService({
+//       endpoint: siteConfig.graphqlEndpoint,
+//       abortSignal: abortController.signal,
+//       locale: 'en',
+//     });
+
+//     const SEARCH = `
+//       query($q: String, $language: Language, $checklistKey: ID) {
+//         taxonSuggestions( q: $q, language: $language, checklistKey: $checklistKey) {
+//           key
+//           scientificName
+//           vernacularName
+//           taxonomicStatus
+//           acceptedNameOf
+//           classification {
+//             name
+//           }
+//         }
+//       }
+//     `;
+//     const promise = graphqlService.query(SEARCH, {
+//       q,
+//       language: language,
+//       checklistKey: checklistKey,
+//     });
+//     return {
+//       promise: promise
+//         .then((res) => res.json())
+//         .then((response) => {
+//           return response.data?.taxonSuggestions.map((i) => ({ ...i, title: i.scientificName }));
+//         }),
+//       cancel: () => abortController.abort(CANCEL_REQUEST),
+//     };
+//   },
+//   // how to map the results to a single string value
+//   // how to display the individual suggestions in the list
+//   render: (suggestion: SuggestionItem) => {
+//     const ranks = suggestion?.classification?.map((rank, i) => <span key={i}>{rank.name}</span>);
+
+//     return (
+//       <div style={{ maxWidth: '100%' }}>
+//         <div className="g-line-clamp-2">
+//           {suggestion.taxonomicStatus !== 'ACCEPTED' && (
+//             <span
+//               className="g-inline-block g-me-1 g-bg-orange-400 g-text-xs g-rounded g-px-0.5 g-text-white"
+//               style={{
+//                 fontSize: '10px',
+//               }}
+//             >
+//               <FormattedMessage id={`enums.taxonomicStatus.${suggestion.taxonomicStatus}`} />
+//             </span>
+//           )}
+//           <span>{suggestion.scientificName}</span>
+//         </div>
+//         {suggestion.vernacularName && (
+//           <div className="g-text-slate-500 g-line-clamp-2 g-text-xs">
+//             <div>
+//               <FormattedMessage id="filterSupport.commonName" />:{' '}
+//               <span className="g-text-slate-500">{suggestion.vernacularName}</span>
+//             </div>
+//           </div>
+//         )}
+//         {!suggestion.vernacularName && suggestion.acceptedNameOf && (
+//           <div className="g-text-slate-500 g-line-clamp-2 g-text-xs">
+//             <div>
+//               <FormattedMessage id="filterSupport.acceptedNameOf" />:{' '}
+//               <span className="g-text-slate-500">{suggestion.acceptedNameOf}</span>
+//             </div>
+//           </div>
+//         )}
+//         <div className="g-text-slate-400 g-text-xs g-mt-1.5">
+//           <Classification>{ranks}</Classification>
+//         </div>
+//       </div>
+//     );
+//   },
+// };
 
 export const gadGidSuggest = {
   getSuggestions: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {

@@ -21,9 +21,10 @@ import iucnRedListCategoryOptions from '@/enums/basic/iucnRedListCategory.json';
 import licenseOptions from '@/enums/basic/license.json';
 import mediaTypeOptions from '@/enums/basic/mediaType.json';
 import monthOptions from '@/enums/basic/month.json';
-import occurrenceIssueOptions from '@/enums/basic/occurrenceIssue.json';
+import occurrenceNonTaxonomicIssue from '@/enums/basic/occurrenceNonTaxonomicIssue.json';
 import protocolOptions from '@/enums/basic/occurrenceProtocols.json';
 import occurrenceStatusOptions from '@/enums/basic/occurrenceStatus.json';
+import occurrenceTaxonomicIssue from '@/enums/basic/occurrenceTaxonomicIssue.json';
 
 export const licenceConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
@@ -32,8 +33,8 @@ export const licenceConfig: filterEnumConfig = {
   options: licenseOptions,
   filterTranslation: 'filters.license.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceLicenseFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceLicenseFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: license {
             name: key
@@ -54,8 +55,8 @@ export const basisOfRecordConfig: filterEnumConfig = {
   options: basisOfRecordOptions,
   filterTranslation: 'filters.basisOfRecord.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceBoRFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceBoRFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: basisOfRecord {
             name: key
@@ -78,8 +79,8 @@ export const mediaTypeConfig: filterEnumConfig = {
   allowNegations: false,
   filterTranslation: 'filters.mediaType.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceMediaFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceMediaFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: mediaType {
             name: key
@@ -102,8 +103,8 @@ export const monthConfig: filterEnumConfig = {
   allowExistence: true,
   filterTranslation: 'filters.month.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceMonthFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceMonthFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: month(size: 12) {
             name: key
@@ -126,8 +127,8 @@ export const continentConfig: filterEnumConfig = {
   options: continentOptions,
   filterTranslation: 'filters.continent.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceContinentFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceContinentFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: continent {
             name: key
@@ -150,8 +151,8 @@ export const protocolConfig: filterEnumConfig = {
   allowNegations: false,
   filterTranslation: 'filters.protocol.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceProtocolFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceProtocolFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: protocol(size: 100) {
             name: key
@@ -174,8 +175,8 @@ export const dwcaExtensionConfig: filterEnumConfig = {
   allowExistence: true,
   filterTranslation: 'filters.dwcaExtension.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceDwcaExtensionFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceDwcaExtensionFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: dwcaExtension(size: 100) {
             name: key
@@ -196,10 +197,10 @@ export const iucnRedListCategoryConfig: filterEnumConfig = {
   options: iucnRedListCategoryOptions,
   filterTranslation: 'filters.iucnRedListCategory.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceIucnFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceIucnFacet($q: String, $predicate: Predicate, $checklistKey: ID) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
-          field: iucnRedListCategory(size: 100) {
+          field: iucnRedListCategory(size: 100, checklistKey: $checklistKey) {
             name: key
             count
           }
@@ -215,13 +216,13 @@ export const occurrenceIssueConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'issue',
   displayName: occurrenceIssueLabel,
-  options: occurrenceIssueOptions,
+  options: occurrenceNonTaxonomicIssue,
   allowNegations: true,
   allowExistence: true,
   filterTranslation: 'filters.occurrenceIssue.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceIssueFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceIssueFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: issue(size: 100) {
             name: key
@@ -235,6 +236,30 @@ export const occurrenceIssueConfig: filterEnumConfig = {
   group: 'other',
 };
 
+export const occurrenceTaxonomicIssueConfig: filterEnumConfig = {
+  filterType: filterConfigTypes.ENUM,
+  filterHandle: 'taxonomicIssue',
+  displayName: occurrenceIssueLabel,
+  options: occurrenceTaxonomicIssue,
+  allowNegations: true,
+  allowExistence: true,
+  filterTranslation: 'filters.occurrenceTaxonomicIssue.name',
+  facetQuery: /* GraphQL */ `
+    query OccurrenceTaxonomicIssueFacet($q: String, $predicate: Predicate, $checklistKey: ID) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
+        facet {
+          field: taxonomicIssue(size: 100, checklistKey: $checklistKey) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.occurrenceTaxonomicIssue.description" />,
+  group: 'other',
+};
+
 export const occurrenceStatusConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'occurrenceStatus',
@@ -242,8 +267,8 @@ export const occurrenceStatusConfig: filterEnumConfig = {
   options: occurrenceStatusOptions,
   filterTranslation: 'filters.occurrenceStatus.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceOccurrenceStatusFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceOccurrenceStatusFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: occurrenceStatus(size: 100) {
             name: key

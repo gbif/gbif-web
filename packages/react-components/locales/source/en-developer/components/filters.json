@@ -168,7 +168,7 @@
   "taxonKey": {
     "name": "Scientific name",
     "count": "{num, plural, one {scientific name} other {# scientific names}}",
-    "description": "The scientific name as it appears in the GBIF backbone taxonomy. These names are normalized to ease search across datasets. It is possible that an originally-provided name might be misinterpreted or unknown. To search the names as provided use the \"Verbatim scientific name\" filter."
+    "description": "The scientific name after taxonomic interpretation. These names are normalized to ease search across datasets. It is possible that an originally-provided name might be misinterpreted or unknown. To search the names as provided use the \"Verbatim scientific name\" filter."
   },
   "taxonKeyGrSciColl": {
     "name": "Scientific name",
@@ -203,6 +203,13 @@
     "isNotNull": "Has issues",
     "isNull": "Has no issues",
     "description": "The types of issues or flags of potential interest discovered in processing the data."
+  },
+  "occurrenceTaxonomicIssue": {
+    "name": "Taxonomic issues and flags",
+    "count": "{num, plural, one {taxon issue or flag} other {# taxon issues and flags}}",
+    "isNotNull": "Has taxonomic issues",
+    "isNull": "Has no taxonomic issues",
+    "description": "The types of taxonomic issues or flags of potential interest discovered in processing the data."
   },
   "occurrenceCountry": {
     "name": "Country or area",

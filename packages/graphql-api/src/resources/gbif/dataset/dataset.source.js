@@ -92,6 +92,63 @@ class DatasetAPI extends RESTDataSource {
       stringify(query, { indices: false }),
     );
   }
+
+  async getClbVernacularNamesByTaxonKey({
+    checklistKey,
+    taxonKey,
+    query = { lang },
+  }) {
+    const results = await this.get(
+      `${this.config.checklistBank}/dataset/${checklistKey}/taxon/${taxonKey}/vernacular`,
+      stringify(query, { indices: false }),
+    );
+
+    // count how frequent each vernacularName is used
+    const counts = results.reduce((acc, item) => {
+      acc[item.name] = (acc[item.name] || 0) + 1;
+      return acc;
+    }, {});
+    // sort the list by the frequency of the vernacularName, this is simply to avoid the odd outliers that occasionally appear since it is a list stiched together from multiple sources
+    results.sort((a, b) => counts[b.name] - counts[a.name]);
+    return results;
+  }
+
+  async getClbReferenceByKey({ datasetKey, referenceId }) {
+    return this.get(
+      `${this.config.checklistBank}/dataset/${datasetKey}/reference/${referenceId}`,
+    );
+  }
+
+  async getClbNameUsageSuggestions({
+    checklistKey,
+    q,
+    limit,
+    status = [
+      'ACCEPTED',
+      'PROVISIONALLY_ACCEPTED',
+      'SYNONYM',
+      'AMBIGUOUS_SYNONYM',
+      'MISAPPLIED',
+    ],
+  }) {
+    const response = await this.get(
+      `${this.config.checklistBank}/dataset/${checklistKey}/nameusage/suggest`,
+      stringify({ q, status, limit }, { indices: false }),
+    );
+    return response;
+  }
+
+  async getTaxGroupByName({ name }) {
+    const response = await this.get(
+      `${this.config.checklistBank}/vocab/taxgroup`,
+    );
+    const taxGroup = response.find((group) => group.name === name);
+    if (taxGroup) {
+      return taxGroup;
+    }
+    // If the tax group is not found, return an empty object or handle it as needed
+    return null;
+  }
 }
 
 export default DatasetAPI;

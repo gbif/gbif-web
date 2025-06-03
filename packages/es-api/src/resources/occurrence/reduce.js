@@ -321,11 +321,6 @@ function reduce(item) {
   const gbifSpecific = {
     key: source.gbifId,
     gbifID: source.gbifId,
-    acceptedScientificName: source.gbifClassification?.acceptedUsage?.name,
-    acceptedTaxonKey: source.gbifClassification?.acceptedUsage?.key,
-    scientificName: source.gbifClassification?.usage?.name,
-    class: source.gbifClassification?.class,
-    classKey: source.gbifClassification?.classKey,
     collectionKey: source.collectionKey,
     crawlId: source.crawlId,
     datasetKey: source.datasetKey,
@@ -335,48 +330,42 @@ function reduce(item) {
     distanceAboveSurfaceAccuracy: source.distanceAboveSurfaceAccuracy,
     elevation: source.elevation,
     elevationAccuracy: source.elevationAccuracy,
-    family: source.gbifClassification.family,
-    familyKey: source.gbifClassification.familyKey,
-    genericName: source.gbifClassification?.usageParsedName?.genericName,
-    genus: source.gbifClassification.genus,
-    genusKey: source.gbifClassification.genusKey,
     hostingOrganizationKey: source.hostingOrganizationKey,
     installationKey: source.installationKey,
     institutionKey: source.institutionKey,
     issues: source.issues || [],
-    kingdom: source.gbifClassification.kingdom,
-    kingdomKey: source.gbifClassification.kingdomKey,
     lastCrawled: source.lastCrawled,
     // lastInterpreted:                    source.lastInterpreted,
     lastParsed: source.lastParsed,
     // mediaType:                          source.mediaType,
     // networkKey:                         source.networkKeys || [],
-    order: source.gbifClassification.order,
-    orderKey: source.gbifClassification.orderKey,
-    phylum: source.gbifClassification.phylum,
-    phylumKey: source.gbifClassification.phylumKey,
+    // order: source.gbifClassification.order,
+    // orderKey: source.gbifClassification.orderKey,
+    // phylum: source.gbifClassification.phylum,
+    // phylumKey: source.gbifClassification.phylumKey,
     protocol: source.protocol,
     publishingCountry: source.publishingCountry,
     publishingOrgKey: source.publishingOrganizationKey,
     relativeOrganismQuantity: source.relativeOrganismQuantity,
     // repatriated:                        source.repatriated,
-    species: source.gbifClassification.species,
-    speciesKey: source.gbifClassification.speciesKey,
-    specificEpithet: source.gbifClassification?.usageParsedName?.specificEpithet,
-    subgenus: source.gbifClassification.subgenus,
-    subgenusKey: source.gbifClassification.subgenusKey,
-    taxonKey: source.gbifClassification.usage?.key,
-    taxonomicStatus: source.gbifClassification?.diagnostics?.status,
-    taxonRank: source.gbifClassification.usage?.rank,
+    // species: source.gbifClassification.species,
+    // speciesKey: source.gbifClassification.speciesKey,
+    // specificEpithet: source.gbifClassification?.usageParsedName?.specificEpithet,
+    // subgenus: source.gbifClassification.subgenus,
+    // subgenusKey: source.gbifClassification.subgenusKey,
+    // taxonKey: source.gbifClassification.usage?.key,
+    // taxonomicStatus: source.gbifClassification?.diagnostics?.status,
+    // taxonRank: source.gbifClassification.usage?.rank,
     // typifiedName:                       source.typifiedName,
-    verbatimScientificName: source.gbifClassification.verbatimScientificName,
+    verbatimScientificName: source.verbatimScientificName,
     media: source.multimediaItems || [],
     facts: source.measurementOrFactItems || [],
     identifiers: [],
     relations: [],
     extensions: source.verbatim.extensions,
-    gbifClassification: source.gbifClassification,
-    iucnRedListCategory: source.gbifClassification.iucnRedListCategoryCode,
+    // gbifClassification: source.gbifClassification,
+    // iucnRedListCategory: source.gbifClassification.iucnRedListCategoryCode,
+    classifications: source.classifications || {},
 
     // not in v1
     datasetTitle: source.datasetTitle,
@@ -396,6 +385,38 @@ function reduce(item) {
       }
       return p;
     }, {});
+  }
+
+  // reformat classifications
+  if (source.classifications) {
+    const classifications = Object.keys(source.classifications).map((key) => {
+      const c = source.classifications[key];
+
+      // first make a reverse lookup by value on c.classificationKeys
+      const keyToRank = Object.keys(c.classificationKeys).reduce((prev, curr) => {
+        const value = c.classificationKeys[curr];
+        prev[value] = curr;
+        return prev;
+      }, {});
+
+      return {
+        usage: c.usage,
+        acceptedUsage: c.acceptedUsage,
+        iucnRedListCategoryCode: c.iucnRedListCategoryCode,
+        issues: c.issues,
+        checklistKey: key,
+        classification: c.taxonKeys.map((taxonKey) => {
+          // get rank
+          const rank = keyToRank[taxonKey];
+          return {
+            key: taxonKey,
+            rank: rank,
+            name: c.classification[rank],
+          };
+        }),
+      };
+    });
+    gbifSpecific.classifications = classifications;
   }
 
   const merged = Object.assign({}, gbifSpecific, verbatim, normalized, gadm);

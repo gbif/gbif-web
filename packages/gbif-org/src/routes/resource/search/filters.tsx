@@ -13,10 +13,10 @@ import {
   generateFilters,
 } from '@/components/filters/filterTools';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
-import { useEffect, useState } from 'react';
-import { useIntl } from 'react-intl';
 import topicsOptions from '@/enums/cms/topics.json';
 import { useCountrySuggest } from '@/hooks/useCountrySuggest';
+import { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
 
 const freeTextConfig: filterFreeTextConfig = {
   filterType: filterConfigTypes.FREE_TEXT,

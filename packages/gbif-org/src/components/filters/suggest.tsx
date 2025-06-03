@@ -104,6 +104,11 @@ const Search = React.forwardRef(
     });
 
     useEffect(() => {
+      if (q === '') {
+        setItems([]);
+        setIsLoading(false);
+        return;
+      }
       const { cancel, promise } = onSearch({
         q,
         intl,
@@ -127,7 +132,7 @@ const Search = React.forwardRef(
       return () => {
         if (cancel) cancel();
       };
-    }, [q, intl, searchContext, config, onSearch]);
+    }, [q, intl, searchContext, config, onSearch, currentLocale]);
 
     const {
       isOpen,
@@ -223,12 +228,13 @@ const Search = React.forwardRef(
           >
             {isOpen && (
               <>
-                {!isLoading && items.length === 0 && (
+                {!isLoading && items && items?.length === 0 && (
                   <li className="g-text-slate-500 g-text-sm g-py-2 g-px-2 g-border-b g-border-slate-100 g-flex g-flex-row g-items-start">
-                    <FormattedMessage id="search.noResults" />
+                    {q && q !== '' && <FormattedMessage id="search.noResults" />}
+                    {(!q || q === '') && <FormattedMessage id="search.startTyping" />}
                   </li>
                 )}
-                {items.length > 0 &&
+                {items?.length > 0 &&
                   items.map((item, index) => (
                     <li
                       className={cn(

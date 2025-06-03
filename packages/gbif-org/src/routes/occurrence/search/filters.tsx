@@ -21,6 +21,7 @@ import {
   monthConfig,
   occurrenceIssueConfig,
   occurrenceStatusConfig,
+  occurrenceTaxonomicIssueConfig,
   protocolConfig,
   publishedByGbifRegionConfig,
 } from './filters/enums';
@@ -189,6 +190,11 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       // typeStatus: generateFilters({ config: typeStatusConfig, searchConfig, formatMessage }),
       issue: generateFilters({
         config: occurrenceIssueConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      taxonomicIssue: generateFilters({
+        config: occurrenceTaxonomicIssueConfig,
         searchConfig,
         formatMessage,
       }),

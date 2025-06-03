@@ -7,5 +7,6 @@
   "NT": "Near Threatened",
   "LC": "Least Concern",
   "DD": "Data Deficient",
+  "CD": "Conservation Dependent",
   "NE": "Not Evaluated"
 }

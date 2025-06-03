@@ -11,8 +11,8 @@ export const waterBodyConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceWaterBodyFacet($predicate: Predicate, $size: Int){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceWaterBodyFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: waterBody
         }
@@ -39,8 +39,8 @@ export const catalogNumberConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceCatalogNumberFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: catalogNumber
         }
@@ -66,8 +66,8 @@ export const preparationsConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrencePreparationsFacet($predicate: Predicate, $size: Int, $include: String){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrencePreparationsFacet($q: String, $predicate: Predicate, $size: Int, $include: String){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: preparations
         }
@@ -94,8 +94,8 @@ export const sampleSizeUnitConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceCatalogNumberFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: sampleSizeUnit
         }
@@ -122,8 +122,8 @@ export const localityConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceCatalogNumberFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: locality
         }
@@ -150,8 +150,8 @@ export const stateProvinceConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceCatalogNumberFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: stateProvince
         }
@@ -262,8 +262,8 @@ export const samplingProtocolConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceCatalogNumberFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: samplingProtocol
         }
@@ -289,8 +289,8 @@ export const verbatimScientificNameConfig: filterWildcardConfig = {
   filterTranslation: 'filters.verbatimScientificName.name',
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceCatalogNumberFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: verbatimScientificName
         }
@@ -317,8 +317,8 @@ export const recordedByConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int, $include: String){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceCatalogNumberFacet($q: String, $predicate: Predicate, $size: Int, $include: String){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: recordedBy
         }
@@ -345,8 +345,8 @@ export const identifiedByConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int, $include: String){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceCatalogNumberFacet($q: String, $predicate: Predicate, $size: Int, $include: String){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: identifiedBy
         }
@@ -373,8 +373,8 @@ export const datasetIdConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceDatasetIdFacet($predicate: Predicate, $size: Int){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceDatasetIdFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: datasetId
         }

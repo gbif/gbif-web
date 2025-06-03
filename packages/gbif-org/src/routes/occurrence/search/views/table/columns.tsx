@@ -84,7 +84,7 @@ export function useOccurrenceColumns({
         header: 'tableHeaders.commonName',
         minWidth: 200,
         cell: (occurrence) => {
-          if (!occurrence?.volatile?.vernacularNames?.results[0]?.vernacularName) return null;
+          if (!occurrence?.classification?.vernacularNames?.[0]?.name) return null;
 
           return (
             <InlineLineClamp>
@@ -94,14 +94,18 @@ export function useOccurrenceColumns({
                   title={
                     <FormattedMessage
                       id="phrases.commonNameAccordingTo"
-                      values={{ source: occurrence?.volatile?.vernacularNames?.results[0]?.source }}
+                      values={{
+                        source:
+                          occurrence?.classification?.vernacularNames?.[0]?.reference?.citation ??
+                          occurrence?.classification?.meta?.mainIndex?.datasetTitle,
+                      }}
                     />
                   }
                 >
                   <MdInfoOutline className="-g-mt-0.5 g-text-slate-400" />
                 </SimpleTooltip>
                 <span className="g-ms-1.5">
-                  {occurrence?.volatile?.vernacularNames?.results[0]?.vernacularName}
+                  {occurrence?.classification?.vernacularNames?.[0]?.name}
                 </span>
               </span>
             </InlineLineClamp>

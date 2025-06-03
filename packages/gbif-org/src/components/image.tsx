@@ -55,7 +55,6 @@ export function ClientImage({ wrapperProps, onLoad, defaultSize, style = {}, src
           }}
           onLoad={(e) => {
             setLoading(false);
-            console.log('loaded');
             onLoad && onLoad(e);
           }}
           {...props}

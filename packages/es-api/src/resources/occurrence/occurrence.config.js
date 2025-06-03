@@ -1,12 +1,16 @@
+const siteConfig = require('../../config');
+
+const DEFAULT_CHECKLIST_KEY = siteConfig.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // Backbone key for classification
+
 const config = {
   options: {
-    q: {
-      type: 'text',
-      field: 'all',
-      get: {
-        type: 'fuzzy',
-      },
-    },
+    // q: {
+    //   type: 'text',
+    //   field: 'all',
+    //   get: {
+    //     type: 'fuzzy',
+    //   },
+    // },
     amplificationItems: {
       field: 'amplificationItems',
       discarded: true,
@@ -334,11 +338,21 @@ const config = {
     },
     issue: {
       type: 'keyword',
-      field: 'issues',
+      field: 'nonTaxonomicIssues',
+    },
+    taxonomicIssue: {
+      type: 'keyword',
+      field: 'classifications.{checklistKey}.issues',
+      defaultTemplateKeys: {
+        checklistKey: DEFAULT_CHECKLIST_KEY,
+      },
     },
     iucnRedListCategory: {
       type: 'keyword',
-      field: 'gbifClassification.iucnRedListCategoryCode',
+      field: 'classifications.{checklistKey}.iucnRedListCategoryCode',
+      defaultTemplateKeys: {
+        checklistKey: DEFAULT_CHECKLIST_KEY,
+      },
     },
     lastCrawled: {
       type: 'date',
@@ -664,354 +678,72 @@ const config = {
       type: 'keyword',
       field: 'agentIds.value',
     },
-    class: {
-      type: 'text',
-      field: 'gbifClassification.class',
-      get: {
-        type: 'fuzzy',
-      },
-    },
     classKey: {
-      type: 'numeric',
-      field: 'gbifClassification.classKey',
-      get: {
-        type: 'range_or_term',
-        defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte',
-      },
-    },
-    gbifClassification_classificationPath: {
       type: 'keyword',
-      field: 'gbifClassification.classificationPath',
-    },
-    family: {
-      type: 'text',
-      field: 'gbifClassification.family',
-      get: {
-        type: 'fuzzy',
+      field: 'classifications.{checklistKey}.classificationKeys.CLASS',
+      defaultTemplateKeys: {
+        checklistKey: DEFAULT_CHECKLIST_KEY,
       },
     },
     familyKey: {
-      type: 'numeric',
-      field: 'gbifClassification.familyKey',
-      get: {
-        type: 'range_or_term',
-        defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte',
-      },
-    },
-    genus: {
-      type: 'text',
-      field: 'gbifClassification.genus',
-      get: {
-        type: 'fuzzy',
+      type: 'keyword',
+      field: 'classifications.{checklistKey}.classificationKeys.FAMILY',
+      defaultTemplateKeys: {
+        checklistKey: DEFAULT_CHECKLIST_KEY,
       },
     },
     genusKey: {
-      type: 'numeric',
-      field: 'gbifClassification.genusKey',
-      get: {
-        type: 'range_or_term',
-        defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte',
-      },
-    },
-    kingdom: {
-      type: 'text',
-      field: 'gbifClassification.kingdom',
-      get: {
-        type: 'fuzzy',
+      type: 'keyword',
+      field: 'classifications.{checklistKey}.classificationKeys.GENUS',
+      defaultTemplateKeys: {
+        checklistKey: DEFAULT_CHECKLIST_KEY,
       },
     },
     kingdomKey: {
-      type: 'numeric',
-      field: 'gbifClassification.kingdomKey',
-      get: {
-        type: 'range_or_term',
-        defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte',
-      },
-    },
-    order: {
-      type: 'text',
-      field: 'gbifClassification.order',
-      get: {
-        type: 'fuzzy',
+      type: 'keyword',
+      field: 'classifications.{checklistKey}.classificationKeys.KINGDOM',
+      defaultTemplateKeys: {
+        checklistKey: DEFAULT_CHECKLIST_KEY,
       },
     },
     orderKey: {
-      type: 'numeric',
-      field: 'gbifClassification.orderKey',
-      get: {
-        type: 'range_or_term',
-        defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte',
-      },
-    },
-    phylum: {
-      type: 'text',
-      field: 'gbifClassification.phylum',
-      get: {
-        type: 'fuzzy',
+      type: 'keyword',
+      field: 'classifications.{checklistKey}.classificationKeys.ORDER',
+      defaultTemplateKeys: {
+        checklistKey: DEFAULT_CHECKLIST_KEY,
       },
     },
     phylumKey: {
-      type: 'numeric',
-      field: 'gbifClassification.phylumKey',
-      get: {
-        type: 'range_or_term',
-        defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte',
-      },
-    },
-    species: {
-      type: 'text',
-      field: 'gbifClassification.species',
-      get: {
-        type: 'fuzzy',
+      type: 'keyword',
+      field: 'classifications.{checklistKey}.classificationKeys.PHYLUM',
+      defaultTemplateKeys: {
+        checklistKey: DEFAULT_CHECKLIST_KEY,
       },
     },
     speciesKey: {
-      type: 'numeric',
-      field: 'gbifClassification.speciesKey',
-      get: {
-        type: 'range_or_term',
-        defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte',
-      },
-    },
-    gbifClassification_synonym: {
-      type: 'boolean',
-      field: 'gbifClassification.synonym',
-    },
-    gbifClassification_taxonID: {
       type: 'keyword',
-      field: 'gbifClassification.taxonID',
+      field: 'classifications.{checklistKey}.classificationKeys.SPECIES',
+      defaultTemplateKeys: {
+        checklistKey: DEFAULT_CHECKLIST_KEY,
+      },
     },
     taxonKey: {
       type: 'keyword',
-      field: 'gbifClassification.taxonKey',
+      field: 'classifications.{checklistKey}.taxonKeys',
+      defaultTemplateKeys: {
+        checklistKey: DEFAULT_CHECKLIST_KEY,
+      },
     },
     verbatimScientificName: {
       type: 'keyword',
-      field: 'gbifClassification.verbatimScientificName',
+      field: 'verbatimScientificName',
     },
-    gbifClassification_acceptedUsage_key: {
-      type: 'numeric',
-      field: 'gbifClassification.acceptedUsage.key',
-      get: {
-        type: 'range_or_term',
-        defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte',
-      },
-    },
-    gbifClassification_acceptedUsage_name: {
-      type: 'text',
-      field: 'gbifClassification.acceptedUsage.name',
-      get: {
-        type: 'fuzzy',
-      },
-    },
-    // "gbifClassification_acceptedUsage_rank": {
-    //   "type": "keyword",
-    //   "field": "gbifClassification.acceptedUsage.rank"
-    // },
-    gbifClassification_classification_key: {
-      type: 'numeric',
-      field: 'gbifClassification.classification.key',
-      get: {
-        type: 'range_or_term',
-        defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte',
-      },
-    },
-    gbifClassification_classification_name: {
-      type: 'text',
-      field: 'gbifClassification.classification.name',
-      get: {
-        type: 'fuzzy',
-      },
-    },
-    gbifClassification_classification_rank: {
+    usageKey: {
       type: 'keyword',
-      field: 'gbifClassification.classification.rank',
-    },
-    gbifClassification_classification_synonym: {
-      type: 'boolean',
-      field: 'gbifClassification.classification.synonym',
-    },
-    gbifClassification_diagnostics_matchType: {
-      type: 'keyword',
-      field: 'gbifClassification.diagnostics.matchType',
-    },
-    gbifClassification_diagnostics_note: {
-      type: 'text',
-      field: 'gbifClassification.diagnostics.note',
-      get: {
-        type: 'fuzzy',
+      field: 'classifications.{checklistKey}.usage.key',
+      defaultTemplateKeys: {
+        checklistKey: DEFAULT_CHECKLIST_KEY,
       },
-    },
-    gbifClassification_diagnostics_status: {
-      type: 'keyword',
-      field: 'gbifClassification.diagnostics.status',
-    },
-    gbifClassification_usage_key: {
-      type: 'numeric',
-      field: 'gbifClassification.usage.key',
-      get: {
-        type: 'range_or_term',
-        defaultUpperBound: 'gte',
-        defaultLowerBound: 'lte',
-      },
-    },
-    gbifClassification_usage_name: {
-      type: 'keyword',
-      field: 'gbifClassification.usage.name',
-    },
-    gbifClassification_usage_rank: {
-      type: 'keyword',
-      field: 'gbifClassification.usage.rank',
-    },
-    gbifClassification_usageParsedName_abbreviated: {
-      type: 'boolean',
-      field: 'gbifClassification.usageParsedName.abbreviated',
-    },
-    gbifClassification_usageParsedName_autonym: {
-      type: 'boolean',
-      field: 'gbifClassification.usageParsedName.autonym',
-    },
-    gbifClassification_usageParsedName_binomial: {
-      type: 'boolean',
-      field: 'gbifClassification.usageParsedName.binomial',
-    },
-    gbifClassification_usageParsedName_candidatus: {
-      type: 'boolean',
-      field: 'gbifClassification.usageParsedName.candidatus',
-    },
-    gbifClassification_usageParsedName_code: {
-      type: 'text',
-      field: 'gbifClassification.usageParsedName.code',
-      get: {
-        type: 'fuzzy',
-      },
-    },
-    gbifClassification_usageParsedName_doubtful: {
-      type: 'boolean',
-      field: 'gbifClassification.usageParsedName.doubtful',
-    },
-    gbifClassification_usageParsedName_genericName: {
-      type: 'text',
-      field: 'gbifClassification.usageParsedName.genericName',
-      get: {
-        type: 'fuzzy',
-      },
-    },
-    gbifClassification_usageParsedName_genus: {
-      type: 'text',
-      field: 'gbifClassification.usageParsedName.genus',
-      get: {
-        type: 'fuzzy',
-      },
-    },
-    gbifClassification_usageParsedName_incomplete: {
-      type: 'boolean',
-      field: 'gbifClassification.usageParsedName.incomplete',
-    },
-    gbifClassification_usageParsedName_indetermined: {
-      type: 'boolean',
-      field: 'gbifClassification.usageParsedName.indetermined',
-    },
-    gbifClassification_usageParsedName_infraspecificEpithet: {
-      type: 'text',
-      field: 'gbifClassification.usageParsedName.infraspecificEpithet',
-      get: {
-        type: 'fuzzy',
-      },
-    },
-    gbifClassification_usageParsedName_notho: {
-      type: 'keyword',
-      field: 'gbifClassification.usageParsedName.notho',
-    },
-    gbifClassification_usageParsedName_rank: {
-      type: 'keyword',
-      field: 'gbifClassification.usageParsedName.rank',
-    },
-    gbifClassification_usageParsedName_specificEpithet: {
-      type: 'text',
-      field: 'gbifClassification.usageParsedName.specificEpithet',
-      get: {
-        type: 'fuzzy',
-      },
-    },
-    gbifClassification_usageParsedName_state: {
-      type: 'keyword',
-      field: 'gbifClassification.usageParsedName.state',
-    },
-    gbifClassification_usageParsedName_terminalEpithet: {
-      type: 'text',
-      field: 'gbifClassification.usageParsedName.terminalEpithet',
-      get: {
-        type: 'fuzzy',
-      },
-    },
-    gbifClassification_usageParsedName_trinomial: {
-      type: 'boolean',
-      field: 'gbifClassification.usageParsedName.trinomial',
-    },
-    gbifClassification_usageParsedName_type: {
-      type: 'keyword',
-      field: 'gbifClassification.usageParsedName.type',
-    },
-    gbifClassification_usageParsedName_uninomial: {
-      type: 'text',
-      field: 'gbifClassification.usageParsedName.uninomial',
-      get: {
-        type: 'fuzzy',
-      },
-    },
-    gbifClassification_usageParsedName_basionymAuthorship_authors: {
-      type: 'text',
-      field: 'gbifClassification.usageParsedName.basionymAuthorship.authors',
-      get: {
-        type: 'fuzzy',
-      },
-    },
-    gbifClassification_usageParsedName_basionymAuthorship_empty: {
-      type: 'boolean',
-      field: 'gbifClassification.usageParsedName.basionymAuthorship.empty',
-    },
-    gbifClassification_usageParsedName_basionymAuthorship_exAuthors: {
-      type: 'text',
-      field: 'gbifClassification.usageParsedName.basionymAuthorship.exAuthors',
-      get: {
-        type: 'fuzzy',
-      },
-    },
-    gbifClassification_usageParsedName_basionymAuthorship_year: {
-      type: 'keyword',
-      field: 'gbifClassification.usageParsedName.basionymAuthorship.year',
-    },
-    gbifClassification_usageParsedName_combinationAuthorship_authors: {
-      type: 'text',
-      field: 'gbifClassification.usageParsedName.combinationAuthorship.authors',
-      get: {
-        type: 'fuzzy',
-      },
-    },
-    gbifClassification_usageParsedName_combinationAuthorship_empty: {
-      type: 'boolean',
-      field: 'gbifClassification.usageParsedName.combinationAuthorship.empty',
-    },
-    gbifClassification_usageParsedName_combinationAuthorship_exAuthors: {
-      type: 'text',
-      field: 'gbifClassification.usageParsedName.combinationAuthorship.exAuthors',
-      get: {
-        type: 'fuzzy',
-      },
-    },
-    gbifClassification_usageParsedName_combinationAuthorship_year: {
-      type: 'keyword',
-      field: 'gbifClassification.usageParsedName.combinationAuthorship.year',
     },
     identifiedByIdType: {
       type: 'keyword',

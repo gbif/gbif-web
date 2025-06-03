@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/smallCard';
 import HighchartsReact from 'highcharts-react-official';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -316,22 +317,27 @@ export function OneDimensionalChart({
             )}
             {renderedView !== 'TIME' && <Pagging facetResults={facetResults} />}
 
-            {messages.length > 0 && (
-              <div className="g-text-slate-400 g-text-sm hover:g-text-slate-800 p:g-my-1 g-transition-colors">
-                {messages.map((message, i) => {
-                  const isString = typeof message === 'string';
-                  return (
-                    <div key={i}>
-                      {isString && <FormattedMessage id={message} />}
-                      {!isString && message}
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+            <ChartMessages messages={messages} />
           </>
         )}
       </CardContent>
     </Card>
+  );
+}
+
+export function ChartMessages({ messages = [] }) {
+  if (!messages || messages.length === 0) return null;
+  return (
+    <div className="g-text-slate-400 g-text-sm hover:g-text-slate-800 p:g-my-1 g-transition-colors">
+      {messages.map((message, i) => {
+        const isString = typeof message === 'string';
+        return (
+          <div key={i}>
+            {isString && <FormattedMessage id={message} />}
+            {!isString && message}
+          </div>
+        );
+      })}
+    </div>
   );
 }

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useEffect, useState } from 'react';
 import { GroupBy, Pagging, useFacets } from './charts/GroupByTable';
 import { CardHeader } from './shared';
@@ -8,7 +9,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu';
+import { useChecklistKey } from '@/hooks/useChecklistKey';
 import { DynamicLink } from '@/reactRouterPlugins';
+import formatAsPercentage from '@/utils/formatAsPercentage';
 import { tryParse } from '@/utils/querystring';
 import { MdLink, MdMoreHoriz } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
@@ -17,6 +20,7 @@ import { SimpleTooltip } from '../simpleTooltip';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardDescription, CardTitle } from '../ui/smallCard';
 import ChartClickWrapper from './charts/ChartClickWrapper';
+import { ChartMessages } from './charts/OneDimensionalChart';
 
 const majorRanks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'];
 const getDefaultRank = (rank) => {
@@ -25,21 +29,58 @@ const getDefaultRank = (rank) => {
 function TaxaMain({
   defaultRank,
   predicate,
+  checklistKey,
+  q,
   handleRedirect,
   detailsRoute,
   visibilityThreshold,
   interactive,
   ...props
 }) {
+  const defaultChecklistKey = useChecklistKey();
   const [query, setQuery] = useState(getTaxonQuery(`${getDefaultRank(defaultRank)}Key`));
   const [rank, setRank] = useState(getDefaultRank(defaultRank).toUpperCase());
-  const facetResults = useFacets({ predicate, query });
+  const hasPredicates = [
+    {
+      type: 'isNotNull',
+      key: 'taxonKey',
+      checklistKey: checklistKey ?? defaultChecklistKey,
+    },
+  ];
+  if (predicate) {
+    hasPredicates.push(predicate);
+  }
+  const facetResults = useFacets({
+    predicate,
+    otherVariables: {
+      q,
+      checklistKey: checklistKey ?? defaultChecklistKey,
+      hasPredicate: {
+        type: 'and',
+        predicates: hasPredicates,
+      },
+    },
+    query,
+  });
 
   useEffect(() => {
     setRank(getDefaultRank(defaultRank).toUpperCase());
     setQuery(getTaxonQuery(`${getDefaultRank(defaultRank)}Key`));
   }, [defaultRank]);
   if (facetResults?.data?.search?.facet?.results?.length <= visibilityThreshold) return null;
+
+  const filledPercentage =
+    facetResults?.data?.isNotNull?.documents?.total / facetResults?.data?.search?.documents?.total;
+
+  let messages = [];
+  messages.push(
+    <div>
+      <FormattedMessage
+        id="dashboard.percentWithValue"
+        values={{ percent: formatAsPercentage(filledPercentage) }}
+      />
+    </div>
+  );
 
   return (
     <Card
@@ -93,10 +134,10 @@ function TaxaMain({
                   key: x?.key,
                   title: (
                     <span>
-                      {x?.entity?.title}{' '}
+                      {x?.entity?.usage.name}{' '}
                       <DynamicLink
                         pageId="speciesKey"
-                        variables={{ key: x?.key.toString() }}
+                        variables={{ key: x?.key.toString(), checklistKey: x.entity.checklistKey }}
                         onClick={(e) => {
                           e.stopPropagation();
                         }}
@@ -108,10 +149,22 @@ function TaxaMain({
                   count: x.count,
                   filter: { taxonKey: [tryParse(x.key)] },
                   description: (
-                    <Classification>
-                      {majorRanks.map((rank) => {
-                        if (!x?.entity?.[rank]) return null;
-                        return <span key={rank}>{x?.entity?.[rank]}</span>;
+                    <Classification className="g-text-xs g-text-slate-600">
+                      {x?.entity?.classification?.map((rank) => {
+                        return (
+                          <span key={rank.key}>
+                            <span className="g-me-2">
+                              <FormattedMessage
+                                id={`enums.taxonRank.${rank.rank.toUpperCase()}`}
+                                defaultMessage={
+                                  rank.rank.charAt(0).toUpperCase() +
+                                  rank.rank.slice(1).toLowerCase()
+                                }
+                              />
+                            </span>
+                            {rank.name}
+                          </span>
+                        );
                       })}
                     </Classification>
                   ),
@@ -121,6 +174,7 @@ function TaxaMain({
           }}
         />
         <Pagging facetResults={facetResults} />
+        <ChartMessages messages={messages} />
       </CardContent>
     </Card>
   );
@@ -135,28 +189,36 @@ export function Taxa(props) {
 }
 
 const getTaxonQuery = (rank) => `
-query summary($predicate: Predicate, $size: Int, $from: Int){
-  search: occurrenceSearch(predicate: $predicate) {
+query summary($q: String, $predicate: Predicate, $hasPredicate: Predicate, $size: Int, $from: Int, $checklistKey: ID){
+  search: occurrenceSearch(q: $q, predicate: $predicate) {
     documents(size: 0) {
       total
     }
     cardinality {
-      total: ${rank}
+      total: ${rank}(checklistKey: $checklistKey)
     }
     facet {
-      results: ${rank}(size: $size, from: $from) {
+      results: ${rank}(size: $size, from: $from, checklistKey: $checklistKey) {
         key
         count
-        entity: taxon {
-          title: scientificName
-          kingdom
-          phylum
-          class
-          order
-          family
-          genus
+        entity: taxonMatch(checklistKey: $checklistKey) {
+          usage {
+            name
+          }
+          classification {
+            name
+            key
+            rank
+          }
+          iucnStatus
+          iucnStatusCode
         }
       }
+    }
+  }
+  isNotNull: occurrenceSearch(q: $q, predicate: $hasPredicate) {
+    documents(size: 0) {
+      total
     }
   }
 }
@@ -164,20 +226,25 @@ query summary($predicate: Predicate, $size: Int, $from: Int){
 
 function IucnMain({
   predicate,
+  checklistKey,
+  q,
   handleRedirect,
   visibilityThreshold,
   detailsRoute,
   interactive,
   ...props
 }) {
+  const defaultChecklistKey = useChecklistKey();
   const facetResults = useFacets({
+    otherVariables: { q, checklistKey: checklistKey ?? defaultChecklistKey },
     predicate: {
       type: 'and',
       predicates: [
-        predicate,
+        predicate || {},
         {
           type: 'in',
           key: 'iucnRedListCategory',
+          checklistKey: checklistKey ?? defaultChecklistKey,
           values: ['EX', 'EW', 'CR', 'EN', 'VU', 'NT'],
         },
       ],
@@ -215,19 +282,31 @@ function IucnMain({
                   title: (
                     <div>
                       <IucnCategory
-                        code={x?.entity?.iucnRedListCategory?.code}
-                        category={x?.entity?.iucnRedListCategory?.category}
+                        code={x?.entity?.iucnStatusCode}
+                        category={x?.entity?.iucnStatus}
                       />
-                      {x?.entity?.title}
+                      {x?.entity?.usage.canonicalName}
                     </div>
                   ),
                   count: x.count,
                   filter: { taxonKey: [x.key] },
                   description: (
-                    <Classification>
-                      {['kingdom', 'phylum', 'class', 'order', 'family', 'genus'].map((rank) => {
-                        if (!x?.entity?.[rank]) return null;
-                        return <span key={rank}>{x?.entity?.[rank]}</span>;
+                    <Classification className="g-text-xs g-text-slate-500">
+                      {x?.entity?.classification?.map((rank) => {
+                        return (
+                          <span key={rank.key}>
+                            <span className="g-me-2">
+                              <FormattedMessage
+                                id={`enums.taxonRank.${rank.rank.toUpperCase()}`}
+                                defaultMessage={
+                                  rank.rank.charAt(0).toUpperCase() +
+                                  rank.rank.slice(1).toLowerCase()
+                                }
+                              />
+                            </span>
+                            {rank.name}
+                          </span>
+                        );
                       })}
                     </Classification>
                   ),
@@ -241,37 +320,39 @@ function IucnMain({
     </Card>
   );
 }
+
 const IUCN_FACETS = `
-query summary($predicate: Predicate, $size: Int, $from: Int){
-  search: occurrenceSearch(predicate: $predicate) {
+query summary($q: String, $predicate: Predicate, $size: Int, $from: Int, $checklistKey: ID){
+  search: occurrenceSearch(q: $q, predicate: $predicate) {
     documents(size: 0) {
       total
     }
     cardinality {
-      total: speciesKey
+      total: speciesKey(checklistKey: $checklistKey)
     }
     facet {
-      results: speciesKey(size: $size, from: $from) {
+      results: speciesKey(size: $size, from: $from, checklistKey: $checklistKey) {
         key
         count
-        entity: taxon {
-          title: scientificName
-          kingdom
-          phylum
-          class
-          order
-          family
-          genus
-          iucnRedListCategory {
-            category
-            code
+        entity: taxonMatch(checklistKey: $checklistKey) {
+          usage {
+            name
+            canonicalName
           }
+          classification {
+            name
+            key
+            rank
+          }
+          iucnStatus
+          iucnStatusCode
         }
       }
     }
   }
 }
 `;
+
 export function Iucn(props) {
   return (
     <ChartClickWrapper {...props}>

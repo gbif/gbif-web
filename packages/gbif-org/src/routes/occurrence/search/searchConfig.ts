@@ -4,6 +4,7 @@ import { PredicateType } from '@/gql/graphql';
 const config: FilterConfigType = {
   fields: {
     q: {
+      hoist: true,
       singleValue: true,
       defaultType: PredicateType.Fuzzy,
       v1: {
@@ -56,6 +57,15 @@ const config: FilterConfigType = {
         supportedTypes: ['range', 'equals'],
       },
     },
+    taxonKey: {
+      takesChecklistKey: true,
+    },
+    iucnRedListCategory: {
+      takesChecklistKey: true,
+    },
+    taxonomicIssue: {
+      takesChecklistKey: true,
+    },
     lastInterpreted: {
       v1: {
         supportedTypes: ['range', 'equals'],
@@ -86,7 +96,6 @@ const otherParams = [
   'networkKey',
   'country',
   'publishingCountry',
-  'taxonKey',
   'institutionKey',
   'collectionKey',
   'datasetKey',
@@ -106,9 +115,9 @@ const otherParams = [
   'continent',
   'protocol',
   'dwcaExtension',
-  'iucnRedListCategory',
   'typeStatus',
   'issue',
+  'taxonomicIssue',
   'occurrenceStatus',
 
   'projectId',

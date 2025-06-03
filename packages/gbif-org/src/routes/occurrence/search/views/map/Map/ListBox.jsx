@@ -17,7 +17,7 @@ function ListItem({ id, item, onClick = (id) => {}, ...props }) {
         <div className="g-flex-grow gbif-listItemContent">
           <h4
             className=""
-            dangerouslySetInnerHTML={{ __html: item.gbifClassification.usage.formattedName }}
+            dangerouslySetInnerHTML={{ __html: item.classification.taxonMatch.usage.canonicalName }}
           ></h4>
           {item.eventDate && (
             <div className="g-text-slate-500">

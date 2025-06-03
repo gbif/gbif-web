@@ -96,7 +96,8 @@ function convertedConfig(config: object): Partial<Config> {
     version: 3,
     pages: pages,
     disableInlineTableFilterButtons: config?.disableInlineTableFilterButtons ?? false,
-    availableCatalogues: config?.availableCatalogues ?? [],
+    availableCatalogues: config?.availableCatalogues,
+    defaultChecklistKey: config?.defaultChecklistKey,
     dataHeader: {
       enableApiPopup: false,
       enableInfoPopup: false,

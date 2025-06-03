@@ -1,3 +1,5 @@
+import { useConfig } from '@/config/config';
+import { useStringParam } from '@/hooks/useParam';
 import { fetchWithCancel } from '@/utils/fetchWithCancel';
 import { VocabularyType } from '@/utils/suggestEndpoints';
 import { truncate } from '@/utils/truncate';
@@ -226,24 +228,51 @@ export function IdentityLabel({ id }: { id: string | number | object }) {
   return <DisplayName getData={getData} id={id} useHtml={false} />;
 }
 
-export function TaxonLabel({ id }: { id: string | number | object }) {
-  const getData = useCallback(({ id, config }: DisplayNameGetDataProps) => {
-    const { promise, cancel } = fetchWithCancel(
-      `${config.graphqlEndpoint}?query=${encodeURIComponent(
-        `query {
-              taxon(key: "${id}") {
-                formattedName(useFallback: true)
+// a special taxonLabel that always use the defult checklistKey from the config
+export function DefaultTaxonLabel({ id }: { id: string | number | object }) {
+  return <TaxonLabel id={id} checklistKey={import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY} />;
+}
+
+export function TaxonLabel({
+  id,
+  checklistKey,
+}: {
+  id: string | number | object;
+  checklistKey?: string;
+}) {
+  const { defaultChecklistKey } = useConfig();
+  const [urlChecklistKey] = useStringParam({
+    key: 'checklistKey',
+    defaultValue: undefined,
+    hideDefault: false,
+  });
+  const getData = useCallback(
+    ({ id, config }: DisplayNameGetDataProps) => {
+      const variables = {
+        checklistKey: checklistKey ?? urlChecklistKey ?? defaultChecklistKey,
+      };
+      const { promise, cancel } = fetchWithCancel(
+        `${config.graphqlEndpoint}?variables=${encodeURIComponent(
+          JSON.stringify(variables)
+        )}&query=${encodeURIComponent(
+          `query($checklistKey: ID) {
+            taxon: speciesMatchByUsageKey(usageKey: "${id}", checklistKey: $checklistKey) {
+              usage {
+                canonicalName
               }
-            }`
-      )}`
-    );
-    return {
-      promise: promise
-        .then((response) => response.json())
-        .then((response) => ({ title: response.data.taxon.formattedName })),
-      cancel,
-    };
-  }, []);
+            }
+          }`
+        )}`
+      );
+      return {
+        promise: promise
+          .then((response) => response.json())
+          .then((response) => ({ title: response.data.taxon.usage.canonicalName })),
+        cancel,
+      };
+    },
+    [checklistKey, urlChecklistKey, defaultChecklistKey]
+  );
 
   return <DisplayName useHtml getData={getData} id={id} />;
 }
