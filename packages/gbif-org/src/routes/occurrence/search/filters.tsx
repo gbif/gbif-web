@@ -46,14 +46,17 @@ import {
   depthConfig,
   distanceFromCentroidInMetersConfig,
   elevationConfig,
+  endDayOfYearConfig,
   eventDateConfig,
   lastInterpretedConfig,
   organismQuantityConfig,
   relativeOrganismQuantityConfig,
   sampleSizeValueConfig,
+  startDayOfYearConfig,
   yearConfig,
 } from './filters/ranges';
 import {
+  associatedSequencesConfig,
   datasetNameConfig,
   eventIdConfig,
   fieldNumberConfig,
@@ -61,12 +64,19 @@ import {
   identifiedByIdConfig,
   occurrenceIdConfig,
   organismIdConfig,
+  previousIdentificationsConfig,
   programmeConfig,
   projectIdConfig,
   recordedByIdConfig,
   taxonIdConfig,
 } from './filters/textOnly';
-import { establishmentMeansConfig, lifeStageConfig, sexConfig } from './filters/vocabulary';
+import {
+  degreeOfEstablishmentConfig,
+  establishmentMeansConfig,
+  lifeStageConfig,
+  pathwayConfig,
+  sexConfig,
+} from './filters/vocabulary';
 import {
   catalogNumberConfig,
   datasetIdConfig,
@@ -75,6 +85,7 @@ import {
   islandConfig,
   islandGroupConfig,
   localityConfig,
+  organismQuantityTypeConfig,
   preparationsConfig,
   recordedByConfig,
   sampleSizeUnitConfig,
@@ -264,6 +275,33 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       programme: generateFilters({ config: programmeConfig, searchConfig, formatMessage }),
       datasetName: generateFilters({ config: datasetNameConfig, searchConfig, formatMessage }),
       gbifRegion: generateFilters({ config: gbifRegionConfig, searchConfig, formatMessage }),
+      endDayOfYear: generateFilters({ config: endDayOfYearConfig, searchConfig, formatMessage }),
+      startDayOfYear: generateFilters({
+        config: startDayOfYearConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      organismQuantityType: generateFilters({
+        config: organismQuantityTypeConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      pathway: generateFilters({ config: pathwayConfig, searchConfig, formatMessage }),
+      previousIdentifications: generateFilters({
+        config: previousIdentificationsConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      associatedSequences: generateFilters({
+        config: associatedSequencesConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      degreeOfEstablishment: generateFilters({
+        config: degreeOfEstablishmentConfig,
+        searchConfig,
+        formatMessage,
+      }),
       lastInterpreted: generateFilters({
         config: lastInterpretedConfig,
         searchConfig,

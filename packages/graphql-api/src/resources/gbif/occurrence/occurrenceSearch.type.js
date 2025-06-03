@@ -168,6 +168,8 @@ const typeDef = gql`
     higherGeography: Long!
     isSequenced: Long!
     sex: Long!
+    pathway: Long!
+    degreeOfEstablishment: Long!
     islandGroup: Long!
     island: Long!
     georeferencedBy: Long!
@@ -175,6 +177,7 @@ const typeDef = gql`
     programme: Long!
     publishedByGbifRegion: Long!
     gbifRegion: Long!
+    organismQuantityType: Long!
   }
 
   type OccurrenceHistogram {
@@ -258,6 +261,11 @@ const typeDef = gql`
     sampleSizeUnit(size: Int, from: Int): [OccurrenceFacetResult_string]
     samplingProtocol(size: Int, from: Int): [OccurrenceFacetResult_string]
     sex(size: Int, from: Int): [OccurrenceFacetResult_sex]
+    pathway(size: Int, from: Int): [OccurrenceFacetResult_pathway]
+    degreeOfEstablishment(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_degreeOfEstablishment]
     stateProvince(size: Int, from: Int): [OccurrenceFacetResult_string]
     typeStatus(size: Int, from: Int): [OccurrenceFacetResult_typeStatus]
     typifiedName(size: Int, from: Int): [OccurrenceFacetResult_string]
@@ -529,6 +537,22 @@ const typeDef = gql`
   }
 
   type OccurrenceFacetResult_sex {
+    key: String!
+    count: Long!
+    concept: VocabularyConcept
+    occurrences(size: Int, from: Int): OccurrenceSearchResult!
+    _predicate: JSON
+  }
+
+  type OccurrenceFacetResult_pathway {
+    key: String!
+    count: Long!
+    concept: VocabularyConcept
+    occurrences(size: Int, from: Int): OccurrenceSearchResult!
+    _predicate: JSON
+  }
+
+  type OccurrenceFacetResult_degreeOfEstablishment {
     key: String!
     count: Long!
     concept: VocabularyConcept

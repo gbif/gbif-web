@@ -66,6 +66,16 @@ const config: FilterConfigType = {
         supportedTypes: ['range', 'equals'],
       },
     },
+    endDayOfYear: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
+    startDayOfYear: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
   },
 };
 
@@ -141,6 +151,13 @@ const otherParams = [
   'hasGeospatialIssue',
   'distanceFromCentroidInMeters',
   'lastInterpreted',
+  'pathway',
+  'degreeOfEstablishment',
+  'associatedSequences',
+  'previousIdentifications',
+  'organismQuantityType',
+  'endDayOfYear',
+  'startDayOfYear',
 ];
 
 otherParams.forEach((filter) => {

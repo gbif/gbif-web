@@ -4,9 +4,11 @@ import {
   DepthLabel,
   distanceFromCentroidInMetersLabel,
   ElevationLabel,
+  EndDayOfYearLabel,
   OrganismQuantityLabel,
   RelativeOrganismQuantityLabel,
   SampleSizeValueLabel,
+  StartDayOfYearLabel,
   YearLabel,
 } from '@/components/filters/displayNames';
 import {
@@ -88,6 +90,24 @@ export const elevationConfig: filterRangeConfig = {
   filterTranslation: 'filters.elevation.name',
   about: () => <Message id="filters.elevation.description" />,
   group: 'location',
+};
+
+export const startDayOfYearConfig: filterRangeConfig = {
+  filterType: filterConfigTypes.RANGE,
+  filterHandle: 'startDayOfYear',
+  displayName: StartDayOfYearLabel,
+  filterTranslation: 'filters.startDayOfYear.name',
+  about: () => <Message id="filters.startDayOfYear.description" />,
+  group: 'event',
+};
+
+export const endDayOfYearConfig: filterRangeConfig = {
+  filterType: filterConfigTypes.RANGE,
+  filterHandle: 'endDayOfYear',
+  displayName: EndDayOfYearLabel,
+  filterTranslation: 'filters.endDayOfYear.name',
+  about: () => <Message id="filters.endDayOfYear.description" />,
+  group: 'event',
 };
 
 // date ranges

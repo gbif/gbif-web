@@ -68,6 +68,26 @@ export const datasetNameConfig: filterSuggestConfig = {
   group: 'record',
 };
 
+export const associatedSequencesConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'associatedSequences',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.associatedSequences.name',
+  allowExistence: true,
+  about: () => <Message id="filters.associatedSequences.description" />,
+  group: 'materialEntity',
+};
+
+export const previousIdentificationsConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'previousIdentifications',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.previousIdentifications.name',
+  allowExistence: true,
+  about: () => <Message id="filters.previousIdentifications.description" />,
+  group: 'organism',
+};
+
 export const recordedByIdConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'recordedById',

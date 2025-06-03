@@ -227,6 +227,14 @@ const config = {
       type: 'keyword',
       field: 'establishmentMeans.concept',
     },
+    pathway: {
+      type: 'keyword',
+      field: 'pathway.concept',
+    },
+    degreeOfEstablishment: {
+      type: 'keyword',
+      field: 'degreeOfEstablishment.concept',
+    },
     // "eventDate": {
     //   "field": "eventDate",
     //   "discarded": true
@@ -467,6 +475,14 @@ const config = {
     organismQuantityType: {
       type: 'keyword',
       field: 'organismQuantityType',
+    },
+    associatedSequences: {
+      type: 'keyword',
+      field: 'associatedSequences',
+    },
+    previousIdentifications: {
+      type: 'keyword',
+      field: 'previousIdentifications',
     },
     parentEventId: {
       type: 'keyword',

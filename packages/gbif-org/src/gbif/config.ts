@@ -205,6 +205,7 @@ export const gbifConfig: Config = {
     mapSettings: {
       userLocationEnabled: false,
     },
+    excludedFilters: [],
     highlightedFilters: [
       'q',
       // 'taxonKey',

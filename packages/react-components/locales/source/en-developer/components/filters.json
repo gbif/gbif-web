@@ -90,6 +90,41 @@
     "count": "{num, plural, one { event date } other {# event dates}}",
     "description": "When was the record collected or observed."
   },
+  "organismQuantityType": {
+    "name": "Organism quantity type",
+    "count": "{num, plural, one { organism quantity type } other {# organism quantity types}}",
+    "description": "The type of measurement for the \"organism quantity\"."
+  },
+  "pathway": {
+    "name": "Pathway",
+    "count": "{num, plural, one { pathway } other {# pathways}}",
+    "description": "The pathway by which the organism was introduced to a given place at a given time."
+  },
+  "associatedSequences": {
+    "name": "Associated sequences",
+    "count": "{num, plural, one { associated sequence } other {# associated sequences}}",
+    "description": "An identifier to any sequences associated with the record. Typically a URL."
+  },
+  "degreeOfEstablishment": {
+    "name": "Degree of establishment",
+    "count": "{num, plural, one { degree of establishment } other {# degrees of establishment}}",
+    "description": "The degree to which the organism is established in the environment."
+  },
+  "endDayOfYear": {
+    "name": "End day of year",
+    "count": "{num, plural, one { end day of year } other {# end days of year}}",
+    "description": "The day of the year on which the event ended."
+  },
+  "startDayOfYear": {
+    "name": "Start day of year",
+    "count": "{num, plural, one { start day of year } other {# start days of year}}",
+    "description": "The day of the year on which the event started."
+  },
+  "previousIdentifications": {
+    "name": "Previous identifications",
+    "count": "{num, plural, one { previous identification } other {# previous identifications}}",
+    "description": "Previous taxon identifications associated with the record."
+  },
   "lastInterpreted": {
     "name": "Last interpreted",
     "count": "{num, plural, one { last interpreted } other {# last interpreted}}",

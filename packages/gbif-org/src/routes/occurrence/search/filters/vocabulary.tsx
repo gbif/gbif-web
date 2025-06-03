@@ -1,10 +1,17 @@
 import {
+  DegreeOfEstablishmentLabel,
   EstablishmentMeansLabel,
   LifeStageLabel,
+  PathwayLabel,
   SexLabel,
 } from '@/components/filters/displayNames';
-import { filterConfigTypes, filterEnumConfig } from '@/components/filters/filterTools';
+import {
+  filterConfigTypes,
+  filterEnumConfig,
+  filterSuggestConfig,
+} from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
+import { pathwaySuggest } from '@/utils/suggestEndpoints';
 // import { establishmentMeansSuggest } from '@/utils/suggestEndpoints';
 
 export const establishmentMeansConfig: filterEnumConfig = {
@@ -70,6 +77,54 @@ export const sexConfig: filterEnumConfig = {
     }
   `,
   about: () => <Message id="filters.sex.description" />,
+  group: 'occurrence',
+  allowExistence: true,
+  allowNegations: true,
+};
+
+export const pathwayConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'pathway',
+  displayName: PathwayLabel,
+  filterTranslation: 'filters.pathway.name',
+  suggestConfig: pathwaySuggest,
+  facetQuery: /* GraphQL */ `
+    query OccurrencePathwayFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: pathway(size: 10) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.preservationType.description" />,
+  group: 'occurrence',
+  allowExistence: true,
+  allowNegations: true,
+};
+
+export const degreeOfEstablishmentConfig: filterEnumConfig = {
+  filterType: filterConfigTypes.ENUM,
+  filterHandle: 'degreeOfEstablishment',
+  displayName: DegreeOfEstablishmentLabel,
+  filterTranslation: 'filters.degreeOfEstablishment.name',
+  // suggestConfig: degreeOfEstablishmentSuggest,
+  facetQuery: /* GraphQL */ `
+    query OccurrenceDegreeOfEstablishmentFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: degreeOfEstablishment(size: 20) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.preservationType.description" />,
   group: 'occurrence',
   allowExistence: true,
   allowNegations: true,

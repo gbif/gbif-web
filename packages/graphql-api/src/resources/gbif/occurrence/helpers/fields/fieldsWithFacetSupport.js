@@ -128,4 +128,6 @@ export default [
   'programme',
   'gbifRegion',
   'publishedByGbifRegion',
+  'pathway',
+  'degreeOfEstablishment',
 ];

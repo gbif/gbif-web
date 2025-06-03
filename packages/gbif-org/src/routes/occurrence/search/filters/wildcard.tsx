@@ -390,3 +390,30 @@ export const datasetIdConfig: filterWildcardConfig = {
   about: () => <Message id="filters.datasetId.description" />,
   group: 'record',
 };
+
+export const organismQuantityTypeConfig: filterWildcardConfig = {
+  filterType: filterConfigTypes.WILDCARD,
+  filterHandle: 'organismQuantityType',
+  queryKey: 'organismQuantityType',
+  displayName: WildcardLabel,
+  filterTranslation: 'filters.organismQuantityType.name',
+  allowExistence: true,
+  allowNegations: true,
+  suggestQuery: `
+    query OccurrenceOrganismQuantityTypeFacet($predicate: Predicate, $size: Int){
+      search: occurrenceSearch(predicate: $predicate) {
+        cardinality {
+          total: organismQuantityType
+        }
+        facet {
+          field: organismQuantityType(size: $size) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.organismQuantityType.description" />,
+  group: 'occurrence',
+};

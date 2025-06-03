@@ -114,6 +114,8 @@ export const QuantityLabel = rangeOrEqualLabel('intervals.description');
 export const OrganismQuantityLabel = rangeOrEqualLabel('intervals.description');
 export const SampleSizeValueLabel = rangeOrEqualLabel('intervals.description');
 export const RelativeOrganismQuantityLabel = rangeOrEqualLabel('intervals.description');
+export const StartDayOfYearLabel = rangeOrEqualLabel('intervals.description');
+export const EndDayOfYearLabel = rangeOrEqualLabel('intervals.description');
 export const DateLabel = rangeOrEqualLabel('intervals.compactTime', (value, intl) => {
   const date = new Date(value);
   if (intl) {

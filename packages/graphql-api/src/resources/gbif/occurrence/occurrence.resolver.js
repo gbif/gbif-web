@@ -644,7 +644,27 @@ export default {
     concept: ({ key }, _args, { dataSources }) => {
       if (!key) return null;
       return dataSources.vocabularyAPI.getConcept({
-        vocabulary: 'sex',
+        vocabulary: 'Sex',
+        concept: key,
+      });
+    },
+    occurrences: facetOccurrenceSearch,
+  },
+  OccurrenceFacetResult_pathway: {
+    concept: ({ key }, _args, { dataSources }) => {
+      if (!key) return null;
+      return dataSources.vocabularyAPI.getConcept({
+        vocabulary: 'Pathway',
+        concept: key,
+      });
+    },
+    occurrences: facetOccurrenceSearch,
+  },
+  OccurrenceFacetResult_degreeOfEstablishment: {
+    concept: ({ key }, _args, { dataSources }) => {
+      if (!key) return null;
+      return dataSources.vocabularyAPI.getConcept({
+        vocabulary: 'DegreeOfEstablishment',
         concept: key,
       });
     },
