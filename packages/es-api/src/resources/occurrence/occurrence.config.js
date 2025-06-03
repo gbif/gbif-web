@@ -279,6 +279,15 @@ const config = {
         defaultLowerBound: 'lte',
       },
     },
+    gbifId: {
+      type: 'numeric',
+      field: 'gbifId',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte',
+      },
+    },
     hasCoordinate: {
       type: 'boolean',
       field: 'hasCoordinate',

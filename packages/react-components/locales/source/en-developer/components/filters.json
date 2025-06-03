@@ -90,6 +90,11 @@
     "count": "{num, plural, one { event date } other {# event dates}}",
     "description": "When was the record collected or observed."
   },
+  "gbifId": {
+    "name": "GBIF ID",
+    "count": "{num, plural, one { GBIF ID } other {# GBIF IDs}}",
+    "description": "The unique identifier for the record in the GBIF database."
+  },
   "organismQuantityType": {
     "name": "Organism quantity type",
     "count": "{num, plural, one { organism quantity type } other {# organism quantity types}}",

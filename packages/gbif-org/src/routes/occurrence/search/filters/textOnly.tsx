@@ -217,3 +217,13 @@ export const taxonIdConfig: filterSuggestConfig = {
   about: () => <Message id="filters.taxonId.description" />,
   group: 'taxon',
 };
+
+export const gbifIdConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'gbifId',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.gbifId.name',
+  allowExistence: false,
+  about: () => <Message id="filters.gbifId.description" />,
+  group: 'other',
+};

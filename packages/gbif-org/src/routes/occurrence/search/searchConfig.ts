@@ -158,6 +158,7 @@ const otherParams = [
   'organismQuantityType',
   'endDayOfYear',
   'startDayOfYear',
+  'gbifId',
 ];
 
 otherParams.forEach((filter) => {

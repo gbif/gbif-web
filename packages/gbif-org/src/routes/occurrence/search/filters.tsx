@@ -60,6 +60,7 @@ import {
   datasetNameConfig,
   eventIdConfig,
   fieldNumberConfig,
+  gbifIdConfig,
   higherGeographyConfig,
   identifiedByIdConfig,
   occurrenceIdConfig,
@@ -275,6 +276,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       programme: generateFilters({ config: programmeConfig, searchConfig, formatMessage }),
       datasetName: generateFilters({ config: datasetNameConfig, searchConfig, formatMessage }),
       gbifRegion: generateFilters({ config: gbifRegionConfig, searchConfig, formatMessage }),
+      gbifId: generateFilters({ config: gbifIdConfig, searchConfig, formatMessage }),
       endDayOfYear: generateFilters({ config: endDayOfYearConfig, searchConfig, formatMessage }),
       startDayOfYear: generateFilters({
         config: startDayOfYearConfig,
