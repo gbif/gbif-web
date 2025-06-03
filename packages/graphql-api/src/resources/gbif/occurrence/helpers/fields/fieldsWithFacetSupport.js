@@ -57,7 +57,6 @@ export default [
   'organismQuantityType',
   'parentEventId',
   'preparations',
-  'programme',
   'projectId',
   'protocol',
   // "publisherTitle",
@@ -121,4 +120,12 @@ export default [
   'gbifClassification_usageParsedName_combinationAuthorship_empty',
   'gbifClassification_usageParsedName_combinationAuthorship_year',
   'gadmGid',
+
+  'islandGroup',
+  'island',
+  'georeferencedBy',
+  'datasetName',
+  'programme',
+  'gbifRegion',
+  'publishedByGbifRegion',
 ];

@@ -43,3 +43,24 @@ export const isSequencedConfig: filterBoolConfig = {
   about: () => <Message id="filters.isSequenced.description" />,
   group: 'other',
 };
+
+export const repatriatedConfig: filterBoolConfig = {
+  filterType: filterConfigTypes.OPTIONAL_BOOL,
+  filterHandle: 'repatriated',
+  displayName: booleanLabel,
+  filterTranslation: 'filters.repatriated.name',
+  facetQuery: /* GraphQL */ `
+    query OccurrenceRepatriatedFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: repatriated(size: 100) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.repatriated.description" />,
+  group: 'provenance',
+};

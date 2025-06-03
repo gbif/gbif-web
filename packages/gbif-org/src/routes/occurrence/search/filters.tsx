@@ -9,11 +9,12 @@ import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicat
 import { useCountrySuggest } from '@/hooks/useCountrySuggest';
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { isInClusterConfig, isSequencedConfig } from './filters/booleans';
+import { isInClusterConfig, isSequencedConfig, repatriatedConfig } from './filters/booleans';
 import {
   basisOfRecordConfig,
   continentConfig,
   dwcaExtensionConfig,
+  gbifRegionConfig,
   iucnRedListCategoryConfig,
   licenceConfig,
   mediaTypeConfig,
@@ -21,6 +22,7 @@ import {
   occurrenceIssueConfig,
   occurrenceStatusConfig,
   protocolConfig,
+  publishedByGbifRegionConfig,
 } from './filters/enums';
 import {
   collectionCodeConfig,
@@ -50,20 +52,26 @@ import {
   yearConfig,
 } from './filters/ranges';
 import {
+  datasetNameConfig,
   eventIdConfig,
   fieldNumberConfig,
   higherGeographyConfig,
   identifiedByIdConfig,
   occurrenceIdConfig,
   organismIdConfig,
+  programmeConfig,
   projectIdConfig,
   recordedByIdConfig,
+  taxonIdConfig,
 } from './filters/textOnly';
 import { establishmentMeansConfig, lifeStageConfig, sexConfig } from './filters/vocabulary';
 import {
   catalogNumberConfig,
   datasetIdConfig,
+  georeferencedByConfig,
   identifiedByConfig,
+  islandConfig,
+  islandGroupConfig,
   localityConfig,
   preparationsConfig,
   recordedByConfig,
@@ -248,6 +256,23 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       geometry: generateFilters({ config: locationConfig, searchConfig, formatMessage }),
 
       eventDate: generateFilters({ config: eventDateConfig, searchConfig, formatMessage }),
+      taxonId: generateFilters({ config: taxonIdConfig, searchConfig, formatMessage }),
+      islandGroup: generateFilters({ config: islandGroupConfig, searchConfig, formatMessage }),
+      island: generateFilters({ config: islandConfig, searchConfig, formatMessage }),
+      programme: generateFilters({ config: programmeConfig, searchConfig, formatMessage }),
+      datasetName: generateFilters({ config: datasetNameConfig, searchConfig, formatMessage }),
+      gbifRegion: generateFilters({ config: gbifRegionConfig, searchConfig, formatMessage }),
+      publishedByGbifRegion: generateFilters({
+        config: publishedByGbifRegionConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      georeferencedBy: generateFilters({
+        config: georeferencedByConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      repatriated: generateFilters({ config: repatriatedConfig, searchConfig, formatMessage }),
     };
 
     // if window object is available then put the available filter keys in an global object for manager to use

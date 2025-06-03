@@ -41,6 +41,14 @@ const config = {
       type: 'keyword',
       field: 'continent',
     },
+    gbifRegion: {
+      type: 'keyword',
+      field: 'gbifRegion',
+    },
+    publishedByGbifRegion: {
+      type: 'keyword',
+      field: 'publishedByGbifRegion',
+    },
     coordinatePrecision: {
       type: 'numeric',
       field: 'coordinatePrecision',
@@ -562,6 +570,22 @@ const config = {
       type: 'keyword',
       field: 'stateProvince.keyword',
       suggestField: 'stateProvince.suggest',
+    },
+    islandGroup: {
+      type: 'keyword',
+      field: 'islandGroup',
+    },
+    island: {
+      type: 'keyword',
+      field: 'island',
+    },
+    georeferencedBy: {
+      type: 'keyword',
+      field: 'georeferencedBy',
+    },
+    datasetName: {
+      type: 'keyword',
+      field: 'datasetName.keyword',
     },
     typeStatus: {
       type: 'keyword',

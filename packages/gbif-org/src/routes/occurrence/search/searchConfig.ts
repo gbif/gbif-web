@@ -99,9 +99,11 @@ const otherParams = [
   'higherGeography',
   'eventId',
   'fieldNumber',
+  'taxonId',
 
   'isInCluster',
   'isSequenced',
+  'repatriated',
 
   'recordedBy',
   'identifiedBy',
@@ -115,6 +117,14 @@ const otherParams = [
   'samplingProtocol',
   'verbatimScientificName',
   'datasetId',
+
+  'islandGroup',
+  'island',
+  'georeferencedBy',
+  'datasetName',
+  'programme',
+  'gbifRegion',
+  'publishedByGbifRegion',
 
   'geometry',
   'hasCoordinate',

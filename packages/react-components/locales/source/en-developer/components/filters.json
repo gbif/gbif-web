@@ -172,6 +172,11 @@
     "count": "{num, plural, one {preparations} other {# preparationss}}",
     "description": "How the specimen has been prepared. E.g. dried."
   },
+  "repatriated": {
+    "name": "Repatriated",
+    "count": "{num, plural, one {repatriated} other {# repatriated}}",
+    "description": "Whether the record has been repatriated to the country of origin."
+  },
   "publishingCountryCode": {
     "name": "Publishing country",
     "count": "{num, plural, one {publishing country} other {# publishing countries}}",
@@ -320,6 +325,36 @@
     "count": "{num, plural, one { field number } other {# field numbers}}",
     "description": "The identifier assigned to the location by the collector."
   },
+  "verbatimTaxonId": {
+    "name": "Verbatim taxon ID",
+    "count": "{num, plural, one { verbatim taxon ID } other {# verbatim taxon IDs}}",
+    "description": "The taxon identifier as provided by publisher."
+  },
+  "islandGroup": {
+    "name": "Island group",
+    "count": "{num, plural, one { island group } other {# island groups}}",
+    "description": "The name of the island group in which the location occurs."
+  },
+  "island": {
+    "name": "Island",
+    "count": "{num, plural, one { island } other {# islands}}",
+    "description": "The name of the island in which the location occurs."
+  },
+  "georeferencedBy": {
+    "name": "Georeferenced by",
+    "count": "{num, plural, one { georeferenced by } other {# georeferenced bys}}",
+    "description": "The names of the people, groups, or organizations responsible for georeferencing the original Occurrence."
+  },
+  "datasetName": {
+    "name": "Dataset name",
+    "count": "{num, plural, one { dataset name } other {# dataset names}}",
+    "description": "The name of the dataset used by the publisher. Records in a dataset might come from multiple other datasets."
+  },
+  "programme": {
+    "name": "Programme",
+    "count": "{num, plural, one { programme } other {# programmes}}",
+    "description": "The name of the programme in which the record is published."
+  },
   "recordNumber": {
     "name": "Record number",
     "count": "{num, plural, one { record number } other {# record numbers}}",
@@ -374,6 +409,16 @@
     "name": "State province",
     "count": "{num, plural, one { state province } other {# state provinces}}",
     "description": "The name of the next smaller administrative region than country in which the Location occurs."
+  },
+  "gbifRegion": {
+    "name": "GBIF region",
+    "count": "{num, plural, one { GBIF region } other {# GBIF regions}}",
+    "description": "The name of the GBIF region in which the Location occurs."
+  },
+  "publishedByGbifRegion": {
+    "name": "Published by GBIF region",
+    "count": "{num, plural, one { GBIF region } other {# GBIF regions}}",
+    "description": "The name of the GBIF region in which the dataset is published."
   },
   "eventId": {
     "name": "Event ID",

@@ -274,6 +274,7 @@ export const BasisOfRecordLabel = getEnumLabel({ template: (id) => `enums.basisO
 export const MediaTypeLabel = getEnumLabel({ template: (id) => `enums.mediaType.${id}` });
 export const MonthLabel = getEnumLabel({ template: (id) => `enums.month.${id}` });
 export const ContinentLabel = getEnumLabel({ template: (id) => `enums.continent.${id}` });
+export const GbifRegionLabel = getEnumLabel({ template: (id) => `enums.gbifRegion.${id}` });
 export const EndpointTypeLabel = getEnumLabel({ template: (id) => `enums.endpointType.${id}` });
 export const DwcaExtensionLabel = getEnumLabel({ template: (id) => `enums.dwcaExtension.${id}` });
 export const TaxonRankLabel = getEnumLabel({ template: (id) => `enums.taxonRank.${id}` });

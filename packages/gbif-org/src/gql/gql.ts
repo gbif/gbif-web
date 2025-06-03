@@ -89,6 +89,7 @@ const documents = {
     "\n  fragment OccurrenceTerm on Term {\n    simpleName\n    verbatim\n    value\n    htmlValue\n    remarks\n    issues\n  }\n": types.OccurrenceTermFragmentDoc,
     "\n    query OccurrenceIsInClusterFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: isInCluster(size: 100) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.OccurrenceIsInClusterFacetDocument,
     "\n    query OccurrenceisSequencedFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: isSequenced(size: 100) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.OccurrenceisSequencedFacetDocument,
+    "\n    query OccurrenceRepatriatedFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: repatriated(size: 100) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.OccurrenceRepatriatedFacetDocument,
     "\n    query OccurrenceLicenseFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: license {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.OccurrenceLicenseFacetDocument,
     "\n    query OccurrenceBoRFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: basisOfRecord {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.OccurrenceBoRFacetDocument,
     "\n    query OccurrenceMediaFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: mediaType {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.OccurrenceMediaFacetDocument,
@@ -99,8 +100,12 @@ const documents = {
     "\n    query OccurrenceIucnFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: iucnRedListCategory(size: 100) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.OccurrenceIucnFacetDocument,
     "\n    query OccurrenceIssueFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: issue(size: 100) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.OccurrenceIssueFacetDocument,
     "\n    query OccurrenceOccurrenceStatusFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: occurrenceStatus(size: 100) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.OccurrenceOccurrenceStatusFacetDocument,
+    "\n    query OccurrenceGbifRegionFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: gbifRegion {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.OccurrenceGbifRegionFacetDocument,
+    "\n    query OccurrencePublishedByGbifRegionFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: publishedByGbifRegion {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.OccurrencePublishedByGbifRegionFacetDocument,
     "\n    query OccurrenceTypeStatusFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: typeStatus(size: 100) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.OccurrenceTypeStatusFacetDocument,
     "\n    query OccurrenceProjectIdFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: projectId(size: 50) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.OccurrenceProjectIdFacetDocument,
+    "\n    query OccurrenceProgrammeFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: programme(size: 50) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.OccurrenceProgrammeFacetDocument,
+    "\n    query OccurrenceDatasetNameFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: datasetName(size: 50) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.OccurrenceDatasetNameFacetDocument,
     "\n    query OccurrenceOrganismIdFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: organismId(size: 10) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.OccurrenceOrganismIdFacetDocument,
     "\n    query OccurrenceHigherGeographyFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: higherGeography(size: 10) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.OccurrenceHigherGeographyFacetDocument,
     "\n    query OccurrenceEventIdFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: eventId(size: 10) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  ": types.OccurrenceEventIdFacetDocument,
@@ -511,6 +516,10 @@ export function graphql(source: "\n    query OccurrenceisSequencedFacet($predica
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n    query OccurrenceRepatriatedFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: repatriated(size: 100) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  "): (typeof documents)["\n    query OccurrenceRepatriatedFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: repatriated(size: 100) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n    query OccurrenceLicenseFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: license {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  "): (typeof documents)["\n    query OccurrenceLicenseFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: license {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -551,11 +560,27 @@ export function graphql(source: "\n    query OccurrenceOccurrenceStatusFacet($pr
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n    query OccurrenceGbifRegionFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: gbifRegion {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  "): (typeof documents)["\n    query OccurrenceGbifRegionFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: gbifRegion {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query OccurrencePublishedByGbifRegionFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: publishedByGbifRegion {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  "): (typeof documents)["\n    query OccurrencePublishedByGbifRegionFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: publishedByGbifRegion {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n    query OccurrenceTypeStatusFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: typeStatus(size: 100) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  "): (typeof documents)["\n    query OccurrenceTypeStatusFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: typeStatus(size: 100) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n    query OccurrenceProjectIdFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: projectId(size: 50) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  "): (typeof documents)["\n    query OccurrenceProjectIdFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: projectId(size: 50) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query OccurrenceProgrammeFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: programme(size: 50) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  "): (typeof documents)["\n    query OccurrenceProgrammeFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: programme(size: 50) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query OccurrenceDatasetNameFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: datasetName(size: 50) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  "): (typeof documents)["\n    query OccurrenceDatasetNameFacet($predicate: Predicate) {\n      search: occurrenceSearch(predicate: $predicate) {\n        facet {\n          field: datasetName(size: 50) {\n            name: key\n            count\n          }\n        }\n      }\n    }\n  "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

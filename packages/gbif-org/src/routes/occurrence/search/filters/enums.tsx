@@ -3,6 +3,7 @@ import {
   ContinentLabel,
   DwcaExtensionLabel,
   EndpointTypeLabel,
+  GbifRegionLabel,
   IucnRedListCategoryLabel,
   LicenceLabel,
   MediaTypeLabel,
@@ -15,6 +16,7 @@ import { Message } from '@/components/message';
 import basisOfRecordOptions from '@/enums/basic/basisOfRecord.json';
 import continentOptions from '@/enums/basic/continent.json';
 import dwcaExtensionOptions from '@/enums/basic/dwcaExtension.json';
+import gbifRegionOptions from '@/enums/basic/gbifRegion.json';
 import iucnRedListCategoryOptions from '@/enums/basic/iucnRedListCategory.json';
 import licenseOptions from '@/enums/basic/license.json';
 import mediaTypeOptions from '@/enums/basic/mediaType.json';
@@ -253,4 +255,52 @@ export const occurrenceStatusConfig: filterEnumConfig = {
   `,
   about: () => <Message id="filters.occurrenceStatus.description" />,
   group: 'occurrence',
+};
+
+export const gbifRegionConfig: filterEnumConfig = {
+  filterType: filterConfigTypes.ENUM,
+  filterHandle: 'gbifRegion',
+  displayName: GbifRegionLabel,
+  allowExistence: true,
+  allowNegations: false,
+  options: gbifRegionOptions,
+  filterTranslation: 'filters.gbifRegion.name',
+  facetQuery: /* GraphQL */ `
+    query OccurrenceGbifRegionFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: gbifRegion {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.gbifRegion.description" />,
+  group: 'location',
+};
+
+export const publishedByGbifRegionConfig: filterEnumConfig = {
+  filterType: filterConfigTypes.ENUM,
+  filterHandle: 'publishedByGbifRegion',
+  displayName: GbifRegionLabel,
+  allowExistence: true,
+  allowNegations: false,
+  options: gbifRegionOptions,
+  filterTranslation: 'filters.publishedByGbifRegion.name',
+  facetQuery: /* GraphQL */ `
+    query OccurrencePublishedByGbifRegionFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: publishedByGbifRegion {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.publishedByGbifRegion.description" />,
+  group: 'location',
 };

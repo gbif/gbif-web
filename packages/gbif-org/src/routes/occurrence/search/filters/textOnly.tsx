@@ -24,6 +24,50 @@ export const projectIdConfig: filterSuggestConfig = {
   group: 'provenance',
 };
 
+export const programmeConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'programme',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.programme.name',
+  facetQuery: /* GraphQL */ `
+    query OccurrenceProgrammeFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: programme(size: 50) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  allowExistence: true,
+  about: () => <Message id="filters.programme.description" />,
+  group: 'provenance',
+};
+
+export const datasetNameConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'datasetName',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.datasetName.name',
+  facetQuery: /* GraphQL */ `
+    query OccurrenceDatasetNameFacet($predicate: Predicate) {
+      search: occurrenceSearch(predicate: $predicate) {
+        facet {
+          field: datasetName(size: 50) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  allowExistence: true,
+  about: () => <Message id="filters.datasetName.description" />,
+  group: 'record',
+};
+
 export const recordedByIdConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'recordedById',
@@ -142,4 +186,14 @@ export const fieldNumberConfig: filterSuggestConfig = {
     }
   `,
   group: 'event',
+};
+
+export const taxonIdConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'taxonId',
+  displayName: IdentityLabel,
+  filterTranslation: 'filters.verbatimTaxonId.name',
+  allowExistence: true,
+  about: () => <Message id="filters.taxonId.description" />,
+  group: 'taxon',
 };

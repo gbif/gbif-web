@@ -169,6 +169,90 @@ export const stateProvinceConfig: filterWildcardConfig = {
   defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
 };
 
+export const islandGroupConfig: filterWildcardConfig = {
+  filterType: filterConfigTypes.WILDCARD,
+  filterHandle: 'islandGroup',
+  queryKey: 'islandGroup',
+  displayName: WildcardLabel,
+  filterTranslation: 'filters.islandGroup.name',
+  allowExistence: true,
+  allowNegations: true,
+  suggestQuery: `
+    query OccurrenceIslandGroupFacet($predicate: Predicate, $size: Int){
+      search: occurrenceSearch(predicate: $predicate) {
+        cardinality {
+          total: islandGroup
+        }
+        facet {
+          field: islandGroup(size: $size) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.islandGroup.description" />,
+  group: 'location',
+  defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
+};
+
+export const islandConfig: filterWildcardConfig = {
+  filterType: filterConfigTypes.WILDCARD,
+  filterHandle: 'island',
+  queryKey: 'island',
+  displayName: WildcardLabel,
+  filterTranslation: 'filters.island.name',
+  allowExistence: true,
+  allowNegations: true,
+  suggestQuery: `
+    query OccurrenceIslandFacet($predicate: Predicate, $size: Int){
+      search: occurrenceSearch(predicate: $predicate) {
+        cardinality {
+          total: island
+        }
+        facet {
+          field: island(size: $size) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.island.description" />,
+  group: 'location',
+  defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
+};
+
+export const georeferencedByConfig: filterWildcardConfig = {
+  filterType: filterConfigTypes.WILDCARD,
+  filterHandle: 'georeferencedBy',
+  queryKey: 'georeferencedBy',
+  displayName: WildcardLabel,
+  filterTranslation: 'filters.georeferencedBy.name',
+  allowExistence: true,
+  allowNegations: true,
+  suggestQuery: `
+    query OccurrenceGeoreferencedByFacet($predicate: Predicate, $size: Int){
+      search: occurrenceSearch(predicate: $predicate) {
+        cardinality {
+          total: georeferencedBy
+        }
+        facet {
+          field: georeferencedBy(size: $size) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.georeferencedBy.description" />,
+  group: 'location',
+  defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
+};
+
 export const samplingProtocolConfig: filterWildcardConfig = {
   filterType: filterConfigTypes.WILDCARD,
   filterHandle: 'samplingProtocol',

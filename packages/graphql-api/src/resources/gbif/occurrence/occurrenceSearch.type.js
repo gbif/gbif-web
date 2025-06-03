@@ -142,7 +142,6 @@ const typeDef = gql`
     collectionCode: Long!
     institutionCode: Long!
     networkKey: Long!
-    programme: Long!
     taxonKey: Long!
     classKey: Long!
     familyKey: Long!
@@ -169,6 +168,13 @@ const typeDef = gql`
     higherGeography: Long!
     isSequenced: Long!
     sex: Long!
+    islandGroup: Long!
+    island: Long!
+    georeferencedBy: Long!
+    datasetName: Long!
+    programme: Long!
+    publishedByGbifRegion: Long!
+    gbifRegion: Long!
   }
 
   type OccurrenceHistogram {
@@ -245,7 +251,6 @@ const typeDef = gql`
       from: Int
       include: String
     ): [OccurrenceFacetResult_string]
-    programme(size: Int, from: Int): [OccurrenceFacetResult_string]
     projectId(size: Int, from: Int): [OccurrenceFacetResult_string]
     protocol(size: Int, from: Int): [OccurrenceFacetResult_string]
     publishingCountry(size: Int, from: Int): [OccurrenceFacetResult_string]
@@ -260,6 +265,14 @@ const typeDef = gql`
     agentIds_type(size: Int, from: Int): [OccurrenceFacetResult_string]
     agentIds_value(size: Int, from: Int): [OccurrenceFacetResult_string]
     datasetId(size: Int, from: Int): [OccurrenceFacetResult_string]
+    islandGroup(size: Int, from: Int): [OccurrenceFacetResult_string]
+    island(size: Int, from: Int): [OccurrenceFacetResult_string]
+    georeferencedBy(size: Int, from: Int): [OccurrenceFacetResult_string]
+    datasetName(size: Int, from: Int): [OccurrenceFacetResult_string]
+    programme(size: Int, from: Int): [OccurrenceFacetResult_string]
+    gbifRegion(size: Int, from: Int): [OccurrenceFacetResult_string]
+    publishedByGbifRegion(size: Int, from: Int): [OccurrenceFacetResult_string]
+
     gbifClassification_classificationPath(
       size: Int
       from: Int

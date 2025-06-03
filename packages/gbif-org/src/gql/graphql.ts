@@ -4959,6 +4959,7 @@ export type OccurrenceCardinality = {
   countryCode: Scalars['Long']['output'];
   datasetId: Scalars['Long']['output'];
   datasetKey: Scalars['Long']['output'];
+  datasetName: Scalars['Long']['output'];
   dwcaExtension: Scalars['Long']['output'];
   establishmentMeans: Scalars['Long']['output'];
   eventId: Scalars['Long']['output'];
@@ -4966,13 +4967,17 @@ export type OccurrenceCardinality = {
   fieldNumber: Scalars['Long']['output'];
   gadmGid: Scalars['Long']['output'];
   gbifClassification_usage_key: Scalars['Long']['output'];
+  gbifRegion: Scalars['Long']['output'];
   genusKey: Scalars['Long']['output'];
+  georeferencedBy: Scalars['Long']['output'];
   higherGeography: Scalars['Long']['output'];
   hostingOrganizationKey: Scalars['Long']['output'];
   identifiedBy: Scalars['Long']['output'];
   institutionCode: Scalars['Long']['output'];
   institutionKey: Scalars['Long']['output'];
   isSequenced: Scalars['Long']['output'];
+  island: Scalars['Long']['output'];
+  islandGroup: Scalars['Long']['output'];
   issue: Scalars['Long']['output'];
   iucnRedListCategory: Scalars['Long']['output'];
   kingdomKey: Scalars['Long']['output'];
@@ -4987,6 +4992,7 @@ export type OccurrenceCardinality = {
   programme: Scalars['Long']['output'];
   projectId: Scalars['Long']['output'];
   protocol: Scalars['Long']['output'];
+  publishedByGbifRegion: Scalars['Long']['output'];
   publishingCountry: Scalars['Long']['output'];
   publishingOrg: Scalars['Long']['output'];
   recordedBy: Scalars['Long']['output'];
@@ -5085,6 +5091,7 @@ export type OccurrenceFacet = {
   crawlId?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
   datasetId?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   datasetKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Dataset>>>;
+  datasetName?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   datasetPublishingCountry?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   day?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
   decimalLatitude?: Maybe<Array<Maybe<OccurrenceFacetResult_Float>>>;
@@ -5130,7 +5137,9 @@ export type OccurrenceFacet = {
   gbifClassification_usage_key?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
   gbifClassification_usage_name?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   gbifClassification_usage_rank?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
+  gbifRegion?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   genusKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
+  georeferencedBy?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   hasCoordinate?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
   hasGeospatialIssue?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
   higherGeography?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
@@ -5143,6 +5152,8 @@ export type OccurrenceFacet = {
   institutionKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Institution>>>;
   isInCluster?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
   isSequenced?: Maybe<Array<Maybe<OccurrenceFacetResult_Boolean>>>;
+  island?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
+  islandGroup?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   issue?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   iucnRedListCategory?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   kingdomKey?: Maybe<Array<Maybe<OccurrenceFacetResult_Taxon>>>;
@@ -5171,6 +5182,7 @@ export type OccurrenceFacet = {
   programme?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   projectId?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   protocol?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
+  publishedByGbifRegion?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   publishingCountry?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
   publishingOrg?: Maybe<Array<Maybe<OccurrenceFacetResult_Organization>>>;
   recordNumber?: Maybe<Array<Maybe<OccurrenceFacetResult_String>>>;
@@ -5272,6 +5284,12 @@ export type OccurrenceFacetDatasetIdArgs = {
 
 
 export type OccurrenceFacetDatasetKeyArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetDatasetNameArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -5547,7 +5565,19 @@ export type OccurrenceFacetGbifClassification_Usage_RankArgs = {
 };
 
 
+export type OccurrenceFacetGbifRegionArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
 export type OccurrenceFacetGenusKeyArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetGeoreferencedByArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -5619,6 +5649,18 @@ export type OccurrenceFacetIsInClusterArgs = {
 
 
 export type OccurrenceFacetIsSequencedArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetIslandArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetIslandGroupArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -5787,6 +5829,12 @@ export type OccurrenceFacetProjectIdArgs = {
 
 
 export type OccurrenceFacetProtocolArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type OccurrenceFacetPublishedByGbifRegionArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -9263,6 +9311,13 @@ export type OccurrenceisSequencedFacetQueryVariables = Exact<{
 
 export type OccurrenceisSequencedFacetQuery = { __typename?: 'Query', search?: { __typename?: 'OccurrenceSearchResult', facet?: { __typename?: 'OccurrenceFacet', field?: Array<{ __typename?: 'OccurrenceFacetResult_boolean', count: any, name: boolean } | null> | null } | null } | null };
 
+export type OccurrenceRepatriatedFacetQueryVariables = Exact<{
+  predicate?: InputMaybe<Predicate>;
+}>;
+
+
+export type OccurrenceRepatriatedFacetQuery = { __typename?: 'Query', search?: { __typename?: 'OccurrenceSearchResult', facet?: { __typename?: 'OccurrenceFacet', field?: Array<{ __typename?: 'OccurrenceFacetResult_boolean', count: any, name: boolean } | null> | null } | null } | null };
+
 export type OccurrenceLicenseFacetQueryVariables = Exact<{
   predicate?: InputMaybe<Predicate>;
 }>;
@@ -9333,6 +9388,20 @@ export type OccurrenceOccurrenceStatusFacetQueryVariables = Exact<{
 
 export type OccurrenceOccurrenceStatusFacetQuery = { __typename?: 'Query', search?: { __typename?: 'OccurrenceSearchResult', facet?: { __typename?: 'OccurrenceFacet', field?: Array<{ __typename?: 'OccurrenceFacetResult_string', count: any, name: string } | null> | null } | null } | null };
 
+export type OccurrenceGbifRegionFacetQueryVariables = Exact<{
+  predicate?: InputMaybe<Predicate>;
+}>;
+
+
+export type OccurrenceGbifRegionFacetQuery = { __typename?: 'Query', search?: { __typename?: 'OccurrenceSearchResult', facet?: { __typename?: 'OccurrenceFacet', field?: Array<{ __typename?: 'OccurrenceFacetResult_string', count: any, name: string } | null> | null } | null } | null };
+
+export type OccurrencePublishedByGbifRegionFacetQueryVariables = Exact<{
+  predicate?: InputMaybe<Predicate>;
+}>;
+
+
+export type OccurrencePublishedByGbifRegionFacetQuery = { __typename?: 'Query', search?: { __typename?: 'OccurrenceSearchResult', facet?: { __typename?: 'OccurrenceFacet', field?: Array<{ __typename?: 'OccurrenceFacetResult_string', count: any, name: string } | null> | null } | null } | null };
+
 export type OccurrenceTypeStatusFacetQueryVariables = Exact<{
   predicate?: InputMaybe<Predicate>;
 }>;
@@ -9346,6 +9415,20 @@ export type OccurrenceProjectIdFacetQueryVariables = Exact<{
 
 
 export type OccurrenceProjectIdFacetQuery = { __typename?: 'Query', search?: { __typename?: 'OccurrenceSearchResult', facet?: { __typename?: 'OccurrenceFacet', field?: Array<{ __typename?: 'OccurrenceFacetResult_string', count: any, name: string } | null> | null } | null } | null };
+
+export type OccurrenceProgrammeFacetQueryVariables = Exact<{
+  predicate?: InputMaybe<Predicate>;
+}>;
+
+
+export type OccurrenceProgrammeFacetQuery = { __typename?: 'Query', search?: { __typename?: 'OccurrenceSearchResult', facet?: { __typename?: 'OccurrenceFacet', field?: Array<{ __typename?: 'OccurrenceFacetResult_string', count: any, name: string } | null> | null } | null } | null };
+
+export type OccurrenceDatasetNameFacetQueryVariables = Exact<{
+  predicate?: InputMaybe<Predicate>;
+}>;
+
+
+export type OccurrenceDatasetNameFacetQuery = { __typename?: 'Query', search?: { __typename?: 'OccurrenceSearchResult', facet?: { __typename?: 'OccurrenceFacet', field?: Array<{ __typename?: 'OccurrenceFacetResult_string', count: any, name: string } | null> | null } | null } | null };
 
 export type OccurrenceOrganismIdFacetQueryVariables = Exact<{
   predicate?: InputMaybe<Predicate>;
@@ -9958,6 +10041,7 @@ export const OccurrenceDocument = {"kind":"Document","definitions":[{"kind":"Ope
 export const SlowOccurrenceKeyDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SlowOccurrenceKey"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"language"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"source"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"occurrence"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"institution"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"collection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"acceptedTaxon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vernacularNames"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}},{"kind":"Argument","name":{"kind":"Name","value":"language"},"value":{"kind":"Variable","name":{"kind":"Name","value":"language"}}},{"kind":"Argument","name":{"kind":"Name","value":"source"},"value":{"kind":"Variable","name":{"kind":"Name","value":"source"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vernacularName"}},{"kind":"Field","name":{"kind":"Name","value":"source"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"literatureSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"gbifOccurrenceKey"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"key"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documents"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"abstract"}},{"kind":"Field","name":{"kind":"Name","value":"authors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"literatureType"}},{"kind":"Field","name":{"kind":"Name","value":"year"}},{"kind":"Field","name":{"kind":"Name","value":"identifiers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"doi"}}]}},{"kind":"Field","name":{"kind":"Name","value":"websites"}}]}}]}}]}}]}}]} as unknown as DocumentNode<SlowOccurrenceKeyQuery, SlowOccurrenceKeyQueryVariables>;
 export const OccurrenceIsInClusterFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceIsInClusterFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"isInCluster"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceIsInClusterFacetQuery, OccurrenceIsInClusterFacetQueryVariables>;
 export const OccurrenceisSequencedFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceisSequencedFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"isSequenced"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceisSequencedFacetQuery, OccurrenceisSequencedFacetQueryVariables>;
+export const OccurrenceRepatriatedFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceRepatriatedFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"repatriated"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceRepatriatedFacetQuery, OccurrenceRepatriatedFacetQueryVariables>;
 export const OccurrenceLicenseFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceLicenseFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"license"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceLicenseFacetQuery, OccurrenceLicenseFacetQueryVariables>;
 export const OccurrenceBoRFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceBoRFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"basisOfRecord"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceBoRFacetQuery, OccurrenceBoRFacetQueryVariables>;
 export const OccurrenceMediaFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceMediaFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"mediaType"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceMediaFacetQuery, OccurrenceMediaFacetQueryVariables>;
@@ -9968,8 +10052,12 @@ export const OccurrenceDwcaExtensionFacetDocument = {"kind":"Document","definiti
 export const OccurrenceIucnFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceIucnFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"iucnRedListCategory"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceIucnFacetQuery, OccurrenceIucnFacetQueryVariables>;
 export const OccurrenceIssueFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceIssueFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"issue"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceIssueFacetQuery, OccurrenceIssueFacetQueryVariables>;
 export const OccurrenceOccurrenceStatusFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceOccurrenceStatusFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"occurrenceStatus"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceOccurrenceStatusFacetQuery, OccurrenceOccurrenceStatusFacetQueryVariables>;
+export const OccurrenceGbifRegionFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceGbifRegionFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"gbifRegion"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceGbifRegionFacetQuery, OccurrenceGbifRegionFacetQueryVariables>;
+export const OccurrencePublishedByGbifRegionFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrencePublishedByGbifRegionFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"publishedByGbifRegion"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrencePublishedByGbifRegionFacetQuery, OccurrencePublishedByGbifRegionFacetQueryVariables>;
 export const OccurrenceTypeStatusFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceTypeStatusFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"typeStatus"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceTypeStatusFacetQuery, OccurrenceTypeStatusFacetQueryVariables>;
 export const OccurrenceProjectIdFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceProjectIdFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"projectId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"50"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceProjectIdFacetQuery, OccurrenceProjectIdFacetQueryVariables>;
+export const OccurrenceProgrammeFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceProgrammeFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"programme"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"50"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceProgrammeFacetQuery, OccurrenceProgrammeFacetQueryVariables>;
+export const OccurrenceDatasetNameFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceDatasetNameFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"datasetName"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"50"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceDatasetNameFacetQuery, OccurrenceDatasetNameFacetQueryVariables>;
 export const OccurrenceOrganismIdFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceOrganismIdFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"organismId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"10"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceOrganismIdFacetQuery, OccurrenceOrganismIdFacetQueryVariables>;
 export const OccurrenceHigherGeographyFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceHigherGeographyFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"higherGeography"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"10"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceHigherGeographyFacetQuery, OccurrenceHigherGeographyFacetQueryVariables>;
 export const OccurrenceEventIdFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OccurrenceEventIdFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"occurrenceSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"predicate"},"value":{"kind":"Variable","name":{"kind":"Name","value":"predicate"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"eventId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"10"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"name"},"name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<OccurrenceEventIdFacetQuery, OccurrenceEventIdFacetQueryVariables>;
