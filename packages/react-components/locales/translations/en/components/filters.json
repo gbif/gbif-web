@@ -90,6 +90,46 @@
     "count": "{num, plural, one {# event date } other {# event dates}}",
     "description": "When was the record collected or observed."
   },
+  "gbifId": {
+    "name": "GBIF ID",
+    "count": "",
+    "description": ""
+  },
+  "organismQuantityType": {
+    "name": "Organism quantity type",
+    "count": "",
+    "description": ""
+  },
+  "pathway": {
+    "name": "Pathway",
+    "count": "",
+    "description": ""
+  },
+  "associatedSequences": {
+    "name": "Associated sequences",
+    "count": "",
+    "description": ""
+  },
+  "degreeOfEstablishment": {
+    "name": "Degree of establishment",
+    "count": "",
+    "description": ""
+  },
+  "endDayOfYear": {
+    "name": "End day of year",
+    "count": "",
+    "description": ""
+  },
+  "startDayOfYear": {
+    "name": "Start day of year",
+    "count": "",
+    "description": ""
+  },
+  "previousIdentifications": {
+    "name": "Previous identifications",
+    "count": "",
+    "description": ""
+  },
   "lastInterpreted": {
     "name": "Last interpreted",
     "count": "",
