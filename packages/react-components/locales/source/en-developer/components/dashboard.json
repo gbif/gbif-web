@@ -32,6 +32,7 @@
   "group": {
     "views": "Views",
     "record": "Record",
+    "taxon": "Taxon",
     "occurrence": "Occurrence",
     "organism": "Organism",
     "materialEntity": "Material Entity",

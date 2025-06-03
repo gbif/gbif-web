@@ -38,7 +38,6 @@ export default [
   'typeStatus',
   'continent',
   'dwcaExtension',
-  'programme',
   'classKey',
   'familyKey',
   'genusKey',
@@ -50,4 +49,15 @@ export default [
   'mediaType',
   'repatriated',
   'gadmGid',
+
+  'islandGroup',
+  'island',
+  'georeferencedBy',
+  'datasetName',
+  'programme',
+  'gbifRegion',
+  'publishedByGbifRegion',
+  'pathway',
+  'degreeOfEstablishment',
+  'organismQuantityType',
 ];

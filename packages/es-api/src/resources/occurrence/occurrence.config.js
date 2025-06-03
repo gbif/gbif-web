@@ -45,6 +45,14 @@ const config = {
       type: 'keyword',
       field: 'continent',
     },
+    gbifRegion: {
+      type: 'keyword',
+      field: 'gbifRegion',
+    },
+    publishedByGbifRegion: {
+      type: 'keyword',
+      field: 'publishedByGbifRegion',
+    },
     coordinatePrecision: {
       type: 'numeric',
       field: 'coordinatePrecision',
@@ -57,6 +65,15 @@ const config = {
     coordinateUncertaintyInMeters: {
       type: 'numeric',
       field: 'coordinateUncertaintyInMeters',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte',
+      },
+    },
+    distanceFromCentroidInMeters: {
+      type: 'numeric',
+      field: 'distanceFromCentroidInMeters',
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
@@ -214,6 +231,14 @@ const config = {
       type: 'keyword',
       field: 'establishmentMeans.concept',
     },
+    pathway: {
+      type: 'keyword',
+      field: 'pathway.concept',
+    },
+    degreeOfEstablishment: {
+      type: 'keyword',
+      field: 'degreeOfEstablishment.concept',
+    },
     // "eventDate": {
     //   "field": "eventDate",
     //   "discarded": true
@@ -221,6 +246,15 @@ const config = {
     eventDate: {
       type: 'date',
       field: 'eventDateSingle',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte',
+      },
+    },
+    lastInterpreted: {
+      type: 'date',
+      field: 'created',
       get: {
         type: 'range_or_term',
         defaultUpperBound: 'gte',
@@ -241,6 +275,15 @@ const config = {
       field: 'gadm.gids',
     },
     key: {
+      type: 'numeric',
+      field: 'gbifId',
+      get: {
+        type: 'range_or_term',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte',
+      },
+    },
+    gbifId: {
       type: 'numeric',
       field: 'gbifId',
       get: {
@@ -456,6 +499,14 @@ const config = {
       type: 'keyword',
       field: 'organismQuantityType',
     },
+    associatedSequences: {
+      type: 'keyword',
+      field: 'associatedSequences',
+    },
+    previousIdentifications: {
+      type: 'keyword',
+      field: 'previousIdentifications',
+    },
     parentEventId: {
       type: 'keyword',
       field: 'parentEventId.keyword',
@@ -576,6 +627,22 @@ const config = {
       type: 'keyword',
       field: 'stateProvince.keyword',
       suggestField: 'stateProvince.suggest',
+    },
+    islandGroup: {
+      type: 'keyword',
+      field: 'islandGroup',
+    },
+    island: {
+      type: 'keyword',
+      field: 'island',
+    },
+    georeferencedBy: {
+      type: 'keyword',
+      field: 'georeferencedBy',
+    },
+    datasetName: {
+      type: 'keyword',
+      field: 'datasetName.keyword',
     },
     typeStatus: {
       type: 'keyword',

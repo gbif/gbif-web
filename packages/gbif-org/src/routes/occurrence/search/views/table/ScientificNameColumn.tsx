@@ -83,6 +83,7 @@ export default function ScientificNameColumn({
             </SimpleTooltip>
           </div>
         )}
+        {/* </LinkOption> */}
       </div>
     </div>
   );

@@ -58,7 +58,6 @@ export default [
   'organismQuantityType',
   'parentEventId',
   'preparations',
-  'programme',
   'projectId',
   'protocol',
   // "publisherTitle",
@@ -95,4 +94,14 @@ export default [
   'acceptedUsageKey',
   'usageKey',
   'gadmGid',
+
+  'islandGroup',
+  'island',
+  'georeferencedBy',
+  'datasetName',
+  'programme',
+  'gbifRegion',
+  'publishedByGbifRegion',
+  'pathway',
+  'degreeOfEstablishment',
 ];

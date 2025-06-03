@@ -101,17 +101,10 @@ export const gbifConfig: Config = {
   ],
   theme: {
     dense: true,
-    primary: '#176f75',
-    linkColor: '#176f75',
-    fontSize: '15px',
-    background: '#E7E7E7',
-    paperBackground: '#ffffff',
-    paperBorderColor: '#e0e0e0',
-    color: '#162d3d',
-    fontFamily:
-      '"Roboto", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica", "Arial", sans-serif',
-    borderRadius: 4,
-    drawerZIndex: 50001,
+    primary: '#4787fb', //'#69AA69',
+    stickyOffset: '0px',
+    borderRadius: 3,
+    linkColor: '#4787fb',
   },
   dataHeader: {
     enableApiPopup: true,
@@ -219,16 +212,15 @@ export const gbifConfig: Config = {
     mapSettings: {
       userLocationEnabled: false,
     },
+    excludedFilters: [],
     highlightedFilters: [
-      // 'q',
-      'taxonKey',
-      // 'datasetKey',
-      'country',
-      // 'occurrenceIssue',
-      // 'occurrenceIssue',
-      'geometry',
+      'q',
+      // 'taxonKey',
+      // 'year',
+      // 'country',
+      // // 'occurrenceIssue',
+      // 'geometry',
       // 'recordedBy',
-      // 'q',
     ],
     // defaultEnabledTableColumns: [
     //   'features',
@@ -249,6 +241,11 @@ export const gbifConfig: Config = {
     // scope: {
     //   type: 'and',
     //   predicates: [
+    //     {
+    //       type: 'equals',
+    //       key: 'networkKey',
+    //       value: '99d66b6c-9087-452f-a9d4-f15f2c2d0e7e',
+    //     },
     //     {
     //       type: 'equals',
     //       key: 'taxonKey',
