@@ -291,8 +291,8 @@ export const gbifRegionConfig: filterEnumConfig = {
   options: gbifRegionOptions,
   filterTranslation: 'filters.gbifRegion.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceGbifRegionFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceGbifRegionFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: gbifRegion {
             name: key
@@ -315,8 +315,8 @@ export const publishedByGbifRegionConfig: filterEnumConfig = {
   options: gbifRegionOptions,
   filterTranslation: 'filters.publishedByGbifRegion.name',
   facetQuery: /* GraphQL */ `
-    query OccurrencePublishedByGbifRegionFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrencePublishedByGbifRegionFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: publishedByGbifRegion {
             name: key

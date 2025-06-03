@@ -178,8 +178,8 @@ export const islandGroupConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceIslandGroupFacet($predicate: Predicate, $size: Int){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceIslandGroupFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: islandGroup
         }
@@ -206,8 +206,8 @@ export const islandConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceIslandFacet($predicate: Predicate, $size: Int){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceIslandFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: island
         }
@@ -234,8 +234,8 @@ export const georeferencedByConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceGeoreferencedByFacet($predicate: Predicate, $size: Int){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceGeoreferencedByFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: georeferencedBy
         }
@@ -400,8 +400,8 @@ export const organismQuantityTypeConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceOrganismQuantityTypeFacet($predicate: Predicate, $size: Int){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceOrganismQuantityTypeFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: organismQuantityType
         }

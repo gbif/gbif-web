@@ -50,8 +50,8 @@ export const repatriatedConfig: filterBoolConfig = {
   displayName: booleanLabel,
   filterTranslation: 'filters.repatriated.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceRepatriatedFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceRepatriatedFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: repatriated(size: 100) {
             name: key

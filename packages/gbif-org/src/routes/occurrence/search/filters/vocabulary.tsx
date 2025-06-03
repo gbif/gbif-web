@@ -42,8 +42,8 @@ export const lifeStageConfig: filterEnumConfig = {
   displayName: LifeStageLabel,
   filterTranslation: 'filters.lifeStage.name',
   facetQuery: `
-    query OccurrenceLifeStageFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceLifeStageFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: lifeStage {
             name: key
@@ -65,8 +65,8 @@ export const sexConfig: filterEnumConfig = {
   displayName: SexLabel,
   filterTranslation: 'filters.sex.name',
   facetQuery: `
-    query OccurrenceSexFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceSexFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: sex {
             name: key
@@ -89,8 +89,8 @@ export const pathwayConfig: filterSuggestConfig = {
   filterTranslation: 'filters.pathway.name',
   suggestConfig: pathwaySuggest,
   facetQuery: /* GraphQL */ `
-    query OccurrencePathwayFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrencePathwayFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: pathway(size: 10) {
             name: key
@@ -113,8 +113,8 @@ export const degreeOfEstablishmentConfig: filterEnumConfig = {
   filterTranslation: 'filters.degreeOfEstablishment.name',
   // suggestConfig: degreeOfEstablishmentSuggest,
   facetQuery: /* GraphQL */ `
-    query OccurrenceDegreeOfEstablishmentFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceDegreeOfEstablishmentFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: degreeOfEstablishment(size: 20) {
             name: key
