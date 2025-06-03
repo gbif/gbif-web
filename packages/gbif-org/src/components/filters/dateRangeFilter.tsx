@@ -561,13 +561,22 @@ DateInput.displayName = 'DateInput';
 
 function isValidDate(dateString: string) {
   if (typeof dateString !== 'string') return false;
-  // check against fullRegex
+
+  // 1. Check against fullRegex for basic format and range validation
   if (dateString.match(fullRegex) === null) return false;
+
   const parts = dateString.split('-');
   const year = parseInt(parts[0], 10);
   const month = parseInt(parts[1], 10) - 1; // Months are zero-based
   const day = parseInt(parts[2], 10);
-  const date = new Date(dateString);
+
+  // 2. Create the Date object using the extracted year, month, and day
+  //    This creates the date in the local timezone, avoiding parsing ambiguities
+  const date = new Date(year, month, day);
+
+  // 3. Validate the Date object
+  //    - Compare the components to ensure no date "rollover" occurred
+  //      (e.g., new Date(2023, 1, 30) would become March 2, 2023) (zero based indexing so 30 february is actually 2 march)
   return (
     date instanceof Date &&
     !isNaN(date.getTime()) &&
