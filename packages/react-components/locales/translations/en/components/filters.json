@@ -90,6 +90,11 @@
     "count": "{num, plural, one {# event date } other {# event dates}}",
     "description": "When was the record collected or observed."
   },
+  "lastInterpreted": {
+    "name": "Last interpreted",
+    "count": "",
+    "description": ""
+  },
   "alternativeCode": {
     "name": "Alternative code",
     "count": "{num, plural, one {# alternative code } other {# alternative codes}}",
@@ -264,6 +269,11 @@
     "name": "Coordinate uncertainty",
     "count": "{num, plural, one {Coordinate uncertainty} other {# coordinate uncertainty filters}}",
     "description": "A measure of the minimum distance in metres from a coordinate within which a locality might be interpreted to be."
+  },
+  "distanceFromCentroidInMeters": {
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "depth": {
     "name": "Depth",
