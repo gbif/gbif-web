@@ -214,9 +214,11 @@ export function useOccurrenceColumns({
         minWidth: 350,
         cell: ({ datasetKey, datasetTitle }) => (
           <InlineLineClamp className="-g-ml-0.5">
-            <SetAsFilter field="datasetKey" value={datasetKey} className="g-ml-0">
-              {datasetTitle}
-            </SetAsFilter>
+            <LinkOption to={`/dataset/${datasetKey}`}>
+              <SetAsFilter field="datasetKey" value={datasetKey}>
+                {datasetTitle}
+              </SetAsFilter>
+            </LinkOption>
           </InlineLineClamp>
         ),
       },
@@ -225,9 +227,11 @@ export function useOccurrenceColumns({
         header: 'filters.publisherKey.name',
         minWidth: 250,
         cell: ({ publishingOrgKey, publisherTitle }) => (
-          <SetAsFilter field="publishingOrg" value={publishingOrgKey}>
-            {publisherTitle}
-          </SetAsFilter>
+          <LinkOption to={`/publisher/${publishingOrgKey}`}>
+            <SetAsFilter field="publishingOrg" value={publishingOrgKey}>
+              {publisherTitle}
+            </SetAsFilter>
+          </LinkOption>
         ),
       },
       {

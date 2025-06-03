@@ -34,6 +34,7 @@ export default function ScientificNameColumn({
         </button>
       )}
       <div>
+        {/* <LinkOption to={`/species/${occurrence.taxonKey}`}> */}
         <SetAsFilter field="taxonKey" value={occurrence.taxonKey}>
           {!showCanonicalName && (
             <span
@@ -60,6 +61,7 @@ export default function ScientificNameColumn({
             </SimpleTooltip>
           </div>
         )}
+        {/* </LinkOption> */}
       </div>
     </div>
   );
