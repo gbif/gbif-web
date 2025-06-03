@@ -203,7 +203,6 @@ const typeDef = gql`
     island: Long!
     georeferencedBy: Long!
     datasetName: Long!
-    programme: Long!
     publishedByGbifRegion: Long!
     gbifRegion: Long!
     organismQuantityType: Long!
