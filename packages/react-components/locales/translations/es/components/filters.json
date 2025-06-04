@@ -101,7 +101,7 @@
     "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
   },
   "pathway": {
-    "name": "",
+    "name": "Ruta",
     "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
     "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
   },
@@ -466,7 +466,7 @@
     "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
   },
   "publishedByGbifRegion": {
-    "name": "",
+    "name": "Publicado por la región de GBIF",
     "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
     "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
   },
