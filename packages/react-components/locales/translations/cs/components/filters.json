@@ -90,6 +90,51 @@
     "count": "",
     "description": ""
   },
+  "gbifId": {
+    "name": "GBIF ID",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+  },
+  "organismQuantityType": {
+    "name": "Typ množství organismu",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+  },
+  "pathway": {
+    "name": "Cesta",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+  },
+  "associatedSequences": {
+    "name": "Související sekvence",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+  },
+  "degreeOfEstablishment": {
+    "name": "Stupeň zavedení",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+  },
+  "endDayOfYear": {
+    "name": "Konečný den roku",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+  },
+  "startDayOfYear": {
+    "name": "Počáteční den roku",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+  },
+  "previousIdentifications": {
+    "name": "Předchozí identifikace",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+  },
+  "lastInterpreted": {
+    "name": "Poslední interpretace",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+  },
   "alternativeCode": {
     "name": "",
     "count": "",
@@ -171,6 +216,11 @@
     "name": "Preparace",
     "count": "{num, plural, one {# preparace} few {# preparace} many {# preparací} other {# preparací}}",
     "description": "Jak byl exemplář preparován (např. vysušen)"
+  },
+  "repatriated": {
+    "name": "Repatriováno",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
   },
   "publishingCountryCode": {
     "name": "Země nebo oblast zveřejnění",
@@ -260,6 +310,11 @@
     "count": "{num, plural, one {neurčitost souřadnic} few {# filtry neurčitosti souřadnic} many {# filtrů neurčitosti souřadnic} other {# filtrů neurčitosti souřadnic}}",
     "description": "Měřítko minimální vzdálenosti v metrech od souřadnice, v rámci které může být lokalita interpretována."
   },
+  "distanceFromCentroidInMeters": {
+    "name": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+  },
   "depth": {
     "name": "Hloubka",
     "count": "{num, plural, one {hloubka} few {# hloubky} many {# hloubek} other {# hloubek}}",
@@ -320,6 +375,36 @@
     "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
     "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
   },
+  "verbatimTaxonId": {
+    "name": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+  },
+  "islandGroup": {
+    "name": "Skupina ostrovů",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+  },
+  "island": {
+    "name": "Ostrov",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+  },
+  "georeferencedBy": {
+    "name": "Georeferencováno podle",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+  },
+  "datasetName": {
+    "name": "Název datové sady",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+  },
+  "programme": {
+    "name": "Program",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+  },
   "recordNumber": {
     "name": "Číslo záznamu",
     "count": "{num, plural, one { číslo záznamu } few {# čásla záznamu} many {# čísel záznamu} other {# čísel záznamu}}",
@@ -374,6 +459,16 @@
     "name": "Kraj státu",
     "count": "{num, plural, one { kraj státu } few {# kraje státu} many {# krajů státu} other {# krajů státu}}",
     "description": "Název nejbližšího správního regionu menšího než stát, ve kterém se lokalita nachází."
+  },
+  "gbifRegion": {
+    "name": "Region GBIF",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+  },
+  "publishedByGbifRegion": {
+    "name": "Publikováno podle GBIF regionu",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
   },
   "eventId": {
     "name": "ID události",
