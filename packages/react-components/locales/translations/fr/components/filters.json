@@ -90,6 +90,51 @@
     "count": "Archive annotée par GBIF",
     "description": "Archive annotée par GBIF"
   },
+  "gbifId": {
+    "name": "ID du GBIF",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
+  },
+  "organismQuantityType": {
+    "name": "Type de quantité d’organisme",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
+  },
+  "pathway": {
+    "name": "",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
+  },
+  "associatedSequences": {
+    "name": "Séquences associées",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
+  },
+  "degreeOfEstablishment": {
+    "name": "",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
+  },
+  "endDayOfYear": {
+    "name": "Dernier jour de l'année",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
+  },
+  "startDayOfYear": {
+    "name": "Premier jour de l'année",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
+  },
+  "previousIdentifications": {
+    "name": "Identifications précédentes",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
+  },
+  "lastInterpreted": {
+    "name": "Dernière interprétation",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
+  },
   "alternativeCode": {
     "name": "Archive annotée par GBIF",
     "count": "Archive annotée par GBIF",
@@ -171,6 +216,11 @@
     "name": "Préparations",
     "count": "Archive annotée par GBIF",
     "description": "Archive annotée par GBIF"
+  },
+  "repatriated": {
+    "name": "Rapatrié",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
   },
   "publishingCountryCode": {
     "name": "Pays ou région qui publie",
@@ -260,6 +310,11 @@
     "count": "{num, plural, one {Coordinate uncertainty} other {# coordinate uncertainty filters}}",
     "description": "Mesure de la distance minimale en mètres d'une coordonnée à l'intérieur de laquelle une localité peut être interprétée."
   },
+  "distanceFromCentroidInMeters": {
+    "name": "Doit être défini",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
+  },
   "depth": {
     "name": "Profondeur",
     "count": "{num, plural, one { depth } other {# depths}}",
@@ -320,6 +375,36 @@
     "count": "Doit être défini",
     "description": "Doit être défini"
   },
+  "verbatimTaxonId": {
+    "name": "Doit être défini",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
+  },
+  "islandGroup": {
+    "name": "Archipel",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
+  },
+  "island": {
+    "name": "Île",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
+  },
+  "georeferencedBy": {
+    "name": "Géoréférencé par",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
+  },
+  "datasetName": {
+    "name": "Nom du jeu de données",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
+  },
+  "programme": {
+    "name": "Programme",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
+  },
   "recordNumber": {
     "name": "Numéro d'enregristrement",
     "count": "{num, plural, one { record number } other {# record numbers}}",
@@ -374,6 +459,16 @@
     "name": "État/Province",
     "count": "{num, plural, one { state province } other {# state provinces}}",
     "description": "Le nom de la région administrative la plus proche plus petite que le pays dans lequel se trouve l'emplacement."
+  },
+  "gbifRegion": {
+    "name": "Région GBIF",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
+  },
+  "publishedByGbifRegion": {
+    "name": "",
+    "count": "Doit être défini",
+    "description": "Doit être défini"
   },
   "eventId": {
     "name": "ID de l'événement",
