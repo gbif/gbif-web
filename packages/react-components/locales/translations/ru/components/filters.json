@@ -90,6 +90,51 @@
     "count": "Архив, аннотированный GBIF",
     "description": "Архив, аннотированный GBIF"
   },
+  "gbifId": {
+    "name": "GBIF ID",
+    "count": "",
+    "description": ""
+  },
+  "organismQuantityType": {
+    "name": "Единица измерения обилия вида",
+    "count": "",
+    "description": ""
+  },
+  "pathway": {
+    "name": "Фильтрация путей",
+    "count": "",
+    "description": ""
+  },
+  "associatedSequences": {
+    "name": "Сопутствующие генетические последовательности",
+    "count": "",
+    "description": ""
+  },
+  "degreeOfEstablishment": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "endDayOfYear": {
+    "name": "Последний день (порядковый номер с начала года)",
+    "count": "",
+    "description": ""
+  },
+  "startDayOfYear": {
+    "name": "Первый день (порядковый номер с начала года)",
+    "count": "",
+    "description": ""
+  },
+  "previousIdentifications": {
+    "name": "Более ранние определения",
+    "count": "",
+    "description": ""
+  },
+  "lastInterpreted": {
+    "name": "Последняя интерпретация",
+    "count": "",
+    "description": ""
+  },
   "alternativeCode": {
     "name": "Архив, аннотированный GBIF",
     "count": "Архив, аннотированный GBIF",
@@ -171,6 +216,11 @@
     "name": "Способ препарирования",
     "count": "Архив, аннотированный GBIF",
     "description": "Архив, аннотированный GBIF"
+  },
+  "repatriated": {
+    "name": "Данные репатриированы",
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "Страна или регион, в которых опубликованы данные",
@@ -260,6 +310,11 @@
     "count": "",
     "description": ""
   },
+  "distanceFromCentroidInMeters": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "depth": {
     "name": "Глубина",
     "count": "",
@@ -320,6 +375,36 @@
     "count": "",
     "description": ""
   },
+  "verbatimTaxonId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "islandGroup": {
+    "name": "Группа островов",
+    "count": "",
+    "description": ""
+  },
+  "island": {
+    "name": "Остров",
+    "count": "",
+    "description": ""
+  },
+  "georeferencedBy": {
+    "name": "Кем выполнена геопривязка",
+    "count": "",
+    "description": ""
+  },
+  "datasetName": {
+    "name": "Название набора данных",
+    "count": "",
+    "description": ""
+  },
+  "programme": {
+    "name": "Программа",
+    "count": "",
+    "description": ""
+  },
   "recordNumber": {
     "name": "Номер записи",
     "count": "",
@@ -372,6 +457,16 @@
   },
   "stateProvince": {
     "name": "Регион",
+    "count": "",
+    "description": ""
+  },
+  "gbifRegion": {
+    "name": "Регион GBIF",
+    "count": "",
+    "description": ""
+  },
+  "publishedByGbifRegion": {
+    "name": "",
     "count": "",
     "description": ""
   },
