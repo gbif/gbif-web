@@ -212,7 +212,7 @@ export function useOccurrenceColumns({
         ),
       },
       {
-        id: 'dataset',
+        id: 'datasetKey',
         sort: { localStorageKey: 'occurrenceSort', sortBy: 'datasetKey' },
         header: 'filters.datasetKey.name',
         minWidth: 350,
@@ -227,7 +227,7 @@ export function useOccurrenceColumns({
         ),
       },
       {
-        id: 'publisher',
+        id: 'publishingOrg',
         header: 'filters.publisherKey.name',
         minWidth: 250,
         cell: ({ publishingOrgKey, publisherTitle }) => (
