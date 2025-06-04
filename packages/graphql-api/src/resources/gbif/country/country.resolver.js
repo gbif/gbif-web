@@ -148,6 +148,7 @@ export default {
       dataSources.organizationAPI
         .searchOrganizations({
           query: {
+            isEndorsed: true,
             country: isoCode,
             limit: 0,
           },
