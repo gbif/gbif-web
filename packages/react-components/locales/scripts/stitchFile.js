@@ -42,6 +42,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         .customSqlDownload,
       homepage: getFile(locale, `../${folder}/${locale}/components/homepage`).homepage,
       trends: getFile(locale, `../${folder}/${locale}/components/trends`).trends,
+      country: getFile(locale, `../${folder}/${locale}/components/country`).country,
 
       occurrenceFieldNames: getFile(
         locale,
@@ -105,7 +106,9 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         ),
         preservationType: getFile(locale, `../${folder}/${locale}/enums/preservationType`),
         cms: getFile(locale, `../${folder}/${locale}/enums/cms`),
-        participationStatus: getFile(locale, `../${folder}/${locale}/enums/participationStatus`).participationStatus,
+        participationStatus: getFile(locale, `../${folder}/${locale}/enums/participationStatus`)
+          .participationStatus,
+        kingdomKey: getFile(locale, `../${folder}/${locale}/enums/kingdomKey`).kingdomKey,
         // -- Add enums above this line (required by plopfile.js) --
       },
     },

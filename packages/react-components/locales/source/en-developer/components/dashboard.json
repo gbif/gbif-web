@@ -41,5 +41,7 @@
     "identification": "Identification",
     "provenance": "Provenance",
     "other": "Other"
-  }
+  },
+  "occurrencesPerField": "Occurrences per {FIELD}",
+  "kingdom": "Kingdom"
 }

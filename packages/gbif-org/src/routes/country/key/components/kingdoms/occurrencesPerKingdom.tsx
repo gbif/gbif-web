@@ -9,7 +9,7 @@ import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { notNull } from '@/utils/notNull';
 import { useMemo } from 'react';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import animaliaIconUrl from './icons/animalia.svg';
 import archaeaIconUrl from './icons/archaea.svg';
 import bacteriaIconUrl from './icons/bacteria.svg';
@@ -38,6 +38,8 @@ type Props = {
 };
 
 export function OccurrencesPerKingdom({ countryCode, type }: Props) {
+  const { formatMessage } = useIntl();
+
   const predicate = useMemo(() => {
     return {
       key: type === 'publishedBy' ? 'publishingCountry' : 'country',
@@ -64,9 +66,10 @@ export function OccurrencesPerKingdom({ countryCode, type }: Props) {
       <CardHeader>
         <CardTitle>
           <FormattedMessage
-            // TODO: add i18n key
-            id="metrics.occurrencesPerField"
-            defaultMessage="Occurrences per kingdom"
+            id="dashboard.occurrencesPerField"
+            values={{
+              FIELD: <FormattedMessage id="dashboard.kingdom" />,
+            }}
           />
         </CardTitle>
       </CardHeader>
@@ -82,6 +85,10 @@ export function OccurrencesPerKingdom({ countryCode, type }: Props) {
             searchParams.country = countryCode;
           }
 
+          const translatedKingdom = formatMessage({
+            id: `enums.kingdomKey.${kingdom.id}`,
+          });
+
           return (
             <DynamicLink
               key={kingdom.id}
@@ -91,20 +98,22 @@ export function OccurrencesPerKingdom({ countryCode, type }: Props) {
             >
               <div key={kingdom.id} className="g-flex g-flex-row g-items-center g-gap-2 g-min-w-44">
                 <div className="g-size-16 g-p-0.5 g-bg-primary-500 group-hover:g-bg-primary-700 g-rounded-full g-flex g-items-center g-justify-evenly">
-                  <img src={kingdom.icon} alt={kingdom.title} />
+                  <img src={kingdom.icon} alt={translatedKingdom} />
                 </div>
                 <div className="g-flex g-flex-col">
-                  <span className="g-text-sm">{kingdom.title}</span>
+                  <span className="g-text-sm">{translatedKingdom}</span>
                   <span className="g-text-sm g-font-bold">
                     {kingdomCountRecord == null ? (
                       <div className="g-flex g-flex-row g-h-5 g-w-26 g-items-center">
                         <Skeleton className="g-w-full g-h-4" />
                       </div>
                     ) : (
-                      <FormattedNumber value={kingdomCountRecord[kingdom.id.toString()]} />
+                      <FormattedNumber value={kingdomCountRecord[kingdom.id.toString()] ?? 0} />
                     )}
                   </span>
-                  <span className="g-text-xs">Occurrences</span>
+                  <span className="g-text-xs">
+                    <FormattedMessage id="dashboard.occurrences" />
+                  </span>
                 </div>
               </div>
             </DynamicLink>

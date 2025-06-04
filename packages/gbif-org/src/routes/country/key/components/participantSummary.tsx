@@ -34,48 +34,48 @@ export function ParticipantSummary({ participant, className, showSocialLinksSect
     <div className={className}>
       <Properties className={'[&_a]:g-text-primary-500'}>
         <Property
-          labelId="Memeber status"
+          labelId="participant.memberStatus"
           value={participant.participationStatus}
           formatter={(value) => (
             <FormattedMessage id={`enums.participationStatus.${value}`} defaultMessage={value} />
           )}
         />
         <Property
-          labelId="GBIF participant since"
+          labelId="participant.gbifParticipantSince"
           value={participant.participant?.membershipStart}
           formatter={(v) => <FormattedDate value={v} year="numeric" />}
         />
         <Property
-          labelId="GBIF region"
+          labelId="participant.gbifRegion"
           value={participant.gbifRegion}
           formatter={(v) => <FormattedMessage id={`enums.region.${v}`} defaultMessage={v} />}
         />
         {headOfDelegation && (
           <Property
-            labelId="Head of delegation"
+            labelId="participant.headOfDelegation"
             value={`${headOfDelegation.firstName} ${headOfDelegation.lastName}`}
             formatter={(v) => <Link to={`#contact${headOfDelegation.key}`}>{v}</Link>}
           />
         )}
         <Property
-          labelId="Node name"
+          labelId="participant.nodeName"
           value={participant.title}
           formatter={(v) => <Link to={`#nodeAddress`}>{v}</Link>}
         />
         <Property
-          labelId="Node established"
+          labelId="participant.nodeEstablished"
           value={participant.participant?.nodeEstablishmentDate}
           formatter={(v) => <FormattedDate value={v} year="numeric" />}
         />
         {/* TODO: Why is this not the same as portal16? */}
         <Property
-          labelId="Website"
+          labelId="participant.website"
           value={participant.homepage}
           formatter={(v) => <a href={v}>{v}</a>}
         />
         {participantNodeManager && (
           <Property
-            labelId="Participant node manager"
+            labelId="participant.participantNodeManager"
             value={`${participantNodeManager.firstName} ${participantNodeManager.lastName}`}
             formatter={(v) => <Link to={`#contact${participantNodeManager.key}`}>{v}</Link>}
           />

@@ -32,13 +32,8 @@ export function CountryKeyPublishing() {
   if (!loading && (data?.countryDetail == null || data.countryDetail.fromPublisherCount === 0)) {
     return (
       <EmptyCountryTab
-        title={<FormattedMessage id="TODO" defaultMessage="No data publishing activity" />}
-        description={
-          <FormattedMessage
-            id="TODO"
-            defaultMessage="No institutions from this country/area have published data through GBIF"
-          />
-        }
+        title={<FormattedMessage id="country.noDataPublishingActivity" />}
+        description={<FormattedMessage id="country.noInstitutionsHavePublished" />}
       />
     );
   }

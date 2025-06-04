@@ -35,7 +35,7 @@ export function Contacts({ contacts, nodeTitle, nodeAddress }: Props) {
     <Card>
       <CardHeader>
         <CardTitle>
-          <FormattedMessage id="TODO" defaultMessage="Contacts" />
+          <FormattedMessage id="country.contacts" />
         </CardTitle>
       </CardHeader>
       <CardContent className="g-flex g-flex-wrap">

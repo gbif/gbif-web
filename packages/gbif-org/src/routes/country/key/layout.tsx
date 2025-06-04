@@ -1,4 +1,3 @@
-import { defaultDateFormatProps } from '@/components/headerComponents';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
 import countryCodes from '@/enums/basic/country.json';
@@ -19,7 +18,7 @@ import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { required } from '@/utils/required';
 import { MdDownload as DownloadIcon } from 'react-icons/md';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData, useParams } from 'react-router-dom';
 
 export function countryKeyLoader({ params, graphql }: LoaderArgs) {
@@ -60,25 +59,31 @@ export function CountryKeyLayout() {
               )}
 
               {participant?.participationStatus && (
-                <ArticlePreTitle
-                  secondary={
-                    <FormattedMessage
-                      id="TODO"
-                      defaultMessage="Memeber since {DATE}"
-                      values={{
-                        DATE: (
-                          <FormattedDate
-                            value={participant.participant?.membershipStart ?? undefined}
-                            {...defaultDateFormatProps}
-                          />
-                        ),
-                      }}
-                    />
-                  }
-                >
-                  <FormattedMessage id="TODO" defaultMessage="A GBIF Voting participant" />
+                <ArticlePreTitle>
+                  <FormattedMessage
+                    id={`participant.participationStatus.description.${participant.participationStatus}`}
+                    values={{
+                      REGION: <FormattedMessage id={`enums.region.${participant.gbifRegion}`} />,
+                    }}
+                  />
                 </ArticlePreTitle>
               )}
+
+              <p className="g-text-sm g-text-gray-500">
+                <FormattedMessage
+                  id="country.countryNamingDisclaimer"
+                  values={{
+                    ISO_STANDARD_LINK_TEXT: (
+                      <a href="https://www.iso.org/obp/ui/#search" className="g-text-primary-500">
+                        <FormattedMessage
+                          id="country.isoStandardLinkText"
+                          defaultMessage="ISO 3166-1 standard"
+                        />
+                      </a>
+                    ),
+                  }}
+                />
+              </p>
 
               <div className="g-flex g-gap-4 g-items-center">
                 <ArticleTitle>
@@ -96,7 +101,7 @@ export function CountryKeyLayout() {
                 }
               >
                 <DownloadIcon className="g-w-4 g-h-4" />
-                <FormattedMessage id="TODO" defaultMessage="Activity Report" />
+                <FormattedMessage id="country.activityReport" defaultMessage="Activity Report" />
               </a>
             </Button>
           </div>
@@ -106,41 +111,65 @@ export function CountryKeyLayout() {
             links={[
               {
                 to: 'summary',
-                children: <FormattedMessage id="TODO" defaultMessage="Summary" />,
+                children: <FormattedMessage id="country.tabs.summary" defaultMessage="Summary" />,
               },
               {
                 to: 'about',
-                children: <FormattedMessage id="TODO" defaultMessage="Data about" />,
+                children: (
+                  <FormattedMessage id="country.tabs.dataAbout" defaultMessage="Data about" />
+                ),
               },
               {
                 to: 'publishing',
-                children: <FormattedMessage id="TODO" defaultMessage="Data publishing" />,
+                children: (
+                  <FormattedMessage
+                    id="country.tabs.dataPublishing"
+                    defaultMessage="Data publishing"
+                  />
+                ),
               },
               {
                 to: 'participation',
-                children: <FormattedMessage id="TODO" defaultMessage="Participation" />,
+                children: (
+                  <FormattedMessage
+                    id="country.tabs.participation"
+                    defaultMessage="Participation"
+                  />
+                ),
                 hidden: !participant,
               },
               {
                 to: 'alien-species',
-                children: <FormattedMessage id="TODO" defaultMessage="Alien species" />,
+                children: (
+                  <FormattedMessage id="country.tabs.alienSpecies" defaultMessage="Alien species" />
+                ),
               },
               {
                 to: 'publications/from',
-                children: <FormattedMessage id="TODO" defaultMessage="Publications from" />,
+                children: (
+                  <FormattedMessage
+                    id="country.tabs.publicationsFrom"
+                    defaultMessage="Publications from"
+                  />
+                ),
               },
               {
                 to: 'publications/about',
-                children: <FormattedMessage id="TODO" defaultMessage="Publications about" />,
+                children: (
+                  <FormattedMessage
+                    id="country.tabs.publicationsAbout"
+                    defaultMessage="Publications about"
+                  />
+                ),
               },
               {
                 to: 'projects',
-                children: <FormattedMessage id="TODO" defaultMessage="Projects" />,
+                children: <FormattedMessage id="country.tabs.projects" defaultMessage="Projects" />,
                 hidden: !hasProjects,
               },
               {
                 to: 'news',
-                children: <FormattedMessage id="TODO" defaultMessage="News" />,
+                children: <FormattedMessage id="country.tabs.news" defaultMessage="News" />,
                 hidden: !hasNews,
               },
             ]}

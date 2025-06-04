@@ -39,7 +39,12 @@ export function DataFromCountryMapPresentation({
       <Card>
         <CardHeader>
           <CardTitle className="g-pb-4">
-            <FormattedMessage id="TODO" defaultMessage="Data from Denmark" />
+            <FormattedMessage
+              id="country.dataFrom"
+              values={{
+                TRANSLATED_COUNTRY: <FormattedMessage id={`enums.countryCode.${countryCode}`} />,
+              }}
+            />
           </CardTitle>
           <MapHeader.Container>
             <MapHeader.Item
@@ -50,7 +55,12 @@ export function DataFromCountryMapPresentation({
                 value={fromCountryDetails?.fromOccurrenceCount}
                 loading={isLoading}
               />
-              <MapHeader.Text id="TODO" defaultMessage="Occurrences" />
+              <MapHeader.Text
+                id="country.counts.occurrences"
+                values={{
+                  NUMBER: fromCountryDetails?.fromOccurrenceCount,
+                }}
+              />
             </MapHeader.Item>
 
             <MapHeader.Item
@@ -58,17 +68,27 @@ export function DataFromCountryMapPresentation({
               searchParams={{ publishingCountry: countryCode }}
             >
               <MapHeader.Count value={fromCountryDetails?.fromDatasetCount} loading={isLoading} />
-              <MapHeader.Text id="TODO" defaultMessage="Datasets" />
+              <MapHeader.Text
+                id="country.counts.datasets"
+                values={{
+                  NUMBER: fromCountryDetails?.fromDatasetCount,
+                }}
+              />
             </MapHeader.Item>
 
             <MapHeader.Item>
               <MapHeader.Count value={fromCountryDetails?.fromCountryCount} loading={isLoading} />
-              <MapHeader.Text id="TODO" defaultMessage="Countries and areas contribute data" />
+              <MapHeader.Text id="country.counts.countriesAndAreasContributeData" />
             </MapHeader.Item>
 
             <MapHeader.Item pageId="publisherSearch" searchParams={{ country: countryCode }}>
               <MapHeader.Count value={fromCountryDetails?.fromPublisherCount} loading={isLoading} />
-              <MapHeader.Text id="TODO" defaultMessage="Publishers" />
+              <MapHeader.Text
+                id="country.counts.publishers"
+                values={{
+                  NUMBER: fromCountryDetails?.fromPublisherCount,
+                }}
+              />
             </MapHeader.Item>
           </MapHeader.Container>
         </CardHeader>

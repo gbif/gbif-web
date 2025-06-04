@@ -1,10 +1,9 @@
+import { MapWidget } from '@/components/maps/mapWidget';
 import { Card, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { Country, CountryDetailAboutQuery, CountryDetailAboutQueryVariables } from '@/gql/graphql';
+import useQuery from '@/hooks/useQuery';
 import { FormattedMessage } from 'react-intl';
 import { MapHeader } from './mapHeader';
-import { MapWidget } from '@/components/maps/mapWidget';
-import { CountryDetailAboutQuery, CountryDetailAboutQueryVariables } from '@/gql/graphql';
-import { Country } from '@/gql/graphql';
-import useQuery from '@/hooks/useQuery';
 
 type DataAboutCountryMapProps = {
   countryCode: string;
@@ -24,7 +23,12 @@ export function DataAboutCountryMap({ countryCode }: DataAboutCountryMapProps) {
       <Card>
         <CardHeader>
           <CardTitle className="g-pb-4">
-            <FormattedMessage id="TODO" defaultMessage="Data about Denmark" />
+            <FormattedMessage
+              id="country.dataAboutCountry"
+              values={{
+                TRANSLATED_COUNTRY: <FormattedMessage id={`enums.countryCode.${countryCode}`} />,
+              }}
+            />
           </CardTitle>
           <MapHeader.Container>
             <MapHeader.Item pageId="occurrenceSearch" searchParams={{ country: countryCode }}>
@@ -32,7 +36,12 @@ export function DataAboutCountryMap({ countryCode }: DataAboutCountryMapProps) {
                 value={countryDetail.data?.countryDetail?.aboutOccurrenceCount}
                 loading={countryDetail.loading}
               />
-              <MapHeader.Text id="TODO" defaultMessage="Occurrences" />
+              <MapHeader.Text
+                id="country.counts.occurrences"
+                values={{
+                  NUMBER: countryDetail.data?.countryDetail?.aboutOccurrenceCount,
+                }}
+              />
             </MapHeader.Item>
 
             <MapHeader.Item>
@@ -40,7 +49,12 @@ export function DataAboutCountryMap({ countryCode }: DataAboutCountryMapProps) {
                 value={countryDetail.data?.countryDetail?.aboutDatasetCount}
                 loading={countryDetail.loading}
               />
-              <MapHeader.Text id="TODO" defaultMessage="Datasets" />
+              <MapHeader.Text
+                id="country.counts.datasets"
+                values={{
+                  NUMBER: countryDetail.data?.countryDetail?.aboutDatasetCount,
+                }}
+              />
             </MapHeader.Item>
 
             <MapHeader.Item>
@@ -48,7 +62,7 @@ export function DataAboutCountryMap({ countryCode }: DataAboutCountryMapProps) {
                 value={countryDetail.data?.countryDetail?.aboutCountryCount}
                 loading={countryDetail.loading}
               />
-              <MapHeader.Text id="TODO" defaultMessage="Countries and areas contribute data" />
+              <MapHeader.Text id="country.counts.countriesAndAreasContributeData" />
             </MapHeader.Item>
 
             <MapHeader.Item>
@@ -56,7 +70,12 @@ export function DataAboutCountryMap({ countryCode }: DataAboutCountryMapProps) {
                 value={countryDetail.data?.countryDetail?.aboutPublisherCount}
                 loading={countryDetail.loading}
               />
-              <MapHeader.Text id="TODO" defaultMessage="Publishers" />
+              <MapHeader.Text
+                id="country.counts.publishers"
+                values={{
+                  NUMBER: countryDetail.data?.countryDetail?.aboutPublisherCount,
+                }}
+              />
             </MapHeader.Item>
           </MapHeader.Container>
         </CardHeader>

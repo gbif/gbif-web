@@ -1,19 +1,19 @@
+import { ClientSideOnly } from '@/components/clientSideOnly';
+import * as charts from '@/components/dashboard';
+import DashBoardLayout from '@/components/dashboard/DashboardLayout';
+import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { DataAboutCountryMap } from './components/dataAboutCountryMap';
-import { useParams } from 'react-router-dom';
-import { CardTitle } from '@/components/ui/largeCard';
-import { CardHeader } from '@/components/ui/largeCard';
-import { FormattedMessage } from 'react-intl';
-import { Trends } from './components/trends';
-import { OccurrencesPerKingdom } from './components/kingdoms/occurrencesPerKingdom';
-import * as charts from '@/components/dashboard';
 import { useMemo } from 'react';
-import DashBoardLayout from '@/components/dashboard/DashboardLayout';
-import { ClientSideOnly } from '@/components/clientSideOnly';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { useParams } from 'react-router-dom';
+import { DataAboutCountryMap } from './components/dataAboutCountryMap';
+import { OccurrencesPerKingdom } from './components/kingdoms/occurrencesPerKingdom';
+import { Trends } from './components/trends';
 
 export function CountryKeyAbout() {
   const { countryCode } = useParams();
+  const { formatMessage } = useIntl();
 
   if (!countryCode) throw new Error('Country code is required');
 
@@ -65,9 +65,10 @@ export function CountryKeyAbout() {
         <CardHeader>
           <CardTitle>
             <FormattedMessage
-              // TODO: add i18n key
-              id="countryKey.trendsAboutCountry"
-              defaultMessage="Trends about Denmark"
+              id="country.trendsAboutCountry"
+              values={{
+                TRANSLATED_COUNTRY: formatMessage({ id: `enums.countryCode.${countryCode}` }),
+              }}
             />
           </CardTitle>
         </CardHeader>

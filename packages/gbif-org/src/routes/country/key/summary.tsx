@@ -28,7 +28,7 @@ export function CountryKeySummary() {
             <Card>
               <CardHeader>
                 <CardTitle>
-                  <FormattedMessage id="TODO" defaultMessage="Participant summary" />
+                  <FormattedMessage id="participant.participantSummary" />
                 </CardTitle>
               </CardHeader>
               <CardContent>
