@@ -48,7 +48,7 @@ export function ParticipantSummary({ participant, className, showSocialLinksSect
         <Property
           labelId="participant.gbifRegion"
           value={participant.gbifRegion}
-          formatter={(v) => <FormattedMessage id={`enums.region.${v}`} defaultMessage={v} />}
+          formatter={(v) => <FormattedMessage id={`enums.gbifRegion.${v}`} defaultMessage={v} />}
         />
         {headOfDelegation && (
           <Property

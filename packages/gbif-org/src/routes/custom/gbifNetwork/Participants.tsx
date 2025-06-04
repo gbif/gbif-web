@@ -138,7 +138,7 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
                 }}
                 variant={selectedRegion === region ? 'default' : 'primaryOutline'}
               >
-                <FormattedMessage id={`enums.region.${region}`} />
+                <FormattedMessage id={`enums.gbifRegion.${region}`} />
               </Button>
             ))}
             {types.map((type) => (

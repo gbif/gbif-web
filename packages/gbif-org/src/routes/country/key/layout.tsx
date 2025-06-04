@@ -63,7 +63,9 @@ export function CountryKeyLayout() {
                   <FormattedMessage
                     id={`participant.participationStatus.description.${participant.participationStatus}`}
                     values={{
-                      REGION: <FormattedMessage id={`enums.region.${participant.gbifRegion}`} />,
+                      REGION: (
+                        <FormattedMessage id={`enums.gbifRegion.${participant.gbifRegion}`} />
+                      ),
                     }}
                   />
                 </ArticlePreTitle>
