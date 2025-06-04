@@ -161,8 +161,8 @@ const fallbackOptions: FallbackTableOptions = {
     'coordinates',
     'year',
     'basisOfRecord',
-    'dataset',
-    'publisher',
+    'datasetKey',
+    'publishingOrg',
   ],
 };
 
