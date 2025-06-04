@@ -111,7 +111,7 @@
     "description": ""
   },
   "degreeOfEstablishment": {
-    "name": "",
+    "name": "Степень укоренения интродуцированных видов",
     "count": "",
     "description": ""
   },
@@ -466,7 +466,7 @@
     "description": ""
   },
   "publishedByGbifRegion": {
-    "name": "",
+    "name": "Опубликовано регионом GBIF",
     "count": "",
     "description": ""
   },
