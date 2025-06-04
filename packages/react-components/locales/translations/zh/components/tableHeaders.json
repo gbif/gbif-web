@@ -7,6 +7,7 @@
   "occurrences": "出现记录",
   "numberSpecimens": "标本数",
   "gbifNumberSpecimens": "GBIF中的标本",
+  "specimenTriplet": "{num, plural, one { 在集群中 } other {# 在集群中}}",
   "title": "标题",
   "titleAndAbstract": "标题和摘要",
   "altmetric": "替代指标",

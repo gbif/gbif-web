@@ -36,7 +36,7 @@ const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        'gbif g-fixed g-left-[50%] g-top-[50%] g-z-50 g-grid g-w-full g-max-w-lg g-translate-x-[-50%] g-translate-y-[-50%] g-gap-4 g-border g-bg-background g-p-6 g-shadow-lg g-duration-200 data-[state=open]:g-animate-in data-[state=closed]:g-animate-out data-[state=closed]:g-fade-out-0 data-[state=open]:g-fade-in-0 data-[state=closed]:g-zoom-out-95 data-[state=open]:g-zoom-in-95 data-[state=closed]:g-slide-out-to-left-1/2 data-[state=closed]:g-slide-out-to-top-[48%] data-[state=open]:g-slide-in-from-left-1/2 data-[state=open]:g-slide-in-from-top-[48%] sm:g-rounded-lg',
+        'gbif g-fixed g-left-[50%] g-top-[50%] g-z-50 g-grid g-w-full g-max-w-lg g-translate-x-[-50%] g-translate-y-[-50%] g-gap-4 g-border g-border-solid g-bg-background g-p-6 g-shadow-lg g-duration-200 data-[state=open]:g-animate-in data-[state=closed]:g-animate-out data-[state=closed]:g-fade-out-0 data-[state=open]:g-fade-in-0 data-[state=closed]:g-zoom-out-95 data-[state=open]:g-zoom-in-95 data-[state=closed]:g-slide-out-to-left-1/2 data-[state=closed]:g-slide-out-to-top-[48%] data-[state=open]:g-slide-in-from-left-1/2 data-[state=open]:g-slide-in-from-top-[48%] sm:g-rounded-lg',
         className
       )}
       {...props}

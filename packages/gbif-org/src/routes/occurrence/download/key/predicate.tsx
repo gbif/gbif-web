@@ -128,7 +128,7 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'GBIF_ID':
             return value;
           case 'PUBLISHED_BY_GBIF_REGION':
-            return getTranslation(`enums.region.${constantCase(value)}`);
+            return getTranslation(`enums.gbifRegion.${constantCase(value)}`);
           case 'IUCN_RED_LIST_CATEGORY':
             return getTranslation(`enums.iucnRedListCategory.${constantCase(value)}`);
           case 'PATHWAY':
@@ -266,7 +266,7 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'VERBATIM_SCIENTIFIC_NAME':
             return value;
           case 'GBIF_REGION':
-            return getTranslation(`enums.region.${constantCase(value)}`);
+            return getTranslation(`enums.gbifRegion.${constantCase(value)}`);
           case 'COORDINATE_UNCERTAINTY_IN_METERS':
             return value;
           case 'PARENT_EVENT_ID':

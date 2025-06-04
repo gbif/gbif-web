@@ -9,11 +9,12 @@ import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicat
 import { useCountrySuggest } from '@/hooks/useCountrySuggest';
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { isInClusterConfig, isSequencedConfig } from './filters/booleans';
+import { isInClusterConfig, isSequencedConfig, repatriatedConfig } from './filters/booleans';
 import {
   basisOfRecordConfig,
   continentConfig,
   dwcaExtensionConfig,
+  gbifRegionConfig,
   iucnRedListCategoryConfig,
   licenceConfig,
   mediaTypeConfig,
@@ -21,6 +22,7 @@ import {
   occurrenceIssueConfig,
   occurrenceStatusConfig,
   protocolConfig,
+  publishedByGbifRegionConfig,
 } from './filters/enums';
 import {
   collectionCodeConfig,
@@ -42,28 +44,49 @@ import { locationConfig } from './filters/location';
 import {
   coordinateUncertaintyConfig,
   depthConfig,
+  distanceFromCentroidInMetersConfig,
   elevationConfig,
+  endDayOfYearConfig,
   eventDateConfig,
+  lastInterpretedConfig,
   organismQuantityConfig,
   relativeOrganismQuantityConfig,
   sampleSizeValueConfig,
+  startDayOfYearConfig,
   yearConfig,
 } from './filters/ranges';
 import {
+  associatedSequencesConfig,
+  datasetNameConfig,
   eventIdConfig,
+  fieldNumberConfig,
+  gbifIdConfig,
   higherGeographyConfig,
   identifiedByIdConfig,
   occurrenceIdConfig,
   organismIdConfig,
+  previousIdentificationsConfig,
+  programmeConfig,
   projectIdConfig,
   recordedByIdConfig,
+  taxonIdConfig,
 } from './filters/textOnly';
-import { establishmentMeansConfig } from './filters/vocabulary';
+import {
+  degreeOfEstablishmentConfig,
+  establishmentMeansConfig,
+  lifeStageConfig,
+  pathwayConfig,
+  sexConfig,
+} from './filters/vocabulary';
 import {
   catalogNumberConfig,
   datasetIdConfig,
+  georeferencedByConfig,
   identifiedByConfig,
+  islandConfig,
+  islandGroupConfig,
   localityConfig,
+  organismQuantityTypeConfig,
   preparationsConfig,
   recordedByConfig,
   sampleSizeUnitConfig,
@@ -138,6 +161,16 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         searchConfig,
         formatMessage,
       }),
+      sex: generateFilters({
+        config: sexConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      lifeStage: generateFilters({
+        config: lifeStageConfig,
+        searchConfig,
+        formatMessage,
+      }),
 
       // enums
       license: generateFilters({ config: licenceConfig, searchConfig, formatMessage }),
@@ -180,6 +213,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         formatMessage,
       }),
       eventId: generateFilters({ config: eventIdConfig, searchConfig, formatMessage }),
+      fieldNumber: generateFilters({ config: fieldNumberConfig, searchConfig, formatMessage }),
 
       isInCluster: generateFilters({ config: isInClusterConfig, searchConfig, formatMessage }),
       isSequenced: generateFilters({ config: isSequencedConfig, searchConfig, formatMessage }),
@@ -236,7 +270,68 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       geometry: generateFilters({ config: locationConfig, searchConfig, formatMessage }),
 
       eventDate: generateFilters({ config: eventDateConfig, searchConfig, formatMessage }),
+      taxonId: generateFilters({ config: taxonIdConfig, searchConfig, formatMessage }),
+      islandGroup: generateFilters({ config: islandGroupConfig, searchConfig, formatMessage }),
+      island: generateFilters({ config: islandConfig, searchConfig, formatMessage }),
+      programme: generateFilters({ config: programmeConfig, searchConfig, formatMessage }),
+      datasetName: generateFilters({ config: datasetNameConfig, searchConfig, formatMessage }),
+      gbifRegion: generateFilters({ config: gbifRegionConfig, searchConfig, formatMessage }),
+      gbifId: generateFilters({ config: gbifIdConfig, searchConfig, formatMessage }),
+      endDayOfYear: generateFilters({ config: endDayOfYearConfig, searchConfig, formatMessage }),
+      startDayOfYear: generateFilters({
+        config: startDayOfYearConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      organismQuantityType: generateFilters({
+        config: organismQuantityTypeConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      pathway: generateFilters({ config: pathwayConfig, searchConfig, formatMessage }),
+      previousIdentifications: generateFilters({
+        config: previousIdentificationsConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      associatedSequences: generateFilters({
+        config: associatedSequencesConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      degreeOfEstablishment: generateFilters({
+        config: degreeOfEstablishmentConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      lastInterpreted: generateFilters({
+        config: lastInterpretedConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      publishedByGbifRegion: generateFilters({
+        config: publishedByGbifRegionConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      georeferencedBy: generateFilters({
+        config: georeferencedByConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      repatriated: generateFilters({ config: repatriatedConfig, searchConfig, formatMessage }),
+      distanceFromCentroidInMeters: generateFilters({
+        config: distanceFromCentroidInMetersConfig,
+        searchConfig,
+        formatMessage,
+      }),
     };
+
+    // if window object is available then put the available filter keys in an global object for manager to use
+    if (typeof window !== 'undefined') {
+      window.gbif = window.gbif || {};
+      window.gbif.availableFilters = Object.keys(tmpFilters);
+    }
     return tmpFilters;
   }, [searchConfig, countrySuggest, formatMessage]);
 

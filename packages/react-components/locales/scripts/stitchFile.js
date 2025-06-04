@@ -94,7 +94,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         identifierType: getFile(locale, `../${folder}/${locale}/enums/identifierType`),
         yesNo: getFile(locale, `../${folder}/${locale}/enums/yesNo`),
         threatStatus: getFile(locale, `../${folder}/${locale}/enums/threatStatus`),
-        region: getFile(locale, `../${folder}/${locale}/enums/gbifRegion`).gbifRegion,
+        gbifRegion: getFile(locale, `../${folder}/${locale}/enums/gbifRegion`).gbifRegion,
         iucnRedListCategory: getFile(locale, `../${folder}/${locale}/enums/iucnRedListCategory`),
         relevance: getFile(locale, `../${folder}/${locale}/enums/relevance`),
         topics: getFile(locale, `../${folder}/${locale}/enums/topics`),

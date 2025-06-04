@@ -90,6 +90,51 @@
     "count": "{num, plural, one { event date } other {# event dates}}",
     "description": "When was the record collected or observed."
   },
+  "gbifId": {
+    "name": "GBIF ID",
+    "count": "{num, plural, one { GBIF ID } other {# GBIF IDs}}",
+    "description": "The unique identifier for the record in the GBIF database."
+  },
+  "organismQuantityType": {
+    "name": "Organism quantity type",
+    "count": "{num, plural, one { organism quantity type } other {# organism quantity types}}",
+    "description": "The type of measurement for the \"organism quantity\"."
+  },
+  "pathway": {
+    "name": "Pathway",
+    "count": "{num, plural, one { pathway } other {# pathways}}",
+    "description": "The pathway by which the organism was introduced to a given place at a given time."
+  },
+  "associatedSequences": {
+    "name": "Associated sequences",
+    "count": "{num, plural, one { associated sequence } other {# associated sequences}}",
+    "description": "An identifier to any sequences associated with the record. Typically a URL."
+  },
+  "degreeOfEstablishment": {
+    "name": "Degree of establishment",
+    "count": "{num, plural, one { degree of establishment } other {# degrees of establishment}}",
+    "description": "The degree to which the organism is established in the environment."
+  },
+  "endDayOfYear": {
+    "name": "End day of year",
+    "count": "{num, plural, one { end day of year } other {# end days of year}}",
+    "description": "The day of the year on which the event ended."
+  },
+  "startDayOfYear": {
+    "name": "Start day of year",
+    "count": "{num, plural, one { start day of year } other {# start days of year}}",
+    "description": "The day of the year on which the event started."
+  },
+  "previousIdentifications": {
+    "name": "Previous identifications",
+    "count": "{num, plural, one { previous identification } other {# previous identifications}}",
+    "description": "Previous taxon identifications associated with the record."
+  },
+  "lastInterpreted": {
+    "name": "Last interpreted",
+    "count": "{num, plural, one { last interpreted } other {# last interpreted}}",
+    "description": "When was the record last interpreted."
+  },
   "alternativeCode": {
     "name": "Alternative code",
     "count": "{num, plural, one { Alternative code } other {# Alternative codes}}",
@@ -171,6 +216,11 @@
     "name": "Preparations",
     "count": "{num, plural, one {preparations} other {# preparationss}}",
     "description": "How the specimen has been prepared. E.g. dried."
+  },
+  "repatriated": {
+    "name": "Repatriated",
+    "count": "{num, plural, one {repatriated} other {# repatriated}}",
+    "description": "Whether the record has been repatriated to the country of origin."
   },
   "publishingCountryCode": {
     "name": "Publishing country",
@@ -260,6 +310,11 @@
     "count": "{num, plural, one {Coordinate uncertainty} other {# coordinate uncertainty filters}}",
     "description": "A measure of the minimum distance in meters from a coordinate within which a locality might be interpreted to be."
   },
+  "distanceFromCentroidInMeters": {
+    "name": "Distance from centroid in metres",
+    "count": "{num, plural, one {Distance from centroid} other {# distance from centroid filters}}",
+    "description": "The distance in meters from the country centroid."
+  },
   "depth": {
     "name": "Depth",
     "count": "{num, plural, one { Depth } other {# Depths}}",
@@ -300,10 +355,55 @@
     "count": "{num, plural, one { establishment means } other {# establishment means}}",
     "description": "The means by which the organism was introduced to a given place at a given time."
   },
+  "sex": {
+    "name": "Sex",
+    "count": "{num, plural, one { sex } other {# sexes}}",
+    "description": "What sex the organism was."
+  },
+  "lifeStage": {
+    "name": "Life stage",
+    "count": "{num, plural, one { life stage } other {# life stages}}",
+    "description": "What life stage the organism was in."
+  },
   "recordedBy": {
     "name": "Recorded by",
     "count": "{num, plural, one { recorded by } other {# recorded bys}}",
     "description": "The names of the people, groups, or organizations responsible for recording the original Occurrence."
+  },
+  "fieldNumber": {
+    "name": "Field number",
+    "count": "{num, plural, one { field number } other {# field numbers}}",
+    "description": "The identifier assigned to the location by the collector."
+  },
+  "verbatimTaxonId": {
+    "name": "Verbatim taxon ID",
+    "count": "{num, plural, one { verbatim taxon ID } other {# verbatim taxon IDs}}",
+    "description": "The taxon identifier as provided by publisher."
+  },
+  "islandGroup": {
+    "name": "Island group",
+    "count": "{num, plural, one { island group } other {# island groups}}",
+    "description": "The name of the island group in which the location occurs."
+  },
+  "island": {
+    "name": "Island",
+    "count": "{num, plural, one { island } other {# islands}}",
+    "description": "The name of the island in which the location occurs."
+  },
+  "georeferencedBy": {
+    "name": "Georeferenced by",
+    "count": "{num, plural, one { georeferenced by } other {# georeferenced bys}}",
+    "description": "The names of the people, groups, or organizations responsible for georeferencing the original Occurrence."
+  },
+  "datasetName": {
+    "name": "Dataset name",
+    "count": "{num, plural, one { dataset name } other {# dataset names}}",
+    "description": "The name of the dataset used by the publisher. Records in a dataset might come from multiple other datasets."
+  },
+  "programme": {
+    "name": "Programme",
+    "count": "{num, plural, one { programme } other {# programmes}}",
+    "description": "The name of the programme in which the record is published."
   },
   "recordNumber": {
     "name": "Record number",
@@ -359,6 +459,16 @@
     "name": "State province",
     "count": "{num, plural, one { state province } other {# state provinces}}",
     "description": "The name of the next smaller administrative region than country in which the Location occurs."
+  },
+  "gbifRegion": {
+    "name": "GBIF region",
+    "count": "{num, plural, one { GBIF region } other {# GBIF regions}}",
+    "description": "The name of the GBIF region in which the Location occurs."
+  },
+  "publishedByGbifRegion": {
+    "name": "Published by GBIF region",
+    "count": "{num, plural, one { GBIF region } other {# GBIF regions}}",
+    "description": "The name of the GBIF region in which the dataset is published."
   },
   "eventId": {
     "name": "Event ID",

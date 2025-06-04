@@ -142,7 +142,6 @@ const typeDef = gql`
     collectionCode: Long!
     institutionCode: Long!
     networkKey: Long!
-    programme: Long!
     taxonKey: Long!
     classKey: Long!
     familyKey: Long!
@@ -162,12 +161,23 @@ const typeDef = gql`
     mediaType: Long!
     protocol: Long!
     typeStatus: Long!
+    fieldNumber: Long!
     repatriated: Long!
     gadmGid: Long!
     projectId: Long!
     higherGeography: Long!
     isSequenced: Long!
     sex: Long!
+    pathway: Long!
+    degreeOfEstablishment: Long!
+    islandGroup: Long!
+    island: Long!
+    georeferencedBy: Long!
+    datasetName: Long!
+    programme: Long!
+    publishedByGbifRegion: Long!
+    gbifRegion: Long!
+    organismQuantityType: Long!
   }
 
   type OccurrenceHistogram {
@@ -224,6 +234,7 @@ const typeDef = gql`
     ): [OccurrenceFacetResult_string]
     dwcaExtension(size: Int, from: Int): [OccurrenceFacetResult_string]
     eventId(size: Int, from: Int): [OccurrenceFacetResult_string]
+    fieldNumber(size: Int, from: Int): [OccurrenceFacetResult_string]
     higherGeography(size: Int, from: Int): [OccurrenceFacetResult_string]
     id(size: Int, from: Int): [OccurrenceFacetResult_string]
     institutionCode(size: Int, from: Int): [OccurrenceFacetResult_string]
@@ -243,7 +254,6 @@ const typeDef = gql`
       from: Int
       include: String
     ): [OccurrenceFacetResult_string]
-    programme(size: Int, from: Int): [OccurrenceFacetResult_string]
     projectId(size: Int, from: Int): [OccurrenceFacetResult_string]
     protocol(size: Int, from: Int): [OccurrenceFacetResult_string]
     publishingCountry(size: Int, from: Int): [OccurrenceFacetResult_string]
@@ -251,6 +261,11 @@ const typeDef = gql`
     sampleSizeUnit(size: Int, from: Int): [OccurrenceFacetResult_string]
     samplingProtocol(size: Int, from: Int): [OccurrenceFacetResult_string]
     sex(size: Int, from: Int): [OccurrenceFacetResult_sex]
+    pathway(size: Int, from: Int): [OccurrenceFacetResult_pathway]
+    degreeOfEstablishment(
+      size: Int
+      from: Int
+    ): [OccurrenceFacetResult_degreeOfEstablishment]
     stateProvince(size: Int, from: Int): [OccurrenceFacetResult_string]
     typeStatus(size: Int, from: Int): [OccurrenceFacetResult_typeStatus]
     typifiedName(size: Int, from: Int): [OccurrenceFacetResult_string]
@@ -258,6 +273,14 @@ const typeDef = gql`
     agentIds_type(size: Int, from: Int): [OccurrenceFacetResult_string]
     agentIds_value(size: Int, from: Int): [OccurrenceFacetResult_string]
     datasetId(size: Int, from: Int): [OccurrenceFacetResult_string]
+    islandGroup(size: Int, from: Int): [OccurrenceFacetResult_string]
+    island(size: Int, from: Int): [OccurrenceFacetResult_string]
+    georeferencedBy(size: Int, from: Int): [OccurrenceFacetResult_string]
+    datasetName(size: Int, from: Int): [OccurrenceFacetResult_string]
+    programme(size: Int, from: Int): [OccurrenceFacetResult_string]
+    gbifRegion(size: Int, from: Int): [OccurrenceFacetResult_string]
+    publishedByGbifRegion(size: Int, from: Int): [OccurrenceFacetResult_string]
+
     gbifClassification_classificationPath(
       size: Int
       from: Int
@@ -514,6 +537,22 @@ const typeDef = gql`
   }
 
   type OccurrenceFacetResult_sex {
+    key: String!
+    count: Long!
+    concept: VocabularyConcept
+    occurrences(size: Int, from: Int): OccurrenceSearchResult!
+    _predicate: JSON
+  }
+
+  type OccurrenceFacetResult_pathway {
+    key: String!
+    count: Long!
+    concept: VocabularyConcept
+    occurrences(size: Int, from: Int): OccurrenceSearchResult!
+    _predicate: JSON
+  }
+
+  type OccurrenceFacetResult_degreeOfEstablishment {
     key: String!
     count: Long!
     concept: VocabularyConcept

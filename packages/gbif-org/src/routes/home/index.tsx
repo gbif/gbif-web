@@ -1,20 +1,20 @@
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ClientSideOnly } from '@/components/clientSideOnly';
+import { MapWidget } from '@/components/maps/mapWidget';
 import { HomePageQuery, HomePageQueryVariables } from '@/gql/graphql';
 import { DynamicLink, LoaderArgs, RouteObjectWithPlugins, useI18n } from '@/reactRouterPlugins';
+import { DynamicLinkProps, useDynamicNavigate } from '@/reactRouterPlugins/dynamicLink';
 import { interopDefault } from '@/utils/interopDefault';
+import { cn } from '@/utils/shadcn';
 import React, { useEffect, useState } from 'react';
+import { MdSearch } from 'react-icons/md';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Link, useLoaderData } from 'react-router-dom';
 import _useLocalStorage from 'use-local-storage';
-import { MapWidget } from '@/components/maps/mapWidget';
 import { ArticleTextContainer } from '../resource/key/components/articleTextContainer';
 import { PageContainer } from '../resource/key/components/pageContainer';
 import { BlockItem } from '../resource/key/composition/blockItem';
 import { HomePageCounts } from './counts';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { DynamicLinkProps, useDynamicNavigate } from '@/reactRouterPlugins/dynamicLink';
-import { cn } from '@/utils/shadcn';
-import { MdSearch } from 'react-icons/md';
 // Used to import commonjs module as es6 module
 const useLocalStorage = interopDefault(_useLocalStorage);
 
@@ -51,7 +51,7 @@ function HomePage(): React.ReactElement {
 
   return (
     <ErrorBoundary>
-      <main className="">
+      <div className="">
         {/* A background image with title and a search bar */}
         <section className="g-relative">
           <div
@@ -118,7 +118,7 @@ function HomePage(): React.ReactElement {
 
         {/* It might make sense to only render this component if the user scrolls close to it */}
         <MapWidget />
-      </main>
+      </div>
     </ErrorBoundary>
   );
 }

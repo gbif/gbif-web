@@ -142,7 +142,7 @@ export function ErrorComponent({
         )}
       </div>
       {error?.stack && showStack && (
-        <div className="g-max-w-full g-flex g-flex-col g-text-start g-max-h-96 h-overflow-auto g-p-2 g-bg-slate-50 g-border g-rounded">
+        <div className="g-max-w-full g-flex g-flex-col g-text-start g-max-h-96 h-overflow-auto g-p-2 g-bg-slate-50 g-border g-border-solid g-rounded">
           <h4 className="g-my-4">
             {error?.message || (
               <FormattedMessage id="error.unknown" defaultMessage="Unknown error" />
@@ -184,9 +184,9 @@ function generateGithubIssueBody(error: Error, title?: string, additionalInfo?: 
 \n\n\`\`\`
 **Error message for diagnostics:**
 ${title ?? 'Unknown error'}
-${error.message ?? 'No message'}
+${error?.message ?? 'No message'}
 
-${error.stack || 'No stack trace available'}
+${error?.stack || 'No stack trace available'}
 \`\`\`
 
 **Additional Info:**

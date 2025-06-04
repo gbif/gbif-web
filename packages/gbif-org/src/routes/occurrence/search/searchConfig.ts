@@ -56,6 +56,26 @@ const config: FilterConfigType = {
         supportedTypes: ['range', 'equals'],
       },
     },
+    lastInterpreted: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
+    distanceFromCentroidInMeters: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
+    endDayOfYear: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
+    startDayOfYear: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
   },
 };
 
@@ -72,6 +92,8 @@ const otherParams = [
   'datasetKey',
 
   'establishmentMeans',
+  'sex',
+  'lifeStage',
 
   'institutionCode',
   'collectionCode',
@@ -96,9 +118,12 @@ const otherParams = [
   'organismId',
   'higherGeography',
   'eventId',
+  'fieldNumber',
+  'taxonId',
 
   'isInCluster',
   'isSequenced',
+  'repatriated',
 
   'recordedBy',
   'identifiedBy',
@@ -113,9 +138,27 @@ const otherParams = [
   'verbatimScientificName',
   'datasetId',
 
+  'islandGroup',
+  'island',
+  'georeferencedBy',
+  'datasetName',
+  'programme',
+  'gbifRegion',
+  'publishedByGbifRegion',
+
   'geometry',
   'hasCoordinate',
   'hasGeospatialIssue',
+  'distanceFromCentroidInMeters',
+  'lastInterpreted',
+  'pathway',
+  'degreeOfEstablishment',
+  'associatedSequences',
+  'previousIdentifications',
+  'organismQuantityType',
+  'endDayOfYear',
+  'startDayOfYear',
+  'gbifId',
 ];
 
 otherParams.forEach((filter) => {

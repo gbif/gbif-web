@@ -152,7 +152,7 @@ export function DatasetKeyProject() {
         </SidebarLayout>
         {removeSidebar && (
           <Popover>
-            <PopoverTrigger className="g-sticky g-bottom-4 g-float-end -g-me-2 g-bg-white g-rounded g-p-2 g-shadow-md g-cursor-pointer g-z-50 g-border g-border-slate-200">
+            <PopoverTrigger className="g-sticky g-bottom-4 g-float-end -g-me-2 g-bg-white g-rounded g-p-2 g-shadow-md g-cursor-pointer g-z-50 g-border g-border-solid g-border-slate-200">
               <MdMenu className="" />
             </PopoverTrigger>
             <PopoverContent>

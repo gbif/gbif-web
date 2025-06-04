@@ -94,11 +94,11 @@ export const gbifConfig: Config = {
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: languagesOptions,
   theme: {
+    dense: true,
     primary: '#4787fb', //'#69AA69',
-    // primary: '#69AA69',
     stickyOffset: '0px',
     borderRadius: 3,
-    // mapDensityColors: ['#ffd300', '#f4b456', '#e9928a', '#d96cc1', '#b93bff'],
+    linkColor: '#4787fb',
   },
   dataHeader: {
     enableApiPopup: true,
@@ -205,17 +205,47 @@ export const gbifConfig: Config = {
     mapSettings: {
       userLocationEnabled: false,
     },
+    excludedFilters: [],
     highlightedFilters: [
-      // 'occurrenceStatus',
-      'taxonKey',
-      'year',
-      'country',
-      // 'occurrenceIssue',
-      'geometry',
-      'recordedBy',
+      'q',
+      // 'taxonKey',
+      // 'year',
+      // 'country',
+      // // 'occurrenceIssue',
+      // 'geometry',
+      // 'recordedBy',
     ],
+    // defaultEnabledTableColumns: [
+    //   'features',
+    //   'specimenTriplet',
+    //   'commonName',
+    //   'institutionCode',
+    //   'collectionCode',
+    //   'catalogNumber',
+    //   'locality',
+    //   'recordedBy',
+    //   'sex',
+    //   'eventDate',
+    //   'coordinates',
+    //   'media',
+    // ],
     tabs: ['table', 'gallery', 'map', 'clusters', 'datasets', 'dashboard', 'download'],
     defaultTab: 'table',
+    // scope: {
+    //   type: 'and',
+    //   predicates: [
+    //     {
+    //       type: 'equals',
+    //       key: 'networkKey',
+    //       value: '99d66b6c-9087-452f-a9d4-f15f2c2d0e7e',
+    //     },
+    //     {
+    //       type: 'equals',
+    //       key: 'taxonKey',
+    //       value: '44',
+    //     },
+    //   ],
+    // },
   },
   // messages: {
   //   en: { 'filters.taxonKey.name': 'hallo' },

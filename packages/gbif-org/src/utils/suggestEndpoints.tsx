@@ -477,6 +477,8 @@ export const establishmentMeansSuggest = vocabularySuggest('EstablishmentMeans')
 export const institutionDisciplineSuggest = vocabularySuggest('Discipline');
 export const institutionTypeSuggest = vocabularySuggest('InstitutionType');
 export const preservationTypeSuggest = vocabularySuggest('PreservationType');
+export const pathwaySuggest = vocabularySuggest('Pathway');
+export const degreeOfEstablishmentSuggest = vocabularySuggest('DegreeOfEstablishment');
 export const collectionContentTypeSuggest = vocabularySuggest('CollectionContentType');
 export const typeStatusSuggest = vocabularySuggest('TypeStatus');
 

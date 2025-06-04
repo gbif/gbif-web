@@ -54,7 +54,10 @@ export function TaxonSearchPageInner(): React.ReactElement {
             defaultView={defaultView}
             tabs={searchContext.tabs}
           />
-          <div className={cn('g-border-b g-py-2 g-px-2 g-bg-paperBackground')} role="search">
+          <div
+            className={cn('g-border-b g-border-solid g-py-2 g-px-2 g-bg-paperBackground')}
+            role="search"
+          >
             <FilterButtons filters={visibleFilters} searchContext={searchContext} />
           </div>
         </Card>

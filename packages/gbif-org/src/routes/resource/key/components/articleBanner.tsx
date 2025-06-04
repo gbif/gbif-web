@@ -64,7 +64,7 @@ export function ArticleBanner({ className, image, testId }: Props) {
             data-cy={testId}
             src={mobile}
             alt={image?.description ?? 'No image description provided'}
-            className="g-rounded-md g-bg-slate-200 g-border g-border-slate-100"
+            className="g-rounded-md g-bg-slate-200 g-border g-border-solid g-border-slate-100"
             width="800"
             height="400"
           />

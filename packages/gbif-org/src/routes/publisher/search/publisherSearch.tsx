@@ -43,6 +43,7 @@ import { searchConfig } from './searchConfig';
 const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
   query PublisherSearch(
     $country: Country
+    $networkKey: ID
     $q: String
     $isEndorsed: Boolean
     $limit: Int
@@ -51,6 +52,7 @@ const PUBLISHER_SEARCH_QUERY = /* GraphQL */ `
     list: organizationSearch(
       isEndorsed: $isEndorsed
       country: $country
+      networkKey: $networkKey
       q: $q
       offset: $offset
       limit: $limit
@@ -309,7 +311,7 @@ function Results({
               !!geojson?.features?.length &&
               geojson?.features?.length > 0 && (
                 <div className="g-relative">
-                  <div className="g-absolute g-top-0 g-start-0 g-text-xs g-border g-rounded g-z-10 g-bg-slate-100 g-text-slate-800 g-py-0 g-px-1 g-m-2">
+                  <div className="g-absolute g-top-0 g-start-0 g-text-xs g-border g-border-solid g-rounded g-z-10 g-bg-slate-100 g-text-slate-800 g-py-0 g-px-1 g-m-2">
                     <FormattedMessage
                       id="counts.nResultsWithCoordinates"
                       values={{ total: geojson.features.length ?? 0 }}

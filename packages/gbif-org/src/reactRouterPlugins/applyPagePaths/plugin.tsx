@@ -1,4 +1,5 @@
 import { Config, PageConfig } from '@/config/config';
+import { RootErrorPage } from '@/routes/rootErrorPage';
 import { createContext } from 'react';
 import { Outlet } from 'react-router-dom';
 import { RouteObjectWithPlugins } from '..';
@@ -22,6 +23,7 @@ export function applyPagePathsPlugin(
       description: 'Apply custom paths and provide a context with page paths',
       // The disabledRoutes object will be modified by the addRedirectToLoader function
       children: modifiedRoutes,
+      errorElement: <RootErrorPage />,
       element: (
         <PageContext.Provider value={pages}>
           <Outlet />

@@ -14,7 +14,6 @@ import {
 } from 'react-icons/md';
 import { PiEmptyBold } from 'react-icons/pi';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
-import StripeLoader from '../stripeLoader';
 import { AboutButton } from './aboutButton';
 import {
   AdditionalFilterProps,
@@ -269,7 +268,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                 ref={ref}
                 onSelect={(item) => add(filterHandle, item.key, useNegations)}
                 className={cn(
-                  'g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset'
+                  'g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border g-border-solid focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset'
                 )}
                 selected={selected}
                 getSuggestions={suggestConfig.getSuggestions}
@@ -286,7 +285,7 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 placeholder={formatMessage({ id: 'search.placeholders.default' })}
-                className="g-text-sm g-w-full g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset"
+                className="g-text-sm g-w-full g-border-slate-100 g-py-1 g-px-4 g-rounded g-bg-slate-50 g-border g-border-solid focus-within:g-ring-2 focus-within:g-ring-blue-400/70 focus-within:g-ring-offset-0 g-ring-inset"
                 onKeyDown={(e) => {
                   // if user press enter, then update the value
                   if (e.key === 'Enter') {
@@ -368,7 +367,6 @@ export const SuggestFilter = React.forwardRef<HTMLInputElement, SuggestProps>(
           >
             {facetSuggestions && facetSuggestions.length > 0 && (
               <div className={cn(selected.length > 0 && 'g-border-t')}>
-                <StripeLoader active={facetLoading} />
                 <div className="g-p-2 g-pt-2 g-px-4">
                   {/* <div className={cn('g-flex g-text-sm g-text-slate-400 g-mt-1 g-mb-2 g-items-center')}>
               <h4 className="g-text-xs g-font-bold g-text-slate-400 g-mb-1">Suggestions</h4>

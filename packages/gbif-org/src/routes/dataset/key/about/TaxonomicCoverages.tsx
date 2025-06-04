@@ -61,7 +61,7 @@ function CoverageItem({ item, previousItem }) {
     <>
       {/* Assuming that taxa is ordered by rank, then a simple way to add some ordering is to add a line break when rank changes */}
       {previousItem && previousItem?.rank?.interpreted !== item?.rank?.interpreted && <br />}
-      <span className="g-m-1 g-p-1 g-px-2 g-border g-inline-block g-bg-slate-50">
+      <span className="g-m-1 g-p-1 g-px-2 g-border g-border-solid g-inline-block g-bg-slate-50">
         <span>{item.scientificName}</span>
         {item.commonName && <span className="g-text-slate-500 g-ms-2">{item.commonName}</span>}
       </span>

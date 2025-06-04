@@ -2,10 +2,13 @@ import {
   CoordinateUncertaintyLabel,
   DateLabel,
   DepthLabel,
+  distanceFromCentroidInMetersLabel,
   ElevationLabel,
+  EndDayOfYearLabel,
   OrganismQuantityLabel,
   RelativeOrganismQuantityLabel,
   SampleSizeValueLabel,
+  StartDayOfYearLabel,
   YearLabel,
 } from '@/components/filters/displayNames';
 import {
@@ -32,6 +35,15 @@ export const coordinateUncertaintyConfig: filterRangeConfig = {
   displayName: CoordinateUncertaintyLabel,
   filterTranslation: 'filters.coordinateUncertainty.name',
   about: () => <Message id="filters.coordinateUncertainty.description" />,
+  group: 'location',
+};
+
+export const distanceFromCentroidInMetersConfig: filterRangeConfig = {
+  filterType: filterConfigTypes.RANGE,
+  filterHandle: 'distanceFromCentroidInMeters',
+  displayName: distanceFromCentroidInMetersLabel,
+  filterTranslation: 'filters.distanceFromCentroidInMeters.name',
+  about: () => <Message id="filters.distanceFromCentroidInMeters.description" />,
   group: 'location',
 };
 
@@ -80,6 +92,24 @@ export const elevationConfig: filterRangeConfig = {
   group: 'location',
 };
 
+export const startDayOfYearConfig: filterRangeConfig = {
+  filterType: filterConfigTypes.RANGE,
+  filterHandle: 'startDayOfYear',
+  displayName: StartDayOfYearLabel,
+  filterTranslation: 'filters.startDayOfYear.name',
+  about: () => <Message id="filters.startDayOfYear.description" />,
+  group: 'event',
+};
+
+export const endDayOfYearConfig: filterRangeConfig = {
+  filterType: filterConfigTypes.RANGE,
+  filterHandle: 'endDayOfYear',
+  displayName: EndDayOfYearLabel,
+  filterTranslation: 'filters.endDayOfYear.name',
+  about: () => <Message id="filters.endDayOfYear.description" />,
+  group: 'event',
+};
+
 // date ranges
 export const eventDateConfig: filterDateRangeConfig = {
   filterType: filterConfigTypes.DATE_RANGE,
@@ -88,4 +118,13 @@ export const eventDateConfig: filterDateRangeConfig = {
   filterTranslation: 'filters.eventDate.name',
   about: () => <Message id="filters.eventDate.description" />,
   group: 'event',
+};
+
+export const lastInterpretedConfig: filterDateRangeConfig = {
+  filterType: filterConfigTypes.DATE_RANGE,
+  filterHandle: 'lastInterpreted',
+  displayName: DateLabel,
+  filterTranslation: 'filters.lastInterpreted.name',
+  about: () => <Message id="filters.lastInterpreted.description" />,
+  group: 'other',
 };

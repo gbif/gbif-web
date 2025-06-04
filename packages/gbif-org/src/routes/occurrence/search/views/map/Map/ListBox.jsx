@@ -86,12 +86,12 @@ function ListBox({ className, labelMap, onCloseRequest, onClick, data, error, lo
     <section {...props} className={cn('g-flex g-flex-col g-bg-white g-border', className)}>
       <header className="g-flex g-flex-col g-flex-none g-border-b g-text-sm g-font-bold g-px-2 g-py-1">
         <div className="g-flex g-flex-row g-items-center">
-          <div className="g-flex-1">
+          <h3 className="g-flex-1">
             <FormattedMessage
               id="counts.nResults"
               values={{ total: data?.occurrenceSearch?.documents.total }}
             />
-          </div>
+          </h3>
           <div className="g-flex-0">
             <Button variant="outline" onClick={onCloseRequest}>
               <FormattedMessage id="phrases.close" />
@@ -99,7 +99,7 @@ function ListBox({ className, labelMap, onCloseRequest, onClick, data, error, lo
           </div>
         </div>
       </header>
-      <main className="g-flex-1 g-overflow-auto gbif-small-scrollbar">{content}</main>
+      <div className="g-flex-1 g-overflow-auto gbif-small-scrollbar">{content}</div>
     </section>
   );
 }

@@ -300,7 +300,22 @@
     "count": "",
     "description": ""
   },
+  "sex": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lifeStage": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "recordedBy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "fieldNumber": {
     "name": "",
     "count": "",
     "description": ""

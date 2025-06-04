@@ -107,12 +107,15 @@ export const WildcardLabel = ({ id }: { id: string | number | object }) => {
 
 export const YearLabel = rangeOrEqualLabel('intervals.compactTime');
 export const CoordinateUncertaintyLabel = rangeOrEqualLabel('intervals.compactMeters');
+export const distanceFromCentroidInMetersLabel = rangeOrEqualLabel('intervals.compactMeters');
 export const DepthLabel = rangeOrEqualLabel('intervals.compactMeters');
 export const ElevationLabel = rangeOrEqualLabel('intervals.compactMeters');
 export const QuantityLabel = rangeOrEqualLabel('intervals.description');
 export const OrganismQuantityLabel = rangeOrEqualLabel('intervals.description');
 export const SampleSizeValueLabel = rangeOrEqualLabel('intervals.description');
 export const RelativeOrganismQuantityLabel = rangeOrEqualLabel('intervals.description');
+export const StartDayOfYearLabel = rangeOrEqualLabel('intervals.description');
+export const EndDayOfYearLabel = rangeOrEqualLabel('intervals.description');
 export const DateLabel = rangeOrEqualLabel('intervals.compactTime', (value, intl) => {
   const date = new Date(value);
   if (intl) {
@@ -274,6 +277,7 @@ export const BasisOfRecordLabel = getEnumLabel({ template: (id) => `enums.basisO
 export const MediaTypeLabel = getEnumLabel({ template: (id) => `enums.mediaType.${id}` });
 export const MonthLabel = getEnumLabel({ template: (id) => `enums.month.${id}` });
 export const ContinentLabel = getEnumLabel({ template: (id) => `enums.continent.${id}` });
+export const GbifRegionLabel = getEnumLabel({ template: (id) => `enums.gbifRegion.${id}` });
 export const EndpointTypeLabel = getEnumLabel({ template: (id) => `enums.endpointType.${id}` });
 export const DwcaExtensionLabel = getEnumLabel({ template: (id) => `enums.dwcaExtension.${id}` });
 export const TaxonRankLabel = getEnumLabel({ template: (id) => `enums.taxonRank.${id}` });

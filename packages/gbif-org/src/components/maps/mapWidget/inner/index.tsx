@@ -110,7 +110,7 @@ export default function MapWidgetInner({
           'g-hidden': hideLoadingProgress,
         })}
       />
-      <div className="g-flex g-absolute g-bg-white g-z-10 g-border g-m-2 g-top-0 g-end-0 g-items-center">
+      <div className="g-flex g-absolute g-bg-white g-z-10 g-border g-border-solid g-m-2 g-top-0 g-end-0 g-items-center">
         <MapMenuButton
           className="g-h-8 g-w-8"
           onClick={() => {

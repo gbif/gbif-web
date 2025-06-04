@@ -300,10 +300,25 @@
     "count": "{num, plural, one { způsob zavlečení } few {# způsoby zavlečení } many {# způsobů zavlečení } other {# způsobů zavlečení}}",
     "description": "Způsob, jakým se organismus dostal na dané místo v daném čase."
   },
+  "sex": {
+    "name": "Pohlaví",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+  },
+  "lifeStage": {
+    "name": "Životní fáze",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+  },
   "recordedBy": {
     "name": "Zaznamenáno od",
     "count": "{num, plural, one { zaznamenáno od } few {# záznamů od} many {# záznamů od} other {# záznamů od}}",
     "description": "Jména osoby, osob, skupin nebo organizací odpovědných za zaznamenání původní události."
+  },
+  "fieldNumber": {
+    "name": "Číslo pole",
+    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
   },
   "recordNumber": {
     "name": "Číslo záznamu",

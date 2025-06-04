@@ -57,7 +57,10 @@ export function Drawer({
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => !open && close()}>
       <Dialog.Portal>
-        <Dialog.Overlay className="gbif g-fixed g-w-full g-h-dvh g-right-0 g-top-0 g-bg-gray-500 g-transition-all g-z-50 g-bg-opacity-50">
+        <Dialog.Overlay
+          className="gbif g-fixed g-w-full g-h-dvh g-right-0 g-top-0 g-bg-gray-500 g-transition-all g-bg-opacity-50"
+          style={{ zIndex: 'var(--drawerZIndex)' }}
+        >
           <Dialog.Content
             onCloseAutoFocus={onCloseAutoFocus}
             style={{ maxWidth: '95%', width: '1200px' }}

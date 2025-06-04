@@ -32,7 +32,7 @@ export function SearchInput({ placeholder }: SearchInputProps) {
           setSearchQuery(value);
         }}
         placeholder={placeholder}
-        className="g-w-full g-pl-10 g-pr-4 g-py-3 g-rounded-lg g-border g-border-gray-200 focus:g-border-primary-500 focus:g-ring-2 focus:g-ring-primary-200 g-transition-all g-outline-none g-text-lg"
+        className="g-w-full g-pl-10 g-pr-4 g-py-3 g-rounded-lg g-border g-border-solid g-border-gray-200 focus:g-border-primary-500 focus:g-ring-2 focus:g-ring-primary-200 g-transition-all g-outline-none g-text-lg"
       />
     </div>
   );

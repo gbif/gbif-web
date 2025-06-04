@@ -5,6 +5,8 @@ import { ColumnDef, LinkOption, SetAsFilter, SetAsFilterList } from '@/component
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { DropdownMenuCheckboxItem } from '@/components/ui/dropdownMenu';
 import { VocabularyValue } from '@/components/vocabularyValue';
+import { AddFilterEvent } from '@/contexts/filter';
+import { truncate } from '@/utils/truncate';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -51,7 +53,7 @@ export function useOccurrenceColumns({
               <DropdownMenuPortal>
                 <div className="gbif">
                   <DropdownMenuContent
-                    className="g-bg-white g-shadow-blocker g-rounded g-border g-border-slate-200"
+                    className="g-bg-white g-shadow-blocker g-rounded g-border g-border-solid g-border-slate-200"
                     style={{ zIndex: 100 }}
                   >
                     <DropdownMenuCheckboxItem
@@ -120,7 +122,7 @@ export function useOccurrenceColumns({
             isTreament={occurrence.volatile?.features?.isTreament}
             isClustered={occurrence.volatile?.features?.isClustered}
             isSamplingEvent={occurrence.volatile?.features?.isSamplingEvent}
-            issueCount={occurrence?.issues?.length}
+            // issueCount={occurrence?.issues?.length}
           />
         ),
       },
@@ -139,7 +141,7 @@ export function useOccurrenceColumns({
                 </div>
               )}
               <img
-                className="g-rounded g-border g-border-slate-200"
+                className="g-rounded g-border g-border-solid g-border-slate-200"
                 src={occurrence?.primaryImage?.thumbor}
               />
             </div>
@@ -212,9 +214,11 @@ export function useOccurrenceColumns({
         minWidth: 350,
         cell: ({ datasetKey, datasetTitle }) => (
           <InlineLineClamp className="-g-ml-0.5">
-            <SetAsFilter field="datasetKey" value={datasetKey} className="g-ml-0">
-              {datasetTitle}
-            </SetAsFilter>
+            <LinkOption to={`/dataset/${datasetKey}`}>
+              <SetAsFilter field="datasetKey" value={datasetKey}>
+                {datasetTitle}
+              </SetAsFilter>
+            </LinkOption>
           </InlineLineClamp>
         ),
       },
@@ -223,9 +227,11 @@ export function useOccurrenceColumns({
         header: 'filters.publisherKey.name',
         minWidth: 250,
         cell: ({ publishingOrgKey, publisherTitle }) => (
-          <SetAsFilter field="publishingOrg" value={publishingOrgKey}>
-            {publisherTitle}
-          </SetAsFilter>
+          <LinkOption to={`/publisher/${publishingOrgKey}`}>
+            <SetAsFilter field="publishingOrg" value={publishingOrgKey}>
+              {publisherTitle}
+            </SetAsFilter>
+          </LinkOption>
         ),
       },
       {
@@ -293,6 +299,43 @@ export function useOccurrenceColumns({
             <SetAsFilter field="collectionCode" value={collectionCode}>
               {collectionCode}
             </SetAsFilter>
+          );
+        },
+      },
+      {
+        id: 'specimenTriplet',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'institutionCode' },
+        header: 'tableHeaders.specimenTriplet',
+        minWidth: 200,
+        cell: ({ institutionCode, collectionCode, catalogNumber }) => {
+          if (!institutionCode || !collectionCode || !catalogNumber) return null;
+          return (
+            <div>
+              <button
+                onClick={() =>
+                  window.dispatchEvent(new AddFilterEvent('institutionCode', institutionCode))
+                }
+                className="g-me-2 g-pointer-events-auto hover:g-bg-primary-300 hover:g-text-primaryContrast-400 g-box-decoration-clone"
+              >
+                {truncate(institutionCode, 8)}
+              </button>
+              <button
+                onClick={() =>
+                  window.dispatchEvent(new AddFilterEvent('collectionCode', collectionCode))
+                }
+                className="g-me-2 g-pointer-events-auto hover:g-bg-primary-300 hover:g-text-primaryContrast-400 g-box-decoration-clone"
+              >
+                {truncate(collectionCode, 10)}
+              </button>
+              <button
+                onClick={() =>
+                  window.dispatchEvent(new AddFilterEvent('catalogNumber', catalogNumber))
+                }
+                className="g-pointer-events-auto hover:g-bg-primary-300 hover:g-text-primaryContrast-400 g-box-decoration-clone"
+              >
+                {truncate(catalogNumber, 10)}
+              </button>
+            </div>
           );
         },
       },
@@ -395,6 +438,28 @@ export function useOccurrenceColumns({
         ),
       },
       {
+        id: 'fieldNumber',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'fieldNumber' },
+        header: 'occurrenceFieldNames.fieldNumber',
+        minWidth: 200,
+        cell: ({ fieldNumber }) => (
+          <InlineLineClamp className="-g-ml-0.5">
+            <SetAsFilter field="fieldNumber" value={fieldNumber} className="g-ml-0">
+              {fieldNumber}
+            </SetAsFilter>
+          </InlineLineClamp>
+        ),
+      },
+      {
+        id: 'individualCount',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'individualCount' },
+        header: 'occurrenceFieldNames.individualCount',
+        minWidth: 50,
+        cell: ({ individualCount }) => (
+          <InlineLineClamp className="-g-ml-0.5">{individualCount}</InlineLineClamp>
+        ),
+      },
+      {
         id: 'higherGeography',
         minWidth: 350,
         header: 'occurrenceFieldNames.higherGeography',
@@ -426,6 +491,34 @@ export function useOccurrenceColumns({
           return (
             <SetAsFilter field="establishmentMeans" value={establishmentMeans}>
               <VocabularyValue vocabulary="EstablishmentMeans" value={establishmentMeans} />
+            </SetAsFilter>
+          );
+        },
+      },
+      {
+        id: 'sex',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'sex' },
+        header: 'occurrenceFieldNames.sex',
+        cell: ({ sex }) => {
+          if (!sex) return null;
+
+          return (
+            <SetAsFilter field="sex" value={sex}>
+              <VocabularyValue vocabulary="Sex" value={sex} />
+            </SetAsFilter>
+          );
+        },
+      },
+      {
+        id: 'lifeStage',
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'lifeStage' },
+        header: 'occurrenceFieldNames.lifeStage',
+        cell: ({ lifeStage }) => {
+          if (!lifeStage) return null;
+
+          return (
+            <SetAsFilter field="lifeStage" value={lifeStage}>
+              <VocabularyValue vocabulary="LifeStage" value={lifeStage} />
             </SetAsFilter>
           );
         },

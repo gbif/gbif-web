@@ -31,7 +31,7 @@ export function CountryResult({
               src={`https://flagcdn.com/${country.countryCode.toLowerCase()}.svg`}
               alt="Country Flag"
               style={{ width: '48px', height: 'auto' }}
-              className="g-border g-border-slate-200 g-inline-block"
+              className="g-border g-border-solid g-border-slate-200 g-inline-block"
             />
           </DynamicLink>
         </ResultCardHeaderBasic>
