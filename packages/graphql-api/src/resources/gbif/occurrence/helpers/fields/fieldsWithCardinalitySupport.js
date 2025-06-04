@@ -49,7 +49,6 @@ export default [
   'mediaType',
   'repatriated',
   'gadmGid',
-
   'islandGroup',
   'island',
   'georeferencedBy',
@@ -60,4 +59,6 @@ export default [
   'pathway',
   'degreeOfEstablishment',
   'organismQuantityType',
+  'biostratigraphy',
+  'lithostratigraphy',
 ];

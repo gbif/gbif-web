@@ -40,6 +40,15 @@ function convertRangeType(obj) {
   } else if (obj?.type === 'range') {
     const ps = [];
 
+    // if the special case of key === GEOLOGICAL_TIME, then convert it to an equals query as that is all the API supports
+    if (obj.key === 'GEOLOGICAL_TIME' || obj.key === 'geologicalTime') {
+      return {
+        type: 'equals',
+        key: 'GEOLOGICAL_TIME',
+        value: `${obj.value.gte ?? obj.value.gt ?? '*'},${obj.value.lte ?? obj.value.lt ?? '*'}`,
+      };
+    }
+
     types.forEach((type) => {
       const value = obj.value[type.short];
       if (typeof value !== 'undefined') {

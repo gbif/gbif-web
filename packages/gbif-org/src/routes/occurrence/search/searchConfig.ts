@@ -86,6 +86,11 @@ const config: FilterConfigType = {
         supportedTypes: ['range', 'equals'],
       },
     },
+    geologicalTime: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
   },
 };
 
@@ -139,6 +144,9 @@ const otherParams = [
 
   'catalogNumber',
   'preparations',
+  'lithostratigraphy',
+  'biostratigraphy',
+  'geologicalTime',
   'sampleSizeUnit',
   'locality',
   'waterBody',

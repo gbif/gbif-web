@@ -206,6 +206,8 @@ const typeDef = gql`
     publishedByGbifRegion: Long!
     gbifRegion: Long!
     organismQuantityType: Long!
+    biostratigraphy: Long!
+    lithostratigraphy: Long!
   }
 
   type OccurrenceHistogram {
@@ -287,6 +289,17 @@ const typeDef = gql`
       from: Int
       include: String
     ): [OccurrenceFacetResult_string]
+    biostratigraphy(
+      size: Int
+      from: Int
+      include: String
+    ): [OccurrenceFacetResult_string]
+    lithostratigraphy(
+      size: Int
+      from: Int
+      include: String
+    ): [OccurrenceFacetResult_string]
+    programme(size: Int, from: Int): [OccurrenceFacetResult_string]
     projectId(size: Int, from: Int): [OccurrenceFacetResult_string]
     protocol(size: Int, from: Int): [OccurrenceFacetResult_string]
     publishingCountry(size: Int, from: Int): [OccurrenceFacetResult_string]
@@ -310,7 +323,6 @@ const typeDef = gql`
     island(size: Int, from: Int): [OccurrenceFacetResult_string]
     georeferencedBy(size: Int, from: Int): [OccurrenceFacetResult_string]
     datasetName(size: Int, from: Int): [OccurrenceFacetResult_string]
-    programme(size: Int, from: Int): [OccurrenceFacetResult_string]
     gbifRegion(size: Int, from: Int): [OccurrenceFacetResult_string]
     publishedByGbifRegion(size: Int, from: Int): [OccurrenceFacetResult_string]
 

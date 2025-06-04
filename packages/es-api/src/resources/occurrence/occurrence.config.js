@@ -23,6 +23,25 @@ const config = {
       type: 'keyword',
       field: 'basisOfRecord',
     },
+    biostratigraphy: {
+      type: 'keyword',
+      field: 'geologicalContext.biostratigraphy.keyword',
+      suggestField: 'geologicalContext.biostratigraphy.suggest',
+    },
+    lithostratigraphy: {
+      type: 'keyword',
+      field: 'geologicalContext.lithostratigraphy.keyword',
+      suggestField: 'geologicalContext.lithostratigraphy.suggest',
+    },
+    geologicalTime: {
+      type: 'numeric',
+      field: 'geologicalContext.range',
+      get: {
+        type: 'numeric',
+        defaultUpperBound: 'gte',
+        defaultLowerBound: 'lte',
+      },
+    },
     catalogNumber: {
       type: 'keyword',
       field: 'catalogNumber.keyword',
@@ -214,6 +233,10 @@ const config = {
         defaultLowerBound: 'lte',
       },
     },
+    earliestEraOrLowestErathem: {
+      type: 'numeric',
+      field: 'geologicalContext.earliestEraOrLowestErathem.concept',
+    },
     endDayOfYear: {
       type: 'numeric',
       field: 'endDayOfYear',
@@ -329,7 +352,6 @@ const config = {
     institutionCode: {
       type: 'keyword',
       field: 'institutionCode.verbatim',
-      suggestField: 'institutionCode.suggest',
       suggestField: 'institutionCode.suggest',
     },
     institutionKey: {

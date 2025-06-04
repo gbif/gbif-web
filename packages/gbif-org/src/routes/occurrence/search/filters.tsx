@@ -80,12 +80,14 @@ import {
   sexConfig,
 } from './filters/vocabulary';
 import {
+  biostratigraphyConfig,
   catalogNumberConfig,
   datasetIdConfig,
   georeferencedByConfig,
   identifiedByConfig,
   islandConfig,
   islandGroupConfig,
+  lithostratigraphyConfig,
   localityConfig,
   organismQuantityTypeConfig,
   preparationsConfig,
@@ -250,6 +252,21 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
 
       catalogNumber: generateFilters({ config: catalogNumberConfig, searchConfig, formatMessage }),
       preparations: generateFilters({ config: preparationsConfig, searchConfig, formatMessage }),
+      biostratigraphy: generateFilters({
+        config: biostratigraphyConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      lithostratigraphy: generateFilters({
+        config: lithostratigraphyConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      // geologicalTime: generateFilters({
+      //   config: geologicalTimeConfig,
+      //   searchConfig,
+      //   formatMessage,
+      // }),
       sampleSizeUnit: generateFilters({
         config: sampleSizeUnitConfig,
         searchConfig,

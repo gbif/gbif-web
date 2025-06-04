@@ -94,7 +94,6 @@ export default [
   'acceptedUsageKey',
   'usageKey',
   'gadmGid',
-
   'islandGroup',
   'island',
   'georeferencedBy',
@@ -104,4 +103,6 @@ export default [
   'publishedByGbifRegion',
   'pathway',
   'degreeOfEstablishment',
+  'biostratigraphy',
+  'lithostratigraphy',
 ];

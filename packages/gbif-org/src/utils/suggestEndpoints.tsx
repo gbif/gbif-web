@@ -528,13 +528,19 @@ export const pathwaySuggest = vocabularySuggest('Pathway');
 export const degreeOfEstablishmentSuggest = vocabularySuggest('DegreeOfEstablishment');
 export const collectionContentTypeSuggest = vocabularySuggest('CollectionContentType');
 export const typeStatusSuggest = vocabularySuggest('TypeStatus');
+export const geoTimeSuggest = vocabularySuggest('GeoTime');
 
 function vocabularySuggest(vocabularyName: string) {
   return {
-    getSuggestions: ({ q, siteConfig, currentLocale }: SuggestFnProps): SuggestResponseType => {
+    getSuggestions: ({
+      q,
+      limit = 100,
+      siteConfig,
+      currentLocale,
+    }: SuggestFnProps): SuggestResponseType => {
       const vocabularyLocale = currentLocale.vocabularyLocale ?? currentLocale.localeCode ?? 'en';
       const { cancel, promise } = fetchWithCancel(
-        `${siteConfig.v1Endpoint}/vocabularies/${vocabularyName}/concepts?limit=100&q=${q}&lang=${vocabularyLocale}`
+        `${siteConfig.v1Endpoint}/vocabularies/${vocabularyName}/concepts?limit=${limit}&q=${q}&lang=${vocabularyLocale}`
       );
       const result = promise
         .then((res) => res.json())

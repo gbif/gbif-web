@@ -14,6 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n  query vocabularyConcept($language: String, $vocabulary: ID!, $concept: ID!) {\n    concept: vocabularyConcept(vocabulary: $vocabulary, concept: $concept) {\n      uiLabel(language: $language)\n      uiDefinition(language: $language)\n      parents {\n        uiLabel(language: $language)\n      }\n    }\n  }\n": types.VocabularyConceptDocument,
+    "\n  query geoTimeConcepts($language: String) {\n    vocabularyConceptSearch(vocabulary: \"GeoTime\", limit: 200) {\n      results {\n        name\n        parents {\n          uiLabel\n          name\n        }\n        uiLabel(language: $language)\n        uiDefinition(language: $language)\n        tags {\n          name\n        }\n      }\n    }\n  }\n": types.GeoTimeConceptsDocument,
     "\n  query globe($lat: Float!, $lon: Float!) {\n    globe(cLat: $lat, cLon: $lon) {\n      svg\n    }\n  }\n": types.GlobeDocument,
     "\n  query HelpText($identifier: String!, $locale: String) {\n    help(identifier: $identifier, locale: $locale) {\n      id\n      identifier\n      title\n      body\n    }\n  }\n": types.HelpTextDocument,
     "\n  query HelpTitle($identifier: String!, $locale: String) {\n    help(identifier: $identifier, locale: $locale) {\n      id\n      identifier\n      title\n    }\n  }\n": types.HelpTitleDocument,
@@ -220,6 +221,10 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query vocabularyConcept($language: String, $vocabulary: ID!, $concept: ID!) {\n    concept: vocabularyConcept(vocabulary: $vocabulary, concept: $concept) {\n      uiLabel(language: $language)\n      uiDefinition(language: $language)\n      parents {\n        uiLabel(language: $language)\n      }\n    }\n  }\n"): (typeof documents)["\n  query vocabularyConcept($language: String, $vocabulary: ID!, $concept: ID!) {\n    concept: vocabularyConcept(vocabulary: $vocabulary, concept: $concept) {\n      uiLabel(language: $language)\n      uiDefinition(language: $language)\n      parents {\n        uiLabel(language: $language)\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query geoTimeConcepts($language: String) {\n    vocabularyConceptSearch(vocabulary: \"GeoTime\", limit: 200) {\n      results {\n        name\n        parents {\n          uiLabel\n          name\n        }\n        uiLabel(language: $language)\n        uiDefinition(language: $language)\n        tags {\n          name\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query geoTimeConcepts($language: String) {\n    vocabularyConceptSearch(vocabulary: \"GeoTime\", limit: 200) {\n      results {\n        name\n        parents {\n          uiLabel\n          name\n        }\n        uiLabel(language: $language)\n        uiDefinition(language: $language)\n        tags {\n          name\n        }\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

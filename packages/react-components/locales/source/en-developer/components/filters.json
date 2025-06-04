@@ -80,6 +80,21 @@
     "count": "{num, plural, one { audience } other {# audiences}}",
     "description": "Who are the audiences for the resource."
   },
+  "biostratigraphy": {
+    "name": "Biostratigraphy",
+    "count": "{num, plural, one { biostratigraphy } other {# biostratigraphies}}",
+    "description": "The biostratigraphic context of the record."
+  },
+  "lithostratigraphy": {
+    "name": "Lithostratigraphy",
+    "count": "{num, plural, one { lithostratigraphy } other {# lithostratigraphies}}",
+    "description": "The lithostratigraphic context of the record."
+  },
+  "geologicalTime": {
+    "name": "Geological time",
+    "count": "{num, plural, one { geological time } other {# geological times}}",
+    "description": "The geological time context of the record."
+  },
   "purposes": {
     "name": "Topic",
     "count": "{num, plural, one { purpose } other {# purposes}}",

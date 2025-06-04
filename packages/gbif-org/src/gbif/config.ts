@@ -213,15 +213,13 @@ export const gbifConfig: Config = {
       userLocationEnabled: false,
     },
     excludedFilters: [],
-    highlightedFilters: [
-      'q',
-      // 'taxonKey',
-      // 'year',
-      // 'country',
-      // // 'occurrenceIssue',
-      // 'geometry',
-      // 'recordedBy',
-    ],
+    // highlightedFilters: [
+    //   // 'occurrenceStatus',
+    //   'taxonKey',
+    //   // 'geologicalTime',
+    //   'biostratigraphy',
+    //   'lithostratigraphy',
+    // ],
     // defaultEnabledTableColumns: [
     //   'features',
     //   'specimenTriplet',
