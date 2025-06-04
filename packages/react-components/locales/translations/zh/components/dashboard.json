@@ -32,6 +32,7 @@
   "group": {
     "views": "",
     "record": "记录",
+    "taxon": "分类群",
     "occurrence": "出现记录",
     "organism": "生物",
     "materialEntity": "",
