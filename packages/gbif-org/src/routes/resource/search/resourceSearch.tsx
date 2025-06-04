@@ -220,6 +220,7 @@ type ResourceSearchResultsProps = {
   offset: number;
   setOffset: (offset: number) => void;
   disableHeaderActionButtons?: boolean;
+  noResultsMessage?: React.ReactNode;
 };
 
 export function ResourceSearchResults({
@@ -231,6 +232,7 @@ export function ResourceSearchResults({
   offset,
   setOffset,
   disableHeaderActionButtons,
+  noResultsMessage,
 }: ResourceSearchResultsProps) {
   if (loading) {
     return (
@@ -250,7 +252,7 @@ export function ResourceSearchResults({
   if (resources.length === 0) {
     return (
       <div className="g-min-h-52 g-flex g-items-center g-justify-center">
-        <FormattedMessage id="resourceSearch.noResults" />
+        {noResultsMessage ?? <FormattedMessage id="resourceSearch.noResults" />}
       </div>
     );
   }
