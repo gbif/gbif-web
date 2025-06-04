@@ -90,6 +90,51 @@
     "count": "أرشيف شروح \"جيبف\"",
     "description": "أرشيف شروح \"جيبف\""
   },
+  "gbifId": {
+    "name": "معرف المرفق العالمي لمعلومات التنوع الحيوي",
+    "count": "",
+    "description": ""
+  },
+  "organismQuantityType": {
+    "name": "نمط كمية المتعضي",
+    "count": "",
+    "description": ""
+  },
+  "pathway": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "associatedSequences": {
+    "name": "تسلسلات مرتبطة",
+    "count": "",
+    "description": ""
+  },
+  "degreeOfEstablishment": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "endDayOfYear": {
+    "name": "يوم الانتهاء للسنة",
+    "count": "",
+    "description": ""
+  },
+  "startDayOfYear": {
+    "name": "يوم البدء للسنة",
+    "count": "",
+    "description": ""
+  },
+  "previousIdentifications": {
+    "name": "تعريفات سابقة",
+    "count": "",
+    "description": ""
+  },
+  "lastInterpreted": {
+    "name": "آخر تأويل",
+    "count": "",
+    "description": ""
+  },
   "alternativeCode": {
     "name": "أرشيف شروح \"جيبف\"",
     "count": "أرشيف شروح \"جيبف\"",
@@ -171,6 +216,11 @@
     "name": "تحضيرات",
     "count": "أرشيف شروح \"جيبف\"",
     "description": "أرشيف شروح \"جيبف\""
+  },
+  "repatriated": {
+    "name": "عائد الى الوطن",
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "بلد او منطقة النشر",
@@ -260,6 +310,11 @@
     "count": "",
     "description": ""
   },
+  "distanceFromCentroidInMeters": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "depth": {
     "name": "العمق",
     "count": "",
@@ -320,6 +375,36 @@
     "count": "",
     "description": ""
   },
+  "verbatimTaxonId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "islandGroup": {
+    "name": "مجموعة الجزر",
+    "count": "",
+    "description": ""
+  },
+  "island": {
+    "name": "الجزيرة",
+    "count": "",
+    "description": ""
+  },
+  "georeferencedBy": {
+    "name": "ذو مرجعية جغرافية بواسطة",
+    "count": "",
+    "description": ""
+  },
+  "datasetName": {
+    "name": "اسم مجموعة البيانات",
+    "count": "",
+    "description": ""
+  },
+  "programme": {
+    "name": "البرنامج",
+    "count": "",
+    "description": ""
+  },
   "recordNumber": {
     "name": "رقم السجل",
     "count": "",
@@ -372,6 +457,16 @@
   },
   "stateProvince": {
     "name": "الولاية/المقاطعة/المحافظة",
+    "count": "",
+    "description": ""
+  },
+  "gbifRegion": {
+    "name": "منطقة \"جبيف\"",
+    "count": "",
+    "description": ""
+  },
+  "publishedByGbifRegion": {
+    "name": "",
     "count": "",
     "description": ""
   },
