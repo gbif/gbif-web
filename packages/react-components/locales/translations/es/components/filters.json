@@ -96,7 +96,7 @@
     "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
   },
   "organismQuantityType": {
-    "name": "Tipo de cantidad de organismos",
+    "name": "Tipo de cantidad del organismo",
     "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
     "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
   },
