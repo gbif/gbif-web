@@ -32,6 +32,7 @@
   "group": {
     "views": "",
     "record": "Záznam",
+    "taxon": "Taxon",
     "occurrence": "Výskyt",
     "organism": "Organismus",
     "materialEntity": "Entita materiálu",

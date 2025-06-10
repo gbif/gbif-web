@@ -90,6 +90,51 @@
     "count": "GBIF 註記的存檔",
     "description": "GBIF 註記的存檔"
   },
+  "gbifId": {
+    "name": "GBIF 識別碼",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+  },
+  "organismQuantityType": {
+    "name": "生物數量類型",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+  },
+  "pathway": {
+    "name": "路徑",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+  },
+  "associatedSequences": {
+    "name": "相關序列",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+  },
+  "degreeOfEstablishment": {
+    "name": "設立程度",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+  },
+  "endDayOfYear": {
+    "name": "結束日序",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+  },
+  "startDayOfYear": {
+    "name": "起始日序",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+  },
+  "previousIdentifications": {
+    "name": "先前的鑑定",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+  },
+  "lastInterpreted": {
+    "name": "上次解釋",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+  },
   "alternativeCode": {
     "name": "GBIF 註記的存檔",
     "count": "GBIF 註記的存檔",
@@ -171,6 +216,11 @@
     "name": "準備",
     "count": "GBIF 註記的存檔",
     "description": "GBIF 註記的存檔"
+  },
+  "repatriated": {
+    "name": "回返的",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
   },
   "publishingCountryCode": {
     "name": "發布國家或地區",
@@ -260,6 +310,11 @@
     "count": "{num, plural, one {未確定座標} other {# 未確定座標}}",
     "description": "距離可能被解釋為某個位置座標的最小距離（以公尺為單位）的量測。"
   },
+  "distanceFromCentroidInMeters": {
+    "name": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+  },
   "depth": {
     "name": "深度",
     "count": "{num, plural,one {深度} other {#深度}}",
@@ -320,6 +375,36 @@
     "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
     "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
   },
+  "verbatimTaxonId": {
+    "name": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+  },
+  "islandGroup": {
+    "name": "島群",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+  },
+  "island": {
+    "name": "島嶼",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+  },
+  "georeferencedBy": {
+    "name": "地理參照：",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+  },
+  "datasetName": {
+    "name": "資料集名稱",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+  },
+  "programme": {
+    "name": "計畫",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+  },
   "recordNumber": {
     "name": "紀錄編號",
     "count": "{num, plural, one{紀錄號碼} other{紀錄號碼}}",
@@ -374,6 +459,16 @@
     "name": "州/省",
     "count": "{num, plural, one {州省} other {#州省}}",
     "description": "比所在國家/地區更小的下一個行政區域的名稱"
+  },
+  "gbifRegion": {
+    "name": "GBIF 地區",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+  },
+  "publishedByGbifRegion": {
+    "name": "",
+    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
   },
   "eventId": {
     "name": "事件識別碼",

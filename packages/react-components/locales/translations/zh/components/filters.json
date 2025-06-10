@@ -90,6 +90,51 @@
     "count": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
     "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
   },
+  "gbifId": {
+    "name": "GBIF ID",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+  },
+  "organismQuantityType": {
+    "name": "生物个体数量类型",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+  },
+  "pathway": {
+    "name": "路径",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+  },
+  "associatedSequences": {
+    "name": "相关序列",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+  },
+  "degreeOfEstablishment": {
+    "name": "设置级别",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+  },
+  "endDayOfYear": {
+    "name": "当年结束日",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+  },
+  "startDayOfYear": {
+    "name": "一年中的开始日",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+  },
+  "previousIdentifications": {
+    "name": "以前的鉴定",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+  },
+  "lastInterpreted": {
+    "name": "最后说明",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+  },
   "alternativeCode": {
     "name": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
     "count": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
@@ -171,6 +216,11 @@
     "name": "准备",
     "count": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
     "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
+  },
+  "repatriated": {
+    "name": "已遣回",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
   },
   "publishingCountryCode": {
     "name": "发布国家",
@@ -260,6 +310,11 @@
     "count": "{num, plural, one {坐标不确定性} other {# 坐标不确定性过滤器}}",
     "description": "距离坐标的最小距离（以米为单位）的度量，在该坐标中可以解释某一地点。"
   },
+  "distanceFromCentroidInMeters": {
+    "name": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+  },
   "depth": {
     "name": "深度",
     "count": "{num, plural, one { 深度 } other {# 深度}}",
@@ -320,6 +375,36 @@
     "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
     "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
   },
+  "verbatimTaxonId": {
+    "name": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+  },
+  "islandGroup": {
+    "name": "岛群",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+  },
+  "island": {
+    "name": "岛屿",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+  },
+  "georeferencedBy": {
+    "name": "确定地理参考者",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+  },
+  "datasetName": {
+    "name": "数据集名称",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+  },
+  "programme": {
+    "name": "方案",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+  },
   "recordNumber": {
     "name": "记录号",
     "count": "{num, plural, one { 记录编号 } other {# 记录编号}}",
@@ -374,6 +459,16 @@
     "name": "州/省",
     "count": "{num, plural, one { 州省 } other {# 州省}}",
     "description": "比该位置所在的国家小的下一个行政区域的名称。"
+  },
+  "gbifRegion": {
+    "name": "GBIF区域",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+  },
+  "publishedByGbifRegion": {
+    "name": "",
+    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
   },
   "eventId": {
     "name": "事件编号",

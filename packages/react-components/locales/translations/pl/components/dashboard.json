@@ -32,6 +32,7 @@
   "group": {
     "views": "",
     "record": "Zapis",
+    "taxon": "Takson",
     "occurrence": "Stwierdzenie",
     "organism": "Organizm",
     "materialEntity": "",

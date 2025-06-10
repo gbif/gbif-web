@@ -32,6 +32,7 @@
   "group": {
     "views": "",
     "record": "記録",
+    "taxon": "分類群",
     "occurrence": "オカレンス",
     "organism": "生物",
     "materialEntity": "",

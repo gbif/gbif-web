@@ -90,6 +90,51 @@
     "count": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
     "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
   },
+  "gbifId": {
+    "name": "",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
+  "organismQuantityType": {
+    "name": "",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
+  "pathway": {
+    "name": "Verbringungsweg",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
+  "associatedSequences": {
+    "name": "",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
+  "degreeOfEstablishment": {
+    "name": "Grad der Etablierung",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
+  "endDayOfYear": {
+    "name": "",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
+  "startDayOfYear": {
+    "name": "",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
+  "previousIdentifications": {
+    "name": "",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
+  "lastInterpreted": {
+    "name": "",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
   "alternativeCode": {
     "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
     "count": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
@@ -171,6 +216,11 @@
     "name": "",
     "count": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
     "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
+  },
+  "repatriated": {
+    "name": "Repatriiert",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
   },
   "publishingCountryCode": {
     "name": "Veröffentlichendes Land",
@@ -260,6 +310,11 @@
     "count": "{num, plural, one {Koordinatenunsicherheitsfilter} other {# Koordinatenunsicherheitsfilter}}",
     "description": "Ein Maß für dem Mindestabstand von einer Koordinate  (in Metern), innerhalb dessen der Fundort liegen könnte."
   },
+  "distanceFromCentroidInMeters": {
+    "name": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
   "depth": {
     "name": "Tiefe",
     "count": "{num, plural, one { Tiefe } other {# Tiefen}}",
@@ -320,6 +375,36 @@
     "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
     "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
   },
+  "verbatimTaxonId": {
+    "name": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
+  "islandGroup": {
+    "name": "",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
+  "island": {
+    "name": "",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
+  "georeferencedBy": {
+    "name": "",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
+  "datasetName": {
+    "name": "",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
+  "programme": {
+    "name": "",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
   "recordNumber": {
     "name": "Sammlernummer",
     "count": "{num, plural, one { Sammlernummer } other {# Sammlernummern}}",
@@ -374,6 +459,16 @@
     "name": "Bundesland/Kanton/Provinz",
     "count": "{num, plural, one { Bundesland/Kanton/Provinz} other {# Bundesländer/Kantone/Provinzen}}",
     "description": "Verwaltungseinheit unterhalb des Landes"
+  },
+  "gbifRegion": {
+    "name": "",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
+  "publishedByGbifRegion": {
+    "name": "",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
   },
   "eventId": {
     "name": "Ereignis-ID",
