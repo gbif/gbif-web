@@ -49,6 +49,7 @@ import {
   elevationConfig,
   endDayOfYearConfig,
   eventDateConfig,
+  geologicalTimeConfig,
   lastInterpretedConfig,
   organismQuantityConfig,
   relativeOrganismQuantityConfig,
@@ -262,11 +263,11 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         searchConfig,
         formatMessage,
       }),
-      // geologicalTime: generateFilters({
-      //   config: geologicalTimeConfig,
-      //   searchConfig,
-      //   formatMessage,
-      // }),
+      geologicalTime: generateFilters({
+        config: geologicalTimeConfig,
+        searchConfig,
+        formatMessage,
+      }),
       sampleSizeUnit: generateFilters({
         config: sampleSizeUnitConfig,
         searchConfig,
