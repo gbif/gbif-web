@@ -56,7 +56,7 @@ export function DataFromCountryMapPresentation({
                 loading={isLoading}
               />
               <MapHeader.Text
-                id="country.counts.occurrences"
+                id="country.counts.publishedOccurrences"
                 values={{
                   NUMBER: fromCountryDetails?.fromOccurrenceCount,
                 }}
@@ -69,7 +69,7 @@ export function DataFromCountryMapPresentation({
             >
               <MapHeader.Count value={fromCountryDetails?.fromDatasetCount} loading={isLoading} />
               <MapHeader.Text
-                id="country.counts.datasets"
+                id="country.counts.publishedDatasets"
                 values={{
                   NUMBER: fromCountryDetails?.fromDatasetCount,
                 }}
@@ -78,15 +78,20 @@ export function DataFromCountryMapPresentation({
 
             <MapHeader.Item>
               <MapHeader.Count value={fromCountryDetails?.fromCountryCount} loading={isLoading} />
-              <MapHeader.Text id="country.counts.countriesAndAreasContributeData" />
+              <MapHeader.Text
+                id="country.counts.countriesAndAreasCoveredByDataFrom"
+                values={{
+                  TRANSLATED_COUNTRY: <FormattedMessage id={`enums.countryCode.${countryCode}`} />,
+                }}
+              />
             </MapHeader.Item>
 
             <MapHeader.Item pageId="publisherSearch" searchParams={{ country: countryCode }}>
               <MapHeader.Count value={fromCountryDetails?.fromPublisherCount} loading={isLoading} />
               <MapHeader.Text
-                id="country.counts.publishers"
+                id="country.counts.publishersFrom"
                 values={{
-                  NUMBER: fromCountryDetails?.fromPublisherCount,
+                  TRANSLATED_COUNTRY: <FormattedMessage id={`enums.countryCode.${countryCode}`} />,
                 }}
               />
             </MapHeader.Item>
