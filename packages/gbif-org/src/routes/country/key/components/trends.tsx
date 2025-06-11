@@ -170,6 +170,7 @@ function TemporalTrends() {
         <p className="g-text-sm">
           <FormattedMessage id="trends.theseChartsMayRevealPatternsThatRepresentBiasesInDataCollection" />
         </p>
+        <br />
         <p className="g-text-sm">
           <FormattedMessage id="trends.byGeneratingTheseChartsAnIssueWasDetected" />
         </p>
@@ -319,7 +320,6 @@ function GeographicCoverage() {
 
 function DataSharing() {
   const { countryCode } = useTrendContext();
-  // TODO: Understand this. How can not "hasCountry" on the country page?
   const hasCountry = Boolean(countryCode);
 
   return (
@@ -332,7 +332,9 @@ function DataSharing() {
           {hasCountry ? (
             <FormattedMessage
               id="trends.thisChartShowsTheNumberOfRecordsAboutBiodiversityOccurringInCountry"
-              values={{ TRANSLATED_COUNTRY: <FormattedMessage id={`country.${countryCode}`} /> }}
+              values={{
+                TRANSLATED_COUNTRY: <FormattedMessage id={`enums.countryCode.${countryCode}`} />,
+              }}
             />
           ) : (
             <FormattedMessage id="trends.thisChartShowsGlobalTrends" />

@@ -7,8 +7,11 @@ import { searchConfig } from '@/routes/literature/search/searchConfig';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 export function CountryKeyPublicationsFrom() {
+  const { countryCode } = useParams();
+
   const [filter, setFilter] = useFilterParams({
     filterConfig: searchConfig,
     paramsToRemove: ['offset'],
@@ -32,11 +35,11 @@ export function CountryKeyPublicationsFrom() {
       scope: {
         type: 'equals',
         key: 'countriesOfResearcher',
-        value: 'DK',
+        value: countryCode,
       },
     };
     setConfig(c);
-  }, [baseConfig, literatureSearchConfig]);
+  }, [baseConfig, literatureSearchConfig, countryCode]);
 
   return (
     <ArticleContainer className="g-bg-slate-100">
