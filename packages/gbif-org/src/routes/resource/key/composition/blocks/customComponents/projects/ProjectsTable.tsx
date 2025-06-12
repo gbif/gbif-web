@@ -1,4 +1,5 @@
 import { Card } from '@/components/ui/largeCard';
+import { Skeleton } from '@/components/ui/skeleton';
 import { PredicateType, ProjectTableQuery, ProjectTableQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -143,13 +144,7 @@ export function ProjectsTable({
     });
   }, [load, programmeId]);
 
-  if (loading || (!data && !error)) {
-    return (
-      <Prose>
-        <p>Loading projects...</p>
-      </Prose>
-    );
-  }
+  const isLoading = loading || (!data && !error);
 
   if (error) {
     return (
@@ -160,7 +155,7 @@ export function ProjectsTable({
   }
 
   const projects = data?.resourceSearch?.documents?.results || [];
-  if (projects.length === 0) {
+  if (!isLoading && projects.length === 0) {
     return (
       <Prose>
         <p>No projects found for this call.</p>
@@ -212,94 +207,97 @@ export function ProjectsTable({
                   ))}
                 </tr>
               </thead>
-              <tbody>
-                {sortedProjects.map((project) => (
-                  <tr
-                    key={project.id}
-                    className="g-border-t g-border-gray-100 hover:g-bg-gray-50 g-text-gray-900"
-                  >
-                    {/* Image */}
-                    <td className="g-px-4 g-py-2 g-min-w-20 ">
-                      {project.primaryImage?.file?.url ? (
-                        <img
-                          src={project.primaryImage.file.url}
-                          alt={project.title}
-                          className="g-w-12 g-h-12 g-rounded-full g-border g-border-gray-200"
+              {isLoading && <SkeletonBody />}
+              {!isLoading && (
+                <tbody>
+                  {sortedProjects.map((project) => (
+                    <tr
+                      key={project.id}
+                      className="g-border-t g-border-gray-100 hover:g-bg-gray-50 g-text-gray-900"
+                    >
+                      {/* Image */}
+                      <td className="g-px-4 g-py-2 g-min-w-20 ">
+                        {project.primaryImage?.file?.url ? (
+                          <img
+                            src={project.primaryImage.file.url}
+                            alt={project.title}
+                            className="g-w-12 g-h-12 g-rounded-full g-border g-border-gray-200"
+                          />
+                        ) : (
+                          <div className="g-w-12 g-h-12 g-rounded-full g-bg-gray-200" />
+                        )}
+                      </td>
+                      {/* Title */}
+                      <td className="g-min-w-[300px] g-max-w-[400px] g-px-4 g-py-2 g-font-medium">
+                        <div className="g-line-clamp-2 g-underline">
+                          <DynamicLink pageId="projectKey" variables={{ key: project.id }}>
+                            {project.title}
+                          </DynamicLink>
+                        </div>
+                      </td>
+                      {/* Grant Type */}
+                      <td className="g-min-w-[250px] g-max-w-[400px] g-px-4 g-py-2">
+                        <FormattedMessage
+                          id={`enums.cms.projectGrantType.${project.grantType}`}
+                          defaultMessage={project.grantType}
                         />
-                      ) : (
-                        <div className="g-w-12 g-h-12 g-rounded-full g-bg-gray-200" />
-                      )}
-                    </td>
-                    {/* Title */}
-                    <td className="g-min-w-[300px] g-max-w-[400px] g-px-4 g-py-2 g-font-medium">
-                      <div className="g-line-clamp-2 g-underline">
-                        <DynamicLink pageId="projectKey" variables={{ key: project.id }}>
-                          {project.title}
-                        </DynamicLink>
-                      </div>
-                    </td>
-                    {/* Grant Type */}
-                    <td className="g-min-w-[250px] g-max-w-[400px] g-px-4 g-py-2">
-                      <FormattedMessage
-                        id={`enums.cms.projectGrantType.${project.grantType}`}
-                        defaultMessage={project.grantType}
-                      />
-                    </td>
-                    {/* Start */}
-                    <td className="g-min-w-[200px] g-max-w-[400px] g-px-4 g-py-2">
-                      <FormattedDate
-                        value={project.start}
-                        year="numeric"
-                        month="short"
-                        day="2-digit"
-                      />
-                    </td>
-                    {/* End */}
-                    <td className="g-min-w-[200px] g-max-w-[400px] g-px-4 g-py-2">
-                      <FormattedDate
-                        value={project.end}
-                        year="numeric"
-                        month="short"
-                        day="2-digit"
-                      />
-                    </td>
-                    {/* Funds Allocated */}
-                    <td className="g-px-4 g-py-2">
-                      <FormattedNumber
-                        value={project.fundsAllocated}
-                        style="currency"
-                        currency="EUR"
-                      />
-                    </td>
-                    {/* Matching Funds */}
-                    <td className="g-px-4 g-py-2">
-                      <FormattedNumber
-                        value={project.matchingFunds}
-                        style="currency"
-                        currency="EUR"
-                      />
-                    </td>
-                    {/* Status */}
-                    <td className="g-px-4 g-py-2">
-                      <FormattedMessage
-                        id={`enums.cms.projectStatus.${project.status}`}
-                        defaultMessage={project.status}
-                      />
-                    </td>
-                    {/* Country */}
-                    <td className="g-px-4 g-py-2">
-                      <FormattedMessage
-                        id={`enums.countryCode.${project.contractCountry}`}
-                        defaultMessage={project.contractCountry}
-                      />
-                    </td>
-                    {/* Project ID */}
-                    <td className="g-px-4 g-py-2 g-whitespace-nowrap">{project.projectId}</td>
-                    {/* Call */}
-                    <td className="g-px-4 g-py-2 g-whitespace-nowrap">{project.call?.title}</td>
-                  </tr>
-                ))}
-              </tbody>
+                      </td>
+                      {/* Start */}
+                      <td className="g-min-w-[200px] g-max-w-[400px] g-px-4 g-py-2">
+                        <FormattedDate
+                          value={project.start}
+                          year="numeric"
+                          month="short"
+                          day="2-digit"
+                        />
+                      </td>
+                      {/* End */}
+                      <td className="g-min-w-[200px] g-max-w-[400px] g-px-4 g-py-2">
+                        <FormattedDate
+                          value={project.end}
+                          year="numeric"
+                          month="short"
+                          day="2-digit"
+                        />
+                      </td>
+                      {/* Funds Allocated */}
+                      <td className="g-px-4 g-py-2">
+                        <FormattedNumber
+                          value={project.fundsAllocated}
+                          style="currency"
+                          currency="EUR"
+                        />
+                      </td>
+                      {/* Matching Funds */}
+                      <td className="g-px-4 g-py-2">
+                        <FormattedNumber
+                          value={project.matchingFunds}
+                          style="currency"
+                          currency="EUR"
+                        />
+                      </td>
+                      {/* Status */}
+                      <td className="g-px-4 g-py-2">
+                        <FormattedMessage
+                          id={`enums.cms.projectStatus.${project.status}`}
+                          defaultMessage={project.status}
+                        />
+                      </td>
+                      {/* Country */}
+                      <td className="g-px-4 g-py-2">
+                        <FormattedMessage
+                          id={`enums.countryCode.${project.contractCountry}`}
+                          defaultMessage={project.contractCountry}
+                        />
+                      </td>
+                      {/* Project ID */}
+                      <td className="g-px-4 g-py-2 g-whitespace-nowrap">{project.projectId}</td>
+                      {/* Call */}
+                      <td className="g-px-4 g-py-2 g-whitespace-nowrap">{project.call?.title}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              )}
             </table>
           </div>
         </Card>
@@ -310,4 +308,20 @@ export function ProjectsTable({
 
 function Prose({ children }: { children: React.ReactNode }) {
   return <div className="prose">{children}</div>;
+}
+
+function SkeletonBody() {
+  return (
+    <tbody>
+      {Array.from({ length: 10 }).map((_, index) => (
+        <tr key={index} className="g-border-t g-border-gray-100 hover:g-bg-gray-50 g-text-gray-900">
+          {columns.map((col) => (
+            <td key={col.key} className="g-px-4 g-py-2">
+              <Skeleton className="g-w-48">Loading</Skeleton>
+            </td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  );
 }
