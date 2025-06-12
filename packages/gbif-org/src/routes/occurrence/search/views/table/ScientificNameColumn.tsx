@@ -56,7 +56,7 @@ export default function ScientificNameColumn({
           </>
         )}
         {hasClassification && (
-          <SetAsFilter field="taxonKey" value={occurrence.taxonKey}>
+          <SetAsFilter field="taxonKey" value={occurrence?.classification?.usage.key}>
             {!showCanonicalName && (
               <span
                 className="g-pointer-events-auto g-me-2"
