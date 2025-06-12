@@ -125,7 +125,7 @@ module.exports = {
         content: 'content',
       },
       boxShadow: {
-        blocker: '0 0 10000px 10000px rgba(0, 0, 0, 0.1)',
+        blocker: '0 0 0 10000px rgba(0, 0, 0, 0.1)',
       },
     },
   },
