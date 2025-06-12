@@ -26,7 +26,7 @@ export default {
       getHtml(src.title, {
         inline: true,
         locale,
-        allowedTags: ['em', 'i', 'strong'],
+        allowedTags: ['em', 'i', 'strong', 'br'],
       }),
     summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
     excerpt: (src, _, { locale }) => excerpt(src, { locale }),
@@ -84,7 +84,7 @@ export default {
       getHtml(src.title, {
         inline: true,
         locale,
-        allowedTags: ['em', 'i', 'strong'],
+        allowedTags: ['em', 'i', 'strong', 'br'],
       }),
     body: (src, _, { locale }) =>
       getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
@@ -103,7 +103,7 @@ export default {
       getHtml(src.title, {
         inline: true,
         locale,
-        allowedTags: ['em', 'i', 'strong'],
+        allowedTags: ['em', 'i', 'strong', 'br'],
       }),
     body: (src, _, { locale }) =>
       getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
@@ -137,20 +137,26 @@ export default {
     },
   },
   HeaderBlock: {
-    title: (src, _, { locale }) =>
-      getHtml(src.title, {
+    title: (src, _, { locale }) => {
+      return getHtml(src.title, {
         inline: true,
         locale,
-        allowedTags: ['em', 'i', 'strong'],
-      }),
-    summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
+        allowedTags: ['em', 'i', 'strong', 'br'],
+      });
+    },
+    summary: (src, _, { locale }) => {
+      return getHtml(src.summary, {
+        locale,
+        allowedTags: ['em', 'i', 'strong', 'br'],
+      });
+    },
   },
   TextBlock: {
     title: (src, _, { locale }) =>
       getHtml(src.title, {
         inline: true,
         locale,
-        allowedTags: ['em', 'i', 'strong'],
+        allowedTags: ['em', 'i', 'strong', 'br'],
       }),
     body: (src, _, { locale }) =>
       getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
@@ -160,7 +166,7 @@ export default {
       getHtml(src.title, {
         inline: true,
         locale,
-        allowedTags: ['em', 'i', 'strong'],
+        allowedTags: ['em', 'i', 'strong', 'br'],
       }),
     body: (src, _, { locale }) =>
       getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
@@ -170,7 +176,7 @@ export default {
       getHtml(src.title, {
         inline: true,
         locale,
-        allowedTags: ['em', 'i', 'strong'],
+        allowedTags: ['em', 'i', 'strong', 'br'],
       }),
     subtitle: (src, _, { locale }) =>
       getHtml(src.subtitle, { inline: true, locale }),
@@ -182,7 +188,7 @@ export default {
       getHtml(src.title, {
         inline: true,
         locale,
-        allowedTags: ['em', 'i', 'strong'],
+        allowedTags: ['em', 'i', 'strong', 'br'],
       }),
     subtitle: (src, _, { locale }) =>
       getHtml(src.subtitle, { inline: true, locale }),
@@ -194,7 +200,7 @@ export default {
       getHtml(src.title, {
         inline: true,
         locale,
-        allowedTags: ['em', 'i', 'strong'],
+        allowedTags: ['em', 'i', 'strong', 'br'],
       }),
   },
 };
