@@ -6,6 +6,7 @@ import Properties, { Property } from '@/components/properties';
 import { RenderIfChildren } from '@/components/renderIfChildren';
 import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { useConfig } from '@/config/config';
 import { OccurrenceQuery, SlowOccurrenceKeyQuery, Term } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import React, { useEffect, useState } from 'react';
@@ -272,7 +273,8 @@ function Taxon({
   occurrence: OccurrenceQuery['occurrence'];
   updateToc: (id: string, visible: boolean) => void;
 }) {
-  const enabledChecklists = import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS?.split(',');
+  const config = useConfig();
+  const enabledChecklists = config.availableChecklistKeys || [];
   // filter occurrence.classifications to only show those in enabledChecklists. Use the ordering of the enabledChecklists
   // to order the classifications
   const filteredClassifications = occurrence?.classifications

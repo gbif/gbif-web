@@ -93,12 +93,12 @@ export const gbifConfig: Config = {
   defaultTitle: 'GBIF',
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: languagesOptions,
-  defaultChecklistKey: 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c', // GBIF Backbone Taxonomy
-  availableChecklistKeys: [
-    'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c',
-    '7ddf754f-d193-4cc9-b351-99906754a03b',
-    '2d59e5db-57ad-41ff-97d6-11f5fb264527',
-  ],
+  // defaultChecklistKey: 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c', // GBIF Backbone Taxonomy
+  // availableChecklistKeys: [
+  //   'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c',
+  //   '7ddf754f-d193-4cc9-b351-99906754a03b',
+  //   '2d59e5db-57ad-41ff-97d6-11f5fb264527',
+  // ],
   theme: {
     dense: true,
     primary: '#4787fb', //'#69AA69',
