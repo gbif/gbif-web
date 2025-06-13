@@ -54,7 +54,7 @@ export function CountryKeyLayout() {
             <div>
               {participant == null && (
                 <ArticlePreTitle>
-                  <FormattedMessage id="TODO" defaultMessage="Country" />
+                  <FormattedMessage id="country.country" />
                 </ArticlePreTitle>
               )}
 
@@ -138,7 +138,7 @@ export function CountryKeyLayout() {
                     defaultMessage="Participation"
                   />
                 ),
-                hidden: !participant,
+                hidden: participant?.participationStatus !== 'VOTING',
               },
               {
                 to: 'alien-species',

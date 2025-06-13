@@ -11,6 +11,7 @@
       "alienSpecies": "Alien species",
       "projects": "Projects"
     },
+    "country": "Country",
     "dataFrom": "Data from {TRANSLATED_COUNTRY}",
     "dataAboutCountry": "Data about {TRANSLATED_COUNTRY}",
     "publishingTrends": "Publishing trends",

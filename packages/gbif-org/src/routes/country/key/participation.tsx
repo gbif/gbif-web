@@ -14,13 +14,11 @@ export function CountryKeyParticipation() {
   const { data } = useCountryKeyLoaderData();
   const nodeCountry = data?.nodeCountry;
 
-  if (!nodeCountry) {
+  if (nodeCountry?.participant?.participationStatus !== 'VOTING') {
     return (
       <EmptyCountryTab
-        title={<FormattedMessage id="TODO" defaultMessage="Not a participant" />}
-        description={
-          <FormattedMessage id="TODO" defaultMessage="This country is not a participant of GBIF" />
-        }
+        title={<FormattedMessage id="country.notParticipant" />}
+        description={<FormattedMessage id="country.notParticipantDescription" />}
       />
     );
   }
@@ -69,6 +67,7 @@ fragmentManager.register(/* GraphQL */ `
       nodeFunding
       nodeHistory
       nodeStructure
+      participationStatus
     }
     ...NodeContacts
   }
