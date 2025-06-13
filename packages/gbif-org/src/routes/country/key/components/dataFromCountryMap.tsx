@@ -76,7 +76,15 @@ export function DataFromCountryMapPresentation({
               />
             </MapHeader.Item>
 
-            <MapHeader.Item>
+            <MapHeader.Item
+              pageId="occurrenceSearch"
+              searchParams={{
+                view: 'dashboard',
+                publishingCountry: countryCode,
+                layout:
+                  'W1t7ImlkIjoidTA0YTIiLCJwIjp7fSwidHJhbnNsYXRpb24iOiJmaWx0ZXJzLm9jY3VycmVuY2VDb3VudHJ5Lm5hbWUiLCJ0IjoiY291bnRyeSJ9XV0',
+              }}
+            >
               <MapHeader.Count value={fromCountryDetails?.fromCountryCount} loading={isLoading} />
               <MapHeader.Text
                 id="country.counts.countriesAndAreasCoveredByDataFrom"

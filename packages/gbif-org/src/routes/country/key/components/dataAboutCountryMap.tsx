@@ -44,7 +44,14 @@ export function DataAboutCountryMap({ countryCode }: DataAboutCountryMapProps) {
               />
             </MapHeader.Item>
 
-            <MapHeader.Item>
+            <MapHeader.Item
+              pageId="occurrenceSearch"
+              searchParams={{
+                view: 'dashboard',
+                country: countryCode,
+                layout: 'W1t7ImlkIjoiNjR6NXQiLCJwIjp7fSwidCI6ImRhdGFzZXRLZXkifV1d',
+              }}
+            >
               <MapHeader.Count
                 value={countryDetail.data?.countryDetail?.aboutDatasetCount}
                 loading={countryDetail.loading}
