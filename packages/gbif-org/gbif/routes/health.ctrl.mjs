@@ -1,5 +1,4 @@
 // routes/health.ts
-import os from 'os';
 
 export function register(app) {
   // Health check endpoint
@@ -18,10 +17,6 @@ export function register(app) {
     res.json({
       status: 'ok',
       environment: process.env.NODE_ENV,
-      nodejs: process.version,
-      platform: process.platform,
-      arch: process.arch,
-      cpus: os.cpus().length,
     });
   });
 }

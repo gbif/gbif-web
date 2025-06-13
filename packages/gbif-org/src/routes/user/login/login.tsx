@@ -2,18 +2,34 @@ import { useConfig } from '@/config/config';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FaGithub as SocialIconGithub, FaGoogle as SocialIconGoogle } from 'react-icons/fa';
 import { IoMdGlobe } from 'react-icons/io';
 import { MdArrowRight, MdLock, MdMail, MdPerson } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
-import { login } from './auth';
+import { Link, useNavigate } from 'react-router-dom';
+import { login, whoAmI } from './auth';
 
 export const LoginSkeleton = ArticleSkeleton;
 
 export function LoginPage() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if user is already logged in
+    whoAmI()
+      .then((response) => {
+        if (response.user) {
+          // User is already logged in, redirect to profile
+          navigate('/user/profile');
+        }
+      })
+      .catch(() => {
+        // User is not logged in, stay on login page
+      });
+  }, [navigate]);
+
   return (
     <>
       <Helmet>
@@ -86,6 +102,7 @@ export function LoginBox({ children }: { children?: React.ReactNode }) {
   );
 }
 export function LoginForm() {
+  const navigate = useNavigate();
   const [touched, setTouched] = useState({
     email: false,
     password: false,
@@ -119,7 +136,8 @@ export function LoginForm() {
 
     try {
       await login(values);
-      // Handle successful login here (e.g., redirect, set auth state, etc.)
+      // Redirect to user profile page after successful login
+      navigate('/user/profile');
     } catch (err) {
       setError('BASIC_LOGIN_FAILED');
     } finally {
