@@ -28,7 +28,7 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "Estas métricas se basan en los registros compartidos a través de GBIF",
-  "notVocabularyWarning": "",
+  "notVocabularyWarning": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
   "group": {
     "views": "",
     "record": "Registro",

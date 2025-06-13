@@ -1,15 +1,15 @@
 // import { ClientImage as Image } from '@/components/image';
 import { cn } from '@/utils/shadcn';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { MdBrokenImage, MdImage } from 'react-icons/md';
-import styles from '../../dataset/key/about/images.module.css';
+import styles from './taxonImages.module.css';
 
-function Image({ onLoad, defaultSize, style = {}, src, attribution, ...props }) {
+function Image({ defaultSize, style = {}, src, attribution, ...props }) {
   const imageRef = useRef();
   const [failed, markAsFailed] = useState(false);
   const [loading, setLoading] = useState(true);
   const [client, setClient] = useState(false);
-
+  const [width, setWidth] = useState(defaultSize.width);
   useEffect(() => {
     markAsFailed(false);
     setLoading(true);
@@ -26,8 +26,14 @@ function Image({ onLoad, defaultSize, style = {}, src, attribution, ...props }) 
     // }
   }, []);
 
+  const onLoad = useCallback((event: React.SyntheticEvent<HTMLImageElement>) => {
+    const ratio = event.currentTarget.naturalWidth / event.currentTarget.naturalHeight;
+    const width = ratio * defaultSize.height;
+    setWidth(width);
+  }, []);
+
   return (
-    <div style={{ display: 'inline-block', ...style }}>
+    <div style={{ flexBasis: width, display: 'inline-block', ...style }}>
       {loading && (
         <div
           className="g-animate-pulse g-rounded-md g-bg-slate-50 g-text-slate-400 g-flex g-items-center g-justify-center"
@@ -47,7 +53,7 @@ function Image({ onLoad, defaultSize, style = {}, src, attribution, ...props }) 
         </div>
       )}
       {client && !failed && (
-        <div>
+        <div className="g-whitespace-nowrap g-flex g-flex-col">
           <img
             className="g-bg-slate-50"
             src={src}
@@ -59,12 +65,15 @@ function Image({ onLoad, defaultSize, style = {}, src, attribution, ...props }) 
             }}
             onLoad={(e) => {
               setLoading(false);
-              console.log('loaded');
               onLoad && onLoad(e);
             }}
             {...props}
           />
-          {attribution && <div>{attribution}</div>}
+          {attribution && (
+            <div className="g-text-xs g-text-ellipsis g-overflow-hidden g-mt-1 g-font-medium">
+              {attribution}
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -73,7 +82,7 @@ function Image({ onLoad, defaultSize, style = {}, src, attribution, ...props }) 
 
 export function TaxonImages({ taxonKey, className = '', images, ...props }) {
   return (
-    <div className={cn(`galleryBar ${styles.galleryBar}`, className)} {...props}>
+    <div className={cn(`${styles.taxonGalleryBar}`, className)} {...props}>
       <div>
         {images?.results.map((img) => {
           return (
@@ -82,7 +91,6 @@ export function TaxonImages({ taxonKey, className = '', images, ...props }) {
               key={img?.key}
               src={img?.identifier}
               defaultSize={{ height: 200, width: 200 }}
-              onLoad={undefined}
               attribution={
                 img?.rightsHolder || img?.creator
                   ? `© ${img?.rightsHolder || img?.creator}`

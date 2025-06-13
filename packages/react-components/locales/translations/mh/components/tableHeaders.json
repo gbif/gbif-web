@@ -1,1 +1,27 @@
-{}
+{
+  "features": "",
+  "options": {
+    "includeAuthorship": ""
+  },
+  "citations": "",
+  "occurrences": "",
+  "numberSpecimens": "",
+  "gbifNumberSpecimens": "",
+  "specimenTriplet": "",
+  "title": "",
+  "titleAndAbstract": "",
+  "altmetric": "",
+  "registered": "",
+  "hostedDatasets": "",
+  "pubDatasets": "",
+  "commonName": "",
+  "images": "",
+  "species": "",
+  "parents": "",
+  "institution": "",
+  "collection": "",
+  "collectionCount": "",
+  "active": "",
+  "activeInstitution": "",
+  "activeCollection": ""
+}

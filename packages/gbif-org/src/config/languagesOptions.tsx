@@ -11,6 +11,7 @@ const languageOptions: LanguageOption[] = [
     iso3LetterCode: 'eng',
     cmsLocale: 'en-GB',
     gbifOrgLocalePrefix: '',
+    mapTileLocale: 'en',
   },
   {
     code: 'nonsense',
@@ -31,6 +32,7 @@ const languageOptions: LanguageOption[] = [
     textDirection: 'ltr',
     gbifOrgLocalePrefix: '',
     grSciCollLocalePrefix: '',
+    mapTileLocale: 'en',
   },
   {
     code: 'fr',
@@ -43,6 +45,7 @@ const languageOptions: LanguageOption[] = [
     vocabularyLocale: 'fr-FR',
     gbifOrgLocalePrefix: '/fr',
     grSciCollLocalePrefix: '',
+    mapTileLocale: 'fr',
   },
   {
     code: 'es',
@@ -55,6 +58,7 @@ const languageOptions: LanguageOption[] = [
     iso3LetterCode: 'spa',
     gbifOrgLocalePrefix: '/es',
     grSciCollLocalePrefix: '/es',
+    mapTileLocale: 'es',
   },
   {
     code: 'de',
@@ -67,6 +71,7 @@ const languageOptions: LanguageOption[] = [
     vocabularyLocale: 'de-DE',
     gbifOrgLocalePrefix: '',
     grSciCollLocalePrefix: '',
+    mapTileLocale: 'de',
   },
   {
     code: 'ar',
@@ -78,6 +83,7 @@ const languageOptions: LanguageOption[] = [
     iso3LetterCode: 'ara',
     gbifOrgLocalePrefix: '/ar',
     grSciCollLocalePrefix: '',
+    mapTileLocale: 'ar',
   },
 ];
 

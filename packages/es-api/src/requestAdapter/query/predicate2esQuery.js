@@ -209,10 +209,9 @@ function transform(p, config, isRootQuery) {
     }
     case 'fuzzy': {
       return {
-        match: {
-          [fieldName]: {
-            query: p.value,
-          },
+        simple_query_string: {
+          default_operator: 'and',
+          query: p.value,
         },
       };
     }

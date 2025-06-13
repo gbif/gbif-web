@@ -1,0 +1,13 @@
+{
+  "homepage": {
+    "counts": {
+      "occurrences": "Beobachtungsdaten",
+      "datasets": "Datensätze",
+      "publishers": "Veröffentlichende Institution",
+      "literature": "Peer-Review Papiere mit Daten"
+    },
+    "aboutGbifCountry": "Über GBIF {COUNTRY}",
+    "whatIsGbif": "",
+    "search": ""
+  }
+}

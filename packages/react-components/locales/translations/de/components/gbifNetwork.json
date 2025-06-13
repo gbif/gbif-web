@@ -1,0 +1,28 @@
+{
+  "gbifNetwork": {
+    "participationType": {
+      "VOTING": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+      "ASSOCIATE": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+      "OTHER_ASSOCIATE": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+      "FORMER": "",
+      "OBSERVER": "",
+      "UNKNOWN": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+      "AFFILIATE": ""
+    },
+    "affiliateHelp": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "mapCaptionPublishers": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "role": "",
+    "name": "",
+    "participant": "",
+    "type": "",
+    "memberSince": "Mitglied seit",
+    "all": "",
+    "countryParticipants": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "publishersPerCountry": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "clear": "",
+    "headlines": {
+      "nodesSteeringGroup": "",
+      "participants": "Teilnehmer"
+    }
+  }
+}

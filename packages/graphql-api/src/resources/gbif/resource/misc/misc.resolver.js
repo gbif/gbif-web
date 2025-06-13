@@ -37,11 +37,14 @@ export default {
       // if starts with image/ then it is an image
       if (contentType.startsWith('image/')) {
         return 'image';
-      } else if (contentType.includes('spreadsheetml')) {
+      }
+      if (contentType.includes('spreadsheetml')) {
         return 'xls';
-      } else if (contentType.includes('video')) {
+      }
+      if (contentType.includes('video')) {
         return 'video';
-      } else if (contentType.includes('audio')) {
+      }
+      if (contentType.includes('audio')) {
         return 'audio';
       }
 

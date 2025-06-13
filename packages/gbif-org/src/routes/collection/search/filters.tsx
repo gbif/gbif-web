@@ -2,11 +2,11 @@ import {
   booleanLabel,
   collectionContentTypeLabel,
   CountryLabel,
+  DefaultTaxonLabel,
   IdentityLabel,
   InstitutionLabel,
   preservationTypeLabel,
   QuantityLabel,
-  TaxonLabel,
   TypeStatusLabel,
 } from '@/components/filters/displayNames';
 import {
@@ -92,7 +92,7 @@ const countryConfig: filterSuggestConfig = {
 const taxonKeyConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'taxonKey',
-  displayName: TaxonLabel,
+  displayName: DefaultTaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
   suggestConfig: taxonKeySuggest,
   disableFacetsForSelected: true,

@@ -1,6 +1,7 @@
 {
   "http://rs.tdwg.org/dwc/terms/Occurrence": "Registro biológico",
   "http://rs.tdwg.org/ac/terms/Multimedia": "Audubon multimedia",
+  "http://rs.gbif.org/terms/1.0/DNADerivedData": "Datos derivados de ADN",
   "http://data.ggbn.org/schemas/ggbn/terms/Amplification": "Amplificación",
   "http://data.ggbn.org/schemas/ggbn/terms/Cloning": "Clonación",
   "http://data.ggbn.org/schemas/ggbn/terms/GelImage": "Imagen del Gel",
@@ -20,5 +21,6 @@
   "http://rs.tdwg.org/dwc/terms/MeasurementOrFact": "Medida o hecho",
   "http://rs.gbif.org/terms/1.0/Multimedia": "Multimedia",
   "http://rs.gbif.org/terms/1.0/Reference": "Referencia",
-  "http://rs.tdwg.org/dwc/terms/ResourceRelationship": "Relacación del recurso"
+  "http://rs.tdwg.org/dwc/terms/ResourceRelationship": "Relacación del recurso",
+  "http://eol.org/schema/reference/Reference": "Referencia EOL"
 }

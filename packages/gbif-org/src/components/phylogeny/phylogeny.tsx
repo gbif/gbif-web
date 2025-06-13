@@ -40,7 +40,7 @@ const startsWithLowerCase = (s: string) => {
   return character == character.toLowerCase();
 };
 
-export const Phylogeny = ({
+const Phylogeny = ({
   datasetKey,
   phyloTreeTipLabel,
   phyloTreeFileName,
@@ -237,3 +237,5 @@ export const Phylogeny = ({
 
   return <div ref={ref} id="phylotreeContainer" className="g-overflow-x-scroll"></div>;
 };
+
+export default Phylogeny;

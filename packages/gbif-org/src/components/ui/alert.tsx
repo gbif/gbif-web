@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cn } from '@/utils/shadcn';
 
 const alertVariants = cva(
-  'g-relative g-w-full g-rounded-lg g-border g-px-4 g-py-3 [&>svg+div]:g-translate-y-[-3px] [&>svg]:g-absolute [&>svg]:g-left-4 [&>svg]:g-text-foreground [&>svg~*]:g-pl-7',
+  'g-relative g-w-full g-rounded-lg g-border g-border-solid g-px-4 g-py-3 [&>svg+div]:g-translate-y-[-3px] [&>svg]:g-absolute [&>svg]:g-left-4 [&>svg]:g-text-foreground [&>svg~*]:g-pl-7',
   {
     variants: {
       variant: {

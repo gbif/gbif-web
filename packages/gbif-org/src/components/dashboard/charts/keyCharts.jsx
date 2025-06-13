@@ -364,24 +364,25 @@ export function Synonyms({
   currentFilter = {}, //excluding root predicate
   ...props
 }) {
-  const predicate = {
-    type: 'and',
-    predicates: [
-      providedPredicate,
-      {
-        type: 'equals',
-        key: 'gbifClassification_synonym',
-        value: true,
-      },
-    ],
+  const synonymPredicate = {
+    type: 'equals',
+    key: 'taxonomicStatus',
+    value: 'SYNONYM',
   };
+
+  const predicate = providedPredicate
+    ? {
+        type: 'and',
+        predicates: [providedPredicate, synonymPredicate],
+      }
+    : synonymPredicate;
   return (
     <KeyChartGenerator
       {...{
         predicate,
         detailsRoute,
         currentFilter,
-        fieldName: 'gbifClassification_usage_key',
+        fieldName: 'usageKey',
         disableUnknown: true,
         disableOther: true,
         facetSize: 10,

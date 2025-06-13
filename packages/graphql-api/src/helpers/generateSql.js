@@ -3,7 +3,7 @@ import { signJson, verifyJson } from './utils';
 
 const defaultUncertainty = 1000;
 
-const sqlEndpoint = config.sqlapi ?? config.apiv1;
+const sqlEndpoint = config.apiv1;
 
 function generateMachineDescription(parameters, sql) {
   const signature = signJson({ sql, parameters });
@@ -112,7 +112,7 @@ const WHERE_PREDICATE_RESTRICTIONS = {
       },
       {
         type: 'isNotNull',
-        parameter: 'START_DAY_OF_YEAR',
+        parameter: 'DAY',
       },
     ],
   },
@@ -139,6 +139,13 @@ const WHERE_PREDICATE_RESTRICTIONS = {
       },
     ],
     MILITARY_GRID_REFERENCE_SYSTEM: [
+      {
+        type: 'equals',
+        key: 'HAS_COORDINATE',
+        value: 'true',
+      },
+    ],
+    COUNTRY: [
       {
         type: 'equals',
         key: 'HAS_COORDINATE',
@@ -240,7 +247,7 @@ export default async function generateSql(parameters) {
   } catch (error) {
     return { error: error.message, sql: null };
   }
-  const groupBy = ['taxonRank', 'taxonomicStatus'];
+  const groupBy = [];
   const measurements = ['COUNT(*) AS occurrences'];
   if (includeTemporalUncertainty === 'YES') {
     measurements.push(
@@ -355,7 +362,7 @@ export default async function generateSql(parameters) {
       groupBy: `eeaCellCode`,
     },
     EXTENDED_QUARTER_DEGREE_GRID: {
-      dimension: `GBIF_EQDGCCode(
+      dimension: `GBIF_EQDGCode(
           ${resolution},
           decimalLatitude,
           decimalLongitude,
@@ -380,6 +387,10 @@ export default async function generateSql(parameters) {
           ${coordinateUncertaintyInMeters}
         )`,
       groupBy: 'mgrsCellCode',
+    },
+    COUNTRY: {
+      dimension: `countryCode`,
+      groupBy: 'countryCode',
     },
   };
   if (spatial) {

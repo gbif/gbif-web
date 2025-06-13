@@ -1,0 +1,51 @@
+.taxonGalleryBar {
+  --galHeight: 200px;
+  height: calc(var(--galHeight)+24);
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  margin-left: -6px;
+  margin-right: -6px;
+  > button,
+  > a {
+    position: absolute;
+    margin: 12px;
+    bottom: 0;
+    right: 0;
+  }
+  > div {
+    width: 100px;
+    min-width: 100%;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: calc(var(--galHeight) + 24);
+    padding-bottom: 24px;
+    > div {
+      margin-right: 10px;
+      flex: 0 0 auto;
+      height: var(--galHeight);
+    }
+  }
+  img,
+  .gb-image-failed,
+  div[class^='gb-image-failed'] {
+    display: block;
+    height: var(--galHeight);
+    margin: 0 0;
+    max-width: initial;
+  }
+  .gb-image-failed,
+  div[class^='gb-image-failed'] {
+    > div {
+      width: 150px;
+      height: 100%;
+      margin: auto;
+      padding: 24px 50px;
+      font-size: 24px;
+      color: rgba(0, 0, 0, 0.25);
+      background: rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+  }
+}

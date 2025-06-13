@@ -238,7 +238,7 @@ export const GeometryInput = ({
             variant="default"
             onClick={() => handleAdd(inputValue)}
           >
-            <FormattedMessage id="filterSupport.location.add" />
+            <FormattedMessage id="filterSupport.add" />
           </Button>
         )}
         <Button

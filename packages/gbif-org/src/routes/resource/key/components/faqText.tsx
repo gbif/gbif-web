@@ -1,7 +1,7 @@
 // this component helps with rendering pages with faq links like on this page article/6S38ZH4I85kHGHkBvpa02y/bid-2020-frequently-asked-questions
-import { useEffect, useState } from 'react';
 import { HelpText } from '@/components/helpText';
 import { cn } from '@/utils/shadcn';
+import { useEffect, useState } from 'react';
 
 export function FaqText({ dangerouslySetBody: html }: { dangerouslySetBody: string }) {
   const [modal, setModal] = useState<boolean | { question: string | null }>(false);
@@ -69,7 +69,7 @@ export function FaqText({ dangerouslySetBody: html }: { dangerouslySetBody: stri
         className={cn(
           `g-max-h-[calc(100vh_-_6rem)] g-box-content g-bg-white g-w-[32rem] hover:g-w-[32rem] g-max-w-full]`,
           `g-z-[100] g-transition-opacity g-duration-500 md:hover:g-opacity-100 g-overflow-auto g-shadow-2xl`,
-          `g-fixed g-rounded g-border g-border-slate-200 g-prose g-end-0 md:g-end-6 g-bottom-0 md:g-bottom-6`,
+          `g-fixed g-rounded g-border g-border-solid g-border-slate-200 g-prose g-end-0 md:g-end-6 g-bottom-0 md:g-bottom-6`,
           modal ? 'g-opacity-100' : 'g-opacity-0'
         )}
       >

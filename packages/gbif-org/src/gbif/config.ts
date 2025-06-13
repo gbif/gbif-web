@@ -93,12 +93,18 @@ export const gbifConfig: Config = {
   defaultTitle: 'GBIF',
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: languagesOptions,
+  // defaultChecklistKey: 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c', // GBIF Backbone Taxonomy
+  // availableChecklistKeys: [
+  //   'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c',
+  //   '7ddf754f-d193-4cc9-b351-99906754a03b',
+  //   '2d59e5db-57ad-41ff-97d6-11f5fb264527',
+  // ],
   theme: {
+    dense: true,
     primary: '#4787fb', //'#69AA69',
-    // primary: '#69AA69',
     stickyOffset: '0px',
     borderRadius: 3,
-    // mapDensityColors: ['#ffd300', '#f4b456', '#e9928a', '#d96cc1', '#b93bff'],
+    linkColor: '#4787fb',
   },
   dataHeader: {
     enableApiPopup: true,
@@ -154,6 +160,7 @@ export const gbifConfig: Config = {
       // defaultTab: 'table',
     },
     disableInPageOccurrenceSearch: false,
+    showEvents: true,
     literatureSearch: {
       excludedFilters: ['gbifDatasetKey'],
     },
@@ -193,9 +200,9 @@ export const gbifConfig: Config = {
   },
   taxonSearch: {
     scope: {
-      datasetKey: ['d7dddbf4-2cf0-4f39-9b2a-bb099caae36c'],
+      datasetKey: [import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY],
     },
-    highlightedFilters: ['q', 'status', 'rank', 'higherTaxonKey'],
+    highlightedFilters: ['q', 'status', 'rank', 'higherTaxonKey', 'issue'],
   },
   literatureSearch: {
     queryType: 'PREDICATE',
@@ -205,17 +212,45 @@ export const gbifConfig: Config = {
     mapSettings: {
       userLocationEnabled: false,
     },
-    highlightedFilters: [
-      // 'occurrenceStatus',
-      'taxonKey',
-      'year',
-      'country',
-      // 'occurrenceIssue',
-      'geometry',
-      'recordedBy',
-    ],
+    excludedFilters: [],
+    // highlightedFilters: [
+    //   // 'occurrenceStatus',
+    //   'taxonKey',
+    //   // 'geologicalTime',
+    //   'biostratigraphy',
+    //   'lithostratigraphy',
+    // ],
+    // defaultEnabledTableColumns: [
+    //   'features',
+    //   'specimenTriplet',
+    //   'commonName',
+    //   'institutionCode',
+    //   'collectionCode',
+    //   'catalogNumber',
+    //   'locality',
+    //   'recordedBy',
+    //   'sex',
+    //   'eventDate',
+    //   'coordinates',
+    //   'media',
+    // ],
     tabs: ['table', 'gallery', 'map', 'clusters', 'datasets', 'dashboard', 'download'],
     defaultTab: 'table',
+    // scope: {
+    //   type: 'and',
+    //   predicates: [
+    //     {
+    //       type: 'equals',
+    //       key: 'networkKey',
+    //       value: '99d66b6c-9087-452f-a9d4-f15f2c2d0e7e',
+    //     },
+    //     {
+    //       type: 'equals',
+    //       key: 'taxonKey',
+    //       value: '44',
+    //     },
+    //   ],
+    // },
   },
   // messages: {
   //   en: { 'filters.taxonKey.name': 'hallo' },

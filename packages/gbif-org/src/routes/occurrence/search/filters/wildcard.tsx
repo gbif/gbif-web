@@ -11,8 +11,8 @@ export const waterBodyConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceWaterBodyFacet($predicate: Predicate, $size: Int){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceWaterBodyFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: waterBody
         }
@@ -26,6 +26,8 @@ export const waterBodyConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.waterBody.description" />,
+  group: 'location',
+  defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
 };
 
 export const catalogNumberConfig: filterWildcardConfig = {
@@ -37,8 +39,8 @@ export const catalogNumberConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceCatalogNumberFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: catalogNumber
         }
@@ -52,6 +54,7 @@ export const catalogNumberConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.catalogNumber.description" />,
+  group: 'occurrence',
 };
 
 export const preparationsConfig: filterWildcardConfig = {
@@ -63,13 +66,13 @@ export const preparationsConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrencePreparationsFacet($predicate: Predicate, $size: Int){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrencePreparationsFacet($q: String, $predicate: Predicate, $size: Int, $include: String){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: preparations
         }
         facet {
-          field: preparations(size: $size) {
+          field: preparations(size: $size, include: $include) {
             name: key
             count
           }
@@ -78,6 +81,64 @@ export const preparationsConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.preparations.description" />,
+  group: 'materialEntity',
+  defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
+};
+
+export const biostratigraphyConfig: filterWildcardConfig = {
+  filterType: filterConfigTypes.WILDCARD,
+  filterHandle: 'biostratigraphy',
+  queryKey: 'biostratigraphy',
+  displayName: WildcardLabel,
+  filterTranslation: 'filters.biostratigraphy.name',
+  allowExistence: true,
+  allowNegations: true,
+  suggestQuery: `
+    query OccurrenceBiostratigraphyFacet($predicate: Predicate, $size: Int, $include: String){
+      search: occurrenceSearch(predicate: $predicate) {
+        cardinality {
+          total: biostratigraphy
+        }
+        facet {
+          field: biostratigraphy(size: $size, include: $include) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.biostratigraphy.description" />,
+  group: 'geologicalContext',
+  defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
+};
+
+export const lithostratigraphyConfig: filterWildcardConfig = {
+  filterType: filterConfigTypes.WILDCARD,
+  filterHandle: 'lithostratigraphy',
+  queryKey: 'lithostratigraphy',
+  displayName: WildcardLabel,
+  filterTranslation: 'filters.lithostratigraphy.name',
+  allowExistence: true,
+  allowNegations: true,
+  suggestQuery: `
+    query OccurrenceLithostratigraphyFacet($predicate: Predicate, $size: Int, $include: String){
+      search: occurrenceSearch(predicate: $predicate) {
+        cardinality {
+          total: lithostratigraphy
+        }
+        facet {
+          field: lithostratigraphy(size: $size, include: $include) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.lithostratigraphy.description" />,
+  group: 'geologicalContext',
+  defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
 };
 
 export const sampleSizeUnitConfig: filterWildcardConfig = {
@@ -89,8 +150,8 @@ export const sampleSizeUnitConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceCatalogNumberFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: sampleSizeUnit
         }
@@ -104,6 +165,8 @@ export const sampleSizeUnitConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.sampleSizeUnit.description" />,
+  group: 'event',
+  defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
 };
 
 export const localityConfig: filterWildcardConfig = {
@@ -115,8 +178,8 @@ export const localityConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceCatalogNumberFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: locality
         }
@@ -130,6 +193,8 @@ export const localityConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.locality.description" />,
+  group: 'location',
+  defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
 };
 
 export const stateProvinceConfig: filterWildcardConfig = {
@@ -141,8 +206,8 @@ export const stateProvinceConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceCatalogNumberFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: stateProvince
         }
@@ -156,6 +221,92 @@ export const stateProvinceConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.stateProvince.description" />,
+  group: 'location',
+  defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
+};
+
+export const islandGroupConfig: filterWildcardConfig = {
+  filterType: filterConfigTypes.WILDCARD,
+  filterHandle: 'islandGroup',
+  queryKey: 'islandGroup',
+  displayName: WildcardLabel,
+  filterTranslation: 'filters.islandGroup.name',
+  allowExistence: true,
+  allowNegations: true,
+  suggestQuery: `
+    query OccurrenceIslandGroupFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
+        cardinality {
+          total: islandGroup
+        }
+        facet {
+          field: islandGroup(size: $size) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.islandGroup.description" />,
+  group: 'location',
+  defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
+};
+
+export const islandConfig: filterWildcardConfig = {
+  filterType: filterConfigTypes.WILDCARD,
+  filterHandle: 'island',
+  queryKey: 'island',
+  displayName: WildcardLabel,
+  filterTranslation: 'filters.island.name',
+  allowExistence: true,
+  allowNegations: true,
+  suggestQuery: `
+    query OccurrenceIslandFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
+        cardinality {
+          total: island
+        }
+        facet {
+          field: island(size: $size) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.island.description" />,
+  group: 'location',
+  defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
+};
+
+export const georeferencedByConfig: filterWildcardConfig = {
+  filterType: filterConfigTypes.WILDCARD,
+  filterHandle: 'georeferencedBy',
+  queryKey: 'georeferencedBy',
+  displayName: WildcardLabel,
+  filterTranslation: 'filters.georeferencedBy.name',
+  allowExistence: true,
+  allowNegations: true,
+  suggestQuery: `
+    query OccurrenceGeoreferencedByFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
+        cardinality {
+          total: georeferencedBy
+        }
+        facet {
+          field: georeferencedBy(size: $size) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.georeferencedBy.description" />,
+  group: 'location',
+  defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
 };
 
 export const samplingProtocolConfig: filterWildcardConfig = {
@@ -167,8 +318,8 @@ export const samplingProtocolConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceCatalogNumberFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: samplingProtocol
         }
@@ -182,6 +333,8 @@ export const samplingProtocolConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.samplingProtocol.description" />,
+  group: 'event',
+  defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
 };
 
 export const verbatimScientificNameConfig: filterWildcardConfig = {
@@ -192,8 +345,8 @@ export const verbatimScientificNameConfig: filterWildcardConfig = {
   filterTranslation: 'filters.verbatimScientificName.name',
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceCatalogNumberFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: verbatimScientificName
         }
@@ -207,6 +360,8 @@ export const verbatimScientificNameConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.verbatimScientificName.description" />,
+  group: 'identification',
+  defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
 };
 
 export const recordedByConfig: filterWildcardConfig = {
@@ -218,8 +373,8 @@ export const recordedByConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int, $include: String){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceCatalogNumberFacet($q: String, $predicate: Predicate, $size: Int, $include: String){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: recordedBy
         }
@@ -233,6 +388,8 @@ export const recordedByConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.recordedBy.description" />,
+  group: 'occurrence',
+  defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
 };
 
 export const identifiedByConfig: filterWildcardConfig = {
@@ -244,8 +401,8 @@ export const identifiedByConfig: filterWildcardConfig = {
   allowExistence: true,
   allowNegations: true,
   suggestQuery: `
-    query OccurrenceCatalogNumberFacet($predicate: Predicate, $size: Int, $include: String){
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceCatalogNumberFacet($q: String, $predicate: Predicate, $size: Int, $include: String){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         cardinality {
           total: identifiedBy
         }
@@ -259,4 +416,60 @@ export const identifiedByConfig: filterWildcardConfig = {
     }
   `,
   about: () => <Message id="filters.identifiedBy.description" />,
+  group: 'identification',
+  defaultDescription: () => <Message id="dashboard.notVocabularyWarning" />,
+};
+
+export const datasetIdConfig: filterWildcardConfig = {
+  filterType: filterConfigTypes.WILDCARD,
+  filterHandle: 'datasetId',
+  queryKey: 'datasetId',
+  displayName: WildcardLabel,
+  filterTranslation: 'filters.datasetId.name',
+  allowExistence: true,
+  allowNegations: true,
+  suggestQuery: `
+    query OccurrenceDatasetIdFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
+        cardinality {
+          total: datasetId
+        }
+        facet {
+          field: datasetId(size: $size) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.datasetId.description" />,
+  group: 'record',
+};
+
+export const organismQuantityTypeConfig: filterWildcardConfig = {
+  filterType: filterConfigTypes.WILDCARD,
+  filterHandle: 'organismQuantityType',
+  queryKey: 'organismQuantityType',
+  displayName: WildcardLabel,
+  filterTranslation: 'filters.organismQuantityType.name',
+  allowExistence: true,
+  allowNegations: true,
+  suggestQuery: `
+    query OccurrenceOrganismQuantityTypeFacet($q: String, $predicate: Predicate, $size: Int){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
+        cardinality {
+          total: organismQuantityType
+        }
+        facet {
+          field: organismQuantityType(size: $size) {
+            name: key
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.organismQuantityType.description" />,
+  group: 'occurrence',
 };

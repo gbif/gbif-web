@@ -29,7 +29,13 @@
     "between": "Jahr {from} bis {to}",
     "lt": "Vor Jahr {to}",
     "gt": "Nach Jahr {from}",
-    "e": "Jahr ist {from}"
+    "e": "Jahr ist {from}",
+    "select": {
+      "equals": "",
+      "between": "",
+      "lessThanOrEquals": "",
+      "greaterThanOrEquals": ""
+    }
   },
   "coordinateUncertainty": {
     "between": "Koordinatenunsicherheit {from}m bis {to}m",

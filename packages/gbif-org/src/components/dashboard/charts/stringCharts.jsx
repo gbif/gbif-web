@@ -1,4 +1,6 @@
+// @ts-nocheck
 import { GadmClassification } from '@/components/classification';
+import { normalizeString } from '@/utils/normalizeString';
 import { FormattedMessage } from 'react-intl';
 import { KeyChartGenerator } from './KeyChartGenerator';
 
@@ -46,6 +48,11 @@ export const ProjectId = getStringChart({
   title: <FormattedMessage id="filters.projectId.name" defaultMessage="Project ID" />,
 });
 
+export const DatasetId = getStringChart({
+  fieldName: 'datasetId',
+  title: <FormattedMessage id="filters.datasetId.name" defaultMessage="Dataset ID" />,
+});
+
 export const CollectionCodes = getStringChart({
   fieldName: 'collectionCode',
   title: <FormattedMessage id="filters.collectionCode.name" defaultMessage="collection code" />,
@@ -58,7 +65,7 @@ export const StateProvince = getStringChart({
   gqlEntity: `occurrences {documents(size: 1) {results {stateProvince}}}`,
   transform: (data) => {
     return data?.search?.facet?.results?.map((x) => {
-      const title = x.entity?.documents?.results?.[0]?.stateProvince ?? x.key;
+      const title = x?.entity?.documents?.results?.[0]?.stateProvince ?? x.key;
       return {
         key: x.key,
         count: x.count,
@@ -77,7 +84,7 @@ export const WaterBody = getStringChart({
   gqlEntity: `occurrences {documents(size: 1) {results {waterBody}}}`,
   transform: (data) => {
     return data?.search?.facet?.results?.map((x) => {
-      const title = x.entity?.documents?.results?.[0]?.waterBody ?? x.key;
+      const title = x?.entity?.documents?.results?.[0]?.waterBody ?? x.key;
       return {
         key: x.key,
         count: x.count,
@@ -89,12 +96,6 @@ export const WaterBody = getStringChart({
   },
 });
 
-const getNormalizedName = (r) =>
-  r
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/\p{Diacritic}/gu, '');
-
 export const IdentifiedBy = getStringChart({
   fieldName: 'identifiedBy',
   title: <FormattedMessage id="filters.identifiedBy.name" defaultMessage="Identified by" />,
@@ -103,8 +104,8 @@ export const IdentifiedBy = getStringChart({
     return data?.search?.facet?.results?.map((x) => {
       // extract the identifiedBy value from the first result. Filter the recordedBy array by lower case matching and select the first match
       const title =
-        x.entity?.documents?.results?.[0]?.identifiedBy?.find(
-          (r) => getNormalizedName(r) === x.key
+        x?.entity?.documents?.results?.[0]?.identifiedBy?.find(
+          (r) => normalizeString(r) === x.key
         ) ?? x.key;
       return {
         key: x.key,
@@ -125,9 +126,8 @@ export const RecordedBy = getStringChart({
     return data?.search?.facet?.results?.map((x) => {
       // extract the recordedBy value from the first result. Filter the recordedBy array by lower case matching and select the first match
       const title =
-        x.entity?.documents?.results?.[0]?.recordedBy?.find(
-          (r) => getNormalizedName(r) === x.key
-        ) ?? x.key;
+        x?.entity?.documents?.results?.[0]?.recordedBy?.find((r) => normalizeString(r) === x.key) ??
+        x.key;
       return {
         key: x.key,
         count: x.count,
@@ -158,7 +158,7 @@ export const HigherGeography = getStringChart({
         count: x.count,
         title: x.key,
         // description: <Classification>
-        //   {x.entity?.documents?.results?.[0]?.higherGeography.map(h => <span>{h}</span>)}
+        //   {x?.entity?.documents?.results?.[0]?.higherGeography.map(h => <span>{h}</span>)}
         // </Classification>,
         plainTextTitle: title,
         filter: { higherGeography: [x.key] },
@@ -174,7 +174,7 @@ export const CatalogNumber = getStringChart({
   transform: (data) => {
     return data?.search?.facet?.results?.map((x) => {
       // extract the catalogNumber value from the first result.
-      const title = x.entity?.documents?.results?.[0]?.catalogNumber ?? x.key;
+      const title = x?.entity?.documents?.results?.[0]?.catalogNumber ?? x.key;
       return {
         key: x.key,
         count: x.count,
@@ -205,8 +205,8 @@ export const SamplingProtocol = getStringChart({
     return data?.search?.facet?.results?.map((x) => {
       // extract the recordedBy value from the first result. Filter the recordedBy array by lower case matching and select the first match
       const title =
-        x.entity?.documents?.results?.[0]?.samplingProtocol?.find(
-          (r) => getNormalizedName(r) === x.key
+        x?.entity?.documents?.results?.[0]?.samplingProtocol?.find(
+          (r) => normalizeString(r) === x.key
         ) ?? x.key;
       return {
         key: x.key,
@@ -242,8 +242,8 @@ export const GadmGid = getStringChart({
   gqlEntity: `occurrences {documents(size: 1) {results {gadm}}}`,
   transform: (data) => {
     return data?.search?.facet?.results?.map((x) => {
-      const a = Object.keys(x.entity?.documents?.results?.[0]?.gadm ?? {});
-      const gadm = filterLevels(x.entity?.documents?.results?.[0]?.gadm, x.key);
+      const a = Object.keys(x?.entity?.documents?.results?.[0]?.gadm ?? {});
+      const gadm = filterLevels(x?.entity?.documents?.results?.[0]?.gadm, x.key);
       const titleEntry = a?.find((r) => r.gid === x.key);
       const title = titleEntry?.name ?? x.key;
       return {

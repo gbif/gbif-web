@@ -52,13 +52,17 @@ const typeDef = gql`
   }
 
   type NetworkProse {
+    id: ID!
     title: String!
     summary: String
     body: String
     excerpt: String
     primaryImage: AssetImage
     primaryLink: Link
-    createdAt: DateTime
+    searchable: Boolean
+    networkKey: ID
+    keywords: [String!]
+    createdAt: DateTime!
     updatedAt: DateTime
   }
 `;

@@ -5,12 +5,12 @@ import { LuChevronsUpDown as ChevronsUpDown } from 'react-icons/lu';
 import { useUncontrolledProp } from 'uncontrollable';
 import { Button } from '../ui/button';
 import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
 } from '../ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 
@@ -19,13 +19,15 @@ type Props<T> = {
   results: T[];
   selected?: T | null;
   setSelected(value: T | null | undefined): void;
-  labelSelector(value: T): string;
+  labelSelector(value: T): React.ReactNode;
+  suggestLabel?(value: T): React.ReactNode;
   keySelector(value: T): string;
   noSelectionPlaceholder?: React.ReactNode;
   noSearchResultsPlaceholder?: React.ReactNode;
   searchInputPlaceholder?: string;
   className?: string;
   open?: boolean;
+  variant?: 'default' | 'outline' | 'primaryOutline' | 'secondary' | 'ghost' | 'link';
   setOpen?: (open: boolean) => void;
 };
 
@@ -33,12 +35,14 @@ export function SearchSuggest<T>({
   selected,
   setSelected,
   labelSelector,
+  suggestLabel,
   keySelector,
   results,
   search,
   className,
   open,
   setOpen,
+  variant,
   // TODO: Add translations
   noSelectionPlaceholder = 'Select an item',
   noSearchResultsPlaceholder = 'No results found',
@@ -61,10 +65,10 @@ export function SearchSuggest<T>({
       <PopoverTrigger asChild>
         <Button
           ref={triggerRef}
-          variant={selected ? 'default' : 'outline'}
+          variant={variant ? variant : selected ? 'default' : 'outline'}
           role="combobox"
           aria-expanded={controlledOpen}
-          className={cn('g-w-full g-flex', className)}
+          className={cn('g-w-full g-flex', { 'g-text-slate-400': !selected }, className)}
           // Override styles from our gb-button css class
           style={{ justifyContent: 'space-between' }}
         >
@@ -98,10 +102,10 @@ export function SearchSuggest<T>({
                     } else {
                       setSelected(result);
                     }
-                    setOpen?.(false);
+                    setControlledOpen?.(false);
                   }}
                 >
-                  {labelSelector(result)}
+                  {suggestLabel ? suggestLabel(result) : labelSelector(result)}
                   <Checkmark
                     className={cn(
                       'g-mr-2 g-h-4 g-w-4',

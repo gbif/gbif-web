@@ -1,0 +1,28 @@
+{
+  "gbifNetwork": {
+    "participationType": {
+      "VOTING": "Doit être défini",
+      "ASSOCIATE": "Doit être défini",
+      "OTHER_ASSOCIATE": "Doit être défini",
+      "FORMER": "Ancien",
+      "OBSERVER": "Observateur",
+      "UNKNOWN": "Doit être défini",
+      "AFFILIATE": "Affilié au GBIF"
+    },
+    "affiliateHelp": "Doit être défini",
+    "mapCaptionPublishers": "Doit être défini",
+    "role": "Rôle",
+    "name": "Nom",
+    "participant": "Participant",
+    "type": "Type ",
+    "memberSince": "Membre depuis",
+    "all": "Tout",
+    "countryParticipants": "Doit être défini",
+    "publishersPerCountry": "Doit être défini",
+    "clear": "Effacer",
+    "headlines": {
+      "nodesSteeringGroup": "Comité de pilotage des points nodaux",
+      "participants": "Participants"
+    }
+  }
+}

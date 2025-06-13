@@ -9,7 +9,7 @@ import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import equal from 'fast-deep-equal/react';
 import { FormattedDate, FormattedMessage } from 'react-intl';
-import { BasicField, CustomValueField } from '../properties';
+import { BasicField } from '../properties';
 
 export function InstitutionKey({
   occurrence,
@@ -67,29 +67,6 @@ export function DatasetKey({ occurrence }) {
         {occurrence.datasetTitle}
       </DynamicLink>
     </BasicField>
-  );
-}
-
-export function ScientificName({ termMap, showAll, occurrence }) {
-  return (
-    <CustomValueField term={termMap.scientificName} showDetails={showAll}>
-      <span
-        dangerouslySetInnerHTML={{ __html: occurrence.gbifClassification.usage.formattedName }}
-      />
-    </CustomValueField>
-  );
-}
-
-export function AcceptedScientificName({ termMap, showAll, occurrence }) {
-  if (!occurrence?.gbifClassification?.synonym) return null;
-  return (
-    <CustomValueField term={termMap.acceptedScientificName} showDetails={showAll}>
-      <span
-        dangerouslySetInnerHTML={{
-          __html: occurrence.gbifClassification.acceptedUsage.formattedName,
-        }}
-      />
-    </CustomValueField>
   );
 }
 
@@ -180,7 +157,7 @@ export function AgentSummary({ agent }: { agent: { type: string; value: string }
   const { person } = data;
 
   return (
-    <div className="g-rounded g-border g-bg-white g-overflow-hidden g-shadow-sm g-flex g-flex-wrap">
+    <div className="g-rounded g-border g-border-solid g-bg-white g-overflow-hidden g-shadow-sm g-flex g-flex-wrap">
       <div className="g-flex-none">
         {person?.image?.value && <img className="g-block g-max-w-16" src={person?.image?.value} />}
       </div>

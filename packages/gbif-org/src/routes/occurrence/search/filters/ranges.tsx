@@ -1,13 +1,23 @@
 import {
   CoordinateUncertaintyLabel,
+  DateLabel,
   DepthLabel,
+  distanceFromCentroidInMetersLabel,
   ElevationLabel,
+  EndDayOfYearLabel,
+  GeologicalTimeLabel,
   OrganismQuantityLabel,
   RelativeOrganismQuantityLabel,
   SampleSizeValueLabel,
+  StartDayOfYearLabel,
   YearLabel,
 } from '@/components/filters/displayNames';
-import { filterConfigTypes, filterRangeConfig } from '@/components/filters/filterTools';
+import {
+  filterConfigTypes,
+  filterDateRangeConfig,
+  filterGeologicalTimeConfig,
+  filterRangeConfig,
+} from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
 
 export const yearConfig: filterRangeConfig = {
@@ -17,6 +27,8 @@ export const yearConfig: filterRangeConfig = {
   filterTranslation: 'filters.year.name',
   allowExistence: true,
   about: () => <Message id="filters.year.description" />,
+  rangeExample: () => <Message id="filterSupport.rangeHelpYear" />,
+  group: 'event',
 };
 
 export const coordinateUncertaintyConfig: filterRangeConfig = {
@@ -25,6 +37,16 @@ export const coordinateUncertaintyConfig: filterRangeConfig = {
   displayName: CoordinateUncertaintyLabel,
   filterTranslation: 'filters.coordinateUncertainty.name',
   about: () => <Message id="filters.coordinateUncertainty.description" />,
+  group: 'location',
+};
+
+export const distanceFromCentroidInMetersConfig: filterRangeConfig = {
+  filterType: filterConfigTypes.RANGE,
+  filterHandle: 'distanceFromCentroidInMeters',
+  displayName: distanceFromCentroidInMetersLabel,
+  filterTranslation: 'filters.distanceFromCentroidInMeters.name',
+  about: () => <Message id="filters.distanceFromCentroidInMeters.description" />,
+  group: 'location',
 };
 
 export const depthConfig: filterRangeConfig = {
@@ -33,6 +55,7 @@ export const depthConfig: filterRangeConfig = {
   displayName: DepthLabel,
   filterTranslation: 'filters.depth.name',
   about: () => <Message id="filters.depth.description" />,
+  group: 'location',
 };
 
 export const organismQuantityConfig: filterRangeConfig = {
@@ -41,6 +64,7 @@ export const organismQuantityConfig: filterRangeConfig = {
   displayName: OrganismQuantityLabel,
   filterTranslation: 'filters.organismQuantity.name',
   about: () => <Message id="filters.organismQuantity.description" />,
+  group: 'occurrence',
 };
 
 export const sampleSizeValueConfig: filterRangeConfig = {
@@ -49,6 +73,7 @@ export const sampleSizeValueConfig: filterRangeConfig = {
   displayName: SampleSizeValueLabel,
   filterTranslation: 'filters.sampleSizeValue.name',
   about: () => <Message id="filters.sampleSizeValue.description" />,
+  group: 'event',
 };
 
 export const relativeOrganismQuantityConfig: filterRangeConfig = {
@@ -57,6 +82,7 @@ export const relativeOrganismQuantityConfig: filterRangeConfig = {
   displayName: RelativeOrganismQuantityLabel,
   filterTranslation: 'filters.relativeOrganismQuantity.name',
   about: () => <Message id="filters.relativeOrganismQuantity.description" />,
+  group: 'occurrence',
 };
 
 export const elevationConfig: filterRangeConfig = {
@@ -65,4 +91,52 @@ export const elevationConfig: filterRangeConfig = {
   displayName: ElevationLabel,
   filterTranslation: 'filters.elevation.name',
   about: () => <Message id="filters.elevation.description" />,
+  group: 'location',
+};
+
+export const startDayOfYearConfig: filterRangeConfig = {
+  filterType: filterConfigTypes.RANGE,
+  filterHandle: 'startDayOfYear',
+  displayName: StartDayOfYearLabel,
+  filterTranslation: 'filters.startDayOfYear.name',
+  about: () => <Message id="filters.startDayOfYear.description" />,
+  group: 'event',
+};
+
+export const endDayOfYearConfig: filterRangeConfig = {
+  filterType: filterConfigTypes.RANGE,
+  filterHandle: 'endDayOfYear',
+  displayName: EndDayOfYearLabel,
+  filterTranslation: 'filters.endDayOfYear.name',
+  about: () => <Message id="filters.endDayOfYear.description" />,
+  group: 'event',
+};
+
+// date ranges
+export const eventDateConfig: filterDateRangeConfig = {
+  filterType: filterConfigTypes.DATE_RANGE,
+  filterHandle: 'eventDate',
+  displayName: DateLabel,
+  filterTranslation: 'filters.eventDate.name',
+  about: () => <Message id="filters.eventDate.description" />,
+  group: 'event',
+};
+
+export const lastInterpretedConfig: filterDateRangeConfig = {
+  filterType: filterConfigTypes.DATE_RANGE,
+  filterHandle: 'lastInterpreted',
+  displayName: DateLabel,
+  filterTranslation: 'filters.lastInterpreted.name',
+  about: () => <Message id="filters.lastInterpreted.description" />,
+  group: 'other',
+};
+
+// geological time ranges
+export const geologicalTimeConfig: filterGeologicalTimeConfig = {
+  filterType: filterConfigTypes.GEOLOGICAL_TIME,
+  filterHandle: 'geologicalTime',
+  displayName: GeologicalTimeLabel,
+  filterTranslation: 'filters.geologicalTime.name',
+  about: () => <Message id="filters.geologicalTime.description" />,
+  group: 'geologicalContext',
 };

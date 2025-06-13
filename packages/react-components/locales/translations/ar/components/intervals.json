@@ -29,7 +29,13 @@
     "between": "سنة {from} إلى {to}",
     "lt": "قبل سنة {to}",
     "gt": "بعد سنة {from}",
-    "e": "السنة هي {from}"
+    "e": "السنة هي {from}",
+    "select": {
+      "equals": "هو",
+      "between": "بين",
+      "lessThanOrEquals": "قبل نهاية من",
+      "greaterThanOrEquals": "بعد البداية من"
+    }
   },
   "coordinateUncertainty": {
     "between": "تنسيق عدم اليقين {from} متر إلى {to} متر",

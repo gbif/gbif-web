@@ -4,12 +4,12 @@ import { ProjectPage, projectPageLoader, ProjectPageSkeleton } from './project';
 import { ProjectAboutTab } from './projectAboutTab';
 import { ProjectDatasetsTab } from './projectDatasetsTab';
 import {
-    projectNewsAndEventsLoader,
-    ProjectNewsAndEventsTab,
-    ProjectNewsAndEventsTabSkeleton
+  projectNewsAndEventsLoader,
+  ProjectNewsAndEventsTab,
+  ProjectNewsAndEventsTabSkeleton,
 } from './projectNewsAndEventsTab';
 
-const id = 'project-key';
+const id = 'projectKey';
 
 export const projectKeyRoute: RouteObjectWithPlugins = {
   id,

@@ -42,7 +42,7 @@ export function MediaPresentation({
               key={result.key}
               identifier={identifier}
               formattedName={
-                result?.gbifClassification?.usage?.formattedName ?? result.scientificName
+                result?.classification?.taxonMatch.name ?? result?.verbatimScientificName
               }
               countryCode={result.countryCode}
               eventDate={result.eventDate}
@@ -141,7 +141,7 @@ function GalleryItem({
       style={{ flexBasis: width }}
     >
       <button
-        className="g-inline-block g-rounded-lg g-bg-gray-200/50 g-overflow-hidden g-text-center g-border g-border-transparent hover:g-border-slate-500/20"
+        className="g-inline-block g-rounded-lg g-bg-gray-200/50 g-overflow-hidden g-text-center g-border g-border-solid g-border-transparent hover:g-border-slate-500/20"
         onClick={onClick}
       >
         {failed && (

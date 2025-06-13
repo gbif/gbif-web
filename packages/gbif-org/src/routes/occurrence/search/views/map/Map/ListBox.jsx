@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
 // import { Image, StripeLoader, Button, Row, Col } from '../../../../components';
-import { FormattedDate } from 'react-intl';
 // import ThemeContext from '../../../../style/themes/ThemeContext';
 // import { styledScrollBars } from '../../../../style/shared';
 
@@ -18,11 +17,10 @@ function ListItem({ id, item, onClick = (id) => {}, ...props }) {
         <div className="g-flex-grow gbif-listItemContent">
           <h4
             className=""
-            dangerouslySetInnerHTML={{ __html: item.gbifClassification.usage.formattedName }}
+            dangerouslySetInnerHTML={{ __html: item.classification.taxonMatch.usage.canonicalName }}
           ></h4>
           {item.eventDate && (
             <div className="g-text-slate-500">
-              <FormattedDate value={item.eventDate} year="numeric" month="long" day="2-digit" />
               <FormattedDateRange
                 date={item.eventDate}
                 format={{ year: 'numeric', month: 'short', day: 'numeric' }}
@@ -88,12 +86,12 @@ function ListBox({ className, labelMap, onCloseRequest, onClick, data, error, lo
     <section {...props} className={cn('g-flex g-flex-col g-bg-white g-border', className)}>
       <header className="g-flex g-flex-col g-flex-none g-border-b g-text-sm g-font-bold g-px-2 g-py-1">
         <div className="g-flex g-flex-row g-items-center">
-          <div className="g-flex-1">
+          <h3 className="g-flex-1">
             <FormattedMessage
               id="counts.nResults"
               values={{ total: data?.occurrenceSearch?.documents.total }}
             />
-          </div>
+          </h3>
           <div className="g-flex-0">
             <Button variant="outline" onClick={onCloseRequest}>
               <FormattedMessage id="phrases.close" />
@@ -101,7 +99,7 @@ function ListBox({ className, labelMap, onCloseRequest, onClick, data, error, lo
           </div>
         </div>
       </header>
-      <main className="g-flex-1 g-overflow-auto gbif-small-scrollbar">{content}</main>
+      <div className="g-flex-1 g-overflow-auto gbif-small-scrollbar">{content}</div>
     </section>
   );
 }

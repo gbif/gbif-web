@@ -34,10 +34,14 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       profile: getFile(locale, `../${folder}/${locale}/components/profile`).profile,
       taxon: getFile(locale, `../${folder}/${locale}/components/taxon`),
       footer: getFile(locale, `../${folder}/${locale}/components/footer`).footer,
-      resourceSearch: getFile(locale, `../${folder}/${locale}/components/resourceSearch`).resourceSearch,
+      resourceSearch: getFile(locale, `../${folder}/${locale}/components/resourceSearch`)
+        .resourceSearch,
+      gbifNetwork: getFile(locale, `../${folder}/${locale}/components/gbifNetwork`).gbifNetwork,
       downloadKey: getFile(locale, `../${folder}/${locale}/components/downloads`).downloadKey,
+      participant: getFile(locale, `../${folder}/${locale}/components/participant`).participant,
       customSqlDownload: getFile(locale, `../${folder}/${locale}/components/downloads`)
         .customSqlDownload,
+      homepage: getFile(locale, `../${folder}/${locale}/components/homepage`).homepage,
 
       occurrenceFieldNames: getFile(
         locale,
@@ -62,6 +66,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         typeStatus: getFile(locale, `../${folder}/${locale}/enums/typeStatus`),
         taxonRank: getFile(locale, `../${folder}/${locale}/enums/taxonRank`),
         taxonomicStatus: getFile(locale, `../${folder}/${locale}/enums/taxonomicStatus`),
+        taxonIssue: getFile(locale, `../${folder}/${locale}/enums/taxonIssue`),
         license: getFile(locale, `../${folder}/${locale}/enums/license`),
         issueHelp: getFile(locale, `../${folder}/${locale}/enums/issueHelp`),
         discipline: getFile(locale, `../${folder}/${locale}/enums/discipline`),
@@ -80,6 +85,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         occurrenceStatus: getFile(locale, `../${folder}/${locale}/enums/occurrenceStatus`),
         literatureType: getFile(locale, `../${folder}/${locale}/enums/literatureType`),
         role: getFile(locale, `../${folder}/${locale}/enums/role`),
+        gbifRole: getFile(locale, `../${folder}/${locale}/enums/gbifRole`).gbifRole,
         isInCluster: getFile(locale, `../${folder}/${locale}/enums/isInCluster`),
         datasetType: getFile(locale, `../${folder}/${locale}/enums/datasetType`),
         datasetSubtype: getFile(locale, `../${folder}/${locale}/enums/datasetSubtype`),
@@ -87,7 +93,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         identifierType: getFile(locale, `../${folder}/${locale}/enums/identifierType`),
         yesNo: getFile(locale, `../${folder}/${locale}/enums/yesNo`),
         threatStatus: getFile(locale, `../${folder}/${locale}/enums/threatStatus`),
-        region: getFile(locale, `../${folder}/${locale}/enums/gbifRegion`).gbifRegion,
+        gbifRegion: getFile(locale, `../${folder}/${locale}/enums/gbifRegion`).gbifRegion,
         iucnRedListCategory: getFile(locale, `../${folder}/${locale}/enums/iucnRedListCategory`),
         relevance: getFile(locale, `../${folder}/${locale}/enums/relevance`),
         topics: getFile(locale, `../${folder}/${locale}/enums/topics`),

@@ -7,6 +7,10 @@ const typeDef = gql`
     identifier: String!
     createdBy: String!
     created: DateTime!
+    """
+    Used for GrSciColl identifiers
+    """
+    primary: Boolean
   }
 `;
 

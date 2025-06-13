@@ -1,0 +1,11 @@
+.selectedTaxon {
+  content: ' ';
+  position: absolute;
+  top: calc(var(--rct-bar-offset) + var(--rct-item-margin));
+  /* left: calc(-1 * var(--rct-bar-width)); */
+  left: calc(-0.5 * var(--rct-bar-width));
+  height: calc(var(--rct-item-height) - 2 * var(--rct-bar-offset));
+  width: var(--rct-bar-width);
+  background-color: var(--rct-bar-color);
+  border-radius: 99px;
+}

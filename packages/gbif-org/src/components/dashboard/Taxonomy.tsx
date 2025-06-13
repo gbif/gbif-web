@@ -81,8 +81,8 @@ export function Taxa(props) {
 }
 
 const getTaxonQuery = (rank) => `
-query summary($predicate: Predicate, $size: Int, $from: Int){
-  search: occurrenceSearch(predicate: $predicate) {
+query summary($q: String, $predicate: Predicate, $size: Int, $from: Int){
+  search: occurrenceSearch(q: $q, predicate: $predicate) {
     documents(size: 0) {
       total
     }

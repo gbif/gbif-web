@@ -28,7 +28,7 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "这些指标基于通过GBIF共享的记录",
-  "notVocabularyWarning": "",
+  "notVocabularyWarning": "{num, plural, one { 在集群中 } other {# 在集群中}}",
   "group": {
     "views": "",
     "record": "记录",

@@ -27,7 +27,7 @@ type DefaultOptions = {
 };
 
 const untrustedDefaultOptions: DefaultOptions = {
-  allowedTags: ['a', 'p', 'i', 'ul', 'ol', 'li', 'strong', 'em'],
+  allowedTags: ['a', 'p', 'i', 'ul', 'ol', 'li', 'strong', 'em', 'br', 'span'],
   allowedAttributes: {
     a: ['href', 'name', 'target'],
   },

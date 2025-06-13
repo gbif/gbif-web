@@ -28,7 +28,7 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "Te miary są oparte na danych udostępnionych przez GBIF",
-  "notVocabularyWarning": "",
+  "notVocabularyWarning": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
   "group": {
     "views": "",
     "record": "Zapis",

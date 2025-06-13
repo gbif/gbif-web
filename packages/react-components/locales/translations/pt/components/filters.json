@@ -200,6 +200,11 @@
     "count": "{num, plural, one {conjunto de dados} other {# conjuntos de dados}}",
     "description": "O título do conjunto de dados sob o qual o registo é partilhado."
   },
+  "datasetId": {
+    "name": "ID do conjunto de dados",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "Publicador",
     "count": "{num, plural, one {publicador} other {# publicadores}}",
@@ -295,10 +300,25 @@
     "count": "{num, plural, one { meio de estabelecimento } other {# meios de estabelecimento}}",
     "description": "O modo como o organismo foi introduzido num determinado local num dado momento."
   },
+  "sex": {
+    "name": "Sexo",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
+  "lifeStage": {
+    "name": "Estágio de desenvolvimento",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
   "recordedBy": {
     "name": "Registado por",
     "count": "{num, plural, one { registado por } other {# registados por}}",
     "description": "Os nomes da pessoa, pessoas, grupos ou organizações responsáveis pelo registo da ocorrência original."
+  },
+  "fieldNumber": {
+    "name": "Número de campo",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
   },
   "recordNumber": {
     "name": "Número de registo",
@@ -505,5 +525,12 @@
     "name": "Taxon superior",
     "count": "",
     "description": ""
+  },
+  "issueEnum": {
+    "name": "Questões e sinalizadores",
+    "count": "{num, plural, one {problema ou sinais} other {# problemas e sinais}}",
+    "isNotNull": "Tem problemas",
+    "isNull": "Não tem problemas",
+    "description": "Os tipos de problemas ou sinais de potencial interesse descobertos ao processar os dados."
   }
 }

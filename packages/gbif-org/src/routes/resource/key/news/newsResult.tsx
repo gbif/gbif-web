@@ -1,8 +1,8 @@
-import { MdCalendarToday } from 'react-icons/md';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { ResultCard } from '@/components/resultCards/index';
 import { NewsResultFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
-import { ResultCard } from '@/components/resultCards/index';
+import { MdCalendarToday } from 'react-icons/md';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment NewsResult on News {
@@ -26,7 +26,7 @@ export function NewsResult({ news, className }: Props) {
 
   return (
     <ResultCard.Container className={className}>
-      <ResultCard.Header title={news.title} link={link} contentType="news" />
+      <ResultCard.Header title={news.title} link={link} contentType="cms.contentType.news" />
       <div className="g-flex g-gap-4">
         <ResultCard.Content>
           {news.excerpt}

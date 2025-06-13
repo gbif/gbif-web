@@ -1,0 +1,42 @@
+{
+  "participant": {
+    "participationStatus": {
+      "longForm": {
+        "VOTING": "Członek głosujący",
+        "ASSOCIATE": "Stowarzyszony członek",
+        "OBSERVER": "Członek obserwator",
+        "AFFILIATE": "Afiliowany",
+        "FORMER": "Były członek",
+        "undefined": "Nieznane"
+      },
+      "description": {
+        "VOTING": "Głosujący członek GBIF z {REGION}",
+        "ASSOCIATE": "Członek stowarzyszony GBIF z {REGION}",
+        "OBSERVER": "Kraj obserwator GBIF z {REGION}",
+        "AFFILIATE": "Partner afiliowany z {REGION}",
+        "FORMER": "Były członek głosujący GBIF z {REGION}",
+        "undefined": "Nieznane"
+      },
+      "type": {
+        "OTHER": {
+          "description": {
+            "VOTING": "Głosująca organizacja członkowska GBIF z {REGION}",
+            "ASSOCIATE": "Organizacja stowarzyszona z GBIF z {REGION}",
+            "OBSERVER": "Organizacja będąca obserwatorem z {REGION}",
+            "AFFILIATE": "Organizacja afiliowana z {REGION}",
+            "FORMER": "Była organizacja członkowska z {REGION}",
+            "undefined": "Nieznane"
+          },
+          "longForm": {
+            "VOTING": "Głosująca organizacja członkowska",
+            "ASSOCIATE": "Organizacja stowarzyszona",
+            "OBSERVER": "Organizacja będąca obserwatorem",
+            "AFFILIATE": "Organizacja afiliowana",
+            "FORMER": "Była organizacja członkowska",
+            "undefined": "Nieznane"
+          }
+        }
+      }
+    }
+  }
+}

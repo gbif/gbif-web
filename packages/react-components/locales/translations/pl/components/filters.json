@@ -200,6 +200,11 @@
     "count": "{num, plural, one {zbiór danych} few {# zbiory danych} many {# zbiorów danych} other {# zbiory danych}}",
     "description": "Tytuł zbioru danych, w którym udostępnione jest stwierdzenie."
   },
+  "datasetId": {
+    "name": "ID zbioru danych",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "Publikujący",
     "count": "{num, plural, one {publikujący} few {# publikujących} many {# publikujących} other {# publikujący}}",
@@ -295,10 +300,25 @@
     "count": "{num, plural, one { sposób wprowadzenia } few {# sposoby wprowadzenia} many {# sposobów wprowadzenia} other {# sposoby wprowadzenia}}",
     "description": "Sposoby wprowadzenia organizmu w dane miejsce o danym czasie."
   },
+  "sex": {
+    "name": "Płeć",
+    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+  },
+  "lifeStage": {
+    "name": "Stadium rozwoju",
+    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+  },
   "recordedBy": {
     "name": "Zarejestrowane przez",
     "count": "{num, plural, one { zarejestrowane przez } few {# zarejestrowane przez} many {# zarejestrowane przez} other {# zarejestrowane przez}}",
     "description": "Nazwiska osoby/osób, grup lub organizacji, które zarejestrowały oryginalne wystąpienie."
+  },
+  "fieldNumber": {
+    "name": "Numer pola",
+    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
   },
   "recordNumber": {
     "name": "Numer rekordu",
@@ -505,5 +525,12 @@
     "name": "Wyższy takson",
     "count": "{num, plural, one {wyższy takson} few {# wyższe taksony} many {# wyższych taksonów} other {# wyższych taksonów}}",
     "description": "Filtrowanie po wyższym taksonie."
+  },
+  "issueEnum": {
+    "name": "Problemy i komentarze",
+    "count": "{num, plural, one {problem} few {# problemy} many {# problemów} other {# problemy}}",
+    "isNotNull": "Występują problemy",
+    "isNull": "Nie wystąpiły problemy",
+    "description": "Rodzaj problemów lub potencjalnych problemów odkrytych w procesowaniu danych. "
   }
 }

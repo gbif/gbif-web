@@ -29,7 +29,13 @@
     "between": "Jaar {from} tot {to}",
     "lt": "Voor jaar {to}",
     "gt": "Na jaar {from}",
-    "e": "Jaar is gelijk aan {from}"
+    "e": "Jaar is gelijk aan {from}",
+    "select": {
+      "equals": "Is",
+      "between": "Tussen",
+      "lessThanOrEquals": "Voor het eind van",
+      "greaterThanOrEquals": "Na het begin van"
+    }
   },
   "coordinateUncertainty": {
     "between": "Coördinaatonzekerheid {from}m tot {to}m",

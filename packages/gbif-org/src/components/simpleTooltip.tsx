@@ -11,6 +11,8 @@ type Props = {
   disableHoverableContent?: boolean;
   side?: TooltipContentProps['side'];
   asChild?: boolean;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 };
 
 export function SimpleTooltip({
@@ -22,10 +24,17 @@ export function SimpleTooltip({
   i18nKey,
   i18nDefaultMessage,
   asChild,
+  open,
+  onOpenChange,
 }: Props) {
   return (
     <TooltipProvider>
-      <Tooltip delayDuration={delayDuration} disableHoverableContent={disableHoverableContent}>
+      <Tooltip
+        open={open}
+        onOpenChange={onOpenChange}
+        delayDuration={delayDuration}
+        disableHoverableContent={disableHoverableContent}
+      >
         <TooltipTrigger className="g-pointer-events-auto" tabIndex={-1} asChild={asChild}>
           {children}
         </TooltipTrigger>

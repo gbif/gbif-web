@@ -6,20 +6,24 @@ import {
   generateFilters,
 } from '@/components/filters/filterTools';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
+import { useCountrySuggest } from '@/hooks/useCountrySuggest';
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { isInClusterConfig, isSequencedConfig } from './filters/booleans';
+import { isInClusterConfig, isSequencedConfig, repatriatedConfig } from './filters/booleans';
 import {
   basisOfRecordConfig,
   continentConfig,
   dwcaExtensionConfig,
+  gbifRegionConfig,
   iucnRedListCategoryConfig,
   licenceConfig,
   mediaTypeConfig,
   monthConfig,
   occurrenceIssueConfig,
   occurrenceStatusConfig,
+  occurrenceTaxonomicIssueConfig,
   protocolConfig,
+  publishedByGbifRegionConfig,
 } from './filters/enums';
 import {
   collectionCodeConfig,
@@ -41,26 +45,52 @@ import { locationConfig } from './filters/location';
 import {
   coordinateUncertaintyConfig,
   depthConfig,
+  distanceFromCentroidInMetersConfig,
   elevationConfig,
+  endDayOfYearConfig,
+  eventDateConfig,
+  geologicalTimeConfig,
+  lastInterpretedConfig,
   organismQuantityConfig,
   relativeOrganismQuantityConfig,
   sampleSizeValueConfig,
+  startDayOfYearConfig,
   yearConfig,
 } from './filters/ranges';
 import {
+  associatedSequencesConfig,
+  datasetNameConfig,
   eventIdConfig,
+  fieldNumberConfig,
+  gbifIdConfig,
   higherGeographyConfig,
   identifiedByIdConfig,
   occurrenceIdConfig,
   organismIdConfig,
+  previousIdentificationsConfig,
+  programmeConfig,
   projectIdConfig,
   recordedByIdConfig,
+  taxonIdConfig,
 } from './filters/textOnly';
-import { establishmentMeansConfig } from './filters/vocabulary';
 import {
+  degreeOfEstablishmentConfig,
+  establishmentMeansConfig,
+  lifeStageConfig,
+  pathwayConfig,
+  sexConfig,
+} from './filters/vocabulary';
+import {
+  biostratigraphyConfig,
   catalogNumberConfig,
+  datasetIdConfig,
+  georeferencedByConfig,
   identifiedByConfig,
+  islandConfig,
+  islandGroupConfig,
+  lithostratigraphyConfig,
   localityConfig,
+  organismQuantityTypeConfig,
   preparationsConfig,
   recordedByConfig,
   sampleSizeUnitConfig,
@@ -69,13 +99,13 @@ import {
   verbatimScientificNameConfig,
   waterBodyConfig,
 } from './filters/wildcard';
-import { useCountrySuggest } from '@/hooks/useCountrySuggest';
 
 const freeTextConfig: filterConfig = {
   filterType: filterConfigTypes.FREE_TEXT,
   filterHandle: 'q',
   displayName: IdentityLabel,
   filterTranslation: 'filters.q.name',
+  group: 'other',
 };
 
 export type Filters = Record<string, FilterSetting>;
@@ -135,6 +165,16 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         searchConfig,
         formatMessage,
       }),
+      sex: generateFilters({
+        config: sexConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      lifeStage: generateFilters({
+        config: lifeStageConfig,
+        searchConfig,
+        formatMessage,
+      }),
 
       // enums
       license: generateFilters({ config: licenceConfig, searchConfig, formatMessage }),
@@ -153,6 +193,11 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       // typeStatus: generateFilters({ config: typeStatusConfig, searchConfig, formatMessage }),
       issue: generateFilters({
         config: occurrenceIssueConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      taxonomicIssue: generateFilters({
+        config: occurrenceTaxonomicIssueConfig,
         searchConfig,
         formatMessage,
       }),
@@ -177,6 +222,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
         formatMessage,
       }),
       eventId: generateFilters({ config: eventIdConfig, searchConfig, formatMessage }),
+      fieldNumber: generateFilters({ config: fieldNumberConfig, searchConfig, formatMessage }),
 
       isInCluster: generateFilters({ config: isInClusterConfig, searchConfig, formatMessage }),
       isSequenced: generateFilters({ config: isSequencedConfig, searchConfig, formatMessage }),
@@ -207,6 +253,21 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
 
       catalogNumber: generateFilters({ config: catalogNumberConfig, searchConfig, formatMessage }),
       preparations: generateFilters({ config: preparationsConfig, searchConfig, formatMessage }),
+      biostratigraphy: generateFilters({
+        config: biostratigraphyConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      lithostratigraphy: generateFilters({
+        config: lithostratigraphyConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      geologicalTime: generateFilters({
+        config: geologicalTimeConfig,
+        searchConfig,
+        formatMessage,
+      }),
       sampleSizeUnit: generateFilters({
         config: sampleSizeUnitConfig,
         searchConfig,
@@ -215,6 +276,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       locality: generateFilters({ config: localityConfig, searchConfig, formatMessage }),
       waterBody: generateFilters({ config: waterBodyConfig, searchConfig, formatMessage }),
       stateProvince: generateFilters({ config: stateProvinceConfig, searchConfig, formatMessage }),
+      datasetId: generateFilters({ config: datasetIdConfig, searchConfig, formatMessage }),
       samplingProtocol: generateFilters({
         config: samplingProtocolConfig,
         searchConfig,
@@ -230,7 +292,70 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       identifiedBy: generateFilters({ config: identifiedByConfig, searchConfig, formatMessage }),
 
       geometry: generateFilters({ config: locationConfig, searchConfig, formatMessage }),
+
+      eventDate: generateFilters({ config: eventDateConfig, searchConfig, formatMessage }),
+      taxonId: generateFilters({ config: taxonIdConfig, searchConfig, formatMessage }),
+      islandGroup: generateFilters({ config: islandGroupConfig, searchConfig, formatMessage }),
+      island: generateFilters({ config: islandConfig, searchConfig, formatMessage }),
+      programme: generateFilters({ config: programmeConfig, searchConfig, formatMessage }),
+      datasetName: generateFilters({ config: datasetNameConfig, searchConfig, formatMessage }),
+      gbifRegion: generateFilters({ config: gbifRegionConfig, searchConfig, formatMessage }),
+      gbifId: generateFilters({ config: gbifIdConfig, searchConfig, formatMessage }),
+      endDayOfYear: generateFilters({ config: endDayOfYearConfig, searchConfig, formatMessage }),
+      startDayOfYear: generateFilters({
+        config: startDayOfYearConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      organismQuantityType: generateFilters({
+        config: organismQuantityTypeConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      pathway: generateFilters({ config: pathwayConfig, searchConfig, formatMessage }),
+      previousIdentifications: generateFilters({
+        config: previousIdentificationsConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      associatedSequences: generateFilters({
+        config: associatedSequencesConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      degreeOfEstablishment: generateFilters({
+        config: degreeOfEstablishmentConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      lastInterpreted: generateFilters({
+        config: lastInterpretedConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      publishedByGbifRegion: generateFilters({
+        config: publishedByGbifRegionConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      georeferencedBy: generateFilters({
+        config: georeferencedByConfig,
+        searchConfig,
+        formatMessage,
+      }),
+      repatriated: generateFilters({ config: repatriatedConfig, searchConfig, formatMessage }),
+      distanceFromCentroidInMeters: generateFilters({
+        config: distanceFromCentroidInMetersConfig,
+        searchConfig,
+        formatMessage,
+      }),
     };
+
+    // if window object is available then put the available filter keys in an global object for manager to use
+    if (typeof window !== 'undefined') {
+      window.gbif = window.gbif || {};
+      window.gbif.availableFilters = Object.keys(tmpFilters);
+    }
     return tmpFilters;
   }, [searchConfig, countrySuggest, formatMessage]);
 

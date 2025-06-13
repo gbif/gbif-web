@@ -9,26 +9,36 @@ import {
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { LoaderArgs, useI18n } from '@/reactRouterPlugins';
-import { required } from '@/utils/required';
+import { useLink } from '@/reactRouterPlugins/dynamicLink';
 import { useEffect } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Navigate, useLoaderData } from 'react-router-dom';
 import { NonBackbonePresentation, TaxonKey as Presentation } from './taxonKeyPresentation';
-import { imagePredicate, typeSpecimenPredicate } from './taxonUtil';
+import { imagePredicate } from './taxonUtil';
 
 export async function taxonLoader({ params, graphql }: LoaderArgs) {
-  const key = required(params.key, 'No key was provided in the URL');
+  const key = params.taxonKey || (params.key as string);
 
   return graphql.query<TaxonKeyQuery, TaxonKeyQueryVariables>(TAXON_QUERY, {
     key,
-    predicate: typeSpecimenPredicate(Number(key)),
-    imagePredicate: imagePredicate(Number(key)),
+    /*     predicate: typeSpecimenPredicate(Number(key)),
+     */ imagePredicate: imagePredicate(Number(key)),
   });
 }
 
 export function TaxonKey() {
   const { data } = useLoaderData() as { data: TaxonKeyQuery };
+  const createLink = useLink();
 
-  return data?.taxon?.nubKey === data?.taxon?.key ? <BackboneTaxon /> : <NonBackboneTaxon />;
+  if (data?.taxon?.nubKey === data?.taxon?.key) {
+    return <BackboneTaxon />;
+  } else {
+    let { to } = createLink({
+      pageId: 'datasetKey',
+      variables: { key: `${data?.taxon?.datasetKey}/species/${data?.taxon?.key}` },
+    });
+    if (!to) to = `/dataset/${data?.taxon?.datasetKey}/species/${data?.taxon?.key}`;
+    return <Navigate to={to} />;
+  }
 }
 
 const BackboneTaxon = () => {
@@ -40,7 +50,7 @@ const BackboneTaxon = () => {
     loading: slowTaxonLoading,
   } = useQuery<SlowTaxonQuery, SlowTaxonQueryVariables>(SLOW_TAXON, {
     lazyLoad: true,
-    throwAllErrors: true,
+    throwAllErrors: false,
   });
 
   useEffect(() => {
@@ -53,13 +63,13 @@ const BackboneTaxon = () => {
         },
       });
     }
-  }, [data?.taxon?.key]);
+  }, [data?.taxon?.key, locale, slowTaxonLoad]);
 
   if (data?.taxon == null) throw new NotFoundError();
   return <Presentation data={data} slowTaxon={slowTaxon} slowTaxonLoading={slowTaxonLoading} />;
 };
 
-const NonBackboneTaxon = () => {
+export const NonBackboneTaxon = ({ headLess = false }) => {
   const { data } = useLoaderData() as { data: TaxonKeyQuery };
 
   const {
@@ -70,16 +80,9 @@ const NonBackboneTaxon = () => {
     NON_BACKBONE_SLOW_TAXON,
     {
       lazyLoad: true,
-      throwAllErrors: true,
+      throwAllErrors: false,
     }
   );
-  /* const { data: taxonMetrics, load: slowLoad } = useQuery<
-    TaxonSummaryMetricsQuery,
-    TaxonSummaryMetricsQueryVariables
-  >(SLOW_QUERY, {
-    lazyLoad: true,
-    throwAllErrors: true,
-  }); */
 
   useEffect(() => {
     const id = data.taxon?.key;
@@ -90,9 +93,10 @@ const NonBackboneTaxon = () => {
         },
       });
     }
-  }, [data?.taxon?.key]);
+  }, [data.taxon?.key, slowTaxonLoad]);
   return (
     <NonBackbonePresentation
+      headLess={headLess}
       data={data}
       slowTaxon={slowTaxon}
       slowTaxonLoading={slowTaxonLoading}
@@ -103,20 +107,40 @@ const NonBackboneTaxon = () => {
 export { TaxonPageSkeleton } from './taxonKeyPresentation';
 
 const TAXON_QUERY = /* GraphQL */ `
-  query TaxonKey($key: ID!, $predicate: Predicate, $imagePredicate: Predicate) {
+  query TaxonKey($key: ID!, $imagePredicate: Predicate) {
     taxon(key: $key) {
       key
       nubKey
+      sourceTaxon {
+        key
+        references
+        datasetKey
+        dataset {
+          title
+        }
+      }
+      issues
       scientificName
+      canonicalName
+      origin
       kingdom
       formattedName(useFallback: true)
       rank
       taxonomicStatus
       publishedIn
       references
+      datasetKey
+      speciesCount
       distributionsCount: distributions(limit: 10, offset: 0) {
         results {
           taxonKey
+        }
+      }
+      iucnStatus {
+        references
+        distribution {
+          taxonKey
+          threatStatus
         }
       }
       dataset {
@@ -135,6 +159,8 @@ const TAXON_QUERY = /* GraphQL */ `
       parents {
         rank
         scientificName
+        canonicalName
+        formattedName
         key
       }
       acceptedTaxon {
@@ -151,11 +177,6 @@ const TAXON_QUERY = /* GraphQL */ `
 
     imagesCount: occurrenceSearch(predicate: $imagePredicate) {
       documents(size: 0) {
-        total
-      }
-    }
-    typesSpecimenCount: occurrenceSearch(predicate: $predicate) {
-      documents(from: 0, size: 0) {
         total
       }
     }
@@ -288,6 +309,16 @@ const NON_BACKBONE_SLOW_TAXON = /* GraphQL */ `
           numDescendants
         }
       }
+    }
+  }
+`;
+
+const TO_NUB_OR_NOT_TO_NUB = /* GraphQL */ `
+  query ToNubOrNotToNub($key: ID!) {
+    taxon(key: $key) {
+      nubKey
+      key
+      datasetKey
     }
   }
 `;

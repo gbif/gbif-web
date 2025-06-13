@@ -14,7 +14,7 @@ interface FilterButtonProps {
   filterHandle: string;
   onClear?: (filterContext: FilterContextType) => void;
   getCount?: (filter: FilterType) => number;
-  displayName?: React.ComponentType<{ id: string | number | object }>;
+  displayName?: React.ComponentType<{ id: string | number | object; checklistKey?: string }>;
 }
 
 export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProps>(
@@ -37,7 +37,7 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
       filterHandle
     );
     const count = getCount ? getCount(currentFilterContext.filter) : defaultCount;
-
+    const checklistKey = currentFilterContext.filter.checklistKey;
     // first get number of filters applied. Using getcount if it is defined, otherwise use the filterHandle
 
     const handleClear = () => {
@@ -77,7 +77,7 @@ export const FilterButton = React.forwardRef<HTMLButtonElement, FilterButtonProp
           {showFirstValue && (
             <span className="g-flex-auto g-text-start g-overflow-ellipsis g-overflow-hidden g-max-w-[400px]">
               <span className="g-mx-1">:</span>
-              <DisplayName id={firstValue} />
+              <DisplayName id={firstValue} checklistKey={checklistKey} />
             </span>
           )}
           {count >= 1 && !showFirstValue && (
@@ -109,10 +109,11 @@ const InactiveFilterButton = React.forwardRef<HTMLButtonElement, InactiveFilterB
     return (
       <Button
         {...props}
+        size="sm"
         ref={ref}
         variant="primaryOutline"
         role="combobox"
-        className={cn('g-justify-between', className)}
+        className={cn('g-text-sm g-justify-between', className)}
       >
         <FormattedMessage
           id={titleTranslationKey}
@@ -132,14 +133,16 @@ const ActiveFilterButton = React.forwardRef<HTMLButtonElement, ActiveFilterButto
       >
         {' '}
         <Button
+          size="sm"
           ref={ref}
           type="button"
-          className="g-overflow-hidden g-whitespace-nowrap g-flex-auto g-rounded-e-none g-rounded-s g-justify-between g-text-ellipsis"
+          className="g-text-sm g-overflow-hidden g-whitespace-nowrap g-flex-auto g-rounded-e-none g-rounded-s g-justify-between g-text-ellipsis"
           {...props}
         >
           <span className="g-overflow-ellipsis g-w-full">{children}</span>
         </Button>
         <Button
+          size="sm"
           onClick={handleClear}
           type="button"
           aria-label="Clear filter"

@@ -62,6 +62,24 @@ const config = {
       type: 'keyword',
       field: 'locale',
     },
+    gbifProgramme: {
+      type: 'nested',
+      field: 'programme',
+      config: {
+        prefix: 'programme',
+        options: {
+          id: {
+            type: 'keyword',
+            field: 'id',
+          },
+        },
+      },
+      get: {
+        type: 'delimted',
+        delimter: '__',
+        termOrder: ['id'],
+      },
+    },
     meta: {
       type: 'nested',
       field: 'meta',

@@ -3,8 +3,10 @@ import { dataRoutes } from '@/config/routes';
 import { notImplementedRoutes } from '@/notImplementedRoutes';
 import { applyReactRouterPlugins } from '@/reactRouterPlugins';
 import { becomeAPublisherRoute } from '@/routes/custom/becomeAPublisher';
+import { gbifNetworkRoute } from '@/routes/custom/gbifNetwork/gbifNetwork';
 import { suggestDatasetRoute } from '@/routes/custom/suggestDataset';
-import { homePageRoute } from '@/routes/homePage';
+import { homePageRoute } from '@/routes/home';
+import { omniSearchRoute } from '@/routes/omniSearch';
 import { confirmEndorsmentRoute } from '@/routes/publisher/ConfirmEndorsment';
 import { RootErrorPage } from '@/routes/rootErrorPage';
 import { userRoutes } from '@/routes/user';
@@ -17,6 +19,7 @@ export function createGbifRoutes(config: Config) {
       {
         element: <GbifRootLayout children={<Outlet />} />,
         loader: headerLoader,
+        errorElement: <RootErrorPage />,
         shouldRevalidate() {
           return false;
         },
@@ -26,10 +29,12 @@ export function createGbifRoutes(config: Config) {
             children: [
               homePageRoute,
               ...userRoutes,
+              omniSearchRoute,
 
               // custom pages
               becomeAPublisherRoute,
               confirmEndorsmentRoute,
+              gbifNetworkRoute,
               suggestDatasetRoute,
 
               ...notImplementedRoutes,

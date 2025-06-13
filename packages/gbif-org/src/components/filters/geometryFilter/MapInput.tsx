@@ -12,7 +12,7 @@ import { Vector as VectorLayer } from 'ol/layer.js';
 import TileLayer from 'ol/layer/Tile';
 import Map from 'ol/Map';
 import * as olProj from 'ol/proj';
-import { TileImage as TileImageSource } from 'ol/source';
+import ImageTile from 'ol/source/ImageTile';
 import { Vector as VectorSource } from 'ol/source.js';
 import { Fill, Stroke, Style } from 'ol/style';
 import TileGrid from 'ol/tilegrid/TileGrid';
@@ -37,17 +37,17 @@ const tile_grid = new TileGrid({
   extent: olProj.get('EPSG:4326')?.getExtent() || [-90, -90, 90, 90], // I doubt the fallback is ever used
   minZoom: 0,
   resolutions: resolutions,
-  tileSize: tile_size,
+  tileSize: tile_size, // Rendered tile size (pixels)
 });
 
 const raster_style = 'gbif-natural';
 const epsg_4326_raster = new TileLayer({
-  source: new TileImageSource({
+  source: new ImageTile({
     projection: 'EPSG:4326',
     url: `${
       import.meta.env.PUBLIC_TILE_API
     }/4326/omt/{z}/{x}/{y}@${pixel_ratio}x.png?style=${raster_style}`,
-    tilePixelRatio: pixel_ratio,
+    tileSize: tile_size * pixel_ratio, // Source tile size (pixels)
     tileGrid: tile_grid,
     wrapX: true,
   }),
@@ -210,7 +210,7 @@ const OpenLayersMap = ({
 
     select.on('select', function () {
       select.getFeatures().forEach(function (selectedFeature) {
-        select.getLayer(selectedFeature).getSource().removeFeature(selectedFeature);
+        select.getLayer(selectedFeature).getSource()?.removeFeature(selectedFeature);
       });
       setTimeout(() => {
         const geometries: string[] = [];

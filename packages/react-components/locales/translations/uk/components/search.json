@@ -25,6 +25,7 @@
     "range": "",
     "rangeExample": "",
     "wildcard": "",
+    "dateTemplate": "",
     "locationID": ""
   },
   "ternary": {
@@ -33,6 +34,7 @@
     "either": ""
   },
   "loadMore": "Більше",
+  "loading": "Завантаження",
   "noResults": "",
   "occurrenceClustersView": {
     "about": "Відомості про видавця даних",
@@ -55,5 +57,19 @@
       "SPECIMEN": "Зразок",
       "SEQUENCE": ""
     }
+  },
+  "crossContentSearch": {
+    "title": "Пошук",
+    "description": "",
+    "noSearchTermsEntered": "Не введені ключові слова для пошуку",
+    "placeholder": "",
+    "categories": {
+      "speciesSearch": "Вид",
+      "datasetSearch": "Наборів даних",
+      "publisherSearch": "Видавці",
+      "occurrenceSearch": "Знахідки",
+      "resourceSearch": ""
+    },
+    "seeAll": "Переглянути все"
   }
 }

@@ -1,21 +1,30 @@
 {
   "tabs": {
     "about": "Over",
-    "typeMaterial": "Gelijk aan {is}",
+    "verbatim": "",
     "metrics": "Metrieken"
   },
+  "recordedAsIntroducedIn": "",
+  "accordingTo": "Volgens",
+  "evidenceOfImpact": "Bewijs van invloed",
+  "occurrencesInGbif": "",
+  "recordedAsIntrodicedInNcontries": "",
+  "breakdown": "",
   "publishedIn": "Gepubliceerd in",
   "vernacularNames": "Volksnamen",
   "rank": "",
   "source": "Bron",
   "specimenIsTypeOf": "Gelijk aan {is}",
   "typeMaterial": "Gelijk aan {is}",
+  "treatments": "Moet worden gedefinieerd",
   "more": "meer",
   "less": "Gelijk aan {is}",
   "dna": "",
   "occurenceImages": "Gelijk aan {is}",
+  "taxonImages": "",
   "taxonIdentifiers": "",
   "synonymsAndCombinations": "",
+  "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "Rijken",
     "PHYLUM": "Stammen",
@@ -24,5 +33,35 @@
     "FAMILY": "Families",
     "GENUS": "",
     "SPECIES": "Soorten"
+  },
+  "distributions": "Distributies",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "",
+    "status": "Status",
+    "locality": "",
+    "locationId": "Locatie ID",
+    "country": "Land"
+  },
+  "verbatim": {
+    "term": "",
+    "value": "Waarde",
+    "coreRecord": ""
+  },
+  "tradeRestrictions": "",
+  "cites": "CITES",
+  "immediateChildren": "",
+  "referenceTaxon": "",
+  "showLess": "Moet worden gedefinieerd",
+  "showAll": "Alles weergeven",
+  "errors": {
+    "treatments": "Moet worden gedefinieerd",
+    "distributions": "Moet worden gedefinieerd",
+    "verbatim": "Moet worden gedefinieerd",
+    "typeMaterial": "Moet worden gedefinieerd",
+    "vernacularNames": "Moet worden gedefinieerd",
+    "classificationChildren": "Moet worden gedefinieerd",
+    "breakdown": "Moet worden gedefinieerd",
+    "invasiveInCountries": "Moet worden gedefinieerd"
   }
 }

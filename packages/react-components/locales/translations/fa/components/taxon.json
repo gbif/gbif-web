@@ -1,21 +1,30 @@
 {
   "tabs": {
     "about": "درباره",
-    "typeMaterial": "",
+    "verbatim": "",
     "metrics": ""
   },
+  "recordedAsIntroducedIn": "",
+  "accordingTo": "",
+  "evidenceOfImpact": "",
+  "occurrencesInGbif": "",
+  "recordedAsIntrodicedInNcontries": "",
+  "breakdown": "",
   "publishedIn": "",
   "vernacularNames": "",
   "rank": "رتبه",
   "source": "",
   "specimenIsTypeOf": "",
   "typeMaterial": "",
+  "treatments": "",
   "more": "",
   "less": "",
   "dna": "",
   "occurenceImages": "",
+  "taxonImages": "",
   "taxonIdentifiers": "",
   "synonymsAndCombinations": "",
+  "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "",
     "PHYLUM": "",
@@ -24,5 +33,35 @@
     "FAMILY": "",
     "GENUS": "",
     "SPECIES": ""
+  },
+  "distributions": "",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "",
+    "status": "",
+    "locality": "",
+    "locationId": "",
+    "country": "کشور"
+  },
+  "verbatim": {
+    "term": "",
+    "value": "",
+    "coreRecord": ""
+  },
+  "tradeRestrictions": "",
+  "cites": "",
+  "immediateChildren": "",
+  "referenceTaxon": "",
+  "showLess": "",
+  "showAll": "",
+  "errors": {
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
   }
 }

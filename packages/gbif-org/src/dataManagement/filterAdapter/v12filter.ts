@@ -6,7 +6,11 @@ import { FilterConfigType } from './filter2predicate';
  * @param {JSON} query as when parsed from url. Should be of the form: {fieldA: [values], fieldB: value}
  * @param {*} filterConfig
  */
-export default function v12filter(query: ParamQuery, filterConfig: FilterConfigType) {
+export default function v12filter(
+  query: ParamQuery,
+  filterConfig: FilterConfigType,
+  defaultChecklistKey?: string
+): FilterType {
   query = query || {};
   const filter: FilterType = { must: {} };
 
@@ -24,6 +28,8 @@ export default function v12filter(query: ParamQuery, filterConfig: FilterConfigT
   );
 
   Object.keys(query).forEach((field) => {
+    // checklistKey params are handled in a unique way for all filters. See further down.
+    if (field === 'checklistKey') return;
     const value = query[field];
     if (typeof value === 'undefined') return;
 
@@ -73,5 +79,9 @@ export default function v12filter(query: ParamQuery, filterConfig: FilterConfigT
       filter.must[name] = arrayValue;
     }
   });
+  const checklistKey = query?.checklistKey?.[0] ?? query?.checklistKey ?? defaultChecklistKey;
+  if (typeof checklistKey === 'string') {
+    filter.checklistKey = checklistKey;
+  }
   return filter;
 }

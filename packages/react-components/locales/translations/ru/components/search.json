@@ -25,6 +25,7 @@
     "range": "",
     "rangeExample": "",
     "wildcard": "Поиск с использованием шаблонов * и ? ",
+    "dateTemplate": "",
     "locationID": ""
   },
   "ternary": {
@@ -33,6 +34,7 @@
     "either": ""
   },
   "loadMore": "Еще",
+  "loading": "Загрузка",
   "noResults": "",
   "occurrenceClustersView": {
     "about": "Подробно",
@@ -55,5 +57,19 @@
       "SPECIMEN": "Образец",
       "SEQUENCE": ""
     }
+  },
+  "crossContentSearch": {
+    "title": "Поиск",
+    "description": "",
+    "noSearchTermsEntered": "Не введены ключевые слова для поиска",
+    "placeholder": "",
+    "categories": {
+      "speciesSearch": "Вид",
+      "datasetSearch": "Опубликованных наборов данных",
+      "publisherSearch": "Организации",
+      "occurrenceSearch": "Находки",
+      "resourceSearch": ""
+    },
+    "seeAll": "Увидеть все"
   }
 }

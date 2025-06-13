@@ -200,6 +200,11 @@
     "count": "{num, plural, one {Dataset} other {# Datasets}}",
     "description": "Der Titel des Datasets, das den Datensatz enthält."
   },
+  "datasetId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "Publisher",
     "count": "{num, plural, one {Publisher} other {# Publisher}}",
@@ -295,10 +300,25 @@
     "count": "{num, plural, one { Etablierungsstatus } other {# Etablierungsstatus}}",
     "description": "Die Mittel, mit dem der Organismus zu einem bestimmten Zeitpunkt an einen bestimmten Ort etabliert wurde."
   },
+  "sex": {
+    "name": "",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
+  "lifeStage": {
+    "name": "",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+  },
   "recordedBy": {
     "name": "Sammler/Beobachter",
     "count": "{num, plural, one { Sammler } other {# Sammler}}",
     "description": "Namen der Personen, Gruppen oder Organisationen, die den Beleg gesammelt bzw. die Beobachtung getätigt haben."
+  },
+  "fieldNumber": {
+    "name": "",
+    "count": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
   },
   "recordNumber": {
     "name": "Sammlernummer",
@@ -505,5 +525,12 @@
     "name": "Höheres Taxon",
     "count": "",
     "description": ""
+  },
+  "issueEnum": {
+    "name": "Probleme und Flags",
+    "count": "{num, plural, one {Problem oder Flag} other {# Probleme und Flags}}",
+    "isNotNull": "Hat ein Problem",
+    "isNull": "Ohne Problem",
+    "description": "Die Arten der Probleme/Flags, die bei der Verarbeitung der Daten entdeckt wurden."
   }
 }

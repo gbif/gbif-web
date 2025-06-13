@@ -1,6 +1,6 @@
-import hash from 'object-hash';
+import { NextFunction, Request, Response } from 'express';
 import LRU from 'lru-cache';
-import { Request, Response, NextFunction } from 'express';
+import hash from 'object-hash';
 import { ParsedQs } from 'qs';
 
 const queryCache = new LRU({ max: 1000 });
@@ -69,6 +69,7 @@ const hashMiddleware = (req: Request, res: Response, next: NextFunction) => {
     if (!storedQuery) {
       unknownQueryId = true;
     } else {
+      res.set('X-Graphql-query-ID', queryId);
       if (req.method === 'POST') req.body.query = storedQuery;
       if (req.method === 'GET') req.query.query = storedQuery as StoredQuery;
     }
@@ -79,6 +80,7 @@ const hashMiddleware = (req: Request, res: Response, next: NextFunction) => {
     if (!storedVariables) {
       unknownVariablesId = true;
     } else {
+      res.set('X-Graphql-variables-ID', variablesId);
       if (req.method === 'POST') req.body.variables = storedVariables;
       if (req.method === 'GET')
         req.query.variables = storedVariables as StoredQuery;

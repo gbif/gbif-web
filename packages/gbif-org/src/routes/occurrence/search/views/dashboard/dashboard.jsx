@@ -3,15 +3,15 @@ import * as charts from '@/components/dashboard';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/smallCard';
 import { useJsonParam } from '@/hooks/useParam';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import useLocalStorage from 'use-local-storage';
 import { Map } from '../map';
 import { Media } from '../media';
 import { OccurrenceTable as Table } from '../table/occurrenceTable';
-import DashboardBuilder from './DashboardBuilder';
+const DashboardBuilder = React.lazy(() => import('./DashboardBuilder'));
 
-export function Dashboard({ predicate, chartsTypes: chartsTypesProp, ...props }) {
+export function Dashboard({ predicate, q, chartsTypes: chartsTypesProp, ...props }) {
   const [urlLayout, setUrlLayout] = useJsonParam({ key: 'layout' });
   const [layout = [[]], setLayoutState] = useLocalStorage('occurrenceDashboardLayout', [[]]);
   const [chartsTypes, setChartsTypes] = useState([]);
@@ -63,6 +63,7 @@ export function Dashboard({ predicate, chartsTypes: chartsTypesProp, ...props })
       <DashboardBuilder
         chartsTypes={chartsTypes}
         predicate={predicate}
+        q={q}
         setState={updateState}
         state={urlLayout ?? layout}
         {...{ lockedLayout: isUrlLayoutDifferent }}
@@ -291,6 +292,12 @@ const preconfiguredCharts = {
       return <charts.ProjectId predicate={predicate} interactive {...props} />;
     },
   },
+  datasetId: {
+    translation: 'filters.datasetId.name',
+    component: ({ predicate, ...props }) => {
+      return <charts.DatasetId predicate={predicate} interactive {...props} />;
+    },
+  },
   map: {
     translation: 'search.tabs.map',
     r: true, // resizable
@@ -329,7 +336,7 @@ const preconfiguredCharts = {
         <Card className="g-overflow-y-auto g-h-full g-p-2">
           <Media
             size={10}
-            className="g-pt-2 g-border g-rounded g-overflow-auto g-h-full"
+            className="g-pt-2 g-border g-border-solid g-rounded g-overflow-auto g-h-full"
             {...props}
           />
         </Card>

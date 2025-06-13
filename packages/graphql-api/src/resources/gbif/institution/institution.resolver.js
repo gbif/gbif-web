@@ -45,18 +45,27 @@ export default {
         length: 200,
       }).plainText;
     },
-    collections: ({ key }, { limit, offset }, { dataSources }) => {
+    collections: ({ key }, { limit, offset, query = {} }, { dataSources }) => {
+      const { institutionKey: _key, ...rest } = query;
+
       return dataSources.collectionAPI
         .getCollectionsByInstitutionKey({
           key,
           limit,
           offset,
+          ...rest,
         })
         .then((data) => data.results);
     },
-    collectionCount: ({ key }, args, { dataSources }) => {
+    collectionCount: ({ key }, { query = {} }, { dataSources }) => {
+      const {
+        limit: _limit,
+        institutionKey: _key,
+        offset: _offset,
+        ...rest
+      } = query;
       return dataSources.collectionAPI
-        .getCollectionsByInstitutionKey({ key, limit: 0 })
+        .getCollectionsByInstitutionKey({ ...rest, key, limit: 0 })
         .then((data) => data.count);
     },
     replacedByInstitution: ({ replacedBy }, args, { dataSources }) => {
@@ -101,9 +110,15 @@ export default {
         length: 200,
       }).plainText;
     },
-    collectionCount: ({ key }, args, { dataSources }) => {
+    collectionCount: ({ key }, { query = {} }, { dataSources }) => {
+      const {
+        limit: _limit,
+        institutionKey: _key,
+        offset: _offset,
+        ...rest
+      } = query;
       return dataSources.collectionAPI
-        .getCollectionsByInstitutionKey({ key, limit: 0 })
+        .getCollectionsByInstitutionKey({ ...rest, key, limit: 0 })
         .then((data) => data.count);
     },
   },

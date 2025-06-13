@@ -90,7 +90,7 @@ const NavigationMenuViewport = React.forwardRef<
   <div className={cn('g-absolute g-left-0 g-top-full g-flex g-justify-center')}>
     <NavigationMenuPrimitive.Viewport
       className={cn(
-        'g-origin-top-center g-relative g-mt-1.5 g-h-[var(--radix-navigation-menu-viewport-height)] g-w-full g-overflow-hidden g-rounded-md g-border g-bg-popover g-text-popover-foreground g-shadow data-[state=open]:g-animate-in data-[state=closed]:g-animate-out data-[state=closed]:g-zoom-out-95 data-[state=open]:g-zoom-in-90 md:g-w-[var(--radix-navigation-menu-viewport-width)]',
+        'g-origin-top-center g-relative g-mt-1.5 g-h-[var(--radix-navigation-menu-viewport-height)] g-w-full g-overflow-hidden g-rounded-md g-border g-border-solid g-bg-popover g-text-popover-foreground g-shadow data-[state=open]:g-animate-in data-[state=closed]:g-animate-out data-[state=closed]:g-zoom-out-95 data-[state=open]:g-zoom-in-90 md:g-w-[var(--radix-navigation-menu-viewport-width)]',
         className
       )}
       ref={ref}
@@ -112,20 +112,19 @@ const NavigationMenuIndicator = React.forwardRef<
     )}
     {...props}
   >
-    <div className="g-relative g-top-[60%] g-h-2 g-w-2 g-rotate-45 g-rounded-tl-sm g-bg-border g-shadow-md" />
+    <div className="g-relative g-top-[60%] g-h-2 g-w-2 g-rotate-45 g-rounded-tl-sm g-bg-border g-border-solid g-shadow-md" />
   </NavigationMenuPrimitive.Indicator>
 ));
 NavigationMenuIndicator.displayName = NavigationMenuPrimitive.Indicator.displayName;
 
 export {
-    navigationMenuTriggerStyle,
-    NavigationMenu,
-    NavigationMenuList,
-    NavigationMenuItem,
-    NavigationMenuContent,
-    NavigationMenuTrigger,
-    NavigationMenuLink,
-    NavigationMenuIndicator,
-    NavigationMenuViewport,
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+  NavigationMenuViewport,
 };
-

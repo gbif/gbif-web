@@ -33,6 +33,12 @@ export function ApiContent({ id = '4051783990' }: { id?: string }) {
           https://api.gbif.org/v1/grscicoll/collection/search?q=dna
         </a>
       </Card>
+      <Card className="g-p-2 g-mb-2">
+        <FormattedMessage id="apiHelp.filterOccurrences" /> <br />
+        <a href={`https://api.gbif.org/v1/occurrence/search?collectionKey=${id}`}>
+          https://api.gbif.org/v1/occurrence/search?collectionKey={id}
+        </a>
+      </Card>
     </div>
   );
 }

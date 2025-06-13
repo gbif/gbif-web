@@ -15,6 +15,7 @@ const inputTypeDef = gql`
     distance: String
     predicate: Predicate
     predicates: [Predicate]
+    checklistKey: ID
   }
 
   enum PredicateType {
@@ -39,6 +40,17 @@ async function getSchema() {
   const enumsSchema = await getEnumTypeDefs();
 
   const rootQuery = gql`
+    enum CacheControlScope {
+      PUBLIC
+      PRIVATE
+    }
+
+    directive @cacheControl(
+      maxAge: Int
+      scope: CacheControlScope
+      inheritMaxAge: Boolean
+    ) on FIELD_DEFINITION | OBJECT | INTERFACE | UNION
+
     ${enumsSchema}
 
     type Query {
@@ -46,11 +58,13 @@ async function getSchema() {
       _empty is nonsense, and only here as we are not allowed to extend an empty type.
       """
       _empty: String
+      _queryId: String!
+      _variablesId: String
     }
   `;
 
   // Map each organisation string to an aggregate array containing all of its typeDefs
-  const organization = config.organization;
+  const { organization } = config;
   const orgTypeDefs = Object.keys(resources[organization]).map((resource) =>
     get(resources, `${organization}.${resource}.typeDef`),
   );

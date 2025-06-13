@@ -6,6 +6,7 @@ const cors = require('cors');
 const config = require('./config');
 var queue = require('express-queue');
 const { loggingMiddleware, errorLoggingMiddleware } = require('./middleware');
+const normalizePredicate = require('./requestAdapter/util/normalizePredicate');
 
 const queueOptions = {
   activeLimit: 10,
@@ -100,8 +101,8 @@ const temporaryAuthMiddleware = function (req, res, next) {
 // app.use(temporaryAuthMiddleware)
 
 if (content) {
-  app.post('/content/meta', asyncMiddleware(postMetaOnly(content)));
-  app.get('/content/meta', asyncMiddleware(getMetaOnly(content)));
+  app.post('/content/meta', asyncMiddleware(metaOnly(content)));
+  app.get('/content/meta', asyncMiddleware(metaOnly(content)));
 
   app.post('/content', queue(queueOptions), asyncMiddleware(searchResource(content)));
   app.get('/content', queue(queueOptions), asyncMiddleware(searchResource(content)));
@@ -109,8 +110,8 @@ if (content) {
 }
 
 if (literature) {
-  app.post('/literature/meta', asyncMiddleware(postMetaOnly(literature)));
-  app.get('/literature/meta', asyncMiddleware(getMetaOnly(literature)));
+  app.post('/literature/meta', asyncMiddleware(metaOnly(literature)));
+  app.get('/literature/meta', asyncMiddleware(metaOnly(literature)));
 
   app.post('/literature', queue(queueOptions), asyncMiddleware(searchResource(literature)));
   app.get('/literature', queue(queueOptions), asyncMiddleware(searchResource(literature)));
@@ -118,8 +119,8 @@ if (literature) {
 }
 
 if (occurrence) {
-  app.post('/occurrence/meta', asyncMiddleware(postMetaOnly(occurrence)));
-  app.get('/occurrence/meta', asyncMiddleware(getMetaOnly(occurrence)));
+  app.post('/occurrence/meta', asyncMiddleware(metaOnly(occurrence)));
+  app.get('/occurrence/meta', asyncMiddleware(metaOnly(occurrence)));
 
   app.post(
     '/occurrence',
@@ -135,6 +136,9 @@ if (occurrence) {
   );
   app.get('/occurrence/key/:id', asyncMiddleware(keyResource(occurrence)));
 
+  app.post('/occurrence/suggest/datasetKey', asyncMiddleware(occurrence.suggestDatasetKey));
+  app.post('/occurrence/suggest/publisherKey', asyncMiddleware(occurrence.suggestPublisherKey));
+
   app.get(
     '/occurrence/suggest/:key',
     temporaryAuthMiddleware,
@@ -143,8 +147,8 @@ if (occurrence) {
 }
 
 if (eventOccurrence) {
-  app.post('/event-occurrence/meta', asyncMiddleware(postMetaOnly(eventOccurrence)));
-  app.get('/event-occurrence/meta', asyncMiddleware(getMetaOnly(eventOccurrence)));
+  app.post('/event-occurrence/meta', asyncMiddleware(metaOnly(eventOccurrence)));
+  app.get('/event-occurrence/meta', asyncMiddleware(metaOnly(eventOccurrence)));
 
   app.post(
     '/event-occurrence',
@@ -186,8 +190,8 @@ if (dataset) {
 let eventQueue;
 if (event) {
   eventQueue = queue(queueOptions);
-  app.post('/event/meta', asyncMiddleware(postMetaOnly(event)));
-  app.get('/event/meta', asyncMiddleware(getMetaOnly(event)));
+  app.post('/event/meta', asyncMiddleware(metaOnly(event)));
+  app.get('/event/meta', asyncMiddleware(metaOnly(event)));
 
   app.post('/event', eventQueue, temporaryAuthMiddleware, asyncMiddleware(searchResource(event)));
   app.get('/event', eventQueue, temporaryAuthMiddleware, asyncMiddleware(searchResource(event)));
@@ -206,15 +210,15 @@ if (event) {
   );
 }
 
-function searchResource(resource) {
+function searchResource(resource, metaOnly = false) {
   const { dataSource, get2predicate, predicate2query, get2metric, metric2aggs } = resource;
   return async (req, res, next) => {
     try {
       // console.log(`queueLength: ${eventQueue.queue.getLength()}`);
-
       const {
         metrics,
         predicate,
+        q,
         size,
         from,
         randomSeed,
@@ -224,7 +228,16 @@ function searchResource(resource) {
         sortOrder,
       } = parseQuery(req, res, next, { get2predicate, get2metric });
       const aggs = metric2aggs(metrics);
-      const query = predicate2query(predicate);
+      const query = await predicate2query(predicate, q);
+      const normalizedPredicate = normalizePredicate(predicate);
+      if (metaOnly) {
+        return res.json({
+          predicate,
+          normalizedPredicate,
+          metrics,
+          query,
+        });
+      }
       const { result, esBody } = await dataSource.query({
         query,
         aggs,
@@ -240,6 +253,7 @@ function searchResource(resource) {
       const meta = {
         GET: req.query,
         predicate,
+        normalizedPredicate,
         metrics,
         esBody,
       };
@@ -282,6 +296,7 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
       includeMeta = false,
       sortBy,
       sortOrder,
+      q,
       ...otherParams
     } = query;
 
@@ -314,6 +329,7 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
       includeMeta,
       sortBy,
       sortOrder,
+      q,
     };
     return result;
   } catch (err) {
@@ -342,43 +358,8 @@ function suggestResource(resource) {
   };
 }
 
-function postMetaOnly(resource) {
-  const { predicate2query } = resource;
-  return async (req, res) => {
-    const predicate = req.body.predicate;
-    const query = predicate2query(predicate);
-    const meta = {
-      predicate,
-      query,
-    };
-
-    res.json(meta);
-  };
-}
-
-function getMetaOnly(resource) {
-  const { get2predicate, predicate2query } = resource;
-  return async (req, res, next) => {
-    let predicate;
-    let metrics;
-    if (req.query.query) {
-      try {
-        const jsonQuery = JSON.parse(req.query.query);
-        predicate = jsonQuery.predicate;
-      } catch (err) {
-        return next(new ResponseError(400, 'badRequest', `Invalid query: ${err.message}`));
-      }
-    } else {
-      predicate = get2predicate(req.query);
-    }
-    const query = predicate2query(predicate);
-    const meta = {
-      predicate,
-      query,
-    };
-
-    res.json(meta);
-  };
+function metaOnly(resource) {
+  return searchResource(resource, true);
 }
 
 app.get('*', unknownRouteHandler);

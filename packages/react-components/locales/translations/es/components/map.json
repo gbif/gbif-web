@@ -1,20 +1,70 @@
 {
-    "styles": {
-        "satellite": "Satélite",
-        "natural": "Natural",
-        "bright": "Brillante",
-        "dark": "Oscuro",
-        "outdoor": "Relieve"
-    },
-    "projections": {
-        "ARCTIC": "Ártico",
-        "MERCATOR": "Mercator",
-        "ANTARCTIC": "Antártico",
-        "PLATE_CAREE": "Proyección Geográfica"
-    },
-    "failedToGetUserLocation": {
-        "title": "Igual a {is}",
-        "message": "Igual a {is}"
-    },
-    "filterByView": "Usar el área visible como filtro"
+  "styles": {
+    "satellite": "Satélite",
+    "natural": "Natural",
+    "bright": "Brillante",
+    "dark": "Oscuro",
+    "outdoor": "Relieve"
+  },
+  "projections": {
+    "ARCTIC": "Ártico",
+    "MERCATOR": "Mercator",
+    "ANTARCTIC": "Antártico",
+    "PLATE_CAREE": "Proyección Geográfica"
+  },
+  "failedToGetUserLocation": {
+    "title": "Igual a {is}",
+    "message": "Igual a {is}"
+  },
+  "filterByView": "Usar el área visible como filtro",
+  "projection": "Proyección",
+  "anyYear": "Cualquier año",
+  "exploreArea": "Explora un área",
+  "explore": "Explorar",
+  "generatedDateAgo": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+  "style": "Estilo",
+  "filters": "Filtros",
+  "select": "Seleccionar",
+  "custom": "Personalizar",
+  "baseMap": "Mapa base",
+  "binning": "Agrupación",
+  "year": "Año",
+  "chooseColors": "Colores",
+  "clickToSearchArea": "Haz clic para buscar un área",
+  "predefined": {
+    "CLASSIC_HEX": "Hexágonos clásicos",
+    "CLASSIC": "Puntos clásicos",
+    "STREETS": "Calles",
+    "GLACIER": "Glaciar",
+    "GREEN": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "CUSTOM": "Personalizar"
+  },
+  "basemap": {
+    "CLASSIC": "Magenta",
+    "LIGHT": "Claro (sin etiquetas)",
+    "LIGHT_DETAILS": "Claro",
+    "DARK": "Oscuro (sin etiquetas)",
+    "DARK_DETAILS": "Oscuro",
+    "OSM": "Carreteras"
+  },
+  "bin": {
+    "PIXEL": "Puntos",
+    "SMALL_HEX": "Hexágonos pequeños",
+    "LARGE_HEX": "Hexágonos",
+    "SMALL_SQUARE": "Cuadrados pequeños",
+    "LARGE_SQUARE": "Cuadrados"
+  },
+  "colors": {
+    "CLASSIC": "Clásico",
+    "FIRE": "Fuego",
+    "GLACIER": "Glaciar",
+    "GREEN_POINT": "Verde",
+    "PURPLE_YELLOW": "Púrpura amarillo",
+    "PURPLE_HEAT": "Púrpura cálido",
+    "BLUE_HEAT": "Azul cálido",
+    "ORANGE_HEAT": "Naranja cálido",
+    "GREEN": "Verde",
+    "BLUE_CLUSTER": "Agrupación azul",
+    "ORANGE_CLUSTER": "Agrupación naranja"
+  }
 }

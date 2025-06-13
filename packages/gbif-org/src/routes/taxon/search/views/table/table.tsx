@@ -70,12 +70,23 @@ export type SingleTaxonSearchResult = ExtractPaginatedResult<TaxonSearchQuery['t
 
 const keySelector = (item: SingleTaxonSearchResult) => item.key?.toString() ?? '';
 
+const KeySelectorDatasetTaxon = (item: SingleTaxonSearchResult) =>
+  `${item.datasetKey}/species/${item.key}`;
+
 const rowLinkOptionsDirect: RowLinkOptions<SingleTaxonSearchResult> = {
   pageId: 'speciesKey',
 };
 
+const rowLinkOptionsDatasetKeyTaxonDirect: RowLinkOptions<SingleTaxonSearchResult> = {
+  pageId: 'datasetKey',
+};
+
 const rowLinkOptionsDrawer: RowLinkOptions<SingleTaxonSearchResult> = {
   createDrawerKey: ({ key }) => `t_${key}`,
+};
+
+const rowLinkOptionsDatasetKeyTaxonDrawer: RowLinkOptions<SingleTaxonSearchResult> = {
+  createDrawerKey: ({ key }) => `tx_${key}`,
 };
 
 const fallbackOptions: FallbackTableOptions = {
@@ -83,7 +94,7 @@ const fallbackOptions: FallbackTableOptions = {
   defaultEnabledTableColumns: ['taxonomicStatus', 'rank', 'taxonomy'],
 };
 
-export function Table() {
+export function Table({ entityDrawerPrefix }: { entityDrawerPrefix: string }) {
   const searchContext = useSearchContext();
   const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
   const filterContext = useContext(FilterContext);
@@ -119,7 +130,9 @@ export function Table() {
 
   const { filters } = useFilters({ searchConfig });
 
-  const columns = useTaxonColumns({ showPreview: setPreviewKey });
+  const columns = useTaxonColumns({
+    showPreview: (key) => setPreviewKey(`${entityDrawerPrefix}_${key}`),
+  });
 
   const taxons = useMemo(() => data?.taxonSearch?.results.filter(notNull) ?? [], [data]);
 
@@ -127,8 +140,8 @@ export function Table() {
 
   // update ordered list on items change
   useEffect(() => {
-    setOrderedList(taxons.map((item) => `t_${item.key}`));
-  }, [taxons, setOrderedList]);
+    setOrderedList(taxons.map((item) => `${entityDrawerPrefix || 't'}_${item.key}`));
+  }, [taxons, setOrderedList, entityDrawerPrefix]);
 
   const { availableTableColumns, defaultEnabledTableColumns } =
     useAvailableAndDefaultEnabledColumns({
@@ -137,11 +150,20 @@ export function Table() {
       fallbackOptions,
     });
 
-  const rowLinkOptions = config.openDrawerOnTableRowClick
-    ? rowLinkOptionsDrawer
-    : rowLinkOptionsDirect;
+  let rowLinkOptions;
 
-  const createRowLink = useRowLink({ rowLinkOptions, keySelector });
+  if (entityDrawerPrefix === 'tx') {
+    rowLinkOptions = config.openDrawerOnTableRowClick
+      ? rowLinkOptionsDatasetKeyTaxonDrawer
+      : rowLinkOptionsDatasetKeyTaxonDirect;
+  } else {
+    rowLinkOptions = config.openDrawerOnTableRowClick ? rowLinkOptionsDrawer : rowLinkOptionsDirect;
+  }
+  // the tx prefix is used for taxon search in a non-backbone dataset
+  const createRowLink = useRowLink({
+    rowLinkOptions,
+    keySelector: entityDrawerPrefix === 'tx' ? KeySelectorDatasetTaxon : keySelector,
+  });
 
   return (
     <div className="g-flex g-flex-col g-h-full">

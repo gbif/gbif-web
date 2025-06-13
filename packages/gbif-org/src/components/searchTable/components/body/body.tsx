@@ -1,10 +1,10 @@
 import { TableBody, TableRow } from '@/components/ui/table';
 import { cn } from '@/utils/shadcn';
-import { InitialSkeletonTable } from './initialSkeletonTable';
-import { Cell } from './cell';
 import { memo } from 'react';
-import { CreateRowLink } from '../../hooks/useRowLink';
 import { ColumnDef } from '../..';
+import { CreateRowLink } from '../../hooks/useRowLink';
+import { Cell } from './cell';
+import { InitialSkeletonTable } from './initialSkeletonTable';
 
 type Props<T> = {
   loading: boolean;
@@ -38,7 +38,7 @@ function Body<T>({
           return (
             <TableRow
               key={keySelector(item)}
-              className={cn('g-border-b', {
+              className={cn('g-border-b g-border-solid', {
                 'g-group': typeof createRowLink === 'function',
                 'g-pointer-events-none': loading,
               })}

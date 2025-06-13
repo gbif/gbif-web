@@ -12,6 +12,7 @@
     "no-underscore-dangle": "off",
     "no-undef": "off", // TypeScript already checks this
     "no-unused-expressions": "off",
+    "no-use-before-define": ["error", { "functions": false }],
     "import/no-unresolved": "off", // TypeScript already checks this
     "import/extensions": "off",
     "prettier/prettier": "error",

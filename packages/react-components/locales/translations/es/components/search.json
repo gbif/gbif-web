@@ -25,6 +25,7 @@
     "range": "Rango o valor único",
     "rangeExample": "",
     "wildcard": "Buscar utilizando * y ? como comodines",
+    "dateTemplate": "",
     "locationID": ""
   },
   "ternary": {
@@ -33,6 +34,7 @@
     "either": "Igual a {is}"
   },
   "loadMore": "Más",
+  "loading": "Cargando",
   "noResults": "",
   "occurrenceClustersView": {
     "about": "Acerca de",
@@ -55,5 +57,19 @@
       "SPECIMEN": "Espécimen",
       "SEQUENCE": "Igual a {is}"
     }
+  },
+  "crossContentSearch": {
+    "title": "Buscar",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "noSearchTermsEntered": "No se ha introducido el término a buscar",
+    "placeholder": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "categories": {
+      "speciesSearch": "Especies",
+      "datasetSearch": "Conjuntos de datos",
+      "publisherSearch": "Publicadores",
+      "occurrenceSearch": "Registros de presencia",
+      "resourceSearch": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    },
+    "seeAll": "Ver todo"
   }
 }

@@ -12,10 +12,12 @@ export const ConceptValue = ({
   vocabulary,
   name,
   includeContext,
+  hideTooltip,
 }: {
   vocabulary: string;
   name: string;
   includeContext?: boolean;
+  hideTooltip?: boolean;
 }) => {
   const { locale } = useI18n();
 
@@ -55,6 +57,10 @@ export const ConceptValue = ({
   }
 
   if (!concept.uiDefinition && !parentLabels) return <>{concept.uiLabel}</>;
+
+  if (hideTooltip) {
+    return concept.uiLabel;
+  }
 
   return (
     <>

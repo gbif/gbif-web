@@ -25,11 +25,25 @@
     "gt": "After {from}",
     "e": "{from}"
   },
+  "geoTime": {
+    "between": "{from} to {to}",
+    "lt": "Before {to}",
+    "lte": "Before or equal {to}",
+    "gt": "After {from}",
+    "gte": "After or equal {from}",
+    "e": "Includes {from}"
+  },
   "year": {
     "between": "Year {from} to {to}",
     "lt": "Before year {to}",
     "gt": "After year {from}",
-    "e": "Year is {from}"
+    "e": "Year is {from}",
+    "select": {
+      "equals": "Is",
+      "between": "Between",
+      "lessThanOrEquals": "Before end of",
+      "greaterThanOrEquals": "After start of"
+    }
   },
   "coordinateUncertainty": {
     "between": "Coordinate uncertainty {from}m to {to}m",

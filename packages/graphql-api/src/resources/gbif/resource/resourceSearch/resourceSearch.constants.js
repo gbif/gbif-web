@@ -62,5 +62,10 @@ export const SEARCH_RESULT_OPTIONS = Object.freeze([
     elasticSearchType: 'programme',
     graphQLType: 'Programme',
     enumContentType: 'PROGRAMME',
-  }
+  },
+  {
+    elasticSearchType: 'network',
+    graphQLType: 'NetworkProse',
+    enumContentType: 'NETWORK',
+  },
 ]);

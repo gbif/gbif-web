@@ -200,6 +200,11 @@
     "count": "",
     "description": ""
   },
+  "datasetId": {
+    "name": "データセットID",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "出版者",
     "count": "",
@@ -295,8 +300,23 @@
     "count": "",
     "description": ""
   },
+  "sex": {
+    "name": "性別",
+    "count": "",
+    "description": ""
+  },
+  "lifeStage": {
+    "name": "ライフ ステージ",
+    "count": "",
+    "description": ""
+  },
   "recordedBy": {
     "name": "採集者・観察者",
+    "count": "",
+    "description": ""
+  },
+  "fieldNumber": {
+    "name": "フィールド番号",
     "count": "",
     "description": ""
   },
@@ -423,7 +443,7 @@
   "isInCluster": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "この試験的な機能では、重複や関連するオカレンスの可能性があればハイライトします。"
   },
   "isSequenced": {
     "name": "",
@@ -504,6 +524,13 @@
   "higherTaxonKey": {
     "name": "上位の分類群",
     "count": "",
+    "description": ""
+  },
+  "issueEnum": {
+    "name": "問題とフラグ",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
     "description": ""
   }
 }

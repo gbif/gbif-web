@@ -5,7 +5,7 @@ import { PluginDefinition } from 'apollo-server-core';
 export const loggingPlugin: PluginDefinition = {
   async requestDidStart(rc) {
     // Don't log introspection queries
-    if (rc.request.operationName === 'IntrospectionQuery') return;
+    if (rc?.request?.operationName === 'IntrospectionQuery') return;
 
     const startTime = process.hrtime();
     let errorHasBeenLogged = false;
@@ -21,16 +21,16 @@ export const loggingPlugin: PluginDefinition = {
             timeZone: 'Europe/Copenhagen',
           }),
           request: {
-            operationName: requestContext.request.operationName,
-            query: requestContext.request.query,
-            variables: requestContext.request.variables,
+            operationName: requestContext?.request?.operationName,
+            query: requestContext?.request?.query,
+            variables: requestContext?.request?.variables,
             headers: Object.fromEntries(
-              requestContext.request.http?.headers.entries() as any,
+              requestContext?.request?.http?.headers.entries() as any,
             ),
           },
           errors: requestContext.errors,
           playgroundLink: `${config.origin}/graphql?query=${encodeURIComponent(
-            requestContext.request.query!,
+            requestContext?.request?.query!,
           )}`,
         });
 
@@ -54,16 +54,16 @@ export const loggingPlugin: PluginDefinition = {
           }),
           executionTimeMs: Math.round(elapsedMilliseconds),
           request: {
-            operationName: requestContext.request.operationName,
-            query: requestContext.request.query,
-            variables: requestContext.request.variables,
+            operationName: requestContext?.request?.operationName,
+            query: requestContext?.request?.query,
+            variables: requestContext?.request?.variables,
             headers: Object.fromEntries(
-              requestContext.request.http?.headers.entries() as any,
+              (requestContext?.request?.http?.headers?.entries() as any) ?? [],
             ),
           },
-          errors: requestContext.errors,
+          errors: requestContext?.errors,
           playgroundLink: `${config.origin}/graphql?query=${encodeURIComponent(
-            requestContext.request.query!,
+            requestContext?.request?.query!,
           )}`,
         });
       },

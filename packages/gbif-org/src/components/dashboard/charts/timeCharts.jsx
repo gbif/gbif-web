@@ -16,8 +16,10 @@ export function EventDate({
   ...props
 }) {
   const GQL_QUERY = `
-    query summary($predicate: Predicate${!disableUnknown ? ', $hasPredicate: Predicate' : ''}){
-      search: occurrenceSearch(predicate: $predicate) {
+    query summary($q: String, $predicate: Predicate${
+      !disableUnknown ? ', $hasPredicate: Predicate' : ''
+    }){
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         documents(size: 0) {
           total
         }
@@ -36,7 +38,7 @@ export function EventDate({
       }
       ${
         !disableUnknown
-          ? `isNotNull: occurrenceSearch(predicate: $hasPredicate) {
+          ? `isNotNull: occurrenceSearch(q: $q, predicate: $hasPredicate) {
         documents(size: 0) {
           total
         }

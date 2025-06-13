@@ -200,6 +200,11 @@
     "count": "",
     "description": ""
   },
+  "datasetId": {
+    "name": "معرف مجموعة البيانات",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "الناشر",
     "count": "",
@@ -295,8 +300,23 @@
     "count": "",
     "description": ""
   },
+  "sex": {
+    "name": "الجندر",
+    "count": "",
+    "description": ""
+  },
+  "lifeStage": {
+    "name": "مرحلة الحياة",
+    "count": "",
+    "description": ""
+  },
   "recordedBy": {
     "name": "سجلت من قبل",
+    "count": "",
+    "description": ""
+  },
+  "fieldNumber": {
+    "name": "رقم الحقل",
     "count": "",
     "description": ""
   },
@@ -423,7 +443,7 @@
   "isInCluster": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "تسلط هذه الميزة  التجريبية الضوء على التكرارات المحتملة و/أو ذات الصلة"
   },
   "isSequenced": {
     "name": "",
@@ -504,6 +524,13 @@
   "higherTaxonKey": {
     "name": "وحدة تصنيفية عليا",
     "count": "",
+    "description": ""
+  },
+  "issueEnum": {
+    "name": "مسائل و رايات",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
     "description": ""
   }
 }

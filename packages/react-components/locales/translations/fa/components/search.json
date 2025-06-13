@@ -25,6 +25,7 @@
     "range": "",
     "rangeExample": "",
     "wildcard": "",
+    "dateTemplate": "",
     "locationID": ""
   },
   "ternary": {
@@ -33,6 +34,7 @@
     "either": ""
   },
   "loadMore": "بیشتر",
+  "loading": "",
   "noResults": "",
   "occurrenceClustersView": {
     "about": "درباره",
@@ -55,5 +57,19 @@
       "SPECIMEN": "",
       "SEQUENCE": ""
     }
+  },
+  "crossContentSearch": {
+    "title": "",
+    "description": "",
+    "noSearchTermsEntered": "",
+    "placeholder": "",
+    "categories": {
+      "speciesSearch": "",
+      "datasetSearch": "مجموعه اطلاعات",
+      "publisherSearch": "",
+      "occurrenceSearch": "",
+      "resourceSearch": ""
+    },
+    "seeAll": ""
   }
 }

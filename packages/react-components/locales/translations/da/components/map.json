@@ -1,20 +1,70 @@
 {
-    "styles": {
-        "satellite": "",
-        "natural": "",
-        "bright": "",
-        "dark": "Mørk",
-        "outdoor": ""
-    },
-    "projections": {
-        "ARCTIC": "Arktis",
-        "MERCATOR": "Mercator",
-        "ANTARCTIC": "Antarktis",
-        "PLATE_CAREE": "Plade Carée"
-    },
-    "failedToGetUserLocation": {
-        "title": "",
-        "message": ""
-    },
-    "filterByView": ""
+  "styles": {
+    "satellite": "",
+    "natural": "",
+    "bright": "",
+    "dark": "Mørk",
+    "outdoor": ""
+  },
+  "projections": {
+    "ARCTIC": "Arktis",
+    "MERCATOR": "Mercator",
+    "ANTARCTIC": "Antarktis",
+    "PLATE_CAREE": "Plade Carée"
+  },
+  "failedToGetUserLocation": {
+    "title": "",
+    "message": ""
+  },
+  "filterByView": "",
+  "projection": "Projektion",
+  "anyYear": "Alle år",
+  "exploreArea": "Udforsk område",
+  "explore": "Udforsk",
+  "generatedDateAgo": "",
+  "style": "Udseende",
+  "filters": "Filtre",
+  "select": "Vælg",
+  "custom": "Brugerdefineret",
+  "baseMap": "Grundkort",
+  "binning": "Gruppering",
+  "year": "",
+  "chooseColors": "Farver",
+  "clickToSearchArea": "Klik for at afsøge et område",
+  "predefined": {
+    "CLASSIC_HEX": "Klassisk sekskant",
+    "CLASSIC": "Klassisk punkt",
+    "STREETS": "Gader",
+    "GLACIER": "Gletcher",
+    "GREEN": "",
+    "CUSTOM": "Brugerdefineret"
+  },
+  "basemap": {
+    "CLASSIC": "Magenta",
+    "LIGHT": "Lys (uden tekst)",
+    "LIGHT_DETAILS": "Lys",
+    "DARK": "Mørk (uden tekst)",
+    "DARK_DETAILS": "Mørk",
+    "OSM": "Veje"
+  },
+  "bin": {
+    "PIXEL": "Punkter",
+    "SMALL_HEX": "Små sekskanter",
+    "LARGE_HEX": "Sekskanter",
+    "SMALL_SQUARE": "Små firkanter",
+    "LARGE_SQUARE": "Firkanter"
+  },
+  "colors": {
+    "CLASSIC": "Klassisk",
+    "FIRE": "Ild",
+    "GLACIER": "Gletcher",
+    "GREEN_POINT": "Grøn",
+    "PURPLE_YELLOW": "Lilla-gul",
+    "PURPLE_HEAT": "Lilla varme",
+    "BLUE_HEAT": "Blå varme",
+    "ORANGE_HEAT": "Orange varme",
+    "GREEN": "Grøn",
+    "BLUE_CLUSTER": "Blå klynge",
+    "ORANGE_CLUSTER": "Orange klynge"
+  }
 }

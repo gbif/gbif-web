@@ -1,5 +1,6 @@
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { prettifyEnum } from '@/components/filters/displayNames';
 import Globe from '@/components/globe';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import {
@@ -10,7 +11,6 @@ import {
   Location,
   SamplingEvent,
   Sequenced,
-  TaxonClassification,
   TypeStatus,
 } from '@/components/highlights';
 import { FormattedDateRange } from '@/components/message';
@@ -43,6 +43,7 @@ import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Outlet, redirect, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
+import { IssueTag, IssueTags } from './properties';
 
 const OCCURRENCE_QUERY = /* GraphQL */ `
   query Occurrence($key: ID!) {
@@ -131,36 +132,39 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
         ...OccurrenceMediaDetails
       }
 
-      gbifClassification {
-        kingdom
-        kingdomKey
-        phylum
-        phylumKey
-        class
-        classKey
-        order
-        orderKey
-        family
-        familyKey
-        genus
-        genusKey
-        species
-        speciesKey
-        synonym
+      verbatimScientificName
+      classifications {
+        meta {
+          mainIndex {
+            datasetKey
+            datasetTitle
+          }
+        }
+        checklistKey
+        usage {
+          rank
+          name
+          key
+        }
+        acceptedUsage {
+          key
+          name
+        }
+        taxonMatch {
+          usage {
+            name
+            key
+            canonicalName
+            formattedName
+          }
+          synonym
+        }
         classification {
           key
           rank
           name
         }
-        usage {
-          rank
-          formattedName(useFallback: true)
-          key
-        }
-        acceptedUsage {
-          formattedName(useFallback: true)
-          key
-        }
+        issues
       }
       primaryImage {
         identifier
@@ -182,7 +186,7 @@ const OCCURRENCE_QUERY = /* GraphQL */ `
 `;
 
 const SLOW_OCCURRENCE_QUERY = /* GraphQL */ `
-  query SlowOccurrenceKey($key: ID!, $language: String!, $source: String) {
+  query SlowOccurrenceKey($key: ID!, $language: String!) {
     occurrence(key: $key) {
       key
       institution {
@@ -192,11 +196,12 @@ const SLOW_OCCURRENCE_QUERY = /* GraphQL */ `
         name
       }
 
-      acceptedTaxon {
-        vernacularNames(limit: 1, language: $language, source: $source) {
-          results {
-            vernacularName
-            source
+      classification {
+        vernacularNames(lang: $language, maxLimit: 1) {
+          name
+          reference {
+            id
+            citation
           }
         }
       }
@@ -276,6 +281,18 @@ export const OccurrenceKeyContext = createContext<{
   occurrence?: OccurrenceQuery['occurrence'];
 }>({});
 
+const notableCoordinateIssues = [
+  'COORDINATE_OUT_OF_RANGE',
+  'COORDINATE_INVALID',
+  'GEODETIC_DATUM_INVALID',
+  'COUNTRY_COORDINATE_MISMATCH',
+  'PRESUMED_SWAPPED_COORDINATE',
+  'PRESUMED_NEGATED_LATITUDE',
+  'PRESUMED_NEGATED_LONGITUDE',
+  'COORDINATE_REPROJECTION_SUSPICIOUS',
+  'ZERO_COORDINATE',
+];
+
 export function OccurrenceKey() {
   const { data } = useLoaderData() as { data: OccurrenceQuery };
   const hideGlobe = useBelow(800);
@@ -322,7 +339,7 @@ export function OccurrenceKey() {
   // const recorderAndIndentiferIsDifferent =
   //   JSON.stringify(termMap?.recordedBy?.value) !== JSON.stringify(termMap?.identifiedBy?.value);
 
-  const vernacularNameInfo = slowOccurrence?.acceptedTaxon?.vernacularNames?.results?.[0];
+  const vernacularNameInfo = slowOccurrence?.classification?.vernacularNames?.[0];
 
   const tabs = [
     {
@@ -351,10 +368,18 @@ export function OccurrenceKey() {
     }
   }
 
+  // if there are notable coordinate issues, then set a flag so we can show a warning in the header when we show the location
+  const coordinateIssues =
+    occurrence?.issues?.filter((issue) => notableCoordinateIssues.includes(issue)) ?? [];
+
+  const defaultClassification =
+    occurrence?.classifications?.find(
+      (classification) => classification?.checklistKey === config.defaultChecklistKey
+    ) ?? occurrence?.classifications?.[0];
   return (
     <>
       <Helmet>
-        <title>{occurrence.scientificName}</title>
+        <title>{occurrence.verbatimScientificName}</title>
       </Helmet>
       <DataHeader
         className="g-bg-white"
@@ -394,41 +419,11 @@ export function OccurrenceKey() {
                 dangerouslySetTitle={{ __html: occurrence.scientificName || 'No title provided' }}
               ></ArticleTitle> */}
                 <ArticleTitle className="lg:g-text-3xl">
-                  {!occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
-                    <>
-                      <span
-                        className="g-me-4"
-                        dangerouslySetInnerHTML={{
-                          __html:
-                            occurrence?.gbifClassification?.usage?.formattedName ??
-                            occurrence.scientificName ??
-                            'No title provided',
-                        }}
-                      />
-                      {vernacularNameInfo && (
-                        <SimpleTooltip
-                          asChild
-                          title={
-                            <FormattedMessage
-                              id="phrases.commonNameAccordingTo"
-                              values={{ source: vernacularNameInfo.source }}
-                            />
-                          }
-                        >
-                          <span
-                            className="g-text-slate-300 g-inline-flex g-items-center"
-                            style={{ fontSize: '85%' }}
-                          >
-                            <span className="g-me-1">{vernacularNameInfo.vernacularName}</span>
-                            <MdInfoOutline />
-                          </span>
-                        </SimpleTooltip>
-                      )}
-                    </>
-                  )}
-                  {occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
-                    <>
-                      <span>{termMap.scientificName.verbatim}</span>
+                  <>
+                    <span className="g-me-4">
+                      {occurrence.verbatimScientificName ?? 'No title provided'}
+                    </span>
+                    {occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
                       <TooltipProvider>
                         <Tooltip delayDuration={0}>
                           <TooltipTrigger>
@@ -441,42 +436,65 @@ export function OccurrenceKey() {
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
-                    </>
-                  )}
+                    )}
+                    {!occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) &&
+                      vernacularNameInfo && (
+                        <SimpleTooltip
+                          asChild
+                          title={
+                            <FormattedMessage
+                              id="phrases.commonNameAccordingTo"
+                              values={{ source: vernacularNameInfo.reference?.citation }}
+                            />
+                          }
+                        >
+                          <span
+                            className="g-text-slate-300 g-inline-flex g-items-center"
+                            style={{ fontSize: '85%' }}
+                          >
+                            <span className="g-me-1">{vernacularNameInfo.name}</span>
+                            <MdInfoOutline />
+                          </span>
+                        </SimpleTooltip>
+                      )}
+                  </>
                 </ArticleTitle>
-                {/* <div className="g-bg-orange-300 g-p-4 g-rounded g-mt-4">
-                  <p>
-                    <FormattedMessage id="enums.issueHelp.TAXON_MATCH_HIGHERRANK" />
-                  </p>
-                  <p>
-                    Interpreted as :{' '}
-                    <span
-                      dangerouslySetInnerHTML={{
-                        __html:
-                          occurrence?.gbifClassification?.usage?.formattedName ??
-                          occurrence.scientificName ??
-                          'Uknown scientific name',
-                      }}
-                    />
-                  </p>
-                </div> */}
                 {occurrence.organismName && <h2>Organism name: {occurrence.organismName}</h2>}
                 <HeaderInfo>
                   <HeaderInfoMain>
                     <div>
-                      {occurrence.gbifClassification?.classification && (
+                      {/* 2 july 2025 - data products asked to hide the taxonomy - at least as an experiment */}
+                      {/* {defaultClassification.classification && (
                         <div>
                           <TaxonClassification
                             className="g-flex g-mb-2"
                             majorOnly
-                            classification={occurrence.gbifClassification?.classification}
+                            classification={defaultClassification?.classification}
                           />
                         </div>
-                      )}
+                      )} */}
 
                       {occurrence.gadm?.level1 && (
                         <GadmClassification className="g-flex g-mb-1" gadm={occurrence.gadm}>
-                          {occurrence.locality && <div>{occurrence.locality}</div>}
+                          <div>
+                            <span className="g-me-1">{occurrence.locality}</span>
+                            {coordinateIssues.length > 0 && (
+                              <IssueTags>
+                                {coordinateIssues.map((issue: string) => {
+                                  // return <Tag className="g-bg-orange g-text-white">{issue}sdf</Tag>;
+                                  // return <Tag className="g-bg-amber-500 g-text-white">{issue}</Tag>;
+                                  return (
+                                    <IssueTag type="WARNING" key={issue}>
+                                      <FormattedMessage
+                                        id={`enums.occurrenceIssue.${issue}`}
+                                        defaultMessage={prettifyEnum(issue) ?? ''}
+                                      />
+                                    </IssueTag>
+                                  );
+                                })}
+                              </IssueTags>
+                            )}
+                          </div>
                         </GadmClassification>
                       )}
                       {!occurrence?.gadm?.level1 && occurrence.countryCode && (
@@ -485,7 +503,6 @@ export function OccurrenceKey() {
                           city={occurrence.stateProvince}
                         />
                       )}
-
                       {/* {(termMap.recordedBy?.verbatim || termMap.identifiedBy?.verbatim) && (
                       <GenericFeature className='g-flex g-mb-1'>
                         <PeopleIcon />
@@ -551,7 +568,7 @@ export function OccurrenceKey() {
             <Tabs links={tabs} />
           </ArticleTextContainer>
         </PageContainer>
-        <ErrorBoundary invalidateOn={occurrence?.key}>
+        <ErrorBoundary invalidateOn={occurrence?.key} showReportButton showStackTrace>
           <OccurrenceKeyContext.Provider
             value={{
               key: occurrence?.key,

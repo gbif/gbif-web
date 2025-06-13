@@ -12,21 +12,21 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-const limit = 10;
+const DEFAULT_LIMIT = 10;
 
 interface VernacularNameTableProps {
   columnTitle?: string;
   taxonKey: number;
   total: number;
 }
+interface VernacularName {
+  vernacularName: string;
+  language: string;
+  datasets: Dataset[];
+}
 
 export function VernacularNameTable({ taxonKey, total }: VernacularNameTableProps) {
-  interface VernacularName {
-    vernacularName: string;
-    language: string;
-    datasets: Dataset[];
-  }
-
+  const [limit, setLimit] = useState(DEFAULT_LIMIT);
   const [processedVernaculars, setProcessedVernaculars] = useState<{
     count: number;
     results: VernacularName[];
@@ -78,9 +78,10 @@ export function VernacularNameTable({ taxonKey, total }: VernacularNameTableProp
           }
         }
       }
+      const results: { vernacularName: string; language: string; datasets: Dataset[] }[] = [];
 
       namesWithoutLanguage.forEach((n) => {
-        Object.values(namesWithLanguage).find((val) => {
+        const found = Object.values(namesWithLanguage).find((val) => {
           return Object.entries(val).find(([k, v]) => {
             if (n && n.vernacularName === k) {
               v.push(n);
@@ -89,9 +90,14 @@ export function VernacularNameTable({ taxonKey, total }: VernacularNameTableProp
             return false;
           });
         });
+        if (!found) {
+          results.push({
+            vernacularName: n.vernacularName,
+            language: '',
+            datasets: [n],
+          });
+        }
       });
-
-      const results: { vernacularName: string; language: string; datasets: Dataset[] }[] = [];
 
       Object.entries(namesWithLanguage).forEach(([lang, val]) => {
         Object.entries(val).forEach(([k, v]) => {
@@ -122,6 +128,28 @@ export function VernacularNameTable({ taxonKey, total }: VernacularNameTableProp
         {!loading && (
           <>
             <FormattedMessage id="counts.nResults" values={{ total: processedVernaculars.count }} />
+            {processedVernaculars.count > limit && (
+              <Button
+                variant="link"
+                onClick={() => {
+                  setLimit(processedVernaculars.count);
+                  setOffset(0);
+                }}
+              >
+                <FormattedMessage id="taxon.showAll" />
+              </Button>
+            )}
+            {limit > DEFAULT_LIMIT && (
+              <Button
+                variant="link"
+                onClick={() => {
+                  setLimit(DEFAULT_LIMIT);
+                  setOffset(0);
+                }}
+              >
+                <FormattedMessage id="taxon.showLess" />
+              </Button>
+            )}
           </>
         )}
       </div>
@@ -134,13 +162,15 @@ export function VernacularNameTable({ taxonKey, total }: VernacularNameTableProp
                   <td>
                     <div>
                       {e.vernacularName}{' '}
-                      <span className="g-text-sm g-text-slate-500">
-                        {' '}
-                        <FormattedMessage
-                          id={`enums.language.${e.language}`}
-                          defaultMessage={e.language}
-                        />
-                      </span>
+                      {e.language && (
+                        <span className="g-text-sm g-text-slate-500">
+                          {' '}
+                          <FormattedMessage
+                            id={`enums.language.${e.language}`}
+                            defaultMessage={e.language}
+                          />
+                        </span>
+                      )}
                     </div>
                     {e?.datasets?.[0]?.source && (
                       <div className="g-text-sm g-text-slate-500">

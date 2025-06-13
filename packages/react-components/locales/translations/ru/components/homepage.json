@@ -1,0 +1,13 @@
+{
+  "homepage": {
+    "counts": {
+      "occurrences": "Записи о находках видов",
+      "datasets": "Наборы данных",
+      "publishers": "Организации, опубликовавшие данные",
+      "literature": "Рецензируемые статьи с использованием данных GBIF"
+    },
+    "aboutGbifCountry": "О GBIF {COUNTRY}",
+    "whatIsGbif": "Что такое GBIF?",
+    "search": ""
+  }
+}

@@ -1,5 +1,7 @@
+import config from '#/config';
 import { excerpt, getHtml } from '#/helpers/utils';
 import { getFacet } from '../getQueryMetrics';
+import { getDatasetEventCount, getDatasetEvents } from './event';
 import { getContributors } from './helpers/contributors';
 
 const getSourceSearch = (dataSources) => (args) =>
@@ -19,6 +21,24 @@ export const Query = {
     dataSources.datasetAPI.listDatasets({ query: args }),
   dataset: (parent, { key }, { dataSources }) =>
     dataSources.datasetAPI.getDatasetByKey({ key }),
+  clbNameUsageSuggest: (
+    parent,
+    { checklistKey = config.defaultChecklist, q, limit = 20 },
+    { dataSources },
+  ) => {
+    return dataSources.taxonAPI
+      .getChecklistMetadata({
+        checklistKey,
+      })
+      .then((response) => {
+        const datasetKey = response?.mainIndex.datasetKey;
+        return dataSources.datasetAPI.getClbNameUsageSuggestions({
+          checklistKey: datasetKey,
+          q,
+          limit,
+        });
+      });
+  },
 };
 
 export const DatasetSearchStub = {
@@ -163,14 +183,33 @@ export const Dataset = {
       .searchLiterature({ query: { gbifDatasetKey: key, size: 0 } })
       .then((response) => response.documents.total);
   },
+  events: getDatasetEvents,
+  eventCount: getDatasetEventCount,
 };
 
-export const ChecklistBankDataset = {
+export const ClbDataset = {
   import: ({ key }, args, { dataSources }) => {
     const query = Object.keys(args).length > 0 ? args : undefined;
     return dataSources.datasetAPI
       .getChecklistBankImport({ key, query })
       .then((response) => response?.[0]);
+  },
+};
+
+export const ClbNameUsageSuggestion = {
+  taxGroup: ({ group }, args, { dataSources }) => {
+    if (typeof group === 'undefined') return null;
+    return dataSources.datasetAPI.getTaxGroupByName({ name: group });
+  },
+};
+
+export const ClbVernacularName = {
+  reference: ({ datasetKey, referenceId }, args, { dataSources }) => {
+    if (typeof referenceId === 'undefined') return null;
+    return dataSources.datasetAPI.getClbReferenceByKey({
+      datasetKey,
+      referenceId,
+    });
   },
 };
 

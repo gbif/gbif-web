@@ -28,7 +28,7 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "Ces mesures sont basées sur les enregistrements partagés via GBIF",
-  "notVocabularyWarning": "",
+  "notVocabularyWarning": "Doit être défini",
   "group": {
     "views": "",
     "record": "Enregistrement",

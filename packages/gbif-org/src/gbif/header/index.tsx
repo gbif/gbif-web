@@ -23,7 +23,7 @@ export function Header({ menu }: { menu: HeaderQuery }) {
   const isTransparent = isRoot;
   const transparentClass = isTransparent ? 'g-absolute g-w-full g-text-white' : '';
   return (
-    <div className={`g-flex g-flex-none g-items-center g-p-2 g-px-4 ${transparentClass}`}>
+    <div className={`g-flex g-flex-none g-items-center g-p-2 g-px-4 g-z-30 ${transparentClass}`}>
       <div className="g-flex-none ">
         <DynamicLink
           as={NavLink}

@@ -1,7 +1,7 @@
-import { ClientSideOnly } from '@/components/clientSideOnly';
 import { useCount } from '@/components/count';
-import * as charts from '@/components/dashboard';
-import { AdHocMapThumbnail } from '@/components/mapThumbnail';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { FeatureList, Homepage } from '@/components/highlights';
+import { HyperText } from '@/components/hyperText';
 import { GbifLinkCard } from '@/components/TocHelp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import useBelow from '@/hooks/useBelow';
@@ -10,20 +10,20 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
-import { useTaxonKeyLoaderData } from '.';
+import TaxonBreakdown from './BreakDown';
 import Citation from './Citation';
+import ClassificationSideBar from './ClassificationSideBar';
 import { DistributionsTable } from './Distributions';
 import Synonyms from './Synonyms';
 import TaxonImages from './TaxonImages';
 import { TaxonKeyContext } from './taxonKeyPresentation';
 import { useIsFamilyOrAbove, useIsSpeciesOrBelow } from './taxonUtil';
 import { VernacularNameTable } from './VernacularNameTable';
-
-export default function AboutNonBackbone() {
-  const { slowTaxon, slowTaxonLoading } = useContext(TaxonKeyContext);
+export default function AboutNonBackbone({ headLess = false }: { headLess?: boolean }) {
+  const { slowTaxon, slowTaxonLoading, data } = useContext(TaxonKeyContext);
 
   const { key } = useParams();
-  const { data } = useTaxonKeyLoaderData();
+  // const { data } = useTaxonKeyLoaderData();
   const { count, loading } = useCount({
     v1Endpoint: '/occurrence/search',
     params: { taxonKey: key },
@@ -42,10 +42,48 @@ export default function AboutNonBackbone() {
 
   if (!taxon) return null;
   return (
-    <ArticleContainer className="g-bg-slate-100 g-pt-4">
+    <ArticleContainer className={`g-bg-slate-100 ${headLess ? 'g-p-4 lg:g-pt-4' : ''}`}>
       <ArticleTextContainer className="g-max-w-screen-xl">
         <div className={`${removeSidebar ? '' : 'g-flex'}`}>
           <div className="g-flex-grow">
+            {headLess && (
+              <Card className="g-mb-4">
+                <CardHeader>
+                  <CardTitle>
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: taxon?.formattedName || taxon?.scientificName || '',
+                      }}
+                    />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {/*  {taxon.parents && (
+                    <div>
+                      <TaxonClassification
+                        showIcon={false}
+                        className="g-flex g-mb-2"
+                        majorOnly
+                        datasetKey={taxon.datasetKey}
+                        classification={taxon.parents.map((p) => ({
+                          ...p,
+                          name: p.canonicalName,
+                        }))}
+                      />
+                    </div>
+                  )} */}
+                  {taxon.publishedIn && (
+                    <div>
+                      <FormattedMessage id="taxon.publishedIn" />{' '}
+                      <HyperText text={taxon.publishedIn} />
+                    </div>
+                  )}
+                  <FeatureList>
+                    {taxon?.references && <Homepage url={taxon.references} />}
+                  </FeatureList>
+                </CardContent>
+              </Card>
+            )}
             {slowTaxon?.taxon?.media?.results?.length > 0 && (
               <Card className="g-mb-4">
                 <CardHeader>
@@ -54,11 +92,18 @@ export default function AboutNonBackbone() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <TaxonImages taxonKey={taxon?.key} images={slowTaxon?.taxon?.media} />
+                  <ErrorBoundary type="BLOCK" errorMessage="taxon.errors.images">
+                    <TaxonImages taxonKey={taxon?.key} images={slowTaxon?.taxon?.media} />
+                  </ErrorBoundary>
                 </CardContent>
               </Card>
             )}
-            {data.taxon.taxonomicStatus === 'ACCEPTED' && (
+            {isFamilyOrAbove &&
+              data?.taxon?.taxonomicStatus === 'ACCEPTED' &&
+              data.taxon.origin !== 'DENORMED_CLASSIFICATION' && (
+                <TaxonBreakdown taxon={taxon} className="g-mb-4" />
+              )}
+            {data?.taxon?.taxonomicStatus === 'ACCEPTED' && (
               <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
@@ -75,35 +120,6 @@ export default function AboutNonBackbone() {
                 </CardContent>
               </Card>
             )}
-
-            {/* <AdHocMapThumbnail
-                filter={{ taxonKey: taxon.key }}
-                className='g-rounded g-border'
-              /> */}
-
-            {/* <section>
-              <CardHeader>
-                <CardTitle>
-                  <span className='g-me-2'>
-                    <FormattedMessage id="dataset.metrics" />
-                  </span>
-                  <SimpleTooltip
-                    title={<FormattedMessage id="dataset.metricsOccurrenceHelpText" />}
-                  >
-                    <span>
-                      <MdInfoOutline style={{ verticalAlign: 'middle' }} />
-                    </span>
-                  </SimpleTooltip>
-                </CardTitle>
-              </CardHeader>
-              <ClientSideOnly>
-                <DashBoardLayout>
-                  <charts.OccurrenceSummary predicate={predicate} className='g-mb-2' />
-                  <charts.DataQuality predicate={predicate} className='g-mb-2' />
-                  <charts.Taxa predicate={predicate} className='g-mb-2' />
-                </DashBoardLayout>
-              </ClientSideOnly>
-            </section> */}
 
             {(taxon?.vernacularCount?.results?.length ?? 0) > 0 && (
               <Card className="g-mb-4" id="vernacularNames">
@@ -128,10 +144,12 @@ export default function AboutNonBackbone() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <DistributionsTable
-                    total={taxon?.distributionsCount?.results?.length || 0}
-                    taxonKey={taxon.key}
-                  />
+                  <ErrorBoundary type="BLOCK" errorMessage="taxon.errors.distributions">
+                    <DistributionsTable
+                      total={taxon?.distributionsCount?.results?.length || 0}
+                      taxonKey={taxon.key}
+                    />
+                  </ErrorBoundary>
                 </CardContent>
               </Card>
             )}
@@ -150,7 +168,8 @@ export default function AboutNonBackbone() {
 
           {!removeSidebar && (
             <aside className="g-flex-none g-w-96 g-ms-4">
-              {!!count && count > 0 && (
+              <ClassificationSideBar taxon={taxon} />
+              {/* {!!count && count > 0 && (
                 <>
                   <div className="g-max-w-64 md:g-max-w-96 g-mb-4">
                     <AdHocMapThumbnail
@@ -165,7 +184,7 @@ export default function AboutNonBackbone() {
                     <charts.DataQuality predicate={predicate} className="g-mb-4" />
                   </ClientSideOnly>
                 </>
-              )}
+              )} */}
 
               <GbifLinkCard path={`/species/${taxon.key}`} />
             </aside>

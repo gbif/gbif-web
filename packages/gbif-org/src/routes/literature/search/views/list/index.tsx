@@ -59,7 +59,7 @@ export function LiteratureListView() {
     const query = getAsQuery({ filter, searchContext, searchConfig });
     load({
       variables: {
-        predicate: query,
+        ...query,
         size: 20,
         from: offset,
       },
@@ -106,7 +106,7 @@ export function LiteratureListView() {
           <ClientSideOnly>
             {literature &&
               literature.map((item) => (
-                <article className="g-m-2 g-border g-p-2 g-bg-white" key={item.id}>
+                <article className="g-m-2 g-border g-border-solid g-p-2 g-bg-white" key={item.id}>
                   <h2 className="g-font-bold">{item.title}</h2>
                   <p className="g-text-slate-600 g-text-sm">{item.excerpt}</p>
                   {item?.identifiers?.doi && (

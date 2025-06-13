@@ -25,6 +25,7 @@
     "range": "",
     "rangeExample": "",
     "wildcard": "",
+    "dateTemplate": "",
     "locationID": ""
   },
   "ternary": {
@@ -33,6 +34,7 @@
     "either": ""
   },
   "loadMore": "Flere",
+  "loading": "Indlæser",
   "noResults": "",
   "occurrenceClustersView": {
     "about": "Om",
@@ -55,5 +57,19 @@
       "SPECIMEN": "",
       "SEQUENCE": ""
     }
+  },
+  "crossContentSearch": {
+    "title": "Søg",
+    "description": "",
+    "noSearchTermsEntered": "Intet søgeord indtastet",
+    "placeholder": "",
+    "categories": {
+      "speciesSearch": "Art",
+      "datasetSearch": "Datasæt",
+      "publisherSearch": "Forlæggere",
+      "occurrenceSearch": "Observationer",
+      "resourceSearch": ""
+    },
+    "seeAll": "Se alle"
   }
 }

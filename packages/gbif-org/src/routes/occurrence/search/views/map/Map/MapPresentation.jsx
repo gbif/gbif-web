@@ -30,13 +30,14 @@ import {
   MdZoomOut,
 } from 'react-icons/md';
 // import { ViewHeader } from '../ViewHeader';
+import { MapMenuButton as MenuButton } from '@/components/maps/mapMenuButton';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import StripeLoader from '@/components/stripeLoader';
-import { Button } from '@/components/ui/button';
-import { Spinner } from '@/components/ui/spinner';
 import { useToast } from '@/components/ui/use-toast';
 import { ViewHeader } from '@/components/ViewHeader';
 import { useConfig } from '@/config/config';
+import { boundingBoxToWKT } from '@/utils/boundingBoxToWKT';
+import { pixelRatio } from '@/utils/pixelRatio';
 import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
 import { useEntityDrawer } from '../../browseList/useEntityDrawer';
@@ -45,9 +46,7 @@ import ListBox from './ListBox';
 import MapComponentML from './MapLibreMap';
 import MapComponentOL from './OpenlayersMap';
 import { getMapStyles } from './standardMapStyles';
-
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
-const pixelRatio = window.devicePixelRatio || 1;
 const hasGeoLocation = 'geolocation' in navigator;
 
 const defaultLayerOptions = {
@@ -178,7 +177,7 @@ function Map({
         }
         const { bbox } = event; //top, left, right, bottom
         // create wkt from bounds, making sure that it is counter clockwise
-        const wkt = `POLYGON((${bbox.left} ${bbox.top},${bbox.left} ${bbox.bottom},${bbox.right} ${bbox.bottom},${bbox.right} ${bbox.top},${bbox.left} ${bbox.top}))`;
+        const wkt = boundingBoxToWKT(bbox);
         onFeaturesChange({ features: [wkt] }); //remove existing geometries
       }
     },
@@ -293,7 +292,7 @@ function Map({
           <div className="g-z-10 g-absolute g-start-0 g-top-0 g-end-0">
             <StripeLoader active={mapLoading} className="g-w-full" />
           </div>
-          <div className="mapControls g-flex g-absolute g-bg-white g-z-10 g-border g-m-2 g-end-0 g-items-center">
+          <div className="mapControls g-flex g-absolute g-bg-white g-z-10 g-border g-border-solid g-m-2 g-end-0 g-items-center">
             <MenuButton onClick={() => broadcastEvent({ type: 'ZOOM_IN' })}>
               <MdZoomIn />
             </MenuButton>
@@ -302,11 +301,15 @@ function Map({
             </MenuButton>
             {notPolarProjection && (
               <SimpleTooltip
+                asChild
                 title={
                   <FormattedMessage id="map.filterByView" defaultMessage="Use view as filter" />
                 }
               >
-                <MenuButton onClick={() => broadcastEvent({ type: 'EXPLORE_AREA' })}>
+                <MenuButton
+                  onClick={() => broadcastEvent({ type: 'EXPLORE_AREA' })}
+                  className="g-p-2"
+                >
                   <ExploreAreaIcon />
                 </MenuButton>
               </SimpleTooltip>
@@ -348,7 +351,7 @@ function Map({
             defaultMapSettings={defaultMapSettings}
             predicateHash={predicateHash}
             q={q}
-            className="mapComponent g-relative [&>canvas:focus]:g-outline-none g-border g-border-slate-200 g-rounded g-flex g-flex-col g-h-full g-flex-auto g-z-0"
+            className="mapComponent g-relative [&>canvas:focus]:g-outline-none g-border g-border-solid g-border-slate-200 g-rounded g-flex g-flex-col g-h-full g-flex-auto g-z-0"
             query={query}
             onLoading={updateLoading}
             onMapClick={(e) => showList(false)}
@@ -369,16 +372,3 @@ function Map({
 }
 
 export default Map;
-
-const MenuButton = React.forwardRef(({ children, loading, ...props }, ref) => {
-  return (
-    <Button
-      ref={ref}
-      variant="ghost"
-      className="g-p-2 g-flex-auto g-text-xl g-text-slate-800 g-whitespace-nowrap"
-      {...props}
-    >
-      {loading ? <Spinner /> : children}
-    </Button>
-  );
-});

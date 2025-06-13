@@ -45,7 +45,7 @@
   "features": {
     "isClustered": "Gegroepeerd",
     "isSamplingEvent": "",
-    "isTreament": "Behandeling",
+    "isTreatment": "",
     "isSequenced": "Sequentie bepaald",
     "hasIssues": "Problemen en opmerkingen",
     "hasCoordinates": "Met coördinaten",

@@ -45,7 +45,7 @@
   "features": {
     "isClustered": "Agrupado",
     "isSamplingEvent": "Evento de colheita",
-    "isTreament": "Tratamento",
+    "isTreatment": "",
     "isSequenced": "Sequenciado",
     "hasIssues": "",
     "hasCoordinates": "",

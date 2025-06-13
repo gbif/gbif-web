@@ -1,20 +1,70 @@
 {
-    "styles": {
-        "satellite": "",
-        "natural": "",
-        "bright": "",
-        "dark": "Escuro",
-        "outdoor": ""
-    },
-    "projections": {
-        "ARCTIC": "Ártico",
-        "MERCATOR": "Mercator",
-        "ANTARCTIC": "Antártico",
-        "PLATE_CAREE": "Plate Carrée"
-    },
-    "failedToGetUserLocation": {
-        "title": "Iguais {is}",
-        "message": "Iguais {is}"
-    },
-    "filterByView": ""
+  "styles": {
+    "satellite": "",
+    "natural": "",
+    "bright": "",
+    "dark": "Escuro",
+    "outdoor": ""
+  },
+  "projections": {
+    "ARCTIC": "Ártico",
+    "MERCATOR": "Mercator",
+    "ANTARCTIC": "Antártico",
+    "PLATE_CAREE": "Plate Carrée"
+  },
+  "failedToGetUserLocation": {
+    "title": "Iguais {is}",
+    "message": "Iguais {is}"
+  },
+  "filterByView": "",
+  "projection": "Projeção",
+  "anyYear": "Qualquer ano",
+  "exploreArea": "Explore a área",
+  "explore": "Explorar",
+  "generatedDateAgo": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+  "style": "Estilo",
+  "filters": "Filtros",
+  "select": "Selecionar",
+  "custom": "Personalizado",
+  "baseMap": "Mapa base",
+  "binning": "Categorização",
+  "year": "Ano",
+  "chooseColors": "Cores",
+  "clickToSearchArea": "Clique para pesquisar uma área",
+  "predefined": {
+    "CLASSIC_HEX": "Hexágonos clássicos",
+    "CLASSIC": "Postos clássicos",
+    "STREETS": "Ruas",
+    "GLACIER": "Glaciar",
+    "GREEN": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "CUSTOM": "Personalizado"
+  },
+  "basemap": {
+    "CLASSIC": "Magenta",
+    "LIGHT": "Luz (sem etiquetas)",
+    "LIGHT_DETAILS": "Claro",
+    "DARK": "Escuro (sem etiquetas)",
+    "DARK_DETAILS": "Escuro",
+    "OSM": "Estradas"
+  },
+  "bin": {
+    "PIXEL": "Pontos",
+    "SMALL_HEX": "Hexágonos pequenos",
+    "LARGE_HEX": "Hexágonos",
+    "SMALL_SQUARE": "Quadrado pequenos",
+    "LARGE_SQUARE": "Quadrados"
+  },
+  "colors": {
+    "CLASSIC": "Clássico",
+    "FIRE": "Fogo",
+    "GLACIER": "Glaciar",
+    "GREEN_POINT": "Verde",
+    "PURPLE_YELLOW": "Amarelo roxo",
+    "PURPLE_HEAT": "Roxo quente",
+    "BLUE_HEAT": "Azul quente",
+    "ORANGE_HEAT": "Laranja quente",
+    "GREEN": "Verde",
+    "BLUE_CLUSTER": "Azulado",
+    "ORANGE_CLUSTER": "Alaranjado"
+  }
 }

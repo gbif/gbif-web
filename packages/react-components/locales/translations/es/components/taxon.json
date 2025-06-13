@@ -1,21 +1,30 @@
 {
   "tabs": {
     "about": "Acerca de",
-    "typeMaterial": "Igual a {is}",
+    "verbatim": "Original",
     "metrics": "Estadísticas"
   },
+  "recordedAsIntroducedIn": "Registrado como invasora en",
+  "accordingTo": "De acuerdo a",
+  "evidenceOfImpact": "Evidencia del impacto",
+  "occurrencesInGbif": "Registros de presencia en GBIF",
+  "recordedAsIntrodicedInNcontries": "",
+  "breakdown": "",
   "publishedIn": "Publicado en",
   "vernacularNames": "Nombres comunes",
   "rank": "Rango",
   "source": "Origen",
   "specimenIsTypeOf": "Igual a {is}",
   "typeMaterial": "Igual a {is}",
+  "treatments": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
   "more": "más",
   "less": "Igual a {is}",
   "dna": "ADN",
   "occurenceImages": "Igual a {is}",
+  "taxonImages": "",
   "taxonIdentifiers": "Identificadores del taxón",
   "synonymsAndCombinations": "Sinónimos y combinaciones",
+  "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "Reinos",
     "PHYLUM": "Filos",
@@ -24,5 +33,35 @@
     "FAMILY": "Familias",
     "GENUS": "Géneros",
     "SPECIES": "Especies"
+  },
+  "distributions": "Distribuciones",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "Medias establecidas",
+    "status": "Estado",
+    "locality": "Localidad",
+    "locationId": "ID de la Ubicación",
+    "country": "País"
+  },
+  "verbatim": {
+    "term": "Término",
+    "value": "Valor",
+    "coreRecord": ""
+  },
+  "tradeRestrictions": "Restricciones comerciales",
+  "cites": "CITES",
+  "immediateChildren": "Subordinado inmediato",
+  "referenceTaxon": "Taxón de referencia",
+  "showLess": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+  "showAll": "Mostrar todo",
+  "errors": {
+    "treatments": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "distributions": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "verbatim": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "typeMaterial": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "vernacularNames": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "classificationChildren": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "breakdown": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "invasiveInCountries": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
   }
 }

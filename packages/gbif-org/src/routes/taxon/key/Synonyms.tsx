@@ -1,14 +1,16 @@
 import { Table } from '@/components/dashboard/shared';
 import { Skeleton } from '@/components/ui/skeleton';
 
+import { Button } from '@/components/ui/button';
 import { DynamicLink } from '@/reactRouterPlugins';
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Paging } from './VernacularNameTable';
-const limit = 10;
+const DEFAULT_LIMIT = 10;
 
 const Synonyms = ({ slowTaxon, total, loading, taxonKey }) => {
   const [data, setData] = useState([]);
+  const [limit, setLimit] = useState(DEFAULT_LIMIT);
   const [offset, setOffset] = useState(0);
 
   useEffect(() => {
@@ -41,7 +43,7 @@ const Synonyms = ({ slowTaxon, total, loading, taxonKey }) => {
   if (total > 0 && (loading || !slowTaxon?.taxon?.synonyms?.results)) {
     return (
       <div>
-        {Array.from({ length: total }).map((x, i) => (
+        {Array.from({ length: Math.max(total, 10) }).map((x, i) => (
           <React.Fragment key={i}>
             <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
           </React.Fragment>
@@ -61,7 +63,29 @@ const Synonyms = ({ slowTaxon, total, loading, taxonKey }) => {
             <FormattedMessage
               id="counts.nResults"
               values={{ total: slowTaxon?.taxon?.synonyms?.results.length }}
-            />
+            />{' '}
+            {slowTaxon?.taxon?.synonyms?.results.length > limit && (
+              <Button
+                variant="link"
+                onClick={() => {
+                  setLimit(slowTaxon?.taxon?.synonyms?.results.length);
+                  setOffset(0);
+                }}
+              >
+                <FormattedMessage id="taxon.showAll" />
+              </Button>
+            )}
+            {limit > DEFAULT_LIMIT && (
+              <Button
+                variant="link"
+                onClick={() => {
+                  setLimit(DEFAULT_LIMIT);
+                  setOffset(0);
+                }}
+              >
+                <FormattedMessage id="taxon.showLess" />
+              </Button>
+            )}
           </>
         )}
       </div>

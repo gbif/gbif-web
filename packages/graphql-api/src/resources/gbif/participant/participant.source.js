@@ -6,6 +6,13 @@ import { RESTDataSource } from 'apollo-datasource-rest';
 import pick from 'lodash/pick';
 import { stringify } from 'qs';
 
+function mergeParticipantData(directoryParticipant, resourceParticipant) {
+  return {
+    ...resourceParticipant,
+    ...directoryParticipant,
+  };
+}
+
 /**
  * This resource is from the directory API, which is not a public API.
  * Much of the data can be public though, but be cautious when adding new fields.
@@ -61,6 +68,23 @@ class ParticipantDirectoryAPI extends RESTDataSource {
     // Sanitize the data before returning it, this data is from an authorized endpoint.
     return this.reduceParticipant(participant);
   }
+
+  async getNsgReport() {
+    const list = await this.get(`/directory/report/5?format=json`);
+    const reducedlist = list.map((p) => {
+      return pick(p, [
+        'id',
+        'name',
+        'title',
+        'institutionName',
+        'address',
+        'addressCountry',
+        'email',
+        'role',
+      ]);
+    });
+    return reducedlist;
+  }
 }
 
 class ParticipantAPI {
@@ -93,7 +117,7 @@ class ParticipantAPI {
 
     response.results = response.results.map((directoryParticipant, i) => {
       if (resourceParticipants[i].status === 'fulfilled') {
-        return this.#mergeParticipantData(
+        return mergeParticipantData(
           directoryParticipant,
           resourceParticipants[i].value,
         );
@@ -116,10 +140,7 @@ class ParticipantAPI {
         locale,
       );
     if (resourceParticipant) {
-      return this.#mergeParticipantData(
-        directoryParticipant,
-        resourceParticipant,
-      );
+      return mergeParticipantData(directoryParticipant, resourceParticipant);
     }
 
     return directoryParticipant;
@@ -133,20 +154,14 @@ class ParticipantAPI {
       key: resourceParticipant.directoryId,
     });
     if (directoryParticipant) {
-      return this.#mergeParticipantData(
-        directoryParticipant,
-        resourceParticipant,
-      );
+      return mergeParticipantData(directoryParticipant, resourceParticipant);
     }
 
     return resourceParticipant;
   }
 
-  #mergeParticipantData(directoryParticipant, resourceParticipant) {
-    return {
-      ...resourceParticipant,
-      ...directoryParticipant,
-    };
+  async getNsgReport() {
+    return this.directoryAPI.getNsgReport();
   }
 }
 

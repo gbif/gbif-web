@@ -45,7 +45,7 @@
   "features": {
     "isClustered": "クラスター化された",
     "isSamplingEvent": "サンプリング イベント",
-    "isTreament": "処理",
+    "isTreatment": "",
     "isSequenced": "",
     "hasIssues": "",
     "hasCoordinates": "",

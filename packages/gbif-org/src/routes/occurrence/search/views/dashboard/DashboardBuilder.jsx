@@ -94,6 +94,7 @@ const getListStyle = ({ isDraggingOver, width, index, maxGroups, groupCount }) =
 
 function DashboardBuilder({
   predicate,
+  q,
   chartsTypes,
   state: controlledState,
   setState: setControlledState,
@@ -271,6 +272,7 @@ function DashboardBuilder({
                         {...{
                           lockedLayout,
                           predicate,
+                          q,
                           isDragging,
                           disableAdd,
                           addNewGroup,
@@ -357,6 +359,7 @@ function Column({
   chartsTypes,
   isDragging,
   predicate,
+  q,
   disableAdd,
   removeColumn,
   columnCount,
@@ -368,6 +371,7 @@ function Column({
           {...{
             lockedLayout,
             predicate,
+            q,
             item,
             index,
             onDelete,
@@ -388,7 +392,16 @@ function Column({
   );
 }
 
-function Item({ item, index, onDelete, onUpdateItem, predicate, lockedLayout, chartsTypes = {} }) {
+function Item({
+  item,
+  index,
+  onDelete,
+  onUpdateItem,
+  predicate,
+  q,
+  lockedLayout,
+  chartsTypes = {},
+}) {
   const { t: type, r: resizable = false, p: params = {} } = item;
   const { h: height = 500, ...componentProps } = params;
   const Component =
@@ -402,6 +415,7 @@ function Item({ item, index, onDelete, onUpdateItem, predicate, lockedLayout, ch
   const content = (
     <Component
       predicate={predicate}
+      q={q}
       {...componentProps}
       setView={(view) => onUpdateItem({ ...item, p: { view } }, index)}
     />
@@ -418,7 +432,7 @@ function Item({ item, index, onDelete, onUpdateItem, predicate, lockedLayout, ch
         >
           {/* Custom Drag Handle (Corner) */}
           {!lockedLayout && (
-            <div className="g-py-1 g-absolute g-top-4 -g-right-2 g-z-20 g-rounded-lg g-bg-white g-border g-slate-300 g-flex g-text-center g-justify-center g-flex-col">
+            <div className="g-py-1 g-absolute g-top-4 -g-right-2 g-z-20 g-rounded-lg g-bg-white g-border g-border-solid g-slate-300 g-flex g-text-center g-justify-center g-flex-col">
               <div {...provided.dragHandleProps} className="g-mb-1">
                 <MdDragHandle />
               </div>
@@ -506,6 +520,7 @@ const chartGroups = {
       'collectionCode',
       'collectionKey',
       'basisOfRecord',
+      'datasetId',
     ],
   },
   occurrence: {

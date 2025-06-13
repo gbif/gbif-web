@@ -1,14 +1,20 @@
+import { useConfig } from '@/config/config';
+import { useStringParam } from '@/hooks/useParam';
 import { fetchWithCancel } from '@/utils/fetchWithCancel';
 import { VocabularyType } from '@/utils/suggestEndpoints';
 import { truncate } from '@/utils/truncate';
 import isUndefined from 'lodash/isUndefined';
 import { useCallback } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, IntlShape } from 'react-intl';
 import DisplayName, { DisplayNameGetDataProps } from './DisplayName';
 
 // utility function to generate label for range or equal filters
-function rangeOrEqualLabel(path: string) {
-  return ({ id: value }: { id: string | number | object }) => {
+function rangeOrEqualLabel(
+  path: string,
+  formatter?: (value: string | number, intl: IntlShape) => string
+) {
+  const formatValue = formatter ?? ((value: string | number) => value);
+  const getData = ({ id: value, intl }: { id: string | number | object; intl: IntlShape }) => {
     if (value?.type === 'range') {
       let translationKey;
       const from = value?.value?.gte || value?.value?.gt;
@@ -24,7 +30,7 @@ function rangeOrEqualLabel(path: string) {
         <FormattedMessage
           id={`${path}.${translationKey}`}
           defaultMessage={'Filter name'}
-          values={{ from, to }}
+          values={{ from: formatValue(from, intl), to: formatValue(to, intl) }}
         />
       );
     } else if (value?.type === 'equals') {
@@ -32,54 +38,67 @@ function rangeOrEqualLabel(path: string) {
         <FormattedMessage
           id={`${path}.e`}
           defaultMessage={'Filter name'}
-          values={{ from: value?.value, is: value?.value }}
+          values={{ from: formatValue(value?.value, intl), is: formatValue(value?.value, intl) }}
         />
       );
     } else if (value?.type === 'greaterThanOrEquals') {
       return (
         <FormattedMessage
           id="intervals.description.gte"
-          defaultMessage={`>= ${value?.value}`}
-          values={{ from: value.value }}
+          defaultMessage={`>= ${formatValue(value?.value, intl)}`}
+          values={{ from: formatValue(value.value, intl) }}
         />
       );
     } else if (value?.type === 'lessThanOrEquals') {
       return (
         <FormattedMessage
           id="intervals.description.lte"
-          defaultMessage={`<= ${value?.value}`}
-          values={{ to: value.value }}
+          defaultMessage={`<= ${formatValue(value?.value, intl)}`}
+          values={{ to: formatValue(value.value, intl) }}
         />
       );
     } else if (value?.type === 'lessThan') {
       return (
         <FormattedMessage
           id="intervals.description.lt"
-          defaultMessage={`< ${value?.value}`}
-          values={{ from: value.value }}
+          defaultMessage={`< ${formatValue(value?.value, intl)}`}
+          values={{ from: formatValue(value.value, intl) }}
         />
       );
     } else if (value?.type === 'greaterThan') {
       return (
         <FormattedMessage
           id="intervals.description.gt"
-          defaultMessage={`> ${value?.value}`}
-          values={{ to: value.value }}
+          defaultMessage={`> ${formatValue(value?.value, intl)}`}
+          values={{ to: formatValue(value.value, intl) }}
         />
       );
     } else {
       return <FormattedMessage id={`invalidValue`} defaultMessage={'Invalid value'} />;
     }
   };
+  return ({ id }: { id: string | number | object }) => {
+    const fetch = useCallback(
+      ({ id, intl }: DisplayNameGetDataProps) => ({
+        promise: Promise.resolve({
+          title: getData({ id, intl }),
+        }),
+      }),
+      []
+    );
+
+    return <DisplayName getData={fetch} id={id} useHtml={false} />;
+  };
 }
 
 export const WildcardLabel = ({ id }: { id: string | number | object }) => {
   const value = id?.value ?? id;
-  if (typeof value !== 'string') {
+  if (typeof value !== 'string' && typeof value !== 'number') {
     return <span>Unknown</span>;
   }
-  const trimmed = value?.trim();
-  const displayValue = trimmed.length !== value.length ? `"${value}"` : value;
+  const stringValue = value.toString();
+  const trimmed = stringValue.trim();
+  const displayValue = trimmed.length !== stringValue.length ? `"${stringValue}"` : stringValue;
 
   if (id?.type === 'like' && typeof id?.value === 'string') {
     return <i>{displayValue}</i>;
@@ -89,13 +108,33 @@ export const WildcardLabel = ({ id }: { id: string | number | object }) => {
 };
 
 export const YearLabel = rangeOrEqualLabel('intervals.compactTime');
+export const GeologicalTimeLabel = rangeOrEqualLabel('intervals.compactTime');
 export const CoordinateUncertaintyLabel = rangeOrEqualLabel('intervals.compactMeters');
+export const distanceFromCentroidInMetersLabel = rangeOrEqualLabel('intervals.compactMeters');
 export const DepthLabel = rangeOrEqualLabel('intervals.compactMeters');
 export const ElevationLabel = rangeOrEqualLabel('intervals.compactMeters');
 export const QuantityLabel = rangeOrEqualLabel('intervals.description');
 export const OrganismQuantityLabel = rangeOrEqualLabel('intervals.description');
 export const SampleSizeValueLabel = rangeOrEqualLabel('intervals.description');
 export const RelativeOrganismQuantityLabel = rangeOrEqualLabel('intervals.description');
+export const StartDayOfYearLabel = rangeOrEqualLabel('intervals.description');
+export const EndDayOfYearLabel = rangeOrEqualLabel('intervals.description');
+export const DateLabel = rangeOrEqualLabel('intervals.compactTime', (value, intl) => {
+  const date = new Date(value);
+  if (intl) {
+    const stringDate = intl.formatDate(value, {
+      year: 'numeric',
+      month: 'long',
+      day: '2-digit',
+    });
+    return stringDate;
+  }
+  return date.toLocaleDateString('da-DK', {
+    year: 'numeric',
+    month: 'long',
+    day: '2-digit',
+  });
+});
 
 function getEnumLabel({ template }: { template: (id: string) => string }) {
   return ({ id }: { id: string | number | object }) => {
@@ -190,24 +229,51 @@ export function IdentityLabel({ id }: { id: string | number | object }) {
   return <DisplayName getData={getData} id={id} useHtml={false} />;
 }
 
-export function TaxonLabel({ id }: { id: string | number | object }) {
-  const getData = useCallback(({ id, config }: DisplayNameGetDataProps) => {
-    const { promise, cancel } = fetchWithCancel(
-      `${config.graphqlEndpoint}?query=${encodeURIComponent(
-        `query {
-              taxon(key: "${id}") {
-                formattedName(useFallback: true)
+// a special taxonLabel that always use the defult checklistKey from the config
+export function DefaultTaxonLabel({ id }: { id: string | number | object }) {
+  return <TaxonLabel id={id} checklistKey={import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY} />;
+}
+
+export function TaxonLabel({
+  id,
+  checklistKey,
+}: {
+  id: string | number | object;
+  checklistKey?: string;
+}) {
+  const { defaultChecklistKey } = useConfig();
+  const [urlChecklistKey] = useStringParam({
+    key: 'checklistKey',
+    defaultValue: undefined,
+    hideDefault: false,
+  });
+  const getData = useCallback(
+    ({ id, config }: DisplayNameGetDataProps) => {
+      const variables = {
+        checklistKey: checklistKey ?? urlChecklistKey ?? defaultChecklistKey,
+      };
+      const { promise, cancel } = fetchWithCancel(
+        `${config.graphqlEndpoint}?variables=${encodeURIComponent(
+          JSON.stringify(variables)
+        )}&query=${encodeURIComponent(
+          `query($checklistKey: ID) {
+            taxon: speciesMatchByUsageKey(usageKey: "${id}", checklistKey: $checklistKey) {
+              usage {
+                canonicalName
               }
-            }`
-      )}`
-    );
-    return {
-      promise: promise
-        .then((response) => response.json())
-        .then((response) => ({ title: response.data.taxon.formattedName })),
-      cancel,
-    };
-  }, []);
+            }
+          }`
+        )}`
+      );
+      return {
+        promise: promise
+          .then((response) => response.json())
+          .then((response) => ({ title: response.data.taxon.usage.canonicalName })),
+        cancel,
+      };
+    },
+    [checklistKey, urlChecklistKey, defaultChecklistKey]
+  );
 
   return <DisplayName useHtml getData={getData} id={id} />;
 }
@@ -241,10 +307,12 @@ export const BasisOfRecordLabel = getEnumLabel({ template: (id) => `enums.basisO
 export const MediaTypeLabel = getEnumLabel({ template: (id) => `enums.mediaType.${id}` });
 export const MonthLabel = getEnumLabel({ template: (id) => `enums.month.${id}` });
 export const ContinentLabel = getEnumLabel({ template: (id) => `enums.continent.${id}` });
+export const GbifRegionLabel = getEnumLabel({ template: (id) => `enums.gbifRegion.${id}` });
 export const EndpointTypeLabel = getEnumLabel({ template: (id) => `enums.endpointType.${id}` });
 export const DwcaExtensionLabel = getEnumLabel({ template: (id) => `enums.dwcaExtension.${id}` });
 export const TaxonRankLabel = getEnumLabel({ template: (id) => `enums.taxonRank.${id}` });
 export const TaxonStatusLabel = getEnumLabel({ template: (id) => `enums.taxonomicStatus.${id}` });
+export const TaxonIssueLabel = getEnumLabel({ template: (id) => `enums.taxonIssue.${id}` });
 export const IucnRedListCategoryLabel = getEnumLabel({
   template: (id) => `enums.iucnRedListCategory.${id}`,
 });

@@ -4,6 +4,7 @@ import { PredicateType } from '@/gql/graphql';
 const config: FilterConfigType = {
   fields: {
     q: {
+      hoist: true,
       singleValue: true,
       defaultType: PredicateType.Fuzzy,
       v1: {
@@ -51,6 +52,45 @@ const config: FilterConfigType = {
         supportedTypes: ['range', 'equals'],
       },
     },
+    eventDate: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
+    taxonKey: {
+      takesChecklistKey: true,
+    },
+    iucnRedListCategory: {
+      takesChecklistKey: true,
+    },
+    taxonomicIssue: {
+      takesChecklistKey: true,
+    },
+    lastInterpreted: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
+    distanceFromCentroidInMeters: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
+    endDayOfYear: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
+    startDayOfYear: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
+    geologicalTime: {
+      v1: {
+        supportedTypes: ['range', 'equals'],
+      },
+    },
   },
 };
 
@@ -61,12 +101,13 @@ const otherParams = [
   'networkKey',
   'country',
   'publishingCountry',
-  'taxonKey',
   'institutionKey',
   'collectionKey',
   'datasetKey',
 
   'establishmentMeans',
+  'sex',
+  'lifeStage',
 
   'institutionCode',
   'collectionCode',
@@ -79,9 +120,9 @@ const otherParams = [
   'continent',
   'protocol',
   'dwcaExtension',
-  'iucnRedListCategory',
   'typeStatus',
   'issue',
+  'taxonomicIssue',
   'occurrenceStatus',
 
   'projectId',
@@ -91,25 +132,50 @@ const otherParams = [
   'organismId',
   'higherGeography',
   'eventId',
+  'fieldNumber',
+  'taxonId',
 
   'isInCluster',
   'isSequenced',
+  'repatriated',
 
   'recordedBy',
   'identifiedBy',
 
   'catalogNumber',
   'preparations',
+  'lithostratigraphy',
+  'biostratigraphy',
+  'geologicalTime',
   'sampleSizeUnit',
   'locality',
   'waterBody',
   'stateProvince',
   'samplingProtocol',
   'verbatimScientificName',
+  'datasetId',
+
+  'islandGroup',
+  'island',
+  'georeferencedBy',
+  'datasetName',
+  'programme',
+  'gbifRegion',
+  'publishedByGbifRegion',
 
   'geometry',
   'hasCoordinate',
   'hasGeospatialIssue',
+  'distanceFromCentroidInMeters',
+  'lastInterpreted',
+  'pathway',
+  'degreeOfEstablishment',
+  'associatedSequences',
+  'previousIdentifications',
+  'organismQuantityType',
+  'endDayOfYear',
+  'startDayOfYear',
+  'gbifId',
 ];
 
 otherParams.forEach((filter) => {

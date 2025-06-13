@@ -25,6 +25,7 @@
     "range": "",
     "rangeExample": "",
     "wildcard": "",
+    "dateTemplate": "",
     "locationID": ""
   },
   "ternary": {
@@ -33,6 +34,7 @@
     "either": "التساويات { is }"
   },
   "loadMore": "مزيد",
+  "loading": "جاري التحميل",
   "noResults": "",
   "occurrenceClustersView": {
     "about": "حول",
@@ -55,5 +57,19 @@
       "SPECIMEN": "نموذج",
       "SEQUENCE": "التساويات { is }"
     }
+  },
+  "crossContentSearch": {
+    "title": "بحث",
+    "description": "",
+    "noSearchTermsEntered": "لم يتم إدخال مصطلحات للبحث",
+    "placeholder": "",
+    "categories": {
+      "speciesSearch": "نوع",
+      "datasetSearch": "مجموعات البيانات",
+      "publisherSearch": "الناشرون",
+      "occurrenceSearch": "تكرارات",
+      "resourceSearch": ""
+    },
+    "seeAll": "مشاهدة الكل"
   }
 }

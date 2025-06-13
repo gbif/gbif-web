@@ -136,6 +136,7 @@ const COLLECTION_QUERY = /* GraphQL */ `
         key
         type
         identifier
+        primary
       }
       contactPersons {
         key

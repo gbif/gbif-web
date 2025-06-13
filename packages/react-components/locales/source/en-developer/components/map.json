@@ -1,20 +1,70 @@
 {
-    "styles": {
-        "satellite": "Satellite",
-        "natural": "Nature",
-        "bright": "Bright",
-        "dark": "Dark",
-        "outdoor": "Outdoor"
-    },
-    "projections": {
-        "ARCTIC": "Arctic",
-        "MERCATOR": "Mercator",
-        "ANTARCTIC": "Antarctic",
-        "PLATE_CAREE": "Plate Carrée"
-    },
-    "failedToGetUserLocation": {
-        "title": "Failed to get your location",
-        "message": "Please check your browser settings and try again."
-    },
-    "filterByView": "Use visible area as filter"
+  "styles": {
+    "satellite": "Satellite",
+    "natural": "Nature",
+    "bright": "Bright",
+    "dark": "Dark",
+    "outdoor": "Outdoor"
+  },
+  "projections": {
+    "ARCTIC": "Arctic",
+    "MERCATOR": "Mercator",
+    "ANTARCTIC": "Antarctic",
+    "PLATE_CAREE": "Plate Carrée"
+  },
+  "failedToGetUserLocation": {
+    "title": "Failed to get your location",
+    "message": "Please check your browser settings and try again."
+  },
+  "filterByView": "Use visible area as filter",
+  "projection": "Projection",
+  "anyYear": "Any year",
+  "exploreArea": "Explore area",
+  "explore": "Explore",
+  "generatedDateAgo": "Generated {DATE_AGO}",
+  "style": "Style",
+  "filters": "Filters",
+  "select": "Select",
+  "custom": "Custom",
+  "baseMap": "Base map",
+  "binning": "Binning",
+  "year": "Year",
+  "chooseColors": "Colors",
+  "clickToSearchArea": "Click to search an area",
+  "predefined": {
+    "CLASSIC_HEX": "Classic hexagons",
+    "CLASSIC": "Classic points",
+    "STREETS": "Streets",
+    "GLACIER": "Glacier",
+    "GREEN": "Green points",
+    "CUSTOM": "Custom"
+  },
+  "basemap": {
+    "CLASSIC": "Magenta",
+    "LIGHT": "Light (no labels)",
+    "LIGHT_DETAILS": "Light",
+    "DARK": "Dark (no labels)",
+    "DARK_DETAILS": "Dark",
+    "OSM": "Roads"
+  },
+  "bin": {
+    "PIXEL": "Points",
+    "SMALL_HEX": "Small hexagons",
+    "LARGE_HEX": "Hexagons",
+    "SMALL_SQUARE": "Small squares",
+    "LARGE_SQUARE": "Squares"
+  },
+  "colors": {
+    "CLASSIC": "Classic",
+    "FIRE": "Fire",
+    "GLACIER": "Glacier",
+    "GREEN_POINT": "Green",
+    "PURPLE_YELLOW": "Purple yellow",
+    "PURPLE_HEAT": "Purple heat",
+    "BLUE_HEAT": "Blue heat",
+    "ORANGE_HEAT": "Orange heat",
+    "GREEN": "Green",
+    "BLUE_CLUSTER": "Blue cluster",
+    "ORANGE_CLUSTER": "Orange cluster"
+  }
 }

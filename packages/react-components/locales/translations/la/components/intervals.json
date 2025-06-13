@@ -29,7 +29,13 @@
     "between": "",
     "lt": "",
     "gt": "",
-    "e": ""
+    "e": "",
+    "select": {
+      "equals": "",
+      "between": "",
+      "lessThanOrEquals": "",
+      "greaterThanOrEquals": ""
+    }
   },
   "coordinateUncertainty": {
     "between": "",

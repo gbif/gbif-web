@@ -1,20 +1,70 @@
 {
-    "styles": {
-        "satellite": "",
-        "natural": "",
-        "bright": "",
-        "dark": "Темная",
-        "outdoor": ""
-    },
-    "projections": {
-        "ARCTIC": "Арктическая азимутальная",
-        "MERCATOR": "равноугольная Меркатора",
-        "ANTARCTIC": "Антарктическая азимутальная",
-        "PLATE_CAREE": "равнопромежуточная Плате-Карре"
-    },
-    "failedToGetUserLocation": {
-        "title": "",
-        "message": ""
-    },
-    "filterByView": "Использовать видимую область как фильтр"
+  "styles": {
+    "satellite": "",
+    "natural": "",
+    "bright": "",
+    "dark": "Темная",
+    "outdoor": ""
+  },
+  "projections": {
+    "ARCTIC": "Арктическая азимутальная",
+    "MERCATOR": "равноугольная Меркатора",
+    "ANTARCTIC": "Антарктическая азимутальная",
+    "PLATE_CAREE": "равнопромежуточная Плате-Карре"
+  },
+  "failedToGetUserLocation": {
+    "title": "",
+    "message": ""
+  },
+  "filterByView": "Использовать видимую область как фильтр",
+  "projection": "Картографическая проекция",
+  "anyYear": "Все года",
+  "exploreArea": "Находки данной области карты",
+  "explore": "Просмотр",
+  "generatedDateAgo": "",
+  "style": "Стиль",
+  "filters": "Фильтры",
+  "select": "Выбрать",
+  "custom": "Настраиваемый",
+  "baseMap": "Топооснова",
+  "binning": "Значки",
+  "year": "Год",
+  "chooseColors": "Цвета",
+  "clickToSearchArea": "Кликните по карте для просмотра находок",
+  "predefined": {
+    "CLASSIC_HEX": "С шестиугольниками\n",
+    "CLASSIC": "Точечный",
+    "STREETS": "Гексагональная сеть",
+    "GLACIER": "Ледниковый",
+    "GREEN": "",
+    "CUSTOM": "Настраиваемый"
+  },
+  "basemap": {
+    "CLASSIC": "Классическая",
+    "LIGHT": "Светлая (без подписей)",
+    "LIGHT_DETAILS": "Светлая",
+    "DARK": "Темная (без подписей)",
+    "DARK_DETAILS": "Темная",
+    "OSM": "Административная"
+  },
+  "bin": {
+    "PIXEL": "Точки",
+    "SMALL_HEX": "Шестиугольники",
+    "LARGE_HEX": "Большие шестиугольники",
+    "SMALL_SQUARE": "Квадраты",
+    "LARGE_SQUARE": "Большие квадраты"
+  },
+  "colors": {
+    "CLASSIC": "Классические",
+    "FIRE": "Огненный",
+    "GLACIER": "Ледниковый",
+    "GREEN_POINT": "Зеленый",
+    "PURPLE_YELLOW": "Фиолетовый и желтый",
+    "PURPLE_HEAT": "Фиолетовый",
+    "BLUE_HEAT": "Синий",
+    "ORANGE_HEAT": "Оранжевый",
+    "GREEN": "Зеленый",
+    "BLUE_CLUSTER": "Синий кластер",
+    "ORANGE_CLUSTER": "Оранжевый кластер"
+  }
 }

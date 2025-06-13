@@ -29,7 +29,13 @@
     "between": "Ano de {from} a {to}",
     "lt": "Antes do ano {to}",
     "gt": "Depois do ano {from}",
-    "e": "O ano é {from}"
+    "e": "O ano é {from}",
+    "select": {
+      "equals": "É",
+      "between": "Entre",
+      "lessThanOrEquals": "Antes do final do",
+      "greaterThanOrEquals": "Após o início de"
+    }
   },
   "coordinateUncertainty": {
     "between": "Incerteza da coordenada de {from}m a {to}m",

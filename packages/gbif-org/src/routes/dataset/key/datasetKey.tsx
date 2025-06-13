@@ -7,6 +7,7 @@ import {
 } from '@/components/headerComponents';
 import { FeatureList, GenericFeature, Homepage, PeopleIcon } from '@/components/highlights';
 import { LicenceTag } from '@/components/identifierTag';
+import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { useConfig } from '@/config/config';
 import { NotFoundError } from '@/errors';
@@ -27,6 +28,7 @@ import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { required } from '@/utils/required';
 import { createContext, useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
@@ -210,6 +212,7 @@ const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
     $imagePredicate: Predicate
     $coordinatePredicate: Predicate
     $clusterPredicate: Predicate
+    $eventPredicate: Predicate
   ) {
     occurrenceSearch(predicate: $predicate) {
       documents(from: $from, size: $size) {
@@ -232,6 +235,11 @@ const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
       }
     }
     withClusters: occurrenceSearch(predicate: $clusterPredicate) {
+      documents(size: 0) {
+        total
+      }
+    }
+    withEvents: occurrenceSearch(predicate: $eventPredicate) {
       documents(size: 0) {
         total
       }
@@ -299,6 +307,7 @@ export function DatasetPage() {
     occData?.occurrenceSearch?.documents?.total
   );
   const hasLiterature = data?.literatureSearch?.documents?.total > 0;
+  const withEventId = occData?.withEvents?.documents?.total || 0;
 
   const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
     const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
@@ -323,8 +332,8 @@ export function DatasetPage() {
       tabsToDisplay.push({ to: 'phylogenies', children: 'Phylogenies' });
     }
     if (hasTaxonomy) {
-      tabsToDisplay.push({ to: 'species', children: 'Species' });
-      /* tabsToDisplay.push({
+      // tabsToDisplay.push({ to: 'species', children: 'Species' });
+      tabsToDisplay.push({
         to: `${import.meta.env.PUBLIC_CHECKLIST_BANK_WEBSITE}/dataset/gbif-${
           dataset.key
         }/classification`,
@@ -343,7 +352,7 @@ export function DatasetPage() {
             </SimpleTooltip>
           </>
         ),
-      }); */
+      });
     }
     if (hasLiterature)
       tabsToDisplay.push({
@@ -354,6 +363,12 @@ export function DatasetPage() {
       to: 'download',
       children: <FormattedMessage id="dataset.tabs.download" />,
     });
+    if (config.datasetKey?.showEvents && withEventId > 0) {
+      tabsToDisplay.push({
+        to: 'events',
+        children: <FormattedMessage id="dataset.tabs.events" defaultMessage={'Events'} />,
+      });
+    }
     return tabsToDisplay;
   }, [
     hasPhylogeny,
@@ -396,6 +411,10 @@ export function DatasetPage() {
             datasetPredicate,
             { type: PredicateType.Equals, key: 'isInCluster', value: 'true' },
           ],
+        },
+        eventPredicate: {
+          type: PredicateType.And,
+          predicates: [datasetPredicate, { type: PredicateType.IsNotNull, key: 'eventId' }],
         },
         size: 1,
         from: 0,

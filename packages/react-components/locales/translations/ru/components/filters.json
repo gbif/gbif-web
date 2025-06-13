@@ -200,6 +200,11 @@
     "count": "",
     "description": ""
   },
+  "datasetId": {
+    "name": "Идентификатор набора данных",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "Организация",
     "count": "",
@@ -295,8 +300,23 @@
     "count": "",
     "description": ""
   },
+  "sex": {
+    "name": "Пол",
+    "count": "",
+    "description": ""
+  },
+  "lifeStage": {
+    "name": "Стадия жизненного цикла",
+    "count": "",
+    "description": ""
+  },
   "recordedBy": {
     "name": "Кем сделана запись",
+    "count": "",
+    "description": ""
+  },
+  "fieldNumber": {
+    "name": "Полевой номер",
     "count": "",
     "description": ""
   },
@@ -421,7 +441,7 @@
     "description": ""
   },
   "isInCluster": {
-    "name": "",
+    "name": "Имеет связанные записи",
     "count": "",
     "description": ""
   },
@@ -505,5 +525,12 @@
     "name": "Вышестоящий таксон",
     "count": "{num, plural, one {высшие таксоны} few {# высших таксонов} many {# высших таксонов} other {# высшие таксоны}}",
     "description": "Высший таксон для классификации"
+  },
+  "issueEnum": {
+    "name": "Автоматически обнаруженные несоответствия",
+    "count": "{num, plural, one {issue or flag} few {# issues and flags} many {# issues and flags} other {# issues and flags}}",
+    "isNotNull": "Есть проблемы",
+    "isNull": "Нет проблем",
+    "description": "Типы проблем или признаков потенциального интереса, обнаруженных при обработке данных."
   }
 }

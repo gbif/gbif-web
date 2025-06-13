@@ -5,6 +5,7 @@ import { Unknown } from '@/components/message';
 import { TableOfContents } from '@/components/tableOfContents';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Popover, PopoverTrigger } from '@/components/ui/popover';
+import { CardDescription } from '@/components/ui/smallCard';
 import useBelow from '@/hooks/useBelow';
 import { Aside, AsideSticky, SidebarLayout } from '@/routes/occurrence/key/pagelayouts';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
@@ -63,6 +64,11 @@ export function DatasetKeyProject() {
             <Card className="g-mb-4" id="abstract">
               <CardHeader className="gbif-word-break">
                 <CardTitle>{project.title ?? <Unknown id="phrases.notProvided" />}</CardTitle>
+                {project.identifier && (
+                  <CardDescription>
+                    <FormattedMessage id="dataset.projectId" />: {project.identifier}
+                  </CardDescription>
+                )}
               </CardHeader>
               <CardContent>
                 <div className="g-prose g-max-w-full">
@@ -146,7 +152,7 @@ export function DatasetKeyProject() {
         </SidebarLayout>
         {removeSidebar && (
           <Popover>
-            <PopoverTrigger className="g-sticky g-bottom-4 g-float-end -g-me-2 g-bg-white g-rounded g-p-2 g-shadow-md g-cursor-pointer g-z-50 g-border g-border-slate-200">
+            <PopoverTrigger className="g-sticky g-bottom-4 g-float-end -g-me-2 g-bg-white g-rounded g-p-2 g-shadow-md g-cursor-pointer g-z-50 g-border g-border-solid g-border-slate-200">
               <MdMenu className="" />
             </PopoverTrigger>
             <PopoverContent>

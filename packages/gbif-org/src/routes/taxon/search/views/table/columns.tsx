@@ -4,7 +4,7 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { useMemo } from 'react';
 import { GoSidebarExpand } from 'react-icons/go';
-import { MdInfoOutline } from 'react-icons/md';
+import { MdInfoOutline, MdLock, MdLockOpen } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { SingleTaxonSearchResult } from './table';
 
@@ -29,7 +29,7 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
                   className="g-pr-3 g-pl-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
                   onClick={(e) => {
                     // Prevent the parent link from being triggered
-                    if (taxon.key) showPreview(`t_${taxon.key.toString()}`);
+                    if (taxon.key) showPreview(taxon?.key?.toString());
                     e.preventDefault();
                   }}
                 >
@@ -44,7 +44,7 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
                 <span
                   className="g-pointer-events-auto"
                   dangerouslySetInnerHTML={{
-                    __html: (taxon.formattedName ?? taxon.scientificName) as string,
+                    __html: (taxon.formattedName || taxon.scientificName) as string,
                   }}
                 />
                 {vernacular && (
@@ -53,7 +53,7 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
                     side="right"
                     delayDuration={500}
                   >
-                    <div className="g-text-slate-400 g-flex g-items-center">
+                    <div className="g-ml-1 g-text-slate-400 g-flex g-items-center">
                       <span className="g-me-1">{vernacular.vernacularName}</span>
                       <MdInfoOutline />
                     </div>
@@ -61,6 +61,26 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
                 )}
               </div>
             </div>
+          );
+        },
+        Actions: ({ hideFirstColumnLock, setFirstColumnIsLocked, firstColumnIsLocked }) => {
+          return (
+            <>
+              {!hideFirstColumnLock && (
+                <SimpleTooltip
+                  side="bottom"
+                  asChild
+                  i18nDefaultMessage={firstColumnIsLocked ? 'Unlock column' : 'Lock column'}
+                  i18nKey={
+                    firstColumnIsLocked ? 'search.table.unlockColumn ' : 'search.table.lockColumn'
+                  }
+                >
+                  <button onClick={() => setFirstColumnIsLocked((v) => !v)}>
+                    {firstColumnIsLocked ? <MdLock /> : <MdLockOpen />}
+                  </button>
+                </SimpleTooltip>
+              )}
+            </>
           );
         },
       },

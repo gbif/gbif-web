@@ -1,4 +1,4 @@
-import { CoordinatesPicker } from '@/components/coordinatesPicker';
+import { CoordinatesPicker } from '@/components/maps/coordinatesPicker';
 import { CountryCodeSelect } from '@/components/select/countryCodeSelect';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useFormContext } from 'react-hook-form';

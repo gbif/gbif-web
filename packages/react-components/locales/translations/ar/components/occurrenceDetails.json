@@ -45,7 +45,7 @@
   "features": {
     "isClustered": "",
     "isSamplingEvent": "حدث أخذ العينات",
-    "isTreament": "معالجة",
+    "isTreatment": "",
     "isSequenced": "",
     "hasIssues": "",
     "hasCoordinates": "",

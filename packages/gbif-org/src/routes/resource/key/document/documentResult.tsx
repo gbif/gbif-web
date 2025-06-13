@@ -19,7 +19,11 @@ export function DocumentResult({ document, className }: Props) {
   const link = `/document/${document.id}`;
   return (
     <ResultCard.Container className={className}>
-      <ResultCard.Header title={document.title} link={link} contentType="document" />
+      <ResultCard.Header
+        title={document.title}
+        link={link}
+        contentType="cms.contentType.document"
+      />
       <ResultCard.Content>{document.excerpt}</ResultCard.Content>
     </ResultCard.Container>
   );

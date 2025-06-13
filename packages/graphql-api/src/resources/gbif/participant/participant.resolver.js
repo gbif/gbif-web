@@ -14,5 +14,15 @@ export default {
         id: key,
         locale,
       }),
+    nodeSteeringGroup: (parent, args, { dataSources }) =>
+      dataSources.participantAPI.getNsgReport(),
+  },
+  NsgMember: {
+    contact: ({ id: personId }, args, { dataSources }) => {
+      // first get the person from the directory. And then take the first participant from the person object. And resolve that participant
+      return dataSources.directoryPersonAPI.getDirectoryContactByKey({
+        key: personId,
+      });
+    },
   },
 };

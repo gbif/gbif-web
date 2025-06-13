@@ -1,21 +1,30 @@
 {
   "tabs": {
     "about": "À propos",
-    "typeMaterial": "",
+    "verbatim": "Original",
     "metrics": "Statistiques"
   },
+  "recordedAsIntroducedIn": "Enregistré comme envahissant en/dans",
+  "accordingTo": "D'après",
+  "evidenceOfImpact": "Preuve d'impact",
+  "occurrencesInGbif": "Occurrences dans GBIF",
+  "recordedAsIntrodicedInNcontries": "",
+  "breakdown": "",
   "publishedIn": "Publié dans",
   "vernacularNames": "Noms vernaculaires",
   "rank": "Niveau du taxon",
   "source": "Source",
   "specimenIsTypeOf": "",
   "typeMaterial": "",
+  "treatments": "Doit être défini",
   "more": "plus",
   "less": "",
   "dna": "ADN",
   "occurenceImages": "",
+  "taxonImages": "",
   "taxonIdentifiers": "Identifiants de taxon",
   "synonymsAndCombinations": "synonymes et combinaisons",
+  "inChecklist": "",
   "rankPlural": {
     "KINGDOM": "Règnes",
     "PHYLUM": "Phyla",
@@ -24,5 +33,35 @@
     "FAMILY": "Familles",
     "GENUS": "Genres",
     "SPECIES": "Espèce"
+  },
+  "distributions": "Répartitions",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "Mode d'établissement",
+    "status": "Statut",
+    "locality": "Localité",
+    "locationId": "ID de localisation",
+    "country": "Pays"
+  },
+  "verbatim": {
+    "term": "Terme",
+    "value": "Valeur",
+    "coreRecord": ""
+  },
+  "tradeRestrictions": "Restrictions commerciales",
+  "cites": "CITES",
+  "immediateChildren": "Descendants directs",
+  "referenceTaxon": "Taxon de référence",
+  "showLess": "Doit être défini",
+  "showAll": "Tout afficher",
+  "errors": {
+    "treatments": "Doit être défini",
+    "distributions": "Doit être défini",
+    "verbatim": "Doit être défini",
+    "typeMaterial": "Doit être défini",
+    "vernacularNames": "Doit être défini",
+    "classificationChildren": "Doit être défini",
+    "breakdown": "Doit être défini",
+    "invasiveInCountries": "Doit être défini"
   }
 }

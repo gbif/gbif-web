@@ -11,7 +11,7 @@
     "clusters": "",
     "dashboard": "仪表板",
     "sites": "等于 {is}",
-    "list": ""
+    "list": "清单"
   },
   "table": {
     "lockColumn": "锁定列",
@@ -25,6 +25,7 @@
     "range": "范围或单个值",
     "rangeExample": "",
     "wildcard": "使用*和?作为通配符搜索",
+    "dateTemplate": "",
     "locationID": ""
   },
   "ternary": {
@@ -33,6 +34,7 @@
     "either": "等于 {is}"
   },
   "loadMore": "更多",
+  "loading": "载入中",
   "noResults": "",
   "occurrenceClustersView": {
     "about": "关于",
@@ -55,5 +57,19 @@
       "SPECIMEN": "标本",
       "SEQUENCE": "等于 {is}"
     }
+  },
+  "crossContentSearch": {
+    "title": "搜索",
+    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "noSearchTermsEntered": "没有输入搜索内容！",
+    "placeholder": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "categories": {
+      "speciesSearch": "物种",
+      "datasetSearch": "数据集",
+      "publisherSearch": "发布者",
+      "occurrenceSearch": "出现记录",
+      "resourceSearch": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    },
+    "seeAll": "查看全部"
   }
 }

@@ -200,6 +200,11 @@
     "count": "",
     "description": ""
   },
+  "datasetId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "publisherKey": {
     "name": "Forlægger",
     "count": "",
@@ -295,7 +300,22 @@
     "count": "",
     "description": ""
   },
+  "sex": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lifeStage": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "recordedBy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "fieldNumber": {
     "name": "",
     "count": "",
     "description": ""
@@ -504,6 +524,13 @@
   "higherTaxonKey": {
     "name": "Højere takson",
     "count": "",
+    "description": ""
+  },
+  "issueEnum": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
     "description": ""
   }
 }

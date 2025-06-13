@@ -1,20 +1,70 @@
 {
-    "styles": {
-        "satellite": "Satelliet",
-        "natural": "Natuur",
-        "bright": "Fel",
-        "dark": "Donker",
-        "outdoor": "Buitenleven"
-    },
-    "projections": {
-        "ARCTIC": "Arctisch",
-        "MERCATOR": "Mercator",
-        "ANTARCTIC": "Antarctisch",
-        "PLATE_CAREE": "Plate Carrée"
-    },
-    "failedToGetUserLocation": {
-        "title": "Gelijk aan {is}",
-        "message": "Gelijk aan {is}"
-    },
-    "filterByView": "Gebruik zichtbaar gebied als filter"
+  "styles": {
+    "satellite": "Satelliet",
+    "natural": "Natuur",
+    "bright": "Fel",
+    "dark": "Donker",
+    "outdoor": "Buitenleven"
+  },
+  "projections": {
+    "ARCTIC": "Arctisch",
+    "MERCATOR": "Mercator",
+    "ANTARCTIC": "Antarctisch",
+    "PLATE_CAREE": "Plate Carrée"
+  },
+  "failedToGetUserLocation": {
+    "title": "Gelijk aan {is}",
+    "message": "Gelijk aan {is}"
+  },
+  "filterByView": "Gebruik zichtbaar gebied als filter",
+  "projection": "Projectie",
+  "anyYear": "",
+  "exploreArea": "",
+  "explore": "Verkennen",
+  "generatedDateAgo": "Moet worden gedefinieerd",
+  "style": "Stijl",
+  "filters": "Filters",
+  "select": "Selecteer",
+  "custom": "",
+  "baseMap": "Basiskaart",
+  "binning": "",
+  "year": "Jaar",
+  "chooseColors": "Kleuren",
+  "clickToSearchArea": "",
+  "predefined": {
+    "CLASSIC_HEX": "",
+    "CLASSIC": "",
+    "STREETS": "Straten",
+    "GLACIER": "Gletsjer",
+    "GREEN": "Moet worden gedefinieerd",
+    "CUSTOM": ""
+  },
+  "basemap": {
+    "CLASSIC": "Magenta",
+    "LIGHT": "",
+    "LIGHT_DETAILS": "Licht",
+    "DARK": "",
+    "DARK_DETAILS": "Donker",
+    "OSM": "Wegen"
+  },
+  "bin": {
+    "PIXEL": "Punten",
+    "SMALL_HEX": "Kleine zeshoeken",
+    "LARGE_HEX": "Zeshoeken",
+    "SMALL_SQUARE": "Kleine vierkanten",
+    "LARGE_SQUARE": "Vierkant"
+  },
+  "colors": {
+    "CLASSIC": "Klassiek",
+    "FIRE": "Vuur",
+    "GLACIER": "Gletsjer",
+    "GREEN_POINT": "Groen",
+    "PURPLE_YELLOW": "Paars Geel",
+    "PURPLE_HEAT": "",
+    "BLUE_HEAT": "",
+    "ORANGE_HEAT": "",
+    "GREEN": "Groen",
+    "BLUE_CLUSTER": "",
+    "ORANGE_CLUSTER": ""
+  }
 }

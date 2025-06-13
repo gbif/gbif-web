@@ -6,5 +6,6 @@
   "WITHIN_2Km": "A menos de 2 kms",
   "NON_CONFLICTING_COORDINATES": "",
   "SAME_COUNTRY": "Mismo país",
-  "DIFFERENT_COUNTRY": "Otro país"
+  "DIFFERENT_COUNTRY": "Otro país",
+  "SAME_SPECIMEN": "Mismo espécimen"
 }

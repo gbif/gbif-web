@@ -43,3 +43,5 @@ export function getHtml(
   }
   return null;
 }
+
+export default { getHtml };

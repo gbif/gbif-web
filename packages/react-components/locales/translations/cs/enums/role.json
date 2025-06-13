@@ -1,0 +1,23 @@
+{
+  "TECHNICAL_POINT_OF_CONTACT": "Technické místo kontaktu",
+  "ADMINISTRATIVE_POINT_OF_CONTACT": "Administrativní misto kontaktu",
+  "_PRIMARY_CONTACT": "Hlavní kontakt",
+  "POINT_OF_CONTACT": "Kontaktní místo",
+  "ORIGINATOR": "Původce",
+  "GBIFS_STAFF_MEMBER": "člen týmu GBIF",
+  "METADATA_AUTHOR": "Autor metadat",
+  "PRINCIPAL_INVESTIGATOR": "Hlavní výzkumný pracovník",
+  "AUTHOR": "Autor",
+  "CONTENT_PROVIDER": "Poskytovatel obsahu",
+  "CUSTODIAN_STEWARD": "Kustod steward",
+  "DISTRIBUTOR": "Distributor",
+  "EDITOR": "Editor",
+  "OWNER": "Vlastník",
+  "PROCESSOR": "Zpracovatel",
+  "PUBLISHER": "Vydavatel",
+  "USER": "Uživatel",
+  "PROGRAMMER": "Programátor",
+  "CURATOR": "Kurátor",
+  "DATA_ADMINISTRATOR": "Datový administrátor",
+  "SYSTEM_ADMINISTRATOR": "Systémový administrátor"
+}
