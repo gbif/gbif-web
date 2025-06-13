@@ -5,6 +5,7 @@ import { CardContent } from '@/components/ui/largeCard';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { FormattedMessage } from 'react-intl';
 import { TrendContainer } from './trend';
+import { Message } from '@/components/message';
 
 export function Trends({ type, countryCode }: ITrendContext) {
   return (
@@ -171,8 +172,8 @@ function TemporalTrends() {
           <FormattedMessage id="trends.theseChartsMayRevealPatternsThatRepresentBiasesInDataCollection" />
         </p>
         <br />
-        <p className="g-text-sm">
-          <FormattedMessage id="trends.byGeneratingTheseChartsAnIssueWasDetected" />
+        <p className="g-text-sm [&_a]:g-text-primary-500">
+          <Message id="trends.byGeneratingTheseChartsAnIssueWasDetected" />
         </p>
       </CardContent>
     </Card>
