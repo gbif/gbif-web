@@ -81,11 +81,7 @@ export function CountryKeyPublishing() {
 
         <CardHeader>
           <CardTitle>
-            <FormattedMessage
-              // TODO: add i18n key
-              id="countryKey.publishingTrends"
-              defaultMessage="Publishing trends"
-            />
+            <FormattedMessage id="country.publishingTrends" />
           </CardTitle>
         </CardHeader>
 
