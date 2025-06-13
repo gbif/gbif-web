@@ -210,7 +210,7 @@ function transform(p, config, isRootQuery) {
     case 'fuzzy': {
       return {
         simple_query_string: {
-          default_operator: 'or',
+          default_operator: 'and',
           query: p.value,
         },
       };
