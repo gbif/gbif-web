@@ -9,7 +9,7 @@ import { IoMdGlobe } from 'react-icons/io';
 import { MdArrowRight, MdLock, MdMail, MdPerson } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Link, useNavigate } from 'react-router-dom';
-import { login, whoAmI } from './auth';
+import { login, whoAmI } from '../auth';
 
 export const LoginSkeleton = ArticleSkeleton;
 

@@ -4,7 +4,8 @@ import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import { getByUserName, getClientUser } from '../user/user.model.mjs';
 
-dotenv.config();
+dotenv.config({ path: '.env.local' });
+dotenv.config({ path: '.env' });
 
 const useSecureCookie = process.env.USE_SECURE_COOKIE !== 'false';
 const minute = 60000;

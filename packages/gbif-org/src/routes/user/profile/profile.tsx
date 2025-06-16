@@ -10,7 +10,7 @@ import { Helmet } from 'react-helmet-async';
 import { FaGithub as SocialIconGithub, FaGoogle as SocialIconGoogle } from 'react-icons/fa';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import useLocalStorage from 'use-local-storage';
-import { logout, whoAmI } from '../login/auth';
+import { logout, whoAmI } from '../auth';
 
 export const ProfileSkeleton = ArticleSkeleton;
 

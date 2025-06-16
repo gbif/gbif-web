@@ -1,9 +1,14 @@
+import dotenv from 'dotenv';
 import _ from 'lodash';
 import queryString from 'query-string';
 import { authenticatedRequest } from '../auth/gbifAuthRequest.mjs';
 import { fetchWithRetry } from '../auth/utils.mjs';
 
-const identityBaseUrl = 'http://api.gbif.org/v1/';
+dotenv.config({ path: '.env.local' });
+dotenv.config({ path: '.env' });
+
+const identityBaseUrl = process.env.PUBLIC_API_V1;
+
 const apiConfig = {
   user: {
     url: identityBaseUrl + 'user',

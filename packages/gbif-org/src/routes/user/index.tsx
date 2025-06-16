@@ -1,7 +1,10 @@
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { Navigate } from 'react-router-dom';
+import { ConfirmPage } from './confirm/confirm';
 import { LoginPage, RegistrationPage } from './login/login';
 import { Profile, UserProfileLayoutWrapper } from './profile/profile';
+import { UpdateEmailPage } from './updateEmail/updateEmail';
+import { UpdatePasswordPage } from './updatePassword/updatePassword';
 
 export const userRoutes: RouteObjectWithPlugins[] = [
   {
@@ -19,11 +22,25 @@ export const userRoutes: RouteObjectWithPlugins[] = [
     element: <RegistrationPage />,
   },
   {
-    id: 'user-forgotpassword',
-    path: 'user/forgotpassword',
+    id: 'user-updatePassword',
+    path: 'user/update-password',
     loader: () => <span>loading</span>,
     loadingElement: <span>loading</span>,
-    element: <span>elforgot passwordement</span>,
+    element: <UpdatePasswordPage />,
+  },
+  {
+    id: 'user-changeEmail',
+    path: 'user/change-email',
+    loader: () => <span>loading</span>,
+    loadingElement: <span>loading</span>,
+    element: <UpdateEmailPage />,
+  },
+  {
+    id: 'user-confirm',
+    path: 'user/confirm',
+    loader: () => <span>loading</span>,
+    loadingElement: <span>loading</span>,
+    element: <ConfirmPage />,
   },
   {
     id: 'user-profile',
