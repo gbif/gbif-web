@@ -68,7 +68,8 @@ export function MapWidgetOuter({ className, capabilitiesParams = {}, mapStyle }:
     endYear,
     capabilitiesParams?.taxonKey,
     capabilitiesParams?.country,
-    capabilitiesParams?.networkKey
+    capabilitiesParams?.networkKey,
+    capabilitiesParams?.publishingOrg
   );
 
   const dynamicNavigate = useDynamicNavigate();

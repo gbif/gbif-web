@@ -8,7 +8,8 @@ export function useFilterParams(
   endYear?: number,
   taxonKey?: string,
   country?: string,
-  networkKey?: string
+  networkKey?: string,
+  publishingOrg?: string
 ) {
   return useMemo(() => {
     const filterParams: Params = {
@@ -33,6 +34,9 @@ export function useFilterParams(
     }
     if (networkKey) {
       filterParams.networkKey = networkKey;
+    }
+    if (publishingOrg) {
+      filterParams.publishingOrg = publishingOrg;
     }
 
     return filterParams;
