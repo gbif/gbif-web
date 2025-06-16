@@ -104,6 +104,13 @@ const SLOW_PUBLISHER_QUERY = /* GraphQL */ `
     hostedDatasets: datasetSearch(hostingOrg: [$key]) {
       count
     }
+    hostedOccurrences: occurrenceSearch(
+      predicate: { type: equals, key: "hostingOrganizationKey", value: $jsonKey }
+    ) {
+      documents(size: 0) {
+        total
+      }
+    }
     literatureSearch(publishingOrganizationKey: [$key]) {
       documents {
         total
@@ -137,7 +144,7 @@ export function PublisherPage() {
 
   if (data.publisher == null) throw new Error('404');
   const { publisher } = data;
-  const { occurrenceSearch, hostedDatasets, literatureSearch } = slowData ?? {};
+  const { occurrenceSearch, hostedDatasets, literatureSearch, hostedOccurrences } = slowData ?? {};
 
   const deletedAt = publisher.deleted;
 
@@ -218,6 +225,21 @@ export function PublisherPage() {
                       <FormattedMessage
                         id="counts.nOccurrences"
                         values={{ total: occurrenceSearch?.documents.total }}
+                      />
+                    </DynamicLink>
+                  </GenericFeature>
+                )}
+                {hostedOccurrences?.documents.total > 0 && (
+                  <GenericFeature>
+                    <OccurrenceIcon />
+                    <DynamicLink
+                      className="hover:g-underline g-text-inherit"
+                      pageId="occurrenceSearch"
+                      searchParams={{ hostingOrganizationKey: publisher.key }}
+                    >
+                      <FormattedMessage
+                        id="counts.nOccurrencesHosted"
+                        values={{ total: hostedOccurrences?.documents.total }}
                       />
                     </DynamicLink>
                   </GenericFeature>
