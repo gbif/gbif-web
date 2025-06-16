@@ -1,15 +1,13 @@
 import { useConfig } from '@/config/config';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { useEffect, useState } from 'react';
-import { FaGithub as SocialIconGithub, FaGoogle as SocialIconGoogle } from 'react-icons/fa';
 import { IoMdGlobe } from 'react-icons/io';
 import { MdArrowRight, MdLock, MdMail, MdPerson } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
 import { login, whoAmI } from '../auth';
 import { ErrorMessage, FormButton, FormInput, FormSelect } from '../shared/FormComponents';
-import { UserPageLayout } from '../shared/UserPageLayout';
-import { cn, commonClasses } from '../shared/utils';
 import { PageTitle } from '../shared/PageHeader';
+import { UserPageLayout } from '../shared/UserPageLayout';
 
 export const LoginSkeleton = ArticleSkeleton;
 
@@ -112,10 +110,7 @@ export function LoginForm() {
 
   return (
     <>
-      <PageTitle
-        title="Welcome back"
-        subtitle="Please sign in to your account"
-      />
+      <PageTitle title="Welcome back" subtitle="Please sign in to your account" />
 
       <ErrorMessage
         error={error ? 'Unable to log in' : ''}
@@ -125,6 +120,7 @@ export function LoginForm() {
       <form className="g-space-y-4" onSubmit={handleSubmit}>
         <FormInput
           id="email"
+          autoComplete="email"
           label="Email"
           type="email"
           value={values.email}
@@ -163,7 +159,7 @@ export function LoginForm() {
         </FormButton>
       </form>
 
-      <div className="g-relative">
+      {/* <div className="g-relative">
         <div className="g-absolute g-inset-0 g-flex g-items-center">
           <div className="g-w-full g-border-t g-border-gray-300"></div>
         </div>
@@ -181,7 +177,7 @@ export function LoginForm() {
           <SocialIconGithub className="g-h-5 g-w-5 g-text-gray-700" />
           <span className="g-ml-2 g-text-gray-700">GitHub</span>
         </a>
-      </div>
+      </div> */}
 
       <p className="g-text-center g-text-sm g-text-gray-500">
         Don't have an account?{' '}
@@ -253,14 +249,12 @@ function RegisterForm() {
 
   return (
     <>
-      <PageTitle
-        title="Create Account"
-        subtitle="Sign up for your new account"
-      />
+      <PageTitle title="Create Account" subtitle="Sign up for your new account" />
 
       <form className="g-space-y-4" onSubmit={(e) => e.preventDefault()}>
         <FormInput
           id="username"
+          autoComplete="username"
           label="Username"
           type="text"
           value={values.username}
@@ -276,6 +270,7 @@ function RegisterForm() {
           id="email"
           label="Email"
           type="email"
+          autoComplete="email"
           value={values.email}
           onChange={(value) => setValues((prev) => ({ ...prev, email: value }))}
           onBlur={() => handleBlur('email')}
