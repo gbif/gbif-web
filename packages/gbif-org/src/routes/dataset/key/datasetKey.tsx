@@ -26,13 +26,14 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { required } from '@/utils/required';
+import { stripTags } from '@/utils/stripTags';
 import { createContext, useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
+import { getDatasetSchema } from '../../../utils/schemaOrg';
 import { AboutContent, ApiContent } from './help';
-
 const DATASET_QUERY = /* GraphQL */ `
   query Dataset($key: ID!) {
     literatureSearch(gbifDatasetKey: [$key]) {
@@ -132,6 +133,11 @@ const DATASET_QUERY = /* GraphQL */ `
           }
         }
       }
+      publishingOrganization {
+        title
+        homepage
+        logoUrl
+      }
       bibliographicCitations {
         identifier
         text
@@ -148,6 +154,10 @@ const DATASET_QUERY = /* GraphQL */ `
         format
         formatVersion
         url
+      }
+      keywordCollections {
+        thesaurus
+        keywords
       }
       citation {
         text
@@ -427,6 +437,20 @@ export function DatasetPage() {
       <Helmet>
         <title>{dataset.title}</title>
         {/* TODO we need much richer meta data. Especially for datasets.  */}
+        {dataset.deleted && <meta name="robots" content="noindex,nofollow"></meta>}
+        <meta
+          property="og:url"
+          content={`${import.meta.env.PUBLIC_BASE_URL}/dataset/${dataset.key}`}
+        ></meta>
+        {!!dataset.title && <meta property="og:title" content={dataset.title} />}
+        {!!dataset.description && (
+          <meta property="og:description" content={stripTags(dataset.description)} />
+        )}
+        {!!dataset && (
+          <script type="application/ld+json">
+            {JSON.stringify(getDatasetSchema(dataset), null, 2)}
+          </script>
+        )}
       </Helmet>
       <DataHeader
         className="g-bg-white"

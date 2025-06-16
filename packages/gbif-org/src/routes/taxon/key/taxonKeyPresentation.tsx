@@ -22,6 +22,7 @@ import { Helmet } from 'react-helmet-async';
 import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Outlet } from 'react-router-dom';
+import { getTaxonSchema } from '../../../utils/schemaOrg';
 import Cites from './Cites';
 import { AboutContent, ApiContent } from './help';
 import SourceDataset from './SourceDataset';
@@ -156,6 +157,11 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
       <Helmet>
         <title>{taxon.scientificName}</title>
         {/* TODO we need much richer meta data. */}
+        {isNub && (
+          <script type="application/ld+json">
+            {JSON.stringify(getTaxonSchema(data.taxon), null, 2)}
+          </script>
+        )}
       </Helmet>
       <EntityDrawer />
 

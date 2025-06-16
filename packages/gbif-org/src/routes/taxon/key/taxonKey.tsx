@@ -151,9 +151,11 @@ const TAXON_QUERY = /* GraphQL */ `
           citationProvidedBySource
         }
       }
-      vernacularCount: vernacularNames(limit: 10, offset: 0) {
+      vernacular: vernacularNames(limit: 100, offset: 0) {
         results {
           taxonKey
+          language
+          vernacularName
         }
       }
       parents {
@@ -168,9 +170,14 @@ const TAXON_QUERY = /* GraphQL */ `
         formattedName
         scientificName
       }
-      synonyms(limit: 10, offset: 0) {
+      synonyms(limit: 100, offset: 0) {
         results {
           key
+          scientificName
+          canonicalName
+          authorship
+          rank
+          publishedIn
         }
       }
     }
@@ -265,7 +272,7 @@ const NON_BACKBONE_SLOW_TAXON = /* GraphQL */ `
           citationProvidedBySource
         }
       }
-      vernacularCount: vernacularNames(limit: 10, offset: 0) {
+      vernacular: vernacularNames(limit: 10, offset: 0) {
         results {
           taxonKey
         }
