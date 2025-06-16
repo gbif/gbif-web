@@ -1,3 +1,10 @@
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import React from 'react';
 import { cn, commonClasses } from './utils';
 
@@ -28,16 +35,13 @@ export function FormInput({
   error,
   touched,
   autoComplete,
-  disabled = false
+  disabled = false,
 }: FormInputProps) {
   const hasError = touched && error;
 
   return (
     <div>
-      <label
-        className="g-block g-text-sm g-font-medium g-text-gray-700 g-mb-1"
-        htmlFor={id}
-      >
+      <label className="g-block g-text-sm g-font-medium g-text-gray-700 g-mb-1" htmlFor={id}>
         {label}
       </label>
       <div className="g-relative">
@@ -58,9 +62,7 @@ export function FormInput({
           disabled={disabled}
         />
       </div>
-      {hasError && (
-        <p className="g-mt-1 g-text-sm g-text-red-600">{error}</p>
-      )}
+      {hasError && <p className="g-mt-1 g-text-sm g-text-red-600">{error}</p>}
     </div>
   );
 }
@@ -88,43 +90,49 @@ export function FormSelect({
   placeholder,
   icon: Icon,
   error,
-  touched
+  touched,
 }: FormSelectProps) {
   const hasError = touched && error;
 
   return (
     <div>
-      <label
-        className="g-block g-text-sm g-font-medium g-text-gray-700 g-mb-1"
-        htmlFor={id}
-      >
+      <label className="g-block g-text-sm g-font-medium g-text-gray-700 g-mb-1" htmlFor={id}>
         {label}
       </label>
       <div className="g-relative">
-        <Icon className={commonClasses.icon.inputIcon} />
-        <select
-          id={id}
+        <div className="g-absolute g-left-3 g-top-1/2 g-transform g--translate-y-1/2 g-text-gray-400 g-z-10">
+          <Icon className="g-h-5 g-w-5" />
+        </div>
+        <Select
           value={value}
-          onChange={(e) => onChange(e.target.value)}
-          onBlur={onBlur}
-          className={cn(
-            commonClasses.input.base,
-            commonClasses.input.withIcon,
-            "g-bg-white",
-            hasError ? commonClasses.input.error : commonClasses.input.normal
-          )}
+          onValueChange={(value) => onChange(value)}
+          onOpenChange={(open) => {
+            if (!open) {
+              onBlur();
+            }
+          }}
         >
-          <option value="">{placeholder}</option>
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
+          <SelectTrigger
+            className={cn(
+              commonClasses.input.base,
+              'g-pl-10 g-h-11',
+              hasError
+                ? 'g-border-red-500 focus:g-border-red-500 focus:g-ring-red-500'
+                : 'g-border-gray-300 focus:g-border-indigo-500 focus:g-ring-indigo-500'
+            )}
+          >
+            <SelectValue placeholder={placeholder} />
+          </SelectTrigger>
+          <SelectContent>
+            {options.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
-      {hasError && (
-        <p className="g-mt-1 g-text-sm g-text-red-600">{error}</p>
-      )}
+      {hasError && <p className="g-mt-1 g-text-sm g-text-red-600">{error}</p>}
     </div>
   );
 }
@@ -146,7 +154,7 @@ export function FormButton({
   isLoading = false,
   children,
   onClick,
-  className
+  className,
 }: FormButtonProps) {
   return (
     <button
@@ -193,14 +201,10 @@ interface ErrorMessageProps {
 
 export function ErrorMessage({ error, errorMessageId }: ErrorMessageProps) {
   if (!error) return null;
-  
+
   return (
     <div className={commonClasses.messageBox.error}>
-      {errorMessageId ? (
-        <FormattedMessage id={errorMessageId} defaultMessage={error} />
-      ) : (
-        error
-      )}
+      {errorMessageId ? <FormattedMessage id={errorMessageId} defaultMessage={error} /> : error}
     </div>
   );
 }
