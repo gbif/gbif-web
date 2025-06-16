@@ -1,31 +1,4 @@
 import _ from 'lodash';
-// import { getOccurrenceFacet } from '../occurrence/occurrence.resolver';
-
-// async function getCountryDetail(countryCode, dataSources) {
-//   const publisherCount = await dataSources.organizationAPI
-//     .searchOrganizations({ query: { country: countryCode, limit: 0 } })
-//     .then((response) => response.count);
-//   const datasetCount = await dataSources.datasetAPI
-//     .searchDatasets({ query: { country: countryCode, limit: 0 } })
-//     .then((response) => response.count);
-//   const institutionCount = await dataSources.institutionAPI
-//     .searchInstitutions({ query: { country: countryCode, limit: 0 } })
-//     .then((response) => response.count);
-//   const collectionCount = await dataSources.collectionAPI
-//     .searchCollections({ query: { country: countryCode, limit: 0 } })
-//     .then((response) => response.count);
-//   const participants = await dataSources.participantAPI
-//     .searchParticipants({ query: { country: countryCode, limit: 100 } })
-//     .then((response) => response.results);
-//   return {
-//     key: countryCode,
-//     publisherCount,
-//     datasetCount,
-//     institutionCount,
-//     collectionCount,
-//     participants: participants,
-//   };
-// }
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -57,11 +30,11 @@ export default {
             },
             size: 0,
             metrics: {
-              facet: { type: 'facet', key: 'datasetKey', size: 20000 },
+              cardinality: { type: 'cardinality', key: 'datasetKey' },
             },
           },
         })
-        .then((response) => response.aggregations.facet.buckets.length),
+        .then((response) => response.aggregations.cardinality.value),
 
     // The number of distinct countries that have published occurrences geographically originating FROM/WITHIN this country
     aboutCountryCount: (isoCode, _args, { dataSources }) =>
@@ -75,15 +48,14 @@ export default {
             },
             size: 0,
             metrics: {
-              facet: {
-                type: 'facet',
+              cardinality: {
+                type: 'cardinality',
                 key: 'publishingCountry',
-                size: 300,
               },
             },
           },
         })
-        .then((response) => response.aggregations.facet.buckets.length),
+        .then((response) => response.aggregations.cardinality.value),
 
     // The number of distinct publishers that have published occurrences geographically originating FROM/WITHIN this country
     aboutPublisherCount: (isoCode, _args, { dataSources }) =>
@@ -97,15 +69,15 @@ export default {
             },
             size: 0,
             metrics: {
-              facet: {
-                type: 'facet',
+              cardinality: {
+                type: 'cardinality',
                 key: 'publishingOrg',
                 size: 1000,
               },
             },
           },
         })
-        .then((response) => response.aggregations.facet.buckets.length),
+        .then((response) => response.aggregations.cardinality.value),
 
     // The number of occurrences published BY this country
     fromOccurrenceCount: (isoCode, _args, { dataSources }) =>
@@ -133,15 +105,15 @@ export default {
             },
             size: 0,
             metrics: {
-              facet: {
-                type: 'facet',
+              cardinality: {
+                type: 'cardinality',
                 key: 'country',
                 size: 300,
               },
             },
           },
         })
-        .then((response) => response.aggregations.facet.buckets.length),
+        .then((response) => response.aggregations.cardinality.value),
 
     // The number of publishers geographically LOCATED IN this country
     fromPublisherCount: (isoCode, _args, { dataSources }) =>
