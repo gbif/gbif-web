@@ -172,9 +172,10 @@ function TemporalTrends() {
           <FormattedMessage id="trends.theseChartsMayRevealPatternsThatRepresentBiasesInDataCollection" />
         </p>
         <br />
-        <p className="g-text-sm [&_a]:g-text-primary-500">
-          <Message id="trends.byGeneratingTheseChartsAnIssueWasDetected" />
-        </p>
+        <Message
+          className="g-text-sm [&_a]:g-text-primary-500"
+          id="trends.byGeneratingTheseChartsAnIssueWasDetected"
+        />
       </CardContent>
     </Card>
   );
