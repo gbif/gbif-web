@@ -94,6 +94,7 @@ const getListStyle = ({ isDraggingOver, width, index, maxGroups, groupCount }) =
 
 function DashboardBuilder({
   predicate,
+  q,
   chartsTypes,
   state: controlledState,
   setState: setControlledState,
@@ -271,6 +272,7 @@ function DashboardBuilder({
                         {...{
                           lockedLayout,
                           predicate,
+                          q,
                           isDragging,
                           disableAdd,
                           addNewGroup,
@@ -357,6 +359,7 @@ function Column({
   chartsTypes,
   isDragging,
   predicate,
+  q,
   disableAdd,
   removeColumn,
   columnCount,
@@ -368,6 +371,7 @@ function Column({
           {...{
             lockedLayout,
             predicate,
+            q,
             item,
             index,
             onDelete,
@@ -388,7 +392,16 @@ function Column({
   );
 }
 
-function Item({ item, index, onDelete, onUpdateItem, predicate, lockedLayout, chartsTypes = {} }) {
+function Item({
+  item,
+  index,
+  onDelete,
+  onUpdateItem,
+  predicate,
+  q,
+  lockedLayout,
+  chartsTypes = {},
+}) {
   const { t: type, r: resizable = false, p: params = {} } = item;
   const { h: height = 500, ...componentProps } = params;
   const Component =
@@ -402,6 +415,7 @@ function Item({ item, index, onDelete, onUpdateItem, predicate, lockedLayout, ch
   const content = (
     <Component
       predicate={predicate}
+      q={q}
       {...componentProps}
       setView={(view) => onUpdateItem({ ...item, p: { view } }, index)}
     />
@@ -604,7 +618,7 @@ const chartGroups = {
   provenance: {
     values: [
       'datasetKey',
-      'publisherKey',
+      'publishingOrg',
       'PublishingCountryCode',
       'publishedByGbifRegion',
       'hostingOrganization',
@@ -623,7 +637,6 @@ function CreateOptions({ onAdd, chartsTypes }) {
   const intl = useIntl();
   const messageNew = intl.formatMessage({ id: 'dashboard.addNew' });
   const [selectedOption, setSelectedOption] = useState('');
-
   // get translations for all the dashboard names
   const dashboardTitles = Object.keys(chartsTypes).reduce((acc, type) => {
     acc[type] = intl.formatMessage({

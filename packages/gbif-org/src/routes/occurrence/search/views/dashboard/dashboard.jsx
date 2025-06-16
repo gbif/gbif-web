@@ -11,7 +11,7 @@ import { Media } from '../media';
 import { OccurrenceTable as Table } from '../table/occurrenceTable';
 const DashboardBuilder = React.lazy(() => import('./DashboardBuilder'));
 
-export function Dashboard({ predicate, chartsTypes: chartsTypesProp, ...props }) {
+export function Dashboard({ predicate, q, chartsTypes: chartsTypesProp, ...props }) {
   const [urlLayout, setUrlLayout] = useJsonParam({ key: 'layout' });
   const [layout = [[]], setLayoutState] = useLocalStorage('occurrenceDashboardLayout', [[]]);
   const [chartsTypes, setChartsTypes] = useState([]);
@@ -63,6 +63,7 @@ export function Dashboard({ predicate, chartsTypes: chartsTypesProp, ...props })
       <DashboardBuilder
         chartsTypes={chartsTypes}
         predicate={predicate}
+        q={q}
         setState={updateState}
         state={urlLayout ?? layout}
         {...{ lockedLayout: isUrlLayoutDifferent }}
@@ -146,12 +147,13 @@ const preconfiguredCharts = {
       return <charts.Networks predicate={predicate} interactive {...props} />;
     },
   },
-  publisherKey: {
+  publishingOrg: {
+    translation: 'filters.publisherKey.name',
     component: ({ predicate, ...props }) => {
       return <charts.Publishers predicate={predicate} interactive {...props} />;
     },
   },
-  publishingCountryCode: {
+  publishingCountry: {
     translation: 'filters.publishingCountryCode.name',
     component: ({ predicate, ...props }) => {
       return <charts.PublishingCountryCode predicate={predicate} interactive {...props} />;

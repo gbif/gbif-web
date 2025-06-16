@@ -1,6 +1,6 @@
 import { cn } from '@/utils/shadcn';
 import React from 'react';
-import { MdArrowDownward, MdArrowUpward, MdSort } from 'react-icons/md';
+import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 
 interface SortableProps {
   sortable?: boolean;
@@ -34,13 +34,11 @@ export function Th({
           <>
             {sortField === field ? (
               sortDirection === 'asc' ? (
-                <MdArrowUpward className="g-h-4 g-w-4" />
+                <FaCaretUp className="g-h-4 g-w-4" />
               ) : (
-                <MdArrowDownward className="g-h-4 g-w-4" />
+                <FaCaretDown className="g-h-4 g-w-4" />
               )
-            ) : (
-              <MdSort className="g-h-4 g-w-4 g-text-gray-400" />
-            )}
+            ) : null}
           </>
         )}
       </div>

@@ -16,6 +16,7 @@ export interface SuggestionItem {
 
 export type SuggestFnProps = {
   q?: string;
+  limit?: number;
   locale: string;
   siteConfig: Config;
   searchContext: SearchMetadata;
@@ -39,6 +40,7 @@ export type SuggestProps = {
   render?: (item: SuggestionItem) => React.ReactNode;
   getStringValue?: (item: SuggestionItem) => string;
   placeholder?: string;
+  activeItem?: SuggestionItem;
 };
 
 export const Suggest = React.forwardRef<HTMLInputElement, SuggestProps>(
@@ -52,6 +54,7 @@ export const Suggest = React.forwardRef<HTMLInputElement, SuggestProps>(
       render,
       getStringValue,
       placeholder,
+      activeItem,
     }: SuggestProps,
     ref
   ) => {
@@ -59,7 +62,16 @@ export const Suggest = React.forwardRef<HTMLInputElement, SuggestProps>(
       <Search
         ref={ref}
         onSearch={getSuggestions || (() => ({ cancel: () => {}, promise: Promise.resolve([]) }))}
-        {...{ render, getStringValue, placeholder, onKeyDown, selected, className, onSelect }}
+        {...{
+          render,
+          activeItem,
+          getStringValue,
+          placeholder,
+          onKeyDown,
+          selected,
+          className,
+          onSelect,
+        }}
       />
     );
   }
@@ -75,6 +87,7 @@ const Search = React.forwardRef(
       onKeyDown,
       render,
       placeholder,
+      activeItem,
       getStringValue = (item: SuggestionItem) => item.title,
     }: {
       onSearch: ({ q, intl }: SuggestFnProps) => {
@@ -88,6 +101,7 @@ const Search = React.forwardRef(
       render?: (item: SuggestionItem) => React.ReactNode;
       getStringValue?: (item: SuggestionItem) => string;
       placeholder?: string;
+      activeItem?: SuggestionItem;
     },
     ref
   ) => {
@@ -96,7 +110,9 @@ const Search = React.forwardRef(
     const intl = useIntl();
     const { locale: currentLocale } = useI18n();
     const [items, setItems] = React.useState<SuggestionItem[]>([]);
-    const [selectedItem, setSelectedItem] = React.useState<SuggestionItem | null>(null);
+    const [selectedItem, setSelectedItem] = React.useState<SuggestionItem | null>(
+      activeItem || null
+    );
     const [q, setQ] = React.useState('');
     const [isLoading, setIsLoading] = React.useState(false);
     const placeholderText = intl.formatMessage({
@@ -104,6 +120,17 @@ const Search = React.forwardRef(
     });
 
     useEffect(() => {
+      if (activeItem) {
+        setSelectedItem(activeItem);
+      }
+    }, [activeItem]);
+
+    useEffect(() => {
+      if (q === '') {
+        setItems([]);
+        setIsLoading(false);
+        return;
+      }
       const { cancel, promise } = onSearch({
         q,
         intl,
@@ -127,7 +154,7 @@ const Search = React.forwardRef(
       return () => {
         if (cancel) cancel();
       };
-    }, [q, intl, searchContext, config, onSearch]);
+    }, [q, intl, searchContext, config, onSearch, currentLocale]);
 
     const {
       isOpen,
@@ -223,12 +250,13 @@ const Search = React.forwardRef(
           >
             {isOpen && (
               <>
-                {!isLoading && items.length === 0 && (
+                {!isLoading && items && items?.length === 0 && (
                   <li className="g-text-slate-500 g-text-sm g-py-2 g-px-2 g-border-b g-border-slate-100 g-flex g-flex-row g-items-start">
-                    <FormattedMessage id="search.noResults" />
+                    {q && q !== '' && <FormattedMessage id="search.noResults" />}
+                    {(!q || q === '') && <FormattedMessage id="search.startTyping" />}
                   </li>
                 )}
-                {items.length > 0 &&
+                {items?.length > 0 &&
                   items.map((item, index) => (
                     <li
                       className={cn(

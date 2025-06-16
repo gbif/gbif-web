@@ -13,7 +13,7 @@ export default [
   'protocol',
   'sampleSizeUnit',
   'verbatimScientificName',
-  'gbifClassification_usage_key',
+  'usageKey',
   'eventId',
   'month',
   'license',
@@ -21,6 +21,7 @@ export default [
   'basisOfRecord',
   'fieldNumber',
   'issue',
+  'taxonomicIssue',
   'isSequenced',
   'collectionKey',
   'institutionKey',
@@ -48,7 +49,6 @@ export default [
   'mediaType',
   'repatriated',
   'gadmGid',
-
   'islandGroup',
   'island',
   'georeferencedBy',
@@ -59,4 +59,6 @@ export default [
   'pathway',
   'degreeOfEstablishment',
   'organismQuantityType',
+  'biostratigraphy',
+  'lithostratigraphy',
 ];

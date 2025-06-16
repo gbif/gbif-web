@@ -5,6 +5,7 @@ import {
   distanceFromCentroidInMetersLabel,
   ElevationLabel,
   EndDayOfYearLabel,
+  GeologicalTimeLabel,
   OrganismQuantityLabel,
   RelativeOrganismQuantityLabel,
   SampleSizeValueLabel,
@@ -14,6 +15,7 @@ import {
 import {
   filterConfigTypes,
   filterDateRangeConfig,
+  filterGeologicalTimeConfig,
   filterRangeConfig,
 } from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
@@ -127,4 +129,14 @@ export const lastInterpretedConfig: filterDateRangeConfig = {
   filterTranslation: 'filters.lastInterpreted.name',
   about: () => <Message id="filters.lastInterpreted.description" />,
   group: 'other',
+};
+
+// geological time ranges
+export const geologicalTimeConfig: filterGeologicalTimeConfig = {
+  filterType: filterConfigTypes.GEOLOGICAL_TIME,
+  filterHandle: 'geologicalTime',
+  displayName: GeologicalTimeLabel,
+  filterTranslation: 'filters.geologicalTime.name',
+  about: () => <Message id="filters.geologicalTime.description" />,
+  group: 'geologicalContext',
 };

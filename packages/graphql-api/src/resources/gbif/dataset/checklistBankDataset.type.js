@@ -1,7 +1,15 @@
 import { gql } from 'apollo-server';
 
 const typeDef = gql`
-  type ChecklistBankDataset {
+  extend type Query {
+    clbNameUsageSuggest(
+      checklistKey: ID
+      q: String!
+      limit: Int
+    ): [ClbNameUsageSuggestion]
+  }
+
+  type ClbDataset {
     created: DateTime
     createdBy: Int
     modified: DateTime
@@ -17,10 +25,48 @@ const typeDef = gql`
     """
     Stats about the dataset, defaulting to latest finished import
     """
-    import(state: String, limit: Int): ChecklistBankImport
+    import(state: String, limit: Int): ClbImport
   }
 
-  type ChecklistBankGbifMultimedia {
+  type ClbNameUsageSuggestion {
+    match: String
+    usageId: ID
+    acceptedUsageId: ID
+    rank: String
+    status: String
+    nomCode: String
+    suggestion: String
+    context: String
+    group: String
+    taxGroup: ClbTaxGroup
+    acceptedName: String
+  }
+
+  type ClbTaxGroup {
+    description: String
+    icon: String
+    iconSVG: String
+    name: String
+    other: Boolean
+    phylopic: String
+    parents: [String]
+    codes: [String]
+  }
+
+  type ClbVernacularName {
+    datasetKey: ID
+    name: String
+    language: String
+    referenceId: ID
+    reference: ClbReference
+  }
+
+  type ClbReference {
+    id: ID
+    citation: String
+  }
+
+  type ClbGbifMultimedia {
     dwcaID: Int
     dctermstype: Int
     dctermstitle: Int
@@ -30,7 +76,7 @@ const typeDef = gql`
     dctermsreferences: Int
   }
 
-  type ChecklistBankDwcTaxon {
+  type ClbDwcTaxon {
     dwcaID: Int
     dwctaxonID: Int
     dwctaxonRank: Int
@@ -42,25 +88,25 @@ const typeDef = gql`
     dwcscientificNameAuthorship: Int
   }
 
-  type ChecklistBankVerbatimByRowTypeCount {
-    gbifMultimedia: ChecklistBankGbifMultimedia
-    dwcTaxon: ChecklistBankDwcTaxon
+  type ClbVerbatimByRowTypeCount {
+    gbifMultimedia: ClbGbifMultimedia
+    dwcTaxon: ClbDwcTaxon
   }
 
-  type ChecklistBankVerbatimByTermCount {
+  type ClbVerbatimByTermCount {
     gbifMultimedia: Int
     dwcTaxon: Int
   }
 
-  type ChecklistBankUsagesByOriginCount {
+  type ClbUsagesByOriginCount {
     source: Int
   }
 
-  type ChecklistBankUsagesByStatusCount {
+  type ClbUsagesByStatusCount {
     accepted: Int
   }
 
-  type ChecklistBankTaxaByRankCount {
+  type ClbTaxaByRankCount {
     unranked: Int
     species: Int
     genus: Int
@@ -73,7 +119,7 @@ const typeDef = gql`
     kingdom: Int
   }
 
-  type ChecklistBankNamesByTypeCount {
+  type ClbNamesByTypeCount {
     otu: Int
     scientific: Int
     informal: Int
@@ -82,11 +128,11 @@ const typeDef = gql`
     hybridformula: Int
   }
 
-  type ChecklistBankNamesByStatusCount {
+  type ClbNamesByStatusCount {
     notestablished: Int
   }
 
-  type ChecklistBankNamesByRankCount {
+  type ClbNamesByRankCount {
     unranked: Int
     species: Int
     genus: Int
@@ -99,15 +145,15 @@ const typeDef = gql`
     kingdom: Int
   }
 
-  type ChecklistBankNamesByCodeCount {
+  type ClbNamesByCodeCount {
     zoological: Int
   }
 
-  type ChecklistBankMediaByTypeCount {
+  type ClbMediaByTypeCount {
     image: Int
   }
 
-  type ChecklistBankIssuesCount {
+  type ClbIssuesCount {
     partiallyparsablename: Int
     indetermined: Int
     urlinvalid: Int
@@ -133,7 +179,7 @@ const typeDef = gql`
     parentspeciesmissing: Int
   }
 
-  type ChecklistBankImport {
+  type ClbImport {
     datasetKey: Int
     attempt: Int
     job: String
@@ -162,17 +208,17 @@ const typeDef = gql`
     usagesCount: Int
     taxonConceptRelationsCount: Int
     speciesInteractionsCount: Int
-    verbatimByRowTypeCount: ChecklistBankVerbatimByRowTypeCount
-    verbatimByTermCount: ChecklistBankVerbatimByTermCount
-    usagesByOriginCount: ChecklistBankUsagesByOriginCount
-    usagesByStatusCount: ChecklistBankUsagesByStatusCount
-    taxaByRankCount: ChecklistBankTaxaByRankCount
-    namesByTypeCount: ChecklistBankNamesByTypeCount
-    namesByStatusCount: ChecklistBankNamesByStatusCount
-    namesByRankCount: ChecklistBankNamesByRankCount
-    namesByCodeCount: ChecklistBankNamesByCodeCount
-    mediaByTypeCount: ChecklistBankMediaByTypeCount
-    issuesCount: ChecklistBankIssuesCount
+    verbatimByRowTypeCount: ClbVerbatimByRowTypeCount
+    verbatimByTermCount: ClbVerbatimByTermCount
+    usagesByOriginCount: ClbUsagesByOriginCount
+    usagesByStatusCount: ClbUsagesByStatusCount
+    taxaByRankCount: ClbTaxaByRankCount
+    namesByTypeCount: ClbNamesByTypeCount
+    namesByStatusCount: ClbNamesByStatusCount
+    namesByRankCount: ClbNamesByRankCount
+    namesByCodeCount: ClbNamesByCodeCount
+    mediaByTypeCount: ClbMediaByTypeCount
+    issuesCount: ClbIssuesCount
   }
 `;
 

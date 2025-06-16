@@ -53,6 +53,8 @@ type ApiKeysType = {
 // TODO: The config object should probably be refactored in the future with logical nesting
 export type Config = Endpoints & {
   version: number;
+  defaultChecklistKey?: string;
+  availableChecklistKeys?: string[];
   suggest?: {
     gadm?: { type: 'PARAMS'; value: { gadmGid: string } };
   };
@@ -93,6 +95,7 @@ export type Config = Endpoints & {
     literatureSearch?: PartialSearchMetadata;
     occurrenceSearch?: PartialSearchMetadata;
     disableInPageOccurrenceSearch?: boolean;
+    showEvents?: boolean;
   };
   collectionSearch?: SearchMetadata;
   collectionKey?: {

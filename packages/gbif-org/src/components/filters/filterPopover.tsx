@@ -3,6 +3,7 @@ import { FilterContext, FilterProvider, FilterType } from '@/contexts/filter';
 import { cn } from '@/utils/shadcn';
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useUncontrolledProp } from 'uncontrollable';
+import { ErrorBoundary } from '../ErrorBoundary';
 
 export function FilterPopover({
   open,
@@ -81,21 +82,23 @@ export function FilterPopover({
           className
         )}
       >
-        <FilterProvider filter={tmpFilter} onChange={onFilterChange}>
-          {React.isValidElement(child) && (
-            <>
-              {title}
-              <form onSubmit={(e) => e.preventDefault()}>
-                {React.cloneElement(child, {
-                  onApply,
-                  onCancel,
-                  pristine,
-                  ref: focusRef,
-                })}
-              </form>
-            </>
-          )}
-        </FilterProvider>
+        <ErrorBoundary type="BLOCK">
+          <FilterProvider filter={tmpFilter} onChange={onFilterChange}>
+            {React.isValidElement(child) && (
+              <>
+                {title}
+                <form onSubmit={(e) => e.preventDefault()}>
+                  {React.cloneElement(child, {
+                    onApply,
+                    onCancel,
+                    pristine,
+                    ref: focusRef,
+                  })}
+                </form>
+              </>
+            )}
+          </FilterProvider>
+        </ErrorBoundary>
       </PopoverContent>
     </Popover>
   );

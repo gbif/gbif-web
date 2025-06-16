@@ -184,7 +184,7 @@ export const networkKeyConfig: filterSuggestConfig = {
   allowExistence: false,
   allowNegations: false,
   facetQuery: `
-    query OccurrencePublisherFacet($predicate: Predicate) {
+    query OccurrencePublisherFacet($q: String, $predicate: Predicate) {
       search: occurrenceSearch(predicate: $predicate) {
         facet {
           field: networkKey {

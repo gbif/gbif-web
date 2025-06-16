@@ -17,10 +17,10 @@ export function KeyChartGenerator({
   ...props
 }) {
   const GQL_QUERY = `
-    query summary($predicate: Predicate${!disableUnknown ? ', $hasPredicate: Predicate' : ''}, ${
-    isVocabulary ? '$vocabularyLocale: String,' : ''
-  } $size: Int, $from: Int){
-      search: ${searchType}(predicate: $predicate) {
+    query summary($q: String, $predicate: Predicate${
+      !disableUnknown ? ', $hasPredicate: Predicate' : ''
+    }, ${isVocabulary ? '$vocabularyLocale: String,' : ''} $size: Int, $from: Int){
+      search: ${searchType}(q: $q, predicate: $predicate) {
         documents(size: 0) {
           total
         }
@@ -37,7 +37,7 @@ export function KeyChartGenerator({
       }
       ${
         !disableUnknown
-          ? `isNotNull: ${searchType}(predicate: $hasPredicate) {
+          ? `isNotNull: ${searchType}(q: $q, predicate: $hasPredicate) {
         documents(size: 0) {
           total
         }

@@ -8,8 +8,8 @@ export const projectIdConfig: filterSuggestConfig = {
   displayName: IdentityLabel,
   filterTranslation: 'filters.projectId.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceProjectIdFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceProjectIdFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: projectId(size: 50) {
             name: key
@@ -123,8 +123,8 @@ export const organismIdConfig: filterSuggestConfig = {
   displayName: IdentityLabel,
   filterTranslation: 'filters.organismId.name',
   facetQuery: /* GraphQL */ `
-    query OccurrenceOrganismIdFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceOrganismIdFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: organismId(size: 10) {
             name: key

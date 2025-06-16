@@ -10,7 +10,7 @@ import HighchartsReact from 'highcharts-react-official';
 import HighchartsWheel from 'highcharts/modules/dependency-wheel';
 import HighchartSankey from 'highcharts/modules/sankey';
 import { FormattedMessage, useIntl } from 'react-intl';
-import useDeepCompareEffect from 'use-deep-compare-effect';
+import { useDeepCompareEffectNoCheck as useDeepCompareEffect } from 'use-deep-compare-effect';
 import { useQuery } from '../../../dataManagement/api';
 import { Card, CardTitle } from '../shared';
 import ChartClickWrapper from './ChartClickWrapper';
@@ -152,8 +152,8 @@ const chartsStyle = css`
 `;
 
 const REPATRIATED = `
-query repatriated($predicate: Predicate, $repatriatedPredicate: Predicate) {
-  counts: occurrenceSearch(predicate: $predicate) {
+query repatriated($q: String, $predicate: Predicate, $repatriatedPredicate: Predicate) {
+  counts: occurrenceSearch(q: $q, predicate: $predicate) {
     facet {
       results: repatriated{
         key
@@ -162,7 +162,7 @@ query repatriated($predicate: Predicate, $repatriatedPredicate: Predicate) {
     }
   }
   
-  graph: occurrenceSearch(predicate: $repatriatedPredicate) {
+  graph: occurrenceSearch(q: $q, predicate: $repatriatedPredicate) {
     facet {
       results: publishingCountry(size: 300) {
         key

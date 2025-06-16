@@ -212,6 +212,7 @@ const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
     $imagePredicate: Predicate
     $coordinatePredicate: Predicate
     $clusterPredicate: Predicate
+    $eventPredicate: Predicate
   ) {
     occurrenceSearch(predicate: $predicate) {
       documents(from: $from, size: $size) {
@@ -234,6 +235,11 @@ const OCURRENCE_SEARCH_QUERY = /* GraphQL */ `
       }
     }
     withClusters: occurrenceSearch(predicate: $clusterPredicate) {
+      documents(size: 0) {
+        total
+      }
+    }
+    withEvents: occurrenceSearch(predicate: $eventPredicate) {
       documents(size: 0) {
         total
       }
@@ -301,6 +307,7 @@ export function DatasetPage() {
     occData?.occurrenceSearch?.documents?.total
   );
   const hasLiterature = data?.literatureSearch?.documents?.total > 0;
+  const withEventId = occData?.withEvents?.documents?.total || 0;
 
   const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
     const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
@@ -356,6 +363,12 @@ export function DatasetPage() {
       to: 'download',
       children: <FormattedMessage id="dataset.tabs.download" />,
     });
+    if (config.datasetKey?.showEvents && withEventId > 0) {
+      tabsToDisplay.push({
+        to: 'events',
+        children: <FormattedMessage id="dataset.tabs.events" defaultMessage={'Events'} />,
+      });
+    }
     return tabsToDisplay;
   }, [
     hasPhylogeny,
@@ -398,6 +411,10 @@ export function DatasetPage() {
             datasetPredicate,
             { type: PredicateType.Equals, key: 'isInCluster', value: 'true' },
           ],
+        },
+        eventPredicate: {
+          type: PredicateType.And,
+          predicates: [datasetPredicate, { type: PredicateType.IsNotNull, key: 'eventId' }],
         },
         size: 1,
         from: 0,

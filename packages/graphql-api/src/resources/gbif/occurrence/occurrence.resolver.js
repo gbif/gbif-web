@@ -30,12 +30,15 @@ import getLongitudeBounds from './helpers/longitudeBounds';
 import predicate2v1 from './helpers/predicate2v1';
 import termResolver from './helpers/terms/occurrenceTerms';
 
+const DEFAULT_CHECKLIST_KEY =
+  config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // Backbone key for classification
+
 const issueSeverityMap = interpretationRemark.reduce((acc, issue) => {
   acc[issue.id] = issue.severity;
   return acc;
 }, {});
 
-const getSourceSearch = (dataSources) => (args) =>
+export const getSourceSearch = (dataSources) => (args) =>
   dataSources.occurrenceAPI.searchOccurrences.call(
     dataSources.occurrenceAPI,
     args,
@@ -81,12 +84,12 @@ const OccurrenceAutoDateHistogram = dateHistogramFields.reduce(
 
 const searchOccurrences = (parent, query, { dataSources }) => {
   return dataSources.occurrenceAPI.searchOccurrenceDocuments({
-    query: { predicate: parent._predicate, ...query },
+    query: { predicate: parent._predicate, q: parent._q, ...query },
   });
 };
 
 const facetOccurrenceSearch = (parent) => {
-  return { _predicate: parent._predicate };
+  return { _predicate: parent._predicate, _q: parent._q };
 };
 
 /**
@@ -106,13 +109,22 @@ export default {
       });
       return {
         _predicate: args.predicate,
-        _downloadPredicate: v1Predicate,
-        _v1PredicateHash: v1PredicateQStripped.predicate
-          ? dataSources.occurrenceAPI.registerPredicate({
-              predicate: v1PredicateQStripped.predicate,
-            })
-          : null,
+        _q: args.q,
       };
+    },
+    occurrenceDatasetSuggest: (
+      _parent,
+      { predicate, q, size = 10 },
+      { dataSources },
+    ) => {
+      return dataSources.occurrenceAPI.datasetSuggest({ predicate, q, size });
+    },
+    occurrencePublisherSuggest: (
+      _parent,
+      { predicate, q, size = 10 },
+      { dataSources },
+    ) => {
+      return dataSources.occurrenceAPI.publisherSuggest({ predicate, q, size });
     },
     occurrenceClusterSearch: (
       _parent,
@@ -201,6 +213,54 @@ export default {
       }
     },
   },
+  ChecklistClassification: {
+    taxonMatch: ({ checklistKey, usage }, _args, { dataSources }) => {
+      return dataSources.taxonAPI.getSpeciesMatchByUsageKey({
+        usageKey: usage.key,
+        checklistKey,
+      });
+    },
+    meta: ({ checklistKey }, _args, { dataSources }) => {
+      return dataSources.taxonAPI.getChecklistMetadata({
+        checklistKey,
+      });
+    },
+    hasTaxonIssues: ({ issues = [] }) => {
+      return (
+        _.intersection(issues, [
+          'TAXON_MATCH_FUZZY',
+          'TAXON_MATCH_HIGHERRANK',
+          'TAXON_MATCH_AGGREGATE',
+          'TAXON_MATCH_NONE',
+        ]).length > 0
+      );
+    },
+    vernacularNames: (
+      { checklistKey, usage },
+      { lang, maxLimit },
+      { dataSources },
+    ) => {
+      return dataSources.taxonAPI
+        .getChecklistMetadata({
+          usageKey: usage.key,
+          checklistKey,
+        })
+        .then((metadata) => {
+          return dataSources.datasetAPI
+            .getClbVernacularNamesByTaxonKey({
+              checklistKey: metadata.mainIndex.datasetKey,
+              taxonKey: usage.key,
+              query: { lang },
+            })
+            .then((results) => {
+              if (maxLimit) {
+                return results.slice(0, maxLimit);
+              }
+              return results;
+            });
+        });
+    },
+  },
   Occurrence: {
     coordinates: ({ decimalLatitude, decimalLongitude }) => {
       if (typeof decimalLatitude === 'undefined') return null;
@@ -281,13 +341,26 @@ export default {
       });
       return filteredIssues;
     },
-    acceptedTaxon: ({ acceptedTaxonKey }, _args, { dataSources }) => {
-      if (!acceptedTaxonKey) return null;
-      return dataSources.taxonAPI.getTaxonByKey({ key: acceptedTaxonKey });
-    },
-    taxon: ({ taxonKey }, _args, { dataSources }) => {
-      if (!taxonKey) return null;
-      return dataSources.taxonAPI.getTaxonByKey({ key: taxonKey });
+    // acceptedTaxon: ({ acceptedTaxonKey }, _args, { dataSources }) => {
+    //   if (!acceptedTaxonKey) return null;
+    //   return dataSources.taxonAPI.getTaxonByKey({ key: acceptedTaxonKey });
+    // },
+    // taxon: ({ taxonKey }, _args, { dataSources }) => {
+    //   if (!taxonKey) return null;
+    //   return dataSources.taxonAPI.getTaxonByKey({ key: taxonKey });
+    // },
+    classification: ({ classifications }, { checklistKey }) => {
+      // just return one classification. if none provided, then fallback to default
+      if (!classifications) return null;
+      if (!checklistKey) {
+        checklistKey = DEFAULT_CHECKLIST_KEY;
+      }
+      const classification = classifications.find(
+        (x) => x.checklistKey === checklistKey,
+      );
+      if (!classification) return null;
+      // if classification, return the classification
+      return classification;
     },
     volatile: (occurrence) => occurrence,
     related: ({ key }, { from = 0, size = 20 }, { dataSources }) => {
@@ -308,16 +381,6 @@ export default {
       return dataSources.occurrenceAPI
         .getVerbatim({ key: occurrence.key })
         .then((verbatim) => groupResolver({ occurrence, verbatim }));
-    },
-    hasTaxonIssues: ({ issues = [] }) => {
-      return (
-        _.intersection(issues, [
-          'TAXON_MATCH_FUZZY',
-          'TAXON_MATCH_HIGHERRANK',
-          'TAXON_MATCH_AGGREGATE',
-          'TAXON_MATCH_NONE',
-        ]).length > 0
-      );
     },
     terms: (occurrence, _args, { dataSources }) => {
       return dataSources.occurrenceAPI
@@ -504,24 +567,35 @@ export default {
     documents: searchOccurrences,
     // this looks odd. I'm not sure what is the best way, but I want to transfer the current query to the child, so that it can be used when asking for the individual facets
     facet: (parent) => {
-      return { _predicate: parent._predicate };
+      return { _predicate: parent._predicate, _q: parent._q };
     },
     stats: (parent) => {
-      return { _predicate: parent._predicate };
+      return { _predicate: parent._predicate, _q: parent._q };
     },
     cardinality: (parent) => {
-      return { _predicate: parent._predicate };
+      return { _predicate: parent._predicate, _q: parent._q };
     },
     histogram: (parent) => {
-      return { _predicate: parent._predicate };
+      return { _predicate: parent._predicate, _q: parent._q };
     },
     autoDateHistogram: (parent) => {
-      return { _predicate: parent._predicate };
+      return { _predicate: parent._predicate, _q: parent._q };
     },
     _meta: (parent, _query, { dataSources }) => {
       return dataSources.occurrenceAPI.meta({
-        query: { predicate: parent._predicate },
+        query: { predicate: parent._predicate, q: parent._q },
       });
+    },
+    metaPredicate: (parent, _query, { dataSources }) => {
+      return dataSources.occurrenceAPI
+        .meta({
+          query: { predicate: parent._predicate, q: parent._q },
+        })
+        .then((meta) => {
+          return dataSources.occurrenceAPI.registerPredicate({
+            predicate: meta.normalizedPredicate.predicate,
+          });
+        });
     },
   },
   OccurrenceNameUsage: {
@@ -564,6 +638,18 @@ export default {
     },
     occurrences: facetOccurrenceSearch,
   },
+  OccurrenceDatasetSuggestResult: {
+    dataset: ({ key }, _args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+      return dataSources.datasetAPI.getDatasetByKey({ key });
+    },
+  },
+  OccurrencePublisherSuggestResult: {
+    publisher: ({ key }, _args, { dataSources }) => {
+      if (typeof key === 'undefined') return null;
+      return dataSources.organizationAPI.getOrganizationByKey({ key });
+    },
+  },
   OccurrenceFacetResult_establishmentMeans: {
     concept: ({ key }, _args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
@@ -598,7 +684,26 @@ export default {
   OccurrenceFacetResult_taxon: {
     taxon: ({ key }, _args, { dataSources }) => {
       if (typeof key === 'undefined') return null;
-      return dataSources.taxonAPI.getTaxonByKey({ key });
+      return dataSources.taxonAPI.getTaxonByKey({ key }).catch((err) => {
+        // if a 404 error, then just ignore. it is expected that some taxonKeys are not found when we have multiple taxonomies and no species API to relfect it
+        if (
+          err?.extensions?.response?.status >= 400 &&
+          err?.extensions?.response?.status < 500
+        ) {
+          return null;
+        }
+        throw err;
+      });
+    },
+    taxonMatch: (
+      { key },
+      { checklistKey = DEFAULT_CHECKLIST_KEY },
+      { dataSources },
+    ) => {
+      return dataSources.taxonAPI.getSpeciesMatchByUsageKey({
+        usageKey: key,
+        checklistKey,
+      });
     },
     occurrences: facetOccurrenceSearch,
   },
@@ -707,16 +812,22 @@ export default {
   Globe: {},
   VolatileOccurrenceData: {
     vernacularNames: (
-      { taxonKey },
-      { limit = 10, offset = 0, language, source, removeDuplicates },
+      { classifications },
+      { limit = 10, offset = 0, language, checklistKey, removeDuplicates },
       { dataSources },
     ) => {
+      const classification = classifications.find(
+        (x) => x.checklistKey === checklistKey,
+      );
+      const taxonKey =
+        classification?.acceptedUsage?.key ?? classification?.usage.key;
+      if (!taxonKey) return null;
       return getVernacularNames({
         taxonKey,
         limit,
         offset,
         language,
-        source,
+        checklistKey,
         dataSources,
         removeDuplicates,
       });

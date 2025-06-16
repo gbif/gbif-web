@@ -34,7 +34,7 @@ const typeDef = gql`
       includeChildrenCount: Boolean
       includeChildren: Boolean
       includeParents: Boolean
-    ): VocabularySearchResult
+    ): ConceptSearchResult!
     vocabulary(key: ID!): Vocabulary
   }
 
@@ -111,7 +111,7 @@ const typeDef = gql`
   }
 
   type ConceptSearchResult {
-    results: [VocabularyConcept]!
+    results: [VocabularyConcept!]!
     limit: Int!
     offset: Int!
     count: Int!
@@ -139,7 +139,7 @@ const typeDef = gql`
     sameAsUris: [String]
     label: [VocabularyLabel]
     definition: [VocabularyDefinition]!
-    uiLabel(language: String): String
+    uiLabel(language: String): String!
     uiDefinition(language: String): String
     editorialNotes: [String]
     externalDefinitions: [String]

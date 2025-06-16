@@ -38,6 +38,7 @@ class OccurrenceAPI extends RESTDataSource {
       });
     }
     response._predicate = body.predicate;
+    response._q = query.q;
     return response;
   }
 
@@ -72,6 +73,24 @@ class OccurrenceAPI extends RESTDataSource {
     return response;
   }
 
+  async publisherSuggest(query) {
+    const response = await this.post(
+      '/occurrence/suggest/publisherKey',
+      query,
+      {
+        signal: this.context.abortController.signal,
+      },
+    );
+    return response;
+  }
+
+  async datasetSuggest(query) {
+    const response = await this.post('/occurrence/suggest/datasetKey', query, {
+      signal: this.context.abortController.signal,
+    });
+    return response;
+  }
+
   async registerPredicate({ predicate }) {
     try {
       return await this.post(
@@ -80,6 +99,7 @@ class OccurrenceAPI extends RESTDataSource {
         { signal: this.context.abortController.signal },
       );
     } catch (err) {
+      console.log(err);
       return {
         err: {
           error: 'FAILED_TO_REGISTER_PREDICATE',

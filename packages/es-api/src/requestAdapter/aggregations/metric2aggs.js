@@ -21,6 +21,13 @@ function metric2aggs(metrics = {}, config) {
       const from = parseInt(metric.from || 0, 10);
       const size = parseInt(metric.size || 10, 10) || 10;
       const aggSize = size + from;
+
+      const field = getTemplatedField({
+        field: conf.displayField ?? conf.field,
+        variables: metric,
+        defaultTemplateKeys: conf.defaultTemplateKeys,
+      });
+
       switch (metric.type) {
         case 'facet': {
           if (!['keyword', 'numeric', 'boolean'].includes(conf.type)) {
@@ -37,9 +44,10 @@ function metric2aggs(metrics = {}, config) {
               order = { _term: 'asc' };
             }
           }
+
           const aggName = {
             terms: {
-              field: conf.displayField ? conf.displayField : conf.field,
+              field: field,
               size: aggSize,
               include: metric.include,
               shard_size: aggSize * 2 + 50000,
@@ -74,8 +82,13 @@ function metric2aggs(metrics = {}, config) {
           const terms = [];
           metric.keys.forEach((key) => {
             const metricConf = _.get(config, `options[${key}]`);
+            const field = getTemplatedField({
+              field: metricConf.displayField ?? metricConf.field,
+              variables: metric,
+              defaultTemplateKeys: metricConf.defaultTemplateKeys,
+            });
             terms.push({
-              field: metricConf.displayField ? metricConf.displayField : metricConf.field,
+              field: field,
             });
           });
 
@@ -96,7 +109,7 @@ function metric2aggs(metrics = {}, config) {
             );
           aggs[name] = {
             stats: {
-              field: conf.field,
+              field: field,
             },
           };
           break;
@@ -110,7 +123,7 @@ function metric2aggs(metrics = {}, config) {
             );
           aggs[name] = {
             histogram: {
-              field: conf.field,
+              field: field,
               interval: metric.interval || 45,
             },
           };
@@ -121,7 +134,7 @@ function metric2aggs(metrics = {}, config) {
             throw new ResponseError(400, 'badRequest', 'Only date fields support this aggregation');
           aggs[name] = {
             auto_date_histogram: {
-              field: conf.field,
+              field: field,
               buckets: metric.buckets || 10,
               minimum_interval: metric.minimum_interval,
             },
@@ -133,7 +146,7 @@ function metric2aggs(metrics = {}, config) {
             throw new ResponseError(400, 'badRequest', 'Only date fields support this aggregation');
           aggs[name] = {
             date_histogram: {
-              field: conf.field,
+              field: field,
               calendar_interval: metric.calendarInterval || '1M',
             },
           };
@@ -148,7 +161,7 @@ function metric2aggs(metrics = {}, config) {
             );
           aggs[name] = {
             cardinality: {
-              field: conf.field,
+              field: field,
               precision_threshold: metric.precision_threshold || 10000,
             },
           };
@@ -171,3 +184,16 @@ function metric2aggs(metrics = {}, config) {
 module.exports = {
   metric2aggs,
 };
+
+function getTemplatedField({ field, variables, defaultTemplateKeys }) {
+  if (defaultTemplateKeys) {
+    // replace template keys
+    Object.keys(defaultTemplateKeys).forEach((key) => {
+      field = field.replace(
+        `{${key}}`,
+        variables[key] ?? defaultTemplateKeys?.[key] ?? 'NO_TEMPLATE_VALUE_PROVIDED',
+      );
+    });
+  }
+  return field;
+}

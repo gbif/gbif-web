@@ -4,6 +4,7 @@ import { RESTDataSource } from 'apollo-datasource-rest';
 import { uniqBy } from 'lodash';
 import { matchSorter } from 'match-sorter';
 import { stringify } from 'qs';
+import colSuggest from './colSuggest';
 
 class TaxonAPI extends RESTDataSource {
   constructor(config) {
@@ -81,9 +82,44 @@ class TaxonAPI extends RESTDataSource {
     return getParsedName(key, this);
   }
 
+  async getChecklistMetadata({ checklistKey = this.config.defaultChecklist }) {
+    return this.get(
+      `${this.config.apiv2}/species/match/metadata?`,
+      stringify({ checklistKey }, { indices: false }),
+    );
+  }
+
+  async getSpeciesMatchByUsageKey({
+    usageKey,
+    checklistKey = this.config.defaultChecklist,
+  }) {
+    const isIncertaeSedis = usageKey === 0 || usageKey === '0';
+    return this.get(
+      `${this.config.apiv2}/species/match?`,
+      stringify(
+        { checklistKey: isIncertaeSedis ? undefined : checklistKey, usageKey },
+        { indices: false },
+      ),
+    ).then((result) => {
+      if (!result.usage) {
+        return null;
+      }
+      // extract IUCN status if any
+      const iucnEntry = result?.additionalStatus?.find(
+        (x) => x.datasetAlias === 'IUCN',
+      );
+      return {
+        ...result,
+        checklistKey,
+        iucnStatus: iucnEntry?.status,
+        iucnStatusCode: iucnEntry?.statusCode,
+      };
+    });
+  }
+
   async getSuggestions({
-    datasetKey = this.config.gbifBackboneUUID,
-    limit = 10,
+    checklistKey = this.config.defaultChecklist,
+    limit = 20,
     q,
     language,
     vernacularNamesOnly,
@@ -91,6 +127,27 @@ class TaxonAPI extends RESTDataSource {
     strictMatching,
     taxonScope = [],
   }) {
+    if (Math.random() > -1) {
+      try {
+        const metadata = await this.getChecklistMetadata({
+          checklistKey,
+        });
+        const result = await colSuggest({
+          q,
+          checklistKey: metadata.mainIndex.datasetKey,
+          language,
+          limit,
+          taxonScope,
+          vernacularNamesOnly,
+          preferAccepted,
+        });
+        return result;
+      } catch (e) {
+        console.error('Error getting checklist metadata', e);
+        throw e;
+      }
+    }
+
     // get vernacular names
     const responseVernacularPromise = language
       ? this.searchTaxa({

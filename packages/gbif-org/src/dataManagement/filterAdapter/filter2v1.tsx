@@ -25,7 +25,7 @@ export function filter2v1(
   if (filterConfig?.preFilterTransform) {
     filter = filterConfig?.preFilterTransform(filter);
   }
-  const { must, mustNot } = filter;
+  const { must, mustNot, checklistKey } = filter;
 
   const composedFilter: { [key: string]: ValuesType } = {};
   const errors: ErrorType[] = [];
@@ -47,6 +47,10 @@ export function filter2v1(
         errorType: 'UNSUPPORTED_NEGATION',
       });
     }
+  }
+
+  if (checklistKey) {
+    composedFilter.checklistKey = checklistKey;
   }
 
   return {

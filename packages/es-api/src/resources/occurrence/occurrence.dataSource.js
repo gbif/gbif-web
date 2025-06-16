@@ -42,7 +42,7 @@ const allowedSortBy = {
   eventDate: 'eventDateSingle',
   eventId: 'eventId.keyword',
   fieldNumber: 'fieldNumber',
-  taxonKey: 'gbifClassification.usage.name',
+  taxonKey: 'classifications.{CHECKLIST_KEY}.usage.name',
   gbifId: 'gbifId',
   gbifRegion: 'gbifRegion',
   bed: 'geologicalContext.bed',
@@ -67,7 +67,7 @@ const allowedSortBy = {
   sex: 'sex.concept',
   waterBody: 'waterBody.keyword',
   year: 'year',
-  iucnRedListCategoryCode: 'gbifClassification.iucnRedListCategoryCode',
+  iucnRedListCategoryCode: 'classifications.{CHECKLIST_KEY}.iucnRedListCategoryCode',
 };
 
 async function query({ query, aggs, size = 20, from = 0, metrics, sortBy, sortOrder, req }) {

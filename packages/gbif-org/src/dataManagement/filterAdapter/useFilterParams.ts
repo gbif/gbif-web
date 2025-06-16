@@ -21,9 +21,11 @@ import v12filter from './v12filter';
 
 export function useFilterParams({
   filterConfig,
+  defaultChecklistKey,
   paramsToRemove,
 }: {
   filterConfig: FilterConfigType;
+  defaultChecklistKey?: string;
   paramsToRemove: string[];
 }): [FilterType, (filter: FilterType) => void] {
   const [remove] = useState(paramsToRemove ?? []);
@@ -37,16 +39,21 @@ export function useFilterParams({
   useEffect(() => {
     const fields = filterConfig?.fields ?? {};
     if (!isPlainObject(fields)) return;
-    setObservedParams([...Object.keys(fields).map((x) => fields?.[x]?.defaultKey ?? x), 'filter']);
+    setObservedParams([
+      ...Object.keys(fields).map((x) => fields?.[x]?.defaultKey ?? x),
+      'filter',
+      'checklistKey',
+    ]);
 
-    const empty: { [key: string]: undefined } = [...Object.keys(fields), ...remove].reduce(
-      (accumulator: { [key: string]: undefined }, curr: string) => {
-        const fieldConfig = fields[curr];
-        accumulator[fieldConfig?.defaultKey || curr] = undefined;
-        return accumulator;
-      },
-      {}
-    );
+    const empty: { [key: string]: undefined } = [
+      ...Object.keys(fields),
+      'checklistKey',
+      ...remove,
+    ].reduce((accumulator: { [key: string]: undefined }, curr: string) => {
+      const fieldConfig = fields[curr];
+      accumulator[fieldConfig?.defaultKey || curr] = undefined;
+      return accumulator;
+    }, {});
     empty.filter = undefined;
     setEmptyQuery(empty);
   }, [filterConfig, remove]);
@@ -59,10 +66,10 @@ export function useFilterParams({
       const encodedFilter = Array.isArray(query.filter) ? query.filter[0] : query.filter;
       f = Base64JsonParam.decode(encodedFilter);
     } else {
-      f = v12filter(query, filterConfig);
+      f = v12filter(query, filterConfig, defaultChecklistKey);
     }
     return f;
-  }, [query, filterConfig]);
+  }, [query, filterConfig, defaultChecklistKey]);
 
   // transform the filter to a string that can go into the url.
   // Field names can change according to the configuration
@@ -72,13 +79,15 @@ export function useFilterParams({
         return;
       }
       const { filter: v1Filter, errors } = filter2v1(nextFilter, filterConfig);
+      if (v1Filter && v1Filter?.checklistKey === defaultChecklistKey) {
+        delete v1Filter.checklistKey;
+      }
       if (errors) {
         // if we cannot serialize the filter to version 1 API, then just serialize the json and put it in the filter param
         setQuery({ ...emptyQuery, filter: Base64JsonParam.encode(nextFilter) });
       } else {
         setQuery({ ...emptyQuery, ...v1Filter });
       }
-      // setQuery({q: 'sdf', country: ['DK', 'DE', 'SE']});
     },
     [filterConfig, emptyQuery, filter, setQuery]
   );

@@ -10,7 +10,11 @@ import {
   TaxonLabel,
   TypeStatusVocabularyLabel,
 } from '@/components/filters/displayNames';
-import { filterConfigTypes, filterSuggestConfig } from '@/components/filters/filterTools';
+import {
+  filterConfigTypes,
+  filterSuggestConfig,
+  filterTaxonConfig,
+} from '@/components/filters/filterTools';
 import { Message } from '@/components/message';
 import {
   collectionCodeSuggest,
@@ -23,7 +27,7 @@ import {
   publisherKeyOccurrenceSuggest,
   publisherKeySuggest,
   recordNumberSuggest,
-  taxonKeyVernacularSuggest,
+  taxonKeyClbSuggest,
   typeStatusSuggest,
 } from '@/utils/suggestEndpoints';
 
@@ -36,8 +40,8 @@ export const institutionKeyConfig: filterSuggestConfig = {
   allowExistence: true,
   allowNegations: true,
   facetQuery: `
-    query OccurrenceInstitutionFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceInstitutionFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: institutionKey {
             name: key
@@ -51,23 +55,26 @@ export const institutionKeyConfig: filterSuggestConfig = {
   group: 'record',
 };
 
-export const taxonKeyConfig: filterSuggestConfig = {
-  filterType: filterConfigTypes.SUGGEST,
+export const taxonKeyConfig: filterTaxonConfig = {
+  filterType: filterConfigTypes.TAXON,
   filterHandle: 'taxonKey',
   displayName: TaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
-  suggestConfig: taxonKeyVernacularSuggest, //taxonKeySuggest,
+  suggestConfig: taxonKeyClbSuggest,
   allowExistence: false,
   allowNegations: true,
+  suggestionTitlePath: 'item.usage.canonicalName',
   facetQuery: `
-    query OccurrenceTaxonFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceTaxonFacet($q: String, $predicate: Predicate, $checklistKey: ID) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
-          field: taxonKey {
+          field: taxonKey(checklistKey: $checklistKey) {
             name: key
             count
-            item: taxon {
-              formattedName(useFallback: true)
+            item: taxonMatch(checklistKey: $checklistKey) {
+              usage {
+                canonicalName
+              }
             }
           }
         }
@@ -87,8 +94,8 @@ export const collectionKeyConfig: filterSuggestConfig = {
   allowExistence: true,
   allowNegations: true,
   facetQuery: `
-    query OccurrenceInstitutionFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceInstitutionFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: collectionKey {
             name: key
@@ -111,8 +118,8 @@ export const datasetKeyConfig: filterSuggestConfig = {
   allowExistence: false,
   allowNegations: true,
   facetQuery: `
-    query OccurrenceDatasetFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceDatasetFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: datasetKey {
             name: key
@@ -149,8 +156,8 @@ export const publishingOrgConfig: filterSuggestConfig = {
   allowExistence: false,
   allowNegations: true,
   facetQuery: `
-    query OccurrencePublisherFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrencePublisherFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: publishingOrg {
             name: key
@@ -173,8 +180,8 @@ export const hostingOrganizationKeyConfig: filterSuggestConfig = {
   allowExistence: false,
   allowNegations: true,
   facetQuery: `
-    query OccurrencePublisherFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrencePublisherFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: hostingOrganizationKey {
             name: key
@@ -197,8 +204,8 @@ export const networkKeyConfig: filterSuggestConfig = {
   allowExistence: true,
   allowNegations: true,
   facetQuery: `
-    query OccurrencePublisherFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrencePublisherFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: networkKey {
             name: key
@@ -221,8 +228,8 @@ export const gadmGidConfig: filterSuggestConfig = {
   allowExistence: true,
   allowNegations: true,
   facetQuery: `
-    query OccurrencePublisherFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrencePublisherFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: gadmGid {
             name: key
@@ -245,8 +252,8 @@ export const countryConfig: filterSuggestConfig = {
   allowExistence: true,
   allowNegations: true,
   facetQuery: `
-    query OccurrenceCountryFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceCountryFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: countryCode {
             name: key
@@ -269,8 +276,8 @@ export const publishingCountryConfig: filterSuggestConfig = {
   allowExistence: true,
   allowNegations: true,
   facetQuery: `
-    query OccurrencePublishingCountryFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrencePublishingCountryFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: publishingCountry {
             name: key
@@ -293,8 +300,8 @@ export const institutionCodeConfig: filterSuggestConfig = {
   allowExistence: true,
   allowNegations: true,
   facetQuery: `
-    query OccurrenceInstitutionCodeFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceInstitutionCodeFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: institutionCode {
             name: key
@@ -317,8 +324,8 @@ export const collectionCodeConfig: filterSuggestConfig = {
   allowExistence: true,
   allowNegations: true,
   facetQuery: `
-    query OccurrenceCollectionCodeFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceCollectionCodeFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: collectionCode {
             name: key
@@ -341,8 +348,8 @@ export const recordNumberConfig: filterSuggestConfig = {
   allowExistence: true,
   allowNegations: true,
   facetQuery: `
-    query OccurrenceRecordNumberFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceRecordNumberFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: recordNumber {
             name: key
@@ -365,8 +372,8 @@ export const typeStatusSuggestConfig: filterSuggestConfig = {
   allowNegations: true,
   allowExistence: true,
   facetQuery: /* GraphQL */ `
-    query OccurrenceTypeStatusFacet($predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+    query OccurrenceTypeStatusFacet($q: String, $predicate: Predicate) {
+      search: occurrenceSearch(q: $q, predicate: $predicate) {
         facet {
           field: typeStatus(size: 100) {
             name: key

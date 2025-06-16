@@ -155,9 +155,7 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
 
     load({
       variables: {
-        predicate: {
-          ...query,
-        },
+        ...query,
         size: 20,
         from: offset,
       },

@@ -10,6 +10,7 @@ const getFacet =
     // generate the occurrence search facet query, by inherting from the parent query, and map limit/offset to facet equivalents
     const query = {
       predicate: parent._predicate,
+      q: parent._q,
       size: 0,
       metrics: {
         facet: {
@@ -42,6 +43,7 @@ const getFacet =
             count: bucket.doc_count,
             // create a new predicate that joins the base with the facet. This enables us to dig deeper for multidimensional metrics
             _predicate: joinedPredicate,
+            _q: parent._q,
             _parentPredicate: data.meta.predicate,
           };
         });
@@ -59,6 +61,7 @@ const getStats =
     // generate the occurrence search facet query, by inherting from the parent query, and map limit/offset to facet equivalents
     const query = {
       predicate: parent._predicate,
+      q: parent._q,
       size: 0,
       metrics: {
         stats: {
@@ -84,6 +87,7 @@ const getCardinality =
     // generate the occurrence search facet query, by inherting from the parent query, and map limit/offset to facet equivalents
     const query = {
       predicate: parent._predicate,
+      q: parent._q,
       size: 0,
       metrics: {
         cardinality: {
@@ -110,6 +114,7 @@ const getHistogram =
     // generate the occurrence search facet query, by inherting from the parent query, and map limit/offset to facet equivalents
     const query = {
       predicate: parent._predicate,
+      q: parent._q,
       size: 0,
       metrics: {
         histogram: {
@@ -136,6 +141,7 @@ const getAutoDateHistogram =
     // generate the occurrence search facet query, by inherting from the parent query, and map limit/offset to facet equivalents
     const query = {
       predicate: parent._predicate,
+      q: parent._q,
       size: 0,
       metrics: {
         autoDateHistogram: {
@@ -161,10 +167,9 @@ const getAutoDateHistogram =
   };
 
 export {
-  getFacet,
-  getStats,
-  getCardinality,
-  getHistogram,
   getAutoDateHistogram,
+  getCardinality,
+  getFacet,
+  getHistogram,
+  getStats,
 };
-

@@ -8,8 +8,6 @@ const typeDef = gql`
     acceptedNameUsage: String
     acceptedNameUsageID: String
     acceptedScientificName: String
-    acceptedTaxonKey: ID
-    acceptedTaxon: Taxon
     accessRights: String
     accrualMethod: String
     accrualPeriodicity: String
@@ -246,7 +244,6 @@ const typeDef = gql`
     taxonConceptID: String
     taxonID: String
     taxonKey: ID
-    taxon: Taxon
     taxonRank: String
     taxonRemarks: String
     taxonomicStatus: String
@@ -277,6 +274,8 @@ const typeDef = gql`
     Volatile: this is currently an exact mapping of the record in Elastic Search - the format is likely to change over time
     """
     gbifClassification: GbifClassification
+    classifications: [ChecklistClassification!]!
+    classification(checklistKey: ID): ChecklistClassification
 
     datasetTitle: String
     publisherTitle: String
@@ -319,10 +318,6 @@ const typeDef = gql`
     Volatile: these values are tightly coupled to the webview and are likely to change frequently
     """
     bionomia: BionomiaOccurrence
-    """
-    Volatile: these values are tightly coupled to the webview and are likely to change frequently
-    """
-    hasTaxonIssues: Boolean
   }
 
   type BionomiaOccurrence {
@@ -412,10 +407,7 @@ const typeDef = gql`
       limit: Int
       offset: Int
       language: String
-      """
-      The title of the source. Not the datasetKey. Neither language nor source is part of the official API filters. And datasetKey is not in the response. So this is the best we can do at this point
-      """
-      source: String
+      checklistKey: ID
       removeDuplicates: Boolean
     ): TaxonVernacularNameResult
   }
@@ -464,13 +456,63 @@ const typeDef = gql`
     lon: Float!
   }
 
+  type ChecklistClassification {
+    iucnRedListCategoryCode: String
+    checklistKey: ID!
+    classification: [Classification!]
+    issues: [String!]
+    acceptedUsage: AcceptedUsage!
+    usage: Usage!
+    taxonMatch: SpeciesMatchResult
+    meta: ChecklistMeta
+    vernacularNames(lang: String, maxLimit: Int): [ClbVernacularName]
+    """
+    Volatile: these values are tightly coupled to the webview and are likely to change frequently
+    A simple boolean to tell the UI if there are any issues with the taxon that are worth highlighting
+    """
+    hasTaxonIssues: Boolean
+  }
+
+  type ChecklistMeta {
+    mainIndex: ChecklistMetaMainIndex!
+  }
+
+  type ChecklistMetaMainIndex {
+    datasetKey: ID!
+    datasetTitle: String!
+  }
+
+  type Classification {
+    key: String
+    rank: String
+    name: String
+  }
+
+  type AcceptedUsage {
+    key: String
+    name: String
+    rank: String
+    authorship: String
+  }
+
+  type Usage {
+    key: String
+    name: String
+    rank: String
+    authorship: String
+    specificEpithet: String
+    infraspecificEpithet: String
+    genericName: String
+  }
+
+  """
+  Deprecated. Use the checklistClassification field instead
+  """
   type GbifClassification {
     acceptedUsage: OccurrenceNameUsage
     class: String
     classKey: Int
     classification: [Classification]
-    classificationPath: String
-    diagnostics: Diagnostics
     family: String
     familyKey: Int
     genus: String
@@ -489,19 +531,6 @@ const typeDef = gql`
     usage: OccurrenceNameUsage
     usageParsedName: UsageParsedName
     verbatimScientificName: String
-  }
-
-  type Classification {
-    key: Int
-    name: String
-    rank: String
-    synonym: Boolean
-  }
-
-  type Diagnostics {
-    matchType: String
-    note: String
-    status: String
   }
 
   type OccurrenceNameUsage {

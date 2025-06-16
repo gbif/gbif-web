@@ -38,11 +38,13 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
     $from: Int
     $size: Int
     $predicate: Predicate
+    $q: String
     $language: String
     $sortBy: OccurrenceSortBy
     $sortOrder: SortOrder
+    $checklistKey: ID
   ) {
-    occurrenceSearch(predicate: $predicate) {
+    occurrenceSearch(q: $q, predicate: $predicate) {
       documents(from: $from, size: $size, sortBy: $sortBy, sortOrder: $sortOrder) {
         from
         size
@@ -50,17 +52,33 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
         results {
           key
           taxonKey
-          hasTaxonIssues
-          gbifClassification {
-            verbatimScientificName
+          verbatimScientificName
+          classification(checklistKey: $checklistKey) {
             usage {
               rank
-              formattedName(useFallback: true)
+              name
               key
             }
-          }
-          taxon {
-            canonicalName
+            taxonMatch {
+              usage {
+                name
+                key
+                canonicalName
+                formattedName
+              }
+            }
+            meta {
+              mainIndex {
+                datasetTitle
+              }
+            }
+            vernacularNames(lang: $language, maxLimit: 1) {
+              name
+              reference {
+                citation
+              }
+            }
+            hasTaxonIssues
           }
           primaryImage {
             thumbor(width: 80)
@@ -114,12 +132,6 @@ const OCCURRENCE_SEARCH_QUERY = /* GraphQL */ `
               isClustered
               isSamplingEvent
             }
-            vernacularNames(language: $language, limit: 1) {
-              results {
-                vernacularName
-                source
-              }
-            }
           }
         }
       }
@@ -149,8 +161,8 @@ const fallbackOptions: FallbackTableOptions = {
     'coordinates',
     'year',
     'basisOfRecord',
-    'dataset',
-    'publisher',
+    'datasetKey',
+    'publishingOrg',
   ],
 };
 
@@ -194,9 +206,7 @@ export function OccurrenceTableClient() {
     load({
       variables: {
         language: locale.iso3LetterCode,
-        predicate: {
-          ...query,
-        },
+        ...query,
         size: paginationState.pageSize,
         from: paginationState.pageIndex * paginationState.pageSize,
         sortBy: getNotEmptyString(occurrenceSortBy) as OccurrenceSortBy | undefined,

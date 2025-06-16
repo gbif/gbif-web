@@ -49,11 +49,12 @@ const typeDef = gql`
       preferAccepted: Boolean
       vernacularNamesOnly: Boolean
       strictMatching: Boolean
-      datasetKey: ID
+      checklistKey: ID
       taxonScope: [ID!]
     ): [TaxonSuggestion]!
 
     taxonBySourceId(sourceId: ID!, datasetKey: ID!): Taxon
+    speciesMatchByUsageKey(usageKey: ID!, checklistKey: ID): SpeciesMatchResult
   }
 
   input TaxonSearchInput {
@@ -152,7 +153,7 @@ const typeDef = gql`
     """
     taxonImages_volatile(size: Int): [Image]!
     speciesCount: Int
-    checklistBankBreakdown: [ChecklistBankBreakdownTaxon]
+    checklistBankBreakdown: [ClbBreakdownTaxon]
     invasiveInCountries: [InvasiveInCountry]
     iucnStatus: IUCNstatus
 
@@ -161,7 +162,39 @@ const typeDef = gql`
     """
     mapCapabilities: MapCapabilities
   }
-  type ChecklistBankBreakdownTaxon {
+
+  """
+  A smaller subset of the fields provided by the match service v2. This is used in lack of a species API for e.g. extended CoL.
+  """
+  type SpeciesMatchResult {
+    checklistKey: ID!
+    synonym: Boolean!
+    classification: [Classification]!
+    acceptedUsage: SpeciesMatchAcceptedUsage
+    usage: SpeciesMatchUsage!
+    iucnStatus: String
+    iucnStatusCode: String
+  }
+
+  type SpeciesMatchUsage {
+    key: ID!
+    name: String
+    canonicalName: String
+    rank: String
+    doubtful: Boolean
+    formattedName: String
+  }
+
+  type SpeciesMatchAcceptedUsage {
+    key: ID!
+    name: String
+    canonicalName: String
+    rank: String
+    doubtful: Boolean
+    formattedName: String
+  }
+
+  type ClbBreakdownTaxon {
     id: String
     name: String
     rank: String
@@ -169,7 +202,7 @@ const typeDef = gql`
     label: String
     labelHtml: String
     species: Int
-    children: [ChecklistBankBreakdownTaxon]
+    children: [ClbBreakdownTaxon]
   }
 
   type InvasiveInCountry {
@@ -245,13 +278,13 @@ const typeDef = gql`
   }
 
   type TaxonSuggestion {
-    key: Int!
+    key: ID!
     scientificName: String
     canonicalName: String
-    rank: Rank
+    rank: String
     classification: [Classification]
     vernacularName: String
-    taxonomicStatus: TaxonomicStatus
+    taxonomicStatus: String
     acceptedNameOf: String
   }
 `;

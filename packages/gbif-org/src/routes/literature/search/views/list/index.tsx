@@ -59,7 +59,7 @@ export function LiteratureListView() {
     const query = getAsQuery({ filter, searchContext, searchConfig });
     load({
       variables: {
-        predicate: query,
+        ...query,
         size: 20,
         from: offset,
       },

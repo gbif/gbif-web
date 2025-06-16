@@ -1,18 +1,19 @@
 import { BulletList } from '@/components/bulletList';
-import { GadmClassification, TaxonClassification } from '@/components/classification';
+import { GadmClassification } from '@/components/classification';
 import { ConceptValue } from '@/components/conceptValue';
+import { HelpLine } from '@/components/helpText';
 import Properties, { Property } from '@/components/properties';
 import { RenderIfChildren } from '@/components/renderIfChildren';
 import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
+import { useConfig } from '@/config/config';
 import { OccurrenceQuery, SlowOccurrenceKeyQuery, Term } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import React, { useEffect, useState } from 'react';
 import { MdAudiotrack, MdImage } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { BasicField, EnumField, HtmlField, PlainTextField } from '../properties';
+import { BasicField, EnumField, HtmlField, PlainTextField, VerbatimTextField } from '../properties';
 import {
-  AcceptedScientificName,
   AgentIds,
   CollectionKey,
   DatasetKey,
@@ -20,7 +21,6 @@ import {
   IdentifiedById,
   InstitutionKey,
   RecordedById,
-  ScientificName,
 } from './customValues';
 import {
   Amplification,
@@ -46,6 +46,7 @@ import {
   ResourceRelationship,
 } from './extensions';
 import { Media } from './media';
+import { TaxonInterpretationCard } from './TaxonInterpretationCard';
 
 // const Map = React.lazy(() => import('@/components/maps/map'));
 
@@ -166,12 +167,6 @@ function Summary({
 }) {
   return (
     <RenderIfChildren as={PropGroup} label="occurrenceDetails.groups.summary" id="summary">
-      <ScientificName {...{ showAll, termMap, occurrence }} />
-      <AcceptedScientificName {...{ showAll, termMap, occurrence }} />
-
-      <BasicField label="occurrenceFieldNames.taxonomicClassification">
-        <TaxonClassification classification={occurrence.gbifClassification.classification} />
-      </BasicField>
       {occurrence?.gadm?.level0 && (
         <BasicField label="occurrenceFieldNames.gadmClassification">
           <GadmClassification gadm={occurrence.gadm} />
@@ -272,59 +267,105 @@ function Taxon({
   showAll,
   termMap,
   occurrence,
-  updateToc = () => {},
 }: {
   showAll: boolean;
   termMap: any;
-  occurrence: any;
+  occurrence: OccurrenceQuery['occurrence'];
   updateToc: (id: string, visible: boolean) => void;
 }) {
+  const config = useConfig();
+  const enabledChecklists = config.availableChecklistKeys || [];
+  // filter occurrence.classifications to only show those in enabledChecklists. Use the ordering of the enabledChecklists
+  // to order the classifications
+  const filteredClassifications = occurrence?.classifications
+    .filter((classification) => enabledChecklists.includes(classification?.checklistKey))
+    .sort((a, b) => {
+      return (
+        enabledChecklists.indexOf(a?.checklistKey) - enabledChecklists.indexOf(b?.checklistKey)
+      );
+    });
   return (
-    <RenderIfChildren as={PropGroup} label="occurrenceDetails.groups.taxon" id="taxon">
-      <HtmlField term={termMap.taxonID} showDetails={showAll} />
-      <HtmlField term={termMap.scientificNameID} showDetails={showAll} />
-      <HtmlField term={termMap.acceptedNameUsageID} showDetails={showAll} />
-      <HtmlField term={termMap.parentNameUsageID} showDetails={showAll} />
-      <HtmlField term={termMap.originalNameUsageID} showDetails={showAll} />
-      <HtmlField term={termMap.nameAccordingToID} showDetails={showAll} />
-      <HtmlField term={termMap.namePublishedInID} showDetails={showAll} />
-      <HtmlField term={termMap.taxonConceptID} showDetails={showAll} />
-      <HtmlField term={termMap.scientificName} showDetails={showAll} />
-      <PlainTextField term={termMap.acceptedNameUsage} showDetails={showAll} />
-      {/* <AcceptedScientificName {...{ showAll, termMap, occurrence }} /> */}
+    <>
+      <Group label="occurrenceDetails.groups.taxon" id="taxon">
+        <Properties breakpoint={800} className="[&>dt]:g-w-52">
+          <VerbatimTextField term={termMap.scientificName} />
+          <HtmlField term={termMap.taxonID} showDetails={showAll} hideIssues hideRemarks />
+          <HtmlField term={termMap.scientificNameID} showDetails={showAll} hideIssues hideRemarks />
+          <HtmlField
+            term={termMap.acceptedNameUsageID}
+            showDetails={showAll}
+            hideIssues
+            hideRemarks
+          />
+          <HtmlField
+            term={termMap.parentNameUsageID}
+            showDetails={showAll}
+            hideIssues
+            hideRemarks
+          />
+          <HtmlField
+            term={termMap.originalNameUsageID}
+            showDetails={showAll}
+            hideIssues
+            hideRemarks
+          />
+          <HtmlField
+            term={termMap.nameAccordingToID}
+            showDetails={showAll}
+            hideIssues
+            hideRemarks
+          />
+          <HtmlField
+            term={termMap.namePublishedInID}
+            showDetails={showAll}
+            hideIssues
+            hideRemarks
+          />
+          <VerbatimTextField term={termMap.taxonConceptID} />
+          <VerbatimTextField term={termMap.acceptedNameUsage} />
+          <VerbatimTextField term={termMap.parentNameUsage} />
+          <VerbatimTextField term={termMap.originalNameUsage} />
+          <VerbatimTextField term={termMap.nameAccordingTo} />
+          <VerbatimTextField term={termMap.namePublishedIn} />
+          <VerbatimTextField term={termMap.namePublishedInYear} />
+          <VerbatimTextField term={termMap.higherClassification} />
+          <VerbatimTextField term={termMap.kingdom} />
+          <VerbatimTextField term={termMap.phylum} />
+          <VerbatimTextField term={termMap.class} />
+          <VerbatimTextField term={termMap.order} />
+          <VerbatimTextField term={termMap.family} />
+          <VerbatimTextField term={termMap.genus} />
+          <VerbatimTextField term={termMap.subgenus} />
+          <VerbatimTextField term={termMap.specificEpithet} />
+          <VerbatimTextField term={termMap.infraspecificEpithet} />
+          <VerbatimTextField term={termMap.taxonRank} />
+          <VerbatimTextField term={termMap.verbatimTaxonRank} />
+          <VerbatimTextField term={termMap.vernacularName} />
+          <VerbatimTextField term={termMap.nomenclaturalCode} />
+          <VerbatimTextField term={termMap.nomenclaturalStatus} />
+          <HtmlField term={termMap.taxonRemarks} showDetails={showAll} />
+          <VerbatimTextField term={termMap.scientificNameAuthorship} />
+          <VerbatimTextField term={termMap.taxonomicStatus} />
+        </Properties>
 
-      <PlainTextField term={termMap.parentNameUsage} showDetails={showAll} />
-      <PlainTextField term={termMap.originalNameUsage} showDetails={showAll} />
-      <PlainTextField term={termMap.nameAccordingTo} showDetails={showAll} />
-      <PlainTextField term={termMap.namePublishedIn} showDetails={showAll} />
-      <PlainTextField term={termMap.namePublishedInYear} showDetails={showAll} />
-      <PlainTextField term={termMap.higherClassification} showDetails={showAll} />
-      <PlainTextField term={termMap.kingdom} showDetails={showAll} />
-      <PlainTextField term={termMap.phylum} showDetails={showAll} />
-      <PlainTextField term={termMap.class} showDetails={showAll} />
-      <PlainTextField term={termMap.order} showDetails={showAll} />
-      <PlainTextField term={termMap.family} showDetails={showAll} />
-      <PlainTextField term={termMap.genus} showDetails={showAll} />
-      <PlainTextField term={termMap.subgenus} showDetails={showAll} />
-      <PlainTextField term={termMap.specificEpithet} showDetails={showAll} />
-      <PlainTextField term={termMap.infraspecificEpithet} showDetails={showAll} />
-      <EnumField
-        term={termMap.taxonRank}
-        showDetails={showAll}
-        getEnum={(value) => `enums.taxonRank.${value}`}
-      />
-      <PlainTextField term={termMap.verbatimTaxonRank} showDetails={showAll} />
-      <PlainTextField term={termMap.vernacularName} showDetails={showAll} />
-      <PlainTextField term={termMap.nomenclaturalCode} showDetails={showAll} />
-      <EnumField
-        term={termMap.taxonomicStatus}
-        showDetails={showAll}
-        getEnum={(value) => `enums.taxonomicStatus.${value}`}
-      />
-      <PlainTextField term={termMap.nomenclaturalStatus} showDetails={showAll} />
-      <HtmlField term={termMap.taxonRemarks} showDetails={showAll} />
-      <PlainTextField term={termMap.scientificNameAuthorship} showDetails={showAll} />
-    </RenderIfChildren>
+        <div className="g-mt-4 g-border-t g-border-slate-300 g-pt-4">
+          <div className="g-mb-2">
+            <HelpLine id={'taxonomic-interpretations'} icon />
+
+            {/* Taxonomic Interpretations <MdInfoOutline />
+            <div className="g-bg-slate-200 g-p-2 g-rounded g-text-slate-600 g-text-xs">
+              <HelpText identifier={'taxonomic-interpretations'} />
+            </div> */}
+          </div>
+          {filteredClassifications.map((classification) => (
+            <TaxonInterpretationCard
+              key={classification.checklistKey}
+              classification={classification}
+            />
+          ))}
+        </div>
+      </Group>
+    </>
   );
 }
 

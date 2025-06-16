@@ -101,7 +101,7 @@ export const EnumFilter = React.forwardRef(
         if (searchContext.queryType === 'V1') {
           noFilterFacetLoad({ variables: { query: query } });
         } else {
-          noFilterFacetLoad({ variables: { predicate: query } });
+          noFilterFacetLoad({ variables: query });
         }
       }
     }, [enumOptions, facetQuery, noFilterFacetLoad, searchContext, searchConfig]);
@@ -117,7 +117,7 @@ export const EnumFilter = React.forwardRef(
       if (searchContext.queryType === 'V1') {
         facetLoad({ variables: { query: query } });
       } else {
-        facetLoad({ variables: { predicate: query } });
+        facetLoad({ variables: query });
       }
     }, [facetQuery, filterBeforeHash, facetLoad, searchContext, searchConfig, filterHandle]);
 

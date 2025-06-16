@@ -31,22 +31,26 @@ export function OccurrenceKeyCluster() {
   });
 
   useEffect(() => {
-    // load publishers and refresh when pages change
     if (!key) return;
 
     load({
       variables: {
         key,
+        clusteringChecklistKey: import.meta.env.PUBLIC_CHECKLIST_KEY_FOR_CLUSTERING,
       },
     });
-  }, [key]);
+  }, [key, load]);
 
+  if (error && !loading && !data) {
+    throw error;
+  }
   if (error) {
     toast({
       title: 'Unable to load all content',
       variant: 'destructive',
     });
   }
+
   if (loading || !data)
     return (
       <ArticleContainer className="g-bg-slate-100">
@@ -138,14 +142,7 @@ function RelatedRecord({
                 pageId="occurrenceKey"
                 variables={{ key: stub?.gbifId }}
               >
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html:
-                      occurrence?.gbifClassification?.usage?.formattedName ??
-                      stub?.scientificName ??
-                      'Unknown',
-                  }}
-                ></span>
+                {occurrence?.classification?.usage?.name ?? stub?.scientificName ?? 'Unknown'}
               </DynamicLink>
             </h3>
             <p className="g-font-normal g-text-slate-700 g-text-sm">
@@ -206,7 +203,7 @@ function RelatedRecord({
 }
 
 const RELATED_OCCURRENCES_QUERY = /* GraphQL */ `
-  query OccurrenceCluster($key: ID!) {
+  query OccurrenceCluster($key: ID!, $clusteringChecklistKey: ID!) {
     occurrence(key: $key) {
       related {
         count
@@ -260,9 +257,9 @@ fragmentManager.register(/* GraphQL */ `
     primaryImage {
       identifier
     }
-    gbifClassification {
+    classification(checklistKey: $clusteringChecklistKey) {
       usage {
-        formattedName(useFallback: true)
+        name
       }
     }
     volatile {
