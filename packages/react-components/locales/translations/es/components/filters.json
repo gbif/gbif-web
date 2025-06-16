@@ -361,7 +361,7 @@
     "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
   },
   "lifeStage": {
-    "name": "Estadio de desarrollo",
+    "name": "Estadío de desarrollo",
     "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
     "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
   },
