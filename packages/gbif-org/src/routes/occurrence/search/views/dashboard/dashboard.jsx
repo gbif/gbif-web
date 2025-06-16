@@ -147,12 +147,13 @@ const preconfiguredCharts = {
       return <charts.Networks predicate={predicate} interactive {...props} />;
     },
   },
-  publisherKey: {
+  publishingOrg: {
+    translation: 'filters.publisherKey.name',
     component: ({ predicate, ...props }) => {
       return <charts.Publishers predicate={predicate} interactive {...props} />;
     },
   },
-  publishingCountryCode: {
+  publishingCountry: {
     translation: 'filters.publishingCountryCode.name',
     component: ({ predicate, ...props }) => {
       return <charts.PublishingCountryCode predicate={predicate} interactive {...props} />;

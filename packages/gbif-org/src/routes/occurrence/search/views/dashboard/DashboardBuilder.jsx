@@ -618,7 +618,7 @@ const chartGroups = {
   provenance: {
     values: [
       'datasetKey',
-      'publisherKey',
+      'publishingOrg',
       'PublishingCountryCode',
       'publishedByGbifRegion',
       'hostingOrganization',
@@ -637,7 +637,6 @@ function CreateOptions({ onAdd, chartsTypes }) {
   const intl = useIntl();
   const messageNew = intl.formatMessage({ id: 'dashboard.addNew' });
   const [selectedOption, setSelectedOption] = useState('');
-
   // get translations for all the dashboard names
   const dashboardTitles = Object.keys(chartsTypes).reduce((acc, type) => {
     acc[type] = intl.formatMessage({
