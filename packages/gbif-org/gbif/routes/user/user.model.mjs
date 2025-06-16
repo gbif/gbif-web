@@ -7,53 +7,53 @@ import { fetchWithRetry } from '../auth/utils.mjs';
 dotenv.config({ path: '.env.local' });
 dotenv.config({ path: '.env' });
 
-const identityBaseUrl = process.env.PUBLIC_API_V1;
+const identityBaseUrl = process.env.REGISTRY_API_V1;
 
 const apiConfig = {
   user: {
-    url: identityBaseUrl + 'user',
+    url: identityBaseUrl + '/user',
     canonical: 'user',
   },
   userCreate: {
-    url: identityBaseUrl + 'admin/user/',
+    url: identityBaseUrl + '/admin/user/',
     canonical: 'admin/user/',
   },
   userAdmin: {
-    url: identityBaseUrl + 'admin/user/',
+    url: identityBaseUrl + '/admin/user/',
     canonical: 'admin/user/',
   },
   userConfirm: {
-    url: identityBaseUrl + 'admin/user/confirm',
+    url: identityBaseUrl + '/admin/user/confirm',
     canonical: 'admin/user/confirm',
   },
   userLogin: {
-    url: identityBaseUrl + 'user/login',
+    url: identityBaseUrl + '/user/login',
   },
   userLogout: {
-    url: identityBaseUrl + 'user/logout',
+    url: identityBaseUrl + '/user/logout',
   },
   userResetPassword: {
-    url: identityBaseUrl + 'admin/user/resetPassword',
+    url: identityBaseUrl + '/admin/user/resetPassword',
     canonical: 'admin/user/resetPassword',
   },
   userUpdateForgottenPassword: {
-    url: identityBaseUrl + 'admin/user/updatePassword',
+    url: identityBaseUrl + '/admin/user/updatePassword',
     canonical: 'admin/user/updatePassword',
   },
   userChallengeCodeValid: {
-    url: identityBaseUrl + 'admin/user/confirmationKeyValid',
+    url: identityBaseUrl + '/admin/user/confirmationKeyValid',
     canonical: 'admin/user/confirmationKeyValid',
   },
   userChangePassword: {
-    url: identityBaseUrl + 'user/changePassword',
+    url: identityBaseUrl + '/user/changePassword',
     canonical: 'user/changePassword',
   },
   userChangeEmail: {
-    url: identityBaseUrl + 'admin/user/changeEmail',
+    url: identityBaseUrl + '/admin/user/changeEmail',
     canonical: 'admin/user/changeEmail',
   },
   userFind: {
-    url: identityBaseUrl + 'admin/user/find',
+    url: identityBaseUrl + '/admin/user/find',
     canonical: 'admin/user/find',
   },
 };

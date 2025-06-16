@@ -17,7 +17,7 @@ interface FormInputProps {
   onBlur: () => void;
   placeholder: string;
   icon: React.ComponentType<{ className?: string }>;
-  error?: string;
+  error?: string | false;
   touched?: boolean;
   autoComplete?: string;
   disabled?: boolean;

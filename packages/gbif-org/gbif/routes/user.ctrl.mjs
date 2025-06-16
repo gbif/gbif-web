@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import { register as registerGitHub } from './auth/github.ctrl.mjs';
 import { register as registerGoogle } from './auth/google.ctrl.mjs';
 import { register as registerLocal } from './auth/local.ctrl.mjs';
-import { appendUser, removeTokenCookie } from './auth/utils.mjs';
+import { appendUser, disableCache, removeTokenCookie } from './auth/utils.mjs';
 import { getClientUser } from './user/user.model.mjs';
 
 dotenv.config();
@@ -12,6 +12,8 @@ export function register(app) {
   registerLocal(app);
   registerGoogle(app);
   registerGitHub(app);
+
+  app.use('/api/user', disableCache);
 
   app.post('/api/user/who-am-i', appendUser, (req, res, next) => {
     try {

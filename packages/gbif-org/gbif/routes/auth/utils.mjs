@@ -174,3 +174,14 @@ export function isAuthenticated(req, res, next) {
     return invalidOrNoToken(req, res);
   }
 }
+
+// Middleware to disable caching
+export const disableCache = (req, res, next) => {
+  res.set({
+    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+    Pragma: 'no-cache',
+    Expires: '0',
+    'Surrogate-Control': 'no-store',
+  });
+  next();
+};

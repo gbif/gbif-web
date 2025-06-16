@@ -2,16 +2,13 @@ import dotenv from 'dotenv';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { getByUserName, getClientUser } from '../user/user.model.mjs';
-import { generateToken, setNoCache, setTokenCookie } from './utils.mjs';
+import { disableCache, generateToken, setNoCache, setTokenCookie } from './utils.mjs';
 
 dotenv.config();
 
 export function register(app) {
   // on any get or post to routes strting with /auth/ disable caching
-  app.use('/auth', (req, res, next) => {
-    setNoCache(res); // set it for all routes starting with /auth
-    next();
-  });
+  app.use('/auth', disableCache);
 
   // Routes
   app.post('/auth/basic/login', (req, res, next) => {
