@@ -14,6 +14,7 @@ import {
   Homepage,
   OccurrenceIcon,
 } from '@/components/highlights';
+import PageMetaData from '@/components/PageMetaData';
 import { Tabs } from '@/components/tabs';
 import {
   PublisherQuery,
@@ -152,6 +153,14 @@ export function PublisherPage() {
         <title>{publisher.title}</title>
         {/* TODO we need much richer meta data. Especially for datasets.  */}
       </Helmet>
+      <PageMetaData
+        path={`/publisher/${publisher.key}`}
+        title={publisher.title}
+        description={publisher.description}
+        noindex={!!publisher?.deleted}
+        nofollow={!!publisher?.deleted}
+        imageUrl={publisher.logoUrl}
+      />
       <DataHeader
         className="g-bg-white"
         aboutContent={<AboutContent />}
