@@ -1,6 +1,7 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import * as charts from '@/components/dashboard';
 import DashBoardLayout from '@/components/dashboard/DashboardLayout';
+import { MapWidget } from '@/components/maps/mapWidget';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { FormattedMessage } from 'react-intl';
@@ -20,6 +21,11 @@ export function NetworkKeyMetrics() {
           <FormattedMessage id="dashboard.metricsFromGbifData" />
         </div>
         <ClientSideOnly>
+          <MapWidget
+            className="g-mb-4"
+            capabilitiesParams={{ networkKey: data?.network?.key }}
+            mapStyle="CLASSIC_HEX"
+          />
           <DashBoardLayout>
             <charts.OccurrenceSummary predicate={predicate} className="g-mb-2" />
             <charts.DataQuality predicate={predicate} className="g-mb-2" />
