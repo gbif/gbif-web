@@ -1,10 +1,10 @@
 import { useConfig } from '@/config/config';
+import { useUser } from '@/contexts/UserContext';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { useEffect, useState } from 'react';
 import { IoMdGlobe } from 'react-icons/io';
 import { MdArrowRight, MdLock, MdMail, MdPerson } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
-import { login, whoAmI } from '../auth';
 import { ErrorMessage, FormButton, FormInput, FormSelect } from '../shared/FormComponents';
 import { PageTitle } from '../shared/PageHeader';
 import { UserPageLayout } from '../shared/UserPageLayout';
@@ -13,20 +13,15 @@ export const LoginSkeleton = ArticleSkeleton;
 
 export function LoginPage() {
   const navigate = useNavigate();
+  const { isLoggedIn, isLoading } = useUser();
 
   useEffect(() => {
     // Check if user is already logged in
-    whoAmI()
-      .then((response) => {
-        if (response.user) {
-          // User is already logged in, redirect to profile
-          navigate('/user/profile');
-        }
-      })
-      .catch(() => {
-        // User is not logged in, stay on login page
-      });
-  }, [navigate]);
+    if (!isLoading && isLoggedIn) {
+      // User is already logged in, redirect to profile
+      navigate('/user/profile');
+    }
+  }, [navigate, isLoggedIn, isLoading]);
 
   return (
     <UserPageLayout title="Login">
@@ -57,6 +52,7 @@ export function LoginBox({ children }: { children?: React.ReactNode }) {
 
 export function LoginForm() {
   const navigate = useNavigate();
+  const { login, resetPassword } = useUser();
   const [touched, setTouched] = useState({
     email: false,
     password: false,
@@ -68,6 +64,8 @@ export function LoginForm() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [resetEmailSent, setResetEmailSent] = useState(false);
+  const [isResettingPassword, setIsResettingPassword] = useState(false);
 
   const errors = {
     email: !values.email && 'Email is required',
@@ -89,9 +87,14 @@ export function LoginForm() {
     setError('');
 
     try {
-      await login(values);
-      // Redirect to user profile page after successful login
-      navigate('/user/profile');
+      const response = await login(values);
+      if (response.error) {
+        setError('BASIC_LOGIN_FAILED');
+        return;
+      } else {
+        // Redirect to user profile page after successful login
+        navigate('/user/profile');
+      }
     } catch (err) {
       setError('BASIC_LOGIN_FAILED');
     } finally {
@@ -99,12 +102,33 @@ export function LoginForm() {
     }
   };
 
+  const handleForgotPassword = async () => {
+    if (!values.email) {
+      setTouched((prev) => ({ ...prev, email: true }));
+      return;
+    }
+
+    setIsResettingPassword(true);
+    setError('');
+
+    try {
+      await resetPassword(values.email);
+      setResetEmailSent(true);
+    } catch (err) {
+      setError('RESET_PASSWORD_FAILED');
+    } finally {
+      setIsResettingPassword(false);
+    }
+  };
+
   const getErrorMessage = (error: string) => {
     switch (error) {
       case 'BASIC_LOGIN_FAILED':
-        return 'profile.unknownUser';
+        return 'Invalid email or password. Please check your credentials and try again.';
+      case 'RESET_PASSWORD_FAILED':
+        return 'Unable to send reset email. Please try again later.';
       default:
-        return 'Unable to log in';
+        return 'Unable to log in. Please try again.';
     }
   };
 
@@ -121,8 +145,8 @@ export function LoginForm() {
         <FormInput
           id="email"
           autoComplete="email"
-          label="Email"
-          type="email"
+          label="Email or username"
+          type="text"
           value={values.email}
           onChange={(value) => setValues((prev) => ({ ...prev, email: value }))}
           onBlur={() => handleBlur('email')}
@@ -148,11 +172,35 @@ export function LoginForm() {
         <div className="g-flex g-items-center g-justify-between">
           <button
             type="button"
-            className="g-text-sm g-font-medium g-text-indigo-600 hover:g-text-indigo-500"
+            onClick={handleForgotPassword}
+            disabled={isResettingPassword || !values.email}
+            className="g-text-sm g-font-medium g-text-indigo-600 hover:g-text-indigo-500 disabled:g-text-gray-400 disabled:g-cursor-not-allowed g-transition-colors g-duration-200"
+            title={
+              !values.email ? 'Please enter your email address first' : 'Send password reset email'
+            }
           >
-            Forgot password?
+            {isResettingPassword ? 'Sending reset email...' : 'Forgot password?'}
           </button>
         </div>
+
+        {resetEmailSent && (
+          <div className="g-rounded-md g-bg-green-50 g-p-4">
+            <div className="g-flex">
+              <div className="g-flex-shrink-0">
+                <MdMail className="g-h-5 g-w-5 g-text-green-400" />
+              </div>
+              <div className="g-ml-3">
+                <p className="g-text-sm g-font-medium g-text-green-800">
+                  Password reset email sent
+                </p>
+                <p className="g-mt-1 g-text-sm g-text-green-700">
+                  If an account with email <strong>{values.email}</strong> exists, you will receive
+                  password reset instructions shortly. Please check your inbox and spam folder.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
         <FormButton type="submit" variant="primary" isLoading={isLoading} disabled={isLoading}>
           {isLoading ? 'Signing in...' : 'Sign in'}
@@ -193,6 +241,8 @@ export function LoginForm() {
 }
 
 function RegisterForm() {
+  const navigate = useNavigate();
+  const { register } = useUser();
   const countries = [
     'United States',
     'Canada',
@@ -225,6 +275,9 @@ function RegisterForm() {
     password: '',
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
   const errors = {
     username: !values.username
       ? 'Username is required'
@@ -242,6 +295,27 @@ function RegisterForm() {
     setTouched((prev) => ({ ...prev, [field]: true }));
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (Object.values(errors).some((error) => error)) {
+      setTouched({ username: true, email: true, country: true, password: true });
+      return;
+    }
+
+    setIsLoading(true);
+    setError('');
+
+    try {
+      await register(values);
+      // Redirect to user profile page after successful registration
+      navigate('/user/profile');
+    } catch (err) {
+      setError('REGISTRATION_FAILED');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const countryOptions = countries.map((country) => ({
     value: country,
     label: country,
@@ -251,7 +325,12 @@ function RegisterForm() {
     <>
       <PageTitle title="Create Account" subtitle="Sign up for your new account" />
 
-      <form className="g-space-y-4" onSubmit={(e) => e.preventDefault()}>
+      <ErrorMessage
+        error={error ? 'Unable to register' : ''}
+        errorMessageId={error ? error : undefined}
+      />
+
+      <form className="g-space-y-4" onSubmit={handleSubmit}>
         <FormInput
           id="username"
           autoComplete="username"
@@ -306,9 +385,15 @@ function RegisterForm() {
           touched={touched.password}
         />
 
-        <FormButton type="submit" variant="primary" className="g-w-full">
-          Create Account
-          <MdArrowRight className="g-ml-2 g-h-4 g-w-4" />
+        <FormButton
+          type="submit"
+          variant="primary"
+          className="g-w-full"
+          isLoading={isLoading}
+          disabled={isLoading}
+        >
+          {isLoading ? 'Creating Account...' : 'Create Account'}
+          {!isLoading && <MdArrowRight className="g-ml-2 g-h-4 g-w-4" />}
         </FormButton>
       </form>
 

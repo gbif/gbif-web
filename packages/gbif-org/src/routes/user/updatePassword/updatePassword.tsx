@@ -4,9 +4,9 @@ import { MdHome, MdLock } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ErrorMessage, FormButton, FormInput } from '../shared/FormComponents';
+import { FormHeader } from '../shared/PageHeader';
 import { ErrorState, LoadingState, SuccessState } from '../shared/StatusMessages';
 import { UserPageLayout } from '../shared/UserPageLayout';
-import { FormHeader } from '../shared/PageHeader';
 
 export const UpdatePasswordSkeleton = ArticleSkeleton;
 
@@ -17,8 +17,8 @@ export function UpdatePasswordPage() {
   const [updateStatus, setUpdateStatus] = useState<'pending' | 'success' | 'error'>('pending');
   const [error, setError] = useState('');
 
-  const challengeCode = searchParams.get('challengeCode');
-  const userName = searchParams.get('userName');
+  const challengeCode = searchParams.get('code');
+  const userName = searchParams.get('username');
 
   const [touched, setTouched] = useState({
     password: false,

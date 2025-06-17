@@ -25,7 +25,7 @@ export function register(app) {
             const clientUser = getClientUser(user);
             const token = generateToken(clientUser);
             setTokenCookie(res, token);
-            setNoCache(res); // should be set at parent route, but just in case
+            setNoCache(res); // is set at parent route, but just in case
 
             res.json({ user: clientUser });
           } else {

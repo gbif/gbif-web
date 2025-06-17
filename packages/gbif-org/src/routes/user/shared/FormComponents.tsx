@@ -6,6 +6,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { cn, commonClasses } from './utils';
 
 interface FormInputProps {

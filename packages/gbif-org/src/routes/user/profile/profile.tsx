@@ -21,13 +21,12 @@ import {
 } from 'react-icons/fa';
 import { MdBusiness, MdEdit, MdLanguage, MdLocationOn, MdVerified } from 'react-icons/md';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import useLocalStorage from 'use-local-storage';
-import { logout, whoAmI } from '../auth';
+import { useUser } from '@/contexts/UserContext';
 
 export const ProfileSkeleton = ArticleSkeleton;
 
 export const Profile = () => {
-  const [user] = useLocalStorage('user', null);
+  const { user } = useUser();
 
   return (
     <div className="g-space-y-6">
@@ -53,7 +52,7 @@ export const Profile = () => {
                   </h1>
                   {user?.verified && <MdVerified className="g-h-5 g-w-5 g-text-green-500" />}
                 </div>
-                <p className="g-text-gray-600">@{user?.username || 'username'}</p>
+                <p className="g-text-gray-600">@{user?.userName || 'username'}</p>
                 <div className="g-flex g-items-center g-space-x-4 g-mt-2 g-text-sm g-text-gray-500">
                   {user?.email && (
                     <div className="g-flex g-items-center g-space-x-1">
@@ -296,33 +295,17 @@ export function UserProfileLayoutWrapper() {
 }
 
 export function UserProfileLayout() {
-  const [user, setUser] = useLocalStorage('user', null);
+  const { logout } = useUser();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    whoAmI()
-      .then((response) => {
-        if (response.user) {
-          setUser(response.user);
-        } else {
-          setUser(null);
-        }
-      })
-      .catch(() => {
-        setUser(null);
-      });
-  }, [setUser]);
-
-  const logoutHandler = () => {
-    logout()
-      .then(() => {
-        setUser(null);
-        navigate('/');
-      })
-      .catch((err) => {
-        console.log(err);
-        alert('Failed to logout');
-      });
+  const logoutHandler = async () => {
+    try {
+      await logout();
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+      alert('Failed to logout');
+    }
   };
 
   return (

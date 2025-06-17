@@ -73,7 +73,7 @@ export async function create(body) {
   return response.body;
 }
 
-async function confirm(challengeCode, userName) {
+export async function confirm(challengeCode, userName) {
   let options = {
     method: 'POST',
     body: {
@@ -128,7 +128,7 @@ export async function update(userName, body) {
   return response;
 }
 
-async function resetPassword(userNameOrEmail) {
+export async function resetPassword(userNameOrEmail) {
   let options = {
     method: 'POST',
     body: {},
@@ -136,6 +136,7 @@ async function resetPassword(userNameOrEmail) {
     canonicalPath: apiConfig.userResetPassword.canonical,
     userName: userNameOrEmail,
   };
+  console.log('resetPassword called for', options);
   let response = await authenticatedRequest(options);
   if (response.statusCode > 299) {
     throw response;
@@ -143,7 +144,7 @@ async function resetPassword(userNameOrEmail) {
   return response.body;
 }
 
-async function updateForgottenPassword(body) {
+export async function updateForgottenPassword(body) {
   let challengeCode = body.challengeCode,
     password = body.password;
   // TODO test challengeCode and password is present

@@ -6,7 +6,7 @@ import fsp from 'node:fs/promises';
 import { merge } from 'ts-deepmerge';
 import { loadEnv } from 'vite';
 import { helmetConfig } from './helmetConfig.js';
-import { register as registerUser } from './routes/user.ctrl.mjs';
+import { register as registerUser } from './routes/user/endpoints.mjs';
 
 // Load environment variables from .env files and merge them with process.env.
 const envFile = loadEnv('', process.cwd(), ['PUBLIC_']);
