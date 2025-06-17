@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import { useOnMountUnsafe } from '@/hooks/useOnMountUnsafe';
 import { Feature, Map as OpenLayersMap, View } from 'ol';
 import { Point } from 'ol/geom';
@@ -7,8 +8,8 @@ import { ImageTile, Vector as VectorSource } from 'ol/source';
 import Icon from 'ol/style/Icon';
 import Style from 'ol/style/Style';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import Marker from './marker.svg';
-import { Button } from '@/components/ui/button';
 
 type Coordinates = {
   lat: number;
@@ -18,7 +19,7 @@ type Coordinates = {
 type Props = {
   coordinates?: Coordinates | null;
   setCoordinates: (coordinates?: Coordinates | null) => void;
-  instructions?: string;
+  instructions?: React.ReactNode | string;
 };
 
 export default function CoordinatesPicker({
@@ -98,7 +99,7 @@ export default function CoordinatesPicker({
       <div className="g-absolute g-right-2 g-top-2">
         {coordinates ? (
           <Button variant="destructive" onClick={() => setCoordinates(null)}>
-            Clear
+            <FormattedMessage id="eoi.clear" defaultMessage="Clear" />
           </Button>
         ) : (
           <span className="g-p-2 g-bg-white/70 g-rounded g-shadow-md g-block g-text-sm g-font-semibold">

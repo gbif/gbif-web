@@ -1,13 +1,13 @@
 import {
-    NodeType,
-    ParticipantSelectQuery,
-    ParticipantSelectQueryVariables,
-    ParticipationStatus
+  NodeType,
+  ParticipantSelectQuery,
+  ParticipantSelectQueryVariables,
+  ParticipationStatus,
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { useMemo } from 'react';
+import { useIntl } from 'react-intl';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
-
 const PARTICIPANT_SELECT_QUERY = /* GraphQL */ `
   query ParticipantSelect($type: NodeType, $participationStatus: ParticipationStatus, $limit: Int) {
     participantSearch(type: $type, participationStatus: $participationStatus, limit: $limit) {
@@ -31,6 +31,7 @@ type Props = {
 };
 
 export function ParticipantSelect({ filters, selected, onChange }: Props) {
+  const intl = useIntl();
   const { data, error } = useQuery<ParticipantSelectQuery, ParticipantSelectQueryVariables>(
     PARTICIPANT_SELECT_QUERY,
     {
@@ -65,7 +66,12 @@ export function ParticipantSelect({ filters, selected, onChange }: Props) {
   return (
     <Select value={selected?.id} onValueChange={handleSelect}>
       <SelectTrigger>
-        <SelectValue placeholder="Select a participant" />
+        <SelectValue
+          placeholder={intl.formatMessage({
+            id: 'eoi.selectParticipant',
+            defaultMessage: 'Select a participant',
+          })}
+        />
       </SelectTrigger>
       <SelectContent>
         {results?.map((participant) => (
