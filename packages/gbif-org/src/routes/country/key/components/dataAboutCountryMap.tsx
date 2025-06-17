@@ -64,7 +64,15 @@ export function DataAboutCountryMap({ countryCode }: DataAboutCountryMapProps) {
               />
             </MapHeader.Item>
 
-            <MapHeader.Item>
+            <MapHeader.Item
+              pageId="occurrenceSearch"
+              searchParams={{
+                view: 'dashboard',
+                country: countryCode,
+                layout:
+                  'W1t7ImlkIjoidjF5bmwiLCJwIjp7fSwidHJhbnNsYXRpb24iOiJmaWx0ZXJzLnB1Ymxpc2hpbmdDb3VudHJ5Q29kZS5uYW1lIiwidCI6InB1Ymxpc2hpbmdDb3VudHJ5In1dXQ%3D%3D',
+              }}
+            >
               <MapHeader.Count
                 value={countryDetail.data?.countryDetail?.aboutCountryCount}
                 loading={countryDetail.loading}
@@ -72,7 +80,15 @@ export function DataAboutCountryMap({ countryCode }: DataAboutCountryMapProps) {
               <MapHeader.Text id="country.counts.countriesAndAreasContributeData" />
             </MapHeader.Item>
 
-            <MapHeader.Item>
+            <MapHeader.Item
+              pageId="occurrenceSearch"
+              searchParams={{
+                view: 'dashboard',
+                country: countryCode,
+                layout:
+                  'W1t7ImlkIjoiZnBtNDEiLCJwIjp7fSwidHJhbnNsYXRpb24iOiJmaWx0ZXJzLnB1Ymxpc2hlcktleS5uYW1lIiwidCI6InB1Ymxpc2hpbmdPcmcifV1d',
+              }}
+            >
               <MapHeader.Count
                 value={countryDetail.data?.countryDetail?.aboutPublisherCount}
                 loading={countryDetail.loading}
