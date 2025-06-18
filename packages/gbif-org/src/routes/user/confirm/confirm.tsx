@@ -21,10 +21,10 @@ export function ConfirmForm() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { confirm } = useUser();
-  
+
   const challengeCode = searchParams.get('code');
   const userName = searchParams.get('username');
-  
+
   const [isLoading, setIsLoading] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
   const [error, setError] = useState('');
@@ -73,19 +73,21 @@ export function ConfirmForm() {
   if (confirmed) {
     return (
       <>
-        <PageTitle title="Account Confirmed!" subtitle="Your account has been successfully activated" />
-        
+        <PageTitle
+          title="Account Confirmed!"
+          subtitle="Your account has been successfully activated"
+        />
+
         <div className="g-rounded-md g-bg-green-50 g-p-4">
           <div className="g-flex">
             <div className="g-flex-shrink-0">
               <MdCheck className="g-h-5 g-w-5 g-text-green-400" />
             </div>
             <div className="g-ml-3">
-              <p className="g-text-sm g-font-medium g-text-green-800">
-                Welcome to GBIF!
-              </p>
+              <p className="g-text-sm g-font-medium g-text-green-800">Welcome to GBIF!</p>
               <p className="g-mt-1 g-text-sm g-text-green-700">
-                Your account has been confirmed and you are now logged in. You will be redirected to your profile shortly.
+                Your account has been confirmed and you are now logged in. You will be redirected to
+                your profile shortly.
               </p>
             </div>
           </div>
@@ -94,7 +96,7 @@ export function ConfirmForm() {
         <div className="g-text-center">
           <Link
             to="/user/profile"
-            className="g-font-medium g-text-indigo-600 hover:g-text-indigo-500"
+            className="g-font-medium g-text-primary-700 hover:g-text-primary-600"
           >
             Go to your profile now
           </Link>
@@ -106,20 +108,19 @@ export function ConfirmForm() {
   if (error) {
     return (
       <>
-        <PageTitle title="Confirmation Error" subtitle="There was a problem confirming your account" />
-        
+        <PageTitle
+          title="Confirmation Error"
+          subtitle="There was a problem confirming your account"
+        />
+
         <div className="g-rounded-md g-bg-red-50 g-p-4">
           <div className="g-flex">
             <div className="g-flex-shrink-0">
               <MdError className="g-h-5 g-w-5 g-text-red-400" />
             </div>
             <div className="g-ml-3">
-              <p className="g-text-sm g-font-medium g-text-red-800">
-                Confirmation Failed
-              </p>
-              <p className="g-mt-1 g-text-sm g-text-red-700">
-                {getErrorMessage(error)}
-              </p>
+              <p className="g-text-sm g-font-medium g-text-red-800">Confirmation Failed</p>
+              <p className="g-mt-1 g-text-sm g-text-red-700">{getErrorMessage(error)}</p>
             </div>
           </div>
         </div>
@@ -131,13 +132,13 @@ export function ConfirmForm() {
           <div className="g-space-x-4">
             <Link
               to="/user/register"
-              className="g-font-medium g-text-indigo-600 hover:g-text-indigo-500"
+              className="g-font-medium g-text-primary-700 hover:g-text-primary-600"
             >
               Register Again
             </Link>
             <Link
               to="/user/login"
-              className="g-font-medium g-text-indigo-600 hover:g-text-indigo-500"
+              className="g-font-medium g-text-primary-700 hover:g-text-primary-600"
             >
               Sign In
             </Link>
@@ -149,8 +150,11 @@ export function ConfirmForm() {
 
   return (
     <>
-      <PageTitle title="Confirm Your Account" subtitle="Click the button below to activate your account" />
-      
+      <PageTitle
+        title="Confirm Your Account"
+        subtitle="Click the button below to activate your account"
+      />
+
       <div className="g-bg-blue-50 g-border g-border-blue-200 g-rounded-md g-p-4">
         <p className="g-text-sm g-text-blue-700">
           <strong>Username:</strong> {userName}
@@ -162,7 +166,6 @@ export function ConfirmForm() {
 
       <FormButton
         type="button"
-        variant="primary"
         className="g-w-full"
         isLoading={isLoading}
         disabled={isLoading || !challengeCode || !userName}
@@ -175,7 +178,7 @@ export function ConfirmForm() {
         Already have an account?{' '}
         <Link
           to="/user/login"
-          className="g-font-medium g-text-indigo-600 hover:g-text-indigo-500"
+          className="g-font-medium g-text-primary-700 hover:g-text-primary-600"
         >
           Sign in
         </Link>

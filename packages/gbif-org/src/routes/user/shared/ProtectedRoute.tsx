@@ -18,7 +18,7 @@ export function ProtectedRoute({ children, redirectTo = '/user/login' }: Protect
     // TODO find reusable loader component and ideally move check to a data loader.
     return (
       <div className="g-flex g-items-center g-justify-center g-min-h-screen">
-        <div className="g-animate-spin g-rounded-full g-h-8 g-w-8 g-border-b-2 g-border-indigo-600"></div>
+        <div className="g-animate-spin g-rounded-full g-h-8 g-w-8 g-border-b-2 g-border-primary-600"></div>
       </div>
     );
   }

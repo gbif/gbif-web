@@ -1,13 +1,18 @@
 import { useUser } from '@/contexts/UserContext';
+import country from '@/enums/basic/country.json';
 import { useI18n } from '@/reactRouterPlugins';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { IoMdGlobe } from 'react-icons/io';
 import { MdArrowRight, MdLock, MdMail, MdPerson } from 'react-icons/md';
+import { useIntl } from 'react-intl';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ErrorMessage, FormButton, FormInput, FormSelect } from '../shared/FormComponents';
 import { PageTitle } from '../shared/PageHeader';
 import { UserPageLayout } from '../shared/UserPageLayout';
+// import { FaGithub as SocialIconGithub, FaGoogle as SocialIconGoogle } from 'react-icons/fa';
+// import { buttonVariants } from '@/components/ui/button';
+// import { cn } from '@/utils/shadcn';
 
 export const LoginSkeleton = ArticleSkeleton;
 
@@ -51,14 +56,6 @@ export function RegistrationPage() {
     >
       <RegisterForm />
     </UserPageLayout>
-  );
-}
-
-export function LoginBox({ children }: { children?: React.ReactNode }) {
-  return (
-    <div className="g-flex g-items-center g-justify-center g-p-4">
-      <div className="g-max-w-md g-w-full g-bg-white g-p-8 g-space-y-6">{children}</div>
-    </div>
   );
 }
 
@@ -188,7 +185,7 @@ export function LoginForm() {
             type="button"
             onClick={handleForgotPassword}
             disabled={isResettingPassword || !values.email}
-            className="g-text-sm g-font-medium g-text-indigo-600 hover:g-text-indigo-500 disabled:g-text-gray-400 disabled:g-cursor-not-allowed g-transition-colors g-duration-200"
+            className="g-text-sm g-font-medium g-text-primary-700 hover:g-text-primary-600 disabled:g-text-gray-400 disabled:g-cursor-not-allowed g-transition-colors g-duration-200"
             title={
               !values.email ? 'Please enter your email address first' : 'Send password reset email'
             }
@@ -216,7 +213,7 @@ export function LoginForm() {
           </div>
         )}
 
-        <FormButton type="submit" variant="primary" isLoading={isLoading} disabled={isLoading}>
+        <FormButton type="submit" isLoading={isLoading} disabled={isLoading} className="g-w-full">
           {isLoading ? 'Signing in...' : 'Sign in'}
         </FormButton>
       </form>
@@ -228,52 +225,48 @@ export function LoginForm() {
         <div className="g-relative g-flex g-justify-center g-text-sm">
           <span className="g-px-2 g-bg-white g-text-gray-500">Or continue with</span>
         </div>
-      </div>
+      </div> */}
 
-      <div className="g-grid g-grid-cols-2 g-gap-3">
-        <a href="/auth/google/login" className={cn(commonClasses.button.secondary, 'g-w-auto')}>
+      {/* <div className="g-grid g-grid-cols-2 g-gap-3">
+        <a
+          href="/auth/google/login"
+          className={cn(buttonVariants({ variant: 'outline' }), 'g-w-auto')}
+        >
           <SocialIconGoogle className="g-h-5 g-w-5 g-text-gray-700" />
           <span className="g-ml-2 g-text-gray-700">Google</span>
         </a>
-        <a href="/auth/github/login" className={cn(commonClasses.button.secondary, 'g-w-auto')}>
+        <a
+          href="/auth/github/login"
+          className={cn(buttonVariants({ variant: 'outline' }), 'g-w-auto')}
+        >
           <SocialIconGithub className="g-h-5 g-w-5 g-text-gray-700" />
           <span className="g-ml-2 g-text-gray-700">GitHub</span>
         </a>
-      </div> */}
+      </div>
 
       <p className="g-text-center g-text-sm g-text-gray-500">
         Don't have an account?{' '}
         <Link
           to="/user/register"
-          className="g-font-medium g-text-indigo-600 hover:g-text-indigo-500"
+          className="g-font-medium g-text-primary-700 hover:g-text-primary-600"
         >
           Register now
         </Link>
-      </p>
+      </p> */}
     </>
   );
 }
 
 function RegisterForm() {
+  const { formatMessage } = useIntl();
   const navigate = useNavigate();
   const { register } = useUser();
-  const countries = [
-    'United States',
-    'Canada',
-    'United Kingdom',
-    'Australia',
-    'Germany',
-    'France',
-    'Japan',
-    'Brazil',
-    'India',
-    'China',
-    'South Korea',
-    'Mexico',
-    'Spain',
-    'Italy',
-    'Netherlands',
-  ];
+  const countryOptions = useMemo(() => {
+    return country.map((code) => ({
+      value: code,
+      label: formatMessage({ id: `enums.countryCode.${code}` }),
+    }));
+  }, [formatMessage]);
 
   const [touched, setTouched] = useState({
     username: false,
@@ -329,11 +322,6 @@ function RegisterForm() {
       setIsLoading(false);
     }
   };
-
-  const countryOptions = countries.map((country) => ({
-    value: country,
-    label: country,
-  }));
 
   return (
     <>
@@ -399,13 +387,7 @@ function RegisterForm() {
           touched={touched.password}
         />
 
-        <FormButton
-          type="submit"
-          variant="primary"
-          className="g-w-full"
-          isLoading={isLoading}
-          disabled={isLoading}
-        >
+        <FormButton type="submit" className="g-w-full" isLoading={isLoading} disabled={isLoading}>
           {isLoading ? 'Creating Account...' : 'Create Account'}
           {!isLoading && <MdArrowRight className="g-ml-2 g-h-4 g-w-4" />}
         </FormButton>
@@ -413,7 +395,10 @@ function RegisterForm() {
 
       <p className="g-text-center g-text-sm g-text-gray-500">
         Already have an account?{' '}
-        <Link to="/user/login" className="g-font-medium g-text-indigo-600 hover:g-text-indigo-500">
+        <Link
+          to="/user/login"
+          className="g-font-medium g-text-primary-700 hover:g-text-primary-600"
+        >
           Sign in
         </Link>
       </p>

@@ -241,7 +241,7 @@ export function UpdatePasswordPage() {
           <div className="g-pt-4">
             <FormButton
               type="submit"
-              variant="primary"
+              className="g-w-full"
               isLoading={isUpdating}
               disabled={isUpdating}
             >

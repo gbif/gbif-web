@@ -1,7 +1,9 @@
-import { MdCheckCircle, MdHome } from 'react-icons/md';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/utils/shadcn';
+import { MdCheckCircle } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { cn, commonClasses } from './utils';
+import { commonClasses } from './utils';
 
 interface LoadingStateProps {
   title: string;
@@ -12,7 +14,10 @@ export function LoadingState({ title, message }: LoadingStateProps) {
   return (
     <div className="g-text-center g-space-y-6">
       <div className="g-flex g-justify-center">
-        <svg className={cn(commonClasses.icon.medium, "g-animate-spin g-text-indigo-600")} viewBox="0 0 24 24">
+        <svg
+          className={cn(commonClasses.icon.medium, 'g-animate-spin g-text-primary-600')}
+          viewBox="0 0 24 24"
+        >
           <circle
             className="g-opacity-25"
             cx="12"
@@ -57,36 +62,30 @@ export function SuccessState({
   successMessage,
   successMessageId,
   primaryAction,
-  secondaryAction
+  secondaryAction,
 }: SuccessStateProps) {
   return (
     <div className="g-text-center g-space-y-6">
       <div className="g-flex g-justify-center">
-        <MdCheckCircle className={cn(commonClasses.icon.large, "g-text-green-500")} />
+        <MdCheckCircle className={cn(commonClasses.icon.large, 'g-text-green-500')} />
       </div>
       <div>
         <h1 className="g-text-3xl g-font-bold g-text-gray-900">{title}</h1>
         <p className="g-text-gray-500 g-mt-2">{message}</p>
       </div>
       <div className={commonClasses.messageBox.success}>
-        <FormattedMessage
-          id={successMessageId}
-          defaultMessage={successMessage}
-        />
+        <FormattedMessage id={successMessageId} defaultMessage={successMessage} />
       </div>
       <div className="g-space-y-3">
         {primaryAction && (
-          <Link
-            to={primaryAction.to}
-            className={commonClasses.button.primary}
-          >
+          <Link to={primaryAction.to} className={cn('g-w-full', buttonVariants())}>
             {primaryAction.text}
           </Link>
         )}
         {secondaryAction && (
           <Link
             to={secondaryAction.to}
-            className={commonClasses.button.secondary}
+            className={cn('g-w-full', buttonVariants({ variant: 'outline' }))}
           >
             {secondaryAction.icon && <secondaryAction.icon className="g-mr-2 g-h-4 g-w-4" />}
             {secondaryAction.text}
@@ -121,7 +120,7 @@ export function ErrorState({
   errorMessageId,
   helpText,
   primaryAction,
-  secondaryAction
+  secondaryAction,
 }: ErrorStateProps) {
   return (
     <div className="g-text-center g-space-y-6">
@@ -133,23 +132,15 @@ export function ErrorState({
         <FormattedMessage id={errorMessageId} defaultMessage={error} />
       </div>
       <div className="g-space-y-3">
-        {helpText && (
-          <p className="g-text-sm g-text-gray-600">{helpText}</p>
-        )}
+        {helpText && <p className="g-text-sm g-text-gray-600">{helpText}</p>}
         <div className="g-space-y-2">
           {primaryAction && (
-            <Link
-              to={primaryAction.to}
-              className={commonClasses.button.primary}
-            >
+            <Link to={primaryAction.to} className={buttonVariants()}>
               {primaryAction.text}
             </Link>
           )}
           {secondaryAction && (
-            <Link
-              to={secondaryAction.to}
-              className={commonClasses.button.secondary}
-            >
+            <Link to={secondaryAction.to} className={buttonVariants({ variant: 'outline' })}>
               {secondaryAction.icon && <secondaryAction.icon className="g-mr-2 g-h-4 g-w-4" />}
               {secondaryAction.text}
             </Link>

@@ -25,7 +25,7 @@ export function FormHeader({ title, subtitle, icon: Icon, className = '' }: Form
     <div className={`g-text-center g-space-y-6 ${className}`}>
       {Icon && (
         <div className="g-flex g-justify-center">
-          <Icon className="g-h-16 g-w-16 g-text-indigo-600" />
+          <Icon className="g-h-16 g-w-16 g-text-primary-600" />
         </div>
       )}
       <div>

@@ -1,3 +1,5 @@
+import { Button, ButtonProps } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -5,9 +7,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { cn } from '@/utils/shadcn';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { cn, commonClasses } from './utils';
+import { commonClasses } from './utils';
 
 interface FormInputProps {
   id: string;
@@ -47,17 +50,15 @@ export function FormInput({
       </label>
       <div className="g-relative">
         <Icon className={commonClasses.icon.inputIcon} />
-        <input
+        <Input
           type={type}
           id={id}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           onBlur={onBlur}
-          className={cn(
-            commonClasses.input.base,
-            commonClasses.input.withIcon,
-            hasError ? commonClasses.input.error : commonClasses.input.normal
-          )}
+          className={cn(commonClasses.input.withIcon, {
+            'g-border-red-500': hasError,
+          })}
           placeholder={placeholder}
           autoComplete={autoComplete}
           disabled={disabled}
@@ -115,11 +116,10 @@ export function FormSelect({
         >
           <SelectTrigger
             className={cn(
-              commonClasses.input.base,
-              'g-pl-10 g-h-11',
+              'g-pl-10',
               hasError
                 ? 'g-border-red-500 focus:g-border-red-500 focus:g-ring-red-500'
-                : 'g-border-gray-300 focus:g-border-indigo-500 focus:g-ring-indigo-500'
+                : 'g-border-gray-300 focus:g-border-primary-500 focus:g-ring-primary-500'
             )}
           >
             <SelectValue placeholder={placeholder} />
@@ -140,7 +140,7 @@ export function FormSelect({
 
 interface FormButtonProps {
   type?: 'button' | 'submit';
-  variant?: 'primary' | 'secondary';
+  variant?: ButtonProps['variant'];
   disabled?: boolean;
   isLoading?: boolean;
   children: React.ReactNode;
@@ -150,7 +150,7 @@ interface FormButtonProps {
 
 export function FormButton({
   type = 'button',
-  variant = 'primary',
+  variant = 'default',
   disabled = false,
   isLoading = false,
   children,
@@ -158,40 +158,16 @@ export function FormButton({
   className,
 }: FormButtonProps) {
   return (
-    <button
+    <Button
+      variant={variant}
       type={type}
       onClick={onClick}
-      className={cn(
-        commonClasses.button[variant],
-        disabled && commonClasses.button.disabled,
-        className
-      )}
+      className={className}
       disabled={disabled || isLoading}
+      isLoading={isLoading}
     >
-      {isLoading ? (
-        <span className="g-flex g-items-center">
-          <svg className="g-animate-spin g-h-5 g-w-5 g-mr-3" viewBox="0 0 24 24">
-            <circle
-              className="g-opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-              fill="none"
-            />
-            <path
-              className="g-opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            />
-          </svg>
-          Loading...
-        </span>
-      ) : (
-        children
-      )}
-    </button>
+      {children}
+    </Button>
   );
 }
 

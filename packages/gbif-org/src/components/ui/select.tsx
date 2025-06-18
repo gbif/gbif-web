@@ -20,6 +20,7 @@ const SelectTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       'g-flex g-h-9 g-w-full g-items-center g-justify-between g-whitespace-nowrap g-rounded-md g-border g-border-input g-bg-transparent g-px-3 g-py-2 g-text-sm g-shadow-sm placeholder:g-text-muted-foreground focus:g-outline-none focus:g-ring-1 focus:g-ring-ring disabled:g-cursor-not-allowed disabled:g-opacity-50 [&>span]:g-line-clamp-1',
+      'focus:g-ring-2 focus:g-ring-primary-500 focus:g-border-primary-500', //colored focus ring
       className
     )}
     {...props}
@@ -143,15 +144,14 @@ const SelectSeparator = React.forwardRef<
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 
 export {
-    Select,
-    SelectGroup,
-    SelectValue,
-    SelectTrigger,
-    SelectContent,
-    SelectLabel,
-    SelectItem,
-    SelectSeparator,
-    SelectScrollUpButton,
-    SelectScrollDownButton,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
 };
-

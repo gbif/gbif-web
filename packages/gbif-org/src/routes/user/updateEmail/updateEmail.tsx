@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react';
 import { MdEmail, MdHome } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { UserPageLayout } from '../shared/UserPageLayout';
-import { LoadingState, SuccessState, ErrorState } from '../shared/StatusMessages';
 import { FormButton } from '../shared/FormComponents';
 import { FormHeader } from '../shared/PageHeader';
+import { ErrorState, LoadingState, SuccessState } from '../shared/StatusMessages';
+import { UserPageLayout } from '../shared/UserPageLayout';
 
 export const UpdateEmailSkeleton = ArticleSkeleton;
 
@@ -30,7 +30,7 @@ export function UpdateEmailPage() {
 
   const updateEmail = async () => {
     if (!challengeCode || !userName || !email) return;
-    
+
     setIsUpdating(true);
     try {
       const response = await fetch('/api/user/updateEmail', {
@@ -88,13 +88,13 @@ export function UpdateEmailPage() {
           successMessage="Your new email address is now active for your GBIF account."
           successMessageId="profile.emailUpdated"
           primaryAction={{
-            to: "/user/login",
-            text: "Sign In to Your Account"
+            to: '/user/login',
+            text: 'Sign In to Your Account',
           }}
           secondaryAction={{
-            to: "/",
-            text: "Go to Homepage",
-            icon: MdHome
+            to: '/',
+            text: 'Go to Homepage',
+            icon: MdHome,
           }}
         />
       );
@@ -110,13 +110,13 @@ export function UpdateEmailPage() {
           errorMessageId={errorMessage}
           helpText="If you continue to have problems, please contact support or try the update process again."
           primaryAction={{
-            to: "/user/profile",
-            text: "Go to Profile"
+            to: '/user/profile',
+            text: 'Go to Profile',
           }}
           secondaryAction={{
-            to: "/",
-            text: "Go to Homepage",
-            icon: MdHome
+            to: '/',
+            text: 'Go to Homepage',
+            icon: MdHome,
           }}
         />
       );
@@ -130,8 +130,14 @@ export function UpdateEmailPage() {
           subtitle="Confirm your new email address below"
           icon={MdEmail}
         />
-        
-        <form className="g-space-y-4" onSubmit={(e) => { e.preventDefault(); updateEmail(); }}>
+
+        <form
+          className="g-space-y-4"
+          onSubmit={(e) => {
+            e.preventDefault();
+            updateEmail();
+          }}
+        >
           <div className="g-text-left">
             <label className="g-block g-text-sm g-font-medium g-text-gray-700 g-mb-2">
               <span className="g-text-xs g-uppercase g-text-gray-500">NEW EMAIL</span>
@@ -144,13 +150,9 @@ export function UpdateEmailPage() {
               autoComplete="off"
             />
           </div>
-          
+
           <div className="g-pt-4">
-            <FormButton
-              type="submit"
-              variant="primary"
-              isLoading={isUpdating}
-            >
+            <FormButton type="submit" isLoading={isUpdating} className="g-w-full">
               <FormattedMessage id="profile.updateEmail" defaultMessage="Update Email" />
             </FormButton>
           </div>
@@ -159,9 +161,5 @@ export function UpdateEmailPage() {
     );
   };
 
-  return (
-    <UserPageLayout title="Update Email Address">
-      {renderContent()}
-    </UserPageLayout>
-  );
+  return <UserPageLayout title="Update Email Address">{renderContent()}</UserPageLayout>;
 }
