@@ -33,12 +33,19 @@ interface RegisterData {
   password: string;
 }
 
+interface ForgottenPassword {
+  password: string;
+  challengeCode: string;
+  userName: string;
+}
+
 interface UserContextType {
   user: User | null;
   isLoading: boolean;
   isLoggedIn: boolean;
   login: (data: LoginData) => Promise<void>;
   register: (data: RegisterData) => Promise<void>;
+  updateForgottenPassword: (data: ForgottenPassword) => Promise<void>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
@@ -146,6 +153,46 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const updateForgottenPassword = async (data: ForgottenPassword) => {
+    try {
+      const { password, challengeCode, userName } = data;
+      if (!password || !challengeCode || !userName) {
+        throw new Error('Missing required fields for password update');
+      }
+      const response = await fetch('/api/user/update-forgotten-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          password,
+          challengeCode,
+          userName,
+        }),
+      });
+
+      if (!response.ok) {
+        //TODO: Handle specific error cases like invalid password or challenge code. Or just a generic error
+        if (response.status === 401) {
+          return {
+            error: 'INVALID_REQUEST',
+            message: 'Invalid request. Please check your input.',
+          };
+        }
+        throw new Error('Password update failed');
+      }
+
+      const result = await response.json();
+
+      // Refresh user data after successful registration
+      await refreshUser();
+
+      return result;
+    } catch (error) {
+      throw new Error(error instanceof Error ? error.message : 'Password update failed');
+    }
+  };
+
   const logout = async () => {
     try {
       const response = await fetch('/api/user/logout', {
@@ -155,10 +202,15 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       // Clear user state regardless of response
       setUser(null);
 
-      return { success: response.ok };
+      if (!response.ok) {
+        throw new Error('UNABLE_TO_LOGOUT');
+      }
+      await refreshUser();
+
+      return;
     } catch (error) {
       // Still clear user state even if logout request fails
-      setUser(null);
+      await refreshUser();
       throw new Error('UNABLE_TO_LOGOUT');
     }
   };
@@ -218,6 +270,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     isLoggedIn: !!user,
     login,
     register,
+    updateForgottenPassword,
     logout,
     refreshUser,
     resetPassword,

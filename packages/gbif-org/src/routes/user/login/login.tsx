@@ -1,10 +1,10 @@
-import { useConfig } from '@/config/config';
 import { useUser } from '@/contexts/UserContext';
+import { useI18n } from '@/reactRouterPlugins';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { useEffect, useState } from 'react';
 import { IoMdGlobe } from 'react-icons/io';
 import { MdArrowRight, MdLock, MdMail, MdPerson } from 'react-icons/md';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ErrorMessage, FormButton, FormInput, FormSelect } from '../shared/FormComponents';
 import { PageTitle } from '../shared/PageHeader';
 import { UserPageLayout } from '../shared/UserPageLayout';
@@ -14,14 +14,15 @@ export const LoginSkeleton = ArticleSkeleton;
 export function LoginPage() {
   const navigate = useNavigate();
   const { isLoggedIn, isLoading } = useUser();
+  const { localizeLink } = useI18n();
 
   useEffect(() => {
     // Check if user is already logged in
     if (!isLoading && isLoggedIn) {
-      // User is already logged in, redirect to profile
-      navigate('/user/profile');
+      // User is already logged in, redirect to profile. We can use the localizeLink to ensure the URL is correct for the current locale
+      navigate(localizeLink(`/user/profile`));
     }
-  }, [navigate, isLoggedIn, isLoading]);
+  }, [navigate, isLoggedIn, isLoading, localizeLink]);
 
   return (
     <UserPageLayout title="Login">
@@ -31,6 +32,18 @@ export function LoginPage() {
 }
 
 export function RegistrationPage() {
+  const navigate = useNavigate();
+  const { isLoggedIn, isLoading } = useUser();
+  const { localizeLink } = useI18n();
+
+  useEffect(() => {
+    // Check if user is already logged in
+    if (!isLoading && isLoggedIn) {
+      // User is already logged in, redirect to profile. We can use the localizeLink to ensure the URL is correct for the current locale
+      navigate(localizeLink(`/user/profile`));
+    }
+  }, [navigate, isLoggedIn, isLoading, localizeLink]);
+
   return (
     <UserPageLayout
       title="Register"
@@ -42,7 +55,6 @@ export function RegistrationPage() {
 }
 
 export function LoginBox({ children }: { children?: React.ReactNode }) {
-  const config = useConfig();
   return (
     <div className="g-flex g-items-center g-justify-center g-p-4">
       <div className="g-max-w-md g-w-full g-bg-white g-p-8 g-space-y-6">{children}</div>
@@ -52,6 +64,7 @@ export function LoginBox({ children }: { children?: React.ReactNode }) {
 
 export function LoginForm() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { login, resetPassword } = useUser();
   const [touched, setTouched] = useState({
     email: false,
@@ -89,14 +102,15 @@ export function LoginForm() {
     try {
       const response = await login(values);
       if (response.error) {
-        setError('BASIC_LOGIN_FAILED');
+        setError('LOGIN_FAILED');
         return;
       } else {
-        // Redirect to user profile page after successful login
-        navigate('/user/profile');
+        // Redirect to the page user was trying to access, or profile page by default
+        const returnTo = (location.state as any)?.from || '/user/profile';
+        navigate(returnTo);
       }
     } catch (err) {
-      setError('BASIC_LOGIN_FAILED');
+      setError('LOGIN_FAILED');
     } finally {
       setIsLoading(false);
     }
@@ -123,7 +137,7 @@ export function LoginForm() {
 
   const getErrorMessage = (error: string) => {
     switch (error) {
-      case 'BASIC_LOGIN_FAILED':
+      case 'LOGIN_FAILED':
         return 'Invalid email or password. Please check your credentials and try again.';
       case 'RESET_PASSWORD_FAILED':
         return 'Unable to send reset email. Please try again later.';
@@ -137,7 +151,7 @@ export function LoginForm() {
       <PageTitle title="Welcome back" subtitle="Please sign in to your account" />
 
       <ErrorMessage
-        error={error ? 'Unable to log in' : ''}
+        error={error ? getErrorMessage(error) : ''}
         errorMessageId={error ? getErrorMessage(error) : undefined}
       />
 

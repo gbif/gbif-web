@@ -1,3 +1,4 @@
+import { useUser } from '@/contexts/UserContext';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { useEffect, useState } from 'react';
 import { MdHome, MdLock } from 'react-icons/md';
@@ -16,6 +17,7 @@ export function UpdatePasswordPage() {
   const [isUpdating, setIsUpdating] = useState(false);
   const [updateStatus, setUpdateStatus] = useState<'pending' | 'success' | 'error'>('pending');
   const [error, setError] = useState('');
+  const { updateForgottenPassword } = useUser();
 
   const challengeCode = searchParams.get('code');
   const userName = searchParams.get('username');
@@ -62,6 +64,26 @@ export function UpdatePasswordPage() {
     if (!challengeCode || !userName) return;
 
     setIsUpdating(true);
+    try {
+      const response = await updateForgottenPassword({
+        password,
+        challengeCode,
+        userName,
+      });
+      if (response.error) {
+        setError('LOGIN_FAILED');
+        return;
+      } else {
+        // Redirect to the page user was trying to access, or profile page by default
+        const returnTo = '/user/profile';
+        navigate(returnTo);
+      }
+    } catch (err) {
+      setError('LOGIN_FAILED');
+    } finally {
+      setIsUpdating(false);
+    }
+
     try {
       const response = await fetch('/api/user/updatePassword', {
         method: 'POST',

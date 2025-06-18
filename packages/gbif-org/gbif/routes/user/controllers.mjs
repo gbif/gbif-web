@@ -72,7 +72,7 @@ export async function confirmAccount(req, res) {
  * Updates the password from a short lived token sent to the users email previously.
  * The token is validated and the new password is set.
  */
-export async function updatePassword(req, res) {
+export async function updatePasswordFromChallengeCode(req, res) {
   updateForgottenPassword(req.body)
     .then(function (user) {
       let token = generateToken(user);

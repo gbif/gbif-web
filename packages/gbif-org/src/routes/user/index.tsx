@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { ConfirmPage } from './confirm/confirm';
 import { LoginPage, RegistrationPage } from './login/login';
 import { Profile, UserProfileLayoutWrapper } from './profile/profile';
+import { ProtectedRoute } from './shared/ProtectedRoute';
 import { UpdateEmailPage } from './updateEmail/updateEmail';
 import { UpdatePasswordPage } from './updatePassword/updatePassword';
 
@@ -33,7 +34,11 @@ export const userRoutes: RouteObjectWithPlugins[] = [
     path: 'user/change-email',
     loader: () => <span>loading</span>,
     loadingElement: <span>loading</span>,
-    element: <UpdateEmailPage />,
+    element: (
+      <ProtectedRoute>
+        <UpdateEmailPage />
+      </ProtectedRoute>
+    ),
   },
   {
     id: 'user-confirm',
@@ -44,14 +49,21 @@ export const userRoutes: RouteObjectWithPlugins[] = [
   },
   {
     id: 'user-profile',
-    path: 'user/',
+    path: 'user',
     loader: () => <span>loading</span>,
     loadingElement: <span>loading</span>,
-    element: <UserProfileLayoutWrapper />,
+    element: (
+      <ProtectedRoute>
+        <UserProfileLayoutWrapper />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,
-        element: <Navigate to="profile" replace />,
+        element: (() => {
+          console.log('Index route Navigate: redirecting to "profile"');
+          return <Navigate to="profile" replace />;
+        })(),
       },
       {
         path: 'profile',
