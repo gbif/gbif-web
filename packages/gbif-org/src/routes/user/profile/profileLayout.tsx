@@ -1,19 +1,21 @@
+import { ClientSideOnly } from '@/components/clientSideOnly';
 import { JazzIcon } from '@/components/JazzIcon/index';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ClientSideOnly } from '@/components/clientSideOnly';
 import { useUser } from '@/contexts/UserContext';
+import country from '@/enums/basic/country.json';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
+import { useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { useState, useMemo } from 'react';
-import { useIntl } from 'react-intl';
-import country from '@/enums/basic/country.json';
 import {
+  LuDatabase as Database,
   LuDownload as Download,
+  LuFileCheck as FileCheck,
   LuUser as User,
 } from 'react-icons/lu';
+import { useIntl } from 'react-intl';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 export const ProfileSkeleton = ArticleSkeleton;
 
@@ -42,10 +44,14 @@ export function UserProfileLayout() {
   // Determine active tab from route
   const getActiveTab = () => {
     if (location.pathname.includes('/downloads')) return 'downloads';
+    if (location.pathname.includes('/derived-datasets')) return 'derived-datasets';
+    if (location.pathname.includes('/validation-reports')) return 'validation-reports';
     return 'profile';
   };
 
-  const [activeTab, setActiveTab] = useState<'profile' | 'downloads'>(getActiveTab());
+  const [activeTab, setActiveTab] = useState<
+    'profile' | 'downloads' | 'derived-datasets' | 'validation-reports'
+  >(getActiveTab());
 
   // Use real user data or fallback
   const userInfo = {
@@ -67,9 +73,13 @@ export function UserProfileLayout() {
   };
 
   const handleTabChange = (value: string) => {
-    setActiveTab(value as 'profile' | 'downloads');
+    setActiveTab(value as 'profile' | 'downloads' | 'derived-datasets' | 'validation-reports');
     if (value === 'downloads') {
-      navigate('/user/profile/downloads');
+      navigate('/user/download');
+    } else if (value === 'derived-datasets') {
+      navigate('/user/derived-datasets');
+    } else if (value === 'validation-reports') {
+      navigate('/user/validation-reports');
     } else {
       navigate('/user/profile');
     }
@@ -127,6 +137,20 @@ export function UserProfileLayout() {
                       <Download className="g-w-4 g-h-4" />
                       <span>My Downloads</span>
                     </TabsTrigger>
+                    <TabsTrigger
+                      value="derived-datasets"
+                      className="g-flex g-items-center g-space-x-2"
+                    >
+                      <Database className="g-w-4 g-h-4" />
+                      <span>Derived Datasets</span>
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="validation-reports"
+                      className="g-flex g-items-center g-space-x-2"
+                    >
+                      <FileCheck className="g-w-4 g-h-4" />
+                      <span>Validation Reports</span>
+                    </TabsTrigger>
                   </TabsList>
 
                   {/* Profile Tab Content */}
@@ -136,6 +160,16 @@ export function UserProfileLayout() {
 
                   {/* Downloads Tab Content */}
                   <TabsContent value="downloads">
+                    <Outlet />
+                  </TabsContent>
+
+                  {/* Derived Datasets Tab Content */}
+                  <TabsContent value="derived-datasets">
+                    <Outlet />
+                  </TabsContent>
+
+                  {/* Validation Reports Tab Content */}
+                  <TabsContent value="validation-reports">
                     <Outlet />
                   </TabsContent>
                 </Tabs>
