@@ -132,6 +132,10 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       await refreshUser();
       return result;
     } catch (error) {
+      if (error instanceof UserError) {
+        throw error; // Re-throw known UserError
+      }
+      // Handle unexpected errors
       throw new UserError('UNKNOWN_ERROR');
     }
   };

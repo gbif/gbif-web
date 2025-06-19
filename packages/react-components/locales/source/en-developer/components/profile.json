@@ -92,6 +92,25 @@
     "resetPasswordRequest": "Password reset sent",
     "resetPasswordSubtitle": "Check your email for instructions",
     "resetPasswordMessage": "We have sent you a mail with a link to reset your password. If you do not receive the message, please contact the help desk",
-    "derivedDatasets": "Derived datasets"
+    "welcomeBack": "Welcome back",
+    "signInToAccount": "Please sign in to your account",
+    "enterPassword": "Enter your password",
+    "sendingResetEmail": "Sending reset email...",
+    "enterEmailFirst": "Please enter your email address first",
+    "sendPasswordReset": "Send password reset email",
+    "signingIn": "Signing in...",
+    "createAccount": "Create Account",
+    "signUpForAccount": "Sign up for your new account",
+    "chooseUsername": "Choose a username",
+    "selectCountry": "Select your country",
+    "createPassword": "Create a password",
+    "creatingAccount": "Creating Account...",
+    "alreadyHaveAccount": "Already have an account?",
+    "usernameMinLength": "Username must be at least 3 characters",
+    "usernameNoSpaces": "Username cannot contain spaces",
+    "derivedDatasets": "Derived datasets",
+    "dontHaveAccount": "Don't have an account?",
+    "registerNow": "Register now",
+    "orContinueWith": "Or continue with"
   }
 }

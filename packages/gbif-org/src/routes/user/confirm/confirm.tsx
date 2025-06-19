@@ -2,10 +2,33 @@ import { useUser } from '@/contexts/UserContext';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { useEffect, useState } from 'react';
 import { MdCheck, MdError } from 'react-icons/md';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
 import { FormButton } from '../shared/FormComponents';
 import { PageTitle } from '../shared/PageHeader';
 import { UserPageLayout } from '../shared/UserPageLayout';
+
+export interface ConfirmLoaderData {
+  challengeCode: string | null;
+  userName: string | null;
+  error: string | null;
+}
+
+export async function confirmLoader({ request }: LoaderFunctionArgs): Promise<ConfirmLoaderData> {
+  const url = new URL(request.url);
+  const challengeCode = url.searchParams.get('code');
+  const userName = url.searchParams.get('username');
+  
+  let error: string | null = null;
+  if (!challengeCode || !userName) {
+    error = 'MISSING_PARAMETERS';
+  }
+  
+  return {
+    challengeCode,
+    userName,
+    error,
+  };
+}
 
 export const ConfirmSkeleton = ArticleSkeleton;
 
@@ -19,15 +42,14 @@ export function ConfirmPage() {
 
 export function ConfirmForm() {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
   const { confirm } = useUser();
+  const loaderData = useLoaderData() as ConfirmLoaderData;
 
-  const challengeCode = searchParams.get('code');
-  const userName = searchParams.get('username');
+  const { challengeCode, userName, error: loaderError } = loaderData;
 
   const [isLoading, setIsLoading] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(loaderError || '');
 
   const handleConfirm = async () => {
     if (!challengeCode || !userName) {
@@ -63,12 +85,12 @@ export function ConfirmForm() {
     }
   };
 
-  // Show error immediately if parameters are missing
+  // Initialize error state from loader data
   useEffect(() => {
-    if (!challengeCode || !userName) {
-      setError('MISSING_PARAMETERS');
+    if (loaderError) {
+      setError(loaderError);
     }
-  }, [challengeCode, userName]);
+  }, [loaderError]);
 
   if (confirmed) {
     return (

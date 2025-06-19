@@ -1,6 +1,6 @@
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { Navigate } from 'react-router-dom';
-import { ConfirmPage } from './confirm/confirm';
+import { ConfirmPage, confirmLoader } from './confirm/confirm';
 import { LoginPage, RegistrationPage } from './login/login';
 import { Profile, UserProfileLayoutWrapper } from './profile/profile';
 import { ProtectedRoute } from './shared/ProtectedRoute';
@@ -43,7 +43,7 @@ export const userRoutes: RouteObjectWithPlugins[] = [
   {
     id: 'user-confirm',
     path: 'user/confirm',
-    loader: () => <span>loading</span>,
+    loader: confirmLoader,
     loadingElement: <span>loading</span>,
     element: <ConfirmPage />,
   },

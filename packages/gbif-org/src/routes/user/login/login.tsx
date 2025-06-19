@@ -1,3 +1,6 @@
+// import { cn } from '@/utils/shadcn';
+// import { FaGithub as SocialIconGithub, FaGoogle as SocialIconGoogle } from 'react-icons/fa';
+// import { buttonVariants } from '@/components/ui/button';
 import { UserError, useUser } from '@/contexts/UserContext';
 import country from '@/enums/basic/country.json';
 import { useI18n } from '@/reactRouterPlugins';
@@ -10,9 +13,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ErrorMessage, FormButton, FormInput, FormSelect } from '../shared/FormComponents';
 import { PageTitle } from '../shared/PageHeader';
 import { UserPageLayout } from '../shared/UserPageLayout';
-// import { FaGithub as SocialIconGithub, FaGoogle as SocialIconGoogle } from 'react-icons/fa';
-// import { buttonVariants } from '@/components/ui/button';
-// import { cn } from '@/utils/shadcn';
 
 export const LoginSkeleton = ArticleSkeleton;
 
@@ -86,8 +86,8 @@ export function LoginForm() {
   const [isResettingPassword, setIsResettingPassword] = useState(false);
 
   const errors = {
-    email: !values.email && 'Email is required',
-    password: !values.password && 'Password is required',
+    email: !values.email && formatMessage({ id: 'profile.emailRequired' }),
+    password: !values.password && formatMessage({ id: 'profile.passwordRequired' }),
   };
 
   const handleBlur = (field: keyof typeof touched) => {
@@ -190,7 +190,10 @@ export function LoginForm() {
 
   return (
     <>
-      <PageTitle title="Welcome back" subtitle="Please sign in to your account" />
+      <PageTitle
+        title={<FormattedMessage id="profile.welcomeBack" />}
+        subtitle={<FormattedMessage id="profile.signInToAccount" />}
+      />
 
       <ErrorMessage errorMessageId={getErrorMessage(error)} />
 
@@ -198,7 +201,7 @@ export function LoginForm() {
         <FormInput
           id="email"
           autoComplete="email"
-          label="Email or username"
+          label={formatMessage({ id: 'profile.usernameEmail' })}
           type="text"
           value={values.email}
           onChange={(value) => setValues((prev) => ({ ...prev, email: value }))}
@@ -211,12 +214,12 @@ export function LoginForm() {
 
         <FormInput
           id="password"
-          label="Password"
+          label={formatMessage({ id: 'profile.password' })}
           type="password"
           value={values.password}
           onChange={(value) => setValues((prev) => ({ ...prev, password: value }))}
           onBlur={() => handleBlur('password')}
-          placeholder="Enter your password"
+          placeholder={formatMessage({ id: 'profile.enterPassword' })}
           icon={MdLock}
           error={errors.password}
           touched={touched.password}
@@ -229,15 +232,21 @@ export function LoginForm() {
             disabled={isResettingPassword || !values.email}
             className="g-text-sm g-font-medium g-text-primary-700 hover:g-text-primary-600 disabled:g-text-gray-400 disabled:g-cursor-not-allowed g-transition-colors g-duration-200"
             title={
-              !values.email ? 'Please enter your email address first' : 'Send password reset email'
+              !values.email
+                ? formatMessage({ id: 'profile.enterEmailFirst' })
+                : formatMessage({ id: 'profile.sendPasswordReset' })
             }
           >
-            {isResettingPassword ? 'Sending reset email...' : 'Forgot password?'}
+            {isResettingPassword
+              ? formatMessage({ id: 'profile.sendingResetEmail' })
+              : formatMessage({ id: 'profile.forgotPassword' })}
           </button>
         </div>
 
         <FormButton type="submit" isLoading={isLoading} disabled={isLoading} className="g-w-full">
-          {isLoading ? 'Signing in...' : 'Sign in'}
+          {isLoading
+            ? formatMessage({ id: 'profile.signingIn' })
+            : formatMessage({ id: 'profile.signIn' })}
         </FormButton>
       </form>
 
@@ -246,11 +255,12 @@ export function LoginForm() {
           <div className="g-w-full g-border-t g-border-gray-300"></div>
         </div>
         <div className="g-relative g-flex g-justify-center g-text-sm">
-          <span className="g-px-2 g-bg-white g-text-gray-500">Or continue with</span>
+          <span className="g-px-2 g-bg-white g-text-gray-500">
+            <FormattedMessage id="profile.orContinueWith" />
+          </span>
         </div>
-      </div> */}
-
-      {/* <div className="g-grid g-grid-cols-2 g-gap-3">
+      </div>
+      <div className="g-grid g-grid-cols-2 g-gap-3">
         <a
           href="/auth/google/login"
           className={cn(buttonVariants({ variant: 'outline' }), 'g-w-auto')}
@@ -266,14 +276,13 @@ export function LoginForm() {
           <span className="g-ml-2 g-text-gray-700">GitHub</span>
         </a>
       </div>
-
       <p className="g-text-center g-text-sm g-text-gray-500">
-        Don't have an account?{' '}
+        <FormattedMessage id="profile.dontHaveAccount" />{' '}
         <Link
           to="/user/register"
           className="g-font-medium g-text-primary-700 hover:g-text-primary-600"
         >
-          Register now
+          <FormattedMessage id="profile.registerNow" />
         </Link>
       </p> */}
     </>
@@ -310,15 +319,15 @@ function RegisterForm() {
 
   const errors = {
     username: !values.username
-      ? 'Username is required'
+      ? formatMessage({ id: 'profile.usernameRequired' })
       : values.username.length < 3
-      ? 'Username must be at least 3 characters'
+      ? formatMessage({ id: 'profile.usernameMinLength' })
       : values.username.includes(' ')
-      ? 'Username cannot contain spaces'
+      ? formatMessage({ id: 'profile.usernameNoSpaces' })
       : '',
-    email: !values.email ? 'Email is required' : '',
-    country: !values.country ? 'Please select your country' : '',
-    password: !values.password ? 'Password is required' : '',
+    email: !values.email ? formatMessage({ id: 'profile.emailRequired' }) : '',
+    country: !values.country ? formatMessage({ id: 'profile.countryRequired' }) : '',
+    password: !values.password ? formatMessage({ id: 'profile.passwordRequired' }) : '',
   };
 
   const handleBlur = (field: keyof typeof touched) => {
@@ -348,7 +357,10 @@ function RegisterForm() {
 
   return (
     <>
-      <PageTitle title="Create Account" subtitle="Sign up for your new account" />
+      <PageTitle
+        title={<FormattedMessage id="profile.createAccount" />}
+        subtitle={<FormattedMessage id="profile.signUpForAccount" />}
+      />
 
       <ErrorMessage errorMessageId={error} />
 
@@ -356,12 +368,12 @@ function RegisterForm() {
         <FormInput
           id="username"
           autoComplete="username"
-          label="Username"
+          label={formatMessage({ id: 'profile.username' })}
           type="text"
           value={values.username}
           onChange={(value) => setValues((prev) => ({ ...prev, username: value }))}
           onBlur={() => handleBlur('username')}
-          placeholder="Choose a username"
+          placeholder={formatMessage({ id: 'profile.chooseUsername' })}
           icon={MdPerson}
           error={errors.username}
           touched={touched.username}
@@ -369,13 +381,13 @@ function RegisterForm() {
 
         <FormInput
           id="email"
-          label="Email"
+          label={formatMessage({ id: 'profile.email' })}
           type="email"
           autoComplete="email"
           value={values.email}
           onChange={(value) => setValues((prev) => ({ ...prev, email: value }))}
           onBlur={() => handleBlur('email')}
-          placeholder="Enter your email"
+          placeholder={formatMessage({ id: 'profile.enterEmail' })}
           icon={MdMail}
           error={errors.email}
           touched={touched.email}
@@ -383,12 +395,12 @@ function RegisterForm() {
 
         <FormSelect
           id="country"
-          label="Country"
+          label={formatMessage({ id: 'profile.country' })}
           value={values.country}
           onChange={(value) => setValues((prev) => ({ ...prev, country: value }))}
           onBlur={() => handleBlur('country')}
           options={countryOptions}
-          placeholder="Select your country"
+          placeholder={formatMessage({ id: 'profile.selectCountry' })}
           icon={IoMdGlobe}
           error={errors.country}
           touched={touched.country}
@@ -396,30 +408,32 @@ function RegisterForm() {
 
         <FormInput
           id="password"
-          label="Password"
+          label={formatMessage({ id: 'profile.password' })}
           type="password"
           value={values.password}
           onChange={(value) => setValues((prev) => ({ ...prev, password: value }))}
           onBlur={() => handleBlur('password')}
-          placeholder="Create a password"
+          placeholder={formatMessage({ id: 'profile.createPassword' })}
           icon={MdLock}
           error={errors.password}
           touched={touched.password}
         />
 
         <FormButton type="submit" className="g-w-full" isLoading={isLoading} disabled={isLoading}>
-          {isLoading ? 'Creating Account...' : 'Create Account'}
+          {isLoading
+            ? formatMessage({ id: 'profile.creatingAccount' })
+            : formatMessage({ id: 'profile.createAccount' })}
           {!isLoading && <MdArrowRight className="g-ml-2 g-h-4 g-w-4" />}
         </FormButton>
       </form>
 
       <p className="g-text-center g-text-sm g-text-gray-500">
-        Already have an account?{' '}
+        <FormattedMessage id="profile.alreadyHaveAccount" />{' '}
         <Link
           to="/user/login"
           className="g-font-medium g-text-primary-700 hover:g-text-primary-600"
         >
-          Sign in
+          <FormattedMessage id="profile.signIn" />
         </Link>
       </p>
     </>
