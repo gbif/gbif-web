@@ -1,11 +1,11 @@
-// import { cn } from '@/utils/shadcn';
-// import { FaGithub as SocialIconGithub, FaGoogle as SocialIconGoogle } from 'react-icons/fa';
-// import { buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { UserError, useUser } from '@/contexts/UserContext';
 import country from '@/enums/basic/country.json';
 import { useI18n } from '@/reactRouterPlugins';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
+import { cn } from '@/utils/shadcn';
 import { useEffect, useMemo, useState } from 'react';
+import { FaGithub as SocialIconGithub, FaGoogle as SocialIconGoogle } from 'react-icons/fa';
 import { IoMdGlobe } from 'react-icons/io';
 import { MdArrowRight, MdLock, MdMail, MdPerson } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -250,7 +250,7 @@ export function LoginForm() {
         </FormButton>
       </form>
 
-      {/* <div className="g-relative">
+      <div className="g-relative">
         <div className="g-absolute g-inset-0 g-flex g-items-center">
           <div className="g-w-full g-border-t g-border-gray-300"></div>
         </div>
@@ -284,7 +284,7 @@ export function LoginForm() {
         >
           <FormattedMessage id="profile.registerNow" />
         </Link>
-      </p> */}
+      </p>
       <p className="g-text-center g-text-sm g-text-gray-500">
         If you do not have a GBIF account, please visit our production site at{' '}
         <a

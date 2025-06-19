@@ -46,18 +46,6 @@ export function authCallback(
         login(req, res, next, state, profile, providerEnum, identificationKey);
       } else if (state.action === 'CONNECT') {
         connect(req, res, next, state, profile, setProviderValues, providerEnum, identificationKey);
-      } else if (state.action === 'REGISTER') {
-        // next(new Error('registration not supported as the API does not support the flow yet'));
-        register(
-          req,
-          res,
-          next,
-          state,
-          profile,
-          setProviderValues,
-          providerEnum,
-          identificationKey
-        );
       } else {
         next(new Error('Invalid callback state'));
       }
@@ -82,12 +70,8 @@ function getFirstVerifiedEmail(profile) {
     // Trust the email if:
     // 1) the claim is that it has been verified
     // 2) exception for facebook as they do not expose the verified claim, but does so according to tests and the wisdom of the internet.
-    return (
-      email.value &&
-      (email.verified === true || profile.provider === 'facebook' || profile.provider === 'github')
-    );
-    // NB special exception for facebook as it has been validated that facebook only expose verified emails
-    // NB also exception for gihub as the falg is missing and otherwise will prevent account creation using GitHub
+    return email.value && (email.verified === true || profile.provider === 'github');
+    // NB exception for gihub as the flag is missing and otherwise will prevent account creation using GitHub
   });
   return profileEmail;
 }
