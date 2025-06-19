@@ -2,8 +2,9 @@ import { useUser } from '@/contexts/UserContext';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { useEffect, useState } from 'react';
 import { MdCheck, MdError } from 'react-icons/md';
+import { FormattedMessage } from 'react-intl';
 import { Link, useNavigate, useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
-import { FormButton } from '../shared/FormComponents';
+import { ErrorMessage, FormButton } from '../shared/FormComponents';
 import { PageTitle } from '../shared/PageHeader';
 import { UserPageLayout } from '../shared/UserPageLayout';
 
@@ -75,13 +76,14 @@ export function ConfirmForm() {
   };
 
   const getErrorMessage = (error: string) => {
+    if (!error) return '';
     switch (error) {
       case 'MISSING_PARAMETERS':
-        return 'Invalid confirmation link. The confirmation code or username is missing.';
+        return 'profile.error.MISSING_PARAMETERS';
       case 'CONFIRMATION_FAILED':
-        return 'Invalid or expired confirmation code. Please check your email or request a new confirmation.';
+        return 'profile.error.CONFIRMATION_FAILED';
       default:
-        return 'Unable to confirm account. Please try again.';
+        return 'profile.error.FAILED';
     }
   };
 
@@ -96,8 +98,8 @@ export function ConfirmForm() {
     return (
       <>
         <PageTitle
-          title="Account Confirmed!"
-          subtitle="Your account has been successfully activated"
+          title={<FormattedMessage id="profile.accountConfirmed" />}
+          subtitle={<FormattedMessage id="profile.accountConfirmed" />}
         />
 
         <div className="g-rounded-md g-bg-green-50 g-p-4">
@@ -106,10 +108,11 @@ export function ConfirmForm() {
               <MdCheck className="g-h-5 g-w-5 g-text-green-400" />
             </div>
             <div className="g-ml-3">
-              <p className="g-text-sm g-font-medium g-text-green-800">Welcome to GBIF!</p>
+              <p className="g-text-sm g-font-medium g-text-green-800">
+                <FormattedMessage id="profile.welcome" />
+              </p>
               <p className="g-mt-1 g-text-sm g-text-green-700">
-                Your account has been confirmed and you are now logged in. You will be redirected to
-                your profile shortly.
+                <FormattedMessage id="profile.accountConfirmed" />
               </p>
             </div>
           </div>
@@ -120,7 +123,7 @@ export function ConfirmForm() {
             to="/user/profile"
             className="g-font-medium g-text-primary-700 hover:g-text-primary-600"
           >
-            Go to your profile now
+            <FormattedMessage id="profile.profile" />
           </Link>
         </div>
       </>
@@ -131,38 +134,28 @@ export function ConfirmForm() {
     return (
       <>
         <PageTitle
-          title="Confirmation Error"
-          subtitle="There was a problem confirming your account"
+          title={<FormattedMessage id="profile.invalidLink" />}
+          subtitle={<FormattedMessage id="profile.invalidLinkMessage" />}
         />
 
-        <div className="g-rounded-md g-bg-red-50 g-p-4">
-          <div className="g-flex">
-            <div className="g-flex-shrink-0">
-              <MdError className="g-h-5 g-w-5 g-text-red-400" />
-            </div>
-            <div className="g-ml-3">
-              <p className="g-text-sm g-font-medium g-text-red-800">Confirmation Failed</p>
-              <p className="g-mt-1 g-text-sm g-text-red-700">{getErrorMessage(error)}</p>
-            </div>
-          </div>
-        </div>
+        <ErrorMessage errorMessageId={getErrorMessage(error)} />
 
         <div className="g-text-center g-space-y-4">
           <p className="g-text-sm g-text-gray-500">
-            Need help? Contact support or try registering again.
+            <FormattedMessage id="profile.pleaseFillForm" />
           </p>
           <div className="g-space-x-4">
             <Link
               to="/user/register"
               className="g-font-medium g-text-primary-700 hover:g-text-primary-600"
             >
-              Register Again
+              <FormattedMessage id="profile.register" />
             </Link>
             <Link
               to="/user/login"
               className="g-font-medium g-text-primary-700 hover:g-text-primary-600"
             >
-              Sign In
+              <FormattedMessage id="profile.signIn" />
             </Link>
           </div>
         </div>
@@ -173,16 +166,16 @@ export function ConfirmForm() {
   return (
     <>
       <PageTitle
-        title="Confirm Your Account"
-        subtitle="Click the button below to activate your account"
+        title={<FormattedMessage id="profile.emailVerification" />}
+        subtitle={<FormattedMessage id="profile.verifyAccount" />}
       />
 
       <div className="g-bg-blue-50 g-border g-border-blue-200 g-rounded-md g-p-4">
         <p className="g-text-sm g-text-blue-700">
-          <strong>Username:</strong> {userName}
+          <strong><FormattedMessage id="profile.username" />:</strong> {userName}
         </p>
         <p className="g-text-sm g-text-blue-700 g-mt-1">
-          Click confirm to activate your account and sign in automatically.
+          <FormattedMessage id="profile.emailVerification" />
         </p>
       </div>
 
@@ -193,16 +186,16 @@ export function ConfirmForm() {
         disabled={isLoading || !challengeCode || !userName}
         onClick={handleConfirm}
       >
-        {isLoading ? 'Confirming Account...' : 'Confirm Account'}
+        {isLoading ? <FormattedMessage id="profile.verifyAccount" /> : <FormattedMessage id="profile.verifyAccount" />}
       </FormButton>
 
       <p className="g-text-center g-text-sm g-text-gray-500">
-        Already have an account?{' '}
+        <FormattedMessage id="profile.alreadyHaveAccount" />{' '}
         <Link
           to="/user/login"
           className="g-font-medium g-text-primary-700 hover:g-text-primary-600"
         >
-          Sign in
+          <FormattedMessage id="profile.signIn" />
         </Link>
       </p>
     </>

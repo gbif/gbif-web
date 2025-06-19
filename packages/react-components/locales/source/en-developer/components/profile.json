@@ -21,7 +21,9 @@
       "USER_ALREADY_LOGGED_IN": "You are already logged in",
       "EMAIL_IN_USE": "The email is already in use",
       "NO_EMAIL_PROVIDED": "No email provided",
-      "FAILED": "Server failed to process request"
+      "FAILED": "Server failed to process request",
+      "MISSING_PARAMETERS": "Invalid confirmation link. The confirmation code or username is missing.",
+      "CONFIRMATION_FAILED": "Invalid or expired confirmation code. Please check your email or request a new confirmation."
     },
     "loginText": "Login",
     "register": "Register",
