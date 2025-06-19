@@ -1,4 +1,5 @@
 import { useUser } from '@/contexts/UserContext';
+import { useI18n } from '@/reactRouterPlugins';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { useEffect, useState } from 'react';
 import { MdCheck, MdError } from 'react-icons/md';
@@ -44,6 +45,7 @@ export function ConfirmPage() {
 export function ConfirmForm() {
   const navigate = useNavigate();
   const { confirm } = useUser();
+  const { localizeLink } = useI18n();
   const loaderData = useLoaderData() as ConfirmLoaderData;
 
   const { challengeCode, userName, error: loaderError } = loaderData;
@@ -66,7 +68,7 @@ export function ConfirmForm() {
       setConfirmed(true);
       // Redirect to profile after a short delay to show success message
       setTimeout(() => {
-        navigate('/user/profile');
+        navigate(localizeLink('/user/profile'));
       }, 2000);
     } catch (err) {
       setError('CONFIRMATION_FAILED');
@@ -120,7 +122,7 @@ export function ConfirmForm() {
 
         <div className="g-text-center">
           <Link
-            to="/user/profile"
+            to={localizeLink('/user/profile')}
             className="g-font-medium g-text-primary-700 hover:g-text-primary-600"
           >
             <FormattedMessage id="profile.profile" />
@@ -146,13 +148,13 @@ export function ConfirmForm() {
           </p>
           <div className="g-space-x-4">
             <Link
-              to="/user/register"
+              to={localizeLink('/user/register')}
               className="g-font-medium g-text-primary-700 hover:g-text-primary-600"
             >
               <FormattedMessage id="profile.register" />
             </Link>
             <Link
-              to="/user/login"
+              to={localizeLink('/user/login')}
               className="g-font-medium g-text-primary-700 hover:g-text-primary-600"
             >
               <FormattedMessage id="profile.signIn" />
@@ -192,7 +194,7 @@ export function ConfirmForm() {
       <p className="g-text-center g-text-sm g-text-gray-500">
         <FormattedMessage id="profile.alreadyHaveAccount" />{' '}
         <Link
-          to="/user/login"
+          to={localizeLink('/user/login')}
           className="g-font-medium g-text-primary-700 hover:g-text-primary-600"
         >
           <FormattedMessage id="profile.signIn" />

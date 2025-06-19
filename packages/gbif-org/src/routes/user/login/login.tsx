@@ -292,6 +292,7 @@ export function LoginForm() {
 function RegisterForm() {
   const { formatMessage } = useIntl();
   const navigate = useNavigate();
+  const { localizeLink } = useI18n();
   const { register } = useUser();
   const countryOptions = useMemo(() => {
     return country.map((code) => ({
@@ -347,7 +348,7 @@ function RegisterForm() {
     try {
       await register(values);
       // Redirect to user profile page after successful registration
-      navigate('/user/profile');
+      navigate(localizeLink('/user/profile'));
     } catch (err) {
       setError('REGISTRATION_FAILED');
     } finally {
@@ -430,7 +431,7 @@ function RegisterForm() {
       <p className="g-text-center g-text-sm g-text-gray-500">
         <FormattedMessage id="profile.alreadyHaveAccount" />{' '}
         <Link
-          to="/user/login"
+          to={localizeLink('/user/login')}
           className="g-font-medium g-text-primary-700 hover:g-text-primary-600"
         >
           <FormattedMessage id="profile.signIn" />
