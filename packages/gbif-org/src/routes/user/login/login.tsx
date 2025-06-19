@@ -321,10 +321,8 @@ function RegisterForm() {
   const errors = {
     username: !values.username
       ? formatMessage({ id: 'profile.usernameRequired' })
-      : values.username.length < 3
-      ? formatMessage({ id: 'profile.usernameMinLength' })
-      : values.username.includes(' ')
-      ? formatMessage({ id: 'profile.usernameNoSpaces' })
+      : !/^[a-z0-9_.-]{3,64}$/.test(values.username)
+      ? formatMessage({ id: 'profile.invalidUsername' })
       : '',
     email: !values.email ? formatMessage({ id: 'profile.emailRequired' }) : '',
     country: !values.country ? formatMessage({ id: 'profile.countryRequired' }) : '',

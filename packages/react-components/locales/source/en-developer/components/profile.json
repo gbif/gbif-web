@@ -66,7 +66,7 @@
     "invalidEmail": "Please enter a valid email",
     "username": "Username",
     "usernameRequired": "Username required",
-    "invalidUsername": "A valid username is 3-64 characters and only contains letters a-z (lowercase) and ._-",
+    "invalidUsername": "A valid username is 3-64 characters and only contains lowercase letters (a-z), numbers (0-9), and the characters ._-",
     "passwordRequired": "Password is required",
     "passwordLength": "Password must be 6 characters or more",
     "passwordMaxLength": "Your password may not exceed 256 characters",
