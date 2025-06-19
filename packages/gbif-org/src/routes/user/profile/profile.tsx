@@ -1,11 +1,12 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
+import { JazzIcon } from '@/components/JazzIcon/index';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { CardContent as CardContentSmall, Card as SidebarCard } from '@/components/ui/smallCard';
+import { useUser } from '@/contexts/UserContext';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import {
   FaBell,
@@ -21,16 +22,20 @@ import {
 } from 'react-icons/fa';
 import { MdBusiness, MdEdit, MdLanguage, MdLocationOn, MdVerified } from 'react-icons/md';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import { useUser } from '@/contexts/UserContext';
+import ProfilePage from './profile_idea';
 
 export const ProfileSkeleton = ArticleSkeleton;
 
 export const Profile = () => {
   const { user } = useUser();
+  if (!user) {
+    return <ProfileSkeleton />;
+  }
 
   return (
     <div className="g-space-y-6">
       {/* Profile Header */}
+      <ProfilePage />
       <Card>
         <CardHeader className="g-pb-2">
           <div className="g-flex g-items-start g-justify-between">
@@ -47,6 +52,10 @@ export const Profile = () => {
               </div>
               <div>
                 <div className="g-flex g-items-center g-space-x-2">
+                  <JazzIcon
+                    seed={user.userName}
+                    className="g-w-16 g-h-16 g-overflow-hidden g-rounded-lg"
+                  />
                   <h1 className="g-text-2xl g-font-bold g-text-gray-900">
                     {user?.name || user?.username || 'User'}
                   </h1>
