@@ -133,16 +133,18 @@ export function ErrorState({
       </div>
       <div className="g-space-y-3">
         {helpText && <p className="g-text-sm g-text-gray-600">{helpText}</p>}
-        <div className="g-space-y-2">
+        <div className="g-space-y-3">
           {primaryAction && (
-            <Link to={primaryAction.to} className={buttonVariants()}>
+            <Link to={primaryAction.to} className={cn(buttonVariants(), 'g-me-2')}>
               {primaryAction.text}
             </Link>
           )}
           {secondaryAction && (
             <Link to={secondaryAction.to} className={buttonVariants({ variant: 'outline' })}>
-              {secondaryAction.icon && <secondaryAction.icon className="g-mr-2 g-h-4 g-w-4" />}
-              {secondaryAction.text}
+              <span className="g-flex-inline g-items-center">
+                {secondaryAction.icon && <secondaryAction.icon className="g-mr-2 g-h-4 g-w-4" />}
+                {secondaryAction.text}
+              </span>
             </Link>
           )}
         </div>

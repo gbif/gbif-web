@@ -113,6 +113,16 @@
     "derivedDatasets": "Derived datasets",
     "dontHaveAccount": "Don't have an account?",
     "registerNow": "Register now",
-    "orContinueWith": "Or continue with"
+    "orContinueWith": "Or continue with",
+    "setPasswordSubtitle": "Please enter your new password below",
+    "updatingPassword": "Updating Password",
+    "updatingPasswordMessage": "Please wait while we update your password...",
+    "passwordUpdated": "Password Updated!",
+    "passwordUpdatedMessage": "Your password has been successfully updated",
+    "passwordUpdatedSuccess": "Your new password is now active. You can now sign in with your new password.",
+    "updateFailed": "Update Failed",
+    "updateFailedMessage": "We were unable to update your password",
+    "updateFailedHelp": "If you continue to have problems, please contact support or try the password reset process again.",
+    "backToHome": "Go to Homepage"
   }
 }

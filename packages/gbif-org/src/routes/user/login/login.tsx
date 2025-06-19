@@ -285,6 +285,15 @@ export function LoginForm() {
           <FormattedMessage id="profile.registerNow" />
         </Link>
       </p> */}
+      <p className="g-text-center g-text-sm g-text-gray-500">
+        If you do not have a GBIF account, please visit our production site at{' '}
+        <a
+          href="https://www.gbif.org/"
+          className="g-font-medium g-text-primary-700 hover:g-text-primary-600"
+        >
+          gbif.org
+        </a>
+      </p>
     </>
   );
 }

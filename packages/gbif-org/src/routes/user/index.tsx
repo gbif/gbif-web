@@ -5,7 +5,7 @@ import { LoginPage, RegistrationPage } from './login/login';
 import { Profile, UserProfileLayoutWrapper } from './profile/profile';
 import { ProtectedRoute } from './shared/ProtectedRoute';
 import { UpdateEmailPage } from './updateEmail/updateEmail';
-import { UpdatePasswordPage } from './updatePassword/updatePassword';
+import { UpdatePasswordPage, updatePasswordLoader } from './updatePassword/updatePassword';
 
 export const userRoutes: RouteObjectWithPlugins[] = [
   {
@@ -25,7 +25,7 @@ export const userRoutes: RouteObjectWithPlugins[] = [
   {
     id: 'user-updatePassword',
     path: 'user/update-password',
-    loader: () => <span>loading</span>,
+    loader: updatePasswordLoader,
     loadingElement: <span>loading</span>,
     element: <UpdatePasswordPage />,
   },
@@ -61,7 +61,6 @@ export const userRoutes: RouteObjectWithPlugins[] = [
       {
         index: true,
         element: (() => {
-          console.log('Index route Navigate: redirecting to "profile"');
           return <Navigate to="profile" replace />;
         })(),
       },
