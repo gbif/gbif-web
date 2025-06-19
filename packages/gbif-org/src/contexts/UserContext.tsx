@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
 interface User {
   userName: string;
@@ -43,7 +43,7 @@ interface UserContextType {
   user: User | null;
   isLoading: boolean;
   isLoggedIn: boolean;
-  login: (data: LoginData) => Promise<void>;
+  login: (data: LoginData) => Promise<User>;
   register: (data: RegisterData) => Promise<void>;
   updateForgottenPassword: (data: ForgottenPassword) => Promise<void>;
   logout: () => Promise<void>;
@@ -54,11 +54,26 @@ interface UserContextType {
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
+export type UserErrorType =
+  | 'UNKNOWN_ERROR'
+  | 'UNKNOWN_USER'
+  | 'LOGIN_FAILED'
+  | 'REGISTRATION_FAILED'
+  | 'UNABLE_TO_LOGOUT'
+  | 'INVALID_REQUEST';
+export class UserError extends Error {
+  type: UserErrorType;
+  constructor(type: UserErrorType, message?: string) {
+    super(message ?? type);
+    this.type = type;
+  }
+}
+
 export function UserProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const whoAmI = async () => {
+  const whoAmI = useCallback(async () => {
     try {
       const response = await fetch('/api/user/who-am-i', {
         method: 'POST',
@@ -73,11 +88,11 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 
       return await response.json();
     } catch (error) {
-      throw new Error('UNKNOWN_USER');
+      throw new Error('UNKNOWN_ERROR');
     }
-  };
+  }, []);
 
-  const refreshUser = async () => {
+  const refreshUser = useCallback(async () => {
     try {
       setIsLoading(true);
       const response = await whoAmI();
@@ -91,9 +106,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [whoAmI]);
 
-  const login = async (data: LoginData) => {
+  const login = async (data: LoginData): Promise<User> => {
     try {
       const response = await fetch('/auth/basic/login', {
         method: 'POST',
@@ -105,16 +120,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 
       if (!response.ok) {
         if (response.status === 401) {
-          return {
-            // TODO needs translations
-            error: 'LOGIN_FAILED',
-            message: 'Login failed. Please check your credentials.',
-          };
+          throw new UserError('INVALID_REQUEST');
         } else {
-          return {
-            error: 'UNKNOWN_ERROR',
-            message: 'We are unable to log you in at this time. Please try again later.',
-          };
+          throw new UserError('UNKNOWN_ERROR');
         }
       }
 
@@ -124,7 +132,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       await refreshUser();
       return result;
     } catch (error) {
-      throw new Error(error instanceof Error ? error.message : 'Login failed');
+      throw new UserError('UNKNOWN_ERROR');
     }
   };
 
@@ -139,7 +147,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       });
 
       if (!response.ok) {
-        throw new Error('Registration failed');
+        throw new UserError('REGISTRATION_FAILED', 'Registration failed. Please check your input.');
       }
 
       const result = await response.json();
@@ -149,7 +157,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 
       return result;
     } catch (error) {
-      throw new Error(error instanceof Error ? error.message : 'Registration failed');
+      throw new UserError('UNKNOWN_ERROR');
     }
   };
 
@@ -174,12 +182,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       if (!response.ok) {
         //TODO: Handle specific error cases like invalid password or challenge code. Or just a generic error
         if (response.status === 401) {
-          return {
-            error: 'INVALID_REQUEST',
-            message: 'Invalid request. Please check your input.',
-          };
+          throw new UserError('INVALID_REQUEST', 'Invalid request. Please check your input.');
         }
-        throw new Error('Password update failed');
+        throw new UserError('UNKNOWN_ERROR');
       }
 
       const result = await response.json();
@@ -203,7 +208,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       setUser(null);
 
       if (!response.ok) {
-        throw new Error('UNABLE_TO_LOGOUT');
+        throw new UserError('UNABLE_TO_LOGOUT', 'Unable to log out. Please try again later.');
       }
       await refreshUser();
 
@@ -211,7 +216,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     } catch (error) {
       // Still clear user state even if logout request fails
       await refreshUser();
-      throw new Error('UNABLE_TO_LOGOUT');
+      throw new UserError('UNKNOWN_ERROR');
     }
   };
 
@@ -226,12 +231,13 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       });
 
       if (!response.ok) {
-        throw new Error('Password reset failed');
+        //TODO check for specific error codes like invalid token vs server error
+        throw new UserError('UNKNOWN_ERROR');
       }
 
       return await response.json();
     } catch (error) {
-      throw new Error(error instanceof Error ? error.message : 'Password reset failed');
+      throw new UserError('UNKNOWN_ERROR');
     }
   };
 
@@ -246,7 +252,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       });
 
       if (!response.ok) {
-        throw new Error('User confirmation failed');
+        throw new UserError('UNKNOWN_ERROR', 'Confirmation failed. Please check your input.');
       }
 
       const result = await response.json();
@@ -256,13 +262,13 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 
       return result;
     } catch (error) {
-      throw new Error(error instanceof Error ? error.message : 'User confirmation failed');
+      throw new UserError('UNKNOWN_ERROR');
     }
   };
 
   useEffect(() => {
     refreshUser();
-  }, []);
+  }, [refreshUser]); // Add refreshUser to the dependency array
 
   const value: UserContextType = {
     user,

@@ -1,11 +1,11 @@
-import { useUser } from '@/contexts/UserContext';
+import { UserError, useUser } from '@/contexts/UserContext';
 import country from '@/enums/basic/country.json';
 import { useI18n } from '@/reactRouterPlugins';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { useEffect, useMemo, useState } from 'react';
 import { IoMdGlobe } from 'react-icons/io';
 import { MdArrowRight, MdLock, MdMail, MdPerson } from 'react-icons/md';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ErrorMessage, FormButton, FormInput, FormSelect } from '../shared/FormComponents';
 import { PageTitle } from '../shared/PageHeader';
@@ -61,6 +61,7 @@ export function RegistrationPage() {
 
 export function LoginForm() {
   const navigate = useNavigate();
+  const { formatMessage } = useIntl();
   const location = useLocation();
   const { login, resetPassword } = useUser();
   const [touched, setTouched] = useState({
@@ -71,6 +72,13 @@ export function LoginForm() {
     email: '',
     password: '',
   });
+
+  // generate statis translations for error messages
+  const translations = useMemo(() => {
+    return {
+      ENTER_EMAIL: formatMessage({ id: 'profile.enterEmail' }),
+    };
+  }, [formatMessage]);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -97,17 +105,16 @@ export function LoginForm() {
     setError('');
 
     try {
-      const response = await login(values);
-      if (response.error) {
-        setError('LOGIN_FAILED');
-        return;
-      } else {
-        // Redirect to the page user was trying to access, or profile page by default
-        const returnTo = (location.state as any)?.from || '/user/profile';
-        navigate(returnTo);
-      }
+      await login(values);
+      const state = location.state as LocationState | null;
+      const returnTo = state?.from || '/user/profile';
+      navigate(returnTo);
     } catch (err) {
-      setError('LOGIN_FAILED');
+      if (err instanceof UserError && err.type === 'INVALID_REQUEST') {
+        setError('INVALID_LOGIN');
+      } else {
+        setError('SERVER_ERROR');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -132,25 +139,60 @@ export function LoginForm() {
     }
   };
 
+  const handleBackToLogin = () => {
+    setResetEmailSent(false);
+    setError('');
+  };
+
   const getErrorMessage = (error: string) => {
+    if (!error) return '';
     switch (error) {
-      case 'LOGIN_FAILED':
-        return 'Invalid email or password. Please check your credentials and try again.';
+      case 'INVALID_LOGIN':
+        return 'profile.unknownUser';
       case 'RESET_PASSWORD_FAILED':
-        return 'Unable to send reset email. Please try again later.';
+        return 'profile.error.FAILED';
       default:
-        return 'Unable to log in. Please try again.';
+        return 'profile.error.FAILED';
     }
   };
+
+  if (resetEmailSent) {
+    return (
+      <>
+        <PageTitle
+          title={<FormattedMessage id="profile.resetPasswordRequest" />}
+          subtitle={<FormattedMessage id="profile.resetPasswordSubtitle" />}
+        />
+
+        <div className="g-rounded-md g-bg-green-50 g-p-4">
+          <div className="g-flex">
+            <div className="g-flex-shrink-0">
+              <MdMail className="g-h-5 g-w-5 g-text-green-400" />
+            </div>
+            <div className="g-ml-3">
+              <p className="g-mt-1 g-text-sm g-text-green-700">
+                <FormattedMessage id="profile.resetPasswordMessage" />
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onClick={handleBackToLogin}
+          className="g-w-full g-flex g-justify-center g-items-center g-px-4 g-py-2 g-border g-border-gray-300 g-rounded-md g-shadow-sm g-bg-white g-text-sm g-font-medium g-text-gray-700 hover:g-bg-gray-50 g-transition-colors g-duration-200"
+        >
+          <FormattedMessage id="profile.backToLogin" />
+        </button>
+      </>
+    );
+  }
 
   return (
     <>
       <PageTitle title="Welcome back" subtitle="Please sign in to your account" />
 
-      <ErrorMessage
-        error={error ? getErrorMessage(error) : ''}
-        errorMessageId={error ? getErrorMessage(error) : undefined}
-      />
+      <ErrorMessage errorMessageId={getErrorMessage(error)} />
 
       <form className="g-space-y-4" onSubmit={handleSubmit}>
         <FormInput
@@ -161,7 +203,7 @@ export function LoginForm() {
           value={values.email}
           onChange={(value) => setValues((prev) => ({ ...prev, email: value }))}
           onBlur={() => handleBlur('email')}
-          placeholder="Enter your email"
+          placeholder={translations.ENTER_EMAIL}
           icon={MdMail}
           error={errors.email}
           touched={touched.email}
@@ -193,25 +235,6 @@ export function LoginForm() {
             {isResettingPassword ? 'Sending reset email...' : 'Forgot password?'}
           </button>
         </div>
-
-        {resetEmailSent && (
-          <div className="g-rounded-md g-bg-green-50 g-p-4">
-            <div className="g-flex">
-              <div className="g-flex-shrink-0">
-                <MdMail className="g-h-5 g-w-5 g-text-green-400" />
-              </div>
-              <div className="g-ml-3">
-                <p className="g-text-sm g-font-medium g-text-green-800">
-                  Password reset email sent
-                </p>
-                <p className="g-mt-1 g-text-sm g-text-green-700">
-                  If an account with email <strong>{values.email}</strong> exists, you will receive
-                  password reset instructions shortly. Please check your inbox and spam folder.
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
 
         <FormButton type="submit" isLoading={isLoading} disabled={isLoading} className="g-w-full">
           {isLoading ? 'Signing in...' : 'Sign in'}
@@ -327,10 +350,7 @@ function RegisterForm() {
     <>
       <PageTitle title="Create Account" subtitle="Sign up for your new account" />
 
-      <ErrorMessage
-        error={error ? 'Unable to register' : ''}
-        errorMessageId={error ? error : undefined}
-      />
+      <ErrorMessage errorMessageId={error} />
 
       <form className="g-space-y-4" onSubmit={handleSubmit}>
         <FormInput
@@ -405,3 +425,7 @@ function RegisterForm() {
     </>
   );
 }
+
+type LocationState = {
+  from?: string;
+};

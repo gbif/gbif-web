@@ -59,6 +59,7 @@
     "country": "Country",
     "countryRequired": "Country required",
     "email": "Email",
+    "enterEmail": "Enter your email",
     "emailRequired": "Email required",
     "invalidEmail": "Please enter a valid email",
     "username": "Username",
@@ -74,6 +75,7 @@
     "cancel": "Cancel",
     "resetPassword": "Reset password",
     "back": "Back",
+    "backToLogin": "Back to login",
     "startEditing": "Start editing",
     "stopEditing": "Stop editing",
     "firstName": "First name",
@@ -87,7 +89,8 @@
     "accountInfoUpdated": "Your account has been updated",
     "passwordChangeInvalid": "Invalid password - if you have forgotten your password, then log out and use the password reset",
     "verficationLinkSent": "An email has been sent to the specified email address containing a link that must be clicked to activate your account.",
-    "resetPasswordRequest": "Password reset request",
+    "resetPasswordRequest": "Password reset sent",
+    "resetPasswordSubtitle": "Check your email for instructions",
     "resetPasswordMessage": "We have sent you a mail with a link to reset your password. If you do not receive the message, please contact the help desk",
     "derivedDatasets": "Derived datasets"
   }

@@ -71,7 +71,7 @@ export function FormInput({
 
 interface FormSelectProps {
   id: string;
-  label: string;
+  label: React.ReactNode;
   value: string;
   onChange: (value: string) => void;
   onBlur: () => void;
@@ -172,16 +172,15 @@ export function FormButton({
 }
 
 interface ErrorMessageProps {
-  error: string;
-  errorMessageId?: string;
+  errorMessageId: string;
 }
 
-export function ErrorMessage({ error, errorMessageId }: ErrorMessageProps) {
-  if (!error) return null;
+export function ErrorMessage({ errorMessageId }: ErrorMessageProps) {
+  if (!errorMessageId) return null;
 
   return (
     <div className={commonClasses.messageBox.error}>
-      {errorMessageId ? <FormattedMessage id={errorMessageId} defaultMessage={error} /> : error}
+      <FormattedMessage id={errorMessageId} defaultMessage={errorMessageId} />
     </div>
   );
 }
