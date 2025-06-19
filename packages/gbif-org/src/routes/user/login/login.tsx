@@ -13,6 +13,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ErrorMessage, FormButton, FormInput, FormSelect } from '../shared/FormComponents';
 import { PageTitle } from '../shared/PageHeader';
 import { UserPageLayout } from '../shared/UserPageLayout';
+import { validateEmail, validatePassword, validateUsername, getErrorMessage, hasFormErrors } from '../shared/validationUtils';
 
 export const LoginSkeleton = ArticleSkeleton;
 
@@ -144,7 +145,7 @@ export function LoginForm() {
     setError('');
   };
 
-  const getErrorMessage = (error: string) => {
+  const getLoginErrorMessage = (error: string) => {
     if (!error) return '';
     switch (error) {
       case 'INVALID_LOGIN':
@@ -195,7 +196,7 @@ export function LoginForm() {
         subtitle={<FormattedMessage id="profile.signInToAccount" />}
       />
 
-      <ErrorMessage errorMessageId={getErrorMessage(error)} />
+      <ErrorMessage errorMessageId={getLoginErrorMessage(error)} />
 
       <form className="g-space-y-4" onSubmit={handleSubmit}>
         <FormInput
@@ -328,14 +329,10 @@ function RegisterForm() {
   const [error, setError] = useState('');
 
   const errors = {
-    username: !values.username
-      ? formatMessage({ id: 'profile.usernameRequired' })
-      : !/^[a-z0-9_.-]{3,64}$/.test(values.username)
-      ? formatMessage({ id: 'profile.invalidUsername' })
-      : '',
-    email: !values.email ? formatMessage({ id: 'profile.emailRequired' }) : '',
-    country: !values.country ? formatMessage({ id: 'profile.countryRequired' }) : '',
-    password: !values.password ? formatMessage({ id: 'profile.passwordRequired' }) : '',
+    username: validateUsername(values.username, formatMessage),
+    email: validateEmail(values.email, formatMessage),
+    country: !values.country ? formatMessage({ id: 'profile.countryRequired' }) : false,
+    password: validatePassword(values.password, formatMessage),
   };
 
   const handleBlur = (field: keyof typeof touched) => {
@@ -344,7 +341,7 @@ function RegisterForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (Object.values(errors).some((error) => error)) {
+    if (hasFormErrors(errors)) {
       setTouched({ username: true, email: true, country: true, password: true });
       return;
     }
