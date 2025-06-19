@@ -1,5 +1,6 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { JazzIcon } from '@/components/JazzIcon/index';
+import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useUser } from '@/contexts/UserContext';
 import country from '@/enums/basic/country.json';
@@ -12,6 +13,7 @@ import {
   LuDatabase as Database,
   LuDownload as Download,
   LuFileCheck as FileCheck,
+  LuLogOut as LogOut,
   LuUser as User,
 } from 'react-icons/lu';
 import { useIntl } from 'react-intl';
@@ -101,27 +103,39 @@ export function UserProfileLayout() {
               <div className="g-max-w-4xl g-mx-auto g-px-4 g-py-8">
                 {/* Header */}
                 <div className="g-bg-white g-rounded-lg g-shadow-sm g-p-6 g-mb-6">
-                  <div className="g-flex g-items-center g-space-x-4">
-                    <div className="g-relative">
-                      {user?.photo ? (
-                        <img
-                          src={user.photo}
-                          alt={`${userInfo.firstName} ${userInfo.lastName}`}
-                          className="g-w-20 g-h-20 g-object-cover g-rounded-lg"
-                        />
-                      ) : (
-                        <JazzIcon
-                          seed={user?.userName || 'user'}
-                          className="g-w-20 g-h-20 g-overflow-hidden g-rounded-lg"
-                        />
-                      )}
+                  <div className="g-flex g-items-center g-justify-between">
+                    <div className="g-flex g-items-center g-space-x-4">
+                      <div className="g-relative">
+                        {user?.photo ? (
+                          <img
+                            src={user.photo}
+                            alt={`${userInfo.firstName} ${userInfo.lastName}`}
+                            className="g-w-20 g-h-20 g-object-cover g-rounded-lg"
+                          />
+                        ) : (
+                          <JazzIcon
+                            seed={user?.userName || 'user'}
+                            className="g-w-20 g-h-20 g-overflow-hidden g-rounded-lg"
+                          />
+                        )}
+                      </div>
+                      <div className="g-flex-1">
+                        <h1 className="g-text-2xl g-font-bold g-text-gray-900 g-mb-1">
+                          {userInfo.firstName} {userInfo.lastName}
+                        </h1>
+                        <p className="g-text-sm g-text-gray-600 g-mb-2">{userInfo.email}</p>
+                        <p className="g-text-sm g-text-gray-700 g-leading-relaxed">{userInfo.bio}</p>
+                      </div>
                     </div>
-                    <div className="g-flex-1">
-                      <h1 className="g-text-2xl g-font-bold g-text-gray-900 g-mb-1">
-                        {userInfo.firstName} {userInfo.lastName}
-                      </h1>
-                      <p className="g-text-sm g-text-gray-600 g-mb-2">{userInfo.email}</p>
-                      <p className="g-text-sm g-text-gray-700 g-leading-relaxed">{userInfo.bio}</p>
+                    <div>
+                      <Button
+                        variant="outline"
+                        onClick={logoutHandler}
+                        className="g-flex g-items-center g-space-x-2"
+                      >
+                        <LogOut className="g-w-4 g-h-4" />
+                        <span>Logout</span>
+                      </Button>
                     </div>
                   </div>
                 </div>
