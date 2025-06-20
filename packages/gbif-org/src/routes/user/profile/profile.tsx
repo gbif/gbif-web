@@ -54,18 +54,13 @@ const Profile: React.FC = () => {
   const intlConfig = useI18n();
   intlConfig.availableLocales[0].code;
 
-  // Language options (main UN languages)
-  const languageOptions = useMemo(
-    () => [
-      { value: 'en', label: 'English' },
-      { value: 'fr', label: 'Français' },
-      { value: 'es', label: 'Español' },
-      { value: 'zh', label: '中文' },
-      { value: 'ar', label: 'العربية' },
-      { value: 'ru', label: 'Русский' },
-    ],
-    []
-  );
+  // Language options from available locales
+  const languageOptions = useMemo(() => {
+    return intlConfig.availableLocales.map((locale) => ({
+      value: locale.code,
+      label: locale.label,
+    }));
+  }, [intlConfig.availableLocales, formatMessage]);
 
   // Country options
   const countryOptions = useMemo(() => {
@@ -83,10 +78,20 @@ const Profile: React.FC = () => {
     lastName: user?.lastName || 'Doe',
     email: user?.email || 'john.doe@example.com',
     country: user?.settings?.country || '',
-    locale: user?.settings?.locale || 'en',
+    locale:
+      user?.settings?.locale &&
+      intlConfig.availableLocales.some((l) => l.code === user?.settings?.locale)
+        ? user?.settings?.locale
+        : 'en',
   });
 
-  const [editedInfo, setEditedInfo] = useState<UserInfo>(userInfo);
+  const [editedInfo, setEditedInfo] = useState<UserInfo>({
+    ...userInfo,
+    locale:
+      userInfo.locale && intlConfig.availableLocales.some((l) => l.code === userInfo.locale)
+        ? userInfo.locale
+        : 'en',
+  });
 
   const [passwordInfo, setPasswordInfo] = useState<PasswordInfo>({
     currentPassword: '',
@@ -424,7 +429,7 @@ const Profile: React.FC = () => {
               type="text"
               value={
                 languageOptions.find((lang) => lang.value === userInfo.locale)?.label ||
-                userInfo.locale
+                formatMessage({ id: `enums.language.${userInfo.locale}` })
               }
               onChange={() => {}}
               onBlur={() => {}}
