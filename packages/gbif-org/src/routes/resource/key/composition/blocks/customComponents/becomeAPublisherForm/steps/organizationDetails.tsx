@@ -1,5 +1,5 @@
+import { FormattedMessage } from 'react-intl';
 import { TextField } from '../becomeAPublisherForm';
-
 export function OrganizationDetails() {
   return (
     <div className="g-flex g-flex-col g-gap-4">
@@ -7,46 +7,61 @@ export function OrganizationDetails() {
         <TextField
           autoComplete="organization"
           name="organizationDetails.name"
-          label="Organization name"
+          label={<FormattedMessage id="eoi.orgName" defaultMessage="Organization name" />}
           required
         />
 
-        <TextField autoComplete="url" name="organizationDetails.homePage" label="Home page" />
+        <TextField
+          autoComplete="url"
+          name="organizationDetails.homePage"
+          label={<FormattedMessage id="eoi.homePage" defaultMessage="Home page" />}
+        />
       </div>
 
       <div className="g-flex g-gap-4">
         <TextField
           autoComplete="email"
           name="organizationDetails.email"
-          label="Email"
-          description="Organization email e.g. secretariat@fibg-museum.org"
+          label={<FormattedMessage id="eoi.email" defaultMessage="Email" />}
+          description={
+            <FormattedMessage
+              id="eoi.orgEmailExample"
+              defaultMessage="Organization email e.g. secretariat@fibg-museum.org"
+            />
+          }
           descriptionPosition="below"
         />
 
-        <TextField autoComplete="tel" name="organizationDetails.phone" label="Phone" />
+        <TextField
+          autoComplete="tel"
+          name="organizationDetails.phone"
+          label={<FormattedMessage id="eoi.phone" defaultMessage="Phone" />}
+        />
       </div>
 
       <TextField
         name="organizationDetails.logo"
-        label="Logo"
+        label={<FormattedMessage id="eoi.logo" defaultMessage="Logo" />}
         descriptionPosition="below"
-        description="E.g. http://my.organization.org/images/logo.png"
+        description={
+          <FormattedMessage
+            id="eoi.exampleImageUrl"
+            defaultMessage="E.g. http://my.organization.org/images/logo.png"
+          />
+        }
       />
 
       <TextField
         name="organizationDetails.description"
-        label="Description"
+        label={<FormattedMessage id="eoi.description" defaultMessage="Description" />}
         required
         textarea
         descriptionPosition="above"
         description={
-          <>
-            In <strong>English</strong>, please briefly describe the scope of your
-            institution/organization in relation to GBIF's mission (e.g. collection holdings,
-            research focus, biodiversity information management, etc.). This description will appear
-            on your publisher page. You may also wish to include a version in another language, but
-            English is required.
-          </>
+          <FormattedMessage
+            id="eoi.brieflyDescribeScope"
+            defaultMessage="In English, please briefly describe the scope of your institution/organization in relation to GBIF's mission (e.g. collection holdings, research focus, biodiversity information management, etc.). This description will appear on your publisher page."
+          />
         }
       />
     </div>
