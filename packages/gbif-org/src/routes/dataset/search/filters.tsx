@@ -185,12 +185,12 @@ export const networkKeyConfig: filterSuggestConfig = {
   suggestConfig: networkKeySuggest,
   allowExistence: false,
   allowNegations: false,
-  facetQuery: `
-    query OccurrencePublisherFacet($q: String, $predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+  facetQuery: /* GraphQL */ `
+    query DataseNetworkFacet($query: DatasetSearchInput) {
+      search: datasetSearch(query: $query) {
         facet {
           field: networkKey {
-            name: key
+            name
             count
           }
         }

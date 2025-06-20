@@ -358,6 +358,7 @@ const typeDef = gql`
     projectId(limit: Int, offset: Int): [DatasetFacetResult]
     license(limit: Int, offset: Int): [DatasetFacetResult]
     dwcaExtension(size: Int, from: Int): [DatasetFacetResult]
+    networkKey(size: Int, from: Int): [DatasetFacetResult]
   }
 
   type DatasetOrganizationFacet {
