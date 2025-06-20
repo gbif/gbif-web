@@ -51,6 +51,7 @@ const documents = {
     "\n    query DatasetPublishingCountryFacet($query: DatasetSearchInput) {\n      search: datasetSearch(query: $query) {\n        facet {\n          field: publishingCountry {\n            name\n            count\n          }\n        }\n      }\n    }\n  ": types.DatasetPublishingCountryFacetDocument,
     "\n    query DatasetLicenceFacet($query: DatasetSearchInput) {\n      search: datasetSearch(query: $query) {\n        facet {\n          field: license {\n            name\n            count\n          }\n        }\n      }\n    }\n  ": types.DatasetLicenceFacetDocument,
     "\n    query DatasetTypeFacet($query: DatasetSearchInput) {\n      search: datasetSearch(query: $query) {\n        facet {\n          field: type {\n            name\n            count\n          }\n        }\n      }\n    }\n  ": types.DatasetTypeFacetDocument,
+    "\n    query DatasetDwcaExtensionFacet($query: DatasetSearchInput) {\n      search: datasetSearch(query: $query) {\n        facet {\n          field: dwcaExtension {\n            name\n            count\n          }\n        }\n      }\n    }\n  ": types.DatasetDwcaExtensionFacetDocument,
     "\n  fragment HomePageCountIcons on Home {\n    occurrenceIcon {\n      file {\n        url\n      }\n    }\n    datasetIcon {\n      file {\n        url\n      }\n    }\n    publisherIcon {\n      file {\n        url\n      }\n    }\n    literatureIcon {\n      file {\n        url\n      }\n    }\n  }\n": types.HomePageCountIconsFragmentDoc,
     "\n  query HomePage {\n    gbifHome {\n      title\n      summary\n      primaryImage {\n        file {\n          url\n          thumbor\n        }\n        title\n        description\n      }\n      ...HomePageCountIcons\n      blocks {\n        ...BlockItemDetails\n      }\n    }\n  }\n": types.HomePageDocument,
     "\n  query InstallationDatasets($installation: ID!, $limit: Int!, $offset: Int!) {\n    installation(key: $installation) {\n      dataset(limit: $limit, offset: $offset) {\n        limit\n        offset\n        count\n        endOfRecords\n        results {\n          ...DatasetResult\n        }\n      }\n    }\n  }\n": types.InstallationDatasetsDocument,
@@ -371,6 +372,10 @@ export function graphql(source: "\n    query DatasetLicenceFacet($query: Dataset
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n    query DatasetTypeFacet($query: DatasetSearchInput) {\n      search: datasetSearch(query: $query) {\n        facet {\n          field: type {\n            name\n            count\n          }\n        }\n      }\n    }\n  "): (typeof documents)["\n    query DatasetTypeFacet($query: DatasetSearchInput) {\n      search: datasetSearch(query: $query) {\n        facet {\n          field: type {\n            name\n            count\n          }\n        }\n      }\n    }\n  "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query DatasetDwcaExtensionFacet($query: DatasetSearchInput) {\n      search: datasetSearch(query: $query) {\n        facet {\n          field: dwcaExtension {\n            name\n            count\n          }\n        }\n      }\n    }\n  "): (typeof documents)["\n    query DatasetDwcaExtensionFacet($query: DatasetSearchInput) {\n      search: datasetSearch(query: $query) {\n        facet {\n          field: dwcaExtension {\n            name\n            count\n          }\n        }\n      }\n    }\n  "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

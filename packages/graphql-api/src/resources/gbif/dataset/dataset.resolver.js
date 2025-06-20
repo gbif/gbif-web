@@ -228,6 +228,7 @@ export const DatasetFacet = {
   publishingCountry: getFacet('publishingCountry', getSourceSearch),
   projectId: getFacet('projectId', getSourceSearch),
   license: getFacet('license', getSourceSearch),
+  dwcaExtension: getFacet('dwcaExtension', getSourceSearch),
 };
 export const DatasetOrganizationFacet = {
   organization: ({ name: key }, args, { dataSources }) => {
