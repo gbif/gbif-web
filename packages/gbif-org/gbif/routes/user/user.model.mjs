@@ -411,19 +411,19 @@ export function getClientUser(user) {
   };
 }
 
-// function sanitizeUpdatedUser(user) {
-//   return {
-//     userName: user.userName,
-//     firstName: user.firstName,
-//     lastName: user.lastName,
-//     email: user.email,
-//     settings: {
-//       country: user.settings.country,
-//       locale: user.settings.locale,
-//       has_read_gdpr_terms: user.settings.has_read_gdpr_terms,
-//     },
-//   };
-// }
+export function sanitizeUpdatedUser(user) {
+  return {
+    userName: user.userName,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    settings: {
+      country: user.country,
+      locale: user.locale,
+      has_read_gdpr_terms: user.has_read_gdpr_terms,
+    },
+  };
+}
 
 function ensureString(value, name) {
   if (typeof value !== 'string') {

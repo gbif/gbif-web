@@ -9,6 +9,7 @@ import {
   logout,
   resetPassword,
   updatePasswordFromChallengeCode,
+  updateProfile,
   whoAmI,
 } from './controllers.mjs';
 
@@ -28,4 +29,5 @@ export function register(app) {
   app.post('/api/user/reset-password', resetPassword);
   app.post('/api/user/confirm', confirmAccount);
   app.post('/api/user/update-forgotten-password', updatePasswordFromChallengeCode);
+  app.put('/api/user/update-profile', appendUser, updateProfile);
 }

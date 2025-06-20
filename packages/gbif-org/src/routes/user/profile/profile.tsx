@@ -1,4 +1,4 @@
-import { useUser } from '@/contexts/UserContext';
+import { UserError, useUser } from '@/contexts/UserContext';
 import country from '@/enums/basic/country.json';
 import React, { useMemo, useState } from 'react';
 import {
@@ -18,6 +18,7 @@ import {
 import { MdEdit, MdLanguage, MdLocationOn, MdMail } from 'react-icons/md';
 
 import { Button } from '@/components/ui/button';
+import { useI18n } from '@/reactRouterPlugins';
 import { useIntl } from 'react-intl';
 import { ErrorMessage, FormButton, FormInput, FormSelect } from '../shared/FormComponents';
 import {
@@ -38,7 +39,7 @@ interface UserInfo {
   lastName: string;
   email: string;
   country: string;
-  language: string;
+  locale: string;
 }
 
 interface PasswordInfo {
@@ -48,8 +49,10 @@ interface PasswordInfo {
 }
 
 const Profile: React.FC = () => {
-  const { user } = useUser();
+  const { user, updateProfile } = useUser();
   const { formatMessage } = useIntl();
+  const intlConfig = useI18n();
+  intlConfig.availableLocales[0].code;
 
   // Language options (main UN languages)
   const languageOptions = useMemo(
@@ -80,7 +83,7 @@ const Profile: React.FC = () => {
     lastName: user?.lastName || 'Doe',
     email: user?.email || 'john.doe@example.com',
     country: user?.settings?.country || '',
-    language: user?.settings?.locale || 'en',
+    locale: user?.settings?.locale || 'en',
   });
 
   const [editedInfo, setEditedInfo] = useState<UserInfo>(userInfo);
@@ -97,7 +100,7 @@ const Profile: React.FC = () => {
     lastName: false,
     email: false,
     country: false,
-    language: false,
+    locale: false,
   });
 
   const [passwordTouched, setPasswordTouched] = useState<TouchedFields>({
@@ -129,8 +132,8 @@ const Profile: React.FC = () => {
       'country',
       formatMessage
     ),
-    language: validateRequired(
-      isEditing ? editedInfo.language : userInfo.language,
+    locale: validateRequired(
+      isEditing ? editedInfo.locale : userInfo.locale,
       'language',
       formatMessage
     ),
@@ -166,7 +169,7 @@ const Profile: React.FC = () => {
         lastName: true,
         email: true,
         country: true,
-        language: true,
+        locale: true,
       });
       return;
     }
@@ -175,11 +178,7 @@ const Profile: React.FC = () => {
     setProfileError('');
 
     try {
-      // TODO: Implement actual API call to update user profile
-      // await updateUserProfile(editedInfo);
-
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await updateProfile(editedInfo);
 
       setUserInfo(editedInfo);
       setIsEditing(false);
@@ -188,10 +187,14 @@ const Profile: React.FC = () => {
         lastName: false,
         email: false,
         country: false,
-        language: false,
+        locale: false,
       });
     } catch (error) {
-      setProfileError('UPDATE_FAILED');
+      if (error instanceof UserError) {
+        setProfileError(error.type);
+      } else {
+        setProfileError('UPDATE_FAILED');
+      }
     } finally {
       setIsProfileLoading(false);
     }
@@ -403,25 +406,25 @@ const Profile: React.FC = () => {
 
           {isEditing ? (
             <FormSelect
-              id="language"
+              id="locale"
               label="Language"
-              value={editedInfo.language}
-              onChange={(value) => handleInputChange('language', value)}
-              onBlur={() => handleProfileBlur('language')}
+              value={editedInfo.locale}
+              onChange={(value) => handleInputChange('locale', value)}
+              onBlur={() => handleProfileBlur('locale')}
               options={languageOptions}
               placeholder="Select language"
               icon={MdLanguage}
-              error={profileErrors.language}
-              touched={profileTouched.language}
+              error={profileErrors.locale}
+              touched={profileTouched.locale}
             />
           ) : (
             <FormInput
-              id="language"
+              id="locale"
               label="Language"
               type="text"
               value={
-                languageOptions.find((lang) => lang.value === userInfo.language)?.label ||
-                userInfo.language
+                languageOptions.find((lang) => lang.value === userInfo.locale)?.label ||
+                userInfo.locale
               }
               onChange={() => {}}
               onBlur={() => {}}
@@ -595,8 +598,8 @@ const Profile: React.FC = () => {
             <span>Change Password</span>
           </h3>
           <p className="g-text-sm g-text-gray-600">
-            Update your password to keep your account secure. Make sure your new password is
-            strong and unique.
+            Update your password to keep your account secure. Make sure your new password is strong
+            and unique.
           </p>
         </div>
 

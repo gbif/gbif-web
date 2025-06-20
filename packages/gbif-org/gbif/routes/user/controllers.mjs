@@ -3,7 +3,9 @@ import {
   confirm as confirmUser,
   getClientUser,
   resetPassword as resetUserPassword,
+  sanitizeUpdatedUser,
   updateForgottenPassword,
+  update as updateUser,
 } from './user.model.mjs';
 
 const log = console; // TODO: Replace with proper logging mechanism
@@ -81,6 +83,34 @@ export async function updatePasswordFromChallengeCode(req, res) {
       res.json({ user });
     })
     .catch(handleError(res, 422));
+}
+
+/**
+ * Updates the user profile information
+ */
+export async function updateProfile(req, res) {
+  try {
+    if (!req.user) {
+      return res.status(401).json({ message: 'User not authenticated' });
+    }
+
+    // Sanitize the user input first, similar to portal16
+    let user = sanitizeUpdatedUser(req.body);
+
+    // Preserve critical fields from the original user, users are not allowed to change username and system settings
+    user.userName = req.user.userName;
+    user.roles = req.user.roles;
+    user.systemSettings = req.user.systemSettings;
+
+    const response = await updateUser(req.user.userName, user);
+
+    // Return the response from the API
+    res.json(response);
+  } catch (error) {
+    log.error('Profile update error:', error);
+    const status = error.status || error.statusCode || 500;
+    res.status(status).json({ message: 'Profile update failed' });
+  }
 }
 
 /*

@@ -39,6 +39,14 @@ interface ForgottenPassword {
   userName: string;
 }
 
+interface UpdateProfileData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  country: string;
+  language: string;
+}
+
 interface UserContextType {
   user: User | null;
   isLoading: boolean;
@@ -46,6 +54,7 @@ interface UserContextType {
   login: (data: LoginData) => Promise<User>;
   register: (data: RegisterData) => Promise<void>;
   updateForgottenPassword: (data: ForgottenPassword) => Promise<void>;
+  updateProfile: (data: UpdateProfileData) => Promise<void>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
@@ -245,6 +254,41 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const updateProfile = async (data: UpdateProfileData) => {
+    try {
+      const response = await fetch('/api/user/update-profile', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        if (response.status === 400) {
+          throw new UserError('INVALID_REQUEST', 'Invalid profile data. Please check your input.');
+        } else if (response.status === 401) {
+          await refreshUser();
+          throw new UserError('UNKNOWN_USER', 'User not authenticated.');
+        } else {
+          throw new UserError('UNKNOWN_ERROR', 'Profile update failed.');
+        }
+      }
+
+      const result = await response.json();
+
+      // Refresh user data after successful profile update
+      await refreshUser();
+
+      return result;
+    } catch (error) {
+      if (error instanceof UserError) {
+        throw error;
+      }
+      throw new UserError('UNKNOWN_ERROR');
+    }
+  };
+
   const confirm = async (code: string, username: string) => {
     try {
       const response = await fetch('/api/user/confirm', {
@@ -281,6 +325,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     login,
     register,
     updateForgottenPassword,
+    updateProfile,
     logout,
     refreshUser,
     resetPassword,
