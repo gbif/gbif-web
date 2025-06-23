@@ -11,6 +11,7 @@
   "inGbif": "{total, plural, one {# 在GBIF中} other {# 在GBIF中}}",
   "nSpecimens": "{total, plural, one {# 标本} other {# 标本}}",
   "nCollections": "{total, plural, one {# 收藏} other {# 收藏}}",
+  "nInstitutions": "{total, plural, one { 机构 } other {# 机构}}",
   "nRecordsTotal": "{total, plural, one {# 总记录} other {# 总记录}}",
   "nSelected": "{total, plural, other {# 选中的}}",
   "nQualityFlags": "{total, plural, one {# 质量标志} other {# 质量标志}}\n",
