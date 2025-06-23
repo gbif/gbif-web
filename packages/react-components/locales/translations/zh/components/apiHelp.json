@@ -1,5 +1,6 @@
 {
   "example": "示例 ",
+  "examples": "示例",
   "singleEntry": "获取一个单条目",
   "singleOccurrence": "出现一次记录",
   "searchOccurrences": "获取全部出现次数",
