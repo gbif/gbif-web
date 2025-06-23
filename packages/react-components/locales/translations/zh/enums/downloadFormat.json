@@ -9,7 +9,7 @@
     "IUCN": "世界自然保护联盟（IUCN）导出",
     "BIONOMIA": "生物群落导出",
     "SIMPLE_PARQUET": "简单列式格式(Parquet)",
-    "SQL_TSV_ZIP": "",
-    "CUBE": ""
+    "SQL_TSV_ZIP": "SQL TSV zip",
+    "CUBE": "Cube格式"
   }
 }
