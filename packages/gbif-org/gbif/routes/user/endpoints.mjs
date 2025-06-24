@@ -6,12 +6,14 @@ import { register as registerLocal } from '../auth/local.ctrl.mjs';
 import { appendUser, disableCache } from '../auth/utils.mjs';
 import {
   confirmAccount,
+  create,
   logout,
   resetPassword,
   updatePasswordFromChallengeCode,
   updateProfile,
   whoAmI,
 } from './controllers.mjs';
+import { getChallenge, requireProofOfWork } from './pow.mjs';
 
 dotenv.config({ path: '.env.local' });
 dotenv.config({ path: '.env' });
@@ -30,4 +32,6 @@ export function register(app) {
   app.post('/api/user/confirm', confirmAccount);
   app.post('/api/user/update-forgotten-password', updatePasswordFromChallengeCode);
   app.put('/api/user/update-profile', appendUser, updateProfile);
+  app.put('/api/user/challenge', getChallenge);
+  app.put('/api/user/create', requireProofOfWork, create);
 }

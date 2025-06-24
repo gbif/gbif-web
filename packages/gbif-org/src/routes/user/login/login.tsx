@@ -13,9 +13,35 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ErrorMessage, FormButton, FormInput, FormSelect } from '../shared/FormComponents';
 import { PageTitle } from '../shared/PageHeader';
 import { UserPageLayout } from '../shared/UserPageLayout';
-import { validateEmail, validatePassword, validateUsername, getErrorMessage, hasFormErrors } from '../shared/validationUtils';
+import {
+  hasFormErrors,
+  validateEmail,
+  validatePassword,
+  validateUsername,
+} from '../shared/validationUtils';
+import { getChallenge, solveProofOfWork, type ProofOfWorkResult, ProofOfWorkError, checkBrowserCryptoSupport } from './proofOfWork';
 
 export const LoginSkeleton = ArticleSkeleton;
+
+const getRegistrationErrorMessage = (error: string) => {
+  if (!error) return '';
+  switch (error) {
+    case 'REGISTRATION_FAILED':
+      return 'profile.registrationFailed';
+    case 'PROOF_OF_WORK_FAILED_CONTACT_HELPDESK':
+      return 'profile.proofOfWorkFailedContactHelpdesk';
+    case 'PROOF_OF_WORK_NOT_READY':
+      return 'profile.proofOfWorkNotReady';
+    case 'REGISTRATION_SUCCESS_CHECK_EMAIL':
+      return 'profile.registrationSuccessCheckEmail';
+    case 'CRYPTO_NOT_SUPPORTED':
+      return 'profile.cryptoNotSupported';
+    case 'CRYPTO_ERROR':
+      return 'profile.cryptoError';
+    default:
+      return 'profile.error.FAILED';
+  }
+};
 
 export function LoginPage() {
   const navigate = useNavigate();
@@ -302,7 +328,7 @@ export function LoginForm() {
 function RegisterForm() {
   const { formatMessage } = useIntl();
   const navigate = useNavigate();
-  const { localizeLink } = useI18n();
+  const { localizeLink, locale } = useI18n();
   const { register } = useUser();
   const countryOptions = useMemo(() => {
     return country.map((code) => ({
@@ -328,12 +354,85 @@ function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // Proof of work state
+  const [powState, setPowState] = useState<{
+    status: 'idle' | 'fetching' | 'solving' | 'ready' | 'error';
+    progress?: number;
+    result?: ProofOfWorkResult;
+    retryCount: number;
+  }>({
+    status: 'idle',
+    retryCount: 0,
+  });
+
   const errors = {
     username: validateUsername(values.username, formatMessage),
     email: validateEmail(values.email, formatMessage),
     country: !values.country ? formatMessage({ id: 'profile.countryRequired' }) : false,
     password: validatePassword(values.password, formatMessage),
   };
+
+  // Start proof of work challenge when component mounts
+  useEffect(() => {
+    const startProofOfWork = async () => {
+      try {
+        // First check if crypto is supported
+        const cryptoSupport = checkBrowserCryptoSupport();
+        if (!cryptoSupport.supported) {
+          console.error('Crypto not supported:', cryptoSupport.errorMessage);
+          setError('CRYPTO_NOT_SUPPORTED');
+          setPowState((prev) => ({
+            ...prev,
+            status: 'error',
+            retryCount: prev.retryCount + 1,
+          }));
+          return;
+        }
+
+        setPowState((prev) => ({ ...prev, status: 'fetching' }));
+
+        const challenge = await getChallenge();
+
+        setPowState((prev) => ({ ...prev, status: 'solving' }));
+
+        const solution = await solveProofOfWork(challenge, (progress) => {
+          setPowState((prev) => ({ ...prev, progress: progress.attempts }));
+        });
+
+        setPowState((prev) => ({
+          ...prev,
+          status: 'ready',
+          result: {
+            challengeId: challenge.challengeId,
+            nonce: solution.nonce,
+            verified: false,
+          },
+        }));
+      } catch (error) {
+        console.error('Proof of work failed:', error);
+        
+        if (error instanceof ProofOfWorkError) {
+          if (error.code === 'CRYPTO_NOT_SUPPORTED') {
+            setError('CRYPTO_NOT_SUPPORTED');
+          } else if (error.code === 'CRYPTO_ERROR') {
+            setError('CRYPTO_ERROR');
+          } else {
+            setError('REGISTRATION_FAILED');
+          }
+        } else {
+          setError('REGISTRATION_FAILED');
+        }
+        
+        setPowState((prev) => ({
+          ...prev,
+          status: 'error',
+          retryCount: prev.retryCount + 1,
+        }));
+      }
+    };
+
+    startProofOfWork();
+  }, []);
 
   const handleBlur = (field: keyof typeof touched) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
@@ -349,12 +448,60 @@ function RegisterForm() {
     setIsLoading(true);
     setError('');
 
+    // Wait for proof of work to complete if it's still processing
+    if (powState.status === 'solving' || powState.status === 'fetching') {
+      const waitForProofOfWork = () => {
+        return new Promise<void>((resolve) => {
+          const checkStatus = () => {
+            if (powState.status === 'ready' || powState.status === 'error') {
+              resolve();
+            } else {
+              setTimeout(checkStatus, 100);
+            }
+          };
+          checkStatus();
+        });
+      };
+
+      await waitForProofOfWork();
+    }
+
+    if (powState.status === 'error' && powState.retryCount >= 2) {
+      setError('PROOF_OF_WORK_FAILED_CONTACT_HELPDESK');
+      setIsLoading(false);
+      return;
+    }
+
+    if (!powState.result) {
+      setError('PROOF_OF_WORK_NOT_READY');
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      await register(values);
-      // Redirect to user profile page after successful registration
-      navigate(localizeLink('/user/profile'));
+      // Send registration data with proof-of-work directly to backend for validation
+      const registrationData = {
+        user: {
+          ...values,
+          settings: {
+            locale: locale.code,
+          },
+        },
+
+        challengeId: powState.result.challengeId,
+        nonce: powState.result.nonce,
+      };
+
+      await register(registrationData);
+
+      // Show confirmation message instead of redirecting
+      setError('REGISTRATION_SUCCESS_CHECK_EMAIL');
     } catch (err) {
-      setError('REGISTRATION_FAILED');
+      if (err instanceof UserError && err.type === 'REGISTRATION_FAILED') {
+        setError('REGISTRATION_FAILED');
+      } else {
+        setError('REGISTRATION_FAILED');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -367,12 +514,26 @@ function RegisterForm() {
         subtitle={<FormattedMessage id="profile.signUpForAccount" />}
       />
 
-      <ErrorMessage errorMessageId={error} />
+      {/* Show verification message only when form is submitted and waiting for proof-of-work */}
+      {isLoading && (powState.status === 'fetching' || powState.status === 'solving') && (
+        <div className="g-rounded-md g-bg-blue-50 g-p-4">
+          <div className="g-flex">
+            <div className="g-flex-shrink-0">
+              <div className="g-h-5 g-w-5 g-border-2 g-border-blue-400 g-border-t-transparent g-rounded-full g-animate-spin"></div>
+            </div>
+            <div className="g-ml-3">
+              <p className="g-text-sm g-text-blue-700">
+                Verifying your request with the server. Please hang on and do not close this page.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <ErrorMessage errorMessageId={getRegistrationErrorMessage(error)} />
 
       <form className="g-space-y-4" onSubmit={handleSubmit}>
         <FormInput
-          id="username"
-          autoComplete="username"
           label={formatMessage({ id: 'profile.username' })}
           type="text"
           value={values.username}
@@ -424,7 +585,12 @@ function RegisterForm() {
           touched={touched.password}
         />
 
-        <FormButton type="submit" className="g-w-full" isLoading={isLoading} disabled={isLoading}>
+        <FormButton
+          type="submit"
+          className="g-w-full"
+          isLoading={isLoading}
+          disabled={isLoading || (powState.status === 'error' && powState.retryCount >= 2)}
+        >
           {isLoading
             ? formatMessage({ id: 'profile.creatingAccount' })
             : formatMessage({ id: 'profile.createAccount' })}

@@ -27,10 +27,17 @@ interface LoginData {
 }
 
 interface RegisterData {
-  username: string;
-  email: string;
-  country: string;
-  password: string;
+  user: {
+    username: string;
+    email: string;
+    country: string;
+    password: string;
+    settings: {
+      locale: string;
+    };
+  };
+  challengeId?: string;
+  nonce?: string;
 }
 
 interface ForgottenPassword {
@@ -151,8 +158,8 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 
   const register = async (data: RegisterData) => {
     try {
-      const response = await fetch('/api/user/register', {
-        method: 'POST',
+      const response = await fetch('/api/user/create', {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -170,7 +177,10 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 
       return result;
     } catch (error) {
-      throw new UserError('UNKNOWN_ERROR');
+      if (error instanceof UserError) {
+        throw error;
+      }
+      throw new UserError('REGISTRATION_FAILED');
     }
   };
 

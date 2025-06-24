@@ -1724,10 +1724,12 @@ export type DatasetFacet = {
   count: Scalars['Int']['output'];
   dataset?: Maybe<Dataset>;
   decade?: Maybe<Array<Maybe<DatasetFacetResult>>>;
+  dwcaExtension?: Maybe<Array<Maybe<DatasetFacetResult>>>;
   hostingOrg?: Maybe<Array<Maybe<DatasetOrganizationFacet>>>;
   key: Scalars['String']['output'];
   keyword?: Maybe<Array<Maybe<DatasetFacetResult>>>;
   license?: Maybe<Array<Maybe<DatasetFacetResult>>>;
+  networkKey?: Maybe<Array<Maybe<DatasetFacetResult>>>;
   projectId?: Maybe<Array<Maybe<DatasetFacetResult>>>;
   publishingCountry?: Maybe<Array<Maybe<DatasetFacetResult>>>;
   publishingOrg?: Maybe<Array<Maybe<DatasetOrganizationFacet>>>;
@@ -1738,6 +1740,12 @@ export type DatasetFacet = {
 export type DatasetFacetDecadeArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type DatasetFacetDwcaExtensionArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -1756,6 +1764,12 @@ export type DatasetFacetKeywordArgs = {
 export type DatasetFacetLicenseArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type DatasetFacetNetworkKeyArgs = {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  size?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -1812,6 +1826,7 @@ export type DatasetSearchInput = {
   /** Not implemented yet */
   country?: InputMaybe<Array<InputMaybe<Country>>>;
   decade?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  dwcaExtension?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   endorsingNodeKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   hl?: InputMaybe<Scalars['Boolean']['input']>;
   hostingOrg?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
@@ -7220,6 +7235,7 @@ export type QueryDatasetSearchArgs = {
   continent?: InputMaybe<Array<InputMaybe<Continent>>>;
   country?: InputMaybe<Array<InputMaybe<Country>>>;
   decade?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  dwcaExtension?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   endorsingNodeKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   hl?: InputMaybe<Scalars['Boolean']['input']>;
   hostingOrg?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;

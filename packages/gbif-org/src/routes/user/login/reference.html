@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proof of Work Demo</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      input,
+      button {
+        padding: 8px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      button {
+        background: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      button:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+      }
+      .status {
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 4px;
+      }
+      .working {
+        background: #fff3cd;
+        border: 1px solid #ffeaa7;
+      }
+      .success {
+        background: #d4edda;
+        border: 1px solid #c3e6cb;
+      }
+      .error {
+        background: #f8d7da;
+        border: 1px solid #f5c6cb;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Account Registration with Proof of Work</h1>
+
+    <form id="registrationForm">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+      </div>
+
+      <button type="submit" id="submitBtn">Create Account</button>
+    </form>
+
+    <div id="status"></div>
+
+    <script>
+      // Main registration form handler
+      document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById('submitBtn');
+        const statusDiv = document.getElementById('status');
+
+        // Disable form while processing
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Processing...';
+
+        try {
+          // Step 1: Get challenge from server
+          statusDiv.innerHTML =
+            '<div class="status working">Requesting challenge from server...</div>';
+          console.log('🔄 Requesting challenge from server');
+
+          const challengeResponse = await fetch('/api/challenge');
+          const challenge = await challengeResponse.json();
+
+          console.log('✅ Received challenge:', challenge);
+
+          // Step 2: Solve proof of work (this is the computationally expensive part)
+          statusDiv.innerHTML =
+            '<div class="status working">Solving proof of work puzzle... This may take a few seconds.</div>';
+          console.log('🔄 Starting proof of work computation');
+
+          const solution = await solveProofOfWork(challenge);
+          console.log('✅ Proof of work solved:', solution);
+
+          // Step 3: Verify solution with server
+          statusDiv.innerHTML =
+            '<div class="status working">Verifying solution with server...</div>';
+          console.log('🔄 Verifying solution with server');
+
+          const verifyResponse = await fetch('/api/verify-pow', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              challengeId: challenge.challengeId,
+              nonce: solution.nonce,
+            }),
+          });
+
+          const verifyResult = await verifyResponse.json();
+
+          if (verifyResult.needNewChallenge) {
+            // Challenge expired or server restarted - retry with new challenge
+            statusDiv.innerHTML =
+              '<div class="status working">Challenge expired, getting new one...</div>';
+            console.log('🔄 Challenge expired, retrying...');
+
+            // Retry the entire registration process
+            setTimeout(() => {
+              document.getElementById('registrationForm').dispatchEvent(new Event('submit'));
+            }, 1000);
+            return;
+          }
+
+          if (verifyResult.valid) {
+            // Step 4: Create account with the registration token
+            statusDiv.innerHTML = '<div class="status working">Creating account...</div>';
+            console.log('✅ Proof of work verified, creating account');
+
+            const formData = new FormData(e.target);
+            const registrationData = {
+              username: formData.get('username'),
+              email: formData.get('email'),
+              password: formData.get('password'),
+              powToken: verifyResult.token, // Include the proof of work token
+            };
+
+            const registerResponse = await fetch('/api/register', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(registrationData),
+            });
+
+            if (registerResponse.ok) {
+              statusDiv.innerHTML =
+                '<div class="status success">✅ Account created successfully!</div>';
+              console.log('✅ Account created successfully');
+              e.target.reset(); // Clear the form
+            } else {
+              throw new Error('Registration failed');
+            }
+          } else {
+            throw new Error('Proof of work verification failed');
+          }
+        } catch (error) {
+          console.error('❌ Error:', error);
+          statusDiv.innerHTML = `<div class="status error">❌ Error: ${error.message}</div>`;
+        } finally {
+          // Re-enable the form
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Create Account';
+        }
+      });
+
+      /**
+       * Solves the proof of work challenge using a Web Worker
+       * This prevents the computation from blocking the main UI thread
+       */
+      async function solveProofOfWork(challenge) {
+        return new Promise((resolve, reject) => {
+          console.log('🔄 Creating Web Worker for proof of work computation');
+
+          // Create a Web Worker from inline code
+          // This runs the heavy computation in a separate thread
+          const workerCode = `
+                    // This code runs in the Web Worker (separate thread)
+                    
+                    // Import crypto functionality for the worker
+                    importScripts('https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js');
+                    
+                    // Listen for messages from the main thread
+                    self.onmessage = function(e) {
+                        const { challengeData, difficulty } = e.data;
+                        console.log('Worker: Starting proof of work with difficulty', difficulty);
+                        
+                        let attempts = 0; // Counter for tracking attempts
+                        const target = '0'.repeat(difficulty); // Target pattern (e.g., "0000" for difficulty 4)
+                        
+                        // Keep trying different nonce values until we find a valid hash
+                        while (true) {
+                            // Create hash by combining challenge data + nonce
+                            const input = challengeData + nonce;
+                            const hash = CryptoJS.SHA256(input).toString();
+                            
+                            // Check if hash starts with required number of zeros
+                            if (hash.startsWith(target)) {
+                                console.log('Worker: Found solution! Hash:', hash, 'Nonce:', nonceHex);
+                                
+                                // Send the solution back to main thread
+                                self.postMessage({
+                                    success: true,
+                                    nonce: nonceHex,
+                                    hash: hash,
+                                    attempts: attempts + 1
+                                });
+                                break;
+                            }
+                            
+                            attempts++; // Track attempts for progress reporting
+                            
+                            // Report progress every 1000 attempts so user knows it's working
+                            if (attempts % 1000 === 0) {
+                                self.postMessage({
+                                    progress: true,
+                                    attempts: attempts
+                                });
+                            }
+                        }
+                    };
+                `;
+
+          // Create the worker from the inline code
+          const blob = new Blob([workerCode], { type: 'application/javascript' });
+          const worker = new Worker(URL.createObjectURL(blob));
+
+          // Handle messages from the worker
+          worker.onmessage = function (e) {
+            if (e.data.success) {
+              console.log(`✅ Proof of work completed in ${e.data.attempts} attempts`);
+              worker.terminate(); // Clean up the worker
+              resolve({
+                nonce: e.data.nonce,
+                hash: e.data.hash,
+              });
+            } else if (e.data.progress) {
+              // Update UI with progress (optional)
+              console.log(`🔄 Proof of work progress: ${e.data.attempts} attempts`);
+              const statusDiv = document.getElementById('status');
+              statusDiv.innerHTML = `<div class="status working">Solving proof of work puzzle... (${e.data.attempts} attempts)</div>`;
+            }
+          };
+
+          // Handle worker errors
+          worker.onerror = function (error) {
+            console.error('❌ Worker error:', error);
+            worker.terminate();
+            reject(new Error('Proof of work computation failed'));
+          };
+
+          // Start the computation by sending challenge to worker
+          worker.postMessage({
+            challengeData: challenge.data,
+            difficulty: challenge.difficulty,
+          });
+
+          console.log('🔄 Proof of work computation started in background');
+        });
+      }
+    </script>
+  </body>
+</html>

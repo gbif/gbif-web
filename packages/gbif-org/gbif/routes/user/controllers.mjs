@@ -1,6 +1,7 @@
-import { generateToken, removeTokenCookie, setTokenCookie } from '../auth/utils.mjs';
+import { generateToken, removeTokenCookie, setNoCache, setTokenCookie } from '../auth/utils.mjs';
 import {
   confirm as confirmUser,
+  create as createUser,
   getClientUser,
   resetPassword as resetUserPassword,
   sanitizeUpdatedUser,
@@ -111,6 +112,38 @@ export async function updateProfile(req, res) {
     const status = error.status || error.statusCode || 500;
     res.status(status).json({ message: 'Profile update failed' });
   }
+}
+
+/**
+ * Creates a new user
+ */
+export function create(req, res) {
+  setNoCache(res);
+  let user = {
+    userName: req.body.user.userName,
+    email: req.body.user.email,
+    password: req.body.user.password,
+    settings: {
+      country: req.body.user.settings.country,
+      locale: req.body.user.settings.locale,
+    },
+  };
+  createUser(user)
+    .then(function () {
+      debugger;
+      res.status(201);
+      res.json({ type: 'CONFIRM_MAIL' });
+    })
+    .catch(function (err) {
+      debugger;
+      if (err.statusCode < 500) {
+        res.status(err.statusCode || 422);
+        res.json({ error: 'unable to create user' });
+      } else {
+        log.error(err);
+        res.sendStatus(500);
+      }
+    });
 }
 
 /*
