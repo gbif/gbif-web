@@ -65,17 +65,12 @@ export async function create(body) {
     url: apiConfig.userCreate.url,
     canonicalPath: apiConfig.userCreate.canonical,
   };
-  debugger;
-  return {
-    success: true,
-    message: 'User creation is not implemented in this version.',
-  };
-  // let response = await authenticatedRequest(options);
-  // if (response.statusCode !== 201) {
-  //   throw response;
-  // }
+  let response = await authenticatedRequest(options);
+  if (response.statusCode !== 201) {
+    throw response;
+  }
 
-  // return response.body;
+  return response.body;
 }
 
 export async function confirm(challengeCode, userName) {

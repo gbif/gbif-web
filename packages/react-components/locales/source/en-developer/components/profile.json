@@ -123,6 +123,14 @@
     "updateFailed": "Update Failed",
     "updateFailedMessage": "We were unable to update your password",
     "updateFailedHelp": "If you continue to have problems, please contact support or try the password reset process again.",
-    "backToHome": "Go to Homepage"
+    "backToHome": "Go to Homepage",
+    "registrationFailed": "Registration failed. Please try again or contact support if the problem persists.",
+    "invalidSolutionTryAgain": "Invalid solution. Please try again.",
+    "proofOfWorkFailedContactHelpdesk": "Proof of work failed. Please contact the helpdesk for assistance.",
+    "proofOfWorkNotReady": "Please wait while we verify your request...",
+    "cryptoNotSupported": "Your browser does not support the required cryptographic features. Please update your browser or try a different one.",
+    "registrationComplete": "Registration Complete",
+    "checkYourEmail": "Please check your email to activate your account",
+    "registrationSuccessCheckEmail": "We've sent you an email with instructions to activate your account. Please check your inbox and follow the link to complete your registration."
   }
 }

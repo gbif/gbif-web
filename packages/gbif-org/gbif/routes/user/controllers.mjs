@@ -120,7 +120,7 @@ export async function updateProfile(req, res) {
 export function create(req, res) {
   setNoCache(res);
   let user = {
-    userName: req.body.user.userName,
+    userName: req.body.user.username,
     email: req.body.user.email,
     password: req.body.user.password,
     settings: {
@@ -130,12 +130,10 @@ export function create(req, res) {
   };
   createUser(user)
     .then(function () {
-      debugger;
       res.status(201);
       res.json({ type: 'CONFIRM_MAIL' });
     })
     .catch(function (err) {
-      debugger;
       if (err.statusCode < 500) {
         res.status(err.statusCode || 422);
         res.json({ error: 'unable to create user' });

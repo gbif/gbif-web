@@ -115,7 +115,7 @@ export function solveProofOfWork(challenge: Challenge): {
       };
 
       // Handle worker errors
-      worker.onerror = function (error) {
+      worker.onerror = function () {
         worker.terminate();
         reject(
           new ProofOfWorkError(

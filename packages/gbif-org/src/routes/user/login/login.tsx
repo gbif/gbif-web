@@ -48,8 +48,6 @@ const getRegistrationErrorMessage = (error: ErrorType) => {
       return 'profile.proofOfWorkFailedContactHelpdesk';
     case 'PROOF_OF_WORK_NOT_READY':
       return 'profile.proofOfWorkNotReady';
-    case 'REGISTRATION_SUCCESS_CHECK_EMAIL':
-      return 'profile.registrationSuccessCheckEmail';
     case 'CRYPTO_NOT_SUPPORTED':
       return 'profile.cryptoNotSupported';
     default:
@@ -366,6 +364,7 @@ function RegisterForm() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<ErrorType>(undefined);
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
   // Proof of work state
   const [powState, setPowState] = useState<{
@@ -479,7 +478,8 @@ function RegisterForm() {
         await register(registrationData);
 
         // Show confirmation message instead of redirecting
-        setError('REGISTRATION_SUCCESS_CHECK_EMAIL');
+        setRegistrationSuccess(true);
+        setError(undefined);
         setIsLoading(false);
       } catch (err) {
         // Check if this is a server validation failure that we should retry
@@ -509,6 +509,41 @@ function RegisterForm() {
     await attemptRegistration();
     setIsLoading(false);
   };
+
+  // Show success message if registration was successful
+  if (registrationSuccess) {
+    return (
+      <>
+        <PageTitle
+          title={<FormattedMessage id="profile.registrationComplete" />}
+          subtitle={<FormattedMessage id="profile.checkYourEmail" />}
+        />
+
+        <div className="g-rounded-md g-bg-green-50 g-p-4">
+          <div className="g-flex">
+            <div className="g-flex-shrink-0">
+              <MdMail className="g-h-5 g-w-5 g-text-green-400" />
+            </div>
+            <div className="g-ml-3">
+              <p className="g-text-sm g-text-green-700">
+                <FormattedMessage id="profile.registrationSuccessCheckEmail" />
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p className="g-text-center g-text-sm g-text-gray-500">
+          <FormattedMessage id="profile.alreadyHaveAccount" />{' '}
+          <Link
+            to={localizeLink('/user/login')}
+            className="g-font-medium g-text-primary-700 hover:g-text-primary-600"
+          >
+            <FormattedMessage id="profile.signIn" />
+          </Link>
+        </p>
+      </>
+    );
+  }
 
   return (
     <>
