@@ -76,7 +76,8 @@ export type UserErrorType =
   | 'LOGIN_FAILED'
   | 'REGISTRATION_FAILED'
   | 'UNABLE_TO_LOGOUT'
-  | 'INVALID_REQUEST';
+  | 'INVALID_REQUEST'
+  | 'INVALID_SOLUTION';
 export class UserError extends Error {
   type: UserErrorType;
   constructor(type: UserErrorType, message?: string) {
@@ -167,6 +168,12 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       });
 
       if (!response.ok) {
+        if (response.status === 400) {
+          const error = await response.json();
+          if (error.needNewChallenge) {
+            throw new UserError('INVALID_SOLUTION', 'Registration failed. Please try again.');
+          }
+        }
         throw new UserError('REGISTRATION_FAILED', 'Registration failed. Please check your input.');
       }
 

@@ -17,7 +17,6 @@ interface ProofOfWorkProgress {
 export interface ProofOfWorkResult {
   challengeId: string;
   nonce: string;
-  verified: boolean;
 }
 
 export class ProofOfWorkError extends Error {

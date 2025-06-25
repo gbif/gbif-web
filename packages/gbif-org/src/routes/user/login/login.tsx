@@ -19,7 +19,13 @@ import {
   validatePassword,
   validateUsername,
 } from '../shared/validationUtils';
-import { getChallenge, solveProofOfWork, type ProofOfWorkResult, ProofOfWorkError, checkBrowserCryptoSupport } from './proofOfWork';
+import {
+  ProofOfWorkError,
+  checkBrowserCryptoSupport,
+  getChallenge,
+  solveProofOfWork,
+  type ProofOfWorkResult,
+} from './proofOfWork';
 
 export const LoginSkeleton = ArticleSkeleton;
 
@@ -28,7 +34,9 @@ const getRegistrationErrorMessage = (error: string) => {
   switch (error) {
     case 'REGISTRATION_FAILED':
       return 'profile.registrationFailed';
-    case 'PROOF_OF_WORK_FAILED_CONTACT_HELPDESK':
+    case 'INVALID_SOLUTION':
+      return 'profile.invalidSolutionTryAgain';
+    case 'PROOF_OF_WORK_FAILED':
       return 'profile.proofOfWorkFailedContactHelpdesk';
     case 'PROOF_OF_WORK_NOT_READY':
       return 'profile.proofOfWorkNotReady';
@@ -359,10 +367,8 @@ function RegisterForm() {
     status: 'idle' | 'fetching' | 'solving' | 'ready' | 'error';
     progress?: number;
     result?: ProofOfWorkResult;
-    retryCount: number;
   }>({
     status: 'idle',
-    retryCount: 0,
   });
 
   const errors = {
@@ -372,8 +378,12 @@ function RegisterForm() {
     password: validatePassword(values.password, formatMessage),
   };
 
-  // Start proof of work challenge when component mounts
+  // Start proof of work challenge when component mounts or when retrying
   useEffect(() => {
+    // only start if not already in progress and not already solved
+    if (powState.status !== 'idle' && powState.status !== 'error') return;
+    if (powState.result && powState.status !== 'error') return;
+
     const startProofOfWork = async () => {
       try {
         // First check if crypto is supported
@@ -384,12 +394,11 @@ function RegisterForm() {
           setPowState((prev) => ({
             ...prev,
             status: 'error',
-            retryCount: prev.retryCount + 1,
           }));
           return;
         }
 
-        setPowState((prev) => ({ ...prev, status: 'fetching' }));
+        setPowState((prev) => ({ ...prev, status: 'fetching', result: undefined }));
 
         const challenge = await getChallenge();
 
@@ -399,40 +408,39 @@ function RegisterForm() {
           setPowState((prev) => ({ ...prev, progress: progress.attempts }));
         });
 
+        console.log('Proof of work solution:', solution);
         setPowState((prev) => ({
           ...prev,
           status: 'ready',
           result: {
             challengeId: challenge.challengeId,
             nonce: solution.nonce,
-            verified: false,
           },
         }));
       } catch (error) {
         console.error('Proof of work failed:', error);
-        
+
         if (error instanceof ProofOfWorkError) {
           if (error.code === 'CRYPTO_NOT_SUPPORTED') {
             setError('CRYPTO_NOT_SUPPORTED');
           } else if (error.code === 'CRYPTO_ERROR') {
             setError('CRYPTO_ERROR');
           } else {
-            setError('REGISTRATION_FAILED');
+            setError('UNABLE_TO_SOLVE_PROOF_OF_WORK');
           }
         } else {
-          setError('REGISTRATION_FAILED');
+          setError('UNABLE_TO_SOLVE_PROOF_OF_WORK');
         }
-        
+
         setPowState((prev) => ({
           ...prev,
           status: 'error',
-          retryCount: prev.retryCount + 1,
         }));
       }
     };
 
     startProofOfWork();
-  }, []);
+  }, [powState.result, powState.status]);
 
   const handleBlur = (field: keyof typeof touched) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
@@ -448,63 +456,93 @@ function RegisterForm() {
     setIsLoading(true);
     setError('');
 
-    // Wait for proof of work to complete if it's still processing
-    if (powState.status === 'solving' || powState.status === 'fetching') {
-      const waitForProofOfWork = () => {
-        return new Promise<void>((resolve) => {
-          const checkStatus = () => {
-            if (powState.status === 'ready' || powState.status === 'error') {
-              resolve();
-            } else {
-              setTimeout(checkStatus, 100);
-            }
-          };
-          checkStatus();
-        });
-      };
-
-      await waitForProofOfWork();
-    }
-
-    if (powState.status === 'error' && powState.retryCount >= 2) {
-      setError('PROOF_OF_WORK_FAILED_CONTACT_HELPDESK');
-      setIsLoading(false);
-      return;
-    }
-
-    if (!powState.result) {
-      setError('PROOF_OF_WORK_NOT_READY');
-      setIsLoading(false);
-      return;
-    }
-
-    try {
-      // Send registration data with proof-of-work directly to backend for validation
-      const registrationData = {
-        user: {
-          ...values,
-          settings: {
-            locale: locale.code,
-          },
-        },
-
-        challengeId: powState.result.challengeId,
-        nonce: powState.result.nonce,
-      };
-
-      await register(registrationData);
-
-      // Show confirmation message instead of redirecting
-      setError('REGISTRATION_SUCCESS_CHECK_EMAIL');
-    } catch (err) {
-      if (err instanceof UserError && err.type === 'REGISTRATION_FAILED') {
-        setError('REGISTRATION_FAILED');
-      } else {
-        setError('REGISTRATION_FAILED');
+    const attemptRegistration = async (): Promise<void> => {
+      // Wait for proof of work to complete if it's still processing
+      if (powState.status === 'solving' || powState.status === 'fetching') {
+        const waitForProofOfWork = () => {
+          return new Promise<void>((resolve) => {
+            const checkStatus = () => {
+              console.log('Checking proof of work status:', powState.status);
+              if (powState.status === 'ready' || powState.status === 'error') {
+                resolve();
+              } else {
+                setTimeout(checkStatus, 100);
+              }
+            };
+            checkStatus();
+          });
+        };
+        console.log('Waiting for proof of work to complete...');
+        await waitForProofOfWork();
+        console.log('Proof of work completed with status:', powState.status);
       }
-    } finally {
-      setIsLoading(false);
-    }
+
+      // If crypto is not supported, don't retry
+      if (
+        powState.status === 'error' &&
+        (error === 'CRYPTO_NOT_SUPPORTED' || error === 'CRYPTO_ERROR')
+      ) {
+        setError('PROOF_OF_WORK_FAILED');
+        setIsLoading(false);
+        return;
+      }
+
+      if (!powState.result) {
+        setError('PROOF_OF_WORK_FAILED');
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        // Send registration data with proof-of-work directly to backend for validation
+        const registrationData = {
+          user: {
+            ...values,
+            settings: {
+              locale: locale.code,
+            },
+          },
+
+          challengeId: powState.result.challengeId,
+          nonce: powState.result.nonce,
+        };
+
+        await register(registrationData);
+
+        // Show confirmation message instead of redirecting
+        setError('REGISTRATION_SUCCESS_CHECK_EMAIL');
+        setIsLoading(false);
+      } catch (err) {
+        console.log('Registration failed:', err);
+        // Check if this is a server validation failure that we should retry
+        const isServerValidationFailure =
+          err instanceof UserError && err.type === 'INVALID_SOLUTION';
+
+        if (isServerValidationFailure) {
+          console.log(`Server validation failed, retrying...`);
+
+          // Increment retry count and restart proof of work
+          setPowState((prev) => ({
+            ...prev,
+            status: 'idle',
+            result: undefined,
+          }));
+          setError('INVALID_SOLUTION');
+          setIsLoading(false);
+          return;
+        }
+
+        // show error message
+        setError('REGISTRATION_FAILED');
+        setIsLoading(false);
+        return;
+      }
+    };
+
+    console.log('Attempting registration with values:', values);
+    await attemptRegistration();
+    console.log('Registration completed');
+    setIsLoading(false);
   };
 
   return (
@@ -589,7 +627,11 @@ function RegisterForm() {
           type="submit"
           className="g-w-full"
           isLoading={isLoading}
-          disabled={isLoading || (powState.status === 'error' && powState.retryCount >= 2)}
+          disabled={
+            isLoading ||
+            (powState.status === 'error' && error === 'CRYPTO_NOT_SUPPORTED') ||
+            (powState.status === 'error' && error === 'CRYPTO_ERROR')
+          }
         >
           {isLoading
             ? formatMessage({ id: 'profile.creatingAccount' })
