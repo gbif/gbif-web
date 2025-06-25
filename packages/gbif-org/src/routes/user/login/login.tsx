@@ -4,7 +4,7 @@ import country from '@/enums/basic/country.json';
 import { useI18n } from '@/reactRouterPlugins';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { cn } from '@/utils/shadcn';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { FaGithub as SocialIconGithub, FaGoogle as SocialIconGoogle } from 'react-icons/fa';
 import { IoMdGlobe } from 'react-icons/io';
 import { MdArrowRight, MdLock, MdMail, MdPerson } from 'react-icons/md';
@@ -22,32 +22,22 @@ import {
 import {
   checkBrowserCryptoSupport,
   getChallenge,
-  ProofOfWorkError,
   solveProofOfWork,
   type ProofOfWorkResult,
 } from './proofOfWork';
 
 export const LoginSkeleton = ArticleSkeleton;
 
-const useSafeState = () => {
-  const isMountedRef = useRef(true);
+type ErrorType =
+  | 'CRYPTO_NOT_SUPPORTED'
+  | 'PROOF_OF_WORK_FAILED'
+  | 'INVALID_SOLUTION'
+  | 'REGISTRATION_SUCCESS_CHECK_EMAIL'
+  | 'REGISTRATION_FAILED'
+  | 'PROOF_OF_WORK_NOT_READY'
+  | undefined;
 
-  useEffect(() => {
-    return () => {
-      isMountedRef.current = false;
-    };
-  }, []);
-
-  const safeSetState = useCallback((callback) => {
-    if (isMountedRef.current) {
-      callback();
-    }
-  }, []);
-
-  return safeSetState;
-};
-
-const getRegistrationErrorMessage = (error: string) => {
+const getRegistrationErrorMessage = (error: ErrorType) => {
   if (!error) return '';
   switch (error) {
     case 'REGISTRATION_FAILED':
@@ -62,8 +52,6 @@ const getRegistrationErrorMessage = (error: string) => {
       return 'profile.registrationSuccessCheckEmail';
     case 'CRYPTO_NOT_SUPPORTED':
       return 'profile.cryptoNotSupported';
-    case 'CRYPTO_ERROR':
-      return 'profile.cryptoError';
     default:
       return 'profile.error.FAILED';
   }
@@ -352,9 +340,7 @@ export function LoginForm() {
 }
 
 function RegisterForm() {
-  const safeSetState = useSafeState();
   const { formatMessage } = useIntl();
-  const navigate = useNavigate();
   const { localizeLink, locale } = useI18n();
   const { register } = useUser();
   const countryOptions = useMemo(() => {
@@ -379,7 +365,7 @@ function RegisterForm() {
   });
 
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState<ErrorType>(undefined);
 
   // Proof of work state
   const [powState, setPowState] = useState<{
@@ -395,13 +381,12 @@ function RegisterForm() {
     email: validateEmail(values.email, formatMessage),
     country: !values.country ? formatMessage({ id: 'profile.countryRequired' }) : false,
     password: validatePassword(values.password, formatMessage),
-  };
+  } as { [key: string]: string | false };
 
   // Start proof of work challenge when component mounts or when retrying
   useEffect(() => {
     const cryptoSupport = checkBrowserCryptoSupport();
     if (!cryptoSupport.supported) {
-      console.error('Crypto not supported:', cryptoSupport.errorMessage);
       setError('CRYPTO_NOT_SUPPORTED');
       setPowState({
         status: 'error',
@@ -419,7 +404,6 @@ function RegisterForm() {
       });
       getChallenge()
         .then((challenge) => {
-          console.log('Starting proof of work with challenge:', challenge);
           const { cancel, promise } = solveProofOfWork(challenge);
           setPowState({
             status: 'solving',
@@ -428,21 +412,11 @@ function RegisterForm() {
           });
         })
         .catch((error) => {
-          console.error('Failed to fetch challenge:', error);
-
-          if (error instanceof ProofOfWorkError) {
-            if (error.code === 'CRYPTO_NOT_SUPPORTED') {
-              setError('CRYPTO_NOT_SUPPORTED');
-            } else if (error.code === 'CRYPTO_ERROR') {
-              setError('CRYPTO_ERROR');
-            } else {
-              setError('UNABLE_TO_SOLVE_PROOF_OF_WORK');
-            }
+          if (error.code === 'CRYPTO_NOT_SUPPORTED') {
+            setError('CRYPTO_NOT_SUPPORTED');
           } else {
-            setError('UNABLE_TO_SOLVE_PROOF_OF_WORK');
+            setError('PROOF_OF_WORK_FAILED');
           }
-
-          setError('PROOF_OF_WORK_NOT_READY');
           setPowState({
             status: 'error',
             promise: undefined,
@@ -451,11 +425,8 @@ function RegisterForm() {
         });
     }
 
-    // Cleanup function to cancel proof of work when component unmounts
     return () => {
-      console.log('clean up action called');
       if (powState.cancel) {
-        console.log('Cancelling proof of work due to component cleanup');
         powState.cancel();
       }
     };
@@ -473,18 +444,15 @@ function RegisterForm() {
     }
 
     setIsLoading(true);
-    setError('');
+    setError(undefined);
 
     const attemptRegistration = async (): Promise<void> => {
       // Wait for proof of work to complete if it's still processing
+      setError('PROOF_OF_WORK_NOT_READY');
       const solution = powState.promise ? await powState.promise : undefined;
 
-      // If crypto is not supported, don't retry
-      if (
-        powState.status === 'error' &&
-        (error === 'CRYPTO_NOT_SUPPORTED' || error === 'CRYPTO_ERROR')
-      ) {
-        setError('PROOF_OF_WORK_FAILED');
+      // If crypto is not supported, there isn't much we can do other than tell the user to retry or contact helpdesk
+      if (error === 'CRYPTO_NOT_SUPPORTED') {
         setIsLoading(false);
         return;
       }
@@ -514,14 +482,11 @@ function RegisterForm() {
         setError('REGISTRATION_SUCCESS_CHECK_EMAIL');
         setIsLoading(false);
       } catch (err) {
-        console.log('Registration failed:', err);
         // Check if this is a server validation failure that we should retry
         const isServerValidationFailure =
           err instanceof UserError && err.type === 'INVALID_SOLUTION';
 
         if (isServerValidationFailure) {
-          console.log(`Server validation failed, retrying...`);
-
           // restart proof of work using useeffect
           setPowState((prev) => ({
             ...prev,
@@ -541,9 +506,7 @@ function RegisterForm() {
       }
     };
 
-    console.log('Attempting registration with values:', values);
     await attemptRegistration();
-    console.log('Registration completed');
     setIsLoading(false);
   };
 
@@ -574,6 +537,7 @@ function RegisterForm() {
 
       <form className="g-space-y-4" onSubmit={handleSubmit}>
         <FormInput
+          id="username"
           label={formatMessage({ id: 'profile.username' })}
           type="text"
           value={values.username}
@@ -632,7 +596,8 @@ function RegisterForm() {
           disabled={
             isLoading ||
             (powState.status === 'error' && error === 'CRYPTO_NOT_SUPPORTED') ||
-            (powState.status === 'error' && error === 'CRYPTO_ERROR')
+            (powState.status === 'error' && error === 'PROOF_OF_WORK_FAILED') ||
+            (powState.status === 'error' && error === 'PROOF_OF_WORK_NOT_READY')
           }
         >
           {isLoading

@@ -11,7 +11,7 @@ export function getChallenge(req, res) {
   const challenge = {
     id: crypto.randomUUID(),
     data: crypto.randomBytes(16).toString('hex'),
-    difficulty: 5,
+    difficulty: 4,
     timestamp: Date.now(),
   };
 
@@ -27,7 +27,6 @@ export function getChallenge(req, res) {
 
 export function requireProofOfWork(req, res, next) {
   const { challengeId, nonce } = req.body;
-
   // Get and immediately delete (atomic operation) so should prevent replay attacks
   const challenge = challenges.take(challengeId); // .take() gets and deletes
 
@@ -41,17 +40,11 @@ export function requireProofOfWork(req, res, next) {
   // Validate solution
   const hash = crypto
     .createHash('sha256')
-    .update('gbif' + challenge.data + nonce) // the prefix just generates a unique hash for GBIF to lower the risk of replay attacks
+    .update('gbif_' + challenge.data + nonce) // the prefix just generates a unique hash for GBIF to lower the risk of replay attacks
     .digest('hex');
 
   if (hash.startsWith('0'.repeat(challenge.difficulty))) {
     // Proof of work verified, continue to next middleware
-    if (Math.random() < 0.8) {
-      return res.status(400).json({
-        error: 'Invalid solution',
-        needNewChallenge: true,
-      });
-    }
     next();
   } else {
     return res.status(400).json({

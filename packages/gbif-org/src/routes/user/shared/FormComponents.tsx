@@ -78,7 +78,7 @@ interface FormSelectProps {
   options: Array<{ value: string; label: string }>;
   placeholder: string;
   icon: React.ComponentType<{ className?: string }>;
-  error?: string;
+  error?: string | false;
   touched?: boolean;
 }
 
