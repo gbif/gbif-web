@@ -367,6 +367,7 @@ function RegisterForm() {
     status: 'idle' | 'fetching' | 'solving' | 'ready' | 'error';
     progress?: number;
     result?: ProofOfWorkResult;
+    promise?: Promise<void>;
   }>({
     status: 'idle',
   });
@@ -385,6 +386,11 @@ function RegisterForm() {
     if (powState.result && powState.status !== 'error') return;
 
     const startProofOfWork = async () => {
+      let resolvePromise!: () => void;
+      const promise = new Promise<void>((resolve) => {
+        resolvePromise = resolve;
+      });
+
       try {
         // First check if crypto is supported
         const cryptoSupport = checkBrowserCryptoSupport();
@@ -394,18 +400,33 @@ function RegisterForm() {
           setPowState((prev) => ({
             ...prev,
             status: 'error',
+            promise,
           }));
+          resolvePromise(); // Resolve so we don't hang
           return;
         }
 
-        setPowState((prev) => ({ ...prev, status: 'fetching', result: undefined }));
+        setPowState((prev) => ({
+          ...prev,
+          status: 'fetching',
+          result: undefined,
+          promise,
+        }));
 
         const challenge = await getChallenge();
 
-        setPowState((prev) => ({ ...prev, status: 'solving' }));
+        setPowState((prev) => ({
+          ...prev,
+          status: 'solving',
+          promise,
+        }));
 
         const solution = await solveProofOfWork(challenge, (progress) => {
-          setPowState((prev) => ({ ...prev, progress: progress.attempts }));
+          setPowState((prev) => ({
+            ...prev,
+            progress: progress.attempts,
+            promise,
+          }));
         });
 
         console.log('Proof of work solution:', solution);
@@ -416,7 +437,9 @@ function RegisterForm() {
             challengeId: challenge.challengeId,
             nonce: solution.nonce,
           },
+          promise,
         }));
+        resolvePromise(); // Resolve when ready
       } catch (error) {
         console.error('Proof of work failed:', error);
 
@@ -435,7 +458,9 @@ function RegisterForm() {
         setPowState((prev) => ({
           ...prev,
           status: 'error',
+          promise,
         }));
+        resolvePromise(); // Also resolve on error so we don't hang
       }
     };
 
@@ -459,21 +484,10 @@ function RegisterForm() {
     const attemptRegistration = async (): Promise<void> => {
       // Wait for proof of work to complete if it's still processing
       if (powState.status === 'solving' || powState.status === 'fetching') {
-        const waitForProofOfWork = () => {
-          return new Promise<void>((resolve) => {
-            const checkStatus = () => {
-              console.log('Checking proof of work status:', powState.status);
-              if (powState.status === 'ready' || powState.status === 'error') {
-                resolve();
-              } else {
-                setTimeout(checkStatus, 100);
-              }
-            };
-            checkStatus();
-          });
-        };
         console.log('Waiting for proof of work to complete...');
-        await waitForProofOfWork();
+        if (powState.promise) {
+          await powState.promise;
+        }
         console.log('Proof of work completed with status:', powState.status);
       }
 
@@ -502,7 +516,6 @@ function RegisterForm() {
               locale: locale.code,
             },
           },
-
           challengeId: powState.result.challengeId,
           nonce: powState.result.nonce,
         };
@@ -526,6 +539,7 @@ function RegisterForm() {
             ...prev,
             status: 'idle',
             result: undefined,
+            promise: undefined, // Clear the old promise
           }));
           setError('INVALID_SOLUTION');
           setIsLoading(false);
