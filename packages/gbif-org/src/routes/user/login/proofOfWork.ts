@@ -89,57 +89,67 @@ export async function getChallenge(): Promise<Challenge> {
  * Solves the proof of work challenge using a Web Worker
  * This prevents the computation from blocking the main UI thread
  */
-export async function solveProofOfWork(
+export function solveProofOfWork(
   challenge: Challenge,
-  progressCallback?: (progress: ProofOfWorkProgress) => void
-): Promise<ProofOfWorkSolution> {
-  return new Promise((resolve, reject) => {
-    console.log('🔄 Creating Web Worker for proof of work computation');
-
-    // Create the worker from the external TypeScript file
-    // Note: In production, this would typically be compiled and served as a separate JS file
-    const worker = new Worker(new URL('./proofOfWorkWorker.ts', import.meta.url), {
-      type: 'module',
-    });
-
-    // Handle messages from the worker
-    worker.onmessage = function (e) {
-      if (e.data.success) {
-        console.log(`✅ Proof of work completed in ${e.data.attempts} attempts`);
-        worker.terminate(); // Clean up the worker
-        resolve({
-          nonce: e.data.nonce,
-          hash: e.data.hash,
-          attempts: e.data.attempts,
-        });
-      } else if (e.data.error) {
-        console.error('❌ Crypto error from worker:', e.data.errorMessage);
-        worker.terminate();
-        reject(new ProofOfWorkError(e.data.errorMessage, 'CRYPTO_ERROR'));
-      } else if (e.data.progress) {
-        // Update UI with progress (optional)
-        console.log(`🔄 Proof of work progress: ${e.data.attempts} attempts`);
-        if (progressCallback) {
-          progressCallback({ attempts: e.data.attempts });
-        }
-      }
-    };
-
-    // Handle worker errors
-    worker.onerror = function (error) {
-      console.error('❌ Worker error:', error);
-      worker.terminate();
-      reject(
-        new ProofOfWorkError('Proof of work computation failed due to worker error', 'WORKER_ERROR')
-      );
-    };
-
-    // Start the computation by sending challenge to worker
-    worker.postMessage({
-      challengeData: challenge.data,
-      difficulty: challenge.difficulty,
-    });
-
-    console.log('🔄 Proof of work computation started in background');
+  progressCallback?: (progress: ProofOfWorkProgress) => void,
+  workerCallback?: (worker: Worker) => void
+): { cancel: () => void; promise: Promise<ProofOfWorkResult> } {
+  // Create the worker from the external TypeScript file
+  const worker = new Worker(new URL('./proofOfWorkWorker.ts', import.meta.url), {
+    type: 'module',
   });
+
+  return {
+    cancel: () => worker.terminate(),
+    promise: new Promise((resolve, reject) => {
+      console.log('🔄 Creating Web Worker for proof of work computation');
+
+      // Provide worker reference to caller for potential cancellation
+      if (workerCallback) {
+        workerCallback(worker);
+      }
+
+      // Handle messages from the worker
+      worker.onmessage = function (e) {
+        if (e.data.success) {
+          console.log(`✅ Proof of work completed in ${e.data.attempts} attempts`);
+          worker.terminate(); // Clean up the worker
+          resolve({
+            nonce: e.data.nonce,
+            challengeId: challenge.challengeId,
+          });
+        } else if (e.data.error) {
+          console.error('❌ Crypto error from worker:', e.data.errorMessage);
+          worker.terminate();
+          reject(new ProofOfWorkError(e.data.errorMessage, 'CRYPTO_ERROR'));
+        } else if (e.data.progress) {
+          // Update UI with progress (optional)
+          console.log(`🔄 Proof of work progress: ${e.data.attempts} attempts`);
+          if (progressCallback) {
+            progressCallback({ attempts: e.data.attempts });
+          }
+        }
+      };
+
+      // Handle worker errors
+      worker.onerror = function (error) {
+        console.error('❌ Worker error:', error);
+        worker.terminate();
+        reject(
+          new ProofOfWorkError(
+            'Proof of work computation failed due to worker error',
+            'WORKER_ERROR'
+          )
+        );
+      };
+
+      // Start the computation by sending challenge to worker
+      worker.postMessage({
+        challengeData: challenge.data,
+        difficulty: challenge.difficulty,
+      });
+
+      console.log('🔄 Proof of work computation started in background');
+    }),
+  };
 }

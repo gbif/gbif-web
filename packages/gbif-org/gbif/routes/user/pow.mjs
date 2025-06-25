@@ -11,7 +11,7 @@ export function getChallenge(req, res) {
   const challenge = {
     id: crypto.randomUUID(),
     data: crypto.randomBytes(16).toString('hex'),
-    difficulty: 4,
+    difficulty: 5,
     timestamp: Date.now(),
   };
 

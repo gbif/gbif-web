@@ -4,7 +4,7 @@ import country from '@/enums/basic/country.json';
 import { useI18n } from '@/reactRouterPlugins';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { cn } from '@/utils/shadcn';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FaGithub as SocialIconGithub, FaGoogle as SocialIconGoogle } from 'react-icons/fa';
 import { IoMdGlobe } from 'react-icons/io';
 import { MdArrowRight, MdLock, MdMail, MdPerson } from 'react-icons/md';
@@ -20,14 +20,32 @@ import {
   validateUsername,
 } from '../shared/validationUtils';
 import {
-  ProofOfWorkError,
   checkBrowserCryptoSupport,
   getChallenge,
+  ProofOfWorkError,
   solveProofOfWork,
   type ProofOfWorkResult,
 } from './proofOfWork';
 
 export const LoginSkeleton = ArticleSkeleton;
+
+const useSafeState = () => {
+  const isMountedRef = useRef(true);
+
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
+
+  const safeSetState = useCallback((callback) => {
+    if (isMountedRef.current) {
+      callback();
+    }
+  }, []);
+
+  return safeSetState;
+};
 
 const getRegistrationErrorMessage = (error: string) => {
   if (!error) return '';
@@ -334,6 +352,7 @@ export function LoginForm() {
 }
 
 function RegisterForm() {
+  const safeSetState = useSafeState();
   const { formatMessage } = useIntl();
   const navigate = useNavigate();
   const { localizeLink, locale } = useI18n();
@@ -364,10 +383,9 @@ function RegisterForm() {
 
   // Proof of work state
   const [powState, setPowState] = useState<{
-    status: 'idle' | 'fetching' | 'solving' | 'ready' | 'error';
-    progress?: number;
-    result?: ProofOfWorkResult;
-    promise?: Promise<void>;
+    status: 'idle' | 'solving' | 'ready' | 'error';
+    cancel?: () => void;
+    promise?: Promise<ProofOfWorkResult>;
   }>({
     status: 'idle',
   });
@@ -381,91 +399,67 @@ function RegisterForm() {
 
   // Start proof of work challenge when component mounts or when retrying
   useEffect(() => {
-    // only start if not already in progress and not already solved
-    if (powState.status !== 'idle' && powState.status !== 'error') return;
-    if (powState.result && powState.status !== 'error') return;
-
-    const startProofOfWork = async () => {
-      let resolvePromise!: () => void;
-      const promise = new Promise<void>((resolve) => {
-        resolvePromise = resolve;
+    const cryptoSupport = checkBrowserCryptoSupport();
+    if (!cryptoSupport.supported) {
+      console.error('Crypto not supported:', cryptoSupport.errorMessage);
+      setError('CRYPTO_NOT_SUPPORTED');
+      setPowState({
+        status: 'error',
+        cancel: undefined,
+        promise: undefined,
       });
+      return;
+    }
 
-      try {
-        // First check if crypto is supported
-        const cryptoSupport = checkBrowserCryptoSupport();
-        if (!cryptoSupport.supported) {
-          console.error('Crypto not supported:', cryptoSupport.errorMessage);
-          setError('CRYPTO_NOT_SUPPORTED');
-          setPowState((prev) => ({
-            ...prev,
-            status: 'error',
+    if (powState.status === 'idle') {
+      setPowState({
+        status: 'solving',
+        cancel: undefined, // Clear old cancel function
+        promise: undefined, // Clear old promise
+      });
+      getChallenge()
+        .then((challenge) => {
+          console.log('Starting proof of work with challenge:', challenge);
+          const { cancel, promise } = solveProofOfWork(challenge);
+          setPowState({
+            status: 'solving',
+            cancel,
             promise,
-          }));
-          resolvePromise(); // Resolve so we don't hang
-          return;
-        }
+          });
+        })
+        .catch((error) => {
+          console.error('Failed to fetch challenge:', error);
 
-        setPowState((prev) => ({
-          ...prev,
-          status: 'fetching',
-          result: undefined,
-          promise,
-        }));
-
-        const challenge = await getChallenge();
-
-        setPowState((prev) => ({
-          ...prev,
-          status: 'solving',
-          promise,
-        }));
-
-        const solution = await solveProofOfWork(challenge, (progress) => {
-          setPowState((prev) => ({
-            ...prev,
-            progress: progress.attempts,
-            promise,
-          }));
-        });
-
-        console.log('Proof of work solution:', solution);
-        setPowState((prev) => ({
-          ...prev,
-          status: 'ready',
-          result: {
-            challengeId: challenge.challengeId,
-            nonce: solution.nonce,
-          },
-          promise,
-        }));
-        resolvePromise(); // Resolve when ready
-      } catch (error) {
-        console.error('Proof of work failed:', error);
-
-        if (error instanceof ProofOfWorkError) {
-          if (error.code === 'CRYPTO_NOT_SUPPORTED') {
-            setError('CRYPTO_NOT_SUPPORTED');
-          } else if (error.code === 'CRYPTO_ERROR') {
-            setError('CRYPTO_ERROR');
+          if (error instanceof ProofOfWorkError) {
+            if (error.code === 'CRYPTO_NOT_SUPPORTED') {
+              setError('CRYPTO_NOT_SUPPORTED');
+            } else if (error.code === 'CRYPTO_ERROR') {
+              setError('CRYPTO_ERROR');
+            } else {
+              setError('UNABLE_TO_SOLVE_PROOF_OF_WORK');
+            }
           } else {
             setError('UNABLE_TO_SOLVE_PROOF_OF_WORK');
           }
-        } else {
-          setError('UNABLE_TO_SOLVE_PROOF_OF_WORK');
-        }
 
-        setPowState((prev) => ({
-          ...prev,
-          status: 'error',
-          promise,
-        }));
-        resolvePromise(); // Also resolve on error so we don't hang
+          setError('PROOF_OF_WORK_NOT_READY');
+          setPowState({
+            status: 'error',
+            promise: undefined,
+            cancel: undefined,
+          });
+        });
+    }
+
+    // Cleanup function to cancel proof of work when component unmounts
+    return () => {
+      console.log('clean up action called');
+      if (powState.cancel) {
+        console.log('Cancelling proof of work due to component cleanup');
+        powState.cancel();
       }
     };
-
-    startProofOfWork();
-  }, [powState.result, powState.status]);
+  }, [powState.status, powState]);
 
   const handleBlur = (field: keyof typeof touched) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
@@ -483,13 +477,7 @@ function RegisterForm() {
 
     const attemptRegistration = async (): Promise<void> => {
       // Wait for proof of work to complete if it's still processing
-      if (powState.status === 'solving' || powState.status === 'fetching') {
-        console.log('Waiting for proof of work to complete...');
-        if (powState.promise) {
-          await powState.promise;
-        }
-        console.log('Proof of work completed with status:', powState.status);
-      }
+      const solution = powState.promise ? await powState.promise : undefined;
 
       // If crypto is not supported, don't retry
       if (
@@ -501,7 +489,7 @@ function RegisterForm() {
         return;
       }
 
-      if (!powState.result) {
+      if (!solution) {
         setError('PROOF_OF_WORK_FAILED');
         setIsLoading(false);
         return;
@@ -516,8 +504,8 @@ function RegisterForm() {
               locale: locale.code,
             },
           },
-          challengeId: powState.result.challengeId,
-          nonce: powState.result.nonce,
+          challengeId: solution.challengeId,
+          nonce: solution.nonce,
         };
 
         await register(registrationData);
@@ -534,7 +522,7 @@ function RegisterForm() {
         if (isServerValidationFailure) {
           console.log(`Server validation failed, retrying...`);
 
-          // Increment retry count and restart proof of work
+          // restart proof of work using useeffect
           setPowState((prev) => ({
             ...prev,
             status: 'idle',
@@ -567,7 +555,7 @@ function RegisterForm() {
       />
 
       {/* Show verification message only when form is submitted and waiting for proof-of-work */}
-      {isLoading && (powState.status === 'fetching' || powState.status === 'solving') && (
+      {isLoading && powState.status === 'solving' && (
         <div className="g-rounded-md g-bg-blue-50 g-p-4">
           <div className="g-flex">
             <div className="g-flex-shrink-0">

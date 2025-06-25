@@ -98,7 +98,7 @@ self.onmessage = async function (e: MessageEvent<WorkerMessage>) {
       attempts++; // Track attempts for progress reporting
 
       // Report progress every 1000 attempts so user knows it's working
-      if (attempts % 1000 === 0) {
+      if (attempts % 10000 === 0) {
         self.postMessage({
           progress: true,
           attempts: attempts,
