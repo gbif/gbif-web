@@ -466,9 +466,12 @@ function RegisterForm() {
         // Send registration data with proof-of-work directly to backend for validation
         const registrationData = {
           user: {
-            ...values,
+            email: values.email,
+            username: values.username,
+            password: values.password,
             settings: {
               locale: locale.code,
+              country: values.country,
             },
           },
           challengeId: solution.challengeId,

@@ -1,21 +1,15 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { JazzIcon } from '@/components/JazzIcon/index';
+import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useUser } from '@/contexts/UserContext';
 import country from '@/enums/basic/country.json';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
-import {
-  LuDatabase as Database,
-  LuDownload as Download,
-  LuFileCheck as FileCheck,
-  LuLogOut as LogOut,
-  LuUser as User,
-} from 'react-icons/lu';
+import { LuLogOut as LogOut } from 'react-icons/lu';
 import { useIntl } from 'react-intl';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
@@ -43,26 +37,41 @@ export function UserProfileLayout() {
     }));
   }, [formatMessage]);
 
-  // Determine active tab from route
-  const getActiveTab = () => {
-    if (location.pathname.includes('/downloads')) return 'downloads';
-    if (location.pathname.includes('/derived-datasets')) return 'derived-datasets';
-    if (location.pathname.includes('/validation-reports')) return 'validation-reports';
-    return 'profile';
-  };
-
-  const [activeTab, setActiveTab] = useState<
-    'profile' | 'downloads' | 'derived-datasets' | 'validation-reports'
-  >(getActiveTab());
-
-  // Use real user data or fallback
-  const userInfo = {
-    firstName: user?.firstName || 'John',
-    lastName: user?.lastName || 'Doe',
-    email: user?.email || 'john.doe@example.com',
-    country: user?.settings?.country || '',
-    language: user?.settings?.locale || 'en',
-  };
+  // Tab links similar to publisher page
+  const tabs = [
+    {
+      to: 'profile',
+      children: (
+        <>
+          <span>Profile</span>
+        </>
+      ),
+    },
+    {
+      to: 'download',
+      children: (
+        <>
+          <span>Downloads</span>
+        </>
+      ),
+    },
+    {
+      to: 'derived-datasets',
+      children: (
+        <>
+          <span>Derived Datasets</span>
+        </>
+      ),
+    },
+    {
+      to: 'validations',
+      children: (
+        <>
+          <span>Validation Reports</span>
+        </>
+      ),
+    },
+  ];
 
   const logoutHandler = async () => {
     try {
@@ -71,19 +80,6 @@ export function UserProfileLayout() {
     } catch (err) {
       console.log(err);
       alert('Failed to logout');
-    }
-  };
-
-  const handleTabChange = (value: string) => {
-    setActiveTab(value as 'profile' | 'downloads' | 'derived-datasets' | 'validation-reports');
-    if (value === 'downloads') {
-      navigate('/user/download');
-    } else if (value === 'derived-datasets') {
-      navigate('/user/derived-datasets');
-    } else if (value === 'validation-reports') {
-      navigate('/user/validation-reports');
-    } else {
-      navigate('/user/profile');
     }
   };
 
@@ -101,92 +97,59 @@ export function UserProfileLayout() {
           <ArticleTextContainer className="g-max-w-screen-xl">
             <div className="g-min-h-screen g-bg-gray-50">
               <div className="g-max-w-4xl g-mx-auto g-px-4 g-py-8">
-                {/* Header */}
-                <div className="g-bg-white g-rounded-lg g-shadow-sm g-p-6 g-mb-6">
-                  <div className="g-flex g-items-center g-justify-between">
-                    <div className="g-flex g-items-center g-space-x-4">
-                      <div className="g-relative">
-                        {user?.photo ? (
-                          <img
-                            src={user.photo}
-                            alt={`${userInfo.firstName} ${userInfo.lastName}`}
-                            className="g-w-20 g-h-20 g-object-cover g-rounded-lg"
-                          />
-                        ) : (
-                          <JazzIcon
-                            seed={user?.userName || 'user'}
-                            className="g-w-20 g-h-20 g-overflow-hidden g-rounded-lg"
-                          />
-                        )}
+                {/* Header with integrated tabs */}
+                <div className="g-bg-white g-rounded-lg g-shadow-sm g-mb-6">
+                  <div className="g-p-6">
+                    <div className="g-flex g-items-center g-justify-between">
+                      <div className="g-flex g-items-center g-space-x-4">
+                        <div className="g-relative">
+                          {user?.photo ? (
+                            <img
+                              src={user.photo}
+                              alt={`${user.firstName} ${user.lastName}`}
+                              className="g-w-20 g-h-20 g-object-cover g-rounded-lg"
+                            />
+                          ) : (
+                            <JazzIcon
+                              seed={user?.userName || user.email}
+                              className="g-w-20 g-h-20 g-overflow-hidden g-rounded-lg g-block"
+                            />
+                          )}
+                        </div>
+                        <div className="g-flex-1">
+                          <h1 className="g-text-2xl g-font-bold g-text-gray-900 g-mb-1">
+                            {user.firstName && (
+                              <>
+                                {user.firstName} {user.lastName}
+                              </>
+                            )}
+                            {!user.firstName && <>{user.userName}</>}
+                          </h1>
+                          <p className="g-text-sm g-text-gray-600 g-mb-2">{user.email}</p>
+                          {/* <p className="g-text-sm g-text-gray-700 g-leading-relaxed">
+                            {user.bio}
+                          </p> */}
+                        </div>
                       </div>
-                      <div className="g-flex-1">
-                        <h1 className="g-text-2xl g-font-bold g-text-gray-900 g-mb-1">
-                          {userInfo.firstName} {userInfo.lastName}
-                        </h1>
-                        <p className="g-text-sm g-text-gray-600 g-mb-2">{userInfo.email}</p>
-                        <p className="g-text-sm g-text-gray-700 g-leading-relaxed">{userInfo.bio}</p>
+                      <div>
+                        <Button
+                          variant="outline"
+                          onClick={logoutHandler}
+                          className="g-flex g-items-center g-space-x-2"
+                        >
+                          <LogOut className="g-w-4 g-h-4" />
+                          <span>Logout</span>
+                        </Button>
                       </div>
-                    </div>
-                    <div>
-                      <Button
-                        variant="outline"
-                        onClick={logoutHandler}
-                        className="g-flex g-items-center g-space-x-2"
-                      >
-                        <LogOut className="g-w-4 g-h-4" />
-                        <span>Logout</span>
-                      </Button>
                     </div>
                   </div>
+
+                  {/* Navigation Tabs integrated at bottom of card */}
+                  <div className="g-border-t">
+                    <Tabs links={tabs} />
+                  </div>
                 </div>
-
-                {/* Navigation Tabs */}
-                <Tabs value={activeTab} onValueChange={handleTabChange} className="g-mb-6">
-                  <TabsList className="g-bg-transparent">
-                    <TabsTrigger value="profile" className="g-flex g-items-center g-space-x-2">
-                      <User className="g-w-4 g-h-4" />
-                      <span>Profile Information</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="downloads" className="g-flex g-items-center g-space-x-2">
-                      <Download className="g-w-4 g-h-4" />
-                      <span>My Downloads</span>
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="derived-datasets"
-                      className="g-flex g-items-center g-space-x-2"
-                    >
-                      <Database className="g-w-4 g-h-4" />
-                      <span>Derived Datasets</span>
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="validation-reports"
-                      className="g-flex g-items-center g-space-x-2"
-                    >
-                      <FileCheck className="g-w-4 g-h-4" />
-                      <span>Validation Reports</span>
-                    </TabsTrigger>
-                  </TabsList>
-
-                  {/* Profile Tab Content */}
-                  <TabsContent value="profile">
-                    <Outlet />
-                  </TabsContent>
-
-                  {/* Downloads Tab Content */}
-                  <TabsContent value="downloads">
-                    <Outlet />
-                  </TabsContent>
-
-                  {/* Derived Datasets Tab Content */}
-                  <TabsContent value="derived-datasets">
-                    <Outlet />
-                  </TabsContent>
-
-                  {/* Validation Reports Tab Content */}
-                  <TabsContent value="validation-reports">
-                    <Outlet />
-                  </TabsContent>
-                </Tabs>
+                <Outlet />
               </div>
             </div>
           </ArticleTextContainer>

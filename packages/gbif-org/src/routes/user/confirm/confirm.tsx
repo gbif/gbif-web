@@ -2,9 +2,9 @@ import { useUser } from '@/contexts/UserContext';
 import { useI18n } from '@/reactRouterPlugins';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
 import { useEffect, useState } from 'react';
-import { MdCheck, MdError } from 'react-icons/md';
+import { MdCheck } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
-import { Link, useNavigate, useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
+import { Link, LoaderFunctionArgs, useLoaderData, useNavigate } from 'react-router-dom';
 import { ErrorMessage, FormButton } from '../shared/FormComponents';
 import { PageTitle } from '../shared/PageHeader';
 import { UserPageLayout } from '../shared/UserPageLayout';
@@ -19,12 +19,12 @@ export async function confirmLoader({ request }: LoaderFunctionArgs): Promise<Co
   const url = new URL(request.url);
   const challengeCode = url.searchParams.get('code');
   const userName = url.searchParams.get('username');
-  
+
   let error: string | null = null;
   if (!challengeCode || !userName) {
     error = 'MISSING_PARAMETERS';
   }
-  
+
   return {
     challengeCode,
     userName,
@@ -143,9 +143,6 @@ export function ConfirmForm() {
         <ErrorMessage errorMessageId={getErrorMessage(error)} />
 
         <div className="g-text-center g-space-y-4">
-          <p className="g-text-sm g-text-gray-500">
-            <FormattedMessage id="profile.pleaseFillForm" />
-          </p>
           <div className="g-space-x-4">
             <Link
               to={localizeLink('/user/register')}
@@ -168,18 +165,9 @@ export function ConfirmForm() {
   return (
     <>
       <PageTitle
-        title={<FormattedMessage id="profile.emailVerification" />}
-        subtitle={<FormattedMessage id="profile.verifyAccount" />}
+        title={<FormattedMessage id="profile.verifyAccount" />}
+        subtitle={<FormattedMessage id="profile.emailVerification" />}
       />
-
-      <div className="g-bg-blue-50 g-border g-border-blue-200 g-rounded-md g-p-4">
-        <p className="g-text-sm g-text-blue-700">
-          <strong><FormattedMessage id="profile.username" />:</strong> {userName}
-        </p>
-        <p className="g-text-sm g-text-blue-700 g-mt-1">
-          <FormattedMessage id="profile.emailVerification" />
-        </p>
-      </div>
 
       <FormButton
         type="button"
@@ -188,7 +176,11 @@ export function ConfirmForm() {
         disabled={isLoading || !challengeCode || !userName}
         onClick={handleConfirm}
       >
-        {isLoading ? <FormattedMessage id="profile.verifyAccount" /> : <FormattedMessage id="profile.verifyAccount" />}
+        {isLoading ? (
+          <FormattedMessage id="profile.verifyAccount" />
+        ) : (
+          <FormattedMessage id="profile.verifyAccount" />
+        )}
       </FormButton>
 
       <p className="g-text-center g-text-sm g-text-gray-500">

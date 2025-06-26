@@ -11,7 +11,6 @@ import {
   LuLink as Link,
   LuLock as Lock,
   LuSave as Save,
-  LuSettings as Settings,
   LuUnlink as Unlink,
   LuUser as User,
 } from 'react-icons/lu';
@@ -72,11 +71,10 @@ const Profile: React.FC = () => {
 
   const [isEditing, setIsEditing] = useState(false);
 
-  // Use real user data or fallback
   const [userInfo, setUserInfo] = useState<UserInfo>({
-    firstName: user?.firstName || 'John',
-    lastName: user?.lastName || 'Doe',
-    email: user?.email || 'john.doe@example.com',
+    firstName: user?.firstName || '',
+    lastName: user?.lastName || '',
+    email: user?.email || '',
     country: user?.settings?.country || '',
     locale:
       user?.settings?.locale &&
@@ -299,7 +297,7 @@ const Profile: React.FC = () => {
     <div className="g-bg-white g-rounded-lg g-shadow-sm g-p-6">
       <div className="g-flex g-justify-between g-items-center g-mb-6">
         <h2 className="g-text-xl g-font-bold g-text-gray-900 g-flex g-items-center g-space-x-2">
-          <Settings className="g-w-5 g-h-5 g-text-primary-600" />
+          {/* <Settings className="g-w-5 g-h-5 g-text-primary-600" /> */}
           <span>Profile Settings</span>
         </h2>
         {!isEditing ? (
@@ -442,10 +440,10 @@ const Profile: React.FC = () => {
       </form>
 
       {/* Connected Accounts Section */}
-      <div className="g-mt-8 g-pt-6 g-border-t g-border-gray-200">
+      <div className="g-mt-12 g-pt-6 g-border-gray-200">
         <div className="g-mb-6">
           <h3 className="g-text-lg g-font-bold g-text-gray-900 g-flex g-items-center g-space-x-2 g-mb-4">
-            <Link className="g-w-5 g-h-5 g-text-primary-600" />
+            {/* <Link className="g-w-5 g-h-5 g-text-primary-600" /> */}
             <span>Connected Accounts</span>
           </h3>
           <p className="g-text-sm g-text-gray-600">
@@ -457,8 +455,8 @@ const Profile: React.FC = () => {
           {/* Google Connection */}
           <div className="g-flex g-items-center g-justify-between g-p-4 g-border g-border-gray-200 g-rounded-lg">
             <div className="g-flex g-items-center g-space-x-3">
-              <div className="g-w-10 g-h-10 g-bg-red-50 g-rounded-lg g-flex g-items-center g-justify-center">
-                <SocialIconGoogle className="g-w-5 g-h-5 g-text-red-600" />
+              <div className="g-w-10 g-h-10 g-bg-gray-50 g-rounded-lg g-flex g-items-center g-justify-center">
+                <SocialIconGoogle className="g-w-5 g-h-5 g-text-gray-700" />
               </div>
               <div>
                 <h4 className="g-font-medium g-text-gray-900">Google</h4>
@@ -550,8 +548,8 @@ const Profile: React.FC = () => {
           {/* ORCID Connection */}
           <div className="g-flex g-items-center g-justify-between g-p-4 g-border g-border-gray-200 g-rounded-lg">
             <div className="g-flex g-items-center g-space-x-3">
-              <div className="g-w-10 g-h-10 g-bg-green-50 g-rounded-lg g-flex g-items-center g-justify-center">
-                <SocialIconOrcid className="g-w-5 g-h-5 g-text-green-600" />
+              <div className="g-w-10 g-h-10 g-bg-gray-50 g-rounded-lg g-flex g-items-center g-justify-center">
+                <SocialIconOrcid className="g-w-5 g-h-5 g-text-gray-700" />
               </div>
               <div>
                 <h4 className="g-font-medium g-text-gray-900">ORCID</h4>
@@ -596,10 +594,10 @@ const Profile: React.FC = () => {
       </div>
 
       {/* Password Change Section */}
-      <div className="g-mt-8 g-pt-6 g-border-t g-border-gray-200">
+      <div className="g-mt-12 g-pt-6 g-border-gray-200">
         <div className="g-mb-6">
           <h3 className="g-text-lg g-font-bold g-text-gray-900 g-flex g-items-center g-space-x-2 g-mb-4">
-            <Lock className="g-w-5 g-h-5 g-text-primary-600" />
+            {/* <Lock className="g-w-5 g-h-5 g-text-primary-600" /> */}
             <span>Change Password</span>
           </h3>
           <p className="g-text-sm g-text-gray-600">

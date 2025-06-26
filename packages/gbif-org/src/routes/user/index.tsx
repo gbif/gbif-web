@@ -74,6 +74,10 @@ export const userRoutes: RouteObjectWithPlugins[] = [
         element: <span>downloads</span>,
       },
       {
+        path: 'derived-datasets',
+        element: <span>derived datasets</span>,
+      },
+      {
         path: 'validations',
         element: <span>validations</span>,
       },

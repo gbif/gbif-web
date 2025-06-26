@@ -125,9 +125,13 @@ export function create(req, res) {
     password: req.body.user.password,
     settings: {
       country: req.body.user.settings.country,
-      locale: req.body.user.settings.locale,
+      locale: req.body.user.settings.locale ?? 'en',
     },
   };
+  if (!user.userName || !user.email || !user.password || !user.settings.country) {
+    res.status(400);
+    return res.json({ error: 'username, email and password and country are required' });
+  }
   createUser(user)
     .then(function () {
       res.status(201);

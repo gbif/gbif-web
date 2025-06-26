@@ -38,7 +38,7 @@ export function getJazzicon(seed, diameter, className) {
     return `<rect x="0" y="0" width="${diameter}" height="${diameter}" transform="${transform}" fill="${fill}"></rect>`;
   }
 
-  var jazzicon = `<div class="${className}" style="overflow: hidden;display: inline-block;background: ${genColor(
+  var jazzicon = `<div class="${className}" style="overflow: hidden; background: ${genColor(
     colors,
     random
   )};">
