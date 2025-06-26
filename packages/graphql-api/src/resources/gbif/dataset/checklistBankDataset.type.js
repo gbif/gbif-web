@@ -19,7 +19,6 @@ const typeDef = gql`
     origin: String
     attempt: Int
     imported: DateTime
-    gbifKey: ID
     gbifPublisherKey: ID
     size: Int
     """

@@ -248,7 +248,7 @@ export default {
         .then((metadata) => {
           return dataSources.datasetAPI
             .getClbVernacularNamesByTaxonKey({
-              checklistKey: metadata.mainIndex.datasetKey,
+              checklistKey: metadata.mainIndex.clbDatasetKey,
               taxonKey: usage.key,
               query: { lang },
             })
