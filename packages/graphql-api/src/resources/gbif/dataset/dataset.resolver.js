@@ -31,9 +31,9 @@ export const Query = {
         checklistKey,
       })
       .then((response) => {
-        const datasetKey = response?.mainIndex.datasetKey;
+        const clbDatasetKey = response?.mainIndex.clbDatasetKey;
         return dataSources.datasetAPI.getClbNameUsageSuggestions({
-          checklistKey: datasetKey,
+          checklistKey: clbDatasetKey,
           q,
           limit,
         });

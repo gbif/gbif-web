@@ -478,7 +478,7 @@ const typeDef = gql`
   }
 
   type ChecklistMetaMainIndex {
-    datasetKey: ID!
+    clbDatasetKey: ID!
     datasetTitle: String!
   }
 
