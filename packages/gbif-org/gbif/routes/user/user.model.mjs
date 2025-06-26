@@ -381,7 +381,7 @@ export async function changePassword(auth, newPassword) {
         throw new Error('Unauthorized, wrong password');
       }
       if (response.status !== 204) {
-        throw new Error('Failed to change password, status: ' + response.status);
+        throw new Error('Failed to change password');
       }
       return; // 204 No Content response has no body
     })

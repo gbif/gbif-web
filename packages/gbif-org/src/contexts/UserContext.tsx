@@ -78,7 +78,8 @@ export type UserErrorType =
   | 'REGISTRATION_FAILED'
   | 'UNABLE_TO_LOGOUT'
   | 'INVALID_REQUEST'
-  | 'INVALID_SOLUTION';
+  | 'INVALID_SOLUTION'
+  | 'INVALID_PASSWORD';
 export class UserError extends Error {
   type: UserErrorType;
   constructor(type: UserErrorType, message?: string) {
@@ -292,7 +293,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 
       if (!response.ok) {
         if (response.status === 401) {
-          throw new UserError('INVALID_REQUEST', 'Current password is incorrect');
+          throw new UserError('INVALID_PASSWORD', 'Current password is incorrect');
         } else {
           throw new UserError('UNKNOWN_ERROR', 'Password change failed');
         }

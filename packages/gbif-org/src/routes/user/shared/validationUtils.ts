@@ -8,7 +8,10 @@ export interface TouchedFields {
   [key: string]: boolean;
 }
 
-export const validateUsername = (username: string, formatMessage: IntlShape['formatMessage']): string | false => {
+export const validateUsername = (
+  username: string,
+  formatMessage: IntlShape['formatMessage']
+): string | false => {
   if (!username) {
     return formatMessage({ id: 'profile.usernameRequired' });
   }
@@ -18,7 +21,10 @@ export const validateUsername = (username: string, formatMessage: IntlShape['for
   return false;
 };
 
-export const validateEmail = (email: string, formatMessage: IntlShape['formatMessage']): string | false => {
+export const validateEmail = (
+  email: string,
+  formatMessage: IntlShape['formatMessage']
+): string | false => {
   if (!email) {
     return formatMessage({ id: 'profile.emailRequired' });
   }
@@ -29,7 +35,10 @@ export const validateEmail = (email: string, formatMessage: IntlShape['formatMes
   return false;
 };
 
-export const validatePassword = (password: string, formatMessage: IntlShape['formatMessage']): string | false => {
+export const validatePassword = (
+  password: string,
+  formatMessage: IntlShape['formatMessage']
+): string | false => {
   if (!password) {
     return formatMessage({ id: 'profile.passwordRequired' });
   }
@@ -56,14 +65,22 @@ export const validatePasswordConfirmation = (
   return false;
 };
 
-export const validateRequired = (value: string, fieldName: string, formatMessage: IntlShape['formatMessage']): string | false => {
+export const validateRequired = (
+  value: string,
+  fieldName: string,
+  formatMessage: IntlShape['formatMessage']
+): string | false => {
   if (!value) {
     return formatMessage({ id: `profile.${fieldName}Required` });
   }
   return false;
 };
 
-export const validateName = (name: string, fieldName: string, formatMessage: IntlShape['formatMessage']): string | false => {
+export const validateName = (
+  name: string,
+  fieldName: string,
+  formatMessage: IntlShape['formatMessage']
+): string | false => {
   if (!name) {
     return formatMessage({ id: `profile.${fieldName}Required` });
   }
@@ -77,7 +94,7 @@ export const validateName = (name: string, fieldName: string, formatMessage: Int
 };
 
 export const hasFormErrors = (errors: ValidationErrors): boolean => {
-  return Object.values(errors).some(error => error);
+  return Object.values(errors).some((error) => error);
 };
 
 export const getErrorMessage = (error: string): string => {
@@ -93,6 +110,8 @@ export const getErrorMessage = (error: string): string => {
       return 'profile.error.VALIDATION_ERROR';
     case 'SERVER_ERROR':
       return 'profile.error.FAILED';
+    case 'INVALID_CURRENT_PASSWORD':
+      return 'profile.error.INVALID_CURRENT_PASSWORD';
     default:
       return 'profile.error.FAILED';
   }

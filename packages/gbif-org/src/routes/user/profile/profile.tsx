@@ -8,10 +8,8 @@ import {
 } from 'react-icons/fa';
 import {
   LuCheckCircle as CheckCircle,
-  LuLink as Link,
   LuLock as Lock,
   LuSave as Save,
-  LuUnlink as Unlink,
   LuUser as User,
 } from 'react-icons/lu';
 import { MdEdit, MdLanguage, MdLocationOn, MdMail } from 'react-icons/md';
@@ -20,6 +18,9 @@ import { Button } from '@/components/ui/button';
 import { useI18n } from '@/reactRouterPlugins';
 import { useIntl } from 'react-intl';
 import { ErrorMessage, FormButton, FormInput, FormSelect } from '../shared/FormComponents';
+import { GoogleAccountItem } from './GoogleAccountItem';
+import { GitHubAccountItem } from './GitHubAccountItem';
+import { OrcidAccountItem } from './OrcidAccountItem';
 import {
   getErrorMessage,
   hasFormErrors,
@@ -116,6 +117,7 @@ const Profile: React.FC = () => {
   const [passwordError, setPasswordError] = useState('');
   const [isProfileLoading, setIsProfileLoading] = useState(false);
   const [isPasswordLoading, setIsPasswordLoading] = useState(false);
+  const [passwordUpdateSuccess, setPasswordUpdateSuccess] = useState(false);
 
   // Validation logic
   const profileErrors: ValidationErrors = {
@@ -240,10 +242,10 @@ const Profile: React.FC = () => {
         confirmPassword: false,
       });
 
-      // Show success message (you could use a toast notification here)
-      console.log('Password updated successfully!');
+      // Show success notification
+      setPasswordUpdateSuccess(true);
     } catch (error) {
-      if (error instanceof UserError && error.type === 'INVALID_REQUEST') {
+      if (error instanceof UserError && error.type === 'INVALID_PASSWORD') {
         setPasswordError('INVALID_CURRENT_PASSWORD');
       } else {
         setPasswordError('PASSWORD_UPDATE_FAILED');
@@ -253,16 +255,12 @@ const Profile: React.FC = () => {
     }
   };
 
-  const handlePasswordCancel = () => {
-    setPasswordInfo({
-      currentPassword: '',
-      newPassword: '',
-      confirmPassword: '',
-    });
-  };
-
   const handlePasswordChange = (field: keyof PasswordInfo, value: string) => {
     setPasswordInfo((prev) => ({ ...prev, [field]: value }));
+    // Clear success notification when user starts typing
+    if (passwordUpdateSuccess) {
+      setPasswordUpdateSuccess(false);
+    }
   };
 
   const handleConnectAccount = (provider: 'google' | 'github' | 'orcid') => {
@@ -452,144 +450,28 @@ const Profile: React.FC = () => {
         </div>
 
         <div className="g-space-y-4">
-          {/* Google Connection */}
-          <div className="g-flex g-items-center g-justify-between g-p-4 g-border g-border-gray-200 g-rounded-lg">
-            <div className="g-flex g-items-center g-space-x-3">
-              <div className="g-w-10 g-h-10 g-bg-gray-50 g-rounded-lg g-flex g-items-center g-justify-center">
-                <SocialIconGoogle className="g-w-5 g-h-5 g-text-gray-700" />
-              </div>
-              <div>
-                <h4 className="g-font-medium g-text-gray-900">Google</h4>
-                <p className="g-text-sm g-text-gray-500">
-                  {user?.connectedAcounts?.google
-                    ? 'Connected to your Google account'
-                    : 'Connect your Google account for easy sign-in'}
-                </p>
-              </div>
-            </div>
-            <div>
-              {user?.connectedAcounts?.google ? (
-                <div className="g-flex g-items-center g-space-x-2">
-                  <span className="g-inline-flex g-items-center g-px-2 g-py-1 g-rounded-full g-text-xs g-font-medium g-bg-green-100 g-text-green-800">
-                    <CheckCircle className="g-w-3 g-h-3 g-mr-1" />
-                    Connected
-                  </span>
-                  {isEditing && (
-                    <Button
-                      variant="linkDestructive"
-                      size="sm"
-                      onClick={() => handleDisconnectAccount('google')}
-                      className="g-flex g-items-center g-space-x-1"
-                    >
-                      <Unlink className="g-w-4 g-h-4" />
-                      <span>Disconnect</span>
-                    </Button>
-                  )}
-                </div>
-              ) : (
-                <Button
-                  variant="default"
-                  onClick={() => handleConnectAccount('google')}
-                  className="g-flex g-items-center g-space-x-2"
-                >
-                  <Link className="g-w-4 g-h-4" />
-                  <span>Connect</span>
-                </Button>
-              )}
-            </div>
-          </div>
+          <GoogleAccountItem
+            isConnected={!!user?.connectedAcounts?.google}
+            onConnect={() => handleConnectAccount('google')}
+            onDisconnect={() => handleDisconnectAccount('google')}
+            isEditing={isEditing}
+          />
 
-          {/* GitHub Connection */}
-          <div className="g-flex g-items-center g-justify-between g-p-4 g-border g-border-gray-200 g-rounded-lg">
-            <div className="g-flex g-items-center g-space-x-3">
-              <div className="g-w-10 g-h-10 g-bg-gray-50 g-rounded-lg g-flex g-items-center g-justify-center">
-                <SocialIconGithub className="g-w-5 g-h-5 g-text-gray-700" />
-              </div>
-              <div>
-                <h4 className="g-font-medium g-text-gray-900">GitHub</h4>
-                <p className="g-text-sm g-text-gray-500">
-                  {user?.connectedAcounts?.github
-                    ? `Connected to ${user?.githubUserName || 'your GitHub account'}`
-                    : 'Connect your GitHub account for easy sign-in'}
-                </p>
-              </div>
-            </div>
-            <div>
-              {user?.connectedAcounts?.github ? (
-                <div className="g-flex g-items-center g-space-x-2">
-                  <span className="g-inline-flex g-items-center g-px-2 g-py-1 g-rounded-full g-text-xs g-font-medium g-bg-green-100 g-text-green-800">
-                    <CheckCircle className="g-w-3 g-h-3 g-mr-1" />
-                    Connected
-                  </span>
-                  {isEditing && (
-                    <Button
-                      variant="linkDestructive"
-                      size="sm"
-                      onClick={() => handleDisconnectAccount('github')}
-                      className="g-flex g-items-center g-space-x-1"
-                    >
-                      <Unlink className="g-w-4 g-h-4" />
-                      <span>Disconnect</span>
-                    </Button>
-                  )}
-                </div>
-              ) : (
-                <Button
-                  onClick={() => handleConnectAccount('github')}
-                  className="g-bg-gray-800 g-text-white hover:g-bg-gray-900 g-flex g-items-center g-space-x-2"
-                >
-                  <Link className="g-w-4 g-h-4" />
-                  <span>Connect</span>
-                </Button>
-              )}
-            </div>
-          </div>
+          <GitHubAccountItem
+            isConnected={!!user?.connectedAcounts?.github}
+            githubUserName={user?.githubUserName}
+            onConnect={() => handleConnectAccount('github')}
+            onDisconnect={() => handleDisconnectAccount('github')}
+            isEditing={isEditing}
+          />
 
-          {/* ORCID Connection */}
-          <div className="g-flex g-items-center g-justify-between g-p-4 g-border g-border-gray-200 g-rounded-lg">
-            <div className="g-flex g-items-center g-space-x-3">
-              <div className="g-w-10 g-h-10 g-bg-gray-50 g-rounded-lg g-flex g-items-center g-justify-center">
-                <SocialIconOrcid className="g-w-5 g-h-5 g-text-gray-700" />
-              </div>
-              <div>
-                <h4 className="g-font-medium g-text-gray-900">ORCID</h4>
-                <p className="g-text-sm g-text-gray-500">
-                  {user?.connectedAcounts?.orcid
-                    ? `Connected to ORCID ${user?.orcid || ''}`
-                    : 'Connect your ORCID for research identification'}
-                </p>
-              </div>
-            </div>
-            <div>
-              {user?.connectedAcounts?.orcid ? (
-                <div className="g-flex g-items-center g-space-x-2">
-                  <span className="g-inline-flex g-items-center g-px-2 g-py-1 g-rounded-full g-text-xs g-font-medium g-bg-green-100 g-text-green-800">
-                    <CheckCircle className="g-w-3 g-h-3 g-mr-1" />
-                    Connected
-                  </span>
-                  {isEditing && (
-                    <Button
-                      variant="linkDestructive"
-                      size="sm"
-                      onClick={() => handleDisconnectAccount('orcid')}
-                      className="g-flex g-items-center g-space-x-1"
-                    >
-                      <Unlink className="g-w-4 g-h-4" />
-                      <span>Disconnect</span>
-                    </Button>
-                  )}
-                </div>
-              ) : (
-                <Button
-                  onClick={() => handleConnectAccount('orcid')}
-                  className="g-bg-green-600 g-text-white hover:g-bg-green-700 g-flex g-items-center g-space-x-2"
-                >
-                  <Link className="g-w-4 g-h-4" />
-                  <span>Connect</span>
-                </Button>
-              )}
-            </div>
-          </div>
+          <OrcidAccountItem
+            isConnected={!!user?.connectedAcounts?.orcid}
+            orcidId={user?.orcid}
+            onConnect={() => handleConnectAccount('orcid')}
+            onDisconnect={() => handleDisconnectAccount('orcid')}
+            isEditing={isEditing}
+          />
         </div>
       </div>
 
@@ -606,7 +488,14 @@ const Profile: React.FC = () => {
           </p>
         </div>
 
-        <ErrorMessage errorMessageId={getErrorMessage(passwordError)} />
+        <ErrorMessage errorMessageId={getErrorMessage(passwordError)} className="g-mb-4" />
+
+        {passwordUpdateSuccess && (
+          <div className="g-flex g-items-center g-p-4 g-mb-4 g-text-green-800 g-border g-border-green-300 g-rounded-lg g-bg-green-50">
+            <CheckCircle className="g-w-5 g-h-5 g-mr-3 g-flex-shrink-0" />
+            <span className="g-text-sm g-font-medium">Password updated successfully!</span>
+          </div>
+        )}
 
         <form
           className="g-space-y-4"
