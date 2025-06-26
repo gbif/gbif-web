@@ -354,6 +354,7 @@ async function login(auth) {
   return await fetchWithRetry(apiConfig.userLogin.url, {
     headers: {
       authorization: auth,
+      contentType: 'application/json',
     },
   })
     .then((response) => {
@@ -365,20 +366,27 @@ async function login(auth) {
 }
 
 export async function changePassword(auth, newPassword) {
-  return fetchWithRetry(apiConfig.userChangePassword.url, {
+  return fetch(apiConfig.userChangePassword.url, {
     method: 'PUT',
     headers: {
       authorization: auth,
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       password: newPassword,
     }),
   })
     .then((response) => {
-      return response.json();
+      if (response.status === 401) {
+        throw new Error('Unauthorized, wrong password');
+      }
+      if (response.status !== 204) {
+        throw new Error('Failed to change password, status: ' + response.status);
+      }
+      return; // 204 No Content response has no body
     })
     .catch((err) => {
-      throw new Error('Failed to change password');
+      throw err;
     });
 }
 

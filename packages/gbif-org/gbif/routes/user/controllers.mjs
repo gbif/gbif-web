@@ -1,5 +1,6 @@
 import { generateToken, removeTokenCookie, setNoCache, setTokenCookie } from '../auth/utils.mjs';
 import {
+  changePassword,
   confirm as confirmUser,
   create as createUser,
   getClientUser,
@@ -89,14 +90,13 @@ export async function updatePasswordFromChallengeCode(req, res) {
 /**
  * Change my password using the existing as authentication
  */
-function updateKnownPassword(req, res) {
-  userModel
-    .changePassword(req.get('authorization'), req.body.password)
+export function updateKnownPassword(req, res) {
+  changePassword(req.get('authorization'), req.body.password)
     .then(function () {
       res.status(204);
       res.json({ type: 'PASSWORD_CHANGED' });
     })
-    .catch(handleError(res, 422));
+    .catch(handleError(res, 401));
 }
 
 /**

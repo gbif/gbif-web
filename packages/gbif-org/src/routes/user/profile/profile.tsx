@@ -48,7 +48,7 @@ interface PasswordInfo {
 }
 
 const Profile: React.FC = () => {
-  const { user, updateProfile } = useUser();
+  const { user, updateProfile, changePassword } = useUser();
   const { formatMessage } = useIntl();
   const intlConfig = useI18n();
   intlConfig.availableLocales[0].code;
@@ -227,11 +227,7 @@ const Profile: React.FC = () => {
     setPasswordError('');
 
     try {
-      // TODO: Implement actual API call to update password
-      // await updateUserPassword(passwordInfo);
-
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await changePassword(passwordInfo.currentPassword, passwordInfo.newPassword);
 
       setPasswordInfo({
         currentPassword: '',
@@ -247,7 +243,11 @@ const Profile: React.FC = () => {
       // Show success message (you could use a toast notification here)
       console.log('Password updated successfully!');
     } catch (error) {
-      setPasswordError('PASSWORD_UPDATE_FAILED');
+      if (error instanceof UserError && error.type === 'INVALID_REQUEST') {
+        setPasswordError('INVALID_CURRENT_PASSWORD');
+      } else {
+        setPasswordError('PASSWORD_UPDATE_FAILED');
+      }
     } finally {
       setIsPasswordLoading(false);
     }

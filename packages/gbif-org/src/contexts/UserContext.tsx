@@ -62,6 +62,7 @@ interface UserContextType {
   register: (data: RegisterData) => Promise<void>;
   updateForgottenPassword: (data: ForgottenPassword) => Promise<void>;
   updateProfile: (data: UpdateProfileData) => Promise<void>;
+  changePassword: (currentPassword: string, newPassword: string) => Promise<void>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
@@ -271,6 +272,41 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const changePassword = async (currentPassword: string, newPassword: string) => {
+    try {
+      if (!user) {
+        throw new UserError('UNKNOWN_USER', 'User not authenticated');
+      }
+
+      // Create basic auth header with current password (following portal16 pattern)
+      const authData = btoa(`${user.userName}:${encodeURIComponent(currentPassword)}`);
+
+      const response = await fetch('/api/user/update-known-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Basic ${authData}`,
+        },
+        body: JSON.stringify({ password: newPassword }),
+      });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          throw new UserError('INVALID_REQUEST', 'Current password is incorrect');
+        } else {
+          throw new UserError('UNKNOWN_ERROR', 'Password change failed');
+        }
+      }
+
+      return;
+    } catch (error) {
+      if (error instanceof UserError) {
+        throw error;
+      }
+      throw new UserError('UNKNOWN_ERROR');
+    }
+  };
+
   const updateProfile = async (data: UpdateProfileData) => {
     try {
       const response = await fetch('/api/user/update-profile', {
@@ -343,6 +379,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     register,
     updateForgottenPassword,
     updateProfile,
+    changePassword,
     logout,
     refreshUser,
     resetPassword,
