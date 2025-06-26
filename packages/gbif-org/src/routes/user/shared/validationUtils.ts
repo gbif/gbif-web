@@ -81,11 +81,9 @@ export const validateName = (
   fieldName: string,
   formatMessage: IntlShape['formatMessage']
 ): string | false => {
+  // Allow empty names (optional field)
   if (!name) {
-    return formatMessage({ id: `profile.${fieldName}Required` });
-  }
-  if (name.length < 1) {
-    return formatMessage({ id: `profile.${fieldName}TooShort` });
+    return false;
   }
   if (name.length > 100) {
     return formatMessage({ id: `profile.${fieldName}TooLong` });
