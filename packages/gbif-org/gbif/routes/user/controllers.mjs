@@ -87,6 +87,19 @@ export async function updatePasswordFromChallengeCode(req, res) {
 }
 
 /**
+ * Change my password using the existing as authentication
+ */
+function updateKnownPassword(req, res) {
+  userModel
+    .changePassword(req.get('authorization'), req.body.password)
+    .then(function () {
+      res.status(204);
+      res.json({ type: 'PASSWORD_CHANGED' });
+    })
+    .catch(handleError(res, 422));
+}
+
+/**
  * Updates the user profile information
  */
 export async function updateProfile(req, res) {

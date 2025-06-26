@@ -364,7 +364,7 @@ async function login(auth) {
     });
 }
 
-async function changePassword(auth, newPassword) {
+export async function changePassword(auth, newPassword) {
   return fetchWithRetry(apiConfig.userChangePassword.url, {
     method: 'PUT',
     headers: {

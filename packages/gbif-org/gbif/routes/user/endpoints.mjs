@@ -9,6 +9,7 @@ import {
   create,
   logout,
   resetPassword,
+  updateKnownPassword,
   updatePasswordFromChallengeCode,
   updateProfile,
   whoAmI,
@@ -31,6 +32,7 @@ export function register(app) {
   app.post('/api/user/reset-password', resetPassword);
   app.post('/api/user/confirm', confirmAccount);
   app.post('/api/user/update-forgotten-password', updatePasswordFromChallengeCode);
+  app.post('/api/user/update-known-password', updateKnownPassword);
   app.put('/api/user/update-profile', appendUser, updateProfile);
   app.put('/api/user/challenge', getChallenge);
   app.put('/api/user/create', requireProofOfWork, create);
