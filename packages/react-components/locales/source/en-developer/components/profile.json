@@ -136,6 +136,21 @@
     "connectedAccountsDescription": "Connect your social accounts to enable quick sign-in and enhanced features.",
     "changePasswordDescription": "Update your password to keep your account secure. Make sure your new password is strong and unique.",
     "selectCountry": "Select your country",
-    "validations": "Validation Reports"
+    "validations": "Validation Reports",
+    "backToLogin": "Back to login",
+    "enterEmail": "Enter your email",
+    "chooseUsername": "Choose a username",
+    "createPassword": "Create a password",
+    "validations": "Validation Reports",
+    "connect": "Connect",
+    "disconnect": "Disconnect",
+    "connectedToGoogle": "Connected to your Google account",
+    "connectGoogleForSignIn": "Connect your Google account for easy sign-in",
+    "connectedToGithub": "Connected to your GitHub account",
+    "connectedToGithubUser": "Connected to {username}",
+    "connectGithubForSignIn": "Connect your GitHub account for easy sign-in. Github is also where we manage our issue reports, so it helps us keep in contact with you.",
+    "connectedToOrcid": "Connected to your ORCID account",
+    "connectedToOrcidId": "Connected to ORCID {orcidId}",
+    "connectOrcidForResearch": "Connect your ORCID for easy login and to link you to records published to GBIF."
   }
 }

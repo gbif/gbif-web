@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaOrcid as SocialIconOrcid } from 'react-icons/fa';
+import { useIntl } from 'react-intl';
 import { ConnectedAccountItem } from './ConnectedAccountItem';
 
 interface OrcidAccountItemProps {
@@ -17,9 +18,11 @@ export const OrcidAccountItem: React.FC<OrcidAccountItemProps> = ({
   onDisconnect,
   isEditing,
 }) => {
+  const { formatMessage } = useIntl();
+
   const connectionText = orcidId
-    ? `Connected to ORCID ${orcidId}`
-    : 'Connected to your ORCID account';
+    ? formatMessage({ id: 'profile.connectedToOrcidId' }, { orcidId })
+    : formatMessage({ id: 'profile.connectedToOrcid' });
 
   return (
     <ConnectedAccountItem
@@ -27,7 +30,7 @@ export const OrcidAccountItem: React.FC<OrcidAccountItemProps> = ({
       icon={SocialIconOrcid}
       isConnected={isConnected}
       connectionText={connectionText}
-      disconnectionText="Connect your ORCID for research identification"
+      disconnectionText={formatMessage({ id: 'profile.connectOrcidForResearch' })}
       onConnect={onConnect}
       onDisconnect={onDisconnect}
       isEditing={isEditing}

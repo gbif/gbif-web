@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaGithub as SocialIconGithub } from 'react-icons/fa';
 import { ConnectedAccountItem } from './ConnectedAccountItem';
+import { useIntl } from 'react-intl';
 
 interface GitHubAccountItemProps {
   isConnected: boolean;
@@ -17,9 +18,11 @@ export const GitHubAccountItem: React.FC<GitHubAccountItemProps> = ({
   onDisconnect,
   isEditing,
 }) => {
+  const { formatMessage } = useIntl();
+  
   const connectionText = githubUserName
-    ? `Connected to ${githubUserName}`
-    : 'Connected to your GitHub account';
+    ? formatMessage({ id: 'profile.connectedToGithubUser' }, { username: githubUserName })
+    : formatMessage({ id: 'profile.connectedToGithub' });
 
   return (
     <ConnectedAccountItem
@@ -27,7 +30,7 @@ export const GitHubAccountItem: React.FC<GitHubAccountItemProps> = ({
       icon={SocialIconGithub}
       isConnected={isConnected}
       connectionText={connectionText}
-      disconnectionText="Connect your GitHub account for easy sign-in"
+      disconnectionText={formatMessage({ id: 'profile.connectGithubForSignIn' })}
       onConnect={onConnect}
       onDisconnect={onDisconnect}
       isEditing={isEditing}

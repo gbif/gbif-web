@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaGoogle as SocialIconGoogle } from 'react-icons/fa';
 import { ConnectedAccountItem } from './ConnectedAccountItem';
+import { useIntl } from 'react-intl';
 
 interface GoogleAccountItemProps {
   isConnected: boolean;
@@ -15,13 +16,15 @@ export const GoogleAccountItem: React.FC<GoogleAccountItemProps> = ({
   onDisconnect,
   isEditing,
 }) => {
+  const { formatMessage } = useIntl();
+  
   return (
     <ConnectedAccountItem
       provider="Google"
       icon={SocialIconGoogle}
       isConnected={isConnected}
-      connectionText="Connected to your Google account"
-      disconnectionText="Connect your Google account for easy sign-in"
+      connectionText={formatMessage({ id: 'profile.connectedToGoogle' })}
+      disconnectionText={formatMessage({ id: 'profile.connectGoogleForSignIn' })}
       onConnect={onConnect}
       onDisconnect={onDisconnect}
       isEditing={isEditing}
