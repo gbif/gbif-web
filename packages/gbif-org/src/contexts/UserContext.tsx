@@ -63,6 +63,7 @@ interface UserContextType {
   updateForgottenPassword: (data: ForgottenPassword) => Promise<void>;
   updateProfile: (data: UpdateProfileData) => Promise<void>;
   changePassword: (currentPassword: string, newPassword: string) => Promise<void>;
+  disconnectAccount: (provider: 'google' | 'github' | 'orcid') => Promise<void>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
@@ -343,6 +344,29 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const disconnectAccount = async (provider: 'google' | 'github' | 'orcid') => {
+    try {
+      const response = await fetch(`/auth/${provider}/disconnect/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new UserError('UNKNOWN_ERROR', `Failed to disconnect from ${provider}`);
+      }
+
+      // Refresh user data to update connection status
+      await refreshUser();
+    } catch (error) {
+      if (error instanceof UserError) {
+        throw error;
+      }
+      throw new UserError('UNKNOWN_ERROR', `Failed to disconnect from ${provider}`);
+    }
+  };
+
   const confirm = async (code: string, username: string) => {
     try {
       const response = await fetch('/api/user/confirm', {
@@ -381,6 +405,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     updateForgottenPassword,
     updateProfile,
     changePassword,
+    disconnectAccount,
     logout,
     refreshUser,
     resetPassword,

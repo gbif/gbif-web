@@ -43,7 +43,7 @@ export function UserProfileLayout() {
       to: 'profile',
       children: (
         <>
-          <span>Profile</span>
+          <span>{formatMessage({ id: 'profile.profile' })}</span>
         </>
       ),
     },
@@ -51,7 +51,7 @@ export function UserProfileLayout() {
       to: 'download',
       children: (
         <>
-          <span>Downloads</span>
+          <span>{formatMessage({ id: 'profile.downloads' })}</span>
         </>
       ),
     },
@@ -59,7 +59,7 @@ export function UserProfileLayout() {
       to: 'derived-datasets',
       children: (
         <>
-          <span>Derived Datasets</span>
+          <span>{formatMessage({ id: 'profile.derivedDatasets' })}</span>
         </>
       ),
     },
@@ -67,7 +67,7 @@ export function UserProfileLayout() {
       to: 'validations',
       children: (
         <>
-          <span>Validation Reports</span>
+          <span>{formatMessage({ id: 'profile.validations' })}</span>
         </>
       ),
     },
@@ -138,7 +138,7 @@ export function UserProfileLayout() {
                           className="g-flex g-items-center g-space-x-2"
                         >
                           <LogOut className="g-w-4 g-h-4" />
-                          <span>Logout</span>
+                                    <span>{formatMessage({ id: 'profile.logout' })}</span>
                         </Button>
                       </div>
                     </div>

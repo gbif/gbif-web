@@ -131,6 +131,11 @@
     "cryptoNotSupported": "Your browser does not support the required cryptographic features. Please update your browser or try a different one.",
     "registrationComplete": "Registration Complete",
     "checkYourEmail": "Please check your email to activate your account",
-    "registrationSuccessCheckEmail": "We've sent you an email with instructions to activate your account. Please check your inbox and follow the link to complete your registration."
+    "registrationSuccessCheckEmail": "We've sent you an email with instructions to activate your account. Please check your inbox and follow the link to complete your registration.",
+    "connectedAccounts": "Connected Accounts",
+    "connectedAccountsDescription": "Connect your social accounts to enable quick sign-in and enhanced features.",
+    "changePasswordDescription": "Update your password to keep your account secure. Make sure your new password is strong and unique.",
+    "selectCountry": "Select your country",
+    "validations": "Validation Reports"
   }
 }
