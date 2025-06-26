@@ -2,11 +2,6 @@ import { UserError, useUser } from '@/contexts/UserContext';
 import country from '@/enums/basic/country.json';
 import React, { useMemo, useState } from 'react';
 import {
-  FaGithub as SocialIconGithub,
-  FaGoogle as SocialIconGoogle,
-  FaOrcid as SocialIconOrcid,
-} from 'react-icons/fa';
-import {
   LuCheckCircle as CheckCircle,
   LuLock as Lock,
   LuSave as Save,
@@ -18,9 +13,6 @@ import { Button } from '@/components/ui/button';
 import { useI18n } from '@/reactRouterPlugins';
 import { useIntl } from 'react-intl';
 import { ErrorMessage, FormButton, FormInput, FormSelect } from '../shared/FormComponents';
-import { GoogleAccountItem } from './GoogleAccountItem';
-import { GitHubAccountItem } from './GitHubAccountItem';
-import { OrcidAccountItem } from './OrcidAccountItem';
 import {
   getErrorMessage,
   hasFormErrors,
@@ -32,6 +24,9 @@ import {
   validateRequired,
   ValidationErrors,
 } from '../shared/validationUtils';
+import { GitHubAccountItem } from './GitHubAccountItem';
+import { GoogleAccountItem } from './GoogleAccountItem';
+import { OrcidAccountItem } from './OrcidAccountItem';
 import { ProfileSkeleton } from './profileLayout';
 
 interface UserInfo {
@@ -270,7 +265,7 @@ const Profile: React.FC = () => {
 
   const handleDisconnectAccount = async (provider: 'google' | 'github' | 'orcid') => {
     try {
-      const response = await fetch(`/api/user/disconnect/${provider}`, {
+      const response = await fetch(`/auth/${provider}/disconnect/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

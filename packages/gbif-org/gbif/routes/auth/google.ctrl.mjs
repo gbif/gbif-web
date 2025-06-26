@@ -30,7 +30,7 @@ export function register(app) {
     );
   });
 
-  app.get('/auth/google/disconnect', isAuthenticated, function (req, res, next) {
+  app.post('/auth/google/disconnect', isAuthenticated, function (req, res, next) {
     _.set(req.user, 'systemSettings["auth.google.id"]', undefined);
     _.set(req.user, 'systemSettings["auth.google.photo"]', undefined);
     _.set(req.user, 'systemSettings["auth.google.username"]', undefined);
