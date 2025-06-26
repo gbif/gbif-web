@@ -6,6 +6,7 @@ import {
   HeaderInfoMain,
 } from '@/components/headerComponents';
 import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
+import PageMetaData from '@/components/PageMetaData';
 import { InstallationQuery, InstallationQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
@@ -15,7 +16,6 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { required } from '@/utils/required';
-import { Helmet } from 'react-helmet-async';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
@@ -74,10 +74,14 @@ export function InstallationPage() {
 
   return (
     <article className="g-bg-background">
-      <Helmet>
-        <title>{installation.title}</title>
-        {/* TODO we need much richer meta data. Especially for datasets.  */}
-      </Helmet>
+      <PageMetaData
+        title={installation.title}
+        description={installation?.description}
+        noindex={!!installation?.deleted}
+        nofollow={!!installation?.deleted}
+        path={`/installation/${installation.key}`}
+      />
+
       <DataHeader
         aboutContent={<AboutContent />}
         apiContent={<ApiContent id={installation?.key?.toString()} />}

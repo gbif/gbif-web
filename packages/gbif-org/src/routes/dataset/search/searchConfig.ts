@@ -29,6 +29,7 @@ const otherParams = [
   'endorsingNodeKey',
   'installationKey',
   'endpointType',
+  'dwcaExtension',
 ];
 
 otherParams.forEach((filter) => {

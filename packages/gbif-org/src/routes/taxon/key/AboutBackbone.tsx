@@ -131,7 +131,7 @@ export default function AboutBackbone() {
               </ErrorBoundary>
             )}
 
-            {(taxon?.vernacularCount?.results?.length ?? 0) > 0 && (
+            {(taxon?.vernacular?.results?.length ?? 0) > 0 && (
               <Card className="g-mb-4" id="vernacularNames">
                 <CardHeader>
                   <CardTitle>
@@ -144,7 +144,7 @@ export default function AboutBackbone() {
                     errorMessage={<FormattedMessage id="taxon.errors.vernacularNames" />}
                   >
                     <VernacularNameTable
-                      total={taxon?.vernacularCount?.results?.length || 0}
+                      total={taxon?.vernacular?.results?.length || 0}
                       taxonKey={taxon.key}
                     />
                   </ErrorBoundary>

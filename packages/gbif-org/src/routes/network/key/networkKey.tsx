@@ -12,6 +12,7 @@ import {
   Homepage,
   OccurrenceIcon,
 } from '@/components/highlights';
+import PageMetaData from '@/components/PageMetaData';
 import { Tabs } from '@/components/tabs';
 import { NetworkQuery, NetworkQueryVariables, PredicateType } from '@/gql/graphql';
 import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
@@ -21,7 +22,6 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { required } from '@/utils/required';
-import { Helmet } from 'react-helmet-async';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
@@ -73,10 +73,13 @@ export function NetworkPage() {
 
   return (
     <>
-      <Helmet>
-        <title>{title}</title>
-        {/* TODO we need much richer meta data. Especially for datasets.  */}
-      </Helmet>
+      <PageMetaData
+        path={`/network/${network.key}`}
+        title={title}
+        description={network.prose?.summary ?? ''}
+        noindex={!!network?.deleted}
+        nofollow={!!network?.deleted}
+      />
       <DataHeader
         className="g-bg-white"
         aboutContent={<AboutContent />}

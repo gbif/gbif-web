@@ -31,9 +31,9 @@ export const Query = {
         checklistKey,
       })
       .then((response) => {
-        const datasetKey = response?.mainIndex.datasetKey;
+        const clbDatasetKey = response?.mainIndex.clbDatasetKey;
         return dataSources.datasetAPI.getClbNameUsageSuggestions({
-          checklistKey: datasetKey,
+          checklistKey: clbDatasetKey,
           q,
           limit,
         });
@@ -228,6 +228,8 @@ export const DatasetFacet = {
   publishingCountry: getFacet('publishingCountry', getSourceSearch),
   projectId: getFacet('projectId', getSourceSearch),
   license: getFacet('license', getSourceSearch),
+  dwcaExtension: getFacet('dwcaExtension', getSourceSearch),
+  networkKey: getFacet('networkKey', getSourceSearch),
 };
 export const DatasetOrganizationFacet = {
   organization: ({ name: key }, args, { dataSources }) => {

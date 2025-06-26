@@ -2,9 +2,9 @@ import { CoordinatesPicker } from '@/components/maps/coordinatesPicker';
 import { CountryCodeSelect } from '@/components/select/countryCodeSelect';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useFormContext } from 'react-hook-form';
+import { FormattedMessage } from 'react-intl';
 import { Required } from '../../_shared';
 import { Inputs, TextField } from '../becomeAPublisherForm';
-
 type Props = {
   updateSuggestedNodeCountry(countryCode: string): void;
 };
@@ -14,7 +14,11 @@ export function OrganizationAddress({ updateSuggestedNodeCountry }: Props) {
 
   return (
     <div className="g-flex g-flex-col g-gap-4">
-      <TextField name="organizationAddress.address" label="Address" required />
+      <TextField
+        name="organizationAddress.address"
+        label={<FormattedMessage id="eoi.address" defaultMessage="Address" />}
+        required
+      />
 
       <div className="g-flex g-gap-4">
         <FormField
@@ -23,7 +27,7 @@ export function OrganizationAddress({ updateSuggestedNodeCountry }: Props) {
           render={({ field }) => (
             <FormItem className="g-flex-1">
               <FormLabel>
-                Country
+                <FormattedMessage id="eoi.country" defaultMessage="Country" />
                 <Required />
               </FormLabel>
               <FormControl>
@@ -43,7 +47,7 @@ export function OrganizationAddress({ updateSuggestedNodeCountry }: Props) {
         <TextField
           autoComplete="address-level2"
           name="organizationAddress.province"
-          label="Province"
+          label={<FormattedMessage id="eoi.province" defaultMessage="Province" />}
         />
       </div>
 
@@ -51,14 +55,14 @@ export function OrganizationAddress({ updateSuggestedNodeCountry }: Props) {
         <TextField
           autoComplete="address-line1"
           name="organizationAddress.city"
-          label="City"
+          label={<FormattedMessage id="eoi.city" defaultMessage="City" />}
           required
         />
 
         <TextField
           autoComplete="postal-code"
           name="organizationAddress.postalCode"
-          label="Postal code"
+          label={<FormattedMessage id="eoi.postalCode" defaultMessage="Postal code" />}
         />
       </div>
 
@@ -69,7 +73,12 @@ export function OrganizationAddress({ updateSuggestedNodeCountry }: Props) {
             <CoordinatesPicker
               coordinates={field.value}
               setCoordinates={field.onChange}
-              instructions="Click on the map to add your organization"
+              instructions={
+                <FormattedMessage
+                  id="eoi.clickMapToAddOrg"
+                  defaultMessage="Click on the map to add your organization"
+                />
+              }
             />
             <FormMessage />
           </FormItem>

@@ -4,6 +4,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
 import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
 import { HyperText } from '@/components/hyperText';
+import PageMetaData from '@/components/PageMetaData';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
@@ -18,10 +19,10 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { createContext, useMemo } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Outlet } from 'react-router-dom';
+import { getTaxonSchema } from '../../../utils/schemaOrg';
 import Cites from './Cites';
 import { AboutContent, ApiContent } from './help';
 import SourceDataset from './SourceDataset';
@@ -153,10 +154,12 @@ const PageHeader = ({ data, vernacularNameInfo, children }) => {
   const isSpeciesOrBelow = useIsSpeciesOrBelow(taxon?.rank);
   return (
     <>
-      <Helmet>
-        <title>{taxon.scientificName}</title>
-        {/* TODO we need much richer meta data. */}
-      </Helmet>
+      <PageMetaData
+        title={taxon.scientificName}
+        jsonLd={isNub ? getTaxonSchema(data.taxon) : undefined}
+        path={`/taxon/${taxon.key}`}
+      />
+
       <EntityDrawer />
 
       <DataHeader

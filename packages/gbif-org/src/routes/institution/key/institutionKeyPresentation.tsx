@@ -14,6 +14,7 @@ import {
   Location,
   OccurrenceIcon,
 } from '@/components/highlights';
+import PageMetaData from '@/components/PageMetaData';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -27,12 +28,10 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { createContext } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { GrGithub as Github } from 'react-icons/gr';
 import { FormattedMessage } from 'react-intl';
 import { Outlet } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
-
 const GBIF_REGISTRY_ENDPOINT = import.meta.env.PUBLIC_REGISTRY;
 
 // create context to pass data to children
@@ -86,10 +85,15 @@ export function InstitutionKey({
 
   return (
     <>
-      <Helmet>
-        <title>{institution.name}</title>
-        {/* TODO we need much richer meta data. */}
-      </Helmet>
+      <PageMetaData
+        title={institution.name}
+        description={institution.description}
+        imageUrl={imageUrl}
+        noindex={!!institution.deleted}
+        nofollow={!!institution.deleted}
+        path={`/institution/${institution.key}`}
+      />
+
       <DataHeader
         className="g-bg-white"
         aboutContent={<AboutContent />}

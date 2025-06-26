@@ -24,7 +24,7 @@ type Props<T> = {
   keySelector(value: T): string;
   noSelectionPlaceholder?: React.ReactNode;
   noSearchResultsPlaceholder?: React.ReactNode;
-  searchInputPlaceholder?: string;
+  searchInputPlaceholder?: React.ReactNode | string;
   className?: string;
   open?: boolean;
   variant?: 'default' | 'outline' | 'primaryOutline' | 'secondary' | 'ghost' | 'link';
