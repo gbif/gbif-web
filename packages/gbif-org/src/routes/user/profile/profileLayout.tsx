@@ -2,6 +2,7 @@ import { ClientSideOnly } from '@/components/clientSideOnly';
 import { JazzIcon } from '@/components/JazzIcon/index';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/largeCard';
 import { useUser } from '@/contexts/UserContext';
 import country from '@/enums/basic/country.json';
 import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleton';
@@ -98,7 +99,7 @@ export function UserProfileLayout() {
             <div className="g-min-h-screen g-bg-gray-50">
               <div className="g-max-w-4xl g-mx-auto g-px-4 g-py-8">
                 {/* Header with integrated tabs */}
-                <div className="g-bg-white g-rounded-lg g-shadow-sm g-mb-6">
+                <Card className="g-mb-6">
                   <div className="g-p-6">
                     <div className="g-flex g-items-center g-justify-between">
                       <div className="g-flex g-items-center g-space-x-4">
@@ -138,7 +139,7 @@ export function UserProfileLayout() {
                           className="g-flex g-items-center g-space-x-2"
                         >
                           <LogOut className="g-w-4 g-h-4" />
-                                    <span>{formatMessage({ id: 'profile.logout' })}</span>
+                          <span>{formatMessage({ id: 'profile.logout' })}</span>
                         </Button>
                       </div>
                     </div>
@@ -148,7 +149,7 @@ export function UserProfileLayout() {
                   <div className="g-border-t">
                     <Tabs links={tabs} />
                   </div>
-                </div>
+                </Card>
                 <Outlet />
               </div>
             </div>

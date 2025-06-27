@@ -50,7 +50,7 @@ export const ConnectedAccountItem: React.FC<ConnectedAccountItemProps> = ({
                 className="g-flex g-items-center g-space-x-2 g-whitespace-nowrap"
               >
                 <Unlink className="g-w-4 g-h-4" />
-                <span>{formatMessage({ id: 'profile.disconnect' })}</span>
+                <span>{formatMessage({ id: 'profile.connect.disconnect' })}</span>
               </Button>
             )}
           </div>
@@ -60,7 +60,7 @@ export const ConnectedAccountItem: React.FC<ConnectedAccountItemProps> = ({
             className={`g-flex g-items-center g-space-x-2 g-whitespace-nowrap`}
           >
             <Link className="g-w-4 g-h-4" />
-            <span>{formatMessage({ id: 'profile.connect' })}</span>
+            <span>{formatMessage({ id: 'profile.connect.connect' })}</span>
           </Button>
         )}
       </div>

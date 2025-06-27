@@ -1,6 +1,8 @@
 {
   "profile": {
     "connect": {
+      "connect": "Connect",
+      "disconnect": "Disconnect",
       "failed": {
         "FACEBOOK": "Unable to connect to Facebook",
         "GITHUB": "Unable to connect to Github",
@@ -61,7 +63,6 @@
     "country": "Country",
     "countryRequired": "Country required",
     "email": "Email",
-    "enterEmail": "Enter your email",
     "emailRequired": "Email required",
     "invalidEmail": "Please enter a valid email",
     "username": "Username",
@@ -77,7 +78,6 @@
     "cancel": "Cancel",
     "resetPassword": "Reset password",
     "back": "Back",
-    "backToLogin": "Back to login",
     "startEditing": "Start editing",
     "stopEditing": "Stop editing",
     "firstName": "First name",
@@ -135,15 +135,9 @@
     "connectedAccounts": "Connected Accounts",
     "connectedAccountsDescription": "Connect your social accounts to enable quick sign-in and enhanced features.",
     "changePasswordDescription": "Update your password to keep your account secure. Make sure your new password is strong and unique.",
-    "selectCountry": "Select your country",
     "validations": "Validation Reports",
     "backToLogin": "Back to login",
     "enterEmail": "Enter your email",
-    "chooseUsername": "Choose a username",
-    "createPassword": "Create a password",
-    "validations": "Validation Reports",
-    "connect": "Connect",
-    "disconnect": "Disconnect",
     "connectedToGoogle": "Connected to your Google account",
     "connectGoogleForSignIn": "Connect your Google account for easy sign-in",
     "connectedToGithub": "Connected to your GitHub account",

@@ -1,6 +1,6 @@
 import { UserError, useUser } from '@/contexts/UserContext';
 import country from '@/enums/basic/country.json';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   LuCheckCircle as CheckCircle,
   LuLock as Lock,
@@ -10,6 +10,7 @@ import {
 import { MdEdit, MdLanguage, MdLocationOn, MdMail } from 'react-icons/md';
 
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/largeCard';
 import { useI18n } from '@/reactRouterPlugins';
 import { useIntl } from 'react-intl';
 import { ErrorMessage, FormButton, FormInput, FormSelect } from '../shared/FormComponents';
@@ -113,6 +114,44 @@ const Profile: React.FC = () => {
   const [isProfileLoading, setIsProfileLoading] = useState(false);
   const [isPasswordLoading, setIsPasswordLoading] = useState(false);
   const [passwordUpdateSuccess, setPasswordUpdateSuccess] = useState(false);
+
+  // Flash message state for connection errors
+  const [flashError, setFlashError] = useState<{
+    provider?: string;
+    error?: string;
+  } | null>(null);
+
+  // Read flash cookie on component mount
+  useEffect(() => {
+    const readFlashCookie = () => {
+      const cookies = document.cookie.split(';');
+      const profileFlashCookie = cookies.find((cookie) =>
+        cookie.trim().startsWith('profileFlashInfo=')
+      );
+
+      if (profileFlashCookie) {
+        try {
+          const cookieValue = profileFlashCookie.split('=')[1];
+          const decodedValue = decodeURIComponent(cookieValue);
+          const flashInfo = JSON.parse(decodedValue);
+
+          if (flashInfo.error && flashInfo.authProvider) {
+            setFlashError({
+              provider: flashInfo.authProvider,
+              error: flashInfo.error,
+            });
+          }
+
+          // Clear the cookie by setting it to expire
+          document.cookie = 'profileFlashInfo=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+        } catch (e) {
+          console.error('Failed to parse profileFlashInfo cookie:', e);
+        }
+      }
+    };
+
+    readFlashCookie();
+  }, []);
 
   // Validation logic
   const profileErrors: ValidationErrors = {
@@ -259,6 +298,8 @@ const Profile: React.FC = () => {
   };
 
   const handleConnectAccount = (provider: 'google' | 'github' | 'orcid') => {
+    // Clear flash error when attempting new connection
+    setFlashError(null);
     // Redirect to OAuth connection endpoint
     window.location.href = `/auth/${provider}/connect`;
   };
@@ -276,191 +317,204 @@ const Profile: React.FC = () => {
   }
 
   return (
-    <div className="g-bg-white g-rounded-lg g-shadow-sm g-p-6">
-      <div className="g-flex g-justify-between g-items-center g-mb-6">
-        <h2 className="g-text-xl g-font-bold g-text-gray-900 g-flex g-items-center g-space-x-2">
-          {/* <Settings className="g-w-5 g-h-5 g-text-primary-600" /> */}
-          <span>{formatMessage({ id: 'profile.userProfile' })}</span>
-        </h2>
-        {!isEditing ? (
-          <Button
-            variant="outline"
-            onClick={() => setIsEditing(true)}
-            className="g-flex g-items-center g-space-x-2"
-          >
-            <MdEdit className="g-w-4 g-h-4" />
-            <span>{formatMessage({ id: 'profile.startEditing' })}</span>
-          </Button>
-        ) : (
-          <div className="g-flex g-space-x-3">
-            <Button variant="outline" onClick={handleCancel} disabled={isProfileLoading}>
-              {formatMessage({ id: 'profile.cancel' })}
-            </Button>
-            <FormButton
-              onClick={handleSave}
+    <>
+      <Card className="g-p-6">
+        <div className="g-flex g-justify-between g-items-center g-mb-6">
+          <h2 className="g-text-xl g-font-bold g-text-gray-900 g-flex g-items-center g-space-x-2">
+            {/* <Settings className="g-w-5 g-h-5 g-text-primary-600" /> */}
+            <span>{formatMessage({ id: 'profile.userProfile' })}</span>
+          </h2>
+          {!isEditing ? (
+            <Button
+              variant="outline"
+              onClick={() => setIsEditing(true)}
               className="g-flex g-items-center g-space-x-2"
-              isLoading={isProfileLoading}
-              disabled={isProfileLoading}
             >
-              <Save className="g-w-4 g-h-4" />
-              <span>{formatMessage({ id: 'profile.save' })}</span>
-            </FormButton>
+              <MdEdit className="g-w-4 g-h-4" />
+              <span>{formatMessage({ id: 'profile.startEditing' })}</span>
+            </Button>
+          ) : (
+            <div className="g-flex g-space-x-3">
+              <Button variant="outline" onClick={handleCancel} disabled={isProfileLoading}>
+                {formatMessage({ id: 'profile.cancel' })}
+              </Button>
+              <FormButton
+                onClick={handleSave}
+                className="g-flex g-items-center g-space-x-2"
+                isLoading={isProfileLoading}
+                disabled={isProfileLoading}
+              >
+                <Save className="g-w-4 g-h-4" />
+                <span>{formatMessage({ id: 'profile.save' })}</span>
+              </FormButton>
+            </div>
+          )}
+        </div>
+
+        <ErrorMessage errorMessageId={getErrorMessage(profileError)} className="g-mb-4" />
+
+        <form
+          className="g-space-y-4"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSave();
+          }}
+        >
+          <div className="g-grid g-grid-cols-1 md:g-grid-cols-2 g-gap-4">
+            <FormInput
+              id="firstName"
+              label={formatMessage({ id: 'profile.firstName' })}
+              type="text"
+              value={isEditing ? editedInfo.firstName : userInfo.firstName}
+              onChange={(value) => handleInputChange('firstName', value)}
+              onBlur={() => handleProfileBlur('firstName')}
+              placeholder={formatMessage({ id: 'profile.firstName' })}
+              icon={User}
+              disabled={!isEditing}
+              error={profileErrors.firstName}
+              touched={profileTouched.firstName}
+            />
+            <FormInput
+              id="lastName"
+              label={formatMessage({ id: 'profile.lastName' })}
+              type="text"
+              value={isEditing ? editedInfo.lastName : userInfo.lastName}
+              onChange={(value) => handleInputChange('lastName', value)}
+              onBlur={() => handleProfileBlur('lastName')}
+              placeholder={formatMessage({ id: 'profile.lastName' })}
+              icon={User}
+              disabled={!isEditing}
+              error={profileErrors.lastName}
+              touched={profileTouched.lastName}
+            />
           </div>
-        )}
-      </div>
 
-      <ErrorMessage errorMessageId={getErrorMessage(profileError)} />
-
-      <form
-        className="g-space-y-4"
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSave();
-        }}
-      >
-        <div className="g-grid g-grid-cols-1 md:g-grid-cols-2 g-gap-4">
           <FormInput
-            id="firstName"
-            label={formatMessage({ id: 'profile.firstName' })}
-            type="text"
-            value={isEditing ? editedInfo.firstName : userInfo.firstName}
-            onChange={(value) => handleInputChange('firstName', value)}
-            onBlur={() => handleProfileBlur('firstName')}
-            placeholder={formatMessage({ id: 'profile.firstName' })}
-            icon={User}
+            id="email"
+            label={formatMessage({ id: 'profile.email' })}
+            type="email"
+            value={isEditing ? editedInfo.email : userInfo.email}
+            onChange={(value) => handleInputChange('email', value)}
+            onBlur={() => handleProfileBlur('email')}
+            placeholder={formatMessage({ id: 'profile.enterEmail' })}
+            icon={MdMail}
             disabled={!isEditing}
-            error={profileErrors.firstName}
-            touched={profileTouched.firstName}
+            error={profileErrors.email}
+            touched={profileTouched.email}
           />
-          <FormInput
-            id="lastName"
-            label={formatMessage({ id: 'profile.lastName' })}
-            type="text"
-            value={isEditing ? editedInfo.lastName : userInfo.lastName}
-            onChange={(value) => handleInputChange('lastName', value)}
-            onBlur={() => handleProfileBlur('lastName')}
-            placeholder={formatMessage({ id: 'profile.lastName' })}
-            icon={User}
-            disabled={!isEditing}
-            error={profileErrors.lastName}
-            touched={profileTouched.lastName}
-          />
-        </div>
 
-        <FormInput
-          id="email"
-          label={formatMessage({ id: 'profile.email' })}
-          type="email"
-          value={isEditing ? editedInfo.email : userInfo.email}
-          onChange={(value) => handleInputChange('email', value)}
-          onBlur={() => handleProfileBlur('email')}
-          placeholder={formatMessage({ id: 'profile.enterEmail' })}
-          icon={MdMail}
-          disabled={!isEditing}
-          error={profileErrors.email}
-          touched={profileTouched.email}
-        />
+          <div className="g-grid g-grid-cols-1 md:g-grid-cols-2 g-gap-4">
+            {isEditing ? (
+              <FormSelect
+                id="country"
+                label={formatMessage({ id: 'profile.country' })}
+                value={editedInfo.country}
+                onChange={(value) => handleInputChange('country', value)}
+                onBlur={() => handleProfileBlur('country')}
+                options={countryOptions}
+                placeholder={formatMessage({ id: 'profile.selectCountry' })}
+                icon={MdLocationOn}
+                error={profileErrors.country}
+                touched={profileTouched.country}
+              />
+            ) : (
+              <FormInput
+                id="country"
+                label={formatMessage({ id: 'profile.country' })}
+                type="text"
+                value={formatMessage({ id: `enums.countryCode.${userInfo.country}` })}
+                onChange={() => {}}
+                onBlur={() => {}}
+                placeholder={formatMessage({ id: 'profile.country' })}
+                icon={MdLocationOn}
+                disabled={true}
+              />
+            )}
 
-        <div className="g-grid g-grid-cols-1 md:g-grid-cols-2 g-gap-4">
-          {isEditing ? (
-            <FormSelect
-              id="country"
-              label={formatMessage({ id: 'profile.country' })}
-              value={editedInfo.country}
-              onChange={(value) => handleInputChange('country', value)}
-              onBlur={() => handleProfileBlur('country')}
-              options={countryOptions}
-              placeholder={formatMessage({ id: 'profile.selectCountry' })}
-              icon={MdLocationOn}
-              error={profileErrors.country}
-              touched={profileTouched.country}
+            {isEditing ? (
+              <FormSelect
+                id="locale"
+                label={formatMessage({ id: 'profile.language' })}
+                value={editedInfo.locale}
+                onChange={(value) => handleInputChange('locale', value)}
+                onBlur={() => handleProfileBlur('locale')}
+                options={languageOptions}
+                placeholder={formatMessage({ id: 'profile.language' })}
+                icon={MdLanguage}
+                error={profileErrors.locale}
+                touched={profileTouched.locale}
+              />
+            ) : (
+              <FormInput
+                id="locale"
+                label={formatMessage({ id: 'profile.language' })}
+                type="text"
+                value={
+                  languageOptions.find((lang) => lang.value === userInfo.locale)?.label ||
+                  formatMessage({ id: `enums.language.${userInfo.locale}` })
+                }
+                onChange={() => {}}
+                onBlur={() => {}}
+                placeholder={formatMessage({ id: 'profile.language' })}
+                icon={MdLanguage}
+                disabled={true}
+              />
+            )}
+          </div>
+        </form>
+
+        {/* Connected Accounts Section */}
+        <div className="g-mt-8 g-pt-6 g-border-gray-200">
+          <div className="g-mb-6">
+            <h3 className="g-text-lg g-font-bold g-text-gray-900 g-flex g-items-center g-space-x-2 g-mb-4">
+              {/* <Link className="g-w-5 g-h-5 g-text-primary-600" /> */}
+              <span>{formatMessage({ id: 'profile.connectedAccounts' })}</span>
+            </h3>
+            <p className="g-text-sm g-text-gray-600">
+              {formatMessage({ id: 'profile.connectedAccountsDescription' })}
+            </p>
+
+            {/* Flash error message for connection failures */}
+            {flashError && flashError.provider && flashError.error && (
+              <div className="g-p-4 g-mt-4 g-text-red-800 g-border g-border-red-300 g-rounded-lg g-bg-red-50">
+                <div className="g-text-sm">
+                  <div className="g-font-medium g-mb-1">
+                    {formatMessage({ id: `profile.connect.failed.${flashError.provider}` })}
+                  </div>
+                  <div>{formatMessage({ id: `profile.error.${flashError.error}` })}</div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="g-space-y-4">
+            <GoogleAccountItem
+              isConnected={!!user?.connectedAcounts?.google}
+              onConnect={() => handleConnectAccount('google')}
+              onDisconnect={() => handleDisconnectAccount('google')}
+              isEditing={isEditing}
             />
-          ) : (
-            <FormInput
-              id="country"
-              label={formatMessage({ id: 'profile.country' })}
-              type="text"
-              value={formatMessage({ id: `enums.countryCode.${userInfo.country}` })}
-              onChange={() => {}}
-              onBlur={() => {}}
-              placeholder={formatMessage({ id: 'profile.country' })}
-              icon={MdLocationOn}
-              disabled={true}
+
+            <GitHubAccountItem
+              isConnected={!!user?.connectedAcounts?.github}
+              githubUserName={user?.githubUserName}
+              onConnect={() => handleConnectAccount('github')}
+              onDisconnect={() => handleDisconnectAccount('github')}
+              isEditing={isEditing}
             />
-          )}
 
-          {isEditing ? (
-            <FormSelect
-              id="locale"
-              label={formatMessage({ id: 'profile.language' })}
-              value={editedInfo.locale}
-              onChange={(value) => handleInputChange('locale', value)}
-              onBlur={() => handleProfileBlur('locale')}
-              options={languageOptions}
-              placeholder={formatMessage({ id: 'profile.language' })}
-              icon={MdLanguage}
-              error={profileErrors.locale}
-              touched={profileTouched.locale}
+            <OrcidAccountItem
+              isConnected={!!user?.connectedAcounts?.orcid}
+              orcidId={user?.orcid}
+              onConnect={() => handleConnectAccount('orcid')}
+              onDisconnect={() => handleDisconnectAccount('orcid')}
+              isEditing={isEditing}
             />
-          ) : (
-            <FormInput
-              id="locale"
-              label={formatMessage({ id: 'profile.language' })}
-              type="text"
-              value={
-                languageOptions.find((lang) => lang.value === userInfo.locale)?.label ||
-                formatMessage({ id: `enums.language.${userInfo.locale}` })
-              }
-              onChange={() => {}}
-              onBlur={() => {}}
-              placeholder={formatMessage({ id: 'profile.language' })}
-              icon={MdLanguage}
-              disabled={true}
-            />
-          )}
+          </div>
         </div>
-      </form>
-
-      {/* Connected Accounts Section */}
-      <div className="g-mt-12 g-pt-6 g-border-gray-200">
-        <div className="g-mb-6">
-          <h3 className="g-text-lg g-font-bold g-text-gray-900 g-flex g-items-center g-space-x-2 g-mb-4">
-            {/* <Link className="g-w-5 g-h-5 g-text-primary-600" /> */}
-            <span>{formatMessage({ id: 'profile.connectedAccounts' })}</span>
-          </h3>
-          <p className="g-text-sm g-text-gray-600">
-            {formatMessage({ id: 'profile.connectedAccountsDescription' })}
-          </p>
-        </div>
-
-        <div className="g-space-y-4">
-          <GoogleAccountItem
-            isConnected={!!user?.connectedAcounts?.google}
-            onConnect={() => handleConnectAccount('google')}
-            onDisconnect={() => handleDisconnectAccount('google')}
-            isEditing={isEditing}
-          />
-
-          <GitHubAccountItem
-            isConnected={!!user?.connectedAcounts?.github}
-            githubUserName={user?.githubUserName}
-            onConnect={() => handleConnectAccount('github')}
-            onDisconnect={() => handleDisconnectAccount('github')}
-            isEditing={isEditing}
-          />
-
-          <OrcidAccountItem
-            isConnected={!!user?.connectedAcounts?.orcid}
-            orcidId={user?.orcid}
-            onConnect={() => handleConnectAccount('orcid')}
-            onDisconnect={() => handleDisconnectAccount('orcid')}
-            isEditing={isEditing}
-          />
-        </div>
-      </div>
-
+      </Card>
       {/* Password Change Section */}
-      <div className="g-mt-12 g-pt-6 g-border-gray-200">
+      <Card className="g-mt-4 g-p-6">
         <div className="g-mb-6">
           <h3 className="g-text-lg g-font-bold g-text-gray-900 g-flex g-items-center g-space-x-2 g-mb-4">
             {/* <Lock className="g-w-5 g-h-5 g-text-primary-600" /> */}
@@ -476,7 +530,9 @@ const Profile: React.FC = () => {
         {passwordUpdateSuccess && (
           <div className="g-flex g-items-center g-p-4 g-mb-4 g-text-green-800 g-border g-border-green-300 g-rounded-lg g-bg-green-50">
             <CheckCircle className="g-w-5 g-h-5 g-mr-3 g-flex-shrink-0" />
-            <span className="g-text-sm g-font-medium">{formatMessage({ id: 'profile.passwordUpdated' })}</span>
+            <span className="g-text-sm g-font-medium">
+              {formatMessage({ id: 'profile.passwordUpdated' })}
+            </span>
           </div>
         )}
 
@@ -539,8 +595,8 @@ const Profile: React.FC = () => {
             </FormButton>
           </div>
         </form>
-      </div>
-    </div>
+      </Card>
+    </>
   );
 };
 

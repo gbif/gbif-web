@@ -420,10 +420,12 @@ export function getClientUser(user) {
 }
 
 export function sanitizeUpdatedUser(user) {
+  const firstName = user?.firstName?.trim();
+  const lastName = user?.lastName?.trim();
   return {
     userName: user.userName,
-    firstName: user.firstName,
-    lastName: user.lastName,
+    firstName: firstName ? firstName : undefined,
+    lastName: lastName ? lastName : undefined,
     email: user.email,
     settings: {
       country: user.country,
