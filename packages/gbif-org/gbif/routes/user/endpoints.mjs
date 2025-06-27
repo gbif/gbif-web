@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { register as registerGitHub } from '../auth/github.ctrl.mjs';
 import { register as registerGoogle } from '../auth/google.ctrl.mjs';
 import { register as registerLocal } from '../auth/local.ctrl.mjs';
+import { register as registerOrcid } from '../auth/orcid.ctrl.mjs';
 import { appendUser, disableCache } from '../auth/utils.mjs';
 import {
   confirmAccount,
@@ -23,6 +24,7 @@ export function register(app) {
   registerLocal(app);
   registerGoogle(app);
   registerGitHub(app);
+  registerOrcid(app);
 
   // disable caching for user-related API endpoints
   app.use('/api/user', disableCache);

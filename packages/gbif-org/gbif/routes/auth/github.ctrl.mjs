@@ -22,7 +22,7 @@ export function register(app) {
     passport.authenticate('github', { scope: ['user:email'], state: stateB64 })(req, res, next);
   });
 
-  app.get('/auth/github/disconnect', isAuthenticated, function (req, res, next) {
+  app.post('/auth/github/disconnect', isAuthenticated, function (req, res, next) {
     _.set(req.user, 'systemSettings["auth.github.id"]', undefined);
     _.set(req.user, 'systemSettings["auth.github.photo"]', undefined);
     _.set(req.user, 'systemSettings["auth.github.username"]', undefined);

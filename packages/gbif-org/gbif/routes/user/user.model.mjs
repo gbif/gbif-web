@@ -366,7 +366,7 @@ async function login(auth) {
 }
 
 export async function changePassword(auth, newPassword) {
-  return fetch(apiConfig.userChangePassword.url, {
+  return fetchWithRetry(apiConfig.userChangePassword.url, {
     method: 'PUT',
     headers: {
       authorization: auth,

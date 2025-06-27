@@ -46,7 +46,7 @@ export function setTokenCookie(res, token) {
     maxAge: day * 7,
     secure: useSecureCookie,
     httpOnly: true,
-    sameSite: useSecureCookie,
+    sameSite: 'lax',
   };
   res.cookie('token', token, options);
 }
@@ -59,7 +59,7 @@ export function removeTokenCookie(res) {
     maxAge: 1,
     secure: useSecureCookie,
     httpOnly: false,
-    sameSite: useSecureCookie,
+    sameSite: 'lax',
   };
   res.cookie('token', '', options);
 }
