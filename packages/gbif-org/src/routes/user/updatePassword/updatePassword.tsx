@@ -3,7 +3,7 @@ import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleto
 import { useEffect, useState } from 'react';
 import { MdHome, MdLock } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useNavigate, useLoaderData, LoaderFunctionArgs } from 'react-router-dom';
+import { LoaderFunctionArgs, useLoaderData, useNavigate } from 'react-router-dom';
 import { ErrorMessage, FormButton, FormInput } from '../shared/FormComponents';
 import { FormHeader } from '../shared/PageHeader';
 import { ErrorState, LoadingState, SuccessState } from '../shared/StatusMessages';
@@ -15,16 +15,18 @@ export interface UpdatePasswordLoaderData {
   error: string | null;
 }
 
-export async function updatePasswordLoader({ request }: LoaderFunctionArgs): Promise<UpdatePasswordLoaderData> {
+export async function updatePasswordLoader({
+  request,
+}: LoaderFunctionArgs): Promise<UpdatePasswordLoaderData> {
   const url = new URL(request.url);
   const challengeCode = url.searchParams.get('code');
   const userName = url.searchParams.get('username');
-  
+
   let error: string | null = null;
   if (!challengeCode || !userName) {
     error = 'MISSING_PARAMETERS';
   }
-  
+
   return {
     challengeCode,
     userName,
@@ -231,12 +233,7 @@ function UpdatePasswordForm() {
         </div>
 
         <div className="g-pt-4">
-          <FormButton
-            type="submit"
-            className="g-w-full"
-            isLoading={isLoading}
-            disabled={isLoading}
-          >
+          <FormButton type="submit" className="g-w-full" isLoading={isLoading} disabled={isLoading}>
             <FormattedMessage id="profile.setPassword" />
           </FormButton>
         </div>
