@@ -10,7 +10,7 @@ const serviceName = 'gbif-web';
 const serviceClass = 'web';
 
 // Define log directory
-const logDir = 'logs';
+const logDir = process.env.LOGS_DIRECTORY ?? 'logs';
 
 // Color codes for manual coloring
 const colors = {
@@ -95,7 +95,7 @@ const consoleTransport = new winston.transports.Console({
 const logger = winston.createLogger({
   level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
   transports: [
-    // fileRotateTransport, // Uncomment to enable file logging
+    fileRotateTransport,
     // Always include console transport, but adjust level based on environment
     consoleTransport,
   ],
