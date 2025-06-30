@@ -35,6 +35,7 @@
     "repeatPassword": "Repeat password",
     "repeatNewPassword": "Repeat new password",
     "passwordsNotIdentical": "The two passwords are not identical",
+    "currentPasswordRequired": "Your current password is required.",
     "setPassword": "Set password",
     "newPassword": "New password",
     "invalidLinkMessage": "The verification link is invalid or the account has already been activated.",
