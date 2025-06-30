@@ -95,7 +95,7 @@ const consoleTransport = new winston.transports.Console({
 const logger = winston.createLogger({
   level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
   transports: [
-    fileRotateTransport,
+    // fileRotateTransport, // Uncomment to enable file logging
     // Always include console transport, but adjust level based on environment
     consoleTransport,
   ],
