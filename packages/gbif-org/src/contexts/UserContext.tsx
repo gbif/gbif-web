@@ -1,3 +1,4 @@
+import { Base64 } from 'js-base64';
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
 interface User {
@@ -279,8 +280,8 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         throw new UserError('UNKNOWN_USER', 'User not authenticated');
       }
 
-      // Create basic auth header with current password (following portal16 pattern)
-      const authData = btoa(`${user.userName}:${encodeURIComponent(currentPassword)}`);
+      // Create basic auth header with current password
+      const authData = Base64.encode(user.userName + ':' + currentPassword);
 
       const response = await fetch('/api/user/update-known-password', {
         method: 'POST',
