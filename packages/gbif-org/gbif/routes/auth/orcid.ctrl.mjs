@@ -4,7 +4,7 @@ import passport from 'passport';
 import { Strategy as OrcidStrategy } from 'passport-orcid';
 import { update } from '../user/user.model.mjs';
 import { authCallback } from './oauthUtils.mjs';
-import { appendUser, isAuthenticated } from './utils.mjs';
+import { appendUser, isAuthenticated, jsonToBase64 } from './utils.mjs';
 
 dotenv.config();
 
@@ -14,13 +14,13 @@ export function register(app) {
   // ORCID OAuth routes
   app.get('/auth/orcid/login', (req, res, next) => {
     let state = { action: 'LOGIN', target: req.headers.referer || '/' };
-    let stateB64 = btoa(JSON.stringify(state));
+    let stateB64 = jsonToBase64(state);
     passport.authenticate('orcid', { scope: scope, state: stateB64 })(req, res, next);
   });
 
   app.get('/auth/orcid/connect', isAuthenticated, function (req, res, next) {
     let state = { action: 'CONNECT', target: req.headers.referer || '/' };
-    let stateB64 = btoa(JSON.stringify(state));
+    let stateB64 = jsonToBase64(state);
     passport.authenticate('orcid', { scope: scope, state: stateB64 })(req, res, next);
   });
 

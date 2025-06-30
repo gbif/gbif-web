@@ -1,10 +1,9 @@
-import atob from 'atob';
 // import locales from 'config/locales';
 import _ from 'lodash';
 import URL from 'url';
 import * as userModel from '../user/user.model.mjs';
 import { getByUserName } from '../user/user.model.mjs';
-import { logUserIn, setNoCache } from './utils.mjs';
+import { base64ToJson, logUserIn, setNoCache } from './utils.mjs';
 
 const locales = { locales: ['en', 'es'] }; //TODO: replace with actual locales import
 
@@ -38,7 +37,7 @@ export function authCallback(
   if (!err) {
     try {
       // assume that there is always a state associated with the call
-      let state = JSON.parse(atob(req.query.state));
+      let state = base64ToJson(req.query.state);
       // LOGIN
       if (state.action === 'LOGIN') {
         login(req, res, next, state, profile, providerEnum, identificationKey);
