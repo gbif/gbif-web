@@ -1,3 +1,4 @@
+import logger from '../../config/logger.mjs';
 import { generateToken, removeTokenCookie, setNoCache, setTokenCookie } from '../auth/utils.mjs';
 import {
   changePassword,
@@ -9,8 +10,6 @@ import {
   updateForgottenPassword,
   update as updateUser,
 } from './user.model.mjs';
-
-const log = console; // TODO: Replace with proper logging mechanism
 
 /**
  * Gets the user associated with the token in the cookie
@@ -51,7 +50,7 @@ export async function resetPassword(req, res) {
 
     res.json({ message: 'MAIL_CONFIRMATION' });
   } catch (error) {
-    log.error('Password reset error:', error);
+    logger.logError(error, { context: 'password_reset', userNameOrEmail });
     // Always return success to prevent email enumeration attacks
     res.json({ message: 'MAIL_CONFIRMATION' });
   }
@@ -121,7 +120,7 @@ export async function updateProfile(req, res) {
     // Return the response from the API
     res.json(response);
   } catch (error) {
-    log.error('Profile update error:', error);
+    logger.logError(error, { context: 'profile_update', userName: req.user?.userName });
     const status = error.status || error.statusCode || 500;
     res.status(status).json({ message: 'Profile update failed' });
   }
@@ -155,7 +154,7 @@ export function create(req, res) {
         res.status(err.statusCode || 422);
         res.json({ error: 'unable to create user' });
       } else {
-        log.error(err);
+        logger.logError(err, { context: 'user_creation', userName: user.userName });
         res.sendStatus(500);
       }
     });
@@ -169,9 +168,9 @@ function handleError(res, statusCode = 500) {
   return function (err) {
     const status = err.status || err.statusCode || statusCode;
     if (status < 500) {
-      log.warn(err);
+      logger.warn('Request error (client side)', { error: err.message, status });
     } else {
-      log.error(err);
+      logger.logError(err, { context: 'server_error', status });
     }
     res.sendStatus(status);
   };

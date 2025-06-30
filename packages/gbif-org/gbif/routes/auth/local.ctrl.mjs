@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
+import logger from '../../config/logger.mjs';
 import { getByUserName, getClientUser } from '../user/user.model.mjs';
 import { disableCache, generateToken, setNoCache, setTokenCookie } from './utils.mjs';
 
@@ -34,7 +35,7 @@ export function register(app) {
           }
         })
         .catch((err) => {
-          console.error(err);
+          logger.logError(err, { context: 'basic_login', userName: user.userName });
           res.status(500).json({ messageId: 'SERVER_ERROR' });
         });
     })(req, res, next);
@@ -61,7 +62,7 @@ const authenticateGBIF = async (email, password) => {
     const userData = await response.json();
     return userData;
   } catch (error) {
-    console.error('GBIF authentication error:', error); // TODO replace with logger with error level
+    logger.logError(error, { context: 'gbif_authentication', email });
     throw new Error('UNHANDLED_ERROR');
   }
 };

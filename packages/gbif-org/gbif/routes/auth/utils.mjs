@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import { expressjwt } from 'express-jwt';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
+import logger from '../../config/logger.mjs';
 import { getByUserName, getClientUser } from '../user/user.model.mjs';
 
 dotenv.config({ path: '.env.local' });
@@ -90,7 +91,13 @@ export async function fetchWithRetry(url, options = {}, retries = 3, delay = 100
     } catch (error) {
       if (attempt < retries) {
         // failed attempt. retry in delay ms
-        console.warn(`Attempt ${attempt} failed. Retrying in ${delay}ms...`);
+        logger.warn('Fetch attempt failed, retrying', {
+          attempt,
+          retries,
+          delay,
+          url,
+          error: error.message,
+        });
         await new Promise((resolve) => setTimeout(resolve, delay));
       } else {
         throw new Error(`Fetch failed after ${retries} attempts: ${error.message}`);

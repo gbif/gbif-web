@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import _ from 'lodash';
 import queryString from 'query-string';
+import logger from '../../config/logger.mjs';
 import { authenticatedRequest } from '../auth/gbifAuthRequest.mjs';
 import { fetchWithRetry } from '../auth/utils.mjs';
 
@@ -36,10 +37,6 @@ const apiConfig = {
   userUpdateForgottenPassword: {
     url: identityBaseUrl + '/admin/user/updatePassword',
     canonical: 'admin/user/updatePassword',
-  },
-  userChallengeCodeValid: {
-    url: identityBaseUrl + '/admin/user/confirmationKeyValid',
-    canonical: 'admin/user/confirmationKeyValid',
   },
   userChangePassword: {
     url: identityBaseUrl + '/user/changePassword',
@@ -133,7 +130,7 @@ export async function resetPassword(userNameOrEmail) {
     canonicalPath: apiConfig.userResetPassword.canonical,
     userName: userNameOrEmail,
   };
-  console.log('resetPassword called for', options);
+  logger.debug('Reset password request initiated', { userNameOrEmail, url: options.url });
   let response = await authenticatedRequest(options);
   if (response.statusCode > 299) {
     throw response;
@@ -142,9 +139,11 @@ export async function resetPassword(userNameOrEmail) {
 }
 
 export async function updateForgottenPassword(body) {
-  let challengeCode = body.challengeCode,
+  const challengeCode = body.challengeCode,
     password = body.password;
-  // TODO test challengeCode and password is present
+
+  ensureString(challengeCode, 'challenge code');
+  ensureString(password, 'password');
 
   let options = {
     method: 'POST',
@@ -162,37 +161,6 @@ export async function updateForgottenPassword(body) {
     throw response;
   }
   return response.body;
-}
-
-async function isValidChallenge(userName, challengeCode) {
-  let options = {
-    method: 'GET',
-    url: apiConfig.userChallengeCodeValid.url + '?confirmationKey=' + challengeCode,
-    userName: userName,
-  };
-  let response = await authenticatedRequest(options);
-  if (response.statusCode !== 204) {
-    throw response;
-  }
-  return response;
-}
-
-async function isValidChallengeEmail(userName, email, challengeCode) {
-  let options = {
-    method: 'GET',
-    url:
-      apiConfig.userChallengeCodeValid.url +
-      '?confirmationKey=' +
-      challengeCode +
-      '&email=' +
-      encodeURIComponent(email),
-    userName: userName,
-  };
-  let response = await authenticatedRequest(options);
-  if (response.statusCode !== 204) {
-    throw response;
-  }
-  return response;
 }
 
 /**

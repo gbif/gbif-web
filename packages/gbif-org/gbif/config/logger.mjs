@@ -70,18 +70,18 @@ const fileRotateTransport = new DailyRotateFile({
 });
 
 // Optional: Listen for rotation events
-fileRotateTransport.on('rotate', (oldFilename, newFilename) => {
-  console.log(`Log file rotated: ${oldFilename} -> ${newFilename}`);
-});
-fileRotateTransport.on('new', (newFilename) => {
-  console.log(`New log file created: ${newFilename}`);
-});
-fileRotateTransport.on('archive', (zipFilename) => {
-  console.log(`Log file archived: ${zipFilename}`);
-});
-fileRotateTransport.on('logRemoved', (removedFilename) => {
-  console.log(`Old log file removed: ${removedFilename}`);
-});
+// fileRotateTransport.on('rotate', (oldFilename, newFilename) => {
+//   console.log(`Log file rotated: ${oldFilename} -> ${newFilename}`);
+// });
+// fileRotateTransport.on('new', (newFilename) => {
+//   console.log(`New log file created: ${newFilename}`);
+// });
+// fileRotateTransport.on('archive', (zipFilename) => {
+//   console.log(`Log file archived: ${zipFilename}`);
+// });
+// fileRotateTransport.on('logRemoved', (removedFilename) => {
+//   console.log(`Old log file removed: ${removedFilename}`);
+// });
 
 // --- Configure the Console Transport for Development ---
 const consoleTransport = new winston.transports.Console({

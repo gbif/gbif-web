@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import fsp from 'node:fs/promises';
 import { merge } from 'ts-deepmerge';
 import { loadEnv } from 'vite';
+import logger from './config/logger.mjs';
 import { helmetConfig } from './helmetConfig.js';
 import { register as registerUser } from './routes/user/endpoints.mjs';
 
@@ -134,11 +135,14 @@ async function main() {
   });
 
   app.listen(PORT, () => {
-    console.log(`🚀 Server ready at http://localhost:${PORT}`);
+    logger.info('Server started successfully', { port: PORT, environment: env.NODE_ENV });
   });
 
   process.on('unhandledRejection', function (reason, p) {
-    console.error('Unhandled Rejection at root: Promise ', p, ' reason: ', reason);
+    logger.logError(new Error('Unhandled Promise Rejection'), {
+      reason: reason?.toString(),
+      promise: p?.toString(),
+    });
     // There is not much else to do here. Keep track of the logs and make sure this never happens. There should be no unhandled rejections.
   });
   process.on('uncaughtException', function (err) {

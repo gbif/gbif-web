@@ -1,6 +1,7 @@
 // import locales from 'config/locales';
 import _ from 'lodash';
 import URL from 'url';
+import logger from '../../config/logger.mjs';
 import * as userModel from '../user/user.model.mjs';
 import { getByUserName } from '../user/user.model.mjs';
 import { base64ToJson, logUserIn, setNoCache } from './utils.mjs';
@@ -47,13 +48,12 @@ export function authCallback(
         next(new Error('Invalid callback state'));
       }
     } catch (err) {
-      // log.error(err);// TODO logging
-      console.log(err); // TODO logging
+      logger.logError(err, { context: 'auth_callback', state: req.query.state });
       // something went wrong - probably while trying to parse the base 64 encoded state
       next(err);
     }
   } else {
-    console.log(err); // TODO logging
+    logger.logError(err, { context: 'auth_callback_final' });
     next(err);
     return;
   }
@@ -102,7 +102,7 @@ async function getUserFromProvider(profile, identificationKey) {
       }
       return getByUserName(profileEmail.value);
     } else {
-      console.log(err); // TODO
+      logger.logError(err, { context: 'get_user_from_provider', profileId: profile.id });
       throw err;
     }
   }
@@ -121,7 +121,7 @@ function login(req, res, next, state, profile, providerEnum, identificationKey) 
     .then(function (user) {
       let pathWithLocale = localizeRedirectPath(state.target, user?.settings?.locale);
       if (user && typeof user === 'object' && !_.get(user, 'userName')) {
-        console.log('User has no userName. User keys: ' + Object.keys(user).join(', ')); // TODO
+        logger.debug('User has no userName', { userKeys: Object.keys(user) });
       }
       // the user was found - log in
       logUserIn(res, user);
@@ -149,7 +149,7 @@ function login(req, res, next, state, profile, providerEnum, identificationKey) 
       } else {
         // something went wrong while searching for the user - this shouldn't happen and is likely an API failure or an app secret error
         // we cannot do anything but show an error message to the user
-        console.log(err); // TODO
+        logger.logError(err, { context: 'login_user_search', profileId: profile.id });
         res.status(500).send('Internal server error');
       }
     });
