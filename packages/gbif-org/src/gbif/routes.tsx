@@ -9,6 +9,7 @@ import { homePageRoute } from '@/routes/home';
 import { omniSearchRoute } from '@/routes/omniSearch';
 import { confirmEndorsmentRoute } from '@/routes/publisher/ConfirmEndorsment';
 import { RootErrorPage } from '@/routes/rootErrorPage';
+import { userRoutes } from '@/routes/user';
 import { Outlet } from 'react-router-dom';
 import { GbifRootLayout, headerLoader } from './gbifRootLayout';
 
@@ -27,6 +28,7 @@ export function createGbifRoutes(config: Config) {
             errorElement: <RootErrorPage />,
             children: [
               homePageRoute,
+              ...userRoutes,
               omniSearchRoute,
 
               // custom pages

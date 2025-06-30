@@ -1,98 +1,91 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [        
-        {
-            "name": "GRAPHQL",
-            "request": "launch",
-            "runtimeArgs": [
-                "start"
-            ],
-            "cwd": "${workspaceFolder}/packages/graphql-api",
-            "runtimeExecutable": "npm",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "node"
-        },
-        {
-            "name": "REACT",
-            "request": "launch",
-            "runtimeArgs": [
-                "start"
-            ],
-            "cwd": "${workspaceFolder}/packages/react-components",
-            "runtimeExecutable": "npm",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "node"
-        },        
-        {
-            "name": "RUN TRANSLATIONS",
-            "request": "launch",
-            "runtimeArgs": [
-                "run", "serve-translations"
-            ],
-            "cwd": "${workspaceFolder}/packages/react-components",
-            "runtimeExecutable": "npm",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "node"
-        },
-        {
-            "name": "WATCH TRANSLATIONS",
-            "request": "launch",
-            "runtimeArgs": [
-                "run","watch-translations"
-            ],
-            "cwd": "${workspaceFolder}/packages/react-components",
-            "runtimeExecutable": "npm",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "node"
-        },
-        {
-            // Name of configuration; appears in the launch configuration drop down menu.
-            "name": "ES2VT",
-            // Type of configuration. Possible values: "node", "mono".
-            "type": "node",
-            // Workspace relative or absolute path to the program.
-            "program": "${workspaceFolder}/packages/es2vt/src/index.js",
-            // Automatically stop program after launch.
-            "stopOnEntry": false,
-            // Command line arguments passed to the program.
-            "args": [],
-            // Workspace relative or absolute path to the working directory of the program being debugged. Default is the current workspace.
-            "cwd": ".",
-            // Workspace relative or absolute path to the runtime executable to be used. Default is the runtime executable on the PATH.
-            "runtimeExecutable": null,
-            // Environment variables passed to the program.
-            "env": { },
-            "envFile": "${workspaceRoot}/packages/es2vt/.env"
-        },     
-        {
-            // Name of configuration; appears in the launch configuration drop down menu.
-            "name": "ES-API",
-            // Type of configuration. Possible values: "node", "mono".
-            "type": "node",
-            // Workspace relative or absolute path to the program.
-            "program": "${workspaceFolder}/packages/es-api/src/index.js",
-            // Automatically stop program after launch.
-            "stopOnEntry": false,
-            // Command line arguments passed to the program.
-            "args": [],
-            // Workspace relative or absolute path to the working directory of the program being debugged. Default is the current workspace.
-            "cwd": ".",
-            // Workspace relative or absolute path to the runtime executable to be used. Default is the runtime executable on the PATH.
-            "runtimeExecutable": null,
-            // Environment variables passed to the program.
-            "env": { },
-            "envFile": "${workspaceRoot}/packages/es-api/.env"
-        }
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "GRAPHQL",
+      "request": "launch",
+      "runtimeArgs": ["start"],
+      "cwd": "${workspaceFolder}/packages/graphql-api",
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    },
+    {
+      "name": "REACT",
+      "request": "launch",
+      "runtimeArgs": ["start"],
+      "cwd": "${workspaceFolder}/packages/react-components",
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    },
+    {
+      "name": "RUN TRANSLATIONS",
+      "request": "launch",
+      "runtimeArgs": ["run", "serve-translations"],
+      "cwd": "${workspaceFolder}/packages/react-components",
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    },
+    {
+      "name": "WATCH TRANSLATIONS",
+      "request": "launch",
+      "runtimeArgs": ["run", "watch-translations"],
+      "cwd": "${workspaceFolder}/packages/react-components",
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    },
+    {
+      // Name of configuration; appears in the launch configuration drop down menu.
+      "name": "ES2VT",
+      // Type of configuration. Possible values: "node", "mono".
+      "type": "node",
+      // Workspace relative or absolute path to the program.
+      "program": "${workspaceFolder}/packages/es2vt/src/index.js",
+      // Automatically stop program after launch.
+      "stopOnEntry": false,
+      // Command line arguments passed to the program.
+      "args": [],
+      // Workspace relative or absolute path to the working directory of the program being debugged. Default is the current workspace.
+      "cwd": ".",
+      // Workspace relative or absolute path to the runtime executable to be used. Default is the runtime executable on the PATH.
+      "runtimeExecutable": null,
+      // Environment variables passed to the program.
+      "env": {},
+      "envFile": "${workspaceRoot}/packages/es2vt/.env"
+    },
+    {
+      // Name of configuration; appears in the launch configuration drop down menu.
+      "name": "ES-API",
+      // Type of configuration. Possible values: "node", "mono".
+      "type": "node",
+      // Workspace relative or absolute path to the program.
+      "program": "${workspaceFolder}/packages/es-api/src/index.js",
+      // Automatically stop program after launch.
+      "stopOnEntry": false,
+      // Command line arguments passed to the program.
+      "args": [],
+      // Workspace relative or absolute path to the working directory of the program being debugged. Default is the current workspace.
+      "cwd": ".",
+      // Workspace relative or absolute path to the runtime executable to be used. Default is the runtime executable on the PATH.
+      "runtimeExecutable": null,
+      // Environment variables passed to the program.
+      "env": {},
+      "envFile": "${workspaceRoot}/packages/es-api/.env"
+    },
+    {
+      "name": "GBIF-ORG",
+      "request": "launch",
+      "runtimeArgs": ["run", "develop-server"],
+      "cwd": "${workspaceFolder}/packages/gbif-org",
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    }
+  ]
 }

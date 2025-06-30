@@ -56,7 +56,7 @@ export const helmetConfig = {
       ],
       mediaSrc: ['*'],
       imgSrc: ['*', 'data:'],
-      workerSrc: ['blob:'],
+      workerSrc: ['blob:', `'self'`],
       upgradeInsecureRequests: [],
       // frameAncestors: [ // This leads to conflicting statements in Helmet. Looks like we should either go with frameAncestors or x-frame-options
       //   'https://www.onezoom.org'

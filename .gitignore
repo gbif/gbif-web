@@ -10,6 +10,7 @@ packages/react-components/locales/dist
 **/.DS_Store
 **/*.notes.md
 tmp/
+**/vite.config.ts.timestamp-*
 
 # dotenv environment variables file
 /**/*.notes.*
@@ -33,6 +34,7 @@ gbif-web.iml
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+*.code-workspace
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
