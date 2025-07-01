@@ -113,9 +113,15 @@ const validateJwt = expressjwt({
 });
 
 export function appendUser(req, res, next) {
+  logger.debug('appendUser middleware called', {
+    auth: req?.auth,
+  });
   try {
     setNoCache(res);
     validateJwt(req, res, function () {
+      logger.debug('JWT validation complete', {
+        auth: req?.auth,
+      });
       if (req?.auth?.userName) {
         getByUserName(req.auth.userName)
           .then((user) => {
