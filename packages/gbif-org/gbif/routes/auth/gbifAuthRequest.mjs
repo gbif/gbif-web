@@ -46,7 +46,20 @@ export async function authenticatedRequest(options) {
   const response = await fetchWithRetry(options.url, fetchOptions);
 
   if (!response.ok) {
-    throw new RequestError('Request failed', response.status);
+    let responseText;
+    try {
+      responseText = await response.text();
+    } catch (error) {
+      throw new RequestError('FAILED', response.status);
+    }
+
+    let errorObj;
+    try {
+      errorObj = JSON.parse(responseText);
+    } catch (parseError) {
+      throw new RequestError(responseText || 'FAILED', response.status);
+    }
+    throw new RequestError(errorObj?.error ?? 'FAILED', response.status);
   }
 
   let body;

@@ -34,26 +34,9 @@ type ErrorType =
   | 'INVALID_SOLUTION'
   | 'REGISTRATION_SUCCESS_CHECK_EMAIL'
   | 'REGISTRATION_FAILED'
+  | 'INVALID_INPUT'
   | 'PROOF_OF_WORK_NOT_READY'
   | undefined;
-
-const getRegistrationErrorMessage = (error: ErrorType) => {
-  if (!error) return '';
-  switch (error) {
-    case 'REGISTRATION_FAILED':
-      return 'profile.registrationFailed';
-    case 'INVALID_SOLUTION':
-      return 'profile.invalidSolutionTryAgain';
-    case 'PROOF_OF_WORK_FAILED':
-      return 'profile.proofOfWorkFailedContactHelpdesk';
-    case 'PROOF_OF_WORK_NOT_READY':
-      return 'profile.proofOfWorkNotReady';
-    case 'CRYPTO_NOT_SUPPORTED':
-      return 'profile.cryptoNotSupported';
-    default:
-      return 'profile.error.FAILED';
-  }
-};
 
 export function LoginPage() {
   const navigate = useNavigate();
@@ -231,7 +214,7 @@ export function LoginForm() {
         subtitle={<FormattedMessage id="profile.signInToAccount" />}
       />
 
-      <ErrorMessage errorMessageId={getLoginErrorMessage(error)} />
+      {error && <ErrorMessage errorMessageId={getLoginErrorMessage(error)} />}
 
       <form className="g-space-y-4" onSubmit={handleSubmit}>
         <FormInput
@@ -320,15 +303,6 @@ export function LoginForm() {
         >
           <FormattedMessage id="profile.registerNow" />
         </Link>
-      </p>
-      <p className="g-text-center g-text-sm g-text-gray-500">
-        If you do not have a GBIF account, please visit our production site at{' '}
-        <a
-          href="https://www.gbif.org/"
-          className="g-font-medium g-text-primary-700 hover:g-text-primary-600"
-        >
-          gbif.org
-        </a>
       </p>
     </>
   );
@@ -444,7 +418,6 @@ function RegisterForm() {
 
     const attemptRegistration = async (): Promise<void> => {
       // Wait for proof of work to complete if it's still processing
-      setError('PROOF_OF_WORK_NOT_READY');
       const solution = powState.promise ? await powState.promise : undefined;
 
       // If crypto is not supported, there isn't much we can do other than tell the user to retry or contact helpdesk
@@ -486,21 +459,22 @@ function RegisterForm() {
         const isServerValidationFailure =
           err instanceof UserError && err.type === 'INVALID_SOLUTION';
 
+        // No matter why it failed, we will need a new proof-of-work challenge
+        setPowState((prev) => ({
+          ...prev,
+          status: 'idle',
+          result: undefined,
+          promise: undefined, // Clear the old promise
+        }));
+
         if (isServerValidationFailure) {
-          // restart proof of work using useeffect
-          setPowState((prev) => ({
-            ...prev,
-            status: 'idle',
-            result: undefined,
-            promise: undefined, // Clear the old promise
-          }));
           setError('INVALID_SOLUTION');
           setIsLoading(false);
           return;
         }
 
         // show error message
-        setError('REGISTRATION_FAILED');
+        setError(err.type ?? 'REGISTRATION_FAILED');
         setIsLoading(false);
         return;
       }
@@ -561,14 +535,14 @@ function RegisterForm() {
             </div>
             <div className="g-ml-3">
               <p className="g-text-sm g-text-blue-700">
-                Verifying your request with the server. Please hang on and do not close this page.
+                <FormattedMessage id="profile.waitingForServer" />
               </p>
             </div>
           </div>
         </div>
       )}
 
-      <ErrorMessage errorMessageId={getRegistrationErrorMessage(error)} />
+      {error && <ErrorMessage errorMessageId={`profile.error.${error}`} />}
 
       <form className="g-space-y-4" onSubmit={handleSubmit}>
         <FormInput

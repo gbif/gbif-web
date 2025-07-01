@@ -152,7 +152,7 @@ export function create(req, res) {
     .catch(function (err) {
       if (err.statusCode < 500) {
         res.status(err.statusCode || 422);
-        res.json({ error: 'unable to create user' });
+        res.json({ error: err.message ?? 'INVALID_REQUEST' });
       } else {
         logger.logError(err, { context: 'user_creation', userName: user.userName });
         res.sendStatus(500);

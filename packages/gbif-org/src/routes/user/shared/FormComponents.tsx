@@ -173,15 +173,16 @@ export function FormButton({
 
 interface ErrorMessageProps {
   errorMessageId: string;
+  defaultMessage?: string;
   className?: string;
 }
 
-export function ErrorMessage({ errorMessageId, className }: ErrorMessageProps) {
+export function ErrorMessage({ errorMessageId, defaultMessage, className }: ErrorMessageProps) {
   if (!errorMessageId) return null;
 
   return (
     <div className={cn(commonClasses.messageBox.error, className)}>
-      <FormattedMessage id={errorMessageId} defaultMessage={errorMessageId} />
+      <FormattedMessage id={errorMessageId} defaultMessage={defaultMessage ?? errorMessageId} />
     </div>
   );
 }

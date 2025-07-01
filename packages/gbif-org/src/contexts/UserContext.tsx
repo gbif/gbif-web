@@ -81,7 +81,17 @@ export type UserErrorType =
   | 'UNABLE_TO_LOGOUT'
   | 'INVALID_REQUEST'
   | 'INVALID_SOLUTION'
-  | 'INVALID_PASSWORD';
+  | 'INVALID_PASSWORD'
+  | 'USERNAME_NOT_UNIQUE'
+  | 'LOGIN_UNKNOWN'
+  | 'PROVIDER_ACCOUNT_ALREADY_IN_USE'
+  | 'USER_ALREADY_LOGGED_IN'
+  | 'EMAIL_IN_USE'
+  | 'NO_EMAIL_PROVIDED'
+  | 'FAILED'
+  | 'MISSING_PARAMETERS'
+  | 'CONFIRMATION_FAILED';
+
 export class UserError extends Error {
   type: UserErrorType;
   constructor(type: UserErrorType, message?: string) {
@@ -172,10 +182,17 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       });
 
       if (!response.ok) {
-        if (response.status === 400) {
+        if (response.status > 400 && response.status < 500) {
+          // Handle specific client-side errors
           const error = await response.json();
           if (error.needNewChallenge) {
             throw new UserError('INVALID_SOLUTION', 'Registration failed. Please try again.');
+          }
+          if (error.error) {
+            throw new UserError(
+              error.error as UserErrorType,
+              'Registration failed. Please check your input.'
+            );
           }
         }
         throw new UserError('REGISTRATION_FAILED', 'Registration failed. Please check your input.');
