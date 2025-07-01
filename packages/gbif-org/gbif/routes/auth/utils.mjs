@@ -134,11 +134,15 @@ export function appendUser(req, res, next) {
             next();
           })
           .catch(function (err) {
+            logger.logError(err, 'Error fetching user by username in appendUser middleware');
             removeTokenCookie(res);
             delete req.user;
             next();
           });
       } else {
+        logger.debug('No userName in auth object', {
+          auth: req?.auth,
+        });
         removeTokenCookie(res);
         delete req.user;
         next();

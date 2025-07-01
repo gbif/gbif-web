@@ -83,9 +83,11 @@ const fileRotateTransport = new DailyRotateFile({
 //   console.log(`Old log file removed: ${removedFilename}`);
 // });
 
+const level = 'debug'; //process.env.NODE_ENV === 'production' ? 'info' : 'debug';
+console.log(`Logger level set to: ${level}`);
 // --- Configure the Console Transport for Development ---
 const consoleTransport = new winston.transports.Console({
-  level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+  level: level,
   handleExceptions: true,
   handleRejections: true,
   format: winston.format.combine(addFixedFields(), winston.format.timestamp(), colorizedJsonFormat),
@@ -93,7 +95,7 @@ const consoleTransport = new winston.transports.Console({
 
 // --- Create the Winston Logger instance ---
 const logger = winston.createLogger({
-  level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+  level: level,
   transports: [
     fileRotateTransport,
     // Always include console transport, but adjust level based on environment
