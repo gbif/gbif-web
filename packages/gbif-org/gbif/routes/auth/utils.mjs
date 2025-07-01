@@ -114,7 +114,7 @@ const validateJwt = expressjwt({
 
 export function appendUser(req, res, next) {
   logger.debug('appendUser middleware called', {
-    auth: req?.auth,
+    token: req.cookies.token,
   });
   try {
     setNoCache(res);
