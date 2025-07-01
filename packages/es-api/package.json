@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@elastic/ecs-winston-format": "^1.5.3",
     "@elastic/elasticsearch": "7.9.1",
     "@terraformer/wkt": "2.0.7",
     "agentkeepalive": "^4.2.0",
@@ -24,6 +25,7 @@
     "object-hash": "^3.0.0",
     "qs": "6.10.3",
     "winston": "^3.11.0",
+    "winston-daily-rotate-file": "^5.0.0",
     "yaml": "1.10.2"
   },
   "devDependencies": {

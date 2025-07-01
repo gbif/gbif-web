@@ -2,6 +2,7 @@ import compress from 'compression';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import helmet from 'helmet';
+import morgan from 'morgan';
 import fsp from 'node:fs/promises';
 import { merge } from 'ts-deepmerge';
 import { loadEnv } from 'vite';
@@ -34,6 +35,17 @@ async function main() {
     res.set('Cache-Control', 'public, max-age=600, must-revalidate'); // Default cache for 10 minutes
     next();
   });
+
+  const morganMiddleware = morgan(':method :url :status :res[content-length] - :response-time ms', {
+    skip: function (req, res) {
+      return res.statusCode < 400;
+    },
+    stream: {
+      write: (message) => logger.http(message.trim()),
+    },
+  });
+
+  app.use(morganMiddleware);
 
   // Middleware to set shorter cache for responses with status code above 400
   app.use((req, res, next) => {

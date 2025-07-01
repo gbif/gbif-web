@@ -20,6 +20,7 @@ dist
 **/.env.**.*
 **/.env.*
 .scripts/
+/logs
 
 npm-debug.log*
 yarn-debug.log*

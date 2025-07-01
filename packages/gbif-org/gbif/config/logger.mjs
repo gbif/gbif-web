@@ -1,13 +1,22 @@
-// logger.mjs
 import ecsFormat from '@elastic/ecs-winston-format';
+import dotenv from 'dotenv';
 import path from 'path';
 import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
+
+dotenv.config();
 
 // Get environment and service information
 const env = process.env.NODE_ENV || 'local';
 const serviceName = 'gbif-web';
 const serviceClass = 'web';
+const levels = {
+  DEBUG: 'debug',
+  INFO: 'info',
+  WARN: 'warn',
+  ERROR: 'error',
+};
+const debugLevel = levels[process.env.DEBUG_LEVEL] ?? 'warn';
 
 // Define log directory
 const logDir = process.env.LOGS_DIRECTORY ?? 'logs';
@@ -46,13 +55,15 @@ const colorizedJsonFormat = winston.format.printf((info) => {
 
 // Custom format to add fixed fields (service, environment, class)
 const addFixedFields = winston.format((info) => {
-  info.environment = env;
-  info.service = serviceName;
-  info.class = serviceClass;
-  return info;
+  return {
+    ...info,
+    environment: env,
+    service: serviceName,
+    class: serviceClass,
+  };
 });
 
-// --- Configure the DailyRotateFile Transport for File Logging ---
+// Configure the DailyRotateFile Transport for File Logging
 const fileRotateTransport = new DailyRotateFile({
   filename: path.join(logDir, 'application-%DATE%.log'),
   datePattern: 'YYYY-MM-DD',
@@ -69,33 +80,20 @@ const fileRotateTransport = new DailyRotateFile({
   ),
 });
 
-// Optional: Listen for rotation events
-// fileRotateTransport.on('rotate', (oldFilename, newFilename) => {
-//   console.log(`Log file rotated: ${oldFilename} -> ${newFilename}`);
-// });
-// fileRotateTransport.on('new', (newFilename) => {
-//   console.log(`New log file created: ${newFilename}`);
-// });
-// fileRotateTransport.on('archive', (zipFilename) => {
-//   console.log(`Log file archived: ${zipFilename}`);
-// });
-// fileRotateTransport.on('logRemoved', (removedFilename) => {
-//   console.log(`Old log file removed: ${removedFilename}`);
-// });
-
-const level = 'debug'; //process.env.NODE_ENV === 'production' ? 'info' : 'debug';
+const level = debugLevel;
 console.log(`Logger level set to: ${level}`);
-// --- Configure the Console Transport for Development ---
+
+// Configure the Console Transport for Development
 const consoleTransport = new winston.transports.Console({
-  level: level,
+  level,
   handleExceptions: true,
   handleRejections: true,
   format: winston.format.combine(addFixedFields(), winston.format.timestamp(), colorizedJsonFormat),
 });
 
-// --- Create the Winston Logger instance ---
+// Create the Winston Logger instance
 const logger = winston.createLogger({
-  level: level,
+  level,
   transports: [
     fileRotateTransport,
     // Always include console transport, but adjust level based on environment
@@ -110,37 +108,15 @@ logger.on('error', (err) => {
 });
 
 // Log initialization message like portal16 did
-logger.info({ message: 'initialising log' }, 'initialising log');
-
-// Helper methods for structured logging
-logger.logRequest = (req, res, meta = {}) => {
-  logger.info(
-    {
-      req_url: req.originalUrl,
-      method: req.method,
-      user_agent: req.get('User-Agent'),
-      ip: req.ip,
-      status_code: res.statusCode,
-      ...meta,
-    },
-    `${req.method} ${req.originalUrl} - ${res.statusCode}`
-  );
-};
+logger.info('initialising log', { message: 'initialising log' });
 
 logger.logError = (error, meta = {}) => {
-  logger.error(
-    {
-      error: error,
-      error_message: error.message,
-      error_stack: error.stack,
-      ...meta,
-    },
-    error.message || 'An error occurred'
-  );
-};
-
-logger.logWithMeta = (level, message, meta = {}) => {
-  logger[level]({ ...meta }, message);
+  logger.error(error.message || 'An error occurred', {
+    error,
+    error_message: error.message,
+    error_stack: error.stack,
+    ...meta,
+  });
 };
 
 export default logger;

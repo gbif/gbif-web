@@ -91,7 +91,7 @@ export async function fetchWithRetry(url, options = {}, retries = 3, delay = 100
     } catch (error) {
       if (attempt < retries) {
         // failed attempt. retry in delay ms
-        logger.warn('Fetch attempt failed, retrying', {
+        logger.info('Fetch attempt failed, retrying', {
           attempt,
           retries,
           delay,
@@ -113,15 +113,9 @@ const validateJwt = expressjwt({
 });
 
 export function appendUser(req, res, next) {
-  logger.debug('appendUser middleware called', {
-    token: req.cookies.token,
-  });
   try {
     setNoCache(res);
     validateJwt(req, res, function () {
-      logger.debug('JWT validation complete', {
-        auth: req?.auth,
-      });
       if (req?.auth?.userName) {
         getByUserName(req.auth.userName)
           .then((user) => {
@@ -140,9 +134,6 @@ export function appendUser(req, res, next) {
             next();
           });
       } else {
-        logger.debug('No userName in auth object', {
-          auth: req?.auth,
-        });
         removeTokenCookie(res);
         delete req.user;
         next();
