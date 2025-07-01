@@ -23,7 +23,9 @@ export function Header({ menu }: { menu: HeaderQuery }) {
   const isRoot = path === '' || path === locale.code;
 
   const isTransparent = isRoot;
-  const transparentClass = isTransparent ? 'g-absolute g-w-full g-text-white' : '';
+  const transparentClass = isTransparent
+    ? 'g-absolute g-w-full g-text-white hover:g-bg-[#00000048]'
+    : '';
   return (
     <div className={`g-flex g-flex-none g-items-center g-p-2 g-px-4 g-z-30 ${transparentClass}`}>
       <div className="g-flex-none ">
