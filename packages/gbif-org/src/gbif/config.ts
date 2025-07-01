@@ -101,10 +101,10 @@ export const gbifConfig: Config = {
   // ],
   theme: {
     dense: true,
-    primary: '#4787fb', //'#69AA69',
+    primary: '#69AA69', // green '#69AA69', purple #4f46e5
     stickyOffset: '0px',
     borderRadius: 3,
-    linkColor: '#4787fb',
+    linkColor: '#69AA69',
   },
   dataHeader: {
     enableApiPopup: true,
