@@ -90,6 +90,51 @@
     "count": "{num, plural, one {# event date } other {# event dates}}",
     "description": "When was the record collected or observed."
   },
+  "gbifId": {
+    "name": "GBIF ID",
+    "count": "",
+    "description": ""
+  },
+  "organismQuantityType": {
+    "name": "Organism quantity type",
+    "count": "",
+    "description": ""
+  },
+  "pathway": {
+    "name": "Pathway",
+    "count": "",
+    "description": ""
+  },
+  "associatedSequences": {
+    "name": "Associated sequences",
+    "count": "",
+    "description": ""
+  },
+  "degreeOfEstablishment": {
+    "name": "Degree of establishment",
+    "count": "",
+    "description": ""
+  },
+  "endDayOfYear": {
+    "name": "End day of year",
+    "count": "",
+    "description": ""
+  },
+  "startDayOfYear": {
+    "name": "Start day of year",
+    "count": "",
+    "description": ""
+  },
+  "previousIdentifications": {
+    "name": "Previous identifications",
+    "count": "",
+    "description": ""
+  },
+  "lastInterpreted": {
+    "name": "Last interpreted",
+    "count": "",
+    "description": ""
+  },
   "alternativeCode": {
     "name": "Alternative code",
     "count": "{num, plural, one {# alternative code } other {# alternative codes}}",
@@ -171,6 +216,11 @@
     "name": "Preparations",
     "count": "{num, plural, one {# preparation} other {# preparations}}",
     "description": "How the specimen has been prepared (e.g. dried)"
+  },
+  "repatriated": {
+    "name": "Repatriated",
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "Publishing country or area",
@@ -260,6 +310,11 @@
     "count": "{num, plural, one {Coordinate uncertainty} other {# coordinate uncertainty filters}}",
     "description": "A measure of the minimum distance in metres from a coordinate within which a locality might be interpreted to be."
   },
+  "distanceFromCentroidInMeters": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "depth": {
     "name": "Depth",
     "count": "{num, plural, one { depth } other {# depths}}",
@@ -320,6 +375,36 @@
     "count": "",
     "description": ""
   },
+  "verbatimTaxonId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "islandGroup": {
+    "name": "Island group",
+    "count": "",
+    "description": ""
+  },
+  "island": {
+    "name": "Island",
+    "count": "",
+    "description": ""
+  },
+  "georeferencedBy": {
+    "name": "Georeferenced by",
+    "count": "",
+    "description": ""
+  },
+  "datasetName": {
+    "name": "Dataset name",
+    "count": "",
+    "description": ""
+  },
+  "programme": {
+    "name": "Programme",
+    "count": "",
+    "description": ""
+  },
   "recordNumber": {
     "name": "Record number",
     "count": "{num, plural, one { record number } other {# record numbers}}",
@@ -374,6 +459,16 @@
     "name": "State province",
     "count": "{num, plural, one { state province } other {# state provinces}}",
     "description": "The name of the next administrative region smaller than country in which the location occurs."
+  },
+  "gbifRegion": {
+    "name": "GBIF region",
+    "count": "",
+    "description": ""
+  },
+  "publishedByGbifRegion": {
+    "name": "Published by GBIF region",
+    "count": "",
+    "description": ""
   },
   "eventId": {
     "name": "Event ID",

@@ -1,8 +1,12 @@
 {
   "example": "示例 ",
+  "examples": "示例",
   "singleEntry": "获取一个单条目",
+  "downloadKeyDatasets": "数据集为下载提供数据",
   "singleOccurrence": "出现一次记录",
   "searchOccurrences": "获取全部出现次数",
+  "searchOccurrencesExample": "物种 taxonKey 为 9778871（Flabellina McMurtrie, 1831）在 2000 年至 2024 年间 5 月记录的前五个出现记录。",
+  "occurrenceFragment": "解读之前先完成记录",
   "search": "搜索",
   "singleDataset": "获取一个单条目",
   "searchDatasetsExample": "从丹麦发布的前两个数据集，标题或描述中包含自由文本 “fungi”",

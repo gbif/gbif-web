@@ -90,6 +90,51 @@
     "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
     "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
+  "gbifId": {
+    "name": "ID do GBIF",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
+  "organismQuantityType": {
+    "name": "Tipo de quantidade de organismos",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
+  "pathway": {
+    "name": "",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
+  "associatedSequences": {
+    "name": "Sequências associadas",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
+  "degreeOfEstablishment": {
+    "name": "",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
+  "endDayOfYear": {
+    "name": "Dia final do ano",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
+  "startDayOfYear": {
+    "name": "Dia inicial do ano",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
+  "previousIdentifications": {
+    "name": "Identificações anteriores",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
+  "lastInterpreted": {
+    "name": "Última interpretação",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
   "alternativeCode": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
     "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
@@ -171,6 +216,11 @@
     "name": "Preparações",
     "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
     "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
+  },
+  "repatriated": {
+    "name": "Repatriado",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
   },
   "publishingCountryCode": {
     "name": "País de publicação",
@@ -260,6 +310,11 @@
     "count": "{num, plural, one {incerteza da Coordenada} other {# filtros de incerteza das coordenadas}}",
     "description": "Uma medida da distância mínima em metros de uma coordenada dentro da qual uma localidade possa ser interpretada como existente."
   },
+  "distanceFromCentroidInMeters": {
+    "name": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
   "depth": {
     "name": "Profundidade",
     "count": "{num, plural, one { profundidade } other {# profundades}}",
@@ -320,6 +375,36 @@
     "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
     "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
   },
+  "verbatimTaxonId": {
+    "name": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
+  "islandGroup": {
+    "name": "Grupo de ilhas",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
+  "island": {
+    "name": "Ilha",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
+  "georeferencedBy": {
+    "name": "Georreferenciado por",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
+  "datasetName": {
+    "name": "Nome do conjunto de dados",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
+  "programme": {
+    "name": "Programa",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
   "recordNumber": {
     "name": "Número de registo",
     "count": "{num, plural, one { número do registo } other {# números do registo}}",
@@ -374,6 +459,16 @@
     "name": "Estado/Província",
     "count": "{num, plural, one { província ou estado } other {# províncias ou estados}}",
     "description": "O nome da próxima região administrativa é menor do que o país onde a localização ocorre."
+  },
+  "gbifRegion": {
+    "name": "Região do GBIF",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+  },
+  "publishedByGbifRegion": {
+    "name": "",
+    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
   },
   "eventId": {
     "name": "ID do evento",

@@ -32,6 +32,7 @@
   "group": {
     "views": "",
     "record": "Enregistrement",
+    "taxon": "Taxon",
     "occurrence": "Une occurrence",
     "organism": "Organisme",
     "materialEntity": "",

@@ -32,6 +32,7 @@
   "group": {
     "views": "",
     "record": "",
+    "taxon": "",
     "occurrence": "",
     "organism": "",
     "materialEntity": "",

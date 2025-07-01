@@ -32,6 +32,7 @@
   "group": {
     "views": "",
     "record": "Registro",
+    "taxon": "Taxón",
     "occurrence": "Registro biológico",
     "organism": "Organismo",
     "materialEntity": "",

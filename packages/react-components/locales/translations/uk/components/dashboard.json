@@ -32,6 +32,7 @@
   "group": {
     "views": "",
     "record": "Запис",
+    "taxon": "Таксон",
     "occurrence": "Знахідка",
     "organism": "Організм",
     "materialEntity": "",

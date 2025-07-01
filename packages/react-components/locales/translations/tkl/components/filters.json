@@ -90,6 +90,51 @@
     "count": "",
     "description": ""
   },
+  "gbifId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "organismQuantityType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "pathway": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "associatedSequences": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "degreeOfEstablishment": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "endDayOfYear": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "startDayOfYear": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "previousIdentifications": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lastInterpreted": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "alternativeCode": {
     "name": "",
     "count": "",
@@ -168,6 +213,11 @@
     "description": ""
   },
   "preparations": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "repatriated": {
     "name": "",
     "count": "",
     "description": ""
@@ -260,6 +310,11 @@
     "count": "",
     "description": ""
   },
+  "distanceFromCentroidInMeters": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "depth": {
     "name": "",
     "count": "",
@@ -320,6 +375,36 @@
     "count": "",
     "description": ""
   },
+  "verbatimTaxonId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "islandGroup": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "island": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "georeferencedBy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "datasetName": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "programme": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "recordNumber": {
     "name": "",
     "count": "",
@@ -371,6 +456,16 @@
     "description": ""
   },
   "stateProvince": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "gbifRegion": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "publishedByGbifRegion": {
     "name": "",
     "count": "",
     "description": ""
