@@ -6,8 +6,6 @@ import * as userModel from '../user/user.model.mjs';
 import { getByUserName } from '../user/user.model.mjs';
 import { base64ToJson, logUserIn, setNoCache } from './utils.mjs';
 
-const locales = { locales: ['en', 'es'] }; //TODO: replace with actual locales import
-
 /**
  * generic wrapper for handling callback from auth providers. Will either connect, login or create a new account based on the state included in the initial request
  * @param req
@@ -119,7 +117,7 @@ async function getUserFromProvider(profile, identificationKey) {
 function login(req, res, next, state, profile, providerEnum, identificationKey) {
   getUserFromProvider(profile, identificationKey)
     .then(function (user) {
-      let pathWithLocale = localizeRedirectPath(state.target, user?.settings?.locale);
+      let pathWithLocale = state.target;
       if (user && typeof user === 'object' && !_.get(user, 'userName')) {
         logger.debug('User has no userName', { userKeys: Object.keys(user) });
       }
@@ -153,28 +151,6 @@ function login(req, res, next, state, profile, providerEnum, identificationKey) 
         res.status(500).send('Internal server error');
       }
     });
-}
-
-function localizeRedirectPath(target, locale) {
-  let targetUrl = URL.parse(target);
-  let pathWithLocale = targetUrl.path;
-  let localePrefix = locale && locale !== 'en' ? '/' + locale : '';
-  let pathItems = targetUrl.pathname.split('/');
-  let localeAlreadySet = false;
-
-  // check if path already has a locale
-  locales.locales.forEach(function (item) {
-    if (pathItems.length > 1 && pathItems[1] === item) {
-      localeAlreadySet = true;
-    }
-  });
-
-  // append locale only if it's not already set
-  if (!localeAlreadySet) {
-    pathWithLocale = localePrefix + pathWithLocale;
-  }
-
-  return pathWithLocale;
 }
 
 /**
