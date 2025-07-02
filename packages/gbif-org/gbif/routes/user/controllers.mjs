@@ -1,5 +1,11 @@
 import logger from '../../config/logger.mjs';
-import { generateToken, removeTokenCookie, setNoCache, setTokenCookie } from '../auth/utils.mjs';
+import {
+  generateGraphQLToken,
+  generateToken,
+  removeTokenCookie,
+  setNoCache,
+  setTokenCookie,
+} from '../auth/utils.mjs';
 import {
   changePassword,
   confirm as confirmUser,
@@ -20,7 +26,8 @@ export function whoAmI(req, res) {
       return res.sendStatus(204);
     }
     const user = getClientUser(req.user);
-    res.json({ user });
+    let graphqlToken = generateGraphQLToken(user);
+    res.json({ user, graphqlToken });
   } catch (err) {
     res.sendStatus(err.status ?? 500);
   }

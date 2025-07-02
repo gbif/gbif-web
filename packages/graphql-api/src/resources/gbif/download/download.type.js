@@ -13,10 +13,23 @@ const typeDef = gql`
       offset: Int
     ): DatasetDownloadListResults
     download(key: ID!): Download
+    userDownloads(
+      limit: Int
+      offset: Int
+      username: String!
+    ): DownloadListResults! @cacheControl(maxAge: 0, scope: PRIVATE)
   }
 
   type DatasetDownloadListResults {
     results: [DatasetDownload]!
+    limit: Int!
+    offset: Int!
+    count: Int!
+    endOfRecords: Boolean!
+  }
+
+  type DownloadListResults {
+    results: [Download!]!
     limit: Int!
     offset: Int!
     count: Int!
@@ -30,7 +43,7 @@ const typeDef = gql`
     datasetKey: ID
     datasetTitle: String
     download: Download
-    numberRecords: Int
+    numberRecords: Long
   }
 
   type Download {
@@ -45,9 +58,9 @@ const typeDef = gql`
     numberOrganizations: Int
     numberPublishingCountries: Int
     request: DownloadRequest
-    size: Int
+    size: Long
     status: Download_Status
-    totalRecords: Int
+    totalRecords: Long
   }
 
   type DownloadRequest {

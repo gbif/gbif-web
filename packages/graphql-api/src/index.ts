@@ -1,3 +1,4 @@
+import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 import { ApolloServerPluginCacheControl } from 'apollo-server-core';
 import { ApolloServer } from 'apollo-server-express';
 import bodyParser from 'body-parser';
@@ -39,6 +40,7 @@ async function initializeServer() {
   // this is async as we generate parts of the schema from the live enumeration API
   const typeDefs = await getSchema();
   const server = new ApolloServer({
+    cache: new InMemoryLRUCache(),
     debug: config.debug,
     context: async ({ req, res }) => {
       // on all requests attach a user if present

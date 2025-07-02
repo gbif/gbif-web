@@ -8,6 +8,7 @@ type DataProviderOptions = {
   locale: string;
   abortSignal?: AbortSignal;
   preview?: boolean;
+  authorization?: string;
 };
 
 type QueryResult<T> = Promise<
@@ -24,12 +25,14 @@ export class GraphQLService {
   private locale: string;
   private abortSignal?: AbortSignal;
   private preview: boolean;
+  private authorization?: string;
 
   constructor(options: DataProviderOptions) {
     this.endpoint = options.endpoint;
     this.locale = options.locale;
     this.abortSignal = options.abortSignal;
     this.preview = options.preview ?? false;
+    this.authorization = options.authorization;
   }
 
   public async query<TResult, TVariabels>(
@@ -48,9 +51,10 @@ export class GraphQLService {
         'Content-Type': 'application/json',
         locale: this.locale,
         preview: this.preview.toString(),
+        ...(this.authorization ? { authorization: this.authorization } : {}),
       },
       signal: this.abortSignal,
-      cache: this.preview ? 'no-cache' : 'default',
+      cache: this.preview || this.authorization ? 'no-cache' : 'default',
     }).then(async (getResponse) => {
       const body = await getResponse.json();
 

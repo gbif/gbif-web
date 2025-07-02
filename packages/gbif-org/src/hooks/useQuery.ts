@@ -77,7 +77,7 @@ export function useQuery<TResult, TVariabels>(
   }, [options]);
 
   const load = React.useCallback(
-    (loadOptions?: Options<TVariabels>) => {
+    (loadOptions?: Options<TVariabels>, context?: { authorization?: string }) => {
       const mergedOptions = { ...options, ...(loadOptions ?? {}) };
 
       // Create a function that will start the request. This function will be called by the queueing logic
@@ -98,6 +98,7 @@ export function useQuery<TResult, TVariabels>(
           endpoint: config.graphqlEndpoint,
           locale: locale.cmsLocale || locale.code,
           abortSignal: abortController.signal,
+          authorization: context?.authorization || undefined,
         });
 
         return graphqlService

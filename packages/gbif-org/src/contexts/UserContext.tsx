@@ -20,6 +20,7 @@ interface User {
   photo: string;
   githubUserName: string;
   orcid: string;
+  graphqlToken: string; // Token for GraphQL API access
 }
 
 interface LoginData {
@@ -128,7 +129,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       setIsLoading(true);
       const response = await whoAmI();
       if (response.user) {
-        setUser(response.user);
+        setUser({ ...response.user, graphqlToken: response.graphqlToken });
       } else {
         setUser(null);
       }

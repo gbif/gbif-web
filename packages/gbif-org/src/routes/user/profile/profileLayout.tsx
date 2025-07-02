@@ -1,4 +1,5 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { JazzIcon } from '@/components/JazzIcon/index';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
@@ -10,7 +11,7 @@ import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { Helmet } from 'react-helmet-async';
 import { LuLogOut as LogOut } from 'react-icons/lu';
 import { useIntl } from 'react-intl';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 export const ProfileSkeleton = ArticleSkeleton;
 
@@ -25,6 +26,7 @@ export function UserProfileLayoutWrapper() {
 export function UserProfileLayout() {
   const { user, logout } = useUser();
   const navigate = useNavigate();
+  const location = useLocation();
   const { formatMessage } = useIntl();
 
   // Tab links similar to publisher page
@@ -45,22 +47,22 @@ export function UserProfileLayout() {
         </>
       ),
     },
-    {
-      to: 'derived-datasets',
-      children: (
-        <>
-          <span>{formatMessage({ id: 'profile.derivedDatasets' })}</span>
-        </>
-      ),
-    },
-    {
-      to: 'validations',
-      children: (
-        <>
-          <span>{formatMessage({ id: 'profile.validations' })}</span>
-        </>
-      ),
-    },
+    // {
+    //   to: 'derived-datasets',
+    //   children: (
+    //     <>
+    //       <span>{formatMessage({ id: 'profile.derivedDatasets' })}</span>
+    //     </>
+    //   ),
+    // },
+    // {
+    //   to: 'validations',
+    //   children: (
+    //     <>
+    //       <span>{formatMessage({ id: 'profile.validations' })}</span>
+    //     </>
+    //   ),
+    // },
   ];
 
   const logoutHandler = async () => {
@@ -86,11 +88,11 @@ export function UserProfileLayout() {
         <PageContainer topPadded hasDataHeader className="g-bg-gray-50">
           <ArticleTextContainer className="g-max-w-screen-xl">
             <div className="g-min-h-screen g-bg-gray-50">
-              <div className="g-max-w-4xl g-mx-auto g-px-4 g-py-8">
+              <div className="g-max-w-4xl g-mx-auto g-px-2 g-py-4 md:g-px-1 md:g-py-2">
                 {/* Header with integrated tabs */}
                 <Card className="g-mb-6">
                   <div className="g-p-6">
-                    <div className="g-flex g-items-center g-justify-between">
+                    <div className="md:g-flex g-items-center g-justify-between">
                       <div className="g-flex g-items-center g-space-x-4">
                         <div className="g-relative">
                           {user?.photo ? (
@@ -121,7 +123,7 @@ export function UserProfileLayout() {
                           </p> */}
                         </div>
                       </div>
-                      <div>
+                      <div className="g-mt-2 md:g-mt-0">
                         <Button
                           variant="outline"
                           onClick={logoutHandler}
@@ -139,7 +141,9 @@ export function UserProfileLayout() {
                     <Tabs links={tabs} />
                   </div>
                 </Card>
-                <Outlet />
+                <ErrorBoundary invalidateOn={location.pathname}>
+                  <Outlet />
+                </ErrorBoundary>
               </div>
             </div>
           </ArticleTextContainer>

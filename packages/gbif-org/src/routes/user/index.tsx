@@ -2,6 +2,7 @@ import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { Navigate } from 'react-router-dom';
 import { ArticleSkeleton } from '../resource/key/components/articleSkeleton';
 import { ConfirmPage, confirmLoader } from './confirm/confirm';
+import { Downloads } from './downloads/downloads';
 import { LoginPage, RegistrationPage } from './login/login';
 import Profile from './profile/profile';
 import { UserProfileLayoutWrapper } from './profile/profileLayout';
@@ -64,7 +65,7 @@ export const userRoutes: RouteObjectWithPlugins[] = [
       },
       {
         path: 'download',
-        element: <span>downloads</span>,
+        element: <Downloads />,
       },
       {
         path: 'derived-datasets',

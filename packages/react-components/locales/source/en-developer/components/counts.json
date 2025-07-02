@@ -17,6 +17,7 @@
   "nSynonyms": "{total, plural, one {# synonym} other {# synonyms}}",
   "inGbif": "{total, plural, one {# in GBIF} other {# in GBIF}}",
   "nSpecimens": "{total, plural, one {# specimen} other {# specimens}}",
+  "nDownloads": "{total, plural, one {# download} other {# downloads}}",
   "nCollections": "{total, plural, one {# collection} other {# collections}}",
   "nRows": "{total, plural, one {# row} other {# rows}}",
   "nInstitutions": "{total, plural, one {# institution} other {# institutions}}",

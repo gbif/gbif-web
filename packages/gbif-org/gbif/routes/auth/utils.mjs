@@ -14,6 +14,7 @@ const hour = 60 * minute;
 const day = 24 * hour;
 
 const JWT_SECRET = process.env.JWT_SECRET;
+const GRAPHQL_JWT_SECRET = process.env.GRAPHQL_JWT_SECRET;
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -34,6 +35,22 @@ export const generateToken = (user, ttl) => {
     tokenContent.roles = JSON.stringify(user.roles);
   }
   return jwt.sign(tokenContent, JWT_SECRET, {
+    expiresIn: ttl || '24h',
+    algorithm: 'HS256',
+  });
+};
+
+// Generate JWT token
+export const generateGraphQLToken = (user, ttl) => {
+  const tokenContent = {
+    userName: user.userName,
+    firstName: user.firstName,
+    lastName: user.lastName,
+  };
+  if (user.roles) {
+    tokenContent.roles = JSON.stringify(user.roles);
+  }
+  return jwt.sign(tokenContent, GRAPHQL_JWT_SECRET, {
     expiresIn: ttl || '24h',
     algorithm: 'HS256',
   });

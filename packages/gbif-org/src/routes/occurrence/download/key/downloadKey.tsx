@@ -150,7 +150,7 @@ export function DownloadKey() {
                 <FormattedMessage id="downloadKey.download" defaultMessage="Download" />
               </ArticlePreTitle>
               <ArticleTitle className="lg:g-text-3xl">
-                <Title download={download} />
+                <DownloadTitle download={download} />
               </ArticleTitle>
 
               <SubHeader download={download} literatureCount={literatureCount} />
@@ -180,7 +180,7 @@ export function DownloadKeySkeleton() {
   return <ArticleSkeleton />;
 }
 
-function Title({ download }: { download: DownloadKeyQuery['download'] }) {
+export function DownloadTitle({ download }: { download: DownloadKeyQuery['download'] }) {
   if (!download) return null;
 
   const errorClassName = 'g-text-orange-700';

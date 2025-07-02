@@ -117,39 +117,42 @@ export function QueryCard({ download }: { download: DownloadKeyQuery['download']
           </div>
         </CardContent>
       )}
+      <CardContent className="g-border-t g-border-gray-200 g-pt-4 md:g-pt-8 g-overflow-auto">
+        <DownloadFilterSummary download={download} />
+      </CardContent>
+    </Card>
+  );
+}
+
+export function DownloadFilterSummary({ download }: { download: DownloadKeyQuery['download'] }) {
+  if (!download?.request) return null;
+  return (
+    <>
       {download?.request?.gbifMachineDescription?.parameters?.predicate && (
-        <CardContent className="g-border-t g-border-gray-200 g-pt-4 md:g-pt-8 g-overflow-auto">
-          <div className="gbif-predicates g-min-w-[500px]">
-            <PredicateDisplay
-              predicate={download?.request?.gbifMachineDescription.parameters.predicate}
-            />
-          </div>
-        </CardContent>
+        <div className="gbif-predicates g-min-w-[500px]">
+          <PredicateDisplay
+            predicate={download?.request?.gbifMachineDescription.parameters.predicate}
+          />
+        </div>
       )}
       {download?.request?.predicate && (
-        <CardContent className="g-border-t g-border-gray-200 g-pt-4 md:g-pt-8 g-overflow-auto">
-          <div className="gbif-predicates g-min-w-[500px]">
-            <PredicateDisplay predicate={download?.request?.predicate} />
-          </div>
-        </CardContent>
+        <div className="gbif-predicates g-min-w-[500px]">
+          <PredicateDisplay predicate={download?.request?.predicate} />
+        </div>
       )}
       {!download?.request?.predicate && !download?.request?.sql && (
-        <CardContent className="g-border-t g-border-gray-200 g-pt-4 md:g-pt-8">
-          <div className="g-text-slate-600">
-            <FormattedMessage id="downloadKey.noFiltersApplied" />
-          </div>
-        </CardContent>
+        <div className="g-text-slate-600">
+          <FormattedMessage id="downloadKey.noFiltersApplied" />
+        </div>
       )}
       {download?.request?.sql && (
-        <CardContent className="g-border-t g-border-gray-200 !g-p-0">
-          <div className="g-text-sm">
-            <pre
-              className="g-max-full g-overflow-auto g-p-4 md:g-p-8 gbif-sqlInput"
-              dangerouslySetInnerHTML={{ __html: download?.request.sql }}
-            />
-          </div>
-        </CardContent>
+        <div className="g-text-sm">
+          <pre
+            className="g-max-full g-overflow-auto gbif-sqlInput"
+            dangerouslySetInnerHTML={{ __html: download?.request.sql }}
+          />
+        </div>
       )}
-    </Card>
+    </>
   );
 }
