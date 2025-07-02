@@ -199,22 +199,22 @@ export const gbifConfig: Config = {
   },
   literatureSearch: {
     queryType: 'PREDICATE',
-    highlightedFilters: ['q', 'year'],
+    // highlightedFilters: ['q', 'year'],
   },
   occurrenceSearch: {
     mapSettings: {
       userLocationEnabled: false,
     },
     excludedFilters: [],
-    highlightedFilters: [
-      'q',
+    // highlightedFilters: [
+      // 'q',
       // 'taxonKey',
       // 'year',
       // 'country',
       // // 'occurrenceIssue',
       // 'geometry',
       // 'recordedBy',
-    ],
+    // ],
     // defaultEnabledTableColumns: [
     //   'features',
     //   'specimenTriplet',
