@@ -60,13 +60,15 @@ export default function ScientificNameColumn({
             {!showCanonicalName && (
               <span
                 className="g-pointer-events-auto g-me-2"
-                dangerouslySetInnerHTML={{
-                  __html: occurrence?.classification?.taxonMatch?.usage?.formattedName as string,
-                }}
-              />
+              >{occurrence?.classification?.taxonMatch?.usage.name}</span>
             )}
             {showCanonicalName && (
-              <span className="g-pointer-events-auto g-me-2">{canonicalName}</span>
+              <span
+              className="g-pointer-events-auto g-me-2"
+              dangerouslySetInnerHTML={{
+                __html: occurrence?.classification?.taxonMatch?.usage?.formattedName as string,
+              }}
+            />
             )}
           </SetAsFilter>
         )}
