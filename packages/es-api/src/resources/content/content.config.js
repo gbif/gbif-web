@@ -771,6 +771,28 @@ const config = {
         type: 'fuzzy',
       },
     },
+    authors: {
+      type: 'nested',
+      field: 'authors',
+      config: {
+        prefix: 'authors',
+        options: {
+          firstName: {
+            type: 'keyword',
+            field: 'firstName',
+          },
+          lastName: {
+            type: 'keyword',
+            field: 'lastName',
+          },
+        },
+      },
+      get: {
+        type: 'delimted',
+        delimter: '__',
+        termOrder: ['firstName', 'lastName'],
+      },
+    },
     publicationDate: {
       type: 'date',
       field: 'publicationDate',
