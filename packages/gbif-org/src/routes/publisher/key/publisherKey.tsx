@@ -102,8 +102,17 @@ const SLOW_PUBLISHER_QUERY = /* GraphQL */ `
       }
     }
     hostedDatasets: datasetSearch(hostingOrg: [$key]) {
+      facet {
+        publishingOrg(limit: 5000) {
+          count
+        }
+        publishingCountry(limit: 5000) {
+          count
+        }
+      }
       count
     }
+
     hostedOccurrences: occurrenceSearch(
       predicate: { type: equals, key: "hostingOrganizationKey", value: $jsonKey }
     ) {
@@ -267,8 +276,21 @@ export function PublisherPage() {
                     >
                       <FormattedMessage
                         id="counts.nHostedDatasets"
-                        values={{ total: hostedDatasets?.count }}
+                        values={{
+                          total: hostedDatasets?.count,
+                        }}
+                      />{' '}
+                      (
+                      <FormattedMessage
+                        id="counts.nPublishers"
+                        values={{ total: hostedDatasets?.facet?.publishingOrg?.length || 0 }}
                       />
+                      ,{' '}
+                      <FormattedMessage
+                        id="counts.nCountries"
+                        values={{ total: hostedDatasets?.facet?.publishingCountry?.length || 0 }}
+                      />
+                      )
                     </DynamicLink>
                   </GenericFeature>
                 )}
