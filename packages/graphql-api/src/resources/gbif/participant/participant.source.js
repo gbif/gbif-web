@@ -50,6 +50,7 @@ class ParticipantDirectoryAPI extends RESTDataSource {
       'countryCode',
       'created',
       'modified',
+      'nodes',
     ]);
 
     result.people = participant.people?.map((p) => {

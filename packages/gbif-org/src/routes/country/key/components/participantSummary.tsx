@@ -67,10 +67,11 @@ export function ParticipantSummary({ participant, className, showSocialLinksSect
           value={participant.participant?.nodeEstablishmentDate}
           formatter={(v) => <FormattedDate value={v} year="numeric" />}
         />
-        {/* TODO: Why is this not the same as portal16? */}
         <Property
           labelId="participant.website"
-          value={participant.homepage}
+          value={participant.directoryNodes
+            ?.map((directoryNode) => directoryNode?.nodeUrl)
+            ?.filter(notNull)}
           formatter={(v) => <a href={v}>{v}</a>}
         />
         {participantNodeManager && (
@@ -105,7 +106,6 @@ fragmentManager.register(/* GraphQL */ `
   fragment ParticipantSummary on Node {
     title
     gbifRegion
-    homepage
     participationStatus
     participant {
       membershipStart
@@ -133,6 +133,9 @@ fragmentManager.register(/* GraphQL */ `
       key
       firstName
       lastName
+    }
+    directoryNodes {
+      nodeUrl
     }
   }
 `);

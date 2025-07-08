@@ -57,6 +57,11 @@ const typeDef = gql`
     installation: InstallationSearchResults!
 
     participant: Participant
+    directoryNodes: [DirectoryNode]
+  }
+
+  type DirectoryNode {
+    nodeUrl: String
   }
 `;
 
