@@ -44,7 +44,7 @@ const config = {
     },
     catalogNumber: {
       type: 'keyword',
-      field: 'catalogNumber.keyword',
+      field: 'catalogNumber',
       suggestField: 'catalogNumber.suggest',
     },
     isInCluster: {
@@ -143,11 +143,6 @@ const config = {
     datasetKey: {
       type: 'keyword',
       field: 'datasetKey',
-    },
-    datasetName: {
-      type: 'keyword',
-      field: 'datasetName.keyword',
-      suggestField: 'datasetName.suggest',
     },
     datasetPublishingCountry: {
       type: 'keyword',
@@ -286,7 +281,7 @@ const config = {
     },
     eventId: {
       type: 'keyword',
-      field: 'eventId.keyword',
+      field: 'eventId',
       suggestField: 'eventId.suggest',
     },
     fieldNumber: {
@@ -333,7 +328,7 @@ const config = {
     },
     identifiedBy: {
       type: 'keyword',
-      field: 'identifiedBy.keyword',
+      field: 'identifiedBy',
       suggestField: 'identifiedBy.suggest',
     },
     individualCount: {
@@ -395,7 +390,7 @@ const config = {
     },
     locality: {
       type: 'keyword',
-      field: 'locality.keyword',
+      field: 'locality',
       suggestField: 'locality.suggest',
     },
     maximumDepthInMeters: {
@@ -496,7 +491,7 @@ const config = {
     },
     occurrenceId: {
       type: 'keyword',
-      field: 'occurrenceId.keyword',
+      field: 'occurrenceId',
       suggestField: 'occurrenceId.suggest',
     },
     occurrenceStatus: {
@@ -505,7 +500,7 @@ const config = {
     },
     organismId: {
       type: 'keyword',
-      field: 'organismId.keyword',
+      field: 'organismId',
       suggestField: 'organismId.suggest',
     },
     organismQuantity: {
@@ -531,12 +526,12 @@ const config = {
     },
     parentEventId: {
       type: 'keyword',
-      field: 'parentEventId.keyword',
+      field: 'parentEventId',
       suggestField: 'parentEventId.suggest',
     },
     preparations: {
       type: 'keyword',
-      field: 'preparations.keyword',
+      field: 'preparations',
     },
     programme: {
       type: 'keyword',
@@ -577,7 +572,7 @@ const config = {
     },
     recordedBy: {
       type: 'keyword',
-      field: 'recordedBy.keyword',
+      field: 'recordedBy',
       suggestField: 'recordedBy.suggest',
     },
     references: {
@@ -615,7 +610,7 @@ const config = {
     },
     samplingProtocol: {
       type: 'keyword',
-      field: 'samplingProtocol.keyword',
+      field: 'samplingProtocol',
       suggestField: 'samplingProtocol.suggest',
     },
     geometry: {
@@ -647,7 +642,7 @@ const config = {
     },
     stateProvince: {
       type: 'keyword',
-      field: 'stateProvince.keyword',
+      field: 'stateProvince',
       suggestField: 'stateProvince.suggest',
     },
     islandGroup: {
@@ -664,7 +659,7 @@ const config = {
     },
     datasetName: {
       type: 'keyword',
-      field: 'datasetName.keyword',
+      field: 'datasetName',
     },
     typeStatus: {
       type: 'keyword',
@@ -680,7 +675,7 @@ const config = {
     },
     waterBody: {
       type: 'keyword',
-      field: 'waterBody.keyword',
+      field: 'waterBody',
       suggestField: 'waterBody.suggest',
     },
     year: {
