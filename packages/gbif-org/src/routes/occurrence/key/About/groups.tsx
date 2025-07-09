@@ -2,6 +2,8 @@ import { BulletList } from '@/components/bulletList';
 import { GadmClassification } from '@/components/classification';
 import { ConceptValue } from '@/components/conceptValue';
 import { HelpLine } from '@/components/helpText';
+import { GeoJsonMap } from '@/components/maps/geojsonMap';
+import { generatePointGeoJson } from '@/components/maps/geojsonMap/GeoJsonMap';
 import Properties, { Property } from '@/components/properties';
 import { RenderIfChildren } from '@/components/renderIfChildren';
 import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
@@ -378,6 +380,12 @@ function Location({
   termMap: any;
   occurrence: any;
 }) {
+  const [geoJson2] = useState(
+    generatePointGeoJson({
+      lat: occurrence?.coordinates.lat as number,
+      lon: occurrence?.coordinates.lon as number,
+    })
+  );
   return (
     <Card className="g-mb-4" id="location">
       <CardHeader>
@@ -471,10 +479,17 @@ function Location({
         {occurrence.coordinates.lon && (
           <div className="g-ms-4 g-flex-auto g-w-1/2 g-min-w-64">
             <StaticRenderSuspence fallback={<div>Loading map...</div>}>
-              {/* <Map
-                coordinates={occurrence.coordinates}
+              {/* <GeoJsonMap geoJson={geoJson} className="g-w-full g-rounded g-overflow-hidden" /> */}
+              <GeoJsonMap
+                geoJson={generatePointGeoJson({
+                  lat: occurrence?.coordinates.lat as number,
+                  lon: occurrence?.coordinates.lon as number,
+                })}
                 className="g-w-full g-rounded g-overflow-hidden"
-              /> */}
+                initialCenter={[occurrence.coordinates.lon, occurrence.coordinates.lat]}
+                initialZoom={1}
+                rasterStyle="gbif-natural"
+              />
             </StaticRenderSuspence>
           </div>
         )}
