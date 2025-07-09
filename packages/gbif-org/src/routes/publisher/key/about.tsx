@@ -88,7 +88,7 @@ export function PublisherKeyAbout() {
   const Map = () => {
     return (
       <CardSmall className="g-mb-4">
-        {publisher?.latitude && Math.abs(publisher.latitude) < 85 && (
+        {publisher?.longitude && publisher?.latitude && Math.abs(publisher.latitude) < 85 && (
           <a
             className="g-block"
             href={`http://www.google.com/maps/place/${publisher.latitude},${publisher.longitude}`}
@@ -133,7 +133,9 @@ export function PublisherKeyAbout() {
                 )}
                 {publisher.email && (
                   <div>
-                    <a href={`mailto:${publisher.email}`}>{publisher.email}</a>
+                    <a href={`mailto:${publisher.email}`} style={{ wordBreak: 'break-all' }}>
+                      {publisher.email}
+                    </a>
                   </div>
                 )}
                 {publisher.phone && (
