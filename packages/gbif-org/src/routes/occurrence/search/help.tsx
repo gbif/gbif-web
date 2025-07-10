@@ -6,6 +6,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Card } from '@/components/ui/smallCard';
+import { PiGitBranchBold as TaxonomyIcon } from 'react-icons/pi';
 import { FormattedMessage } from 'react-intl';
 
 export function AboutContent() {
@@ -40,7 +41,11 @@ export function AboutContent() {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-3">
-          <AccordionTrigger>{titleTaxonomy}</AccordionTrigger>
+          <AccordionTrigger>
+            <div>
+              {titleTaxonomy} <TaxonomyIcon className="g-text-base" />
+            </div>
+          </AccordionTrigger>
           <AccordionContent className="g-prose g-text-sm">
             {bodyTaxonomy && <div dangerouslySetInnerHTML={{ __html: bodyTaxonomy }} />}
           </AccordionContent>
