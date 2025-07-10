@@ -15,8 +15,11 @@ export default function ScientificNameColumn({
   const entityKey = `o_${occurrence?.key?.toString()}`;
 
   const hasClassification = occurrence?.classification;
-  const canonicalName = occurrence.classification?.taxonMatch?.usage?.canonicalName;
-  const showCanonicalName = canonicalName && !includeAuthorship;
+  const showCanonicalName =
+    occurrence.classification?.taxonMatch?.usage?.canonicalName && !includeAuthorship;
+  const canonicalName =
+    occurrence.classification?.taxonMatch?.usage?.canonicalName ??
+    occurrence?.classification?.taxonMatch?.usage.name;
 
   return (
     <div className="g-inline-flex g-items-start g-w-full">
@@ -57,18 +60,17 @@ export default function ScientificNameColumn({
         )}
         {hasClassification && (
           <SetAsFilter field="taxonKey" value={occurrence?.classification?.usage.key}>
+            {showCanonicalName && (
+              <span className="g-pointer-events-auto g-me-2">{canonicalName}</span>
+            )}
             {!showCanonicalName && (
               <span
                 className="g-pointer-events-auto g-me-2"
-              >{occurrence?.classification?.taxonMatch?.usage.name}</span>
-            )}
-            {showCanonicalName && (
-              <span
-              className="g-pointer-events-auto g-me-2"
-              dangerouslySetInnerHTML={{
-                __html: occurrence?.classification?.taxonMatch?.usage?.formattedName as string,
-              }}
-            />
+                dangerouslySetInnerHTML={{
+                  __html: (occurrence?.classification?.taxonMatch?.usage?.formattedName ??
+                    occurrence?.classification?.taxonMatch?.usage.name) as string,
+                }}
+              />
             )}
           </SetAsFilter>
         )}
