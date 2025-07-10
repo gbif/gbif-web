@@ -14,7 +14,7 @@
     "body-parser": "1.19.1",
     "command-line-args": "^5.2.0",
     "compression": "1.7.4",
-    "express": "4.17.2",
+    "express": "4.20.0",
     "lodash": "4.17.21",
     "qs": "6.10.3",
     "yaml": "1.10.2",
