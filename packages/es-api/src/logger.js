@@ -61,6 +61,9 @@ const addFixedFields = winston.format((info) => {
   };
 });
 
+const level = debugLevel;
+console.log(`Logger level set to: ${level}`);
+
 // Configure the DailyRotateFile Transport for File Logging
 const fileRotateTransport = new DailyRotateFile({
   filename: path.join(logDir, 'application-%DATE%.log'),
@@ -68,7 +71,7 @@ const fileRotateTransport = new DailyRotateFile({
   zippedArchive: true,
   maxSize: '20m',
   maxFiles: '14d',
-  level: 'info',
+  level,
   handleExceptions: true,
   handleRejections: true,
   format: winston.format.combine(
@@ -77,9 +80,6 @@ const fileRotateTransport = new DailyRotateFile({
     ecsFormat({ convertReqRes: true }),
   ),
 });
-
-const level = debugLevel;
-console.log(`Logger level set to: ${level}`);
 
 // Configure the Console Transport for Development
 const consoleTransport = new winston.transports.Console({
