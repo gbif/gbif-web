@@ -136,7 +136,7 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
                 <DropdownMenuContent>
                   <DropdownMenuLabel>
                     Supported checklists
-                    <a href={`/checklists`} className="g-ms-2">
+                    <a href={`/news/4NYN9w8HdlGrD2mRqdvw9o`} className="g-ms-2">
                       <MdInfo />
                     </a>
                   </DropdownMenuLabel>
