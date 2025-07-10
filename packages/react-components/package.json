@@ -103,7 +103,7 @@
     "gulp-replace": "^1.0.0",
     "gzipper": "^6.2.1",
     "md5-file": "^5.0.0",
-    "nodemon": "^2.0.12",
+    "nodemon": "^2.0.22",
     "path-exists-cli": "^2.0.0",
     "plop": "^2.7.4",
     "pseudoloc": "^1.1.0",
