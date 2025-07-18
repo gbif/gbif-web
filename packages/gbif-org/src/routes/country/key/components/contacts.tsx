@@ -126,8 +126,7 @@ function PersonContactCard({ contact, highlighted }: PersonContactCardProps) {
         </ContactHeaderContent>
       </ContactHeader>
       <ContactContent className="g-flex g-flex-col g-gap-1.5">
-        {/* TODO: why is this different from portal16? */}
-        {contact.organization && <p>{contact.organization}</p>}
+        {contact.institutionName && <p>{contact.institutionName}</p>}
         {contact.address && (
           <address>
             {contact.address
@@ -167,6 +166,7 @@ fragmentManager.register(/* GraphQL */ `
       firstName
       surname
       lastName
+      institutionName
 
       organization
       position

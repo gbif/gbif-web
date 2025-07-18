@@ -102,6 +102,16 @@ export default {
         .filter((value) => !value.deleted);
     },
   },
+  Contact: {
+    institutionName: async (contact, args, { dataSources }) => {
+      const directoryPerson =
+        await dataSources.directoryPersonAPI.getDirectoryContactByKey({
+          key: contact.key,
+        });
+
+      return directoryPerson?.institutionName;
+    },
+  },
 };
 
 function getDirectoryParticipantId(node) {

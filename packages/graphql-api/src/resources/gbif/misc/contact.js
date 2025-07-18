@@ -27,6 +27,7 @@ const typeDef = gql`
     # Comes from the directory and is currently only added in the Node.contacts resolver
     title: String
     surname: String
+    institutionName: String
   }
 `;
 
