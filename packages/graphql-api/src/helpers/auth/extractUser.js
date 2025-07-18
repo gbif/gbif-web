@@ -1,35 +1,68 @@
+import config from '#/config';
+import jwt from 'jsonwebtoken';
 import NodeCache from 'node-cache';
 import { authenticatedGet } from './authenticatedGet';
 
 // users are cached for 30 seconds
 const userCache = new NodeCache({ stdTTL: 30, checkperiod: 40 });
 
+const { jwtSecret } = config;
+
 /**
- * Attach user based on various authentication schemes Basic, Bearer, ApiKey (the idea with introducing ApiKeys is that they are public for a web app)
+ * Fetch user by username from the registry API
+ * @param {string} userName
+ * @param {object} config
+ */
+async function getUserByUserName(userName) {
+  try {
+    const response = await authenticatedGet({
+      canonicalPath: `admin/user/${userName}`,
+      config,
+      query: {},
+    });
+    return response;
+  } catch (error) {
+    return null;
+  }
+}
+
+/**
+ * Attach user based on various authentication schemes Basic, Bearer, ApiKey
  * @param {string} authorization
+ * @param {object} config
  */
 async function resolveUser(authorization) {
   const [type, value] = authorization.split(' ');
   switch (type) {
-    case 'ApiKey-v1':
-      return authenticatedGet({
-        canonicalPath: 'admin/user/find',
-        query: { 'auth.facebook.id': value },
-        config,
-      });
+    case 'Bearer':
+      try {
+        // Verify JWT token
+        const decoded = jwt.verify(value, jwtSecret, {
+          algorithms: ['HS256'],
+        });
+
+        if (decoded.userName) {
+          // Fetch user from registry API
+          const user = await getUserByUserName(decoded.userName);
+          return user;
+        }
+        return null;
+      } catch (error) {
+        return null;
+      }
     default:
       return undefined;
   }
 }
 
-async function extractUser(authorization, config) {
+async function extractUser(authorization) {
   if (typeof authorization !== 'string' || authorization === '')
     return undefined;
 
   const storedUser = userCache.get(authorization);
   if (storedUser) return storedUser;
 
-  const user = await resolveUser(authorization, config);
+  const user = await resolveUser(authorization);
   userCache.set(authorization, user);
   return user;
 }

@@ -27,7 +27,6 @@ import {
 } from './helpers/fields';
 import groupResolver from './helpers/groups/occurrenceGroups';
 import getLongitudeBounds from './helpers/longitudeBounds';
-import predicate2v1 from './helpers/predicate2v1';
 import termResolver from './helpers/terms/occurrenceTerms';
 
 const DEFAULT_CHECKLIST_KEY =
@@ -102,11 +101,6 @@ const facetOccurrenceSearch = (parent) => {
 export default {
   Query: {
     occurrenceSearch: (_parent, args, { dataSources }) => {
-      // return dataSources.occurrenceAPI.searchOccurrences({ query: args });
-      const v1Predicate = predicate2v1(args.predicate);
-      const v1PredicateQStripped = predicate2v1(args.predicate, {
-        shouldRemoveFullTextPredicates: true,
-      });
       return {
         _predicate: args.predicate,
         _q: args.q,
@@ -248,7 +242,7 @@ export default {
         .then((metadata) => {
           return dataSources.datasetAPI
             .getClbVernacularNamesByTaxonKey({
-              checklistKey: metadata.mainIndex.datasetKey,
+              checklistKey: metadata.mainIndex.clbDatasetKey,
               taxonKey: usage.key,
               query: { lang },
             })

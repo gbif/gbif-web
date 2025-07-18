@@ -90,6 +90,51 @@
     "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
+  "gbifId": {
+    "name": "GBIF ID",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
+  },
+  "organismQuantityType": {
+    "name": "Aantal organismen type",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
+  },
+  "pathway": {
+    "name": "Pad",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
+  },
+  "associatedSequences": {
+    "name": "",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
+  },
+  "degreeOfEstablishment": {
+    "name": "",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
+  },
+  "endDayOfYear": {
+    "name": "Einddag van het jaar",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
+  },
+  "startDayOfYear": {
+    "name": "Startdag van het jaar",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
+  },
+  "previousIdentifications": {
+    "name": "",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
+  },
+  "lastInterpreted": {
+    "name": "Laatst geïnterpreteerd",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
+  },
   "alternativeCode": {
     "name": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
     "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
@@ -171,6 +216,11 @@
     "name": "Voorbereidingen",
     "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
+  "repatriated": {
+    "name": "",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
   },
   "publishingCountryCode": {
     "name": "Publicerend land",
@@ -260,6 +310,11 @@
     "count": "",
     "description": "De minimumafstand in meters van een coördinaat waarbinnen de vindplaats ligt."
   },
+  "distanceFromCentroidInMeters": {
+    "name": "Moet worden gedefinieerd",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
+  },
   "depth": {
     "name": "Diepte",
     "count": "",
@@ -320,6 +375,36 @@
     "count": "Moet worden gedefinieerd",
     "description": "Moet worden gedefinieerd"
   },
+  "verbatimTaxonId": {
+    "name": "Moet worden gedefinieerd",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
+  },
+  "islandGroup": {
+    "name": "Eiland Groep",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
+  },
+  "island": {
+    "name": "Eiland",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
+  },
+  "georeferencedBy": {
+    "name": "",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
+  },
+  "datasetName": {
+    "name": "Datasetnaam",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
+  },
+  "programme": {
+    "name": "Programma",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
+  },
   "recordNumber": {
     "name": "Objectnummer",
     "count": "",
@@ -374,6 +459,16 @@
     "name": "Staat/provincie",
     "count": "",
     "description": "De naam van de administratieve regio onder het niveau van land waar de vindplaats zich bevindt."
+  },
+  "gbifRegion": {
+    "name": "GBIF regio",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
+  },
+  "publishedByGbifRegion": {
+    "name": "",
+    "count": "Moet worden gedefinieerd",
+    "description": "Moet worden gedefinieerd"
   },
   "eventId": {
     "name": "",

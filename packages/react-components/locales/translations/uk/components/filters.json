@@ -90,6 +90,51 @@
     "count": "Архів анотований GBIF",
     "description": "Архів анотований GBIF"
   },
+  "gbifId": {
+    "name": "GBIF ID",
+    "count": "",
+    "description": ""
+  },
+  "organismQuantityType": {
+    "name": "Одиниці розмірності кількості організмів (наприклад, особини, проективне покриття, маса тощо)",
+    "count": "",
+    "description": ""
+  },
+  "pathway": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "associatedSequences": {
+    "name": "Пов'язані сіквенси",
+    "count": "",
+    "description": ""
+  },
+  "degreeOfEstablishment": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "endDayOfYear": {
+    "name": "День кінця року",
+    "count": "",
+    "description": ""
+  },
+  "startDayOfYear": {
+    "name": "День початку року",
+    "count": "",
+    "description": ""
+  },
+  "previousIdentifications": {
+    "name": "Попередні ідентифікації",
+    "count": "",
+    "description": ""
+  },
+  "lastInterpreted": {
+    "name": "Остання інтерпретація",
+    "count": "",
+    "description": ""
+  },
   "alternativeCode": {
     "name": "Архів анотований GBIF",
     "count": "Архів анотований GBIF",
@@ -171,6 +216,11 @@
     "name": "Підготовчі дії щодо зразка (наприклад, відфотографовано, відпрепаровано тощо)",
     "count": "Архів анотований GBIF",
     "description": "Архів анотований GBIF"
+  },
+  "repatriated": {
+    "name": "Репатрійовано",
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "Країна або регіон, що публікує дані",
@@ -260,6 +310,11 @@
     "count": "",
     "description": ""
   },
+  "distanceFromCentroidInMeters": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "depth": {
     "name": "Глибина",
     "count": "",
@@ -320,6 +375,36 @@
     "count": "",
     "description": ""
   },
+  "verbatimTaxonId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "islandGroup": {
+    "name": "Група островів",
+    "count": "",
+    "description": ""
+  },
+  "island": {
+    "name": "Острів",
+    "count": "",
+    "description": ""
+  },
+  "georeferencedBy": {
+    "name": "Автор геоприв'язки",
+    "count": "",
+    "description": ""
+  },
+  "datasetName": {
+    "name": "Назва набору даних",
+    "count": "",
+    "description": ""
+  },
+  "programme": {
+    "name": "Програма",
+    "count": "",
+    "description": ""
+  },
   "recordNumber": {
     "name": "Номер запису",
     "count": "",
@@ -372,6 +457,16 @@
   },
   "stateProvince": {
     "name": "Область/район",
+    "count": "",
+    "description": ""
+  },
+  "gbifRegion": {
+    "name": "Регіон GBIF",
+    "count": "",
+    "description": ""
+  },
+  "publishedByGbifRegion": {
+    "name": "",
     "count": "",
     "description": ""
   },

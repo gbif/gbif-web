@@ -1,20 +1,21 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { GbifLogoIcon } from '@/components/icons/icons';
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
 } from '@/components/ui/sheet';
+import { useUser } from '@/contexts/UserContext';
 import { HeaderQuery } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
@@ -23,6 +24,7 @@ import { MdLink, MdMenu } from 'react-icons/md';
 
 function MobileMenu({ menu }: { menu: HeaderQuery }) {
   const [open, setOpen] = useState(false);
+  const { user, isLoggedIn, isLoading } = useUser();
 
   const children = menu?.gbifHome?.children;
   return (
@@ -112,13 +114,27 @@ function MobileMenu({ menu }: { menu: HeaderQuery }) {
                 );
               })}
             </Accordion>
-            <DynamicLink
-              onClick={() => setOpen(false)}
-              to="/login"
-              className="g-block g-border-b g-font-medium *:g-flex g-flex-1 g-items-center g-justify-between g-py-4 g-text-sm g-transition-all hover:g-underline"
-            >
-              Login
-            </DynamicLink>
+            {!isLoading && (
+              <>
+                {isLoggedIn && user ? (
+                  <DynamicLink
+                    onClick={() => setOpen(false)}
+                    to="/user/profile"
+                    className="g-block g-border-b g-font-medium *:g-flex g-flex-1 g-items-center g-justify-between g-py-4 g-text-sm g-transition-all hover:g-underline"
+                  >
+                    {user.userName}
+                  </DynamicLink>
+                ) : (
+                  <DynamicLink
+                    onClick={() => setOpen(false)}
+                    to="/user/login"
+                    className="g-block g-border-b g-font-medium *:g-flex g-flex-1 g-items-center g-justify-between g-py-4 g-text-sm g-transition-all hover:g-underline"
+                  >
+                    Login
+                  </DynamicLink>
+                )}
+              </>
+            )}
           </div>
         </ClientSideOnly>
       </SheetContent>

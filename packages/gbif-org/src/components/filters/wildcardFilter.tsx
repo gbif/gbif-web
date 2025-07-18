@@ -85,7 +85,7 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
 
     useEffect(() => {
       const query = getAsQuery({ filter: prunedFilter, searchContext, searchConfig });
-      const predicates = [query?.predicate];
+      const predicates = query?.predicate ? [query?.predicate] : [];
       let queryString = q;
       let postfix = '';
       if (queryString.indexOf('*') === -1 && queryString.indexOf('?') === -1) {
@@ -107,15 +107,24 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
         .replace(/([?+|{}[\]()"\\])/g, (_, p1) => '\\' + p1);
       if (!keepCase) includePattern = includePattern.toLowerCase();
 
+      // if there is no predicates, then predicate is undefined.
+      // if it has length === 1, then just use that
+      // and if has 2 items or more, then use and AND preidcate
+      let predicate = undefined;
+      if (predicates.length === 1) {
+        predicate = predicates[0];
+      } else if (predicates.length > 1) {
+        predicate = {
+          type: 'and',
+          predicates: predicates,
+        };
+      }
       load({
         keepDataWhileLoading: size > initialSize,
         variables: {
           size,
           include: includePattern,
-          predicate: {
-            type: 'and',
-            predicates: predicates,
-          },
+          predicate,
         },
       });
       // We are tracking filter changes via a hash in this case

@@ -6,10 +6,17 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Card } from '@/components/ui/smallCard';
+import { PiGitBranchBold as TaxonomyIcon } from 'react-icons/pi';
 import { FormattedMessage } from 'react-intl';
 
 export function AboutContent() {
   const { title, body, error, loading } = useHelp('what-is-an-occurrence');
+  const {
+    title: titleTaxonomy,
+    body: bodyTaxonomy,
+    error: errorTaxonomy,
+    loading: loadingTaxonomy,
+  } = useHelp('taxonomy-and-occurrence-search');
   const {
     title: titleSearch,
     body: bodySearch,
@@ -20,7 +27,7 @@ export function AboutContent() {
 
   return (
     <div>
-      <Accordion type="single" collapsible className="w-full">
+      <Accordion type="single" collapsible className="w-full ">
         <AccordionItem value="item-1">
           <AccordionTrigger>{title}</AccordionTrigger>
           <AccordionContent className="g-prose g-text-sm">
@@ -29,8 +36,18 @@ export function AboutContent() {
         </AccordionItem>
         <AccordionItem value="item-2">
           <AccordionTrigger>{titleSearch}</AccordionTrigger>
-          <AccordionContent>
+          <AccordionContent className="g-prose g-text-sm">
             {bodySearch && <div dangerouslySetInnerHTML={{ __html: bodySearch }} />}
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="item-3">
+          <AccordionTrigger>
+            <div>
+              {titleTaxonomy} <TaxonomyIcon className="g-text-base" />
+            </div>
+          </AccordionTrigger>
+          <AccordionContent className="g-prose g-text-sm">
+            {bodyTaxonomy && <div dangerouslySetInnerHTML={{ __html: bodyTaxonomy }} />}
           </AccordionContent>
         </AccordionItem>
       </Accordion>

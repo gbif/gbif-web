@@ -15,6 +15,7 @@ import {
   OccurrenceIcon,
   PeopleIcon,
 } from '@/components/highlights';
+import PageMetaData from '@/components/PageMetaData';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
@@ -28,7 +29,6 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { createContext } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { GrGithub as Github } from 'react-icons/gr';
 import { MdInfo } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
@@ -84,10 +84,15 @@ export function CollectionKey({
     collection.featuredImageUrl ?? collection.featuredImageUrl_fallback ?? fallbackImage;
   return (
     <>
-      <Helmet>
-        <title>{collection.name}</title>
-        {/* TODO we need much richer meta data. */}
-      </Helmet>
+      <PageMetaData
+        path={`/collection/${collection.key}`}
+        title={collection.name}
+        imageUrl={imageUrl}
+        description={collection.description}
+        noindex={!!collection.deleted}
+        nofollow={!!collection.deleted}
+      />
+
       <DataHeader
         className="g-bg-white"
         aboutContent={<AboutContent />}

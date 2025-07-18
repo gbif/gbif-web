@@ -7,6 +7,7 @@ import {
 } from '@/components/headerComponents';
 import { FeatureList, GenericFeature, Homepage, PeopleIcon } from '@/components/highlights';
 import { LicenceTag } from '@/components/identifierTag';
+import PageMetaData from '@/components/PageMetaData';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { useConfig } from '@/config/config';
@@ -26,13 +27,12 @@ import { ArticleTextContainer } from '@/routes/resource/key/components/articleTe
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { required } from '@/utils/required';
+import { getDatasetSchema } from '@/utils/schemaOrg';
 import { createContext, useEffect, useMemo } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
-
 const DATASET_QUERY = /* GraphQL */ `
   query Dataset($key: ID!) {
     literatureSearch(gbifDatasetKey: [$key]) {
@@ -132,6 +132,11 @@ const DATASET_QUERY = /* GraphQL */ `
           }
         }
       }
+      publishingOrganization {
+        title
+        homepage
+        logoUrl
+      }
       bibliographicCitations {
         identifier
         text
@@ -148,6 +153,10 @@ const DATASET_QUERY = /* GraphQL */ `
         format
         formatVersion
         url
+      }
+      keywordCollections {
+        thesaurus
+        keywords
       }
       citation {
         text
@@ -424,10 +433,14 @@ export function DatasetPage() {
 
   return (
     <>
-      <Helmet>
-        <title>{dataset.title}</title>
-        {/* TODO we need much richer meta data. Especially for datasets.  */}
-      </Helmet>
+      <PageMetaData
+        path={`/dataset/${dataset.key}`}
+        title={dataset.title}
+        description={dataset.description}
+        jsonLd={getDatasetSchema(dataset)}
+        noindex={!!dataset?.deleted}
+        nofollow={!!dataset?.deleted}
+      />
       <DataHeader
         className="g-bg-white"
         aboutContent={<AboutContent />}

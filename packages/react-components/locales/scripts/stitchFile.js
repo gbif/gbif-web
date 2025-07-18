@@ -31,6 +31,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       pagination: getFile(locale, `../${folder}/${locale}/components/pagination`),
       search: getFile(locale, `../${folder}/${locale}/components/search`),
       phrases: getFile(locale, `../${folder}/${locale}/components/phrases`),
+      profile: getFile(locale, `../${folder}/${locale}/components/profile`).profile,
       taxon: getFile(locale, `../${folder}/${locale}/components/taxon`),
       footer: getFile(locale, `../${folder}/${locale}/components/footer`).footer,
       resourceSearch: getFile(locale, `../${folder}/${locale}/components/resourceSearch`)
@@ -56,6 +57,8 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       error: getFile(locale, `../${folder}/${locale}/components/error`),
       dashboard: getFile(locale, `../${folder}/${locale}/components/dashboard`),
       cms: getFile(locale, `../${folder}/${locale}/components/cms`),
+      eoi: getFile(locale, `../${folder}/${locale}/components/eoi`),
+
       enums: {
         basisOfRecord: getFile(locale, `../${folder}/${locale}/enums/basisOfRecord`),
         countryCode: getFile(locale, `../${folder}/${locale}/enums/countryCode`),

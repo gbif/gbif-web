@@ -1,12 +1,12 @@
+import { createHmac } from 'crypto';
 import got from 'got';
 import { stringify } from 'querystring';
-import { createHmac } from 'crypto';
 
 const NEWLINE = '\n';
 
-const createHeader = ({ canonicalPath, appKey }) => ({
+const createHeader = ({ canonicalPath, appKey, username }) => ({
   'x-url': canonicalPath,
-  'x-gbif-user': appKey,
+  'x-gbif-user': username ?? appKey,
 });
 
 function signHeader(method, headers, appKey, appSecret) {
@@ -20,22 +20,19 @@ function signHeader(method, headers, appKey, appSecret) {
   return headers;
 }
 
-function createSignedGetHeader(canonicalPath, config) {
+function createSignedGetHeader(canonicalPath, config, username) {
   return signHeader(
     'GET',
-    createHeader({ canonicalPath, appKey: config.appKey }),
+    createHeader({ canonicalPath, appKey: config.appKey, username }),
     config.appKey,
     config.appSecret,
   );
 }
 
-async function authenticatedGet({ canonicalPath, query, config }) {
+async function authenticatedGet({ canonicalPath, query = {}, config }) {
   // https://github.com/gbif/gbif-common-ws/blob/master/src/main/java/org/gbif/ws/security/GbifAuthService.java
-
   const searchParams = stringify(query);
-
-  const headers = createHeader({ canonicalPath });
-  signHeader('GET', headers);
+  const headers = createSignedGetHeader(canonicalPath, config);
 
   const response = await got(canonicalPath, {
     prefixUrl: config.apiv1,

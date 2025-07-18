@@ -134,7 +134,7 @@ class TaxonAPI extends RESTDataSource {
         });
         const result = await colSuggest({
           q,
-          checklistKey: metadata.mainIndex.datasetKey,
+          checklistKey: metadata.mainIndex.clbDatasetKey,
           language,
           limit,
           taxonScope,

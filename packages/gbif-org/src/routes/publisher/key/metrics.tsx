@@ -1,6 +1,7 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import * as charts from '@/components/dashboard';
 import DashBoardLayout from '@/components/dashboard/DashboardLayout';
+import { MapWidget } from '@/components/maps/mapWidget';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { PublisherCountsQuery, PublisherCountsQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
@@ -51,6 +52,11 @@ export function PublisherKeyMetrics() {
       <ArticleTextContainer className="g-max-w-screen-xl">
         <ClientSideOnly>
           {!hasOccurrenceData && !hasLiteratureData && !loading && <div>No data to show</div>}
+          <MapWidget
+            className="g-mb-4"
+            capabilitiesParams={{ publishingOrg: key }}
+            mapStyle="CLASSIC_HEX"
+          />
           {hasLiteratureData && (
             <section>
               <CardHeader>

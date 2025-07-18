@@ -7,13 +7,15 @@ import { withIndex } from '@/utils/withIndex';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
+import { useIntl } from 'react-intl';
 import { z } from 'zod';
 import { BlockContainer } from '../../_shared';
 import {
-    createTypedCheckboxField,
-    createTypedTextField, OptionalStringSchema,
-    RequiredEmailSchema,
-    RequiredStringSchema
+  createTypedCheckboxField,
+  createTypedTextField,
+  OptionalStringSchema,
+  RequiredEmailSchema,
+  RequiredStringSchema,
 } from '../_shared';
 import { CheckRegistration } from './steps/checkRegistration';
 import { Contacts } from './steps/contacts';
@@ -24,7 +26,6 @@ import { OrganizationDetails } from './steps/organizationDetails';
 import { TermsAndConditions } from './steps/termsAndConditions';
 import { WhatAndHow } from './steps/whatAndHow';
 import { useSuggestedNodeCountry } from './useSuggestedNodeCountry';
-
 const ContactSchema = z.object({
   firstName: RequiredStringSchema,
   lastName: RequiredStringSchema,
@@ -94,7 +95,7 @@ type Props = {
 export function BecomeAPublisherForm({ className }: Props) {
   const { toast } = useToast();
   const config = useConfig();
-
+  const intl = useIntl();
   const form = useForm<Inputs>({
     resolver: zodResolver(Schema),
     mode: 'onBlur',
@@ -136,24 +137,36 @@ export function BecomeAPublisherForm({ className }: Props) {
     () =>
       withIndex([
         {
-          title: 'Check Registration',
+          title: intl.formatMessage({
+            id: 'eoi.checkRegistration',
+            defaultMessage: 'Check registration',
+          }),
           component: CheckRegistration,
           validationPath: 'checkRegistration',
         },
         {
-          title: 'Terms & Conditions',
+          title: intl.formatMessage({
+            id: 'eoi.termsAndConditions',
+            defaultMessage: 'Terms & Conditions',
+          }), //'Terms & Conditions',
           component: TermsAndConditions,
           fieldset: true,
           validationPath: 'termsAndConditions',
         },
         {
-          title: 'Organization Details',
+          title: intl.formatMessage({
+            id: 'eoi.organisationDetails',
+            defaultMessage: 'Organization Details',
+          }), //'Organization Details',
           component: OrganizationDetails,
           fieldset: true,
           validationPath: 'organizationDetails',
         },
         {
-          title: 'Organization Address',
+          title: intl.formatMessage({
+            id: 'eoi.organisationAddress',
+            defaultMessage: 'Organization Address',
+          }), //'Organization Address',
           component: () => (
             <OrganizationAddress updateSuggestedNodeCountry={updateSuggestedNodeCountry} />
           ),
@@ -161,24 +174,40 @@ export function BecomeAPublisherForm({ className }: Props) {
           validationPath: 'organizationAddress',
         },
         {
-          title: 'Endorsement',
+          title: intl.formatMessage({
+            id: 'eoi.endorsement',
+            defaultMessage: 'Endorsement',
+          }), //'Endorsement',
           component: () => <Endorsment suggestedNodeCountry={suggestedNodeCountry} />,
           fieldset: true,
           validationPath: 'endorsingNode',
         },
         {
-          title: 'GBIF projects',
+          title: intl.formatMessage({
+            id: 'eoi.gbifProjects',
+            defaultMessage: 'GBIF projects',
+          }), //'GBIF projects',
           component: GbifProjects,
           heading: 'Are you associated with a project funded by a GBIF programme?',
           validationPath: 'gbifProjects',
         },
         {
-          title: 'Contacts',
+          title: intl.formatMessage({
+            id: 'eoi.contacts',
+            defaultMessage: 'Contacts',
+          }), //'Contacts',
           component: Contacts,
           fieldset: true,
           validationPath: ['mainContact', 'administrativeContact', 'technicalContact'],
         },
-        { title: 'What and How', component: WhatAndHow, fieldset: true },
+        {
+          title: intl.formatMessage({
+            id: 'eoi.whatAndHow',
+            defaultMessage: 'What and How',
+          }), //'What and How',
+          component: WhatAndHow,
+          fieldset: true,
+        },
       ]),
     [updateSuggestedNodeCountry, suggestedNodeCountry]
   );

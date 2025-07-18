@@ -1,5 +1,6 @@
 import { GbifLogoIcon } from '@/components/icons/icons';
 import { Button } from '@/components/ui/button';
+import { useUser } from '@/contexts/UserContext';
 import { HeaderQuery } from '@/gql/graphql';
 import { DynamicLink, useI18n } from '@/reactRouterPlugins';
 import { FiActivity } from 'react-icons/fi';
@@ -13,6 +14,7 @@ import MobileMenu from './mobileMenu';
 export function Header({ menu }: { menu: HeaderQuery }) {
   const { locale } = useI18n();
   const location = useLocation();
+  const { user, isLoggedIn } = useUser();
 
   const pathname = location.pathname;
   //remove / slash from start and begining
@@ -21,7 +23,9 @@ export function Header({ menu }: { menu: HeaderQuery }) {
   const isRoot = path === '' || path === locale.code;
 
   const isTransparent = isRoot;
-  const transparentClass = isTransparent ? 'g-absolute g-w-full g-text-white' : '';
+  const transparentClass = isTransparent
+    ? 'g-absolute g-w-full g-text-white hover:g-bg-[#00000048]'
+    : '';
   return (
     <div className={`g-flex g-flex-none g-items-center g-p-2 g-px-4 g-z-30 ${transparentClass}`}>
       <div className="g-flex-none ">
@@ -68,9 +72,15 @@ export function Header({ menu }: { menu: HeaderQuery }) {
         <div className="g-inline-block lg:g-hidden">
           <MobileMenu menu={menu} />
         </div>
-        <Button asChild className="g-text-sm lg:g-inline-block g-hidden" variant="outline">
-          <Link to="/login">Login</Link>
-        </Button>
+        {isLoggedIn && user ? (
+          <Button asChild className="g-text-sm lg:g-inline-block g-hidden" variant="outline">
+            <Link to="/user/profile">{user.userName}</Link>
+          </Button>
+        ) : (
+          <Button asChild className="g-text-sm lg:g-inline-block g-hidden" variant="outline">
+            <Link to="/user/login">Login</Link>
+          </Button>
+        )}
       </div>
     </div>
   );

@@ -90,6 +90,51 @@
     "count": "",
     "description": ""
   },
+  "gbifId": {
+    "name": "ID de GBIF",
+    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+  },
+  "organismQuantityType": {
+    "name": "Tipo de cantidad del organismo",
+    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+  },
+  "pathway": {
+    "name": "Ruta",
+    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+  },
+  "associatedSequences": {
+    "name": "Secuencias asociadas",
+    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+  },
+  "degreeOfEstablishment": {
+    "name": "Grado de establecimiento",
+    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+  },
+  "endDayOfYear": {
+    "name": "Día Final del Año",
+    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+  },
+  "startDayOfYear": {
+    "name": "Día Inicial del Año",
+    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+  },
+  "previousIdentifications": {
+    "name": "Identificaciones previas",
+    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+  },
+  "lastInterpreted": {
+    "name": "Última interpretación",
+    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+  },
   "alternativeCode": {
     "name": "Código alternativo",
     "count": "{num, plural, one {# Código alternativo } other {# Códigos alternativos}}",
@@ -171,6 +216,11 @@
     "name": "Preparaciones",
     "count": "",
     "description": ""
+  },
+  "repatriated": {
+    "name": "Repatriado",
+    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
   },
   "publishingCountryCode": {
     "name": "País de publicación",
@@ -260,6 +310,11 @@
     "count": "{num, plural, one {Incertidumbre de las coordenadas} other {# filtros de incertidumbre de las coordenadas}}",
     "description": "Una medida de la distancia mínima en metros desde una coordenada dentro de la cual puede interpretarse que se encuentra una localidad."
   },
+  "distanceFromCentroidInMeters": {
+    "name": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+  },
   "depth": {
     "name": "Profundidad",
     "count": "{num, plural, one { profundidad } other {# profundidades}}",
@@ -306,7 +361,7 @@
     "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
   },
   "lifeStage": {
-    "name": "Estadio de desarrollo",
+    "name": "Estadío de desarrollo",
     "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
     "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
   },
@@ -317,6 +372,36 @@
   },
   "fieldNumber": {
     "name": "Número de Campo",
+    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+  },
+  "verbatimTaxonId": {
+    "name": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+  },
+  "islandGroup": {
+    "name": "Grupo de islas",
+    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+  },
+  "island": {
+    "name": "Isla",
+    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+  },
+  "georeferencedBy": {
+    "name": "Georreferenciado por",
+    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+  },
+  "datasetName": {
+    "name": "Nombre del conjunto de datos",
+    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+  },
+  "programme": {
+    "name": "Programa",
     "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
     "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
   },
@@ -374,6 +459,16 @@
     "name": "Departamento/Estado/Provincia",
     "count": "{num, plural, one { departamento/estado/provincia } other {# departamentos/estados/provincias}}",
     "description": "El nombre de la siguiente región administrativa más pequeña del país en el que se encuentra la localidad."
+  },
+  "gbifRegion": {
+    "name": "Región GBIF",
+    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+  },
+  "publishedByGbifRegion": {
+    "name": "Publicado por la región de GBIF",
+    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
   },
   "eventId": {
     "name": "ID del evento",

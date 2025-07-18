@@ -90,6 +90,51 @@
     "count": "GBIFがアノーテーションしたアーカイブ",
     "description": "GBIFがアノーテーションしたアーカイブ"
   },
+  "gbifId": {
+    "name": "GBIF ID",
+    "count": "",
+    "description": ""
+  },
+  "organismQuantityType": {
+    "name": "生物の数の種類",
+    "count": "",
+    "description": ""
+  },
+  "pathway": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "associatedSequences": {
+    "name": "関連する塩基配列",
+    "count": "",
+    "description": ""
+  },
+  "degreeOfEstablishment": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "endDayOfYear": {
+    "name": "終了年月日",
+    "count": "",
+    "description": ""
+  },
+  "startDayOfYear": {
+    "name": "開始年月日",
+    "count": "",
+    "description": ""
+  },
+  "previousIdentifications": {
+    "name": "以前のID",
+    "count": "",
+    "description": ""
+  },
+  "lastInterpreted": {
+    "name": "最終解釈日",
+    "count": "",
+    "description": ""
+  },
   "alternativeCode": {
     "name": "GBIFがアノーテーションしたアーカイブ",
     "count": "GBIFがアノーテーションしたアーカイブ",
@@ -171,6 +216,11 @@
     "name": "標本の準備または保存方法",
     "count": "GBIFがアノーテーションしたアーカイブ",
     "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "repatriated": {
+    "name": "返還された",
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "データ出版国または地域",
@@ -260,6 +310,11 @@
     "count": "",
     "description": ""
   },
+  "distanceFromCentroidInMeters": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "depth": {
     "name": "深度",
     "count": "",
@@ -320,6 +375,36 @@
     "count": "",
     "description": ""
   },
+  "verbatimTaxonId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "islandGroup": {
+    "name": "諸島",
+    "count": "",
+    "description": ""
+  },
+  "island": {
+    "name": "島",
+    "count": "",
+    "description": ""
+  },
+  "georeferencedBy": {
+    "name": "以下によってジオリファレンスした",
+    "count": "",
+    "description": ""
+  },
+  "datasetName": {
+    "name": "データセット名",
+    "count": "",
+    "description": ""
+  },
+  "programme": {
+    "name": "プログラム",
+    "count": "",
+    "description": ""
+  },
   "recordNumber": {
     "name": "レコード番号",
     "count": "",
@@ -372,6 +457,16 @@
   },
   "stateProvince": {
     "name": "州/地方または都道府県",
+    "count": "",
+    "description": ""
+  },
+  "gbifRegion": {
+    "name": "GBIF 地域",
+    "count": "",
+    "description": ""
+  },
+  "publishedByGbifRegion": {
+    "name": "",
     "count": "",
     "description": ""
   },

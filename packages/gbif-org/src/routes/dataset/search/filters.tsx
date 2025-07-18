@@ -1,6 +1,7 @@
 import {
   CountryLabel,
   DatasetTypeLabel,
+  DwcaExtensionLabel,
   IdentityLabel,
   LicenceLabel,
   NetworkLabel,
@@ -18,6 +19,7 @@ import { SuggestFnProps, SuggestResponseType } from '@/components/filters/sugges
 import { Message } from '@/components/message';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import datasetTypeOptions from '@/enums/basic/datasetType.json';
+import dwcaExtensionOptions from '@/enums/basic/dwcaExtension.json';
 import licenseOptions from '@/enums/basic/license.json';
 import { useCountrySuggest } from '@/hooks/useCountrySuggest';
 import { fetchWithCancel } from '@/utils/fetchWithCancel';
@@ -183,12 +185,12 @@ export const networkKeyConfig: filterSuggestConfig = {
   suggestConfig: networkKeySuggest,
   allowExistence: false,
   allowNegations: false,
-  facetQuery: `
-    query OccurrencePublisherFacet($q: String, $predicate: Predicate) {
-      search: occurrenceSearch(predicate: $predicate) {
+  facetQuery: /* GraphQL */ `
+    query DataseNetworkFacet($query: DatasetSearchInput) {
+      search: datasetSearch(query: $query) {
         facet {
           field: networkKey {
-            name: key
+            name
             count
           }
         }
@@ -203,6 +205,28 @@ const freeTextConfig: filterFreeTextConfig = {
   filterHandle: 'q',
   displayName: IdentityLabel,
   filterTranslation: 'filters.q.name',
+};
+
+export const dwcaExtensionConfig: filterEnumConfig = {
+  filterType: filterConfigTypes.ENUM,
+  filterHandle: 'dwcaExtension',
+  displayName: DwcaExtensionLabel,
+  options: dwcaExtensionOptions,
+  allowNegations: false,
+  allowExistence: false,
+  filterTranslation: 'filters.dwcaExtension.name',
+  facetQuery: /* GraphQL */ `
+    query DatasetDwcaExtensionFacet($query: DatasetSearchInput) {
+      search: datasetSearch(query: $query) {
+        facet {
+          field: dwcaExtension {
+            name
+            count
+          }
+        }
+      }
+    }
+  `,
 };
 
 export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }): {
@@ -225,6 +249,7 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       }),
       license: generateFilters({ config: licenceConfig, searchConfig, formatMessage }),
       type: generateFilters({ config: datasetTypeConfig, searchConfig, formatMessage }),
+      dwcaExtension: generateFilters({ config: dwcaExtensionConfig, searchConfig, formatMessage }),
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
     };
     setFilters(nextFilters);

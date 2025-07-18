@@ -1,5 +1,6 @@
 import useFetchGet from '@/hooks/useFetchGet';
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { SearchSuggest } from './searchSuggest';
 
 export type OrganizationOption = {
@@ -20,6 +21,7 @@ export function OrganizationSearchSugget({
   noSelectionPlaceholder,
   className,
 }: Props) {
+  const intl = useIntl();
   const { load, data } = useFetchGet<Array<OrganizationOption>>({
     lazyLoad: true,
   });
@@ -43,9 +45,12 @@ export function OrganizationSearchSugget({
       results={data ?? []}
       labelSelector={(value) => value.title}
       keySelector={(value) => value.key}
-      noSearchResultsPlaceholder={<span>No organizations found</span>}
+      noSearchResultsPlaceholder={intl.formatMessage({
+        id: 'search.noResults',
+        defaultMessage: 'No results found',
+      })}
       noSelectionPlaceholder={noSelectionPlaceholder ?? <span>Select an organization</span>}
-      searchInputPlaceholder="Search organizations..."
+      searchInputPlaceholder={noSelectionPlaceholder ?? 'Search organizations...'}
     />
   );
 }

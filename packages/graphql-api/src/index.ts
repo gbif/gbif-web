@@ -1,3 +1,4 @@
+import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 import { ApolloServerPluginCacheControl } from 'apollo-server-core';
 import { ApolloServer } from 'apollo-server-express';
 import bodyParser from 'body-parser';
@@ -39,10 +40,17 @@ async function initializeServer() {
   // this is async as we generate parts of the schema from the live enumeration API
   const typeDefs = await getSchema();
   const server = new ApolloServer({
+    cache: new InMemoryLRUCache(),
     debug: config.debug,
     context: async ({ req, res }) => {
       // on all requests attach a user if present
       const user = await extractUser(get(req, 'headers.authorization'));
+      if (user) {
+        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+        res.header('Pragma', 'no-cache');
+        res.header('Expires', '0');
+        res.header('Surrogate-Control', 'no-store');
+      }
 
       // Add express context and a listener for aborted connections. Then data sources have a chance to cancel resources
       // I haven't been able to find any examples of people doing anything with cancellation - which I find odd.

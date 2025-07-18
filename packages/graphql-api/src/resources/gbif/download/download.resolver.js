@@ -12,6 +12,21 @@ export default {
   Query: {
     datasetDownloads: (parent, args, { dataSources }) =>
       dataSources.downloadAPI.datasetDownloads({ query: args }),
+    userDownloads: (
+      parent,
+      { username, limit = 10, offset = 0 },
+      { dataSources },
+      info,
+    ) => {
+      info.cacheControl.setCacheHint({
+        maxAge: 0,
+        scope: 'PRIVATE',
+      });
+      return dataSources.downloadAPI.getUsersDownloads({
+        username,
+        query: { limit, offset },
+      });
+    },
     datasetsByDownload: (
       parent,
       { key, limit = 10, offset = 0 },

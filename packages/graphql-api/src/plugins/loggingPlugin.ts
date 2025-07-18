@@ -13,7 +13,12 @@ export const loggingPlugin: PluginDefinition = {
     return {
       async didEncounterErrors(requestContext) {
         const date = new Date();
-
+        const firstMessage = requestContext?.errors?.[0]?.message;
+        if (firstMessage?.includes('The user aborted a request')) {
+          // This is a common error when the user navigates away or cancels the request.
+          // We don't want to log this as an error.
+          return;
+        }
         logger.error({
           message: 'GraphQL Error',
           time: date.toISOString(),
