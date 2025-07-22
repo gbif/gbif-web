@@ -1,14 +1,11 @@
 import { DynamicLink } from '@/reactRouterPlugins';
+import { FaFacebookF, FaLinkedinIn, FaMastodon, FaYoutube } from 'react-icons/fa';
+import { FaBluesky } from 'react-icons/fa6';
+import { FiInstagram } from 'react-icons/fi';
+import { IoLogoVimeo } from 'react-icons/io5';
 import { FormattedMessage } from 'react-intl';
 import gbifLogoUrl from './full-gbif-logo-white.svg';
 import gbcLogoUrl from './gbc.svg';
-import { FiInstagram } from 'react-icons/fi';
-import { IoLogoVimeo } from 'react-icons/io5';
-import { FaYoutube } from 'react-icons/fa';
-import { FaLinkedinIn } from 'react-icons/fa';
-import { FaFacebookF } from 'react-icons/fa';
-import { FaXTwitter } from 'react-icons/fa6';
-import { FaMastodon } from 'react-icons/fa';
 
 const cssSeparator = "after:g-content-['|'] after:g-p-2";
 
@@ -104,10 +101,10 @@ export function Footer() {
           </li>
           <li>
             <a
-              href="https://x.com/GBIF"
+              href="https://bsky.app/profile/gbif.org"
               className="g-w-8 g-h-8 g-bg-white g-rounded-full g-flex g-justify-center g-items-center"
             >
-              <FaXTwitter />
+              <FaBluesky />
             </a>
           </li>
           <li>
