@@ -70,7 +70,7 @@ export function DataAboutCountryMap({ countryCode }: DataAboutCountryMapProps) {
                 view: 'dashboard',
                 country: countryCode,
                 layout:
-                  'W1t7ImlkIjoidjF5bmwiLCJwIjp7fSwidHJhbnNsYXRpb24iOiJmaWx0ZXJzLnB1Ymxpc2hpbmdDb3VudHJ5Q29kZS5uYW1lIiwidCI6InB1Ymxpc2hpbmdDb3VudHJ5In1dXQ%3D%3D',
+                  'W1t7ImlkIjoidjF5bmwiLCJwIjp7InZpZXciOiJUQUJMRSJ9LCJ0cmFuc2xhdGlvbiI6ImZpbHRlcnMucHVibGlzaGluZ0NvdW50cnlDb2RlLm5hbWUiLCJ0IjoicHVibGlzaGluZ0NvdW50cnkifV1d',
               }}
             >
               <MapHeader.Count
