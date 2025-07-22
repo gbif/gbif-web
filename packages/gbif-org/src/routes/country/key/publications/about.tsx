@@ -6,7 +6,7 @@ import { LiteratureSearchInner } from '@/routes/literature/search/literatureSear
 import { searchConfig } from '@/routes/literature/search/searchConfig';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
 export function CountryKeyPublicationsAbout() {
@@ -17,11 +17,10 @@ export function CountryKeyPublicationsAbout() {
     paramsToRemove: ['offset'],
   });
   const baseConfig = useConfig();
-  const [config, setConfig] = useState<SearchMetadata | undefined>();
-  const literatureSearchConfig = baseConfig?.datasetKey?.literatureSearch;
 
-  useEffect(() => {
-    const c = {
+  const literatureSearchConfig = baseConfig?.datasetKey?.literatureSearch;
+  const config: SearchMetadata = useMemo(() => {
+    return {
       ...baseConfig.literatureSearch,
       ...literatureSearchConfig,
       excludedFilters: [...(literatureSearchConfig?.excludedFilters ?? []), 'countriesOfCoverage'],
@@ -35,7 +34,6 @@ export function CountryKeyPublicationsAbout() {
         value: countryCode,
       },
     };
-    setConfig(c);
   }, [baseConfig, literatureSearchConfig, countryCode]);
 
   return (
