@@ -6,10 +6,7 @@ export function useFilterParams(
   isYearFilterActive: boolean,
   startYear?: number,
   endYear?: number,
-  taxonKey?: string,
-  country?: string,
-  networkKey?: string,
-  publishingOrg?: string
+  capabilitiesParams?: Record<string, any>
 ) {
   return useMemo(() => {
     const filterParams: Params = {
@@ -26,19 +23,10 @@ export function useFilterParams(
       filterParams.year = `${startYear},${endYear}`;
     }
 
-    if (country) {
-      filterParams.country = country;
-    }
-    if (taxonKey) {
-      filterParams.taxonKey = taxonKey;
-    }
-    if (networkKey) {
-      filterParams.networkKey = networkKey;
-    }
-    if (publishingOrg) {
-      filterParams.publishingOrg = publishingOrg;
+    if (capabilitiesParams) {
+      Object.assign(filterParams, capabilitiesParams);
     }
 
     return filterParams;
-  }, [basisOfRecord, startYear, endYear, isYearFilterActive, taxonKey, country]);
+  }, [basisOfRecord, startYear, endYear, isYearFilterActive, capabilitiesParams]);
 }

@@ -29,7 +29,7 @@ function Contact({ contact, ...props }) {
       ? `${contact.firstName || ''} ${contact.lastName || ''}`.trim()
       : undefined;
 
-  const roles = contact.roles || (contact.type ? [contact.type] : []);
+  const roles = getRoles(contact);
   const Roles = (
     <>
       {roles.map((r) => (
@@ -189,3 +189,12 @@ function ArrayField({ field, contact = {}, value, ...props }) {
 ContactList.propTypes = {
   as: PropTypes.element,
 };
+
+function getRoles(contact: any) {
+  if (contact.roles) return contact.roles;
+  if (contact.type) {
+    if (Array.isArray(contact.type)) return contact.type;
+    return [contact.type];
+  }
+  return [];
+}

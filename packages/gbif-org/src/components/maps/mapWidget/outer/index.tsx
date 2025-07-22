@@ -25,7 +25,7 @@ const MapWidgetInner = lazy(() => import('../inner'));
 
 type Props = {
   className?: string;
-  capabilitiesParams?: Record<string, string>;
+  capabilitiesParams?: Record<string, any>;
   mapStyle?: string;
 };
 
@@ -66,10 +66,7 @@ export function MapWidgetOuter({ className, capabilitiesParams = {}, mapStyle }:
     isYearFilterActive,
     startYear,
     endYear,
-    capabilitiesParams?.taxonKey,
-    capabilitiesParams?.country,
-    capabilitiesParams?.networkKey,
-    capabilitiesParams?.publishingOrg
+    capabilitiesParams
   );
 
   const dynamicNavigate = useDynamicNavigate();

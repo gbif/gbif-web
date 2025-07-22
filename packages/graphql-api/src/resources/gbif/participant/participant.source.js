@@ -38,7 +38,7 @@ class ParticipantDirectoryAPI extends RESTDataSource {
    */
   // eslint-disable-next-line class-methods-use-this
   reduceParticipant(participant) {
-    return pick(participant, [
+    const result = pick(participant, [
       'id',
       'abbreviatedName',
       'name',
@@ -50,7 +50,14 @@ class ParticipantDirectoryAPI extends RESTDataSource {
       'countryCode',
       'created',
       'modified',
+      'nodes',
     ]);
+
+    result.people = participant.people?.map((p) => {
+      return { person: pick(p.person, ['id', 'title', 'surname']) };
+    });
+
+    return result;
   }
 
   async searchParticipants({ query }) {

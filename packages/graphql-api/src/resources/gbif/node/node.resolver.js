@@ -30,26 +30,96 @@ export default {
     installation: ({ key }, args, { dataSources }) => {
       return dataSources.nodeAPI.getInstallations({ key, query: args });
     },
-    contacts: ({ contacts }, { type }) => {
+    contacts: async (node, { type }, { dataSources, locale }) => {
+      let extendedContacts = node.contacts;
+
+      try {
+        const participantIdentifier = getDirectoryParticipantId(node);
+
+        const participant =
+          await dataSources.participantAPI.getParticipantByDirectoryId({
+            id: participantIdentifier,
+            locale,
+          });
+
+        extendedContacts = node.contacts.map((contact) => {
+          const person = participant.people.find(
+            (p) => p.person.id === contact.key,
+          )?.person;
+          return {
+            ...contact,
+            title: person?.title,
+            surname: person?.surname,
+          };
+        });
+      } catch (error) {
+        console.error(error);
+      }
+
       // filter contacts on type (array of strings)
       if (type) {
-        return contacts.filter((contact) => type.includes(contact.type));
+        return extendedContacts.filter((contact) =>
+          type.includes(contact.type),
+        );
       }
-      return contacts;
+      return extendedContacts;
     },
     participant: (node, args, { dataSources, locale }) => {
-      // First step is to extract the participantID from the list if identifiers on the node. This is a bit akward.
-      const identifiers = node.identifiers || [];
-      const participantIdentifier = identifiers.find(
-        (i) => i.type === 'GBIF_PARTICIPANT',
-      );
+      const participantIdentifier = getDirectoryParticipantId(node);
       if (participantIdentifier) {
         return dataSources.participantAPI.getParticipantByDirectoryId({
-          id: participantIdentifier.identifier,
+          id: participantIdentifier,
           locale,
         });
       }
       return null;
     },
+    // A participant in the directory api can have multiple nodes. This is not used but handeld anyways
+    directoryNodes: async (node, args, { dataSources, locale }) => {
+      // There is no reference to the directory node on the node from the v1 api,
+      // but there is a reference to the directory participant,
+      // so we have to fetch the directory participant to get a reference to the directory node.
+      // We can then use the directory node reference on the directory participant to the the directory node.
+      const participantIdentifier = getDirectoryParticipantId(node);
+
+      const participant =
+        await dataSources.participantAPI.getParticipantByDirectoryId({
+          id: participantIdentifier,
+          locale,
+        });
+
+      const results = await Promise.allSettled(
+        participant?.nodes?.map(({ id }) =>
+          dataSources.nodeDirectoryAPI.getNodeByKey({
+            key: id,
+          }),
+        ),
+      );
+
+      return results
+        .filter((result) => result.status === 'fulfilled')
+        .map((result) => result.value)
+        .filter((value) => !value.deleted);
+    },
+  },
+  Contact: {
+    institutionName: async (contact, args, { dataSources }) => {
+      const directoryPerson =
+        await dataSources.directoryPersonAPI.getDirectoryContactByKey({
+          key: contact.key,
+        });
+
+      return directoryPerson?.institutionName;
+    },
   },
 };
+
+function getDirectoryParticipantId(node) {
+  // First step is to extract the participantID from the list if identifiers on the node. This is a bit akward.
+  const identifiers = node.identifiers || [];
+  const participantIdentifier = identifiers.find(
+    (i) => i.type === 'GBIF_PARTICIPANT',
+  );
+
+  return participantIdentifier?.identifier;
+}

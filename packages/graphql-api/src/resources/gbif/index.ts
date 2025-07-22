@@ -1,5 +1,5 @@
 export { default as collection } from './collection';
-// export { default as country } from './country';
+export { default as country } from './country';
 export { default as dataset } from './dataset';
 export { default as download } from './download';
 export { default as installation } from './installation';

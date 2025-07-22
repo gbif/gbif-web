@@ -19,6 +19,7 @@ const requiredFields = [
   'PUBLIC_CHECKLIST_BANK_WEBSITE',
   'PUBLIC_API_KEY_MAPTILER',
   'PUBLIC_ENABLED_LANGUAGES',
+  'PUBLIC_ANALYTICS_FILES_URL',
 ];
 requiredFields.forEach((field) => {
   if (!envFile[field]) {

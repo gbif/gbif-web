@@ -25,7 +25,7 @@ import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './help';
 import { searchConfig } from './searchConfig';
 
-const DATASET_SEARCH_QUERY = /* GraphQL */ `
+export const DATASET_SEARCH_QUERY = /* GraphQL */ `
   query DatasetSearch($query: DatasetSearchInput) {
     datasetSearch(query: $query) {
       count
@@ -133,7 +133,12 @@ export function DatasetSearch(): React.ReactElement {
         </FilterBar>
         <ArticleContainer className="g-bg-slate-100 g-flex">
           <ArticleTextContainer className="g-flex-auto g-w-full">
-            <Results loading={loading} datasets={datasets} setOffset={setOffset} tsvUrl={tsvUrl} />
+            <DatasetResults
+              loading={loading}
+              datasets={datasets}
+              setOffset={setOffset}
+              tsvUrl={tsvUrl}
+            />
           </ArticleTextContainer>
         </ArticleContainer>
       </section>
@@ -141,7 +146,7 @@ export function DatasetSearch(): React.ReactElement {
   );
 }
 
-function Results({
+export function DatasetResults({
   loading,
   datasets,
   setOffset,

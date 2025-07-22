@@ -58,6 +58,9 @@ export function I18nContextProvider({ children, locale, defaultLocale, available
       const currentPrefix = currentLocale === defaultLocale.code ? '/' : `/${currentLocale}/`;
       const targetPrefix = targetLocale === defaultLocale.code ? '/' : `/${targetLocale}/`;
 
+      // Relative links that do not start with the "currentPrefix" and should not be localized
+      if (!link.startsWith(currentPrefix)) return link;
+
       return link.replace(currentPrefix, targetPrefix);
     },
     [availableLocales, defaultLocale.code, locale.code]

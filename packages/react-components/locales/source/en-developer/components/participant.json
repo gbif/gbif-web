@@ -37,6 +37,18 @@
           }
         }
       }
-    }
+    },
+    "participant": "Participant",
+    "participantSummary": "Participant summary",
+    "memberStatus": "Member status",
+    "gbifParticipantSince": "GBIF participant since",
+    "headOfDelegation": "Head of delegation",
+    "gbifRegion": "GBIF region",
+    "countryOrArea": "Country or area",
+    "nodeName": "Node name",
+    "nodeEstablished": "Node established",
+    "website": "Website",
+    "participantNodeManager": "Participant node manager",
+    "pending": "Pending"
   }
 }

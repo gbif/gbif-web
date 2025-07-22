@@ -18,6 +18,7 @@ type Tab = {
   className?: string;
   testId?: string;
   isActive?: boolean;
+  hidden?: boolean;
 };
 
 export type Props = {
@@ -27,6 +28,8 @@ export type Props = {
 };
 
 export function Tabs({ links, className, disableAutoDetectActive = false }: Props) {
+  const enabledLinks = links.filter((link) => !link.hidden);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const dropdownMenuTriggerRef = useRef<HTMLButtonElement>(null);
   const [visibleTabCount, setVisibleTabCount] = useState<number | null>(null);
@@ -65,7 +68,7 @@ export function Tabs({ links, className, disableAutoDetectActive = false }: Prop
     // Update the visible tab count on resize
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [links, setVisibleTabCount]);
+  }, [enabledLinks, setVisibleTabCount]);
 
   return (
     <div
@@ -76,7 +79,7 @@ export function Tabs({ links, className, disableAutoDetectActive = false }: Prop
       )}
     >
       <ul className="g-flex g-whitespace-nowrap g-overflow-hidden -g-mb-px">
-        {links.map(({ to, children, className: cls, isActive }, idx) => {
+        {enabledLinks.map(({ to, children, className: cls, isActive }, idx) => {
           const visible = visibleTabCount == null || idx < visibleTabCount;
 
           return (
@@ -98,7 +101,7 @@ export function Tabs({ links, className, disableAutoDetectActive = false }: Prop
           ref={dropdownMenuTriggerRef}
           className={cn(
             {
-              'g-invisible': visibleTabCount == null || visibleTabCount === links.length,
+              'g-invisible': visibleTabCount == null || visibleTabCount === enabledLinks.length,
               'g-right-0 g-pr-3': locale.textDirection === 'ltr',
               'g-left-0 g-pl-3': locale.textDirection === 'rtl',
             },
@@ -109,7 +112,7 @@ export function Tabs({ links, className, disableAutoDetectActive = false }: Prop
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           {visibleTabCount &&
-            links.slice(visibleTabCount).map(({ to, children }) => (
+            enabledLinks.slice(visibleTabCount).map(({ to, children }) => (
               <DropdownMenuItem key={to2Key(to)}>
                 <DynamicLink
                   preventScrollReset

@@ -24,6 +24,10 @@ const typeDef = gql`
     userId: [String]
     roles: [String]
     _highlighted: Boolean
+    # Comes from the directory and is currently only added in the Node.contacts resolver
+    title: String
+    surname: String
+    institutionName: String
   }
 `;
 

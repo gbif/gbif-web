@@ -1,5 +1,6 @@
 import { collectionKeyRoute } from '@/routes/collection/key';
 import { collectionSearchRoute } from '@/routes/collection/search';
+import { countryKeyRoute } from '@/routes/country/key';
 import { datasetKeyRoute } from '@/routes/dataset/key';
 import { datasetSearchRoute } from '@/routes/dataset/search';
 import { installationKeyRoute } from '@/routes/installation/key';
@@ -38,6 +39,7 @@ export const dataRoutes = [
   downloadKeyRoute,
   publisherKeyRoute,
   taxonKeyRoute,
+  countryKeyRoute,
   // Must be last as alias handling will require match on whildcard
   ...resourceKeyRoutes,
 ];

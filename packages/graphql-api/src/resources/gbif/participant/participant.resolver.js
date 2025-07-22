@@ -1,3 +1,5 @@
+import { getHtml } from '#/helpers/utils';
+
 /**
  * fieldName: (parent, args, context, info) => data;
  * parent: An object that contains the result returned from the resolver on the parent type
@@ -24,5 +26,12 @@ export default {
         key: personId,
       });
     },
+  },
+  Participant: {
+    progressAndPlans: ({ progressAndPlans }) => getHtml(progressAndPlans),
+    nodeMission: ({ nodeMission }) => getHtml(nodeMission),
+    nodeHistory: ({ nodeHistory }) => getHtml(nodeHistory),
+    nodeFunding: ({ nodeFunding }) => getHtml(nodeFunding),
+    nodeStructure: ({ nodeStructure }) => getHtml(nodeStructure),
   },
 };

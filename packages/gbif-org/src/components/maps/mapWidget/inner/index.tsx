@@ -29,6 +29,12 @@ type Props = {
   generatedAt?: string;
   isFullSize: boolean;
   toggleFullScreen: () => void;
+  capabilities?: {
+    minLat: number;
+    maxLat: number;
+    minLng: number;
+    maxLng: number;
+  };
 };
 
 export default function MapWidgetInner({

@@ -12,17 +12,6 @@ export const notImplementedRoutes: RouteObjectWithPlugins[] = [
     loader: () => redirectDocument('https://techdocs.gbif.org/en/openapi'),
   },
   {
-    id: 'countryKey',
-    gbifRedirect: ({ key }) => {
-      if (typeof key !== 'string' && typeof key !== 'number')
-        throw new Error(`'Invalid key (key is of type ${typeof key})`);
-      if (key === 'search') return null;
-      return `/country/${key}`;
-    },
-    path: 'country/:key',
-    element: <NotImplemented />,
-  },
-  {
     id: 'participantKey',
     path: 'participant/:key',
     element: <NotImplemented />,
