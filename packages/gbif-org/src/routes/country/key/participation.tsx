@@ -28,7 +28,7 @@ export function CountryKeyParticipation() {
   return (
     <>
       <ArticleContainer className="g-bg-slate-100 g-pt-4">
-        <ArticleTextContainer className="g-max-w-screen-xl g-flex g-flex-col g-gap-4">
+        <ArticleTextContainer className="g-max-w-3xl g-flex g-flex-col g-gap-4">
           <Card>
             <CardHeader>
               <CardTitle>
@@ -47,8 +47,9 @@ export function CountryKeyParticipation() {
         </ArticleTextContainer>
       </ArticleContainer>
       <ArticleContainer className="g-bg-slate-100 g-pt-4">
-        <ArticleTextContainer className="g-max-w-screen-xl g-flex g-flex-col g-gap-4">
+        <ArticleTextContainer className="g-flex g-flex-col g-gap-4">
           <Contacts
+            fullWidthCards
             contacts={nodeCountry.contacts}
             nodeTitle={nodeCountry.title}
             nodeAddress={nodeCountry.address}

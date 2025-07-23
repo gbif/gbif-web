@@ -24,9 +24,10 @@ type Props = {
   contacts: NodeContactsFragment['contacts'];
   nodeTitle?: string | null;
   nodeAddress?: null | (string | null)[];
+  fullWidthCards?: boolean;
 };
 
-export function Contacts({ contacts, nodeTitle, nodeAddress }: Props) {
+export function Contacts({ contacts, nodeTitle, nodeAddress, fullWidthCards = false }: Props) {
   const preparedContacts = orderAndMergeContacts(contacts);
 
   const hash = useLocation().hash.replace('#', '');
@@ -40,12 +41,14 @@ export function Contacts({ contacts, nodeTitle, nodeAddress }: Props) {
       </CardHeader>
       <CardContent className="g-flex g-flex-wrap">
         <NodeAddressCard
+          fullWidthCard={fullWidthCards}
           nodeTitle={nodeTitle}
           nodeAddress={nodeAddress}
           highlighted={hash === 'nodeAddress'}
         />
         {preparedContacts?.map((contact) => (
           <PersonContactCard
+            fullWidthCard={fullWidthCards}
             key={contact.key}
             contact={contact}
             highlighted={hash === `contact${contact.key}`}
@@ -60,15 +63,22 @@ type NodeAddressCardProps = {
   nodeTitle?: string | null;
   nodeAddress?: null | (string | null)[];
   highlighted?: boolean;
+  fullWidthCard?: boolean;
 };
 
-function NodeAddressCard({ nodeTitle, nodeAddress, highlighted }: NodeAddressCardProps) {
+function NodeAddressCard({
+  nodeTitle,
+  nodeAddress,
+  highlighted,
+  fullWidthCard = false,
+}: NodeAddressCardProps) {
   return (
     <Card
       id="nodeAddress"
       className={cn(
-        'g-px-6 g-py-4 g-flex-auto g-max-w-sm g-min-w-xs g-m-2 g-w-1/2',
-        highlighted && 'g-bg-slate-100'
+        'g-px-6 g-py-4 g-flex-auto g-min-w-xs g-m-2 g-w-1/2',
+        highlighted && 'g-bg-slate-100',
+        !fullWidthCard && 'g-max-w-sm'
       )}
     >
       <ContactHeader>
@@ -91,14 +101,20 @@ function NodeAddressCard({ nodeTitle, nodeAddress, highlighted }: NodeAddressCar
 type PersonContactCardProps = {
   contact: MergedContact;
   highlighted?: boolean;
+  fullWidthCard?: boolean;
 };
 
-function PersonContactCard({ contact, highlighted }: PersonContactCardProps) {
+function PersonContactCard({
+  contact,
+  highlighted,
+  fullWidthCard = false,
+}: PersonContactCardProps) {
   return (
     <Card
       className={cn(
-        'g-px-6 g-py-4 g-flex-auto g-max-w-sm g-min-w-xs g-m-2 g-w-1/2',
-        highlighted && 'g-bg-slate-100'
+        'g-px-6 g-py-4 g-flex-auto g-min-w-xs g-m-2 g-w-1/2',
+        highlighted && 'g-bg-slate-100',
+        !fullWidthCard && 'g-max-w-sm'
       )}
       key={contact.key}
       id={`contact${contact.key}`}
