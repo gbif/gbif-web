@@ -8,11 +8,9 @@ type Props = {
 };
 
 export function Trend({ title, info, imgfile }: Props) {
-  const { type, countryCode } = useTrendContext();
+  const { path } = useTrendContext();
 
-  const figureUrl = `${
-    import.meta.env.PUBLIC_ANALYTICS_FILES_URL
-  }/country/${countryCode}/${type}/figure/${imgfile}.svg`;
+  const figureUrl = `${import.meta.env.PUBLIC_ANALYTICS_FILES_URL}/${path}/figure/${imgfile}.svg`;
 
   return (
     <div className="g-flex g-flex-col">
@@ -41,8 +39,8 @@ export function TrendContainer({ children }: { children: React.ReactNode }) {
 }
 
 export type ITrendContext = {
-  type: 'publishedBy' | 'about';
-  countryCode: string;
+  path: string;
+  countryCode?: string;
 };
 
 const TrendContext = createContext<ITrendContext | undefined>(undefined);
@@ -51,8 +49,8 @@ type TrendProviderProps = ITrendContext & {
   children: React.ReactNode;
 };
 
-export function TrendProvider({ children, type, countryCode }: TrendProviderProps) {
-  return <TrendContext.Provider value={{ type, countryCode }}>{children}</TrendContext.Provider>;
+export function TrendProvider({ children, path, countryCode }: TrendProviderProps) {
+  return <TrendContext.Provider value={{ path, countryCode }}>{children}</TrendContext.Provider>;
 }
 
 export function useTrendContext() {

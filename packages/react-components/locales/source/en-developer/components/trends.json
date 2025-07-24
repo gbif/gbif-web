@@ -62,14 +62,14 @@
     "global": "Global",
     "changeOverTimeInDataAboutSpeciesFromCountry": "Change over time in data about species from {TRANSLATED_COUNTRY} available from GBIF.org.",
     "changeOverTimeInTheDataPublishedByInstitutionsWithin": "Change over time in the data published by institutions within {TRANSLATED_COUNTRY} available from GBIF.org",
-    "trendsInDataAvailabilityOnTheGbifNetwork": "Trends in data availability on the GBIF network, 2008 to {{YEAR}}",
+    "trendsInDataAvailabilityOnTheGbifNetwork": "Trends in data availability on the GBIF network, 2008 to {YEAR}",
     "globalDataTrends": "Global data trends",
     "countryDataTrends": "{TRANSLATED_COUNTRY} data trends",
-    "regionDataTrends": "Data trends for {{TRANSLATED_REGION}}",
+    "regionDataTrends": "Data trends for {TRANSLATED_REGION}",
     "countryPublishingTrends": "{TRANSLATED_COUNTRY} publishing trends",
     "analyticsCountry": {
-      "fromDescription": "Change over time in data about species from {{country}} available from GBIF.org",
-      "publishedByDescription": "Change over time in the data published by institutions within {{country}} available from GBIF.org"
+      "fromDescription": "Change over time in data about species from {country} available from GBIF.org",
+      "publishedByDescription": "Change over time in the data published by institutions within {country} available from GBIF.org"
     },
     "analyticsGlobalDescription": "Trends in GBIF data availability—from 2008 to 2021",
     "analyticsTitle": "Data trends"

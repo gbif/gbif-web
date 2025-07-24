@@ -85,7 +85,7 @@ export function CountryKeyPublishing() {
           </CardTitle>
         </CardHeader>
 
-        <Trends type="publishedBy" countryCode={countryCode} />
+        <Trends path={`country/${countryCode}/publishedBy`} countryCode={countryCode} />
       </ArticleTextContainer>
     </ArticleContainer>
   );

@@ -72,7 +72,7 @@ export function CountryKeyAbout() {
             />
           </CardTitle>
         </CardHeader>
-        <Trends type="about" countryCode={countryCode} />
+        <Trends path={`country/${countryCode}/about`} countryCode={countryCode} />
       </ArticleTextContainer>
     </ArticleContainer>
   );

@@ -47,13 +47,18 @@ CardDescription.displayName = 'CardDescription';
 
 type CardContentProps = React.HTMLAttributes<HTMLDivElement> & {
   topPadding?: boolean;
+  bottomPadding?: boolean;
 };
 
 const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(
-  ({ className, topPadding = false, ...props }, ref) => (
+  ({ className, topPadding = false, bottomPadding = true, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('g-p-4 md:g-p-8', { 'g-pt-0 md:g-pt-0': !topPadding }, className)}
+      className={cn(
+        'g-p-4 md:g-p-8',
+        { 'g-pt-0 md:g-pt-0': !topPadding, 'g-pb-0 md:g-pb-0': !bottomPadding },
+        className
+      )}
       {...props}
     />
   )

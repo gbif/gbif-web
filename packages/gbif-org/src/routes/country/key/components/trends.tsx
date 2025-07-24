@@ -2,14 +2,15 @@ import { ITrendContext, Trend, TrendProvider, useTrendContext } from './trend';
 
 import { CardContent } from '@/components/ui/largeCard';
 
+import { Callout } from '@/components/callout';
+import { Message } from '@/components/message';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { FormattedMessage } from 'react-intl';
 import { TrendContainer } from './trend';
-import { Message } from '@/components/message';
 
-export function Trends({ type, countryCode }: ITrendContext) {
+export function Trends({ path, countryCode }: ITrendContext) {
   return (
-    <TrendProvider type={type} countryCode={countryCode}>
+    <TrendProvider path={path} countryCode={countryCode}>
       <NumberOfOccurrenceRecords />
       <SpeciesCounts />
       <TemporalTrends />
@@ -24,7 +25,7 @@ function NumberOfOccurrenceRecords() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="g-text-lg">
+        <CardTitle className="g-text-xl">
           <FormattedMessage id="trends.noOccRecords" />
         </CardTitle>
         <CardDescription className="g-text-inherit">
@@ -32,9 +33,7 @@ function NumberOfOccurrenceRecords() {
         </CardDescription>
       </CardHeader>
 
-      <hr />
-
-      <CardContent topPadding>
+      <CardContent>
         <TrendContainer>
           <Trend
             title={<FormattedMessage id="trends.recordsByKingdom" />}
@@ -61,7 +60,7 @@ function SpeciesCounts() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="g-text-lg">
+        <CardTitle className="g-text-xl">
           <FormattedMessage id="trends.speciesCounts" />
         </CardTitle>
         <CardDescription className="g-text-inherit">
@@ -69,18 +68,18 @@ function SpeciesCounts() {
         </CardDescription>
       </CardHeader>
 
-      <hr />
-
-      <CardContent topPadding>
-        <h4 className="g-font-bold g-pb-2">
-          <FormattedMessage id="trends.definition" />
-        </h4>
-        <p className="g-text-sm">
-          <FormattedMessage id="trends.speciesCountDescription" />
-        </p>
+      <CardContent bottomPadding={false}>
+        <Callout>
+          <Callout.Title>
+            <FormattedMessage id="trends.definition" />
+          </Callout.Title>
+          <Callout.Description>
+            <p>
+              <FormattedMessage id="trends.speciesCountDescription" />
+            </p>
+          </Callout.Description>
+        </Callout>
       </CardContent>
-
-      <hr />
 
       <CardContent topPadding>
         <TrendContainer>
@@ -109,7 +108,7 @@ function TemporalTrends() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="g-text-lg">
+        <CardTitle className="g-text-xl">
           <FormattedMessage id="trends.timeAndSeasonality" />
         </CardTitle>
         <CardDescription className="g-text-inherit">
@@ -117,18 +116,18 @@ function TemporalTrends() {
         </CardDescription>
       </CardHeader>
 
-      <hr />
-
-      <CardContent topPadding>
-        <h4 className="g-font-bold g-pb-2">
-          <FormattedMessage id="trends.definition" />
-        </h4>
-        <p className="g-text-sm">
-          <FormattedMessage id="trends.speciesCountsAreBasedOnTheNumberOfBinomialScientificNames" />
-        </p>
+      <CardContent bottomPadding={false}>
+        <Callout>
+          <Callout.Title>
+            <FormattedMessage id="trends.definition" />
+          </Callout.Title>
+          <Callout.Description>
+            <p>
+              <FormattedMessage id="trends.speciesCountsAreBasedOnTheNumberOfBinomialScientificNames" />
+            </p>
+          </Callout.Description>
+        </Callout>
       </CardContent>
-
-      <hr />
 
       <CardContent topPadding>
         <TrendContainer>
@@ -162,20 +161,22 @@ function TemporalTrends() {
         </TrendContainer>
       </CardContent>
 
-      <hr />
-
-      <CardContent topPadding>
-        <h4 className="g-font-bold g-pb-2">
-          <FormattedMessage id="trends.note" />
-        </h4>
-        <p className="g-text-sm">
-          <FormattedMessage id="trends.theseChartsMayRevealPatternsThatRepresentBiasesInDataCollection" />
-        </p>
-        <br />
-        <Message
-          className="g-text-sm [&_a]:g-text-primary-500"
-          id="trends.byGeneratingTheseChartsAnIssueWasDetected"
-        />
+      <CardContent>
+        <Callout>
+          <Callout.Title>
+            <FormattedMessage id="trends.note" />
+          </Callout.Title>
+          <Callout.Description>
+            <p>
+              <FormattedMessage id="trends.theseChartsMayRevealPatternsThatRepresentBiasesInDataCollection" />
+            </p>
+            <br />
+            <Message
+              className="g-text-sm [&_a]:g-text-primary-500"
+              id="trends.byGeneratingTheseChartsAnIssueWasDetected"
+            />
+          </Callout.Description>
+        </Callout>
       </CardContent>
     </Card>
   );
@@ -185,7 +186,7 @@ function CompletenessAndPrecision() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="g-text-lg">
+        <CardTitle className="g-text-xl">
           <FormattedMessage id="trends.completenessAndPrecision" />
         </CardTitle>
         <CardDescription className="g-text-inherit">
@@ -193,18 +194,18 @@ function CompletenessAndPrecision() {
         </CardDescription>
       </CardHeader>
 
-      <hr />
-
-      <CardContent topPadding>
-        <h4 className="g-font-bold g-pb-2">
-          <FormattedMessage id="trends.definition" />
-        </h4>
-        <p className="g-text-sm">
-          <FormattedMessage id="trends.aRecordIsHereDefinedToBeCompleteIfItIncludes" />
-        </p>
+      <CardContent bottomPadding={false}>
+        <Callout>
+          <Callout.Title>
+            <FormattedMessage id="trends.definition" />
+          </Callout.Title>
+          <Callout.Description>
+            <p>
+              <FormattedMessage id="trends.aRecordIsHereDefinedToBeCompleteIfItIncludes" />
+            </p>
+          </Callout.Description>
+        </Callout>
       </CardContent>
-
-      <hr />
 
       <CardContent topPadding>
         <h3 className="g-text-lg g-font-bold g-pb-2">
@@ -296,7 +297,7 @@ function GeographicCoverage() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="g-text-lg">
+        <CardTitle className="g-text-xl">
           <FormattedMessage id="trends.geographicCoverageForRecordedSpecies" />
         </CardTitle>
         <CardDescription className="g-text-inherit">
@@ -304,9 +305,7 @@ function GeographicCoverage() {
         </CardDescription>
       </CardHeader>
 
-      <hr />
-
-      <CardContent topPadding>
+      <CardContent>
         <TrendContainer>
           <Trend title={<FormattedMessage id="trends.oneDegree" />} imgfile="occ_cells_one_deg" />
           <Trend title={<FormattedMessage id="trends.halfDegree" />} imgfile="occ_cells_half_deg" />
@@ -327,7 +326,7 @@ function DataSharing() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="g-text-lg">
+        <CardTitle className="g-text-xl">
           <FormattedMessage id="trends.dataSharingWithCountryOfOrigin" />
         </CardTitle>
         <CardDescription className="g-text-inherit">
@@ -344,9 +343,7 @@ function DataSharing() {
         </CardDescription>
       </CardHeader>
 
-      <hr />
-
-      <CardContent topPadding>
+      <CardContent>
         <TrendContainer>
           <Trend imgfile="occ_repatriation" />
         </TrendContainer>
