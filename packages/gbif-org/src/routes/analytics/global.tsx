@@ -6,6 +6,7 @@ import { ArticlePreTitle } from '../resource/key/components/articlePreTitle';
 import { ArticleTextContainer } from '../resource/key/components/articleTextContainer';
 import { ArticleTitle } from '../resource/key/components/articleTitle';
 import { PageContainer } from '../resource/key/components/pageContainer';
+import { TrendsSelector } from './trendsSelector';
 
 export function GlobalAnalyticsPage() {
   return (
@@ -26,6 +27,8 @@ export function GlobalAnalyticsPage() {
               values={{ YEAR: new Date().getFullYear().toString() }}
             />
           </ArticleIntro>
+
+          <TrendsSelector value="GLOBAL" />
         </ArticleTextContainer>
       </PageContainer>
       <ArticleContainer className="g-bg-slate-100 g-pt-4">

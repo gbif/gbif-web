@@ -63,7 +63,7 @@ export function CountryKeyAbout() {
         </ClientSideOnly>
 
         <CardHeader>
-          <CardTitle>
+          <CardTitle id="trends">
             <FormattedMessage
               id="country.trendsAboutCountry"
               values={{

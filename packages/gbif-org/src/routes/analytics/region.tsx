@@ -9,10 +9,11 @@ import { ArticlePreTitle } from '../resource/key/components/articlePreTitle';
 import { ArticleTextContainer } from '../resource/key/components/articleTextContainer';
 import { ArticleTitle } from '../resource/key/components/articleTitle';
 import { PageContainer } from '../resource/key/components/pageContainer';
+import { TrendsSelector } from './trendsSelector';
 
 export function RegionAnalyticsPage() {
   const { regionKey } = useParams();
-  if (!regions.includes(regionKey as string)) {
+  if (typeof regionKey !== 'string' || !regions.includes(regionKey)) {
     throw new NotFoundError();
   }
 
@@ -39,6 +40,8 @@ export function RegionAnalyticsPage() {
               values={{ YEAR: new Date().getFullYear().toString() }}
             />
           </ArticleIntro>
+
+          <TrendsSelector value={regionKey} />
         </ArticleTextContainer>
       </PageContainer>
       <ArticleContainer className="g-bg-slate-100 g-pt-4">
