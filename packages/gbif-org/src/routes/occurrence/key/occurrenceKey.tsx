@@ -3,6 +3,8 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { prettifyEnum } from '@/components/filters/displayNames';
 import Globe from '@/components/globe';
 import { HeaderInfo, HeaderInfoMain } from '@/components/headerComponents';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+
 import {
   FeatureList,
   GadmClassification,
@@ -16,7 +18,6 @@ import {
 import { FormattedDateRange } from '@/components/message';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useConfig } from '@/config/config';
 import {
   OccurrenceIssue,
@@ -189,6 +190,11 @@ const SLOW_OCCURRENCE_QUERY = /* GraphQL */ `
   query SlowOccurrenceKey($key: ID!, $language: String!) {
     occurrence(key: $key) {
       key
+      localContext {
+        name
+        img_url
+        default_text
+      }
       institution {
         name
       }

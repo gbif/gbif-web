@@ -401,6 +401,13 @@ export default {
     bionomia: (occurrence, _args, { dataSources }) => {
       return dataSources.occurrenceAPI.getBionomia({ occurrence });
     },
+    localContext: (occurrence, _args, { dataSources }) => {
+      // this is a special field that is used to provide the local context for the occurrence
+      // it is used to provide the local context for the occurrence in the UI
+      // it is not used in the API, but it is used in the UI to provide the local context for the occurrence
+      console.log('getLocalContext', occurrence?.key);
+      return dataSources.localContextAPI.getLocalContext(occurrence);
+    },
     extensions: (occurrence) => {
       const extensions = {
         audubon:

@@ -260,7 +260,7 @@ function Record({
       />
       <PlainTextField term={termMap.informationWithheld} showDetails={showAll} />
       <PlainTextField term={termMap.dataGeneralizations} showDetails={showAll} />
-      <DynamicProperties termMap={termMap} />
+      <DynamicProperties termMap={termMap} slowOccurrence={slowOccurrence} />
     </PropGroup>
   );
 }
