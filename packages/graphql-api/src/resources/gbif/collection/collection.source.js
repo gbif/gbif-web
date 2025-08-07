@@ -56,12 +56,15 @@ class CollectionAPI extends RESTDataSource {
     offset = 0,
     ...rest
   }) {
-    return this.get('/grscicoll/collection/search', {
-      institutionKey: key,
-      limit,
-      offset,
-      ...rest,
-    });
+    return this.get(
+      '/grscicoll/collection/search',
+      stringify({
+        institutionKey: key,
+        limit,
+        offset,
+        ...rest,
+      }),
+    );
   }
 
   /*
