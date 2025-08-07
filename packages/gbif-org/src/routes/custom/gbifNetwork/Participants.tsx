@@ -143,6 +143,7 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
             ))}
             {types.map((type) => (
               <Button
+                key={type}
                 onClick={() => {
                   setSelectedType(type);
                   setSelectedRegion(null);
@@ -171,36 +172,38 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
         <div className="g-overflow-auto">
           <table>
             <thead>
-              <Th
-                className="g-text-left g-min-w-[200px] g-max-w-[400px]"
-                sortable
-                field="name"
-                sortField={sortField}
-                sortDirection={sortDirection}
-                onSort={handleSort}
-              >
-                <FormattedMessage id="gbifNetwork.participant" />
-              </Th>
-              <Th
-                className="g-text-start"
-                sortable
-                field="type"
-                sortField={sortField}
-                sortDirection={sortDirection}
-                onSort={handleSort}
-              >
-                <FormattedMessage id="gbifNetwork.type" />
-              </Th>
-              <Th
-                className="g-text-end"
-                sortable
-                field="memberSince"
-                sortField={sortField}
-                sortDirection={sortDirection}
-                onSort={handleSort}
-              >
-                <FormattedMessage id="gbifNetwork.memberSince" />
-              </Th>
+              <tr>
+                <Th
+                  className="g-text-left g-min-w-[200px] g-max-w-[400px]"
+                  sortable
+                  field="name"
+                  sortField={sortField}
+                  sortDirection={sortDirection}
+                  onSort={handleSort}
+                >
+                  <FormattedMessage id="gbifNetwork.participant" />
+                </Th>
+                <Th
+                  className="g-text-start"
+                  sortable
+                  field="type"
+                  sortField={sortField}
+                  sortDirection={sortDirection}
+                  onSort={handleSort}
+                >
+                  <FormattedMessage id="gbifNetwork.type" />
+                </Th>
+                <Th
+                  className="g-text-end"
+                  sortable
+                  field="memberSince"
+                  sortField={sortField}
+                  sortDirection={sortDirection}
+                  onSort={handleSort}
+                >
+                  <FormattedMessage id="gbifNetwork.memberSince" />
+                </Th>
+              </tr>
             </thead>
             <tbody>
               {filteredAndSortedParticipants.map((participant, index) => (
