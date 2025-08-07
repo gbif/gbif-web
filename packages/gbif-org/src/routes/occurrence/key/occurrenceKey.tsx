@@ -194,6 +194,7 @@ const SLOW_OCCURRENCE_QUERY = /* GraphQL */ `
         name
         img_url
         default_text
+        notice_page
       }
       institution {
         name

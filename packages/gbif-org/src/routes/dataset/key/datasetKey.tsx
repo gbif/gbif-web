@@ -206,6 +206,12 @@ const DATASET_QUERY = /* GraphQL */ `
         name
         value
       }
+      localContext {
+        name
+        img_url
+        default_text
+        notice_page
+      }
       gridded {
         percent
       }

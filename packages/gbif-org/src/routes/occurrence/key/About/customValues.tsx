@@ -8,6 +8,7 @@ import {
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import equal from 'fast-deep-equal/react';
+import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { BasicField } from '../properties';
 
@@ -149,7 +150,15 @@ export function DynamicProperties({
               title={slowOccurrence.localContext[0].name}
             />
           </T>
-          <V>{slowOccurrence.localContext[0]?.default_text}</V>
+          <V>
+            <h5 className="g-font-bold">
+              {slowOccurrence.localContext[0].name}{' '}
+              <a href={slowOccurrence.localContext[0].notice_page} target="_blank" rel="noreferrer">
+                <MdLink />
+              </a>
+            </h5>
+            {slowOccurrence.localContext[0]?.default_text}
+          </V>
         </>
       )}
     </>

@@ -34,6 +34,7 @@ import {
   MdFormatQuote,
   MdGridOn,
   MdInfoOutline,
+  MdLink,
   MdPlaylistAddCheck,
   MdPinDrop as OccurrenceIcon,
 } from 'react-icons/md';
@@ -58,6 +59,8 @@ export function DatasetKeyAbout() {
     type: MapTypes.DatasetKey,
     identifier: data?.dataset?.key ?? '',
   });
+  const hasLocalContext = dataset?.machineTags?.find((tag) => tag.namespace === 'localcontext');
+
   const [toc, setToc] = useState(defaultToc);
   const removeSidebar = useBelow(1100);
   const { formatMessage } = useIntl();
@@ -705,6 +708,42 @@ export function DatasetKeyAbout() {
                       </h5>
                       <div className="g-text-slate-500 [&_a]:g-underline">
                         <Message id="dataset.containsSamplingEventsDescription" />
+                      </div>
+                    </div>
+                  </CardContentSmall>
+                </Card>
+              )}
+
+              {dataset?.localContext?.[0] && (
+                <Card className="g-mb-4 gbif-word-break">
+                  <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
+                    <div className="g-flex-none g-me-2">
+                      <div className="g-leading-6 g-text-white g-w-6 g-h-6 g-flex g-justify-center g-items-center">
+                        <img
+                          src={dataset.localContext[0].img_url}
+                          alt="Local context icon"
+                          className="g-w-4 g-h-4"
+                        />
+                      </div>
+                    </div>
+                    <div className="g-flex-auto g-mt-0.5 g-mb-2">
+                      <h5 className="g-font-bold">
+                        {dataset.localContext[0].name}{' '}
+                        <a
+                          href={dataset.localContext[0].notice_page}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <MdLink />
+                        </a>
+                      </h5>
+                      <div className="g-text-slate-500 [&_a]:g-underline">
+                        {dataset.localContext[0].default_text && (
+                          <HyperText
+                            text={dataset.localContext[0].default_text}
+                            sanitizeOptions={{ ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br'] }}
+                          />
+                        )}
                       </div>
                     </div>
                   </CardContentSmall>

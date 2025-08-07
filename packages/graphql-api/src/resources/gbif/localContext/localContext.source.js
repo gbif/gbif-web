@@ -14,7 +14,6 @@ class LocalContextAPI extends RESTDataSource {
     request.headers.set('X-Api-Key', this.config.localContextApiKey);
     request.headers.set('User-Agent', this.context.userAgent);
     request.headers.set('referer', this.context.referer);
-    console.log(Object.keys(request));
     request.agent = getDefaultAgent(this.baseURL, request.path);
   }
 
@@ -40,6 +39,28 @@ class LocalContextAPI extends RESTDataSource {
     } else {
       return null;
     }
+  }
+
+  async getDatasetLocalContext({ machineTags }) {
+    if (machineTags) {
+      const filteredTags = machineTags.filter(
+        (tag) =>
+          tag?.namespace === 'localcontext' &&
+          tag?.name === 'project_id' &&
+          !!tag?.value,
+      );
+      if (filteredTags.length === 0) return [];
+      return Promise.all(
+        filteredTags.map((tag) =>
+          this.get(tag.value).then((res) => {
+            return res?.notice || null;
+          }),
+        ),
+      ).then((results) => {
+        return results.flat();
+      });
+    }
+    return [];
   }
 }
 
