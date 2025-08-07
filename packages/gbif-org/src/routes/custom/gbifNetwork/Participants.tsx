@@ -208,12 +208,11 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
                   <td className="g-font-medium g-text-gray-900">
                     <DynamicLink
                       pageId={participant.type === 'COUNTRY' ? 'countryKey' : 'participantKey'}
-                      variables={{
-                        key:
-                          participant.type === 'COUNTRY'
-                            ? participant.country
-                            : participant.participant.id,
-                      }}
+                      variables={
+                        participant.type === 'COUNTRY'
+                          ? { countryCode: participant.country }
+                          : { key: participant.participant.id }
+                      }
                     >
                       {participant.participant?.name}
                     </DynamicLink>
