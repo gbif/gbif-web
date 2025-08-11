@@ -1,35 +1,43 @@
 {
   "description": {
-    "lt": "Less than {to}",
-    "lte": "Less or equal {to}",
-    "gt": "Greater than {from}",
-    "gte": "Greater or equal {from}",
-    "e": "Equals {from}",
-    "between": "From {from} to {to}"
+    "lt": "",
+    "lte": "",
+    "gt": "",
+    "gte": "",
+    "e": "",
+    "between": ""
   },
   "compact": {
-    "between": "{from} to {to}",
-    "lt": "Below {to}",
-    "gt": "Above {from}",
-    "e": "{from}"
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
   },
   "compactMeters": {
-    "between": "{from}m to {to}m",
+    "between": "",
     "lt": "Below {to}m",
     "gt": "Above {from}m",
-    "e": "{from}m"
+    "e": ""
   },
   "compactTime": {
-    "between": "{from} to {to}",
-    "lt": "Before {to}",
-    "gt": "After {from}",
-    "e": "{from}"
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
+  },
+  "geoTime": {
+    "between": "",
+    "lt": "",
+    "lte": "",
+    "gt": "",
+    "gte": "",
+    "e": ""
   },
   "year": {
-    "between": "Year {from} to {to}",
-    "lt": "Before year {to}",
-    "gt": "After year {from}",
-    "e": "Year is {from}",
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": "",
     "select": {
       "equals": "Is",
       "between": "Between",
@@ -38,51 +46,51 @@
     }
   },
   "coordinateUncertainty": {
-    "between": "Coordinate uncertainty {from}m to {to}m",
-    "lt": "Coordinate uncertainty below {to}m",
-    "gt": "Coordinate uncertainty above {from}m",
-    "e": "Coordinate uncertainty is {from}m"
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
   },
   "depth": {
-    "between": "Depth {from} to {to}",
-    "lt": "Depth below {to}",
-    "gt": "Depth above {from}",
-    "e": "Depth is {from}"
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
   },
   "organismQuantity": {
-    "between": "Organism quantity {from} to {to}",
-    "lt": "Organism quantity below {to}",
-    "gt": "Organism quantity above {from}",
-    "e": "Organism quantity is {from}"
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
   },
   "sampleSizeValue": {
-    "between": "Sample size value {from} to {to}",
-    "lt": "Sample size value below {to}",
-    "gt": "Sample size value above {from}",
-    "e": "Sample size value is {from}"
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
   },
   "relativeOrganismQuantity": {
-    "between": "Relative organism quantity {from} to {to}",
-    "lt": "Relative organism quantity below {to}",
-    "gt": "Relative organism quantity above {from}",
-    "e": "Relative organism quantity is {from}"
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
   },
   "elevation": {
-    "between": "Elevation {from} to {to}",
-    "lt": "Elevation below {to}",
-    "gt": "Elevation above {from}",
-    "e": "Elevation is {from}"
+    "between": "",
+    "lt": "",
+    "gt": "",
+    "e": ""
   },
   "geoDistance": {
-    "short": "Within {distance} of {latitude},{longitude}",
-    "description": "Latitude {latitude}, longitude: {longitude}, distance: {distance}"
+    "short": "",
+    "description": ""
   },
   "units": {
     "name": {
       "km": "kilometres",
       "m": "metres",
-      "mi": "miles",
-      "ft": "feet"
+      "mi": "",
+      "ft": ""
     }
   }
 }
