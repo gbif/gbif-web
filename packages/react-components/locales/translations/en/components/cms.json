@@ -47,7 +47,7 @@
   "auxiliary": {
     "subject": "Subject",
     "citation": "Citation",
-    "organisingParticipants": "Organizing Participants"
+    "organisingParticipants": ""
   },
   "document": {
     "download": "Download",
@@ -60,10 +60,10 @@
     "venue": "Venue",
     "location": "Location",
     "country": "Country or area",
-    "noDatasets": "There are no datasets to show",
-    "noNewsOrEvents": "No news or events available",
-    "howToLinkDatasets": "How to link a dataset to a project",
-    "howToLinkEvents": "How to add events to a project page",
+    "noDatasets": "",
+    "noNewsOrEvents": "",
+    "howToLinkDatasets": "",
+    "howToLinkEvents": "",
     "when": "When",
     "language": "Language",
     "viewOnGBIF": "View on GBIF",
@@ -76,7 +76,7 @@
     "author": "Author",
     "datasets": "Datasets",
     "gbifWillAttend": "Attended by GBIF Secretariat",
-    "dataUsedInStudy": "Data referenced in study",
+    "dataUsedInStudy": "",
     "resourceDescription": "Search for resources in Global Biodiversity Information Facility. Free and Open Access to Biodiversity Data."
   }
 }
