@@ -256,11 +256,5 @@
   "coordinatesTextual": "This record is published without coordinates, but it includes a textual description of its location.",
   "coordinatesMissing": "Coordinates missing",
   "taxonomicClassification": "Classification",
-  "gadmClassification": "Location according to GADM",
-  "images": "Multimedia",
-  "eventTypeHierarchyJoined": "Structure",
-  "measurementOrFactTypes": "Measurements or facts",
-  "temporalCoverage": "Temporal coverage",
-  "eventType": "Event type",
-  "iucnRedListCategory": "IUCN Red List Category"
+  "images": "Multimedia"
 }
