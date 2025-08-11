@@ -1,22 +1,22 @@
 {
   "styles": {
-    "satellite": "Satellite",
-    "natural": "Nature",
-    "bright": "Bright",
+    "satellite": "",
+    "natural": "",
+    "bright": "",
     "dark": "Dark",
-    "outdoor": "Outdoor"
+    "outdoor": ""
   },
   "projections": {
     "ARCTIC": "Arctic",
     "MERCATOR": "Mercator",
     "ANTARCTIC": "Antarctic",
-    "PLATE_CAREE": "Plate Carrée"
+    "PLATE_CAREE": ""
   },
   "failedToGetUserLocation": {
-    "title": "Failed to get your location",
-    "message": "Please check your browser settings and try again."
+    "title": "",
+    "message": ""
   },
-  "filterByView": "Use visible area as filter",
+  "filterByView": "",
   "projection": "Projection",
   "anyYear": "Any year",
   "exploreArea": "Explore area",
