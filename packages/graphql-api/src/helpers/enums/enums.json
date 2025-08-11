@@ -730,7 +730,8 @@
     "WIKIDATA",
     "NCBI_BIOCOLLECTION",
     "ISIL",
-    "CLB_DATASET_KEY"
+    "CLB_DATASET_KEY",
+    "RNC_COLOMBIA"
   ],
   "InstallationType": [
     "IPT_INSTALLATION",
