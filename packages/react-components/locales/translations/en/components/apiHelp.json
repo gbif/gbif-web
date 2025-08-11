@@ -1,26 +1,8 @@
 {
-  "example": "Example",
-  "examples": "Examples",
-  "singleEntry": "Get a single entry.",
   "downloadKeyDatasets": "Datasets contributing data to a download.",
   "downloadKeyDatasetsExport": "Download list of datasets contributing data to a download.",
-  "singleOccurrence": "Get a single occurrence.",
-  "searchOccurrences": "Get all occurrences.",
   "searchOccurrencesExample": "First five occurrences of taxon with taxonKey 9778871 (Flabellina McMurtrie, 1831) that have been recorded in May between years 2000 and 2024.",
-  "relatedOccurrences": "Related occurrences (experimental).",
-  "occurrenceFragment": "Record before interpretation.",
-  "singleInstallation": "Get a single installation.",
-  "singleOrganization": "Get a single publisher.",
-  "searchOrganizations": "Search for publishers.",
-  "searchInstallations": "Search for installations.",
   "search": "Search",
-  "singleNetwork": "Get a single network.",
-  "singleCollection": "Get a single collection.",
-  "searchCollections": "Search for collections.",
-  "singleInstitution": "Get a single institution.",
-  "searchInstitutions": "Search for institutions.",
-  "singleDataset": "Get a single dataset.",
   "searchDatasetsExample": "First two datasets published from Denmark with free text \"fungi\" in the title or description.",
-  "searchExample": "First two entries with free text \"dna\".",
-  "searchDatasets": "Get all datasets."
+  "searchExample": "First two entries with free text \"dna\"."
 }
