@@ -101,10 +101,7 @@ async function query({ query, aggs, size = 20, from = 0, metrics, sortBy, sortOr
   } else {
     sort = [
       '_score', // if there is any score (but will this be slow even when there is no free text query?)
-      { year: { order: 'desc' } },
-      { month: { order: 'desc' } },
-      { day: { order: 'desc' } },
-      { gbifId: 'asc' },
+      { yearMonthGbifIdSort: { order: 'asc' } },
     ];
   }
 
