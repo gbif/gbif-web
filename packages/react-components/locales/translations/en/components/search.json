@@ -1,61 +1,63 @@
 {
   "tabs": {
     "table": "Table",
-    "tree": "Tree",
+    "tree": "",
     "gallery": "Gallery",
-    "media": "Media",
+    "media": "",
     "map": "Map",
     "datasets": "Datasets",
     "events": "Events",
     "download": "Download",
-    "clusters": "Related",
-    "dashboard": "Dashboard",
-    "sites": "Sites",
-    "list": "List"
+    "clusters": "",
+    "dashboard": "",
+    "sites": "",
+    "list": ""
   },
   "table": {
-    "lockColumn": "Lock column",
-    "unlockColumn": "Unlock column",
-    "columnVisibility": "Toggle columns",
-    "resetColumnVisibility": "Reset",
-    "openFilter": "Open filter"
+    "lockColumn": "",
+    "unlockColumn": "",
+    "columnVisibility": "",
+    "resetColumnVisibility": "",
+    "openFilter": ""
   },
   "placeholders": {
     "default": "Search",
-    "range": "Range or single value",
-    "rangeExample": "E.g. 1000,2000",
-    "wildcard": "Search using * and ? as wildcards",
-    "dateTemplate": "yyyy-mm-dd",
-    "locationID": "Search by location ID (case sensitive)"
+    "range": "",
+    "rangeExample": "",
+    "wildcard": "",
+    "dateTemplate": "",
+    "locationID": ""
   },
   "ternary": {
     "yes": "Yes",
     "no": "No",
-    "either": "Either"
+    "either": ""
   },
   "loadMore": "More",
   "loading": "Loading",
-  "noResults": "No results",
+  "noResults": "",
+  "startTyping": "",
+  "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "About",
-    "clusters": "Related",
-    "legend": "Legend",
-    "differentPublishers": "Different publishers",
-    "samePublishers": "Same publisher",
-    "entryPoint": "Entry point",
-    "hasMultipleTaxonKeys": "Contains different identifications",
-    "aboutLink": "About the link",
+    "clusters": "",
+    "legend": "",
+    "differentPublishers": "",
+    "samePublishers": "",
+    "entryPoint": "",
+    "hasMultipleTaxonKeys": "",
+    "aboutLink": "",
     "isCapped": "This node has more connections than shown here. Go to the record to see the full list.",
-    "isDeleted": "This record has since been deleted.",
-    "similarities": "Similarities",
-    "currentRecord": "Current record",
+    "isDeleted": "",
+    "similarities": "",
+    "currentRecord": "",
     "nodeType": {
       "IMAGE": "Image",
-      "TYPE": "Type specimen",
+      "TYPE": "",
       "TREATMENT": "Treatment",
       "OBSERVATION": "Observation",
-      "SPECIMEN": "Specimen",
-      "SEQUENCE": "Sequence"
+      "SPECIMEN": "",
+      "SEQUENCE": ""
     }
   },
   "crossContentSearch": {
