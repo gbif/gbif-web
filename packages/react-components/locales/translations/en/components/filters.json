@@ -2,27 +2,27 @@
   "dwcaExtension": {
     "name": "DWCA extension",
     "count": "{num, plural, one { DWCA extension } other {# DWCA extensions}}",
-    "description": "A short description of the component should be placed here"
+    "description": ""
   },
   "locationId": {
     "name": "Location ID",
-    "count": "{num, plural, one { Location ID } other {# Location IDs}}",
+    "count": "",
     "description": "Publishers can choose to assign IDs to the location. This field is not normalized, meaning that you search data as provided by the publisher."
   },
   "hasCoordinate": {
     "name": "Has coordinate",
-    "count": "Has coordinates",
-    "description": "Whether the record has coordinates."
+    "count": "",
+    "description": ""
   },
   "hasGeospatialIssues": {
     "name": "Has geospatial issues",
     "count": "Has geospatial issues",
-    "description": "Whether the record has geospatial issues."
+    "description": ""
   },
   "collectionKey": {
     "name": "Collection",
     "count": "{num, plural, one {# collection } other {# collections}}",
-    "description": "The collection in GrSciColl this record was matched to"
+    "description": ""
   },
   "taxonomicStatus": {
     "name": "Status",
@@ -31,64 +31,79 @@
   },
   "taxonRank": {
     "name": "Rank",
-    "count": "{num, plural, one { rank } other {# ranks}}",
+    "count": "",
     "description": "The number of held specimens stated in the description. This number does not reflect how many records have been digitized and shared."
   },
   "numberSpecimens": {
-    "name": "Number of specimens",
-    "count": "{num, plural, one { specimen count } other {# Specimen counts filters}}",
+    "name": "",
+    "count": "",
     "description": "The number of held specimens stated in the description. This number does not reflect how many records have been digitized and shared."
   },
   "specimensInGbif": {
-    "name": "Specimens in GBIF",
-    "count": "{num, plural, one { GBIF specimen count } other {# specimens in GBIF}}",
+    "name": "",
+    "count": "",
     "description": "Number of specimen records published on GBIF and linked to the institution entry."
   },
   "iucnRedListCategory": {
-    "name": "IUCN Global Red List Category",
-    "count": "{num, plural, one { IUCN Global Red List category } other {# IUCN Global Red List categories}}",
+    "name": "",
+    "count": "",
     "description": "The IUCN Red List of Threatened Species groups taxa by how threatened they are."
   },
   "geoDistance": {
-    "name": "Distance from coordinates",
-    "count": "{num, plural, one { filter } other {# filters }}",
+    "name": "",
+    "count": "",
     "description": "Filter on records within a given distance from a point",
-    "placeholderLat": "Latitude",
-    "placeholderLon": "Longitude",
-    "placeholderDist": "Distance"
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
   },
   "geometry": {
     "name": "Location",
-    "count": "{num, plural, one { filter } other {# filters }}",
-    "description": "Filter on records within a given geometric area. The area can be a point, a line, a polygon, or a bounding box.",
-    "placeholderLat": "Latitude",
-    "placeholderLon": "Longitude",
-    "placeholderDist": "Distance"
+    "count": "",
+    "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
   },
   "relevance": {
     "name": "Relevance",
-    "count": "{num, plural, one { relevance } other {# relevance filters}}",
-    "description": "How is GBIF used in the literature."
+    "count": "",
+    "description": ""
   },
   "topics": {
     "name": "Topic",
-    "count": "{num, plural, one { topic } other {# topics}}",
-    "description": "What are the topics of the record."
+    "count": "",
+    "description": ""
   },
   "audiences": {
     "name": "Audience",
-    "count": "{num, plural, one { audience } other {# audiences}}",
-    "description": "Who are the audiences for the resource."
+    "count": "",
+    "description": ""
+  },
+  "biostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lithostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geologicalTime": {
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "purposes": {
     "name": "Topic",
-    "count": "{num, plural, one { purpose } other {# purposes}}",
+    "count": "",
     "description": "What are the purposes of the resource."
   },
   "eventDate": {
     "name": "Event date",
     "count": "{num, plural, one {# event date } other {# event dates}}",
-    "description": "When was the record collected or observed."
+    "description": ""
   },
   "gbifId": {
     "name": "GBIF ID",
@@ -136,14 +151,14 @@
     "description": ""
   },
   "alternativeCode": {
-    "name": "Alternative code",
+    "name": "",
     "count": "{num, plural, one {# alternative code } other {# alternative codes}}",
-    "description": "Any additional code that is already in use for the same record in other contexts (for example, historical codes)."
+    "description": ""
   },
   "identifier": {
     "name": "Identifier",
     "count": "{num, plural, one {# identifier } other {# identifiers}}",
-    "description": "A short description of the component should be placed here"
+    "description": ""
   },
   "institutionType": {
     "name": "Type",
@@ -151,41 +166,41 @@
     "description": "Institution type (museum, herbarium, etc.)"
   },
   "discipline": {
-    "name": "Discipline",
+    "name": "",
     "count": "{num, plural, one {# discipline } other {# disciplines}}",
     "description": "The research disciplines supported by the institution."
   },
   "collectionContentType": {
-    "name": "Content type",
+    "name": "",
     "count": "{num, plural, one {# content type } other {# content types}}",
     "description": "The type of objects available in the collection"
   },
   "preservationType": {
-    "name": "Preservation type",
+    "name": "",
     "count": "{num, plural, one {# preservation type } other {# preservation types}}",
     "description": "The method used to preserve the objects available in the collection"
   },
   "taxonKey": {
     "name": "Scientific name",
-    "count": "{num, plural, one {scientific name} other {# scientific names}}",
+    "count": "",
     "description": "The scientific name as it appears in the GBIF backbone taxonomy. These names are normalized to ease search across datasets. It is possible that an originally-provided name might be misinterpreted or unknown. To search the names as provided use the \"Verbatim scientific name\" filter."
   },
   "taxonKeyGrSciColl": {
     "name": "Scientific name",
-    "count": "{num, plural, one {scientific name} other {# scientific names}}",
-    "description": "Filter using the scientific names listed in the collection descriptors provided in the collection's metadata, noting that not all collections include metadata descriptors and the names are often at higher taxonomic ranks such as order or family."
+    "count": "",
+    "description": ""
   },
   "basisOfRecord": {
     "name": "Basis of record",
-    "count": "{num, plural, one {basis of record} other {# bases of records}}",
-    "isNotNull": "Has a basis of record",
-    "isNull": "Has no basis of record",
-    "description": "The nature of the evidence upon which the record is based."
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
   },
   "institutionCode": {
     "name": "Institution code",
-    "count": "{num, plural, one {institution code} other {# institution codes}}",
-    "description": "The code (or acronym) for the institution having custody of the object(s) or information referred to in the record."
+    "count": "",
+    "description": ""
   },
   "catalogNumber": {
     "name": "Catalogue number",
@@ -194,20 +209,27 @@
   },
   "mediaType": {
     "name": "Media type",
-    "count": "{num, plural, one {media type} other {# media types}}",
-    "description": "The types of media accessible for this record."
+    "count": "",
+    "description": ""
   },
   "occurrenceIssue": {
-    "name": "Issues and flags",
-    "count": "{num, plural, one {issue or flag} other {# issues and flags}}",
-    "isNotNull": "Has issues",
-    "isNull": "Has no issues",
-    "description": "The types of issues or flags of potential interest discovered in processing the data."
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "occurrenceTaxonomicIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
   },
   "occurrenceCountry": {
     "name": "Country or area",
     "count": "{num, plural, one {country or area} other {# countries or areas}}",
-    "description": "The country or territory where the event occurred"
+    "description": ""
   },
   "grsciCollCountry": {
     "description": "Country or territory in the record's address"
@@ -228,8 +250,8 @@
     "description": "The ISO code for the country or territory in which the data publisher is located"
   },
   "q": {
-    "name": "Text search",
-    "count": "{num, plural, one {text string} other {# search strings}}",
+    "name": "",
+    "count": "",
     "description": "Free text search across several fields"
   },
   "coordinates": {
@@ -237,7 +259,7 @@
   },
   "elevation": {
     "name": "Elevation",
-    "count": "{num, plural, one {elevation filter} other {# elevation filters}}",
+    "count": "",
     "description": "The distance above a vertical reference point (usually mean sea level or a geoid) in metres."
   },
   "license": {
@@ -247,28 +269,28 @@
   },
   "datasetKey": {
     "name": "Dataset",
-    "count": "{num, plural, one {dataset} other {# datasets}}",
-    "description": "The title of the dataset under which the record is shared."
+    "count": "",
+    "description": ""
   },
   "datasetId": {
     "name": "Dataset ID",
-    "count": "{num, plural, one {dataset ID} other {# dataset IDs}}",
+    "count": "",
     "description": "The publisher's internal ID for the dataset that the record is associated with. Notice, that this is different from the datasetKey used on GBIF for the dataset."
   },
   "publisherKey": {
     "name": "Publisher",
-    "count": "{num, plural, one {publisher} other {# publishers}}",
+    "count": "",
     "description": "The name of the organization responsible for sharing the dataset in which the record is included."
   },
   "gbifPublisherKey": {
-    "name": "GBIF publisher",
-    "count": "{num, plural, one {GBIF publisher} other {# GBIF publishers}}",
+    "name": "",
+    "count": "",
     "description": "The name of the organization responsible for sharing the dataset in which the record is included."
   },
   "hostingOrganizationKey": {
-    "name": "Hosting organization",
-    "count": "{num, plural, one {host} other {# hosts}}",
-    "description": "The name of the organization hosting the dataset in which the record is published."
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "country": {
     "name": "Country or area",
@@ -290,24 +312,24 @@
   },
   "typeStatus": {
     "name": "Type status",
-    "count": "{num, plural, one {type status} other {# type statuses}}",
-    "isNotNull": "Has a type status",
-    "isNull": "The type status",
-    "description": "The type designation of a specimen."
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
   },
   "year": {
     "name": "Year",
-    "count": "{num, plural, one {year filter} other {# year filters}}",
-    "description": "The year in which the event occurred."
+    "count": "",
+    "description": ""
   },
   "sampleSizeUnit": {
     "name": "Sample size unit",
-    "count": "{num, plural, one {sample size unit} other {# sample size units}}",
-    "description": "The unit of measurement for the \"sample size value\"."
+    "count": "",
+    "description": ""
   },
   "coordinateUncertainty": {
     "name": "Coordinate uncertainty",
-    "count": "{num, plural, one {Coordinate uncertainty} other {# coordinate uncertainty filters}}",
+    "count": "",
     "description": "A measure of the minimum distance in metres from a coordinate within which a locality might be interpreted to be."
   },
   "distanceFromCentroidInMeters": {
@@ -323,37 +345,37 @@
   "organismQuantity": {
     "name": "Organism quantity",
     "count": "{num, plural, one { organism quantity } other {# organism quantitys}}",
-    "description": "The value for the quantity of organisms, where the type of measurement is given in the \"Organism quantity type\"."
+    "description": ""
   },
   "sampleSizeValue": {
     "name": "Sample size value",
-    "count": "{num, plural, one { sample size value } other {# sample size values}}",
-    "description": "The value for the size of a sample, where the units of measurement are given in the \"Sample size unit\"."
+    "count": "",
+    "description": ""
   },
   "relativeOrganismQuantity": {
     "name": "Relative organism quantity",
     "count": "{num, plural, one { relative organism quantity } other {# relative organism quantities}}",
-    "description": "The amount of biological material relative to the size of a sample, calculated as organismQuantity per sampleSize when the organismQuantityType and sampleSizeUnit are unambiguous."
+    "description": ""
   },
   "month": {
     "name": "Month",
-    "count": "{num, plural, one { month } other {# months}}",
+    "count": "",
     "description": "The integer month in which the event occurred."
   },
   "continent": {
     "name": "Continent",
-    "count": "{num, plural, one { continent } other {# continents}}",
+    "count": "",
     "description": "The name of the continent in which the location occurs.  This field is not inferred but only populated if provided by the dataset publisher. Applying this filter may exclude relevant records."
   },
   "protocol": {
-    "name": "Publishing protocol",
-    "count": "{num, plural, one { protocol } other {# protocols}}",
-    "description": "The technical protocol through which the dataset is shared."
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "establishmentMeans": {
     "name": "Establishment means",
-    "count": "{num, plural, one { establishment means } other {# establishment means}}",
-    "description": "The means by which the organism was introduced to a given place at a given time."
+    "count": "",
+    "description": ""
   },
   "sex": {
     "name": "Sex",
@@ -367,7 +389,7 @@
   },
   "recordedBy": {
     "name": "Recorded by",
-    "count": "{num, plural, one { recorded by } other {# recorded bys}}",
+    "count": "",
     "description": "The names of the person, people, groups or organizations responsible for recording the original occurrence."
   },
   "fieldNumber": {
@@ -407,18 +429,18 @@
   },
   "recordNumber": {
     "name": "Record number",
-    "count": "{num, plural, one { record number } other {# record numbers}}",
+    "count": "",
     "description": "An identifier given to the occurrence at the time it was recorded."
   },
   "collectionCode": {
     "name": "Collection code",
-    "count": "{num, plural, one { collection code } other {# collection codes}}",
-    "description": "What collection code is assigned to the record."
+    "count": "",
+    "description": ""
   },
   "projectId": {
     "name": "Project ID",
-    "count": "{num, plural, one { project ID } other {# project IDs}}",
-    "description": "What project ID is associated with the record."
+    "count": "",
+    "description": ""
   },
   "recordedById": {
     "name": "Recorded by ID",
@@ -427,7 +449,7 @@
   },
   "identifiedById": {
     "name": "Identified by ID",
-    "count": "{num, plural, one { identified by id } other {identified by #}}",
+    "count": "",
     "description": "The identifier for the person, people, groups or organizations responsible for determining the scientific name of the organism."
   },
   "occurrenceId": {
@@ -442,22 +464,22 @@
   },
   "locality": {
     "name": "Locality",
-    "count": "{num, plural, one { locality } other {# localities}}",
-    "description": "The specific part of the description of the place."
+    "count": "",
+    "description": ""
   },
   "waterBody": {
     "name": "Water body",
-    "count": "{num, plural, one { water body } other {# water bodies}}",
+    "count": "",
     "description": "The name of the water body in which the location occurs."
   },
   "higherGeography": {
     "name": "Higher geography",
     "count": "{num, plural, one { higher geography } other {# higher geographies}}",
-    "description": "Higher geography in which the record is located. This is not an interpreted field, but the original data as provided by the publisher. Multiple values can be provided."
+    "description": ""
   },
   "stateProvince": {
     "name": "State province",
-    "count": "{num, plural, one { state province } other {# state provinces}}",
+    "count": "",
     "description": "The name of the next administrative region smaller than country in which the location occurs."
   },
   "gbifRegion": {
@@ -483,7 +505,7 @@
   "parentEventId": {
     "name": "Parent event ID",
     "count": "{num, plural, one { event ID } other {# event IDs}}",
-    "description": "The unique identifier for the Parent Event in the record."
+    "description": ""
   },
   "locationID": {
     "name": "Location ID",
@@ -491,29 +513,29 @@
     "description": "The unique identifier for the site in the record."
   },
   "measurementOrFactTypes": {
-    "name": "Measurement types",
-    "count": "{num, plural, one { measurement type } other {# measurement types}}",
-    "description": "The type of measurement."
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "measurementOrFactCount": {
-    "name": "Measurement count",
-    "count": "{num, plural, one { measurement count } other {# measurement counts}}",
-    "description": "The count of a given measurement type."
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "occurrenceCount": {
     "name": "Occurrence count",
-    "count": "{num, plural, one { occurrence } other {# occurrences}}",
+    "count": "",
     "description": "Number of occurrences for the event"
   },
   "eventType": {
-    "name": "Event type",
-    "count": "{num, plural, one { event type } other {# event types}}",
-    "description": "The type of the sampling event."
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "dataStructure": {
-    "name": "Structure",
-    "count": "{num, plural, one { event type } other {# event types}}",
-    "description": "The data structure for the sampling event."
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "samplingProtocol": {
     "name": "Sampling protocol",
@@ -526,70 +548,70 @@
     "description": "The presence or absence of any organisms of the given taxon."
   },
   "gadmGid": {
-    "name": "Administrative area",
-    "count": "{num, plural, one { administrative area } other {# administrative areas}}",
-    "description": "The name of any administrative area from GADM.org determined during record processing."
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "identifiedBy": {
     "name": "Identified by",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}",
+    "count": "",
     "description": "The person, people, groups or organizations responsible for determining the scientific name of the Organism."
   },
   "isInCluster": {
     "name": "Has related records",
     "count": "",
-    "description": "This experimental feature highlights possible duplicate and/or related occurrences."
+    "description": ""
   },
   "isSequenced": {
     "name": "Is sequenced",
-    "count": "{num, plural, one { Is sequenced } other {# Is sequenced}}",
-    "description": "Whether the record has sequence information."
+    "count": "",
+    "description": ""
   },
   "active": {
-    "name": "Active",
-    "count": "Active",
+    "name": "",
+    "count": "",
     "description": "Whether the entry corresponds to an active collection/institution or a historical listing that no longer exists."
   },
   "activeInstitution": {
-    "name": "Active",
-    "count": "Active",
+    "name": "",
+    "count": "",
     "description": "Whether the entry corresponds to an active institution or a historical listing that no longer exists."
   },
   "activeCollection": {
-    "name": "Active",
-    "count": "Active",
+    "name": "",
+    "count": "",
     "description": "Whether the entry corresponds to an active collection or a historical listing that no longer exists."
   },
   "publicationDate": {
     "name": "Publication date",
-    "count": "{num, plural, one { publication date } other {# publication dates}}",
-    "description": "When was the record was published"
+    "count": "",
+    "description": ""
   },
   "personalCollection": {
-    "name": "Personal collection",
-    "count": "Personal collection",
+    "name": "",
+    "count": "",
     "description": "Selects private or personal collections"
   },
   "datasetType": {
     "name": "Dataset type",
     "count": "{num, plural, one { dataset type } other {# dataset types}}",
-    "description": "A short description of the component should be placed here"
+    "description": ""
   },
   "datasetSubtype": {
-    "name": "Dataset subtype",
+    "name": "",
     "count": "{num, plural, one { dataset subtype } other {# dataset subtypes}}",
-    "description": "A short description of the component should be placed here"
+    "description": ""
   },
   "institutionKey": {
     "name": "Institution",
     "count": "{num, plural, one { institution } other {# institutions}}",
-    "description": "The name of the institution having custody of the object(s) or information referred to in the record."
+    "description": ""
   },
   "name": {
     "name": "Name",
     "count": "{num, plural, one { name } other {# names}}",
     "description": "The entity's name",
-    "searchPlaceholder": "Search by title/name"
+    "searchPlaceholder": ""
   },
   "city": {
     "name": "City",
@@ -597,7 +619,7 @@
     "description": "City where the institution/collection can be found."
   },
   "code": {
-    "name": "Code",
+    "name": "",
     "count": "{num, plural, one { code } other {# codes}}",
     "description": "The primary code that identifies the record as a whole. If you get no result, try the alternative code filter."
   },
@@ -609,23 +631,23 @@
   "networkKey": {
     "name": "Network",
     "count": "{num, plural, one {# network } other {# networks}}",
-    "description": "A short description of the component should be placed here"
+    "description": ""
   },
   "literatureType": {
     "name": "Literature type",
     "count": "{num, plural, one { literature type } other {# literature types}}",
-    "description": "What type of literature does the citation come from."
+    "description": ""
   },
   "higherTaxonKey": {
     "name": "Higher taxon",
-    "count": "{num, plural, one {higher taxon} other {# higher taxa}}",
+    "count": "",
     "description": "A higher taxon to filter by."
   },
   "issueEnum": {
-    "name": "Issues and flags",
-    "count": "{num, plural, one {issue or flag} other {# issues and flags}}",
-    "isNotNull": "Has issues",
-    "isNull": "Has no issues",
-    "description": "The types of issues or flags of potential interest discovered in processing the data."
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
   }
 }
