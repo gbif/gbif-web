@@ -10,7 +10,6 @@
   "COORDINATE_REPROJECTION_SUSPICIOUS": "Coordinate reprojection suspicious",
   "COORDINATE_ACCURACY_INVALID": "Coordinate accuracy invalid",
   "COORDINATE_PRECISION_INVALID": "Coordinate precision invalid",
-  "COORDINATE_UNCERTAINTY_METERS_INVALID": "Coordinate uncertainty metres invalid",
   "COORDINATE_PRECISION_UNCERTAINTY_MISMATCH": "Coordinate precision uncertainty mismatch",
   "FOOTPRINT_SRS_INVALID": "Footprint SRS invalid",
   "FOOTPRINT_WKT_MISMATCH": "Footprint WKT mismatch",
@@ -49,8 +48,6 @@
   "BASIS_OF_RECORD_INVALID": "Basis of record invalid",
   "TYPE_STATUS_INVALID": "Type status invalid",
   "MULTIMEDIA_DATE_INVALID": "Multimedia date invalid",
-  "MULTIMEDIA_URI_INVALID": "Multimedia URI invalid",
-  "REFERENCES_URI_INVALID": "References URI invalid",
   "INTERPRETATION_ERROR": "Interpretation error",
   "INDIVIDUAL_COUNT_INVALID": "Individual count invalid",
   "INDIVIDUAL_COUNT_CONFLICTS_WITH_OCCURRENCE_STATUS": "Individual count conflicts with occurrence status",
@@ -68,12 +65,5 @@
   "INSTITUTION_COLLECTION_MISMATCH": "Institution collection mismatch",
   "POSSIBLY_ON_LOAN": "Possibly on loan",
   "DIFFERENT_OWNER_INSTITUTION": "Different owner institution",
-  "TAXON_MATCH_SCIENTIFIC_NAME_ID_IGNORED": "Taxon match scientific name ID ignored",
-  "TAXON_MATCH_TAXON_CONCEPT_ID_IGNORED": "Taxon match taxon concept ID ignored",
-  "TAXON_MATCH_TAXON_ID_IGNORED": "Taxon match taxon ID ignored",
-  "SCIENTIFIC_NAME_ID_NOT_FOUND": "Scientific name ID not found",
-  "TAXON_CONCEPT_ID_NOT_FOUND": "Taxon concept ID not found",
-  "TAXON_ID_NOT_FOUND": "Taxon ID not found",
-  "SCIENTIFIC_NAME_AND_ID_INCONSISTENT": "Scientific name and ID inconsistent",
-  "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS": "Taxon match name and ID ambiguous"
+  "TAXON_ID_NOT_FOUND": "Taxon ID not found"
 }
