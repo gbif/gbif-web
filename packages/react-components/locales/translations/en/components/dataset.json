@@ -21,7 +21,8 @@
     "project": "Project",
     "taxonomy": "Taxonomy",
     "download": "Download",
-    "phylogeny": "Phylogeny"
+    "phylogeny": "",
+    "events": "Events"
   },
   "noStatsForMetadata": "No statistics available for metadata only datasets",
   "siteScopeSmallerThanDataset": "Not all records from the dataset are included on this site. Visit [GBIF.org]({datasetUrl}) to explore the full dataset.",
@@ -32,7 +33,7 @@
   "taxonomy": "Taxonomy",
   "project": "Project",
   "metrics": "Metrics",
-  "metricsOccurrenceHelpText": "Metrics are based on interpreted data",
+  "metricsOccurrenceHelpText": "",
   "constituents": "Constituents",
   "download": "Download",
   "datasetHomepage": "Home page",
@@ -85,7 +86,7 @@
   "annotatedEml": "GBIF annotated metadata",
   "license": "Licence",
   "recommended": "Recommended",
-  "processedOccurrences": "GBIF annotated occurrence archive",
+  "processedOccurrences": "",
   "processedOccurrencesDescription": "Download the occurrence records after GBIF processing. During processing, names, dates, etc. are normalized. The data is also enriched with information from other sources.\n\nNote that an account is needed to download the content.",
   "noDescriptionProvided": "No description available",
   "pNetwork": "{NUMBER, plural, one{Network} other{Networks}}",
@@ -94,18 +95,18 @@
   "siblingEvents": "Sibling events",
   "childEvents": "Child events",
   "events": "Events",
-  "boundingBox": "Bounding box",
-  "latitude": "Latitude",
-  "longitude": "Longitude",
+  "boundingBox": "",
+  "latitude": "",
+  "longitude": "",
   "verbatim": "Verbatim",
   "occurrenceCount": "Occurrence count",
   "inDataset": "In",
   "samplingArticleLink": "More about sampling events on GBIF.org",
-  "includesDna": "Includes DNA",
-  "includesDnaDescription": "There are records in this dataset that contain sequence data.",
-  "containsSamplingEvents": "Contains sampling events",
+  "includesDna": "",
+  "includesDnaDescription": "",
+  "containsSamplingEvents": "",
   "containsSamplingEventsDescription": "This dataset contains sampling data. Details on the sampling method appear in the methodology section of the dataset description.",
-  "griddedData": "Gridded data",
+  "griddedData": "",
   "griddedDataDescription": "Based on our analysis of the records, this dataset likely contains gridded data. Read more in this [blog post about gridded datasets](https://data-blog.gbif.org/post/gridded-datasets-update/).",
   "registry": {
     "failedSinceSuccess": "Failed attempts since last successful ingestion",
@@ -145,6 +146,11 @@
     "lastIngestionFailed": "Last ingestion failed",
     "outOfSync": "Out of sync",
     "becauseTrustedContact": "Because you are trusted contact",
-    "registrationDetails": "GBIF registration details"
-  }
+    "registrationDetails": ""
+  },
+  "errors": {
+    "evenList": "",
+    "occurrenceInfo": ""
+  },
+  "eventTaxonomy": "Taxonomic distribution of occurrences"
 }
