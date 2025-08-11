@@ -1,19 +1,5 @@
 {
-  "SAME_ACCEPTED_SPECIES": "Same accepted species",
-  "SAME_DATE": "Same date",
   "NON_CONFLICTING_DATE": "Non-conflicting date",
-  "APPROXIMATE_DATE": "Approximate date",
-  "DIFFERENT_DATE": "Different date",
-  "SAME_COORDINATES": "Same coordinates",
-  "WITHIN_200m": "Within 200 m",
-  "WITHIN_2Km": "Within 2 km",
   "NON_CONFLICTING_COORDINATES": "Non-conflicting coordinates",
-  "SAME_COUNTRY": "Same country",
-  "NON_CONFLICTING_COUNTRY": "Non-conflicting country",
-  "DIFFERENT_COUNTRY": "Different country",
-  "IDENTIFIERS_OVERLAP": "Identifiers overlap",
-  "OTHER_CATALOG_NUMBERS_OVERLAP": "Other catalog numbers overlap",
-  "SAME_RECORDER_NAME": "Same recorder name",
-  "SAME_SPECIMEN": "Same specimen",
-  "TYPIFICATION_RELATION": "Typification relation"
+  "NON_CONFLICTING_COUNTRY": "Non-conflicting country"
 }
