@@ -1,0 +1,39 @@
+{
+  "country": {
+    "tabs": {
+      "summary": "خلاصه",
+      "dataPublishing": "",
+      "dataAbout": "",
+      "participation": "",
+      "publicationsFrom": "",
+      "publicationsAbout": "",
+      "news": "",
+      "alienSpecies": "",
+      "projects": ""
+    },
+    "country": "کشور",
+    "dataFrom": "",
+    "dataAboutCountry": "",
+    "publishingTrends": "",
+    "noDataPublishingActivity": "",
+    "noInstitutionsHavePublished": "",
+    "trendsAboutCountry": "",
+    "noProjects": "",
+    "notParticipant": "",
+    "notParticipantDescription": "",
+    "countryNamingDisclaimer": "",
+    "isoStandardLinkText": "",
+    "counts": {
+      "occurrences": "",
+      "datasets": "مجموعه اطلاعات",
+      "publishers": "",
+      "countriesAndAreasContributeData": "",
+      "publishedOccurrences": "",
+      "publishedDatasets": "",
+      "countriesAndAreasCoveredByDataFrom": "",
+      "publishersFrom": ""
+    },
+    "activityReport": "",
+    "contacts": "مخاطب‌ ها"
+  }
+}
