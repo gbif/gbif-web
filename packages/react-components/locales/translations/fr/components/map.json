@@ -21,7 +21,7 @@
   "anyYear": "N'importe quelle année",
   "exploreArea": "Explorez la zone",
   "explore": "Explorer ",
-  "generatedDateAgo": "Doit être défini",
+  "generatedDateAgo": "",
   "style": "Style",
   "filters": "Filtres",
   "select": "Sélectionner",
@@ -36,7 +36,7 @@
     "CLASSIC": "Points classiques",
     "STREETS": "Rues",
     "GLACIER": "Glacier",
-    "GREEN": "Doit être défini",
+    "GREEN": "",
     "CUSTOM": "Personnalisé"
   },
   "basemap": {
