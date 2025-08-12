@@ -28,7 +28,7 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "Te miary są oparte na danych udostępnionych przez GBIF",
-  "notVocabularyWarning": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+  "notVocabularyWarning": "",
   "group": {
     "views": "",
     "record": "Zapis",
@@ -42,5 +42,7 @@
     "identification": "Identyfikacja",
     "provenance": "Pochodzenie",
     "other": "Inne"
-  }
+  },
+  "occurrencesPerField": "Wystąpienia przez {FIELD}",
+  "kingdom": "Królestwo"
 }
