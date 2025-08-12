@@ -36,10 +36,12 @@
   "loadMore": "Plus",
   "loading": "Chargement en cours",
   "noResults": "",
+  "startTyping": "",
+  "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "À propos",
     "clusters": "",
-    "legend": "",
+    "legend": "Légende",
     "differentPublishers": "",
     "samePublishers": "",
     "entryPoint": "",
@@ -60,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Rechercher",
-    "description": "Doit être défini",
+    "description": "",
     "noSearchTermsEntered": "Aucun mot-clé renseigné",
-    "placeholder": "Doit être défini",
+    "placeholder": "",
     "categories": {
       "speciesSearch": "Espèce",
       "datasetSearch": "Jeux de données",
       "publisherSearch": "Fournisseurs de données",
       "occurrenceSearch": "Occurrences",
-      "resourceSearch": "Doit être défini"
+      "resourceSearch": ""
     },
     "seeAll": "Tout voir"
   }
