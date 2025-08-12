@@ -42,5 +42,7 @@
     "identification": "ID",
     "provenance": "原産",
     "other": "その他"
-  }
+  },
+  "occurrencesPerField": "{FIELD} ごとのオカレンス",
+  "kingdom": "界"
 }
