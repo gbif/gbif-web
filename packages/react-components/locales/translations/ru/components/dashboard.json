@@ -42,5 +42,7 @@
     "identification": "Определение",
     "provenance": "Происхождение",
     "other": "Другая"
-  }
+  },
+  "occurrencesPerField": "Распределение находок по категории: {FIELD}",
+  "kingdom": "Царство"
 }

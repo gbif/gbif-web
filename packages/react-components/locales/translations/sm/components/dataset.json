@@ -21,7 +21,8 @@
     "project": "",
     "taxonomy": "",
     "download": "",
-    "phylogeny": ""
+    "phylogeny": "",
+    "events": ""
   },
   "noStatsForMetadata": "",
   "siteScopeSmallerThanDataset": "",
@@ -146,5 +147,10 @@
     "outOfSync": "",
     "becauseTrustedContact": "",
     "registrationDetails": ""
-  }
+  },
+  "errors": {
+    "evenList": "",
+    "occurrenceInfo": ""
+  },
+  "eventTaxonomy": ""
 }

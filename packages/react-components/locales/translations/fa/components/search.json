@@ -36,6 +36,8 @@
   "loadMore": "بیشتر",
   "loading": "",
   "noResults": "",
+  "startTyping": "",
+  "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "درباره",
     "clusters": "",

@@ -46,7 +46,7 @@
   },
   "iucnRedListCategory": {
     "name": "世界自然保护联盟全球红色名录类别",
-    "count": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+    "count": "",
     "description": "国际自然保护联盟濒危物种红色名录根据受威胁程度对物种进行分类"
   },
   "geoDistance": {
@@ -80,6 +80,21 @@
     "count": "{num, plural, one { 受众 } other {# 受众}}",
     "description": "谁是资源的受众。"
   },
+  "biostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lithostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geologicalTime": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "purposes": {
     "name": "主题",
     "count": "{num, plural, one { 目的 } other {# 目的}}",
@@ -87,82 +102,82 @@
   },
   "eventDate": {
     "name": "事件日期",
-    "count": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+    "count": "",
     "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "count": "",
+    "description": ""
   },
   "organismQuantityType": {
     "name": "生物个体数量类型",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "count": "",
+    "description": ""
   },
   "pathway": {
     "name": "路径",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "count": "",
+    "description": ""
   },
   "associatedSequences": {
     "name": "相关序列",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "count": "",
+    "description": ""
   },
   "degreeOfEstablishment": {
     "name": "设置级别",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "count": "",
+    "description": ""
   },
   "endDayOfYear": {
     "name": "当年结束日",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "count": "",
+    "description": ""
   },
   "startDayOfYear": {
     "name": "一年中的开始日",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "count": "",
+    "description": ""
   },
   "previousIdentifications": {
     "name": "以前的鉴定",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "count": "",
+    "description": ""
   },
   "lastInterpreted": {
     "name": "最后说明",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "count": "",
+    "description": ""
   },
   "alternativeCode": {
     "name": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-    "count": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+    "count": "",
     "description": ""
   },
   "identifier": {
     "name": "标识符",
-    "count": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+    "count": "",
     "description": "这里应该有一个组件的简短描述"
   },
   "institutionType": {
     "name": "类型",
-    "count": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+    "count": "",
     "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
   },
   "discipline": {
     "name": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-    "count": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+    "count": "",
     "description": ""
   },
   "collectionContentType": {
     "name": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-    "count": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+    "count": "",
     "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
   },
   "preservationType": {
     "name": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-    "count": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+    "count": "",
     "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
   },
   "taxonKey": {
@@ -204,6 +219,13 @@
     "isNull": "没有问题",
     "description": "在处理数据时发现的问题类型或潜在兴趣标志。"
   },
+  "occurrenceTaxonomicIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
   "occurrenceCountry": {
     "name": "国家",
     "count": "{num, plural, one {国家} other {# 国家}}",
@@ -214,13 +236,13 @@
   },
   "preparations": {
     "name": "准备",
-    "count": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
+    "count": "",
     "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
   },
   "repatriated": {
     "name": "已遣回",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "发布国家",
@@ -311,9 +333,9 @@
     "description": "距离坐标的最小距离（以米为单位）的度量，在该坐标中可以解释某一地点。"
   },
   "distanceFromCentroidInMeters": {
-    "name": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "depth": {
     "name": "深度",
@@ -357,13 +379,13 @@
   },
   "sex": {
     "name": "性别",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "count": "",
+    "description": ""
   },
   "lifeStage": {
     "name": "生命期",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "count": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "记录者",
@@ -372,38 +394,38 @@
   },
   "fieldNumber": {
     "name": "现场编号",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "count": "",
+    "description": ""
   },
   "verbatimTaxonId": {
-    "name": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "islandGroup": {
     "name": "岛群",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "count": "",
+    "description": ""
   },
   "island": {
     "name": "岛屿",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "count": "",
+    "description": ""
   },
   "georeferencedBy": {
     "name": "确定地理参考者",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "count": "",
+    "description": ""
   },
   "datasetName": {
     "name": "数据集名称",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "count": "",
+    "description": ""
   },
   "programme": {
     "name": "方案",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "count": "",
+    "description": ""
   },
   "recordNumber": {
     "name": "记录号",
@@ -417,7 +439,7 @@
   },
   "projectId": {
     "name": "项目编号",
-    "count": "这里应该有一个组件的简短描述",
+    "count": "",
     "description": "这里应该有一个组件的简短描述"
   },
   "recordedById": {
@@ -462,13 +484,13 @@
   },
   "gbifRegion": {
     "name": "GBIF区域",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "count": "",
+    "description": ""
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "count": "",
+    "description": ""
   },
   "eventId": {
     "name": "事件编号",
@@ -537,7 +559,7 @@
   },
   "isInCluster": {
     "name": "在集群中",
-    "count": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "count": "",
     "description": "该记录是否被确定有相关记录。"
   },
   "isSequenced": {

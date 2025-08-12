@@ -21,7 +21,7 @@
   "anyYear": "Jakýkoliv rok",
   "exploreArea": "Prozkoumat oblast",
   "explore": "Procházet",
-  "generatedDateAgo": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+  "generatedDateAgo": "",
   "style": "Styl",
   "filters": "Filtry",
   "select": "Vybrat",
@@ -36,7 +36,7 @@
     "CLASSIC": "Klasické body",
     "STREETS": "Ulice",
     "GLACIER": "Ledovec",
-    "GREEN": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "GREEN": "",
     "CUSTOM": "Vlastní"
   },
   "basemap": {

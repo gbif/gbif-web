@@ -46,7 +46,7 @@
   },
   "iucnRedListCategory": {
     "name": "",
-    "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "count": "",
     "description": ""
   },
   "geoDistance": {
@@ -80,6 +80,21 @@
     "count": "",
     "description": "Wie is de doelgroep voor de resource?"
   },
+  "biostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lithostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geologicalTime": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "purposes": {
     "name": "Onderwerp",
     "count": "",
@@ -87,82 +102,82 @@
   },
   "eventDate": {
     "name": "Datum van gebeurtenis",
-    "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "count": "",
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "count": "",
+    "description": ""
   },
   "organismQuantityType": {
     "name": "Aantal organismen type",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "count": "",
+    "description": ""
   },
   "pathway": {
     "name": "Pad",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "count": "",
+    "description": ""
   },
   "associatedSequences": {
     "name": "",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "count": "",
+    "description": ""
   },
   "degreeOfEstablishment": {
     "name": "",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "count": "",
+    "description": ""
   },
   "endDayOfYear": {
     "name": "Einddag van het jaar",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "count": "",
+    "description": ""
   },
   "startDayOfYear": {
     "name": "Startdag van het jaar",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "count": "",
+    "description": ""
   },
   "previousIdentifications": {
     "name": "",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "count": "",
+    "description": ""
   },
   "lastInterpreted": {
     "name": "Laatst geïnterpreteerd",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "count": "",
+    "description": ""
   },
   "alternativeCode": {
     "name": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-    "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "count": "",
     "description": ""
   },
   "identifier": {
     "name": "Identifier",
-    "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "count": "",
     "description": ""
   },
   "institutionType": {
     "name": "Type",
-    "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "count": "",
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
   "discipline": {
     "name": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-    "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "count": "",
     "description": ""
   },
   "collectionContentType": {
     "name": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-    "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "count": "",
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
   "preservationType": {
     "name": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
-    "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "count": "",
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
   "taxonKey": {
@@ -204,6 +219,13 @@
     "isNull": "Heeft geen problemen",
     "description": "De soorten (mogelijke) problemen die automatisch werden vastgesteld bij het verwerken van de gegevens."
   },
+  "occurrenceTaxonomicIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
   "occurrenceCountry": {
     "name": "Land",
     "count": "",
@@ -214,13 +236,13 @@
   },
   "preparations": {
     "name": "Voorbereidingen",
-    "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "count": "",
     "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
   },
   "repatriated": {
     "name": "",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "Publicerend land",
@@ -311,9 +333,9 @@
     "description": "De minimumafstand in meters van een coördinaat waarbinnen de vindplaats ligt."
   },
   "distanceFromCentroidInMeters": {
-    "name": "Moet worden gedefinieerd",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "depth": {
     "name": "Diepte",
@@ -357,13 +379,13 @@
   },
   "sex": {
     "name": "Geslacht",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "count": "",
+    "description": ""
   },
   "lifeStage": {
     "name": "Levensfase",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "count": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "Vastgelegd door",
@@ -372,38 +394,38 @@
   },
   "fieldNumber": {
     "name": "Veldnummer",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "count": "",
+    "description": ""
   },
   "verbatimTaxonId": {
-    "name": "Moet worden gedefinieerd",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "islandGroup": {
     "name": "Eiland Groep",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "count": "",
+    "description": ""
   },
   "island": {
     "name": "Eiland",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "count": "",
+    "description": ""
   },
   "georeferencedBy": {
     "name": "",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "count": "",
+    "description": ""
   },
   "datasetName": {
     "name": "Datasetnaam",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "count": "",
+    "description": ""
   },
   "programme": {
     "name": "Programma",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "count": "",
+    "description": ""
   },
   "recordNumber": {
     "name": "Objectnummer",
@@ -462,13 +484,13 @@
   },
   "gbifRegion": {
     "name": "GBIF regio",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "count": "",
+    "description": ""
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "Moet worden gedefinieerd",
-    "description": "Moet worden gedefinieerd"
+    "count": "",
+    "description": ""
   },
   "eventId": {
     "name": "",
@@ -537,7 +559,7 @@
   },
   "isInCluster": {
     "name": "Is onderdeel van een cluster",
-    "count": "Moet worden gedefinieerd",
+    "count": "",
     "description": "Of er automatisch verwante gegevens zijn gevonden."
   },
   "isSequenced": {
@@ -608,7 +630,7 @@
   },
   "networkKey": {
     "name": "Netwerk",
-    "count": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "count": "",
     "description": ""
   },
   "literatureType": {

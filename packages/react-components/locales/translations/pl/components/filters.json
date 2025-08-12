@@ -80,6 +80,21 @@
     "count": "{num, plural, one { odbiorca } few {# odbiorców} many {# odbiorców} other {# odbiorcy}}",
     "description": "Kim są odbiorcy zasobu."
   },
+  "biostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lithostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geologicalTime": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "purposes": {
     "name": "Temat",
     "count": "{num, plural, one { cel } few {# cele} many {# celów} other {# cele}}",
@@ -92,48 +107,48 @@
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "count": "",
+    "description": ""
   },
   "organismQuantityType": {
     "name": "Rodzaj liczebności organizmów",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "count": "",
+    "description": ""
   },
   "pathway": {
     "name": "Ścieżka",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "count": "",
+    "description": ""
   },
   "associatedSequences": {
     "name": "Powiązane sekwencje",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "count": "",
+    "description": ""
   },
   "degreeOfEstablishment": {
     "name": "Stopień wprowadzenia",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "count": "",
+    "description": ""
   },
   "endDayOfYear": {
     "name": "Ostatni dzień roku",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "count": "",
+    "description": ""
   },
   "startDayOfYear": {
     "name": "Pierwszy dzień roku",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "count": "",
+    "description": ""
   },
   "previousIdentifications": {
     "name": "Wcześniejsze oznaczenia",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "count": "",
+    "description": ""
   },
   "lastInterpreted": {
     "name": "Ostatnio interpretowano",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "count": "",
+    "description": ""
   },
   "alternativeCode": {
     "name": "Alternatywny kod",
@@ -204,6 +219,13 @@
     "isNull": "Nie wystąpiły problemy",
     "description": "Rodzaj problemów lub potencjalnych problemów odkrytych w procesowaniu danych. "
   },
+  "occurrenceTaxonomicIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
   "occurrenceCountry": {
     "name": "Państwo lub obszar",
     "count": "{num, plural, one {kraj lub obszar} few {# kraje lub obszary} many {# krajów lub obszarów} other {# kraje lub obszary}}",
@@ -219,8 +241,8 @@
   },
   "repatriated": {
     "name": "Ponownie wprowadzony ",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "Kraj lub obszar publikujący",
@@ -311,9 +333,9 @@
     "description": "Miara minimalnej odległości w metrach od współrzędnych, w których lokalna obserwacja może się znajdować. "
   },
   "distanceFromCentroidInMeters": {
-    "name": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "depth": {
     "name": "Głębokość",
@@ -357,13 +379,13 @@
   },
   "sex": {
     "name": "Płeć",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "count": "",
+    "description": ""
   },
   "lifeStage": {
     "name": "Stadium rozwoju",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "count": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "Zarejestrowane przez",
@@ -372,38 +394,38 @@
   },
   "fieldNumber": {
     "name": "Numer pola",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "count": "",
+    "description": ""
   },
   "verbatimTaxonId": {
-    "name": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "islandGroup": {
     "name": "Grupa wysp",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "count": "",
+    "description": ""
   },
   "island": {
     "name": "Wyspa",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "count": "",
+    "description": ""
   },
   "georeferencedBy": {
     "name": "Georeferencjonowane przez",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "count": "",
+    "description": ""
   },
   "datasetName": {
     "name": "Nazwa zbioru danych",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "count": "",
+    "description": ""
   },
   "programme": {
     "name": "Program",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "count": "",
+    "description": ""
   },
   "recordNumber": {
     "name": "Numer rekordu",
@@ -462,13 +484,13 @@
   },
   "gbifRegion": {
     "name": "Region GBIF",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "count": "",
+    "description": ""
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "description": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "count": "",
+    "description": ""
   },
   "eventId": {
     "name": "ID zdarzenia",
@@ -537,7 +559,7 @@
   },
   "isInCluster": {
     "name": "Jest w gromadzie",
-    "count": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+    "count": "",
     "description": "Czy zapis został określony jako posiadający pokrewne zapisy."
   },
   "isSequenced": {

@@ -28,7 +28,7 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "",
-  "notVocabularyWarning": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+  "notVocabularyWarning": "",
   "group": {
     "views": "",
     "record": "Registo",
@@ -42,5 +42,7 @@
     "identification": "Identificação",
     "provenance": "Procedência",
     "other": "Outro"
-  }
+  },
+  "occurrencesPerField": "Ocorrências por {FIELD}",
+  "kingdom": "Reino"
 }

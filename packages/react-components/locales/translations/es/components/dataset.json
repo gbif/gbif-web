@@ -21,7 +21,8 @@
     "project": "Proyecto",
     "taxonomy": "Taxonomía",
     "download": "Descargar",
-    "phylogeny": "Filogenias"
+    "phylogeny": "Filogenias",
+    "events": "Eventos"
   },
   "noStatsForMetadata": "No hay estadísticas disponibles para los conjuntos de solo metadatos.",
   "siteScopeSmallerThanDataset": "No todos los registros del conjunto de datos están incluidos en este sitio. Visite [GBIF.org]({datasetUrl}) para explorar el conjunto de datos completo.",
@@ -146,5 +147,10 @@
     "outOfSync": "Sin sincronización",
     "becauseTrustedContact": "Porque eres un contacto confiable",
     "registrationDetails": ""
-  }
+  },
+  "errors": {
+    "evenList": "",
+    "occurrenceInfo": ""
+  },
+  "eventTaxonomy": "Distribución taxonómica de los registros de presencia"
 }

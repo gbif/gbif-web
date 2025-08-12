@@ -37,6 +37,18 @@
           }
         }
       }
-    }
+    },
+    "participant": "",
+    "participantSummary": "",
+    "memberStatus": "",
+    "gbifParticipantSince": "",
+    "headOfDelegation": "",
+    "gbifRegion": "",
+    "countryOrArea": "",
+    "nodeName": "",
+    "nodeEstablished": "",
+    "website": "",
+    "participantNodeManager": "",
+    "pending": ""
   }
 }

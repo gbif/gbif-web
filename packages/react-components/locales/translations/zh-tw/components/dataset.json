@@ -21,7 +21,8 @@
     "project": "專案",
     "taxonomy": "分類學",
     "download": "下載",
-    "phylogeny": ""
+    "phylogeny": "",
+    "events": "事件"
   },
   "noStatsForMetadata": "純詮釋資料集無統計數據",
   "siteScopeSmallerThanDataset": "此網站並未包含資料集中的所有記錄。 造訪 [GBIF.org]({datasetUrl}) 探索完整資料集。",
@@ -146,5 +147,10 @@
     "outOfSync": "不同步",
     "becauseTrustedContact": "因為您是我們信賴的連絡人",
     "registrationDetails": ""
-  }
+  },
+  "errors": {
+    "evenList": "",
+    "occurrenceInfo": ""
+  },
+  "eventTaxonomy": "出現紀錄的分類群分布"
 }

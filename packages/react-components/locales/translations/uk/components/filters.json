@@ -46,7 +46,7 @@
   },
   "iucnRedListCategory": {
     "name": "",
-    "count": "Архів анотований GBIF",
+    "count": "",
     "description": ""
   },
   "geoDistance": {
@@ -80,6 +80,21 @@
     "count": "",
     "description": ""
   },
+  "biostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lithostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geologicalTime": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "purposes": {
     "name": "Тема",
     "count": "",
@@ -87,7 +102,7 @@
   },
   "eventDate": {
     "name": "Дата події",
-    "count": "Архів анотований GBIF",
+    "count": "",
     "description": "Архів анотований GBIF"
   },
   "gbifId": {
@@ -137,32 +152,32 @@
   },
   "alternativeCode": {
     "name": "Архів анотований GBIF",
-    "count": "Архів анотований GBIF",
+    "count": "",
     "description": ""
   },
   "identifier": {
     "name": "Автор визначення",
-    "count": "Архів анотований GBIF",
+    "count": "",
     "description": ""
   },
   "institutionType": {
     "name": "Тип",
-    "count": "Архів анотований GBIF",
+    "count": "",
     "description": "Архів анотований GBIF"
   },
   "discipline": {
     "name": "Архів анотований GBIF",
-    "count": "Архів анотований GBIF",
+    "count": "",
     "description": ""
   },
   "collectionContentType": {
     "name": "Архів анотований GBIF",
-    "count": "Архів анотований GBIF",
+    "count": "",
     "description": "Архів анотований GBIF"
   },
   "preservationType": {
     "name": "Архів анотований GBIF",
-    "count": "Архів анотований GBIF",
+    "count": "",
     "description": "Архів анотований GBIF"
   },
   "taxonKey": {
@@ -204,6 +219,13 @@
     "isNull": "",
     "description": ""
   },
+  "occurrenceTaxonomicIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
   "occurrenceCountry": {
     "name": "Країна",
     "count": "",
@@ -214,7 +236,7 @@
   },
   "preparations": {
     "name": "Підготовчі дії щодо зразка (наприклад, відфотографовано, відпрепаровано тощо)",
-    "count": "Архів анотований GBIF",
+    "count": "",
     "description": "Архів анотований GBIF"
   },
   "repatriated": {
@@ -608,7 +630,7 @@
   },
   "networkKey": {
     "name": "Мережа",
-    "count": "Архів анотований GBIF",
+    "count": "",
     "description": ""
   },
   "literatureType": {

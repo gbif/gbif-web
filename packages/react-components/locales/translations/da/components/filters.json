@@ -46,7 +46,7 @@
   },
   "iucnRedListCategory": {
     "name": "",
-    "count": "GBIF annoteret Arkiv",
+    "count": "",
     "description": ""
   },
   "geoDistance": {
@@ -80,6 +80,21 @@
     "count": "",
     "description": ""
   },
+  "biostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lithostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geologicalTime": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "purposes": {
     "name": "Emne",
     "count": "",
@@ -87,7 +102,7 @@
   },
   "eventDate": {
     "name": "",
-    "count": "GBIF annoteret Arkiv",
+    "count": "",
     "description": "GBIF annoteret Arkiv"
   },
   "gbifId": {
@@ -137,32 +152,32 @@
   },
   "alternativeCode": {
     "name": "GBIF annoteret Arkiv",
-    "count": "GBIF annoteret Arkiv",
+    "count": "",
     "description": ""
   },
   "identifier": {
     "name": "Identifikator",
-    "count": "GBIF annoteret Arkiv",
+    "count": "",
     "description": ""
   },
   "institutionType": {
     "name": "",
-    "count": "GBIF annoteret Arkiv",
+    "count": "",
     "description": "GBIF annoteret Arkiv"
   },
   "discipline": {
     "name": "GBIF annoteret Arkiv",
-    "count": "GBIF annoteret Arkiv",
+    "count": "",
     "description": ""
   },
   "collectionContentType": {
     "name": "GBIF annoteret Arkiv",
-    "count": "GBIF annoteret Arkiv",
+    "count": "",
     "description": "GBIF annoteret Arkiv"
   },
   "preservationType": {
     "name": "GBIF annoteret Arkiv",
-    "count": "GBIF annoteret Arkiv",
+    "count": "",
     "description": "GBIF annoteret Arkiv"
   },
   "taxonKey": {
@@ -204,6 +219,13 @@
     "isNull": "",
     "description": ""
   },
+  "occurrenceTaxonomicIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
   "occurrenceCountry": {
     "name": "Land",
     "count": "",
@@ -214,7 +236,7 @@
   },
   "preparations": {
     "name": "",
-    "count": "GBIF annoteret Arkiv",
+    "count": "",
     "description": "GBIF annoteret Arkiv"
   },
   "repatriated": {
@@ -608,7 +630,7 @@
   },
   "networkKey": {
     "name": "",
-    "count": "GBIF annoteret Arkiv",
+    "count": "",
     "description": ""
   },
   "literatureType": {

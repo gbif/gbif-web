@@ -37,6 +37,18 @@
           }
         }
       }
-    }
+    },
+    "participant": "Účastník",
+    "participantSummary": "Shrnutí účastníků",
+    "memberStatus": "Status člena",
+    "gbifParticipantSince": "Účastník GBIF od",
+    "headOfDelegation": "Vedoucí delegace",
+    "gbifRegion": "Region GBIF",
+    "countryOrArea": "Země nebo oblast",
+    "nodeName": "Název uzlu",
+    "nodeEstablished": "Založení uzlu",
+    "website": "Webová stránka",
+    "participantNodeManager": "Správce účastnického uzlu",
+    "pending": "Čekající"
   }
 }

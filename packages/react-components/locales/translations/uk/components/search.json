@@ -36,6 +36,8 @@
   "loadMore": "Більше",
   "loading": "Завантаження",
   "noResults": "",
+  "startTyping": "",
+  "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "Відомості про видавця даних",
     "clusters": "",

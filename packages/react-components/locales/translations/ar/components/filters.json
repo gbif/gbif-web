@@ -46,7 +46,7 @@
   },
   "iucnRedListCategory": {
     "name": "",
-    "count": "أرشيف شروح \"جيبف\"",
+    "count": "",
     "description": ""
   },
   "geoDistance": {
@@ -80,6 +80,21 @@
     "count": "",
     "description": ""
   },
+  "biostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lithostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geologicalTime": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "purposes": {
     "name": "موضوع",
     "count": "",
@@ -87,7 +102,7 @@
   },
   "eventDate": {
     "name": "تاريخ الحدث",
-    "count": "أرشيف شروح \"جيبف\"",
+    "count": "",
     "description": "أرشيف شروح \"جيبف\""
   },
   "gbifId": {
@@ -137,32 +152,32 @@
   },
   "alternativeCode": {
     "name": "أرشيف شروح \"جيبف\"",
-    "count": "أرشيف شروح \"جيبف\"",
+    "count": "",
     "description": ""
   },
   "identifier": {
     "name": "المعرِّف",
-    "count": "أرشيف شروح \"جيبف\"",
+    "count": "",
     "description": ""
   },
   "institutionType": {
     "name": "نمط",
-    "count": "أرشيف شروح \"جيبف\"",
+    "count": "",
     "description": "أرشيف شروح \"جيبف\""
   },
   "discipline": {
     "name": "أرشيف شروح \"جيبف\"",
-    "count": "أرشيف شروح \"جيبف\"",
+    "count": "",
     "description": ""
   },
   "collectionContentType": {
     "name": "أرشيف شروح \"جيبف\"",
-    "count": "أرشيف شروح \"جيبف\"",
+    "count": "",
     "description": "أرشيف شروح \"جيبف\""
   },
   "preservationType": {
     "name": "أرشيف شروح \"جيبف\"",
-    "count": "أرشيف شروح \"جيبف\"",
+    "count": "",
     "description": "أرشيف شروح \"جيبف\""
   },
   "taxonKey": {
@@ -204,6 +219,13 @@
     "isNull": "",
     "description": ""
   },
+  "occurrenceTaxonomicIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
   "occurrenceCountry": {
     "name": "بلد",
     "count": "",
@@ -214,7 +236,7 @@
   },
   "preparations": {
     "name": "تحضيرات",
-    "count": "أرشيف شروح \"جيبف\"",
+    "count": "",
     "description": "أرشيف شروح \"جيبف\""
   },
   "repatriated": {
@@ -608,7 +630,7 @@
   },
   "networkKey": {
     "name": "شبكة",
-    "count": "أرشيف شروح \"جيبف\"",
+    "count": "",
     "description": ""
   },
   "literatureType": {

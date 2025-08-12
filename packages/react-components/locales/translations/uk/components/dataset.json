@@ -21,7 +21,8 @@
     "project": "Проєкт",
     "taxonomy": "Таксономія",
     "download": "Завантажити",
-    "phylogeny": ""
+    "phylogeny": "",
+    "events": "Заходи"
   },
   "noStatsForMetadata": "Відсутні показники для наборів, що містять лише метадані",
   "siteScopeSmallerThanDataset": "Не всі записи з цього набору даних відображені на цьому сайті. Відвідайте [GBIF.org]({datasetUrl}), щоб переглянути повний набір даних.",
@@ -146,5 +147,10 @@
     "outOfSync": "Не синхронізується",
     "becauseTrustedContact": "Тому що Ви є довіреною особою",
     "registrationDetails": ""
-  }
+  },
+  "errors": {
+    "evenList": "",
+    "occurrenceInfo": ""
+  },
+  "eventTaxonomy": "Розподіл знахідок за таксонами"
 }

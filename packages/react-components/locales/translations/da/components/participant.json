@@ -37,6 +37,18 @@
           }
         }
       }
-    }
+    },
+    "participant": "Participant",
+    "participantSummary": "",
+    "memberStatus": "",
+    "gbifParticipantSince": "",
+    "headOfDelegation": "",
+    "gbifRegion": "",
+    "countryOrArea": "Land eller område",
+    "nodeName": "",
+    "nodeEstablished": "",
+    "website": "Webside",
+    "participantNodeManager": "",
+    "pending": ""
   }
 }

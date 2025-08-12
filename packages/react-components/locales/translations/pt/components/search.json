@@ -36,6 +36,8 @@
   "loadMore": "Mais",
   "loading": "A carregar",
   "noResults": "",
+  "startTyping": "",
+  "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "Sobre",
     "clusters": "",
@@ -60,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Pesquisa",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "description": "",
     "noSearchTermsEntered": "Não há termos de pesquisa inseridos",
-    "placeholder": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "placeholder": "",
     "categories": {
       "speciesSearch": "Espécie",
       "datasetSearch": "Conjuntos de dados",
       "publisherSearch": "Publicadores",
       "occurrenceSearch": "Ocorrências",
-      "resourceSearch": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+      "resourceSearch": ""
     },
     "seeAll": "Ver todos"
   }

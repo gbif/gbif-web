@@ -1,0 +1,17 @@
+{
+  "EML": "EML",
+  "FEED": "Kanál RSS",
+  "WFS": "WFS",
+  "WMS": "WMS",
+  "TCS_RDF": "TCS RDF",
+  "TCS_XML": "TCS XML",
+  "DWC_ARCHIVE": "Archiv Darwin Core",
+  "DIGIR": "DiGIR",
+  "CAMTRAP_DP": "Datový balíček kamerové pasti",
+  "DIGIR_MANIS": "DiGIR MANIS",
+  "TAPIR": "TAPIR",
+  "BIOCASE": "BioCASe",
+  "BIOCASE_XML_ARCHIVE": "BioCASe XML Archiv",
+  "OAI_PMH": "OAI PMH",
+  "OTHER": "Jiné"
+}

@@ -1,11 +1,9 @@
 {
-    "UNKNOWN": "ناشناس",
-    "KINGDOM": "پادشاهی",
-    "PHYLUM": "شاخه",
-    "CLASS": "کلاس",
-    "ORDER": "ترتیب",
-    "FAMILY": "خانواده",
-    "GENUS": "جنس",
-    "SECTION": "بخش",
-    "UNRANKED": "بدون رتبه"
+  "KINGDOM": "پادشاهی",
+  "PHYLUM": "شاخه",
+  "CLASS": "کلاس",
+  "ORDER": "ترتیب",
+  "FAMILY": "خانواده",
+  "GENUS": "جنس",
+  "UNRANKED": "بدون رتبه"
 }

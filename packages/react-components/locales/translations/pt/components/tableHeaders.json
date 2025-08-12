@@ -1,13 +1,13 @@
 {
   "features": "Características",
   "options": {
-    "includeAuthorship": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "includeAuthorship": ""
   },
   "citations": "Citações",
   "occurrences": "Ocorrências",
   "numberSpecimens": "Número de espécimes",
   "gbifNumberSpecimens": "Espécimes no GBIF",
-  "specimenTriplet": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+  "specimenTriplet": "",
   "title": "Título",
   "titleAndAbstract": "Título e resumo",
   "altmetric": "Altmetria",

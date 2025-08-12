@@ -1,10 +1,10 @@
 {
-    "TAXONOMIC_STATUS_INVALID": "Taxonomische status niet bekend",
-    "DESCRIPTION_INVALID": "Beschrijving ongeldig",
-    "DISTRIBUTION_INVALID": "Distributie ongeldig",
-    "SPECIES_PROFILE_INVALID": "Soortprofiel ongeldig",
-    "MULTIMEDIA_INVALID": "Multimedia ongeldig",
-    "ACCEPTED_NAME_NOT_UNIQUE": "Geaccepteerde naam is niet uniek",
-    "ORIGINAL_NAME_NOT_UNIQUE": "Originele naam is niet uniek",
-    "RELATIONSHIP_MISSING": "Relatie ontbreekt"
+ "TAXONOMIC_STATUS_INVALID": "Taxonomische status niet bekend",
+ "DESCRIPTION_INVALID": "Beschrijving ongeldig",
+ "DISTRIBUTION_INVALID": "Distributie ongeldig",
+ "SPECIES_PROFILE_INVALID": "Soortprofiel ongeldig",
+ "MULTIMEDIA_INVALID": "Multimedia ongeldig",
+ "ACCEPTED_NAME_NOT_UNIQUE": "Geaccepteerde naam is niet uniek",
+ "ORIGINAL_NAME_NOT_UNIQUE": "Originele naam is niet uniek",
+ "RELATIONSHIP_MISSING": "Relatie ontbreekt"
 }

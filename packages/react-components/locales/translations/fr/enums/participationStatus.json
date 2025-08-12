@@ -1,0 +1,10 @@
+{
+    "participationStatus": {
+        "VOTING": "Votant",
+        "ASSOCIATE": "Associé",
+        "OBSERVER": "Observateur",
+        "AFFILIATE": "Affilié",
+        "FORMER": "Ancien",
+        "undefined": "Inconnu"
+    }
+}

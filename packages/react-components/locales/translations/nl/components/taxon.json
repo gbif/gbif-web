@@ -16,7 +16,7 @@
   "source": "Bron",
   "specimenIsTypeOf": "Gelijk aan {is}",
   "typeMaterial": "Gelijk aan {is}",
-  "treatments": "Moet worden gedefinieerd",
+  "treatments": "",
   "more": "meer",
   "less": "Gelijk aan {is}",
   "dna": "",
@@ -52,16 +52,16 @@
   "cites": "CITES",
   "immediateChildren": "",
   "referenceTaxon": "",
-  "showLess": "Moet worden gedefinieerd",
+  "showLess": "",
   "showAll": "Alles weergeven",
   "errors": {
-    "treatments": "Moet worden gedefinieerd",
-    "distributions": "Moet worden gedefinieerd",
-    "verbatim": "Moet worden gedefinieerd",
-    "typeMaterial": "Moet worden gedefinieerd",
-    "vernacularNames": "Moet worden gedefinieerd",
-    "classificationChildren": "Moet worden gedefinieerd",
-    "breakdown": "Moet worden gedefinieerd",
-    "invasiveInCountries": "Moet worden gedefinieerd"
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
   }
 }

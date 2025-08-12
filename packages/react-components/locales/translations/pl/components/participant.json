@@ -37,6 +37,18 @@
           }
         }
       }
-    }
+    },
+    "participant": "Członek",
+    "participantSummary": "Podsumowanie członka",
+    "memberStatus": "Status członka",
+    "gbifParticipantSince": "Członek GBIF od",
+    "headOfDelegation": "Przewodniczący delegacji",
+    "gbifRegion": "Region GBIF",
+    "countryOrArea": "Kraj lub obszar",
+    "nodeName": "Nazwa węzła",
+    "nodeEstablished": "Utworzenie węzła",
+    "website": "Strona internetowa",
+    "participantNodeManager": "Menadżer węzła członkowskiego",
+    "pending": "Oczekujący"
   }
 }

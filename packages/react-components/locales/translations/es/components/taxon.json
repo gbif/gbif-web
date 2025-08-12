@@ -16,7 +16,7 @@
   "source": "Origen",
   "specimenIsTypeOf": "Igual a {is}",
   "typeMaterial": "Igual a {is}",
-  "treatments": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+  "treatments": "",
   "more": "más",
   "less": "Igual a {is}",
   "dna": "ADN",
@@ -52,16 +52,16 @@
   "cites": "CITES",
   "immediateChildren": "Subordinado inmediato",
   "referenceTaxon": "Taxón de referencia",
-  "showLess": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+  "showLess": "",
   "showAll": "Mostrar todo",
   "errors": {
-    "treatments": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "distributions": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "verbatim": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "typeMaterial": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "vernacularNames": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "classificationChildren": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "breakdown": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "invasiveInCountries": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
   }
 }

@@ -37,6 +37,18 @@
           }
         }
       }
-    }
+    },
+    "participant": "Учасник",
+    "participantSummary": "Відомості про країну-учасницю",
+    "memberStatus": "Статус учасника",
+    "gbifParticipantSince": "Учасник GBIF з",
+    "headOfDelegation": "Голова делегації",
+    "gbifRegion": "Регіон GBIF",
+    "countryOrArea": "Країна або територія",
+    "nodeName": "Назва осередку",
+    "nodeEstablished": "Осередок засновано",
+    "website": "Веб-сайт",
+    "participantNodeManager": "Керівник осередку країни-учасниці",
+    "pending": "В очікуванні"
   }
 }

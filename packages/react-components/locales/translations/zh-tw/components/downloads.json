@@ -26,6 +26,8 @@
     "records": "記錄",
     "seeAlso": "您也可以參考：",
     "title": "標題",
+    "fileSize": "檔案大小",
+    "created": "已建立",
     "aboutDownloadFormatsLink": "",
     "occurrences": "出現紀錄",
     "largeQueryMessage": "篩選範圍太大。詳細資訊請參閱下載。",

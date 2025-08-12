@@ -26,6 +26,8 @@
     "records": "记录",
     "seeAlso": "请参见",
     "title": "标题",
+    "fileSize": "文件大小",
+    "created": "已创建",
     "aboutDownloadFormatsLink": "",
     "occurrences": "出现记录",
     "largeQueryMessage": "非常大的过滤器。有关详细信息，请参阅下载。",

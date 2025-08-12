@@ -26,6 +26,8 @@
     "records": "Registos",
     "seeAlso": "Ver também",
     "title": "Título",
+    "fileSize": "",
+    "created": "Criado",
     "aboutDownloadFormatsLink": "",
     "occurrences": "Ocorrências",
     "largeQueryMessage": "Filtro muito grande. Consulte a transferência para obter mais detalhes.",

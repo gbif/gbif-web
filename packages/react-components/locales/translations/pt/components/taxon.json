@@ -16,7 +16,7 @@
   "source": "Fonte",
   "specimenIsTypeOf": "Iguais {is}",
   "typeMaterial": "Iguais {is}",
-  "treatments": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+  "treatments": "",
   "more": "mais",
   "less": "Iguais {is}",
   "dna": "",
@@ -52,16 +52,16 @@
   "cites": "",
   "immediateChildren": "Filhos imediatos",
   "referenceTaxon": "Táxon de referência",
-  "showLess": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+  "showLess": "",
   "showAll": "Mostrar tudo",
   "errors": {
-    "treatments": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "distributions": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "verbatim": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "typeMaterial": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "vernacularNames": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "classificationChildren": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "breakdown": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "invasiveInCountries": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
   }
 }
