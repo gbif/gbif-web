@@ -21,7 +21,8 @@
     "project": "项目",
     "taxonomy": "分类学",
     "download": "下载",
-    "phylogeny": "系统发育"
+    "phylogeny": "系统发育",
+    "events": "事件"
   },
   "noStatsForMetadata": "没有可用的元数据统计信息只有数据集",
   "siteScopeSmallerThanDataset": "并非数据集中的所有记录都包含在此站点上。访问[GBIF.org]({datasetUrl}) 来浏览完整的数据集。",
@@ -146,5 +147,10 @@
     "outOfSync": "未同步",
     "becauseTrustedContact": "因为您是我们信任的联系人",
     "registrationDetails": ""
-  }
+  },
+  "errors": {
+    "evenList": "",
+    "occurrenceInfo": ""
+  },
+  "eventTaxonomy": "出现记录的分类学分布"
 }
