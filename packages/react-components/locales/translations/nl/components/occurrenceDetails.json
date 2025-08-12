@@ -17,7 +17,7 @@
   "institutionGrSciColl": "",
   "collection": "Collectie",
   "collectionGrSciColl": "",
-  "recordedAndIdentifiedBy": "",
+  "recordedAndIdentifiedBy": "Opgenomen en geïdentificeerd door",
   "tryPublisherSiteForFailingMedia": "",
   "screenReader": {
     "title": ""
@@ -101,7 +101,7 @@
         "source": "Bron",
         "creator": "Aanmaker",
         "providerLiteral": "Gelijk aan {is}",
-        "provider": "",
+        "provider": "Leverancier",
         "metadataCreatorLiteral": "Gelijk aan {is}",
         "metadataCreator": "",
         "metadataProviderLiteral": "Gelijk aan {is}",
