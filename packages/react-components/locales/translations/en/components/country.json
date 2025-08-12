@@ -1,0 +1,39 @@
+{
+  "country": {
+    "tabs": {
+      "summary": "Summary",
+      "dataPublishing": "Data publishing",
+      "dataAbout": "Data about",
+      "participation": "Participation",
+      "publicationsFrom": "Publications from",
+      "publicationsAbout": "Publications about",
+      "news": "News",
+      "alienSpecies": "",
+      "projects": "Projects"
+    },
+    "country": "Country",
+    "dataFrom": "Data from {TRANSLATED_COUNTRY}",
+    "dataAboutCountry": "Data about {TRANSLATED_COUNTRY}",
+    "publishingTrends": "Publishing trends",
+    "noDataPublishingActivity": "No data publishing activity",
+    "noInstitutionsHavePublished": "No institutions from this country/area have published data through GBIF",
+    "trendsAboutCountry": "Trends about {TRANSLATED_COUNTRY}",
+    "noProjects": "No projects",
+    "notParticipant": "Not a participant",
+    "notParticipantDescription": "This country is not a participant of GBIF",
+    "countryNamingDisclaimer": "",
+    "isoStandardLinkText": "",
+    "counts": {
+      "occurrences": "{NUMBER, plural, 0 {Occurrences} one {Occurrence} other {Occurrences}}",
+      "datasets": "{NUMBER, plural, 0 {Datasets} one {Dataset} other {Datasets}}",
+      "publishers": "{NUMBER, plural, 0 {Publishers} one {Publisher} other {Publishers}}",
+      "countriesAndAreasContributeData": "Countries and areas contribute data",
+      "publishedOccurrences": "Published occurrences",
+      "publishedDatasets": "Published datasets",
+      "countriesAndAreasCoveredByDataFrom": "Countries and areas covered by data from {TRANSLATED_COUNTRY}",
+      "publishersFrom": "Publishers from {TRANSLATED_COUNTRY}"
+    },
+    "activityReport": "Activity report",
+    "contacts": "Contacts"
+  }
+}
