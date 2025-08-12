@@ -36,10 +36,12 @@
   "loadMore": "مزيد",
   "loading": "جاري التحميل",
   "noResults": "",
+  "startTyping": "",
+  "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "حول",
     "clusters": "",
-    "legend": "",
+    "legend": "أسطورة",
     "differentPublishers": "",
     "samePublishers": "",
     "entryPoint": "",
