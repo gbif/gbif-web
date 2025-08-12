@@ -26,6 +26,8 @@
     "records": "Registros",
     "seeAlso": "Ver también",
     "title": "Título",
+    "fileSize": "Tamaño del archivo",
+    "created": "Creado",
     "aboutDownloadFormatsLink": "",
     "occurrences": "Registros de presencia",
     "largeQueryMessage": "Filtro demasiado grande. Consulta la descarga para obtener más detalles.",
