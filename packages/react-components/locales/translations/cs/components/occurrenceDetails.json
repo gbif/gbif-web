@@ -126,7 +126,7 @@
         "taxonCoverage": "Rovná se {from}",
         "scientificName": "Vědecký název",
         "identificationQualifier": "Identifikační kvalifikátor",
-        "vernacularName": "",
+        "vernacularName": "Místní název",
         "nameAccordingTo": "Název podle",
         "scientificNameID": "ID vědeckého názvu",
         "otherScientificName": "",
