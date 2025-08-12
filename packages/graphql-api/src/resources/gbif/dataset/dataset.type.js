@@ -28,6 +28,7 @@ const typeDef = gql`
       Not implemented yet
       """
       continent: [Continent]
+      endpointType: [EndpointType]
       projectId: [ID]
       hl: Boolean
       """
@@ -76,6 +77,7 @@ const typeDef = gql`
     Not implemented yet
     """
     continent: [Continent]
+    endpointType: [EndpointType]
     projectId: [ID]
     hl: Boolean
   }
