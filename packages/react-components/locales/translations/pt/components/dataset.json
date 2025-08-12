@@ -21,7 +21,8 @@
     "project": "Projeto",
     "taxonomy": "Taxonomia",
     "download": "Transferir",
-    "phylogeny": ""
+    "phylogeny": "",
+    "events": "Eventos"
   },
   "noStatsForMetadata": "Não há estatísticas disponíveis para conjuntos de dados somente de metadados",
   "siteScopeSmallerThanDataset": "",
@@ -146,5 +147,10 @@
     "outOfSync": "Sem sincronização",
     "becauseTrustedContact": "Porque és um contato confiável",
     "registrationDetails": ""
-  }
+  },
+  "errors": {
+    "evenList": "",
+    "occurrenceInfo": ""
+  },
+  "eventTaxonomy": "Distribuição taxonómica das ocorrências"
 }
