@@ -81,12 +81,12 @@
     "description": "A quién va dirigido el recurso."
   },
   "biostratigraphy": {
-    "name": "",
+    "name": "Bioestratigrafía",
     "count": "",
     "description": ""
   },
   "lithostratigraphy": {
-    "name": "",
+    "name": "Litoestratigrafía",
     "count": "",
     "description": ""
   },
