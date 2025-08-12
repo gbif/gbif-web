@@ -81,12 +81,12 @@
     "description": "Кто является пользователем ресурса-материала."
   },
   "biostratigraphy": {
-    "name": "",
+    "name": "Биостратиграфия",
     "count": "",
     "description": ""
   },
   "lithostratigraphy": {
-    "name": "",
+    "name": "Литостратиграфия",
     "count": "",
     "description": ""
   },
@@ -215,9 +215,9 @@
   "occurrenceIssue": {
     "name": "Автоматически обнаруженные несоответствия",
     "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "isNotNull": "Есть проблемы",
+    "isNull": "Нет проблем",
+    "description": "Типы проблем или  потенциально интересных флагов, обнаруженных при обработке данных."
   },
   "occurrenceTaxonomicIssue": {
     "name": "",
@@ -365,7 +365,7 @@
   "continent": {
     "name": "Континент",
     "count": "",
-    "description": ""
+    "description": "Название континента, на котором находится местоположение. Это поле не выводится, а заполняется только в случае предоставления его издателем набора данных. Применение этого фильтра может привести к исключению соответствующих записей."
   },
   "protocol": {
     "name": "",
@@ -510,37 +510,37 @@
   "locationID": {
     "name": "ID местонахождения",
     "count": "",
-    "description": ""
+    "description": "Уникальный идентификатор местоположения в записи."
   },
   "measurementOrFactTypes": {
-    "name": "",
+    "name": "Типы измерений",
     "count": "",
-    "description": ""
+    "description": "Тип измерения."
   },
   "measurementOrFactCount": {
-    "name": "",
+    "name": "Число измерений",
     "count": "",
-    "description": ""
+    "description": "Число измерений заданного типа."
   },
   "occurrenceCount": {
     "name": "Число находок",
     "count": "",
-    "description": ""
+    "description": "Количество повторений события"
   },
   "eventType": {
-    "name": "",
+    "name": "Тип события",
     "count": "",
-    "description": ""
+    "description": "Тип события выборки."
   },
   "dataStructure": {
-    "name": "",
+    "name": "Структура",
     "count": "",
-    "description": ""
+    "description": "Структура данных события выборки."
   },
   "samplingProtocol": {
     "name": "Методика сбора (описания)",
     "count": "",
-    "description": ""
+    "description": "Название, ссылка на метод или протокол, используемого во время события или описание метода, или протокола."
   },
   "occurrenceStatus": {
     "name": "Статус находки",
