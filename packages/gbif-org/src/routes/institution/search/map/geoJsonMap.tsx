@@ -2,6 +2,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ErrorMessage } from '@/components/errorMessage';
 import { useConfig } from '@/config/config';
 import { isWebglSupported } from '@/utils/isWebglSupported';
+import { pixelRatio } from '@/utils/pixelRatio';
 import { cn } from '@/utils/shadcn';
 import uniqBy from 'lodash/uniqBy';
 import maplibre, { Map } from 'maplibre-gl';
@@ -246,7 +247,7 @@ function GeoJsonMapContent({
         container: mapRef.current,
         style: `${
           import.meta.env.PUBLIC_WEB_UTILS
-        }/map-styles/3857/gbif-raster?styleName=osm&background=%23f3f3f1&language=en&pixelRatio=2`,
+        }/map-styles/3857/gbif-raster?styleName=osm&background=%23f3f3f1&language=en&pixelRatio=${pixelRatio}`,
         center: [lng, lat],
         zoom,
       });
