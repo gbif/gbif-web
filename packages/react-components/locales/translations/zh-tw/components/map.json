@@ -21,7 +21,7 @@
   "anyYear": "任何年份",
   "exploreArea": "探索區域",
   "explore": "探索",
-  "generatedDateAgo": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+  "generatedDateAgo": "",
   "style": "樣式",
   "filters": "篩選",
   "select": "選取",
@@ -36,7 +36,7 @@
     "CLASSIC": "經典圓點",
     "STREETS": "街道",
     "GLACIER": "冰河",
-    "GREEN": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "GREEN": "",
     "CUSTOM": "自訂"
   },
   "basemap": {
