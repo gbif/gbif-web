@@ -36,10 +36,12 @@
   "loadMore": "Meer",
   "loading": "Laden",
   "noResults": "",
+  "startTyping": "",
+  "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "Over",
     "clusters": "",
-    "legend": "",
+    "legend": "Legenda",
     "differentPublishers": "",
     "samePublishers": "",
     "entryPoint": "",
@@ -60,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Zoeken",
-    "description": "Moet worden gedefinieerd",
+    "description": "",
     "noSearchTermsEntered": "",
-    "placeholder": "Moet worden gedefinieerd",
+    "placeholder": "",
     "categories": {
       "speciesSearch": "Soorten",
       "datasetSearch": "Datasets",
       "publisherSearch": "Uitgevers",
       "occurrenceSearch": "",
-      "resourceSearch": "Moet worden gedefinieerd"
+      "resourceSearch": ""
     },
     "seeAll": "Alles weergeven"
   }
