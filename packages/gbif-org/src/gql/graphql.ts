@@ -1850,6 +1850,7 @@ export type DatasetSearchInput = {
   decade?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
   dwcaExtension?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   endorsingNodeKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  endpointType?: InputMaybe<Array<InputMaybe<EndpointType>>>;
   hl?: InputMaybe<Scalars['Boolean']['input']>;
   hostingOrg?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   keyword?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -3297,6 +3298,7 @@ export enum IdentifierType {
   Isil = 'ISIL',
   Lsid = 'LSID',
   NcbiBiocollection = 'NCBI_BIOCOLLECTION',
+  RncColombia = 'RNC_COLOMBIA',
   Ror = 'ROR',
   SymbiotaUuid = 'SYMBIOTA_UUID',
   Unknown = 'UNKNOWN',
@@ -7281,6 +7283,7 @@ export type QueryDatasetSearchArgs = {
   decade?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
   dwcaExtension?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   endorsingNodeKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  endpointType?: InputMaybe<Array<InputMaybe<EndpointType>>>;
   hl?: InputMaybe<Scalars['Boolean']['input']>;
   hostingOrg?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   keyword?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
