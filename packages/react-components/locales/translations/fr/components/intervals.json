@@ -25,6 +25,14 @@
     "gt": "Après {from}",
     "e": "{from}"
   },
+  "geoTime": {
+    "between": "{from} à {to}",
+    "lt": "Avant {to}",
+    "lte": "",
+    "gt": "Après {from}",
+    "gte": "",
+    "e": ""
+  },
   "year": {
     "between": "Année {from} de {to}",
     "lt": "Avant l'année {to}",
