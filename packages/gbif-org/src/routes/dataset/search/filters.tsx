@@ -218,7 +218,7 @@ export const dwcaExtensionConfig: filterEnumConfig = {
     query DatasetDwcaExtensionFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
         facet {
-          field: dwcaExtension {
+          field: dwcaExtension(limit: 100) {
             name
             count
           }
