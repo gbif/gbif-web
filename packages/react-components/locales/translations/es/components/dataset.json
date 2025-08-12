@@ -87,7 +87,7 @@
   "license": "Licencia",
   "recommended": "Recomendado",
   "processedOccurrences": "Archivo GBIF de registro biológico comentado",
-  "processedOccurrencesDescription": "",
+  "processedOccurrencesDescription": "Descargue los registros de biodiversidad tras el procesamiento de GBIF. Durante el procesamiento, se normalizan nombres, fechas, etc. Los datos también se enriquecen con información de otras fuentes.\n\nTenga en cuenta que se necesita una cuenta para descargar el contenido.",
   "noDescriptionProvided": "No hay descripción disponible",
   "pNetwork": "{NUMBER, plural, one{Red} other{Redes}}",
   "parentEvent": "Evento parental",
@@ -146,7 +146,7 @@
     "lastIngestionFailed": "La última integración falló",
     "outOfSync": "Sin sincronización",
     "becauseTrustedContact": "Porque eres un contacto confiable",
-    "registrationDetails": ""
+    "registrationDetails": "Detalles del registro de GBIF"
   },
   "errors": {
     "evenList": "",
