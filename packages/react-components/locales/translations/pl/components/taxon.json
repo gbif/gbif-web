@@ -16,7 +16,7 @@
   "source": "Źródło",
   "specimenIsTypeOf": "",
   "typeMaterial": "",
-  "treatments": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+  "treatments": "",
   "more": "więcej ",
   "less": "",
   "dna": "DNA",
@@ -52,16 +52,16 @@
   "cites": "Konwencja waszyngtońska (CITES)",
   "immediateChildren": "Bezpośrednio podporządkowane taksony",
   "referenceTaxon": "Takson odniesienia",
-  "showLess": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+  "showLess": "",
   "showAll": "Pokaż całość",
   "errors": {
-    "treatments": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "distributions": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "verbatim": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "typeMaterial": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "vernacularNames": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "classificationChildren": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "breakdown": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
-    "invasiveInCountries": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
   }
 }
