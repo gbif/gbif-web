@@ -16,7 +16,7 @@
   "source": "来源",
   "specimenIsTypeOf": "等于 {is}",
   "typeMaterial": "等于 {is}",
-  "treatments": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+  "treatments": "",
   "more": "更多",
   "less": "等于 {is}",
   "dna": "脱氧核糖核酸",
@@ -52,16 +52,16 @@
   "cites": "引用",
   "immediateChildren": "直系亲属",
   "referenceTaxon": "参考分类",
-  "showLess": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+  "showLess": "",
   "showAll": "显示全部",
   "errors": {
-    "treatments": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "distributions": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "verbatim": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "typeMaterial": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "vernacularNames": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "classificationChildren": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "breakdown": "{num, plural, one { 在集群中 } other {# 在集群中}}",
-    "invasiveInCountries": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
   }
 }
