@@ -21,7 +21,8 @@
     "project": "Projet",
     "taxonomy": "Taxonomie",
     "download": "Télécharger",
-    "phylogeny": "Phylogénie"
+    "phylogeny": "Phylogénie",
+    "events": "Évènements"
   },
   "noStatsForMetadata": "Aucune statistique disponible pour les jeux de données de métadonnées",
   "siteScopeSmallerThanDataset": "Tous les enregistrements du jeu de données ne sont pas inclus sur ce site. Visitez [GBIF.org]({datasetUrl}) pour explorer l'ensemble des données.",
@@ -146,5 +147,10 @@
     "outOfSync": "Non-synchronisé",
     "becauseTrustedContact": "Parce que vous êtes contact de confiance",
     "registrationDetails": ""
-  }
+  },
+  "errors": {
+    "evenList": "",
+    "occurrenceInfo": ""
+  },
+  "eventTaxonomy": "Distribution taxonomique des occurrences"
 }
