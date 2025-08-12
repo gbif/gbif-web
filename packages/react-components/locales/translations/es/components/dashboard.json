@@ -28,7 +28,7 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "Estas métricas se basan en los registros compartidos a través de GBIF",
-  "notVocabularyWarning": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+  "notVocabularyWarning": "",
   "group": {
     "views": "",
     "record": "Registro",
@@ -42,5 +42,7 @@
     "identification": "Identificación",
     "provenance": "Procedencia",
     "other": "Otro"
-  }
+  },
+  "occurrencesPerField": "Registros de presencia por",
+  "kingdom": "Reino"
 }
