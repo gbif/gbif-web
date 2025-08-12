@@ -21,7 +21,8 @@
     "project": "Projekt",
     "taxonomy": "",
     "download": "",
-    "phylogeny": ""
+    "phylogeny": "",
+    "events": ""
   },
   "noStatsForMetadata": "Keine Statistiken für Datensätze nur mit Metadaten verfügbar",
   "siteScopeSmallerThanDataset": "",
@@ -146,5 +147,10 @@
     "outOfSync": "Nicht synchronisiert",
     "becauseTrustedContact": "Weil Sie vertrauenswürdiger Kontakt sind",
     "registrationDetails": ""
-  }
+  },
+  "errors": {
+    "evenList": "",
+    "occurrenceInfo": ""
+  },
+  "eventTaxonomy": ""
 }
