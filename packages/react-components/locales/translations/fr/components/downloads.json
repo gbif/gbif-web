@@ -26,6 +26,8 @@
     "records": "Enregistrements",
     "seeAlso": "Voir aussi",
     "title": "Titre",
+    "fileSize": "",
+    "created": "Créé",
     "aboutDownloadFormatsLink": "",
     "occurrences": "Occurrences",
     "largeQueryMessage": "Filtre très grand. Voir le téléchargement pour plus de détails.",
