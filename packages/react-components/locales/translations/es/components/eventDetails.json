@@ -34,11 +34,11 @@
     "organism": "Organismo",
     "materialSample": "Muestra de material",
     "geologicalContext": "Contexto geológico",
-    "measurementsOrFacts": "",
+    "measurementsOrFacts": "Medidas",
     "images": "Multimedia",
     "other": "Otro",
     "methodology": "Metodología",
-    "taxonomicCoverage": ""
+    "taxonomicCoverage": "Cobertura taxonómica"
   },
   "siteTooltip": "",
   "siteTableLegend": "",
