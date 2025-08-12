@@ -1,0 +1,22 @@
+{
+  "AGRICULTURE": "Zemědělství",
+  "BIODIVERSITY_SCIENCE": "Věda o biodiverzitě",
+  "BIOGEOGRAPHY": "Biogeografie",
+  "CITIZEN_SCIENCE": "Občanská věda",
+  "CLIMATE_CHANGE": "Změna klimatu",
+  "CONSERVATION": "Ochrana přírody",
+  "DATA_MANAGEMENT": "Správa dat",
+  "DATA_PAPER": "Datový dokument",
+  "ECOLOGY": "Ekologie",
+  "ECOSYSTEM_SERVICES": "Ekosystémové služby",
+  "EVOLUTION": "Evoluce",
+  "FRESHWATER": "Sladkovodní",
+  "HUMAN_HEALTH": "Lidské zdraví",
+  "INVASIVES": "invazivní",
+  "MARINE": "Mořské",
+  "PHYLOGENETICS": "Fylogenetika",
+  "SPECIES_DISTRIBUTIONS": "Rozšíření druhů",
+  "INFRASTRUCTURE": "Infrastruktura",
+  "DNA": "DNA",
+  "TAXONOMY": "Taxonomie"
+}
