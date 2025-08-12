@@ -25,6 +25,14 @@
     "gt": "Po {from}",
     "e": "{from}"
   },
+  "geoTime": {
+    "between": "{from} do {to}",
+    "lt": "Před {to}",
+    "lte": "",
+    "gt": "Po {from}",
+    "gte": "",
+    "e": ""
+  },
   "year": {
     "between": "Rok {from} do {to}",
     "lt": "Před rokem {to}",
