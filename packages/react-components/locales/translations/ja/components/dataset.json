@@ -21,7 +21,8 @@
     "project": "プロジェクト",
     "taxonomy": "分類群",
     "download": "ダウンロード",
-    "phylogeny": ""
+    "phylogeny": "",
+    "events": "イベント"
   },
   "noStatsForMetadata": "メタデータのみのデータセットにつき、統計情報なし",
   "siteScopeSmallerThanDataset": "",
@@ -146,5 +147,10 @@
     "outOfSync": "未同期",
     "becauseTrustedContact": "信頼された連絡先であるので",
     "registrationDetails": ""
-  }
+  },
+  "errors": {
+    "evenList": "",
+    "occurrenceInfo": ""
+  },
+  "eventTaxonomy": "オカレンスの分類学的分布"
 }
