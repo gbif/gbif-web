@@ -25,6 +25,14 @@
     "gt": "بعد {from}",
     "e": "{from}"
   },
+  "geoTime": {
+    "between": "{from} إلى{to}",
+    "lt": "قبل {to}",
+    "lte": "",
+    "gt": "بعد {from}",
+    "gte": "",
+    "e": ""
+  },
   "year": {
     "between": "سنة {from} إلى {to}",
     "lt": "قبل سنة {to}",
