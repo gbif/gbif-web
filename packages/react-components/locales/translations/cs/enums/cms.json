@@ -1,0 +1,16 @@
+{
+  "projectGrantType": {
+    "REGIONAL": "Regionální granty na mobilizaci dat o biologické rozmanitosti",
+    "SMALL": "Grant na mobilizaci dat o biologické rozmanitosti na úrovni institucí",
+    "NATIONAL": "Národní granty na mobilizaci dat o biologické rozmanitosti",
+    "DATA_USE": "Grant na využití dat",
+    "undefined": "Nespecifikováno"
+  },
+  "projectStatus": {
+    "APPROVED": "Schváleno",
+    "CLOSED": "Uzavřeno",
+    "IN_PROGRESS": "Probíhá",
+    "DISCONTINUED": "Zrušeno",
+    "undefined": "Nespecifikováno"
+  }
+}
