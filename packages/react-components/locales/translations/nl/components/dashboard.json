@@ -28,7 +28,7 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "",
-  "notVocabularyWarning": "Moet worden gedefinieerd",
+  "notVocabularyWarning": "",
   "group": {
     "views": "",
     "record": "Record",
@@ -42,5 +42,7 @@
     "identification": "Determinatie",
     "provenance": "Herkomst",
     "other": "Anders"
-  }
+  },
+  "occurrencesPerField": "",
+  "kingdom": "Rijk"
 }
