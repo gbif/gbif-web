@@ -46,7 +46,7 @@
   },
   "iucnRedListCategory": {
     "name": "IUCN 全球紅皮書類別",
-    "count": "GBIF 註記的存檔",
+    "count": "",
     "description": "IUCN瀕危物種红色名錄是根據分類群受到的威脅程度進行分組。"
   },
   "geoDistance": {
@@ -80,6 +80,21 @@
     "count": "{num, plural,one {群眾}other {#群眾}}",
     "description": "誰是資源的受眾"
   },
+  "biostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lithostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geologicalTime": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "purposes": {
     "name": "主題",
     "count": "{num, plural, one {# 目的} other {# 目的}}",
@@ -87,82 +102,82 @@
   },
   "eventDate": {
     "name": "事件日期",
-    "count": "GBIF 註記的存檔",
+    "count": "",
     "description": "GBIF 註記的存檔"
   },
   "gbifId": {
     "name": "GBIF 識別碼",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "count": "",
+    "description": ""
   },
   "organismQuantityType": {
     "name": "生物數量類型",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "count": "",
+    "description": ""
   },
   "pathway": {
     "name": "路徑",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "count": "",
+    "description": ""
   },
   "associatedSequences": {
     "name": "相關序列",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "count": "",
+    "description": ""
   },
   "degreeOfEstablishment": {
     "name": "設立程度",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "count": "",
+    "description": ""
   },
   "endDayOfYear": {
     "name": "結束日序",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "count": "",
+    "description": ""
   },
   "startDayOfYear": {
     "name": "起始日序",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "count": "",
+    "description": ""
   },
   "previousIdentifications": {
     "name": "先前的鑑定",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "count": "",
+    "description": ""
   },
   "lastInterpreted": {
     "name": "上次解釋",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "count": "",
+    "description": ""
   },
   "alternativeCode": {
     "name": "GBIF 註記的存檔",
-    "count": "GBIF 註記的存檔",
+    "count": "",
     "description": ""
   },
   "identifier": {
     "name": "識別碼",
-    "count": "GBIF 註記的存檔",
+    "count": "",
     "description": "在此輸入此項目的簡短敘述"
   },
   "institutionType": {
     "name": "類型",
-    "count": "GBIF 註記的存檔",
+    "count": "",
     "description": "GBIF 註記的存檔"
   },
   "discipline": {
     "name": "GBIF 註記的存檔",
-    "count": "GBIF 註記的存檔",
+    "count": "",
     "description": ""
   },
   "collectionContentType": {
     "name": "GBIF 註記的存檔",
-    "count": "GBIF 註記的存檔",
+    "count": "",
     "description": "GBIF 註記的存檔"
   },
   "preservationType": {
     "name": "GBIF 註記的存檔",
-    "count": "GBIF 註記的存檔",
+    "count": "",
     "description": "GBIF 註記的存檔"
   },
   "taxonKey": {
@@ -204,6 +219,13 @@
     "isNull": "不存在問題",
     "description": "在處理資料時發現的問題類型或潛在感興趣的標誌"
   },
+  "occurrenceTaxonomicIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
   "occurrenceCountry": {
     "name": "國家",
     "count": "{num, plural,one {國家或區域}other {#國家或區域}}",
@@ -214,13 +236,13 @@
   },
   "preparations": {
     "name": "準備",
-    "count": "GBIF 註記的存檔",
+    "count": "",
     "description": "GBIF 註記的存檔"
   },
   "repatriated": {
     "name": "回返的",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "發布國家或地區",
@@ -311,9 +333,9 @@
     "description": "距離可能被解釋為某個位置座標的最小距離（以公尺為單位）的量測。"
   },
   "distanceFromCentroidInMeters": {
-    "name": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "depth": {
     "name": "深度",
@@ -357,13 +379,13 @@
   },
   "sex": {
     "name": "性別",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "count": "",
+    "description": ""
   },
   "lifeStage": {
     "name": "生活史階段",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "count": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "紀錄者：",
@@ -372,38 +394,38 @@
   },
   "fieldNumber": {
     "name": "樣區事件編碼",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "count": "",
+    "description": ""
   },
   "verbatimTaxonId": {
-    "name": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "islandGroup": {
     "name": "島群",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "count": "",
+    "description": ""
   },
   "island": {
     "name": "島嶼",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "count": "",
+    "description": ""
   },
   "georeferencedBy": {
     "name": "地理參照：",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "count": "",
+    "description": ""
   },
   "datasetName": {
     "name": "資料集名稱",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "count": "",
+    "description": ""
   },
   "programme": {
     "name": "計畫",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "count": "",
+    "description": ""
   },
   "recordNumber": {
     "name": "紀錄編號",
@@ -462,13 +484,13 @@
   },
   "gbifRegion": {
     "name": "GBIF 地區",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "count": "",
+    "description": ""
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "count": "",
+    "description": ""
   },
   "eventId": {
     "name": "事件識別碼",
@@ -537,7 +559,7 @@
   },
   "isInCluster": {
     "name": "在（資料）叢集上",
-    "count": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "count": "",
     "description": "判斷該記錄是否有相關記錄"
   },
   "isSequenced": {
@@ -608,7 +630,7 @@
   },
   "networkKey": {
     "name": "網絡",
-    "count": "GBIF 註記的存檔",
+    "count": "",
     "description": "在此輸入此項目的簡短敘述"
   },
   "literatureType": {
