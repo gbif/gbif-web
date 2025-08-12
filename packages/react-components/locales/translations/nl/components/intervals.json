@@ -25,6 +25,14 @@
     "gt": "Na {from}",
     "e": "{from}"
   },
+  "geoTime": {
+    "between": "{from} tot {to}",
+    "lt": "Voor {to}",
+    "lte": "",
+    "gt": "Na {from}",
+    "gte": "",
+    "e": ""
+  },
   "year": {
     "between": "Jaar {from} tot {to}",
     "lt": "Voor jaar {to}",
