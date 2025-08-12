@@ -80,6 +80,21 @@
     "count": "{num, plural, one { prohlížející } few {# prohlížející} many {# prohlížejících} other {# prohlížejících}}",
     "description": "Pro koho je zdroj určen."
   },
+  "biostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lithostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geologicalTime": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "purposes": {
     "name": "Téma",
     "count": "{num, plural, one {účel} few {# účely} many {# účelů} other {# účelů}}",
@@ -92,48 +107,48 @@
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "count": "",
+    "description": ""
   },
   "organismQuantityType": {
     "name": "Typ množství organismu",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "count": "",
+    "description": ""
   },
   "pathway": {
     "name": "Cesta",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "count": "",
+    "description": ""
   },
   "associatedSequences": {
     "name": "Související sekvence",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "count": "",
+    "description": ""
   },
   "degreeOfEstablishment": {
     "name": "Stupeň zavedení",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "count": "",
+    "description": ""
   },
   "endDayOfYear": {
     "name": "Konečný den roku",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "count": "",
+    "description": ""
   },
   "startDayOfYear": {
     "name": "Počáteční den roku",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "count": "",
+    "description": ""
   },
   "previousIdentifications": {
     "name": "Předchozí identifikace",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "count": "",
+    "description": ""
   },
   "lastInterpreted": {
     "name": "Poslední interpretace",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "count": "",
+    "description": ""
   },
   "alternativeCode": {
     "name": "",
@@ -204,6 +219,13 @@
     "isNull": "Nemá problémy",
     "description": "Typy problémů nebo příznaků potenciálního zájmu zjištěných při zpracování dat."
   },
+  "occurrenceTaxonomicIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
   "occurrenceCountry": {
     "name": "Země nebo oblast",
     "count": "{num, plural, one {země nebo oblast} few {# země nebo oblasti} many {# zemí nebo oblastí} other {# zemí nebo oblastí}}",
@@ -219,8 +241,8 @@
   },
   "repatriated": {
     "name": "Repatriováno",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "Země nebo oblast zveřejnění",
@@ -311,9 +333,9 @@
     "description": "Měřítko minimální vzdálenosti v metrech od souřadnice, v rámci které může být lokalita interpretována."
   },
   "distanceFromCentroidInMeters": {
-    "name": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "depth": {
     "name": "Hloubka",
@@ -357,13 +379,13 @@
   },
   "sex": {
     "name": "Pohlaví",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "count": "",
+    "description": ""
   },
   "lifeStage": {
     "name": "Životní fáze",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "count": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "Zaznamenáno od",
@@ -372,38 +394,38 @@
   },
   "fieldNumber": {
     "name": "Číslo pole",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "count": "",
+    "description": ""
   },
   "verbatimTaxonId": {
-    "name": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "islandGroup": {
     "name": "Skupina ostrovů",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "count": "",
+    "description": ""
   },
   "island": {
     "name": "Ostrov",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "count": "",
+    "description": ""
   },
   "georeferencedBy": {
     "name": "Georeferencováno podle",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "count": "",
+    "description": ""
   },
   "datasetName": {
     "name": "Název datové sady",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "count": "",
+    "description": ""
   },
   "programme": {
     "name": "Program",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "count": "",
+    "description": ""
   },
   "recordNumber": {
     "name": "Číslo záznamu",
@@ -462,13 +484,13 @@
   },
   "gbifRegion": {
     "name": "Region GBIF",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "count": "",
+    "description": ""
   },
   "publishedByGbifRegion": {
     "name": "Publikováno podle GBIF regionu",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
-    "description": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}"
+    "count": "",
+    "description": ""
   },
   "eventId": {
     "name": "ID události",
@@ -537,7 +559,7 @@
   },
   "isInCluster": {
     "name": "je ve shluku",
-    "count": "{num, plural, one { je ve shluku } few {# jsou ve shlucích} many {# je ve shlucích} other {# je ve shlucích}}",
+    "count": "",
     "description": "Zda bylo zjištěno, že záznam obsahuje související záznamy."
   },
   "isSequenced": {
