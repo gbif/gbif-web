@@ -10,12 +10,12 @@
   "institutionGrSciColl": "",
   "collection": "Коллекция",
   "collectionGrSciColl": "",
-  "recordedAndIdentifiedBy": "",
-  "eventTypeHierarchyJoined": "",
+  "recordedAndIdentifiedBy": "Зарегистрировано и идентифицировано",
+  "eventTypeHierarchyJoined": "Иерархия типов событий",
   "eventHierarchyJoined": "",
-  "map": "",
-  "backToTaxa": "",
-  "siteLocation": "",
+  "map": "Карта местонахождения",
+  "backToTaxa": "Вернуться к событиям таксонов",
+  "siteLocation": "Местоположение объекта",
   "info": {
     "original": "Исходное значение",
     "excluded": "не интерпретировано",
@@ -27,25 +27,25 @@
     "record": "Запись",
     "occurrence": "Находка",
     "event": "Мероприятие",
-    "dataStructure": "",
+    "dataStructure": "Структура данных",
     "identification": "Определение",
     "taxon": "Таксон",
     "location": "Местонахождение (топоним)",
     "organism": "Организм",
     "materialSample": "Образец из коллекции",
     "geologicalContext": "Геологические контекст",
-    "measurementsOrFacts": "",
+    "measurementsOrFacts": "Измерения",
     "images": "Мультимедиа",
     "other": "Другая",
     "methodology": "Методология",
-    "taxonomicCoverage": ""
+    "taxonomicCoverage": "Таксономический охват"
   },
-  "siteTooltip": "",
-  "siteTableLegend": "",
-  "site": "",
-  "siteLoading": "",
+  "siteTooltip": "{count, plural, one {# событие} other {# событий}} at {site} in {date}",
+  "siteTableLegend": "Место / Год",
+  "site": "Место: {siteID}",
+  "siteLoading": "Место: {siteID} - детали загрузки",
   "activityDetails": {
-    "monthYear": "",
-    "year": ""
+    "monthYear": "Подробная информация об активности за {date, time, ::MMMM::yyyy}",
+    "year": "Подробная информация об активности за {date, time,  ::yyyy}"
   }
 }
