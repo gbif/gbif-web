@@ -42,5 +42,7 @@
     "identification": "Identifikation",
     "provenance": "Herkomst",
     "other": ""
-  }
+  },
+  "occurrencesPerField": "Observationer per {FIELD}",
+  "kingdom": "Rige"
 }
