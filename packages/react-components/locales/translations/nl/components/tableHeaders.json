@@ -1,13 +1,13 @@
 {
   "features": "Eigenschappen",
   "options": {
-    "includeAuthorship": "Moet worden gedefinieerd"
+    "includeAuthorship": ""
   },
   "citations": "Citaties",
   "occurrences": "Voorkomens",
   "numberSpecimens": "Aantal exemplaren",
   "gbifNumberSpecimens": "Exemplaren in GBIF",
-  "specimenTriplet": "Moet worden gedefinieerd",
+  "specimenTriplet": "",
   "title": "Titel",
   "titleAndAbstract": "Titel en samenvatting",
   "altmetric": "",
