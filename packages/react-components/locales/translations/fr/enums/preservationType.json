@@ -1,3 +1,14 @@
 {
+  "SAMPLE_DRIED": "Échantillon séché",
+  "SAMPLE_EMBEDDED": "Échantillon intégré",
+  "SAMPLE_FLUID_PRESERVED": "Échantillon liquide préservé",
+  "SAMPLE_PINNED": "Échantillon épinglé",
+  "SAMPLE_PRESSED": "Échantillon pressé",
+  "SAMPLE_SKELETONIZED": "Échantillon transformé en squelette",
+  "SAMPLE_SLIDE_MOUNT": "Échantillon monté sur lame",
+  "SAMPLE_SURFACE_COATING": "Échantillon avec revêtement de surface",
+  "SAMPLE_TANNED": "Échantillon tanné",
+  "SAMPLE_WAX_BLOCK": "Échantillon sur bloc de cire",
+  "SAMPLE_OTHER": "Échantillon autre",
   "SAMPLE_FREEZE_DRYING": "Echantillon lyophilisé"
 }
