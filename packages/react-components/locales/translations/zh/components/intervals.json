@@ -25,6 +25,14 @@
     "gt": "之后 {from}",
     "e": "{from}"
   },
+  "geoTime": {
+    "between": "{from} 到 {to}",
+    "lt": "之前 {to}",
+    "lte": "",
+    "gt": "之后 {from}",
+    "gte": "",
+    "e": ""
+  },
   "year": {
     "between": "年 {from} 到 {to}",
     "lt": "年前 {to}",
