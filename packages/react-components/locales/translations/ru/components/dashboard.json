@@ -35,7 +35,7 @@
     "taxon": "Таксон",
     "occurrence": "Находка",
     "organism": "Организм",
-    "materialEntity": "",
+    "materialEntity": "Сущность материала",
     "event": "Мероприятие",
     "location": "Местонахождение (топоним)",
     "geologicalContext": "Геологические контекст",
