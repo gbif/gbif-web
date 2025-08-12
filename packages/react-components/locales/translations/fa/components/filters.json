@@ -80,6 +80,21 @@
     "count": "",
     "description": ""
   },
+  "biostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lithostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geologicalTime": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "purposes": {
     "name": "",
     "count": "",
@@ -198,6 +213,13 @@
     "description": ""
   },
   "occurrenceIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "occurrenceTaxonomicIssue": {
     "name": "",
     "count": "",
     "isNotNull": "",
