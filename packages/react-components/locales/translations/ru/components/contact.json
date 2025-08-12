@@ -1,7 +1,10 @@
 {
+  "position": "Должность",
+  "organization": "Организация",
   "email": "Email",
   "address": "Адрес (улица, номер дома)",
   "phone": "Телефон",
   "roles": "Роли",
+  "userId": "ID пользователя",
   "name": "Имя"
 }
