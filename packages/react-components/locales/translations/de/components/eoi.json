@@ -1,0 +1,8 @@
+{
+  "firstName": "Vorname",
+  "lastName": "Nachname",
+  "email": "E-Mail",
+  "expectedDataTitle": "Datenbeschreibung",
+  "country": "Land",
+  "projectIdentifier": "Projektidentifikator"
+}

@@ -37,6 +37,18 @@
           }
         }
       }
-    }
+    },
+    "participant": "成员",
+    "participantSummary": "成员概况",
+    "memberStatus": "会员状态",
+    "gbifParticipantSince": "GBIF会员自",
+    "headOfDelegation": "首席代表",
+    "gbifRegion": "GBIF区域",
+    "countryOrArea": "国家",
+    "nodeName": "节点名称",
+    "nodeEstablished": "节点成立于",
+    "website": "网站",
+    "participantNodeManager": "成员节点管理员",
+    "pending": "正在处理"
   }
 }

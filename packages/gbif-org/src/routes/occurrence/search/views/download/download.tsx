@@ -5,6 +5,7 @@ import { ViewHeader } from '@/components/ViewHeader';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { filter2predicate } from '@/dataManagement/filterAdapter';
+import { useChecklistKey } from '@/hooks/useChecklistKey';
 import useQuery from '@/hooks/useQuery';
 import { useContext, useEffect } from 'react';
 import { MdFileDownload } from 'react-icons/md';
@@ -26,6 +27,7 @@ query($predicate: Predicate){
 `;
 
 export function Download() {
+  const defaultChecklistKey = useChecklistKey();
   // const localeSettings = useContext(LocaleContext);
   const currentFilterContext = useContext(FilterContext);
   const { scope } = useSearchContext();
@@ -64,6 +66,7 @@ export function Download() {
   } catch (e) {
     // ignore
   }
+  downloadQueryParams += `&checklistKey=${defaultChecklistKey}`;
 
   return (
     <div className="g-my-20 g-w-96 g-max-w-full g-mx-auto">

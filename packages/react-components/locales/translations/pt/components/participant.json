@@ -37,6 +37,18 @@
           }
         }
       }
-    }
+    },
+    "participant": "Participante",
+    "participantSummary": "Sumário do participante",
+    "memberStatus": "Estado do Membro",
+    "gbifParticipantSince": "Participante no GBIF desde",
+    "headOfDelegation": "Chefe de delegação",
+    "gbifRegion": "Região do GBIF",
+    "countryOrArea": "País ou área",
+    "nodeName": "Nome do Nó",
+    "nodeEstablished": "Estabelecimento do Nó",
+    "website": "Página Web",
+    "participantNodeManager": "Coordenador do Nó de Participante",
+    "pending": "Pendente"
   }
 }

@@ -36,6 +36,8 @@
   "loadMore": "Mehr",
   "loading": "",
   "noResults": "",
+  "startTyping": "",
+  "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "",
     "clusters": "",
@@ -60,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Suche",
-    "description": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "description": "",
     "noSearchTermsEntered": "Keine Suchbegriffe eingegeben",
-    "placeholder": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "placeholder": "",
     "categories": {
       "speciesSearch": "",
       "datasetSearch": "Datensätze",
       "publisherSearch": "Herausgeber",
       "occurrenceSearch": "",
-      "resourceSearch": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}"
+      "resourceSearch": ""
     },
     "seeAll": "Alle ansehen"
   }

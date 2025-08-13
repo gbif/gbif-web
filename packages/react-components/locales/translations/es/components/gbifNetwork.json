@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-      "ASSOCIATE": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-      "OTHER_ASSOCIATE": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+      "VOTING": "",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
       "FORMER": "Ex",
       "OBSERVER": "Observador",
-      "UNKNOWN": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+      "UNKNOWN": "",
       "AFFILIATE": "Afiliado a GBIF"
     },
-    "affiliateHelp": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "mapCaptionPublishers": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "affiliateHelp": "",
+    "mapCaptionPublishers": "",
     "role": "Rol",
     "name": "Nombre",
     "participant": "Participante",
     "type": "Tipo",
     "memberSince": "Miembro desde",
     "all": "Todos",
-    "countryParticipants": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "publishersPerCountry": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "countryParticipants": "",
+    "publishersPerCountry": "",
     "clear": "Limpiar",
     "headlines": {
       "nodesSteeringGroup": "Grupo de Dirección de Nodos",

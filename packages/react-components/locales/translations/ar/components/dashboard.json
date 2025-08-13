@@ -42,5 +42,7 @@
     "identification": "التعريف",
     "provenance": "منشأ",
     "other": "أخرى"
-  }
+  },
+  "occurrencesPerField": "التكرارات لكل {FIELD}",
+  "kingdom": "مملكة"
 }

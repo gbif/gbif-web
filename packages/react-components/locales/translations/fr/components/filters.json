@@ -46,7 +46,7 @@
   },
   "iucnRedListCategory": {
     "name": "",
-    "count": "Archive annotée par GBIF",
+    "count": "",
     "description": "La Liste rouge des espèces menacées de l'UICN regroupe les taxons selon le niveau de menaces auxquels ils font face."
   },
   "geoDistance": {
@@ -80,6 +80,21 @@
     "count": "{num, plural, one { audience } other {# audiences}}",
     "description": "Quelle est l'audience de la ressource. "
   },
+  "biostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lithostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geologicalTime": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "purposes": {
     "name": "Thème",
     "count": "{num, plural, one { but } other {# buts}}",
@@ -87,82 +102,82 @@
   },
   "eventDate": {
     "name": "Date de l'événement",
-    "count": "Archive annotée par GBIF",
+    "count": "",
     "description": "Archive annotée par GBIF"
   },
   "gbifId": {
     "name": "ID du GBIF",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "count": "",
+    "description": ""
   },
   "organismQuantityType": {
     "name": "Type de quantité d’organisme",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "count": "",
+    "description": ""
   },
   "pathway": {
     "name": "Chemin",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "count": "",
+    "description": ""
   },
   "associatedSequences": {
     "name": "Séquences associées",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "count": "",
+    "description": ""
   },
   "degreeOfEstablishment": {
     "name": "Degré d'établissement",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "count": "",
+    "description": ""
   },
   "endDayOfYear": {
     "name": "Dernier jour de l'année",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "count": "",
+    "description": ""
   },
   "startDayOfYear": {
     "name": "Premier jour de l'année",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "count": "",
+    "description": ""
   },
   "previousIdentifications": {
     "name": "Identifications précédentes",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "count": "",
+    "description": ""
   },
   "lastInterpreted": {
     "name": "Dernière interprétation",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "count": "",
+    "description": ""
   },
   "alternativeCode": {
     "name": "Archive annotée par GBIF",
-    "count": "Archive annotée par GBIF",
+    "count": "",
     "description": ""
   },
   "identifier": {
     "name": "Identifiant",
-    "count": "Archive annotée par GBIF",
+    "count": "",
     "description": "Une courte description de la composante devrait apparaître ici"
   },
   "institutionType": {
     "name": "Type ",
-    "count": "Archive annotée par GBIF",
+    "count": "",
     "description": "Archive annotée par GBIF"
   },
   "discipline": {
     "name": "Archive annotée par GBIF",
-    "count": "Archive annotée par GBIF",
+    "count": "",
     "description": ""
   },
   "collectionContentType": {
     "name": "Archive annotée par GBIF",
-    "count": "Archive annotée par GBIF",
+    "count": "",
     "description": "Archive annotée par GBIF"
   },
   "preservationType": {
     "name": "Archive annotée par GBIF",
-    "count": "Archive annotée par GBIF",
+    "count": "",
     "description": "Archive annotée par GBIF"
   },
   "taxonKey": {
@@ -204,6 +219,13 @@
     "isNull": "N'a aucun problème",
     "description": "Les types de problèmes ou balises d'intérêt potentiel découverts dans le traitement des données."
   },
+  "occurrenceTaxonomicIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
   "occurrenceCountry": {
     "name": "Pays",
     "count": "{num, plural, one {country or area} other {# countries or areas}}",
@@ -214,13 +236,13 @@
   },
   "preparations": {
     "name": "Préparations",
-    "count": "Archive annotée par GBIF",
+    "count": "",
     "description": "Archive annotée par GBIF"
   },
   "repatriated": {
     "name": "Rapatrié",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "Pays ou région qui publie",
@@ -311,9 +333,9 @@
     "description": "Mesure de la distance minimale en mètres d'une coordonnée à l'intérieur de laquelle une localité peut être interprétée."
   },
   "distanceFromCentroidInMeters": {
-    "name": "Doit être défini",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "depth": {
     "name": "Profondeur",
@@ -357,13 +379,13 @@
   },
   "sex": {
     "name": "Sexe",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "count": "",
+    "description": ""
   },
   "lifeStage": {
     "name": "Stade de développement",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "count": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "Enregistré par",
@@ -372,38 +394,38 @@
   },
   "fieldNumber": {
     "name": "Numéro de terrain",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "count": "",
+    "description": ""
   },
   "verbatimTaxonId": {
-    "name": "Doit être défini",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "islandGroup": {
     "name": "Archipel",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "count": "",
+    "description": ""
   },
   "island": {
     "name": "Île",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "count": "",
+    "description": ""
   },
   "georeferencedBy": {
     "name": "Géoréférencé par",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "count": "",
+    "description": ""
   },
   "datasetName": {
     "name": "Nom du jeu de données",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "count": "",
+    "description": ""
   },
   "programme": {
     "name": "Programme",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "count": "",
+    "description": ""
   },
   "recordNumber": {
     "name": "Numéro d'enregristrement",
@@ -417,7 +439,7 @@
   },
   "projectId": {
     "name": "Identifiant du projet",
-    "count": "Une courte description du composant devrait être placée ici",
+    "count": "",
     "description": "Une courte description du composant devrait être placée ici"
   },
   "recordedById": {
@@ -462,13 +484,13 @@
   },
   "gbifRegion": {
     "name": "Région GBIF",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "count": "",
+    "description": ""
   },
   "publishedByGbifRegion": {
     "name": "Publié par une région GBIF",
-    "count": "Doit être défini",
-    "description": "Doit être défini"
+    "count": "",
+    "description": ""
   },
   "eventId": {
     "name": "ID de l'événement",
@@ -537,7 +559,7 @@
   },
   "isInCluster": {
     "name": "Est dans le regroupement",
-    "count": "Doit être défini",
+    "count": "",
     "description": "Est-ce que l'enregistrement a été déterminé à avoir des enregistrements liés."
   },
   "isSequenced": {
@@ -608,7 +630,7 @@
   },
   "networkKey": {
     "name": "Réseau",
-    "count": "Archive annotée par GBIF",
+    "count": "",
     "description": "Une courte description du composant devrait être placée ici"
   },
   "literatureType": {

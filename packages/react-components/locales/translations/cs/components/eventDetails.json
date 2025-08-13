@@ -1,0 +1,51 @@
+{
+  "occurrence": "Výskyt",
+  "event": "Událost",
+  "showAllFields": "",
+  "morePhotos": "",
+  "about": "O",
+  "dataset": "Datová sada",
+  "publisher": "Vydavatel",
+  "institution": "Instituce",
+  "institutionGrSciColl": "",
+  "collection": "Sbírka",
+  "collectionGrSciColl": "",
+  "recordedAndIdentifiedBy": "",
+  "eventTypeHierarchyJoined": "",
+  "eventHierarchyJoined": "",
+  "map": "",
+  "backToTaxa": "",
+  "siteLocation": "",
+  "info": {
+    "original": "Originál",
+    "excluded": "Vyloučeno",
+    "inferred": "Odvozeno",
+    "altered": "Změněno"
+  },
+  "groups": {
+    "summary": "Shrnutí",
+    "record": "Záznam",
+    "occurrence": "Výskyt",
+    "event": "Událost",
+    "dataStructure": "",
+    "identification": "Identifikace",
+    "taxon": "Taxon",
+    "location": "Poloha",
+    "organism": "Organismus",
+    "materialSample": "Vzorek materiálu",
+    "geologicalContext": "Geologická souvislost",
+    "measurementsOrFacts": "",
+    "images": "Multimédia",
+    "other": "Jiné",
+    "methodology": "Metodika",
+    "taxonomicCoverage": ""
+  },
+  "siteTooltip": "",
+  "siteTableLegend": "",
+  "site": "",
+  "siteLoading": "",
+  "activityDetails": {
+    "monthYear": "",
+    "year": ""
+  }
+}

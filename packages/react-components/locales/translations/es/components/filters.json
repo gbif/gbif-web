@@ -46,7 +46,7 @@
   },
   "iucnRedListCategory": {
     "name": "Categoría en la Lista Roja de la UICN",
-    "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+    "count": "",
     "description": "La Lista Roja de Especies Amenazadas de la UICN agrupa los taxones según su grado de amenaza."
   },
   "geoDistance": {
@@ -80,6 +80,21 @@
     "count": "{num, plural, one { audiencia } other {# audiencias}}",
     "description": "A quién va dirigido el recurso."
   },
+  "biostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lithostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geologicalTime": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "purposes": {
     "name": "Tema",
     "count": "{num, plural, one { propósito } other {# propósitos}}",
@@ -92,48 +107,48 @@
   },
   "gbifId": {
     "name": "ID de GBIF",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "count": "",
+    "description": ""
   },
   "organismQuantityType": {
     "name": "Tipo de cantidad del organismo",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "count": "",
+    "description": ""
   },
   "pathway": {
     "name": "Ruta",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "count": "",
+    "description": ""
   },
   "associatedSequences": {
     "name": "Secuencias asociadas",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "count": "",
+    "description": ""
   },
   "degreeOfEstablishment": {
     "name": "Grado de establecimiento",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "count": "",
+    "description": ""
   },
   "endDayOfYear": {
     "name": "Día Final del Año",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "count": "",
+    "description": ""
   },
   "startDayOfYear": {
     "name": "Día Inicial del Año",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "count": "",
+    "description": ""
   },
   "previousIdentifications": {
     "name": "Identificaciones previas",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "count": "",
+    "description": ""
   },
   "lastInterpreted": {
     "name": "Última interpretación",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "count": "",
+    "description": ""
   },
   "alternativeCode": {
     "name": "Código alternativo",
@@ -142,12 +157,12 @@
   },
   "identifier": {
     "name": "Identificador",
-    "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+    "count": "",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "institutionType": {
     "name": "Tipo",
-    "count": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
+    "count": "",
     "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "discipline": {
@@ -204,6 +219,13 @@
     "isNull": "No tiene alertas",
     "description": "Los tipos de alertas de potencial interés identificados durante el procesamiento de los datos.\n"
   },
+  "occurrenceTaxonomicIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
   "occurrenceCountry": {
     "name": "Área o país",
     "count": "{num, plural, one {área o país} other {# áreas o países}}",
@@ -219,8 +241,8 @@
   },
   "repatriated": {
     "name": "Repatriado",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "País de publicación",
@@ -311,9 +333,9 @@
     "description": "Una medida de la distancia mínima en metros desde una coordenada dentro de la cual puede interpretarse que se encuentra una localidad."
   },
   "distanceFromCentroidInMeters": {
-    "name": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "depth": {
     "name": "Profundidad",
@@ -357,13 +379,13 @@
   },
   "sex": {
     "name": "Sexo",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "count": "",
+    "description": ""
   },
   "lifeStage": {
     "name": "Estadío de desarrollo",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "count": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "Registrado por",
@@ -372,38 +394,38 @@
   },
   "fieldNumber": {
     "name": "Número de Campo",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "count": "",
+    "description": ""
   },
   "verbatimTaxonId": {
-    "name": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "islandGroup": {
     "name": "Grupo de islas",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "count": "",
+    "description": ""
   },
   "island": {
     "name": "Isla",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "count": "",
+    "description": ""
   },
   "georeferencedBy": {
     "name": "Georreferenciado por",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "count": "",
+    "description": ""
   },
   "datasetName": {
     "name": "Nombre del conjunto de datos",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "count": "",
+    "description": ""
   },
   "programme": {
     "name": "Programa",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "count": "",
+    "description": ""
   },
   "recordNumber": {
     "name": "Número de registro",
@@ -417,7 +439,7 @@
   },
   "projectId": {
     "name": "ID del proyecto",
-    "count": "Aquí debe colocarse una breve descripción del componente",
+    "count": "",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "recordedById": {
@@ -462,13 +484,13 @@
   },
   "gbifRegion": {
     "name": "Región GBIF",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "count": "",
+    "description": ""
   },
   "publishedByGbifRegion": {
     "name": "Publicado por la región de GBIF",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
-    "description": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n"
+    "count": "",
+    "description": ""
   },
   "eventId": {
     "name": "ID del evento",
@@ -537,7 +559,7 @@
   },
   "isInCluster": {
     "name": "Está en una agrupación",
-    "count": "{num, plural, one { está en una agrupación } other {# están en una agrupación}}\n",
+    "count": "",
     "description": "Si se determinó que el registro tenía registros relacionados."
   },
   "isSequenced": {

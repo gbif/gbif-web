@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
-      "ASSOCIATE": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
-      "OTHER_ASSOCIATE": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+      "VOTING": "",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
       "FORMER": "",
       "OBSERVER": "",
-      "UNKNOWN": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+      "UNKNOWN": "",
       "AFFILIATE": ""
     },
-    "affiliateHelp": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
-    "mapCaptionPublishers": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "affiliateHelp": "",
+    "mapCaptionPublishers": "",
     "role": "",
     "name": "",
     "participant": "",
     "type": "",
     "memberSince": "Mitglied seit",
     "all": "",
-    "countryParticipants": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
-    "publishersPerCountry": "{num, plural, one { ist im Cluster } other {# sind in Clustern}}",
+    "countryParticipants": "",
+    "publishersPerCountry": "",
     "clear": "",
     "headlines": {
       "nodesSteeringGroup": "",

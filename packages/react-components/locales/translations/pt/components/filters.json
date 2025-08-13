@@ -46,7 +46,7 @@
   },
   "iucnRedListCategory": {
     "name": "",
-    "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
+    "count": "",
     "description": ""
   },
   "geoDistance": {
@@ -80,6 +80,21 @@
     "count": "",
     "description": ""
   },
+  "biostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lithostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geologicalTime": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "purposes": {
     "name": "Tópico",
     "count": "",
@@ -87,82 +102,82 @@
   },
   "eventDate": {
     "name": "Data do evento",
-    "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
+    "count": "",
     "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "gbifId": {
     "name": "ID do GBIF",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "count": "",
+    "description": ""
   },
   "organismQuantityType": {
     "name": "Tipo de quantidade de organismos",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "count": "",
+    "description": ""
   },
   "pathway": {
     "name": "",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "count": "",
+    "description": ""
   },
   "associatedSequences": {
     "name": "Sequências associadas",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "count": "",
+    "description": ""
   },
   "degreeOfEstablishment": {
     "name": "",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "count": "",
+    "description": ""
   },
   "endDayOfYear": {
     "name": "Dia final do ano",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "count": "",
+    "description": ""
   },
   "startDayOfYear": {
     "name": "Dia inicial do ano",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "count": "",
+    "description": ""
   },
   "previousIdentifications": {
     "name": "Identificações anteriores",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "count": "",
+    "description": ""
   },
   "lastInterpreted": {
     "name": "Última interpretação",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "count": "",
+    "description": ""
   },
   "alternativeCode": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
-    "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
+    "count": "",
     "description": ""
   },
   "identifier": {
     "name": "Identificador",
-    "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
+    "count": "",
     "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "institutionType": {
     "name": "Tipo",
-    "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
+    "count": "",
     "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "discipline": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
-    "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
+    "count": "",
     "description": ""
   },
   "collectionContentType": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
-    "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
+    "count": "",
     "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "preservationType": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
-    "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
+    "count": "",
     "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "taxonKey": {
@@ -204,6 +219,13 @@
     "isNull": "Não tem problemas",
     "description": "Os tipos de problemas ou sinais de potencial interesse descobertos ao processar os dados."
   },
+  "occurrenceTaxonomicIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
   "occurrenceCountry": {
     "name": "País",
     "count": "{num, plural, one {país} other {# países}}",
@@ -214,13 +236,13 @@
   },
   "preparations": {
     "name": "Preparações",
-    "count": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
+    "count": "",
     "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "repatriated": {
     "name": "Repatriado",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "count": "",
+    "description": ""
   },
   "publishingCountryCode": {
     "name": "País de publicação",
@@ -311,9 +333,9 @@
     "description": "Uma medida da distância mínima em metros de uma coordenada dentro da qual uma localidade possa ser interpretada como existente."
   },
   "distanceFromCentroidInMeters": {
-    "name": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "depth": {
     "name": "Profundidade",
@@ -357,13 +379,13 @@
   },
   "sex": {
     "name": "Sexo",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "count": "",
+    "description": ""
   },
   "lifeStage": {
     "name": "Estágio de desenvolvimento",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "count": "",
+    "description": ""
   },
   "recordedBy": {
     "name": "Registado por",
@@ -372,38 +394,38 @@
   },
   "fieldNumber": {
     "name": "Número de campo",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "count": "",
+    "description": ""
   },
   "verbatimTaxonId": {
-    "name": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "name": "",
+    "count": "",
+    "description": ""
   },
   "islandGroup": {
     "name": "Grupo de ilhas",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "count": "",
+    "description": ""
   },
   "island": {
     "name": "Ilha",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "count": "",
+    "description": ""
   },
   "georeferencedBy": {
     "name": "Georreferenciado por",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "count": "",
+    "description": ""
   },
   "datasetName": {
     "name": "Nome do conjunto de dados",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "count": "",
+    "description": ""
   },
   "programme": {
     "name": "Programa",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "count": "",
+    "description": ""
   },
   "recordNumber": {
     "name": "Número de registo",
@@ -417,7 +439,7 @@
   },
   "projectId": {
     "name": "ID do Projeto",
-    "count": "Uma breve descrição do componente deve ser colocada aqui",
+    "count": "",
     "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "recordedById": {
@@ -462,13 +484,13 @@
   },
   "gbifRegion": {
     "name": "Região do GBIF",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "count": "",
+    "description": ""
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "description": "{num, plural, one { está no grupo } other {# estão nos grupos}}"
+    "count": "",
+    "description": ""
   },
   "eventId": {
     "name": "ID do evento",
@@ -537,7 +559,7 @@
   },
   "isInCluster": {
     "name": "Está em cluster",
-    "count": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "count": "",
     "description": "Se foi determinado o registo ter outros registos relacionados."
   },
   "isSequenced": {

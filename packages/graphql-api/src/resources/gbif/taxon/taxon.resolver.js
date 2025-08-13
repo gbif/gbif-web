@@ -1,5 +1,6 @@
 import config from '#/config';
 import axios from 'axios';
+import { GraphQLError } from 'graphql';
 
 const DEFAULT_CHECKLIST_KEY =
   config.defaultChecklist ?? 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c'; // Backbone key for classification
@@ -342,8 +343,12 @@ export default {
         `No CLB_DATASET_KEY found in identifiers for dataset ${dataset?.key}`,
       );
       console.log(dataset?.identifiers);
-
-      return null;
+      throw new GraphQLError(
+        `No CLB_DATASET_KEY found in identifiers for dataset ${dataset?.key}`,
+        {
+          extensions: { code: 'YOUR_ERROR_CODE' },
+        },
+      );
     },
     invasiveInCountries: async ({ key }, args, { dataSources }) => {
       const limit = 500; // get all countries in the world and hope that this publisher only publish one per country and not not invasives

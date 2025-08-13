@@ -26,6 +26,8 @@
     "records": "レコード",
     "seeAlso": "こちらもご参照ください",
     "title": "タイトル",
+    "fileSize": "",
+    "created": "作成",
     "aboutDownloadFormatsLink": "",
     "occurrences": "オカレンス",
     "largeQueryMessage": "非常に大きいフィルターです。詳細についてはダウンロードを参照してください。",

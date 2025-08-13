@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-      "ASSOCIATE": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-      "OTHER_ASSOCIATE": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+      "VOTING": "",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
       "FORMER": "Anterior",
       "OBSERVER": "Observador",
-      "UNKNOWN": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+      "UNKNOWN": "",
       "AFFILIATE": "Afiliado do GBIF"
     },
-    "affiliateHelp": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "mapCaptionPublishers": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "affiliateHelp": "",
+    "mapCaptionPublishers": "",
     "role": "Função",
     "name": "Nome",
     "participant": "Participante",
     "type": "Tipo",
     "memberSince": "Membro desde",
     "all": "Todos",
-    "countryParticipants": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
-    "publishersPerCountry": "{num, plural, one { está no grupo } other {# estão nos grupos}}",
+    "countryParticipants": "",
+    "publishersPerCountry": "",
     "clear": "Limpar",
     "headlines": {
       "nodesSteeringGroup": "Grupo diretivo dos Nós",

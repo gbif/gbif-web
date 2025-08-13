@@ -1,13 +1,13 @@
 {
   "features": "Fonctionnalités",
   "options": {
-    "includeAuthorship": "Doit être défini"
+    "includeAuthorship": ""
   },
   "citations": "Citations",
   "occurrences": "Occurrences",
   "numberSpecimens": "Nombre de spécimens",
   "gbifNumberSpecimens": "Spécimens sur GBIF",
-  "specimenTriplet": "Doit être défini",
+  "specimenTriplet": "",
   "title": "Titre",
   "titleAndAbstract": "Titre et résumé",
   "altmetric": "Altmétrique",

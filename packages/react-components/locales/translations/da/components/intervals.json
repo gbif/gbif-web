@@ -25,6 +25,14 @@
     "gt": "",
     "e": ""
   },
+  "geoTime": {
+    "between": "",
+    "lt": "",
+    "lte": "",
+    "gt": "",
+    "gte": "",
+    "e": ""
+  },
   "year": {
     "between": "",
     "lt": "",

@@ -28,7 +28,7 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "这些指标基于通过GBIF共享的记录",
-  "notVocabularyWarning": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+  "notVocabularyWarning": "",
   "group": {
     "views": "",
     "record": "记录",
@@ -42,5 +42,7 @@
     "identification": "标识",
     "provenance": "起源",
     "other": "其它"
-  }
+  },
+  "occurrencesPerField": "每 {FIELD} 的物种出现记录",
+  "kingdom": "界"
 }

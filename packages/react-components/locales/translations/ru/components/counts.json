@@ -1,4 +1,5 @@
 {
+  "nResults": "{total, plural, one {# результат} other {# результатов}}",
   "nDocuments": "{total, plural, one {# документ} few {# докумментов} many {# документов} other {# документов}}",
   "nTools": "{total, plural, one {# средство} few {# средств} many {# средств} other {# средств}}",
   "nProgrammes": "{total, plural, one {# программа} few {# программ} many {# программ} other {# программ}}",
@@ -6,6 +7,8 @@
   "nEvents": "{total, plural, one {# событие} few {# событий} many {# событий} other {# событий}}",
   "nNews": "{total, plural, one {# новость} few {# новостей} many {# новостей} other {# новостей}}",
   "nDataUse": "{total, plural, one {# использование данных} few {# использований данных} many {# использований данных} other {# использований данных}}",
+  "nOccurrences": "{total, plural, one {# событие} other {# событий}}",
+  "nTaxa": "{total, plural, one {# таксон} other {# таксонов}}",
   "nRows": "{total, plural, one {# строка} few {# строк} many {# строк} other {# строк}}",
   "nInstitutions": "{total, plural, one {# институция} few {# институций} many {# институций} other {# институций}}",
   "nAuthors": "{total, plural, one {# author} few {# authors} many {# authors} other {# authors}}",

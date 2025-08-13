@@ -36,10 +36,12 @@
   "loadMore": "更多",
   "loading": "载入中",
   "noResults": "",
+  "startTyping": "",
+  "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "关于",
     "clusters": "",
-    "legend": "",
+    "legend": "图例",
     "differentPublishers": "",
     "samePublishers": "",
     "entryPoint": "",
@@ -60,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "搜索",
-    "description": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "description": "",
     "noSearchTermsEntered": "没有输入搜索内容！",
-    "placeholder": "{num, plural, one { 在集群中 } other {# 在集群中}}",
+    "placeholder": "",
     "categories": {
       "speciesSearch": "物种",
       "datasetSearch": "数据集",
       "publisherSearch": "发布者",
       "occurrenceSearch": "出现记录",
-      "resourceSearch": "{num, plural, one { 在集群中 } other {# 在集群中}}"
+      "resourceSearch": ""
     },
     "seeAll": "查看全部"
   }

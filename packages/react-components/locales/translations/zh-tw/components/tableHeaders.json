@@ -1,13 +1,13 @@
 {
   "features": "功能",
   "options": {
-    "includeAuthorship": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+    "includeAuthorship": ""
   },
   "citations": "引用",
   "occurrences": "出現紀錄",
   "numberSpecimens": "標本數量",
   "gbifNumberSpecimens": "GBIF 的標本",
-  "specimenTriplet": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+  "specimenTriplet": "",
   "title": "標題",
   "titleAndAbstract": "題目及摘要",
   "altmetric": "另類計量學",

@@ -26,6 +26,8 @@
     "records": "Záznamy",
     "seeAlso": "Viz také",
     "title": "Název",
+    "fileSize": "Velikost souboru",
+    "created": "Vytvořeno",
     "aboutDownloadFormatsLink": "",
     "occurrences": "Výskyty",
     "largeQueryMessage": "Velmi rozsáhlý filtr. Podrobnosti naleznete v dokumentu ke stažení.",

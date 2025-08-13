@@ -36,10 +36,12 @@
   "loadMore": "Еще",
   "loading": "Загрузка",
   "noResults": "",
+  "startTyping": "",
+  "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "Подробно",
     "clusters": "",
-    "legend": "",
+    "legend": "Легенда",
     "differentPublishers": "",
     "samePublishers": "",
     "entryPoint": "",

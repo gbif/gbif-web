@@ -1,5 +1,6 @@
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import useKeyPress from '@/hooks/useKeyPress';
+import { pixelRatio } from '@/utils/pixelRatio';
 import { Feature } from 'ol';
 import { defaults as olControlDefaults } from 'ol/control';
 import { GeoJSON, WKT } from 'ol/format';
@@ -12,8 +13,8 @@ import { Vector as VectorLayer } from 'ol/layer.js';
 import TileLayer from 'ol/layer/Tile';
 import Map from 'ol/Map';
 import * as olProj from 'ol/proj';
-import ImageTile from 'ol/source/ImageTile';
 import { Vector as VectorSource } from 'ol/source.js';
+import ImageTile from 'ol/source/ImageTile';
 import { Fill, Stroke, Style } from 'ol/style';
 import TileGrid from 'ol/tilegrid/TileGrid';
 import View from 'ol/View.js';
@@ -29,10 +30,7 @@ const max_zoom = 16;
 const resolutions = Array(max_zoom + 1)
   .fill(null)
   .map((_, i) => extent / tile_size / Math.pow(2, i));
-let pixel_ratio = 1;
-if (typeof window !== 'undefined') {
-  pixel_ratio = window?.devicePixelRatio || 1;
-}
+
 const tile_grid = new TileGrid({
   extent: olProj.get('EPSG:4326')?.getExtent() || [-90, -90, 90, 90], // I doubt the fallback is ever used
   minZoom: 0,
@@ -46,8 +44,8 @@ const epsg_4326_raster = new TileLayer({
     projection: 'EPSG:4326',
     url: `${
       import.meta.env.PUBLIC_TILE_API
-    }/4326/omt/{z}/{x}/{y}@${pixel_ratio}x.png?style=${raster_style}`,
-    tileSize: tile_size * pixel_ratio, // Source tile size (pixels)
+    }/4326/omt/{z}/{x}/{y}@${pixelRatio}x.png?style=${raster_style}`,
+    tileSize: tile_size * pixelRatio, // Source tile size (pixels)
     tileGrid: tile_grid,
     wrapX: true,
   }),

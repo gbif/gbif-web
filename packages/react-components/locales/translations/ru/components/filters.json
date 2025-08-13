@@ -37,7 +37,7 @@
   "numberSpecimens": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "Количество хранящихся образцов, указанных в описании. Это число не отражает количество записей, которые были оцифрованы и распространены."
   },
   "specimensInGbif": {
     "name": "Образцы в GBIF",
@@ -46,7 +46,7 @@
   },
   "iucnRedListCategory": {
     "name": "Категория глобального красного списка IUCN (МСОП)",
-    "count": "Архив, аннотированный GBIF",
+    "count": "",
     "description": "В Красной книге МСОП (IUCN Red List) таксоны группируются по степени их угрозы."
   },
   "geoDistance": {
@@ -80,6 +80,21 @@
     "count": "{num, plural, one { пользователь } few {# audiences} many {# audiences} other {# audiences}}",
     "description": "Кто является пользователем ресурса-материала."
   },
+  "biostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lithostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geologicalTime": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "purposes": {
     "name": "Тематика",
     "count": "{num, plural, one { цель } few {# purposes} many {# purposes} other {# purposes}}",
@@ -87,7 +102,7 @@
   },
   "eventDate": {
     "name": "Дата события",
-    "count": "Архив, аннотированный GBIF",
+    "count": "",
     "description": "Архив, аннотированный GBIF"
   },
   "gbifId": {
@@ -137,32 +152,32 @@
   },
   "alternativeCode": {
     "name": "Архив, аннотированный GBIF",
-    "count": "Архив, аннотированный GBIF",
+    "count": "",
     "description": ""
   },
   "identifier": {
     "name": "Идентификатор",
-    "count": "Архив, аннотированный GBIF",
+    "count": "",
     "description": "Здесь следует разместить краткое описание компонента"
   },
   "institutionType": {
     "name": "Тип записи",
-    "count": "Архив, аннотированный GBIF",
+    "count": "",
     "description": "Архив, аннотированный GBIF"
   },
   "discipline": {
     "name": "Архив, аннотированный GBIF",
-    "count": "Архив, аннотированный GBIF",
+    "count": "",
     "description": ""
   },
   "collectionContentType": {
     "name": "Архив, аннотированный GBIF",
-    "count": "Архив, аннотированный GBIF",
+    "count": "",
     "description": "Архив, аннотированный GBIF"
   },
   "preservationType": {
     "name": "Архив, аннотированный GBIF",
-    "count": "Архив, аннотированный GBIF",
+    "count": "",
     "description": "Архив, аннотированный GBIF"
   },
   "taxonKey": {
@@ -204,6 +219,13 @@
     "isNull": "",
     "description": ""
   },
+  "occurrenceTaxonomicIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
   "occurrenceCountry": {
     "name": "Страна",
     "count": "",
@@ -214,7 +236,7 @@
   },
   "preparations": {
     "name": "Способ препарирования",
-    "count": "Архив, аннотированный GBIF",
+    "count": "",
     "description": "Архив, аннотированный GBIF"
   },
   "repatriated": {
@@ -608,7 +630,7 @@
   },
   "networkKey": {
     "name": "Сеть",
-    "count": "Архив, аннотированный GBIF",
+    "count": "",
     "description": ""
   },
   "literatureType": {

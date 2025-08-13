@@ -1,0 +1,39 @@
+{
+  "country": {
+    "tabs": {
+      "summary": "Resumé",
+      "dataPublishing": "Data-udgivelse",
+      "dataAbout": "Data om",
+      "participation": "Participant",
+      "publicationsFrom": "",
+      "publicationsAbout": "",
+      "news": "Nyheder",
+      "alienSpecies": "",
+      "projects": "Projekter"
+    },
+    "country": "Land",
+    "dataFrom": "Data fra {TRANSLATED_COUNTRY}",
+    "dataAboutCountry": "Data om {TRANSLATED_COUNTRY}",
+    "publishingTrends": "Publikationstendenser",
+    "noDataPublishingActivity": "",
+    "noInstitutionsHavePublished": "",
+    "trendsAboutCountry": "",
+    "noProjects": "",
+    "notParticipant": "",
+    "notParticipantDescription": "",
+    "countryNamingDisclaimer": "",
+    "isoStandardLinkText": "",
+    "counts": {
+      "occurrences": "",
+      "datasets": "Datasæt",
+      "publishers": "Forlæggere",
+      "countriesAndAreasContributeData": "",
+      "publishedOccurrences": "",
+      "publishedDatasets": "",
+      "countriesAndAreasCoveredByDataFrom": "",
+      "publishersFrom": ""
+    },
+    "activityReport": "Aktivitetsrapport",
+    "contacts": "Kontakter"
+  }
+}

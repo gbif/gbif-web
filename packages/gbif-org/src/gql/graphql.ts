@@ -968,6 +968,7 @@ export enum CollectionFacetParameter {
   PreservationType = 'PRESERVATION_TYPE',
   RecordedBy = 'RECORDED_BY',
   SpeciesKey = 'SPECIES_KEY',
+  TaxonKey = 'TAXON_KEY',
   TypeStatus = 'TYPE_STATUS'
 }
 
@@ -1768,7 +1769,7 @@ export type DatasetFacetDecadeArgs = {
 
 export type DatasetFacetDwcaExtensionArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -1792,7 +1793,7 @@ export type DatasetFacetLicenseArgs = {
 
 export type DatasetFacetNetworkKeyArgs = {
   from?: InputMaybe<Scalars['Int']['input']>;
-  size?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -1851,6 +1852,7 @@ export type DatasetSearchInput = {
   decade?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
   dwcaExtension?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   endorsingNodeKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  endpointType?: InputMaybe<Array<InputMaybe<EndpointType>>>;
   hl?: InputMaybe<Scalars['Boolean']['input']>;
   hostingOrg?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   keyword?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -1868,12 +1870,17 @@ export type DatasetSearchInput = {
 };
 
 export enum DatasetSearchParameter {
+  Category = 'CATEGORY',
   CollectionKey = 'COLLECTION_KEY',
+  ContactEmail = 'CONTACT_EMAIL',
+  ContactUserId = 'CONTACT_USER_ID',
   Continent = 'CONTINENT',
   Country = 'COUNTRY',
   DatasetTitle = 'DATASET_TITLE',
   Decade = 'DECADE',
   Doi = 'DOI',
+  DwcaCoreType = 'DWCA_CORE_TYPE',
+  DwcaExtension = 'DWCA_EXTENSION',
   EndorsingNodeKey = 'ENDORSING_NODE_KEY',
   EndpointType = 'ENDPOINT_TYPE',
   HostingCountry = 'HOSTING_COUNTRY',
@@ -1946,7 +1953,6 @@ export enum DatasetSubtype {
 
 export enum DatasetType {
   Checklist = 'CHECKLIST',
-  MaterialEntity = 'MATERIAL_ENTITY',
   Metadata = 'METADATA',
   Occurrence = 'OCCURRENCE',
   SamplingEvent = 'SAMPLING_EVENT'
@@ -3298,6 +3304,7 @@ export enum IdentifierType {
   Isil = 'ISIL',
   Lsid = 'LSID',
   NcbiBiocollection = 'NCBI_BIOCOLLECTION',
+  RncColombia = 'RNC_COLOMBIA',
   Ror = 'ROR',
   SymbiotaUuid = 'SYMBIOTA_UUID',
   Unknown = 'UNKNOWN',
@@ -3567,6 +3574,7 @@ export enum InstitutionFacetParameter {
   City = 'CITY',
   Country = 'COUNTRY',
   Discipline = 'DISCIPLINE',
+  InstitutionalGovernance = 'INSTITUTIONAL_GOVERNANCE',
   Type = 'TYPE'
 }
 
@@ -3701,6 +3709,7 @@ export enum InterpretationType_RecordType {
   ChronometricAgeTable = 'CHRONOMETRIC_AGE_TABLE',
   CloningTable = 'CLONING_TABLE',
   Clustering = 'CLUSTERING',
+  DnaDerivedData = 'DNA_DERIVED_DATA',
   DnaDerivedDataTable = 'DNA_DERIVED_DATA_TABLE',
   Event = 'EVENT',
   EventIdentifier = 'EVENT_IDENTIFIER',
@@ -3726,6 +3735,7 @@ export enum InterpretationType_RecordType {
   Metadata = 'METADATA',
   Multimedia = 'MULTIMEDIA',
   MultimediaTable = 'MULTIMEDIA_TABLE',
+  MultiTaxonomy = 'MULTI_TAXONOMY',
   Occurrence = 'OCCURRENCE',
   PermitTable = 'PERMIT_TABLE',
   PreparationTable = 'PREPARATION_TABLE',
@@ -6555,131 +6565,6 @@ export enum OccurrenceSchemaType {
   DwcManis = 'DWC_MANIS'
 }
 
-export enum OccurrenceSearchParameter {
-  AcceptedTaxonKey = 'ACCEPTED_TAXON_KEY',
-  AssociatedSequences = 'ASSOCIATED_SEQUENCES',
-  BasisOfRecord = 'BASIS_OF_RECORD',
-  Bed = 'BED',
-  Biostratigraphy = 'BIOSTRATIGRAPHY',
-  CatalogNumber = 'CATALOG_NUMBER',
-  ClassKey = 'CLASS_KEY',
-  CollectionCode = 'COLLECTION_CODE',
-  CollectionKey = 'COLLECTION_KEY',
-  Continent = 'CONTINENT',
-  CoordinateUncertaintyInMeters = 'COORDINATE_UNCERTAINTY_IN_METERS',
-  Country = 'COUNTRY',
-  CrawlId = 'CRAWL_ID',
-  DatasetId = 'DATASET_ID',
-  DatasetKey = 'DATASET_KEY',
-  DatasetName = 'DATASET_NAME',
-  DecimalLatitude = 'DECIMAL_LATITUDE',
-  DecimalLongitude = 'DECIMAL_LONGITUDE',
-  DegreeOfEstablishment = 'DEGREE_OF_ESTABLISHMENT',
-  Depth = 'DEPTH',
-  DistanceFromCentroidInMeters = 'DISTANCE_FROM_CENTROID_IN_METERS',
-  DwcaExtension = 'DWCA_EXTENSION',
-  EarliestAgeOrLowestStage = 'EARLIEST_AGE_OR_LOWEST_STAGE',
-  EarliestEonOrLowestEonothem = 'EARLIEST_EON_OR_LOWEST_EONOTHEM',
-  EarliestEpochOrLowestSeries = 'EARLIEST_EPOCH_OR_LOWEST_SERIES',
-  EarliestEraOrLowestErathem = 'EARLIEST_ERA_OR_LOWEST_ERATHEM',
-  EarliestPeriodOrLowestSystem = 'EARLIEST_PERIOD_OR_LOWEST_SYSTEM',
-  Elevation = 'ELEVATION',
-  EndDayOfYear = 'END_DAY_OF_YEAR',
-  EstablishmentMeans = 'ESTABLISHMENT_MEANS',
-  EventDate = 'EVENT_DATE',
-  EventDateGte = 'EVENT_DATE_GTE',
-  EventId = 'EVENT_ID',
-  FamilyKey = 'FAMILY_KEY',
-  FieldNumber = 'FIELD_NUMBER',
-  Formation = 'FORMATION',
-  GadmGid = 'GADM_GID',
-  GadmLevel_0Gid = 'GADM_LEVEL_0_GID',
-  GadmLevel_1Gid = 'GADM_LEVEL_1_GID',
-  GadmLevel_2Gid = 'GADM_LEVEL_2_GID',
-  GadmLevel_3Gid = 'GADM_LEVEL_3_GID',
-  GbifId = 'GBIF_ID',
-  GbifRegion = 'GBIF_REGION',
-  GenusKey = 'GENUS_KEY',
-  GeologicalTime = 'GEOLOGICAL_TIME',
-  Geometry = 'GEOMETRY',
-  GeoreferencedBy = 'GEOREFERENCED_BY',
-  GeoDistance = 'GEO_DISTANCE',
-  Group = 'GROUP',
-  HasCoordinate = 'HAS_COORDINATE',
-  HasGeospatialIssue = 'HAS_GEOSPATIAL_ISSUE',
-  HigherGeography = 'HIGHER_GEOGRAPHY',
-  HighestBiostratigraphicZone = 'HIGHEST_BIOSTRATIGRAPHIC_ZONE',
-  HostingOrganizationKey = 'HOSTING_ORGANIZATION_KEY',
-  IdentifiedBy = 'IDENTIFIED_BY',
-  IdentifiedById = 'IDENTIFIED_BY_ID',
-  InstallationKey = 'INSTALLATION_KEY',
-  InstitutionCode = 'INSTITUTION_CODE',
-  InstitutionKey = 'INSTITUTION_KEY',
-  Island = 'ISLAND',
-  IslandGroup = 'ISLAND_GROUP',
-  Issue = 'ISSUE',
-  IsInCluster = 'IS_IN_CLUSTER',
-  IsSequenced = 'IS_SEQUENCED',
-  IucnRedListCategory = 'IUCN_RED_LIST_CATEGORY',
-  KingdomKey = 'KINGDOM_KEY',
-  LastInterpreted = 'LAST_INTERPRETED',
-  LatestAgeOrHighestStage = 'LATEST_AGE_OR_HIGHEST_STAGE',
-  LatestEonOrHighestEonothem = 'LATEST_EON_OR_HIGHEST_EONOTHEM',
-  LatestEpochOrHighestSeries = 'LATEST_EPOCH_OR_HIGHEST_SERIES',
-  LatestEraOrHighestErathem = 'LATEST_ERA_OR_HIGHEST_ERATHEM',
-  LatestPeriodOrHighestSystem = 'LATEST_PERIOD_OR_HIGHEST_SYSTEM',
-  License = 'LICENSE',
-  LifeStage = 'LIFE_STAGE',
-  Lithostratigraphy = 'LITHOSTRATIGRAPHY',
-  Locality = 'LOCALITY',
-  LowestBiostratigraphicZone = 'LOWEST_BIOSTRATIGRAPHIC_ZONE',
-  MediaType = 'MEDIA_TYPE',
-  Member = 'MEMBER',
-  Modified = 'MODIFIED',
-  Month = 'MONTH',
-  NetworkKey = 'NETWORK_KEY',
-  OccurrenceId = 'OCCURRENCE_ID',
-  OccurrenceStatus = 'OCCURRENCE_STATUS',
-  OrderKey = 'ORDER_KEY',
-  OrganismId = 'ORGANISM_ID',
-  OrganismQuantity = 'ORGANISM_QUANTITY',
-  OrganismQuantityType = 'ORGANISM_QUANTITY_TYPE',
-  OtherCatalogNumbers = 'OTHER_CATALOG_NUMBERS',
-  ParentEventId = 'PARENT_EVENT_ID',
-  Pathway = 'PATHWAY',
-  PhylumKey = 'PHYLUM_KEY',
-  Preparations = 'PREPARATIONS',
-  PreviousIdentifications = 'PREVIOUS_IDENTIFICATIONS',
-  Programme = 'PROGRAMME',
-  ProjectId = 'PROJECT_ID',
-  Protocol = 'PROTOCOL',
-  PublishedByGbifRegion = 'PUBLISHED_BY_GBIF_REGION',
-  PublishingCountry = 'PUBLISHING_COUNTRY',
-  PublishingOrg = 'PUBLISHING_ORG',
-  RecordedBy = 'RECORDED_BY',
-  RecordedById = 'RECORDED_BY_ID',
-  RecordNumber = 'RECORD_NUMBER',
-  RelativeOrganismQuantity = 'RELATIVE_ORGANISM_QUANTITY',
-  Repatriated = 'REPATRIATED',
-  SampleSizeUnit = 'SAMPLE_SIZE_UNIT',
-  SampleSizeValue = 'SAMPLE_SIZE_VALUE',
-  SamplingProtocol = 'SAMPLING_PROTOCOL',
-  ScientificName = 'SCIENTIFIC_NAME',
-  Sex = 'SEX',
-  SpeciesKey = 'SPECIES_KEY',
-  StartDayOfYear = 'START_DAY_OF_YEAR',
-  StateProvince = 'STATE_PROVINCE',
-  SubgenusKey = 'SUBGENUS_KEY',
-  TaxonomicStatus = 'TAXONOMIC_STATUS',
-  TaxonConceptId = 'TAXON_CONCEPT_ID',
-  TaxonId = 'TAXON_ID',
-  TaxonKey = 'TAXON_KEY',
-  TypeStatus = 'TYPE_STATUS',
-  VerbatimScientificName = 'VERBATIM_SCIENTIFIC_NAME',
-  WaterBody = 'WATER_BODY',
-  Year = 'YEAR'
-}
-
 export type OccurrenceSearchResult = {
   __typename?: 'OccurrenceSearchResult';
   _meta?: Maybe<Scalars['JSON']['output']>;
@@ -7301,6 +7186,7 @@ export type QueryDatasetSearchArgs = {
   decade?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
   dwcaExtension?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   endorsingNodeKey?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  endpointType?: InputMaybe<Array<InputMaybe<EndpointType>>>;
   hl?: InputMaybe<Scalars['Boolean']['input']>;
   hostingOrg?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   keyword?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -8066,6 +7952,22 @@ export type SpeciesMatchUsage = {
   rank?: Maybe<Scalars['String']['output']>;
 };
 
+export enum SqlDownloadFunction {
+  Contains = 'CONTAINS',
+  DegreeMinuteSecondGridCellCode = 'DEGREE_MINUTE_SECOND_GRID_CELL_CODE',
+  EeaCellCode = 'EEA_CELL_CODE',
+  ExtendedQuarterDegreeGridCellCode = 'EXTENDED_QUARTER_DEGREE_GRID_CELL_CODE',
+  GeoDistance = 'GEO_DISTANCE',
+  Isea3HCellCode = 'ISEA3H_CELL_CODE',
+  MilitaryGridReferenceSystemCellCode = 'MILITARY_GRID_REFERENCE_SYSTEM_CELL_CODE',
+  MillisecondsToIso8601 = 'MILLISECONDS_TO_ISO8601',
+  SecondsToIso8601 = 'SECONDS_TO_ISO8601',
+  SecondsToLocalIso8601 = 'SECONDS_TO_LOCAL_ISO8601',
+  StringArrayContainsGeneric = 'STRING_ARRAY_CONTAINS_GENERIC',
+  StringArrayLikeGeneric = 'STRING_ARRAY_LIKE_GENERIC',
+  TemporalUncertainty = 'TEMPORAL_UNCERTAINTY'
+}
+
 export type StaffMember = {
   __typename?: 'StaffMember';
   areaResponsibility?: Maybe<Scalars['String']['output']>;
@@ -8644,11 +8546,13 @@ export type TaxonomicCoverage = {
 
 export enum TaxonomicStatus {
   Accepted = 'ACCEPTED',
+  AmbiguousSynonym = 'AMBIGUOUS_SYNONYM',
   Doubtful = 'DOUBTFUL',
   HeterotypicSynonym = 'HETEROTYPIC_SYNONYM',
   HomotypicSynonym = 'HOMOTYPIC_SYNONYM',
   Misapplied = 'MISAPPLIED',
   ProparteSynonym = 'PROPARTE_SYNONYM',
+  ProvisionallyAccepted = 'PROVISIONALLY_ACCEPTED',
   Synonym = 'SYNONYM'
 }
 
@@ -10473,7 +10377,7 @@ export const DatasetPublishingCountryFacetDocument = {"kind":"Document","definit
 export const DatasetLicenceFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DatasetLicenceFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"DatasetSearchInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"datasetSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"license"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<DatasetLicenceFacetQuery, DatasetLicenceFacetQueryVariables>;
 export const DatasetTypeFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DatasetTypeFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"DatasetSearchInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"datasetSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<DatasetTypeFacetQuery, DatasetTypeFacetQueryVariables>;
 export const DataseNetworkFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DataseNetworkFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"DatasetSearchInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"datasetSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"networkKey"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<DataseNetworkFacetQuery, DataseNetworkFacetQueryVariables>;
-export const DatasetDwcaExtensionFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DatasetDwcaExtensionFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"DatasetSearchInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"datasetSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"dwcaExtension"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<DatasetDwcaExtensionFacetQuery, DatasetDwcaExtensionFacetQueryVariables>;
+export const DatasetDwcaExtensionFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DatasetDwcaExtensionFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"DatasetSearchInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"datasetSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"dwcaExtension"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<DatasetDwcaExtensionFacetQuery, DatasetDwcaExtensionFacetQueryVariables>;
 export const HomePageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"HomePage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gbifHome"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"thumbor"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"HomePageCountIcons"}},{"kind":"Field","name":{"kind":"Name","value":"blocks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BlockItemDetails"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ArticleBanner"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AssetImage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"details"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"normal"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"1200"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"500"}}]},{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"800"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HeaderBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HeaderBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"hideTitle"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ArticleBanner"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProseCardImg"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AssetImage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"500"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FeatureBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeatureBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"maxPerRow"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"hideTitle"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"features"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Feature"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"News"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"DataUse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MeetingEvent"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"start"}},{"kind":"Field","name":{"kind":"Name","value":"end"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProseCardImg"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FeaturedTextBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeaturedTextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"hideTitle"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MediaBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"mediaTitle"},"name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"Field","name":{"kind":"Name","value":"reverse"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"roundImage"}},{"kind":"Field","name":{"kind":"Name","value":"callToAction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MediaCountBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaCountBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"mediaTitle"},"name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","alias":{"kind":"Name","value":"optionalImg"},"name":{"kind":"Name","value":"primaryImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"mobile"},"name":{"kind":"Name","value":"thumbor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"width"},"value":{"kind":"IntValue","value":"500"}},{"kind":"Argument","name":{"kind":"Name","value":"height"},"value":{"kind":"IntValue","value":"400"}}]}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"Field","name":{"kind":"Name","value":"reverse"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"titleCountPart"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"roundImage"}},{"kind":"Field","name":{"kind":"Name","value":"callToAction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CarouselBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CarouselBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"features"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaCountBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaCountBlockDetails"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CustomComponentBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CustomComponentBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"componentType"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}},{"kind":"Field","name":{"kind":"Name","value":"settings"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TextBlockDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"hideTitle"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"backgroundColour"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HomePageCountIcons"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Home"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"occurrenceIcon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"datasetIcon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"publisherIcon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"literatureIcon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BlockItemDetails"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BlockItem"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HeaderBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"HeaderBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeatureBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"FeatureBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeaturedTextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"FeaturedTextBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CarouselBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"CarouselBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaCountBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaCountBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CustomComponentBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"CustomComponentBlockDetails"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TextBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"TextBlockDetails"}}]}}]}}]} as unknown as DocumentNode<HomePageQuery, HomePageQueryVariables>;
 export const InstallationDatasetsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"InstallationDatasets"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"installation"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"offset"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"installation"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"Variable","name":{"kind":"Name","value":"installation"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dataset"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"offset"},"value":{"kind":"Variable","name":{"kind":"Name","value":"offset"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"offset"}},{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"endOfRecords"}},{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"DatasetResult"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"DatasetResult"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Dataset"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"publishingOrganizationTitle"}}]}}]} as unknown as DocumentNode<InstallationDatasetsQuery, InstallationDatasetsQueryVariables>;
 export const InstallationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Installation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"key"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"installation"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"key"},"value":{"kind":"Variable","name":{"kind":"Name","value":"key"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"deleted"}},{"kind":"Field","name":{"kind":"Name","value":"created"}},{"kind":"Field","name":{"kind":"Name","value":"homepage"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"endpoints"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"contacts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"homepage"}},{"kind":"Field","name":{"kind":"Name","value":"organization"}},{"kind":"Field","name":{"kind":"Name","value":"roles"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"dataset"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"0"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]} as unknown as DocumentNode<InstallationQuery, InstallationQueryVariables>;

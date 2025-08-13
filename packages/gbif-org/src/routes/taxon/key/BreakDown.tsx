@@ -62,10 +62,11 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
       const { data, errors } = await promise;
       if (!data?.taxon?.checklistBankBreakdown) {
         if (errors?.[0]) {
-          throw errors[0].message;
+          setError(errors[0].message);
         } else {
-          throw 'Unable to load breakdown';
+          setError('Unable to load breakdown');
         }
+        return;
       }
       let root;
       if (
@@ -288,8 +289,8 @@ const TaxonBreakdown = ({ taxon, ...props }) => {
         )}
         {error && (
           <ErrorBlock
-            errorMessage={<FormattedMessage id="taxon.errors.breakdown" />}
-            description={error}
+            type="BLOCK"
+            errorMessage={error || <FormattedMessage id="taxon.errors.breakdown" />}
           />
         )}
       </CardContent>

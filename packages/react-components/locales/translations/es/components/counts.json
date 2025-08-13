@@ -31,7 +31,7 @@
   "nResultsWithCoordinates": "{total, plural, one {# resultado } other {# resultados}} con coordenadas",
   "percentWithCoordinates": "{percent}% con coordenadas",
   "percentWithYear": "{percent}% con año",
-  "percentWithTaxonMatch": "",
+  "percentWithTaxonMatch": "{percent}% con coincidencia de taxón",
   "nResultsWithImages": "{total, plural, one {# resultado } other {# resultados}} con imágenes",
   "gbifOverlapPercent": "{percent}% de coincidencia con el árbol taxonómico de GBIF",
   "colOverlapPercent": "{percent}% de Coincidencia con el Catálogo de la Vida",

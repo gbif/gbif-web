@@ -276,6 +276,7 @@
       "http://rs.tdwg.org/dwc/terms/genericName",
       "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
+      "http://rs.tdwg.org/dwc/terms/taxonID",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
       "http://rs.tdwg.org/dwc/terms/scientificNameAuthorship",
@@ -295,6 +296,7 @@
       "http://rs.tdwg.org/dwc/terms/genericName",
       "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
+      "http://rs.tdwg.org/dwc/terms/taxonID",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
       "http://rs.tdwg.org/dwc/terms/scientificNameAuthorship",
@@ -314,6 +316,7 @@
       "http://rs.tdwg.org/dwc/terms/genericName",
       "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
+      "http://rs.tdwg.org/dwc/terms/taxonID",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
       "http://rs.tdwg.org/dwc/terms/scientificNameAuthorship",
@@ -385,6 +388,7 @@
       "http://rs.tdwg.org/dwc/terms/genericName",
       "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
+      "http://rs.tdwg.org/dwc/terms/taxonID",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
       "http://rs.tdwg.org/dwc/terms/scientificNameAuthorship",
@@ -404,6 +408,7 @@
       "http://rs.tdwg.org/dwc/terms/genericName",
       "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
+      "http://rs.tdwg.org/dwc/terms/taxonID",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
       "http://rs.tdwg.org/dwc/terms/scientificNameAuthorship",
@@ -782,8 +787,8 @@
     "id": "EON_OR_EONOTHEM_AND_ERA_OR_ERATHEM_MISMATCH",
     "severity": "INFO",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/latestEonOrHighestEonothem",
       "http://rs.tdwg.org/dwc/terms/earliestEraOrLowestErathem",
+      "http://rs.tdwg.org/dwc/terms/latestEonOrHighestEonothem",
       "http://rs.tdwg.org/dwc/terms/latestEraOrHighestErathem",
       "http://rs.tdwg.org/dwc/terms/earliestEonOrLowestEonothem"
     ]
@@ -1034,8 +1039,8 @@
     "relatedTerms": [
       "http://rs.tdwg.org/dwc/terms/acceptedNameUsageID",
       "http://rs.tdwg.org/dwc/terms/acceptedNameUsage",
-      "http://rs.tdwg.org/dwc/terms/parentNameUsage",
       "http://rs.tdwg.org/dwc/terms/originalNameUsageID",
+      "http://rs.tdwg.org/dwc/terms/parentNameUsage",
       "http://rs.tdwg.org/dwc/terms/parentNameUsageID",
       "http://rs.tdwg.org/dwc/terms/originalNameUsage"
     ]

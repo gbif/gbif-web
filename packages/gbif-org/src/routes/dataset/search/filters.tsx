@@ -19,7 +19,6 @@ import { SuggestFnProps, SuggestResponseType } from '@/components/filters/sugges
 import { Message } from '@/components/message';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import datasetTypeOptions from '@/enums/basic/datasetType.json';
-import dwcaExtensionOptions from '@/enums/basic/dwcaExtension.json';
 import licenseOptions from '@/enums/basic/license.json';
 import { useCountrySuggest } from '@/hooks/useCountrySuggest';
 import { fetchWithCancel } from '@/utils/fetchWithCancel';
@@ -211,7 +210,7 @@ export const dwcaExtensionConfig: filterEnumConfig = {
   filterType: filterConfigTypes.ENUM,
   filterHandle: 'dwcaExtension',
   displayName: DwcaExtensionLabel,
-  options: dwcaExtensionOptions,
+  // options: dwcaExtensionOptions,
   allowNegations: false,
   allowExistence: false,
   filterTranslation: 'filters.dwcaExtension.name',
@@ -219,7 +218,7 @@ export const dwcaExtensionConfig: filterEnumConfig = {
     query DatasetDwcaExtensionFacet($query: DatasetSearchInput) {
       search: datasetSearch(query: $query) {
         facet {
-          field: dwcaExtension {
+          field: dwcaExtension(limit: 100) {
             name
             count
           }

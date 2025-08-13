@@ -36,10 +36,12 @@
   "loadMore": "更多",
   "loading": "正在載入",
   "noResults": "",
+  "startTyping": "",
+  "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "關於",
     "clusters": "",
-    "legend": "",
+    "legend": "圖例",
     "differentPublishers": "",
     "samePublishers": "",
     "entryPoint": "",
@@ -60,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "搜尋",
-    "description": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "description": "",
     "noSearchTermsEntered": "未輸入搜尋字串",
-    "placeholder": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "placeholder": "",
     "categories": {
       "speciesSearch": "種",
       "datasetSearch": "資料集",
       "publisherSearch": "發布者",
       "occurrenceSearch": "出現紀錄",
-      "resourceSearch": "{num, plural, one {# 在分群中} other {# 在分群中}}"
+      "resourceSearch": ""
     },
     "seeAll": "查看全部"
   }

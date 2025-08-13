@@ -1,4 +1,5 @@
 import { useConfig } from '@/config/config';
+import { pixelRatio } from '@/utils/pixelRatio';
 import { Attribution, defaults as olControlDefaults } from 'ol/control';
 import { GeoJSON } from 'ol/format';
 import * as olInteraction from 'ol/interaction';
@@ -22,10 +23,7 @@ const max_zoom = 16;
 const resolutions = Array(max_zoom + 1)
   .fill(null)
   .map((_, i) => extent / tile_size / Math.pow(2, i));
-let pixel_ratio = 1;
-if (typeof window !== 'undefined') {
-  pixel_ratio = window?.devicePixelRatio || 1;
-}
+
 const tile_grid = new TileGrid({
   extent: olProj.get('EPSG:4326')?.getExtent() || [-90, -90, 90, 90],
   minZoom: 0,
@@ -106,8 +104,8 @@ export function GeoJsonMap({
         projection: 'EPSG:4326',
         url: `${
           import.meta.env.PUBLIC_TILE_API
-        }/4326/omt/{z}/{x}/{y}@${pixel_ratio}x.png?style=${rasterStyle}`,
-        tileSize: tile_size * pixel_ratio,
+        }/4326/omt/{z}/{x}/{y}@${pixelRatio}x.png?style=${rasterStyle}`,
+        tileSize: tile_size * pixelRatio,
         tileGrid: tile_grid,
         wrapX: true,
         attributions: [

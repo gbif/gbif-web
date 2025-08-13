@@ -1,13 +1,13 @@
 {
   "features": "Cechy",
   "options": {
-    "includeAuthorship": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}"
+    "includeAuthorship": ""
   },
   "citations": "Cytowanie",
   "occurrences": "Wystąpienia",
   "numberSpecimens": "Liczba okazów",
   "gbifNumberSpecimens": "Okazy w GBIF",
-  "specimenTriplet": "{num, plural, one { jest w grupie } few {# są w grupie} many {# jest w grupie} other {# są w grupie}}",
+  "specimenTriplet": "",
   "title": "Tytuł",
   "titleAndAbstract": "Tytuł i streszczenie",
   "altmetric": "Altmetryka",

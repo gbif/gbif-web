@@ -36,6 +36,8 @@
   "loadMore": "Flere",
   "loading": "Indlæser",
   "noResults": "",
+  "startTyping": "",
+  "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "Om",
     "clusters": "",

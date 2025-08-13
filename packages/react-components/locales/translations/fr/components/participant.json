@@ -37,6 +37,18 @@
           }
         }
       }
-    }
+    },
+    "participant": "Participant",
+    "participantSummary": "Résumé du participant",
+    "memberStatus": "Statut du membre",
+    "gbifParticipantSince": "Participant GBIF depuis",
+    "headOfDelegation": "Chef de délegation",
+    "gbifRegion": "Région GBIF",
+    "countryOrArea": "Pays",
+    "nodeName": "Nom du nœud",
+    "nodeEstablished": "Noeud établi",
+    "website": "Site Internet",
+    "participantNodeManager": "Gestionnaire du noeud participant",
+    "pending": "En attente"
   }
 }

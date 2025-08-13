@@ -37,6 +37,18 @@
           }
         }
       }
-    }
+    },
+    "participant": "مشارك",
+    "participantSummary": "ملخص المشارك",
+    "memberStatus": "حالة العضو",
+    "gbifParticipantSince": "مشارك في \"جبيف\" منذ",
+    "headOfDelegation": "رئيس الوفد",
+    "gbifRegion": "منطقة \"جبيف\"",
+    "countryOrArea": "بلد او منطقة",
+    "nodeName": "اسم منطقة التقاطع",
+    "nodeEstablished": "منطقة تقاطع تم تأسيسها",
+    "website": "الموقع الالكتروني",
+    "participantNodeManager": "مدير منطقة التقاطع المشاركة",
+    "pending": "مُعلقّة"
   }
 }

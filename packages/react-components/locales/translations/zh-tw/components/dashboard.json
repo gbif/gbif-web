@@ -28,7 +28,7 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "這些指標是來自GBIF所共享的紀錄",
-  "notVocabularyWarning": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+  "notVocabularyWarning": "",
   "group": {
     "views": "",
     "record": "紀錄",
@@ -42,5 +42,7 @@
     "identification": "鑑定",
     "provenance": "出處註解",
     "other": "其它"
-  }
+  },
+  "occurrencesPerField": "每 {FIELD} 的出現紀錄",
+  "kingdom": "界"
 }

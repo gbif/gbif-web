@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "Moet worden gedefinieerd",
-      "ASSOCIATE": "Moet worden gedefinieerd",
-      "OTHER_ASSOCIATE": "Moet worden gedefinieerd",
+      "VOTING": "",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
       "FORMER": "",
       "OBSERVER": "",
-      "UNKNOWN": "Moet worden gedefinieerd",
+      "UNKNOWN": "",
       "AFFILIATE": "GBIF-filiaal"
     },
-    "affiliateHelp": "Moet worden gedefinieerd",
-    "mapCaptionPublishers": "Moet worden gedefinieerd",
+    "affiliateHelp": "",
+    "mapCaptionPublishers": "",
     "role": "Rol",
     "name": "Naam",
     "participant": "Deelnemer",
     "type": "Type",
     "memberSince": "Lid sinds",
     "all": "Alle",
-    "countryParticipants": "Moet worden gedefinieerd",
-    "publishersPerCountry": "Moet worden gedefinieerd",
+    "countryParticipants": "",
+    "publishersPerCountry": "",
     "clear": "Leegmaken",
     "headlines": {
       "nodesSteeringGroup": "",

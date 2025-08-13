@@ -101,7 +101,7 @@
         "source": "來源",
         "creator": "建立者",
         "providerLiteral": "等於 {is}",
-        "provider": "",
+        "provider": "提供者",
         "metadataCreatorLiteral": "等於 {is}",
         "metadataCreator": "",
         "metadataProviderLiteral": "等於 {is}",

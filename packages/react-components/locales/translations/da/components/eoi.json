@@ -1,0 +1,10 @@
+{
+  "firstName": "Fornavn",
+  "lastName": "Efternavn",
+  "email": "E-mail",
+  "contacts": "Kontakter",
+  "expectedDataTitle": "Data beskrivelse",
+  "country": "Land",
+  "description": "Beskriveslse",
+  "projectIdentifier": "Projektidentifikator"
+}

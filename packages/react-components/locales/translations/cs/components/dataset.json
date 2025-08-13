@@ -21,7 +21,8 @@
     "project": "Projekt",
     "taxonomy": "Taxonomie",
     "download": "Stáhnout",
-    "phylogeny": "Fylogeneze"
+    "phylogeny": "Fylogeneze",
+    "events": "Události"
   },
   "noStatsForMetadata": "Pro datové sady obsahující pouze metadata nejsou k dispozici žádné statistiky.",
   "siteScopeSmallerThanDataset": "Na této stránce nejsou uvedeny všechny záznamy z datové sady. Chcete-li si prohlédnout celou datovou sadu, navštivte [GBIF.org]({datasetUrl}).",
@@ -146,5 +147,10 @@
     "outOfSync": "Nesynchronizované",
     "becauseTrustedContact": "Protože jste důvěryhodný kontakt",
     "registrationDetails": ""
-  }
+  },
+  "errors": {
+    "evenList": "",
+    "occurrenceInfo": ""
+  },
+  "eventTaxonomy": "Taxonomické rozdělení výskytů"
 }

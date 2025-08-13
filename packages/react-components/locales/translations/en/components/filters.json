@@ -80,6 +80,21 @@
     "count": "{num, plural, one { audience } other {# audiences}}",
     "description": "Who are the audiences for the resource."
   },
+  "biostratigraphy": {
+    "name": "Biostratigraphy",
+    "count": "",
+    "description": ""
+  },
+  "lithostratigraphy": {
+    "name": "Lithostratigraphy",
+    "count": "",
+    "description": ""
+  },
+  "geologicalTime": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "purposes": {
     "name": "Topic",
     "count": "{num, plural, one { purpose } other {# purposes}}",
@@ -203,6 +218,13 @@
     "isNotNull": "Has issues",
     "isNull": "Has no issues",
     "description": "The types of issues or flags of potential interest discovered in processing the data."
+  },
+  "occurrenceTaxonomicIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
   },
   "occurrenceCountry": {
     "name": "Country or area",

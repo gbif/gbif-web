@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-      "ASSOCIATE": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-      "OTHER_ASSOCIATE": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+      "VOTING": "",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
       "FORMER": "前會員",
       "OBSERVER": "觀察員",
-      "UNKNOWN": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+      "UNKNOWN": "",
       "AFFILIATE": "GBIF 附屬機構"
     },
-    "affiliateHelp": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "mapCaptionPublishers": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "affiliateHelp": "",
+    "mapCaptionPublishers": "",
     "role": "角色",
     "name": "名稱",
     "participant": "會員",
     "type": "類型",
     "memberSince": "會員始自",
     "all": "全選",
-    "countryParticipants": "{num, plural, one {# 在分群中} other {# 在分群中}}",
-    "publishersPerCountry": "{num, plural, one {# 在分群中} other {# 在分群中}}",
+    "countryParticipants": "",
+    "publishersPerCountry": "",
     "clear": "清除",
     "headlines": {
       "nodesSteeringGroup": "節點指導組",
