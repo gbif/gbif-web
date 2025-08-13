@@ -151,8 +151,8 @@
         "accessURI": "",
         "format": "Formát",
         "variantLiteral": "Rovná se {from}",
-        "variant": "",
-        "variantDescription": "",
+        "variant": "Varianta",
+        "variantDescription": "Popis varianty",
         "furtherInformationURL": "",
         "licensingException": "",
         "serviceExpectation": "Rovná se {from}",
@@ -337,7 +337,7 @@
         "specificEpithet": "Specifický epithet",
         "infraspecificEpithet": "Infraspecifický epithet",
         "cultivarEpithet": "Epithet odrůdy",
-        "taxonRank": "",
+        "taxonRank": "Zařazení taxonu",
         "verbatimTaxonRank": "Přesné zařazení taxonu",
         "scientificNameAuthorship": "Autorství vědeckého názvu",
         "vernacularName": "Místní název",
@@ -381,7 +381,7 @@
     "measurementOrFact": {
       "name": "Měření nebo fakt",
       "properties": {
-        "measurementID": "",
+        "measurementID": "ID měření",
         "measurementType": "Rovná se {from}",
         "measurementValue": "Rovná se {from}",
         "measurementAccuracy": "Rovná se {from}",
@@ -456,8 +456,8 @@
     "resourceRelationship": {
       "name": "Vztah ke zdroji",
       "properties": {
-        "resourceRelationshipID": "",
-        "resourceID": "",
+        "resourceRelationshipID": "ID vztahu mezi zdroji",
+        "resourceID": "ID zdroje",
         "relationshipOfResourceID": "",
         "relatedResourceID": "",
         "relationshipOfResource": "Rovná se {from}",
@@ -577,7 +577,7 @@
     "extendedMeasurementOrFact": {
       "name": "Rozšířené měření nebo skutečnost",
       "properties": {
-        "measurementID": "",
+        "measurementID": "ID měření",
         "occurrenceID": "id Výskytu",
         "measurementType": "Rovná se {from}",
         "measurementTypeID": "",
