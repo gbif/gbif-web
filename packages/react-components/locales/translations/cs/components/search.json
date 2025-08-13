@@ -1,14 +1,14 @@
 {
   "tabs": {
     "table": "Tabulka",
-    "tree": "",
+    "tree": "Strom",
     "gallery": "Galerie",
     "media": "Rovná se {from}",
     "map": "Mapa",
     "datasets": "Datové sady",
     "events": "Události",
     "download": "Stáhnout",
-    "clusters": "",
+    "clusters": "Související",
     "dashboard": "Ovládací panel",
     "sites": "Rovná se {from}",
     "list": "Seznam"
@@ -25,7 +25,7 @@
     "range": "Rozsah nebo samostatná hodnota",
     "rangeExample": "",
     "wildcard": "Hledejte s pomocí * a ? jako zástupnými znaky",
-    "dateTemplate": "",
+    "dateTemplate": "yyyy-mm-dd",
     "locationID": ""
   },
   "ternary": {
@@ -40,7 +40,7 @@
   "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "O",
-    "clusters": "",
+    "clusters": "Související",
     "legend": "Legenda",
     "differentPublishers": "",
     "samePublishers": "",
