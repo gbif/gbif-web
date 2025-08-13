@@ -1,4 +1,7 @@
 {
+  "unsupported.title": "Nepodporovaný dotaz",
+  "unsupported.remove": "Odebrat filtr",
   "download": "Stáhnout",
+  "redirectNotice": "Chystáte se stahovat, budete přesměrováni na GBIF.org. \n\n\n Upozorňujeme, že ke stažení obsahu je nutný účet.",
   "continueToGBIF": "Pokračovat"
 }
