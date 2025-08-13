@@ -53,12 +53,12 @@
     "useBbox": "Использовать ограничивающую рамку",
     "failedParsing": "Не удалось проанализировать геометрию",
     "onlyPolygonsSupported": "Поддерживаются только полигоны и мультиполигоны.",
-    "polygonSimplifiedToFewerPoints": "",
-    "simplificationCausedSelfIntersection": "",
+    "polygonSimplifiedToFewerPoints": "Многоугольник упрощен до меньшего количества точек",
+    "simplificationCausedSelfIntersection": "Упрощение вызвало самопересечение",
     "tooLarge": "Слишком большой охват",
-    "selfIntersecting": "",
-    "orderChanged": "",
-    "geometryReducedToBbox": "",
-    "failedToSimplify": ""
+    "selfIntersecting": "Самопересекающаяся геометрия",
+    "orderChanged": "Порядок координат был изменен, так как он не был направлен против часовой стрелки.",
+    "geometryReducedToBbox": "Геометрия сведена к ограничивающей рамке",
+    "failedToSimplify": "Не удалось упростить геометрию"
   }
 }
