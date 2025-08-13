@@ -475,7 +475,7 @@
   "higherGeography": {
     "name": "Geografía superior",
     "count": "{num, plural, one { geografía superior } other {# geografías superiores}}",
-    "description": ""
+    "description": "Geografía superior donde se ubica el registro. Este no es un campo interpretado, sino los datos originales proporcionados por el editor. Se pueden proporcionar varios valores."
   },
   "stateProvince": {
     "name": "Departamento/Estado/Provincia",
