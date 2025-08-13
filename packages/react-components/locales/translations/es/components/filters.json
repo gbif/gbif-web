@@ -299,12 +299,12 @@
   "countriesOfCoverage": {
     "name": "País de cobertura",
     "count": "{num, plural, one {país de cobertura} other {# países de cobertura}}",
-    "description": ""
+    "description": "¿Qué países están cubiertos por el registro?"
   },
   "collectionDescriptorCountry": {
     "name": "País o área de cobertura",
     "count": "{num, plural, one {país o área de cobertura} other {# países o áreas de cobertura}}",
-    "description": ""
+    "description": "¿De qué países provienen los especímenes de la colección? Tenga en cuenta que no todas las colecciones incluyen esta información."
   },
   "countriesOfResearcher": {
     "name": "País o área del investigador",
@@ -439,7 +439,7 @@
   },
   "projectId": {
     "name": "ID del proyecto",
-    "count": "",
+    "count": "{num, plural, one { ID del proyecto } other {# IDs de los proyectos}}",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "recordedById": {
@@ -474,7 +474,7 @@
   },
   "higherGeography": {
     "name": "Geografía superior",
-    "count": "",
+    "count": "{num, plural, one { geografía superior } other {# geografías superiores}}",
     "description": ""
   },
   "stateProvince": {
