@@ -101,7 +101,7 @@
         "source": "Zdroj",
         "creator": "Autor",
         "providerLiteral": "Rovná se {from}",
-        "provider": "",
+        "provider": "Poskytovatel",
         "metadataCreatorLiteral": "Rovná se {from}",
         "metadataCreator": "",
         "metadataProviderLiteral": "Rovná se {from}",
