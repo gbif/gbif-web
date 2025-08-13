@@ -247,7 +247,7 @@
       "name": "",
       "properties": {
         "measurementID": "",
-        "measurementValue": "",
+        "measurementValue": "Имеются ли в записи проблемы с геолокацией",
         "measurementUnit": "",
         "measurementAccuracy": "",
         "measurementDeterminedDate": "",
@@ -383,7 +383,7 @@
       "properties": {
         "measurementID": "",
         "measurementType": "",
-        "measurementValue": "",
+        "measurementValue": "Имеются ли в записи проблемы с геолокацией",
         "measurementAccuracy": "",
         "measurementUnit": "",
         "measurementDeterminedDate": "",
@@ -581,7 +581,7 @@
         "occurrenceID": "Идентификатор события",
         "measurementType": "",
         "measurementTypeID": "",
-        "measurementValue": "",
+        "measurementValue": "Имеются ли в записи проблемы с геолокацией",
         "measurementValueID": "",
         "measurementAccuracy": "",
         "measurementUnit": "",
