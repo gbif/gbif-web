@@ -46,7 +46,7 @@
     "isClustered": "Имеет связанные записи",
     "isSamplingEvent": "Описания, учеты или сборы",
     "isTreatment": "",
-    "isSequenced": "",
+    "isSequenced": "в последовательности",
     "hasIssues": "",
     "hasCoordinates": "Имеет координаты",
     "hasCountry": "Страна",
