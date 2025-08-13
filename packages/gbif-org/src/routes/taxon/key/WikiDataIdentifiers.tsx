@@ -26,7 +26,7 @@ const WikiDataIdentifiers = ({
       {!isMobile &&
         identifiers.map((i: WikiDataIdentifier, idx: number) => (
           <span key={idx}>
-            <span>{i.label.value}</span> : <a href={`${i.url}`}>{i.id}</a>
+            <span>{i?.label?.value}</span> : <a href={`${i?.url}`}>{i?.id}</a>
           </span>
         ))}
       {source && (

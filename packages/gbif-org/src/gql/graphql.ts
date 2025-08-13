@@ -968,6 +968,7 @@ export enum CollectionFacetParameter {
   PreservationType = 'PRESERVATION_TYPE',
   RecordedBy = 'RECORDED_BY',
   SpeciesKey = 'SPECIES_KEY',
+  TaxonKey = 'TAXON_KEY',
   TypeStatus = 'TYPE_STATUS'
 }
 
@@ -1868,12 +1869,17 @@ export type DatasetSearchInput = {
 };
 
 export enum DatasetSearchParameter {
+  Category = 'CATEGORY',
   CollectionKey = 'COLLECTION_KEY',
+  ContactEmail = 'CONTACT_EMAIL',
+  ContactUserId = 'CONTACT_USER_ID',
   Continent = 'CONTINENT',
   Country = 'COUNTRY',
   DatasetTitle = 'DATASET_TITLE',
   Decade = 'DECADE',
   Doi = 'DOI',
+  DwcaCoreType = 'DWCA_CORE_TYPE',
+  DwcaExtension = 'DWCA_EXTENSION',
   EndorsingNodeKey = 'ENDORSING_NODE_KEY',
   EndpointType = 'ENDPOINT_TYPE',
   HostingCountry = 'HOSTING_COUNTRY',
@@ -1946,7 +1952,6 @@ export enum DatasetSubtype {
 
 export enum DatasetType {
   Checklist = 'CHECKLIST',
-  MaterialEntity = 'MATERIAL_ENTITY',
   Metadata = 'METADATA',
   Occurrence = 'OCCURRENCE',
   SamplingEvent = 'SAMPLING_EVENT'
@@ -3568,6 +3573,7 @@ export enum InstitutionFacetParameter {
   City = 'CITY',
   Country = 'COUNTRY',
   Discipline = 'DISCIPLINE',
+  InstitutionalGovernance = 'INSTITUTIONAL_GOVERNANCE',
   Type = 'TYPE'
 }
 
@@ -3702,6 +3708,7 @@ export enum InterpretationType_RecordType {
   ChronometricAgeTable = 'CHRONOMETRIC_AGE_TABLE',
   CloningTable = 'CLONING_TABLE',
   Clustering = 'CLUSTERING',
+  DnaDerivedData = 'DNA_DERIVED_DATA',
   DnaDerivedDataTable = 'DNA_DERIVED_DATA_TABLE',
   Event = 'EVENT',
   EventIdentifier = 'EVENT_IDENTIFIER',
@@ -3727,6 +3734,7 @@ export enum InterpretationType_RecordType {
   Metadata = 'METADATA',
   Multimedia = 'MULTIMEDIA',
   MultimediaTable = 'MULTIMEDIA_TABLE',
+  MultiTaxonomy = 'MULTI_TAXONOMY',
   Occurrence = 'OCCURRENCE',
   PermitTable = 'PERMIT_TABLE',
   PreparationTable = 'PREPARATION_TABLE',
@@ -6537,131 +6545,6 @@ export enum OccurrenceSchemaType {
   DwcManis = 'DWC_MANIS'
 }
 
-export enum OccurrenceSearchParameter {
-  AcceptedTaxonKey = 'ACCEPTED_TAXON_KEY',
-  AssociatedSequences = 'ASSOCIATED_SEQUENCES',
-  BasisOfRecord = 'BASIS_OF_RECORD',
-  Bed = 'BED',
-  Biostratigraphy = 'BIOSTRATIGRAPHY',
-  CatalogNumber = 'CATALOG_NUMBER',
-  ClassKey = 'CLASS_KEY',
-  CollectionCode = 'COLLECTION_CODE',
-  CollectionKey = 'COLLECTION_KEY',
-  Continent = 'CONTINENT',
-  CoordinateUncertaintyInMeters = 'COORDINATE_UNCERTAINTY_IN_METERS',
-  Country = 'COUNTRY',
-  CrawlId = 'CRAWL_ID',
-  DatasetId = 'DATASET_ID',
-  DatasetKey = 'DATASET_KEY',
-  DatasetName = 'DATASET_NAME',
-  DecimalLatitude = 'DECIMAL_LATITUDE',
-  DecimalLongitude = 'DECIMAL_LONGITUDE',
-  DegreeOfEstablishment = 'DEGREE_OF_ESTABLISHMENT',
-  Depth = 'DEPTH',
-  DistanceFromCentroidInMeters = 'DISTANCE_FROM_CENTROID_IN_METERS',
-  DwcaExtension = 'DWCA_EXTENSION',
-  EarliestAgeOrLowestStage = 'EARLIEST_AGE_OR_LOWEST_STAGE',
-  EarliestEonOrLowestEonothem = 'EARLIEST_EON_OR_LOWEST_EONOTHEM',
-  EarliestEpochOrLowestSeries = 'EARLIEST_EPOCH_OR_LOWEST_SERIES',
-  EarliestEraOrLowestErathem = 'EARLIEST_ERA_OR_LOWEST_ERATHEM',
-  EarliestPeriodOrLowestSystem = 'EARLIEST_PERIOD_OR_LOWEST_SYSTEM',
-  Elevation = 'ELEVATION',
-  EndDayOfYear = 'END_DAY_OF_YEAR',
-  EstablishmentMeans = 'ESTABLISHMENT_MEANS',
-  EventDate = 'EVENT_DATE',
-  EventDateGte = 'EVENT_DATE_GTE',
-  EventId = 'EVENT_ID',
-  FamilyKey = 'FAMILY_KEY',
-  FieldNumber = 'FIELD_NUMBER',
-  Formation = 'FORMATION',
-  GadmGid = 'GADM_GID',
-  GadmLevel_0Gid = 'GADM_LEVEL_0_GID',
-  GadmLevel_1Gid = 'GADM_LEVEL_1_GID',
-  GadmLevel_2Gid = 'GADM_LEVEL_2_GID',
-  GadmLevel_3Gid = 'GADM_LEVEL_3_GID',
-  GbifId = 'GBIF_ID',
-  GbifRegion = 'GBIF_REGION',
-  GenusKey = 'GENUS_KEY',
-  GeologicalTime = 'GEOLOGICAL_TIME',
-  Geometry = 'GEOMETRY',
-  GeoreferencedBy = 'GEOREFERENCED_BY',
-  GeoDistance = 'GEO_DISTANCE',
-  Group = 'GROUP',
-  HasCoordinate = 'HAS_COORDINATE',
-  HasGeospatialIssue = 'HAS_GEOSPATIAL_ISSUE',
-  HigherGeography = 'HIGHER_GEOGRAPHY',
-  HighestBiostratigraphicZone = 'HIGHEST_BIOSTRATIGRAPHIC_ZONE',
-  HostingOrganizationKey = 'HOSTING_ORGANIZATION_KEY',
-  IdentifiedBy = 'IDENTIFIED_BY',
-  IdentifiedById = 'IDENTIFIED_BY_ID',
-  InstallationKey = 'INSTALLATION_KEY',
-  InstitutionCode = 'INSTITUTION_CODE',
-  InstitutionKey = 'INSTITUTION_KEY',
-  Island = 'ISLAND',
-  IslandGroup = 'ISLAND_GROUP',
-  Issue = 'ISSUE',
-  IsInCluster = 'IS_IN_CLUSTER',
-  IsSequenced = 'IS_SEQUENCED',
-  IucnRedListCategory = 'IUCN_RED_LIST_CATEGORY',
-  KingdomKey = 'KINGDOM_KEY',
-  LastInterpreted = 'LAST_INTERPRETED',
-  LatestAgeOrHighestStage = 'LATEST_AGE_OR_HIGHEST_STAGE',
-  LatestEonOrHighestEonothem = 'LATEST_EON_OR_HIGHEST_EONOTHEM',
-  LatestEpochOrHighestSeries = 'LATEST_EPOCH_OR_HIGHEST_SERIES',
-  LatestEraOrHighestErathem = 'LATEST_ERA_OR_HIGHEST_ERATHEM',
-  LatestPeriodOrHighestSystem = 'LATEST_PERIOD_OR_HIGHEST_SYSTEM',
-  License = 'LICENSE',
-  LifeStage = 'LIFE_STAGE',
-  Lithostratigraphy = 'LITHOSTRATIGRAPHY',
-  Locality = 'LOCALITY',
-  LowestBiostratigraphicZone = 'LOWEST_BIOSTRATIGRAPHIC_ZONE',
-  MediaType = 'MEDIA_TYPE',
-  Member = 'MEMBER',
-  Modified = 'MODIFIED',
-  Month = 'MONTH',
-  NetworkKey = 'NETWORK_KEY',
-  OccurrenceId = 'OCCURRENCE_ID',
-  OccurrenceStatus = 'OCCURRENCE_STATUS',
-  OrderKey = 'ORDER_KEY',
-  OrganismId = 'ORGANISM_ID',
-  OrganismQuantity = 'ORGANISM_QUANTITY',
-  OrganismQuantityType = 'ORGANISM_QUANTITY_TYPE',
-  OtherCatalogNumbers = 'OTHER_CATALOG_NUMBERS',
-  ParentEventId = 'PARENT_EVENT_ID',
-  Pathway = 'PATHWAY',
-  PhylumKey = 'PHYLUM_KEY',
-  Preparations = 'PREPARATIONS',
-  PreviousIdentifications = 'PREVIOUS_IDENTIFICATIONS',
-  Programme = 'PROGRAMME',
-  ProjectId = 'PROJECT_ID',
-  Protocol = 'PROTOCOL',
-  PublishedByGbifRegion = 'PUBLISHED_BY_GBIF_REGION',
-  PublishingCountry = 'PUBLISHING_COUNTRY',
-  PublishingOrg = 'PUBLISHING_ORG',
-  RecordedBy = 'RECORDED_BY',
-  RecordedById = 'RECORDED_BY_ID',
-  RecordNumber = 'RECORD_NUMBER',
-  RelativeOrganismQuantity = 'RELATIVE_ORGANISM_QUANTITY',
-  Repatriated = 'REPATRIATED',
-  SampleSizeUnit = 'SAMPLE_SIZE_UNIT',
-  SampleSizeValue = 'SAMPLE_SIZE_VALUE',
-  SamplingProtocol = 'SAMPLING_PROTOCOL',
-  ScientificName = 'SCIENTIFIC_NAME',
-  Sex = 'SEX',
-  SpeciesKey = 'SPECIES_KEY',
-  StartDayOfYear = 'START_DAY_OF_YEAR',
-  StateProvince = 'STATE_PROVINCE',
-  SubgenusKey = 'SUBGENUS_KEY',
-  TaxonomicStatus = 'TAXONOMIC_STATUS',
-  TaxonConceptId = 'TAXON_CONCEPT_ID',
-  TaxonId = 'TAXON_ID',
-  TaxonKey = 'TAXON_KEY',
-  TypeStatus = 'TYPE_STATUS',
-  VerbatimScientificName = 'VERBATIM_SCIENTIFIC_NAME',
-  WaterBody = 'WATER_BODY',
-  Year = 'YEAR'
-}
-
 export type OccurrenceSearchResult = {
   __typename?: 'OccurrenceSearchResult';
   _meta?: Maybe<Scalars['JSON']['output']>;
@@ -8049,6 +7932,22 @@ export type SpeciesMatchUsage = {
   rank?: Maybe<Scalars['String']['output']>;
 };
 
+export enum SqlDownloadFunction {
+  Contains = 'CONTAINS',
+  DegreeMinuteSecondGridCellCode = 'DEGREE_MINUTE_SECOND_GRID_CELL_CODE',
+  EeaCellCode = 'EEA_CELL_CODE',
+  ExtendedQuarterDegreeGridCellCode = 'EXTENDED_QUARTER_DEGREE_GRID_CELL_CODE',
+  GeoDistance = 'GEO_DISTANCE',
+  Isea3HCellCode = 'ISEA3H_CELL_CODE',
+  MilitaryGridReferenceSystemCellCode = 'MILITARY_GRID_REFERENCE_SYSTEM_CELL_CODE',
+  MillisecondsToIso8601 = 'MILLISECONDS_TO_ISO8601',
+  SecondsToIso8601 = 'SECONDS_TO_ISO8601',
+  SecondsToLocalIso8601 = 'SECONDS_TO_LOCAL_ISO8601',
+  StringArrayContainsGeneric = 'STRING_ARRAY_CONTAINS_GENERIC',
+  StringArrayLikeGeneric = 'STRING_ARRAY_LIKE_GENERIC',
+  TemporalUncertainty = 'TEMPORAL_UNCERTAINTY'
+}
+
 export type StaffMember = {
   __typename?: 'StaffMember';
   areaResponsibility?: Maybe<Scalars['String']['output']>;
@@ -8627,11 +8526,13 @@ export type TaxonomicCoverage = {
 
 export enum TaxonomicStatus {
   Accepted = 'ACCEPTED',
+  AmbiguousSynonym = 'AMBIGUOUS_SYNONYM',
   Doubtful = 'DOUBTFUL',
   HeterotypicSynonym = 'HETEROTYPIC_SYNONYM',
   HomotypicSynonym = 'HOMOTYPIC_SYNONYM',
   Misapplied = 'MISAPPLIED',
   ProparteSynonym = 'PROPARTE_SYNONYM',
+  ProvisionallyAccepted = 'PROVISIONALLY_ACCEPTED',
   Synonym = 'SYNONYM'
 }
 

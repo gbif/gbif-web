@@ -173,10 +173,15 @@ export default function AboutBackbone() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <WikiDataIdentifiers
-                    source={slowTaxon?.taxon?.wikiData?.source}
-                    identifiers={slowTaxon?.taxon?.wikiData?.identifiers}
-                  />
+                  <ErrorBoundary
+                    type="BLOCK"
+                    errorMessage={<FormattedMessage id="taxon.errors.wikidata" />}
+                  >
+                    <WikiDataIdentifiers
+                      source={slowTaxon?.taxon?.wikiData?.source}
+                      identifiers={slowTaxon?.taxon?.wikiData?.identifiers}
+                    />
+                  </ErrorBoundary>
                 </CardContent>
               </Card>
             )}
