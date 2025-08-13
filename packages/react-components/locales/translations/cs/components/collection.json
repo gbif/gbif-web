@@ -1,6 +1,9 @@
 {
+  "institutionUnknown": "Instituce je neznámá",
   "contentTypes": "Typ obsahu",
   "preservationTypes": "Typy konzervace",
   "personalCollection": "Osobní sbírka",
-  "accessionStatus": "Stav přírůstku"
+  "accessionStatus": "Stav přírůstku",
+  "numberSpecimens": "Počet exemplářů ve sbírce",
+  "collectionDescriptors": "Deskriptory sbírky"
 }
