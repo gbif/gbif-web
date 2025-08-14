@@ -1,43 +1,43 @@
 {
   "description": {
-    "lt": "",
-    "lte": "",
-    "gt": "",
-    "gte": "",
-    "e": "",
+    "lt": "Меньше, чем {to}",
+    "lte": "Не больше, чем {to}",
+    "gt": "Больше, чем {from}",
+    "gte": "Не меньше, чем {from}",
+    "e": "Равно {from}",
     "between": "От {from} до {to}"
   },
   "compact": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "от {from} до {to}",
+    "lt": "Меньше, чем {to}",
+    "gt": "Больше, чем {from}",
+    "e": "{from}"
   },
   "compactMeters": {
-    "between": "",
+    "between": "{from}м до {to}м",
     "lt": "Ниже {to}м",
     "gt": "выше {from} м",
-    "e": ""
+    "e": "{from}м"
   },
   "compactTime": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "от {from} до {to}",
+    "lt": "До {to}",
+    "gt": "Более {from}",
+    "e": "{from}"
   },
   "geoTime": {
-    "between": "",
-    "lt": "",
+    "between": "от {from} до {to}",
+    "lt": "До {to}",
     "lte": "",
-    "gt": "",
+    "gt": "Более {from}",
     "gte": "",
     "e": ""
   },
   "year": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": "",
+    "between": "Годы от{from} до {to}",
+    "lt": "До {to} года",
+    "gt": "После {from} года",
+    "e": "Год начиная с {from}",
     "select": {
       "equals": "равно",
       "between": "между",
@@ -46,15 +46,15 @@
     }
   },
   "coordinateUncertainty": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "Неопределённость координат от {from} м до {to} м",
+    "lt": "Неопределённость координат менее {to} м",
+    "gt": "Неопределённость координат более {from} м",
+    "e": "Неопределённость координат равна {from} м"
   },
   "depth": {
-    "between": "",
-    "lt": "",
-    "gt": "",
+    "between": "Глубина в пределах от {from} до {to}",
+    "lt": "Глубина менее {to}",
+    "gt": "Глубина более {from}",
     "e": ""
   },
   "organismQuantity": {
