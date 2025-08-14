@@ -2,6 +2,7 @@ import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { defaultDateFormatProps } from '@/components/headerComponents';
 import { Spinner } from '@/components/ui/spinner';
+import { NotFoundError } from '@/errors';
 import {
   Download_Status,
   DownloadKeyQuery,
@@ -111,7 +112,7 @@ export function DownloadKey() {
   }, [slowLoad, data?.download?.key]);
 
   const download = data?.download;
-  if (!download) throw new Error('404');
+  if (!download) throw new NotFoundError();
 
   const literatureCount = slowData?.literatureSearch?.documents?.total;
   if (slowError) {

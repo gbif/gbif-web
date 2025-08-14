@@ -9,6 +9,7 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/largeCard';
+import { NotFoundError } from '@/errors';
 import { SlowTaxonQuery, TaxonKeyQuery } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins/dynamicLink';
 import EntityDrawer from '@/routes/occurrence/search/views/browseList/ListBrowser';
@@ -57,7 +58,7 @@ export function TaxonKey({
   slowTaxon?: SlowTaxonQuery;
   slowTaxonLoading: boolean;
 }) {
-  if (data.taxon == null) throw new Error('404');
+  if (data.taxon == null) throw new NotFoundError();
 
   const vernacularNameInfo = slowTaxon?.taxon?.vernacularNames?.results?.[0];
 

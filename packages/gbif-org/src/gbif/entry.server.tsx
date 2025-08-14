@@ -44,6 +44,7 @@ export async function render(req: ExpressRequest) {
     headHtml,
     htmlAttributes: helmet.htmlAttributes.toString(),
     bodyAttributes: helmet.bodyAttributes.toString(),
+    statusCode: context.statusCode,
   };
 }
 

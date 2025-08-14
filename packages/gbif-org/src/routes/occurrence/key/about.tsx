@@ -1,6 +1,7 @@
 import { GbifLinkCard, TocLi as Li, Separator } from '@/components/TocHelp';
 import { Card } from '@/components/ui/largeCard';
 import { useConfig } from '@/config/config';
+import { NotFoundError } from '@/errors';
 import { Term } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
@@ -66,7 +67,7 @@ export function OccurrenceKeyAbout() {
     dispatch({ type: 'ADD_SECTION', id, visible });
   }, []);
 
-  if (data.occurrence == null) throw new Error('404');
+  if (data.occurrence == null) throw new NotFoundError();
   const { occurrence } = data;
   const { terms } = occurrence;
   const termMap: { [key: string]: Term } =

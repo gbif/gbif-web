@@ -18,6 +18,7 @@ import PageMetaData from '@/components/PageMetaData';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { NotFoundError } from '@/errors';
 import { InstitutionQuery, InstitutionSummaryMetricsQuery } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -50,7 +51,7 @@ export function InstitutionKey({
   fallbackImage?: string | null;
 }) {
   const useInlineImage = useBelow(800);
-  if (data.institution == null) throw new Error('404');
+  if (data.institution == null) throw new NotFoundError();
   const { institution } = data;
   const { occurrenceSearch } = institutionMetrics ?? {};
 

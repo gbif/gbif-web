@@ -1,5 +1,6 @@
 import regions from '@/enums/basic/gbifRegion.json';
-import { NotFoundError } from '@/errors';
+import { NotFoundLoaderResponse } from '@/errors';
+import { LoaderArgs } from '@/reactRouterPlugins';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import { Trends } from '../country/key/components/trends';
@@ -11,11 +12,18 @@ import { ArticleTitle } from '../resource/key/components/articleTitle';
 import { PageContainer } from '../resource/key/components/pageContainer';
 import { TrendsSelector } from './trendsSelector';
 
+export function regionLoader({ params }: LoaderArgs) {
+  const regionKey = params.regionKey;
+
+  if (typeof regionKey !== 'string' || !regions.includes(regionKey)) {
+    throw new NotFoundLoaderResponse(`There is no region with a key of ${regionKey}`);
+  }
+
+  return null;
+}
+
 export function RegionAnalyticsPage() {
   const { regionKey } = useParams();
-  if (typeof regionKey !== 'string' || !regions.includes(regionKey)) {
-    throw new NotFoundError();
-  }
 
   return (
     <article>

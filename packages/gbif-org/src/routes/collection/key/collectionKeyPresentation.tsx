@@ -20,6 +20,7 @@ import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { NotFoundError } from '@/errors';
 import { CollectionQuery, CollectionSummaryMetricsQuery } from '@/gql/graphql';
 import useBelow from '@/hooks/useBelow';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -56,7 +57,7 @@ export function CollectionKey({
 }) {
   // const hideSideBar = useBelow(1100);
   const useInlineImage = useBelow(700);
-  if (data.collection == null) throw new Error('404');
+  if (data.collection == null) throw new NotFoundError();
   const { collection } = data;
   const { occurrenceSearch } = collectionMetrics ?? {};
 

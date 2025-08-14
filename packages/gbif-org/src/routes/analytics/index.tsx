@@ -1,7 +1,7 @@
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { redirectDocument } from 'react-router-dom';
 import { GlobalAnalyticsPage } from './global';
-import { RegionAnalyticsPage } from './region';
+import { RegionAnalyticsPage, regionLoader } from './region';
 
 export const analyticsRoute: RouteObjectWithPlugins = {
   id: 'analytics',
@@ -17,6 +17,7 @@ export const analyticsRoute: RouteObjectWithPlugins = {
     },
     {
       path: 'region/:regionKey',
+      loader: regionLoader,
       element: <RegionAnalyticsPage />,
     },
   ],

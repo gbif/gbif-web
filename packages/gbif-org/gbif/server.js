@@ -123,7 +123,7 @@ async function main() {
       }
 
       try {
-        const { appHtml, headHtml, htmlAttributes, bodyAttributes } = await render(req);
+        const { appHtml, headHtml, htmlAttributes, bodyAttributes, statusCode } = await render(req);
 
         const html = template
           .replace('<html class="g-m-0 g-p-0">', `<html ${htmlAttributes} class="g-m-0 g-p-0">`)
@@ -136,7 +136,7 @@ async function main() {
 
         res.setHeader('Content-Type', 'text/html');
 
-        return res.status(200).end(html);
+        return res.status(statusCode).end(html);
       } catch (e) {
         // Handle possible redirections thrown by the render function.
         if (e instanceof Response && e.status >= 300 && e.status <= 399) {

@@ -1,15 +1,16 @@
 import { CardListSkeleton } from '@/components/skeletonLoaders';
+import { NotFoundError } from '@/errors';
 import { ProjectNewsAndEventsQuery, ProjectNewsAndEventsQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '@/reactRouterPlugins';
 import { required } from '@/utils/required';
 import { sortByNewToOld } from '@/utils/sort';
 import { useMemo } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
 import { HelpLine } from '../../../../components/helpText';
 import { NoResultsTab } from '../components/noResultsTab';
 import { EventResult } from '../event/eventResult';
 import { NewsResult } from '../news/newsResult';
-import { FormattedMessage } from 'react-intl';
 
 const PROJECT_NEWS_QUERY = /* GraphQL */ `
   query ProjectNewsAndEvents($key: String!) {
@@ -45,7 +46,7 @@ export function projectNewsAndEventsLoader({ params, graphql }: LoaderArgs) {
 export function ProjectNewsAndEventsTab() {
   const { data } = useLoaderData() as { data: ProjectNewsAndEventsQuery };
 
-  if (data.gbifProject == null) throw new Error('404');
+  if (data.gbifProject == null) throw new NotFoundError();
   const resource = data.gbifProject;
 
   const sortedNewsAndEvents = useMemo(

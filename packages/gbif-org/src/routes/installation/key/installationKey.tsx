@@ -7,6 +7,7 @@ import {
 } from '@/components/headerComponents';
 import { FeatureList, GenericFeature, Homepage } from '@/components/highlights';
 import PageMetaData from '@/components/PageMetaData';
+import { NotFoundError } from '@/errors';
 import { InstallationQuery, InstallationQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
@@ -67,7 +68,7 @@ export async function installationLoader({ params, graphql }: LoaderArgs) {
 export function InstallationPage() {
   const { data } = useLoaderData() as { data: InstallationQuery };
 
-  if (data.installation == null) throw new Error('404');
+  if (data.installation == null) throw new NotFoundError();
   const { installation } = data;
 
   const deletedAt = installation.deleted;

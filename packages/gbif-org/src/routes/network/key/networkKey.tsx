@@ -14,6 +14,7 @@ import {
 } from '@/components/highlights';
 import PageMetaData from '@/components/PageMetaData';
 import { Tabs } from '@/components/tabs';
+import { NotFoundError } from '@/errors';
 import { NetworkQuery, NetworkQueryVariables, PredicateType } from '@/gql/graphql';
 import { DynamicLink, LoaderArgs } from '@/reactRouterPlugins';
 import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitle';
@@ -64,7 +65,7 @@ export async function networkLoader({ params, graphql }: LoaderArgs) {
 export function NetworkPage() {
   const { data } = useLoaderData() as { data: NetworkQuery };
 
-  if (data.network == null) throw new Error('404');
+  if (data.network == null) throw new NotFoundError();
   const { network, occurrenceSearch, literatureSearch } = data;
 
   const deletedAt = network.deleted;

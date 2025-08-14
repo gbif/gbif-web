@@ -16,6 +16,7 @@ import {
 } from '@/components/highlights';
 import PageMetaData from '@/components/PageMetaData';
 import { Tabs } from '@/components/tabs';
+import { NotFoundError } from '@/errors';
 import {
   PublisherQuery,
   PublisherQueryVariables,
@@ -151,7 +152,7 @@ export function PublisherPage() {
     }
   }, [data.publisher, load]);
 
-  if (data.publisher == null) throw new Error('404');
+  if (data.publisher == null) throw new NotFoundError();
   const { publisher } = data;
   const { occurrenceSearch, hostedDatasets, literatureSearch, hostedOccurrences } = slowData ?? {};
 

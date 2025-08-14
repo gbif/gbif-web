@@ -1,7 +1,6 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { ErrorImage } from '@/components/icons/icons';
 import { Button } from '@/components/ui/button';
-import { UnexpectedLoaderError } from '@/errors';
 import { NotFoundPage } from '@/notFoundPage';
 import React from 'react';
 import { useRouteError } from 'react-router-dom';
@@ -13,9 +12,8 @@ export function RootErrorPage(): React.ReactElement {
     return <NotFoundPage />;
   }
 
-  if (error instanceof UnexpectedLoaderError) {
-    // TODO: Handle
-    console.error(error);
+  if (typeof error === 'object' && error != null && 'status' in error && error.status === 404) {
+    return <NotFoundPage />;
   }
 
   const url = typeof window !== 'undefined' ? window.location.href : 'Unknown URL';

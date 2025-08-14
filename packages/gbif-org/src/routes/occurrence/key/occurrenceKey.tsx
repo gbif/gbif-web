@@ -19,6 +19,7 @@ import { Tabs } from '@/components/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
+import { NotFoundError } from '@/errors';
 import {
   OccurrenceIssue,
   OccurrenceQuery,
@@ -339,7 +340,7 @@ export function OccurrenceKey() {
     config?.vernacularNames?.sourceTitle,
   ]);
 
-  if (data?.occurrence == null) throw new Error('404');
+  if (data?.occurrence == null) throw new NotFoundError();
   const occurrence = data.occurrence;
   const slowOccurrence = slowData?.occurrence;
 

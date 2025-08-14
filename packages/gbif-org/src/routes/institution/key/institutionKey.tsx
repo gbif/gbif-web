@@ -1,4 +1,5 @@
 import { useConfig } from '@/config/config';
+import { NotFoundError } from '@/errors';
 import {
   InstitutionFallbackImageQuery,
   InstitutionFallbackImageQueryVariables,
@@ -86,7 +87,7 @@ export function InstitutionKey() {
     }
   }, [data.institution?.key, slowLoad, imageLoad]);
 
-  if (data.institution == null) throw new Error('404');
+  if (data.institution == null) throw new NotFoundError();
   return (
     <Presentation
       data={data}
