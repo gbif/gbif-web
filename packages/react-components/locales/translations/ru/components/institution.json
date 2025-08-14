@@ -3,5 +3,6 @@
   "type": "Тип организации",
   "addCollection": "Добавить коллекцию",
   "disciplines": "Направления исследований",
+  "numberSpecimens": "Количество образцов в учреждении",
   "unknownCollectionCodesForInstitution": "Такие неизвестные коды сбора коллекций связаны с этим учреждением"
 }
