@@ -81,6 +81,7 @@ async function main() {
 
   if (!IS_PRODUCTION) {
     const vite = await import('vite');
+
     viteDevServer = await vite.createServer({
       root: process.cwd(),
       server: { middlewareMode: true },
@@ -103,14 +104,22 @@ async function main() {
     try {
       let template;
       let render;
+      let fallbackHtmlFile;
 
       if (!IS_PRODUCTION) {
         template = await fsp.readFile('gbif/index.html', 'utf8');
         template = await viteDevServer.transformIndexHtml(url, template);
         render = (await viteDevServer.ssrLoadModule('src/gbif/entry.server.tsx')).render;
+
+        // Load fallback html file
+        fallbackHtmlFile = await fsp.readFile('gbif/fallback.html', 'utf8');
+        fallbackHtmlFile = await viteDevServer.transformIndexHtml(url, fallbackHtmlFile);
       } else {
         template = await fsp.readFile('dist/gbif/client/gbif/index.html', 'utf8');
         render = (await import('../dist/gbif/server/entry.server.js')).render;
+
+        // Load fallback html file
+        fallbackHtmlFile = await fsp.readFile('dist/gbif/client/gbif/fallback.html', 'utf8');
       }
 
       try {
@@ -134,9 +143,29 @@ async function main() {
           return res.redirect(e.status, e.headers.get('Location'));
         }
 
-        throw e;
+        // Try to extract a status property from the error. If no status is provided just fall back to status 500.
+        let status = 500;
+        if (
+          typeof e === 'object' &&
+          'status' in e &&
+          typeof e.status === 'number' &&
+          Number.isInteger(e.status)
+        ) {
+          status = e.status;
+        }
+
+        res
+          .setHeader('Content-Type', 'text/html')
+          .setHeader('Cache-Control', 'no-cache')
+          .status(status)
+          .send(fallbackHtmlFile);
+
+        return;
       }
     } catch (error) {
+      // This catch block could be reached and is not a pretty view for the end user, but is i very unlikely as it will only happen if the build files can't be found.
+      // This will never happen in real life once our end to end tests are in use as the entire site wouldn't work.
+
       if (!IS_PRODUCTION) {
         viteDevServer.ssrFixStacktrace(error);
       }

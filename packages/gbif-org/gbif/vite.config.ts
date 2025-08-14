@@ -1,6 +1,6 @@
+import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'url';
 import { defineConfig, UserConfig } from 'vite';
-import react from '@vitejs/plugin-react';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
 // https://vitejs.dev/config/
@@ -19,7 +19,10 @@ export default defineConfig(({ command }) => {
       emptyOutDir: true,
       outDir: './dist/gbif/client',
       rollupOptions: {
-        input: fileURLToPath(new URL('./index.html', import.meta.url)),
+        input: {
+          main: fileURLToPath(new URL('./index.html', import.meta.url)),
+          fallback: fileURLToPath(new URL('./fallback.html', import.meta.url)),
+        },
       },
     },
     resolve: {

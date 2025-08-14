@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html class="g-m-0 g-p-0">
+  <head>
+    <!--head-html-->
+    <!-- <title>GBIF</title> -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://rsms.me/inter/inter.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/index.css" />
+    <!-- Used with react devtools locally. The browser extension can't process expensive profiling -->
+    <!-- <script src="http://localhost:8097"></script> -->
+
+    <!-- For testing: can be useful to add to test conflicts with hosted portal theming and other sites - should not be permanently included -->
+    <!-- <link rel="stylesheet" href="https://hp-theme.gbif-staging.org/assets/theme/css/main.css?v=1718345869" />
+    <link rel="stylesheet" href="https://hp-theme.gbif-staging.org/assets/theme/css/font-awesome.min.css" /> -->
+  </head>
+  <body style="margin: 0; padding: 0">
+    <div id="app" class="gbif"><!--app-html--></div>
+    <script type="module" src="/src/gbif/entry.fallback.tsx"></script>
+  </body>
+</html>
