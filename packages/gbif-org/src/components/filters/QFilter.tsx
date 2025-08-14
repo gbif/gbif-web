@@ -49,7 +49,14 @@ export const QFilter = React.forwardRef<HTMLInputElement, QFilterProps>(
             }}
           />
         </div>
-        <ApplyCancel onApply={onApply} onCancel={onCancel} pristine={pristine} />
+        <ApplyCancel
+          onApply={() => {
+            const filter = add(filterHandle, q);
+            onApply?.({ keepOpen: false, filter });
+          }}
+          onCancel={onCancel}
+          pristine={pristine}
+        />
       </div>
     );
   }
