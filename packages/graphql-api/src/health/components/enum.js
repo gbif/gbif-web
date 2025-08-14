@@ -1,13 +1,13 @@
-import got from 'got';
-import hash from 'object-hash';
-import { get, zipObject, difference } from 'lodash';
-import { gql } from 'apollo-server';
 import config from '#/config';
 import { getSchema } from '#/helpers/enums';
 import prevVersionEnums from '#/helpers/enums/enums.json';
+import { gql } from 'apollo-server';
+import got from 'got';
+import { difference, get, zipObject } from 'lodash';
+import hash from 'object-hash';
 
 const { apiv1: API_V1 } = config;
-const interval = get(config, 'healthUpdateFrequency.enums', 30000);
+const interval = get(config, 'healthUpdateFrequency.enums', 15 * 60 * 1000); // milliseconds
 let status = { status: 'ok', message: null, error: null };
 
 async function getEnumData(url) {
@@ -142,4 +142,4 @@ if (!config.apiv1) {
   update();
 }
 
-export { getEnumStatus, loadEnums, schemaIsValid, getEnumData };
+export { getEnumData, getEnumStatus, loadEnums, schemaIsValid };
