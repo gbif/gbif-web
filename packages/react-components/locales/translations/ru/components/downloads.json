@@ -10,9 +10,9 @@
     "originalDownloadDOI": "Набор данных, полученный в результате загрузки"
   },
   "downloadKey": {
-    "nOccurrencesDownloaded": "",
-    "nRecordsDownloaded": "",
-    "nRowsDownloaded": "",
+    "nOccurrencesDownloaded": "{total, plural, one {# событие } other {# событий}} загружено",
+    "nRecordsDownloaded": "{total, plural, one {# запись } other {# записей}} загружено",
+    "nRowsDownloaded": "{total, plural, one {# строка } other {# строк}} загружено",
     "nConstituentDatasets": "Включены записи{total, plural, one {# набора данных} other {# наборов данных}}",
     "fileNotAvailable": "Этот файл больше не доступен для скачивания",
     "downloadDeletionWarning": "Эта загрузка не была упомянута и отмечена для удаления после {DATE}.",
@@ -135,7 +135,7 @@
         "IUCN_RED_LIST_CATEGORY": "Категория красного списка МСОП (IUCN Red List)",
         "PATHWAY": "Фильтрация путей",
         "NETWORK_KEY": "Сеть",
-        "DWCA_EXTENSION": "",
+        "DWCA_EXTENSION": "Расширение DWCA в контексте Darwin Core Archives (DwC-A)",
         "ACCEPTED_TAXON_KEY": "Допустимый таксон",
         "CONTINENT": "Континент",
         "OTHER_CATALOG_NUMBERS": "Другие номера в каталоге",
