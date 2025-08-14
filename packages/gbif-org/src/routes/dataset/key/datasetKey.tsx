@@ -1,4 +1,6 @@
 import { DataHeader } from '@/components/dataHeader';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { PublisherLabel } from '@/components/filters/displayNames';
 import {
   defaultDateFormatProps,
   DeletedMessage,
@@ -10,6 +12,7 @@ import { LicenceTag } from '@/components/identifierTag';
 import PageMetaData from '@/components/PageMetaData';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
+import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
 import { NotFoundError } from '@/errors';
 import {
@@ -273,14 +276,30 @@ export function datasetLoader({ params, graphql }: LoaderArgs) {
 export const DatasetPageSkeleton = ArticleSkeleton;
 
 export function DatasetPage() {
+  const { toast } = useToast();
   const config = useConfig();
-  const { data } = useLoaderData() as { data: DatasetQuery };
+  const { errors, data } = useLoaderData() as {
+    data: DatasetQuery;
+    errors: Array<{ message: string; path: [string] }>;
+  };
 
   if (data.dataset == null) throw new NotFoundError();
   const dataset = data.dataset;
   const deletedAt = dataset.deleted;
   const contactThreshold = 6;
   const contactsCitation = dataset.contactsCitation?.filter((c) => c.abbreviatedName) || [];
+
+  useEffect(() => {
+    if (errors) {
+      if (!data.dataset) {
+        throw new Error('Failed to load dataset');
+      }
+      toast({
+        title: 'Unable to load all content',
+        variant: 'destructive',
+      });
+    }
+  }, [errors, toast, data]);
 
   const {
     data: occData,
@@ -472,19 +491,19 @@ export function DatasetPage() {
               dangerouslySetTitle={{ __html: dataset.title || 'No title provided' }}
             ></ArticleTitle>
 
-            {dataset.publishingOrganizationTitle && (
-              <div className="g-mt-2">
-                <FormattedMessage id="dataset.publishedBy" />{' '}
-                <DynamicLink
-                  className="hover:g-underline g-text-primary-500"
-                  to={`/publisher/${dataset.publishingOrganizationKey}`}
-                  pageId="publisherKey"
-                  variables={{ key: dataset.publishingOrganizationKey }}
-                >
-                  {dataset?.publishingOrganizationTitle}
-                </DynamicLink>
-              </div>
-            )}
+            <div className="g-mt-2">
+              <FormattedMessage id="dataset.publishedBy" />{' '}
+              <DynamicLink
+                className="hover:g-underline g-text-primary-500"
+                to={`/publisher/${dataset.publishingOrganizationKey}`}
+                pageId="publisherKey"
+                variables={{ key: dataset.publishingOrganizationKey }}
+              >
+                {dataset?.publishingOrganizationTitle ?? (
+                  <PublisherLabel id={dataset.publishingOrganizationKey} />
+                )}
+              </DynamicLink>
+            </div>
 
             {deletedAt && <DeletedMessage date={deletedAt} />}
 
@@ -548,7 +567,9 @@ export function DatasetPage() {
             contentMetrics: occData,
           }}
         >
-          <Outlet />
+          <ErrorBoundary type="PAGE">
+            <Outlet />
+          </ErrorBoundary>
         </DatasetKeyContext.Provider>
       </article>
     </>

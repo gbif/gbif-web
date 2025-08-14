@@ -135,7 +135,7 @@ export const getDatasetSchema = (dataset) => {
     dateModified: dataset.modified,
     publisher: {
       '@type': 'Organization',
-      name: dataset.publishingOrganization.title,
+      name: dataset?.publishingOrganizationTitle,
       url: _.get(dataset, 'publishingOrganization.homepage[0]'),
       logo: _.get(dataset, 'publishingOrganization.logoUrl'),
     },

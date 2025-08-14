@@ -3,6 +3,7 @@ import { ContactList } from '@/components/contactList';
 import * as charts from '@/components/dashboard';
 import DashBoardLayout from '@/components/dashboard/DashboardLayout';
 import EmptyValue from '@/components/emptyValue';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { HyperText } from '@/components/hyperText';
 import { MapThumbnail, MapTypes, useHasMap } from '@/components/maps/mapThumbnail';
 import { Message } from '@/components/message';
@@ -250,8 +251,8 @@ export function DatasetKeyAbout() {
   const withYearPercentage = formatAsPercentage(withYear / total);
   const withTaxonMatchPercentage = formatAsPercentage(withTaxonMatch / total);
 
-  const synonymsPercentage = formatAsPercentage(synonyms.count / totalTaxa.count);
-  const acceptedPercentage = formatAsPercentage(accepted.count / totalTaxa.count);
+  const synonymsPercentage = formatAsPercentage(synonyms?.count / totalTaxa?.count);
+  const acceptedPercentage = formatAsPercentage(accepted?.count / totalTaxa?.count);
   const gbifOverlap = dataset.metrics?.nubCoveragePct;
   const colOverlap = dataset.metrics?.colCoveragePct;
 
@@ -518,7 +519,9 @@ export function DatasetKeyAbout() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <Registration dataset={dataset} />
+                <ErrorBoundary type="BLOCK" showReportButton={false} showStackTrace={false}>
+                  <Registration dataset={dataset} />
+                </ErrorBoundary>
               </CardContent>
             </Card>
             <Card className="g-mb-4 gbif-word-break" id="citation">

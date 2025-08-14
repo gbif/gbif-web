@@ -19,7 +19,7 @@ const typeDef = gql`
       hl: Boolean
       qField: [TaxonSearchQField]
       query: TaxonSearchInput
-    ): TaxonSearchResult!
+    ): TaxonSearchResult
     backboneSearch(
       limit: Int
       offset: Int
@@ -35,7 +35,7 @@ const typeDef = gql`
       hl: Boolean
       qField: [TaxonSearchQField]
       query: TaxonSearchInput
-    ): TaxonSearchResult!
+    ): TaxonSearchResult
     taxon(key: ID!): Taxon
     checklistRoots(datasetKey: ID!, limit: Int, offset: Int): TaxonListResult
 

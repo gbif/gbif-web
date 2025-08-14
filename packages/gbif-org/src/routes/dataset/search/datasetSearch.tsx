@@ -1,12 +1,13 @@
+import { DownloadAsTSVLink } from '@/components/cardHeaderActions/downloadAsTSVLink';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
-import { DownloadAsTSVLink } from '@/components/cardHeaderActions/downloadAsTSVLink';
 import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
 import { NoRecords } from '@/components/noDataMessages';
 import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
 import { FilterContext, FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
@@ -65,6 +66,7 @@ export function DatasetSearchPage(): React.ReactElement {
 }
 
 export function DatasetSearch(): React.ReactElement {
+  const { toast } = useToast();
   const [offset, setOffset] = useIntParam({ key: 'offset', defaultValue: 0, hideDefault: true });
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
@@ -77,11 +79,23 @@ export function DatasetSearch(): React.ReactElement {
   const { data, error, load, loading } = useQuery<DatasetSearchQuery, DatasetSearchQueryVariables>(
     DATASET_SEARCH_QUERY,
     {
-      throwAllErrors: true,
+      throwAllErrors: false,
       lazyLoad: true,
       forceLoadingTrueOnMount: true,
     }
   );
+
+  // if there is an error and there are no data.datasetSearch.results, then throw an error, else try to show the entries we have and inform the user it was a partially loaded page
+  useEffect(() => {
+    if (error && (!data || !data.datasetSearch.results)) {
+      throw error;
+    } else if (error) {
+      toast({
+        title: 'Unable to load all content',
+        variant: 'destructive',
+      });
+    }
+  }, [data, error, toast]);
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });

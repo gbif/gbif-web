@@ -16,7 +16,7 @@ import {
 } from '@/components/highlights';
 import PageMetaData from '@/components/PageMetaData';
 import { Tabs } from '@/components/tabs';
-import { NotFoundError } from '@/errors';
+import { useToast } from '@/components/ui/use-toast';
 import {
   PublisherQuery,
   PublisherQueryVariables,
@@ -138,7 +138,8 @@ export async function publisherLoader({ params, graphql }: LoaderArgs) {
 }
 
 export function PublisherPage() {
-  const { data } = useLoaderData() as { data: PublisherQuery };
+  const { toast } = useToast();
+  const { data, errors } = useLoaderData() as { data: PublisherQuery };
   const {
     data: slowData,
     load,
@@ -152,7 +153,19 @@ export function PublisherPage() {
     }
   }, [data.publisher, load]);
 
-  if (data.publisher == null) throw new NotFoundError();
+  // if (data.publisher == null) throw new NotFoundError(); // TODO - handle nout found in data loader. at leat null is not a sufficient test
+  useEffect(() => {
+    if (errors) {
+      if (!data?.publisher) {
+        throw new Error('Failed to load dataset');
+      }
+      toast({
+        title: 'Unable to load all content',
+        variant: 'destructive',
+      });
+    }
+  }, [errors, toast, data]);
+
   const { publisher } = data;
   const { occurrenceSearch, hostedDatasets, literatureSearch, hostedOccurrences } = slowData ?? {};
 
