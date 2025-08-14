@@ -10,10 +10,10 @@
     "originalDownloadDOI": "Jeu de données dérivé d'un téléchargement"
   },
   "downloadKey": {
-    "nOccurrencesDownloaded": "",
-    "nRecordsDownloaded": "",
-    "nRowsDownloaded": "",
-    "nConstituentDatasets": "",
+    "nOccurrencesDownloaded": "{total, plural, one {# occurrence} other {# occurrences}} téléchargée(s)",
+    "nRecordsDownloaded": "{total, plural, one {# enregistrement} other {# enregistrements}} téléchargé(s)",
+    "nRowsDownloaded": "{total, plural, one {# ligne} other {# lignes}} téléchargée(s)",
+    "nConstituentDatasets": "Inclus les enregistrements de {total, plural, one {# jeu de données} other {# jeux de données}}",
     "fileNotAvailable": "Le fichier n'est plus disponible pour téléchargement",
     "downloadDeletionWarning": "Ce téléchargement n’a pas été cité et est éligible à la suppression après {DATE}.",
     "occurrenceDownload": "Téléchargement d'occurrence",
@@ -51,7 +51,7 @@
     "downloadKilled": "La requête de téléchargement a échoué. Veuillez essayer à nouveau ou entrer en contact avec nous.",
     "downloadDeleted": "Ce fichier a été supprimé. Si vous avez besoin qu'il soit restauré veuillez entrer en contact avec nous.",
     "downloadCancelled": "Le téléchargement a été annulé par son créateur.",
-    "downloadSuspended": "",
+    "downloadSuspended": "Le traitement du téléchargement a été suspendu.",
     "storageDurationTeaser": "Pendant combien de temps le GBIF va stocker ces données ?",
     "predatesDoi": "Ce téléchargement est antérieure à notre utilisation des DOI",
     "file": "Fichier",
@@ -83,7 +83,7 @@
       "not": "Non",
       "isNotNull": "Est défini",
       "isNull": "N'est pas défini",
-      "within": "",
+      "within": "Coordonnées à l'intérieur",
       "keys": {
         "EVENT_ID": "ID de l'événement",
         "DECIMAL_LONGITUDE": "Longitude décimale",
