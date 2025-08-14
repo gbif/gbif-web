@@ -70,10 +70,6 @@ export const notImplementedRoutes: RouteObjectWithPlugins[] = [
       },
     ],
   },
-  {
-    path: 'analytics/global',
-    element: <NotImplemented />,
-  },
 ];
 
 function NotImplemented() {
