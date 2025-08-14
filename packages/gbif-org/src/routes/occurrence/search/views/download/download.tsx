@@ -56,17 +56,17 @@ export function Download() {
   const q = currentFilterContext?.filter?.must?.q;
   const hasFreeTextSearch = q && q.length > 0;
 
-  let downloadQueryParams = '';
+  let downloadQueryParams = `?checklistKey=${defaultChecklistKey}`;
+
   try {
-    downloadQueryParams = data._variablesId
-      ? `?queryId=${data?._queryId}&variablesId=${data?._variablesId}`
+    downloadQueryParams += data._variablesId
+      ? `&queryId=${data?._queryId}&variablesId=${data?._variablesId}`
       : fullPredicate
-      ? `?predicate=${encodeURIComponent(JSON.stringify(fullPredicate))}`
+      ? `&predicate=${encodeURIComponent(JSON.stringify(fullPredicate))}`
       : '';
   } catch (e) {
     // ignore
   }
-  downloadQueryParams += `&checklistKey=${defaultChecklistKey}`;
 
   return (
     <div className="g-my-20 g-w-96 g-max-w-full g-mx-auto">

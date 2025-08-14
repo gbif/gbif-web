@@ -37,4 +37,30 @@ function SkeletonTable({ rows, columns }: { rows: number; columns: number }) {
   );
 }
 
+export function SkeletonParagraph({
+  className,
+  lines = 3,
+  ...props
+}: {
+  className?: string;
+  lines?: number;
+} & React.HTMLAttributes<HTMLParagraphElement>) {
+  return (
+    <>
+      {Array.from({ length: lines - 1 }).map((_, i) => (
+        <p
+          key={i}
+          className={`${skeletonClasses} ${className} g-inline-block g-mb-1 g-w-full`}
+          {...props}
+        >
+          Loading
+        </p>
+      ))}
+      <p className={`${skeletonClasses} ${className} g-inline-block g-mb-1 g-w-2/5`} {...props}>
+        Loading
+      </p>
+    </>
+  );
+}
+
 export { Skeleton, SkeletonTable };

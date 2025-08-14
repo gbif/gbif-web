@@ -3,11 +3,12 @@ import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { ErrorImage } from './icons/icons';
 import { Button } from './ui/button';
+import { Card } from './ui/smallCard';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
   invalidateOn?: string | number | boolean | object | null;
-  type?: 'PAGE' | 'BLOCK';
+  type?: 'PAGE' | 'BLOCK' | 'CARD';
   className?: string;
   title?: React.ReactNode;
   errorMessage?: React.ReactNode;
@@ -15,6 +16,7 @@ interface ErrorBoundaryProps {
   showStackTrace?: boolean;
   debugTitle?: string;
   additionalDebugInfo?: string;
+  fallback?: React.ReactNode;
 }
 
 interface ErrorBoundaryState {
@@ -55,17 +57,19 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     }
 
     return (
-      <ErrorComponent
-        error={error}
-        type={this.props.type ?? 'PAGE'}
-        className={this.props.className}
-        title={this.props.title}
-        errorMessage={this.props.errorMessage}
-        showReportButton={this.props.showReportButton}
-        showStackTrace={this.props.showStackTrace}
-        debugTitle={this.props.debugTitle}
-        additionalDebugInfo={this.props.additionalDebugInfo}
-      />
+      this.props.fallback ?? (
+        <ErrorComponent
+          error={error}
+          type={this.props.type ?? 'PAGE'}
+          className={this.props.className}
+          title={this.props.title}
+          errorMessage={this.props.errorMessage}
+          showReportButton={this.props.showReportButton}
+          showStackTrace={this.props.showStackTrace}
+          debugTitle={this.props.debugTitle}
+          additionalDebugInfo={this.props.additionalDebugInfo}
+        />
+      )
     );
   }
 }
@@ -80,7 +84,9 @@ export function ErrorComponent({
   showReportButton = true,
   showStackTrace,
   debugTitle,
-}: Omit<ErrorBoundaryProps, 'invalidateOn' | 'children'> & { error: Error }): React.ReactElement {
+}: Omit<ErrorBoundaryProps, 'invalidateOn' | 'children' | 'fallback'> & {
+  error: Error;
+}): React.ReactElement {
   const [showStack, setShowStack] = useState(false);
   const displayTitle = title ?? (
     <FormattedMessage id="error.generic" defaultMessage="Something went wrong" />
@@ -162,6 +168,17 @@ export function ErrorComponent({
         <ErrorImage className="g-w-24 g-flex-none" />
         <div className="g-flex-1 g-w-96">{commonContent}</div>
       </div>
+    );
+  }
+
+  if (type === 'CARD') {
+    return (
+      <Card>
+        <div className={cn('g-flex g-gap-4 g-py-4 g-items-start g-p-2', className)}>
+          <ErrorImage className="g-w-24 g-flex-none" />
+          <div className="g-flex-1 g-w-96">{commonContent}</div>
+        </div>
+      </Card>
     );
   }
 

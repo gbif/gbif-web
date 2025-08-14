@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FilterContext } from '@/contexts/filter';
 import { stringify } from '@/utils/querystring';
 import React, { useCallback, useContext } from 'react';
@@ -29,5 +30,9 @@ export default function ChartClickWrapper({ children, interactive, detailsRoute,
   );
 
   // return React.cloneElement(children, { handleRedirect, interactive, ...props });
-  return React.cloneElement(children, { handleRedirect, interactive, ...props });
+  return (
+    <ErrorBoundary type="CARD">
+      {React.cloneElement(children, { handleRedirect, interactive, ...props })}
+    </ErrorBoundary>
+  );
 }

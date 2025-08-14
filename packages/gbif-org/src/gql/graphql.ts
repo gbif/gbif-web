@@ -6089,9 +6089,9 @@ export type OccurrenceFacetResult_Dataset = {
   __typename?: 'OccurrenceFacetResult_dataset';
   _predicate?: Maybe<Scalars['JSON']['output']>;
   count: Scalars['Long']['output'];
-  dataset: Dataset;
+  dataset?: Maybe<Dataset>;
   key: Scalars['String']['output'];
-  occurrences: OccurrenceSearchResult;
+  occurrences?: Maybe<OccurrenceSearchResult>;
 };
 
 

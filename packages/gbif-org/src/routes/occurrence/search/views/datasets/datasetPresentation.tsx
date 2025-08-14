@@ -1,7 +1,9 @@
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { DatasetLabel } from '@/components/filters/displayNames';
 import { NoRecords } from '@/components/noDataMessages';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Skeleton, SkeletonParagraph } from '@/components/ui/skeleton';
 import { Card } from '@/components/ui/smallCard';
 import { Spinner } from '@/components/ui/spinner';
 import { ViewHeader } from '@/components/ViewHeader';
@@ -65,12 +67,28 @@ function DatasetResult({
   onSelect: ({ key }: { key: string }) => void;
 }) {
   return (
+    <ErrorBoundary type="BLOCK" fallback={<DatasetSkeleton />}>
+      <DatasetResultContent largest={largest} item={item} onSelect={onSelect} />
+    </ErrorBoundary>
+  );
+}
+
+function DatasetResultContent({
+  largest,
+  item,
+  onSelect,
+}: {
+  largest: number;
+  item: any;
+  onSelect: ({ key }: { key: string }) => void;
+}) {
+  return (
     <Card className="g-p-4 g-mb-2 g-relative">
       <DynamicLink
         className="g-z-10 g-absolute g-top-0 g-bottom-0 g-left-0 g-right-0"
-        to={`/dataset/${item.dataset.key}`}
+        to={`/dataset/${item.key}`}
         pageId="datasetKey"
-        variables={{ key: item.dataset.key }}
+        variables={{ key: item.key }}
         onClick={(event) => {
           if (
             event.ctrlKey ||
@@ -86,13 +104,16 @@ function DatasetResult({
         }}
       ></DynamicLink>
       <div className="g-flex g-flex-nowrap g-text-sm g-z-1">
-        <div className="g-flex-auto">{item.dataset.title}</div>
+        <div className="g-flex-auto">{item?.dataset?.title ?? <DatasetLabel id={item.key} />}</div>
         <span className="g-text-slate-500">
           <FormattedNumber value={item.count} />
         </span>
       </div>
       <Progress value={(100 * item.count) / largest} className="g-h-1 g-mt-1" />
-      <div className="g-mt-2 g-text-sm g-text-slate-500">{item.dataset.excerpt}</div>
+
+      <div className="g-mt-2 g-text-sm g-text-slate-500">
+        {item.dataset ? item.dataset.excerpt : <SkeletonParagraph lines={2} />}
+      </div>
     </Card>
   );
 }

@@ -17,6 +17,7 @@ import { FormattedDateRange } from '@/components/message';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
 import {
   OccurrenceIssue,
@@ -270,9 +271,9 @@ export async function occurrenceKeyLoader({ params, graphql }: LoaderArgs) {
   if (result.errors?.some((error) => error.message === '404: Not Found')) {
     return redirect('fragment');
   }
-
   return result;
 }
+
 export const OccurrenceKeyContext = createContext<{
   key?: string;
   datasetKey?: string;
@@ -294,10 +295,23 @@ const notableCoordinateIssues = [
 ];
 
 export function OccurrenceKey() {
-  const { data } = useLoaderData() as { data: OccurrenceQuery };
+  const { toast } = useToast();
+  const { data, errors } = useLoaderData() as {
+    data: OccurrenceQuery;
+    errors: Array<{ message: string; path: [string] }>;
+  };
   const hideGlobe = useBelow(800);
   const config = useConfig();
   const { locale } = useI18n();
+
+  useEffect(() => {
+    if (errors) {
+      toast({
+        title: 'Unable to load all content',
+        variant: 'destructive',
+      });
+    }
+  }, [errors, toast]);
 
   const {
     data: slowData,

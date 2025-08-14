@@ -543,8 +543,8 @@ const typeDef = gql`
   type OccurrenceFacetResult_dataset {
     key: String!
     count: Long!
-    dataset: Dataset!
-    occurrences(size: Int, from: Int): OccurrenceSearchResult!
+    dataset: Dataset
+    occurrences(size: Int, from: Int): OccurrenceSearchResult
     _predicate: JSON
   }
 
