@@ -1,7 +1,7 @@
 {
   "numberOfOccurrences": "Počet výskytů",
   "addNew": "Nový",
-  "removeEmptyGroup": "",
+  "removeEmptyGroup": "Odebrat prázdnou skupinu",
   "newGroup": "Přidat novou skupinu",
   "invalidLayoutWarning": "",
   "adaptLayout": "",
