@@ -1,7 +1,10 @@
 {
+  "position": "Pozice",
+  "organization": "Ogranizace",
   "email": "E-mail",
   "address": "Adresa",
   "phone": "Telefon",
   "roles": "Role",
+  "userId": "ID uživatele",
   "name": "Jméno"
 }

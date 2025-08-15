@@ -5,7 +5,7 @@
     "metrics": "Metriky",
     "publishersHomepage": "Domovská stránka"
   },
-  "joinedDate": "",
+  "joinedDate": "Připojen {date}",
   "newPublisher": "Nový vydavatel",
   "technicalContact": "Technický kontakt",
   "country": "Země nebo oblast",
@@ -16,7 +16,7 @@
   "pendingEndorsementBy": "Čeká se na schválení od",
   "endorsementWithheld": "Schválení odmítnuto",
   "installations": "Instalace",
-  "getDownloadReport": "",
+  "getDownloadReport": "Stáhnout hlášení o aktivitě",
   "contacts": "Kontakty",
   "administrativeContact": "Administrativní kontakt",
   "header": {

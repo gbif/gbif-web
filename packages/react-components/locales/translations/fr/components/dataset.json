@@ -87,7 +87,7 @@
   "license": "Licence",
   "recommended": "Recommandé",
   "processedOccurrences": "Archive annotée par GBIF",
-  "processedOccurrencesDescription": "",
+  "processedOccurrencesDescription": "Téléchargez les enregistrements d'occurrence après traitement GBIF. Lors du traitement, les noms, dates, etc. sont normalisés. Les données sont également enrichies d'informations provenant d'autres sources.",
   "noDescriptionProvided": "Aucune description disponible",
   "pNetwork": "{NUMBER, select, 1{Réseau} other{Réseaux}}",
   "parentEvent": "Evénement principal",
@@ -146,7 +146,7 @@
     "lastIngestionFailed": "La dernière ingestion a échoué",
     "outOfSync": "Non-synchronisé",
     "becauseTrustedContact": "Parce que vous êtes contact de confiance",
-    "registrationDetails": ""
+    "registrationDetails": "Détails sur l'enregistrement auprès du GBIF"
   },
   "errors": {
     "evenList": "",

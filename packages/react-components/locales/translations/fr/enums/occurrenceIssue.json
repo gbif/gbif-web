@@ -19,6 +19,7 @@
   "COUNTRY_MISMATCH": "Incompatibilité de pays",
   "COUNTRY_INVALID": "Pays non valide",
   "COUNTRY_DERIVED_FROM_COORDINATES": "Pays déduit à partir des coordonnées",
+  "CONTINENT_COORDINATE_MISMATCH": "Incompatibilité entre les coordonnées et le continent",
   "CONTINENT_COUNTRY_MISMATCH": "Incompatibilité entre continent et pays",
   "CONTINENT_INVALID": "Continent non valide",
   "CONTINENT_DERIVED_FROM_COUNTRY": "Continent dérivé du pays",

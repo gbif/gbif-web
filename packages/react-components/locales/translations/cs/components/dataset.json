@@ -80,14 +80,14 @@
   "additionalInfo": "Doplňující informace",
   "publishingCountriesAreas": "Země a oblasti zveřejnění",
   "originalArchive": "Archiv zdrojů",
-  "originalArchiveDescription": "",
-  "checklistBankDownload": "",
-  "checklistBankDownloadDescription": "",
+  "originalArchiveDescription": "Zdrojový archiv obsahuje data publikovaná v GBIF bez jakékoli normalizace nebo zpracování prostřednictvím GBIF.",
+  "checklistBankDownload": "Stáhnout z ChecklistBank",
+  "checklistBankDownloadDescription": "Tento archivovaný soubor byl do GBIF zaslán prostřednictvím ChecklistBank. ChecklistBank nabízí několik formátů ke stažení a také možnosti filtrování seznamů před stažením.",
   "annotatedEml": "popsaná metadata GBIF",
   "license": "Licence",
   "recommended": "Doporučeno",
-  "processedOccurrences": "",
-  "processedOccurrencesDescription": "",
+  "processedOccurrences": "Archiv výskytů s anotacemi GBIF",
+  "processedOccurrencesDescription": "Stáhněte si záznamy o výskytu po zpracování GBIF. Během zpracování jsou jména, data atd. normalizovány. Data jsou také obohacena o informace z jiných zdrojů.",
   "noDescriptionProvided": "Popis není k dispozici",
   "pNetwork": "{NUMBER, plural, one{Síť} few {Sítě} many {Sítí} other{Sítí}}",
   "parentEvent": "Nadřazená událost",
@@ -146,7 +146,7 @@
     "lastIngestionFailed": "Poslední ingesce selhala",
     "outOfSync": "Nesynchronizované",
     "becauseTrustedContact": "Protože jste důvěryhodný kontakt",
-    "registrationDetails": ""
+    "registrationDetails": "Podrobnosti o registraci GBIF"
   },
   "errors": {
     "evenList": "",

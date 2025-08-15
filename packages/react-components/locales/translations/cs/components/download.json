@@ -1,4 +1,9 @@
 {
+  "unsupported.title": "Nepodporovaný dotaz",
+  "unsupported.description": "Volné textové vyhledávání lze použít k průzkumu, ale nemá podporu stahování.",
+  "unsupported.remove": "Odebrat filtr",
+  "unsupported.error": "Tento dotaz se zdá být nepodporovaný",
   "download": "Stáhnout",
+  "redirectNotice": "Chystáte se stahovat, budete přesměrováni na GBIF.org. \n\n\n Upozorňujeme, že ke stažení obsahu je nutný účet.",
   "continueToGBIF": "Pokračovat"
 }

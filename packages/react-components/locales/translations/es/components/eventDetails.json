@@ -11,10 +11,10 @@
   "collection": "Colección",
   "collectionGrSciColl": "Colección GrSciColl",
   "recordedAndIdentifiedBy": "Registrado e identificado por",
-  "eventTypeHierarchyJoined": "",
-  "eventHierarchyJoined": "",
-  "map": "",
-  "backToTaxa": "",
+  "eventTypeHierarchyJoined": "Jerarquía del tipo de evento",
+  "eventHierarchyJoined": "Jerarquía del evento",
+  "map": "Mapa de ubicación",
+  "backToTaxa": "Volver a los taxones de eventos",
   "siteLocation": "",
   "info": {
     "original": "Original",
@@ -34,11 +34,11 @@
     "organism": "Organismo",
     "materialSample": "Muestra de material",
     "geologicalContext": "Contexto geológico",
-    "measurementsOrFacts": "",
+    "measurementsOrFacts": "Medidas",
     "images": "Multimedia",
     "other": "Otro",
     "methodology": "Metodología",
-    "taxonomicCoverage": ""
+    "taxonomicCoverage": "Cobertura taxonómica"
   },
   "siteTooltip": "",
   "siteTableLegend": "",
