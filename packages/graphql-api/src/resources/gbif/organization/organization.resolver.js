@@ -1,4 +1,4 @@
-import { excerpt } from '#/helpers/utils';
+import { excerpt, getHtml } from '#/helpers/utils';
 import { getThumborUrl } from '../resource/misc/misc.resolver';
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -48,6 +48,12 @@ export default {
       return dataSources.nodeAPI.getNodeByKey({ key });
     },
     excerpt: (src) => excerpt({ body: src.description }),
+    description: (src, _, { locale }) =>
+      getHtml(src.description, {
+        trustLevel: 'untrusted',
+        wrapTables: true,
+        locale,
+      }),
     thumborLogoUrl: ({ logoUrl: url }, { fitIn, width = '', height = '' }) =>
       getThumborUrl({ url, fitIn, width, height }),
     occurrenceCount: ({ key }, args, { dataSources }) => {
