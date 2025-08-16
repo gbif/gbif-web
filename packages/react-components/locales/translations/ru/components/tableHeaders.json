@@ -1,18 +1,18 @@
 {
-  "features": "",
+  "features": "Характеристики",
   "options": {
     "includeAuthorship": ""
   },
   "citations": "Цитирования",
   "occurrences": "Находки",
-  "numberSpecimens": "",
+  "numberSpecimens": "Число образцов",
   "gbifNumberSpecimens": "Образцы в GBIF",
   "specimenTriplet": "",
   "title": "Название",
-  "titleAndAbstract": "",
-  "altmetric": "",
+  "titleAndAbstract": "Название и аннотация",
+  "altmetric": "Альтметрический",
   "registered": "Зарегистрирована",
-  "hostedDatasets": "",
+  "hostedDatasets": "Размещённые наборы данных",
   "pubDatasets": "{NUMBER, plural,\n0 {Опубликованных наборов данных}\none {Опубликованный набор данных}\nfew {Опубликованных набора данных}\nmany {Опубликованных наборов данных}\nother {Опубликованных набора данных}\n}",
   "commonName": "Общепринятое название",
   "images": "Мультимедиа",
