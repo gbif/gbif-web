@@ -620,7 +620,7 @@
   },
   "code": {
     "name": "Акроним",
-    "count": "",
+    "count": "{num, plural, one { код } other {# коды}}",
     "description": "Архив, аннотированный GBIF"
   },
   "verbatimScientificName": {
