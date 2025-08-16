@@ -518,24 +518,24 @@
     "description": "Typ měření."
   },
   "measurementOrFactCount": {
-    "name": "",
+    "name": "Počet měření",
     "count": "",
-    "description": ""
+    "description": "Počet daného typu měření."
   },
   "occurrenceCount": {
     "name": "Počet výskytů",
     "count": "",
-    "description": ""
+    "description": "Počet výskytů události"
   },
   "eventType": {
-    "name": "",
+    "name": "Typ události",
     "count": "",
-    "description": ""
+    "description": "Typ události odběru vzorků."
   },
   "dataStructure": {
-    "name": "",
+    "name": "Struktura",
     "count": "",
-    "description": ""
+    "description": "Struktura dat pro událost odběru vzorků."
   },
   "samplingProtocol": {
     "name": "Protokol o odběru vzorků",
@@ -570,27 +570,27 @@
   "active": {
     "name": "Aktivní",
     "count": "Aktivní",
-    "description": ""
+    "description": "Zda záznam odpovídá aktivní sbírce/instituci nebo historickému záznamu, který již neexistuje."
   },
   "activeInstitution": {
     "name": "Aktivní",
     "count": "Aktivní",
-    "description": ""
+    "description": "Zda záznam odpovídá aktivní instituci nebo historickému záznamu, který již neexistuje."
   },
   "activeCollection": {
     "name": "Aktivní",
     "count": "Aktivní",
-    "description": ""
+    "description": "Zda záznam odpovídá aktivní sbírce nebo historickému seznamu, který již neexistuje."
   },
   "publicationDate": {
     "name": "Datum zveřejnění",
     "count": "",
-    "description": ""
+    "description": "Kdy byl záznam zveřejněn"
   },
   "personalCollection": {
     "name": "Osobní sbírka",
     "count": "Osobní sbírka",
-    "description": ""
+    "description": "Vybírá soukromé nebo osobní sbírky"
   },
   "datasetType": {
     "name": "Typ datové sady",
@@ -610,18 +610,18 @@
   "name": {
     "name": "Název",
     "count": "{num, plural, one {název} few {# názvy} many {# názvů} other {# názvů}}",
-    "description": "",
-    "searchPlaceholder": ""
+    "description": "Název subjektu",
+    "searchPlaceholder": "Hledat podle názvu/jména"
   },
   "city": {
     "name": "Město",
     "count": "{num, plural, one {město} few {# města} many {# měst} other {# měst}}",
-    "description": ""
+    "description": "Město, ve kterém se nachází instituce/sbírka."
   },
   "code": {
     "name": "Kód",
     "count": "{num, plural, one {kód} few {# kódy} many {# kódů} other {# kódů}}",
-    "description": ""
+    "description": "Primární kód, který identifikuje záznam jako celek. Pokud nezískáte žádný výsledek, zkuste alternativní filtr kódů."
   },
   "verbatimScientificName": {
     "name": "Přesný vědecký název",
