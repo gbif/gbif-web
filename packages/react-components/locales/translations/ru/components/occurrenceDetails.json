@@ -527,37 +527,37 @@
         "ratioOfAbsorbance260_230": "Соотношение поглощения (260/230 нм)",
         "ratioOfAbsorbance260_280": "Соотношение поглощения (260/280 нм)",
         "volume": "Том",
-        "volumeUnit": "",
-        "weight": "",
-        "weightUnit": "",
-        "methodDeterminationWeight": "",
+        "volumeUnit": "Единица объема",
+        "weight": "Вес",
+        "weightUnit": "Единица веса",
+        "methodDeterminationWeight": "Метод определения веса",
         "purificationMethod": "Метод очистки",
-        "qualityCheckDate": "",
-        "quality": "",
-        "qualityRemarks": "",
-        "samp_size": "",
-        "sieving": "",
-        "DNADNAHybridization": "",
-        "DNAMeltingPoint": "",
-        "estimated_size": "",
-        "pool_dna_extracts": "",
-        "sampleDesignation": ""
+        "qualityCheckDate": "Дата проверки качества",
+        "quality": "Качество",
+        "qualityRemarks": "Замечания по качеству",
+        "samp_size": "Размер образца",
+        "sieving": "Просеивание",
+        "DNADNAHybridization": "ДНК-ДНК-гибридизация",
+        "DNAMeltingPoint": "Точка плавления ДНК",
+        "estimated_size": "Предполагаемый размер",
+        "pool_dna_extracts": "Экстракты ДНК из пула",
+        "sampleDesignation": "Обозначение образца"
       }
     },
     "permit": {
-      "name": "",
+      "name": "Разрешение",
       "properties": {
-        "permitType": "",
-        "permitStatus": "",
-        "permitStatusQualifier": "",
-        "permitURI": "",
-        "permitText": ""
+        "permitType": "Тип разрешения",
+        "permitStatus": "Статус разрешения",
+        "permitStatusQualifier": "Квалификатор статуса разрешения",
+        "permitURI": "URI разрешения",
+        "permitText": "Текст разрешения"
       }
     },
     "preparation": {
       "name": "Препарирование",
       "properties": {
-        "preparationType": "",
+        "preparationType": "Тип подготовки",
         "preparationProcess": "",
         "preparationMaterials": "",
         "preparedBy": "",
