@@ -615,7 +615,7 @@
   },
   "city": {
     "name": "Город",
-    "count": "",
+    "count": "{num, plural, one { город } other {# городов}}",
     "description": "Город, в котором находится учреждение/коллекция."
   },
   "code": {
@@ -630,7 +630,7 @@
   },
   "networkKey": {
     "name": "Сеть",
-    "count": "",
+    "count": "{num, plural, one {# сеть } other {# сетей}}",
     "description": "Здесь следует разместить краткое описание компонента."
   },
   "literatureType": {
