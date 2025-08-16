@@ -47,17 +47,17 @@
     "entryPoint": "Точка входа",
     "hasMultipleTaxonKeys": "Содержит различные идентификаторы",
     "aboutLink": "О ссылке",
-    "isCapped": "",
-    "isDeleted": "",
-    "similarities": "",
-    "currentRecord": "",
+    "isCapped": "У этого узла больше соединений, чем показано здесь. Перейдите к записи, чтобы увидеть полный список.",
+    "isDeleted": "Эта запись была удалена",
+    "similarities": "Сходства",
+    "currentRecord": "Текущая запись",
     "nodeType": {
       "IMAGE": "Изображение",
       "TYPE": "Типовой образец",
       "TREATMENT": "Обработка",
       "OBSERVATION": "Наблюдение",
       "SPECIMEN": "Образец",
-      "SEQUENCE": ""
+      "SEQUENCE": "Последовательность"
     }
   },
   "crossContentSearch": {
