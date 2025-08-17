@@ -239,8 +239,8 @@
         "safetyDuplicationRemarks": "",
         "treatyOrRegulationID": "Идентификатор договора или постановления",
         "treatyOrRegulationName": "Название договора или постановления",
-        "treatyOrRegulationGoverningBody": "",
-        "mlsStatus": ""
+        "treatyOrRegulationGoverningBody": "Договор или регулирующий орган",
+        "mlsStatus": "Многосторонняя система доступа к генетическим ресурсам International Treaty on Plant Genetic Resources for Food and Agriculture (ITPGRFA)"
       }
     },
     "germplasmMeasurementScore": {
@@ -257,24 +257,24 @@
         "measurementRemarks": "Замечания к измерению",
         "germplasmID": "Идентификатор зародышевой плазмы",
         "germplasmIdentifier": "Определитель идентификатора зародышевой плазмы",
-        "measurementTraitID": "",
-        "measurementTraitIdentifier": "",
+        "measurementTraitID": "Идентификатор признака измерения",
+        "measurementTraitIdentifier": "Идентифицирующий признак измерения",
         "measurementTraitName": "Название характеристики измерения",
         "measurementTrialID": "Идентификатор испытания измерения",
-        "measurementTrialIdentifier": "",
-        "measurementByInstituteID": "",
+        "measurementTrialIdentifier": "Идентификатор испытания измерения",
+        "measurementByInstituteID": "Идентификатор института измерения",
         "measurementGrowthStage": "Измерение стадии роста"
       }
     },
     "germplasmMeasurementTrait": {
-      "name": "",
+      "name": "Зародышевая плазма: признак измерения",
       "properties": {
-        "measurementTraitID": "",
-        "measurementTraitIdentifier": "",
+        "measurementTraitID": "Идентификатор признака измерения",
+        "measurementTraitIdentifier": "Идентифицирующий признак измерения",
         "measurementTraitName": "Название характеристики измерения",
-        "measurementTraitCategory": "",
-        "measurementTraitScale": "",
-        "measurementTraitSource": "",
+        "measurementTraitCategory": "Категория признака измерения",
+        "measurementTraitScale": "Шкала измерения признаков",
+        "measurementTraitSource": "Источник признака измерения",
         "measurementTraitRemarks": "Замечания по характеристикам измерений",
         "measurementType": "Тип измерения",
         "measurementMethod": "Метод измерения"
@@ -457,20 +457,20 @@
       "name": "Связь ресурсов",
       "properties": {
         "resourceRelationshipID": "Идентификатор связи ресурсов",
-        "resourceID": "",
-        "relationshipOfResourceID": "",
+        "resourceID": "Идентификатор ресурса",
+        "relationshipOfResourceID": "Связь идентификаторов ресурсов",
         "relatedResourceID": "Идентификатор связанного ресурса",
-        "relationshipOfResource": "",
-        "relationshipAccordingTo": "",
-        "relationshipEstablishedDate": "",
-        "relationshipRemarks": ""
+        "relationshipOfResource": "Связь ресурсов",
+        "relationshipAccordingTo": "Связь согласно",
+        "relationshipEstablishedDate": "Дата установления связи",
+        "relationshipRemarks": "Замечания по связи"
       }
     },
     "cloning": {
       "name": "Клонирование",
       "properties": {
-        "cloningDate": "",
-        "cloningStaff": "",
+        "cloningDate": "Дата клонирования",
+        "cloningStaff": "Персонал, осуществляющий клонирование",
         "cloningMethod": "Метод клонирования",
         "cloneStrain": "Клон штамма",
         "primerNameForward": "Название прямой последовательности праймера",
