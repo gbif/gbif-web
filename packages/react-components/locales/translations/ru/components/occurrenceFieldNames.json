@@ -256,6 +256,7 @@
   "coordinatesTextual": "Эта запись опубликована без координат, но она содержит текстовое описание местонахождения.",
   "coordinatesMissing": "Координаты отсутствуют",
   "taxonomicClassification": "Классификация",
+  "gadmClassification": "Местоположение согласно системе  GADM (Global Administrative Areas)",
   "images": "Мультимедиа",
   "eventTypeHierarchyJoined": "Структура",
   "measurementOrFactTypes": "Измерения или фактические данные",
