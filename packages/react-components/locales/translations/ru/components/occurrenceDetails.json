@@ -246,7 +246,7 @@
     "germplasmMeasurementScore": {
       "name": "",
       "properties": {
-        "measurementID": "",
+        "measurementID": "Идентификатор измерения",
         "measurementValue": "Имеются ли в записи проблемы с геолокацией",
         "measurementUnit": "Единица измерения",
         "measurementAccuracy": "Точность измерения",
@@ -263,7 +263,7 @@
         "measurementTrialID": "Идентификатор испытания измерения",
         "measurementTrialIdentifier": "",
         "measurementByInstituteID": "",
-        "measurementGrowthStage": ""
+        "measurementGrowthStage": "Измерение стадии роста"
       }
     },
     "germplasmMeasurementTrait": {
@@ -381,15 +381,15 @@
     "measurementOrFact": {
       "name": "Измерение или факт",
       "properties": {
-        "measurementID": "",
-        "measurementType": "",
+        "measurementID": "Идентификатор измерения",
+        "measurementType": "Тип измерения",
         "measurementValue": "Имеются ли в записи проблемы с геолокацией",
         "measurementAccuracy": "Точность измерения",
         "measurementUnit": "Единица измерения",
         "measurementDeterminedDate": "",
         "measurementDeterminedBy": "",
-        "measurementMethod": "",
-        "measurementRemarks": ""
+        "measurementMethod": "Метод измерения",
+        "measurementRemarks": "Замечания к измерению"
       }
     },
     "multimedia": {
@@ -454,9 +454,9 @@
       }
     },
     "resourceRelationship": {
-      "name": "",
+      "name": "Связь ресурсов",
       "properties": {
-        "resourceRelationshipID": "",
+        "resourceRelationshipID": "Идентификатор связи ресурсов",
         "resourceID": "",
         "relationshipOfResourceID": "",
         "relatedResourceID": "Идентификатор связанного ресурса",
@@ -471,18 +471,18 @@
       "properties": {
         "cloningDate": "",
         "cloningStaff": "",
-        "cloningMethod": "",
-        "cloneStrain": "",
+        "cloningMethod": "Метод клонирования",
+        "cloneStrain": "Клон штамма",
         "primerNameForward": "Название прямой последовательности праймера",
         "primerReferenceCitationForward": "Цитирование исходного текста",
         "primerReferenceLinkForward": "Ссылка на праймер",
         "primerNameReverse": "Обратное название праймера",
         "primerReferenceCitationReverse": "Обратное цитирование праймера",
         "primerReferenceLinkReverse": "Обратная ссылка праймера",
-        "lib_reads_seqd": "",
-        "lib_screen": "",
-        "lib_size": "",
-        "lib_vector": "",
+        "lib_reads_seqd": "Информация о секвенировании библиотеки",
+        "lib_screen": "Экран библиотеки",
+        "lib_size": "Размер библиотеки",
+        "lib_vector": "Библиотечный вектор",
         "lib_const_meth": "Метод построения библиотеки",
         "plasmid": "Плазмида"
       }
@@ -507,8 +507,8 @@
     "loan": {
       "name": "",
       "properties": {
-        "blockedUntil": "",
-        "blocked": "",
+        "blockedUntil": "Заблокировано до",
+        "blocked": "Заблокировано",
         "loanConditions": "",
         "loanDate": "",
         "loanDestination": "",
@@ -558,10 +558,10 @@
       "name": "Препарирование",
       "properties": {
         "preparationType": "Тип подготовки",
-        "preparationProcess": "",
-        "preparationMaterials": "",
-        "preparedBy": "",
-        "preparationDate": "",
+        "preparationProcess": "Процесс подготовки",
+        "preparationMaterials": "Материалы для подготовки",
+        "preparedBy": "Кем подготовлено",
+        "preparationDate": "Дата подготовки",
         "associatedReferences": "Сопутствующие ссылки"
       }
     },
@@ -569,50 +569,50 @@
       "name": "Сохранение",
       "properties": {
         "preservationType": "Архив, аннотированный GBIF",
-        "preservationTemperature": "",
-        "preservationDateBegin": "",
-        "sequence": ""
+        "preservationTemperature": "Температура хранения",
+        "preservationDateBegin": "Начальная дата хранения",
+        "sequence": "Последовательность"
       }
     },
     "extendedMeasurementOrFact": {
       "name": "Расширенное измерение или факт",
       "properties": {
-        "measurementID": "",
+        "measurementID": "Идентификатор измерения",
         "occurrenceID": "Идентификатор события",
-        "measurementType": "",
-        "measurementTypeID": "",
+        "measurementType": "Тип измерения",
+        "measurementTypeID": "Идентификатор типа измерения",
         "measurementValue": "Имеются ли в записи проблемы с геолокацией",
-        "measurementValueID": "",
+        "measurementValueID": "Значение идентификатора измерения",
         "measurementAccuracy": "Точность измерения",
         "measurementUnit": "Единица измерения",
-        "measurementUnitID": "",
-        "measurementDeterminedDate": "",
-        "measurementDeterminedBy": "",
-        "measurementMethod": "",
-        "measurementRemarks": ""
+        "measurementUnitID": "Единица идентификатора измерения",
+        "measurementDeterminedDate": "Определенная дата измерения",
+        "measurementDeterminedBy": "Измерение определяется",
+        "measurementMethod": "Метод измерения",
+        "measurementRemarks": "Замечания к измерению"
       }
     },
     "chronometricAge": {
       "name": "Хронометрический возраст",
       "properties": {
-        "chronometricAgeID": "",
-        "verbatimChronometricAge": "",
-        "chronometricAgeProtocol": "",
-        "uncalibratedChronometricAge": "",
-        "chronometricAgeConversionProtocol": "",
-        "earliestChronometricAge": "",
-        "earliestChronometricAgeReferenceSystem": "",
-        "latestChronometricAge": "",
-        "latestChronometricAgeReferenceSystem": "",
-        "chronometricAgeUncertaintyInYears": "",
-        "chronometricAgeUncertaintyMethod": "",
-        "materialDated": "",
-        "materialDatedID": "",
-        "materialDatedRelationship": "",
-        "chronometricAgeDeterminedBy": "",
-        "chronometricAgeDeterminedDate": "",
-        "chronometricAgeReferences": "",
-        "chronometricAgeRemarks": ""
+        "chronometricAgeID": "Хронометрический идентификатор возраста",
+        "verbatimChronometricAge": "Дословный хронометрический возраст",
+        "chronometricAgeProtocol": "Протокол хронометрического возраста",
+        "uncalibratedChronometricAge": "Некалиброванный хронометрический возраст",
+        "chronometricAgeConversionProtocol": "Протокол преобразования хронометрического возраста",
+        "earliestChronometricAge": "Самый ранний хронометрический возраст",
+        "earliestChronometricAgeReferenceSystem": "Самая ранняя система отсчета хронометрического возраста",
+        "latestChronometricAge": "Самый поздний хронометрический возраст",
+        "latestChronometricAgeReferenceSystem": "Новейшая система отсчета хронометрического возраста",
+        "chronometricAgeUncertaintyInYears": "Неопределенность хронометрического возраста в годах",
+        "chronometricAgeUncertaintyMethod": "Метод расчета неопределенности хронометрического возраста",
+        "materialDated": "Материал датирован",
+        "materialDatedID": "Идентификатор даты материала",
+        "materialDatedRelationship": "Взаимосвязь датированных материалов",
+        "chronometricAgeDeterminedBy": "Хронометрический возраст определен посредством",
+        "chronometricAgeDeterminedDate": "Определенная дата хронометрического возраста",
+        "chronometricAgeReferences": "Ориентиры хронометрического возраста",
+        "chronometricAgeRemarks": "Замечания к хронометрическому возрасту"
       }
     },
     "dnaDerivedData": {
