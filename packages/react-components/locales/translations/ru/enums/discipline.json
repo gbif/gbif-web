@@ -1,6 +1,8 @@
 {
   "ARCHAEOLOGY": "Археология",
   "ARCHAEOLOGY_PREHISTORIC": "Археология доисторическая",
+  "ARCHAEOLOGY_HISTORIC": "Археология историческая",
+  "ARCHAEOLOGY_UNDERWATER": "Археология подводная",
   "ANTHROPOLOGY": "Антропология",
   "ANTHROPOLOGY_BIOLOGICAL": "Биологическая антропология",
   "ANTHROPOLOGY_CULTURAL": "Антропология культурная",
