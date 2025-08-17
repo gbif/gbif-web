@@ -15,7 +15,7 @@
   "eventHierarchyJoined": "Jerarquía del evento",
   "map": "Mapa de ubicación",
   "backToTaxa": "Volver a los taxones de eventos",
-  "siteLocation": "",
+  "siteLocation": "Ubicación del sitio",
   "info": {
     "original": "Original",
     "excluded": "Excluido",
@@ -27,7 +27,7 @@
     "record": "Registro",
     "occurrence": "Registro",
     "event": "Evento",
-    "dataStructure": "",
+    "dataStructure": "Estructura de Datos",
     "identification": "Identificación",
     "taxon": "Taxón",
     "location": "Localización/ubicación",
@@ -40,12 +40,12 @@
     "methodology": "Metodología",
     "taxonomicCoverage": "Cobertura taxonómica"
   },
-  "siteTooltip": "",
-  "siteTableLegend": "",
-  "site": "",
-  "siteLoading": "",
+  "siteTooltip": "{count, plural, one {# evento} other {# eventos}} en {site} en {date}",
+  "siteTableLegend": "Sitio / Año",
+  "site": "Sitio: {siteID}",
+  "siteLoading": "Sitio: {siteID} - cargando detalles",
   "activityDetails": {
-    "monthYear": "",
-    "year": ""
+    "monthYear": "Detalles de actividad en {date, time, ::MMMM::yyyy}",
+    "year": "Detalles de actividad en {date, time, ::yyyy}"
   }
 }
