@@ -1,1 +1,21 @@
-{}
+{
+  "nResults": "{total, plural, one {תוצאה #} other {# תוצאות}}",
+  "nDocuments": "{total, plural, one {מסמך #} other {# מסמכים}}",
+  "nTools": "{total, plural, one {כלי #} other {# כלים}}",
+  "nProgrammes": "{total, plural, one {תכנית #} other {# תכניות}}",
+  "nProjects": "{total, plural, one {פרויקט #} other {# פרויקטים}}",
+  "nEvents": "{total, plural, one {אירוע #} other {# אירועים}}",
+  "nNews": "{total, plural, one {ידיעה #} other {# ידיעות}}",
+  "nDataUse": "{total, plural, one {סיכום שימוש בנתונים #} other {# סיכומי שימוש בנתונים}}",
+  "nOccurrences": "{total, plural, one {תצפית #} other {# תצפיות}}",
+  "nRecords": "{total, plural, one {רשומה #} other {# רשומות}}",
+  "nTaxa": "{total, plural, one {טקסון #} other {# טקסונים}}",
+  "nCitations": "{total, plural, one {ציטוט #} other {# ציטוטים}}",
+  "nSpecimensInGbif": "{total, plural, one {רשומת אוסף # ב־GBIF} other {# רשומות אוסף ב־GBIF}}",
+  "nNames": "{total, plural, one {שם #} other {# שמות}}",
+  "nAcceptedNames": "{total, plural, one {שם תקף #} other {# שמות תקפים}}",
+  "nSynonyms": "{total, plural, one {שם נרדף #} other {# שמות נרדפים}}",
+  "inGbif": "{total, plural, one {# ב־GBIF} other {# ב־GBIF}}",
+  "nSpecimens": "{total, plural, one {פריט אוסף #} other {# פריטי אוסף}}",
+  "nCollections": "{total, plural, one {אוסף #} other {# אוספים}}"
+}
