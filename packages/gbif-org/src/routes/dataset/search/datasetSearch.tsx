@@ -1,6 +1,7 @@
 import { DownloadAsTSVLink } from '@/components/cardHeaderActions/downloadAsTSVLink';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
 import { NoRecords } from '@/components/noDataMessages';
 import { PaginationFooter } from '@/components/pagination';
@@ -147,12 +148,14 @@ export function DatasetSearch(): React.ReactElement {
         </FilterBar>
         <ArticleContainer className="g-bg-slate-100 g-flex">
           <ArticleTextContainer className="g-flex-auto g-w-full">
-            <DatasetResults
-              loading={loading}
-              datasets={datasets}
-              setOffset={setOffset}
-              tsvUrl={tsvUrl}
-            />
+            <ErrorBoundary>
+              <DatasetResults
+                loading={loading}
+                datasets={datasets}
+                setOffset={setOffset}
+                tsvUrl={tsvUrl}
+              />
+            </ErrorBoundary>
           </ArticleTextContainer>
         </ArticleContainer>
       </section>

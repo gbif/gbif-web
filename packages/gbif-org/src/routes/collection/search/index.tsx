@@ -1,4 +1,3 @@
-import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { CollectionSearchPage } from './collectionSearch';
 
@@ -8,9 +7,5 @@ export const collectionSearchRoute: RouteObjectWithPlugins = {
   gbifRedirect: (_, { grSciCollLocalePrefix = '' }) => {
     return `${import.meta.env.PUBLIC_GRSCICOLL}${grSciCollLocalePrefix}/collection/search`;
   },
-  element: (
-    <ErrorBoundary>
-      <CollectionSearchPage />
-    </ErrorBoundary>
-  ),
+  element: <CollectionSearchPage />,
 };

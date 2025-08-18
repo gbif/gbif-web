@@ -1,6 +1,8 @@
+import { OccurrenceSortBy, SortOrder } from '@/gql/graphql';
 import { cn } from '@/utils/shadcn';
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+import useLocalStorage from 'use-local-storage';
 import { ErrorImage } from './icons/icons';
 import { Button } from './ui/button';
 import { Card } from './ui/smallCard';
@@ -87,6 +89,10 @@ export function ErrorComponent({
 }: Omit<ErrorBoundaryProps, 'invalidateOn' | 'children' | 'fallback'> & {
   error: Error;
 }): React.ReactElement {
+  const [occurrenceSort] = useLocalStorage<{ sortBy?: OccurrenceSortBy; sortOrder: SortOrder }>(
+    'occurrenceSort',
+    { sortBy: undefined, sortOrder: SortOrder.Asc }
+  );
   const [showStack, setShowStack] = useState(false);
   const displayTitle = title ?? (
     <FormattedMessage id="error.generic" defaultMessage="Something went wrong" />
@@ -113,7 +119,12 @@ export function ErrorComponent({
             <a
               target="_blank"
               href={`https://github.com/gbif/gbif-web/issues/new?body=${encodeURIComponent(
-                generateGithubIssueBody(error, debugTitle, additionalDebugInfo)
+                generateGithubIssueBody({
+                  error,
+                  title: debugTitle,
+                  additionalInfo: additionalDebugInfo,
+                  occurrenceSort,
+                })
               )}`}
             >
               <FormattedMessage id="error.report" defaultMessage="Report issue" />
@@ -192,7 +203,17 @@ export function ErrorComponent({
   );
 }
 
-function generateGithubIssueBody(error: Error, title?: string, additionalInfo?: string): string {
+function generateGithubIssueBody({
+  error,
+  title,
+  additionalInfo,
+  occurrenceSort,
+}: {
+  error: Error;
+  title?: string;
+  additionalInfo?: string;
+  occurrenceSort?: { sortBy?: OccurrenceSortBy; sortOrder: SortOrder };
+}): string {
   const url = typeof window !== 'undefined' ? window.location.href : 'Unknown URL';
   return `Thank you for reporting this issue. Please describe what happened..
 
@@ -209,6 +230,7 @@ ${error?.stack || 'No stack trace available'}
 \`\`\`
 
 **Additional Info:**
+OccurrenceSorting: ${JSON.stringify(occurrenceSort)}
 ${additionalInfo || 'No additional information provided.'}
 
 **URL:**

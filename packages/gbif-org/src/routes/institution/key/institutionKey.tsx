@@ -1,3 +1,4 @@
+import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
 import { NotFoundError } from '@/errors';
 import {
@@ -26,9 +27,57 @@ export async function institutionLoader({ params, graphql, config }: LoaderArgs)
   });
 }
 
+function useErrorPageTest({
+  errors,
+  primaryObject,
+}: {
+  errors: Array<{ message: string; path: [string] }>;
+  primaryObject?: unknown | null;
+}) {
+  const { toast } = useToast();
+
+  useEffect(() => {
+    if (is404({ path: ['institution'], errors })) {
+      throw new NotFoundError();
+    }
+    if (!primaryObject && errors && errors.length > 0) {
+      throw new Error('Unable to load item');
+    }
+
+    if (errors && errors.length > 0) {
+      toast({
+        title: 'Unable to load all content',
+        variant: 'destructive',
+      });
+    }
+  }, [primaryObject, errors, toast]);
+}
+
 export function InstitutionKey() {
-  const { data } = useLoaderData() as { data: InstitutionQuery };
+  const { data, errors } = useLoaderData() as {
+    data: InstitutionQuery;
+    errors: Array<{ message: string; path: [string] }>;
+  };
   const config = useConfig();
+  useErrorPageTest({ errors, primaryObject: data?.institution });
+  // const { toast } = useToast();
+
+  // if (is404({ path: ['institution'], errors })) {
+  //   throw new NotFoundError();
+  // }
+  // if (data.institution === null && errors && errors.length > 0) {
+  //   throw new Error('Unable to load item');
+  // }
+
+  // useEffect(() => {
+  //   if (errors && errors.length > 0) {
+  //     toast({
+  //       title: 'Unable to load all content',
+  //       variant: 'destructive',
+  //     });
+  //   }
+  // }, [data, errors, toast]);
+
   const collectionScope = config.collectionSearch?.scope;
 
   const { data: institutionMetrics, load: slowLoad } = useQuery<
@@ -36,7 +85,7 @@ export function InstitutionKey() {
     InstitutionSummaryMetricsQueryVariables
   >(SLOW_QUERY, {
     lazyLoad: true,
-    throwAllErrors: true,
+    throwAllErrors: false,
   });
 
   const { data: imageData, load: imageLoad } = useQuery<
@@ -85,9 +134,10 @@ export function InstitutionKey() {
       });
       imageLoad({ variables: { key: id } });
     }
-  }, [data.institution?.key, slowLoad, imageLoad]);
+  }, [data.institution?.key, slowLoad, imageLoad, collectionScope]);
 
-  if (data.institution == null) throw new NotFoundError();
+  if (!errors && data && !data.institution) throw new NotFoundError();
+
   return (
     <Presentation
       data={data}
@@ -240,3 +290,16 @@ const IMAGE_QUERY = /* GraphQL */ `
     }
   }
 `;
+
+function is404({
+  path,
+  errors,
+}: {
+  path: [string];
+  errors: Array<{ message: string; path: [string] }>;
+}) {
+  // check if the path match the error path and the message contains 404
+  return errors?.some(
+    (error) => error.path.join('.') === path.join('.') && error.message.includes('404')
+  );
+}

@@ -1,3 +1,4 @@
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { InstitutionQuery } from '@/gql/graphql';
 import { RouteObjectWithPlugins, useRenderedRouteLoaderData } from '@/reactRouterPlugins';
 import InstitutionKeyAbout from './About';
@@ -21,15 +22,27 @@ export const institutionKeyRoute: RouteObjectWithPlugins = {
   children: [
     {
       index: true,
-      element: <InstitutionKeyAbout />,
+      element: (
+        <ErrorBoundary>
+          <InstitutionKeyAbout />
+        </ErrorBoundary>
+      ),
     },
     {
       path: 'specimens',
-      element: <InstitutionKeySpecimens />,
+      element: (
+        <ErrorBoundary>
+          <InstitutionKeySpecimens />
+        </ErrorBoundary>
+      ),
     },
     {
       path: 'collections',
-      element: <InstitutionKeyCollection />,
+      element: (
+        <ErrorBoundary>
+          <InstitutionKeyCollection />
+        </ErrorBoundary>
+      ),
     },
   ],
 };

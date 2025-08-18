@@ -1,3 +1,4 @@
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Config } from '@/config/config';
 import { dataRoutes } from '@/config/routes';
 import { notImplementedRoutes } from '@/notImplementedRoutes';
@@ -18,7 +19,15 @@ export function createGbifRoutes(config: Config) {
   return applyReactRouterPlugins(
     [
       {
-        element: <GbifRootLayout children={<Outlet />} />,
+        element: (
+          <GbifRootLayout
+            children={
+              <ErrorBoundary>
+                <Outlet />
+              </ErrorBoundary>
+            }
+          />
+        ),
         loader: headerLoader,
         errorElement: <RootErrorPage />,
         shouldRevalidate() {
@@ -26,7 +35,6 @@ export function createGbifRoutes(config: Config) {
         },
         children: [
           {
-            errorElement: <RootErrorPage />,
             children: [
               homePageRoute,
               ...userRoutes,

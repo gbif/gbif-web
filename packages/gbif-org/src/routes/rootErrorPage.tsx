@@ -32,13 +32,7 @@ URL: ${url}
         </h1>
 
         <div className="g-text-slate-500 g-mt-2 g-w-[500px]">
-          <p>
-            Our website is experiencing some unexpected downtime.
-            <br />
-            <br />
-            We apologize for the inconvenience. We're working hard to get things back to normal as
-            quickly as possible.
-          </p>
+          <p>We apologize for the inconvenience.</p>
           <ClientSideOnly>
             <div className="g-mt-8">
               <Button asChild className="g-text-slate-500 g-mt-4">

@@ -8,6 +8,7 @@ import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
 import { FilterContext, FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
@@ -74,6 +75,7 @@ export function InstitutionSearchPage(): React.ReactElement {
 }
 
 export function InstitutionSearch(): React.ReactElement {
+  const { toast } = useToast();
   const [offset, setOffset] = useNumberParam({ key: 'offset', defaultValue: 0, hideDefault: true });
   const filterContext = useContext(FilterContext);
   const config = useConfig();
@@ -94,6 +96,17 @@ export function InstitutionSearch(): React.ReactElement {
     lazyLoad: true,
     forceLoadingTrueOnMount: true,
   });
+
+  useEffect(() => {
+    if (error && !data?.institutionSearch?.results) {
+      throw error;
+    } else if (error) {
+      toast({
+        title: 'Unable to load all content',
+        variant: 'destructive',
+      });
+    }
+  }, [data, error, toast]);
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
@@ -200,7 +213,7 @@ function Results({
 }) {
   const excludeCode = excludedFilters?.includes('code');
   const excludeCountry = excludedFilters?.includes('country');
-  if (error) {
+  if (error && !institutions) {
     throw error;
   }
   return (

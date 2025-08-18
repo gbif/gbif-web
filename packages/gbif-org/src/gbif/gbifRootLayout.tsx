@@ -1,14 +1,14 @@
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { LoadingIndicator } from '@/components/loadingIndicator';
 import { NoscriptNotification } from '@/components/noscriptNotification';
 import { Toaster } from '@/components/ui/toaster';
+import { UserProvider } from '@/contexts/UserContext';
 import { HeaderQuery, HeaderQueryVariables } from '@/gql/graphql';
 import { LoaderArgs } from '@/reactRouterPlugins';
 import React from 'react';
 import { ScrollRestoration, useLoaderData } from 'react-router-dom';
-import { Header } from './header';
-import { LoadingIndicator } from '@/components/loadingIndicator';
 import { Footer } from './footer';
-import { UserProvider } from '@/contexts/UserContext';
+import { Header } from './header';
 
 const HEADER_QUERY = /* GraphQL */ `
   query Header {
