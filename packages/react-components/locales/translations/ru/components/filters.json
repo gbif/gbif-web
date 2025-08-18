@@ -529,12 +529,12 @@
   },
   "eventType": {
     "name": "Тип события",
-    "count": "",
+    "count": "{num, plural, one { тип события } other {# типов событий}}",
     "description": "Тип события выборки."
   },
   "dataStructure": {
     "name": "Структура",
-    "count": "",
+    "count": "{num, plural, one { тип события } other {# типов событий}}",
     "description": "Структура данных события выборки."
   },
   "samplingProtocol": {
@@ -584,7 +584,7 @@
   },
   "publicationDate": {
     "name": "Дата публикации",
-    "count": "",
+    "count": "{num, plural, one { дата публикации } other {# дат публикаций}}",
     "description": "Когда была опубликована запись"
   },
   "personalCollection": {
@@ -594,17 +594,17 @@
   },
   "datasetType": {
     "name": "Тип набора данных",
-    "count": "",
+    "count": "{num, plural, one { тип набора данных } other {# типов наборов данных}}",
     "description": "Здесь следует разместить краткое описание компонента."
   },
   "datasetSubtype": {
     "name": "Подтип набора данных",
-    "count": "",
+    "count": "{num, plural, one { подтип набора данных } other {# подтипов наборов данных}}",
     "description": "Здесь следует разместить краткое описание компонента."
   },
   "institutionKey": {
     "name": "Организация",
-    "count": "",
+    "count": "{num, plural, one { институт } other {# институтов}}",
     "description": "Название учреждения, в котором хранятся объекты или информация, указанные в записи."
   },
   "name": {
