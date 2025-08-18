@@ -187,9 +187,9 @@
         "marker": "Маркер",
         "markerSubfragment": "Субфрагмент маркера",
         "geneticAccessionNumber": "Генетический регистрационный номер",
-        "BOLDProcessID": "",
+        "BOLDProcessID": "Идентификатор BOLD Process - уникальный код,  автоматически генерируемый для каждой новой записи, добавляемой в проект.",
         "geneticAccessionURI": "URI генетического доступа",
-        "GC-content": "",
+        "GC-content": "Пропорция гуаниновых (G) и цитозиновых (C) нуклеотидов в последовательности ДНК или РНК, выраженная в процентах",
         "chimera_check": "Проверка химеры",
         "assembly": "Сборка",
         "sop": "Стандартная рабочая процедура",
@@ -198,7 +198,7 @@
         "markerAccordance": "Соответствие маркера",
         "seq_quality_check": "Проверка качества последовательности",
         "adapters": "Адаптеры",
-        "mid": ""
+        "mid": "Среднее"
       }
     },
     "germplasmAccession": {
@@ -505,14 +505,14 @@
       }
     },
     "loan": {
-      "name": "",
+      "name": "Заем",
       "properties": {
         "blockedUntil": "Заблокировано до",
         "blocked": "Заблокировано",
-        "loanConditions": "",
-        "loanDate": "",
-        "loanDestination": "",
-        "loanIdentifier": "",
+        "loanConditions": "Условия займа",
+        "loanDate": "Дата займа",
+        "loanDestination": "Цель займа",
+        "loanIdentifier": "Идентификатор займа",
         "disposition": "Расположение",
         "receivedFrom": "Получено из"
       }
