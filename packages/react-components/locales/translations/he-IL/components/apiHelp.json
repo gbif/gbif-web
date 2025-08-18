@@ -1,1 +1,26 @@
-{}
+{
+  "example": "דוגמה",
+  "examples": "דוגמאות",
+  "singleEntry": "קבלת רשומה בודדת.",
+  "downloadKeyDatasets": "מסדי נתונים התורמים להורדה.",
+  "downloadKeyDatasetsExport": "הורדת רשימת מערכי הנתונים התורמים להורדה.",
+  "singleOccurrence": "קבלת תצפית בודדת.",
+  "searchOccurrences": "קבלת כל התצפיות.",
+  "searchOccurrencesExample": "חמשת המופעים הראשונים של טקסון עם taxonKey 9778871 ‏(Flabellina McMurtrie, 1831) שתועדו בחודש מאי בין השנים 2000 ל-2024.",
+  "relatedOccurrences": "תצפיות קשורות (ניסיוני).",
+  "occurrenceFragment": "רשומה לפני פרשנות.",
+  "singleInstallation": "קבלת התקנה בודדת.",
+  "singleOrganization": "קבלת ספק מידע בודד.",
+  "searchOrganizations": "חיפוש ספקי מידע.",
+  "searchInstallations": "חיפוש התקנות.",
+  "search": "חיפוש",
+  "singleNetwork": "קבלת רשת בודדת.",
+  "singleCollection": "קבלת אוסף בודד.",
+  "searchCollections": "חיפוש אוספים.",
+  "singleInstitution": "קבלת מוסד בודד.",
+  "searchInstitutions": "חיפוש מוסדות.",
+  "singleDataset": "קבלת מסד נתונים בודד.",
+  "searchDatasetsExample": "שני מסדי הנתונים הראשונים שסופקו מדנמרק עם הטקסט החופשי \\\"fungi\\\" בכותרת או בתיאור.",
+  "searchExample": "שתי הרשומות הראשונות עם הטקסט החופשי \\\"dna\\\".",
+  "searchDatasets": "קבלת כל מערכי הנתונים."
+}
