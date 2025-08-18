@@ -6,13 +6,13 @@
   },
   "locationId": {
     "name": "ID de la Ubicación",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { ID de ubicación } other {# ID de ubicaciones}}",
+    "description": "Los publicadores pueden asignar identificadores a la ubicación. Este campo no está normalizado, lo que significa que se buscan los datos proporcionados por el publicador."
   },
   "hasCoordinate": {
     "name": "Incluye coordenada",
     "count": "Tiene coordenadas",
-    "description": ""
+    "description": "Si el registro tiene coordenadas."
   },
   "hasGeospatialIssues": {
     "name": "Tiene un problema geoespacial",
@@ -36,7 +36,7 @@
   },
   "numberSpecimens": {
     "name": "Número de especímenes",
-    "count": "",
+    "count": "{num, plural, one { recuento de especímenes } other {# Filtros de recuento de especímenes}}",
     "description": "El número de especímenes reportados que se indican en la descripción. Este número no refleja cuántos registros han sido digitalizados y compartidos."
   },
   "specimensInGbif": {
@@ -46,7 +46,7 @@
   },
   "iucnRedListCategory": {
     "name": "Categoría en la Lista Roja de la UICN",
-    "count": "",
+    "count": "{num, plural, one { Categoría de la Lista Roja Mundial de la UICN } other {# Categorías de la Lista Roja Global de la UICN}}",
     "description": "La Lista Roja de Especies Amenazadas de la UICN agrupa los taxones según su grado de amenaza."
   },
   "geoDistance": {
@@ -60,7 +60,7 @@
   "geometry": {
     "name": "Localización/ubicación",
     "count": "{num, plural, one { filtro } other {# filtros }}",
-    "description": "",
+    "description": "Filtrar registros dentro de un área geométrica determinada. El área puede ser un punto, una línea, un polígono o un cuadro delimitador.",
     "placeholderLat": "Latitud",
     "placeholderLon": "Longitud",
     "placeholderDist": "Distancia"
@@ -102,8 +102,8 @@
   },
   "eventDate": {
     "name": "Fecha del Evento",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# fecha del evento } other {# fechas de los eventos}}",
+    "description": "Cuándo se recopiló u observó el registro."
   },
   "gbifId": {
     "name": "ID de GBIF",
@@ -157,28 +157,28 @@
   },
   "identifier": {
     "name": "Identificador",
-    "count": "",
+    "count": "{num, plural, one {# identificador} other {# identificadores}}",
     "description": "Aquí debe colocarse una breve descripción del componente"
   },
   "institutionType": {
     "name": "Tipo",
-    "count": "",
+    "count": "{num, plural, one {# tipo} other {# tipos}}",
     "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\"."
   },
   "discipline": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Disciplina",
+    "count": "{num, plural, one {# disciplina } other {# disciplinas}}",
+    "description": "Las disciplinas de investigación que apoya la institución."
   },
   "collectionContentType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Tipo de contenido",
+    "count": "{num, plural, one {# tipo de contenido } other {# tipos de contenidos}}",
+    "description": "El tipo de objetos disponibles en la colección"
   },
   "preservationType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Tipo de preservación",
+    "count": "{num, plural, one {# tipo de preservación } other {# tipos de preservaciones}}",
+    "description": "El método utilizado para preservar los objetos disponibles en la colección"
   },
   "taxonKey": {
     "name": "Nombre científico",
@@ -188,7 +188,7 @@
   "taxonKeyGrSciColl": {
     "name": "Nombre científico",
     "count": "{num, plural, one {nombre científico} other {# nombres científicos}}",
-    "description": ""
+    "description": "Filtre utilizando los nombres científicos enumerados en los descriptores de colección proporcionados en los metadatos de la colección, teniendo en cuenta que no todas las colecciones incluyen descriptores de metadatos y los nombres a menudo están en rangos taxonómicos más altos, como orden o familia."
   },
   "basisOfRecord": {
     "name": "Base del registro",
@@ -232,12 +232,12 @@
     "description": "El país o territorio donde ocurrió el evento"
   },
   "grsciCollCountry": {
-    "description": ""
+    "description": "País o territorio en la dirección del registro"
   },
   "preparations": {
     "name": "Preparaciones",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# preparación} other {# preparaciones}}",
+    "description": "Cómo se ha preparado el espécimen (por ejemplo, secado)"
   },
   "repatriated": {
     "name": "Repatriado",
@@ -274,8 +274,8 @@
   },
   "datasetId": {
     "name": "ID del conjunto de datos",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {identificador del conjunto de datos} other {# identificadores de los conjuntos de datos}}",
+    "description": "El ID interno del publicador para el conjunto de datos al que está asociado el registro. Tenga en cuenta que es diferente de la clave de conjunto de datos que se utiliza en GBIF para el conjunto de datos."
   },
   "publisherKey": {
     "name": "Publicador",
@@ -505,22 +505,22 @@
   "parentEventId": {
     "name": "ID del evento parental (principal)",
     "count": "{num, plural, one { ID del evento } other {# ID del evento}}",
-    "description": ""
+    "description": "El identificador único del evento principal en el registro."
   },
   "locationID": {
     "name": "ID de la Ubicación",
     "count": "{num, plural, one { ID del evento } other {# ID del evento}}",
-    "description": ""
+    "description": "El identificador único del sitio en el registro."
   },
   "measurementOrFactTypes": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Tipos de medición",
+    "count": "{num, plural, one { tipo de medición } other {# tipos de mediciones}}",
+    "description": "El tipo de medición."
   },
   "measurementOrFactCount": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Recuento de mediciones",
+    "count": "{num, plural, one { recuento de medición } other {# recuento de mediciones}}",
+    "description": "El recuento de un tipo de medición determinado."
   },
   "occurrenceCount": {
     "name": "Número (cantidad) de registros",
@@ -528,14 +528,14 @@
     "description": "Número de registros biológicos para el evento"
   },
   "eventType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Tipo de evento",
+    "count": "{num, plural, one { tipo de evento } other {# tipos de eventos}}",
+    "description": "El tipo de evento de muestreo."
   },
   "dataStructure": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Estructura",
+    "count": "{num, plural, one { tipo de evento } other {# tipos de eventos}}",
+    "description": "La estructura de datos para el evento de muestreo."
   },
   "samplingProtocol": {
     "name": "Protocolo de muestreo",
@@ -570,22 +570,22 @@
   "active": {
     "name": "Activo",
     "count": "Activo",
-    "description": ""
+    "description": "Si la entrada corresponde a una colección/institución activa o a un listado histórico que ya no existe."
   },
   "activeInstitution": {
     "name": "Activo",
     "count": "Activo",
-    "description": ""
+    "description": "Si la entrada corresponde a una institución activa o a un listado histórico que ya no existe."
   },
   "activeCollection": {
     "name": "Activo",
     "count": "Activo",
-    "description": ""
+    "description": "Si la entrada corresponde a una colección activa o a un listado histórico que ya no existe."
   },
   "publicationDate": {
     "name": "Fecha de publicación",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { fecha de publicación } other {# fechas de publicaciones}}",
+    "description": "Cuándo se publicó el registro"
   },
   "personalCollection": {
     "name": "Colección personal",
@@ -611,12 +611,12 @@
     "name": "Nombre",
     "count": "{num, plural, one { nombre } other {# nombres}}",
     "description": "Busque registros con texto parecido entre los campos de texto. Para buscar un texto que coincida dentro de un campo específico, utilice el filtro correspondiente, como el de \"Nombre Científico\".",
-    "searchPlaceholder": ""
+    "searchPlaceholder": "Buscar por título/nombre"
   },
   "city": {
     "name": "Ciudad",
     "count": "{num, plural, one { ciudad } other {# ciudades}}",
-    "description": ""
+    "description": "Ciudad donde se encuentra la institución/colección."
   },
   "code": {
     "name": "Código",

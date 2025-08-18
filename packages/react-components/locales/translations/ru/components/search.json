@@ -1,63 +1,63 @@
 {
   "tabs": {
     "table": "Таблица",
-    "tree": "",
+    "tree": "Дерево",
     "gallery": "Галерея",
-    "media": "",
+    "media": "Медиа",
     "map": "Карта",
     "datasets": "Опубликованных наборов данных",
     "events": "Мероприятия",
     "download": "Загрузить",
-    "clusters": "",
+    "clusters": "Связано",
     "dashboard": "Панель управления",
-    "sites": "",
+    "sites": "Сайты",
     "list": "Список"
   },
   "table": {
-    "lockColumn": "",
-    "unlockColumn": "",
-    "columnVisibility": "",
-    "resetColumnVisibility": "",
-    "openFilter": ""
+    "lockColumn": "Заблокировать столбец",
+    "unlockColumn": "Разблокировать столбец",
+    "columnVisibility": "Поменять столбцы местами",
+    "resetColumnVisibility": "Сброс",
+    "openFilter": "Переход к фильтрам"
   },
   "placeholders": {
     "default": "Поиск",
-    "range": "",
-    "rangeExample": "",
+    "range": "Диапаазон отдельной величины",
+    "rangeExample": "Например, 1000, 2000",
     "wildcard": "Поиск с использованием шаблонов * и ? ",
-    "dateTemplate": "",
-    "locationID": ""
+    "dateTemplate": "yyyy-mm-dd",
+    "locationID": "Поиск по местоположению (чувствителен к регистру)"
   },
   "ternary": {
     "yes": "Да",
     "no": "Нет",
-    "either": ""
+    "either": "Либо"
   },
   "loadMore": "Еще",
   "loading": "Загрузка",
-  "noResults": "",
+  "noResults": "Нет результатов",
   "startTyping": "",
   "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "Подробно",
-    "clusters": "",
+    "clusters": "Связано",
     "legend": "Легенда",
-    "differentPublishers": "",
-    "samePublishers": "",
-    "entryPoint": "",
-    "hasMultipleTaxonKeys": "",
-    "aboutLink": "",
-    "isCapped": "",
-    "isDeleted": "",
-    "similarities": "",
-    "currentRecord": "",
+    "differentPublishers": "Различные издатели",
+    "samePublishers": "Тот же издатель",
+    "entryPoint": "Точка входа",
+    "hasMultipleTaxonKeys": "Содержит различные идентификаторы",
+    "aboutLink": "О ссылке",
+    "isCapped": "У этого узла больше соединений, чем показано здесь. Перейдите к записи, чтобы увидеть полный список.",
+    "isDeleted": "Эта запись была удалена",
+    "similarities": "Сходства",
+    "currentRecord": "Текущая запись",
     "nodeType": {
       "IMAGE": "Изображение",
       "TYPE": "Типовой образец",
       "TREATMENT": "Обработка",
       "OBSERVATION": "Наблюдение",
       "SPECIMEN": "Образец",
-      "SEQUENCE": ""
+      "SEQUENCE": "Последовательность"
     }
   },
   "crossContentSearch": {

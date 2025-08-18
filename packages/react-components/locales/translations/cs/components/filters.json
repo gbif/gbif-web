@@ -81,12 +81,12 @@
     "description": "Pro koho je zdroj určen."
   },
   "biostratigraphy": {
-    "name": "",
+    "name": "Biostratigrafie",
     "count": "",
     "description": ""
   },
   "lithostratigraphy": {
-    "name": "",
+    "name": "Lithostratigrafie",
     "count": "",
     "description": ""
   },
@@ -171,14 +171,14 @@
     "description": ""
   },
   "collectionContentType": {
-    "name": "",
+    "name": "Typ obsahu",
     "count": "",
-    "description": ""
+    "description": "Typ objektů dostupných ve sbírce"
   },
   "preservationType": {
     "name": "Typ konzervace",
     "count": "",
-    "description": ""
+    "description": "Metoda použitá k uchování předmětů dostupných ve sbírce"
   },
   "taxonKey": {
     "name": "Vědecký název",
@@ -188,7 +188,7 @@
   "taxonKeyGrSciColl": {
     "name": "Vědecký název",
     "count": "{num, plural, one {vědecký název} few {# vědecké názvy} many {# vědeckých názvů} other {# vědeckých názvů}}",
-    "description": ""
+    "description": "Filtrujte pomocí vědeckých názvů uvedených v popisech sbírek v metadatech sbírky, přičemž mějte na paměti, že ne všechny sbírky obsahují popisy metadat a názvy jsou často na vyšších taxonomických úrovních, jako je řád nebo čeleď."
   },
   "basisOfRecord": {
     "name": "Původ záznamu",
@@ -275,7 +275,7 @@
   "datasetId": {
     "name": "ID datové sady",
     "count": "",
-    "description": ""
+    "description": "Interní identifikátor vydavatele pro datový soubor, ke kterému je záznam přiřazen. Upozorňujeme, že se liší od identifikátoru datasetKey používaného v GBIF pro daný datový soubor."
   },
   "publisherKey": {
     "name": "Vydavatel",
@@ -435,7 +435,7 @@
   "collectionCode": {
     "name": "Kód sbírky",
     "count": "{num, plural, one { kód sbírky } few {# kódy sbírky} many {# kódů sbírky} other {# kódů sbírky}}",
-    "description": ""
+    "description": "Jaký kód sbírky je přiřazen k záznamu."
   },
   "projectId": {
     "name": "ID Projektu",
@@ -475,7 +475,7 @@
   "higherGeography": {
     "name": "Vyšší geografie",
     "count": "{num, plural, one { vyšší geografie } few {# vyšší geografie} many {# vyšších geografií} other {# vyšších geografií}}",
-    "description": ""
+    "description": "Vyšší geografická úroveň, ve které se záznam nachází. Nejedná se o interpretované pole, ale o původní data poskytnutá vydavatelem. Lze zadat více hodnot."
   },
   "stateProvince": {
     "name": "Kraj státu",
@@ -515,27 +515,27 @@
   "measurementOrFactTypes": {
     "name": "Typy měření",
     "count": "{num, plural, one { typ měření } few {# typy měření} many {# typů měření} other {# typů měření}}",
-    "description": ""
+    "description": "Typ měření."
   },
   "measurementOrFactCount": {
-    "name": "",
+    "name": "Počet měření",
     "count": "",
-    "description": ""
+    "description": "Počet daného typu měření."
   },
   "occurrenceCount": {
     "name": "Počet výskytů",
     "count": "",
-    "description": ""
+    "description": "Počet výskytů události"
   },
   "eventType": {
-    "name": "",
+    "name": "Typ události",
     "count": "",
-    "description": ""
+    "description": "Typ události odběru vzorků."
   },
   "dataStructure": {
-    "name": "",
+    "name": "Struktura",
     "count": "",
-    "description": ""
+    "description": "Struktura dat pro událost odběru vzorků."
   },
   "samplingProtocol": {
     "name": "Protokol o odběru vzorků",
@@ -570,27 +570,27 @@
   "active": {
     "name": "Aktivní",
     "count": "Aktivní",
-    "description": ""
+    "description": "Zda záznam odpovídá aktivní sbírce/instituci nebo historickému záznamu, který již neexistuje."
   },
   "activeInstitution": {
     "name": "Aktivní",
     "count": "Aktivní",
-    "description": ""
+    "description": "Zda záznam odpovídá aktivní instituci nebo historickému záznamu, který již neexistuje."
   },
   "activeCollection": {
     "name": "Aktivní",
     "count": "Aktivní",
-    "description": ""
+    "description": "Zda záznam odpovídá aktivní sbírce nebo historickému seznamu, který již neexistuje."
   },
   "publicationDate": {
     "name": "Datum zveřejnění",
     "count": "",
-    "description": ""
+    "description": "Kdy byl záznam zveřejněn"
   },
   "personalCollection": {
     "name": "Osobní sbírka",
     "count": "Osobní sbírka",
-    "description": ""
+    "description": "Vybírá soukromé nebo osobní sbírky"
   },
   "datasetType": {
     "name": "Typ datové sady",
@@ -610,18 +610,18 @@
   "name": {
     "name": "Název",
     "count": "{num, plural, one {název} few {# názvy} many {# názvů} other {# názvů}}",
-    "description": "",
-    "searchPlaceholder": ""
+    "description": "Název subjektu",
+    "searchPlaceholder": "Hledat podle názvu/jména"
   },
   "city": {
     "name": "Město",
     "count": "{num, plural, one {město} few {# města} many {# měst} other {# měst}}",
-    "description": ""
+    "description": "Město, ve kterém se nachází instituce/sbírka."
   },
   "code": {
     "name": "Kód",
     "count": "{num, plural, one {kód} few {# kódy} many {# kódů} other {# kódů}}",
-    "description": ""
+    "description": "Primární kód, který identifikuje záznam jako celek. Pokud nezískáte žádný výsledek, zkuste alternativní filtr kódů."
   },
   "verbatimScientificName": {
     "name": "Přesný vědecký název",

@@ -1,4 +1,21 @@
 {
+  "URL": "URL",
+  "LSID": "Life Science идентификатор согласно lsid.info",
+  "HANDLER": "ОБРАБОТЧИК",
+  "DOI": "Цифровой идентификатор объекта DOI",
+  "UUID": "Универсальный уникальный идентификатор UUID",
+  "FTP": "FTP",
+  "URI": "URI",
   "UNKNOWN": "Неизвестно",
-  "CITES": "Номер по Конвенции CITES"
+  "GBIF_PORTAL": "Портал GBIF",
+  "GBIF_NODE": "Узел GBIF",
+  "GBIF_PARTICIPANT": "Участник GBIF",
+  "GRBIO_ID": "Глобальный уникальный идентификатор GRBIO ID",
+  "GRBIO_URI": "URI GRBIO",
+  "GRSCICOLL_URI": "URI GRSCICOLL",
+  "IH_IRN": "Индекс Herbariorum гербария nybg.org",
+  "ROR": "Индекс ROR",
+  "GRID": "СЕТКА",
+  "CITES": "Номер по Конвенции CITES",
+  "GRSCICOLL_ID": "Идентификатор GRSCICOLL"
 }
