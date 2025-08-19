@@ -16,6 +16,7 @@ const PARTICIPANT_SELECT_QUERY = /* GraphQL */ `
       results {
         id
         name
+        country
       }
     }
   }
@@ -37,7 +38,7 @@ export function ParticipantSelect({ filters, selected, onChange }: Props) {
     {
       variables: {
         ...(filters ?? {}),
-        limit: 100,
+        limit: 500,
       },
     }
   );
