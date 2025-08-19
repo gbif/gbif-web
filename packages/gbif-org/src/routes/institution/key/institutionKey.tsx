@@ -1,4 +1,3 @@
-import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
 import { NotFoundError } from '@/errors';
 import {
@@ -12,6 +11,7 @@ import {
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { LoaderArgs } from '@/reactRouterPlugins';
+import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
 import { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
@@ -21,36 +21,21 @@ export async function institutionLoader({ params, graphql, config }: LoaderArgs)
   const key = required(params.key, 'No key was provided in the URL');
   const scope = config.collectionSearch?.scope;
 
-  return graphql.query<InstitutionQuery, InstitutionQueryVariables>(INSTITUTION_QUERY, {
-    key,
-    collectionScope: scope ?? {},
+  const response = await graphql.query<InstitutionQuery, InstitutionQueryVariables>(
+    INSTITUTION_QUERY,
+    {
+      key,
+      collectionScope: scope ?? {},
+    }
+  );
+  const { errors, data } = await response.json();
+  throwCriticalErrors({
+    path404: ['institution'],
+    errors,
+    requiredObjects: [data?.institution],
   });
-}
 
-function useErrorPageTest({
-  errors,
-  primaryObject,
-}: {
-  errors: Array<{ message: string; path: [string] }>;
-  primaryObject?: unknown | null;
-}) {
-  const { toast } = useToast();
-
-  useEffect(() => {
-    if (is404({ path: ['institution'], errors })) {
-      throw new NotFoundError();
-    }
-    if (!primaryObject && errors && errors.length > 0) {
-      throw new Error('Unable to load item');
-    }
-
-    if (errors && errors.length > 0) {
-      toast({
-        title: 'Unable to load all content',
-        variant: 'destructive',
-      });
-    }
-  }, [primaryObject, errors, toast]);
+  return response;
 }
 
 export function InstitutionKey() {
@@ -59,40 +44,28 @@ export function InstitutionKey() {
     errors: Array<{ message: string; path: [string] }>;
   };
   const config = useConfig();
-  useErrorPageTest({ errors, primaryObject: data?.institution });
-  // const { toast } = useToast();
-
-  // if (is404({ path: ['institution'], errors })) {
-  //   throw new NotFoundError();
-  // }
-  // if (data.institution === null && errors && errors.length > 0) {
-  //   throw new Error('Unable to load item');
-  // }
-
-  // useEffect(() => {
-  //   if (errors && errors.length > 0) {
-  //     toast({
-  //       title: 'Unable to load all content',
-  //       variant: 'destructive',
-  //     });
-  //   }
-  // }, [data, errors, toast]);
 
   const collectionScope = config.collectionSearch?.scope;
 
-  const { data: institutionMetrics, load: slowLoad } = useQuery<
-    InstitutionSummaryMetricsQuery,
-    InstitutionSummaryMetricsQueryVariables
-  >(SLOW_QUERY, {
-    lazyLoad: true,
-    throwAllErrors: false,
-  });
+  const {
+    data: institutionMetrics,
+    load: slowLoad,
+    error: slowLoadError,
+  } = useQuery<InstitutionSummaryMetricsQuery, InstitutionSummaryMetricsQueryVariables>(
+    SLOW_QUERY,
+    {
+      notifyOnErrors: true,
+      lazyLoad: true,
+      throwAllErrors: false,
+    }
+  );
 
   const { data: imageData, load: imageLoad } = useQuery<
     InstitutionFallbackImageQuery,
     InstitutionFallbackImageQueryVariables
   >(IMAGE_QUERY, {
     lazyLoad: true,
+    notifyOnErrors: true,
     throwAllErrors: false,
   });
 
@@ -290,16 +263,3 @@ const IMAGE_QUERY = /* GraphQL */ `
     }
   }
 `;
-
-function is404({
-  path,
-  errors,
-}: {
-  path: [string];
-  errors: Array<{ message: string; path: [string] }>;
-}) {
-  // check if the path match the error path and the message contains 404
-  return errors?.some(
-    (error) => error.path.join('.') === path.join('.') && error.message.includes('404')
-  );
-}

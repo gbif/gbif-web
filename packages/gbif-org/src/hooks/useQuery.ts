@@ -1,5 +1,6 @@
 import { useConfig } from '@/config/config';
 import { useI18n } from '@/reactRouterPlugins';
+import { usePartialDataNotification } from '@/routes/rootErrorPage';
 import { GraphQLService } from '@/services/graphQLService';
 import isArray from 'lodash/isArray';
 import Queue from 'queue-promise';
@@ -16,6 +17,7 @@ type Options<TVariabels> = {
   ignoreVariableUpdates?: boolean;
   lazyLoad?: boolean;
   keepDataWhileLoading?: boolean;
+  notifyOnErrors?: string | boolean;
   queue?: {
     name?: string;
     concurrent?: number;
@@ -34,6 +36,7 @@ const defaultOptions: Options<unknown> = {
   ignoreVariableUpdates: false,
   lazyLoad: false,
   keepDataWhileLoading: false,
+  notifyOnErrors: false,
   queue: {
     name: undefined,
     concurrent: 1,
@@ -50,6 +53,7 @@ export function useQuery<TResult, TVariabels>(
   query: string,
   options: Options<TVariabels> = defaultOptions as Options<TVariabels>
 ) {
+  const notifyOfPartialData = usePartialDataNotification();
   const isMounted = useRef(false);
   const randomTokenRef = useRef(getRandomToken());
   const [data, setData] = React.useState<TResult | undefined>();
@@ -67,6 +71,12 @@ export function useQuery<TResult, TVariabels>(
       cancelRequestRef.current(ABORT_REASON);
     };
   }, []);
+
+  React.useEffect(() => {
+    if (error && options.notifyOnErrors) {
+      notifyOfPartialData();
+    }
+  }, [error, notifyOfPartialData, options.notifyOnErrors]);
 
   // Prevent a change in variable to trigger a reload if ignoreVariableUpdates has been enabled
   const optionsDependency = React.useMemo(() => {

@@ -35,6 +35,7 @@ export function createGbifRoutes(config: Config) {
         },
         children: [
           {
+            errorElement: <RootErrorPage />,
             children: [
               homePageRoute,
               ...userRoutes,

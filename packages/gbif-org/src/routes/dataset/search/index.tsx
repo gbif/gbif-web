@@ -1,4 +1,3 @@
-import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { DatasetSearchPage } from './datasetSearch';
 
@@ -7,9 +6,5 @@ export const datasetSearchRoute: RouteObjectWithPlugins = {
   gbifRedirect: (_, { gbifOrgLocalePrefix = '' }) =>
     `${import.meta.env.PUBLIC_GBIF_ORG}${gbifOrgLocalePrefix}/dataset/search`,
   path: 'dataset/search',
-  element: (
-    <ErrorBoundary>
-      <DatasetSearchPage />
-    </ErrorBoundary>
-  ),
+  element: <DatasetSearchPage />,
 };

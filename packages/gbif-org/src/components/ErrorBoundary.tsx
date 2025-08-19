@@ -115,6 +115,21 @@ export function ErrorComponent({
       )}
       <div className="g-flex g-flex-row g-gap-2 g-my-4 g-items-center g-justify-center">
         {showReportButton && (
+          <Button variant="ghost" size="sm" className="g-text-slate-500" asChild>
+            <a
+              href=""
+              onClick={() => {
+                if (typeof window !== 'undefined') {
+                  window.location.reload();
+                }
+              }}
+              className="g-text-sm g-text-slate-500"
+            >
+              <FormattedMessage id="error.reloadPage" defaultMessage="Try to reload page" />
+            </a>
+          </Button>
+        )}
+        {showReportButton && (
           <Button asChild size="sm">
             <a
               target="_blank"
@@ -128,21 +143,6 @@ export function ErrorComponent({
               )}`}
             >
               <FormattedMessage id="error.report" defaultMessage="Report issue" />
-            </a>
-          </Button>
-        )}
-        {showReportButton && (
-          <Button variant="ghost" size="sm" className="g-text-slate-500" asChild>
-            <a
-              href=""
-              onClick={() => {
-                if (typeof window !== 'undefined') {
-                  window.location.reload();
-                }
-              }}
-              className="g-text-sm g-text-slate-500"
-            >
-              <FormattedMessage id="error.reloadPage" defaultMessage="Try to reload page" />
             </a>
           </Button>
         )}
