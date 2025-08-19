@@ -2,6 +2,7 @@ import { CustomComponentBlockDetailsFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 import { backgroundColorMap, BlockContainer } from './_shared';
 import { HostedPortalForm } from './customComponents/hostedPortalForm';
+import { MdtForm } from './customComponents/mdtForm';
 import { ProjectsTable } from './customComponents/projects';
 import { PublisherDatasetTable } from './customComponents/publisherDatasetTable';
 
@@ -52,6 +53,8 @@ function CustomComponent({
   switch (resource.componentType) {
     // We could add the other forms as custom components in the future,
     // but our contentful data does not have them yet and adding them would make the transition to the new gbif.org less smooth.
+    case 'metabarcodingDataToolForm':
+      return <MdtForm />;
     case 'hostedPortalForm':
       return <HostedPortalForm className="g-bg-white" />;
     case 'projects':

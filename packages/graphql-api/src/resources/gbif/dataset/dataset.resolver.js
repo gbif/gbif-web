@@ -185,6 +185,13 @@ export const Dataset = {
   },
   events: getDatasetEvents,
   eventCount: getDatasetEventCount,
+  localContext: ({ machineTags }, args, { dataSources }) => {
+    return dataSources.localContextAPI
+      .getDatasetLocalContext({ machineTags })
+      .then((lc) => {
+        return lc;
+      });
+  },
 };
 
 export const ClbDataset = {

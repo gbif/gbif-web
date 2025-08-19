@@ -1,23 +1,24 @@
 export { default as collection } from './collection';
 export { default as country } from './country';
 export { default as dataset } from './dataset';
+export { default as directoryPerson } from './directoryPerson';
 export { default as download } from './download';
+export { default as gadm } from './gadm';
 export { default as installation } from './installation';
 export { default as institution } from './institution';
 export { default as literature } from './literature';
+export { default as localContext } from './localContext';
 export { default as misc } from './misc';
 export { default as network } from './network';
 export { default as node } from './node';
 export { default as occurrence } from './occurrence';
-export { default as wikidata } from './wikidata';
 export { default as organization } from './organization';
 export { default as participant } from './participant';
+export { default as resource } from './resource';
 export { default as staffMember } from './staffMember';
 export { default as taxon } from './taxon';
 export { default as vocabulary } from './vocabulary';
-export { default as gadm } from './gadm';
-export { default as resource } from './resource';
-export { default as directoryPerson } from './directoryPerson';
+export { default as wikidata } from './wikidata';
 
 // experimental taxonmedia service. The idea it to provide a few high quality images per taxon
 export { default as taxonMedia } from '../shared/resources/taxonMedia';

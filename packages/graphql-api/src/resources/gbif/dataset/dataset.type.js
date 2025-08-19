@@ -214,6 +214,7 @@ const typeDef = gql`
     eventCount(optParentEventID: ID): Int
 
     firstOccurrence: Occurrence
+    localContext: [LocalContext]
     events(
       key: ID!
       limit: Int
