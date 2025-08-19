@@ -13,9 +13,35 @@
     <!-- For testing: can be useful to add to test conflicts with hosted portal theming and other sites - should not be permanently included -->
     <!-- <link rel="stylesheet" href="https://hp-theme.gbif-staging.org/assets/theme/css/main.css?v=1718345869" />
     <link rel="stylesheet" href="https://hp-theme.gbif-staging.org/assets/theme/css/font-awesome.min.css" /> -->
+    <style>
+      .fallback-error-container {
+        visibility: hidden;
+        animation: showInstant 0s forwards;
+        animation-delay: 1s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        gap: 4px;
+        font-family: Helvetica Neue, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen,
+          Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica, Arial, sans-serif;
+      }
+
+      @keyframes showInstant {
+        to {
+          visibility: visible;
+        }
+      }
+    </style>
   </head>
   <body style="margin: 0; padding: 0">
-    <div id="app" class="gbif"><!--app-html--></div>
+    <div id="app" class="gbif">
+      <div class="fallback-error-container">
+        <h1 style="font-size: 1.5rem">Something went wrong</h1>
+        <p>Trying to load site...</p>
+      </div>
+    </div>
     <script type="module" src="/src/gbif/entry.fallback.tsx"></script>
   </body>
 </html>
