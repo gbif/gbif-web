@@ -16,12 +16,13 @@ import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitl
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
+import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
 import { MdDownload as DownloadIcon } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData, useParams } from 'react-router-dom';
 
-export function countryKeyLoader({ params, graphql }: LoaderArgs) {
+export async function countryKeyLoader({ params, graphql }: LoaderArgs) {
   const countryCode = required(params.countryCode, 'No countryCode was provided in the URL');
 
   // Validate country code
@@ -29,9 +30,21 @@ export function countryKeyLoader({ params, graphql }: LoaderArgs) {
     throw new NotFoundError();
   }
 
-  return graphql.query<ParticipantQuery, ParticipantQueryVariables>(PARTICIPANT_QUERY, {
-    countryCode,
+  const response = await graphql.query<ParticipantQuery, ParticipantQueryVariables>(
+    PARTICIPANT_QUERY,
+    {
+      countryCode,
+    }
+  );
+
+  const { errors, data } = await response.json();
+  throwCriticalErrors({
+    path404: ['nodeCountry'],
+    errors,
+    requiredObjects: [data?.nodeCountry],
   });
+
+  return response;
 }
 
 export function CountryKeyLayout() {

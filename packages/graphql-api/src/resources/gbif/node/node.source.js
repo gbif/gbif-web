@@ -1,6 +1,7 @@
 import { createSignedGetHeader } from '#/helpers/auth/authenticatedGet';
 import { getDefaultAgent } from '#/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
+import { GraphQLError } from 'graphql';
 import pick from 'lodash/pick';
 import { stringify } from 'qs';
 
@@ -55,7 +56,15 @@ export class NodeAPI extends RESTDataSource {
   async getNodeByCountryCode({ countryCode }) {
     const response = await this.get(`/node/country/${countryCode}`);
     // Will happen if a status of 204 (no content) is returned. Might also happen in other cases, the docs are unclear.
-    if (response === '') return null;
+    if (response === '')
+      throw new GraphQLError('404: Not Found', {
+        extensions: {
+          code: 'NOT_FOUND',
+          http: {
+            status: 404,
+          },
+        },
+      });
     return response;
   }
 }

@@ -10,6 +10,7 @@ import {
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { LoaderArgs } from '@/reactRouterPlugins';
+import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
 import { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
@@ -18,7 +19,19 @@ import { CollectionKey as Presentation } from './collectionKeyPresentation';
 export async function collectionLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
 
-  return graphql.query<CollectionQuery, CollectionQueryVariables>(COLLECTION_QUERY, { key });
+  const response = await graphql.query<CollectionQuery, CollectionQueryVariables>(
+    COLLECTION_QUERY,
+    { key }
+  );
+
+  const { errors, data } = await response.json();
+  throwCriticalErrors({
+    path404: ['collection'],
+    errors,
+    requiredObjects: [data?.collection],
+  });
+
+  return response;
 }
 
 export function CollectionKey() {
@@ -29,7 +42,8 @@ export function CollectionKey() {
     CollectionSummaryMetricsQueryVariables
   >(SLOW_QUERY, {
     lazyLoad: true,
-    throwAllErrors: true,
+    notifyOnErrors: true,
+    throwAllErrors: false,
   });
 
   const { data: imageData, load: imageLoad } = useQuery<
@@ -37,6 +51,7 @@ export function CollectionKey() {
     CollectionFallbackImageQueryVariables
   >(IMAGE_QUERY, {
     lazyLoad: true,
+    notifyOnErrors: true,
     throwAllErrors: false,
   });
 

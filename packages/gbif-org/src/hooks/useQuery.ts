@@ -75,6 +75,7 @@ export function useQuery<TResult, TVariabels>(
   React.useEffect(() => {
     if (error && options.notifyOnErrors) {
       notifyOfPartialData();
+      console.error('Error in useQuery:', error);
     }
   }, [error, notifyOfPartialData, options.notifyOnErrors]);
 
