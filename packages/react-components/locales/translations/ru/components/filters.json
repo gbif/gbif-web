@@ -354,7 +354,7 @@
   },
   "relativeOrganismQuantity": {
     "name": "Относительное обилие вида",
-    "count": "",
+    "count": "{num, plural, one { относительное количество организмов } other {# относительные количества организмов}}",
     "description": "Количество биологического материала относительно размера образца, рассчитываемое как organismQuantity на sampleSize, когда organismQuantityType и sampleSizeUnit являются однозначными."
   },
   "month": {
@@ -529,12 +529,12 @@
   },
   "eventType": {
     "name": "Тип события",
-    "count": "",
+    "count": "{num, plural, one { тип события } other {# типов событий}}",
     "description": "Тип события выборки."
   },
   "dataStructure": {
     "name": "Структура",
-    "count": "",
+    "count": "{num, plural, one { тип события } other {# типов событий}}",
     "description": "Структура данных события выборки."
   },
   "samplingProtocol": {
@@ -549,12 +549,12 @@
   },
   "gadmGid": {
     "name": "Административный район",
-    "count": "",
+    "count": "{num, plural, one { административная область } other {# административных областей}}",
     "description": "Название любой административной территории из GADM.org, определенное в ходе обработки записи"
   },
   "identifiedBy": {
     "name": "Кем определено",
-    "count": "",
+    "count": "{num, plural, one { Идентифирован  } other {Идентифицированы (#)}}",
     "description": "Отдельное лицо, лица, группы или организации, ответственные за определение научного названия Организма."
   },
   "isInCluster": {
@@ -584,7 +584,7 @@
   },
   "publicationDate": {
     "name": "Дата публикации",
-    "count": "",
+    "count": "{num, plural, one { дата публикации } other {# дат публикаций}}",
     "description": "Когда была опубликована запись"
   },
   "personalCollection": {
@@ -594,22 +594,22 @@
   },
   "datasetType": {
     "name": "Тип набора данных",
-    "count": "",
+    "count": "{num, plural, one { тип набора данных } other {# типов наборов данных}}",
     "description": "Здесь следует разместить краткое описание компонента."
   },
   "datasetSubtype": {
     "name": "Подтип набора данных",
-    "count": "",
+    "count": "{num, plural, one { подтип набора данных } other {# подтипов наборов данных}}",
     "description": "Здесь следует разместить краткое описание компонента."
   },
   "institutionKey": {
     "name": "Организация",
-    "count": "",
+    "count": "{num, plural, one { институт } other {# институтов}}",
     "description": "Название учреждения, в котором хранятся объекты или информация, указанные в записи."
   },
   "name": {
     "name": "Имя",
-    "count": "",
+    "count": "{num, plural, one { наименование } other {# наименований}}",
     "description": "Архив, аннотированный GBIF",
     "searchPlaceholder": "Поиск по названию/имени"
   },
@@ -625,7 +625,7 @@
   },
   "verbatimScientificName": {
     "name": "Латинское название по первоисточнику",
-    "count": "",
+    "count": "{num, plural, one { дословное научное название } other {# дословных научных названий}}",
     "description": "Научное название, предоставленное издателем данных, без какой-либо нормализации."
   },
   "networkKey": {
@@ -635,7 +635,7 @@
   },
   "literatureType": {
     "name": "Источник",
-    "count": "",
+    "count": "{num, plural, one { тип литературы } other {# типов литературы}}",
     "description": "Из какого источника взята цитата."
   },
   "higherTaxonKey": {

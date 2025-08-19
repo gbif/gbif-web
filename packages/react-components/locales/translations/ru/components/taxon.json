@@ -21,10 +21,10 @@
   "less": "менее",
   "dna": "ДНК",
   "occurenceImages": "изображения события",
-  "taxonImages": "",
+  "taxonImages": "Изображения таксона",
   "taxonIdentifiers": "Идентификаторы таксона",
   "synonymsAndCombinations": "Синонимы и комбинации",
-  "inChecklist": "",
+  "inChecklist": "В контрольном списке {checklist}",
   "rankPlural": {
     "KINGDOM": "Царство",
     "PHYLUM": "Тип",
@@ -36,7 +36,7 @@
   },
   "distributions": "Распространение",
   "distribution": {
-    "threatStatus": "",
+    "threatStatus": "Статус:  угрожаемый",
     "establishmentMeans": "Статус вида в данной местности",
     "status": "Статус",
     "locality": "Топоним",
@@ -46,7 +46,7 @@
   "verbatim": {
     "term": "Термин",
     "value": "Значение",
-    "coreRecord": ""
+    "coreRecord": "Основная запись"
   },
   "tradeRestrictions": "Торговые ограничения",
   "cites": "Номер по Конвенции CITES",

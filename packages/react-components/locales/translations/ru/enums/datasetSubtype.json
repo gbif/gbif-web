@@ -1,4 +1,10 @@
 {
+  "TAXONOMIC_AUTHORITY": "Таксономическая авторитетная организация",
+  "NOMENCLATOR_AUTHORITY": "Номенклатурный орган",
+  "INVENTORY_THEMATIC": "Тематический перечень",
+  "INVENTORY_REGIONAL": "Региональный перечень",
+  "GLOBAL_SPECIES_DATASET": "Глобальная база данных видов",
+  "DERIVED_FROM_OCCURRENCE": "Получено из данных о событиях",
   "SPECIMEN": "Образец",
   "OBSERVATION": "Наблюдение"
 }
