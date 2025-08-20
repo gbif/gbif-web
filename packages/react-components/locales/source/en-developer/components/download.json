@@ -5,5 +5,25 @@
   "unsupported.error": "This query looks like it is unsupported",
   "download": "Download",
   "redirectNotice": "You are about to download, to do so you will be redirected to GBIF.org. \n\n Be aware that an account is needed to download the content.",
-  "continueToGBIF": "Continue"
+  "continueToGBIF": "Continue",
+  "sql": {
+    "createNewSqlDownload": "Create new SQL download",
+    "create": "Create",
+    "about": "About",
+    "note": {
+      "title": "Note",
+      "description": "The easiest way to download and explore data is via the occurrence search user interface. But for complex queries and aggregations, the SQL editor provides more freedom.",
+      "goToOccurrenceSearch": "Go to occurrence search"
+    },
+    "stopEditing": "Stop Editing",
+    "startEditing": "Start Editing",
+    "reformat": "Reformat",
+    "readTheDocumentation": "Read the documentation",
+    "errors": {
+      "invalid-SQL": "Invalid SQL",
+      "network-error": "Network error",
+      "parsingErrorDescription": "Unable to parse SQL",
+      "networkErrorDescription": "Could not validate SQL because of a network error"
+    }
+  }
 }

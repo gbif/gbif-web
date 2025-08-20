@@ -904,3 +904,31 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     }
   }
 }
+
+/* SQL highlighting */
+.sql-block {
+  display: block; /* makes it behave like a code block */
+  white-space: pre; /* preserve spacing/line breaks */
+  overflow-x: auto; /* allow horizontal scroll if needed */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.sql-hl-keyword {
+  color: #0070c1; /* blue */
+  font-weight: bold;
+}
+.sql-hl-function {
+  color: #6f42c1; /* purple */
+}
+.sql-hl-number {
+  color: #d73a49; /* red */
+}
+.sql-hl-string {
+  color: #22863a; /* green */
+}
+.sql-hl-special,
+.sql-hl-bracket {
+  color: #6a737d; /* neutral gray */
+}
