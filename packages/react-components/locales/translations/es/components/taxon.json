@@ -8,8 +8,8 @@
   "accordingTo": "De acuerdo a",
   "evidenceOfImpact": "Evidencia del impacto",
   "occurrencesInGbif": "Registros de presencia en GBIF",
-  "recordedAsIntrodicedInNcontries": "",
-  "breakdown": "",
+  "recordedAsIntrodicedInNcontries": "Registrado como introducido en {total, plural, one {# país o área} other {# países o áreas}}",
+  "breakdown": "Desglose",
   "publishedIn": "Publicado en",
   "vernacularNames": "Nombres comunes",
   "rank": "Rango",
@@ -21,10 +21,10 @@
   "less": "Igual a {is}",
   "dna": "ADN",
   "occurenceImages": "Igual a {is}",
-  "taxonImages": "",
+  "taxonImages": "Imágenes de taxones",
   "taxonIdentifiers": "Identificadores del taxón",
   "synonymsAndCombinations": "Sinónimos y combinaciones",
-  "inChecklist": "",
+  "inChecklist": "En {checklist}",
   "rankPlural": {
     "KINGDOM": "Reinos",
     "PHYLUM": "Filos",
@@ -36,7 +36,7 @@
   },
   "distributions": "Distribuciones",
   "distribution": {
-    "threatStatus": "",
+    "threatStatus": "Estado de amenaza",
     "establishmentMeans": "Medias establecidas",
     "status": "Estado",
     "locality": "Localidad",
@@ -46,7 +46,7 @@
   "verbatim": {
     "term": "Término",
     "value": "Valor",
-    "coreRecord": ""
+    "coreRecord": "Registro del core"
   },
   "tradeRestrictions": "Restricciones comerciales",
   "cites": "CITES",
