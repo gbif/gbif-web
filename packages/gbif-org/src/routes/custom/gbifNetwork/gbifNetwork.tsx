@@ -1,3 +1,5 @@
+import { ClientSideOnly } from '@/components/clientSideOnly';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import {
   GbifNetworkPageQuery,
   GbifNetworkParticipantsQuery,
@@ -5,6 +7,7 @@ import {
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
+import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
@@ -95,19 +98,27 @@ const NETWORK_PARTICIPANTS_QUERY = /* GraphQL */ `
   }
 `;
 
-function gbifNetworkPageLoader(args: LoaderArgs) {
-  return args.graphql.query<GbifNetworkPageQuery, undefined>(GBIF_NETWORK_QUERY, undefined);
+async function gbifNetworkPageLoader({ graphql }: LoaderArgs) {
+  const response = await graphql.query<GbifNetworkPageQuery, undefined>(
+    GBIF_NETWORK_QUERY,
+    undefined
+  );
+  const { errors, data } = await response.json();
+  throwCriticalErrors({
+    path404: ['resource'],
+    errors,
+    requiredObjects: [data?.resource],
+  });
+
+  return response;
 }
 
 function GbifNetworkPage() {
   const { data } = useLoaderData() as { data: GbifNetworkPageQuery };
-  const {
-    data: listData,
-    loading,
-    error,
-  } = useQuery<GbifNetworkParticipantsQuery, GbifNetworkParticipantsQueryVariables>(
-    NETWORK_PARTICIPANTS_QUERY
-  );
+  const { data: listData, loading } = useQuery<
+    GbifNetworkParticipantsQuery,
+    GbifNetworkParticipantsQueryVariables
+  >(NETWORK_PARTICIPANTS_QUERY, { notifyOnErrors: true, throwAllErrors: false });
   const resource = data.resource;
 
   // This should not happen as long as the become a publisher page is of type Article in Contentful
@@ -132,7 +143,9 @@ function GbifNetworkPage() {
           )}
         </ArticleTextContainer>
 
-        <Map className="g-mt-8 g-mb-6" listData={listData} />
+        <ClientSideOnly>
+          <Map className="g-mt-8 g-mb-6" listData={listData} />
+        </ClientSideOnly>
 
         <ArticleTextContainer className="g-mb-8">
           {resource.body && (
@@ -143,8 +156,14 @@ function GbifNetworkPage() {
             <h2>
               <FormattedMessage id="gbifNetwork.headlines.nodesSteeringGroup" />
             </h2>
-            {listData && <NodeSteeringGroup listData={listData} />}
           </div>
+          {listData && (
+            <ErrorBoundary type="BLOCK" showReportButton={true} showStackTrace={false}>
+              <div className="g-prose g-max-w-none dark:g-prose-invert">
+                <NodeSteeringGroup listData={listData} />
+              </div>
+            </ErrorBoundary>
+          )}
         </ArticleTextContainer>
 
         {!loading && listData && (

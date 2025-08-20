@@ -1,3 +1,4 @@
+import { NotFoundError } from '#/helpers/GraphQL404Error';
 import { RESORUCE_OPTIONS } from './resource.constants';
 
 function elasticSearchTypeToGraphQLType(elasticSearchType) {
@@ -21,10 +22,14 @@ export default {
       }
 
       if (typeof alias === 'string') {
-        return dataSources.resourceSearchAPI.getFirstEntryByQuery(
-          { urlAlias: alias },
-          locale,
-        );
+        return dataSources.resourceSearchAPI
+          .getFirstEntryByQuery({ urlAlias: alias }, locale)
+          .then((data) => {
+            if (!data) {
+              throw new NotFoundError();
+            }
+            return data;
+          });
       }
 
       throw new Error('Either id or alias must be provided');

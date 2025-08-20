@@ -42,7 +42,7 @@ export default function NodeSteeringGroup({
               </div>
             </td>
             <td>
-              <div>{member.contact?.participants[0]?.name ?? member.institutionName}</div>
+              <div>{member.contact?.participants?.[0]?.name ?? member.institutionName}</div>
             </td>
           </tr>
         ))}
