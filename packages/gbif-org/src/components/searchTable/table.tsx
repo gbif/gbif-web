@@ -33,6 +33,7 @@ interface Props<T> {
 
 export default memo(SearchTable) as typeof SearchTable;
 function SearchTable<T>({
+  noHeader = false,
   columns,
   data,
   className,
@@ -89,19 +90,21 @@ function SearchTable<T>({
         {/* https://limebrains.com/blog/2021-03-02T13:00-heigh-100-inside-table-td/ */}
         {/* Without this 1px height the a tags in the table cells won't be able to match the height of the td with height: 100% */}
         <Table className="g-h-1">
-          <Header
-            filters={filters}
-            filteredColumns={filteredColumns}
-            orderedColumns={orderedColumns}
-            isHorizontallyScrolled={isHorizontallyScrolled}
-            firstColumnIsLocked={firstColumnIsLocked}
-            hideFirstColumnLock={hideFirstColumnLock}
-            setFirstColumnIsLocked={setFirstColumnIsLocked}
-            hideColumnVisibilityDropdown={hideColumnVisibilityDropdown}
-            resetColumnVisibility={resetColumnVisibility}
-            toggleColumnVisibility={toggleColumnVisibility}
-            visibleColumns={visibleColumns}
-          />
+          {noHeader ? null : (
+            <Header
+              filters={filters}
+              filteredColumns={filteredColumns}
+              orderedColumns={orderedColumns}
+              isHorizontallyScrolled={isHorizontallyScrolled}
+              firstColumnIsLocked={firstColumnIsLocked}
+              hideFirstColumnLock={hideFirstColumnLock}
+              setFirstColumnIsLocked={setFirstColumnIsLocked}
+              hideColumnVisibilityDropdown={hideColumnVisibilityDropdown}
+              resetColumnVisibility={resetColumnVisibility}
+              toggleColumnVisibility={toggleColumnVisibility}
+              visibleColumns={visibleColumns}
+            />
+          )}
           <Body
             items={data}
             loading={loading}

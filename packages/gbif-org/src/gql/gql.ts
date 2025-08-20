@@ -217,6 +217,8 @@ const documents = {
     "\n  fragment TaxonResult on Taxon {\n    key\n    nubKey\n    scientificName\n    canonicalName\n    formattedName(useFallback: true)\n    kingdom\n    phylum\n    class\n    order\n    family\n    genus\n    rank\n    taxonomicStatus\n    parents {\n      key\n      name: canonicalName\n      rank\n    }\n    mapCapabilities {\n      total\n    }\n    accepted\n    acceptedKey\n    numDescendants\n    vernacularNames(limit: 1, language: \"eng\") {\n      results {\n        vernacularName\n        source\n        sourceTaxonKey\n      }\n    }\n  }\n": types.TaxonResultFragmentDoc,
     "\n  fragment DownloadResult on Download {\n    key\n    created\n    modified\n    doi\n    downloadLink\n    status\n    totalRecords\n    numberDatasets\n    size\n    license\n    request {\n      predicate\n      sql: sqlFormatted\n      format\n      description\n      gbifMachineDescription\n    }\n  }\n": types.DownloadResultFragmentDoc,
     "\n  query UserDownloads($username: String!, $limit: Int!, $offset: Int!) {\n    userDownloads(username: $username, limit: $limit, offset: $offset) {\n      limit\n      offset\n      count\n      endOfRecords\n      results {\n        ...DownloadResult\n      }\n    }\n  }\n": types.UserDownloadsDocument,
+    "\n  query LiteratureWidgetButtonSearch($from: Int, $size: Int, $predicate: Predicate) {\n    literatureSearch(predicate: $predicate) {\n      documents(from: $from, size: $size) {\n        total\n      }\n    }\n  }\n": types.LiteratureWidgetButtonSearchDocument,
+    "\n  query LiteratureWidgetSearch($from: Int, $size: Int, $predicate: Predicate) {\n    literatureSearch(predicate: $predicate) {\n      documents(from: $from, size: $size) {\n        from\n        size\n        total\n        results {\n          id\n          title\n          abstract\n          authors {\n            firstName\n            lastName\n          }\n\n          identifiers {\n            doi\n          }\n        }\n      }\n    }\n  }\n": types.LiteratureWidgetSearchDocument,
 };
 
 /**
@@ -1049,6 +1051,14 @@ export function graphql(source: "\n  fragment DownloadResult on Download {\n    
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query UserDownloads($username: String!, $limit: Int!, $offset: Int!) {\n    userDownloads(username: $username, limit: $limit, offset: $offset) {\n      limit\n      offset\n      count\n      endOfRecords\n      results {\n        ...DownloadResult\n      }\n    }\n  }\n"): (typeof documents)["\n  query UserDownloads($username: String!, $limit: Int!, $offset: Int!) {\n    userDownloads(username: $username, limit: $limit, offset: $offset) {\n      limit\n      offset\n      count\n      endOfRecords\n      results {\n        ...DownloadResult\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query LiteratureWidgetButtonSearch($from: Int, $size: Int, $predicate: Predicate) {\n    literatureSearch(predicate: $predicate) {\n      documents(from: $from, size: $size) {\n        total\n      }\n    }\n  }\n"): (typeof documents)["\n  query LiteratureWidgetButtonSearch($from: Int, $size: Int, $predicate: Predicate) {\n    literatureSearch(predicate: $predicate) {\n      documents(from: $from, size: $size) {\n        total\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query LiteratureWidgetSearch($from: Int, $size: Int, $predicate: Predicate) {\n    literatureSearch(predicate: $predicate) {\n      documents(from: $from, size: $size) {\n        from\n        size\n        total\n        results {\n          id\n          title\n          abstract\n          authors {\n            firstName\n            lastName\n          }\n\n          identifiers {\n            doi\n          }\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query LiteratureWidgetSearch($from: Int, $size: Int, $predicate: Predicate) {\n    literatureSearch(predicate: $predicate) {\n      documents(from: $from, size: $size) {\n        from\n        size\n        total\n        results {\n          id\n          title\n          abstract\n          authors {\n            firstName\n            lastName\n          }\n\n          identifiers {\n            doi\n          }\n        }\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

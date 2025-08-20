@@ -13,6 +13,7 @@ import { omniSearchRoute } from '@/routes/omniSearch';
 import { confirmEndorsmentRoute } from '@/routes/publisher/ConfirmEndorsment';
 import { RootErrorPage } from '@/routes/rootErrorPage';
 import { userRoutes } from '@/routes/user';
+import { literatureButtonWidgetRoute, literatureSearchWidgetRoute } from '@/routes/widgets';
 import { Outlet } from 'react-router-dom';
 import { GbifRootLayout, headerLoader } from './gbifRootLayout';
 
@@ -58,6 +59,8 @@ export function createGbifRoutes(config: Config) {
           },
         ],
       },
+      literatureSearchWidgetRoute,
+      literatureButtonWidgetRoute,
     ],
     config
   );

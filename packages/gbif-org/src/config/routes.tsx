@@ -7,6 +7,7 @@ import { installationKeyRoute } from '@/routes/installation/key';
 import { institutionKeyRoute } from '@/routes/institution/key';
 import { institutionSearchRoute } from '@/routes/institution/search';
 import { literatureSearchRoute } from '@/routes/literature/search';
+
 import { networkKeyRoute } from '@/routes/network/key';
 import { downloadKeyRoute } from '@/routes/occurrence/download/key';
 import { occurrenceKeyRoutes } from '@/routes/occurrence/key';
