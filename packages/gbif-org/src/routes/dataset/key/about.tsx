@@ -14,7 +14,6 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Progress } from '@/components/ui/progress';
 import { CardContent as CardContentSmall } from '@/components/ui/smallCard';
-import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
 import {
   DatasetInsightsQuery,
@@ -52,7 +51,6 @@ import { TaxonomicCoverages } from './about/TaxonomicCoverages';
 import { TemporalCoverages } from './about/TemporalCoverages';
 
 export function DatasetKeyAbout() {
-  const { toast } = useToast();
   const { data } = useDatasetKeyLoaderData();
   const { dataset, totalTaxa, accepted, synonyms } = data;
   const defaultToc = getToc(data);
@@ -76,15 +74,14 @@ export function DatasetKeyAbout() {
     ? { pageId: 'occurrenceSearch', searchParams: { datasetKey: dataset?.key, view: 'map' } }
     : { to: './occurrences?view=map' };
 
-  const {
-    data: insights,
-    error,
-    load,
-    loading,
-  } = useQuery<DatasetInsightsQuery, DatasetInsightsQueryVariables>(DATASET_SLOW, {
-    throwAllErrors: false,
-    lazyLoad: true,
-  });
+  const { data: insights, load } = useQuery<DatasetInsightsQuery, DatasetInsightsQueryVariables>(
+    DATASET_SLOW,
+    {
+      throwAllErrors: false,
+      lazyLoad: true,
+      notifyOnErrors: true,
+    }
+  );
 
   useEffect(() => {
     if (!dataset?.key) return;
@@ -137,17 +134,6 @@ export function DatasetKeyAbout() {
       },
     });
   }, [dataset?.key, sitePredicate, load]);
-
-  useEffect(() => {
-    if (error) {
-      toast({
-        title: 'Unable to load all content',
-        description: error.message,
-        variant: 'destructive',
-      });
-      console.error(error);
-    }
-  }, [error, toast]);
 
   // when dataset or insights change, then recalculate which items go into the table of contents
   useEffect(() => {

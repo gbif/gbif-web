@@ -15,7 +15,7 @@ type QueryResult<T> = Promise<
   Omit<Response, 'json'> & {
     json(): Promise<{
       data: T;
-      errors?: Array<{ message: string; path: [string] }>;
+      errors?: Array<{ message: string; path?: [string] }>;
     }>;
   }
 >;

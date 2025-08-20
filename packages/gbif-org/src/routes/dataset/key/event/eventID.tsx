@@ -83,15 +83,14 @@ export const DatasetEventID = () => {
   const occDynamicLinkProps = disableInPageOccurrenceSearch
     ? { pageId: 'occurrenceSearch', searchParams: { datasetKey: data?.dataset?.key } }
     : { to: './occurrences' };
-  const {
-    data: insights,
-    error,
-    load,
-    loading,
-  } = useQuery<EventInsightsQuery, EventInsightsQueryVariables>(EVENT_SLOW, {
-    throwAllErrors: false,
-    lazyLoad: true,
-  });
+  const { data: insights, load } = useQuery<EventInsightsQuery, EventInsightsQueryVariables>(
+    EVENT_SLOW,
+    {
+      throwAllErrors: false,
+      lazyLoad: true,
+      notifyOnErrors: true,
+    }
+  );
   useEffect(() => {
     const splitted = location?.pathname?.split('/');
     if (splitted[splitted.length - 2] === 'parentevent') {

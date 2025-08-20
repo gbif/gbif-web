@@ -197,7 +197,7 @@ function getRandomToken() {
   return Math.random();
 }
 
-function formatErrors(errors) {
+function formatErrors(errors: Array<{ message: string; path: [string] }>): QueryError {
   return new QueryError({ graphQLErrors: errors });
 }
 
@@ -222,7 +222,7 @@ type ErrorPathsType = { [key: string]: { where: string; status: number; message:
 type NetworkErrorType = { message: string; statusCode: number; data: unknown };
 
 export class QueryError extends Error {
-  graphQLErrors?: any[];
+  graphQLErrors?: Array<{ message: string; path: [string] }>;
   networkError?: NetworkErrorType;
   isCanceled: boolean;
   errorPaths: ErrorPathsType;
@@ -234,7 +234,7 @@ export class QueryError extends Error {
     isCanceled,
   }: {
     message?: string;
-    graphQLErrors?: any[];
+    graphQLErrors?: Array<{ message: string; path: [string] }>;
     networkError?: NetworkErrorType;
     isCanceled?: boolean;
   }) {

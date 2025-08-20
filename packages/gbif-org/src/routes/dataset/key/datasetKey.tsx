@@ -12,7 +12,6 @@ import { LicenceTag } from '@/components/identifierTag';
 import PageMetaData from '@/components/PageMetaData';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
-import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
 import { NotFoundError } from '@/errors';
 import {
@@ -29,6 +28,7 @@ import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleto
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
+import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
 import { getDatasetSchema } from '@/utils/schemaOrg';
 import { createContext, useEffect, useMemo } from 'react';
@@ -273,21 +273,34 @@ export const DatasetKeyContext = createContext<{
   contentMetrics?: DatasetOccurrenceSearchQuery;
 }>({});
 
-export function datasetLoader({ params, graphql }: LoaderArgs) {
+export async function datasetLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
 
-  return graphql.query<DatasetQuery, DatasetQueryVariables>(DATASET_QUERY, { key });
+  const response = await graphql.query<DatasetQuery, DatasetQueryVariables>(DATASET_QUERY, { key });
+  const { errors, data } = await response.json();
+  throwCriticalErrors({
+    path404: ['dataset'],
+    errors,
+    requiredObjects: [data?.dataset],
+  });
+
+  return response;
 }
 
 export const DatasetPageSkeleton = ArticleSkeleton;
 
 export function DatasetPage() {
-  const { toast } = useToast();
+  const notifyOfPartialData = usePartialDataNotification();
   const config = useConfig();
   const { errors, data } = useLoaderData() as {
     data: DatasetQuery;
     errors: Array<{ message: string; path: [string] }>;
   };
+  useEffect(() => {
+    if (errors) {
+      notifyOfPartialData();
+    }
+  }, [errors, notifyOfPartialData]);
 
   if (data.dataset == null) throw new NotFoundError();
   const dataset = data.dataset;
@@ -295,30 +308,14 @@ export function DatasetPage() {
   const contactThreshold = 6;
   const contactsCitation = dataset.contactsCitation?.filter((c) => c.abbreviatedName) || [];
 
-  useEffect(() => {
-    if (errors) {
-      if (!data.dataset) {
-        throw new Error('Failed to load dataset');
-      }
-      toast({
-        title: 'Unable to load all content',
-        variant: 'destructive',
-      });
-    }
-  }, [errors, toast, data]);
-
-  const {
-    data: occData,
-    error,
-    load,
-    loading,
-  } = useQuery<DatasetOccurrenceSearchQuery, DatasetOccurrenceSearchQueryVariables>(
-    OCURRENCE_SEARCH_QUERY,
-    {
-      throwAllErrors: true,
-      lazyLoad: true,
-    }
-  );
+  const { data: occData, load } = useQuery<
+    DatasetOccurrenceSearchQuery,
+    DatasetOccurrenceSearchQueryVariables
+  >(OCURRENCE_SEARCH_QUERY, {
+    throwAllErrors: true,
+    lazyLoad: true,
+    notifyOnErrors: true,
+  });
 
   // check for various tabs
   let hasPhylogeny = false;

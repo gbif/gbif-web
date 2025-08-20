@@ -1,6 +1,6 @@
+import { DownloadAsTSVLink } from '@/components/cardHeaderActions/downloadAsTSVLink';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
-import { DownloadAsTSVLink } from '@/components/cardHeaderActions/downloadAsTSVLink';
 import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
 import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
@@ -20,6 +20,7 @@ import { useNumberParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { usePartialDataNotification } from '@/routes/rootErrorPage';
 import { notNull } from '@/utils/notNull';
 import { stringify } from '@/utils/querystring';
 import React, { useContext, useEffect, useState } from 'react';
@@ -71,6 +72,7 @@ export function CollectionSearchPage(): React.ReactElement {
 }
 
 export function CollectionSearch(): React.ReactElement {
+  const notifyOfPartialData = usePartialDataNotification();
   const [offset, setOffset] = useNumberParam({ key: 'offset', defaultValue: 0, hideDefault: true });
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
@@ -83,10 +85,16 @@ export function CollectionSearch(): React.ReactElement {
     CollectionSearchQuery,
     CollectionSearchQueryVariables
   >(COLLECTION_SEARCH_QUERY, {
-    throwAllErrors: true,
+    throwAllErrors: false,
     lazyLoad: true,
     forceLoadingTrueOnMount: true,
   });
+
+  if (error && !data?.collectionSearch) {
+    throw error;
+  } else if (error) {
+    notifyOfPartialData();
+  }
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });

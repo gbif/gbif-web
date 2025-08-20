@@ -22,7 +22,7 @@ interface DescriptorGroupsProps {
 export function DescriptorGroups({ collectionKey }: DescriptorGroupsProps) {
   const { data, loading, load } = useQuery<DescriptorGroupsQuery, DescriptorGroupsQueryVariables>(
     DESCRIPTOR_GROUPS,
-    { lazyLoad: true }
+    { lazyLoad: true, notifyOnErrors: true }
   );
 
   useEffect(() => {

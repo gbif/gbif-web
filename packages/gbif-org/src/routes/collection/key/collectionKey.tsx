@@ -10,7 +10,7 @@ import {
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { LoaderArgs } from '@/reactRouterPlugins';
-import { throwCriticalErrors } from '@/routes/rootErrorPage';
+import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
 import { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
@@ -35,7 +35,13 @@ export async function collectionLoader({ params, graphql }: LoaderArgs) {
 }
 
 export function CollectionKey() {
-  const { data } = useLoaderData() as { data: CollectionQuery };
+  const notifyOfPartialData = usePartialDataNotification();
+  const { data, errors } = useLoaderData() as { data: CollectionQuery };
+  useEffect(() => {
+    if (errors) {
+      notifyOfPartialData();
+    }
+  }, [errors, notifyOfPartialData]);
 
   const { data: collectionMetrics, load: slowLoad } = useQuery<
     CollectionSummaryMetricsQuery,

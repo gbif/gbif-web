@@ -16,8 +16,9 @@ export class NotFoundLoaderResponse extends Response {
   }
 }
 
-export class UnexpectedLoaderError extends Response {
-  constructor(message?: string) {
-    super(message, { status: 500 });
+export class UnexpectedLoaderError extends Error {
+  constructor() {
+    super('500');
   }
+  status = 500;
 }

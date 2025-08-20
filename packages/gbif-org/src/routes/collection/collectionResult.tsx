@@ -29,15 +29,6 @@ fragmentManager.register(/* GraphQL */ `
       recordedBy
       typeStatus
       identifiedBy
-      taxon {
-        kingdom
-        phylum
-        class
-        order
-        family
-        genus
-        species
-      }
     }
   }
 `);

@@ -16,8 +16,9 @@ import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitl
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { throwCriticalErrors } from '@/routes/rootErrorPage';
+import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
+import { useEffect } from 'react';
 import { MdDownload as DownloadIcon } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData, useParams } from 'react-router-dom';
@@ -26,14 +27,14 @@ export async function countryKeyLoader({ params, graphql }: LoaderArgs) {
   const countryCode = required(params.countryCode, 'No countryCode was provided in the URL');
 
   // Validate country code
-  if (!countryCodes.includes(countryCode)) {
+  if (!countryCodes.map((code) => code.toLowerCase()).includes(countryCode.toLowerCase())) {
     throw new NotFoundError();
   }
 
   const response = await graphql.query<ParticipantQuery, ParticipantQueryVariables>(
     PARTICIPANT_QUERY,
     {
-      countryCode,
+      countryCode: countryCode.toUpperCase(),
     }
   );
 
@@ -48,12 +49,18 @@ export async function countryKeyLoader({ params, graphql }: LoaderArgs) {
 }
 
 export function CountryKeyLayout() {
+  const notifyOfPartialData = usePartialDataNotification();
   const { countryCode } = useParams();
 
   // This can't happen as long as the page is used on the correct route.
   if (!countryCode) throw new Error('No countryCode was provided in the URL');
 
-  const { data } = useLoaderData() as { data: ParticipantQuery };
+  const { data, errors } = useLoaderData() as { data: ParticipantQuery };
+  useEffect(() => {
+    if (errors) {
+      notifyOfPartialData();
+    }
+  }, [errors, notifyOfPartialData]);
 
   const hasProjects = useHasProjects(countryCode);
   const hasNews = useHasNews(countryCode);

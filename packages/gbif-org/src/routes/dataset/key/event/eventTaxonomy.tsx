@@ -32,13 +32,11 @@ const EventTaxonomy = ({
   };
 
   const [chartData, setChartData] = useState<ChartDataItem[]>([]);
-  const { data, load, loading } = useQuery<EventTaxonomyQuery, EventTaxonomyQueryVariables>(
-    EVENT_TAXONOMY,
-    {
-      lazyLoad: true,
-      throwAllErrors: true,
-    }
-  );
+  const { data, load } = useQuery<EventTaxonomyQuery, EventTaxonomyQueryVariables>(EVENT_TAXONOMY, {
+    lazyLoad: true,
+    throwAllErrors: true,
+    notifyOnErrors: true,
+  });
   useEffect(() => {
     if (datasetKey) {
       const variables = {
