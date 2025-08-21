@@ -181,6 +181,7 @@ export function AgentSummary({ agent }: { agent: { type: string; value: string }
     throwAllErrors: false,
     variables: { type: agent.type, value: agent.value },
   });
+  // ignore errors and just fallback to the raw value - no need to notify anyone
   if (!data?.person || loading || error) return agent.value;
   const { person } = data;
 

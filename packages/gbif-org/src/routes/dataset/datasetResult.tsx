@@ -64,7 +64,7 @@ export function DatasetResult({
                 <FormattedMessage id="phrases.noDescriptionProvided" />
               </p>
             )}
-            {!hidePublisher && (
+            {!hidePublisher && dataset.publishingOrganizationTitle && (
               <p className="g-font-normal g-text-slate-500 g-text-sm g-mt-2">
                 <FormattedMessage id="dataset.publishedBy" />{' '}
                 <span>{dataset.publishingOrganizationTitle}</span>

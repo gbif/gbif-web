@@ -12,6 +12,7 @@ import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { LiteratureTableSearchQuery, LiteratureTableSearchQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
+import { usePartialDataNotification } from '@/routes/rootErrorPage';
 import { ExtractPaginatedResult } from '@/types';
 import { notNull } from '@/utils/notNull';
 import { useContext, useEffect, useMemo } from 'react';
@@ -72,13 +73,14 @@ export type SingleLiteratureSearchResult = ExtractPaginatedResult<
 const keySelector = (item: SingleLiteratureSearchResult) => item.id;
 
 export function LiteratureTable() {
+  const notifyOfPartialData = usePartialDataNotification();
   const searchContext = useSearchContext();
   const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
   const filterContext = useContext(FilterContext);
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
 
-  const { data, load, loading } = useQuery<
+  const { data, load, error, loading } = useQuery<
     LiteratureTableSearchQuery,
     LiteratureTableSearchQueryVariables
   >(LITERATURE_TABLE_SEARCH, {
@@ -86,6 +88,14 @@ export function LiteratureTable() {
     lazyLoad: true,
     keepDataWhileLoading: true,
   });
+
+  useEffect(() => {
+    if (error && !data?.literatureSearch?.documents) {
+      throw error;
+    } else if (error) {
+      notifyOfPartialData();
+    }
+  }, [data, error, notifyOfPartialData]);
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });

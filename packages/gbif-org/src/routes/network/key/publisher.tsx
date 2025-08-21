@@ -16,13 +16,13 @@ export function NetworkKeyPublisher() {
   const { key } = useParams<{ key: string }>();
   const [offset, setOffset] = useIntParam({ key: 'offset', defaultValue: 0, hideDefault: true });
 
-  const { data, error, load, loading } = useQuery<
-    NetworkPublishersQuery,
-    NetworkPublishersQueryVariables
-  >(DATASET_QUERY, {
-    throwAllErrors: true,
-    lazyLoad: true,
-  });
+  const { data, load, loading } = useQuery<NetworkPublishersQuery, NetworkPublishersQueryVariables>(
+    DATASET_QUERY,
+    {
+      throwAllErrors: true,
+      lazyLoad: true,
+    }
+  );
 
   useEffect(() => {
     // load publishers and refresh when pages change

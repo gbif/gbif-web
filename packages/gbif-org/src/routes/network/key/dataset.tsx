@@ -8,6 +8,7 @@ import useQuery from '@/hooks/useQuery';
 import { DatasetResult } from '@/routes/dataset/datasetResult';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
+import { usePartialDataNotification } from '@/routes/rootErrorPage';
 import { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
@@ -25,9 +26,17 @@ export function NetworkKeyDataset() {
     NetworkDatasetsQuery,
     NetworkDatasetsQueryVariables
   >(DATASET_QUERY, {
-    throwAllErrors: true,
+    throwAllErrors: false,
     lazyLoad: true,
   });
+  const notifyOfPartialData = usePartialDataNotification();
+  useEffect(() => {
+    if (error && !data?.network?.constituents?.results) {
+      throw error;
+    } else if (error) {
+      notifyOfPartialData();
+    }
+  }, [data, error, notifyOfPartialData]);
 
   useEffect(() => {
     // load datasets and refresh when pages change

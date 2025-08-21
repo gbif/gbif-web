@@ -2,7 +2,6 @@ import { Coordinates, FeatureList, Sequenced, TypeStatus } from '@/components/hi
 import { Tag } from '@/components/resultCards';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/largeCard';
-import { useToast } from '@/components/ui/use-toast';
 import {
   OccurrenceClusterQuery,
   OccurrenceClusterQueryVariables,
@@ -13,6 +12,7 @@ import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { usePartialDataNotification } from '@/routes/rootErrorPage';
 import { fragmentManager } from '@/services/fragmentManager';
 import { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -20,7 +20,6 @@ import { useParams } from 'react-router-dom';
 
 export function OccurrenceKeyCluster() {
   const { key } = useParams<{ key: string }>();
-  const { toast } = useToast();
 
   const { data, error, load, loading } = useQuery<
     OccurrenceClusterQuery,
@@ -29,6 +28,12 @@ export function OccurrenceKeyCluster() {
     throwAllErrors: false,
     lazyLoad: true,
   });
+  const notifyOfPartialData = usePartialDataNotification();
+  useEffect(() => {
+    if (error && data && !loading) {
+      notifyOfPartialData();
+    }
+  }, [error, notifyOfPartialData]);
 
   useEffect(() => {
     if (!key) return;
@@ -41,14 +46,8 @@ export function OccurrenceKeyCluster() {
     });
   }, [key, load]);
 
-  if (error && !loading && !data) {
+  if (error && !loading && !data.occurrence?.related?.currentOccurrence?.occurrence) {
     throw error;
-  }
-  if (error) {
-    toast({
-      title: 'Unable to load all content',
-      variant: 'destructive',
-    });
   }
 
   if (loading || !data)
@@ -120,12 +119,12 @@ function RelatedRecord({
 }) {
   if (!occurrence) {
     return (
-      <Card className="g-bg-red-500 g-text-white g-mb-4">
-        <CardHeader>
+      <Card className="g-mb-4">
+        <CardHeader className="g-bg-red-500 g-text-white">
           <FormattedMessage id="search.occurrenceClustersView.isDeleted" />
         </CardHeader>
         <CardContent>
-          <pre>{JSON.stringify(stub, null, 2)}</pre>
+          <pre className="g-overflow-auto">{JSON.stringify(stub, null, 2)}</pre>
         </CardContent>
       </Card>
     );

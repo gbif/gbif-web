@@ -18,7 +18,6 @@ import {
 import { FormattedDateRange } from '@/components/message';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import { Tabs } from '@/components/tabs';
-import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
 import { NotFoundError } from '@/errors';
 import {
@@ -37,6 +36,7 @@ import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleto
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
+import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
 import { fragmentManager } from '@/services/fragmentManager';
 import { required } from '@/utils/required';
 import { createContext, useEffect } from 'react';
@@ -44,7 +44,7 @@ import { Helmet } from 'react-helmet-async';
 import { BsLightningFill } from 'react-icons/bs';
 import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
-import { Outlet, redirect, useLoaderData } from 'react-router-dom';
+import { Outlet, useLoaderData, useLocation } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 import { IssueTag, IssueTags } from './properties';
 
@@ -274,12 +274,14 @@ export async function occurrenceKeyLoader({ params, graphql }: LoaderArgs) {
     }
   );
 
-  // If the occurrence does not exist, we try to redirect to the occurrence tombstone page
-  const result = await response.json();
-  if (result.errors?.some((error) => error.message === '404: Not Found')) {
-    return redirect('fragment');
-  }
-  return result;
+  const { errors, data } = await response.json();
+  throwCriticalErrors({
+    path404: ['occurrence'],
+    errors,
+    requiredObjects: [data?.occurrence],
+  });
+
+  return response;
 }
 
 export const OccurrenceKeyContext = createContext<{
@@ -303,32 +305,30 @@ const notableCoordinateIssues = [
 ];
 
 export function OccurrenceKey() {
-  const { toast } = useToast();
+  const location = useLocation();
   const { data, errors } = useLoaderData() as {
     data: OccurrenceQuery;
     errors: Array<{ message: string; path: [string] }>;
   };
+  const notifyOfPartialData = usePartialDataNotification();
+  useEffect(() => {
+    if (errors) {
+      notifyOfPartialData();
+    }
+  }, [errors, notifyOfPartialData]);
+
   const hideGlobe = useBelow(800);
   const config = useConfig();
   const { locale } = useI18n();
 
-  useEffect(() => {
-    if (errors) {
-      toast({
-        title: 'Unable to load all content',
-        variant: 'destructive',
-      });
-    }
-  }, [errors, toast]);
-
   const {
     data: slowData,
     loading: slowLoading,
-    error: slowError,
     load: slowLoad,
   } = useQuery<SlowOccurrenceKeyQuery, SlowOccurrenceKeyQueryVariables>(SLOW_OCCURRENCE_QUERY, {
     lazyLoad: true,
     throwAllErrors: false,
+    notifyOnErrors: true,
   });
 
   useEffect(() => {
@@ -600,7 +600,9 @@ export function OccurrenceKey() {
               occurrence,
             }}
           >
-            <Outlet />
+            <ErrorBoundary invalidateOn={location.pathname + location.search} showStackTrace>
+              <Outlet />
+            </ErrorBoundary>
           </OccurrenceKeyContext.Provider>
         </ErrorBoundary>
       </article>

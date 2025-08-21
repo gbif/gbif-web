@@ -35,8 +35,8 @@ export async function collectionLoader({ params, graphql }: LoaderArgs) {
 }
 
 export function CollectionKey() {
-  const notifyOfPartialData = usePartialDataNotification();
   const { data, errors } = useLoaderData() as { data: CollectionQuery };
+  const notifyOfPartialData = usePartialDataNotification();
   useEffect(() => {
     if (errors) {
       notifyOfPartialData();

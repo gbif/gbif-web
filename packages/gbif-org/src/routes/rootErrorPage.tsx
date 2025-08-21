@@ -2,7 +2,7 @@ import { ErrorComponent } from '@/components/ErrorBoundary';
 import { useToast } from '@/components/ui/use-toast';
 import { NotFoundLoaderResponse } from '@/errors';
 import { NotFoundPage } from '@/notFoundPage';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useLocation, useRouteError } from 'react-router-dom';
 
@@ -81,6 +81,7 @@ export function usePartialDataNotification() {
   const location = useLocation();
   const { toast } = useToast();
   const { formatMessage } = useIntl();
+  const [hasNotified, setHasNotified] = useState(false);
 
   useEffect(() => {
     if (location.pathname !== pathWhereUserWasLastNotified) {
@@ -89,14 +90,15 @@ export function usePartialDataNotification() {
   }, [location.pathname]);
 
   const notify = useCallback(() => {
-    if (pathWhereUserWasLastNotified !== location.pathname) {
+    if (pathWhereUserWasLastNotified !== location.pathname && !hasNotified) {
       pathWhereUserWasLastNotified = location.pathname;
+      setHasNotified(true);
       toast({
         title: formatMessage({ id: 'error.partialData' }),
         variant: 'destructive',
       });
     }
-  }, [location.pathname, toast, formatMessage]);
+  }, [location.pathname, toast, formatMessage, hasNotified, setHasNotified]);
 
   return notify;
 }
