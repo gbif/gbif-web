@@ -58,7 +58,7 @@
     "tooLarge": "Geometrie je příliš velká",
     "selfIntersecting": "",
     "orderChanged": "",
-    "geometryReducedToBbox": "",
-    "failedToSimplify": ""
+    "geometryReducedToBbox": "Geometrie omezená na ohraničující rámeček",
+    "failedToSimplify": "Nepodařilo se zjednodušit geometrii"
   }
 }
