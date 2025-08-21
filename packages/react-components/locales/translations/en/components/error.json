@@ -2,6 +2,7 @@
   "generic": "An error occurred",
   "unknown": "Unknown error",
   "report": "Report issue",
+  "retry": "Retry",
   "reloadPage": "Refresh page",
   "hideDetails": "Hide details",
   "showDetails": "Show details"
