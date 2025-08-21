@@ -42,7 +42,9 @@ export function MediaPresentation({
               key={result.key}
               identifier={identifier}
               formattedName={
-                result?.classification?.taxonMatch.name ?? result?.verbatimScientificName
+                result?.classification?.taxonMatch?.name ??
+                result?.classification?.usage?.name ??
+                result?.verbatimScientificName
               }
               countryCode={result.countryCode}
               eventDate={result.eventDate}

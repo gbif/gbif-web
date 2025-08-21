@@ -1,3 +1,4 @@
+import { ErrorComponent } from '@/components/ErrorBoundary';
 import { FormattedDateRange } from '@/components/message';
 import StripeLoader from '@/components/stripeLoader';
 import { Button } from '@/components/ui/button';
@@ -17,7 +18,11 @@ function ListItem({ id, item, onClick = (id) => {}, ...props }) {
         <div className="g-flex-grow gbif-listItemContent">
           <h4
             className=""
-            dangerouslySetInnerHTML={{ __html: item.classification.taxonMatch.usage.canonicalName }}
+            dangerouslySetInnerHTML={{
+              __html:
+                item.classification?.taxonMatch?.usage?.canonicalName ??
+                item.classification?.usage?.name,
+            }}
           ></h4>
           {item.eventDate && (
             <div className="g-text-slate-500">
@@ -44,6 +49,8 @@ function ListItem({ id, item, onClick = (id) => {}, ...props }) {
 function ListBox({ className, labelMap, onCloseRequest, onClick, data, error, loading, ...props }) {
   if (!error && !loading && !data) return null;
 
+  const criticalError = error && !data.occurrenceSearch?.documents?.results;
+
   let content;
   if (loading) {
     return (
@@ -56,16 +63,14 @@ function ListBox({ className, labelMap, onCloseRequest, onClick, data, error, lo
         </div>
       </section>
     );
-  } else if (error) {
+  } else if (criticalError) {
     return (
-      <section {...props}>
-        <div className={cn('gbif-container', className)}>
-          <StripeLoader active error />
-          <div className="gbif-listItemContent">
-            <FormattedMessage id="phrases.loadError" />
-          </div>
-        </div>
-      </section>
+      <ErrorComponent
+        error={error}
+        type={'CARD'}
+        className={className}
+        errorMessage={error.message}
+      />
     );
   } else if (data) {
     const results = data?.occurrenceSearch?.documents?.results || [];

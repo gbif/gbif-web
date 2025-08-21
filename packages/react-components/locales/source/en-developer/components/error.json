@@ -3,6 +3,7 @@
   "genericDescription": "An unexpected error occurred. Please try again later.",
   "unknown": "Unknown error",
   "report": "Report issue",
+  "retry": "Retry",
   "partialData": "Not all data could be loaded",
   "reloadPage": "Refresh page",
   "hideDetails": "Hide details",

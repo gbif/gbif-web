@@ -68,7 +68,8 @@ export default function ScientificNameColumn({
                 className="g-pointer-events-auto g-me-2"
                 dangerouslySetInnerHTML={{
                   __html: (occurrence?.classification?.taxonMatch?.usage?.formattedName ??
-                    occurrence?.classification?.taxonMatch?.usage.name) as string,
+                    occurrence?.classification?.taxonMatch?.usage.name ??
+                    occurrence?.classification?.usage?.name) as string,
                 }}
               />
             )}

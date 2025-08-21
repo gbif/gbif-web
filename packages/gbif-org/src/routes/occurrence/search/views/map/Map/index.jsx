@@ -32,6 +32,9 @@ query point($q: String, $predicate: Predicate, $checklistKey: ID){
         basisOfRecord
         eventDate
         classification(checklistKey: $checklistKey) {
+          usage {
+            name
+          }
           taxonMatch {
             usage {
               canonicalName

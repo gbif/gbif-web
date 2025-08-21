@@ -17,8 +17,10 @@ export function VocabularyValue({ value, vocabulary }: Props) {
   });
 
   if (loading) return <Skeleton className="g-h-6 g-w-full" />;
-  if (data) return <span>{getVocabularyLabel(data, locale).title}</span>;
-  return null;
+  if (data) {
+    return <span>{getVocabularyLabel(data, locale).title}</span>;
+  }
+  return <span className="g-text-slate-500">{value}</span>; // Fallback to the original value if no data is found
 }
 
 function getVocabularyLabel(result: any, locale: LanguageOption) {

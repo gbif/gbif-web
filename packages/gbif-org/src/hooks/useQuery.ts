@@ -115,7 +115,7 @@ export function useQuery<TResult, TVariabels>(
             if (response.ok === false) {
               const data = await response.json();
               if (data.errors) {
-                setError(formatErrors(data.errors));
+                setError(formatErrors(data.errors, query, mergedOptions?.variables as object));
               } else {
                 setError(
                   new QueryError({
@@ -132,7 +132,11 @@ export function useQuery<TResult, TVariabels>(
             else {
               const result = await response.json();
               if (result.errors) {
-                const error = formatErrors(result.errors);
+                const error = formatErrors(
+                  result.errors,
+                  query,
+                  mergedOptions?.variables as object
+                );
                 setError(error);
               }
               setData(result.data);
@@ -153,7 +157,7 @@ export function useQuery<TResult, TVariabels>(
               new QueryError({
                 error,
                 query: query,
-                variables: mergedOptions?.variables,
+                variables: mergedOptions?.variables as object,
               })
             );
           });
@@ -210,13 +214,17 @@ function getRandomToken() {
   return Math.random();
 }
 
-function formatErrors(errors: Array<{ message?: string; path?: string[] }>): QueryError {
+function formatErrors(
+  errors: Array<{ message?: string; path?: string[] }>,
+  query: string,
+  variables: object
+): QueryError {
   // Ensure each error has a defined message and path
   const formattedErrors = errors.map((e) => ({
     message: e.message ?? 'Error message not found.',
     path: e.path ?? [],
   }));
-  return new QueryError({ graphQLErrors: formattedErrors });
+  return new QueryError({ graphQLErrors: formattedErrors, query, variables });
 }
 
 // function canceledResponse(reason) {

@@ -92,21 +92,11 @@ class OccurrenceAPI extends RESTDataSource {
   }
 
   async registerPredicate({ predicate }) {
-    try {
-      return await this.post(
-        `${this.config.apiv2}/map/occurrence/adhoc/predicate/`,
-        predicate,
-        { signal: this.context.abortController.signal },
-      );
-    } catch (err) {
-      console.log(err);
-      return {
-        err: {
-          error: 'FAILED_TO_REGISTER_PREDICATE',
-        },
-        predicate: null,
-      };
-    }
+    return this.post(
+      `${this.config.apiv2}/map/occurrence/adhoc/predicate/`,
+      predicate,
+      { signal: this.context.abortController.signal },
+    );
   }
 
   async getMapCapabilities(query) {

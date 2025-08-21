@@ -266,12 +266,19 @@ export function OccurrenceTableClient() {
 
   return (
     <>
-      {/* {!loading && error && <PartialDataWarning />} */}
       <ViewHeader
+        className="g-flex"
         total={data?.occurrenceSearch?.documents.total}
         loading={loading}
         message="counts.nResults"
-      />
+      >
+        {/* {!loading && error && (
+          <div className="g-ms-2 g-bg-red-400 g-text-white g-rounded g-px-1">
+            Some rows where partially loaded
+          </div>
+        )} */}
+      </ViewHeader>
+
       <SearchTable
         filters={filters}
         createRowLink={createRowLink}

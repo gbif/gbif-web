@@ -30,6 +30,7 @@ import {
   MdZoomOut,
 } from 'react-icons/md';
 // import { ViewHeader } from '../ViewHeader';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { MapMenuButton as MenuButton } from '@/components/maps/mapMenuButton';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import StripeLoader from '@/components/stripeLoader';
@@ -277,17 +278,20 @@ function Map({
         <ViewHeader message="counts.nResultsWithCoordinates" loading={loading} total={total} />
         <div className="g-flex-auto g-h-96 g-relative g-z-10">
           {listVisible && (
-            <ListBox
-              onCloseRequest={() => showList(false)}
-              labelMap={labelMap}
-              onClick={({ index }) => {
-                selectPreview(`${items[index].key}`);
-              }}
-              data={pointData}
-              error={pointError}
-              loading={pointLoading}
-              className="gbif-resultList g-z-20 g-absolute g-start-0 g-top-0 g-m-2 g-w-96 g-max-w-full g-max-h-[calc(100%-4rem)]"
-            />
+            <div className="gbif-resultList g-z-20 g-absolute g-start-0 g-top-0 g-m-2 g-w-96 g-max-w-full g-max-h-[calc(100%-4rem)]">
+              <ErrorBoundary type="CARD">
+                <ListBox
+                  onCloseRequest={() => showList(false)}
+                  labelMap={labelMap}
+                  onClick={({ index }) => {
+                    selectPreview(`${items[index].key}`);
+                  }}
+                  data={pointData}
+                  error={pointError}
+                  loading={pointLoading}
+                />
+              </ErrorBoundary>
+            </div>
           )}
           <div className="g-z-10 g-absolute g-start-0 g-top-0 g-end-0">
             <StripeLoader active={mapLoading} className="g-w-full" />

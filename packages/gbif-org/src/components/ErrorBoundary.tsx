@@ -70,6 +70,12 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
           showStackTrace={this.props.showStackTrace ?? import.meta.env.PUBLIC_DEBUGGING}
           debugTitle={this.props.debugTitle}
           additionalDebugInfo={this.props.additionalDebugInfo}
+          reload={() => {
+            this.setState({
+              ...this.state,
+              error: null,
+            });
+          }}
         />
       )
     );
@@ -86,8 +92,10 @@ export function ErrorComponent({
   showReportButton = true,
   showStackTrace,
   debugTitle,
+  reload,
 }: Omit<ErrorBoundaryProps, 'invalidateOn' | 'children' | 'fallback'> & {
   error: Error;
+  reload?: () => void;
 }): React.ReactElement {
   const [occurrenceSort] = useLocalStorage<{ sortBy?: OccurrenceSortBy; sortOrder: SortOrder }>(
     'occurrenceSort',
@@ -119,13 +127,17 @@ export function ErrorComponent({
             <a
               href=""
               onClick={() => {
-                if (typeof window !== 'undefined') {
-                  window.location.reload();
+                if (reload) {
+                  reload();
+                } else {
+                  if (typeof window !== 'undefined') {
+                    window.location.reload();
+                  }
                 }
               }}
               className="g-text-sm g-text-slate-500"
             >
-              <FormattedMessage id="error.reloadPage" defaultMessage="Try to reload page" />
+              <FormattedMessage id="error.retry" defaultMessage="Retry" />
             </a>
           </Button>
         )}

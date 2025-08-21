@@ -34,11 +34,13 @@ const OCCURRENCE_MEDIA = /* GraphQL */ `
           countryCode
           locality
           basisOfRecord
-          scientificName
           typeStatus
           eventDate
           verbatimScientificName
           classification(checklistKey: $checklistKey) {
+            usage {
+              name
+            }
             taxonMatch {
               usage {
                 canonicalName
@@ -66,7 +68,7 @@ export function Media({ size: defaultSize = 50 }) {
   const size = defaultSize;
   const { toast } = useToast();
   const currentFilterContext = useContext(FilterContext);
-  const [mediaTypes, setMediaTypes] = useState(['StillImage']);
+  const [mediaTypes] = useState(['StillImage']);
   const { scope } = useSearchContext();
   const { data, error, loading, load } = useQuery<
     OccurrenceMediaSearchQuery,
@@ -108,15 +110,13 @@ export function Media({ size: defaultSize = 50 }) {
 
   useEffect(() => {
     if (error) {
-      // check if all results are objects with a scientificName. If there are empty results then the error is to severe to ignore
-      const allHaveImages = allData.every((x) => x.scientificName);
-      if (allHaveImages) {
+      if (data?.occurrenceSearch?.documents.results) {
+        // ignore errors for now - I do not see how they can be critical enough to warn the user given the query we have. At worst the name will show without formatting.
         // notify the user with a toast about the error but contnue to show the images
-        toast({
-          title: 'Unable to load all content',
-          variant: 'destructive',
-        });
-        console.error(error);
+        // toast({
+        //   title: 'Unable to load all content',
+        //   variant: 'destructive',
+        // });
       } else {
         throw error;
       }
