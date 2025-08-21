@@ -208,10 +208,10 @@
         "germplasmIdentifier": "Identificador de germoplasma",
         "biologicalStatus": "Igual a {is}",
         "storageCondition": "Igual a {is}",
-        "collectingInstituteID": "",
+        "collectingInstituteID": "Identificación del instituto recolector",
         "latitude": "Latitud",
         "longitude": "Longitud",
-        "altitude": "",
+        "altitude": "Altitud",
         "locationID": "ID de la Ubicación",
         "breedingID": "",
         "breedingIdentifier": "",
@@ -221,32 +221,32 @@
         "breedingInstituteID": "",
         "breedingInstitute": "",
         "breedingPerson": "",
-        "ancestralData": "",
+        "ancestralData": "Datos ancestrales",
         "purdyPedigree": "Igual a {is}",
         "breedingRemarks": "Igual a {is}",
-        "acquisitionID": "",
+        "acquisitionID": "identificador de la adquisición",
         "donorsID": "",
-        "donorsIdentifier": "",
-        "donorInstituteID": "",
+        "donorsIdentifier": "Identificador del donante",
+        "donorInstituteID": "Identificador del instituto donante",
         "donorInstitute": "Igual a {is}",
-        "acquisitionDate": "",
-        "acquisitionSource": "",
-        "acquisitionRemarks": "",
-        "safetyDuplicationID": "",
-        "safetyDuplicationDate": "",
+        "acquisitionDate": "Fecha de adquisición",
+        "acquisitionSource": "Fuente de adquisición",
+        "acquisitionRemarks": "Observaciones sobre la adquisición",
+        "safetyDuplicationID": "Identificador de la copia de seguridad",
+        "safetyDuplicationDate": "Fecha de la copia de seguridad",
         "safetyDuplicationInstituteID": "",
         "safetyDuplicationInstitute": "",
         "safetyDuplicationRemarks": "",
-        "treatyOrRegulationID": "",
-        "treatyOrRegulationName": "",
-        "treatyOrRegulationGoverningBody": "",
+        "treatyOrRegulationID": "Identificador del tratado o reglamento",
+        "treatyOrRegulationName": "Nombre del tratado o reglamento",
+        "treatyOrRegulationGoverningBody": "Órgano rector del tratado o reglamento",
         "mlsStatus": "Igual a {is}"
       }
     },
     "germplasmMeasurementScore": {
       "name": "Germoplasma: puntaje de medición",
       "properties": {
-        "measurementID": "",
+        "measurementID": "Identificador de medición",
         "measurementValue": "Igual a {is}",
         "measurementUnit": "Igual a {is}",
         "measurementAccuracy": "Igual a {is}",
@@ -257,8 +257,8 @@
         "measurementRemarks": "Igual a {is}",
         "germplasmID": "ID de germoplasma",
         "germplasmIdentifier": "Identificador de germoplasma",
-        "measurementTraitID": "",
-        "measurementTraitIdentifier": "",
+        "measurementTraitID": "Identificador del rasgo de medición",
+        "measurementTraitIdentifier": "Identificador del rasgo de medición",
         "measurementTraitName": "Igual a {is}",
         "measurementTrialID": "",
         "measurementTrialIdentifier": "",
@@ -269,8 +269,8 @@
     "germplasmMeasurementTrait": {
       "name": "Germplasma: Rasgo de medición",
       "properties": {
-        "measurementTraitID": "",
-        "measurementTraitIdentifier": "",
+        "measurementTraitID": "Identificador del rasgo de medición",
+        "measurementTraitIdentifier": "Identificador del rasgo de medición",
         "measurementTraitName": "Igual a {is}",
         "measurementTraitCategory": "Igual a {is}",
         "measurementTraitScale": "Igual a {is}",
@@ -292,7 +292,7 @@
         "location": "Localización/ubicación",
         "longitude": "Longitud",
         "latitude": "Latitud",
-        "altitude": ""
+        "altitude": "Altitud"
       }
     },
     "identification": {
@@ -337,7 +337,7 @@
         "specificEpithet": "Epíteto específico",
         "infraspecificEpithet": "Epíteto infraespecífico",
         "cultivarEpithet": "",
-        "taxonRank": "",
+        "taxonRank": "Rango taxonómico",
         "verbatimTaxonRank": "",
         "scientificNameAuthorship": "Autor del nombre científico",
         "vernacularName": "Nombre vernáculo",
@@ -381,7 +381,7 @@
     "measurementOrFact": {
       "name": "Medida o hecho",
       "properties": {
-        "measurementID": "",
+        "measurementID": "Identificador de medición",
         "measurementType": "Igual a {is}",
         "measurementValue": "Igual a {is}",
         "measurementAccuracy": "Igual a {is}",
@@ -457,7 +457,7 @@
       "name": "Relación con el recurso",
       "properties": {
         "resourceRelationshipID": "",
-        "resourceID": "",
+        "resourceID": "Identificador del recurso",
         "relationshipOfResourceID": "",
         "relatedResourceID": "ID del recurso relacionado",
         "relationshipOfResource": "Igual a {is}",
@@ -484,7 +484,7 @@
         "lib_size": "Igual a {is}",
         "lib_vector": "Igual a {is}",
         "lib_const_meth": "Igual a {is}",
-        "plasmid": ""
+        "plasmid": "Plásmido"
       }
     },
     "gelImage": {
@@ -512,7 +512,7 @@
         "loanConditions": "Igual a {is}",
         "loanDate": "Igual a {is}",
         "loanDestination": "Igual a {is}",
-        "loanIdentifier": "",
+        "loanIdentifier": "Identificador del préstamo",
         "disposition": "Disposición",
         "receivedFrom": "Igual a {is}"
       }
@@ -538,7 +538,7 @@
         "samp_size": "Igual a {is}",
         "sieving": "Igual a {is}",
         "DNADNAHybridization": "Igual a {is}",
-        "DNAMeltingPoint": "",
+        "DNAMeltingPoint": "Punto de fusión del ADN",
         "estimated_size": "Igual a {is}",
         "pool_dna_extracts": "",
         "sampleDesignation": "Igual a {is}"
