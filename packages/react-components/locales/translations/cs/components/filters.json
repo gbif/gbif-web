@@ -103,7 +103,7 @@
   "eventDate": {
     "name": "Datum události",
     "count": "",
-    "description": ""
+    "description": "Kdy byl záznam pořízen nebo pozorován."
   },
   "gbifId": {
     "name": "GBIF ID",
@@ -151,7 +151,7 @@
     "description": ""
   },
   "alternativeCode": {
-    "name": "",
+    "name": "Alternativní kód",
     "count": "",
     "description": ""
   },
