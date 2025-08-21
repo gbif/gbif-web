@@ -158,7 +158,7 @@ function GbifNetworkPage() {
             </h2>
           </div>
           {listData && (
-            <ErrorBoundary type="BLOCK" showReportButton={true} showStackTrace={false}>
+            <ErrorBoundary type="BLOCK" showReportButton={true}>
               <div className="g-prose g-max-w-none dark:g-prose-invert">
                 <NodeSteeringGroup listData={listData} />
               </div>

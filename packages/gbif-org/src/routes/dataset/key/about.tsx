@@ -508,7 +508,7 @@ export function DatasetKeyAbout() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <ErrorBoundary type="BLOCK" showReportButton={false} showStackTrace={false}>
+                <ErrorBoundary type="BLOCK" showReportButton={false}>
                   <Registration dataset={dataset} />
                 </ErrorBoundary>
               </CardContent>

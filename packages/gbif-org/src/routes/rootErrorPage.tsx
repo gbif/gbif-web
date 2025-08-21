@@ -24,7 +24,6 @@ export function RootErrorPage(): React.ReactElement {
       // title={this.props.title}
       errorMessage={error?.message}
       showReportButton={true}
-      showStackTrace={true}
     />
   );
 }

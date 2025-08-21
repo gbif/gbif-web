@@ -590,7 +590,7 @@ export function OccurrenceKey() {
             <Tabs links={tabs} />
           </ArticleTextContainer>
         </PageContainer>
-        <ErrorBoundary invalidateOn={occurrence?.key} showReportButton showStackTrace>
+        <ErrorBoundary invalidateOn={occurrence?.key} showReportButton>
           <OccurrenceKeyContext.Provider
             value={{
               key: occurrence?.key,
@@ -600,7 +600,7 @@ export function OccurrenceKey() {
               occurrence,
             }}
           >
-            <ErrorBoundary invalidateOn={location.pathname + location.search} showStackTrace>
+            <ErrorBoundary invalidateOn={location.pathname + location.search}>
               <Outlet />
             </ErrorBoundary>
           </OccurrenceKeyContext.Provider>

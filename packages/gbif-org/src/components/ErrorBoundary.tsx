@@ -67,7 +67,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
           title={this.props.title}
           errorMessage={this.props.errorMessage}
           showReportButton={this.props.showReportButton}
-          showStackTrace={this.props.showStackTrace}
+          showStackTrace={this.props.showStackTrace ?? import.meta.env.PUBLIC_DEBUGGING}
           debugTitle={this.props.debugTitle}
           additionalDebugInfo={this.props.additionalDebugInfo}
         />

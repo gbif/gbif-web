@@ -68,7 +68,7 @@ export function InstitutionSearchPage(): React.ReactElement {
 
       <SearchContextProvider searchContext={config.institutionSearch}>
         <FilterProvider filter={filter} onChange={setFilter}>
-          <ErrorBoundary type="PAGE" showStackTrace>
+          <ErrorBoundary type="PAGE">
             <InstitutionSearch />
           </ErrorBoundary>
         </FilterProvider>

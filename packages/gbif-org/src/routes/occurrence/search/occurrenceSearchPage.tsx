@@ -188,7 +188,7 @@ export function OccurrenceSearchInner(): React.ReactElement {
   });
 
   return (
-    <ErrorBoundary showStackTrace showReportButton>
+    <ErrorBoundary showReportButton>
       <EntityDrawer />
       <section className="g-bg-white">
         <Card>
