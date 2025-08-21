@@ -14,6 +14,7 @@ import _useLocalStorage from 'use-local-storage';
 import { ArticleTextContainer } from '../resource/key/components/articleTextContainer';
 import { PageContainer } from '../resource/key/components/pageContainer';
 import { BlockItem } from '../resource/key/composition/blockItem';
+import { usePartialDataNotification } from '../rootErrorPage';
 import { HomePageCounts } from './counts';
 // Used to import commonjs module as es6 module
 const useLocalStorage = interopDefault(_useLocalStorage);
@@ -44,7 +45,13 @@ function homepageLoader({ graphql }: LoaderArgs) {
 }
 
 function HomePage(): React.ReactElement {
-  const { data } = useLoaderData() as { data: HomePageQuery };
+  const { data, errors } = useLoaderData() as { data: HomePageQuery };
+  const notifyOfPartialData = usePartialDataNotification();
+  useEffect(() => {
+    if (errors) {
+      notifyOfPartialData();
+    }
+  }, [errors, notifyOfPartialData]);
   const home = data?.gbifHome;
   const userInfo = useUserInfo();
   const primaryImage = home?.primaryImage?.[0];

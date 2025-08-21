@@ -12,7 +12,7 @@ export default function OrphanedCollectionCodes({ institutionKey }: { institutio
   const { data, error, loading, load } = useQuery<
     OrphanCollectionCodesForInstitutionQuery,
     OrphanCollectionCodesForInstitutionQueryVariables
-  >(OCCURRENCE_STATS, { lazyLoad: true });
+  >(OCCURRENCE_STATS, { lazyLoad: true, notifyOnErrors: true });
 
   useEffect(() => {
     load({
@@ -43,7 +43,8 @@ export default function OrphanedCollectionCodes({ institutionKey }: { institutio
   }, [institutionKey, load]);
 
   if (!data && loading) return <Skeleton style={{ margin: '12px 0' }} className="g-w-48" />;
-  if (data?.orphaned?.cardinality?.collectionCode === 0 || error || loading) return null;
+  if (!data?.orphaned || data?.orphaned?.cardinality?.collectionCode === 0 || error || loading)
+    return null;
 
   return (
     <div className="g-py-12 g-text-slate-500">

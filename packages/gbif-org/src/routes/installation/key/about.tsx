@@ -29,11 +29,12 @@ export function InstallationKeyAbout() {
 
   const {
     data: datasetData,
-    error,
     load,
+    error,
     loading,
   } = useQuery<InstallationDatasetsQuery, InstallationDatasetsQueryVariables>(DATASET_QUERY, {
-    throwAllErrors: true,
+    throwAllErrors: false,
+    notifyOnErrors: true,
     lazyLoad: true,
   });
 
@@ -48,11 +49,12 @@ export function InstallationKeyAbout() {
         offset,
       },
     });
-  }, [installation?.key, offset]);
+  }, [installation?.key, offset, load]);
 
   const datasets = datasetData?.installation?.dataset;
 
-  if (loading || !datasetData || !installation) return <CardListSkeleton />;
+  if (!installation) throw new Error('Installation data is not available');
+  if (!error && (loading || !datasetData)) return <CardListSkeleton />;
 
   return (
     <div>

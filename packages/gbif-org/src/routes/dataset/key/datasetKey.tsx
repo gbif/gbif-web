@@ -290,12 +290,12 @@ export async function datasetLoader({ params, graphql }: LoaderArgs) {
 export const DatasetPageSkeleton = ArticleSkeleton;
 
 export function DatasetPage() {
-  const notifyOfPartialData = usePartialDataNotification();
   const config = useConfig();
   const { errors, data } = useLoaderData() as {
     data: DatasetQuery;
     errors: Array<{ message: string; path: [string] }>;
   };
+  const notifyOfPartialData = usePartialDataNotification();
   useEffect(() => {
     if (errors) {
       notifyOfPartialData();

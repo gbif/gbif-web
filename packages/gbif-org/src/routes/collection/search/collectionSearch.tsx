@@ -90,11 +90,13 @@ export function CollectionSearch(): React.ReactElement {
     forceLoadingTrueOnMount: true,
   });
 
-  if (error && !data?.collectionSearch) {
-    throw error;
-  } else if (error) {
-    notifyOfPartialData();
-  }
+  useEffect(() => {
+    if (error && !data?.collectionSearch?.results) {
+      throw error;
+    } else if (error) {
+      notifyOfPartialData();
+    }
+  }, [data, error, notifyOfPartialData]);
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });

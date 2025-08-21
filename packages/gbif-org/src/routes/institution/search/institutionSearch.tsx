@@ -8,7 +8,6 @@ import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
 import { FilterContext, FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
@@ -24,7 +23,9 @@ import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
+import { usePartialDataNotification } from '@/routes/rootErrorPage';
 import { CANCEL_REQUEST, fetchWithCancel } from '@/utils/fetchWithCancel';
+import { notNull } from '@/utils/notNull';
 import { stringify } from '@/utils/querystring';
 import React, { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -67,7 +68,9 @@ export function InstitutionSearchPage(): React.ReactElement {
 
       <SearchContextProvider searchContext={config.institutionSearch}>
         <FilterProvider filter={filter} onChange={setFilter}>
-          <InstitutionSearch />
+          <ErrorBoundary type="PAGE" showStackTrace>
+            <InstitutionSearch />
+          </ErrorBoundary>
         </FilterProvider>
       </SearchContextProvider>
     </>
@@ -75,7 +78,7 @@ export function InstitutionSearchPage(): React.ReactElement {
 }
 
 export function InstitutionSearch(): React.ReactElement {
-  const { toast } = useToast();
+  const notifyOfPartialData = usePartialDataNotification();
   const [offset, setOffset] = useNumberParam({ key: 'offset', defaultValue: 0, hideDefault: true });
   const filterContext = useContext(FilterContext);
   const config = useConfig();
@@ -101,12 +104,9 @@ export function InstitutionSearch(): React.ReactElement {
     if (error && !data?.institutionSearch?.results) {
       throw error;
     } else if (error) {
-      toast({
-        title: 'Unable to load all content',
-        variant: 'destructive',
-      });
+      notifyOfPartialData();
     }
-  }, [data, error, toast]);
+  }, [data, error, notifyOfPartialData]);
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
@@ -252,6 +252,7 @@ function Results({
           <ClientSideOnly>
             {institutions &&
               institutions.results
+                .filter(notNull)
                 .slice(0, 2)
                 .map((item) => (
                   <InstitutionResult
@@ -278,6 +279,7 @@ function Results({
 
             {institutions &&
               institutions.results
+                .filter(notNull)
                 .slice(2)
                 .map((item) => (
                   <InstitutionResult

@@ -11,7 +11,7 @@ import {
 } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { LoaderArgs } from '@/reactRouterPlugins';
-import { throwCriticalErrors } from '@/routes/rootErrorPage';
+import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
 import { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
@@ -44,6 +44,13 @@ export function InstitutionKey() {
     errors: Array<{ message: string; path: [string] }>;
   };
   const config = useConfig();
+
+  const notifyOfPartialData = usePartialDataNotification();
+  useEffect(() => {
+    if (errors) {
+      notifyOfPartialData();
+    }
+  }, [errors, notifyOfPartialData]);
 
   const collectionScope = config.collectionSearch?.scope;
 

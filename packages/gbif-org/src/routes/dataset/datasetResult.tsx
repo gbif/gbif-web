@@ -31,7 +31,7 @@ export function DatasetResult({
   hidePublisher,
 }: {
   dataset: DatasetStubResultFragment | DatasetResultFragment;
-  hidePublisher: boolean;
+  hidePublisher?: boolean;
 }) {
   return (
     <Card className="g-mb-4">
