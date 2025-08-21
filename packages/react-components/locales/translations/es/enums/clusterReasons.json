@@ -12,5 +12,6 @@
   "NON_CONFLICTING_COUNTRY": "País no conflictivo",
   "DIFFERENT_COUNTRY": "Otro país",
   "IDENTIFIERS_OVERLAP": "Los identificadores se superponen",
-  "SAME_SPECIMEN": "Mismo espécimen"
+  "SAME_SPECIMEN": "Mismo espécimen",
+  "TYPIFICATION_RELATION": "Relación de tipificación"
 }
