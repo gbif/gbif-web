@@ -169,6 +169,9 @@ export function ErrorComponent({
           </h4>
           <pre className="g-text-sm g-overflow-auto" style={{ fontFamily: 'monospace' }}>
             {error?.stack}
+
+            {error?.query && <div>query: {error?.query}</div>}
+            {error?.variables && <div>variables: {JSON.stringify(error?.variables)}</div>}
           </pre>
         </div>
       )}
@@ -223,10 +226,17 @@ function generateGithubIssueBody({
   -----------
 \n\n\`\`\`
 **Error message for diagnostics:**
+**Note:** Please do not delete the stack trace or additional information when submitting this issue. 
+If you do not feel comfortable sharing your query parameters, then you should edit it before submitting.
+
 ${title ?? 'Unknown error'}
 ${error?.message ?? 'No message'}
 
 ${error?.stack || 'No stack trace available'}
+
+${error?.query ? `query: ${error?.query}` : ''}
+${error?.variables ? `variables: ${JSON.stringify(error?.variables)}` : ''}
+
 \`\`\`
 
 **Additional Info:**
@@ -235,8 +245,7 @@ ${additionalInfo || 'No additional information provided.'}
 
 **URL:**
 ${url}
-
-**Note:** Please do not delete the stack trace or additional information when submitting this issue.`;
+`;
 }
 
 export function ErrorBlock(props) {

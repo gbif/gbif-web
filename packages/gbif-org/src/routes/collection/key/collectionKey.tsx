@@ -49,7 +49,6 @@ export function CollectionKey() {
   >(SLOW_QUERY, {
     lazyLoad: true,
     notifyOnErrors: true,
-    throwAllErrors: false,
   });
 
   const { data: imageData, load: imageLoad } = useQuery<
@@ -58,7 +57,6 @@ export function CollectionKey() {
   >(IMAGE_QUERY, {
     lazyLoad: true,
     notifyOnErrors: true,
-    throwAllErrors: false,
   });
 
   useEffect(() => {

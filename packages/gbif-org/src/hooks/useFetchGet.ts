@@ -1,10 +1,8 @@
 import { hash } from '@/utils/hash';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { NetworkError } from './useQuery';
 
 type Options = {
   endpoint?: string;
-  throwNetworkErrors?: boolean;
   throwAllErrors?: boolean;
   lazyLoad?: boolean;
   keepDataWhileLoading?: boolean;
@@ -12,7 +10,6 @@ type Options = {
 };
 
 const defaultOptions: Options = {
-  throwNetworkErrors: false,
   throwAllErrors: false,
   lazyLoad: false,
   keepDataWhileLoading: false,
@@ -87,7 +84,7 @@ export function useFetchGet<TResult>(options: Options = defaultOptions) {
 
           // Handle network errors
           if (error instanceof TypeError) {
-            const networkError = new NetworkError(error.message);
+            const networkError = new Error(error.message);
             if (isMounted.current) {
               setError(networkError);
               setData(undefined);
@@ -120,7 +117,6 @@ export function useFetchGet<TResult>(options: Options = defaultOptions) {
   }, [load, hashOptions]);
 
   // Throw errors if enabled
-  if (error instanceof NetworkError && options?.throwNetworkErrors) throw error;
   if (error instanceof Error && options?.throwAllErrors) throw error;
 
   const cancelRequest = useCallback((reason: string) => cancelRequestRef.current(reason), []);
