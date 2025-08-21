@@ -226,6 +226,9 @@ const typeDef = gql`
     sampleSizeValue: Float
     samplingEffort: String
     samplingProtocol: [String]
+    """
+    Deprecated - to get interpretations use the classifications and select a checklistKey
+    """
     scientificName: String
     scientificNameAuthorship: String
     scientificNameID: String
