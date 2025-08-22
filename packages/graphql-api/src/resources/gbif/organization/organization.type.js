@@ -14,6 +14,7 @@ const typeDef = gql`
       machineTagNamespace: String
       machineTagName: String
       machineTagValue: String
+      numPublishedDatasets: String
     ): OrganizationSearchResult
     organization(key: ID!): Organization
   }

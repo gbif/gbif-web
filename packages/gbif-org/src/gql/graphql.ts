@@ -7496,6 +7496,7 @@ export type QueryOrganizationSearchArgs = {
   machineTagNamespace?: InputMaybe<Scalars['String']['input']>;
   machineTagValue?: InputMaybe<Scalars['String']['input']>;
   networkKey?: InputMaybe<Scalars['ID']['input']>;
+  numPublishedDatasets?: InputMaybe<Scalars['String']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   q?: InputMaybe<Scalars['String']['input']>;
 };
