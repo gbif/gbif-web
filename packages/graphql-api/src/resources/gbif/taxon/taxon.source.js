@@ -117,6 +117,25 @@ class TaxonAPI extends RESTDataSource {
     });
   }
 
+  async getSpeciesMatchByName({
+    name,
+    checklistKey = this.config.defaultChecklist,
+  }) {
+    return this.get(
+      `${this.config.apiv2}/species/match?`,
+      stringify({ checklistKey, scientificName: name }, { indices: false }),
+    ).then((result) => {
+      if (!result.usage) {
+        return null;
+      }
+
+      return {
+        ...result,
+        checklistKey,
+      };
+    });
+  }
+
   async getSuggestions({
     checklistKey = this.config.defaultChecklist,
     limit = 20,

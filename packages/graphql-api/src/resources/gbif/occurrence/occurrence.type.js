@@ -325,6 +325,7 @@ const typeDef = gql`
     Volatile: these values are tightly coupled to the webview and are likely to change frequently
     """
     localContext: [LocalContext]
+    originalUsageMatch: SpeciesMatchResult
   }
 
   type BionomiaOccurrence {

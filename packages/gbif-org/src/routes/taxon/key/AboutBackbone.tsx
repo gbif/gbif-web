@@ -127,7 +127,11 @@ export default function AboutBackbone() {
                 type="BLOCK"
                 errorMessage={<FormattedMessage id="taxon.errors.typeMaterial" />}
               >
-                <TypeMaterial taxonKey={taxon.key} />
+                <TypeMaterial
+                  taxonKey={taxon.key}
+                  rank={taxon.rank}
+                  acceptedTaxonKey={taxon?.acceptedTaxon?.key}
+                />
               </ErrorBoundary>
             )}
 

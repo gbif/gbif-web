@@ -174,8 +174,13 @@ const typeDef = gql`
     usage: SpeciesMatchUsage!
     iucnStatus: String
     iucnStatusCode: String
+    diagnostics: SpeciesMatchDiagnostics
   }
 
+  type SpeciesMatchDiagnostics {
+    matchType: String
+    confidence: Float
+  }
   type SpeciesMatchUsage {
     key: ID!
     name: String

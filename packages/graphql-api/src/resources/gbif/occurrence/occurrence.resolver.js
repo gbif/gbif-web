@@ -335,6 +335,7 @@ export default {
       });
       return filteredIssues;
     },
+
     // acceptedTaxon: ({ acceptedTaxonKey }, _args, { dataSources }) => {
     //   if (!acceptedTaxonKey) return null;
     //   return dataSources.taxonAPI.getTaxonByKey({ key: acceptedTaxonKey });
@@ -355,6 +356,20 @@ export default {
       if (!classification) return null;
       // if classification, return the classification
       return classification;
+    },
+    originalUsageMatch: (
+      { originalNameUsage },
+      { checklistKey },
+      { dataSources },
+    ) => {
+      if (!originalNameUsage) return null;
+      if (!checklistKey) {
+        checklistKey = DEFAULT_CHECKLIST_KEY;
+      }
+      return dataSources.taxonAPI.getSpeciesMatchByName({
+        name: originalNameUsage,
+        checklistKey,
+      });
     },
     volatile: (occurrence) => occurrence,
     related: ({ key }, { from = 0, size = 20 }, { dataSources }) => {
