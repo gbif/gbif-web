@@ -110,7 +110,7 @@ async function gbifNetworkPageLoader({ graphql }: LoaderArgs) {
     requiredObjects: [data?.resource],
   });
 
-  return response;
+  return { errors, data };
 }
 
 function GbifNetworkPage() {

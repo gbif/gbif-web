@@ -284,7 +284,7 @@ export async function datasetLoader({ params, graphql }: LoaderArgs) {
     requiredObjects: [data?.dataset],
   });
 
-  return response;
+  return { errors, data };
 }
 
 export const DatasetPageSkeleton = ArticleSkeleton;

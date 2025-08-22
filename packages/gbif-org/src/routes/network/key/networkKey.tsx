@@ -72,7 +72,7 @@ export async function networkLoader({ params, graphql }: LoaderArgs) {
     requiredObjects: [data?.network],
   });
 
-  return response;
+  return { errors, data };
 }
 
 export function NetworkPage() {

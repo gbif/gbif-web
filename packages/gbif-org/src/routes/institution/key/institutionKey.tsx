@@ -35,7 +35,7 @@ export async function institutionLoader({ params, graphql, config }: LoaderArgs)
     requiredObjects: [data?.institution],
   });
 
-  return response;
+  return { errors, data };
 }
 
 export function InstitutionKey() {

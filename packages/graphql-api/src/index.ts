@@ -46,7 +46,10 @@ async function initializeServer() {
       // on all requests attach a user if present
       const user = await extractUser(get(req, 'headers.authorization'));
       if (user) {
-        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+        res.header(
+          'Cache-Control',
+          'private, no-cache, no-store, must-revalidate',
+        );
         res.header('Pragma', 'no-cache');
         res.header('Expires', '0');
         res.header('Surrogate-Control', 'no-store');

@@ -281,7 +281,7 @@ export async function occurrenceKeyLoader({ params, graphql }: LoaderArgs) {
     requiredObjects: [data?.occurrence],
   });
 
-  return response;
+  return { errors, data };
 }
 
 export const OccurrenceKeyContext = createContext<{

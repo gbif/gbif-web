@@ -45,7 +45,7 @@ export async function countryKeyLoader({ params, graphql }: LoaderArgs) {
     requiredObjects: [data?.nodeCountry],
   });
 
-  return response;
+  return { errors, data };
 }
 
 export function CountryKeyLayout() {

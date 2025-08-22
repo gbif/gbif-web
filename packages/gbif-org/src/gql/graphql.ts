@@ -5055,6 +5055,7 @@ export type Occurrence = {
   sampleSizeValue?: Maybe<Scalars['Float']['output']>;
   samplingEffort?: Maybe<Scalars['String']['output']>;
   samplingProtocol?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** Deprecated - to get interpretations use the classifications and select a checklistKey */
   scientificName?: Maybe<Scalars['String']['output']>;
   scientificNameAuthorship?: Maybe<Scalars['String']['output']>;
   scientificNameID?: Maybe<Scalars['String']['output']>;

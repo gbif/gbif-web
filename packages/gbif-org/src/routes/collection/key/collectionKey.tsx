@@ -31,7 +31,7 @@ export async function collectionLoader({ params, graphql }: LoaderArgs) {
     requiredObjects: [data?.collection],
   });
 
-  return response;
+  return { errors, data };
 }
 
 export function CollectionKey() {

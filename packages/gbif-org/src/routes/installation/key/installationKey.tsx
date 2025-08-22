@@ -75,7 +75,7 @@ export async function installationLoader({ params, graphql }: LoaderArgs) {
     requiredObjects: [data?.installation],
   });
 
-  return response;
+  return { errors, data };
 }
 
 export function InstallationPage() {
