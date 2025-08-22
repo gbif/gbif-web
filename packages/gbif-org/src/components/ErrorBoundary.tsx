@@ -122,7 +122,7 @@ export function ErrorComponent({
         <p className="g-text-slate-500 g-mt-2 g-text-sm">{displayDescription}</p>
       )}
       <div className="g-flex g-flex-row g-gap-2 g-my-4 g-items-center g-justify-center">
-        {showReportButton && (
+        {showReportButton && reload && (
           <Button variant="ghost" size="sm" className="g-text-slate-500" asChild>
             <a
               href=""
