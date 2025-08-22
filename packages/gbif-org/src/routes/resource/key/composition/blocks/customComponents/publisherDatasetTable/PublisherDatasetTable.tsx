@@ -16,6 +16,7 @@ const PUBLISHER_DATASET_TABLE_QUERY = /* GraphQL */ `
     $country: Country
     $limit: Int
     $offset: Int
+    $numPublishedDatasets: String
   ) {
     datasetList(
       machineTagNamespace: $machineTagNamespace
@@ -49,6 +50,7 @@ const PUBLISHER_DATASET_TABLE_QUERY = /* GraphQL */ `
       limit: $limit
       offset: $offset
       country: $country
+      numPublishedDatasets: $numPublishedDatasets
     ) {
       count
       offset
@@ -91,6 +93,7 @@ interface TableSettings {
   summaryColumns?: SummaryColumn[];
   summaryTitle?: string;
   valueTranslations?: Record<string, string>;
+  numPublishedDatasets: string;
 }
 
 interface TableRow {
@@ -178,6 +181,7 @@ export function PublisherDatasetTable({
         machineTagNamespace: config.machineTagNamespace,
         machineTagName: config.machineTagName,
         country: config.country as any,
+        numPublishedDatasets: config.numPublishedDatasets || '1,',
         limit,
         offset,
       },
