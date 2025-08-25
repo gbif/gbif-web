@@ -5,5 +5,25 @@
   "unsupported.error": "Tento dotaz se zdá být nepodporovaný",
   "download": "Stáhnout",
   "redirectNotice": "Chystáte se stahovat, budete přesměrováni na GBIF.org. \n\n\n Upozorňujeme, že ke stažení obsahu je nutný účet.",
-  "continueToGBIF": "Pokračovat"
+  "continueToGBIF": "Pokračovat",
+  "sql": {
+    "createNewSqlDownload": "Vytvořit nové SQL stažení",
+    "create": "",
+    "about": "O",
+    "note": {
+      "title": "Poznámka",
+      "description": "Nejjednodušší způsob stahování a zkoumání dat je prostřednictvím uživatelského rozhraní pro vyhledávání výskytů. Pro složité dotazy a agregace však editor SQL poskytuje větší volnost.",
+      "goToOccurrenceSearch": ""
+    },
+    "stopEditing": "",
+    "startEditing": "",
+    "reformat": "Přeformátovat",
+    "readTheDocumentation": "Přečíst dokumentaci",
+    "errors": {
+      "invalid-SQL": "Neplatné SQL",
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
+    }
+  }
 }
