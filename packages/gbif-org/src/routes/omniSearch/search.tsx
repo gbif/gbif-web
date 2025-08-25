@@ -1,3 +1,4 @@
+import { ErrorMessage } from '@/components/errorMessage';
 import { NoRecords } from '@/components/noDataMessages';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { OmniSearchQuery, OmniSearchQueryVariables, PredicateType } from '@/gql/graphql';
@@ -62,7 +63,10 @@ export function SearchPage() {
     load,
     loading: dataLoading,
     error,
-  } = useQuery<OmniSearchQuery, OmniSearchQueryVariables>(OMNI_SEARCH, { lazyLoad: true });
+  } = useQuery<OmniSearchQuery, OmniSearchQueryVariables>(OMNI_SEARCH, {
+    lazyLoad: true,
+    notifyOnErrors: true,
+  });
   const [searchQuery] = useStringParam({
     key: 'q',
     defaultValue: '',
@@ -304,6 +308,12 @@ export function SearchPage() {
                 {!isloading && (
                   <div className="g-w-full">
                     {noResults && <NoRecords />}
+
+                    {!data && error && (
+                      <ErrorMessage>
+                        <FormattedMessage id="error.genericDescription" />
+                      </ErrorMessage>
+                    )}
 
                     {serverResults?.country && (
                       <>

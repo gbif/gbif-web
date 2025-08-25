@@ -1,5 +1,6 @@
 import { CountProps, useCount } from '@/components/count';
 import { DataHeader } from '@/components/dataHeader';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { CountryLabel } from '@/components/filters/displayNames';
 import { FilterButton } from '@/components/filters/filterButton';
 import { FilterPopover } from '@/components/filters/filterPopover';
@@ -23,7 +24,7 @@ import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams'
 import country from '@/enums/basic/country.json';
 import { PublisherSearchQuery, PublisherSearchQueryVariables } from '@/gql/graphql';
 import { useIntParam } from '@/hooks/useParam';
-import useQuery from '@/hooks/useQuery';
+import useQuery, { QueryError } from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
@@ -103,7 +104,7 @@ export function PublisherSearch(): React.ReactElement {
     PublisherSearchQuery,
     PublisherSearchQueryVariables
   >(PUBLISHER_SEARCH_QUERY, {
-    throwAllErrors: true,
+    throwAllErrors: false,
     lazyLoad: true,
     forceLoadingTrueOnMount: true,
   });
@@ -188,14 +189,17 @@ export function PublisherSearch(): React.ReactElement {
           <Filters />
         </FilterBar>
         <ArticleContainer className="g-bg-slate-100">
-          <Results
-            setField={filterContext?.setField}
-            loading={loading}
-            publishers={publishers}
-            setOffset={setOffset}
-            userCountry={showCountryInfo ? userCountry : undefined}
-            {...{ geojson, geojsonLoading, geojsonError }}
-          />
+          <ErrorBoundary>
+            <Results
+              setField={filterContext?.setField}
+              loading={loading}
+              error={error}
+              publishers={publishers}
+              setOffset={setOffset}
+              userCountry={showCountryInfo ? userCountry : undefined}
+              {...{ geojson, geojsonLoading, geojsonError }}
+            />
+          </ErrorBoundary>
         </ArticleContainer>
       </section>
     </>
@@ -221,6 +225,7 @@ export function CountMessage({
 function Results({
   loading,
   publishers,
+  error,
   setOffset,
   geojson,
   geojsonLoading,
@@ -229,6 +234,7 @@ function Results({
   setField,
 }: {
   loading: boolean;
+  error?: QueryError;
   publishers: PublisherSearchQuery['list'];
   setOffset: (x: number) => void;
   geojson: GeoJSON.FeatureCollection | undefined;
@@ -237,6 +243,7 @@ function Results({
   userCountry: { country: string; countryName: string } | undefined;
   setField: (field: string, value: string[]) => void;
 }) {
+  if (!loading && !publishers && error) throw error;
   const config = useConfig();
   const reactIntl = useIntl();
   const countryName = reactIntl.formatMessage({ id: `enums.countryCode.${userCountry?.country}` });

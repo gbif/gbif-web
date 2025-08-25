@@ -66,7 +66,11 @@ export function TaxonResult({
                     pageId="speciesKey"
                     variables={{ key: taxon.key + '' }}
                   >
-                    <span dangerouslySetInnerHTML={{ __html: taxon.formattedName }} />{' '}
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: taxon.formattedName ?? taxon.scientificName,
+                      }}
+                    />{' '}
                     {/* {taxon.canonicalName} */}
                   </DynamicLink>
                   {taxon.taxonomicStatus !== 'ACCEPTED' && (
@@ -92,7 +96,7 @@ export function TaxonResult({
                     </DynamicLink>
                   </p>
                 )}
-                {taxon.vernacularNames?.results?.length > 0 && (
+                {taxon?.vernacularNames?.results?.length > 0 && (
                   <p className="g-font-normal g-text-slate-500 g-text-sm g-mt-2">
                     <FormattedMessage id="filterSupport.commonName" />:{' '}
                     <span>{taxon.vernacularNames?.results[0]?.vernacularName}</span>

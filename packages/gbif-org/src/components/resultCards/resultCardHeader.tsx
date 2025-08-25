@@ -11,7 +11,13 @@ type Props = {
 export function ResultCardHeader({ title, link, contentType }: Props) {
   return (
     <ResultCardHeaderBasic messageId={contentType}>
-      <DynamicLink to={link}>{title}</DynamicLink>
+      <DynamicLink to={link}>
+        {title ?? (
+          <span className="g-text-slate-400">
+            <FormattedMessage id="error.unknown" />
+          </span>
+        )}
+      </DynamicLink>
     </ResultCardHeaderBasic>
   );
 }
