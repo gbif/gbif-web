@@ -2,7 +2,28 @@
   "unsupported.title": "Consulta não suportada",
   "unsupported.description": "A busca por texto livre pode ser usada para exploração, mas não tem suporte para transferências.",
   "unsupported.remove": "Remover filtro",
+  "unsupported.error": "",
   "download": "Transferir",
   "redirectNotice": "Está prestes a transferir os dados e para fazer isso, será redirecionado para GBIF.org. {br}{br} Tenha presente de que é necessária uma conta no GBIF.org para transferir o conteúdo.",
-  "continueToGBIF": "Continuar"
+  "continueToGBIF": "Continuar",
+  "sql": {
+    "createNewSqlDownload": "",
+    "create": "",
+    "about": "Sobre",
+    "note": {
+      "title": "Nota",
+      "description": "",
+      "goToOccurrenceSearch": ""
+    },
+    "stopEditing": "",
+    "startEditing": "",
+    "reformat": "",
+    "readTheDocumentation": "",
+    "errors": {
+      "invalid-SQL": "",
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
+    }
+  }
 }
