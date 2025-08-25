@@ -17,5 +17,15 @@
   "nSynonyms": "{total, plural, one {שם נרדף #} other {# שמות נרדפים}}",
   "inGbif": "{total, plural, one {# ב־GBIF} other {# ב־GBIF}}",
   "nSpecimens": "{total, plural, one {פריט אוסף #} other {# פריטי אוסף}}",
-  "nCollections": "{total, plural, one {אוסף #} other {# אוספים}}"
+  "nCollections": "{total, plural, one {אוסף #} other {# אוספים}}",
+  "nRows": "{total, plural, one {שורה #} other {# שורות}}",
+  "nInstitutions": "{total, plural, one {מוסד #} other {# מוסדות}}",
+  "nRecordsTotal": "{total, plural, one {רשומה # בסך הכל} other {# רשומות בסך הכל}}",
+  "nSelected": "{total, plural, other {# נבחרו}}",
+  "nExcluded": "{total, plural, other {# הוחרגו}}",
+  "nQualityFlags": "{total, plural, one {דגל איכות #} other {# דגלי איכות}}",
+  "nAudioFiles": "{total, plural, one {קובץ שמע #} other {# קובצי שמע}}",
+  "nVideos": "{total, plural, one {סרטון #} other {# סרטונים}}",
+  "nImages": "{total, plural, one {תמונה #} other {# תמונות}}",
+  "nAuthors": "{total, plural, one {מחבר #} other {# מחברים}}"
 }
