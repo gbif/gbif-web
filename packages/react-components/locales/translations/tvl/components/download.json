@@ -1,1 +1,29 @@
-{}
+{
+  "unsupported.title": "",
+  "unsupported.description": "",
+  "unsupported.remove": "",
+  "unsupported.error": "",
+  "download": "",
+  "redirectNotice": "",
+  "continueToGBIF": "",
+  "sql": {
+    "createNewSqlDownload": "",
+    "create": "",
+    "about": "",
+    "note": {
+      "title": "",
+      "description": "",
+      "goToOccurrenceSearch": ""
+    },
+    "stopEditing": "",
+    "startEditing": "",
+    "reformat": "",
+    "readTheDocumentation": "",
+    "errors": {
+      "invalid-SQL": "",
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
+    }
+  }
+}
