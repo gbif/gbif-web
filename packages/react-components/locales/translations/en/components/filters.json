@@ -273,9 +273,9 @@
     "description": "The title of the dataset under which the record is shared."
   },
   "datasetId": {
-    "name": "Dataset ID",
+    "name": "dwc:datasetID",
     "count": "{num, plural, one {dataset ID} other {# dataset IDs}}",
-    "description": "The publisher's internal ID for the dataset that the record is associated with. Notice, that this is different from the datasetKey used on GBIF for the dataset."
+    "description": "The publishers internal ID for the dataset the record is associated with. Notice that this is different from the datasetKey used on GBIF for the dataset."
   },
   "publisherKey": {
     "name": "Publisher",
@@ -418,9 +418,9 @@
     "description": ""
   },
   "datasetName": {
-    "name": "Dataset name",
-    "count": "",
-    "description": ""
+    "name": "dwc:datasetName",
+    "count": "{num, plural, one { dataset name } other {# dataset names}}",
+    "description": "The name of the dataset used by the publisher. Records in a dataset might come from multiple other datasets."
   },
   "programme": {
     "name": "Programme",
