@@ -5,5 +5,25 @@
   "unsupported.error": "Esta consulta parece no estar soportada",
   "download": "Descargar",
   "redirectNotice": "Será redirigido a GBIF.org para descargar los datos. {br}{br} Tenga en cuenta que necesita una cuenta en GBIF.org para continuar con la descarga.",
-  "continueToGBIF": "Continuar"
+  "continueToGBIF": "Continuar",
+  "sql": {
+    "createNewSqlDownload": "Crear una nueva descarga SQL",
+    "create": "",
+    "about": "Acerca de",
+    "note": {
+      "title": "Nota",
+      "description": "La forma más sencilla de descargar y explorar datos es a través de la interfaz de usuario de búsqueda de registros biológicos. Pero para consultas y agregaciones complejas, el editor SQL ofrece más libertad.",
+      "goToOccurrenceSearch": ""
+    },
+    "stopEditing": "",
+    "startEditing": "",
+    "reformat": "",
+    "readTheDocumentation": "Leer la documentación",
+    "errors": {
+      "invalid-SQL": "SQL inválido",
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
+    }
+  }
 }
