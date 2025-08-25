@@ -6,6 +6,7 @@ import {
   CompositionPageFragment,
 } from '@/gql/graphql';
 import { LoaderArgs } from '@/reactRouterPlugins';
+import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { useLoaderData } from 'react-router-dom';
 import { ArticlePage, articlePageLoader } from './article/article';
 import { ArticleSkeleton } from './components/articleSkeleton';
@@ -31,13 +32,14 @@ export async function aliasHandlingLoader(args: LoaderArgs) {
     { alias: `/${alias}` }
   );
 
-  const { data } = await response.json();
+  const { errors, data } = await response.json();
+  throwCriticalErrors({
+    path404: ['resource'],
+    errors,
+    requiredObjects: [data?.resource],
+  });
 
-  if (data.resource == null) {
-    throw new NotFoundLoaderResponse();
-  }
-
-  if ('urlAlias' in data.resource) {
+  if ('urlAlias' in data?.resource) {
     const resource = data.resource;
 
     const loader = (() => {
