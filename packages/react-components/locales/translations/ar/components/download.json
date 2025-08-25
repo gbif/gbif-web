@@ -1,4 +1,29 @@
 {
+  "unsupported.title": "",
+  "unsupported.description": "",
+  "unsupported.remove": "",
+  "unsupported.error": "",
   "download": "تنزيل",
-  "continueToGBIF": "متابعة"
+  "redirectNotice": "",
+  "continueToGBIF": "متابعة",
+  "sql": {
+    "createNewSqlDownload": "",
+    "create": "",
+    "about": "حول",
+    "note": {
+      "title": "مذكرة",
+      "description": "",
+      "goToOccurrenceSearch": ""
+    },
+    "stopEditing": "",
+    "startEditing": "",
+    "reformat": "",
+    "readTheDocumentation": "",
+    "errors": {
+      "invalid-SQL": "",
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
+    }
+  }
 }
