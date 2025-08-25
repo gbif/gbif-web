@@ -1,0 +1,1 @@
+export { EbbeWinnersTable } from './EbbeWinnersTable';

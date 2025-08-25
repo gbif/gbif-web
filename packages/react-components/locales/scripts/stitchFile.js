@@ -44,7 +44,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       homepage: getFile(locale, `../${folder}/${locale}/components/homepage`).homepage,
       trends: getFile(locale, `../${folder}/${locale}/components/trends`).trends,
       country: getFile(locale, `../${folder}/${locale}/components/country`).country,
-
+      directory: getFile(locale, `../${folder}/${locale}/components/directory`),
       occurrenceFieldNames: getFile(
         locale,
         `../${folder}/${locale}/components/occurrenceFieldNames`,

@@ -1,0 +1,1 @@
+export { AmbassadorsList } from './AmbassadorsList';

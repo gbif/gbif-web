@@ -1,11 +1,15 @@
 import { CustomComponentBlockDetailsFragment } from '@/gql/graphql';
 import { fragmentManager } from '@/services/fragmentManager';
 import { backgroundColorMap, BlockContainer } from './_shared';
+import { AmbassadorsList } from './customComponents/ambassadorsList';
+import { EbbeWinnersTable } from './customComponents/ebbeWinnersList';
+import { GraList } from './customComponents/graList';
 import { HostedPortalForm } from './customComponents/hostedPortalForm';
 import { MdtForm } from './customComponents/mdtForm';
+import { MentorsList } from './customComponents/mentorsList';
 import { ProjectsTable } from './customComponents/projects';
 import { PublisherDatasetTable } from './customComponents/publisherDatasetTable';
-
+import { TranslatorsList } from './customComponents/translatorsList';
 fragmentManager.register(/* GraphQL */ `
   fragment CustomComponentBlockDetails on CustomComponentBlock {
     id
@@ -53,6 +57,22 @@ function CustomComponent({
   switch (resource.componentType) {
     // We could add the other forms as custom components in the future,
     // but our contentful data does not have them yet and adding them would make the transition to the new gbif.org less smooth.
+    case 'translatorsList':
+      return (
+        <TranslatorsList title={resource?.title} tableStyle={resource?.settings?.tablestyle} />
+      );
+    case 'ambassadorsList':
+      return (
+        <AmbassadorsList title={resource?.title} tableStyle={resource?.settings?.tablestyle} />
+      );
+    case 'mentorsList':
+      return <MentorsList title={resource?.title} tableStyle={resource?.settings?.tablestyle} />;
+    case 'graList':
+      return <GraList title={resource?.title} tableStyle={resource?.settings?.tablestyle} />;
+    case 'ebbeWinnersList':
+      return (
+        <EbbeWinnersTable title={resource?.title} tableStyle={resource?.settings?.tablestyle} />
+      );
     case 'metabarcodingDataToolForm':
       return <MdtForm />;
     case 'hostedPortalForm':
