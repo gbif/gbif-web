@@ -2,7 +2,28 @@
   "unsupported.title": "Nicht unterstützte Abfrage",
   "unsupported.description": "Die Freitextsuche kann bei der Suche verwendet werden, wird aber nicht für Downloads unterstützt.",
   "unsupported.remove": "Filter entfernen",
+  "unsupported.error": "",
   "download": "Herunterladen",
   "redirectNotice": "Zum Herunterladen der Daten werden Sie auf GBIF.org weitergeleitet. {br}{br} Dafür ist ein Account notwendig, der dort erstellt werden kann.",
-  "continueToGBIF": "Weiter"
+  "continueToGBIF": "Weiter",
+  "sql": {
+    "createNewSqlDownload": "",
+    "create": "",
+    "about": "",
+    "note": {
+      "title": "",
+      "description": "",
+      "goToOccurrenceSearch": ""
+    },
+    "stopEditing": "",
+    "startEditing": "",
+    "reformat": "",
+    "readTheDocumentation": "",
+    "errors": {
+      "invalid-SQL": "",
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
+    }
+  }
 }
