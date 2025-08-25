@@ -1,4 +1,29 @@
 {
+  "unsupported.title": "",
+  "unsupported.description": "",
+  "unsupported.remove": "",
+  "unsupported.error": "",
   "download": "Завантажити",
-  "continueToGBIF": "Продовжити"
+  "redirectNotice": "",
+  "continueToGBIF": "Продовжити",
+  "sql": {
+    "createNewSqlDownload": "",
+    "create": "",
+    "about": "Відомості про видавця даних",
+    "note": {
+      "title": "Примітка",
+      "description": "",
+      "goToOccurrenceSearch": ""
+    },
+    "stopEditing": "",
+    "startEditing": "",
+    "reformat": "",
+    "readTheDocumentation": "",
+    "errors": {
+      "invalid-SQL": "",
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
+    }
+  }
 }
