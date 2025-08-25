@@ -5,5 +5,25 @@
   "unsupported.error": "Wygląda na to, że to zapytanie nie jest obsługiwane",
   "download": "Pobierz",
   "redirectNotice": "Zamierzasz pobrać dane, aby to zrobić, zostaniesz przekierowany do GBIF.org. {br}{br} Musisz posiadać konto na GBIF.org, żeby pobrać zawartość.",
-  "continueToGBIF": "Dalej"
+  "continueToGBIF": "Dalej",
+  "sql": {
+    "createNewSqlDownload": "Stwórz nowe pobranie SQL",
+    "create": "",
+    "about": "Informacje",
+    "note": {
+      "title": "Uwaga",
+      "description": "Najprostszym sposobem na pobieranie i przeglądanie danych to użycie interfejsu użytkownika wyszukiwarki stwierdzeń. Jednak dla złożonych zapytań i zbiorów edytor SQL daje więcej możliwości.",
+      "goToOccurrenceSearch": ""
+    },
+    "stopEditing": "",
+    "startEditing": "",
+    "reformat": "Reformatuj",
+    "readTheDocumentation": "Przeczytaj dokumentację",
+    "errors": {
+      "invalid-SQL": "Nieprawidłowy SQL",
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
+    }
+  }
 }
