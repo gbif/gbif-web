@@ -250,9 +250,9 @@
     "description": "The ISO code for the country or territory in which the data publisher is located"
   },
   "q": {
-    "name": "Text search",
+    "name": "Full text search",
     "count": "{num, plural, one {text string} other {# search strings}}",
-    "description": "Free text search across several fields"
+    "description": "Full text search across several fields"
   },
   "coordinates": {
     "name": "Coordinates"
