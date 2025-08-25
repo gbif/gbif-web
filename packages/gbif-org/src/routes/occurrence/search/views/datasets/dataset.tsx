@@ -3,6 +3,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import useQuery from '@/hooks/useQuery';
+import { usePartialDataNotification } from '@/routes/rootErrorPage';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { searchConfig } from '../../searchConfig';
 import { useEntityDrawer } from '../browseList/useEntityDrawer';
@@ -32,6 +33,7 @@ query occurrenceDatasets($q: String, $predicate: Predicate, $size: Int) {
 
 export function Dataset({ size: defaultSize = 100 }) {
   const { toast } = useToast();
+  const notifyOfPartialData = usePartialDataNotification();
   const [from, setFrom] = useState(0);
   const currentFilterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
@@ -44,6 +46,14 @@ export function Dataset({ size: defaultSize = 100 }) {
   const [size, setSize] = useState(defaultSize);
 
   const [allData, setAllData] = useState([]);
+
+  useEffect(() => {
+    if (error && !data?.occurrenceSearch?.facet?.datasetKey) {
+      throw error;
+    } else if (error) {
+      notifyOfPartialData();
+    }
+  }, [data, error, notifyOfPartialData]);
 
   useEffect(() => {
     setSize(defaultSize);
