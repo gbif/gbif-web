@@ -1,13 +1,13 @@
 {
   "dwcaExtension": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "הרחבת DWCA",
+    "count": "{num, plural, one {הרחבת DWCA} other {# הרחבות DWCA}}",
+    "description": "תיאור קצר של הרכיב יוצג כאן"
   },
   "locationId": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "מזהה מיקום",
+    "count": "{num, plural, one {מזהה מיקום} other {# מזהי מיקום}}",
+    "description": "ספקי המידע יכולים לבחור להקצות מזהים למיקום. שדה זה אינו מנורמל – החיפוש מתבצע לפי הנתונים כפי שסופקו על ידי ספק המידע."
   },
   "hasCoordinate": {
     "name": "",
@@ -158,7 +158,7 @@
   "identifier": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "תיאור קצר של הרכיב יוצג כאן"
   },
   "institutionType": {
     "name": "",
@@ -595,12 +595,12 @@
   "datasetType": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "תיאור קצר של הרכיב יוצג כאן"
   },
   "datasetSubtype": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "תיאור קצר של הרכיב יוצג כאן"
   },
   "institutionKey": {
     "name": "",
@@ -631,7 +631,7 @@
   "networkKey": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "תיאור קצר של הרכיב יוצג כאן"
   },
   "literatureType": {
     "name": "",
