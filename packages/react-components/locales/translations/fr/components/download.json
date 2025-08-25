@@ -5,5 +5,25 @@
   "unsupported.error": "Cette requête semble ne pas être prise en charge",
   "download": "Télécharger",
   "redirectNotice": "Vous êtes sur le point de télécharger des données et, pour cela, vous serez redirigé vers GBIF.org. {br}{br} Sachez qu'un compte est nécessaire sur GBIF.org pour télécharger le contenu.",
-  "continueToGBIF": "Continuer"
+  "continueToGBIF": "Continuer",
+  "sql": {
+    "createNewSqlDownload": "Créer un nouveau téléchargement SQL",
+    "create": "",
+    "about": "À propos",
+    "note": {
+      "title": "Note",
+      "description": "Le moyen le plus simple de télécharger et d'explorer des données est d'utiliser l'interface utilisateur de recherche d'occurrences. Mais pour les requêtes et agrégations complexes, l'éditeur SQL offre une plus grande liberté.",
+      "goToOccurrenceSearch": ""
+    },
+    "stopEditing": "",
+    "startEditing": "",
+    "reformat": "Reformater",
+    "readTheDocumentation": "Lire la documentation",
+    "errors": {
+      "invalid-SQL": "SQL non valide",
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
+    }
+  }
 }

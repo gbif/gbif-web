@@ -5,5 +5,25 @@
   "unsupported.error": "Похоже, этот запрос не поддерживается",
   "download": "Загрузить",
   "redirectNotice": "Вы собираетесь начать загрузку. Для этого вы будете перенаправлены на сайт GBIF.org.\n\nОбратите внимание, что для загрузки контента требуется учётная запись.",
-  "continueToGBIF": "Продолжить"
+  "continueToGBIF": "Продолжить",
+  "sql": {
+    "createNewSqlDownload": "Создать новое выражение SQL для загрузки",
+    "create": "",
+    "about": "Об организациии",
+    "note": {
+      "title": "Примечание",
+      "description": "Самый простой способ загрузить и изучить данные - это использовать пользовательский интерфейс поиска совпадений. Но для сложных запросов и агрегирования данных редактор SQL предоставляет больше свободы.",
+      "goToOccurrenceSearch": ""
+    },
+    "stopEditing": "",
+    "startEditing": "",
+    "reformat": "Переформатируйте",
+    "readTheDocumentation": "Прочтите документацию",
+    "errors": {
+      "invalid-SQL": "Недопустимый синтаксис SQL",
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
+    }
+  }
 }

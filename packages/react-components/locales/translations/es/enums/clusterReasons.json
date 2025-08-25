@@ -1,10 +1,17 @@
 {
+  "SAME_ACCEPTED_SPECIES": "Misma especie aceptada",
   "SAME_DATE": "Misma fecha",
+  "NON_CONFLICTING_DATE": "Fecha no conflictiva",
+  "APPROXIMATE_DATE": "Fecha aproximada",
   "DIFFERENT_DATE": "Fecha diferente",
   "SAME_COORDINATES": "Mismas coordenadas",
   "WITHIN_200m": "A menos de 200 m",
   "WITHIN_2Km": "A menos de 2 kms",
+  "NON_CONFLICTING_COORDINATES": "Coordenadas no conflictivas",
   "SAME_COUNTRY": "Mismo país",
+  "NON_CONFLICTING_COUNTRY": "País no conflictivo",
   "DIFFERENT_COUNTRY": "Otro país",
-  "SAME_SPECIMEN": "Mismo espécimen"
+  "IDENTIFIERS_OVERLAP": "Los identificadores se superponen",
+  "SAME_SPECIMEN": "Mismo espécimen",
+  "TYPIFICATION_RELATION": "Relación de tipificación"
 }

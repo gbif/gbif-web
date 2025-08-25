@@ -1,3 +1,24 @@
 {
-  "ARCHAEOLOGICAL_C14": "C-14 arqueológico"
+  "ARCHAEOLOGICAL_OTHER": "",
+  "ARCHAEOLOGICAL_C14": "C-14 arqueológico",
+  "EARTH_PLANETARY_SPACE_EXPOSED_MATERIALS": "Materiales expuestos al espacio planetario de la Tierra",
+  "EARTH_PLANETARY_WATER": "Agua planetaria de la Tierra",
+  "PALEONTOLOGICAL_OTHER": "Paleontológico - otros",
+  "PALEONTOLOGICAL_CONODONTS": "Paleontológico - conodontes",
+  "PALEONTOLOGICAL_INVERTEBRATE_FOSSILS": "Paleontológico - fósiles invertebrados",
+  "PALEONTOLOGICAL_INVERTEBRATE_MICROFOSSILS": "Paleontológico - microfósiles invertebrados",
+  "PALEONTOLOGICAL_PETRIFIED_WOOD": "Paleontológico - madera petrificada",
+  "PALEONTOLOGICAL_PLANT_FOSSILS": "Paleontológico - fósiles de plantas",
+  "PALEONTOLOGICAL_TRACE_FOSSILS": "Paleontológico - fósiles traza",
+  "PALEONTOLOGICAL_VERTEBRATE_FOSSILS": "Paleontológico - fósiles vertebrados",
+  "RECORDS_OTHER": "Registros - otros",
+  "RECORDS_SEISMOGRAMS": "Registros - sismogramas",
+  "RECORDS_RADIOGRAPH": "Registros - radiográfico",
+  "RECORDS_IMAGES": "Grabar imágenes",
+  "RECORDS_DOCUMENTS": "Registros - documentos",
+  "RECORDS_DOCUMENTATION": "Registros - documentación",
+  "RECORDS_DERIVED_DATA": "Registros - datos derivados",
+  "RECORDS_ASSOCIATED_DATA": "Registros - datos asociados",
+  "RECORDS_MAPS": "Registros - mapas",
+  "RECORDS_RECORDINGS": "Registros - grabaciones"
 }

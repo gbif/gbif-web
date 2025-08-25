@@ -1,4 +1,29 @@
 {
+  "unsupported.title": "",
+  "unsupported.description": "",
+  "unsupported.remove": "",
+  "unsupported.error": "",
   "download": "دانلود",
-  "continueToGBIF": "ادامه"
+  "redirectNotice": "",
+  "continueToGBIF": "ادامه",
+  "sql": {
+    "createNewSqlDownload": "",
+    "create": "",
+    "about": "درباره",
+    "note": {
+      "title": "",
+      "description": "",
+      "goToOccurrenceSearch": ""
+    },
+    "stopEditing": "",
+    "startEditing": "",
+    "reformat": "",
+    "readTheDocumentation": "",
+    "errors": {
+      "invalid-SQL": "",
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
+    }
+  }
 }
