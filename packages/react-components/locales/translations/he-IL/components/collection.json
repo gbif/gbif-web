@@ -1,1 +1,9 @@
-{}
+{
+  "institutionUnknown": "מוסד לא מוכר",
+  "contentTypes": "סוגי התכנים",
+  "preservationTypes": "סוגי שימור",
+  "personalCollection": "אוסף אישי",
+  "accessionStatus": "סטטוס הגישה",
+  "numberSpecimens": "מספר הפרטים באוסף",
+  "collectionDescriptors": "מתארי האוסף"
+}
