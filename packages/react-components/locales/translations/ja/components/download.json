@@ -2,6 +2,28 @@
   "unsupported.title": "サポートされていないクエリ",
   "unsupported.description": "フリーテキスト検索は使用できますが、ダウンロードのサポートはございません。",
   "unsupported.remove": "フィルターを外す",
+  "unsupported.error": "",
   "download": "ダウンロード",
-  "continueToGBIF": "次へ"
+  "redirectNotice": "",
+  "continueToGBIF": "次へ",
+  "sql": {
+    "createNewSqlDownload": "",
+    "create": "",
+    "about": "・・・について",
+    "note": {
+      "title": "注記",
+      "description": "",
+      "goToOccurrenceSearch": ""
+    },
+    "stopEditing": "",
+    "startEditing": "",
+    "reformat": "",
+    "readTheDocumentation": "",
+    "errors": {
+      "invalid-SQL": "",
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
+    }
+  }
 }
