@@ -215,6 +215,7 @@ export function IucnCounts(props) {
         subtitleKey: 'dashboard.numberOfOccurrences',
         gqlQuery: GQL_QUERY,
         predicateKey: 'iucnRedListCategory',
+        applyChecklistKey: true,
         translationTemplate: 'enums.iucnRedListCategory.{key}',
         title: (
           <FormattedMessage

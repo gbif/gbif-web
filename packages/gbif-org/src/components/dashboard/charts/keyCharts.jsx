@@ -387,6 +387,7 @@ export function Synonyms({
         disableOther: true,
         facetSize: 10,
         options: ['TABLE'],
+        applyChecklistKey: true,
         gqlEntity: `taxon {
       title: scientificName
       accepted

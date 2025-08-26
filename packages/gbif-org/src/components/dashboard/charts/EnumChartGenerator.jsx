@@ -77,6 +77,7 @@ export function ChartWrapper({
   disableOther,
   disableUnknown,
   q,
+  applyChecklistKey,
   currentFilter = {}, //excluding root predicate
   ...props
 }) {
@@ -85,9 +86,11 @@ export function ChartWrapper({
     {
       type: 'isNotNull',
       key: predicateKey,
-      checklistKey: checklistKey ?? defaultChecklistKey,
     },
   ];
+  if (applyChecklistKey) {
+    hasPredicates[0].checklistKey = checklistKey ?? defaultChecklistKey;
+  }
   if (predicate) {
     hasPredicates.push(predicate);
   }
@@ -103,9 +106,11 @@ export function ChartWrapper({
         type: 'and',
         predicates: hasPredicates,
       },
-      checklistKey: checklistKey ?? defaultChecklistKey,
     },
   };
+  if (applyChecklistKey) {
+    facetQuery.otherVariables.checklistKey = checklistKey ?? defaultChecklistKey;
+  }
 
   return (
     <ChartClickWrapper detailsRoute={props.detailsRoute} interactive={props.interactive}>
