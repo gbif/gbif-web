@@ -48,7 +48,7 @@
     "isTreatment": "",
     "isSequenced": "",
     "hasIssues": "",
-    "hasCoordinates": "",
+    "hasCoordinates": "כולל קואורדינטות",
     "hasCountry": "",
     "hasImages": "",
     "hasSound": "",
@@ -247,7 +247,7 @@
       "name": "",
       "properties": {
         "measurementID": "",
-        "measurementValue": "",
+        "measurementValue": "האם לרשומה יש בעיות גיאו־מרחביות.",
         "measurementUnit": "",
         "measurementAccuracy": "",
         "measurementDeterminedDate": "",
@@ -383,7 +383,7 @@
       "properties": {
         "measurementID": "",
         "measurementType": "",
-        "measurementValue": "",
+        "measurementValue": "האם לרשומה יש בעיות גיאו־מרחביות.",
         "measurementAccuracy": "",
         "measurementUnit": "",
         "measurementDeterminedDate": "",
@@ -568,7 +568,7 @@
     "preservation": {
       "name": "",
       "properties": {
-        "preservationType": "",
+        "preservationType": "סוג שימור",
         "preservationTemperature": "",
         "preservationDateBegin": "",
         "sequence": ""
@@ -581,7 +581,7 @@
         "occurrenceID": "",
         "measurementType": "",
         "measurementTypeID": "",
-        "measurementValue": "",
+        "measurementValue": "האם לרשומה יש בעיות גיאו־מרחביות.",
         "measurementValueID": "",
         "measurementAccuracy": "",
         "measurementUnit": "",

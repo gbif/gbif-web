@@ -1,1 +1,10 @@
-{}
+{
+  "position": "תפקיד",
+  "organization": "ארגון",
+  "email": "דוא\"ל",
+  "address": "כתובת",
+  "phone": "טלפון",
+  "roles": "תפקידים",
+  "userId": "מזהה משתמש",
+  "name": "שם"
+}
