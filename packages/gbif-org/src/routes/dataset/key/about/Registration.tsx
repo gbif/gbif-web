@@ -2,6 +2,7 @@ import { HelpLine } from '@/components/helpText';
 import { HyperText } from '@/components/hyperText';
 import Properties, { Term as T, Value as V } from '@/components/properties';
 import { Button } from '@/components/ui/button';
+import { DynamicLink } from '@/reactRouterPlugins';
 import React, { useState } from 'react';
 import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
@@ -88,7 +89,16 @@ export function Registration({ dataset = {}, ...props }) {
             <T>
               <FormattedMessage id="dataset.registry.installation" />
             </T>
-            <V>{installation?.title}</V>
+            <V>
+              <DynamicLink
+                to={`/installation/${installation?.key}`}
+                pageId="installationKey"
+                variables={{ key: installation?.key }}
+                className="g-underline"
+              >
+                {installation?.title}
+              </DynamicLink>
+            </V>
           </>
         )}
 

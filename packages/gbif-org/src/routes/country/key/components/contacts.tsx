@@ -76,7 +76,7 @@ function NodeAddressCard({
     <Card
       id="nodeAddress"
       className={cn(
-        'g-px-6 g-py-4 g-flex-auto g-min-w-xs g-m-2 g-w-1/2',
+        'g-px-1 g-py-1 md:g-px-4 md:g-py-3 g-flex-auto g-min-w-xs g-m-2 g-w-1/2',
         highlighted && 'g-bg-slate-100',
         !fullWidthCard && 'g-max-w-sm'
       )}
@@ -112,7 +112,7 @@ function PersonContactCard({
   return (
     <Card
       className={cn(
-        'g-px-6 g-py-4 g-flex-auto g-min-w-xs g-m-2 g-w-1/2',
+        'g-px-1 g-py-1 md:g-px-4 md:g-py-3 g-flex-auto g-min-w-xs g-m-2 g-w-1/2',
         highlighted && 'g-bg-slate-100',
         !fullWidthCard && 'g-max-w-sm'
       )}

@@ -9,6 +9,7 @@ import {
   ContactTelephone,
   ContactTitle,
 } from '@/components/contact';
+import EmptyValue from '@/components/emptyValue';
 import { PaginationFooter } from '@/components/pagination';
 import Properties, { Property } from '@/components/properties';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
@@ -56,6 +57,7 @@ export function InstallationKeyAbout() {
   if (!installation) throw new Error('Installation data is not available');
   if (!error && (loading || !datasetData)) return <CardListSkeleton />;
 
+  console.log(installation);
   return (
     <div>
       <Card className="g-mb-4">
@@ -65,20 +67,20 @@ export function InstallationKeyAbout() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {installation.description && (
-            <div
-              className="g-prose g-mb-6"
-              dangerouslySetInnerHTML={{ __html: installation.description }}
-            ></div>
-          )}
+          <div className="g-prose g-mb-6">
+            {installation.description && (
+              <div dangerouslySetInnerHTML={{ __html: installation.description }}></div>
+            )}
+            {!installation.description && <EmptyValue id={'phrases.notProvided'} />}
+          </div>
 
           <div>
-            <Properties>
-              <Property labelId={'installation.installationType'}>
+            <Properties className="dataProse [&_a]:g-underline" useDefaultTermWidths>
+              <Property labelId={'installation.installationType'} value={installation.type}>
                 <FormattedMessage id={`enums.installationType.${installation.type}`} />
               </Property>
               {installation.organization && (
-                <Property labelId={'installation.hostedBy'}>
+                <Property labelId={'installation.hostedBy'} value={installation.organization}>
                   <DynamicLink
                     to={`/publisher/${installation.organization.key}`}
                     pageId="publisherKey"
@@ -114,7 +116,7 @@ export function InstallationKeyAbout() {
             <div className="g-flex g-flex-wrap -g-m-2">
               {installation.contacts?.map((contact) => {
                 return (
-                  <Card className="g-px-6 g-py-4 g-flex-auto g-max-w-sm g-min-w-xs g-m-2">
+                  <Card className="g-px-2 g-py-2 md:g-px-4 md:g-py-3 g-flex-auto g-max-w-sm g-min-w-xs g-m-2">
                     <ContactHeader>
                       <ContactAvatar
                         firstName={contact.firstName}

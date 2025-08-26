@@ -25,8 +25,8 @@ export function ContactAvatar({
   if (!firstName && !lastName && organization) content = <FaBuilding />;
   if (initials) content = <span className="g-font-bold">{initials}</span>;
   return (
-    <div className="g-flex-none g-me-4">
-      <IconAvatar>{content}</IconAvatar>
+    <div className="g-flex-none g-hidden md:g-block">
+      <IconAvatar className="g-me-4">{content}</IconAvatar>
     </div>
   );
 }
@@ -112,9 +112,20 @@ export function ContactEmail({ email }: { email?: string | null }) {
   );
 }
 
-export function IconAvatar({ children }: { children: React.ReactNode }) {
+export function IconAvatar({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <div className="g-rounded-full g-w-[3rem] g-h-[3rem] g-bg-slate-300 g-flex g-items-center g-justify-center">
+    <div
+      className={cn(
+        'g-rounded-full g-w-[3rem] g-h-[3rem] g-bg-slate-300 g-flex g-items-center g-justify-center',
+        className
+      )}
+    >
       {children}
     </div>
   );
