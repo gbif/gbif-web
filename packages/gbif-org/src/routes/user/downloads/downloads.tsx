@@ -31,7 +31,7 @@ export function Downloads() {
 
   useEffect(() => {
     const username = user?.userName; // This needs to be replaced with actual authenticated user
-    if (!username) {
+    if (!username || !user?.graphqlToken) {
       return;
     }
     load(
@@ -44,7 +44,7 @@ export function Downloads() {
       },
       { authorization: `Bearer ${user?.graphqlToken}` } // Use the GraphQL token from the user context);),
     );
-  }, [offset, load, user]);
+  }, [offset, load, user?.graphqlToken, user?.userName]);
 
   if (loading || !data || !user)
     return (
