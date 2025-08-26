@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { getAsQuery } from '@/components/filters/filterTools';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
@@ -176,4 +177,12 @@ function Map({ style, className, mapProps }) {
   }
 }
 
-export default Map;
+const MapBoundary = (props) => {
+  return (
+    <ErrorBoundary type="BLOCK">
+      <Map {...props} />
+    </ErrorBoundary>
+  );
+};
+
+export default MapBoundary;

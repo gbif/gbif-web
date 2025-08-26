@@ -56,6 +56,7 @@ type Props = {
   q?: string;
   theme: string;
   registerPredicate?(): void;
+  onTileError?(): void;
   onMapClick?(): void;
   className?: string;
   onPointClick(point: PointData): void;
@@ -389,6 +390,9 @@ class Map extends Component<Props, State> {
         // there seem to be no simple way to get the statuscode, so we will just reregister on any type of error
         if (this.props.registerPredicate) {
           this.props.registerPredicate();
+        }
+        if (this.props.onTileError) {
+          this.props.onTileError();
         }
       },
     });

@@ -198,6 +198,9 @@ class MapLibreMap extends Component {
         map.on('error', (e) => {
           if (e?.error?.status === 400 && this.props.registerPredicate) {
             this.props.registerPredicate();
+          } else if (e.type === 'error' && this.props.onTileError) {
+            // notify the user that we had dificulties loading the tiles
+            this.props.onTileError();
           }
         });
 
