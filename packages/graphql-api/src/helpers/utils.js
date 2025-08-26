@@ -98,14 +98,12 @@ function truncateText(sourceText, maxLength) {
 function excerpt({ summary, body }, { maxLength = 200, locale } = {}) {
   // if (summary != null)
   //   return getHtml(summary, { inline: false, allowedTags: [], locale });
-  const summaryHtml =
-    summary !== null
-      ? getHtml(summary, { inline: false, allowedTags: [], locale })
-      : '';
-  const bodyHtml =
-    body !== null
-      ? getHtml(body, { inline: false, allowedTags: [], locale })
-      : '';
+  const summaryHtml = summary
+    ? getHtml(summary, { inline: false, allowedTags: [], locale })
+    : '';
+  const bodyHtml = body
+    ? getHtml(body, { inline: false, allowedTags: [], locale })
+    : '';
   const concat = `${summaryHtml ? `${summaryHtml}... ` : ''}${bodyHtml}`;
   if (!concat || concat === '') return null;
 
