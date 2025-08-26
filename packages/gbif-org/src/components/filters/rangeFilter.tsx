@@ -170,7 +170,7 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
                 const value = e.currentTarget.value;
                 if (e.key === 'Enter') {
                   if (value !== '') {
-                    const rangeQuery = rangeOrTerm(value, lowerBound, upperBound);
+                    const rangeQuery = rangeOrTerm(value, lowerBound, upperBound, true);
                     // const filters = unionBy([q], selected, hash);
                     add(filterHandle, rangeQuery);
                     setQ('');
@@ -287,9 +287,17 @@ export const RangeFilter = React.forwardRef<HTMLInputElement, RangeProps>(
  * @param {string} upperBound
  * @param {string} lowerBound
  */
-export function rangeOrTerm(value, lowerBound = 'gte', upperBound = 'lte') {
+export function rangeOrTerm(
+  value: string,
+  lowerBound = 'gte',
+  upperBound = 'lte',
+  expectNumbers?: boolean
+) {
   // has a comma in the string
-  const delimter = value.indexOf(',') > -1 ? ',' : null;
+  let delimter = value.indexOf(',') > -1 ? ',' : null;
+  if (expectNumbers && !delimter && value.trim().indexOf('-') > 0) {
+    delimter = '-';
+  }
 
   if (typeof value !== 'string' || !delimter) {
     return {
@@ -301,6 +309,17 @@ export function rangeOrTerm(value, lowerBound = 'gte', upperBound = 'lte') {
     const cleanedValues = values
       .map((s) => s.trim())
       .map((s) => (s === '*' || s === '' ? undefined : s));
+
+    if (expectNumbers && !cleanedValues.some((x) => x === undefined || isNaN(parseFloat(x)))) {
+      const sortedValues = cleanedValues.map((x) => parseFloat(x)).sort();
+      return {
+        type: 'range',
+        value: {
+          [lowerBound]: sortedValues[0],
+          [upperBound]: sortedValues[1],
+        },
+      };
+    }
     return {
       type: 'range',
       value: {
