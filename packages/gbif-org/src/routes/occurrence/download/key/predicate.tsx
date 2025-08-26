@@ -292,6 +292,10 @@ export const PredicateDisplay = ({ predicate }) => {
 
   if (!predicate) return null;
 
+  if (JSON.stringify(predicate).length > 2000) {
+    return <pre>{JSON.stringify(predicate, null, 2)}</pre>;
+  }
+
   switch (predicate.type) {
     case 'and':
     case 'or':
