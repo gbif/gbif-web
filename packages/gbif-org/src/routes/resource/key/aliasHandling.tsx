@@ -1,4 +1,4 @@
-import { NotFoundError, NotFoundLoaderResponse } from '@/errors';
+import { NotFoundError, NotFoundLoaderResponse, UnexpectedLoaderError } from '@/errors';
 import {
   AliasHandlingQuery,
   AliasHandlingQueryVariables,
@@ -39,7 +39,11 @@ export async function aliasHandlingLoader(args: LoaderArgs) {
     requiredObjects: [data?.resource],
   });
 
-  if ('urlAlias' in data?.resource) {
+  if (!data.resource) {
+    throw new UnexpectedLoaderError();
+  }
+
+  if ('urlAlias' in data.resource) {
     const resource = data.resource;
 
     const loader = (() => {

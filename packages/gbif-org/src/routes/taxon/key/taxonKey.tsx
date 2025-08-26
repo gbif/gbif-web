@@ -10,6 +10,7 @@ import {
 import useQuery from '@/hooks/useQuery';
 import { LoaderArgs, useI18n } from '@/reactRouterPlugins';
 import { useLink } from '@/reactRouterPlugins/dynamicLink';
+import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { useEffect } from 'react';
 import { Navigate, useLoaderData } from 'react-router-dom';
 import { NonBackbonePresentation, TaxonKey as Presentation } from './taxonKeyPresentation';
@@ -18,11 +19,20 @@ import { imagePredicate } from './taxonUtil';
 export async function taxonLoader({ params, graphql }: LoaderArgs) {
   const key = params.taxonKey || (params.key as string);
 
-  return graphql.query<TaxonKeyQuery, TaxonKeyQueryVariables>(TAXON_QUERY, {
+  const response = await graphql.query<TaxonKeyQuery, TaxonKeyQueryVariables>(TAXON_QUERY, {
     key,
     /*     predicate: typeSpecimenPredicate(Number(key)),
      */ imagePredicate: imagePredicate(Number(key)),
   });
+
+  const { errors, data } = await response.json();
+  throwCriticalErrors({
+    path404: ['taxon'],
+    errors,
+    requiredObjects: [data?.taxon],
+  });
+
+  return { errors, data };
 }
 
 export function TaxonKey() {

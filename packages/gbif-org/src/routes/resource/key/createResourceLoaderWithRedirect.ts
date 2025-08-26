@@ -1,5 +1,7 @@
-import { NotFoundError, UnexpectedLoaderError } from '@/errors';
+import { UnexpectedLoaderError } from '@/errors';
+import { QueryError } from '@/hooks/useQuery';
 import { LoaderArgs } from '@/reactRouterPlugins';
+import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { fragmentManager } from '@/services/fragmentManager';
 import { required } from '@/utils/required';
 import { slugify } from '@/utils/slugify';
@@ -99,10 +101,15 @@ export function createResourceLoaderWithRedirect(options: Options) {
 
     const response = await graphql.query(query, { key });
 
-    const { data } = await response.json();
+    const { errors, data } = await response.json();
+    throwCriticalErrors({
+      path404: ['resource'],
+      errors,
+      requiredObjects: [data?.resource],
+    });
 
-    if (data == null || (typeof data === 'object' && 'resource' in data && data.resource == null)) {
-      throw new NotFoundError();
+    if (errors) {
+      throw new QueryError({ graphQLErrors: errors, query, variables: { key } });
     }
 
     // Validate the structure of the response
