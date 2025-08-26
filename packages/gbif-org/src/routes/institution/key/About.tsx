@@ -261,7 +261,7 @@ export default function About() {
                         <ContactContent className="g-mb-2">
                           {contact.taxonomicExpertise.length > 0 && (
                             <>
-                              Taxonomic expertice:{' '}
+                              <FormattedMessage id="grscicoll.taxonomicExpertice" />:{' '}
                               <BulletList>
                                 {contact.taxonomicExpertise.map((expertise) => (
                                   <li key={expertise}>{expertise}</li>
