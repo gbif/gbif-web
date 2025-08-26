@@ -60,7 +60,7 @@ export function DocumentPage() {
         <title>{resource.title}</title>
       </Helmet>
 
-      <PageContainer topPadded className="g-bg-white">
+      <PageContainer topPadded bottomPadded className="g-bg-white">
         <div className="g-max-w-4xl g-m-auto g-bg-paperBackground md:g-shadow-2xl md:g-p-8 lg:g-p-16">
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 

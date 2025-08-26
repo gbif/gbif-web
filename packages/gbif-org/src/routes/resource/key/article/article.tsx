@@ -14,9 +14,9 @@ import { ArticleTags } from '../components/articleTags';
 import { ArticleTextContainer } from '../components/articleTextContainer';
 import { ArticleTitle } from '../components/articleTitle';
 import { Documents } from '../components/documents';
+import { PageContainer } from '../components/pageContainer';
 import { SecondaryLinks } from '../components/secondaryLinks';
 import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
-import { PageContainer } from '../components/pageContainer';
 
 export const ArticlePageSkeleton = ArticleSkeleton;
 
@@ -61,7 +61,7 @@ export function ArticlePage() {
         <title>{resource.title}</title>
       </Helmet>
 
-      <PageContainer topPadded className="g-bg-white">
+      <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer className="g-mb-10">
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 

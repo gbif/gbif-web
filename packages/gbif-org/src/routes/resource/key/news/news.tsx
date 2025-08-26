@@ -5,19 +5,19 @@ import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
 import { ArticlePageSkeleton } from '../article/article';
+import { ArticleAuxiliary } from '../components/articleAuxiliary';
 import { ArticleBody } from '../components/articleBody';
 import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
 import { ArticleIntro } from '../components/articleIntro';
+import { ArticleOpenGraph } from '../components/articleOpenGraph';
 import { ArticlePreTitle } from '../components/articlePreTitle';
 import { ArticleTags } from '../components/articleTags';
 import { ArticleTextContainer } from '../components/articleTextContainer';
 import { ArticleTitle } from '../components/articleTitle';
-import { PublishedDate } from '../components/publishedDate';
-import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
-import { ArticleOpenGraph } from '../components/articleOpenGraph';
-import { ArticleAuxiliary } from '../components/articleAuxiliary';
-import { SecondaryLinks } from '../components/secondaryLinks';
 import { PageContainer } from '../components/pageContainer';
+import { PublishedDate } from '../components/publishedDate';
+import { SecondaryLinks } from '../components/secondaryLinks';
+import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 
 export const NewsPageSkeleton = ArticlePageSkeleton;
 
@@ -64,7 +64,7 @@ export function NewsPage() {
         <title>{resource.title}</title>
       </Helmet>
 
-      <PageContainer topPadded className="g-bg-white">
+      <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer>
           <ArticlePreTitle>
             <FormattedMessage id="cms.contentType.news" />

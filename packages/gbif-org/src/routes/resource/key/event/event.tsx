@@ -1,27 +1,27 @@
-import { Helmet } from 'react-helmet-async';
-import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
-import { ArticlePreTitle } from '../components/articlePreTitle';
-import { ArticleTitle } from '../components/articleTitle';
-import { ArticleIntro } from '../components/articleIntro';
-import { ArticleTextContainer } from '../components/articleTextContainer';
-import { ArticleBody } from '../components/articleBody';
-import { Button } from '@/components/ui/button';
-import { FormattedDate, FormattedDateTimeRange, FormattedMessage, FormattedTime } from 'react-intl';
-import { KeyValuePair } from '../components/keyValuePair';
-import { MdCalendarMonth } from 'react-icons/md';
-import { SecondaryLinks } from '../components/secondaryLinks';
-import { ArticleAuxiliary } from '../components/articleAuxiliary';
-import { useLoaderData } from 'react-router-dom';
-import { ArticleSkeleton } from '../components/articleSkeleton';
 import { ClientSideOnly } from '@/components/clientSideOnly';
-import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
-import { Documents } from '../components/documents';
 import { RenderIfChildren } from '@/components/renderIfChildren';
-import { fragmentManager } from '@/services/fragmentManager';
-import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import { Button } from '@/components/ui/button';
 import { EventPageFragment } from '@/gql/graphql';
+import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
+import { fragmentManager } from '@/services/fragmentManager';
+import { Helmet } from 'react-helmet-async';
+import { MdCalendarMonth } from 'react-icons/md';
+import { FormattedDate, FormattedDateTimeRange, FormattedMessage, FormattedTime } from 'react-intl';
+import { useLoaderData } from 'react-router-dom';
+import { ArticleAuxiliary } from '../components/articleAuxiliary';
+import { ArticleBody } from '../components/articleBody';
+import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
+import { ArticleIntro } from '../components/articleIntro';
 import { ArticleOpenGraph } from '../components/articleOpenGraph';
+import { ArticlePreTitle } from '../components/articlePreTitle';
+import { ArticleSkeleton } from '../components/articleSkeleton';
+import { ArticleTextContainer } from '../components/articleTextContainer';
+import { ArticleTitle } from '../components/articleTitle';
+import { Documents } from '../components/documents';
+import { KeyValuePair } from '../components/keyValuePair';
 import { PageContainer } from '../components/pageContainer';
+import { SecondaryLinks } from '../components/secondaryLinks';
+import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 
 export const EventPageSkeleton = ArticleSkeleton;
 
@@ -75,7 +75,7 @@ export function EventPage() {
         <title>{resource.title}</title>
       </Helmet>
 
-      <PageContainer topPadded className="g-bg-white">
+      <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer className="g-mb-10">
           <ArticlePreTitle className="g-flex g-items-center g-gap-4 g-mt-2">
             <ClientSideOnly>

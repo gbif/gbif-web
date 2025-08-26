@@ -1,24 +1,24 @@
-import { Helmet } from 'react-helmet-async';
+import { Button } from '@/components/ui/button';
 import { ToolPageFragment } from '@/gql/graphql';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
-import { ArticlePreTitle } from '../components/articlePreTitle';
-import { ArticleTitle } from '../components/articleTitle';
-import { PublishedDate } from '../components/publishedDate';
-import { ArticleIntro } from '../components/articleIntro';
-import { ArticleTextContainer } from '../components/articleTextContainer';
-import { ArticleBody } from '../components/articleBody';
-import { SecondaryLinks } from '../components/secondaryLinks';
-import { ArticleAuxiliary } from '../components/articleAuxiliary';
+import { fragmentManager } from '@/services/fragmentManager';
+import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
-import { ArticleSkeleton } from '../components/articleSkeleton';
-import { Button } from '@/components/ui/button';
-import { DynamicLink } from '@/reactRouterPlugins';
+import { ArticleAuxiliary } from '../components/articleAuxiliary';
+import { ArticleBody } from '../components/articleBody';
 import { ArticleFooterWrapper } from '../components/articleFooterWrapper';
-import { fragmentManager } from '@/services/fragmentManager';
-import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
+import { ArticleIntro } from '../components/articleIntro';
 import { ArticleOpenGraph } from '../components/articleOpenGraph';
+import { ArticlePreTitle } from '../components/articlePreTitle';
+import { ArticleSkeleton } from '../components/articleSkeleton';
+import { ArticleTextContainer } from '../components/articleTextContainer';
+import { ArticleTitle } from '../components/articleTitle';
 import { PageContainer } from '../components/pageContainer';
+import { PublishedDate } from '../components/publishedDate';
+import { SecondaryLinks } from '../components/secondaryLinks';
+import { createResourceLoaderWithRedirect } from '../createResourceLoaderWithRedirect';
 
 export const ToolPageSkeleton = ArticleSkeleton;
 
@@ -64,7 +64,7 @@ export function ToolPage() {
         <title>{resource.title}</title>
       </Helmet>
 
-      <PageContainer topPadded className="g-bg-white">
+      <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer className="g-mb-10">
           <ArticlePreTitle>
             <FormattedMessage id="cms.contentType.tool" />

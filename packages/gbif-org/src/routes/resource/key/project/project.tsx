@@ -68,7 +68,7 @@ export function ProjectPage() {
         <title>{resource.title}</title>
       </Helmet>
 
-      <PageContainer topPadded className="g-bg-white">
+      <PageContainer topPadded bottomPadded className="g-bg-white">
         <ArticleTextContainer>
           <ArticlePreTitle>
             <FormattedMessage id="cms.contentType.project" />
