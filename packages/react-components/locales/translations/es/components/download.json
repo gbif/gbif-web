@@ -17,7 +17,7 @@
     },
     "stopEditing": "",
     "startEditing": "",
-    "reformat": "",
+    "reformat": "Reformatear",
     "readTheDocumentation": "Leer la documentación",
     "errors": {
       "invalid-SQL": "SQL inválido",

@@ -17,7 +17,7 @@
     },
     "stopEditing": "",
     "startEditing": "",
-    "reformat": "Переформатируйте",
+    "reformat": "Переформатировать",
     "readTheDocumentation": "Прочтите документацию",
     "errors": {
       "invalid-SQL": "Недопустимый синтаксис SQL",

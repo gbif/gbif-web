@@ -1,26 +1,26 @@
 {
   "contentType": {
-    "event": "",
-    "news": "",
-    "resource": "",
-    "dataUse": "",
-    "project": "",
-    "participant": "",
-    "programme": "",
-    "document": "",
-    "tool": "",
-    "network": "",
-    "literature": ""
+    "event": "אירוע",
+    "news": "חדשות",
+    "resource": "משאב",
+    "dataUse": "שימוש בנתונים",
+    "project": "פרויקט",
+    "participant": "משתתפ.ת",
+    "programme": "תכנית",
+    "document": "מסמך",
+    "tool": "כלי",
+    "network": "רשת",
+    "literature": "ספרות"
   },
   "project": {
-    "project": "",
-    "projectId": "",
-    "projectIdentifier": "",
-    "grantType": "",
-    "duration": "",
-    "title": "",
-    "start": "",
-    "end": "",
+    "project": "פרויקט",
+    "projectId": "מזהה פרויקט",
+    "projectIdentifier": "מזהה פרויקט",
+    "grantType": "סוג מענק",
+    "duration": "משך",
+    "title": "כותרת",
+    "start": "התחלה",
+    "end": "סוף",
     "fundsAllocated": "",
     "matchingFunds": "",
     "funding": "",
@@ -35,8 +35,8 @@
     "newsAndEvents": "",
     "call": "",
     "projectLead": "",
-    "contactDetalils": "",
-    "partners": ""
+    "contactDetalils": "פרטי קשר",
+    "partners": "שותפים"
   },
   "datause": {
     "dataViaGbif": ""
@@ -45,8 +45,8 @@
     "keywords": ""
   },
   "auxiliary": {
-    "subject": "",
-    "citation": "",
+    "subject": "נושא",
+    "citation": "ציטוט",
     "organisingParticipants": ""
   },
   "document": {
@@ -54,11 +54,11 @@
     "readDocument": ""
   },
   "resource": {
-    "resources": "",
+    "resources": "משאבים",
     "contactHelpdesk": "",
     "addToCalendar": "",
     "venue": "",
-    "location": "",
+    "location": "מיקום",
     "country": "",
     "noDatasets": "",
     "noNewsOrEvents": "",

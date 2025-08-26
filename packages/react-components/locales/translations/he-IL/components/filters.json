@@ -1,43 +1,43 @@
 {
   "dwcaExtension": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "הרחבת DWCA",
+    "count": "{num, plural, one {הרחבת DWCA} other {# הרחבות DWCA}}",
+    "description": "תיאור קצר של הרכיב יוצג כאן"
   },
   "locationId": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "מזהה מיקום",
+    "count": "{num, plural, one {מזהה מיקום} other {# מזהי מיקום}}",
+    "description": "ספקי המידע יכולים לבחור להקצות מזהים למיקום. שדה זה אינו מנורמל – החיפוש מתבצע לפי הנתונים כפי שסופקו על ידי ספק המידע."
   },
   "hasCoordinate": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "כולל קואורדינטה",
+    "count": "כולל קואורדינטות",
+    "description": "האם לרשומה יש קואורדינטות."
   },
   "hasGeospatialIssues": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "יש בעיות גיאו־מרחביות",
+    "count": "יש בעיות גיאו־מרחביות",
+    "description": "האם לרשומה יש בעיות גיאו־מרחביות."
   },
   "collectionKey": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "אוסף",
+    "count": "{num, plural, one {אוסף #} other {# אוספים}}",
+    "description": "האוסף ב־GrSciColl שאליו הרשומה שויכה"
   },
   "taxonomicStatus": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "סטטוס",
+    "count": "{num, plural, one {סטטוס} other {# סטטוסים}}",
+    "description": "מספר פריטי האוסף המצוינים בתיאור. מספר זה אינו משקף כמה רשומות דוגמו או שותפו בפועל."
   },
   "taxonRank": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "דרגה",
+    "count": "{num, plural, one {דרגה} other {# דרגות}}",
+    "description": "מספר פריטי האוסף המצוינים בתיאור. מספר זה אינו משקף כמה רשומות דוגמו או שותפו בפועל."
   },
   "numberSpecimens": {
-    "name": "",
+    "name": "מספר הפרטים",
     "count": "",
-    "description": ""
+    "description": "מספר פריטי האוסף המצוינים בתיאור. מספר זה אינו משקף כמה רשומות דוגמו או שותפו בפועל."
   },
   "specimensInGbif": {
     "name": "",
@@ -53,30 +53,30 @@
     "name": "",
     "count": "",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
-    "placeholderDist": ""
+    "placeholderLat": "קו רוחב",
+    "placeholderLon": "קו אורך",
+    "placeholderDist": "מרחק"
   },
   "geometry": {
-    "name": "",
+    "name": "מיקום",
     "count": "",
     "description": "",
-    "placeholderLat": "",
-    "placeholderLon": "",
-    "placeholderDist": ""
+    "placeholderLat": "קו רוחב",
+    "placeholderLon": "קו אורך",
+    "placeholderDist": "מרחק"
   },
   "relevance": {
-    "name": "",
+    "name": "רלוונטיות",
     "count": "",
     "description": ""
   },
   "topics": {
-    "name": "",
+    "name": "נושא",
     "count": "",
     "description": ""
   },
   "audiences": {
-    "name": "",
+    "name": "קהל",
     "count": "",
     "description": ""
   },
@@ -96,17 +96,17 @@
     "description": ""
   },
   "purposes": {
-    "name": "",
+    "name": "נושא",
     "count": "",
     "description": ""
   },
   "eventDate": {
-    "name": "",
+    "name": "תאריך אירוע",
     "count": "",
     "description": ""
   },
   "gbifId": {
-    "name": "",
+    "name": "מזהה GBIF",
     "count": "",
     "description": ""
   },
@@ -116,7 +116,7 @@
     "description": ""
   },
   "pathway": {
-    "name": "",
+    "name": "ניתוב",
     "count": "",
     "description": ""
   },
@@ -131,7 +131,7 @@
     "description": ""
   },
   "endDayOfYear": {
-    "name": "",
+    "name": "יום הסיום בשנה",
     "count": "",
     "description": ""
   },
@@ -156,67 +156,67 @@
     "description": ""
   },
   "identifier": {
-    "name": "",
+    "name": "מזהה",
     "count": "",
-    "description": ""
+    "description": "תיאור קצר של הרכיב יוצג כאן"
   },
   "institutionType": {
-    "name": "",
+    "name": "סוג",
     "count": "",
     "description": ""
   },
   "discipline": {
-    "name": "",
+    "name": "דיציפלינה",
     "count": "",
     "description": ""
   },
   "collectionContentType": {
-    "name": "",
+    "name": "סוג תוכן",
     "count": "",
     "description": ""
   },
   "preservationType": {
-    "name": "",
+    "name": "סוג שימור",
     "count": "",
     "description": ""
   },
   "taxonKey": {
-    "name": "",
+    "name": "שם מדעי",
     "count": "",
     "description": ""
   },
   "taxonKeyGrSciColl": {
-    "name": "",
+    "name": "שם מדעי",
     "count": "",
     "description": ""
   },
   "basisOfRecord": {
-    "name": "",
+    "name": "מקור הרשומה",
     "count": "",
     "isNotNull": "",
     "isNull": "",
     "description": ""
   },
   "institutionCode": {
-    "name": "",
+    "name": "קוד מוסד",
     "count": "",
     "description": ""
   },
   "catalogNumber": {
-    "name": "",
+    "name": "מספר קטלוגי",
     "count": "",
     "description": ""
   },
   "mediaType": {
-    "name": "",
+    "name": "סוג מדיה",
     "count": "",
     "description": ""
   },
   "occurrenceIssue": {
     "name": "",
     "count": "",
-    "isNotNull": "",
-    "isNull": "",
+    "isNotNull": "כולל בעיות",
+    "isNull": "ללא בעיות",
     "description": ""
   },
   "occurrenceTaxonomicIssue": {
@@ -227,7 +227,7 @@
     "description": ""
   },
   "occurrenceCountry": {
-    "name": "",
+    "name": "ארץ או אזור",
     "count": "",
     "description": ""
   },
@@ -235,7 +235,7 @@
     "description": ""
   },
   "preparations": {
-    "name": "",
+    "name": "הכנות",
     "count": "",
     "description": ""
   },
@@ -250,25 +250,25 @@
     "description": ""
   },
   "q": {
-    "name": "",
+    "name": "חיפוש טקסט",
     "count": "",
     "description": ""
   },
   "coordinates": {
-    "name": ""
+    "name": "קואורדינטות"
   },
   "elevation": {
-    "name": "",
+    "name": "גובה",
     "count": "",
     "description": ""
   },
   "license": {
-    "name": "",
+    "name": "רישיון",
     "count": "",
     "description": ""
   },
   "datasetKey": {
-    "name": "",
+    "name": "ערכת נתונים",
     "count": "",
     "description": ""
   },
@@ -278,7 +278,7 @@
     "description": ""
   },
   "publisherKey": {
-    "name": "",
+    "name": "ספק מידע",
     "count": "",
     "description": ""
   },
@@ -288,12 +288,12 @@
     "description": ""
   },
   "hostingOrganizationKey": {
-    "name": "",
+    "name": "ארגון מארח",
     "count": "",
     "description": ""
   },
   "country": {
-    "name": "",
+    "name": "ארץ או אזור",
     "count": ""
   },
   "countriesOfCoverage": {
@@ -311,14 +311,14 @@
     "count": ""
   },
   "typeStatus": {
-    "name": "",
+    "name": "סוג הסטטוס",
     "count": "",
     "isNotNull": "",
-    "isNull": "",
+    "isNull": "סוג הסטטוס",
     "description": ""
   },
   "year": {
-    "name": "",
+    "name": "שנה",
     "count": "",
     "description": ""
   },
@@ -338,12 +338,12 @@
     "description": ""
   },
   "depth": {
-    "name": "",
+    "name": "עומק",
     "count": "",
     "description": ""
   },
   "organismQuantity": {
-    "name": "",
+    "name": "כמות האורגניזם",
     "count": "",
     "description": ""
   },
@@ -358,12 +358,12 @@
     "description": ""
   },
   "month": {
-    "name": "",
+    "name": "חודש",
     "count": "",
     "description": ""
   },
   "continent": {
-    "name": "",
+    "name": "יבשת",
     "count": "",
     "description": ""
   },
@@ -378,22 +378,22 @@
     "description": ""
   },
   "sex": {
-    "name": "",
+    "name": "מין",
     "count": "",
     "description": ""
   },
   "lifeStage": {
-    "name": "",
+    "name": "שלב חיים",
     "count": "",
     "description": ""
   },
   "recordedBy": {
-    "name": "",
+    "name": "נרשם על ידי",
     "count": "",
     "description": ""
   },
   "fieldNumber": {
-    "name": "",
+    "name": "מספר השדה",
     "count": "",
     "description": ""
   },
@@ -403,17 +403,17 @@
     "description": ""
   },
   "islandGroup": {
-    "name": "",
+    "name": "קבוצת איים",
     "count": "",
     "description": ""
   },
   "island": {
-    "name": "",
+    "name": "אי",
     "count": "",
     "description": ""
   },
   "georeferencedBy": {
-    "name": "",
+    "name": "תויג גאוגרפית על ידי",
     "count": "",
     "description": ""
   },
@@ -423,52 +423,52 @@
     "description": ""
   },
   "programme": {
-    "name": "",
+    "name": "תכנית",
     "count": "",
     "description": ""
   },
   "recordNumber": {
-    "name": "",
+    "name": "מספר רשומה",
     "count": "",
     "description": ""
   },
   "collectionCode": {
-    "name": "",
+    "name": "מזהה האוסף",
     "count": "",
     "description": ""
   },
   "projectId": {
-    "name": "",
+    "name": "מזהה פרויקט",
     "count": "",
     "description": ""
   },
   "recordedById": {
-    "name": "",
+    "name": "נרשם על ידי מזהה",
     "count": "",
     "description": ""
   },
   "identifiedById": {
-    "name": "",
+    "name": "זוהה על ידי מזהה",
     "count": "",
     "description": ""
   },
   "occurrenceId": {
-    "name": "",
+    "name": "מזהה תצפית",
     "count": "",
     "description": ""
   },
   "organismId": {
-    "name": "",
+    "name": "מזהה אורגניזם",
     "count": "",
     "description": ""
   },
   "locality": {
-    "name": "",
+    "name": "אזור",
     "count": "",
     "description": ""
   },
   "waterBody": {
-    "name": "",
+    "name": "מקווה מים",
     "count": "",
     "description": ""
   },
@@ -478,12 +478,12 @@
     "description": ""
   },
   "stateProvince": {
-    "name": "",
+    "name": "מדינה מחוז",
     "count": "",
     "description": ""
   },
   "gbifRegion": {
-    "name": "",
+    "name": "אזור GBIF",
     "count": "",
     "description": ""
   },
@@ -493,12 +493,12 @@
     "description": ""
   },
   "eventId": {
-    "name": "",
+    "name": "מזהה אירוע",
     "count": "",
     "description": ""
   },
   "eventID": {
-    "name": "",
+    "name": "מזהה אירוע",
     "count": "",
     "description": ""
   },
@@ -508,7 +508,7 @@
     "description": ""
   },
   "locationID": {
-    "name": "",
+    "name": "מזהה מיקום",
     "count": "",
     "description": ""
   },
@@ -528,12 +528,12 @@
     "description": ""
   },
   "eventType": {
-    "name": "",
+    "name": "סוג האירוע",
     "count": "",
     "description": ""
   },
   "dataStructure": {
-    "name": "",
+    "name": "מבנה",
     "count": "",
     "description": ""
   },
@@ -553,7 +553,7 @@
     "description": ""
   },
   "identifiedBy": {
-    "name": "",
+    "name": "זוהה על ידי",
     "count": "",
     "description": ""
   },
@@ -568,18 +568,18 @@
     "description": ""
   },
   "active": {
-    "name": "",
-    "count": "",
+    "name": "פעיל",
+    "count": "פעיל",
     "description": ""
   },
   "activeInstitution": {
-    "name": "",
-    "count": "",
+    "name": "פעיל",
+    "count": "פעיל",
     "description": ""
   },
   "activeCollection": {
-    "name": "",
-    "count": "",
+    "name": "פעיל",
+    "count": "פעיל",
     "description": ""
   },
   "publicationDate": {
@@ -593,33 +593,33 @@
     "description": ""
   },
   "datasetType": {
-    "name": "",
+    "name": "סוג ערכת הנתונים",
     "count": "",
-    "description": ""
+    "description": "תיאור קצר של הרכיב יוצג כאן"
   },
   "datasetSubtype": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "תיאור קצר של הרכיב יוצג כאן"
   },
   "institutionKey": {
-    "name": "",
+    "name": "מוסד",
     "count": "",
     "description": ""
   },
   "name": {
-    "name": "",
+    "name": "שם",
     "count": "",
     "description": "",
     "searchPlaceholder": ""
   },
   "city": {
-    "name": "",
+    "name": "עיר",
     "count": "",
     "description": ""
   },
   "code": {
-    "name": "",
+    "name": "קוד",
     "count": "",
     "description": ""
   },
@@ -629,9 +629,9 @@
     "description": ""
   },
   "networkKey": {
-    "name": "",
+    "name": "רשת",
     "count": "",
-    "description": ""
+    "description": "תיאור קצר של הרכיב יוצג כאן"
   },
   "literatureType": {
     "name": "",
@@ -646,8 +646,8 @@
   "issueEnum": {
     "name": "",
     "count": "",
-    "isNotNull": "",
-    "isNull": "",
+    "isNotNull": "כולל בעיות",
+    "isNull": "ללא בעיות",
     "description": ""
   }
 }

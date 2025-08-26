@@ -1,15 +1,15 @@
 {
   "country": {
     "tabs": {
-      "summary": "",
+      "summary": "סיכום",
       "dataPublishing": "",
       "dataAbout": "",
       "participation": "",
       "publicationsFrom": "",
       "publicationsAbout": "",
-      "news": "",
+      "news": "חדשות",
       "alienSpecies": "",
-      "projects": ""
+      "projects": "פרויקטים"
     },
     "country": "",
     "dataFrom": "",
@@ -34,6 +34,6 @@
       "publishersFrom": ""
     },
     "activityReport": "",
-    "contacts": ""
+    "contacts": "אנשי קשר"
   }
 }
