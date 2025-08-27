@@ -1,6 +1,7 @@
 import { ErrorComponent } from '@/components/ErrorBoundary';
 import { useToast } from '@/components/ui/use-toast';
 import { NotFoundLoaderResponse } from '@/errors';
+import { QueryError } from '@/hooks/useQuery';
 import { NotFoundPage } from '@/notFoundPage';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
@@ -46,16 +47,24 @@ export function throwCriticalErrors({
   errors,
   requiredObjects,
   path404,
+  query,
+  variables,
 }: {
   errors?: Array<{ message?: string; path?: [string] }>;
   requiredObjects?: (object | null | undefined)[];
   path404: [string];
+  query?: string;
+  variables?: Record<string, any>;
 }) {
   if (is404({ path: path404, errors })) {
     throw new NotFoundLoaderResponse();
   }
   if (requiredObjects?.some((obj) => !obj)) {
-    throw new Error('Required entities could not be loaded');
+    throw new QueryError({
+      graphQLErrors: errors,
+      query: query,
+      variables: variables,
+    });
   }
 }
 
