@@ -1,7 +1,6 @@
 import { getAsQuery } from '@/components/filters/filterTools';
 import { GbifLogoIcon } from '@/components/icons/icons';
 import { usePaginationState } from '@/components/searchTable';
-import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { useConfig } from '@/config/config';
 import { FilterContext } from '@/contexts/filter';
@@ -60,15 +59,12 @@ export function LiteratureButtonInner() {
 
   return (
     <SearchContextProvider searchContext={config.literatureSearch}>
-      <Button
-        onClick={() =>
-          window.open(
-            `${import.meta.env.PUBLIC_BASE_URL}/literature/search?${
-              (searchParams.toString(), '_blank')
-            }`
-          )
-        }
-        className="g-bg-primary-500 g-border g-border-solid g-border-primary-600 g-text-white g-text-xs g-px-2 g-py-1 g-min-w-[80px]"
+      <a
+        target="_parent"
+        href={`${import.meta.env.PUBLIC_BASE_URL}/literature/search?${
+          (searchParams.toString(), '_blank')
+        }`}
+        className="g-bg-primary-500 g-border g-border-solid g-border-primary-600 g-text-white g-text-sm g-px-2 g-py-1 g-w-full g-h-[100vh] g-items-center g-text-center g-flex g-justify-center"
       >
         <GbifLogoIcon className="g-w-4 g-h-4 g-inline-block g-mr-1" />
         {loading || !data ? (
@@ -80,7 +76,7 @@ export function LiteratureButtonInner() {
             values={{ count: <FormattedNumber value={data?.literatureSearch?.documents.total} /> }}
           />
         )}
-      </Button>
+      </a>
     </SearchContextProvider>
   );
 }
