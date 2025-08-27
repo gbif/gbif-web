@@ -57,16 +57,16 @@
     "affiliation": "Affiliation",
     "recipient": "Destinataire",
     "areasExpertise": "Domaine d'expertise",
-    "orcId": "",
+    "orcId": "iD ORCID",
     "year": "Année",
     "email": "Courriel"
   },
   "award": {
-    "GRA": "",
-    "EBBE1ST": "",
-    "EBBE2ND": "",
-    "EBBE3RD": ""
+    "GRA": "Prix ​​GBIF des chercheurs diplômés",
+    "EBBE1ST": "1er prix",
+    "EBBE2ND": "2ᵉ prix",
+    "EBBE3RD": "3ᵉ prix"
   },
-  "prize": "",
+  "prize": "Prix",
   "year": "Année"
 }

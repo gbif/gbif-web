@@ -49,24 +49,24 @@
   "sinceDate": "Начиная с {DATE}",
   "showAllContacts": "Все",
   "person": {
-    "volunteer": "",
+    "volunteer": "Волонтер",
     "name": "Имя",
-    "annualBadges": "",
+    "annualBadges": "Ежегодные значки",
     "language": "Язык",
     "country": "Страна (территория)",
-    "affiliation": "",
-    "recipient": "",
-    "areasExpertise": "",
-    "orcId": "",
+    "affiliation": "Аффилированность",
+    "recipient": "Получатель",
+    "areasExpertise": "Область экспертизы",
+    "orcId": "ORCID iD",
     "year": "Год",
     "email": "Email"
   },
   "award": {
-    "GRA": "",
-    "EBBE1ST": "",
-    "EBBE2ND": "",
-    "EBBE3RD": ""
+    "GRA": "Премия GBIF для аспирантов-исследователей",
+    "EBBE1ST": "1-й приз",
+    "EBBE2ND": "2-й приз",
+    "EBBE3RD": "3-й приз"
   },
-  "prize": "",
+  "prize": "Приз",
   "year": "Год"
 }
