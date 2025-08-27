@@ -12,7 +12,7 @@ const typeDef = gql`
       machineTagName: String
       machineTagValue: String
     ): NodeSearchResults! @cacheControl(maxAge: 3600, scope: PUBLIC)
-    node(key: String!): Node
+    node(key: ID!): Node
     nodeCountry(countryCode: String!): Node
   }
 
@@ -51,9 +51,9 @@ const typeDef = gql`
     title: String
     type: NodeType
 
-    organization: OrganizationSearchResult!
+    organization(limit: Int, offset: Int): OrganizationSearchResult!
     pendingEndorsement: OrganizationSearchResult!
-    dataset: DatasetListResults!
+    dataset(limit: Int, offset: Int): DatasetListResults!
     installation: InstallationSearchResults!
 
     participant: Participant

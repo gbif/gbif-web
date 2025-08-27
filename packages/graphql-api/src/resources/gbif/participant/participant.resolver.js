@@ -33,5 +33,30 @@ export default {
     nodeHistory: ({ nodeHistory }) => getHtml(nodeHistory),
     nodeFunding: ({ nodeFunding }) => getHtml(nodeFunding),
     nodeStructure: ({ nodeStructure }) => getHtml(nodeStructure),
+    node: ({ id }, args, { dataSources }) => {
+      return dataSources.nodeAPI
+        .searchNodes({
+          query: {
+            identifierType: 'GBIF_PARTICIPANT',
+            identifier: id,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          const list = response?.results.filter((x) =>
+            x.identifiers.some(
+              (y) =>
+                y.type === 'GBIF_PARTICIPANT' && `${y.identifier}` === `${id}`,
+            ),
+          );
+          return list[0];
+        });
+      // if (nodes && nodes.length > 0) {
+      //   return dataSources.nodeAPI.getNodeByKey({
+      //     key: nodes[0].id,
+      //   });
+      // }
+      // return null;
+    },
   },
 };

@@ -61,6 +61,7 @@ export function throwCriticalErrors({
   }
   if (requiredObjects?.some((obj) => !obj)) {
     throw new QueryError({
+      error: new Error('Not all required objects were found'),
       graphQLErrors: errors,
       query: query,
       variables: variables,

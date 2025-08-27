@@ -9,7 +9,7 @@ const typeDef = gql`
       type: NodeType
       participationStatus: ParticipationStatus
     ): ParticipantSearchResults
-    participant(key: String!): Participant
+    participant(key: ID!): Participant
     nodeSteeringGroup: [NsgMember!]
   }
 
@@ -45,6 +45,7 @@ const typeDef = gql`
     newsletters: [Link]
     rssFeeds: [Link]
     primaryLink: Link
+    node: Node
   }
 
   type NsgMember {

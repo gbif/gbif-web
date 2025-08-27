@@ -12,11 +12,6 @@ export const notImplementedRoutes: RouteObjectWithPlugins[] = [
     loader: () => redirectDocument('https://techdocs.gbif.org/en/openapi'),
   },
   {
-    id: 'participantKey',
-    path: 'participant/:key',
-    element: <NotImplemented />,
-  },
-  {
     path: 'tools/species-lookup',
     element: <NotImplemented />,
   },
