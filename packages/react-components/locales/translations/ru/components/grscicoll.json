@@ -2,6 +2,7 @@
   "foundingDate": "Дата основания",
   "geographicDescription": "Географическое описание",
   "taxonomicDescription": "Таксономическое описание",
+  "TaxonomicExpertice": "",
   "temporalDescription": "Временное описание",
   "additionalNames": "Другие названия",
   "description": "Описание",
