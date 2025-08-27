@@ -40,16 +40,22 @@ export function Hostname({
   href: string;
   className?: string;
 } & React.ComponentProps<'a'>) {
+  const link = href.startsWith('http') ? href : `http://${href}`;
   try {
-    const hostname = new URL(href).hostname;
+    const hostname = new URL(link).hostname;
     return (
-      <a href={href} {...props} className={cn('hover:g-underline g-text-inherit', className)}>
+      <a
+        href={link}
+        {...props}
+        rel="noopener noreferrer"
+        className={cn('hover:g-underline g-text-inherit', className)}
+      >
         {hostname}
       </a>
     );
   } catch (err) {
     return (
-      <a href={href} className="g-text-red-400" {...props}>
+      <a href={href} className="g-text-red-400" rel="noopener noreferrer" {...props}>
         {href}
       </a>
     );

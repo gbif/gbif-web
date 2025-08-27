@@ -39,7 +39,7 @@ const typeDef = gql`
     email: [String]
     endpoints: [Endpoint]
     gbifRegion: GbifRegion
-    homepage: [URL]
+    homepage: [String]
     identifiers: [Identifier]
     machineTags: [MachineTag]
     modified: DateTime

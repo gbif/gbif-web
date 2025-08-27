@@ -198,7 +198,7 @@ export const gbifConfig: Config = {
   },
   literatureSearch: {
     queryType: 'PREDICATE',
-    highlightedFilters: ['q', 'year'],
+    // highlightedFilters: ['q', 'year'],
   },
   occurrenceSearch: {
     mapSettings: {
