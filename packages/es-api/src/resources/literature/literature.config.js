@@ -42,6 +42,10 @@ const config = {
         termOrder: ['firstName', 'lastName'],
       },
     },
+    gbifProjectIdentifier: {
+      type: 'keyword',
+      field: 'gbifProjectIdentifier',
+    },
     chapter: {
       type: 'keyword',
       field: 'chapter',

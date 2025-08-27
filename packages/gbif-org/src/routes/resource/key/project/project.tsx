@@ -1,6 +1,8 @@
-import { RenderIfChildren } from '@/components/renderIfChildren';
+import { useLiteratureCount } from '@/components/count';
+import { CitationIcon, FeatureList, GenericFeature } from '@/components/highlights';
 import { Tabs } from '@/components/tabs';
 import { ProjectPageFragment } from '@/gql/graphql';
+import { DynamicLink } from '@/reactRouterPlugins';
 import { fragmentManager } from '@/services/fragmentManager';
 import { Helmet } from 'react-helmet-async';
 import { MdCalendarMonth as CalendarIcon, MdEuro as EuroIcon, MdLink } from 'react-icons/md';
@@ -54,6 +56,17 @@ export const projectPageLoader = createResourceLoaderWithRedirect({
 
 export function ProjectPage() {
   const { resource } = useLoaderData() as { resource: ProjectPageFragment };
+  const {
+    count: citationsCount,
+    loading: citationsLoading,
+    error: citationsError,
+  } = useLiteratureCount({
+    predicate: {
+      type: 'equals',
+      key: 'gbifProjectIdentifier',
+      value: resource.projectId,
+    },
+  });
 
   // if end date is in the past, the project is closed
   const isClosed = resource.status === 'CLOSED' || resource.status === 'DISCONTINUED';
@@ -82,9 +95,10 @@ export function ProjectPage() {
             )}
           </ArticleTitle>
 
-          <RenderIfChildren className="g-mt-2 g-text-slate-500 dark:g-text-gray-400 g-text-sm g-font-medium g-flex g-items-center g-gap-6">
+          {/* <RenderIfChildren className="g-mt-2 g-text-slate-500 dark:g-text-gray-400 g-text-sm g-font-medium g-flex g-items-center g-gap-6"> */}
+          <FeatureList className="g-text-slate-500 dark:g-text-gray-400">
             {resource.start && resource.end && (
-              <p className="g-flex g-items-center g-gap-1">
+              <GenericFeature>
                 <CalendarIcon size={18} />
                 <FormattedDateTimeRange
                   from={new Date(resource.start)}
@@ -93,16 +107,30 @@ export function ProjectPage() {
                   day="numeric"
                   year="numeric"
                 />
-              </p>
+              </GenericFeature>
             )}
 
             {resource.fundsAllocated && (
-              <p className="g-flex g-items-center g-gap-1">
+              <GenericFeature>
                 <EuroIcon size={18} />
                 <FormattedNumber value={resource.fundsAllocated} />
-              </p>
+              </GenericFeature>
             )}
-          </RenderIfChildren>
+
+            {citationsCount && !citationsLoading && !citationsError && (
+              <GenericFeature className="g-underline">
+                <CitationIcon />
+                <DynamicLink
+                  to="/literature/search"
+                  pageId="literatureSearch"
+                  searchParams={{ gbifProjectIdentifier: resource.projectId }}
+                >
+                  <FormattedMessage id="counts.nCitations" values={{ total: citationsCount }} />
+                </DynamicLink>
+              </GenericFeature>
+            )}
+          </FeatureList>
+          {/* </RenderIfChildren> */}
 
           <Tabs className="g-mt-6" links={tabLinks} />
         </ArticleTextContainer>

@@ -1,3 +1,4 @@
+import useQuery from '@/hooks/useQuery';
 import { hash } from '@/utils/hash';
 import { stringify } from '@/utils/querystring';
 import get from 'lodash/get';
@@ -42,6 +43,38 @@ export function Count({ v1Endpoint, params, queueId, property, message }: Props)
   } else {
     return <FormattedNumber value={count} />;
   }
+}
+
+const LITERATURE_COUNT_QUERY = `
+  query($predicate: Predicate) {
+    literatureSearch(predicate: $predicate) {
+      documents {
+        total
+      }
+    }
+  }
+`;
+export function useLiteratureCount({ predicate }: { predicate: any }) {
+  const { data, load, error, loading } = useQuery(LITERATURE_COUNT_QUERY, {
+    lazyLoad: true,
+    variables: { predicate },
+  });
+
+  const predicateId = hash(JSON.stringify(predicate));
+
+  useEffect(() => {
+    if (predicate) {
+      load({
+        variables: {
+          predicate,
+        },
+      });
+    }
+    // We are tracking the params via a calculated ID
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [predicateId, load]);
+
+  return { count: data?.literatureSearch?.documents.total, error, loading };
 }
 
 export function useCount({
