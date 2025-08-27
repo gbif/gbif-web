@@ -393,8 +393,25 @@ function Location({
           <FormattedMessage id="occurrenceDetails.groups.location" />
         </CardTitle>
       </CardHeader>
-      <CardContent className="g-flex g-flex-col md:g-flex-row g-w-full">
-        <div className="g-flex-auto">
+      <CardContent className="g-w-full">
+        {occurrence.coordinates.lon && (
+          <div className="g-mb-4 g-min-w-64">
+            <StaticRenderSuspence fallback={<div>Loading map...</div>}>
+              {/* <GeoJsonMap geoJson={geoJson} className="g-w-full g-rounded g-overflow-hidden" /> */}
+              <GeoJsonMap
+                geoJson={generatePointGeoJson({
+                  lat: occurrence?.coordinates.lat as number,
+                  lon: occurrence?.coordinates.lon as number,
+                })}
+                className="g-w-full g-rounded g-overflow-hidden"
+                initialCenter={[occurrence.coordinates.lon, occurrence.coordinates.lat]}
+                initialZoom={1}
+                rasterStyle="gbif-natural"
+              />
+            </StaticRenderSuspence>
+          </div>
+        )}
+        <div>
           <Properties breakpoint={800} className="[&>dt]:g-w-52">
             <PlainTextField term={termMap.locationID} showDetails={showAll} />
             <PlainTextField term={termMap.higherGeographyID} showDetails={showAll} />
@@ -475,24 +492,6 @@ function Location({
             )}
           </Properties>
         </div>
-
-        {occurrence.coordinates.lon && (
-          <div className="g-ms-4 g-flex-auto g-w-1/2 g-min-w-64">
-            <StaticRenderSuspence fallback={<div>Loading map...</div>}>
-              {/* <GeoJsonMap geoJson={geoJson} className="g-w-full g-rounded g-overflow-hidden" /> */}
-              <GeoJsonMap
-                geoJson={generatePointGeoJson({
-                  lat: occurrence?.coordinates.lat as number,
-                  lon: occurrence?.coordinates.lon as number,
-                })}
-                className="g-w-full g-rounded g-overflow-hidden"
-                initialCenter={[occurrence.coordinates.lon, occurrence.coordinates.lat]}
-                initialZoom={1}
-                rasterStyle="gbif-natural"
-              />
-            </StaticRenderSuspence>
-          </div>
-        )}
       </CardContent>
     </Card>
   );
