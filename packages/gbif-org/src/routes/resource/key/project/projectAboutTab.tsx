@@ -91,7 +91,7 @@ export function ProjectAboutTab() {
     resource.overrideProgrammeFunding ?? resource.programme?.fundingOrganisations
   )?.filter(notNull);
 
-  const partners = [resource.leadPartner, ...(resource.additionalPartners ?? [])].filter(notNull);
+  const partners = [...(resource.additionalPartners ?? [])].filter(notNull);
 
   const coFundedBy = resource.fundingOrganisations?.filter(notNull) ?? [];
 
@@ -185,6 +185,13 @@ export function ProjectAboutTab() {
             />
           )}
 
+          {resource.leadPartner && (
+            <KeyValuePair
+              label={<FormattedMessage id="cms.project.projectLead" />}
+              value={<ParticipantOrFundingOrganisation resources={[resource.leadPartner]} />}
+            />
+          )}
+
           {partners.length > 0 && (
             <KeyValuePair
               label={<FormattedMessage id="cms.project.partners" />}
@@ -229,15 +236,25 @@ function ParticipantOrFundingOrganisation({
 }) {
   return (
     <ul className="underlineLinks inlineBulletList">
-      {resources.filter(notNull).map((f) => (
-        <li key={f.id}>
-          {f.__typename === 'FundingOrganisation' && f.url ? (
-            <a href={f.url}>{f.title?.trim()}</a>
-          ) : (
-            f.title?.trim()
-          )}
-        </li>
-      ))}
+      {resources.filter(notNull).map((f) => {
+        const title = f.title?.trim();
+
+        let content = <span>{title}</span>;
+        if (f.__typename === 'Participant')
+          content = (
+            <DynamicLink
+              to={`/participant/${f.id}`}
+              pageId="participantKey"
+              variables={{ key: f.id }}
+            >
+              {f.title?.trim()}
+            </DynamicLink>
+          );
+        if (f.__typename === 'FundingOrganisation' && f.url)
+          content = <a href={f.url}>{f.title?.trim()}</a>;
+
+        return <li key={f.id}>{content}</li>;
+      })}
     </ul>
   );
 }
