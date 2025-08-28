@@ -649,7 +649,7 @@ const typeDef = gql`
     maxLng: Int!
     minYear: Int
     maxYear: Int
-    total: Int!
+    total: Long!
     generated: DateTime!
   }
 `;
