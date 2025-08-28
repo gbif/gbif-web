@@ -23,6 +23,12 @@ import { useFilterParams } from './useFilterParams';
 
 const MapWidgetInner = lazy(() => import('../inner'));
 
+const defaultPixelMapParams = {
+  hasCoordinate: [true],
+  hasGeospatialIssue: [false],
+  occurrenceStatus: ['PRESENT'],
+};
+
 type Props = {
   className?: string;
   capabilitiesParams?: Record<string, any>;
@@ -148,7 +154,11 @@ export function MapWidgetOuter({ className, capabilitiesParams = {}, mapStyle }:
                   onSearchAreaClick={(geometryFilter) => {
                     dynamicNavigate({
                       pageId: 'occurrenceSearch',
-                      searchParams: { ...filterParams, geometry: geometryFilter },
+                      searchParams: {
+                        ...filterParams,
+                        geometry: geometryFilter,
+                        ...defaultPixelMapParams,
+                      },
                     });
                   }}
                 />
@@ -163,7 +173,7 @@ export function MapWidgetOuter({ className, capabilitiesParams = {}, mapStyle }:
               className="g-pr-2"
               boundingBox={boundingBox}
               projection={selectedProjection}
-              filterParams={filterParams}
+              filterParams={{ ...filterParams, ...defaultPixelMapParams }}
             />
             <BasisOfRecordFilter
               selected={basisOfRecord}
