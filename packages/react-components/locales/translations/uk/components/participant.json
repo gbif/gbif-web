@@ -39,6 +39,7 @@
       }
     },
     "participant": "Учасник",
+    "node": "",
     "participantSummary": "Відомості про країну-учасницю",
     "memberStatus": "Статус учасника",
     "gbifParticipantSince": "Учасник GBIF з",
