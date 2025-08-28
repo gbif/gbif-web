@@ -50,7 +50,7 @@ export function YearFilter({
   );
 
   return (
-    <div className="g-flex g-items-center g-space-x-2">
+    <div className="g-flex g-items-center g-space-x-2 g-flex-col md:g-flex-row g-gap-2">
       <div className="g-bg-gray-300 g-rounded g-flex">
         <Button
           size="sm"
@@ -80,7 +80,7 @@ export function YearFilter({
         }
         onValueChange={handleInternalValueChange}
         onValueCommit={handleExternalValueChange}
-        className={cn('g-relative g-flex g-items-center g-w-40', {
+        className={cn('g-relative g-flex g-items-center g-w-40 g-py-2', {
           'g-opacity-50': !isYearFilterActive,
         })}
       >
