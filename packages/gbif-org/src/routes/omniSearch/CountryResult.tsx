@@ -1,5 +1,3 @@
-import { Count } from '@/components/count';
-import { Tag } from '@/components/resultCards';
 import { ResultCardHeaderBasic } from '@/components/resultCards/resultCardHeader';
 import { Card } from '@/components/ui/largeCard';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -17,10 +15,38 @@ export function CountryResult({
 
   return (
     <Card className="g-mb-4">
-      <article className="g-p-4 lg:g-p-8">
-        <ResultCardHeaderBasic>
+      <DynamicLink
+        className=""
+        pageId="countryKey"
+        variables={{ countryCode: country.countryCode }}
+      >
+        <article className="g-p-4">
+          <div className="g-flex g-flex-row g-gap-4">
+            <img
+              src={`https://flagcdn.com/${country.countryCode.toLowerCase()}.svg`}
+              alt="Country Flag"
+              style={{ width: '92px', height: 'auto' }}
+              className="g-border g-border-solid g-border-slate-200 g-inline-block"
+            />
+            <div className="g-flex-1">
+              <ResultCardHeaderBasic messageId={messageId}>
+                <FormattedMessage id={`enums.countryCode.${country.countryCode}`} />
+              </ResultCardHeaderBasic>
+              <div className="g-font-normal g-text-slate-800 g-text-sm">
+                {country.participant && (
+                  <>
+                    <div>
+                      <span className="g-font-semibold">Member since</span>{' '}
+                      {country.participant.membershipStart}
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+          {/* <ResultCardHeaderBasic>
           <DynamicLink
-            className="hover:g-text-primary-500 g-flex g-items-center g-gap-2"
+            className="hover:g-text-primary-500 g-flex g-items-center g-gap-2 g-flex-row-reverse"
             pageId="countryKey"
             variables={{ countryCode: country.countryCode }}
           >
@@ -34,60 +60,9 @@ export function CountryResult({
               className="g-border g-border-solid g-border-slate-200 g-inline-block"
             />
           </DynamicLink>
-        </ResultCardHeaderBasic>
-        <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
-          <div className="g-flex-grow">
-            <>
-              <div className="g-font-normal g-text-slate-800 g-text-sm">
-                {country.participant && (
-                  <>
-                    <div>
-                      <span className="g-font-semibold">Member since</span>{' '}
-                      {country.participant.membershipStart}
-                    </div>
-                  </>
-                )}
-                <div>
-                  <span className="g-font-semibold">Publishers</span>{' '}
-                  <Count
-                    v1Endpoint="/organization"
-                    params={{ limit: 0, country: country.countryCode }}
-                  />
-                </div>
-                <div>
-                  <span className="g-font-semibold">Published datasets</span>{' '}
-                  <Count
-                    v1Endpoint="/dataset/search"
-                    params={{ limit: 0, publishingCountry: country.countryCode }}
-                  />
-                </div>
-                <div>
-                  <span className="g-font-semibold">Published occurrence records</span>{' '}
-                  <Count
-                    v1Endpoint="/occurrence/search"
-                    params={{ limit: 0, publishingCountry: country.countryCode }}
-                  />
-                </div>
-              </div>
-            </>
-          </div>
-          {/* <div className="g-max-w-24 md:g-max-w-32 g-flex-none">
-            <img
-              src={`https://flagcdn.com/${country.countryCode.toLowerCase()}.svg`}
-              alt="Country Flag"
-              style={{ width: '100%', height: 'auto' }}
-              className="g-border g-border-slate-200"
-            />
-          </div> */}
-        </div>
-        {messageId && (
-          <div className="-g-m-1 g-mt-2 g-flex g-flex-row g-items-center g-flex-wrap">
-            <Tag>
-              <FormattedMessage id={messageId} />
-            </Tag>
-          </div>
-        )}
-      </article>
+        </ResultCardHeaderBasic> */}
+        </article>
+      </DynamicLink>
     </Card>
   );
 }

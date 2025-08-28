@@ -167,6 +167,8 @@ function SearchBar() {
         </HeaderLink>
       </div>
       <form
+        action="/search"
+        method="get"
         onSubmit={(e) => {
           e.preventDefault();
           dynamicNavigate({
