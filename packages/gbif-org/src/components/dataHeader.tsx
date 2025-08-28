@@ -2,14 +2,13 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useConfig } from '@/config/config';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { MdApps, MdCode, MdInfo } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { DoiTag } from './identifierTag';
@@ -109,6 +108,19 @@ function Popup({
   );
 }
 
+const availableCatalogueOptions = [
+  'OCCURRENCE',
+  'PUBLISHER',
+  'DATASET',
+  'TAXON',
+  'RESOURCE',
+  'LITERATURE',
+  'COLLECTION',
+  'INSTITUTION',
+] as const;
+
+type CatalogueOption = (typeof availableCatalogueOptions)[number];
+
 function CatalogSelector({
   title,
   availableCatalogues,
@@ -116,12 +128,57 @@ function CatalogSelector({
   title: React.ReactNode;
   availableCatalogues: string[];
 }) {
-  if (availableCatalogues.length < 2) return null;
+  const options = useMemo(() => {
+    const optionKeys = availableCatalogues.filter((o): o is CatalogueOption =>
+      (availableCatalogueOptions as readonly string[]).includes(o)
+    );
 
-  const lookup = availableCatalogues.reduce((acc: { [key: string]: boolean }, cur) => {
-    acc[cur] = true;
-    return acc;
-  }, {});
+    const lookUp: Record<CatalogueOption, React.ReactElement> = {
+      OCCURRENCE: (
+        <MenuItem pageId="occurrenceSearch">
+          <FormattedMessage id="catalogues.occurrences" />
+        </MenuItem>
+      ),
+      PUBLISHER: (
+        <MenuItem pageId="publisherSearch">
+          <FormattedMessage id="catalogues.publishers" />
+        </MenuItem>
+      ),
+      DATASET: (
+        <MenuItem pageId="datasetSearch">
+          <FormattedMessage id="catalogues.datasets" />
+        </MenuItem>
+      ),
+      TAXON: (
+        <MenuItem pageId="speciesSearch">
+          <FormattedMessage id="catalogues.species" />
+        </MenuItem>
+      ),
+      INSTITUTION: (
+        <MenuItem pageId="institutionSearch">
+          <FormattedMessage id="catalogues.institutions" />
+        </MenuItem>
+      ),
+      COLLECTION: (
+        <MenuItem pageId="collectionSearch">
+          <FormattedMessage id="catalogues.collections" />
+        </MenuItem>
+      ),
+      LITERATURE: (
+        <MenuItem pageId="literatureSearch">
+          <FormattedMessage id="catalogues.literature" />
+        </MenuItem>
+      ),
+      RESOURCE: (
+        <MenuItem pageId="resourceSearch">
+          <FormattedMessage id="catalogues.resources" />
+        </MenuItem>
+      ),
+    };
+    return optionKeys.map((k) => lookUp[k]);
+  }, [availableCatalogues]);
+
+  if (options.length < 2) return null;
 
   return (
     <div className="g-flex-none g-flex g-items-center">
@@ -131,55 +188,7 @@ function CatalogSelector({
             <MdApps /> {title && <span className="g-ms-2 g-hidden md:g-block">{title}</span>}
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start">
-          {lookup.OCCURRENCE && (
-            <MenuItem pageId="occurrenceSearch">
-              <FormattedMessage id="catalogues.occurrences" />
-            </MenuItem>
-          )}
-          {lookup.DATASET && (
-            <MenuItem pageId="datasetSearch">
-              <FormattedMessage id="catalogues.datasets" />
-            </MenuItem>
-          )}
-          {lookup.PUBLISHER && (
-            <MenuItem pageId="publisherSearch">
-              <FormattedMessage id="catalogues.publishers" />
-            </MenuItem>
-          )}
-          {lookup.TAXON && (
-            <MenuItem pageId="speciesSearch">
-              <FormattedMessage id="catalogues.species" />
-            </MenuItem>
-          )}
-          {(lookup.INSTITUTION || lookup.COLLECTION) && <DropdownMenuSeparator />}
-          {lookup.INSTITUTION && (
-            <MenuItem pageId="institutionSearch">
-              <FormattedMessage id="catalogues.institutions" />
-            </MenuItem>
-          )}
-          {lookup.COLLECTION && (
-            <MenuItem pageId="collectionSearch">
-              <FormattedMessage id="catalogues.collections" />
-            </MenuItem>
-          )}
-          {lookup.LITERATURE && (
-            <>
-              <DropdownMenuSeparator />
-              <MenuItem pageId="literatureSearch">
-                <FormattedMessage id="catalogues.literature" />
-              </MenuItem>
-            </>
-          )}
-          {lookup.RESOURCE && (
-            <>
-              <DropdownMenuSeparator />
-              <MenuItem pageId="resourceSearch">
-                <FormattedMessage id="catalogues.resources" />
-              </MenuItem>
-            </>
-          )}
-        </DropdownMenuContent>
+        <DropdownMenuContent align="start">{options.map((x) => x)}</DropdownMenuContent>
       </DropdownMenu>
     </div>
   );

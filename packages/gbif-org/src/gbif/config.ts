@@ -113,16 +113,7 @@ export const gbifConfig: Config = {
     maptiler: import.meta.env.PUBLIC_API_KEY_MAPTILER,
   },
   openDrawerOnTableRowClick: false,
-  availableCatalogues: [
-    'OCCURRENCE',
-    'INSTITUTION',
-    'COLLECTION',
-    'DATASET',
-    'PUBLISHER',
-    'TAXON',
-    'LITERATURE',
-    'RESOURCE',
-  ],
+  availableCatalogues: ['OCCURRENCE', 'PUBLISHER', 'DATASET', 'TAXON', 'RESOURCE', 'LITERATURE'],
   // vernacularNames: {
   //   sourceTitle: 'The IUCN Red List of Threatened Species',
   //   datasetKey: '66dd0960-2d7d-46ee-a491-87b9adcfe7b1',
