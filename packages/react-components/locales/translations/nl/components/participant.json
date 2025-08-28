@@ -39,6 +39,7 @@
       }
     },
     "participant": "Deelnemer",
+    "node": "",
     "participantSummary": "Overzicht deelnemer",
     "memberStatus": "Status van lid",
     "gbifParticipantSince": "GBIF deelnemer sinds",
