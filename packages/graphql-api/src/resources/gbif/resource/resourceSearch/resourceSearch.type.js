@@ -17,6 +17,8 @@ const typeDef = gql`
       sortOrder: ResourceSortOrder
       start: String
       id: [ID!]
+      audiences: [String!]
+      purposes: [String!]
       """
       Different from the locale header in that only translated resources will be returned
       """
