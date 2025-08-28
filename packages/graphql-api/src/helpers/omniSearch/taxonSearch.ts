@@ -7,7 +7,7 @@ const ENDPOINTS = {
   occurrence: 'https://api.gbif.org/v1/occurrence/search',
 } as const;
 
-const ARTICLE_QUERY = `
+const TAXON_QUERY = `
 query TaxonSearch(
   $taxonKey: ID!
   $languageCode: String = "eng"
@@ -68,14 +68,15 @@ export default async function searchTaxa({
 
   // for each candidate we should get taxon details using graphql and do a capabilities request
   const detailsPromises = candidates.map((c) =>
-    getTaxonDetails(c.usageKey, languageCode, server).then(
-      ([taxon, capabilities]) => ({
+    getTaxonDetails(c.usageKey, languageCode, server).then((data) => {
+      const [taxon, capabilities] = data;
+      return {
         taxon: taxon?.data?.taxon,
         capabilities,
         hasOccurrences: capabilities.total > 0,
         occurrenceCount: null,
-      }),
-    ),
+      };
+    }),
   );
   const details = await Promise.all(detailsPromises);
 
@@ -148,14 +149,20 @@ async function getTaxonDetails(
   languageCode: string,
   server: ApolloServer<ExpressContext>,
 ) {
-  const taxonPromise = server.executeOperation({
-    query: ARTICLE_QUERY,
-    variables: { taxonKey, languageCode },
-  });
+  const taxonPromise = server
+    .executeOperation({
+      query: TAXON_QUERY,
+      variables: { taxonKey, languageCode },
+    })
+    .then((r) => {
+      return r;
+    });
 
   const capabilitiesPromise = fetch(
     `${ENDPOINTS.capabilities}?taxonKey=${taxonKey}`,
-  ).then((r) => r.json());
+  ).then((r) => {
+    return r.json();
+  });
 
   return Promise.all([taxonPromise, capabilitiesPromise]);
 }
