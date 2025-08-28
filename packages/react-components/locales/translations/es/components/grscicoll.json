@@ -2,6 +2,7 @@
   "foundingDate": "Fecha de fundación",
   "geographicDescription": "Descripción geográfica",
   "taxonomicDescription": "Descripción taxonómica",
+  "TaxonomicExpertice": "",
   "temporalDescription": "Descripción temporal",
   "additionalNames": "Nombre adicional",
   "description": "Descripción",

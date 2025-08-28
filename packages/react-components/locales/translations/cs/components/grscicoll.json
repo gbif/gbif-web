@@ -2,6 +2,7 @@
   "foundingDate": "Datum založení",
   "geographicDescription": "Zeměpisná přesnost",
   "taxonomicDescription": "Taxonomický popis",
+  "TaxonomicExpertice": "",
   "temporalDescription": "Dočasný popis",
   "additionalNames": "Další jména",
   "description": "Popis",

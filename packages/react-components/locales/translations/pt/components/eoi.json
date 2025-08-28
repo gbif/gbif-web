@@ -23,7 +23,6 @@
   "endorsingNode": "Nó responsável pelo aval",
   "pleaseCheckSuggestionBelow": "Para oferecer suporte a publicadores e revisar a qualidade dos dados, todos os publicadores estão associados a um nó do GBIF. Por favor, verifique a sugestão abaixo e a corrija, se necessário:",
   "helpMeWithEndorsement": "Ajude-me com o aval",
-  "marineDataPublishers": "Publicadores de dados marinhos: solicite o aval para dados relacionados ao OBIS (Ocean Biogeographic Information System)",
   "suggested": "Sugerido",
   "orSelectAnotherAssOrg": "Se o aval através do nó de país sugerido acima não for a opção correta, por favor, verifique esta lista de participantes associados para redes multinacionais ou temáticas:",
   "clickToSelect": "Clique para selecionar",
