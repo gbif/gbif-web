@@ -1,5 +1,4 @@
 import { cn } from '@/utils/shadcn';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { MdMail } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
@@ -8,7 +7,13 @@ import EmptyValue from './emptyValue';
 import Properties, { Property, Term, Value } from './properties';
 import { Card, CardContent } from './ui/largeCard';
 
-export function ContactList({ contacts = [], className, ...props }) {
+interface ContactListProps {
+  as?: React.ReactElement;
+  contacts?: any[];
+  className?: string;
+}
+
+export function ContactList({ contacts = [], className, ...props }: ContactListProps) {
   return (
     <ul className={cn('g-p-0 g-m-0 g-list-none', className)} {...props}>
       {contacts.map((c, i, arr) => (
@@ -185,10 +190,6 @@ function ArrayField({ field, contact = {}, value, ...props }) {
     </>
   );
 }
-
-ContactList.propTypes = {
-  as: PropTypes.element,
-};
 
 function getRoles(contact: any) {
   if (contact.roles) return contact.roles;

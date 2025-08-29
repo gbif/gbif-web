@@ -1,11 +1,14 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
-import PropTypes from 'prop-types';
 import { useCallback, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-export const RangeInput = ({ onAdd }: { onAdd: ({ wkt }: { wkt: string[] }) => void }) => {
+interface RangeInputProps {
+  onAdd(...args: unknown[]): unknown;
+}
+
+export const RangeInput = ({ onAdd }: RangeInputProps) => {
   const { toast } = useToast();
   const [minLatitude, setMinLatitude] = useState('-50');
   const [maxLatitude, setMaxLatitude] = useState('50');
@@ -155,8 +158,4 @@ export const RangeInput = ({ onAdd }: { onAdd: ({ wkt }: { wkt: string[] }) => v
       </Button>
     </div>
   );
-};
-
-RangeInput.propTypes = {
-  onAdd: PropTypes.func,
 };
