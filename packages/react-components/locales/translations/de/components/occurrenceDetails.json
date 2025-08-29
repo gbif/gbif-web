@@ -22,6 +22,8 @@
   "screenReader": {
     "title": ""
   },
+  "deletedMessage": "",
+  "deletedDescription": "",
   "info": {
     "original": "Original",
     "excluded": "Ausgeschlossen",
