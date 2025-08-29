@@ -1,14 +1,15 @@
+import { BoundingBox } from '@/types';
 import type Map from 'ol/Map';
 import { useEffect } from 'react';
-import { getBoundingBox } from '../../../openlayers/helpers/getBoundingBox';
-import { BoundingBox } from '@/types';
+import { getBoundingBox, getCenterAndZoom } from '../../../openlayers/helpers/getBoundingBox';
 
 type Args = {
   map?: Map | null;
   setBoundingBox?: (boundingBox: BoundingBox) => void;
+  setView?: (view: { center: [number, number]; zoom: number }) => void;
 };
 
-export function useSyncBoundingBox({ map, setBoundingBox }: Args) {
+export function useSyncBoundingBox({ map, setBoundingBox, setView }: Args) {
   useEffect(() => {
     if (!map) return;
 
@@ -18,6 +19,11 @@ export function useSyncBoundingBox({ map, setBoundingBox }: Args) {
 
       const bbox = getBoundingBox({ map: map });
       setBoundingBox(bbox);
+
+      if (setView) {
+        const { center, zoom } = getCenterAndZoom({ map });
+        setView({ center, zoom });
+      }
     }
 
     map.on('moveend', moveEndHandler);

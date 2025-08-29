@@ -1,15 +1,16 @@
 import { boundingBoxToWKT } from '@/utils/boundingBoxToWKT';
-import { isNumber } from 'lodash';
 import type { Coordinate } from 'ol/coordinate';
 import type Map from 'ol/Map';
 import type MapBrowserEvent from 'ol/MapBrowserEvent';
 import { useEffect } from 'react';
+import { setStoredMapPosition } from '../../outer/setStoredMapPosition';
 
 type Args = {
   map?: Map | null;
   onSearchAreaClick?: (geometryFilter: string) => void;
   enabledSearchAreaClick?: boolean;
   getProjectedCoordinate?: (coordinate: Coordinate) => Coordinate;
+  projectionCommonName: string;
 };
 
 export function useSearchAreaClick({
@@ -17,6 +18,7 @@ export function useSearchAreaClick({
   onSearchAreaClick,
   enabledSearchAreaClick,
   getProjectedCoordinate = (coordinate: Coordinate) => coordinate,
+  projectionCommonName,
 }: Args) {
   useEffect(() => {
     if (!map) return;
@@ -27,6 +29,13 @@ export function useSearchAreaClick({
       if (!onSearchAreaClick) return;
 
       let [lng, lat] = getProjectedCoordinate(event.coordinate);
+      setStoredMapPosition({
+        center: [lng, lat],
+        zoom: map!.getView().getZoom(),
+      });
+      if (typeof sessionStorage !== 'undefined') {
+        sessionStorage.setItem('defaultOccurrenceProjection', projectionCommonName);
+      }
 
       const size = 30;
       const [offsetLng, offsetLat] = getProjectedCoordinate(
@@ -40,7 +49,7 @@ export function useSearchAreaClick({
       const offset = Math.min(2, Math.max(Math.abs(offsetLng - lng), Math.abs(offsetLat - lat)));
 
       // Ensure the longitude is within the valid range [-180, 180]
-      if (isNumber(lng)) {
+      if (typeof lng === 'number' && isFinite(lng)) {
         lng = ((((lng + 180) % 360) + 360) % 360) - 180;
       }
 
@@ -73,5 +82,11 @@ export function useSearchAreaClick({
       mapElement.removeEventListener('mouseenter', handleMouseEnter);
       mapElement.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [onSearchAreaClick, enabledSearchAreaClick, map, getProjectedCoordinate]);
+  }, [
+    onSearchAreaClick,
+    enabledSearchAreaClick,
+    map,
+    getProjectedCoordinate,
+    projectionCommonName,
+  ]);
 }

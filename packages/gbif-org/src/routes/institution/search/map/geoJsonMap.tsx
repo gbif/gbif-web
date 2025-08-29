@@ -146,15 +146,19 @@ function GeoJsonMapContent({
 
       map.on('zoomend', function () {
         const center = map.getCenter();
-        sessionStorage.setItem('institutionMapZoom', (map.getZoom() + 1).toString());
-        sessionStorage.setItem('institutionMapLng', center.lng.toString());
-        sessionStorage.setItem('institutionMapLat', center.lat.toString());
+        if (typeof sessionStorage !== 'undefined') {
+          sessionStorage.setItem('institutionMapZoom', (map.getZoom() + 1).toString());
+          sessionStorage.setItem('institutionMapLng', center.lng.toString());
+          sessionStorage.setItem('institutionMapLat', center.lat.toString());
+        }
       });
       map.on('moveend', function () {
         const center = map.getCenter();
-        sessionStorage.setItem('institutionMapZoom', (map.getZoom() + 1).toString());
-        sessionStorage.setItem('institutionMapLng', center.lng.toString());
-        sessionStorage.setItem('institutionMapLat', center.lat.toString());
+        if (typeof sessionStorage !== 'undefined') {
+          sessionStorage.setItem('institutionMapZoom', (map.getZoom() + 1).toString());
+          sessionStorage.setItem('institutionMapLng', center.lng.toString());
+          sessionStorage.setItem('institutionMapLat', center.lat.toString());
+        }
       });
 
       // inspect a cluster on click https://maplibre.org/maplibre-gl-js/docs/examples/cluster/

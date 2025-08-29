@@ -1,23 +1,23 @@
+import { pixelRatio } from '@/utils/pixelRatio';
 import { stringify } from '@/utils/querystring';
+import type { Coordinate } from 'ol/coordinate';
 import { MVT as MVTFormat } from 'ol/format';
 import { VectorTile as VectorTileLayer } from 'ol/layer';
+import TileLayer from 'ol/layer/Tile';
+import type Map from 'ol/Map';
 import * as olProj from 'ol/proj';
 import { transform } from 'ol/proj';
 import { register } from 'ol/proj/proj4';
-import VectorTileSource from 'ol/source/VectorTile';
 import ImageTile from 'ol/source/ImageTile';
+import VectorTileSource from 'ol/source/VectorTile';
 import { createXYZ } from 'ol/tilegrid';
 import TileGrid from 'ol/tilegrid/TileGrid';
 import View from 'ol/View';
 import proj4 from 'proj4';
+import { Params } from '../mapWidget/options';
 import { basemaps } from './basemaps';
 import createBasicBaseMapStyle from './styles/basicBaseMap';
 import densityPoints from './styles/densityPoints';
-import { pixelRatio } from '@/utils/pixelRatio';
-import TileLayer from 'ol/layer/Tile';
-import { Params } from '../mapWidget/options';
-import type Map from 'ol/Map';
-import type { Coordinate } from 'ol/coordinate';
 
 const occurrenceVectorLayerBaseUrl =
   import.meta.env.PUBLIC_API_V2 + '/map/occurrence/density/{z}/{x}/{y}.mvt?';
@@ -61,6 +61,7 @@ function get4326() {
 
   return {
     name: 'EPSG_4326',
+    commonName: 'PLATE_CAREE',
     wrapX: true,
     srs: 'EPSG:4326',
     projection: 'EPSG:4326',
@@ -112,6 +113,7 @@ function get3857() {
   });
   return {
     name: 'EPSG_3857',
+    commonName: 'MERCATOR',
     wrapX: true,
     srs: 'EPSG:3857',
     // projection: 'EPSG:3857',
@@ -181,6 +183,7 @@ function get3575() {
 
   return {
     name: 'EPSG_3575',
+    commonName: 'ARCTIC',
     wrapX: false,
     srs: 'EPSG:3575',
     projection: 'EPSG:3575',
@@ -259,6 +262,7 @@ function get3031() {
 
   return {
     name: 'EPSG_3031',
+    commonName: 'ANTARCTIC',
     wrapX: false,
     srs: 'EPSG:3031',
     projection: 'EPSG:3031',

@@ -60,6 +60,7 @@ export function MapWidgetOuter({ className, capabilitiesParams = {}, mapStyle }:
 
   // The bounding box of the area that is currently visible on the map
   const [boundingBox, setBoundingBox] = useState<BoundingBox>();
+  const [view, setView] = useState<{ center: [number, number]; zoom: number }>();
 
   const [clickToSearchAreaEnabled, setClickToSearchAreaEnabled] = useState(false);
   // Disable the click to explore funciton if clicking outside the map
@@ -150,6 +151,7 @@ export function MapWidgetOuter({ className, capabilitiesParams = {}, mapStyle }:
                   selectedProjection={selectedProjection}
                   rasterStyles={rasterStyles}
                   setBoundingBox={setBoundingBox}
+                  setView={setView}
                   enabledSearchAreaClick={clickToSearchAreaEnabled}
                   onSearchAreaClick={(geometryFilter) => {
                     dynamicNavigate({
@@ -158,6 +160,7 @@ export function MapWidgetOuter({ className, capabilitiesParams = {}, mapStyle }:
                         ...filterParams,
                         geometry: geometryFilter,
                         ...defaultPixelMapParams,
+                        view: 'map',
                       },
                     });
                   }}
@@ -172,8 +175,9 @@ export function MapWidgetOuter({ className, capabilitiesParams = {}, mapStyle }:
             <ExploreLink
               className="g-pr-2"
               boundingBox={boundingBox}
+              view={view}
               projection={selectedProjection}
-              filterParams={{ ...filterParams, ...defaultPixelMapParams }}
+              filterParams={{ ...filterParams, ...defaultPixelMapParams, view: 'map' }}
             />
             <BasisOfRecordFilter
               selected={basisOfRecord}
