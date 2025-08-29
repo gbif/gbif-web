@@ -24,7 +24,7 @@ export function DerivedDatasets() {
   const { data, load, loading } = useQuery<
     UserDerivedDatasetsQuery,
     UserDerivedDatasetsQueryVariables
-  >(DOWNLOADS_QUERY, {
+  >(DERIVED_DATASETS_QUERY, {
     throwAllErrors: true,
     lazyLoad: true,
   });
@@ -92,7 +92,7 @@ export function DerivedDatasets() {
   );
 }
 
-const DOWNLOADS_QUERY = /* GraphQL */ `
+const DERIVED_DATASETS_QUERY = /* GraphQL */ `
   query UserDerivedDatasets($username: String!, $limit: Int!, $offset: Int!) {
     userDerivedDatasets(username: $username, limit: $limit, offset: $offset) {
       limit
