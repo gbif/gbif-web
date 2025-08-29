@@ -61,5 +61,6 @@
   "lastCrawled": "Last crawled",
   "goToRecord": "Go to record",
   "commonNameAccordingTo": "Common name according to: {source}",
+  "supportedChecklists": "Supported checklists",
   "noResults": "No results"
 }

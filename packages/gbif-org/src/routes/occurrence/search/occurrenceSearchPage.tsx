@@ -135,8 +135,14 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuLabel>
-                    Supported checklists
-                    <a href={`/news/4NYN9w8HdlGrD2mRqdvw9o`} className="g-ms-2">
+                    <FormattedMessage
+                      id="phrases.supportedChecklists"
+                      defaultMessage="Supported checklists"
+                    />
+                    <a
+                      href={`https://techdocs.gbif.org/en/data-processing/#taxonomy-interpretation`}
+                      className="g-ms-2"
+                    >
                       <MdInfo />
                     </a>
                   </DropdownMenuLabel>
