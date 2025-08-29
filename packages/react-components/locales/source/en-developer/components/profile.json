@@ -56,6 +56,7 @@
     "profile": "Profile",
     "invalidLink": "Invalid link",
     "noDownloads": "You haven't downloaded anything yet",
+    "noDerivedDatasets": "You have not created any derived datasets yet.",
     "suggestToSearchOccurrences": "You might want to [search occurrences](/occurrence/search)",
     "welcome": "Welcome to GBIF",
     "accountConfirmed": "Your account has been confirmed and you are now logged in",

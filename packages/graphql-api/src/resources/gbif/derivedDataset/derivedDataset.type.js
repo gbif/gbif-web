@@ -2,7 +2,7 @@ import { gql } from 'apollo-server';
 
 const typeDef = gql`
   extend type Query {
-    userDerivedDataset(
+    userDerivedDatasets(
       limit: Int
       offset: Int
       username: String!
@@ -18,7 +18,7 @@ const typeDef = gql`
   }
 
   type DerivedDataset {
-    doi: String
+    doi: String!
     description: String
     citation: String
     title: String

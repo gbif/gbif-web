@@ -18,6 +18,7 @@
   "inGbif": "{total, plural, one {# in GBIF} other {# in GBIF}}",
   "nSpecimens": "{total, plural, one {# specimen} other {# specimens}}",
   "nDownloads": "{total, plural, one {# download} other {# downloads}}",
+  "nDerivedDatasets": "{total, plural, one {# derived dataset} other {# derived datasets}}",
   "nCollections": "{total, plural, one {# collection} other {# collections}}",
   "nRows": "{total, plural, one {# row} other {# rows}}",
   "nInstitutions": "{total, plural, one {# institution} other {# institutions}}",

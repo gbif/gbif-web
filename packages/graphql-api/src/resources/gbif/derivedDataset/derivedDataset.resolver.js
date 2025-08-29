@@ -7,7 +7,7 @@
  */
 export default {
   Query: {
-    userDerivedDataset: (
+    userDerivedDatasets: (
       parent,
       { username, limit = 10, offset = 0 },
       { dataSources },

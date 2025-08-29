@@ -47,14 +47,14 @@ export function UserProfileLayout() {
         </>
       ),
     },
-    // {
-    //   to: 'derived-datasets',
-    //   children: (
-    //     <>
-    //       <span>{formatMessage({ id: 'profile.derivedDatasets' })}</span>
-    //     </>
-    //   ),
-    // },
+    {
+      to: 'derived-datasets',
+      children: (
+        <>
+          <span>{formatMessage({ id: 'profile.derivedDatasets' })}</span>
+        </>
+      ),
+    },
     // {
     //   to: 'validations',
     //   children: (
