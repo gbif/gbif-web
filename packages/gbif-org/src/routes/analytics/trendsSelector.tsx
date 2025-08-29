@@ -16,7 +16,7 @@ export function TrendsSelector({ value }: Props) {
   return (
     <select
       value={value}
-      className="g-border g-p-2"
+      className="g-border g-p-2 g-max-w-full"
       onChange={(e) => {
         const targetValue = e.target.value;
         if (targetValue === value) return;
