@@ -1,6 +1,7 @@
 export { default as collection } from './collection';
 export { default as country } from './country';
 export { default as dataset } from './dataset';
+export { default as derivedDataset } from './derivedDataset';
 export { default as directoryPerson } from './directoryPerson';
 export { default as download } from './download';
 export { default as gadm } from './gadm';
