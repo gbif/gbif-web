@@ -22,6 +22,8 @@
   "screenReader": {
     "title": "Occurrence details"
   },
+  "deletedMessage": "The data publisher has removed this record from the GBIF index, but the last version is shown below.",
+  "deletedDescription": "Records no longer in a published dataset are removed from the GBIF index. Publishers may sometimes have reasons to remove individual records or an entire dataset or assign new local identifiers.",
   "info": {
     "original": "original",
     "excluded": "Excluded",
