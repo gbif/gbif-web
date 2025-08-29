@@ -22,6 +22,8 @@
   "screenReader": {
     "title": "Détails de l'occurrence"
   },
+  "deletedMessage": "",
+  "deletedDescription": "Les enregistrements qui ne sont plus dans un jeu de données publié sont supprimés de l'index GBIF. Les éditeurs peuvent parfois avoir des raisons de supprimer des enregistrements individuels ou un jeu de données entier ou d'attribuer de nouveaux identifiants locaux.",
   "info": {
     "original": "original",
     "excluded": "Exclu",
