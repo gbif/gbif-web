@@ -8,7 +8,7 @@ import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 
 const EBBE_WINNERS_QUERY = /* GraphQL */ `
-  query {
+  query EbbeWinners {
     EbbeWinners: directoryAwardWinners(award: ["EBBE1ST", "EBBE2ND", "EBBE3RD"]) {
       firstName
       surname

@@ -8,7 +8,7 @@ import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 
 const GRA_WINNERS_QUERY = /* GraphQL */ `
-  query {
+  query GraWinners {
     GraWinners: directoryAwardWinners(award: ["GRA"]) {
       firstName
       surname

@@ -9,7 +9,7 @@ import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { FormattedMessage } from 'react-intl';
 
 const DIRECTORY_TRANSLATORS_QUERY = /* GraphQL */ `
-  query {
+  query DirectoryTranslators {
     directoryTranslators(limit: 1000) {
       results {
         Person {

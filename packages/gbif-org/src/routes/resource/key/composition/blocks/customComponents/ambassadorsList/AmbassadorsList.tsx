@@ -8,7 +8,7 @@ import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { FormattedMessage } from 'react-intl';
 
 const DIRECTORY_AMBASSADORS_QUERY = /* GraphQL */ `
-  query {
+  query DirectoryAmbassadors {
     directoryAmbassadors(limit: 1000) {
       results {
         term {

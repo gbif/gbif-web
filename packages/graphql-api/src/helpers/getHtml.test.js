@@ -38,6 +38,7 @@ const a = 1;
     );
   });
 
+
   it('it should sanitize', () => {
     const result = getHtml(`hi <script>alert('hi')</script>there`, {
       inline: true,

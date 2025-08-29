@@ -8,7 +8,7 @@ import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { FormattedMessage } from 'react-intl';
 
 const DIRECTORY_MENTORS_QUERY = /* GraphQL */ `
-  query {
+  query DirectoryMentors {
     directoryMentors {
       results {
         award

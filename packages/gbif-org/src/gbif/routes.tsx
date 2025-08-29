@@ -5,6 +5,7 @@ import { notImplementedRoutes } from '@/notImplementedRoutes';
 import { applyReactRouterPlugins } from '@/reactRouterPlugins';
 import { analyticsRoute } from '@/routes/analytics';
 import { becomeAPublisherRoute } from '@/routes/custom/becomeAPublisher';
+import { faqRoute } from '@/routes/custom/faq';
 import { gbifNetworkRoute } from '@/routes/custom/gbifNetwork/gbifNetwork';
 import { suggestDatasetRoute } from '@/routes/custom/suggestDataset';
 import { homePageRoute } from '@/routes/home';
@@ -50,7 +51,7 @@ export function createGbifRoutes(config: Config) {
               gbifNetworkRoute,
               suggestDatasetRoute,
               analyticsRoute,
-
+              faqRoute,
               ...notImplementedRoutes,
 
               // Must be last as alias handling will require match on whildcard

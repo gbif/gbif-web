@@ -73,7 +73,7 @@ export default function AboutBackbone() {
               <Card className="g-mb-4">
                 <CardHeader>
                   <CardTitle>
-                    <FormattedMessage id="taxon.occurenceImages" />
+                    <FormattedMessage id="taxon.occurrenceImages" />
                   </CardTitle>
                 </CardHeader>
                 <CardContent>

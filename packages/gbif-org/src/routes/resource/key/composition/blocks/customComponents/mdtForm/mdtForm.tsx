@@ -78,7 +78,7 @@ export function MdtForm({ className }: Props) {
   const onSubmit = useMemo(
     () =>
       form.handleSubmit((data: Inputs) => {
-        console.log(data);
+        // console.log(data);
         fetch(`${config.formsEndpoint}/mdt-application`, {
           method: 'POST',
           headers: {

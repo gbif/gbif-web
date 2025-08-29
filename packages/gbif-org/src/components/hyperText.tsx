@@ -52,7 +52,7 @@ const getDoi = (text: any) => {
 
 export const HyperText = ({
   text,
-  sanitizeOptions = { ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br'] },
+  sanitizeOptions = { ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br', 'code', 'pre'] },
   fallback,
   className,
   ...props
@@ -96,7 +96,7 @@ export const HyperText = ({
   const trimmedContent = text.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, '');
 
   try {
-    const html = marked.parseInline(trimmedContent) as string;
+    const html = marked.parse(trimmedContent) as string;
     const sanitizedHtml = sanitize(html, sanitizeOptions);
 
     return (
