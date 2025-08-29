@@ -133,49 +133,17 @@ function CatalogSelector({
       (availableCatalogueOptions as readonly string[]).includes(o)
     );
 
-    const lookUp: Record<CatalogueOption, React.ReactElement> = {
-      OCCURRENCE: (
-        <MenuItem pageId="occurrenceSearch">
-          <FormattedMessage id="catalogues.occurrences" />
-        </MenuItem>
-      ),
-      PUBLISHER: (
-        <MenuItem pageId="publisherSearch">
-          <FormattedMessage id="catalogues.publishers" />
-        </MenuItem>
-      ),
-      DATASET: (
-        <MenuItem pageId="datasetSearch">
-          <FormattedMessage id="catalogues.datasets" />
-        </MenuItem>
-      ),
-      TAXON: (
-        <MenuItem pageId="speciesSearch">
-          <FormattedMessage id="catalogues.species" />
-        </MenuItem>
-      ),
-      INSTITUTION: (
-        <MenuItem pageId="institutionSearch">
-          <FormattedMessage id="catalogues.institutions" />
-        </MenuItem>
-      ),
-      COLLECTION: (
-        <MenuItem pageId="collectionSearch">
-          <FormattedMessage id="catalogues.collections" />
-        </MenuItem>
-      ),
-      LITERATURE: (
-        <MenuItem pageId="literatureSearch">
-          <FormattedMessage id="catalogues.literature" />
-        </MenuItem>
-      ),
-      RESOURCE: (
-        <MenuItem pageId="resourceSearch">
-          <FormattedMessage id="catalogues.resources" />
-        </MenuItem>
-      ),
+    const lookUp: Record<CatalogueOption, { pageId: string; label: string }> = {
+      OCCURRENCE: { pageId: 'occurrenceSearch', label: 'catalogues.occurrences' },
+      PUBLISHER: { pageId: 'publisherSearch', label: 'catalogues.publishers' },
+      DATASET: { pageId: 'datasetSearch', label: 'catalogues.datasets' },
+      TAXON: { pageId: 'speciesSearch', label: 'catalogues.species' },
+      INSTITUTION: { pageId: 'institutionSearch', label: 'catalogues.institutions' },
+      COLLECTION: { pageId: 'collectionSearch', label: 'catalogues.collections' },
+      LITERATURE: { pageId: 'literatureSearch', label: 'catalogues.literature' },
+      RESOURCE: { pageId: 'resourceSearch', label: 'catalogues.resources' },
     };
-    return optionKeys.map((k) => lookUp[k]);
+    return optionKeys.map((k) => ({ key: k, item: lookUp[k] }));
   }, [availableCatalogues]);
 
   if (options.length < 2) return null;
@@ -188,7 +156,13 @@ function CatalogSelector({
             <MdApps /> {title && <span className="g-ms-2 g-hidden md:g-block">{title}</span>}
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start">{options.map((x) => x)}</DropdownMenuContent>
+        <DropdownMenuContent align="start">
+          {options.map((x) => (
+            <MenuItem pageId={x.item.pageId} key={x.key}>
+              <FormattedMessage id={x.item.label} />
+            </MenuItem>
+          ))}
+        </DropdownMenuContent>
       </DropdownMenu>
     </div>
   );
