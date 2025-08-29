@@ -333,7 +333,7 @@
       "gridResolution": "",
       "randomizePoints": "",
       "measurements": "",
-      "occurrenceCount": "",
+      "occurrenceCount": "发生记录的数量。",
       "higherTaxonomy": "",
       "minCoordinateUncertainty": "记录的最低坐标不确定性（以米为单位）。有助于评估数据的空间精度。",
       "minTemporalUncertainty": "",
