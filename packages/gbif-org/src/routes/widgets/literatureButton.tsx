@@ -1,10 +1,10 @@
 import { getAsQuery } from '@/components/filters/filterTools';
 import { GbifLogoIcon } from '@/components/icons/icons';
-import { usePaginationState } from '@/components/searchTable';
 import { Spinner } from '@/components/ui/spinner';
 import { useConfig } from '@/config/config';
-import { FilterContext } from '@/contexts/filter';
+import { FilterContext, FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
+import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import {
   LiteratureWidgetButtonSearchQuery,
   LiteratureWidgetButtonSearchQueryVariables,
@@ -16,9 +16,9 @@ import { useSearchParams } from 'react-router-dom';
 import { searchConfig } from '../literature/search/searchConfig';
 
 export const LITERATURE_WIDGET_BUTTON_SEARCH = /* GraphQL */ `
-  query LiteratureWidgetButtonSearch($from: Int, $size: Int, $predicate: Predicate) {
+  query LiteratureWidgetButtonSearch($predicate: Predicate) {
     literatureSearch(predicate: $predicate) {
-      documents(from: $from, size: $size) {
+      documents {
         total
       }
     }
@@ -27,7 +27,6 @@ export const LITERATURE_WIDGET_BUTTON_SEARCH = /* GraphQL */ `
 
 export function LiteratureButtonInner() {
   const searchContext = useSearchContext();
-  const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
   const filterContext = useContext(FilterContext);
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
   const [searchParams] = useSearchParams();
@@ -48,14 +47,12 @@ export function LiteratureButtonInner() {
     load({
       variables: {
         ...query,
-        size: paginationState.pageSize,
-        from: paginationState.pageIndex * paginationState.pageSize,
       },
     });
 
     // We use a filterHash to trigger a reload when the filter changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [load, filterHash, searchContext, paginationState.pageIndex, paginationState.pageSize]);
+  }, [load, filterHash, searchContext]);
 
   return (
     <SearchContextProvider searchContext={config.literatureSearch}>
@@ -83,10 +80,15 @@ export function LiteratureButtonInner() {
 
 export const LiteratureButton = () => {
   const config = useConfig();
-
+  const [filter, setFilter] = useFilterParams({
+    filterConfig: searchConfig,
+    paramsToRemove: ['from'],
+  });
   return (
     <SearchContextProvider searchContext={config.literatureSearch}>
-      <LiteratureButtonInner />
+      <FilterProvider filter={filter} onChange={setFilter}>
+        <LiteratureButtonInner />
+      </FilterProvider>
     </SearchContextProvider>
   );
 };
