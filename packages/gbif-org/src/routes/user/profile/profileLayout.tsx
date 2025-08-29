@@ -55,14 +55,14 @@ export function UserProfileLayout() {
         </>
       ),
     },
-    // {
-    //   to: 'validations',
-    //   children: (
-    //     <>
-    //       <span>{formatMessage({ id: 'profile.validations' })}</span>
-    //     </>
-    //   ),
-    // },
+    {
+      to: 'validations',
+      children: (
+        <>
+          <span>{formatMessage({ id: 'profile.validations' })}</span>
+        </>
+      ),
+    },
   ];
 
   const logoutHandler = async () => {

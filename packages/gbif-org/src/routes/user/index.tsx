@@ -10,6 +10,7 @@ import { UserProfileLayoutWrapper } from './profile/profileLayout';
 import { ProtectedRoute } from './shared/ProtectedRoute';
 import { UpdateEmailPage } from './updateEmail/updateEmail';
 import { UpdatePasswordPage, updatePasswordLoader } from './updatePassword/updatePassword';
+import { Validations } from './validations/validations';
 
 export const userRoutes: RouteObjectWithPlugins[] = [
   {
@@ -74,7 +75,7 @@ export const userRoutes: RouteObjectWithPlugins[] = [
       },
       {
         path: 'validations',
-        element: <span>validations</span>,
+        element: <Validations />,
       },
     ],
   },

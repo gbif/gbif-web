@@ -57,6 +57,7 @@
     "invalidLink": "Invalid link",
     "noDownloads": "You haven't downloaded anything yet",
     "noDerivedDatasets": "You have not created any derived datasets yet.",
+    "noValidationReports": "No validation reports found.",
     "suggestToSearchOccurrences": "You might want to [search occurrences](/occurrence/search)",
     "welcome": "Welcome to GBIF",
     "accountConfirmed": "Your account has been confirmed and you are now logged in",

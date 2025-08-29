@@ -19,6 +19,7 @@
   "nSpecimens": "{total, plural, one {# specimen} other {# specimens}}",
   "nDownloads": "{total, plural, one {# download} other {# downloads}}",
   "nDerivedDatasets": "{total, plural, one {# derived dataset} other {# derived datasets}}",
+  "nValidationReports": "{total, plural, one {# validation report} other {# validation reports}}",
   "nCollections": "{total, plural, one {# collection} other {# collections}}",
   "nRows": "{total, plural, one {# row} other {# rows}}",
   "nInstitutions": "{total, plural, one {# institution} other {# institutions}}",
