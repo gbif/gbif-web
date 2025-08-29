@@ -13,7 +13,7 @@ import { nodeKeyRoute } from '@/routes/node/key';
 import { downloadKeyRoute } from '@/routes/occurrence/download/key';
 import { occurrenceKeyRoutes } from '@/routes/occurrence/key';
 import { occurrenceSearchRoute } from '@/routes/occurrence/search';
-import { participantKeyRoute } from '@/routes/participant/key';
+import { createParticipantKeyRoute } from '@/routes/participant/key';
 import { publisherKeyRoute } from '@/routes/publisher/key';
 import { publisherSearchRoute } from '@/routes/publisher/search';
 import { resourceKeyRoutes } from '@/routes/resource/key';
@@ -43,7 +43,7 @@ export const dataRoutes = [
   publisherKeyRoute,
   taxonKeyRoute,
   countryKeyRoute,
-  participantKeyRoute,
+  createParticipantKeyRoute(), // using function to avoid circular dependency error
   nodeKeyRoute,
   // Must be last as alias handling will require match on whildcard
   ...resourceKeyRoutes,
