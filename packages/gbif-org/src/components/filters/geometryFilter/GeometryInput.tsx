@@ -5,7 +5,6 @@ import turfBboxPolygon from '@turf/bbox-polygon';
 import turfKinks from '@turf/kinks';
 import turfSimplify from '@turf/simplify';
 import { GeoJSON, WKT } from 'ol/format';
-import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -15,13 +14,13 @@ const wktSizeLimit = 5000;
 const wktFormat = new WKT();
 const geojsonFormat = new GeoJSON();
 
-export const GeometryInput = ({
-  onAdd,
-  initialValue = '',
-}: {
-  onAdd: ({ wkt }: { wkt: string[] }) => void;
+interface GeometryInputProps {
+  onApply?(...args: unknown[]): unknown;
   initialValue?: string;
-}) => {
+  onAdd(...args: unknown[]): unknown;
+}
+
+export const GeometryInput = ({ onAdd, initialValue = '' }: GeometryInputProps) => {
   const { toast } = useToast();
   const intl = useIntl();
   const [inputValue, setValue] = useState(initialValue || '');
@@ -262,11 +261,6 @@ export const GeometryInput = ({
       )}
     </div>
   );
-};
-
-GeometryInput.propTypes = {
-  onApply: PropTypes.func,
-  initialValue: PropTypes.string,
 };
 
 function parseStringToWKTs(str: string, messages = {}) {
