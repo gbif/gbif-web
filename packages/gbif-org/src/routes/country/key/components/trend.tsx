@@ -23,7 +23,7 @@ export function Trend({ title, info, imgfile }: Props) {
           <DialogTrigger>
             <img src={figureUrl} className="g-border g-p-1" />
           </DialogTrigger>
-          <DialogContent className="g-p-0 g-max-w-[min(95%,720px)]">
+          <DialogContent className="g-p-2 sm:g-rounded-none g-rounded-none g-bg-white g-max-w-[min(95%,768px)]">
             <img src={figureUrl} />
           </DialogContent>
         </Dialog>

@@ -16,7 +16,7 @@ import { ArticlePreTitle } from '@/routes/resource/key/components/articlePreTitl
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
+import { usePartialDataNotification } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
 import { useEffect } from 'react';
 import { MdDownload as DownloadIcon } from 'react-icons/md';
@@ -31,21 +31,9 @@ export async function countryKeyLoader({ params, graphql }: LoaderArgs) {
     throw new NotFoundError();
   }
 
-  const response = await graphql.query<ParticipantQuery, ParticipantQueryVariables>(
-    PARTICIPANT_QUERY,
-    {
-      countryCode: countryCode.toUpperCase(),
-    }
-  );
-
-  const { errors, data } = await response.json();
-  throwCriticalErrors({
-    path404: ['nodeCountry'],
-    errors,
-    requiredObjects: [data?.nodeCountry],
+  return graphql.query<ParticipantQuery, ParticipantQueryVariables>(PARTICIPANT_QUERY, {
+    countryCode: countryCode.toUpperCase(),
   });
-
-  return { errors, data };
 }
 
 export function CountryKeyLayout() {
@@ -58,6 +46,16 @@ export function CountryKeyLayout() {
   const { data, errors } = useLoaderData() as { data: ParticipantQuery };
   useEffect(() => {
     if (errors) {
+      // 404 errors can happen if the country is not a participant. This is expected and the user should not be notified
+      if (
+        Array.isArray(errors) &&
+        errors.length === 1 &&
+        'message' in errors[0] &&
+        errors[0].message === '404: Not Found'
+      ) {
+        return;
+      }
+
       notifyOfPartialData();
     }
   }, [errors, notifyOfPartialData]);
