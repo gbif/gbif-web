@@ -1964,6 +1964,28 @@ export enum DatasetUsageSortField {
   RecordCount = 'RECORD_COUNT'
 }
 
+export type DerivedDataset = {
+  __typename?: 'DerivedDataset';
+  citation?: Maybe<Scalars['String']['output']>;
+  created?: Maybe<Scalars['DateTime']['output']>;
+  createdBy?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  doi?: Maybe<Scalars['String']['output']>;
+  modified?: Maybe<Scalars['DateTime']['output']>;
+  modifiedBy?: Maybe<Scalars['String']['output']>;
+  sourceUrl?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+export type DerivedDatasetListResults = {
+  __typename?: 'DerivedDatasetListResults';
+  count: Scalars['Int']['output'];
+  endOfRecords: Scalars['Boolean']['output'];
+  limit: Scalars['Int']['output'];
+  offset: Scalars['Int']['output'];
+  results: Array<DerivedDataset>;
+};
+
 export type DescriptorMatches = {
   __typename?: 'DescriptorMatches';
   country?: Maybe<Country>;
@@ -7062,6 +7084,7 @@ export type Query = {
   /** Unstable endpoint! Will return a list of taxon suggestions based on the provided query string. The returned taxonKeys are for the backbone. The datasetKey parameter can be used to restrict the suggestions to a specific checklist, but the results will be matched to the backbone and discarded if there is no match. The limit parameter is indicative only, as the number of results returned may be less than the limit if there are no matches in the backbone or if there is duplicate matches. */
   taxonSuggestions: Array<Maybe<TaxonSuggestion>>;
   tool?: Maybe<Tool>;
+  userDerivedDataset: DerivedDatasetListResults;
   userDownloads: DownloadListResults;
   viaf?: Maybe<Viaf>;
   vocabulary?: Maybe<Vocabulary>;
@@ -7642,6 +7665,13 @@ export type QueryTaxonSuggestionsArgs = {
 
 export type QueryToolArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type QueryUserDerivedDatasetArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  username: Scalars['String']['input'];
 };
 
 
