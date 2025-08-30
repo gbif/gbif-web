@@ -56,6 +56,8 @@
     "profile": "Perfil",
     "invalidLink": "Enlace no válido",
     "noDownloads": "Aún no has descargado nada",
+    "noDerivedDatasets": "",
+    "noValidationReports": "",
     "suggestToSearchOccurrences": "Podrías querer [buscar registros de presencia] (/registros de presencia/búscar)",
     "welcome": "Bienvenido a GBIF",
     "accountConfirmed": "Tu cuenta ha sido confirmada y ahora estás conectado",

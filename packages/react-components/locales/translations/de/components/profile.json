@@ -56,6 +56,8 @@
     "profile": "Profil",
     "invalidLink": "Ungültiger Link",
     "noDownloads": "Sie haben noch nichts heruntergeladen",
+    "noDerivedDatasets": "",
+    "noValidationReports": "",
     "suggestToSearchOccurrences": "Du könntest nach [Vorkommen suchen](/occurrence/search)",
     "welcome": "Willkommen bei GBIF",
     "accountConfirmed": "Ihr Konto wurde bestätigt, und Sie sind nun angemeldet.",

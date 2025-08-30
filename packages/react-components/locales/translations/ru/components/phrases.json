@@ -61,5 +61,6 @@
   "lastCrawled": "Последний просмотр",
   "goToRecord": "Перейти к записи",
   "commonNameAccordingTo": "Общее название в соответствии с: {source}",
+  "supportedChecklists": "",
   "noResults": "Нет результатов"
 }

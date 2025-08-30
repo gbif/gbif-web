@@ -61,5 +61,6 @@
   "lastCrawled": "Último rasteo",
   "goToRecord": "Ir al registro",
   "commonNameAccordingTo": "Nombre común según: {source}",
+  "supportedChecklists": "",
   "noResults": "Sin resultados"
 }
