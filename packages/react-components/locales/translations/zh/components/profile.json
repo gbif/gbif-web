@@ -56,6 +56,8 @@
     "profile": "个人资料",
     "invalidLink": "无效的链接",
     "noDownloads": "您还没有下载任何数据。",
+    "noDerivedDatasets": "",
+    "noValidationReports": "",
     "suggestToSearchOccurrences": "您可能想 [搜索数据](/occurrence/search)",
     "welcome": "欢迎来到 GBIF",
     "accountConfirmed": "您已成功创建账号，并已登录。",
