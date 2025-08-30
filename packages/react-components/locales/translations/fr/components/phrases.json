@@ -61,5 +61,6 @@
   "lastCrawled": "Dernière indexation",
   "goToRecord": "Aller à l'enregistrement",
   "commonNameAccordingTo": "Nom commun selon : {source}",
+  "supportedChecklists": "",
   "noResults": ""
 }
