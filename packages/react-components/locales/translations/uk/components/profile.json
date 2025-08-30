@@ -56,6 +56,8 @@
     "profile": "Профіль",
     "invalidLink": "Хибне посилання",
     "noDownloads": "Ви ще нічого не завантажили",
+    "noDerivedDatasets": "",
+    "noValidationReports": "",
     "suggestToSearchOccurrences": "Ви можете спробувати [шукати знахідки](/occurrence/search)",
     "welcome": "Ласкаво просимо до GBIF",
     "accountConfirmed": "Ваш обліковий запис підтверджено, і ви увійшли в систему",
