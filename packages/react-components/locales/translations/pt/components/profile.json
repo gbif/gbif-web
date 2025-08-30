@@ -56,6 +56,8 @@
     "profile": "Perfil",
     "invalidLink": "Link inválido",
     "noDownloads": "Ainda não fez transferências",
+    "noDerivedDatasets": "",
+    "noValidationReports": "",
     "suggestToSearchOccurrences": "Pode querer [procurar ocorrências](/ocorrência/pesquisar)",
     "welcome": "Bem-vindo ao GBIF",
     "accountConfirmed": "A sua conta foi confirmada e agora tem a sessão iniciada",
