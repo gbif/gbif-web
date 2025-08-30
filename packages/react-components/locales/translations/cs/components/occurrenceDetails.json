@@ -22,6 +22,8 @@
   "screenReader": {
     "title": "Detaily výskytu"
   },
+  "deletedMessage": "Vydavatel dat tento záznam z indexu GBIF odstranil, ale poslední verze je uvedena níže.",
+  "deletedDescription": "Záznamy, které již nejsou součástí zveřejněného souboru dat, jsou z indexu GBIF odstraněny. Vydavatelé mohou mít někdy důvod odstranit jednotlivé záznamy nebo celou datovou sadu nebo přidělit nové místní identifikátory.",
   "info": {
     "original": "původní",
     "excluded": "Vyloučeno",

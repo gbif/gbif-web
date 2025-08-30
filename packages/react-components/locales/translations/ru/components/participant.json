@@ -39,6 +39,7 @@
       }
     },
     "participant": "Участник",
+    "node": "",
     "participantSummary": "Резюме участника",
     "memberStatus": "Статус участника",
     "gbifParticipantSince": "Участник GBIF с",

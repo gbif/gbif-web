@@ -39,6 +39,7 @@
       }
     },
     "participant": "Účastník",
+    "node": "",
     "participantSummary": "Shrnutí účastníků",
     "memberStatus": "Status člena",
     "gbifParticipantSince": "Účastník GBIF od",

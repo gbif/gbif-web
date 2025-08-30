@@ -81,12 +81,12 @@
     "description": "谁是资源的受众。"
   },
   "biostratigraphy": {
-    "name": "",
+    "name": "生物地层学",
     "count": "",
     "description": ""
   },
   "lithostratigraphy": {
-    "name": "",
+    "name": "岩石地层学",
     "count": "",
     "description": ""
   },
@@ -515,7 +515,7 @@
   "measurementOrFactTypes": {
     "name": "",
     "count": "",
-    "description": ""
+    "description": "测量的类型。"
   },
   "measurementOrFactCount": {
     "name": "",

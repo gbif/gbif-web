@@ -22,6 +22,8 @@
   "screenReader": {
     "title": ""
   },
+  "deletedMessage": "資料發布者已從 GBIF 索引中刪除此記錄，但最後版本如下所示。",
+  "deletedDescription": "已發布資料集中不存在的記錄將從 GBIF 索引中刪除。 發布者有可能基於某種理由刪除單一記錄或整個資料集或指派新的區域識別碼。",
   "info": {
     "original": "原始的",
     "excluded": "排除",

@@ -39,6 +39,7 @@
       }
     },
     "participant": "",
+    "node": "",
     "participantSummary": "",
     "memberStatus": "",
     "gbifParticipantSince": "",

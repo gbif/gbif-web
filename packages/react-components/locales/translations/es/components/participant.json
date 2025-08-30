@@ -39,6 +39,7 @@
       }
     },
     "participant": "Participante",
+    "node": "",
     "participantSummary": "Resumen del participante",
     "memberStatus": "Estado de miembro",
     "gbifParticipantSince": "Participante en GBIF desde",
