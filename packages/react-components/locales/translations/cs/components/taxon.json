@@ -36,7 +36,7 @@
   },
   "distributions": "Rozmístění",
   "distribution": {
-    "threatStatus": "",
+    "threatStatus": "Stav ohrožení",
     "establishmentMeans": "Zavedení znamená",
     "status": "Stav",
     "locality": "Lokalita",
