@@ -42,7 +42,7 @@
   },
   "siteTooltip": "",
   "siteTableLegend": "Místo / Rok",
-  "site": "",
+  "site": "Místo: {siteID}",
   "siteLoading": "",
   "activityDetails": {
     "monthYear": "",
