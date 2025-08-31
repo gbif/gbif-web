@@ -1,4 +1,6 @@
 {
+  "TAXONOMIC_AUTHORITY": "Taxonomická autorita",
+  "NOMENCLATOR_AUTHORITY": "Nomenklaturní autorita",
   "SPECIMEN": "Vzorek",
   "OBSERVATION": "Pozorování"
 }
