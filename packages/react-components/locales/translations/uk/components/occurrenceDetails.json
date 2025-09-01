@@ -22,6 +22,8 @@
   "screenReader": {
     "title": ""
   },
+  "deletedMessage": "",
+  "deletedDescription": "",
   "info": {
     "original": "вихідний",
     "excluded": "Виключено",

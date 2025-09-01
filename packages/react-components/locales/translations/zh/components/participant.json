@@ -39,6 +39,7 @@
       }
     },
     "participant": "成员",
+    "node": "",
     "participantSummary": "成员概况",
     "memberStatus": "会员状态",
     "gbifParticipantSince": "GBIF会员自",

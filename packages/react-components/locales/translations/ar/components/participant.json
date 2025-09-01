@@ -39,6 +39,7 @@
       }
     },
     "participant": "مشارك",
+    "node": "",
     "participantSummary": "ملخص المشارك",
     "memberStatus": "حالة العضو",
     "gbifParticipantSince": "مشارك في \"جبيف\" منذ",

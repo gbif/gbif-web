@@ -39,6 +39,7 @@
       }
     },
     "participant": "参加者",
+    "node": "",
     "participantSummary": "参加者の概要",
     "memberStatus": "メンバーのステータス",
     "gbifParticipantSince": "GBIFへの参加年",

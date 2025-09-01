@@ -22,6 +22,8 @@
   "screenReader": {
     "title": "Detalles del registro biológico"
   },
+  "deletedMessage": "",
+  "deletedDescription": "Los registros que ya no están en un conjunto de datos publicado y fueron eliminados del catálogo de GBIF. Los publicadores  pueden a veces tener razones para eliminar algunos registros, un conjunto de datos completo o asignar nuevos identificadores locales.",
   "info": {
     "original": "original",
     "excluded": "Excluido",
