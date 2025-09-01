@@ -22,7 +22,7 @@ import { columns } from './columns';
 
 const fallbackOptions: FallbackTableOptions = {
   prefixColumns: ['titleAndAbstract'],
-  defaultEnabledTableColumns: ['literatureType', 'year', 'relevance', 'topics'],
+  defaultEnabledTableColumns: ['altmetric', 'year', 'literatureType', 'relevance', 'topics'],
 };
 
 const LITERATURE_TABLE_SEARCH = /* GraphQL */ `
@@ -35,7 +35,7 @@ const LITERATURE_TABLE_SEARCH = /* GraphQL */ `
         results {
           id
           title
-          abstract
+          excerpt
           authors {
             firstName
             lastName
@@ -49,6 +49,7 @@ const LITERATURE_TABLE_SEARCH = /* GraphQL */ `
           identifiers {
             doi
           }
+          gbifDOIs
           keywords
           language
           literatureType
@@ -60,6 +61,9 @@ const LITERATURE_TABLE_SEARCH = /* GraphQL */ `
           tags
           topics
           websites
+          volume
+          issue
+          pages
         }
       }
     }
@@ -137,7 +141,7 @@ export function LiteratureTable() {
       </div>
       <ClientSideOnly fallback={<SearchTableServerFallback />}>
         <SearchTable
-          hideColumnVisibilityDropdown
+          // hideColumnVisibilityDropdown
           filters={filters}
           keySelector={keySelector}
           lockColumnLocalStoreKey="literatureSearchTableLockColumn"

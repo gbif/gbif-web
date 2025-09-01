@@ -7,23 +7,23 @@ const typeDef = gql`
       from: Int
       predicate: Predicate
       q: String
-      countriesOfResearcher: [Country]
-      countriesOfCoverage: [Country]
-      literatureType: [String]
-      relevance: [String]
-      year: [String]
-      topics: [String]
-      gbifDatasetKey: [ID]
-      gbifTaxonKey: [ID]
-      publishingOrganizationKey: [ID]
-      gbifNetworkKey: [ID]
-      gbifOccurrenceKey: [ID]
+      countriesOfResearcher: [Country!]
+      countriesOfCoverage: [Country!]
+      literatureType: [String!]
+      relevance: [String!]
+      year: [String!]
+      topics: [String!]
+      gbifDatasetKey: [ID!]
+      gbifTaxonKey: [ID!]
+      publishingOrganizationKey: [ID!]
+      gbifNetworkKey: [ID!]
+      gbifOccurrenceKey: [ID!]
       peerReview: Boolean
       openAccess: Boolean
-      gbifDownloadKey: [ID]
-      doi: [String]
-      source: [String]
-      publisher: [String]
+      gbifDownloadKey: [ID!]
+      doi: [String!]
+      source: [String!]
+      publisher: [String!]
     ): LiteratureSearchResult
     literature(key: ID!): Literature
   }
@@ -32,7 +32,12 @@ const typeDef = gql`
     """
     The literature that match the filter
     """
-    documents(size: Int, from: Int): LiteratureDocuments!
+    documents(
+      size: Int
+      from: Int
+      sortBy: LiteratureSortBy
+      sortOrder: SortOrder
+    ): LiteratureDocuments!
     """
     Get number of literature items per distinct values in a field. E.g. how many citations per year.
     """
@@ -52,6 +57,15 @@ const typeDef = gql`
     autoDateHistogram: LiteratureAutoDateHistogram
     _predicate: JSON
     _meta: JSON
+  }
+
+  enum LiteratureSortBy {
+    literatureType
+    year
+    relevance
+    created
+    gbifRegion
+    peerReview
   }
 
   type LiteratureDocuments {
@@ -149,14 +163,14 @@ const typeDef = gql`
     id: ID!
     abstract: String
     excerpt: String
-    authors: [Author]
-    countriesOfCoverage: [String]
-    countriesOfResearcher: [String]
+    authors: [Author!]
+    countriesOfCoverage: [String!]
+    countriesOfResearcher: [String!]
     day: Int
-    gbifDownloadKey: [ID]
-    gbifRegion: [GbifRegion]
+    gbifDownloadKey: [ID!]
+    gbifRegion: [GbifRegion!]
     identifiers: LiteratureIdentifiers
-    keywords: [String]
+    keywords: [String!]
     language: Language
     literatureType: String
     month: Int
@@ -164,13 +178,20 @@ const typeDef = gql`
     openAccess: Boolean
     peerReview: Boolean
     publisher: String
-    relevance: [String]
+    relevance: [String!]
     source: String
-    tags: [String]
+    tags: [String!]
     title: String!
-    topics: [String]
-    websites: [String]
+    topics: [String!]
+    websites: [String!]
     year: Int
+    volume: String
+    issue: String
+    pages: String
+    """
+    Extracted GBIF DOIs from the literature tags
+    """
+    gbifDOIs: [String!]
   }
 
   type Author {

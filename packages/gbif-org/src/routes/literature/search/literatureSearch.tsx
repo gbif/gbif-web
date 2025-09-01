@@ -67,6 +67,13 @@ export function LiteraturePageSearchInner(): React.ReactElement {
             <LiteratureTable />
           </DynamicHeightDiv>
         </div>
+        {/* <ArticleContainer className="g-bg-slate-100 g-flex">
+          <ArticleTextContainer className="g-flex-auto g-w-full">
+            <ErrorBoundary>
+              <LiteratureListView />
+            </ErrorBoundary>
+          </ArticleTextContainer>
+        </ArticleContainer> */}
       </ErrorBoundary>
     </>
   );

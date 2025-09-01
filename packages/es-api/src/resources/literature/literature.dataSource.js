@@ -21,7 +21,16 @@ var client = new Client({
   agent,
 });
 
-async function query({ query, aggs, size = 20, from = 0, metrics, req }) {
+const allowedSortBy = {
+  literatureType: 'literatureType',
+  year: 'year',
+  relevance: 'relevance',
+  created: 'created',
+  gbifRegion: 'gbifRegion',
+  peerReview: 'peerReview',
+};
+
+async function query({ query, aggs, size = 20, from = 0, metrics, sortBy, sortOrder, req }) {
   if (parseInt(from) + parseInt(size) > env.content.maxResultWindow) {
     throw new ResponseError(
       400,
@@ -29,8 +38,32 @@ async function query({ query, aggs, size = 20, from = 0, metrics, req }) {
       `'from' + 'size' must be ${env.content.maxResultWindow} or less`,
     );
   }
+  // if sortOrder is a string, then lowercase it
+  if (typeof sortOrder === 'string') {
+    sortOrder = sortOrder.toLowerCase();
+  }
+  // make sure sortOrder is either 'asc' or 'desc'. do not throw, just force it to 'desc' if unknown
+  if (sortOrder && sortOrder !== 'asc' && sortOrder !== 'desc') {
+    sortOrder = 'desc';
+  }
+  // we only accept sorting by DATE and a select list of other fields. Discard anything else
+  if (sortBy && !allowedSortBy[sortBy]) {
+    sortBy = null;
+  }
+
+  let sort = [
+    '_score', // if there is any score (but will this be slow even when there is no free text query?)
+    '_doc', // I'm not sure, but i hope this will ensure sorting and be the fastest way to do so https://www.elastic.co/guide/en/elasticsearch/reference/current/sort-search-results.html
+  ];
+
+  if (sortBy) {
+    sort = [{ [allowedSortBy[sortBy]]: { order: sortOrder } }, { created: 'desc' }];
+  } else {
+    sort = ['_score', { created: { order: 'desc' } }];
+  }
+
   const esQuery = {
-    sort: ['_score', { created: { order: 'desc' } }],
+    sort,
     track_total_hits: true,
     size,
     from,

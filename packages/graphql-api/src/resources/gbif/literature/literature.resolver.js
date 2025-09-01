@@ -114,6 +114,12 @@ export default {
     //   if (typeof key === 'undefined') return null;
     //   dataSources.someAPI.getSomethingByKey({ key })
     // },
+    gbifDOIs: ({ tags }) => {
+      if (!Array.isArray(tags)) return [];
+      return tags
+        .filter((tag) => tag.startsWith('gbifDOI:'))
+        .map((tag) => tag.replace('gbifDOI:', ''));
+    },
   },
   OrganizationFacet: {
     organization: ({ key, name }, args, { dataSources }) => {

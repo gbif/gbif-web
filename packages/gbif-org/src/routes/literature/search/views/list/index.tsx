@@ -3,13 +3,13 @@ import { getAsQuery } from '@/components/filters/filterTools';
 import { NoRecords } from '@/components/noDataMessages';
 import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
-import { Button } from '@/components/ui/button';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { LiteratureListSearchQuery, LiteratureListSearchQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
+import { LiteratureResult } from '@/routes/literature/literatureResult';
 import { isPositiveNumber } from '@/utils/isPositiveNumber';
 import { notNull } from '@/utils/notNull';
 import { useContext, useEffect, useMemo, useState } from 'react';
@@ -24,15 +24,7 @@ const LITERATURE_SEARCH_QUERY = /* GraphQL */ `
         from
         total
         results {
-          id
-          title
-          excerpt
-          countriesOfResearcher
-          countriesOfCoverage
-          year
-          identifiers {
-            doi
-          }
+          ...LiteratureResult
         }
       }
     }
@@ -46,7 +38,7 @@ export function LiteratureListView() {
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
 
-  const { data, error, load, loading } = useQuery<
+  const { data, load, loading } = useQuery<
     LiteratureListSearchQuery,
     LiteratureListSearchQueryVariables
   >(LITERATURE_SEARCH_QUERY, {
@@ -74,8 +66,7 @@ export function LiteratureListView() {
   );
 
   return (
-    <>
-      <div className="g-bg-slate-200 g-text-sm g-p-4 g-mb-4">Crude temporary results view</div>
+    <div>
       {loading && (
         <>
           <CardHeader>
@@ -106,15 +97,16 @@ export function LiteratureListView() {
           <ClientSideOnly>
             {literature &&
               literature.map((item) => (
-                <article className="g-m-2 g-border g-border-solid g-p-2 g-bg-white" key={item.id}>
-                  <h2 className="g-font-bold">{item.title}</h2>
-                  <p className="g-text-slate-600 g-text-sm">{item.excerpt}</p>
-                  {item?.identifiers?.doi && (
-                    <Button asChild>
-                      <a href={`https://doi.org/${item.identifiers.doi}`}>More</a>
-                    </Button>
-                  )}
-                </article>
+                <LiteratureResult literature={item} />
+                // <article className="g-m-2 g-border g-border-solid g-p-2 g-bg-white" key={item.id}>
+                //   <h2 className="g-font-bold">{item.title}</h2>
+                //   <p className="g-text-slate-600 g-text-sm">{item.excerpt}</p>
+                //   {item?.identifiers?.doi && (
+                //     <Button asChild>
+                //       <a href={`https://doi.org/${item.identifiers.doi}`}>More</a>
+                //     </Button>
+                //   )}
+                // </article>
               ))}
 
             {data.literatureSearch.documents.total > data.literatureSearch.documents.size && (
@@ -129,6 +121,6 @@ export function LiteratureListView() {
           </ClientSideOnly>
         </>
       )}
-    </>
+    </div>
   );
 }
