@@ -35,13 +35,13 @@
   },
   "loadMore": "",
   "loading": "",
-  "noResults": "",
+  "noResults": "אין תוצאות",
   "startTyping": "",
   "rankInGroup": "",
   "occurrenceClustersView": {
     "about": "",
     "clusters": "",
-    "legend": "",
+    "legend": "מקרא",
     "differentPublishers": "",
     "samePublishers": "",
     "entryPoint": "",
@@ -53,11 +53,11 @@
     "currentRecord": "",
     "nodeType": {
       "IMAGE": "",
-      "TYPE": "",
+      "TYPE": "Type פריט אוסף",
       "TREATMENT": "",
       "OBSERVATION": "",
-      "SPECIMEN": "",
-      "SEQUENCE": ""
+      "SPECIMEN": "פריט אוסף",
+      "SEQUENCE": "Sequence"
     }
   },
   "crossContentSearch": {
