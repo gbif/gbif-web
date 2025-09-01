@@ -1,77 +1,77 @@
 {
   "tabs": {
-    "table": "",
-    "tree": "",
-    "gallery": "",
-    "media": "",
-    "map": "",
-    "datasets": "",
-    "events": "",
-    "download": "",
-    "clusters": "",
-    "dashboard": "Dashboard",
-    "sites": "",
-    "list": ""
+    "table": "טבלה",
+    "tree": "עץ",
+    "gallery": "גלריה",
+    "media": "מדיה",
+    "map": "מפה",
+    "datasets": "מסדי נתונים",
+    "events": "אירועים",
+    "download": "הורדה",
+    "clusters": "מקבצים קשורים",
+    "dashboard": "לוח בקרה",
+    "sites": "אתרים",
+    "list": "רשימה"
   },
   "table": {
-    "lockColumn": "",
-    "unlockColumn": "",
-    "columnVisibility": "",
-    "resetColumnVisibility": "",
-    "openFilter": ""
+    "lockColumn": "נעילת עמודה",
+    "unlockColumn": "שחרור עמודה",
+    "columnVisibility": "הצגת/הסתרת עמודות",
+    "resetColumnVisibility": "איפוס",
+    "openFilter": "פתח מסנן"
   },
   "placeholders": {
-    "default": "",
-    "range": "",
-    "rangeExample": "",
-    "wildcard": "",
-    "dateTemplate": "",
-    "locationID": ""
+    "default": "חיפוש",
+    "range": "טווח או ערך בודד",
+    "rangeExample": "למשל: ‎1000,2000",
+    "wildcard": "חיפוש באמצעות ‎* ו־? כתווי כלל",
+    "dateTemplate": "yyyy-mm-dd",
+    "locationID": "חיפוש לפי מזהה מיקום (תלוי רישיות)"
   },
   "ternary": {
-    "yes": "",
-    "no": "",
-    "either": ""
+    "yes": "כן",
+    "no": "לא",
+    "either": "או זה או זה"
   },
-  "loadMore": "",
-  "loading": "",
+  "loadMore": "עוד",
+  "loading": "טוען",
   "noResults": "אין תוצאות",
   "startTyping": "",
   "rankInGroup": "",
   "occurrenceClustersView": {
-    "about": "",
-    "clusters": "",
+    "about": "אודות",
+    "clusters": "מקבצים קשורים",
     "legend": "מקרא",
-    "differentPublishers": "",
-    "samePublishers": "",
-    "entryPoint": "",
-    "hasMultipleTaxonKeys": "",
-    "aboutLink": "",
-    "isCapped": "",
-    "isDeleted": "",
-    "similarities": "",
-    "currentRecord": "",
+    "differentPublishers": "ספקי מידע שונים",
+    "samePublishers": "אותו ספק מידע",
+    "entryPoint": "נקודת כניסה",
+    "hasMultipleTaxonKeys": "מכיל זיהויים שונים",
+    "aboutLink": "אודות הקישור",
+    "isCapped": "לצומת זה יש יותר חיבורים מאלה שמוצגים כאן. עברו לרשומה כדי לראות את הרשימה המלאה.",
+    "isDeleted": "רשומה זו נמחקה מאז.",
+    "similarities": "דמיון",
+    "currentRecord": "רשומה נוכחית",
     "nodeType": {
-      "IMAGE": "",
-      "TYPE": "Type פריט אוסף",
-      "TREATMENT": "",
-      "OBSERVATION": "",
+      "IMAGE": "תמונה",
+      "TYPE": "טיפוס פריט אוסף",
+      "TREATMENT": "תיאור מדעי",
+      "OBSERVATION": "תצפית",
       "SPECIMEN": "פריט אוסף",
-      "SEQUENCE": "Sequence"
+      "SEQUENCE": "רצף גנטי"
     }
   },
   "crossContentSearch": {
-    "title": "",
+    "title": "חיפוש",
     "description": "",
-    "noSearchTermsEntered": "",
+    "noSearchTermsEntered": "לא הוזנו מונחי חיפוש",
     "placeholder": "",
     "categories": {
-      "speciesSearch": "",
-      "datasetSearch": "",
-      "publisherSearch": "",
-      "occurrenceSearch": "",
+      "speciesSearch": "מינים",
+      "datasetSearch": "מסדי נתונים",
+      "publisherSearch": "ספקי מידע",
+      "occurrenceSearch": "תצפיות",
       "resourceSearch": ""
     },
-    "seeAll": ""
+    "seeAll": "הצג הכל"
   }
 }
