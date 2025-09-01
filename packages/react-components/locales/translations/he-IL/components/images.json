@@ -1,1 +1,15 @@
-{}
+{
+  "identifier": "מזהה",
+  "type": "סוג",
+  "subtypeLiteral": "תת־סוג",
+  "title": "כותרת",
+  "rights": "זכויות",
+  "credit": "קרדיט",
+  "providerLiteral": "ספק",
+  "description": "תיאור",
+  "accessURI": "כתובת URL",
+  "accessOriginalURI": "כתובת מקורית",
+  "format": "פורמט",
+  "pixelXDimension": "רוחב (פיקסלים)",
+  "pixelYDimension": "גובה (פיקסלים)"
+}
