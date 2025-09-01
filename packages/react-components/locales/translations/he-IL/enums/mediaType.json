@@ -1,3 +1,6 @@
 {
-  "Sound": "Sound"
+  "StillImage": "תמונת סטילס",
+  "MovingImage": "תמונה נעה",
+  "InteractiveResource": "משאב אינטראקטיבי",
+  "Sound": "קול"
 }
