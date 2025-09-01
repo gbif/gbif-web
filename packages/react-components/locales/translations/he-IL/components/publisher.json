@@ -1,26 +1,26 @@
 {
-  "searchTitle": "",
+  "searchTitle": "חיפוש ספקי מידע",
   "tabs": {
-    "aboutPublisher": "",
-    "metrics": "",
-    "publishersHomepage": ""
+    "aboutPublisher": "אודות",
+    "metrics": "מדדים",
+    "publishersHomepage": "עמוד בית"
   },
-  "joinedDate": "",
-  "newPublisher": "",
-  "technicalContact": "",
-  "country": "",
-  "hosting": "",
-  "description": "",
-  "endorsedBy": "",
-  "notYetEndorsed": "",
-  "pendingEndorsementBy": "",
-  "endorsementWithheld": "",
-  "installations": "",
-  "getDownloadReport": "",
-  "contacts": "",
-  "administrativeContact": "",
+  "joinedDate": "הצטרף/ה בתאריך {date}",
+  "newPublisher": "ספק מידע חדש",
+  "technicalContact": "איש קשר טכני",
+  "country": "מדינה או אזור",
+  "hosting": "אירוח",
+  "description": "תיאור",
+  "endorsedBy": "מאושר על ידי",
+  "notYetEndorsed": "טרם אושר",
+  "pendingEndorsementBy": "ממתין לאישור מאת",
+  "endorsementWithheld": "האישור הושהה",
+  "installations": "התקנות",
+  "getDownloadReport": "קבלת דוח פעילות הורדות",
+  "contacts": "אנשי קשר",
+  "administrativeContact": "איש קשר מנהלי",
   "header": {
-    "publisher": "",
-    "sinceDate": ""
+    "publisher": "ספק מידע",
+    "sinceDate": "מאז {DATE}"
   }
 }
