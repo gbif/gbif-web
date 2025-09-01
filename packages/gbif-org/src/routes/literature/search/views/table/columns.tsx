@@ -129,7 +129,7 @@ export const columns: ColumnDef<SingleLiteratureSearchResult>[] = [
 ];
 
 const DOI_CAP = 10;
-function Dois({ gbifDOIs }: { gbifDOIs?: string[] }) {
+function Dois({ gbifDOIs }: { gbifDOIs?: string[] | null }) {
   const [showAll, setShowAll] = useState(false);
   if (!gbifDOIs) return null;
   return (
@@ -248,11 +248,13 @@ function PrimaryColumn({ literature }: { literature: SingleLiteratureSearchResul
       {literature.excerpt && (
         <p className="g-text-sm g-text-slate-700 g-mb-2">{literature.excerpt}</p>
       )}
-      <div>
-        <FormattedMessage id="cms.resource.dataUsedInStudy" />
-        {': '}
-        <Dois gbifDOIs={literature.gbifDOIs} className="g-inline" />
-      </div>
+      {(literature?.gbifDOIs?.length ?? 0) > 0 && (
+        <div>
+          <FormattedMessage id="cms.resource.dataUsedInStudy" />
+          {': '}
+          <Dois gbifDOIs={literature?.gbifDOIs} className="g-inline" />
+        </div>
+      )}
       {/* Google Scholar link */}
       {googleScholarUrl && (
         <div>

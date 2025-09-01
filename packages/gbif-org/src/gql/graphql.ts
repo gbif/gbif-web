@@ -4032,7 +4032,7 @@ export type Literature = {
   day?: Maybe<Scalars['Int']['output']>;
   excerpt?: Maybe<Scalars['String']['output']>;
   /** Extracted GBIF DOIs from the literature tags */
-  gbifDOIs?: Maybe<Array<Scalars['String']['output']>>;
+  gbifDOIs: Array<Scalars['String']['output']>;
   gbifDownloadKey?: Maybe<Array<Scalars['ID']['output']>>;
   gbifRegion?: Maybe<Array<GbifRegion>>;
   id: Scalars['ID']['output'];
@@ -9592,7 +9592,7 @@ export type LiteratureTableSearchQueryVariables = Exact<{
 }>;
 
 
-export type LiteratureTableSearchQuery = { __typename?: 'Query', literatureSearch?: { __typename?: 'LiteratureSearchResult', documents: { __typename?: 'LiteratureDocuments', from: number, size: number, total: any, results: Array<{ __typename?: 'Literature', id: string, title: string, excerpt?: string | null, countriesOfCoverage?: Array<string> | null, countriesOfResearcher?: Array<string> | null, day?: number | null, month?: number | null, year?: number | null, gbifRegion?: Array<GbifRegion> | null, gbifDOIs?: Array<string> | null, keywords?: Array<string> | null, language?: Language | null, literatureType?: string | null, openAccess?: boolean | null, peerReview?: boolean | null, publisher?: string | null, relevance?: Array<string> | null, source?: string | null, tags?: Array<string> | null, topics?: Array<string> | null, websites?: Array<string> | null, volume?: string | null, issue?: string | null, pages?: string | null, authors?: Array<{ __typename?: 'Author', firstName?: string | null, lastName?: string | null }> | null, identifiers?: { __typename?: 'LiteratureIdentifiers', doi?: string | null } | null } | null> } } | null };
+export type LiteratureTableSearchQuery = { __typename?: 'Query', literatureSearch?: { __typename?: 'LiteratureSearchResult', documents: { __typename?: 'LiteratureDocuments', from: number, size: number, total: any, results: Array<{ __typename?: 'Literature', id: string, title: string, excerpt?: string | null, countriesOfCoverage?: Array<string> | null, countriesOfResearcher?: Array<string> | null, day?: number | null, month?: number | null, year?: number | null, gbifRegion?: Array<GbifRegion> | null, gbifDOIs: Array<string>, keywords?: Array<string> | null, language?: Language | null, literatureType?: string | null, openAccess?: boolean | null, peerReview?: boolean | null, publisher?: string | null, relevance?: Array<string> | null, source?: string | null, tags?: Array<string> | null, topics?: Array<string> | null, websites?: Array<string> | null, volume?: string | null, issue?: string | null, pages?: string | null, authors?: Array<{ __typename?: 'Author', firstName?: string | null, lastName?: string | null }> | null, identifiers?: { __typename?: 'LiteratureIdentifiers', doi?: string | null } | null } | null> } } | null };
 
 export type NetworkAboutTabFragment = { __typename?: 'NetworkProse', title: string, summary?: string | null, excerpt?: string | null, body?: string | null, primaryImage?: { __typename?: 'AssetImage', description?: string | null, title?: string | null, file: { __typename?: 'ImageFile', url: string, normal: string, mobile: string, details: { __typename?: 'ImageFileDetails', image?: { __typename?: 'ImageFileDetailsImage', width?: number | null, height?: number | null } | null } } } | null, primaryLink?: { __typename?: 'Link', label: string, url: string } | null };
 

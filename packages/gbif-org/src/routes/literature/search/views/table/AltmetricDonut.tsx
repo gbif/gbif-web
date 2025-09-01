@@ -2,8 +2,15 @@ import { fetchWithCancel } from '@/utils/fetchWithCancel';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 
-export function AltmetricDonut({ doi, ...props }: { doi: string }) {
-  const [donut, setDonut] = useState();
+type AltmetricDonutData = {
+  images?: {
+    medium?: string;
+  };
+  details_url?: string;
+};
+
+export function AltmetricDonut({ doi, className, ...props }: { doi: string; className?: string }) {
+  const [donut, setDonut] = useState<AltmetricDonutData | undefined>();
 
   useEffect(() => {
     if (typeof doi !== 'string') return;
@@ -29,8 +36,8 @@ export function AltmetricDonut({ doi, ...props }: { doi: string }) {
 
   if (!doi || !donut || !donut.images?.medium) return null;
   return (
-    <a href={donut.details_url} {...props}>
-      <img src={donut.images.medium} width={50} />
+    <a href={donut?.details_url} className={className} {...props}>
+      <img src={donut?.images?.medium} width={50} />
     </a>
   );
 }

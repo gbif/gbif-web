@@ -191,7 +191,7 @@ const typeDef = gql`
     """
     Extracted GBIF DOIs from the literature tags
     """
-    gbifDOIs: [String!]
+    gbifDOIs: [String!]!
   }
 
   type Author {
