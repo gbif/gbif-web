@@ -1,1 +1,8 @@
-{}
+{
+  "NATIVE": "מקומי",
+  "INTRODUCED": "מיובא",
+  "NATURALISED": "מתאזרח",
+  "INVASIVE": "פולש",
+  "MANAGED": "מנוהל",
+  "UNCERTAIN": "לא ודאי"
+}
