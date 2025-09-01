@@ -1,13 +1,13 @@
 {
   "homepage": {
     "counts": {
-      "occurrences": "",
-      "datasets": "",
-      "publishers": "",
-      "literature": ""
+      "occurrences": "רשומות תצפיות",
+      "datasets": "מסדי נתונים",
+      "publishers": "ספקי מידע",
+      "literature": "מאמרים שפיטים המשתמשים בנתונים"
     },
-    "aboutGbifCountry": "",
-    "whatIsGbif": "",
-    "search": ""
+    "aboutGbifCountry": "אודות GBIF {COUNTRY}",
+    "whatIsGbif": "מה זה GBIF?",
+    "search": "חיפוש ב־GBIF"
   }
 }
