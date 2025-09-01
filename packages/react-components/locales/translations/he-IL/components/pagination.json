@@ -1,1 +1,8 @@
-{}
+{
+  "first": "ראשון",
+  "previous": "קודם",
+  "next": "הבא",
+  "options": "אפשרויות",
+  "pageXofY": "עמוד {current} מתוך {total}",
+  "moreFilters": "עוד"
+}
