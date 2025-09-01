@@ -1,6 +1,7 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
 import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
+import { NoRecords } from '@/components/noDataMessages';
 import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { Card, CardHeader, CardTitle } from '@/components/ui/largeCard';
@@ -218,7 +219,6 @@ type ResourceSearchResultsProps = {
   offset: number;
   setOffset: (offset: number) => void;
   disableHeaderActionButtons?: boolean;
-  noResultsMessage?: React.ReactNode;
 };
 
 export function ResourceSearchResults({
@@ -230,7 +230,6 @@ export function ResourceSearchResults({
   offset,
   setOffset,
   disableHeaderActionButtons,
-  noResultsMessage,
 }: ResourceSearchResultsProps) {
   if (loading) {
     return (
@@ -250,7 +249,7 @@ export function ResourceSearchResults({
   if (resources.length === 0) {
     return (
       <div className="g-min-h-52 g-flex g-items-center g-justify-center">
-        {noResultsMessage ?? <FormattedMessage id="resourceSearch.noResults" />}
+        <NoRecords />
       </div>
     );
   }
