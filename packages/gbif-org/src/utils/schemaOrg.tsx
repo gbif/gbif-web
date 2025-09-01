@@ -1,6 +1,8 @@
-import _ from 'lodash';
+import get from 'lodash/get';
+
 export const getDatasetSchema = (dataset) => {
-  const authors = _.filter(dataset.contacts, { type: 'ORIGINATOR' })
+  const authors = (dataset.contacts || [])
+    .filter((c) => c.type === 'ORIGINATOR')
     .map(function (contact) {
       if (contact.firstName || contact.lastName) {
         const c = {
@@ -10,18 +12,16 @@ export const getDatasetSchema = (dataset) => {
           telephone: contact.phone[0],
           jobTitle: contact.position,
           identifier:
-            _.get(contact, 'userId[0]', '').indexOf('//orcid.org/') === -1
+            get(contact, 'userId[0]', '').indexOf('//orcid.org/') === -1
               ? contact.userId[0]
               : {
                   '@id':
-                    'https://orcid.org/' +
-                    _.get(contact.userId[0].split('//orcid.org/'), '[1]', ''),
+                    'https://orcid.org/' + get(contact.userId[0].split('//orcid.org/'), '[1]', ''),
                   '@type': 'PropertyValue',
                   propertyID: 'https://registry.identifiers.org/registry/orcid',
-                  value: 'orcid:' + _.get(contact.userId[0].split('//orcid.org/'), '[1]', ''),
+                  value: 'orcid:' + get(contact.userId[0].split('//orcid.org/'), '[1]', ''),
                   url:
-                    'https://orcid.org/' +
-                    _.get(contact.userId[0].split('//orcid.org/'), '[1]', ''),
+                    'https://orcid.org/' + get(contact.userId[0].split('//orcid.org/'), '[1]', ''),
                 },
           address: {
             '@type': 'PostalAddress',
@@ -66,8 +66,8 @@ export const getDatasetSchema = (dataset) => {
     ...(dataset?.keywordCollections || [])
       .filter(
         (kc) =>
-          _.get(kc, 'thesaurus') &&
-          _.get(kc, 'thesaurus', '').indexOf('http://rs.gbif.org/vocabulary/') > -1
+          get(kc, 'thesaurus') &&
+          get(kc, 'thesaurus', '').indexOf('http://rs.gbif.org/vocabulary/') > -1
       )
       .map((kc) =>
         kc.keywords.map((k) => ({
@@ -75,11 +75,11 @@ export const getDatasetSchema = (dataset) => {
           name: k,
           inDefinedTermSet:
             'http://rs.gbif.org/vocabulary/' +
-            _.get(_.get(kc, 'thesaurus', '').split('http://rs.gbif.org/vocabulary/'), '[1]', ''),
+            get(get(kc, 'thesaurus', '').split('http://rs.gbif.org/vocabulary/'), '[1]', ''),
         }))
       ),
     ...(dataset?.keywordCollections || [])
-      .filter((kc) => !_.get(kc, 'thesaurus') || _.get(kc, 'thesaurus') === 'N/A')
+      .filter((kc) => !get(kc, 'thesaurus') || get(kc, 'thesaurus') === 'N/A')
       .map((kc) =>
         kc.keywords.map((k) => ({
           '@type': 'Text',
@@ -89,15 +89,15 @@ export const getDatasetSchema = (dataset) => {
     ...(dataset?.keywordCollections || [])
       .filter(
         (kc) =>
-          _.get(kc, 'thesaurus') &&
-          _.get(kc, 'thesaurus') !== 'N/A' &&
-          _.get(kc, 'thesaurus').indexOf('http://rs.gbif.org/vocabulary/') === -1
+          get(kc, 'thesaurus') &&
+          get(kc, 'thesaurus') !== 'N/A' &&
+          get(kc, 'thesaurus').indexOf('http://rs.gbif.org/vocabulary/') === -1
       )
       .map((kc) =>
         kc.keywords.map((k) => ({
           '@type': 'DefinedTerm',
           name: k,
-          inDefinedTermSet: _.get(kc, 'thesaurus', ''),
+          inDefinedTermSet: get(kc, 'thesaurus', ''),
         }))
       ),
   ].flat();
@@ -136,8 +136,8 @@ export const getDatasetSchema = (dataset) => {
     publisher: {
       '@type': 'Organization',
       name: dataset?.publishingOrganizationTitle,
-      url: _.get(dataset, 'publishingOrganization.homepage[0]'),
-      logo: _.get(dataset, 'publishingOrganization.logoUrl'),
+      url: get(dataset, 'publishingOrganization.homepage[0]'),
+      logo: get(dataset, 'publishingOrganization.logoUrl'),
     },
     provider: {
       '@type': 'Organization',
@@ -152,17 +152,17 @@ export const getDatasetSchema = (dataset) => {
   if (
     dataset.temporalCoverages &&
     dataset.temporalCoverages.length > 0 &&
-    _.get(dataset, 'temporalCoverages[0].end') &&
-    _.get(dataset, 'temporalCoverages[0].start')
+    get(dataset, 'temporalCoverages[0].end') &&
+    get(dataset, 'temporalCoverages[0].start')
   ) {
-    schema.temporalCoverage = `${_.get(dataset, 'temporalCoverages[0].start')}/${_.get(
+    schema.temporalCoverage = `${get(dataset, 'temporalCoverages[0].start')}/${get(
       dataset,
       'temporalCoverages[0].end'
     )}`;
   }
 
-  if (_.get(dataset, 'geographicCoverages[0].boundingBox')) {
-    const box = _.get(dataset, 'geographicCoverages[0].boundingBox');
+  if (get(dataset, 'geographicCoverages[0].boundingBox')) {
+    const box = get(dataset, 'geographicCoverages[0].boundingBox');
     schema.spatialCoverage = {
       '@type': 'Place',
       geo: {
@@ -229,11 +229,11 @@ export const getTaxonSchema = (taxon) => {
       taxon.rank.toLowerCase(),
     ],
   };
-  if (_.get(taxon, 'synonyms.results[0]')) {
+  if (get(taxon, 'synonyms.results[0]')) {
     schema.alternateName = taxon.synonyms.results.map((s) => s.scientificName);
     schema.alternateScientificName = taxon.synonyms.results.map(getSchemaTaxonName);
   }
-  if (_.get(taxon, 'vernacular.results[0]')) {
+  if (get(taxon, 'vernacular.results[0]')) {
     schema['dwc:vernacularName'] = taxon.vernacular.results.map((v) => ({
       '@language': v.language,
       '@value': v.vernacularName,
