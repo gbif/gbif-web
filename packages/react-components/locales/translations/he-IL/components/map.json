@@ -1,70 +1,70 @@
 {
   "styles": {
-    "satellite": "",
-    "natural": "",
-    "bright": "",
-    "dark": "",
-    "outdoor": ""
+    "satellite": "לוויין",
+    "natural": "טבע",
+    "bright": "בהיר",
+    "dark": "כהה",
+    "outdoor": "שטח פתוח"
   },
   "projections": {
-    "ARCTIC": "",
-    "MERCATOR": "",
-    "ANTARCTIC": "",
-    "PLATE_CAREE": ""
+    "ARCTIC": "קוטב צפוני",
+    "MERCATOR": "מרקטור",
+    "ANTARCTIC": "קוטב דרומי",
+    "PLATE_CAREE": "Plate Carrée"
   },
   "failedToGetUserLocation": {
-    "title": "",
-    "message": ""
+    "title": "נכשל באיתור המיקום שלך",
+    "message": "נא לבדוק את הגדרות הדפדפן ולנסות שוב."
   },
-  "filterByView": "",
-  "projection": "",
-  "anyYear": "",
-  "exploreArea": "",
-  "explore": "",
+  "filterByView": "השתמש באזור הנראה כמסנן",
+  "projection": "הקרנה",
+  "anyYear": "כל שנה",
+  "exploreArea": "חקור אזור",
+  "explore": "חקור",
   "generatedDateAgo": "",
-  "style": "",
-  "filters": "",
-  "select": "",
-  "custom": "",
-  "baseMap": "",
-  "binning": "",
-  "year": "",
-  "chooseColors": "",
-  "clickToSearchArea": "",
+  "style": "סגנון",
+  "filters": "מסננים",
+  "select": "בחר",
+  "custom": "מותאם אישית",
+  "baseMap": "מפת בסיס",
+  "binning": "קיבוץ",
+  "year": "שנה",
+  "chooseColors": "צבעים",
+  "clickToSearchArea": "לחץ כדי לחפש אזור",
   "predefined": {
-    "CLASSIC_HEX": "",
-    "CLASSIC": "",
-    "STREETS": "",
-    "GLACIER": "",
+    "CLASSIC_HEX": "משושים קלאסיים",
+    "CLASSIC": "נקודות קלאסיות",
+    "STREETS": "רחובות",
+    "GLACIER": "קרחון",
     "GREEN": "",
-    "CUSTOM": ""
+    "CUSTOM": "מותאם אישית"
   },
   "basemap": {
-    "CLASSIC": "",
-    "LIGHT": "",
-    "LIGHT_DETAILS": "",
-    "DARK": "",
-    "DARK_DETAILS": "",
-    "OSM": ""
+    "CLASSIC": "מג'נטה",
+    "LIGHT": "בהיר (ללא תוויות)",
+    "LIGHT_DETAILS": "בהיר",
+    "DARK": "כהה (ללא תוויות)",
+    "DARK_DETAILS": "כהה",
+    "OSM": "כבישים"
   },
   "bin": {
-    "PIXEL": "",
-    "SMALL_HEX": "",
-    "LARGE_HEX": "",
-    "SMALL_SQUARE": "",
-    "LARGE_SQUARE": ""
+    "PIXEL": "נקודות",
+    "SMALL_HEX": "משושים קטנים",
+    "LARGE_HEX": "משושים",
+    "SMALL_SQUARE": "ריבועים קטנים",
+    "LARGE_SQUARE": "ריבועים"
   },
   "colors": {
-    "CLASSIC": "",
-    "FIRE": "",
-    "GLACIER": "",
-    "GREEN_POINT": "",
-    "PURPLE_YELLOW": "",
-    "PURPLE_HEAT": "",
-    "BLUE_HEAT": "",
-    "ORANGE_HEAT": "",
-    "GREEN": "",
-    "BLUE_CLUSTER": "",
-    "ORANGE_CLUSTER": ""
+    "CLASSIC": "קלאסי",
+    "FIRE": "אש",
+    "GLACIER": "קרחון",
+    "GREEN_POINT": "ירוק",
+    "PURPLE_YELLOW": "סגול צהוב",
+    "PURPLE_HEAT": "חום סגול",
+    "BLUE_HEAT": "חום כחול",
+    "ORANGE_HEAT": "חום כתום",
+    "GREEN": "ירוק",
+    "BLUE_CLUSTER": "אשכול כחול",
+    "ORANGE_CLUSTER": "אשכול כתום"
   }
 }
