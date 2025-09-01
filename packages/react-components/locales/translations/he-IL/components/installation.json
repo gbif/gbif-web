@@ -1,1 +1,9 @@
-{}
+{
+  "installation": "התקנה",
+  "about": "אודות",
+  "homepage": "עמוד בית",
+  "installationType": "סוג התקנה",
+  "hostedBy": "מנוהל ע\"י",
+  "registered": "רשום",
+  "endpoints": "נקודות קצה"
+}
