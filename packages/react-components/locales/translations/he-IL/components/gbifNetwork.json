@@ -4,25 +4,25 @@
       "VOTING": "",
       "ASSOCIATE": "",
       "OTHER_ASSOCIATE": "",
-      "FORMER": "",
-      "OBSERVER": "",
+      "FORMER": "משתתף לשעבר",
+      "OBSERVER": "משקיף",
       "UNKNOWN": "",
-      "AFFILIATE": ""
+      "AFFILIATE": "שותף GBIF"
     },
     "affiliateHelp": "",
     "mapCaptionPublishers": "",
-    "role": "",
-    "name": "",
-    "participant": "",
-    "type": "",
-    "memberSince": "",
-    "all": "",
+    "role": "תפקיד",
+    "name": "שם",
+    "participant": "משתתף",
+    "type": "סוג",
+    "memberSince": "חבר מאז",
+    "all": "הכל",
     "countryParticipants": "",
     "publishersPerCountry": "",
-    "clear": "",
+    "clear": "נקה",
     "headlines": {
-      "nodesSteeringGroup": "",
-      "participants": ""
+      "nodesSteeringGroup": "קבוצת ההיגוי של הצמתים",
+      "participants": "משתתפים"
     }
   }
 }
