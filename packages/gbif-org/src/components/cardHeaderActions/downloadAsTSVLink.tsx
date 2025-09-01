@@ -4,11 +4,12 @@ import { BaseHeaderActionLink } from './baseHeaderActionLink';
 
 type Props = {
   tsvUrl: string;
+  className?: string;
 };
 
-export function DownloadAsTSVLink({ tsvUrl }: Props) {
+export function DownloadAsTSVLink({ tsvUrl, className }: Props) {
   return (
-    <BaseHeaderActionLink icon={MdDownload} url={tsvUrl}>
+    <BaseHeaderActionLink icon={MdDownload} url={tsvUrl} className={className}>
       <FormattedMessage id="phrases.downloadAsTsv" defaultMessage="Download as TSV" />
     </BaseHeaderActionLink>
   );

@@ -1,3 +1,4 @@
+import { DownloadAsTSVLink } from '@/components/cardHeaderActions/downloadAsTSVLink';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { getAsQuery } from '@/components/filters/filterTools';
 import {
@@ -10,12 +11,14 @@ import { SearchTableServerFallback } from '@/components/searchTable/table';
 import { ViewHeader } from '@/components/ViewHeader';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
+import { filter2v1 } from '@/dataManagement/filterAdapter';
 import { LiteratureTableSearchQuery, LiteratureTableSearchQueryVariables } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { usePartialDataNotification } from '@/routes/rootErrorPage';
 import { ExtractPaginatedResult } from '@/types';
 import { notNull } from '@/utils/notNull';
-import { useContext, useEffect, useMemo } from 'react';
+import { stringify } from '@/utils/querystring';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { useFilters } from '../../filters';
 import { searchConfig } from '../../searchConfig';
 import { columns } from './columns';
@@ -81,6 +84,8 @@ export function LiteratureTable() {
   const searchContext = useSearchContext();
   const [paginationState, setPaginationState] = usePaginationState({ pageSize: 50 });
   const filterContext = useContext(FilterContext);
+  const [tsvUrl, setTsvUrl] = useState('');
+  const [tsvLinkVisible, setTsvLinkVisible] = useState(false);
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
 
@@ -103,6 +108,19 @@ export function LiteratureTable() {
 
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
+    const { filter: v1Filter, errors } = filter2v1(filter, searchConfig);
+    if (errors || searchContext.scope) {
+      setTsvLinkVisible(false);
+      console.warn('Unable to serialize TSV download link');
+    } else {
+      setTsvLinkVisible(true);
+    }
+
+    const downloadUrl = `${import.meta.env.PUBLIC_API_V1}/grscicoll/institution/export?${stringify({
+      ...v1Filter,
+      format: 'TSV',
+    })}`;
+    setTsvUrl(downloadUrl);
 
     load({
       variables: {
@@ -138,6 +156,11 @@ export function LiteratureTable() {
           loading={loading}
           message="counts.nResults"
         />
+        {tsvLinkVisible && (
+          <div className="g-text-slate-500 ">
+            <DownloadAsTSVLink tsvUrl={tsvUrl} className="g-text-xs" />
+          </div>
+        )}
       </div>
       <ClientSideOnly fallback={<SearchTableServerFallback />}>
         <SearchTable
