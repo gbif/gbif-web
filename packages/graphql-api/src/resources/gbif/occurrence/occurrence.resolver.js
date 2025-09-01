@@ -120,38 +120,6 @@ export default {
     ) => {
       return dataSources.occurrenceAPI.publisherSuggest({ predicate, q, size });
     },
-    occurrenceClusterSearch: (
-      _parent,
-      { predicate, ...query },
-      { dataSources },
-    ) => {
-      // custom cluster search
-      const nodes = [];
-      const links = [];
-      return dataSources.occurrenceAPI
-        .searchOccurrenceDocuments({
-          query: {
-            predicate: {
-              type: 'and',
-              predicates: [
-                {
-                  type: 'equals',
-                  key: 'isInCluster',
-                  value: true,
-                },
-                predicate,
-              ],
-            },
-            ...query,
-          },
-        })
-        .then((response) => {
-          return {
-            nodes: [],
-            links: [{ source: 'hej', target: 'goddag' }],
-          };
-        });
-    },
     occurrence: (_parent, { key }, { dataSources }) =>
       dataSources.occurrenceAPI.getOccurrenceByKey({ key }),
     globe: (_parent, { cLat, cLon, pLat, pLon, sphere, graticule, land }) => {
