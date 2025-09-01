@@ -137,12 +137,8 @@ function Dois({ gbifDOIs }: { gbifDOIs?: string[] }) {
       {Array.isArray(gbifDOIs) && gbifDOIs.length > 0 && (
         <BulletList className="g-break-words g-mt-1 g-flex g-items-center g-gap-1 g-text-xs g-flex-wrap g-inline">
           {gbifDOIs.slice(0, DOI_CAP).map((doi) => (
-            <li>
-              <a
-                key={doi}
-                href={`https://doi.org/${doi}`}
-                className="g-pointer-events-auto g-underline"
-              >
+            <li key={doi}>
+              <a href={`https://doi.org/${doi}`} className="g-pointer-events-auto g-underline">
                 {doi}
               </a>{' '}
             </li>
@@ -158,9 +154,8 @@ function Dois({ gbifDOIs }: { gbifDOIs?: string[] }) {
               )}
               {showAll &&
                 gbifDOIs.slice(DOI_CAP).map((doi) => (
-                  <li>
+                  <li key={doi}>
                     <a
-                      key={doi}
                       href={`https://doi.org/${doi}`}
                       className="g-pointer-events-auto g-underline"
                     >
