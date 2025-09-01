@@ -23,7 +23,7 @@ const a = 1;
     );
     assert.strictEqual(
       result,
-      '<p>code to follow</p><pre><code>const a = 1;</code></pre>',
+      '<p>code to follow</p><pre><code>const a = 1;\n</code></pre>',
     );
   });
 
@@ -37,7 +37,6 @@ const a = 1;
       `Code <code>&lt;script&gt;alert('hi')&lt;/script&gt;</code> <span>respected</span>`,
     );
   });
-
 
   it('it should sanitize', () => {
     const result = getHtml(`hi <script>alert('hi')</script>there`, {

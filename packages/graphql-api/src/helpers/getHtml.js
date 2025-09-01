@@ -21,6 +21,36 @@ md.use(mdVideo, {
   vimeo: { width: 500, height: 281 },
 });
 
+const removeNewLinesOutsidePreAndCodeTags = (input) => {
+  // Step 1: Protect <pre>, <code>, <textarea> blocks (tags + contents) with a TAG-SHAPED placeholder
+  const protectedBlocks = [];
+  let s = input.replace(/<(pre|code)\b[^>]*>[\s\S]*?<\/\1>/gi, (match) => {
+    const i = protectedBlocks.push(match) - 1;
+    return `<x-protected data-i="${i}"></x-protected>`;
+  });
+
+  // Step 2: Remove/normalize newlines only in text nodes outside protected blocks
+  // - If the captured text has any non-whitespace, replace newlines with a single space (keeps words from sticking together)
+  // - If it's only whitespace (e.g., the gap between tags), remove newlines entirely
+  s = s.replace(/>([^<]+)</g, (m, text) => {
+    const hasNonWS = /\S/.test(text);
+    const cleaned = hasNonWS
+      ? text.replace(/\n+/g, ' ')
+      : text.replace(/\n+/g, '');
+    return `>${cleaned}<`;
+  });
+
+  // Step 3: Restore protected blocks (tags + contents intact)
+  s = s.replace(
+    /<x-protected data-i="(\d+)"><\/x-protected>/g,
+    (_, i) => protectedBlocks[+i],
+  );
+
+  // Optional: remove trailing newlines from the whole string (outside-anything)
+  s = s.replace(/\n+$/g, '');
+  return s;
+};
+
 export function getHtml(
   value,
   {
@@ -38,8 +68,8 @@ export function getHtml(
   if (typeof value === 'string' || typeof value === 'number') {
     const dirty = inline ? md.renderInline(`${value}`) : md.render(`${value}`);
     const clean = sanitizeHtml(dirty, options);
-    // remove newlines
-    return clean.replace(/\n/g, '');
+
+    return removeNewLinesOutsidePreAndCodeTags(clean);
   }
   return null;
 }
