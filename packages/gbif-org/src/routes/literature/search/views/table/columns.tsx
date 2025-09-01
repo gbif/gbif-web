@@ -94,6 +94,38 @@ export const columns: ColumnDef<SingleLiteratureSearchResult>[] = [
       );
     },
   },
+  {
+    id: 'countriesOfResearcher',
+    header: 'filters.countriesOfResearcher.name',
+    cell: (item) => {
+      const countriesOfResearcher = item.countriesOfResearcher?.filter(notNull);
+      if (!countriesOfResearcher) return null;
+
+      return (
+        <SetAsFilterList
+          items={countriesOfResearcher}
+          field="countriesOfResearcher"
+          renderValue={(value) => <FormattedMessage id={`enums.countryCode.${value}`} />}
+        />
+      );
+    },
+  },
+  {
+    id: 'countriesOfCoverage',
+    header: 'filters.countriesOfCoverage.name',
+    cell: (item) => {
+      const countriesOfCoverage = item.countriesOfCoverage?.filter(notNull);
+      if (!countriesOfCoverage) return null;
+
+      return (
+        <SetAsFilterList
+          items={countriesOfCoverage}
+          field="countriesOfCoverage"
+          renderValue={(value) => <FormattedMessage id={`enums.countryCode.${value}`} />}
+        />
+      );
+    },
+  },
 ];
 
 const DOI_CAP = 10;
