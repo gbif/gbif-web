@@ -3,10 +3,12 @@ import * as React from 'react';
 import { cn } from '@/utils/shadcn';
 import { MdSearch } from 'react-icons/md';
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  onSearch?: (value: string) => void;
+}
 
 const SearchInput = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+  ({ className, type, onSearch, ...props }, ref) => {
     return (
       <div
         className={cn(
@@ -24,6 +26,11 @@ const SearchInput = React.forwardRef<HTMLInputElement, InputProps>(
         />
         <button
           type="submit"
+          onClick={() => {
+            if (onSearch) {
+              onSearch((ref as React.RefObject<HTMLInputElement>)?.current?.value || '');
+            }
+          }}
           className="g-text-slate-400 g-text-center g-flex-none g-px-1"
           style={{ fontSize: '1.5em', marginTop: '-0.2em' }}
         >

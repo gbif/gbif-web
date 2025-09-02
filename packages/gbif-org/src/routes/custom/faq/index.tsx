@@ -13,9 +13,9 @@ import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { cn } from '@/utils/shadcn';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
 import { HelpItemResult } from './HelpItemResult';
 const FAQ_QUERY = /* GraphQL */ `
@@ -87,13 +87,14 @@ function FAQ() {
   const { data, helpData } = useLoaderData() as { data: FaqQuery; helpData: HelpItemQuery };
 
   const resource = data?.resourceSearch?.documents.results[0];
-
+  const ref = useRef<HTMLInputElement>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchQuery, setSearchQuery] = useStringParam({
     key: 'q',
     defaultValue: '',
     hideDefault: true,
   });
+  const { formatMessage } = useIntl();
 
   return (
     <article>
@@ -103,7 +104,7 @@ function FAQ() {
         <title>{resource.title}</title>
       </Helmet>
 
-      <PageContainer topPadded className="g-bg-white">
+      <PageContainer topPadded className="g-bg-white g-pb-10">
         <ArticleTextContainer className="g-mb-10">
           <ArticleTitle dangerouslySetTitle={{ __html: resource.title }} />
 
@@ -113,6 +114,7 @@ function FAQ() {
         </ArticleTextContainer>
         <ArticleTextContainer className="g-mb-8">
           <SearchInput
+            ref={ref}
             defaultValue={searchQuery}
             className={cn(
               'g-h-8 g-px-2 g-py-2 g-rounded-md g-border g-border-solid g-border-primary-500 g-text-sm g-w-full'
@@ -124,7 +126,14 @@ function FAQ() {
                 setSearchQuery(e.currentTarget.value);
               }
             }}
-            placeholder="Search help articles..."
+            onSearch={(value) => {
+              setSearchTerm(value);
+              setSearchQuery(value);
+            }}
+            placeholder={formatMessage({
+              id: 'search.placeholders.default',
+              defaultMessage: 'Search',
+            })}
           />
 
           {helpData?.resourceSearch?.documents.total > 0 && (

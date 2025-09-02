@@ -48,13 +48,13 @@ export const HelpItemResult = ({ item }) => {
           <div className="g-flex-grow">
             {item.excerpt && !expanded && (
               <p
-                className="g-font-normal g-text-slate-700 g-text-sm g-break-words"
+                className="g-font-normal g-text-slate-700 g-text g-break-words"
                 dangerouslySetInnerHTML={{ __html: item.excerpt }}
               />
             )}
             {item.body && expanded && (
               <p
-                className={cn(styles.faq, 'g-font-normal g-text-slate-700 g-text-sm g-break-words')}
+                className={cn(styles.faq, 'g-font-normal g-text-slate-700 g-text g-break-words')}
                 dangerouslySetInnerHTML={{ __html: item.body }}
               />
             )}
