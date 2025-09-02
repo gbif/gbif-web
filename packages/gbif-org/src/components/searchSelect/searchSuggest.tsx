@@ -68,7 +68,11 @@ export function SearchSuggest<T>({
           variant={variant ? variant : selected ? 'default' : 'outline'}
           role="combobox"
           aria-expanded={controlledOpen}
-          className={cn('g-w-full g-flex', { 'g-text-slate-400': !selected }, className)}
+          className={cn(
+            'g-w-full g-flex g-min-h-9 g-h-auto',
+            { 'g-text-slate-400': !selected },
+            className
+          )}
           // Override styles from our gb-button css class
           style={{ justifyContent: 'space-between' }}
         >
