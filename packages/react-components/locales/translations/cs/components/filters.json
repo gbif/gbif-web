@@ -60,7 +60,7 @@
   "geometry": {
     "name": "Poloha",
     "count": "{num, plural, one {filtr} few {# filtry} many {# filtrů} other {# filtrů}}",
-    "description": "",
+    "description": "Filtrujte záznamy v dané geometrické oblasti. Oblastí může být bod, čára, mnohoúhelník nebo ohraničující rámeček.",
     "placeholderLat": "Zeměpisná šířka",
     "placeholderLon": "Zeměpisná délka",
     "placeholderDist": "Vzdálenost"
