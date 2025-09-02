@@ -71,8 +71,8 @@ function OrganizationPreview({ id, className }: { id: string; className?: string
   );
 
   const organization = data?.organization;
-  const contact = organization?.contacts?.[0];
   const contacts = organization?.contacts || [];
+
   return (
     <div className={cn('g-bg-gray-100 g-p-4', className)}>
       <p className="g-text-sm g-text-gray-800">
@@ -142,7 +142,10 @@ function OrganizationPreview({ id, className }: { id: string; className?: string
             )} */}
 
             {organization.description && (
-              <p className="g-text-xs g-mt-1">{organization.description}</p>
+              <div
+                className="g-text-xs g-mt-1"
+                dangerouslySetInnerHTML={{ __html: organization.description }}
+              />
             )}
           </div>
         </div>
