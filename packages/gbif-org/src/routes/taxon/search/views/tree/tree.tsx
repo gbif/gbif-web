@@ -1,4 +1,5 @@
 import { getAsQuery } from '@/components/filters/filterTools';
+import { Skeleton } from '@/components/ui/skeleton';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { RootSearchQuery, RootSearchQueryVariables } from '@/gql/graphql';
@@ -360,7 +361,21 @@ export function TaxonTree({ entityDrawerPrefix }: { entityDrawerPrefix: string }
           );
         }}
       >
-        <Tree treeId="tree-1" rootItem="root" treeLabel="Tree Example" />
+        {!rootData || loading ? (
+          <div className="g-p-2 g-w-64">
+            <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
+            <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
+            <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
+            <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
+            <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
+            <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
+            <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
+            <Skeleton className="g-h-6" style={{ marginBottom: 12 }} />
+          </div>
+        ) : (
+          /*           <Spinner className="g-m-2" />
+           */ <Tree treeId="tree-1" rootItem="root" treeLabel="Tree Example" />
+        )}
       </ControlledTreeEnvironment>
     </TreeContext.Provider>
   );

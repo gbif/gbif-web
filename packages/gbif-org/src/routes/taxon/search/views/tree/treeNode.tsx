@@ -1,6 +1,6 @@
 import { FormattedNumber } from '@/components/dashboard/shared';
 import { SimpleTooltip } from '@/components/simpleTooltip';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Spinner } from '@/components/ui/spinner';
 import { cn } from '@/utils/shadcn';
 import { TreeItem, TreeItemIndex } from 'react-complex-tree';
 import { GoSidebarExpand } from 'react-icons/go';
@@ -8,19 +8,6 @@ import { FormattedMessage } from 'react-intl';
 import { childLimit } from './tree';
 import styles from './treeNode.module.css';
 
-export function TreeSkeleton() {
-  return (
-    <div>
-      <Skeleton className="g-h-24 g-mb-2" />
-      <Skeleton className="g-h-24 g-mb-2" />
-      <Skeleton className="g-h-24 g-mb-2" />
-      <Skeleton className="g-h-24 g-mb-2" />
-      <Skeleton className="g-h-24 g-mb-2" />
-      <Skeleton className="g-h-24 g-mb-2" />
-      <Skeleton className="g-h-24 g-mb-2" />
-    </div>
-  );
-}
 export const TreeNode = ({
   item,
   loadChildren,
@@ -40,7 +27,7 @@ export const TreeNode = ({
 }) => {
   if (item.index.toString().endsWith('load-more')) {
     return loadingTreeNodes?.includes(item.index.toString()) ? (
-      <TreeSkeleton />
+      <Spinner className="g-m-2" />
     ) : (
       <div
         className={cn(styles.loadMoreTreeNode)}
@@ -58,7 +45,7 @@ export const TreeNode = ({
       </div>
     );
   } else if (item.index.toString().endsWith('skeleton')) {
-    return <TreeSkeleton />;
+    return <Spinner className="g-m-2" />;
   } else {
     return (
       <div className="g-flex g-justify-between g-relative">
