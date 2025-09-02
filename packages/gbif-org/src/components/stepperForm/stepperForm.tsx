@@ -1,5 +1,6 @@
 import { useWindowSize } from '@/hooks/useWindowSize';
 import { cn } from '@/utils/shadcn';
+import { useRef } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { Button } from '../ui/button';
 import { Form } from '../ui/form';
@@ -25,6 +26,7 @@ type StepperFormProps = {
 export function StepperForm({ form, onSubmit, steps }: StepperFormProps) {
   const { currentStep, prevStep, nextStep, goToStep } = useStepper(steps, form);
   const { width } = useWindowSize();
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // The side navigation is positioned absolutely, os we need to set a min-height on the container to make sure it doesn't overflow
   const minHeight =
@@ -38,7 +40,7 @@ export function StepperForm({ form, onSubmit, steps }: StepperFormProps) {
       : 'unset';
 
   return (
-    <div className="g-max-w-3xl g-m-auto g-relative" style={{ minHeight }}>
+    <div ref={containerRef} className="g-max-w-3xl g-m-auto g-relative" style={{ minHeight }}>
       {width > 1226 ? (
         <SideNavigation currentStep={currentStep} goToStep={goToStep} steps={steps} />
       ) : (
@@ -68,12 +70,27 @@ export function StepperForm({ form, onSubmit, steps }: StepperFormProps) {
 
                 <div className="g-flex g-w-full g-pt-8">
                   {step.idx > 0 && (
-                    <Button className="mr-auto" variant="outline" type="button" onClick={prevStep}>
+                    <Button
+                      className="mr-auto"
+                      variant="outline"
+                      type="button"
+                      onClick={() => {
+                        prevStep();
+                        containerRef.current?.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                    >
                       Back
                     </Button>
                   )}
                   {step.idx < steps.length - 1 && (
-                    <Button className="g-ml-auto" type="button" onClick={nextStep}>
+                    <Button
+                      className="g-ml-auto"
+                      type="button"
+                      onClick={() => {
+                        nextStep();
+                        containerRef.current?.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                    >
                       Next
                     </Button>
                   )}
