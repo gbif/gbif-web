@@ -5302,30 +5302,6 @@ export type OccurrenceCardinalityUsageKeyArgs = {
   checklistKey?: InputMaybe<Scalars['ID']['input']>;
 };
 
-export type OccurrenceClusterLink = {
-  __typename?: 'OccurrenceClusterLink';
-  source: Scalars['ID']['output'];
-  target: Scalars['ID']['output'];
-};
-
-export type OccurrenceClusterNode = {
-  __typename?: 'OccurrenceClusterNode';
-  basisOfRecord?: Maybe<BasisOfRecord>;
-  catalogueNumber?: Maybe<Scalars['String']['output']>;
-  datasetKey: Scalars['ID']['output'];
-  datasetTitle: Scalars['String']['output'];
-  isEntryNode?: Maybe<Scalars['Boolean']['output']>;
-  key: Scalars['ID']['output'];
-  publisherKey: Scalars['ID']['output'];
-  publisherTitle: Scalars['String']['output'];
-};
-
-export type OccurrenceClusterSearchResult = {
-  __typename?: 'OccurrenceClusterSearchResult';
-  links?: Maybe<Array<Maybe<OccurrenceClusterLink>>>;
-  nodes?: Maybe<Array<Maybe<OccurrenceClusterNode>>>;
-};
-
 export type OccurrenceDatasetSuggestResult = {
   __typename?: 'OccurrenceDatasetSuggestResult';
   count: Scalars['Long']['output'];
@@ -7076,7 +7052,6 @@ export type Query = {
   nodeSteeringGroup?: Maybe<Array<NsgMember>>;
   notification?: Maybe<Notification>;
   occurrence?: Maybe<Occurrence>;
-  occurrenceClusterSearch?: Maybe<OccurrenceClusterSearchResult>;
   occurrenceDatasetSuggest?: Maybe<Array<Maybe<OccurrenceDatasetSuggestResult>>>;
   occurrencePublisherSuggest?: Maybe<Array<Maybe<OccurrencePublisherSuggestResult>>>;
   occurrenceSearch?: Maybe<OccurrenceSearchResult>;
@@ -7484,14 +7459,6 @@ export type QueryNotificationArgs = {
 
 export type QueryOccurrenceArgs = {
   key: Scalars['ID']['input'];
-};
-
-
-export type QueryOccurrenceClusterSearchArgs = {
-  apiKey?: InputMaybe<Scalars['String']['input']>;
-  from?: InputMaybe<Scalars['Int']['input']>;
-  predicate?: InputMaybe<Predicate>;
-  size?: InputMaybe<Scalars['Int']['input']>;
 };
 
 

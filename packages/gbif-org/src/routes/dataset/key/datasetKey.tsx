@@ -406,6 +406,7 @@ export function DatasetPage() {
     hasTaxonomy,
     hasOccurrences,
     hasLiterature,
+    withEventId,
     dataset?.key,
     dataset?.type,
     dataset?.project,
