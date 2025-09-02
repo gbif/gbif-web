@@ -36,9 +36,9 @@ const ContactSchema = z.object({
 const Schema = z.object({
   checkRegistration: z.literal(true),
   termsAndConditions: z.object({
-    dataPublishederAgreement: z.boolean(),
-    confirmRegistration: z.boolean(),
-    dataWillBePublic: z.boolean(),
+    dataPublishederAgreement: z.literal(true),
+    confirmRegistration: z.literal(true),
+    dataWillBePublic: z.literal(true),
   }),
   organizationDetails: z.object({
     name: RequiredStringSchema,
