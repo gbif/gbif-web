@@ -3,8 +3,10 @@ import EmptyValue from '@/components/emptyValue';
 import { HelpLine } from '@/components/helpText';
 import useBelow from '@/hooks/useBelow';
 import { cn } from '@/utils/shadcn';
+import { useState } from 'react';
 import { MdInfoOutline } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { Button } from './ui/button';
 
 export default function Properties({
   breakpoint,
@@ -137,6 +139,7 @@ export function AutomaticPropertyValue({
   formatter?: (value: any) => React.ReactNode;
   showEmpty?: boolean;
 }) {
+  const [showAll, setShowAll] = useState(false);
   if (value === null || typeof value === 'undefined' || value === '') {
     if (showEmpty) return <EmptyValue />;
     return null;
@@ -161,7 +164,17 @@ export function AutomaticPropertyValue({
   } else if (typeof value === 'number') {
     val = <FormattedNumber value={value} />;
   } else if (typeof value === 'string') {
-    val = value; // consider doing markdown rendering, sanitizing html and rendering links etc as a hyper text component
+    val =
+      showAll || value.length < 2000 ? (
+        value
+      ) : (
+        <>
+          <span>{value.slice(0, 2000)}...</span>
+          <Button className="g-p-2" variant="link" onClick={() => setShowAll(true)}>
+            more
+          </Button>
+        </>
+      );
   }
   return val;
 }
