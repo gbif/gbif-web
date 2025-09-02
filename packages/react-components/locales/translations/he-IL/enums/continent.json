@@ -1,1 +1,9 @@
-{}
+{
+  "AFRICA": "אפריקה",
+  "ANTARCTICA": "אנטארקטיקה",
+  "ASIA": "אסיה",
+  "EUROPE": "אירופה",
+  "NORTH_AMERICA": "צפון אמריקה",
+  "OCEANIA": "אוקיאניה",
+  "SOUTH_AMERICA": "דרום אמריקה"
+}

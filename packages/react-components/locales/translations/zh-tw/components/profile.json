@@ -56,6 +56,8 @@
     "profile": "個人檔案",
     "invalidLink": "無效連結",
     "noDownloads": "您尚未下載任何項目",
+    "noDerivedDatasets": "",
+    "noValidationReports": "",
     "suggestToSearchOccurrences": "您可能想要 [搜尋出現紀錄](/occurrence/search)",
     "welcome": "歡迎來到 GBIF",
     "accountConfirmed": "您的帳號已經驗證，現在可以登入。",

@@ -31,7 +31,7 @@
   "pageNotFound": "404",
   "noInformation": "Žádné informace",
   "noRecords": "Žádné záznamy",
-  "noDescriptionProvided": "",
+  "noDescriptionProvided": "Není uveden žádný popis",
   "viewOnGBif": "Zobrazit na GBIF.org",
   "failedToLoadData": "Data se nepodařilo načíst",
   "retry": "Opakovat",
@@ -61,5 +61,6 @@
   "lastCrawled": "Naposledy zpracováno",
   "goToRecord": "Přejít na záznam",
   "commonNameAccordingTo": "Běžný název podle: {source}",
+  "supportedChecklists": "",
   "noResults": "Žádné výsledky"
 }

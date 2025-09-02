@@ -2,54 +2,54 @@
   "participant": {
     "participationStatus": {
       "longForm": {
-        "VOTING": "",
-        "ASSOCIATE": "",
-        "OBSERVER": "",
-        "AFFILIATE": "",
-        "FORMER": "",
-        "undefined": ""
+        "VOTING": "משתתף עם זכות הצבעה",
+        "ASSOCIATE": "משתתף נלווה",
+        "OBSERVER": "מדינת משקיפה",
+        "AFFILIATE": "שותף",
+        "FORMER": "משתתף לשעבר",
+        "undefined": "לא ידוע"
       },
       "description": {
-        "VOTING": "",
-        "ASSOCIATE": "",
-        "OBSERVER": "",
-        "AFFILIATE": "",
-        "FORMER": "",
-        "undefined": ""
+        "VOTING": "משתתף עם זכות הצבעה מ־{REGION}",
+        "ASSOCIATE": "משתתף נלווה מ־{REGION}",
+        "OBSERVER": "מדינה משקיפה מ־{REGION}",
+        "AFFILIATE": "שותף מ־{REGION}",
+        "FORMER": "משתתף לשעבר מ־{REGION}",
+        "undefined": "לא ידוע"
       },
       "type": {
         "OTHER": {
           "description": {
-            "VOTING": "",
-            "ASSOCIATE": "",
-            "OBSERVER": "",
-            "AFFILIATE": "",
-            "FORMER": "",
-            "undefined": ""
+            "VOTING": "ארגון משתתף עם זכות הצבעה מ־{REGION}",
+            "ASSOCIATE": "ארגון משתתף נלווה מ־{REGION}",
+            "OBSERVER": "ארגון משקיף מ־{REGION}",
+            "AFFILIATE": "ארגון שותף מ־{REGION}",
+            "FORMER": "ארגון משתתף לשעבר מ־{REGION}",
+            "undefined": "לא ידוע"
           },
           "longForm": {
-            "VOTING": "",
-            "ASSOCIATE": "",
-            "OBSERVER": "",
-            "AFFILIATE": "",
-            "FORMER": "",
-            "undefined": ""
+            "VOTING": "ארגון משתתף עם זכות הצבעה",
+            "ASSOCIATE": "ארגון משתתף נלווה",
+            "OBSERVER": "ארגון משקיף",
+            "AFFILIATE": "ארגון שותף",
+            "FORMER": "ארגון משתתף לשעבר",
+            "undefined": "לא ידוע"
           }
         }
       }
     },
-    "participant": "",
+    "participant": "משתתף",
     "node": "",
-    "participantSummary": "",
-    "memberStatus": "",
-    "gbifParticipantSince": "",
-    "headOfDelegation": "",
-    "gbifRegion": "",
-    "countryOrArea": "",
-    "nodeName": "",
-    "nodeEstablished": "",
-    "website": "",
-    "participantNodeManager": "",
-    "pending": ""
+    "participantSummary": "סיכום משתתף",
+    "memberStatus": "סטטוס חברות",
+    "gbifParticipantSince": "משתתף ב־GBIF מאז",
+    "headOfDelegation": "ראש משלחת",
+    "gbifRegion": "אזור GBIF",
+    "countryOrArea": "מדינה או אזור",
+    "nodeName": "שם צומת",
+    "nodeEstablished": "צומת הוקם",
+    "website": "אתר אינטרנט",
+    "participantNodeManager": "מנהל צומת משתתף",
+    "pending": "בהמתנה"
   }
 }

@@ -61,5 +61,6 @@
   "lastCrawled": "最后的爬网",
   "goToRecord": "调取存档",
   "commonNameAccordingTo": "根据{来源}的通用名称",
+  "supportedChecklists": "",
   "noResults": ""
 }

@@ -51,13 +51,13 @@
     "simplificationWarning": "",
     "simplify": "Zjednodušené",
     "useBbox": "Použít ohraničující rámeček",
-    "failedParsing": "",
-    "onlyPolygonsSupported": "",
-    "polygonSimplifiedToFewerPoints": "",
-    "simplificationCausedSelfIntersection": "",
+    "failedParsing": "Nepodařilo se analyzovat geometrii",
+    "onlyPolygonsSupported": "Podporovány jsou pouze polygony a multipolygony",
+    "polygonSimplifiedToFewerPoints": "Polygon zjednodušený na menší počet bodů",
+    "simplificationCausedSelfIntersection": "Zjednodušení způsobilo vzájemné křížení",
     "tooLarge": "Geometrie je příliš velká",
     "selfIntersecting": "",
-    "orderChanged": "",
+    "orderChanged": "Pořadí souřadnic bylo obráceno, protože nebylo proti směru hodinových ručiček",
     "geometryReducedToBbox": "Geometrie omezená na ohraničující rámeček",
     "failedToSimplify": "Nepodařilo se zjednodušit geometrii"
   }

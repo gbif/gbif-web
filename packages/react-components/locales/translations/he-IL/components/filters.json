@@ -36,57 +36,57 @@
   },
   "numberSpecimens": {
     "name": "מספר הפרטים",
-    "count": "",
+    "count": "{num, plural, one { specimen count } other {# Specimen counts filters}}",
     "description": "מספר פריטי האוסף המצוינים בתיאור. מספר זה אינו משקף כמה רשומות דוגמו או שותפו בפועל."
   },
   "specimensInGbif": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Specimens in GBIF",
+    "count": "{num, plural, one { GBIF specimen count } other {# specimens in GBIF}}",
+    "description": "Number of specimen records published on GBIF and linked to the institution entry."
   },
   "iucnRedListCategory": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "IUCN Global Red List Category",
+    "count": "{num, plural, one { IUCN Global Red List category } other {# IUCN Global Red List categories}}",
+    "description": "The IUCN Red List of Threatened Species groups taxa by how threatened they are."
   },
   "geoDistance": {
-    "name": "",
-    "count": "",
-    "description": "",
+    "name": "Distance from coordinates",
+    "count": "{num, plural, one { filter } other {# filters }}",
+    "description": "Filter on records within a given distance from a point",
     "placeholderLat": "קו רוחב",
     "placeholderLon": "קו אורך",
     "placeholderDist": "מרחק"
   },
   "geometry": {
     "name": "מיקום",
-    "count": "",
-    "description": "",
+    "count": "{num, plural, one { filter } other {# filters }}",
+    "description": "Filter on records within a given geometric area. The area can be a point, a line, a polygon, or a bounding box.",
     "placeholderLat": "קו רוחב",
     "placeholderLon": "קו אורך",
     "placeholderDist": "מרחק"
   },
   "relevance": {
     "name": "רלוונטיות",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { relevance } other {# relevance filters}}",
+    "description": "How is GBIF used in the literature."
   },
   "topics": {
     "name": "נושא",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { topic } other {# topics}}",
+    "description": "What are the topics of the record."
   },
   "audiences": {
     "name": "קהל",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { audience } other {# audiences}}",
+    "description": "Who are the audiences for the resource."
   },
   "biostratigraphy": {
-    "name": "",
+    "name": "Biostratigraphy",
     "count": "",
     "description": ""
   },
   "lithostratigraphy": {
-    "name": "",
+    "name": "Lithostratigraphy",
     "count": "",
     "description": ""
   },
@@ -97,13 +97,13 @@
   },
   "purposes": {
     "name": "נושא",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { purpose } other {# purposes}}",
+    "description": "What are the purposes of the resource."
   },
   "eventDate": {
     "name": "תאריך אירוע",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# event date } other {# event dates}}",
+    "description": "When was the record collected or observed."
   },
   "gbifId": {
     "name": "מזהה GBIF",
@@ -111,7 +111,7 @@
     "description": ""
   },
   "organismQuantityType": {
-    "name": "",
+    "name": "Organism quantity type",
     "count": "",
     "description": ""
   },
@@ -121,12 +121,12 @@
     "description": ""
   },
   "associatedSequences": {
-    "name": "",
+    "name": "Associated sequences",
     "count": "",
     "description": ""
   },
   "degreeOfEstablishment": {
-    "name": "",
+    "name": "Degree of establishment",
     "count": "",
     "description": ""
   },
@@ -136,88 +136,88 @@
     "description": ""
   },
   "startDayOfYear": {
-    "name": "",
+    "name": "Start day of year",
     "count": "",
     "description": ""
   },
   "previousIdentifications": {
-    "name": "",
+    "name": "Previous identifications",
     "count": "",
     "description": ""
   },
   "lastInterpreted": {
-    "name": "",
+    "name": "Last interpreted",
     "count": "",
     "description": ""
   },
   "alternativeCode": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Alternative code",
+    "count": "{num, plural, one {# alternative code } other {# alternative codes}}",
+    "description": "Any additional code that is already in use for the same record in other contexts (for example, historical codes)."
   },
   "identifier": {
     "name": "מזהה",
-    "count": "",
+    "count": "{num, plural, one {# identifier } other {# identifiers}}",
     "description": "תיאור קצר של הרכיב יוצג כאן"
   },
   "institutionType": {
     "name": "סוג",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# type } other {# types}}",
+    "description": "Institution type (museum, herbarium, etc.)"
   },
   "discipline": {
     "name": "דיציפלינה",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# discipline } other {# disciplines}}",
+    "description": "The research disciplines supported by the institution."
   },
   "collectionContentType": {
     "name": "סוג תוכן",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# content type } other {# content types}}",
+    "description": "The type of objects available in the collection"
   },
   "preservationType": {
     "name": "סוג שימור",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# preservation type } other {# preservation types}}",
+    "description": "The method used to preserve the objects available in the collection"
   },
   "taxonKey": {
     "name": "שם מדעי",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {scientific name} other {# scientific names}}",
+    "description": "The scientific name as it appears in the GBIF backbone taxonomy. These names are normalized to ease search across מסד נתוניםs. It is possible that an originally-provided name might be misinterpreted or unknown. To search the names as provided use the \"Verbatim scientific name\" filter."
   },
   "taxonKeyGrSciColl": {
     "name": "שם מדעי",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {scientific name} other {# scientific names}}",
+    "description": "Filter using the scientific names listed in the collection descriptors provided in the collection's metadata, noting that not all collections include metadata descriptors and the names are often at higher taxonomic ranks such as order or family."
   },
   "basisOfRecord": {
     "name": "מקור הרשומה",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "count": "{num, plural, one {basis of record} other {# bases of records}}",
+    "isNotNull": "Has a basis of record",
+    "isNull": "Has no basis of record",
+    "description": "The nature of the evidence upon which the record is based."
   },
   "institutionCode": {
     "name": "קוד מוסד",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {institution code} other {# institution codes}}",
+    "description": "The code (or acronym) for the institution having custody of the object(s) or information referred to in the record."
   },
   "catalogNumber": {
     "name": "מספר קטלוגי",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { catalogue number } other {# catalogue numbers}}",
+    "description": "The identifier for the record within a catalogue or collection."
   },
   "mediaType": {
     "name": "סוג מדיה",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {media type} other {# media types}}",
+    "description": "The types of media accessible for this record."
   },
   "occurrenceIssue": {
-    "name": "",
-    "count": "",
+    "name": "Issues and flags",
+    "count": "{num, plural, one {issue or flag} other {# issues and flags}}",
     "isNotNull": "כולל בעיות",
     "isNull": "ללא בעיות",
-    "description": ""
+    "description": "The types of issues or flags of potential interest discovered in processing the data."
   },
   "occurrenceTaxonomicIssue": {
     "name": "",
@@ -228,109 +228,109 @@
   },
   "occurrenceCountry": {
     "name": "ארץ או אזור",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {country or area} other {# countries or areas}}",
+    "description": "The country or territory where the event occurred"
   },
   "grsciCollCountry": {
-    "description": ""
+    "description": "Country or territory in the record's address"
   },
   "preparations": {
     "name": "הכנות",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {# preparation} other {# preparations}}",
+    "description": "How the specimen has been prepared (e.g. dried)"
   },
   "repatriated": {
-    "name": "",
+    "name": "Repatriated",
     "count": "",
     "description": ""
   },
   "publishingCountryCode": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Publishing country or area",
+    "count": "{num, plural, one {publishing country or area} other {# publishing countries or areas}}",
+    "description": "The ISO code for the country or territory in which the data ספק מידע is located"
   },
   "q": {
     "name": "חיפוש טקסט",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {text string} other {# search strings}}",
+    "description": "Full text search across several fields"
   },
   "coordinates": {
     "name": "קואורדינטות"
   },
   "elevation": {
     "name": "גובה",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {elevation filter} other {# elevation filters}}",
+    "description": "The distance above a vertical reference point (usually mean sea level or a geoid) in metres."
   },
   "license": {
     "name": "רישיון",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {licence} other {# licences}}",
+    "description": "The legal licence or waiver under which the record is shared."
   },
   "datasetKey": {
     "name": "ערכת נתונים",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {מסד נתונים} other {# מסד נתוניםs}}",
+    "description": "The title of the מסד נתונים under which the record is shared."
   },
   "datasetId": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "dwc:מסד נתוניםID",
+    "count": "{num, plural, one {מסד נתונים ID} other {# מסד נתונים IDs}}",
+    "description": "The ספק מידעs internal ID for the מסד נתונים the record is associated with. Notice that this is different from the מסד נתוניםKey used on GBIF for the מסד נתונים."
   },
   "publisherKey": {
     "name": "ספק מידע",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {ספק מידע} other {# ספק מידעs}}",
+    "description": "The name of the organization responsible for sharing the מסד נתונים in which the record is included."
   },
   "gbifPublisherKey": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "GBIF ספק מידע",
+    "count": "{num, plural, one {GBIF ספק מידע} other {# GBIF ספק מידעs}}",
+    "description": "The name of the organization responsible for sharing the מסד נתונים in which the record is included."
   },
   "hostingOrganizationKey": {
     "name": "ארגון מארח",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {host} other {# hosts}}",
+    "description": "The name of the organization hosting the מסד נתונים in which the record is published."
   },
   "country": {
     "name": "ארץ או אזור",
-    "count": ""
+    "count": "{num, plural, one {country or area} other {# countries or areas}}"
   },
   "countriesOfCoverage": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Country or area of coverage",
+    "count": "{num, plural, one {country or area of coverage} other {# countries or area of coverage}}",
+    "description": "Which countries are covered by the record."
   },
   "collectionDescriptorCountry": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Country or area of coverage",
+    "count": "{num, plural, one {country or area of coverage} other {# countries or area of coverage}}",
+    "description": "Which countries does the collection have specimens from. Note that not all collections have this information filled."
   },
   "countriesOfResearcher": {
-    "name": "",
-    "count": ""
+    "name": "Country or area of researcher",
+    "count": "{num, plural, one {country or area of researcher} other {# countries or areas of researchers}}"
   },
   "typeStatus": {
     "name": "סוג הסטטוס",
-    "count": "",
-    "isNotNull": "",
+    "count": "{num, plural, one {type status} other {# type statuses}}",
+    "isNotNull": "Has a type status",
     "isNull": "סוג הסטטוס",
-    "description": ""
+    "description": "The type designation of a specimen."
   },
   "year": {
     "name": "שנה",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one {year filter} other {# year filters}}",
+    "description": "The year in which the event occurred."
   },
   "sampleSizeUnit": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Sample size unit",
+    "count": "{num, plural, one {sample size unit} other {# sample size units}}",
+    "description": "The unit of measurement for the \"sample size value\"."
   },
   "coordinateUncertainty": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Coordinate uncertainty",
+    "count": "{num, plural, one {Coordinate uncertainty} other {# coordinate uncertainty filters}}",
+    "description": "A measure of the minimum distance in metres from a coordinate within which a locality might be interpreted to be."
   },
   "distanceFromCentroidInMeters": {
     "name": "",
@@ -339,43 +339,43 @@
   },
   "depth": {
     "name": "עומק",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { depth } other {# depths}}",
+    "description": "The distance below a local surface, in metres."
   },
   "organismQuantity": {
     "name": "כמות האורגניזם",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { organism quantity } other {# organism quantitys}}",
+    "description": "The value for the quantity of organisms, where the type of measurement is given in the \"Organism quantity type\"."
   },
   "sampleSizeValue": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Sample size value",
+    "count": "{num, plural, one { sample size value } other {# sample size values}}",
+    "description": "The value for the size of a sample, where the units of measurement are given in the \"Sample size unit\"."
   },
   "relativeOrganismQuantity": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Relative organism quantity",
+    "count": "{num, plural, one { relative organism quantity } other {# relative organism quantities}}",
+    "description": "The amount of biological material relative to the size of a sample, calculated as organismQuantity per sampleSize when the organismQuantityType and sampleSizeUnit are unambiguous."
   },
   "month": {
     "name": "חודש",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { month } other {# months}}",
+    "description": "The integer month in which the event occurred."
   },
   "continent": {
     "name": "יבשת",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { continent } other {# continents}}",
+    "description": "The name of the continent in which the location occurs.  This field is not inferred but only populated if provided by the מסד נתונים ספק מידע. Applying this filter may exclude relevant records."
   },
   "protocol": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Publishing protocol",
+    "count": "{num, plural, one { protocol } other {# protocols}}",
+    "description": "The technical protocol through which the מסד נתונים is shared."
   },
   "establishmentMeans": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Establishment means",
+    "count": "{num, plural, one { establishment means } other {# establishment means}}",
+    "description": "The means by which the organism was introduced to a given place at a given time."
   },
   "sex": {
     "name": "מין",
@@ -389,8 +389,8 @@
   },
   "recordedBy": {
     "name": "נרשם על ידי",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { recorded by } other {# recorded bys}}",
+    "description": "The names of the person, people, groups or organizations responsible for recording the original תצפית."
   },
   "fieldNumber": {
     "name": "מספר השדה",
@@ -418,7 +418,7 @@
     "description": ""
   },
   "datasetName": {
-    "name": "",
+    "name": "dwc:מסד נתוניםName",
     "count": "",
     "description": ""
   },
@@ -429,58 +429,58 @@
   },
   "recordNumber": {
     "name": "מספר רשומה",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { record number } other {# record numbers}}",
+    "description": "An identifier given to the תצפית at the time it was recorded."
   },
   "collectionCode": {
     "name": "מזהה האוסף",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { collection code } other {# collection codes}}",
+    "description": "What collection code is assigned to the record."
   },
   "projectId": {
     "name": "מזהה פרויקט",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { project ID } other {# project IDs}}",
+    "description": "What project ID is associated with the record."
   },
   "recordedById": {
     "name": "נרשם על ידי מזהה",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { recorded by ID } other {# recorded by IDs}}",
+    "description": "The identifier for the person, people, groups or organizations responsible for recording the original תצפית."
   },
   "identifiedById": {
     "name": "זוהה על ידי מזהה",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { identified by id } other {identified by #}}",
+    "description": "The identifier for the person, people, groups or organizations responsible for determining the scientific name of the organism."
   },
   "occurrenceId": {
     "name": "מזהה תצפית",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { תצפית ID } other {# תצפית IDs}}",
+    "description": "The unique identifier for the תצפית record."
   },
   "organismId": {
     "name": "מזהה אורגניזם",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { organism ID } other {# organism IDs}}",
+    "description": "The unique identifier for the organism in the record."
   },
   "locality": {
     "name": "אזור",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { locality } other {# localities}}",
+    "description": "The specific part of the description of the place."
   },
   "waterBody": {
     "name": "מקווה מים",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { water body } other {# water bodies}}",
+    "description": "The name of the water body in which the location occurs."
   },
   "higherGeography": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Higher geography",
+    "count": "{num, plural, one { higher geography } other {# higher geographies}}",
+    "description": "Higher geography in which the record is located. This is not an interpreted field, but the original data as provided by the ספק מידע. Multiple values can be provided."
   },
   "stateProvince": {
     "name": "מדינה מחוז",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { state province } other {# state provinces}}",
+    "description": "The name of the next administrative region smaller than country in which the location occurs."
   },
   "gbifRegion": {
     "name": "אזור GBIF",
@@ -488,166 +488,166 @@
     "description": ""
   },
   "publishedByGbifRegion": {
-    "name": "",
+    "name": "Published by GBIF region",
     "count": "",
     "description": ""
   },
   "eventId": {
     "name": "מזהה אירוע",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { event ID } other {# event IDs}}",
+    "description": "The unique identifier for the event in the record."
   },
   "eventID": {
     "name": "מזהה אירוע",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { event ID } other {# event IDs}}",
+    "description": "The unique identifier for the event in the record."
   },
   "parentEventId": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Parent event ID",
+    "count": "{num, plural, one { event ID } other {# event IDs}}",
+    "description": "The unique identifier for the Parent Event in the record."
   },
   "locationID": {
     "name": "מזהה מיקום",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { event ID } other {# event IDs}}",
+    "description": "The unique identifier for the site in the record."
   },
   "measurementOrFactTypes": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Measurement types",
+    "count": "{num, plural, one { measurement type } other {# measurement types}}",
+    "description": "The type of measurement."
   },
   "measurementOrFactCount": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Measurement count",
+    "count": "{num, plural, one { measurement count } other {# measurement counts}}",
+    "description": "The count of a given measurement type."
   },
   "occurrenceCount": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "תצפית count",
+    "count": "{num, plural, one { תצפית } other {# תצפיתs}}",
+    "description": "Number of תצפיתs for the event"
   },
   "eventType": {
     "name": "סוג האירוע",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { event type } other {# event types}}",
+    "description": "The type of the sampling event."
   },
   "dataStructure": {
     "name": "מבנה",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { event type } other {# event types}}",
+    "description": "The data structure for the sampling event."
   },
   "samplingProtocol": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Sampling protocol",
+    "count": "{num, plural, one { sampling protocol } other {# sampling protocols}}",
+    "description": "The name of, reference to or description of the method or protocol used during an event."
   },
   "occurrenceStatus": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "תצפית status",
+    "count": "{num, plural, one { תצפית status } other {# תצפית statuses}}",
+    "description": "The presence or absence of any organisms of the given taxon."
   },
   "gadmGid": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Administrative area",
+    "count": "{num, plural, one { administrative area } other {# administrative areas}}",
+    "description": "The name of any administrative area from GADM.org determined during record processing."
   },
   "identifiedBy": {
     "name": "זוהה על ידי",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { Identified by } other {Identified by (#)}}",
+    "description": "The person, people, groups or organizations responsible for determining the scientific name of the Organism."
   },
   "isInCluster": {
-    "name": "",
+    "name": "Has related records",
     "count": "",
-    "description": ""
+    "description": "This experimental feature highlights possible duplicate and/or related תצפיתs."
   },
   "isSequenced": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Is sequenced",
+    "count": "{num, plural, one { Is sequenced } other {# Is sequenced}}",
+    "description": "Whether the record has sequence information."
   },
   "active": {
     "name": "פעיל",
     "count": "פעיל",
-    "description": ""
+    "description": "Whether the entry corresponds to an active collection/institution or a historical listing that no longer exists."
   },
   "activeInstitution": {
     "name": "פעיל",
     "count": "פעיל",
-    "description": ""
+    "description": "Whether the entry corresponds to an active institution or a historical listing that no longer exists."
   },
   "activeCollection": {
     "name": "פעיל",
     "count": "פעיל",
-    "description": ""
+    "description": "Whether the entry corresponds to an active collection or a historical listing that no longer exists."
   },
   "publicationDate": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Publication date",
+    "count": "{num, plural, one { publication date } other {# publication dates}}",
+    "description": "When was the record was published"
   },
   "personalCollection": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Personal collection",
+    "count": "Personal collection",
+    "description": "Selects private or personal collections"
   },
   "datasetType": {
     "name": "סוג ערכת הנתונים",
-    "count": "",
+    "count": "{num, plural, one { מסד נתונים type } other {# מסד נתונים types}}",
     "description": "תיאור קצר של הרכיב יוצג כאן"
   },
   "datasetSubtype": {
-    "name": "",
-    "count": "",
+    "name": "מסד נתונים subtype",
+    "count": "{num, plural, one { מסד נתונים subtype } other {# מסד נתונים subtypes}}",
     "description": "תיאור קצר של הרכיב יוצג כאן"
   },
   "institutionKey": {
     "name": "מוסד",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { institution } other {# institutions}}",
+    "description": "The name of the institution having custody of the object(s) or information referred to in the record."
   },
   "name": {
     "name": "שם",
-    "count": "",
-    "description": "",
-    "searchPlaceholder": ""
+    "count": "{num, plural, one { name } other {# names}}",
+    "description": "The entity's name",
+    "searchPlaceholder": "Search by title/name"
   },
   "city": {
     "name": "עיר",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { city } other {# cities}}",
+    "description": "City where the institution/collection can be found."
   },
   "code": {
     "name": "קוד",
-    "count": "",
-    "description": ""
+    "count": "{num, plural, one { code } other {# codes}}",
+    "description": "The primary code that identifies the record as a whole. If you get no result, try the alternative code filter."
   },
   "verbatimScientificName": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Verbatim scientific name",
+    "count": "{num, plural, one { verbatim scientific name } other {# verbatim scientific names}}",
+    "description": "The scientific name as provided by the data ספק מידע without any normalization."
   },
   "networkKey": {
     "name": "רשת",
-    "count": "",
+    "count": "{num, plural, one {# network } other {# networks}}",
     "description": "תיאור קצר של הרכיב יוצג כאן"
   },
   "literatureType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Literature type",
+    "count": "{num, plural, one { literature type } other {# literature types}}",
+    "description": "What type of literature does the citation come from."
   },
   "higherTaxonKey": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Higher taxon",
+    "count": "{num, plural, one {higher taxon} other {# higher taxa}}",
+    "description": "A higher taxon to filter by."
   },
   "issueEnum": {
-    "name": "",
-    "count": "",
+    "name": "Issues and flags",
+    "count": "{num, plural, one {issue or flag} other {# issues and flags}}",
     "isNotNull": "כולל בעיות",
     "isNull": "ללא בעיות",
-    "description": ""
+    "description": "The types of issues or flags of potential interest discovered in processing the data."
   }
 }

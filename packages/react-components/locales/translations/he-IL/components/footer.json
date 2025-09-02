@@ -1,14 +1,14 @@
 {
   "footer": {
-    "whatIsGbif": "",
-    "api": "",
-    "faq": "",
-    "newsletter": "",
-    "privacy": "",
-    "terms": "",
-    "citation": "",
-    "codeOfConduct": "",
-    "acknowledgements": "",
-    "contact": ""
+    "whatIsGbif": "מה זה GBIF?",
+    "api": "API",
+    "faq": "שאלות נפוצות",
+    "newsletter": "עלון",
+    "privacy": "פרטיות",
+    "terms": "תנאים והסכמות",
+    "citation": "ציטוט",
+    "codeOfConduct": "קוד אתי",
+    "acknowledgements": "תודות",
+    "contact": "צור קשר"
   }
 }

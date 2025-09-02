@@ -1,96 +1,96 @@
 {
   "description": {
-    "lt": "",
-    "lte": "",
-    "gt": "",
-    "gte": "",
-    "e": "",
-    "between": ""
+    "lt": "פחות מ־{to}",
+    "lte": "פחות או שווה ל־{to}",
+    "gt": "יותר מ־{from}",
+    "gte": "יותר או שווה ל־{from}",
+    "e": "שווה ל־{from}",
+    "between": "מ־{from} עד {to}"
   },
   "compact": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "{from} עד {to}",
+    "lt": "מתחת ל־{to}",
+    "gt": "מעל {from}",
+    "e": "{from}"
   },
   "compactMeters": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "{from} מטר עד {to} מטר",
+    "lt": "מתחת ל־{to} מטר",
+    "gt": "מעל {from} מטר",
+    "e": "{from} מטר"
   },
   "compactTime": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "{from} עד {to}",
+    "lt": "לפני {to}",
+    "gt": "אחרי {from}",
+    "e": "{from}"
   },
   "geoTime": {
-    "between": "",
-    "lt": "",
+    "between": "{from} עד {to}",
+    "lt": "לפני {to}",
     "lte": "",
-    "gt": "",
+    "gt": "אחרי {from}",
     "gte": "",
     "e": ""
   },
   "year": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": "",
+    "between": "שנים {from} עד {to}",
+    "lt": "לפני שנה {to}",
+    "gt": "אחרי שנה {from}",
+    "e": "השנה היא {from}",
     "select": {
-      "equals": "",
-      "between": "",
-      "lessThanOrEquals": "",
-      "greaterThanOrEquals": ""
+      "equals": "היא",
+      "between": "בין",
+      "lessThanOrEquals": "לפני סוף",
+      "greaterThanOrEquals": "אחרי תחילת"
     }
   },
   "coordinateUncertainty": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "אי־ודאות בקואורדינטות {from}מ' עד {to}מ'",
+    "lt": "אי־ודאות בקואורדינטות פחות מ־{to}מ'",
+    "gt": "אי־ודאות בקואורדינטות יותר מ־{from}מ'",
+    "e": "אי־ודאות בקואורדינטות היא {from}מ'"
   },
   "depth": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "עומק {from} עד {to}",
+    "lt": "עומק מתחת ל־{to}",
+    "gt": "עומק מעל {from}",
+    "e": "עומק {from}"
   },
   "organismQuantity": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "כמות אורגניזמים {from} עד {to}",
+    "lt": "כמות אורגניזמים מתחת ל־{to}",
+    "gt": "כמות אורגניזמים מעל {from}",
+    "e": "כמות אורגניזמים {from}"
   },
   "sampleSizeValue": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "גודל מדגם {from} עד {to}",
+    "lt": "גודל מדגם מתחת ל־{to}",
+    "gt": "גודל מדגם מעל {from}",
+    "e": "גודל מדגם {from}"
   },
   "relativeOrganismQuantity": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "כמות יחסית של אורגניזמים {from} עד {to}",
+    "lt": "כמות יחסית של אורגניזמים מתחת ל־{to}",
+    "gt": "כמות יחסית של אורגניזמים מעל {from}",
+    "e": "כמות יחסית של אורגניזמים {from}"
   },
   "elevation": {
-    "between": "",
-    "lt": "",
-    "gt": "",
-    "e": ""
+    "between": "גובה {from} עד {to}",
+    "lt": "גובה מתחת ל־{to}",
+    "gt": "גובה מעל {from}",
+    "e": "גובה {from}"
   },
   "geoDistance": {
-    "short": "",
-    "description": ""
+    "short": "בתוך {distance} מ־{latitude},{longitude}",
+    "description": "קו רוחב {latitude}, קו אורך {longitude}, מרחק {distance}"
   },
   "units": {
     "name": {
-      "km": "",
-      "m": "",
-      "mi": "",
-      "ft": ""
+      "km": "קילומטרים",
+      "m": "מטרים",
+      "mi": "מיילים",
+      "ft": "רגליים"
     }
   }
 }

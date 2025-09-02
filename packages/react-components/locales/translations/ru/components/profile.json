@@ -56,6 +56,8 @@
     "profile": "Профиль",
     "invalidLink": "Некорректная ссылка",
     "noDownloads": "Вы еще не запрашивали данные для загрузки",
+    "noDerivedDatasets": "",
+    "noValidationReports": "",
     "suggestToSearchOccurrences": "Возможно Вы хотели выполнить [поиск находок видов](/occurrence/search)",
     "welcome": "Добро пожаловать в GBIF",
     "accountConfirmed": "Ваша учетная запись успешно подтверждена",
