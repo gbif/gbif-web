@@ -9,6 +9,7 @@ import { faqRoute } from '@/routes/custom/faq';
 import { gbifNetworkRoute } from '@/routes/custom/gbifNetwork/gbifNetwork';
 import { suggestDatasetRoute } from '@/routes/custom/suggestDataset';
 import { homePageRoute } from '@/routes/home';
+import { occurrenceDownloadRequestRoute } from '@/routes/occurrence/download/request';
 import { occurrenceDownloadSqlRoute } from '@/routes/occurrence/download/sql';
 import { omniSearchRoute } from '@/routes/omniSearch';
 import { confirmEndorsmentRoute } from '@/routes/publisher/ConfirmEndorsment';
@@ -44,6 +45,7 @@ export function createGbifRoutes(config: Config) {
               ...userRoutes,
               omniSearchRoute,
               occurrenceDownloadSqlRoute,
+              occurrenceDownloadRequestRoute,
 
               // custom pages
               becomeAPublisherRoute,

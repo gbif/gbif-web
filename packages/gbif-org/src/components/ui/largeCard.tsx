@@ -76,4 +76,19 @@ const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
 );
 CardFooter.displayName = 'CardFooter';
 
-export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle };
+const DiscreteCardTitle = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+  <h2
+    ref={ref}
+    className={cn(
+      'g-text-md g-font-semibold g-text-gray-600 g-leading-none g-tracking-tight',
+      className
+    )}
+    {...props}
+  />
+));
+CardTitle.displayName = 'DiscreteCardTitle';
+
+export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, DiscreteCardTitle };

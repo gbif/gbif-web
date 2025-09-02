@@ -1,19 +1,12 @@
 import { Tabs } from '@/components/tabs';
-import { useStringParam } from '@/hooks/useParam';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 
-export function OccurrenceDownloadSqlPage() {
-  const [sql] = useStringParam({ key: 'sql' });
-
-  const searchParams = useMemo(() => {
-    if (!sql) return '';
-    return `?sql=${encodeURIComponent(sql)}`;
-  }, [sql]);
+export function OccurrenceDownloadPage() {
+  const [searchParams] = useSearchParams();
 
   return (
     <article>
@@ -21,8 +14,8 @@ export function OccurrenceDownloadSqlPage() {
         <ArticleTextContainer className="g-max-w-3xl">
           <ArticleTitle>
             <FormattedMessage
-              id="download.sql.createNewSqlDownload"
-              defaultMessage="Create new SQL download"
+              id="download.request.createNewDownload"
+              defaultMessage="Create new download"
             />
           </ArticleTitle>
 
@@ -31,11 +24,11 @@ export function OccurrenceDownloadSqlPage() {
           <Tabs
             links={[
               {
-                to: { pathname: '.', search: searchParams },
+                to: { pathname: '.', search: searchParams.toString() },
                 children: <FormattedMessage id="download.create" defaultMessage="Create" />,
               },
               {
-                to: { pathname: 'about', search: searchParams },
+                to: { pathname: 'about', search: searchParams.toString() },
                 children: <FormattedMessage id="download.about" defaultMessage="About" />,
               },
             ]}

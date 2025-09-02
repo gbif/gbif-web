@@ -20,6 +20,7 @@ import {
   TaxonLabel,
   YearLabel,
 } from '@/components/filters/displayNames';
+import { Skeleton } from '@/components/ui/skeleton';
 import { camelCase, constantCase } from 'change-case';
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
@@ -394,6 +395,18 @@ export const PredicateDisplay = ({ predicate }) => {
         </div>
       );
   }
+};
+
+export const PredicateDisplaySkeleton = () => {
+  return (
+    <div className="g-space-y-2">
+      <Skeleton className="g-w-12 g-h-6" />
+      <Skeleton className="g-ml-10 g-w-28 g-h-6" />
+      <Skeleton className="g-ml-10 g-w-12 g-h-6" />
+      <Skeleton className="g-ml-16 g-w-12 g-h-6" />
+      <Skeleton className="g-ml-16 g-w-12 g-h-6" />
+    </div>
+  );
 };
 
 // function to return

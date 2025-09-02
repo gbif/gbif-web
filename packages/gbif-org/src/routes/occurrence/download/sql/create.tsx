@@ -153,17 +153,17 @@ function EditorHeader({ mode, onCheckedChange, reformat, hasError }: EditorHeade
         />
         <Label htmlFor="occurrence-download-sql-editing">
           {mode === 'editing' && (
-            <FormattedMessage id="download.sql.stopEditing" defaultMessage="Stop Editing" />
+            <FormattedMessage id="download.stopEditing" defaultMessage="Stop Editing" />
           )}
           {mode === 'viewing' && (
-            <FormattedMessage id="download.sql.startEditing" defaultMessage="Start Editing" />
+            <FormattedMessage id="download.startEditing" defaultMessage="Start Editing" />
           )}
         </Label>
       </div>
 
       {mode === 'editing' && (
         <Button variant="outline" size="sm" onClick={reformat}>
-          <FormattedMessage id="download.sql.reformat" defaultMessage="Reformat" />
+          <FormattedMessage id="download.reformat" defaultMessage="Reformat" />
         </Button>
       )}
       {mode === 'viewing' && (
@@ -171,7 +171,7 @@ function EditorHeader({ mode, onCheckedChange, reformat, hasError }: EditorHeade
           <Button size="sm" asChild variant="outline">
             <DynamicLink to="https://techdocs.gbif.org/en/data-use/api-sql-downloads#sql">
               <FormattedMessage
-                id="download.sql.readTheDocumentation"
+                id="download.readTheDocumentation"
                 defaultMessage="Read the documentation"
               />
             </DynamicLink>
