@@ -14,6 +14,7 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import React, { useEffect, useState } from 'react';
 import { MdAudiotrack, MdImage } from 'react-icons/md';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
+import wellknown from 'wellknown';
 import { BasicField, EnumField, HtmlField, PlainTextField, VerbatimTextField } from '../properties';
 import {
   AgentIds,
@@ -399,10 +400,27 @@ function Location({
             <StaticRenderSuspence fallback={<div>Loading map...</div>}>
               {/* <GeoJsonMap geoJson={geoJson} className="g-w-full g-rounded g-overflow-hidden" /> */}
               <GeoJsonMap
-                geoJson={generatePointGeoJson({
-                  lat: occurrence?.coordinates.lat as number,
-                  lon: occurrence?.coordinates.lon as number,
-                })}
+                geoJson={
+                  termMap?.footprintWKT?.value
+                    ? {
+                        type: 'FeatureCollection',
+                        features: [
+                          {
+                            type: 'Feature',
+                            geometry: wellknown.parse(termMap.footprintWKT.value || '') || geoJson2,
+                            properties: {},
+                          },
+                          generatePointGeoJson({
+                            lat: occurrence?.coordinates.lat as number,
+                            lon: occurrence?.coordinates.lon as number,
+                          }),
+                        ],
+                      }
+                    : generatePointGeoJson({
+                        lat: occurrence?.coordinates.lat as number,
+                        lon: occurrence?.coordinates.lon as number,
+                      })
+                }
                 className="g-w-full g-rounded g-overflow-hidden"
                 initialCenter={[occurrence.coordinates.lon, occurrence.coordinates.lat]}
                 initialZoom={1}

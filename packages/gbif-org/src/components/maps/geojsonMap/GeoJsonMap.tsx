@@ -60,7 +60,7 @@ export function generatePointGeoJson({
 }
 
 interface GeoJsonMapProps {
-  geoJson?: GeoJSON.Feature; // | GeoJSON.FeatureCollection;
+  geoJson?: GeoJSON.Feature | GeoJSON.FeatureCollection;
   className?: string;
   height?: string;
   initialCenter?: [number, number]; // [longitude, latitude] in EPSG:4326
