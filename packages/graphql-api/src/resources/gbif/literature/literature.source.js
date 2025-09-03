@@ -2,6 +2,8 @@ import { urlSizeLimit } from '#/helpers/utils-ts';
 import { getDefaultAgent } from '#/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
 
+const MAX_RESULTS = 3000;
+
 class LiteratureAPI extends RESTDataSource {
   constructor(config) {
     super();
@@ -23,6 +25,13 @@ class LiteratureAPI extends RESTDataSource {
 
   async searchLiterature({ query }) {
     const body = { ...query, includeMeta: true };
+
+    if ((query?.from ?? 0) + (query?.size ?? 100) > MAX_RESULTS) {
+      throw new Error(
+        `Query exceeds maximum allowed size of ${MAX_RESULTS}. Please use our API https://techdocs.gbif.org/en/ or do a download.`,
+      );
+    }
+
     let response;
     if (JSON.stringify(body).length < urlSizeLimit) {
       response = await this.get(

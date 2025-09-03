@@ -10,6 +10,7 @@
   "showDetails": "Show details",
   "mapFailed": "Unable to load map",
   "partialMapFailure": "Some tiles failed to load",
+  "maximumResultLimitExceeded": "The maximum number of results for paging is: {MAX_RESULTS}. Please refine your search or use the download option to access all results.",
   "mapBrowserIssue": "If the problem persists it is most likely because of browser extensions or settings that disallow the use of webgl and canvas.",
   "webglUnavailable": "WebGL is not available. Please check your browser settings or try a different browser. Plugins or extensions may also block WebGL."
 }
