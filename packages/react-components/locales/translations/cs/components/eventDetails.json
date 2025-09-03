@@ -13,9 +13,9 @@
   "recordedAndIdentifiedBy": "Zaznamenáno a identifikováno od",
   "eventTypeHierarchyJoined": "Hierarchie typu události",
   "eventHierarchyJoined": "Hierarchie události",
-  "map": "",
+  "map": "Mapa polohy",
   "backToTaxa": "",
-  "siteLocation": "",
+  "siteLocation": "Poloha místa",
   "info": {
     "original": "Originál",
     "excluded": "Vyloučeno",
@@ -43,7 +43,7 @@
   "siteTooltip": "",
   "siteTableLegend": "Místo / Rok",
   "site": "Místo: {siteID}",
-  "siteLoading": "",
+  "siteLoading": "Místo: {siteID} - načítání detailů",
   "activityDetails": {
     "monthYear": "",
     "year": ""
