@@ -23,5 +23,8 @@
   "collectionCount": "Collections",
   "active": "Is active",
   "activeInstitution": "Is active",
+  "author": "Author",
+  "source": "Journal",
+  "dataReferenced": "Data used",
   "activeCollection": "Is active"
 }

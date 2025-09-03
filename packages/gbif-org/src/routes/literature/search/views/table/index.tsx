@@ -24,8 +24,8 @@ import { searchConfig } from '../../searchConfig';
 import { columns } from './columns';
 
 const fallbackOptions: FallbackTableOptions = {
-  prefixColumns: ['titleAndAbstract'],
-  defaultEnabledTableColumns: ['altmetric', 'year', 'literatureType', 'relevance', 'topics'],
+  prefixColumns: ['title'],
+  defaultEnabledTableColumns: ['author', 'year', 'source', 'dataReferenced'],
 };
 
 const LITERATURE_TABLE_SEARCH = /* GraphQL */ `
@@ -38,35 +38,22 @@ const LITERATURE_TABLE_SEARCH = /* GraphQL */ `
         results {
           id
           title
-          excerpt
           authors {
             firstName
             lastName
           }
           countriesOfCoverage
           countriesOfResearcher
-          day
-          month
           year
-          gbifRegion
           identifiers {
             doi
           }
           gbifDOIs
-          keywords
-          language
           literatureType
-          openAccess
-          peerReview
-          publisher
           relevance
           source
-          tags
           topics
           websites
-          volume
-          issue
-          pages
         }
       }
     }

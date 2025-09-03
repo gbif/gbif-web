@@ -1,4 +1,5 @@
 import { BulletList } from '@/components/bulletList';
+import { DoiTag } from '@/components/identifierTag';
 import { ColumnDef } from '@/components/searchTable';
 import { SetAsFilter } from '@/components/searchTable/components/body/setAsFilter';
 import { SetAsFilterList } from '@/components/searchTable/components/body/setAsFilterList';
@@ -8,7 +9,6 @@ import { useState } from 'react';
 import { MdLink } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { SingleLiteratureSearchResult } from '.';
-import { AltmetricDonut } from './AltmetricDonut';
 
 function getLink(item: SingleLiteratureSearchResult) {
   if (item.identifiers?.doi) {
@@ -19,34 +19,52 @@ function getLink(item: SingleLiteratureSearchResult) {
 
 export const columns: ColumnDef<SingleLiteratureSearchResult>[] = [
   {
-    id: 'titleAndAbstract',
-    header: 'tableHeaders.titleAndAbstract',
+    id: 'title',
+    header: 'tableHeaders.title',
     disableHiding: true,
-    minWidth: 250,
-    cell: (item) => {
-      return <PrimaryColumn literature={item} />;
-    },
-  },
-  {
-    id: 'altmetric',
-    header: 'tableHeaders.altmetric',
-    cell: (item) => {
-      if (!item.identifiers?.doi) return null;
-
-      return <AltmetricDonut doi={item.identifiers?.doi} className="g-pointer-events-auto" />;
-    },
-  },
-  {
-    id: 'literatureType',
-    header: 'filters.literatureType.name',
-    cell: ({ literatureType }) => {
-      if (!literatureType) return null;
-
+    minWidth: 350,
+    cell: (literature) => {
+      const link = getLink(literature);
       return (
-        <SetAsFilter field="literatureType" value={literatureType}>
-          <FormattedMessage id={`enums.literatureType.${literatureType}`} />
-        </SetAsFilter>
+        <div>
+          {link == null ? (
+            truncate(literature.title, 200)
+          ) : (
+            <a href={link} className="g-pointer-events-auto g-underline">
+              {truncate(literature.title, 200)} <MdLink />
+            </a>
+          )}
+        </div>
       );
+    },
+  },
+  // {
+  //   id: 'altmetric',
+  //   header: 'tableHeaders.altmetric',
+  //   cell: (item) => {
+  //     if (!item.identifiers?.doi) return null;
+
+  //     return <AltmetricDonut doi={item.identifiers?.doi} className="g-pointer-events-auto" />;
+  //   },
+  // },
+  {
+    id: 'author',
+    header: 'tableHeaders.author',
+    cell: (item) => {
+      if (!item.authors) return '';
+
+      const authorsCap = 1;
+      const displayAuthors = item.authors.filter((x) => x).slice(0, authorsCap);
+      const authorStrings = displayAuthors.map(
+        (author) => `${author?.lastName}, ${author?.firstName?.[0] || ''}.`
+      );
+
+      let authorsText = authorStrings.join(' ');
+      if (item.authors.length > authorsCap) {
+        authorsText += ' et al.';
+      }
+
+      return authorsText;
     },
   },
   {
@@ -58,6 +76,42 @@ export const columns: ColumnDef<SingleLiteratureSearchResult>[] = [
       return (
         <SetAsFilter field="year" value={year}>
           {year}
+        </SetAsFilter>
+      );
+    },
+  },
+  {
+    id: 'source',
+    header: 'tableHeaders.source',
+    minWidth: 200,
+    cell: (item) => {
+      if (!item.source) return null;
+
+      return (
+        <SetAsFilter field="source" value={item.source}>
+          {item.source}
+        </SetAsFilter>
+      );
+    },
+  },
+  {
+    id: 'dataReferenced',
+    header: 'tableHeaders.dataReferenced',
+    cell: (item) => {
+      if (!item.gbifDOIs || item.gbifDOIs.length === 0) return null;
+
+      return <Dois gbifDOIs={item?.gbifDOIs} />;
+    },
+  },
+  {
+    id: 'literatureType',
+    header: 'filters.literatureType.name',
+    cell: ({ literatureType }) => {
+      if (!literatureType) return null;
+
+      return (
+        <SetAsFilter field="literatureType" value={literatureType}>
+          <FormattedMessage id={`enums.literatureType.${literatureType}`} />
         </SetAsFilter>
       );
     },
@@ -128,19 +182,17 @@ export const columns: ColumnDef<SingleLiteratureSearchResult>[] = [
   },
 ];
 
-const DOI_CAP = 10;
+const DOI_CAP = 6;
 function Dois({ gbifDOIs }: { gbifDOIs?: string[] | null }) {
   const [showAll, setShowAll] = useState(false);
   if (!gbifDOIs) return null;
   return (
     <>
       {Array.isArray(gbifDOIs) && gbifDOIs.length > 0 && (
-        <BulletList className="g-break-words g-mt-1 g-flex g-items-center g-gap-1 g-text-xs g-flex-wrap g-inline">
+        <BulletList className="g-break-words g-mt-1 g-flex g-items-center g-gap-1 g-text-xs g-flex-wrap">
           {gbifDOIs.slice(0, DOI_CAP).map((doi) => (
             <li key={doi}>
-              <a href={`https://doi.org/${doi}`} className="g-pointer-events-auto g-underline">
-                {doi}
-              </a>{' '}
+              <DoiTag id={doi} className="g-text-xs g-pointer-events-auto" />
             </li>
           ))}
           {gbifDOIs.length > DOI_CAP && (
@@ -155,118 +207,12 @@ function Dois({ gbifDOIs }: { gbifDOIs?: string[] | null }) {
               {showAll &&
                 gbifDOIs.slice(DOI_CAP).map((doi) => (
                   <li key={doi}>
-                    <a
-                      href={`https://doi.org/${doi}`}
-                      className="g-pointer-events-auto g-underline"
-                    >
-                      {doi}
-                    </a>{' '}
+                    <DoiTag id={doi} className="g-text-xs g-pointer-events-auto" />
                   </li>
                 ))}
             </>
           )}
         </BulletList>
-      )}
-    </>
-  );
-}
-
-function PrimaryColumn({ literature }: { literature: SingleLiteratureSearchResult }) {
-  const link = getLink(literature);
-  // Helper function to get the primary link
-  const getPrimaryLink = () => {
-    if (literature.identifiers?.doi) {
-      return `https://doi.org/${literature.identifiers.doi}`;
-    }
-    if (literature.websites?.[0]) {
-      return literature.websites[0];
-    }
-    return null;
-  };
-
-  // Helper function to format authors
-  const formatAuthors = () => {
-    if (!literature.authors) return '';
-
-    const displayAuthors = literature.authors.filter((x) => x).slice(0, 6);
-    const authorStrings = displayAuthors.map(
-      (author) => `${author?.lastName}, ${author?.firstName?.[0] || ''}.`
-    );
-
-    let authorsText = authorStrings.join(' ');
-    if (literature.authors.length > 6) {
-      authorsText += ' ... - ';
-    }
-
-    return authorsText;
-  };
-
-  // Helper function to get Google Scholar URL
-  const getGoogleScholarUrl = () => {
-    if (!literature.title || getPrimaryLink()) return null;
-
-    const titleEncoded = encodeURIComponent(literature.title);
-    const authorLastName = literature.authors?.[0]?.lastName || '';
-    return `//scholar.google.com/scholar?as_q=${titleEncoded}&as_sauthors=${authorLastName}`;
-  };
-
-  const primaryLink = getPrimaryLink();
-  const googleScholarUrl = getGoogleScholarUrl();
-
-  return (
-    <>
-      <div>
-        {primaryLink == null ? (
-          truncate(literature.title, 200)
-        ) : (
-          <a href={primaryLink} className="g-pointer-events-auto g-font-bold g-text-primary-500">
-            {truncate(literature.title, 200)} <MdLink />
-          </a>
-        )}
-      </div>
-      <div className="g-text-xs g-text-slate-500 g-mb-1">
-        <span>{formatAuthors()}</span>
-        <span>({literature.year}) </span>
-        <span>{literature.source}</span>
-
-        {!literature.identifiers?.doi && !literature.websites?.[0] && (
-          <span>
-            {literature.volume && ` ${literature.volume}`}
-            {literature.issue && ` (${literature.issue})`}
-            {literature.pages && ` ${literature.pages}`}
-            {literature.identifiers &&
-              Object.entries(literature.identifiers).map(([key, identifier]) => (
-                <span key={key}>
-                  {' '}
-                  {key}: {identifier}
-                </span>
-              ))}
-          </span>
-        )}
-      </div>
-      {/* Abstract */}
-      {literature.excerpt && (
-        <p className="g-text-sm g-text-slate-700 g-mb-2">{literature.excerpt}</p>
-      )}
-      {(literature?.gbifDOIs?.length ?? 0) > 0 && (
-        <div>
-          <FormattedMessage id="cms.resource.dataUsedInStudy" />
-          {': '}
-          <Dois gbifDOIs={literature?.gbifDOIs} className="g-inline" />
-        </div>
-      )}
-      {/* Google Scholar link */}
-      {googleScholarUrl && (
-        <div>
-          <a
-            href={googleScholarUrl}
-            className="g-text-xs g-text-primary-500 hover:g-text-primary-700"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Google Scholar
-          </a>
-        </div>
       )}
     </>
   );
