@@ -8,22 +8,59 @@
   "continueToGBIF": "Dalej",
   "sql": {
     "createNewSqlDownload": "Stwórz nowe pobranie SQL",
-    "create": "",
-    "about": "Informacje",
     "note": {
       "title": "Uwaga",
       "description": "Najprostszym sposobem na pobieranie i przeglądanie danych to użycie interfejsu użytkownika wyszukiwarki stwierdzeń. Jednak dla złożonych zapytań i zbiorów edytor SQL daje więcej możliwości.",
       "goToOccurrenceSearch": ""
     },
-    "stopEditing": "",
-    "startEditing": "",
-    "reformat": "Reformatuj",
-    "readTheDocumentation": "Przeczytaj dokumentację",
     "errors": {
       "invalid-SQL": "Nieprawidłowy SQL",
       "network-error": "",
       "parsingErrorDescription": "",
       "networkErrorDescription": ""
+    }
+  },
+  "create": "",
+  "about": "Informacje",
+  "stopEditing": "",
+  "startEditing": "",
+  "reformat": "Reformatuj",
+  "discard": "",
+  "keep": "",
+  "readTheDocumentation": "Przeczytaj dokumentację",
+  "request": {
+    "createNewDownload": "Stwórz nowe pobranie",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
+    "currentFilter": "Aktualny filtr",
+    "errors": {
+      "invalid-json": "Nieprawidłowy JSON",
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
+    }
+  },
+  "downloadOptions": {
+    "title": "Opcje pobierania",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
+    "content": {
+      "rawData": "Surowe dane",
+      "interpretedData": "Dane zinterpretowane",
+      "images": "Multimedia",
+      "coordinates": "Współrzędne",
+      "fileFormat": "Format",
+      "estimatedSize": "Szacowana wielkość danych"
+    },
+    "fileFormats": {
+      "tabCsv": ""
+    },
+    "tableValues": {
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }

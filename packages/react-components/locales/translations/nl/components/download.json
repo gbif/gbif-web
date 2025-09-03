@@ -8,22 +8,59 @@
   "continueToGBIF": "Ga verder",
   "sql": {
     "createNewSqlDownload": "",
-    "create": "",
-    "about": "Over",
     "note": {
       "title": "Opmerking",
       "description": "",
       "goToOccurrenceSearch": ""
     },
-    "stopEditing": "",
-    "startEditing": "",
-    "reformat": "",
-    "readTheDocumentation": "Lees de documentatie",
     "errors": {
       "invalid-SQL": "",
       "network-error": "",
       "parsingErrorDescription": "",
       "networkErrorDescription": ""
+    }
+  },
+  "create": "",
+  "about": "Over",
+  "stopEditing": "",
+  "startEditing": "",
+  "reformat": "",
+  "discard": "",
+  "keep": "",
+  "readTheDocumentation": "Lees de documentatie",
+  "request": {
+    "createNewDownload": "Creëer nieuwe download",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
+    "currentFilter": "Huidige filter",
+    "errors": {
+      "invalid-json": "Ongeldige JSON",
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
+    }
+  },
+  "downloadOptions": {
+    "title": "Download opties",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
+    "content": {
+      "rawData": "Ruwe data",
+      "interpretedData": "",
+      "images": "Multimedia",
+      "coordinates": "Coördinaten",
+      "fileFormat": "Formaat",
+      "estimatedSize": "Geschatte downloadgrootte"
+    },
+    "fileFormats": {
+      "tabCsv": ""
+    },
+    "tableValues": {
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }

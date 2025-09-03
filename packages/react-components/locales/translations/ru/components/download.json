@@ -8,22 +8,59 @@
   "continueToGBIF": "Продолжить",
   "sql": {
     "createNewSqlDownload": "Создать новое выражение SQL для загрузки",
-    "create": "",
-    "about": "Об организациии",
     "note": {
       "title": "Примечание",
       "description": "Самый простой способ загрузить и изучить данные - это использовать пользовательский интерфейс поиска совпадений. Но для сложных запросов и агрегирования данных редактор SQL предоставляет больше свободы.",
       "goToOccurrenceSearch": ""
     },
-    "stopEditing": "",
-    "startEditing": "",
-    "reformat": "Переформатировать",
-    "readTheDocumentation": "Прочтите документацию",
     "errors": {
       "invalid-SQL": "Недопустимый синтаксис SQL",
       "network-error": "",
       "parsingErrorDescription": "",
       "networkErrorDescription": ""
+    }
+  },
+  "create": "",
+  "about": "Об организациии",
+  "stopEditing": "",
+  "startEditing": "",
+  "reformat": "Переформатируйте",
+  "discard": "Отклонить",
+  "keep": "Сохранить",
+  "readTheDocumentation": "Прочтите документацию",
+  "request": {
+    "createNewDownload": "Создайте новую загрузку",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
+    "currentFilter": "Текущий фильтр",
+    "errors": {
+      "invalid-json": "Недопустимый формат JSON",
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
+    }
+  },
+  "downloadOptions": {
+    "title": "Настройки загрузки",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
+    "content": {
+      "rawData": "Необработанные данные",
+      "interpretedData": "Интерпретированные данные",
+      "images": "Мультимедиа",
+      "coordinates": "Координаты",
+      "fileFormat": "Формат",
+      "estimatedSize": "Предполагаемый размер данных"
+    },
+    "fileFormats": {
+      "tabCsv": ""
+    },
+    "tableValues": {
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }

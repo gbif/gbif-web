@@ -8,22 +8,59 @@
   "continueToGBIF": "次へ",
   "sql": {
     "createNewSqlDownload": "",
-    "create": "",
-    "about": "・・・について",
     "note": {
       "title": "注記",
       "description": "",
       "goToOccurrenceSearch": ""
     },
-    "stopEditing": "",
-    "startEditing": "",
-    "reformat": "",
-    "readTheDocumentation": "",
     "errors": {
       "invalid-SQL": "",
       "network-error": "",
       "parsingErrorDescription": "",
       "networkErrorDescription": ""
+    }
+  },
+  "create": "",
+  "about": "・・・について",
+  "stopEditing": "",
+  "startEditing": "",
+  "reformat": "",
+  "discard": "",
+  "keep": "",
+  "readTheDocumentation": "",
+  "request": {
+    "createNewDownload": "",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
+    "currentFilter": "現在のフィルター",
+    "errors": {
+      "invalid-json": "",
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
+    }
+  },
+  "downloadOptions": {
+    "title": "ダウンロードのオプション",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
+    "content": {
+      "rawData": "生データ",
+      "interpretedData": "解釈されたデータ",
+      "images": "マルチメディア",
+      "coordinates": "座標",
+      "fileFormat": "フォーマット",
+      "estimatedSize": "推定データサイズ"
+    },
+    "fileFormats": {
+      "tabCsv": ""
+    },
+    "tableValues": {
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }

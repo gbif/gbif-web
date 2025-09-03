@@ -8,22 +8,59 @@
   "continueToGBIF": "Continuar",
   "sql": {
     "createNewSqlDownload": "Crear una nueva descarga SQL",
-    "create": "",
-    "about": "Acerca de",
     "note": {
       "title": "Nota",
       "description": "La forma más sencilla de descargar y explorar datos es a través de la interfaz de usuario de búsqueda de registros biológicos. Pero para consultas y agregaciones complejas, el editor SQL ofrece más libertad.",
       "goToOccurrenceSearch": ""
     },
-    "stopEditing": "",
-    "startEditing": "",
-    "reformat": "Reformatear",
-    "readTheDocumentation": "Leer la documentación",
     "errors": {
       "invalid-SQL": "SQL inválido",
       "network-error": "",
       "parsingErrorDescription": "",
       "networkErrorDescription": ""
+    }
+  },
+  "create": "",
+  "about": "Acerca de",
+  "stopEditing": "",
+  "startEditing": "",
+  "reformat": "",
+  "discard": "Desechar",
+  "keep": "Mantener",
+  "readTheDocumentation": "Leer la documentación",
+  "request": {
+    "createNewDownload": "",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
+    "currentFilter": "Filtro actual",
+    "errors": {
+      "invalid-json": "JSON inválido",
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
+    }
+  },
+  "downloadOptions": {
+    "title": "Opciones de descarga",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
+    "content": {
+      "rawData": "Datos sin procesar",
+      "interpretedData": "",
+      "images": "Multimedia",
+      "coordinates": "Coordenadas",
+      "fileFormat": "Formato",
+      "estimatedSize": "Tamaño de datos estimados"
+    },
+    "fileFormats": {
+      "tabCsv": ""
+    },
+    "tableValues": {
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }

@@ -8,22 +8,59 @@
   "continueToGBIF": "Pokračovat",
   "sql": {
     "createNewSqlDownload": "Vytvořit nové SQL stažení",
-    "create": "",
-    "about": "O",
     "note": {
       "title": "Poznámka",
       "description": "Nejjednodušší způsob stahování a zkoumání dat je prostřednictvím uživatelského rozhraní pro vyhledávání výskytů. Pro složité dotazy a agregace však editor SQL poskytuje větší volnost.",
       "goToOccurrenceSearch": ""
     },
-    "stopEditing": "",
-    "startEditing": "",
-    "reformat": "Přeformátovat",
-    "readTheDocumentation": "Přečíst dokumentaci",
     "errors": {
       "invalid-SQL": "Neplatné SQL",
       "network-error": "",
       "parsingErrorDescription": "",
       "networkErrorDescription": ""
+    }
+  },
+  "create": "",
+  "about": "O",
+  "stopEditing": "",
+  "startEditing": "",
+  "reformat": "Přeformátovat",
+  "discard": "Zahodit",
+  "keep": "Zachovat",
+  "readTheDocumentation": "Přečíst dokumentaci",
+  "request": {
+    "createNewDownload": "Vytvořit nové stažení",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
+    "currentFilter": "Aktuální filtr",
+    "errors": {
+      "invalid-json": "Neplatný JSON",
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
+    }
+  },
+  "downloadOptions": {
+    "title": "Možnosti stažení",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
+    "content": {
+      "rawData": "Nezpracovaná data",
+      "interpretedData": "Interpretovaná data",
+      "images": "Multimédia",
+      "coordinates": "Souřadnice",
+      "fileFormat": "Formát",
+      "estimatedSize": "Odhadovaná velikost dat"
+    },
+    "fileFormats": {
+      "tabCsv": ""
+    },
+    "tableValues": {
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }

@@ -8,22 +8,59 @@
   "continueToGBIF": "המשך",
   "sql": {
     "createNewSqlDownload": "צור הורדת SQL חדשה",
-    "create": "",
-    "about": "אודות",
     "note": {
       "title": "הערה",
       "description": "הדרך הקלה ביותר להוריד ולחקור נתונים היא דרך ממשק חיפוש התצפיות. לשאילתות וחישובים מורכבים, עורך ה־SQL מספק יותר חופש.",
       "goToOccurrenceSearch": ""
     },
-    "stopEditing": "",
-    "startEditing": "",
-    "reformat": "עיצוב מחדש",
-    "readTheDocumentation": "קראו את התיעוד",
     "errors": {
       "invalid-SQL": "SQL לא תקין",
       "network-error": "",
       "parsingErrorDescription": "",
       "networkErrorDescription": ""
+    }
+  },
+  "create": "",
+  "about": "",
+  "stopEditing": "",
+  "startEditing": "",
+  "reformat": "",
+  "discard": "בטל",
+  "keep": "שמור",
+  "readTheDocumentation": "",
+  "request": {
+    "createNewDownload": "",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
+    "currentFilter": "",
+    "errors": {
+      "invalid-json": "",
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
+    }
+  },
+  "downloadOptions": {
+    "title": "",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
+    "content": {
+      "rawData": "",
+      "interpretedData": "",
+      "images": "",
+      "coordinates": "",
+      "fileFormat": "",
+      "estimatedSize": ""
+    },
+    "fileFormats": {
+      "tabCsv": ""
+    },
+    "tableValues": {
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }

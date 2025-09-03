@@ -8,22 +8,59 @@
   "continueToGBIF": "Продовжити",
   "sql": {
     "createNewSqlDownload": "",
-    "create": "",
-    "about": "Відомості про видавця даних",
     "note": {
       "title": "Примітка",
       "description": "",
       "goToOccurrenceSearch": ""
     },
-    "stopEditing": "",
-    "startEditing": "",
-    "reformat": "",
-    "readTheDocumentation": "",
     "errors": {
       "invalid-SQL": "",
       "network-error": "",
       "parsingErrorDescription": "",
       "networkErrorDescription": ""
+    }
+  },
+  "create": "",
+  "about": "Відомості про видавця даних",
+  "stopEditing": "",
+  "startEditing": "",
+  "reformat": "",
+  "discard": "",
+  "keep": "",
+  "readTheDocumentation": "",
+  "request": {
+    "createNewDownload": "",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
+    "currentFilter": "Поточний фільтр",
+    "errors": {
+      "invalid-json": "",
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
+    }
+  },
+  "downloadOptions": {
+    "title": "Варіанти завантаження",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
+    "content": {
+      "rawData": "Первинні дані",
+      "interpretedData": "",
+      "images": "Мультимедіа",
+      "coordinates": "Координати",
+      "fileFormat": "Формат",
+      "estimatedSize": ""
+    },
+    "fileFormats": {
+      "tabCsv": ""
+    },
+    "tableValues": {
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }
