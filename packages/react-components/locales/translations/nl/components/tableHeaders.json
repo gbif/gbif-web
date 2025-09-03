@@ -23,5 +23,8 @@
   "collectionCount": "Collecties",
   "active": "Is actief",
   "activeInstitution": "Is actief",
+  "author": "Auteur",
+  "source": "Tijdschrift",
+  "dataReferenced": "",
   "activeCollection": "Is actief"
 }
