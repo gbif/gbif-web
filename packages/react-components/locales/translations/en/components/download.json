@@ -8,22 +8,59 @@
   "continueToGBIF": "Continue",
   "sql": {
     "createNewSqlDownload": "Create new SQL download",
-    "create": "",
-    "about": "About",
     "note": {
       "title": "Note",
       "description": "The easiest way to download and explore data is via the occurrence search user interface. But for complex queries and aggregations, the SQL editor provides more freedom.",
       "goToOccurrenceSearch": ""
     },
-    "stopEditing": "",
-    "startEditing": "",
-    "reformat": "Reformat",
-    "readTheDocumentation": "Read the documentation",
     "errors": {
       "invalid-SQL": "Invalid SQL",
       "network-error": "",
       "parsingErrorDescription": "",
       "networkErrorDescription": ""
+    }
+  },
+  "create": "",
+  "about": "About",
+  "stopEditing": "",
+  "startEditing": "",
+  "reformat": "Reformat",
+  "discard": "Discard",
+  "keep": "Keep",
+  "readTheDocumentation": "Read the documentation",
+  "request": {
+    "createNewDownload": "Create new download",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
+    "currentFilter": "Current filter",
+    "errors": {
+      "invalid-json": "Invalid JSON",
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
+    }
+  },
+  "downloadOptions": {
+    "title": "Download options",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
+    "content": {
+      "rawData": "Raw data",
+      "interpretedData": "Interpreted data",
+      "images": "Multimedia",
+      "coordinates": "Coordinates",
+      "fileFormat": "Format",
+      "estimatedSize": "Estimated data size"
+    },
+    "fileFormats": {
+      "tabCsv": ""
+    },
+    "tableValues": {
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }
