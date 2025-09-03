@@ -8,22 +8,59 @@
   "continueToGBIF": "繼續操作",
   "sql": {
     "createNewSqlDownload": "",
-    "create": "",
-    "about": "關於",
     "note": {
       "title": "備註",
       "description": "",
       "goToOccurrenceSearch": ""
     },
-    "stopEditing": "",
-    "startEditing": "",
-    "reformat": "重新編排格式",
-    "readTheDocumentation": "閱讀文檔",
     "errors": {
       "invalid-SQL": "",
       "network-error": "",
       "parsingErrorDescription": "",
       "networkErrorDescription": ""
+    }
+  },
+  "create": "",
+  "about": "關於",
+  "stopEditing": "",
+  "startEditing": "",
+  "reformat": "重新編排格式",
+  "discard": "",
+  "keep": "",
+  "readTheDocumentation": "閱讀文檔",
+  "request": {
+    "createNewDownload": "重新下載",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
+    "currentFilter": "目前篩選條件",
+    "errors": {
+      "invalid-json": "無效的 JSON",
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
+    }
+  },
+  "downloadOptions": {
+    "title": "下載選項",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
+    "content": {
+      "rawData": "原始資料",
+      "interpretedData": "已解釋的資料",
+      "images": "多媒體",
+      "coordinates": "座標",
+      "fileFormat": "格式",
+      "estimatedSize": "預估資料大小"
+    },
+    "fileFormats": {
+      "tabCsv": ""
+    },
+    "tableValues": {
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }
