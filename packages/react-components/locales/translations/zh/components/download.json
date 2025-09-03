@@ -8,22 +8,59 @@
   "continueToGBIF": "继续",
   "sql": {
     "createNewSqlDownload": "创建新的SQL下载",
-    "create": "",
-    "about": "关于",
     "note": {
       "title": "注",
       "description": "下载和探索数据的最简单方法是通过出现搜索用户界面。但对于复杂查询和聚合，SQL编辑器提供了更大的自由度。",
       "goToOccurrenceSearch": ""
     },
-    "stopEditing": "",
-    "startEditing": "",
-    "reformat": "重新格式化",
-    "readTheDocumentation": "阅读文档",
     "errors": {
       "invalid-SQL": "无效网址",
       "network-error": "",
       "parsingErrorDescription": "",
       "networkErrorDescription": ""
+    }
+  },
+  "create": "",
+  "about": "关于",
+  "stopEditing": "",
+  "startEditing": "",
+  "reformat": "重新格式化",
+  "discard": "",
+  "keep": "",
+  "readTheDocumentation": "阅读文档",
+  "request": {
+    "createNewDownload": "创建新的下载",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
+    "currentFilter": "当前筛选条件",
+    "errors": {
+      "invalid-json": "无效的JSON",
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
+    }
+  },
+  "downloadOptions": {
+    "title": "下载选项",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
+    "content": {
+      "rawData": "原始数据",
+      "interpretedData": "解释数据",
+      "images": "多媒体",
+      "coordinates": "坐标",
+      "fileFormat": "格式",
+      "estimatedSize": "估计数据大小"
+    },
+    "fileFormats": {
+      "tabCsv": ""
+    },
+    "tableValues": {
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }
