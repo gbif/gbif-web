@@ -48,10 +48,10 @@ async function query({
   const sort = [];
   if (!sortBy || !sortableFields[sortBy]) {
     sort.push('_score', {
-      [sortBy]: {
+      created: {
         order: sortOrder,
         missing: '_last',
-        unmapped_type: sortableFields[sortBy],
+        unmapped_type: 'date',
       },
     });
   }
