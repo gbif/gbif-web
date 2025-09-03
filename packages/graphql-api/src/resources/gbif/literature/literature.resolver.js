@@ -67,9 +67,10 @@ const LiteratureStats = statsFields.reduce(statsReducer, {});
  */
 export default {
   Query: {
-    literatureSearch: (parent, { predicate, ...params }) => {
+    literatureSearch: (parent, { predicate, q, ...params }) => {
       return {
         _predicate: predicate,
+        _q: q,
         _params: params,
       };
     },
@@ -79,27 +80,32 @@ export default {
   LiteratureSearchResult: {
     documents: (parent, query, { dataSources }) => {
       return dataSources.literatureAPI.searchLiteratureDocuments({
-        query: { predicate: parent._predicate, ...parent._params, ...query },
+        query: {
+          predicate: parent._predicate,
+          q: parent._q,
+          ...parent._params,
+          ...query,
+        },
       });
     },
     facet: (parent) => {
-      return { _predicate: parent._predicate };
+      return { _predicate: parent._predicate, _q: parent._q };
     },
     stats: (parent) => {
-      return { _predicate: parent._predicate };
+      return { _predicate: parent._predicate, _q: parent._q };
     },
     cardinality: (parent) => {
-      return { _predicate: parent._predicate };
+      return { _predicate: parent._predicate, _q: parent._q };
     },
     histogram: (parent) => {
-      return { _predicate: parent._predicate };
+      return { _predicate: parent._predicate, _q: parent._q };
     },
     autoDateHistogram: (parent) => {
-      return { _predicate: parent._predicate };
+      return { _predicate: parent._predicate, _q: parent._q };
     },
     _meta: (parent, query, { dataSources }) => {
       return dataSources.literatureAPI.meta({
-        query: { predicate: parent._predicate },
+        query: { predicate: parent._predicate, q: parent._q },
       });
     },
   },

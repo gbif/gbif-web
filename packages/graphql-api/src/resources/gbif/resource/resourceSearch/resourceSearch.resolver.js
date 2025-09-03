@@ -63,55 +63,24 @@ function extendPredicateWithContentTypes(predicate) {
  */
 export default {
   Query: {
-    // resourceSearch: async (_, args, { dataSources, locale }) => {
-    //   // Map the GraphQL input to the ElasticSearch input
-    //   const { limit: size, offset: from, contentType, ...rest } = args?.input;
-    //   let elasticSearchInput = {
-    //     size,
-    //     from,
-    //     ...rest,
-    //     // By default, restrict the search options to the ones the API supports
-    //     contentType:
-    //       contentType?.map(emumContentTypeToElasticSearchType) ??
-    //       SEARCH_RESULT_OPTIONS.map((option) => option.elasticSearchType),
-    //   };
-
-    //   // Remove the null values from the input
-    //   Object.entries(elasticSearchInput).forEach(([key, value]) => {
-    //     if (key in elasticSearchInput && value == null)
-    //       delete elasticSearchInput[key];
-    //   });
-
-    //   const searchResult = await dataSources.resourceSearchAPI.search(
-    //     elasticSearchInput,
-    //     locale,
-    //   );
-
-    //   return {
-    //     count: searchResult.total,
-    //     endOfRecords:
-    //       searchResult.total <= searchResult.from + searchResult.size,
-    //     limit: elasticSearchInput?.size ?? 10,
-    //     offset: searchResult.from,
-    //     results: searchResult.results,
-    //   };
-    // },
-    resourceSearch: async (_parent, { predicate, ...params }) => {
+    resourceSearch: async (_parent, { predicate, q, ...params }) => {
       return {
         _predicate: predicate,
+        _q: q,
         _params: params,
       };
     },
   },
   ResourceSearchResult: {
     documents: (parent, query, { dataSources, locale }) => {
-      const contentType =
-        parent._params.contentType?.map(emumContentTypeToElasticSearchType) ??
-        SEARCH_RESULT_OPTIONS.map((option) => option.elasticSearchType);
+      const contentType = parent._params.contentType?.map(
+        emumContentTypeToElasticSearchType,
+      );
 
       return dataSources.resourceSearchAPI.searchResourceDocuments({
         query: {
           predicate: extendPredicateWithContentTypes(parent._predicate),
+          q: parent._q,
           ...parent._params,
           ...query,
           contentType,
@@ -120,12 +89,13 @@ export default {
       });
     },
     facet: (parent) => {
-      return { _predicate: parent._predicate };
+      return { _predicate: parent._predicate, _q: parent._q };
     },
     _meta: (parent, query, { dataSources }) => {
       return dataSources.resourceSearchAPI.meta({
         query: {
           predicate: extendPredicateWithContentTypes(parent._predicate),
+          q: parent._q,
           ...parent._params,
           ...query,
         },

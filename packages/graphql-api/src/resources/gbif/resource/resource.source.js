@@ -60,6 +60,7 @@ export class ResourceSearchAPI extends RESTDataSource {
     response.documents.limit = response.documents.size;
     response.documents.offset = response.documents.from;
     response._predicate = body.predicate;
+    response._q = query.q;
     response.documents.results = translateContentfulResponse(
       response.documents.results,
       locale,

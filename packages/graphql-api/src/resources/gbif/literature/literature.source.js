@@ -1,6 +1,6 @@
-import { RESTDataSource } from 'apollo-datasource-rest';
-import { getDefaultAgent } from '#/requestAgents';
 import { urlSizeLimit } from '#/helpers/utils-ts';
+import { getDefaultAgent } from '#/requestAgents';
+import { RESTDataSource } from 'apollo-datasource-rest';
 
 class LiteratureAPI extends RESTDataSource {
   constructor(config) {
@@ -40,6 +40,7 @@ class LiteratureAPI extends RESTDataSource {
     response.documents.limit = response.documents.size;
     response.documents.offset = response.documents.from;
     response._predicate = body.predicate;
+    response._q = query.q;
     return response;
   }
 

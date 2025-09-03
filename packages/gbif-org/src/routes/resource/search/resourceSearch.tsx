@@ -33,8 +33,9 @@ export const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
     $size: Int
     $predicate: Predicate
     $contentType: [ContentType!]
+    $q: String
   ) {
-    resourceSearch(predicate: $predicate, contentType: $contentType, searchable: true) {
+    resourceSearch(predicate: $predicate, contentType: $contentType, q: $q, searchable: true) {
       documents(from: $from, size: $size) {
         from
         size

@@ -4,13 +4,15 @@ const { validatePredicate } = require('./validatePredicate');
 const { wktPolygonToCoordinates, wktToGeoJson } = require('../util/geoHelper');
 const { ResponseError } = require('../../resources/errorHandler');
 
-function predicate2esQuery(predicate, config) {
-  if (!predicate) return;
-  const { error } = validatePredicate(predicate, config);
+function predicate2esQuery(predicate, config, q) {
+  // attach the q as a predicate
+  const qEnrichedPredicate = getEnrichedPredicate(predicate, q);
+  if (!qEnrichedPredicate) return;
+  const { error } = validatePredicate(qEnrichedPredicate, config);
   if (error) {
     throw new ResponseError(400, 'BAD_REQUEST', error.message);
   }
-  return transform(predicate, config, true);
+  return transform(qEnrichedPredicate, config, true);
 }
 
 function groupPredicates(predicates, isRootQuery) {
@@ -244,6 +246,28 @@ function getFieldName(key, type, config) {
   return config.prefix
     ? `${config.prefix}.${config.options[fieldKey].field}`
     : config.options[fieldKey].field;
+}
+
+function getEnrichedPredicate(predicate, q) {
+  const qPredicate = {
+    type: 'fuzzy',
+    key: 'q',
+    value: q,
+  };
+  if (!predicate && !q) return;
+  if (!q) return predicate;
+  if (!predicate) return qPredicate;
+  // predicate and q is provided
+  if (predicate.type === 'and') {
+    return {
+      type: 'and',
+      predicates: [...predicate.predicates, qPredicate],
+    };
+  }
+  return {
+    type: 'and',
+    predicates: [predicate, qPredicate],
+  };
 }
 
 module.exports = {

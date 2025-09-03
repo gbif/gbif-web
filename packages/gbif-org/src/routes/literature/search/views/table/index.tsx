@@ -29,8 +29,8 @@ const fallbackOptions: FallbackTableOptions = {
 };
 
 const LITERATURE_TABLE_SEARCH = /* GraphQL */ `
-  query LiteratureTableSearch($from: Int, $size: Int, $predicate: Predicate) {
-    literatureSearch(predicate: $predicate) {
+  query LiteratureTableSearch($from: Int, $size: Int, $predicate: Predicate, $q: String) {
+    literatureSearch(predicate: $predicate, q: $q) {
       documents(from: $from, size: $size) {
         from
         size

@@ -47,20 +47,28 @@ async function query({
   // use score if no sortBy param provided or the sortBy param is unknown
   const sort = [];
   if (!sortBy || !sortableFields[sortBy]) {
-    sort.push('_score');
+    sort.push('_score', {
+      [sortBy]: {
+        order: sortOrder,
+        missing: '_last',
+        unmapped_type: sortableFields[sortBy],
+      },
+    });
   }
+
   // if sortBy field isn't sortable, default to createdAt
-  if (!sortableFields[sortBy]) {
-    sortBy = 'createdAt';
-  }
-  // always sort by createdAt as a secondary sort
-  sort.push({
-    [sortBy]: {
-      order: sortOrder,
-      missing: '_last',
-      unmapped_type: sortableFields[sortBy],
-    },
-  });
+  // if (!sortableFields[sortBy]) {
+  // if (sortBy && !sortableFields[sortBy]) {
+  //   sortBy = 'createdAt';
+  // }
+  // // always sort by createdAt as a secondary sort
+  // sort.push({
+  //   [sortBy]: {
+  //     order: sortOrder,
+  //     missing: '_last',
+  //     unmapped_type: sortableFields[sortBy],
+  //   },
+  // });
 
   const esQuery = {
     sort,
@@ -70,6 +78,7 @@ async function query({
     aggs,
     query,
   };
+  console.log(JSON.stringify(esQuery, null, 2));
   let response = await search({ client, index: searchIndex, query: esQuery, req });
   let body = response.body;
   body.hits.hits = body.hits.hits.map((n) => reduce(n));
