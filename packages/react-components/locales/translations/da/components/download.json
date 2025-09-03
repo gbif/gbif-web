@@ -8,22 +8,59 @@
   "continueToGBIF": "Fortsæt",
   "sql": {
     "createNewSqlDownload": "",
-    "create": "",
-    "about": "Om",
     "note": {
       "title": "",
       "description": "",
       "goToOccurrenceSearch": ""
     },
-    "stopEditing": "",
-    "startEditing": "",
-    "reformat": "",
-    "readTheDocumentation": "",
     "errors": {
       "invalid-SQL": "",
       "network-error": "",
       "parsingErrorDescription": "",
       "networkErrorDescription": ""
+    }
+  },
+  "create": "",
+  "about": "Om",
+  "stopEditing": "",
+  "startEditing": "",
+  "reformat": "",
+  "discard": "",
+  "keep": "",
+  "readTheDocumentation": "",
+  "request": {
+    "createNewDownload": "",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
+    "currentFilter": "Nuværende filter",
+    "errors": {
+      "invalid-json": "",
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
+    }
+  },
+  "downloadOptions": {
+    "title": "",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
+    "content": {
+      "rawData": "Rådata",
+      "interpretedData": "Fortolket data",
+      "images": "Multimedier",
+      "coordinates": "Koordinater",
+      "fileFormat": "Format",
+      "estimatedSize": "Anslået datastørrelse"
+    },
+    "fileFormats": {
+      "tabCsv": ""
+    },
+    "tableValues": {
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }
