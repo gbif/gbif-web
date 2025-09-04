@@ -9,8 +9,8 @@ import { createLocalizedGbifHref, excerpt, getHtml } from '#/helpers/utils';
  */
 export default {
   Query: {
-    meetingEvent: (_, { id }, { dataSources, locale, preview }) =>
-      dataSources.resourceAPI.getEntryById({ id, preview, locale }),
+    meetingEvent: (_, { id }, { dataSources, locale, preview }, info) =>
+      dataSources.resourceAPI.getEntryById({ id, preview, locale, info }),
   },
   MeetingEvent: {
     title: (src, _, { locale }) =>

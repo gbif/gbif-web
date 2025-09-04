@@ -10,11 +10,12 @@ import { KNOWN_BLOCK_TYPES } from '../composition/acceptedTypes';
  */
 export default {
   Query: {
-    gbifHome: (_, __, { dataSources, locale, preview }) =>
+    gbifHome: (_, __, { dataSources, locale, preview }, info) =>
       dataSources.resourceAPI.getEntryById({
         id: '3D1QT0b4vuKS4iGaaumqwG',
         preview,
         locale,
+        info,
       }),
   },
   Home: {
@@ -22,6 +23,7 @@ export default {
       { mainNavigationElements },
       _,
       { dataSources, locale, preview },
+      info,
     ) => {
       if (!mainNavigationElements) return [];
       return mainNavigationElements.map((child) => {
@@ -29,17 +31,18 @@ export default {
           id: child.id,
           locale,
           preview,
+          info,
         });
       });
     },
-    blocks: ({ blocks }, args, { dataSources, locale, preview }) => {
+    blocks: ({ blocks }, args, { dataSources, locale, preview }, info) => {
       if (!isNoneEmptyArray(blocks)) return null;
 
       const ids = blocks.map((block) => block.id);
       // get all and subsequently filter out the ones that are not allowed (not in include list : HeaderBlock | FeatureBlock | FeaturedTextBlock | CarouselBlock | MediaBlock | MediaCountBlock | CustomComponentBlock)
       return Promise.all(
         ids.map((id) =>
-          dataSources.resourceAPI.getEntryById({ id, preview, locale }),
+          dataSources.resourceAPI.getEntryById({ id, preview, locale, info }),
         ),
       ).then((results) =>
         results.filter((result) => {

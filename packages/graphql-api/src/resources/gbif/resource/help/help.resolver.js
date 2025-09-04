@@ -15,7 +15,6 @@ export default {
       { locale: localeOverwrite, ...params },
       { dataSources, locale },
     ) =>
-      // dataSources.resourceAPI.getEntryById({ id, preview, locale })
       dataSources.resourceSearchAPI.getFirstEntryByQuery(
         { ...params, contentType: 'help' },
         localeOverwrite ?? locale,

@@ -16,9 +16,19 @@ function elasticSearchTypeToGraphQLType(elasticSearchType) {
  */
 export default {
   Query: {
-    resource: async (_, { id, alias }, { dataSources, locale, preview }) => {
+    resource: async (
+      _,
+      { id, alias },
+      { dataSources, locale, preview },
+      info,
+    ) => {
       if (typeof id === 'string') {
-        return dataSources.resourceAPI.getEntryById({ id, locale, preview });
+        return dataSources.resourceAPI.getEntryById({
+          id,
+          locale,
+          preview,
+          info,
+        });
       }
 
       if (typeof alias === 'string') {
@@ -27,6 +37,12 @@ export default {
           .then((data) => {
             if (!data) {
               throw new NotFoundError();
+            }
+            if (preview) {
+              // less useful as the resourceSearch cannot use the preview param, but at least it gets fresh data, but it isn't the draft version
+              info.cacheControl.setCacheHint({
+                maxAge: 1, // seconds
+              });
             }
             return data;
           });

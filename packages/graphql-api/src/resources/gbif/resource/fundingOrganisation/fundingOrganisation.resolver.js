@@ -7,7 +7,7 @@
  */
 export default {
   Query: {
-    fundingOrganisation: (_, { id }, { dataSources, locale, preview }) =>
-      dataSources.resourceAPI.getEntryById({ id, preview, locale }),
+    fundingOrganisation: (_, { id }, { dataSources, locale, preview }, info) =>
+      dataSources.resourceAPI.getEntryById({ id, preview, locale, info }),
   },
 };

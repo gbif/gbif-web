@@ -9,8 +9,8 @@ import { createLocalizedGbifHref, excerpt, getHtml } from '#/helpers/utils';
  */
 export default {
   Query: {
-    gbifDocument: (_, { id }, { dataSources, locale, preview }) =>
-      dataSources.resourceAPI.getEntryById({ id, preview, locale }),
+    gbifDocument: (_, { id }, { dataSources, locale, preview }, info) =>
+      dataSources.resourceAPI.getEntryById({ id, preview, locale, info }),
   },
   Document: {
     title: (src, _, { locale }) =>

@@ -11,15 +11,13 @@ import { KNOWN_BLOCK_TYPES } from '../composition/acceptedTypes';
  */
 export default {
   Query: {
-    programme: (_, { id }, context) => {
-      const { dataSources, locale } = context;
-      context.preview = context.preview ?? preview;
-      return dataSources.resourceAPI.getEntryById({
+    programme: (_, { id }, { dataSources, locale, preview }, info) =>
+      dataSources.resourceAPI.getEntryById({
         id,
-        preview: context.preview,
+        preview,
         locale,
-      });
-    },
+        info,
+      }),
   },
   Programme: {
     title: (src, _, { locale }) =>
@@ -32,34 +30,34 @@ export default {
       getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
     summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
     excerpt: (src, _, { locale }) => excerpt(src, { locale }),
-    events: (src, _, { dataSources, locale, preview }) => {
+    events: (src, _, { dataSources, locale, preview }, info) => {
       if (!isNoneEmptyArray(src.events)) return null;
 
       const ids = src.events.map((event) => event.id);
       return Promise.all(
         ids.map((id) =>
-          dataSources.resourceAPI.getEntryById({ id, preview, locale }),
+          dataSources.resourceAPI.getEntryById({ id, preview, locale, info }),
         ),
       );
     },
-    news: (src, _, { dataSources, locale, preview }) => {
+    news: (src, _, { dataSources, locale, preview }, info) => {
       if (!isNoneEmptyArray(src.news)) return null;
 
       const ids = src.news.map((news) => news.id);
       return Promise.all(
         ids.map((id) =>
-          dataSources.resourceAPI.getEntryById({ id, preview, locale }),
+          dataSources.resourceAPI.getEntryById({ id, preview, locale, info }),
         ),
       );
     },
-    blocks: ({ blocks }, args, { dataSources, locale, preview }) => {
+    blocks: ({ blocks }, args, { dataSources, locale, preview }, info) => {
       if (!isNoneEmptyArray(blocks)) return null;
 
       const ids = blocks.map((block) => block.id);
       // get all and subsequently filter out the ones that are not allowed (not in include list : HeaderBlock | FeatureBlock | FeaturedTextBlock | CarouselBlock | MediaBlock | MediaCountBlock | CustomComponentBlock)
       return Promise.all(
         ids.map((id) =>
-          dataSources.resourceAPI.getEntryById({ id, preview, locale }),
+          dataSources.resourceAPI.getEntryById({ id, preview, locale, info }),
         ),
       ).then((results) =>
         results.filter((result) => {
@@ -72,13 +70,13 @@ export default {
         }),
       );
     },
-    fundingOrganisations: (src, _, { dataSources, locale, preview }) => {
+    fundingOrganisations: (src, _, { dataSources, locale, preview }, info) => {
       if (!isNoneEmptyArray(src.fundingOrganisations)) return null;
 
       const ids = src.fundingOrganisations.map((partner) => partner.id);
       return Promise.all(
         ids.map((id) =>
-          dataSources.resourceAPI.getEntryById({ id, preview, locale }),
+          dataSources.resourceAPI.getEntryById({ id, preview, locale, info }),
         ),
       );
     },

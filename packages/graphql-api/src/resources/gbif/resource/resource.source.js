@@ -1,7 +1,7 @@
+import { RESTDataSource } from 'apollo-datasource-rest';
 import { translateContentfulResponse } from '#/helpers/utils';
 import { urlSizeLimit } from '#/helpers/utils-ts';
 import { getDefaultAgent } from '#/requestAgents';
-import { RESTDataSource } from 'apollo-datasource-rest';
 
 export class ResourceAPI extends RESTDataSource {
   constructor(config) {
@@ -15,11 +15,16 @@ export class ResourceAPI extends RESTDataSource {
     request.agent = getDefaultAgent(this.baseURL, request.path);
   }
 
-  async getEntryById({ id, preview, locale }) {
+  async getEntryById({ id, preview, locale, info }) {
     let path = `/content/${id}`;
     if (preview) path += `/preview?cacheBust=${Date.now()}`;
 
     const result = await this.get(path);
+    if (preview && info) {
+      info.cacheControl.setCacheHint({
+        maxAge: 1, // seconds
+      });
+    }
     return translateContentfulResponse(result, locale);
   }
 }
