@@ -6,8 +6,7 @@ import { NotFoundError } from '@/errors';
 import {
   Download_Status,
   DownloadKeyQuery,
-  OccurrenceQuery,
-  OccurrenceQueryVariables,
+  DownloadKeyQueryVariables,
   SlowDownloadKeyQuery,
   SlowDownloadKeyQueryVariables,
 } from '@/gql/graphql';
@@ -18,11 +17,12 @@ import { ArticleSkeleton } from '@/routes/resource/key/components/articleSkeleto
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
+import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedDate, FormattedMessage, useIntl } from 'react-intl';
-import { useLoaderData } from 'react-router-dom';
+import { json, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 import { DatasetCard } from './sections/datasetCard';
 import { DeletionNotice } from './sections/deletionNotice';
@@ -84,9 +84,36 @@ const SLOW_DOWNLOAD_QUERY = /* GraphQL */ `
 export async function downloadKeyLoader({ params, graphql }: LoaderArgs) {
   const key = required(params.key, 'No key was provided in the URL');
 
-  return graphql.query<OccurrenceQuery, OccurrenceQueryVariables>(DOWNLOAD_QUERY, {
-    key,
+  const response = await graphql.query<DownloadKeyQuery, DownloadKeyQueryVariables>(
+    DOWNLOAD_QUERY,
+    {
+      key,
+    }
+  );
+
+  const { errors, data } = await response.json();
+  throwCriticalErrors({
+    path404: ['download'],
+    errors,
+    requiredObjects: [data?.download],
   });
+
+  if (
+    data.download?.status === Download_Status.Preparing ||
+    data.download?.status === Download_Status.Running
+  ) {
+    // If the download is still being prepared or is running, we can return a loading state
+    return json(
+      { errors, data },
+      {
+        headers: {
+          'GBIF-Cache-Control': 'FLASH', // option are listed in gbif/entry.server but vite builds fails if trying to export/import things into the server file or vica versa
+        },
+      }
+    );
+  }
+
+  return { errors, data };
 }
 
 export function DownloadKey() {
