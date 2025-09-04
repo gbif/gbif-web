@@ -36,8 +36,18 @@ export default {
         key,
         query: { limit, offset },
       }),
-    download: (parent, { key }, { dataSources }) =>
-      dataSources.downloadAPI.getDownloadByKey({ key }),
+    download: (parent, { key }, { dataSources }, info) => {
+      return dataSources.downloadAPI
+        .getDownloadByKey({ key })
+        .then((download) => {
+          if (['PREPARING', 'RUNNING'].indexOf(download?.status) > -1) {
+            info.cacheControl.setCacheHint({
+              maxAge: 5, // seconds
+            });
+          }
+          return download;
+        });
+    },
   },
   DownloadRequest: {
     gbifMachineDescription: ({ sql, machineDescription }) => {
