@@ -123,7 +123,14 @@ async function main() {
       }
 
       try {
-        const { appHtml, headHtml, htmlAttributes, bodyAttributes, statusCode } = await render(req);
+        const { appHtml, headHtml, htmlAttributes, bodyAttributes, statusCode, cacheControl } =
+          await render(req);
+        if (cacheControl) {
+          res.set('Cache-Control', cacheControl);
+        }
+        if (req?.query?.preview === 'true') {
+          res.set('Cache-Control', 'public, max-age=0, must-revalidate, no-cache, no-store');
+        }
 
         const html = template
           .replace('<html class="g-m-0 g-p-0">', `<html ${htmlAttributes} class="g-m-0 g-p-0">`)
