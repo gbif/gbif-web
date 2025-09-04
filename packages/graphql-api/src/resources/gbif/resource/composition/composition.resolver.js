@@ -15,11 +15,8 @@ import {
  */
 export default {
   Query: {
-    composition: (_, { id }, context, preview) => {
-      const { dataSources, locale } = context;
-      context.preview = context.preview ?? preview;
-      return dataSources.resourceAPI.getEntryById({ id, preview, locale });
-    },
+    composition: (_, { id }, { dataSources, locale, preview }, info) =>
+      dataSources.resourceAPI.getEntryById({ id, preview, locale, info }),
   },
   Composition: {
     title: (src, _, { locale }) =>
@@ -30,14 +27,14 @@ export default {
       }),
     summary: (src, _, { locale }) => getHtml(src.summary, { locale }),
     excerpt: (src, _, { locale }) => excerpt(src, { locale }),
-    blocks: ({ blocks }, _, { dataSources, locale, preview }) => {
+    blocks: ({ blocks }, _, { dataSources, locale, preview }, info) => {
       if (!isNoneEmptyArray(blocks)) return null;
 
       const ids = blocks.map((block) => block.id);
       // get all and subsequently filter out the ones that are not allowed (not in include list : HeaderBlock | FeatureBlock | FeaturedTextBlock | CarouselBlock | MediaBlock | MediaCountBlock | CustomComponentBlock)
       return Promise.all(
         ids.map((id) =>
-          dataSources.resourceAPI.getEntryById({ id, preview, locale }),
+          dataSources.resourceAPI.getEntryById({ id, preview, locale, info }),
         ),
       ).then((results) =>
         results.filter((result) => {
@@ -61,13 +58,13 @@ export default {
     },
   },
   FeatureBlock: {
-    features: ({ features }, args, { dataSources, locale, preview }) => {
+    features: ({ features }, args, { dataSources, locale, preview }, info) => {
       if (!isNoneEmptyArray(features)) return null;
 
       const ids = features.map((feature) => feature.id);
       return Promise.all(
         ids.map((id) =>
-          dataSources.resourceAPI.getEntryById({ id, preview, locale }),
+          dataSources.resourceAPI.getEntryById({ id, preview, locale, info }),
         ),
       ).then((results) =>
         results.filter((result) => {
@@ -107,13 +104,13 @@ export default {
       }),
     body: (src, _, { locale }) =>
       getHtml(src.body, { trustLevel: 'trusted', wrapTables: true, locale }),
-    features: ({ features }, _, { dataSources, locale, preview }) => {
+    features: ({ features }, _, { dataSources, locale, preview }, info) => {
       if (!isNoneEmptyArray(features)) return null;
 
       const ids = features.map((feature) => feature.id);
       return Promise.all(
         ids.map((id) =>
-          dataSources.resourceAPI.getEntryById({ id, preview, locale }),
+          dataSources.resourceAPI.getEntryById({ id, preview, locale, info }),
         ),
       ).then((results) =>
         results.filter((result) => {
