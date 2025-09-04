@@ -24,12 +24,12 @@
   "about": "Acerca de",
   "stopEditing": "",
   "startEditing": "",
-  "reformat": "",
+  "reformat": "Reformatear",
   "discard": "Desechar",
   "keep": "Mantener",
   "readTheDocumentation": "Leer la documentación",
   "request": {
-    "createNewDownload": "",
+    "createNewDownload": "Crear una nueva descarga",
     "weHaveRestoredYourPredicate": "",
     "noPredicate": "",
     "currentFilter": "Filtro actual",
@@ -48,7 +48,7 @@
     "chooseChecklistDescription": "",
     "content": {
       "rawData": "Datos sin procesar",
-      "interpretedData": "",
+      "interpretedData": "Datos interpretados",
       "images": "Multimedia",
       "coordinates": "Coordenadas",
       "fileFormat": "Formato",
