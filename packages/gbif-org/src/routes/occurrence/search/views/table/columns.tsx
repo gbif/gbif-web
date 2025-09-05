@@ -308,7 +308,6 @@ export function useOccurrenceColumns({
       },
       {
         id: 'specimenTriplet',
-        sort: { localStorageKey: 'occurrenceSort', sortBy: 'institutionCode' },
         header: 'tableHeaders.specimenTriplet',
         minWidth: 200,
         cell: ({ institutionCode, collectionCode, catalogNumber }) => {
