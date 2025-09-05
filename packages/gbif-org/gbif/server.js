@@ -8,8 +8,9 @@ import { merge } from 'ts-deepmerge';
 import { loadEnv } from 'vite';
 import logger from './config/logger.mjs';
 import { helmetConfig } from './helmetConfig.js';
+import { register as registerRobots } from './routes/robots/index.mjs';
+import { register as registerSitemaps } from './routes/sitemaps/endpoints.mjs';
 import { register as registerUser } from './routes/user/endpoints.mjs';
-
 // Load environment variables from .env files and merge them with process.env.
 const envFile = loadEnv('', process.cwd(), ['PUBLIC_']);
 const env = merge(envFile, process.env);
@@ -96,6 +97,8 @@ async function main() {
   }
 
   registerUser(app);
+  registerSitemaps(app);
+  registerRobots(app);
 
   // Handle server-side rendering.
   app.use('*', async (req, res) => {
