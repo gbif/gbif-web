@@ -25,8 +25,8 @@
   "stopEditing": "",
   "startEditing": "",
   "reformat": "Reformater",
-  "discard": "",
-  "keep": "",
+  "discard": "Ignorer",
+  "keep": "Conserver",
   "readTheDocumentation": "Lire la documentation",
   "request": {
     "createNewDownload": "Créer un nouveau téléchargement",

@@ -23,5 +23,8 @@
   "collectionCount": "Коллекции",
   "active": "Активен",
   "activeInstitution": "Действует",
+  "author": "Автор",
+  "source": "Журнал",
+  "dataReferenced": "",
   "activeCollection": "Действует"
 }
