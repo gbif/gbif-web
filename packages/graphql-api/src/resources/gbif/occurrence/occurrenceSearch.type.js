@@ -89,6 +89,7 @@ const typeDef = gql`
     waterBody
     year
     iucnRedListCategoryCode
+    stateProvince
   }
 
   type OccurrenceSearchResult {
