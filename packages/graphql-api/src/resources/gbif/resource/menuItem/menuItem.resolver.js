@@ -7,10 +7,11 @@
  */
 export default {
   MenuItem: {
-    children: ({ id }, _, { dataSources, locale, preview }, info) => {
+    children: ({ id }, _, { dataSources, locale }, info) => {
       // get the current element by ID
+      // never show the draft version of the home page. It is extremely slow and will delay preview on all pages. For those rare cases use a content branch instead
       return dataSources.resourceAPI
-        .getEntryById({ id, locale, preview, info })
+        .getEntryById({ id, locale, preview: false, info })
         .then(({ childNavigationElements }) => {
           if (!childNavigationElements) return null;
           // and for each of the children, get the full element
@@ -18,7 +19,7 @@ export default {
             const children = await dataSources.resourceAPI.getEntryById({
               id: child.id,
               locale,
-              preview,
+              preview: false, // never show the draft version of the home page. It is extremely slow and will delay preview on all pages. For those rare cases use a content branch instead
               info,
             });
             return children;
