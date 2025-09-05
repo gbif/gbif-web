@@ -41,7 +41,7 @@ const allowedSortBy = {
   eventDate: 'eventDateSingle',
   eventId: 'eventId',
   fieldNumber: 'fieldNumber',
-  taxonKey: 'classifications.{CHECKLIST_KEY}.usage.name',
+  // taxonKey: 'classifications.{CHECKLIST_KEY}.usage.name',
   gbifId: 'gbifId',
   gbifRegion: 'gbifRegion',
   bed: 'geologicalContext.bed',
@@ -70,7 +70,17 @@ const allowedSortBy = {
   iucnRedListCategoryCode: 'classifications.{CHECKLIST_KEY}.iucnRedListCategoryCode',
 };
 
-async function query({ query, aggs, size = 20, from = 0, metrics, sortBy, sortOrder, req }) {
+async function query({
+  query,
+  aggs,
+  size = 20,
+  from = 0,
+  metrics,
+  sortBy,
+  sortOrder,
+  checklistKey = env.defaultChecklist,
+  req,
+}) {
   if (parseInt(from) + parseInt(size) > env.occurrence.maxResultWindow) {
     throw new ResponseError(
       400,
@@ -97,7 +107,8 @@ async function query({ query, aggs, size = 20, from = 0, metrics, sortBy, sortOr
   ];
 
   if (sortBy) {
-    sort = [{ [allowedSortBy[sortBy]]: { order: sortOrder } }, { gbifId: 'asc' }];
+    const sortByField = allowedSortBy[sortBy].replace('{CHECKLIST_KEY}', checklistKey);
+    sort = [{ [sortByField]: { order: sortOrder } }, { gbifId: 'asc' }];
   } else {
     sort = [
       '_score', // if there is any score (but will this be slow even when there is no free text query?)

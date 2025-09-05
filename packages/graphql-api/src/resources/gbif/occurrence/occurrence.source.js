@@ -1,7 +1,7 @@
-import { urlSizeLimit } from '#/helpers/utils-ts';
-import { getOccurrenceAgent } from '#/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
 import { stringify } from 'qs';
+import { urlSizeLimit } from '#/helpers/utils-ts';
+import { getOccurrenceAgent } from '#/requestAgents';
 
 const MAX_RESULTS = 3000;
 
@@ -26,7 +26,11 @@ class OccurrenceAPI extends RESTDataSource {
   }
 
   async searchOccurrences({ query }) {
-    const body = { ...query, includeMeta: true };
+    const body = {
+      ...query,
+      includeMeta: true,
+      checklistKey: query?.checklistKey ?? this.config.defaultChecklist,
+    };
     if ((query?.from ?? 0) + (query?.size ?? 100) > MAX_RESULTS) {
       throw new Error(
         `Query exceeds maximum allowed size of ${MAX_RESULTS}. Please use our API https://techdocs.gbif.org/en/ or do a download.`,
