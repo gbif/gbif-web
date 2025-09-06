@@ -6663,6 +6663,7 @@ export enum OccurrenceSortBy {
   RecordNumber = 'recordNumber',
   RecordedBy = 'recordedBy',
   Sex = 'sex',
+  StateProvince = 'stateProvince',
   TaxonKey = 'taxonKey',
   WaterBody = 'waterBody',
   Year = 'year'
