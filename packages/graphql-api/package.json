@@ -27,6 +27,7 @@
     "apollo-server-express": "3.6.1",
     "axios": "^1.4.0",
     "body-parser": "^1.19.0",
+    "bottleneck": "^2.19.5",
     "cheerio": "^1.0.0-rc.3",
     "command-line-args": "^5.2.1",
     "compression": "^1.7.4",
