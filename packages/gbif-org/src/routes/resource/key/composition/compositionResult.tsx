@@ -28,7 +28,7 @@ export function CompositionResult({ composition, className }: Props) {
       <div className="g-flex g-gap-4">
         <ResultCard.Content>{composition.excerpt}</ResultCard.Content>
         {composition.primaryImage && (
-          <ResultCard.Image image={composition.primaryImage} link={link} />
+          <ResultCard.Image image={composition.primaryImage} link={link} hideOnSmall />
         )}
       </div>
     </ResultCard.Container>

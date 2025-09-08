@@ -29,7 +29,9 @@ export function ProgrammeResult({ programme, className }: Props) {
       />
       <div className="g-flex g-gap-4">
         <ResultCard.Content>{programme.excerpt}</ResultCard.Content>
-        {programme.primaryImage && <ResultCard.Image image={programme.primaryImage} link={link} />}
+        {programme.primaryImage && (
+          <ResultCard.Image image={programme.primaryImage} link={link} hideOnSmall />
+        )}
       </div>
     </ResultCard.Container>
   );

@@ -65,7 +65,9 @@ export function ProjectResult({ project, className }: Props) {
             )}
           </ResultCard.Metadata>
         </ResultCard.Content>
-        {project.primaryImage && <ResultCard.Image image={project.primaryImage} link={link} />}
+        {project.primaryImage && (
+          <ResultCard.Image image={project.primaryImage} link={link} hideOnSmall />
+        )}
       </div>
     </ResultCard.Container>
   );

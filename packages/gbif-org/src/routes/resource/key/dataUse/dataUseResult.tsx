@@ -35,7 +35,9 @@ export function DataUseResult({ dataUse, className }: Props) {
             <FormattedDate value={dataUse.createdAt} year="numeric" month="short" day="numeric" />
           </ResultCard.Metadata>
         </ResultCard.Content>
-        {dataUse.primaryImage && <ResultCard.Image image={dataUse.primaryImage} link={link} />}
+        {dataUse.primaryImage && (
+          <ResultCard.Image image={dataUse.primaryImage} link={link} hideOnSmall />
+        )}
       </div>
     </ResultCard.Container>
   );

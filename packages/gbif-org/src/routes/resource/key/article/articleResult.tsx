@@ -27,7 +27,9 @@ export function ArticleResult({ article, className }: Props) {
       <ResultCard.Header title={article.title} link={link} />
       <div className="g-flex g-gap-4">
         <ResultCard.Content>{article.excerpt}</ResultCard.Content>
-        {article.primaryImage && <ResultCard.Image image={article.primaryImage} link={link} />}
+        {article.primaryImage && (
+          <ResultCard.Image image={article.primaryImage} link={link} hideOnSmall />
+        )}
       </div>
     </ResultCard.Container>
   );

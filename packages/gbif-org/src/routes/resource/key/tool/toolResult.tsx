@@ -25,7 +25,9 @@ export function ToolResult({ tool, className }: Props) {
       <ResultCard.Header title={tool.title} link={link} contentType="cms.contentType.tool" />
       <div className="g-flex g-gap-4">
         <ResultCard.Content>{tool.excerpt}</ResultCard.Content>
-        {tool.primaryImage && <ResultCard.Image image={tool.primaryImage} link={link} />}
+        {tool.primaryImage && (
+          <ResultCard.Image image={tool.primaryImage} link={link} hideOnSmall />
+        )}
       </div>
     </ResultCard.Container>
   );

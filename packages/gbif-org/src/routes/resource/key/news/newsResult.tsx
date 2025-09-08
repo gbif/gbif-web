@@ -35,7 +35,9 @@ export function NewsResult({ news, className }: Props) {
             <FormattedDate value={news.createdAt} year="numeric" month="short" day="numeric" />
           </ResultCard.Metadata>
         </ResultCard.Content>
-        {news.primaryImage && <ResultCard.Image image={news.primaryImage} link={link} />}
+        {news.primaryImage && (
+          <ResultCard.Image image={news.primaryImage} link={link} hideOnSmall />
+        )}
       </div>
     </ResultCard.Container>
   );
