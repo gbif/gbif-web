@@ -155,7 +155,7 @@ function FAQ() {
                         : true;
                     }
                   })
-                  .map((item) => <HelpItemResult key={item.id} item={item} />)}
+                  .map((item) => <HelpItemResult key={item.id} item={item} className="g-mb-4" />)}
             </>
           )}
         </ArticleTextContainer>
