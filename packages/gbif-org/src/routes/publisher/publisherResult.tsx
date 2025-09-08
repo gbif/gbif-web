@@ -26,7 +26,7 @@ export function PublisherResult({ publisher }: { publisher: PublisherResultFragm
 
   return (
     <Card className="g-mb-4">
-      <article className="g-p-8">
+      <article className="g-p-4">
         <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
           <div className="g-flex-grow">
             <h3 className="g-text-base g-font-semibold g-mb-1">

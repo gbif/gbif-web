@@ -44,7 +44,7 @@ export function CollectionResult({
     <div className="g-mb-4">
       <Wrapper>
         <Card className="g-max-w-full">
-          <article className="g-p-8">
+          <article className="g-p-4">
             <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
               <div className="g-flex-grow">
                 <h3 className="g-text-base g-font-semibold g-mb-2">

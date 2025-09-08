@@ -6614,6 +6614,7 @@ export type OccurrenceSearchResult = {
 
 
 export type OccurrenceSearchResultDocumentsArgs = {
+  checklistKey?: InputMaybe<Scalars['ID']['input']>;
   from?: InputMaybe<Scalars['Int']['input']>;
   size?: InputMaybe<Scalars['Int']['input']>;
   sortBy?: InputMaybe<OccurrenceSortBy>;
