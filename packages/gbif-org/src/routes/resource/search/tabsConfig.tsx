@@ -31,6 +31,7 @@ export const tabsConfig: Record<string, TabMetadata> = {
       'composition',
       'article',
       'network',
+      'help',
     ],
     countKey: 'counts.nResults',
     tabKey: 'resourceSearch.types.all',

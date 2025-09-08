@@ -5,8 +5,27 @@ import { cn } from '@/utils/shadcn';
 import { useState } from 'react';
 import { MdLink } from 'react-icons/md';
 import styles from './faq.module.css';
+import { fragmentManager } from '@/services/fragmentManager';
+import { HelpResultFragment } from '@/gql/graphql';
+import { DynamicLink } from '@/reactRouterPlugins';
 
-export const HelpItemResult = ({ item }) => {
+fragmentManager.register(/* GraphQL */ `
+  fragment HelpResult on Help {
+    id
+    identifier
+    title
+    body
+    excerpt
+  }
+`);
+
+export const HelpItemResult = ({
+  item,
+  className,
+}: {
+  item: HelpResultFragment;
+  className?: string;
+}) => {
   const [searchQuery, setSearchQuery] = useStringParam({
     key: 'q',
     defaultValue: '',
@@ -15,7 +34,7 @@ export const HelpItemResult = ({ item }) => {
   const [expanded, setExpanded] = useState(searchQuery === `question:${item.identifier}`);
 
   return (
-    <Card className="g-mb-4">
+    <Card className={(cn('g-mb-4'), className)}>
       <article className="g-p-4">
         <div className="g-flex g-flex-col md:g-flex-row g-gap-4">
           <div className="g-flex-grow">
@@ -32,16 +51,13 @@ export const HelpItemResult = ({ item }) => {
             </a>
           </div>
           <div>
-            <Button
+            <DynamicLink
               className="g-text-base g-font-semibold g-pl-0"
-              variant="link"
-              onClick={() => {
-                setSearchQuery(`question:${item.identifier}`);
-                setExpanded(true);
-              }}
+              pageId="faq"
+              searchParams={{ q: `question:${item.identifier}` }}
             >
               <MdLink />
-            </Button>
+            </DynamicLink>
           </div>
         </div>
         <div className="g-flex g-flex-col md:g-flex-row g-gap-4">

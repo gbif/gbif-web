@@ -75,6 +75,9 @@ export const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
           ... on NetworkProse {
             ...NetworkProseResult
           }
+          ... on Help {
+            ...HelpResult
+          }
         }
       }
     }
@@ -268,7 +271,7 @@ export function ResourceSearchResults({
         <ul>
           {resources.map((resource) => (
             <li key={resource.id}>
-              <ResourceSearchResult resource={resource} className="g-bg-white" />
+              <ResourceSearchResult resource={resource} className="g-bg-white g-mb-4" />
             </li>
           ))}
         </ul>

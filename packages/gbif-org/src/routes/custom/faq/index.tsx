@@ -45,11 +45,7 @@ const HELP_ITEM_QUERY = /* GraphQL */ `
         results {
           __typename
           ... on Help {
-            id
-            identifier
-            title
-            body
-            excerpt
+            ...HelpResult
           }
         }
       }
