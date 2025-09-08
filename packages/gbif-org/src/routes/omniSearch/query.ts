@@ -39,7 +39,7 @@ const OMNI_SEARCH = /* GraphQL */ `
       }
     }
 
-    resourceSearch(predicate: $resourcePredicate) {
+    resourceSearch(predicate: $resourcePredicate, q: $q, searchable: true) {
       documents(size: 5) {
         from
         size
@@ -75,12 +75,19 @@ const OMNI_SEARCH = /* GraphQL */ `
           }
           ... on NetworkProse {
             ...NetworkProseResult
+          }
+          ... on Help {
+            ...HelpResult
           }
         }
       }
     }
 
-    resourceKeywordSearch: resourceSearch(predicate: $resourceKeywordPredicate) {
+    resourceKeywordSearch: resourceSearch(
+      predicate: $resourceKeywordPredicate
+      q: $q
+      searchable: true
+    ) {
       documents(size: 5) {
         from
         size
@@ -116,6 +123,9 @@ const OMNI_SEARCH = /* GraphQL */ `
           }
           ... on NetworkProse {
             ...NetworkProseResult
+          }
+          ... on Help {
+            ...HelpResult
           }
         }
       }
