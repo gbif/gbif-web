@@ -54,6 +54,11 @@ interface UpdateProfileData {
   email: string;
   country: string;
   language: string;
+  settings: {
+    country: string;
+    locale: string;
+    has_read_gdpr_terms: string;
+  };
 }
 
 interface UserContextType {
@@ -327,6 +332,20 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const sanitizeUpdatedUser = (user) => {
+    return {
+      userName: user.userName,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      settings: {
+        country: user.settings.country,
+        locale: user.settings.locale,
+        has_read_gdpr_terms: user.settings.has_read_gdpr_terms,
+      },
+    };
+  };
+
   const updateProfile = async (data: UpdateProfileData) => {
     try {
       const response = await fetch('/api/user/update-profile', {
@@ -334,7 +353,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(sanitizeUpdatedUser(data)),
       });
 
       if (!response.ok) {

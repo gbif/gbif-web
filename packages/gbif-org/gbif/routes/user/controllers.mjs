@@ -113,10 +113,8 @@ export async function updateProfile(req, res) {
     if (!req.user) {
       return res.status(401).json({ message: 'User not authenticated' });
     }
-
     // Sanitize the user input first, similar to portal16
     let user = sanitizeUpdatedUser(req.body);
-
     // Preserve critical fields from the original user, users are not allowed to change username and system settings
     user.userName = req.user.userName;
     user.roles = req.user.roles;

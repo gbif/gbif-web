@@ -9,6 +9,7 @@ import React from 'react';
 import { ScrollRestoration, useLoaderData } from 'react-router-dom';
 import { Footer } from './footer';
 import { Header } from './header';
+import { GDPR } from '@/components/gdpr';
 
 const HEADER_QUERY = /* GraphQL */ `
   query Header {
@@ -57,6 +58,7 @@ export function GbifRootLayout({ children }: Props) {
           <NoscriptNotification />
           <ScrollRestoration />
           <Toaster />
+          <GDPR />
           <ErrorBoundary>{children}</ErrorBoundary>
           {/* Visualization of the table of contents IntersectionObserver area
           <div className="g-fixed g-pointer-events-none g-top-0 g-left-0 g-w-screen g-h-screen">
