@@ -392,11 +392,7 @@ export function sanitizeUpdatedUser(user) {
     firstName: firstName ? firstName : undefined,
     lastName: lastName ? lastName : undefined,
     email: user.email,
-    settings: {
-      country: user.country,
-      locale: user.locale,
-      has_read_gdpr_terms: user.has_read_gdpr_terms,
-    },
+    settings: user?.settings || {},
   };
 }
 
