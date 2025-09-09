@@ -210,6 +210,9 @@ const DATASET_QUERY = /* GraphQL */ `
         value
       }
       localContext {
+        project_page
+        title
+        description
         notice {
           name
           img_url

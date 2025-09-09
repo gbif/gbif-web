@@ -2,6 +2,9 @@ import { gql } from 'apollo-server';
 
 const typeDef = gql`
   type LocalContext {
+    project_page: String
+    title: String
+    description: String
     notice: [LocalContextNotice]
   }
 

@@ -49,6 +49,7 @@ import { Registration } from './about/Registration';
 import { SamplingDescription } from './about/SamplingDescription';
 import { TaxonomicCoverages } from './about/TaxonomicCoverages';
 import { TemporalCoverages } from './about/TemporalCoverages';
+import { ExternalLinkIcon } from '@radix-ui/react-icons';
 
 export function DatasetKeyAbout() {
   const config = useConfig();
@@ -707,43 +708,40 @@ export function DatasetKeyAbout() {
               )}
 
               {hasLocalContext && (
-                <Card className="g-mb-4 gbif-word-break">
-                  {dataset.localContext?.notice?.map((notice) => {
-                    return (
-                      <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
-                        <div className="g-flex-none g-me-2">
-                          {notice?.img_url && (
-                            <div className="g-leading-6 g-text-white g-w-6 g-h-6 g-flex g-justify-center g-items-center">
+                <a
+                  href={dataset?.localContext?.project_page}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="g-flex g-items-center"
+                >
+                  <Card className="g-mb-4 gbif-word-break">
+                    <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
+                      <div className="g-flex-none g-me-2">
+                        <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
+                          <ExternalLinkIcon />
+                        </div>
+                      </div>
+                      <div className="g-flex-auto g-mt-0.5">
+                        <h5 className="g-font-bold">{dataset?.localContext?.title}</h5>
+                        <div className="g-text-slate-500 [&_a]:g-underline">
+                          {dataset?.localContext?.description}
+                        </div>
+                        <ul className="g-mt-2">
+                          {dataset?.localContext?.notice.map((localContext) => (
+                            <li className="g-inline-block">
                               <img
-                                src={notice?.img_url}
-                                alt="Local context icon"
-                                className="g-w-4 g-h-4"
+                                className="g-me-2 g-w-8 g-h-8"
+                                src={localContext.img_url}
+                                alt={localContext.name}
+                                title={localContext.name}
                               />
-                            </div>
-                          )}
-                        </div>
-                        <div className="g-flex-auto g-mt-0.5 g-mb-2">
-                          <h5 className="g-font-bold">
-                            {notice?.name}{' '}
-                            {notice?.notice_page && (
-                              <a href={notice?.notice_page} target="_blank" rel="noreferrer">
-                                <MdLink />
-                              </a>
-                            )}
-                          </h5>
-                          <div className="g-text-slate-500 [&_a]:g-underline">
-                            {notice?.default_text && (
-                              <HyperText
-                                text={notice?.default_text}
-                                sanitizeOptions={{ ALLOWED_TAGS: ['a', 'strong', 'em', 'p', 'br'] }}
-                              />
-                            )}
-                          </div>
-                        </div>
-                      </CardContentSmall>
-                    );
-                  })}
-                </Card>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </CardContentSmall>
+                  </Card>
+                </a>
               )}
 
               {isGridded && (

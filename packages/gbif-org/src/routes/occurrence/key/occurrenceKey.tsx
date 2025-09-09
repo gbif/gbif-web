@@ -193,6 +193,9 @@ const SLOW_OCCURRENCE_QUERY = /* GraphQL */ `
     occurrence(key: $key) {
       key
       localContext {
+        project_page
+        title
+        description
         notice {
           name(lang: $language)
           img_url

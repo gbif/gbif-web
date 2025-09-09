@@ -91,7 +91,7 @@ export const gbifConfig: Config = {
   //   },
   // ],
   experimentalFeatures: {
-    localContextEnabled: false,
+    localContextEnabled: true,
   },
   defaultTitle: 'GBIF',
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts

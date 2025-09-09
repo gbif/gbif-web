@@ -12,6 +12,7 @@ import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { BasicField } from '../properties';
 import { useConfig } from '@/config/config';
+import { BulletList } from '@/components/bulletList';
 
 export function InstitutionKey({
   occurrence,
@@ -171,6 +172,7 @@ export function LocalContext({ localContext }: { localContext?: any }) {
   const showLocalContext = config.experimentalFeatures.localContextEnabled;
   if (!localContext?.notice || !showLocalContext) return null;
 
+  const { project_page, title, description } = localContext;
   const items = (localContext?.notice ?? [])?.filter(
     (c) => c && c.name && c.img_url && c.default_text
   );
@@ -181,26 +183,32 @@ export function LocalContext({ localContext }: { localContext?: any }) {
       <T>
         <FormattedMessage id={`dataset.localContext`} defaultMessage={'Local context'} />
       </T>
-      {items.map((localContext) => (
-        <V>
-          <h5 className="g-flex g-items-center g-gap-1">
-            <img
-              style={{ width: '1rem', height: '1rem' }}
-              className="g-me-1"
-              src={localContext.img_url}
-              alt={localContext.name}
-              title={localContext.name}
-            />
-            {localContext.name}{' '}
-            {localContext?.notice_page && (
-              <a href={localContext?.notice_page} target="_blank" rel="noreferrer">
-                <MdLink />
-              </a>
-            )}
-          </h5>
-          <div className="g-text-sm g-text-slate-600 g-mt-1">{localContext?.default_text}</div>
-        </V>
-      ))}
+
+      <V>
+        <h5 className="g-flex g-items-center g-gap-1">
+          <a
+            href={project_page}
+            target="_blank"
+            rel="noreferrer"
+            className="g-flex g-items-center g-underline"
+          >
+            {title}
+          </a>
+        </h5>
+        <div className="g-text-sm g-text-slate-600 g-mt-1 g-mb-2">{description}</div>
+        <ul>
+          {items.map((localContext) => (
+            <li className="g-inline-block">
+              <img
+                className="g-me-2 g-w-6 g-h-6"
+                src={localContext.img_url}
+                alt={localContext.name}
+                title={localContext.name}
+              />
+            </li>
+          ))}
+        </ul>
+      </V>
     </>
   );
 }
