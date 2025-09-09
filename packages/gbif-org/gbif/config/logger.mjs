@@ -4,7 +4,8 @@ import path from 'path';
 import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 
-dotenv.config();
+dotenv.config({ path: '.env.local' });
+dotenv.config({ path: '.env' });
 
 // Get environment and service information
 const env = process.env.NODE_ENV || 'local';
