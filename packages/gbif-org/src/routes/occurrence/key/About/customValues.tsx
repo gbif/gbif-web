@@ -11,6 +11,7 @@ import equal from 'fast-deep-equal/react';
 import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { BasicField } from '../properties';
+import { useConfig } from '@/config/config';
 
 export function InstitutionKey({
   occurrence,
@@ -161,6 +162,45 @@ export function DynamicProperties({
           </V>
         </>
       )}
+    </>
+  );
+}
+
+export function LocalContext({ localContext }: { localContext?: any }) {
+  const config = useConfig();
+  const showLocalContext = config.experimentalFeatures.localContextEnabled;
+  if (!localContext?.notice || !showLocalContext) return null;
+
+  const items = (localContext?.notice ?? [])?.filter(
+    (c) => c && c.name && c.img_url && c.default_text
+  );
+  if (items.length === 0) return null;
+
+  return (
+    <>
+      <T>
+        <FormattedMessage id={`dataset.localContext`} defaultMessage={'Local context'} />
+      </T>
+      {items.map((localContext) => (
+        <V>
+          <h5 className="g-flex g-items-center g-gap-1">
+            <img
+              style={{ width: '1rem', height: '1rem' }}
+              className="g-me-1"
+              src={localContext.img_url}
+              alt={localContext.name}
+              title={localContext.name}
+            />
+            {localContext.name}{' '}
+            {localContext?.notice_page && (
+              <a href={localContext?.notice_page} target="_blank" rel="noreferrer">
+                <MdLink />
+              </a>
+            )}
+          </h5>
+          <div className="g-text-sm g-text-slate-600 g-mt-1">{localContext?.default_text}</div>
+        </V>
+      ))}
     </>
   );
 }

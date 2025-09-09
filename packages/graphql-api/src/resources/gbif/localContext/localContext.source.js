@@ -1,5 +1,5 @@
-import { getDefaultAgent } from '#/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
+import { getDefaultAgent } from '#/requestAgents';
 
 class LocalContextAPI extends RESTDataSource {
   constructor(config) {
@@ -16,51 +16,82 @@ class LocalContextAPI extends RESTDataSource {
     request.agent = getDefaultAgent(this.baseURL, request.path);
   }
 
-  async getLocalContext({ dynamicProperties }) {
-    if (dynamicProperties) {
-      try {
-        const parsedProperties = JSON.parse(dynamicProperties);
-        if (parsedProperties?.local_context_project_uri) {
-          return this.get(parsedProperties.local_context_project_uri)
-            .then((res) => {
-              return res?.notice || null;
-            })
-            .catch((err) => {
-              console.error('Error fetching local context:', err);
-              return null;
-            });
-        }
-        return null;
-      } catch {
-        // ignore JSON parse errors
-        return null;
-      }
-    } else {
+  async getLocalContext(endpoint) {
+    return this.get(getLocalContextAPIEndpoint(endpoint)).catch(() => {
+      // silently ignore errors for individual tags
       return null;
+    });
+  }
+
+  async getLocalContextFromOccurrence({ dynamicProperties }) {
+    if (!dynamicProperties) return null;
+    try {
+      const parsedProperties = JSON.parse(dynamicProperties);
+      const projectId =
+        parsedProperties?.local_contexts_project_id ??
+        parsedProperties?.local_context_project_uri;
+      if (projectId) {
+        return this.getLocalContext(projectId);
+      }
+    } catch {
+      // ignore JSON parse errors
     }
+    return null;
   }
 
   async getDatasetLocalContext({ machineTags }) {
-    if (machineTags) {
-      const filteredTags = machineTags.filter(
-        (tag) =>
-          tag?.namespace === 'localcontext' &&
-          tag?.name === 'project_id' &&
-          !!tag?.value,
-      );
-      if (filteredTags.length === 0) return [];
-      return Promise.all(
-        filteredTags.map((tag) =>
-          this.get(tag.value).then((res) => {
-            return res?.notice || null;
-          }),
-        ),
-      ).then((results) => {
-        return results.flat();
-      });
-    }
-    return [];
+    if (!machineTags || !Array.isArray(machineTags)) return null;
+
+    const filteredTags = machineTags.filter(
+      (tag) =>
+        tag?.namespace === 'localcontexts' &&
+        tag?.name === 'local_contexts_project_id' &&
+        !!tag?.value,
+    );
+    if (filteredTags.length === 0) return [];
+    // only use the first project id if multiple are present
+    const projectUrl = filteredTags[0].value;
+    return this.getLocalContext(projectUrl);
   }
+}
+
+function getLocalContextAPIEndpoint(value) {
+  if (!value) throw new Error('LocalContextAPI endpoint is not defined');
+
+  // parse value as url. If it isn't a valid url should throw an error
+  const url = new URL(value);
+  // check that it is in fact a localcontextshub url, else do not call it with credentials
+  const { host } = url;
+  if (
+    host !== 'localcontextshub.org' &&
+    host !== 'sandbox.localcontextshub.org'
+  ) {
+    throw new Error(
+      `LocalContextAPI endpoint is not a valid localcontextshub.org url: ${value}`,
+    );
+  }
+
+  if (url.pathname.startsWith('/api/v2/projects')) {
+    // looks like a valid api endpoint already
+    return url.href;
+  }
+
+  const marker = '/projects/';
+  const projectStringId = value.indexOf(marker);
+  if (projectStringId > -1) {
+    const id = value
+      .substring(projectStringId + marker.length)
+      .split(/[/?#]/)[0];
+    if (id && id.length === 36) {
+      const isSandbox = value.includes('sandbox');
+      return `https://${
+        isSandbox ? 'sandbox.' : ''
+      }localcontextshub.org/api/v2/projects/${id}`;
+    }
+  }
+  throw new Error(
+    `Unable to parse LocalContextAPI endpoint from value: ${value}`,
+  );
 }
 
 export default LocalContextAPI;

@@ -7,6 +7,9 @@ export const configDefault: Partial<Config> = {
     OBISKey: import.meta.env.PUBLIC_KEYS_OBIS_NODE,
     taiwanNodeidentifier: import.meta.env.PUBLIC_KEYS_TAIWAN_PARTICIPANT,
   },
+  experimentalFeatures: {
+    localContextEnabled: false,
+  },
   openDrawerOnTableRowClick: true,
   availableCatalogues: [
     'OCCURRENCE',

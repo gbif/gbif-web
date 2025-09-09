@@ -193,10 +193,12 @@ const SLOW_OCCURRENCE_QUERY = /* GraphQL */ `
     occurrence(key: $key) {
       key
       localContext {
-        name
-        img_url
-        default_text
-        notice_page
+        notice {
+          name(lang: $language)
+          img_url
+          default_text(lang: $language)
+          notice_page
+        }
       }
       institution {
         name

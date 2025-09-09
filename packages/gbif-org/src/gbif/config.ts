@@ -90,6 +90,9 @@ export const gbifConfig: Config = {
   //     id: 'speciesKey',
   //   },
   // ],
+  experimentalFeatures: {
+    localContextEnabled: false,
+  },
   defaultTitle: 'GBIF',
   // The languages should be synced with supportedLocales in graphql-api/src/helpers/sanitize-html.ts
   languages: languagesOptions,

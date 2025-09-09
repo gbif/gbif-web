@@ -23,6 +23,7 @@ import {
   DynamicProperties,
   IdentifiedById,
   InstitutionKey,
+  LocalContext,
   RecordedById,
 } from './customValues';
 import {
@@ -262,6 +263,7 @@ function Record({
       <PlainTextField term={termMap.informationWithheld} showDetails={showAll} />
       <PlainTextField term={termMap.dataGeneralizations} showDetails={showAll} />
       <DynamicProperties termMap={termMap} slowOccurrence={slowOccurrence} />
+      <LocalContext localContext={slowOccurrence?.localContext} />
     </PropGroup>
   );
 }

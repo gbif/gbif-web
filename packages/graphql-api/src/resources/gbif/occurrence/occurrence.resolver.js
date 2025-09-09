@@ -1,4 +1,6 @@
 /* eslint-disable no-param-reassign */
+import _ from 'lodash';
+import md5 from 'md5';
 import interpretationRemark from '#/helpers/enums/interpretationRemark';
 import getFeedbackOptions from '#/helpers/feedback';
 import getGlobe from '#/helpers/globe';
@@ -7,8 +9,6 @@ import {
   getFirstIIIFImage,
   simplifyUrlObjectKeys,
 } from '#/helpers/utils';
-import _ from 'lodash';
-import md5 from 'md5';
 import config from '../../../config';
 import {
   getAutoDateHistogram,
@@ -388,7 +388,9 @@ export default {
       // this is a special field that is used to provide the local context for the occurrence
       // it is used to provide the local context for the occurrence in the UI
       // it is not used in the API, but it is used in the UI to provide the local context for the occurrence
-      return dataSources.localContextAPI.getLocalContext(occurrence);
+      return dataSources.localContextAPI.getLocalContextFromOccurrence(
+        occurrence,
+      );
     },
     extensions: (occurrence) => {
       const extensions = {
