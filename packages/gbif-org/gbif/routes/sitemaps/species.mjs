@@ -1,3 +1,4 @@
+import { publicEnv } from '../../envConfig.mjs';
 import { fetchWithRetry } from '../auth/utils.mjs';
 import { apiConfig } from './pager.mjs';
 
@@ -19,7 +20,7 @@ function getSpeciesSiteMapIndex() {
   return getSitemap(
     apiConfig.base.url + '/sitemap/species',
     apiConfig.base.url,
-    process.env.PUBLIC_BASE_URL
+    publicEnv.PUBLIC_BASE_URL
   );
 }
 

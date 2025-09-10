@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import querystring from 'querystring';
 import { fetchWithRetry } from '../auth/utils.mjs';
-const apiV1 = process.env.PUBLIC_API_V1;
+import { publicEnv } from '../../envConfig.mjs';
+const apiV1 = publicEnv.PUBLIC_API_V1;
 
 export const apiConfig = {
   base: { url: apiV1 },

@@ -1,4 +1,6 @@
-const domain = process.env.PUBLIC_BASE_URL;
+import { publicEnv } from '../../../envConfig.mjs';
+
+const domain = publicEnv.PUBLIC_BASE_URL;
 
 const render = ({ pages }) => {
   return `<?xml version="1.0" encoding="UTF-8"?>

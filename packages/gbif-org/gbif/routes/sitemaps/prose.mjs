@@ -1,3 +1,4 @@
+import { publicEnv } from '../../envConfig.mjs';
 import { fetchWithRetry } from '../auth/utils.mjs';
 
 function slugify(str) {
@@ -140,7 +141,7 @@ export const RESOURCE_SEARCH_QUERY = `
 `;
 
 async function getAllProse() {
-  const prose = await fetchWithRetry(process.env.PUBLIC_GRAPHQL_ENDPOINT, {
+  const prose = await fetchWithRetry(publicEnv.PUBLIC_GRAPHQL_ENDPOINT, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

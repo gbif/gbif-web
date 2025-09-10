@@ -1,11 +1,9 @@
 import crypto from 'crypto';
-import dotenv from 'dotenv';
 import { fetchWithRetry } from './utils.mjs';
+import { secretEnv } from '../../envConfig.mjs';
 
-dotenv.config();
-
-const appKey = process.env.APP_KEY;
-const secret = process.env.APP_SECRET;
+const appKey = secretEnv.APP_KEY;
+const secret = secretEnv.APP_SECRET;
 const NEWLINE = '\n';
 
 export class RequestError extends Error {

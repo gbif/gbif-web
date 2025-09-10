@@ -1,11 +1,9 @@
-import dotenv from 'dotenv';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import logger from '../../config/logger.mjs';
 import { getByUserName, getClientUser } from '../user/user.model.mjs';
 import { disableCache, generateToken, setNoCache, setTokenCookie } from './utils.mjs';
-
-dotenv.config();
+import { secretEnv } from '../../envConfig.mjs';
 
 export function register(app) {
   // on any get or post to routes strting with /auth/ disable caching
@@ -45,7 +43,7 @@ export function register(app) {
 // GBIF API authentication
 const authenticateGBIF = async (email, password) => {
   try {
-    const response = await fetch(`${process.env.REGISTRY_API_V1}/user/login`, {
+    const response = await fetch(`${secretEnv.REGISTRY_API_V1}/user/login`, {
       method: 'POST',
       headers: {
         Authorization: 'Basic ' + Buffer.from(`${email}:${password}`).toString('base64'),

@@ -1,14 +1,11 @@
 import ecsFormat from '@elastic/ecs-winston-format';
-import dotenv from 'dotenv';
 import path from 'path';
 import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
-
-dotenv.config({ path: '.env.local' });
-dotenv.config({ path: '.env' });
+import { secretEnv } from '../envConfig.mjs';
 
 // Get environment and service information
-const env = process.env.NODE_ENV || 'local';
+const env = secretEnv.NODE_ENV || 'local';
 const serviceName = 'gbif-web';
 const serviceClass = 'web';
 const levels = {
@@ -17,10 +14,10 @@ const levels = {
   WARN: 'warn',
   ERROR: 'error',
 };
-const debugLevel = levels[process.env.DEBUG_LEVEL] ?? 'warn';
+const debugLevel = levels[secretEnv.DEBUG_LEVEL] ?? 'warn';
 
 // Define log directory
-const logDir = process.env.LOGS_DIRECTORY ?? 'logs';
+const logDir = secretEnv.LOGS_DIRECTORY ?? 'logs';
 
 // Color codes for manual coloring
 const colors = {

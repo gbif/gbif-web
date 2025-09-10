@@ -1,20 +1,17 @@
-import dotenv from 'dotenv';
 import { expressjwt } from 'express-jwt';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import logger from '../../config/logger.mjs';
 import { getByUserName, getClientUser } from '../user/user.model.mjs';
+import { secretEnv } from '../../envConfig.mjs';
 
-dotenv.config({ path: '.env.local' });
-dotenv.config({ path: '.env' });
-
-const useSecureCookie = process.env.USE_SECURE_COOKIE !== 'false';
+const useSecureCookie = secretEnv.USE_SECURE_COOKIE !== 'false';
 const minute = 60000;
 const hour = 60 * minute;
 const day = 24 * hour;
 
-const JWT_SECRET = process.env.JWT_SECRET;
-const GRAPHQL_JWT_SECRET = process.env.GRAPHQL_JWT_SECRET;
+const JWT_SECRET = secretEnv.JWT_SECRET;
+const GRAPHQL_JWT_SECRET = secretEnv.GRAPHQL_JWT_SECRET;
 
 passport.serializeUser((user, done) => {
   done(null, user);

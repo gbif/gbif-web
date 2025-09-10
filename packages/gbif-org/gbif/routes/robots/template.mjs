@@ -1,4 +1,6 @@
-const domain = process.env.PUBLIC_BASE_URL;
+import { publicEnv } from '../../envConfig.mjs';
+
+const domain = publicEnv.PUBLIC_BASE_URL;
 
 const render = () =>
   'User-agent: *\n' +

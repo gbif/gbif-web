@@ -1,5 +1,3 @@
-import dotenv from 'dotenv';
-
 import { register as registerGitHub } from '../auth/github.ctrl.mjs';
 import { register as registerGoogle } from '../auth/google.ctrl.mjs';
 import { register as registerLocal } from '../auth/local.ctrl.mjs';
@@ -16,9 +14,6 @@ import {
   whoAmI,
 } from './controllers.mjs';
 import { getChallenge, requireProofOfWork } from './pow.mjs';
-
-dotenv.config({ path: '.env.local' });
-dotenv.config({ path: '.env' });
 
 export function register(app) {
   registerLocal(app);

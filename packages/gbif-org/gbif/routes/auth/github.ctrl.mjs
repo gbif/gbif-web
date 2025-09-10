@@ -1,12 +1,10 @@
-import dotenv from 'dotenv';
 import _ from 'lodash';
 import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github2';
 import { update } from '../user/user.model.mjs';
 import { authCallback } from './oauthUtils.mjs';
 import { appendUser, isAuthenticated, jsonToBase64 } from './utils.mjs';
-
-dotenv.config();
+import { secretEnv } from '../../envConfig.mjs';
 
 export function register(app) {
   // GitHub OAuth routes
@@ -66,9 +64,9 @@ function setProviderValues(user, profile) {
 passport.use(
   new GitHubStrategy(
     {
-      clientID: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: `${process.env.DOMAIN}/auth/github/callback`,
+      clientID: secretEnv.GITHUB_CLIENT_ID,
+      clientSecret: secretEnv.GITHUB_CLIENT_SECRET,
+      callbackURL: `${secretEnv.DOMAIN}/auth/github/callback`,
       scope: 'user:email',
     },
     async (accessToken, refreshToken, profile, done) => {
