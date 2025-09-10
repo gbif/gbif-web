@@ -31,6 +31,7 @@
   "constituentOf": "Складається з",
   "dataset": "Набір даних",
   "taxonomy": "Таксономія",
+  "localContext": "",
   "project": "Проєкт",
   "metrics": "Показники",
   "metricsOccurrenceHelpText": "Показники розраховані на основі інтерпретованих даних",
