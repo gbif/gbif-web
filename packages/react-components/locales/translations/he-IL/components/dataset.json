@@ -31,6 +31,7 @@
   "constituentOf": "חלק מ־",
   "dataset": "מסד נתונים",
   "taxonomy": "טקסונומיה",
+  "localContext": "",
   "project": "פרויקט",
   "metrics": "מדדים",
   "metricsOccurrenceHelpText": "המדדים מבוססים על נתונים מפוענחים",
