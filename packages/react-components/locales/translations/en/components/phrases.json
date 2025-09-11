@@ -62,5 +62,9 @@
   "goToRecord": "Go to record",
   "commonNameAccordingTo": "Common name according to: {source}",
   "supportedChecklists": "",
-  "noResults": "No results"
+  "noResults": "No results",
+  "stepperFormProgress": "",
+  "next": "Next",
+  "back": "Back",
+  "submit": "Submit"
 }
