@@ -310,7 +310,6 @@ function getProgressFromSessionStorage(key: string) {
   if (draft) {
     try {
       const parsed = JSON.parse(draft);
-      console.log('Draft loaded from session storage', JSON.stringify(parsed, null, 2));
       return parsed;
     } catch (e) {
       console.error('Failed to parse become-a-publisher draft', e);
