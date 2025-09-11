@@ -1,15 +1,15 @@
 import { CoordinatesPicker } from '@/components/maps/coordinatesPicker';
 import { CountryCodeSelect } from '@/components/select/countryCodeSelect';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { memo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { Required } from '../../_shared';
 import { Inputs, TextField } from '../becomeAPublisherForm';
-type Props = {
-  updateSuggestedNodeCountry(countryCode: string): void;
-};
 
-export function OrganizationAddress({ updateSuggestedNodeCountry }: Props) {
+const MemoCountryCodeSelect = memo(CountryCodeSelect);
+
+export function OrganizationAddress() {
   const form = useFormContext<Partial<Inputs>>();
 
   return (
@@ -31,13 +31,7 @@ export function OrganizationAddress({ updateSuggestedNodeCountry }: Props) {
                 <Required />
               </FormLabel>
               <FormControl>
-                <CountryCodeSelect
-                  selected={field.value}
-                  onChange={(countryCode) => {
-                    field.onChange(countryCode);
-                    updateSuggestedNodeCountry(countryCode);
-                  }}
-                />
+                <MemoCountryCodeSelect selected={field.value} onChange={field.onChange} />
               </FormControl>
               <FormMessage />
             </FormItem>

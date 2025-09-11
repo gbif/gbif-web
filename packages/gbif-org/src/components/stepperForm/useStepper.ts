@@ -9,7 +9,7 @@ export type UseStepperResult = {
   goToStep: (idx: number) => void;
 };
 
-export function useStepper(steps: Step[], form: UseFormReturn<any>) {
+export function useStepper(steps: Step[], validateForm: UseFormReturn<any>['trigger']) {
   const [currentStep, setCurrentStep] = useState<Step>(steps[0]);
 
   return useMemo(() => {
@@ -22,7 +22,7 @@ export function useStepper(steps: Step[], form: UseFormReturn<any>) {
         }
 
         // Trigger validation and only go to next step if validation passes
-        if (await form.trigger(currentStep.validationPath)) {
+        if (await validateForm(currentStep.validationPath)) {
           return setCurrentStep(steps[currentStep.idx + 1]);
         }
       },
@@ -37,7 +37,7 @@ export function useStepper(steps: Step[], form: UseFormReturn<any>) {
           if (!steps[i].validationPath) continue;
 
           // Continue if validation passes
-          if (await form.trigger(steps[i].validationPath)) continue;
+          if (await validateForm(steps[i].validationPath)) continue;
 
           // If validation fails, navigate to the first step that failed validation
           setCurrentStep(steps[i]);
@@ -47,5 +47,5 @@ export function useStepper(steps: Step[], form: UseFormReturn<any>) {
         setCurrentStep(steps[idx]);
       },
     };
-  }, [steps, currentStep, form]);
+  }, [steps, currentStep, validateForm]);
 }

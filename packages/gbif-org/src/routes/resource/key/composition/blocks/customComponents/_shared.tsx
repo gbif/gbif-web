@@ -1,11 +1,11 @@
 import { Checkbox } from '@/components/ui/checkbox';
 import {
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { RadioGroupItem } from '@/components/ui/radio-group';
@@ -14,9 +14,15 @@ import { cn } from '@/utils/shadcn';
 import { FieldPath, FieldValues, useFormContext } from 'react-hook-form';
 import { z } from 'zod';
 
-export const RequiredStringSchema = z.string().min(1, 'validation.required');
-export const RequiredEmailSchema = RequiredStringSchema.email('validation.invalidEmail');
+export const RequiredStringSchema = z.string().min(1, '#validation.required');
+export const RequiredEmailSchema = RequiredStringSchema.email('#validation.invalidEmail');
 export const OptionalStringSchema = z.string().optional();
+export const RequiredCheckboxSchema = z.literal(true, {
+  errorMap: () => ({ message: '#validation.checkboxRequired' }),
+});
+export const RequiredYesOrNoSchema = z.enum(['yes', 'no'], {
+  errorMap: () => ({ message: '#validation.pleaseSelectAValue' }),
+});
 
 type RadioItemProps = {
   value: string;

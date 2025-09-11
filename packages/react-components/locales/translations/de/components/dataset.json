@@ -31,6 +31,7 @@
   "constituentOf": "Bestandteil von:",
   "dataset": "Datensatz",
   "taxonomy": "Taxonomie",
+  "localContext": "",
   "project": "Projekt",
   "metrics": "Kennzahlen",
   "metricsOccurrenceHelpText": "",

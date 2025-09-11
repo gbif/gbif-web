@@ -2,16 +2,17 @@ import * as LabelPrimitive from '@radix-ui/react-label';
 import { Slot } from '@radix-ui/react-slot';
 import * as React from 'react';
 import {
-    Controller,
-    ControllerProps,
-    FieldPath,
-    FieldValues,
-    FormProvider,
-    useFormContext
+  Controller,
+  ControllerProps,
+  FieldPath,
+  FieldValues,
+  FormProvider,
+  useFormContext
 } from 'react-hook-form';
 
 import { Label } from '@/components/ui/label';
 import { cn } from '@/utils/shadcn';
+import { FormattedMessage } from 'react-intl';
 
 const Form = FormProvider;
 
@@ -149,20 +150,19 @@ const FormMessage = React.forwardRef<
       className={cn('g-text-[0.8rem] g-font-medium g-text-destructive', className)}
       {...props}
     >
-      {body}
+      {typeof body === 'string' && body.startsWith('#') ? (
+        <FormattedMessage id={body.slice(1)} />
+      ) : (
+        body
+      )}
     </p>
   );
 });
 FormMessage.displayName = 'FormMessage';
 
 export {
-    useFormField,
-    Form,
-    FormItem,
-    FormLabel,
-    FormControl,
-    FormDescription,
-    FormMessage,
-    FormField,
+  Form, FormControl,
+  FormDescription, FormField, FormItem,
+  FormLabel, FormMessage, useFormField
 };
 

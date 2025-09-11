@@ -1,16 +1,18 @@
 import { cn } from '@/utils/shadcn';
 import { CheckIcon } from '@radix-ui/react-icons';
+import { FormattedNumber } from '../dashboard/shared';
 import { Step } from './stepperForm';
 
 type Props = {
   currentStep: Step;
   steps: Step[];
   goToStep: (idx: number) => void;
+  className?: string;
 };
 
-export function TopNavigation({ currentStep, steps, goToStep }: Props) {
+export function TopNavigation({ currentStep, steps, goToStep, className }: Props) {
   return (
-    <div className="g-relative">
+    <div className={cn('g-relative', className)}>
       <div className="g-absolute g-w-full g-top-3 sm:g-top-4">
         <div className="g-h-px g-flex">
           <div
@@ -39,7 +41,7 @@ export function TopNavigation({ currentStep, steps, goToStep }: Props) {
                   }
                 )}
               >
-                {isPast ? <CheckIcon /> : step.idx + 1}
+                {isPast ? <CheckIcon /> : <FormattedNumber value={step.idx + 1} />}
               </button>
             </li>
           );
