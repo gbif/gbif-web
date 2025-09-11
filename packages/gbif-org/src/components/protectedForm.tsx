@@ -24,6 +24,7 @@ export function ProtectedForm({ children, className, title, message }: Props) {
       <p className="g-text-sm g-pt-1">{message}</p>
 
       <div className="g-pt-12 g-grid g-grid-cols-2 g-gap-2 g-justify-center">
+        {/* TODO: add a callback url when supported by the login/register page */}
         <Button asChild>
           <DynamicLink to="/user/login">
             <FormattedMessage id="profile.loginText" />

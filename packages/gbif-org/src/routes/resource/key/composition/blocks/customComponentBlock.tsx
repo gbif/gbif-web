@@ -10,6 +10,8 @@ import { MentorsList } from './customComponents/mentorsList';
 import { ProjectsTable } from './customComponents/projects';
 import { PublisherDatasetTable } from './customComponents/publisherDatasetTable';
 import { TranslatorsList } from './customComponents/translatorsList';
+import { ProtectedForm } from '@/components/protectedForm';
+
 fragmentManager.register(/* GraphQL */ `
   fragment CustomComponentBlockDetails on CustomComponentBlock {
     id
@@ -33,13 +35,16 @@ type Props = {
 };
 
 export function CustomComponentBlock({ resource }: Props) {
-  const backgroundColor = backgroundColorMap[resource?.backgroundColour ?? 'white'];
-  const width = widthMap[resource?.width ?? 'normal'];
+  // This is a temporary fix to make the new hosted portal form work with the current contentful data.
+  const mofitiedResource = overwriteHostedPortalFormDetails(resource);
+
+  const backgroundColor = backgroundColorMap[mofitiedResource?.backgroundColour ?? 'white'];
+  const width = widthMap[mofitiedResource?.width ?? 'normal'];
   return (
     <BlockContainer className={`${backgroundColor} g-border-t g-border-slate-100 g-p-0`}>
       {/* <ArticleTextContainer> */}
       <div className={width}>
-        <CustomComponent resource={resource} />
+        <CustomComponent resource={mofitiedResource} />
       </div>
       {/* </ArticleTextContainer> */}
     </BlockContainer>
@@ -76,7 +81,15 @@ function CustomComponent({
     case 'metabarcodingDataToolForm':
       return <MdtForm />;
     case 'hostedPortalForm':
-      return <HostedPortalForm className="g-bg-white" />;
+      return (
+        <ProtectedForm
+          className="g-bg-white g-my-8 g-max-w-3xl g-mx-auto"
+          title={<span>You need an account to request a hosted portal</span>}
+          message={<span>Log in or create an account to continue requesting a hosted portal.</span>}
+        >
+          <HostedPortalForm className="g-bg-white" />
+        </ProtectedForm>
+      );
     case 'projects':
       return (
         <ProjectsTable
@@ -96,4 +109,18 @@ function CustomComponent({
     default:
       return <pre>Unknown block: {JSON.stringify(resource, null, 2)}</pre>;
   }
+}
+
+// TODO: REMOVE
+// The current settings for the hosted portal form does not suit the new hosted portal form.
+// This function is meant to be temporary until the new site has been deplyed and the contentful data can be updated.
+function overwriteHostedPortalFormDetails(
+  resource: CustomComponentBlockDetailsFragment
+): CustomComponentBlockDetailsFragment {
+  if (resource.componentType !== 'hostedPortalForm') return resource;
+
+  return {
+    ...resource,
+    width: 'fluid',
+  };
 }

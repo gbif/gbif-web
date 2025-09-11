@@ -92,7 +92,6 @@ function BecomeAPublisherPage() {
 
           <hr className="g-mt-8" />
 
-          {/* TODO: add a callback url when supported by the login page */}
           <ProtectedForm
             className="g-mt-4"
             title={<FormattedMessage id="eoi.loginToRegisterOrganization.title" />}
