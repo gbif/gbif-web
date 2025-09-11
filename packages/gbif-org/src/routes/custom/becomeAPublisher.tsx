@@ -18,6 +18,7 @@ import { Documents } from '../resource/key/components/documents';
 import { PageContainer } from '../resource/key/components/pageContainer';
 import { SecondaryLinks } from '../resource/key/components/secondaryLinks';
 import { BecomeAPublisherForm } from '../resource/key/composition/blocks/customComponents/becomeAPublisherForm';
+import { ProtectedForm } from '@/components/protectedForm';
 
 const BECOME_A_PUBLISHER_QUERY = /* GraphQL */ `
   query BecomeAPublisherPage {
@@ -91,9 +92,16 @@ function BecomeAPublisherPage() {
 
           <hr className="g-mt-8" />
 
-          <StaticRenderSuspence>
-            <BecomeAPublisherForm className="g-px-0" />
-          </StaticRenderSuspence>
+          {/* TODO: add a callback url when supported by the login page */}
+          <ProtectedForm
+            className="g-mt-4"
+            title={<FormattedMessage id="eoi.loginToRegisterOrganization.title" />}
+            message={<FormattedMessage id="eoi.loginToRegisterOrganization.message" />}
+          >
+            <StaticRenderSuspence>
+              <BecomeAPublisherForm className="g-px-0" />
+            </StaticRenderSuspence>
+          </ProtectedForm>
 
           <ArticleFooterWrapper>
             {resource.secondaryLinks && (
