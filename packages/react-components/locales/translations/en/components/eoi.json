@@ -4,6 +4,7 @@
   "myOrgIsNotRegistered": "My organization is not already registered.",
   "searchOrganisations": "Search organizations",
   "termsAndConditions": "Terms and conditions",
+  "iHaveReadAndUnderstood": "",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "I understand that I am seeking registration on behalf of my organization, and confirm that the responsible authorities of my organization are aware of this registration.",
   "iUnderstandThatMyOrganizationalInformation": "I understand that my organizational information, including the contact details provided, will be made publicly available through GBIF.org.",
   "administrativeContact": "Administrative contact",
@@ -30,6 +31,7 @@
   "none": "None",
   "whatAndHow": "What and how",
   "helpUsUnderstand": "Help us understand what kind of data you plan to publish, and what support you may need.",
+  "publOfFourTypesOfData": "",
   "whichTypesOfData": "Which types of data do you expect to publish?",
   "resourcesMetaData": "Resources metadata",
   "checkListData": "Checklist data",
@@ -41,7 +43,9 @@
   "yes": "Yes",
   "no": "No",
   "pleaseSelectAValue": "Please select a value",
+  "reuseTrustedIPThosting": "",
   "doYouNeedHelpPublishing": "Do you need help in publishing your data?",
+  "areYouPlanningToInstallAndRun": "",
   "orgDetails": "Organization details",
   "yourChanceToTellGBIF": "Your chance to tell GBIF users who you are and what you do.",
   "orgName": "Organization name",
@@ -59,6 +63,7 @@
   "invalidUrl": "Invalid url",
   "brieflyDescribeScope": "In *English*, please briefly describe the scope of your institution/organization in relation to GBIF's mission (e.g. collection holdings, research focus, biodiversity information management, etc.). This description will appear on your publisher page. You may also wish to include a version in another language, but English is required.",
   "clear": "Clear",
+  "selectParticipant": "",
   "clickMapToAddOrg": "Click on the map to add your organization",
   "description": "Description",
   "gbifProjects": "GBIF projects",
@@ -78,5 +83,18 @@
   "outage": "We are experiencing a partial outage and do not accept registrations at the moment",
   "loginRequired": "You need an account to register a new organization. Please create an account first and then revisit this page.",
   "eoiDescription": "To prepare for publishing data through GBIF, we ask prospective new publishers to complete this online form. Before GBIF indexes your datasets, your institution must receive endorsement as a data publisher from one of the countries or organizations participating in GBIF, through a GBIF Participant node. If your country is not yet participating in GBIF, we will seek endorsement on your behalf from the GBIF community.",
-  "eoiTitle": "Become a publisher"
+  "eoiTitle": "Become a publisher",
+  "checkRegistration": "",
+  "organisationDetails": "",
+  "organisationAddress": "",
+  "endorsement": "",
+  "validationError": {
+    "pleaseSelectYourOrganizationOnTheMap": "",
+    "pleaseSelectTheCountryOfYourOrganization": ""
+  },
+  "thankYouForYourregistration": "",
+  "weWillBeInTouchSoon": "",
+  "failedToRegisterOrganization": "",
+  "pleaseTryAgainLater": "",
+  "associatedWithGbifProgramme": ""
 }
