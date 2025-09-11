@@ -94,7 +94,10 @@ function OrganizationPreview({ id, className }: { id: string; className?: string
           <div className="g-p-2">
             {organization.created && (
               <span className="g-text-xs g-block g-text-primary-600">
-                Joined <TimeAgo date={new Date(organization.created)} />
+                <FormattedMessage
+                  id="publisher.joinedDate"
+                  values={{ date: <TimeAgo date={new Date(organization.created)} /> }}
+                />
               </span>
             )}
             <span className="g-text-xs g-block g-text-gray-500">

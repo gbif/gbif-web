@@ -23,6 +23,7 @@ export function GbifProjects() {
           <FormItem>
             <FormControl>
               <RadioGroup
+                value={field.value}
                 onValueChange={field.onChange}
                 className="g-flex g-flex-col g-space-y-1 g-pt-2"
               >

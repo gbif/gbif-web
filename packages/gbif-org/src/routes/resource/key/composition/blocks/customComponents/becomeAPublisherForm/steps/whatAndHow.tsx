@@ -89,7 +89,11 @@ export function WhatAndHow() {
               />
             </FormLabel>
             <FormControl>
-              <RadioGroup onValueChange={field.onChange} className="g-flex g-flex-row g-space-x-4">
+              <RadioGroup
+                value={field.value}
+                onValueChange={field.onChange}
+                className="g-flex g-flex-row g-space-x-4"
+              >
                 <RadioItem
                   value="yes"
                   label={<FormattedMessage id="eoi.yes" defaultMessage="Yes" />}
@@ -122,6 +126,7 @@ export function WhatAndHow() {
             </FormLabel>
             <FormControl>
               <RadioGroup
+                value={field.value}
                 onValueChange={field.onChange}
                 className="g-flex g-flex-row g-space-x-4 g-mt-1"
               >
@@ -164,6 +169,7 @@ export function WhatAndHow() {
             </FormLabel>
             <FormControl>
               <RadioGroup
+                value={field.value}
                 onValueChange={field.onChange}
                 className="g-flex g-flex-row g-space-x-4 g-mt-1"
               >

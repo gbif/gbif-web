@@ -1,12 +1,12 @@
-import { ClientSideOnly } from '@/components/clientSideOnly';
+import { ValidParticipant } from '@/components/select/participantSelect';
 import { Step, StepperForm } from '@/components/stepperForm';
 import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
 import { cn } from '@/utils/shadcn';
 import { withIndex } from '@/utils/withIndex';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMemo } from 'react';
-import { useForm } from 'react-hook-form';
+import { useEffect, useMemo, useState } from 'react';
+import { useForm, UseFormGetValues } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { z } from 'zod';
 import { BlockContainer } from '../../_shared';
@@ -14,8 +14,10 @@ import {
   createTypedCheckboxField,
   createTypedTextField,
   OptionalStringSchema,
+  RequiredCheckboxSchema,
   RequiredEmailSchema,
   RequiredStringSchema,
+  RequiredYesOrNoSchema,
 } from '../_shared';
 import { CheckRegistration } from './steps/checkRegistration';
 import { Contacts } from './steps/contacts';
@@ -26,6 +28,7 @@ import { OrganizationDetails } from './steps/organizationDetails';
 import { TermsAndConditions } from './steps/termsAndConditions';
 import { WhatAndHow } from './steps/whatAndHow';
 import { useSuggestedNodeCountry } from './useSuggestedNodeCountry';
+
 const ContactSchema = z.object({
   firstName: RequiredStringSchema,
   lastName: RequiredStringSchema,
@@ -33,19 +36,20 @@ const ContactSchema = z.object({
   phone: OptionalStringSchema,
 });
 
+// Using # to indicate the error messages should be treated as a translation key
 const Schema = z.object({
-  checkRegistration: z.literal(true),
+  checkRegistration: RequiredCheckboxSchema,
   termsAndConditions: z.object({
-    dataPublishederAgreement: z.literal(true),
-    confirmRegistration: z.literal(true),
-    dataWillBePublic: z.literal(true),
+    dataPublishederAgreement: RequiredCheckboxSchema,
+    confirmRegistration: RequiredCheckboxSchema,
+    dataWillBePublic: RequiredCheckboxSchema,
   }),
   organizationDetails: z.object({
     name: RequiredStringSchema,
-    homePage: z.string().url().optional().or(z.literal('')),
-    email: z.string().email().optional().or(z.literal('')),
+    homePage: z.string().url('#validation.invalidWebsiteAddress').optional().or(z.literal('')),
+    email: z.string().email('#validation.invalidEmail').optional().or(z.literal('')),
     phone: OptionalStringSchema,
-    logo: z.string().url().optional().or(z.literal('')),
+    logo: z.string().url('#validation.invalidURL').optional().or(z.literal('')),
     description: RequiredStringSchema,
   }),
   organizationAddress: z.object({
@@ -53,17 +57,31 @@ const Schema = z.object({
     city: RequiredStringSchema,
     province: OptionalStringSchema,
     postalCode: OptionalStringSchema,
-    country: RequiredStringSchema,
-    coordinates: z.object({
-      lat: z.number(),
-      lon: z.number(),
+    country: z.string({
+      errorMap: () => ({
+        message: '#eoi.validationError.pleaseSelectTheCountryOfYourOrganization',
+      }),
     }),
+    coordinates: z.object(
+      {
+        lat: z.number(),
+        lon: z.number(),
+      },
+      { errorMap: () => ({ message: '#eoi.validationError.pleaseSelectYourOrganizationOnTheMap' }) }
+    ),
   }),
-  endorsingNode: z.string(),
-  gbifProjects: z.discriminatedUnion('type', [
-    z.object({ type: z.literal('yes'), projectIdentifier: OptionalStringSchema }),
-    z.object({ type: z.literal('no') }),
-  ]),
+  endorsingNode: z.string({
+    errorMap: () => ({ message: '#validation.pleaseSelectAValue' }),
+  }),
+  gbifProjects: z.object(
+    {
+      type: RequiredYesOrNoSchema,
+      projectIdentifier: OptionalStringSchema,
+    },
+    {
+      errorMap: () => ({ message: '#validation.pleaseSelectAValue' }),
+    }
+  ),
   mainContact: ContactSchema,
   extraContacts: z.object({
     administrative: z.boolean().optional(),
@@ -77,11 +95,26 @@ const Schema = z.object({
     occurrenceOnlyData: z.boolean().optional(),
     samplingEventData: z.boolean().optional(),
     description: RequiredStringSchema,
-    serverCapable: z.enum(['yes', 'no']),
-    toolPlanned: z.enum(['yes', 'no']),
-    doYouNeedHelpPublishing: z.enum(['yes', 'no']),
+    serverCapable: RequiredYesOrNoSchema,
+    toolPlanned: RequiredYesOrNoSchema,
+    doYouNeedHelpPublishing: RequiredYesOrNoSchema,
   }),
 });
+
+const defaultValues = {
+  checkRegistration: false,
+  termsAndConditions: {
+    dataPublishederAgreement: false,
+    confirmRegistration: false,
+    dataWillBePublic: false,
+  },
+  whatAndHow: {
+    resourceMetadata: false,
+    checklistData: false,
+    occurrenceOnlyData: false,
+    samplingEventData: false,
+  },
+};
 
 export type Inputs = z.infer<typeof Schema>;
 
@@ -96,10 +129,22 @@ export function BecomeAPublisherForm({ className }: Props) {
   const { toast } = useToast();
   const config = useConfig();
   const intl = useIntl();
+
+  const restored = useMemo(() => getProgressFromSessionStorage('become-a-publisher-draft'), []);
+
   const form = useForm<Inputs>({
     resolver: zodResolver(Schema),
     mode: 'onBlur',
+    defaultValues: restored?.values || defaultValues,
   });
+
+  // Used by the Endorsement step, but hoisted here to save and restore from session storage
+  const [participant, setParticipant] = useState<ValidParticipant | undefined>(
+    restored?.participant
+  );
+
+  const { getValues } = form;
+  useSaveProgressInSessionStorage('become-a-publisher-draft', getValues, participant);
 
   const onSubmit = useMemo(
     () =>
@@ -115,23 +160,42 @@ export function BecomeAPublisherForm({ className }: Props) {
             if (!response.ok) throw response;
 
             toast({
-              title: 'Thank you for registering your organization',
-              description: 'We will be in touch soon',
+              title: intl.formatMessage({
+                id: 'eoi.thankYouForYourregistration',
+                defaultMessage: 'Thank you for registering your organization',
+              }),
+              description: intl.formatMessage({
+                id: 'eoi.weWillBeInTouchSoon',
+                defaultMessage: 'We will be in touch soon',
+              }),
             });
           })
           .catch((error) => {
             toast({
-              title: 'Failed to register organization',
-              description: 'Please try again later',
+              title: intl.formatMessage({
+                id: 'eoi.failedToRegisterOrganization',
+                defaultMessage: 'Failed to register organization',
+              }),
+              description: intl.formatMessage({
+                id: 'eoi.pleaseTryAgainLater',
+                defaultMessage: 'Please try again later',
+              }),
               variant: 'destructive',
             });
             console.error(error);
           });
       }),
-    [form, toast, config.formsEndpoint]
+    [form, toast, config.formsEndpoint, intl]
   );
 
   const { suggestedNodeCountry, updateSuggestedNodeCountry } = useSuggestedNodeCountry();
+
+  const country = form.watch('organizationAddress.country');
+  useEffect(() => {
+    if (country) {
+      updateSuggestedNodeCountry(country);
+    }
+  }, [country, updateSuggestedNodeCountry]);
 
   const STEPS: Step[] = useMemo(
     () =>
@@ -167,9 +231,7 @@ export function BecomeAPublisherForm({ className }: Props) {
             id: 'eoi.organisationAddress',
             defaultMessage: 'Organization Address',
           }), //'Organization Address',
-          component: () => (
-            <OrganizationAddress updateSuggestedNodeCountry={updateSuggestedNodeCountry} />
-          ),
+          component: OrganizationAddress,
           fieldset: true,
           validationPath: 'organizationAddress',
         },
@@ -178,7 +240,13 @@ export function BecomeAPublisherForm({ className }: Props) {
             id: 'eoi.endorsement',
             defaultMessage: 'Endorsement',
           }), //'Endorsement',
-          component: () => <Endorsment suggestedNodeCountry={suggestedNodeCountry} />,
+          component: () => (
+            <Endorsment
+              suggestedNodeCountry={suggestedNodeCountry}
+              participant={participant}
+              setParticipant={setParticipant}
+            />
+          ),
           fieldset: true,
           validationPath: 'endorsingNode',
         },
@@ -188,7 +256,10 @@ export function BecomeAPublisherForm({ className }: Props) {
             defaultMessage: 'GBIF projects',
           }), //'GBIF projects',
           component: GbifProjects,
-          heading: 'Are you associated with a project funded by a GBIF programme?',
+          heading: intl.formatMessage({
+            id: 'eoi.associatedWithGbifProgramme',
+            defaultMessage: 'Are you associated with a project funded by a GBIF programme?',
+          }),
           validationPath: 'gbifProjects',
         },
         {
@@ -209,14 +280,40 @@ export function BecomeAPublisherForm({ className }: Props) {
           fieldset: true,
         },
       ]),
-    [updateSuggestedNodeCountry, suggestedNodeCountry]
+    [suggestedNodeCountry, participant, setParticipant, intl]
   );
 
   return (
     <BlockContainer className={cn('g-bg-white g-overflow-visible', className)}>
-      <ClientSideOnly>
-        <StepperForm form={form} onSubmit={onSubmit} steps={STEPS} />
-      </ClientSideOnly>
+      <StepperForm form={form} onSubmit={onSubmit} steps={STEPS} />
     </BlockContainer>
   );
+}
+
+function useSaveProgressInSessionStorage(
+  key: string,
+  getValues: UseFormGetValues<Inputs>,
+  participant?: ValidParticipant
+) {
+  useEffect(() => {
+    const handler = () => {
+      const values = getValues();
+      window.sessionStorage.setItem(key, JSON.stringify({ values, participant }));
+    };
+    window.addEventListener('beforeunload', handler);
+    return () => window.removeEventListener('beforeunload', handler);
+  }, [key, getValues, participant]);
+}
+
+function getProgressFromSessionStorage(key: string) {
+  const draft = window.sessionStorage.getItem(key);
+  if (draft) {
+    try {
+      const parsed = JSON.parse(draft);
+      console.log('Draft loaded from session storage', JSON.stringify(parsed, null, 2));
+      return parsed;
+    } catch (e) {
+      console.error('Failed to parse become-a-publisher draft', e);
+    }
+  }
 }

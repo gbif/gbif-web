@@ -1,3 +1,4 @@
+import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { BecomeAPublisherPageQuery } from '@/gql/graphql';
 import { LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { ArticleBanner } from '@/routes/resource/key/components/articleBanner';
@@ -90,7 +91,9 @@ function BecomeAPublisherPage() {
 
           <hr className="g-mt-8" />
 
-          <BecomeAPublisherForm className="g-px-0" />
+          <StaticRenderSuspence>
+            <BecomeAPublisherForm className="g-px-0" />
+          </StaticRenderSuspence>
 
           <ArticleFooterWrapper>
             {resource.secondaryLinks && (

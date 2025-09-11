@@ -79,8 +79,7 @@ export function registerBecomeAPublisherForm(router: Router) {
     validateRequest(Schema),
     async (req, res) => {
       try {
-        const response = await createPublisher(req.body);
-        console.log(response);
+        await createPublisher(req.body);
         res.status(201).json({ success: true });
       } catch (error) {
         logger.error({

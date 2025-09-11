@@ -87,5 +87,14 @@
   "checkRegistration": "Check registration",
   "organisationDetails": "Organisation details",
   "organisationAddress": "Organisation address",
-  "endorsement": "Endorsement"
+  "endorsement": "Endorsement",
+  "validationError": {
+    "pleaseSelectYourOrganizationOnTheMap": "Please select your organization on the map",
+    "pleaseSelectTheCountryOfYourOrganization": "Please select the country of your organization"
+  },
+  "thankYouForYourregistration": "Thank you for registering your organization",
+  "weWillBeInTouchSoon": "We will be in touch soon",
+  "failedToRegisterOrganization": "Failed to register organization",
+  "pleaseTryAgainLater": "Please try again later",
+  "associatedWithGbifProgramme": "Are you associated with a project funded by a GBIF programme?"
 }

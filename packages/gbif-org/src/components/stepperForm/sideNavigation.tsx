@@ -1,16 +1,18 @@
 import { cn } from '@/utils/shadcn';
 import { CheckIcon } from '@radix-ui/react-icons';
+import { FormattedNumber } from '../dashboard/shared';
 import { Step } from './stepperForm';
 
 type Props = {
   currentStep: Step;
   steps: Step[];
   goToStep: (idx: number) => void;
+  className?: string;
 };
 
-export function SideNavigation({ currentStep, steps, goToStep }: Props) {
+export function SideNavigation({ currentStep, steps, goToStep, className }: Props) {
   return (
-    <div className="g-w-48 g--left-52 g-h-min g-absolute g-overflow-hidden">
+    <div className={cn('g-right-[100%] g-pr-4 g-h-min g-absolute', className)}>
       <div className="g-h-full g-py-6 g-absolute g-left-5">
         <div className="g-w-px g-h-full g-flex g-flex-col">
           <div
@@ -20,7 +22,7 @@ export function SideNavigation({ currentStep, steps, goToStep }: Props) {
           <div className="g-bg-gray-300 g-flex-1" />
         </div>
       </div>
-      <ol className="g-w-full g-flex g-flex-col g-relative">
+      <ol className="g-flex g-flex-col g-relative">
         {steps.map((step) => {
           const isCurrent = step.idx === currentStep.idx;
           const isPast = step.idx < currentStep.idx;
@@ -46,7 +48,7 @@ export function SideNavigation({ currentStep, steps, goToStep }: Props) {
                     }
                   )}
                 >
-                  {isPast ? <CheckIcon /> : step.idx + 1}
+                  {isPast ? <CheckIcon /> : <FormattedNumber value={step.idx + 1} />}
                 </span>
                 <span
                   className={cn('g-pl-2 g-whitespace-nowrap', {
