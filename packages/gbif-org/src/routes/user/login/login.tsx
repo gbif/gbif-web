@@ -46,8 +46,9 @@ export function LoginPage() {
   useEffect(() => {
     // Check if user is already logged in
     if (!isLoading && isLoggedIn) {
-      // User is already logged in, redirect to profile. We can use the localizeLink to ensure the URL is correct for the current locale
-      navigate(localizeLink(`/user/profile`));
+      // user is already logged in. redirect to search param or profile page
+      const returnUrl = new URLSearchParams(location.search).get('returnUrl');
+      navigate(returnUrl ?? localizeLink(`/user/profile`));
     }
   }, [navigate, isLoggedIn, isLoading, localizeLink]);
 
@@ -66,8 +67,9 @@ export function RegistrationPage() {
   useEffect(() => {
     // Check if user is already logged in
     if (!isLoading && isLoggedIn) {
-      // User is already logged in, redirect to profile. We can use the localizeLink to ensure the URL is correct for the current locale
-      navigate(localizeLink(`/user/profile`));
+      // get returnUrl search param if any
+      const returnUrl = new URLSearchParams(location.search).get('returnUrl');
+      navigate(returnUrl ?? localizeLink(`/user/profile`));
     }
   }, [navigate, isLoggedIn, isLoading, localizeLink]);
 
@@ -79,6 +81,7 @@ export function RegistrationPage() {
 }
 
 export function LoginForm() {
+  const { localizeLink } = useI18n();
   const navigate = useNavigate();
   const { formatMessage } = useIntl();
   const location = useLocation();
@@ -125,9 +128,9 @@ export function LoginForm() {
 
     try {
       await login(values);
-      const state = location.state as LocationState | null;
-      const returnTo = state?.from || '/user/profile';
-      navigate(returnTo);
+      // get returnUrl search param if any
+      const returnUrl = new URLSearchParams(location.search).get('returnUrl');
+      navigate(returnUrl ?? localizeLink(`/user/profile`));
     } catch (err) {
       if (err instanceof UserError && err.type === 'INVALID_REQUEST') {
         setError('INVALID_LOGIN');
@@ -628,7 +631,3 @@ function RegisterForm() {
     </>
   );
 }
-
-type LocationState = {
-  from?: string;
-};

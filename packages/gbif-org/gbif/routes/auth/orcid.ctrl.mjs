@@ -11,8 +11,9 @@ let scope = '/authenticate';
 export function register(app) {
   // ORCID OAuth routes
   app.get('/auth/orcid/login', (req, res, next) => {
-    let state = { action: 'LOGIN', target: req.headers.referer || '/' };
-    let stateB64 = jsonToBase64(state);
+    const returnUrl = getReturnUrl(req);
+    const state = { action: 'LOGIN', target: returnUrl ?? '/' };
+    const stateB64 = jsonToBase64(state);
     passport.authenticate('orcid', { scope: scope, state: stateB64 })(req, res, next);
   });
 

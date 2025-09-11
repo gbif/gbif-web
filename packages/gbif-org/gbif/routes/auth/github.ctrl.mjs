@@ -3,14 +3,15 @@ import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github2';
 import { update } from '../user/user.model.mjs';
 import { authCallback } from './oauthUtils.mjs';
-import { appendUser, isAuthenticated, jsonToBase64 } from './utils.mjs';
+import { appendUser, getReturnUrl, isAuthenticated, jsonToBase64 } from './utils.mjs';
 import { secretEnv } from '../../envConfig.mjs';
 
 export function register(app) {
   // GitHub OAuth routes
   app.get('/auth/github/login', (req, res, next) => {
-    let state = { action: 'LOGIN', target: req.headers.referer || '/' };
-    let stateB64 = jsonToBase64(state);
+    const returnUrl = getReturnUrl(req);
+    const state = { action: 'LOGIN', target: returnUrl ?? '/' };
+    const stateB64 = jsonToBase64(state);
     passport.authenticate('github', { scope: ['user:email'], state: stateB64 })(req, res, next);
   });
 

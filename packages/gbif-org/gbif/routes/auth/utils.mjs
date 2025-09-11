@@ -213,3 +213,16 @@ export function base64ToJson(base64String) {
   const json = Buffer.from(base64String, 'base64').toString();
   return JSON.parse(json);
 }
+
+export function getReturnUrl(req) {
+  try {
+    const referer = req.headers.referer ?? '/';
+    const refererUrl = new URL(referer);
+    const searchParams = refererUrl.searchParams;
+    const unparsedReturnUrl = searchParams.get('returnUrl');
+    const returnUrl = unparsedReturnUrl.startsWith('/') ? unparsedReturnUrl : '/user/login';
+    return returnUrl ?? '/user/login';
+  } catch (error) {
+    return '/user/login';
+  }
+}
