@@ -1,8 +1,8 @@
-import config from '#/config';
-import logger from '#/logger';
 import { Router } from 'express';
 import { z } from 'zod';
 import { validateRequest } from 'zod-express-middleware';
+import logger from '#/logger';
+import config from '#/config';
 import { createGitHubIssue } from '../helpers/create-github-issue';
 import { RequiredEmailSchema, RequiredStringSchema } from '../validation';
 import { createMarkdown } from './create-markdown';
@@ -33,6 +33,7 @@ const Schema = {
       .boolean()
       .default(false),
   }),
+  gbif_user: z.string(),
 };
 
 export type MdtApplicationDTO = z.infer<typeof Schema['body']>;
@@ -47,7 +48,6 @@ export function registerMdtApplicationForm(router: Router) {
         body: createMarkdown(req.body as MdtApplicationDTO),
         labels: ['REVIEW MANAGER NEEDED'],
       });
-      // console.log(createMarkdown(req.body as MdtApplicationDTO));
       res.status(200).json({ message: 'Form submitted successfully' });
     } catch (error) {
       logger.error({

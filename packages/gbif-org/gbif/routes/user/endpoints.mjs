@@ -12,6 +12,8 @@ import {
   updatePasswordFromChallengeCode,
   updateProfile,
   whoAmI,
+  mailToUser,
+  showUserInRegistry,
 } from './controllers.mjs';
 import { getChallenge, requireProofOfWork } from './pow.mjs';
 
@@ -33,4 +35,6 @@ export function register(app) {
   app.put('/api/user/update-profile', appendUser, updateProfile);
   app.put('/api/user/challenge', getChallenge);
   app.put('/api/user/create', requireProofOfWork, create);
+  app.get('/api/feedback/user/mailto/:user', appendUser, mailToUser);
+  app.get('/api/feedback/user/:user', appendUser, showUserInRegistry);
 }

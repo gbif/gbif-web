@@ -21,6 +21,7 @@ import resolvers from './resolvers';
 // how to fetch the actual data and possible format/remap it to match the schemas
 import api from './dataSources';
 // we will attach a user if an authorization header is present.
+import feedbackController from './api-utils/feedback';
 import citesController from './api-utils/cites.ctrl';
 import formController from './api-utils/forms/index.ctrl';
 import geometryController from './api-utils/geometry/index.ctrl.js';
@@ -134,7 +135,7 @@ async function initializeServer() {
 
   await server.start();
   server.applyMiddleware({ app });
-
+  feedbackController(app);
   mapController(app);
   ipController(app);
   polygonName(app);

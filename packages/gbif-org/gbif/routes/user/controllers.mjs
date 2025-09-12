@@ -16,7 +16,7 @@ import {
   updateForgottenPassword,
   update as updateUser,
 } from './user.model.mjs';
-
+import { decryptJSON } from './encrypt.mjs';
 /**
  * Gets the user associated with the token in the cookie
  */
@@ -179,4 +179,52 @@ function handleError(res, statusCode = 500) {
     }
     res.sendStatus(status);
   };
+}
+
+export function showUserInRegistry(req, res) {
+  console.log(req.params.user);
+  console.log(req?.user);
+  if (!req?.user?.email?.endsWith('@gbif.org')) {
+    res.sendStatus(403); // this test doesn't matter much as the registry requires a login to show the data anyhow
+  } else {
+    const userCode = req.params.user;
+    try {
+      const user = decryptJSON(userCode);
+      res.redirect(302, `${process.env.PUBLIC_REGISTRY}/user/${user.userName}`);
+    } catch (err) {
+      res.sendStatus(500);
+    }
+  }
+}
+
+export function mailToUser(req, res) {
+  if (!req?.user?.email?.endsWith('@gbif.org')) {
+    res.sendStatus(403); // this test doesn't matter much as the registry requires a login to show the data anyhow
+  } else {
+    const userCode = req.params.user;
+    try {
+      const referer = req?.headers?.referer;
+      if (!referer) {
+        res.status(500);
+        res.send('No referer present. Perhaps you copy pasted the link or opened it in a new tab.');
+      }
+      const issueNr = referer.substring(referer.lastIndexOf('/') + 1);
+      const user = decryptJSON(userCode);
+      const body = `There has been activity on the message you logged via the GBIF feedback system: ${referer}
+          
+          You need a Github account to participate in the discussion.
+          Did you know you can link your Github user profile to GBIF?
+          
+          Thanks,
+          GBIF Helpdesk`;
+      res.redirect(
+        302,
+        `mailto:${
+          user.email
+        }?subject=GBIF Feedback system - ticket ${issueNr}&body=${encodeURIComponent(body)}`
+      );
+    } catch (err) {
+      res.sendStatus(500);
+    }
+  }
 }

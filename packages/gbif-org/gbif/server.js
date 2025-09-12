@@ -69,6 +69,7 @@ async function main() {
       env.PUBLIC_GRAPHQL_ENDPOINT,
       env.PUBLIC_GRAPHQL_ENDPOINT_CLIENT,
       env.PUBLIC_FORMS_ENDPOINT,
+      env.PUBLIC_FEEDBACK_ENDPOINT,
       env.PUBLIC_FORMS_ENDPOINT_CLIENT,
     ].filter((endpoint) => typeof endpoint === 'string');
 

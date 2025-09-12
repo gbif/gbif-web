@@ -127,7 +127,7 @@ function objectToQueryString(params) {
   return urlParams.toString();
 }
 
-const contentfulLocaleToGbifLocaleMap = {
+export const contentfulLocaleToGbifLocaleMap = {
   'en-GB': null,
   ar: 'ar',
   'zh-Hant': 'zh-tw',

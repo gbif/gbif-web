@@ -1,13 +1,14 @@
 import { z } from 'zod';
+import { validateRequest } from 'zod-express-middleware';
+import { Router } from 'express';
 import {
   OptionalStringSchema,
   RequiredEmailSchema,
   RequiredStringSchema,
 } from '../validation';
-import { validateRequest } from 'zod-express-middleware';
-import { Router } from 'express';
 import { createPublisher } from './create-publisher';
 import logger from '#/logger';
+import { isAuthenticated } from '../../../middleware';
 
 const ContactSchema = z.object({
   firstName: RequiredStringSchema,
@@ -76,6 +77,7 @@ export type CreatePublisherDTO = z.infer<typeof Schema['body']>;
 export function registerBecomeAPublisherForm(router: Router) {
   router.post(
     '/become-a-publisher',
+    isAuthenticated,
     validateRequest(Schema),
     async (req, res) => {
       try {

@@ -10,6 +10,7 @@ import {
 } from '../validation';
 import logger from '#/logger';
 import config from '#/config';
+import { isAuthenticated } from '../../../middleware';
 
 const Schema = {
   body: z.object({
@@ -78,6 +79,7 @@ export type HostedPortalApplicationDTO = z.infer<typeof Schema['body']>;
 export function registerHostedPortalApplicationForm(router: Router) {
   router.post(
     '/hosted-portal-application',
+    isAuthenticated,
     validateRequest(Schema),
     async (req, res) => {
       try {
