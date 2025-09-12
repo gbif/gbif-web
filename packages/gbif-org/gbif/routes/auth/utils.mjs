@@ -32,7 +32,7 @@ export const generateToken = (user, ttl) => {
     tokenContent.roles = JSON.stringify(user.roles);
   }
   return jwt.sign(tokenContent, JWT_SECRET, {
-    expiresIn: ttl || '24h',
+    expiresIn: ttl || '7d', // should match when the cookie expires in setTokenCookie
     algorithm: 'HS256',
   });
 };
@@ -58,7 +58,7 @@ export const generateGraphQLToken = (user, ttl) => {
  */
 export function setTokenCookie(res, token) {
   let options = {
-    maxAge: day * 7,
+    maxAge: day * 7, // should match the token expiration in generateToken
     secure: useSecureCookie,
     httpOnly: true,
     sameSite: 'lax',
