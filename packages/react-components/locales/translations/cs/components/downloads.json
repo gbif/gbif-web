@@ -11,9 +11,9 @@
   },
   "downloadKey": {
     "nOccurrencesDownloaded": "{total, plural, one {# výskyt stažen} few {# výskyty staženy} other {# výskytů staženo}} ",
-    "nRecordsDownloaded": "",
-    "nRowsDownloaded": "",
-    "nConstituentDatasets": "",
+    "nRecordsDownloaded": "{total, plural, one {# záznam stažen} few {# záznamy staženy} many {# záznamů staženo} other {# záznamů staženo}}",
+    "nRowsDownloaded": "{total, plural, one {# řádek stažen} few {# řádky staženy} many {# řádků staženo} other {# řádků staženo}}",
+    "nConstituentDatasets": "Obsahuje záznamy {total, plural, one {z # datové sady} few {ze # datových sad } many {z # datových sad} other {z # datových sad}}",
     "fileNotAvailable": "Tento soubor již není dostupný ke stažení",
     "downloadDeletionWarning": "Pokud [GBIF nezjistí citace](/literature-tracking) tohoto stažení, je datový soubor způsobilý k vymazání po {DATE}.",
     "occurrenceDownload": "Stažení výskytu",
