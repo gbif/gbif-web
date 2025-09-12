@@ -62,5 +62,9 @@
   "goToRecord": "מעבר לרשומה",
   "commonNameAccordingTo": "שם עממי לפי: {source}",
   "supportedChecklists": "",
-  "noResults": "אין תוצאות"
+  "noResults": "אין תוצאות",
+  "stepperFormProgress": "",
+  "next": "",
+  "back": "",
+  "submit": ""
 }
