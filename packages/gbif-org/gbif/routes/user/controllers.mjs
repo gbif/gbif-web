@@ -70,7 +70,7 @@ export async function confirmAccount(req, res) {
   const { code: challengeCode, username } = req.body;
   confirmUser(challengeCode, username)
     .then(function (user) {
-      let token = generateToken(user, '7d'); // Generate token with a 7-day expiration
+      let token = generateToken(user); // Generate token with a 7-day expiration
       const clientUser = getClientUser(user);
       setTokenCookie(res, token);
       res.json({ user: clientUser });
