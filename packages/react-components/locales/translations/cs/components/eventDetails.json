@@ -40,7 +40,7 @@
     "methodology": "Metodika",
     "taxonomicCoverage": ""
   },
-  "siteTooltip": "",
+  "siteTooltip": "{count, plural, one {# událost} few {# události} many {# událostí} other {# událostí}} na {site} v {date}",
   "siteTableLegend": "Místo / Rok",
   "site": "Místo: {siteID}",
   "siteLoading": "Místo: {siteID} - načítání detailů",
