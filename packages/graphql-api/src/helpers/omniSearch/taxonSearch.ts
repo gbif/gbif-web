@@ -113,7 +113,7 @@ async function getTaxonCandidates(query: string) {
     // if there is more than one match, then look at the first one. If it is a match with confidence > 90% AND is status is either accepted or a synonym then use it.
     // if the second match has same confidence score and is accepted, then include it as well.
 
-    const candidates = [];
+    const candidates: any[] = [];
     // single response
     if (
       matchResponse?.usageKey &&
