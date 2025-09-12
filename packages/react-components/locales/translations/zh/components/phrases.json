@@ -62,5 +62,9 @@
   "goToRecord": "调取存档",
   "commonNameAccordingTo": "根据{来源}的通用名称",
   "supportedChecklists": "",
-  "noResults": ""
+  "noResults": "",
+  "stepperFormProgress": "",
+  "next": "下一步",
+  "back": "返回",
+  "submit": "提交"
 }
