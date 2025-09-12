@@ -4,6 +4,7 @@
   "myOrgIsNotRegistered": "הארגון שלי עדיין לא רשום.",
   "searchOrganisations": "חיפוש ארגונים",
   "termsAndConditions": "תנאים והגבלות",
+  "iHaveReadAndUnderstood": "",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "אני מבין/ה שאני מבקש/ת רישום בשם הארגון שלי, ומאשר/ת שהגורמים המוסמכים בארגון מודעים לכך.",
   "iUnderstandThatMyOrganizationalInformation": "אני מבין/ה שמידע הארגון שלי, כולל פרטי הקשר שסופקו, יהיה זמין לציבור דרך GBIF.org.",
   "administrativeContact": "איש קשר מנהלי",
@@ -30,6 +31,7 @@
   "none": "אין",
   "whatAndHow": "מה וכיצד",
   "helpUsUnderstand": "עזרו לנו להבין אילו נתונים בכוונתכם לפרסם, ואיזו תמיכה תזדקקו לה.",
+  "publOfFourTypesOfData": "",
   "whichTypesOfData": "אילו סוגי נתונים אתם מצפים לפרסם?",
   "resourcesMetaData": "מטא־נתונים של משאבים",
   "checkListData": "נתוני רשימות מינים",
@@ -41,7 +43,9 @@
   "yes": "כן",
   "no": "לא",
   "pleaseSelectAValue": "נא לבחור ערך",
+  "reuseTrustedIPThosting": "",
   "doYouNeedHelpPublishing": "האם אתם זקוקים לעזרה בפרסום הנתונים?",
+  "areYouPlanningToInstallAndRun": "",
   "orgDetails": "פרטי הארגון",
   "yourChanceToTellGBIF": "זו ההזדמנות שלכם לספר למשתמשי GBIF מי אתם ומה אתם עושים.",
   "orgName": "שם הארגון",
@@ -59,6 +63,7 @@
   "invalidUrl": "כתובת לא תקפה",
   "brieflyDescribeScope": "באנגלית, נא לתאר בקצרה את תחום הפעילות של הארגון ביחס למשימת GBIF (למשל: אוספים, תחומי מחקר, ניהול מידע על מגוון ביולוגי). תיאור זה יופיע בעמוד הספק שלכם. ניתן גם לכלול גרסה בשפה אחרת, אך אנגלית נדרשת.",
   "clear": "נקה",
+  "selectParticipant": "",
   "clickMapToAddOrg": "לחצו על המפה כדי להוסיף את הארגון שלכם",
   "description": "תיאור",
   "gbifProjects": "פרויקטי GBIF",
@@ -76,7 +81,23 @@
   "youWillRecieveConfEmail": "תקבלו דוא״ל אישור לאחר שהאישור יתקבל.",
   "yourOrgDetailsAreHere": "פרטי הארגון שלכם מופיעים כאן.",
   "outage": "קיימת תקלה חלקית ואיננו מקבלים רישומים כעת",
-  "loginRequired": "נדרש חשבון כדי לרשום ארגון חדש. אנא צרו חשבון תחילה ואז חזרו לעמוד זה.",
   "eoiDescription": "כדי להתכונן לפרסום נתונים דרך GBIF, אנו מבקשים מספקי מידע פוטנציאליים למלא טופס מקוון זה. לפני ש־GBIF יאנדקס את מסדי הנתונים שלכם, על המוסד שלכם לקבל אישור כספק מידע מאחת המדינות או הארגונים המשתתפים ב־GBIF, דרך צומת משתתף. אם המדינה שלכם עדיין לא משתתפת ב־GBIF, נפעל לקבלת אישור מטעם קהילת GBIF.",
-  "eoiTitle": "הפכו לספק מידע"
+  "eoiTitle": "הפכו לספק מידע",
+  "checkRegistration": "",
+  "organisationDetails": "",
+  "organisationAddress": "",
+  "endorsement": "",
+  "validationError": {
+    "pleaseSelectYourOrganizationOnTheMap": "",
+    "pleaseSelectTheCountryOfYourOrganization": ""
+  },
+  "thankYouForYourregistration": "",
+  "weWillBeInTouchSoon": "",
+  "failedToRegisterOrganization": "",
+  "pleaseTryAgainLater": "",
+  "associatedWithGbifProgramme": "",
+  "loginToRegisterOrganization": {
+    "title": "",
+    "message": ""
+  }
 }
