@@ -62,5 +62,9 @@
   "goToRecord": "Přejít na záznam",
   "commonNameAccordingTo": "Běžný název podle: {source}",
   "supportedChecklists": "",
-  "noResults": "Žádné výsledky"
+  "noResults": "Žádné výsledky",
+  "stepperFormProgress": "",
+  "next": "Další",
+  "back": "Zpět",
+  "submit": "Odeslat"
 }

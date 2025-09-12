@@ -62,5 +62,9 @@
   "goToRecord": "Перейти к записи",
   "commonNameAccordingTo": "Общее название в соответствии с: {source}",
   "supportedChecklists": "",
-  "noResults": "Нет результатов"
+  "noResults": "Нет результатов",
+  "stepperFormProgress": "",
+  "next": "Далее",
+  "back": "Назад",
+  "submit": "Отправить"
 }

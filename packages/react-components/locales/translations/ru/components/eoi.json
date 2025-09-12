@@ -4,6 +4,7 @@
   "myOrgIsNotRegistered": "Моя организация еще не зарегистрирована в GBIF.",
   "searchOrganisations": "Поиск организаций (in English)",
   "termsAndConditions": "Правила и условия",
+  "iHaveReadAndUnderstood": "",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "Я понимаю, что ходатайствую о регистрации от имени моей организации и подтверждаю, что ответственные лица моей организации осведомлены об этом.",
   "iUnderstandThatMyOrganizationalInformation": "Я понимаю, что информация о моей организации, включая контактные данные, будет публично доступна на сайте GBIF.org.",
   "administrativeContact": "Административный контакт",
@@ -30,6 +31,7 @@
   "none": "не выбрана",
   "whatAndHow": "Предварительные планы публикации данных",
   "helpUsUnderstand": "Помогите нам понять, какие данные вы планируете публиковать, и какого рода техническая поддержка вам может понадобиться.",
+  "publOfFourTypesOfData": "",
   "whichTypesOfData": "Данные каких типов вы планируете опубликовать?",
   "resourcesMetaData": "Описания ресурсов (метаданные)",
   "checkListData": "Таксономические списки",
@@ -41,7 +43,9 @@
   "yes": "Да",
   "no": "Нет",
   "pleaseSelectAValue": "Пожалуйста, выберите значение",
+  "reuseTrustedIPThosting": "",
   "doYouNeedHelpPublishing": "Нужна ли вам помощь в публикации данных?",
+  "areYouPlanningToInstallAndRun": "",
   "orgDetails": "Данные об организации",
   "yourChanceToTellGBIF": "Расскажите пользователям GBIF о том, кто вы и чем занимаетесь.",
   "orgName": "Название организации",
@@ -59,6 +63,7 @@
   "invalidUrl": "Некорректный URL",
   "brieflyDescribeScope": "Кратко опишите ту сферу деятельности вашей организации, которая имеет отношение к миссии GBIF (например, ведение  коллекций, научные исследования, управление данными о биоразнообразии и т.д.). Эта информация будет доступна через портал GBIF на странице вашей организации. Описание следует сделать на английском языке, дополнительно вы можете привести его на другом зыке, например, на русском.",
   "clear": "Сбросить",
+  "selectParticipant": "",
   "clickMapToAddOrg": "Выберите на карте место расположения вашей организации",
   "description": "Описание",
   "gbifProjects": "Связь с проектами сети GBIF",
@@ -76,7 +81,23 @@
   "youWillRecieveConfEmail": "Сразу же после одобрения вашей организации вы получите уведомление по электронной почте.",
   "yourOrgDetailsAreHere": "Данные о вашей организации можно увидеть здесь.",
   "outage": "В данный момент мы не можем принять вашу заявку, так как некоторые функции портала сейчас не работают",
-  "loginRequired": "Для регистрации новой организации вам потребуется учётная запись. Сначала создайте учётную запись, а затем вернитесь на эту страницу.",
   "eoiDescription": "\n\n\nЧтобы начать публиковать данные через портал GBIF, необходимо зарегистрировать вашу организацию. Для этого вам следует заполнить данную онлайн анкету, после чего организация будет одобрена национальным узлом GBIF вашей страны. Если страна пока официальным не входит в GBIF, Секретариат сам выберет узел, который одобрит вашу организацию.",
-  "eoiTitle": "Станьте участником сети GBIF"
+  "eoiTitle": "Станьте участником сети GBIF",
+  "checkRegistration": "",
+  "organisationDetails": "",
+  "organisationAddress": "",
+  "endorsement": "",
+  "validationError": {
+    "pleaseSelectYourOrganizationOnTheMap": "",
+    "pleaseSelectTheCountryOfYourOrganization": ""
+  },
+  "thankYouForYourregistration": "",
+  "weWillBeInTouchSoon": "",
+  "failedToRegisterOrganization": "",
+  "pleaseTryAgainLater": "",
+  "associatedWithGbifProgramme": "",
+  "loginToRegisterOrganization": {
+    "title": "",
+    "message": ""
+  }
 }

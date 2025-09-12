@@ -4,6 +4,7 @@
   "myOrgIsNotRegistered": "Mon organisation n’est pas déjà enregistrée.",
   "searchOrganisations": "Recherche d'organisations",
   "termsAndConditions": "Termes et conditions",
+  "iHaveReadAndUnderstood": "",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "Je comprends que je demande l’enregistrement au nom de mon organisation, et je confirme que les autorités responsables de mon organisation sont au courant de cet enregistrement.",
   "iUnderstandThatMyOrganizationalInformation": "Je comprends que les renseignements sur mon organisation, y compris les informations de contact fournies, seront accessibles au public par le biais du site GBIF.org.",
   "administrativeContact": "Contact administratif",
@@ -30,6 +31,7 @@
   "none": "Aucun",
   "whatAndHow": "Quoi et comment",
   "helpUsUnderstand": "Aidez-nous à comprendre le genre de données que vous prévoyez publier, et le soutien dont vous pourriez avoir besoin.",
+  "publOfFourTypesOfData": "",
   "whichTypesOfData": "Quels types de données prévoyez-vous publier ?",
   "resourcesMetaData": "Métadonnées des ressources",
   "checkListData": "Les listes taxonomiques ",
@@ -41,7 +43,9 @@
   "yes": "Oui",
   "no": "Non",
   "pleaseSelectAValue": "Veuillez sélectionner une valeur",
+  "reuseTrustedIPThosting": "",
   "doYouNeedHelpPublishing": "Avez-vous besoin d’aide pour publier vos données ?",
+  "areYouPlanningToInstallAndRun": "",
   "orgDetails": "Informations sur l'organisation",
   "yourChanceToTellGBIF": "Votre chance de dire aux utilisateurs de GBIF qui vous êtes et ce que vous faites.",
   "orgName": "Nom de l'organisation",
@@ -59,6 +63,7 @@
   "invalidUrl": "Adresse URL invalide",
   "brieflyDescribeScope": "Décrivez brièvement, en *anglais*, la portée de votre institution/organisation en lien avec la mission du GBIF (exploitation de collection, recherche, gestion de l’information sur la biodiversité, etc.). Cette description s’affichera sur votre page de fournisseur de données.Vous pouvez également inclure une version dans une autre langue, mais la version anglaise est requise.",
   "clear": "Effacer",
+  "selectParticipant": "",
   "clickMapToAddOrg": "Cliquez sur la carte pour ajouter votre organisation",
   "description": "Description",
   "gbifProjects": "Projets GBIF",
@@ -77,5 +82,22 @@
   "yourOrgDetailsAreHere": "Les détails à propos de votre organisation sont ici.",
   "outage": "Nous éprouvons actuellement une panne partielle et nous ne pouvons recevoir aucun enregistrement pour le moment",
   "eoiDescription": "Pour se préparer à la publication de données via GBIF, nous demandons aux potentiels nouveaux fournisseurs de données de remplir ce formulaire en ligne. Avant que GBIF n'indexe votre jeu de données, votre institution doit être approuvé comme fournisseur de données par l’un des pays ou des organisations participant au GBIF, via un nœud GBIF participant. Si votre pays ne participe pas encore au GBIF, nous demanderons l'approbation en votre nom auprès de la communauté GBIF.",
-  "eoiTitle": "Devenir un fournisseur de données"
+  "eoiTitle": "Devenir un fournisseur de données",
+  "checkRegistration": "",
+  "organisationDetails": "",
+  "organisationAddress": "",
+  "endorsement": "",
+  "validationError": {
+    "pleaseSelectYourOrganizationOnTheMap": "",
+    "pleaseSelectTheCountryOfYourOrganization": ""
+  },
+  "thankYouForYourregistration": "",
+  "weWillBeInTouchSoon": "",
+  "failedToRegisterOrganization": "",
+  "pleaseTryAgainLater": "",
+  "associatedWithGbifProgramme": "",
+  "loginToRegisterOrganization": {
+    "title": "",
+    "message": ""
+  }
 }

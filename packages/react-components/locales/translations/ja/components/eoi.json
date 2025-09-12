@@ -4,6 +4,7 @@
   "myOrgIsNotRegistered": "私の組織はまだ登録されていません。",
   "searchOrganisations": "組織を検索",
   "termsAndConditions": "利用規約",
+  "iHaveReadAndUnderstood": "",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "私は私の組織を代表して登録を求めます。私の組織の責任者が、この登録について了解していることは確認しています。",
   "iUnderstandThatMyOrganizationalInformation": "連絡先の詳細を含む、私の組織の情報がGBIF.org を通じて公開されることを、私は理解しています。",
   "administrativeContact": "管理者の連絡先",
@@ -30,6 +31,7 @@
   "none": "該当なし",
   "whatAndHow": "何か、方法は？",
   "helpUsUnderstand": "どのようなデータを出版する計画ですか、そのためにはどのようなサポートが必要ですか、教えてください。",
+  "publOfFourTypesOfData": "",
   "whichTypesOfData": "出版したいのは、どのデータ・タイプですか。",
   "resourcesMetaData": "リソースのメタデータ",
   "checkListData": "チェックリストのデータ",
@@ -41,7 +43,9 @@
   "yes": "はい",
   "no": "いいえ",
   "pleaseSelectAValue": "値を選んでください",
+  "reuseTrustedIPThosting": "",
   "doYouNeedHelpPublishing": "データ出版に支援が必要ですか。",
+  "areYouPlanningToInstallAndRun": "",
   "orgDetails": "機関の詳細情報",
   "yourChanceToTellGBIF": "GBIFユーザーにあなたが何者で、何をしている人かを伝えるチャンスです。",
   "orgName": "組織名",
@@ -59,6 +63,7 @@
   "invalidUrl": "無効な URL",
   "brieflyDescribeScope": "GBIF のミッション (例えばコレクション保持、重要な研究テーマ、生物多様性の情報管理など）に関連して、あなたの組織／機関のスコープを簡単に説明してください。この説明は、出版者のページで、表示されます。他の言語での説明も可能です。ただし、英語は必須です。",
   "clear": "消去",
+  "selectParticipant": "",
   "clickMapToAddOrg": "地図をクリックして、あなたの組織を追加します。",
   "description": "説明",
   "gbifProjects": "GBIF プロジェクト",
@@ -77,5 +82,22 @@
   "yourOrgDetailsAreHere": "あなたの組織の詳細は、こちらです。",
   "outage": "部分的な障害が発生しているため、現時点では登録を受け付けていません。",
   "eoiDescription": "GBIF を通じてデータの出版の準備をするには、新しいデータ出版者にはこのオンライン フォームへのご記入をお願いしています。GBIFがあなたのデータセットのインデックスを作成する前に、GBIF の既存の参加者ノードを通じて、国またはGBIF参加機関の一つから、あなたの機関はデータ出版者として承認を受ける必要があります。あなたの国が GBIF にまだ参加していない場合、GBIFがあなたに代わって GBIF コミュニティからの承認が得られるように働きかけます。",
-  "eoiTitle": "承認"
+  "eoiTitle": "承認",
+  "checkRegistration": "",
+  "organisationDetails": "",
+  "organisationAddress": "",
+  "endorsement": "",
+  "validationError": {
+    "pleaseSelectYourOrganizationOnTheMap": "",
+    "pleaseSelectTheCountryOfYourOrganization": ""
+  },
+  "thankYouForYourregistration": "",
+  "weWillBeInTouchSoon": "",
+  "failedToRegisterOrganization": "",
+  "pleaseTryAgainLater": "",
+  "associatedWithGbifProgramme": "",
+  "loginToRegisterOrganization": {
+    "title": "",
+    "message": ""
+  }
 }

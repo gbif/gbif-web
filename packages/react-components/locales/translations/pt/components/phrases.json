@@ -62,5 +62,9 @@
   "goToRecord": "",
   "commonNameAccordingTo": "",
   "supportedChecklists": "",
-  "noResults": ""
+  "noResults": "",
+  "stepperFormProgress": "",
+  "next": "Seguinte",
+  "back": "Voltar",
+  "submit": "Enviar"
 }

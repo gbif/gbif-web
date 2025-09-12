@@ -4,6 +4,7 @@
   "myOrgIsNotRegistered": "Mi organización aún no está registrada.",
   "searchOrganisations": "Buscar organizaciones",
   "termsAndConditions": "Términos y condiciones",
+  "iHaveReadAndUnderstood": "",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "Entiendo que estoy realizando el registro en nombre de mi organización y confirmo que las autoridades  representantes de mi organización están al tanto de este registro.",
   "iUnderstandThatMyOrganizationalInformation": "Entiendo que la información de mi organización, incluyendo los detalles de contacto proporcionados, estará disponible públicamente en GBIF.org.",
   "administrativeContact": "Contacto administrativo",
@@ -30,6 +31,7 @@
   "none": "Ninguno",
   "whatAndHow": "Qué y cómo",
   "helpUsUnderstand": "Ayúdanos a entender qué tipo de datos planeas publicar y qué ayuda podrías necesitar.",
+  "publOfFourTypesOfData": "",
   "whichTypesOfData": "¿Qué tipo de datos esperas publicar?",
   "resourcesMetaData": "Metadatos de recursos",
   "checkListData": "Listas de especies",
@@ -41,7 +43,9 @@
   "yes": "Sí",
   "no": "No",
   "pleaseSelectAValue": "Por favor, selecciona un valor",
+  "reuseTrustedIPThosting": "",
   "doYouNeedHelpPublishing": "¿Necesitas ayuda para publicar tus datos?",
+  "areYouPlanningToInstallAndRun": "",
   "orgDetails": "Detalles de la organización",
   "yourChanceToTellGBIF": "Tu oportunidad de contar a los usuarios de GBIF quién eres y qué haces.",
   "orgName": "Nombre de la organización",
@@ -59,6 +63,7 @@
   "invalidUrl": "url no válida",
   "brieflyDescribeScope": "Por favor, describa brevemente en *inglés* la trayectoria de su institución/organización en relación a la misión de GBIF (ej.: colecciones alojadas, enfoque de investigación, gestión de información en biodiversidad, etc.) Esta descripción aparecerá en su página de proveedor. La versión requerida debe ser en inglés aunque, si lo desea, puede incluir otra versión en otro idioma.",
   "clear": "Limpiar",
+  "selectParticipant": "",
   "clickMapToAddOrg": "Haz clic en el mapa para añadir tu organización",
   "description": "Descripción",
   "gbifProjects": "Proyectos GBIF",
@@ -76,7 +81,23 @@
   "youWillRecieveConfEmail": "Recibirá un correo electrónico de confirmación, una vez que su adhesión haya sido aprobada.",
   "yourOrgDetailsAreHere": "Los detalles de la organización están aquí.",
   "outage": "Estamos experimentando una caída parcial del sistema y acepta registros por el momento",
-  "loginRequired": "Necesita una cuenta para registrar una nueva organización. Genere una cuenta primero y luego vuelva a visitar esta página.",
   "eoiDescription": "Para la preparación en la publicación de datos mediante GBIF, pedimos a los nuevos publicadores que completen este formulario en línea. Antes de que GBIF indexe sus conjuntos de datos, su institución debe recibir la adhesión como un publicador de datos de uno de los países u organizaciones participantes en GBIF, a través de un nodo participante de GBIF. Si su país no es aún un participante de GBIF, procuraremos su adhesión mediante algún miembro de la comunidad de GBIF.",
-  "eoiTitle": "Conviértete en publicador"
+  "eoiTitle": "Conviértete en publicador",
+  "checkRegistration": "",
+  "organisationDetails": "",
+  "organisationAddress": "",
+  "endorsement": "",
+  "validationError": {
+    "pleaseSelectYourOrganizationOnTheMap": "",
+    "pleaseSelectTheCountryOfYourOrganization": ""
+  },
+  "thankYouForYourregistration": "",
+  "weWillBeInTouchSoon": "",
+  "failedToRegisterOrganization": "",
+  "pleaseTryAgainLater": "",
+  "associatedWithGbifProgramme": "",
+  "loginToRegisterOrganization": {
+    "title": "",
+    "message": ""
+  }
 }
