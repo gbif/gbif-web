@@ -14,7 +14,7 @@
   "noSuggestions": "Žádné návrhy",
   "backToSelect": "Zpět na výběr",
   "invert": "Obrácený výběr",
-  "rangeHelp": "",
+  "rangeHelp": "Zadejte rozsah nebo jednu hodnotu. Např. 100,200 nebo 100. Nebo použijte mezery pro otevřené konce, jako např.: 100,",
   "rangeHelpYear": "Musí být definováno",
   "wildcardHelp": "Při vyhledávání se nerozlišují velká a malá písmena, ale rozlišují se přízvuky (např. \"rio\" vs. \"río\"). Pro vyhledání všech shod použijte zástupný znak (např. 'r?o').",
   "useWildcardPattern": "Hledání vzoru - * je zástupný znak pro libovolný počet znaků, ? je zástupný znak pro jeden znak.",
