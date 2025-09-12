@@ -62,5 +62,9 @@
   "goToRecord": "Aller à l'enregistrement",
   "commonNameAccordingTo": "Nom commun selon : {source}",
   "supportedChecklists": "",
-  "noResults": ""
+  "noResults": "",
+  "stepperFormProgress": "",
+  "next": "Suivant",
+  "back": "Retour",
+  "submit": "Soumettre"
 }
