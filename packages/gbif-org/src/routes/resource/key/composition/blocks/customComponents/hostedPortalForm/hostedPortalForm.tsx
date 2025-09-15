@@ -9,8 +9,11 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { BlockContainer } from '../../_shared';
 import {
-    createTypedCheckboxField,
-    createTypedTextField, OptionalStringSchema, RequiredEmailSchema, RequiredStringSchema
+  createTypedCheckboxField,
+  createTypedTextField,
+  OptionalStringSchema,
+  RequiredEmailSchema,
+  RequiredStringSchema,
 } from '../_shared';
 import { ApplicationType } from './steps/applicationType';
 import { DataScope } from './steps/dataScope';
@@ -22,6 +25,7 @@ import { PrimaryContact } from './steps/primaryContact';
 import { Terms } from './steps/terms';
 import { Timelines } from './steps/timelines';
 import { UserGroup } from './steps/userGroup';
+import { useUser } from '@/contexts/UserContext';
 
 const Schema = z.object({
   primaryContact: z.object({
@@ -89,7 +93,7 @@ type Props = {
 export function HostedPortalForm({ className }: Props) {
   const { toast } = useToast();
   const config = useConfig();
-
+  const { user } = useUser();
   const form = useForm<Inputs>({
     resolver: zodResolver(Schema),
     mode: 'onBlur',
@@ -102,6 +106,7 @@ export function HostedPortalForm({ className }: Props) {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${user?.graphqlToken}`,
           },
           body: JSON.stringify(data),
         })

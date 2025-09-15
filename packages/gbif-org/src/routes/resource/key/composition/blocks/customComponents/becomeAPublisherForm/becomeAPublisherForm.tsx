@@ -28,6 +28,7 @@ import { OrganizationDetails } from './steps/organizationDetails';
 import { TermsAndConditions } from './steps/termsAndConditions';
 import { WhatAndHow } from './steps/whatAndHow';
 import { useSuggestedNodeCountry } from './useSuggestedNodeCountry';
+import { useUser } from '@/contexts/UserContext';
 
 const ContactSchema = z.object({
   firstName: RequiredStringSchema,
@@ -129,7 +130,7 @@ export function BecomeAPublisherForm({ className }: Props) {
   const { toast } = useToast();
   const config = useConfig();
   const intl = useIntl();
-
+  const { user } = useUser();
   const restored = useMemo(() => getProgressFromSessionStorage('become-a-publisher-draft'), []);
 
   const form = useForm<Inputs>({
@@ -153,6 +154,7 @@ export function BecomeAPublisherForm({ className }: Props) {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${user?.graphqlToken}`,
           },
           body: JSON.stringify(data),
         })
