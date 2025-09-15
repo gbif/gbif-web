@@ -4,7 +4,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
 import { withIndex } from '@/utils/withIndex';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { BlockContainer } from '../../_shared';
@@ -12,6 +12,7 @@ import {
   createTypedCheckboxField,
   createTypedTextField,
   OptionalStringSchema,
+  RequiredCheckboxSchema,
   RequiredEmailSchema,
   RequiredStringSchema,
 } from '../_shared';
@@ -29,6 +30,7 @@ import { useUser } from '@/contexts/UserContext';
 import { getFormProgress, useSaveFormProgress } from '@/hooks/useSaveFormProgress';
 import { useIntl } from 'react-intl';
 
+// Using # to indicate the error messages should be treated as a translation key
 const Schema = z.object({
   primaryContact: z.object({
     name: RequiredStringSchema,
@@ -41,20 +43,20 @@ const Schema = z.object({
     [
       z.object({
         type: z.literal('National_portal'),
-        participantNode: z.object({
-          name: RequiredStringSchema,
-          countryCode: RequiredStringSchema,
-        }),
+        participantNode: z.object(
+          {
+            name: RequiredStringSchema,
+            countryCode: RequiredStringSchema,
+          },
+          { errorMap: () => ({ message: '#validation.pleaseSelectAValue' }) }
+        ),
       }),
       z.object({
         type: z.literal('Other_type_of_portal'),
         publisherDescription: RequiredStringSchema,
       }),
     ],
-    {
-      required_error: 'validation.mustSelectOneOption',
-      invalid_type_error: 'validation.mustSelectOneOption',
-    }
+    { errorMap: () => ({ message: '#validation.pleaseSelectAValue' }) }
   ),
   nodeContact: z.discriminatedUnion(
     'type',
@@ -63,10 +65,7 @@ const Schema = z.object({
       z.object({ type: z.literal('Node_manager_contacted'), nodeManager: RequiredStringSchema }),
       z.object({ type: z.literal('No_contact_to_node_manager') }),
     ],
-    {
-      required_error: 'validation.mustSelectOneOption',
-      invalid_type_error: 'validation.mustSelectOneOption',
-    }
+    { errorMap: () => ({ message: '#validation.pleaseSelectAValue' }) }
   ),
   nodeManager: OptionalStringSchema,
   dataScope: RequiredStringSchema,
@@ -74,13 +73,9 @@ const Schema = z.object({
   timelines: OptionalStringSchema,
   languages: RequiredStringSchema,
   experience: z.enum(['has_plenty_experience', 'has_limited_experience', 'has_no_experience'], {
-    required_error: 'validation.mustSelectOneOption',
-    invalid_type_error: 'validation.mustSelectOneOption',
+    errorMap: () => ({ message: '#validation.pleaseSelectAValue' }),
   }),
-  termsAccepted: z.literal(true, {
-    invalid_type_error: 'validation.mustAcceptTerms',
-    required_error: 'validation.mustAcceptTerms',
-  }),
+  termsAccepted: RequiredCheckboxSchema,
 });
 
 export type Inputs = z.infer<typeof Schema>;
