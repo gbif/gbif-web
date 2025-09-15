@@ -170,11 +170,11 @@ export function BecomeAPublisherForm({ className }: Props) {
 
             toast({
               title: intl.formatMessage({
-                id: 'eoi.thankYouForYourregistration',
+                id: 'eoi.thankYouForYourRegistration',
                 defaultMessage: 'Thank you for registering your organization',
               }),
               description: intl.formatMessage({
-                id: 'eoi.weWillBeInTouchSoon',
+                id: 'phrases.weWillBeInTouchSoon',
                 defaultMessage: 'We will be in touch soon',
               }),
             });
@@ -186,7 +186,7 @@ export function BecomeAPublisherForm({ className }: Props) {
                 defaultMessage: 'Failed to register organization',
               }),
               description: intl.formatMessage({
-                id: 'eoi.pleaseTryAgainLater',
+                id: 'phrases.pleaseTryAgainLater',
                 defaultMessage: 'Please try again later',
               }),
               variant: 'destructive',

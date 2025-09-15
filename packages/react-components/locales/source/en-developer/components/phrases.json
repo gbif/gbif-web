@@ -66,5 +66,7 @@
   "stepperFormProgress": "Step {currentStep} of {totalSteps}",
   "next": "Next",
   "back": "Back",
-  "submit": "Submit"
+  "submit": "Submit",
+  "pleaseTryAgainLater": "Please try again later",
+  "weWillBeInTouchSoon": "We will be in touch soon"
 }

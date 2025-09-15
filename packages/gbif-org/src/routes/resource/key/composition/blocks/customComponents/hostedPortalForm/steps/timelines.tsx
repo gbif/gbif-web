@@ -1,4 +1,5 @@
 import { TextField } from '../hostedPortalForm';
+import { FormattedMessage } from 'react-intl';
 
 export function Timelines() {
   return (
@@ -6,7 +7,12 @@ export function Timelines() {
       name="timelines"
       textarea
       descriptionPosition="above"
-      description="Are there any timelines you need to keep with regards to the deployment, promotion and ongoing use of the portal?"
+      description={
+        <FormattedMessage
+          id="hostedPortalApplication.timelinesDescription"
+          defaultMessage="Are there any timelines you need to keep with regards to the deployment, promotion and ongoing use of the portal?"
+        />
+      }
     />
   );
 }

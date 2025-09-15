@@ -20,6 +20,7 @@ import { DynamicLink } from '@/reactRouterPlugins';
 import { notNull } from '@/utils/notNull';
 import { cn } from '@/utils/shadcn';
 import { useEffect, useMemo } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useFormContext } from 'react-hook-form';
 import { RadioItem, Required } from '../../_shared';
 import { Inputs, TextField } from '../hostedPortalForm';
@@ -33,20 +34,38 @@ export function ApplicationType() {
       name="applicationType.type"
       render={({ field }) => (
         <FormItem className="g-space-y-3">
-          <FormDescription>What best describes your proposed portal?</FormDescription>
+          <FormDescription>
+            <FormattedMessage
+              id="hostedPortalApplication.applicationTypeDescription"
+              defaultMessage="What best describes your proposed portal?"
+            />
+          </FormDescription>
           <FormControl>
             <RadioGroup
               value={field.value}
               onValueChange={field.onChange}
               className="g-flex g-flex-col g-space-y-1"
             >
-              <RadioItem value="National_portal" label="A national biodiversity portal." />
+              <RadioItem
+                value="National_portal"
+                label={
+                  <FormattedMessage
+                    id="hostedPortalApplication.applicationType.nationalPortal"
+                    defaultMessage="A national biodiversity portal."
+                  />
+                }
+              />
 
               <ParticipantNode />
 
               <RadioItem
                 value="Other_type_of_portal"
-                label="Another type of portal to showcase data available in GBIF"
+                label={
+                  <FormattedMessage
+                    id="hostedPortalApplication.applicationType.otherType"
+                    defaultMessage="Another type of portal to showcase data available in GBIF"
+                  />
+                }
               />
 
               <PublisherDescription />
@@ -107,17 +126,23 @@ function ParticipantNode() {
           className={cn('g-pl-6', applicationType?.type === 'National_portal' || 'g-hidden')}
         >
           <FormLabel className="g-font-normal">
-            Participant country
+            <FormattedMessage
+              id="hostedPortalApplication.applicationType.participantCountry"
+              defaultMessage="Participant country"
+            />
             <Required />
           </FormLabel>
           <FormDescription>
-            Note that national portals will exclusively be offered to countries participating in
-            GBIF. <br />
-            Please select which participant country this application relates to. Please see the{' '}
+            <FormattedMessage
+              id="hostedPortalApplication.applicationType.participantCountryDescription"
+              defaultMessage="Note that national portals will exclusively be offered to countries participating in GBIF. Please select which participant country this application relates to. Please see the list of participants for contact information."
+            />{' '}
             <DynamicLink to="/the-gbif-network" className="g-underline">
-              list of participants
-            </DynamicLink>{' '}
-            for contact information
+              <FormattedMessage
+                id="hostedPortalApplication.listOfParticipants"
+                defaultMessage="list of participants"
+              />
+            </DynamicLink>
           </FormDescription>
           <Select
             onValueChange={(value) =>
@@ -163,10 +188,20 @@ function PublisherDescription() {
   return (
     <TextField
       name="applicationType.publisherDescription"
-      label="Publisher description"
+      label={
+        <FormattedMessage
+          id="hostedPortalApplication.applicationType.publisherDescriptionLabel"
+          defaultMessage="Publisher description"
+        />
+      }
       required
       descriptionPosition="above"
-      description="Please describe which data publisher(s) and/or GBIF participants will be involved"
+      description={
+        <FormattedMessage
+          id="hostedPortalApplication.applicationType.publisherDescriptionDescription"
+          defaultMessage="Please describe which data publisher(s) and/or GBIF participants will be involved"
+        />
+      }
       textarea
       className={cn('g-pl-6', { 'g-hidden': applicationType !== 'Other_type_of_portal' })}
     />

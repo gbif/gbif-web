@@ -27,6 +27,7 @@ import { Timelines } from './steps/timelines';
 import { UserGroup } from './steps/userGroup';
 import { useUser } from '@/contexts/UserContext';
 import { getFormProgress, useSaveFormProgress } from '@/hooks/useSaveFormProgress';
+import { useIntl } from 'react-intl';
 
 const Schema = z.object({
   primaryContact: z.object({
@@ -97,6 +98,7 @@ export function HostedPortalForm({ className }: Props) {
   const { toast } = useToast();
   const config = useConfig();
   const { user } = useUser();
+  const intl = useIntl();
   const restored = useMemo(() => getFormProgress(STORAGE_KEY), []);
 
   const form = useForm<Inputs>({
@@ -122,91 +124,156 @@ export function HostedPortalForm({ className }: Props) {
             if (!response.ok) throw response;
 
             toast({
-              title: 'Thank you for submitting your application',
-              description: 'We will be in touch soon',
+              title: intl.formatMessage({
+                id: 'hostedPortalApplication.thankYouForYourApplication',
+                defaultMessage: 'Thank you for submitting your application',
+              }),
+              description: intl.formatMessage({
+                id: 'phrases.weWillBeInTouchSoon',
+                defaultMessage: 'We will be in touch soon',
+              }),
             });
           })
           .catch((error) => {
             console.error(error);
             toast({
-              title: 'Failed to submit application',
-              description: 'Please try again later',
+              title: intl.formatMessage({
+                id: 'hostedPortalApplication.failedToSubmitApplication',
+                defaultMessage: 'Failed to submit application',
+              }),
+              description: intl.formatMessage({
+                id: 'phrases.pleaseTryAgainLater',
+                defaultMessage: 'Please try again later',
+              }),
               variant: 'destructive',
             });
           });
       }),
-    [form, toast, config.formsEndpoint, user?.graphqlToken]
+    [form, toast, config.formsEndpoint, user?.graphqlToken, intl]
   );
 
   const STEPS: Step[] = useMemo(
     () =>
       withIndex([
         {
-          title: 'Primary contact',
-          heading: 'Primary contact for this application',
+          title: intl.formatMessage({
+            id: 'hostedPortalApplication.primaryContact',
+            defaultMessage: 'Primary contact',
+          }),
+          heading: intl.formatMessage({
+            id: 'hostedPortalApplication.primaryContactHeading',
+            defaultMessage: 'Primary contact for this application',
+          }),
           component: PrimaryContact,
           fieldset: true,
           validationPath: 'primaryContact',
         },
         {
-          title: 'Portal name',
-          heading: 'Hosted portal name',
+          title: intl.formatMessage({
+            id: 'hostedPortalApplication.portalName',
+            defaultMessage: 'Portal name',
+          }),
+          heading: intl.formatMessage({
+            id: 'hostedPortalApplication.hostedPortalName',
+            defaultMessage: 'Hosted portal name',
+          }),
           component: HostedPortalName,
           validationPath: 'hostedPortalName',
         },
         {
-          title: 'Application type',
-          heading: 'Type of application',
+          title: intl.formatMessage({
+            id: 'hostedPortalApplication.applicationType',
+            defaultMessage: 'Application type',
+          }),
+          heading: intl.formatMessage({
+            id: 'hostedPortalApplication.typeOfApplication',
+            defaultMessage: 'Type of application',
+          }),
           component: ApplicationType,
           fieldset: true,
           validationPath: 'applicationType',
         },
         {
-          title: 'Node contact',
-          heading:
-            'Are you in contact with a GBIF Participant Node Manager about this application?',
+          title: intl.formatMessage({
+            id: 'hostedPortalApplication.nodeContact',
+            defaultMessage: 'Node contact',
+          }),
+          heading: intl.formatMessage({
+            id: 'hostedPortalApplication.nodeContactHeading',
+            defaultMessage:
+              'Are you in contact with a GBIF Participant Node Manager about this application?',
+          }),
           component: NodeContact,
           fieldset: true,
           validationPath: 'nodeContact',
         },
         {
-          title: 'Data scope',
-          heading: 'Description of the data scope for the proposed portal',
+          title: intl.formatMessage({
+            id: 'hostedPortalApplication.dataScope',
+            defaultMessage: 'Data scope',
+          }),
+          heading: intl.formatMessage({
+            id: 'hostedPortalApplication.dataScopeHeading',
+            defaultMessage: 'Description of the data scope for the proposed portal',
+          }),
           component: DataScope,
           validationPath: 'dataScope',
         },
         {
-          title: 'User group',
-          heading: 'User group and needs',
+          title: intl.formatMessage({
+            id: 'hostedPortalApplication.userGroup',
+            defaultMessage: 'User group',
+          }),
+          heading: intl.formatMessage({
+            id: 'hostedPortalApplication.userGroupHeading',
+            defaultMessage: 'User group and needs',
+          }),
           component: UserGroup,
           validationPath: 'userGroup',
         },
         {
-          title: 'Timelines',
-          heading: 'Timelines',
+          title: intl.formatMessage({
+            id: 'hostedPortalApplication.timelines',
+            defaultMessage: 'Timelines',
+          }),
           component: Timelines,
           validationPath: 'timelines',
         },
         {
-          title: 'Languages',
-          heading: 'Languages',
+          title: intl.formatMessage({
+            id: 'hostedPortalApplication.languages',
+            defaultMessage: 'Languages',
+          }),
+
           component: Languages,
           validationPath: 'languages',
         },
         {
-          title: 'Experience',
-          heading: 'Level of experience with related tools and languages',
+          title: intl.formatMessage({
+            id: 'hostedPortalApplication.experience',
+            defaultMessage: 'Experience',
+          }),
+          heading: intl.formatMessage({
+            id: 'hostedPortalApplication.experienceHeading',
+            defaultMessage: 'Level of experience with related tools and languages',
+          }),
           component: Experience,
           validationPath: 'experience',
         },
         {
-          title: 'Terms',
-          heading: 'Terms and conditions',
+          title: intl.formatMessage({
+            id: 'hostedPortalApplication.terms',
+            defaultMessage: 'Terms',
+          }),
+          heading: intl.formatMessage({
+            id: 'hostedPortalApplication.termsHeading',
+            defaultMessage: 'Terms and conditions',
+          }),
           component: Terms,
           validationPath: 'termsAccepted',
         },
       ]),
-    []
+    [intl]
   );
 
   return (

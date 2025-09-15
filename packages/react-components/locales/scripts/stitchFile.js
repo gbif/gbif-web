@@ -59,6 +59,10 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       cms: getFile(locale, `../${folder}/${locale}/components/cms`),
       eoi: getFile(locale, `../${folder}/${locale}/components/eoi`),
       validation: getFile(locale, `../${folder}/${locale}/components/validation`),
+      hostedPortalApplication: getFile(
+        locale,
+        `../${folder}/${locale}/components/hostedPortalApplication`,
+      ),
 
       enums: {
         basisOfRecord: getFile(locale, `../${folder}/${locale}/enums/basisOfRecord`),

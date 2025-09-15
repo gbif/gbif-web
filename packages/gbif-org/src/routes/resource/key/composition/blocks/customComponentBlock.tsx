@@ -11,6 +11,7 @@ import { ProjectsTable } from './customComponents/projects';
 import { PublisherDatasetTable } from './customComponents/publisherDatasetTable';
 import { TranslatorsList } from './customComponents/translatorsList';
 import { ProtectedForm } from '@/components/protectedForm';
+import { FormattedMessage } from 'react-intl';
 
 fragmentManager.register(/* GraphQL */ `
   fragment CustomComponentBlockDetails on CustomComponentBlock {
@@ -84,8 +85,18 @@ function CustomComponent({
       return (
         <ProtectedForm
           className="g-bg-white g-my-8 g-max-w-3xl g-mx-auto"
-          title={<span>You need an account to request a hosted portal</span>}
-          message={<span>Log in or create an account to continue requesting a hosted portal.</span>}
+          title={
+            <FormattedMessage
+              id="hostedPortalApplication.protectedFormTitle"
+              defaultMessage="You need an account to request a hosted portal"
+            />
+          }
+          message={
+            <FormattedMessage
+              id="hostedPortalApplication.protectedFormMessage"
+              defaultMessage="Log in or create an account to continue requesting a hosted portal."
+            />
+          }
         >
           <HostedPortalForm className="g-bg-white" />
         </ProtectedForm>
