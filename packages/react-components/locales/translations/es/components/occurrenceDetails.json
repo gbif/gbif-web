@@ -23,7 +23,7 @@
     "title": "Detalles del registro biológico"
   },
   "deletedMessage": "El publicador de datos ha eliminado este registro del índice GBIF, pero la última versión se muestra a continuación.",
-  "deletedDescription": "Los registros que ya no están en un conjunto de datos publicado y fueron eliminados del catálogo de GBIF. Los publicadores  pueden a veces tener razones para eliminar algunos registros, un conjunto de datos completo o asignar nuevos identificadores locales.",
+  "deletedDescription": "Los registros que ya no se encuentran en un conjunto de datos publicado se eliminan del índice GBIF. En ocasiones, los editores pueden tener motivos para eliminar registros individuales o un conjunto de datos completo, o bien para asignar nuevos identificadores locales.",
   "info": {
     "original": "original",
     "excluded": "Excluido",
