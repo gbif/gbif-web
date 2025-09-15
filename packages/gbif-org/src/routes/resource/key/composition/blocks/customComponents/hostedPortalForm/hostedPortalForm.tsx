@@ -4,7 +4,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
 import { withIndex } from '@/utils/withIndex';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { BlockContainer } from '../../_shared';
@@ -26,6 +26,7 @@ import { Terms } from './steps/terms';
 import { Timelines } from './steps/timelines';
 import { UserGroup } from './steps/userGroup';
 import { useUser } from '@/contexts/UserContext';
+import { getFormProgress, useSaveFormProgress } from '@/hooks/useSaveFormProgress';
 
 const Schema = z.object({
   primaryContact: z.object({
@@ -86,6 +87,8 @@ export type Inputs = z.infer<typeof Schema>;
 export const CheckboxField = createTypedCheckboxField<Inputs>();
 export const TextField = createTypedTextField<Inputs>();
 
+const STORAGE_KEY = 'hosted-portal-application-draft';
+
 type Props = {
   className?: string;
 };
@@ -94,10 +97,15 @@ export function HostedPortalForm({ className }: Props) {
   const { toast } = useToast();
   const config = useConfig();
   const { user } = useUser();
+  const restored = useMemo(() => getFormProgress(STORAGE_KEY), []);
+
   const form = useForm<Inputs>({
     resolver: zodResolver(Schema),
     mode: 'onBlur',
+    defaultValues: restored || {},
   });
+
+  useSaveFormProgress(STORAGE_KEY, form.getValues);
 
   const onSubmit = useMemo(
     () =>

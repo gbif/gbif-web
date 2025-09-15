@@ -5,8 +5,8 @@ import { useConfig } from '@/config/config';
 import { cn } from '@/utils/shadcn';
 import { withIndex } from '@/utils/withIndex';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useMemo, useState } from 'react';
-import { useForm, UseFormGetValues } from 'react-hook-form';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { z } from 'zod';
 import { BlockContainer } from '../../_shared';
@@ -29,6 +29,7 @@ import { TermsAndConditions } from './steps/termsAndConditions';
 import { WhatAndHow } from './steps/whatAndHow';
 import { useSuggestedNodeCountry } from './useSuggestedNodeCountry';
 import { useUser } from '@/contexts/UserContext';
+import { getFormProgress, useSaveFormProgress } from '@/hooks/useSaveFormProgress';
 
 const ContactSchema = z.object({
   firstName: RequiredStringSchema,
@@ -122,6 +123,8 @@ export type Inputs = z.infer<typeof Schema>;
 export const CheckboxField = createTypedCheckboxField<Inputs>();
 export const TextField = createTypedTextField<Inputs>();
 
+const STORAGE_KEY = 'become-a-publisher-draft';
+
 type Props = {
   className?: string;
 };
@@ -131,7 +134,7 @@ export function BecomeAPublisherForm({ className }: Props) {
   const config = useConfig();
   const intl = useIntl();
   const { user } = useUser();
-  const restored = useMemo(() => getProgressFromSessionStorage('become-a-publisher-draft'), []);
+  const restored = useMemo(() => getFormProgress(STORAGE_KEY), []);
 
   const form = useForm<Inputs>({
     resolver: zodResolver(Schema),
@@ -145,7 +148,11 @@ export function BecomeAPublisherForm({ className }: Props) {
   );
 
   const { getValues } = form;
-  useSaveProgressInSessionStorage('become-a-publisher-draft', getValues, participant);
+  const getState = useCallback(
+    () => ({ values: getValues(), participant }),
+    [getValues, participant]
+  );
+  useSaveFormProgress(STORAGE_KEY, getState);
 
   const onSubmit = useMemo(
     () =>
@@ -290,31 +297,4 @@ export function BecomeAPublisherForm({ className }: Props) {
       <StepperForm form={form} onSubmit={onSubmit} steps={STEPS} />
     </BlockContainer>
   );
-}
-
-function useSaveProgressInSessionStorage(
-  key: string,
-  getValues: UseFormGetValues<Inputs>,
-  participant?: ValidParticipant
-) {
-  useEffect(() => {
-    const handler = () => {
-      const values = getValues();
-      window.sessionStorage.setItem(key, JSON.stringify({ values, participant }));
-    };
-    window.addEventListener('beforeunload', handler);
-    return () => window.removeEventListener('beforeunload', handler);
-  }, [key, getValues, participant]);
-}
-
-function getProgressFromSessionStorage(key: string) {
-  const draft = window.sessionStorage.getItem(key);
-  if (draft) {
-    try {
-      const parsed = JSON.parse(draft);
-      return parsed;
-    } catch (e) {
-      console.error('Failed to parse become-a-publisher draft', e);
-    }
-  }
 }

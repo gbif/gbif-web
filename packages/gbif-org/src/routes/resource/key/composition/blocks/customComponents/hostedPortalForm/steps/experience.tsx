@@ -1,9 +1,9 @@
 import {
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormMessage
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormMessage,
 } from '@/components/ui/form';
 import { RadioGroup } from '@/components/ui/radio-group';
 import { useFormContext } from 'react-hook-form';
@@ -26,7 +26,11 @@ export function Experience() {
             these:
           </FormDescription>
           <FormControl>
-            <RadioGroup onValueChange={field.onChange} className="g-flex g-flex-col g-space-y-1">
+            <RadioGroup
+              value={field.value}
+              onValueChange={field.onChange}
+              className="g-flex g-flex-col g-space-y-1"
+            >
               <RadioItem
                 value="has_plenty_experience"
                 label="I am comfortable with using GitHub, Markdown and YAML to author web content"

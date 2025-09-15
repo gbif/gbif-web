@@ -1,18 +1,18 @@
 import {
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from '@/components/ui/form';
 import { RadioGroup } from '@/components/ui/radio-group';
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from '@/components/ui/select';
 import { Country, ParticipantsQuery, ParticipationStatus } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
@@ -35,7 +35,11 @@ export function ApplicationType() {
         <FormItem className="g-space-y-3">
           <FormDescription>What best describes your proposed portal?</FormDescription>
           <FormControl>
-            <RadioGroup onValueChange={field.onChange} className="g-flex g-flex-col g-space-y-1">
+            <RadioGroup
+              value={field.value}
+              onValueChange={field.onChange}
+              className="g-flex g-flex-col g-space-y-1"
+            >
               <RadioItem value="National_portal" label="A national biodiversity portal." />
 
               <ParticipantNode />

@@ -15,7 +15,11 @@ export function NodeContact() {
       render={({ field }) => (
         <FormItem className="g-space-y-3">
           <FormControl>
-            <RadioGroup onValueChange={field.onChange} className="g-flex g-flex-col g-space-y-1">
+            <RadioGroup
+              value={field.value}
+              onValueChange={field.onChange}
+              className="g-flex g-flex-col g-space-y-1"
+            >
               <RadioItem value="I_am_the_node_manager" label="I am the Node Manager" />
 
               <RadioItem
