@@ -102,7 +102,7 @@
   },
   "eventDate": {
     "name": "Datum události",
-    "count": "",
+    "count": "{num, plural, one {# datum události} few {# datumy události} many {# datumů událostí} other {# datumů událostí}}",
     "description": "Kdy byl záznam pořízen nebo pozorován."
   },
   "gbifId": {
