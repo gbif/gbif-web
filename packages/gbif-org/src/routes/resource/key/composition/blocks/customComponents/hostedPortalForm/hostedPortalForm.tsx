@@ -127,7 +127,7 @@ export function HostedPortalForm({ className }: Props) {
             });
           });
       }),
-    [form, toast, config.formsEndpoint]
+    [form, toast, config.formsEndpoint, user?.graphqlToken]
   );
 
   const STEPS: Step[] = useMemo(

@@ -187,7 +187,7 @@ export function BecomeAPublisherForm({ className }: Props) {
             console.error(error);
           });
       }),
-    [form, toast, config.formsEndpoint, intl]
+    [form, toast, config.formsEndpoint, intl, user?.graphqlToken]
   );
 
   const { suggestedNodeCountry, updateSuggestedNodeCountry } = useSuggestedNodeCountry();
