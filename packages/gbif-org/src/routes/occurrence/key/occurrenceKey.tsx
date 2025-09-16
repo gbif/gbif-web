@@ -47,7 +47,7 @@ import { FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData, useLocation } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
 import { IssueTag, IssueTags } from './properties';
-
+import getTitle from './Title';
 const OCCURRENCE_QUERY = /* GraphQL */ `
   query Occurrence($key: ID!) {
     occurrence(key: $key) {
@@ -406,7 +406,7 @@ export function OccurrenceKey() {
   return (
     <>
       <Helmet>
-        <title>{occurrence.verbatimScientificName}</title>
+        <title>{getTitle({ occurrence, termMap })}</title>
       </Helmet>
       <DataHeader
         className="g-bg-white"
@@ -447,9 +447,7 @@ export function OccurrenceKey() {
               ></ArticleTitle> */}
                 <ArticleTitle className="lg:g-text-3xl">
                   <>
-                    <span className="g-me-4">
-                      {occurrence.verbatimScientificName ?? 'No title provided'}
-                    </span>
+                    <span className="g-me-4">{getTitle({ occurrence, termMap })}</span>
                     {occurrence?.issues?.includes(OccurrenceIssue.TaxonMatchHigherrank) && (
                       <TooltipProvider>
                         <Tooltip delayDuration={0}>
