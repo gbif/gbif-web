@@ -158,12 +158,12 @@ function ParticipantNode() {
           >
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder="Click to select" />
+                <SelectValue placeholder={<FormattedMessage id="phrases.clickToSelect" />} />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              {error && <span>Error</span>}
-              {loading && <span>Loading</span>}
+              {error && <FormattedMessage id="phrases.loadError" />}
+              {loading && <FormattedMessage id="phrases.loading" />}
               {options
                 ?.map((participant) => participant?.name)
                 .filter(notNull)
