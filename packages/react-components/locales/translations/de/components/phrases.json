@@ -66,5 +66,7 @@
   "stepperFormProgress": "",
   "next": "Weiter",
   "back": "Zurück",
-  "submit": ""
+  "submit": "",
+  "pleaseTryAgainLater": "",
+  "weWillBeInTouchSoon": ""
 }
