@@ -85,6 +85,17 @@ export function FilterProvider({
   const setChecklistKey = useCallback(
     (key: string): FilterType => {
       const { checklistKey, ...rest } = currentFilter || {};
+      if (checklistKey !== key) {
+        // remove any taxonKey filters if changing checklist
+        const newMust = pickBy(get(rest, 'must', {}), (_v, k) => k !== 'taxonKey');
+        const newMustNot = pickBy(get(rest, 'mustNot', {}), (_v, k) => k !== 'taxonKey');
+        return setFilter({
+          ...rest,
+          must: newMust,
+          mustNot: newMustNot,
+          checklistKey: key === defaultChecklistKey ? undefined : key,
+        });
+      }
       return setFilter({
         ...rest,
         checklistKey: key === defaultChecklistKey ? undefined : key,
