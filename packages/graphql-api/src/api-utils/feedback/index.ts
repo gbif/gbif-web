@@ -5,7 +5,7 @@ import { UAParser } from 'ua-parser-js';
 import _ from 'lodash';
 import logger from '#/logger';
 import config from '#/config';
-import { createGitHubIssue } from '../forms/helpers/create-github-issue';
+// import { createGitHubIssue } from '../forms/helpers/create-github-issue';
 import { createMarkdown } from './create-markdown';
 import { isAuthenticated } from '../../middleware';
 import { AuthRequest } from '../../middleware/auth';
@@ -17,7 +17,9 @@ const FormSchema = {
     .object({
       title: z.string().optional(), // markdown-safe title
       description: z.string().optional(), // assumed already HTML/Markdown-safe if needed
-      contact: z.string().optional(), // assumed already HTML/Markdown-safe if needed
+      location: z.string().optional(),
+      width: z.number().min(0).optional(),
+      height: z.number().min(0).optional(),
     })
     .partial(), // allow missing fields
 };
@@ -68,30 +70,40 @@ export const FeedbackPayloadSchema = z.object({
  */
 export type FeedbackDTO = z.infer<typeof FeedbackPayloadSchema>;
 
-function getDescription(data, agent, referer, user, githubUserName) {
+function getDescription({
+  form,
+  agent,
+  referer,
+  user,
+  githubUserName,
+  mention,
+  datasetKey,
+  publishingOrgKey,
+  networkKeys,
+}) {
   // add contact type
-  const contact = data?.form?.contact;
+  const __data = {
+    form,
+    mention,
+    datasetKey,
+    publishingOrgKey,
+    networkKeys,
+  } as FeedbackDTO;
 
-  if (contact && !contact.match(/[@\s]/gi)) {
-    // if defined and not containing @ or spaces then assume it is a github username
-    data.__contact = `@${contact}`;
-  } else {
-    data.__contact = contact;
-  }
-  // data.__contact = contact; //simply use the raw value instead of prefacing with @ so that the user isn't poked in github
-
-  data.__agent = agent.toString();
-  data.__user = user;
-  data.__githubUserName = githubUserName;
-  data.__domain = config.gbifLinkTargetOrigin;
-  data.__referer = referer;
+  __data.__agent = agent.toString();
+  __data.__user = user;
+  __data.__githubUserName = githubUserName;
+  __data.__domain = config.gbifLinkTargetOrigin;
+  __data.__referer = referer;
 
   // set timestamps 5 minuttes before and 1 minute after for linking to relevant logs
-  data.__timestamp = {};
-  data.__timestamp.before = new Date(Date.now() - 1000 * 60 * 5).toISOString();
-  data.__timestamp.after = new Date(Date.now() + 1000 * 60 * 6).toISOString();
+  __data.__timestamp = {};
+  __data.__timestamp.before = new Date(
+    Date.now() - 1000 * 60 * 5,
+  ).toISOString();
+  __data.__timestamp.after = new Date(Date.now() + 1000 * 60 * 6).toISOString();
 
-  return createMarkdown(data as FeedbackDTO);
+  return createMarkdown(__data as FeedbackDTO);
 }
 
 function getLabels(data) {
@@ -122,6 +134,12 @@ feedbackRouter.post(
       const agentObject = new UAParser(req.headers['user-agent']).getResult();
       const agent = `${agentObject.browser.name} ${agentObject.browser.version} / ${agentObject.os.name} ${agentObject.os.version}`;
       const { referer } = req.headers;
+      let feedbackType;
+      if (req?.body?.location) {
+        feedbackType = await getFeedbackContentType(req?.body?.location);
+      }
+      const { datasetKey, publishingOrgKey, networkKeys, mention } =
+        feedbackType || {};
 
       const user = encryptJSON({
         userName: authReq.user.userName,
@@ -136,7 +154,17 @@ feedbackRouter.post(
         owner: config.feedback.owner,
         repo: config.feedback.repository,
         title: req?.body?.title || '',
-        body: getDescription(req.body, agent, referer, user, githubUserName),
+        body: getDescription({
+          form: req.body,
+          agent,
+          referer,
+          user,
+          githubUserName,
+          mention,
+          datasetKey,
+          publishingOrgKey,
+          networkKeys,
+        }),
         labels: getLabels(req.body),
       };
       const issue = await createGitHubIssue(result);
@@ -149,14 +177,7 @@ feedbackRouter.post(
         message: 'Failed to submit feedback form',
         error,
       });
-      res.status(500).json({ message: 'Form submission failed' });
+      return res.status(500).json({ message: 'Form submission failed' });
     }
   },
 );
-
-feedbackRouter.get('/content', function (req, res) {
-  const { path } = req.query;
-  getFeedbackContentType(path, function feedbackTypeHandler(feedbackType) {
-    res.json(feedbackType);
-  });
-});

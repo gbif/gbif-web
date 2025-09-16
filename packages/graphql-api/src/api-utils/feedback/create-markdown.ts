@@ -11,10 +11,7 @@ export function createMarkdown({
   __domain,
   __agent,
   __referer,
-  width,
-  height,
   __timestamp,
-  _health,
   datasetKey,
   publishingOrgKey,
   networkKeys,
@@ -36,7 +33,7 @@ ${
 }
 ${__agent ? `System: ${__agent}` : ''}
 ${__referer ? `Referer: ${__referer}` : ''}
-${width ? `Window size: width ${width} - height ${height}` : ''}
+${form.width ? `Window size: width ${form.width} - height ${form.height}` : ''}
 
 [API log](https://private-logs.gbif.org/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'${
     __timestamp?.before
@@ -49,7 +46,6 @@ ${width ? `Window size: width ${width} - height ${height}` : ''}
     __timestamp?.after
   }'))&_a=(columns:!(_source),filters:!(),index:'5c73f360-fce3-11ea-a9ab-4375f2a9d11c',interval:auto,query:(language:kuery,query:''),sort:!()))
 
-${_health ? `System health at time of feedback: ${_health}` : ''}
 ${datasetKey ? `datasetKey: ${datasetKey}` : ''}
 ${publishingOrgKey ? `publishingOrgKey: ${publishingOrgKey}` : ''}
 ${networkKeys ? `Network keys: ${networkKeys.join(' ')}` : ''}

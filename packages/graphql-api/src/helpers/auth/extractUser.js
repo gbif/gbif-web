@@ -1,6 +1,6 @@
-import config from '#/config';
 import jwt from 'jsonwebtoken';
 import NodeCache from 'node-cache';
+import config from '#/config';
 import { authenticatedGet } from './authenticatedGet';
 
 // users are cached for 30 seconds
@@ -13,7 +13,7 @@ const { jwtSecret } = config;
  * @param {string} userName
  * @param {object} config
  */
-async function getUserByUserName(userName) {
+export async function getUserByUserName(userName) {
   try {
     const response = await authenticatedGet({
       canonicalPath: `admin/user/${userName}`,

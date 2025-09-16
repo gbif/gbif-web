@@ -3,8 +3,9 @@ import config from '#/config';
 import { contentfulLocaleToGbifLocaleMap } from '../../helpers/utils';
 // request = rootRequire('app/helpers/request'),
 // const getAnnotations = require('../../../models/gbifdata/occurrence/occurrenceAnnotate');
-import { authenticatedGet } from '../../helpers/auth/authenticatedGet.js';
+// import { authenticatedGet } from '../../helpers/auth/authenticatedGet.js';
 import getAnnotations from './occurrenceAnnotate.js';
+import { getUserByUserName } from '../../helpers/auth/extractUser.js';
 
 const locales = Object.keys(contentfulLocaleToGbifLocaleMap)
   .map((key) => contentfulLocaleToGbifLocaleMap[key])
@@ -30,7 +31,7 @@ function removeLocaleFromUrl(url, locale) {
   const strippedUrl = `/${url.substring(1).replace(regex, '')}`;
   return strippedUrl;
 }
-export const getFeedbackContentType = (path, cb) => {
+export const getFeedbackContentType = async (path, cb) => {
   let path_ = path || '';
   const queryLocale = getLocaleFromUrl(path_);
   path_ = removeLocaleFromUrl(path_, queryLocale);
@@ -43,30 +44,9 @@ export const getFeedbackContentType = (path, cb) => {
   const occurrenceRegEx = /^(\/)?occurrence\/[0-9]+$/gi;
   if (path_.match(occurrenceRegEx)) {
     // is occurrence - extract id
-    parseOccurrence(path_)
-      .then(function (result) {
-        cb(result);
-      })
-      .catch(function (err) {
-        console.error('Error occurred while parsing occurrence:', err);
-        cb(); // fail silently.
-      });
-  } else {
-    cb();
+    return parseOccurrence(path_);
   }
-};
-
-const getUserByUserName = async (username) => {
-  // admin/user/
-  try {
-    const user = await authenticatedGet({
-      canonicalPath: `/admin/user/${username}`,
-      config,
-    });
-    return user;
-  } catch (error) {
-    // Handle error
-  }
+  return null;
 };
 
 const getOccurrence = async (key) => {
@@ -105,7 +85,7 @@ async function parseOccurrence(path) {
 
   // get endorsing node as node managers want to be cc'ed
   const node = await getNode(occurrence.publisher.endorsingNodeKey);
-  contentType.ccContacts = getContacts(_.get(node, 'record.contacts', []));
+  contentType.ccContacts = getContacts(_.get(node, 'contacts', []));
   const mention = await getGithubHandlesToMention({ node });
   if (mention.length > 0) {
     contentType.mention = mention;
@@ -186,8 +166,8 @@ async function parseOccurrence(path) {
 function getContacts(contacts) {
   const adminContacts = contacts.filter(function (contact) {
     return (
-      (contact.type == 'ADMINISTRATIVE_POINT_OF_CONTACT' ||
-        contact.type == 'NODE_MANAGER') &&
+      (contact.type === 'ADMINISTRATIVE_POINT_OF_CONTACT' ||
+        contact.type === 'NODE_MANAGER') &&
       !_.isEmpty(contact.email)
     );
   });
@@ -214,7 +194,7 @@ function getContacts(contacts) {
 }
 
 async function getGithubHandlesToMention({ node }) {
-  const nodeStaffEmails = _.get(node, 'record.contacts', [])
+  const nodeStaffEmails = _.get(node, 'contacts', [])
     .filter(function (contact) {
       return (
         (contact.type === 'NODE_MANAGER' || contact.type === 'NODE_STAFF') &&
@@ -236,6 +216,7 @@ async function getGithubHandlesToMention({ node }) {
 async function getGithubHandleFromEmail(email) {
   try {
     const gbifUser = await getUserByUserName(email);
+    console.log('GBIF user:', gbifUser);
     return _.get(gbifUser, 'systemSettings["auth.github.username"]');
   } catch (err) {
     return null;
