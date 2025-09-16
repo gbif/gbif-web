@@ -10,7 +10,9 @@ import { IoMdGlobe } from 'react-icons/io';
 import { MdArrowRight, MdLock, MdMail, MdPerson } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+
 import { ErrorMessage, FormButton, FormInput, FormSelect } from '../shared/FormComponents';
+import { readLoginFlashInfo } from '../shared/flashCookieUtils';
 import { PageTitle } from '../shared/PageHeader';
 import { UserPageLayout } from '../shared/UserPageLayout';
 import {
@@ -25,6 +27,7 @@ import {
   solveProofOfWork,
   type ProofOfWorkResult,
 } from './proofOfWork';
+import { commonClasses } from '../shared/utils';
 
 export const LoginSkeleton = ArticleSkeleton;
 
@@ -106,11 +109,22 @@ export function LoginForm() {
   const [error, setError] = useState('');
   const [resetEmailSent, setResetEmailSent] = useState(false);
   const [isResettingPassword, setIsResettingPassword] = useState(false);
+  const [oauthError, setOauthError] = useState<{ authProvider?: string; error?: string } | null>(
+    null
+  );
 
   const errors = {
     email: !values.email && formatMessage({ id: 'profile.emailRequired' }),
     password: !values.password && formatMessage({ id: 'profile.passwordRequired' }),
   };
+
+  // Check for OAuth login flash messages on component mount
+  useEffect(() => {
+    const flashInfo = readLoginFlashInfo();
+    if (flashInfo) {
+      setOauthError(flashInfo);
+    }
+  }, []);
 
   const handleBlur = (field: keyof typeof touched) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
@@ -218,6 +232,19 @@ export function LoginForm() {
       />
 
       {error && <ErrorMessage errorMessageId={getLoginErrorMessage(error)} />}
+
+      {oauthError?.error && (
+        <div className={cn(commonClasses.messageBox.error)}>
+          <div className="">
+            <div className="g-mb-2 g-font-semibold">
+              <FormattedMessage id={`profile.connect.failed.${oauthError.authProvider}`} />
+            </div>
+            <p className="g-text-sm">
+              <FormattedMessage id={`profile.error.${oauthError.error}`} />
+            </p>
+          </div>
+        </div>
+      )}
 
       <form className="g-space-y-4" onSubmit={handleSubmit}>
         <FormInput
