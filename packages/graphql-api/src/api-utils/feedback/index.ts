@@ -109,7 +109,7 @@ function getLabels(data) {
 }
 const feedbackRouter = Router();
 export default (app) => {
-  app.use('/feedback', feedbackRouter);
+  app.use('/forms/feedback', feedbackRouter);
 };
 
 feedbackRouter.post(
@@ -139,14 +139,16 @@ feedbackRouter.post(
         body: getDescription(req.body, agent, referer, user, githubUserName),
         labels: getLabels(req.body),
       };
-      await createGitHubIssue(result);
-      res.status(200).json(result);
+      const issue = await createGitHubIssue(result);
+
+      return res
+        .status(200)
+        .json({ message: 'From submitted succesfully', link: issue?.url });
     } catch (error) {
       logger.error({
         message: 'Failed to submit feedback form',
         error,
       });
-      console.error(error);
       res.status(500).json({ message: 'Form submission failed' });
     }
   },

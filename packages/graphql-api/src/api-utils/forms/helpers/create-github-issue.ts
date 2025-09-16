@@ -1,5 +1,5 @@
-import logger from '#/logger';
 import type { Octokit } from '@octokit/core';
+import logger from '#/logger';
 import { dynamicImport } from '#/helpers/utils-ts';
 import config from '#/config';
 

@@ -9,10 +9,11 @@ import { useConfig } from '@/config/config';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { cn } from '@/utils/shadcn';
 import React, { useMemo } from 'react';
-import { MdApps, MdCode, MdInfo } from 'react-icons/md';
+import { MdApps, MdCode, MdInfo, MdOutlineFeedback } from 'react-icons/md';
 import { FormattedMessage } from 'react-intl';
 import { DoiTag } from './identifierTag';
 import { Button } from './ui/button';
+import { FeedbackPopover } from '@/gbif/header/feedback/feedback';
 
 export function DataHeader({
   children,
@@ -36,7 +37,8 @@ export function DataHeader({
   className?: string;
   hideIfNoCatalogue?: boolean;
 }) {
-  const { availableCatalogues = [], dataHeader } = useConfig();
+  const { availableCatalogues = [], dataHeader, feedback = {} } = useConfig();
+  const { showFeedbackInDataHeader = false, enabled = false } = feedback;
 
   if (hideIfNoCatalogue && (availableCatalogues.length < 2 || hideCatalogueSelector)) return null;
 
@@ -59,6 +61,15 @@ export function DataHeader({
       <div className="g-flex-none g-mx-2">
         <div className="g-flex g-justify-center g-items-center g-gap-1">
           {doi && <DoiTag id={doi} className="g-me-2 g-text-xs g-hidden md:g-inline" />}
+          {enabled && showFeedbackInDataHeader && (
+            <FeedbackPopover
+              trigger={
+                <Button variant="ghost" size="sm" className="g-px-1 g-text-slate-400">
+                  <MdOutlineFeedback className="hover:g-text-slate-700 g-text-slate-400 g-block g-text-base g-relative g-top-[1px]" />
+                </Button>
+              }
+            />
+          )}
           {aboutContent && dataHeader.enableInfoPopup && (
             <Popup
               trigger={

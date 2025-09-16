@@ -10,6 +10,7 @@ export { default as institution } from './institution';
 export { default as literature } from './literature';
 export { default as localContext } from './localContext';
 export { default as misc } from './misc';
+export { default as feedback } from './feedback';
 export { default as network } from './network';
 export { default as node } from './node';
 export { default as occurrence } from './occurrence';

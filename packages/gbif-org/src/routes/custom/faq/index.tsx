@@ -1,7 +1,6 @@
 import { SearchInput } from '@/components/searchInput';
 import { Button } from '@/components/ui/button';
 import { CardHeader } from '@/components/ui/largeCard';
-import { FeedbackPopover } from '@/gbif/header/feedback';
 import { FaqQuery, FaqQueryVariables, HelpItemQuery, HelpItemQueryVariables } from '@/gql/graphql';
 import { useStringParam } from '@/hooks/useParam';
 import { LoaderArgs, RouteObjectWithPlugins } from '@/reactRouterPlugins';
@@ -18,6 +17,8 @@ import { Helmet } from 'react-helmet-async';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useLoaderData } from 'react-router-dom';
 import { HelpItemResult } from './HelpItemResult';
+import { FeedbackPopover } from '@/gbif/header/feedback/feedback';
+
 const FAQ_QUERY = /* GraphQL */ `
   query Faq($urlAlias: String) {
     resourceSearch(urlAlias: $urlAlias, contentType: [ARTICLE]) {

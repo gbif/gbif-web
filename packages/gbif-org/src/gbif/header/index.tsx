@@ -6,10 +6,10 @@ import { DynamicLink, useI18n } from '@/reactRouterPlugins';
 import { FiActivity } from 'react-icons/fi';
 import { MdOutlineFeedback, MdSearch, MdTranslate } from 'react-icons/md';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { FeedbackPopover } from './feedback';
 import { LanguageSelector } from './languageSelector';
 import MainNavigation from './mainNav';
 import MobileMenu from './mobileMenu';
+import { FeedbackPopover } from './feedback/feedback';
 
 export function Header({ menu }: { menu: HeaderQuery }) {
   const { locale } = useI18n();
@@ -78,7 +78,11 @@ export function Header({ menu }: { menu: HeaderQuery }) {
           </Button>
         ) : (
           <Button asChild className="g-text-sm lg:g-inline-block g-hidden" variant="outline">
-            <Link to="/user/login">Login</Link>
+            <Link
+              to={`/user/login?returnUrl=${encodeURIComponent(`${pathname}${location.search}`)}`}
+            >
+              Login
+            </Link>
           </Button>
         )}
       </div>

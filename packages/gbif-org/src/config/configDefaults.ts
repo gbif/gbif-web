@@ -10,6 +10,10 @@ export const configDefault: Partial<Config> = {
   experimentalFeatures: {
     localContextEnabled: false,
   },
+  feedback: {
+    enabled: true,
+    githubRepo: import.meta.env.PUBLIC_FEEDBACK_GITHUB_REPO,
+  },
   openDrawerOnTableRowClick: true,
   availableCatalogues: [
     'OCCURRENCE',
