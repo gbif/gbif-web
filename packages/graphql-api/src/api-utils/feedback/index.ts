@@ -5,7 +5,7 @@ import { UAParser } from 'ua-parser-js';
 import _ from 'lodash';
 import logger from '#/logger';
 import config from '#/config';
-// import { createGitHubIssue } from '../forms/helpers/create-github-issue';
+import { createGitHubIssue } from '../forms/helpers/create-github-issue';
 import { createMarkdown } from './create-markdown';
 import { isAuthenticated } from '../../middleware';
 import { AuthRequest } from '../../middleware/auth';
