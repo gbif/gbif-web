@@ -52,12 +52,10 @@ interface UpdateProfileData {
   firstName: string;
   lastName: string;
   email: string;
-  country: string;
-  language: string;
-  settings: {
-    country: string;
-    locale: string;
-    has_read_gdpr_terms: string;
+  settings?: {
+    country?: string;
+    locale?: string;
+    has_read_gdpr_terms?: string;
   };
 }
 
@@ -332,16 +330,15 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const sanitizeUpdatedUser = (user) => {
+  const sanitizeUpdatedUser = (user: UpdateProfileData): UpdateProfileData => {
     return {
-      userName: user.userName,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
       settings: {
-        country: user.settings.country,
-        locale: user.settings.locale,
-        has_read_gdpr_terms: user.settings.has_read_gdpr_terms,
+        country: user.settings?.country,
+        locale: user.settings?.locale,
+        has_read_gdpr_terms: user.settings?.has_read_gdpr_terms,
       },
     };
   };

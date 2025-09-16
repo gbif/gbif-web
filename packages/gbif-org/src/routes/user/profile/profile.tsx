@@ -56,7 +56,7 @@ const Profile: React.FC = () => {
       value: locale.code,
       label: locale.label,
     }));
-  }, [intlConfig.availableLocales, formatMessage]);
+  }, [intlConfig.availableLocales]);
 
   // Country options
   const countryOptions = useMemo(() => {
@@ -217,7 +217,16 @@ const Profile: React.FC = () => {
     setProfileError('');
 
     try {
-      await updateProfile(editedInfo);
+      await updateProfile({
+        firstName: editedInfo.firstName,
+        lastName: editedInfo.lastName,
+        email: editedInfo.email,
+        settings: {
+          country: editedInfo.country,
+          locale: editedInfo.locale,
+          has_read_gdpr_terms: undefined, //user?.settings?.has_read_gdpr_terms,
+        },
+      });
 
       setUserInfo(editedInfo);
       setIsEditing(false);

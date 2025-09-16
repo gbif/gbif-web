@@ -382,6 +382,11 @@ export function getClientUser(user) {
 }
 
 export function sanitizeUpdatedUser(user) {
+  ensureString(user.email, 'email');
+  ensureString(user.country, 'country');
+  ensureString(user.locale, 'locale');
+  ensureString(user.has_read_gdpr_terms, 'has_read_gdpr_terms');
+
   const firstName = user?.firstName?.trim();
   const lastName = user?.lastName?.trim();
   return {
@@ -389,7 +394,11 @@ export function sanitizeUpdatedUser(user) {
     firstName: firstName ? firstName : undefined,
     lastName: lastName ? lastName : undefined,
     email: user.email,
-    settings: user?.settings || {},
+    settings: {
+      country: user.country,
+      locale: user.locale,
+      has_read_gdpr_terms: user.has_read_gdpr_terms,
+    },
   };
 }
 
