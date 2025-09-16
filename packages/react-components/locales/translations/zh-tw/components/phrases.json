@@ -66,5 +66,7 @@
   "stepperFormProgress": "",
   "next": "下一步",
   "back": "返回",
-  "submit": "送出"
+  "submit": "送出",
+  "pleaseTryAgainLater": "",
+  "weWillBeInTouchSoon": ""
 }
