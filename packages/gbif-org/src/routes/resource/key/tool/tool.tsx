@@ -81,9 +81,13 @@ export function ToolPage() {
           )}
 
           {resource.primaryLink && (
-            <Button className="g-mt-4" asChild>
-              <DynamicLink to={resource.primaryLink.url}>{resource.primaryLink.label}</DynamicLink>
-            </Button>
+            <div className="g-mt-4">
+              <Button asChild>
+                <DynamicLink to={resource.primaryLink.url}>
+                  {resource.primaryLink.label}
+                </DynamicLink>
+              </Button>
+            </div>
           )}
         </ArticleTextContainer>
 
