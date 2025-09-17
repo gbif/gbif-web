@@ -98,6 +98,8 @@ const typeDef = gql`
     preservationType(limit: Int, offset: Int): [CollectionFacetResult]
     accessionStatus(limit: Int, offset: Int): [CollectionFacetResult]
     typeStatus(limit: Int, offset: Int): [CollectionFacetResult]
+    biomeType(limit: Int, offset: Int): [CollectionFacetResult]
+    objectClassification(limit: Int, offset: Int): [CollectionFacetResult]
   }
 
   type CollectionCardinality {
@@ -117,6 +119,8 @@ const typeDef = gql`
     preservationType(limit: Int, offset: Int): Int!
     accessionStatus(limit: Int, offset: Int): Int!
     typeStatus(limit: Int, offset: Int): Int!
+    biomeType(limit: Int, offset: Int): Int!
+    objectClassification(limit: Int, offset: Int): Int!
   }
 
   type CollectionInstitutionFacet {
@@ -174,6 +178,8 @@ const typeDef = gql`
     typeStatus: [String!]!
     identifiedBy: [String!]!
     taxon: Taxon
+    biomeType: String
+    objectClassification: String
   }
 
   type CollectionDescriptorGroupResults {

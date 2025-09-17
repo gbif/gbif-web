@@ -356,6 +356,17 @@ export const collectionContentTypeLabel = getEndpointLabel({
   transform: getVocabularyLabel,
 });
 
+export const biomeTypeLabel = getEndpointLabel({
+  template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/BiomeType/concepts/${id}`,
+  transform: getVocabularyLabel,
+});
+
+export const objectClassificationLabel = getEndpointLabel({
+  template: ({ id, v1Endpoint }) =>
+    `${v1Endpoint}/vocabularies/ObjectClassificationName/concepts/${id}`,
+  transform: getVocabularyLabel,
+});
+
 export const InstitutionTypeLabel = getEndpointLabel({
   template: ({ id, v1Endpoint }) => `${v1Endpoint}/vocabularies/InstitutionType/concepts/${id}`,
   transform: getVocabularyLabel,

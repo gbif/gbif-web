@@ -1,10 +1,12 @@
 import {
+  biomeTypeLabel,
   booleanLabel,
   collectionContentTypeLabel,
   CountryLabel,
   DefaultTaxonLabel,
   IdentityLabel,
   InstitutionLabel,
+  objectClassificationLabel,
   preservationTypeLabel,
   QuantityLabel,
   TypeStatusLabel,
@@ -22,8 +24,10 @@ import { Message } from '@/components/message';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 import { useCountrySuggest } from '@/hooks/useCountrySuggest';
 import {
+  biomeTypeSuggest,
   collectionContentTypeSuggest,
   institutionKeySuggest,
+  objectClassificationSuggest,
   preservationTypeSuggest,
   taxonKeySuggest,
   typeStatusSuggest,
@@ -248,6 +252,48 @@ export const preservationTypeConfig: filterSuggestConfig = {
   about: () => <Message id="filters.preservationType.description" />,
 };
 
+export const biomeTypeConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'biomeType',
+  displayName: biomeTypeLabel,
+  filterTranslation: 'filters.biomeType.name',
+  suggestConfig: biomeTypeSuggest,
+  facetQuery: /* GraphQL */ `
+    query CollectionBiomeTypeFacet($query: CollectionSearchInput) {
+      search: collectionSearch(query: $query) {
+        facet {
+          field: biomeType(limit: 10) {
+            name
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.collectionContentType.description" />,
+};
+
+export const objectClassificationConfig: filterSuggestConfig = {
+  filterType: filterConfigTypes.SUGGEST,
+  filterHandle: 'objectClassification',
+  displayName: objectClassificationLabel,
+  filterTranslation: 'filters.objectClassification.name',
+  suggestConfig: objectClassificationSuggest,
+  facetQuery: /* GraphQL */ `
+    query CollectionObjectClassificationFacet($query: CollectionSearchInput) {
+      search: collectionSearch(query: $query) {
+        facet {
+          field: objectClassification(limit: 10) {
+            name
+            count
+          }
+        }
+      }
+    }
+  `,
+  about: () => <Message id="filters.collectionContentType.description" />,
+};
+
 export const typeStatusConfig: filterSuggestConfig = {
   filterType: filterConfigTypes.SUGGEST,
   filterHandle: 'typeStatus',
@@ -290,6 +336,12 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       city: generateFilters({ config: cityConfig, searchConfig, formatMessage }),
       recordedBy: generateFilters({ config: recordedByConfig, searchConfig, formatMessage }),
       contentType: generateFilters({ config: contentTypeConfig, searchConfig, formatMessage }),
+      biomeType: generateFilters({ config: biomeTypeConfig, searchConfig, formatMessage }),
+      objectClassification: generateFilters({
+        config: objectClassificationConfig,
+        searchConfig,
+        formatMessage,
+      }),
       preservationType: generateFilters({
         config: preservationTypeConfig,
         searchConfig,

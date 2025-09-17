@@ -599,6 +599,7 @@ export type CollectionThumborArgs = {
 export type CollectionCardinality = {
   __typename?: 'CollectionCardinality';
   accessionStatus: Scalars['Int']['output'];
+  biomeType: Scalars['Int']['output'];
   city: Scalars['Int']['output'];
   classKey: Scalars['Int']['output'];
   contentType: Scalars['Int']['output'];
@@ -608,6 +609,7 @@ export type CollectionCardinality = {
   genusKey: Scalars['Int']['output'];
   institutionKey: Scalars['Int']['output'];
   kingdomKey: Scalars['Int']['output'];
+  objectClassification: Scalars['Int']['output'];
   orderKey: Scalars['Int']['output'];
   phylumKey: Scalars['Int']['output'];
   preservationType: Scalars['Int']['output'];
@@ -618,6 +620,12 @@ export type CollectionCardinality = {
 
 
 export type CollectionCardinalityAccessionStatusArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type CollectionCardinalityBiomeTypeArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -672,6 +680,12 @@ export type CollectionCardinalityInstitutionKeyArgs = {
 
 
 export type CollectionCardinalityKingdomKeyArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type CollectionCardinalityObjectClassificationArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -838,6 +852,7 @@ export type CollectionDescriptorResults = {
 export type CollectionFacet = {
   __typename?: 'CollectionFacet';
   accessionStatus?: Maybe<Array<Maybe<CollectionFacetResult>>>;
+  biomeType?: Maybe<Array<Maybe<CollectionFacetResult>>>;
   city?: Maybe<Array<Maybe<CollectionFacetResult>>>;
   classKey?: Maybe<Array<Maybe<CollectionFacetResult>>>;
   contentType?: Maybe<Array<Maybe<CollectionFacetResult>>>;
@@ -847,6 +862,7 @@ export type CollectionFacet = {
   genusKey?: Maybe<Array<Maybe<CollectionFacetResult>>>;
   institutionKey?: Maybe<Array<Maybe<CollectionFacetResult>>>;
   kingdomKey?: Maybe<Array<Maybe<CollectionFacetResult>>>;
+  objectClassification?: Maybe<Array<Maybe<CollectionFacetResult>>>;
   orderKey?: Maybe<Array<Maybe<CollectionFacetResult>>>;
   phylumKey?: Maybe<Array<Maybe<CollectionFacetResult>>>;
   preservationType?: Maybe<Array<Maybe<CollectionFacetResult>>>;
@@ -857,6 +873,12 @@ export type CollectionFacet = {
 
 
 export type CollectionFacetAccessionStatusArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type CollectionFacetBiomeTypeArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -911,6 +933,12 @@ export type CollectionFacetInstitutionKeyArgs = {
 
 
 export type CollectionFacetKingdomKeyArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type CollectionFacetObjectClassificationArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -1988,12 +2016,14 @@ export type DerivedDatasetListResults = {
 
 export type DescriptorMatches = {
   __typename?: 'DescriptorMatches';
+  biomeType?: Maybe<Scalars['String']['output']>;
   country?: Maybe<Country>;
   descriptorSetKey?: Maybe<Scalars['ID']['output']>;
   identifiedBy: Array<Scalars['String']['output']>;
   individualCount?: Maybe<Scalars['Long']['output']>;
   issues: Array<OccurrenceIssue>;
   key?: Maybe<Scalars['ID']['output']>;
+  objectClassification?: Maybe<Scalars['String']['output']>;
   recordedBy: Array<Scalars['String']['output']>;
   taxon?: Maybe<Taxon>;
   typeStatus: Array<Scalars['String']['output']>;
@@ -9218,6 +9248,20 @@ export type CollectionPreservationTypeFacetQueryVariables = Exact<{
 
 export type CollectionPreservationTypeFacetQuery = { __typename?: 'Query', search?: { __typename?: 'CollectionSearchResults', facet?: { __typename?: 'CollectionFacet', field?: Array<{ __typename?: 'CollectionFacetResult', name: string, count: number } | null> | null } | null } | null };
 
+export type CollectionBiomeTypeFacetQueryVariables = Exact<{
+  query?: InputMaybe<CollectionSearchInput>;
+}>;
+
+
+export type CollectionBiomeTypeFacetQuery = { __typename?: 'Query', search?: { __typename?: 'CollectionSearchResults', facet?: { __typename?: 'CollectionFacet', field?: Array<{ __typename?: 'CollectionFacetResult', name: string, count: number } | null> | null } | null } | null };
+
+export type CollectionObjectClassificationFacetQueryVariables = Exact<{
+  query?: InputMaybe<CollectionSearchInput>;
+}>;
+
+
+export type CollectionObjectClassificationFacetQuery = { __typename?: 'Query', search?: { __typename?: 'CollectionSearchResults', facet?: { __typename?: 'CollectionFacet', field?: Array<{ __typename?: 'CollectionFacetResult', name: string, count: number } | null> | null } | null } | null };
+
 export type CollectionTypeStatusFacetQueryVariables = Exact<{
   query?: InputMaybe<CollectionSearchInput>;
 }>;
@@ -10603,6 +10647,8 @@ export const CollectionRecordedByFacetDocument = {"kind":"Document","definitions
 export const CollectionCityFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CollectionCityFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"CollectionSearchInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"collectionSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"city"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"10"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CollectionCityFacetQuery, CollectionCityFacetQueryVariables>;
 export const CollectionContentTypeFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CollectionContentTypeFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"CollectionSearchInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"collectionSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"contentType"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"10"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CollectionContentTypeFacetQuery, CollectionContentTypeFacetQueryVariables>;
 export const CollectionPreservationTypeFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CollectionPreservationTypeFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"CollectionSearchInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"collectionSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"preservationType"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"10"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CollectionPreservationTypeFacetQuery, CollectionPreservationTypeFacetQueryVariables>;
+export const CollectionBiomeTypeFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CollectionBiomeTypeFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"CollectionSearchInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"collectionSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"biomeType"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"10"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CollectionBiomeTypeFacetQuery, CollectionBiomeTypeFacetQueryVariables>;
+export const CollectionObjectClassificationFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CollectionObjectClassificationFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"CollectionSearchInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"collectionSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"objectClassification"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"10"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CollectionObjectClassificationFacetQuery, CollectionObjectClassificationFacetQueryVariables>;
 export const CollectionTypeStatusFacetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CollectionTypeStatusFacet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"CollectionSearchInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"search"},"name":{"kind":"Name","value":"collectionSearch"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"facet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"field"},"name":{"kind":"Name","value":"typeStatus"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"10"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CollectionTypeStatusFacetQuery, CollectionTypeStatusFacetQueryVariables>;
 export const CountryDetailAboutDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CountryDetailAbout"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"isoCode"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Country"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countryDetail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"isoCode"},"value":{"kind":"Variable","name":{"kind":"Name","value":"isoCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aboutOccurrenceCount"}},{"kind":"Field","name":{"kind":"Name","value":"aboutDatasetCount"}},{"kind":"Field","name":{"kind":"Name","value":"aboutCountryCount"}},{"kind":"Field","name":{"kind":"Name","value":"aboutPublisherCount"}}]}}]}}]} as unknown as DocumentNode<CountryDetailAboutQuery, CountryDetailAboutQueryVariables>;
 export const CountryDetailFromDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CountryDetailFrom"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"isoCode"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Country"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countryDetail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"isoCode"},"value":{"kind":"Variable","name":{"kind":"Name","value":"isoCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fromOccurrenceCount"}},{"kind":"Field","name":{"kind":"Name","value":"fromDatasetCount"}},{"kind":"Field","name":{"kind":"Name","value":"fromCountryCount"}},{"kind":"Field","name":{"kind":"Name","value":"fromPublisherCount"}}]}}]}}]} as unknown as DocumentNode<CountryDetailFromQuery, CountryDetailFromQueryVariables>;

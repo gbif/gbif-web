@@ -33,6 +33,8 @@ const otherParams = [
   'personalCollection',
   'recordedBy',
   'contentType',
+  // 'biomeType',
+  // 'objectClassification',
   'preservationType',
   'alternativeCode',
   'city',
