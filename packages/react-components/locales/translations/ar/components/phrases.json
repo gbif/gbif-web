@@ -66,5 +66,7 @@
   "stepperFormProgress": "",
   "next": "التالي",
   "back": "رجوع",
-  "submit": "تسليم"
+  "submit": "تسليم",
+  "pleaseTryAgainLater": "",
+  "weWillBeInTouchSoon": ""
 }

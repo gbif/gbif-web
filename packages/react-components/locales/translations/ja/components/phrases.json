@@ -66,5 +66,7 @@
   "stepperFormProgress": "",
   "next": "次へ",
   "back": "戻る",
-  "submit": "送信"
+  "submit": "送信",
+  "pleaseTryAgainLater": "",
+  "weWillBeInTouchSoon": ""
 }

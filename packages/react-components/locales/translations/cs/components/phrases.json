@@ -66,5 +66,7 @@
   "stepperFormProgress": "",
   "next": "Další",
   "back": "Zpět",
-  "submit": "Odeslat"
+  "submit": "Odeslat",
+  "pleaseTryAgainLater": "",
+  "weWillBeInTouchSoon": ""
 }

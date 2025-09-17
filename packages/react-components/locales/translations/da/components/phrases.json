@@ -66,5 +66,7 @@
   "stepperFormProgress": "",
   "next": "Næste",
   "back": "Tilbage",
-  "submit": ""
+  "submit": "",
+  "pleaseTryAgainLater": "",
+  "weWillBeInTouchSoon": ""
 }
