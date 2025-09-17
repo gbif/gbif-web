@@ -93,7 +93,7 @@ export function GbifFeedback({ pageType, onClose }: GbifFeedbackProps) {
         })
         .then((data) => {
           setSubmissionState('SUCCESS');
-          setReferenceId(data.issue || null);
+          setReferenceId(data.link || null);
           // Clear form
           setTitleValue('');
           setDescriptionValue('');
