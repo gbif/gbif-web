@@ -10,7 +10,7 @@ import { ScrollRestoration, useLoaderData } from 'react-router-dom';
 import { Footer } from './footer';
 import { Header } from './header';
 import { GDPR } from '@/components/gdpr';
-
+import { Helmet } from 'react-helmet-async';
 const HEADER_QUERY = /* GraphQL */ `
   query Header {
     gbifHome {

@@ -17,6 +17,12 @@ export function Root({ config, helmetContext, children }: Props) {
         <HelmetProvider context={helmetContext}>
           <Helmet>
             <title>{config.defaultTitle}</title>
+            <script
+              defer
+              data-domain={import.meta.env.PUBLIC_BASE_URL}
+              data-api="/spoor/api/event"
+              src="/spoor/js/script.js"
+            ></script>
           </Helmet>
           {children}
         </HelmetProvider>
