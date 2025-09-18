@@ -36,7 +36,7 @@
   "http://ala.org.au/terms/1.0/VerbatimEvent": "ALA verbatim event",
   "http://ala.org.au/terms/1.0/VerbatimOccurrence": "ALA verbatim occurrence",
   "http://ala.org.au/terms/seedbank/0.1/SeedbankRecord": "ALA seedbank record",
-  "http://rs.tdwg.org/eco/terms/Event": "Eco event",
+  "http://rs.tdwg.org/eco/terms/Event": "Humboldt extension",
   "https://terms.catalogueoflife.org/NameRelation": "CoL name relation",
   "http://eol.org/schema/agent/Agent": "EOL agent",
   "http://purl.org/plic/terms/3.2.1/Endemicity": "PLIC endemicity",
