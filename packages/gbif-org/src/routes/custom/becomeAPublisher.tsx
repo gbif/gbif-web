@@ -92,15 +92,7 @@ function BecomeAPublisherPage() {
 
           <hr className="g-mt-8" />
 
-          <ProtectedForm
-            className="g-mt-4"
-            title={<FormattedMessage id="eoi.loginToRegisterOrganization.title" />}
-            message={<FormattedMessage id="eoi.loginToRegisterOrganization.message" />}
-          >
-            <StaticRenderSuspence>
-              <BecomeAPublisherForm className="g-px-0" />
-            </StaticRenderSuspence>
-          </ProtectedForm>
+          <BecomeAPublisherForm />
 
           <ArticleFooterWrapper>
             {resource.secondaryLinks && (

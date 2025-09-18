@@ -22,3 +22,7 @@ export function getFormProgress(key: string) {
     }
   }
 }
+
+export function clearSavedFormProgress(key: string) {
+  window.sessionStorage.removeItem(key);
+}

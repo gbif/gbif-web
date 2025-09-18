@@ -27,7 +27,6 @@
   "marineDataPublishers": "Marine data publishers: request endorsement for OBIS (Ocean Biogeographic Information System) related data",
   "suggested": "Suggested",
   "orSelectAnotherAssOrg": "Or select another associated organisation:",
-  "clickToSelect": "Click to select",
   "none": "None",
   "whatAndHow": "What and how",
   "helpUsUnderstand": "Help us understand what kind of data you plan to publish, and what support you may need.",
@@ -63,7 +62,6 @@
   "invalidUrl": "Invalid url",
   "brieflyDescribeScope": "Briefly describe the scope of your institution/organization in relation to GBIF's mission (e.g. collection holdings, research focus, biodiversity information management, etc.). This description will appear on your publisher page.",
   "clear": "Clear",
-  "selectParticipant": "Please select a GBIF Participant node",
   "clickMapToAddOrg": "Click on the map to add your organization",
   "description": "Description",
   "gbifProjects": "GBIF projects",
@@ -97,5 +95,6 @@
   "loginToRegisterOrganization": {
     "title": "You need an account to register a new organization",
     "message": "Log in or create an account to continue registering your organization."
-  }
+  },
+  "registerAnotherOrganization": "Register another organization?"
 }
