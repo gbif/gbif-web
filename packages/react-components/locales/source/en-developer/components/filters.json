@@ -180,6 +180,16 @@
     "count": "{num, plural, one { Preservation type } other {# Preservation types}}",
     "description": "The method used to preserve the objects available in the collection."
   },
+  "biomeType": {
+    "name": "Biome type",
+    "count": "{num, plural, one { Biome type } other {# Biome types}}",
+    "description": "The type of biome the organism is associated with."
+  },
+  "objectClassification": {
+    "name": "Object classification",
+    "count": "{num, plural, one { Object classification } other {# Object classifications}}",
+    "description": "The classification of the object(s) in the collection."
+  },
   "taxonKey": {
     "name": "Scientific name",
     "count": "{num, plural, one {scientific name} other {# scientific names}}",

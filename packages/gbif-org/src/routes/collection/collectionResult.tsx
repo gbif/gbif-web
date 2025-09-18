@@ -29,6 +29,8 @@ fragmentManager.register(/* GraphQL */ `
       recordedBy
       typeStatus
       identifiedBy
+      biomeType
+      objectClassification
     }
   }
 `);
@@ -148,6 +150,8 @@ export function CollectionResult({
               <thead className="">
                 <tr>
                   <th>Taxon</th>
+                  <th>Biome type</th>
+                  <th>Object classification</th>
                   <th>Country</th>
                   <th>Individual count</th>
                   <th>Recorded by</th>
@@ -159,12 +163,14 @@ export function CollectionResult({
                 {collection.descriptorMatches.slice(0, 3).map((descriptor) => (
                   <tr key={descriptor.key} className="g-text-slate-600">
                     <td>{descriptor.usageName}</td>
+                    <td>{descriptor.biomeType && descriptor.biomeType}</td>
+                    <td>{descriptor.objectClassification && descriptor.objectClassification}</td>
                     <td>
                       {descriptor.country && (
                         <FormattedMessage id={`enums.countryCode.${descriptor.country}`} />
                       )}
                     </td>
-                    <td>
+                    <td className="g-text-end">
                       {descriptor.individualCount && (
                         <FormattedNumber value={descriptor.individualCount} />
                       )}

@@ -25,6 +25,8 @@ const typeDef = gql`
       occurrenceCount: String
       contentType: [String!]
       preservationType: [String!]
+      biomeType: [String!]
+      objectClassification: [String!]
       displayOnNHCPortal: Boolean
       sortBy: CollectionsSortField
       sortOrder: SortOrder
@@ -61,6 +63,8 @@ const typeDef = gql`
     occurrenceCount: [String!]
     contentType: [String!]
     preservationType: [String!]
+    biomeType: [String!]
+    objectClassification: [String!]
     displayOnNHCPortal: [Boolean!]
     recordedBy: [String!]
     descriptorCountry: [Country!]

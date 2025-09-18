@@ -1,5 +1,5 @@
-import { getExcerpt, getOGImage } from '#/helpers/utils';
 import _ from 'lodash';
+import { getExcerpt, getOGImage } from '#/helpers/utils';
 import { getCardinality, getFacet } from '../getQueryMetrics';
 import { getThumborUrl } from '../resource/misc/misc.resolver';
 
@@ -180,6 +180,8 @@ export default {
     preservationType: getFacet('PRESERVATION_TYPE', getSourceSearch),
     accessionStatus: getFacet('ACCESSION_STATUS', getSourceSearch),
     typeStatus: getFacet('TYPE_STATUS', getSourceSearch),
+    biomeType: getFacet('BIOME_TYPE', getSourceSearch),
+    objectClassification: getFacet('OBJECT_CLASSIFICATION', getSourceSearch),
   },
   CollectionCardinality: {
     institutionKey: getCardinality('INSTITUTION_KEY', getSourceSearch),
@@ -198,5 +200,10 @@ export default {
     preservationType: getCardinality('PRESERVATION_TYPE', getSourceSearch),
     accessionStatus: getCardinality('ACCESSION_STATUS', getSourceSearch),
     typeStatus: getCardinality('TYPE_STATUS', getSourceSearch),
+    biomeType: getCardinality('BIOME_TYPE', getSourceSearch),
+    objectClassification: getCardinality(
+      'OBJECT_CLASSIFICATION',
+      getSourceSearch,
+    ),
   },
 };
