@@ -19,11 +19,14 @@ export function ProtectedForm({ children, className, title, message }: Props) {
 
   return (
     <div
-      className={cn('g-bg-gray-50 g-py-28 g-flex g-flex-col g-items-center g-shadow-sm', className)}
+      className={cn(
+        'g-bg-gray-50 g-py-28 g-px-2 g-flex g-flex-col g-items-center g-shadow-sm',
+        className
+      )}
     >
-      <h3 className="g-font-medium g-text-xl">{title}</h3>
+      <h3 className="g-font-medium g-text-xl g-text-center">{title}</h3>
 
-      <p className="g-text-sm g-pt-1">{message}</p>
+      <p className="g-text-sm g-pt-1 g-text-center">{message}</p>
 
       <div className="g-pt-12 g-gap-2 g-justify-center">
         <Button asChild className="g-min-w-64 g-mb-4">

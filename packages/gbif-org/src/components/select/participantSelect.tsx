@@ -69,8 +69,8 @@ export function ParticipantSelect({ filters, selected, onChange }: Props) {
       <SelectTrigger>
         <SelectValue
           placeholder={intl.formatMessage({
-            id: 'eoi.selectParticipant',
-            defaultMessage: 'Select a participant',
+            id: 'phrases.clickToSelect',
+            defaultMessage: 'Click to select',
           })}
         />
       </SelectTrigger>
