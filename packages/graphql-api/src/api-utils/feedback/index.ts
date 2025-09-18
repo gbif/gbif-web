@@ -157,7 +157,7 @@ feedbackRouter.post(
         body: getDescription({
           form: req.body,
           agent,
-          referer,
+          referer: (referer || '') + (req?.body?.location || ''),
           user,
           githubUserName,
           mention,
