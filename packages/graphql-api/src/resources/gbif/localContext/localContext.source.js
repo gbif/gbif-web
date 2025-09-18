@@ -17,8 +17,11 @@ class LocalContextAPI extends RESTDataSource {
   }
 
   async getLocalContext(endpoint) {
-    return this.get(getLocalContextAPIEndpoint(endpoint)).catch(() => {
+    return this.get(getLocalContextAPIEndpoint(endpoint)).catch((err) => {
       // silently ignore errors for individual tags
+      if (this.config.debug) {
+        console.error(`Error fetching local context for ${endpoint}:`, err);
+      }
       return null;
     });
   }
