@@ -61,7 +61,7 @@ export const taxonKeyConfig: filterTaxonConfig = {
   displayName: TaxonLabel,
   filterTranslation: 'filters.taxonKey.name',
   suggestConfig: taxonKeyClbSuggest,
-  allowExistence: false,
+  allowExistence: true,
   allowNegations: true,
   suggestionTitlePath: 'item.usage.canonicalName',
   facetQuery: `
