@@ -137,7 +137,7 @@ type Props = {
 };
 
 export function BecomeAPublisherForm({ className }: Props) {
-  const [state, setState] = useState<'ready' | 'success'>('success');
+  const [state, setState] = useState<'ready' | 'success'>('ready');
 
   return (
     <ProtectedForm
