@@ -18,6 +18,7 @@ const typeDef = gql`
       offset: Int
       username: String!
     ): DownloadListResults! @cacheControl(maxAge: 0, scope: PRIVATE)
+    occurrenceSnapshots(limit: Int, offset: Int): DownloadListResults!
   }
 
   type DatasetDownloadListResults {

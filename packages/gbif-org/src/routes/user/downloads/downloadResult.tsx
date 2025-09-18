@@ -37,7 +37,7 @@ interface DownloadResultProps {
 }
 
 export function DownloadResult({ download }: DownloadResultProps) {
-  const { size, unit } = formatBytes(download.size ?? 0, 0);
+  const { size, unit } = formatBytes(download?.size ?? 0, 0);
 
   return (
     <DynamicLink pageId="downloadKey" variables={{ key: download.key }}>

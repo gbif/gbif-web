@@ -22,6 +22,7 @@ export { default as taxon } from './taxon';
 export { default as validation } from './validation';
 export { default as vocabulary } from './vocabulary';
 export { default as wikidata } from './wikidata';
+export { default as occurrenceSnapshots } from './occurrenceSnapshots';
 
 // experimental taxonmedia service. The idea it to provide a few high quality images per taxon
 export { default as taxonMedia } from '../shared/resources/taxonMedia';

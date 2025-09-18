@@ -5,6 +5,7 @@ import { notImplementedRoutes } from '@/notImplementedRoutes';
 import { applyReactRouterPlugins } from '@/reactRouterPlugins';
 import { analyticsRoute } from '@/routes/analytics';
 import { becomeAPublisherRoute } from '@/routes/custom/becomeAPublisher';
+import { occurrenceSnapshotsRoute } from '@/routes/custom/occurrenceSnapshots';
 import { faqRoute } from '@/routes/custom/faq';
 import { gbifNetworkRoute } from '@/routes/custom/gbifNetwork/gbifNetwork';
 import { suggestDatasetRoute } from '@/routes/custom/suggestDataset';
@@ -46,7 +47,7 @@ export function createGbifRoutes(config: Config) {
               omniSearchRoute,
               occurrenceDownloadSqlRoute,
               occurrenceDownloadRequestRoute,
-
+              occurrenceSnapshotsRoute,
               // custom pages
               becomeAPublisherRoute,
               confirmEndorsmentRoute,

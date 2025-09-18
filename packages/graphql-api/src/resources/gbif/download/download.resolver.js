@@ -1,5 +1,5 @@
-import { getGbifMachineDescription } from '#/helpers/generateSql';
 import { highlight } from 'sql-highlight';
+import { getGbifMachineDescription } from '#/helpers/generateSql';
 
 /**
  * fieldName: (parent, args, context, info) => data;
@@ -24,6 +24,15 @@ export default {
       });
       return dataSources.downloadAPI.getUsersDownloads({
         username,
+        query: { limit, offset },
+      });
+    },
+    occurrenceSnapshots: (
+      parent,
+      { limit = 10, offset = 0 },
+      { dataSources },
+    ) => {
+      return dataSources.occurrenceSnapshotsAPI.getOccurrenceSnapshots({
         query: { limit, offset },
       });
     },

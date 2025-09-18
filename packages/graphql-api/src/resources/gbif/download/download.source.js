@@ -1,5 +1,5 @@
-import { createSignedGetHeader } from '#/helpers/auth/authenticatedGet';
 import { RESTDataSource } from 'apollo-datasource-rest';
+import { createSignedGetHeader } from '#/helpers/auth/authenticatedGet';
 
 class DownloadAPI extends RESTDataSource {
   constructor(config) {
