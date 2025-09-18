@@ -171,7 +171,7 @@ feedbackRouter.post(
 
       return res
         .status(200)
-        .json({ message: 'From submitted succesfully', link: issue?.url });
+        .json({ message: 'From submitted succesfully', link: issue?.html_url });
     } catch (error) {
       logger.error({
         message: 'Failed to submit feedback form',
