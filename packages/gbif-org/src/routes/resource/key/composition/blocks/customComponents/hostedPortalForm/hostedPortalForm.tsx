@@ -1,10 +1,9 @@
-import { ClientSideOnly } from '@/components/clientSideOnly';
 import { Step, StepperForm } from '@/components/stepperForm';
 import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
 import { withIndex } from '@/utils/withIndex';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { BlockContainer } from '../../_shared';
@@ -27,8 +26,15 @@ import { Terms } from './steps/terms';
 import { Timelines } from './steps/timelines';
 import { UserGroup } from './steps/userGroup';
 import { useUser } from '@/contexts/UserContext';
-import { getFormProgress, useSaveFormProgress } from '@/hooks/useSaveFormProgress';
-import { useIntl } from 'react-intl';
+import {
+  clearSavedFormProgress,
+  getFormProgress,
+  useSaveFormProgress,
+} from '@/hooks/useSaveFormProgress';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
+import { ProtectedForm } from '@/components/protectedForm';
+import { FormSuccess } from '@/components/formSuccess';
 
 // Using # to indicate the error messages should be treated as a translation key
 const Schema = z.object({
@@ -85,14 +91,55 @@ export const TextField = createTypedTextField<Inputs>();
 
 const STORAGE_KEY = 'hosted-portal-application-draft';
 
-type Props = {
-  className?: string;
+export function HostedPortalForm() {
+  const [state, setState] = useState<'ready' | 'success'>('success');
+
+  return (
+    <ProtectedForm
+      className="g-my-8 g-max-w-3xl g-mx-auto g-bg-gray-50"
+      title={
+        <FormattedMessage
+          id="hostedPortalApplication.protectedFormTitle"
+          defaultMessage="You need an account to request a hosted portal"
+        />
+      }
+      message={
+        <FormattedMessage
+          id="hostedPortalApplication.protectedFormMessage"
+          defaultMessage="Log in or create an account to continue requesting a hosted portal."
+        />
+      }
+    >
+      <BlockContainer className="g-overflow-visible g-px-0">
+        {state === 'ready' && (
+          <StaticRenderSuspence>
+            <InternalForm onSuccess={() => setState('success')} />
+          </StaticRenderSuspence>
+        )}
+        {state === 'success' && (
+          <FormSuccess
+            className="g-my-8 g-max-w-3xl g-mx-auto"
+            title={
+              <FormattedMessage
+                id="hostedPortalApplication.thankYouForYourApplication"
+                defaultMessage="Thank you for submitting your application"
+              />
+            }
+            message={<FormattedMessage id="phrases.weWillBeInTouchSoon" />}
+            resetMessage={<FormattedMessage id="hostedPortalApplication.createNewApplication" />}
+            onReset={() => setState('ready')}
+          />
+        )}
+      </BlockContainer>
+    </ProtectedForm>
+  );
+}
+
+type InternalFormProps = {
+  onSuccess: () => void;
 };
 
-export function HostedPortalForm({ className }: Props) {
-  const { toast } = useToast();
-  const config = useConfig();
-  const { user } = useUser();
+function InternalForm({ onSuccess }: InternalFormProps) {
   const intl = useIntl();
   const restored = useMemo(() => getFormProgress(STORAGE_KEY), []);
 
@@ -103,49 +150,6 @@ export function HostedPortalForm({ className }: Props) {
   });
 
   useSaveFormProgress(STORAGE_KEY, form.getValues);
-
-  const onSubmit = useMemo(
-    () =>
-      form.handleSubmit((data: Inputs) => {
-        fetch(`${config.formsEndpoint}/hosted-portal-application`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${user?.graphqlToken}`,
-          },
-          body: JSON.stringify(data),
-        })
-          .then((response) => {
-            if (!response.ok) throw response;
-
-            toast({
-              title: intl.formatMessage({
-                id: 'hostedPortalApplication.thankYouForYourApplication',
-                defaultMessage: 'Thank you for submitting your application',
-              }),
-              description: intl.formatMessage({
-                id: 'phrases.weWillBeInTouchSoon',
-                defaultMessage: 'We will be in touch soon',
-              }),
-            });
-          })
-          .catch((error) => {
-            console.error(error);
-            toast({
-              title: intl.formatMessage({
-                id: 'hostedPortalApplication.failedToSubmitApplication',
-                defaultMessage: 'Failed to submit application',
-              }),
-              description: intl.formatMessage({
-                id: 'phrases.pleaseTryAgainLater',
-                defaultMessage: 'Please try again later',
-              }),
-              variant: 'destructive',
-            });
-          });
-      }),
-    [form, toast, config.formsEndpoint, user?.graphqlToken, intl]
-  );
 
   const STEPS: Step[] = useMemo(
     () =>
@@ -271,11 +275,54 @@ export function HostedPortalForm({ className }: Props) {
     [intl]
   );
 
-  return (
-    <BlockContainer className={className}>
-      <ClientSideOnly>
-        <StepperForm form={form} onSubmit={onSubmit} steps={STEPS} />
-      </ClientSideOnly>
-    </BlockContainer>
+  const onSubmit = useSubmit({ reset: form.reset, onSuccess });
+
+  return <StepperForm form={form} onSubmit={form.handleSubmit(onSubmit)} steps={STEPS} />;
+}
+
+type UseSubmitArgs = {
+  onSuccess: () => void;
+  reset: () => void;
+};
+
+function useSubmit({ onSuccess, reset }: UseSubmitArgs) {
+  const { toast } = useToast();
+  const config = useConfig();
+  const { user } = useUser();
+  const intl = useIntl();
+
+  return useCallback(
+    (data: Inputs) => {
+      fetch(`${config.formsEndpoint}/hosted-portal-application`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user?.graphqlToken}`,
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => {
+          if (!response.ok) throw response;
+
+          clearSavedFormProgress(STORAGE_KEY);
+          reset();
+          onSuccess();
+        })
+        .catch((error) => {
+          console.error(error);
+          toast({
+            title: intl.formatMessage({
+              id: 'hostedPortalApplication.failedToSubmitApplication',
+              defaultMessage: 'Failed to submit application',
+            }),
+            description: intl.formatMessage({
+              id: 'phrases.pleaseTryAgainLater',
+              defaultMessage: 'Please try again later',
+            }),
+            variant: 'destructive',
+          });
+        });
+    },
+    [toast, config.formsEndpoint, user?.graphqlToken, intl, reset, onSuccess]
   );
 }

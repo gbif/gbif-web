@@ -82,25 +82,7 @@ function CustomComponent({
     case 'metabarcodingDataToolForm':
       return <MdtForm />;
     case 'hostedPortalForm':
-      return (
-        <ProtectedForm
-          className="g-bg-white g-my-8 g-max-w-3xl g-mx-auto"
-          title={
-            <FormattedMessage
-              id="hostedPortalApplication.protectedFormTitle"
-              defaultMessage="You need an account to request a hosted portal"
-            />
-          }
-          message={
-            <FormattedMessage
-              id="hostedPortalApplication.protectedFormMessage"
-              defaultMessage="Log in or create an account to continue requesting a hosted portal."
-            />
-          }
-        >
-          <HostedPortalForm className="g-bg-white" />
-        </ProtectedForm>
-      );
+      return <HostedPortalForm />;
     case 'projects':
       return (
         <ProjectsTable
@@ -128,10 +110,13 @@ function CustomComponent({
 function overwriteHostedPortalFormDetails(
   resource: CustomComponentBlockDetailsFragment
 ): CustomComponentBlockDetailsFragment {
-  if (resource.componentType !== 'hostedPortalForm') return resource;
+  if (resource.componentType === 'hostedPortalForm') {
+    return {
+      ...resource,
+      width: 'fluid',
+      backgroundColour: 'white',
+    };
+  }
 
-  return {
-    ...resource,
-    width: 'fluid',
-  };
+  return resource;
 }

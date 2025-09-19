@@ -45,5 +45,6 @@
   "experience.none": "I have never used GitHub, Markdown or YAML to author web content",
   "termsLabel": "I have read the service agreement and data processor agreement and I accept these terms and conditions for the hosted portal I plan to launch.",
   "protectedFormTitle": "You need an account to request a hosted portal",
-  "protectedFormMessage": "Log in or create an account to continue requesting a hosted portal."
+  "protectedFormMessage": "Log in or create an account to continue requesting a hosted portal.",
+  "createNewApplication": "Create a new application?"
 }

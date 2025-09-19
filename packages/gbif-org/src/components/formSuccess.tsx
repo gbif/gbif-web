@@ -12,7 +12,7 @@ type Props = {
 export function FormSuccess({ onReset, className, title, message, resetMessage }: Props) {
   return (
     <div
-      className={cn('g-bg-gray-50 g-px-2 g-flex g-flex-col g-items-center g-shadow-s', className)}
+      className={cn('g-bg-gray-50 g-px-2 g-flex g-flex-col g-items-center g-shadow-sm', className)}
     >
       <div className="g-mb-10 g-mt-16 g-border-primary-500 g-border-8 g-rounded-full g-size-32 g-flex g-items-center g-justify-center">
         <MdDone className="g-text-primary-500 g-size-24" />

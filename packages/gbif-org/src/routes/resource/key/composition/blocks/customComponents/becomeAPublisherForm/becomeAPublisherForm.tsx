@@ -132,11 +132,7 @@ export const TextField = createTypedTextField<Inputs>();
 
 const STORAGE_KEY = 'become-a-publisher-draft';
 
-type Props = {
-  className?: string;
-};
-
-export function BecomeAPublisherForm({ className }: Props) {
+export function BecomeAPublisherForm() {
   const [state, setState] = useState<'ready' | 'success'>('ready');
 
   return (
@@ -145,7 +141,7 @@ export function BecomeAPublisherForm({ className }: Props) {
       title={<FormattedMessage id="eoi.loginToRegisterOrganization.title" />}
       message={<FormattedMessage id="eoi.loginToRegisterOrganization.message" />}
     >
-      <BlockContainer className={cn('g-bg-white g-overflow-visible g-px-0', className)}>
+      <BlockContainer className="g-bg-white g-overflow-visible g-px-0">
         {state === 'ready' && (
           <StaticRenderSuspence>
             <InternalForm onSuccess={() => setState('success')} />
