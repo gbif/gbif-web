@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "develop": "concurrently --kill-others \"NODE_ENV=development node gbif/server.js\"  \"graphql-codegen --config codegen.ts --watch\"",
-    "develop-server": "concurrently --kill-others \"NODE_ENV=development npx nodemon --watch gbif gbif/server.js\"  \"graphql-codegen --config codegen.ts --watch\"",
+    "develop": "concurrently --kill-others \"NODE_ENV=development node gbif/server.js\"  \"graphql-codegen-esm --config codegen.ts --watch\"",
+    "develop-server": "concurrently --kill-others \"NODE_ENV=development npx nodemon --watch gbif gbif/server.js\"  \"graphql-codegen-esm --config codegen.ts --watch\"",
     "build:client": "vite build --config gbif/vite.config.ts --ssrManifest",
     "build:server": "vite build --config gbif/vite.config.ts --outDir ./dist/gbif/server --ssr ./src/gbif/entry.server.tsx",
     "build": "npm run build:client && npm run build:server; npx gzipper compress --brotli --include js,css,html,txt,json,map ./dist",
@@ -14,7 +14,7 @@
     "build:hp": "vite build --config hp/vite.config.ts",
     "start:hp": "node hp/server.js",
     "visualize-build:hp": "vite-bundle-visualizer -c ./hp/vite.config.ts",
-    "codegen": "graphql-codegen --config codegen.ts",
+    "codegen": "graphql-codegen-esm --config codegen.ts",
     "vitest": "vitest run --config ./gbif/vite.config.ts",
     "vitest:watch": "vitest watch --config ./gbif/vite.config.ts",
     "test": "npm run build && npm run build:hp && npm run vitest",
@@ -128,7 +128,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "5.0.0",
+    "@graphql-codegen/cli": "^6.0.0",
     "@graphql-codegen/client-preset": "4.1.0",
     "@parcel/watcher": "^2.3.0",
     "@tailwindcss/typography": "^0.5.10",
