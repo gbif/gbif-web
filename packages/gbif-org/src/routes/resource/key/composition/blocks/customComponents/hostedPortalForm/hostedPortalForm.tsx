@@ -92,7 +92,7 @@ export const TextField = createTypedTextField<Inputs>();
 const STORAGE_KEY = 'hosted-portal-application-draft';
 
 export function HostedPortalForm() {
-  const [state, setState] = useState<'ready' | 'success'>('success');
+  const [state, setState] = useState<'ready' | 'success'>('ready');
 
   return (
     <ProtectedForm
