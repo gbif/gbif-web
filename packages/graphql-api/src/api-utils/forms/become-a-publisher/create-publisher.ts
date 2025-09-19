@@ -1,5 +1,5 @@
-import config from '#/config';
 import json2md from 'json2md';
+import config from '#/config';
 import { CreatePublisherDTO } from '.';
 import { authenticatedRequest } from '../helpers/gbifAuthRequest';
 
@@ -18,7 +18,7 @@ export async function createPublisher(dto: CreatePublisherDTO) {
   const org = {
     endorsingNodeKey:
       dto.endorsingNode === 'other'
-        ? config.createPublisher.defaultEndorsingNodeKey
+        ? config.participantNodeManagersCommitteeNodeKey
         : dto.endorsingNode,
     title: dto.organizationDetails.name,
     description: dto.organizationDetails.description,
@@ -54,7 +54,7 @@ export async function createPublisher(dto: CreatePublisherDTO) {
   const options = {
     method: 'POST',
     body: org,
-    url: config.apiv1 + '/organization/',
+    url: `${config.apiv1}/organization/`,
     canonicalPath: 'organization/',
   };
 
