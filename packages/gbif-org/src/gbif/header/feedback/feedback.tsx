@@ -30,6 +30,7 @@ function getPageType(matches: ReturnType<typeof useMatches>): PageType {
 }
 
 export function FeedbackPopover({ trigger = <MdFeedback /> }): React.ReactElement {
+  const config = useConfig();
   const [open, setOpen] = useState(false);
   const { feedback } = useConfig();
   const [selectedOption, setSelectedOption] = useState<FeedbackOption>('gbif'); //null
@@ -181,22 +182,22 @@ export function FeedbackPopover({ trigger = <MdFeedback /> }): React.ReactElemen
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>{trigger}</PopoverTrigger>
-      <PopoverContent className="g-w-96 g-shadow-2xl g-p-6">
-        <div className="">
-          <div className="g-space-y-2">
-            <div className="g-flex g-items-center g-gap-2">
-              {selectedOption && (
-                <button
-                  onClick={handleBack}
-                  className="g-pe-1 hover:g-bg-gray-100 g-rounded g-flex g-items-center g-justify-center"
-                >
-                  <MdArrowBack className="g-w-4 g-h-4" />
-                </button>
-              )}
-              <h4 className="g-font-medium g-leading-none">{getTitle()}</h4>
-            </div>
-            <p className="g-text-sm g-text-muted-foreground">{getDescription()}</p>
+      <PopoverContent className="g-w-96 g-shadow-2xl g-p-6 test-stripes">
+        <div className="g-space-y-2">
+          <div className="g-flex g-items-center g-gap-2">
+            {selectedOption && (
+              <button
+                onClick={handleBack}
+                className="g-pe-1 hover:g-bg-gray-100 g-rounded g-flex g-items-center g-justify-center"
+              >
+                <MdArrowBack className="g-w-4 g-h-4" />
+              </button>
+            )}
+            <h4 className={`g-font-medium g-leading-none ${config.testSite ? 'test-box' : ''}`}>
+              {getTitle()}
+            </h4>
           </div>
+          <p className="g-text-sm g-text-muted-foreground">{getDescription()}</p>
         </div>
 
         {renderContent()}

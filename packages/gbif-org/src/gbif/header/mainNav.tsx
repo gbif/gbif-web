@@ -1,11 +1,11 @@
 import * as React from 'react';
 
 import {
-    NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuItem,
-    NavigationMenuList,
-    NavigationMenuTrigger
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 import { HeaderQuery } from '@/gql/graphql';
 import { DynamicLink } from '@/reactRouterPlugins';

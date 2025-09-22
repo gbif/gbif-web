@@ -10,8 +10,10 @@ import { LanguageSelector } from './languageSelector';
 import MainNavigation from './mainNav';
 import MobileMenu from './mobileMenu';
 import { FeedbackPopover } from './feedback/feedback';
+import { useConfig } from '@/config/config';
 
 export function Header({ menu }: { menu: HeaderQuery }) {
+  const config = useConfig();
   const { locale } = useI18n();
   const location = useLocation();
   const { user, isLoggedIn } = useUser();
@@ -27,12 +29,18 @@ export function Header({ menu }: { menu: HeaderQuery }) {
     ? 'g-absolute g-w-full g-text-white hover:g-bg-[#00000048]'
     : '';
   return (
-    <div className={`g-flex g-flex-none g-items-center g-p-2 g-px-4 g-z-30 ${transparentClass}`}>
+    <div
+      className={`g-flex g-flex-none g-items-center g-p-2 g-px-4 g-z-30 ${transparentClass} ${
+        config.testSite ? 'transparent-test-stripes' : ''
+      }`}
+    >
       <div className="g-flex-none ">
         <DynamicLink
           as={NavLink}
           to="/"
-          className={`g-py-2 ${isTransparent ? 'g-text-white' : 'g-text-primary-500'}`}
+          className={`g-py-2 g-relative ${isTransparent ? 'g-text-white' : 'g-text-primary-500'} ${
+            config.testSite ? 'test-box' : ''
+          }`}
         >
           <GbifLogoIcon style={{ fontSize: 25 }} />
         </DynamicLink>

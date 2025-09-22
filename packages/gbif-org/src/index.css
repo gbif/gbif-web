@@ -932,3 +932,29 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .sql-hl-bracket {
   color: #6a737d; /* neutral gray */
 }
+
+.test-stripes {
+  background: repeating-linear-gradient(45deg, #ffffff, #ffffff 10px, #ffe0d3 10px, #ffe0d3 20px);
+}
+
+.transparent-test-stripes {
+  background: repeating-linear-gradient(
+    45deg,
+    #ffffff00,
+    #ffffff00 10px,
+    #ff8e5996 10px,
+    #ff8e5996 20px
+  );
+}
+
+.test-box:after {
+  content: 'Test';
+  font-weight: bold;
+  position: relative;
+  right: 10px;
+  background: rgb(255, 0, 0);
+  color: white;
+  font-size: 12px;
+  padding: 2px 4px;
+  z-index: 1000;
+}

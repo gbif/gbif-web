@@ -1,6 +1,7 @@
 import { Config } from './config';
 
 export const configDefault: Partial<Config> = {
+  testSite: import.meta.env.PUBLIC_TEST_SITE === 'true',
   defaultChecklistKey: import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
   availableChecklistKeys: [import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY], //import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS?.split(',') || [],
   hardcodedKeys: {
