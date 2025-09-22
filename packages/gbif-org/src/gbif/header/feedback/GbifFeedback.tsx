@@ -79,7 +79,7 @@ export function GbifFeedback({ pageType, onClose }: GbifFeedbackProps) {
         body: JSON.stringify({
           title: titleValue,
           description: descriptionValue,
-          location: window.location.pathname,
+          location: window.location.href,
           width: window.innerWidth,
           height: window.innerHeight,
         }),

@@ -124,6 +124,47 @@ export default (app) => {
   app.use('/forms/feedback', feedbackRouter);
 };
 
+function isGbifDomainOrLocalhost(href: string | undefined) {
+  if (!_.isString(href)) {
+    return false;
+  }
+  const location = new URL(href);
+  const { hostname } = location;
+
+  const allowedDomains = [
+    'localhost',
+
+    'www.gbif.org',
+    'demo.gbif.org',
+    'gbif.org',
+
+    'www.gbif-dev.org',
+    'demo.gbif-dev.org',
+    'gbif-dev.org',
+
+    'www.gbif-test.org',
+    'demo.gbif-test.org',
+    'gbif-test.org',
+
+    'www.gbif-uat.org',
+    'demo.gbif-uat.org',
+    'gbif-uat.org',
+
+    'demo.gbif-staging.org',
+    'www.gbif-staging.org',
+    'gbif-staging.org',
+
+    'demo.gbif-preview.org',
+    'www.gbif-preview.org',
+    'gbif-preview.org',
+  ];
+
+  if (!allowedDomains.includes(hostname)) {
+    return false;
+  }
+  return true;
+}
+
 feedbackRouter.post(
   '/bug',
   isAuthenticated,
@@ -133,10 +174,21 @@ feedbackRouter.post(
     try {
       const agentObject = new UAParser(req.headers['user-agent']).getResult();
       const agent = `${agentObject.browser.name} ${agentObject.browser.version} / ${agentObject.os.name} ${agentObject.os.version}`;
-      const { referer } = req.headers;
       let feedbackType;
+      if (!req?.body?.location) {
+        // fail if no location is provided
+        return res.status(400).json({ message: 'No location provided' });
+      }
+      // check that the domain is allowed. We accept only our own domains which are gbif.org gbif-dev.org gbif-test.org gbif-staging.org
+      // this isn't about security, but simply to avoid spam linking to other domains.
+      if (!isGbifDomainOrLocalhost(req?.body?.location)) {
+        return res.status(400).json({ message: 'Domain not allowed' });
+      }
       if (req?.body?.location) {
-        feedbackType = await getFeedbackContentType(req?.body?.location);
+        // parse location to get domain and path
+        const location = new URL(req?.body?.location);
+        const path = location.pathname;
+        feedbackType = await getFeedbackContentType(path);
       }
       const { datasetKey, publishingOrgKey, networkKeys, mention } =
         feedbackType || {};
@@ -157,7 +209,7 @@ feedbackRouter.post(
         body: getDescription({
           form: req.body,
           agent,
-          referer: (referer || '') + (req?.body?.location || ''),
+          referer: req?.body?.location,
           user,
           githubUserName,
           mention,

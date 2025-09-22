@@ -1,10 +1,6 @@
 import _ from 'lodash';
 import config from '#/config';
 import { contentfulLocaleToGbifLocaleMap } from '../../helpers/utils';
-// request = rootRequire('app/helpers/request'),
-// const getAnnotations = require('../../../models/gbifdata/occurrence/occurrenceAnnotate');
-// import { authenticatedGet } from '../../helpers/auth/authenticatedGet.js';
-import getAnnotations from './occurrenceAnnotate.js';
 import { getUserByUserName } from '../../helpers/auth/extractUser.js';
 
 const locales = Object.keys(contentfulLocaleToGbifLocaleMap)
@@ -85,26 +81,14 @@ async function parseOccurrence(path) {
 
   // get endorsing node as node managers want to be cc'ed
   const node = await getNode(occurrence.publisher.endorsingNodeKey);
-  contentType.ccContacts = getContacts(_.get(node, 'contacts', []));
   const mention = await getGithubHandlesToMention({ node });
   if (mention.length > 0) {
     contentType.mention = mention;
   }
   // has custom annotation system?
   occurrence._installationKey = occurrence.dataset.installationKey;
-  contentType.annotation = getAnnotations(occurrence);
-
-  /*   if (contentType.annotation && contentType.annotation.commentsUrl) {
-    try {
-      const comments = await getComments(contentType.annotation);
-      contentType.comments = comments;
-    } catch (err) {
-      // ignore failed attempt to fetch comments - fail silently
-    }
-  } */
 
   // get administrative contacts
-  contentType.contacts = getContacts(_.get(occurrence, 'dataset.contacts', []));
 
   // add the feedback contenttype
   if (contentType.annotation) {
@@ -123,74 +107,6 @@ async function parseOccurrence(path) {
   }
 
   return contentType;
-}
-
-// yet another awful hack to fit Annosys in.
-// async function getComments(config) {
-//     let options = {
-//         url: config.commentsUrl,
-//         json: true,
-//         maxAttempts: 1
-//     };
-
-//     let response = await request(options);
-//     if (response.statusCode == 200 && _.get(response, 'body.' + config.commentsCountField, 0) > 0) {
-//         let comments = {
-//             results: response.body[config.commentsListField],
-//             count: response.body[config.commentsCountField],
-//             url: config.allCommentsUrl
-//         };
-
-//         comments.results = _.map(_.slice(comments.results, 0, 5), function(comment) {
-//             let item = {
-//                 title: comment[config.commentTitle],
-//                 createdAt: comment[config.commentCreated]
-//             };
-//             let commentUrl = config.commentUrlTemplate;
-//             for (let i = 0; i < config.keys.length; i++) {
-//                 let key = config.keys[i];
-//                 let val = comment[key] || '';
-//                 commentUrl = commentUrl.replace('{{' + key + '}}', val);
-//             }
-//             item.url = commentUrl;
-//             return item;
-//         });
-//         return comments;
-//     }
-//     return {
-//         count: 0,
-//         comments: []
-//     };
-// }
-
-function getContacts(contacts) {
-  const adminContacts = contacts.filter(function (contact) {
-    return (
-      (contact.type === 'ADMINISTRATIVE_POINT_OF_CONTACT' ||
-        contact.type === 'NODE_MANAGER') &&
-      !_.isEmpty(contact.email)
-    );
-  });
-
-  if (adminContacts.length > 0) {
-    // get first contact name and mail
-    const firstContact = {
-      firstName: adminContacts[0].firstName,
-      lastName: adminContacts[0].lastName,
-      organization: adminContacts[0].organization,
-      email: adminContacts[0].email[0],
-    };
-
-    // get list of administrative contact mails
-    let allMails = [];
-    adminContacts.forEach(function (e) {
-      allMails = allMails.concat(e.email);
-    });
-    return {
-      firstContact,
-      allMails,
-    };
-  }
 }
 
 async function getGithubHandlesToMention({ node }) {
