@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import config from '#/config';
-import { contentfulLocaleToGbifLocaleMap } from '../../helpers/utils';
-import { getUserByUserName } from '../../helpers/auth/extractUser.js';
+import { contentfulLocaleToGbifLocaleMap } from '#/helpers/utils';
+import { getUserByUserName } from '#/helpers/auth/extractUser';
 
 const locales = Object.keys(contentfulLocaleToGbifLocaleMap)
   .map((key) => contentfulLocaleToGbifLocaleMap[key])
