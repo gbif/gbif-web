@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import generateMermaid from './generateMermaid';
 import { MermaidChart } from './MermaidChart';
+import ResourceList from './ResourceList';
 
 export default function Example({ datasetKey }: { datasetKey: string }) {
   const [schema, setSchema] = useState<any>(null);
@@ -12,16 +13,16 @@ export default function Example({ datasetKey }: { datasetKey: string }) {
     const fetchSchema = async () => {
       setLoading(true);
       setError(null);
-      
+
       try {
         const response = await fetch(
           `https://api.gbif-dev.org/v1/dataset/${datasetKey}/datapackage/resource`
         );
-        
+
         if (!response.ok) {
           throw new Error(`Failed to fetch schema: ${response.status} ${response.statusText}`);
         }
-        
+
         const data = await response.json();
         setSchema(data);
         const mermaid = generateMermaid(data);
@@ -42,7 +43,10 @@ export default function Example({ datasetKey }: { datasetKey: string }) {
     return (
       <div className="g-flex g-items-center g-justify-center g-p-8">
         <div className="g-text-center">
-          <div className="g-inline-block g-h-8 g-w-8 g-animate-spin g-rounded-full g-border-4 g-border-solid g-border-current g-border-r-transparent g-align-[-0.125em] g-motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+          <div
+            className="g-inline-block g-h-8 g-w-8 g-animate-spin g-rounded-full g-border-4 g-border-solid g-border-current g-border-r-transparent g-align-[-0.125em] g-motion-reduce:animate-[spin_1.5s_linear_infinite]"
+            role="status"
+          >
             <span className="g-sr-only">Loading...</span>
           </div>
           <p className="g-mt-4 g-text-gray-600">Loading schema...</p>
@@ -74,6 +78,7 @@ export default function Example({ datasetKey }: { datasetKey: string }) {
     <div>
       {/* <pre>{mermaidString}</pre> */}
       <MermaidChart chart={mermaidString} />
+      <ResourceList datasetKey={datasetKey} />
     </div>
   );
 }

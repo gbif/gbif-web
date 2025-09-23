@@ -1,0 +1,93 @@
+{
+  "name": "identification",
+  "path": "data/identification.tsv",
+  "schema": {
+    "url": "https://github.com/gbif/dwc-dp/blob/master/dwc-dp/0.1/table-schemas/identification.json",
+    "name": "identification",
+    "title": "Identification",
+    "fields": [
+      {
+        "iri": "http://rs.tdwg.org/dwc/terms/identificationID",
+        "name": "identificationID",
+        "type": "string",
+        "title": "Identification ID",
+        "format": "default",
+        "comments": "Recommended best practice is to use a globally unique identifier.",
+        "examples": "",
+        "namespace": "dwc",
+        "constraints": {
+          "unique": true,
+          "required": true
+        },
+        "description": "An identifier for a dwc:Identification."
+      },
+      {
+        "iri": "",
+        "name": "basedOnNucleotideSequenceID",
+        "type": "string",
+        "title": "Based On Nucleotide Sequence ID",
+        "format": "default",
+        "comments": "Recommended best practice is to use a globally unique identifier.",
+        "examples": "",
+        "namespace": "dwcdp",
+        "description": "An identifier for a NucleotideSequence based on which a dwc:Identification was made."
+      },
+      {
+        "iri": "",
+        "name": "higherClassificationName",
+        "type": "string",
+        "title": "Higher Classification Name",
+        "format": "default",
+        "comments": "A higherClassificationName must have a corresponding higherClassificationRank.",
+        "examples": "`Animalia` (higherClassificationName) with `kingdom` (higherClassificationRank); `Laphriinae`  (higherClassificationName) with `subfamily` (higherClassificationRank)",
+        "namespace": "dwcdp",
+        "description": "A full scientific name at a higher rank than the taxonRank of dwc:scientificName."
+      },
+      {
+        "iri": "",
+        "name": "higherClassificationRank",
+        "type": "string",
+        "title": "Higher Classification Rank",
+        "format": "default",
+        "comments": "A higherClassificationRank must have a corresponding higherClassificationName.",
+        "examples": "`Acanthaceae` (higherClassificationName) with `family` (higherClassificationRank); `Pyrenomycetes` (higherClassificationName) with `class` (higherClassificationRank)",
+        "namespace": "dwcdp",
+        "description": "A taxonomic rank of the higherClassificationName."
+      },
+      {
+        "iri": "http://rs.tdwg.org/dwc/terms/scientificName",
+        "name": "scientificName",
+        "type": "string",
+        "title": "Scientific Name",
+        "format": "default",
+        "comments": "",
+        "examples": "`Coleoptera` (order); `Vespertilionidae` (family); `Manis` (genus); `Ctenomys sociabilis` (genus + specificEpithet); `Ambystoma tigrinum diaboli` (genus + specificEpithet + infraspecificEpithet); `Roptrocerus typographi (Györfi, 1952)` (genus + specificEpithet + scientificNameAuthorship); `Quercus agrifolia var. oxyadenia (Torr.) J.T. Howell` (genus + specificEpithet + taxonRank + infraspecificEpithet + scientificNameAuthorship)",
+        "namespace": "dwc",
+        "description": "A full scientific name, with authorship and date information if known. When forming part of a dwc:Identification, this should be the name in lowest level taxonomic rank that can be determined. This term should not contain identification qualifications, which should instead be supplied in dwc:verbatimIdentification."
+      },
+      {
+        "iri": "http://rs.tdwg.org/dwc/terms/taxonID",
+        "name": "taxonID",
+        "type": "string",
+        "title": "Taxon ID",
+        "format": "default",
+        "comments": "Recommended best practice is to use a globally unique identifier.",
+        "examples": "`8fa58e08-08de-4ac1-b69c-1235340b7001`; `32567`; `https://www.gbif.org/species/212`",
+        "namespace": "dwc",
+        "description": "An identifier for a dwc:Taxon."
+      }
+    ],
+    "identifier": "http://rs.tdwg.org/dwc/dwc-dp/identification",
+    "primaryKey": "identificationID",
+    "description": "A taxonomic determination (i.e., the assignment of dwc:Taxa to dwc:Organisms).",
+    "foreignKeys": [
+      {
+        "fields": "basedOnNucleotideSequenceID",
+        "reference": {
+          "fields": "nucleotideSequenceID",
+          "resource": "nucleotide-sequence"
+        }
+      }
+    ]
+  }
+}
