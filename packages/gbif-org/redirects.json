@@ -1,0 +1,8 @@
+[
+  { "incoming": "/governance/governing-board", "target": "/governance" },
+  { "incoming": "/country", "target": "/the-gbif-network" },
+  { "incoming": "/newsroom/uses", "target": "/resource/search?contentType=dataUse" },
+  { "incoming": "/bid", "target": "/programme/82243/_redirect" },
+  { "incoming": "/analytics", "target": "/analytics/global" },
+  { "incoming": "/programme/bid", "target": "/programme/82243/_redirect" }
+]

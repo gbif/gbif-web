@@ -11,6 +11,7 @@ import { helmetConfig } from './helmetConfig.js';
 import { register as registerRobots } from './routes/robots/index.mjs';
 import { register as registerSitemaps } from './routes/sitemaps/endpoints.mjs';
 import { register as registerUser } from './routes/user/endpoints.mjs';
+import handleRedirects from './middleware/redirects.mjs';
 // Load environment variables from .env files and merge them with process.env.
 const envFile = loadEnv('', process.cwd(), ['PUBLIC_']);
 const env = merge(envFile, process.env);
@@ -30,6 +31,9 @@ async function main() {
   app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());
   app.use(compress());
+
+  // Handle list of redirects
+  app.use(handleRedirects);
 
   // Middleware to set default Cache-Control header
   app.use((req, res, next) => {
