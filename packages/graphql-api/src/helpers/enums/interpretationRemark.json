@@ -270,12 +270,12 @@
     "id": "TAXON_MATCH_FUZZY",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/genus",
+      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/scientificNameID",
       "http://rs.tdwg.org/dwc/terms/genericName",
-      "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
+      "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/taxonID",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
@@ -290,12 +290,12 @@
     "id": "TAXON_MATCH_HIGHERRANK",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/genus",
+      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/scientificNameID",
       "http://rs.tdwg.org/dwc/terms/genericName",
-      "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
+      "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/taxonID",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
@@ -310,12 +310,12 @@
     "id": "TAXON_MATCH_AGGREGATE",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/genus",
+      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/scientificNameID",
       "http://rs.tdwg.org/dwc/terms/genericName",
-      "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
+      "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/taxonID",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
@@ -382,12 +382,12 @@
     "id": "TAXON_MATCH_NONE",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/genus",
+      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/scientificNameID",
       "http://rs.tdwg.org/dwc/terms/genericName",
-      "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
+      "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/taxonID",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
@@ -402,12 +402,12 @@
     "id": "TAXON_MATCH_NAME_AND_ID_AMBIGUOUS",
     "severity": "WARNING",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/genus",
+      "http://rs.tdwg.org/dwc/terms/kingdom",
       "http://rs.tdwg.org/dwc/terms/scientificNameID",
       "http://rs.tdwg.org/dwc/terms/genericName",
-      "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/infraspecificEpithet",
+      "http://rs.tdwg.org/dwc/terms/class",
       "http://rs.tdwg.org/dwc/terms/taxonID",
       "http://rs.tdwg.org/dwc/terms/order",
       "http://rs.tdwg.org/dwc/terms/specificEpithet",
@@ -787,8 +787,8 @@
     "id": "EON_OR_EONOTHEM_AND_ERA_OR_ERATHEM_MISMATCH",
     "severity": "INFO",
     "relatedTerms": [
-      "http://rs.tdwg.org/dwc/terms/earliestEraOrLowestErathem",
       "http://rs.tdwg.org/dwc/terms/latestEonOrHighestEonothem",
+      "http://rs.tdwg.org/dwc/terms/earliestEraOrLowestErathem",
       "http://rs.tdwg.org/dwc/terms/latestEraOrHighestErathem",
       "http://rs.tdwg.org/dwc/terms/earliestEonOrLowestEonothem"
     ]
@@ -821,6 +821,243 @@
       "http://rs.tdwg.org/dwc/terms/latestEpochOrHighestSeries",
       "http://rs.tdwg.org/dwc/terms/latestAgeOrHighestStage",
       "http://rs.tdwg.org/dwc/terms/earliestEpochOrLowestSeries"
+    ]
+  },
+  {
+    "id": "GEOSPATIAL_SCOPE_AREA_LOWER_THAN_TOTAL_AREA_SAMPLED",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/geospatialScopeAreaValue",
+      "http://rs.tdwg.org/eco/terms/totalAreaSampledValue"
+    ]
+  },
+  {
+    "id": "EVENT_DURATION_UNIT_MISSING",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/eventDurationUnit"
+    ]
+  },
+  {
+    "id": "GEOSPATIAL_SCOPE_AREA_UNIT_MISSING",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/geospatialScopeAreaUnit"
+    ]
+  },
+  {
+    "id": "SAMPLING_EFFORT_UNIT_MISSING",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/samplingEffortUnit"
+    ]
+  },
+  {
+    "id": "TOTAL_AREA_SAMPLED_UNIT_MISSING",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/samplingEffortUnit"
+    ]
+  },
+  {
+    "id": "HAS_NON_TARGET_TAXA_MISMATCH",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/hasNonTargetTaxa"
+    ]
+  },
+  {
+    "id": "HAS_MATERIAL_SAMPLES_MISMATCH",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/hasMaterialSamples"
+    ]
+  },
+  {
+    "id": "TARGET_TAXONOMIC_SCOPE_EXCLUDED",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/targetTaxonomicScope",
+      "http://rs.tdwg.org/eco/terms/excludedTaxonomicScope"
+    ]
+  },
+  {
+    "id": "TARGET_HABITAT_SCOPE_EXCLUDED",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/targetHabitatScope",
+      "http://rs.tdwg.org/eco/terms/excludedHabitatScope"
+    ]
+  },
+  {
+    "id": "TARGET_LIFE_STAGE_SCOPE_EXCLUDED",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/excludedLifeStageScope",
+      "http://rs.tdwg.org/eco/terms/targetLifeStageScope"
+    ]
+  },
+  {
+    "id": "TARGET_DEGREE_OF_ESTABLISHMENT_EXCLUDED",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/excludedDegreeOfEstablishmentScope",
+      "http://rs.tdwg.org/eco/terms/targetDegreeOfEstablishmentScope"
+    ]
+  },
+  {
+    "id": "TARGET_GROWTH_FORM_EXCLUDED",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/excludedGrowthFormScope",
+      "http://rs.tdwg.org/eco/terms/targetGrowthFormScope"
+    ]
+  },
+  {
+    "id": "SITE_COUNT_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/siteCount"
+    ]
+  },
+  {
+    "id": "GEOSPATIAL_SCOPE_AREA_VALUE_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/geospatialScopeAreaValue"
+    ]
+  },
+  {
+    "id": "TOTAL_AREA_SAMPLED_VALUE_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/totalAreaSampledValue"
+    ]
+  },
+  {
+    "id": "EVENT_DURATION_VALUE_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/eventDurationValue"
+    ]
+  },
+  {
+    "id": "SAMPLING_EFFORT_VALUE_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/samplingEffortValue"
+    ]
+  },
+  {
+    "id": "ABUNDANCE_CAP_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/abundanceCap"
+    ]
+  },
+  {
+    "id": "IS_TAXONOMIC_SCOPE_FULLY_REPORTED_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/isTaxonomicScopeFullyReported"
+    ]
+  },
+  {
+    "id": "IS_ABSENCE_REPORTED_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/isAbsenceReported"
+    ]
+  },
+  {
+    "id": "HAS_NON_TARGET_TAXA_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/hasNonTargetTaxa"
+    ]
+  },
+  {
+    "id": "ARE_NON_TARGET_TAXA_FULLY_REPORTED_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/areNonTargetTaxaFullyReported"
+    ]
+  },
+  {
+    "id": "IS_LIFE_STAGE_SCOPE_FULLY_REPORTED_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/isLifeStageScopeFullyReported"
+    ]
+  },
+  {
+    "id": "IS_DEGREE_OF_ESTABLISHMENT_SCOPE_FULLY_REPORTED_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/isDegreeOfEstablishmentScopeFullyReported"
+    ]
+  },
+  {
+    "id": "IS_GROWTH_FORM_SCOPE_FULLY_REPORTED_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/isGrowthFormScopeFullyReported"
+    ]
+  },
+  {
+    "id": "HAS_NON_TARGET_ORGANISMS_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/hasNonTargetOrganisms"
+    ]
+  },
+  {
+    "id": "IS_ABUNDANCE_REPORTED_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/isAbundanceReported"
+    ]
+  },
+  {
+    "id": "IS_ABUNDANCE_CAP_REPORTED_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/isAbundanceCapReported"
+    ]
+  },
+  {
+    "id": "IS_VEGETATION_COVER_REPORTED_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/isVegetationCoverReported"
+    ]
+  },
+  {
+    "id": "IS_LEAST_SPECIFIC_TARGET_CATEGORY_QUANTITY_INCLUSIVE_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/isLeastSpecificTargetCategoryQuantityInclusive"
+    ]
+  },
+  {
+    "id": "HAS_VOUCHERS_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/hasVouchers"
+    ]
+  },
+  {
+    "id": "HAS_MATERIAL_SAMPLES_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/hasMaterialSamples"
+    ]
+  },
+  {
+    "id": "IS_SAMPLING_EFFORT_REPORTED_INVALID",
+    "severity": "INFO",
+    "relatedTerms": [
+      "http://rs.tdwg.org/eco/terms/isSamplingEffortReported"
     ]
   },
   {

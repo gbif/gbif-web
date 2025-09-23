@@ -50,6 +50,7 @@ import { SamplingDescription } from './about/SamplingDescription';
 import { TaxonomicCoverages } from './about/TaxonomicCoverages';
 import { TemporalCoverages } from './about/TemporalCoverages';
 import { ExternalLinkIcon } from '@radix-ui/react-icons';
+import Example from './dataPackage/Example';
 
 export function DatasetKeyAbout() {
   const config = useConfig();
@@ -276,6 +277,8 @@ export function DatasetKeyAbout() {
                 </Alert>
               </div>
             )}
+
+            {dataset.key && <Example datasetKey={dataset.key} />}
 
             <Card className="g-mb-4" id="description">
               <CardHeader className="gbif-word-break">

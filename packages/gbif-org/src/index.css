@@ -958,3 +958,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   padding: 2px 4px;
   z-index: 1000;
 }
+
+.node.gbif_dp_molecularprotocol {
+  path {
+    fill: #ff0000;
+    stroke: #9370db;
+    stroke-width: 1px;
+  }
+}
