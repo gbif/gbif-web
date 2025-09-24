@@ -173,16 +173,18 @@ export default function GenericDetail({ id, resourceType }: GenericDetailProps) 
       ...ref,
       count: 0,
       records: [],
-      loading: true, // Set to true initially while we fetch counts
-      hasMore: true,
+      loading: true, // Set to true initially while we fetch counts and data
+      hasMore: false, // Start with false, will be updated when we get actual data
       offset: 0,
     }));
 
     setRelatedRecords(initialRelatedRecords);
+    // Expand all related records by default
+    setExpandedRelated(new Set(referencingResources.map(ref => ref.resourceName)));
 
-    // Fetch counts for all related records immediately
+    // Fetch counts and initial data for all related records immediately
     referencingResources.forEach((ref) => {
-      fetchRelatedRecordsCount(ref.resourceName, ref.fieldName);
+      fetchRelatedRecordsCountAndData(ref.resourceName, ref.fieldName);
     });
   }, [schemas, rowData, currentSchema]);
 
@@ -193,8 +195,8 @@ export default function GenericDetail({ id, resourceType }: GenericDetailProps) 
       const searchPayload = {
         datasetKey,
         resource: resourceName,
-        limit: 0, // We only want the count, not the actual records
-        offset: 0,
+        limit: 5,
+        offset,
         filters: {
           [fieldName]: [id],
         },
@@ -227,6 +229,102 @@ export default function GenericDetail({ id, resourceType }: GenericDetailProps) 
       );
     } catch (err) {
       console.error('Failed to fetch related records count:', err);
+      setRelatedRecords((prev) =>
+        prev.map((record) =>
+          record.resourceName === resourceName ? { ...record, loading: false } : record
+        )
+      );
+    }
+  };
+
+  const fetchRelatedRecordsCountAndData = async (resourceName: string, fieldName: string) => {
+    if (!datasetKey || !id) return;
+
+    try {
+      // First get the count
+      const countPayload = {
+        datasetKey,
+        resource: resourceName,
+        limit: 0,
+        offset: 0,
+        filters: {
+          [fieldName]: [id],
+        },
+      };
+
+      const countResponse = await fetch('https://api.gbif-dev.org/v1/dataset/datapackage/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(countPayload),
+      });
+
+      if (!countResponse.ok) {
+        throw new Error(`Failed to fetch related records count: ${countResponse.status}`);
+      }
+
+      const countData: SearchResponse = await countResponse.json();
+
+      // If there are records, fetch the first batch
+      if (countData.count > 0) {
+        const dataPayload = {
+          datasetKey,
+          resource: resourceName,
+          limit: 5,
+          offset: 0,
+          filters: {
+            [fieldName]: [id],
+          },
+        };
+
+        const dataResponse = await fetch('https://api.gbif-dev.org/v1/dataset/datapackage/search', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dataPayload),
+        });
+
+        if (!dataResponse.ok) {
+          throw new Error(`Failed to fetch related records data: ${dataResponse.status}`);
+        }
+
+        const dataResults: SearchResponse = await dataResponse.json();
+
+        setRelatedRecords((prev) =>
+          prev.map((record) =>
+            record.resourceName === resourceName
+              ? {
+                  ...record,
+                  count: countData.count,
+                  records: dataResults.results,
+                  loading: false,
+                  hasMore: dataResults.results.length === 5 && 5 < countData.count,
+                  offset: dataResults.results.length,
+                }
+              : record
+          )
+        );
+      } else {
+        // No records found
+        setRelatedRecords((prev) =>
+          prev.map((record) =>
+            record.resourceName === resourceName
+              ? {
+                  ...record,
+                  count: 0,
+                  records: [],
+                  loading: false,
+                  hasMore: false,
+                  offset: 0,
+                }
+              : record
+          )
+        );
+      }
+    } catch (err) {
+      console.error('Failed to fetch related records count and data:', err);
       setRelatedRecords((prev) =>
         prev.map((record) =>
           record.resourceName === resourceName ? { ...record, loading: false } : record
@@ -282,7 +380,7 @@ export default function GenericDetail({ id, resourceType }: GenericDetailProps) 
                 count: data.count,
                 records: append ? [...record.records, ...data.results] : data.results,
                 loading: false,
-                hasMore: data.results.length === 20 && offset + 20 < data.count,
+                hasMore: data.results.length === 5 && offset + 5 < data.count,
                 offset: offset + data.results.length,
               }
             : record
@@ -309,12 +407,7 @@ export default function GenericDetail({ id, resourceType }: GenericDetailProps) 
       });
     } else {
       setExpandedRelated((prev) => new Set([...prev, resourceName]));
-
-      // Fetch full record data if not already loaded (counts are already fetched on init)
-      const relatedRecord = relatedRecords.find((r) => r.resourceName === resourceName);
-      if (relatedRecord && relatedRecord.records.length === 0 && relatedRecord.count > 0) {
-        await fetchRelatedRecords(resourceName, fieldName);
-      }
+      // Data is already loaded during initialization, so no need to fetch here
     }
   };
 
@@ -651,7 +744,7 @@ export default function GenericDetail({ id, resourceType }: GenericDetailProps) 
                             })}
                           </div>
 
-                          {related.hasMore && (
+                          {related.hasMore && related.records.length > 0 && (
                             <div className="g-mt-4 g-text-center">
                               <button
                                 onClick={() =>
