@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import generateMermaid from './generateMermaid';
 import { MermaidChart } from './MermaidChart';
 import ResourceList from './ResourceList';
+import EntityDetailDrawer from './EntityDetailDrawer';
 import { Card } from '@/components/ui/largeCard';
 import exampleSchema from './exampleSchema.json';
 
@@ -81,6 +82,7 @@ export default function Example({ datasetKey }: { datasetKey: string }) {
     <div>
       <MermaidChart chart={mermaidString} />
       <ResourceList datasetKey={datasetKey} />
+      <EntityDetailDrawer />
     </div>
   );
 }
