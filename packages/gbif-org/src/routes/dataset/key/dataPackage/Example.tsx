@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import generateMermaid from './generateMermaid';
 import { MermaidChart } from './MermaidChart';
 import ResourceList from './ResourceList';
+import { Card } from '@/components/ui/largeCard';
+import exampleSchema from './exampleSchema.json';
 
 export default function Example({ datasetKey }: { datasetKey: string }) {
   const [schema, setSchema] = useState<any>(null);
@@ -74,9 +76,9 @@ export default function Example({ datasetKey }: { datasetKey: string }) {
     );
   }
 
+  const fields = ['title', 'name', 'type', 'description', 'test', 'setsets'];
   return (
     <div>
-      {/* <pre>{mermaidString}</pre> */}
       <MermaidChart chart={mermaidString} />
       <ResourceList datasetKey={datasetKey} />
     </div>

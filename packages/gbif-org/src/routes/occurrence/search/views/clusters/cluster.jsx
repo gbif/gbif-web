@@ -2,7 +2,7 @@ import { getAsQuery } from '@/components/filters/filterTools';
 import { FilterContext } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import { PredicateType } from '@/gql/graphql';
-import { useNumberParam } from '@/hooks/useParam';
+import { useNumberParam, useStringParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import uniqBy from 'lodash/uniqBy';
 import { useCallback, useContext, useEffect, useState } from 'react';
