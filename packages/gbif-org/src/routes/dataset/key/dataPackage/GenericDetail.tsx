@@ -173,13 +173,67 @@ export default function GenericDetail({ id, resourceType }: GenericDetailProps) 
       ...ref,
       count: 0,
       records: [],
-      loading: false,
+      loading: true, // Set to true initially while we fetch counts
       hasMore: true,
       offset: 0,
     }));
 
     setRelatedRecords(initialRelatedRecords);
+
+    // Fetch counts for all related records immediately
+    referencingResources.forEach((ref) => {
+      fetchRelatedRecordsCount(ref.resourceName, ref.fieldName);
+    });
   }, [schemas, rowData, currentSchema]);
+
+  const fetchRelatedRecordsCount = async (resourceName: string, fieldName: string) => {
+    if (!datasetKey || !id) return;
+
+    try {
+      const searchPayload = {
+        datasetKey,
+        resource: resourceName,
+        limit: 0, // We only want the count, not the actual records
+        offset: 0,
+        filters: {
+          [fieldName]: [id],
+        },
+      };
+
+      const response = await fetch('https://api.gbif-dev.org/v1/dataset/datapackage/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(searchPayload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch related records count: ${response.status}`);
+      }
+
+      const data: SearchResponse = await response.json();
+
+      setRelatedRecords((prev) =>
+        prev.map((record) =>
+          record.resourceName === resourceName
+            ? {
+                ...record,
+                count: data.count,
+                loading: false,
+              }
+            : record
+        )
+      );
+    } catch (err) {
+      console.error('Failed to fetch related records count:', err);
+      setRelatedRecords((prev) =>
+        prev.map((record) =>
+          record.resourceName === resourceName ? { ...record, loading: false } : record
+        )
+      );
+    }
+  };
 
   const fetchRelatedRecords = async (
     resourceName: string,
@@ -256,9 +310,9 @@ export default function GenericDetail({ id, resourceType }: GenericDetailProps) 
     } else {
       setExpandedRelated((prev) => new Set([...prev, resourceName]));
 
-      // Fetch data if not already loaded
+      // Fetch full record data if not already loaded (counts are already fetched on init)
       const relatedRecord = relatedRecords.find((r) => r.resourceName === resourceName);
-      if (relatedRecord && relatedRecord.records.length === 0) {
+      if (relatedRecord && relatedRecord.records.length === 0 && relatedRecord.count > 0) {
         await fetchRelatedRecords(resourceName, fieldName);
       }
     }
