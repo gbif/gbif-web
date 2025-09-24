@@ -1,4 +1,4 @@
-import { useParam } from '@/hooks/useParam';
+import { useParam, useStringParam } from '@/hooks/useParam';
 import { HelpLine } from '@/components/helpText';
 import { useState, useEffect } from 'react';
 
@@ -44,9 +44,23 @@ export default function GenericDetail({ id, resourceType }: GenericDetailProps) 
   const [rowData, setRowData] = useState<Record<string, any> | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [entity, setEntity] = useStringParam({ key: 'entity' });
 
   // Find the schema for the current resource type
   const currentSchema = schemas.find((s) => s.name === resourceType)?.schema;
+
+  // Helper function to check if a field is a foreign key
+  const isForeignKey = (fieldName: string): boolean => {
+    if (!currentSchema?.foreignKeys) return false;
+    return currentSchema.foreignKeys.some((fk) => fk.fields === fieldName);
+  };
+
+  // Helper function to get the target resource for a foreign key field
+  const getForeignKeyTarget = (fieldName: string): string | null => {
+    if (!currentSchema?.foreignKeys) return null;
+    const foreignKey = currentSchema.foreignKeys.find((fk) => fk.fields === fieldName);
+    return foreignKey?.reference?.resource || null;
+  };
 
   useEffect(() => {
     const fetchSchemas = async () => {
@@ -104,6 +118,22 @@ export default function GenericDetail({ id, resourceType }: GenericDetailProps) 
   const renderFieldValue = (field: Field, value: any) => {
     if (value === null || value === undefined || value === '') {
       return <span className="g-text-gray-400 g-italic">No data</span>;
+    }
+
+    // Check if this field is a foreign key
+    const isFK = isForeignKey(field.name);
+    const targetResource = isFK ? getForeignKeyTarget(field.name) : null;
+
+    // Handle foreign key fields as clickable links
+    if (isFK && targetResource) {
+      return (
+        <button
+          onClick={() => setEntity(`${targetResource}__${value}`)}
+          className="g-text-blue-600 hover:g-text-blue-800 hover:g-underline g-cursor-pointer g-bg-transparent g-border-none g-p-0 g-font-inherit g-break-words"
+        >
+          {String(value)}
+        </button>
+      );
     }
 
     // Handle different field types
