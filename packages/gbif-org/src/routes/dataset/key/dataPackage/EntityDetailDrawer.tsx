@@ -1,5 +1,6 @@
 import { Drawer } from '@/components/drawer/drawer';
 import { useStringParam } from '@/hooks/useParam';
+import GenericDetail from './GenericDetail';
 
 interface EventDetailProps {
   id: string;
@@ -12,21 +13,6 @@ function EventDetail({ id, resourceType }: EventDetailProps) {
       <h2 className="g-text-xl g-font-bold g-mb-4">Event Details</h2>
       <p className="g-text-gray-700">Event: {id}</p>
       <p className="g-text-sm g-text-gray-500 g-mt-2">Resource: {resourceType}</p>
-    </div>
-  );
-}
-
-interface GenericDetailProps {
-  id: string;
-  resourceType: string;
-}
-
-function GenericDetail({ id, resourceType }: GenericDetailProps) {
-  return (
-    <div className="g-p-6">
-      <h2 className="g-text-xl g-font-bold g-mb-4">Resource Details</h2>
-      <p className="g-text-gray-700">ID: {id}</p>
-      <p className="g-text-gray-700 g-mt-2">Resource Type: {resourceType}</p>
     </div>
   );
 }
