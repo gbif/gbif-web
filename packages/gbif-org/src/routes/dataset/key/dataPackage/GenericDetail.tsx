@@ -1,6 +1,8 @@
 import { useParam, useStringParam } from '@/hooks/useParam';
 import { HelpLine } from '@/components/helpText';
 import { useState, useEffect } from 'react';
+import { FaChevronUp } from 'react-icons/fa6';
+import { FaChevronDown } from 'react-icons/fa';
 
 interface Field {
   name: string;
@@ -37,6 +39,24 @@ interface GenericDetailProps {
   resourceType: string;
 }
 
+interface RelatedRecord {
+  resourceName: string;
+  resourceTitle: string;
+  fieldName: string;
+  count: number;
+  records: Record<string, any>[];
+  loading: boolean;
+  hasMore: boolean;
+  offset: number;
+}
+
+interface SearchResponse {
+  results: Record<string, any>[];
+  count: number;
+  limit: number;
+  offset: number;
+}
+
 export default function GenericDetail({ id, resourceType }: GenericDetailProps) {
   // const [datasetKey] = useParam({ key: 'key' });
   const datasetKey = 'bb1bcfd9-7ee3-4c6e-9b8d-661cc4c524f4';
@@ -45,6 +65,8 @@ export default function GenericDetail({ id, resourceType }: GenericDetailProps) 
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [entity, setEntity] = useStringParam({ key: 'entity' });
+  const [relatedRecords, setRelatedRecords] = useState<RelatedRecord[]>([]);
+  const [expandedRelated, setExpandedRelated] = useState<Set<string>>(new Set());
 
   // Find the schema for the current resource type
   const currentSchema = schemas.find((s) => s.name === resourceType)?.schema;
@@ -60,6 +82,33 @@ export default function GenericDetail({ id, resourceType }: GenericDetailProps) 
     if (!currentSchema?.foreignKeys) return null;
     const foreignKey = currentSchema.foreignKeys.find((fk) => fk.fields === fieldName);
     return foreignKey?.reference?.resource || null;
+  };
+
+  // Helper function to find resources that reference the current entity
+  const findReferencingResources = () => {
+    if (!schemas || !currentSchema) return [];
+
+    const referencingResources: {
+      resourceName: string;
+      resourceTitle: string;
+      fieldName: string;
+    }[] = [];
+
+    schemas.forEach(({ name: resourceName, schema }) => {
+      if (resourceName === resourceType) return; // Skip self-references
+
+      schema.foreignKeys?.forEach((fk) => {
+        if (fk.reference?.resource === resourceType) {
+          referencingResources.push({
+            resourceName,
+            resourceTitle: schema.title || resourceName,
+            fieldName: fk.fields,
+          });
+        }
+      });
+    });
+
+    return referencingResources;
   };
 
   useEffect(() => {
@@ -114,6 +163,106 @@ export default function GenericDetail({ id, resourceType }: GenericDetailProps) 
       fetchRowData();
     }
   }, [datasetKey, resourceType, id, schemas]);
+
+  // Initialize related records when schemas and rowData are available
+  useEffect(() => {
+    if (!schemas.length || !rowData || !currentSchema) return;
+
+    const referencingResources = findReferencingResources();
+    const initialRelatedRecords: RelatedRecord[] = referencingResources.map((ref) => ({
+      ...ref,
+      count: 0,
+      records: [],
+      loading: false,
+      hasMore: true,
+      offset: 0,
+    }));
+
+    setRelatedRecords(initialRelatedRecords);
+  }, [schemas, rowData, currentSchema]);
+
+  const fetchRelatedRecords = async (
+    resourceName: string,
+    fieldName: string,
+    offset: number = 0,
+    append: boolean = false
+  ) => {
+    if (!datasetKey || !id) return;
+
+    setRelatedRecords((prev) =>
+      prev.map((record) =>
+        record.resourceName === resourceName ? { ...record, loading: true } : record
+      )
+    );
+
+    try {
+      const searchPayload = {
+        datasetKey,
+        resource: resourceName,
+        limit: 20,
+        offset,
+        filters: {
+          [fieldName]: [id],
+        },
+      };
+
+      const response = await fetch('https://api.gbif-dev.org/v1/dataset/datapackage/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(searchPayload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch related records: ${response.status}`);
+      }
+
+      const data: SearchResponse = await response.json();
+
+      setRelatedRecords((prev) =>
+        prev.map((record) =>
+          record.resourceName === resourceName
+            ? {
+                ...record,
+                count: data.count,
+                records: append ? [...record.records, ...data.results] : data.results,
+                loading: false,
+                hasMore: data.results.length === 20 && offset + 20 < data.count,
+                offset: offset + data.results.length,
+              }
+            : record
+        )
+      );
+    } catch (err) {
+      console.error('Failed to fetch related records:', err);
+      setRelatedRecords((prev) =>
+        prev.map((record) =>
+          record.resourceName === resourceName ? { ...record, loading: false } : record
+        )
+      );
+    }
+  };
+
+  const toggleRelatedRecords = async (resourceName: string, fieldName: string) => {
+    const isExpanded = expandedRelated.has(resourceName);
+
+    if (isExpanded) {
+      setExpandedRelated((prev) => {
+        const newSet = new Set(prev);
+        newSet.delete(resourceName);
+        return newSet;
+      });
+    } else {
+      setExpandedRelated((prev) => new Set([...prev, resourceName]));
+
+      // Fetch data if not already loaded
+      const relatedRecord = relatedRecords.find((r) => r.resourceName === resourceName);
+      if (relatedRecord && relatedRecord.records.length === 0) {
+        await fetchRelatedRecords(resourceName, fieldName);
+      }
+    }
+  };
 
   const renderFieldValue = (field: Field, value: any) => {
     if (value === null || value === undefined || value === '') {
@@ -358,6 +507,128 @@ export default function GenericDetail({ id, resourceType }: GenericDetailProps) 
           );
         })}
       </div>
+
+      {/* Related Records Section */}
+      {relatedRecords.length > 0 && (
+        <div className="g-mt-8">
+          <h3 className="g-text-xl g-font-bold g-text-gray-900 g-mb-4">Related Records</h3>
+          <div className="g-space-y-4">
+            {relatedRecords.map((related) => {
+              const isExpanded = expandedRelated.has(related.resourceName);
+              const relatedSchema = schemas.find((s) => s.name === related.resourceName)?.schema;
+
+              return (
+                <div key={related.resourceName} className="g-border g-rounded-lg g-bg-white">
+                  <button
+                    onClick={() => toggleRelatedRecords(related.resourceName, related.fieldName)}
+                    className="g-w-full g-px-4 g-py-3 g-flex g-items-center g-justify-between g-text-left hover:g-bg-gray-50 g-rounded-lg"
+                  >
+                    <div>
+                      <h4 className="g-font-semibold g-text-gray-900">{related.resourceTitle}</h4>
+                      <p className="g-text-sm g-text-gray-600">
+                        {related.count > 0
+                          ? `${related.count} record${
+                              related.count !== 1 ? 's' : ''
+                            } reference this ${resourceType}`
+                          : related.loading
+                          ? 'Loading...'
+                          : 'No related records'}
+                      </p>
+                    </div>
+                    {isExpanded ? (
+                      <FaChevronUp className="g-h-5 g-w-5 g-text-gray-400" />
+                    ) : (
+                      <FaChevronDown className="g-h-5 g-w-5 g-text-gray-400" />
+                    )}
+                  </button>
+
+                  {isExpanded && (
+                    <div className="g-px-4 g-pb-4">
+                      {related.loading && related.records.length === 0 ? (
+                        <div className="g-flex g-items-center g-justify-center g-py-4">
+                          <div className="g-inline-block g-h-6 g-w-6 g-animate-spin g-rounded-full g-border-2 g-border-solid g-border-current g-border-r-transparent" />
+                          <span className="g-ml-2 g-text-gray-600">Loading related records...</span>
+                        </div>
+                      ) : related.count === 0 ? (
+                        <p className="g-text-gray-500 g-py-4">No related records found.</p>
+                      ) : (
+                        <>
+                          <div className="g-grid g-gap-2">
+                            {related.records.map((record, index) => {
+                              const primaryKeyField = relatedSchema?.primaryKey;
+                              const primaryKeyValue = primaryKeyField
+                                ? record[primaryKeyField]
+                                : null;
+
+                              return (
+                                <div key={index} className="g-p-3 g-border g-rounded g-bg-gray-50">
+                                  <div className="g-flex g-items-center g-justify-between">
+                                    <div className="g-flex-1">
+                                      {primaryKeyField && primaryKeyValue && (
+                                        <button
+                                          onClick={() =>
+                                            setEntity(`${related.resourceName}__${primaryKeyValue}`)
+                                          }
+                                          className="g-text-blue-600 hover:g-text-blue-800 hover:g-underline g-font-medium g-text-sm"
+                                        >
+                                          {primaryKeyField}: {primaryKeyValue}
+                                        </button>
+                                      )}
+                                      <div className="g-text-xs g-text-gray-600 g-mt-1 g-space-y-1">
+                                        {Object.entries(record)
+                                          .filter(
+                                            ([key, value]) =>
+                                              key !== primaryKeyField &&
+                                              value !== null &&
+                                              value !== ''
+                                          )
+                                          .slice(0, 3)
+                                          .map(([key, value]) => (
+                                            <div key={key}>
+                                              <span className="g-font-medium">{key}:</span>{' '}
+                                              {String(value)}
+                                            </div>
+                                          ))}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+
+                          {related.hasMore && (
+                            <div className="g-mt-4 g-text-center">
+                              <button
+                                onClick={() =>
+                                  fetchRelatedRecords(
+                                    related.resourceName,
+                                    related.fieldName,
+                                    related.offset,
+                                    true
+                                  )
+                                }
+                                disabled={related.loading}
+                                className="g-px-4 g-py-2 g-text-sm g-bg-blue-600 g-text-white g-rounded hover:g-bg-blue-700 disabled:g-opacity-50 disabled:g-cursor-not-allowed"
+                              >
+                                {related.loading
+                                  ? 'Loading...'
+                                  : `Load More (${
+                                      related.count - related.records.length
+                                    } remaining)`}
+                              </button>
+                            </div>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
