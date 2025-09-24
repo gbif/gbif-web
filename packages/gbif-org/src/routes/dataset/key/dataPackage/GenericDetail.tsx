@@ -1,4 +1,5 @@
 import { useParam } from '@/hooks/useParam';
+import { HelpLine } from '@/components/helpText';
 import { useState, useEffect } from 'react';
 
 interface Field {
@@ -77,7 +78,9 @@ export default function GenericDetail({ id, resourceType }: GenericDetailProps) 
       setLoading(true);
       try {
         const response = await fetch(
-          `https://api.gbif-dev.org/v1/dataset/${datasetKey}/datapackage/${resourceType}/${id}`
+          `https://api.gbif-dev.org/v1/dataset/${datasetKey}/datapackage/${resourceType}/${encodeURIComponent(
+            id
+          )}`
         );
 
         if (!response.ok) {
@@ -135,6 +138,109 @@ export default function GenericDetail({ id, resourceType }: GenericDetailProps) 
     }
   };
 
+  const renderFieldHelp = (field: Field) => {
+    const hasMetadata =
+      field.description ||
+      field.examples ||
+      field.comments ||
+      field.constraints ||
+      field.namespace ||
+      field.format;
+
+    if (!hasMetadata) return null;
+
+    const helpContent = (
+      <div className="g-space-y-3">
+        <div className="g-text-sm">
+          <div className="g-font-medium g-text-gray-700 g-mb-2">Field Information</div>
+          <div className="g-space-y-2 g-text-xs g-text-gray-600">
+            <div>
+              <span className="g-font-medium">Name:</span>{' '}
+              <code className="g-bg-gray-100 g-px-1 g-rounded">{field.name}</code>
+            </div>
+            <div>
+              <span className="g-font-medium">Type:</span>{' '}
+              <code className="g-bg-gray-100 g-px-1 g-rounded">{field.type}</code>
+            </div>
+            {field.namespace && (
+              <div>
+                <span className="g-font-medium">Namespace:</span>{' '}
+                <code className="g-bg-gray-100 g-px-1 g-rounded">{field.namespace}</code>
+              </div>
+            )}
+            {field.format && (
+              <div>
+                <span className="g-font-medium">Format:</span>{' '}
+                <code className="g-bg-gray-100 g-px-1 g-rounded">{field.format}</code>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {field.description && (
+          <div>
+            <div className="g-font-medium g-text-gray-700 g-text-sm g-mb-1">Description</div>
+            <p className="g-text-xs g-text-gray-600 g-leading-relaxed">{field.description}</p>
+          </div>
+        )}
+
+        {field.examples && (
+          <div>
+            <div className="g-font-medium g-text-gray-700 g-text-sm g-mb-1">Examples</div>
+            <p className="g-text-xs g-text-gray-600 g-font-mono g-bg-gray-100 g-p-2 g-rounded">
+              {field.examples}
+            </p>
+          </div>
+        )}
+
+        {field.comments && (
+          <div>
+            <div className="g-font-medium g-text-gray-700 g-text-sm g-mb-1">Comments</div>
+            <p className="g-text-xs g-text-gray-600 g-leading-relaxed">{field.comments}</p>
+          </div>
+        )}
+
+        {field.constraints && (
+          <div>
+            <div className="g-font-medium g-text-gray-700 g-text-sm g-mb-1">Constraints</div>
+            <div className="g-flex g-flex-wrap g-gap-1">
+              {field.constraints.required && (
+                <span className="g-text-xs g-bg-red-100 g-text-red-700 g-px-2 g-py-1 g-rounded">
+                  Required
+                </span>
+              )}
+              {field.constraints.unique && (
+                <span className="g-text-xs g-bg-blue-100 g-text-blue-700 g-px-2 g-py-1 g-rounded">
+                  Unique
+                </span>
+              )}
+              {field.constraints.minimum !== undefined && (
+                <span className="g-text-xs g-bg-gray-100 g-text-gray-700 g-px-2 g-py-1 g-rounded">
+                  Min: {field.constraints.minimum}
+                </span>
+              )}
+              {field.constraints.maximum !== undefined && (
+                <span className="g-text-xs g-bg-gray-100 g-text-gray-700 g-px-2 g-py-1 g-rounded">
+                  Max: {field.constraints.maximum}
+                </span>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+
+    return (
+      <HelpLine
+        icon
+        className="g-text-gray-500 hover:g-text-gray-700 g-ml-2"
+        contentClassName="g-w-80"
+      >
+        {helpContent}
+      </HelpLine>
+    );
+  };
+
   if (error) {
     return (
       <div className="g-p-6">
@@ -186,7 +292,7 @@ export default function GenericDetail({ id, resourceType }: GenericDetailProps) 
         </div>
       </div>
 
-      <div className="g-space-y-4">
+      <div className="g-grid g-gap-4 g-grid-cols-1 md:g-grid-cols-2">
         {currentSchema.fields.map((field) => {
           const value = rowData[field.name];
           const hasValue = value !== null && value !== undefined && value !== '';
@@ -198,82 +304,26 @@ export default function GenericDetail({ id, resourceType }: GenericDetailProps) 
                 hasValue ? 'g-border-gray-200 g-bg-white' : 'g-border-gray-100 g-bg-gray-50'
               }`}
             >
-              <div className="g-flex g-items-start g-justify-between g-mb-2">
-                <div className="g-flex-1">
-                  <h3 className="g-font-semibold g-text-gray-900 g-flex g-items-center g-gap-2">
-                    {field.title}
-                    {field.constraints?.required && (
-                      <span className="g-text-xs g-bg-red-100 g-text-red-700 g-px-2 g-py-1 g-rounded">
-                        Required
-                      </span>
-                    )}
-                    {field.constraints?.unique && (
-                      <span className="g-text-xs g-bg-blue-100 g-text-blue-700 g-px-2 g-py-1 g-rounded">
-                        Unique
-                      </span>
-                    )}
-                  </h3>
-                  <div className="g-text-xs g-text-gray-500 g-mt-1">
-                    Field: <code className="g-bg-gray-100 g-px-1 g-rounded">{field.name}</code>
-                    {field.namespace && (
-                      <>
-                        {' • '}Namespace:{' '}
-                        <code className="g-bg-gray-100 g-px-1 g-rounded">{field.namespace}</code>
-                      </>
-                    )}
-                    {' • '}Type:{' '}
-                    <code className="g-bg-gray-100 g-px-1 g-rounded">{field.type}</code>
-                  </div>
+              <div className="g-flex g-items-start g-justify-between g-mb-3">
+                <div className="g-flex g-items-center g-gap-1">
+                  <h3 className="g-font-medium g-text-gray-900">{field.title}</h3>
+                  {renderFieldHelp(field)}
+                </div>
+                <div className="g-flex g-gap-1">
+                  {field.constraints?.required && (
+                    <span className="g-text-xs g-bg-red-100 g-text-red-700 g-px-1.5 g-py-0.5 g-rounded">
+                      Required
+                    </span>
+                  )}
+                  {field.constraints?.unique && (
+                    <span className="g-text-xs g-bg-blue-100 g-text-blue-700 g-px-1.5 g-py-0.5 g-rounded">
+                      Unique
+                    </span>
+                  )}
                 </div>
               </div>
 
-              <div className="g-mb-3">
-                <div className="g-text-sm g-font-medium g-text-gray-700 g-mb-1">Value:</div>
-                <div className="g-text-sm g-p-3 g-bg-gray-50 g-rounded g-border">
-                  {renderFieldValue(field, value)}
-                </div>
-              </div>
-
-              {field.description && (
-                <div className="g-mb-2">
-                  <div className="g-text-xs g-font-medium g-text-gray-700 g-mb-1">Description:</div>
-                  <p className="g-text-xs g-text-gray-600 g-leading-relaxed">{field.description}</p>
-                </div>
-              )}
-
-              {field.examples && (
-                <div className="g-mb-2">
-                  <div className="g-text-xs g-font-medium g-text-gray-700 g-mb-1">Examples:</div>
-                  <p className="g-text-xs g-text-gray-600 g-font-mono g-bg-gray-100 g-p-2 g-rounded">
-                    {field.examples}
-                  </p>
-                </div>
-              )}
-
-              {field.comments && (
-                <div>
-                  <div className="g-text-xs g-font-medium g-text-gray-700 g-mb-1">Comments:</div>
-                  <p className="g-text-xs g-text-gray-600 g-leading-relaxed">{field.comments}</p>
-                </div>
-              )}
-
-              {field.constraints && (
-                <div className="g-mt-2 g-pt-2 g-border-t g-border-gray-100">
-                  <div className="g-text-xs g-font-medium g-text-gray-700 g-mb-1">Constraints:</div>
-                  <div className="g-flex g-flex-wrap g-gap-2">
-                    {field.constraints.minimum !== undefined && (
-                      <span className="g-text-xs g-bg-gray-100 g-text-gray-700 g-px-2 g-py-1 g-rounded">
-                        Min: {field.constraints.minimum}
-                      </span>
-                    )}
-                    {field.constraints.maximum !== undefined && (
-                      <span className="g-text-xs g-bg-gray-100 g-text-gray-700 g-px-2 g-py-1 g-rounded">
-                        Max: {field.constraints.maximum}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              )}
+              <div className="g-text-sm">{renderFieldValue(field, value)}</div>
             </div>
           );
         })}

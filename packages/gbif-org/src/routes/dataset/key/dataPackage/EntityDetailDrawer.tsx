@@ -41,7 +41,8 @@ export default function EntityDetailDrawer() {
       {resourceType && entityId && (
         <>
           {resourceType === 'event' ? (
-            <EventDetail id={entityId} resourceType={resourceType} />
+            // <EventDetail id={entityId} resourceType={resourceType} />
+            <GenericDetail id={entityId} resourceType={resourceType} />
           ) : (
             <GenericDetail id={entityId} resourceType={resourceType} />
           )}
