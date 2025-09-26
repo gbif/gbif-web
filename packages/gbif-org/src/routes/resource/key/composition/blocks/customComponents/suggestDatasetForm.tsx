@@ -12,6 +12,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
 import { useUser } from '@/contexts/UserContext';
 import { FormSuccess } from '@/components/formSuccess';
+import { ProtectedForm } from '@/components/protectedForm';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -51,35 +52,41 @@ export function SuggestDatasetForm() {
   const [issueLink, setIssueLink] = useState<string | null>(null);
 
   return (
-    <BlockContainer className="g-p-0 g-overflow-visible">
-      {state === 'ready' && (
-        <InternalForm
-          onSuccess={(link) => {
-            setIssueLink(link);
-            setState('success');
-          }}
-        />
-      )}
-      {state === 'success' && (
-        <FormSuccess
-          title={<FormattedMessage id="suggestDataset.successTitle" />}
-          message={<FormattedMessage id="suggestDataset.successMessage" />}
-          resetMessage={<FormattedMessage id="suggestDataset.successReset" />}
-          onReset={() => setState('ready')}
-          action={
-            <Button asChild>
-              <a
-                target="_blank"
-                href={issueLink ?? 'https://github.com/gbif/data-mobilization/issues'}
-              >
-                <FormattedMessage id="suggestDataset.viewIssue" />
-                {!issueLink && ' (github intergration disabled in testing)'}
-              </a>
-            </Button>
-          }
-        />
-      )}
-    </BlockContainer>
+    <ProtectedForm
+      className="g-mt-8"
+      title={<FormattedMessage id="suggestDataset.loginToSuggestDataset.title" />}
+      message={<FormattedMessage id="suggestDataset.loginToSuggestDataset.message" />}
+    >
+      <BlockContainer className="g-bg-white g-overflow-visible g-px-0">
+        {state === 'ready' && (
+          <InternalForm
+            onSuccess={(link) => {
+              setIssueLink(link);
+              setState('success');
+            }}
+          />
+        )}
+        {state === 'success' && (
+          <FormSuccess
+            title={<FormattedMessage id="suggestDataset.successTitle" />}
+            message={<FormattedMessage id="suggestDataset.successMessage" />}
+            resetMessage={<FormattedMessage id="suggestDataset.successReset" />}
+            onReset={() => setState('ready')}
+            action={
+              <Button asChild>
+                <a
+                  target="_blank"
+                  href={issueLink ?? 'https://github.com/gbif/data-mobilization/issues'}
+                >
+                  <FormattedMessage id="suggestDataset.viewIssue" />
+                  {!issueLink && ' (github intergration disabled in testing)'}
+                </a>
+              </Button>
+            }
+          />
+        )}
+      </BlockContainer>
+    </ProtectedForm>
   );
 }
 

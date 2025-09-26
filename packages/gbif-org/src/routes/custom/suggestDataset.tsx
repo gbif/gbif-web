@@ -7,7 +7,6 @@ import { ArticleTextContainer } from '../resource/key/components/articleTextCont
 import { ArticleTitle } from '../resource/key/components/articleTitle';
 import { PageContainer } from '../resource/key/components/pageContainer';
 import { SuggestDatasetForm } from '../resource/key/composition/blocks/customComponents/suggestDatasetForm';
-import { ProtectedForm } from '@/components/protectedForm';
 
 function SuggestDatasetPage() {
   const { formatMessage } = useIntl();
@@ -29,13 +28,7 @@ function SuggestDatasetPage() {
 
         <hr className="g-my-4" />
 
-        <ProtectedForm
-          className="g-mt-8"
-          title={<FormattedMessage id="suggestDataset.loginToSuggestDataset.title" />}
-          message={<FormattedMessage id="suggestDataset.loginToSuggestDataset.message" />}
-        >
-          <SuggestDatasetForm />
-        </ProtectedForm>
+        <SuggestDatasetForm />
       </ArticleTextContainer>
     </PageContainer>
   );
