@@ -23,7 +23,7 @@ const PARTICIPANT_SELECT_QUERY = /* GraphQL */ `
 `;
 
 type Props = {
-  filters: {
+  filters?: {
     type?: NodeType;
     participationStatus?: ParticipationStatus;
   };
@@ -86,7 +86,7 @@ export function ParticipantSelect({ filters, selected, onChange }: Props) {
 }
 
 type Participant = NonNullable<ParticipantSelectQuery['participantSearch']>['results'][number];
-export type ValidParticipant = { name: string; id: string };
+export type ValidParticipant = { name: string; id: string; country?: string | null | undefined };
 
 function isValidParticipant(participant: Participant): participant is ValidParticipant {
   return participant != null && participant.name !== null;

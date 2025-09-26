@@ -2,7 +2,6 @@ import { ValidParticipant } from '@/components/select/participantSelect';
 import { Step, StepperForm } from '@/components/stepperForm';
 import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
-import { cn } from '@/utils/shadcn';
 import { withIndex } from '@/utils/withIndex';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -137,7 +136,7 @@ export function BecomeAPublisherForm() {
 
   return (
     <ProtectedForm
-      className="g-mt-4"
+      className="g-mt-8"
       title={<FormattedMessage id="eoi.loginToRegisterOrganization.title" />}
       message={<FormattedMessage id="eoi.loginToRegisterOrganization.message" />}
     >

@@ -15,8 +15,8 @@ export function createMarkdown(data: MdtApplicationDTO) {
 
 Contact name: ${data.person_name}
 Contact email: [${data.email}](mailto:${data.email})
-Node: [${data.participantTitle}](https://www.gbif.org/country/${
-    data.participantCountry
+Node: [${data.participant.title}](https://www.gbif.org/country/${
+    data.participant.country
   }/participation)
 
 **Application type**

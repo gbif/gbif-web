@@ -37,7 +37,7 @@ type Props = {
 
 export function CustomComponentBlock({ resource }: Props) {
   // This is a temporary fix to make the new hosted portal form work with the current contentful data.
-  const mofitiedResource = overwriteHostedPortalFormDetails(resource);
+  const mofitiedResource = overwriteFormDetails(resource);
 
   const backgroundColor = backgroundColorMap[mofitiedResource?.backgroundColour ?? 'white'];
   const width = widthMap[mofitiedResource?.width ?? 'normal'];
@@ -105,12 +105,20 @@ function CustomComponent({
 }
 
 // TODO: REMOVE
-// The current settings for the hosted portal form does not suit the new hosted portal form.
+// The current settings for some of the forms does not suit the form format.
 // This function is meant to be temporary until the new site has been deplyed and the contentful data can be updated.
-function overwriteHostedPortalFormDetails(
+function overwriteFormDetails(
   resource: CustomComponentBlockDetailsFragment
 ): CustomComponentBlockDetailsFragment {
   if (resource.componentType === 'hostedPortalForm') {
+    return {
+      ...resource,
+      width: 'fluid',
+      backgroundColour: 'white',
+    };
+  }
+
+  if (resource.componentType === 'metabarcodingDataToolForm') {
     return {
       ...resource,
       width: 'fluid',

@@ -28,8 +28,8 @@ export function ProtectedForm({ children, className, title, message }: Props) {
 
       <p className="g-text-sm g-pt-1 g-text-center">{message}</p>
 
-      <div className="g-pt-12 g-gap-2 g-justify-center">
-        <Button asChild className="g-min-w-64 g-mb-4">
+      <div className="g-pt-12 g-flex g-flex-col">
+        <Button asChild className="g-min-w-64 g-mb-2">
           <DynamicLink pageId="user-login" searchParams={{ returnUrl: `${pathname}${search}` }}>
             <FormattedMessage id="profile.signIn" />
           </DynamicLink>

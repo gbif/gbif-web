@@ -1,13 +1,33 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 
-export function useSaveFormProgress(key: string, getState: () => any) {
+export function useSaveFormProgress(key: string, getState: () => unknown) {
+  const location = useLocation();
+  const previousLocationRef = useRef(location.pathname);
+
+  // Save form progress when location changes
+  useEffect(() => {
+    const currentPath = location.pathname;
+    const previousPath = previousLocationRef.current;
+
+    // Only save if we're actually navigating to a different page
+    if (previousPath !== currentPath) {
+      const state = getState();
+      window.sessionStorage.setItem(key, JSON.stringify(state));
+      previousLocationRef.current = currentPath;
+    }
+  }, [location.pathname, key, getState]);
+
+  // Save form progress on beforeunload (page refresh/close)
   useEffect(() => {
     const handler = () => {
       const state = getState();
       window.sessionStorage.setItem(key, JSON.stringify(state));
     };
     window.addEventListener('beforeunload', handler);
-    return () => window.removeEventListener('beforeunload', handler);
+    return () => {
+      window.removeEventListener('beforeunload', handler);
+    };
   }, [key, getState]);
 }
 

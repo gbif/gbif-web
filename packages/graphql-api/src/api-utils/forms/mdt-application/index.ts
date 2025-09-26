@@ -8,31 +8,38 @@ import { RequiredEmailSchema, RequiredStringSchema } from '../validation';
 import { createMarkdown } from './create-markdown';
 
 const Schema = {
-  body: z.object({
-    person_name: RequiredStringSchema,
-    email: RequiredEmailSchema,
-    installation_name: RequiredStringSchema,
-    description: z.string().max(2000).optional(),
-    participantTitle: z.string(),
-    participantCountry: z.string(),
-    type: z.enum([
-      'National_installation',
-      'Thematic_node_installation',
-      'Regional_installation',
-      'Group_installation',
-    ]),
-    group_publisher_description: z.string().max(2000).optional(),
-    Mode_of_operation: z.enum(['publishing', 'conversion_only']),
-    content_providers: z.string().max(2000).optional(),
-    timeline: z.string().max(2000).optional(),
-    domain: z.string().optional(),
-    have_read_the_service_agreement: z.boolean().default(false),
-    will_provide_feedback: z.boolean().default(false),
-    will_participate_in_quarterly_webinars: z.boolean().default(false),
-    will_ensure_datasets_published_will_remain_online: z
-      .boolean()
-      .default(false),
-  }),
+  body: z
+    .object({
+      person_name: RequiredStringSchema,
+      email: RequiredEmailSchema,
+      installation_name: RequiredStringSchema,
+      description: RequiredStringSchema,
+      participant: z.object({
+        title: z.string(),
+        country: z.string().optional(),
+      }),
+      Mode_of_operation: z.enum(['publishing', 'conversion_only']),
+      content_providers: RequiredStringSchema,
+      timeline: z.string().optional(),
+      domain: z.string().optional(),
+      have_read_the_service_agreement: z.boolean().default(false),
+      will_provide_feedback: z.boolean().default(false),
+      will_participate_in_quarterly_webinars: z.boolean().default(false),
+      will_ensure_datasets_published_will_remain_online: z
+        .boolean()
+        .default(false),
+    })
+    .and(
+      z.discriminatedUnion('type', [
+        z.object({
+          type: z.literal('Group_installation'),
+          group_publisher_description: RequiredStringSchema,
+        }),
+        z.object({ type: z.literal('National_installation') }),
+        z.object({ type: z.literal('Thematic_node_installation') }),
+        z.object({ type: z.literal('Regional_installation') }),
+      ]),
+    ),
   gbif_user: z.string(),
 };
 

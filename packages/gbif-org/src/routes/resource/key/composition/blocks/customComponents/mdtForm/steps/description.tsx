@@ -1,46 +1,23 @@
-import { FormControl, FormField, FormItem } from '@/components/ui/form';
-import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
-import { Inputs, TextField } from '../mdtForm';
-export function Description() {
-  const form = useFormContext<Partial<Inputs>>();
+import { TextField } from '../mdtForm';
 
+export function Description() {
   return (
-    <>
-      <p className="g-pb-2 g-text-sm">
-        <FormattedMessage
-          id="mdt.installation_name"
-          defaultMessage="Please let us know how this installation should be named; e.g. “GBIF.us Metabarcoding Datasets”, “GBIF Africa Metabarcoding Datasets”, “Acme Metabarcoding Converter”"
-        />
-      </p>
-      <FormField
-        control={form.control}
+    <div className="g-flex g-flex-col g-gap-4">
+      <TextField
+        required
         name="installation_name"
-        render={({ field }) => (
-          <FormItem>
-            <FormControl>
-              <TextField name="installation_name" />
-            </FormControl>
-          </FormItem>
-        )}
+        label={<FormattedMessage id="mdt.installationName" />}
+        description={<FormattedMessage id="mdt.installationNameDescription" />}
       />
-      <p className="g-mt-4 g-text-sm">
-        <FormattedMessage
-          id="mdt.description"
-          defaultMessage="Please give a short description of your installation. This will be visible on the 'about' page."
-        />
-      </p>
-      <FormField
-        control={form.control}
+
+      <TextField
+        required
         name="description"
-        render={({ field }) => (
-          <FormItem>
-            <FormControl>
-              <TextField textarea={true} name="description" />
-            </FormControl>
-          </FormItem>
-        )}
+        textarea
+        label={<FormattedMessage id="mdt.descriptionLabel" />}
+        description={<FormattedMessage id="mdt.descriptionDescription" />}
       />
-    </>
+    </div>
   );
 }

@@ -1,63 +1,66 @@
-import { ParticipantSelect } from '@/components/select/participantSelect';
-import { FormControl, FormField, FormItem } from '@/components/ui/form';
-import { useEffect, useState } from 'react';
+import { ParticipantSelect, ValidParticipant } from '@/components/select/participantSelect';
+import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { Inputs, TextField } from '../mdtForm';
+import {
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Required } from '../../_shared';
 
-export function PrimaryContact() {
-  const form = useFormContext<Partial<Inputs>>();
-  const [participant, setParticipant] = useState();
+type Props = {
+  participant?: ValidParticipant;
+  setParticipant: (value?: ValidParticipant) => void;
+};
 
+export function PrimaryContact({ participant, setParticipant }: Props) {
+  const { control, setValue, trigger: triggerValidation } = useFormContext<Partial<Inputs>>();
+
+  // Sync the selected participant with the form state
   useEffect(() => {
-    // console.log(participant);
-    form.setValue('participantTitle', participant?.name || '');
-    form.setValue('participantCountry', participant?.country || '');
-  }, [participant]);
+    if (participant) {
+      setValue('participant', {
+        title: participant.name,
+        country: participant?.country ?? undefined,
+      });
+      triggerValidation('participant');
+    } else {
+      setValue('participant', undefined);
+    }
+  }, [setValue, triggerValidation, participant]);
 
   return (
-    <>
-      <FormField
-        control={form.control}
-        name="person_name"
-        render={({ field }) => (
-          <FormItem>
-            <FormControl>
-              <TextField
-                required
-                name="person_name"
-                label={<FormattedMessage id="mdt.person_name" defaultMessage="Name" />}
-              />
-            </FormControl>
-          </FormItem>
-        )}
-      />
+    <div className="g-flex g-flex-col g-gap-4">
+      <div className="g-flex g-gap-4">
+        <TextField required name="person_name" label={<FormattedMessage id="mdt.personName" />} />
+
+        <TextField required name="email" label={<FormattedMessage id="mdt.email" />} />
+      </div>
 
       <FormField
-        control={form.control}
-        name="email"
-        render={({ field }) => (
-          <FormItem>
+        control={control}
+        name="participant"
+        render={() => (
+          <FormItem className="g-flex-1">
+            <FormLabel>
+              <FormattedMessage id="mdt.participantLabel" />
+              <Required />
+            </FormLabel>
+            <FormDescription>
+              <FormattedMessage id="mdt.participantDescription" />
+            </FormDescription>
             <FormControl>
-              <TextField
-                required
-                name={`email`}
-                label={<FormattedMessage id="mdt.email" defaultMessage="Email" />}
-              />
+              <ParticipantSelect selected={participant} onChange={setParticipant} />
             </FormControl>
+            <FormMessage />
           </FormItem>
         )}
       />
-      <div className="g-mt-4">
-        <p>Please select which participant node this application relates to.</p>
-        <ParticipantSelect
-          selected={participant}
-          onChange={(participant) => {
-            setParticipant(participant);
-          }}
-          filters={{}}
-        />
-      </div>
-    </>
+    </div>
   );
 }
