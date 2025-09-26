@@ -17,7 +17,7 @@ type Mode = 'editing' | 'viewing';
 export function OccurrenceDownloadSqlCreate() {
   const [sql, setSql] = useStringParam({ key: 'sql', replace: true });
   const [validationError, setValidationError] = useState<SQLValidationError>();
-  const [mode, setMode] = useState<Mode>('viewing');
+  const [mode, setMode] = useState<Mode>(!sql ? 'editing' : 'viewing');
   const { formatMessage } = useIntl();
 
   const highlightedHtml = useMemo(() => {
@@ -60,7 +60,10 @@ export function OccurrenceDownloadSqlCreate() {
       return;
     }
 
-    if (sql) await validate(sql);
+    // If switching to viewing mode and there's no SQL, don't validate
+    if (!sql) return;
+
+    await validate(sql);
   }
 
   async function reformat() {
@@ -118,14 +121,25 @@ export function OccurrenceDownloadSqlCreate() {
               className="gbif-sqlInput g-w-full g-bg-white g-p-4"
               value={sql}
               onChange={(event) => setSql(event.currentTarget.value)}
+              placeholder={formatMessage({
+                id: 'download.sql.placeholder',
+                defaultMessage: 'Enter your SQL query here...',
+              })}
             />
           )}
-          {mode === 'viewing' && highlightedHtml && (
+          {mode === 'viewing' && sql && highlightedHtml && (
             <code
               ref={codeElement}
               className="gbif-sqlInput g-block g-bg-white g-p-4"
               dangerouslySetInnerHTML={{ __html: highlightedHtml }}
             />
+          )}
+          {mode === 'viewing' && !sql && (
+            <div className="g-p-8">
+              <p className="g-text-center">
+                <FormattedMessage id="download.sql.noSql" defaultMessage="No SQL query" />
+              </p>
+            </div>
           )}
 
           {validationError && <EditorFooter validationError={validationError} />}
