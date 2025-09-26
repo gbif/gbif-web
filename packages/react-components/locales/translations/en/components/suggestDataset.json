@@ -42,5 +42,6 @@
   "loginToSuggestDataset": {
     "title": "",
     "message": ""
-  }
+  },
+  "successReset": "Suggest another dataset"
 }
