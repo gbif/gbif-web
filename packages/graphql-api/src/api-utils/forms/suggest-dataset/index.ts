@@ -6,6 +6,7 @@ import { createGitHubIssue } from '../helpers/create-github-issue';
 import logger from '#/logger';
 import { createMarkdown } from './create-markdown';
 import config from '#/config';
+import { isAuthenticated } from '#/middleware';
 
 const Schema = {
   body: z.object({
@@ -39,24 +40,29 @@ const Schema = {
 export type SuggestDatasetDTO = z.infer<typeof Schema['body']>;
 
 export function registerSuggestDatasetForm(router: Router) {
-  router.post('/suggest-dataset', validateRequest(Schema), async (req, res) => {
-    try {
-      const issue = await createGitHubIssue({
-        owner: config.suggestDataset.owner,
-        repo: config.suggestDataset.repository,
-        title: req.body.title,
-        body: createMarkdown(req.body),
-      });
-      res.status(201).json({
-        message: 'From submitted succesfully',
-        link: issue?.html_url,
-      });
-    } catch (error) {
-      logger.error({
-        message: 'Failed to submit "suggest-dataset" form',
-        error,
-      });
-      res.status(500).json({ message: 'From submitted succesfully' });
-    }
-  });
+  router.post(
+    '/suggest-dataset',
+    isAuthenticated,
+    validateRequest(Schema),
+    async (req, res) => {
+      try {
+        const issue = await createGitHubIssue({
+          owner: config.suggestDataset.owner,
+          repo: config.suggestDataset.repository,
+          title: req.body.title,
+          body: createMarkdown(req.body),
+        });
+        res.status(201).json({
+          message: 'From submitted succesfully',
+          link: issue?.html_url,
+        });
+      } catch (error) {
+        logger.error({
+          message: 'Failed to submit "suggest-dataset" form',
+          error,
+        });
+        res.status(500).json({ message: 'From submitted succesfully' });
+      }
+    },
+  );
 }

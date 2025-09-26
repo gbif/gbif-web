@@ -1,4 +1,3 @@
-import { ClientSideOnly } from '@/components/clientSideOnly';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -12,6 +11,7 @@ import { RadioGroup } from '@/components/ui/radio-group';
 import { ToastAction } from '@/components/ui/toast';
 import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/config/config';
+import { useUser } from '@/contexts/UserContext';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
@@ -50,6 +50,7 @@ export function SuggestDatasetForm() {
   const { toast } = useToast();
   const config = useConfig();
   const { formatMessage } = useIntl();
+  const { user } = useUser();
 
   const form = useForm<Inputs>({
     resolver: zodResolver(Schema),
@@ -63,6 +64,7 @@ export function SuggestDatasetForm() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${user?.graphqlToken}`,
           },
           body: JSON.stringify(data),
         })
@@ -91,7 +93,7 @@ export function SuggestDatasetForm() {
             });
           });
       }),
-    [form, toast, formatMessage, config.formsEndpoint]
+    [form, toast, formatMessage, config.formsEndpoint, user?.graphqlToken]
   );
 
   return (

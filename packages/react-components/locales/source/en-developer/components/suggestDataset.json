@@ -38,5 +38,9 @@
   "viewIssue": "View Issue",
   "errorTitle": "An error occurred while submitting your dataset suggestion",
   "errorMessage": "Please try again later",
-  "licenseNotOpen": "Not an open license"
+  "licenseNotOpen": "Not an open license",
+  "loginToSuggestDataset": {
+    "title": "Sign in to suggest a dataset",
+    "message": "You need to be signed in to suggest a dataset to GBIF."
+  }
 }
