@@ -34,7 +34,7 @@ import suggestFilter from './api-utils/suggestFilter.ctrl.js';
 import extractUser from './helpers/auth/extractUser';
 import { explicitNoCacheWhenErrorsPlugin } from './plugins/explicitNoCacheWhenErrorsPlugin';
 import headerBasedCachePlugin from './plugins/headerBasedCachePlugin';
-import { loggingPlugin } from './plugins/loggingPlugin';
+import loggingPlugin from './plugins/loggingPlugin';
 
 // we are doing this async as we need to load the various enumerations from the APIs
 // and generate the schema from those

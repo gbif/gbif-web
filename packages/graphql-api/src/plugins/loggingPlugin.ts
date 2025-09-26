@@ -1,8 +1,8 @@
+import { PluginDefinition } from 'apollo-server-core';
 import config from '#/config';
 import logger from '#/logger';
-import { PluginDefinition } from 'apollo-server-core';
 
-export const loggingPlugin: PluginDefinition = {
+const loggingPlugin: PluginDefinition = {
   async requestDidStart(rc) {
     // Don't log introspection queries
     if (rc?.request?.operationName === 'IntrospectionQuery') return;
@@ -19,8 +19,22 @@ export const loggingPlugin: PluginDefinition = {
           // We don't want to log this as an error.
           return;
         }
-        logger.error({
-          message: 'GraphQL Error',
+
+        // Check if this is a 404 error - these are often expected and should be warnings
+        const is404Error = requestContext?.errors?.some(
+          (error) =>
+            error.message?.includes('404: Not Found') ||
+            error.message?.includes('404') ||
+            (error.extensions?.http as { status?: number })?.status === 404,
+        );
+
+        const logLevel = is404Error ? 'warn' : 'error';
+        const logMessage = is404Error
+          ? 'GraphQL 404 (Expected)'
+          : 'GraphQL Error';
+
+        logger[logLevel]({
+          message: logMessage,
           time: date.toISOString(),
           timeInCopenhagen: date.toLocaleString('en-GB', {
             timeZone: 'Europe/Copenhagen',
@@ -35,7 +49,7 @@ export const loggingPlugin: PluginDefinition = {
           },
           errors: requestContext.errors,
           playgroundLink: `${config.origin}/graphql?query=${encodeURIComponent(
-            requestContext?.request?.query!,
+            requestContext?.request?.query ?? '',
           )}`,
         });
 
@@ -68,10 +82,12 @@ export const loggingPlugin: PluginDefinition = {
           },
           errors: requestContext?.errors,
           playgroundLink: `${config.origin}/graphql?query=${encodeURIComponent(
-            requestContext?.request?.query!,
+            requestContext?.request?.query ?? '',
           )}`,
         });
       },
     };
   },
 };
+
+export default loggingPlugin;
