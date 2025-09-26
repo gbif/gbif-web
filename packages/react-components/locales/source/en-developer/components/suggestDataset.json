@@ -42,5 +42,6 @@
   "loginToSuggestDataset": {
     "title": "Sign in to suggest a dataset",
     "message": "You need to be signed in to suggest a dataset to GBIF."
-  }
+  },
+  "successReset": "Suggest another dataset"
 }
