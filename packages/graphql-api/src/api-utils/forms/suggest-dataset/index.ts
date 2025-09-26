@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { OptionalStringSchema, RequiredStringSchema } from '../validation';
 import { validateRequest } from 'zod-express-middleware';
 import { Router } from 'express';
+import { OptionalStringSchema, RequiredStringSchema } from '../validation';
 import { createGitHubIssue } from '../helpers/create-github-issue';
 import logger from '#/logger';
 import { createMarkdown } from './create-markdown';
@@ -24,11 +24,11 @@ const Schema = {
       'METADATA',
     ]),
     license: z.enum([
-      'CC0 1.0',
-      'CC-BY 4.0',
-      'CC-BY-NC 4.0',
-      'Unspecified',
-      'Not open',
+      'CC0_1_0',
+      'CC_BY_4_0',
+      'CC_BY_NC_4_0',
+      'UNSPECIFIED',
+      'UNSUPPORTED',
     ]),
     datasetHolderContact: OptionalStringSchema,
     userContact: OptionalStringSchema,
@@ -47,15 +47,16 @@ export function registerSuggestDatasetForm(router: Router) {
         title: req.body.title,
         body: createMarkdown(req.body),
       });
-      res
-        .status(200)
-        .json({ message: 'From submitted succesfully', link: issue?.html_url });
+      res.status(201).json({
+        message: 'From submitted succesfully',
+        link: issue?.html_url,
+      });
     } catch (error) {
       logger.error({
         message: 'Failed to submit "suggest-dataset" form',
         error,
       });
-      res.status(200).json({ message: 'From submitted succesfully' });
+      res.status(500).json({ message: 'From submitted succesfully' });
     }
   });
 }

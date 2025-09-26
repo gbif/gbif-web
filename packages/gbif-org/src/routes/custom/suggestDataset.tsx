@@ -1,5 +1,6 @@
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { Helmet } from 'react-helmet-async';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { ArticleIntro } from '../resource/key/components/articleIntro';
 import { ArticleSkeleton } from '../resource/key/components/articleSkeleton';
 import { ArticleTextContainer } from '../resource/key/components/articleTextContainer';
@@ -8,16 +9,22 @@ import { PageContainer } from '../resource/key/components/pageContainer';
 import { SuggestDatasetForm } from '../resource/key/composition/blocks/customComponents/suggestDatasetForm';
 
 function SuggestDatasetPage() {
+  const { formatMessage } = useIntl();
+
   return (
     <PageContainer className="g-bg-white" topPadded bottomPadded>
       <Helmet>
-        <title>Suggest dataset</title>
+        <title>{formatMessage({ id: 'suggestDataset.pageTitle' })}</title>
       </Helmet>
 
       <ArticleTextContainer>
-        <ArticleTitle>Suggest a dataset</ArticleTitle>
+        <ArticleTitle>
+          <FormattedMessage id="suggestDataset.pageTitle" />
+        </ArticleTitle>
 
-        <ArticleIntro>Please descripe your dataset in the form below.</ArticleIntro>
+        <ArticleIntro>
+          <FormattedMessage id="suggestDataset.pageDescription" />
+        </ArticleIntro>
 
         <hr className="g-my-4" />
 

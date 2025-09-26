@@ -1,6 +1,23 @@
 import json2md from 'json2md';
 import { SuggestDatasetDTO } from '.';
 
+// Map enum values to human-readable format for GitHub issues
+const licenseMap: Record<string, string> = {
+  CC0_1_0: 'CC0 1.0',
+  CC_BY_4_0: 'CC BY 4.0',
+  CC_BY_NC_4_0: 'CC BY-NC 4.0',
+  UNSPECIFIED: 'Unspecified',
+  UNSUPPORTED: 'Not an open license',
+};
+
+const datasetTypeMap: Record<string, string> = {
+  undefined: 'Unknown',
+  OCCURRENCE: 'Occurrence',
+  CHECKLIST: 'Checklist',
+  SAMPLING_EVENT: 'Sampling event',
+  METADATA: 'Metadata',
+};
+
 export function createMarkdown(data: SuggestDatasetDTO): string {
   const markdownJson: Parameters<typeof json2md>[0] = [];
 
@@ -13,7 +30,7 @@ export function createMarkdown(data: SuggestDatasetDTO): string {
 
   markdownJson.push({ p: `Taxon: ${data.taxon}` });
 
-  markdownJson.push({ p: `Type: ${data.type}` });
+  markdownJson.push({ p: `Type: ${datasetTypeMap[data.type] || data.type}` });
 
   if (data.datasetImportance)
     markdownJson.push({
@@ -22,7 +39,9 @@ export function createMarkdown(data: SuggestDatasetDTO): string {
 
   if (data.priority) markdownJson.push({ p: `Priority: ${data.priority}` });
 
-  markdownJson.push({ p: `License: ${data.license}` });
+  markdownJson.push({
+    p: `License: ${licenseMap[data.license] || data.license}`,
+  });
 
   if (data.datasetBibliographicDoi)
     markdownJson.push({

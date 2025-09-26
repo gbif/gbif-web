@@ -1,12 +1,12 @@
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { Button } from '@/components/ui/button';
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from '@/components/ui/form';
 import { RadioGroup } from '@/components/ui/radio-group';
 import { ToastAction } from '@/components/ui/toast';
@@ -15,14 +15,15 @@ import { useConfig } from '@/config/config';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { z } from 'zod';
 import { BlockContainer } from '../_shared';
 import {
-    createTypedCheckboxField,
-    createTypedTextField, OptionalStringSchema,
-    RadioItem,
-    Required,
-    RequiredStringSchema
+  createTypedCheckboxField,
+  createTypedTextField,
+  OptionalStringSchema,
+  RadioItem,
+  RequiredStringSchema,
 } from './_shared';
 
 const Schema = z.object({
@@ -34,7 +35,7 @@ const Schema = z.object({
   priority: z.enum(['high', 'medium', 'low']).optional(),
   datasetBibliographicDoi: z.string().url().optional().or(z.literal('')),
   type: z.enum(['undefined', 'OCCURRENCE', 'CHECKLIST', 'SAMPLING_EVENT', 'METADATA']),
-  license: z.enum(['CC0 1.0', 'CC-BY 4.0', 'CC-BY-NC 4.0', 'Unspecified', 'Not open']),
+  license: z.enum(['CC0_1_0', 'CC_BY_4_0', 'CC_BY_NC_4_0', 'UNSPECIFIED', 'UNSUPPORTED']),
   datasetHolderContact: OptionalStringSchema,
   userContact: OptionalStringSchema,
   comments: OptionalStringSchema,
@@ -48,6 +49,7 @@ export const TextField = createTypedTextField<Inputs>();
 export function SuggestDatasetForm() {
   const { toast } = useToast();
   const config = useConfig();
+  const { formatMessage } = useIntl();
 
   const form = useForm<Inputs>({
     resolver: zodResolver(Schema),
@@ -69,13 +71,12 @@ export function SuggestDatasetForm() {
             const json = await response.json();
 
             toast({
-              title: 'Thank you for your submission!',
-              description:
-                'We will review your dataset suggestion and get back to you as soon as possible.',
+              title: formatMessage({ id: 'suggestDataset.successTitle' }),
+              description: formatMessage({ id: 'suggestDataset.successMessage' }),
               action: (
                 <ToastAction altText="View issue on GitHub" asChild>
                   <a target="_blank" href={json.link}>
-                    View Issue
+                    <FormattedMessage id="suggestDataset.viewIssue" />
                   </a>
                 </ToastAction>
               ),
@@ -84,193 +85,221 @@ export function SuggestDatasetForm() {
           .catch((error) => {
             console.error(error);
             toast({
-              title: 'An error occurred while submitting your dataset suggestion',
-              description: 'Please try again later',
+              title: formatMessage({ id: 'suggestDataset.errorTitle' }),
+              description: formatMessage({ id: 'suggestDataset.errorMessage' }),
               variant: 'destructive',
             });
           });
       }),
-    [form, toast]
+    [form, toast, formatMessage, config.formsEndpoint]
   );
 
   return (
-    <BlockContainer className="g-p-0">
-      <ClientSideOnly>
-        <Form {...form}>
-          <form
-            onSubmit={onSubmit}
-            className="g-max-w-3xl g-bg-white g-shadow g-m-auto g-flex g-flex-col g-gap-4"
-          >
-            <SideBySide>
-              <TextField
-                name="title"
-                placeholder="Dataset name"
-                label={
-                  <span>
-                    Title
-                    <Required />
-                  </span>
-                }
-              />
-
-              <TextField
-                name="datasetLink"
-                placeholder="Where can we find the data"
-                label="Internet link to data"
-              />
-            </SideBySide>
-
-            <SideBySide>
-              <TextField
-                name="region"
-                placeholder="E.g. 'Middle east' or 'Borneo'"
-                label={
-                  <span>
-                    Geographic coverage
-                    <Required />
-                  </span>
-                }
-              />
-
-              <TextField
-                name="taxon"
-                placeholder="E.g. 'Lepidoptera' or 'mushrooms'"
-                label={
-                  <span>
-                    Taxonomic scope
-                    <Required />
-                  </span>
-                }
-              />
-            </SideBySide>
-
-            <SideBySide>
-              <TextField
-                className="flex-1"
-                name="datasetImportance"
-                label="Why is this dataset important"
-                textarea
-              />
-
-              <FormField
-                control={form.control}
-                name="priority"
-                render={({ field }) => (
-                  <FormItem className="g-space-y-3 g-flex-1">
-                    <FormLabel>How would you rate its importance</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        className="g-flex g-flex-col g-space-y-1"
-                      >
-                        <RadioItem
-                          value="high"
-                          label="Essential — GBIF have no data in this area"
-                        />
-
-                        <RadioItem
-                          value="medium"
-                          label="Important — GBIF have little data in this area"
-                        />
-                        <RadioItem
-                          value="low"
-                          label="It would be a nice supplement to the existing data"
-                        />
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </SideBySide>
-
+    <BlockContainer className="g-p-0 g-overflow-visible">
+      <Form {...form}>
+        <form
+          onSubmit={onSubmit}
+          className="g-max-w-3xl g-bg-white g-m-auto g-flex g-flex-col g-gap-4"
+        >
+          <SideBySide>
             <TextField
-              label="Bibliographic reference"
-              placeholder="Link to related article if any"
-              name="datasetBibliographicDoi"
+              name="title"
+              required
+              placeholder={formatMessage({ id: 'suggestDataset.titlePlaceholder' })}
+              label={<FormattedMessage id="suggestDataset.title" />}
             />
 
-            <SideBySide>
-              <FormField
-                control={form.control}
-                name="license"
-                defaultValue="Unspecified"
-                render={({ field }) => (
-                  <FormItem className="g-space-y-3 g-flex-1">
-                    <FormLabel>Licence information</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        className="g-flex g-flex-col g-space-y-1"
-                      >
-                        <RadioItem value="CC0 1.0" label="CC0 1.0" />
-                        <RadioItem value="CC-BY 4.0" label="CC BY 4.0" />
-                        <RadioItem value="CC-BY-NC 4.0" label="CC BY-NC 4.0" />
-                        <RadioItem value="Unspecified" label="Unspecified" />
-                        <RadioItem value="Not open" label="Not an open licence" />
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+            <TextField
+              name="datasetLink"
+              placeholder={formatMessage({ id: 'suggestDataset.datasetLinkPlaceholder' })}
+              label={<FormattedMessage id="suggestDataset.datasetLink" />}
+            />
+          </SideBySide>
 
-              <FormField
-                control={form.control}
-                name="type"
-                defaultValue="undefined"
-                render={({ field }) => (
-                  <FormItem className="g-space-y-3 g-flex-1">
-                    <FormLabel>Dataset type</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        className="g-flex g-flex-col g-space-y-1"
-                      >
-                        <RadioItem value="undefined" label="Unknown" />
-                        <RadioItem value="OCCURRENCE" label="Occurrence" />
-                        <RadioItem value="CHECKLIST" label="Checklist" />
-                        <RadioItem value="SAMPLING_EVENT" label="Sampling event" />
-                        <RadioItem value="METADATA" label="Metadata" />
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </SideBySide>
-
-            <SideBySide>
-              <TextField
-                name="datasetHolderContact"
-                label="Dataholders contact information"
-                placeholder="E.g e-mail"
-                description="These details will be public"
-                descriptionPosition="below"
-              />
-
-              <TextField
-                name="userContact"
-                label="Your contact information"
-                placeholder="E.g e-mail or Github username"
-                description="These details will be public"
-                descriptionPosition="below"
-              />
-            </SideBySide>
+          <SideBySide>
+            <TextField
+              name="region"
+              required
+              placeholder={formatMessage({ id: 'suggestDataset.regionPlaceholder' })}
+              label={<FormattedMessage id="suggestDataset.region" />}
+            />
 
             <TextField
-              name="comments"
-              placeholder="Additional comments if any"
-              label="Comments"
+              name="taxon"
+              required
+              placeholder={formatMessage({ id: 'suggestDataset.taxonPlaceholder' })}
+              label={<FormattedMessage id="suggestDataset.taxon" />}
+            />
+          </SideBySide>
+
+          <SideBySide>
+            <TextField
+              className="flex-1"
+              name="datasetImportance"
+              label={<FormattedMessage id="suggestDataset.datasetImportance" />}
               textarea
             />
 
-            <div>
-              <Button type="submit">Submit</Button>
-            </div>
-          </form>
-        </Form>
-      </ClientSideOnly>
+            <FormField
+              control={form.control}
+              name="priority"
+              render={({ field }) => (
+                <FormItem className="g-space-y-3 g-flex-1">
+                  <FormLabel>
+                    <FormattedMessage id="suggestDataset.priority" />
+                  </FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      className="g-flex g-flex-col g-space-y-1"
+                    >
+                      <RadioItem
+                        value="high"
+                        label={<FormattedMessage id="suggestDataset.priorityHigh" />}
+                      />
+
+                      <RadioItem
+                        value="medium"
+                        label={<FormattedMessage id="suggestDataset.priorityMedium" />}
+                      />
+                      <RadioItem
+                        value="low"
+                        label={<FormattedMessage id="suggestDataset.priorityLow" />}
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </SideBySide>
+
+          <TextField
+            label={<FormattedMessage id="suggestDataset.bibliographicReference" />}
+            placeholder={formatMessage({
+              id: 'suggestDataset.bibliographicReferencePlaceholder',
+            })}
+            name="datasetBibliographicDoi"
+          />
+
+          <SideBySide>
+            <FormField
+              control={form.control}
+              name="license"
+              defaultValue="UNSPECIFIED"
+              render={({ field }) => (
+                <FormItem className="g-space-y-3 g-flex-1">
+                  <FormLabel>
+                    <FormattedMessage id="suggestDataset.license" />
+                  </FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      className="g-flex g-flex-col g-space-y-1"
+                    >
+                      <RadioItem
+                        value="CC0_1_0"
+                        label={<FormattedMessage id="enums.license.CC0_1_0" />}
+                      />
+                      <RadioItem
+                        value="CC_BY_4_0"
+                        label={<FormattedMessage id="enums.license.CC_BY_4_0" />}
+                      />
+                      <RadioItem
+                        value="CC_BY_NC_4_0"
+                        label={<FormattedMessage id="enums.license.CC_BY_NC_4_0" />}
+                      />
+                      <RadioItem
+                        value="UNSPECIFIED"
+                        label={<FormattedMessage id="enums.license.UNSPECIFIED" />}
+                      />
+                      <RadioItem
+                        value="UNSUPPORTED"
+                        label={<FormattedMessage id="suggestDataset.licenseNotOpen" />}
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="type"
+              defaultValue="undefined"
+              render={({ field }) => (
+                <FormItem className="g-space-y-3 g-flex-1">
+                  <FormLabel>
+                    <FormattedMessage id="suggestDataset.datasetType" />
+                  </FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      className="g-flex g-flex-col g-space-y-1"
+                    >
+                      <RadioItem
+                        value="undefined"
+                        label={<FormattedMessage id="suggestDataset.datasetTypeUnknown" />}
+                      />
+                      <RadioItem
+                        value="OCCURRENCE"
+                        label={<FormattedMessage id="enums.datasetType.OCCURRENCE" />}
+                      />
+                      <RadioItem
+                        value="CHECKLIST"
+                        label={<FormattedMessage id="enums.datasetType.CHECKLIST" />}
+                      />
+                      <RadioItem
+                        value="SAMPLING_EVENT"
+                        label={<FormattedMessage id="enums.datasetType.SAMPLING_EVENT" />}
+                      />
+                      <RadioItem
+                        value="METADATA"
+                        label={<FormattedMessage id="enums.datasetType.METADATA" />}
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </SideBySide>
+
+          <SideBySide>
+            <TextField
+              name="datasetHolderContact"
+              label={<FormattedMessage id="suggestDataset.datasetHolderContact" />}
+              placeholder={formatMessage({
+                id: 'suggestDataset.datasetHolderContactPlaceholder',
+              })}
+              description={<FormattedMessage id="suggestDataset.datasetHolderContactDescription" />}
+              descriptionPosition="below"
+            />
+
+            <TextField
+              name="userContact"
+              label={<FormattedMessage id="suggestDataset.userContact" />}
+              placeholder={formatMessage({ id: 'suggestDataset.userContactPlaceholder' })}
+              description={<FormattedMessage id="suggestDataset.userContactDescription" />}
+              descriptionPosition="below"
+            />
+          </SideBySide>
+
+          <TextField
+            name="comments"
+            placeholder={formatMessage({ id: 'suggestDataset.commentsPlaceholder' })}
+            label={<FormattedMessage id="suggestDataset.comments" />}
+            textarea
+          />
+
+          <div>
+            <Button type="submit">
+              <FormattedMessage id="suggestDataset.submitButton" />
+            </Button>
+          </div>
+        </form>
+      </Form>
     </BlockContainer>
   );
 }

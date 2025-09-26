@@ -65,6 +65,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
         `../${folder}/${locale}/components/hostedPortalApplication`,
       ),
       mdt: getFile(locale, `../${folder}/${locale}/components/mdt`),
+      suggestDataset: getFile(locale, `../${folder}/${locale}/components/suggestDataset`),
 
       enums: {
         basisOfRecord: getFile(locale, `../${folder}/${locale}/enums/basisOfRecord`),
