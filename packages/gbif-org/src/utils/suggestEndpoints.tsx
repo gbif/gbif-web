@@ -53,13 +53,16 @@ export const collectionKeySuggest = {
   },
 };
 
-export const datasetKeySuggest = {
+export const datasetKeySuggest: SuggestConfig = {
   getSuggestions: ({ q, siteConfig }: SuggestFnProps): SuggestResponseType => {
     const { cancel, promise } = fetchWithCancel(
       `${siteConfig.v1Endpoint}/dataset/suggest?limit=20&q=${q}`
     );
     const result = promise.then((res) => res.json());
     return { cancel, promise: result };
+  },
+  render: (item: SuggestionItem) => {
+    return <div className="g-line-clamp-3">{item.title}</div>;
   },
 };
 
