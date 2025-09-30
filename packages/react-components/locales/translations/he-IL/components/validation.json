@@ -1,1 +1,5 @@
-{}
+{
+  "invalidEmail": "נא להזין כתובת דוא״ל תקפה",
+  "invalidWebsiteAddress": "נא להזין כתובת אתר תקפה",
+  "pleaseSelectAValue": "נא לבחור ערך"
+}
