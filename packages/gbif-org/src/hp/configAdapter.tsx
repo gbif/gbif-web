@@ -96,7 +96,7 @@ function convertedConfig(config: object): Partial<Config> {
     version: 3,
     pages: pages,
     disableInlineTableFilterButtons: config?.disableInlineTableFilterButtons ?? false,
-    availableCatalogues: config?.availableCatalogues,
+    availableCatalogues: config?.availableCatalogues ?? getFromConfiguration(config),
     defaultChecklistKey: config?.defaultChecklistKey,
     dataHeader: {
       enableApiPopup: false,
@@ -245,6 +245,17 @@ function mapOccurrenceFilterNames(list) {
     };
     return mappedName[name] || name;
   });
+}
+
+function getFromConfiguration(config: any) {
+  const catalogues = [];
+  if (config?.occurrence) catalogues.push('OCCURRENCE');
+  if (config?.dataset) catalogues.push('DATASET');
+  if (config?.institution) catalogues.push('INSTITUTION');
+  if (config?.collection) catalogues.push('COLLECTION');
+  if (config?.publisher) catalogues.push('PUBLISHER');
+  if (config?.literature) catalogues.push('LITERATURE');
+  return catalogues;
 }
 
 /*
