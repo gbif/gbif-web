@@ -1,1 +1,12 @@
-{}
+{
+  "PRESERVED_SPECIMEN": "פרט משומר",
+  "FOSSIL_SPECIMEN": "פרט משומר",
+  "LIVING_SPECIMEN": "פרט חי",
+  "OBSERVATION": "תצפית",
+  "HUMAN_OBSERVATION": "תצפית אנושית",
+  "MACHINE_OBSERVATION": "תצפית מכונה",
+  "MATERIAL_SAMPLE": "דגימת חומר",
+  "MATERIAL_CITATION": "ציטוט חומר",
+  "LITERATURE": "ספרות",
+  "OCCURRENCE": "תצפית"
+}
