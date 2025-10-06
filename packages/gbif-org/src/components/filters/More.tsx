@@ -14,6 +14,7 @@ import React, { useEffect, useRef } from 'react';
 import { MdArrowBack } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FilterPopover } from './filterPopover';
+import { FilterSetting } from './filterTools';
 
 type Filters = {
   [key: string]: {
@@ -152,19 +153,7 @@ function Group({
     <CommandGroup heading={header ? <FormattedMessage id={header} /> : undefined}>
       {Object.keys(filters)
         .filter((filterHandle) => filters[filterHandle]?.group === name)
-        .sort((x, y) => {
-          // sort by order f available and else by translated filterName
-          const xOrder = filters[x]?.order ?? 1000;
-          const yOrder = filters[y]?.order ?? 1000;
-          if (xOrder < yOrder) return -1;
-          if (xOrder > yOrder) return 1;
-          // sort filters by translatedFilterName
-          const xName = filters[x]?.translatedFilterName ?? x;
-          const yName = filters[y]?.translatedFilterName ?? y;
-          if (xName < yName) return -1;
-          if (xName > yName) return 1;
-          return 0;
-        })
+        .sort(sortFilters(filters))
         .map((filterHandle) => {
           const { translatedFilterName } = filters[filterHandle];
           return (
@@ -206,4 +195,23 @@ export default function MoreFilters({
       <ContentWrapper filters={filters} groups={groups} />
     </FilterPopover>
   );
+}
+
+export function sortFilters(
+  filters: Record<string, Pick<FilterSetting, 'order' | 'translatedFilterName'>>
+) {
+  return (a: string, b: string) => {
+    // sort by order f available and else by translated filterName
+    const xOrder = filters[a]?.order ?? 1000;
+    const yOrder = filters[b]?.order ?? 1000;
+    if (xOrder < yOrder) return -1;
+    if (xOrder > yOrder) return 1;
+
+    // sort filters by translatedFilterName
+    const xName = filters[a]?.translatedFilterName ?? a;
+    const yName = filters[b]?.translatedFilterName ?? b;
+    if (xName < yName) return -1;
+    if (xName > yName) return 1;
+    return 0;
+  };
 }

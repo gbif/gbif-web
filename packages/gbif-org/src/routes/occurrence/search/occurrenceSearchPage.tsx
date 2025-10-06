@@ -3,6 +3,7 @@ import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { DatasetLabel } from '@/components/filters/displayNames';
 import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
+import { MobileFilterDialog } from '@/components/filters/mobileFilterDialog';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
 import {
@@ -113,11 +114,17 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
 
       <section>
         <FilterBar className="g-flex f-flex-nowrap g-items-start">
-          <div>
+          <div className="g-hidden sm:g-block">
             <FilterButtons filters={filters} searchContext={searchContext} groups={groups} />
           </div>
           <div className="g-flex-1"></div>
           <div className="g-flex g-items-center g-gap-1 g-ps-2">
+            <MobileFilterDialog
+              className="g-block sm:g-hidden"
+              filters={filters}
+              groups={groups}
+              searchContext={searchContext}
+            />
             {availableChecklistKeys.length > 1 && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>

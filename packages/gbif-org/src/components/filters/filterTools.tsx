@@ -622,6 +622,8 @@ export type FilterSetting = {
   allowNegations?: boolean;
   allowExistence?: boolean;
   filterType: string;
+  group?: string;
+  order?: number;
 };
 
 type FilterSettingDefaults = {
