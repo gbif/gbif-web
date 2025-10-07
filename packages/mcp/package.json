@@ -1,0 +1,28 @@
+{
+  "name": "gbif-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for accessing GBIF (Global Biodiversity Information Facility) data",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mcp",
+    "gbif",
+    "biodiversity",
+    "species",
+    "occurrences"
+  ],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.19.1",
+    "dotenv": "^17.2.3"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

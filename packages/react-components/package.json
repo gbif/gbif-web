@@ -29,7 +29,7 @@
     "add-text-filter": "npm run generate textFilter"
   },
   "author": "",
-  "license": "ISC",
+  "license": "Apache 2.0",
   "dependencies": {
     "@babel/runtime": "^7.13.10",
     "@emotion/babel-preset-css-prop": "^11.2.0",
