@@ -49,20 +49,13 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
             participationType = 'OTHER_ASSOCIATE';
           }
           return { ...x, participationType };
-        })
-        // remove region from affiliate nodes
-        .map((x) => {
-          if (x.participationType === 'AFFILIATE' || x.participationType === 'ASSOCIATE') {
-            return { ...x, participant: { ...x.participant, gbifRegion: null } };
-          }
-          return x;
         });
       setParticipants(activeNodes ?? []);
     }
   }, [listData]);
 
   const uniqueRegions = ['AFRICA', 'ASIA', 'EUROPE', 'LATIN_AMERICA', 'NORTH_AMERICA', 'OCEANIA'];
-  const types = ['AFFILIATE', 'OTHER_ASSOCIATE'];
+  const types = ['AFFILIATE', 'OTHER_ASSOCIATE', 'VOTING'];
 
   const handleSort = (field: SortField) => {
     if (field === sortField) {
@@ -113,6 +106,26 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
       }
     });
   }, [participants, selectedRegion, sortField, sortDirection, formatMessage, selectedType]);
+
+  const typeCounts = useMemo(() => {
+    const counts: Record<ParticipantType, number> = {
+      VOTING: 0,
+      AFFILIATE: 0,
+      ASSOCIATE: 0,
+      OTHER_ASSOCIATE: 0,
+      FORMER: 0,
+      OBSERVER: 0,
+      UNKNOWN: 0,
+    };
+
+    filteredAndSortedParticipants.forEach((p) => {
+      if (p.participationType) {
+        counts[p.participationType]++;
+      }
+    });
+
+    return counts;
+  }, [filteredAndSortedParticipants]);
 
   return (
     <div>
@@ -168,6 +181,57 @@ export default function Participants({ listData }: { listData: GbifNetworkPartic
           </div>
         </div>
       </ArticleTextContainer>
+
+      {/* Summary Section */}
+      <ArticleTextContainer>
+        <div className="g-mb-6 g-p-4 g-bg-gray-50 g-rounded-lg">
+          <div className="g-text-sm g-text-gray-700">
+            <span className="g-font-semibold">
+              <FormattedMessage
+                id="counts.nParticipants"
+                values={{ total: filteredAndSortedParticipants.length }}
+              />
+            </span>
+            {(typeCounts.VOTING > 0 ||
+              typeCounts.ASSOCIATE > 0 ||
+              typeCounts.AFFILIATE > 0 ||
+              typeCounts.OTHER_ASSOCIATE > 0) && <span className="g-mx-2">—</span>}
+            {typeCounts.VOTING > 0 && (
+              <span className="g-mr-3">
+                <FormattedMessage
+                  id="counts.nVotingParticipants"
+                  values={{ total: typeCounts.VOTING }}
+                />
+              </span>
+            )}
+            {typeCounts.ASSOCIATE > 0 && (
+              <span className="g-mr-3">
+                <FormattedMessage
+                  id="counts.nAssociateParticipants"
+                  values={{ total: typeCounts.ASSOCIATE }}
+                />
+              </span>
+            )}
+            {typeCounts.AFFILIATE > 0 && (
+              <span className="g-mr-3">
+                <FormattedMessage
+                  id="counts.nAffiliateParticipants"
+                  values={{ total: typeCounts.AFFILIATE }}
+                />
+              </span>
+            )}
+            {typeCounts.OTHER_ASSOCIATE > 0 && (
+              <span className="g-mr-3">
+                <FormattedMessage
+                  id="counts.nOtherAssociateParticipants"
+                  values={{ total: typeCounts.OTHER_ASSOCIATE }}
+                />
+              </span>
+            )}
+          </div>
+        </div>
+      </ArticleTextContainer>
+
       <div className="g-max-w-full g-m-auto">
         <div className="g-overflow-auto">
           <table>
