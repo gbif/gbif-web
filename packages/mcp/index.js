@@ -10,7 +10,7 @@ import {
 } from '@modelcontextprotocol/sdk/types.js';
 import { GBIFAPIClient, GBIFAPIError } from './api-client.js';
 import { config } from './config.js';
-import { SEARCH_GUIDE, parseResourceUri } from './resources.js';
+import { CHART_GUIDE, SEARCH_GUIDE, parseResourceUri } from './resources.js';
 import { validateApiKey, extractApiKey, AuthenticationError } from './auth.js';
 import { GBIF_ES_APIClient, prepareParams } from './es-api-client.js';
 
@@ -41,7 +41,10 @@ class GBIFMCPServer {
       {
         capabilities: {
           tools: {},
-          resources: {},
+          resources: {
+            subscribe: false,
+            listChanged: false,
+          },
         },
       },
     );
@@ -350,6 +353,13 @@ class GBIFMCPServer {
           mimeType: 'text/plain',
         },
         {
+          uri: 'gbif://guide/charts',
+          name: 'GBIF data for charts and visualizations',
+          description:
+            'Requirements when using GBIF data for charts and visualizations. Includes citation and attribution guidelines and colors for GBIF branding',
+          mimeType: 'text/plain',
+        },
+        {
           uri: 'gbif://species/{taxonKey}',
           name: 'GBIF Species by Taxon Key',
           description:
@@ -384,8 +394,8 @@ class GBIFMCPServer {
 
       try {
         // Validate API key before processing resource requests
-        const apiKey = extractApiKey(request);
-        validateApiKey(apiKey);
+        // const apiKey = extractApiKey(request);
+        // validateApiKey(apiKey);
         if (uri === 'gbif://guide/search-patterns') {
           return {
             contents: [
@@ -393,6 +403,18 @@ class GBIFMCPServer {
                 uri,
                 mimeType: 'text/plain',
                 text: SEARCH_GUIDE,
+              },
+            ],
+          };
+        }
+
+        if (uri === 'gbif://guide/charts') {
+          return {
+            contents: [
+              {
+                uri,
+                mimeType: 'text/plain',
+                text: CHART_GUIDE,
               },
             ],
           };

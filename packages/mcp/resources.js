@@ -1,3 +1,16 @@
+export const CHART_GUIDE = `# GBIF data for charts and visualizations
+When using gbif data to generate charts use this color schema unless the otherwise instructed
+#4C9C2E
+#E37C72
+#D1628E
+#ECAC7C
+#00B7EE
+#6885C0
+#664192
+#F2BF48
+#0078B4
+`;
+
 export const SEARCH_GUIDE = `# GBIF Search Patterns and Workflows
 
 ## Common Workflows

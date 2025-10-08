@@ -19,8 +19,11 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
+    "@elastic/elasticsearch": "^9.1.1",
     "@modelcontextprotocol/sdk": "^1.19.1",
-    "dotenv": "^17.2.3"
+    "csv-parser": "^3.2.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0"
   },
   "engines": {
     "node": ">=22.0.0"
