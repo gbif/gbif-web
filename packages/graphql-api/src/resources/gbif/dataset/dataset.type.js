@@ -36,6 +36,13 @@ const typeDef = gql`
       """
       query: DatasetSearchInput
     ): DatasetSearchResults!
+    datasetSearchByPredicate(
+      apiKey: String
+      predicate: Predicate
+      q: String
+      size: Int
+      from: Int
+    ): DatasetByPredicateSearchResult
     datasetList(
       limit: Int
       offset: Int
@@ -80,6 +87,13 @@ const typeDef = gql`
     endpointType: [EndpointType]
     projectId: [ID]
     hl: Boolean
+  }
+
+  type DatasetByPredicateSearchResult {
+    size: Int!
+    from: Int!
+    total: Int!
+    results: [DatasetSearchStub!]!
   }
 
   type DatasetSearchResults {
