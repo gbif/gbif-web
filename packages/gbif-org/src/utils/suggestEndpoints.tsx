@@ -246,12 +246,21 @@ export type TaxonSuggestType = SuggestFnProps & { checklistKey?: string | number
 export const taxonKeyClbSuggest = {
   render: (item: SuggestionItem) => {
     const isSynonym = ['ambiguous synonym', 'synonym'].includes(item.status);
+    const notAccepted = item?.status !== 'accepted';
     return (
       <div>
         {item.match}
         <div style={{ maxWidth: '100%', fontSize: '0.85em' }}>
           {isSynonym && <div className="g-text-orange-500">Synonym for {item.acceptedName}</div>}
-          {!isSynonym && (
+          {notAccepted && !isSynonym && (
+            <div className="g-text-orange-500">
+              <FormattedMessage
+                id={`enums.clbTaxonomicStatus.${(item?.status ?? '').replace(' ', '_')}`}
+                defaultMessage={item?.status}
+              />
+            </div>
+          )}
+          {!isSynonym && item.context && (
             <div style={{ color: '#aaa' }}>
               <FormattedMessage
                 id="search.rankInGroup"
