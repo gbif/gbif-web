@@ -17,6 +17,8 @@ tmp/
 **/.env
 **/.env.**.*
 **/.env.*
+**/venv
+**/elasticsearch
 
 **/npm-debug.log*
 **/lerna-debug.log
