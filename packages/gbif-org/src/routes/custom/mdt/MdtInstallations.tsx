@@ -46,7 +46,10 @@ export const MdtInstallations = () => {
               (acc, curr) => acc + (curr?.occurrenceCount || 0),
               0
             ) || 0,
-          dataset: { count: data?.datasetSearchByPredicate?.results.length || 0, results: [] },
+          dataset: {
+            count: data?.datasetSearchByPredicate?.results.length || 0,
+            results: data?.datasetSearchByPredicate?.results || [],
+          },
         },
       ]);
     }
