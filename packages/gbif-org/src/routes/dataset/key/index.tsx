@@ -14,6 +14,7 @@ import { DatasetKeyOccurrences } from './occurrences';
 import { DatasetKeyPhylo } from './phylogenies';
 import { DatasetKeyProject } from './project';
 import { DatasetKeyTaxonSearch } from './taxonSearch';
+import { DatasetKeyDataPackage } from './dataPackage';
 const id = 'datasetKey';
 
 export const datasetKeyRoute: RouteObjectWithPlugins = {
@@ -56,6 +57,10 @@ export const datasetKeyRoute: RouteObjectWithPlugins = {
     {
       path: 'species',
       element: <DatasetKeyTaxonSearch />,
+    },
+    {
+      path: 'datapackage',
+      element: <DatasetKeyDataPackage />,
     },
     {
       path: 'species/:taxonKey',

@@ -278,8 +278,6 @@ export function DatasetKeyAbout() {
               </div>
             )}
 
-            {dataset.key && <Example datasetKey={dataset.key} />}
-
             <Card className="g-mb-4" id="description">
               <CardHeader className="gbif-word-break">
                 <CardTitle>

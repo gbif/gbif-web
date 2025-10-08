@@ -1,3 +1,4 @@
+import { Card } from '@/components/ui/largeCard';
 import { useParam, useStringParam } from '@/hooks/useParam';
 import { useState, useEffect } from 'react';
 
@@ -34,13 +35,13 @@ export default function ResourceCard({ datasetKey, resourceName }: ResourceCardP
   const [entity, setEntity] = useStringParam({ key: 'entity' });
 
   // Find the primary key field (field with both unique and required constraints)
-  const primaryKeyField = schema?.fields.find(field =>
-    field.constraints?.unique === true && field.constraints?.required === true
+  const primaryKeyField = schema?.fields.find(
+    (field) => field.constraints?.unique === true && field.constraints?.required === true
   );
 
   const handleRowClick = (row: Record<string, any>) => {
     if (!primaryKeyField) return;
-    
+
     const rowId = row[primaryKeyField.name];
     if (rowId !== null && rowId !== undefined) {
       setEntity(`${resourceName}__${rowId}`);
@@ -134,8 +135,8 @@ export default function ResourceCard({ datasetKey, resourceName }: ResourceCardP
   }
 
   return (
-    <div className="g-w-full g-rounded-lg g-border g-border-gray-200 g-bg-white g-p-6 g-shadow-sm">
-      <h3 className="g-mb-4 g-text-xl g-font-bold g-text-gray-900 g-capitalize">
+    <Card className="">
+      <h3 className="g-p-6 g-pb-0 g-mb-4 g-text-xl g-font-bold g-text-gray-900 g-capitalize">
         {schema.title || resourceName.replace(/-/g, ' ')}
       </h3>
 
@@ -183,7 +184,7 @@ export default function ResourceCard({ datasetKey, resourceName }: ResourceCardP
           </div>
 
           {/* Pagination Controls */}
-          <div className="g-mt-4 g-flex g-items-center g-justify-between g-border-t g-border-gray-200 g-pt-4">
+          <div className="g-py-4 g-px-6 g-mt-4 g-flex g-items-center g-justify-between g-border-t g-border-gray-200">
             <div className="g-text-sm g-text-gray-600">
               Showing {currentPage * pageSize + 1} to{' '}
               {Math.min((currentPage + 1) * pageSize, data.count)} of {data.count} results
@@ -212,6 +213,6 @@ export default function ResourceCard({ datasetKey, resourceName }: ResourceCardP
       ) : (
         <p className="g-py-8 g-text-center g-text-gray-500">No data available</p>
       )}
-    </div>
+    </Card>
   );
 }

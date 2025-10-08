@@ -31,11 +31,12 @@ import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { throwCriticalErrors, usePartialDataNotification } from '@/routes/rootErrorPage';
 import { required } from '@/utils/required';
 import { getDatasetSchema } from '@/utils/schemaOrg';
-import { createContext, useEffect, useMemo } from 'react';
+import { createContext, useEffect, useMemo, useState } from 'react';
 import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { AboutContent, ApiContent } from './help';
+import { AiFillExperiment } from 'react-icons/ai';
 const DATASET_QUERY = /* GraphQL */ `
   query Dataset($key: ID!) {
     literatureSearch(gbifDatasetKey: [$key]) {
@@ -306,6 +307,7 @@ export function DatasetPage() {
       notifyOfPartialData();
     }
   }, [errors, notifyOfPartialData]);
+  const [isDataPackage, setIsDataPackage] = useState(false);
 
   if (data.dataset == null) throw new NotFoundError();
   const dataset = data.dataset;
@@ -345,6 +347,21 @@ export function DatasetPage() {
   const hasLiterature = data?.literatureSearch?.documents?.total > 0;
   const withEventId = occData?.withEvents?.documents?.total || 0;
 
+  useEffect(() => {
+    if (!dataset.key) return;
+    // get datapackage if any
+    async function fetchDataPackage() {
+      const response = await fetch(
+        `https://api.gbif-dev.org/v1/dataset/${dataset?.key}/datapackage/resourceNames`
+      );
+      const data = await response.json();
+      if (data) {
+        setIsDataPackage(true);
+      }
+    }
+    fetchDataPackage();
+  }, [dataset?.key]);
+
   const tabs = useMemo<{ to: string; children: React.ReactNode }[]>(() => {
     const tabsToDisplay: { to: string; children: React.ReactNode }[] = [
       { to: '.', children: <FormattedMessage id="dataset.tabs.about" /> },
@@ -362,6 +379,17 @@ export function DatasetPage() {
       tabsToDisplay.push({
         to: 'project',
         children: <FormattedMessage id="dataset.tabs.project" />,
+      });
+    }
+    if (isDataPackage) {
+      tabsToDisplay.push({
+        to: 'datapackage',
+        children: (
+          <span className="g-flex g-items-center g-gap-2">
+            <span>Data Package</span>
+            <AiFillExperiment />
+          </span>
+        ),
       });
     }
     if (hasPhylogeny) {
@@ -416,6 +444,8 @@ export function DatasetPage() {
     dataset?.type,
     dataset?.project,
     config?.datasetKey?.disableInPageOccurrenceSearch,
+    isDataPackage,
+    config.datasetKey?.showEvents,
   ]);
 
   useEffect(() => {

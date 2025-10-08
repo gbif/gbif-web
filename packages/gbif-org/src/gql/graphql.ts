@@ -981,8 +981,6 @@ export type CollectionFacetTypeStatusArgs = {
 
 export enum CollectionFacetParameter {
   AccessionStatus = 'ACCESSION_STATUS',
-  Biome = 'BIOME',
-  BiomeType = 'BIOME_TYPE',
   City = 'CITY',
   ClassKey = 'CLASS_KEY',
   ContentType = 'CONTENT_TYPE',
@@ -2018,15 +2016,6 @@ export type DerivedDatasetListResults = {
   results: Array<DerivedDataset>;
 };
 
-export enum DescriptorIssue {
-  BiomeTypeValidationIssue = 'BIOME_TYPE_VALIDATION_ISSUE',
-  ObjectClassificationValidationIssue = 'OBJECT_CLASSIFICATION_VALIDATION_ISSUE',
-  VocabValueDeprecated = 'VOCAB_VALUE_DEPRECATED',
-  VocabValueMatchedDeprecatedLabel = 'VOCAB_VALUE_MATCHED_DEPRECATED_LABEL',
-  VocabValueMatchedLabel = 'VOCAB_VALUE_MATCHED_LABEL',
-  VocabValueNotFound = 'VOCAB_VALUE_NOT_FOUND'
-}
-
 export type DescriptorMatches = {
   __typename?: 'DescriptorMatches';
   biomeType?: Maybe<Scalars['String']['output']>;
@@ -2407,16 +2396,6 @@ export enum Download_Status {
   Suspended = 'SUSPENDED'
 }
 
-export enum DurationUnit {
-  Days = 'DAYS',
-  Hours = 'HOURS',
-  Minutes = 'MINUTES',
-  Months = 'MONTHS',
-  Seconds = 'SECONDS',
-  Weeks = 'WEEKS',
-  Years = 'YEARS'
-}
-
 export enum EndorsementStatus {
   Endorsed = 'ENDORSED',
   OnHold = 'ON_HOLD',
@@ -2447,7 +2426,6 @@ export enum EndpointType {
   Digir = 'DIGIR',
   DigirManis = 'DIGIR_MANIS',
   DwcArchive = 'DWC_ARCHIVE',
-  DwcDp = 'DWC_DP',
   Eml = 'EML',
   Feed = 'FEED',
   OaiPmh = 'OAI_PMH',
@@ -3070,7 +3048,6 @@ export enum Extension {
   GermplasmMeasurementScore = 'GERMPLASM_MEASUREMENT_SCORE',
   GermplasmMeasurementTrait = 'GERMPLASM_MEASUREMENT_TRAIT',
   GermplasmMeasurementTrial = 'GERMPLASM_MEASUREMENT_TRIAL',
-  Humboldt = 'HUMBOLDT',
   Identification = 'IDENTIFICATION',
   Identifier = 'IDENTIFIER',
   Image = 'IMAGE',
@@ -3805,8 +3782,6 @@ export enum InterpretationType_RecordType {
   GermplasmMeasurementTraitTable = 'GERMPLASM_MEASUREMENT_TRAIT_TABLE',
   GermplasmMeasurementTrialTable = 'GERMPLASM_MEASUREMENT_TRIAL_TABLE',
   Grscicoll = 'GRSCICOLL',
-  Humboldt = 'HUMBOLDT',
-  HumboldtTable = 'HUMBOLDT_TABLE',
   IdentificationTable = 'IDENTIFICATION_TABLE',
   Identifier = 'IDENTIFIER',
   IdentifierAbsent = 'IDENTIFIER_ABSENT',
@@ -6535,13 +6510,11 @@ export type OccurrenceHistogramYearArgs = {
 };
 
 export enum OccurrenceIssue {
-  AbundanceCapInvalid = 'ABUNDANCE_CAP_INVALID',
   AgeOrStageInferredFromParentRank = 'AGE_OR_STAGE_INFERRED_FROM_PARENT_RANK',
   AgeOrStageInvalidRange = 'AGE_OR_STAGE_INVALID_RANGE',
   AgeOrStageRankMismatch = 'AGE_OR_STAGE_RANK_MISMATCH',
   AmbiguousCollection = 'AMBIGUOUS_COLLECTION',
   AmbiguousInstitution = 'AMBIGUOUS_INSTITUTION',
-  AreNonTargetTaxaFullyReportedInvalid = 'ARE_NON_TARGET_TAXA_FULLY_REPORTED_INVALID',
   BasisOfRecordInvalid = 'BASIS_OF_RECORD_INVALID',
   CollectionMatchFuzzy = 'COLLECTION_MATCH_FUZZY',
   CollectionMatchNone = 'COLLECTION_MATCH_NONE',
@@ -6584,8 +6557,6 @@ export enum OccurrenceIssue {
   EraOrErathemInferredFromParentRank = 'ERA_OR_ERATHEM_INFERRED_FROM_PARENT_RANK',
   EraOrErathemInvalidRange = 'ERA_OR_ERATHEM_INVALID_RANGE',
   EraOrErathemRankMismatch = 'ERA_OR_ERATHEM_RANK_MISMATCH',
-  EventDurationUnitMissing = 'EVENT_DURATION_UNIT_MISSING',
-  EventDurationValueInvalid = 'EVENT_DURATION_VALUE_INVALID',
   FootprintSrsInvalid = 'FOOTPRINT_SRS_INVALID',
   FootprintWktInvalid = 'FOOTPRINT_WKT_INVALID',
   FootprintWktMismatch = 'FOOTPRINT_WKT_MISMATCH',
@@ -6593,15 +6564,6 @@ export enum OccurrenceIssue {
   GeodeticDatumInvalid = 'GEODETIC_DATUM_INVALID',
   GeoreferencedDateInvalid = 'GEOREFERENCED_DATE_INVALID',
   GeoreferencedDateUnlikely = 'GEOREFERENCED_DATE_UNLIKELY',
-  GeospatialScopeAreaLowerThanTotalAreaSampled = 'GEOSPATIAL_SCOPE_AREA_LOWER_THAN_TOTAL_AREA_SAMPLED',
-  GeospatialScopeAreaUnitMissing = 'GEOSPATIAL_SCOPE_AREA_UNIT_MISSING',
-  GeospatialScopeAreaValueInvalid = 'GEOSPATIAL_SCOPE_AREA_VALUE_INVALID',
-  HasMaterialSamplesInvalid = 'HAS_MATERIAL_SAMPLES_INVALID',
-  HasMaterialSamplesMismatch = 'HAS_MATERIAL_SAMPLES_MISMATCH',
-  HasNonTargetOrganismsInvalid = 'HAS_NON_TARGET_ORGANISMS_INVALID',
-  HasNonTargetTaxaInvalid = 'HAS_NON_TARGET_TAXA_INVALID',
-  HasNonTargetTaxaMismatch = 'HAS_NON_TARGET_TAXA_MISMATCH',
-  HasVouchersInvalid = 'HAS_VOUCHERS_INVALID',
   IdentifiedDateInvalid = 'IDENTIFIED_DATE_INVALID',
   IdentifiedDateUnlikely = 'IDENTIFIED_DATE_UNLIKELY',
   IndividualCountConflictsWithOccurrenceStatus = 'INDIVIDUAL_COUNT_CONFLICTS_WITH_OCCURRENCE_STATUS',
@@ -6610,16 +6572,6 @@ export enum OccurrenceIssue {
   InstitutionMatchFuzzy = 'INSTITUTION_MATCH_FUZZY',
   InstitutionMatchNone = 'INSTITUTION_MATCH_NONE',
   InterpretationError = 'INTERPRETATION_ERROR',
-  IsAbsenceReportedInvalid = 'IS_ABSENCE_REPORTED_INVALID',
-  IsAbundanceCapReportedInvalid = 'IS_ABUNDANCE_CAP_REPORTED_INVALID',
-  IsAbundanceReportedInvalid = 'IS_ABUNDANCE_REPORTED_INVALID',
-  IsDegreeOfEstablishmentScopeFullyReportedInvalid = 'IS_DEGREE_OF_ESTABLISHMENT_SCOPE_FULLY_REPORTED_INVALID',
-  IsGrowthFormScopeFullyReportedInvalid = 'IS_GROWTH_FORM_SCOPE_FULLY_REPORTED_INVALID',
-  IsLeastSpecificTargetCategoryQuantityInclusiveInvalid = 'IS_LEAST_SPECIFIC_TARGET_CATEGORY_QUANTITY_INCLUSIVE_INVALID',
-  IsLifeStageScopeFullyReportedInvalid = 'IS_LIFE_STAGE_SCOPE_FULLY_REPORTED_INVALID',
-  IsSamplingEffortReportedInvalid = 'IS_SAMPLING_EFFORT_REPORTED_INVALID',
-  IsTaxonomicScopeFullyReportedInvalid = 'IS_TAXONOMIC_SCOPE_FULLY_REPORTED_INVALID',
-  IsVegetationCoverReportedInvalid = 'IS_VEGETATION_COVER_REPORTED_INVALID',
   ModifiedDateInvalid = 'MODIFIED_DATE_INVALID',
   ModifiedDateUnlikely = 'MODIFIED_DATE_UNLIKELY',
   MultimediaDateInvalid = 'MULTIMEDIA_DATE_INVALID',
@@ -6639,17 +6591,9 @@ export enum OccurrenceIssue {
   RecordedDateMismatch = 'RECORDED_DATE_MISMATCH',
   RecordedDateUnlikely = 'RECORDED_DATE_UNLIKELY',
   ReferencesUriInvalid = 'REFERENCES_URI_INVALID',
-  SamplingEffortUnitMissing = 'SAMPLING_EFFORT_UNIT_MISSING',
-  SamplingEffortValueInvalid = 'SAMPLING_EFFORT_VALUE_INVALID',
   ScientificNameAndIdInconsistent = 'SCIENTIFIC_NAME_AND_ID_INCONSISTENT',
   ScientificNameIdNotFound = 'SCIENTIFIC_NAME_ID_NOT_FOUND',
-  SiteCountInvalid = 'SITE_COUNT_INVALID',
   SuspectedType = 'SUSPECTED_TYPE',
-  TargetDegreeOfEstablishmentExcluded = 'TARGET_DEGREE_OF_ESTABLISHMENT_EXCLUDED',
-  TargetGrowthFormExcluded = 'TARGET_GROWTH_FORM_EXCLUDED',
-  TargetHabitatScopeExcluded = 'TARGET_HABITAT_SCOPE_EXCLUDED',
-  TargetLifeStageScopeExcluded = 'TARGET_LIFE_STAGE_SCOPE_EXCLUDED',
-  TargetTaxonomicScopeExcluded = 'TARGET_TAXONOMIC_SCOPE_EXCLUDED',
   TaxonConceptIdNotFound = 'TAXON_CONCEPT_ID_NOT_FOUND',
   TaxonIdNotFound = 'TAXON_ID_NOT_FOUND',
   TaxonMatchAggregate = 'TAXON_MATCH_AGGREGATE',
@@ -6660,8 +6604,6 @@ export enum OccurrenceIssue {
   TaxonMatchScientificNameIdIgnored = 'TAXON_MATCH_SCIENTIFIC_NAME_ID_IGNORED',
   TaxonMatchTaxonConceptIdIgnored = 'TAXON_MATCH_TAXON_CONCEPT_ID_IGNORED',
   TaxonMatchTaxonIdIgnored = 'TAXON_MATCH_TAXON_ID_IGNORED',
-  TotalAreaSampledUnitMissing = 'TOTAL_AREA_SAMPLED_UNIT_MISSING',
-  TotalAreaSampledValueInvalid = 'TOTAL_AREA_SAMPLED_VALUE_INVALID',
   TypeStatusInvalid = 'TYPE_STATUS_INVALID',
   ZeroCoordinate = 'ZERO_COORDINATE'
 }

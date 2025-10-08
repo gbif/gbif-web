@@ -180,7 +180,7 @@ export default function GenericDetail({ id, resourceType }: GenericDetailProps) 
 
     setRelatedRecords(initialRelatedRecords);
     // Expand all related records by default
-    setExpandedRelated(new Set(referencingResources.map(ref => ref.resourceName)));
+    setExpandedRelated(new Set(referencingResources.map((ref) => ref.resourceName)));
 
     // Fetch counts and initial data for all related records immediately
     referencingResources.forEach((ref) => {
@@ -434,9 +434,6 @@ export default function GenericDetail({ id, resourceType }: GenericDetailProps) 
 
     // Handle different field types
     switch (field.type) {
-      case 'number':
-      case 'integer':
-        return <span className="g-font-mono g-text-blue-600">{value}</span>;
       case 'boolean':
         return (
           <span className={`g-font-semibold ${value ? 'g-text-green-600' : 'g-text-red-600'}`}>

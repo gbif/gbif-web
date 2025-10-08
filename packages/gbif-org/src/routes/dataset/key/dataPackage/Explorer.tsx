@@ -3,10 +3,8 @@ import generateMermaid from './generateMermaid';
 import { MermaidChart } from './MermaidChart';
 import ResourceList from './ResourceList';
 import EntityDetailDrawer from './EntityDetailDrawer';
-import { Card } from '@/components/ui/largeCard';
-import exampleSchema from './exampleSchema.json';
 
-export default function Example({ datasetKey }: { datasetKey: string }) {
+export default function Explorer({ datasetKey }: { datasetKey: string }) {
   const [schema, setSchema] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -77,7 +75,6 @@ export default function Example({ datasetKey }: { datasetKey: string }) {
     );
   }
 
-  const fields = ['title', 'name', 'type', 'description', 'test', 'setsets'];
   return (
     <div>
       <MermaidChart chart={mermaidString} />
