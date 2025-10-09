@@ -16,6 +16,18 @@ export function TaxonInterpretationCard({
   const useChecklistBankLink = speciesPageDatasetKey !== classification.checklistKey;
   const noMatch = classification?.usage?.key.toString() === '0';
   const issues = classification?.issues ?? [];
+  const useCoLWebsiteLink =
+    import.meta.env.PUBLIC_COL_CHECKLIST_KEY === classification.checklistKey;
+
+  const externalDatasetLink = useCoLWebsiteLink
+    ? `https://www.catalogueoflife.org`
+    : `https://www.checklistbank.org/dataset/${classification?.meta?.mainIndex.datasetKey}/about`;
+
+  const externalTaxonLink = useCoLWebsiteLink
+    ? `https://www.catalogueoflife.org/data/taxon/${classification?.usage?.key}`
+    : `https://www.checklistbank.org/dataset/${
+        classification?.meta?.mainIndex?.datasetKey
+      }/taxon/${encodeURIComponent(classification?.usage?.key)}`;
 
   return (
     <div
@@ -30,7 +42,7 @@ export function TaxonInterpretationCard({
             <div className="g-flex g-items-center g-space-x-2 g-mb-2">
               {useChecklistBankLink && (
                 <a
-                  href={`https://www.checklistbank.org/dataset/${classification?.meta?.mainIndex.datasetKey}/about`}
+                  href={externalDatasetLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="g-text-sm g-font-medium g-text-slate-600 hover:g-text-primary-500"
@@ -62,9 +74,7 @@ export function TaxonInterpretationCard({
               {useChecklistBankLink && !noMatch && (
                 <>
                   <a
-                    href={`https://www.checklistbank.org/dataset/${
-                      classification?.meta?.mainIndex.datasetKey
-                    }/taxon/${encodeURIComponent(classification?.usage?.key)}`}
+                    href={externalTaxonLink}
                     target="_blank"
                     className="g-text-lg g-font-medium g-text-gray-900 g-underline hover:g-text-primary-500"
                     rel="noopener noreferrer"
