@@ -1,8 +1,12 @@
 import { ApiClient } from '../apiClient';
-import EsApiClient from '../esApiClient';
+import config from '#/config.js';
 
-const apiClient = new ApiClient();
-const esApiClient = new EsApiClient();
+const apiClient = new ApiClient(config.apiv1);
+const apiV2Client = new ApiClient(config.apiv2);
+const esApiClient = new ApiClient(config.apiEs, {
+  apiKey: config.apiEsKey,
+  timeout: 30000,
+});
 
 export async function handleSpeciesMatch(args) {
   const params = {
@@ -12,7 +16,7 @@ export async function handleSpeciesMatch(args) {
     datasetKey: config.defaultChecklist,
   };
 
-  const data = await apiClient.get('/species/match', params);
+  const data = await apiV2Client.get('/species/match', params);
 
   return {
     content: [

@@ -1,5 +1,3 @@
-import config from '#/config';
-
 export class GBIFAPIError extends Error {
   constructor(message, status, details) {
     super(message);
@@ -10,16 +8,18 @@ export class GBIFAPIError extends Error {
 }
 
 export class ApiClient {
-  constructor(apiKey = null) {
-    this.baseUrl = config.apiv1;
-    this.apiKey = apiKey;
+  constructor(baseUrl, config = {}) {
+    this.baseUrl = baseUrl;
+    this.apiKey = config.apiKey || null;
+    this.defaultTimeout = config.timeout || 10000;
     this.headers = {
-      'User-Agent': 'GBIF MSP server',
+      'User-Agent': 'GBIF MCP server',
       Accept: 'application/json',
+      ...config.headers,
     };
   }
 
-  async get(endpoint, params = {}) {
+  async get(endpoint, params = {}, options = {}) {
     const url = new URL(`${this.baseUrl}${endpoint}`);
 
     // Add query parameters
@@ -37,15 +37,22 @@ export class ApiClient {
         }
       }
     });
-    console.error(url.searchParams);
+
+    // Add API key if configured
+    if (this.apiKey) {
+      url.searchParams.append('apiKey', this.apiKey);
+    }
+
+    const timeout = options.timeout || this.defaultTimeout;
+    const headers = { ...this.headers, ...options.headers };
 
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000);
+      const timeoutId = setTimeout(() => controller.abort(), timeout);
 
       const response = await fetch(url.toString(), {
         method: 'GET',
-        headers: this.headers,
+        headers,
         signal: controller.signal,
       });
 
@@ -76,20 +83,23 @@ export class ApiClient {
     }
   }
 
-  async post(endpoint, data) {
+  async post(endpoint, body = {}, options = {}) {
     const url = `${this.baseUrl}${endpoint}`;
+    const timeout = options.timeout || this.defaultTimeout;
+    const headers = {
+      ...this.headers,
+      'Content-Type': 'application/json',
+      ...options.headers,
+    };
 
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000);
+      const timeoutId = setTimeout(() => controller.abort(), timeout);
 
       const response = await fetch(url, {
         method: 'POST',
-        headers: {
-          ...this.headers,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+        headers,
+        body: JSON.stringify(body),
         signal: controller.signal,
       });
 
