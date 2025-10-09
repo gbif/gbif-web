@@ -25,17 +25,9 @@ const tools = [
           description:
             'This token is required to use the tool (obtain from gbif_usage_guidelines)',
         },
-        name: {
+        scientificName: {
           type: 'string',
           description: 'The scientific name to match',
-        },
-        strict: {
-          type: 'boolean',
-          description: 'Use strict matching (default: false)',
-        },
-        verbose: {
-          type: 'boolean',
-          description: 'Include alternative matches (default: false)',
         },
       },
     },
@@ -43,7 +35,7 @@ const tools = [
   {
     name: 'species_search',
     description:
-      "Search for species in GBIF's taxonomic backbone. Useful when you need to find species by partial names or explore taxonomy. GBIF endpoints are primarily scientific name focused, but the species_search tool also supports search by common names which can be used to find the scientific name and key. Be aware that that common names are often ambiguous and may not have a 1-to-1 mapping to scientific names. Often common names will refer to multiple taxa or be a subset of a taxon. If a user have searched for a common name it is recommended to get a confirmation if it isn't obvious which scientific name to choose.",
+      "Free text search for species and other taxa in GBIF's taxonomic backbone. Useful when you need to find species by partial names or explore taxonomy. GBIF endpoints are primarily scientific name focused, but the species_search tool also supports search by common names which can be used to find the scientific name and key. Be aware that that common names are often ambiguous and may not have a 1-to-1 mapping to scientific names. Often common names will refer to multiple taxa or be a subset of a taxon. If a user have searched for a common name it is recommended to get a confirmation if it isn't obvious which scientific name to choose.",
     inputSchema: {
       type: 'object',
       required: ['usageToken'],
@@ -63,7 +55,8 @@ const tools = [
         },
         highertaxonKey: {
           type: 'number',
-          description: 'Filter by higher taxon',
+          description:
+            'Filter by higher taxonKey. (e.g. 1 for Animalia, 6 for Plants)',
         },
         status: {
           type: 'string',
@@ -71,7 +64,7 @@ const tools = [
         },
         limit: {
           type: 'number',
-          description: 'Number of results (default: 20, max: 300)',
+          description: 'Number of results (default: 10, max: 300)',
         },
         offset: {
           type: 'number',

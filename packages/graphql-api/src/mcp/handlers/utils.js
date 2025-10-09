@@ -1,6 +1,6 @@
 import { inspect } from 'node:util';
 
-export default function simplifyJson(
+export default function json2str(
   input,
   { compact = false, maxStringLength = 150 } = {},
 ) {

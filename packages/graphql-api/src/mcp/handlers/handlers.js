@@ -2,60 +2,10 @@ import { ApiClient } from '../apiClient';
 import config from '#/config.js';
 
 const apiClient = new ApiClient(config.apiv1);
-const apiV2Client = new ApiClient(config.apiv2);
 const esApiClient = new ApiClient(config.apiEs, {
   apiKey: config.apiEsKey,
   timeout: 30000,
 });
-
-export async function handleSpeciesMatch(args) {
-  const params = {
-    name: args.name,
-    strict: args.strict,
-    verbose: args.verbose,
-    datasetKey: config.defaultChecklist,
-  };
-
-  const data = await apiV2Client.get('/species/match', params);
-
-  return {
-    content: [
-      {
-        type: 'text',
-        text: JSON.stringify(data, null, 2),
-      },
-    ],
-  };
-}
-
-export async function handleSpeciesSearch(args) {
-  const params = {
-    q: args.q,
-    rank: args.rank,
-    highertaxonKey: args.highertaxonKey,
-    status: args.status,
-    limit: Math.min(args.limit ?? 20, 300),
-    offset: args.offset ?? 0,
-    datasetKey: config.defaultChecklist,
-  };
-
-  const data = await apiClient.get('/species/search', params);
-
-  const summary = `Found ${data.count} total results. Showing ${
-    data.results?.length ?? 0
-  } results (offset: ${data.offset}, limit: ${data.limit}). End of records: ${
-    data.endOfRecords
-  }`;
-
-  return {
-    content: [
-      {
-        type: 'text',
-        text: `${summary}\n\n${JSON.stringify(data, null, 2)}`,
-      },
-    ],
-  };
-}
 
 export async function handleSpeciesSuggest(args) {
   const params = {

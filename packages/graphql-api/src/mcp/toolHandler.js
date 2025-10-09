@@ -2,10 +2,10 @@ import { SEARCH_GUIDE } from './guides';
 import {
   handleDatasetSearch,
   handleOccurrenceSearch,
-  handleSpeciesMatch,
-  handleSpeciesSearch,
   handleSpeciesSuggest,
 } from './handlers/handlers';
+import handleSpeciesMatch from './handlers/handleSpeciesMatch';
+import handleSpeciesSearch from './handlers/handleSpeciesSearch';
 
 export class McpError extends Error {
   constructor(
