@@ -180,6 +180,16 @@
     "count": "",
     "description": "Архів анотований GBIF"
   },
+  "biomeType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "objectClassification": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "Наукова назва",
     "count": "",
