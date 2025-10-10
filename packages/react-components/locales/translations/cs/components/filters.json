@@ -180,6 +180,16 @@
     "count": "",
     "description": "Metoda použitá k uchování předmětů dostupných ve sbírce"
   },
+  "biomeType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "objectClassification": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "Vědecký název",
     "count": "{num, plural, one {vědecký název} few {# vědecké názvy} many {# vědeckých názvů} other {# vědeckých názvů}}",

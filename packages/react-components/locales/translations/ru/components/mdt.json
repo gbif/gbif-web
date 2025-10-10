@@ -1,0 +1,9 @@
+{
+  "description": "Описание",
+  "descriptionLabel": "Описание",
+  "typeOfApplication": "Тип записи",
+  "domain": "Домен",
+  "personName": "Имя",
+  "email": "Адрес электронной почты",
+  "participantLabel": "Участник"
+}

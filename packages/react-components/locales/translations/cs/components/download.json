@@ -8,6 +8,8 @@
   "continueToGBIF": "Pokračovat",
   "sql": {
     "createNewSqlDownload": "Vytvořit nové SQL stažení",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "Poznámka",
       "description": "Nejjednodušší způsob stahování a zkoumání dat je prostřednictvím uživatelského rozhraní pro vyhledávání výskytů. Pro složité dotazy a agregace však editor SQL poskytuje větší volnost.",

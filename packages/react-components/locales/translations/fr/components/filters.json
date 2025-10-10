@@ -180,6 +180,16 @@
     "count": "",
     "description": "Archive annotée par GBIF"
   },
+  "biomeType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "objectClassification": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "Nom scientifique du taxon",
     "count": "{num, plural, one {nom scientifique} other {# noms scientifiques}}",

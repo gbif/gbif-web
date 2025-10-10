@@ -27,7 +27,6 @@
   "marineDataPublishers": "",
   "suggested": "Aanbevolen",
   "orSelectAnotherAssOrg": "",
-  "clickToSelect": "Klik om te selecteren",
   "none": "Geen",
   "whatAndHow": "Wat en hoe",
   "helpUsUnderstand": "",
@@ -63,7 +62,6 @@
   "invalidUrl": "Ongeldige URL",
   "brieflyDescribeScope": "",
   "clear": "Leegmaken",
-  "selectParticipant": "",
   "clickMapToAddOrg": "Klik op de kaart om je organisatie toe te voegen",
   "description": "Beschrijving",
   "gbifProjects": "GBIF-projecten",
@@ -97,5 +95,6 @@
   "loginToRegisterOrganization": {
     "title": "",
     "message": ""
-  }
+  },
+  "registerAnotherOrganization": ""
 }

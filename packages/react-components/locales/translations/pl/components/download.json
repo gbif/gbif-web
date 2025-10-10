@@ -8,6 +8,8 @@
   "continueToGBIF": "Dalej",
   "sql": {
     "createNewSqlDownload": "Stwórz nowe pobranie SQL",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "Uwaga",
       "description": "Najprostszym sposobem na pobieranie i przeglądanie danych to użycie interfejsu użytkownika wyszukiwarki stwierdzeń. Jednak dla złożonych zapytań i zbiorów edytor SQL daje więcej możliwości.",

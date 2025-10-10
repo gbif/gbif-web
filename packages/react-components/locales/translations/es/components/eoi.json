@@ -27,7 +27,6 @@
   "marineDataPublishers": "Publicadores de datos marinos: pidan la adhesión para los datos relacionados con OBIS (Ocean Biogeographic Information System)",
   "suggested": "Sugerido",
   "orSelectAnotherAssOrg": "Si el registro a través del nodo del país sugerido más arriba no es la opción deseada, por favor, compruebe esta lista de participantes asociados de redes multinacionales o temáticas:",
-  "clickToSelect": "Haz clic para seleccionar",
   "none": "Ninguno",
   "whatAndHow": "Qué y cómo",
   "helpUsUnderstand": "Ayúdanos a entender qué tipo de datos planeas publicar y qué ayuda podrías necesitar.",
@@ -63,7 +62,6 @@
   "invalidUrl": "url no válida",
   "brieflyDescribeScope": "Por favor, describa brevemente en *inglés* la trayectoria de su institución/organización en relación a la misión de GBIF (ej.: colecciones alojadas, enfoque de investigación, gestión de información en biodiversidad, etc.) Esta descripción aparecerá en su página de proveedor. La versión requerida debe ser en inglés aunque, si lo desea, puede incluir otra versión en otro idioma.",
   "clear": "Limpiar",
-  "selectParticipant": "",
   "clickMapToAddOrg": "Haz clic en el mapa para añadir tu organización",
   "description": "Descripción",
   "gbifProjects": "Proyectos GBIF",
@@ -97,5 +95,6 @@
   "loginToRegisterOrganization": {
     "title": "",
     "message": ""
-  }
+  },
+  "registerAnotherOrganization": ""
 }

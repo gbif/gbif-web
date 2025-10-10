@@ -180,6 +180,16 @@
     "count": "{num, plural, one {# тип сохранения } other {# типов сохранения}}",
     "description": "Архив, аннотированный GBIF"
   },
+  "biomeType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "objectClassification": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "Латинское название",
     "count": "{num, plural, one {научное название} other {# научных названий}}",

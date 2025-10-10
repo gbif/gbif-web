@@ -8,6 +8,8 @@
   "continueToGBIF": "Продовжити",
   "sql": {
     "createNewSqlDownload": "",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "Примітка",
       "description": "",

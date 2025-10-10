@@ -180,6 +180,16 @@
     "count": "",
     "description": "GBIFがアノーテーションしたアーカイブ"
   },
+  "biomeType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "objectClassification": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "学名",
     "count": "",

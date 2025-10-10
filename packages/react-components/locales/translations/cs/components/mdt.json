@@ -1,0 +1,9 @@
+{
+  "description": "Popis",
+  "descriptionLabel": "Popis",
+  "typeOfApplication": "Typ",
+  "domain": "Doména",
+  "personName": "Jméno",
+  "email": "E-mail",
+  "participantLabel": "Účastník"
+}

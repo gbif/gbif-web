@@ -27,7 +27,6 @@
   "marineDataPublishers": "",
   "suggested": "Sugerido",
   "orSelectAnotherAssOrg": "Se o aval através do nó de país sugerido acima não for a opção correta, por favor, verifique esta lista de participantes associados para redes multinacionais ou temáticas:",
-  "clickToSelect": "Clique para selecionar",
   "none": "Nenhum",
   "whatAndHow": "O quê e como",
   "helpUsUnderstand": "Ajude-nos a compreender que tipo de dados planejas publicar, e o suporte que precisas.",
@@ -63,7 +62,6 @@
   "invalidUrl": "URL inválido",
   "brieflyDescribeScope": "Em *Inglês*, por favor descreva brevemente o âmbito da sua instituição/organização em relação à missão do GBIF (e.g. coleções, pesquisa/investigação, gestão da informação de biodiversidade, etc.). Esta descrição aparecerá na sua página de publicador.",
   "clear": "Limpar",
-  "selectParticipant": "",
   "clickMapToAddOrg": "Clique no mapa para adicionar a tua organização",
   "description": "Descrição",
   "gbifProjects": "Projetos do GBIF",
@@ -97,5 +95,6 @@
   "loginToRegisterOrganization": {
     "title": "",
     "message": ""
-  }
+  },
+  "registerAnotherOrganization": ""
 }

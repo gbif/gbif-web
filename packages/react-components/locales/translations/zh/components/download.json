@@ -8,6 +8,8 @@
   "continueToGBIF": "继续",
   "sql": {
     "createNewSqlDownload": "创建新的SQL下载",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "注",
       "description": "下载和探索数据的最简单方法是通过出现搜索用户界面。但对于复杂查询和聚合，SQL编辑器提供了更大的自由度。",

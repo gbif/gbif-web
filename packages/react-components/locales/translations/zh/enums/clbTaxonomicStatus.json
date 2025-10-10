@@ -1,0 +1,10 @@
+{
+  "clbTaxonomicStatus": {
+    "accepted": "已接受",
+    "provisionally_accepted": "",
+    "ambiguous_synonym": "",
+    "synonym": "异名",
+    "misapplied": "误用",
+    "bare_name": ""
+  }
+}

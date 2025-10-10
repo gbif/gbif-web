@@ -8,6 +8,8 @@
   "continueToGBIF": "המשך",
   "sql": {
     "createNewSqlDownload": "צור הורדת SQL חדשה",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "הערה",
       "description": "הדרך הקלה ביותר להוריד ולחקור נתונים היא דרך ממשק חיפוש התצפיות. לשאילתות וחישובים מורכבים, עורך ה־SQL מספק יותר חופש.",

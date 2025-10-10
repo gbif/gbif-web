@@ -8,6 +8,8 @@
   "continueToGBIF": "次へ",
   "sql": {
     "createNewSqlDownload": "",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "注記",
       "description": "",

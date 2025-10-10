@@ -180,6 +180,16 @@
     "count": "",
     "description": "GBIF 註記的存檔"
   },
+  "biomeType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "objectClassification": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "學名",
     "count": "{num, plural,one {科學命名} other {#科學命名}}",

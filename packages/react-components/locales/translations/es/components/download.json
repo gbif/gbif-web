@@ -8,6 +8,8 @@
   "continueToGBIF": "Continuar",
   "sql": {
     "createNewSqlDownload": "Crear una nueva descarga SQL",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "Nota",
       "description": "La forma más sencilla de descargar y explorar datos es a través de la interfaz de usuario de búsqueda de registros biológicos. Pero para consultas y agregaciones complejas, el editor SQL ofrece más libertad.",
