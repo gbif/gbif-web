@@ -1,7 +1,7 @@
 {
   "description": "Описание",
-  "descriptionLabel": "Описание",
-  "typeOfApplication": "Тип записи",
+  "descriptionLabel": "Description",
+  "typeOfApplication": "Тип приложения",
   "domain": "Домен",
   "personName": "Имя",
   "email": "Адрес электронной почты",
