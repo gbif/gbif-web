@@ -11,7 +11,7 @@
     "pleaseLoginReason": "",
     "sendEmailTo": "",
     "emailHelpdesk": "",
-    "summary": "Тема сообщения",
+    "summary": "Краткое описание",
     "description": "Описание",
     "required": "",
     "csvWarning": "",
