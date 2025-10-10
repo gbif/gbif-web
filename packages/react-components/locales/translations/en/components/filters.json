@@ -180,6 +180,16 @@
     "count": "{num, plural, one {# preservation type } other {# preservation types}}",
     "description": "The method used to preserve the objects available in the collection"
   },
+  "biomeType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "objectClassification": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "Scientific name",
     "count": "{num, plural, one {scientific name} other {# scientific names}}",
