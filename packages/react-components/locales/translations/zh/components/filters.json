@@ -180,6 +180,16 @@
     "count": "",
     "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
   },
+  "biomeType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "objectClassification": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "学名",
     "count": "{num, plural, one {科学名称} other {# 科学名称}}",
