@@ -12,10 +12,10 @@ import { ArticleTitle } from '@/routes/resource/key/components/articleTitle';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { throwCriticalErrors } from '@/routes/rootErrorPage';
 import { cn } from '@/utils/shadcn';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useSearchParams } from 'react-router-dom';
 import { HelpItemResult } from './HelpItemResult';
 import { FeedbackPopover } from '@/gbif/header/feedback/feedback';
 
@@ -85,12 +85,28 @@ function FAQ() {
 
   const resource = data?.resourceSearch?.documents.results[0];
   const ref = useRef<HTMLInputElement>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchQuery, setSearchQuery] = useStringParam({
+  /*  const [searchQuery, setSearchQuery] = useStringParam({
     key: 'q',
-    defaultValue: '',
-    hideDefault: true,
   });
+  const [question, setQuestion] = useStringParam({
+    key: 'question',
+  }); */
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [searchTerm, setSearchTerm] = useState(
+    searchParams?.get('question')
+      ? `question:${searchParams.get('question')}`
+      : searchParams?.get('q') || ''
+  );
+
+  useEffect(() => {
+    if (searchParams?.get('question')) {
+      setSearchTerm(`question:${searchParams.get('question')}`);
+    } else {
+      setSearchTerm(searchParams?.get('q') || '');
+    }
+  }, [searchParams]);
+
   const { formatMessage } = useIntl();
 
   return (
@@ -112,20 +128,49 @@ function FAQ() {
         <ArticleTextContainer className="g-mb-8">
           <SearchInput
             ref={ref}
-            defaultValue={searchQuery}
+            defaultValue={
+              searchParams?.get('question')
+                ? `question:${searchParams.get('question')}`
+                : searchParams?.get('q') || ''
+            }
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.currentTarget.value);
+              /* if (!e.currentTarget.value?.startsWith('question:')) {
+                setQuestion("");
+              } */
+            }}
             className={cn(
               'g-h-8 g-px-2 g-py-2 g-rounded-md g-border g-border-solid g-border-primary-500 g-text-sm g-w-full'
             )}
             onKeyDown={(e) => {
               // if user press enter, then update the value
               if (e.key === 'Enter') {
-                setSearchTerm(e.currentTarget.value);
-                setSearchQuery(e.currentTarget.value);
+                // setSearchTerm(e.currentTarget.value);
+                setSearchParams((prev) => {
+                  if (e.currentTarget.value?.startsWith('question:')) {
+                    prev.set('question', e.currentTarget.value.split('question:')[1]);
+                    prev.delete('q');
+                  } else {
+                    prev.set('q', e.currentTarget.value);
+                    prev.delete('question');
+                  }
+                  return prev;
+                });
               }
             }}
             onSearch={(value) => {
-              setSearchTerm(value);
-              setSearchQuery(value);
+              // setSearchTerm(value);
+              setSearchParams((prev) => {
+                if (value?.startsWith('question:')) {
+                  prev.set('question', value.split('question:')[1]);
+                  prev.delete('q');
+                } else {
+                  prev.set('q', value);
+                  prev.delete('question');
+                }
+                return prev;
+              });
             }}
             placeholder={formatMessage({
               id: 'search.placeholders.default',
@@ -146,13 +191,14 @@ function FAQ() {
               {helpData?.resourceSearch?.documents?.results &&
                 helpData.resourceSearch.documents.results
                   .filter((item) => {
-                    if (searchQuery && searchQuery.startsWith('question:')) {
-                      const questionId = searchQuery.split(':')[1];
-                      return item?.identifier === questionId;
+                    if (searchParams?.get('question')) {
+                      return item?.identifier === searchParams.get('question');
                     } else {
-                      return searchQuery
-                        ? item?.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                            item?.body?.toLowerCase().includes(searchQuery.toLowerCase())
+                      return searchParams?.get('q')
+                        ? item?.title
+                            ?.toLowerCase()
+                            .includes(searchParams.get('q')?.toLowerCase()) ||
+                            item?.body?.toLowerCase().includes(searchParams.get('q')?.toLowerCase())
                         : true;
                     }
                   })
