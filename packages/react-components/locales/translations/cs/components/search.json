@@ -23,7 +23,7 @@
   "placeholders": {
     "default": "Hledat",
     "range": "Rozsah nebo samostatná hodnota",
-    "rangeExample": "",
+    "rangeExample": "Např. 1000,2000",
     "wildcard": "Hledejte s pomocí * a ? jako zástupnými znaky",
     "dateTemplate": "yyyy-mm-dd",
     "locationID": ""
@@ -44,7 +44,7 @@
     "legend": "Legenda",
     "differentPublishers": "",
     "samePublishers": "",
-    "entryPoint": "",
+    "entryPoint": "Vstupní bod",
     "hasMultipleTaxonKeys": "",
     "aboutLink": "",
     "isCapped": "",
