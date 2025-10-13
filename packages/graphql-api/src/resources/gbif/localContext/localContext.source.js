@@ -1,6 +1,23 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 import { getDefaultAgent } from '#/requestAgents';
 
+/**
+ * Validates a string against a specific UUID format regex.
+ * @param {string} uuid The string to validate.
+ * @returns {boolean} True if the string is a valid UUID, false otherwise.
+ */
+const isValidUUID = (uuid) => {
+  // Ensure the input is a string before testing
+  if (typeof uuid !== 'string') {
+    return false;
+  }
+
+  const uuidRegex =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+  return uuidRegex.test(uuid);
+};
+
 class LocalContextAPI extends RESTDataSource {
   constructor(config) {
     super();
@@ -60,6 +77,11 @@ class LocalContextAPI extends RESTDataSource {
 
 function getLocalContextAPIEndpoint(value) {
   if (!value) throw new Error('LocalContextAPI endpoint is not defined');
+
+  if (isValidUUID(value)) {
+    // looks like a valid uuid, construct the api url
+    return `https://localcontextshub.org/api/v2/projects/${value}`;
+  }
 
   // parse value as url. If it isn't a valid url should throw an error
   const url = new URL(value);
