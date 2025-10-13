@@ -7,7 +7,7 @@
     {
       "name": "GRAPHQL",
       "request": "launch",
-      "runtimeArgs": ["start"],
+      "runtimeArgs": ["run", "develop"],
       "cwd": "${workspaceFolder}/packages/graphql-api",
       "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],

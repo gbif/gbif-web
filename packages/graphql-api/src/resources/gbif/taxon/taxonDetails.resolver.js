@@ -58,7 +58,7 @@ export default {
       });
     },
     typeSpecimens: taxonDetails('typeSpecimens'),
-    iucnRedListCategory: taxonDetails('iucnRedListCategory'),
+    iucnRedListCategory: optionalTaxonDetails('iucnRedListCategory'),
   },
   TaxonVernacularName: {
     sourceTaxon: (parent, args, { dataSources }) =>

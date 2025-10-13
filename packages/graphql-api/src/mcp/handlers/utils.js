@@ -19,3 +19,36 @@ export default function json2str(
     return JSON.stringify(input);
   }
 }
+
+export function parseInputArrayParam(value) {
+  /* the llm sometimes mess up and return an array as a comma seperated string or a string quoted json array. 
+  If we are confident this is nonsense, then we might as well just parse it */
+  if (typeof value === 'string') {
+    if (!value.includes('[') && !value.includes(',')) {
+      return [value];
+    }
+    // Try to parse as JSON
+    try {
+      const jsonArray = JSON.parse(value);
+      if (Array.isArray(jsonArray)) {
+        return jsonArray;
+      }
+    } catch {
+      // Ignore JSON parse errors
+    }
+    // If not JSON, split by comma
+    return value.split(',').map((item) => item.trim());
+  }
+  // If not a string, return as is
+  return value;
+}
+
+export class McpError extends Error {
+  constructor(
+    message = 'Unable to fetch data right now, please try again later.',
+    status = 500,
+  ) {
+    super(message);
+    this.status = status;
+  }
+}

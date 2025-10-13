@@ -1,10 +1,15 @@
 import { ApiClient } from '../apiClient';
 import config from '#/config.js';
 import json2str from './utils';
+import searchSpeciesMultiStrategy from './speciesUtils';
 
 const apiV2Client = new ApiClient(config.apiv2);
 
 export default async function handleSpeciesMatch(args) {
+  return searchSpeciesMultiStrategy(args);
+}
+
+async function handlePureSpeciesMatch(args) {
   const params = {
     scientificName: args.scientificName,
     strict: false,

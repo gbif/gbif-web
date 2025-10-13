@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import tools from './tools';
-import toolHandler, { McpError } from './toolHandler';
+import toolHandler from './toolHandler';
+import { McpError } from './handlers/utils';
 
 const router = Router();
 

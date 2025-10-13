@@ -214,6 +214,7 @@ const typeDef = gql`
 
   type OccurrenceHistogram {
     decimalLongitude(interval: Float): LongitudeHistogram!
+    decimalLatitude(interval: Float): LatitudeHistogram!
     year(interval: Float): JSON
   }
 
@@ -239,6 +240,11 @@ const typeDef = gql`
   type LongitudeHistogram {
     buckets: JSON!
     bounds: JSON
+  }
+
+  type LatitudeHistogram {
+    interval: Long
+    buckets: [HistogramBucket]
   }
 
   type Histogram {

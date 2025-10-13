@@ -9,11 +9,13 @@ export class GBIFAPIError extends Error {
 
 export class ApiClient {
   constructor(baseUrl, config = {}) {
-    this.baseUrl = baseUrl;
+    // remove trailing slash from baseUrl if present. store in a new variable to avoid modifying the input parameter
+    const base = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+    this.baseUrl = base;
     this.apiKey = config.apiKey || null;
     this.defaultTimeout = config.timeout || 10000;
     this.headers = {
-      'User-Agent': 'GBIF MCP server',
+      'User-Agent': config.appKey,
       Accept: 'application/json',
       ...config.headers,
     };
@@ -59,6 +61,7 @@ export class ApiClient {
       clearTimeout(timeoutId);
 
       if (!response.ok) {
+        console.error('Response not ok', response);
         const errorText = await response.text();
         throw new GBIFAPIError(
           `GBIF API request failed: ${response.statusText}`,
@@ -70,6 +73,7 @@ export class ApiClient {
       return await response.json();
     } catch (error) {
       if (error.name === 'AbortError') {
+        console.error('Request aborted');
         throw new GBIFAPIError(
           'Request timeout',
           408,
@@ -79,6 +83,8 @@ export class ApiClient {
       if (error instanceof GBIFAPIError) {
         throw error;
       }
+      console.log(url.toString());
+      console.error('Network error', error);
       throw new GBIFAPIError('Network error', 0, error.message);
     }
   }

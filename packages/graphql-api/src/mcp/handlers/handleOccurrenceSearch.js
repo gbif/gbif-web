@@ -1,109 +1,65 @@
 import { ApiClient } from '../apiClient';
 import config from '#/config.js';
+import json2str, { parseInputArrayParam } from './utils';
 
-const apiClient = new ApiClient(config.apiv1);
 const esApiClient = new ApiClient(config.apiEs, {
   apiKey: config.apiEsKey,
   timeout: 30000,
 });
 
-export async function handleSpeciesSuggest(args) {
-  const params = {
-    q: args.q,
-    rank: args.rank,
-    limit: Math.min(args.limit ?? 20, 100),
-  };
-
-  const data = await apiClient.get('/species/suggest', params);
-
-  return {
-    content: [
-      {
-        type: 'text',
-        text: JSON.stringify(data, null, 2),
-      },
-    ],
-  };
-}
-
-export async function handleDatasetSearch(args) {
-  const params = {
-    q: args.q,
-    type: args.type,
-    keyword: args.keyword,
-    publishingCountry: args.publishingCountry,
-    limit: Math.min(args.limit ?? 20, 100),
-    offset: args.offset ?? 0,
-  };
-
-  const data = await apiClient.get('/dataset/search', params);
-
-  const summary = `Found ${data.count} total datasets. Showing ${
-    data.results?.length ?? 0
-  } results (offset: ${data.offset}, limit: ${data.limit}). End of records: ${
-    data.endOfRecords
-  }`;
-
-  return {
-    content: [
-      {
-        type: 'text',
-        text: `${summary}\n\n${JSON.stringify(data, null, 2)}`,
-      },
-    ],
-  };
-}
-
-export async function handleOccurrenceSearch(args) {
+export default async function handleOccurrenceSearch(args) {
   const { params, uiLink } = prepareParams(args);
   console.log('searching occurrences with args', args);
   console.log('searching occurrences with params', params);
 
   const data = await esApiClient.get('/occurrence', params);
 
-  let summary = `Found ${data.documents.total} total occurrences. Showing ${
+  const summary = `Found ${data.documents.total} total occurrences. Showing ${
     data.documents.results?.length ?? 0
   } results (offset: ${data.documents.from}, limit: ${
     data.documents.size
   }). To explore in the GBIF UI and download, visit: ${uiLink}.`;
 
-  if (data.facets && data.facets.length > 0) {
-    summary += `\n\nFacets returned: ${data.facets
-      .map((f) => f.field)
-      .join(', ')}`;
+  // comments
+  let comments = '';
+  if (params?.facet === 'taxonKey') {
+    comments += `\n\nNote: Faceting on taxonKey returns a mix of ranks. E.g. So an individual bird species will also be counted as animal, chordata, aves etc. Consider faceting on speciesKey for species only counts.`;
   }
 
   return {
     content: [
       {
         type: 'text',
-        text: `${summary}\n\n${JSON.stringify(data, null, 2)}`,
+        text: `${summary}\n\n${json2str(data)}${comments}`,
       },
     ],
   };
 }
 
-export function prepareParams(args) {
+function prepareParams(args) {
   const params = {
-    taxonKey: args.taxonKey,
+    taxonKey: parseInputArrayParam(args.taxonKey),
     scientificName: args.scientificName,
-    country: args.country,
-    continent: args.continent,
+    country: parseInputArrayParam(args.country),
+    continent: parseInputArrayParam(args.continent),
     year: args.year,
     decimalLatitude: args.decimalLatitude,
     decimalLongitude: args.decimalLongitude,
-    month: args.month,
-    datasetKey: args.datasetKey,
-    basisOfRecord: args.basisOfRecord,
+    month: parseInputArrayParam(args.month),
+    datasetKey: parseInputArrayParam(args.datasetKey),
+    basisOfRecord: parseInputArrayParam(args.basisOfRecord),
+    gadmGid: parseInputArrayParam(args.administrativeArea),
     hasCoordinate: args.hasCoordinate,
     hasGeospatialIssue: args.hasGeospatialIssue,
     size: Math.min(args.limit ?? 0, 1000),
     from: args.offset ?? 0,
-    facet: args.facet,
-    stats: args.stats,
-    cardinality: args.cardinality,
-    facetLimit: args.facetLimit,
-    facetOffset: args.facetOffset,
+    stats: parseInputArrayParam(args.stats),
+    cardinality: parseInputArrayParam(args.cardinality),
+    facet: args?.facet?.field,
+    facetLimit: args?.facet?.limit,
+    facetOffset: args?.facet?.offset,
+    histogram: args?.histogram?.field,
+    histogramInterval: args?.histogram?.interval,
   };
   // parse parameter values for negated terms and then remove the ~ and add a negation flag ! in fromt of the parameter name
   Object.keys(params).forEach((key) => {
@@ -133,6 +89,10 @@ export function prepareParams(args) {
     limit,
     offset,
     facet,
+    histogram,
+    histogramInterval,
+    stats,
+    cardinality,
     facetLimit,
     facetOffset,
     ...uiParams

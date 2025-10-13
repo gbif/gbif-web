@@ -1,9 +1,9 @@
-import { getParsedName } from '#/helpers/scientificName';
-import { getTaxonAgent } from '#/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
 import { uniqBy } from 'lodash';
 import { matchSorter } from 'match-sorter';
 import { stringify } from 'qs';
+import { getTaxonAgent } from '#/requestAgents';
+import { getParsedName } from '#/helpers/scientificName';
 import colSuggest from './colSuggest';
 
 class TaxonAPI extends RESTDataSource {
@@ -146,32 +146,32 @@ class TaxonAPI extends RESTDataSource {
     strictMatching,
     taxonScope = [],
   }) {
-    if (Math.random() > -1) {
-      try {
-        const metadata = await this.getChecklistMetadata({
-          checklistKey,
-        });
-        const result = await colSuggest({
-          q,
-          checklistKey: metadata.mainIndex.clbDatasetKey,
-          language,
-          limit,
-          taxonScope,
-          vernacularNamesOnly,
-          preferAccepted,
-        });
-        return result;
-      } catch (e) {
-        console.error('Error getting checklist metadata', e);
-        throw e;
-      }
-    }
+    // if (Math.random() > -1) {
+    //   try {
+    //     const metadata = await this.getChecklistMetadata({
+    //       checklistKey,
+    //     });
+    //     const result = await colSuggest({
+    //       q,
+    //       checklistKey: metadata.mainIndex.clbDatasetKey,
+    //       language,
+    //       limit,
+    //       taxonScope,
+    //       vernacularNamesOnly,
+    //       preferAccepted,
+    //     });
+    //     return result;
+    //   } catch (e) {
+    //     console.error('Error getting checklist metadata', e);
+    //     throw e;
+    //   }
+    // }
 
     // get vernacular names
     const responseVernacularPromise = language
       ? this.searchTaxa({
           query: {
-            datasetKey,
+            datasetKey: checklistKey,
             q,
             limit: 100,
             qField: 'VERNACULAR',
@@ -194,7 +194,7 @@ class TaxonAPI extends RESTDataSource {
       // scientificResults = responseScientific.results;
 
       const responseScientificSuggestions = await this.get(
-        `/species/suggest?limit=100&q=${q}&datasetKey=${datasetKey}`,
+        `/species/suggest?limit=100&q=${q}&datasetKey=${checklistKey}`,
       );
       // for each result, check if it is a synonym=true, if so get the full result and from that the accepted result
       // e.g. https://api.gbif.org/v1/species/8156363
@@ -239,7 +239,7 @@ class TaxonAPI extends RESTDataSource {
     let uniqueResults = uniqBy(results, 'key');
 
     // if the datasetKey is not the backbone, then we need to get the backbone taxon
-    if (datasetKey !== this.config.gbifBackboneUUID) {
+    if (checklistKey !== this.config.gbifBackboneUUID) {
       const uniqueNubKeyResults = uniqBy(results, 'nubKey');
       await promiseForEach(uniqueNubKeyResults, async (x) => {
         // for some reason only some results have a nubKey. There can be two results from the backbone dataset, one has a nubKey the other doesn't. Both accepted names.

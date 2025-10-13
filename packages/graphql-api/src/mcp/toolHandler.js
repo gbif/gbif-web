@@ -1,21 +1,10 @@
 import { SEARCH_GUIDE } from './guides';
-import {
-  handleDatasetSearch,
-  handleOccurrenceSearch,
-  handleSpeciesSuggest,
-} from './handlers/handlers';
+import handleDatasetSearch from './handlers/handleDatasetSearch';
+import handleGadmSearch from './handlers/handleGadmSearch';
+import handleOccurrenceSearch from './handlers/handleOccurrenceSearch';
 import handleSpeciesMatch from './handlers/handleSpeciesMatch';
 import handleSpeciesSearch from './handlers/handleSpeciesSearch';
-
-export class McpError extends Error {
-  constructor(
-    message = 'Unable to fetch data right now, please try again later.',
-    status = 500,
-  ) {
-    super(message);
-    this.status = status;
-  }
-}
+import { McpError } from './handlers/utils';
 
 export default async function toolHandler(tool, args) {
   try {
@@ -23,7 +12,7 @@ export default async function toolHandler(tool, args) {
 
     switch (tool) {
       case 'gbif_usage_guidelines': {
-        console.log('guidelines requested');
+        console.log('guidelines requested with the query:', args.query);
         result = {
           content: [
             {
@@ -36,27 +25,27 @@ export default async function toolHandler(tool, args) {
       }
       case 'occurrence_search': {
         validateUsageToken(args);
-        result = handleOccurrenceSearch(args);
+        result = await handleOccurrenceSearch(args);
         break;
       }
       case 'species_search': {
         validateUsageToken(args);
-        result = handleSpeciesSearch(args);
+        result = await handleSpeciesSearch(args);
+        break;
+      }
+      case 'gadm_search': {
+        validateUsageToken(args);
+        result = await handleGadmSearch(args);
         break;
       }
       case 'species_match': {
         validateUsageToken(args);
-        result = handleSpeciesMatch(args);
-        break;
-      }
-      case 'species_suggest': {
-        validateUsageToken(args);
-        result = handleSpeciesSuggest(args);
+        result = await handleSpeciesMatch(args);
         break;
       }
       case 'dataset_search': {
         validateUsageToken(args);
-        result = handleDatasetSearch(args);
+        result = await handleDatasetSearch(args);
         break;
       }
       default:
