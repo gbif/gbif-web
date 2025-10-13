@@ -34,10 +34,14 @@ class LocalContextAPI extends RESTDataSource {
   }
 
   async getLocalContext(endpoint) {
-    return this.get(getLocalContextAPIEndpoint(endpoint)).catch((err) => {
+    const url = getLocalContextAPIEndpoint(endpoint);
+    return this.get(getLocalContextAPIEndpoint(url)).catch((err) => {
       // silently ignore errors for individual tags
       if (this.config.debug) {
-        console.error(`Error fetching local context for ${endpoint}:`, err);
+        console.error(
+          `Error fetching local context for ${endpoint}, ${url}:`,
+          err,
+        );
       }
       return null;
     });
@@ -49,7 +53,8 @@ class LocalContextAPI extends RESTDataSource {
       const parsedProperties = JSON.parse(dynamicProperties);
       const projectId =
         parsedProperties?.local_contexts_project_id ??
-        parsedProperties?.local_context_project_uri;
+        parsedProperties?.local_context_project_uri ??
+        parsedProperties?.[0]?.local_contexts_project_id;
       if (projectId) {
         return this.getLocalContext(projectId);
       }
