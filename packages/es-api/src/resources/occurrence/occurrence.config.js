@@ -292,6 +292,22 @@ const config = {
       type: 'keyword',
       field: 'gadm.gids',
     },
+    gadmLevel0Gid: {
+      type: 'keyword',
+      field: 'gadm.level0Gid',
+    },
+    gadmLevel1Gid: {
+      type: 'keyword',
+      field: 'gadm.level1Gid',
+    },
+    gadmLevel2Gid: {
+      type: 'keyword',
+      field: 'gadm.level2Gid',
+    },
+    gadmLevel3Gid: {
+      type: 'keyword',
+      field: 'gadm.level3Gid',
+    },
     key: {
       type: 'numeric',
       field: 'gbifId',

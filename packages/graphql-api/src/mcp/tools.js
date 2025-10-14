@@ -269,7 +269,7 @@ const tools = [
             field: {
               type: 'string',
               description:
-                'Dimension to facet by (e.g., taxonKey, country, year, basisOfRecord, datasetKey). Can be a single string or array of strings for multiple facets. For charts please see the guidelines.',
+                'Dimension to facet by (e.g., speciesKey, genusKey, country, year, basisOfRecord, datasetKey, gadmLevel0Gid (country), gadmLevel1Gid, gadmLevel2Gid, gadmLevel3Gid). For charts please see the guidelines.',
             },
             limit: {
               type: 'number',
@@ -282,7 +282,7 @@ const tools = [
             },
           },
           description:
-            'Dimension to facet by (e.g., taxonKey, country, year, basisOfRecord, datasetKey). Can be a single string or array of strings for multiple facets. For charts please see the guidelines.',
+            'Dimension to facet by (e.g., speciesKey, country, year, basisOfRecord, datasetKey). For charts please see the guidelines.',
         },
         stats: {
           oneOf: [

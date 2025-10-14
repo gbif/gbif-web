@@ -94,6 +94,15 @@ async function searchForName({
   taxonScope = [],
 }) {
   const datasetKey = config.gbifBackboneUUID;
+
+  const upperFirstQuery = q.charAt(0).toUpperCase() + q.slice(1);
+  const matchPromise = apiV2Client.get('/species/match', {
+    datasetKey,
+    scientificName: upperFirstQuery,
+    strict: false,
+    verbose: true,
+  });
+
   // get vernacular names
   const vernacularPromise = apiClient.get('/species/search', {
     datasetKey,
@@ -107,14 +116,6 @@ async function searchForName({
     q,
     limit,
     qField: 'SCIENTIFIC',
-  });
-
-  const upperFirstQuery = q.charAt(0).toUpperCase() + q.slice(1);
-  const matchPromise = apiV2Client.get('/species/match', {
-    datasetKey,
-    scientificName: upperFirstQuery,
-    strict: false,
-    verbose: true,
   });
 
   const [responseVernacular, responseScientific, matchResult] =

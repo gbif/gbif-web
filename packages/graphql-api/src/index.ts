@@ -27,6 +27,7 @@ import formController from './api-utils/forms/index.ctrl';
 import geometryController from './api-utils/geometry/index.ctrl.js';
 import helperController from './api-utils/helpers.ctrl.js';
 import mcpController from './mcp/routes.ctrl.js';
+import mcpController2 from './mcp/test.ctrl.js';
 import ipController from './api-utils/ip2country.ctrl.js';
 import mapController from './api-utils/maps/index.ctrl.js';
 import polygonName from './api-utils/polygonName.ctrl.js';
@@ -147,6 +148,7 @@ async function initializeServer() {
   sourceArchiveCtrl(app);
   citesController(app);
   mcpController(app);
+  mcpController2(app);
   app.listen({ port: config.port }, () =>
     console.log(
       `🚀 Server ready at http://localhost:${config.port}${server.graphqlPath}`,
