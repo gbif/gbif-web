@@ -16,19 +16,22 @@ import { FilterPopover } from './filterPopover';
 import { ContentOnApply, Filters, sortFilters } from './filterTools';
 
 const ContentWrapper = React.forwardRef(
-  ({
-    onApply,
-    onCancel,
-    pristine,
-    filters,
-    groups,
-  }: {
-    onApply?: ContentOnApply;
-    onCancel?: () => void;
-    pristine?: boolean;
-    filters: Filters;
-    groups?: string[];
-  }) => {
+  (
+    {
+      onApply,
+      onCancel,
+      pristine,
+      filters,
+      groups,
+    }: {
+      onApply?: ContentOnApply;
+      onCancel?: () => void;
+      pristine?: boolean;
+      filters: Filters;
+      groups?: string[];
+    },
+    ref
+  ) => {
     const { formatMessage } = useIntl();
     const placeholder = formatMessage({
       id: 'search.placeholders.default',
