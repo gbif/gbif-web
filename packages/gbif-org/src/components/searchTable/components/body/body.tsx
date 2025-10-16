@@ -26,7 +26,7 @@ function Body<T>({
   firstColumnIsLocked,
   createRowLink,
 }: Props<T>) {
-  const initialLoading = loading && items.length === 0;
+  const initialLoading = items.length === 0;
 
   return (
     <TableBody>
