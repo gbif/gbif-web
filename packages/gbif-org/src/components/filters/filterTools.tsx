@@ -604,11 +604,19 @@ const getGeologicalTimeFilter = ({
   );
 };
 
+export type ContentOnApply = ({
+  keepOpen,
+  filter,
+}?: {
+  keepOpen?: boolean;
+  filter?: FilterType;
+}) => void;
+
 export type FilterSetting = {
   Button: React.FC<{ className?: string }>;
   Popover: React.FC<{ trigger: React.ReactNode }>;
   Content: React.FC<{
-    onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+    onApply?: ContentOnApply;
     onCancel?: () => void;
     ref?: React.ForwardedRef<unknown>;
     className?: string;
@@ -625,6 +633,8 @@ export type FilterSetting = {
   group?: string;
   order?: number;
 };
+
+export type Filters = Record<string, FilterSetting>;
 
 type FilterSettingDefaults = {
   Button: React.FC<{ className?: string }>;
@@ -930,7 +940,7 @@ export function FilterButtons({
     .reduce((acc, filterHandle) => {
       const filterConfig = filters[filterHandle];
       return { ...acc, [filterHandle]: filterConfig };
-    }, {});
+    }, {} as Record<string, FilterSetting>);
 
   return (
     <>
@@ -1114,4 +1124,19 @@ export function ExistsSection({
       <ApplyCancel onApply={onApply} onCancel={onCancel} pristine={pristine} />
     </>
   );
+}
+
+export function sortFilters(a: FilterSetting, b: FilterSetting) {
+  // sort by order f available and else by translated filterName
+  const xOrder = a?.order ?? 1000;
+  const yOrder = b?.order ?? 1000;
+  if (xOrder < yOrder) return -1;
+  if (xOrder > yOrder) return 1;
+
+  // sort filters by translatedFilterName
+  const xName = a?.translatedFilterName ?? a;
+  const yName = b?.translatedFilterName ?? b;
+  if (xName < yName) return -1;
+  if (xName > yName) return 1;
+  return 0;
 }

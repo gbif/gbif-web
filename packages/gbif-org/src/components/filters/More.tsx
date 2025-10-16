@@ -8,43 +8,27 @@ import {
   CommandList,
   CommandSeparator,
 } from '@/components/ui/command';
-import { FilterType } from '@/contexts/filter';
 import { normalizeString } from '@/utils/normalizeString';
 import React, { useEffect, useRef } from 'react';
 import { MdArrowBack } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { FilterPopover } from './filterPopover';
-import { FilterSetting } from './filterTools';
+import { ContentOnApply, Filters, sortFilters } from './filterTools';
 
-type Filters = {
-  [key: string]: {
-    translatedFilterName: string;
-    Content: React.FC<{
-      onApply?: ({ keepOpen, filter }: { keepOpen?: boolean; filter?: FilterType }) => void;
-      onCancel?: () => void;
-      ref: React.ForwardedRef<unknown>;
-    }>;
-    group?: string;
-    order?: number;
-  };
-};
 const ContentWrapper = React.forwardRef(
-  (
-    {
-      onApply,
-      onCancel,
-      pristine,
-      filters,
-      groups,
-    }: {
-      onApply?: ({ keepOpen, filter }: { keepOpen?: boolean; filter?: FilterType }) => void;
-      onCancel?: () => void;
-      pristine?: boolean;
-      filters: Filters;
-      groups?: string[];
-    },
-    ref
-  ) => {
+  ({
+    onApply,
+    onCancel,
+    pristine,
+    filters,
+    groups,
+  }: {
+    onApply?: ContentOnApply;
+    onCancel?: () => void;
+    pristine?: boolean;
+    filters: Filters;
+    groups?: string[];
+  }) => {
     const { formatMessage } = useIntl();
     const placeholder = formatMessage({
       id: 'search.placeholders.default',
@@ -151,35 +135,26 @@ function Group({
   const header = title ?? (name ? `dashboard.group.${name}` : undefined);
   return (
     <CommandGroup heading={header ? <FormattedMessage id={header} /> : undefined}>
-      {Object.keys(filters)
-        .filter((filterHandle) => filters[filterHandle]?.group === name)
-        .sort(sortFilters(filters))
-        .map((filterHandle) => {
-          const { translatedFilterName } = filters[filterHandle];
-          return (
-            <CommandItem
-              key={filterHandle}
-              value={translatedFilterName}
-              className="g-flex g-items-center g-justify-between g-w-full"
-              onSelect={() => {
-                onSelect(filterHandle);
-              }}
-            >
-              {translatedFilterName}
-            </CommandItem>
-          );
-        })}
+      {Object.values(filters)
+        .filter((filter) => filter.group === name)
+        .sort(sortFilters)
+        .map((filter) => (
+          <CommandItem
+            key={filter.handle}
+            value={filter.translatedFilterName}
+            className="g-flex g-items-center g-justify-between g-w-full"
+            onSelect={() => {
+              onSelect(filter.handle);
+            }}
+          >
+            {filter.translatedFilterName}
+          </CommandItem>
+        ))}
     </CommandGroup>
   );
 }
 
-export default function MoreFilters({
-  filters,
-  groups,
-}: {
-  filters: { [key: string]: any };
-  groups?: string[];
-}) {
+export default function MoreFilters({ filters, groups }: { filters: Filters; groups?: string[] }) {
   return (
     <FilterPopover
       trigger={

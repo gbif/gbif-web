@@ -50,5 +50,9 @@ export { Popover, PopoverContent, PopoverTrigger };
 
 function getPopoverContainer() {
   if (typeof window === 'undefined') return undefined;
-  return document.querySelector<HTMLElement>('.drawer-popover-container') ?? document.body;
+  return (
+    document.querySelector<HTMLElement>('.dialog-popover-container') ??
+    document.querySelector<HTMLElement>('.drawer-popover-container') ??
+    document.body
+  );
 }

@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogBottomSheetContent, DialogTrigger } from '@/components/ui/dialog';
 import { FilterContext } from '@/contexts/filter';
 import { SearchMetadata } from '@/contexts/search';
 import { cn } from '@/utils/shadcn';
@@ -53,13 +53,16 @@ export function MobileFilterDialog({
           )}
         </Button>
       </DialogTrigger>
-      <DialogContent animation="bottom-slide" hideCloseButton className="g-h-[80vh] g-w-full g-p-0">
+      <DialogBottomSheetContent
+        className="g-w-full g-p-0"
+        onOpenAutoFocus={(e) => e.preventDefault()}
+      >
         <MobileFilterDrawerContent
           filters={filters}
           groups={groups}
           searchContext={searchContext}
         />
-      </DialogContent>
+      </DialogBottomSheetContent>
     </Dialog>
   );
 }

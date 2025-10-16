@@ -4,7 +4,7 @@ import { FilterProvider } from '@/contexts/filter';
 import { SearchMetadata } from '@/contexts/search';
 import React, { useEffect, useState } from 'react';
 import { MdArrowBack, MdClose } from 'react-icons/md';
-import { FilterSetting } from './filterTools';
+import { FilterSetting, sortFilters } from './filterTools';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import {
   Command,
@@ -16,7 +16,6 @@ import {
   CommandSeparator,
 } from '../ui/command';
 import { getFilterSummary } from './filterTools';
-import { sortFilters } from './More';
 
 type Filters = Record<string, FilterSetting>;
 
@@ -95,59 +94,58 @@ export const MobileFilterDrawerContent = React.forwardRef<
         </div>
       )}
 
-      <div className="g-flex-1 g-overflow-hidden">
-        {!activeFilterHandle && (
-          <Command className="g-h-full">
-            <CommandInput
-              placeholder={formatMessage({
-                id: 'search.placeholders.default',
-                defaultMessage: 'Search filters',
-              })}
+      {!activeFilterHandle && (
+        <Command className="g-h-full">
+          <CommandInput
+            autoFocus={false}
+            placeholder={formatMessage({
+              id: 'search.placeholders.default',
+              defaultMessage: 'Search filters',
+            })}
+          />
+
+          <CommandEmpty className="g-p-4">
+            <FormattedMessage
+              id="filterSupport.noMathcingFilters"
+              defaultMessage="No matching filters"
+            />
+          </CommandEmpty>
+
+          <CommandList className="g-flex-1 g-overflow-y-auto g-max-h-none">
+            <ActiveFilters
+              filters={filters}
+              onSelectFilter={setActiveFilterHandle}
+              onClearFilter={handleClearFilter}
             />
 
-            <CommandEmpty className="g-p-4">
-              <FormattedMessage
-                id="filterSupport.noMathcingFilters"
-                defaultMessage="No matching filters"
-              />
-            </CommandEmpty>
+            <HighlightedFilters
+              filters={filters}
+              searchContext={searchContext}
+              onSelectFilter={setActiveFilterHandle}
+            />
 
-            <CommandList className="g-flex-1 g-overflow-y-auto g-max-h-none">
-              <ActiveFilters
-                filters={filters}
-                onSelectFilter={setActiveFilterHandle}
-                onClearFilter={handleClearFilter}
-              />
+            <OtherFilters
+              filters={filters}
+              groups={groups}
+              searchContext={searchContext}
+              onSelectFilter={setActiveFilterHandle}
+            />
+          </CommandList>
+        </Command>
+      )}
 
-              <HighlightedFilters
-                filters={filters}
-                searchContext={searchContext}
-                onSelectFilter={setActiveFilterHandle}
-              />
-
-              <OtherFilters
-                filters={filters}
-                groups={groups}
-                searchContext={searchContext}
-                onSelectFilter={setActiveFilterHandle}
-              />
-            </CommandList>
-          </Command>
-        )}
-
-        {activeFilterHandle && Content && (
-          <div className="g-flex-1 g-overflow-y-auto">
-            <FilterProvider filter={tmpFilter} onChange={onFilterChange}>
-              <Content
-                onApply={handleApply}
-                onCancel={handleCancel}
-                pristine={pristine}
-                ref={ref as React.ForwardedRef<unknown>}
-              />
-            </FilterProvider>
-          </div>
-        )}
-      </div>
+      {activeFilterHandle && Content && (
+        <div className="g-flex-1 g-overflow-y-auto">
+          <FilterProvider filter={tmpFilter} onChange={onFilterChange}>
+            <Content
+              onApply={handleApply}
+              onCancel={handleCancel}
+              pristine={pristine}
+              ref={ref as React.ForwardedRef<unknown>}
+            />
+          </FilterProvider>
+        </div>
+      )}
     </div>
   );
 });
@@ -167,10 +165,12 @@ const ActiveFilters = React.memo<ActiveFiltersProps>(
     const activeFilters = React.useMemo(() => {
       if (!filterContext) return [];
 
-      return Object.keys(filters).filter((handle) => {
-        const summary = getFilterSummary(filterContext.filter, handle);
-        return summary.defaultCount > 0;
-      });
+      return Object.values(filters)
+        .filter((filter) => {
+          const summary = getFilterSummary(filterContext.filter, filter.handle);
+          return summary.defaultCount > 0;
+        })
+        .sort(sortFilters);
     }, [filters, filterContext]);
 
     if (activeFilters.length === 0) return null;
@@ -178,21 +178,18 @@ const ActiveFilters = React.memo<ActiveFiltersProps>(
     return (
       <>
         <CommandGroup heading={<FormattedMessage id="filterSupport.activeFilters" />}>
-          {activeFilters.map((filterHandle) => {
-            const filterConfig = filters[filterHandle];
-            if (!filterConfig) return null;
-
-            const summary = getFilterSummary(filterContext?.filter || {}, filterHandle);
+          {activeFilters.map((filter) => {
+            const summary = getFilterSummary(filterContext?.filter || {}, filter.handle);
 
             return (
               <CommandItem
-                key={filterHandle}
-                onSelect={() => onSelectFilter(filterHandle)}
+                key={filter.handle}
+                onSelect={() => onSelectFilter(filter.handle)}
                 className="g-flex g-items-center g-justify-between"
               >
                 <div className="g-flex g-items-center g-gap-2">
                   <span className="g-font-medium g-text-primary-600">
-                    {filterConfig.translatedFilterName}
+                    {filter.translatedFilterName}
                   </span>
                   <span className="g-font-medium g-bg-primary-400 g-text-xs g-rounded-full g-text-primaryContrast g-size-5 g-flex g-items-center g-justify-center">
                     <FormattedNumber value={summary.defaultCount} />
@@ -203,10 +200,10 @@ const ActiveFilters = React.memo<ActiveFiltersProps>(
                   variant="ghost"
                   onClick={(e) => {
                     e.stopPropagation();
-                    onClearFilter(filterHandle);
+                    onClearFilter(filter.handle);
                   }}
                   className="g-p-1 g-h-6 g-w-6 g-text-slate-500 hover:g-text-slate-700"
-                  aria-label={`Clear ${filterConfig.translatedFilterName} filter`}
+                  aria-label={`Clear ${filter.translatedFilterName} filter`}
                 >
                   <MdClose className="g-h-4 g-w-4" />
                 </Button>
@@ -235,35 +232,32 @@ const HighlightedFilters = React.memo<HighlightedFiltersProps>(
     const inactiveHighlightedFilters = React.useMemo(() => {
       const highlightedFilters = searchContext?.highlightedFilters || [];
 
-      return highlightedFilters.filter((handle) => {
-        const summary = getFilterSummary(filterContext?.filter || {}, handle);
-        return summary.defaultCount === 0;
-      });
-    }, [searchContext, filterContext]);
+      return highlightedFilters
+        .filter((handle) => {
+          const summary = getFilterSummary(filterContext?.filter || {}, handle);
+          return summary.defaultCount === 0;
+        })
+        .map((handle) => filters[handle]);
+    }, [searchContext, filterContext, filters]);
 
     if (inactiveHighlightedFilters.length === 0) return null;
 
     return (
       <>
         <CommandGroup heading={<FormattedMessage id="filterSupport.highlighted" />}>
-          {inactiveHighlightedFilters.map((filterHandle) => {
-            const filterConfig = filters[filterHandle];
-            if (!filterConfig) return null;
-
-            return (
-              <CommandItem
-                key={filterHandle}
-                onSelect={() => onSelectFilter(filterHandle)}
-                className="g-flex g-items-center g-justify-between"
-              >
-                <div className="g-flex g-items-center g-gap-2">
-                  <span className="g-font-medium g-text-slate-700">
-                    {filterConfig.translatedFilterName}
-                  </span>
-                </div>
-              </CommandItem>
-            );
-          })}
+          {inactiveHighlightedFilters.map((filter) => (
+            <CommandItem
+              key={filter.handle}
+              onSelect={() => onSelectFilter(filter.handle)}
+              className="g-flex g-items-center g-justify-between"
+            >
+              <div className="g-flex g-items-center g-gap-2">
+                <span className="g-font-medium g-text-slate-700">
+                  {filter.translatedFilterName}
+                </span>
+              </div>
+            </CommandItem>
+          ))}
         </CommandGroup>
         <CommandSeparator />
       </>
@@ -284,30 +278,33 @@ const OtherFilters = React.memo<OtherFiltersProps>(
   ({ filters, groups, searchContext, onSelectFilter }) => {
     const filterContext = React.useContext(FilterContext);
 
-    const filterState = React.useMemo(() => {
+    const { otherFilters, filteredGroups, hasGroups } = React.useMemo(() => {
       // Get highlighted filters (configured to be highlighted by default)
       const highlightedFilters = searchContext?.highlightedFilters || [];
 
       // Get all other filters (non-highlighted and inactive)
-      const otherFilters = Object.keys(filters)
-        .filter((handle) => {
+      const otherFilters = Object.values(filters)
+        .filter((filter) => {
           // Exclude highlighted filters
-          if (highlightedFilters.includes(handle)) return false;
+          if (highlightedFilters.includes(filter.handle)) return false;
 
           // Exclude active filters (they go in the "Active filters" section)
           if (filterContext) {
-            const summary = getFilterSummary(filterContext.filter, handle);
+            const summary = getFilterSummary(filterContext.filter, filter.handle);
             if (summary.defaultCount > 0) return false;
           }
 
           return true;
         })
-        .sort(sortFilters(filters));
+        .sort(sortFilters);
 
       // Filter groups to only show groups with filters in them
-      const filteredGroups = groups?.filter((group) =>
-        otherFilters.some((filterHandle) => filters[filterHandle]?.group === group)
-      );
+      const filteredGroups = groups
+        ?.map((group) => ({
+          name: group,
+          filters: otherFilters.filter((filter) => filter.group === group),
+        }))
+        .filter((group) => group.filters.length > 0);
 
       const hasGroups = filteredGroups && filteredGroups.length > 0;
 
@@ -318,47 +315,31 @@ const OtherFilters = React.memo<OtherFiltersProps>(
       };
     }, [filters, groups, searchContext, filterContext]);
 
-    if (filterState.otherFilters.length === 0) return null;
+    if (otherFilters.length === 0) return null;
 
     return (
       <>
-        {!filterState.hasGroups && (
+        {!hasGroups && (
           <CommandGroup>
-            {filterState.otherFilters.map((filterHandle) => {
-              const filterConfig = filters[filterHandle];
-              if (!filterConfig) return null;
-
-              return (
-                <CommandItem key={filterHandle} onSelect={() => onSelectFilter(filterHandle)}>
-                  {filterConfig.translatedFilterName}
-                </CommandItem>
-              );
-            })}
+            {otherFilters.map((filter) => (
+              <CommandItem key={filter.handle} onSelect={() => onSelectFilter(filter.handle)}>
+                {filter.translatedFilterName}
+              </CommandItem>
+            ))}
           </CommandGroup>
         )}
-        {filterState.hasGroups &&
-          filterState.filteredGroups?.map((group, i) => {
-            const groupFilters = filterState.otherFilters.filter(
-              (filterHandle) => filters[filterHandle]?.group === group
-            );
-
-            if (groupFilters.length === 0) return null;
-
+        {hasGroups &&
+          filteredGroups?.map((group, i) => {
             return (
-              <React.Fragment key={group}>
-                <CommandGroup heading={<FormattedMessage id={`dashboard.group.${group}`} />}>
-                  {groupFilters.map((filterHandle) => {
-                    const filterConfig = filters[filterHandle];
-                    if (!filterConfig) return null;
-
-                    return (
-                      <CommandItem key={filterHandle} onSelect={() => onSelectFilter(filterHandle)}>
-                        {filterConfig.translatedFilterName}
-                      </CommandItem>
-                    );
-                  })}
+              <React.Fragment key={group.name}>
+                <CommandGroup heading={<FormattedMessage id={`dashboard.group.${group.name}`} />}>
+                  {group.filters.map((filter) => (
+                    <CommandItem key={filter.handle} onSelect={() => onSelectFilter(filter.handle)}>
+                      {filter.translatedFilterName}
+                    </CommandItem>
+                  ))}
                 </CommandGroup>
-                {i < (filterState.filteredGroups?.length ?? 0) - 1 && <CommandSeparator />}
+                {i < (filteredGroups?.length ?? 0) - 1 && <CommandSeparator />}
               </React.Fragment>
             );
           })}
