@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { FilterContext, FilterType } from '@/contexts/filter';
 import { FilterProvider } from '@/contexts/filter';
 import { SearchMetadata } from '@/contexts/search';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { MdArrowBack, MdClose } from 'react-icons/md';
 import { FilterSetting, sortFilters } from './filterTools';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
@@ -16,6 +16,7 @@ import {
   CommandSeparator,
 } from '../ui/command';
 import { getFilterSummary } from './filterTools';
+import { cn } from '@/utils/shadcn';
 
 type Filters = Record<string, FilterSetting>;
 
@@ -33,6 +34,8 @@ export const MobileFilterDrawerContent = React.forwardRef<
   const [pristine, setPristine] = useState(true);
   const [tmpFilter, setTmpFilter] = useState(filterContext?.filter || {});
   const Content = activeFilterHandle ? filters?.[activeFilterHandle]?.Content : null;
+  const commandListRef = useRef<HTMLDivElement>(null);
+  const commandInputRef = useRef<HTMLInputElement>(null);
 
   // onApply function for filter content
   const handleApply = ({ keepOpen, filter }: { keepOpen?: boolean; filter?: FilterType } = {}) => {
@@ -41,6 +44,14 @@ export const MobileFilterDrawerContent = React.forwardRef<
     }
     if (!keepOpen) {
       setActiveFilterHandle(null);
+      // Scroll Command list to top when filter is applied
+      if (commandListRef.current) {
+        commandListRef.current.scrollTop = 0;
+      }
+      // Clear the search input when filter is applied
+      if (commandInputRef.current) {
+        commandInputRef.current.value = '';
+      }
     }
     setPristine(true);
   };
@@ -94,45 +105,47 @@ export const MobileFilterDrawerContent = React.forwardRef<
         </div>
       )}
 
-      {!activeFilterHandle && (
-        <Command className="g-h-full">
-          <CommandInput
-            autoFocus={false}
-            placeholder={formatMessage({
-              id: 'search.placeholders.default',
-              defaultMessage: 'Search filters',
-            })}
+      <Command
+        className={cn('g-h-full', activeFilterHandle && 'g-hidden')}
+        aria-hidden={activeFilterHandle ? true : undefined}
+      >
+        <CommandInput
+          ref={commandInputRef}
+          autoFocus={false}
+          placeholder={formatMessage({
+            id: 'search.placeholders.default',
+            defaultMessage: 'Search filters',
+          })}
+        />
+
+        <CommandEmpty className="g-p-4">
+          <FormattedMessage
+            id="filterSupport.noMathcingFilters"
+            defaultMessage="No matching filters"
+          />
+        </CommandEmpty>
+
+        <CommandList ref={commandListRef} className="g-flex-1 g-overflow-y-auto g-max-h-none">
+          <ActiveFilters
+            filters={filters}
+            onSelectFilter={setActiveFilterHandle}
+            onClearFilter={handleClearFilter}
           />
 
-          <CommandEmpty className="g-p-4">
-            <FormattedMessage
-              id="filterSupport.noMathcingFilters"
-              defaultMessage="No matching filters"
-            />
-          </CommandEmpty>
+          <HighlightedFilters
+            filters={filters}
+            searchContext={searchContext}
+            onSelectFilter={setActiveFilterHandle}
+          />
 
-          <CommandList className="g-flex-1 g-overflow-y-auto g-max-h-none">
-            <ActiveFilters
-              filters={filters}
-              onSelectFilter={setActiveFilterHandle}
-              onClearFilter={handleClearFilter}
-            />
-
-            <HighlightedFilters
-              filters={filters}
-              searchContext={searchContext}
-              onSelectFilter={setActiveFilterHandle}
-            />
-
-            <OtherFilters
-              filters={filters}
-              groups={groups}
-              searchContext={searchContext}
-              onSelectFilter={setActiveFilterHandle}
-            />
-          </CommandList>
-        </Command>
-      )}
+          <OtherFilters
+            filters={filters}
+            groups={groups}
+            searchContext={searchContext}
+            onSelectFilter={setActiveFilterHandle}
+          />
+        </CommandList>
+      </Command>
 
       {activeFilterHandle && Content && (
         <div className="g-flex-1 g-overflow-y-auto">
