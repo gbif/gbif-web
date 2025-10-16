@@ -3,7 +3,7 @@
   "private": true,
   "devDependencies": {
     "husky": "^9.0.7",
-    "lerna": "^3.20.2"
+    "lerna": "^8.2.3"
   },
   "scripts": {
     "prepare": "husky"
