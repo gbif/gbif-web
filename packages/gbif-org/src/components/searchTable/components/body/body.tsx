@@ -11,6 +11,7 @@ type Props<T> = {
   items: T[];
   keySelector(item: T): string;
   filteredColumns: ColumnDef<T>[];
+  rowCount?: number | null;
   isHorizontallyScrolled: boolean;
   firstColumnIsLocked: boolean;
   createRowLink?: CreateRowLink<T>;
@@ -22,11 +23,12 @@ function Body<T>({
   items,
   keySelector,
   filteredColumns,
+  rowCount,
   isHorizontallyScrolled,
   firstColumnIsLocked,
   createRowLink,
 }: Props<T>) {
-  const initialLoading = items.length === 0;
+  const initialLoading = items.length === 0 && (loading || rowCount == null);
 
   return (
     <TableBody>

@@ -109,6 +109,7 @@ function SearchTable<T>({
             items={data}
             loading={loading}
             filteredColumns={filteredColumns}
+            rowCount={rowCount}
             isHorizontallyScrolled={isHorizontallyScrolled}
             firstColumnIsLocked={firstColumnIsLocked}
             keySelector={keySelector}
