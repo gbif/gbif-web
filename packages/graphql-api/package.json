@@ -37,7 +37,7 @@
     "dompurify": "^2.2.2",
     "express": "^4.17.1",
     "glob": "^8.0.3",
-    "got": "^10.7.0",
+    "got": "^11.8.5",
     "graphql": "^16.0.0",
     "graphql-depth-limit": "^1.1.0",
     "graphql-scalars": "1.14.1",
