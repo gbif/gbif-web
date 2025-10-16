@@ -25,6 +25,7 @@
   "updateFilter": "Update filter",
   "setFilter": "Set as filter",
   "noMathcingFilters": "No matching filters",
+  "countsUnavailable": "Counts unavailable",
   "nameWithTaxonMatchIssue": "Name before normalisation",
   "commonName": "Common name",
   "acceptedNameOf": "Accepted name for",

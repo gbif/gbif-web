@@ -1,4 +1,5 @@
 import { SimpleTooltip } from '@/components/simpleTooltip';
+import { Skeleton } from '@/components/ui/skeleton';
 import { cleanUpFilter, FilterContext, FilterType } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import useQuery from '@/hooks/useQuery';
@@ -75,14 +76,12 @@ export const EnumFilter = React.forwardRef(
       lazyLoad: true,
     });
 
-    const {
-      data: noFilterFacetData,
-      error: noFilterFacetError,
-      loading: noFilterFacetLoading,
-      load: noFilterFacetLoad,
-    } = useQuery<FacetQuery, unknown>(facetQuery ?? '', {
-      lazyLoad: true,
-    });
+    const { data: noFilterFacetData, load: noFilterFacetLoad } = useQuery<FacetQuery, unknown>(
+      facetQuery ?? '',
+      {
+        lazyLoad: true,
+      }
+    );
 
     // watch filter summary and update filter type
     useEffect(() => {
@@ -252,6 +251,8 @@ export const EnumFilter = React.forwardRef(
       );
     }
 
+    const loading = facetLoading || (!facetSuggestions && !!facetQuery);
+
     return (
       <div
         className="g-flex g-flex-col g-overflow-hidden g-max-h-[90dvh]"
@@ -294,41 +295,83 @@ export const EnumFilter = React.forwardRef(
                 <FormattedMessage id="filterSupport.noSuggestions" />
               </div>
             )}
-            <AsyncOptions
-              loading={facetLoading || (!facetSuggestions && !!facetQuery)}
-              error={facetError}
-              className="g-p-2 g-pt-2 g-px-4"
-            >
-              <div role="group" className="g-text-sm g-p-2 g-pt-2 g-px-4">
-                {valueOptions &&
-                  valueOptions.map((x, i) => {
-                    return (
-                      <Option
-                        isNegated={useNegations}
-                        key={x}
-                        ref={i === 0 ? ref : undefined}
-                        className="g-mb-2"
-                        onClick={() => {
-                          toggle(filterHandle, x, useNegations);
-                        }}
-                        checked={selected.includes(x.toString())}
-                        // helpText="Longer description can go here"
-                      >
-                        <div className="g-flex g-items-center">
-                          <span className="g-flex-auto">
-                            <DisplayName id={x} />
-                          </span>
-                          <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
-                            {facetSuggestions && (
-                              <FormattedNumber value={facetSuggestions[x] ?? 0} />
-                            )}
-                          </span>
-                        </div>
-                      </Option>
-                    );
-                  })}
-              </div>
-            </AsyncOptions>
+
+            {/* Handle the case where all the options are loaded via facets from the API */}
+            {!enumOptions && (
+              <AsyncOptions loading={loading} error={facetError} className="g-p-2 g-pt-2 g-px-4">
+                <div role="group" className="g-text-sm g-p-2 g-pt-2 g-px-4">
+                  {valueOptions &&
+                    valueOptions.map((x, i) => {
+                      return (
+                        <Option
+                          isNegated={useNegations}
+                          key={x}
+                          ref={i === 0 ? ref : undefined}
+                          className="g-mb-2"
+                          onClick={() => {
+                            toggle(filterHandle, x, useNegations);
+                          }}
+                          checked={selected.includes(x.toString())}
+                        >
+                          <div className="g-flex g-items-center">
+                            <span className="g-flex-auto">
+                              <DisplayName id={x} />
+                            </span>
+                            <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
+                              {facetSuggestions && (
+                                <FormattedNumber value={facetSuggestions[x] ?? 0} />
+                              )}
+                            </span>
+                          </div>
+                        </Option>
+                      );
+                    })}
+                </div>
+              </AsyncOptions>
+            )}
+
+            {/* Handle the case where the options are predefined */}
+            {enumOptions && (
+              <>
+                {facetError && (
+                  <div className="g-px-4 g-py-2 g-text-xs g-text-amber-600">
+                    <FormattedMessage id="filterSupport.countsUnavailable" />
+                  </div>
+                )}
+
+                <div role="group" className="g-text-sm g-p-2 g-pt-2 g-px-4">
+                  {valueOptions &&
+                    valueOptions.map((x, i) => {
+                      return (
+                        <Option
+                          isNegated={useNegations}
+                          key={x}
+                          ref={i === 0 ? ref : undefined}
+                          className="g-mb-2"
+                          onClick={() => {
+                            toggle(filterHandle, x, useNegations);
+                          }}
+                          checked={selected.includes(x.toString())}
+                          // helpText="Longer description can go here"
+                        >
+                          <div className="g-flex g-items-center">
+                            <span className="g-flex-auto">
+                              <DisplayName id={x} />
+                            </span>
+                            <span className="g-flex-none g-text-slate-400 g-text-xs g-ms-1">
+                              {loading ? (
+                                <Skeleton className="g-w-8 g-h-4" />
+                              ) : facetSuggestions ? (
+                                <FormattedNumber value={facetSuggestions[x] ?? 0} />
+                              ) : null}
+                            </span>
+                          </div>
+                        </Option>
+                      );
+                    })}
+                </div>
+              </>
+            )}
           </div>
         </div>
         <ApplyCancel onApply={onApply} onCancel={onCancel} pristine={pristine} />
