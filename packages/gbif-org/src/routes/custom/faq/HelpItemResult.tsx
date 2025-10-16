@@ -29,13 +29,15 @@ export const HelpItemResult = ({
   className?: string;
 }) => {
   const [searchQuery, setSearchQuery] = useStringParam({
-    key: 'q',
+    key: 'question',
     defaultValue: '',
     hideDefault: true,
   });
   const showAsExpanded = item.excerpt && item.body && item.excerpt.length + 300 > item.body.length;
   const [expanded, setExpanded] = useState(
-    searchQuery === `question:${item.identifier}` || showAsExpanded
+    searchQuery === `${item.identifier}` ||
+      encodeURIComponent(searchQuery || '') === `${item.identifier}` ||
+      showAsExpanded
   );
 
   return (
@@ -56,7 +58,7 @@ export const HelpItemResult = ({
             <DynamicLink
               className="g-text-base g-font-semibold g-pl-0"
               pageId="faq"
-              searchParams={{ q: `question:${item.identifier}` }}
+              searchParams={{ question: `${item.identifier}` }}
             >
               <MdLink />
             </DynamicLink>
