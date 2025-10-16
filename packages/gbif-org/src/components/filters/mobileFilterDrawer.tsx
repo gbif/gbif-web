@@ -33,9 +33,9 @@ export const MobileFilterDrawerContent = React.forwardRef<
   const [activeFilterHandle, setActiveFilterHandle] = useState<string | null>(null);
   const [pristine, setPristine] = useState(true);
   const [tmpFilter, setTmpFilter] = useState(filterContext?.filter || {});
+  const [searchValue, setSearchValue] = useState('');
   const Content = activeFilterHandle ? filters?.[activeFilterHandle]?.Content : null;
-  const commandListRef = useRef<HTMLDivElement>(null);
-  const commandInputRef = useRef<HTMLInputElement>(null);
+  const [listVersion, setListVersion] = useState(0);
 
   // onApply function for filter content
   const handleApply = ({ keepOpen, filter }: { keepOpen?: boolean; filter?: FilterType } = {}) => {
@@ -45,13 +45,9 @@ export const MobileFilterDrawerContent = React.forwardRef<
     if (!keepOpen) {
       setActiveFilterHandle(null);
       // Scroll Command list to top when filter is applied
-      if (commandListRef.current) {
-        commandListRef.current.scrollTop = 0;
-      }
+      setListVersion((v) => v + 1);
       // Clear the search input when filter is applied
-      if (commandInputRef.current) {
-        commandInputRef.current.value = '';
-      }
+      setSearchValue('');
     }
     setPristine(true);
   };
@@ -110,7 +106,8 @@ export const MobileFilterDrawerContent = React.forwardRef<
         aria-hidden={activeFilterHandle ? true : undefined}
       >
         <CommandInput
-          ref={commandInputRef}
+          value={searchValue}
+          onValueChange={setSearchValue}
           autoFocus={false}
           placeholder={formatMessage({
             id: 'search.placeholders.default',
@@ -125,7 +122,7 @@ export const MobileFilterDrawerContent = React.forwardRef<
           />
         </CommandEmpty>
 
-        <CommandList ref={commandListRef} className="g-flex-1 g-overflow-y-auto g-max-h-none">
+        <CommandList className="g-flex-1 g-overflow-y-auto g-max-h-none" key={listVersion}>
           <ActiveFilters
             filters={filters}
             onSelectFilter={setActiveFilterHandle}
