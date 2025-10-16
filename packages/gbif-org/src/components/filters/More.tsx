@@ -171,22 +171,3 @@ export default function MoreFilters({ filters, groups }: { filters: Filters; gro
     </FilterPopover>
   );
 }
-
-export function sortFilters(
-  filters: Record<string, Pick<FilterSetting, 'order' | 'translatedFilterName'>>
-) {
-  return (a: string, b: string) => {
-    // sort by order f available and else by translated filterName
-    const xOrder = filters[a]?.order ?? 1000;
-    const yOrder = filters[b]?.order ?? 1000;
-    if (xOrder < yOrder) return -1;
-    if (xOrder > yOrder) return 1;
-
-    // sort filters by translatedFilterName
-    const xName = filters[a]?.translatedFilterName ?? a;
-    const yName = filters[b]?.translatedFilterName ?? b;
-    if (xName < yName) return -1;
-    if (xName > yName) return 1;
-    return 0;
-  };
-}
