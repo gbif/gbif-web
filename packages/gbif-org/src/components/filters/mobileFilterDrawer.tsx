@@ -251,7 +251,9 @@ const HighlightedFilters = React.memo<HighlightedFiltersProps>(({ filters, onSel
   return (
     <>
       <CommandGroup
-        heading={allFiltersHighlighted || <FormattedMessage id="filterSupport.highlighted" />}
+        heading={
+          allFiltersHighlighted ? undefined : <FormattedMessage id="filterSupport.highlighted" />
+        }
       >
         {inactiveHighlightedFilters.map((filter) => (
           <CommandItem
