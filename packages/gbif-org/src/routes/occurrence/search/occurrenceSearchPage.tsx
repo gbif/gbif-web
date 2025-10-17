@@ -119,12 +119,7 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
           </div>
           <div className="g-flex-1"></div>
           <div className="g-flex g-items-center g-gap-1 g-ps-2">
-            <MobileFilterDialog
-              className="g-block sm:g-hidden"
-              filters={filters}
-              groups={groups}
-              searchContext={searchContext}
-            />
+            <MobileFilterDialog className="g-block sm:g-hidden" filters={filters} groups={groups} />
             {availableChecklistKeys.length > 1 && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>

@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { FilterContext, FilterType } from '@/contexts/filter';
 import { FilterProvider } from '@/contexts/filter';
-import { SearchMetadata } from '@/contexts/search';
-import React, { useEffect, useState, useRef } from 'react';
+import { useSearchContext } from '@/contexts/search';
+import React, { useEffect, useState } from 'react';
 import { MdArrowBack, MdClose } from 'react-icons/md';
 import { FilterSetting, sortFilters } from './filterTools';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
@@ -25,9 +25,8 @@ export const MobileFilterDrawerContent = React.forwardRef<
   {
     filters: Filters;
     groups?: string[];
-    searchContext?: SearchMetadata;
   }
->(({ filters, groups, searchContext }, ref) => {
+>(({ filters, groups }, ref) => {
   const { formatMessage } = useIntl();
   const filterContext = React.useContext(FilterContext);
   const [activeFilterHandle, setActiveFilterHandle] = useState<string | null>(null);
@@ -129,18 +128,9 @@ export const MobileFilterDrawerContent = React.forwardRef<
             onClearFilter={handleClearFilter}
           />
 
-          <HighlightedFilters
-            filters={filters}
-            searchContext={searchContext}
-            onSelectFilter={setActiveFilterHandle}
-          />
+          <HighlightedFilters filters={filters} onSelectFilter={setActiveFilterHandle} />
 
-          <OtherFilters
-            filters={filters}
-            groups={groups}
-            searchContext={searchContext}
-            onSelectFilter={setActiveFilterHandle}
-          />
+          <OtherFilters filters={filters} groups={groups} onSelectFilter={setActiveFilterHandle} />
         </CommandList>
       </Command>
 
@@ -231,131 +221,125 @@ ActiveFilters.displayName = 'ActiveFilters';
 
 interface HighlightedFiltersProps {
   filters: Filters;
-  searchContext?: SearchMetadata;
   onSelectFilter: (filterHandle: string) => void;
 }
 
-const HighlightedFilters = React.memo<HighlightedFiltersProps>(
-  ({ filters, searchContext, onSelectFilter }) => {
-    const filterContext = React.useContext(FilterContext);
+const HighlightedFilters = React.memo<HighlightedFiltersProps>(({ filters, onSelectFilter }) => {
+  const searchContext = useSearchContext();
+  const filterContext = React.useContext(FilterContext);
 
-    const inactiveHighlightedFilters = React.useMemo(() => {
-      const highlightedFilters = searchContext?.highlightedFilters || [];
+  const inactiveHighlightedFilters = React.useMemo(() => {
+    const highlightedFilters = searchContext?.highlightedFilters || [];
 
-      return highlightedFilters
-        .filter((handle) => {
-          const summary = getFilterSummary(filterContext?.filter || {}, handle);
-          return summary.defaultCount === 0;
-        })
-        .map((handle) => filters[handle]);
-    }, [searchContext, filterContext, filters]);
+    return highlightedFilters
+      .filter((handle) => {
+        const summary = getFilterSummary(filterContext?.filter || {}, handle);
+        return summary.defaultCount === 0;
+      })
+      .map((handle) => filters[handle]);
+  }, [searchContext, filterContext, filters]);
 
-    if (inactiveHighlightedFilters.length === 0) return null;
+  if (inactiveHighlightedFilters.length === 0) return null;
 
-    return (
-      <>
-        <CommandGroup heading={<FormattedMessage id="filterSupport.highlighted" />}>
-          {inactiveHighlightedFilters.map((filter) => (
-            <CommandItem
-              key={filter.handle}
-              onSelect={() => onSelectFilter(filter.handle)}
-              className="g-flex g-items-center g-justify-between"
-            >
-              <div className="g-flex g-items-center g-gap-2">
-                <span className="g-font-medium g-text-slate-700">
-                  {filter.translatedFilterName}
-                </span>
-              </div>
-            </CommandItem>
-          ))}
-        </CommandGroup>
-        <CommandSeparator />
-      </>
-    );
-  }
-);
+  return (
+    <>
+      <CommandGroup heading={<FormattedMessage id="filterSupport.highlighted" />}>
+        {inactiveHighlightedFilters.map((filter) => (
+          <CommandItem
+            key={filter.handle}
+            onSelect={() => onSelectFilter(filter.handle)}
+            className="g-flex g-items-center g-justify-between"
+          >
+            <div className="g-flex g-items-center g-gap-2">
+              <span className="g-font-medium g-text-slate-700">{filter.translatedFilterName}</span>
+            </div>
+          </CommandItem>
+        ))}
+      </CommandGroup>
+      <CommandSeparator />
+    </>
+  );
+});
 
 HighlightedFilters.displayName = 'HighlightedFilters';
 
 interface OtherFiltersProps {
   filters: Filters;
   groups?: string[];
-  searchContext?: SearchMetadata;
   onSelectFilter: (filterHandle: string) => void;
 }
 
-const OtherFilters = React.memo<OtherFiltersProps>(
-  ({ filters, groups, searchContext, onSelectFilter }) => {
-    const filterContext = React.useContext(FilterContext);
+const OtherFilters = React.memo<OtherFiltersProps>(({ filters, groups, onSelectFilter }) => {
+  const searchContext = useSearchContext();
+  const filterContext = React.useContext(FilterContext);
 
-    const { otherFilters, filteredGroups, hasGroups } = React.useMemo(() => {
-      // Get highlighted filters (configured to be highlighted by default)
-      const highlightedFilters = searchContext?.highlightedFilters || [];
+  const { otherFilters, filteredGroups, hasGroups } = React.useMemo(() => {
+    // Get highlighted filters (configured to be highlighted by default)
+    const highlightedFilters = searchContext?.highlightedFilters || [];
 
-      // Get all other filters (non-highlighted and inactive)
-      const otherFilters = Object.values(filters)
-        .filter((filter) => {
-          // Exclude highlighted filters
-          if (highlightedFilters.includes(filter.handle)) return false;
+    // Get all other filters (non-highlighted and inactive)
+    const otherFilters = Object.values(filters)
+      .filter((filter) => {
+        // Exclude highlighted filters
+        if (highlightedFilters.includes(filter.handle)) return false;
 
-          // Exclude active filters (they go in the "Active filters" section)
-          if (filterContext) {
-            const summary = getFilterSummary(filterContext.filter, filter.handle);
-            if (summary.defaultCount > 0) return false;
-          }
+        // Exclude active filters (they go in the "Active filters" section)
+        if (filterContext) {
+          const summary = getFilterSummary(filterContext.filter, filter.handle);
+          if (summary.defaultCount > 0) return false;
+        }
 
-          return true;
-        })
-        .sort(sortFilters);
+        return true;
+      })
+      .sort(sortFilters);
 
-      // Filter groups to only show groups with filters in them
-      const filteredGroups = groups
-        ?.map((group) => ({
-          name: group,
-          filters: otherFilters.filter((filter) => filter.group === group),
-        }))
-        .filter((group) => group.filters.length > 0);
+    // Filter groups to only show groups with filters in them
+    const filteredGroups = groups
+      ?.map((group) => ({
+        name: group,
+        filters: otherFilters.filter((filter) => filter.group === group),
+      }))
+      .filter((group) => group.filters.length > 0);
 
-      const hasGroups = filteredGroups && filteredGroups.length > 0;
+    const hasGroups = filteredGroups && filteredGroups.length > 0;
 
-      return {
-        otherFilters,
-        filteredGroups,
-        hasGroups,
-      };
-    }, [filters, groups, searchContext, filterContext]);
+    return {
+      otherFilters,
+      filteredGroups,
+      hasGroups,
+    };
+  }, [filters, groups, searchContext, filterContext]);
 
-    if (otherFilters.length === 0) return null;
+  if (otherFilters.length === 0) return null;
 
-    return (
-      <>
-        {!hasGroups && (
-          <CommandGroup>
-            {otherFilters.map((filter) => (
-              <CommandItem key={filter.handle} onSelect={() => onSelectFilter(filter.handle)}>
-                {filter.translatedFilterName}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        )}
-        {hasGroups &&
-          filteredGroups?.map((group, i) => {
-            return (
-              <React.Fragment key={group.name}>
-                <CommandGroup heading={<FormattedMessage id={`dashboard.group.${group.name}`} />}>
-                  {group.filters.map((filter) => (
-                    <CommandItem key={filter.handle} onSelect={() => onSelectFilter(filter.handle)}>
-                      {filter.translatedFilterName}
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-                {i < (filteredGroups?.length ?? 0) - 1 && <CommandSeparator />}
-              </React.Fragment>
-            );
-          })}
-      </>
-    );
-  }
-);
+  return (
+    <>
+      {!hasGroups && (
+        <CommandGroup>
+          {otherFilters.map((filter) => (
+            <CommandItem key={filter.handle} onSelect={() => onSelectFilter(filter.handle)}>
+              {filter.translatedFilterName}
+            </CommandItem>
+          ))}
+        </CommandGroup>
+      )}
+      {hasGroups &&
+        filteredGroups?.map((group, i) => {
+          return (
+            <React.Fragment key={group.name}>
+              <CommandGroup heading={<FormattedMessage id={`dashboard.group.${group.name}`} />}>
+                {group.filters.map((filter) => (
+                  <CommandItem key={filter.handle} onSelect={() => onSelectFilter(filter.handle)}>
+                    {filter.translatedFilterName}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+              {i < (filteredGroups?.length ?? 0) - 1 && <CommandSeparator />}
+            </React.Fragment>
+          );
+        })}
+    </>
+  );
+});
 
 OtherFilters.displayName = 'OtherFilters';

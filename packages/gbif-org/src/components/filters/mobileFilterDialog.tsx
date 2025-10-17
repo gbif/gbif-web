@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogBottomSheetContent, DialogTrigger } from '@/components/ui/dialog';
 import { FilterContext } from '@/contexts/filter';
-import { SearchMetadata } from '@/contexts/search';
 import { cn } from '@/utils/shadcn';
 import { useContext, useMemo } from 'react';
 import { LuSettings2 as FilterIcon } from 'react-icons/lu';
@@ -14,16 +13,10 @@ type Filters = Record<string, FilterSetting>;
 interface MobileFilterDialogProps {
   filters: Filters;
   groups?: string[];
-  searchContext?: SearchMetadata;
   className?: string;
 }
 
-export function MobileFilterDialog({
-  filters,
-  groups,
-  searchContext,
-  className,
-}: MobileFilterDialogProps) {
+export function MobileFilterDialog({ filters, groups, className }: MobileFilterDialogProps) {
   const filterContext = useContext(FilterContext);
 
   const activeFilterCount = useMemo(() => {
@@ -57,11 +50,7 @@ export function MobileFilterDialog({
         className="g-w-full g-p-0"
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
-        <MobileFilterDrawerContent
-          filters={filters}
-          groups={groups}
-          searchContext={searchContext}
-        />
+        <MobileFilterDrawerContent filters={filters} groups={groups} />
       </DialogBottomSheetContent>
     </Dialog>
   );
