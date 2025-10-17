@@ -87,12 +87,7 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
       >
-        <OccurrenceViewTabs
-          view={view}
-          defaultView={defaultView}
-          tabs={searchContext.tabs}
-          className="g-border-none"
-        />
+        <OccurrenceViewTabs view={view} defaultView={defaultView} tabs={searchContext.tabs} />
       </DataHeader>
 
       <section>
@@ -169,19 +164,17 @@ function OccurrenceViewTabs({
   view,
   defaultView,
   tabs = ['table', 'map', 'gallery', 'clusters', 'datasets', 'dashboard', 'download'],
-  className,
 }: {
   defaultView?: string;
   view?: string;
   tabs?: string[];
-  className?: string;
 }) {
   const { getParams } = useUpdateViewParams(['from', 'sort', 'limit', 'offset']); // Removes 'from' and 'sort'
 
   return (
     <Tabs
       disableAutoDetectActive
-      className={className}
+      className="g-border-none"
       links={tabs.map((tab) => ({
         isActive: view === tab,
         to: { search: getParams(tab, defaultView).toString() },

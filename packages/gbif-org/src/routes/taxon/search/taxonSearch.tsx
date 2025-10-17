@@ -135,20 +135,18 @@ export function TaxonViewTabs({
   view,
   defaultView,
   tabs = ['table', 'tree'],
-  className,
 }: {
   setView: (view: string) => void;
   defaultView?: string;
   view?: string;
   tabs?: string[];
-  className?: string;
 }) {
   const { getParams } = useUpdateViewParams(['from', 'sort', 'limit', 'offset']); // Removes 'from' and 'sort'
 
   return (
     <Tabs
       disableAutoDetectActive
-      className={className}
+      className="g-border-none"
       links={tabs.map((tab) => ({
         isActive: view === tab,
         to: { search: getParams(tab, defaultView).toString() },
