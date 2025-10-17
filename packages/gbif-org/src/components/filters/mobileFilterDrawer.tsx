@@ -4,7 +4,7 @@ import { FilterProvider } from '@/contexts/filter';
 import { useSearchContext } from '@/contexts/search';
 import React, { useEffect, useState } from 'react';
 import { MdArrowBack, MdClose } from 'react-icons/md';
-import { FilterSetting, sortFilters } from './filterTools';
+import { Filters, sortFilters } from './filterTools';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import {
   Command,
@@ -17,8 +17,6 @@ import {
 } from '../ui/command';
 import { getFilterSummary } from './filterTools';
 import { cn } from '@/utils/shadcn';
-
-type Filters = Record<string, FilterSetting>;
 
 export const MobileFilterDrawerContent = React.forwardRef<
   HTMLDivElement,
@@ -240,11 +238,21 @@ const HighlightedFilters = React.memo<HighlightedFiltersProps>(({ filters, onSel
       .map((handle) => filters[handle]);
   }, [searchContext, filterContext, filters]);
 
+  // If all filters are highlighted, there is no need to show the group heading
+  const allFiltersHighlighted = React.useMemo(() => {
+    if (!searchContext?.highlightedFilters) return false;
+    return Object.keys(filters).every((handle) =>
+      searchContext?.highlightedFilters?.includes(handle)
+    );
+  }, [filters, searchContext]);
+
   if (inactiveHighlightedFilters.length === 0) return null;
 
   return (
     <>
-      <CommandGroup heading={<FormattedMessage id="filterSupport.highlighted" />}>
+      <CommandGroup
+        heading={allFiltersHighlighted || <FormattedMessage id="filterSupport.highlighted" />}
+      >
         {inactiveHighlightedFilters.map((filter) => (
           <CommandItem
             key={filter.handle}
@@ -257,7 +265,7 @@ const HighlightedFilters = React.memo<HighlightedFiltersProps>(({ filters, onSel
           </CommandItem>
         ))}
       </CommandGroup>
-      <CommandSeparator />
+      {allFiltersHighlighted || <CommandSeparator />}
     </>
   );
 });
