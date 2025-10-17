@@ -26,6 +26,7 @@ import { ResourceSearchResult } from './resourceSearchResult';
 import { ResourceSearchTabs } from './resourceSearchTabs';
 import { searchConfig } from './searchConfig';
 import { orderedTabs, tabsConfig } from './tabsConfig';
+import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
 
 export const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
   query ResourceSearch(
@@ -192,9 +193,7 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
       </DataHeader>
 
       <Card>
-        <FilterBar>
-          <FilterButtons filters={filters} searchContext={searchContext} />
-        </FilterBar>
+        <FilterBarWithActions filters={filters} />
       </Card>
 
       <ArticleContainer className="g-bg-slate-100 g-flex">

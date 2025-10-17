@@ -99,39 +99,6 @@ export function TaxonSearchPageInner(): React.ReactElement {
   );
 }
 
-/* export function TaxonSearchInner(): React.ReactElement {
-  const searchContext = useSearchContext();
-  const { filters } = useFilters({ searchConfig });
-  const defaultView = searchContext?.tabs?.[0] ?? 'table';
-  const [view, setView] = useStringParam({
-    key: 'view',
-    defaultValue: defaultView,
-    hideDefault: true,
-  });
-
-  return (
-    <>
-      <EntityDrawer />
-      <section className="g-bg-white">
-        <Card>
-          <TaxonViewTabs
-            setView={setView}
-            view={view}
-            defaultView={defaultView}
-            tabs={searchContext.tabs}
-            className="g-border-b"
-          />
-          <FilterBar>
-            <FilterButtons filters={filters} searchContext={searchContext} />
-          </FilterBar>
-        </Card>
-      </section>
-
-      <Views view={view} className="g-py-2" />
-    </>
-  );
-} */
-
 export function Views({
   view,
   className,

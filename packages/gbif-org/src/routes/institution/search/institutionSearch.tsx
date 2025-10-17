@@ -2,7 +2,7 @@ import { DownloadAsTSVLink } from '@/components/cardHeaderActions/downloadAsTSVL
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
+import { getAsQuery } from '@/components/filters/filterTools';
 import { NoRecords } from '@/components/noDataMessages';
 import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
@@ -35,6 +35,7 @@ import { AboutContent, ApiContent } from './help';
 import { InstitutionResult } from './institutionResult';
 import { Map } from './map/map';
 import { searchConfig } from './searchConfig';
+import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
 
 const INSTITUTION_SEARCH_QUERY = /* GraphQL */ `
   query InstitutionSearch($query: InstitutionSearchInput, $collectionScope: CollectionSearchInput) {
@@ -167,9 +168,7 @@ export function InstitutionSearch(): React.ReactElement {
       />
 
       <section className="">
-        <FilterBar>
-          <FilterButtons filters={filters} searchContext={searchContext} />
-        </FilterBar>
+        <FilterBarWithActions filters={filters} />
         <ErrorBoundary>
           <ArticleContainer className="g-bg-slate-100 g-flex">
             <ArticleTextContainer className="g-flex-auto g-w-full">

@@ -1,7 +1,7 @@
 import { DownloadAsTSVLink } from '@/components/cardHeaderActions/downloadAsTSVLink';
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
-import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
+import { getAsQuery } from '@/components/filters/filterTools';
 import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
 import { CardHeader, CardTitle } from '@/components/ui/largeCard';
@@ -31,6 +31,7 @@ import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './help';
 import { NoResultsMessage } from './noResultsMessage';
 import { searchConfig } from './searchConfig';
+import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
 
 const COLLECTION_SEARCH_QUERY = /* GraphQL */ `
   query CollectionSearch($query: CollectionSearchInput) {
@@ -133,9 +134,7 @@ export function CollectionSearch(): React.ReactElement {
       />
 
       <section className="">
-        <FilterBar>
-          <FilterButtons filters={filters} searchContext={searchContext} />
-        </FilterBar>
+        <FilterBarWithActions filters={filters} />
         <ArticleContainer className="g-bg-slate-100 g-flex">
           <ArticleTextContainer className="g-flex-auto g-w-full">
             <Results
