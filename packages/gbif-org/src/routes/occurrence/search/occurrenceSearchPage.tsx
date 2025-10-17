@@ -1,30 +1,18 @@
 import { DataHeader } from '@/components/dataHeader';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { DatasetLabel } from '@/components/filters/displayNames';
+import { ChecklistSelector } from '@/components/filters/checklistSelector';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
 import { Tabs } from '@/components/tabs';
-import { Button } from '@/components/ui/button';
-import {
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdownMenu';
 import { Card } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
-import { FilterContext, FilterProvider } from '@/contexts/filter';
+import { FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import { useStringParam } from '@/hooks/useParam';
 import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
-import { DropdownMenu } from '@radix-ui/react-dropdown-menu';
-import React, { useContext } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { MdInfo } from 'react-icons/md';
-import { PiGitBranchBold as TaxonomyIcon } from 'react-icons/pi';
 import { FormattedMessage } from 'react-intl';
 import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './help';
@@ -81,17 +69,13 @@ const groups = [
 
 export function OccurrenceSearchPageInner(): React.ReactElement {
   const searchContext = useSearchContext();
-  const siteConfig = useConfig();
   const { filters } = useFilters({ searchConfig });
   const defaultView = searchContext.defaultTab ?? searchContext?.tabs?.[0] ?? 'table';
-  const currentFilterContext = useContext(FilterContext);
   const [view] = useStringParam({
     key: 'view',
     defaultValue: defaultView,
     hideDefault: true,
   });
-
-  const availableChecklistKeys = siteConfig.availableChecklistKeys ?? [];
 
   return (
     <>
@@ -115,56 +99,7 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
         <FilterBarWithActions
           filters={filters}
           groups={groups}
-          additionalActions={
-            availableChecklistKeys.length > 1 && (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    size="sm"
-                    variant={
-                      currentFilterContext.filter.checklistKey !== siteConfig.defaultChecklistKey
-                        ? 'default'
-                        : 'ghost'
-                    }
-                    className="g-px-1 g-mb-1 g-text-slate-400"
-                  >
-                    <TaxonomyIcon className="g-text-base" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuLabel>
-                    <FormattedMessage
-                      id="phrases.supportedChecklists"
-                      defaultMessage="Supported checklists"
-                    />
-                    <a
-                      href={`https://techdocs.gbif.org/en/data-processing/#taxonomy-interpretation`}
-                      className="g-ms-2"
-                    >
-                      <MdInfo />
-                    </a>
-                  </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuRadioGroup
-                    value={
-                      currentFilterContext.filter.checklistKey ?? siteConfig.defaultChecklistKey
-                    }
-                    onValueChange={(value) => currentFilterContext.setChecklistKey(value)}
-                  >
-                    {availableChecklistKeys.map((key) => (
-                      <DropdownMenuRadioItem
-                        key={key}
-                        value={key}
-                        className="g-text-sm g-text-slate-700"
-                      >
-                        <DatasetLabel id={key} />
-                      </DropdownMenuRadioItem>
-                    ))}
-                  </DropdownMenuRadioGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )
-          }
+          additionalActions={<ChecklistSelector />}
         />
       </section>
 
