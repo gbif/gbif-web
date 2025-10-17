@@ -28,7 +28,7 @@ import { AboutContent, ApiContent } from './help';
 import { searchConfig } from './searchConfig';
 import { Button } from '@/components/ui/button';
 import { MdDeleteOutline } from 'react-icons/md';
-import { MobileFilters } from '@/components/filters/MobileFilters';
+import { MobileFilters } from '@/components/filters/mobileFilters';
 
 export const DATASET_SEARCH_QUERY = /* GraphQL */ `
   query DatasetSearch($query: DatasetSearchInput) {

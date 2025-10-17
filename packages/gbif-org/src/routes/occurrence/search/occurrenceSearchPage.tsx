@@ -3,7 +3,7 @@ import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { DatasetLabel } from '@/components/filters/displayNames';
 import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
-import { MobileFilters } from '@/components/filters/MobileFilters';
+import { MobileFilters } from '@/components/filters/mobileFilters';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
 import {
