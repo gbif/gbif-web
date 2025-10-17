@@ -26,6 +26,9 @@ import { DatasetResult } from '../datasetResult';
 import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './help';
 import { searchConfig } from './searchConfig';
+import { Button } from '@/components/ui/button';
+import { MdDeleteOutline } from 'react-icons/md';
+import { MobileFilters } from '@/components/filters/MobileFilters';
 
 export const DATASET_SEARCH_QUERY = /* GraphQL */ `
   query DatasetSearch($query: DatasetSearchInput) {
@@ -142,10 +145,24 @@ export function DatasetSearch(): React.ReactElement {
         /> */}
       </DataHeader>
 
-      <section className="">
-        <FilterBar>
-          <FilterButtons filters={filters} searchContext={searchContext} />
+      <section>
+        <FilterBar className="g-flex f-flex-nowrap g-items-start g-gap-2">
+          <div className="g-hidden sm:g-block">
+            <FilterButtons filters={filters} searchContext={searchContext} />
+          </div>
+          <div className="g-flex g-items-center g-gap-1 g-flex-1 g-justify-end">
+            <MobileFilters className="sm:g-hidden" filters={filters} />
+            <Button
+              size="sm"
+              variant="ghost"
+              className="g-px-1 g-mb-1 g-text-slate-400 hover:g-text-red-800"
+              onClick={() => filterContext.setFilter({})}
+            >
+              <MdDeleteOutline className="g-text-base" />
+            </Button>
+          </div>
         </FilterBar>
+
         <ArticleContainer className="g-bg-slate-100 g-flex">
           <ArticleTextContainer className="g-flex-auto g-w-full">
             <ErrorBoundary>

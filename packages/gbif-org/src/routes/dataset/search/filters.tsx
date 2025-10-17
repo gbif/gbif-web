@@ -11,7 +11,7 @@ import {
   filterConfigTypes,
   filterEnumConfig,
   filterFreeTextConfig,
-  FilterSetting,
+  Filters,
   filterSuggestConfig,
   generateFilters,
 } from '@/components/filters/filterTools';
@@ -23,7 +23,7 @@ import licenseOptions from '@/enums/basic/license.json';
 import { useCountrySuggest } from '@/hooks/useCountrySuggest';
 import { fetchWithCancel } from '@/utils/fetchWithCancel';
 import { networkKeySuggest } from '@/utils/suggestEndpoints';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 
 // shared vairables for the various components
@@ -229,14 +229,13 @@ export const dwcaExtensionConfig: filterEnumConfig = {
 };
 
 export function useFilters({ searchConfig }: { searchConfig: FilterConfigType }): {
-  filters: Record<string, FilterSetting>;
+  filters: Filters;
 } {
   const { formatMessage } = useIntl();
-  const [filters, setFilters] = useState<Record<string, FilterSetting>>({});
   const countrySuggest = useCountrySuggest();
 
-  useEffect(() => {
-    const nextFilters = {
+  const filters: Filters = useMemo(() => {
+    return {
       publishingOrg: generateFilters({ config: publisherConfig, searchConfig, formatMessage }),
       hostingOrg: generateFilters({ config: hostingOrgConfig, searchConfig, formatMessage }),
       projectId: generateFilters({ config: projectIdConfig, searchConfig, formatMessage }),
@@ -251,7 +250,6 @@ export function useFilters({ searchConfig }: { searchConfig: FilterConfigType })
       dwcaExtension: generateFilters({ config: dwcaExtensionConfig, searchConfig, formatMessage }),
       q: generateFilters({ config: freeTextConfig, searchConfig, formatMessage }),
     };
-    setFilters(nextFilters);
   }, [searchConfig, countrySuggest, formatMessage]);
 
   return {

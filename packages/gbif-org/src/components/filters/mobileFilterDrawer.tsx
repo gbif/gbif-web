@@ -232,6 +232,7 @@ const HighlightedFilters = React.memo<HighlightedFiltersProps>(({ filters, onSel
     const highlightedFilters = searchContext?.highlightedFilters || [];
 
     return highlightedFilters
+      .filter((handle) => handle in filters)
       .filter((handle) => {
         const summary = getFilterSummary(filterContext?.filter || {}, handle);
         return summary.defaultCount === 0;
