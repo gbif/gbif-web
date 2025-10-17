@@ -2,8 +2,7 @@ import { DataHeader } from '@/components/dataHeader';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { DatasetLabel } from '@/components/filters/displayNames';
-import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
-import { MobileFilters } from '@/components/filters/mobileFilters';
+import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
 import { Tabs } from '@/components/tabs';
 import { Button } from '@/components/ui/button';
 import {
@@ -24,7 +23,7 @@ import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
 import { DropdownMenu } from '@radix-ui/react-dropdown-menu';
 import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { MdDeleteOutline, MdInfo } from 'react-icons/md';
+import { MdInfo } from 'react-icons/md';
 import { PiGitBranchBold as TaxonomyIcon } from 'react-icons/pi';
 import { FormattedMessage } from 'react-intl';
 import { useFilters } from './filters';
@@ -113,13 +112,11 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
       </DataHeader>
 
       <section>
-        <FilterBar className="g-flex f-flex-nowrap g-items-start g-gap-2">
-          <div className="g-hidden sm:g-block">
-            <FilterButtons filters={filters} searchContext={searchContext} groups={groups} />
-          </div>
-          <div className="g-flex g-items-center g-gap-1 g-flex-1 g-justify-end">
-            <MobileFilters className="sm:g-hidden" filters={filters} groups={groups} />
-            {availableChecklistKeys.length > 1 && (
+        <FilterBarWithActions
+          filters={filters}
+          groups={groups}
+          additionalActions={
+            availableChecklistKeys.length > 1 && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
@@ -166,17 +163,9 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
                   </DropdownMenuRadioGroup>
                 </DropdownMenuContent>
               </DropdownMenu>
-            )}
-            <Button
-              size="sm"
-              variant="ghost"
-              className="g-px-1 g-mb-1 g-text-slate-400 hover:g-text-red-800"
-              onClick={() => currentFilterContext.setFilter({})}
-            >
-              <MdDeleteOutline className="g-text-base" />
-            </Button>
-          </div>
-        </FilterBar>
+            )
+          }
+        />
       </section>
 
       <Views view={view} className="g-py-2 g-px-4 g-bg-slate-100" />
@@ -205,9 +194,7 @@ export function OccurrenceSearchInner(): React.ReactElement {
             tabs={searchContext.tabs}
             className="g-border-b"
           />
-          <FilterBar>
-            <FilterButtons filters={filters} searchContext={searchContext} />
-          </FilterBar>
+          <FilterBarWithActions filters={filters} />
         </Card>
       </section>
 

@@ -1,21 +1,18 @@
 import { DataHeader } from '@/components/dataHeader';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
-import { MobileFilters } from '@/components/filters/mobileFilters';
+import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
 import { Tabs } from '@/components/tabs';
-import { Button } from '@/components/ui/button';
 import { useConfig } from '@/config/config';
-import { FilterContext, FilterProvider } from '@/contexts/filter';
+import { FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import { useStringParam } from '@/hooks/useParam';
 import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
 import EntityDrawer from '@/routes/occurrence/search/views/browseList/ListBrowser';
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
-import { MdDeleteOutline } from 'react-icons/md';
 import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './helpTexts';
 import { searchConfig } from './searchConfig';
@@ -51,7 +48,6 @@ export function TaxonSearchPage(): React.ReactElement {
 export function TaxonSearchPageInner(): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
-  const currentFilterContext = useContext(FilterContext);
   const defaultView = searchContext?.tabs?.[0] ?? 'table';
   const [view, setView] = useStringParam({
     key: 'view',
@@ -95,22 +91,7 @@ export function TaxonSearchPageInner(): React.ReactElement {
       </DataHeader>
 
       <section>
-        <FilterBar className="g-flex f-flex-nowrap g-items-start g-gap-2">
-          <div className="g-hidden sm:g-block">
-            <FilterButtons filters={visibleFilters} searchContext={searchContext} />
-          </div>
-          <div className="g-flex g-items-center g-gap-1 g-flex-1 g-justify-end">
-            <MobileFilters className="sm:g-hidden" filters={visibleFilters} />
-            <Button
-              size="sm"
-              variant="ghost"
-              className="g-px-1 g-mb-1 g-text-slate-400 hover:g-text-red-800"
-              onClick={() => currentFilterContext.setFilter({})}
-            >
-              <MdDeleteOutline className="g-text-base" />
-            </Button>
-          </div>
-        </FilterBar>
+        <FilterBarWithActions filters={visibleFilters} />
       </section>
 
       <Views view={view} entityDrawerPrefix="t" className="g-py-2 g-px-4 g-bg-slate-100" />

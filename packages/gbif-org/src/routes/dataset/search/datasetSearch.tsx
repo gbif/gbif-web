@@ -2,7 +2,8 @@ import { DownloadAsTSVLink } from '@/components/cardHeaderActions/downloadAsTSVL
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
+import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
+import { getAsQuery } from '@/components/filters/filterTools';
 import { NoRecords } from '@/components/noDataMessages';
 import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
@@ -26,9 +27,6 @@ import { DatasetResult } from '../datasetResult';
 import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './help';
 import { searchConfig } from './searchConfig';
-import { Button } from '@/components/ui/button';
-import { MdDeleteOutline } from 'react-icons/md';
-import { MobileFilters } from '@/components/filters/mobileFilters';
 
 export const DATASET_SEARCH_QUERY = /* GraphQL */ `
   query DatasetSearch($query: DatasetSearchInput) {
@@ -78,7 +76,6 @@ export function DatasetSearch(): React.ReactElement {
   const [tsvUrl, setTsvUrl] = useState('');
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
-  const tabClassName = 'g-pt-2 g-pb-1.5';
 
   const { data, error, load, loading } = useQuery<DatasetSearchQuery, DatasetSearchQueryVariables>(
     DATASET_SEARCH_QUERY,
@@ -146,22 +143,7 @@ export function DatasetSearch(): React.ReactElement {
       </DataHeader>
 
       <section>
-        <FilterBar className="g-flex f-flex-nowrap g-items-start g-gap-2">
-          <div className="g-hidden sm:g-block">
-            <FilterButtons filters={filters} searchContext={searchContext} />
-          </div>
-          <div className="g-flex g-items-center g-gap-1 g-flex-1 g-justify-end">
-            <MobileFilters className="sm:g-hidden" filters={filters} />
-            <Button
-              size="sm"
-              variant="ghost"
-              className="g-px-1 g-mb-1 g-text-slate-400 hover:g-text-red-800"
-              onClick={() => filterContext.setFilter({})}
-            >
-              <MdDeleteOutline className="g-text-base" />
-            </Button>
-          </div>
-        </FilterBar>
+        <FilterBarWithActions filters={filters} />
 
         <ArticleContainer className="g-bg-slate-100 g-flex">
           <ArticleTextContainer className="g-flex-auto g-w-full">
