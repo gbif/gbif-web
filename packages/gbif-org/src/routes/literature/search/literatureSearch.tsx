@@ -2,18 +2,20 @@ import { DataHeader } from '@/components/dataHeader';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
-import { Card } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
-import { FilterProvider } from '@/contexts/filter';
+import { FilterContext, FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './help';
 import { searchConfig } from './searchConfig';
 import { LiteratureTable } from './views/table';
+import { Button } from '@/components/ui/button';
+import { MdDeleteOutline } from 'react-icons/md';
+import { MobileFilters } from '@/components/filters/mobileFilters';
 
 export function LiteratureSearchPage(): React.ReactElement {
   const [filter, setFilter] = useFilterParams({
@@ -43,6 +45,7 @@ export function LiteratureSearchPage(): React.ReactElement {
 export function LiteraturePageSearchInner(): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
+  const filterContext = useContext(FilterContext);
 
   return (
     <>
@@ -53,28 +56,34 @@ export function LiteraturePageSearchInner(): React.ReactElement {
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
         hideIfNoCatalogue={true}
-      ></DataHeader>
+      />
 
-      <Card className="">
-        <FilterBar>
-          <FilterButtons filters={filters} searchContext={searchContext} />
+      <section>
+        <FilterBar className="g-flex f-flex-nowrap g-items-start g-gap-2">
+          <div className="g-hidden sm:g-block">
+            <FilterButtons filters={filters} searchContext={searchContext} />
+          </div>
+          <div className="g-flex g-items-center g-gap-1 g-flex-1 g-justify-end">
+            <MobileFilters className="sm:g-hidden" filters={filters} />
+            <Button
+              size="sm"
+              variant="ghost"
+              className="g-px-1 g-mb-1 g-text-slate-400 hover:g-text-red-800"
+              onClick={() => filterContext?.setFilter({})}
+            >
+              <MdDeleteOutline className="g-text-base" />
+            </Button>
+          </div>
         </FilterBar>
-      </Card>
 
-      <ErrorBoundary>
-        <div className="g-py-2 g-px-4 g-bg-slate-100">
-          <DynamicHeightDiv minPxHeight={500}>
-            <LiteratureTable />
-          </DynamicHeightDiv>
-        </div>
-        {/* <ArticleContainer className="g-bg-slate-100 g-flex">
-          <ArticleTextContainer className="g-flex-auto g-w-full">
-            <ErrorBoundary>
-              <LiteratureListView />
-            </ErrorBoundary>
-          </ArticleTextContainer>
-        </ArticleContainer> */}
-      </ErrorBoundary>
+        <ErrorBoundary>
+          <div className="g-py-2 g-px-4 g-bg-slate-100">
+            <DynamicHeightDiv minPxHeight={500}>
+              <LiteratureTable />
+            </DynamicHeightDiv>
+          </div>
+        </ErrorBoundary>
+      </section>
     </>
   );
 }
@@ -82,14 +91,26 @@ export function LiteraturePageSearchInner(): React.ReactElement {
 export function LiteratureSearchInner(): React.ReactElement {
   const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
+  const filterContext = useContext(FilterContext);
 
   return (
     <ErrorBoundary>
-      <Card>
-        <FilterBar>
+      <FilterBar className="g-flex f-flex-nowrap g-items-start g-gap-2">
+        <div className="g-hidden sm:g-block">
           <FilterButtons filters={filters} searchContext={searchContext} />
-        </FilterBar>
-      </Card>
+        </div>
+        <div className="g-flex g-items-center g-gap-1 g-flex-1 g-justify-end">
+          <MobileFilters className="sm:g-hidden" filters={filters} />
+          <Button
+            size="sm"
+            variant="ghost"
+            className="g-px-1 g-mb-1 g-text-slate-400 hover:g-text-red-800"
+            onClick={() => filterContext?.setFilter({})}
+          >
+            <MdDeleteOutline className="g-text-base" />
+          </Button>
+        </div>
+      </FilterBar>
 
       <ErrorBoundary>
         <div className="g-py-2">
