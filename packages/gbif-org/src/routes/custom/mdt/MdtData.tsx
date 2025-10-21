@@ -81,6 +81,12 @@ const MdtData = () => {
                 'b25f8b06-feca-4cdd-84a7-f69ecb7410f5',
                 '39e50259-23e1-41e8-b885-2176d4e98854',
                 'a77265a0-2ae0-4c84-84dd-fadb11e152be',
+                // datasets from CO and BR IPTs
+                '280ded29-0d5a-40c3-ad75-ceed62caab20', //Co
+                'c168a6f7-8ba4-4c0c-8e5d-73227660d329', //Br
+                '24d1fa07-175d-45cf-a14f-a4cbcc096248', //Br
+                '2d74ce7a-a3c9-4045-b98d-7bb6cd043894', //Br
+                '79a5a2c0-dfde-4ae6-bc44-d809e8d166b7', // Br
               ],
             },
             { type: 'like', key: 'q', value: 'converter' },

@@ -16,8 +16,7 @@ export function TaxonInterpretationCard({
   const useChecklistBankLink = speciesPageDatasetKey !== classification.checklistKey;
   const noMatch = classification?.usage?.key.toString() === '0';
   const issues = classification?.issues ?? [];
-  const useCoLWebsiteLink =
-    import.meta.env.PUBLIC_COL_CHECKLIST_KEY === classification.checklistKey;
+  const useCoLWebsiteLink = false; // import.meta.env.PUBLIC_COL_CHECKLIST_KEY === classification.checklistKey; // uncomment to link to CoL for CoLXR dataset
 
   const externalDatasetLink = useCoLWebsiteLink
     ? `https://www.catalogueoflife.org`
