@@ -1,20 +1,10 @@
 import { Router } from 'express';
-import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
-import {
-  CallToolRequestSchema,
-  ListToolsRequestSchema,
-} from '@modelcontextprotocol/sdk/types.js';
 import tools from './tools';
 import toolHandler from './toolHandler';
 import { McpError } from './handlers/utils';
 import mcpServer from './remote';
 import config from '#/config';
-
-const SERVER_NAME = 'gbif-experimental-mcp-server';
-const SERVER_VERSION = '0.1.0';
-const CONFIG_URL = 'http://localhost:4002/mcp/config';
-const HANDLER_URL = 'http://localhost:4002/mcp/execute';
 
 const router = Router();
 

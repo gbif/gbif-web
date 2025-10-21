@@ -5,7 +5,6 @@ import {
 } from '@modelcontextprotocol/sdk/types.js';
 import tools from './tools';
 import toolHandler from './toolHandler';
-import config from '#/config';
 
 const SERVER_NAME = 'gbif-experimental-mcp-server';
 const SERVER_VERSION = '0.1.0';
