@@ -1,3 +1,4 @@
+import config from '#/config';
 import { SEARCH_GUIDE } from './guides';
 import handleDatasetSearch from './handlers/handleDatasetSearch';
 import handleGadmSearch from './handlers/handleGadmSearch';
@@ -12,7 +13,14 @@ export default async function toolHandler(tool, args) {
 
     switch (tool) {
       case 'gbif_usage_guidelines': {
-        console.log('guidelines requested with the query:', args.query);
+        if (config.debug)
+          console.log('guidelines requested with the query:', args.query);
+        if (!args.query || args.query.trim() === '') {
+          throw new McpError(
+            'Query parameter is required for gbif_usage_guidelines tool',
+            400,
+          );
+        }
         result = {
           content: [
             {
@@ -51,10 +59,10 @@ export default async function toolHandler(tool, args) {
       default:
         throw new McpError(`Tool ${tool} not found`, 404);
     }
-    console.log('return result of execution');
+    if (config.debug) console.log('return result of execution');
     return result;
   } catch (error) {
-    console.error(error);
+    if (config.debug) console.error(error);
     if (error instanceof McpError) {
       throw error;
     } else {

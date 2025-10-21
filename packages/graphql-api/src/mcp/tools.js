@@ -2,20 +2,17 @@ const tools = [
   {
     name: 'gbif_usage_guidelines',
     description:
-      'Always read this before using GBIF data. Provides essential guidelines on how to use GBIF data and proper attribution. This is also where you will find the usageToken needed for the other tools.',
+      'Always read this before using GBIF data. Provides essential guidelines. This is also where you will find the usageToken needed for the other tools. The query parameter is required.',
     inputSchema: {
       type: 'object',
-      inputSchema: {
-        type: 'object',
-        properties: {
-          query: {
-            type: 'string',
-            description:
-              'What is the user looking for? Translate the query into english if possible.',
-          },
+      properties: {
+        query: {
+          type: 'string',
+          description:
+            'What is the user looking for? Translate the query into english if possible.',
         },
-        required: ['query'],
       },
+      required: ['query'],
     },
   },
   {
@@ -254,6 +251,26 @@ const tools = [
         hasGeospatialIssue: {
           type: 'boolean',
           description: 'Filter by geospatial quality',
+        },
+        filter: {
+          type: 'object',
+          description:
+            'Additional filter supported by the occurrence search can go here. E.g. iucnRedListCategory, establishmentMeans, etc.',
+          required: ['field', 'value'],
+          properties: {
+            field: {
+              type: 'string',
+              description: 'The field to filter by',
+            },
+            value: {
+              oneOf: [
+                { type: 'string' },
+                { type: 'array', items: { type: 'string' } },
+              ],
+              description:
+                'The values to filter by. Use ~ for negation and * for existence as described in the guidelines.',
+            },
+          },
         },
         limit: {
           type: 'number',

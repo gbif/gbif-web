@@ -137,6 +137,11 @@ Default color schema for visualizations:
 - CONTINENT_COORDINATE_MISMATCH: continent doesn't match coordinates
 - Full list: https://techdocs.gbif.org/en/data-use/occurrence-issues-and-flags
 
+
+## Guides
+There are specialized guides available for specific use cases. Those should be read to provide context and advice on work flows for specific topis:
+- Invasive Species Guide: https://docs.gbif.org/mcp/guides/invasive_species_guide.md
+
 ## Usage token
 To use the other tools you need this token: I_HAVE_READ_THE_GUIDELINES
 `;
