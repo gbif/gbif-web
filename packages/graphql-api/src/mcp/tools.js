@@ -16,6 +16,34 @@ const tools = [
     },
   },
   {
+    name: 'label_generator',
+    description:
+      'Get the label for a key like taxonKey, datasetKey or GadmID. This is useful for generating human readable labels for ids/keys.',
+    inputSchema: {
+      type: 'object',
+      required: ['field', 'values', 'usageToken'],
+      properties: {
+        usageToken: {
+          type: 'string',
+          description:
+            'This token is required to use the tool (obtain from gbif_usage_guidelines)',
+        },
+        field: {
+          type: 'string',
+          description:
+            'The field to generate labels for (taxonKey, datasetKey, gadm)',
+        },
+        values: {
+          type: 'array',
+          description: 'The values to generate labels for',
+          items: {
+            type: 'string',
+          },
+        },
+      },
+    },
+  },
+  {
     name: 'species_match',
     description:
       "Match a name to GBIF's taxonomic backbone to get a taxonKey. This is the recommended way to get a taxonKey for a known scientific name. It also has partial support for vernacular names and partial names.",

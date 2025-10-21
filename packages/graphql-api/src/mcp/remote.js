@@ -5,6 +5,7 @@ import {
 } from '@modelcontextprotocol/sdk/types.js';
 import tools from './tools';
 import toolHandler from './toolHandler';
+import config from '#/config';
 
 const SERVER_NAME = 'gbif-experimental-mcp-server';
 const SERVER_VERSION = '0.1.0';
@@ -32,6 +33,8 @@ class GBIFMCPServer {
     this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
       try {
         const { name, arguments: args } = request.params;
+        if (config.debug)
+          console.log('Tool requested from remote:', name, 'with args:', args);
         const result = await toolHandler(name, args);
         return result;
       } catch (error) {

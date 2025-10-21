@@ -5,11 +5,13 @@ import handleGadmSearch from './handlers/handleGadmSearch';
 import handleOccurrenceSearch from './handlers/handleOccurrenceSearch';
 import handleSpeciesMatch from './handlers/handleSpeciesMatch';
 import handleSpeciesSearch from './handlers/handleSpeciesSearch';
+import getLabels from './handlers/labels';
 import { McpError } from './handlers/utils';
 
 export default async function toolHandler(tool, args) {
   try {
     let result;
+    if (config.debug) console.log('Tool requested:', tool, 'with args:', args);
 
     switch (tool) {
       case 'gbif_usage_guidelines': {
@@ -36,6 +38,13 @@ export default async function toolHandler(tool, args) {
         result = await handleOccurrenceSearch(args);
         break;
       }
+      case 'label_generator': {
+        if (config.debug) console.log('label_generator tool requested');
+        validateUsageToken(args);
+        result = await getLabels(args);
+        console.log('Labels generated:', result);
+        break;
+      }
       case 'species_search': {
         validateUsageToken(args);
         result = await handleSpeciesSearch(args);
@@ -60,6 +69,8 @@ export default async function toolHandler(tool, args) {
         throw new McpError(`Tool ${tool} not found`, 404);
     }
     if (config.debug) console.log('return result of execution');
+    if (config.debug) console.log(typeof result);
+    if (config.debug) console.log(result);
     return result;
   } catch (error) {
     if (config.debug) console.error(error);
