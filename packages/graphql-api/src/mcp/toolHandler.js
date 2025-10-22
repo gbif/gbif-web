@@ -1,3 +1,4 @@
+import { gadmIds2GeoJSON } from '#/api-utils/geometry/index.ctrl';
 import config from '#/config';
 import { SEARCH_GUIDE } from './guides';
 import handleDatasetSearch from './handlers/handleDatasetSearch';
@@ -36,6 +37,25 @@ export default async function toolHandler(tool, args) {
       case 'occurrence_search': {
         validateUsageToken(args);
         result = await handleOccurrenceSearch(args);
+        break;
+      }
+      case 'gadm_ids_to_geojson': {
+        const ids =
+          typeof args.gadmIds === 'string'
+            ? args.gadmIds.split(',')
+            : args.gadmIds;
+        // const gjson = await gadmIds2GeoJSON(ids);
+        result = {
+          content: [
+            {
+              type: 'text',
+              text: `The url for this geojson is http://localhost:4002/unstable-api/geometry/gadm2geojson.json?gadmIds=${ids.join(
+                ',',
+              )}`,
+              // text: JSON.stringify(gjson),
+            },
+          ],
+        };
         break;
       }
       case 'label_generator': {

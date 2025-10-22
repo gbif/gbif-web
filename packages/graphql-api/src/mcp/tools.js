@@ -166,6 +166,22 @@ const tools = [
     },
   },
   {
+    name: 'gadm_ids_to_geojson',
+    description:
+      'Convert GADM IDs to GeoJSON features. This tool takes a list of GADM IDs and returns the corresponding GeoJSON representations.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        gadmIds: {
+          type: 'array',
+          items: { type: 'string' },
+          description:
+            'Comma-separated list of GADM IDs to convert to a single GeoJSON',
+        },
+      },
+    },
+  },
+  {
     name: 'occurrence_search',
     description:
       'Search for species occurrence records. Before using this tool it is recommended to read the guidelines in gbif_usage_guidelines. Use this to find and preview occurrence data. Supports faceting for aggregated counts by dimension. Note: You typically need a taxonKey (obtained from species tools) to get meaningful results. It is always relevant to show a link to the gbif user interface at https://demo.gbif.org/occurrence/search for further exploration and downloads. use ~ in front of the value to negate the filter. E.g., year=~1990,2000 to find records that is not from the interval 1990-2000. And use * as a value to search for anything that has a value. E.g., year=* to find records with a year. Combined they can be used to find records without a value: year=~*',
