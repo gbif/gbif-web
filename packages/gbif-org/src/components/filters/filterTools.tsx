@@ -862,7 +862,7 @@ export function getAsQuery({
     // TODO, we could do more to merge here.
     // E.g. the intersection of overlapping keys so you can have a scope of 10 countries but still have the option to search for a country without being able to get something out of scope.
     // But for now we must assume that you cannot search on something that is defined in the root scope
-    return { ...v1Filter?.filter, ...scope };
+    return { ...scope, ...v1Filter?.filter };
   } else {
     // query by predicate
     const rootPredicate = searchContext.scope;
