@@ -132,6 +132,23 @@ export const MdtInstallations = () => {
                   </td>
                 </tr>
               ))}
+              <tr key={'total'} className="g-font-bold g-border-t">
+                <td className="g-p-4 ">Total</td>
+                <td className="g-p-4 ">
+                  <FormattedNumber
+                    value={
+                      summedData.reduce((acc, curr) => acc + (curr.dataset?.count || 0), 0) || 0
+                    }
+                  />
+                </td>
+                <td className="g-p-4 ">
+                  <FormattedNumber
+                    value={
+                      summedData.reduce((acc, curr) => acc + (curr.occurrenceCount || 0), 0) || 0
+                    }
+                  />
+                </td>
+              </tr>
             </tbody>
           </table>
         )}
