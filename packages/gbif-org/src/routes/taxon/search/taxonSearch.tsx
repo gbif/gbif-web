@@ -1,7 +1,7 @@
 import { DataHeader } from '@/components/dataHeader';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
+import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
 import { Tabs } from '@/components/tabs';
 import { useConfig } from '@/config/config';
 import { FilterProvider } from '@/contexts/filter';
@@ -90,49 +90,14 @@ export function TaxonSearchPageInner(): React.ReactElement {
         />
       </DataHeader>
 
-      <section className="">
-        <FilterBar>
-          <FilterButtons filters={visibleFilters} searchContext={searchContext} />
-        </FilterBar>
+      <section>
+        <FilterBarWithActions filters={visibleFilters} />
       </section>
 
       <Views view={view} entityDrawerPrefix="t" className="g-py-2 g-px-4 g-bg-slate-100" />
     </>
   );
 }
-
-/* export function TaxonSearchInner(): React.ReactElement {
-  const searchContext = useSearchContext();
-  const { filters } = useFilters({ searchConfig });
-  const defaultView = searchContext?.tabs?.[0] ?? 'table';
-  const [view, setView] = useStringParam({
-    key: 'view',
-    defaultValue: defaultView,
-    hideDefault: true,
-  });
-
-  return (
-    <>
-      <EntityDrawer />
-      <section className="g-bg-white">
-        <Card>
-          <TaxonViewTabs
-            setView={setView}
-            view={view}
-            defaultView={defaultView}
-            tabs={searchContext.tabs}
-            className="g-border-b"
-          />
-          <FilterBar>
-            <FilterButtons filters={filters} searchContext={searchContext} />
-          </FilterBar>
-        </Card>
-      </section>
-
-      <Views view={view} className="g-py-2" />
-    </>
-  );
-} */
 
 export function Views({
   view,
@@ -170,20 +135,18 @@ export function TaxonViewTabs({
   view,
   defaultView,
   tabs = ['table', 'tree'],
-  className,
 }: {
   setView: (view: string) => void;
   defaultView?: string;
   view?: string;
   tabs?: string[];
-  className?: string;
 }) {
   const { getParams } = useUpdateViewParams(['from', 'sort', 'limit', 'offset']); // Removes 'from' and 'sort'
 
   return (
     <Tabs
       disableAutoDetectActive
-      className={className}
+      className="g-border-none"
       links={tabs.map((tab) => ({
         isActive: view === tab,
         to: { search: getParams(tab, defaultView).toString() },

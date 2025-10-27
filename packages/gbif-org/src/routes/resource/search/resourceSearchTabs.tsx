@@ -21,6 +21,7 @@ export function ResourceSearchTabs({ activeTab, defaultTab }: Props): React.Reac
   return (
     <Tabs
       disableAutoDetectActive
+      className="g-border-none"
       links={orderedTabs
         .filter(
           (tab) =>

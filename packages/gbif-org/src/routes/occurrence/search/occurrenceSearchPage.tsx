@@ -1,30 +1,18 @@
 import { DataHeader } from '@/components/dataHeader';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { DatasetLabel } from '@/components/filters/displayNames';
-import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
+import { ChecklistSelector } from '@/components/filters/checklistSelector';
+import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
 import { Tabs } from '@/components/tabs';
-import { Button } from '@/components/ui/button';
-import {
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdownMenu';
 import { Card } from '@/components/ui/smallCard';
 import { useConfig } from '@/config/config';
-import { FilterContext, FilterProvider } from '@/contexts/filter';
+import { FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import { useStringParam } from '@/hooks/useParam';
 import { useUpdateViewParams } from '@/hooks/useUpdateViewParams';
-import { DropdownMenu } from '@radix-ui/react-dropdown-menu';
-import React, { useContext } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { MdDeleteOutline, MdInfo } from 'react-icons/md';
-import { PiGitBranchBold as TaxonomyIcon } from 'react-icons/pi';
 import { FormattedMessage } from 'react-intl';
 import { useFilters } from './filters';
 import { AboutContent, ApiContent } from './help';
@@ -81,17 +69,13 @@ const groups = [
 
 export function OccurrenceSearchPageInner(): React.ReactElement {
   const searchContext = useSearchContext();
-  const siteConfig = useConfig();
   const { filters } = useFilters({ searchConfig });
   const defaultView = searchContext.defaultTab ?? searchContext?.tabs?.[0] ?? 'table';
-  const currentFilterContext = useContext(FilterContext);
   const [view] = useStringParam({
     key: 'view',
     defaultValue: defaultView,
     hideDefault: true,
   });
-
-  const availableChecklistKeys = siteConfig.availableChecklistKeys ?? [];
 
   return (
     <>
@@ -103,79 +87,15 @@ export function OccurrenceSearchPageInner(): React.ReactElement {
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
       >
-        <OccurrenceViewTabs
-          view={view}
-          defaultView={defaultView}
-          tabs={searchContext.tabs}
-          className="g-border-none"
-        />
+        <OccurrenceViewTabs view={view} defaultView={defaultView} tabs={searchContext.tabs} />
       </DataHeader>
 
       <section>
-        <FilterBar className="g-flex f-flex-nowrap g-items-start">
-          <div>
-            <FilterButtons filters={filters} searchContext={searchContext} groups={groups} />
-          </div>
-          <div className="g-flex-1"></div>
-          <div className="g-flex g-items-center g-gap-1 g-ps-2">
-            {availableChecklistKeys.length > 1 && (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    size="sm"
-                    variant={
-                      currentFilterContext.filter.checklistKey !== siteConfig.defaultChecklistKey
-                        ? 'default'
-                        : 'ghost'
-                    }
-                    className="g-px-1 g-mb-1 g-text-slate-400"
-                  >
-                    <TaxonomyIcon className="g-text-base" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuLabel>
-                    <FormattedMessage
-                      id="phrases.supportedChecklists"
-                      defaultMessage="Supported checklists"
-                    />
-                    <a
-                      href={`https://techdocs.gbif.org/en/data-processing/#taxonomy-interpretation`}
-                      className="g-ms-2"
-                    >
-                      <MdInfo />
-                    </a>
-                  </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuRadioGroup
-                    value={
-                      currentFilterContext.filter.checklistKey ?? siteConfig.defaultChecklistKey
-                    }
-                    onValueChange={(value) => currentFilterContext.setChecklistKey(value)}
-                  >
-                    {availableChecklistKeys.map((key) => (
-                      <DropdownMenuRadioItem
-                        key={key}
-                        value={key}
-                        className="g-text-sm g-text-slate-700"
-                      >
-                        <DatasetLabel id={key} />
-                      </DropdownMenuRadioItem>
-                    ))}
-                  </DropdownMenuRadioGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
-            <Button
-              size="sm"
-              variant="ghost"
-              className="g-px-1 g-mb-1 g-text-slate-400 hover:g-text-red-800"
-              onClick={() => currentFilterContext.setFilter({})}
-            >
-              <MdDeleteOutline className="g-text-base" />
-            </Button>
-          </div>
-        </FilterBar>
+        <FilterBarWithActions
+          filters={filters}
+          groups={groups}
+          additionalActions={<ChecklistSelector />}
+        />
       </section>
 
       <Views view={view} className="g-py-2 g-px-4 g-bg-slate-100" />
@@ -204,9 +124,7 @@ export function OccurrenceSearchInner(): React.ReactElement {
             tabs={searchContext.tabs}
             className="g-border-b"
           />
-          <FilterBar>
-            <FilterButtons filters={filters} searchContext={searchContext} />
-          </FilterBar>
+          <FilterBarWithActions filters={filters} groups={groups} />
         </Card>
       </section>
 
@@ -246,19 +164,17 @@ function OccurrenceViewTabs({
   view,
   defaultView,
   tabs = ['table', 'map', 'gallery', 'clusters', 'datasets', 'dashboard', 'download'],
-  className,
 }: {
   defaultView?: string;
   view?: string;
   tabs?: string[];
-  className?: string;
 }) {
   const { getParams } = useUpdateViewParams(['from', 'sort', 'limit', 'offset']); // Removes 'from' and 'sort'
 
   return (
     <Tabs
       disableAutoDetectActive
-      className={className}
+      className="g-border-none"
       links={tabs.map((tab) => ({
         isActive: view === tab,
         to: { search: getParams(tab, defaultView).toString() },

@@ -1,4 +1,3 @@
-import { FilterButtons } from '@/components/filters/filterTools';
 import { Card } from '@/components/ui/largeCard';
 import { useConfig } from '@/config/config';
 import { FilterProvider } from '@/contexts/filter';
@@ -10,10 +9,10 @@ import { ArticleContainer } from '@/routes/resource/key/components/articleContai
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useFilters } from '@/routes/taxon/search/filters';
 import { searchConfig } from '@/routes/taxon/search/searchConfig';
-import { cn } from '@/utils/shadcn';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { TaxonViewTabs, Views } from '../../taxon/search/taxonSearch';
 import { DatasetKeyContext } from './datasetKey';
+import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
 
 export function TaxonSearchPageInner(): React.ReactElement {
   const searchContext = useSearchContext();
@@ -54,12 +53,7 @@ export function TaxonSearchPageInner(): React.ReactElement {
             defaultView={defaultView}
             tabs={searchContext.tabs}
           />
-          <div
-            className={cn('g-border-b g-border-solid g-py-2 g-px-2 g-bg-paperBackground')}
-            role="search"
-          >
-            <FilterButtons filters={visibleFilters} searchContext={searchContext} />
-          </div>
+          <FilterBarWithActions filters={visibleFilters} />
         </Card>
       </section>
       <Views view={view} entityDrawerPrefix="tx" className="g-py-2" />

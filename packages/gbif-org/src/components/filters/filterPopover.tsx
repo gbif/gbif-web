@@ -4,6 +4,8 @@ import { cn } from '@/utils/shadcn';
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useUncontrolledProp } from 'uncontrollable';
 import { ErrorBoundary } from '../ErrorBoundary';
+import { Dialog, DialogBottomSheetContent, DialogTrigger } from '../ui/dialog';
+import useBelow from '@/hooks/useBelow';
 
 export function FilterPopover({
   open,
@@ -64,9 +66,46 @@ export function FilterPopover({
     setPristine(false);
   }, []);
 
+  const isMobile = useBelow(640); // Tailwind's sm breakpoint
+
+  // Use a dialog instead of a popover on mobile
+  if (isMobile) {
+    return (
+      <Dialog open={controlledOpen} onOpenChange={setControlledOpen}>
+        <DialogTrigger asChild>{trigger}</DialogTrigger>
+        <DialogBottomSheetContent
+          onOpenAutoFocus={(e) => e.preventDefault()}
+          onEscapeKeyDown={onCancel}
+          onPointerDownOutside={() => onApply({ keepOpen: false })}
+          className="g-w-full g-p-0"
+        >
+          <div className="g-flex g-flex-col g-h-full g-bg-white">
+            <ErrorBoundary type="BLOCK">
+              <FilterProvider filter={tmpFilter} onChange={onFilterChange}>
+                {React.isValidElement(child) && (
+                  <>
+                    {title}
+                    <form onSubmit={(e) => e.preventDefault()}>
+                      {React.cloneElement(child, {
+                        onApply,
+                        onCancel,
+                        pristine,
+                        ref: focusRef,
+                      })}
+                    </form>
+                  </>
+                )}
+              </FilterProvider>
+            </ErrorBoundary>
+          </div>
+        </DialogBottomSheetContent>
+      </Dialog>
+    );
+  }
+
   return (
     <Popover open={controlledOpen} onOpenChange={setControlledOpen}>
-      <PopoverTrigger asChild>{trigger ?? <span>test</span>}</PopoverTrigger>
+      <PopoverTrigger asChild>{trigger}</PopoverTrigger>
       <PopoverContent
         onPointerDownOutside={() => onApply({ keepOpen: false })}
         onOpenAutoFocus={(event) => {

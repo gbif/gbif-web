@@ -2,7 +2,8 @@ import { DownloadAsTSVLink } from '@/components/cardHeaderActions/downloadAsTSVL
 import { ClientSideOnly } from '@/components/clientSideOnly';
 import { DataHeader } from '@/components/dataHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { FilterBar, FilterButtons, getAsQuery } from '@/components/filters/filterTools';
+import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
+import { getAsQuery } from '@/components/filters/filterTools';
 import { NoRecords } from '@/components/noDataMessages';
 import { PaginationFooter } from '@/components/pagination';
 import { CardListSkeleton } from '@/components/skeletonLoaders';
@@ -75,7 +76,6 @@ export function DatasetSearch(): React.ReactElement {
   const [tsvUrl, setTsvUrl] = useState('');
 
   const { filter, filterHash } = filterContext || { filter: { must: {} } };
-  const tabClassName = 'g-pt-2 g-pb-1.5';
 
   const { data, error, load, loading } = useQuery<DatasetSearchQuery, DatasetSearchQueryVariables>(
     DATASET_SEARCH_QUERY,
@@ -142,10 +142,9 @@ export function DatasetSearch(): React.ReactElement {
         /> */}
       </DataHeader>
 
-      <section className="">
-        <FilterBar>
-          <FilterButtons filters={filters} searchContext={searchContext} />
-        </FilterBar>
+      <section>
+        <FilterBarWithActions filters={filters} />
+
         <ArticleContainer className="g-bg-slate-100 g-flex">
           <ArticleTextContainer className="g-flex-auto g-w-full">
             <ErrorBoundary>

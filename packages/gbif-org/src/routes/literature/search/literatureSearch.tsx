@@ -1,11 +1,10 @@
 import { DataHeader } from '@/components/dataHeader';
 import DynamicHeightDiv from '@/components/DynamicHeightDiv';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { FilterBar, FilterButtons } from '@/components/filters/filterTools';
-import { Card } from '@/components/ui/smallCard';
+import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
 import { useConfig } from '@/config/config';
 import { FilterProvider } from '@/contexts/filter';
-import { SearchContextProvider, useSearchContext } from '@/contexts/search';
+import { SearchContextProvider } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -41,7 +40,6 @@ export function LiteratureSearchPage(): React.ReactElement {
 }
 
 export function LiteraturePageSearchInner(): React.ReactElement {
-  const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
 
   return (
@@ -53,43 +51,29 @@ export function LiteraturePageSearchInner(): React.ReactElement {
         aboutContent={<AboutContent />}
         apiContent={<ApiContent />}
         hideIfNoCatalogue={true}
-      ></DataHeader>
+      />
 
-      <Card className="">
-        <FilterBar>
-          <FilterButtons filters={filters} searchContext={searchContext} />
-        </FilterBar>
-      </Card>
+      <section>
+        <FilterBarWithActions filters={filters} />
 
-      <ErrorBoundary>
-        <div className="g-py-2 g-px-4 g-bg-slate-100">
-          <DynamicHeightDiv minPxHeight={500}>
-            <LiteratureTable />
-          </DynamicHeightDiv>
-        </div>
-        {/* <ArticleContainer className="g-bg-slate-100 g-flex">
-          <ArticleTextContainer className="g-flex-auto g-w-full">
-            <ErrorBoundary>
-              <LiteratureListView />
-            </ErrorBoundary>
-          </ArticleTextContainer>
-        </ArticleContainer> */}
-      </ErrorBoundary>
+        <ErrorBoundary>
+          <div className="g-py-2 g-px-4 g-bg-slate-100">
+            <DynamicHeightDiv minPxHeight={500}>
+              <LiteratureTable />
+            </DynamicHeightDiv>
+          </div>
+        </ErrorBoundary>
+      </section>
     </>
   );
 }
 
 export function LiteratureSearchInner(): React.ReactElement {
-  const searchContext = useSearchContext();
   const { filters } = useFilters({ searchConfig });
 
   return (
     <ErrorBoundary>
-      <Card>
-        <FilterBar>
-          <FilterButtons filters={filters} searchContext={searchContext} />
-        </FilterBar>
-      </Card>
+      <FilterBarWithActions filters={filters} />
 
       <ErrorBoundary>
         <div className="g-py-2">
