@@ -124,7 +124,7 @@ export function OccurrenceSearchInner(): React.ReactElement {
             tabs={searchContext.tabs}
             className="g-border-b"
           />
-          <FilterBarWithActions filters={filters} />
+          <FilterBarWithActions filters={filters} groups={groups} />
         </Card>
       </section>
 
