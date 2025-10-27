@@ -61,5 +61,7 @@
     "orderChanged": "The ordering of the coordinates was reversed as it was not counterclockwise",
     "geometryReducedToBbox": "Geometry reduced to bounding box",
     "failedToSimplify": "Failed to simplify the geometry"
-  }
+  },
+  "activeFilters": "",
+  "highlighted": ""
 }
