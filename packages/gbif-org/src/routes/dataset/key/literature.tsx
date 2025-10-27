@@ -3,7 +3,7 @@ import { FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, SearchMetadata } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import { LiteratureSearchInner } from '@/routes/literature/search/literatureSearch';
-import { searchConfig } from '@/routes/occurrence/search/searchConfig';
+import { searchConfig } from '@/routes/literature/search/searchConfig';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { ArticleTextContainer } from '@/routes/resource/key/components/articleTextContainer';
 import { useContext, useEffect, useState } from 'react';
