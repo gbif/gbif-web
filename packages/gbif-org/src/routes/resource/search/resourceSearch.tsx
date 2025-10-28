@@ -9,7 +9,12 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { FilterContext, FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import { ResourceSearchQuery, ResourceSearchQueryVariables } from '@/gql/graphql';
+import {
+  ResourceSearchQuery,
+  ResourceSearchQueryVariables,
+  ResourceSortBy,
+  ResourceSortOrder,
+} from '@/gql/graphql';
 import { useNumberParam, useParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import useUpdateEffect from '@/hooks/useUpdateEffect';
@@ -35,8 +40,17 @@ export const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
     $predicate: Predicate
     $contentType: [ContentType!]
     $q: String
+    $sortBy: ResourceSortBy
+    $sortOrder: ResourceSortOrder
   ) {
-    resourceSearch(predicate: $predicate, contentType: $contentType, q: $q, searchable: true) {
+    resourceSearch(
+      predicate: $predicate
+      contentType: $contentType
+      q: $q
+      searchable: true
+      sortBy: $sortBy
+      sortOrder: $sortOrder
+    ) {
       documents(from: $from, size: $size) {
         from
         size
@@ -164,6 +178,8 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
         ...query,
         size: 20,
         from: offset,
+        sortBy: ResourceSortBy.CreatedAt,
+        sortOrder: ResourceSortOrder.Desc,
       },
     });
 
