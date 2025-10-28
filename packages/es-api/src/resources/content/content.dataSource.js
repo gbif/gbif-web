@@ -29,6 +29,7 @@ async function query({
   sortBy,
   sortOrder = 'desc',
   metrics,
+  eventFiltering,
   req,
 }) {
   if (parseInt(from) + parseInt(size) > env.content.maxResultWindow) {
@@ -75,13 +76,19 @@ async function query({
     });
   }
 
+  // Apply event filtering if specified
+  let finalQuery = query;
+  if (eventFiltering === 'upcoming') {
+    finalQuery = applyEventDateFilter(query);
+  }
+
   const esQuery = {
     sort,
     track_total_hits: true,
     size,
     from,
     aggs,
-    query,
+    query: finalQuery,
   };
   let response = await search({ client, index: searchIndex, query: esQuery, req });
   let body = response.body;
@@ -122,3 +129,121 @@ module.exports = {
   query,
   byKey,
 };
+
+function applyEventDateFilter(query) {
+  const now = new Date();
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString();
+  const nowISO = now.toISOString();
+
+  // Create a filter that shows events that are not past
+  // For all-day events: show if date >= start of today
+  // For timed events: show if end/start >= now
+  const eventDateFilter = {
+    bool: {
+      should: [
+        // All-day events: show if date >= start of today
+        {
+          bool: {
+            must: [
+              { term: { allDayEvent: true } },
+              {
+                bool: {
+                  should: [
+                    { range: { end: { gte: startOfToday } } },
+                    {
+                      bool: {
+                        must: [
+                          { bool: { must_not: { exists: { field: 'end' } } } },
+                          { range: { start: { gte: startOfToday } } },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+          },
+        },
+        // Timed events: show if end/start >= now
+        {
+          bool: {
+            must: [
+              {
+                bool: {
+                  should: [
+                    { term: { allDayEvent: false } },
+                    { bool: { must_not: { exists: { field: 'allDayEvent' } } } },
+                  ],
+                },
+              },
+              {
+                bool: {
+                  should: [
+                    { range: { end: { gte: nowISO } } },
+                    {
+                      bool: {
+                        must: [
+                          { bool: { must_not: { exists: { field: 'end' } } } },
+                          { range: { start: { gte: nowISO } } },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+          },
+        },
+      ],
+    },
+  };
+
+  // If the original query is a bool query, add our filter to it
+  if (query.bool) {
+    return {
+      bool: {
+        ...query.bool,
+        must: [
+          ...(query.bool.must || []),
+          {
+            bool: {
+              should: [
+                // Non-event content types (no filtering)
+                { bool: { must_not: { term: { contentType: 'event' } } } },
+                // Event content types (with date filtering)
+                {
+                  bool: {
+                    must: [{ term: { contentType: 'event' } }, eventDateFilter],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    };
+  }
+
+  // If the original query is not a bool query, wrap it
+  return {
+    bool: {
+      must: [
+        query,
+        {
+          bool: {
+            should: [
+              // Non-event content types (no filtering)
+              { bool: { must_not: { term: { contentType: 'event' } } } },
+              // Event content types (with date filtering)
+              {
+                bool: {
+                  must: [{ term: { contentType: 'event' } }, eventDateFilter],
+                },
+              },
+            ],
+          },
+        },
+      ],
+    },
+  };
+}

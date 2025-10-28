@@ -27,6 +27,74 @@ function elasticSearchTypeToGraphQLType(elasticSearchType) {
   ).graphQLType;
 }
 
+/**
+ * fieldName: (parent, args, context, info) => data;
+ * parent: An object that contains the result returned from the resolver on the parent type
+ * args: An object that contains the arguments passed to the field
+ * context: An object shared by all resolvers in a GraphQL operation. We use the context to contain per-request state such as authentication information and access our data sources.
+ * info: Information about the execution state of the operation which should only be used in advanced cases
+ */
+export default {
+  Query: {
+    resourceSearch: async (_parent, { predicate, q, ...params }) => {
+      // Apply content type filtering first
+      const extendedPredicate = extendPredicateWithContentTypes(predicate);
+
+      // Determine if event filtering should be applied
+      const contentType = params.contentType?.map(
+        emumContentTypeToElasticSearchType,
+      );
+      const includesEvents = !contentType || contentType.includes('event');
+      const eventFiltering = includesEvents ? 'upcoming' : undefined;
+
+      return {
+        _predicate: extendedPredicate,
+        _q: q,
+        _params: params,
+        _eventFiltering: eventFiltering,
+      };
+    },
+  },
+  ResourceSearchResult: {
+    documents: (parent, query, { dataSources, locale }) => {
+      return dataSources.resourceSearchAPI.searchResourceDocuments({
+        query: {
+          predicate: parent._predicate,
+          q: parent._q,
+          ...parent._params,
+          ...query,
+        },
+        locale,
+        eventFiltering: parent._eventFiltering,
+      });
+    },
+    facet: (parent) => {
+      return { _predicate: parent._predicate, _q: parent._q };
+    },
+    _meta: (parent, query, { dataSources }) => {
+      return dataSources.resourceSearchAPI.meta({
+        query: {
+          predicate: parent._predicate,
+          q: parent._q,
+          ...parent._params,
+          ...query,
+        },
+        eventFiltering: parent._eventFiltering,
+      });
+    },
+  },
+  ResourceFacet,
+  Resource: {
+    __resolveType: (src) => {
+      const graphqlType = elasticSearchTypeToGraphQLType(src.contentType);
+      if (graphqlType) return graphqlType;
+      console.warn(
+        `Unknown content type in resourceSearch.resolver.js: ${src.contentType}`,
+      );
+    },
+  },
+};
+
 function extendPredicateWithContentTypes(predicate) {
   const contentTypes = SEARCH_RESULT_OPTIONS.map(
     (option) => option.elasticSearchType,
@@ -53,63 +121,3 @@ function extendPredicateWithContentTypes(predicate) {
     predicates: [predicate, extraPredicate],
   };
 }
-
-/**
- * fieldName: (parent, args, context, info) => data;
- * parent: An object that contains the result returned from the resolver on the parent type
- * args: An object that contains the arguments passed to the field
- * context: An object shared by all resolvers in a GraphQL operation. We use the context to contain per-request state such as authentication information and access our data sources.
- * info: Information about the execution state of the operation which should only be used in advanced cases
- */
-export default {
-  Query: {
-    resourceSearch: async (_parent, { predicate, q, ...params }) => {
-      return {
-        _predicate: predicate,
-        _q: q,
-        _params: params,
-      };
-    },
-  },
-  ResourceSearchResult: {
-    documents: (parent, query, { dataSources, locale }) => {
-      const contentType = parent._params.contentType?.map(
-        emumContentTypeToElasticSearchType,
-      );
-
-      return dataSources.resourceSearchAPI.searchResourceDocuments({
-        query: {
-          predicate: extendPredicateWithContentTypes(parent._predicate),
-          q: parent._q,
-          ...parent._params,
-          ...query,
-          contentType,
-        },
-        locale,
-      });
-    },
-    facet: (parent) => {
-      return { _predicate: parent._predicate, _q: parent._q };
-    },
-    _meta: (parent, query, { dataSources }) => {
-      return dataSources.resourceSearchAPI.meta({
-        query: {
-          predicate: extendPredicateWithContentTypes(parent._predicate),
-          q: parent._q,
-          ...parent._params,
-          ...query,
-        },
-      });
-    },
-  },
-  ResourceFacet,
-  Resource: {
-    __resolveType: (src) => {
-      const graphqlType = elasticSearchTypeToGraphQLType(src.contentType);
-      if (graphqlType) return graphqlType;
-      console.warn(
-        `Unknown content type in resourceSearch.resolver.js: ${src.contentType}`,
-      );
-    },
-  },
-};

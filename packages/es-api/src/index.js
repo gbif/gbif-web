@@ -227,6 +227,7 @@ function searchResource(resource, metaOnly = false) {
         sortBy,
         checklistKey,
         sortOrder,
+        eventFiltering,
       } = parseQuery(req, res, next, { get2predicate, get2metric });
       const aggs = metric2aggs(metrics);
       const query = await predicate2query(predicate, q);
@@ -250,6 +251,7 @@ function searchResource(resource, metaOnly = false) {
         sortBy,
         sortOrder,
         checklistKey,
+        eventFiltering,
         req,
       });
       const meta = {
@@ -299,6 +301,7 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
       sortBy,
       sortOrder,
       checklistKey,
+      eventFiltering,
       q,
       ...otherParams
     } = query;
@@ -333,6 +336,7 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
       sortBy,
       sortOrder,
       checklistKey,
+      eventFiltering,
       q,
     };
     return result;
