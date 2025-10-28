@@ -44,31 +44,36 @@ async function query({
     start: 'date',
     end: 'date',
   };
-  // use score if no sortBy param provided or the sortBy param is unknown
+
   const sort = [];
-  if (!sortBy || !sortableFields[sortBy]) {
+
+  if (sortBy && sortableFields[sortBy]) {
+    // Sort by the specified field
+    sort.push({
+      [sortBy]: {
+        order: sortOrder,
+        missing: '_last',
+        unmapped_type: sortableFields[sortBy],
+      },
+    });
+    // Add secondary sort by created for consistency
+    sort.push({
+      createdAt: {
+        order: 'desc',
+        missing: '_last',
+        unmapped_type: 'date',
+      },
+    });
+  } else {
+    // Default sorting when no sortBy or invalid sortBy
     sort.push('_score', {
-      created: {
+      createdAt: {
         order: sortOrder,
         missing: '_last',
         unmapped_type: 'date',
       },
     });
   }
-
-  // if sortBy field isn't sortable, default to createdAt
-  // if (!sortableFields[sortBy]) {
-  // if (sortBy && !sortableFields[sortBy]) {
-  //   sortBy = 'createdAt';
-  // }
-  // // always sort by createdAt as a secondary sort
-  // sort.push({
-  //   [sortBy]: {
-  //     order: sortOrder,
-  //     missing: '_last',
-  //     unmapped_type: sortableFields[sortBy],
-  //   },
-  // });
 
   const esQuery = {
     sort,
