@@ -44,15 +44,15 @@ export default async function toolHandler(tool, args) {
           typeof args.gadmIds === 'string'
             ? args.gadmIds.split(',')
             : args.gadmIds;
-        // const gjson = await gadmIds2GeoJSON(ids);
+        const gjson = await gadmIds2GeoJSON(ids);
         result = {
           content: [
             {
               type: 'text',
-              text: `The url for this geojson is http://localhost:4002/unstable-api/geometry/gadm2geojson.json?gadmIds=${ids.join(
-                ',',
-              )}`,
-              // text: JSON.stringify(gjson),
+              // text: `The url for this geojson is http://localhost:4002/unstable-api/geometry/gadm2geojson.json?gadmIds=${ids.join(
+              //   ',',
+              // )}`,
+              text: JSON.stringify(gjson),
             },
           ],
         };
