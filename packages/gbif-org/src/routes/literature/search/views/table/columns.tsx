@@ -30,7 +30,7 @@ export const columns: ColumnDef<SingleLiteratureSearchResult>[] = [
           {link == null ? (
             truncate(literature.title, 200)
           ) : (
-            <a href={link} className="g-pointer-events-auto g-underline">
+            <a href={link} className="g-pointer-events-auto hover:g-underline">
               {truncate(literature.title, 200)} <MdLink />
             </a>
           )}
