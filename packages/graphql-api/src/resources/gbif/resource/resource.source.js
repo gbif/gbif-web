@@ -50,16 +50,13 @@ export class ResourceSearchAPI extends RESTDataSource {
     request.agent = getDefaultAgent(this.baseURL, request.path);
   }
 
-  async searchResourceDocuments({ query, locale, eventFiltering }) {
-    const response = await this.searchResources(
-      { query, eventFiltering },
-      locale,
-    );
+  async searchResourceDocuments({ query, locale }) {
+    const response = await this.searchResources({ query }, locale);
     return response.documents;
   }
 
-  async searchResources({ query, eventFiltering }, locale) {
-    const body = { ...query, includeMeta: true, eventFiltering };
+  async searchResources({ query }, locale) {
+    const body = { ...query, includeMeta: true };
     let response;
     if (JSON.stringify(body).length < urlSizeLimit) {
       response = await this.get(
@@ -93,8 +90,8 @@ export class ResourceSearchAPI extends RESTDataSource {
     return response.results[0];
   }
 
-  async meta({ query, eventFiltering }) {
-    const body = { ...query, includeMeta: true, eventFiltering };
+  async meta({ query }) {
+    const body = { ...query, includeMeta: true };
     const response = await this.post('/content/meta', body);
     return response;
   }

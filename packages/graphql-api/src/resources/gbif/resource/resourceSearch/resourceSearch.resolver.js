@@ -68,11 +68,11 @@ export default {
         query: {
           predicate: parent._predicate,
           q: parent._q,
+          eventFiltering: parent._eventFiltering,
           ...parent._params,
           ...query,
         },
         locale,
-        eventFiltering: parent._eventFiltering,
       });
     },
     facet: (parent) => {
@@ -83,10 +83,10 @@ export default {
         query: {
           predicate: parent._predicate,
           q: parent._q,
+          eventFiltering: parent._eventFiltering,
           ...parent._params,
           ...query,
         },
-        eventFiltering: parent._eventFiltering,
       });
     },
   },
