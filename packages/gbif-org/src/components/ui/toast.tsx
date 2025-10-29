@@ -2,24 +2,42 @@ import { Cross2Icon } from '@radix-ui/react-icons';
 import * as ToastPrimitives from '@radix-ui/react-toast';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
+import { createPortal } from 'react-dom';
 
 import { cn } from '@/utils/shadcn';
+import { getPortalContainer } from '@/utils/getPortalContainer';
 
 const ToastProvider = ToastPrimitives.Provider;
 
 const ToastViewport = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Viewport>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Viewport>
->(({ className, ...props }, ref) => (
-  <ToastPrimitives.Viewport
-    ref={ref}
-    className={cn(
-      'g-fixed g-top-0 g-z-[100] g-flex g-max-h-screen g-w-full g-flex-col-reverse g-p-4 sm:g-bottom-0 sm:g-right-0 sm:g-top-auto sm:g-flex-col md:g-max-w-[420px]',
-      className
-    )}
-    {...props}
-  />
-));
+>(({ className, ...props }, ref) => {
+  const container = getPortalContainer();
+  const viewport = (
+    <ToastPrimitives.Viewport
+      ref={ref}
+      className={cn(
+        'g-fixed g-top-0 g-z-[100] g-flex g-max-h-screen g-w-full g-flex-col-reverse g-p-4 sm:g-bottom-0 sm:g-right-0 sm:g-top-auto sm:g-flex-col md:g-max-w-[420px]',
+        className
+      )}
+      {...props}
+    />
+  );
+
+  // Handle SSR case where container is undefined
+  if (!container) {
+    return viewport;
+  }
+
+  // Only use portal when inside a dialog/drawer (not when container is document.body)
+  // This prevents breaking the fixed positioning when mounting at the root
+  if (container === document.body) {
+    return viewport;
+  }
+
+  return createPortal(viewport, container);
+});
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName;
 
 const toastVariants = cva(

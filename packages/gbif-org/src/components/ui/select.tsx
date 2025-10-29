@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import { cn } from '@/utils/shadcn';
 import { ClientSideOnly } from '../clientSideOnly';
+import { getPortalContainer } from '@/utils/getPortalContainer';
 
 // focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring
 const Select = SelectPrimitive.Root;
@@ -66,7 +67,7 @@ const SelectContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
 >(({ className, children, position = 'popper', ...props }, ref) => (
   <ClientSideOnly>
-    <SelectPrimitive.Portal container={getSelectContainer()}>
+    <SelectPrimitive.Portal container={getPortalContainer()}>
       <div className="gbif">
         <SelectPrimitive.Content
           ref={ref}
@@ -96,15 +97,6 @@ const SelectContent = React.forwardRef<
   </ClientSideOnly>
 ));
 SelectContent.displayName = SelectPrimitive.Content.displayName;
-
-function getSelectContainer() {
-  if (typeof window === 'undefined') return undefined;
-  return (
-    document.querySelector<HTMLElement>('.dialog-popover-container') ??
-    document.querySelector<HTMLElement>('.drawer-popover-container') ??
-    document.body
-  );
-}
 
 const SelectLabel = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Label>,
