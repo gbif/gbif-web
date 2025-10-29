@@ -9,7 +9,13 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { FilterContext, FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
-import { ResourceSearchQuery, ResourceSearchQueryVariables } from '@/gql/graphql';
+import {
+  EventFiltering,
+  ResourceSearchQuery,
+  ResourceSearchQueryVariables,
+  ResourceSortBy,
+  ResourceSortOrder,
+} from '@/gql/graphql';
 import { useNumberParam, useParam } from '@/hooks/useParam';
 import useQuery from '@/hooks/useQuery';
 import useUpdateEffect from '@/hooks/useUpdateEffect';
@@ -35,8 +41,19 @@ export const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
     $predicate: Predicate
     $contentType: [ContentType!]
     $q: String
+    $sortBy: ResourceSortBy
+    $sortOrder: ResourceSortOrder
+    $eventFiltering: EventFiltering
   ) {
-    resourceSearch(predicate: $predicate, contentType: $contentType, q: $q, searchable: true) {
+    resourceSearch(
+      predicate: $predicate
+      contentType: $contentType
+      q: $q
+      searchable: true
+      sortBy: $sortBy
+      sortOrder: $sortOrder
+      eventFiltering: $eventFiltering
+    ) {
       documents(from: $from, size: $size) {
         from
         size
@@ -159,9 +176,27 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
 
+    const sortingOptions: ResourceSearchQueryVariables = {
+      sortBy: ResourceSortBy.CreatedAt,
+      sortOrder: ResourceSortOrder.Desc,
+    };
+
+    if ('eventFiltering' in query) {
+      switch (query.eventFiltering) {
+        case EventFiltering.Past:
+          sortingOptions.sortBy = ResourceSortBy.Start;
+          sortingOptions.sortOrder = ResourceSortOrder.Desc;
+          break;
+        case EventFiltering.Upcoming:
+          sortingOptions.sortBy = ResourceSortBy.Start;
+          sortingOptions.sortOrder = ResourceSortOrder.Asc;
+      }
+    }
+
     load({
       variables: {
         ...query,
+        ...sortingOptions,
         size: 20,
         from: offset,
       },
@@ -217,7 +252,7 @@ type ResourceSearchResultsProps = {
   loading: boolean;
   resources: Resource[];
   activeTab: string;
-  total: number;
+  total?: number;
   size?: number;
   offset: number;
   setOffset: (offset: number) => void;
@@ -234,7 +269,7 @@ export function ResourceSearchResults({
   setOffset,
   disableHeaderActionButtons,
 }: ResourceSearchResultsProps) {
-  if (loading) {
+  if (loading || total === undefined) {
     return (
       <>
         <CardHeader>

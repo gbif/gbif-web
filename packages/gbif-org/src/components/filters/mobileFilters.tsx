@@ -4,7 +4,7 @@ import { FilterContext } from '@/contexts/filter';
 import { cn } from '@/utils/shadcn';
 import { useContext, useMemo } from 'react';
 import { LuSettings2 as FilterIcon } from 'react-icons/lu';
-import { Filters, getFilterSummary } from './filterTools';
+import { Filters, FilterSetting, getFilterSummary } from './filterTools';
 import { MobileFilterDrawerContent } from './mobileFilterDrawer';
 import { FormattedNumber } from 'react-intl';
 import { useSearchContext } from '@/contexts/search';
@@ -19,19 +19,31 @@ export function MobileFilters({ filters, groups, className }: MobileFiltersProps
   const filterContext = useContext(FilterContext);
   const searchContext = useSearchContext();
 
-  const { highlightedFreeTextFilter, otherFilters } = useMemo(() => {
+  const { inlineFilters, otherFilters } = useMemo(() => {
     const enabledFilters = { ...filters };
     searchContext?.excludedFilters?.forEach((filter) => {
       delete enabledFilters[filter];
     });
 
-    // If free text filter is highlighted, we want to show it outside the drawer
-    if (searchContext?.highlightedFilters?.includes('q')) {
-      const { q: highlightedFreeTextFilter, ...otherFilters } = enabledFilters;
-      return { highlightedFreeTextFilter, otherFilters };
+    // Extract inline filters (q and eventFiltering) to show them outside the drawer
+    const inlineFilters: FilterSetting[] = [];
+    const highlightedFilters = searchContext?.highlightedFilters || [];
+
+    if (highlightedFilters.includes('q') && enabledFilters.q) {
+      inlineFilters.push(enabledFilters.q);
+      delete enabledFilters.q;
     }
 
-    return { highlightedFreeTextFilter: undefined, otherFilters: enabledFilters };
+    // eventFiltering is always inline when present
+    if (enabledFilters.eventFiltering) {
+      inlineFilters.push(enabledFilters.eventFiltering);
+      delete enabledFilters.eventFiltering;
+    }
+
+    return {
+      inlineFilters,
+      otherFilters: enabledFilters,
+    };
   }, [filters, searchContext]);
 
   const activeFilterCount = useMemo(() => {
@@ -46,8 +58,10 @@ export function MobileFilters({ filters, groups, className }: MobileFiltersProps
   }, [filterContext, otherFilters]);
 
   return (
-    <div className={cn('g-flex g-flex-1 g-flex-row g-justify-between', className)}>
-      {highlightedFreeTextFilter?.Button && <highlightedFreeTextFilter.Button />}
+    <div className={cn('g-flex g-flex-1 g-flex-row g-items-center g-gap-1', className)}>
+      {inlineFilters.map((filter) => (
+        <filter.Button key={filter.handle} />
+      ))}
       {Object.keys(otherFilters).length > 0 && (
         <Dialog>
           <DialogTrigger asChild>

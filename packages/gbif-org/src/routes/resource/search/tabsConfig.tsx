@@ -53,11 +53,7 @@ export const tabsConfig: Record<string, TabMetadata> = {
     contentTypes: ['event'],
     countKey: 'counts.nEvents',
     tabKey: 'resourceSearch.types.events',
-    filters: [
-      'q',
-      // TODO - add this filter
-      // '_showPastEvents'
-    ],
+    filters: ['q', 'eventFiltering'],
   },
   project: {
     contentTypes: ['project'],

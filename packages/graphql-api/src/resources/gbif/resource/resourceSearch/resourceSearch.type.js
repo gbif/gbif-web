@@ -25,7 +25,13 @@ const typeDef = gql`
       Different from the locale header in that only translated resources will be returned
       """
       locale: [String!]
+      eventFiltering: EventFiltering
     ): ResourceSearchResult
+  }
+
+  enum EventFiltering {
+    upcoming
+    past
   }
 
   enum ResourceSortOrder {
