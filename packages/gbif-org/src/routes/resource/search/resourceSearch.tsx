@@ -35,7 +35,7 @@ import { orderedTabs, tabsConfig } from './tabsConfig';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
 
 // Hardcoded toggle for testing - change this to 'past' or 'upcoming'
-const EVENT_FILTERING = EventFiltering.Upcoming;
+const EVENT_FILTERING: EventFiltering = EventFiltering.Past;
 
 export const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
   query ResourceSearch(
@@ -179,6 +179,20 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
 
+    const eventFilters: ResourceSearchQueryVariables = {};
+
+    if (activeTab === 'event') {
+      if (EVENT_FILTERING == EventFiltering.Past) {
+        eventFilters.eventFiltering = EventFiltering.Past;
+        eventFilters.sortBy = ResourceSortBy.Start;
+        eventFilters.sortOrder = ResourceSortOrder.Desc;
+      } else {
+        eventFilters.eventFiltering = EventFiltering.Upcoming;
+        eventFilters.sortBy = ResourceSortBy.Start;
+        eventFilters.sortOrder = ResourceSortOrder.Asc;
+      }
+    }
+
     load({
       variables: {
         ...query,
@@ -186,8 +200,7 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
         from: offset,
         sortBy: ResourceSortBy.CreatedAt,
         sortOrder: ResourceSortOrder.Desc,
-        // Only pass eventFiltering when on the event tab
-        ...(activeTab === 'event' && { eventFiltering: EVENT_FILTERING }),
+        ...eventFilters,
       },
     });
 
