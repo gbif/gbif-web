@@ -25,6 +25,7 @@
   "updateFilter": "Aktualizovat filtr",
   "setFilter": "Nastavit jako filtr",
   "noMathcingFilters": "Musí být definováno",
+  "countsUnavailable": "",
   "nameWithTaxonMatchIssue": "Název před normalizací",
   "commonName": "Běžný název",
   "acceptedNameOf": "Přijatý název pro",
@@ -60,5 +61,7 @@
     "orderChanged": "Pořadí souřadnic bylo obráceno, protože nebylo proti směru hodinových ručiček",
     "geometryReducedToBbox": "Geometrie omezená na ohraničující rámeček",
     "failedToSimplify": "Nepodařilo se zjednodušit geometrii"
-  }
+  },
+  "activeFilters": "",
+  "highlighted": ""
 }
