@@ -66,7 +66,7 @@ const SelectContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
 >(({ className, children, position = 'popper', ...props }, ref) => (
   <ClientSideOnly>
-    <SelectPrimitive.Portal>
+    <SelectPrimitive.Portal container={getSelectContainer()}>
       <div className="gbif">
         <SelectPrimitive.Content
           ref={ref}
@@ -96,6 +96,15 @@ const SelectContent = React.forwardRef<
   </ClientSideOnly>
 ));
 SelectContent.displayName = SelectPrimitive.Content.displayName;
+
+function getSelectContainer() {
+  if (typeof window === 'undefined') return undefined;
+  return (
+    document.querySelector<HTMLElement>('.dialog-popover-container') ??
+    document.querySelector<HTMLElement>('.drawer-popover-container') ??
+    document.body
+  );
+}
 
 const SelectLabel = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Label>,
