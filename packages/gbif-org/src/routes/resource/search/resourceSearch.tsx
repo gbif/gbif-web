@@ -34,9 +34,6 @@ import { searchConfig } from './searchConfig';
 import { orderedTabs, tabsConfig } from './tabsConfig';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
 
-// Hardcoded toggle for testing - change this to 'past' or 'upcoming'
-const EVENT_FILTERING: EventFiltering = EventFiltering.Past;
-
 export const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
   query ResourceSearch(
     $from: Int
@@ -179,28 +176,29 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
   useEffect(() => {
     const query = getAsQuery({ filter, searchContext, searchConfig });
 
-    const eventFilters: ResourceSearchQueryVariables = {};
+    const sortingOptions: ResourceSearchQueryVariables = {
+      sortBy: ResourceSortBy.CreatedAt,
+      sortOrder: ResourceSortOrder.Desc,
+    };
 
-    if (activeTab === 'event') {
-      if (EVENT_FILTERING == EventFiltering.Past) {
-        eventFilters.eventFiltering = EventFiltering.Past;
-        eventFilters.sortBy = ResourceSortBy.Start;
-        eventFilters.sortOrder = ResourceSortOrder.Desc;
-      } else {
-        eventFilters.eventFiltering = EventFiltering.Upcoming;
-        eventFilters.sortBy = ResourceSortBy.Start;
-        eventFilters.sortOrder = ResourceSortOrder.Asc;
+    if ('eventFiltering' in query) {
+      switch (query.eventFiltering) {
+        case EventFiltering.Past:
+          sortingOptions.sortBy = ResourceSortBy.Start;
+          sortingOptions.sortOrder = ResourceSortOrder.Desc;
+          break;
+        case EventFiltering.Upcoming:
+          sortingOptions.sortBy = ResourceSortBy.Start;
+          sortingOptions.sortOrder = ResourceSortOrder.Asc;
       }
     }
 
     load({
       variables: {
         ...query,
+        ...sortingOptions,
         size: 20,
         from: offset,
-        sortBy: ResourceSortBy.CreatedAt,
-        sortOrder: ResourceSortOrder.Desc,
-        ...eventFilters,
       },
     });
 

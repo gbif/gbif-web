@@ -5,7 +5,7 @@ import {
   filter2predicate,
   FilterConfigType,
 } from '@/dataManagement/filterAdapter/filter2predicate';
-import { Predicate } from '@/gql/graphql';
+import { EventFiltering, Predicate } from '@/gql/graphql';
 import { cn } from '@/utils/shadcn';
 import { SuggestConfig } from '@/utils/suggestEndpoints';
 import React, { useContext } from 'react';
@@ -24,6 +24,7 @@ import { SkeletonOption } from './option';
 import { OptionalBooleanFilter } from './optionalBooleanFilter';
 import { QFilter } from './QFilter';
 import { QInlineButtonFilter } from './QInlineButtonFilter';
+import { InlineToggleFilter } from './inlineToggleFilter';
 import { RangeFilter } from './rangeFilter';
 import { SuggestFnProps, SuggestionItem, SuggestResponseType } from './suggest';
 import { SuggestFilter } from './suggestFilter';
@@ -41,6 +42,7 @@ export enum filterConfigTypes {
   LOCATION = 'LOCATION',
   TAXON = 'TAXON',
   GEOLOGICAL_TIME = 'GEOLOGICAL_TIME',
+  INLINE_TOGGLE = 'INLINE_TOGGLE',
 }
 
 export type AdditionalFilterProps = {
@@ -143,6 +145,11 @@ export type filterFreeTextConfig = filterConfigShared & {
   filterType: filterConfigTypes.FREE_TEXT;
 };
 
+export type filterInlineToggleConfig = filterConfigShared & {
+  filterType: filterConfigTypes.INLINE_TOGGLE;
+  options: Array<{ value: string; labelKey: string }>;
+};
+
 // define a type that is one of filterBoolConfig, filterSuggestConfig or filterEnumConfig
 export type filterConfig =
   | filterBoolConfig
@@ -154,7 +161,8 @@ export type filterConfig =
   | filterDateRangeConfig
   | filterTaxonConfig
   | filterGeologicalTimeConfig
-  | filterLocationConfig;
+  | filterLocationConfig
+  | filterInlineToggleConfig;
 
 // generic type for a facet query
 export interface FacetQuery {
@@ -496,6 +504,29 @@ const getOptionalBooleanFilter = ({
   );
 };
 
+const getInlineToggleFilter = ({ config }: { config: filterInlineToggleConfig }) => {
+  return React.forwardRef(
+    (
+      {
+        className,
+      }: {
+        onApply?: ({ keepOpen, filter }?: { keepOpen?: boolean; filter?: FilterType }) => void;
+        onCancel?: () => void;
+        className?: string;
+        style?: React.CSSProperties;
+        pristine?: boolean;
+      },
+      _ref
+    ) => (
+      <InlineToggleFilter
+        className={className}
+        filterHandle={config.filterHandle}
+        options={config.options}
+      />
+    )
+  );
+};
+
 const getRangeFilter = ({
   config,
   searchConfig,
@@ -697,6 +728,15 @@ export function generateFilter({
       <QInlineButtonFilter className={className} filterHandle={config.filterHandle} />
     );
   }
+  if (config.filterType === filterConfigTypes.INLINE_TOGGLE) {
+    FilterButtonPopover = ({ className }: { className?: string }) => (
+      <InlineToggleFilter
+        filterHandle={config.filterHandle}
+        options={config.options}
+        className={className}
+      />
+    );
+  }
 
   return {
     // ...config,
@@ -747,6 +787,12 @@ export function generateFilters({
       config,
       formatMessage,
       Content: getFreeTextFilter({ config, searchConfig }),
+    });
+  } else if (config.filterType === filterConfigTypes.INLINE_TOGGLE) {
+    return generateFilter({
+      config,
+      formatMessage,
+      Content: getInlineToggleFilter({ config, searchConfig }),
     });
   } else if (config.filterType === filterConfigTypes.RANGE) {
     return generateFilter({
@@ -866,7 +912,13 @@ export function getAsQuery({
   searchContext: SearchMetadata;
   searchConfig: FilterConfigType;
   queryType?: QueryTypeEnum;
-}): object | { predicate: Predicate | undefined; q: string | undefined } {
+}):
+  | object
+  | {
+      predicate: Predicate | undefined;
+      q: string | undefined;
+      eventFiltering: EventFiltering | undefined;
+    } {
   // should we use get v1 syntax or predicates (we have later added predicates to v1, so the naming is less meaningful now)
   if (queryType === 'V1') {
     const v1Filter = filter2v1(filter, searchConfig);
@@ -879,7 +931,8 @@ export function getAsQuery({
     // query by predicate
     const rootPredicate = searchContext.scope;
     let cleanedFilter = filter;
-    let q;
+
+    let q: string | undefined;
     if (searchConfig?.fields?.q?.hoist) {
       q = filter?.must?.q?.[0];
       // remove q from the filter.must and keep the remaining filter as is
@@ -887,14 +940,30 @@ export function getAsQuery({
       cleanedFilter = { ...filter, must: rest };
     }
 
+    let eventFiltering: EventFiltering | undefined;
+    if (searchConfig?.fields?.eventFiltering?.hoist) {
+      eventFiltering =
+        filter?.must?.eventFiltering?.[0] === 'past'
+          ? EventFiltering.Past
+          : EventFiltering.Upcoming;
+      // remove eventFiltering from the filter.must and keep the remaining filter as is
+      const { eventFiltering: discard, ...rest } = cleanedFilter?.must ?? {};
+      cleanedFilter = { ...cleanedFilter, must: rest };
+    }
+
     const currentPredicate = filter2predicate(cleanedFilter, searchConfig);
     const predicates = [rootPredicate, currentPredicate].filter((x) => x);
     if (predicates.length === 0) {
-      return { q, predicate: undefined, checklistKey: filter.checklistKey };
+      return { q, eventFiltering, predicate: undefined, checklistKey: filter.checklistKey };
     } else if (predicates.length === 1) {
-      return { predicate: predicates[0], q, checklistKey: filter.checklistKey };
+      return { predicate: predicates[0], q, eventFiltering, checklistKey: filter.checklistKey };
     } else {
-      return { predicate: { type: 'and', predicates }, q, checklistKey: filter.checklistKey };
+      return {
+        predicate: { type: 'and', predicates },
+        q,
+        eventFiltering,
+        checklistKey: filter.checklistKey,
+      };
     }
   }
 }
