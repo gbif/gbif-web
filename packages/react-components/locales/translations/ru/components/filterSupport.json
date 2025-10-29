@@ -25,6 +25,7 @@
   "updateFilter": "Обновить фильтр",
   "setFilter": "Установить как фильтр",
   "noMathcingFilters": "Нет подходящих фильтров",
+  "countsUnavailable": "",
   "nameWithTaxonMatchIssue": "Имя до нормализации",
   "commonName": "Общепринятое название",
   "acceptedNameOf": "Общепринятое имя для",
@@ -60,5 +61,7 @@
     "orderChanged": "Порядок координат был изменен, так как он не был направлен против часовой стрелки.",
     "geometryReducedToBbox": "Геометрия сведена к ограничивающей рамке",
     "failedToSimplify": "Не удалось упростить геометрию"
-  }
+  },
+  "activeFilters": "",
+  "highlighted": ""
 }
