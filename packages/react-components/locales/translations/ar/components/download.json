@@ -8,6 +8,8 @@
   "continueToGBIF": "متابعة",
   "sql": {
     "createNewSqlDownload": "",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "مذكرة",
       "description": "",

@@ -21,11 +21,11 @@
   "publishers": "Vydavatelé",
   "hostedDatasets": "Hostované datové sady",
   "occurrenceMetrics": "Metriky výskytu",
-  "citationMetrics": "",
+  "citationMetrics": "Metriky citací",
   "project": "Projekt",
   "license": "Licence",
   "downloadAsTsv": "Stáhnout jako TSV",
-  "didYouKnow": "",
+  "didYouKnow": "Věděli jste, že...",
   "explore": "Procházet",
   "backHome": "Zpět na úvodní stránku",
   "pageNotFound": "404",
@@ -68,5 +68,6 @@
   "back": "Zpět",
   "submit": "Odeslat",
   "pleaseTryAgainLater": "",
-  "weWillBeInTouchSoon": ""
+  "weWillBeInTouchSoon": "",
+  "clickToSelect": "Kliknutím vyberte"
 }

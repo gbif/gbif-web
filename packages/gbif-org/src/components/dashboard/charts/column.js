@@ -1,4 +1,4 @@
-export function getColumnOptions({ serie, onClick, interactive, translations }) {
+export function getColumnOptions({ serie, onClick, interactive, translations, colors }) {
   const categories = serie?.data?.map((x) => x.name);
   const options = {
     responsive: true,
@@ -11,6 +11,7 @@ export function getColumnOptions({ serie, onClick, interactive, translations }) 
     tooltip: {
       pointFormat: '{series.name}: <b>{point.y}</b>',
     },
+    colors,
     plotOptions: {
       series: {
         color: {

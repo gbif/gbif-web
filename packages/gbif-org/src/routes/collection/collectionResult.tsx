@@ -73,7 +73,7 @@ export function CollectionResult({
                   </p>
                 )}
 
-                {!excludeInstitution && (
+                {!excludeInstitution && collection.institutionKey && (
                   <p className="g-font-normal g-text-slate-500 g-text-sm g-mt-2">
                     <FormattedMessage
                       id="grscicoll.fromInstitution"

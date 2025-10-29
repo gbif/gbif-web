@@ -1,4 +1,4 @@
-export function getPieOptions({ serie, onClick, interactive }) {
+export function getPieOptions({ serie, onClick, interactive, colors }) {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -10,6 +10,7 @@ export function getPieOptions({ serie, onClick, interactive }) {
     tooltip: {
       pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
     },
+    colors,
     plotOptions: {
       pie: {
         allowPointSelect: interactive,
