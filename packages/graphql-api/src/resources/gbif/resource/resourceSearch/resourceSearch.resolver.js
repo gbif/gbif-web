@@ -36,7 +36,10 @@ function elasticSearchTypeToGraphQLType(elasticSearchType) {
  */
 export default {
   Query: {
-    resourceSearch: async (_parent, { predicate, q, ...params }) => {
+    resourceSearch: async (
+      _parent,
+      { predicate, q, eventFiltering, ...params },
+    ) => {
       // Apply content type filtering first
       const extendedPredicate = extendPredicateWithContentTypes(predicate);
 
@@ -45,13 +48,17 @@ export default {
         emumContentTypeToElasticSearchType,
       );
       const includesEvents = !contentType || contentType.includes('event');
-      const eventFiltering = includesEvents ? 'upcoming' : undefined;
+
+      // Use provided eventFiltering, or default to 'upcoming' if events are included
+      const finalEventFiltering = includesEvents
+        ? eventFiltering || 'upcoming'
+        : undefined;
 
       return {
         _predicate: extendedPredicate,
         _q: q,
         _params: params,
-        _eventFiltering: eventFiltering,
+        _eventFiltering: finalEventFiltering,
       };
     },
   },

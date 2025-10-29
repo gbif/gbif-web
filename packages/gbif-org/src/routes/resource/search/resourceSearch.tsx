@@ -10,6 +10,7 @@ import { FilterContext, FilterProvider } from '@/contexts/filter';
 import { SearchContextProvider, useSearchContext } from '@/contexts/search';
 import { useFilterParams } from '@/dataManagement/filterAdapter/useFilterParams';
 import {
+  EventFiltering,
   ResourceSearchQuery,
   ResourceSearchQueryVariables,
   ResourceSortBy,
@@ -33,6 +34,9 @@ import { searchConfig } from './searchConfig';
 import { orderedTabs, tabsConfig } from './tabsConfig';
 import { FilterBarWithActions } from '@/components/filters/filterBarWithActions';
 
+// Hardcoded toggle for testing - change this to 'past' or 'upcoming'
+const EVENT_FILTERING = EventFiltering.Upcoming;
+
 export const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
   query ResourceSearch(
     $from: Int
@@ -42,6 +46,7 @@ export const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
     $q: String
     $sortBy: ResourceSortBy
     $sortOrder: ResourceSortOrder
+    $eventFiltering: EventFiltering
   ) {
     resourceSearch(
       predicate: $predicate
@@ -50,6 +55,7 @@ export const RESOURCE_SEARCH_QUERY = /* GraphQL */ `
       searchable: true
       sortBy: $sortBy
       sortOrder: $sortOrder
+      eventFiltering: $eventFiltering
     ) {
       documents(from: $from, size: $size) {
         from
@@ -180,6 +186,8 @@ function ResourceSearchPageInner({ activeTab, defaultTab }: Props): React.ReactE
         from: offset,
         sortBy: ResourceSortBy.CreatedAt,
         sortOrder: ResourceSortOrder.Desc,
+        // Only pass eventFiltering when on the event tab
+        ...(activeTab === 'event' && { eventFiltering: EVENT_FILTERING }),
       },
     });
 
