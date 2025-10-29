@@ -106,10 +106,36 @@ export const gbifConfig: Config = {
   availableChecklistKeys: import.meta.env.PUBLIC_SUPPORTED_CHECKLISTS?.split(',') || [],
   theme: {
     dense: true,
-    primary: '#69AA69', // green '#69AA69', purple #4f46e5
+    primary: '#4C9C2E', // green '#69AA69', purple #4f46e5
     stickyOffset: '0px',
     borderRadius: 3,
     linkColor: '#69AA69',
+    chartColors: [
+      '#4C9C2E',
+      '#231F20',
+      '#E37C72',
+      '#D1628E',
+      '#ECAC7C',
+      '#00B7EE',
+      '#6885C0',
+      '#664192',
+      '#F2BF48',
+      '#0078B4',
+    ],
+    iucnColors: {
+      NA: '#B8A896',
+      NE: '#E8E8E8',
+      DD: '#C4C4B8',
+      LC: '#4C9C2E',
+      NT: '#ECAC7C',
+      VU: '#F2BF48',
+      EN: '#E37C72',
+      CR: '#C84248',
+      RE: '#664192',
+      EW: '#442D59',
+      EX: '#231F20',
+    },
+    // mapDensityColors: ['#31a354', '#006d2c', '#006d2c', '#006d2c', '#006d2c'], // all dark green
   },
   dataHeader: {
     enableApiPopup: true,

@@ -4,7 +4,7 @@ import HighchartsReact from 'highcharts-react-official';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { CardHeader } from '../shared';
 import { getColumnOptions } from './column';
-import Highcharts, { chartColors } from './highcharts';
+import Highcharts, { generateChartsPalette } from './highcharts';
 import { getPieOptions } from './pie';
 // import { getTimeSeriesOptions } from './area';
 import { Button } from '@/components/ui/button';
@@ -14,6 +14,7 @@ import { MdViewStream } from 'react-icons/md';
 import { useUncontrolledProp } from 'uncontrollable';
 import { GroupBy, Pagging, useFacets } from './GroupByTable';
 import { getTimeSeriesOptions } from './time';
+import { useConfig } from '@/config/config';
 
 export const chartsClass = 'g-min-w-full g-h-full g-w-40 g-overflow-hidden';
 
@@ -66,6 +67,7 @@ export function OneDimensionalChart({
   setView: setUserView,
   view: userView,
   showFreeTextWarning,
+  value2colorMap,
   ...props
 }) {
   const [view, setView] = useUncontrolledProp(
@@ -74,11 +76,16 @@ export function OneDimensionalChart({
     setUserView
   );
   const intl = useIntl();
+  const { theme } = useConfig();
   const facetResults = useFacets(facetQuery);
   // const [view, setView] = useState(defaultOption ?? options?.[0] ?? 'TABLE');
   const showChart = facetResults?.results?.length > 0;
   const { otherCount, emptyCount, distinct } = facetResults;
   // if (!view) setView(defaultOption ?? options?.[0] ?? 'TABLE');
+  const { chartColors } = theme;
+  const palette = chartColors
+    ? generateChartsPalette(chartColors)
+    : Highcharts?.defaultOptions?.colors;
   const messages = [...(customMessages ?? [])];
   const translations = {
     occurrences: intl.formatMessage({ id: 'dashboard.occurrences' }),
@@ -86,6 +93,7 @@ export function OneDimensionalChart({
   facetResults?.results?.forEach((x) => (x.filter = { [filterKey ?? predicateKey]: [x.key] }));
   const mappedResults = transform ? transform(facetResults.data) : facetResults.results;
   const data = mappedResults?.map((x) => {
+    const customColor = value2colorMap ? value2colorMap[x.key] : chartColors.OTHER;
     return {
       ...x,
       y: x.count,
@@ -93,6 +101,7 @@ export function OneDimensionalChart({
       key: x.key,
       filter: { [predicateKey]: [x.key] },
       visible: x.count > 0,
+      color: customColor,
     };
   });
 
@@ -105,7 +114,7 @@ export function OneDimensionalChart({
     // if the series have less than 5 items, then use every 2th color from the default palette Highcharts?.defaultOptions?.colors
     if (data?.length < 5) {
       data.forEach((x, i) => {
-        x.color = Highcharts?.defaultOptions?.colors?.[i * 2 + 2];
+        x.color = x.color ?? palette[i * 2];
       });
     }
     if (!disableOther && otherCount) {
@@ -131,6 +140,7 @@ export function OneDimensionalChart({
     innerSize: '25%',
     name: intl.formatMessage({ id: 'dashboard.occurrences' }),
     data,
+    // color: palette[0],
   };
 
   const pieOptions = getPieOptions({
@@ -138,6 +148,7 @@ export function OneDimensionalChart({
     onClick: handleRedirect,
     interactive,
     translations,
+    colors: palette,
   });
 
   const columnOptions = getColumnOptions({

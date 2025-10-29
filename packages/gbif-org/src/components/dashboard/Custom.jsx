@@ -21,6 +21,7 @@ import { Button } from '../ui/button';
 import { Card, CardContent, CardDescription, CardTitle } from '../ui/smallCard';
 import ChartClickWrapper from './charts/ChartClickWrapper';
 import { ChartMessages } from './charts/OneDimensionalChart';
+import { useConfig } from '@/config/config';
 
 const majorRanks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species'];
 const getDefaultRank = (rank) => {
@@ -234,6 +235,7 @@ function IucnMain({
   interactive,
   ...props
 }) {
+  const { theme } = useConfig();
   const defaultChecklistKey = useChecklistKey();
   const facetResults = useFacets({
     otherVariables: { q, checklistKey: checklistKey ?? defaultChecklistKey },
@@ -282,6 +284,7 @@ function IucnMain({
                   title: (
                     <div>
                       <IucnCategory
+                        color={theme?.iucnColors?.[x?.entity?.iucnStatusCode]}
                         code={x?.entity?.iucnStatusCode}
                         category={x?.entity?.iucnStatus}
                       />
@@ -361,10 +364,13 @@ export function Iucn(props) {
   );
 }
 
-function IucnCategory({ code, category }) {
+function IucnCategory({ code, category, color }) {
   return (
     <SimpleTooltip i18nKey={`enums.threatStatus.${category}`}>
-      <span className="g-bg-[#7a443a] g-text-white g-px-1 g-py-0.5 g-text-xs g-font-bold g-rounded-md g-mr-2">
+      <span
+        style={{ backgroundColor: color }}
+        className={`gbif-iucn-status-${code} g-bg-[#7a443a] g-text-white g-px-1 g-py-0.5 g-text-xs g-font-bold g-rounded-md g-mr-2`}
+      >
         {code}
       </span>
     </SimpleTooltip>

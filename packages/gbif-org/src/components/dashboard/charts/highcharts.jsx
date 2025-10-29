@@ -127,8 +127,13 @@ const patterns = [
   /* <svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='20' height='20' patternTransform='scale(1) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(0,0%,100%,1)'/><path d='M10 15a5 5 0 110-10 5 5 0 010 10z'  stroke-width='1' stroke='hsla(258.5,59.4%,59.4%,1)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(#a)'/></svg> */
 }
 // patterns via <a href="https://www.freepik.com/free-vector/cute-pattern-background-polka-dot-black-white-vector-set_20346212.htm#query=svg%20patterns&position=19&from_view=keyword&track=ais">Image by rawpixel.com</a> on Freepik
-Highcharts.theme = {
-  colors: [
+export function generateChartsPalette(userPalette) {
+  // if there is too few colors (below 6), then add a few more
+  const palette =
+    userPalette.length < 6
+      ? [...userPalette, ...fallbackPalette.slice(0, 6 - userPalette.length)]
+      : userPalette;
+  return [
     ...palette,
     // for 1-20 generate a color based on the index
     ...Array.from({ length: palette.length }, (_, i) => {
@@ -138,7 +143,11 @@ Highcharts.theme = {
       patternColor.pattern.path.stroke = palette[paletteIndex];
       return patternColor;
     }),
-  ],
+  ];
+}
+
+Highcharts.theme = {
+  colors: generateChartsPalette(palette),
   chart: {
     // backgroundColor: {
     //    linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
@@ -255,11 +264,11 @@ Highcharts.theme = {
       color: '#666',
     },
   },
-  labels: {
-    style: {
-      color: '#707073',
-    },
-  },
+  // labels: {
+  //   style: {
+  //     color: '#707073',
+  //   },
+  // },
 
   drilldown: {
     activeAxisLabelStyle: {
@@ -270,8 +279,23 @@ Highcharts.theme = {
     },
   },
 
-  responsive: true,
-  maintainAspectRatio: false,
+  responsive: {
+    rules: [
+      {
+        condition: {
+          maxWidth: 500,
+        },
+        chartOptions: {
+          legend: {
+            layout: 'horizontal',
+            align: 'center',
+            verticalAlign: 'bottom',
+          },
+        },
+      },
+    ],
+  },
+  // maintainAspectRatio: false,
 
   navigation: {
     buttonOptions: {

@@ -29,6 +29,35 @@ const build = (theme: Partial<Theme>): Theme => {
   const brightMapColors = ['#fed976', '#fd8d3c', '#F7642E', '#f03b20', '#bd0026'];
   // const darkMapColors = brightMapColors;//['#ffd300', '#f4b456', '#e9928a', '#d96cc1', '#b93bff'];
 
+  const chartColors = [
+    '#003f5c',
+    '#2f4b7c',
+    '#665191',
+    '#a05195',
+    '#d45087',
+    '#f95d6a',
+    '#ff7c43',
+    '#ffa600',
+    '#cea400',
+    '#a19f08',
+    '#789523',
+    '#558935',
+  ];
+
+  const iucnColors = {
+    NA: '#B8A896',
+    NE: '#E8E8E8',
+    DD: '#C4C4B8',
+    LC: '#7DB872',
+    NT: '#C8D965',
+    VU: '#F4D54E',
+    EN: '#F49D5A',
+    CR: '#E8634F',
+    RE: '#A9779F',
+    EW: '#7A5F72',
+    EX: '#5A5A5A',
+  };
+
   const primaryVariants = {
     primary50: shadeHexColor(primary, 0.8),
     primary100: shadeHexColor(primary, 0.6),
@@ -84,6 +113,8 @@ const build = (theme: Partial<Theme>): Theme => {
     drawerZIndex: fullTheme.drawerZIndex,
     stickyOffset: fullTheme.stickyOffset,
     mapDensityColors: fullTheme.mapDensityColors ?? brightMapColors,
+    chartColors: fullTheme.chartColors ?? chartColors,
+    iucnColors: fullTheme.iucnColors ?? iucnColors,
 
     color900: shadeBlend(shadeDirection * 1 * 0.075, color, paperBackground),
     color800: shadeBlend(shadeDirection * 2 * 0.075, color, paperBackground),
