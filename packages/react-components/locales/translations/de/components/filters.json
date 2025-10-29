@@ -180,6 +180,16 @@
     "count": "",
     "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
   },
+  "biomeType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "objectClassification": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
   "taxonKey": {
     "name": "Wissenschaftlicher Name",
     "count": "{num, plural, one {wissenschaftlicher Name} other {# wissenschaftliche Namen}}",

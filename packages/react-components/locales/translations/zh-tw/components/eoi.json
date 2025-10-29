@@ -27,7 +27,6 @@
   "marineDataPublishers": "",
   "suggested": "建議自",
   "orSelectAnotherAssOrg": "若上列建議的國家節點不是取得認可的正確選擇，請查看國際或專題網絡的相關會員名單：",
-  "clickToSelect": "點擊以選擇",
   "none": "無",
   "whatAndHow": "什麼與如何",
   "helpUsUnderstand": "幫助我們了解您想發布的資料類型，以及您需要什麼協助。",
@@ -63,7 +62,6 @@
   "invalidUrl": "無效的 URL",
   "brieflyDescribeScope": "請以英文簡要地描述您的機構（或組織）與 GBIF 任務相關的工作領域（例如蒐藏品、研究重點、生物多樣性資料管理等）。說明內容會顯示於發布者頁面。您可以加上任何其它語言的版本，但一定要有英文版。",
   "clear": "清除",
-  "selectParticipant": "",
   "clickMapToAddOrg": "點擊地圖來新增您的組織",
   "description": "描述",
   "gbifProjects": "GBIF 專案",
@@ -97,5 +95,6 @@
   "loginToRegisterOrganization": {
     "title": "",
     "message": ""
-  }
+  },
+  "registerAnotherOrganization": ""
 }

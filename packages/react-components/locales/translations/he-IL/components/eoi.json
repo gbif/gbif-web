@@ -27,7 +27,6 @@
   "marineDataPublishers": "ספקי נתוני ים: בקשת אישור לנתוני OBIS (מערכת מידע למגוון ביולוגי ימי)",
   "suggested": "מוצע",
   "orSelectAnotherAssOrg": "אם האישור דרך הצומת הלאומי שהוצע אינו מתאים, אנא בדקו את רשימת המשתתפים המשויכים לרשתות בינלאומיות או נושאיות:",
-  "clickToSelect": "לחצו כדי לבחור",
   "none": "אין",
   "whatAndHow": "מה וכיצד",
   "helpUsUnderstand": "עזרו לנו להבין אילו נתונים בכוונתכם לפרסם, ואיזו תמיכה תזדקקו לה.",
@@ -63,7 +62,6 @@
   "invalidUrl": "כתובת לא תקפה",
   "brieflyDescribeScope": "באנגלית, נא לתאר בקצרה את תחום הפעילות של הארגון ביחס למשימת GBIF (למשל: אוספים, תחומי מחקר, ניהול מידע על מגוון ביולוגי). תיאור זה יופיע בעמוד הספק שלכם. ניתן גם לכלול גרסה בשפה אחרת, אך אנגלית נדרשת.",
   "clear": "נקה",
-  "selectParticipant": "",
   "clickMapToAddOrg": "לחצו על המפה כדי להוסיף את הארגון שלכם",
   "description": "תיאור",
   "gbifProjects": "פרויקטי GBIF",
@@ -97,5 +95,6 @@
   "loginToRegisterOrganization": {
     "title": "",
     "message": ""
-  }
+  },
+  "registerAnotherOrganization": ""
 }

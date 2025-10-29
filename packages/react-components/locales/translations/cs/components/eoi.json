@@ -27,7 +27,6 @@
   "marineDataPublishers": "Vydavatelé dat o moři: žádost o schválení údajů souvisejících s OBIS (Ocean Biogeographic Information System)",
   "suggested": "Navrhovaný",
   "orSelectAnotherAssOrg": "Pokud není schválení prostřednictvím výše navrženého uzlu země tou správnou možností, podívejte se na tento seznam přidružených účastníků pro nadnárodní nebo tematické sítě:",
-  "clickToSelect": "Kliknutím vyberte",
   "none": "Žádný",
   "whatAndHow": "Co a jak",
   "helpUsUnderstand": "Pomozte nám pochopit, jaký druh dat plánujete zveřejnit a jakou podporu budete potřebovat.",
@@ -63,7 +62,6 @@
   "invalidUrl": "Neplatná URL adresa",
   "brieflyDescribeScope": "V *angličtině* stručně popište působnost vaší instituce/organizace ve vztahu k poslání GBIF (např. sbírkové fondy, zaměření výzkumu, správa informací o biologické rozmanitosti atd.). Tento popis se objeví na stránce vašeho vydavatele. Můžete také uvést verzi v jiném jazyce, ale angličtina je povinná.",
   "clear": "Vymazat",
-  "selectParticipant": "",
   "clickMapToAddOrg": "Kliknutím na mapu přidejte svou organizaci",
   "description": "Popis",
   "gbifProjects": "Projekty GBIF",
@@ -97,5 +95,6 @@
   "loginToRegisterOrganization": {
     "title": "",
     "message": ""
-  }
+  },
+  "registerAnotherOrganization": ""
 }

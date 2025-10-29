@@ -27,7 +27,6 @@
   "marineDataPublishers": "Fournisseurs de données marines : vous devez demander l'approbation pour les données liées à OBIS (Ocean Biogeographic Information System)",
   "suggested": "Suggéré",
   "orSelectAnotherAssOrg": "Ou sélectionnez une autre organisation associée :",
-  "clickToSelect": "Cliquez pour sélectionner",
   "none": "Aucun",
   "whatAndHow": "Quoi et comment",
   "helpUsUnderstand": "Aidez-nous à comprendre le genre de données que vous prévoyez publier, et le soutien dont vous pourriez avoir besoin.",
@@ -63,7 +62,6 @@
   "invalidUrl": "Adresse URL invalide",
   "brieflyDescribeScope": "Décrivez brièvement, en *anglais*, la portée de votre institution/organisation en lien avec la mission du GBIF (exploitation de collection, recherche, gestion de l’information sur la biodiversité, etc.). Cette description s’affichera sur votre page de fournisseur de données.Vous pouvez également inclure une version dans une autre langue, mais la version anglaise est requise.",
   "clear": "Effacer",
-  "selectParticipant": "",
   "clickMapToAddOrg": "Cliquez sur la carte pour ajouter votre organisation",
   "description": "Description",
   "gbifProjects": "Projets GBIF",
@@ -97,5 +95,6 @@
   "loginToRegisterOrganization": {
     "title": "",
     "message": ""
-  }
+  },
+  "registerAnotherOrganization": ""
 }

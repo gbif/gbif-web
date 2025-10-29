@@ -1,3 +1,6 @@
 {
+  "StillImage": "Statický obrázek",
+  "MovingImage": "Pohyblivý obraz",
+  "InteractiveResource": "Interaktivní zdroj",
   "Sound": "Zvuk"
 }
