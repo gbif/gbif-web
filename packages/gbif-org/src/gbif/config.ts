@@ -126,6 +126,8 @@ export const gbifConfig: Config = {
       NA: '#B8A896',
       NE: '#E8E8E8',
       DD: '#C4C4B8',
+      CD: '#D1628E',
+      LR: '#D1628E',
       LC: '#4C9C2E',
       NT: '#ECAC7C',
       VU: '#F2BF48',
