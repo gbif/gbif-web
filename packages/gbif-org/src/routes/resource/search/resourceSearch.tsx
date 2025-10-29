@@ -252,7 +252,7 @@ type ResourceSearchResultsProps = {
   loading: boolean;
   resources: Resource[];
   activeTab: string;
-  total: number;
+  total?: number;
   size?: number;
   offset: number;
   setOffset: (offset: number) => void;
@@ -269,7 +269,7 @@ export function ResourceSearchResults({
   setOffset,
   disableHeaderActionButtons,
 }: ResourceSearchResultsProps) {
-  if (loading) {
+  if (loading || total === undefined) {
     return (
       <>
         <CardHeader>
