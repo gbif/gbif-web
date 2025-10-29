@@ -29,7 +29,7 @@ export function useTaxonColumns({ showPreview }: Args): ColumnDef<SingleTaxonSea
                   className="g-pr-3 g-pl-1 hover:g-text-primary-500 g-flex g-items-center g-pointer-events-auto"
                   onClick={(e) => {
                     // Prevent the parent link from being triggered
-                    if (taxon.key) showPreview(taxon?.key?.toString());
+                    if (taxon.key != null) showPreview(taxon?.key?.toString());
                     e.preventDefault();
                   }}
                 >
