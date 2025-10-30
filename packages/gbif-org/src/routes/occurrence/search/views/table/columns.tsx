@@ -32,7 +32,7 @@ export function useOccurrenceColumns({
     const columns: ColumnDef<SingleOccurrenceSearchResult>[] = [
       {
         id: 'scientificName',
-        // sort: { localStorageKey: 'occurrenceSort', sortBy: 'taxonKey' },
+        sort: { localStorageKey: 'occurrenceSort', sortBy: 'taxonKey' },
         header: 'filters.taxonKey.name',
         filterKey: 'taxonKey', // default is same as id
         disableHiding: true,

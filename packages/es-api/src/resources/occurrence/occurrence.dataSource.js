@@ -41,7 +41,7 @@ const allowedSortBy = {
   eventDate: 'eventDateSingle',
   eventId: 'eventId',
   fieldNumber: 'fieldNumber',
-  // taxonKey: 'classifications.{CHECKLIST_KEY}.usage.name',
+  taxonKey: 'classifications.{CHECKLIST_KEY}.usage.name',
   gbifId: 'gbifId',
   gbifRegion: 'gbifRegion',
   bed: 'geologicalContext.bed',
