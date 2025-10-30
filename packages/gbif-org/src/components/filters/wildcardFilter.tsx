@@ -146,6 +146,9 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
       setSize(size + 50);
     }, [size]);
 
+    const loadingMore =
+      loading && data?.search.facet?.field != null && data.search.facet.field.length < size;
+
     useEffect(() => {
       // filter has changed updateed the listed of selected values
       const selectedList = filter?.must?.[filterHandle] ?? filter?.mustNot?.[filterHandle] ?? [];
@@ -391,6 +394,7 @@ export const WildcardFilter = React.forwardRef<HTMLInputElement, WildcardProps>(
             <AsyncOptions
               className="g-p-2 g-pt-0 g-px-4"
               loading={loading || !facetSuggestions}
+              loadingMore={loadingMore}
               error={error}
             >
               {facetSuggestions && facetSuggestions.length > 0 && (

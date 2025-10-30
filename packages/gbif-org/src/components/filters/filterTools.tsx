@@ -1072,6 +1072,7 @@ export function ApplyCancel({
 export function AsyncOptions({
   children,
   loading,
+  loadingMore,
   error,
   className,
 }: {
@@ -1079,12 +1080,23 @@ export function AsyncOptions({
   loading: boolean;
   error?: Error;
   className?: string;
+  loadingMore?: boolean;
 }) {
   if (error) {
     return (
       <div className="g-p-2 g-m-4 g-text-red-900 g-text-sm">Unable to load suggestions...</div>
     );
   }
+
+  if (loadingMore) {
+    return (
+      <>
+        {children}
+        <SkeletonOptions className={className} />;
+      </>
+    );
+  }
+
   if (loading) {
     return <SkeletonOptions className={className} />;
   }
