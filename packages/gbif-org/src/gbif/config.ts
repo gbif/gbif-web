@@ -255,7 +255,6 @@ export const gbifConfig: Config = {
   //   en: { 'filters.taxonKey.name': 'hallo' },
   // }, // no messages to overwrite for gbif.org
   maps: {
-    locale: 'en',
     mapStyles: {
       defaultProjection: 'MERCATOR',
       defaultMapStyle: 'NATURAL',

@@ -48,6 +48,7 @@ import ListBox from './ListBox';
 import MapComponentML from './MapLibreMap';
 import MapComponentOL from './OpenlayersMap';
 import { getMapStyles } from './standardMapStyles';
+import { useI18n } from '@/reactRouterPlugins';
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
 const hasGeoLocation = 'geolocation' in navigator;
 
@@ -86,6 +87,7 @@ function Map({
   ...props
 }) {
   const config = useConfig();
+  const { locale } = useI18n();
   const userLocationEnabled = config?.occurrenceSearch?.mapSettings?.userLocationEnabled;
   const styleLookup = config?.maps?.styleLookup || {};
   const { setOrderedList } = useOrderedList();
@@ -174,7 +176,7 @@ function Map({
   useEffect(() => {
     const mapStyles = getMapStyles({
       apiKeys: config?.apiKeys,
-      language: config?.maps?.locale || 'en',
+      language: locale.mapTileLocale || 'en',
     });
     let mapStyleOverwrites = {};
     if (config?.maps?.addMapStyles) {
@@ -191,7 +193,7 @@ function Map({
     }
     const newBaseMapOptions = Object.assign({}, mapStyles, mapStyleOverwrites);
     setBasemapOptions(newBaseMapOptions);
-  }, [config]);
+  }, [config, locale]);
 
   const eventListener = useCallback(
     (event) => {
