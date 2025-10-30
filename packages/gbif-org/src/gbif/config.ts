@@ -185,18 +185,6 @@ export const gbifConfig: Config = {
       excludedFilters: ['gbifDatasetKey'],
     },
   },
-  collectionSearch: {
-    highlightedFilters: [
-      'q',
-      'code',
-      'country',
-      'numberSpecimens',
-      'occurrenceCount',
-      'taxonKey',
-      'descriptorCountry',
-    ],
-    // excludedFilters: ['institutionKey', 'active'],
-  },
   collectionKey: {
     occurrenceSearch: {
       // availableTableColumns: ['country', 'coordinates', 'year', 'basisOfRecord', 'dataset'],
@@ -204,10 +192,6 @@ export const gbifConfig: Config = {
       tabs: ['table', 'map', 'gallery', 'clusters', 'download'],
       defaultTab: 'table',
     },
-  },
-  institutionSearch: {
-    highlightedFilters: ['q', 'code', 'country', 'numberSpecimens', 'occurrenceCount'],
-    // excludedFilters: ['code', 'country'],
   },
   institutionKey: {
     occurrenceSearch: {

@@ -1,7 +1,9 @@
+import { collectionKeyRoute } from '@/routes/collection/key';
 import { countryKeyRoute } from '@/routes/country/key';
 import { datasetKeyRoute } from '@/routes/dataset/key';
 import { datasetSearchRoute } from '@/routes/dataset/search';
 import { installationKeyRoute } from '@/routes/installation/key';
+import { institutionKeyRoute } from '@/routes/institution/key';
 import { literatureSearchRoute } from '@/routes/literature/search';
 
 import { networkKeyRoute } from '@/routes/network/key';
@@ -27,6 +29,8 @@ export const dataRoutes = [
   resourceSearchRoute,
 
   // detail routes
+  collectionKeyRoute,
+  institutionKeyRoute,
   datasetKeyRoute,
   installationKeyRoute,
   networkKeyRoute,
