@@ -11,7 +11,7 @@ import { applyExtendedLoaderPlugin } from './extendedLoader';
 import { applyExtraOccurrenceSearchPages } from './extraOccurrenceSearchPages';
 import { applyI18nPlugin } from './i18n';
 import { applySlugifiedPlugin } from './slugified';
-export { DynamicLink } from './dynamicLink';
+export { DynamicLink, useDynamicNavigate } from './dynamicLink';
 export { useI18n } from './i18n';
 export { useRenderedRouteLoaderData } from './useRenderedRouteLoaderData';
 

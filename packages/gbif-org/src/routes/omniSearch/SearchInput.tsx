@@ -1,5 +1,5 @@
 import { useStringParam } from '@/hooks/useParam';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MdSearch } from 'react-icons/md';
 
 interface SearchInputProps {
@@ -13,11 +13,17 @@ export function SearchInput({ placeholder }: SearchInputProps) {
     hideDefault: true,
   });
   const [value, setValue] = useState(searchQuery);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
   return (
     <div className="g-relative">
       <MdSearch className="g-absolute g-left-3 g-top-1/2 g--translate-y-1/2 g-text-gray-400 g-h-5 g-w-5" />
       <input
         type="text"
+        ref={inputRef}
         value={value}
         onChange={(e) => {
           setValue(e.target.value);

@@ -4,13 +4,14 @@ import { useUser } from '@/contexts/UserContext';
 import { HeaderQuery } from '@/gql/graphql';
 import { DynamicLink, useI18n } from '@/reactRouterPlugins';
 import { FiActivity } from 'react-icons/fi';
-import { MdOutlineFeedback, MdSearch, MdTranslate } from 'react-icons/md';
+import { MdOutlineFeedback, MdTranslate } from 'react-icons/md';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { LanguageSelector } from './languageSelector';
 import MainNavigation from './mainNav';
 import MobileMenu from './mobileMenu';
 import { FeedbackPopover } from './feedback/feedback';
 import { useConfig } from '@/config/config';
+import SearchTrigger from './SearchTrigger';
 
 export function Header({ menu }: { menu: HeaderQuery }) {
   const config = useConfig();
@@ -49,11 +50,7 @@ export function Header({ menu }: { menu: HeaderQuery }) {
         <MainNavigation menu={menu} />
       </div>
       <div className="g-flex-none g-flex">
-        <Button variant="ghost" asChild className="g-text-xl g-px-2 g-mx-0.5">
-          <span className="g-opacity-80">
-            <MdSearch />
-          </span>
-        </Button>
+        <SearchTrigger />
         <LanguageSelector
           trigger={
             <Button variant="ghost" asChild className="g-text-xl g-px-2 g-mx-0.5 g-opacity-80">
