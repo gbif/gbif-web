@@ -79,6 +79,8 @@ async function query({
   sortBy,
   sortOrder,
   checklistKey = env.defaultChecklist,
+  shuffle,
+  fields,
   req,
 }) {
   if (parseInt(from) + parseInt(size) > env.occurrence.maxResultWindow) {
@@ -126,9 +128,32 @@ async function query({
     aggs,
   };
 
+  if (shuffle) {
+    delete esQuery.sort;
+    if (!esQuery?.query?.bool?.must) {
+      esQuery.query = {
+        bool: {
+          must: [],
+        },
+      };
+    }
+    esQuery.query.bool.must.push({
+      function_score: {
+        functions: [
+          {
+            random_score: {
+              seed: shuffle,
+            },
+          },
+        ],
+        boost_mode: 'replace',
+      },
+    });
+  }
+
   let response = await search({ client, index: searchIndex, query: esQuery, req });
   let body = response.body;
-  body.hits.hits = body.hits.hits.map((n) => reduce(n));
+  body.hits.hits = body.hits.hits.map((n) => reduce(n, fields));
 
   return {
     esBody: esQuery,

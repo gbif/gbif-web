@@ -221,8 +221,8 @@ function searchResource(resource, metaOnly = false) {
         q,
         size,
         from,
-        randomSeed,
-        randomize,
+        shuffle,
+        fields,
         includeMeta,
         sortBy,
         checklistKey,
@@ -246,8 +246,8 @@ function searchResource(resource, metaOnly = false) {
         size,
         from,
         metrics,
-        randomSeed,
-        randomize,
+        shuffle,
+        fields,
         sortBy,
         sortOrder,
         checklistKey,
@@ -295,8 +295,8 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
       metrics: jsonMetrics,
       size = 20,
       from = 0,
-      randomSeed,
-      randomize,
+      shuffle,
+      fields,
       includeMeta = false,
       sortBy,
       sortOrder,
@@ -323,15 +323,13 @@ function parseQuery(req, res, next, { get2predicate, get2metric }) {
 
     const intSize = parseInt(size);
     const intFrom = parseInt(from);
-    const intSeed = parseInt(randomSeed);
-    const boolRandomize = (randomize + '').toLowerCase() === 'true';
     const result = {
       metrics,
       predicate,
       size: intSize,
       from: intFrom,
-      randomSeed: intSeed,
-      randomize: boolRandomize,
+      shuffle,
+      fields,
       includeMeta,
       sortBy,
       sortOrder,

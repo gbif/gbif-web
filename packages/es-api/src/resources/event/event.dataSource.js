@@ -29,7 +29,7 @@ const client = new Client({
   },
 });
 
-async function query({ query, aggs, size = 20, from = 0, metrics, randomSeed, randomize, req }) {
+async function query({ query, aggs, size = 20, from = 0, metrics, shuffle, req }) {
   if (parseInt(from) + parseInt(size) > env.event.maxResultWindow) {
     throw new ResponseError(
       400,
@@ -62,7 +62,7 @@ async function query({ query, aggs, size = 20, from = 0, metrics, randomSeed, ra
     aggs,
   };
 
-  if (randomize) {
+  if (shuffle) {
     delete esQuery.sort;
     esQuery.query.bool.must = [
       {
@@ -70,7 +70,7 @@ async function query({ query, aggs, size = 20, from = 0, metrics, randomSeed, ra
           functions: [
             {
               random_score: {
-                seed: randomSeed || Math.floor(Math.random * 100000),
+                seed: shuffle,
               },
             },
           ],
