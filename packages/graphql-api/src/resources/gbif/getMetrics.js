@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { parseResolveInfo } from 'graphql-parse-resolve-info';
 import config from '../../config';
 
 const DEFAULT_CHECKLIST_KEY =
@@ -15,7 +16,11 @@ const getFacet =
     parent,
     { size = 10, from = 0, include, checklistKey = DEFAULT_CHECKLIST_KEY },
     { dataSources },
+    info,
   ) => {
+    console.log(info);
+    const parsedInfo = parseResolveInfo(info);
+    console.log(parsedInfo);
     // get SearchAPI
     const searchApi = getSearchFunction(dataSources);
     // generate the occurrence search facet query, by inherting from the parent query, and map limit/offset to facet equivalents
