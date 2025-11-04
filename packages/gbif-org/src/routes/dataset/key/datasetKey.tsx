@@ -209,7 +209,7 @@ const DATASET_QUERY = /* GraphQL */ `
         name
         value
       }
-      localContext {
+      localContexts {
         project_page
         title
         description

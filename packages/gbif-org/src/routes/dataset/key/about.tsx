@@ -61,8 +61,7 @@ export function DatasetKeyAbout() {
     identifier: data?.dataset?.key ?? '',
   });
   const hasLocalContext =
-    (dataset?.localContext?.notice?.length ?? 0) > 0 &&
-    config.experimentalFeatures.localContextEnabled;
+    (dataset?.localContexts?.length ?? 0) > 0 && config.experimentalFeatures.localContextEnabled;
 
   const [toc, setToc] = useState(defaultToc);
   const removeSidebar = useBelow(1100);
@@ -707,42 +706,51 @@ export function DatasetKeyAbout() {
                 </Card>
               )}
 
-              {hasLocalContext && (
-                <a
-                  href={dataset?.localContext?.project_page}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="g-flex g-items-center"
-                >
-                  <Card className="g-mb-4 gbif-word-break">
-                    <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
-                      <div className="g-flex-none g-me-2">
-                        <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
-                          <ExternalLinkIcon />
-                        </div>
-                      </div>
-                      <div className="g-flex-auto g-mt-0.5">
-                        <h5 className="g-font-bold">{dataset?.localContext?.title}</h5>
-                        <div className="g-text-slate-500 [&_a]:g-underline">
-                          {dataset?.localContext?.description}
-                        </div>
-                        <ul className="g-mt-2">
-                          {dataset?.localContext?.notice.map((localContext) => (
-                            <li className="g-inline-block">
-                              <img
-                                className="g-me-2 g-w-8 g-h-8"
-                                src={localContext.img_url}
-                                alt={localContext.name}
-                                title={localContext.name}
-                              />
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </CardContentSmall>
-                  </Card>
-                </a>
-              )}
+              {hasLocalContext &&
+                dataset?.localContexts?.map((localContext) => {
+                  if (!localContext?.project_page) return null;
+                  return (
+                    <a
+                      href={localContext?.project_page}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="g-flex g-items-center"
+                    >
+                      <Card className="g-mb-4 gbif-word-break">
+                        <CardContentSmall className="g-flex g-me-2 g-pt-2 md:g-pt-4 g-text-sm">
+                          <div className="g-flex-none g-me-2">
+                            <div className="g-leading-6 g-bg-primary-500 g-text-white g-rounded-full g-w-6 g-h-6 g-flex g-justify-center g-items-center">
+                              <ExternalLinkIcon />
+                            </div>
+                          </div>
+                          <div className="g-flex-auto g-mt-0.5">
+                            <h5 className="g-font-bold">{localContext?.title}</h5>
+                            <div className="g-text-slate-500 [&_a]:g-underline">
+                              {localContext?.description}
+                            </div>
+                            <ul className="g-mt-2">
+                              {localContext?.notice
+                                ?.filter((x) => x)
+                                .map((notice) => {
+                                  if (!notice || !notice.img_url) return null;
+                                  return (
+                                    <li className="g-inline-block">
+                                      <img
+                                        className="g-me-2 g-w-8 g-h-8"
+                                        src={notice.img_url}
+                                        alt={notice.name}
+                                        title={notice.name}
+                                      />
+                                    </li>
+                                  );
+                                })}
+                            </ul>
+                          </div>
+                        </CardContentSmall>
+                      </Card>
+                    </a>
+                  );
+                })}
 
               {isGridded && (
                 <Card className="gbif-word-break g-mb-4">
