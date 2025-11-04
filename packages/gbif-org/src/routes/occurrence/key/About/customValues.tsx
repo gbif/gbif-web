@@ -12,7 +12,7 @@ import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { BasicField } from '../properties';
 import { useConfig } from '@/config/config';
-import { BulletList } from '@/components/bulletList';
+import { truncate } from '@/utils/truncate';
 
 export function InstitutionKey({
   occurrence,
@@ -167,47 +167,66 @@ export function DynamicProperties({
   );
 }
 
-export function LocalContext({ localContext }: { localContext?: any }) {
+export function LocalContexts({ localContexts }: { localContexts?: any }) {
   const config = useConfig();
   const showLocalContext = config.experimentalFeatures.localContextEnabled;
-  if (!localContext?.notice || !showLocalContext) return null;
-
-  const { project_page, title, description } = localContext;
-  const items = (localContext?.notice ?? [])?.filter(
-    (c) => c && c.name && c.img_url && c.default_text
-  );
-  if (items.length === 0) return null;
+  if (!localContexts || localContexts?.length === 0 || !showLocalContext) return null;
 
   return (
     <>
       <T>
-        <FormattedMessage id={`dataset.localContext`} defaultMessage={'Local context'} />
+        <FormattedMessage id={`dataset.localContexts`} defaultMessage={'Local contexts'} />
       </T>
-
       <V>
-        <h5 className="g-flex g-items-center g-gap-1">
-          <a
-            href={project_page}
-            target="_blank"
-            rel="noreferrer"
-            className="g-flex g-items-center g-underline"
-          >
-            {title}
-          </a>
-        </h5>
-        <div className="g-text-sm g-text-slate-600 g-mt-1 g-mb-2">{description}</div>
-        <ul>
-          {items.map((localContext) => (
-            <li className="g-inline-block">
-              <img
-                className="g-me-2 g-w-6 g-h-6"
-                src={localContext.img_url}
-                alt={localContext.name}
-                title={localContext.name}
-              />
-            </li>
-          ))}
-        </ul>
+        {localContexts.map((localContext) => {
+          const { project_page, title, description } = localContext;
+          const items = (localContext?.notice ?? [])?.filter(
+            (c) => c && c.name && c.img_url && c.default_text
+          );
+          if (items.length === 0) return null;
+          return (
+            <div>
+              <h5 className="g-flex g-items-center g-gap-1">
+                <a
+                  href={project_page}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="g-flex g-items-center g-underline"
+                >
+                  {title}
+                </a>
+              </h5>
+              <div className="g-text-sm g-text-slate-600 g-mt-1 g-mb-2">
+                {truncate(description, 150)}
+              </div>
+              <ul>
+                {items.map((item) => (
+                  <li className="g-flex g-items-start g-mb-2" key={item.name}>
+                    <img
+                      className="g-flex-none g-me-2 g-w-5 g-h-5"
+                      src={item.img_url}
+                      alt={item.name}
+                      title={item.name}
+                    />
+                    <div className="g-flex-auto">
+                      <a
+                        href={item.notice_page}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="g-underline"
+                      >
+                        {item.name}
+                      </a>
+                      <div className="g-text-sm g-text-slate-600 g-mt-1 g-mb-2">
+                        {truncate(item.default_text, 140)}
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
       </V>
     </>
   );

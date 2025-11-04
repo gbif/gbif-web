@@ -192,7 +192,7 @@ const SLOW_OCCURRENCE_QUERY = /* GraphQL */ `
   query SlowOccurrenceKey($key: ID!, $language: String!) {
     occurrence(key: $key) {
       key
-      localContext {
+      localContexts {
         project_page
         title
         description

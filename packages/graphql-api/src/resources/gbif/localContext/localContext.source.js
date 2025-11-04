@@ -18,6 +18,44 @@ const isValidUUID = (uuid) => {
   return uuidRegex.test(uuid);
 };
 
+function extractLocalContextsFromChaosObject(obj, depth = 0) {
+  /*
+    the standard for this is a mess with multiple possible formats. 
+    The data could be singular an array. it coule be an object. 
+    it could be urls or ids. urls could point to api or website. And it could be production or sandbox.
+    and the property could be called multiple things.
+    It could be a list of objects with one value containing arrays of ids or urls.
+  */
+  if (depth > 5) return []; // prevent infinite recursion and very deep objects
+  if (!obj || typeof obj !== 'object') return [];
+  if (Array.isArray(obj)) {
+    // If it's an array, recursively extract IDs from each element
+    return obj
+      .map((x) => extractLocalContextsFromChaosObject(x, depth + 1))
+      .flat();
+  }
+  const projectId =
+    obj?.local_contexts_project_id ?? obj?.local_context_project_uri;
+  // if it is a string then return it
+  if (typeof projectId === 'string') {
+    return [projectId];
+  }
+  // if the project id is an array, then parse each element
+  if (Array.isArray(projectId)) {
+    return projectId
+      .map((id) => {
+        if (typeof id === 'string') return id;
+        if (id && typeof id === 'object') {
+          return extractLocalContextsFromChaosObject(id, depth + 1);
+        }
+        return null;
+      })
+      .filter((id) => id)
+      .flat();
+  }
+  return [];
+}
+
 class LocalContextAPI extends RESTDataSource {
   constructor(config) {
     super();
@@ -51,13 +89,9 @@ class LocalContextAPI extends RESTDataSource {
     if (!dynamicProperties) return null;
     try {
       const parsedProperties = JSON.parse(dynamicProperties);
-      const projectId =
-        parsedProperties?.local_contexts_project_id ??
-        parsedProperties?.local_context_project_uri ??
-        parsedProperties?.[0]?.local_contexts_project_id;
-      if (projectId) {
-        return this.getLocalContext(projectId);
-      }
+      const projectIds = extractLocalContextsFromChaosObject(parsedProperties);
+      if (projectIds.length === 0) return null;
+      return Promise.all(projectIds.map((id) => this.getLocalContext(id)));
     } catch {
       // ignore JSON parse errors
     }
@@ -75,12 +109,15 @@ class LocalContextAPI extends RESTDataSource {
     );
     if (filteredTags.length === 0) return [];
     // only use the first project id if multiple are present
-    const projectUrl = filteredTags[0].value;
-    return this.getLocalContext(projectUrl);
+    const projectIds = filteredTags.map((tag) => tag.value);
+    return Promise.all(projectIds.map((id) => this.getLocalContext(id)));
   }
 }
 
 function getLocalContextAPIEndpoint(value) {
+  /*
+  The standard is a mess. It could be an ID or a url. The url could point to the api or the website. And it could be production or sandbox. same goes for the id.
+  */
   if (!value) throw new Error('LocalContextAPI endpoint is not defined');
 
   if (isValidUUID(value)) {
