@@ -173,15 +173,15 @@ const typeDef = gql`
     institutionCode: Long!
     networkKey: Long!
     programme: Long!
-    taxonKey(checklistKey: ID): ID!
-    classKey(checklistKey: ID): ID!
-    familyKey(checklistKey: ID): ID!
-    genusKey(checklistKey: ID): ID!
-    kingdomKey(checklistKey: ID): ID!
-    orderKey(checklistKey: ID): ID!
-    phylumKey(checklistKey: ID): ID!
-    speciesKey(checklistKey: ID): ID!
-    usageKey(checklistKey: ID): ID!
+    taxonKey(checklistKey: ID): Long!
+    classKey(checklistKey: ID): Long!
+    familyKey(checklistKey: ID): Long!
+    genusKey(checklistKey: ID): Long!
+    kingdomKey(checklistKey: ID): Long!
+    orderKey(checklistKey: ID): Long!
+    phylumKey(checklistKey: ID): Long!
+    speciesKey(checklistKey: ID): Long!
+    usageKey(checklistKey: ID): Long!
     preparations: Long!
     iucnRedListCategory(checklistKey: ID): Long!
     establishmentMeans: Long!

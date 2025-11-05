@@ -45,6 +45,7 @@
     "graphql-scalars": "1.14.1",
     "ip3country": "^5.0.0",
     "isbot": "^5.1.25",
+    "jq-web": "^0.6.2",
     "jsdom": "^16.2.2",
     "json-stable-stringify": "^1.2.1",
     "json2md": "^2.0.1",

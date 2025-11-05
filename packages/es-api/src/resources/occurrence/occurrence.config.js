@@ -23,6 +23,10 @@ const config = {
       type: 'keyword',
       field: 'basisOfRecord',
     },
+    dnaSequenceID: {
+      type: 'keyword',
+      field: 'dnaSequenceID',
+    },
     biostratigraphy: {
       type: 'keyword',
       field: 'geologicalContext.biostratigraphy.keyword',

@@ -146,7 +146,8 @@ async function initializeServer() {
   helperController(app, server);
   sourceArchiveCtrl(app);
   citesController(app);
-  mcpController(app);
+  mcpController(app, server);
+
   app.listen({ port: config.port }, () =>
     console.log(
       `🚀 Server ready at http://localhost:${config.port}${server.graphqlPath}`,

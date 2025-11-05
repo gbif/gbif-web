@@ -1,13 +1,13 @@
 import { gadmIds2GeoJSON } from '#/api-utils/geometry/index.ctrl';
 import config from '#/config';
-import { SEARCH_GUIDE } from './guides';
-import handleDatasetSearch from './handlers/handleDatasetSearch';
-import handleGadmSearch from './handlers/handleGadmSearch';
-import handleOccurrenceSearch from './handlers/handleOccurrenceSearch';
-import handleSpeciesMatch from './handlers/handleSpeciesMatch';
-import handleSpeciesSearch from './handlers/handleSpeciesSearch';
-import getLabels from './handlers/labels';
-import { McpError } from './handlers/utils';
+import { SEARCH_GUIDE } from '../guides';
+import handleDatasetSearch from '../handlers/handleDatasetSearch';
+import handleGadmSearch from '../handlers/handleGadmSearch';
+import handleOccurrenceSearch from '../handlers/handleOccurrenceSearch';
+import handleSpeciesMatch from '../handlers/handleSpeciesMatch';
+import handleSpeciesSearch from '../handlers/handleSpeciesSearch';
+import getLabels from '../handlers/labels';
+import { McpError } from '../handlers/utils';
 
 export default async function toolHandler(tool, args) {
   try {
