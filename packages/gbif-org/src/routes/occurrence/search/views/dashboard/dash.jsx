@@ -47,6 +47,7 @@ export function Dashboard() {
           'table',
           'gallery',
           'occurrenceSummary',
+          'TaxonomicBreakdown',
           'dataQuality',
           'synonyms',
           'taxa',

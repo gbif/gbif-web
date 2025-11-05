@@ -59,6 +59,7 @@
     "mustache": "^4.2.0",
     "node-cache": "^5.1.2",
     "object-hash": "^3.0.0",
+    "p-queue": "^9.0.0",
     "qs": "^6.9.3",
     "requestretry": "^7.1.0",
     "sanitize-html": "^2.11.0",

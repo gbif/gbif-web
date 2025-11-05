@@ -1,14 +1,18 @@
-import { getParsedName } from '#/helpers/scientificName';
-import { getTaxonAgent } from '#/requestAgents';
 import { RESTDataSource } from 'apollo-datasource-rest';
 import { uniqBy } from 'lodash';
 import { matchSorter } from 'match-sorter';
 import { stringify } from 'qs';
+import { getTaxonAgent } from '#/requestAgents';
+import { getParsedName } from '#/helpers/scientificName';
 import colSuggest from './colSuggest';
+import QueuedRESTDataSource from '#/QueuedRESTDataSource';
 
-class TaxonAPI extends RESTDataSource {
+class TaxonAPI extends QueuedRESTDataSource {
   constructor(config) {
-    super();
+    super({
+      // notice that this only is used if the enQueue option is set to true in the request
+      concurrency: 10, // Maximum concurrent requests
+    });
     this.baseURL = config.apiv1;
     this.config = config;
   }
@@ -100,6 +104,7 @@ class TaxonAPI extends RESTDataSource {
         { checklistKey: isIncertaeSedis ? undefined : checklistKey, usageKey },
         { indices: false },
       ),
+      { enQueue: true, signal: this.context.abortController.signal },
     ).then((result) => {
       if (!result.usage) {
         return null;

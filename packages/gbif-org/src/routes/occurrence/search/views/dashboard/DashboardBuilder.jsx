@@ -613,6 +613,7 @@ const chartGroups = {
       'scientificName',
       'verbatimScientificName',
       'synonyms',
+      'occurrenceTaxonomySunburst',
     ],
   },
   provenance: {

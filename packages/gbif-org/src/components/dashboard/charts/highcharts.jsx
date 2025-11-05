@@ -1,6 +1,7 @@
 import Highcharts from 'highcharts';
 import highchartsAccessibility from 'highcharts/modules/accessibility';
 import sunburst from 'highcharts/modules/sunburst';
+import treemap from 'highcharts/modules/treemap';
 // demo of how to use patterns in highcharts https://codesandbox.io/s/highcharts-react-demo-rkleb?file=/demo.jsx:244-272
 // also a blog post https://www.highcharts.com/blog/products/highcharts/pattern-fill-plugin/
 import HC_patternFill from 'highcharts/modules/pattern-fill';
@@ -383,7 +384,7 @@ if (typeof Highcharts === 'object') {
   HC_patternFill(Highcharts);
   highchartsAccessibility(Highcharts);
   sunburst(Highcharts);
-
+  treemap(Highcharts);
   Highcharts.setOptions(Highcharts.theme);
 }
 
