@@ -29,6 +29,7 @@
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "Te miary są oparte na danych udostępnionych przez GBIF",
   "notVocabularyWarning": "",
+  "taxonomicBreakdown": "",
   "group": {
     "views": "",
     "record": "Zapis",
