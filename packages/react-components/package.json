@@ -93,7 +93,7 @@
     "@storybook/addon-links": "^6.4.12",
     "@storybook/addon-storysource": "^6.4.12",
     "@storybook/addons": "^6.4.12",
-    "@storybook/react": "^6.4.12",
+    "@storybook/react": "^6.5.16",
     "babel-loader": "^8.2.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "flat": "^5.0.2",
