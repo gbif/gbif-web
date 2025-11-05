@@ -31,7 +31,7 @@
   "constituentOf": "Onderdeel van",
   "dataset": "Dataset",
   "taxonomy": "Taxonomie",
-  "localContext": "",
+  "localContexts": "",
   "project": "Project",
   "metrics": "Statistieken",
   "metricsOccurrenceHelpText": "",
