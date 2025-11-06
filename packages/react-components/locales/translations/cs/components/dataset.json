@@ -31,7 +31,7 @@
   "constituentOf": "Součást",
   "dataset": "Datová sada",
   "taxonomy": "Taxonomie",
-  "localContext": "",
+  "localContexts": "",
   "project": "Projekt",
   "metrics": "Metriky",
   "metricsOccurrenceHelpText": "Metriky vycházejí z interpretovaných dat",

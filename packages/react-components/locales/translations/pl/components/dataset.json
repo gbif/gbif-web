@@ -31,7 +31,7 @@
   "constituentOf": "Element",
   "dataset": "Zbiór danych",
   "taxonomy": "Taksonomia",
-  "localContext": "",
+  "localContexts": "",
   "project": "Projekt",
   "metrics": "Wskaźniki",
   "metricsOccurrenceHelpText": "Metryki są oparte na zinterpretowanych danych",

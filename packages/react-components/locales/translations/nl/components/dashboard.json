@@ -29,6 +29,7 @@
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "",
   "notVocabularyWarning": "",
+  "taxonomicBreakdown": "",
   "group": {
     "views": "",
     "record": "Record",
