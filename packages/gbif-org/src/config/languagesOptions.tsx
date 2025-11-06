@@ -49,6 +49,18 @@ const languageOptions: LanguageOption[] = [
     mapTileLocale: 'fr',
   },
   {
+    code: 'it',
+    localeCode: 'it',
+    label: 'Italiano',
+    default: false,
+    textDirection: 'ltr',
+    reactIntlLocale: 'it-IT',
+    iso3LetterCode: 'ita',
+    gbifOrgLocalePrefix: '/it',
+    grSciCollLocalePrefix: '',
+    mapTileLocale: 'it',
+  },
+  {
     code: 'es',
     localeCode: 'es',
     label: 'Español',
