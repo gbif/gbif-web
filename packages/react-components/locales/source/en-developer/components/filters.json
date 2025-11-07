@@ -21,7 +21,7 @@
   },
   "collectionKey": {
     "name": "Collection",
-    "count": "{num, plural, one { collection } other {# collection}}",
+    "count": "{num, plural, one { collection } other {# collections}}",
     "description": "The collection in GrSciColl this record was matched to"
   },
   "taxonomicStatus": {
