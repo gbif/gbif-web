@@ -41,7 +41,7 @@
   },
   "specimensInGbif": {
     "name": "Specimens in GBIF",
-    "count": "{num, plural, one { GBIF specimen count } other {# specimens in GBIF}}",
+    "count": "{num, plural, one { GBIF specimen in GBIF } other {# specimens in GBIF}}",
     "description": "Number of specimen occurrences published on GBIF and linked to the institution entry."
   },
   "iucnRedListCategory": {
@@ -51,7 +51,7 @@
   },
   "geoDistance": {
     "name": "Distance from coordinates",
-    "count": "{num, plural, one { filter } other {# filters }}",
+    "count": "{num, plural, one { filter } other {# filters}}",
     "description": "Filter on records within a given distance from a point.",
     "placeholderLat": "Latitude",
     "placeholderLon": "Longitude",
@@ -59,7 +59,7 @@
   },
   "geometry": {
     "name": "Location",
-    "count": "{num, plural, one { filter } other {# filters }}",
+    "count": "{num, plural, one { filter } other {# filters}}",
     "description": "Filter on records within a given geometric area. The area can be a point, a line, a polygon, or a bounding box.",
     "placeholderLat": "Latitude",
     "placeholderLon": "Longitude",
@@ -399,7 +399,7 @@
   },
   "recordedBy": {
     "name": "Recorded by",
-    "count": "{num, plural, one { recorded by } other {# recorded bys}}",
+    "count": "{num, plural, one { recorded by } other {recorded by #}}",
     "description": "The names of the people, groups, or organizations responsible for recording the original Occurrence."
   },
   "fieldNumber": {
@@ -424,7 +424,7 @@
   },
   "georeferencedBy": {
     "name": "Georeferenced by",
-    "count": "{num, plural, one { georeferenced by } other {# georeferenced bys}}",
+    "count": "{num, plural, one { georeferenced by } other {georeferenced by #}}",
     "description": "The names of the people, groups, or organizations responsible for georeferencing the original Occurrence."
   },
   "datasetName": {
@@ -459,7 +459,7 @@
   },
   "identifiedById": {
     "name": "Identified by ID",
-    "count": "{num, plural, one { identified by ID } other {identified by #}}",
+    "count": "{num, plural, one { identified by ID } other {# identified by IDs}}",
     "description": "The identifier for the people, groups, or organizations responsible for determining the scientific name of the Organism."
   },
   "occurrenceId": {
