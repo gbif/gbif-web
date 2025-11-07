@@ -1,0 +1,12 @@
+{
+  "PRESERVED_SPECIMEN": "Spécimen conservé",
+  "FOSSIL_SPECIMEN": "Spécimen fossile",
+  "LIVING_SPECIMEN": "Spécimen vivant",
+  "OBSERVATION": "Observation",
+  "HUMAN_OBSERVATION": "Observation humaine",
+  "MACHINE_OBSERVATION": "Observation faite par une machine",
+  "MATERIAL_SAMPLE": "Matériel échantillonné",
+  "MATERIAL_CITATION": "Citation du matériel",
+  "LITERATURE": "Littérature",
+  "OCCURRENCE": "Une occurrence"
+}

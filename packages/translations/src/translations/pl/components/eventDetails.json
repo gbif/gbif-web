@@ -1,0 +1,51 @@
+{
+  "occurrence": "Stwierdzenie",
+  "event": "Wydarzenie",
+  "showAllFields": "Pokaż wszystkie pola",
+  "morePhotos": "Więcej zdjęć",
+  "about": "O",
+  "dataset": "Zbiór danych",
+  "publisher": "Wydawca",
+  "institution": "Instytucja",
+  "institutionGrSciColl": "Instytucja GrSciColl",
+  "collection": "Kolekcja",
+  "collectionGrSciColl": "Kolekcja GrSciColl",
+  "recordedAndIdentifiedBy": "Stwierdzony i zidentyfikowany przez",
+  "eventTypeHierarchyJoined": "",
+  "eventHierarchyJoined": "",
+  "map": "",
+  "backToTaxa": "",
+  "siteLocation": "",
+  "info": {
+    "original": "Oryginalne",
+    "excluded": "Wykluczone",
+    "inferred": "Wywnioskowane",
+    "altered": "Zmienione"
+  },
+  "groups": {
+    "summary": "Podsumowanie",
+    "record": "Stwierdzenie",
+    "occurrence": "Stwierdzenie",
+    "event": "Wydarzenie",
+    "dataStructure": "",
+    "identification": "Oznaczenie",
+    "taxon": "Takson",
+    "location": "Lokalizacja",
+    "organism": "Organizm",
+    "materialSample": "Próbka materiału",
+    "geologicalContext": "Kontekst geologiczny",
+    "measurementsOrFacts": "",
+    "images": "Multimedia",
+    "other": "Inne",
+    "methodology": "Metodyka",
+    "taxonomicCoverage": ""
+  },
+  "siteTooltip": "",
+  "siteTableLegend": "",
+  "site": "",
+  "siteLoading": "",
+  "activityDetails": {
+    "monthYear": "",
+    "year": ""
+  }
+}

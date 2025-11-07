@@ -1,0 +1,9 @@
+{
+  "description": "説明",
+  "descriptionLabel": "説明",
+  "typeOfApplication": "タイプ",
+  "domain": "ドメイン",
+  "personName": "名前",
+  "email": "メールアドレス",
+  "participantLabel": "参加者"
+}

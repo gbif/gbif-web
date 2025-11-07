@@ -1,0 +1,67 @@
+{
+  "tabs": {
+    "about": "Om",
+    "verbatim": "Original",
+    "metrics": "Grafer"
+  },
+  "recordedAsIntroducedIn": "",
+  "accordingTo": "Ifølge",
+  "evidenceOfImpact": "",
+  "occurrencesInGbif": "Obervationer i GBIF",
+  "recordedAsIntrodicedInNcontries": "",
+  "breakdown": "",
+  "publishedIn": "Publiceret i",
+  "vernacularNames": "Almindelige navne",
+  "rank": "",
+  "source": "Kilde",
+  "specimenIsTypeOf": "",
+  "typeMaterial": "",
+  "treatments": "",
+  "more": "mere",
+  "less": "",
+  "dna": "",
+  "occurrenceImages": "",
+  "taxonImages": "",
+  "taxonIdentifiers": "",
+  "synonymsAndCombinations": "",
+  "inChecklist": "",
+  "rankPlural": {
+    "KINGDOM": "Riger",
+    "PHYLUM": "Rækker",
+    "CLASS": "Klasser",
+    "ORDER": "Ordener",
+    "FAMILY": "Familier",
+    "GENUS": "Slægter",
+    "SPECIES": "Art"
+  },
+  "distributions": "Udbredelse",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "",
+    "status": "",
+    "locality": "",
+    "locationId": "",
+    "country": "Land"
+  },
+  "verbatim": {
+    "term": "",
+    "value": "Værdi",
+    "coreRecord": ""
+  },
+  "tradeRestrictions": "Handelsristriktioner",
+  "cites": "",
+  "immediateChildren": "Umiddelbare børn",
+  "referenceTaxon": "Reference takson",
+  "showLess": "",
+  "showAll": "Vis alle",
+  "errors": {
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
+  }
+}

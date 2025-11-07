@@ -1,0 +1,8 @@
+{
+  "first": "Eerste",
+  "previous": "Vorige",
+  "next": "Volgende",
+  "options": "Opties",
+  "pageXofY": "Pagina {current} van {total}\n",
+  "moreFilters": "meer"
+}

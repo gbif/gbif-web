@@ -1,0 +1,11 @@
+{
+  "GBIF_USED": "GBIF bruges",
+  "GBIF_CITED": "GBIF citeret",
+  "GBIF_DISCUSSED": "GBIF drøftet",
+  "GBIF_PRIMARY": "GBIF primære",
+  "GBIF_ACKNOWLEDGED": "GBIF anerkendt",
+  "GBIF_PUBLISHED": "GBIF udgivet",
+  "GBIF_AUTHOR": "GBIF forfatter",
+  "GBIF_MENTIONED": "GBIF nævnt",
+  "GBIF_FUNDED": "GBIF finansieret"
+}

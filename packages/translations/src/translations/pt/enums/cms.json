@@ -1,0 +1,16 @@
+{
+  "projectGrantType": {
+    "REGIONAL": "Subvenção regional de mobilização de dados de biodiversidade",
+    "SMALL": "Subvenção institucional de mobilização de dados de biodiversidade",
+    "NATIONAL": "Subvenção nacional de mobilização de dados de biodiversidade",
+    "DATA_USE": "Subvenção de uso de dados",
+    "undefined": "Não especificado"
+  },
+  "projectStatus": {
+    "APPROVED": "Aprovado",
+    "CLOSED": "Fechado",
+    "IN_PROGRESS": "Em progresso",
+    "DISCONTINUED": "Descontinuado",
+    "undefined": "Não especificado"
+  }
+}

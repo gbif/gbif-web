@@ -1,0 +1,82 @@
+{
+  "contentType": {
+    "event": "Gebeurtenis",
+    "news": "Nieuws",
+    "resource": "Resource",
+    "dataUse": "Data gebruik",
+    "project": "Project",
+    "participant": "Deelnemer",
+    "programme": "Programma",
+    "document": "Document",
+    "tool": "Gereedschap",
+    "network": "Netwerk",
+    "literature": "Literatuur"
+  },
+  "project": {
+    "project": "Project",
+    "projectId": "Project ID",
+    "projectIdentifier": "Projectidentificatie",
+    "grantType": "",
+    "duration": "Duur",
+    "title": "Titel",
+    "start": "Start",
+    "end": "Eind",
+    "fundsAllocated": "",
+    "matchingFunds": "",
+    "funding": "Financiering",
+    "coFunding": "Cofinanciering",
+    "fundedBy": "Gefinancierd door",
+    "coFundedBy": "Co-Gefinancierd door",
+    "typeOfGrant": "",
+    "projectStart": "Project Start",
+    "status": "Status",
+    "programme": "Programma",
+    "contractCountry": "Land of regio",
+    "newsAndEvents": "Nieuws en evenementen",
+    "call": "Oproep",
+    "projectLead": "Project Leiding",
+    "contactDetalils": "Contactgegevens",
+    "partners": "Partners"
+  },
+  "datause": {
+    "dataViaGbif": ""
+  },
+  "literature": {
+    "keywords": "Trefwoorden"
+  },
+  "auxiliary": {
+    "subject": "Onderwerp",
+    "citation": "Bronvermelding",
+    "organisingParticipants": ""
+  },
+  "document": {
+    "download": "Download",
+    "readDocument": "Ga naar document"
+  },
+  "resource": {
+    "resources": "Resources",
+    "contactHelpdesk": "CONTACT HELPDESK",
+    "addToCalendar": "Toevoegen aan kalender",
+    "venue": "",
+    "location": "Locatie",
+    "country": "Land of regio",
+    "noDatasets": "Er zijn geen datasets om te tonen",
+    "noNewsOrEvents": "Geen nieuws of evenementen beschikbaar",
+    "howToLinkDatasets": "Hoe koppel je een dataset aan een project",
+    "howToLinkEvents": "Hoe voeg je een evenement aan een project-pagina",
+    "when": "Wanneer",
+    "language": "Taal",
+    "viewOnGBIF": "Toon op GBIF.org",
+    "published": "Gepubliceerd",
+    "programme": "Programma",
+    "fundedBy": "Gefinancierd door",
+    "about": "Over",
+    "rights": "Rechten",
+    "rightsHolder": "Rechtenhouder",
+    "author": "Auteur",
+    "datasets": "Datasets",
+    "gbifWillAttend": "",
+    "dataUsedInStudy": "",
+    "resourceDescription": ""
+  }
+}

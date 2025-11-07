@@ -1,0 +1,23 @@
+{
+  "TECHNICAL_POINT_OF_CONTACT": "Technical point of contact",
+  "ADMINISTRATIVE_POINT_OF_CONTACT": "Administrative point of contact",
+  "_PRIMARY_CONTACT": "Primary contact",
+  "POINT_OF_CONTACT": "Point of contact",
+  "ORIGINATOR": "Originator",
+  "GBIFS_STAFF_MEMBER": "GBIF staff member",
+  "METADATA_AUTHOR": "Metadata author",
+  "PRINCIPAL_INVESTIGATOR": "Principal investigator",
+  "AUTHOR": "Author",
+  "CONTENT_PROVIDER": "Content provider",
+  "CUSTODIAN_STEWARD": "Custodian steward",
+  "DISTRIBUTOR": "Distributor",
+  "EDITOR": "Editor",
+  "OWNER": "Owner",
+  "PROCESSOR": "Processor",
+  "PUBLISHER": "Publisher",
+  "USER": "User",
+  "PROGRAMMER": "Programmer",
+  "CURATOR": "Curator",
+  "DATA_ADMINISTRATOR": "Data administrator",
+  "SYSTEM_ADMINISTRATOR": "System administrator"
+}

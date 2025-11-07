@@ -1,0 +1,67 @@
+{
+  "tabs": {
+    "about": "・・・について",
+    "verbatim": "オリジナルのまま",
+    "metrics": "メトリクス"
+  },
+  "recordedAsIntroducedIn": "次の場所で侵入生物として記録されています。",
+  "accordingTo": "～によると",
+  "evidenceOfImpact": "インパクトの証拠",
+  "occurrencesInGbif": "GBIFにおけるオカレンス",
+  "recordedAsIntrodicedInNcontries": "",
+  "breakdown": "",
+  "publishedIn": "出典",
+  "vernacularNames": "コモンネームまたは和名",
+  "rank": "分類階級",
+  "source": "参照元",
+  "specimenIsTypeOf": "",
+  "typeMaterial": "",
+  "treatments": "",
+  "more": "詳細",
+  "less": "",
+  "dna": "",
+  "occurrenceImages": "",
+  "taxonImages": "",
+  "taxonIdentifiers": "分類群ID",
+  "synonymsAndCombinations": "",
+  "inChecklist": "",
+  "rankPlural": {
+    "KINGDOM": "界",
+    "PHYLUM": "門",
+    "CLASS": "綱",
+    "ORDER": "目",
+    "FAMILY": "科",
+    "GENUS": "属",
+    "SPECIES": "種"
+  },
+  "distributions": "分布",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "対象生物の由来",
+    "status": "ステータス",
+    "locality": "採集地・観測地",
+    "locationId": "採集地ID",
+    "country": "国"
+  },
+  "verbatim": {
+    "term": "用語",
+    "value": "値",
+    "coreRecord": ""
+  },
+  "tradeRestrictions": "国際取引の制限",
+  "cites": "",
+  "immediateChildren": "直下の子階層",
+  "referenceTaxon": "文献の分類群",
+  "showLess": "",
+  "showAll": "すべて表示",
+  "errors": {
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
+  }
+}

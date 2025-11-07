@@ -1,0 +1,663 @@
+{
+  "dwcaExtension": {
+    "name": "DWCA拡張形式",
+    "count": "",
+    "description": ""
+  },
+  "locationId": {
+    "name": "採集地ID",
+    "count": "",
+    "description": ""
+  },
+  "hasCoordinate": {
+    "name": "座標あり",
+    "count": "",
+    "description": ""
+  },
+  "hasGeospatialIssues": {
+    "name": "地理空間情報の解釈に問題あり",
+    "count": "地理空間情報の解釈に問題あり",
+    "description": ""
+  },
+  "collectionKey": {
+    "name": "コレクション",
+    "count": "",
+    "description": ""
+  },
+  "taxonomicStatus": {
+    "name": "ステータス",
+    "count": "",
+    "description": ""
+  },
+  "taxonRank": {
+    "name": "分類階級",
+    "count": "",
+    "description": ""
+  },
+  "numberSpecimens": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "specimensInGbif": {
+    "name": "GBIFの標本",
+    "count": "",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "iucnRedListCategory": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geoDistance": {
+    "name": "",
+    "count": "",
+    "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "geometry": {
+    "name": "位置情報",
+    "count": "",
+    "description": "",
+    "placeholderLat": "",
+    "placeholderLon": "",
+    "placeholderDist": ""
+  },
+  "relevance": {
+    "name": "関連性",
+    "count": "",
+    "description": ""
+  },
+  "topics": {
+    "name": "トピック",
+    "count": "",
+    "description": ""
+  },
+  "audiences": {
+    "name": "利用者",
+    "count": "",
+    "description": ""
+  },
+  "biostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lithostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geologicalTime": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "purposes": {
+    "name": "トピック",
+    "count": "",
+    "description": ""
+  },
+  "eventDate": {
+    "name": "イベント日付",
+    "count": "",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "gbifId": {
+    "name": "GBIF ID",
+    "count": "",
+    "description": ""
+  },
+  "organismQuantityType": {
+    "name": "生物の数の種類",
+    "count": "",
+    "description": ""
+  },
+  "pathway": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "associatedSequences": {
+    "name": "関連する塩基配列",
+    "count": "",
+    "description": ""
+  },
+  "degreeOfEstablishment": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "endDayOfYear": {
+    "name": "終了年月日",
+    "count": "",
+    "description": ""
+  },
+  "startDayOfYear": {
+    "name": "開始年月日",
+    "count": "",
+    "description": ""
+  },
+  "previousIdentifications": {
+    "name": "以前のID",
+    "count": "",
+    "description": ""
+  },
+  "lastInterpreted": {
+    "name": "最終解釈日",
+    "count": "",
+    "description": ""
+  },
+  "alternativeCode": {
+    "name": "GBIFがアノーテーションしたアーカイブ",
+    "count": "",
+    "description": ""
+  },
+  "identifier": {
+    "name": "ID",
+    "count": "",
+    "description": ""
+  },
+  "institutionType": {
+    "name": "タイプ",
+    "count": "",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "discipline": {
+    "name": "GBIFがアノーテーションしたアーカイブ",
+    "count": "",
+    "description": ""
+  },
+  "collectionContentType": {
+    "name": "GBIFがアノーテーションしたアーカイブ",
+    "count": "",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "preservationType": {
+    "name": "GBIFがアノーテーションしたアーカイブ",
+    "count": "",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "biomeType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "objectClassification": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "taxonKey": {
+    "name": "学名",
+    "count": "",
+    "description": ""
+  },
+  "taxonKeyGrSciColl": {
+    "name": "学名",
+    "count": "",
+    "description": ""
+  },
+  "basisOfRecord": {
+    "name": "データレコードの種類",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "institutionCode": {
+    "name": "機関コード",
+    "count": "",
+    "description": ""
+  },
+  "catalogNumber": {
+    "name": "カタログ番号",
+    "count": "",
+    "description": ""
+  },
+  "mediaType": {
+    "name": "メディアの種類",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceIssue": {
+    "name": "問題とフラグ",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "occurrenceTaxonomicIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "occurrenceCountry": {
+    "name": "国",
+    "count": "",
+    "description": ""
+  },
+  "grsciCollCountry": {
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "preparations": {
+    "name": "標本の準備または保存方法",
+    "count": "",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "repatriated": {
+    "name": "返還された",
+    "count": "",
+    "description": ""
+  },
+  "publishingCountryCode": {
+    "name": "データ出版国または地域",
+    "count": "",
+    "description": ""
+  },
+  "q": {
+    "name": "",
+    "count": "",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "coordinates": {
+    "name": "座標"
+  },
+  "elevation": {
+    "name": "標高",
+    "count": "",
+    "description": ""
+  },
+  "license": {
+    "name": "ライセンス",
+    "count": "",
+    "description": ""
+  },
+  "datasetKey": {
+    "name": "データセット",
+    "count": "",
+    "description": ""
+  },
+  "datasetId": {
+    "name": "データセットID",
+    "count": "",
+    "description": ""
+  },
+  "publisherKey": {
+    "name": "出版者",
+    "count": "",
+    "description": ""
+  },
+  "gbifPublisherKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "hostingOrganizationKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "country": {
+    "name": "国",
+    "count": ""
+  },
+  "countriesOfCoverage": {
+    "name": "範囲の国または地域",
+    "count": "",
+    "description": ""
+  },
+  "collectionDescriptorCountry": {
+    "name": "範囲の国または地域",
+    "count": "",
+    "description": ""
+  },
+  "countriesOfResearcher": {
+    "name": "研究者の出身国または地域",
+    "count": ""
+  },
+  "typeStatus": {
+    "name": "タイプ標本の種類",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "year": {
+    "name": "年",
+    "count": "",
+    "description": ""
+  },
+  "sampleSizeUnit": {
+    "name": "サンプルサイズの単位",
+    "count": "",
+    "description": ""
+  },
+  "coordinateUncertainty": {
+    "name": "座標の不確実性",
+    "count": "",
+    "description": ""
+  },
+  "distanceFromCentroidInMeters": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "depth": {
+    "name": "深度",
+    "count": "",
+    "description": ""
+  },
+  "organismQuantity": {
+    "name": "生物の数",
+    "count": "",
+    "description": ""
+  },
+  "sampleSizeValue": {
+    "name": "サンプルサイズの値",
+    "count": "",
+    "description": ""
+  },
+  "relativeOrganismQuantity": {
+    "name": "相対生物数",
+    "count": "",
+    "description": ""
+  },
+  "month": {
+    "name": "月",
+    "count": "",
+    "description": ""
+  },
+  "continent": {
+    "name": "大陸",
+    "count": "",
+    "description": ""
+  },
+  "protocol": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "establishmentMeans": {
+    "name": "対象生物の由来",
+    "count": "",
+    "description": ""
+  },
+  "sex": {
+    "name": "性別",
+    "count": "",
+    "description": ""
+  },
+  "lifeStage": {
+    "name": "ライフ ステージ",
+    "count": "",
+    "description": ""
+  },
+  "recordedBy": {
+    "name": "採集者・観察者",
+    "count": "",
+    "description": ""
+  },
+  "fieldNumber": {
+    "name": "フィールド番号",
+    "count": "",
+    "description": ""
+  },
+  "verbatimTaxonId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "islandGroup": {
+    "name": "諸島",
+    "count": "",
+    "description": ""
+  },
+  "island": {
+    "name": "島",
+    "count": "",
+    "description": ""
+  },
+  "georeferencedBy": {
+    "name": "以下によってジオリファレンスした",
+    "count": "",
+    "description": ""
+  },
+  "datasetName": {
+    "name": "データセット名",
+    "count": "",
+    "description": ""
+  },
+  "programme": {
+    "name": "プログラム",
+    "count": "",
+    "description": ""
+  },
+  "recordNumber": {
+    "name": "レコード番号",
+    "count": "",
+    "description": ""
+  },
+  "collectionCode": {
+    "name": "コレクションコード",
+    "count": "",
+    "description": ""
+  },
+  "projectId": {
+    "name": "プロジェクトID",
+    "count": "",
+    "description": ""
+  },
+  "recordedById": {
+    "name": "採集者・観察者ID",
+    "count": "",
+    "description": ""
+  },
+  "identifiedById": {
+    "name": "同定者ID",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceId": {
+    "name": "オカレンスID",
+    "count": "",
+    "description": ""
+  },
+  "organismId": {
+    "name": "生物 ID",
+    "count": "",
+    "description": ""
+  },
+  "locality": {
+    "name": "採集地・観測地",
+    "count": "",
+    "description": ""
+  },
+  "waterBody": {
+    "name": "水域",
+    "count": "",
+    "description": ""
+  },
+  "higherGeography": {
+    "name": "採集地を含む地域",
+    "count": "",
+    "description": ""
+  },
+  "stateProvince": {
+    "name": "州/地方または都道府県",
+    "count": "",
+    "description": ""
+  },
+  "gbifRegion": {
+    "name": "GBIF 地域",
+    "count": "",
+    "description": ""
+  },
+  "publishedByGbifRegion": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "eventId": {
+    "name": "イベントID",
+    "count": "",
+    "description": ""
+  },
+  "eventID": {
+    "name": "イベントID",
+    "count": "",
+    "description": ""
+  },
+  "parentEventId": {
+    "name": "親イベントID",
+    "count": "",
+    "description": ""
+  },
+  "locationID": {
+    "name": "採集地ID",
+    "count": "",
+    "description": ""
+  },
+  "measurementOrFactTypes": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "measurementOrFactCount": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceCount": {
+    "name": "オカレンスのカウント",
+    "count": "",
+    "description": ""
+  },
+  "eventType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "dataStructure": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "samplingProtocol": {
+    "name": "サンプリング手順",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceStatus": {
+    "name": "オカレンスの有無",
+    "count": "",
+    "description": ""
+  },
+  "gadmGid": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "identifiedBy": {
+    "name": "同定者",
+    "count": "",
+    "description": ""
+  },
+  "isInCluster": {
+    "name": "",
+    "count": "",
+    "description": "この試験的な機能では、重複や関連するオカレンスの可能性があればハイライトします。"
+  },
+  "isSequenced": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "active": {
+    "name": "活動中",
+    "count": "活動中",
+    "description": ""
+  },
+  "activeInstitution": {
+    "name": "活動中",
+    "count": "活動中",
+    "description": ""
+  },
+  "activeCollection": {
+    "name": "活動中",
+    "count": "活動中",
+    "description": ""
+  },
+  "publicationDate": {
+    "name": "公開日時",
+    "count": "",
+    "description": ""
+  },
+  "personalCollection": {
+    "name": "個人コレクション",
+    "count": "個人コレクション",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "datasetType": {
+    "name": "データセットタイプ",
+    "count": "",
+    "description": ""
+  },
+  "datasetSubtype": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "institutionKey": {
+    "name": "機関",
+    "count": "",
+    "description": ""
+  },
+  "name": {
+    "name": "名前",
+    "count": "",
+    "description": "GBIFがアノーテーションしたアーカイブ",
+    "searchPlaceholder": ""
+  },
+  "city": {
+    "name": "市",
+    "count": "",
+    "description": ""
+  },
+  "code": {
+    "name": "コード",
+    "count": "",
+    "description": "GBIFがアノーテーションしたアーカイブ"
+  },
+  "verbatimScientificName": {
+    "name": "オリジナルの学名",
+    "count": "",
+    "description": ""
+  },
+  "networkKey": {
+    "name": "ネットワーク",
+    "count": "",
+    "description": ""
+  },
+  "literatureType": {
+    "name": "文献の種類",
+    "count": "",
+    "description": ""
+  },
+  "higherTaxonKey": {
+    "name": "上位の分類群",
+    "count": "",
+    "description": ""
+  },
+  "issueEnum": {
+    "name": "問題とフラグ",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  }
+}

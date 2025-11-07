@@ -1,0 +1,16 @@
+{
+  "projectGrantType": {
+    "REGIONAL": "Региональный грант",
+    "SMALL": "Малый грант",
+    "NATIONAL": "Национальный грант",
+    "DATA_USE": "Разрешение на использование данных",
+    "undefined": "Неидентифицированный"
+  },
+  "projectStatus": {
+    "APPROVED": "Одобрен",
+    "CLOSED": "Завершен",
+    "IN_PROGRESS": "Выполняется",
+    "DISCONTINUED": "Прекращен",
+    "undefined": "Неидентифицированный"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "country": {
+    "tabs": {
+      "summary": "Samenvatting",
+      "dataPublishing": "",
+      "dataAbout": "",
+      "participation": "Participatie",
+      "publicationsFrom": "",
+      "publicationsAbout": "",
+      "news": "Nieuws",
+      "alienSpecies": "",
+      "projects": "Projecten"
+    },
+    "country": "Land",
+    "dataFrom": "",
+    "dataAboutCountry": "",
+    "publishingTrends": "",
+    "noDataPublishingActivity": "",
+    "noInstitutionsHavePublished": "",
+    "trendsAboutCountry": "",
+    "noProjects": "Geen projecten",
+    "notParticipant": "",
+    "notParticipantDescription": "",
+    "countryNamingDisclaimer": "",
+    "isoStandardLinkText": "",
+    "counts": {
+      "occurrences": "",
+      "datasets": "",
+      "publishers": "",
+      "countriesAndAreasContributeData": "",
+      "publishedOccurrences": "",
+      "publishedDatasets": "Gepubliceerde datasets",
+      "countriesAndAreasCoveredByDataFrom": "",
+      "publishersFrom": ""
+    },
+    "activityReport": "",
+    "contacts": "Contacten"
+  }
+}

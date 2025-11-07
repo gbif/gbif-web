@@ -1,0 +1,16 @@
+{
+  "EML": "EML",
+  "FEED": "تغذيةRSS",
+  "WFS": "WFS",
+  "WMS": "WMS",
+  "TCS_RDF": "TSF RDF",
+  "TCS_XML": "TCS XML",
+  "DWC_ARCHIVE": "ارشيف داروين الاساسي",
+  "DIGIR": "DiGIR",
+  "DIGIR_MANIS": "DiGIR MANIS",
+  "TAPIR": "TAPIR",
+  "BIOCASE": "BioCASe",
+  "BIOCASE_XML_ARCHIVE": "أرشيف XML BioCASe",
+  "OAI_PMH": "OAI PMH",
+  "OTHER": "أخرى"
+}

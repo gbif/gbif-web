@@ -1,0 +1,19 @@
+{
+  "AGRICULTURE": "Landbrug",
+  "BIODIVERSITY_SCIENCE": "Biodiversitetsvidenskab",
+  "BIOGEOGRAPHY": "Biogeografi",
+  "CITIZEN_SCIENCE": "Citizen science",
+  "CLIMATE_CHANGE": "Klimaændringer",
+  "CONSERVATION": "Bevarelse",
+  "DATA_PAPER": "Data-artikel",
+  "ECOLOGY": "Økologi",
+  "ECOSYSTEM_SERVICES": "Økosystemfunktioner",
+  "EVOLUTION": "Evolution",
+  "FRESHWATER": "Ferskvand",
+  "HUMAN_HEALTH": "Menneskers sundhed",
+  "INVASIVES": "Invasiv",
+  "MARINE": "Marine",
+  "PHYLOGENETICS": "Fylogenetik",
+  "SPECIES_DISTRIBUTIONS": "Arts-distributioner",
+  "TAXONOMY": "Taksonomi"
+}

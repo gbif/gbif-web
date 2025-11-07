@@ -1,0 +1,16 @@
+{
+  "projectGrantType": {
+    "REGIONAL": "",
+    "SMALL": "",
+    "NATIONAL": "",
+    "DATA_USE": "",
+    "undefined": "Niet gespecificeerd"
+  },
+  "projectStatus": {
+    "APPROVED": "Goedgekeurd",
+    "CLOSED": "Gesloten",
+    "IN_PROGRESS": "In uitvoering",
+    "DISCONTINUED": "Stopgezet",
+    "undefined": "Niet gespecificeerd"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "first": "Primo",
+  "previous": "Precedente",
+  "next": "Successivo",
+  "options": "Opzioni",
+  "pageXofY": "Pagina {current} di {total}",
+  "moreFilters": "altro"
+}

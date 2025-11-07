@@ -1,0 +1,51 @@
+{
+  "occurrence": "Registro",
+  "event": "Evento",
+  "showAllFields": "Mostrar todos los campos",
+  "morePhotos": "Más fotos",
+  "about": "Acerca de",
+  "dataset": "Conjunto de datos",
+  "publisher": "Publicador",
+  "institution": "Institución",
+  "institutionGrSciColl": "Institución GrSciColl",
+  "collection": "Colección",
+  "collectionGrSciColl": "Colección GrSciColl",
+  "recordedAndIdentifiedBy": "Registrado e identificado por",
+  "eventTypeHierarchyJoined": "Jerarquía del tipo de evento",
+  "eventHierarchyJoined": "Jerarquía del evento",
+  "map": "Mapa de ubicación",
+  "backToTaxa": "Volver a los taxones de eventos",
+  "siteLocation": "Ubicación del sitio",
+  "info": {
+    "original": "Original",
+    "excluded": "Excluido",
+    "inferred": "Inferido",
+    "altered": "Alterado"
+  },
+  "groups": {
+    "summary": "Resumen",
+    "record": "Registro",
+    "occurrence": "Registro",
+    "event": "Evento",
+    "dataStructure": "Estructura de Datos",
+    "identification": "Identificación",
+    "taxon": "Taxón",
+    "location": "Localización/ubicación",
+    "organism": "Organismo",
+    "materialSample": "Muestra de material",
+    "geologicalContext": "Contexto geológico",
+    "measurementsOrFacts": "Medidas",
+    "images": "Multimedia",
+    "other": "Otro",
+    "methodology": "Metodología",
+    "taxonomicCoverage": "Cobertura taxonómica"
+  },
+  "siteTooltip": "{count, plural, one {# evento} other {# eventos}} en {site} en {date}",
+  "siteTableLegend": "Sitio / Año",
+  "site": "Sitio: {siteID}",
+  "siteLoading": "Sitio: {siteID} - cargando detalles",
+  "activityDetails": {
+    "monthYear": "Detalles de actividad en {date, time, ::MMMM::yyyy}",
+    "year": "Detalles de actividad en {date, time, ::yyyy}"
+  }
+}

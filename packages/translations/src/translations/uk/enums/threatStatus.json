@@ -1,0 +1,11 @@
+{
+  "EXTINCT": "Вимерлий",
+  "EXTINCT_IN_THE_WILD": "Вимерлий у природі",
+  "CRITICALLY_ENDANGERED": "У критичній небезпеці",
+  "ENDANGERED": "Зникаючий",
+  "VULNERABLE": "Уразливий",
+  "NEAR_THREATENED": "Майже під загрозою",
+  "LEAST_CONCERN": "Найменша осторога",
+  "DATA_DEFICIENT": "Відомостей недостатньо",
+  "NOT_EVALUATED": "Неоцінений"
+}

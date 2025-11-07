@@ -1,0 +1,11 @@
+{
+  "ACCEPTED": "已接受",
+  "DOUBTFUL": "存疑",
+  "SYNONYM": "异名",
+  "HETEROTYPIC_SYNONYM": "异模式异名",
+  "HOMOTYPIC_SYNONYM": "同模式异名",
+  "PROPARTE_SYNONYM": "部分同物异名",
+  "MISAPPLIED": "误用",
+  "INTERMEDIATE_RANK_SYNONYM": "中间等级同物异名",
+  "DETERMINATION_SYNONYM": "确定的同物异名"
+}

@@ -1,0 +1,9 @@
+{
+  "network": "רשת",
+  "tabs": {
+    "summary": "סיכום",
+    "metrics": "מדדים",
+    "datasets": "ערכות נתונים",
+    "publishers": "ספקי מידע"
+  }
+}

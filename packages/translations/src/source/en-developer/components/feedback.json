@@ -1,0 +1,43 @@
+{
+  "feedback": {
+    "title": "Questions and comments",
+    "contactGbif": "Contact GBIF",
+    "contactDataProvider": "Contact data provider",
+    "contactUsDescription": "For website issues, data processing problems or questions",
+    "contactDataProviderDescription": "For issues relating to the published record on this page",
+    "seeAlsoFaq": "See also the {faqLink}",
+    "faq": "FAQ",
+    "pleaseLogin": "Please login to leave feedback.",
+    "pleaseLoginReason": "Why? Unfortunately we are seeing lots of spam advertisement in our feedback system if we do not require users to login.",
+    "sendEmailTo": "Send email to {emailLink}",
+    "emailHelpdesk": "Email Helpdesk",
+    "summary": "Summary",
+    "description": "Description",
+    "required": "Required",
+    "csvWarning": "It looks like your feedback mentions CSV files. Please see: {faqLink}",
+    "csvFaqEntry": "FAQ entry on CSV files",
+    "sendFeedback": "Send feedback",
+    "sending": "Sending...",
+    "publicRepo": "Feedback will be sent to {githubLink} in a public repository.",
+    "helpDeskOption": "For private enquiries you can reach us at {helpdeskLink} or at {communicationLink} for press matters.",
+    "helpdesk": "GBIF helpdesk",
+    "communications": "GBIF communication",
+    "confirmation": {
+      "title": "Thank you",
+      "description": "Your feedback has been logged as an issue in Github. If necessary and if contact details were provided, we might reach out to you for further information. You can track progress by visiting the issue page.",
+      "seeIssue": "See issue",
+      "createAnother": "Create another"
+    },
+    "failure": {
+      "title": "Something went wrong",
+      "description": "This isn’t good — the feedback system doesn’t work. Please send us a mail or go straight to {githubLink}. We are sorry about the trouble.",
+      "tryAgain": "Try again"
+    },
+    "orWriteMailTo": "Or write a mail to {contactLink}",
+    "leaveIssueOnGithub": "Leave issue on GitHub",
+    "login": "Login",
+    "requiresGithubAccount": "Requires a Github account",
+    "sendUsAnEmail": "Send us an email",
+    "forPrivateEnquiries": "For private enquiries or if you do not have a Github account."
+  }
+}

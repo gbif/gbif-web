@@ -1,0 +1,68 @@
+{
+  "unsupported.title": "Неподдерживаемый запрос",
+  "unsupported.description": "Можно использовать свободный текстовый поиск, но он не поддерживает загрузку.",
+  "unsupported.remove": "Удалить фильтр",
+  "unsupported.error": "Похоже, этот запрос не поддерживается",
+  "download": "Загрузить",
+  "redirectNotice": "Вы собираетесь начать загрузку. Для этого вы будете перенаправлены на сайт GBIF.org.\n\nОбратите внимание, что для загрузки контента требуется учётная запись.",
+  "continueToGBIF": "Продолжить",
+  "sql": {
+    "createNewSqlDownload": "Создать новое выражение SQL для загрузки",
+    "placeholder": "",
+    "noSql": "",
+    "note": {
+      "title": "Примечание",
+      "description": "Самый простой способ загрузить и изучить данные - это использовать пользовательский интерфейс поиска совпадений. Но для сложных запросов и агрегирования данных редактор SQL предоставляет больше свободы.",
+      "goToOccurrenceSearch": ""
+    },
+    "errors": {
+      "invalid-SQL": "Недопустимый синтаксис SQL",
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
+    }
+  },
+  "create": "",
+  "about": "Об организациии",
+  "stopEditing": "",
+  "startEditing": "",
+  "reformat": "Переформатируйте",
+  "discard": "Отклонить",
+  "keep": "Сохранить",
+  "readTheDocumentation": "Прочтите документацию",
+  "request": {
+    "createNewDownload": "Создайте новую загрузку",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
+    "currentFilter": "Текущий фильтр",
+    "errors": {
+      "invalid-json": "Недопустимый формат JSON",
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
+    }
+  },
+  "downloadOptions": {
+    "title": "Настройки загрузки",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
+    "content": {
+      "rawData": "Необработанные данные",
+      "interpretedData": "Интерпретированные данные",
+      "images": "Мультимедиа",
+      "coordinates": "Координаты",
+      "fileFormat": "Формат",
+      "estimatedSize": "Предполагаемый размер данных"
+    },
+    "fileFormats": {
+      "tabCsv": ""
+    },
+    "tableValues": {
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
+    }
+  }
+}

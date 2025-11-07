@@ -1,0 +1,8 @@
+{
+  "institutionalGovernance": "Sposób zarządzania instytucją",
+  "type": "Rodzaj instytucji",
+  "addCollection": "Dodaj kolekcję",
+  "disciplines": "Dyscypliny naukowe instytucji",
+  "numberSpecimens": "Liczba okazów w instytucji",
+  "unknownCollectionCodesForInstitution": "Te nieznane kody kolekcji są powiązane z tą instytucją"
+}

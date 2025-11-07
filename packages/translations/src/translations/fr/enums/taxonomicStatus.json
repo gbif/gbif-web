@@ -1,0 +1,11 @@
+{
+  "ACCEPTED": "Accepté",
+  "DOUBTFUL": "Douteux",
+  "SYNONYM": "Synonyme",
+  "HETEROTYPIC_SYNONYM": "Synonyme hétérotypique",
+  "HOMOTYPIC_SYNONYM": "Synonyme homotypique",
+  "PROPARTE_SYNONYM": "Synonyme proparte",
+  "MISAPPLIED": "Mal appliqué",
+  "INTERMEDIATE_RANK_SYNONYM": "Synonyme de rang intermédiaire",
+  "DETERMINATION_SYNONYM": "Synonyme de détermination"
+}

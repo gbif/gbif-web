@@ -1,0 +1,9 @@
+{
+  "network": "網絡",
+  "tabs": {
+    "summary": "總結",
+    "metrics": "指標",
+    "datasets": "資料集",
+    "publishers": "發布者"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "identifier": "ID (идентификатор)",
+  "type": "Тип записи",
+  "subtypeLiteral": "Подтип",
+  "title": "Название",
+  "rights": "Права",
+  "credit": "Заслуга",
+  "providerLiteral": "Провайдер",
+  "description": "Описание",
+  "accessURI": "Ссылка",
+  "accessOriginalURI": "Исходный URL-адрес",
+  "format": "Формат",
+  "pixelXDimension": "Ширина",
+  "pixelYDimension": "Высота"
+}

@@ -1,0 +1,28 @@
+{
+  "gbifNetwork": {
+    "participationType": {
+      "VOTING": "",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
+      "FORMER": "前任的",
+      "OBSERVER": "观察员",
+      "UNKNOWN": "",
+      "AFFILIATE": "GBIF 附属机构"
+    },
+    "affiliateHelp": "",
+    "mapCaptionPublishers": "",
+    "role": "角色",
+    "name": "名字",
+    "participant": "成员",
+    "type": "类型",
+    "memberSince": "会员注册日期",
+    "all": "全部",
+    "countryParticipants": "",
+    "publishersPerCountry": "",
+    "clear": "清除",
+    "headlines": {
+      "nodesSteeringGroup": "节点工作小组",
+      "participants": "成员"
+    }
+  }
+}

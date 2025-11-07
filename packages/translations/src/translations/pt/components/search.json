@@ -1,0 +1,77 @@
+{
+  "tabs": {
+    "table": "Tabela",
+    "tree": "",
+    "gallery": "Galeria",
+    "media": "Iguais {is}",
+    "map": "Mapa",
+    "datasets": "Conjuntos de dados",
+    "events": "Eventos",
+    "download": "Transferir",
+    "clusters": "",
+    "dashboard": "",
+    "sites": "Iguais {is}",
+    "list": ""
+  },
+  "table": {
+    "lockColumn": "",
+    "unlockColumn": "Iguais {is}",
+    "columnVisibility": "Iguais {is}",
+    "resetColumnVisibility": "Iguais {is}",
+    "openFilter": "Iguais {is}"
+  },
+  "placeholders": {
+    "default": "Pesquisa",
+    "range": "",
+    "rangeExample": "",
+    "wildcard": "",
+    "dateTemplate": "",
+    "locationID": ""
+  },
+  "ternary": {
+    "yes": "Sim",
+    "no": "Não",
+    "either": "Iguais {is}"
+  },
+  "loadMore": "Mais",
+  "loading": "A carregar",
+  "noResults": "",
+  "startTyping": "",
+  "rankInGroup": "",
+  "occurrenceClustersView": {
+    "about": "Sobre",
+    "clusters": "",
+    "legend": "",
+    "differentPublishers": "",
+    "samePublishers": "",
+    "entryPoint": "",
+    "hasMultipleTaxonKeys": "",
+    "aboutLink": "",
+    "isCapped": "",
+    "isDeleted": "",
+    "similarities": "",
+    "currentRecord": "",
+    "nodeType": {
+      "IMAGE": "Imagem",
+      "TYPE": "",
+      "TREATMENT": "Tratamento",
+      "OBSERVATION": "Observação",
+      "SPECIMEN": "Espécime",
+      "SEQUENCE": "Iguais {is}"
+    }
+  },
+  "crossContentSearch": {
+    "title": "Pesquisa",
+    "description": "",
+    "noSearchTermsEntered": "Não há termos de pesquisa inseridos",
+    "placeholder": "",
+    "categories": {
+      "speciesSearch": "Espécie",
+      "datasetSearch": "Conjuntos de dados",
+      "publisherSearch": "Publicadores",
+      "occurrenceSearch": "Ocorrências",
+      "resourceSearch": ""
+    },
+    "seeAll": "Ver todos"
+  }
+}

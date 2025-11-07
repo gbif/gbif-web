@@ -1,0 +1,10 @@
+{
+  "nResults": "{total, plural, one {# resultado} other {# resultados}}",
+  "nSelected": "{total, plural, one {} other {# selecionado}}",
+  "nQualityFlags": "{total, plural, one {# etiqueta de qualidade} other {# etiquetas de qualidade}}",
+  "nAudioFiles": "{total, plural, one {# ficheiro de som} other {# ficheiros de som}}",
+  "nVideos": "{total, plural, one {# vídeo} other {# vídeos}}",
+  "nImages": "{total, plural, one {# imagem} other {# imagens}}",
+  "nResultsWithCoordinates": "{total, plural, one {# resultado } other {# resultados}} com coordenadas\n",
+  "nResultsWithImages": "{total, plural, one {# resultado } other {# resultados}} com imagens\n"
+}

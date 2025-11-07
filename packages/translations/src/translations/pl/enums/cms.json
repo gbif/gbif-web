@@ -1,0 +1,16 @@
+{
+  "projectGrantType": {
+    "REGIONAL": "Grant na mobilizację danych o różnorodności biologicznej na poziomie regionalnym",
+    "SMALL": "Grant na mobilizację danych o różnorodności biologicznej na poziomie instytucji",
+    "NATIONAL": "Grant na mobilizację danych o różnorodności biologicznej na poziomie krajowym",
+    "DATA_USE": "Grant na wykorzystanie danych",
+    "undefined": "Nieokreślony"
+  },
+  "projectStatus": {
+    "APPROVED": "Zaakceptowany",
+    "CLOSED": "Zamknięty",
+    "IN_PROGRESS": "W toku",
+    "DISCONTINUED": "Wycofany",
+    "undefined": "Nieokreślony"
+  }
+}

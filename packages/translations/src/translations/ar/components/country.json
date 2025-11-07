@@ -1,0 +1,39 @@
+{
+  "country": {
+    "tabs": {
+      "summary": "الملخص",
+      "dataPublishing": "نشر البيانات",
+      "dataAbout": "بيانات حول",
+      "participation": "مشاركة",
+      "publicationsFrom": "منشورات من",
+      "publicationsAbout": "منشورات حول",
+      "news": "أخبار",
+      "alienSpecies": "",
+      "projects": "المشاريع"
+    },
+    "country": "بلد",
+    "dataFrom": "البيانات من {TRANSLATED_COUNTRY}",
+    "dataAboutCountry": "البيانات حول {TRANSLATED_COUNTRY}",
+    "publishingTrends": "مناحي النشر",
+    "noDataPublishingActivity": "لا يوجد نشاط لنشر البيانات",
+    "noInstitutionsHavePublished": "لم تقم أي مؤسسة من هذه الدولة بنشر بيانات من خلال \"جيبف\"",
+    "trendsAboutCountry": "مناحي حول {TRANSLATED_COUNTRY}",
+    "noProjects": "لا يوجد مشاريع",
+    "notParticipant": "ليس مشاركاً",
+    "notParticipantDescription": "هذه الدولة غير مشتركة في \"جيبف\"",
+    "countryNamingDisclaimer": "",
+    "isoStandardLinkText": "",
+    "counts": {
+      "occurrences": "{NUMBER, plural,\n0 {تكرارات}\none {تكرار}\nfew {تكرارات}\nmany {تكرارات}\nother {تكرارات}\n}",
+      "datasets": "مجموعات البيانات",
+      "publishers": "الناشرون",
+      "countriesAndAreasContributeData": "الدول والمناطق التي تساهم في البيانات",
+      "publishedOccurrences": "التكرارات المنشورة",
+      "publishedDatasets": "مجموعات البيانات المنشورة",
+      "countriesAndAreasCoveredByDataFrom": "الدول والمناطق التي تغطيها البيانات من {TRANSLATED_COUNTRY}",
+      "publishersFrom": "الناشرون من {TRANSLATED_COUNTRY}"
+    },
+    "activityReport": "تقرير النشاط",
+    "contacts": "جهات الاتصال"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "PRESERVED_SPECIMEN": "Preserved specimen",
+  "FOSSIL_SPECIMEN": "Fossil specimen",
+  "LIVING_SPECIMEN": "Living specimen",
+  "OBSERVATION": "Observation",
+  "HUMAN_OBSERVATION": "Human observation",
+  "MACHINE_OBSERVATION": "Machine observation",
+  "MATERIAL_SAMPLE": "Material sample",
+  "MATERIAL_CITATION": "Material citation",
+  "LITERATURE": "Literature",
+  "OCCURRENCE": "Occurrence"
+}

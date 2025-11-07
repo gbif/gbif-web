@@ -1,0 +1,22 @@
+{
+  "TECHNICAL_POINT_OF_CONTACT": "Teknisk kontakt",
+  "ADMINISTRATIVE_POINT_OF_CONTACT": "Administrativ kontakt",
+  "_PRIMARY_CONTACT": "Primære kontak",
+  "POINT_OF_CONTACT": "Kontaktperson",
+  "ORIGINATOR": "Skaber",
+  "GBIFS_STAFF_MEMBER": "GBIF ansat",
+  "METADATA_AUTHOR": "Metadataforfatter",
+  "PRINCIPAL_INVESTIGATOR": "Hovedinvestigator",
+  "AUTHOR": "Forfatter",
+  "CONTENT_PROVIDER": "Indholdsudbyderen",
+  "DISTRIBUTOR": "Distributør",
+  "EDITOR": "Redaktør",
+  "OWNER": "Ejer",
+  "PROCESSOR": "Processor",
+  "PUBLISHER": "Forlægger",
+  "USER": "Bruger",
+  "PROGRAMMER": "Programmør",
+  "CURATOR": "Kurator",
+  "DATA_ADMINISTRATOR": "Dataadministrator",
+  "SYSTEM_ADMINISTRATOR": "Systemadministrator"
+}

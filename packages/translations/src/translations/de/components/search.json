@@ -1,0 +1,77 @@
+{
+  "tabs": {
+    "table": "Liste",
+    "tree": "",
+    "gallery": "Galerie",
+    "media": "Gleich {is}",
+    "map": "Karte",
+    "datasets": "Datasets",
+    "events": "",
+    "download": "Download",
+    "clusters": "",
+    "dashboard": "",
+    "sites": "Gleich {is}",
+    "list": ""
+  },
+  "table": {
+    "lockColumn": "Spalte fixieren",
+    "unlockColumn": "Gleich {is}",
+    "columnVisibility": "Gleich {is}",
+    "resetColumnVisibility": "Gleich {is}",
+    "openFilter": "Gleich {is}"
+  },
+  "placeholders": {
+    "default": "Suche",
+    "range": "Bereich oder einzelner Wert",
+    "rangeExample": "",
+    "wildcard": "",
+    "dateTemplate": "",
+    "locationID": ""
+  },
+  "ternary": {
+    "yes": "",
+    "no": "",
+    "either": "Gleich {is}"
+  },
+  "loadMore": "Mehr",
+  "loading": "",
+  "noResults": "",
+  "startTyping": "",
+  "rankInGroup": "",
+  "occurrenceClustersView": {
+    "about": "",
+    "clusters": "",
+    "legend": "",
+    "differentPublishers": "",
+    "samePublishers": "",
+    "entryPoint": "",
+    "hasMultipleTaxonKeys": "",
+    "aboutLink": "",
+    "isCapped": "",
+    "isDeleted": "",
+    "similarities": "",
+    "currentRecord": "",
+    "nodeType": {
+      "IMAGE": "",
+      "TYPE": "",
+      "TREATMENT": "",
+      "OBSERVATION": "Beobachtung",
+      "SPECIMEN": "Exemplar",
+      "SEQUENCE": "Gleich {is}"
+    }
+  },
+  "crossContentSearch": {
+    "title": "Suche",
+    "description": "",
+    "noSearchTermsEntered": "Keine Suchbegriffe eingegeben",
+    "placeholder": "",
+    "categories": {
+      "speciesSearch": "",
+      "datasetSearch": "Datensätze",
+      "publisherSearch": "Herausgeber",
+      "occurrenceSearch": "",
+      "resourceSearch": ""
+    },
+    "seeAll": "Alle ansehen"
+  }
+}

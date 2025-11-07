@@ -1,0 +1,16 @@
+{
+  "projectGrantType": {
+    "REGIONAL": "منحة اقليمية",
+    "SMALL": "منحة صغيرة",
+    "NATIONAL": "منحة وطنية",
+    "DATA_USE": "",
+    "undefined": "غير مخصصة"
+  },
+  "projectStatus": {
+    "APPROVED": "موافق عليه",
+    "CLOSED": "مغلق",
+    "IN_PROGRESS": "فيد التقدم",
+    "DISCONTINUED": "توقف",
+    "undefined": "غير مخصصة"
+  }
+}

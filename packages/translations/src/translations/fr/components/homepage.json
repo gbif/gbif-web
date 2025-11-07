@@ -1,0 +1,13 @@
+{
+  "homepage": {
+    "counts": {
+      "occurrences": "Occurrences",
+      "datasets": "Jeux de données",
+      "publishers": "Institutions éditrices",
+      "literature": "Articles scientifiques utilisant des données"
+    },
+    "aboutGbifCountry": "A propos de GBIF {COUNTRY}",
+    "whatIsGbif": "Qu'est-ce que le GBIF ?",
+    "search": ""
+  }
+}

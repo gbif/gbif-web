@@ -1,0 +1,12 @@
+{
+  "PRESERVED_SPECIMEN": "馆藏标本",
+  "FOSSIL_SPECIMEN": "化石标本",
+  "LIVING_SPECIMEN": "活体标本",
+  "OBSERVATION": "观察",
+  "HUMAN_OBSERVATION": "人类观察",
+  "MACHINE_OBSERVATION": "机器观察",
+  "MATERIAL_SAMPLE": "材料样本",
+  "MATERIAL_CITATION": "材料的引用",
+  "LITERATURE": "文献",
+  "OCCURRENCE": "出现记录"
+}

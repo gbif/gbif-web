@@ -1,0 +1,72 @@
+{
+  "title": "",
+  "group": {
+    "executiveCommittee": {
+      "title": "Directiecomité",
+      "description": ""
+    },
+    "scienceCommittee": {
+      "title": "Wetenschapscommissie",
+      "description": ""
+    },
+    "budgetCommittee": {
+      "title": "Begrotingscommissie",
+      "description": ""
+    },
+    "nsg": {
+      "title": "",
+      "description": ""
+    },
+    "nodesCommittee": {
+      "title": "",
+      "description": ""
+    },
+    "secretariat": {
+      "title": "GBIF secretariaat",
+      "description": ""
+    },
+    "voting": {
+      "title": "Stemgerechtigde deelnemers",
+      "description": ""
+    },
+    "associateCountries": {
+      "title": "",
+      "description": ""
+    },
+    "associateParticipants": {
+      "title": "",
+      "description": ""
+    }
+  },
+  "columns": {
+    "role": "Rol",
+    "name": "Naam",
+    "participant": "Deelnemer",
+    "participationStatus": "Status deelnemer"
+  },
+  "details": "Gegevens",
+  "roles": "Rollen",
+  "sinceDate": "Sinds  {DATE}",
+  "showAllContacts": "Alle",
+  "person": {
+    "volunteer": "",
+    "name": "Naam",
+    "annualBadges": "",
+    "language": "Taal",
+    "country": "Land of regio",
+    "affiliation": "",
+    "recipient": "",
+    "areasExpertise": "",
+    "orcId": "",
+    "year": "Jaar",
+    "email": "Email"
+  },
+  "award": {
+    "GRA": "",
+    "EBBE1ST": "",
+    "EBBE2ND": "",
+    "EBBE3RD": ""
+  },
+  "prize": "",
+  "year": "Jaar"
+}

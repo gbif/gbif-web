@@ -1,0 +1,13 @@
+{
+  "homepage": {
+    "counts": {
+      "occurrences": "Registos de ocorrências",
+      "datasets": "Conjuntos de dados",
+      "publishers": "Instituições publicadoras",
+      "literature": "Artigos revistos utilizando dados"
+    },
+    "aboutGbifCountry": "Sobre o GBIF {COUNTRY}",
+    "whatIsGbif": "O que é o GBIF?",
+    "search": ""
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "features": "Cechy",
+  "options": {
+    "includeAuthorship": ""
+  },
+  "citations": "Cytowanie",
+  "occurrences": "Wystąpienia",
+  "numberSpecimens": "Liczba okazów",
+  "gbifNumberSpecimens": "Okazy w GBIF",
+  "specimenTriplet": "",
+  "title": "Tytuł",
+  "titleAndAbstract": "Tytuł i streszczenie",
+  "altmetric": "Altmetryka",
+  "registered": "Zarejestrowano",
+  "hostedDatasets": "Hostowane zbiory danych",
+  "pubDatasets": "Opublikowane zbiory danych",
+  "commonName": "Nazwa zwyczajowa",
+  "images": "Multimedia",
+  "species": "Liczba gatunków",
+  "parents": "Pochodzenie",
+  "institution": "Instytucja",
+  "collection": "Kolekcja",
+  "collectionCount": "Kolekcje",
+  "active": "Aktywny",
+  "activeInstitution": "Aktywny",
+  "author": "Autor",
+  "source": "Czasopismo",
+  "dataReferenced": "",
+  "activeCollection": "Aktywny"
+}

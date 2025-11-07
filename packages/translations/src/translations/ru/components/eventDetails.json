@@ -1,0 +1,51 @@
+{
+  "occurrence": "Находка",
+  "event": "Мероприятие",
+  "showAllFields": "Покказать все поля",
+  "morePhotos": "Другие фото",
+  "about": "Об организациии",
+  "dataset": "Набор данных",
+  "publisher": "Организация",
+  "institution": "Организация",
+  "institutionGrSciColl": "Всемирный каталог научных коллекций GrSciColl",
+  "collection": "Коллекция",
+  "collectionGrSciColl": "Коллекции GrSciColl",
+  "recordedAndIdentifiedBy": "Зарегистрировано и идентифицировано",
+  "eventTypeHierarchyJoined": "Иерархия типов событий",
+  "eventHierarchyJoined": "Иерархия событий",
+  "map": "Карта местонахождения",
+  "backToTaxa": "Вернуться к событиям таксонов",
+  "siteLocation": "Местоположение объекта",
+  "info": {
+    "original": "Исходное значение",
+    "excluded": "не интерпретировано",
+    "inferred": "получено из других значений",
+    "altered": "изменено"
+  },
+  "groups": {
+    "summary": "Тема сообщения",
+    "record": "Запись",
+    "occurrence": "Находка",
+    "event": "Мероприятие",
+    "dataStructure": "Структура данных",
+    "identification": "Определение",
+    "taxon": "Таксон",
+    "location": "Местонахождение (топоним)",
+    "organism": "Организм",
+    "materialSample": "Образец из коллекции",
+    "geologicalContext": "Геологические контекст",
+    "measurementsOrFacts": "Измерения",
+    "images": "Мультимедиа",
+    "other": "Другая",
+    "methodology": "Методология",
+    "taxonomicCoverage": "Таксономический охват"
+  },
+  "siteTooltip": "{count, plural, one {# событие} other {# событий}} at {site} in {date}",
+  "siteTableLegend": "Место / Год",
+  "site": "Место: {siteID}",
+  "siteLoading": "Место: {siteID} - детали загрузки",
+  "activityDetails": {
+    "monthYear": "Подробная информация об активности за {date, time, ::MMMM::yyyy}",
+    "year": "Подробная информация об активности за {date, time,  ::yyyy}"
+  }
+}

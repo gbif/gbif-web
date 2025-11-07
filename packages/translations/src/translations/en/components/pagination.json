@@ -1,0 +1,8 @@
+{
+  "first": "First",
+  "previous": "Previous",
+  "next": "Next",
+  "options": "Options",
+  "pageXofY": "Page {current} of {total}\n",
+  "moreFilters": "more"
+}

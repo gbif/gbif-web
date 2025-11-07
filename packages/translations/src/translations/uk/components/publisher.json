@@ -1,0 +1,26 @@
+{
+  "searchTitle": "Пошук за видавцем даних",
+  "tabs": {
+    "aboutPublisher": "Відомості про видавця даних",
+    "metrics": "Показники",
+    "publishersHomepage": "Домашня сторінка"
+  },
+  "joinedDate": "",
+  "newPublisher": "Новий видавець даних",
+  "technicalContact": "Технічний контакт",
+  "country": "Країна або територія",
+  "hosting": "Хостинг",
+  "description": "Опис",
+  "endorsedBy": "Схвалено",
+  "notYetEndorsed": "",
+  "pendingEndorsementBy": "Очікує на схвалення",
+  "endorsementWithheld": "",
+  "installations": "Інстальовані сервери публікування даних",
+  "getDownloadReport": "",
+  "contacts": "Контакти",
+  "administrativeContact": "Адміністративна контактна особа",
+  "header": {
+    "publisher": "Видавець",
+    "sinceDate": "у GBIF від {DATE}"
+  }
+}

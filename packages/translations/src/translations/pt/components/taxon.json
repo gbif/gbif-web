@@ -1,0 +1,67 @@
+{
+  "tabs": {
+    "about": "Sobre",
+    "verbatim": "Original",
+    "metrics": "Métricas"
+  },
+  "recordedAsIntroducedIn": "Registada como introduzida em",
+  "accordingTo": "De acordo com",
+  "evidenceOfImpact": "Evidência do impacto",
+  "occurrencesInGbif": "Ocorrências no GBIF",
+  "recordedAsIntrodicedInNcontries": "",
+  "breakdown": "",
+  "publishedIn": "Publicado em",
+  "vernacularNames": "Nomes comuns",
+  "rank": "Nível",
+  "source": "Fonte",
+  "specimenIsTypeOf": "Iguais {is}",
+  "typeMaterial": "Iguais {is}",
+  "treatments": "",
+  "more": "mais",
+  "less": "Iguais {is}",
+  "dna": "",
+  "occurrenceImages": "",
+  "taxonImages": "",
+  "taxonIdentifiers": "Identificadores de taxon",
+  "synonymsAndCombinations": "",
+  "inChecklist": "",
+  "rankPlural": {
+    "KINGDOM": "Reinos",
+    "PHYLUM": "Filos",
+    "CLASS": "Classes",
+    "ORDER": "Ordens",
+    "FAMILY": "Famílias",
+    "GENUS": "Géneros",
+    "SPECIES": "Espécie"
+  },
+  "distributions": "Distribuição",
+  "distribution": {
+    "threatStatus": "",
+    "establishmentMeans": "Forma de estabelecimento",
+    "status": "Estado",
+    "locality": "Localidade",
+    "locationId": "ID da Localização",
+    "country": "País"
+  },
+  "verbatim": {
+    "term": "Termo",
+    "value": "Valor",
+    "coreRecord": ""
+  },
+  "tradeRestrictions": "Restrições comerciais",
+  "cites": "",
+  "immediateChildren": "Filhos imediatos",
+  "referenceTaxon": "Táxon de referência",
+  "showLess": "",
+  "showAll": "Mostrar tudo",
+  "errors": {
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
+  }
+}

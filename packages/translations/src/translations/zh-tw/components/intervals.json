@@ -1,0 +1,96 @@
+{
+  "description": {
+    "lt": "少於 {to}",
+    "lte": "少於或等於 {to}",
+    "gt": "大於 {from}",
+    "gte": "大於或等於 {from}",
+    "e": "等於 {is}",
+    "between": "從{from}到{to}"
+  },
+  "compact": {
+    "between": "{from} 到 {to}",
+    "lt": "低於 {to}",
+    "gt": "高於 {from}",
+    "e": "{from}"
+  },
+  "compactMeters": {
+    "between": "{from} 公尺到 {to} 公尺",
+    "lt": "低於 {to} 公尺",
+    "gt": "高於 {from} 公尺",
+    "e": "{from} 公尺"
+  },
+  "compactTime": {
+    "between": "{from} 到 {to}",
+    "lt": "以前 {to}",
+    "gt": "以後 {from}",
+    "e": "{from}"
+  },
+  "geoTime": {
+    "between": "{from} 到 {to}",
+    "lt": "以前 {to}",
+    "lte": "",
+    "gt": "以後 {from}",
+    "gte": "",
+    "e": ""
+  },
+  "year": {
+    "between": "年 {from} 到 {to}",
+    "lt": "年之前 {to}",
+    "gt": "年之後 {from}",
+    "e": "年份為 {from}",
+    "select": {
+      "equals": "是",
+      "between": "之間",
+      "lessThanOrEquals": "結束前",
+      "greaterThanOrEquals": "開始後"
+    }
+  },
+  "coordinateUncertainty": {
+    "between": "座標不確定 {from} 公尺到 {to} 公尺",
+    "lt": "座標不確定低於 {to} 公尺",
+    "gt": "座標不確定高於 {from} 公尺",
+    "e": "座標不確定為 {from} 公尺"
+  },
+  "depth": {
+    "between": "深度 {from} 到 {to}",
+    "lt": "深度以下 {to}",
+    "gt": "深度以上 {from}",
+    "e": "深度為 {from}"
+  },
+  "organismQuantity": {
+    "between": "生物體數量 {from} 到 {to}",
+    "lt": "生物體數量低於 {to}",
+    "gt": "生物體數量高於{from}",
+    "e": "生物體數量為 {from}"
+  },
+  "sampleSizeValue": {
+    "between": "樣本數數值 {from} 到 {to}",
+    "lt": "樣本數數值低於 {to}",
+    "gt": "樣本數數值高於 {from}",
+    "e": "樣本數數值為 {from}"
+  },
+  "relativeOrganismQuantity": {
+    "between": "相關生物體數量 {from} 到 {to}",
+    "lt": "相關生物體數量低於 {to}",
+    "gt": "相關生物體數量高於 {from}",
+    "e": "相關生物體數量為 {from}"
+  },
+  "elevation": {
+    "between": "海拔 {from} 到 {to}",
+    "lt": "海拔低於{to}",
+    "gt": "海拔高於 {from}",
+    "e": "海拔為 {from}"
+  },
+  "geoDistance": {
+    "short": "在{latitude}{longitude}{distance}之內",
+    "description": "緯度:{latitude}經度:{longitude}距離:{distance}"
+  },
+  "units": {
+    "name": {
+      "km": "公里",
+      "m": "公尺",
+      "mi": "英哩",
+      "ft": "英呎"
+    }
+  }
+}

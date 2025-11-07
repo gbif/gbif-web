@@ -1,0 +1,26 @@
+{
+  "searchTitle": "Wyszukiwanie wydawców",
+  "tabs": {
+    "aboutPublisher": "Informacje o wydawcy",
+    "metrics": "Statystyki",
+    "publishersHomepage": "Strona główna"
+  },
+  "joinedDate": "",
+  "newPublisher": "Nowy wydawca",
+  "technicalContact": "Kontakt w sprawach technicznych",
+  "country": "Kraj lub obszar",
+  "hosting": "Hosting",
+  "description": "Opis",
+  "endorsedBy": "Poparte przez",
+  "notYetEndorsed": "",
+  "pendingEndorsementBy": "Oczekuje poparcia przez",
+  "endorsementWithheld": "Poparcie wstrzymane",
+  "installations": "Instalacja",
+  "getDownloadReport": "Pobierz raport aktywności",
+  "contacts": "Kontakt",
+  "administrativeContact": "Kontakt w sprawach administracyjnych",
+  "header": {
+    "publisher": "Wydawca",
+    "sinceDate": "Od"
+  }
+}

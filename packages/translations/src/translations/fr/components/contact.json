@@ -1,0 +1,10 @@
+{
+  "position": "Poste",
+  "organization": "Organisation",
+  "email": "Courriel",
+  "address": "Adresse",
+  "phone": "Téléphone ",
+  "roles": "Rôles",
+  "userId": "Identifiant d'utilisateur",
+  "name": "Nom"
+}

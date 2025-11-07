@@ -1,0 +1,30 @@
+{
+  "features": "",
+  "options": {
+    "includeAuthorship": ""
+  },
+  "citations": "Цитування",
+  "occurrences": "Знахідки",
+  "numberSpecimens": "",
+  "gbifNumberSpecimens": "",
+  "specimenTriplet": "",
+  "title": "Назва",
+  "titleAndAbstract": "",
+  "altmetric": "",
+  "registered": "Зареєстровано",
+  "hostedDatasets": "",
+  "pubDatasets": "{NUMBER, plural,\n0 {Опублікованих наборів даних}\none {Опублікований набір даних}\nfew {Опублікованих набора даних}\nmany {Опублікованих наборів даних}\nother {Опублікованих наборів даних}\n}",
+  "commonName": "",
+  "images": "Мультимедіа",
+  "species": "",
+  "parents": "",
+  "institution": "Установа",
+  "collection": "Колекція",
+  "collectionCount": "Колекції",
+  "active": "",
+  "activeInstitution": "",
+  "author": "Автор",
+  "source": "Журнал",
+  "dataReferenced": "",
+  "activeCollection": ""
+}

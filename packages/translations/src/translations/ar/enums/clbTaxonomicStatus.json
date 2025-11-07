@@ -1,0 +1,10 @@
+{
+  "clbTaxonomicStatus": {
+    "accepted": "مقبول",
+    "provisionally_accepted": "",
+    "ambiguous_synonym": "",
+    "synonym": "مرادف",
+    "misapplied": "خطأ في التطبيق",
+    "bare_name": ""
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "generic": "Se ha producido un error",
+  "unknown": "Error desconocido",
+  "report": "Reportar problema",
+  "retry": "Reintentar",
+  "reloadPage": "Actualizar página",
+  "hideDetails": "Ocultar detalles",
+  "showDetails": "Mostrar detalles"
+}

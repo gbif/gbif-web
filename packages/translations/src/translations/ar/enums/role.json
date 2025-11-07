@@ -1,0 +1,23 @@
+{
+  "TECHNICAL_POINT_OF_CONTACT": "جهة الاتصال الفنية",
+  "ADMINISTRATIVE_POINT_OF_CONTACT": "جهة الاتصال الادارية",
+  "_PRIMARY_CONTACT": "جهة الاتصال الرئيسية",
+  "POINT_OF_CONTACT": "جهة الاتصال",
+  "ORIGINATOR": "المنشىء",
+  "GBIFS_STAFF_MEMBER": "موظف في المرفق العالمي لمعلومات التنوع الحيوي",
+  "METADATA_AUTHOR": "مؤلف البيانات الوصفية",
+  "PRINCIPAL_INVESTIGATOR": "المحقق الرئيسي",
+  "AUTHOR": "المؤلف",
+  "CONTENT_PROVIDER": "مزود المحتويات",
+  "CUSTODIAN_STEWARD": "مدير الوصاية",
+  "DISTRIBUTOR": "الموزع",
+  "EDITOR": "المحرر",
+  "OWNER": "المالك",
+  "PROCESSOR": "المعالج",
+  "PUBLISHER": "الناشر",
+  "USER": "المستخدم",
+  "PROGRAMMER": "المبرمج",
+  "CURATOR": "الوصي",
+  "DATA_ADMINISTRATOR": "مدير البيانات",
+  "SYSTEM_ADMINISTRATOR": "مدير النظام"
+}

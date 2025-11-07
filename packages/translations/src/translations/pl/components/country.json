@@ -1,0 +1,39 @@
+{
+  "country": {
+    "tabs": {
+      "summary": "Podsumowanie",
+      "dataPublishing": "Publikowanie danych",
+      "dataAbout": "Dane na temat",
+      "participation": "Uczestnictwo",
+      "publicationsFrom": "Publikacje z",
+      "publicationsAbout": "Publikacje o",
+      "news": "Aktualności",
+      "alienSpecies": "",
+      "projects": "Projekty"
+    },
+    "country": "Kraj",
+    "dataFrom": "Dane z: {TRANSLATED_COUNTRY}",
+    "dataAboutCountry": "Dane na temat: {TRANSLATED_COUNTRY}",
+    "publishingTrends": "Trendy wydawnicze",
+    "noDataPublishingActivity": "Brak aktywności dotyczącej publikacji danych",
+    "noInstitutionsHavePublished": "W tym państwie/rejonie nie ma instytucji, które opublikowały dane przez GBIF",
+    "trendsAboutCountry": "Trendy dotyczące: {TRANSLATED_COUNTRY}",
+    "noProjects": "Brak projektów ",
+    "notParticipant": "Nie jest uczestnikiem",
+    "notParticipantDescription": "To nie jest kraj członkowski GBIF",
+    "countryNamingDisclaimer": "",
+    "isoStandardLinkText": "",
+    "counts": {
+      "occurrences": "{LICZBA, plural, 0 {Occurrences} jeden {Occurrence} inne {Occurrences}}",
+      "datasets": "{LICZBA, mnoga, 0 {Datasets} jeden {Dataset} inne {Datasets}}",
+      "publishers": "{LICZBA, mnoga, 0 {Publishers} jeden {Publisher} inne {Publishers}}",
+      "countriesAndAreasContributeData": "Kraje i obszary przekazują dane",
+      "publishedOccurrences": "Opublikowane występowania",
+      "publishedDatasets": "Opublikowane zbiory danych",
+      "countriesAndAreasCoveredByDataFrom": "Kraje i obszary zawarte w danych z {TRANSLATED_COUNTRY}",
+      "publishersFrom": "Wydawcy z {TRANSLATED_COUNTRY}"
+    },
+    "activityReport": "Raport działań",
+    "contacts": "Kontakty"
+  }
+}

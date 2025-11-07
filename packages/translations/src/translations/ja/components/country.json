@@ -1,0 +1,39 @@
+{
+  "country": {
+    "tabs": {
+      "summary": "概要",
+      "dataPublishing": "データ出版",
+      "dataAbout": "該当国に関するデータ",
+      "participation": "参加",
+      "publicationsFrom": "該当国からの出版物",
+      "publicationsAbout": "該当国についての出版物",
+      "news": "ニュース",
+      "alienSpecies": "",
+      "projects": "プロジェクト"
+    },
+    "country": "国",
+    "dataFrom": "{TRANSLATED_COUNTRY} からのデータ",
+    "dataAboutCountry": "{TRANSLATED_COUNTRY} に関するデータ",
+    "publishingTrends": "出版の傾向",
+    "noDataPublishingActivity": "データ公開アクティビティなし",
+    "noInstitutionsHavePublished": "GBIFを通じてのデータ公開をしている機関なし",
+    "trendsAboutCountry": "{TRANSLATED_COUNTRY} に関するデータの傾向",
+    "noProjects": "プロジェクトがありません",
+    "notParticipant": "参加者ではない。",
+    "notParticipantDescription": "この国は、GBIF の参加者ではないです。",
+    "countryNamingDisclaimer": "",
+    "isoStandardLinkText": "",
+    "counts": {
+      "occurrences": "{NUMBER, plural,\n0 {オカレンス}\none {オカレンス}\nfew {オカレンス}\nmany {オカレンス}\nother {オカレンス}\n}",
+      "datasets": "データセット",
+      "publishers": "出版者",
+      "countriesAndAreasContributeData": "データに貢献した国や地域",
+      "publishedOccurrences": "公開されたオカレンス",
+      "publishedDatasets": "公開されているデータセット",
+      "countriesAndAreasCoveredByDataFrom": "{TRANSLATED_COUNTRY} からのデータでカバーされる国や地域",
+      "publishersFrom": "{TRANSLATED_COUNTRY} のデータ出版者"
+    },
+    "activityReport": "活動報告",
+    "contacts": "連絡先"
+  }
+}

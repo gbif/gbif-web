@@ -1,0 +1,10 @@
+{
+  "nResults": "{total, plural, one {# 結果} other {# 結果}}",
+  "nSelected": "{total, plural, other {# 選択済み}}",
+  "nQualityFlags": "{total, plural, one {# 品質フラグ} other {# 品質フラグ}}",
+  "nAudioFiles": "{total, plural, one {# 音声ファイル} other {# 音声ファイル}}",
+  "nVideos": "{total, plural, one {# ビデオ} other {# ビデオ}}",
+  "nImages": "{total, plural, one {# 画像} other {# 画像}}",
+  "nResultsWithCoordinates": "位置座標がある{total, plural, one {# 結果 } other {# 結果}} ",
+  "nResultsWithImages": "画像がある {total, plural, one {# 結果 } other {# 結果}}"
+}

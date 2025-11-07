@@ -1,0 +1,77 @@
+{
+  "tabs": {
+    "table": "Tabulka",
+    "tree": "Strom",
+    "gallery": "Galerie",
+    "media": "Rovná se {from}",
+    "map": "Mapa",
+    "datasets": "Datové sady",
+    "events": "Události",
+    "download": "Stáhnout",
+    "clusters": "Související",
+    "dashboard": "Ovládací panel",
+    "sites": "Rovná se {from}",
+    "list": "Seznam"
+  },
+  "table": {
+    "lockColumn": "Zamknout sloupec",
+    "unlockColumn": "Rovná se {from}",
+    "columnVisibility": "Rovná se {from}",
+    "resetColumnVisibility": "Rovná se {from}",
+    "openFilter": "Rovná se {from}"
+  },
+  "placeholders": {
+    "default": "Hledat",
+    "range": "Rozsah nebo samostatná hodnota",
+    "rangeExample": "Např. 1000,2000",
+    "wildcard": "Hledejte s pomocí * a ? jako zástupnými znaky",
+    "dateTemplate": "yyyy-mm-dd",
+    "locationID": ""
+  },
+  "ternary": {
+    "yes": "Ano",
+    "no": "Ne",
+    "either": "Rovná se {from}"
+  },
+  "loadMore": "Více",
+  "loading": "Načítání",
+  "noResults": "Žádné výsledky",
+  "startTyping": "",
+  "rankInGroup": "",
+  "occurrenceClustersView": {
+    "about": "O",
+    "clusters": "Související",
+    "legend": "Legenda",
+    "differentPublishers": "Různí vydavatelé",
+    "samePublishers": "Stejný vydavatel",
+    "entryPoint": "Vstupní bod",
+    "hasMultipleTaxonKeys": "Obsahuje různé identifikace",
+    "aboutLink": "O odkazu",
+    "isCapped": "Tento uzel má více spojení, než je zde zobrazeno. Přejděte k záznamu, abyste viděli úplný seznam.",
+    "isDeleted": "Tento záznam byl mezitím smazán.",
+    "similarities": "Společné vlastnosti",
+    "currentRecord": "Aktuální záznam",
+    "nodeType": {
+      "IMAGE": "Obrázek",
+      "TYPE": "Typový vzorek",
+      "TREATMENT": "Ošetření",
+      "OBSERVATION": "Pozorování",
+      "SPECIMEN": "Vzorek",
+      "SEQUENCE": "Rovná se {from}"
+    }
+  },
+  "crossContentSearch": {
+    "title": "Hledat",
+    "description": "",
+    "noSearchTermsEntered": "Nebyly zadány žádné hledané výrazy",
+    "placeholder": "",
+    "categories": {
+      "speciesSearch": "Druhy",
+      "datasetSearch": "Datové sady",
+      "publisherSearch": "Vydavatelé",
+      "occurrenceSearch": "Výskyty",
+      "resourceSearch": ""
+    },
+    "seeAll": "Zobrazit vše"
+  }
+}

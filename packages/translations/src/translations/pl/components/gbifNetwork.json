@@ -1,0 +1,28 @@
+{
+  "gbifNetwork": {
+    "participationType": {
+      "VOTING": "",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
+      "FORMER": "Były",
+      "OBSERVER": "Obserwator",
+      "UNKNOWN": "",
+      "AFFILIATE": "Afiliowany przy GBIF"
+    },
+    "affiliateHelp": "",
+    "mapCaptionPublishers": "",
+    "role": "Funkcja",
+    "name": "Nazwa",
+    "participant": "Członek",
+    "type": "Typ",
+    "memberSince": "Członek od",
+    "all": "Wszystko",
+    "countryParticipants": "",
+    "publishersPerCountry": "",
+    "clear": "Wyczyść",
+    "headlines": {
+      "nodesSteeringGroup": "Komisja Sterująca Węzłów",
+      "participants": "Uczestnicy"
+    }
+  }
+}

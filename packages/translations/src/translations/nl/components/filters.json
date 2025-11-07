@@ -1,0 +1,663 @@
+{
+  "dwcaExtension": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "locationId": {
+    "name": "Locatie ID",
+    "count": "",
+    "description": ""
+  },
+  "hasCoordinate": {
+    "name": "Met coördinaat",
+    "count": "Met coördinaten",
+    "description": ""
+  },
+  "hasGeospatialIssues": {
+    "name": "",
+    "count": "",
+    "description": "Gelijk aan {is}"
+  },
+  "collectionKey": {
+    "name": "Verzameling",
+    "count": "{num, plural, one {# verzameling } other {# verzamelingen}}",
+    "description": "De verzameling in GrSciColl dit record werd gekoppeld met"
+  },
+  "taxonomicStatus": {
+    "name": "Status",
+    "count": "",
+    "description": "Het aantal beschikbare specimens zoals vermeld in de beschrijving. Dit nummer geeft niet weer hoeveel records gedigitaliseerd en gedeeld zijn."
+  },
+  "taxonRank": {
+    "name": "",
+    "count": "",
+    "description": "Het aantal beschikbare specimens zoals vermeld in de beschrijving. Dit nummer geeft niet weer hoeveel records gedigitaliseerd en gedeeld zijn."
+  },
+  "numberSpecimens": {
+    "name": "Aantal specimens",
+    "count": "",
+    "description": "Het aantal beschikbare specimens zoals vermeld in de beschrijving. Dit nummer geeft niet weer hoeveel records gedigitaliseerd en gedeeld zijn."
+  },
+  "specimensInGbif": {
+    "name": "Exemplaren in GBIF",
+    "count": "",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
+  "iucnRedListCategory": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geoDistance": {
+    "name": "Afstand van coördinaten ",
+    "count": "",
+    "description": "",
+    "placeholderLat": "Breedtegraad",
+    "placeholderLon": "Lengtegraad",
+    "placeholderDist": "Afstand"
+  },
+  "geometry": {
+    "name": "Locatie",
+    "count": "",
+    "description": "",
+    "placeholderLat": "Breedtegraad",
+    "placeholderLon": "Lengtegraad",
+    "placeholderDist": "Afstand"
+  },
+  "relevance": {
+    "name": "Relevantie",
+    "count": "",
+    "description": ""
+  },
+  "topics": {
+    "name": "Onderwerp",
+    "count": "",
+    "description": "Wat zijn de onderwerpen van het dossier."
+  },
+  "audiences": {
+    "name": "Doelgroep",
+    "count": "",
+    "description": "Wie is de doelgroep voor de resource?"
+  },
+  "biostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lithostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geologicalTime": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "purposes": {
+    "name": "Onderwerp",
+    "count": "",
+    "description": "Wat zijn de doelen van de resource?"
+  },
+  "eventDate": {
+    "name": "Datum van gebeurtenis",
+    "count": "",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
+  "gbifId": {
+    "name": "GBIF ID",
+    "count": "",
+    "description": ""
+  },
+  "organismQuantityType": {
+    "name": "Aantal organismen type",
+    "count": "",
+    "description": ""
+  },
+  "pathway": {
+    "name": "Pad",
+    "count": "",
+    "description": ""
+  },
+  "associatedSequences": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "degreeOfEstablishment": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "endDayOfYear": {
+    "name": "Einddag van het jaar",
+    "count": "",
+    "description": ""
+  },
+  "startDayOfYear": {
+    "name": "Startdag van het jaar",
+    "count": "",
+    "description": ""
+  },
+  "previousIdentifications": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lastInterpreted": {
+    "name": "Laatst geïnterpreteerd",
+    "count": "",
+    "description": ""
+  },
+  "alternativeCode": {
+    "name": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "count": "",
+    "description": ""
+  },
+  "identifier": {
+    "name": "Identifier",
+    "count": "",
+    "description": ""
+  },
+  "institutionType": {
+    "name": "Type",
+    "count": "",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
+  "discipline": {
+    "name": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "count": "",
+    "description": ""
+  },
+  "collectionContentType": {
+    "name": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "count": "",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
+  "preservationType": {
+    "name": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "count": "",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
+  "biomeType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "objectClassification": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "taxonKey": {
+    "name": "Wetenschappelijke naam",
+    "count": "",
+    "description": "De wetenschappelijke naam zoals deze in de door GBIF gevolgde taxonomie verschijnt. Deze namen zijn genormaliseerd om het zoeken tussen datasets te vergemakkelijken. Het is mogelijk dat een oorspronkelijk ingevoerde naam verkeerd wordt geïnterpreteerd of onbekend is. Gebruik het filter \"Woordelijke wetenschappelijke naam\" om de door de dataleverancier aangeleverde namen te doorzoeken."
+  },
+  "taxonKeyGrSciColl": {
+    "name": "Wetenschappelijke naam",
+    "count": "{num, plural, one {wetenschappelijk naam} other {# wetenschappelijk namen}}",
+    "description": ""
+  },
+  "basisOfRecord": {
+    "name": "Gegevens gebaseerd op",
+    "count": "",
+    "isNotNull": "Het veld \"Gegevens gebaseerd op\" is ingevuld",
+    "isNull": "Het veld \"Gegevens gebaseerd op\" is niet ingevuld",
+    "description": "De aard van het bewijs waarop de gegevens zijn gebaseerd."
+  },
+  "institutionCode": {
+    "name": "Instituutscode",
+    "count": "",
+    "description": "De code (of afkorting) van de instelling die de data beheerd."
+  },
+  "catalogNumber": {
+    "name": "Catalogusnummer",
+    "count": "",
+    "description": "Het unieke nummer in de collectie."
+  },
+  "mediaType": {
+    "name": "Mediatype",
+    "count": "",
+    "description": "De mediatypen bij dit object."
+  },
+  "occurrenceIssue": {
+    "name": "Problemen",
+    "count": "",
+    "isNotNull": "Heeft problemen",
+    "isNull": "Heeft geen problemen",
+    "description": "De soorten (mogelijke) problemen die automatisch werden vastgesteld bij het verwerken van de gegevens."
+  },
+  "occurrenceTaxonomicIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "occurrenceCountry": {
+    "name": "Land",
+    "count": "",
+    "description": "Het land of grondgebied waar de gebeurtenis plaatsvond"
+  },
+  "grsciCollCountry": {
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
+  "preparations": {
+    "name": "Voorbereidingen",
+    "count": "",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
+  "repatriated": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "publishingCountryCode": {
+    "name": "Publicerend land",
+    "count": "",
+    "description": "De ISO-code voor het land of het gebied waar de instantie zich bevindt die de gegevens deelt"
+  },
+  "q": {
+    "name": "Vrij tekstzoekveld",
+    "count": "",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
+  "coordinates": {
+    "name": "Coördinaten"
+  },
+  "elevation": {
+    "name": "Hoogte",
+    "count": "",
+    "description": "De afstand boven een verticaal referentiepunt (meestal zeespiegel of geoid) in meters."
+  },
+  "license": {
+    "name": "Licentie",
+    "count": "",
+    "description": "De licentie waaronder de gegevens worden gedeeld."
+  },
+  "datasetKey": {
+    "name": "Dataset",
+    "count": "",
+    "description": "De titel van de dataset waaronder de gegevens worden gedeeld."
+  },
+  "datasetId": {
+    "name": "Dataset ID",
+    "count": "",
+    "description": ""
+  },
+  "publisherKey": {
+    "name": "Gepubliceerd door",
+    "count": "",
+    "description": "De naam van de organisatie die verantwoordelijk is voor het delen van de data."
+  },
+  "gbifPublisherKey": {
+    "name": "",
+    "count": "",
+    "description": "De naam van de organisatie die verantwoordelijk is voor het delen van de data."
+  },
+  "hostingOrganizationKey": {
+    "name": "Hostende organisatie",
+    "count": "",
+    "description": "De naam van de organisatie die de dataset online host."
+  },
+  "country": {
+    "name": "Land",
+    "count": ""
+  },
+  "countriesOfCoverage": {
+    "name": "Land van dekking",
+    "count": "",
+    "description": ""
+  },
+  "collectionDescriptorCountry": {
+    "name": "Land of regio van dekking",
+    "count": "",
+    "description": ""
+  },
+  "countriesOfResearcher": {
+    "name": "Land van onderzoeker",
+    "count": ""
+  },
+  "typeStatus": {
+    "name": "Typestatus",
+    "count": "",
+    "isNotNull": "Heeft een typestatus",
+    "isNull": "De typestatus",
+    "description": ""
+  },
+  "year": {
+    "name": "Jaar",
+    "count": "",
+    "description": "Het jaar waarin de gebeurtenis plaatsvond."
+  },
+  "sampleSizeUnit": {
+    "name": "Eenheid van monstergrootte",
+    "count": "",
+    "description": "De meeteenheid voor de \"Eenheid van monstergrootte\" ."
+  },
+  "coordinateUncertainty": {
+    "name": "Onzekerheid van de coördinaten",
+    "count": "",
+    "description": "De minimumafstand in meters van een coördinaat waarbinnen de vindplaats ligt."
+  },
+  "distanceFromCentroidInMeters": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "depth": {
+    "name": "Diepte",
+    "count": "",
+    "description": "De afstand onder een oppervlak in meters."
+  },
+  "organismQuantity": {
+    "name": "Aantal organismen",
+    "count": "",
+    "description": "Het aantal organismen, waar de wijze van tellen wordt gegeven in het veld \"Wijze van tellen\"."
+  },
+  "sampleSizeValue": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "relativeOrganismQuantity": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "month": {
+    "name": "Maand",
+    "count": "",
+    "description": "Verzamelmaand."
+  },
+  "continent": {
+    "name": "Continent",
+    "count": "",
+    "description": "Het continent waar de vindplaats ligt."
+  },
+  "protocol": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "establishmentMeans": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "sex": {
+    "name": "Geslacht",
+    "count": "",
+    "description": ""
+  },
+  "lifeStage": {
+    "name": "Levensfase",
+    "count": "",
+    "description": ""
+  },
+  "recordedBy": {
+    "name": "Vastgelegd door",
+    "count": "",
+    "description": "De naam/namen van de persoon/personen, groepen of organisaties die de oorspronkelijke gegevens hebben vastgelegd."
+  },
+  "fieldNumber": {
+    "name": "Veldnummer",
+    "count": "",
+    "description": ""
+  },
+  "verbatimTaxonId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "islandGroup": {
+    "name": "Eiland Groep",
+    "count": "",
+    "description": ""
+  },
+  "island": {
+    "name": "Eiland",
+    "count": "",
+    "description": ""
+  },
+  "georeferencedBy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "datasetName": {
+    "name": "Datasetnaam",
+    "count": "",
+    "description": ""
+  },
+  "programme": {
+    "name": "Programma",
+    "count": "",
+    "description": ""
+  },
+  "recordNumber": {
+    "name": "Objectnummer",
+    "count": "",
+    "description": "Het objectnummer van het object/de waarneming/data."
+  },
+  "collectionCode": {
+    "name": "Collectiecode",
+    "count": "",
+    "description": ""
+  },
+  "projectId": {
+    "name": "Project ID",
+    "count": "",
+    "description": ""
+  },
+  "recordedById": {
+    "name": "Opgenomen door ID",
+    "count": "",
+    "description": ""
+  },
+  "identifiedById": {
+    "name": "Geïdentificeerd door ID",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceId": {
+    "name": "Voorkomen ID",
+    "count": "",
+    "description": "Het unieke nummer voor het voorkomen."
+  },
+  "organismId": {
+    "name": "Organisme ID",
+    "count": "",
+    "description": ""
+  },
+  "locality": {
+    "name": "Vindplaats",
+    "count": "",
+    "description": "De specifieke vindplaats."
+  },
+  "waterBody": {
+    "name": "Waterlichaam",
+    "count": "",
+    "description": "De naam van het waterlichaam waarin de vindplaats ligt."
+  },
+  "higherGeography": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "stateProvince": {
+    "name": "Staat/provincie",
+    "count": "",
+    "description": "De naam van de administratieve regio onder het niveau van land waar de vindplaats zich bevindt."
+  },
+  "gbifRegion": {
+    "name": "GBIF regio",
+    "count": "",
+    "description": ""
+  },
+  "publishedByGbifRegion": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "eventId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "eventID": {
+    "name": "Evenement ID",
+    "count": "",
+    "description": ""
+  },
+  "parentEventId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "locationID": {
+    "name": "Locatie ID",
+    "count": "",
+    "description": ""
+  },
+  "measurementOrFactTypes": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "measurementOrFactCount": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceCount": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "eventType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "dataStructure": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "samplingProtocol": {
+    "name": "Monsterwijze",
+    "count": "",
+    "description": "De naam van, referentie naar of beschrijving van de methode of protocol gebruikt om de data te verzamelen."
+  },
+  "occurrenceStatus": {
+    "name": "Aanwezigheid",
+    "count": "",
+    "description": "De aanwezigheid of afwezigheid van het object."
+  },
+  "gadmGid": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "identifiedBy": {
+    "name": "Gedetermineerd door",
+    "count": "",
+    "description": "De naam/namen van de persoon/personen, groepen of organisaties die het organisme determineerden."
+  },
+  "isInCluster": {
+    "name": "Is onderdeel van een cluster",
+    "count": "",
+    "description": "Of er automatisch verwante gegevens zijn gevonden."
+  },
+  "isSequenced": {
+    "name": "",
+    "count": "{num, plural, one { Is geordend } other {# Is geordend}}",
+    "description": "Of het record sequentiegegevens heeft."
+  },
+  "active": {
+    "name": "Actief",
+    "count": "Actief",
+    "description": ""
+  },
+  "activeInstitution": {
+    "name": "Actief",
+    "count": "Actief",
+    "description": ""
+  },
+  "activeCollection": {
+    "name": "Actief",
+    "count": "Actief",
+    "description": ""
+  },
+  "publicationDate": {
+    "name": "Publicatiedatum",
+    "count": "",
+    "description": ""
+  },
+  "personalCollection": {
+    "name": "Persoonlijke collectie",
+    "count": "Persoonlijke collectie",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
+  "datasetType": {
+    "name": "Dataset type",
+    "count": "",
+    "description": ""
+  },
+  "datasetSubtype": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "institutionKey": {
+    "name": "Instituut",
+    "count": "",
+    "description": "De naam van de instelling die de data beheerd."
+  },
+  "name": {
+    "name": "Naam",
+    "count": "",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\".",
+    "searchPlaceholder": ""
+  },
+  "city": {
+    "name": "Stad",
+    "count": "",
+    "description": ""
+  },
+  "code": {
+    "name": "Code",
+    "count": "",
+    "description": "Vindt objecten met overeenkomende tekst in een van alle tekstvelden. Gebruik een specifiek filter om tekst in een specifiek veld te doorzoeken, zoals het filter voor \"Wetenschappelijke Naam\"."
+  },
+  "verbatimScientificName": {
+    "name": "Woordelijke wetenschappelijke naam",
+    "count": "",
+    "description": "De wetenschappelijke naam zoals verstrekt door de instelling die de gegevens deelt zonder enige normalisatie door GBIF."
+  },
+  "networkKey": {
+    "name": "Netwerk",
+    "count": "",
+    "description": ""
+  },
+  "literatureType": {
+    "name": "Type literatuur",
+    "count": "",
+    "description": ""
+  },
+  "higherTaxonKey": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "issueEnum": {
+    "name": "",
+    "count": "",
+    "isNotNull": "Heeft problemen",
+    "isNull": "Heeft geen problemen",
+    "description": "De soorten (mogelijke) problemen die automatisch werden vastgesteld bij het verwerken van de gegevens."
+  }
+}

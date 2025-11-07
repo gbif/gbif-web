@@ -185,7 +185,7 @@ export function showUserInRegistry(req, res) {
   console.log(req.params.user);
   console.log(req?.user);
   if (!req?.user?.email?.endsWith('@gbif.org')) {
-    res.sendStatus(403); // this test doesn't matter much as the registry requires a login to show the data anyhow
+    res.sendStatus(403); // this test doesn't matter much as the registry requires a login to show the data anyhow. But it does avoid leaking the username of the person creating the issue.
   } else {
     const userCode = req.params.user;
     try {

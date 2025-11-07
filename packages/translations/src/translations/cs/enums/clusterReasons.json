@@ -1,0 +1,19 @@
+{
+  "SAME_ACCEPTED_SPECIES": "Stejné přijaté druhy",
+  "SAME_DATE": "Stejné datum",
+  "NON_CONFLICTING_DATE": "Nekonfliktní datum",
+  "APPROXIMATE_DATE": "Přibližné datum",
+  "DIFFERENT_DATE": "Jiné datum",
+  "SAME_COORDINATES": "Stejné souřadnice",
+  "WITHIN_200m": "Do 200 m",
+  "WITHIN_2Km": "Do 2 km",
+  "NON_CONFLICTING_COORDINATES": "Nekonfliktní souřadnice",
+  "SAME_COUNTRY": "Stejná země",
+  "NON_CONFLICTING_COUNTRY": "Nekonfliktní země",
+  "DIFFERENT_COUNTRY": "Jiná země",
+  "IDENTIFIERS_OVERLAP": "Identifikátory se překrývají",
+  "OTHER_CATALOG_NUMBERS_OVERLAP": "Ostatní katalogová čísla se překrývají",
+  "SAME_RECORDER_NAME": "Stejné jméno zapisovatele",
+  "SAME_SPECIMEN": "Stejný exemplář",
+  "TYPIFICATION_RELATION": "Typizační vztah"
+}

@@ -1,0 +1,10 @@
+{
+    "participationStatus": {
+        "VOTING": "С правом голоса",
+        "ASSOCIATE": "Ассоциированный",
+        "OBSERVER": "Наблюдатель",
+        "AFFILIATE": "Аффилированный",
+        "FORMER": "Бывший",
+        "undefined": "Неизвестно"
+    }
+}

@@ -1,0 +1,9 @@
+{
+  "network": "Sieć",
+  "tabs": {
+    "summary": "Podsumowanie",
+    "metrics": "Statystyki",
+    "datasets": "Zbiory danych",
+    "publishers": "Wydawcy"
+  }
+}

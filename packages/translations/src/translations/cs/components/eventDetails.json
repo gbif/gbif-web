@@ -1,0 +1,51 @@
+{
+  "occurrence": "Výskyt",
+  "event": "Událost",
+  "showAllFields": "Zobrazit všechna pole",
+  "morePhotos": "Další fotky",
+  "about": "O",
+  "dataset": "Datová sada",
+  "publisher": "Vydavatel",
+  "institution": "Instituce",
+  "institutionGrSciColl": "Instituce GrSciColl",
+  "collection": "Sbírka",
+  "collectionGrSciColl": "Sbírka GrSciColl",
+  "recordedAndIdentifiedBy": "Zaznamenáno a identifikováno od",
+  "eventTypeHierarchyJoined": "Hierarchie typu události",
+  "eventHierarchyJoined": "Hierarchie události",
+  "map": "Mapa polohy",
+  "backToTaxa": "",
+  "siteLocation": "Poloha místa",
+  "info": {
+    "original": "Originál",
+    "excluded": "Vyloučeno",
+    "inferred": "Odvozeno",
+    "altered": "Změněno"
+  },
+  "groups": {
+    "summary": "Shrnutí",
+    "record": "Záznam",
+    "occurrence": "Výskyt",
+    "event": "Událost",
+    "dataStructure": "Datová struktura",
+    "identification": "Identifikace",
+    "taxon": "Taxon",
+    "location": "Poloha",
+    "organism": "Organismus",
+    "materialSample": "Vzorek materiálu",
+    "geologicalContext": "Geologická souvislost",
+    "measurementsOrFacts": "Měření",
+    "images": "Multimédia",
+    "other": "Jiné",
+    "methodology": "Metodika",
+    "taxonomicCoverage": ""
+  },
+  "siteTooltip": "{count, plural, one {# událost} few {# události} many {# událostí} other {# událostí}} na {site} v {date}",
+  "siteTableLegend": "Místo / Rok",
+  "site": "Místo: {siteID}",
+  "siteLoading": "Místo: {siteID} - načítání detailů",
+  "activityDetails": {
+    "monthYear": "",
+    "year": ""
+  }
+}

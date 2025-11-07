@@ -1,0 +1,20 @@
+{
+  "AGRICULTURE": "Сільське господарство",
+  "BIODIVERSITY_SCIENCE": "Наука про біорізноманіття",
+  "BIOGEOGRAPHY": "Біогеографія",
+  "CITIZEN_SCIENCE": "Спільнаука",
+  "CLIMATE_CHANGE": "Зміна клімату",
+  "CONSERVATION": "Збереження",
+  "DATA_MANAGEMENT": "Управління даними",
+  "DATA_PAPER": "Статті про дані",
+  "ECOLOGY": "Екологія",
+  "ECOSYSTEM_SERVICES": "Екосистемні послуги",
+  "EVOLUTION": "Еволюція",
+  "FRESHWATER": "Прісні водойми",
+  "HUMAN_HEALTH": "Здоров'я людини",
+  "INVASIVES": "Інвазії",
+  "MARINE": "Морські водойми",
+  "PHYLOGENETICS": "Філогенетика",
+  "SPECIES_DISTRIBUTIONS": "Поширення видів",
+  "TAXONOMY": "Таксономія"
+}

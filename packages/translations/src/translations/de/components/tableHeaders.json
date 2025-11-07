@@ -1,0 +1,30 @@
+{
+  "features": "Eigenschaften",
+  "options": {
+    "includeAuthorship": ""
+  },
+  "citations": "Zitierungen",
+  "occurrences": "Occurrences",
+  "numberSpecimens": "Anzahl der Sammlungsobjekte",
+  "gbifNumberSpecimens": "Belege in GBIF",
+  "specimenTriplet": "",
+  "title": "Titel",
+  "titleAndAbstract": "Titel und Abstract",
+  "altmetric": "Altmetrisch",
+  "registered": "Registriert",
+  "hostedDatasets": "Gehostete Datasets",
+  "pubDatasets": "Veröffentlichte Datasets",
+  "commonName": "",
+  "images": "",
+  "species": "",
+  "parents": "",
+  "institution": "Institution",
+  "collection": "Sammlung",
+  "collectionCount": "Sammlungen",
+  "active": "Ist aktiv",
+  "activeInstitution": "Ist aktiv",
+  "author": "",
+  "source": "",
+  "dataReferenced": "",
+  "activeCollection": "Ist aktiv"
+}

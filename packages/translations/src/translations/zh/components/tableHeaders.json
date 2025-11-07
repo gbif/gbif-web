@@ -1,0 +1,30 @@
+{
+  "features": "特征",
+  "options": {
+    "includeAuthorship": ""
+  },
+  "citations": "引用",
+  "occurrences": "出现记录",
+  "numberSpecimens": "标本数",
+  "gbifNumberSpecimens": "GBIF中的标本",
+  "specimenTriplet": "",
+  "title": "标题",
+  "titleAndAbstract": "标题和摘要",
+  "altmetric": "替代指标",
+  "registered": "已注册",
+  "hostedDatasets": "托管数据集",
+  "pubDatasets": "已发布的数据集",
+  "commonName": "常用名",
+  "images": "多媒体",
+  "species": "物种数",
+  "parents": "上级",
+  "institution": "机构",
+  "collection": "馆藏",
+  "collectionCount": "收集",
+  "active": "处于活跃状态",
+  "activeInstitution": "处于活跃状态",
+  "author": "作者",
+  "source": "期刊",
+  "dataReferenced": "",
+  "activeCollection": "处于活跃状态"
+}

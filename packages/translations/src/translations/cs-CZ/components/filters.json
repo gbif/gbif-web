@@ -1,0 +1,509 @@
+{
+  "dwcaExtension": {
+    "name": "DWCA rozšíření",
+    "count": "",
+    "description": "Zde by měl být uveden krátký popis součásti."
+  },
+  "locationId": {
+    "name": "ID polohy",
+    "count": "",
+    "description": ""
+  },
+  "hasCoordinate": {
+    "name": "Má souřadnici",
+    "count": "Má souřadnice",
+    "description": ""
+  },
+  "hasGeospatialIssues": {
+    "name": "Má geoprostorové problémy",
+    "count": "Má geoprostorové problémy",
+    "description": "Rovná se {from}"
+  },
+  "collectionKey": {
+    "name": "Sbírka",
+    "count": "",
+    "description": "Sbírka v GrSciColl, ke které byl tento záznam přiřazen"
+  },
+  "taxonomicStatus": {
+    "name": "Stav",
+    "count": "",
+    "description": "Počet držených exemplářů uvedený v popisu. Tento počet neodráží, kolik záznamů bylo digitalizováno a sdíleno."
+  },
+  "taxonRank": {
+    "name": "Zařazení",
+    "count": "",
+    "description": "Počet držených exemplářů uvedený v popisu. Tento počet neodráží, kolik záznamů bylo digitalizováno a sdíleno."
+  },
+  "numberSpecimens": {
+    "name": "Počet exemplářů",
+    "count": "",
+    "description": "Počet držených exemplářů uvedený v popisu. Tento počet neodráží, kolik záznamů bylo digitalizováno a sdíleno."
+  },
+  "specimensInGbif": {
+    "name": "Exempláře v GBIF",
+    "count": "",
+    "description": ""
+  },
+  "iucnRedListCategory": {
+    "name": "Kategorie globálního červeného seznamu IUCN",
+    "count": "",
+    "description": "Červený seznam ohrožených druhů IUCN rozděluje taxony podle toho, jak moc jsou ohrožené."
+  },
+  "geoDistance": {
+    "name": "Vzdálenost od souřadnic",
+    "count": "",
+    "description": "Filtrovat záznamy v dané vzdálenosti od bodu",
+    "placeholderLat": "Zeměpisná šířka",
+    "placeholderLon": "Zeměpisná délka",
+    "placeholderDist": "Vzdálenost"
+  },
+  "geometry": {
+    "name": "Poloha",
+    "count": "",
+    "description": "",
+    "placeholderLat": "Zeměpisná šířka",
+    "placeholderLon": "Zeměpisná délka",
+    "placeholderDist": "Vzdálenost"
+  },
+  "relevance": {
+    "name": "Relevance",
+    "count": "",
+    "description": "Jak je GBIF používán v literatuře."
+  },
+  "topics": {
+    "name": "Téma",
+    "count": "",
+    "description": "Jaká jsou témata záznamu."
+  },
+  "audiences": {
+    "name": "Sledovanost",
+    "count": "",
+    "description": "Pro koho je zdroj určen."
+  },
+  "purposes": {
+    "name": "Téma",
+    "count": "",
+    "description": "Jaké jsou účely zdroje."
+  },
+  "eventDate": {
+    "name": "Datum události",
+    "count": "",
+    "description": ""
+  },
+  "alternativeCode": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "identifier": {
+    "name": "Identifikátor",
+    "count": "",
+    "description": "Zde by měl být uveden krátký popis součásti."
+  },
+  "institutionType": {
+    "name": "Typ",
+    "count": "",
+    "description": ""
+  },
+  "discipline": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "collectionContentType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "preservationType": {
+    "name": "Typ konzervace",
+    "count": "",
+    "description": ""
+  },
+  "taxonKey": {
+    "name": "Vědecký název",
+    "count": "",
+    "description": "Vědecký název, jak je uveden v páteřní taxonomii GBIF. Tyto názvy jsou normalizovány, aby se usnadnilo vyhledávání napříč datovými sadami. Je možné, že původně uvedený název může být nesprávně interpretován nebo neznámý. Pro vyhledávání v poskytnutých názvech použijte filtr \"Doslovný vědecký název\"."
+  },
+  "taxonKeyGrSciColl": {
+    "name": "Vědecký název",
+    "count": "",
+    "description": ""
+  },
+  "basisOfRecord": {
+    "name": "Základ záznamu",
+    "count": "",
+    "isNotNull": "Má základ záznamu",
+    "isNull": "Nemá základ záznamu",
+    "description": "Povaha důkazů, na nichž je záznam založen."
+  },
+  "institutionCode": {
+    "name": "Kód instituce",
+    "count": "",
+    "description": "Kód (nebo zkratka) instituce, která má v péči předmět(y) nebo informace uvedené v záznamu."
+  },
+  "catalogNumber": {
+    "name": "Katalogové číslo",
+    "count": "",
+    "description": "Identifikátor záznamu v rámci katalogu nebo sbírky."
+  },
+  "mediaType": {
+    "name": "Typ média",
+    "count": "",
+    "description": "Typy médií přístupné pro tento záznam."
+  },
+  "occurrenceIssue": {
+    "name": "Problémy a příznaky",
+    "count": "",
+    "isNotNull": "Má problémy",
+    "isNull": "Nemá problémy",
+    "description": "Typy problémů nebo příznaků potenciálního zájmu zjištěných při zpracování dat."
+  },
+  "occurrenceCountry": {
+    "name": "Země nebo oblast",
+    "count": "",
+    "description": "Země nebo území, kde k události došlo"
+  },
+  "grsciCollCountry": {
+    "description": ""
+  },
+  "preparations": {
+    "name": "Preparace",
+    "count": "",
+    "description": ""
+  },
+  "publishingCountryCode": {
+    "name": "Země nebo oblast zveřejnění",
+    "count": "",
+    "description": "Kód ISO země nebo území, ve kterém se nachází vydavatel dat."
+  },
+  "q": {
+    "name": "Textové vyhledávání",
+    "count": "",
+    "description": ""
+  },
+  "coordinates": {
+    "name": "Souřadnice"
+  },
+  "elevation": {
+    "name": "Nadmořská výška",
+    "count": "",
+    "description": "Vzdálenost nad vertikálním referenčním bodem (obvykle střední hladina moře nebo geoid) v metrech."
+  },
+  "license": {
+    "name": "Licence",
+    "count": "",
+    "description": "Zákonná licence nebo výjimka, na jejímž základě je záznam sdílen."
+  },
+  "datasetKey": {
+    "name": "Datová sada",
+    "count": "",
+    "description": "Název datové sady, pod kterou je záznam sdílen."
+  },
+  "publisherKey": {
+    "name": "Vydavatel",
+    "count": "",
+    "description": "Název organizace odpovědné za sdílení datové sady, v níž je záznam obsažen."
+  },
+  "gbifPublisherKey": {
+    "name": "GBIF vydavatel",
+    "count": "",
+    "description": "Název organizace odpovědné za sdílení datové sady, v níž je záznam obsažen."
+  },
+  "hostingOrganizationKey": {
+    "name": "Hostitelská organizace",
+    "count": "",
+    "description": "Název organizace, která je hostitelem datové sady, v níž je záznam zveřejněn."
+  },
+  "country": {
+    "name": "Země nebo oblast",
+    "count": ""
+  },
+  "countriesOfCoverage": {
+    "name": "Země nebo oblast pokrytí",
+    "count": "",
+    "description": ""
+  },
+  "collectionDescriptorCountry": {
+    "name": "Země nebo oblast pokrytí",
+    "count": "",
+    "description": ""
+  },
+  "countriesOfResearcher": {
+    "name": "Země nebo oblast výzkumného pracovníka",
+    "count": ""
+  },
+  "typeStatus": {
+    "name": "Typ statusu",
+    "count": "",
+    "isNotNull": "Má status typu",
+    "isNull": "Status typu",
+    "description": "Typové označení exempláře"
+  },
+  "year": {
+    "name": "Rok",
+    "count": "",
+    "description": "Rok, ve kterém k události došlo."
+  },
+  "sampleSizeUnit": {
+    "name": "Jednotka velikosti vzorku",
+    "count": "",
+    "description": "Měrná jednotka pro \"hodnotu velikosti vzorku\"."
+  },
+  "coordinateUncertainty": {
+    "name": "Neurčitost souřadnic",
+    "count": "",
+    "description": "Měřítko minimální vzdálenosti v metrech od souřadnice, v rámci které může být lokalita interpretována."
+  },
+  "depth": {
+    "name": "Hloubka",
+    "count": "",
+    "description": "Vzdálenost pod místním povrchem v metrech."
+  },
+  "organismQuantity": {
+    "name": "Množství organismů",
+    "count": "",
+    "description": "Hodnota množství organismů, kde typ měření je uveden v poli \"Typ množství organismů\"."
+  },
+  "sampleSizeValue": {
+    "name": "Hodnota velikosti vzorku",
+    "count": "",
+    "description": "Hodnota velikosti vzorku, kde měrné jednotky jsou uvedeny v \"Jednotce velikosti vzorku\"."
+  },
+  "relativeOrganismQuantity": {
+    "name": "Relativní množství organismu",
+    "count": "",
+    "description": "Množství biologického materiálu vztažené k velikosti vzorku, vypočtené jako organismQuantity na sampleSize, pokud jsou organismQuantityType a sampleSizeUnit jednoznačné."
+  },
+  "month": {
+    "name": "Měsíc",
+    "count": "",
+    "description": "Celé číslo měsíce, ve kterém k události došlo."
+  },
+  "continent": {
+    "name": "Kontinent",
+    "count": "",
+    "description": "Název kontinentu, na kterém se lokalita nachází.  Toto pole není odvozeno, ale vyplňuje se pouze tehdy, pokud je poskytnuto vydavatelem datové sady. Použití tohoto filtru může vyloučit příslušné záznamy."
+  },
+  "protocol": {
+    "name": "Publikační protokol",
+    "count": "",
+    "description": "Technický protokol, jehož prostřednictvím je datová sada sdílena."
+  },
+  "establishmentMeans": {
+    "name": "Zavedení znamená",
+    "count": "",
+    "description": "Způsob, jakým se organismus dostal na dané místo v daném čase."
+  },
+  "recordedBy": {
+    "name": "Zaznamenáno od",
+    "count": "",
+    "description": "Jména osoby, osob, skupin nebo organizací odpovědných za zaznamenání původní události."
+  },
+  "recordNumber": {
+    "name": "Číslo záznamu",
+    "count": "",
+    "description": "Identifikátor přidělený události v době jejího zaznamenání."
+  },
+  "collectionCode": {
+    "name": "Kód sbírky",
+    "count": "",
+    "description": ""
+  },
+  "projectId": {
+    "name": "ID Projektu",
+    "count": "",
+    "description": ""
+  },
+  "recordedById": {
+    "name": "Zaznamenáno podle ID",
+    "count": "",
+    "description": "Identifikátor osoby, osob, skupin nebo organizací odpovědných za zaznamenání původního výskytu."
+  },
+  "identifiedById": {
+    "name": "Identifikováno podle ID",
+    "count": "",
+    "description": "Identifikátor osoby, osob, skupin nebo organizací odpovědných za určení vědeckého názvu organismu."
+  },
+  "occurrenceId": {
+    "name": "ID Výskytu",
+    "count": "",
+    "description": "Jedinečný identifikátor záznamu výskytu."
+  },
+  "organismId": {
+    "name": "Organism id",
+    "count": "",
+    "description": "Jedinečný identifikátor organismu v záznamu."
+  },
+  "locality": {
+    "name": "Lokalita",
+    "count": "",
+    "description": "Konkrétní část popisu místa."
+  },
+  "waterBody": {
+    "name": "Vodní plocha",
+    "count": "",
+    "description": "Název vodního útvaru, ve kterém se lokalita nachází."
+  },
+  "higherGeography": {
+    "name": "Vyšší geografie",
+    "count": "",
+    "description": ""
+  },
+  "stateProvince": {
+    "name": "Provincie státu",
+    "count": "",
+    "description": "Název nejbližšího správního regionu menšího než stát, ve kterém se lokalita nachází."
+  },
+  "eventId": {
+    "name": "ID události",
+    "count": "",
+    "description": "Jedinečný identifikátor události v záznamu."
+  },
+  "eventID": {
+    "name": "ID události",
+    "count": "",
+    "description": "Jedinečný identifikátor události v záznamu."
+  },
+  "parentEventId": {
+    "name": "ID nadřazené události",
+    "count": "",
+    "description": ""
+  },
+  "locationID": {
+    "name": "ID polohy",
+    "count": "",
+    "description": ""
+  },
+  "measurementOrFactTypes": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "measurementOrFactCount": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceCount": {
+    "name": "Počet výskytů",
+    "count": "",
+    "description": ""
+  },
+  "eventType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "dataStructure": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "samplingProtocol": {
+    "name": "Protokol o odběru vzorků",
+    "count": "",
+    "description": "Název, odkaz nebo popis metody nebo protokolu použitého během události."
+  },
+  "occurrenceStatus": {
+    "name": "Status výskytu",
+    "count": "",
+    "description": "Přítomnost nebo nepřítomnost organismů daného taxonu."
+  },
+  "gadmGid": {
+    "name": "Správní oblast",
+    "count": "",
+    "description": "Název libovolné správní oblasti z GADM.org určený při zpracování záznamu."
+  },
+  "identifiedBy": {
+    "name": "Identifikováno od",
+    "count": "",
+    "description": "Osoba, lidé, skupiny nebo organizace odpovědné za určení vědeckého názvu organismu."
+  },
+  "isInCluster": {
+    "name": "je ve shluku",
+    "count": "",
+    "description": "Zda bylo zjištěno, že záznam obsahuje související záznamy."
+  },
+  "isSequenced": {
+    "name": "Je sekvencován",
+    "count": "",
+    "description": "Zda záznam obsahuje informace o sekvenci."
+  },
+  "active": {
+    "name": "Aktivní",
+    "count": "Aktivní",
+    "description": ""
+  },
+  "activeInstitution": {
+    "name": "Aktivní",
+    "count": "Aktivní",
+    "description": ""
+  },
+  "activeCollection": {
+    "name": "Aktivní",
+    "count": "Aktivní",
+    "description": ""
+  },
+  "publicationDate": {
+    "name": "Datum zveřejnění",
+    "count": "",
+    "description": ""
+  },
+  "personalCollection": {
+    "name": "Osobní sbírka",
+    "count": "Osobní sbírka",
+    "description": ""
+  },
+  "datasetType": {
+    "name": "Typ datové sady",
+    "count": "",
+    "description": "Zde by měl být uveden krátký popis součásti."
+  },
+  "datasetSubtype": {
+    "name": "Podtyp datové sady",
+    "count": "",
+    "description": "Zde by měl být uveden krátký popis součásti."
+  },
+  "institutionKey": {
+    "name": "Instituce",
+    "count": "",
+    "description": "Název instituce, která má v úschově předmět(y) nebo informace uvedené v záznamu."
+  },
+  "name": {
+    "name": "Název",
+    "count": "",
+    "description": "",
+    "searchPlaceholder": ""
+  },
+  "city": {
+    "name": "Město",
+    "count": "",
+    "description": ""
+  },
+  "code": {
+    "name": "Kód",
+    "count": "",
+    "description": ""
+  },
+  "verbatimScientificName": {
+    "name": "Doslovný vědecký název",
+    "count": "",
+    "description": "Vědecký název uvedený vydavatelem dat bez normalizace."
+  },
+  "networkKey": {
+    "name": "Síť",
+    "count": "",
+    "description": "Zde by měl být uveden krátký popis součásti."
+  },
+  "literatureType": {
+    "name": "Typ literatury",
+    "count": "",
+    "description": "Z jakého typu literatury citace pochází."
+  },
+  "higherTaxonKey": {
+    "name": "Vyšší taxon",
+    "count": "",
+    "description": "Vyšší taxon, podle kterého se filtruje."
+  }
+}

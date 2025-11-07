@@ -1,0 +1,67 @@
+{
+  "tabs": {
+    "about": "O",
+    "verbatim": "Přesný",
+    "metrics": "Metriky"
+  },
+  "recordedAsIntroducedIn": "Zaznamenáno jako zavlečený v",
+  "accordingTo": "Podle",
+  "evidenceOfImpact": "Důkaz dopadu",
+  "occurrencesInGbif": "Výskyty v GBIF",
+  "recordedAsIntrodicedInNcontries": "",
+  "breakdown": "Rozpis",
+  "publishedIn": "Zveřejněno v",
+  "vernacularNames": "Místní názvy",
+  "rank": "Zařazení",
+  "source": "Zdroj",
+  "specimenIsTypeOf": "Rovná se {from}",
+  "typeMaterial": "Rovná se {from}",
+  "treatments": "",
+  "more": "více",
+  "less": "Rovná se {from}",
+  "dna": "DNA",
+  "occurrenceImages": "",
+  "taxonImages": "",
+  "taxonIdentifiers": "Identifikátory taxonu",
+  "synonymsAndCombinations": "Synonyma a kombinace",
+  "inChecklist": "",
+  "rankPlural": {
+    "KINGDOM": "Říše",
+    "PHYLUM": "Kmeny",
+    "CLASS": "Třídy",
+    "ORDER": "Řády",
+    "FAMILY": "Čeledi",
+    "GENUS": "Rody",
+    "SPECIES": "Druhy"
+  },
+  "distributions": "Rozmístění",
+  "distribution": {
+    "threatStatus": "Stav ohrožení",
+    "establishmentMeans": "Zavedení znamená",
+    "status": "Stav",
+    "locality": "Lokalita",
+    "locationId": "ID polohy",
+    "country": "Země"
+  },
+  "verbatim": {
+    "term": "Termín",
+    "value": "Hodnota",
+    "coreRecord": ""
+  },
+  "tradeRestrictions": "Obchodní omezení",
+  "cites": "CITES",
+  "immediateChildren": "přímo podřazená položka",
+  "referenceTaxon": "Referenční taxon",
+  "showLess": "",
+  "showAll": "Zobrazit vše",
+  "errors": {
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
+  }
+}

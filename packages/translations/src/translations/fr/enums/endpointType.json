@@ -1,0 +1,21 @@
+{
+  "EML": "EML",
+  "FEED": "Flux RSS",
+  "WFS": "WFS",
+  "WMS": "WMS",
+  "TCS_RDF": "TCS RDF",
+  "TCS_XML": "TCS XML",
+  "DWC_ARCHIVE": "Archive Darwin Core",
+  "DIGIR": "DiGIR",
+  "CAMTRAP_DP": "Paquet de données de piège photographique",
+  "DIGIR_MANIS": "DiGIR MANIS",
+  "TAPIR": "TAPIR",
+  "BIOCASE": "BioCASe",
+  "BIOCASE_XML_ARCHIVE": "Archive XML BioCASe",
+  "OAI_PMH": "OAI PMH",
+  "COLDP": "Paquet de données COL",
+  "BIOM_1_0": "BIOM 1.0",
+  "BIOM_2_1": "BIOM 2.1",
+  "ACEF": "ACEF",
+  "OTHER": "Autre"
+}

@@ -1,0 +1,68 @@
+{
+  "unsupported.title": "",
+  "unsupported.description": "",
+  "unsupported.remove": "",
+  "unsupported.error": "",
+  "download": "تنزيل",
+  "redirectNotice": "",
+  "continueToGBIF": "متابعة",
+  "sql": {
+    "createNewSqlDownload": "",
+    "placeholder": "",
+    "noSql": "",
+    "note": {
+      "title": "مذكرة",
+      "description": "",
+      "goToOccurrenceSearch": ""
+    },
+    "errors": {
+      "invalid-SQL": "",
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
+    }
+  },
+  "create": "",
+  "about": "حول",
+  "stopEditing": "",
+  "startEditing": "",
+  "reformat": "",
+  "discard": "",
+  "keep": "",
+  "readTheDocumentation": "",
+  "request": {
+    "createNewDownload": "",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
+    "currentFilter": "المُرشِح الحالي",
+    "errors": {
+      "invalid-json": "",
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
+    }
+  },
+  "downloadOptions": {
+    "title": "خيارات التنزيل",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
+    "content": {
+      "rawData": "بيانات أولية",
+      "interpretedData": "",
+      "images": "وسائط متعددة",
+      "coordinates": "احداثيات",
+      "fileFormat": "صيغة",
+      "estimatedSize": ""
+    },
+    "fileFormats": {
+      "tabCsv": ""
+    },
+    "tableValues": {
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
+    }
+  }
+}

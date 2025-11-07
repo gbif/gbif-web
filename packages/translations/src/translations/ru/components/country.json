@@ -1,0 +1,39 @@
+{
+  "country": {
+    "tabs": {
+      "summary": "Тема сообщения",
+      "dataPublishing": "Публикация данных",
+      "dataAbout": "Данные о стране",
+      "participation": "Членство в GBIF",
+      "publicationsFrom": "Публикация данных организациями из этой страны",
+      "publicationsAbout": "Публикация данных об этой стране",
+      "news": "Новости",
+      "alienSpecies": "",
+      "projects": "Проекты"
+    },
+    "country": "Страна",
+    "dataFrom": " {TRANSLATED_COUNTRY}: данные из страны",
+    "dataAboutCountry": "{TRANSLATED_COUNTRY}: данные о стране ",
+    "publishingTrends": " Публикация данных: основные тенденции",
+    "noDataPublishingActivity": "Нет данных о публикационной активности",
+    "noInstitutionsHavePublished": "В этой стране нет организаций, которые опубликовали данные через GBIF.org",
+    "trendsAboutCountry": "{TRANSLATED_COUNTRY}: тенденции",
+    "noProjects": "Нет проектов",
+    "notParticipant": "Не является членом GBIF",
+    "notParticipantDescription": "Эта страна не является официальным участником GBIF",
+    "countryNamingDisclaimer": "",
+    "isoStandardLinkText": "",
+    "counts": {
+      "occurrences": "{NUMBER, plural,\n0 {Находок}\none {Находка}\nfew {Находки}\nmany {Находок}\nother {Находок}\n}",
+      "datasets": "{NUMBER, plural,\n0 {Наборов данных}\none {Набор данных}\nfew {Набора данных}\nmany {Наборов данных}\nother {Наборов данных}\n}",
+      "publishers": "{NUMBER, plural,\n0 {Организаций}\none {Организация}\nfew {Организации}\nmany {Организаций}\nother {Организаций}\n}",
+      "countriesAndAreasContributeData": "{NUMBER, plural,\n0 {Стран и территорий, опубликовавших данные}\none {Страна или территория, опубликовавшая данные}\nfew {Страны и территории, опубликовавших данные}\nmany {Стран и территорий, опубликовавших данные}\nother {Страны и территории, опубликовавших данные}\n} ",
+      "publishedOccurrences": "{NUMBER, plural,\n0 {Опубликованных находок}\none {Опубликованная находка}\nfew {Опубликованные находки}\nmany {Опубликованных находок}\nother {Опубликованных находок}\n}",
+      "publishedDatasets": "{NUMBER, plural,\n0 {Опубликованных наборов данных}\none {Опубликованный набор данных}\nfew {Опубликованных набора данных}\nmany {Опубликованных наборов данных}\nother {Опубликованных набора данных}\n}",
+      "countriesAndAreasCoveredByDataFrom": "{NUMBER, plural,\n0 {Стран и территорий охватывают опубликованные данные}\none {Страна или территория охвачена опубликованными данными}\nfew {Страны и территории охвачены опубликованными данными}\nmany {Стран и территорий охвачено опубликованными данными}\nother {Стран и территорий опубликованными данными}\n}",
+      "publishersFrom": "{NUMBER, plural,\n0 {Зарегистрированных организаций}\none {Зарегистрированная организация}\nfew {Зарегистрированные организации}\nmany {Зарегистрированных организаций}\nother {Зарегистрированных организаций}\n}"
+    },
+    "activityReport": "Отчет о деятельности",
+    "contacts": "Контактные данные"
+  }
+}

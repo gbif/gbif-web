@@ -1,0 +1,663 @@
+{
+  "dwcaExtension": {
+    "name": "達爾文延伸集",
+    "count": "{num, plural, one { DWCA 延伸集 } other {# DWCA 延伸集}}",
+    "description": "在此輸入關於此項目的簡短敘述"
+  },
+  "locationId": {
+    "name": "地點識別碼",
+    "count": "",
+    "description": ""
+  },
+  "hasCoordinate": {
+    "name": "具有座標",
+    "count": "具有座標",
+    "description": ""
+  },
+  "hasGeospatialIssues": {
+    "name": "有地理空間問題",
+    "count": "有地理空間問題",
+    "description": "等於 {is}"
+  },
+  "collectionKey": {
+    "name": "蒐藏集",
+    "count": "{num, plural,one {#蒐藏}other {#蒐藏}}",
+    "description": "這個紀錄與在 GrSciColl 中的蒐藏相符合"
+  },
+  "taxonomicStatus": {
+    "name": "狀態",
+    "count": "",
+    "description": "描述裡記載持有標本的數量。此數量並未反映有多少筆紀錄已經數位化且共享。"
+  },
+  "taxonRank": {
+    "name": "分類位階",
+    "count": "",
+    "description": "描述裡記載持有標本的數量。此數量並未反映有多少筆紀錄已經數位化且共享。"
+  },
+  "numberSpecimens": {
+    "name": "標本數量",
+    "count": "",
+    "description": "描述裡記載持有標本的數量。此數量並未反映有多少筆紀錄已經數位化且共享。"
+  },
+  "specimensInGbif": {
+    "name": "GBIF 的標本",
+    "count": "{num, plural, one{ GBIF 標本數量} other{ 在GBIF之標本}}",
+    "description": "GBIF 註記的存檔"
+  },
+  "iucnRedListCategory": {
+    "name": "IUCN 全球紅皮書類別",
+    "count": "",
+    "description": "IUCN瀕危物種红色名錄是根據分類群受到的威脅程度進行分組。"
+  },
+  "geoDistance": {
+    "name": "距座標的距離",
+    "count": "{num, plural, one {# 篩選} other {# 篩選}}",
+    "description": "篩選距離從某定點特定距離內的記錄",
+    "placeholderLat": "緯度",
+    "placeholderLon": "經度",
+    "placeholderDist": "距離"
+  },
+  "geometry": {
+    "name": "地點",
+    "count": "{num, plural, one {# 篩選} other {# 篩選}}",
+    "description": "",
+    "placeholderLat": "緯度",
+    "placeholderLon": "經度",
+    "placeholderDist": "距離"
+  },
+  "relevance": {
+    "name": "相關性",
+    "count": "{num, plural,one {相關}other {#相關篩選}}",
+    "description": "GBIF 如何運用在文獻中"
+  },
+  "topics": {
+    "name": "主題",
+    "count": "{num, plural,one {主題}other {#主題}}",
+    "description": "紀錄的主題為何"
+  },
+  "audiences": {
+    "name": "讀者",
+    "count": "{num, plural,one {群眾}other {#群眾}}",
+    "description": "誰是資源的受眾"
+  },
+  "biostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "lithostratigraphy": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "geologicalTime": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "purposes": {
+    "name": "主題",
+    "count": "{num, plural, one {# 目的} other {# 目的}}",
+    "description": "資源的目的為何"
+  },
+  "eventDate": {
+    "name": "事件日期",
+    "count": "",
+    "description": "GBIF 註記的存檔"
+  },
+  "gbifId": {
+    "name": "GBIF 識別碼",
+    "count": "",
+    "description": ""
+  },
+  "organismQuantityType": {
+    "name": "生物數量類型",
+    "count": "",
+    "description": ""
+  },
+  "pathway": {
+    "name": "路徑",
+    "count": "",
+    "description": ""
+  },
+  "associatedSequences": {
+    "name": "相關序列",
+    "count": "",
+    "description": ""
+  },
+  "degreeOfEstablishment": {
+    "name": "設立程度",
+    "count": "",
+    "description": ""
+  },
+  "endDayOfYear": {
+    "name": "結束日序",
+    "count": "",
+    "description": ""
+  },
+  "startDayOfYear": {
+    "name": "起始日序",
+    "count": "",
+    "description": ""
+  },
+  "previousIdentifications": {
+    "name": "先前的鑑定",
+    "count": "",
+    "description": ""
+  },
+  "lastInterpreted": {
+    "name": "上次解釋",
+    "count": "",
+    "description": ""
+  },
+  "alternativeCode": {
+    "name": "GBIF 註記的存檔",
+    "count": "",
+    "description": ""
+  },
+  "identifier": {
+    "name": "識別碼",
+    "count": "",
+    "description": "在此輸入此項目的簡短敘述"
+  },
+  "institutionType": {
+    "name": "類型",
+    "count": "",
+    "description": "GBIF 註記的存檔"
+  },
+  "discipline": {
+    "name": "GBIF 註記的存檔",
+    "count": "",
+    "description": ""
+  },
+  "collectionContentType": {
+    "name": "GBIF 註記的存檔",
+    "count": "",
+    "description": "GBIF 註記的存檔"
+  },
+  "preservationType": {
+    "name": "GBIF 註記的存檔",
+    "count": "",
+    "description": "GBIF 註記的存檔"
+  },
+  "biomeType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "objectClassification": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "taxonKey": {
+    "name": "學名",
+    "count": "{num, plural,one {科學命名} other {#科學命名}}",
+    "description": "GBIF 骨幹分類中出現的學名。這些名稱經過標準化以方便跨資料集的搜尋。最初提供的名稱可能會被誤解或未知。若要搜尋所提供的名稱，請使用「逐字學名」篩選。"
+  },
+  "taxonKeyGrSciColl": {
+    "name": "學名",
+    "count": "{num, plural,one {科學命名} other {#科學命名}}",
+    "description": ""
+  },
+  "basisOfRecord": {
+    "name": "紀錄類型",
+    "count": "{num, plural,one {紀錄基礎} other {#記錄基礎}}",
+    "isNotNull": "有紀錄基礎",
+    "isNull": "無紀錄基礎",
+    "description": "證據的性質是基於紀錄"
+  },
+  "institutionCode": {
+    "name": "機構代碼",
+    "count": "{num, plural,one {機構代碼}other {#機構代碼}}",
+    "description": "保管物品的機構之代碼（或縮寫）或記錄中提及的資訊。"
+  },
+  "catalogNumber": {
+    "name": "目錄編號",
+    "count": "{num, plural,one {目錄號碼}other {#目錄號碼}}",
+    "description": "目錄或收集中記錄的識別符。"
+  },
+  "mediaType": {
+    "name": "媒體類型",
+    "count": "{num, plural,one {媒體類型}other {#媒體類型}}",
+    "description": "此記錄可存取的媒體類型"
+  },
+  "occurrenceIssue": {
+    "name": "問題和註記",
+    "count": "{num, plural, one {議題或標記} other {# 議題及標記}}",
+    "isNotNull": "存在問題",
+    "isNull": "不存在問題",
+    "description": "在處理資料時發現的問題類型或潛在感興趣的標誌"
+  },
+  "occurrenceTaxonomicIssue": {
+    "name": "",
+    "count": "",
+    "isNotNull": "",
+    "isNull": "",
+    "description": ""
+  },
+  "occurrenceCountry": {
+    "name": "國家",
+    "count": "{num, plural,one {國家或區域}other {#國家或區域}}",
+    "description": "事件發生的國家或區域"
+  },
+  "grsciCollCountry": {
+    "description": "GBIF 註記的存檔"
+  },
+  "preparations": {
+    "name": "準備",
+    "count": "",
+    "description": "GBIF 註記的存檔"
+  },
+  "repatriated": {
+    "name": "回返的",
+    "count": "",
+    "description": ""
+  },
+  "publishingCountryCode": {
+    "name": "發布國家或地區",
+    "count": "{num, plural,one {發布國家或區域}other {#發布國家或區域}}",
+    "description": "資料發布者所在國家或地區的 ISO 代碼"
+  },
+  "q": {
+    "name": "文字搜尋",
+    "count": "{num, plural, one {文字字串} other {# 搜尋字串}}",
+    "description": "GBIF 註記的存檔"
+  },
+  "coordinates": {
+    "name": "座標"
+  },
+  "elevation": {
+    "name": "海拔",
+    "count": "{num, plural,one {海拔篩選}other {#海拔篩選}}",
+    "description": "垂直參考點(通常是平均海平面或地表面)上方的距離(以公尺為單位)"
+  },
+  "license": {
+    "name": "授權",
+    "count": "{num, plural,one {權限}other {#權限}}",
+    "description": "共享記錄所依據的合法許可或豁免"
+  },
+  "datasetKey": {
+    "name": "資料集",
+    "count": "{num, plural, one{資料集} other{資料集}}",
+    "description": "共享記錄的資料集標題。"
+  },
+  "datasetId": {
+    "name": "資料集識別碼",
+    "count": "",
+    "description": ""
+  },
+  "publisherKey": {
+    "name": "發布者",
+    "count": "{num, plural, one {發布者} other {# 發布者}}",
+    "description": "負責共享包含該記錄之資料集的組織名稱。"
+  },
+  "gbifPublisherKey": {
+    "name": "GBIF發布者",
+    "count": "{num, plural, one {GBIF 發布者} other {# GBIF 發布者}}",
+    "description": "負責共享包含該記錄之資料集的組織名稱。"
+  },
+  "hostingOrganizationKey": {
+    "name": "維運機構",
+    "count": "{num, plural, one {# 託管} other {# 託管}}",
+    "description": "託管發布該記錄之資料集的組織名稱。"
+  },
+  "country": {
+    "name": "國家",
+    "count": "{num, plural,one {國家或區域}other {#國家或區域}}"
+  },
+  "countriesOfCoverage": {
+    "name": "國家覆蓋率",
+    "count": "{num, plural,one {國家或包含區域}other {#國家或包含區域}}",
+    "description": ""
+  },
+  "collectionDescriptorCountry": {
+    "name": "國家或覆蓋地區",
+    "count": "{num, plural,one {國家或包含區域}other {#國家或包含區域}}",
+    "description": ""
+  },
+  "countriesOfResearcher": {
+    "name": "研究者的國家",
+    "count": "{num, plural,one {研究員所在國家或地區}other {#研究員所在國家或地區}}"
+  },
+  "typeStatus": {
+    "name": "類型狀態",
+    "count": "{num, plural, one {類型狀態} other {# 類型狀態}}",
+    "isNotNull": "模式狀態",
+    "isNull": "模式狀態",
+    "description": "樣本的類型名稱"
+  },
+  "year": {
+    "name": "年",
+    "count": "{num, plural, one {年份篩選} other {# 年份篩選}}",
+    "description": "事件發生的年份"
+  },
+  "sampleSizeUnit": {
+    "name": "取樣大小單位",
+    "count": "{num, plural, one {樣本大小單位} other {# 樣本大小單位}}",
+    "description": "“樣本數量值”的計算單位。"
+  },
+  "coordinateUncertainty": {
+    "name": "座標不確定",
+    "count": "{num, plural, one {未確定座標} other {# 未確定座標}}",
+    "description": "距離可能被解釋為某個位置座標的最小距離（以公尺為單位）的量測。"
+  },
+  "distanceFromCentroidInMeters": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "depth": {
+    "name": "深度",
+    "count": "{num, plural,one {深度} other {#深度}}",
+    "description": "局部表面以下的距離(以公尺為單位)"
+  },
+  "organismQuantity": {
+    "name": "生物數量",
+    "count": "{num, plural,one {生物體數量} other {#生物體數量}}",
+    "description": "生物體數量之數值，其中測量類型在“生物體數量類型”給定。"
+  },
+  "sampleSizeValue": {
+    "name": "取樣大小數值",
+    "count": "{num, plural, one {樣本大小數值} other {# 樣本大小數值}}",
+    "description": "樣本大小之數值，其中測量單位在“樣本大小單位”給定。"
+  },
+  "relativeOrganismQuantity": {
+    "name": "相對生物體數量",
+    "count": "{num, plural,one {相關生物體數量} other {#相關生物體數量}}",
+    "description": "當生物體數量類型和樣本大小單位明確，生物材料相對於樣本大小的量，計算為每個樣本大小的生物數量。"
+  },
+  "month": {
+    "name": "月",
+    "count": "{num, plural, one {月} other {#月}}",
+    "description": "事件發生的月份"
+  },
+  "continent": {
+    "name": "大陸",
+    "count": "{num, plural, one {# 大陸} other {# 大陸}}",
+    "description": "發生位置所在大陸的名稱， 此欄位不會被自動推論填入，僅在資料集發布者提供時才會填入，套用此篩選可能會排除相關記錄。"
+  },
+  "protocol": {
+    "name": "發布協定",
+    "count": "{num, plural, one {# 協定} other {# 協定}}",
+    "description": "共享資料集的技術協定"
+  },
+  "establishmentMeans": {
+    "name": "建立方法",
+    "count": "{num, plural,one {建立方法 }other {#建立方法 }}",
+    "description": "在特定時間將生物體引進特定地點的方式。"
+  },
+  "sex": {
+    "name": "性別",
+    "count": "",
+    "description": ""
+  },
+  "lifeStage": {
+    "name": "生活史階段",
+    "count": "",
+    "description": ""
+  },
+  "recordedBy": {
+    "name": "紀錄者：",
+    "count": "{num, plural, one{紀錄} other{紀錄}}",
+    "description": "負責記錄原始事件的人員、團體或組織的名稱。"
+  },
+  "fieldNumber": {
+    "name": "樣區事件編碼",
+    "count": "",
+    "description": ""
+  },
+  "verbatimTaxonId": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "islandGroup": {
+    "name": "島群",
+    "count": "",
+    "description": ""
+  },
+  "island": {
+    "name": "島嶼",
+    "count": "",
+    "description": ""
+  },
+  "georeferencedBy": {
+    "name": "地理參照：",
+    "count": "",
+    "description": ""
+  },
+  "datasetName": {
+    "name": "資料集名稱",
+    "count": "",
+    "description": ""
+  },
+  "programme": {
+    "name": "計畫",
+    "count": "",
+    "description": ""
+  },
+  "recordNumber": {
+    "name": "紀錄編號",
+    "count": "{num, plural, one{紀錄號碼} other{紀錄號碼}}",
+    "description": "發生事件被紀錄時的給定的識別符。"
+  },
+  "collectionCode": {
+    "name": "蒐藏品代碼",
+    "count": "{num, plural,one {#蒐藏碼}other {#蒐藏碼}}",
+    "description": ""
+  },
+  "projectId": {
+    "name": "專案 ID",
+    "count": "",
+    "description": ""
+  },
+  "recordedById": {
+    "name": "記錄者識別碼",
+    "count": "{num, plural, one{藉由ID紀錄} other{藉由ID紀錄}}",
+    "description": "負責記錄原始發生事件的人員、團體或組織的識別符。"
+  },
+  "identifiedById": {
+    "name": "鑑定者識別碼",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}",
+    "description": "負責決定生物體學名的個人、團體或組織的識別符。"
+  },
+  "occurrenceId": {
+    "name": "出現紀錄 ID",
+    "count": "{num, plural, one{出現紀錄ID} other{出現紀錄ID}}",
+    "description": "出現紀錄的唯一識別碼"
+  },
+  "organismId": {
+    "name": "生物體 ID",
+    "count": "{num, plural,one {生物體ID} other {#生物體ID}}",
+    "description": "紀錄之中的生物體的唯一識別碼"
+  },
+  "locality": {
+    "name": "地區",
+    "count": "{num, plural, one {# 地點} other {# 地點}}",
+    "description": "具體部分描述地點"
+  },
+  "waterBody": {
+    "name": "水體",
+    "count": "{num, plural, one {水體} other {#水體}}",
+    "description": "發生事件地點的水體名稱"
+  },
+  "higherGeography": {
+    "name": "高階地理",
+    "count": "",
+    "description": ""
+  },
+  "stateProvince": {
+    "name": "州/省",
+    "count": "{num, plural, one {州省} other {#州省}}",
+    "description": "比所在國家/地區更小的下一個行政區域的名稱"
+  },
+  "gbifRegion": {
+    "name": "GBIF 地區",
+    "count": "",
+    "description": ""
+  },
+  "publishedByGbifRegion": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "eventId": {
+    "name": "事件識別碼",
+    "count": "{num, plural,one {事件 ID} other {#事件 ID}}",
+    "description": "事件紀錄中的唯一識別碼"
+  },
+  "eventID": {
+    "name": "事件識別碼",
+    "count": "{num, plural,one {事件 ID} other {#事件 ID}}",
+    "description": "事件紀錄中的唯一識別碼"
+  },
+  "parentEventId": {
+    "name": "母事件識別碼",
+    "count": "{num, plural,one {事件 ID} other {#事件 ID}}",
+    "description": ""
+  },
+  "locationID": {
+    "name": "地點識別碼",
+    "count": "{num, plural,one {事件 ID} other {#事件 ID}}",
+    "description": ""
+  },
+  "measurementOrFactTypes": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "measurementOrFactCount": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "occurrenceCount": {
+    "name": "出現記錄計數",
+    "count": "",
+    "description": ""
+  },
+  "eventType": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "dataStructure": {
+    "name": "",
+    "count": "",
+    "description": ""
+  },
+  "samplingProtocol": {
+    "name": "取樣程序",
+    "count": "{num, plural, one {# 採樣協定} other {# 採樣協定}}",
+    "description": "事件中使用的方法或協定的名稱、引用或描述。"
+  },
+  "occurrenceStatus": {
+    "name": "出現紀錄狀態",
+    "count": "{num, plural, one{出現紀錄狀態} other {#出現紀錄狀態}}",
+    "description": "給定分類群中的任何生物體的存在或不存在。"
+  },
+  "gadmGid": {
+    "name": "行政區域",
+    "count": "{num, plural, one {行政區域} other {#行政區域}}",
+    "description": "記錄處理過程中確定的 GADM.org 中任何行政區域的名稱。"
+  },
+  "identifiedBy": {
+    "name": "鑑定者：",
+    "count": "{num, plural, one{藉由ID識別} other{藉由ID識別}}",
+    "description": "負責決定生物體學名的個人、團體或組織。"
+  },
+  "isInCluster": {
+    "name": "在（資料）叢集上",
+    "count": "",
+    "description": "判斷該記錄是否有相關記錄"
+  },
+  "isSequenced": {
+    "name": "已定序",
+    "count": "{num, plural,one {已定序}other {#已定序}}",
+    "description": "紀錄是否已有定序資訊"
+  },
+  "active": {
+    "name": "在線",
+    "count": "在線",
+    "description": ""
+  },
+  "activeInstitution": {
+    "name": "在線",
+    "count": "在線",
+    "description": ""
+  },
+  "activeCollection": {
+    "name": "在線",
+    "count": "在線",
+    "description": ""
+  },
+  "publicationDate": {
+    "name": "發布日期",
+    "count": "",
+    "description": ""
+  },
+  "personalCollection": {
+    "name": "私人典藏",
+    "count": "私人典藏",
+    "description": "GBIF 註記的存檔"
+  },
+  "datasetType": {
+    "name": "資料集類型",
+    "count": "{num, plural, one {資料集類型} other {#資料集類型}}",
+    "description": "在此輸入此項目的簡短敘述"
+  },
+  "datasetSubtype": {
+    "name": "資料集類型",
+    "count": "{num, plural, one {資料集次類型} other {#資料集次類型}}",
+    "description": "在此輸入此項目的簡短敘述"
+  },
+  "institutionKey": {
+    "name": "機構",
+    "count": "{num, plural,one {機構}other {#機構}}",
+    "description": "對於紀錄的物件或資訊擁有保管權的機構識別碼"
+  },
+  "name": {
+    "name": "名稱",
+    "count": "",
+    "description": "GBIF 註記的存檔",
+    "searchPlaceholder": ""
+  },
+  "city": {
+    "name": "城市",
+    "count": "{num, plural, one {# 城市} other {# 城市}}",
+    "description": ""
+  },
+  "code": {
+    "name": "蒐藏代碼",
+    "count": "{num, plural, one {# 號碼} other {# 號碼}}",
+    "description": "GBIF 註記的存檔"
+  },
+  "verbatimScientificName": {
+    "name": "逐字學名",
+    "count": "{num, plural,one {逐字科學命名} other {#逐字科學命名}}",
+    "description": "由資料發布者提供的學名，未經任何標準化。"
+  },
+  "networkKey": {
+    "name": "網絡",
+    "count": "",
+    "description": "在此輸入此項目的簡短敘述"
+  },
+  "literatureType": {
+    "name": "文獻類型",
+    "count": "{num, plural, one { 文獻類型 } other {# 文獻類型}}",
+    "description": "引用文來自什麼類型的文獻。"
+  },
+  "higherTaxonKey": {
+    "name": "高階分類群",
+    "count": "",
+    "description": ""
+  },
+  "issueEnum": {
+    "name": "問題和註記",
+    "count": "{num, plural, one {議題或標記} other {# 議題及標記}}",
+    "isNotNull": "存在問題",
+    "isNull": "不存在問題",
+    "description": "在處理資料時發現的問題類型或潛在感興趣的標誌"
+  }
+}

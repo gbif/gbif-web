@@ -1,0 +1,26 @@
+{
+  "searchTitle": "Publisher search",
+  "tabs": {
+    "aboutPublisher": "About",
+    "metrics": "Metrics",
+    "publishersHomepage": "Home page"
+  },
+  "joinedDate": "Joined {date}",
+  "newPublisher": "New publisher",
+  "technicalContact": "Technical contact",
+  "country": "Country or area",
+  "hosting": "Hosting",
+  "description": "Description",
+  "endorsedBy": "Endorsed by",
+  "notYetEndorsed": "Not yet endorsed",
+  "pendingEndorsementBy": "Pending endorsement by",
+  "endorsementWithheld": "Endorsement withheld",
+  "installations": "Installations",
+  "getDownloadReport": "Download activity report",
+  "contacts": "Contacts",
+  "administrativeContact": "Administrative contact",
+  "header": {
+    "publisher": "Publisher",
+    "sinceDate": "Since {DATE}"
+  }
+}

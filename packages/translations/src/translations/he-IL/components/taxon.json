@@ -1,0 +1,67 @@
+{
+  "tabs": {
+    "about": "אודות",
+    "verbatim": "מילולי",
+    "metrics": "מדדים"
+  },
+  "recordedAsIntroducedIn": "תועד כמין פולש ב־",
+  "accordingTo": "לפי",
+  "evidenceOfImpact": "עדות להשפעה",
+  "occurrencesInGbif": "תצפיות ב־GBIF",
+  "recordedAsIntrodicedInNcontries": "תועד כמין פולש ב־{total, plural, one {# מדינה או אזור} other {# מדינות או אזורים}}",
+  "breakdown": "פירוט",
+  "publishedIn": "פורסם ב־",
+  "vernacularNames": "שמות עממיים",
+  "rank": "דרגה",
+  "source": "מקור",
+  "specimenIsTypeOf": "של",
+  "typeMaterial": "חומר טיפוס",
+  "treatments": "",
+  "more": "עוד",
+  "less": "פחות",
+  "dna": "DNA",
+  "occurrenceImages": "",
+  "taxonImages": "תמונות טקסון",
+  "taxonIdentifiers": "מזהי טקסון",
+  "synonymsAndCombinations": "שמות נרדפים ושילובים",
+  "inChecklist": "ב־{checklist}",
+  "rankPlural": {
+    "KINGDOM": "ממלכות",
+    "PHYLUM": "מערכות",
+    "CLASS": "מחלקות",
+    "ORDER": "סדרות",
+    "FAMILY": "משפחות",
+    "GENUS": "סוגים",
+    "SPECIES": "מינים"
+  },
+  "distributions": "תפוצה",
+  "distribution": {
+    "threatStatus": "סטטוס שימור",
+    "establishmentMeans": "אמצעי התבססות",
+    "status": "סטטוס",
+    "locality": "מיקום",
+    "locationId": "מזהה מיקום",
+    "country": "מדינה"
+  },
+  "verbatim": {
+    "term": "מונח",
+    "value": "ערך",
+    "coreRecord": "רשומת ליבה"
+  },
+  "tradeRestrictions": "הגבלות סחר",
+  "cites": "CITES",
+  "immediateChildren": "צאצאים ישירים",
+  "referenceTaxon": "טקסון ייחוס",
+  "showLess": "",
+  "showAll": "הצג הכל",
+  "errors": {
+    "treatments": "",
+    "distributions": "",
+    "verbatim": "",
+    "typeMaterial": "",
+    "vernacularNames": "",
+    "classificationChildren": "",
+    "breakdown": "",
+    "invasiveInCountries": ""
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "nResults": "{total, plural, one {# Ergebnis} other {# Ergebnisse}}",
+  "nOccurrences": "{total, plural, one {# Vorkommnis} other {# Vorkommnisse}}",
+  "nRecords": "{total, plural, one {# Aufzeichnung} other {# Aufzeichnungen}}",
+  "nSpecimensInGbif": "{total, plural, one {# Exemplar in GBIF} other {# Exemplare in GBIF}}",
+  "inGbif": "{total, plural, one {# in GBIF} other {# in GBIF}}",
+  "nSpecimens": "{total, plural, one {# Exemplar} other {# Exemplare}}",
+  "nCollections": "{total, plural, one {# Sammlung} other {# Sammlungen}}",
+  "nRecordsTotal": "{total, plural, one {# Datensatz insgesamt} other {# Datensätze insgesamt}}",
+  "nSelected": "{total, plural, other {# ausgewählt}}",
+  "nQualityFlags": "{total, plural, one {# Qualitätsflag} other {# Qualitätsflags}}",
+  "nAudioFiles": "{total, plural, one {# Tondatei} other {# Tondateien}}",
+  "nVideos": "{total, plural, one {# Video} other {# Videos}}",
+  "nImages": "{total, plural, one {# Bild} other {# Bilder}}",
+  "nResultsWithCoordinates": "{total, plural, one {# Ergebnis } other {# Ergebnisse}} mit Koordinaten\n",
+  "nResultsWithImages": "{total, plural, one {# Ergebnis } other {# Ergebnisse}} mit Bildern"
+}

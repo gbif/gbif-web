@@ -1,0 +1,9 @@
+{
+  "network": "ネットワーク",
+  "tabs": {
+    "summary": "概要",
+    "metrics": "メトリクス",
+    "datasets": "データセット",
+    "publishers": "出版者"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "country": {
+    "tabs": {
+      "summary": "概要",
+      "dataPublishing": "数据发布",
+      "dataAbout": "有关数据",
+      "participation": "参与",
+      "publicationsFrom": "出版物来自",
+      "publicationsAbout": "出版物有关",
+      "news": "新闻",
+      "alienSpecies": "",
+      "projects": "项目"
+    },
+    "country": "国家",
+    "dataFrom": "来自 {TRANSLATED_COUNTRY} 的数据",
+    "dataAboutCountry": "有关 {TRANSLATED_COUNTRY} 的数据",
+    "publishingTrends": "发布趋势",
+    "noDataPublishingActivity": "无数据发布",
+    "noInstitutionsHavePublished": "该国没有任何机构通过 GBIF 发布数据",
+    "trendsAboutCountry": "有关 {TRANSLATED_COUNTRY} 的趋势",
+    "noProjects": "无项目",
+    "notParticipant": "不是会员",
+    "notParticipantDescription": "这个国家不是 GBIF 会员",
+    "countryNamingDisclaimer": "",
+    "isoStandardLinkText": "",
+    "counts": {
+      "occurrences": "出现记录",
+      "datasets": "数据集",
+      "publishers": "发布者",
+      "countriesAndAreasContributeData": "各国和各区域提供数据",
+      "publishedOccurrences": "已发布的出现记录",
+      "publishedDatasets": "已发布的数据集",
+      "countriesAndAreasCoveredByDataFrom": "{TRANSLATED_COUNTRY} 提供的数据涵盖的国家和地区",
+      "publishersFrom": "来自 {TRANSLATED_COUNTRY} 的发布者"
+    },
+    "activityReport": "活动记录",
+    "contacts": "联系人信息"
+  }
+}

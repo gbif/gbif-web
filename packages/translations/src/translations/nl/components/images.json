@@ -1,0 +1,12 @@
+{
+  "identifier": "ID",
+  "type": "Type",
+  "subtypeLiteral": "Subtype",
+  "title": "Titel",
+  "rights": "rechten",
+  "providerLiteral": "Leverancier",
+  "description": "Beschrijving",
+  "accessURI": "URL",
+  "format": "Formaat",
+  "pixelXDimension": "Breedte"
+}

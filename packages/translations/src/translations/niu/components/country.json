@@ -1,0 +1,39 @@
+{
+  "country": {
+    "tabs": {
+      "summary": "",
+      "dataPublishing": "",
+      "dataAbout": "",
+      "participation": "",
+      "publicationsFrom": "",
+      "publicationsAbout": "",
+      "news": "",
+      "alienSpecies": "",
+      "projects": ""
+    },
+    "country": "",
+    "dataFrom": "",
+    "dataAboutCountry": "",
+    "publishingTrends": "",
+    "noDataPublishingActivity": "",
+    "noInstitutionsHavePublished": "",
+    "trendsAboutCountry": "",
+    "noProjects": "",
+    "notParticipant": "",
+    "notParticipantDescription": "",
+    "countryNamingDisclaimer": "",
+    "isoStandardLinkText": "",
+    "counts": {
+      "occurrences": "",
+      "datasets": "",
+      "publishers": "",
+      "countriesAndAreasContributeData": "",
+      "publishedOccurrences": "",
+      "publishedDatasets": "",
+      "countriesAndAreasCoveredByDataFrom": "",
+      "publishersFrom": ""
+    },
+    "activityReport": "",
+    "contacts": ""
+  }
+}

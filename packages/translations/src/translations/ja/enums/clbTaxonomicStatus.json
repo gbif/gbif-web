@@ -1,0 +1,10 @@
+{
+  "clbTaxonomicStatus": {
+    "accepted": "アクセプトされた学名",
+    "provisionally_accepted": "",
+    "ambiguous_synonym": "",
+    "synonym": "シノニム",
+    "misapplied": "誤適用",
+    "bare_name": ""
+  }
+}

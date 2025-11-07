@@ -1,0 +1,16 @@
+{
+  "projectGrantType": {
+    "REGIONAL": "Regionale tilskud",
+    "SMALL": "Småt tilskud",
+    "NATIONAL": "Nationalt tilskud",
+    "DATA_USE": "",
+    "undefined": "Ubestemt"
+  },
+  "projectStatus": {
+    "APPROVED": "Godkendt",
+    "CLOSED": "Lukket",
+    "IN_PROGRESS": "Igangværende",
+    "DISCONTINUED": "",
+    "undefined": "Ubestemt"
+  }
+}

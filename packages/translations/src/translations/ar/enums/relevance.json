@@ -1,0 +1,11 @@
+{
+  "GBIF_USED": "مستخدم من GBIF",
+  "GBIF_CITED": "اقتباس من GBIF",
+  "GBIF_DISCUSSED": "تم مناقشة GBIF",
+  "GBIF_PRIMARY": "أساسي GBIF",
+  "GBIF_ACKNOWLEDGED": "تم الاعتراف بـ GBIF",
+  "GBIF_PUBLISHED": "تم النشر في GBIF",
+  "GBIF_AUTHOR": "مؤلف GBIF",
+  "GBIF_MENTIONED": "تم ذكر GBIF",
+  "GBIF_FUNDED": "ممول من GBIF"
+}

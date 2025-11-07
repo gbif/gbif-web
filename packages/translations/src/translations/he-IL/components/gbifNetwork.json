@@ -1,0 +1,28 @@
+{
+  "gbifNetwork": {
+    "participationType": {
+      "VOTING": "",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
+      "FORMER": "משתתף לשעבר",
+      "OBSERVER": "משקיף",
+      "UNKNOWN": "",
+      "AFFILIATE": "שותף GBIF"
+    },
+    "affiliateHelp": "",
+    "mapCaptionPublishers": "",
+    "role": "תפקיד",
+    "name": "שם",
+    "participant": "משתתף",
+    "type": "סוג",
+    "memberSince": "חבר מאז",
+    "all": "הכל",
+    "countryParticipants": "",
+    "publishersPerCountry": "",
+    "clear": "נקה",
+    "headlines": {
+      "nodesSteeringGroup": "קבוצת ההיגוי של הצמתים",
+      "participants": "משתתפים"
+    }
+  }
+}

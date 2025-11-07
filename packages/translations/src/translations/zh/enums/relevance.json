@@ -1,0 +1,11 @@
+{
+  "GBIF_USED": "GBIF使用的",
+  "GBIF_CITED": "GBIF引用的",
+  "GBIF_DISCUSSED": "GBIF讨论",
+  "GBIF_PRIMARY": "GBIF 主要的",
+  "GBIF_ACKNOWLEDGED": "GBIF感谢的",
+  "GBIF_PUBLISHED": "GBIF发布",
+  "GBIF_AUTHOR": "GBIF作者",
+  "GBIF_MENTIONED": "GBIF提到的",
+  "GBIF_FUNDED": "GBIF资助的"
+}

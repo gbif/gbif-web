@@ -1,0 +1,77 @@
+{
+  "tabs": {
+    "table": "Таблица",
+    "tree": "Дерево",
+    "gallery": "Галерея",
+    "media": "Медиа",
+    "map": "Карта",
+    "datasets": "Опубликованных наборов данных",
+    "events": "Мероприятия",
+    "download": "Загрузить",
+    "clusters": "Связано",
+    "dashboard": "Панель управления",
+    "sites": "Сайты",
+    "list": "Список"
+  },
+  "table": {
+    "lockColumn": "Заблокировать столбец",
+    "unlockColumn": "Разблокировать столбец",
+    "columnVisibility": "Поменять столбцы местами",
+    "resetColumnVisibility": "Сброс",
+    "openFilter": "Переход к фильтрам"
+  },
+  "placeholders": {
+    "default": "Поиск",
+    "range": "Диапаазон отдельной величины",
+    "rangeExample": "Например, 1000, 2000",
+    "wildcard": "Поиск с использованием шаблонов * и ? ",
+    "dateTemplate": "yyyy-mm-dd",
+    "locationID": "Поиск по местоположению (чувствителен к регистру)"
+  },
+  "ternary": {
+    "yes": "Да",
+    "no": "Нет",
+    "either": "Либо"
+  },
+  "loadMore": "Еще",
+  "loading": "Загрузка",
+  "noResults": "Нет результатов",
+  "startTyping": "",
+  "rankInGroup": "",
+  "occurrenceClustersView": {
+    "about": "Подробно",
+    "clusters": "Связано",
+    "legend": "Легенда",
+    "differentPublishers": "Различные издатели",
+    "samePublishers": "Тот же издатель",
+    "entryPoint": "Точка входа",
+    "hasMultipleTaxonKeys": "Содержит различные идентификаторы",
+    "aboutLink": "О ссылке",
+    "isCapped": "У этого узла больше соединений, чем показано здесь. Перейдите к записи, чтобы увидеть полный список.",
+    "isDeleted": "Эта запись была удалена",
+    "similarities": "Сходства",
+    "currentRecord": "Текущая запись",
+    "nodeType": {
+      "IMAGE": "Изображение",
+      "TYPE": "Типовой образец",
+      "TREATMENT": "Обработка",
+      "OBSERVATION": "Наблюдение",
+      "SPECIMEN": "Образец",
+      "SEQUENCE": "Последовательность"
+    }
+  },
+  "crossContentSearch": {
+    "title": "Поиск",
+    "description": "",
+    "noSearchTermsEntered": "Не введены ключевые слова для поиска",
+    "placeholder": "",
+    "categories": {
+      "speciesSearch": "Вид",
+      "datasetSearch": "Опубликованных наборов данных",
+      "publisherSearch": "Организации",
+      "occurrenceSearch": "Находки",
+      "resourceSearch": ""
+    },
+    "seeAll": "Увидеть все"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "description": "Descrição",
+  "descriptionLabel": "Descrição",
+  "typeOfApplication": "Tipo",
+  "domain": "Domínio",
+  "personName": "Nome",
+  "email": "Email",
+  "participantLabel": "Participante"
+}

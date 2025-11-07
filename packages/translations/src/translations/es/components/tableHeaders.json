@@ -1,0 +1,30 @@
+{
+  "features": "Atributos",
+  "options": {
+    "includeAuthorship": ""
+  },
+  "citations": "Citaciones",
+  "occurrences": "Registros biológicos",
+  "numberSpecimens": "Número de especímenes",
+  "gbifNumberSpecimens": "Especímenes en GBIF",
+  "specimenTriplet": "",
+  "title": "Título",
+  "titleAndAbstract": "Título y resumen",
+  "altmetric": "Altmetric",
+  "registered": "Registrado",
+  "hostedDatasets": "Conjuntos de datos alojados",
+  "pubDatasets": "Conjuntos de datos publicados",
+  "commonName": "Nombre común",
+  "images": "Multimedia",
+  "species": "Número de especies",
+  "parents": "Padres",
+  "institution": "Institución",
+  "collection": "Colección",
+  "collectionCount": "Colecciones",
+  "active": "Activo",
+  "activeInstitution": "Activo",
+  "author": "Autor",
+  "source": "Revista",
+  "dataReferenced": "",
+  "activeCollection": "Activo"
+}

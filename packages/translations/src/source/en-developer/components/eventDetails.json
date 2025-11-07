@@ -1,0 +1,51 @@
+{
+  "occurrence": "Occurrence",
+  "event": "Event",
+  "showAllFields": "Show all fields",
+  "morePhotos": "More photos",
+  "about": "About",
+  "dataset": "Dataset",
+  "publisher": "Publisher",
+  "institution": "Institution",
+  "institutionGrSciColl": "GrSciColl institution",
+  "collection": "Collection",
+  "collectionGrSciColl": "GrSciColl collection",
+  "recordedAndIdentifiedBy": "Recorded and identified by",
+  "eventTypeHierarchyJoined": "Event type hierarchy",
+  "eventHierarchyJoined": "Event hierarchy",
+  "map": "Map of location",
+  "backToTaxa": "Back to event taxa",
+  "siteLocation": "Site location",
+  "info": {
+    "original": "Original",
+    "excluded": "Excluded",
+    "inferred": "Inferred",
+    "altered": "Altered"
+  },
+  "groups": {
+    "summary": "Summary",
+    "record": "Record",
+    "occurrence": "Occurrence",
+    "event": "Event",
+    "dataStructure": "Data Structure",
+    "identification": "Identification",
+    "taxon": "Taxon",
+    "location": "Location",
+    "organism": "Organism",
+    "materialSample": "MaterialSample",
+    "geologicalContext": "Geological context",
+    "measurementsOrFacts": "Measurements",
+    "images": "Images",
+    "other": "Other",
+    "methodology": "Methodology",
+    "taxonomicCoverage": "Taxonomic coverage"
+  },
+  "siteTooltip": "{count} events at {site} in {date}",
+  "siteTableLegend": "Site / Year",
+  "site": "Site: {siteID}",
+  "siteLoading": "Site: {siteID} - loading details",
+  "activityDetails": {
+    "monthYear": "Details of activity in {date, time, ::MMMM::yyyy}",
+    "year": "Details of activity in {date, time, ::yyyy}"
+  }
+}

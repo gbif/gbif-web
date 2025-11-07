@@ -1,0 +1,9 @@
+{
+  "EML": "EML",
+  "FEED": "RSS feed",
+  "WFS": "WFS",
+  "WMS": "WMS",
+  "DWC_ARCHIVE": "Darwin Core Archief",
+  "CAMTRAP_DP": "Cameraval data pakket",
+  "OTHER": "Andere"
+}
