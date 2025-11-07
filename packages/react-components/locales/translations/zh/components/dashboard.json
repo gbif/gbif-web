@@ -29,6 +29,7 @@
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "这些指标基于通过GBIF共享的记录",
   "notVocabularyWarning": "",
+  "taxonomicBreakdown": "",
   "group": {
     "views": "",
     "record": "记录",

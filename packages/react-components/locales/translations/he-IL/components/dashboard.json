@@ -29,6 +29,7 @@
   "iucnThreatStatusDescription": "מינים שמסווגים כקרובים לאיום (NT) או בסיכון גבוה יותר לפי הרשימה האדומה של IUCN.",
   "metricsFromGbifData": "מדדים אלה מבוססים על רשומות ששותפו דרך GBIF",
   "notVocabularyWarning": "",
+  "taxonomicBreakdown": "",
   "group": {
     "views": "תצוגות",
     "record": "רשומה",

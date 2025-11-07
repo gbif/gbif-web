@@ -31,7 +31,7 @@
   "constituentOf": "組成自",
   "dataset": "資料集",
   "taxonomy": "分類學",
-  "localContext": "",
+  "localContexts": "",
   "project": "專案",
   "metrics": "指標",
   "metricsOccurrenceHelpText": "指標是來自已解釋的資料",

@@ -29,6 +29,7 @@
   "iucnThreatStatusDescription": "Species that are categorized as Near Threatened (NT) or at higher risk according to the The IUCN Red List of Threatened Species.",
   "metricsFromGbifData": "These metrics are based on records shared via GBIF",
   "notVocabularyWarning": "",
+  "taxonomicBreakdown": "",
   "group": {
     "views": "Views",
     "record": "Record",

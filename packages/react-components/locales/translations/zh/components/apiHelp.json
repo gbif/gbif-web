@@ -6,6 +6,7 @@
   "singleOccurrence": "出现一次记录",
   "searchOccurrences": "获取全部出现次数",
   "searchOccurrencesExample": "物种 taxonKey 为 9778871（Flabellina McMurtrie, 1831）在 2000 年至 2024 年间 5 月记录的前五个出现记录。",
+  "relatedOccurrences": "相关事件（试验阶段）",
   "occurrenceFragment": "解读之前先完成记录",
   "search": "搜索",
   "singleDataset": "获取一个单条目",

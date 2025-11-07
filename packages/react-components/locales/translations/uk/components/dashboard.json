@@ -29,6 +29,7 @@
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "Ці показники спираються на записи, що поширені GBIF",
   "notVocabularyWarning": "",
+  "taxonomicBreakdown": "",
   "group": {
     "views": "",
     "record": "Запис",

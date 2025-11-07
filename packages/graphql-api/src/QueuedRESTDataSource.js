@@ -44,7 +44,7 @@ class QueuedRESTDataSource extends RESTDataSource {
   // EnQueue DELETE requests
   async delete(path, params, { enQueue, ...init } = {}) {
     if (enQueue) {
-      return tthis.queue.add(() => super.delete(path, params, init));
+      return this.queue.add(() => super.delete(path, params, init));
     }
     return super.delete(path, params, init);
   }
