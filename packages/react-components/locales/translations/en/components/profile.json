@@ -17,7 +17,7 @@
       }
     },
     "error": {
-      "USERNAME_NOT_UNIQUE": "This user name is already in use",
+      "USERNAME_NOT_UNIQUE": "",
       "USER_ALREADY_EXIST": "",
       "LOGIN_UNKNOWN": "This login isn't associated with any accounts - if you already have an account, then login with username/email and password. Or you can register a new account.",
       "PROVIDER_ACCOUNT_ALREADY_IN_USE": "This profile is already connected to another account",
@@ -151,7 +151,7 @@
     "connectedAccounts": "",
     "connectedAccountsDescription": "",
     "changePasswordDescription": "",
-    "validations": "",
+    "validations": "Validation reports",
     "backToLogin": "",
     "enterEmail": "",
     "connectedToGoogle": "",
