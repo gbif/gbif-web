@@ -24,7 +24,7 @@
     "communications": "GBIF communication",
     "confirmation": {
       "title": "Thank you",
-      "description": "Your feedback has been logged as an issue in Github. If necessary and if contact details were provided, we might reach out to you for further information. You can track progress by visiting the issue page.",
+      "description": "Your feedback has been logged as an issue in GitHub. If necessary and if contact details were provided, we might reach out to you for further information. You can track progress by visiting the issue page.",
       "seeIssue": "See issue",
       "createAnother": "Create another"
     },
@@ -36,8 +36,8 @@
     "orWriteMailTo": "Or write a mail to {contactLink}",
     "leaveIssueOnGithub": "Leave issue on GitHub",
     "login": "Login",
-    "requiresGithubAccount": "Requires a Github account",
+    "requiresGithubAccount": "Requires a GitHub account",
     "sendUsAnEmail": "Send us an email",
-    "forPrivateEnquiries": "For private enquiries or if you do not have a Github account."
+    "forPrivateEnquiries": "For private enquiries or if you do not have a GitHub account."
   }
 }

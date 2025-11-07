@@ -64,7 +64,7 @@
     "title": "Search",
     "description": "Search across species, occurrences, datasets, publishers, and articles and more",
     "noSearchTermsEntered": "No search terms entered",
-    "placeholder": "Search across content ...",
+    "placeholder": "Search across content...",
     "categories": {
       "speciesSearch": "Species",
       "datasetSearch": "Datasets",
