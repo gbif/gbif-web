@@ -246,7 +246,7 @@
   },
   "preparations": {
     "name": "Preparations",
-    "count": "{num, plural, one {preparations} other {# preparationss}}",
+    "count": "{num, plural, one {preparations} other {# preparations}}",
     "description": "How the specimen has been prepared. E.g. dried."
   },
   "repatriated": {
@@ -354,7 +354,7 @@
   },
   "organismQuantity": {
     "name": "Organism quantity",
-    "count": "{num, plural, one { Organism quantity } other {# Organism quantitys}}",
+    "count": "{num, plural, one { Organism quantity } other {# Organism quantities}}",
     "description": "The value for the quantity of organisms, where the type of measurement is given in the \"Organism quantity type\"."
   },
   "sampleSizeValue": {
@@ -364,7 +364,7 @@
   },
   "relativeOrganismQuantity": {
     "name": "Relative organism quantity",
-    "count": "{num, plural, one { relative organism quantity } other {# relative organism quantitys}}",
+    "count": "{num, plural, one { relative organism quantity } other {# relative organism quantities}}",
     "description": "The amount of biological material relative to the size of a sample, calculated as organismQuantity per sampleSize when the organismQuantityType and sampleSizeUnit are unambiguous."
   },
   "month": {
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "Higher geography",
-    "count": "{num, plural, one { water body } other {# higher geography}}",
+    "count": "{num, plural, one { water body } other {# higher geographies}}",
     "description": "Higher geography in which the record is located. This is not an interpreted field, but the original data as provided by the publisher. Multiple values can be provided."
   },
   "stateProvince": {
@@ -519,7 +519,7 @@
   },
   "locationID": {
     "name": "Location ID",
-    "count": "{num, plural, one { event id } other {# event ids}}",
+    "count": "{num, plural, one { location id } other {# location ids}}",
     "description": "The unique identifier for site in the record."
   },
   "measurementOrFactTypes": {
@@ -554,7 +554,7 @@
   },
   "occurrenceStatus": {
     "name": "Occurrence status",
-    "count": "{num, plural, one { Occurrence status } other {# Occurrence statuss}}",
+    "count": "{num, plural, one { occurrence status } other {# occurrence statuses}}",
     "description": "The presence or absence of any organisms of the given Taxon."
   },
   "gadmGid": {
