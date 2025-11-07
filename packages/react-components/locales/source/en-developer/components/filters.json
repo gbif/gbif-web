@@ -6,7 +6,7 @@
   },
   "locationId": {
     "name": "Location ID",
-    "count": "{num, plural, one { Location ID } other {# Location IDs}}",
+    "count": "{num, plural, one { location ID } other {# location IDs}}",
     "description": "Publishers can choose to assign IDs to the location. This field is not normalised, meaning that you search data as provided by the publisher."
   },
   "hasCoordinate": {
@@ -26,7 +26,7 @@
   },
   "taxonomicStatus": {
     "name": "Status",
-    "count": "{num, plural, one { status } other {# Statuses}}",
+    "count": "{num, plural, one { status } other {# statuses}}",
     "description": "The number of held specimens stated in the description. This number does not say anything about how many records have been digitized and shared."
   },
   "taxonRank": {
@@ -36,7 +36,7 @@
   },
   "numberSpecimens": {
     "name": "Number of specimens",
-    "count": "{num, plural, one { specimen count } other {# Specimen counts filters}}",
+    "count": "{num, plural, one { specimen count } other {# specimen counts filters}}",
     "description": "The number of held specimens stated in the description. This number does not say anything about how many records have been digitized and shared."
   },
   "specimensInGbif": {
@@ -152,12 +152,12 @@
   },
   "alternativeCode": {
     "name": "Alternative code",
-    "count": "{num, plural, one { Alternative code } other {# Alternative codes}}",
+    "count": "{num, plural, one { alternative code } other {# alternative codes}}",
     "description": "Any additional code that is already in use for the same record in other contexts (for example, historical codes)."
   },
   "identifier": {
     "name": "Identifier",
-    "count": "{num, plural, one { Identifier } other {# Identifiers}}",
+    "count": "{num, plural, one { identifier } other {# identifiers}}",
     "description": "A short description of the component should be placed here"
   },
   "institutionType": {
@@ -167,27 +167,27 @@
   },
   "discipline": {
     "name": "Discipline",
-    "count": "{num, plural, one { Discipline } other {# Disciplines}}",
+    "count": "{num, plural, one { discipline } other {# disciplines}}",
     "description": "The research disciplines the the institution houses."
   },
   "collectionContentType": {
     "name": "Content type",
-    "count": "{num, plural, one { Content type } other {# Content types}}",
+    "count": "{num, plural, one { content type } other {# content types}}",
     "description": "The type of objects available in the collection."
   },
   "preservationType": {
     "name": "Preservation type",
-    "count": "{num, plural, one { Preservation type } other {# Preservation types}}",
+    "count": "{num, plural, one { preservation type } other {# preservation types}}",
     "description": "The method used to preserve the objects available in the collection."
   },
   "biomeType": {
     "name": "Biome type",
-    "count": "{num, plural, one { Biome type } other {# Biome types}}",
+    "count": "{num, plural, one { biome type } other {# biome types}}",
     "description": "The type of biome the organism is associated with."
   },
   "objectClassification": {
     "name": "Object classification",
-    "count": "{num, plural, one { Object classification } other {# Object classifications}}",
+    "count": "{num, plural, one { object classification } other {# object classifications}}",
     "description": "The classification of the object(s) in the collection."
   },
   "taxonKey": {
@@ -339,17 +339,17 @@
   },
   "coordinateUncertainty": {
     "name": "Coordinate uncertainty",
-    "count": "{num, plural, one {Coordinate uncertainty} other {# coordinate uncertainty filters}}",
+    "count": "{num, plural, one {coordinate uncertainty} other {# coordinate uncertainty filters}}",
     "description": "A measure of the minimum distance in meters from a coordinate within which a locality might be interpreted to be."
   },
   "distanceFromCentroidInMeters": {
     "name": "Distance from centroid in metres",
-    "count": "{num, plural, one {Distance from centroid} other {# distance from centroid filters}}",
+    "count": "{num, plural, one {distance from centroid} other {# distance from centroid filters}}",
     "description": "The distance in meters from the country centroid."
   },
   "depth": {
     "name": "Depth",
-    "count": "{num, plural, one { Depth } other {# Depths}}",
+    "count": "{num, plural, one { depth } other {# depths}}",
     "description": "The distance below a local surface, in meters."
   },
   "organismQuantity": {
@@ -549,7 +549,7 @@
   },
   "samplingProtocol": {
     "name": "Sampling protocol",
-    "count": "{num, plural, one { Sampling protocol } other {# Sampling protocols}}",
+    "count": "{num, plural, one { sampling protocol } other {# sampling protocols}}",
     "description": "The name of, reference to, or description of the method or protocol used during an Event."
   },
   "occurrenceStatus": {
@@ -564,17 +564,17 @@
   },
   "identifiedBy": {
     "name": "Identified by",
-    "count": "{num, plural, one { Identified by } other {Identified by (#)}}",
+    "count": "{num, plural, one { identified by } other {identified by #}}",
     "description": "The people, groups, or organizations responsible for determining the scientific name of the Organism."
   },
   "isInCluster": {
     "name": "Has related records",
-    "count": "{num, plural, one { Has related records } other {# Has related records}}",
+    "count": "{num, plural, one { has related records } other {# has related records}}",
     "description": "This experimental feature highlights possible duplicate and/or related occurrences."
   },
   "isSequenced": {
     "name": "Is sequenced",
-    "count": "{num, plural, one { Is sequenced } other {# Is sequenced}}",
+    "count": "{num, plural, one { is sequenced } other {# is sequenced}}",
     "description": "Whether the record has sequence information."
   },
   "active": {
@@ -604,48 +604,48 @@
   },
   "datasetType": {
     "name": "Dataset type",
-    "count": "{num, plural, one { Dataset type } other {# Dataset types}}",
+    "count": "{num, plural, one { dataset type } other {# dataset types}}",
     "description": "A short description of the component should be placed here"
   },
   "datasetSubtype": {
     "name": "Dataset subtype",
-    "count": "{num, plural, one { Dataset subtype } other {# Dataset subtypes}}",
+    "count": "{num, plural, one { dataset subtype } other {# dataset subtypes}}",
     "description": "A short description of the component should be placed here"
   },
   "institutionKey": {
     "name": "Institution",
-    "count": "{num, plural, one { Institution } other {# Institutions}}",
+    "count": "{num, plural, one { institution } other {# institutions}}",
     "description": "The name of the institution having custody of the object(s) or information referred to in the record."
   },
   "name": {
     "name": "Name",
-    "count": "{num, plural, one { Name } other {# Names}}",
+    "count": "{num, plural, one { name } other {# names}}",
     "description": "The entity's name.",
     "searchPlaceholder": "Search by title/name"
   },
   "city": {
     "name": "City",
-    "count": "{num, plural, one { City } other {# Cities}}",
+    "count": "{num, plural, one { city } other {# cities}}",
     "description": "City where it can be found."
   },
   "code": {
     "name": "Code",
-    "count": "{num, plural, one { Code } other {# Codes}}",
+    "count": "{num, plural, one { code } other {# codes}}",
     "description": "The primary code that identifies the record as a whole. If you get no result, try the Alternative code filter."
   },
   "verbatimScientificName": {
     "name": "Verbatim scientific name",
-    "count": "{num, plural, one { Verbatim scientific name } other {# Verbatim scientific names}}",
+    "count": "{num, plural, one { verbatim scientific name } other {# verbatim scientific names}}",
     "description": "The scientific name as provided by the data publisher without any normalisation."
   },
   "networkKey": {
     "name": "Network",
-    "count": "{num, plural, one { Network } other {# Networks}}",
+    "count": "{num, plural, one { network } other {# networks}}",
     "description": "A short description of the component should be placed here"
   },
   "literatureType": {
     "name": "Literature type",
-    "count": "{num, plural, one { Literature type } other {# Literature types}}",
+    "count": "{num, plural, one { literature type } other {# literature types}}",
     "description": "What type of literature does the citation come from."
   },
   "higherTaxonKey": {
