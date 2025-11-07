@@ -1,7 +1,7 @@
 {
   "dwcaExtension": {
-    "name": "Dwca extension",
-    "count": "{num, plural, one { Dwca extension } other {# Dwca extensions}}",
+    "name": "DwC-A extension",
+    "count": "{num, plural, one { DwC-A extension } other {# DwC-A extensions}}",
     "description": "A short description of the component should be placed here"
   },
   "locationId": {
