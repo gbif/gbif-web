@@ -5,14 +5,14 @@
       "disconnect": "",
       "failed": {
         "FACEBOOK": "Unable to connect to Facebook",
-        "GITHUB": "Unable to connect to Github",
+        "GITHUB": "",
         "GOOGLE": ""
       }
     },
     "login": {
       "failed": {
         "FACEBOOK": "Unable to login with Facebook",
-        "GITHUB": "Unable to login with Github",
+        "GITHUB": "",
         "GOOGLE": "Unable to login with Google"
       }
     },
