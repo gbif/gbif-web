@@ -453,23 +453,23 @@
     "description": "What project ID is associated with the record."
   },
   "recordedById": {
-    "name": "Recorded by id",
-    "count": "{num, plural, one { recorded by id } other {# recorded by ids}}",
+    "name": "Recorded by ID",
+    "count": "{num, plural, one { recorded by ID } other {# recorded by IDs}}",
     "description": "The identifier for the people, groups, or organizations responsible for recording the original Occurrence."
   },
   "identifiedById": {
-    "name": "Identified by id",
-    "count": "{num, plural, one { identified by id } other {identified by #}}",
+    "name": "Identified by ID",
+    "count": "{num, plural, one { identified by ID } other {identified by #}}",
     "description": "The identifier for the people, groups, or organizations responsible for determining the scientific name of the Organism."
   },
   "occurrenceId": {
-    "name": "Occurrence id",
-    "count": "{num, plural, one { occurrence id } other {# occurrence ids}}",
+    "name": "Occurrence ID",
+    "count": "{num, plural, one { occurrence ID } other {# occurrence IDs}}",
     "description": "The unique identifier for the Occurrence record."
   },
   "organismId": {
-    "name": "Organism id",
-    "count": "{num, plural, one { organism id } other {# organism ids}}",
+    "name": "Organism ID",
+    "count": "{num, plural, one { organism ID } other {# organism IDs}}",
     "description": "The unique identifier for the Organism in the record."
   },
   "locality": {
@@ -504,22 +504,22 @@
   },
   "eventId": {
     "name": "Event ID",
-    "count": "{num, plural, one { event id } other {# event ids}}",
+    "count": "{num, plural, one { event ID } other {# event IDs}}",
     "description": "The unique identifier for the Event in the record."
   },
   "eventID": {
     "name": "Event ID",
-    "count": "{num, plural, one { event id } other {# event ids}}",
+    "count": "{num, plural, one { event ID } other {# event IDs}}",
     "description": "The unique identifier for the Event in the record."
   },
   "parentEventId": {
     "name": "Parent event ID",
-    "count": "{num, plural, one { event id } other {# event ids}}",
+    "count": "{num, plural, one { event ID } other {# event IDs}}",
     "description": "The unique identifier for the Parent Event in the record."
   },
   "locationID": {
     "name": "Location ID",
-    "count": "{num, plural, one { location id } other {# location ids}}",
+    "count": "{num, plural, one { location ID } other {# location IDs}}",
     "description": "The unique identifier for site in the record."
   },
   "measurementOrFactTypes": {
