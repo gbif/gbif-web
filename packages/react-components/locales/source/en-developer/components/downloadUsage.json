@@ -14,7 +14,7 @@
             "commentsPlaceholder": "Placeholder for Comments",
             "submit": "Submit",
             "saveFailure": "This isn't good. We couldn't save your usage report.",
-            "saveSuccess": "Thank you for notifying us. You may close this popup"
+            "saveSuccess": "Thank you for notifying us. You may close this popup."
         },
         "types": {
             "JOURNAL_ARTICLE": "journal article",
