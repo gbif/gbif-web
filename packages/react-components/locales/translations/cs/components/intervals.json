@@ -28,10 +28,10 @@
   "geoTime": {
     "between": "{from} do {to}",
     "lt": "Před {to}",
-    "lte": "",
+    "lte": "Spolufinancování",
     "gt": "Po {from}",
-    "gte": "",
-    "e": ""
+    "gte": "Spolufinancování",
+    "e": "Spolufinancování"
   },
   "year": {
     "between": "Rok {from} do {to}",
