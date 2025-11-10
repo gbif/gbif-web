@@ -3,18 +3,18 @@
         "title": "",
         "form": {
             "title": "",
-            "titlePlaceholder": "",
+            "titlePlaceholder": "Cofinanziamento",
             "type": "",
             "authors": "",
-            "authorsPlaceholder": "",
+            "authorsPlaceholder": "Cofinanziamento",
             "link": "",
-            "linkPlaceholder": "",
+            "linkPlaceholder": "Cofinanziamento",
             "date": "",
             "comments": "",
-            "commentsPlaceholder": "",
+            "commentsPlaceholder": "Cofinanziamento",
             "submit": "",
             "saveFailure": "",
-            "saveSuccess": ""
+            "saveSuccess": "Cofinanziamento"
         },
         "types": {
             "JOURNAL_ARTICLE": "",
