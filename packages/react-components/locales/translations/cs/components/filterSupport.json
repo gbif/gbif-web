@@ -25,7 +25,7 @@
   "updateFilter": "Aktualizovat filtr",
   "setFilter": "Nastavit jako filtr",
   "noMathcingFilters": "Musí být definováno",
-  "countsUnavailable": "",
+  "countsUnavailable": "Spolufinancování",
   "nameWithTaxonMatchIssue": "Název před normalizací",
   "commonName": "Běžný název",
   "acceptedNameOf": "Přijatý název pro",
@@ -62,6 +62,6 @@
     "geometryReducedToBbox": "Geometrie omezená na ohraničující rámeček",
     "failedToSimplify": "Nepodařilo se zjednodušit geometrii"
   },
-  "activeFilters": "",
-  "highlighted": ""
+  "activeFilters": "Spolufinancování",
+  "highlighted": "Spolufinancování"
 }
