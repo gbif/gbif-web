@@ -8,7 +8,7 @@
       "publicationsFrom": "منشورات من",
       "publicationsAbout": "منشورات حول",
       "news": "أخبار",
-      "alienSpecies": "",
+      "alienSpecies": "التمويل المشترك",
       "projects": "المشاريع"
     },
     "country": "بلد",
@@ -21,8 +21,8 @@
     "noProjects": "لا يوجد مشاريع",
     "notParticipant": "ليس مشاركاً",
     "notParticipantDescription": "هذه الدولة غير مشتركة في \"جيبف\"",
-    "countryNamingDisclaimer": "",
-    "isoStandardLinkText": "",
+    "countryNamingDisclaimer": "التمويل المشترك",
+    "isoStandardLinkText": "التمويل المشترك",
     "counts": {
       "occurrences": "{NUMBER, plural,\n0 {تكرارات}\none {تكرار}\nfew {تكرارات}\nmany {تكرارات}\nother {تكرارات}\n}",
       "datasets": "مجموعات البيانات",

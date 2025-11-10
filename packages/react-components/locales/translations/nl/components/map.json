@@ -21,7 +21,7 @@
   "anyYear": "",
   "exploreArea": "",
   "explore": "Verkennen",
-  "generatedDateAgo": "",
+  "generatedDateAgo": "Cofinanciering",
   "style": "Stijl",
   "filters": "Filters",
   "select": "Selecteer",
@@ -36,7 +36,7 @@
     "CLASSIC": "",
     "STREETS": "Straten",
     "GLACIER": "Gletsjer",
-    "GREEN": "",
+    "GREEN": "Cofinanciering",
     "CUSTOM": ""
   },
   "basemap": {

@@ -1,12 +1,12 @@
 {
   "dwcaExtension": {
     "name": "Розширення DWCA",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "locationId": {
     "name": "ID місцезнаходження",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "hasCoordinate": {
@@ -21,12 +21,12 @@
   },
   "collectionKey": {
     "name": "Колекція",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "taxonomicStatus": {
     "name": "Статус",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "taxonRank": {
@@ -36,12 +36,12 @@
   },
   "numberSpecimens": {
     "name": "",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "specimensInGbif": {
     "name": "",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": "Архів анотований GBIF"
   },
   "iucnRedListCategory": {
@@ -51,7 +51,7 @@
   },
   "geoDistance": {
     "name": "",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": "",
     "placeholderLat": "Широта",
     "placeholderLon": "Довгота",
@@ -59,7 +59,7 @@
   },
   "geometry": {
     "name": "Місцезнаходження",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": "",
     "placeholderLat": "Широта",
     "placeholderLon": "Довгота",
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "geologicalTime": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Спільне фінансування",
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "purposes": {
     "name": "Тема",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "organismQuantityType": {
     "name": "Одиниці розмірності кількості організмів (наприклад, особини, проективне покриття, маса тощо)",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "pathway": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "associatedSequences": {
     "name": "Пов'язані сіквенси",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "degreeOfEstablishment": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "endDayOfYear": {
     "name": "День кінця року",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "startDayOfYear": {
     "name": "День початку року",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "previousIdentifications": {
     "name": "Попередні ідентифікації",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "lastInterpreted": {
     "name": "Остання інтерпретація",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "alternativeCode": {
     "name": "Архів анотований GBIF",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "identifier": {
     "name": "Автор визначення",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "Архів анотований GBIF",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "collectionContentType": {
     "name": "Архів анотований GBIF",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": "Архів анотований GBIF"
   },
   "preservationType": {
     "name": "Архів анотований GBIF",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": "Архів анотований GBIF"
   },
   "biomeType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Спільне фінансування",
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "objectClassification": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Спільне фінансування",
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "taxonKey": {
     "name": "Наукова назва",
@@ -230,11 +230,11 @@
     "description": ""
   },
   "occurrenceTaxonomicIssue": {
-    "name": "",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "name": "Спільне фінансування",
+    "count": "Спільне фінансування",
+    "isNotNull": "Спільне фінансування",
+    "isNull": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "occurrenceCountry": {
     "name": "Країна",
@@ -246,13 +246,13 @@
   },
   "preparations": {
     "name": "Підготовчі дії щодо зразка (наприклад, відфотографовано, відпрепаровано тощо)",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": "Архів анотований GBIF"
   },
   "repatriated": {
     "name": "Репатрійовано",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "publishingCountryCode": {
     "name": "Країна або регіон, що публікує дані",
@@ -339,22 +339,22 @@
   },
   "coordinateUncertainty": {
     "name": "Похибка координат",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "distanceFromCentroidInMeters": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Спільне фінансування",
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "depth": {
     "name": "Глибина",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "organismQuantity": {
     "name": "Кількість організмів (в одиницях, відсотках, масовій частці тощо)",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "sampleSizeValue": {
@@ -364,7 +364,7 @@
   },
   "relativeOrganismQuantity": {
     "name": "Відносна кількість організмів",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "month": {
@@ -389,43 +389,43 @@
   },
   "sex": {
     "name": "Стать",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "lifeStage": {
     "name": "Життєва стадія",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "recordedBy": {
     "name": "Хто створив запис",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "fieldNumber": {
     "name": "Польовий номер",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "verbatimTaxonId": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Спільне фінансування",
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "islandGroup": {
     "name": "Група островів",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "island": {
     "name": "Острів",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "georeferencedBy": {
     "name": "Автор геоприв'язки",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "datasetName": {
     "name": "Назва набору даних",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "Програма",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "recordNumber": {
     "name": "Номер запису",
@@ -454,22 +454,22 @@
   },
   "recordedById": {
     "name": "Записано за ID",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "identifiedById": {
     "name": "Визначено за ID",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "occurrenceId": {
     "name": "ID знахідки",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "organismId": {
     "name": "ID організму",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "locality": {
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "Географічна місцевість у широкому масштабі",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "stateProvince": {
@@ -494,32 +494,32 @@
   },
   "gbifRegion": {
     "name": "Регіон GBIF",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Спільне фінансування",
+    "description": "Спільне фінансування"
   },
   "eventId": {
     "name": "ID події",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "eventID": {
     "name": "ID події",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "parentEventId": {
     "name": "ID батьківської (об'єднуючої) події",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "locationID": {
     "name": "ID місцезнаходження",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "measurementOrFactTypes": {
@@ -549,12 +549,12 @@
   },
   "samplingProtocol": {
     "name": "Протокол збору ",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "occurrenceStatus": {
     "name": "Статус знахідки (відсутня або присутня)",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "gadmGid": {
@@ -564,17 +564,17 @@
   },
   "identifiedBy": {
     "name": "Автор визначення",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "isInCluster": {
     "name": "",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": "Ця експериментальна функція виділяє можливі дубльовані та/або пов'язані знахідки."
   },
   "isSequenced": {
     "name": "",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "active": {
@@ -604,48 +604,48 @@
   },
   "datasetType": {
     "name": "Тип набору даних",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "datasetSubtype": {
     "name": "",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "institutionKey": {
     "name": "Установа",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "name": {
     "name": "Ім’я",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": "Архів анотований GBIF",
     "searchPlaceholder": ""
   },
   "city": {
     "name": "Місто",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "code": {
     "name": "Код",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": "Архів анотований GBIF"
   },
   "verbatimScientificName": {
     "name": "Первинно вжита наукова назва",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "networkKey": {
     "name": "Мережа",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "literatureType": {
     "name": "Тип джерела",
-    "count": "",
+    "count": "Спільне фінансування",
     "description": ""
   },
   "higherTaxonKey": {

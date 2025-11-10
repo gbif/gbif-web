@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "",
-      "ASSOCIATE": "",
-      "OTHER_ASSOCIATE": "",
+      "VOTING": "Co Finanzierung",
+      "ASSOCIATE": "Co Finanzierung",
+      "OTHER_ASSOCIATE": "Co Finanzierung",
       "FORMER": "",
       "OBSERVER": "",
-      "UNKNOWN": "",
+      "UNKNOWN": "Co Finanzierung",
       "AFFILIATE": ""
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "Co Finanzierung",
+    "mapCaptionPublishers": "Co Finanzierung",
     "role": "",
     "name": "",
     "participant": "",
     "type": "",
     "memberSince": "Mitglied seit",
     "all": "",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
+    "countryParticipants": "Co Finanzierung",
+    "publishersPerCountry": "Co Finanzierung",
     "clear": "",
     "headlines": {
       "nodesSteeringGroup": "",

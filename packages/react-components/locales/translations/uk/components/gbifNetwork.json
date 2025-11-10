@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "",
-      "ASSOCIATE": "",
-      "OTHER_ASSOCIATE": "",
+      "VOTING": "Спільне фінансування",
+      "ASSOCIATE": "Спільне фінансування",
+      "OTHER_ASSOCIATE": "Спільне фінансування",
       "FORMER": "Колишній учасник",
       "OBSERVER": "Спостерігач",
-      "UNKNOWN": "",
+      "UNKNOWN": "Спільне фінансування",
       "AFFILIATE": "Філіал GBIF"
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "Спільне фінансування",
+    "mapCaptionPublishers": "Спільне фінансування",
     "role": "Роль",
     "name": "Ім’я",
     "participant": "Учасник",
     "type": "Тип",
     "memberSince": "Офіційна участь у GBIF з",
     "all": "Всі",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
+    "countryParticipants": "Спільне фінансування",
+    "publishersPerCountry": "Спільне фінансування",
     "clear": "Очистити",
     "headlines": {
       "nodesSteeringGroup": "Група координації осередків",

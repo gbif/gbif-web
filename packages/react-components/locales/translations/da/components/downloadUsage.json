@@ -3,18 +3,18 @@
         "title": "",
         "form": {
             "title": "Titel",
-            "titlePlaceholder": "",
+            "titlePlaceholder": "Sam-finansiering",
             "type": "",
             "authors": "",
-            "authorsPlaceholder": "",
+            "authorsPlaceholder": "Sam-finansiering",
             "link": "",
-            "linkPlaceholder": "",
+            "linkPlaceholder": "Sam-finansiering",
             "date": "Dato",
             "comments": "",
-            "commentsPlaceholder": "",
+            "commentsPlaceholder": "Sam-finansiering",
             "submit": "",
             "saveFailure": "",
-            "saveSuccess": ""
+            "saveSuccess": "Sam-finansiering"
         },
         "types": {
             "JOURNAL_ARTICLE": "",

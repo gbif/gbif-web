@@ -28,8 +28,8 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "Ці показники спираються на записи, що поширені GBIF",
-  "notVocabularyWarning": "",
-  "taxonomicBreakdown": "",
+  "notVocabularyWarning": "Спільне фінансування",
+  "taxonomicBreakdown": "Спільне фінансування",
   "group": {
     "views": "",
     "record": "Запис",

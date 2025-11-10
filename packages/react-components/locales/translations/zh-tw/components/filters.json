@@ -6,7 +6,7 @@
   },
   "locationId": {
     "name": "地點識別碼",
-    "count": "",
+    "count": "共同資助",
     "description": ""
   },
   "hasCoordinate": {
@@ -26,7 +26,7 @@
   },
   "taxonomicStatus": {
     "name": "狀態",
-    "count": "",
+    "count": "共同資助",
     "description": "描述裡記載持有標本的數量。此數量並未反映有多少筆紀錄已經數位化且共享。"
   },
   "taxonRank": {
@@ -36,7 +36,7 @@
   },
   "numberSpecimens": {
     "name": "標本數量",
-    "count": "",
+    "count": "共同資助",
     "description": "描述裡記載持有標本的數量。此數量並未反映有多少筆紀錄已經數位化且共享。"
   },
   "specimensInGbif": {
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "geologicalTime": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "共同資助",
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "purposes": {
     "name": "主題",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "GBIF 識別碼",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "organismQuantityType": {
     "name": "生物數量類型",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "pathway": {
     "name": "路徑",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "associatedSequences": {
     "name": "相關序列",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "degreeOfEstablishment": {
     "name": "設立程度",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "endDayOfYear": {
     "name": "結束日序",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "startDayOfYear": {
     "name": "起始日序",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "previousIdentifications": {
     "name": "先前的鑑定",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "lastInterpreted": {
     "name": "上次解釋",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "alternativeCode": {
     "name": "GBIF 註記的存檔",
-    "count": "",
+    "count": "共同資助",
     "description": ""
   },
   "identifier": {
     "name": "識別碼",
-    "count": "",
+    "count": "共同資助",
     "description": "在此輸入此項目的簡短敘述"
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "GBIF 註記的存檔",
-    "count": "",
+    "count": "共同資助",
     "description": ""
   },
   "collectionContentType": {
     "name": "GBIF 註記的存檔",
-    "count": "",
+    "count": "共同資助",
     "description": "GBIF 註記的存檔"
   },
   "preservationType": {
     "name": "GBIF 註記的存檔",
-    "count": "",
+    "count": "共同資助",
     "description": "GBIF 註記的存檔"
   },
   "biomeType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "共同資助",
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "objectClassification": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "共同資助",
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "taxonKey": {
     "name": "學名",
@@ -230,11 +230,11 @@
     "description": "在處理資料時發現的問題類型或潛在感興趣的標誌"
   },
   "occurrenceTaxonomicIssue": {
-    "name": "",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "name": "共同資助",
+    "count": "共同資助",
+    "isNotNull": "共同資助",
+    "isNull": "共同資助",
+    "description": "共同資助"
   },
   "occurrenceCountry": {
     "name": "國家",
@@ -246,13 +246,13 @@
   },
   "preparations": {
     "name": "準備",
-    "count": "",
+    "count": "共同資助",
     "description": "GBIF 註記的存檔"
   },
   "repatriated": {
     "name": "回返的",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "publishingCountryCode": {
     "name": "發布國家或地區",
@@ -343,9 +343,9 @@
     "description": "距離可能被解釋為某個位置座標的最小距離（以公尺為單位）的量測。"
   },
   "distanceFromCentroidInMeters": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "共同資助",
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "depth": {
     "name": "深度",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "性別",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "lifeStage": {
     "name": "生活史階段",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "recordedBy": {
     "name": "紀錄者：",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "樣區事件編碼",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "verbatimTaxonId": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "共同資助",
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "islandGroup": {
     "name": "島群",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "island": {
     "name": "島嶼",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "georeferencedBy": {
     "name": "地理參照：",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "datasetName": {
     "name": "資料集名稱",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "計畫",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "recordNumber": {
     "name": "紀錄編號",
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "高階地理",
-    "count": "",
+    "count": "共同資助",
     "description": ""
   },
   "stateProvince": {
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "GBIF 地區",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "共同資助",
+    "description": "共同資助"
   },
   "eventId": {
     "name": "事件識別碼",
@@ -569,7 +569,7 @@
   },
   "isInCluster": {
     "name": "在（資料）叢集上",
-    "count": "",
+    "count": "共同資助",
     "description": "判斷該記錄是否有相關記錄"
   },
   "isSequenced": {
@@ -619,7 +619,7 @@
   },
   "name": {
     "name": "名稱",
-    "count": "",
+    "count": "共同資助",
     "description": "GBIF 註記的存檔",
     "searchPlaceholder": ""
   },
@@ -640,7 +640,7 @@
   },
   "networkKey": {
     "name": "網絡",
-    "count": "",
+    "count": "共同資助",
     "description": "在此輸入此項目的簡短敘述"
   },
   "literatureType": {

@@ -8,46 +8,46 @@
   "continueToGBIF": "Fortsæt",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "",
-    "noSql": "",
+    "placeholder": "Sam-finansiering",
+    "noSql": "Sam-finansiering",
     "note": {
       "title": "",
       "description": "",
-      "goToOccurrenceSearch": ""
+      "goToOccurrenceSearch": "Sam-finansiering"
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
+      "network-error": "Sam-finansiering",
+      "parsingErrorDescription": "Sam-finansiering",
+      "networkErrorDescription": "Sam-finansiering"
     }
   },
-  "create": "",
+  "create": "Sam-finansiering",
   "about": "Om",
-  "stopEditing": "",
-  "startEditing": "",
+  "stopEditing": "Stop redigering",
+  "startEditing": "Begynd at redigere",
   "reformat": "",
   "discard": "",
   "keep": "",
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
+    "weHaveRestoredYourPredicate": "Sam-finansiering",
+    "noPredicate": "Sam-finansiering",
     "currentFilter": "Nuværende filter",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
+      "invalid-predicate": "Sam-finansiering",
+      "faild-to-load-predicate": "Sam-finansiering",
+      "unexpectedError": "Sam-finansiering",
+      "failedToParseJSON": "Sam-finansiering",
+      "failedToVisualizePredicate": "Sam-finansiering"
     }
   },
   "downloadOptions": {
     "title": "",
-    "chooseChecklist": "",
-    "chooseChecklistDescription": "",
+    "chooseChecklist": "Sam-finansiering",
+    "chooseChecklistDescription": "Sam-finansiering",
     "content": {
       "rawData": "Rådata",
       "interpretedData": "Fortolket data",
@@ -57,12 +57,12 @@
       "estimatedSize": "Anslået datastørrelse"
     },
     "fileFormats": {
-      "tabCsv": ""
+      "tabCsv": "Sam-finansiering"
     },
     "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+      "ifAvailable": "Sam-finansiering",
+      "ifSelected": "Sam-finansiering",
+      "links": "Sam-finansiering"
     }
   }
 }

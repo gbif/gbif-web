@@ -21,7 +21,7 @@
   "anyYear": "",
   "exploreArea": "",
   "explore": "",
-  "generatedDateAgo": "",
+  "generatedDateAgo": "Cofinanziamento",
   "style": "",
   "filters": "",
   "select": "",
@@ -36,7 +36,7 @@
     "CLASSIC": "",
     "STREETS": "",
     "GLACIER": "",
-    "GREEN": "",
+    "GREEN": "Cofinanziamento",
     "CUSTOM": ""
   },
   "basemap": {

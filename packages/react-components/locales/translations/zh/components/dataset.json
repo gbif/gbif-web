@@ -31,7 +31,7 @@
   "constituentOf": "的组成",
   "dataset": "数据集",
   "taxonomy": "分类学",
-  "localContexts": "",
+  "localContexts": "共同资助方",
   "project": "项目",
   "metrics": "指标",
   "metricsOccurrenceHelpText": "指标基于诠释后的数据",
@@ -150,8 +150,8 @@
     "registrationDetails": ""
   },
   "errors": {
-    "evenList": "",
-    "occurrenceInfo": ""
+    "evenList": "共同资助方",
+    "occurrenceInfo": "共同资助方"
   },
   "eventTaxonomy": "出现记录的分类学分布"
 }

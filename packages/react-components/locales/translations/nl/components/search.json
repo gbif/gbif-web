@@ -36,8 +36,8 @@
   "loadMore": "Meer",
   "loading": "Laden",
   "noResults": "",
-  "startTyping": "",
-  "rankInGroup": "",
+  "startTyping": "Cofinanciering",
+  "rankInGroup": "Cofinanciering",
   "occurrenceClustersView": {
     "about": "Over",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Zoeken",
-    "description": "",
+    "description": "Cofinanciering",
     "noSearchTermsEntered": "",
-    "placeholder": "",
+    "placeholder": "Cofinanciering",
     "categories": {
       "speciesSearch": "Soorten",
       "datasetSearch": "Datasets",
       "publisherSearch": "Uitgevers",
       "occurrenceSearch": "",
-      "resourceSearch": ""
+      "resourceSearch": "Cofinanciering"
     },
     "seeAll": "Alles weergeven"
   }

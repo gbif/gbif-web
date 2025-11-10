@@ -8,7 +8,7 @@
       "publicationsFrom": "פרסומים מ־",
       "publicationsAbout": "פרסומים על",
       "news": "חדשות",
-      "alienSpecies": "",
+      "alienSpecies": "מימון משותף",
       "projects": "פרויקטים"
     },
     "country": "מדינה",
@@ -21,8 +21,8 @@
     "noProjects": "אין פרויקטים",
     "notParticipant": "לא משתתף",
     "notParticipantDescription": "מדינה זו אינה משתתפת ב־GBIF",
-    "countryNamingDisclaimer": "",
-    "isoStandardLinkText": "",
+    "countryNamingDisclaimer": "מימון משותף",
+    "isoStandardLinkText": "מימון משותף",
     "counts": {
       "occurrences": "{NUMBER, plural, 0 {תצפיות} one {תצפית} other {תצפיות}}",
       "datasets": "{NUMBER, plural, 0 {מסדי נתונים} one {מסד נתונים} other {מסדי נתונים}}",

@@ -28,10 +28,10 @@
   "geoTime": {
     "between": "{from} tot {to}",
     "lt": "Voor {to}",
-    "lte": "",
+    "lte": "Cofinanciering",
     "gt": "Na {from}",
-    "gte": "",
-    "e": ""
+    "gte": "Cofinanciering",
+    "e": "Cofinanciering"
   },
   "year": {
     "between": "Jaar {from} tot {to}",

@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "",
   "searchOrganisations": "Organisaties zoeken",
   "termsAndConditions": "Algemene voorwaarden",
-  "iHaveReadAndUnderstood": "",
+  "iHaveReadAndUnderstood": "Cofinanciering",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "",
   "iUnderstandThatMyOrganizationalInformation": "",
   "administrativeContact": "Contactpunt administratie",
@@ -30,7 +30,7 @@
   "none": "Geen",
   "whatAndHow": "Wat en hoe",
   "helpUsUnderstand": "",
-  "publOfFourTypesOfData": "",
+  "publOfFourTypesOfData": "Cofinanciering",
   "whichTypesOfData": "Welke datatypes ga je publiceren?",
   "resourcesMetaData": "",
   "checkListData": "Checklist data",
@@ -42,9 +42,9 @@
   "yes": "Ja",
   "no": "Nee",
   "pleaseSelectAValue": "Selecteer een waarde",
-  "reuseTrustedIPThosting": "",
+  "reuseTrustedIPThosting": "Cofinanciering",
   "doYouNeedHelpPublishing": "Heb je hulp nodig bij het publiceren van je data? ",
-  "areYouPlanningToInstallAndRun": "",
+  "areYouPlanningToInstallAndRun": "Cofinanciering",
   "orgDetails": "Organisatiegegevens",
   "yourChanceToTellGBIF": "",
   "orgName": "Organisatienaam",
@@ -81,20 +81,20 @@
   "outage": "",
   "eoiDescription": "",
   "eoiTitle": "",
-  "checkRegistration": "",
-  "organisationDetails": "",
-  "organisationAddress": "",
-  "endorsement": "",
+  "checkRegistration": "Cofinanciering",
+  "organisationDetails": "Cofinanciering",
+  "organisationAddress": "Cofinanciering",
+  "endorsement": "Cofinanciering",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "",
-    "pleaseSelectTheCountryOfYourOrganization": ""
+    "pleaseSelectYourOrganizationOnTheMap": "Cofinanciering",
+    "pleaseSelectTheCountryOfYourOrganization": "Cofinanciering"
   },
-  "thankYouForYourRegistration": "",
-  "failedToRegisterOrganization": "",
-  "associatedWithGbifProgramme": "",
+  "thankYouForYourRegistration": "Cofinanciering",
+  "failedToRegisterOrganization": "Cofinanciering",
+  "associatedWithGbifProgramme": "Cofinanciering",
   "loginToRegisterOrganization": {
-    "title": "",
-    "message": ""
+    "title": "Cofinanciering",
+    "message": "Cofinanciering"
   },
-  "registerAnotherOrganization": ""
+  "registerAnotherOrganization": "Cofinanciering"
 }

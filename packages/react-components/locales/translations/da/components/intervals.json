@@ -28,10 +28,10 @@
   "geoTime": {
     "between": "",
     "lt": "",
-    "lte": "",
+    "lte": "Sam-finansiering",
     "gt": "",
-    "gte": "",
-    "e": ""
+    "gte": "Sam-finansiering",
+    "e": "Sam-finansiering"
   },
   "year": {
     "between": "",

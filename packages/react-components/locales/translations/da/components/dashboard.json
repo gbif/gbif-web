@@ -28,8 +28,8 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "",
-  "notVocabularyWarning": "",
-  "taxonomicBreakdown": "",
+  "notVocabularyWarning": "Sam-finansiering",
+  "taxonomicBreakdown": "Sam-finansiering",
   "group": {
     "views": "",
     "record": "",

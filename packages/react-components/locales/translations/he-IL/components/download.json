@@ -8,21 +8,21 @@
   "continueToGBIF": "המשך",
   "sql": {
     "createNewSqlDownload": "צור הורדת SQL חדשה",
-    "placeholder": "",
-    "noSql": "",
+    "placeholder": "מימון משותף",
+    "noSql": "מימון משותף",
     "note": {
       "title": "הערה",
       "description": "הדרך הקלה ביותר להוריד ולחקור נתונים היא דרך ממשק חיפוש התצפיות. לשאילתות וחישובים מורכבים, עורך ה־SQL מספק יותר חופש.",
-      "goToOccurrenceSearch": ""
+      "goToOccurrenceSearch": "מימון משותף"
     },
     "errors": {
       "invalid-SQL": "SQL לא תקין",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
+      "network-error": "מימון משותף",
+      "parsingErrorDescription": "מימון משותף",
+      "networkErrorDescription": "מימון משותף"
     }
   },
-  "create": "",
+  "create": "מימון משותף",
   "about": "",
   "stopEditing": "",
   "startEditing": "",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
+    "weHaveRestoredYourPredicate": "מימון משותף",
+    "noPredicate": "מימון משותף",
     "currentFilter": "",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
+      "invalid-predicate": "מימון משותף",
+      "faild-to-load-predicate": "מימון משותף",
+      "unexpectedError": "מימון משותף",
+      "failedToParseJSON": "מימון משותף",
+      "failedToVisualizePredicate": "מימון משותף"
     }
   },
   "downloadOptions": {
     "title": "",
-    "chooseChecklist": "",
-    "chooseChecklistDescription": "",
+    "chooseChecklist": "מימון משותף",
+    "chooseChecklistDescription": "מימון משותף",
     "content": {
       "rawData": "",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": ""
     },
     "fileFormats": {
-      "tabCsv": ""
+      "tabCsv": "מימון משותף"
     },
     "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+      "ifAvailable": "מימון משותף",
+      "ifSelected": "מימון משותף",
+      "links": "מימון משותף"
     }
   }
 }

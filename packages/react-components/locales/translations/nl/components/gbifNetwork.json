@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "",
-      "ASSOCIATE": "",
-      "OTHER_ASSOCIATE": "",
+      "VOTING": "Cofinanciering",
+      "ASSOCIATE": "Cofinanciering",
+      "OTHER_ASSOCIATE": "Cofinanciering",
       "FORMER": "",
       "OBSERVER": "",
-      "UNKNOWN": "",
+      "UNKNOWN": "Cofinanciering",
       "AFFILIATE": "GBIF-filiaal"
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "Cofinanciering",
+    "mapCaptionPublishers": "Cofinanciering",
     "role": "Rol",
     "name": "Naam",
     "participant": "Deelnemer",
     "type": "Type",
     "memberSince": "Lid sinds",
     "all": "Alle",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
+    "countryParticipants": "Cofinanciering",
+    "publishersPerCountry": "Cofinanciering",
     "clear": "Leegmaken",
     "headlines": {
       "nodesSteeringGroup": "",

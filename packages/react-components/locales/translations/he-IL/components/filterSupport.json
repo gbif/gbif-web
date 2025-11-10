@@ -25,7 +25,7 @@
   "updateFilter": "עדכון מסנן",
   "setFilter": "הגדר כמסנן",
   "noMathcingFilters": "לא נמצאו מסננים תואמים",
-  "countsUnavailable": "",
+  "countsUnavailable": "מימון משותף",
   "nameWithTaxonMatchIssue": "שם לפני נרמול",
   "commonName": "שם עממי",
   "acceptedNameOf": "שם תקף עבור",
@@ -62,6 +62,6 @@
     "geometryReducedToBbox": "הגאומטריה צומצמה לתיבה תוחמת",
     "failedToSimplify": "פישוט הגאומטריה נכשל"
   },
-  "activeFilters": "",
-  "highlighted": ""
+  "activeFilters": "מימון משותף",
+  "highlighted": "מימון משותף"
 }
