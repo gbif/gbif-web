@@ -28,8 +28,8 @@
   "iucnThreatStatus": "Kategorie Červeného seznamu IUCN",
   "iucnThreatStatusDescription": "Druhy, které jsou podle Červeného seznamu ohrožených druhů IUCN zařazeny do kategorie téměř ohrožené (NT) nebo do kategorie s vyšším rizikem.",
   "metricsFromGbifData": "Tyto metriky vycházejí ze záznamů sdílených prostřednictvím GBIF.",
-  "notVocabularyWarning": "",
-  "taxonomicBreakdown": "",
+  "notVocabularyWarning": "Spolufinancování",
+  "taxonomicBreakdown": "Spolufinancování",
   "group": {
     "views": "Zobrazení",
     "record": "Záznam",
