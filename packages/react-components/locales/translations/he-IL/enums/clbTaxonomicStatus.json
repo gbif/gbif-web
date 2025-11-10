@@ -1,10 +1,10 @@
 {
   "clbTaxonomicStatus": {
     "accepted": "",
-    "provisionally_accepted": "",
-    "ambiguous_synonym": "",
+    "provisionally_accepted": "מימון משותף",
+    "ambiguous_synonym": "מימון משותף",
     "synonym": "",
     "misapplied": "",
-    "bare_name": ""
+    "bare_name": "מימון משותף"
   }
 }
