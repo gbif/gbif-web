@@ -31,7 +31,7 @@
   "constituentOf": "Bestanddel af",
   "dataset": "Datasæt",
   "taxonomy": "Taksonomi",
-  "localContexts": "",
+  "localContexts": "Sam-finansiering",
   "project": "Projekt",
   "metrics": "Grafer",
   "metricsOccurrenceHelpText": "",
@@ -150,8 +150,8 @@
     "registrationDetails": ""
   },
   "errors": {
-    "evenList": "",
-    "occurrenceInfo": ""
+    "evenList": "Sam-finansiering",
+    "occurrenceInfo": "Sam-finansiering"
   },
   "eventTaxonomy": "Taksonomisk distribution af observationer"
 }
