@@ -8,46 +8,46 @@
   "continueToGBIF": "次へ",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "",
-    "noSql": "",
+    "placeholder": "共同資金",
+    "noSql": "共同資金",
     "note": {
       "title": "注記",
       "description": "",
-      "goToOccurrenceSearch": ""
+      "goToOccurrenceSearch": "共同資金"
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
+      "network-error": "共同資金",
+      "parsingErrorDescription": "共同資金",
+      "networkErrorDescription": "共同資金"
     }
   },
-  "create": "",
+  "create": "共同資金",
   "about": "・・・について",
-  "stopEditing": "",
-  "startEditing": "",
+  "stopEditing": "編集を終了する",
+  "startEditing": "編集を開始する",
   "reformat": "",
   "discard": "",
   "keep": "",
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
+    "weHaveRestoredYourPredicate": "共同資金",
+    "noPredicate": "共同資金",
     "currentFilter": "現在のフィルター",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
+      "invalid-predicate": "共同資金",
+      "faild-to-load-predicate": "共同資金",
+      "unexpectedError": "共同資金",
+      "failedToParseJSON": "共同資金",
+      "failedToVisualizePredicate": "共同資金"
     }
   },
   "downloadOptions": {
     "title": "ダウンロードのオプション",
-    "chooseChecklist": "",
-    "chooseChecklistDescription": "",
+    "chooseChecklist": "共同資金",
+    "chooseChecklistDescription": "共同資金",
     "content": {
       "rawData": "生データ",
       "interpretedData": "解釈されたデータ",
@@ -57,12 +57,12 @@
       "estimatedSize": "推定データサイズ"
     },
     "fileFormats": {
-      "tabCsv": ""
+      "tabCsv": "共同資金"
     },
     "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+      "ifAvailable": "共同資金",
+      "ifSelected": "共同資金",
+      "links": "共同資金"
     }
   }
 }
