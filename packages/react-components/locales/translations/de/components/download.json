@@ -8,46 +8,46 @@
   "continueToGBIF": "Weiter",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "",
-    "noSql": "",
+    "placeholder": "Co Finanzierung",
+    "noSql": "Co Finanzierung",
     "note": {
       "title": "",
       "description": "",
-      "goToOccurrenceSearch": ""
+      "goToOccurrenceSearch": "Co Finanzierung"
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
+      "network-error": "Co Finanzierung",
+      "parsingErrorDescription": "Co Finanzierung",
+      "networkErrorDescription": "Co Finanzierung"
     }
   },
-  "create": "",
+  "create": "Co Finanzierung",
   "about": "",
-  "stopEditing": "",
-  "startEditing": "",
+  "stopEditing": "Bearbeitung beenden",
+  "startEditing": "Bearbeitung starten",
   "reformat": "",
   "discard": "",
   "keep": "",
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
+    "weHaveRestoredYourPredicate": "Co Finanzierung",
+    "noPredicate": "Co Finanzierung",
     "currentFilter": "",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
+      "invalid-predicate": "Co Finanzierung",
+      "faild-to-load-predicate": "Co Finanzierung",
+      "unexpectedError": "Co Finanzierung",
+      "failedToParseJSON": "Co Finanzierung",
+      "failedToVisualizePredicate": "Co Finanzierung"
     }
   },
   "downloadOptions": {
     "title": "",
-    "chooseChecklist": "",
-    "chooseChecklistDescription": "",
+    "chooseChecklist": "Co Finanzierung",
+    "chooseChecklistDescription": "Co Finanzierung",
     "content": {
       "rawData": "",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": ""
     },
     "fileFormats": {
-      "tabCsv": ""
+      "tabCsv": "Co Finanzierung"
     },
     "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+      "ifAvailable": "Co Finanzierung",
+      "ifSelected": "Co Finanzierung",
+      "links": "Co Finanzierung"
     }
   }
 }
