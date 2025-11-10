@@ -1,10 +1,10 @@
 {
   "clbTaxonomicStatus": {
     "accepted": "アクセプトされた学名",
-    "provisionally_accepted": "",
-    "ambiguous_synonym": "",
+    "provisionally_accepted": "共同資金",
+    "ambiguous_synonym": "共同資金",
     "synonym": "シノニム",
     "misapplied": "誤適用",
-    "bare_name": ""
+    "bare_name": "共同資金"
   }
 }
