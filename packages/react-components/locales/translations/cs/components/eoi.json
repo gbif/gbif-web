@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "Moje organizace ještě není zaregistrována.",
   "searchOrganisations": "Hledat organizace",
   "termsAndConditions": "Podmínky užití",
-  "iHaveReadAndUnderstood": "",
+  "iHaveReadAndUnderstood": "Spolufinancování",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "Chápu, že žádám o registraci jménem své organizace, a potvrzuji, že odpovědné orgány mé organizace o této registraci vědí.",
   "iUnderstandThatMyOrganizationalInformation": "Chápu, že žádám o registraci jménem své organizace, a potvrzuji, že odpovědné orgány mé organizace o této registraci vědí.",
   "administrativeContact": "Administrativní kontakt",
@@ -30,7 +30,7 @@
   "none": "Žádný",
   "whatAndHow": "Co a jak",
   "helpUsUnderstand": "Pomozte nám pochopit, jaký druh dat plánujete zveřejnit a jakou podporu budete potřebovat.",
-  "publOfFourTypesOfData": "",
+  "publOfFourTypesOfData": "Spolufinancování",
   "whichTypesOfData": "Jaké typy dat chcete zveřejnit?",
   "resourcesMetaData": "Metadata zdrojů",
   "checkListData": "Data kontrolního seznamu",
@@ -42,9 +42,9 @@
   "yes": "Ano",
   "no": "Ne",
   "pleaseSelectAValue": "Prosím vyberte hodnotu",
-  "reuseTrustedIPThosting": "",
+  "reuseTrustedIPThosting": "Spolufinancování",
   "doYouNeedHelpPublishing": "Potřebujete pomoci s publikováním dat?",
-  "areYouPlanningToInstallAndRun": "",
+  "areYouPlanningToInstallAndRun": "Spolufinancování",
   "orgDetails": "Detaily o organizaci",
   "yourChanceToTellGBIF": "Máte šanci sdělit uživatelům GBIF, kdo jste a co děláte.",
   "orgName": "Název organizace",
@@ -81,20 +81,20 @@
   "outage": "Dochází k částečnému výpadku a v současné době nepřijímáme registrace.",
   "eoiDescription": "V rámci přípravy na publikování dat prostřednictvím GBIF žádáme potenciální nové vydavatele, aby vyplnili tento online formulář. Předtím, než GBIF indexuje vaše datové sady, musí vaše instituce získat souhlas jako vydavatel dat od jedné ze zemí nebo organizací účastnících se GBIF prostřednictvím účastnického uzlu GBIF. Pokud vaše země ještě není zapojena do GBIF, požádáme o schválení vaším jménem komunitu GBIF.",
   "eoiTitle": "Staňte se vydavatelem",
-  "checkRegistration": "",
-  "organisationDetails": "",
-  "organisationAddress": "",
-  "endorsement": "",
+  "checkRegistration": "Spolufinancování",
+  "organisationDetails": "Spolufinancování",
+  "organisationAddress": "Spolufinancování",
+  "endorsement": "Spolufinancování",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "",
-    "pleaseSelectTheCountryOfYourOrganization": ""
+    "pleaseSelectYourOrganizationOnTheMap": "Spolufinancování",
+    "pleaseSelectTheCountryOfYourOrganization": "Spolufinancování"
   },
-  "thankYouForYourRegistration": "",
-  "failedToRegisterOrganization": "",
-  "associatedWithGbifProgramme": "",
+  "thankYouForYourRegistration": "Spolufinancování",
+  "failedToRegisterOrganization": "Spolufinancování",
+  "associatedWithGbifProgramme": "Spolufinancování",
   "loginToRegisterOrganization": {
-    "title": "",
-    "message": ""
+    "title": "Spolufinancování",
+    "message": "Spolufinancování"
   },
-  "registerAnotherOrganization": ""
+  "registerAnotherOrganization": "Spolufinancování"
 }
