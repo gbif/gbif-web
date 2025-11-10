@@ -36,8 +36,8 @@
   "loadMore": "更多",
   "loading": "载入中",
   "noResults": "",
-  "startTyping": "",
-  "rankInGroup": "",
+  "startTyping": "共同资助方",
+  "rankInGroup": "共同资助方",
   "occurrenceClustersView": {
     "about": "关于",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "搜索",
-    "description": "",
+    "description": "共同资助方",
     "noSearchTermsEntered": "没有输入搜索内容！",
-    "placeholder": "",
+    "placeholder": "共同资助方",
     "categories": {
       "speciesSearch": "物种",
       "datasetSearch": "数据集",
       "publisherSearch": "发布者",
       "occurrenceSearch": "出现记录",
-      "resourceSearch": ""
+      "resourceSearch": "共同资助方"
     },
     "seeAll": "查看全部"
   }
