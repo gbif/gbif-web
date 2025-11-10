@@ -31,7 +31,7 @@
   "constituentOf": "Partes de",
   "dataset": "Conjunto de dados",
   "taxonomy": "Taxonomia",
-  "localContexts": "",
+  "localContexts": "Co-financiamento",
   "project": "Projeto",
   "metrics": "Métricas",
   "metricsOccurrenceHelpText": "",
@@ -150,8 +150,8 @@
     "registrationDetails": ""
   },
   "errors": {
-    "evenList": "",
-    "occurrenceInfo": ""
+    "evenList": "Co-financiamento",
+    "occurrenceInfo": "Co-financiamento"
   },
   "eventTaxonomy": "Distribuição taxonómica das ocorrências"
 }
