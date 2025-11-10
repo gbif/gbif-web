@@ -1,13 +1,13 @@
 {
   "features": "Fonctionnalités",
   "options": {
-    "includeAuthorship": ""
+    "includeAuthorship": "Co-financement"
   },
   "citations": "Citations",
   "occurrences": "Occurrences",
   "numberSpecimens": "Nombre de spécimens",
   "gbifNumberSpecimens": "Spécimens sur GBIF",
-  "specimenTriplet": "",
+  "specimenTriplet": "Co-financement",
   "title": "Titre",
   "titleAndAbstract": "Titre et résumé",
   "altmetric": "Altmétrique",
@@ -25,6 +25,6 @@
   "activeInstitution": "Est actif",
   "author": "Auteur",
   "source": "Journal",
-  "dataReferenced": "",
+  "dataReferenced": "Co-financement",
   "activeCollection": "Est actif"
 }
