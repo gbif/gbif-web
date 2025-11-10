@@ -8,7 +8,7 @@
       "publicationsFrom": "Publicaciones desde",
       "publicationsAbout": "Publicaciones sobre",
       "news": "Noticias",
-      "alienSpecies": "",
+      "alienSpecies": "Co-financiamiento",
       "projects": "Proyectos"
     },
     "country": "País",
@@ -21,8 +21,8 @@
     "noProjects": "No hay proyectos",
     "notParticipant": "No es participante",
     "notParticipantDescription": "Este país no es un participante de GBIF",
-    "countryNamingDisclaimer": "",
-    "isoStandardLinkText": "",
+    "countryNamingDisclaimer": "Co-financiamiento",
+    "isoStandardLinkText": "Co-financiamiento",
     "counts": {
       "occurrences": "{NUMBER, plural, 0 {Registros biológicos} one {Registro biológico} other {Registros biológicos}}",
       "datasets": "{NUMBER, plural, 0 {Conjuntos de datos} one {Conjunto de dato} other {Conjuntos de datos}}",
