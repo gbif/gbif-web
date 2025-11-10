@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "הארגון שלי עדיין לא רשום.",
   "searchOrganisations": "חיפוש ארגונים",
   "termsAndConditions": "תנאים והגבלות",
-  "iHaveReadAndUnderstood": "",
+  "iHaveReadAndUnderstood": "מימון משותף",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "אני מבין/ה שאני מבקש/ת רישום בשם הארגון שלי, ומאשר/ת שהגורמים המוסמכים בארגון מודעים לכך.",
   "iUnderstandThatMyOrganizationalInformation": "אני מבין/ה שמידע הארגון שלי, כולל פרטי הקשר שסופקו, יהיה זמין לציבור דרך GBIF.org.",
   "administrativeContact": "איש קשר מנהלי",
@@ -30,7 +30,7 @@
   "none": "אין",
   "whatAndHow": "מה וכיצד",
   "helpUsUnderstand": "עזרו לנו להבין אילו נתונים בכוונתכם לפרסם, ואיזו תמיכה תזדקקו לה.",
-  "publOfFourTypesOfData": "",
+  "publOfFourTypesOfData": "מימון משותף",
   "whichTypesOfData": "אילו סוגי נתונים אתם מצפים לפרסם?",
   "resourcesMetaData": "מטא־נתונים של משאבים",
   "checkListData": "נתוני רשימות מינים",
@@ -42,9 +42,9 @@
   "yes": "כן",
   "no": "לא",
   "pleaseSelectAValue": "נא לבחור ערך",
-  "reuseTrustedIPThosting": "",
+  "reuseTrustedIPThosting": "מימון משותף",
   "doYouNeedHelpPublishing": "האם אתם זקוקים לעזרה בפרסום הנתונים?",
-  "areYouPlanningToInstallAndRun": "",
+  "areYouPlanningToInstallAndRun": "מימון משותף",
   "orgDetails": "פרטי הארגון",
   "yourChanceToTellGBIF": "זו ההזדמנות שלכם לספר למשתמשי GBIF מי אתם ומה אתם עושים.",
   "orgName": "שם הארגון",
@@ -81,20 +81,20 @@
   "outage": "קיימת תקלה חלקית ואיננו מקבלים רישומים כעת",
   "eoiDescription": "כדי להתכונן לפרסום נתונים דרך GBIF, אנו מבקשים מספקי מידע פוטנציאליים למלא טופס מקוון זה. לפני ש־GBIF יאנדקס את מסדי הנתונים שלכם, על המוסד שלכם לקבל אישור כספק מידע מאחת המדינות או הארגונים המשתתפים ב־GBIF, דרך צומת משתתף. אם המדינה שלכם עדיין לא משתתפת ב־GBIF, נפעל לקבלת אישור מטעם קהילת GBIF.",
   "eoiTitle": "הפכו לספק מידע",
-  "checkRegistration": "",
-  "organisationDetails": "",
-  "organisationAddress": "",
-  "endorsement": "",
+  "checkRegistration": "מימון משותף",
+  "organisationDetails": "מימון משותף",
+  "organisationAddress": "מימון משותף",
+  "endorsement": "מימון משותף",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "",
-    "pleaseSelectTheCountryOfYourOrganization": ""
+    "pleaseSelectYourOrganizationOnTheMap": "מימון משותף",
+    "pleaseSelectTheCountryOfYourOrganization": "מימון משותף"
   },
-  "thankYouForYourRegistration": "",
-  "failedToRegisterOrganization": "",
-  "associatedWithGbifProgramme": "",
+  "thankYouForYourRegistration": "מימון משותף",
+  "failedToRegisterOrganization": "מימון משותף",
+  "associatedWithGbifProgramme": "מימון משותף",
   "loginToRegisterOrganization": {
-    "title": "",
-    "message": ""
+    "title": "מימון משותף",
+    "message": "מימון משותף"
   },
-  "registerAnotherOrganization": ""
+  "registerAnotherOrganization": "מימון משותף"
 }
