@@ -28,8 +28,8 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "",
-  "notVocabularyWarning": "",
-  "taxonomicBreakdown": "",
+  "notVocabularyWarning": "Cofinanziamento",
+  "taxonomicBreakdown": "Cofinanziamento",
   "group": {
     "views": "",
     "record": "",
