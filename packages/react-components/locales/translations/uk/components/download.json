@@ -8,46 +8,46 @@
   "continueToGBIF": "Продовжити",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "",
-    "noSql": "",
+    "placeholder": "Спільне фінансування",
+    "noSql": "Спільне фінансування",
     "note": {
       "title": "Примітка",
       "description": "",
-      "goToOccurrenceSearch": ""
+      "goToOccurrenceSearch": "Спільне фінансування"
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
+      "network-error": "Спільне фінансування",
+      "parsingErrorDescription": "Спільне фінансування",
+      "networkErrorDescription": "Спільне фінансування"
     }
   },
-  "create": "",
+  "create": "Спільне фінансування",
   "about": "Відомості про видавця даних",
-  "stopEditing": "",
-  "startEditing": "",
+  "stopEditing": "Завершити редагування",
+  "startEditing": "Почати редагування",
   "reformat": "",
   "discard": "",
   "keep": "",
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
+    "weHaveRestoredYourPredicate": "Спільне фінансування",
+    "noPredicate": "Спільне фінансування",
     "currentFilter": "Поточний фільтр",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
+      "invalid-predicate": "Спільне фінансування",
+      "faild-to-load-predicate": "Спільне фінансування",
+      "unexpectedError": "Спільне фінансування",
+      "failedToParseJSON": "Спільне фінансування",
+      "failedToVisualizePredicate": "Спільне фінансування"
     }
   },
   "downloadOptions": {
     "title": "Варіанти завантаження",
-    "chooseChecklist": "",
-    "chooseChecklistDescription": "",
+    "chooseChecklist": "Спільне фінансування",
+    "chooseChecklistDescription": "Спільне фінансування",
     "content": {
       "rawData": "Первинні дані",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": ""
     },
     "fileFormats": {
-      "tabCsv": ""
+      "tabCsv": "Спільне фінансування"
     },
     "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+      "ifAvailable": "Спільне фінансування",
+      "ifSelected": "Спільне фінансування",
+      "links": "Спільне фінансування"
     }
   }
 }
