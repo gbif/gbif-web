@@ -8,6 +8,6 @@ export default (app, server) => {
   // add chat mcp routes
   app.use('/mcp', router);
 
-  chatMcpCtrl(router, server);
+  // chatMcpCtrl(router, server);
   chartMcpCtrl(router, server);
 };

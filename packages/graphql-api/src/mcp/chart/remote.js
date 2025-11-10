@@ -33,10 +33,15 @@ class GBIFMCPServer {
     // Forward tool calls to remote handler
     this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
       try {
-        const { name, arguments: args } = request.params;
+        const { name, arguments: args, queryId } = request.params;
         if (config.debug)
           console.log('Tool requested from remote:', name, 'with args:', args);
-        const result = await toolHandler(name, args, this.apolloServer);
+        const result = await toolHandler({
+          tool: name,
+          args,
+          queryId,
+          server: this.apolloServer,
+        });
         return result;
       } catch (error) {
         return {

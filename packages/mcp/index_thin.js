@@ -6,8 +6,8 @@ import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprot
 
 const SERVER_NAME = 'gbif-mcp-server';
 const SERVER_VERSION = '1.0.0';
-const CONFIG_URL = 'http://localhost:4002/mcp/config';
-const HANDLER_URL = 'http://localhost:4002/mcp/execute';
+const CONFIG_URL = 'http://localhost:4002/mcp/chart/config';
+const HANDLER_URL = 'http://localhost:4002/mcp/chart/execute';
 
 class GBIFMCPServer {
   constructor() {

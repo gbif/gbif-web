@@ -16,18 +16,20 @@ import {
 } from 'react-icons/md';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useUncontrolledProp } from 'uncontrollable';
+import { SearchInput } from '@/components/searchInput';
+import { Input } from '@/components/ui/input';
 
 function generateRandomId() {
   return Math.random().toString(36).substring(2, 7);
 }
 
-const getItem = (type, chartsTypes) => {
+const getItem = (type, chartsTypes, params = {}) => {
   const chart = chartsTypes[type];
   if (!chart) return;
   const id = generateRandomId();
   return {
     id,
-    p: {},
+    p: params,
     ...chart,
     t: type,
   };
@@ -108,6 +110,17 @@ function DashboardBuilder({
   const isBelow800 = useBelow(1100);
   const isBelow1200 = useBelow(1600);
   const isBelow1800 = useBelow(2100);
+
+  // remove empty charts from each group
+  state.forEach((group, groupIndex) => {
+    group.forEach((item, itemIndex) => {
+      if (!item) {
+        const newState = [...state];
+        newState[groupIndex].splice(itemIndex, 1);
+        setState(newState);
+      }
+    });
+  });
 
   const deviceSize = isBelow800
     ? 'small'
@@ -241,6 +254,34 @@ function DashboardBuilder({
           </Button>
         </div>
       )}
+      <div>
+        <SearchInput
+          className="g-w-full g-bg-white g-p-2 g-rounded-md g-border g-border-solid g-border-primary-500 g-text-sm g-mb-4"
+          onKeyDown={(e) => {
+            // if user press enter, then update the value
+            const value = e.currentTarget.value;
+            if (e.key === 'Enter') {
+              fetch(`http://localhost:4002/mcp/chart/query`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ q: value, predicate: predicate }),
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                  console.log('Fetched chart types:', data);
+                  const newState = [...state];
+                  newState[0].push(getItem('custom', chartsTypes, { queryId: data.queryId }));
+                  setState(newState);
+                })
+                .catch((error) => {
+                  console.error('Error fetching chart types:', error);
+                });
+            }
+          }}
+        />
+      </div>
       <div style={{ display: 'flex', flexDirection: maxGroups > 1 ? 'row' : 'column' }}>
         <div
           style={{

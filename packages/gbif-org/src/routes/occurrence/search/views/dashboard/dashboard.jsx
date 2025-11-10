@@ -9,6 +9,8 @@ import useLocalStorage from 'use-local-storage';
 import { Map } from '../map';
 import { Media } from '../media';
 import { OccurrenceTable as Table } from '../table/occurrenceTable';
+import CustomChart from './Custom';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 const DashboardBuilder = React.lazy(() => import('./DashboardBuilder'));
 
 export function Dashboard({ predicate, q, chartsTypes: chartsTypesProp, ...props }) {
@@ -60,14 +62,16 @@ export function Dashboard({ predicate, q, chartsTypes: chartsTypesProp, ...props
           </Button>
         </div>
       )}
-      <DashboardBuilder
-        chartsTypes={chartsTypes}
-        predicate={predicate}
-        q={q}
-        setState={updateState}
-        state={urlLayout ?? layout}
-        {...{ lockedLayout: isUrlLayoutDifferent }}
-      />
+      <ErrorBoundary>
+        <DashboardBuilder
+          chartsTypes={chartsTypes}
+          predicate={predicate}
+          q={q}
+          setState={updateState}
+          state={urlLayout ?? layout}
+          {...{ lockedLayout: isUrlLayoutDifferent }}
+        />
+      </ErrorBoundary>
     </div>
   );
 }
@@ -342,6 +346,12 @@ const preconfiguredCharts = {
           />
         </Card>
       );
+    },
+  },
+  custom: {
+    translation: 'filters.custom.name',
+    component: ({ predicate, queryId, ...props }) => {
+      return <CustomChart predicate={predicate} queryId={queryId} {...props} />;
     },
   },
 };

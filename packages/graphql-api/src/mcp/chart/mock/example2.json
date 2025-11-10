@@ -1,0 +1,156 @@
+{
+  "queryId": "123",
+  "query": "country breakdown",
+  "charts": [
+    {
+      "vegaspecs": {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "title": {
+          "text": "GBIF Occurrences by Month",
+          "subtitle": "Seasonal distribution of species occurrences"
+        },
+        "data": {
+          "values": [
+            {
+              "key": 10,
+              "count": 18483
+            },
+            {
+              "key": 9,
+              "count": 14324
+            },
+            {
+              "key": 8,
+              "count": 5822
+            },
+            {
+              "key": 11,
+              "count": 5233
+            },
+            {
+              "key": 5,
+              "count": 3159
+            },
+            {
+              "key": 2,
+              "count": 2655
+            },
+            {
+              "key": 7,
+              "count": 2393
+            },
+            {
+              "key": 4,
+              "count": 2242
+            },
+            {
+              "key": 6,
+              "count": 1873
+            },
+            {
+              "key": 3,
+              "count": 864
+            },
+            {
+              "key": 1,
+              "count": 776
+            },
+            {
+              "key": 12,
+              "count": 500
+            }
+          ]
+        },
+        "mark": {
+          "type": "bar",
+          "color": "#4C9C2E",
+          "tooltip": true
+        },
+        "encoding": {
+          "x": {
+            "field": "key",
+            "type": "ordinal",
+            "title": "Month",
+            "scale": {
+              "domain": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ]
+            },
+            "axis": {
+              "labelExpr": "['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][datum.value - 1]"
+            }
+          },
+          "y": {
+            "field": "count",
+            "type": "quantitative",
+            "title": "Number of Occurrences",
+            "axis": {
+              "format": "~s"
+            }
+          }
+        },
+        "width": "container",
+        "height": "container"
+      },
+      "graphQuery": "\nquery OccurrenceSearch($predicate: Predicate) {\n  occurrenceSearch(predicate: $predicate) {\n    facet {\n      countryCode(size: 20) {\n        key\n        count\n      }\n    }\n  }\n}\n",
+      "jqQuery": "\n.data.occurrenceSearch.facet.countryCode as $data |\n{\n  \"$schema\": \"https://vega.github.io/schema/vega-lite/v5.json\",\n  \"data\": {\n    \"values\": $data\n  },\n  \"mark\": {\"type\": \"bar\"},\n  \"encoding\": {\n    \"x\": {\n      \"field\": \"count\",\n      \"type\": \"quantitative\",\n      \"title\": \"Number of Occurrences\"\n    },\n    \"y\": {\n      \"field\": \"key\",\n      \"type\": \"nominal\",\n      \"title\": \"Country\",\n      \"sort\": \"-x\"\n    },\n    \"color\": {\n      \"value\": \"#4C9C2E\"\n    },\n    \"tooltip\": [\n      {\"field\": \"key\", \"type\": \"nominal\", \"title\": \"Country Code\"},\n      {\"field\": \"count\", \"type\": \"quantitative\", \"title\": \"Occurrences\"}\n    ]\n  }\n}\n",
+      "graphqlData": {
+        "occurrenceSearch": {
+          "facet": {
+            "countryCode": [
+              {
+                "key": "DK",
+                "count": 58332
+              }
+            ]
+          }
+        }
+      },
+      "variables": {
+        "language": "eng",
+        "predicate": {
+          "type": "and",
+          "predicates": [
+            {
+              "type": "in",
+              "key": "occurrenceStatus",
+              "values": [
+                "PRESENT"
+              ]
+            },
+            {
+              "type": "in",
+              "key": "country",
+              "values": [
+                "DK"
+              ]
+            },
+            {
+              "type": "range",
+              "key": "year",
+              "value": {
+                "gte": "1990",
+                "lte": "2000"
+              }
+            }
+          ]
+        },
+        "size": 50,
+        "from": 0,
+        "sortBy": "countryCode",
+        "sortOrder": "ASC"
+      }
+    }
+  ]
+}

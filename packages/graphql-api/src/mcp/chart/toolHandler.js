@@ -3,10 +3,10 @@ import { SEARCH_GUIDE } from './guides';
 import { McpError } from '../handlers/utils';
 import handleOccurrenceSearch from './chart';
 
-export default async function toolHandler(tool, args, server) {
+export default async function toolHandler({ tool, args, queryId, server }) {
   try {
     let result;
-    if (config.debug) console.log('Tool requested:', tool, 'with args:', args);
+    // if (config.debug) console.log('Tool requested:', tool, 'with args:', args);
 
     switch (tool) {
       case 'gbif_usage_guidelines': {
@@ -37,7 +37,7 @@ export default async function toolHandler(tool, args, server) {
             400,
           );
         }
-        const data = await handleOccurrenceSearch(args, server);
+        const data = await handleOccurrenceSearch(args, server, queryId);
         result = {
           content: [
             {
@@ -53,7 +53,6 @@ export default async function toolHandler(tool, args, server) {
     }
     if (config.debug) console.log('return result of execution');
     if (config.debug) console.log(typeof result);
-    if (config.debug) console.log(result);
     return result;
   } catch (error) {
     if (config.debug) console.error(error);

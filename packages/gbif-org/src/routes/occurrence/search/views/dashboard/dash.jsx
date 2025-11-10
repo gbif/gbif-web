@@ -52,6 +52,7 @@ export function Dashboard() {
           'taxa',
           'sex',
           'occurrenceIssue',
+          'custom',
           ...chartsTypes,
         ]}
       />
