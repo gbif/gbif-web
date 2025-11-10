@@ -1,13 +1,13 @@
 {
   "features": "特征",
   "options": {
-    "includeAuthorship": ""
+    "includeAuthorship": "共同资助方"
   },
   "citations": "引用",
   "occurrences": "出现记录",
   "numberSpecimens": "标本数",
   "gbifNumberSpecimens": "GBIF中的标本",
-  "specimenTriplet": "",
+  "specimenTriplet": "共同资助方",
   "title": "标题",
   "titleAndAbstract": "标题和摘要",
   "altmetric": "替代指标",
@@ -25,6 +25,6 @@
   "activeInstitution": "处于活跃状态",
   "author": "作者",
   "source": "期刊",
-  "dataReferenced": "",
+  "dataReferenced": "共同资助方",
   "activeCollection": "处于活跃状态"
 }
