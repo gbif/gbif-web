@@ -1,13 +1,13 @@
 {
   "features": "Характеристики",
   "options": {
-    "includeAuthorship": ""
+    "includeAuthorship": "Совместное финансирование"
   },
   "citations": "Цитирования",
   "occurrences": "Находки",
   "numberSpecimens": "Число образцов",
   "gbifNumberSpecimens": "Образцы в GBIF",
-  "specimenTriplet": "",
+  "specimenTriplet": "Совместное финансирование",
   "title": "Название",
   "titleAndAbstract": "Название и аннотация",
   "altmetric": "Альтметрический",
@@ -25,6 +25,6 @@
   "activeInstitution": "Действует",
   "author": "Автор",
   "source": "Журнал",
-  "dataReferenced": "",
+  "dataReferenced": "Совместное финансирование",
   "activeCollection": "Действует"
 }
