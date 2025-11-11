@@ -1,13 +1,16 @@
-'use strict';
-let _ = require('lodash');
-let fs = require('fs');
-let path = require('path');
+import _ from 'lodash';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 let Reset = '\x1b[0m';
 let FgRed = '\x1b[31m';
 let FgYellow = '\x1b[33m';
 
-module.exports = builder;
+export default builder;
 
 function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = false }) {
   let translations = _.merge(
@@ -30,6 +33,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       counts: getFile(locale, `../${folder}/${locale}/components/counts`),
       contact: getFile(locale, `../${folder}/${locale}/components/contact`),
       pagination: getFile(locale, `../${folder}/${locale}/components/pagination`),
+      definitions: getFile(locale, `../${folder}/${locale}/components/definitions`).definitions,
       search: getFile(locale, `../${folder}/${locale}/components/search`),
       phrases: getFile(locale, `../${folder}/${locale}/components/phrases`),
       profile: getFile(locale, `../${folder}/${locale}/components/profile`).profile,
@@ -40,6 +44,9 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       gbifNetwork: getFile(locale, `../${folder}/${locale}/components/gbifNetwork`).gbifNetwork,
       downloadKey: getFile(locale, `../${folder}/${locale}/components/downloads`).downloadKey,
       participant: getFile(locale, `../${folder}/${locale}/components/participant`).participant,
+      downloadReport: getFile(locale, `../${folder}/${locale}/components/downloads`).downloadReport,
+      occurrenceDownloadFlow: getFile(locale, `../${folder}/${locale}/components/downloads`)
+        .occurrenceDownloadFlow,
       customSqlDownload: getFile(locale, `../${folder}/${locale}/components/downloads`)
         .customSqlDownload,
       homepage: getFile(locale, `../${folder}/${locale}/components/homepage`).homepage,
@@ -133,8 +140,10 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
 }
 
 function getFile(locale, file) {
-  if (fs.existsSync(path.join(__dirname, `${file}.json`))) {
-    return require(file);
+  const filePath = path.join(__dirname, `${file}.json`);
+  if (fs.existsSync(filePath)) {
+    const fileContent = fs.readFileSync(filePath, 'utf-8');
+    return JSON.parse(fileContent);
   } else {
     if (locale === 'en-developer') {
       console.error(

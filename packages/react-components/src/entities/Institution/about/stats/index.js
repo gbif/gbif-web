@@ -1,1 +1,0 @@
-export { Quality } from './Quality';
