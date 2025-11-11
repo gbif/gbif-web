@@ -1,13 +1,13 @@
 {
   "features": "功能",
   "options": {
-    "includeAuthorship": ""
+    "includeAuthorship": "共同資助"
   },
   "citations": "引用",
   "occurrences": "出現紀錄",
   "numberSpecimens": "標本數量",
   "gbifNumberSpecimens": "GBIF 的標本",
-  "specimenTriplet": "",
+  "specimenTriplet": "共同資助",
   "title": "標題",
   "titleAndAbstract": "題目及摘要",
   "altmetric": "另類計量學",
@@ -25,6 +25,6 @@
   "activeInstitution": "使用中",
   "author": "作者",
   "source": "期刊",
-  "dataReferenced": "",
+  "dataReferenced": "共同資助",
   "activeCollection": "使用中"
 }

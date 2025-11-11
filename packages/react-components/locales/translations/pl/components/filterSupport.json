@@ -25,7 +25,7 @@
   "updateFilter": "Aktualizuj filtr",
   "setFilter": "Ustaw jako filtr",
   "noMathcingFilters": "Musi być zdefiniowany",
-  "countsUnavailable": "",
+  "countsUnavailable": "Współfinansowanie",
   "nameWithTaxonMatchIssue": "Nazwij przed normalizacją",
   "commonName": "Nazwa zwyczajowa",
   "acceptedNameOf": "Zaakceptowana nazwa dla",
@@ -62,6 +62,6 @@
     "geometryReducedToBbox": "",
     "failedToSimplify": ""
   },
-  "activeFilters": "",
-  "highlighted": ""
+  "activeFilters": "Współfinansowanie",
+  "highlighted": "Współfinansowanie"
 }

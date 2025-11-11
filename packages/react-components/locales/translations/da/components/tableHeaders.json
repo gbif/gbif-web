@@ -1,13 +1,13 @@
 {
   "features": "",
   "options": {
-    "includeAuthorship": ""
+    "includeAuthorship": "Sam-finansiering"
   },
   "citations": "",
   "occurrences": "Observationer",
   "numberSpecimens": "",
   "gbifNumberSpecimens": "",
-  "specimenTriplet": "",
+  "specimenTriplet": "Sam-finansiering",
   "title": "Titel",
   "titleAndAbstract": "",
   "altmetric": "",
@@ -25,6 +25,6 @@
   "activeInstitution": "",
   "author": "Forfatter",
   "source": "",
-  "dataReferenced": "",
+  "dataReferenced": "Sam-finansiering",
   "activeCollection": ""
 }

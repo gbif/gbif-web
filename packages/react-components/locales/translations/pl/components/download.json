@@ -8,46 +8,46 @@
   "continueToGBIF": "Dalej",
   "sql": {
     "createNewSqlDownload": "Stwórz nowe pobranie SQL",
-    "placeholder": "",
-    "noSql": "",
+    "placeholder": "Współfinansowanie",
+    "noSql": "Współfinansowanie",
     "note": {
       "title": "Uwaga",
       "description": "Najprostszym sposobem na pobieranie i przeglądanie danych to użycie interfejsu użytkownika wyszukiwarki stwierdzeń. Jednak dla złożonych zapytań i zbiorów edytor SQL daje więcej możliwości.",
-      "goToOccurrenceSearch": ""
+      "goToOccurrenceSearch": "Współfinansowanie"
     },
     "errors": {
       "invalid-SQL": "Nieprawidłowy SQL",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
+      "network-error": "Współfinansowanie",
+      "parsingErrorDescription": "Współfinansowanie",
+      "networkErrorDescription": "Współfinansowanie"
     }
   },
-  "create": "",
+  "create": "Współfinansowanie",
   "about": "Informacje",
-  "stopEditing": "",
-  "startEditing": "",
+  "stopEditing": "Zakończ edycje",
+  "startEditing": "Rozpocznij edycje",
   "reformat": "Reformatuj",
   "discard": "",
   "keep": "",
   "readTheDocumentation": "Przeczytaj dokumentację",
   "request": {
     "createNewDownload": "Stwórz nowe pobranie",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
+    "weHaveRestoredYourPredicate": "Współfinansowanie",
+    "noPredicate": "Współfinansowanie",
     "currentFilter": "Aktualny filtr",
     "errors": {
       "invalid-json": "Nieprawidłowy JSON",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
+      "invalid-predicate": "Współfinansowanie",
+      "faild-to-load-predicate": "Współfinansowanie",
+      "unexpectedError": "Współfinansowanie",
+      "failedToParseJSON": "Współfinansowanie",
+      "failedToVisualizePredicate": "Współfinansowanie"
     }
   },
   "downloadOptions": {
     "title": "Opcje pobierania",
-    "chooseChecklist": "",
-    "chooseChecklistDescription": "",
+    "chooseChecklist": "Współfinansowanie",
+    "chooseChecklistDescription": "Współfinansowanie",
     "content": {
       "rawData": "Surowe dane",
       "interpretedData": "Dane zinterpretowane",
@@ -57,12 +57,12 @@
       "estimatedSize": "Szacowana wielkość danych"
     },
     "fileFormats": {
-      "tabCsv": ""
+      "tabCsv": "Współfinansowanie"
     },
     "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+      "ifAvailable": "Współfinansowanie",
+      "ifSelected": "Współfinansowanie",
+      "links": "Współfinansowanie"
     }
   }
 }

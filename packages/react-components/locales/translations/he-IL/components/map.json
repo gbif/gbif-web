@@ -21,7 +21,7 @@
   "anyYear": "כל שנה",
   "exploreArea": "חקור אזור",
   "explore": "חקור",
-  "generatedDateAgo": "",
+  "generatedDateAgo": "מימון משותף",
   "style": "סגנון",
   "filters": "מסננים",
   "select": "בחר",
@@ -36,7 +36,7 @@
     "CLASSIC": "נקודות קלאסיות",
     "STREETS": "רחובות",
     "GLACIER": "קרחון",
-    "GREEN": "",
+    "GREEN": "מימון משותף",
     "CUSTOM": "מותאם אישית"
   },
   "basemap": {

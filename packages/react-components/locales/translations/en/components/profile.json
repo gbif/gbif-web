@@ -5,19 +5,19 @@
       "disconnect": "",
       "failed": {
         "FACEBOOK": "Unable to connect to Facebook",
-        "GITHUB": "Unable to connect to Github",
+        "GITHUB": "",
         "GOOGLE": ""
       }
     },
     "login": {
       "failed": {
         "FACEBOOK": "Unable to login with Facebook",
-        "GITHUB": "Unable to login with Github",
+        "GITHUB": "",
         "GOOGLE": "Unable to login with Google"
       }
     },
     "error": {
-      "USERNAME_NOT_UNIQUE": "This user name is already in use",
+      "USERNAME_NOT_UNIQUE": "",
       "USER_ALREADY_EXIST": "",
       "LOGIN_UNKNOWN": "This login isn't associated with any accounts - if you already have an account, then login with username/email and password. Or you can register a new account.",
       "PROVIDER_ACCOUNT_ALREADY_IN_USE": "This profile is already connected to another account",
@@ -151,7 +151,7 @@
     "connectedAccounts": "",
     "connectedAccountsDescription": "",
     "changePasswordDescription": "",
-    "validations": "",
+    "validations": "Validation reports",
     "backToLogin": "",
     "enterEmail": "",
     "connectedToGoogle": "",

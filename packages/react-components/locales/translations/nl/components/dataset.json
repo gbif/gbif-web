@@ -31,7 +31,7 @@
   "constituentOf": "Onderdeel van",
   "dataset": "Dataset",
   "taxonomy": "Taxonomie",
-  "localContexts": "",
+  "localContexts": "Cofinanciering",
   "project": "Project",
   "metrics": "Statistieken",
   "metricsOccurrenceHelpText": "",
@@ -150,8 +150,8 @@
     "registrationDetails": ""
   },
   "errors": {
-    "evenList": "",
-    "occurrenceInfo": ""
+    "evenList": "Cofinanciering",
+    "occurrenceInfo": "Cofinanciering"
   },
   "eventTaxonomy": ""
 }

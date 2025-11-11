@@ -1,12 +1,12 @@
 {
   "dwcaExtension": {
     "name": "لاحقة DWCA",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "locationId": {
     "name": "معرف الموقع",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "hasCoordinate": {
@@ -21,12 +21,12 @@
   },
   "collectionKey": {
     "name": "مجموعة",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "taxonomicStatus": {
     "name": "الحالة",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "taxonRank": {
@@ -36,12 +36,12 @@
   },
   "numberSpecimens": {
     "name": "",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "specimensInGbif": {
     "name": "",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": "أرشيف شروح \"جيبف\""
   },
   "iucnRedListCategory": {
@@ -51,7 +51,7 @@
   },
   "geoDistance": {
     "name": "",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -59,7 +59,7 @@
   },
   "geometry": {
     "name": "موقع",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "geologicalTime": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "التمويل المشترك",
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "purposes": {
     "name": "موضوع",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "معرف المرفق العالمي لمعلومات التنوع الحيوي",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "organismQuantityType": {
     "name": "نمط كمية المتعضي",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "pathway": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "associatedSequences": {
     "name": "تسلسلات مرتبطة",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "degreeOfEstablishment": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "endDayOfYear": {
     "name": "يوم الانتهاء للسنة",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "startDayOfYear": {
     "name": "يوم البدء للسنة",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "previousIdentifications": {
     "name": "تعريفات سابقة",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "lastInterpreted": {
     "name": "آخر تأويل",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "alternativeCode": {
     "name": "أرشيف شروح \"جيبف\"",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "identifier": {
     "name": "المعرِّف",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "أرشيف شروح \"جيبف\"",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "collectionContentType": {
     "name": "أرشيف شروح \"جيبف\"",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": "أرشيف شروح \"جيبف\""
   },
   "preservationType": {
     "name": "أرشيف شروح \"جيبف\"",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": "أرشيف شروح \"جيبف\""
   },
   "biomeType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "التمويل المشترك",
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "objectClassification": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "التمويل المشترك",
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "taxonKey": {
     "name": "الاسم العلمي",
@@ -230,11 +230,11 @@
     "description": ""
   },
   "occurrenceTaxonomicIssue": {
-    "name": "",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "name": "التمويل المشترك",
+    "count": "التمويل المشترك",
+    "isNotNull": "التمويل المشترك",
+    "isNull": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "occurrenceCountry": {
     "name": "بلد",
@@ -246,13 +246,13 @@
   },
   "preparations": {
     "name": "تحضيرات",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": "أرشيف شروح \"جيبف\""
   },
   "repatriated": {
     "name": "عائد الى الوطن",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "publishingCountryCode": {
     "name": "بلد او منطقة النشر",
@@ -339,22 +339,22 @@
   },
   "coordinateUncertainty": {
     "name": "عدم التأكد من الاحداثيات",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "distanceFromCentroidInMeters": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "التمويل المشترك",
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "depth": {
     "name": "العمق",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "organismQuantity": {
     "name": "كمية المتعضي",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "sampleSizeValue": {
@@ -364,7 +364,7 @@
   },
   "relativeOrganismQuantity": {
     "name": "كمية الكائن النسبية",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "month": {
@@ -389,43 +389,43 @@
   },
   "sex": {
     "name": "الجندر",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "lifeStage": {
     "name": "مرحلة الحياة",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "recordedBy": {
     "name": "سجلت من قبل",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "fieldNumber": {
     "name": "رقم الحقل",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "verbatimTaxonId": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "التمويل المشترك",
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "islandGroup": {
     "name": "مجموعة الجزر",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "island": {
     "name": "الجزيرة",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "georeferencedBy": {
     "name": "ذو مرجعية جغرافية بواسطة",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "datasetName": {
     "name": "اسم مجموعة البيانات",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "البرنامج",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "recordNumber": {
     "name": "رقم السجل",
@@ -454,22 +454,22 @@
   },
   "recordedById": {
     "name": "تم تسجيله بواسطة المعرف ID",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "identifiedById": {
     "name": " تم تحديده بواسطة المعرف",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "occurrenceId": {
     "name": "معرف التكرار",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "organismId": {
     "name": "معرف الكائن",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "locality": {
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "الجغرافيا العليا",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "stateProvince": {
@@ -494,32 +494,32 @@
   },
   "gbifRegion": {
     "name": "منطقة \"جبيف\"",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "التمويل المشترك",
+    "description": "التمويل المشترك"
   },
   "eventId": {
     "name": "معرف الحدث",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "eventID": {
     "name": "معرف الحدث",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "parentEventId": {
     "name": "معرف الحدث الأساسي",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "locationID": {
     "name": "معرف الموقع",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "measurementOrFactTypes": {
@@ -549,12 +549,12 @@
   },
   "samplingProtocol": {
     "name": "بروتوكول اخذ العينات",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "occurrenceStatus": {
     "name": "حالة التكرار",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "gadmGid": {
@@ -564,17 +564,17 @@
   },
   "identifiedBy": {
     "name": "تم تحديده بواسطة",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "isInCluster": {
     "name": "",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": "تسلط هذه الميزة  التجريبية الضوء على التكرارات المحتملة و/أو ذات الصلة"
   },
   "isSequenced": {
     "name": "",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "active": {
@@ -604,48 +604,48 @@
   },
   "datasetType": {
     "name": "نمط مجموعة البيانات",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "datasetSubtype": {
     "name": "",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "institutionKey": {
     "name": "مؤسسة",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "name": {
     "name": "الاسم",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": "أرشيف شروح \"جيبف\"",
     "searchPlaceholder": ""
   },
   "city": {
     "name": "المدينة",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "code": {
     "name": "الرمز",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": "أرشيف شروح \"جيبف\""
   },
   "verbatimScientificName": {
     "name": "الاسم العلمي الحرفي",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "networkKey": {
     "name": "شبكة",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "literatureType": {
     "name": "نمط  المراجع",
-    "count": "",
+    "count": "التمويل المشترك",
     "description": ""
   },
   "higherTaxonKey": {

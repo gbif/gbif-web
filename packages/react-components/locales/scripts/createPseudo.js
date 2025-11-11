@@ -1,5 +1,5 @@
-let pseudoloc = require('pseudoloc');
-let _ = require('lodash');
+import pseudoloc from 'pseudoloc';
+import _ from 'lodash';
 
 function createPseudo(object, path) {
   const newObject = _.clone(object);
@@ -22,4 +22,4 @@ function getMockText(str) {
   return pseudoloc.str(str);
 }
 
-module.exports = createPseudo;
+export default createPseudo;

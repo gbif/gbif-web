@@ -1,12 +1,12 @@
 {
   "dwcaExtension": {
-    "name": "",
-    "count": "",
+    "name": "Sam-finansiering",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "locationId": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "hasCoordinate": {
@@ -21,12 +21,12 @@
   },
   "collectionKey": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "taxonomicStatus": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "taxonRank": {
@@ -36,12 +36,12 @@
   },
   "numberSpecimens": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "specimensInGbif": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": "GBIF annoteret Arkiv"
   },
   "iucnRedListCategory": {
@@ -51,7 +51,7 @@
   },
   "geoDistance": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -59,7 +59,7 @@
   },
   "geometry": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "geologicalTime": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Sam-finansiering",
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "purposes": {
     "name": "Emne",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "GBIF-ID",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "organismQuantityType": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "pathway": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "associatedSequences": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "degreeOfEstablishment": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "endDayOfYear": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "startDayOfYear": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "previousIdentifications": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "lastInterpreted": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "alternativeCode": {
     "name": "GBIF annoteret Arkiv",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "identifier": {
     "name": "Identifikator",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "GBIF annoteret Arkiv",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "collectionContentType": {
     "name": "GBIF annoteret Arkiv",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": "GBIF annoteret Arkiv"
   },
   "preservationType": {
     "name": "GBIF annoteret Arkiv",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": "GBIF annoteret Arkiv"
   },
   "biomeType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Sam-finansiering",
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "objectClassification": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Sam-finansiering",
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "taxonKey": {
     "name": "Videnskabeligt navn",
@@ -230,11 +230,11 @@
     "description": ""
   },
   "occurrenceTaxonomicIssue": {
-    "name": "",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "name": "Sam-finansiering",
+    "count": "Sam-finansiering",
+    "isNotNull": "Sam-finansiering",
+    "isNull": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "occurrenceCountry": {
     "name": "Land",
@@ -246,13 +246,13 @@
   },
   "preparations": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": "GBIF annoteret Arkiv"
   },
   "repatriated": {
     "name": "Hjemsendt",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "publishingCountryCode": {
     "name": "",
@@ -339,22 +339,22 @@
   },
   "coordinateUncertainty": {
     "name": "Koordinat usikkerhed",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "distanceFromCentroidInMeters": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Sam-finansiering",
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "depth": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "organismQuantity": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "sampleSizeValue": {
@@ -364,7 +364,7 @@
   },
   "relativeOrganismQuantity": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "month": {
@@ -389,43 +389,43 @@
   },
   "sex": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "lifeStage": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "recordedBy": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "fieldNumber": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "verbatimTaxonId": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Sam-finansiering",
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "islandGroup": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "island": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "georeferencedBy": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "datasetName": {
     "name": "",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "Program",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "recordNumber": {
     "name": "",
@@ -454,22 +454,22 @@
   },
   "recordedById": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "identifiedById": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "occurrenceId": {
     "name": "Observations-ID",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "organismId": {
     "name": "Organisme-ID",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "locality": {
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "stateProvince": {
@@ -494,32 +494,32 @@
   },
   "gbifRegion": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Sam-finansiering",
+    "description": "Sam-finansiering"
   },
   "eventId": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "eventID": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "parentEventId": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "locationID": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "measurementOrFactTypes": {
@@ -549,12 +549,12 @@
   },
   "samplingProtocol": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "occurrenceStatus": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "gadmGid": {
@@ -564,17 +564,17 @@
   },
   "identifiedBy": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "isInCluster": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "isSequenced": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "active": {
@@ -604,48 +604,48 @@
   },
   "datasetType": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "datasetSubtype": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "institutionKey": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "name": {
     "name": "Navn",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": "GBIF annoteret Arkiv",
     "searchPlaceholder": ""
   },
   "city": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "code": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": "GBIF annoteret Arkiv"
   },
   "verbatimScientificName": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "networkKey": {
     "name": "",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "literatureType": {
     "name": "Litteraturtype",
-    "count": "",
+    "count": "Sam-finansiering",
     "description": ""
   },
   "higherTaxonKey": {

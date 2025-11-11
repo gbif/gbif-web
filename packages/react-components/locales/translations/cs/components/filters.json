@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "Biostratigrafie",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "lithostratigraphy": {
     "name": "Lithostratigrafie",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "geologicalTime": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Spolufinancování",
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "purposes": {
     "name": "Téma",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "organismQuantityType": {
     "name": "Typ množství organismu",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "pathway": {
     "name": "Cesta",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "associatedSequences": {
     "name": "Související sekvence",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "degreeOfEstablishment": {
     "name": "Stupeň zavedení",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "endDayOfYear": {
     "name": "Konečný den roku",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "startDayOfYear": {
     "name": "Počáteční den roku",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "previousIdentifications": {
     "name": "Předchozí identifikace",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "lastInterpreted": {
     "name": "Poslední interpretace",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "alternativeCode": {
     "name": "Alternativní kód",
-    "count": "",
+    "count": "Spolufinancování",
     "description": ""
   },
   "identifier": {
     "name": "Identifikátor",
-    "count": "",
+    "count": "Spolufinancování",
     "description": "Zde by měl být uveden krátký popis součásti."
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "",
-    "count": "",
+    "count": "Spolufinancování",
     "description": ""
   },
   "collectionContentType": {
     "name": "Typ obsahu",
-    "count": "",
+    "count": "Spolufinancování",
     "description": "Typ objektů dostupných ve sbírce"
   },
   "preservationType": {
     "name": "Typ konzervace",
-    "count": "",
+    "count": "Spolufinancování",
     "description": "Metoda použitá k uchování předmětů dostupných ve sbírce"
   },
   "biomeType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Spolufinancování",
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "objectClassification": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Spolufinancování",
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "taxonKey": {
     "name": "Vědecký název",
@@ -230,11 +230,11 @@
     "description": "Typy problémů nebo příznaků potenciálního zájmu zjištěných při zpracování dat."
   },
   "occurrenceTaxonomicIssue": {
-    "name": "",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "name": "Spolufinancování",
+    "count": "Spolufinancování",
+    "isNotNull": "Spolufinancování",
+    "isNull": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "occurrenceCountry": {
     "name": "Země nebo oblast",
@@ -251,8 +251,8 @@
   },
   "repatriated": {
     "name": "Repatriováno",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "publishingCountryCode": {
     "name": "Země nebo oblast zveřejnění",
@@ -343,9 +343,9 @@
     "description": "Měřítko minimální vzdálenosti v metrech od souřadnice, v rámci které může být lokalita interpretována."
   },
   "distanceFromCentroidInMeters": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Spolufinancování",
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "depth": {
     "name": "Hloubka",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "Pohlaví",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "lifeStage": {
     "name": "Životní fáze",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "recordedBy": {
     "name": "Zaznamenáno od",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "Číslo pole",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "verbatimTaxonId": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Spolufinancování",
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "islandGroup": {
     "name": "Skupina ostrovů",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "island": {
     "name": "Ostrov",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "georeferencedBy": {
     "name": "Georeferencováno podle",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "datasetName": {
     "name": "Název datové sady",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "Program",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "recordNumber": {
     "name": "Číslo záznamu",
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "Region GBIF",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "publishedByGbifRegion": {
     "name": "Publikováno podle GBIF regionu",
-    "count": "",
-    "description": ""
+    "count": "Spolufinancování",
+    "description": "Spolufinancování"
   },
   "eventId": {
     "name": "ID události",
@@ -569,7 +569,7 @@
   },
   "isInCluster": {
     "name": "je ve shluku",
-    "count": "",
+    "count": "Spolufinancování",
     "description": "Zda bylo zjištěno, že záznam obsahuje související záznamy."
   },
   "isSequenced": {
@@ -640,7 +640,7 @@
   },
   "networkKey": {
     "name": "Síť",
-    "count": "",
+    "count": "Spolufinancování",
     "description": "Zde by měl být uveden krátký popis součásti."
   },
   "literatureType": {

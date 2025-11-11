@@ -8,46 +8,46 @@
   "continueToGBIF": "Continuar",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "",
-    "noSql": "",
+    "placeholder": "Co-financiamento",
+    "noSql": "Co-financiamento",
     "note": {
       "title": "Nota",
       "description": "",
-      "goToOccurrenceSearch": ""
+      "goToOccurrenceSearch": "Co-financiamento"
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
+      "network-error": "Co-financiamento",
+      "parsingErrorDescription": "Co-financiamento",
+      "networkErrorDescription": "Co-financiamento"
     }
   },
-  "create": "",
+  "create": "Co-financiamento",
   "about": "Sobre",
-  "stopEditing": "",
-  "startEditing": "",
+  "stopEditing": "Interromper a edição",
+  "startEditing": "Começar a editar",
   "reformat": "",
   "discard": "",
   "keep": "",
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
+    "weHaveRestoredYourPredicate": "Co-financiamento",
+    "noPredicate": "Co-financiamento",
     "currentFilter": "Filtro atual",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
+      "invalid-predicate": "Co-financiamento",
+      "faild-to-load-predicate": "Co-financiamento",
+      "unexpectedError": "Co-financiamento",
+      "failedToParseJSON": "Co-financiamento",
+      "failedToVisualizePredicate": "Co-financiamento"
     }
   },
   "downloadOptions": {
     "title": "Opções de transferência",
-    "chooseChecklist": "",
-    "chooseChecklistDescription": "",
+    "chooseChecklist": "Co-financiamento",
+    "chooseChecklistDescription": "Co-financiamento",
     "content": {
       "rawData": "Dados brutos",
       "interpretedData": "Dados interpretados",
@@ -57,12 +57,12 @@
       "estimatedSize": "Tamanho estimado dos dados"
     },
     "fileFormats": {
-      "tabCsv": ""
+      "tabCsv": "Co-financiamento"
     },
     "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+      "ifAvailable": "Co-financiamento",
+      "ifSelected": "Co-financiamento",
+      "links": "Co-financiamento"
     }
   }
 }

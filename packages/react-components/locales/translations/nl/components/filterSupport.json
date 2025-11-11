@@ -25,7 +25,7 @@
   "updateFilter": "",
   "setFilter": "",
   "noMathcingFilters": "Moet worden gedefinieerd",
-  "countsUnavailable": "",
+  "countsUnavailable": "Cofinanciering",
   "nameWithTaxonMatchIssue": "",
   "commonName": "Lokale naam",
   "acceptedNameOf": "Geaccepteerde naam voor",
@@ -62,6 +62,6 @@
     "geometryReducedToBbox": "",
     "failedToSimplify": ""
   },
-  "activeFilters": "",
-  "highlighted": ""
+  "activeFilters": "Cofinanciering",
+  "highlighted": "Cofinanciering"
 }

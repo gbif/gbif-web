@@ -1,0 +1,35 @@
+import React from 'react';
+// import { text, boolean, select } from '@storybook/addon-knobs';
+import { Radio } from './Radio';
+import readme from './README.md';
+import { StyledProse } from '../typography/StyledProse';
+
+export default {
+  title: 'Components/Radio',
+  component: Radio,
+};
+
+export const Example = () => <>
+  <Radio />
+  {/* <StyledProse source={readme}></StyledProse> */}
+</>;
+
+Example.story = {
+  name: 'Radio',
+};
+
+
+// // OPTIONS
+// const options = {
+//   primary: 'primary',
+//   primaryOutline: 'primaryOutline',
+//   outline: 'outline',
+//   danger: 'danger',
+// };
+// type={select('Type', options, options.primary)}
+
+// // BOOLEAN
+// boolean("loading", false)
+
+// // TEXT
+// {text('Text', 'Radio text')}

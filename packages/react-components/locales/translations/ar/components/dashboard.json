@@ -28,8 +28,8 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "",
-  "notVocabularyWarning": "",
-  "taxonomicBreakdown": "",
+  "notVocabularyWarning": "التمويل المشترك",
+  "taxonomicBreakdown": "التمويل المشترك",
   "group": {
     "views": "",
     "record": "سجل",

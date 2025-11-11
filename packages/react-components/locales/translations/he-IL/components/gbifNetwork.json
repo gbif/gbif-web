@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "",
-      "ASSOCIATE": "",
-      "OTHER_ASSOCIATE": "",
+      "VOTING": "מימון משותף",
+      "ASSOCIATE": "מימון משותף",
+      "OTHER_ASSOCIATE": "מימון משותף",
       "FORMER": "משתתף לשעבר",
       "OBSERVER": "משקיף",
-      "UNKNOWN": "",
+      "UNKNOWN": "מימון משותף",
       "AFFILIATE": "שותף GBIF"
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "מימון משותף",
+    "mapCaptionPublishers": "מימון משותף",
     "role": "תפקיד",
     "name": "שם",
     "participant": "משתתף",
     "type": "סוג",
     "memberSince": "חבר מאז",
     "all": "הכל",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
+    "countryParticipants": "מימון משותף",
+    "publishersPerCountry": "מימון משותף",
     "clear": "נקה",
     "headlines": {
       "nodesSteeringGroup": "קבוצת ההיגוי של הצמתים",

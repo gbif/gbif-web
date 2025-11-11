@@ -21,7 +21,7 @@
   "anyYear": "Dowolny rok",
   "exploreArea": "Przeglądaj obszar",
   "explore": "Przeglądaj",
-  "generatedDateAgo": "",
+  "generatedDateAgo": "Współfinansowanie",
   "style": "Styl",
   "filters": "Filtry",
   "select": "Wybierz",
@@ -36,7 +36,7 @@
     "CLASSIC": "Klasyczne punkty",
     "STREETS": "Ulice",
     "GLACIER": "Lodowiec",
-    "GREEN": "",
+    "GREEN": "Współfinansowanie",
     "CUSTOM": "Niestandardowe"
   },
   "basemap": {

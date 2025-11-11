@@ -31,7 +31,7 @@
   "constituentOf": "Складається з",
   "dataset": "Набір даних",
   "taxonomy": "Таксономія",
-  "localContexts": "",
+  "localContexts": "Спільне фінансування",
   "project": "Проєкт",
   "metrics": "Показники",
   "metricsOccurrenceHelpText": "Показники розраховані на основі інтерпретованих даних",
@@ -150,8 +150,8 @@
     "registrationDetails": ""
   },
   "errors": {
-    "evenList": "",
-    "occurrenceInfo": ""
+    "evenList": "Спільне фінансування",
+    "occurrenceInfo": "Спільне фінансування"
   },
   "eventTaxonomy": "Розподіл знахідок за таксонами"
 }

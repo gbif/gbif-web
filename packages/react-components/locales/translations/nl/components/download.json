@@ -8,46 +8,46 @@
   "continueToGBIF": "Ga verder",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "",
-    "noSql": "",
+    "placeholder": "Cofinanciering",
+    "noSql": "Cofinanciering",
     "note": {
       "title": "Opmerking",
       "description": "",
-      "goToOccurrenceSearch": ""
+      "goToOccurrenceSearch": "Cofinanciering"
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
+      "network-error": "Cofinanciering",
+      "parsingErrorDescription": "Cofinanciering",
+      "networkErrorDescription": "Cofinanciering"
     }
   },
-  "create": "",
+  "create": "Cofinanciering",
   "about": "Over",
-  "stopEditing": "",
-  "startEditing": "",
+  "stopEditing": "Stoppen met bewerken",
+  "startEditing": "Begin met bewerken",
   "reformat": "",
   "discard": "",
   "keep": "",
   "readTheDocumentation": "Lees de documentatie",
   "request": {
     "createNewDownload": "Creëer nieuwe download",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
+    "weHaveRestoredYourPredicate": "Cofinanciering",
+    "noPredicate": "Cofinanciering",
     "currentFilter": "Huidige filter",
     "errors": {
       "invalid-json": "Ongeldige JSON",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
+      "invalid-predicate": "Cofinanciering",
+      "faild-to-load-predicate": "Cofinanciering",
+      "unexpectedError": "Cofinanciering",
+      "failedToParseJSON": "Cofinanciering",
+      "failedToVisualizePredicate": "Cofinanciering"
     }
   },
   "downloadOptions": {
     "title": "Download opties",
-    "chooseChecklist": "",
-    "chooseChecklistDescription": "",
+    "chooseChecklist": "Cofinanciering",
+    "chooseChecklistDescription": "Cofinanciering",
     "content": {
       "rawData": "Ruwe data",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": "Geschatte downloadgrootte"
     },
     "fileFormats": {
-      "tabCsv": ""
+      "tabCsv": "Cofinanciering"
     },
     "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+      "ifAvailable": "Cofinanciering",
+      "ifSelected": "Cofinanciering",
+      "links": "Cofinanciering"
     }
   }
 }

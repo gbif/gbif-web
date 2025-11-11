@@ -28,8 +28,8 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "",
-  "notVocabularyWarning": "",
-  "taxonomicBreakdown": "",
+  "notVocabularyWarning": "Co-financiamento",
+  "taxonomicBreakdown": "Co-financiamento",
   "group": {
     "views": "",
     "record": "Registo",

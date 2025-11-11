@@ -1,13 +1,13 @@
 {
   "features": "Caratteristiche",
   "options": {
-    "includeAuthorship": ""
+    "includeAuthorship": "Cofinanziamento"
   },
   "citations": "Citazioni",
   "occurrences": "Occorrenze",
   "numberSpecimens": "Numero di campioni",
   "gbifNumberSpecimens": "Campioni presenti su GBIF",
-  "specimenTriplet": "",
+  "specimenTriplet": "Cofinanziamento",
   "title": "Titolo",
   "titleAndAbstract": "Titolo e riassunto",
   "altmetric": "Altmetrico",
@@ -25,6 +25,6 @@
   "activeInstitution": "È attivo",
   "author": "",
   "source": "",
-  "dataReferenced": "",
+  "dataReferenced": "Cofinanziamento",
   "activeCollection": "È attivo"
 }

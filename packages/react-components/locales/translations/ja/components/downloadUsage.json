@@ -8,13 +8,13 @@
             "authors": "著者",
             "authorsPlaceholder": "出版物/成果物の著者",
             "link": "",
-            "linkPlaceholder": "",
+            "linkPlaceholder": "共同資金",
             "date": "日付",
             "comments": "コメント",
-            "commentsPlaceholder": "",
+            "commentsPlaceholder": "共同資金",
             "submit": "送信",
             "saveFailure": "",
-            "saveSuccess": ""
+            "saveSuccess": "共同資金"
         },
         "types": {
             "JOURNAL_ARTICLE": "",

@@ -8,7 +8,7 @@
       "publicationsFrom": "Publikace od",
       "publicationsAbout": "Publikace o",
       "news": "Novinky",
-      "alienSpecies": "",
+      "alienSpecies": "Spolufinancování",
       "projects": "Projekty"
     },
     "country": "Země",
@@ -21,8 +21,8 @@
     "noProjects": "Žádné projekty",
     "notParticipant": "Není účastník",
     "notParticipantDescription": "Tato země není účastníkem GBIF",
-    "countryNamingDisclaimer": "",
-    "isoStandardLinkText": "",
+    "countryNamingDisclaimer": "Spolufinancování",
+    "isoStandardLinkText": "Spolufinancování",
     "counts": {
       "occurrences": "{NUMBER, plural, 0 {Výskytů} one {Výskyt} other {Výskytů}}",
       "datasets": "{NUMBER, plural, 0 {Datových sad} one {Datová sada} other {Datových sad}}",

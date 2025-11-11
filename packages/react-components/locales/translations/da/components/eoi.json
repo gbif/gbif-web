@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "",
   "searchOrganisations": "",
   "termsAndConditions": "",
-  "iHaveReadAndUnderstood": "",
+  "iHaveReadAndUnderstood": "Sam-finansiering",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "",
   "iUnderstandThatMyOrganizationalInformation": "",
   "administrativeContact": "",
@@ -30,7 +30,7 @@
   "none": "",
   "whatAndHow": "",
   "helpUsUnderstand": "",
-  "publOfFourTypesOfData": "",
+  "publOfFourTypesOfData": "Sam-finansiering",
   "whichTypesOfData": "",
   "resourcesMetaData": "",
   "checkListData": "",
@@ -42,9 +42,9 @@
   "yes": "",
   "no": "",
   "pleaseSelectAValue": "",
-  "reuseTrustedIPThosting": "",
+  "reuseTrustedIPThosting": "Sam-finansiering",
   "doYouNeedHelpPublishing": "",
-  "areYouPlanningToInstallAndRun": "",
+  "areYouPlanningToInstallAndRun": "Sam-finansiering",
   "orgDetails": "",
   "yourChanceToTellGBIF": "",
   "orgName": "",
@@ -81,20 +81,20 @@
   "outage": "",
   "eoiDescription": "",
   "eoiTitle": "",
-  "checkRegistration": "",
-  "organisationDetails": "",
-  "organisationAddress": "",
-  "endorsement": "",
+  "checkRegistration": "Sam-finansiering",
+  "organisationDetails": "Sam-finansiering",
+  "organisationAddress": "Sam-finansiering",
+  "endorsement": "Sam-finansiering",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "",
-    "pleaseSelectTheCountryOfYourOrganization": ""
+    "pleaseSelectYourOrganizationOnTheMap": "Sam-finansiering",
+    "pleaseSelectTheCountryOfYourOrganization": "Sam-finansiering"
   },
-  "thankYouForYourRegistration": "",
-  "failedToRegisterOrganization": "",
-  "associatedWithGbifProgramme": "",
+  "thankYouForYourRegistration": "Sam-finansiering",
+  "failedToRegisterOrganization": "Sam-finansiering",
+  "associatedWithGbifProgramme": "Sam-finansiering",
   "loginToRegisterOrganization": {
-    "title": "",
-    "message": ""
+    "title": "Sam-finansiering",
+    "message": "Sam-finansiering"
   },
-  "registerAnotherOrganization": ""
+  "registerAnotherOrganization": "Sam-finansiering"
 }

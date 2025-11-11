@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "geologicalTime": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Współfinansowanie",
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "purposes": {
     "name": "Temat",
@@ -107,48 +107,48 @@
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "organismQuantityType": {
     "name": "Rodzaj liczebności organizmów",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "pathway": {
     "name": "Ścieżka",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "associatedSequences": {
     "name": "Powiązane sekwencje",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "degreeOfEstablishment": {
     "name": "Stopień wprowadzenia",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "endDayOfYear": {
     "name": "Ostatni dzień roku",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "startDayOfYear": {
     "name": "Pierwszy dzień roku",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "previousIdentifications": {
     "name": "Wcześniejsze oznaczenia",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "lastInterpreted": {
     "name": "Ostatnio interpretowano",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "alternativeCode": {
     "name": "Alternatywny kod",
@@ -172,23 +172,23 @@
   },
   "collectionContentType": {
     "name": "Rodzaj treści",
-    "count": "",
+    "count": "Współfinansowanie",
     "description": ""
   },
   "preservationType": {
     "name": "",
-    "count": "",
+    "count": "Współfinansowanie",
     "description": ""
   },
   "biomeType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Współfinansowanie",
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "objectClassification": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Współfinansowanie",
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "taxonKey": {
     "name": "Nazwa naukowa",
@@ -230,11 +230,11 @@
     "description": "Rodzaj problemów lub potencjalnych problemów odkrytych w procesowaniu danych. "
   },
   "occurrenceTaxonomicIssue": {
-    "name": "",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "name": "Współfinansowanie",
+    "count": "Współfinansowanie",
+    "isNotNull": "Współfinansowanie",
+    "isNull": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "occurrenceCountry": {
     "name": "Państwo lub obszar",
@@ -246,13 +246,13 @@
   },
   "preparations": {
     "name": "Przygotowania",
-    "count": "",
+    "count": "Współfinansowanie",
     "description": ""
   },
   "repatriated": {
     "name": "Ponownie wprowadzony ",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "publishingCountryCode": {
     "name": "Kraj lub obszar publikujący",
@@ -343,9 +343,9 @@
     "description": "Miara minimalnej odległości w metrach od współrzędnych, w których lokalna obserwacja może się znajdować. "
   },
   "distanceFromCentroidInMeters": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Współfinansowanie",
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "depth": {
     "name": "Głębokość",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "Płeć",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "lifeStage": {
     "name": "Stadium rozwoju",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "recordedBy": {
     "name": "Zarejestrowane przez",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "Numer pola",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "verbatimTaxonId": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Współfinansowanie",
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "islandGroup": {
     "name": "Grupa wysp",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "island": {
     "name": "Wyspa",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "georeferencedBy": {
     "name": "Georeferencjonowane przez",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "datasetName": {
     "name": "Nazwa zbioru danych",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "Program",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "recordNumber": {
     "name": "Numer rekordu",
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "Geografia wyższego rzędu",
-    "count": "",
+    "count": "Współfinansowanie",
     "description": ""
   },
   "stateProvince": {
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "Region GBIF",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Współfinansowanie",
+    "description": "Współfinansowanie"
   },
   "eventId": {
     "name": "ID zdarzenia",
@@ -569,7 +569,7 @@
   },
   "isInCluster": {
     "name": "Jest w gromadzie",
-    "count": "",
+    "count": "Współfinansowanie",
     "description": "Czy zapis został określony jako posiadający pokrewne zapisy."
   },
   "isSequenced": {
@@ -640,7 +640,7 @@
   },
   "networkKey": {
     "name": "Sieć",
-    "count": "",
+    "count": "Współfinansowanie",
     "description": "Tutaj należy umieścić krótki opis komponentu "
   },
   "literatureType": {

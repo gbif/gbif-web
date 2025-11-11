@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "",
   "searchOrganisations": "",
   "termsAndConditions": "",
-  "iHaveReadAndUnderstood": "",
+  "iHaveReadAndUnderstood": "Co Finanzierung",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "",
   "iUnderstandThatMyOrganizationalInformation": "",
   "administrativeContact": "",
@@ -30,7 +30,7 @@
   "none": "",
   "whatAndHow": "",
   "helpUsUnderstand": "",
-  "publOfFourTypesOfData": "",
+  "publOfFourTypesOfData": "Co Finanzierung",
   "whichTypesOfData": "",
   "resourcesMetaData": "",
   "checkListData": "",
@@ -42,9 +42,9 @@
   "yes": "",
   "no": "",
   "pleaseSelectAValue": "",
-  "reuseTrustedIPThosting": "",
+  "reuseTrustedIPThosting": "Co Finanzierung",
   "doYouNeedHelpPublishing": "",
-  "areYouPlanningToInstallAndRun": "",
+  "areYouPlanningToInstallAndRun": "Co Finanzierung",
   "orgDetails": "",
   "yourChanceToTellGBIF": "",
   "orgName": "",
@@ -81,20 +81,20 @@
   "outage": "",
   "eoiDescription": "",
   "eoiTitle": "",
-  "checkRegistration": "",
-  "organisationDetails": "",
-  "organisationAddress": "",
-  "endorsement": "",
+  "checkRegistration": "Co Finanzierung",
+  "organisationDetails": "Co Finanzierung",
+  "organisationAddress": "Co Finanzierung",
+  "endorsement": "Co Finanzierung",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "",
-    "pleaseSelectTheCountryOfYourOrganization": ""
+    "pleaseSelectYourOrganizationOnTheMap": "Co Finanzierung",
+    "pleaseSelectTheCountryOfYourOrganization": "Co Finanzierung"
   },
-  "thankYouForYourRegistration": "",
-  "failedToRegisterOrganization": "",
-  "associatedWithGbifProgramme": "",
+  "thankYouForYourRegistration": "Co Finanzierung",
+  "failedToRegisterOrganization": "Co Finanzierung",
+  "associatedWithGbifProgramme": "Co Finanzierung",
   "loginToRegisterOrganization": {
-    "title": "",
-    "message": ""
+    "title": "Co Finanzierung",
+    "message": "Co Finanzierung"
   },
-  "registerAnotherOrganization": ""
+  "registerAnotherOrganization": "Co Finanzierung"
 }

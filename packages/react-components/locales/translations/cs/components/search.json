@@ -36,8 +36,8 @@
   "loadMore": "Více",
   "loading": "Načítání",
   "noResults": "Žádné výsledky",
-  "startTyping": "",
-  "rankInGroup": "",
+  "startTyping": "Spolufinancování",
+  "rankInGroup": "Spolufinancování",
   "occurrenceClustersView": {
     "about": "O",
     "clusters": "Související",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Hledat",
-    "description": "",
+    "description": "Spolufinancování",
     "noSearchTermsEntered": "Nebyly zadány žádné hledané výrazy",
-    "placeholder": "",
+    "placeholder": "Spolufinancování",
     "categories": {
       "speciesSearch": "Druhy",
       "datasetSearch": "Datové sady",
       "publisherSearch": "Vydavatelé",
       "occurrenceSearch": "Výskyty",
-      "resourceSearch": ""
+      "resourceSearch": "Spolufinancování"
     },
     "seeAll": "Zobrazit vše"
   }

@@ -3,18 +3,18 @@
         "title": "",
         "form": {
             "title": "عنوان",
-            "titlePlaceholder": "",
+            "titlePlaceholder": "التمويل المشترك",
             "type": "نمط",
             "authors": "",
-            "authorsPlaceholder": "",
+            "authorsPlaceholder": "التمويل المشترك",
             "link": "",
-            "linkPlaceholder": "",
+            "linkPlaceholder": "التمويل المشترك",
             "date": "التاريخ",
             "comments": "تعليقات",
-            "commentsPlaceholder": "",
+            "commentsPlaceholder": "التمويل المشترك",
             "submit": "تسليم",
             "saveFailure": "",
-            "saveSuccess": ""
+            "saveSuccess": "التمويل المشترك"
         },
         "types": {
             "JOURNAL_ARTICLE": "",

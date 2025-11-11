@@ -1,13 +1,13 @@
 {
   "features": "Atributos",
   "options": {
-    "includeAuthorship": ""
+    "includeAuthorship": "Co-financiamiento"
   },
   "citations": "Citaciones",
   "occurrences": "Registros biológicos",
   "numberSpecimens": "Número de especímenes",
   "gbifNumberSpecimens": "Especímenes en GBIF",
-  "specimenTriplet": "",
+  "specimenTriplet": "Co-financiamiento",
   "title": "Título",
   "titleAndAbstract": "Título y resumen",
   "altmetric": "Altmetric",
@@ -25,6 +25,6 @@
   "activeInstitution": "Activo",
   "author": "Autor",
   "source": "Revista",
-  "dataReferenced": "",
+  "dataReferenced": "Co-financiamiento",
   "activeCollection": "Activo"
 }

@@ -31,7 +31,7 @@
   "constituentOf": "Bestandteil von:",
   "dataset": "Datensatz",
   "taxonomy": "Taxonomie",
-  "localContexts": "",
+  "localContexts": "Co Finanzierung",
   "project": "Projekt",
   "metrics": "Kennzahlen",
   "metricsOccurrenceHelpText": "",
@@ -150,8 +150,8 @@
     "registrationDetails": ""
   },
   "errors": {
-    "evenList": "",
-    "occurrenceInfo": ""
+    "evenList": "Co Finanzierung",
+    "occurrenceInfo": "Co Finanzierung"
   },
   "eventTaxonomy": ""
 }

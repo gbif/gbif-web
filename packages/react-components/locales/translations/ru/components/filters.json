@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "Биостратиграфия",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "lithostratigraphy": {
     "name": "Литостратиграфия",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "geologicalTime": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Совместное финансирование",
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "purposes": {
     "name": "Тематика",
@@ -107,48 +107,48 @@
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "organismQuantityType": {
     "name": "Единица измерения обилия вида",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "pathway": {
     "name": "Фильтрация путей",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "associatedSequences": {
     "name": "Сопутствующие генетические последовательности",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "degreeOfEstablishment": {
     "name": "Степень укоренения интродуцированных видов",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "endDayOfYear": {
     "name": "Последний день (порядковый номер с начала года)",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "startDayOfYear": {
     "name": "Первый день (порядковый номер с начала года)",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "previousIdentifications": {
     "name": "Более ранние определения",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "lastInterpreted": {
     "name": "Последняя интерпретация",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "alternativeCode": {
     "name": "Архив, аннотированный GBIF",
@@ -181,14 +181,14 @@
     "description": "Архив, аннотированный GBIF"
   },
   "biomeType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Совместное финансирование",
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "objectClassification": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Совместное финансирование",
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "taxonKey": {
     "name": "Латинское название",
@@ -230,11 +230,11 @@
     "description": "Типы проблем или  потенциально интересных флагов, обнаруженных при обработке данных."
   },
   "occurrenceTaxonomicIssue": {
-    "name": "",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "name": "Совместное финансирование",
+    "count": "Совместное финансирование",
+    "isNotNull": "Совместное финансирование",
+    "isNull": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "occurrenceCountry": {
     "name": "Страна",
@@ -251,8 +251,8 @@
   },
   "repatriated": {
     "name": "Данные репатриированы",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "publishingCountryCode": {
     "name": "Страна или регион, в которых опубликованы данные",
@@ -343,9 +343,9 @@
     "description": "Мера минимального расстояния в метрах от координат, в пределах которого может находиться населенный пункт."
   },
   "distanceFromCentroidInMeters": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Совместное финансирование",
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "depth": {
     "name": "Глубина",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "Пол",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "lifeStage": {
     "name": "Стадия жизненного цикла",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "recordedBy": {
     "name": "Кем сделана запись",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "Полевой номер",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "verbatimTaxonId": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Совместное финансирование",
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "islandGroup": {
     "name": "Группа островов",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "island": {
     "name": "Остров",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "georeferencedBy": {
     "name": "Кем выполнена геопривязка",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "datasetName": {
     "name": "Название набора данных",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "Программа",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "recordNumber": {
     "name": "Номер записи",
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "Регион GBIF",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "publishedByGbifRegion": {
     "name": "Опубликовано регионом GBIF",
-    "count": "",
-    "description": ""
+    "count": "Совместное финансирование",
+    "description": "Совместное финансирование"
   },
   "eventId": {
     "name": "ID описания, учёта или сбора",
@@ -569,7 +569,7 @@
   },
   "isInCluster": {
     "name": "Имеет связанные записи",
-    "count": "",
+    "count": "Совместное финансирование",
     "description": "Эта экспериментальная функция выявляет возможные повторяющиеся и/или связанные события."
   },
   "isSequenced": {

@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "",
-      "ASSOCIATE": "",
-      "OTHER_ASSOCIATE": "",
+      "VOTING": "共同资助方",
+      "ASSOCIATE": "共同资助方",
+      "OTHER_ASSOCIATE": "共同资助方",
       "FORMER": "前任的",
       "OBSERVER": "观察员",
-      "UNKNOWN": "",
+      "UNKNOWN": "共同资助方",
       "AFFILIATE": "GBIF 附属机构"
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "共同资助方",
+    "mapCaptionPublishers": "共同资助方",
     "role": "角色",
     "name": "名字",
     "participant": "成员",
     "type": "类型",
     "memberSince": "会员注册日期",
     "all": "全部",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
+    "countryParticipants": "共同资助方",
+    "publishersPerCountry": "共同资助方",
     "clear": "清除",
     "headlines": {
       "nodesSteeringGroup": "节点工作小组",

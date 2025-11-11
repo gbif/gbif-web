@@ -1,10 +1,10 @@
 {
   "clbTaxonomicStatus": {
     "accepted": "Accepteret",
-    "provisionally_accepted": "",
-    "ambiguous_synonym": "",
+    "provisionally_accepted": "Sam-finansiering",
+    "ambiguous_synonym": "Sam-finansiering",
     "synonym": "Synonym",
     "misapplied": "Misanvendt",
-    "bare_name": ""
+    "bare_name": "Sam-finansiering"
   }
 }

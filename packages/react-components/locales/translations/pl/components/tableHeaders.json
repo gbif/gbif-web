@@ -1,13 +1,13 @@
 {
   "features": "Cechy",
   "options": {
-    "includeAuthorship": ""
+    "includeAuthorship": "Współfinansowanie"
   },
   "citations": "Cytowanie",
   "occurrences": "Wystąpienia",
   "numberSpecimens": "Liczba okazów",
   "gbifNumberSpecimens": "Okazy w GBIF",
-  "specimenTriplet": "",
+  "specimenTriplet": "Współfinansowanie",
   "title": "Tytuł",
   "titleAndAbstract": "Tytuł i streszczenie",
   "altmetric": "Altmetryka",
@@ -25,6 +25,6 @@
   "activeInstitution": "Aktywny",
   "author": "Autor",
   "source": "Czasopismo",
-  "dataReferenced": "",
+  "dataReferenced": "Współfinansowanie",
   "activeCollection": "Aktywny"
 }

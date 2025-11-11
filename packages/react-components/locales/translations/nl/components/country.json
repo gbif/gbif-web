@@ -8,7 +8,7 @@
       "publicationsFrom": "",
       "publicationsAbout": "",
       "news": "Nieuws",
-      "alienSpecies": "",
+      "alienSpecies": "Cofinanciering",
       "projects": "Projecten"
     },
     "country": "Land",
@@ -21,8 +21,8 @@
     "noProjects": "Geen projecten",
     "notParticipant": "",
     "notParticipantDescription": "",
-    "countryNamingDisclaimer": "",
-    "isoStandardLinkText": "",
+    "countryNamingDisclaimer": "Cofinanciering",
+    "isoStandardLinkText": "Cofinanciering",
     "counts": {
       "occurrences": "",
       "datasets": "",

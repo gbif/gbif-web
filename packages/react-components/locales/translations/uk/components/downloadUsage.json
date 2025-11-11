@@ -3,18 +3,18 @@
         "title": "",
         "form": {
             "title": "Назва",
-            "titlePlaceholder": "",
+            "titlePlaceholder": "Спільне фінансування",
             "type": "Тип",
             "authors": "",
-            "authorsPlaceholder": "",
+            "authorsPlaceholder": "Спільне фінансування",
             "link": "",
-            "linkPlaceholder": "",
+            "linkPlaceholder": "Спільне фінансування",
             "date": "Дата",
             "comments": "Коментарі",
-            "commentsPlaceholder": "",
+            "commentsPlaceholder": "Спільне фінансування",
             "submit": "Надіслати",
             "saveFailure": "",
-            "saveSuccess": ""
+            "saveSuccess": "Спільне фінансування"
         },
         "types": {
             "JOURNAL_ARTICLE": "",

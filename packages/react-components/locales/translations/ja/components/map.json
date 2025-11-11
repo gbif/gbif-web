@@ -21,7 +21,7 @@
   "anyYear": "任意の年",
   "exploreArea": "地域を調べる",
   "explore": "調べる",
-  "generatedDateAgo": "",
+  "generatedDateAgo": "共同資金",
   "style": "スタイル",
   "filters": "フィルター",
   "select": "選択",
@@ -36,7 +36,7 @@
     "CLASSIC": "標準的なポイント",
     "STREETS": "道路",
     "GLACIER": "氷河",
-    "GREEN": "",
+    "GREEN": "共同資金",
     "CUSTOM": "カスタム"
   },
   "basemap": {

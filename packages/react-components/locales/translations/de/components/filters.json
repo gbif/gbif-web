@@ -6,7 +6,7 @@
   },
   "locationId": {
     "name": "",
-    "count": "",
+    "count": "Co Finanzierung",
     "description": ""
   },
   "hasCoordinate": {
@@ -21,12 +21,12 @@
   },
   "collectionKey": {
     "name": "",
-    "count": "",
+    "count": "Co Finanzierung",
     "description": ""
   },
   "taxonomicStatus": {
     "name": "",
-    "count": "",
+    "count": "Co Finanzierung",
     "description": ""
   },
   "taxonRank": {
@@ -36,12 +36,12 @@
   },
   "numberSpecimens": {
     "name": "",
-    "count": "",
+    "count": "Co Finanzierung",
     "description": ""
   },
   "specimensInGbif": {
     "name": "Belege in GBIF",
-    "count": "",
+    "count": "Co Finanzierung",
     "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
   },
   "iucnRedListCategory": {
@@ -51,7 +51,7 @@
   },
   "geoDistance": {
     "name": "",
-    "count": "",
+    "count": "Co Finanzierung",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -59,7 +59,7 @@
   },
   "geometry": {
     "name": "",
-    "count": "",
+    "count": "Co Finanzierung",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "geologicalTime": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Co Finanzierung",
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "purposes": {
     "name": "",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "organismQuantityType": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "pathway": {
     "name": "Verbringungsweg",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "associatedSequences": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "degreeOfEstablishment": {
     "name": "Grad der Etablierung",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "endDayOfYear": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "startDayOfYear": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "previousIdentifications": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "lastInterpreted": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "alternativeCode": {
     "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
-    "count": "",
+    "count": "Co Finanzierung",
     "description": ""
   },
   "identifier": {
     "name": "",
-    "count": "",
+    "count": "Co Finanzierung",
     "description": "Art des Datasets"
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
-    "count": "",
+    "count": "Co Finanzierung",
     "description": ""
   },
   "collectionContentType": {
     "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
-    "count": "",
+    "count": "Co Finanzierung",
     "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
   },
   "preservationType": {
     "name": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\".",
-    "count": "",
+    "count": "Co Finanzierung",
     "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
   },
   "biomeType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Co Finanzierung",
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "objectClassification": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Co Finanzierung",
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "taxonKey": {
     "name": "Wissenschaftlicher Name",
@@ -230,11 +230,11 @@
     "description": "Die Arten der Probleme/Flags, die bei der Verarbeitung der Daten entdeckt wurden."
   },
   "occurrenceTaxonomicIssue": {
-    "name": "",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "name": "Co Finanzierung",
+    "count": "Co Finanzierung",
+    "isNotNull": "Co Finanzierung",
+    "isNull": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "occurrenceCountry": {
     "name": "Land",
@@ -246,13 +246,13 @@
   },
   "preparations": {
     "name": "",
-    "count": "",
+    "count": "Co Finanzierung",
     "description": "Suchen eines bestimmten Suchstrings in allen Textfeldern. Für die Suche in einem bestimmten Feld bitte den entsprechenden Filter verwenden, beispielsweise \"Wissenschaftlicher Name\"."
   },
   "repatriated": {
     "name": "Repatriiert",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "publishingCountryCode": {
     "name": "Veröffentlichendes Land",
@@ -343,9 +343,9 @@
     "description": "Ein Maß für dem Mindestabstand von einer Koordinate  (in Metern), innerhalb dessen der Fundort liegen könnte."
   },
   "distanceFromCentroidInMeters": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Co Finanzierung",
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "depth": {
     "name": "Tiefe",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "lifeStage": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "recordedBy": {
     "name": "Sammler/Beobachter",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "verbatimTaxonId": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "Co Finanzierung",
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "islandGroup": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "island": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "georeferencedBy": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "datasetName": {
     "name": "",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "recordNumber": {
     "name": "Sammlernummer",
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "",
-    "count": "",
+    "count": "Co Finanzierung",
     "description": ""
   },
   "stateProvince": {
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "",
-    "description": ""
+    "count": "Co Finanzierung",
+    "description": "Co Finanzierung"
   },
   "eventId": {
     "name": "Ereignis-ID",
@@ -569,12 +569,12 @@
   },
   "isInCluster": {
     "name": "Ist Teil eines Clusters",
-    "count": "",
+    "count": "Co Finanzierung",
     "description": "Gibt an, ob der Datensatz mit einem oder mehreren anderen Datensätzen gruppiert wurde."
   },
   "isSequenced": {
     "name": "",
-    "count": "",
+    "count": "Co Finanzierung",
     "description": ""
   },
   "active": {

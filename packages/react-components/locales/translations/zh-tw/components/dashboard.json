@@ -28,8 +28,8 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "這些指標是來自GBIF所共享的紀錄",
-  "notVocabularyWarning": "",
-  "taxonomicBreakdown": "",
+  "notVocabularyWarning": "共同資助",
+  "taxonomicBreakdown": "共同資助",
   "group": {
     "views": "",
     "record": "紀錄",

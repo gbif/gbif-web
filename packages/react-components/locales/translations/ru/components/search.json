@@ -36,8 +36,8 @@
   "loadMore": "Еще",
   "loading": "Загрузка",
   "noResults": "Нет результатов",
-  "startTyping": "",
-  "rankInGroup": "",
+  "startTyping": "Совместное финансирование",
+  "rankInGroup": "Совместное финансирование",
   "occurrenceClustersView": {
     "about": "Подробно",
     "clusters": "Связано",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Поиск",
-    "description": "",
+    "description": "Совместное финансирование",
     "noSearchTermsEntered": "Не введены ключевые слова для поиска",
-    "placeholder": "",
+    "placeholder": "Совместное финансирование",
     "categories": {
       "speciesSearch": "Вид",
       "datasetSearch": "Опубликованных наборов данных",
       "publisherSearch": "Организации",
       "occurrenceSearch": "Находки",
-      "resourceSearch": ""
+      "resourceSearch": "Совместное финансирование"
     },
     "seeAll": "Увидеть все"
   }

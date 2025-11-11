@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "",
-      "ASSOCIATE": "",
-      "OTHER_ASSOCIATE": "",
+      "VOTING": "Совместное финансирование",
+      "ASSOCIATE": "Совместное финансирование",
+      "OTHER_ASSOCIATE": "Совместное финансирование",
       "FORMER": "Бывший",
       "OBSERVER": "Наблюдатель",
-      "UNKNOWN": "",
+      "UNKNOWN": "Совместное финансирование",
       "AFFILIATE": "Филиалы GBIF"
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "Совместное финансирование",
+    "mapCaptionPublishers": "Совместное финансирование",
     "role": "Роль",
     "name": "Имя",
     "participant": "Участник",
     "type": "Тип",
     "memberSince": "Член с",
     "all": "Все",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
+    "countryParticipants": "Совместное финансирование",
+    "publishersPerCountry": "Совместное финансирование",
     "clear": "Удалить",
     "headlines": {
       "nodesSteeringGroup": "Группа управления узлами",

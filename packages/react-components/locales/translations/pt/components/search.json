@@ -36,8 +36,8 @@
   "loadMore": "Mais",
   "loading": "A carregar",
   "noResults": "",
-  "startTyping": "",
-  "rankInGroup": "",
+  "startTyping": "Co-financiamento",
+  "rankInGroup": "Co-financiamento",
   "occurrenceClustersView": {
     "about": "Sobre",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Pesquisa",
-    "description": "",
+    "description": "Co-financiamento",
     "noSearchTermsEntered": "Não há termos de pesquisa inseridos",
-    "placeholder": "",
+    "placeholder": "Co-financiamento",
     "categories": {
       "speciesSearch": "Espécie",
       "datasetSearch": "Conjuntos de dados",
       "publisherSearch": "Publicadores",
       "occurrenceSearch": "Ocorrências",
-      "resourceSearch": ""
+      "resourceSearch": "Co-financiamento"
     },
     "seeAll": "Ver todos"
   }

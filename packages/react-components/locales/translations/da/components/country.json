@@ -8,7 +8,7 @@
       "publicationsFrom": "",
       "publicationsAbout": "",
       "news": "Nyheder",
-      "alienSpecies": "",
+      "alienSpecies": "Sam-finansiering",
       "projects": "Projekter"
     },
     "country": "Land",
@@ -21,8 +21,8 @@
     "noProjects": "",
     "notParticipant": "",
     "notParticipantDescription": "",
-    "countryNamingDisclaimer": "",
-    "isoStandardLinkText": "",
+    "countryNamingDisclaimer": "Sam-finansiering",
+    "isoStandardLinkText": "Sam-finansiering",
     "counts": {
       "occurrences": "",
       "datasets": "Datasæt",

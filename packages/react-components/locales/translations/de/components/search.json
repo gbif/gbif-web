@@ -36,8 +36,8 @@
   "loadMore": "Mehr",
   "loading": "",
   "noResults": "",
-  "startTyping": "",
-  "rankInGroup": "",
+  "startTyping": "Co Finanzierung",
+  "rankInGroup": "Co Finanzierung",
   "occurrenceClustersView": {
     "about": "",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Suche",
-    "description": "",
+    "description": "Co Finanzierung",
     "noSearchTermsEntered": "Keine Suchbegriffe eingegeben",
-    "placeholder": "",
+    "placeholder": "Co Finanzierung",
     "categories": {
       "speciesSearch": "",
       "datasetSearch": "Datensätze",
       "publisherSearch": "Herausgeber",
       "occurrenceSearch": "",
-      "resourceSearch": ""
+      "resourceSearch": "Co Finanzierung"
     },
     "seeAll": "Alle ansehen"
   }

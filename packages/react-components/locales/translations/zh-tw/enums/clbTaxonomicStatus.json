@@ -1,10 +1,10 @@
 {
   "clbTaxonomicStatus": {
     "accepted": "有效的",
-    "provisionally_accepted": "",
-    "ambiguous_synonym": "",
+    "provisionally_accepted": "共同資助",
+    "ambiguous_synonym": "共同資助",
     "synonym": "同種異名",
     "misapplied": "誤用",
-    "bare_name": ""
+    "bare_name": "共同資助"
   }
 }

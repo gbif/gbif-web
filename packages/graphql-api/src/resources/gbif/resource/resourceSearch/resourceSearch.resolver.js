@@ -57,7 +57,7 @@ export default {
       return {
         _predicate: extendedPredicate,
         _q: q,
-        _params: params,
+        _params: { ...params, contentType },
         _eventFiltering: finalEventFiltering,
       };
     },

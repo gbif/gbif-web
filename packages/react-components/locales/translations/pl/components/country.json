@@ -8,7 +8,7 @@
       "publicationsFrom": "Publikacje z",
       "publicationsAbout": "Publikacje o",
       "news": "Aktualności",
-      "alienSpecies": "",
+      "alienSpecies": "Współfinansowanie",
       "projects": "Projekty"
     },
     "country": "Kraj",
@@ -21,8 +21,8 @@
     "noProjects": "Brak projektów ",
     "notParticipant": "Nie jest uczestnikiem",
     "notParticipantDescription": "To nie jest kraj członkowski GBIF",
-    "countryNamingDisclaimer": "",
-    "isoStandardLinkText": "",
+    "countryNamingDisclaimer": "Współfinansowanie",
+    "isoStandardLinkText": "Współfinansowanie",
     "counts": {
       "occurrences": "{LICZBA, plural, 0 {Occurrences} jeden {Occurrence} inne {Occurrences}}",
       "datasets": "{LICZBA, mnoga, 0 {Datasets} jeden {Dataset} inne {Datasets}}",

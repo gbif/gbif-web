@@ -1,10 +1,10 @@
 {
   "clbTaxonomicStatus": {
     "accepted": "Валидный",
-    "provisionally_accepted": "",
-    "ambiguous_synonym": "",
+    "provisionally_accepted": "Совместное финансирование",
+    "ambiguous_synonym": "Совместное финансирование",
     "synonym": "Синоним",
     "misapplied": "Неправильно примененный",
-    "bare_name": ""
+    "bare_name": "Совместное финансирование"
   }
 }

@@ -36,8 +36,8 @@
   "loadMore": "Більше",
   "loading": "Завантаження",
   "noResults": "",
-  "startTyping": "",
-  "rankInGroup": "",
+  "startTyping": "Спільне фінансування",
+  "rankInGroup": "Спільне фінансування",
   "occurrenceClustersView": {
     "about": "Відомості про видавця даних",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Пошук",
-    "description": "",
+    "description": "Спільне фінансування",
     "noSearchTermsEntered": "Не введені ключові слова для пошуку",
-    "placeholder": "",
+    "placeholder": "Спільне фінансування",
     "categories": {
       "speciesSearch": "Вид",
       "datasetSearch": "Наборів даних",
       "publisherSearch": "Видавці",
       "occurrenceSearch": "Знахідки",
-      "resourceSearch": ""
+      "resourceSearch": "Спільне фінансування"
     },
     "seeAll": "Переглянути все"
   }

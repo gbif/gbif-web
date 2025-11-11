@@ -36,8 +36,8 @@
   "loadMore": "עוד",
   "loading": "טוען",
   "noResults": "אין תוצאות",
-  "startTyping": "",
-  "rankInGroup": "",
+  "startTyping": "מימון משותף",
+  "rankInGroup": "מימון משותף",
   "occurrenceClustersView": {
     "about": "אודות",
     "clusters": "מקבצים קשורים",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "חיפוש",
-    "description": "",
+    "description": "מימון משותף",
     "noSearchTermsEntered": "לא הוזנו מונחי חיפוש",
-    "placeholder": "",
+    "placeholder": "מימון משותף",
     "categories": {
       "speciesSearch": "מינים",
       "datasetSearch": "מסדי נתונים",
       "publisherSearch": "ספקי מידע",
       "occurrenceSearch": "תצפיות",
-      "resourceSearch": ""
+      "resourceSearch": "מימון משותף"
     },
     "seeAll": "הצג הכל"
   }

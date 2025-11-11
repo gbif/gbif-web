@@ -8,46 +8,46 @@
   "continueToGBIF": "متابعة",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "",
-    "noSql": "",
+    "placeholder": "التمويل المشترك",
+    "noSql": "التمويل المشترك",
     "note": {
       "title": "مذكرة",
       "description": "",
-      "goToOccurrenceSearch": ""
+      "goToOccurrenceSearch": "التمويل المشترك"
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
+      "network-error": "التمويل المشترك",
+      "parsingErrorDescription": "التمويل المشترك",
+      "networkErrorDescription": "التمويل المشترك"
     }
   },
-  "create": "",
+  "create": "التمويل المشترك",
   "about": "حول",
-  "stopEditing": "",
-  "startEditing": "",
+  "stopEditing": "إيقاف التحرير",
+  "startEditing": "البدء في التحرير",
   "reformat": "",
   "discard": "",
   "keep": "",
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
+    "weHaveRestoredYourPredicate": "التمويل المشترك",
+    "noPredicate": "التمويل المشترك",
     "currentFilter": "المُرشِح الحالي",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
+      "invalid-predicate": "التمويل المشترك",
+      "faild-to-load-predicate": "التمويل المشترك",
+      "unexpectedError": "التمويل المشترك",
+      "failedToParseJSON": "التمويل المشترك",
+      "failedToVisualizePredicate": "التمويل المشترك"
     }
   },
   "downloadOptions": {
     "title": "خيارات التنزيل",
-    "chooseChecklist": "",
-    "chooseChecklistDescription": "",
+    "chooseChecklist": "التمويل المشترك",
+    "chooseChecklistDescription": "التمويل المشترك",
     "content": {
       "rawData": "بيانات أولية",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": ""
     },
     "fileFormats": {
-      "tabCsv": ""
+      "tabCsv": "التمويل المشترك"
     },
     "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+      "ifAvailable": "التمويل المشترك",
+      "ifSelected": "التمويل المشترك",
+      "links": "التمويل المشترك"
     }
   }
 }

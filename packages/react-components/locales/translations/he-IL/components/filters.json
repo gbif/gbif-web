@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "Biostratigraphy",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "lithostratigraphy": {
     "name": "Lithostratigraphy",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "geologicalTime": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "מימון משותף",
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "purposes": {
     "name": "נושא",
@@ -107,48 +107,48 @@
   },
   "gbifId": {
     "name": "מזהה GBIF",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "organismQuantityType": {
     "name": "Organism quantity type",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "pathway": {
     "name": "ניתוב",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "associatedSequences": {
     "name": "Associated sequences",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "degreeOfEstablishment": {
     "name": "Degree of establishment",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "endDayOfYear": {
     "name": "יום הסיום בשנה",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "startDayOfYear": {
     "name": "Start day of year",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "previousIdentifications": {
     "name": "Previous identifications",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "lastInterpreted": {
     "name": "Last interpreted",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "alternativeCode": {
     "name": "Alternative code",
@@ -181,14 +181,14 @@
     "description": "The method used to preserve the objects available in the collection"
   },
   "biomeType": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "מימון משותף",
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "objectClassification": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "מימון משותף",
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "taxonKey": {
     "name": "שם מדעי",
@@ -230,11 +230,11 @@
     "description": "The types of issues or flags of potential interest discovered in processing the data."
   },
   "occurrenceTaxonomicIssue": {
-    "name": "",
-    "count": "",
-    "isNotNull": "",
-    "isNull": "",
-    "description": ""
+    "name": "מימון משותף",
+    "count": "מימון משותף",
+    "isNotNull": "מימון משותף",
+    "isNull": "מימון משותף",
+    "description": "מימון משותף"
   },
   "occurrenceCountry": {
     "name": "ארץ או אזור",
@@ -251,8 +251,8 @@
   },
   "repatriated": {
     "name": "Repatriated",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "publishingCountryCode": {
     "name": "Publishing country or area",
@@ -343,9 +343,9 @@
     "description": "A measure of the minimum distance in metres from a coordinate within which a locality might be interpreted to be."
   },
   "distanceFromCentroidInMeters": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "מימון משותף",
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "depth": {
     "name": "עומק",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "מין",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "lifeStage": {
     "name": "שלב חיים",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "recordedBy": {
     "name": "נרשם על ידי",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "מספר השדה",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "verbatimTaxonId": {
-    "name": "",
-    "count": "",
-    "description": ""
+    "name": "מימון משותף",
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "islandGroup": {
     "name": "קבוצת איים",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "island": {
     "name": "אי",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "georeferencedBy": {
     "name": "תויג גאוגרפית על ידי",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "datasetName": {
     "name": "dwc:מסד נתוניםName",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "תכנית",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "recordNumber": {
     "name": "מספר רשומה",
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "אזור GBIF",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "publishedByGbifRegion": {
     "name": "Published by GBIF region",
-    "count": "",
-    "description": ""
+    "count": "מימון משותף",
+    "description": "מימון משותף"
   },
   "eventId": {
     "name": "מזהה אירוע",
@@ -569,7 +569,7 @@
   },
   "isInCluster": {
     "name": "Has related records",
-    "count": "",
+    "count": "מימון משותף",
     "description": "This experimental feature highlights possible duplicate and/or related תצפיתs."
   },
   "isSequenced": {

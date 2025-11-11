@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "",
-      "ASSOCIATE": "",
-      "OTHER_ASSOCIATE": "",
+      "VOTING": "共同資金",
+      "ASSOCIATE": "共同資金",
+      "OTHER_ASSOCIATE": "共同資金",
       "FORMER": "以前の参加者",
       "OBSERVER": "オブザーバー",
-      "UNKNOWN": "",
+      "UNKNOWN": "共同資金",
       "AFFILIATE": "GBIF提携団体"
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "共同資金",
+    "mapCaptionPublishers": "共同資金",
     "role": "役割",
     "name": "名前",
     "participant": "参加者",
     "type": "タイプ",
     "memberSince": "メンバー登録日",
     "all": "すべて",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
+    "countryParticipants": "共同資金",
+    "publishersPerCountry": "共同資金",
     "clear": "消去",
     "headlines": {
       "nodesSteeringGroup": "ノード運営グループ",

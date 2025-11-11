@@ -31,7 +31,7 @@
   "constituentOf": "Forma parte de",
   "dataset": "Conjunto de datos",
   "taxonomy": "Taxonomía",
-  "localContexts": "",
+  "localContexts": "Co-financiamiento",
   "project": "Proyecto",
   "metrics": "Métricas",
   "metricsOccurrenceHelpText": "Las métricas se basan en datos interpretados",
@@ -150,8 +150,8 @@
     "registrationDetails": "Detalles del registro de GBIF"
   },
   "errors": {
-    "evenList": "",
-    "occurrenceInfo": ""
+    "evenList": "Co-financiamiento",
+    "occurrenceInfo": "Co-financiamiento"
   },
   "eventTaxonomy": "Distribución taxonómica de los registros de presencia"
 }

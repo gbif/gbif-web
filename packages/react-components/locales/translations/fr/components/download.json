@@ -8,46 +8,46 @@
   "continueToGBIF": "Continuer",
   "sql": {
     "createNewSqlDownload": "Créer un nouveau téléchargement SQL",
-    "placeholder": "",
-    "noSql": "",
+    "placeholder": "Co-financement",
+    "noSql": "Co-financement",
     "note": {
       "title": "Note",
       "description": "Le moyen le plus simple de télécharger et d'explorer des données est d'utiliser l'interface utilisateur de recherche d'occurrences. Mais pour les requêtes et agrégations complexes, l'éditeur SQL offre une plus grande liberté.",
-      "goToOccurrenceSearch": ""
+      "goToOccurrenceSearch": "Co-financement"
     },
     "errors": {
       "invalid-SQL": "SQL non valide",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
+      "network-error": "Co-financement",
+      "parsingErrorDescription": "Co-financement",
+      "networkErrorDescription": "Co-financement"
     }
   },
-  "create": "",
+  "create": "Co-financement",
   "about": "À propos",
-  "stopEditing": "",
-  "startEditing": "",
+  "stopEditing": "Arrêter la modification",
+  "startEditing": "Commencer la modification",
   "reformat": "Reformater",
   "discard": "Ignorer",
   "keep": "Conserver",
   "readTheDocumentation": "Lire la documentation",
   "request": {
     "createNewDownload": "Créer un nouveau téléchargement",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
+    "weHaveRestoredYourPredicate": "Co-financement",
+    "noPredicate": "Co-financement",
     "currentFilter": "Filtre actif",
     "errors": {
       "invalid-json": "JSON non valide",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
+      "invalid-predicate": "Co-financement",
+      "faild-to-load-predicate": "Co-financement",
+      "unexpectedError": "Co-financement",
+      "failedToParseJSON": "Co-financement",
+      "failedToVisualizePredicate": "Co-financement"
     }
   },
   "downloadOptions": {
     "title": "Options de téléchargement",
-    "chooseChecklist": "",
-    "chooseChecklistDescription": "",
+    "chooseChecklist": "Co-financement",
+    "chooseChecklistDescription": "Co-financement",
     "content": {
       "rawData": "Données brutes",
       "interpretedData": "Données interprétées",
@@ -57,12 +57,12 @@
       "estimatedSize": "Taille estimée des données"
     },
     "fileFormats": {
-      "tabCsv": ""
+      "tabCsv": "Co-financement"
     },
     "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+      "ifAvailable": "Co-financement",
+      "ifSelected": "Co-financement",
+      "links": "Co-financement"
     }
   }
 }
