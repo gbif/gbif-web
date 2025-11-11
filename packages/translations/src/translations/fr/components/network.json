@@ -1,9 +1,0 @@
-{
-  "network": "Réseau",
-  "tabs": {
-    "summary": "Résumé",
-    "metrics": "Statistiques",
-    "datasets": "Jeux de données",
-    "publishers": "Fournisseurs de données"
-  }
-}

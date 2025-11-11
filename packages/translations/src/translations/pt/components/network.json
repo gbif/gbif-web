@@ -1,9 +1,0 @@
-{
-  "network": "Rede",
-  "tabs": {
-    "summary": "Sumário",
-    "metrics": "Métricas",
-    "datasets": "Conjuntos de dados",
-    "publishers": "Publicadores"
-  }
-}
