@@ -28,7 +28,9 @@ export default function StepIndicator({
             return (
               <li
                 key={step.id}
-                className={`g-relative ${stepIdx !== steps.length - 1 ? 'g-pr-8 sm:g-pr-20' : ''}`}
+                className={`g-relative ${
+                  stepIdx !== steps.length - 1 ? 'g-pr-8 sm:g-pr-20 md:g-pr-40' : ''
+                }`}
               >
                 {stepIdx !== steps.length - 1 && (
                   <div className="g-absolute g-inset-0 g-flex g-items-center" aria-hidden="true">
@@ -59,14 +61,16 @@ export default function StepIndicator({
                       />
                     )}
                   </div>
-                  <div className="g-absolute g-top-12 g-text-center">
+                  <div
+                    className={`g-absolute g-top-12 g-text-center g-overflow-hidden g-hidden sm:g-block sm:g-max-w-96 md:g-max-w-40`}
+                  >
                     <div
-                      className={`g-text-sm g-font-medium g-whitespace-nowrap ${
+                      className={`g-text-sm g-font-medium g-whitespace-nowrap g-overflow-hidden g-text-ellipsis ${
                         isCurrent
                           ? 'g-text-primary-600'
                           : isCompleted
-                          ? 'g-text-primary-600'
-                          : 'g-text-gray-500'
+                          ? 'g-text-primary-600 g-hidden md:g-block'
+                          : 'g-text-gray-500 g-hidden md:g-block'
                       }`}
                     >
                       <FormattedMessage id={step.name} />
