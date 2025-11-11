@@ -15,12 +15,13 @@
   "http://purl.org/germplasm/germplasmTerm#GermplasmAccession": "Germplasma: Accesiones de Germoplasma",
   "http://purl.org/germplasm/germplasmTerm#MeasurementScore": "Germoplasma: Puntaje de la medida",
   "http://purl.org/germplasm/germplasmTerm#MeasurementTrait": "Germoplasma: Rasgo de medición",
+  "http://purl.org/germplasm/germplasmTerm#MeasurementTrial": "Germoplasma: ensayo de medición",
   "http://rs.tdwg.org/dwc/terms/Identification": "Identificación",
   "http://rs.gbif.org/terms/1.0/Identifier": "Identificador",
   "http://rs.gbif.org/terms/1.0/Image": "Imagen",
   "http://rs.tdwg.org/dwc/terms/MeasurementOrFact": "Medida o hecho",
   "http://rs.gbif.org/terms/1.0/Multimedia": "Multimedia",
   "http://rs.gbif.org/terms/1.0/Reference": "Referencia",
-  "http://rs.tdwg.org/dwc/terms/ResourceRelationship": "Relacación del recurso",
+  "http://rs.tdwg.org/dwc/terms/ResourceRelationship": "Relación del recurso",
   "http://eol.org/schema/reference/Reference": "Referencia EOL"
 }
