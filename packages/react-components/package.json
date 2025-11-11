@@ -4,7 +4,7 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "serve": "npx serve dist/ -p 5002 --cors",
+    "serve": "npx serve dist/lib/translations -p 5002 --cors",
     "watch": "npx nodemon locales/build.js -w locales/ -i dist/",
     "build": "node locales/build.js; npx gulp; npx gzipper compress --brotli --include js,css,html,txt,json,map ./dist"
   },
