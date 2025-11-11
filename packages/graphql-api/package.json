@@ -14,7 +14,7 @@
     "write-interpretation-remark": "ts-node -r tsconfig-paths/register --transpile-only tools/writeInterpretationRemark.js"
   },
   "author": "",
-  "license": "ISC",
+  "license": "Apache 2.0",
   "dependencies": {
     "@apollo/utils.keyvaluecache": "^4.0.0",
     "@elastic/ecs-winston-format": "^1.5.3",

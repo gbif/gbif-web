@@ -4,12 +4,12 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "serve-translations": "npx serve dist/ -p 5002 --cors",
-    "watch-translations": "npx nodemon locales/build.js -w locales/ -i dist/",
+    "serve": "npx serve dist/ -p 5002 --cors",
+    "watch": "npx nodemon locales/build.js -w locales/ -i dist/",
     "build": "node locales/build.js; npx gulp; npx gzipper compress --brotli --include js,css,html,txt,json,map ./dist"
   },
   "author": "",
-  "license": "ISC",
+  "license": "Apache 2.0",
   "devDependencies": {
     "flat": "^6.0.1",
     "gzipper": "^8.2.1",

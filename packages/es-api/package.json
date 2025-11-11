@@ -7,7 +7,7 @@
     "start": "nodemon --exec node src/index.js"
   },
   "author": "",
-  "license": "ISC",
+  "license": "Apache 2.0",
   "dependencies": {
     "@elastic/ecs-winston-format": "^1.5.3",
     "@elastic/elasticsearch": "7.9.1",
