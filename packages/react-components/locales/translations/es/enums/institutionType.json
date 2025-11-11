@@ -6,5 +6,8 @@
   "MEDICAL_RESEARCH_INSTITUTE": "Instituto de investigación médica",
   "MUSEUM": "Museo",
   "MUSEUM_HERBARIUM_PRIVATE_NON_PROFIT": "Herbario de museo privado sin fines de lucro",
-  "OTHER_INSTITUTIONAL_TYPE": "Otro tipo institucional"
+  "OTHER_INSTITUTIONAL_TYPE": "Otro tipo institucional",
+  "OTHER_TYPE_RESEARCH_INSTITUTION_BIOREPOSITORY": "Otro tipo de institución biorepositorio de investigación",
+  "UNIVERSITY_COLLEGE": "Colegio universitario",
+  "ZOO_AQUARIUM": "Acuario de zoológico"
 }
