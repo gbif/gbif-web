@@ -18,12 +18,6 @@ import {
   predicateDownloadSteps,
   sqlDownloadSteps,
 } from './components/stepOptions';
-import { LoginFlowLayout } from '@/routes/user/shared/UserPageLayout';
-import { Card } from '@/components/ui/largeCard';
-import { PageTitle } from '@/routes/user/shared/PageHeader';
-import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
-import { DynamicLink } from '@/reactRouterPlugins';
 import { ProtectedForm } from '@/components/protectedForm';
 
 function App() {
