@@ -1,44 +1,52 @@
-'use strict';
-const flatten = require('flat');
-const path = require('path');
-const translationBuilder = require('./stitchFile');
-const createPseudo = require('./createPseudo');
-const localeMaps = require('./localeMaps');
-const fs = require('fs');
-const _ = require('lodash');
-const hash = require('object-hash');
-const env = require('../../.env.json');
+import { flatten } from 'flat';
+import path, { join } from 'path';
+import { fileURLToPath } from 'url';
+import translationBuilder from './stitchFile.js';
+import createPseudo from './createPseudo.js';
+import fs, { readFileSync } from 'fs';
+import _ from 'lodash';
+import hash from 'object-hash';
 
-module.exports = build;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const localeMaps = JSON.parse(readFileSync(join(__dirname, './localeMaps.json'), 'utf8'));
+const env = JSON.parse(readFileSync(join(__dirname, '../../.env.json'), 'utf8'));
 
 function build(locales) {
-  const targetDirectory = path.normalize(__dirname + '/../dist/');
+  const targetDirectory = path.normalize(__dirname + '/../../dist/lib/translations/');
   ensureDirectoryExistence(targetDirectory + 'translation.json');
 
   let enJson = translationBuilder({ locale: 'en' });
   let developerEnglishJson = translationBuilder({
-    locale: 'en-developer', folder: 'source', keepEmptyStrings: true
+    locale: 'en-developer',
+    folder: 'source',
+    keepEmptyStrings: true,
   });
 
   buildLocale({ locale: 'en', enJson, developerEnglishJson, targetDirectory });
 
   let translationVersions = {};
   locales
-    .map(locale => buildLocale({ locale, enJson, developerEnglishJson, targetDirectory }))
-    .forEach(item => {
+    .map((locale) => buildLocale({ locale, enJson, developerEnglishJson, targetDirectory }))
+    .forEach((item) => {
       translationVersions[getLocaleName(item.locale)] = {
         messages: `${env.TRANSLATIONS}/${item.locale}.json?v=${item.hash}`,
-        localeMap: localeMaps[item.locale]
-      }
+        localeMap: localeMaps[item.locale],
+      };
     });
 
-  fs.writeFile(targetDirectory + 'translations.json', JSON.stringify(translationVersions, null, 2), function (err) {
-    if (err) {
-      console.log(err);
-      throw err;
-    }
-    console.log('Translation mapping file created');
-  });
+  fs.writeFile(
+    targetDirectory + 'translations.json',
+    JSON.stringify(translationVersions, null, 2),
+    function (err) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+      console.log('Translation mapping file created');
+    },
+  );
 }
 
 function getLocaleName(locale) {
@@ -61,7 +69,7 @@ function buildLocale({ locale, enJson, developerEnglishJson, targetDirectory }) 
   }
   let mergedJson = _.merge({}, developerEnglishJson, enJson, localeJson);
   let flat = flatten(mergedJson);
-  
+
   fs.writeFile(targetDirectory + locale + '.json', JSON.stringify(flat, null, 2), function (err) {
     if (err) {
       console.log(err);
@@ -80,3 +88,5 @@ function ensureDirectoryExistence(filePath) {
   ensureDirectoryExistence(dirname);
   fs.mkdirSync(dirname);
 }
+
+export default build;

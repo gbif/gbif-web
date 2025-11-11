@@ -1,13 +1,16 @@
-'use strict';
-let _ = require('lodash');
-let fs = require('fs');
-let path = require('path');
+import _ from 'lodash';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 let Reset = '\x1b[0m';
 let FgRed = '\x1b[31m';
 let FgYellow = '\x1b[33m';
 
-module.exports = builder;
+export default builder;
 
 function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = false }) {
   let translations = _.merge(
@@ -133,8 +136,10 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
 }
 
 function getFile(locale, file) {
-  if (fs.existsSync(path.join(__dirname, `${file}.json`))) {
-    return require(file);
+  const filePath = path.join(__dirname, `${file}.json`);
+  if (fs.existsSync(filePath)) {
+    const fileContent = fs.readFileSync(filePath, 'utf-8');
+    return JSON.parse(fileContent);
   } else {
     if (locale === 'en-developer') {
       console.error(

@@ -1,14 +1,8 @@
 # dependencies
 /node_modules
 
-# built files
-/build
-
 # built storybook and browser lib
 /dist
-
-/locales/dist
-/locales/dist/*
 
 # misc
 .DS_Store
