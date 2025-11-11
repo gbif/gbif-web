@@ -169,7 +169,6 @@ export function DynamicProperties({
 
 export function LocalContexts({ localContexts }: { localContexts?: any }) {
   const config = useConfig();
-  debugger;
   const showLocalContext = config.experimentalFeatures.localContextEnabled;
   if (!localContexts || localContexts?.length === 0 || !showLocalContext) return null;
 
