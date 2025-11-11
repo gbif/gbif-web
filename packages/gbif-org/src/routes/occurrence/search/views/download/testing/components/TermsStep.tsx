@@ -141,6 +141,7 @@ export default function TermsStep({
             totalRecords,
             estimatedUnzippedSizeInBytes,
             isLargeDownload,
+            configuration,
           },
           null,
           2

@@ -123,6 +123,7 @@ function OccurrenceDownloadFlow({
               predicate={normalizedPredicate}
               onContinue={handleConfigurationComplete}
               filter={filter}
+              initialConfig={configuration}
             />
           )}
 
@@ -200,6 +201,7 @@ export function PredicateDownloadFlow({
         {currentStep === 'CONFIGURE' && selectedFormat && (
           <ConfigurationStep
             defaultChecklist={defaultChecklist}
+            initialConfig={configuration}
             selectedFormat={selectedFormat}
             onBack={() => setCurrentStep('FORMAT')}
             onContinue={handleConfigurationComplete}

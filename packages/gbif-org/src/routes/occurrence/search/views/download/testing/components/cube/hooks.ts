@@ -1,26 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { generateCubeSql } from '../cubeService';
 import { CubeDimensions } from './types';
-
-export function useFormValidation(
-  cube: CubeDimensions,
-  onValidationChange?: (isValid: boolean) => void
-) {
-  const isValid = () => {
-    const hasTaxonomic = Boolean(cube.taxonomicLevel);
-    const hasTemporal = Boolean(cube.temporalResolution);
-    const hasSpatial =
-      Boolean(cube.spatial) && (cube.spatial === 'COUNTRY' || Boolean(cube.resolution));
-
-    return hasTaxonomic || hasTemporal || hasSpatial;
-  };
-
-  useEffect(() => {
-    onValidationChange?.(isValid());
-  }, [cube, onValidationChange]);
-
-  return isValid();
-}
 
 export function useSqlGeneration() {
   const [isGenerating, setIsGenerating] = useState(false);

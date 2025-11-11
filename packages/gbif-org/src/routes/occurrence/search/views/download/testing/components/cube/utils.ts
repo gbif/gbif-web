@@ -4,7 +4,3 @@ export function getHigherTaxonomicGroups(taxonomicLevel: string): readonly strin
   const index = TAXONOMIC_GROUPS.indexOf(taxonomicLevel as any);
   return index === -1 ? [] : HIGHER_TAXONOMIC_OPTIONS.slice(0, index);
 }
-
-export function toggleArrayItem<T>(array: T[], item: T): T[] {
-  return array.includes(item) ? array.filter((i) => i !== item) : [...array, item];
-}

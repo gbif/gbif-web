@@ -18,6 +18,7 @@ interface ConfigurationStepProps {
   predicate?: any;
   onBack: () => void;
   onContinue: (config: any) => void;
+  initialConfig: any;
 }
 
 // Format-specific configuration interfaces
@@ -42,6 +43,7 @@ export default function ConfigurationStep({
   onBack,
   filter,
   onContinue,
+  initialConfig,
 }: ConfigurationStepProps) {
   const { checklists } = useSupportedChecklists();
   const currentContextChecklistKey = useChecklistKey();
@@ -50,6 +52,7 @@ export default function ConfigurationStep({
 
   // Initialize configuration based on format
   const getInitialConfig = (): BaseConfig | DarwinCoreConfig | CubeConfig => {
+    if (initialConfig) return initialConfig;
     const baseConfig = {
       checklistKey: currentContextChecklistKey ?? defaultChecklist,
     };
@@ -77,7 +80,7 @@ export default function ConfigurationStep({
       } as CubeConfig;
     }
 
-    return baseConfig;
+    return baseConfig as BaseConfig;
   };
 
   const [config, setConfig] = useState(getInitialConfig());
