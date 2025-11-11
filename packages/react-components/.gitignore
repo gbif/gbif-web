@@ -2,15 +2,7 @@
 /node_modules
 
 # built files
-/build
-
-# built storybook and browser lib
-/dist/*
-!/dist/lib/
-/dist/lib/*.br
-
-/locales/dist
-/locales/dist/*
+/dist
 
 # misc
 .DS_Store
