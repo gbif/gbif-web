@@ -1,7 +1,7 @@
 # dependencies
 /node_modules
 
-# built files
+# built storybook and browser lib
 /dist
 
 # misc
