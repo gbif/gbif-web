@@ -31,7 +31,7 @@ function build(locales) {
     .map((locale) => buildLocale({ locale, enJson, developerEnglishJson, targetDirectory }))
     .forEach((item) => {
       translationVersions[getLocaleName(item.locale)] = {
-        messages: `${env.DOMAIN}/${item.locale}.json?v=${item.hash}`,
+        messages: `${env.TRANSLATIONS}/${item.locale}.json?v=${item.hash}`,
         localeMap: localeMaps[item.locale],
       };
     });
