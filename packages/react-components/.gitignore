@@ -5,6 +5,7 @@
 /build
 
 # built storybook and browser lib
+/dist
 /dist/*
 !/dist/lib/
 /dist/lib/*.br
