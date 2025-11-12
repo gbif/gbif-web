@@ -36,8 +36,8 @@
   "loadMore": "もっと読み込む",
   "loading": "読み込み中",
   "noResults": "",
-  "startTyping": "共同資金",
-  "rankInGroup": "共同資金",
+  "startTyping": "共同出資",
+  "rankInGroup": "共同出資",
   "occurrenceClustersView": {
     "about": "・・・について",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "検索",
-    "description": "共同資金",
+    "description": "共同出資",
     "noSearchTermsEntered": "検索文字列が入力されていません。",
-    "placeholder": "共同資金",
+    "placeholder": "共同出資",
     "categories": {
       "speciesSearch": "種",
       "datasetSearch": "データセット",
       "publisherSearch": "出版者",
       "occurrenceSearch": "オカレンス",
-      "resourceSearch": "共同資金"
+      "resourceSearch": "共同出資"
     },
     "seeAll": "すべて表示"
   }
