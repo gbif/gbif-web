@@ -8,21 +8,21 @@
   "continueToGBIF": "Продовжити",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "Спільне фінансування",
-    "noSql": "Спільне фінансування",
+    "placeholder": "Фінансується спільно",
+    "noSql": "Фінансується спільно",
     "note": {
       "title": "Примітка",
       "description": "",
-      "goToOccurrenceSearch": "Спільне фінансування"
+      "goToOccurrenceSearch": "Фінансується спільно"
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "Спільне фінансування",
-      "parsingErrorDescription": "Спільне фінансування",
-      "networkErrorDescription": "Спільне фінансування"
+      "network-error": "Фінансується спільно",
+      "parsingErrorDescription": "Фінансується спільно",
+      "networkErrorDescription": "Фінансується спільно"
     }
   },
-  "create": "Спільне фінансування",
+  "create": "Фінансується спільно",
   "about": "Відомості про видавця даних",
   "stopEditing": "Завершити редагування",
   "startEditing": "Почати редагування",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "Спільне фінансування",
-    "noPredicate": "Спільне фінансування",
+    "weHaveRestoredYourPredicate": "Фінансується спільно",
+    "noPredicate": "Фінансується спільно",
     "currentFilter": "Поточний фільтр",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "Спільне фінансування",
-      "faild-to-load-predicate": "Спільне фінансування",
-      "unexpectedError": "Спільне фінансування",
-      "failedToParseJSON": "Спільне фінансування",
-      "failedToVisualizePredicate": "Спільне фінансування"
+      "invalid-predicate": "Фінансується спільно",
+      "faild-to-load-predicate": "Фінансується спільно",
+      "unexpectedError": "Фінансується спільно",
+      "failedToParseJSON": "Фінансується спільно",
+      "failedToVisualizePredicate": "Фінансується спільно"
     }
   },
   "downloadOptions": {
     "title": "Варіанти завантаження",
-    "chooseChecklist": "Спільне фінансування",
-    "chooseChecklistDescription": "Спільне фінансування",
+    "chooseChecklist": "Фінансується спільно",
+    "chooseChecklistDescription": "Фінансується спільно",
     "content": {
       "rawData": "Первинні дані",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": ""
     },
     "fileFormats": {
-      "tabCsv": "Спільне фінансування"
+      "tabCsv": "Фінансується спільно"
     },
     "tableValues": {
-      "ifAvailable": "Спільне фінансування",
-      "ifSelected": "Спільне фінансування",
-      "links": "Спільне фінансування"
+      "ifAvailable": "Фінансується спільно",
+      "ifSelected": "Фінансується спільно",
+      "links": "Фінансується спільно"
     }
   }
 }
