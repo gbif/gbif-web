@@ -8,7 +8,7 @@
       "publicationsFrom": "該当国からの出版物",
       "publicationsAbout": "該当国についての出版物",
       "news": "ニュース",
-      "alienSpecies": "共同資金",
+      "alienSpecies": "共同出資",
       "projects": "プロジェクト"
     },
     "country": "国",
@@ -21,8 +21,8 @@
     "noProjects": "プロジェクトがありません",
     "notParticipant": "参加者ではない。",
     "notParticipantDescription": "この国は、GBIF の参加者ではないです。",
-    "countryNamingDisclaimer": "共同資金",
-    "isoStandardLinkText": "共同資金",
+    "countryNamingDisclaimer": "共同出資",
+    "isoStandardLinkText": "共同出資",
     "counts": {
       "occurrences": "{NUMBER, plural,\n0 {オカレンス}\none {オカレンス}\nfew {オカレンス}\nmany {オカレンス}\nother {オカレンス}\n}",
       "datasets": "データセット",
