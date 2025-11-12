@@ -39,7 +39,7 @@
       }
     },
     "participant": "Deelnemer",
-    "node": "Cofinanciering",
+    "node": "Co-Gefinancierd door",
     "participantSummary": "Overzicht deelnemer",
     "memberStatus": "Status van lid",
     "gbifParticipantSince": "GBIF deelnemer sinds",
