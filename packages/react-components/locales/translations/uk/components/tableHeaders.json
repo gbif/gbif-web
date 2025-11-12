@@ -1,13 +1,13 @@
 {
   "features": "",
   "options": {
-    "includeAuthorship": "Спільне фінансування"
+    "includeAuthorship": "Фінансується спільно"
   },
   "citations": "Цитування",
   "occurrences": "Знахідки",
   "numberSpecimens": "",
   "gbifNumberSpecimens": "",
-  "specimenTriplet": "Спільне фінансування",
+  "specimenTriplet": "Фінансується спільно",
   "title": "Назва",
   "titleAndAbstract": "",
   "altmetric": "",
@@ -25,6 +25,6 @@
   "activeInstitution": "",
   "author": "Автор",
   "source": "Журнал",
-  "dataReferenced": "Спільне фінансування",
+  "dataReferenced": "Фінансується спільно",
   "activeCollection": ""
 }
