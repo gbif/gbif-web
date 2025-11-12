@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "Mi organización aún no está registrada.",
   "searchOrganisations": "Buscar organizaciones",
   "termsAndConditions": "Términos y condiciones",
-  "iHaveReadAndUnderstood": "Co-financiamiento",
+  "iHaveReadAndUnderstood": "Cofinanciado por",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "Entiendo que estoy realizando el registro en nombre de mi organización y confirmo que las autoridades  representantes de mi organización están al tanto de este registro.",
   "iUnderstandThatMyOrganizationalInformation": "Entiendo que la información de mi organización, incluyendo los detalles de contacto proporcionados, estará disponible públicamente en GBIF.org.",
   "administrativeContact": "Contacto administrativo",
@@ -30,7 +30,7 @@
   "none": "Ninguno",
   "whatAndHow": "Qué y cómo",
   "helpUsUnderstand": "Ayúdanos a entender qué tipo de datos planeas publicar y qué ayuda podrías necesitar.",
-  "publOfFourTypesOfData": "Co-financiamiento",
+  "publOfFourTypesOfData": "Cofinanciado por",
   "whichTypesOfData": "¿Qué tipo de datos esperas publicar?",
   "resourcesMetaData": "Metadatos de recursos",
   "checkListData": "Listas de especies",
@@ -42,9 +42,9 @@
   "yes": "Sí",
   "no": "No",
   "pleaseSelectAValue": "Por favor, selecciona un valor",
-  "reuseTrustedIPThosting": "Co-financiamiento",
+  "reuseTrustedIPThosting": "Cofinanciado por",
   "doYouNeedHelpPublishing": "¿Necesitas ayuda para publicar tus datos?",
-  "areYouPlanningToInstallAndRun": "Co-financiamiento",
+  "areYouPlanningToInstallAndRun": "Cofinanciado por",
   "orgDetails": "Detalles de la organización",
   "yourChanceToTellGBIF": "Tu oportunidad de contar a los usuarios de GBIF quién eres y qué haces.",
   "orgName": "Nombre de la organización",
@@ -81,20 +81,20 @@
   "outage": "Estamos experimentando una caída parcial del sistema y acepta registros por el momento",
   "eoiDescription": "Para la preparación en la publicación de datos mediante GBIF, pedimos a los nuevos publicadores que completen este formulario en línea. Antes de que GBIF indexe sus conjuntos de datos, su institución debe recibir la adhesión como un publicador de datos de uno de los países u organizaciones participantes en GBIF, a través de un nodo participante de GBIF. Si su país no es aún un participante de GBIF, procuraremos su adhesión mediante algún miembro de la comunidad de GBIF.",
   "eoiTitle": "Conviértete en publicador",
-  "checkRegistration": "Co-financiamiento",
-  "organisationDetails": "Co-financiamiento",
-  "organisationAddress": "Co-financiamiento",
-  "endorsement": "Co-financiamiento",
+  "checkRegistration": "Cofinanciado por",
+  "organisationDetails": "Cofinanciado por",
+  "organisationAddress": "Cofinanciado por",
+  "endorsement": "Cofinanciado por",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "Co-financiamiento",
-    "pleaseSelectTheCountryOfYourOrganization": "Co-financiamiento"
+    "pleaseSelectYourOrganizationOnTheMap": "Cofinanciado por",
+    "pleaseSelectTheCountryOfYourOrganization": "Cofinanciado por"
   },
-  "thankYouForYourRegistration": "Co-financiamiento",
-  "failedToRegisterOrganization": "Co-financiamiento",
-  "associatedWithGbifProgramme": "Co-financiamiento",
+  "thankYouForYourRegistration": "Cofinanciado por",
+  "failedToRegisterOrganization": "Cofinanciado por",
+  "associatedWithGbifProgramme": "Cofinanciado por",
   "loginToRegisterOrganization": {
-    "title": "Co-financiamiento",
-    "message": "Co-financiamiento"
+    "title": "Cofinanciado por",
+    "message": "Cofinanciado por"
   },
-  "registerAnotherOrganization": "Co-financiamiento"
+  "registerAnotherOrganization": "Cofinanciado por"
 }
