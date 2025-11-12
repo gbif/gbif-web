@@ -21,7 +21,7 @@
   "anyYear": "Jakýkoliv rok",
   "exploreArea": "Prozkoumat oblast",
   "explore": "Procházet",
-  "generatedDateAgo": "Spolufinancování",
+  "generatedDateAgo": "Spolufinancováno",
   "style": "Styl",
   "filters": "Filtry",
   "select": "Vybrat",
@@ -36,7 +36,7 @@
     "CLASSIC": "Klasické body",
     "STREETS": "Ulice",
     "GLACIER": "Ledovec",
-    "GREEN": "Spolufinancování",
+    "GREEN": "Spolufinancováno",
     "CUSTOM": "Vlastní"
   },
   "basemap": {
