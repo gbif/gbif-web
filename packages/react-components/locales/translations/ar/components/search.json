@@ -36,8 +36,8 @@
   "loadMore": "مزيد",
   "loading": "جاري التحميل",
   "noResults": "",
-  "startTyping": "التمويل المشترك",
-  "rankInGroup": "التمويل المشترك",
+  "startTyping": "تمويل مشترك بواسطة",
+  "rankInGroup": "تمويل مشترك بواسطة",
   "occurrenceClustersView": {
     "about": "حول",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "بحث",
-    "description": "التمويل المشترك",
+    "description": "تمويل مشترك بواسطة",
     "noSearchTermsEntered": "لم يتم إدخال مصطلحات للبحث",
-    "placeholder": "التمويل المشترك",
+    "placeholder": "تمويل مشترك بواسطة",
     "categories": {
       "speciesSearch": "نوع",
       "datasetSearch": "مجموعات البيانات",
       "publisherSearch": "الناشرون",
       "occurrenceSearch": "تكرارات",
-      "resourceSearch": "التمويل المشترك"
+      "resourceSearch": "تمويل مشترك بواسطة"
     },
     "seeAll": "مشاهدة الكل"
   }
