@@ -1,13 +1,13 @@
 {
   "features": "Eigenschaften",
   "options": {
-    "includeAuthorship": "Co Finanzierung"
+    "includeAuthorship": "Co finanziert von"
   },
   "citations": "Zitierungen",
   "occurrences": "Occurrences",
   "numberSpecimens": "Anzahl der Sammlungsobjekte",
   "gbifNumberSpecimens": "Belege in GBIF",
-  "specimenTriplet": "Co Finanzierung",
+  "specimenTriplet": "Co finanziert von",
   "title": "Titel",
   "titleAndAbstract": "Titel und Abstract",
   "altmetric": "Altmetrisch",
@@ -25,6 +25,6 @@
   "activeInstitution": "Ist aktiv",
   "author": "",
   "source": "",
-  "dataReferenced": "Co Finanzierung",
+  "dataReferenced": "Co finanziert von",
   "activeCollection": "Ist aktiv"
 }
