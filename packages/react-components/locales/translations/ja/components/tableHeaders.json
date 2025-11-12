@@ -1,13 +1,13 @@
 {
   "features": "特徴",
   "options": {
-    "includeAuthorship": "共同資金"
+    "includeAuthorship": "共同出資"
   },
   "citations": "引用",
   "occurrences": "オカレンス",
   "numberSpecimens": "標本数",
   "gbifNumberSpecimens": "GBIFの標本",
-  "specimenTriplet": "共同資金",
+  "specimenTriplet": "共同出資",
   "title": "タイトル",
   "titleAndAbstract": "タイトルおよび概要",
   "altmetric": "オルトメトリクス",
@@ -25,6 +25,6 @@
   "activeInstitution": "",
   "author": "著者",
   "source": "ジャーナル",
-  "dataReferenced": "共同資金",
+  "dataReferenced": "共同出資",
   "activeCollection": ""
 }
