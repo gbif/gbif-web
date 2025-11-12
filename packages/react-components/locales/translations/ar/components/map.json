@@ -21,7 +21,7 @@
   "anyYear": " اي سنة",
   "exploreArea": "استكشف المنطقة",
   "explore": "استكشف",
-  "generatedDateAgo": "التمويل المشترك",
+  "generatedDateAgo": "تمويل مشترك بواسطة",
   "style": "نمط",
   "filters": "المُرشِّحات",
   "select": "اختيار",
@@ -36,7 +36,7 @@
     "CLASSIC": "نقاط تقليدية",
     "STREETS": "الشوارع",
     "GLACIER": "نهر جليدي",
-    "GREEN": "التمويل المشترك",
+    "GREEN": "تمويل مشترك بواسطة",
     "CUSTOM": "مُخصص"
   },
   "basemap": {
