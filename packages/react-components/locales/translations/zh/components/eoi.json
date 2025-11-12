@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "我所在的机构还未完成注册。",
   "searchOrganisations": "搜索机构",
   "termsAndConditions": "条款与细则",
-  "iHaveReadAndUnderstood": "共同资助方",
+  "iHaveReadAndUnderstood": "联合资助方：",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "我了解我正代表我的机构提出注册请求，并确认机构的主要负责人知晓此事。",
   "iUnderstandThatMyOrganizationalInformation": "我了解我的机构信息，包括所提供的联系方式，将通过GBIF.org 公开。",
   "administrativeContact": "行政联系",
@@ -30,7 +30,7 @@
   "none": "没有",
   "whatAndHow": "什么和如何处理",
   "helpUsUnderstand": "帮助我们了解您计划发布的数据类型，以及您需要什么帮助。",
-  "publOfFourTypesOfData": "共同资助方",
+  "publOfFourTypesOfData": "联合资助方：",
   "whichTypesOfData": "您打算发布哪种类型的数据？",
   "resourcesMetaData": "资源元数据",
   "checkListData": "名录数据",
@@ -42,9 +42,9 @@
   "yes": "是",
   "no": "否",
   "pleaseSelectAValue": "请选择一个值",
-  "reuseTrustedIPThosting": "共同资助方",
+  "reuseTrustedIPThosting": "联合资助方：",
   "doYouNeedHelpPublishing": "您在发布数据时是否需要帮助？",
-  "areYouPlanningToInstallAndRun": "共同资助方",
+  "areYouPlanningToInstallAndRun": "联合资助方：",
   "orgDetails": "机构详情",
   "yourChanceToTellGBIF": "这是一个您向 GBIF 使用者介绍您是谁及您工作内容的机会。",
   "orgName": "机构名",
@@ -81,20 +81,20 @@
   "outage": "系统目前处于部分故障状态，暂时无法接受注册",
   "eoiDescription": "为了准备通过 GBIF发布数据，我们请求潜在的新发布者们填写此在线表格。在 GBIF开始为您的数据集编制索引前，您的机构必须得到一个GBIF国家或机构成员通过其节点的认可，才能成为数据发布者。如果您的国家尚未加入 GBIF，我们将替您在 GBIF 社群中找到立足之地。",
   "eoiTitle": "成为一个发布者",
-  "checkRegistration": "共同资助方",
-  "organisationDetails": "共同资助方",
-  "organisationAddress": "共同资助方",
-  "endorsement": "共同资助方",
+  "checkRegistration": "联合资助方：",
+  "organisationDetails": "联合资助方：",
+  "organisationAddress": "联合资助方：",
+  "endorsement": "联合资助方：",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "共同资助方",
-    "pleaseSelectTheCountryOfYourOrganization": "共同资助方"
+    "pleaseSelectYourOrganizationOnTheMap": "联合资助方：",
+    "pleaseSelectTheCountryOfYourOrganization": "联合资助方："
   },
-  "thankYouForYourRegistration": "共同资助方",
-  "failedToRegisterOrganization": "共同资助方",
-  "associatedWithGbifProgramme": "共同资助方",
+  "thankYouForYourRegistration": "联合资助方：",
+  "failedToRegisterOrganization": "联合资助方：",
+  "associatedWithGbifProgramme": "联合资助方：",
   "loginToRegisterOrganization": {
-    "title": "共同资助方",
-    "message": "共同资助方"
+    "title": "联合资助方：",
+    "message": "联合资助方："
   },
-  "registerAnotherOrganization": "共同资助方"
+  "registerAnotherOrganization": "联合资助方："
 }
