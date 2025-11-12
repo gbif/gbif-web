@@ -21,7 +21,7 @@
   "anyYear": "Qualquer ano",
   "exploreArea": "Explore a área",
   "explore": "Explorar",
-  "generatedDateAgo": "Co-financiamento",
+  "generatedDateAgo": "Co-financiado por",
   "style": "Estilo",
   "filters": "Filtros",
   "select": "Selecionar",
@@ -36,7 +36,7 @@
     "CLASSIC": "Postos clássicos",
     "STREETS": "Ruas",
     "GLACIER": "Glaciar",
-    "GREEN": "Co-financiamento",
+    "GREEN": "Co-financiado por",
     "CUSTOM": "Personalizado"
   },
   "basemap": {
