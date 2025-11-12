@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "Co-financiamento",
-      "ASSOCIATE": "Co-financiamento",
-      "OTHER_ASSOCIATE": "Co-financiamento",
+      "VOTING": "Co-financiado por",
+      "ASSOCIATE": "Co-financiado por",
+      "OTHER_ASSOCIATE": "Co-financiado por",
       "FORMER": "Anterior",
       "OBSERVER": "Observador",
-      "UNKNOWN": "Co-financiamento",
+      "UNKNOWN": "Co-financiado por",
       "AFFILIATE": "Afiliado do GBIF"
     },
-    "affiliateHelp": "Co-financiamento",
-    "mapCaptionPublishers": "Co-financiamento",
+    "affiliateHelp": "Co-financiado por",
+    "mapCaptionPublishers": "Co-financiado por",
     "role": "Função",
     "name": "Nome",
     "participant": "Participante",
     "type": "Tipo",
     "memberSince": "Membro desde",
     "all": "Todos",
-    "countryParticipants": "Co-financiamento",
-    "publishersPerCountry": "Co-financiamento",
+    "countryParticipants": "Co-financiado por",
+    "publishersPerCountry": "Co-financiado por",
     "clear": "Limpar",
     "headlines": {
       "nodesSteeringGroup": "Grupo diretivo dos Nós",
