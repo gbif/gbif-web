@@ -36,8 +36,8 @@
   "loadMore": "עוד",
   "loading": "טוען",
   "noResults": "אין תוצאות",
-  "startTyping": "מימון משותף",
-  "rankInGroup": "מימון משותף",
+  "startTyping": "מומן במשותף על ידי",
+  "rankInGroup": "מומן במשותף על ידי",
   "occurrenceClustersView": {
     "about": "אודות",
     "clusters": "מקבצים קשורים",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "חיפוש",
-    "description": "מימון משותף",
+    "description": "מומן במשותף על ידי",
     "noSearchTermsEntered": "לא הוזנו מונחי חיפוש",
-    "placeholder": "מימון משותף",
+    "placeholder": "מומן במשותף על ידי",
     "categories": {
       "speciesSearch": "מינים",
       "datasetSearch": "מסדי נתונים",
       "publisherSearch": "ספקי מידע",
       "occurrenceSearch": "תצפיות",
-      "resourceSearch": "מימון משותף"
+      "resourceSearch": "מומן במשותף על ידי"
     },
     "seeAll": "הצג הכל"
   }
