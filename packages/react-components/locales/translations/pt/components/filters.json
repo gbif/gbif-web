@@ -6,7 +6,7 @@
   },
   "locationId": {
     "name": "ID da Localização",
-    "count": "Co-financiamento",
+    "count": "Co-financiado por",
     "description": ""
   },
   "hasCoordinate": {
@@ -21,12 +21,12 @@
   },
   "collectionKey": {
     "name": "Coleção",
-    "count": "Co-financiamento",
+    "count": "Co-financiado por",
     "description": ""
   },
   "taxonomicStatus": {
     "name": "Estado",
-    "count": "Co-financiamento",
+    "count": "Co-financiado por",
     "description": ""
   },
   "taxonRank": {
@@ -36,12 +36,12 @@
   },
   "numberSpecimens": {
     "name": "",
-    "count": "Co-financiamento",
+    "count": "Co-financiado por",
     "description": ""
   },
   "specimensInGbif": {
     "name": "Espécimes no GBIF",
-    "count": "Co-financiamento",
+    "count": "Co-financiado por",
     "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "iucnRedListCategory": {
@@ -51,7 +51,7 @@
   },
   "geoDistance": {
     "name": "",
-    "count": "Co-financiamento",
+    "count": "Co-financiado por",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -59,7 +59,7 @@
   },
   "geometry": {
     "name": "Localização",
-    "count": "Co-financiamento",
+    "count": "Co-financiado por",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "geologicalTime": {
-    "name": "Co-financiamento",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "name": "Co-financiado por",
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "purposes": {
     "name": "Tópico",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "ID do GBIF",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "organismQuantityType": {
     "name": "Tipo de quantidade de organismos",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "pathway": {
     "name": "",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "associatedSequences": {
     "name": "Sequências associadas",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "degreeOfEstablishment": {
     "name": "",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "endDayOfYear": {
     "name": "Dia final do ano",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "startDayOfYear": {
     "name": "Dia inicial do ano",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "previousIdentifications": {
     "name": "Identificações anteriores",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "lastInterpreted": {
     "name": "Última interpretação",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "alternativeCode": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
-    "count": "Co-financiamento",
+    "count": "Co-financiado por",
     "description": ""
   },
   "identifier": {
     "name": "Identificador",
-    "count": "Co-financiamento",
+    "count": "Co-financiado por",
     "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
-    "count": "Co-financiamento",
+    "count": "Co-financiado por",
     "description": ""
   },
   "collectionContentType": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
-    "count": "Co-financiamento",
+    "count": "Co-financiado por",
     "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "preservationType": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
-    "count": "Co-financiamento",
+    "count": "Co-financiado por",
     "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "biomeType": {
-    "name": "Co-financiamento",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "name": "Co-financiado por",
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "objectClassification": {
-    "name": "Co-financiamento",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "name": "Co-financiado por",
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "taxonKey": {
     "name": "Nome científico",
@@ -230,11 +230,11 @@
     "description": "Os tipos de problemas ou sinais de potencial interesse descobertos ao processar os dados."
   },
   "occurrenceTaxonomicIssue": {
-    "name": "Co-financiamento",
-    "count": "Co-financiamento",
-    "isNotNull": "Co-financiamento",
-    "isNull": "Co-financiamento",
-    "description": "Co-financiamento"
+    "name": "Co-financiado por",
+    "count": "Co-financiado por",
+    "isNotNull": "Co-financiado por",
+    "isNull": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "occurrenceCountry": {
     "name": "País",
@@ -246,13 +246,13 @@
   },
   "preparations": {
     "name": "Preparações",
-    "count": "Co-financiamento",
+    "count": "Co-financiado por",
     "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "repatriated": {
     "name": "Repatriado",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "publishingCountryCode": {
     "name": "País de publicação",
@@ -343,9 +343,9 @@
     "description": "Uma medida da distância mínima em metros de uma coordenada dentro da qual uma localidade possa ser interpretada como existente."
   },
   "distanceFromCentroidInMeters": {
-    "name": "Co-financiamento",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "name": "Co-financiado por",
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "depth": {
     "name": "Profundidade",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "Sexo",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "lifeStage": {
     "name": "Estágio de desenvolvimento",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "recordedBy": {
     "name": "Registado por",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "Número de campo",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "verbatimTaxonId": {
-    "name": "Co-financiamento",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "name": "Co-financiado por",
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "islandGroup": {
     "name": "Grupo de ilhas",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "island": {
     "name": "Ilha",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "georeferencedBy": {
     "name": "Georreferenciado por",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "datasetName": {
     "name": "Nome do conjunto de dados",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "Programa",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "recordNumber": {
     "name": "Número de registo",
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "Geografia superior",
-    "count": "Co-financiamento",
+    "count": "Co-financiado por",
     "description": ""
   },
   "stateProvince": {
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "Região do GBIF",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "Co-financiamento",
-    "description": "Co-financiamento"
+    "count": "Co-financiado por",
+    "description": "Co-financiado por"
   },
   "eventId": {
     "name": "ID do evento",
@@ -569,12 +569,12 @@
   },
   "isInCluster": {
     "name": "Está em cluster",
-    "count": "Co-financiamento",
+    "count": "Co-financiado por",
     "description": "Se foi determinado o registo ter outros registos relacionados."
   },
   "isSequenced": {
     "name": "",
-    "count": "Co-financiamento",
+    "count": "Co-financiado por",
     "description": ""
   },
   "active": {
