@@ -39,7 +39,7 @@
       }
     },
     "participant": "Participant",
-    "node": "Co-financement",
+    "node": "Co-financé par",
     "participantSummary": "Résumé du participant",
     "memberStatus": "Statut du membre",
     "gbifParticipantSince": "Participant GBIF depuis",
