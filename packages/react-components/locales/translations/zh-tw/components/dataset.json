@@ -31,7 +31,7 @@
   "constituentOf": "組成自",
   "dataset": "資料集",
   "taxonomy": "分類學",
-  "localContexts": "共同資助",
+  "localContexts": "共同資助單位",
   "project": "專案",
   "metrics": "指標",
   "metricsOccurrenceHelpText": "指標是來自已解釋的資料",
@@ -150,8 +150,8 @@
     "registrationDetails": ""
   },
   "errors": {
-    "evenList": "共同資助",
-    "occurrenceInfo": "共同資助"
+    "evenList": "共同資助單位",
+    "occurrenceInfo": "共同資助單位"
   },
   "eventTaxonomy": "出現紀錄的分類群分布"
 }
