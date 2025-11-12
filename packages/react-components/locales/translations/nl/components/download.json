@@ -8,21 +8,21 @@
   "continueToGBIF": "Ga verder",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "Cofinanciering",
-    "noSql": "Cofinanciering",
+    "placeholder": "Co-Gefinancierd door",
+    "noSql": "Co-Gefinancierd door",
     "note": {
       "title": "Opmerking",
       "description": "",
-      "goToOccurrenceSearch": "Cofinanciering"
+      "goToOccurrenceSearch": "Co-Gefinancierd door"
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "Cofinanciering",
-      "parsingErrorDescription": "Cofinanciering",
-      "networkErrorDescription": "Cofinanciering"
+      "network-error": "Co-Gefinancierd door",
+      "parsingErrorDescription": "Co-Gefinancierd door",
+      "networkErrorDescription": "Co-Gefinancierd door"
     }
   },
-  "create": "Cofinanciering",
+  "create": "Co-Gefinancierd door",
   "about": "Over",
   "stopEditing": "Stoppen met bewerken",
   "startEditing": "Begin met bewerken",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "Lees de documentatie",
   "request": {
     "createNewDownload": "Creëer nieuwe download",
-    "weHaveRestoredYourPredicate": "Cofinanciering",
-    "noPredicate": "Cofinanciering",
+    "weHaveRestoredYourPredicate": "Co-Gefinancierd door",
+    "noPredicate": "Co-Gefinancierd door",
     "currentFilter": "Huidige filter",
     "errors": {
       "invalid-json": "Ongeldige JSON",
-      "invalid-predicate": "Cofinanciering",
-      "faild-to-load-predicate": "Cofinanciering",
-      "unexpectedError": "Cofinanciering",
-      "failedToParseJSON": "Cofinanciering",
-      "failedToVisualizePredicate": "Cofinanciering"
+      "invalid-predicate": "Co-Gefinancierd door",
+      "faild-to-load-predicate": "Co-Gefinancierd door",
+      "unexpectedError": "Co-Gefinancierd door",
+      "failedToParseJSON": "Co-Gefinancierd door",
+      "failedToVisualizePredicate": "Co-Gefinancierd door"
     }
   },
   "downloadOptions": {
     "title": "Download opties",
-    "chooseChecklist": "Cofinanciering",
-    "chooseChecklistDescription": "Cofinanciering",
+    "chooseChecklist": "Co-Gefinancierd door",
+    "chooseChecklistDescription": "Co-Gefinancierd door",
     "content": {
       "rawData": "Ruwe data",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": "Geschatte downloadgrootte"
     },
     "fileFormats": {
-      "tabCsv": "Cofinanciering"
+      "tabCsv": "Co-Gefinancierd door"
     },
     "tableValues": {
-      "ifAvailable": "Cofinanciering",
-      "ifSelected": "Cofinanciering",
-      "links": "Cofinanciering"
+      "ifAvailable": "Co-Gefinancierd door",
+      "ifSelected": "Co-Gefinancierd door",
+      "links": "Co-Gefinancierd door"
     }
   }
 }
