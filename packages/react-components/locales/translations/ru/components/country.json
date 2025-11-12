@@ -8,7 +8,7 @@
       "publicationsFrom": "Публикация данных организациями из этой страны",
       "publicationsAbout": "Публикация данных об этой стране",
       "news": "Новости",
-      "alienSpecies": "Совместное финансирование",
+      "alienSpecies": "Софинансируется",
       "projects": "Проекты"
     },
     "country": "Страна",
@@ -21,8 +21,8 @@
     "noProjects": "Нет проектов",
     "notParticipant": "Не является членом GBIF",
     "notParticipantDescription": "Эта страна не является официальным участником GBIF",
-    "countryNamingDisclaimer": "Совместное финансирование",
-    "isoStandardLinkText": "Совместное финансирование",
+    "countryNamingDisclaimer": "Софинансируется",
+    "isoStandardLinkText": "Софинансируется",
     "counts": {
       "occurrences": "{NUMBER, plural,\n0 {Находок}\none {Находка}\nfew {Находки}\nmany {Находок}\nother {Находок}\n}",
       "datasets": "{NUMBER, plural,\n0 {Наборов данных}\none {Набор данных}\nfew {Набора данных}\nmany {Наборов данных}\nother {Наборов данных}\n}",
