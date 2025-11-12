@@ -28,8 +28,8 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "",
-  "notVocabularyWarning": "Co Finanzierung",
-  "taxonomicBreakdown": "Co Finanzierung",
+  "notVocabularyWarning": "Co finanziert von",
+  "taxonomicBreakdown": "Co finanziert von",
   "group": {
     "views": "",
     "record": "",
