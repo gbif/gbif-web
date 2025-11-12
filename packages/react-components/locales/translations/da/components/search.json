@@ -36,8 +36,8 @@
   "loadMore": "Flere",
   "loading": "Indlæser",
   "noResults": "",
-  "startTyping": "Sam-finansiering",
-  "rankInGroup": "Sam-finansiering",
+  "startTyping": "Samfinansieret af",
+  "rankInGroup": "Samfinansieret af",
   "occurrenceClustersView": {
     "about": "Om",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Søg",
-    "description": "Sam-finansiering",
+    "description": "Samfinansieret af",
     "noSearchTermsEntered": "Intet søgeord indtastet",
-    "placeholder": "Sam-finansiering",
+    "placeholder": "Samfinansieret af",
     "categories": {
       "speciesSearch": "Art",
       "datasetSearch": "Datasæt",
       "publisherSearch": "Forlæggere",
       "occurrenceSearch": "Observationer",
-      "resourceSearch": "Sam-finansiering"
+      "resourceSearch": "Samfinansieret af"
     },
     "seeAll": "Se alle"
   }
