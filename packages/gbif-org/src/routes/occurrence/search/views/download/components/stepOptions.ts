@@ -1,5 +1,6 @@
-import { FaCog, FaFileAlt, FaDownload, FaFilter } from 'react-icons/fa';
+import { FaCog, FaFileAlt, FaDownload } from 'react-icons/fa';
 import { ComponentType } from 'react';
+import { FilterIcon } from '@/components/icons/icons';
 
 export interface Step {
   ordering: number;
@@ -14,22 +15,22 @@ export const stepOptions: Record<string, Step> = {
     ordering: 0,
     id: 'QUALITY',
     name: 'occurrenceDownloadFlow.steps.quality.name',
-    icon: FaFilter,
+    icon: FilterIcon,
     description: 'occurrenceDownloadFlow.steps.quality.description',
   },
   PREDICATE: {
     ordering: 1,
     id: 'PREDICATE',
     name: 'occurrenceDownloadFlow.steps.filter.name',
-    icon: FaFilter,
+    icon: FilterIcon,
     description: 'occurrenceDownloadFlow.steps.filter.description',
   },
   SQL: {
     ordering: 2,
     id: 'SQL',
     name: 'occurrenceDownloadFlow.steps.sql.name',
-    icon: FaFilter,
-    description: 'occurrenceDownloadFlow.steps.sql.description'
+    icon: FilterIcon,
+    description: 'occurrenceDownloadFlow.steps.sql.description',
   },
   FORMAT: {
     ordering: 3,

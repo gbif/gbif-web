@@ -1,10 +1,10 @@
 import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { OccurrenceDownloadAbout, occurrenceDownloadAboutLoader } from './about';
-import { OccurrenceDownloadRequestCreate } from './create';
 import { OccurrenceDownloadRequestCreateSkleton } from './create/skeleton';
 import { OccurrenceDownloadPage } from './layout';
-import { PredicateDownloadFlow } from '../../search/views/download/testing/app';
+import { PredicateDownloadFlow } from '../../search/views/download/PredicateDownloadFlow';
+import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 
 export const occurrenceDownloadRequestRoute: RouteObjectWithPlugins = {
   path: 'occurrence/download/request',
@@ -16,9 +16,9 @@ export const occurrenceDownloadRequestRoute: RouteObjectWithPlugins = {
       element: (
         <StaticRenderSuspence fallback={<OccurrenceDownloadRequestCreateSkleton />}>
           {/* <OccurrenceDownloadRequestCreate /> */}
-          <div className="g-bg-slate-100">
+          <PageContainer className="g-bg-slate-100">
             <PredicateDownloadFlow />
-          </div>
+          </PageContainer>
         </StaticRenderSuspence>
       ),
     },

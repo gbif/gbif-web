@@ -1,6 +1,8 @@
 import { FaCheck } from 'react-icons/fa';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { occurrenceDownloadSteps, Step, stepOptions } from './stepOptions';
+import useUpdateEffect from '@/hooks/useUpdateEffect';
+import { useRef } from 'react';
 
 interface StepIndicatorProps {
   currentStep: string;
@@ -12,10 +14,15 @@ export default function StepIndicator({
   steps = occurrenceDownloadSteps,
 }: StepIndicatorProps) {
   const intl = useIntl();
+  const ref = useRef<HTMLDivElement>(null);
   const progressLabel = intl.formatMessage({
     id: 'occurrenceDownloadFlow.progressLabel',
     defaultMessage: 'Progress',
   });
+
+  useUpdateEffect(() => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [currentStep]);
 
   // Calculate progress percentage based on completed steps
   const currentStepIndex = steps.findIndex(
@@ -25,7 +32,7 @@ export default function StepIndicator({
     currentStepIndex >= 0 ? (currentStepIndex / (steps.length - 1)) * 100 : 0;
 
   return (
-    <div className="g-mb-4">
+    <div className="g-mb-4" ref={ref}>
       <nav aria-label={progressLabel}>
         <ol className="g-flex g-justify-between g-items-center g-relative">
           {/* Progress bar background and fill */}

@@ -71,8 +71,8 @@ export default function Editor({
   }, [text, isEditing, handleValidation, setText]);
 
   return (
-    <div className="g-flex g-justify-center g-p-6 g-transition-colors g-duration-300">
-      <Card className="g-w-full g-max-w-4xl">
+    <div className="g-flex g-justify-center g-transition-colors g-duration-300">
+      <Card className="g-w-full">
         <div className="g-p-6 g-border-b dark:g-border-slate-700 g-border-slate-200">
           <div className="g-flex g-items-end g-justify-between">
             <h1 className="g-text-2xl g-font-bold dark:g-text-white g-text-slate-900 g-flex g-items-center g-gap-3">

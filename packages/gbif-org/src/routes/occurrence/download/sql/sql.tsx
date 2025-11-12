@@ -18,7 +18,7 @@ export function OccurrenceDownloadSqlPage() {
   return (
     <article>
       <PageContainer topPadded>
-        <ArticleTextContainer className="g-max-w-3xl g-bg-white">
+        <ArticleTextContainer className="g-max-w-4xl g-bg-white">
           <ArticleTitle>
             <FormattedMessage
               id="download.sql.createNewSqlDownload"

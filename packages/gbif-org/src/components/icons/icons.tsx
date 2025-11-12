@@ -1,5 +1,7 @@
 import { GenIcon } from 'react-icons';
 
+export { LuSettings2 as FilterIcon } from 'react-icons/lu';
+
 // https://github.com/react-icons/react-icons/issues/238
 // SVJ => JSON using https://react-icons-json-generator.surge.sh/
 

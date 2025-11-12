@@ -57,7 +57,6 @@ function calculateDownloadTime(sizeInBytes: number, speedMbps: number): Download
 
 export default function TermsStep({
   predicate,
-  sql,
   selectedFormat,
   configuration,
   totalRecords,
@@ -95,8 +94,8 @@ export default function TermsStep({
 
   const handleDownload = useCallback(async () => {
     setPreparingDownload(true);
-    let sql;
-    let machineDescription;
+    let sql = configuration.sql;
+    let machineDescription = configuration.machineDescription;
     if (configuration.cube) {
       const result = await generateCubeSql(configuration.cube, predicate);
       if (result.error) {
@@ -107,7 +106,6 @@ export default function TermsStep({
       sql = result.sql;
       machineDescription = result.machineDescription;
     }
-
     fetch('/api/user/download/predicate', {
       method: 'POST',
       headers: {
@@ -116,11 +114,10 @@ export default function TermsStep({
       body: JSON.stringify({
         predicate,
         format: selectedFormat.id,
-        configuration,
         checklistKey: configuration.checklistKey,
-        verbatimExtensions: configuration.extensions,
-        machineDescription: machineDescription,
-        sql: sql,
+        verbatimExtensions: selectedFormat.id === 'DWCA' ? configuration.extensions : [],
+        machineDescription: selectedFormat.id === 'SQL_TSV_ZIP' ? machineDescription : undefined,
+        sql: selectedFormat.id === 'SQL_TSV_ZIP' ? sql : undefined,
       }),
     })
       .then((response) => {
@@ -160,20 +157,6 @@ export default function TermsStep({
           <FormattedMessage id="occurrenceDownloadFlow.backToConfiguration" />
         </button>
       </div>
-
-      <pre>
-        {JSON.stringify(
-          {
-            estimatedSizeInBytes,
-            totalRecords,
-            estimatedUnzippedSizeInBytes,
-            isLargeDownload,
-            configuration,
-          },
-          null,
-          2
-        )}
-      </pre>
 
       <div className="g-grid lg:g-grid-cols-3 g-gap-8">
         {/* Terms Content */}

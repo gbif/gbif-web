@@ -1,8 +1,8 @@
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
 import { OccurrenceDownloadSqlAbout, occurrenceDownloadSqlAboutLoader } from './about';
-import { OccurrenceDownloadSqlCreate } from './create';
 import { OccurrenceDownloadSqlPage } from './sql';
-import { SqlDownloadFlow } from '../../search/views/download/testing/app';
+import { PageContainer } from '@/routes/resource/key/components/pageContainer';
+import { SqlDownloadFlow } from '../../search/views/download/SqlDownloadFlow';
 
 export const occurrenceDownloadSqlRoute: RouteObjectWithPlugins = {
   id: 'occurrenceDownloadSql',
@@ -13,9 +13,9 @@ export const occurrenceDownloadSqlRoute: RouteObjectWithPlugins = {
       index: true,
       // element: <OccurrenceDownloadSqlCreate />,
       element: (
-        <div className="g-bg-slate-100">
+        <PageContainer className="g-bg-slate-100">
           <SqlDownloadFlow />
-        </div>
+        </PageContainer>
       ),
     },
     {
