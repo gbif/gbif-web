@@ -36,8 +36,8 @@
   "loadMore": "Więcej",
   "loading": "Ładowanie",
   "noResults": "",
-  "startTyping": "Współfinansowanie",
-  "rankInGroup": "Współfinansowanie",
+  "startTyping": "Współfinansowany przez",
+  "rankInGroup": "Współfinansowany przez",
   "occurrenceClustersView": {
     "about": "Informacje",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Wyszukaj",
-    "description": "Współfinansowanie",
+    "description": "Współfinansowany przez",
     "noSearchTermsEntered": "Nie wpisano terminów wyszukiwania",
-    "placeholder": "Współfinansowanie",
+    "placeholder": "Współfinansowany przez",
     "categories": {
       "speciesSearch": "Gatunek\n",
       "datasetSearch": "Zbiory danych",
       "publisherSearch": "Wydawcy",
       "occurrenceSearch": "Wystąpienia",
-      "resourceSearch": "Współfinansowanie"
+      "resourceSearch": "Współfinansowany przez"
     },
     "seeAll": "Zobacz wszystko"
   }
