@@ -1,10 +1,10 @@
 {
   "clbTaxonomicStatus": {
     "accepted": "Прийнятий",
-    "provisionally_accepted": "Спільне фінансування",
-    "ambiguous_synonym": "Спільне фінансування",
+    "provisionally_accepted": "Фінансується спільно",
+    "ambiguous_synonym": "Фінансується спільно",
     "synonym": "Синонім",
     "misapplied": "Неправильно застосований",
-    "bare_name": "Спільне фінансування"
+    "bare_name": "Фінансується спільно"
   }
 }
