@@ -8,21 +8,21 @@
   "continueToGBIF": "Pokračovat",
   "sql": {
     "createNewSqlDownload": "Vytvořit nové SQL stažení",
-    "placeholder": "Spolufinancování",
-    "noSql": "Spolufinancování",
+    "placeholder": "Spolufinancováno",
+    "noSql": "Spolufinancováno",
     "note": {
       "title": "Poznámka",
       "description": "Nejjednodušší způsob stahování a zkoumání dat je prostřednictvím uživatelského rozhraní pro vyhledávání výskytů. Pro složité dotazy a agregace však editor SQL poskytuje větší volnost.",
-      "goToOccurrenceSearch": "Spolufinancování"
+      "goToOccurrenceSearch": "Spolufinancováno"
     },
     "errors": {
       "invalid-SQL": "Neplatné SQL",
-      "network-error": "Spolufinancování",
-      "parsingErrorDescription": "Spolufinancování",
-      "networkErrorDescription": "Spolufinancování"
+      "network-error": "Spolufinancováno",
+      "parsingErrorDescription": "Spolufinancováno",
+      "networkErrorDescription": "Spolufinancováno"
     }
   },
-  "create": "Spolufinancování",
+  "create": "Spolufinancováno",
   "about": "O",
   "stopEditing": "Ukončit úpravy",
   "startEditing": "Začněte upravovat",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "Přečíst dokumentaci",
   "request": {
     "createNewDownload": "Vytvořit nové stažení",
-    "weHaveRestoredYourPredicate": "Spolufinancování",
-    "noPredicate": "Spolufinancování",
+    "weHaveRestoredYourPredicate": "Spolufinancováno",
+    "noPredicate": "Spolufinancováno",
     "currentFilter": "Aktuální filtr",
     "errors": {
       "invalid-json": "Neplatný JSON",
-      "invalid-predicate": "Spolufinancování",
-      "faild-to-load-predicate": "Spolufinancování",
-      "unexpectedError": "Spolufinancování",
-      "failedToParseJSON": "Spolufinancování",
-      "failedToVisualizePredicate": "Spolufinancování"
+      "invalid-predicate": "Spolufinancováno",
+      "faild-to-load-predicate": "Spolufinancováno",
+      "unexpectedError": "Spolufinancováno",
+      "failedToParseJSON": "Spolufinancováno",
+      "failedToVisualizePredicate": "Spolufinancováno"
     }
   },
   "downloadOptions": {
     "title": "Možnosti stažení",
-    "chooseChecklist": "Spolufinancování",
-    "chooseChecklistDescription": "Spolufinancování",
+    "chooseChecklist": "Spolufinancováno",
+    "chooseChecklistDescription": "Spolufinancováno",
     "content": {
       "rawData": "Nezpracovaná data",
       "interpretedData": "Interpretovaná data",
@@ -57,12 +57,12 @@
       "estimatedSize": "Odhadovaná velikost dat"
     },
     "fileFormats": {
-      "tabCsv": "Spolufinancování"
+      "tabCsv": "Spolufinancováno"
     },
     "tableValues": {
-      "ifAvailable": "Spolufinancování",
-      "ifSelected": "Spolufinancování",
-      "links": "Spolufinancování"
+      "ifAvailable": "Spolufinancováno",
+      "ifSelected": "Spolufinancováno",
+      "links": "Spolufinancováno"
     }
   }
 }
