@@ -1,13 +1,13 @@
 {
   "features": "Eigenschappen",
   "options": {
-    "includeAuthorship": "Cofinanciering"
+    "includeAuthorship": "Co-Gefinancierd door"
   },
   "citations": "Citaties",
   "occurrences": "Voorkomens",
   "numberSpecimens": "Aantal exemplaren",
   "gbifNumberSpecimens": "Exemplaren in GBIF",
-  "specimenTriplet": "Cofinanciering",
+  "specimenTriplet": "Co-Gefinancierd door",
   "title": "Titel",
   "titleAndAbstract": "Titel en samenvatting",
   "altmetric": "",
@@ -25,6 +25,6 @@
   "activeInstitution": "Is actief",
   "author": "Auteur",
   "source": "Tijdschrift",
-  "dataReferenced": "Cofinanciering",
+  "dataReferenced": "Co-Gefinancierd door",
   "activeCollection": "Is actief"
 }
