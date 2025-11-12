@@ -1,10 +1,10 @@
 {
   "clbTaxonomicStatus": {
     "accepted": "Přijato",
-    "provisionally_accepted": "Spolufinancování",
-    "ambiguous_synonym": "Spolufinancování",
+    "provisionally_accepted": "Spolufinancováno",
+    "ambiguous_synonym": "Spolufinancováno",
     "synonym": "Synonymum",
     "misapplied": "Nesprávné použití",
-    "bare_name": "Spolufinancování"
+    "bare_name": "Spolufinancováno"
   }
 }
