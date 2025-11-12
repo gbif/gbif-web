@@ -6,6 +6,7 @@ import { fetchWithRetry } from '../auth/utils.mjs';
 import { secretEnv } from '../../envConfig.mjs';
 
 const identityBaseUrl = secretEnv.REGISTRY_API_V1;
+const apiV1 = secretEnv.PUBLIC_API_V1;
 
 const apiConfig = {
   user: {
@@ -46,6 +47,13 @@ const apiConfig = {
   userFind: {
     url: identityBaseUrl + '/admin/user/find',
     canonical: 'admin/user/find',
+  },
+  occurrenceSearchDownload: {
+    url: apiV1 + '/occurrence/download/request/',
+    canonical: 'occurrence/download/request/',
+  },
+  occurrenceCancelDownload: {
+    url: apiV1 + '/occurrence/download/request/',
   },
 };
 
@@ -192,57 +200,15 @@ export async function find(query) {
 /**
  * Provides admin access to user management, so make sure to only expose this to authenticated users
  */
-async function getDownloads(userName, query) {
-  query = query || {};
-  ensureString(userName, 'user name');
-  ensureObject(query, 'download query');
-  let options = {
-    url: apiConfig.occurrenceDownloadUser.url + userName + '?' + queryString.stringify(query),
-    userName: userName,
-    method: 'GET',
-    json: true,
-  };
-  const response = await authenticatedRequest(options);
-  if (response.statusCode !== 200) {
-    throw response;
-  }
-  return response.body;
-}
-
-/**
- * Provides admin access to user management, so make sure to only expose this to authenticated users
- */
-async function createSimpleDownload(user, query) {
+export async function createDownload(user, query, source) {
   query = query || {};
   ensureString(user.userName, 'user name');
   ensureObject(query, 'download query');
-
-  query.notification_address = user.email || 'an_email_is_required_despite_not_needing_it';
-
-  let options = {
-    url: apiConfig.occurrenceSearchDownload.url + '?' + queryString.stringify(query),
-    userName: user.userName,
-    type: 'PLAIN',
-    method: 'GET',
-    json: false,
-  };
-  const response = await authenticatedRequest(options);
-  if (response.statusCode !== 200) {
-    throw response;
+  if (query.verbatimExtensions) {
+    ensureArray(query.verbatimExtensions, 'verbatim extensions');
   }
-  return response.body;
-}
-
-/**
- * Provides admin access to user management, so make sure to only expose this to authenticated users
- */
-async function createPredicateDownload(user, query, source) {
-  query = query || {};
-  ensureString(user.userName, 'user name');
-  ensureObject(query, 'download query');
 
   let email = user.email;
-
   let url = apiConfig.occurrenceSearchDownload.url;
   if (source) {
     url += '?source=' + encodeURIComponent(source);
@@ -256,44 +222,20 @@ async function createPredicateDownload(user, query, source) {
       sendNotification: true,
       format: query.format || 'SIMPLE_CSV',
       predicate: query.predicate,
-    },
-    userName: user.userName,
-    method: 'POST',
-    json: true,
-  };
-  return authenticatedRequest(options);
-}
-
-/**
- * Provides admin access to user management, so make sure to only expose this to authenticated users
- */
-async function createSqlDownload(user, query, source) {
-  query = query || {};
-  ensureString(user.userName, 'user name');
-  ensureObject(query, 'download query');
-
-  let email = user.email;
-
-  let url = apiConfig.occurrenceSearchDownload.url;
-  if (source) {
-    url += '?source=' + encodeURIComponent(source);
-  }
-  let options = {
-    url: url,
-    canonicalPath: apiConfig.occurrenceSearchDownload.canonical,
-    body: {
-      creator: user.userName,
-      notificationAddresses: email ? [email] : undefined,
-      sendNotification: true,
-      format: query.format || 'SQL_TSV_ZIP',
       sql: query.sql,
+      verbatimExtensions: query.verbatimExtensions,
+      checklistKey: query.checklistKey,
       machineDescription: query.machineDescription,
+      description: query.description,
     },
     userName: user.userName,
     method: 'POST',
-    json: true,
   };
-  return authenticatedRequest(options);
+  const response = await authenticatedRequest(options);
+  if (response.statusCode !== 201) {
+    throw response;
+  }
+  return response.body;
 }
 
 /**
@@ -411,5 +353,11 @@ function ensureString(value, name) {
 function ensureObject(value, name) {
   if (typeof value !== 'object' || value === null) {
     throw new TypeError(`${name} must be an object, but got ${typeof value}`);
+  }
+}
+
+function ensureArray(value, name) {
+  if (!Array.isArray(value)) {
+    throw new TypeError(`${name} must be an array, but got ${typeof value}`);
   }
 }

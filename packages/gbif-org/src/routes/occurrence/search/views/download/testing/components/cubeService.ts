@@ -21,6 +21,7 @@ export interface CubeSqlGenerationOptions {
 export interface CubeSqlResponse {
   sql: string;
   machineDescription?: string;
+  error?: string | null;
 }
 
 /**

@@ -10,6 +10,7 @@ import useQuery from '@/hooks/useQuery';
 import { useContext, useEffect } from 'react';
 import { MdFileDownload } from 'react-icons/md';
 import { searchConfig } from '../../searchConfig';
+import { DownloadCardDescription, DownloadCardTitle, FreeTextWarning } from './Shared';
 
 const GBIF_ORG = import.meta.env.PUBLIC_GBIF_ORG;
 
@@ -80,48 +81,31 @@ export function DownloadHostedPortal() {
           <MdFileDownload />
         </div>
 
-        {hasFreeTextSearch && (
-          <>
-            <Title>
-              <Message id="download.unsupported.title" />
-            </Title>
-            <Description>
-              <Message id="download.unsupported.description" />
-            </Description>
-            <Button
-              className="g-mt-6"
-              disabled={loading}
-              onClick={() => currentFilterContext.setField('q', [])}
-              variant="primaryOutline"
-            >
-              <Message id="download.unsupported.remove" />
-            </Button>
-          </>
-        )}
+        {hasFreeTextSearch && <FreeTextWarning />}
 
         {!hasFreeTextSearch && (
           <>
             {err && (
               <>
-                <Title>
+                <DownloadCardTitle>
                   <Message id="download.unsupported.title" />
-                </Title>
-                <Description>
+                </DownloadCardTitle>
+                <DownloadCardDescription>
                   <p>
                     <Message id="download.unsupported.error" />
                   </p>
                   {err.message}
-                </Description>
+                </DownloadCardDescription>
               </>
             )}
             {(loading || !err) && (
               <>
-                <Title>
+                <DownloadCardTitle>
                   <Message id="download.download" />
-                </Title>
-                <Description>
+                </DownloadCardTitle>
+                <DownloadCardDescription>
                   <Message id="download.redirectNotice" />
-                </Description>
+                </DownloadCardDescription>
                 {loading && (
                   <Button className="g-mt-6" disabled>
                     <Message id="download.continueToGBIF" />
@@ -145,12 +129,4 @@ export function DownloadHostedPortal() {
       </Card>
     </div>
   );
-}
-
-function Title({ children }: { children: React.ReactNode }) {
-  return <h3 className="g-my-2 g-font-medium g-text-slate-500">{children}</h3>;
-}
-
-function Description({ children }: { children: React.ReactNode }) {
-  return <div className="g-text-sm g-mt-4 [&_p]:g-mb-2 g-text-slate-500">{children}</div>;
 }

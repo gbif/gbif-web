@@ -86,7 +86,8 @@
       "cwd": "${workspaceFolder}/packages/gbif-org",
       "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],
-      "type": "node"
+      "type": "node",
+      "runtimeVersion": "24.11.0"
     }
   ]
 }

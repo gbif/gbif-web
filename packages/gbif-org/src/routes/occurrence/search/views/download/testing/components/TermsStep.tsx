@@ -7,6 +7,8 @@ import { useSupportedChecklists } from '@/hooks/useSupportedChecklists';
 import { DownloadSummary } from './DownloadSummary';
 import { formatFileSize, getEstimatedSizeInBytes, getEstimatedUnzippedSizeInBytes } from './utils';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
+import { useI18n } from '@/reactRouterPlugins';
 
 interface TermsStepProps {
   predicate?: any;
@@ -62,6 +64,8 @@ export default function TermsStep({
   onBack,
 }: TermsStepProps) {
   const intl = useIntl();
+  const navigate = useNavigate();
+  const { localizeLink } = useI18n();
   // Get zipped download size (what user downloads)
   const estimatedSizeInBytes = getEstimatedSizeInBytes(selectedFormat.id, totalRecords ?? 0);
   // Get unzipped size (disk space needed after extraction)
@@ -91,28 +95,55 @@ export default function TermsStep({
 
   const handleDownload = useCallback(async () => {
     setPreparingDownload(true);
+    let sql;
+    let machineDescription;
     if (configuration.cube) {
+      debugger;
       const result = await generateCubeSql(configuration.cube, predicate);
-      if (!result.sql) {
+      if (result.error) {
         alert(intl.formatMessage({ id: 'customSqlDownload.errorGeneratingSql' }));
         setPreparingDownload(false);
         return;
       }
-      console.log('Download initiated with configuration:', {
-        selectedFormat,
-        configuration,
-        predicate,
-      });
-      setPreparingDownload(false);
-    } else {
-      console.log('Download initiated with configuration:', {
-        selectedFormat,
-        configuration,
-        predicate,
-      });
-      setPreparingDownload(false);
+      sql = result.sql;
+      machineDescription = result.machineDescription;
     }
-  }, [configuration, predicate, selectedFormat, intl]);
+
+    debugger;
+    fetch('/api/user/download/predicate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        predicate,
+        format: selectedFormat.id,
+        configuration,
+        checklistKey: configuration.checklistKey,
+        verbatimExtensions: configuration.extensions,
+        machineDescription: machineDescription,
+        sql: sql,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Download request successful:', data);
+        // redirect to the download key: data.downloadKey
+        navigate(localizeLink(`/occurrence/download/${data.downloadKey}`));
+      })
+      .catch((error) => {
+        console.error('There was a problem with the download request:', error);
+        setError(error);
+      })
+      .finally(() => {
+        setPreparingDownload(false);
+      });
+  }, [configuration, predicate, selectedFormat, intl, navigate, localizeLink]);
 
   const handleTermChange = (term: AcceptedTerm) => {
     setAcceptedTerms((prev) => ({

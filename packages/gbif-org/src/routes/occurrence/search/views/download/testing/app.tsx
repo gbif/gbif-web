@@ -19,6 +19,10 @@ import {
   sqlDownloadSteps,
 } from './components/stepOptions';
 import { ProtectedForm } from '@/components/protectedForm';
+import { NoRecords } from '@/components/noDataMessages';
+import { FreeTextWarning } from '../Shared';
+import { Card, CardContent } from '@/components/ui/largeCard';
+import { MdFileDownload } from 'react-icons/md';
 
 function App() {
   const currentFilterContext = useContext(FilterContext);
@@ -44,11 +48,12 @@ function App() {
         defaultChecklist={selectedChecklist}
         filter={currentFilterContext.filter}
         predicate={predicate}
+        q={currentFilterContext.filter?.must?.q?.[0]}
       />
-      <h1>predicate download</h1>
+      {/* <h1>predicate download</h1>
       <PredicateDownloadFlow defaultChecklist={selectedChecklist} />
       <h1>sql download</h1>
-      <SqlDownloadFlow defaultChecklist={selectedChecklist} />
+      <SqlDownloadFlow defaultChecklist={selectedChecklist} /> */}
     </>
   );
 }
@@ -57,10 +62,12 @@ function OccurrenceDownloadFlow({
   defaultChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
   filter,
   predicate,
+  q,
 }: {
   defaultChecklist: string;
   filter: FilterType;
   predicate?: Predicate;
+  q?: string;
 }) {
   const {
     total,
@@ -89,54 +96,72 @@ function OccurrenceDownloadFlow({
     setCurrentStep('TERMS');
   };
 
+  if (total === 0 && !loading) {
+    return <NoRecords />;
+  }
+
+  if (q) {
+    // no support for queries containing free text search since small and large downloads differ in how they interpret fuzzy matching and it is dependent on ES version i suppose.
+    return (
+      <Card className="g-p-8 g-mt-2 g-text-center g-w-96 g-max-w-full g-mx-auto">
+        <div className="g-w-16 g-h-16 g-mx-auto g-mb-4 g-text-slate-300 g-border-slate-300 g-text-4xl g-rounded-full g-border-2 g-flex g-items-center g-justify-center">
+          <MdFileDownload />
+        </div>
+        <FreeTextWarning />
+      </Card>
+    );
+  }
+
   return (
     <div className="g-min-h-screen g-py-8">
-      <div className="g-max-w-6xl g-mx-auto">
-        <ProtectedForm
-          className=""
-          title="Please sign in"
-          message="A user account is required to download occurrence data."
-        >
-          {/* Step Indicator */}
-          {/* <Card className="g-p-6 g-mb-8"> */}
+      <div className="g-max-w-4xl g-mx-auto">
+        {total > 0 && (
+          <ProtectedForm
+            className=""
+            title="Please sign in"
+            message="A user account is required to download occurrence data."
+          >
+            {/* Step Indicator */}
+            {/* <Card className="g-p-6 g-mb-8"> */}
 
-          {/* </Card> */}
-          <StepIndicator currentStep={currentStep} steps={occurrenceDownloadSteps} />
+            {/* </Card> */}
+            <StepIndicator currentStep={currentStep} steps={occurrenceDownloadSteps} />
 
-          {/* Step Content */}
-          {currentStep === 'QUALITY' && <QualityFilters onContinue={handleFilterSelect} />}
+            {/* Step Content */}
+            {currentStep === 'QUALITY' && <QualityFilters onContinue={handleFilterSelect} />}
 
-          {currentStep === 'FORMAT' && (
-            <FormatSelection
-              onFormatSelect={handleFormatSelect}
-              totalRecords={total}
-              loadingCounts={loading}
-              // onBack={() => setCurrentStep('QUALITY')}
-            />
-          )}
+            {currentStep === 'FORMAT' && (
+              <FormatSelection
+                onFormatSelect={handleFormatSelect}
+                totalRecords={total}
+                loadingCounts={loading}
+                // onBack={() => setCurrentStep('QUALITY')}
+              />
+            )}
 
-          {currentStep === 'CONFIGURE' && selectedFormat && (
-            <ConfigurationStep
-              defaultChecklist={defaultChecklist}
-              selectedFormat={selectedFormat}
-              onBack={() => setCurrentStep('FORMAT')}
-              predicate={normalizedPredicate}
-              onContinue={handleConfigurationComplete}
-              filter={filter}
-              initialConfig={configuration}
-            />
-          )}
+            {currentStep === 'CONFIGURE' && selectedFormat && (
+              <ConfigurationStep
+                defaultChecklist={defaultChecklist}
+                selectedFormat={selectedFormat}
+                onBack={() => setCurrentStep('FORMAT')}
+                predicate={normalizedPredicate}
+                onContinue={handleConfigurationComplete}
+                filter={filter}
+                initialConfig={configuration}
+              />
+            )}
 
-          {currentStep === 'TERMS' && selectedFormat && configuration && (
-            <TermsStep
-              selectedFormat={selectedFormat}
-              configuration={configuration}
-              predicate={normalizedPredicate}
-              totalRecords={total}
-              onBack={() => setCurrentStep('CONFIGURE')}
-            />
-          )}
-        </ProtectedForm>
+            {currentStep === 'TERMS' && selectedFormat && configuration && (
+              <TermsStep
+                selectedFormat={selectedFormat}
+                configuration={configuration}
+                predicate={normalizedPredicate}
+                totalRecords={total}
+                onBack={() => setCurrentStep('CONFIGURE')}
+              />
+            )}
+          </ProtectedForm>
+        )}
       </div>
     </div>
   );

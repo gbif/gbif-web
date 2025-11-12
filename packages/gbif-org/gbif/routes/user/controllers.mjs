@@ -15,6 +15,7 @@ import {
   sanitizeUpdatedUser,
   updateForgottenPassword,
   update as updateUser,
+  createDownload,
 } from './user.model.mjs';
 import { decryptJSON } from './encrypt.mjs';
 /**
@@ -163,6 +164,49 @@ export function create(req, res) {
         res.sendStatus(500);
       }
     });
+}
+
+/**
+ * Initiate a predicate download based on query parameters.
+ */
+export function createPredicateDownload(req, res) {
+  createDownload(req.user, req.body, req?.query?.source)
+    .then(function (download) {
+      res.status(201);
+      setNoCache(res);
+      res.json({ downloadKey: download });
+    })
+    .catch(handleError(res, 422));
+}
+
+/**
+ * Initiate a predicate download based on query parameters.
+ */
+export function createSqlDownload(req, res) {
+  if (!req.body.sql || req.body.format !== 'SQL_TSV_ZIP') {
+    res.status(400);
+    return res.json({ error: 'SQL query and format are required for this download type' });
+  }
+  createDownload(req.user, req.body, req?.query?.source)
+    .then(function (download) {
+      res.status(201);
+      auth.setNoCache(res);
+      res.json({ downloadKey: download });
+    })
+    .catch(handleError(res, 422));
+}
+
+/**
+ * Cancel a download the user has initiated
+ */
+function cancelDownload(req, res) {
+  userModel
+    .cancelDownload(req.user, req.params.key)
+    .then(function () {
+      res.status(204);
+      res.send();
+    })
+    .catch(handleError(res, 422));
 }
 
 /*

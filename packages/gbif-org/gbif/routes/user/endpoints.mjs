@@ -2,7 +2,7 @@ import { register as registerGitHub } from '../auth/github.ctrl.mjs';
 import { register as registerGoogle } from '../auth/google.ctrl.mjs';
 import { register as registerLocal } from '../auth/local.ctrl.mjs';
 import { register as registerOrcid } from '../auth/orcid.ctrl.mjs';
-import { appendUser, disableCache } from '../auth/utils.mjs';
+import { appendUser, disableCache, isAuthenticated } from '../auth/utils.mjs';
 import {
   confirmAccount,
   create,
@@ -14,6 +14,8 @@ import {
   whoAmI,
   mailToUser,
   showUserInRegistry,
+  createPredicateDownload,
+  createSqlDownload,
 } from './controllers.mjs';
 import { getChallenge, requireProofOfWork } from './pow.mjs';
 
@@ -37,4 +39,8 @@ export function register(app) {
   app.put('/api/user/create', requireProofOfWork, create);
   app.get('/api/feedback/user/mailto/:user', appendUser, mailToUser);
   app.get('/api/feedback/user/:user', appendUser, showUserInRegistry);
+
+  app.post('/api/user/download/predicate', isAuthenticated, createPredicateDownload);
+  app.post('/api/user/download/sql', isAuthenticated, createSqlDownload);
+  // app.post('/api/user/cancelDownload/:key', isAuthenticated, user.cancelDownload);
 }
