@@ -6,6 +6,8 @@ import TermsStep from './components/TermsStep';
 import { OccurrenceDownloadRequestCreate } from '@/routes/occurrence/download/request/create';
 import { usePredicateInformation } from './components/usePredicateInformation';
 import { predicateDownloadSteps } from './components/stepOptions';
+import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export function PredicateDownloadFlow({
   defaultChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
@@ -50,8 +52,9 @@ export function PredicateDownloadFlow({
 
         {/* Step Content */}
         {currentStep === 'PREDICATE' && (
-          <OccurrenceDownloadRequestCreate onContinue={handleFilterSelect} />
-          // <OccurrenceDownloadRequestCreate onContinue={handleFilterSelect} content={predicate} />
+          <StaticRenderSuspence fallback={<Skeleton className="g-h-96" />}>
+            <OccurrenceDownloadRequestCreate onContinue={handleFilterSelect} />
+          </StaticRenderSuspence>
         )}
 
         {currentStep === 'FORMAT' && (
@@ -67,7 +70,10 @@ export function PredicateDownloadFlow({
           <ConfigurationStep
             defaultChecklist={defaultChecklist}
             selectedFormat={selectedFormat}
-            onBack={() => setCurrentStep('FORMAT')}
+            onBack={() => {
+              setCurrentStep('FORMAT');
+              setConfiguration(null);
+            }}
             predicate={normalizedPredicate}
             onContinue={handleConfigurationComplete}
             initialConfig={configuration}

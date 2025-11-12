@@ -44,7 +44,7 @@ export function OccurrenceDownloadAbout() {
 
   return (
     <ArticleContainer>
-      <ArticleTextContainer>
+      <ArticleTextContainer className="g-max-w-4xl">
         <ArticleBody dangerouslySetBody={{ __html: resource!.body as string }} />
       </ArticleTextContainer>
     </ArticleContainer>

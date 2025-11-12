@@ -149,9 +149,10 @@ export default function Editor({
               </div>
             )}
           </div>
-
+        </div>
+        <div className="g-sticky g-bottom-0 g-bg-white g-z-10">
           {errorMessage && (
-            <div className="g-mt-2 g-pb-2 g-min-h-4 g-px-2 g-flex g-gap-2 dark:g-text-red-400 g-text-red-600 g-text-sm">
+            <div className="g-pt-2 g-pb-2 g-min-h-4 g-px-6 g-flex g-gap-2 dark:g-text-red-400 g-text-red-600 g-text-sm g-border-t dark:g-border-slate-700 g-border-slate-200">
               <>
                 <AlertCircle className="g-w-4 g-h-4 g-flex-none" />
                 <div className="g-flex-auto">
@@ -161,32 +162,31 @@ export default function Editor({
               </>
             </div>
           )}
-        </div>
-
-        <div className="g-p-6 g-border-t dark:g-border-slate-700 g-border-slate-200 g-flex g-items-start g-justify-between">
-          {documentationUrl && (
-            <Button asChild variant="ghost">
-              <a href={documentationUrl} target="_blank" rel="noopener noreferrer" className="">
-                <FileText className="g-w-5 g-h-5 g-me-1" />
-                Read the Documentation
-              </a>
-            </Button>
-          )}
-
-          <div className="g-flex g-flex-col g-items-end g-gap-2">
-            {(isEditing || isValidating) && (
-              <Button disabled={isValidating} onClick={() => setIsEditing(false)}>
-                Validate
+          <div className="g-p-6 g-border-t dark:g-border-slate-700 g-border-slate-200 g-flex g-items-start g-justify-between">
+            {documentationUrl && (
+              <Button asChild variant="ghost">
+                <a href={documentationUrl} target="_blank" rel="noopener noreferrer" className="">
+                  <FileText className="g-w-5 g-h-5 g-me-1" />
+                  Read the Documentation
+                </a>
               </Button>
             )}
-            {!isEditing && !isValidating && (
-              <Button
-                disabled={!!isEditing || !!errorMessage || !text || text.trim().length === 0}
-                onClick={() => onContinue(text)}
-              >
-                Next
-              </Button>
-            )}
+
+            <div className="g-flex g-flex-col g-items-end g-gap-2">
+              {(isEditing || isValidating) && (
+                <Button disabled={isValidating} onClick={() => setIsEditing(false)}>
+                  Validate
+                </Button>
+              )}
+              {!isEditing && !isValidating && (
+                <Button
+                  disabled={!!isEditing || !!errorMessage || !text || text.trim().length === 0}
+                  onClick={() => onContinue(text)}
+                >
+                  Next
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </Card>

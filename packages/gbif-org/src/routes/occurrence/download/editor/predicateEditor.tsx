@@ -1,8 +1,7 @@
 import { useStringParam } from '@/hooks/useParam';
 import { PredicateDisplay } from '../key/predicate';
-import { RestoredPredicateNotice } from '../request/create/components/restoredPredicateNotice';
-import { getOriginalPredicate, usePredicate } from '../request/create/usePredicate';
-import Editor, { EditorSkeleton } from './editor';
+import { getOriginalPredicate } from '../request/create/usePredicate';
+import Editor from './editor';
 import { useCallback, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { validatePredicate } from './validate';

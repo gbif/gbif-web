@@ -21,7 +21,11 @@ export default function StepIndicator({
   });
 
   useUpdateEffect(() => {
-    ref.current?.scrollIntoView({ behavior: 'smooth' });
+    if (window.innerHeight < 800) {
+      ref.current?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }, [currentStep]);
 
   // Calculate progress percentage based on completed steps

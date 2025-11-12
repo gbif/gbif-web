@@ -6,24 +6,19 @@ import TermsStep from './components/TermsStep';
 import QualityFilters from './components/QualityFilters';
 import { FilterContext, FilterType } from '@/contexts/filter';
 import { useConfig } from '@/config/config';
-import { OccurrenceDownloadRequestCreate } from '@/routes/occurrence/download/request/create';
-import { OccurrenceDownloadSqlCreate } from '@/routes/occurrence/download/sql/create';
 import { searchConfig } from '../../searchConfig';
 import { useSearchContext } from '@/contexts/search';
 import { getAsQuery } from '@/components/filters/filterTools';
 import { Predicate } from '@/gql/graphql';
 import { usePredicateInformation } from './components/usePredicateInformation';
-import {
-  occurrenceDownloadSteps,
-  predicateDownloadSteps,
-  sqlDownloadSteps,
-} from './components/stepOptions';
+import { occurrenceDownloadSteps } from './components/stepOptions';
 import { ProtectedForm } from '@/components/protectedForm';
 import { NoRecords } from '@/components/noDataMessages';
 import { Card } from '@/components/ui/largeCard';
 import { MdFileDownload } from 'react-icons/md';
 import { Skeleton } from '@/components/ui/skeleton';
 import { FreeTextWarning } from './shared';
+import { set } from 'lodash';
 
 export default function OccurrenceSearchDownload() {
   const currentFilterContext = useContext(FilterContext);
@@ -122,7 +117,9 @@ function OccurrenceDownloadFlow({
           message="A user account is required to download occurrence data."
         >
           {/* </Card> */}
-          <StepIndicator currentStep={currentStep} steps={occurrenceDownloadSteps} />
+          <div className="g-max-w-lg g-mx-auto">
+            <StepIndicator currentStep={currentStep} steps={occurrenceDownloadSteps} />
+          </div>
 
           {loading && <LoadingSkeleton />}
 
@@ -144,7 +141,10 @@ function OccurrenceDownloadFlow({
             <ConfigurationStep
               defaultChecklist={defaultChecklist}
               selectedFormat={selectedFormat}
-              onBack={() => setCurrentStep('FORMAT')}
+              onBack={() => {
+                setCurrentStep('FORMAT');
+                setConfiguration(null);
+              }}
               predicate={normalizedPredicate}
               onContinue={handleConfigurationComplete}
               filter={filter}

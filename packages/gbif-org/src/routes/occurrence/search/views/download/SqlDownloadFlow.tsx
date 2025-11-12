@@ -3,6 +3,8 @@ import StepIndicator from './components/StepIndicator';
 import TermsStep from './components/TermsStep';
 import { sqlDownloadSteps } from './components/stepOptions';
 import { OccurrenceDownloadSqlCreate } from '@/routes/occurrence/download/sql/create';
+import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export function SqlDownloadFlow({
   defaultChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
@@ -27,7 +29,11 @@ export function SqlDownloadFlow({
         </div>
 
         {/* Step Content */}
-        {currentStep === 'SQL' && <OccurrenceDownloadSqlCreate onContinue={handleSqlSelect} />}
+        {currentStep === 'SQL' && (
+          <StaticRenderSuspence fallback={<Skeleton className="g-h-96" />}>
+            <OccurrenceDownloadSqlCreate onContinue={handleSqlSelect} />
+          </StaticRenderSuspence>
+        )}
 
         {currentStep === 'TERMS' && (
           <TermsStep
