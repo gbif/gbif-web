@@ -25,7 +25,7 @@
   "updateFilter": "Mettre à jour le filtre",
   "setFilter": "Définir en tant que filtre",
   "noMathcingFilters": "Doit être défini",
-  "countsUnavailable": "Co-financement",
+  "countsUnavailable": "Co-financé par",
   "nameWithTaxonMatchIssue": "",
   "commonName": "Nom commun ",
   "acceptedNameOf": "Nom accepté pour",
@@ -62,6 +62,6 @@
     "geometryReducedToBbox": "",
     "failedToSimplify": ""
   },
-  "activeFilters": "Co-financement",
-  "highlighted": "Co-financement"
+  "activeFilters": "Co-financé par",
+  "highlighted": "Co-financé par"
 }
