@@ -1,10 +1,10 @@
 {
   "clbTaxonomicStatus": {
     "accepted": "مقبول",
-    "provisionally_accepted": "التمويل المشترك",
-    "ambiguous_synonym": "التمويل المشترك",
+    "provisionally_accepted": "تمويل مشترك بواسطة",
+    "ambiguous_synonym": "تمويل مشترك بواسطة",
     "synonym": "مرادف",
     "misapplied": "خطأ في التطبيق",
-    "bare_name": "التمويل المشترك"
+    "bare_name": "تمويل مشترك بواسطة"
   }
 }
