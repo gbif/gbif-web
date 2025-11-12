@@ -36,8 +36,8 @@
   "loadMore": "更多",
   "loading": "正在載入",
   "noResults": "",
-  "startTyping": "共同資助",
-  "rankInGroup": "共同資助",
+  "startTyping": "共同資助單位",
+  "rankInGroup": "共同資助單位",
   "occurrenceClustersView": {
     "about": "關於",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "搜尋",
-    "description": "共同資助",
+    "description": "共同資助單位",
     "noSearchTermsEntered": "未輸入搜尋字串",
-    "placeholder": "共同資助",
+    "placeholder": "共同資助單位",
     "categories": {
       "speciesSearch": "種",
       "datasetSearch": "資料集",
       "publisherSearch": "發布者",
       "occurrenceSearch": "出現紀錄",
-      "resourceSearch": "共同資助"
+      "resourceSearch": "共同資助單位"
     },
     "seeAll": "查看全部"
   }
