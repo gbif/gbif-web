@@ -8,21 +8,21 @@
   "continueToGBIF": "繼續操作",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "共同資助",
-    "noSql": "共同資助",
+    "placeholder": "共同資助單位",
+    "noSql": "共同資助單位",
     "note": {
       "title": "備註",
       "description": "",
-      "goToOccurrenceSearch": "共同資助"
+      "goToOccurrenceSearch": "共同資助單位"
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "共同資助",
-      "parsingErrorDescription": "共同資助",
-      "networkErrorDescription": "共同資助"
+      "network-error": "共同資助單位",
+      "parsingErrorDescription": "共同資助單位",
+      "networkErrorDescription": "共同資助單位"
     }
   },
-  "create": "共同資助",
+  "create": "共同資助單位",
   "about": "關於",
   "stopEditing": "結束編輯",
   "startEditing": "開始編輯",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "閱讀文檔",
   "request": {
     "createNewDownload": "重新下載",
-    "weHaveRestoredYourPredicate": "共同資助",
-    "noPredicate": "共同資助",
+    "weHaveRestoredYourPredicate": "共同資助單位",
+    "noPredicate": "共同資助單位",
     "currentFilter": "目前篩選條件",
     "errors": {
       "invalid-json": "無效的 JSON",
-      "invalid-predicate": "共同資助",
-      "faild-to-load-predicate": "共同資助",
-      "unexpectedError": "共同資助",
-      "failedToParseJSON": "共同資助",
-      "failedToVisualizePredicate": "共同資助"
+      "invalid-predicate": "共同資助單位",
+      "faild-to-load-predicate": "共同資助單位",
+      "unexpectedError": "共同資助單位",
+      "failedToParseJSON": "共同資助單位",
+      "failedToVisualizePredicate": "共同資助單位"
     }
   },
   "downloadOptions": {
     "title": "下載選項",
-    "chooseChecklist": "共同資助",
-    "chooseChecklistDescription": "共同資助",
+    "chooseChecklist": "共同資助單位",
+    "chooseChecklistDescription": "共同資助單位",
     "content": {
       "rawData": "原始資料",
       "interpretedData": "已解釋的資料",
@@ -57,12 +57,12 @@
       "estimatedSize": "預估資料大小"
     },
     "fileFormats": {
-      "tabCsv": "共同資助"
+      "tabCsv": "共同資助單位"
     },
     "tableValues": {
-      "ifAvailable": "共同資助",
-      "ifSelected": "共同資助",
-      "links": "共同資助"
+      "ifAvailable": "共同資助單位",
+      "ifSelected": "共同資助單位",
+      "links": "共同資助單位"
     }
   }
 }
