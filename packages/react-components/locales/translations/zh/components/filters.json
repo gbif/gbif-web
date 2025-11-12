@@ -6,7 +6,7 @@
   },
   "locationId": {
     "name": "位置 ID",
-    "count": "共同资助方",
+    "count": "联合资助方：",
     "description": ""
   },
   "hasCoordinate": {
@@ -26,7 +26,7 @@
   },
   "taxonomicStatus": {
     "name": "状态",
-    "count": "共同资助方",
+    "count": "联合资助方：",
     "description": "说明中所述的持有标本数量。这个数字并不反映有多少记录已经被数字化和共享。"
   },
   "taxonRank": {
@@ -36,7 +36,7 @@
   },
   "numberSpecimens": {
     "name": "标本数",
-    "count": "共同资助方",
+    "count": "联合资助方：",
     "description": "说明中所述的持有标本数量。这个数字并不反映有多少记录已经被数字化和共享。"
   },
   "specimensInGbif": {
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "生物地层学",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "lithostratigraphy": {
     "name": "岩石地层学",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "geologicalTime": {
-    "name": "共同资助方",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "name": "联合资助方：",
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "purposes": {
     "name": "主题",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "organismQuantityType": {
     "name": "生物个体数量类型",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "pathway": {
     "name": "路径",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "associatedSequences": {
     "name": "相关序列",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "degreeOfEstablishment": {
     "name": "设置级别",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "endDayOfYear": {
     "name": "当年结束日",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "startDayOfYear": {
     "name": "一年中的开始日",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "previousIdentifications": {
     "name": "以前的鉴定",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "lastInterpreted": {
     "name": "最后说明",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "alternativeCode": {
     "name": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-    "count": "共同资助方",
+    "count": "联合资助方：",
     "description": ""
   },
   "identifier": {
     "name": "标识符",
-    "count": "共同资助方",
+    "count": "联合资助方：",
     "description": "这里应该有一个组件的简短描述"
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-    "count": "共同资助方",
+    "count": "联合资助方：",
     "description": ""
   },
   "collectionContentType": {
     "name": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-    "count": "共同资助方",
+    "count": "联合资助方：",
     "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
   },
   "preservationType": {
     "name": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。",
-    "count": "共同资助方",
+    "count": "联合资助方：",
     "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
   },
   "biomeType": {
-    "name": "共同资助方",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "name": "联合资助方：",
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "objectClassification": {
-    "name": "共同资助方",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "name": "联合资助方：",
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "taxonKey": {
     "name": "学名",
@@ -230,11 +230,11 @@
     "description": "在处理数据时发现的问题类型或潜在兴趣标志。"
   },
   "occurrenceTaxonomicIssue": {
-    "name": "共同资助方",
-    "count": "共同资助方",
-    "isNotNull": "共同资助方",
-    "isNull": "共同资助方",
-    "description": "共同资助方"
+    "name": "联合资助方：",
+    "count": "联合资助方：",
+    "isNotNull": "联合资助方：",
+    "isNull": "联合资助方：",
+    "description": "联合资助方："
   },
   "occurrenceCountry": {
     "name": "国家",
@@ -246,13 +246,13 @@
   },
   "preparations": {
     "name": "准备",
-    "count": "共同资助方",
+    "count": "联合资助方：",
     "description": "在文本字段中查找具有相似匹配文本的记录。对于特定字段中的匹配文本，请使用相应的过滤器，例如“科学名称”的过滤器。"
   },
   "repatriated": {
     "name": "已遣回",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "publishingCountryCode": {
     "name": "发布国家",
@@ -343,9 +343,9 @@
     "description": "距离坐标的最小距离（以米为单位）的度量，在该坐标中可以解释某一地点。"
   },
   "distanceFromCentroidInMeters": {
-    "name": "共同资助方",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "name": "联合资助方：",
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "depth": {
     "name": "深度",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "性别",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "lifeStage": {
     "name": "生命期",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "recordedBy": {
     "name": "记录者",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "现场编号",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "verbatimTaxonId": {
-    "name": "共同资助方",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "name": "联合资助方：",
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "islandGroup": {
     "name": "岛群",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "island": {
     "name": "岛屿",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "georeferencedBy": {
     "name": "确定地理参考者",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "datasetName": {
     "name": "数据集名称",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "方案",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "recordNumber": {
     "name": "记录号",
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "较高一级地区",
-    "count": "共同资助方",
+    "count": "联合资助方：",
     "description": ""
   },
   "stateProvince": {
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "GBIF区域",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "共同资助方",
-    "description": "共同资助方"
+    "count": "联合资助方：",
+    "description": "联合资助方："
   },
   "eventId": {
     "name": "事件编号",
@@ -569,7 +569,7 @@
   },
   "isInCluster": {
     "name": "在集群中",
-    "count": "共同资助方",
+    "count": "联合资助方：",
     "description": "该记录是否被确定有相关记录。"
   },
   "isSequenced": {
