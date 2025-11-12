@@ -8,7 +8,7 @@
       "publicationsFrom": "",
       "publicationsAbout": "",
       "news": "",
-      "alienSpecies": "Cofinanziamento",
+      "alienSpecies": "Cofinanziato da",
       "projects": ""
     },
     "country": "",
@@ -21,8 +21,8 @@
     "noProjects": "",
     "notParticipant": "",
     "notParticipantDescription": "",
-    "countryNamingDisclaimer": "Cofinanziamento",
-    "isoStandardLinkText": "Cofinanziamento",
+    "countryNamingDisclaimer": "Cofinanziato da",
+    "isoStandardLinkText": "Cofinanziato da",
     "counts": {
       "occurrences": "",
       "datasets": "",
