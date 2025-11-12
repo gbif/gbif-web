@@ -1,13 +1,13 @@
 {
   "features": "תכונות",
   "options": {
-    "includeAuthorship": "מימון משותף"
+    "includeAuthorship": "מומן במשותף על ידי"
   },
   "citations": "ציטוטים",
   "occurrences": "תצפיות",
   "numberSpecimens": "מספר הפרטים",
   "gbifNumberSpecimens": "Specimens in GBIF",
-  "specimenTriplet": "מימון משותף",
+  "specimenTriplet": "מומן במשותף על ידי",
   "title": "כותרת",
   "titleAndAbstract": "כותרת ותקציר",
   "altmetric": "מדד אלטרנטיבי",
@@ -25,6 +25,6 @@
   "activeInstitution": "פעיל",
   "author": "",
   "source": "",
-  "dataReferenced": "מימון משותף",
+  "dataReferenced": "מומן במשותף על ידי",
   "activeCollection": "פעיל"
 }
