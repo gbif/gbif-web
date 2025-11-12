@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "",
   "searchOrganisations": "",
   "termsAndConditions": "",
-  "iHaveReadAndUnderstood": "Co Finanzierung",
+  "iHaveReadAndUnderstood": "Co finanziert von",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "",
   "iUnderstandThatMyOrganizationalInformation": "",
   "administrativeContact": "",
@@ -30,7 +30,7 @@
   "none": "",
   "whatAndHow": "",
   "helpUsUnderstand": "",
-  "publOfFourTypesOfData": "Co Finanzierung",
+  "publOfFourTypesOfData": "Co finanziert von",
   "whichTypesOfData": "",
   "resourcesMetaData": "",
   "checkListData": "",
@@ -42,9 +42,9 @@
   "yes": "",
   "no": "",
   "pleaseSelectAValue": "",
-  "reuseTrustedIPThosting": "Co Finanzierung",
+  "reuseTrustedIPThosting": "Co finanziert von",
   "doYouNeedHelpPublishing": "",
-  "areYouPlanningToInstallAndRun": "Co Finanzierung",
+  "areYouPlanningToInstallAndRun": "Co finanziert von",
   "orgDetails": "",
   "yourChanceToTellGBIF": "",
   "orgName": "",
@@ -81,20 +81,20 @@
   "outage": "",
   "eoiDescription": "",
   "eoiTitle": "",
-  "checkRegistration": "Co Finanzierung",
-  "organisationDetails": "Co Finanzierung",
-  "organisationAddress": "Co Finanzierung",
-  "endorsement": "Co Finanzierung",
+  "checkRegistration": "Co finanziert von",
+  "organisationDetails": "Co finanziert von",
+  "organisationAddress": "Co finanziert von",
+  "endorsement": "Co finanziert von",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "Co Finanzierung",
-    "pleaseSelectTheCountryOfYourOrganization": "Co Finanzierung"
+    "pleaseSelectYourOrganizationOnTheMap": "Co finanziert von",
+    "pleaseSelectTheCountryOfYourOrganization": "Co finanziert von"
   },
-  "thankYouForYourRegistration": "Co Finanzierung",
-  "failedToRegisterOrganization": "Co Finanzierung",
-  "associatedWithGbifProgramme": "Co Finanzierung",
+  "thankYouForYourRegistration": "Co finanziert von",
+  "failedToRegisterOrganization": "Co finanziert von",
+  "associatedWithGbifProgramme": "Co finanziert von",
   "loginToRegisterOrganization": {
-    "title": "Co Finanzierung",
-    "message": "Co Finanzierung"
+    "title": "Co finanziert von",
+    "message": "Co finanziert von"
   },
-  "registerAnotherOrganization": "Co Finanzierung"
+  "registerAnotherOrganization": "Co finanziert von"
 }
