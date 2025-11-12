@@ -21,7 +21,7 @@
   "anyYear": "任何年份",
   "exploreArea": "探索区域",
   "explore": "探索",
-  "generatedDateAgo": "共同资助方",
+  "generatedDateAgo": "联合资助方：",
   "style": "风格",
   "filters": "筛选标签",
   "select": "选择",
@@ -36,7 +36,7 @@
     "CLASSIC": "经典点状",
     "STREETS": "街道",
     "GLACIER": "冰川",
-    "GREEN": "共同资助方",
+    "GREEN": "联合资助方：",
     "CUSTOM": "自定义"
   },
   "basemap": {
