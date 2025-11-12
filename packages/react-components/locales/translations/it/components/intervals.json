@@ -28,10 +28,10 @@
   "geoTime": {
     "between": "",
     "lt": "",
-    "lte": "Cofinanziamento",
+    "lte": "Cofinanziato da",
     "gt": "",
-    "gte": "Cofinanziamento",
-    "e": "Cofinanziamento"
+    "gte": "Cofinanziato da",
+    "e": "Cofinanziato da"
   },
   "year": {
     "between": "",
