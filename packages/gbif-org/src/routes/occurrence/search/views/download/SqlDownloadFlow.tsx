@@ -5,6 +5,7 @@ import { sqlDownloadSteps } from './components/stepOptions';
 import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { Skeleton } from '@/components/ui/skeleton';
 import SqlEditor from '@/routes/occurrence/download/editor/sqlEditor';
+import ConfigurationStep from './components/ConfigurationStep';
 
 export function SqlDownloadFlow({
   defaultChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,

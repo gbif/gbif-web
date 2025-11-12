@@ -25,11 +25,14 @@ export function DownloadSummary({
         label: <FormattedMessage id="occurrenceDownloadFlow.csvDelimiter" />,
         value: <FormattedMessage id="occurrenceDownloadFlow.tabDelimiter" />,
       },
-      {
-        label: <FormattedMessage id="occurrenceDownloadFlow.taxonomy" />,
-        value: checklists.find((x) => x.key === configuration.checklistKey)?.alias ?? '',
-      },
     ];
+
+    if (configuration.checklistKey) {
+      summary.push({
+        label: <FormattedMessage id="occurrenceDownloadFlow.taxonomy" />,
+        value: <>{checklists.find((x) => x.key === configuration.checklistKey)?.alias ?? ''}</>,
+      });
+    }
 
     if (isDarwinCoreArchive && 'extensions' in configuration) {
       summary.push({

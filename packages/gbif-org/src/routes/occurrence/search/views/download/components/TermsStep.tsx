@@ -3,7 +3,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import React, { useCallback, useMemo, useState } from 'react';
 import { FaChevronLeft, FaDownload } from 'react-icons/fa';
 import { generateCubeSql } from './cubeService';
-import { useSupportedChecklists } from '@/hooks/useSupportedChecklists';
 import { DownloadSummary } from './DownloadSummary';
 import { formatFileSize, getEstimatedSizeInBytes, getEstimatedUnzippedSizeInBytes } from './utils';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
@@ -79,7 +78,6 @@ export default function TermsStep({
 
   const [preparingDownload, setPreparingDownload] = useState(false);
   const [error, setError] = useState(null);
-  const { checklists, loading } = useSupportedChecklists();
   const [acceptedTerms, setAcceptedTerms] = useState({
     dataUse: false,
     ...(isLargeDownload && { largeDownload: false }),
