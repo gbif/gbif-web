@@ -25,7 +25,7 @@
   "updateFilter": "Обновить фильтр",
   "setFilter": "Установить как фильтр",
   "noMathcingFilters": "Нет подходящих фильтров",
-  "countsUnavailable": "Совместное финансирование",
+  "countsUnavailable": "Софинансируется",
   "nameWithTaxonMatchIssue": "Имя до нормализации",
   "commonName": "Общепринятое название",
   "acceptedNameOf": "Общепринятое имя для",
@@ -62,6 +62,6 @@
     "geometryReducedToBbox": "Геометрия сведена к ограничивающей рамке",
     "failedToSimplify": "Не удалось упростить геометрию"
   },
-  "activeFilters": "Совместное финансирование",
-  "highlighted": "Совместное финансирование"
+  "activeFilters": "Софинансируется",
+  "highlighted": "Софинансируется"
 }
