@@ -1,13 +1,13 @@
 {
   "features": "",
   "options": {
-    "includeAuthorship": "التمويل المشترك"
+    "includeAuthorship": "تمويل مشترك بواسطة"
   },
   "citations": "اقتباسات",
   "occurrences": "تكرارات",
   "numberSpecimens": "",
   "gbifNumberSpecimens": "",
-  "specimenTriplet": "التمويل المشترك",
+  "specimenTriplet": "تمويل مشترك بواسطة",
   "title": "عنوان",
   "titleAndAbstract": "",
   "altmetric": "",
@@ -25,6 +25,6 @@
   "activeInstitution": "",
   "author": "المؤلف",
   "source": "مجلة",
-  "dataReferenced": "التمويل المشترك",
+  "dataReferenced": "تمويل مشترك بواسطة",
   "activeCollection": ""
 }
