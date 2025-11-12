@@ -25,7 +25,7 @@
   "updateFilter": "",
   "setFilter": "",
   "noMathcingFilters": "",
-  "countsUnavailable": "共同資金",
+  "countsUnavailable": "共同出資",
   "nameWithTaxonMatchIssue": "",
   "commonName": "",
   "acceptedNameOf": "",
@@ -62,6 +62,6 @@
     "geometryReducedToBbox": "",
     "failedToSimplify": ""
   },
-  "activeFilters": "共同資金",
-  "highlighted": "共同資金"
+  "activeFilters": "共同出資",
+  "highlighted": "共同出資"
 }
