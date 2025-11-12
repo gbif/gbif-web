@@ -8,21 +8,21 @@
   "continueToGBIF": "Продолжить",
   "sql": {
     "createNewSqlDownload": "Создать новое выражение SQL для загрузки",
-    "placeholder": "Совместное финансирование",
-    "noSql": "Совместное финансирование",
+    "placeholder": "Софинансируется",
+    "noSql": "Софинансируется",
     "note": {
       "title": "Примечание",
       "description": "Самый простой способ загрузить и изучить данные - это использовать пользовательский интерфейс поиска совпадений. Но для сложных запросов и агрегирования данных редактор SQL предоставляет больше свободы.",
-      "goToOccurrenceSearch": "Совместное финансирование"
+      "goToOccurrenceSearch": "Софинансируется"
     },
     "errors": {
       "invalid-SQL": "Недопустимый синтаксис SQL",
-      "network-error": "Совместное финансирование",
-      "parsingErrorDescription": "Совместное финансирование",
-      "networkErrorDescription": "Совместное финансирование"
+      "network-error": "Софинансируется",
+      "parsingErrorDescription": "Софинансируется",
+      "networkErrorDescription": "Софинансируется"
     }
   },
-  "create": "Совместное финансирование",
+  "create": "Софинансируется",
   "about": "Об организациии",
   "stopEditing": "Закончить редактирование",
   "startEditing": "Начать редактирование",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "Прочтите документацию",
   "request": {
     "createNewDownload": "Создайте новую загрузку",
-    "weHaveRestoredYourPredicate": "Совместное финансирование",
-    "noPredicate": "Совместное финансирование",
+    "weHaveRestoredYourPredicate": "Софинансируется",
+    "noPredicate": "Софинансируется",
     "currentFilter": "Текущий фильтр",
     "errors": {
       "invalid-json": "Недопустимый формат JSON",
-      "invalid-predicate": "Совместное финансирование",
-      "faild-to-load-predicate": "Совместное финансирование",
-      "unexpectedError": "Совместное финансирование",
-      "failedToParseJSON": "Совместное финансирование",
-      "failedToVisualizePredicate": "Совместное финансирование"
+      "invalid-predicate": "Софинансируется",
+      "faild-to-load-predicate": "Софинансируется",
+      "unexpectedError": "Софинансируется",
+      "failedToParseJSON": "Софинансируется",
+      "failedToVisualizePredicate": "Софинансируется"
     }
   },
   "downloadOptions": {
     "title": "Настройки загрузки",
-    "chooseChecklist": "Совместное финансирование",
-    "chooseChecklistDescription": "Совместное финансирование",
+    "chooseChecklist": "Софинансируется",
+    "chooseChecklistDescription": "Софинансируется",
     "content": {
       "rawData": "Необработанные данные",
       "interpretedData": "Интерпретированные данные",
@@ -57,12 +57,12 @@
       "estimatedSize": "Предполагаемый размер данных"
     },
     "fileFormats": {
-      "tabCsv": "Совместное финансирование"
+      "tabCsv": "Софинансируется"
     },
     "tableValues": {
-      "ifAvailable": "Совместное финансирование",
-      "ifSelected": "Совместное финансирование",
-      "links": "Совместное финансирование"
+      "ifAvailable": "Софинансируется",
+      "ifSelected": "Софинансируется",
+      "links": "Софинансируется"
     }
   }
 }
