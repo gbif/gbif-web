@@ -36,8 +36,8 @@
   "loadMore": "Plus",
   "loading": "Chargement en cours",
   "noResults": "",
-  "startTyping": "Co-financement",
-  "rankInGroup": "Co-financement",
+  "startTyping": "Co-financé par",
+  "rankInGroup": "Co-financé par",
   "occurrenceClustersView": {
     "about": "À propos",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Rechercher",
-    "description": "Co-financement",
+    "description": "Co-financé par",
     "noSearchTermsEntered": "Aucun mot-clé renseigné",
-    "placeholder": "Co-financement",
+    "placeholder": "Co-financé par",
     "categories": {
       "speciesSearch": "Espèce",
       "datasetSearch": "Jeux de données",
       "publisherSearch": "Fournisseurs de données",
       "occurrenceSearch": "Occurrences",
-      "resourceSearch": "Co-financement"
+      "resourceSearch": "Co-financé par"
     },
     "seeAll": "Tout voir"
   }
