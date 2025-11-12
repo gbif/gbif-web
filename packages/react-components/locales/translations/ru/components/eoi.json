@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "Моя организация еще не зарегистрирована в GBIF.",
   "searchOrganisations": "Поиск организаций (in English)",
   "termsAndConditions": "Правила и условия",
-  "iHaveReadAndUnderstood": "Совместное финансирование",
+  "iHaveReadAndUnderstood": "Софинансируется",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "Я понимаю, что ходатайствую о регистрации от имени моей организации и подтверждаю, что ответственные лица моей организации осведомлены об этом.",
   "iUnderstandThatMyOrganizationalInformation": "Я понимаю, что информация о моей организации, включая контактные данные, будет публично доступна на сайте GBIF.org.",
   "administrativeContact": "Административный контакт",
@@ -30,7 +30,7 @@
   "none": "не выбрана",
   "whatAndHow": "Предварительные планы публикации данных",
   "helpUsUnderstand": "Помогите нам понять, какие данные вы планируете публиковать, и какого рода техническая поддержка вам может понадобиться.",
-  "publOfFourTypesOfData": "Совместное финансирование",
+  "publOfFourTypesOfData": "Софинансируется",
   "whichTypesOfData": "Данные каких типов вы планируете опубликовать?",
   "resourcesMetaData": "Описания ресурсов (метаданные)",
   "checkListData": "Таксономические списки",
@@ -42,9 +42,9 @@
   "yes": "Да",
   "no": "Нет",
   "pleaseSelectAValue": "Пожалуйста, выберите значение",
-  "reuseTrustedIPThosting": "Совместное финансирование",
+  "reuseTrustedIPThosting": "Софинансируется",
   "doYouNeedHelpPublishing": "Нужна ли вам помощь в публикации данных?",
-  "areYouPlanningToInstallAndRun": "Совместное финансирование",
+  "areYouPlanningToInstallAndRun": "Софинансируется",
   "orgDetails": "Данные об организации",
   "yourChanceToTellGBIF": "Расскажите пользователям GBIF о том, кто вы и чем занимаетесь.",
   "orgName": "Название организации",
@@ -81,20 +81,20 @@
   "outage": "В данный момент мы не можем принять вашу заявку, так как некоторые функции портала сейчас не работают",
   "eoiDescription": "\n\n\nЧтобы начать публиковать данные через портал GBIF, необходимо зарегистрировать вашу организацию. Для этого вам следует заполнить данную онлайн анкету, после чего организация будет одобрена национальным узлом GBIF вашей страны. Если страна пока официальным не входит в GBIF, Секретариат сам выберет узел, который одобрит вашу организацию.",
   "eoiTitle": "Станьте участником сети GBIF",
-  "checkRegistration": "Совместное финансирование",
-  "organisationDetails": "Совместное финансирование",
-  "organisationAddress": "Совместное финансирование",
-  "endorsement": "Совместное финансирование",
+  "checkRegistration": "Софинансируется",
+  "organisationDetails": "Софинансируется",
+  "organisationAddress": "Софинансируется",
+  "endorsement": "Софинансируется",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "Совместное финансирование",
-    "pleaseSelectTheCountryOfYourOrganization": "Совместное финансирование"
+    "pleaseSelectYourOrganizationOnTheMap": "Софинансируется",
+    "pleaseSelectTheCountryOfYourOrganization": "Софинансируется"
   },
-  "thankYouForYourRegistration": "Совместное финансирование",
-  "failedToRegisterOrganization": "Совместное финансирование",
-  "associatedWithGbifProgramme": "Совместное финансирование",
+  "thankYouForYourRegistration": "Софинансируется",
+  "failedToRegisterOrganization": "Софинансируется",
+  "associatedWithGbifProgramme": "Софинансируется",
   "loginToRegisterOrganization": {
-    "title": "Совместное финансирование",
-    "message": "Совместное финансирование"
+    "title": "Софинансируется",
+    "message": "Софинансируется"
   },
-  "registerAnotherOrganization": "Совместное финансирование"
+  "registerAnotherOrganization": "Софинансируется"
 }
