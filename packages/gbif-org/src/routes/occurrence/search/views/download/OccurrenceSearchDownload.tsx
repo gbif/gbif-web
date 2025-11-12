@@ -23,7 +23,7 @@ import { NoRecords } from '@/components/noDataMessages';
 import { Card } from '@/components/ui/largeCard';
 import { MdFileDownload } from 'react-icons/md';
 import { Skeleton } from '@/components/ui/skeleton';
-import { FreeTextWarning } from './Shared';
+import { FreeTextWarning } from './shared';
 
 export default function OccurrenceSearchDownload() {
   const currentFilterContext = useContext(FilterContext);
