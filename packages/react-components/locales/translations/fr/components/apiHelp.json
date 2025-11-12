@@ -22,5 +22,6 @@
   "singleDataset": "Obtenir un seul jeu de données.",
   "searchDatasetsExample": "Deux premiers jeux de données publiés au Danemark avec le texte \"fungi\" dans le titre ou la description.",
   "searchExample": "Deux premières entrées avec le texte \"dna\".",
-  "searchDatasets": "Obtenir tous les jeux de données."
+  "searchDatasets": "Obtenir tous les jeux de données.",
+  "searchNodes": "Rechercher des nœuds"
 }
