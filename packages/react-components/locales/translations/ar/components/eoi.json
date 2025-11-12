@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "منظمتي غير مسجلة بالفعل.",
   "searchOrganisations": "ابحث عن المنظمات",
   "termsAndConditions": "الأحكام والشروط",
-  "iHaveReadAndUnderstood": "التمويل المشترك",
+  "iHaveReadAndUnderstood": "تمويل مشترك بواسطة",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "أتفهم أنني ألتمس التسجيل باسم منظمتي، واؤكد أن السلطات المسؤولة في منظمتي على علم بهذا التسجيل.",
   "iUnderstandThatMyOrganizationalInformation": "أتفهم أن المعلومات حول منظمتي، بما في ذلك تفاصيل الاتصال، ستكون متاحة للعموم من خلال موقع منظمة الـ\"جبيف\"  GBIF.org.",
   "administrativeContact": "جهة الاتصال الادارية",
@@ -30,7 +30,7 @@
   "none": "لاشيء",
   "whatAndHow": "ماذا وكيف",
   "helpUsUnderstand": "ساعدنا على فهم نوع البيانات التي تخطط لنشرها، والدعم الذي قد تحتاجه.",
-  "publOfFourTypesOfData": "التمويل المشترك",
+  "publOfFourTypesOfData": "تمويل مشترك بواسطة",
   "whichTypesOfData": "ما هي أنواع البيانات التي تتوقع نشرها؟",
   "resourcesMetaData": "البيانات الوصفية للموارد",
   "checkListData": "بيانات قائمة التدقيق",
@@ -42,9 +42,9 @@
   "yes": "نعم",
   "no": "لا",
   "pleaseSelectAValue": "الرجاء تحديد قيمة",
-  "reuseTrustedIPThosting": "التمويل المشترك",
+  "reuseTrustedIPThosting": "تمويل مشترك بواسطة",
   "doYouNeedHelpPublishing": "هل تحتاج إلى مساعدة في نشر البيانات الخاصة بك؟",
-  "areYouPlanningToInstallAndRun": "التمويل المشترك",
+  "areYouPlanningToInstallAndRun": "تمويل مشترك بواسطة",
   "orgDetails": "تفاصيل المنظمة",
   "yourChanceToTellGBIF": "فرصتك لإخبار مستخدمي الـ\"جبيف\" عنك وعن أعمالك.",
   "orgName": "اسم المنظمة",
@@ -81,20 +81,20 @@
   "outage": "إننا نشهد انقطاعاً جزئياً للخدمة فلا نقبل تسجيلات في الوقت الحالي",
   "eoiDescription": "للتحضير لنشر البيانات من خلال الـ\"جبيف\"، نطلب من الناشرين الجدد المهتمين أن يستكملوا هذه الاستمارة الكترونياً. قبل أن تفهرس الـ\"جبيف\" البيانات الخاصة بك، يجب أن تحصل مؤسستك على المصادقة كناشر للبيانات من أحد البلدان أو المنظمات المشاركة في الـ\"جبيف\"، من خلال عقد مشاركة في الـ\"جبيف\". إذا لم يشارك بلدك بعد في الـ\"جبيف\"، فإننا سنلتمس المصادقة بالنيابة عنك من مجتمع الـ\"جبيف\".",
   "eoiTitle": "أصبح ناشراً",
-  "checkRegistration": "التمويل المشترك",
-  "organisationDetails": "التمويل المشترك",
-  "organisationAddress": "التمويل المشترك",
-  "endorsement": "التمويل المشترك",
+  "checkRegistration": "تمويل مشترك بواسطة",
+  "organisationDetails": "تمويل مشترك بواسطة",
+  "organisationAddress": "تمويل مشترك بواسطة",
+  "endorsement": "تمويل مشترك بواسطة",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "التمويل المشترك",
-    "pleaseSelectTheCountryOfYourOrganization": "التمويل المشترك"
+    "pleaseSelectYourOrganizationOnTheMap": "تمويل مشترك بواسطة",
+    "pleaseSelectTheCountryOfYourOrganization": "تمويل مشترك بواسطة"
   },
-  "thankYouForYourRegistration": "التمويل المشترك",
-  "failedToRegisterOrganization": "التمويل المشترك",
-  "associatedWithGbifProgramme": "التمويل المشترك",
+  "thankYouForYourRegistration": "تمويل مشترك بواسطة",
+  "failedToRegisterOrganization": "تمويل مشترك بواسطة",
+  "associatedWithGbifProgramme": "تمويل مشترك بواسطة",
   "loginToRegisterOrganization": {
-    "title": "التمويل المشترك",
-    "message": "التمويل المشترك"
+    "title": "تمويل مشترك بواسطة",
+    "message": "تمويل مشترك بواسطة"
   },
-  "registerAnotherOrganization": "التمويل المشترك"
+  "registerAnotherOrganization": "تمويل مشترك بواسطة"
 }
