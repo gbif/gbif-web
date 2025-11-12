@@ -8,21 +8,21 @@
   "continueToGBIF": "",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "Cofinanziamento",
-    "noSql": "Cofinanziamento",
+    "placeholder": "Cofinanziato da",
+    "noSql": "Cofinanziato da",
     "note": {
       "title": "",
       "description": "",
-      "goToOccurrenceSearch": "Cofinanziamento"
+      "goToOccurrenceSearch": "Cofinanziato da"
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "Cofinanziamento",
-      "parsingErrorDescription": "Cofinanziamento",
-      "networkErrorDescription": "Cofinanziamento"
+      "network-error": "Cofinanziato da",
+      "parsingErrorDescription": "Cofinanziato da",
+      "networkErrorDescription": "Cofinanziato da"
     }
   },
-  "create": "Cofinanziamento",
+  "create": "Cofinanziato da",
   "about": "",
   "stopEditing": "",
   "startEditing": "",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "Cofinanziamento",
-    "noPredicate": "Cofinanziamento",
+    "weHaveRestoredYourPredicate": "Cofinanziato da",
+    "noPredicate": "Cofinanziato da",
     "currentFilter": "",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "Cofinanziamento",
-      "faild-to-load-predicate": "Cofinanziamento",
-      "unexpectedError": "Cofinanziamento",
-      "failedToParseJSON": "Cofinanziamento",
-      "failedToVisualizePredicate": "Cofinanziamento"
+      "invalid-predicate": "Cofinanziato da",
+      "faild-to-load-predicate": "Cofinanziato da",
+      "unexpectedError": "Cofinanziato da",
+      "failedToParseJSON": "Cofinanziato da",
+      "failedToVisualizePredicate": "Cofinanziato da"
     }
   },
   "downloadOptions": {
     "title": "",
-    "chooseChecklist": "Cofinanziamento",
-    "chooseChecklistDescription": "Cofinanziamento",
+    "chooseChecklist": "Cofinanziato da",
+    "chooseChecklistDescription": "Cofinanziato da",
     "content": {
       "rawData": "",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": ""
     },
     "fileFormats": {
-      "tabCsv": "Cofinanziamento"
+      "tabCsv": "Cofinanziato da"
     },
     "tableValues": {
-      "ifAvailable": "Cofinanziamento",
-      "ifSelected": "Cofinanziamento",
-      "links": "Cofinanziamento"
+      "ifAvailable": "Cofinanziato da",
+      "ifSelected": "Cofinanziato da",
+      "links": "Cofinanziato da"
     }
   }
 }
