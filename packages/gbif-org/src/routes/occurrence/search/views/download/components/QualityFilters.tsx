@@ -1,8 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
-  FaFilter,
   FaMapMarkerAlt,
   FaCalendarAlt,
   FaDna,

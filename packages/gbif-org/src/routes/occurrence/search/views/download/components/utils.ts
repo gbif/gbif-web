@@ -7,8 +7,8 @@ export const optionStyles = {
 };
 
 // Size estimation constants from portal16
-const EST_KB_DWCA = 0.3553503325942350333;
-const EST_KB_CSV = 0.1161948717948717949;
+const EST_KB_DWCA = 0.355350332594235;
+const EST_KB_CSV = 0.1161948717948717;
 const EST_KB_SPECIES_LIST = 0.00002323897;
 const UNZIP_FACTOR = 4.52617;
 

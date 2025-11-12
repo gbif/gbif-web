@@ -1,5 +1,5 @@
 import { FilterType } from '@/contexts/filter';
-import { CubeDimensions } from '@/routes/occurrence/search/views/download/testing/components/CubeDimensionsSelector';
+import { CubeDimensions } from '@/routes/occurrence/search/views/download/components/CubeDimensionsSelector';
 
 export interface CubeSqlGenerationOptions {
   taxonomy?: string;

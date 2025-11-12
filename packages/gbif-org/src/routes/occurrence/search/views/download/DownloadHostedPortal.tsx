@@ -10,7 +10,7 @@ import useQuery from '@/hooks/useQuery';
 import { useContext, useEffect } from 'react';
 import { MdFileDownload } from 'react-icons/md';
 import { searchConfig } from '../../searchConfig';
-import { DownloadCardDescription, DownloadCardTitle, FreeTextWarning } from './Shared';
+import { DownloadCardDescription, DownloadCardTitle, FreeTextWarning } from './shared';
 
 const GBIF_ORG = import.meta.env.PUBLIC_GBIF_ORG;
 

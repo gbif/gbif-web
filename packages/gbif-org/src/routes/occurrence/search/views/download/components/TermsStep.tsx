@@ -98,7 +98,6 @@ export default function TermsStep({
     let sql;
     let machineDescription;
     if (configuration.cube) {
-      debugger;
       const result = await generateCubeSql(configuration.cube, predicate);
       if (result.error) {
         alert(intl.formatMessage({ id: 'customSqlDownload.errorGeneratingSql' }));
@@ -109,7 +108,6 @@ export default function TermsStep({
       machineDescription = result.machineDescription;
     }
 
-    debugger;
     fetch('/api/user/download/predicate', {
       method: 'POST',
       headers: {
@@ -132,8 +130,6 @@ export default function TermsStep({
         return response.json();
       })
       .then((data) => {
-        console.log('Download request successful:', data);
-        // redirect to the download key: data.downloadKey
         navigate(localizeLink(`/occurrence/download/${data.downloadKey}`));
       })
       .catch((error) => {

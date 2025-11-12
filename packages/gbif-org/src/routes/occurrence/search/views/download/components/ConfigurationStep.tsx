@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
-import React, { useContext, useState } from 'react';
-import { FaChevronLeft, FaCog, FaExclamationTriangle } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaChevronLeft, FaCog } from 'react-icons/fa';
 import TaxonomySelector from './TaxonomySelector';
 import ExtensionsSelector from './ExtensionsSelector';
 import CubeDimensionsSelector, { CubeDimensions } from './CubeDimensionsSelector';
@@ -8,7 +8,7 @@ import { useChecklistKey } from '@/hooks/useChecklistKey';
 import { useSupportedChecklists } from '@/hooks/useSupportedChecklists';
 import { FormattedMessage } from 'react-intl';
 import { FilterType } from '@/contexts/filter';
-import { generateCubeSql, hasAllFilters, hasFilter, hasFilters } from './cubeService';
+import { generateCubeSql, hasFilter } from './cubeService';
 import { DownloadSummary } from './DownloadSummary';
 
 interface ConfigurationStepProps {
