@@ -27,8 +27,19 @@ function build(locales) {
   buildLocale({ locale: 'en', enJson, developerEnglishJson, targetDirectory });
 
   let translationVersions = {};
+
+  // iterate over locales except 'en-developer', 'en-pseudo', 'en'
+  const fullLocales = ['en-developer', 'en-pseudo', 'en'];
   locales
-    .map((locale) => buildLocale({ locale, enJson, developerEnglishJson, targetDirectory }))
+    .map((locale) =>
+      buildLocale({
+        locale,
+        enJson,
+        developerEnglishJson,
+        targetDirectory,
+        onlyIncludeExstingKeys: !fullLocales.includes(locale),
+      }),
+    )
     .forEach((item) => {
       translationVersions[getLocaleName(item.locale)] = {
         messages: `${env.TRANSLATIONS}/${item.locale}.json?v=${item.hash}`,
@@ -58,7 +69,13 @@ function getLocaleName(locale) {
   return locale;
 }
 
-function buildLocale({ locale, enJson, developerEnglishJson, targetDirectory }) {
+function buildLocale({
+  locale,
+  enJson,
+  developerEnglishJson,
+  targetDirectory,
+  onlyIncludeExstingKeys,
+}) {
   let localeJson;
   if (locale === 'en-pseudo') {
     localeJson = createPseudo(developerEnglishJson);
@@ -68,7 +85,18 @@ function buildLocale({ locale, enJson, developerEnglishJson, targetDirectory }) 
     localeJson = translationBuilder({ locale });
   }
   let mergedJson = _.merge({}, developerEnglishJson, enJson, localeJson);
+  // console.log(enJson.download.downloadOptions);
   let flat = flatten(mergedJson);
+
+  // use lodash to pick only keys that exist in enJson and developerEnglishJson. it has to exist in both of them
+  if (onlyIncludeExstingKeys) {
+    let en_flat = flatten(enJson);
+    let developerEnglish_flat = flatten(developerEnglishJson);
+    flat = _.pickBy(flat, (value, key) => {
+      return en_flat.hasOwnProperty(key) && developerEnglish_flat.hasOwnProperty(key);
+    });
+    flat = _.merge({}, developerEnglish_flat, en_flat, flat);
+  }
 
   fs.writeFile(targetDirectory + locale + '.json', JSON.stringify(flat, null, 2), function (err) {
     if (err) {
