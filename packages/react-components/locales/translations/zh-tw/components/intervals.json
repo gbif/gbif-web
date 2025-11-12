@@ -28,10 +28,10 @@
   "geoTime": {
     "between": "{from} 到 {to}",
     "lt": "以前 {to}",
-    "lte": "共同資助",
+    "lte": "共同資助單位",
     "gt": "以後 {from}",
-    "gte": "共同資助",
-    "e": "共同資助"
+    "gte": "共同資助單位",
+    "e": "共同資助單位"
   },
   "year": {
     "between": "年 {from} 到 {to}",
