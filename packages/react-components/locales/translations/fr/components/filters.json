@@ -6,7 +6,7 @@
   },
   "locationId": {
     "name": "ID de localisation",
-    "count": "Co-financement",
+    "count": "Co-financé par",
     "description": ""
   },
   "hasCoordinate": {
@@ -36,7 +36,7 @@
   },
   "numberSpecimens": {
     "name": "Nombre de spécimens",
-    "count": "Co-financement",
+    "count": "Co-financé par",
     "description": "Le nombre de spécimens détenus indiqué dans la description. Ce nombre ne correspond pas au nombre d'enregistrements qui ont été numérisés et partagés."
   },
   "specimensInGbif": {
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "geologicalTime": {
-    "name": "Co-financement",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "name": "Co-financé par",
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "purposes": {
     "name": "Thème",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "ID du GBIF",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "organismQuantityType": {
     "name": "Type de quantité d’organisme",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "pathway": {
     "name": "Chemin",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "associatedSequences": {
     "name": "Séquences associées",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "degreeOfEstablishment": {
     "name": "Degré d'établissement",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "endDayOfYear": {
     "name": "Dernier jour de l'année",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "startDayOfYear": {
     "name": "Premier jour de l'année",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "previousIdentifications": {
     "name": "Identifications précédentes",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "lastInterpreted": {
     "name": "Dernière interprétation",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "alternativeCode": {
     "name": "Archive annotée par GBIF",
-    "count": "Co-financement",
+    "count": "Co-financé par",
     "description": ""
   },
   "identifier": {
     "name": "Identifiant",
-    "count": "Co-financement",
+    "count": "Co-financé par",
     "description": "Une courte description de la composante devrait apparaître ici"
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "Archive annotée par GBIF",
-    "count": "Co-financement",
+    "count": "Co-financé par",
     "description": ""
   },
   "collectionContentType": {
     "name": "Archive annotée par GBIF",
-    "count": "Co-financement",
+    "count": "Co-financé par",
     "description": "Archive annotée par GBIF"
   },
   "preservationType": {
     "name": "Archive annotée par GBIF",
-    "count": "Co-financement",
+    "count": "Co-financé par",
     "description": "Archive annotée par GBIF"
   },
   "biomeType": {
-    "name": "Co-financement",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "name": "Co-financé par",
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "objectClassification": {
-    "name": "Co-financement",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "name": "Co-financé par",
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "taxonKey": {
     "name": "Nom scientifique du taxon",
@@ -230,11 +230,11 @@
     "description": "Les types de problèmes ou balises d'intérêt potentiel découverts dans le traitement des données."
   },
   "occurrenceTaxonomicIssue": {
-    "name": "Co-financement",
-    "count": "Co-financement",
-    "isNotNull": "Co-financement",
-    "isNull": "Co-financement",
-    "description": "Co-financement"
+    "name": "Co-financé par",
+    "count": "Co-financé par",
+    "isNotNull": "Co-financé par",
+    "isNull": "Co-financé par",
+    "description": "Co-financé par"
   },
   "occurrenceCountry": {
     "name": "Pays",
@@ -246,13 +246,13 @@
   },
   "preparations": {
     "name": "Préparations",
-    "count": "Co-financement",
+    "count": "Co-financé par",
     "description": "Archive annotée par GBIF"
   },
   "repatriated": {
     "name": "Rapatrié",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "publishingCountryCode": {
     "name": "Pays ou région qui publie",
@@ -343,9 +343,9 @@
     "description": "Mesure de la distance minimale en mètres d'une coordonnée à l'intérieur de laquelle une localité peut être interprétée."
   },
   "distanceFromCentroidInMeters": {
-    "name": "Co-financement",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "name": "Co-financé par",
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "depth": {
     "name": "Profondeur",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "Sexe",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "lifeStage": {
     "name": "Stade de développement",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "recordedBy": {
     "name": "Enregistré par",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "Numéro de terrain",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "verbatimTaxonId": {
-    "name": "Co-financement",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "name": "Co-financé par",
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "islandGroup": {
     "name": "Archipel",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "island": {
     "name": "Île",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "georeferencedBy": {
     "name": "Géoréférencé par",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "datasetName": {
     "name": "Nom du jeu de données",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "Programme",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "recordNumber": {
     "name": "Numéro d'enregristrement",
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "Géographie supérieure",
-    "count": "Co-financement",
+    "count": "Co-financé par",
     "description": ""
   },
   "stateProvince": {
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "Région GBIF",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "publishedByGbifRegion": {
     "name": "Publié par une région GBIF",
-    "count": "Co-financement",
-    "description": "Co-financement"
+    "count": "Co-financé par",
+    "description": "Co-financé par"
   },
   "eventId": {
     "name": "ID de l'événement",
@@ -569,7 +569,7 @@
   },
   "isInCluster": {
     "name": "Est dans le regroupement",
-    "count": "Co-financement",
+    "count": "Co-financé par",
     "description": "Est-ce que l'enregistrement a été déterminé à avoir des enregistrements liés."
   },
   "isSequenced": {
@@ -640,7 +640,7 @@
   },
   "networkKey": {
     "name": "Réseau",
-    "count": "Co-financement",
+    "count": "Co-financé par",
     "description": "Une courte description du composant devrait être placée ici"
   },
   "literatureType": {
