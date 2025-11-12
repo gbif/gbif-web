@@ -28,8 +28,8 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "",
-  "notVocabularyWarning": "Cofinanciering",
-  "taxonomicBreakdown": "Cofinanciering",
+  "notVocabularyWarning": "Co-Gefinancierd door",
+  "taxonomicBreakdown": "Co-Gefinancierd door",
   "group": {
     "views": "",
     "record": "Record",
