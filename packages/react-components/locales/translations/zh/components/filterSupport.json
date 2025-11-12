@@ -25,7 +25,7 @@
   "updateFilter": "",
   "setFilter": "",
   "noMathcingFilters": "必须定义",
-  "countsUnavailable": "共同资助方",
+  "countsUnavailable": "联合资助方：",
   "nameWithTaxonMatchIssue": "",
   "commonName": "常用名",
   "acceptedNameOf": "接受名",
@@ -62,6 +62,6 @@
     "geometryReducedToBbox": "",
     "failedToSimplify": ""
   },
-  "activeFilters": "共同资助方",
-  "highlighted": "共同资助方"
+  "activeFilters": "联合资助方：",
+  "highlighted": "联合资助方："
 }
