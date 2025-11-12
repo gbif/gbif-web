@@ -1,10 +1,10 @@
 {
   "clbTaxonomicStatus": {
     "accepted": "Przyjęty",
-    "provisionally_accepted": "Współfinansowanie",
-    "ambiguous_synonym": "Współfinansowanie",
+    "provisionally_accepted": "Współfinansowany przez",
+    "ambiguous_synonym": "Współfinansowany przez",
     "synonym": "Synonim",
     "misapplied": "Niepoprawnie zastosowany",
-    "bare_name": "Współfinansowanie"
+    "bare_name": "Współfinansowany przez"
   }
 }
