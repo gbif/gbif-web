@@ -1,10 +1,10 @@
 {
   "clbTaxonomicStatus": {
     "accepted": "已接受",
-    "provisionally_accepted": "共同资助方",
-    "ambiguous_synonym": "共同资助方",
+    "provisionally_accepted": "联合资助方：",
+    "ambiguous_synonym": "联合资助方：",
     "synonym": "异名",
     "misapplied": "误用",
-    "bare_name": "共同资助方"
+    "bare_name": "联合资助方："
   }
 }
