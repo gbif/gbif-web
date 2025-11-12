@@ -22,5 +22,6 @@
   "singleDataset": "Obtener un único conjunto de datos.",
   "searchDatasetsExample": "Primeros dos conjuntos de datos publicados por Dinamarca con el texto \"fungi\"  en el título o la descripción.",
   "searchExample": "Primeros dos elementos con el texto \"adn\".",
-  "searchDatasets": "Obtener todos los conjuntos de datos."
+  "searchDatasets": "Obtener todos los conjuntos de datos.",
+  "searchNodes": "Buscar nodos"
 }
