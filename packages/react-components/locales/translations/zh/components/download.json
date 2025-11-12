@@ -8,21 +8,21 @@
   "continueToGBIF": "继续",
   "sql": {
     "createNewSqlDownload": "创建新的SQL下载",
-    "placeholder": "共同资助方",
-    "noSql": "共同资助方",
+    "placeholder": "联合资助方：",
+    "noSql": "联合资助方：",
     "note": {
       "title": "注",
       "description": "下载和探索数据的最简单方法是通过出现搜索用户界面。但对于复杂查询和聚合，SQL编辑器提供了更大的自由度。",
-      "goToOccurrenceSearch": "共同资助方"
+      "goToOccurrenceSearch": "联合资助方："
     },
     "errors": {
       "invalid-SQL": "无效网址",
-      "network-error": "共同资助方",
-      "parsingErrorDescription": "共同资助方",
-      "networkErrorDescription": "共同资助方"
+      "network-error": "联合资助方：",
+      "parsingErrorDescription": "联合资助方：",
+      "networkErrorDescription": "联合资助方："
     }
   },
-  "create": "共同资助方",
+  "create": "联合资助方：",
   "about": "关于",
   "stopEditing": "停止编辑",
   "startEditing": "开始编辑",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "阅读文档",
   "request": {
     "createNewDownload": "创建新的下载",
-    "weHaveRestoredYourPredicate": "共同资助方",
-    "noPredicate": "共同资助方",
+    "weHaveRestoredYourPredicate": "联合资助方：",
+    "noPredicate": "联合资助方：",
     "currentFilter": "当前筛选条件",
     "errors": {
       "invalid-json": "无效的JSON",
-      "invalid-predicate": "共同资助方",
-      "faild-to-load-predicate": "共同资助方",
-      "unexpectedError": "共同资助方",
-      "failedToParseJSON": "共同资助方",
-      "failedToVisualizePredicate": "共同资助方"
+      "invalid-predicate": "联合资助方：",
+      "faild-to-load-predicate": "联合资助方：",
+      "unexpectedError": "联合资助方：",
+      "failedToParseJSON": "联合资助方：",
+      "failedToVisualizePredicate": "联合资助方："
     }
   },
   "downloadOptions": {
     "title": "下载选项",
-    "chooseChecklist": "共同资助方",
-    "chooseChecklistDescription": "共同资助方",
+    "chooseChecklist": "联合资助方：",
+    "chooseChecklistDescription": "联合资助方：",
     "content": {
       "rawData": "原始数据",
       "interpretedData": "解释数据",
@@ -57,12 +57,12 @@
       "estimatedSize": "估计数据大小"
     },
     "fileFormats": {
-      "tabCsv": "共同资助方"
+      "tabCsv": "联合资助方："
     },
     "tableValues": {
-      "ifAvailable": "共同资助方",
-      "ifSelected": "共同资助方",
-      "links": "共同资助方"
+      "ifAvailable": "联合资助方：",
+      "ifSelected": "联合资助方：",
+      "links": "联合资助方："
     }
   }
 }
