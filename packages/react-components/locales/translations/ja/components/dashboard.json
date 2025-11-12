@@ -28,8 +28,8 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "",
-  "notVocabularyWarning": "共同資金",
-  "taxonomicBreakdown": "共同資金",
+  "notVocabularyWarning": "共同出資",
+  "taxonomicBreakdown": "共同出資",
   "group": {
     "views": "",
     "record": "記録",
