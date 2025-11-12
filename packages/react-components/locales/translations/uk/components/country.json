@@ -8,7 +8,7 @@
       "publicationsFrom": "Публікації з цієї країни",
       "publicationsAbout": "Публікації про цю країну",
       "news": "Новини",
-      "alienSpecies": "Спільне фінансування",
+      "alienSpecies": "Фінансується спільно",
       "projects": "Проєкти"
     },
     "country": "Країна",
@@ -21,8 +21,8 @@
     "noProjects": "Проєкти відсутні",
     "notParticipant": "Країна не є офіційним членом GBIF",
     "notParticipantDescription": "Ця країна не є офіційним членом GBIF",
-    "countryNamingDisclaimer": "Спільне фінансування",
-    "isoStandardLinkText": "Спільне фінансування",
+    "countryNamingDisclaimer": "Фінансується спільно",
+    "isoStandardLinkText": "Фінансується спільно",
     "counts": {
       "occurrences": "{NUMBER, plural,\n0 {Знахідок}\none {Знахідка}\nfew {Знахідки}\nmany {Знахідок}\nother {Знахідок}\n}",
       "datasets": "{NUMBER, plural,\n0 {Наборів даних}\none {Набор даних}\nfew {Набори даних}\nmany {Наборів даних}\nother {Наборів даних}\n}",
