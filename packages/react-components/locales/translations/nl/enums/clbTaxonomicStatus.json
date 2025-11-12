@@ -1,10 +1,10 @@
 {
   "clbTaxonomicStatus": {
     "accepted": "Geaccepteerd",
-    "provisionally_accepted": "Cofinanciering",
-    "ambiguous_synonym": "Cofinanciering",
+    "provisionally_accepted": "Co-Gefinancierd door",
+    "ambiguous_synonym": "Co-Gefinancierd door",
     "synonym": "Synoniem",
     "misapplied": "",
-    "bare_name": "Cofinanciering"
+    "bare_name": "Co-Gefinancierd door"
   }
 }
