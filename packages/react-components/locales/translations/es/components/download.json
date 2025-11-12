@@ -8,21 +8,21 @@
   "continueToGBIF": "Continuar",
   "sql": {
     "createNewSqlDownload": "Crear una nueva descarga SQL",
-    "placeholder": "Co-financiamiento",
-    "noSql": "Co-financiamiento",
+    "placeholder": "Cofinanciado por",
+    "noSql": "Cofinanciado por",
     "note": {
       "title": "Nota",
       "description": "La forma más sencilla de descargar y explorar datos es a través de la interfaz de usuario de búsqueda de registros biológicos. Pero para consultas y agregaciones complejas, el editor SQL ofrece más libertad.",
-      "goToOccurrenceSearch": "Co-financiamiento"
+      "goToOccurrenceSearch": "Cofinanciado por"
     },
     "errors": {
       "invalid-SQL": "SQL inválido",
-      "network-error": "Co-financiamiento",
-      "parsingErrorDescription": "Co-financiamiento",
-      "networkErrorDescription": "Co-financiamiento"
+      "network-error": "Cofinanciado por",
+      "parsingErrorDescription": "Cofinanciado por",
+      "networkErrorDescription": "Cofinanciado por"
     }
   },
-  "create": "Co-financiamiento",
+  "create": "Cofinanciado por",
   "about": "Acerca de",
   "stopEditing": "Dejar de editar",
   "startEditing": "Comenzar a editar",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "Leer la documentación",
   "request": {
     "createNewDownload": "Crear una nueva descarga",
-    "weHaveRestoredYourPredicate": "Co-financiamiento",
-    "noPredicate": "Co-financiamiento",
+    "weHaveRestoredYourPredicate": "Cofinanciado por",
+    "noPredicate": "Cofinanciado por",
     "currentFilter": "Filtro actual",
     "errors": {
       "invalid-json": "JSON inválido",
-      "invalid-predicate": "Co-financiamiento",
-      "faild-to-load-predicate": "Co-financiamiento",
-      "unexpectedError": "Co-financiamiento",
-      "failedToParseJSON": "Co-financiamiento",
-      "failedToVisualizePredicate": "Co-financiamiento"
+      "invalid-predicate": "Cofinanciado por",
+      "faild-to-load-predicate": "Cofinanciado por",
+      "unexpectedError": "Cofinanciado por",
+      "failedToParseJSON": "Cofinanciado por",
+      "failedToVisualizePredicate": "Cofinanciado por"
     }
   },
   "downloadOptions": {
     "title": "Opciones de descarga",
-    "chooseChecklist": "Co-financiamiento",
-    "chooseChecklistDescription": "Co-financiamiento",
+    "chooseChecklist": "Cofinanciado por",
+    "chooseChecklistDescription": "Cofinanciado por",
     "content": {
       "rawData": "Datos sin procesar",
       "interpretedData": "Datos interpretados",
@@ -57,12 +57,12 @@
       "estimatedSize": "Tamaño de datos estimados"
     },
     "fileFormats": {
-      "tabCsv": "Co-financiamiento"
+      "tabCsv": "Cofinanciado por"
     },
     "tableValues": {
-      "ifAvailable": "Co-financiamiento",
-      "ifSelected": "Co-financiamiento",
-      "links": "Co-financiamiento"
+      "ifAvailable": "Cofinanciado por",
+      "ifSelected": "Cofinanciado por",
+      "links": "Cofinanciado por"
     }
   }
 }
