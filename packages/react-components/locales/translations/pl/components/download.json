@@ -8,21 +8,21 @@
   "continueToGBIF": "Dalej",
   "sql": {
     "createNewSqlDownload": "Stwórz nowe pobranie SQL",
-    "placeholder": "Współfinansowanie",
-    "noSql": "Współfinansowanie",
+    "placeholder": "Współfinansowany przez",
+    "noSql": "Współfinansowany przez",
     "note": {
       "title": "Uwaga",
       "description": "Najprostszym sposobem na pobieranie i przeglądanie danych to użycie interfejsu użytkownika wyszukiwarki stwierdzeń. Jednak dla złożonych zapytań i zbiorów edytor SQL daje więcej możliwości.",
-      "goToOccurrenceSearch": "Współfinansowanie"
+      "goToOccurrenceSearch": "Współfinansowany przez"
     },
     "errors": {
       "invalid-SQL": "Nieprawidłowy SQL",
-      "network-error": "Współfinansowanie",
-      "parsingErrorDescription": "Współfinansowanie",
-      "networkErrorDescription": "Współfinansowanie"
+      "network-error": "Współfinansowany przez",
+      "parsingErrorDescription": "Współfinansowany przez",
+      "networkErrorDescription": "Współfinansowany przez"
     }
   },
-  "create": "Współfinansowanie",
+  "create": "Współfinansowany przez",
   "about": "Informacje",
   "stopEditing": "Zakończ edycje",
   "startEditing": "Rozpocznij edycje",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "Przeczytaj dokumentację",
   "request": {
     "createNewDownload": "Stwórz nowe pobranie",
-    "weHaveRestoredYourPredicate": "Współfinansowanie",
-    "noPredicate": "Współfinansowanie",
+    "weHaveRestoredYourPredicate": "Współfinansowany przez",
+    "noPredicate": "Współfinansowany przez",
     "currentFilter": "Aktualny filtr",
     "errors": {
       "invalid-json": "Nieprawidłowy JSON",
-      "invalid-predicate": "Współfinansowanie",
-      "faild-to-load-predicate": "Współfinansowanie",
-      "unexpectedError": "Współfinansowanie",
-      "failedToParseJSON": "Współfinansowanie",
-      "failedToVisualizePredicate": "Współfinansowanie"
+      "invalid-predicate": "Współfinansowany przez",
+      "faild-to-load-predicate": "Współfinansowany przez",
+      "unexpectedError": "Współfinansowany przez",
+      "failedToParseJSON": "Współfinansowany przez",
+      "failedToVisualizePredicate": "Współfinansowany przez"
     }
   },
   "downloadOptions": {
     "title": "Opcje pobierania",
-    "chooseChecklist": "Współfinansowanie",
-    "chooseChecklistDescription": "Współfinansowanie",
+    "chooseChecklist": "Współfinansowany przez",
+    "chooseChecklistDescription": "Współfinansowany przez",
     "content": {
       "rawData": "Surowe dane",
       "interpretedData": "Dane zinterpretowane",
@@ -57,12 +57,12 @@
       "estimatedSize": "Szacowana wielkość danych"
     },
     "fileFormats": {
-      "tabCsv": "Współfinansowanie"
+      "tabCsv": "Współfinansowany przez"
     },
     "tableValues": {
-      "ifAvailable": "Współfinansowanie",
-      "ifSelected": "Współfinansowanie",
-      "links": "Współfinansowanie"
+      "ifAvailable": "Współfinansowany przez",
+      "ifSelected": "Współfinansowany przez",
+      "links": "Współfinansowany przez"
     }
   }
 }
