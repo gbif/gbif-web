@@ -31,7 +31,7 @@
   "constituentOf": "مكون من",
   "dataset": "مجموعة البيانات",
   "taxonomy": "التصنيف",
-  "localContexts": "التمويل المشترك",
+  "localContexts": "تمويل مشترك بواسطة",
   "project": "مشروع",
   "metrics": "المقاييس",
   "metricsOccurrenceHelpText": "",
@@ -150,8 +150,8 @@
     "registrationDetails": ""
   },
   "errors": {
-    "evenList": "التمويل المشترك",
-    "occurrenceInfo": "التمويل المشترك"
+    "evenList": "تمويل مشترك بواسطة",
+    "occurrenceInfo": "تمويل مشترك بواسطة"
   },
   "eventTaxonomy": "التوزيع التصنيفي لتكرارات الحدوث"
 }
