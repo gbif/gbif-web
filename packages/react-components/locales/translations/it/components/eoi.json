@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "",
   "searchOrganisations": "",
   "termsAndConditions": "",
-  "iHaveReadAndUnderstood": "Cofinanziamento",
+  "iHaveReadAndUnderstood": "Cofinanziato da",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "",
   "iUnderstandThatMyOrganizationalInformation": "",
   "administrativeContact": "",
@@ -30,7 +30,7 @@
   "none": "",
   "whatAndHow": "",
   "helpUsUnderstand": "",
-  "publOfFourTypesOfData": "Cofinanziamento",
+  "publOfFourTypesOfData": "Cofinanziato da",
   "whichTypesOfData": "",
   "resourcesMetaData": "",
   "checkListData": "",
@@ -42,9 +42,9 @@
   "yes": "",
   "no": "",
   "pleaseSelectAValue": "",
-  "reuseTrustedIPThosting": "Cofinanziamento",
+  "reuseTrustedIPThosting": "Cofinanziato da",
   "doYouNeedHelpPublishing": "",
-  "areYouPlanningToInstallAndRun": "Cofinanziamento",
+  "areYouPlanningToInstallAndRun": "Cofinanziato da",
   "orgDetails": "",
   "yourChanceToTellGBIF": "",
   "orgName": "",
@@ -81,20 +81,20 @@
   "outage": "",
   "eoiDescription": "",
   "eoiTitle": "",
-  "checkRegistration": "Cofinanziamento",
-  "organisationDetails": "Cofinanziamento",
-  "organisationAddress": "Cofinanziamento",
-  "endorsement": "Cofinanziamento",
+  "checkRegistration": "Cofinanziato da",
+  "organisationDetails": "Cofinanziato da",
+  "organisationAddress": "Cofinanziato da",
+  "endorsement": "Cofinanziato da",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "Cofinanziamento",
-    "pleaseSelectTheCountryOfYourOrganization": "Cofinanziamento"
+    "pleaseSelectYourOrganizationOnTheMap": "Cofinanziato da",
+    "pleaseSelectTheCountryOfYourOrganization": "Cofinanziato da"
   },
-  "thankYouForYourRegistration": "Cofinanziamento",
-  "failedToRegisterOrganization": "Cofinanziamento",
-  "associatedWithGbifProgramme": "Cofinanziamento",
+  "thankYouForYourRegistration": "Cofinanziato da",
+  "failedToRegisterOrganization": "Cofinanziato da",
+  "associatedWithGbifProgramme": "Cofinanziato da",
   "loginToRegisterOrganization": {
-    "title": "Cofinanziamento",
-    "message": "Cofinanziamento"
+    "title": "Cofinanziato da",
+    "message": "Cofinanziato da"
   },
-  "registerAnotherOrganization": "Cofinanziamento"
+  "registerAnotherOrganization": "Cofinanziato da"
 }
