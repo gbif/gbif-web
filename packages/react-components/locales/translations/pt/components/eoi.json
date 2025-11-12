@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "Minha organização ainda não está registada.",
   "searchOrganisations": "Pesquisar Organizações",
   "termsAndConditions": "Termos e condições",
-  "iHaveReadAndUnderstood": "Co-financiamento",
+  "iHaveReadAndUnderstood": "Co-financiado por",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "Compreendo que estou a inscrever-me em nome da minha organização, e confirmo que as autoridades responsáveis da minha instituição estão cientes da minha inscrição.",
   "iUnderstandThatMyOrganizationalInformation": "Compreendo que as informações da minha instituição, incluindo os dados de contato, serão publicados através do GBIF.org.",
   "administrativeContact": "Contato administrativo",
@@ -30,7 +30,7 @@
   "none": "Nenhum",
   "whatAndHow": "O quê e como",
   "helpUsUnderstand": "Ajude-nos a compreender que tipo de dados planejas publicar, e o suporte que precisas.",
-  "publOfFourTypesOfData": "Co-financiamento",
+  "publOfFourTypesOfData": "Co-financiado por",
   "whichTypesOfData": "Quais os tipos de dados pretende publicar?",
   "resourcesMetaData": "Metadados de recursos",
   "checkListData": "Checklists",
@@ -42,9 +42,9 @@
   "yes": "Sim",
   "no": "Não",
   "pleaseSelectAValue": "Por favor, selecione um valor",
-  "reuseTrustedIPThosting": "Co-financiamento",
+  "reuseTrustedIPThosting": "Co-financiado por",
   "doYouNeedHelpPublishing": "Precisas de ajuda para a publicação de dados?",
-  "areYouPlanningToInstallAndRun": "Co-financiamento",
+  "areYouPlanningToInstallAndRun": "Co-financiado por",
   "orgDetails": "Informações da Organização",
   "yourChanceToTellGBIF": "Tua chance de dizer aos usuários do GBIF quem és e o que fazes.",
   "orgName": "Nome da organização",
@@ -81,20 +81,20 @@
   "outage": "Estamos com uma interrupção parcial e não aceitamos inscrições no momento",
   "eoiDescription": "Para preparar a publicação de dados através do GBIF, pedimos aos potenciais publicadores para preencher este formulário online. Antes do GBIF indexar teus conjuntos de dados, a instituição deverá receber o aval de publicador de dados, seja de um dos países ou de organizações participantes do GBIF, através de um dos Nós. Se o teu país ainda não participa do GBIF, procuraremos o aval a teu favor na Comunidade GBIF.",
   "eoiTitle": "Tornar-se um publicador",
-  "checkRegistration": "Co-financiamento",
-  "organisationDetails": "Co-financiamento",
-  "organisationAddress": "Co-financiamento",
-  "endorsement": "Co-financiamento",
+  "checkRegistration": "Co-financiado por",
+  "organisationDetails": "Co-financiado por",
+  "organisationAddress": "Co-financiado por",
+  "endorsement": "Co-financiado por",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "Co-financiamento",
-    "pleaseSelectTheCountryOfYourOrganization": "Co-financiamento"
+    "pleaseSelectYourOrganizationOnTheMap": "Co-financiado por",
+    "pleaseSelectTheCountryOfYourOrganization": "Co-financiado por"
   },
-  "thankYouForYourRegistration": "Co-financiamento",
-  "failedToRegisterOrganization": "Co-financiamento",
-  "associatedWithGbifProgramme": "Co-financiamento",
+  "thankYouForYourRegistration": "Co-financiado por",
+  "failedToRegisterOrganization": "Co-financiado por",
+  "associatedWithGbifProgramme": "Co-financiado por",
   "loginToRegisterOrganization": {
-    "title": "Co-financiamento",
-    "message": "Co-financiamento"
+    "title": "Co-financiado por",
+    "message": "Co-financiado por"
   },
-  "registerAnotherOrganization": "Co-financiamento"
+  "registerAnotherOrganization": "Co-financiado por"
 }
