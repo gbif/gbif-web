@@ -25,7 +25,7 @@
   "updateFilter": "",
   "setFilter": "",
   "noMathcingFilters": "",
-  "countsUnavailable": "التمويل المشترك",
+  "countsUnavailable": "تمويل مشترك بواسطة",
   "nameWithTaxonMatchIssue": "",
   "commonName": "",
   "acceptedNameOf": "",
@@ -62,6 +62,6 @@
     "geometryReducedToBbox": "",
     "failedToSimplify": ""
   },
-  "activeFilters": "التمويل المشترك",
-  "highlighted": "التمويل المشترك"
+  "activeFilters": "تمويل مشترك بواسطة",
+  "highlighted": "تمويل مشترك بواسطة"
 }
