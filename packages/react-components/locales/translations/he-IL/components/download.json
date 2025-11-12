@@ -8,21 +8,21 @@
   "continueToGBIF": "המשך",
   "sql": {
     "createNewSqlDownload": "צור הורדת SQL חדשה",
-    "placeholder": "מימון משותף",
-    "noSql": "מימון משותף",
+    "placeholder": "מומן במשותף על ידי",
+    "noSql": "מומן במשותף על ידי",
     "note": {
       "title": "הערה",
       "description": "הדרך הקלה ביותר להוריד ולחקור נתונים היא דרך ממשק חיפוש התצפיות. לשאילתות וחישובים מורכבים, עורך ה־SQL מספק יותר חופש.",
-      "goToOccurrenceSearch": "מימון משותף"
+      "goToOccurrenceSearch": "מומן במשותף על ידי"
     },
     "errors": {
       "invalid-SQL": "SQL לא תקין",
-      "network-error": "מימון משותף",
-      "parsingErrorDescription": "מימון משותף",
-      "networkErrorDescription": "מימון משותף"
+      "network-error": "מומן במשותף על ידי",
+      "parsingErrorDescription": "מומן במשותף על ידי",
+      "networkErrorDescription": "מומן במשותף על ידי"
     }
   },
-  "create": "מימון משותף",
+  "create": "מומן במשותף על ידי",
   "about": "",
   "stopEditing": "",
   "startEditing": "",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "מימון משותף",
-    "noPredicate": "מימון משותף",
+    "weHaveRestoredYourPredicate": "מומן במשותף על ידי",
+    "noPredicate": "מומן במשותף על ידי",
     "currentFilter": "",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "מימון משותף",
-      "faild-to-load-predicate": "מימון משותף",
-      "unexpectedError": "מימון משותף",
-      "failedToParseJSON": "מימון משותף",
-      "failedToVisualizePredicate": "מימון משותף"
+      "invalid-predicate": "מומן במשותף על ידי",
+      "faild-to-load-predicate": "מומן במשותף על ידי",
+      "unexpectedError": "מומן במשותף על ידי",
+      "failedToParseJSON": "מומן במשותף על ידי",
+      "failedToVisualizePredicate": "מומן במשותף על ידי"
     }
   },
   "downloadOptions": {
     "title": "",
-    "chooseChecklist": "מימון משותף",
-    "chooseChecklistDescription": "מימון משותף",
+    "chooseChecklist": "מומן במשותף על ידי",
+    "chooseChecklistDescription": "מומן במשותף על ידי",
     "content": {
       "rawData": "",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": ""
     },
     "fileFormats": {
-      "tabCsv": "מימון משותף"
+      "tabCsv": "מומן במשותף על ידי"
     },
     "tableValues": {
-      "ifAvailable": "מימון משותף",
-      "ifSelected": "מימון משותף",
-      "links": "מימון משותף"
+      "ifAvailable": "מומן במשותף על ידי",
+      "ifSelected": "מומן במשותף על ידי",
+      "links": "מומן במשותף על ידי"
     }
   }
 }
