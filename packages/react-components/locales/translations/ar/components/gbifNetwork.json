@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "التمويل المشترك",
-      "ASSOCIATE": "التمويل المشترك",
-      "OTHER_ASSOCIATE": "التمويل المشترك",
+      "VOTING": "تمويل مشترك بواسطة",
+      "ASSOCIATE": "تمويل مشترك بواسطة",
+      "OTHER_ASSOCIATE": "تمويل مشترك بواسطة",
       "FORMER": "السابق",
       "OBSERVER": "مراقب",
-      "UNKNOWN": "التمويل المشترك",
+      "UNKNOWN": "تمويل مشترك بواسطة",
       "AFFILIATE": "منتسب الى المرفق العالمي للتنوع الحيوي"
     },
-    "affiliateHelp": "التمويل المشترك",
-    "mapCaptionPublishers": "التمويل المشترك",
+    "affiliateHelp": "تمويل مشترك بواسطة",
+    "mapCaptionPublishers": "تمويل مشترك بواسطة",
     "role": "دور",
     "name": "الاسم",
     "participant": "مشارك",
     "type": "نمط",
     "memberSince": "عضو مُنذُ",
     "all": "الكل",
-    "countryParticipants": "التمويل المشترك",
-    "publishersPerCountry": "التمويل المشترك",
+    "countryParticipants": "تمويل مشترك بواسطة",
+    "publishersPerCountry": "تمويل مشترك بواسطة",
     "clear": "إزالة",
     "headlines": {
       "nodesSteeringGroup": "المجموعة التوجيهية لعقدة الربط",
