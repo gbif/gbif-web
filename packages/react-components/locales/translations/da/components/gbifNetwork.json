@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "Sam-finansiering",
-      "ASSOCIATE": "Sam-finansiering",
-      "OTHER_ASSOCIATE": "Sam-finansiering",
+      "VOTING": "Samfinansieret af",
+      "ASSOCIATE": "Samfinansieret af",
+      "OTHER_ASSOCIATE": "Samfinansieret af",
       "FORMER": "Tidligere",
       "OBSERVER": "Observatør",
-      "UNKNOWN": "Sam-finansiering",
+      "UNKNOWN": "Samfinansieret af",
       "AFFILIATE": ""
     },
-    "affiliateHelp": "Sam-finansiering",
-    "mapCaptionPublishers": "Sam-finansiering",
+    "affiliateHelp": "Samfinansieret af",
+    "mapCaptionPublishers": "Samfinansieret af",
     "role": "Rolle",
     "name": "Navn",
     "participant": "Participant",
     "type": "",
     "memberSince": "Medlem siden",
     "all": "Alle",
-    "countryParticipants": "Sam-finansiering",
-    "publishersPerCountry": "Sam-finansiering",
+    "countryParticipants": "Samfinansieret af",
+    "publishersPerCountry": "Samfinansieret af",
     "clear": "",
     "headlines": {
       "nodesSteeringGroup": "",
