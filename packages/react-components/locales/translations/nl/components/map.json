@@ -21,7 +21,7 @@
   "anyYear": "",
   "exploreArea": "",
   "explore": "Verkennen",
-  "generatedDateAgo": "Cofinanciering",
+  "generatedDateAgo": "Co-Gefinancierd door",
   "style": "Stijl",
   "filters": "Filters",
   "select": "Selecteer",
@@ -36,7 +36,7 @@
     "CLASSIC": "",
     "STREETS": "Straten",
     "GLACIER": "Gletsjer",
-    "GREEN": "Cofinanciering",
+    "GREEN": "Co-Gefinancierd door",
     "CUSTOM": ""
   },
   "basemap": {
