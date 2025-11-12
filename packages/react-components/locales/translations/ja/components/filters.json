@@ -1,12 +1,12 @@
 {
   "dwcaExtension": {
     "name": "DWCA拡張形式",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "locationId": {
     "name": "採集地ID",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "hasCoordinate": {
@@ -21,12 +21,12 @@
   },
   "collectionKey": {
     "name": "コレクション",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "taxonomicStatus": {
     "name": "ステータス",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "taxonRank": {
@@ -36,12 +36,12 @@
   },
   "numberSpecimens": {
     "name": "",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "specimensInGbif": {
     "name": "GBIFの標本",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": "GBIFがアノーテーションしたアーカイブ"
   },
   "iucnRedListCategory": {
@@ -51,7 +51,7 @@
   },
   "geoDistance": {
     "name": "",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -59,7 +59,7 @@
   },
   "geometry": {
     "name": "位置情報",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "geologicalTime": {
-    "name": "共同資金",
-    "count": "共同資金",
-    "description": "共同資金"
+    "name": "共同出資",
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "purposes": {
     "name": "トピック",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "organismQuantityType": {
     "name": "生物の数の種類",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "pathway": {
     "name": "",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "associatedSequences": {
     "name": "関連する塩基配列",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "degreeOfEstablishment": {
     "name": "",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "endDayOfYear": {
     "name": "終了年月日",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "startDayOfYear": {
     "name": "開始年月日",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "previousIdentifications": {
     "name": "以前のID",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "lastInterpreted": {
     "name": "最終解釈日",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "alternativeCode": {
     "name": "GBIFがアノーテーションしたアーカイブ",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "identifier": {
     "name": "ID",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "GBIFがアノーテーションしたアーカイブ",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "collectionContentType": {
     "name": "GBIFがアノーテーションしたアーカイブ",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": "GBIFがアノーテーションしたアーカイブ"
   },
   "preservationType": {
     "name": "GBIFがアノーテーションしたアーカイブ",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": "GBIFがアノーテーションしたアーカイブ"
   },
   "biomeType": {
-    "name": "共同資金",
-    "count": "共同資金",
-    "description": "共同資金"
+    "name": "共同出資",
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "objectClassification": {
-    "name": "共同資金",
-    "count": "共同資金",
-    "description": "共同資金"
+    "name": "共同出資",
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "taxonKey": {
     "name": "学名",
@@ -230,11 +230,11 @@
     "description": ""
   },
   "occurrenceTaxonomicIssue": {
-    "name": "共同資金",
-    "count": "共同資金",
-    "isNotNull": "共同資金",
-    "isNull": "共同資金",
-    "description": "共同資金"
+    "name": "共同出資",
+    "count": "共同出資",
+    "isNotNull": "共同出資",
+    "isNull": "共同出資",
+    "description": "共同出資"
   },
   "occurrenceCountry": {
     "name": "国",
@@ -246,13 +246,13 @@
   },
   "preparations": {
     "name": "標本の準備または保存方法",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": "GBIFがアノーテーションしたアーカイブ"
   },
   "repatriated": {
     "name": "返還された",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "publishingCountryCode": {
     "name": "データ出版国または地域",
@@ -339,22 +339,22 @@
   },
   "coordinateUncertainty": {
     "name": "座標の不確実性",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "distanceFromCentroidInMeters": {
-    "name": "共同資金",
-    "count": "共同資金",
-    "description": "共同資金"
+    "name": "共同出資",
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "depth": {
     "name": "深度",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "organismQuantity": {
     "name": "生物の数",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "sampleSizeValue": {
@@ -364,7 +364,7 @@
   },
   "relativeOrganismQuantity": {
     "name": "相対生物数",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "month": {
@@ -389,43 +389,43 @@
   },
   "sex": {
     "name": "性別",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "lifeStage": {
     "name": "ライフ ステージ",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "recordedBy": {
     "name": "採集者・観察者",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "fieldNumber": {
     "name": "フィールド番号",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "verbatimTaxonId": {
-    "name": "共同資金",
-    "count": "共同資金",
-    "description": "共同資金"
+    "name": "共同出資",
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "islandGroup": {
     "name": "諸島",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "island": {
     "name": "島",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "georeferencedBy": {
     "name": "以下によってジオリファレンスした",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "datasetName": {
     "name": "データセット名",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "プログラム",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "recordNumber": {
     "name": "レコード番号",
@@ -454,22 +454,22 @@
   },
   "recordedById": {
     "name": "採集者・観察者ID",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "identifiedById": {
     "name": "同定者ID",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "occurrenceId": {
     "name": "オカレンスID",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "organismId": {
     "name": "生物 ID",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "locality": {
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "採集地を含む地域",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "stateProvince": {
@@ -494,32 +494,32 @@
   },
   "gbifRegion": {
     "name": "GBIF 地域",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "共同資金",
-    "description": "共同資金"
+    "count": "共同出資",
+    "description": "共同出資"
   },
   "eventId": {
     "name": "イベントID",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "eventID": {
     "name": "イベントID",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "parentEventId": {
     "name": "親イベントID",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "locationID": {
     "name": "採集地ID",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "measurementOrFactTypes": {
@@ -549,12 +549,12 @@
   },
   "samplingProtocol": {
     "name": "サンプリング手順",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "occurrenceStatus": {
     "name": "オカレンスの有無",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "gadmGid": {
@@ -564,17 +564,17 @@
   },
   "identifiedBy": {
     "name": "同定者",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "isInCluster": {
     "name": "",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": "この試験的な機能では、重複や関連するオカレンスの可能性があればハイライトします。"
   },
   "isSequenced": {
     "name": "",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "active": {
@@ -604,48 +604,48 @@
   },
   "datasetType": {
     "name": "データセットタイプ",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "datasetSubtype": {
     "name": "",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "institutionKey": {
     "name": "機関",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "name": {
     "name": "名前",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": "GBIFがアノーテーションしたアーカイブ",
     "searchPlaceholder": ""
   },
   "city": {
     "name": "市",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "code": {
     "name": "コード",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": "GBIFがアノーテーションしたアーカイブ"
   },
   "verbatimScientificName": {
     "name": "オリジナルの学名",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "networkKey": {
     "name": "ネットワーク",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "literatureType": {
     "name": "文献の種類",
-    "count": "共同資金",
+    "count": "共同出資",
     "description": ""
   },
   "higherTaxonKey": {
