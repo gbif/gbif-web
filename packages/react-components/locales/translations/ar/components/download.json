@@ -8,21 +8,21 @@
   "continueToGBIF": "متابعة",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "التمويل المشترك",
-    "noSql": "التمويل المشترك",
+    "placeholder": "تمويل مشترك بواسطة",
+    "noSql": "تمويل مشترك بواسطة",
     "note": {
       "title": "مذكرة",
       "description": "",
-      "goToOccurrenceSearch": "التمويل المشترك"
+      "goToOccurrenceSearch": "تمويل مشترك بواسطة"
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "التمويل المشترك",
-      "parsingErrorDescription": "التمويل المشترك",
-      "networkErrorDescription": "التمويل المشترك"
+      "network-error": "تمويل مشترك بواسطة",
+      "parsingErrorDescription": "تمويل مشترك بواسطة",
+      "networkErrorDescription": "تمويل مشترك بواسطة"
     }
   },
-  "create": "التمويل المشترك",
+  "create": "تمويل مشترك بواسطة",
   "about": "حول",
   "stopEditing": "إيقاف التحرير",
   "startEditing": "البدء في التحرير",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "التمويل المشترك",
-    "noPredicate": "التمويل المشترك",
+    "weHaveRestoredYourPredicate": "تمويل مشترك بواسطة",
+    "noPredicate": "تمويل مشترك بواسطة",
     "currentFilter": "المُرشِح الحالي",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "التمويل المشترك",
-      "faild-to-load-predicate": "التمويل المشترك",
-      "unexpectedError": "التمويل المشترك",
-      "failedToParseJSON": "التمويل المشترك",
-      "failedToVisualizePredicate": "التمويل المشترك"
+      "invalid-predicate": "تمويل مشترك بواسطة",
+      "faild-to-load-predicate": "تمويل مشترك بواسطة",
+      "unexpectedError": "تمويل مشترك بواسطة",
+      "failedToParseJSON": "تمويل مشترك بواسطة",
+      "failedToVisualizePredicate": "تمويل مشترك بواسطة"
     }
   },
   "downloadOptions": {
     "title": "خيارات التنزيل",
-    "chooseChecklist": "التمويل المشترك",
-    "chooseChecklistDescription": "التمويل المشترك",
+    "chooseChecklist": "تمويل مشترك بواسطة",
+    "chooseChecklistDescription": "تمويل مشترك بواسطة",
     "content": {
       "rawData": "بيانات أولية",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": ""
     },
     "fileFormats": {
-      "tabCsv": "التمويل المشترك"
+      "tabCsv": "تمويل مشترك بواسطة"
     },
     "tableValues": {
-      "ifAvailable": "التمويل المشترك",
-      "ifSelected": "التمويل المشترك",
-      "links": "التمويل المشترك"
+      "ifAvailable": "تمويل مشترك بواسطة",
+      "ifSelected": "تمويل مشترك بواسطة",
+      "links": "تمويل مشترك بواسطة"
     }
   }
 }
