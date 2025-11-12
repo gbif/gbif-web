@@ -1,5 +1,4 @@
 import { useCallback, useMemo } from 'react';
-import Editor, { EditorSkeleton } from './editor';
 import { highlight } from 'sql-highlight';
 import { useStringParam } from '@/hooks/useParam';
 import { validateSql } from './validate';
@@ -9,17 +8,20 @@ export default function SqlEditor({ onContinue }: { onContinue: (sqlString?: str
   const [sql, setSql] = useStringParam({ key: 'sql', replace: true });
   const { formatMessage } = useIntl();
 
-  const handleFormat = useCallback(async (text: string) => {
-    try {
-      const { text: str, error } = await validateSql(text, formatMessage);
-      if (error) {
+  const handleFormat = useCallback(
+    async (text: string) => {
+      try {
+        const { text: str, error } = await validateSql(text, formatMessage);
+        if (error) {
+          return text;
+        }
+        return str;
+      } catch (error) {
         return text;
       }
-      return str;
-    } catch (error) {
-      return text;
-    }
-  }, []);
+    },
+    [formatMessage]
+  );
 
   const handleValidation = useCallback(
     (str: string) => validateSql(str, formatMessage),

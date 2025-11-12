@@ -1,4 +1,4 @@
-import SqlEditor from '../editor/sqlEDitor';
+import SqlEditor from '../editor/sqlEditor';
 
 export function OccurrenceDownloadSqlCreate({
   onContinue,
@@ -6,9 +6,5 @@ export function OccurrenceDownloadSqlCreate({
   onContinue: (predicate?: string) => void;
   text?: string | JSON;
 }) {
-  return (
-    <>
-      <SqlEditor onContinue={onContinue} />
-    </>
-  );
+  return <SqlEditor onContinue={onContinue} />;
 }
