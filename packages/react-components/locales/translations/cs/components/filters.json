@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "Biostratigrafie",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "lithostratigraphy": {
     "name": "Lithostratigrafie",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "geologicalTime": {
-    "name": "Spolufinancování",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "name": "Spolufinancováno",
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "purposes": {
     "name": "Téma",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "organismQuantityType": {
     "name": "Typ množství organismu",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "pathway": {
     "name": "Cesta",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "associatedSequences": {
     "name": "Související sekvence",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "degreeOfEstablishment": {
     "name": "Stupeň zavedení",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "endDayOfYear": {
     "name": "Konečný den roku",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "startDayOfYear": {
     "name": "Počáteční den roku",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "previousIdentifications": {
     "name": "Předchozí identifikace",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "lastInterpreted": {
     "name": "Poslední interpretace",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "alternativeCode": {
     "name": "Alternativní kód",
-    "count": "Spolufinancování",
+    "count": "Spolufinancováno",
     "description": ""
   },
   "identifier": {
     "name": "Identifikátor",
-    "count": "Spolufinancování",
+    "count": "Spolufinancováno",
     "description": "Zde by měl být uveden krátký popis součásti."
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "",
-    "count": "Spolufinancování",
+    "count": "Spolufinancováno",
     "description": ""
   },
   "collectionContentType": {
     "name": "Typ obsahu",
-    "count": "Spolufinancování",
+    "count": "Spolufinancováno",
     "description": "Typ objektů dostupných ve sbírce"
   },
   "preservationType": {
     "name": "Typ konzervace",
-    "count": "Spolufinancování",
+    "count": "Spolufinancováno",
     "description": "Metoda použitá k uchování předmětů dostupných ve sbírce"
   },
   "biomeType": {
-    "name": "Spolufinancování",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "name": "Spolufinancováno",
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "objectClassification": {
-    "name": "Spolufinancování",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "name": "Spolufinancováno",
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "taxonKey": {
     "name": "Vědecký název",
@@ -230,11 +230,11 @@
     "description": "Typy problémů nebo příznaků potenciálního zájmu zjištěných při zpracování dat."
   },
   "occurrenceTaxonomicIssue": {
-    "name": "Spolufinancování",
-    "count": "Spolufinancování",
-    "isNotNull": "Spolufinancování",
-    "isNull": "Spolufinancování",
-    "description": "Spolufinancování"
+    "name": "Spolufinancováno",
+    "count": "Spolufinancováno",
+    "isNotNull": "Spolufinancováno",
+    "isNull": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "occurrenceCountry": {
     "name": "Země nebo oblast",
@@ -251,8 +251,8 @@
   },
   "repatriated": {
     "name": "Repatriováno",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "publishingCountryCode": {
     "name": "Země nebo oblast zveřejnění",
@@ -343,9 +343,9 @@
     "description": "Měřítko minimální vzdálenosti v metrech od souřadnice, v rámci které může být lokalita interpretována."
   },
   "distanceFromCentroidInMeters": {
-    "name": "Spolufinancování",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "name": "Spolufinancováno",
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "depth": {
     "name": "Hloubka",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "Pohlaví",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "lifeStage": {
     "name": "Životní fáze",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "recordedBy": {
     "name": "Zaznamenáno od",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "Číslo pole",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "verbatimTaxonId": {
-    "name": "Spolufinancování",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "name": "Spolufinancováno",
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "islandGroup": {
     "name": "Skupina ostrovů",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "island": {
     "name": "Ostrov",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "georeferencedBy": {
     "name": "Georeferencováno podle",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "datasetName": {
     "name": "Název datové sady",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "Program",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "recordNumber": {
     "name": "Číslo záznamu",
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "Region GBIF",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "publishedByGbifRegion": {
     "name": "Publikováno podle GBIF regionu",
-    "count": "Spolufinancování",
-    "description": "Spolufinancování"
+    "count": "Spolufinancováno",
+    "description": "Spolufinancováno"
   },
   "eventId": {
     "name": "ID události",
@@ -569,7 +569,7 @@
   },
   "isInCluster": {
     "name": "je ve shluku",
-    "count": "Spolufinancování",
+    "count": "Spolufinancováno",
     "description": "Zda bylo zjištěno, že záznam obsahuje související záznamy."
   },
   "isSequenced": {
@@ -640,7 +640,7 @@
   },
   "networkKey": {
     "name": "Síť",
-    "count": "Spolufinancování",
+    "count": "Spolufinancováno",
     "description": "Zde by měl být uveden krátký popis součásti."
   },
   "literatureType": {
