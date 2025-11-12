@@ -36,8 +36,8 @@
   "loadMore": "Altro",
   "loading": "",
   "noResults": "",
-  "startTyping": "Cofinanziamento",
-  "rankInGroup": "Cofinanziamento",
+  "startTyping": "Cofinanziato da",
+  "rankInGroup": "Cofinanziato da",
   "occurrenceClustersView": {
     "about": "Informazioni",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "",
-    "description": "Cofinanziamento",
+    "description": "Cofinanziato da",
     "noSearchTermsEntered": "",
-    "placeholder": "Cofinanziamento",
+    "placeholder": "Cofinanziato da",
     "categories": {
       "speciesSearch": "",
       "datasetSearch": "",
       "publisherSearch": "",
       "occurrenceSearch": "",
-      "resourceSearch": "Cofinanziamento"
+      "resourceSearch": "Cofinanziato da"
     },
     "seeAll": ""
   }
