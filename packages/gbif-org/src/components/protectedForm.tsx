@@ -4,6 +4,7 @@ import { Button } from './ui/button';
 import { DynamicLink } from '@/reactRouterPlugins';
 import { FormattedMessage } from 'react-intl';
 import { useLocation } from 'react-router-dom';
+import { Skeleton } from './ui/skeleton';
 
 type Props = {
   children: React.ReactNode;
@@ -13,9 +14,18 @@ type Props = {
 };
 
 export function ProtectedForm({ children, className, title, message }: Props) {
-  const { isLoggedIn } = useUser();
+  const { isLoggedIn, isLoading } = useUser();
   const { pathname, search } = useLocation();
   if (isLoggedIn) return children;
+
+  if (isLoading) {
+    return (
+      <>
+        <Skeleton className="g-h-36 g-mb-4" />
+        <Skeleton className="g-h-36 g-mb-4" />
+      </>
+    );
+  }
 
   return (
     <div className={cn('g-py-16 lg:g-py-32 g-px-2 g-flex g-flex-col g-items-center ', className)}>

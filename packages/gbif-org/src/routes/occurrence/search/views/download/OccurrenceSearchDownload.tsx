@@ -8,7 +8,7 @@ import { FilterContext, FilterType } from '@/contexts/filter';
 import { useConfig } from '@/config/config';
 import { OccurrenceDownloadRequestCreate } from '@/routes/occurrence/download/request/create';
 import { OccurrenceDownloadSqlCreate } from '@/routes/occurrence/download/sql/create';
-import { searchConfig } from '../../../searchConfig';
+import { searchConfig } from '../../searchConfig';
 import { useSearchContext } from '@/contexts/search';
 import { getAsQuery } from '@/components/filters/filterTools';
 import { Predicate } from '@/gql/graphql';
@@ -20,11 +20,12 @@ import {
 } from './components/stepOptions';
 import { ProtectedForm } from '@/components/protectedForm';
 import { NoRecords } from '@/components/noDataMessages';
-import { FreeTextWarning } from '../Shared';
-import { Card, CardContent } from '@/components/ui/largeCard';
+import { Card } from '@/components/ui/largeCard';
 import { MdFileDownload } from 'react-icons/md';
+import { Skeleton } from '@/components/ui/skeleton';
+import { FreeTextWarning } from './Shared';
 
-function App() {
+export default function OccurrenceSearchDownload() {
   const currentFilterContext = useContext(FilterContext);
   const siteConfig = useConfig();
   const searchContext = useSearchContext();
@@ -76,6 +77,10 @@ function OccurrenceDownloadFlow({
     predicate: normalizedPredicate,
   } = usePredicateInformation({ predicate });
 
+  if (error) {
+    throw error;
+  }
+
   const [currentStep, setCurrentStep] = useState<'QUALITY' | 'FORMAT' | 'CONFIGURE' | 'TERMS'>(
     'FORMAT'
   );
@@ -115,53 +120,52 @@ function OccurrenceDownloadFlow({
   return (
     <div className="g-min-h-screen g-py-8">
       <div className="g-max-w-4xl g-mx-auto">
-        {total > 0 && (
-          <ProtectedForm
-            className=""
-            title="Please sign in"
-            message="A user account is required to download occurrence data."
-          >
-            {/* Step Indicator */}
-            {/* <Card className="g-p-6 g-mb-8"> */}
+        <ProtectedForm
+          className=""
+          title="Please sign in"
+          message="A user account is required to download occurrence data."
+        >
+          {/* </Card> */}
+          <StepIndicator currentStep={currentStep} steps={occurrenceDownloadSteps} />
 
-            {/* </Card> */}
-            <StepIndicator currentStep={currentStep} steps={occurrenceDownloadSteps} />
+          {loading && <LoadingSkeleton />}
 
-            {/* Step Content */}
-            {currentStep === 'QUALITY' && <QualityFilters onContinue={handleFilterSelect} />}
+          {/* Step Content */}
+          {currentStep === 'QUALITY' && !loading && (
+            <QualityFilters onContinue={handleFilterSelect} />
+          )}
 
-            {currentStep === 'FORMAT' && (
-              <FormatSelection
-                onFormatSelect={handleFormatSelect}
-                totalRecords={total}
-                loadingCounts={loading}
-                // onBack={() => setCurrentStep('QUALITY')}
-              />
-            )}
+          {currentStep === 'FORMAT' && !loading && (
+            <FormatSelection
+              onFormatSelect={handleFormatSelect}
+              totalRecords={total}
+              loadingCounts={loading}
+              // onBack={() => setCurrentStep('QUALITY')}
+            />
+          )}
 
-            {currentStep === 'CONFIGURE' && selectedFormat && (
-              <ConfigurationStep
-                defaultChecklist={defaultChecklist}
-                selectedFormat={selectedFormat}
-                onBack={() => setCurrentStep('FORMAT')}
-                predicate={normalizedPredicate}
-                onContinue={handleConfigurationComplete}
-                filter={filter}
-                initialConfig={configuration}
-              />
-            )}
+          {currentStep === 'CONFIGURE' && selectedFormat && !loading && (
+            <ConfigurationStep
+              defaultChecklist={defaultChecklist}
+              selectedFormat={selectedFormat}
+              onBack={() => setCurrentStep('FORMAT')}
+              predicate={normalizedPredicate}
+              onContinue={handleConfigurationComplete}
+              filter={filter}
+              initialConfig={configuration}
+            />
+          )}
 
-            {currentStep === 'TERMS' && selectedFormat && configuration && (
-              <TermsStep
-                selectedFormat={selectedFormat}
-                configuration={configuration}
-                predicate={normalizedPredicate}
-                totalRecords={total}
-                onBack={() => setCurrentStep('CONFIGURE')}
-              />
-            )}
-          </ProtectedForm>
-        )}
+          {currentStep === 'TERMS' && selectedFormat && configuration && !loading && (
+            <TermsStep
+              selectedFormat={selectedFormat}
+              configuration={configuration}
+              predicate={normalizedPredicate}
+              totalRecords={total}
+              onBack={() => setCurrentStep('CONFIGURE')}
+            />
+          )}
+        </ProtectedForm>
       </div>
     </div>
   );
@@ -280,4 +284,21 @@ export function SqlDownloadFlow({
   );
 }
 
-export default App;
+function LoadingSkeleton() {
+  return (
+    <div className="g-min-h-screen g-py-8">
+      <div className="g-max-w-4xl g-mx-auto">
+        <div className="g-grid lg:g-grid-cols-3 g-gap-8">
+          <div className="lg:g-col-span-2 g-space-y-4">
+            <Skeleton className="g-h-36" />
+            <Skeleton className="g-h-36" />
+            <Skeleton className="g-h-36" />
+          </div>
+          <div className="lg:g-col-span-1">
+            <Skeleton className="g-h-96" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

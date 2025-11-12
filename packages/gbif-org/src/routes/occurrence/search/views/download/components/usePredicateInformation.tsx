@@ -43,13 +43,10 @@ export function usePredicateInformation({ predicate }: { predicate?: Predicate |
   }, [predicate, load]);
 
   return {
-    total: data?.occurrenceSearch?.documents?.total ?? 0,
+    total: data?.occurrenceSearch?.documents?.total,
     predicate: data?.occurrenceSearch?._meta?.normalizedPredicate?.predicate,
-    loading,
-    error:
-      error ?? !data?.occurrenceSearch?._meta?.normalizedPredicate?.predicate
-        ? new Error('Invalid predicate')
-        : null,
+    loading: loading ?? true,
+    error: error,
   };
 }
 
@@ -69,9 +66,6 @@ export function useNormalizedPredicate({ predicate }: { predicate?: Predicate | 
       }
     }
   }, [predicate, load]);
-
-  console.log(error);
-  console.log(loading);
 
   return {
     predicate: data?.occurrenceSearch?._meta?.normalizedPredicate?.predicate,

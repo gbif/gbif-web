@@ -3,6 +3,7 @@ import { DownloadHostedPortal } from './DownloadHostedPortal';
 import App from './testing/app';
 import PredicateEditor from '@/routes/occurrence/download/editor/predicateEditor';
 import SqlEditor from '@/routes/occurrence/download/editor/sqlEDitor';
+import OccurrenceSearchDownload from './testing/OccurrenceSearchDownload';
 
 export function Download() {
   const { isGBIFOrg } = useConfig();
@@ -11,7 +12,7 @@ export function Download() {
   } else {
     return (
       <>
-        <App />
+        <OccurrenceSearchDownload />
         {/* <DownloadGbifOrgVertical />
         <DownloadGbifOrgHorizontal /> */}
       </>
