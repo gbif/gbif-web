@@ -28,10 +28,10 @@
   "geoTime": {
     "between": "{from} até {to}",
     "lt": "Antes de {to}",
-    "lte": "Co-financiamento",
+    "lte": "Co-financiado por",
     "gt": "Depois de {from}",
-    "gte": "Co-financiamento",
-    "e": "Co-financiamento"
+    "gte": "Co-financiado por",
+    "e": "Co-financiado por"
   },
   "year": {
     "between": "Ano de {from} a {to}",
