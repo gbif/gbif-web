@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "Cofinanziamento",
-      "ASSOCIATE": "Cofinanziamento",
-      "OTHER_ASSOCIATE": "Cofinanziamento",
+      "VOTING": "Cofinanziato da",
+      "ASSOCIATE": "Cofinanziato da",
+      "OTHER_ASSOCIATE": "Cofinanziato da",
       "FORMER": "",
       "OBSERVER": "",
-      "UNKNOWN": "Cofinanziamento",
+      "UNKNOWN": "Cofinanziato da",
       "AFFILIATE": ""
     },
-    "affiliateHelp": "Cofinanziamento",
-    "mapCaptionPublishers": "Cofinanziamento",
+    "affiliateHelp": "Cofinanziato da",
+    "mapCaptionPublishers": "Cofinanziato da",
     "role": "",
     "name": "",
     "participant": "",
     "type": "",
     "memberSince": "",
     "all": "",
-    "countryParticipants": "Cofinanziamento",
-    "publishersPerCountry": "Cofinanziamento",
+    "countryParticipants": "Cofinanziato da",
+    "publishersPerCountry": "Cofinanziato da",
     "clear": "",
     "headlines": {
       "nodesSteeringGroup": "",
