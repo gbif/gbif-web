@@ -25,7 +25,7 @@
   "updateFilter": "",
   "setFilter": "",
   "noMathcingFilters": "Muss angegeben sein",
-  "countsUnavailable": "Co Finanzierung",
+  "countsUnavailable": "Co finanziert von",
   "nameWithTaxonMatchIssue": "",
   "commonName": "",
   "acceptedNameOf": "",
@@ -62,6 +62,6 @@
     "geometryReducedToBbox": "",
     "failedToSimplify": ""
   },
-  "activeFilters": "Co Finanzierung",
-  "highlighted": "Co Finanzierung"
+  "activeFilters": "Co finanziert von",
+  "highlighted": "Co finanziert von"
 }
