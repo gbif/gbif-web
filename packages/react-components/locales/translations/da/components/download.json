@@ -8,21 +8,21 @@
   "continueToGBIF": "Fortsæt",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "Sam-finansiering",
-    "noSql": "Sam-finansiering",
+    "placeholder": "Samfinansieret af",
+    "noSql": "Samfinansieret af",
     "note": {
       "title": "",
       "description": "",
-      "goToOccurrenceSearch": "Sam-finansiering"
+      "goToOccurrenceSearch": "Samfinansieret af"
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "Sam-finansiering",
-      "parsingErrorDescription": "Sam-finansiering",
-      "networkErrorDescription": "Sam-finansiering"
+      "network-error": "Samfinansieret af",
+      "parsingErrorDescription": "Samfinansieret af",
+      "networkErrorDescription": "Samfinansieret af"
     }
   },
-  "create": "Sam-finansiering",
+  "create": "Samfinansieret af",
   "about": "Om",
   "stopEditing": "Stop redigering",
   "startEditing": "Begynd at redigere",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "Sam-finansiering",
-    "noPredicate": "Sam-finansiering",
+    "weHaveRestoredYourPredicate": "Samfinansieret af",
+    "noPredicate": "Samfinansieret af",
     "currentFilter": "Nuværende filter",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "Sam-finansiering",
-      "faild-to-load-predicate": "Sam-finansiering",
-      "unexpectedError": "Sam-finansiering",
-      "failedToParseJSON": "Sam-finansiering",
-      "failedToVisualizePredicate": "Sam-finansiering"
+      "invalid-predicate": "Samfinansieret af",
+      "faild-to-load-predicate": "Samfinansieret af",
+      "unexpectedError": "Samfinansieret af",
+      "failedToParseJSON": "Samfinansieret af",
+      "failedToVisualizePredicate": "Samfinansieret af"
     }
   },
   "downloadOptions": {
     "title": "",
-    "chooseChecklist": "Sam-finansiering",
-    "chooseChecklistDescription": "Sam-finansiering",
+    "chooseChecklist": "Samfinansieret af",
+    "chooseChecklistDescription": "Samfinansieret af",
     "content": {
       "rawData": "Rådata",
       "interpretedData": "Fortolket data",
@@ -57,12 +57,12 @@
       "estimatedSize": "Anslået datastørrelse"
     },
     "fileFormats": {
-      "tabCsv": "Sam-finansiering"
+      "tabCsv": "Samfinansieret af"
     },
     "tableValues": {
-      "ifAvailable": "Sam-finansiering",
-      "ifSelected": "Sam-finansiering",
-      "links": "Sam-finansiering"
+      "ifAvailable": "Samfinansieret af",
+      "ifSelected": "Samfinansieret af",
+      "links": "Samfinansieret af"
     }
   }
 }
