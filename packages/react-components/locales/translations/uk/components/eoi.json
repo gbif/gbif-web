@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "Моя організація ще не зареєстрована.",
   "searchOrganisations": "Пошук організацій",
   "termsAndConditions": "Правила та умови використання",
-  "iHaveReadAndUnderstood": "Спільне фінансування",
+  "iHaveReadAndUnderstood": "Фінансується спільно",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "Я розумію, що реєструюся від імені своєї організації, і підтверджую, що відповідальні особи моєї організації усвідомлюють і підтримують цю реєстрацію.",
   "iUnderstandThatMyOrganizationalInformation": "Я розумію, що інформація про мою організацію, у тому числі надані контактні дані, буде публічно доступна через GBIF.org.",
   "administrativeContact": "Адміністративна контактна особа",
@@ -30,7 +30,7 @@
   "none": "Нічого",
   "whatAndHow": "Що і де?",
   "helpUsUnderstand": "Допоможіть нам зрозуміти, який тип даних ви плануєте опублікувати, і яка підтримка вам може знадобитися.",
-  "publOfFourTypesOfData": "Спільне фінансування",
+  "publOfFourTypesOfData": "Фінансується спільно",
   "whichTypesOfData": "Які типи даних ви плануєте публікувати?",
   "resourcesMetaData": "Метадані ресурсів",
   "checkListData": "Дані таксономічних списків",
@@ -42,9 +42,9 @@
   "yes": "Так",
   "no": "Ні",
   "pleaseSelectAValue": "Будь ласка, оберіть значення",
-  "reuseTrustedIPThosting": "Спільне фінансування",
+  "reuseTrustedIPThosting": "Фінансується спільно",
   "doYouNeedHelpPublishing": "Чи вам потрібна допомога з публікацією даних?",
-  "areYouPlanningToInstallAndRun": "Спільне фінансування",
+  "areYouPlanningToInstallAndRun": "Фінансується спільно",
   "orgDetails": "Інформація про організацію",
   "yourChanceToTellGBIF": "Ваш шанс розповісти користувачам GBIF про вас і про те, чим ви займаєтесь.",
   "orgName": "Назва організації",
@@ -81,20 +81,20 @@
   "outage": "У нас відбувся тимчасовий збій і на даний момент ми не приймаємо заявки на реєстрацію",
   "eoiDescription": "Щоб підготуватися до публікації даних через GBIF, ми просимо потенційних нових видавців заповнити цю онлайн-форму. Перед тим як GBIF розпочне індексацію ваших датасетів, ваша установа повинна отримати схвалення як видавця даних зі сторони однієї з країн або організацій-учасниць GBIF через осередок GBIF учасника. Якщо ваша країна ще не бере участі в GBIF, ми від вашого імені звернемось до спільноти GBIF для схвалення вашої заявки.",
   "eoiTitle": "Стати видавцем",
-  "checkRegistration": "Спільне фінансування",
-  "organisationDetails": "Спільне фінансування",
-  "organisationAddress": "Спільне фінансування",
-  "endorsement": "Спільне фінансування",
+  "checkRegistration": "Фінансується спільно",
+  "organisationDetails": "Фінансується спільно",
+  "organisationAddress": "Фінансується спільно",
+  "endorsement": "Фінансується спільно",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "Спільне фінансування",
-    "pleaseSelectTheCountryOfYourOrganization": "Спільне фінансування"
+    "pleaseSelectYourOrganizationOnTheMap": "Фінансується спільно",
+    "pleaseSelectTheCountryOfYourOrganization": "Фінансується спільно"
   },
-  "thankYouForYourRegistration": "Спільне фінансування",
-  "failedToRegisterOrganization": "Спільне фінансування",
-  "associatedWithGbifProgramme": "Спільне фінансування",
+  "thankYouForYourRegistration": "Фінансується спільно",
+  "failedToRegisterOrganization": "Фінансується спільно",
+  "associatedWithGbifProgramme": "Фінансується спільно",
   "loginToRegisterOrganization": {
-    "title": "Спільне фінансування",
-    "message": "Спільне фінансування"
+    "title": "Фінансується спільно",
+    "message": "Фінансується спільно"
   },
-  "registerAnotherOrganization": "Спільне фінансування"
+  "registerAnotherOrganization": "Фінансується спільно"
 }
