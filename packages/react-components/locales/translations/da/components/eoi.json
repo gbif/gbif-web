@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "",
   "searchOrganisations": "",
   "termsAndConditions": "",
-  "iHaveReadAndUnderstood": "Sam-finansiering",
+  "iHaveReadAndUnderstood": "Samfinansieret af",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "",
   "iUnderstandThatMyOrganizationalInformation": "",
   "administrativeContact": "",
@@ -30,7 +30,7 @@
   "none": "",
   "whatAndHow": "",
   "helpUsUnderstand": "",
-  "publOfFourTypesOfData": "Sam-finansiering",
+  "publOfFourTypesOfData": "Samfinansieret af",
   "whichTypesOfData": "",
   "resourcesMetaData": "",
   "checkListData": "",
@@ -42,9 +42,9 @@
   "yes": "",
   "no": "",
   "pleaseSelectAValue": "",
-  "reuseTrustedIPThosting": "Sam-finansiering",
+  "reuseTrustedIPThosting": "Samfinansieret af",
   "doYouNeedHelpPublishing": "",
-  "areYouPlanningToInstallAndRun": "Sam-finansiering",
+  "areYouPlanningToInstallAndRun": "Samfinansieret af",
   "orgDetails": "",
   "yourChanceToTellGBIF": "",
   "orgName": "",
@@ -81,20 +81,20 @@
   "outage": "",
   "eoiDescription": "",
   "eoiTitle": "",
-  "checkRegistration": "Sam-finansiering",
-  "organisationDetails": "Sam-finansiering",
-  "organisationAddress": "Sam-finansiering",
-  "endorsement": "Sam-finansiering",
+  "checkRegistration": "Samfinansieret af",
+  "organisationDetails": "Samfinansieret af",
+  "organisationAddress": "Samfinansieret af",
+  "endorsement": "Samfinansieret af",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "Sam-finansiering",
-    "pleaseSelectTheCountryOfYourOrganization": "Sam-finansiering"
+    "pleaseSelectYourOrganizationOnTheMap": "Samfinansieret af",
+    "pleaseSelectTheCountryOfYourOrganization": "Samfinansieret af"
   },
-  "thankYouForYourRegistration": "Sam-finansiering",
-  "failedToRegisterOrganization": "Sam-finansiering",
-  "associatedWithGbifProgramme": "Sam-finansiering",
+  "thankYouForYourRegistration": "Samfinansieret af",
+  "failedToRegisterOrganization": "Samfinansieret af",
+  "associatedWithGbifProgramme": "Samfinansieret af",
   "loginToRegisterOrganization": {
-    "title": "Sam-finansiering",
-    "message": "Sam-finansiering"
+    "title": "Samfinansieret af",
+    "message": "Samfinansieret af"
   },
-  "registerAnotherOrganization": "Sam-finansiering"
+  "registerAnotherOrganization": "Samfinansieret af"
 }
