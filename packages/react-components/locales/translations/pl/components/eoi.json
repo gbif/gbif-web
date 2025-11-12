@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "Moja organizacja nie jest jeszcze zarejestrowana.",
   "searchOrganisations": "Wyszukaj organizacje",
   "termsAndConditions": "Regulamin",
-  "iHaveReadAndUnderstood": "Współfinansowanie",
+  "iHaveReadAndUnderstood": "Współfinansowany przez",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "Rozumiem, że proszę o rejestrację w imieniu mojej organizacji i potwierdzam, że odpowiednie władze w mojej organizacji są świadome tej rejestracji.",
   "iUnderstandThatMyOrganizationalInformation": "Rozumiem, że informacje o mojej organizacji, włączając podane dane kontaktowe, będą publicznie dostępne przez GBIF.org.",
   "administrativeContact": "Kontakt w sprawach administracyjnych",
@@ -30,7 +30,7 @@
   "none": "Żadne",
   "whatAndHow": "Co i jak",
   "helpUsUnderstand": "Pomóż nam zrozumieć, jakiego typu dane planujesz publikować i jakiego wsparcia możesz potrzebować. ",
-  "publOfFourTypesOfData": "Współfinansowanie",
+  "publOfFourTypesOfData": "Współfinansowany przez",
   "whichTypesOfData": "Które typy danych planujesz publikować?",
   "resourcesMetaData": "Metadane zasobów",
   "checkListData": "Dane dotyczące wykazu gatunków",
@@ -42,9 +42,9 @@
   "yes": "Tak",
   "no": "Nie",
   "pleaseSelectAValue": "Proszę wybrać wartość",
-  "reuseTrustedIPThosting": "Współfinansowanie",
+  "reuseTrustedIPThosting": "Współfinansowany przez",
   "doYouNeedHelpPublishing": "Potrzebujesz pomocy w publikacji swoich danych?",
-  "areYouPlanningToInstallAndRun": "Współfinansowanie",
+  "areYouPlanningToInstallAndRun": "Współfinansowany przez",
   "orgDetails": "Szczegółowe dane organizacji",
   "yourChanceToTellGBIF": "Twoja okazja, by powiedzieć użytkownikom GBIF, kim jesteś i czym się zajmujesz.",
   "orgName": "Nazwa organizacji",
@@ -81,20 +81,20 @@
   "outage": "Mamy częściową awarię i nie akceptujemy w tej chwili rejestracji",
   "eoiDescription": "Aby przygotować się do publikacji danych przez GBIF, prosimy przyszłych wydawców o wypełnienie tej ankiety online. Zanim GBIF zaindeksuje twoje zbiory danych, twoje organizacja musi zostać zaakceptowana jako publikujący dane przez jedno z państw lub organizacji uczestniczących w GBIF poprzez węzeł Uczestników GBIF. Jeśli twój kraj nie uczestniczy w GBIF, będziemy szukać poparcia w twoim imieniu ze strony środowiska GBIF.",
   "eoiTitle": "Zostań publikującym",
-  "checkRegistration": "Współfinansowanie",
-  "organisationDetails": "Współfinansowanie",
-  "organisationAddress": "Współfinansowanie",
-  "endorsement": "Współfinansowanie",
+  "checkRegistration": "Współfinansowany przez",
+  "organisationDetails": "Współfinansowany przez",
+  "organisationAddress": "Współfinansowany przez",
+  "endorsement": "Współfinansowany przez",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "Współfinansowanie",
-    "pleaseSelectTheCountryOfYourOrganization": "Współfinansowanie"
+    "pleaseSelectYourOrganizationOnTheMap": "Współfinansowany przez",
+    "pleaseSelectTheCountryOfYourOrganization": "Współfinansowany przez"
   },
-  "thankYouForYourRegistration": "Współfinansowanie",
-  "failedToRegisterOrganization": "Współfinansowanie",
-  "associatedWithGbifProgramme": "Współfinansowanie",
+  "thankYouForYourRegistration": "Współfinansowany przez",
+  "failedToRegisterOrganization": "Współfinansowany przez",
+  "associatedWithGbifProgramme": "Współfinansowany przez",
   "loginToRegisterOrganization": {
-    "title": "Współfinansowanie",
-    "message": "Współfinansowanie"
+    "title": "Współfinansowany przez",
+    "message": "Współfinansowany przez"
   },
-  "registerAnotherOrganization": "Współfinansowanie"
+  "registerAnotherOrganization": "Współfinansowany przez"
 }
