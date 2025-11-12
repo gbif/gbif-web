@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "我所屬的組織尚未完成註冊。",
   "searchOrganisations": "搜尋組織",
   "termsAndConditions": "條款及細則",
-  "iHaveReadAndUnderstood": "共同資助",
+  "iHaveReadAndUnderstood": "共同資助單位",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "我了解我正代表我的組織提出註冊請求，並確認組織的主管當局知曉此事。",
   "iUnderstandThatMyOrganizationalInformation": "我了解組織的資訊，包括所提供的聯絡細節，將透過 gbif.org 公開。",
   "administrativeContact": "行政聯繫",
@@ -30,7 +30,7 @@
   "none": "無",
   "whatAndHow": "什麼與如何",
   "helpUsUnderstand": "幫助我們了解您想發布的資料類型，以及您需要什麼協助。",
-  "publOfFourTypesOfData": "共同資助",
+  "publOfFourTypesOfData": "共同資助單位",
   "whichTypesOfData": "您預期發布哪些類型的資料？",
   "resourcesMetaData": "資源之詮釋資料",
   "checkListData": "物種名錄資料",
@@ -42,9 +42,9 @@
   "yes": "是",
   "no": "否",
   "pleaseSelectAValue": "請選擇一個值。",
-  "reuseTrustedIPThosting": "共同資助",
+  "reuseTrustedIPThosting": "共同資助單位",
   "doYouNeedHelpPublishing": "您需要協助發布資料嗎？",
-  "areYouPlanningToInstallAndRun": "共同資助",
+  "areYouPlanningToInstallAndRun": "共同資助單位",
   "orgDetails": "組織詳情",
   "yourChanceToTellGBIF": "這是您向 GBIF 使用者介紹您是誰及您做什麼的機會。",
   "orgName": "組織名稱",
@@ -81,20 +81,20 @@
   "outage": "系統目前處於部分故障狀態，暫時不接受註冊",
   "eoiDescription": "為了準備透過 GBIF 發布資料，我們請求潛在的新發布者們填寫此線上表格。在 GBIF 開始為您的資料編制索引之前，您的機構必須得到 GBIF 會員中的國家或組織之一、透過其會員節點的認可，始成為資料發布者。如果您的國家尚未參與 GBIF，我們將替您在 GBIF 社群中尋找認可。",
   "eoiTitle": "成為一個發布者",
-  "checkRegistration": "共同資助",
-  "organisationDetails": "共同資助",
-  "organisationAddress": "共同資助",
-  "endorsement": "共同資助",
+  "checkRegistration": "共同資助單位",
+  "organisationDetails": "共同資助單位",
+  "organisationAddress": "共同資助單位",
+  "endorsement": "共同資助單位",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "共同資助",
-    "pleaseSelectTheCountryOfYourOrganization": "共同資助"
+    "pleaseSelectYourOrganizationOnTheMap": "共同資助單位",
+    "pleaseSelectTheCountryOfYourOrganization": "共同資助單位"
   },
-  "thankYouForYourRegistration": "共同資助",
-  "failedToRegisterOrganization": "共同資助",
-  "associatedWithGbifProgramme": "共同資助",
+  "thankYouForYourRegistration": "共同資助單位",
+  "failedToRegisterOrganization": "共同資助單位",
+  "associatedWithGbifProgramme": "共同資助單位",
   "loginToRegisterOrganization": {
-    "title": "共同資助",
-    "message": "共同資助"
+    "title": "共同資助單位",
+    "message": "共同資助單位"
   },
-  "registerAnotherOrganization": "共同資助"
+  "registerAnotherOrganization": "共同資助單位"
 }
