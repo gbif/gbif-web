@@ -25,7 +25,7 @@
   "updateFilter": "Actualizar filtro",
   "setFilter": "Establecer como filtro",
   "noMathcingFilters": "Está documentado",
-  "countsUnavailable": "Co-financiamiento",
+  "countsUnavailable": "Cofinanciado por",
   "nameWithTaxonMatchIssue": "Nombre antes de la normalización",
   "commonName": "Nombre común",
   "acceptedNameOf": "Nombre aceptado para",
@@ -62,6 +62,6 @@
     "geometryReducedToBbox": "Geometría reducida a cuadro delimitador",
     "failedToSimplify": "No se pudo simplificar la geometría"
   },
-  "activeFilters": "Co-financiamiento",
-  "highlighted": "Co-financiamiento"
+  "activeFilters": "Cofinanciado por",
+  "highlighted": "Cofinanciado por"
 }
