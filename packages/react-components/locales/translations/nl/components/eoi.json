@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "",
   "searchOrganisations": "Organisaties zoeken",
   "termsAndConditions": "Algemene voorwaarden",
-  "iHaveReadAndUnderstood": "Cofinanciering",
+  "iHaveReadAndUnderstood": "Co-Gefinancierd door",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "",
   "iUnderstandThatMyOrganizationalInformation": "",
   "administrativeContact": "Contactpunt administratie",
@@ -30,7 +30,7 @@
   "none": "Geen",
   "whatAndHow": "Wat en hoe",
   "helpUsUnderstand": "",
-  "publOfFourTypesOfData": "Cofinanciering",
+  "publOfFourTypesOfData": "Co-Gefinancierd door",
   "whichTypesOfData": "Welke datatypes ga je publiceren?",
   "resourcesMetaData": "",
   "checkListData": "Checklist data",
@@ -42,9 +42,9 @@
   "yes": "Ja",
   "no": "Nee",
   "pleaseSelectAValue": "Selecteer een waarde",
-  "reuseTrustedIPThosting": "Cofinanciering",
+  "reuseTrustedIPThosting": "Co-Gefinancierd door",
   "doYouNeedHelpPublishing": "Heb je hulp nodig bij het publiceren van je data? ",
-  "areYouPlanningToInstallAndRun": "Cofinanciering",
+  "areYouPlanningToInstallAndRun": "Co-Gefinancierd door",
   "orgDetails": "Organisatiegegevens",
   "yourChanceToTellGBIF": "",
   "orgName": "Organisatienaam",
@@ -81,20 +81,20 @@
   "outage": "",
   "eoiDescription": "",
   "eoiTitle": "",
-  "checkRegistration": "Cofinanciering",
-  "organisationDetails": "Cofinanciering",
-  "organisationAddress": "Cofinanciering",
-  "endorsement": "Cofinanciering",
+  "checkRegistration": "Co-Gefinancierd door",
+  "organisationDetails": "Co-Gefinancierd door",
+  "organisationAddress": "Co-Gefinancierd door",
+  "endorsement": "Co-Gefinancierd door",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "Cofinanciering",
-    "pleaseSelectTheCountryOfYourOrganization": "Cofinanciering"
+    "pleaseSelectYourOrganizationOnTheMap": "Co-Gefinancierd door",
+    "pleaseSelectTheCountryOfYourOrganization": "Co-Gefinancierd door"
   },
-  "thankYouForYourRegistration": "Cofinanciering",
-  "failedToRegisterOrganization": "Cofinanciering",
-  "associatedWithGbifProgramme": "Cofinanciering",
+  "thankYouForYourRegistration": "Co-Gefinancierd door",
+  "failedToRegisterOrganization": "Co-Gefinancierd door",
+  "associatedWithGbifProgramme": "Co-Gefinancierd door",
   "loginToRegisterOrganization": {
-    "title": "Cofinanciering",
-    "message": "Cofinanciering"
+    "title": "Co-Gefinancierd door",
+    "message": "Co-Gefinancierd door"
   },
-  "registerAnotherOrganization": "Cofinanciering"
+  "registerAnotherOrganization": "Co-Gefinancierd door"
 }
