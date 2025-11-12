@@ -31,7 +31,7 @@
   "constituentOf": "Součást",
   "dataset": "Datová sada",
   "taxonomy": "Taxonomie",
-  "localContexts": "Spolufinancování",
+  "localContexts": "Spolufinancováno",
   "project": "Projekt",
   "metrics": "Metriky",
   "metricsOccurrenceHelpText": "Metriky vycházejí z interpretovaných dat",
@@ -150,8 +150,8 @@
     "registrationDetails": "Podrobnosti o registraci GBIF"
   },
   "errors": {
-    "evenList": "Spolufinancování",
-    "occurrenceInfo": "Spolufinancování"
+    "evenList": "Spolufinancováno",
+    "occurrenceInfo": "Spolufinancováno"
   },
   "eventTaxonomy": "Taxonomické rozdělení výskytů"
 }
