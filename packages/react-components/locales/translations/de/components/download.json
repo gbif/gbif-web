@@ -8,21 +8,21 @@
   "continueToGBIF": "Weiter",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "Co Finanzierung",
-    "noSql": "Co Finanzierung",
+    "placeholder": "Co finanziert von",
+    "noSql": "Co finanziert von",
     "note": {
       "title": "",
       "description": "",
-      "goToOccurrenceSearch": "Co Finanzierung"
+      "goToOccurrenceSearch": "Co finanziert von"
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "Co Finanzierung",
-      "parsingErrorDescription": "Co Finanzierung",
-      "networkErrorDescription": "Co Finanzierung"
+      "network-error": "Co finanziert von",
+      "parsingErrorDescription": "Co finanziert von",
+      "networkErrorDescription": "Co finanziert von"
     }
   },
-  "create": "Co Finanzierung",
+  "create": "Co finanziert von",
   "about": "",
   "stopEditing": "Bearbeitung beenden",
   "startEditing": "Bearbeitung starten",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "Co Finanzierung",
-    "noPredicate": "Co Finanzierung",
+    "weHaveRestoredYourPredicate": "Co finanziert von",
+    "noPredicate": "Co finanziert von",
     "currentFilter": "",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "Co Finanzierung",
-      "faild-to-load-predicate": "Co Finanzierung",
-      "unexpectedError": "Co Finanzierung",
-      "failedToParseJSON": "Co Finanzierung",
-      "failedToVisualizePredicate": "Co Finanzierung"
+      "invalid-predicate": "Co finanziert von",
+      "faild-to-load-predicate": "Co finanziert von",
+      "unexpectedError": "Co finanziert von",
+      "failedToParseJSON": "Co finanziert von",
+      "failedToVisualizePredicate": "Co finanziert von"
     }
   },
   "downloadOptions": {
     "title": "",
-    "chooseChecklist": "Co Finanzierung",
-    "chooseChecklistDescription": "Co Finanzierung",
+    "chooseChecklist": "Co finanziert von",
+    "chooseChecklistDescription": "Co finanziert von",
     "content": {
       "rawData": "",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": ""
     },
     "fileFormats": {
-      "tabCsv": "Co Finanzierung"
+      "tabCsv": "Co finanziert von"
     },
     "tableValues": {
-      "ifAvailable": "Co Finanzierung",
-      "ifSelected": "Co Finanzierung",
-      "links": "Co Finanzierung"
+      "ifAvailable": "Co finanziert von",
+      "ifSelected": "Co finanziert von",
+      "links": "Co finanziert von"
     }
   }
 }
