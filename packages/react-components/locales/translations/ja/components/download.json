@@ -8,21 +8,21 @@
   "continueToGBIF": "次へ",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "共同資金",
-    "noSql": "共同資金",
+    "placeholder": "共同出資",
+    "noSql": "共同出資",
     "note": {
       "title": "注記",
       "description": "",
-      "goToOccurrenceSearch": "共同資金"
+      "goToOccurrenceSearch": "共同出資"
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "共同資金",
-      "parsingErrorDescription": "共同資金",
-      "networkErrorDescription": "共同資金"
+      "network-error": "共同出資",
+      "parsingErrorDescription": "共同出資",
+      "networkErrorDescription": "共同出資"
     }
   },
-  "create": "共同資金",
+  "create": "共同出資",
   "about": "・・・について",
   "stopEditing": "編集を終了する",
   "startEditing": "編集を開始する",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "共同資金",
-    "noPredicate": "共同資金",
+    "weHaveRestoredYourPredicate": "共同出資",
+    "noPredicate": "共同出資",
     "currentFilter": "現在のフィルター",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "共同資金",
-      "faild-to-load-predicate": "共同資金",
-      "unexpectedError": "共同資金",
-      "failedToParseJSON": "共同資金",
-      "failedToVisualizePredicate": "共同資金"
+      "invalid-predicate": "共同出資",
+      "faild-to-load-predicate": "共同出資",
+      "unexpectedError": "共同出資",
+      "failedToParseJSON": "共同出資",
+      "failedToVisualizePredicate": "共同出資"
     }
   },
   "downloadOptions": {
     "title": "ダウンロードのオプション",
-    "chooseChecklist": "共同資金",
-    "chooseChecklistDescription": "共同資金",
+    "chooseChecklist": "共同出資",
+    "chooseChecklistDescription": "共同出資",
     "content": {
       "rawData": "生データ",
       "interpretedData": "解釈されたデータ",
@@ -57,12 +57,12 @@
       "estimatedSize": "推定データサイズ"
     },
     "fileFormats": {
-      "tabCsv": "共同資金"
+      "tabCsv": "共同出資"
     },
     "tableValues": {
-      "ifAvailable": "共同資金",
-      "ifSelected": "共同資金",
-      "links": "共同資金"
+      "ifAvailable": "共同出資",
+      "ifSelected": "共同出資",
+      "links": "共同出資"
     }
   }
 }
