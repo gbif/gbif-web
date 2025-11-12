@@ -1,12 +1,12 @@
 {
   "dwcaExtension": {
-    "name": "Cofinanziamento",
-    "count": "Cofinanziamento",
+    "name": "Cofinanziato da",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "locationId": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "hasCoordinate": {
@@ -21,12 +21,12 @@
   },
   "collectionKey": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "taxonomicStatus": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "taxonRank": {
@@ -36,12 +36,12 @@
   },
   "numberSpecimens": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "specimensInGbif": {
     "name": "Campioni presenti su GBIF",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "iucnRedListCategory": {
@@ -51,7 +51,7 @@
   },
   "geoDistance": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -59,7 +59,7 @@
   },
   "geometry": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "geologicalTime": {
-    "name": "Cofinanziamento",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "name": "Cofinanziato da",
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "purposes": {
     "name": "",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "organismQuantityType": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "pathway": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "associatedSequences": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "degreeOfEstablishment": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "endDayOfYear": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "startDayOfYear": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "previousIdentifications": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "lastInterpreted": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "alternativeCode": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "identifier": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "collectionContentType": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "preservationType": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "biomeType": {
-    "name": "Cofinanziamento",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "name": "Cofinanziato da",
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "objectClassification": {
-    "name": "Cofinanziamento",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "name": "Cofinanziato da",
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "taxonKey": {
     "name": "Nome scientifico",
@@ -230,11 +230,11 @@
     "description": ""
   },
   "occurrenceTaxonomicIssue": {
-    "name": "Cofinanziamento",
-    "count": "Cofinanziamento",
-    "isNotNull": "Cofinanziamento",
-    "isNull": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "name": "Cofinanziato da",
+    "count": "Cofinanziato da",
+    "isNotNull": "Cofinanziato da",
+    "isNull": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "occurrenceCountry": {
     "name": "",
@@ -246,13 +246,13 @@
   },
   "preparations": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "repatriated": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "publishingCountryCode": {
     "name": "",
@@ -339,22 +339,22 @@
   },
   "coordinateUncertainty": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "distanceFromCentroidInMeters": {
-    "name": "Cofinanziamento",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "name": "Cofinanziato da",
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "depth": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "organismQuantity": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "sampleSizeValue": {
@@ -364,7 +364,7 @@
   },
   "relativeOrganismQuantity": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "month": {
@@ -389,43 +389,43 @@
   },
   "sex": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "lifeStage": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "recordedBy": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "fieldNumber": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "verbatimTaxonId": {
-    "name": "Cofinanziamento",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "name": "Cofinanziato da",
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "islandGroup": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "island": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "georeferencedBy": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "datasetName": {
     "name": "",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "recordNumber": {
     "name": "",
@@ -454,22 +454,22 @@
   },
   "recordedById": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "identifiedById": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "occurrenceId": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "organismId": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "locality": {
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "stateProvince": {
@@ -494,32 +494,32 @@
   },
   "gbifRegion": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "Cofinanziamento",
-    "description": "Cofinanziamento"
+    "count": "Cofinanziato da",
+    "description": "Cofinanziato da"
   },
   "eventId": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "eventID": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "parentEventId": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "locationID": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "measurementOrFactTypes": {
@@ -549,12 +549,12 @@
   },
   "samplingProtocol": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "occurrenceStatus": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "gadmGid": {
@@ -564,17 +564,17 @@
   },
   "identifiedBy": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "isInCluster": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "isSequenced": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "active": {
@@ -604,48 +604,48 @@
   },
   "datasetType": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "datasetSubtype": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "institutionKey": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "name": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": "",
     "searchPlaceholder": ""
   },
   "city": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "code": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "verbatimScientificName": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "networkKey": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "literatureType": {
     "name": "",
-    "count": "Cofinanziamento",
+    "count": "Cofinanziato da",
     "description": ""
   },
   "higherTaxonKey": {
