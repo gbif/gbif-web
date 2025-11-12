@@ -2,9 +2,9 @@ import { useState } from 'react';
 import StepIndicator from './components/StepIndicator';
 import TermsStep from './components/TermsStep';
 import { sqlDownloadSteps } from './components/stepOptions';
-import { OccurrenceDownloadSqlCreate } from '@/routes/occurrence/download/sql/create';
 import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { Skeleton } from '@/components/ui/skeleton';
+import SqlEditor from '@/routes/occurrence/download/editor/sqlEditor';
 
 export function SqlDownloadFlow({
   defaultChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
@@ -31,7 +31,7 @@ export function SqlDownloadFlow({
         {/* Step Content */}
         {currentStep === 'SQL' && (
           <StaticRenderSuspence fallback={<Skeleton className="g-h-96" />}>
-            <OccurrenceDownloadSqlCreate onContinue={handleSqlSelect} />
+            <SqlEditor onContinue={handleSqlSelect} />
           </StaticRenderSuspence>
         )}
 

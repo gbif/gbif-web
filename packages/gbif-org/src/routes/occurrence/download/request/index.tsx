@@ -1,10 +1,9 @@
-import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
-import { OccurrenceDownloadAbout, occurrenceDownloadAboutLoader } from './about';
+import { OccurrenceDownloadAbout } from './about';
 import { OccurrenceDownloadPage } from './layout';
 import { PredicateDownloadFlow } from '../../search/views/download/PredicateDownloadFlow';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
-import { Skeleton } from '@/components/ui/skeleton';
+import { occurrenceDownloadAboutLoader } from './loader';
 
 export const occurrenceDownloadRequestRoute: RouteObjectWithPlugins = {
   path: 'occurrence/download/request',

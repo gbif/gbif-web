@@ -1,8 +1,9 @@
 import { RouteObjectWithPlugins } from '@/reactRouterPlugins';
-import { OccurrenceDownloadSqlAbout, occurrenceDownloadSqlAboutLoader } from './about';
+import { OccurrenceDownloadSqlAbout } from './about';
 import { OccurrenceDownloadSqlPage } from './sql';
 import { PageContainer } from '@/routes/resource/key/components/pageContainer';
 import { SqlDownloadFlow } from '../../search/views/download/SqlDownloadFlow';
+import { occurrenceDownloadSqlAboutLoader } from './loader';
 
 export const occurrenceDownloadSqlRoute: RouteObjectWithPlugins = {
   id: 'occurrenceDownloadSql',

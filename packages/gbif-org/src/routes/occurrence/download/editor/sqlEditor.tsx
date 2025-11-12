@@ -3,6 +3,7 @@ import { highlight } from 'sql-highlight';
 import { useStringParam } from '@/hooks/useParam';
 import { validateSql } from './validate';
 import { useIntl } from 'react-intl';
+import Editor from './editor';
 
 export default function SqlEditor({ onContinue }: { onContinue: (sqlString?: string) => void }) {
   const [sql, setSql] = useStringParam({ key: 'sql', replace: true });

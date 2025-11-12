@@ -1,4 +1,4 @@
-export async function getPredicateFromGraphQL(
+async function getPredicateFromGraphQL(
   variablesId: string,
   queryId: string,
   signal: AbortSignal

@@ -3,11 +3,11 @@ import StepIndicator from './components/StepIndicator';
 import FormatSelection from './components/FormatSelection';
 import ConfigurationStep from './components/ConfigurationStep';
 import TermsStep from './components/TermsStep';
-import { OccurrenceDownloadRequestCreate } from '@/routes/occurrence/download/request/create';
 import { usePredicateInformation } from './components/usePredicateInformation';
 import { predicateDownloadSteps } from './components/stepOptions';
 import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { Skeleton } from '@/components/ui/skeleton';
+import PredicateEditor from '@/routes/occurrence/download/editor/predicateEditor';
 
 export function PredicateDownloadFlow({
   defaultChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
@@ -53,7 +53,7 @@ export function PredicateDownloadFlow({
         {/* Step Content */}
         {currentStep === 'PREDICATE' && (
           <StaticRenderSuspence fallback={<Skeleton className="g-h-96" />}>
-            <OccurrenceDownloadRequestCreate onContinue={handleFilterSelect} />
+            <PredicateEditor onContinue={handleFilterSelect} />
           </StaticRenderSuspence>
         )}
 

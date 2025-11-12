@@ -1,11 +1,11 @@
 import { useStringParam } from '@/hooks/useParam';
 import { PredicateDisplay } from '../key/predicate';
-import { getOriginalPredicate } from '../request/create/usePredicate';
 import Editor from './editor';
 import { useCallback, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { validatePredicate } from './validate';
 import { useIntl } from 'react-intl';
+import { getOriginalPredicate } from './usePredicate';
 
 //a hook to store content in textarea. per default it should store to url, but if above 1200 characters then use session storage instead
 function useTextAreaContent(key: string): [string, (text: string) => void] {
