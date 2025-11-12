@@ -1,10 +1,10 @@
 {
   "clbTaxonomicStatus": {
     "accepted": "Aceptado",
-    "provisionally_accepted": "Co-financiamiento",
-    "ambiguous_synonym": "Co-financiamiento",
+    "provisionally_accepted": "Cofinanciado por",
+    "ambiguous_synonym": "Cofinanciado por",
     "synonym": "Sinónimo",
     "misapplied": "Mal aplicado",
-    "bare_name": "Co-financiamiento"
+    "bare_name": "Cofinanciado por"
   }
 }
