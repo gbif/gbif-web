@@ -36,8 +36,8 @@
   "loadMore": "Plus",
   "loading": "Chargement en cours",
   "noResults": "",
-  "startTyping": "Co-financé par",
-  "rankInGroup": "Co-financé par",
+  "startTyping": "Id géré par le fournisseur",
+  "rankInGroup": "Id géré par le fournisseur",
   "occurrenceClustersView": {
     "about": "À propos",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Rechercher",
-    "description": "Co-financé par",
+    "description": "Id géré par le fournisseur",
     "noSearchTermsEntered": "Aucun mot-clé renseigné",
-    "placeholder": "Co-financé par",
+    "placeholder": "Id géré par le fournisseur",
     "categories": {
       "speciesSearch": "Espèce",
       "datasetSearch": "Jeux de données",
       "publisherSearch": "Fournisseurs de données",
       "occurrenceSearch": "Occurrences",
-      "resourceSearch": "Co-financé par"
+      "resourceSearch": "Id géré par le fournisseur"
     },
     "seeAll": "Tout voir"
   }
