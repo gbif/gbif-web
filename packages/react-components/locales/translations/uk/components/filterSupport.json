@@ -25,7 +25,7 @@
   "updateFilter": "",
   "setFilter": "",
   "noMathcingFilters": "",
-  "countsUnavailable": "Фінансується спільно",
+  "countsUnavailable": "",
   "nameWithTaxonMatchIssue": "",
   "commonName": "",
   "acceptedNameOf": "",
@@ -62,6 +62,6 @@
     "geometryReducedToBbox": "",
     "failedToSimplify": ""
   },
-  "activeFilters": "Фінансується спільно",
-  "highlighted": "Фінансується спільно"
+  "activeFilters": "",
+  "highlighted": ""
 }
