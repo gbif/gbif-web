@@ -8,18 +8,18 @@
   "continueToGBIF": "Dalej",
   "sql": {
     "createNewSqlDownload": "Stwórz nowe pobranie SQL",
-    "placeholder": "Współfinansowany przez",
-    "noSql": "Współfinansowany przez",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "Uwaga",
       "description": "Najprostszym sposobem na pobieranie i przeglądanie danych to użycie interfejsu użytkownika wyszukiwarki stwierdzeń. Jednak dla złożonych zapytań i zbiorów edytor SQL daje więcej możliwości.",
-      "goToOccurrenceSearch": "Współfinansowany przez"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "Nieprawidłowy SQL",
-      "network-error": "Współfinansowany przez",
-      "parsingErrorDescription": "Współfinansowany przez",
-      "networkErrorDescription": "Współfinansowany przez"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
   "create": "",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "Przeczytaj dokumentację",
   "request": {
     "createNewDownload": "Stwórz nowe pobranie",
-    "weHaveRestoredYourPredicate": "Współfinansowany przez",
-    "noPredicate": "Współfinansowany przez",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "Aktualny filtr",
     "errors": {
       "invalid-json": "Nieprawidłowy JSON",
-      "invalid-predicate": "Współfinansowany przez",
-      "faild-to-load-predicate": "Współfinansowany przez",
-      "unexpectedError": "Współfinansowany przez",
-      "failedToParseJSON": "Współfinansowany przez",
-      "failedToVisualizePredicate": "Współfinansowany przez"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "Opcje pobierania",
-    "chooseChecklist": "Współfinansowany przez",
-    "chooseChecklistDescription": "Współfinansowany przez",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "Surowe dane",
       "interpretedData": "Dane zinterpretowane",
@@ -57,12 +57,12 @@
       "estimatedSize": "Szacowana wielkość danych"
     },
     "fileFormats": {
-      "tabCsv": "Współfinansowany przez"
+      "tabCsv": "CSV rozdzielone znakami tabulacji (do użycia w Excelu, etc.)"
     },
     "tableValues": {
-      "ifAvailable": "Współfinansowany przez",
-      "ifSelected": "Współfinansowany przez",
-      "links": "Współfinansowany przez"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }
