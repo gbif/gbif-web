@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "Bioestratigrafía",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "lithostratigraphy": {
     "name": "Litoestratigrafía",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "geologicalTime": {
-    "name": "Cofinanciado por",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "name": "Tiempo geológico",
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "purposes": {
     "name": "Tema",
@@ -107,48 +107,48 @@
   },
   "gbifId": {
     "name": "ID de GBIF",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "organismQuantityType": {
     "name": "Tipo de cantidad del organismo",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "pathway": {
     "name": "Ruta",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "associatedSequences": {
     "name": "Secuencias asociadas",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "degreeOfEstablishment": {
     "name": "Grado de establecimiento",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "endDayOfYear": {
     "name": "Día Final del Año",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "startDayOfYear": {
     "name": "Día Inicial del Año",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "previousIdentifications": {
     "name": "Identificaciones previas",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "lastInterpreted": {
     "name": "Última interpretación",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "alternativeCode": {
     "name": "Código alternativo",
@@ -181,14 +181,14 @@
     "description": "El método utilizado para preservar los objetos disponibles en la colección"
   },
   "biomeType": {
-    "name": "Cofinanciado por",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "name": "Extensión DWCA",
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "objectClassification": {
-    "name": "Cofinanciado por",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "name": "Extensión DWCA",
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "taxonKey": {
     "name": "Nombre científico",
@@ -230,11 +230,11 @@
     "description": "Los tipos de alertas de potencial interés identificados durante el procesamiento de los datos.\n"
   },
   "occurrenceTaxonomicIssue": {
-    "name": "Cofinanciado por",
-    "count": "Cofinanciado por",
-    "isNotNull": "Cofinanciado por",
-    "isNull": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "name": "Extensión DWCA",
+    "count": "Extensión DWCA",
+    "isNotNull": "Extensión DWCA",
+    "isNull": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "occurrenceCountry": {
     "name": "Área o país",
@@ -251,8 +251,8 @@
   },
   "repatriated": {
     "name": "Repatriado",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "publishingCountryCode": {
     "name": "País de publicación",
@@ -343,9 +343,9 @@
     "description": "Una medida de la distancia mínima en metros desde una coordenada dentro de la cual puede interpretarse que se encuentra una localidad."
   },
   "distanceFromCentroidInMeters": {
-    "name": "Cofinanciado por",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "name": "",
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "depth": {
     "name": "Profundidad",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "Sexo",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "lifeStage": {
     "name": "Estadío de desarrollo",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "recordedBy": {
     "name": "Registrado por",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "Número de Campo",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "verbatimTaxonId": {
-    "name": "Cofinanciado por",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "name": "Rango taxonómico original",
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "islandGroup": {
     "name": "Grupo de islas",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "island": {
     "name": "Isla",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "georeferencedBy": {
     "name": "Georreferenciado por",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "datasetName": {
     "name": "Nombre del conjunto de datos",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "Programa",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "recordNumber": {
     "name": "Número de registro",
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "Región GBIF",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "publishedByGbifRegion": {
     "name": "Publicado por la región de GBIF",
-    "count": "Cofinanciado por",
-    "description": "Cofinanciado por"
+    "count": "Extensión DWCA",
+    "description": "Extensión DWCA"
   },
   "eventId": {
     "name": "ID del evento",
@@ -569,7 +569,7 @@
   },
   "isInCluster": {
     "name": "Está en una agrupación",
-    "count": "Cofinanciado por",
+    "count": "Extensión DWCA",
     "description": "Si se determinó que el registro tenía registros relacionados."
   },
   "isSequenced": {
