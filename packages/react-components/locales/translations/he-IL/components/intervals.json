@@ -28,10 +28,10 @@
   "geoTime": {
     "between": "{from} עד {to}",
     "lt": "לפני {to}",
-    "lte": "מומן במשותף על ידי",
+    "lte": "Leave a comment - requires a Github account",
     "gt": "אחרי {from}",
-    "gte": "מומן במשותף על ידי",
-    "e": "מומן במשותף על ידי"
+    "gte": "Leave a comment - requires a Github account",
+    "e": "Leave a comment - requires a Github account"
   },
   "year": {
     "between": "שנים {from} עד {to}",
