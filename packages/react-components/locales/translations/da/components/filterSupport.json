@@ -25,7 +25,7 @@
   "updateFilter": "",
   "setFilter": "",
   "noMathcingFilters": "",
-  "countsUnavailable": "Samfinansieret af",
+  "countsUnavailable": "",
   "nameWithTaxonMatchIssue": "",
   "commonName": "",
   "acceptedNameOf": "",
@@ -62,6 +62,6 @@
     "geometryReducedToBbox": "",
     "failedToSimplify": ""
   },
-  "activeFilters": "Samfinansieret af",
-  "highlighted": "Samfinansieret af"
+  "activeFilters": "",
+  "highlighted": ""
 }
