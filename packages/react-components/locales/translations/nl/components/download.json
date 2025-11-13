@@ -8,18 +8,18 @@
   "continueToGBIF": "Ga verder",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "Co-Gefinancierd door",
-    "noSql": "Co-Gefinancierd door",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "Opmerking",
       "description": "",
-      "goToOccurrenceSearch": "Co-Gefinancierd door"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "Co-Gefinancierd door",
-      "parsingErrorDescription": "Co-Gefinancierd door",
-      "networkErrorDescription": "Co-Gefinancierd door"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
   "create": "",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "Lees de documentatie",
   "request": {
     "createNewDownload": "Creëer nieuwe download",
-    "weHaveRestoredYourPredicate": "Co-Gefinancierd door",
-    "noPredicate": "Co-Gefinancierd door",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "Huidige filter",
     "errors": {
       "invalid-json": "Ongeldige JSON",
-      "invalid-predicate": "Co-Gefinancierd door",
-      "faild-to-load-predicate": "Co-Gefinancierd door",
-      "unexpectedError": "Co-Gefinancierd door",
-      "failedToParseJSON": "Co-Gefinancierd door",
-      "failedToVisualizePredicate": "Co-Gefinancierd door"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "Download opties",
-    "chooseChecklist": "Co-Gefinancierd door",
-    "chooseChecklistDescription": "Co-Gefinancierd door",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "Ruwe data",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": "Geschatte downloadgrootte"
     },
     "fileFormats": {
-      "tabCsv": "Co-Gefinancierd door"
+      "tabCsv": ""
     },
     "tableValues": {
-      "ifAvailable": "Co-Gefinancierd door",
-      "ifSelected": "Co-Gefinancierd door",
-      "links": "Co-Gefinancierd door"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }
