@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "",
   "searchOrganisations": "",
   "termsAndConditions": "",
-  "iHaveReadAndUnderstood": "Co finanziert von",
+  "iHaveReadAndUnderstood": "",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "",
   "iUnderstandThatMyOrganizationalInformation": "",
   "administrativeContact": "",
@@ -30,7 +30,7 @@
   "none": "",
   "whatAndHow": "",
   "helpUsUnderstand": "",
-  "publOfFourTypesOfData": "Co finanziert von",
+  "publOfFourTypesOfData": "",
   "whichTypesOfData": "",
   "resourcesMetaData": "",
   "checkListData": "",
@@ -42,9 +42,9 @@
   "yes": "",
   "no": "",
   "pleaseSelectAValue": "",
-  "reuseTrustedIPThosting": "Co finanziert von",
+  "reuseTrustedIPThosting": "",
   "doYouNeedHelpPublishing": "",
-  "areYouPlanningToInstallAndRun": "Co finanziert von",
+  "areYouPlanningToInstallAndRun": "",
   "orgDetails": "",
   "yourChanceToTellGBIF": "",
   "orgName": "",
@@ -81,20 +81,20 @@
   "outage": "",
   "eoiDescription": "",
   "eoiTitle": "",
-  "checkRegistration": "Co finanziert von",
-  "organisationDetails": "Co finanziert von",
-  "organisationAddress": "Co finanziert von",
-  "endorsement": "Co finanziert von",
+  "checkRegistration": "",
+  "organisationDetails": "",
+  "organisationAddress": "",
+  "endorsement": "",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "Co finanziert von",
-    "pleaseSelectTheCountryOfYourOrganization": "Co finanziert von"
+    "pleaseSelectYourOrganizationOnTheMap": "",
+    "pleaseSelectTheCountryOfYourOrganization": ""
   },
-  "thankYouForYourRegistration": "Co finanziert von",
-  "failedToRegisterOrganization": "Co finanziert von",
-  "associatedWithGbifProgramme": "Co finanziert von",
+  "thankYouForYourRegistration": "",
+  "failedToRegisterOrganization": "",
+  "associatedWithGbifProgramme": "",
   "loginToRegisterOrganization": {
-    "title": "Co finanziert von",
-    "message": "Co finanziert von"
+    "title": "",
+    "message": ""
   },
-  "registerAnotherOrganization": "Co finanziert von"
+  "registerAnotherOrganization": ""
 }
