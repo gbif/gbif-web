@@ -8,18 +8,18 @@
   "continueToGBIF": "Fortsæt",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "Samfinansieret af",
-    "noSql": "Samfinansieret af",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "",
       "description": "",
-      "goToOccurrenceSearch": "Samfinansieret af"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "Samfinansieret af",
-      "parsingErrorDescription": "Samfinansieret af",
-      "networkErrorDescription": "Samfinansieret af"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
   "create": "",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "Samfinansieret af",
-    "noPredicate": "Samfinansieret af",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "Nuværende filter",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "Samfinansieret af",
-      "faild-to-load-predicate": "Samfinansieret af",
-      "unexpectedError": "Samfinansieret af",
-      "failedToParseJSON": "Samfinansieret af",
-      "failedToVisualizePredicate": "Samfinansieret af"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "",
-    "chooseChecklist": "Samfinansieret af",
-    "chooseChecklistDescription": "Samfinansieret af",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "Rådata",
       "interpretedData": "Fortolket data",
@@ -57,12 +57,12 @@
       "estimatedSize": "Anslået datastørrelse"
     },
     "fileFormats": {
-      "tabCsv": "Samfinansieret af"
+      "tabCsv": "Tab-separeret CSV"
     },
     "tableValues": {
-      "ifAvailable": "Samfinansieret af",
-      "ifSelected": "Samfinansieret af",
-      "links": "Samfinansieret af"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }
