@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "מומן במשותף על ידי",
-      "ASSOCIATE": "מומן במשותף על ידי",
-      "OTHER_ASSOCIATE": "מומן במשותף על ידי",
+      "VOTING": "קוד אתי",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
       "FORMER": "משתתף לשעבר",
       "OBSERVER": "משקיף",
-      "UNKNOWN": "מומן במשותף על ידי",
+      "UNKNOWN": "",
       "AFFILIATE": "שותף GBIF"
     },
-    "affiliateHelp": "מומן במשותף על ידי",
-    "mapCaptionPublishers": "מומן במשותף על ידי",
+    "affiliateHelp": "קוד אתי",
+    "mapCaptionPublishers": "קוד אתי",
     "role": "תפקיד",
     "name": "שם",
     "participant": "משתתף",
     "type": "סוג",
     "memberSince": "חבר מאז",
     "all": "הכל",
-    "countryParticipants": "מומן במשותף על ידי",
-    "publishersPerCountry": "מומן במשותף על ידי",
+    "countryParticipants": "קוד אתי",
+    "publishersPerCountry": "קוד אתי",
     "clear": "נקה",
     "headlines": {
       "nodesSteeringGroup": "קבוצת ההיגוי של הצמתים",
