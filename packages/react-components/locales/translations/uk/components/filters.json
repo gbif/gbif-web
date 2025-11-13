@@ -1,12 +1,12 @@
 {
   "dwcaExtension": {
     "name": "Розширення DWCA",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "locationId": {
     "name": "ID місцезнаходження",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "hasCoordinate": {
@@ -21,12 +21,12 @@
   },
   "collectionKey": {
     "name": "Колекція",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "taxonomicStatus": {
     "name": "Статус",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "taxonRank": {
@@ -36,12 +36,12 @@
   },
   "numberSpecimens": {
     "name": "",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "specimensInGbif": {
     "name": "",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": "Архів анотований GBIF"
   },
   "iucnRedListCategory": {
@@ -51,7 +51,7 @@
   },
   "geoDistance": {
     "name": "",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": "",
     "placeholderLat": "Широта",
     "placeholderLon": "Довгота",
@@ -59,7 +59,7 @@
   },
   "geometry": {
     "name": "Місцезнаходження",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": "",
     "placeholderLat": "Широта",
     "placeholderLon": "Довгота",
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "geologicalTime": {
-    "name": "Фінансується спільно",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "name": "",
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "purposes": {
     "name": "Тема",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "organismQuantityType": {
     "name": "Одиниці розмірності кількості організмів (наприклад, особини, проективне покриття, маса тощо)",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "pathway": {
     "name": "",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "associatedSequences": {
     "name": "Пов'язані сіквенси",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "degreeOfEstablishment": {
     "name": "",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "endDayOfYear": {
     "name": "День кінця року",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "startDayOfYear": {
     "name": "День початку року",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "previousIdentifications": {
     "name": "Попередні ідентифікації",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "lastInterpreted": {
     "name": "Остання інтерпретація",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "alternativeCode": {
     "name": "Архів анотований GBIF",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "identifier": {
     "name": "Автор визначення",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "Архів анотований GBIF",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "collectionContentType": {
     "name": "Архів анотований GBIF",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": "Архів анотований GBIF"
   },
   "preservationType": {
     "name": "Архів анотований GBIF",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": "Архів анотований GBIF"
   },
   "biomeType": {
-    "name": "Фінансується спільно",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "name": "Розширення DWCA",
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "objectClassification": {
-    "name": "Фінансується спільно",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "name": "Розширення DWCA",
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "taxonKey": {
     "name": "Наукова назва",
@@ -230,11 +230,11 @@
     "description": ""
   },
   "occurrenceTaxonomicIssue": {
-    "name": "Фінансується спільно",
-    "count": "Фінансується спільно",
-    "isNotNull": "Фінансується спільно",
-    "isNull": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "name": "Розширення DWCA",
+    "count": "Розширення DWCA",
+    "isNotNull": "Розширення DWCA",
+    "isNull": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "occurrenceCountry": {
     "name": "Країна",
@@ -246,13 +246,13 @@
   },
   "preparations": {
     "name": "Підготовчі дії щодо зразка (наприклад, відфотографовано, відпрепаровано тощо)",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": "Архів анотований GBIF"
   },
   "repatriated": {
     "name": "Репатрійовано",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "publishingCountryCode": {
     "name": "Країна або регіон, що публікує дані",
@@ -339,22 +339,22 @@
   },
   "coordinateUncertainty": {
     "name": "Похибка координат",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "distanceFromCentroidInMeters": {
-    "name": "Фінансується спільно",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "name": "",
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "depth": {
     "name": "Глибина",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "organismQuantity": {
     "name": "Кількість організмів (в одиницях, відсотках, масовій частці тощо)",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "sampleSizeValue": {
@@ -364,7 +364,7 @@
   },
   "relativeOrganismQuantity": {
     "name": "Відносна кількість організмів",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "month": {
@@ -389,43 +389,43 @@
   },
   "sex": {
     "name": "Стать",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "lifeStage": {
     "name": "Життєва стадія",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "recordedBy": {
     "name": "Хто створив запис",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "fieldNumber": {
     "name": "Польовий номер",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "verbatimTaxonId": {
-    "name": "Фінансується спільно",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "name": "Первинний ID таксона",
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "islandGroup": {
     "name": "Група островів",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "island": {
     "name": "Острів",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "georeferencedBy": {
     "name": "Автор геоприв'язки",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "datasetName": {
     "name": "Назва набору даних",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "Програма",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "recordNumber": {
     "name": "Номер запису",
@@ -454,22 +454,22 @@
   },
   "recordedById": {
     "name": "Записано за ID",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "identifiedById": {
     "name": "Визначено за ID",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "occurrenceId": {
     "name": "ID знахідки",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "organismId": {
     "name": "ID організму",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "locality": {
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "Географічна місцевість у широкому масштабі",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "stateProvince": {
@@ -494,32 +494,32 @@
   },
   "gbifRegion": {
     "name": "Регіон GBIF",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "Фінансується спільно",
-    "description": "Фінансується спільно"
+    "count": "Розширення DWCA",
+    "description": "Розширення DWCA"
   },
   "eventId": {
     "name": "ID події",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "eventID": {
     "name": "ID події",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "parentEventId": {
     "name": "ID батьківської (об'єднуючої) події",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "locationID": {
     "name": "ID місцезнаходження",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "measurementOrFactTypes": {
@@ -549,12 +549,12 @@
   },
   "samplingProtocol": {
     "name": "Протокол збору ",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "occurrenceStatus": {
     "name": "Статус знахідки (відсутня або присутня)",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "gadmGid": {
@@ -564,17 +564,17 @@
   },
   "identifiedBy": {
     "name": "Автор визначення",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "isInCluster": {
     "name": "",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": "Ця експериментальна функція виділяє можливі дубльовані та/або пов'язані знахідки."
   },
   "isSequenced": {
     "name": "",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "active": {
@@ -604,48 +604,48 @@
   },
   "datasetType": {
     "name": "Тип набору даних",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "datasetSubtype": {
     "name": "",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "institutionKey": {
     "name": "Установа",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "name": {
     "name": "Ім’я",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": "Архів анотований GBIF",
     "searchPlaceholder": ""
   },
   "city": {
     "name": "Місто",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "code": {
     "name": "Код",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": "Архів анотований GBIF"
   },
   "verbatimScientificName": {
     "name": "Первинно вжита наукова назва",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "networkKey": {
     "name": "Мережа",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "literatureType": {
     "name": "Тип джерела",
-    "count": "Фінансується спільно",
+    "count": "Розширення DWCA",
     "description": ""
   },
   "higherTaxonKey": {
