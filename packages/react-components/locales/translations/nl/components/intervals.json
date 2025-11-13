@@ -28,10 +28,10 @@
   "geoTime": {
     "between": "{from} tot {to}",
     "lt": "Voor {to}",
-    "lte": "Co-Gefinancierd door",
+    "lte": "Code of Conduct",
     "gt": "Na {from}",
-    "gte": "Co-Gefinancierd door",
-    "e": "Co-Gefinancierd door"
+    "gte": "Code of Conduct",
+    "e": "Code of Conduct"
   },
   "year": {
     "between": "Jaar {from} tot {to}",
