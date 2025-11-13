@@ -1,13 +1,13 @@
 {
   "features": "",
   "options": {
-    "includeAuthorship": "تمويل مشترك بواسطة"
+    "includeAuthorship": "قواعد السلوك"
   },
   "citations": "اقتباسات",
   "occurrences": "تكرارات",
   "numberSpecimens": "",
   "gbifNumberSpecimens": "",
-  "specimenTriplet": "تمويل مشترك بواسطة",
+  "specimenTriplet": "قواعد السلوك",
   "title": "عنوان",
   "titleAndAbstract": "",
   "altmetric": "",
@@ -25,6 +25,6 @@
   "activeInstitution": "",
   "author": "المؤلف",
   "source": "مجلة",
-  "dataReferenced": "تمويل مشترك بواسطة",
+  "dataReferenced": "قواعد السلوك",
   "activeCollection": ""
 }
