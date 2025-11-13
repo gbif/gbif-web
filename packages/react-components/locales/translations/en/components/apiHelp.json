@@ -22,5 +22,6 @@
   "singleDataset": "Get a single dataset.",
   "searchDatasetsExample": "First two datasets published from Denmark with free text \"fungi\" in the title or description.",
   "searchExample": "First two entries with free text \"dna\".",
-  "searchDatasets": "Get all datasets."
+  "searchDatasets": "Get all datasets.",
+  "searchNodes": "Search nodes"
 }
