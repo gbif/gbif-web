@@ -28,10 +28,10 @@
   "geoTime": {
     "between": "{from} do {to}",
     "lt": "Před {to}",
-    "lte": "Spolufinancováno",
+    "lte": "Zanechat komentář – vyžaduje účet Github",
     "gt": "Po {from}",
-    "gte": "Spolufinancováno",
-    "e": "Spolufinancováno"
+    "gte": "Zanechat komentář – vyžaduje účet Github",
+    "e": "Zanechat komentář – vyžaduje účet Github"
   },
   "year": {
     "between": "Rok {from} do {to}",
