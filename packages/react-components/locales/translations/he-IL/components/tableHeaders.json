@@ -1,13 +1,13 @@
 {
   "features": "תכונות",
   "options": {
-    "includeAuthorship": "מומן במשותף על ידי"
+    "includeAuthorship": "Provider managed id"
   },
   "citations": "ציטוטים",
   "occurrences": "תצפיות",
   "numberSpecimens": "מספר הפרטים",
   "gbifNumberSpecimens": "Specimens in GBIF",
-  "specimenTriplet": "מומן במשותף על ידי",
+  "specimenTriplet": "Provider managed id",
   "title": "כותרת",
   "titleAndAbstract": "כותרת ותקציר",
   "altmetric": "מדד אלטרנטיבי",
@@ -25,6 +25,6 @@
   "activeInstitution": "פעיל",
   "author": "",
   "source": "",
-  "dataReferenced": "מומן במשותף על ידי",
+  "dataReferenced": "Provider managed id",
   "activeCollection": "פעיל"
 }
