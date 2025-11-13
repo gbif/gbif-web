@@ -36,8 +36,8 @@
   "loadMore": "مزيد",
   "loading": "جاري التحميل",
   "noResults": "",
-  "startTyping": "تمويل مشترك بواسطة",
-  "rankInGroup": "تمويل مشترك بواسطة",
+  "startTyping": "قواعد السلوك",
+  "rankInGroup": "قواعد السلوك",
   "occurrenceClustersView": {
     "about": "حول",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "بحث",
-    "description": "تمويل مشترك بواسطة",
+    "description": "قواعد السلوك",
     "noSearchTermsEntered": "لم يتم إدخال مصطلحات للبحث",
-    "placeholder": "تمويل مشترك بواسطة",
+    "placeholder": "قواعد السلوك",
     "categories": {
       "speciesSearch": "نوع",
       "datasetSearch": "مجموعات البيانات",
       "publisherSearch": "الناشرون",
       "occurrenceSearch": "تكرارات",
-      "resourceSearch": "تمويل مشترك بواسطة"
+      "resourceSearch": "قواعد السلوك"
     },
     "seeAll": "مشاهدة الكل"
   }
