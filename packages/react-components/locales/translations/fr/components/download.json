@@ -8,18 +8,18 @@
   "continueToGBIF": "Continuer",
   "sql": {
     "createNewSqlDownload": "Créer un nouveau téléchargement SQL",
-    "placeholder": "Co-financé par",
-    "noSql": "Co-financé par",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "Note",
       "description": "Le moyen le plus simple de télécharger et d'explorer des données est d'utiliser l'interface utilisateur de recherche d'occurrences. Mais pour les requêtes et agrégations complexes, l'éditeur SQL offre une plus grande liberté.",
-      "goToOccurrenceSearch": "Co-financé par"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "SQL non valide",
-      "network-error": "Co-financé par",
-      "parsingErrorDescription": "Co-financé par",
-      "networkErrorDescription": "Co-financé par"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
   "create": "",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "Lire la documentation",
   "request": {
     "createNewDownload": "Créer un nouveau téléchargement",
-    "weHaveRestoredYourPredicate": "Co-financé par",
-    "noPredicate": "Co-financé par",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "Filtre actif",
     "errors": {
       "invalid-json": "JSON non valide",
-      "invalid-predicate": "Co-financé par",
-      "faild-to-load-predicate": "Co-financé par",
-      "unexpectedError": "Co-financé par",
-      "failedToParseJSON": "Co-financé par",
-      "failedToVisualizePredicate": "Co-financé par"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "Options de téléchargement",
-    "chooseChecklist": "Co-financé par",
-    "chooseChecklistDescription": "Co-financé par",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "Données brutes",
       "interpretedData": "Données interprétées",
@@ -57,12 +57,12 @@
       "estimatedSize": "Taille estimée des données"
     },
     "fileFormats": {
-      "tabCsv": "Co-financé par"
+      "tabCsv": "CSV délimité par des tabulations"
     },
     "tableValues": {
-      "ifAvailable": "Co-financé par",
-      "ifSelected": "Co-financé par",
-      "links": "Co-financé par"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }
