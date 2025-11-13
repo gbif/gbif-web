@@ -8,18 +8,18 @@
   "continueToGBIF": "Pokračovat",
   "sql": {
     "createNewSqlDownload": "Vytvořit nové SQL stažení",
-    "placeholder": "Spolufinancováno",
-    "noSql": "Spolufinancováno",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "Poznámka",
       "description": "Nejjednodušší způsob stahování a zkoumání dat je prostřednictvím uživatelského rozhraní pro vyhledávání výskytů. Pro složité dotazy a agregace však editor SQL poskytuje větší volnost.",
-      "goToOccurrenceSearch": "Spolufinancováno"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "Neplatné SQL",
-      "network-error": "Spolufinancováno",
-      "parsingErrorDescription": "Spolufinancováno",
-      "networkErrorDescription": "Spolufinancováno"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
   "create": "",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "Přečíst dokumentaci",
   "request": {
     "createNewDownload": "Vytvořit nové stažení",
-    "weHaveRestoredYourPredicate": "Spolufinancováno",
-    "noPredicate": "Spolufinancováno",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "Aktuální filtr",
     "errors": {
       "invalid-json": "Neplatný JSON",
-      "invalid-predicate": "Spolufinancováno",
-      "faild-to-load-predicate": "Spolufinancováno",
-      "unexpectedError": "Spolufinancováno",
-      "failedToParseJSON": "Spolufinancováno",
-      "failedToVisualizePredicate": "Spolufinancováno"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "Možnosti stažení",
-    "chooseChecklist": "Spolufinancováno",
-    "chooseChecklistDescription": "Spolufinancováno",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "Nezpracovaná data",
       "interpretedData": "Interpretovaná data",
@@ -57,12 +57,12 @@
       "estimatedSize": "Odhadovaná velikost dat"
     },
     "fileFormats": {
-      "tabCsv": "Spolufinancováno"
+      "tabCsv": "CSV s oddělovačem tabulek (pro použití v Excelu atd.)"
     },
     "tableValues": {
-      "ifAvailable": "Spolufinancováno",
-      "ifSelected": "Spolufinancováno",
-      "links": "Spolufinancováno"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }
