@@ -36,8 +36,8 @@
   "loadMore": "Mais",
   "loading": "A carregar",
   "noResults": "",
-  "startTyping": "Co-financiado por",
-  "rankInGroup": "Co-financiado por",
+  "startTyping": "Código de Conduta",
+  "rankInGroup": "Código de Conduta",
   "occurrenceClustersView": {
     "about": "Sobre",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Pesquisa",
-    "description": "Co-financiado por",
+    "description": "Código de Conduta",
     "noSearchTermsEntered": "Não há termos de pesquisa inseridos",
-    "placeholder": "Co-financiado por",
+    "placeholder": "Código de Conduta",
     "categories": {
       "speciesSearch": "Espécie",
       "datasetSearch": "Conjuntos de dados",
       "publisherSearch": "Publicadores",
       "occurrenceSearch": "Ocorrências",
-      "resourceSearch": "Co-financiado por"
+      "resourceSearch": "Código de Conduta"
     },
     "seeAll": "Ver todos"
   }
