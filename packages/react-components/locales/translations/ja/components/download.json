@@ -8,18 +8,18 @@
   "continueToGBIF": "次へ",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "共同出資",
-    "noSql": "共同出資",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "注記",
       "description": "",
-      "goToOccurrenceSearch": "共同出資"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "共同出資",
-      "parsingErrorDescription": "共同出資",
-      "networkErrorDescription": "共同出資"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
   "create": "",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "共同出資",
-    "noPredicate": "共同出資",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "現在のフィルター",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "共同出資",
-      "faild-to-load-predicate": "共同出資",
-      "unexpectedError": "共同出資",
-      "failedToParseJSON": "共同出資",
-      "failedToVisualizePredicate": "共同出資"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "ダウンロードのオプション",
-    "chooseChecklist": "共同出資",
-    "chooseChecklistDescription": "共同出資",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "生データ",
       "interpretedData": "解釈されたデータ",
@@ -57,12 +57,12 @@
       "estimatedSize": "推定データサイズ"
     },
     "fileFormats": {
-      "tabCsv": "共同出資"
+      "tabCsv": "タブ区切りの CSV"
     },
     "tableValues": {
-      "ifAvailable": "共同出資",
-      "ifSelected": "共同出資",
-      "links": "共同出資"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }
