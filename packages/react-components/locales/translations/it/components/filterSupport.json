@@ -25,7 +25,7 @@
   "updateFilter": "",
   "setFilter": "",
   "noMathcingFilters": "",
-  "countsUnavailable": "Cofinanziato da",
+  "countsUnavailable": "",
   "nameWithTaxonMatchIssue": "",
   "commonName": "",
   "acceptedNameOf": "",
@@ -62,6 +62,6 @@
     "geometryReducedToBbox": "",
     "failedToSimplify": ""
   },
-  "activeFilters": "Cofinanziato da",
-  "highlighted": "Cofinanziato da"
+  "activeFilters": "",
+  "highlighted": ""
 }
