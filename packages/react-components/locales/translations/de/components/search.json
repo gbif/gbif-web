@@ -36,8 +36,8 @@
   "loadMore": "Mehr",
   "loading": "",
   "noResults": "",
-  "startTyping": "Co finanziert von",
-  "rankInGroup": "Co finanziert von",
+  "startTyping": "DWCA-Erweiterung",
+  "rankInGroup": "DWCA-Erweiterung",
   "occurrenceClustersView": {
     "about": "",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Suche",
-    "description": "Co finanziert von",
+    "description": "DWCA-Erweiterung",
     "noSearchTermsEntered": "Keine Suchbegriffe eingegeben",
-    "placeholder": "Co finanziert von",
+    "placeholder": "DWCA-Erweiterung",
     "categories": {
       "speciesSearch": "",
       "datasetSearch": "Datensätze",
       "publisherSearch": "Herausgeber",
       "occurrenceSearch": "",
-      "resourceSearch": "Co finanziert von"
+      "resourceSearch": "DWCA-Erweiterung"
     },
     "seeAll": "Alle ansehen"
   }
