@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "geologicalTime": {
-    "name": "Współfinansowany przez",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "name": "",
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "purposes": {
     "name": "Temat",
@@ -107,48 +107,48 @@
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "organismQuantityType": {
     "name": "Rodzaj liczebności organizmów",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "pathway": {
     "name": "Ścieżka",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "associatedSequences": {
     "name": "Powiązane sekwencje",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "degreeOfEstablishment": {
     "name": "Stopień wprowadzenia",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "endDayOfYear": {
     "name": "Ostatni dzień roku",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "startDayOfYear": {
     "name": "Pierwszy dzień roku",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "previousIdentifications": {
     "name": "Wcześniejsze oznaczenia",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "lastInterpreted": {
     "name": "Ostatnio interpretowano",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "alternativeCode": {
     "name": "Alternatywny kod",
@@ -172,23 +172,23 @@
   },
   "collectionContentType": {
     "name": "Rodzaj treści",
-    "count": "Współfinansowany przez",
+    "count": "Rozszerzenie DWCA",
     "description": ""
   },
   "preservationType": {
     "name": "",
-    "count": "Współfinansowany przez",
+    "count": "Rozszerzenie DWCA",
     "description": ""
   },
   "biomeType": {
-    "name": "Współfinansowany przez",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "name": "Rozszerzenie DWCA",
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "objectClassification": {
-    "name": "Współfinansowany przez",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "name": "Rozszerzenie DWCA",
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "taxonKey": {
     "name": "Nazwa naukowa",
@@ -230,11 +230,11 @@
     "description": "Rodzaj problemów lub potencjalnych problemów odkrytych w procesowaniu danych. "
   },
   "occurrenceTaxonomicIssue": {
-    "name": "Współfinansowany przez",
-    "count": "Współfinansowany przez",
-    "isNotNull": "Współfinansowany przez",
-    "isNull": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "name": "Rozszerzenie DWCA",
+    "count": "Rozszerzenie DWCA",
+    "isNotNull": "Rozszerzenie DWCA",
+    "isNull": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "occurrenceCountry": {
     "name": "Państwo lub obszar",
@@ -246,13 +246,13 @@
   },
   "preparations": {
     "name": "Przygotowania",
-    "count": "Współfinansowany przez",
+    "count": "Rozszerzenie DWCA",
     "description": ""
   },
   "repatriated": {
     "name": "Ponownie wprowadzony ",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "publishingCountryCode": {
     "name": "Kraj lub obszar publikujący",
@@ -343,9 +343,9 @@
     "description": "Miara minimalnej odległości w metrach od współrzędnych, w których lokalna obserwacja może się znajdować. "
   },
   "distanceFromCentroidInMeters": {
-    "name": "Współfinansowany przez",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "name": "",
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "depth": {
     "name": "Głębokość",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "Płeć",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "lifeStage": {
     "name": "Stadium rozwoju",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "recordedBy": {
     "name": "Zarejestrowane przez",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "Numer pola",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "verbatimTaxonId": {
-    "name": "Współfinansowany przez",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "name": "Dosłowny identyfikator taksonu",
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "islandGroup": {
     "name": "Grupa wysp",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "island": {
     "name": "Wyspa",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "georeferencedBy": {
     "name": "Georeferencjonowane przez",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "datasetName": {
     "name": "Nazwa zbioru danych",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "Program",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "recordNumber": {
     "name": "Numer rekordu",
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "Geografia wyższego rzędu",
-    "count": "Współfinansowany przez",
+    "count": "Rozszerzenie DWCA",
     "description": ""
   },
   "stateProvince": {
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "Region GBIF",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "Współfinansowany przez",
-    "description": "Współfinansowany przez"
+    "count": "Rozszerzenie DWCA",
+    "description": "Rozszerzenie DWCA"
   },
   "eventId": {
     "name": "ID zdarzenia",
@@ -569,7 +569,7 @@
   },
   "isInCluster": {
     "name": "Jest w gromadzie",
-    "count": "Współfinansowany przez",
+    "count": "Rozszerzenie DWCA",
     "description": "Czy zapis został określony jako posiadający pokrewne zapisy."
   },
   "isSequenced": {
@@ -640,7 +640,7 @@
   },
   "networkKey": {
     "name": "Sieć",
-    "count": "Współfinansowany przez",
+    "count": "Rozszerzenie DWCA",
     "description": "Tutaj należy umieścić krótki opis komponentu "
   },
   "literatureType": {
