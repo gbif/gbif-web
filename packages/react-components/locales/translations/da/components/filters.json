@@ -91,7 +91,7 @@
     "description": "Samfinansieret af"
   },
   "geologicalTime": {
-    "name": "Samfinansieret af",
+    "name": "",
     "count": "Samfinansieret af",
     "description": "Samfinansieret af"
   },
@@ -343,7 +343,7 @@
     "description": ""
   },
   "distanceFromCentroidInMeters": {
-    "name": "Samfinansieret af",
+    "name": "",
     "count": "Samfinansieret af",
     "description": "Samfinansieret af"
   },
@@ -408,7 +408,7 @@
     "description": "Samfinansieret af"
   },
   "verbatimTaxonId": {
-    "name": "Samfinansieret af",
+    "name": "",
     "count": "Samfinansieret af",
     "description": "Samfinansieret af"
   },
