@@ -36,6 +36,7 @@ export default function CubeDimensionsSelector({
   isExpanded,
   onToggle,
   filter,
+  predicate,
   onValidationChange,
 }: CubeDimensionsSelectorProps) {
   const { updateDimensions } = useCubeDimensions({ cube, onChange });
@@ -53,7 +54,7 @@ export default function CubeDimensionsSelector({
   const handleEditSql = (event: React.MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
-    generateAndNavigate(cube);
+    generateAndNavigate(cube, predicate);
   };
 
   const higherTaxonomicGroups = getHigherTaxonomicGroups(cube.taxonomicLevel);

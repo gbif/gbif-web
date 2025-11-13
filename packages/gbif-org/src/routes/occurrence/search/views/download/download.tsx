@@ -1,7 +1,5 @@
 import { useConfig } from '@/config/config';
 import { DownloadHostedPortal } from './DownloadHostedPortal';
-import PredicateEditor from '@/routes/occurrence/download/editor/predicateEditor';
-import SqlEditor from '@/routes/occurrence/download/editor/sqlEDitor';
 import OccurrenceSearchDownload from './OccurrenceSearchDownload';
 
 export function Download() {
@@ -12,8 +10,6 @@ export function Download() {
     return (
       <>
         <OccurrenceSearchDownload />
-        {/* <DownloadGbifOrgVertical />
-        <DownloadGbifOrgHorizontal /> */}
       </>
     );
   }

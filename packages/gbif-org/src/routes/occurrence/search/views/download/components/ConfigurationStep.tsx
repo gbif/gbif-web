@@ -45,10 +45,9 @@ export default function ConfigurationStep({
   onContinue,
   initialConfig,
 }: ConfigurationStepProps) {
-  const { checklists } = useSupportedChecklists();
   const currentContextChecklistKey = useChecklistKey();
   const isDarwinCoreArchive = selectedFormat?.id === 'DWCA';
-  const isCubeData = selectedFormat?.id === 'SQL_TSV_ZIP';
+  const isCubeData = selectedFormat?.id === 'SQL_CUBE';
 
   // Initialize configuration based on format
   const getInitialConfig = (): BaseConfig | DarwinCoreConfig | CubeConfig => {
@@ -148,25 +147,6 @@ export default function ConfigurationStep({
     setActiveSection(activeSection === section ? null : section);
   };
 
-  // Get configuration summary for sidebar
-  const getConfigSummary = (selectedFormat, configuration) => {
-    const isDarwinCoreArchive = selectedFormat?.id === 'DWCA';
-    const summary = [
-      { label: 'Format', value: selectedFormat.title },
-      { label: 'CSV delimiter', value: 'TAB' },
-      {
-        label: 'Taxonomy',
-        value: checklists.find((x) => x.key === configuration.checklistKey)?.alias ?? '',
-      },
-    ];
-
-    if (isDarwinCoreArchive && 'extensions' in configuration) {
-      summary.push({ label: 'Extensions', value: configuration.extensions.length.toString() });
-    }
-
-    return summary;
-  };
-
   return (
     <div className="g-max-w-4xl g-mx-auto">
       {/* Header */}
@@ -210,6 +190,7 @@ export default function ConfigurationStep({
               onToggle={() => toggleSection('cube')}
               onValidationChange={handleCubeValidationChange}
               filter={filter}
+              predicate={predicate}
             />
           )}
         </div>
@@ -221,14 +202,6 @@ export default function ConfigurationStep({
               <FormattedMessage id="occurrenceDownloadFlow.downloadSummary" />
             </h3>
 
-            {/* <div className="g-space-y-3 g-text-sm">
-              {getConfigSummary(selectedFormat, config).map((item) => (
-                <div key={item.label} className="g-flex g-justify-between">
-                  <span className="g-text-gray-600">{item.label}:</span>
-                  <span className="g-font-medium">{item.value}</span>
-                </div>
-              ))}
-            </div> */}
             <DownloadSummary selectedFormat={selectedFormat} configuration={config} />
 
             <div className="g-mt-6 g-pt-4 g-border-t g-border-gray-200">

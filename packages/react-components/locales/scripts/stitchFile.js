@@ -59,7 +59,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       ),
       occurrenceDetails: getFile(locale, `../${folder}/${locale}/components/occurrenceDetails`),
       eventDetails: getFile(locale, `../${folder}/${locale}/components/eventDetails`),
-      download: getFile(locale, `../${folder}/${locale}/components/download`),
+      download: getFile(locale, `../${folder}/${locale}/components/download`).download,
       map: getFile(locale, `../${folder}/${locale}/components/map`),
       images: getFile(locale, `../${folder}/${locale}/components/images`),
       error: getFile(locale, `../${folder}/${locale}/components/error`),

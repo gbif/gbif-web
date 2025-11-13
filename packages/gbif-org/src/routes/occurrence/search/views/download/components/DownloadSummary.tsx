@@ -21,10 +21,10 @@ export function DownloadSummary({
           />
         ),
       },
-      {
-        label: <FormattedMessage id="occurrenceDownloadFlow.csvDelimiter" />,
-        value: <FormattedMessage id="occurrenceDownloadFlow.tabDelimiter" />,
-      },
+      // {
+      //   label: <FormattedMessage id="occurrenceDownloadFlow.csvDelimiter" />,
+      //   value: <FormattedMessage id="occurrenceDownloadFlow.tabDelimiter" />,
+      // },
     ];
 
     if (configuration.checklistKey) {

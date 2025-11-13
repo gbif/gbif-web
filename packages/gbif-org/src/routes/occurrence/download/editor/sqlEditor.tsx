@@ -2,8 +2,10 @@ import { useCallback, useMemo } from 'react';
 import { highlight } from 'sql-highlight';
 import { useStringParam } from '@/hooks/useParam';
 import { validateSql } from './validate';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Editor from './editor';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { DynamicLink } from '@/reactRouterPlugins';
 
 export default function SqlEditor({ onContinue }: { onContinue: (sqlString?: string) => void }) {
   const [sql, setSql] = useStringParam({ key: 'sql', replace: true });
@@ -32,15 +34,35 @@ export default function SqlEditor({ onContinue }: { onContinue: (sqlString?: str
   return (
     <div className="g-from-sky-50 g-via-blue-50 g-to-indigo-50 g-bg-gradient-to-br">
       <Editor
-        title="SQL Editor"
-        documentationUrl="https://techdocs.gbif.org/en/data-use/api-sql-downloads"
+        title={<FormattedMessage id="download.sqlEditor" />}
+        documentationUrl="https://techdocs.gbif.org/en/data-use/api-sql-downloads" // deliberately hardcoded to prod as I assume there is no point in linking to a uat tech docs
         PrettyDisplay={SqlVisual}
         text={sql ?? ''}
         setText={setSql}
         handleFormat={handleFormat}
         onContinue={onContinue}
         handleValidation={handleValidation}
+        placeholder={formatMessage({ id: 'download.sql.placeholder' })}
       />
+      <Alert variant="info" className="g-mt-8 g-max-w-4xl g-mx-auto">
+        <AlertTitle>
+          <FormattedMessage id="download.sql.note.title" />
+        </AlertTitle>
+        <div className="prose">
+          <AlertDescription>
+            <FormattedMessage
+              id="download.sql.note.description"
+              values={{
+                occurrence_search: (
+                  <DynamicLink className="g-underline" pageId="occurrenceSearch">
+                    <FormattedMessage id="download.sql.note.occurrence_search" />
+                  </DynamicLink>
+                ),
+              }}
+            />
+          </AlertDescription>
+        </div>
+      </Alert>
     </div>
   );
 }

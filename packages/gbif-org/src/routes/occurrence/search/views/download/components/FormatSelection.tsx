@@ -8,9 +8,9 @@ import { formatFileSize, getEstimatedSizeInBytes } from './utils';
 
 interface Format {
   id: string;
-  hasNextStep?: boolean;
   estimateSize: boolean;
-  featureKeys: string[];
+  featureKeys?: string[];
+  downloadFormat?: string;
 }
 
 interface FormatSelectionProps {
@@ -28,7 +28,6 @@ const formatCards: Format[] = [
   },
   {
     id: 'DWCA',
-    hasNextStep: true,
     estimateSize: true,
     featureKeys: [
       'multipleCsv',
@@ -44,8 +43,8 @@ const formatCards: Format[] = [
     featureKeys: ['singleCsv', 'interpretedData', 'occurrenceCounts'],
   },
   {
-    id: 'SQL_TSV_ZIP',
-    hasNextStep: true,
+    id: 'SQL_CUBE',
+    downloadFormat: 'SQL_TSV_ZIP',
     estimateSize: false,
     featureKeys: ['singleCsv', 'interpretedData', 'coordinatesIfSelected', 'occurrenceCounts'],
   },
@@ -117,7 +116,7 @@ export default function FormatSelection({
 
                         {/* Compact Features */}
                         <div className="g-flex g-flex-wrap g-gap-2">
-                          {format.featureKeys.map((featureKey, index) => (
+                          {format.featureKeys?.map((featureKey, index) => (
                             <span
                               key={index}
                               className="g-inline-flex g-items-center g-gap-1 g-text-xs g-bg-gray-50 g-text-gray-700 g-px-2 g-py-1 g-rounded-full"

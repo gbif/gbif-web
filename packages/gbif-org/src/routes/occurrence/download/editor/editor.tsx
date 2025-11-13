@@ -19,7 +19,7 @@ export default function Editor({
   placeholder,
   handleValidation,
 }: {
-  title: string;
+  title: React.ReactNode;
   documentationUrl?: string;
   PrettyDisplay: React.FC<{ content: string; onError: (error: Error) => void }>;
   onContinue: (content: string) => void;
@@ -75,7 +75,7 @@ export default function Editor({
       <Card className="g-w-full">
         <div className="g-p-6 g-border-b dark:g-border-slate-700 g-border-slate-200">
           <div className="g-flex g-items-end g-justify-between">
-            <h1 className="g-text-2xl g-font-bold dark:g-text-white g-text-slate-900 g-flex g-items-center g-gap-3">
+            <h1 className="g-text-2xl g-font-bold dark:g-text-white g-text-slate-900 g-hidden md:g-block">
               {title}
             </h1>
 
@@ -144,7 +144,7 @@ export default function Editor({
                   onClick={onFormat}
                   className="g-px-2 g-py-1 dark:g-bg-slate-700 g-bg-slate-200 dark:hover:g-bg-slate-600 hover:g-bg-slate-300 dark:g-text-white g-text-slate-900 g-text-sm g-rounded-md g-transition-colors g-duration-200 g-border dark:g-border-slate-600 g-border-slate-300"
                 >
-                  Format
+                  <FormattedMessage id="download.reformat" />
                 </button>
               </div>
             )}
@@ -156,7 +156,9 @@ export default function Editor({
               <>
                 <AlertCircle className="g-w-4 g-h-4 g-flex-none" />
                 <div className="g-flex-auto">
-                  <div className="g-font-bold">Invalid</div>
+                  <div className="g-font-bold">
+                    <FormattedMessage id="download.invalid" />
+                  </div>
                   <div className="g-text-sm">{errorMessage}</div>
                 </div>
               </>
@@ -167,7 +169,7 @@ export default function Editor({
               <Button asChild variant="ghost">
                 <a href={documentationUrl} target="_blank" rel="noopener noreferrer" className="">
                   <FileText className="g-w-5 g-h-5 g-me-1" />
-                  Read the Documentation
+                  <FormattedMessage id="download.readTheDocumentation" />
                 </a>
               </Button>
             )}
@@ -175,7 +177,7 @@ export default function Editor({
             <div className="g-flex g-flex-col g-items-end g-gap-2">
               {(isEditing || isValidating) && (
                 <Button disabled={isValidating} onClick={() => setIsEditing(false)}>
-                  Validate
+                  <FormattedMessage id="download.validate" />
                 </Button>
               )}
               {!isEditing && !isValidating && (
@@ -183,7 +185,7 @@ export default function Editor({
                   disabled={!!isEditing || !!errorMessage || !text || text.trim().length === 0}
                   onClick={() => onContinue(text)}
                 >
-                  Next
+                  <FormattedMessage id="download.continue" />
                 </Button>
               )}
             </div>

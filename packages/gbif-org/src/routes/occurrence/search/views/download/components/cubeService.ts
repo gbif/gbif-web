@@ -71,7 +71,7 @@ export function convertCubeDimensionsToSqlOptions(
         type: 'not',
         predicate: {
           type: 'in',
-          key: 'ISSUE',
+          key: 'TAXONOMIC_ISSUE',
           values: ['TAXON_MATCH_FUZZY'],
         },
       });

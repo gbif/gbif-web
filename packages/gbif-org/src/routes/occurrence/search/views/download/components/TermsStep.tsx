@@ -104,6 +104,7 @@ export default function TermsStep({
       sql = result.sql;
       machineDescription = result.machineDescription;
     }
+    const format = selectedFormat.downloadFormat ?? selectedFormat.id;
     fetch('/api/user/download/predicate', {
       method: 'POST',
       headers: {
@@ -111,11 +112,11 @@ export default function TermsStep({
       },
       body: JSON.stringify({
         predicate,
-        format: selectedFormat.id,
+        format: format,
         checklistKey: configuration.checklistKey,
         verbatimExtensions: selectedFormat.id === 'DWCA' ? configuration.extensions : [],
-        machineDescription: selectedFormat.id === 'SQL_TSV_ZIP' ? machineDescription : undefined,
-        sql: selectedFormat.id === 'SQL_TSV_ZIP' ? sql : undefined,
+        machineDescription: selectedFormat.id === 'SQL_CUBE' ? machineDescription : undefined,
+        sql: format === 'SQL_TSV_ZIP' ? sql : undefined,
       }),
     })
       .then((response) => {

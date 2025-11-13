@@ -333,9 +333,13 @@
         "title": "Species list",
         "description": "A distinct list of species with occurrence counts."
       },
-      "SQL_TSV_ZIP": {
+      "SQL_CUBE": {
         "title": "Occurrence cube",
         "description": "Gridded occurrence counts by taxonomic, spatial and temporal dimensions. Dimensions and aggregations can be configured in the next step."
+      },
+      "SQL_TSV_ZIP": {
+        "title": "SQL",
+        "description": "Custom SQL query to extract specific data or aggregations. Suitable for advanced users familiar with SQL."
       },
       "features": {
         "singleCsv": "Single CSV file",

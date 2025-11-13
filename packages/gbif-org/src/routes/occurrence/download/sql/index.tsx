@@ -12,7 +12,6 @@ export const occurrenceDownloadSqlRoute: RouteObjectWithPlugins = {
   children: [
     {
       index: true,
-      // element: <OccurrenceDownloadSqlCreate />,
       element: (
         <PageContainer className="g-bg-slate-100">
           <SqlDownloadFlow />

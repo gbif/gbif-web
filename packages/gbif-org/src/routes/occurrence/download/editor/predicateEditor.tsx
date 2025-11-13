@@ -4,7 +4,7 @@ import Editor from './editor';
 import { useCallback, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { validatePredicate } from './validate';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { getOriginalPredicate } from './usePredicate';
 
 //a hook to store content in textarea. per default it should store to url, but if above 1200 characters then use session storage instead
@@ -81,7 +81,7 @@ export default function PredicateEditor({
 
   return (
     <Editor
-      title="Predicate Editor"
+      title={<FormattedMessage id="download.predicateEditor" />}
       documentationUrl="https://techdocs.gbif.org/en/data-use/api-sql-downloads"
       PrettyDisplay={PredicateVisual}
       onContinue={onContinue}
@@ -89,6 +89,7 @@ export default function PredicateEditor({
       setText={setPredicate}
       handleFormat={handleFormat}
       handleValidation={handleValidation}
+      placeholder={formatMessage({ id: 'download.request.placeholder' })}
     />
   );
 }

@@ -6,12 +6,12 @@ export function useSqlGeneration() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const generateAndNavigate = async (cube: CubeDimensions) => {
+  const generateAndNavigate = async (cube: CubeDimensions, predicate?: any, query?: any) => {
     setIsGenerating(true);
     setError(null);
 
     try {
-      const result = await generateCubeSql(cube, undefined);
+      const result = await generateCubeSql(cube, predicate, query);
       const url = result.sql
         ? `/occurrence/download/sql?${new URLSearchParams({ sql: result.sql })}`
         : '/occurrence/download/sql';

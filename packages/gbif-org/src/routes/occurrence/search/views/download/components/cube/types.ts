@@ -21,6 +21,7 @@ export interface CubeDimensionsSelectorProps {
   isExpanded: boolean;
   onToggle: () => void;
   filter?: any;
+  predicate?: any;
   onValidationChange?: (isValid: boolean) => void;
 }
 

@@ -5,7 +5,6 @@ import { sqlDownloadSteps } from './components/stepOptions';
 import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { Skeleton } from '@/components/ui/skeleton';
 import SqlEditor from '@/routes/occurrence/download/editor/sqlEditor';
-import ConfigurationStep from './components/ConfigurationStep';
 
 export function SqlDownloadFlow({
   defaultChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
@@ -18,14 +17,14 @@ export function SqlDownloadFlow({
 
   const handleSqlSelect = (sql: any) => {
     setCurrentStep('TERMS');
-    setConfiguration({ sql });
+    setConfiguration({ sql, checklistKey: defaultChecklist });
   };
 
   return (
     <div className="g-min-h-screen g-py-8">
       <div className="g-max-w-4xl g-mx-auto">
         {/* Step Indicator */}
-        <div className="g-max-w-sm g-mx-auto">
+        <div className="g-max-w-md g-mx-auto">
           <StepIndicator currentStep={currentStep} steps={sqlDownloadSteps} />
         </div>
 
