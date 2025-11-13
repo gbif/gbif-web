@@ -36,8 +36,8 @@
   "loadMore": "もっと読み込む",
   "loading": "読み込み中",
   "noResults": "",
-  "startTyping": "共同出資",
-  "rankInGroup": "共同出資",
+  "startTyping": "行動規範",
+  "rankInGroup": "行動規範",
   "occurrenceClustersView": {
     "about": "・・・について",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "検索",
-    "description": "共同出資",
+    "description": "行動規範",
     "noSearchTermsEntered": "検索文字列が入力されていません。",
-    "placeholder": "共同出資",
+    "placeholder": "行動規範",
     "categories": {
       "speciesSearch": "種",
       "datasetSearch": "データセット",
       "publisherSearch": "出版者",
       "occurrenceSearch": "オカレンス",
-      "resourceSearch": "共同出資"
+      "resourceSearch": "行動規範"
     },
     "seeAll": "すべて表示"
   }
