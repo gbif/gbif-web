@@ -283,7 +283,7 @@
       }
     },
     "germplasmMeasurementTrial": {
-      "name": "",
+      "name": "Germoplasma: Ensayo de medición",
       "properties": {
         "measurementTrailID": "Cofinanciado por",
         "measurementTrailIdentifier": "",
