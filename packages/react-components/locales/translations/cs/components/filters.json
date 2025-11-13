@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "Biostratigrafie",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "lithostratigraphy": {
     "name": "Lithostratigrafie",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "geologicalTime": {
-    "name": "Spolufinancováno",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "name": "Geologický čas",
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "purposes": {
     "name": "Téma",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "GBIF ID",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "organismQuantityType": {
     "name": "Typ množství organismu",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "pathway": {
     "name": "Cesta",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "associatedSequences": {
     "name": "Související sekvence",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "degreeOfEstablishment": {
     "name": "Stupeň zavedení",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "endDayOfYear": {
     "name": "Konečný den roku",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "startDayOfYear": {
     "name": "Počáteční den roku",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "previousIdentifications": {
     "name": "Předchozí identifikace",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "lastInterpreted": {
     "name": "Poslední interpretace",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "alternativeCode": {
     "name": "Alternativní kód",
-    "count": "Spolufinancováno",
+    "count": "DWCA rozšíření",
     "description": ""
   },
   "identifier": {
     "name": "Identifikátor",
-    "count": "Spolufinancováno",
+    "count": "DWCA rozšíření",
     "description": "Zde by měl být uveden krátký popis součásti."
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "",
-    "count": "Spolufinancováno",
+    "count": "DWCA rozšíření",
     "description": ""
   },
   "collectionContentType": {
     "name": "Typ obsahu",
-    "count": "Spolufinancováno",
+    "count": "DWCA rozšíření",
     "description": "Typ objektů dostupných ve sbírce"
   },
   "preservationType": {
     "name": "Typ konzervace",
-    "count": "Spolufinancováno",
+    "count": "DWCA rozšíření",
     "description": "Metoda použitá k uchování předmětů dostupných ve sbírce"
   },
   "biomeType": {
-    "name": "Spolufinancováno",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "name": "DWCA rozšíření",
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "objectClassification": {
-    "name": "Spolufinancováno",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "name": "DWCA rozšíření",
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "taxonKey": {
     "name": "Vědecký název",
@@ -230,11 +230,11 @@
     "description": "Typy problémů nebo příznaků potenciálního zájmu zjištěných při zpracování dat."
   },
   "occurrenceTaxonomicIssue": {
-    "name": "Spolufinancováno",
-    "count": "Spolufinancováno",
-    "isNotNull": "Spolufinancováno",
-    "isNull": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "name": "DWCA rozšíření",
+    "count": "DWCA rozšíření",
+    "isNotNull": "DWCA rozšíření",
+    "isNull": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "occurrenceCountry": {
     "name": "Země nebo oblast",
@@ -251,8 +251,8 @@
   },
   "repatriated": {
     "name": "Repatriováno",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "publishingCountryCode": {
     "name": "Země nebo oblast zveřejnění",
@@ -343,9 +343,9 @@
     "description": "Měřítko minimální vzdálenosti v metrech od souřadnice, v rámci které může být lokalita interpretována."
   },
   "distanceFromCentroidInMeters": {
-    "name": "Spolufinancováno",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "name": "Vzdálenost od geometrického středu v metrech",
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "depth": {
     "name": "Hloubka",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "Pohlaví",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "lifeStage": {
     "name": "Životní fáze",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "recordedBy": {
     "name": "Zaznamenáno od",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "Číslo pole",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "verbatimTaxonId": {
-    "name": "Spolufinancováno",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "name": "Přesné ID taxonu",
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "islandGroup": {
     "name": "Skupina ostrovů",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "island": {
     "name": "Ostrov",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "georeferencedBy": {
     "name": "Georeferencováno podle",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "datasetName": {
     "name": "Název datové sady",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "Program",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "recordNumber": {
     "name": "Číslo záznamu",
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "Region GBIF",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "publishedByGbifRegion": {
     "name": "Publikováno podle GBIF regionu",
-    "count": "Spolufinancováno",
-    "description": "Spolufinancováno"
+    "count": "DWCA rozšíření",
+    "description": "DWCA rozšíření"
   },
   "eventId": {
     "name": "ID události",
@@ -569,7 +569,7 @@
   },
   "isInCluster": {
     "name": "je ve shluku",
-    "count": "Spolufinancováno",
+    "count": "DWCA rozšíření",
     "description": "Zda bylo zjištěno, že záznam obsahuje související záznamy."
   },
   "isSequenced": {
@@ -640,7 +640,7 @@
   },
   "networkKey": {
     "name": "Síť",
-    "count": "Spolufinancováno",
+    "count": "DWCA rozšíření",
     "description": "Zde by měl být uveden krátký popis součásti."
   },
   "literatureType": {
