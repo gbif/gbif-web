@@ -1,12 +1,12 @@
 {
   "dwcaExtension": {
     "name": "لاحقة DWCA",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "locationId": {
     "name": "معرف الموقع",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "hasCoordinate": {
@@ -21,12 +21,12 @@
   },
   "collectionKey": {
     "name": "مجموعة",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "taxonomicStatus": {
     "name": "الحالة",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "taxonRank": {
@@ -36,12 +36,12 @@
   },
   "numberSpecimens": {
     "name": "",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "specimensInGbif": {
     "name": "",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": "أرشيف شروح \"جيبف\""
   },
   "iucnRedListCategory": {
@@ -51,7 +51,7 @@
   },
   "geoDistance": {
     "name": "",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -59,7 +59,7 @@
   },
   "geometry": {
     "name": "موقع",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "geologicalTime": {
-    "name": "تمويل مشترك بواسطة",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "name": "",
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "purposes": {
     "name": "موضوع",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "معرف المرفق العالمي لمعلومات التنوع الحيوي",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "organismQuantityType": {
     "name": "نمط كمية المتعضي",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "pathway": {
     "name": "",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "associatedSequences": {
     "name": "تسلسلات مرتبطة",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "degreeOfEstablishment": {
     "name": "",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "endDayOfYear": {
     "name": "يوم الانتهاء للسنة",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "startDayOfYear": {
     "name": "يوم البدء للسنة",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "previousIdentifications": {
     "name": "تعريفات سابقة",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "lastInterpreted": {
     "name": "آخر تأويل",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "alternativeCode": {
     "name": "أرشيف شروح \"جيبف\"",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "identifier": {
     "name": "المعرِّف",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "أرشيف شروح \"جيبف\"",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "collectionContentType": {
     "name": "أرشيف شروح \"جيبف\"",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": "أرشيف شروح \"جيبف\""
   },
   "preservationType": {
     "name": "أرشيف شروح \"جيبف\"",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": "أرشيف شروح \"جيبف\""
   },
   "biomeType": {
-    "name": "تمويل مشترك بواسطة",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "name": "لاحقة DWCA",
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "objectClassification": {
-    "name": "تمويل مشترك بواسطة",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "name": "لاحقة DWCA",
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "taxonKey": {
     "name": "الاسم العلمي",
@@ -230,11 +230,11 @@
     "description": ""
   },
   "occurrenceTaxonomicIssue": {
-    "name": "تمويل مشترك بواسطة",
-    "count": "تمويل مشترك بواسطة",
-    "isNotNull": "تمويل مشترك بواسطة",
-    "isNull": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "name": "لاحقة DWCA",
+    "count": "لاحقة DWCA",
+    "isNotNull": "لاحقة DWCA",
+    "isNull": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "occurrenceCountry": {
     "name": "بلد",
@@ -246,13 +246,13 @@
   },
   "preparations": {
     "name": "تحضيرات",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": "أرشيف شروح \"جيبف\""
   },
   "repatriated": {
     "name": "عائد الى الوطن",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "publishingCountryCode": {
     "name": "بلد او منطقة النشر",
@@ -339,22 +339,22 @@
   },
   "coordinateUncertainty": {
     "name": "عدم التأكد من الاحداثيات",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "distanceFromCentroidInMeters": {
-    "name": "تمويل مشترك بواسطة",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "name": "",
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "depth": {
     "name": "العمق",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "organismQuantity": {
     "name": "كمية المتعضي",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "sampleSizeValue": {
@@ -364,7 +364,7 @@
   },
   "relativeOrganismQuantity": {
     "name": "كمية الكائن النسبية",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "month": {
@@ -389,43 +389,43 @@
   },
   "sex": {
     "name": "الجندر",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "lifeStage": {
     "name": "مرحلة الحياة",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "recordedBy": {
     "name": "سجلت من قبل",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "fieldNumber": {
     "name": "رقم الحقل",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "verbatimTaxonId": {
-    "name": "تمويل مشترك بواسطة",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "name": "معرف الوحدة التصنيفية الحرفي",
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "islandGroup": {
     "name": "مجموعة الجزر",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "island": {
     "name": "الجزيرة",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "georeferencedBy": {
     "name": "ذو مرجعية جغرافية بواسطة",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "datasetName": {
     "name": "اسم مجموعة البيانات",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "البرنامج",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "recordNumber": {
     "name": "رقم السجل",
@@ -454,22 +454,22 @@
   },
   "recordedById": {
     "name": "تم تسجيله بواسطة المعرف ID",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "identifiedById": {
     "name": " تم تحديده بواسطة المعرف",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "occurrenceId": {
     "name": "معرف التكرار",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "organismId": {
     "name": "معرف الكائن",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "locality": {
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "الجغرافيا العليا",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "stateProvince": {
@@ -494,32 +494,32 @@
   },
   "gbifRegion": {
     "name": "منطقة \"جبيف\"",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "تمويل مشترك بواسطة",
-    "description": "تمويل مشترك بواسطة"
+    "count": "لاحقة DWCA",
+    "description": "لاحقة DWCA"
   },
   "eventId": {
     "name": "معرف الحدث",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "eventID": {
     "name": "معرف الحدث",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "parentEventId": {
     "name": "معرف الحدث الأساسي",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "locationID": {
     "name": "معرف الموقع",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "measurementOrFactTypes": {
@@ -549,12 +549,12 @@
   },
   "samplingProtocol": {
     "name": "بروتوكول اخذ العينات",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "occurrenceStatus": {
     "name": "حالة التكرار",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "gadmGid": {
@@ -564,17 +564,17 @@
   },
   "identifiedBy": {
     "name": "تم تحديده بواسطة",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "isInCluster": {
     "name": "",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": "تسلط هذه الميزة  التجريبية الضوء على التكرارات المحتملة و/أو ذات الصلة"
   },
   "isSequenced": {
     "name": "",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "active": {
@@ -604,48 +604,48 @@
   },
   "datasetType": {
     "name": "نمط مجموعة البيانات",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "datasetSubtype": {
     "name": "",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "institutionKey": {
     "name": "مؤسسة",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "name": {
     "name": "الاسم",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": "أرشيف شروح \"جيبف\"",
     "searchPlaceholder": ""
   },
   "city": {
     "name": "المدينة",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "code": {
     "name": "الرمز",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": "أرشيف شروح \"جيبف\""
   },
   "verbatimScientificName": {
     "name": "الاسم العلمي الحرفي",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "networkKey": {
     "name": "شبكة",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "literatureType": {
     "name": "نمط  المراجع",
-    "count": "تمويل مشترك بواسطة",
+    "count": "لاحقة DWCA",
     "description": ""
   },
   "higherTaxonKey": {
