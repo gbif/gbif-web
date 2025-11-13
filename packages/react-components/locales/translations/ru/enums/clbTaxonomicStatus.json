@@ -1,10 +1,10 @@
 {
   "clbTaxonomicStatus": {
     "accepted": "Валидный",
-    "provisionally_accepted": "Софинансируется",
-    "ambiguous_synonym": "Софинансируется",
+    "provisionally_accepted": "",
+    "ambiguous_synonym": "",
     "synonym": "Синоним",
     "misapplied": "Неправильно примененный",
-    "bare_name": "Софинансируется"
+    "bare_name": ""
   }
 }
