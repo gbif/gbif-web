@@ -91,7 +91,7 @@
     "description": "Cofinanziato da"
   },
   "geologicalTime": {
-    "name": "Cofinanziato da",
+    "name": "",
     "count": "Cofinanziato da",
     "description": "Cofinanziato da"
   },
@@ -343,7 +343,7 @@
     "description": ""
   },
   "distanceFromCentroidInMeters": {
-    "name": "Cofinanziato da",
+    "name": "",
     "count": "Cofinanziato da",
     "description": "Cofinanziato da"
   },
@@ -408,7 +408,7 @@
     "description": "Cofinanziato da"
   },
   "verbatimTaxonId": {
-    "name": "Cofinanziato da",
+    "name": "",
     "count": "Cofinanziato da",
     "description": "Cofinanziato da"
   },
