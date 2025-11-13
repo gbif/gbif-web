@@ -2,11 +2,11 @@
   "gbifNetwork": {
     "participationType": {
       "VOTING": "Samfinansieret af",
-      "ASSOCIATE": "Samfinansieret af",
-      "OTHER_ASSOCIATE": "Samfinansieret af",
+      "ASSOCIATE": "Associeret participant",
+      "OTHER_ASSOCIATE": "",
       "FORMER": "Tidligere",
       "OBSERVER": "Observatør",
-      "UNKNOWN": "Samfinansieret af",
+      "UNKNOWN": "Ukendt",
       "AFFILIATE": ""
     },
     "affiliateHelp": "Samfinansieret af",
