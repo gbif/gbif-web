@@ -36,8 +36,8 @@
   "loadMore": "Meer",
   "loading": "Laden",
   "noResults": "",
-  "startTyping": "Co-Gefinancierd door",
-  "rankInGroup": "Co-Gefinancierd door",
+  "startTyping": "Code of Conduct",
+  "rankInGroup": "Code of Conduct",
   "occurrenceClustersView": {
     "about": "Over",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Zoeken",
-    "description": "Co-Gefinancierd door",
+    "description": "Code of Conduct",
     "noSearchTermsEntered": "",
-    "placeholder": "Co-Gefinancierd door",
+    "placeholder": "Code of Conduct",
     "categories": {
       "speciesSearch": "Soorten",
       "datasetSearch": "Datasets",
       "publisherSearch": "Uitgevers",
       "occurrenceSearch": "",
-      "resourceSearch": "Co-Gefinancierd door"
+      "resourceSearch": "Code of Conduct"
     },
     "seeAll": "Alles weergeven"
   }
