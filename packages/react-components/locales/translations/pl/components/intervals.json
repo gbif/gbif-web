@@ -28,10 +28,10 @@
   "geoTime": {
     "between": "{from} do {to}",
     "lt": "Przed {to}",
-    "lte": "Współfinansowany przez",
+    "lte": "Napisz komentarz - wymagane konto Github",
     "gt": "Po {from}",
-    "gte": "Współfinansowany przez",
-    "e": "Współfinansowany przez"
+    "gte": "Napisz komentarz - wymagane konto Github",
+    "e": "Napisz komentarz - wymagane konto Github"
   },
   "year": {
     "between": "Rok {from} do {to}",
