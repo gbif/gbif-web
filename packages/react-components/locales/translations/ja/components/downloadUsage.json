@@ -8,13 +8,13 @@
             "authors": "著者",
             "authorsPlaceholder": "出版物/成果物の著者",
             "link": "",
-            "linkPlaceholder": "共同出資",
+            "linkPlaceholder": "データ利用した出版物/成果物のタイトル/名前",
             "date": "日付",
             "comments": "コメント",
-            "commentsPlaceholder": "共同出資",
+            "commentsPlaceholder": "データ利用した出版物/成果物のタイトル/名前",
             "submit": "送信",
             "saveFailure": "",
-            "saveSuccess": "共同出資"
+            "saveSuccess": "データ利用した出版物/成果物のタイトル/名前"
         },
         "types": {
             "JOURNAL_ARTICLE": "",
