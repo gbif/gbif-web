@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import StepIndicator from './components/StepIndicator';
 import FormatSelection from './components/FormatSelection';
 import ConfigurationStep from './components/ConfigurationStep';
@@ -8,18 +8,21 @@ import { predicateDownloadSteps } from './components/stepOptions';
 import { StaticRenderSuspence } from '@/components/staticRenderSuspence';
 import { Skeleton } from '@/components/ui/skeleton';
 import PredicateEditor from '@/routes/occurrence/download/editor/predicateEditor';
+import { readAndClearFlashCookie } from '@/routes/user/shared/flashCookieUtils';
 
 export function PredicateDownloadFlow({
   defaultChecklist = import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY,
 }: {
   defaultChecklist?: string;
 }) {
+  const [source, setSource] = useState<string | null>(null);
   const [currentStep, setCurrentStep] = useState<'PREDICATE' | 'FORMAT' | 'CONFIGURE' | 'TERMS'>(
     'PREDICATE'
   );
   const [selectedFormat, setSelectedFormat] = useState(null);
   const [configuration, setConfiguration] = useState(null);
   const [predicate, setPredicate] = useState<string | undefined>(undefined);
+
   const {
     total,
     loading,
@@ -28,6 +31,13 @@ export function PredicateDownloadFlow({
   } = usePredicateInformation({
     predicate: currentStep !== 'PREDICATE' ? predicate : undefined,
   });
+
+  useEffect(() => {
+    const cookieContent = readAndClearFlashCookie('refererSource');
+    if (cookieContent) {
+      setSource(cookieContent || null);
+    }
+  }, [source]);
 
   const handleFilterSelect = (predicate: string) => {
     setPredicate(predicate);
@@ -88,6 +98,7 @@ export function PredicateDownloadFlow({
             predicate={normalizedPredicate}
             totalRecords={total}
             onBack={() => setCurrentStep('CONFIGURE')}
+            source={source}
           />
         )}
       </div>

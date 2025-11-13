@@ -16,6 +16,7 @@ interface TermsStepProps {
   configuration: any;
   totalRecords?: number;
   onBack: () => void;
+  source?: string | null;
 }
 
 type AcceptedTerm = 'dataUse' | 'largeDownload';
@@ -60,6 +61,7 @@ export default function TermsStep({
   configuration,
   totalRecords,
   onBack,
+  source,
 }: TermsStepProps) {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -104,8 +106,9 @@ export default function TermsStep({
       sql = result.sql;
       machineDescription = result.machineDescription;
     }
+    debugger;
     const format = selectedFormat.downloadFormat ?? selectedFormat.id;
-    fetch('/api/user/download/predicate', {
+    fetch('/api/user/download/predicate?source=' + encodeURIComponent(source ?? ''), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -135,7 +138,7 @@ export default function TermsStep({
       .finally(() => {
         setPreparingDownload(false);
       });
-  }, [configuration, predicate, selectedFormat, intl, navigate, localizeLink]);
+  }, [configuration, predicate, selectedFormat, intl, navigate, localizeLink, source]);
 
   const handleTermChange = (term: AcceptedTerm) => {
     setAcceptedTerms((prev) => ({

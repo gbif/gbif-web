@@ -37,6 +37,18 @@ export default function PredicateEditor({
   const [predicate, setPredicate] = useTextAreaContent('predicate');
   const { formatMessage } = useIntl();
 
+  // wrap this so it doesn't fail on server side rendering
+  const referrer = typeof document !== 'undefined' ? document.referrer : '';
+  let source = searchParams.get('source');
+  try {
+    const referrerUrl = new URL(referrer);
+    // if source name undefined, then overwrite with referrer hostname
+    source = referrerUrl.hostname ?? source;
+  } catch (e) {
+    // ignore invalid referrer url
+  }
+  sessionStorage.setItem('downloadSource', source ?? 'unknown');
+
   useEffect(() => {
     if (predicate || !searchParams.get('queryId')) return;
     const controller = new AbortController();

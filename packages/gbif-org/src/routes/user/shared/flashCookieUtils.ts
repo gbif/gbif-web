@@ -12,7 +12,7 @@ export interface FlashInfo {
  * @param cookieName - The name of the cookie to read
  * @returns The parsed flash info object or null if cookie doesn't exist or can't be parsed
  */
-export function readAndClearFlashCookie(cookieName: string): FlashInfo | null {
+export function readAndClearFlashCookie(cookieName: string): string | null {
   if (typeof document === 'undefined') return null;
 
   const cookieValue = document.cookie
@@ -23,8 +23,7 @@ export function readAndClearFlashCookie(cookieName: string): FlashInfo | null {
   if (!cookieValue) return null;
 
   try {
-    const decoded = decodeURIComponent(cookieValue);
-    const flashInfo = JSON.parse(decoded);
+    const flashInfo = decodeURIComponent(cookieValue);
 
     // Clear the cookie after reading
     document.cookie = `${cookieName}=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT`;
@@ -37,16 +36,27 @@ export function readAndClearFlashCookie(cookieName: string): FlashInfo | null {
   }
 }
 
+export function readAndClearAuthFlashCookie(cookieName: string): FlashInfo | null {
+  const stringCookie = readAndClearFlashCookie(cookieName);
+  if (!stringCookie) return null;
+
+  try {
+    return JSON.parse(stringCookie);
+  } catch (e) {
+    return null;
+  }
+}
+
 /**
  * Reads and clears the login flash cookie specifically
  */
 export function readLoginFlashInfo(): FlashInfo | null {
-  return readAndClearFlashCookie('loginFlashInfo');
+  return readAndClearAuthFlashCookie('loginFlashInfo');
 }
 
 /**
  * Reads and clears the profile flash cookie specifically
  */
 export function readProfileFlashInfo(): FlashInfo | null {
-  return readAndClearFlashCookie('profileFlashInfo');
+  return readAndClearAuthFlashCookie('profileFlashInfo');
 }
