@@ -9,7 +9,7 @@
     "recordsByKingdom": "",
     "animaliaByBasisOfRecordText": "Samfinansieret af",
     "recordsForAnimalia": "",
-    "plantaeByBasisOfRecordText": "Samfinansieret af",
+    "plantaeByBasisOfRecordText": "",
     "recordsForPlantae": "",
     "theseChartsIllustrate2": "",
     "speciesCounts": "",
@@ -23,7 +23,7 @@
     "numSpeciesAssociatedWithObsRecords": "",
     "timeAndSeasonality": "",
     "theseChartsIllustrate3": "",
-    "speciesCountsAreBasedOnTheNumberOfBinomialScientificNames": "Samfinansieret af",
+    "speciesCountsAreBasedOnTheNumberOfBinomialScientificNames": "",
     "recordsByYearOfOccurrence": "",
     "theNumberOfOccurrenceRecordsAvailable": "",
     "speciesByYearOfOccurrence": "",
@@ -34,7 +34,7 @@
     "speciesForWhichRecordsAreAvailableForEachDayOfTheYear": "",
     "note": "",
     "theseChartsMayRevealPatternsThatRepresentBiasesInDataCollection": "",
-    "byGeneratingTheseChartsAnIssueWasDetected": "Samfinansieret af",
+    "byGeneratingTheseChartsAnIssueWasDetected": "",
     "completenessAndPrecision": "",
     "theseChartsIllustrate4": "",
     "aRecordIsHereDefinedToBeCompleteIfItIncludes": "",
@@ -71,7 +71,7 @@
       "fromDescription": "Samfinansieret af",
       "publishedByDescription": "Samfinansieret af"
     },
-    "analyticsGlobalDescription": "Samfinansieret af",
+    "analyticsGlobalDescription": "",
     "analyticsTitle": ""
   }
 }
