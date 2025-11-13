@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "Co finanziert von",
-      "ASSOCIATE": "Co finanziert von",
-      "OTHER_ASSOCIATE": "Co finanziert von",
+      "VOTING": "DWCA-Erweiterung",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
       "FORMER": "",
       "OBSERVER": "",
-      "UNKNOWN": "Co finanziert von",
+      "UNKNOWN": "Unbekannt",
       "AFFILIATE": ""
     },
-    "affiliateHelp": "Co finanziert von",
-    "mapCaptionPublishers": "Co finanziert von",
+    "affiliateHelp": "DWCA-Erweiterung",
+    "mapCaptionPublishers": "DWCA-Erweiterung",
     "role": "",
     "name": "",
     "participant": "",
     "type": "",
     "memberSince": "Mitglied seit",
     "all": "",
-    "countryParticipants": "Co finanziert von",
-    "publishersPerCountry": "Co finanziert von",
+    "countryParticipants": "DWCA-Erweiterung",
+    "publishersPerCountry": "DWCA-Erweiterung",
     "clear": "",
     "headlines": {
       "nodesSteeringGroup": "",
