@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "Współfinansowany przez",
-      "ASSOCIATE": "Współfinansowany przez",
-      "OTHER_ASSOCIATE": "Współfinansowany przez",
+      "VOTING": "Kodeks postępowania",
+      "ASSOCIATE": "Stowarzyszony członek",
+      "OTHER_ASSOCIATE": "Inny stowarzyszony członek",
       "FORMER": "Były",
       "OBSERVER": "Obserwator",
-      "UNKNOWN": "Współfinansowany przez",
+      "UNKNOWN": "Nieznane",
       "AFFILIATE": "Afiliowany przy GBIF"
     },
-    "affiliateHelp": "Współfinansowany przez",
-    "mapCaptionPublishers": "Współfinansowany przez",
+    "affiliateHelp": "Kodeks postępowania",
+    "mapCaptionPublishers": "Kodeks postępowania",
     "role": "Funkcja",
     "name": "Nazwa",
     "participant": "Członek",
     "type": "Typ",
     "memberSince": "Członek od",
     "all": "Wszystko",
-    "countryParticipants": "Współfinansowany przez",
-    "publishersPerCountry": "Współfinansowany przez",
+    "countryParticipants": "Kodeks postępowania",
+    "publishersPerCountry": "Kodeks postępowania",
     "clear": "Wyczyść",
     "headlines": {
       "nodesSteeringGroup": "Komisja Sterująca Węzłów",
