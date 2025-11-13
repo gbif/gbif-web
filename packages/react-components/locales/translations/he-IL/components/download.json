@@ -8,18 +8,18 @@
   "continueToGBIF": "המשך",
   "sql": {
     "createNewSqlDownload": "צור הורדת SQL חדשה",
-    "placeholder": "מומן במשותף על ידי",
-    "noSql": "מומן במשותף על ידי",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "הערה",
       "description": "הדרך הקלה ביותר להוריד ולחקור נתונים היא דרך ממשק חיפוש התצפיות. לשאילתות וחישובים מורכבים, עורך ה־SQL מספק יותר חופש.",
-      "goToOccurrenceSearch": "מומן במשותף על ידי"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "SQL לא תקין",
-      "network-error": "מומן במשותף על ידי",
-      "parsingErrorDescription": "מומן במשותף על ידי",
-      "networkErrorDescription": "מומן במשותף על ידי"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
   "create": "",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "מומן במשותף על ידי",
-    "noPredicate": "מומן במשותף על ידי",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "מומן במשותף על ידי",
-      "faild-to-load-predicate": "מומן במשותף על ידי",
-      "unexpectedError": "מומן במשותף על ידי",
-      "failedToParseJSON": "מומן במשותף על ידי",
-      "failedToVisualizePredicate": "מומן במשותף על ידי"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "",
-    "chooseChecklist": "מומן במשותף על ידי",
-    "chooseChecklistDescription": "מומן במשותף על ידי",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": ""
     },
     "fileFormats": {
-      "tabCsv": "מומן במשותף על ידי"
+      "tabCsv": ""
     },
     "tableValues": {
-      "ifAvailable": "מומן במשותף על ידי",
-      "ifSelected": "מומן במשותף על ידי",
-      "links": "מומן במשותף על ידי"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }
