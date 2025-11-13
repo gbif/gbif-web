@@ -28,10 +28,10 @@
   "geoTime": {
     "between": "{from} bis {to}",
     "lt": "Vor {to}",
-    "lte": "Co finanziert von",
+    "lte": "DWCA-Erweiterung",
     "gt": "Nach {from}",
-    "gte": "Co finanziert von",
-    "e": "Co finanziert von"
+    "gte": "DWCA-Erweiterung",
+    "e": "DWCA-Erweiterung"
   },
   "year": {
     "between": "Jahr {from} bis {to}",
