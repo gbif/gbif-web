@@ -8,18 +8,18 @@
   "continueToGBIF": "Weiter",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "Co finanziert von",
-    "noSql": "Co finanziert von",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "",
       "description": "",
-      "goToOccurrenceSearch": "Co finanziert von"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "Co finanziert von",
-      "parsingErrorDescription": "Co finanziert von",
-      "networkErrorDescription": "Co finanziert von"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
   "create": "",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "Co finanziert von",
-    "noPredicate": "Co finanziert von",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "Co finanziert von",
-      "faild-to-load-predicate": "Co finanziert von",
-      "unexpectedError": "Co finanziert von",
-      "failedToParseJSON": "Co finanziert von",
-      "failedToVisualizePredicate": "Co finanziert von"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "",
-    "chooseChecklist": "Co finanziert von",
-    "chooseChecklistDescription": "Co finanziert von",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": ""
     },
     "fileFormats": {
-      "tabCsv": "Co finanziert von"
+      "tabCsv": ""
     },
     "tableValues": {
-      "ifAvailable": "Co finanziert von",
-      "ifSelected": "Co finanziert von",
-      "links": "Co finanziert von"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }
