@@ -2,11 +2,11 @@
   "title": "Directory",
   "group": {
     "executiveCommittee": {
-      "title": "",
+      "title": "Executive Committee",
       "description": "The Executive Committee operates on behalf of the Governing Board when the Board is not in session and within the areas of responsibility delegated to it by the Governing Board. Among its functions are monitoring of the performance of the Secretariat in carrying out the decisions taken by the Governing Board including implementation of the Strategic Plan and the Work Programme, and management of the budget."
     },
     "scienceCommittee": {
-      "title": "",
+      "title": "Science Committee",
       "description": "The GBIF Science Committee is an advisory committee that oversees the development and progress of the GBIF work programme and makes recommendations to the Governing Board, the Executive Committee and the Secretariat. You can read its terms of reference [here.](/document/80877/current-terms-of-reference-for-the-science-committee)"
     },
     "budgetCommittee": {
