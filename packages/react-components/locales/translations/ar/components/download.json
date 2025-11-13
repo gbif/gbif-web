@@ -8,18 +8,18 @@
   "continueToGBIF": "متابعة",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "تمويل مشترك بواسطة",
-    "noSql": "تمويل مشترك بواسطة",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "مذكرة",
       "description": "",
-      "goToOccurrenceSearch": "تمويل مشترك بواسطة"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "تمويل مشترك بواسطة",
-      "parsingErrorDescription": "تمويل مشترك بواسطة",
-      "networkErrorDescription": "تمويل مشترك بواسطة"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
   "create": "",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "تمويل مشترك بواسطة",
-    "noPredicate": "تمويل مشترك بواسطة",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "المُرشِح الحالي",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "تمويل مشترك بواسطة",
-      "faild-to-load-predicate": "تمويل مشترك بواسطة",
-      "unexpectedError": "تمويل مشترك بواسطة",
-      "failedToParseJSON": "تمويل مشترك بواسطة",
-      "failedToVisualizePredicate": "تمويل مشترك بواسطة"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "خيارات التنزيل",
-    "chooseChecklist": "تمويل مشترك بواسطة",
-    "chooseChecklistDescription": "تمويل مشترك بواسطة",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "بيانات أولية",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": ""
     },
     "fileFormats": {
-      "tabCsv": "تمويل مشترك بواسطة"
+      "tabCsv": ""
     },
     "tableValues": {
-      "ifAvailable": "تمويل مشترك بواسطة",
-      "ifSelected": "تمويل مشترك بواسطة",
-      "links": "تمويل مشترك بواسطة"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }
