@@ -91,7 +91,7 @@
     "description": "Co-Gefinancierd door"
   },
   "geologicalTime": {
-    "name": "Co-Gefinancierd door",
+    "name": "",
     "count": "Co-Gefinancierd door",
     "description": "Co-Gefinancierd door"
   },
@@ -343,7 +343,7 @@
     "description": "De minimumafstand in meters van een coördinaat waarbinnen de vindplaats ligt."
   },
   "distanceFromCentroidInMeters": {
-    "name": "Co-Gefinancierd door",
+    "name": "",
     "count": "Co-Gefinancierd door",
     "description": "Co-Gefinancierd door"
   },
@@ -408,7 +408,7 @@
     "description": "Co-Gefinancierd door"
   },
   "verbatimTaxonId": {
-    "name": "Co-Gefinancierd door",
+    "name": "",
     "count": "Co-Gefinancierd door",
     "description": "Co-Gefinancierd door"
   },
