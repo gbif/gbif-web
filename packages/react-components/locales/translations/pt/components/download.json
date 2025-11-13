@@ -8,18 +8,18 @@
   "continueToGBIF": "Continuar",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "Co-financiado por",
-    "noSql": "Co-financiado por",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "Nota",
       "description": "",
-      "goToOccurrenceSearch": "Co-financiado por"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "Co-financiado por",
-      "parsingErrorDescription": "Co-financiado por",
-      "networkErrorDescription": "Co-financiado por"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
   "create": "",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "Co-financiado por",
-    "noPredicate": "Co-financiado por",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "Filtro atual",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "Co-financiado por",
-      "faild-to-load-predicate": "Co-financiado por",
-      "unexpectedError": "Co-financiado por",
-      "failedToParseJSON": "Co-financiado por",
-      "failedToVisualizePredicate": "Co-financiado por"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "Opções de transferência",
-    "chooseChecklist": "Co-financiado por",
-    "chooseChecklistDescription": "Co-financiado por",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "Dados brutos",
       "interpretedData": "Dados interpretados",
@@ -57,12 +57,12 @@
       "estimatedSize": "Tamanho estimado dos dados"
     },
     "fileFormats": {
-      "tabCsv": "Co-financiado por"
+      "tabCsv": "CSV delimitado por tabulador"
     },
     "tableValues": {
-      "ifAvailable": "Co-financiado por",
-      "ifSelected": "Co-financiado por",
-      "links": "Co-financiado por"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }
