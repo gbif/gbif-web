@@ -8,18 +8,18 @@
   "continueToGBIF": "Продовжити",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "Фінансується спільно",
-    "noSql": "Фінансується спільно",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "Примітка",
       "description": "",
-      "goToOccurrenceSearch": "Фінансується спільно"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "Фінансується спільно",
-      "parsingErrorDescription": "Фінансується спільно",
-      "networkErrorDescription": "Фінансується спільно"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
   "create": "",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "Фінансується спільно",
-    "noPredicate": "Фінансується спільно",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "Поточний фільтр",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "Фінансується спільно",
-      "faild-to-load-predicate": "Фінансується спільно",
-      "unexpectedError": "Фінансується спільно",
-      "failedToParseJSON": "Фінансується спільно",
-      "failedToVisualizePredicate": "Фінансується спільно"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "Варіанти завантаження",
-    "chooseChecklist": "Фінансується спільно",
-    "chooseChecklistDescription": "Фінансується спільно",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "Первинні дані",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": ""
     },
     "fileFormats": {
-      "tabCsv": "Фінансується спільно"
+      "tabCsv": ""
     },
     "tableValues": {
-      "ifAvailable": "Фінансується спільно",
-      "ifSelected": "Фінансується спільно",
-      "links": "Фінансується спільно"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }
