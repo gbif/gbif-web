@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "Co Finanzierung",
-      "ASSOCIATE": "Co Finanzierung",
-      "OTHER_ASSOCIATE": "Co Finanzierung",
+      "VOTING": "DWCA-Erweiterung",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
       "FORMER": "",
       "OBSERVER": "",
-      "UNKNOWN": "Co Finanzierung",
+      "UNKNOWN": "Unbekannt",
       "AFFILIATE": ""
     },
-    "affiliateHelp": "Co Finanzierung",
-    "mapCaptionPublishers": "Co Finanzierung",
+    "affiliateHelp": "DWCA-Erweiterung",
+    "mapCaptionPublishers": "DWCA-Erweiterung",
     "role": "",
     "name": "",
     "participant": "",
     "type": "",
     "memberSince": "Mitglied seit",
     "all": "",
-    "countryParticipants": "Co Finanzierung",
-    "publishersPerCountry": "Co Finanzierung",
+    "countryParticipants": "DWCA-Erweiterung",
+    "publishersPerCountry": "DWCA-Erweiterung",
     "clear": "",
     "headlines": {
       "nodesSteeringGroup": "",

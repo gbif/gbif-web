@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "Biostratigraphy",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "lithostratigraphy": {
     "name": "Lithostratigraphy",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "geologicalTime": {
-    "name": "מימון משותף",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "name": "Geological time",
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "purposes": {
     "name": "נושא",
@@ -107,48 +107,48 @@
   },
   "gbifId": {
     "name": "מזהה GBIF",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "organismQuantityType": {
     "name": "Organism quantity type",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "pathway": {
     "name": "ניתוב",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "associatedSequences": {
     "name": "Associated sequences",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "degreeOfEstablishment": {
     "name": "Degree of establishment",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "endDayOfYear": {
     "name": "יום הסיום בשנה",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "startDayOfYear": {
     "name": "Start day of year",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "previousIdentifications": {
     "name": "Previous identifications",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "lastInterpreted": {
     "name": "Last interpreted",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "alternativeCode": {
     "name": "Alternative code",
@@ -181,14 +181,14 @@
     "description": "The method used to preserve the objects available in the collection"
   },
   "biomeType": {
-    "name": "מימון משותף",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "name": "הרחבת DWCA",
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "objectClassification": {
-    "name": "מימון משותף",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "name": "הרחבת DWCA",
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "taxonKey": {
     "name": "שם מדעי",
@@ -230,11 +230,11 @@
     "description": "The types of issues or flags of potential interest discovered in processing the data."
   },
   "occurrenceTaxonomicIssue": {
-    "name": "מימון משותף",
-    "count": "מימון משותף",
-    "isNotNull": "מימון משותף",
-    "isNull": "מימון משותף",
-    "description": "מימון משותף"
+    "name": "הרחבת DWCA",
+    "count": "הרחבת DWCA",
+    "isNotNull": "הרחבת DWCA",
+    "isNull": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "occurrenceCountry": {
     "name": "ארץ או אזור",
@@ -251,8 +251,8 @@
   },
   "repatriated": {
     "name": "Repatriated",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "publishingCountryCode": {
     "name": "Publishing country or area",
@@ -343,9 +343,9 @@
     "description": "A measure of the minimum distance in metres from a coordinate within which a locality might be interpreted to be."
   },
   "distanceFromCentroidInMeters": {
-    "name": "מימון משותף",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "name": "",
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "depth": {
     "name": "עומק",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "מין",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "lifeStage": {
     "name": "שלב חיים",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "recordedBy": {
     "name": "נרשם על ידי",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "מספר השדה",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "verbatimTaxonId": {
-    "name": "מימון משותף",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "name": "",
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "islandGroup": {
     "name": "קבוצת איים",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "island": {
     "name": "אי",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "georeferencedBy": {
     "name": "תויג גאוגרפית על ידי",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "datasetName": {
     "name": "dwc:מסד נתוניםName",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "תכנית",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "recordNumber": {
     "name": "מספר רשומה",
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "אזור GBIF",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "publishedByGbifRegion": {
     "name": "Published by GBIF region",
-    "count": "מימון משותף",
-    "description": "מימון משותף"
+    "count": "הרחבת DWCA",
+    "description": "הרחבת DWCA"
   },
   "eventId": {
     "name": "מזהה אירוע",
@@ -569,7 +569,7 @@
   },
   "isInCluster": {
     "name": "Has related records",
-    "count": "מימון משותף",
+    "count": "הרחבת DWCA",
     "description": "This experimental feature highlights possible duplicate and/or related תצפיתs."
   },
   "isSequenced": {

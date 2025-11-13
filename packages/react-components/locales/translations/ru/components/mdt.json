@@ -1,4 +1,5 @@
 {
+  "successMessage": "Идентификатор, управляемый поставщиком",
   "description": "Описание",
   "descriptionLabel": "Description",
   "typeOfApplication": "Тип приложения",

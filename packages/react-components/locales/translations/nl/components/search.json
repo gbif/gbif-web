@@ -36,8 +36,8 @@
   "loadMore": "Meer",
   "loading": "Laden",
   "noResults": "",
-  "startTyping": "Cofinanciering",
-  "rankInGroup": "Cofinanciering",
+  "startTyping": "Code of Conduct",
+  "rankInGroup": "Code of Conduct",
   "occurrenceClustersView": {
     "about": "Over",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Zoeken",
-    "description": "Cofinanciering",
+    "description": "Code of Conduct",
     "noSearchTermsEntered": "",
-    "placeholder": "Cofinanciering",
+    "placeholder": "Code of Conduct",
     "categories": {
       "speciesSearch": "Soorten",
       "datasetSearch": "Datasets",
       "publisherSearch": "Uitgevers",
       "occurrenceSearch": "",
-      "resourceSearch": "Cofinanciering"
+      "resourceSearch": "Code of Conduct"
     },
     "seeAll": "Alles weergeven"
   }

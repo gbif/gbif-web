@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "Cofinanziamento",
-      "ASSOCIATE": "Cofinanziamento",
-      "OTHER_ASSOCIATE": "Cofinanziamento",
+      "VOTING": "Codice di Condotta",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
       "FORMER": "",
       "OBSERVER": "",
-      "UNKNOWN": "Cofinanziamento",
+      "UNKNOWN": "",
       "AFFILIATE": ""
     },
-    "affiliateHelp": "Cofinanziamento",
-    "mapCaptionPublishers": "Cofinanziamento",
+    "affiliateHelp": "Codice di Condotta",
+    "mapCaptionPublishers": "Codice di Condotta",
     "role": "",
     "name": "",
     "participant": "",
     "type": "",
     "memberSince": "",
     "all": "",
-    "countryParticipants": "Cofinanziamento",
-    "publishersPerCountry": "Cofinanziamento",
+    "countryParticipants": "Codice di Condotta",
+    "publishersPerCountry": "Codice di Condotta",
     "clear": "",
     "headlines": {
       "nodesSteeringGroup": "",

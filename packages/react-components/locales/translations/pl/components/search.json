@@ -36,8 +36,8 @@
   "loadMore": "Więcej",
   "loading": "Ładowanie",
   "noResults": "",
-  "startTyping": "Współfinansowanie",
-  "rankInGroup": "Współfinansowanie",
+  "startTyping": "Identyfikator zarządzany przez dostawcę",
+  "rankInGroup": "Identyfikator zarządzany przez dostawcę",
   "occurrenceClustersView": {
     "about": "Informacje",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Wyszukaj",
-    "description": "Współfinansowanie",
+    "description": "Identyfikator zarządzany przez dostawcę",
     "noSearchTermsEntered": "Nie wpisano terminów wyszukiwania",
-    "placeholder": "Współfinansowanie",
+    "placeholder": "Identyfikator zarządzany przez dostawcę",
     "categories": {
       "speciesSearch": "Gatunek\n",
       "datasetSearch": "Zbiory danych",
       "publisherSearch": "Wydawcy",
       "occurrenceSearch": "Wystąpienia",
-      "resourceSearch": "Współfinansowanie"
+      "resourceSearch": "Identyfikator zarządzany przez dostawcę"
     },
     "seeAll": "Zobacz wszystko"
   }

@@ -31,7 +31,7 @@
   "constituentOf": "חלק מ־",
   "dataset": "מסד נתונים",
   "taxonomy": "טקסונומיה",
-  "localContexts": "מימון משותף",
+  "localContexts": "מומן במשותף על ידי",
   "project": "פרויקט",
   "metrics": "מדדים",
   "metricsOccurrenceHelpText": "המדדים מבוססים על נתונים מפוענחים",
@@ -150,8 +150,8 @@
     "registrationDetails": "פרטי רישום GBIF"
   },
   "errors": {
-    "evenList": "מימון משותף",
-    "occurrenceInfo": "מימון משותף"
+    "evenList": "מומן במשותף על ידי",
+    "occurrenceInfo": "מומן במשותף על ידי"
   },
   "eventTaxonomy": "התפלגות טקסונומית של תצפיות"
 }

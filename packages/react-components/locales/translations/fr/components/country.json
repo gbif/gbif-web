@@ -8,7 +8,7 @@
       "publicationsFrom": "Publications de",
       "publicationsAbout": "Publications à propos de",
       "news": "Actualités",
-      "alienSpecies": "Co-financement",
+      "alienSpecies": "Co-financé par",
       "projects": "Projets"
     },
     "country": "Pays",
@@ -21,8 +21,8 @@
     "noProjects": "Aucun projet",
     "notParticipant": "Pas un participant",
     "notParticipantDescription": "Ce pays n’est pas un participant du GBIF",
-    "countryNamingDisclaimer": "Co-financement",
-    "isoStandardLinkText": "Co-financement",
+    "countryNamingDisclaimer": "Co-financé par",
+    "isoStandardLinkText": "Co-financé par",
     "counts": {
       "occurrences": "Occurrences",
       "datasets": "Jeux de données",

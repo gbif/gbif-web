@@ -8,21 +8,21 @@
   "continueToGBIF": "متابعة",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "التمويل المشترك",
-    "noSql": "التمويل المشترك",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "مذكرة",
       "description": "",
-      "goToOccurrenceSearch": "التمويل المشترك"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "التمويل المشترك",
-      "parsingErrorDescription": "التمويل المشترك",
-      "networkErrorDescription": "التمويل المشترك"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
-  "create": "التمويل المشترك",
+  "create": "",
   "about": "حول",
   "stopEditing": "إيقاف التحرير",
   "startEditing": "البدء في التحرير",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "التمويل المشترك",
-    "noPredicate": "التمويل المشترك",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "المُرشِح الحالي",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "التمويل المشترك",
-      "faild-to-load-predicate": "التمويل المشترك",
-      "unexpectedError": "التمويل المشترك",
-      "failedToParseJSON": "التمويل المشترك",
-      "failedToVisualizePredicate": "التمويل المشترك"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "خيارات التنزيل",
-    "chooseChecklist": "التمويل المشترك",
-    "chooseChecklistDescription": "التمويل المشترك",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "بيانات أولية",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": ""
     },
     "fileFormats": {
-      "tabCsv": "التمويل المشترك"
+      "tabCsv": ""
     },
     "tableValues": {
-      "ifAvailable": "التمويل المشترك",
-      "ifSelected": "التمويل المشترك",
-      "links": "التمويل المشترك"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }

@@ -31,7 +31,7 @@
   "constituentOf": "",
   "dataset": "",
   "taxonomy": "",
-  "localContexts": "Cofinanziamento",
+  "localContexts": "Cofinanziato da",
   "project": "",
   "metrics": "",
   "metricsOccurrenceHelpText": "",
@@ -150,8 +150,8 @@
     "registrationDetails": ""
   },
   "errors": {
-    "evenList": "Cofinanziamento",
-    "occurrenceInfo": "Cofinanziamento"
+    "evenList": "Cofinanziato da",
+    "occurrenceInfo": "Cofinanziato da"
   },
   "eventTaxonomy": ""
 }

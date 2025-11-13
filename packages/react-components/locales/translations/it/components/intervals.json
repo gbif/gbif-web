@@ -28,10 +28,10 @@
   "geoTime": {
     "between": "",
     "lt": "",
-    "lte": "Cofinanziamento",
+    "lte": "Codice di Condotta",
     "gt": "",
-    "gte": "Cofinanziamento",
-    "e": "Cofinanziamento"
+    "gte": "Codice di Condotta",
+    "e": "Codice di Condotta"
   },
   "year": {
     "between": "",

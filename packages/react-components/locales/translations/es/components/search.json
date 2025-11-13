@@ -36,8 +36,8 @@
   "loadMore": "Más",
   "loading": "Cargando",
   "noResults": "Sin resultados",
-  "startTyping": "Co-financiamiento",
-  "rankInGroup": "Co-financiamiento",
+  "startTyping": "ID administrado por el proveedor",
+  "rankInGroup": "ID administrado por el proveedor",
   "occurrenceClustersView": {
     "about": "Acerca de",
     "clusters": "Relacionado",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Buscar",
-    "description": "Co-financiamiento",
+    "description": "ID administrado por el proveedor",
     "noSearchTermsEntered": "No se ha introducido el término a buscar",
-    "placeholder": "Co-financiamiento",
+    "placeholder": "ID administrado por el proveedor",
     "categories": {
       "speciesSearch": "Especies",
       "datasetSearch": "Conjuntos de datos",
       "publisherSearch": "Publicadores",
       "occurrenceSearch": "Registros de presencia",
-      "resourceSearch": "Co-financiamiento"
+      "resourceSearch": "ID administrado por el proveedor"
     },
     "seeAll": "Ver todo"
   }

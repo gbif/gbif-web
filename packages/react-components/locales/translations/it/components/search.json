@@ -36,8 +36,8 @@
   "loadMore": "Altro",
   "loading": "",
   "noResults": "",
-  "startTyping": "Cofinanziamento",
-  "rankInGroup": "Cofinanziamento",
+  "startTyping": "Codice di Condotta",
+  "rankInGroup": "Codice di Condotta",
   "occurrenceClustersView": {
     "about": "Informazioni",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "",
-    "description": "Cofinanziamento",
+    "description": "Codice di Condotta",
     "noSearchTermsEntered": "",
-    "placeholder": "Cofinanziamento",
+    "placeholder": "Codice di Condotta",
     "categories": {
       "speciesSearch": "",
       "datasetSearch": "",
       "publisherSearch": "",
       "occurrenceSearch": "",
-      "resourceSearch": "Cofinanziamento"
+      "resourceSearch": "Codice di Condotta"
     },
     "seeAll": ""
   }

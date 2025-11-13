@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "共同資助",
-      "ASSOCIATE": "共同資助",
-      "OTHER_ASSOCIATE": "共同資助",
+      "VOTING": "行為準則",
+      "ASSOCIATE": "副會員",
+      "OTHER_ASSOCIATE": "其他副會員",
       "FORMER": "前會員",
       "OBSERVER": "觀察員",
-      "UNKNOWN": "共同資助",
+      "UNKNOWN": "未知",
       "AFFILIATE": "GBIF 附屬機構"
     },
-    "affiliateHelp": "共同資助",
-    "mapCaptionPublishers": "共同資助",
+    "affiliateHelp": "行為準則",
+    "mapCaptionPublishers": "行為準則",
     "role": "角色",
     "name": "名稱",
     "participant": "會員",
     "type": "類型",
     "memberSince": "會員始自",
     "all": "全選",
-    "countryParticipants": "共同資助",
-    "publishersPerCountry": "共同資助",
+    "countryParticipants": "行為準則",
+    "publishersPerCountry": "行為準則",
     "clear": "清除",
     "headlines": {
       "nodesSteeringGroup": "節點指導組",

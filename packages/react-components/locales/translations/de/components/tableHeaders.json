@@ -1,13 +1,13 @@
 {
   "features": "Eigenschaften",
   "options": {
-    "includeAuthorship": "Co Finanzierung"
+    "includeAuthorship": "DWCA-Erweiterung"
   },
   "citations": "Zitierungen",
   "occurrences": "Occurrences",
   "numberSpecimens": "Anzahl der Sammlungsobjekte",
   "gbifNumberSpecimens": "Belege in GBIF",
-  "specimenTriplet": "Co Finanzierung",
+  "specimenTriplet": "DWCA-Erweiterung",
   "title": "Titel",
   "titleAndAbstract": "Titel und Abstract",
   "altmetric": "Altmetrisch",
@@ -25,6 +25,6 @@
   "activeInstitution": "Ist aktiv",
   "author": "",
   "source": "",
-  "dataReferenced": "Co Finanzierung",
+  "dataReferenced": "DWCA-Erweiterung",
   "activeCollection": "Ist aktiv"
 }

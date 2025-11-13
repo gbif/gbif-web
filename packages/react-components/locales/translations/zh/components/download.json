@@ -8,21 +8,21 @@
   "continueToGBIF": "继续",
   "sql": {
     "createNewSqlDownload": "创建新的SQL下载",
-    "placeholder": "共同资助方",
-    "noSql": "共同资助方",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "注",
       "description": "下载和探索数据的最简单方法是通过出现搜索用户界面。但对于复杂查询和聚合，SQL编辑器提供了更大的自由度。",
-      "goToOccurrenceSearch": "共同资助方"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "无效网址",
-      "network-error": "共同资助方",
-      "parsingErrorDescription": "共同资助方",
-      "networkErrorDescription": "共同资助方"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
-  "create": "共同资助方",
+  "create": "",
   "about": "关于",
   "stopEditing": "停止编辑",
   "startEditing": "开始编辑",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "阅读文档",
   "request": {
     "createNewDownload": "创建新的下载",
-    "weHaveRestoredYourPredicate": "共同资助方",
-    "noPredicate": "共同资助方",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "当前筛选条件",
     "errors": {
       "invalid-json": "无效的JSON",
-      "invalid-predicate": "共同资助方",
-      "faild-to-load-predicate": "共同资助方",
-      "unexpectedError": "共同资助方",
-      "failedToParseJSON": "共同资助方",
-      "failedToVisualizePredicate": "共同资助方"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "下载选项",
-    "chooseChecklist": "共同资助方",
-    "chooseChecklistDescription": "共同资助方",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "原始数据",
       "interpretedData": "解释数据",
@@ -57,12 +57,12 @@
       "estimatedSize": "估计数据大小"
     },
     "fileFormats": {
-      "tabCsv": "共同资助方"
+      "tabCsv": "标签分隔的 CSV"
     },
     "tableValues": {
-      "ifAvailable": "共同资助方",
-      "ifSelected": "共同资助方",
-      "links": "共同资助方"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }

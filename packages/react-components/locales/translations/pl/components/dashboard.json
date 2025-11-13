@@ -28,8 +28,8 @@
   "iucnThreatStatus": "",
   "iucnThreatStatusDescription": "",
   "metricsFromGbifData": "Te miary są oparte na danych udostępnionych przez GBIF",
-  "notVocabularyWarning": "Współfinansowanie",
-  "taxonomicBreakdown": "Współfinansowanie",
+  "notVocabularyWarning": "Współfinansowany przez",
+  "taxonomicBreakdown": "Współfinansowany przez",
   "group": {
     "views": "",
     "record": "Zapis",

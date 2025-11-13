@@ -31,7 +31,7 @@
   "constituentOf": "Базовые наборы данных",
   "dataset": "Набор данных",
   "taxonomy": "Таксономия",
-  "localContexts": "Совместное финансирование",
+  "localContexts": "Софинансируется",
   "project": "Проект",
   "metrics": "Показатели",
   "metricsOccurrenceHelpText": "Показатели основаны на интерпретированных данных",
@@ -150,8 +150,8 @@
     "registrationDetails": "Регистрационные данные GBIF"
   },
   "errors": {
-    "evenList": "Совместное финансирование",
-    "occurrenceInfo": "Совместное финансирование"
+    "evenList": "Софинансируется",
+    "occurrenceInfo": "Софинансируется"
   },
   "eventTaxonomy": "Таксономическое распределение находок"
 }

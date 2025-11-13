@@ -28,8 +28,8 @@
   "iucnThreatStatus": "קטגוריית הרשימה האדומה של IUCN",
   "iucnThreatStatusDescription": "מינים שמסווגים כקרובים לאיום (NT) או בסיכון גבוה יותר לפי הרשימה האדומה של IUCN.",
   "metricsFromGbifData": "מדדים אלה מבוססים על רשומות ששותפו דרך GBIF",
-  "notVocabularyWarning": "מימון משותף",
-  "taxonomicBreakdown": "מימון משותף",
+  "notVocabularyWarning": "מומן במשותף על ידי",
+  "taxonomicBreakdown": "מומן במשותף על ידי",
   "group": {
     "views": "תצוגות",
     "record": "רשומה",

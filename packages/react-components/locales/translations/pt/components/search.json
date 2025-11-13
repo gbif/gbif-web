@@ -36,8 +36,8 @@
   "loadMore": "Mais",
   "loading": "A carregar",
   "noResults": "",
-  "startTyping": "Co-financiamento",
-  "rankInGroup": "Co-financiamento",
+  "startTyping": "Código de Conduta",
+  "rankInGroup": "Código de Conduta",
   "occurrenceClustersView": {
     "about": "Sobre",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Pesquisa",
-    "description": "Co-financiamento",
+    "description": "Código de Conduta",
     "noSearchTermsEntered": "Não há termos de pesquisa inseridos",
-    "placeholder": "Co-financiamento",
+    "placeholder": "Código de Conduta",
     "categories": {
       "speciesSearch": "Espécie",
       "datasetSearch": "Conjuntos de dados",
       "publisherSearch": "Publicadores",
       "occurrenceSearch": "Ocorrências",
-      "resourceSearch": "Co-financiamento"
+      "resourceSearch": "Código de Conduta"
     },
     "seeAll": "Ver todos"
   }

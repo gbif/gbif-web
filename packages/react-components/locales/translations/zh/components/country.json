@@ -8,7 +8,7 @@
       "publicationsFrom": "出版物来自",
       "publicationsAbout": "出版物有关",
       "news": "新闻",
-      "alienSpecies": "共同资助方",
+      "alienSpecies": "联合资助方：",
       "projects": "项目"
     },
     "country": "国家",
@@ -21,8 +21,8 @@
     "noProjects": "无项目",
     "notParticipant": "不是会员",
     "notParticipantDescription": "这个国家不是 GBIF 会员",
-    "countryNamingDisclaimer": "共同资助方",
-    "isoStandardLinkText": "共同资助方",
+    "countryNamingDisclaimer": "联合资助方：",
+    "isoStandardLinkText": "联合资助方：",
     "counts": {
       "occurrences": "出现记录",
       "datasets": "数据集",

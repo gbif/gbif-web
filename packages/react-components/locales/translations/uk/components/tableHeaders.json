@@ -1,13 +1,13 @@
 {
   "features": "",
   "options": {
-    "includeAuthorship": "Спільне фінансування"
+    "includeAuthorship": "Етичні норми"
   },
   "citations": "Цитування",
   "occurrences": "Знахідки",
   "numberSpecimens": "",
   "gbifNumberSpecimens": "",
-  "specimenTriplet": "Спільне фінансування",
+  "specimenTriplet": "Етичні норми",
   "title": "Назва",
   "titleAndAbstract": "",
   "altmetric": "",
@@ -25,6 +25,6 @@
   "activeInstitution": "",
   "author": "Автор",
   "source": "Журнал",
-  "dataReferenced": "Спільне фінансування",
+  "dataReferenced": "Етичні норми",
   "activeCollection": ""
 }

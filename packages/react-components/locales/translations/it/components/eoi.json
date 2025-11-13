@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "",
   "searchOrganisations": "",
   "termsAndConditions": "",
-  "iHaveReadAndUnderstood": "Cofinanziamento",
+  "iHaveReadAndUnderstood": "",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "",
   "iUnderstandThatMyOrganizationalInformation": "",
   "administrativeContact": "",
@@ -30,7 +30,7 @@
   "none": "",
   "whatAndHow": "",
   "helpUsUnderstand": "",
-  "publOfFourTypesOfData": "Cofinanziamento",
+  "publOfFourTypesOfData": "",
   "whichTypesOfData": "",
   "resourcesMetaData": "",
   "checkListData": "",
@@ -42,9 +42,9 @@
   "yes": "",
   "no": "",
   "pleaseSelectAValue": "",
-  "reuseTrustedIPThosting": "Cofinanziamento",
+  "reuseTrustedIPThosting": "",
   "doYouNeedHelpPublishing": "",
-  "areYouPlanningToInstallAndRun": "Cofinanziamento",
+  "areYouPlanningToInstallAndRun": "",
   "orgDetails": "",
   "yourChanceToTellGBIF": "",
   "orgName": "",
@@ -81,20 +81,20 @@
   "outage": "",
   "eoiDescription": "",
   "eoiTitle": "",
-  "checkRegistration": "Cofinanziamento",
-  "organisationDetails": "Cofinanziamento",
-  "organisationAddress": "Cofinanziamento",
-  "endorsement": "Cofinanziamento",
+  "checkRegistration": "",
+  "organisationDetails": "",
+  "organisationAddress": "",
+  "endorsement": "",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "Cofinanziamento",
-    "pleaseSelectTheCountryOfYourOrganization": "Cofinanziamento"
+    "pleaseSelectYourOrganizationOnTheMap": "",
+    "pleaseSelectTheCountryOfYourOrganization": ""
   },
-  "thankYouForYourRegistration": "Cofinanziamento",
-  "failedToRegisterOrganization": "Cofinanziamento",
-  "associatedWithGbifProgramme": "Cofinanziamento",
+  "thankYouForYourRegistration": "",
+  "failedToRegisterOrganization": "",
+  "associatedWithGbifProgramme": "",
   "loginToRegisterOrganization": {
-    "title": "Cofinanziamento",
-    "message": "Cofinanziamento"
+    "title": "",
+    "message": ""
   },
-  "registerAnotherOrganization": "Cofinanziamento"
+  "registerAnotherOrganization": ""
 }

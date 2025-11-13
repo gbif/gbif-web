@@ -36,8 +36,8 @@
   "loadMore": "Більше",
   "loading": "Завантаження",
   "noResults": "",
-  "startTyping": "Спільне фінансування",
-  "rankInGroup": "Спільне фінансування",
+  "startTyping": "Етичні норми",
+  "rankInGroup": "Етичні норми",
   "occurrenceClustersView": {
     "about": "Відомості про видавця даних",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Пошук",
-    "description": "Спільне фінансування",
+    "description": "Етичні норми",
     "noSearchTermsEntered": "Не введені ключові слова для пошуку",
-    "placeholder": "Спільне фінансування",
+    "placeholder": "Етичні норми",
     "categories": {
       "speciesSearch": "Вид",
       "datasetSearch": "Наборів даних",
       "publisherSearch": "Видавці",
       "occurrenceSearch": "Знахідки",
-      "resourceSearch": "Спільне фінансування"
+      "resourceSearch": "Етичні норми"
     },
     "seeAll": "Переглянути все"
   }

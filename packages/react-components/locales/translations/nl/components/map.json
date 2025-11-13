@@ -21,7 +21,7 @@
   "anyYear": "",
   "exploreArea": "",
   "explore": "Verkennen",
-  "generatedDateAgo": "Cofinanciering",
+  "generatedDateAgo": "Code of Conduct",
   "style": "Stijl",
   "filters": "Filters",
   "select": "Selecteer",
@@ -36,7 +36,7 @@
     "CLASSIC": "",
     "STREETS": "Straten",
     "GLACIER": "Gletsjer",
-    "GREEN": "Cofinanciering",
+    "GREEN": "Code of Conduct",
     "CUSTOM": ""
   },
   "basemap": {

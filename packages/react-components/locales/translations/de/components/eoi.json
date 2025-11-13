@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "",
   "searchOrganisations": "",
   "termsAndConditions": "",
-  "iHaveReadAndUnderstood": "Co Finanzierung",
+  "iHaveReadAndUnderstood": "",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "",
   "iUnderstandThatMyOrganizationalInformation": "",
   "administrativeContact": "",
@@ -30,7 +30,7 @@
   "none": "",
   "whatAndHow": "",
   "helpUsUnderstand": "",
-  "publOfFourTypesOfData": "Co Finanzierung",
+  "publOfFourTypesOfData": "",
   "whichTypesOfData": "",
   "resourcesMetaData": "",
   "checkListData": "",
@@ -42,9 +42,9 @@
   "yes": "",
   "no": "",
   "pleaseSelectAValue": "",
-  "reuseTrustedIPThosting": "Co Finanzierung",
+  "reuseTrustedIPThosting": "",
   "doYouNeedHelpPublishing": "",
-  "areYouPlanningToInstallAndRun": "Co Finanzierung",
+  "areYouPlanningToInstallAndRun": "",
   "orgDetails": "",
   "yourChanceToTellGBIF": "",
   "orgName": "",
@@ -81,20 +81,20 @@
   "outage": "",
   "eoiDescription": "",
   "eoiTitle": "",
-  "checkRegistration": "Co Finanzierung",
-  "organisationDetails": "Co Finanzierung",
-  "organisationAddress": "Co Finanzierung",
-  "endorsement": "Co Finanzierung",
+  "checkRegistration": "",
+  "organisationDetails": "",
+  "organisationAddress": "",
+  "endorsement": "",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "Co Finanzierung",
-    "pleaseSelectTheCountryOfYourOrganization": "Co Finanzierung"
+    "pleaseSelectYourOrganizationOnTheMap": "",
+    "pleaseSelectTheCountryOfYourOrganization": ""
   },
-  "thankYouForYourRegistration": "Co Finanzierung",
-  "failedToRegisterOrganization": "Co Finanzierung",
-  "associatedWithGbifProgramme": "Co Finanzierung",
+  "thankYouForYourRegistration": "",
+  "failedToRegisterOrganization": "",
+  "associatedWithGbifProgramme": "",
   "loginToRegisterOrganization": {
-    "title": "Co Finanzierung",
-    "message": "Co Finanzierung"
+    "title": "",
+    "message": ""
   },
-  "registerAnotherOrganization": "Co Finanzierung"
+  "registerAnotherOrganization": ""
 }

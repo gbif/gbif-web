@@ -3,18 +3,18 @@
         "title": "",
         "form": {
             "title": "Título",
-            "titlePlaceholder": "Co-financiamento",
+            "titlePlaceholder": "Co-financiado por",
             "type": "Tipo",
             "authors": "",
-            "authorsPlaceholder": "Co-financiamento",
+            "authorsPlaceholder": "Co-financiado por",
             "link": "",
-            "linkPlaceholder": "Co-financiamento",
+            "linkPlaceholder": "Co-financiado por",
             "date": "Data",
             "comments": "Comentários",
-            "commentsPlaceholder": "Co-financiamento",
+            "commentsPlaceholder": "Co-financiado por",
             "submit": "Enviar",
             "saveFailure": "",
-            "saveSuccess": "Co-financiamento"
+            "saveSuccess": "Co-financiado por"
         },
         "types": {
             "JOURNAL_ARTICLE": "",

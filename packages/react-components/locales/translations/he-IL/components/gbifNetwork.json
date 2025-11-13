@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "מימון משותף",
-      "ASSOCIATE": "מימון משותף",
-      "OTHER_ASSOCIATE": "מימון משותף",
+      "VOTING": "קוד אתי",
+      "ASSOCIATE": "",
+      "OTHER_ASSOCIATE": "",
       "FORMER": "משתתף לשעבר",
       "OBSERVER": "משקיף",
-      "UNKNOWN": "מימון משותף",
+      "UNKNOWN": "",
       "AFFILIATE": "שותף GBIF"
     },
-    "affiliateHelp": "מימון משותף",
-    "mapCaptionPublishers": "מימון משותף",
+    "affiliateHelp": "קוד אתי",
+    "mapCaptionPublishers": "קוד אתי",
     "role": "תפקיד",
     "name": "שם",
     "participant": "משתתף",
     "type": "סוג",
     "memberSince": "חבר מאז",
     "all": "הכל",
-    "countryParticipants": "מימון משותף",
-    "publishersPerCountry": "מימון משותף",
+    "countryParticipants": "קוד אתי",
+    "publishersPerCountry": "קוד אתי",
     "clear": "נקה",
     "headlines": {
       "nodesSteeringGroup": "קבוצת ההיגוי של הצמתים",

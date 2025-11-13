@@ -3,18 +3,18 @@
         "title": "",
         "form": {
             "title": "Titel",
-            "titlePlaceholder": "Sam-finansiering",
+            "titlePlaceholder": "Samfinansieret af",
             "type": "",
             "authors": "",
-            "authorsPlaceholder": "Sam-finansiering",
+            "authorsPlaceholder": "Samfinansieret af",
             "link": "",
-            "linkPlaceholder": "Sam-finansiering",
+            "linkPlaceholder": "Samfinansieret af",
             "date": "Dato",
             "comments": "",
-            "commentsPlaceholder": "Sam-finansiering",
+            "commentsPlaceholder": "Samfinansieret af",
             "submit": "",
             "saveFailure": "",
-            "saveSuccess": "Sam-finansiering"
+            "saveSuccess": "Samfinansieret af"
         },
         "types": {
             "JOURNAL_ARTICLE": "",

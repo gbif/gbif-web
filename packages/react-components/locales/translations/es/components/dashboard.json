@@ -28,8 +28,8 @@
   "iucnThreatStatus": "Categoría en la Lista Roja de la UICN",
   "iucnThreatStatusDescription": "Especies que están categorizadas como Casi Amenazadas (NT) o en mayor riesgo según la Lista Roja de Especies Amenazadas de la UICN.",
   "metricsFromGbifData": "Estas métricas se basan en los registros compartidos a través de GBIF",
-  "notVocabularyWarning": "Co-financiamiento",
-  "taxonomicBreakdown": "Co-financiamiento",
+  "notVocabularyWarning": "Cofinanciado por",
+  "taxonomicBreakdown": "Cofinanciado por",
   "group": {
     "views": "Vistas",
     "record": "Registro",

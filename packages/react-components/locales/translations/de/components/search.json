@@ -36,8 +36,8 @@
   "loadMore": "Mehr",
   "loading": "",
   "noResults": "",
-  "startTyping": "Co Finanzierung",
-  "rankInGroup": "Co Finanzierung",
+  "startTyping": "DWCA-Erweiterung",
+  "rankInGroup": "DWCA-Erweiterung",
   "occurrenceClustersView": {
     "about": "",
     "clusters": "",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Suche",
-    "description": "Co Finanzierung",
+    "description": "DWCA-Erweiterung",
     "noSearchTermsEntered": "Keine Suchbegriffe eingegeben",
-    "placeholder": "Co Finanzierung",
+    "placeholder": "DWCA-Erweiterung",
     "categories": {
       "speciesSearch": "",
       "datasetSearch": "Datensätze",
       "publisherSearch": "Herausgeber",
       "occurrenceSearch": "",
-      "resourceSearch": "Co Finanzierung"
+      "resourceSearch": "DWCA-Erweiterung"
     },
     "seeAll": "Alle ansehen"
   }

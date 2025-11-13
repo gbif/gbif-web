@@ -31,7 +31,7 @@
   "constituentOf": "構成要素",
   "dataset": "データセット",
   "taxonomy": "分類群",
-  "localContexts": "共同資金",
+  "localContexts": "共同出資",
   "project": "プロジェクト",
   "metrics": "メトリクス",
   "metricsOccurrenceHelpText": "",
@@ -150,8 +150,8 @@
     "registrationDetails": ""
   },
   "errors": {
-    "evenList": "共同資金",
-    "occurrenceInfo": "共同資金"
+    "evenList": "共同出資",
+    "occurrenceInfo": "共同出資"
   },
   "eventTaxonomy": "オカレンスの分類学的分布"
 }

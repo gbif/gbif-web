@@ -1,13 +1,13 @@
 {
   "features": "Vlastnosti",
   "options": {
-    "includeAuthorship": "Spolufinancování"
+    "includeAuthorship": "Id spravované poskytovatelem"
   },
   "citations": "Citace",
   "occurrences": "Výskyty",
   "numberSpecimens": "Počet exemplářů",
   "gbifNumberSpecimens": "Exempláře v GBIF",
-  "specimenTriplet": "Spolufinancování",
+  "specimenTriplet": "Id spravované poskytovatelem",
   "title": "Název",
   "titleAndAbstract": "Název a abstrakt",
   "altmetric": "",
@@ -25,6 +25,6 @@
   "activeInstitution": "Je aktivní",
   "author": "Autor",
   "source": "Recenzovaný časopis",
-  "dataReferenced": "Spolufinancování",
+  "dataReferenced": "Id spravované poskytovatelem",
   "activeCollection": "Je aktivní"
 }

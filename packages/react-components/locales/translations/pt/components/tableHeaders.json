@@ -1,13 +1,13 @@
 {
   "features": "Características",
   "options": {
-    "includeAuthorship": "Co-financiamento"
+    "includeAuthorship": "Código de Conduta"
   },
   "citations": "Citações",
   "occurrences": "Ocorrências",
   "numberSpecimens": "Número de espécimes",
   "gbifNumberSpecimens": "Espécimes no GBIF",
-  "specimenTriplet": "Co-financiamento",
+  "specimenTriplet": "Código de Conduta",
   "title": "Título",
   "titleAndAbstract": "Título e resumo",
   "altmetric": "Altmetria",
@@ -25,6 +25,6 @@
   "activeInstitution": "",
   "author": "Autor",
   "source": "Revista",
-  "dataReferenced": "Co-financiamento",
+  "dataReferenced": "Código de Conduta",
   "activeCollection": ""
 }

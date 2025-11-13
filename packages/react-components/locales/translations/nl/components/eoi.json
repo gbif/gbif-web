@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "",
   "searchOrganisations": "Organisaties zoeken",
   "termsAndConditions": "Algemene voorwaarden",
-  "iHaveReadAndUnderstood": "Cofinanciering",
+  "iHaveReadAndUnderstood": "",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "",
   "iUnderstandThatMyOrganizationalInformation": "",
   "administrativeContact": "Contactpunt administratie",
@@ -30,7 +30,7 @@
   "none": "Geen",
   "whatAndHow": "Wat en hoe",
   "helpUsUnderstand": "",
-  "publOfFourTypesOfData": "Cofinanciering",
+  "publOfFourTypesOfData": "",
   "whichTypesOfData": "Welke datatypes ga je publiceren?",
   "resourcesMetaData": "",
   "checkListData": "Checklist data",
@@ -42,9 +42,9 @@
   "yes": "Ja",
   "no": "Nee",
   "pleaseSelectAValue": "Selecteer een waarde",
-  "reuseTrustedIPThosting": "Cofinanciering",
+  "reuseTrustedIPThosting": "",
   "doYouNeedHelpPublishing": "Heb je hulp nodig bij het publiceren van je data? ",
-  "areYouPlanningToInstallAndRun": "Cofinanciering",
+  "areYouPlanningToInstallAndRun": "",
   "orgDetails": "Organisatiegegevens",
   "yourChanceToTellGBIF": "",
   "orgName": "Organisatienaam",
@@ -81,20 +81,20 @@
   "outage": "",
   "eoiDescription": "",
   "eoiTitle": "",
-  "checkRegistration": "Cofinanciering",
-  "organisationDetails": "Cofinanciering",
-  "organisationAddress": "Cofinanciering",
-  "endorsement": "Cofinanciering",
+  "checkRegistration": "",
+  "organisationDetails": "Organisatiegegevens",
+  "organisationAddress": "",
+  "endorsement": "Goedkeuring",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "Cofinanciering",
-    "pleaseSelectTheCountryOfYourOrganization": "Cofinanciering"
+    "pleaseSelectYourOrganizationOnTheMap": "",
+    "pleaseSelectTheCountryOfYourOrganization": ""
   },
-  "thankYouForYourRegistration": "Cofinanciering",
-  "failedToRegisterOrganization": "Cofinanciering",
-  "associatedWithGbifProgramme": "Cofinanciering",
+  "thankYouForYourRegistration": "",
+  "failedToRegisterOrganization": "",
+  "associatedWithGbifProgramme": "",
   "loginToRegisterOrganization": {
-    "title": "Cofinanciering",
-    "message": "Cofinanciering"
+    "title": "",
+    "message": ""
   },
-  "registerAnotherOrganization": "Cofinanciering"
+  "registerAnotherOrganization": ""
 }

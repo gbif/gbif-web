@@ -1,13 +1,13 @@
 {
   "features": "Eigenschappen",
   "options": {
-    "includeAuthorship": "Cofinanciering"
+    "includeAuthorship": "Code of Conduct"
   },
   "citations": "Citaties",
   "occurrences": "Voorkomens",
   "numberSpecimens": "Aantal exemplaren",
   "gbifNumberSpecimens": "Exemplaren in GBIF",
-  "specimenTriplet": "Cofinanciering",
+  "specimenTriplet": "Code of Conduct",
   "title": "Titel",
   "titleAndAbstract": "Titel en samenvatting",
   "altmetric": "",
@@ -25,6 +25,6 @@
   "activeInstitution": "Is actief",
   "author": "Auteur",
   "source": "Tijdschrift",
-  "dataReferenced": "Cofinanciering",
+  "dataReferenced": "Code of Conduct",
   "activeCollection": "Is actief"
 }

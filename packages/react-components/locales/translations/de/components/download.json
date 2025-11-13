@@ -8,21 +8,21 @@
   "continueToGBIF": "Weiter",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "Co Finanzierung",
-    "noSql": "Co Finanzierung",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "",
       "description": "",
-      "goToOccurrenceSearch": "Co Finanzierung"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "Co Finanzierung",
-      "parsingErrorDescription": "Co Finanzierung",
-      "networkErrorDescription": "Co Finanzierung"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
-  "create": "Co Finanzierung",
+  "create": "",
   "about": "",
   "stopEditing": "Bearbeitung beenden",
   "startEditing": "Bearbeitung starten",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "Co Finanzierung",
-    "noPredicate": "Co Finanzierung",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "Co Finanzierung",
-      "faild-to-load-predicate": "Co Finanzierung",
-      "unexpectedError": "Co Finanzierung",
-      "failedToParseJSON": "Co Finanzierung",
-      "failedToVisualizePredicate": "Co Finanzierung"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "",
-    "chooseChecklist": "Co Finanzierung",
-    "chooseChecklistDescription": "Co Finanzierung",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": ""
     },
     "fileFormats": {
-      "tabCsv": "Co Finanzierung"
+      "tabCsv": ""
     },
     "tableValues": {
-      "ifAvailable": "Co Finanzierung",
-      "ifSelected": "Co Finanzierung",
-      "links": "Co Finanzierung"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }

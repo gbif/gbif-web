@@ -3,7 +3,7 @@
         "title": "",
         "form": {
             "title": "Titel",
-            "titlePlaceholder": "Cofinanciering",
+            "titlePlaceholder": "Co-Gefinancierd door",
             "type": "Type",
             "authors": "Auteur(s)",
             "authorsPlaceholder": "Auteur(s) van de publicatie/product",
@@ -14,7 +14,7 @@
             "commentsPlaceholder": "Extra informatie over de publicatie/product (vooral als het geen traditionele journal artikel is)",
             "submit": "Indienen",
             "saveFailure": "Er is een fout opgetreden bij het opslaan van het formulier. Gelieve het opnieuw te proberen.",
-            "saveSuccess": "Cofinanciering"
+            "saveSuccess": "Co-Gefinancierd door"
         },
         "types": {
             "JOURNAL_ARTICLE": "journal artikel",

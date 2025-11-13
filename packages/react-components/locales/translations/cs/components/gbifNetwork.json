@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "Spolufinancování",
-      "ASSOCIATE": "Spolufinancování",
-      "OTHER_ASSOCIATE": "Spolufinancování",
+      "VOTING": "Etický Kodex",
+      "ASSOCIATE": "Přidružený účastník",
+      "OTHER_ASSOCIATE": "Jiný přidružený účastník",
       "FORMER": "Bývalý",
       "OBSERVER": "Pozorovatel",
-      "UNKNOWN": "Spolufinancování",
+      "UNKNOWN": "Neznámý",
       "AFFILIATE": "Přidružení GBIF"
     },
-    "affiliateHelp": "Spolufinancování",
-    "mapCaptionPublishers": "Spolufinancování",
+    "affiliateHelp": "Etický Kodex",
+    "mapCaptionPublishers": "Etický Kodex",
     "role": "Role",
     "name": "Jméno",
     "participant": "Účastník",
     "type": "Typ",
     "memberSince": "Členem od",
     "all": "Vše",
-    "countryParticipants": "Spolufinancování",
-    "publishersPerCountry": "Spolufinancování",
+    "countryParticipants": "Etický Kodex",
+    "publishersPerCountry": "Etický Kodex",
     "clear": "Vymazat",
     "headlines": {
       "nodesSteeringGroup": "Řídicí skupina uzlů",

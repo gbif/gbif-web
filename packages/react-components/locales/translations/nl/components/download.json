@@ -8,21 +8,21 @@
   "continueToGBIF": "Ga verder",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "Cofinanciering",
-    "noSql": "Cofinanciering",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "Opmerking",
       "description": "",
-      "goToOccurrenceSearch": "Cofinanciering"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "Cofinanciering",
-      "parsingErrorDescription": "Cofinanciering",
-      "networkErrorDescription": "Cofinanciering"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
-  "create": "Cofinanciering",
+  "create": "",
   "about": "Over",
   "stopEditing": "Stoppen met bewerken",
   "startEditing": "Begin met bewerken",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "Lees de documentatie",
   "request": {
     "createNewDownload": "Creëer nieuwe download",
-    "weHaveRestoredYourPredicate": "Cofinanciering",
-    "noPredicate": "Cofinanciering",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "Huidige filter",
     "errors": {
       "invalid-json": "Ongeldige JSON",
-      "invalid-predicate": "Cofinanciering",
-      "faild-to-load-predicate": "Cofinanciering",
-      "unexpectedError": "Cofinanciering",
-      "failedToParseJSON": "Cofinanciering",
-      "failedToVisualizePredicate": "Cofinanciering"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "Download opties",
-    "chooseChecklist": "Cofinanciering",
-    "chooseChecklistDescription": "Cofinanciering",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "Ruwe data",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": "Geschatte downloadgrootte"
     },
     "fileFormats": {
-      "tabCsv": "Cofinanciering"
+      "tabCsv": ""
     },
     "tableValues": {
-      "ifAvailable": "Cofinanciering",
-      "ifSelected": "Cofinanciering",
-      "links": "Cofinanciering"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }

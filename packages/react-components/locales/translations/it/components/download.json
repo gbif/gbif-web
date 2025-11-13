@@ -8,21 +8,21 @@
   "continueToGBIF": "",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "Cofinanziamento",
-    "noSql": "Cofinanziamento",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "",
       "description": "",
-      "goToOccurrenceSearch": "Cofinanziamento"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "Cofinanziamento",
-      "parsingErrorDescription": "Cofinanziamento",
-      "networkErrorDescription": "Cofinanziamento"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
-  "create": "Cofinanziamento",
+  "create": "",
   "about": "",
   "stopEditing": "",
   "startEditing": "",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "Cofinanziamento",
-    "noPredicate": "Cofinanziamento",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "Cofinanziamento",
-      "faild-to-load-predicate": "Cofinanziamento",
-      "unexpectedError": "Cofinanziamento",
-      "failedToParseJSON": "Cofinanziamento",
-      "failedToVisualizePredicate": "Cofinanziamento"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "",
-    "chooseChecklist": "Cofinanziamento",
-    "chooseChecklistDescription": "Cofinanziamento",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": ""
     },
     "fileFormats": {
-      "tabCsv": "Cofinanziamento"
+      "tabCsv": ""
     },
     "tableValues": {
-      "ifAvailable": "Cofinanziamento",
-      "ifSelected": "Cofinanziamento",
-      "links": "Cofinanziamento"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }

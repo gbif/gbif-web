@@ -8,21 +8,21 @@
   "continueToGBIF": "Продовжити",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "Спільне фінансування",
-    "noSql": "Спільне фінансування",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "Примітка",
       "description": "",
-      "goToOccurrenceSearch": "Спільне фінансування"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "Спільне фінансування",
-      "parsingErrorDescription": "Спільне фінансування",
-      "networkErrorDescription": "Спільне фінансування"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
-  "create": "Спільне фінансування",
+  "create": "",
   "about": "Відомості про видавця даних",
   "stopEditing": "Завершити редагування",
   "startEditing": "Почати редагування",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "Спільне фінансування",
-    "noPredicate": "Спільне фінансування",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "Поточний фільтр",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "Спільне фінансування",
-      "faild-to-load-predicate": "Спільне фінансування",
-      "unexpectedError": "Спільне фінансування",
-      "failedToParseJSON": "Спільне фінансування",
-      "failedToVisualizePredicate": "Спільне фінансування"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "Варіанти завантаження",
-    "chooseChecklist": "Спільне фінансування",
-    "chooseChecklistDescription": "Спільне фінансування",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "Первинні дані",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": ""
     },
     "fileFormats": {
-      "tabCsv": "Спільне фінансування"
+      "tabCsv": ""
     },
     "tableValues": {
-      "ifAvailable": "Спільне фінансування",
-      "ifSelected": "Спільне фінансування",
-      "links": "Спільне фінансування"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }

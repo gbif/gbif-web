@@ -8,7 +8,7 @@
       "publicationsFrom": "Veröffentlichungen aus",
       "publicationsAbout": "Veröffentlichungen über",
       "news": "",
-      "alienSpecies": "Co Finanzierung",
+      "alienSpecies": "Co finanziert von",
       "projects": ""
     },
     "country": "Land",
@@ -21,8 +21,8 @@
     "noProjects": "Keine Projekte",
     "notParticipant": "Kein Teilnehmer",
     "notParticipantDescription": "Dieses Land ist kein Teilnehmer von GBIF",
-    "countryNamingDisclaimer": "Co Finanzierung",
-    "isoStandardLinkText": "Co Finanzierung",
+    "countryNamingDisclaimer": "Co finanziert von",
+    "isoStandardLinkText": "Co finanziert von",
     "counts": {
       "occurrences": "{NUMBER, plural, 0 {Vorkommnisse} one {Vorkommnis} other {Vorkommnisse}}",
       "datasets": "{NUMBER, plural, 0 {Datensätze} one {Datensatz} other {Datensätze}}",

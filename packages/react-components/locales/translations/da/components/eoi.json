@@ -4,7 +4,7 @@
   "myOrgIsNotRegistered": "",
   "searchOrganisations": "",
   "termsAndConditions": "",
-  "iHaveReadAndUnderstood": "Sam-finansiering",
+  "iHaveReadAndUnderstood": "",
   "iUnderstandThatIAmSeekingRegistrationOnBehalf": "",
   "iUnderstandThatMyOrganizationalInformation": "",
   "administrativeContact": "",
@@ -30,7 +30,7 @@
   "none": "",
   "whatAndHow": "",
   "helpUsUnderstand": "",
-  "publOfFourTypesOfData": "Sam-finansiering",
+  "publOfFourTypesOfData": "",
   "whichTypesOfData": "",
   "resourcesMetaData": "",
   "checkListData": "",
@@ -42,9 +42,9 @@
   "yes": "",
   "no": "",
   "pleaseSelectAValue": "",
-  "reuseTrustedIPThosting": "Sam-finansiering",
+  "reuseTrustedIPThosting": "",
   "doYouNeedHelpPublishing": "",
-  "areYouPlanningToInstallAndRun": "Sam-finansiering",
+  "areYouPlanningToInstallAndRun": "",
   "orgDetails": "",
   "yourChanceToTellGBIF": "",
   "orgName": "",
@@ -81,20 +81,20 @@
   "outage": "",
   "eoiDescription": "",
   "eoiTitle": "",
-  "checkRegistration": "Sam-finansiering",
-  "organisationDetails": "Sam-finansiering",
-  "organisationAddress": "Sam-finansiering",
-  "endorsement": "Sam-finansiering",
+  "checkRegistration": "",
+  "organisationDetails": "",
+  "organisationAddress": "",
+  "endorsement": "",
   "validationError": {
-    "pleaseSelectYourOrganizationOnTheMap": "Sam-finansiering",
-    "pleaseSelectTheCountryOfYourOrganization": "Sam-finansiering"
+    "pleaseSelectYourOrganizationOnTheMap": "",
+    "pleaseSelectTheCountryOfYourOrganization": ""
   },
-  "thankYouForYourRegistration": "Sam-finansiering",
-  "failedToRegisterOrganization": "Sam-finansiering",
-  "associatedWithGbifProgramme": "Sam-finansiering",
+  "thankYouForYourRegistration": "",
+  "failedToRegisterOrganization": "",
+  "associatedWithGbifProgramme": "",
   "loginToRegisterOrganization": {
-    "title": "Sam-finansiering",
-    "message": "Sam-finansiering"
+    "title": "",
+    "message": ""
   },
-  "registerAnotherOrganization": "Sam-finansiering"
+  "registerAnotherOrganization": ""
 }

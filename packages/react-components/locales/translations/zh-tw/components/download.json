@@ -8,21 +8,21 @@
   "continueToGBIF": "繼續操作",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "共同資助",
-    "noSql": "共同資助",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "備註",
       "description": "",
-      "goToOccurrenceSearch": "共同資助"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "共同資助",
-      "parsingErrorDescription": "共同資助",
-      "networkErrorDescription": "共同資助"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
-  "create": "共同資助",
+  "create": "",
   "about": "關於",
   "stopEditing": "結束編輯",
   "startEditing": "開始編輯",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "閱讀文檔",
   "request": {
     "createNewDownload": "重新下載",
-    "weHaveRestoredYourPredicate": "共同資助",
-    "noPredicate": "共同資助",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "目前篩選條件",
     "errors": {
       "invalid-json": "無效的 JSON",
-      "invalid-predicate": "共同資助",
-      "faild-to-load-predicate": "共同資助",
-      "unexpectedError": "共同資助",
-      "failedToParseJSON": "共同資助",
-      "failedToVisualizePredicate": "共同資助"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "下載選項",
-    "chooseChecklist": "共同資助",
-    "chooseChecklistDescription": "共同資助",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "原始資料",
       "interpretedData": "已解釋的資料",
@@ -57,12 +57,12 @@
       "estimatedSize": "預估資料大小"
     },
     "fileFormats": {
-      "tabCsv": "共同資助"
+      "tabCsv": "Tab分隔的CSV檔案(用於Excel等)"
     },
     "tableValues": {
-      "ifAvailable": "共同資助",
-      "ifSelected": "共同資助",
-      "links": "共同資助"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }
