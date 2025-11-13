@@ -21,7 +21,7 @@
   "anyYear": "",
   "exploreArea": "",
   "explore": "",
-  "generatedDateAgo": "Cofinanziato da",
+  "generatedDateAgo": "Codice di Condotta",
   "style": "",
   "filters": "",
   "select": "",
@@ -36,7 +36,7 @@
     "CLASSIC": "",
     "STREETS": "",
     "GLACIER": "",
-    "GREEN": "Cofinanziato da",
+    "GREEN": "Codice di Condotta",
     "CUSTOM": ""
   },
   "basemap": {
