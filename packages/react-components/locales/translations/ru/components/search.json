@@ -36,8 +36,8 @@
   "loadMore": "Еще",
   "loading": "Загрузка",
   "noResults": "Нет результатов",
-  "startTyping": "Софинансируется",
-  "rankInGroup": "Софинансируется",
+  "startTyping": "Идентификатор, управляемый поставщиком",
+  "rankInGroup": "Идентификатор, управляемый поставщиком",
   "occurrenceClustersView": {
     "about": "Подробно",
     "clusters": "Связано",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "Поиск",
-    "description": "Софинансируется",
+    "description": "Идентификатор, управляемый поставщиком",
     "noSearchTermsEntered": "Не введены ключевые слова для поиска",
-    "placeholder": "Софинансируется",
+    "placeholder": "Идентификатор, управляемый поставщиком",
     "categories": {
       "speciesSearch": "Вид",
       "datasetSearch": "Опубликованных наборов данных",
       "publisherSearch": "Организации",
       "occurrenceSearch": "Находки",
-      "resourceSearch": "Софинансируется"
+      "resourceSearch": "Идентификатор, управляемый поставщиком"
     },
     "seeAll": "Увидеть все"
   }
