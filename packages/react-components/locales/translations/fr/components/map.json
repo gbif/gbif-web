@@ -21,7 +21,7 @@
   "anyYear": "N'importe quelle année",
   "exploreArea": "Explorez la zone",
   "explore": "Explorer ",
-  "generatedDateAgo": "Co-financé par",
+  "generatedDateAgo": "Code de conduite",
   "style": "Style",
   "filters": "Filtres",
   "select": "Sélectionner",
@@ -36,7 +36,7 @@
     "CLASSIC": "Points classiques",
     "STREETS": "Rues",
     "GLACIER": "Glacier",
-    "GREEN": "Co-financé par",
+    "GREEN": "Code de conduite",
     "CUSTOM": "Personnalisé"
   },
   "basemap": {
