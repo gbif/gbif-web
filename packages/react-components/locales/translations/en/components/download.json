@@ -60,9 +60,9 @@
       "tabCsv": "Tab-delimited CSV (for use in Excel, etc.)"
     },
     "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+      "ifAvailable": "if available",
+      "ifSelected": "if selected",
+      "links": "links"
     }
   }
 }
