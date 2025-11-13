@@ -8,7 +8,7 @@
       "publicationsFrom": "Publications from",
       "publicationsAbout": "Publications about",
       "news": "News",
-      "alienSpecies": "",
+      "alienSpecies": "Alien species",
       "projects": "Projects"
     },
     "country": "Country",
@@ -21,8 +21,8 @@
     "noProjects": "No projects",
     "notParticipant": "Not a participant",
     "notParticipantDescription": "This country is not a participant of GBIF",
-    "countryNamingDisclaimer": "",
-    "isoStandardLinkText": "",
+    "countryNamingDisclaimer": "Names of countries and areas are based on the {ISO_STANDARD_LINK_TEXT}.",
+    "isoStandardLinkText": "ISO 3166-1 standard",
     "counts": {
       "occurrences": "{NUMBER, plural, 0 {Occurrences} one {Occurrence} other {Occurrences}}",
       "datasets": "{NUMBER, plural, 0 {Datasets} one {Dataset} other {Datasets}}",

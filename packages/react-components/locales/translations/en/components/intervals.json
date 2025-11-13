@@ -28,10 +28,10 @@
   "geoTime": {
     "between": "{from} to {to}",
     "lt": "Before {to}",
-    "lte": "",
+    "lte": "Before or equal {to}",
     "gt": "After {from}",
-    "gte": "",
-    "e": ""
+    "gte": "After or equal {from}",
+    "e": "Includes {from}"
   },
   "year": {
     "between": "Year {from} to {to}",

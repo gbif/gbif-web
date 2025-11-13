@@ -31,7 +31,7 @@
   "constituentOf": "Constituent of",
   "dataset": "Dataset",
   "taxonomy": "Taxonomy",
-  "localContexts": "",
+  "localContexts": "Local contexts",
   "project": "Project",
   "metrics": "Metrics",
   "metricsOccurrenceHelpText": "Metrics are based on interpreted data",
@@ -150,8 +150,8 @@
     "registrationDetails": "GBIF registration details"
   },
   "errors": {
-    "evenList": "",
-    "occurrenceInfo": ""
+    "evenList": "Error loading event list",
+    "occurrenceInfo": "Error loading occurrence info"
   },
   "eventTaxonomy": "Taxonomic distribution of occurrences"
 }

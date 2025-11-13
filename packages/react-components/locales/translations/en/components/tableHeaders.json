@@ -1,13 +1,13 @@
 {
   "features": "Features",
   "options": {
-    "includeAuthorship": ""
+    "includeAuthorship": "Include authorship"
   },
   "citations": "Citations",
   "occurrences": "Occurrences",
   "numberSpecimens": "Number of specimens",
   "gbifNumberSpecimens": "Specimens in GBIF",
-  "specimenTriplet": "",
+  "specimenTriplet": "Specimen identifier",
   "title": "Title",
   "titleAndAbstract": "Title and abstract",
   "altmetric": "Altmetric",
@@ -25,6 +25,6 @@
   "activeInstitution": "Is active",
   "author": "Author",
   "source": "Journal",
-  "dataReferenced": "",
+  "dataReferenced": "Data used",
   "activeCollection": "Is active"
 }

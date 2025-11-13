@@ -25,7 +25,7 @@
   "updateFilter": "Update filter",
   "setFilter": "Set as filter",
   "noMathcingFilters": "No matching filters",
-  "countsUnavailable": "",
+  "countsUnavailable": "Counts unavailable",
   "nameWithTaxonMatchIssue": "Name before normalization",
   "commonName": "Common name",
   "acceptedNameOf": "Accepted name for",
@@ -62,6 +62,6 @@
     "geometryReducedToBbox": "Geometry reduced to bounding box",
     "failedToSimplify": "Failed to simplify the geometry"
   },
-  "activeFilters": "",
-  "highlighted": ""
+  "activeFilters": "Active filters",
+  "highlighted": "Highlighted"
 }

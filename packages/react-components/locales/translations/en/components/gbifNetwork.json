@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "",
-      "ASSOCIATE": "",
-      "OTHER_ASSOCIATE": "",
+      "VOTING": "Voting participant",
+      "ASSOCIATE": "Associate participant",
+      "OTHER_ASSOCIATE": "Other associate participant",
       "FORMER": "Former",
       "OBSERVER": "Observer",
-      "UNKNOWN": "",
+      "UNKNOWN": "Unknown",
       "AFFILIATE": "GBIF affiliate"
     },
-    "affiliateHelp": "",
-    "mapCaptionPublishers": "",
+    "affiliateHelp": "Institutions with a formal partnership agreement with GBIF.",
+    "mapCaptionPublishers": "Active GBIF data publishing organizations by country or area.",
     "role": "Role",
     "name": "Name",
     "participant": "Participant",
     "type": "Type",
     "memberSince": "Member since",
     "all": "All",
-    "countryParticipants": "",
-    "publishersPerCountry": "",
+    "countryParticipants": "Country participants",
+    "publishersPerCountry": "Publishers per country",
     "clear": "Clear",
     "headlines": {
       "nodesSteeringGroup": "Nodes Steering Group",

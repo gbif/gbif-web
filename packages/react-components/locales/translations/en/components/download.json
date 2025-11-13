@@ -8,18 +8,18 @@
   "continueToGBIF": "Continue",
   "sql": {
     "createNewSqlDownload": "Create new SQL download",
-    "placeholder": "",
-    "noSql": "",
+    "placeholder": "Enter your SQL query here...",
+    "noSql": "No SQL query",
     "note": {
       "title": "Note",
       "description": "The easiest way to download and explore data is via the occurrence search user interface. But for complex queries and aggregations, the SQL editor provides more freedom.",
-      "goToOccurrenceSearch": ""
+      "goToOccurrenceSearch": "Go to occurrence search"
     },
     "errors": {
       "invalid-SQL": "Invalid SQL",
-      "network-error": "",
-      "parsingErrorDescription": "",
-      "networkErrorDescription": ""
+      "network-error": "Network error",
+      "parsingErrorDescription": "Unable to parse SQL",
+      "networkErrorDescription": "Could not validate SQL because of a network error"
     }
   },
   "create": "Create",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "Read the documentation",
   "request": {
     "createNewDownload": "Create new download",
-    "weHaveRestoredYourPredicate": "",
-    "noPredicate": "",
+    "weHaveRestoredYourPredicate": "We have restored the predicate your were working on last time you were here.",
+    "noPredicate": "No predicate",
     "currentFilter": "Current filter",
     "errors": {
       "invalid-json": "Invalid JSON",
-      "invalid-predicate": "",
-      "faild-to-load-predicate": "",
-      "unexpectedError": "",
-      "failedToParseJSON": "",
-      "failedToVisualizePredicate": ""
+      "invalid-predicate": "Invalid predicate",
+      "faild-to-load-predicate": "Failed to load predicate",
+      "unexpectedError": "An unexpected error occurred",
+      "failedToParseJSON": "Could not parse JSON",
+      "failedToVisualizePredicate": "Failed to visualize predicate—displaying raw JSON"
     }
   },
   "downloadOptions": {
     "title": "Download options",
-    "chooseChecklist": "",
-    "chooseChecklistDescription": "",
+    "chooseChecklist": "Choose checklist",
+    "chooseChecklistDescription": "Select the taxonomic checklist for organizing the taxon names in your download",
     "content": {
       "rawData": "Raw data",
       "interpretedData": "Interpreted data",
@@ -57,12 +57,12 @@
       "estimatedSize": "Estimated data size"
     },
     "fileFormats": {
-      "tabCsv": ""
+      "tabCsv": "Tab-delimited CSV (for use in Excel, etc.)"
     },
     "tableValues": {
-      "ifAvailable": "",
-      "ifSelected": "",
-      "links": ""
+      "ifAvailable": "if available",
+      "ifSelected": "if selected",
+      "links": "links"
     }
   }
 }
