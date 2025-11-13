@@ -84,9 +84,7 @@ function buildLocale({
   } else {
     localeJson = translationBuilder({ locale });
   }
-  let mergedJson = _.merge({}, developerEnglishJson, enJson, localeJson);
-  // console.log(enJson.download.downloadOptions);
-  let flat = flatten(mergedJson);
+  let flat = _.merge({}, flatten(developerEnglishJson), flatten(enJson), flatten(localeJson));
 
   // use lodash to pick only keys that exist in enJson and developerEnglishJson. it has to exist in both of them
   if (onlyIncludeExstingKeys) {
