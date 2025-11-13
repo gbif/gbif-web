@@ -1,9 +1,26 @@
 {
+  "successMessage": "We will be in touch soon",
+  "primaryContactHeading": "Primary contact for this application",
   "description": "Description",
   "descriptionLabel": "Description",
   "typeOfApplication": "Type",
+  "typeOfApplicationHeading": "Type of application",
+  "groupPublisherDescription": "Please describe which data publisher(s) and/or GBIF participants will be involved",
+  "anticipatedUsersHeading": "Description of the anticipated content providers",
+  "describeContentProviders": "Please describe who you anticipate publishing data, and if you already have publishers ready to use the service.",
+  "timeline": "Timeline",
+  "describeTimeline": "Please let us know if there is a deadline for configuring this installation.",
   "domain": "Domain",
+  "doYouHaveADomain": "If you have your own domain that you want to use for the installation, enter it here (e.g. mdt.mydomain.org)",
+  "terms": "Terms",
+  "termsServiceAgreement": "I have read the <a>service agreement</a> and I accept these terms and conditions for the hosted Metabarcoding Data Toolkit I will use.",
+  "termsCommitHelp": "I commit to ensuring that data holders engaging in data publishing get the appropriate help to be able to publish to GBIF.",
+  "termsQuarterlyWebinars": "I will participate in quarterly webinars and encourage users (data holders) to join to provide feedback.",
+  "termsEnsureOnline": "I agree to help ensure all datasets published to GBIF.org during the pilot will remain online at the end of the pilot, should the installations be moved or the programme terminated.",
+  "followingSubmission": "Following submission we will check the eligibility, configure the installation and contact you to arrange an introduction session.",
   "personName": "Name",
   "email": "Email",
-  "participantLabel": "Participant"
+  "participantLabel": "Participant",
+  "participantDescription": "Please select the participant node to which this application relates.",
+  "submitErrorTitle": "Failed to submit application"
 }
