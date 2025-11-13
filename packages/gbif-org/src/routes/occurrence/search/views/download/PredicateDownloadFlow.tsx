@@ -63,6 +63,7 @@ export function PredicateDownloadFlow({
             totalRecords={total}
             loadingCounts={loading}
             onBack={() => setCurrentStep('PREDICATE')}
+            enabledFormats={['SIMPLE_CSV', 'DWCA', 'SPECIES_LIST']}
           />
         )}
 

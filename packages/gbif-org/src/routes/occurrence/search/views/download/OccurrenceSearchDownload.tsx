@@ -18,7 +18,6 @@ import { Card } from '@/components/ui/largeCard';
 import { MdFileDownload } from 'react-icons/md';
 import { Skeleton } from '@/components/ui/skeleton';
 import { FreeTextWarning } from './shared';
-import { set } from 'lodash';
 
 export default function OccurrenceSearchDownload() {
   const currentFilterContext = useContext(FilterContext);
@@ -108,6 +107,11 @@ function OccurrenceDownloadFlow({
     );
   }
 
+  const hasCubeSupport = defaultChecklist === import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
+  const enabledFormats = hasCubeSupport
+    ? ['SIMPLE_CSV', 'DWCA', 'SPECIES_LIST', 'SQL_CUBE']
+    : ['SIMPLE_CSV', 'DWCA', 'SPECIES_LIST'];
+
   return (
     <div className="g-min-h-screen g-py-8">
       <div className="g-max-w-4xl g-mx-auto">
@@ -133,6 +137,7 @@ function OccurrenceDownloadFlow({
               onFormatSelect={handleFormatSelect}
               totalRecords={total}
               loadingCounts={loading}
+              enabledFormats={enabledFormats}
               // onBack={() => setCurrentStep('QUALITY')}
             />
           )}

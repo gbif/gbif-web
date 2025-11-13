@@ -18,6 +18,7 @@ interface FormatSelectionProps {
   onBack?: () => void;
   totalRecords?: number;
   loadingCounts?: boolean;
+  enabledFormats?: string[];
 }
 
 const formatCards: Format[] = [
@@ -55,6 +56,7 @@ export default function FormatSelection({
   onBack,
   totalRecords = 0,
   loadingCounts = false,
+  enabledFormats = ['SIMPLE_CSV', 'DWCA', 'SPECIES_LIST', 'SQL_CUBE'],
 }: FormatSelectionProps) {
   return (
     <div className="g-max-w-4xl g-mx-auto g-space-y-4">
@@ -72,21 +74,68 @@ export default function FormatSelection({
       )}
 
       <Card className="g-rounded-lg">
-        {formatCards.map((format) => {
-          return (
-            <div
-              key={format.id}
-              className={`g-border-b g-overflow-hidden g-border-gray-200 last:g-border-0`}
-            >
-              {/* Main Card Content */}
-              <div className="g-p-4 md:g-p-6">
-                <div className="g-flex g-items-center g-justify-between">
-                  <div className="g-flex-1">
-                    <div className="g-flex g-flex-col lg:g-flex-row lg:g-items-end lg:g-justify-between g-gap-4">
-                      <div className="g-flex-1">
-                        <div className="g-flex g-items-center g-gap-3 g-mb-0">
-                          <h3
-                            className="g-text-base g-font-bold g-text-gray-900 g-cursor-pointer hover:g-text-primary-600 g-transition-colors"
+        {formatCards
+          .filter((format) => enabledFormats.includes(format.id))
+          .map((format) => {
+            return (
+              <div
+                key={format.id}
+                className={`g-border-b g-overflow-hidden g-border-gray-200 last:g-border-0`}
+              >
+                {/* Main Card Content */}
+                <div className="g-p-4 md:g-p-6">
+                  <div className="g-flex g-items-center g-justify-between">
+                    <div className="g-flex-1">
+                      <div className="g-flex g-flex-col lg:g-flex-row lg:g-items-end lg:g-justify-between g-gap-4">
+                        <div className="g-flex-1">
+                          <div className="g-flex g-items-center g-gap-3 g-mb-0">
+                            <h3
+                              className="g-text-base g-font-bold g-text-gray-900 g-cursor-pointer hover:g-text-primary-600 g-transition-colors"
+                              onClick={() =>
+                                onFormatSelect(
+                                  format,
+                                  getEstimatedSizeInBytes(format.id, totalRecords)
+                                )
+                              }
+                            >
+                              <FormattedMessage
+                                id={`occurrenceDownloadFlow.downloadFormats.${format.id}.title`}
+                              />
+                            </h3>
+                          </div>
+                          {loadingCounts && (
+                            <Skeleton className="g-text-sm g-mb-2 g-block g-w-36">Loading</Skeleton>
+                          )}
+                          {!loadingCounts && totalRecords > 0 && format.estimateSize && (
+                            <div className="g-text-sm g-text-slate-500 g-mb-2">
+                              <FormattedMessage id={`occurrenceDownloadFlow.estimatedSize`} />:{' '}
+                              {formatFileSize(getEstimatedSizeInBytes(format.id, totalRecords))}
+                            </div>
+                          )}
+                          <p className="g-text-gray-600 g-text-sm g-mb-3">
+                            <FormattedMessage
+                              id={`occurrenceDownloadFlow.downloadFormats.${format.id}.description`}
+                            />
+                          </p>
+
+                          {/* Compact Features */}
+                          <div className="g-flex g-flex-wrap g-gap-2">
+                            {format.featureKeys?.map((featureKey, index) => (
+                              <span
+                                key={index}
+                                className="g-inline-flex g-items-center g-gap-1 g-text-xs g-bg-gray-50 g-text-gray-700 g-px-2 g-py-1 g-rounded-full"
+                              >
+                                <FormattedMessage
+                                  id={`occurrenceDownloadFlow.downloadFormats.features.${featureKey}`}
+                                />
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="g-flex g-flex-col g-items-stretch g-gap-3">
+                          <Button
+                            size="default"
                             onClick={() =>
                               onFormatSelect(
                                 format,
@@ -95,60 +144,18 @@ export default function FormatSelection({
                             }
                           >
                             <FormattedMessage
-                              id={`occurrenceDownloadFlow.downloadFormats.${format.id}.title`}
+                              id="occurrenceDownloadFlow.configure"
+                              defaultMessage="Configure"
                             />
-                          </h3>
+                          </Button>
                         </div>
-                        {loadingCounts && (
-                          <Skeleton className="g-text-sm g-mb-2 g-block g-w-36">Loading</Skeleton>
-                        )}
-                        {!loadingCounts && totalRecords > 0 && format.estimateSize && (
-                          <div className="g-text-sm g-text-slate-500 g-mb-2">
-                            <FormattedMessage id={`occurrenceDownloadFlow.estimatedSize`} />:{' '}
-                            {formatFileSize(getEstimatedSizeInBytes(format.id, totalRecords))}
-                          </div>
-                        )}
-                        <p className="g-text-gray-600 g-text-sm g-mb-3">
-                          <FormattedMessage
-                            id={`occurrenceDownloadFlow.downloadFormats.${format.id}.description`}
-                          />
-                        </p>
-
-                        {/* Compact Features */}
-                        <div className="g-flex g-flex-wrap g-gap-2">
-                          {format.featureKeys?.map((featureKey, index) => (
-                            <span
-                              key={index}
-                              className="g-inline-flex g-items-center g-gap-1 g-text-xs g-bg-gray-50 g-text-gray-700 g-px-2 g-py-1 g-rounded-full"
-                            >
-                              <FormattedMessage
-                                id={`occurrenceDownloadFlow.downloadFormats.features.${featureKey}`}
-                              />
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="g-flex g-flex-col g-items-stretch g-gap-3">
-                        <Button
-                          size="default"
-                          onClick={() =>
-                            onFormatSelect(format, getEstimatedSizeInBytes(format.id, totalRecords))
-                          }
-                        >
-                          <FormattedMessage
-                            id="occurrenceDownloadFlow.configure"
-                            defaultMessage="Configure"
-                          />
-                        </Button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </Card>
       <div className="g-mt-8">
         <p className="g-text-gray-600 g-text-sm">
