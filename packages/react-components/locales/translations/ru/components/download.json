@@ -8,18 +8,18 @@
   "continueToGBIF": "Продолжить",
   "sql": {
     "createNewSqlDownload": "Создать новое выражение SQL для загрузки",
-    "placeholder": "Софинансируется",
-    "noSql": "Софинансируется",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "Примечание",
       "description": "Самый простой способ загрузить и изучить данные - это использовать пользовательский интерфейс поиска совпадений. Но для сложных запросов и агрегирования данных редактор SQL предоставляет больше свободы.",
-      "goToOccurrenceSearch": "Софинансируется"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "Недопустимый синтаксис SQL",
-      "network-error": "Софинансируется",
-      "parsingErrorDescription": "Софинансируется",
-      "networkErrorDescription": "Софинансируется"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
   "create": "",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "Прочтите документацию",
   "request": {
     "createNewDownload": "Создайте новую загрузку",
-    "weHaveRestoredYourPredicate": "Софинансируется",
-    "noPredicate": "Софинансируется",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "Текущий фильтр",
     "errors": {
       "invalid-json": "Недопустимый формат JSON",
-      "invalid-predicate": "Софинансируется",
-      "faild-to-load-predicate": "Софинансируется",
-      "unexpectedError": "Софинансируется",
-      "failedToParseJSON": "Софинансируется",
-      "failedToVisualizePredicate": "Софинансируется"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "Настройки загрузки",
-    "chooseChecklist": "Софинансируется",
-    "chooseChecklistDescription": "Софинансируется",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "Необработанные данные",
       "interpretedData": "Интерпретированные данные",
@@ -57,12 +57,12 @@
       "estimatedSize": "Предполагаемый размер данных"
     },
     "fileFormats": {
-      "tabCsv": "Софинансируется"
+      "tabCsv": "CSV с разделителями табуляции (для использования в Excel и т.д.)"
     },
     "tableValues": {
-      "ifAvailable": "Софинансируется",
-      "ifSelected": "Софинансируется",
-      "links": "Софинансируется"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }
