@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "Co-financé par",
-      "ASSOCIATE": "Co-financé par",
-      "OTHER_ASSOCIATE": "Co-financé par",
+      "VOTING": "Code de conduite",
+      "ASSOCIATE": "Participant associé",
+      "OTHER_ASSOCIATE": "Participant associé (autre que pays)",
       "FORMER": "Ancien",
       "OBSERVER": "Observateur",
-      "UNKNOWN": "Co-financé par",
+      "UNKNOWN": "Inconnu",
       "AFFILIATE": "Affilié au GBIF"
     },
-    "affiliateHelp": "Co-financé par",
-    "mapCaptionPublishers": "Co-financé par",
+    "affiliateHelp": "Code de conduite",
+    "mapCaptionPublishers": "Code de conduite",
     "role": "Rôle",
     "name": "Nom",
     "participant": "Participant",
     "type": "Type ",
     "memberSince": "Membre depuis",
     "all": "Tout",
-    "countryParticipants": "Co-financé par",
-    "publishersPerCountry": "Co-financé par",
+    "countryParticipants": "Code de conduite",
+    "publishersPerCountry": "Code de conduite",
     "clear": "Effacer",
     "headlines": {
       "nodesSteeringGroup": "Comité de pilotage des points nodaux",
