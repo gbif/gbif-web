@@ -1,5 +1,6 @@
 {
   "institutionalGovernance": "Gouvernance institutionnelle",
+  "type": "Type d'institution",
   "addCollection": "Ajouter une collection",
   "disciplines": "Disciplines institutionnelles",
   "numberSpecimens": "Nombre de spécimens dans l'institution",
