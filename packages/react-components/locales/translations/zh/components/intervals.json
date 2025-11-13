@@ -28,10 +28,10 @@
   "geoTime": {
     "between": "{from} 到 {to}",
     "lt": "之前 {to}",
-    "lte": "联合资助方：",
+    "lte": "发表评论-需要一个Github帐户",
     "gt": "之后 {from}",
-    "gte": "联合资助方：",
-    "e": "联合资助方："
+    "gte": "发表评论-需要一个Github帐户",
+    "e": "发表评论-需要一个Github帐户"
   },
   "year": {
     "between": "年 {from} 到 {to}",
