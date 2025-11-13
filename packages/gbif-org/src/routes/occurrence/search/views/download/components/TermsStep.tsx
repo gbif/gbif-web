@@ -106,7 +106,7 @@ export default function TermsStep({
       sql = result.sql;
       machineDescription = result.machineDescription;
     }
-    debugger;
+
     const format = selectedFormat.downloadFormat ?? selectedFormat.id;
     fetch('/api/user/download/predicate?source=' + encodeURIComponent(source ?? ''), {
       method: 'POST',
