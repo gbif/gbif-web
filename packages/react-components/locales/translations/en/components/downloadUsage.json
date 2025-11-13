@@ -3,18 +3,18 @@
         "title": "Notify GBIF about use of occurrence data in a publication (or similar)",
         "form": {
             "title": "Title",
-            "titlePlaceholder": "",
+            "titlePlaceholder": "Placeholder for Title",
             "type": "Type",
             "authors": "Author(s)",
-            "authorsPlaceholder": "",
+            "authorsPlaceholder": "Placeholder for Authors",
             "link": "URL",
-            "linkPlaceholder": "",
+            "linkPlaceholder": "Placeholder for Link",
             "date": "Date",
             "comments": "Comments",
-            "commentsPlaceholder": "",
+            "commentsPlaceholder": "Placeholder for Comments",
             "submit": "Submit",
             "saveFailure": "An error occurred while saving the form. Please try again.",
-            "saveSuccess": ""
+            "saveSuccess": "Thank you for notifying us. You may close this popup."
         },
         "types": {
             "JOURNAL_ARTICLE": "journal article",
