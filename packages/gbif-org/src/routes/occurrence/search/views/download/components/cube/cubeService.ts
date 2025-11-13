@@ -29,8 +29,7 @@ export interface CubeSqlResponse {
  */
 export function convertCubeDimensionsToSqlOptions(
   cube: CubeDimensions,
-  predicate?: any,
-  query?: any
+  predicate?: any
 ): CubeSqlGenerationOptions {
   const options: CubeSqlGenerationOptions = {
     taxonomy: cube.taxonomicLevel,
@@ -58,7 +57,7 @@ export function convertCubeDimensionsToSqlOptions(
       qualityPredicates.push(predicate);
     }
 
-    if (cube.removeRecordsWithGeospatialIssues && !query?.has_geospatial_issue) {
+    if (cube.removeRecordsWithGeospatialIssues) {
       qualityPredicates.push({
         type: 'equals',
         key: 'HAS_GEOSPATIAL_ISSUE',
@@ -77,7 +76,7 @@ export function convertCubeDimensionsToSqlOptions(
       });
     }
 
-    if (cube.removeRecordsAtCentroids && !query?.distance_from_centroid_in_meters) {
+    if (cube.removeRecordsAtCentroids) {
       qualityPredicates.push({
         type: 'equals',
         key: 'DISTANCE_FROM_CENTROID_IN_METERS',
@@ -85,7 +84,7 @@ export function convertCubeDimensionsToSqlOptions(
       });
     }
 
-    if (cube.removeFossilsAndLiving && !query?.basis_of_record) {
+    if (cube.removeFossilsAndLiving) {
       qualityPredicates.push({
         type: 'not',
         predicate: {
@@ -96,7 +95,7 @@ export function convertCubeDimensionsToSqlOptions(
       });
     }
 
-    if (cube.removeAbsenceRecords && !query?.occurrence_status) {
+    if (cube.removeAbsenceRecords) {
       qualityPredicates.push({
         type: 'equals',
         key: 'OCCURRENCE_STATUS',
@@ -118,10 +117,9 @@ export function convertCubeDimensionsToSqlOptions(
  */
 export async function generateCubeSql(
   dimensions: CubeDimensions,
-  predicate?: any,
-  query?: any
+  predicate?: any
 ): Promise<CubeSqlResponse> {
-  const options = convertCubeDimensionsToSqlOptions(dimensions, predicate, query);
+  const options = convertCubeDimensionsToSqlOptions(dimensions, predicate);
 
   const response = await fetch('https://graphql.gbif.org/unstable-api/generate-sql', {
     method: 'POST',

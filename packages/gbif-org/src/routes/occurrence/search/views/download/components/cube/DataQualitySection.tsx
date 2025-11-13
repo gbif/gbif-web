@@ -1,6 +1,6 @@
 import { CheckboxField } from './components';
 import { CubeDimensions } from './types';
-import { hasFilter } from '../cubeService';
+import { hasFilter } from './cubeService';
 
 interface DataQualitySectionProps {
   cube: CubeDimensions;
@@ -23,36 +23,28 @@ export function DataQualitySection({ cube, onUpdate, filter }: DataQualitySectio
       {!hasFilter(filter, 'taxonomicIssue') && (
         <CheckboxField
           checked={cube.removeRecordsTaxonIssues}
-          onCheckedChange={(checked) =>
-            onUpdate({ removeRecordsTaxonIssues: checked as boolean })
-          }
+          onCheckedChange={(checked) => onUpdate({ removeRecordsTaxonIssues: checked as boolean })}
           labelId="customSqlDownload.removeRecordsTaxonIssues"
         />
       )}
       {!hasFilter(filter, 'distanceFromCentroidInMeters') && (
         <CheckboxField
           checked={cube.removeRecordsAtCentroids}
-          onCheckedChange={(checked) =>
-            onUpdate({ removeRecordsAtCentroids: checked as boolean })
-          }
+          onCheckedChange={(checked) => onUpdate({ removeRecordsAtCentroids: checked as boolean })}
           labelId="customSqlDownload.removeRecordsAtCentroids"
         />
       )}
       {!hasFilter(filter, 'basisOfRecord') && (
         <CheckboxField
           checked={cube.removeFossilsAndLiving}
-          onCheckedChange={(checked) =>
-            onUpdate({ removeFossilsAndLiving: checked as boolean })
-          }
+          onCheckedChange={(checked) => onUpdate({ removeFossilsAndLiving: checked as boolean })}
           labelId="customSqlDownload.removeFossilsAndLiving"
         />
       )}
       {!hasFilter(filter, 'occurrenceStatus') && (
         <CheckboxField
           checked={cube.removeAbsenceRecords}
-          onCheckedChange={(checked) =>
-            onUpdate({ removeAbsenceRecords: checked as boolean })
-          }
+          onCheckedChange={(checked) => onUpdate({ removeAbsenceRecords: checked as boolean })}
           labelId="customSqlDownload.removeAbsenceRecords"
         />
       )}

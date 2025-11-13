@@ -6,9 +6,11 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import Editor from './editor';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { DynamicLink } from '@/reactRouterPlugins';
+import { useTextAreaContent } from './predicateEditor';
 
 export default function SqlEditor({ onContinue }: { onContinue: (sqlString?: string) => void }) {
-  const [sql, setSql] = useStringParam({ key: 'sql', replace: true });
+  // const [sql, setSql] = useStringParam({ key: 'sql', replace: true });
+  const [sql, setSql] = useTextAreaContent('sql');
   const { formatMessage } = useIntl();
 
   const handleFormat = useCallback(

@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import React, { useCallback, useMemo, useState } from 'react';
 import { FaChevronLeft, FaDownload } from 'react-icons/fa';
-import { generateCubeSql } from './cubeService';
+import { generateCubeSql } from './cube/cubeService';
 import { DownloadSummary } from './DownloadSummary';
 import { formatFileSize, getEstimatedSizeInBytes, getEstimatedUnzippedSizeInBytes } from './utils';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';

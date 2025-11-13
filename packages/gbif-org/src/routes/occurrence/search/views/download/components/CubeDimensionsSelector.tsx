@@ -1,6 +1,6 @@
 import { FaInfoCircle } from 'react-icons/fa';
 import { FaCube as CubeIcon } from 'react-icons/fa6';
-import { hasAllFilters } from './cubeService';
+import { hasAllFilters } from './cube/cubeService';
 import { FormattedMessage } from 'react-intl';
 import ExpandableSection from './ExpandableSection';
 

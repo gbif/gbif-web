@@ -8,7 +8,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { getOriginalPredicate } from './usePredicate';
 
 //a hook to store content in textarea. per default it should store to url, but if above 1200 characters then use session storage instead
-function useTextAreaContent(key: string): [string, (text: string) => void] {
+export function useTextAreaContent(key: string): [string, (text: string) => void] {
   const [param, setParam] = useStringParam({ key, replace: true });
   const sessionStorageKey = `textarea-${key}`;
   const sessionValue = window.sessionStorage.getItem(sessionStorageKey) ?? '';
@@ -24,6 +24,11 @@ function useTextAreaContent(key: string): [string, (text: string) => void] {
   }
 
   return [param || sessionValue, setValue];
+}
+
+export function setTextAreaContentStorageDirectly(key: string, text: string) {
+  const sessionStorageKey = `textarea-${key}`;
+  window.sessionStorage.setItem(sessionStorageKey, text);
 }
 
 export default function PredicateEditor({

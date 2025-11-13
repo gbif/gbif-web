@@ -5,10 +5,9 @@ import TaxonomySelector from './TaxonomySelector';
 import ExtensionsSelector from './ExtensionsSelector';
 import CubeDimensionsSelector, { CubeDimensions } from './CubeDimensionsSelector';
 import { useChecklistKey } from '@/hooks/useChecklistKey';
-import { useSupportedChecklists } from '@/hooks/useSupportedChecklists';
 import { FormattedMessage } from 'react-intl';
 import { FilterType } from '@/contexts/filter';
-import { generateCubeSql, hasFilter } from './cubeService';
+import { generateCubeSql, hasFilter } from './cube/cubeService';
 import { DownloadSummary } from './DownloadSummary';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
