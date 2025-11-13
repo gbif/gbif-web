@@ -8,18 +8,18 @@
   "continueToGBIF": "",
   "sql": {
     "createNewSqlDownload": "",
-    "placeholder": "Cofinanziato da",
-    "noSql": "Cofinanziato da",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "",
       "description": "",
-      "goToOccurrenceSearch": "Cofinanziato da"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "",
-      "network-error": "Cofinanziato da",
-      "parsingErrorDescription": "Cofinanziato da",
-      "networkErrorDescription": "Cofinanziato da"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
   "create": "",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "",
   "request": {
     "createNewDownload": "",
-    "weHaveRestoredYourPredicate": "Cofinanziato da",
-    "noPredicate": "Cofinanziato da",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "",
     "errors": {
       "invalid-json": "",
-      "invalid-predicate": "Cofinanziato da",
-      "faild-to-load-predicate": "Cofinanziato da",
-      "unexpectedError": "Cofinanziato da",
-      "failedToParseJSON": "Cofinanziato da",
-      "failedToVisualizePredicate": "Cofinanziato da"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "",
-    "chooseChecklist": "Cofinanziato da",
-    "chooseChecklistDescription": "Cofinanziato da",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "",
       "interpretedData": "",
@@ -57,12 +57,12 @@
       "estimatedSize": ""
     },
     "fileFormats": {
-      "tabCsv": "Cofinanziato da"
+      "tabCsv": ""
     },
     "tableValues": {
-      "ifAvailable": "Cofinanziato da",
-      "ifSelected": "Cofinanziato da",
-      "links": "Cofinanziato da"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }
