@@ -36,8 +36,8 @@
   "loadMore": "עוד",
   "loading": "טוען",
   "noResults": "אין תוצאות",
-  "startTyping": "מומן במשותף על ידי",
-  "rankInGroup": "מומן במשותף על ידי",
+  "startTyping": "Provider managed id",
+  "rankInGroup": "Provider managed id",
   "occurrenceClustersView": {
     "about": "אודות",
     "clusters": "מקבצים קשורים",
@@ -62,15 +62,15 @@
   },
   "crossContentSearch": {
     "title": "חיפוש",
-    "description": "מומן במשותף על ידי",
+    "description": "Provider managed id",
     "noSearchTermsEntered": "לא הוזנו מונחי חיפוש",
-    "placeholder": "מומן במשותף על ידי",
+    "placeholder": "Provider managed id",
     "categories": {
       "speciesSearch": "מינים",
       "datasetSearch": "מסדי נתונים",
       "publisherSearch": "ספקי מידע",
       "occurrenceSearch": "תצפיות",
-      "resourceSearch": "מומן במשותף על ידי"
+      "resourceSearch": "Provider managed id"
     },
     "seeAll": "הצג הכל"
   }
