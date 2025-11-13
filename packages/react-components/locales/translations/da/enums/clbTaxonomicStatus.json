@@ -1,10 +1,10 @@
 {
   "clbTaxonomicStatus": {
     "accepted": "Accepteret",
-    "provisionally_accepted": "Samfinansieret af",
-    "ambiguous_synonym": "Samfinansieret af",
+    "provisionally_accepted": "",
+    "ambiguous_synonym": "",
     "synonym": "Synonym",
     "misapplied": "Misanvendt",
-    "bare_name": "Samfinansieret af"
+    "bare_name": ""
   }
 }
