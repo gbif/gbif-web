@@ -19,25 +19,25 @@
     "sendFeedback": "Send feedback",
     "sending": "Sending...",
     "publicRepo": "Feedback will be sent to {githubLink} in a public repository.",
-    "helpDeskOption": "",
-    "helpdesk": "",
-    "communications": "",
+    "helpDeskOption": "For private enquiries, please contact us at {helpdeskLink}.",
+    "helpdesk": "GBIF helpdesk",
+    "communications": "GBIF communication",
     "confirmation": {
       "title": "Thank you",
-      "description": "",
+      "description": "Your feedback has been logged as an issue in GitHub. If necessary and if contact details were provided, we might reach out to you for further information. You can track progress by visiting the issue page.",
       "seeIssue": "See issue",
-      "createAnother": ""
+      "createAnother": "Create another"
     },
     "failure": {
-      "title": "",
-      "description": "",
-      "tryAgain": ""
+      "title": "Something went wrong",
+      "description": "The feedback system appears to be down. Please send us an email or go straight to {githubLink}. We are sorry for the inconvenience.",
+      "tryAgain": "Try again"
     },
-    "orWriteMailTo": "",
-    "leaveIssueOnGithub": "",
+    "orWriteMailTo": "Or write an email to {contactLink}",
+    "leaveIssueOnGithub": "Leave issue on GitHub",
     "login": "Login",
-    "requiresGithubAccount": "",
-    "sendUsAnEmail": "",
-    "forPrivateEnquiries": ""
+    "requiresGithubAccount": "Requires a GitHub account",
+    "sendUsAnEmail": "Send us an email",
+    "forPrivateEnquiries": "For private enquiries or if you do not have a GitHub account."
   }
 }
