@@ -8,18 +8,18 @@
   "continueToGBIF": "Continuar",
   "sql": {
     "createNewSqlDownload": "Crear una nueva descarga SQL",
-    "placeholder": "Cofinanciado por",
-    "noSql": "Cofinanciado por",
+    "placeholder": "",
+    "noSql": "",
     "note": {
       "title": "Nota",
       "description": "La forma más sencilla de descargar y explorar datos es a través de la interfaz de usuario de búsqueda de registros biológicos. Pero para consultas y agregaciones complejas, el editor SQL ofrece más libertad.",
-      "goToOccurrenceSearch": "Cofinanciado por"
+      "goToOccurrenceSearch": ""
     },
     "errors": {
       "invalid-SQL": "SQL inválido",
-      "network-error": "Cofinanciado por",
-      "parsingErrorDescription": "Cofinanciado por",
-      "networkErrorDescription": "Cofinanciado por"
+      "network-error": "",
+      "parsingErrorDescription": "",
+      "networkErrorDescription": ""
     }
   },
   "create": "",
@@ -32,22 +32,22 @@
   "readTheDocumentation": "Leer la documentación",
   "request": {
     "createNewDownload": "Crear una nueva descarga",
-    "weHaveRestoredYourPredicate": "Cofinanciado por",
-    "noPredicate": "Cofinanciado por",
+    "weHaveRestoredYourPredicate": "",
+    "noPredicate": "",
     "currentFilter": "Filtro actual",
     "errors": {
       "invalid-json": "JSON inválido",
-      "invalid-predicate": "Cofinanciado por",
-      "faild-to-load-predicate": "Cofinanciado por",
-      "unexpectedError": "Cofinanciado por",
-      "failedToParseJSON": "Cofinanciado por",
-      "failedToVisualizePredicate": "Cofinanciado por"
+      "invalid-predicate": "",
+      "faild-to-load-predicate": "",
+      "unexpectedError": "",
+      "failedToParseJSON": "",
+      "failedToVisualizePredicate": ""
     }
   },
   "downloadOptions": {
     "title": "Opciones de descarga",
-    "chooseChecklist": "Cofinanciado por",
-    "chooseChecklistDescription": "Cofinanciado por",
+    "chooseChecklist": "",
+    "chooseChecklistDescription": "",
     "content": {
       "rawData": "Datos sin procesar",
       "interpretedData": "Datos interpretados",
@@ -57,12 +57,12 @@
       "estimatedSize": "Tamaño de datos estimados"
     },
     "fileFormats": {
-      "tabCsv": "Cofinanciado por"
+      "tabCsv": "CSV delimitado por tabulaciones (para usar en Excel, etc.)"
     },
     "tableValues": {
-      "ifAvailable": "Cofinanciado por",
-      "ifSelected": "Cofinanciado por",
-      "links": "Cofinanciado por"
+      "ifAvailable": "",
+      "ifSelected": "",
+      "links": ""
     }
   }
 }
