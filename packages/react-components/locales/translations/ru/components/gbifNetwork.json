@@ -1,24 +1,24 @@
 {
   "gbifNetwork": {
     "participationType": {
-      "VOTING": "Софинансируется",
-      "ASSOCIATE": "Софинансируется",
-      "OTHER_ASSOCIATE": "Софинансируется",
+      "VOTING": "Нормы поведения",
+      "ASSOCIATE": "Ассоциированный участник",
+      "OTHER_ASSOCIATE": "Другой ассоциированный участник",
       "FORMER": "Бывший",
       "OBSERVER": "Наблюдатель",
-      "UNKNOWN": "Софинансируется",
+      "UNKNOWN": "Неизвестно",
       "AFFILIATE": "Филиалы GBIF"
     },
-    "affiliateHelp": "Софинансируется",
-    "mapCaptionPublishers": "Софинансируется",
+    "affiliateHelp": "Нормы поведения",
+    "mapCaptionPublishers": "Нормы поведения",
     "role": "Роль",
     "name": "Имя",
     "participant": "Участник",
     "type": "Тип",
     "memberSince": "Член с",
     "all": "Все",
-    "countryParticipants": "Софинансируется",
-    "publishersPerCountry": "Софинансируется",
+    "countryParticipants": "Нормы поведения",
+    "publishersPerCountry": "Нормы поведения",
     "clear": "Удалить",
     "headlines": {
       "nodesSteeringGroup": "Группа управления узлами",
