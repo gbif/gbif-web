@@ -6,7 +6,7 @@
   },
   "locationId": {
     "name": "ID da Localização",
-    "count": "Co-financiado por",
+    "count": "Extensão DWCA",
     "description": ""
   },
   "hasCoordinate": {
@@ -21,12 +21,12 @@
   },
   "collectionKey": {
     "name": "Coleção",
-    "count": "Co-financiado por",
+    "count": "Extensão DWCA",
     "description": ""
   },
   "taxonomicStatus": {
     "name": "Estado",
-    "count": "Co-financiado por",
+    "count": "Extensão DWCA",
     "description": ""
   },
   "taxonRank": {
@@ -36,12 +36,12 @@
   },
   "numberSpecimens": {
     "name": "",
-    "count": "Co-financiado por",
+    "count": "Extensão DWCA",
     "description": ""
   },
   "specimensInGbif": {
     "name": "Espécimes no GBIF",
-    "count": "Co-financiado por",
+    "count": "Extensão DWCA",
     "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "iucnRedListCategory": {
@@ -51,7 +51,7 @@
   },
   "geoDistance": {
     "name": "",
-    "count": "Co-financiado por",
+    "count": "Extensão DWCA",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -59,7 +59,7 @@
   },
   "geometry": {
     "name": "Localização",
-    "count": "Co-financiado por",
+    "count": "Extensão DWCA",
     "description": "",
     "placeholderLat": "",
     "placeholderLon": "",
@@ -82,18 +82,18 @@
   },
   "biostratigraphy": {
     "name": "",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "lithostratigraphy": {
     "name": "",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "geologicalTime": {
-    "name": "Co-financiado por",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "name": "",
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "purposes": {
     "name": "Tópico",
@@ -107,57 +107,57 @@
   },
   "gbifId": {
     "name": "ID do GBIF",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "organismQuantityType": {
     "name": "Tipo de quantidade de organismos",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "pathway": {
     "name": "",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "associatedSequences": {
     "name": "Sequências associadas",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "degreeOfEstablishment": {
     "name": "",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "endDayOfYear": {
     "name": "Dia final do ano",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "startDayOfYear": {
     "name": "Dia inicial do ano",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "previousIdentifications": {
     "name": "Identificações anteriores",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "lastInterpreted": {
     "name": "Última interpretação",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "alternativeCode": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
-    "count": "Co-financiado por",
+    "count": "Extensão DWCA",
     "description": ""
   },
   "identifier": {
     "name": "Identificador",
-    "count": "Co-financiado por",
+    "count": "Extensão DWCA",
     "description": "Uma breve descrição do componente deve ser colocada aqui"
   },
   "institutionType": {
@@ -167,28 +167,28 @@
   },
   "discipline": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
-    "count": "Co-financiado por",
+    "count": "Extensão DWCA",
     "description": ""
   },
   "collectionContentType": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
-    "count": "Co-financiado por",
+    "count": "Extensão DWCA",
     "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "preservationType": {
     "name": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\".",
-    "count": "Co-financiado por",
+    "count": "Extensão DWCA",
     "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "biomeType": {
-    "name": "Co-financiado por",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "name": "Extensão DWCA",
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "objectClassification": {
-    "name": "Co-financiado por",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "name": "Extensão DWCA",
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "taxonKey": {
     "name": "Nome científico",
@@ -230,11 +230,11 @@
     "description": "Os tipos de problemas ou sinais de potencial interesse descobertos ao processar os dados."
   },
   "occurrenceTaxonomicIssue": {
-    "name": "Co-financiado por",
-    "count": "Co-financiado por",
-    "isNotNull": "Co-financiado por",
-    "isNull": "Co-financiado por",
-    "description": "Co-financiado por"
+    "name": "Extensão DWCA",
+    "count": "Extensão DWCA",
+    "isNotNull": "Extensão DWCA",
+    "isNull": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "occurrenceCountry": {
     "name": "País",
@@ -246,13 +246,13 @@
   },
   "preparations": {
     "name": "Preparações",
-    "count": "Co-financiado por",
+    "count": "Extensão DWCA",
     "description": "Encontrar registos com texto similar correspondente entre os campos de texto. Para combinar texto dentro de um campo específico, use o filtro correspondente, como o de \"Nome Científico\"."
   },
   "repatriated": {
     "name": "Repatriado",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "publishingCountryCode": {
     "name": "País de publicação",
@@ -343,9 +343,9 @@
     "description": "Uma medida da distância mínima em metros de uma coordenada dentro da qual uma localidade possa ser interpretada como existente."
   },
   "distanceFromCentroidInMeters": {
-    "name": "Co-financiado por",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "name": "",
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "depth": {
     "name": "Profundidade",
@@ -389,13 +389,13 @@
   },
   "sex": {
     "name": "Sexo",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "lifeStage": {
     "name": "Estágio de desenvolvimento",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "recordedBy": {
     "name": "Registado por",
@@ -404,28 +404,28 @@
   },
   "fieldNumber": {
     "name": "Número de campo",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "verbatimTaxonId": {
-    "name": "Co-financiado por",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "name": "Taxon ID verbatim",
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "islandGroup": {
     "name": "Grupo de ilhas",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "island": {
     "name": "Ilha",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "georeferencedBy": {
     "name": "Georreferenciado por",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "datasetName": {
     "name": "Nome do conjunto de dados",
@@ -434,8 +434,8 @@
   },
   "programme": {
     "name": "Programa",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "recordNumber": {
     "name": "Número de registo",
@@ -484,7 +484,7 @@
   },
   "higherGeography": {
     "name": "Geografia superior",
-    "count": "Co-financiado por",
+    "count": "Extensão DWCA",
     "description": ""
   },
   "stateProvince": {
@@ -494,13 +494,13 @@
   },
   "gbifRegion": {
     "name": "Região do GBIF",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "publishedByGbifRegion": {
     "name": "",
-    "count": "Co-financiado por",
-    "description": "Co-financiado por"
+    "count": "Extensão DWCA",
+    "description": "Extensão DWCA"
   },
   "eventId": {
     "name": "ID do evento",
@@ -569,12 +569,12 @@
   },
   "isInCluster": {
     "name": "Está em cluster",
-    "count": "Co-financiado por",
+    "count": "Extensão DWCA",
     "description": "Se foi determinado o registo ter outros registos relacionados."
   },
   "isSequenced": {
     "name": "",
-    "count": "Co-financiado por",
+    "count": "Extensão DWCA",
     "description": ""
   },
   "active": {
