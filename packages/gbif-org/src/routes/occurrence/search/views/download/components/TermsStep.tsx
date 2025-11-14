@@ -20,7 +20,7 @@ interface TermsStepProps {
   source?: string | null;
 }
 
-type AcceptedTerm = 'dataUse' | 'largeDownload';
+type AcceptedTerm = 'dataUse' | 'largeDownload' | 'dataCitation';
 
 // Constants from portal16
 const LARGE_DOWNLOAD_OFFSET = 1048576; // 1M records - above this size, not possible to handle in Excel
@@ -83,6 +83,7 @@ export default function TermsStep({
   const [error, setError] = useState(null);
   const [acceptedTerms, setAcceptedTerms] = useState({
     dataUse: false,
+    dataCitation: false,
     ...(isLargeDownload && { largeDownload: false }),
   });
 
@@ -181,10 +182,71 @@ export default function TermsStep({
                     htmlFor="dataUse"
                     className="g-flex g-items-center g-gap-2 g-font-semibold g-text-gray-900 g-mb-2 g-cursor-pointer"
                   >
-                    <FormattedMessage id="occurrenceDownloadFlow.dataUseAgreement" />
+                    <FormattedMessage id="occurrenceDownloadFlow.dataUseAgreementTitle" />
                   </label>
-                  <div className="g-text-sm g-text-gray-700 g-space-y-2 g-prose">
-                    <Message id="occurrenceDownloadFlow.promoteTransparent" />
+                  <div className="g-text-gray-700 g-space-y-2 g-prose">
+                    <Message
+                      id="occurrenceDownloadFlow.dataUseAgreementText"
+                      sanitizeOptions={{
+                        ALLOWED_TAGS: [
+                          'a',
+                          'strong',
+                          'em',
+                          'p',
+                          'br',
+                          'li',
+                          'ul',
+                          'ol',
+                          'code',
+                          'pre',
+                        ],
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Citation */}
+          <div className="g-bg-white g-rounded g-shadow-md g-border g-border-gray-200">
+            <div className="g-p-6">
+              <div className="g-flex g-items-start g-gap-4">
+                <div className="g-flex-shrink-0 g-mt-1">
+                  <Checkbox
+                    id="dataCitation"
+                    checked={acceptedTerms.dataCitation}
+                    onCheckedChange={() => handleTermChange('dataCitation')}
+                    className="g-h-5 g-w-5"
+                  />
+                </div>
+                <div className="g-flex-1">
+                  <label
+                    htmlFor="dataCitation"
+                    className="g-flex g-items-center g-gap-2 g-font-semibold g-text-gray-900 g-mb-2 g-cursor-pointer"
+                  >
+                    <FormattedMessage id="occurrenceDownloadFlow.dataCitationTitle" />
+                  </label>
+                  <div className="g-text-gray-700 g-space-y-2 g-prose">
+                    <div>
+                      <Message
+                        id="occurrenceDownloadFlow.dataCitationText"
+                        sanitizeOptions={{
+                          ALLOWED_TAGS: [
+                            'a',
+                            'strong',
+                            'em',
+                            'p',
+                            'br',
+                            'li',
+                            'ul',
+                            'ol',
+                            'code',
+                            'pre',
+                          ],
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -211,7 +273,7 @@ export default function TermsStep({
                     >
                       <FormattedMessage id="occurrenceDownloadFlow.largeDownloadAcknowledgment" />
                     </label>
-                    <div className="g-text-sm g-text-gray-700 g-space-y-3 g-prose">
+                    <div className="g-text-gray-700 g-space-y-3 g-prose">
                       <div>
                         <p>
                           <FormattedMessage
@@ -274,9 +336,15 @@ export default function TermsStep({
                 <FormattedMessage id="occurrenceDownloadFlow.termsStatus" />
               </h4>
               <Term
-                label={<FormattedMessage id="occurrenceDownloadFlow.dataUseAgreement" />}
+                label={<FormattedMessage id="occurrenceDownloadFlow.dataUseAgreementTitle" />}
                 termKey="dataUse"
                 accepted={acceptedTerms.dataUse}
+                handleTermChange={handleTermChange}
+              />
+              <Term
+                label={<FormattedMessage id="occurrenceDownloadFlow.dataCitationTitle" />}
+                termKey="dataCitation"
+                accepted={acceptedTerms.dataCitation}
                 handleTermChange={handleTermChange}
               />
               {isLargeDownload && (

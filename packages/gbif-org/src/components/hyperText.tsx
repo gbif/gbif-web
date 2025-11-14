@@ -4,7 +4,62 @@ import { marked } from 'marked'; // https://marked.js.org
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import EmptyValue from './emptyValue';
 import { DoiTag, Lsid, OrcId } from './identifierTag';
-const { sanitize } = pkg;
+
+const allowedDomains = [
+  'www.gbif.org',
+  'www.gbif-dev.org',
+  'www.gbif-test.org',
+  'www.gbif-staging.org',
+
+  'gbif.org',
+  'gbif-dev.org',
+  'gbif-test.org',
+  'gbif-staging.org',
+
+  'api.gbif.org',
+  'api.gbif-dev.org',
+  'api.gbif-test.org',
+  'api.gbif-staging.org',
+
+  'data-blog.gbif.org',
+  'discourse.gbif.org',
+];
+
+function isAllowedDomain(url: string): boolean {
+  try {
+    const urlObj = new URL(url, 'https://www.gbif.org'); // Handle relative URLs
+
+    // If it's an absolute URL (has protocol), check domain
+    if (url.includes('://')) {
+      const domain = urlObj.hostname;
+      const allowed = allowedDomains.some(
+        (allowed) => domain === allowed || domain.endsWith('.' + allowed)
+      );
+      console.log('absolute url detected in hypertext component:', url, 'allowed:', allowed);
+      return allowed;
+    }
+
+    // No protocol means relative URL - allow it
+    console.log('relative url detected in hypertext component:', url);
+    return true;
+  } catch {
+    console.log('invalid url detected in hypertext component:', url);
+    return false;
+  }
+}
+
+// Add hook to check links
+pkg.addHook('afterSanitizeAttributes', function (node) {
+  if (node.tagName === 'A' && node.hasAttribute('href')) {
+    const href = node.getAttribute('href');
+
+    if (!href || !isAllowedDomain(href)) {
+      // Convert link to plain text
+      const textNode = document.createTextNode(href || '');
+      if (node.parentNode) node.parentNode.replaceChild(textNode, node);
+    }
+  }
+});
 
 const getLsid = (text: any) => {
   if (typeof text !== 'string' || /\s/.test(text.trim())) {
@@ -58,7 +113,7 @@ export const HyperText = ({
   ...props
 }: {
   text: string | boolean | undefined | null | React.ReactNode;
-  sanitizeOptions?: any; // DOMPurify.Config,
+  sanitizeOptions?: DOMPurify.Config;
   fallback?: string | boolean;
   [key: string]: any;
 }) => {
@@ -97,7 +152,7 @@ export const HyperText = ({
 
   try {
     const html = marked.parse(trimmedContent) as string;
-    const sanitizedHtml = sanitize(html, sanitizeOptions);
+    const sanitizedHtml = pkg.sanitize(html, sanitizeOptions);
 
     return (
       <div

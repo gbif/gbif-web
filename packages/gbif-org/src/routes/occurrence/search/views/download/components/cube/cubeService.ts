@@ -121,7 +121,7 @@ export async function generateCubeSql(
 ): Promise<CubeSqlResponse> {
   const options = convertCubeDimensionsToSqlOptions(dimensions, predicate);
 
-  const response = await fetch('https://graphql.gbif.org/unstable-api/generate-sql', {
+  const response = await fetch(`${import.meta.env.PUBLIC_WEB_UTILS}/generate-sql`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
