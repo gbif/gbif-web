@@ -1,68 +1,76 @@
 {
-  "unsupported.title": "Unsupported query",
-  "unsupported.description": "Free text search can be used for exploration but does not have download support.",
-  "unsupported.remove": "Remove filter",
-  "unsupported.error": "This query appears unsupported",
-  "download": "Download",
-  "redirectNotice": "You are about to download, to do so you will be redirected to GBIF.org. \n\n Be aware that an account is needed to download the content.",
-  "continueToGBIF": "Continue",
-  "sql": {
-    "createNewSqlDownload": "Create new SQL download",
-    "placeholder": "Enter your SQL query here...",
-    "noSql": "No SQL query",
-    "note": {
-      "title": "Note",
-      "description": "The easiest way to download and explore data is via the occurrence search user interface. But for complex queries and aggregations, the SQL editor provides more freedom.",
-      "goToOccurrenceSearch": "Go to occurrence search"
+  "download": {
+    "unsupported.title": "",
+    "unsupported.description": "",
+    "unsupported.remove": "",
+    "unsupported.error": "",
+    "download": "Download",
+    "redirectNotice": "",
+    "continueToGBIF": "Continue",
+    "continue": "Continue",
+    "invalid": "Invalid",
+    "validate": "",
+    "sqlEditor": "",
+    "predicateEditor": "",
+    "sql": {
+      "createNewSqlDownload": "Create new SQL download",
+      "placeholder": "",
+      "noSql": "",
+      "note": {
+        "title": "Note",
+        "description": "",
+        "occurrence_search": ""
+      },
+      "errors": {
+        "invalid-SQL": "Invalid SQL",
+        "network-error": "",
+        "parsingErrorDescription": "",
+        "networkErrorDescription": ""
+      }
     },
-    "errors": {
-      "invalid-SQL": "Invalid SQL",
-      "network-error": "Network error",
-      "parsingErrorDescription": "Unable to parse SQL",
-      "networkErrorDescription": "Could not validate SQL because of a network error"
-    }
-  },
-  "create": "Create",
-  "about": "About",
-  "stopEditing": "Stop editing",
-  "startEditing": "Start editing",
-  "reformat": "Reformat",
-  "discard": "Discard",
-  "keep": "Keep",
-  "readTheDocumentation": "Read the documentation",
-  "request": {
-    "createNewDownload": "Create new download",
-    "weHaveRestoredYourPredicate": "We have restored the predicate your were working on last time you were here.",
-    "noPredicate": "No predicate",
-    "currentFilter": "Current filter",
-    "errors": {
-      "invalid-json": "Invalid JSON",
-      "invalid-predicate": "Invalid predicate",
-      "faild-to-load-predicate": "Failed to load predicate",
-      "unexpectedError": "An unexpected error occurred",
-      "failedToParseJSON": "Could not parse JSON",
-      "failedToVisualizePredicate": "Failed to visualize predicate—displaying raw JSON"
-    }
-  },
-  "downloadOptions": {
-    "title": "Download options",
-    "chooseChecklist": "Choose checklist",
-    "chooseChecklistDescription": "Select the taxonomic checklist for organizing the taxon names in your download",
-    "content": {
-      "rawData": "Raw data",
-      "interpretedData": "Interpreted data",
-      "images": "Multimedia",
-      "coordinates": "Coordinates",
-      "fileFormat": "Format",
-      "estimatedSize": "Estimated data size"
+    "create": "",
+    "about": "About",
+    "stopEditing": "Stop editing",
+    "startEditing": "Start editing",
+    "reformat": "Reformat",
+    "discard": "Discard",
+    "keep": "Keep",
+    "readTheDocumentation": "Read the documentation",
+    "request": {
+      "placeholder": "",
+      "createNewDownload": "Create new download",
+      "weHaveRestoredYourPredicate": "",
+      "noPredicate": "",
+      "currentFilter": "Current filter",
+      "errors": {
+        "invalid-json": "Invalid JSON",
+        "invalid-predicate": "",
+        "faild-to-load-predicate": "",
+        "unexpectedError": "",
+        "failedToParseJSON": "",
+        "failedToVisualizePredicate": ""
+      }
     },
-    "fileFormats": {
-      "tabCsv": "Tab-delimited CSV (for use in Excel, etc.)"
-    },
-    "tableValues": {
-      "ifAvailable": "if available",
-      "ifSelected": "if selected",
-      "links": "links"
+    "downloadOptions": {
+      "title": "Download options",
+      "chooseChecklist": "Choose checklist",
+      "chooseChecklistDescription": "Select the taxonomic checklist for organizing the taxon names in your download",
+      "content": {
+        "rawData": "Raw data",
+        "interpretedData": "Interpreted data",
+        "images": "Multimedia",
+        "coordinates": "Coordinates",
+        "fileFormat": "Format",
+        "estimatedSize": "Estimated data size"
+      },
+      "fileFormats": {
+        "tabCsv": ""
+      },
+      "tableValues": {
+        "ifAvailable": "",
+        "ifSelected": "",
+        "links": ""
+      }
     }
   }
 }
