@@ -147,8 +147,8 @@ export default function ConfigurationStep({
     setActiveSection(activeSection === section ? null : section);
   };
 
-  const hasCubeSupport =
-    currentContextChecklistKey === import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY;
+  const invalidCubeChecklist =
+    currentContextChecklistKey !== import.meta.env.PUBLIC_DEFAULT_CHECKLIST_KEY && isCubeData;
 
   return (
     <div className="g-max-w-4xl g-mx-auto">
@@ -163,7 +163,7 @@ export default function ConfigurationStep({
         </button>
       </div>
 
-      {!hasCubeSupport && (
+      {invalidCubeChecklist && (
         <Alert variant="info">
           <AlertTitle>Cube Support Unavailable</AlertTitle>
           <AlertDescription>
@@ -172,7 +172,7 @@ export default function ConfigurationStep({
         </Alert>
       )}
 
-      {hasCubeSupport && (
+      {!invalidCubeChecklist && (
         <div className="g-grid lg:g-grid-cols-3 g-gap-8">
           {/* Configuration Sections */}
           <div className="lg:g-col-span-2 g-space-y-6">
