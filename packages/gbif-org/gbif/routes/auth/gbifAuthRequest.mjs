@@ -60,18 +60,14 @@ export async function authenticatedRequest(options) {
     throw new RequestError(errorObj?.error ?? 'FAILED', response.status);
   }
 
+  const text = await response.text();
   let body;
   try {
-    body = await response.json();
-  } catch (error) {
-    // ignore error
-  }
-  if (body === null) {
-    try {
-      body = await response.text();
-    } catch (error) {
-      // ignore error
-    }
+    body = JSON.parse(text);
+    // it's JSON
+  } catch {
+    body = text;
+    // it's plain text
   }
   return { body, statusCode: response.status };
 }
