@@ -8,6 +8,7 @@ import { formatFileSize, getEstimatedSizeInBytes, getEstimatedUnzippedSizeInByte
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
 import { useI18n } from '@/reactRouterPlugins';
+import { Message } from '@/components/message';
 
 interface TermsStepProps {
   predicate?: any;
@@ -182,24 +183,8 @@ export default function TermsStep({
                   >
                     <FormattedMessage id="occurrenceDownloadFlow.dataUseAgreement" />
                   </label>
-                  <div className="g-text-sm g-text-gray-700 g-space-y-2">
-                    <p>
-                      <FormattedMessage id="occurrenceDownloadFlow.dataUseAgreementIntro" />
-                    </p>
-                    <ul className="g-list-disc g-list-inside g-space-y-1 g-ml-4">
-                      <li>
-                        <FormattedMessage id="occurrenceDownloadFlow.dataUseAgreementItem1" />
-                      </li>
-                      <li>
-                        <FormattedMessage id="occurrenceDownloadFlow.dataUseAgreementItem2" />
-                      </li>
-                      <li>
-                        <FormattedMessage id="occurrenceDownloadFlow.dataUseAgreementItem3" />
-                      </li>
-                      <li>
-                        <FormattedMessage id="occurrenceDownloadFlow.dataUseAgreementItem4" />
-                      </li>
-                    </ul>
+                  <div className="g-text-sm g-text-gray-700 g-space-y-2 g-prose">
+                    <Message id="occurrenceDownloadFlow.promoteTransparent" />
                   </div>
                 </div>
               </div>
@@ -226,43 +211,47 @@ export default function TermsStep({
                     >
                       <FormattedMessage id="occurrenceDownloadFlow.largeDownloadAcknowledgment" />
                     </label>
-                    <div className="g-text-sm g-text-gray-700 g-space-y-3">
-                      <p>
-                        <FormattedMessage
-                          id="occurrenceDownloadFlow.largeDownloadEstimatedSize"
-                          values={{ size: <strong>{formatFileSize(estimatedSizeInBytes)}</strong> }}
-                        />{' '}
-                        <FormattedMessage
-                          id="occurrenceDownloadFlow.largeDownloadConnectionSpeed"
-                          values={{
-                            speed: primaryEstimate.speed,
-                            time: <strong>{primaryEstimate.formattedTime}</strong>,
-                          }}
-                        />
-                      </p>
-                      <p>
-                        <FormattedMessage
-                          id="occurrenceDownloadFlow.largeDownloadDiskSpace"
-                          values={{
-                            size: <strong>{formatFileSize(estimatedUnzippedSizeInBytes)}</strong>,
-                          }}
-                        />
-                      </p>
-                      <p>
-                        <FormattedMessage
-                          id="occurrenceDownloadFlow.largeDownloadRowCount"
-                          values={{
-                            count: (
-                              <strong>
-                                <FormattedNumber value={totalRecords ?? 0} />
-                              </strong>
-                            ),
-                          }}
-                        />
-                      </p>
-                      <p>
-                        <FormattedMessage id="occurrenceDownloadFlow.largeDownloadExcelWarning" />
-                      </p>
+                    <div className="g-text-sm g-text-gray-700 g-space-y-3 g-prose">
+                      <div>
+                        <p>
+                          <FormattedMessage
+                            id="occurrenceDownloadFlow.largeDownloadEstimatedSize"
+                            values={{
+                              size: <strong>{formatFileSize(estimatedSizeInBytes)}</strong>,
+                            }}
+                          />{' '}
+                          <FormattedMessage
+                            id="occurrenceDownloadFlow.largeDownloadConnectionSpeed"
+                            values={{
+                              speed: primaryEstimate.speed,
+                              time: <strong>{primaryEstimate.formattedTime}</strong>,
+                            }}
+                          />
+                        </p>
+                        <p>
+                          <FormattedMessage
+                            id="occurrenceDownloadFlow.largeDownloadDiskSpace"
+                            values={{
+                              size: <strong>{formatFileSize(estimatedUnzippedSizeInBytes)}</strong>,
+                            }}
+                          />
+                        </p>
+                        <p>
+                          <FormattedMessage
+                            id="occurrenceDownloadFlow.largeDownloadRowCount"
+                            values={{
+                              count: (
+                                <strong>
+                                  <FormattedNumber value={totalRecords ?? 0} />
+                                </strong>
+                              ),
+                            }}
+                          />
+                        </p>
+                        <p>
+                          <FormattedMessage id="occurrenceDownloadFlow.largeDownloadExcelWarning" />
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
