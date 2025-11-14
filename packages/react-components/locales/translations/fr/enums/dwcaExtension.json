@@ -17,5 +17,12 @@
   "http://rs.gbif.org/terms/1.0/Multimedia": "Multimedia",
   "http://rs.gbif.org/terms/1.0/Reference": "Référence",
   "http://rs.tdwg.org/dwc/terms/ResourceRelationship": "Relation entre ressources",
-  "http://eol.org/schema/reference/Reference": "Référence EOL"
+  "http://eol.org/schema/reference/Reference": "Référence EOL",
+  "http://eol.org/schema/media/Document": "Document EOL",
+  "http://rs.gbif.org/terms/1.0/Description": "Description GBIF",
+  "http://rs.gbif.org/terms/1.0/Distribution": "Distribution GBIF",
+  "http://rs.gbif.org/terms/1.0/VernacularName": "Nom vernaculaire GBIF",
+  "http://rs.gbif.org/terms/1.0/SpeciesProfile": "Profil de l’espèce GBIF",
+  "http://rs.gbif.org/terms/1.0/TypesAndSpecimen": "Types et spécimen GBIF",
+  "http://rs.gbif.org/terms/1.0/Releve": "Relevé GBIF"
 }
