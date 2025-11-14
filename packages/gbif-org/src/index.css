@@ -740,6 +740,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     margin-right: 10px;
     z-index: 2;
     position: relative;
+    border-radius: 3px;
   }
   .node-value {
     span {
