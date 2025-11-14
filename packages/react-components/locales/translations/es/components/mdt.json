@@ -1,9 +1,13 @@
 {
+  "protectedTitle": "Necesitas una cuenta para enviar una solicitud",
+  "protectedMessage": "Inicia sesión o crea una cuenta para continuar enviando una solicitud",
+  "successTitle": "Gracias por tu solicitud",
   "successMessage": "ID administrado por el proveedor",
   "description": "Descripción",
   "descriptionLabel": "Descripción",
   "typeOfApplication": "Tipo",
   "domain": "Dominio",
+  "terms": "Términos",
   "personName": "Nombre",
   "email": "Correo electrónico",
   "participantLabel": "Participante"
