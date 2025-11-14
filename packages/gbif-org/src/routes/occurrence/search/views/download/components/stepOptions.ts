@@ -1,6 +1,7 @@
 import { FaCog, FaFileAlt, FaDownload } from 'react-icons/fa';
 import { ComponentType } from 'react';
 import { FilterIcon } from '@/components/icons/icons';
+import { FaSection } from 'react-icons/fa6';
 
 export interface Step {
   ordering: number;
@@ -50,7 +51,7 @@ export const stepOptions: Record<string, Step> = {
     ordering: 5,
     id: 'TERMS',
     name: 'occurrenceDownloadFlow.steps.terms.name',
-    icon: FaDownload,
+    icon: FaSection,
     description: 'occurrenceDownloadFlow.steps.terms.description',
   },
 };
