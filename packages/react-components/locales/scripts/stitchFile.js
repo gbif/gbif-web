@@ -33,6 +33,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       counts: getFile(locale, `../${folder}/${locale}/components/counts`),
       contact: getFile(locale, `../${folder}/${locale}/components/contact`),
       pagination: getFile(locale, `../${folder}/${locale}/components/pagination`),
+      definitions: getFile(locale, `../${folder}/${locale}/components/definitions`).definitions,
       search: getFile(locale, `../${folder}/${locale}/components/search`),
       phrases: getFile(locale, `../${folder}/${locale}/components/phrases`),
       profile: getFile(locale, `../${folder}/${locale}/components/profile`).profile,
@@ -43,6 +44,9 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       gbifNetwork: getFile(locale, `../${folder}/${locale}/components/gbifNetwork`).gbifNetwork,
       downloadKey: getFile(locale, `../${folder}/${locale}/components/downloads`).downloadKey,
       participant: getFile(locale, `../${folder}/${locale}/components/participant`).participant,
+      downloadReport: getFile(locale, `../${folder}/${locale}/components/downloads`).downloadReport,
+      occurrenceDownloadFlow: getFile(locale, `../${folder}/${locale}/components/downloads`)
+        .occurrenceDownloadFlow,
       customSqlDownload: getFile(locale, `../${folder}/${locale}/components/downloads`)
         .customSqlDownload,
       homepage: getFile(locale, `../${folder}/${locale}/components/homepage`).homepage,
@@ -55,7 +59,7 @@ function builder({ locale = 'en', folder = 'translations', keepEmptyStrings = fa
       ),
       occurrenceDetails: getFile(locale, `../${folder}/${locale}/components/occurrenceDetails`),
       eventDetails: getFile(locale, `../${folder}/${locale}/components/eventDetails`),
-      download: getFile(locale, `../${folder}/${locale}/components/download`),
+      download: getFile(locale, `../${folder}/${locale}/components/download`).download,
       map: getFile(locale, `../${folder}/${locale}/components/map`),
       images: getFile(locale, `../${folder}/${locale}/components/images`),
       error: getFile(locale, `../${folder}/${locale}/components/error`),

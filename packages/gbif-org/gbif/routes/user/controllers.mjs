@@ -15,6 +15,7 @@ import {
   sanitizeUpdatedUser,
   updateForgottenPassword,
   update as updateUser,
+  createDownload,
 } from './user.model.mjs';
 import { decryptJSON } from './encrypt.mjs';
 /**
@@ -165,6 +166,36 @@ export function create(req, res) {
     });
 }
 
+/**
+ * Initiate a predicate download based on query parameters.
+ */
+export function createPredicateDownload(req, res) {
+  createDownload(req.user, req.body, req?.query?.source)
+    .then(function (download) {
+      res.status(201);
+      setNoCache(res);
+      res.json({ downloadKey: download });
+    })
+    .catch(handleError(res, 422));
+}
+
+/**
+ * Initiate a predicate download based on query parameters.
+ */
+export function createSqlDownload(req, res) {
+  if (!req.body.sql || req.body.format !== 'SQL_TSV_ZIP') {
+    res.status(400);
+    return res.json({ error: 'SQL query and format are required for this download type' });
+  }
+  createDownload(req.user, req.body, req?.query?.source)
+    .then(function (download) {
+      res.status(201);
+      auth.setNoCache(res);
+      res.json({ downloadKey: download });
+    })
+    .catch(handleError(res, 422));
+}
+
 /*
 General handler for errors. Essentially return no information but an error code and log the error. 
 The front end will have to provide generic error handling.
@@ -185,7 +216,7 @@ export function showUserInRegistry(req, res) {
   console.log(req.params.user);
   console.log(req?.user);
   if (!req?.user?.email?.endsWith('@gbif.org')) {
-    res.sendStatus(403); // this test doesn't matter much as the registry requires a login to show the data anyhow
+    res.sendStatus(403); // this test doesn't matter much as the registry requires a login to show the data anyhow. But it does avoid leaking the username of the person creating the issue.
   } else {
     const userCode = req.params.user;
     try {

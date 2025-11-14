@@ -2,10 +2,12 @@
 Experimental endpoint to provide a human readable form for WKT polygons.
 The idea is to use our geocoding layers to provide results like: denmark, copenhagen area, gentofte and dragør.
 */
+import { Router } from 'express';
 import { getSql } from '#/helpers/generateSql';
 import searchAll from '#/helpers/omniSearch/omniSearch';
-import { Router } from 'express';
 import getNetworkCounts from './networkStats/networkCounts';
+import geSupportChecklists from './supportedChecklists/geSupportChecklists';
+import validateDownloadPredicate from '#/helpers/validateDownloadPredicate';
 
 const router = Router();
 
@@ -53,5 +55,17 @@ router.get('/network-stats', async (req, res) => {
     res.json(response);
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+});
+
+router.post('/validate-download-predicate', async (req, res) => {
+  try {
+    const response = await validateDownloadPredicate(req.body.predicate);
+    res.json(response);
+  } catch (err) {
+    res.status(500).json({
+      error:
+        "Unable to validate download predicate currently. This doesn't mean that it is INVALID.",
+    });
   }
 });

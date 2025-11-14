@@ -35,6 +35,7 @@ const isServer = () => typeof window === 'undefined';
 export const gbifConfig: Config = {
   version: 3,
   ...options,
+  isGBIFOrg: true,
   get graphqlEndpoint() {
     if (isServer()) {
       return options.graphqlEndpointServer ?? options.graphqlEndpoint;

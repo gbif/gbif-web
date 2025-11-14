@@ -1,68 +1,76 @@
 {
-  "unsupported.title": "Unsupported query",
-  "unsupported.description": "Free text search can be used for exploration, but do not have download support.",
-  "unsupported.remove": "Remove filter",
-  "unsupported.error": "This query looks like it is unsupported",
-  "download": "Download",
-  "redirectNotice": "You are about to download, to do so you will be redirected to GBIF.org. \n\n Be aware that an account is needed to download the content.",
-  "continueToGBIF": "Continue",
-  "sql": {
-    "createNewSqlDownload": "Create new SQL download",
-    "placeholder": "Enter your SQL query here...",
-    "noSql": "No SQL query",
-    "note": {
-      "title": "Note",
-      "description": "The easiest way to download and explore data is via the occurrence search user interface. But for complex queries and aggregations, the SQL editor provides more freedom.",
-      "goToOccurrenceSearch": "Go to occurrence search"
+  "download": {
+    "unsupported.title": "Unsupported query",
+    "unsupported.description": "Free text search can be used for exploration, but do not have download support.",
+    "unsupported.remove": "Remove filter",
+    "unsupported.error": "This query looks like it is unsupported",
+    "download": "Download",
+    "redirectNotice": "You are about to download, to do so you will be redirected to GBIF.org. \n\n Be aware that an account is needed to download the content.",
+    "continueToGBIF": "Continue",
+    "continue": "Continue",
+    "invalid": "Invalid",
+    "validate": "Validate",
+    "sqlEditor": "SQL editor",
+    "predicateEditor": "Predicate editor",
+    "sql": {
+      "createNewSqlDownload": "Create new SQL download",
+      "placeholder": "Enter your SQL query here...",
+      "noSql": "No SQL query",
+      "note": {
+        "title": "Note",
+        "description": "The easiest way to download and explore data is via the {occurrence_search}. But for complex queries and aggregations, the SQL editor provides more freedom.",
+        "occurrence_search": "occurrence search user interface"
+      },
+      "errors": {
+        "invalid-SQL": "Invalid SQL",
+        "network-error": "Network error",
+        "parsingErrorDescription": "Unable to parse SQL",
+        "networkErrorDescription": "Could not validate SQL because of a network error"
+      }
     },
-    "errors": {
-      "invalid-SQL": "Invalid SQL",
-      "network-error": "Network error",
-      "parsingErrorDescription": "Unable to parse SQL",
-      "networkErrorDescription": "Could not validate SQL because of a network error"
-    }
-  },
-  "create": "Create",
-  "about": "About",
-  "stopEditing": "Stop editing",
-  "startEditing": "Start editing",
-  "reformat": "Reformat",
-  "discard": "Discard",
-  "keep": "Keep",
-  "readTheDocumentation": "Read the documentation",
-  "request": {
-    "createNewDownload": "Create new download",
-    "weHaveRestoredYourPredicate": "We have restored the predicate your were working on last time you where here.",
-    "noPredicate": "No predicate",
-    "currentFilter": "Current filter",
-    "errors": {
-      "invalid-json": "Invalid JSON",
-      "invalid-predicate": "Invalid predicate",
-      "faild-to-load-predicate": "Failed to load predicate",
-      "unexpectedError": "An unexpected error occurred",
-      "failedToParseJSON": "Could not parse JSON",
-      "failedToVisualizePredicate": "Failed to visualize predicate. Displaying raw JSON"
-    }
-  },
-  "downloadOptions": {
-    "title": "Download options",
-    "chooseChecklist": "Choose checklist",
-    "chooseChecklistDescription": "Select which taxonomic checklist to use for organizing the names in your download",
-    "content": {
-      "rawData": "Raw data",
-      "interpretedData": "Interpreted data",
-      "images": "Images",
-      "coordinates": "Coordinates",
-      "fileFormat": "Format",
-      "estimatedSize": "Estimated data size"
+    "create": "Create",
+    "about": "About",
+    "stopEditing": "Stop editing",
+    "startEditing": "Start editing",
+    "reformat": "Reformat",
+    "discard": "Discard",
+    "keep": "Keep",
+    "readTheDocumentation": "Read the documentation",
+    "request": {
+      "placeholder": "Enter your predicate here...",
+      "createNewDownload": "Create new download",
+      "weHaveRestoredYourPredicate": "We have restored the predicate your were working on last time you where here.",
+      "noPredicate": "No predicate",
+      "currentFilter": "Current filter",
+      "errors": {
+        "invalid-json": "Invalid JSON",
+        "invalid-predicate": "Invalid predicate",
+        "faild-to-load-predicate": "Failed to load predicate",
+        "unexpectedError": "An unexpected error occurred",
+        "failedToParseJSON": "Could not parse JSON",
+        "failedToVisualizePredicate": "Failed to visualize predicate. Displaying raw JSON"
+      }
     },
-    "fileFormats": {
-      "tabCsv": "Tab-delimited CSV (for use in Excel, etc.)"
-    },
-    "tableValues": {
-      "ifAvailable": "if available",
-      "ifSelected": "if selected",
-      "links": "links"
+    "downloadOptions": {
+      "title": "Download options",
+      "chooseChecklist": "Choose checklist",
+      "chooseChecklistDescription": "Select which taxonomic checklist to use for organizing the names in your download",
+      "content": {
+        "rawData": "Raw data",
+        "interpretedData": "Interpreted data",
+        "images": "Images",
+        "coordinates": "Coordinates",
+        "fileFormat": "Format",
+        "estimatedSize": "Estimated data size"
+      },
+      "fileFormats": {
+        "tabCsv": "Tab-delimited CSV (for use in Excel, etc.)"
+      },
+      "tableValues": {
+        "ifAvailable": "if available",
+        "ifSelected": "if selected",
+        "links": "links"
+      }
     }
   }
 }

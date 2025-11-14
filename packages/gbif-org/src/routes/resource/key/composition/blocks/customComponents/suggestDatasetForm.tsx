@@ -53,7 +53,7 @@ export function SuggestDatasetForm() {
 
   return (
     <ProtectedForm
-      className="g-mt-8"
+      className="g-mt-8 g-bg-gray-50 g-shadow-sm"
       title={<FormattedMessage id="suggestDataset.loginToSuggestDataset.title" />}
       message={<FormattedMessage id="suggestDataset.loginToSuggestDataset.message" />}
     >

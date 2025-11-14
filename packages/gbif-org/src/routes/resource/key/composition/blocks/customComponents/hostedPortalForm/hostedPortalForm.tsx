@@ -96,7 +96,7 @@ export function HostedPortalForm() {
 
   return (
     <ProtectedForm
-      className="g-my-8 g-max-w-3xl g-mx-auto g-bg-gray-50"
+      className="g-my-8 g-max-w-3xl g-mx-auto g-bg-gray-50 g-shadow-sm"
       title={
         <FormattedMessage
           id="hostedPortalApplication.protectedFormTitle"

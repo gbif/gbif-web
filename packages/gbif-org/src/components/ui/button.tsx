@@ -21,6 +21,8 @@ const buttonVariants = cva(
           'g-bg-secondary g-text-secondary-foreground g-shadow-sm hover:g-bg-secondary/80 g-border g-border-solid g-border-secondary',
         ghost:
           'g-bg-transparent hover:g-bg-accent hover:g-text-accent-foreground g-border g-border-solid g-border-transparent',
+        subtle:
+          'g-bg-gray-500/10 hover:g-bg-gray-500/20 g-text-accent-foreground g-border g-border-solid g-border-transparent',
         link: 'g-bg-transparent g-text-primary g-underline-offset-4 hover:g-underline',
         linkDestructive:
           'g-bg-transparent g-text-destructive g-underline-offset-4 hover:g-underline',

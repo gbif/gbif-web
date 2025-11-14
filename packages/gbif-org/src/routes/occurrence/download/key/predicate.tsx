@@ -22,13 +22,18 @@ import {
 } from '@/components/filters/displayNames';
 import { Skeleton } from '@/components/ui/skeleton';
 import { camelCase, constantCase } from 'change-case';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useIntl } from 'react-intl';
 
-export const PredicateDisplay = ({ predicate }) => {
+export const PredicateDisplay = ({ predicate: predicateRaw }) => {
   const intl = useIntl();
+  let predicate = predicateRaw;
 
-  const getTranslation = (key) => intl.formatMessage({ id: key });
+  const getTranslation = useCallback(
+    (key: string, fallback?: string) =>
+      intl.formatMessage({ id: key, defaultMessage: fallback ?? key }),
+    [intl]
+  );
 
   const getValueTranslation = useMemo(() => {
     return (predicate) => {
@@ -61,7 +66,7 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'LATEST_AGE_OR_HIGHEST_STAGE':
             return <GeoTimeLabel id={value} />;
           case 'OCCURRENCE_STATUS':
-            return getTranslation(`enums.occurrenceStatus.${constantCase(value)}`);
+            return getTranslation(`enums.occurrenceStatus.${constantCase(value)}`, `"${value}"`);
           case 'PROJECT_ID':
             return value;
           case 'LOWEST_BIOSTRATIGRAPHIC_ZONE':
@@ -75,11 +80,11 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'SUBGENUS_KEY':
             return <TaxonLabel id={value} checklistKey={checklistKey} />;
           case 'HAS_GEOSPATIAL_ISSUE':
-            return getTranslation(`enums.yesNo.${camelCase(value)}`);
+            return getTranslation(`enums.yesNo.${camelCase(value)}`, `"${value}"`);
           case 'INSTITUTION_CODE':
             return value;
           case 'REPATRIATED':
-            return getTranslation(`enums.yesNo.${camelCase(value)}`);
+            return getTranslation(`enums.yesNo.${camelCase(value)}`, `"${value}"`);
           case 'YEAR':
             return <YearLabel id={predicate} />;
           case 'STATE_PROVINCE':
@@ -109,7 +114,7 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'IDENTIFIED_BY_ID':
             return value;
           case 'MONTH':
-            return getTranslation(`enums.month.${constantCase(value)}`);
+            return getTranslation(`enums.month.${constantCase(value)}`, `"${value}"`);
           case 'BED':
             return value;
           case 'DATASET_ID':
@@ -123,15 +128,15 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'HIGHEST_BIOSTRATIGRAPHIC_ZONE':
             return <GeoTimeLabel id={value} />;
           case 'COUNTRY':
-            return getTranslation(`enums.countryCode.${constantCase(value)}`);
+            return getTranslation(`enums.countryCode.${constantCase(value)}`, `"${value}"`);
           case 'IDENTIFIED_BY':
             return value;
           case 'GBIF_ID':
             return value;
           case 'PUBLISHED_BY_GBIF_REGION':
-            return getTranslation(`enums.gbifRegion.${constantCase(value)}`);
+            return getTranslation(`enums.gbifRegion.${constantCase(value)}`, `"${value}"`);
           case 'IUCN_RED_LIST_CATEGORY':
-            return getTranslation(`enums.iucnRedListCategory.${constantCase(value)}`);
+            return getTranslation(`enums.iucnRedListCategory.${constantCase(value)}`, `"${value}"`);
           case 'PATHWAY':
             return <PathwayLabel id={value} />;
           case 'NETWORK_KEY':
@@ -141,13 +146,13 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'ACCEPTED_TAXON_KEY':
             return <TaxonLabel id={value} checklistKey={checklistKey} />;
           case 'CONTINENT':
-            return getTranslation(`enums.continent.${constantCase(value)}`);
+            return getTranslation(`enums.continent.${constantCase(value)}`, `"${value}"`);
           case 'OTHER_CATALOG_NUMBERS':
             return value;
           case 'TYPE_STATUS':
-            return getTranslation(`enums.typeStatus.${constantCase(value)}`);
+            return getTranslation(`enums.typeStatus.${constantCase(value)}`, `"${value}"`);
           case 'PROTOCOL':
-            return getTranslation(`enums.endpointType.${constantCase(value)}`);
+            return getTranslation(`enums.endpointType.${constantCase(value)}`, `"${value}"`);
           case 'MEMBER':
             return value;
           case 'SPECIES_KEY':
@@ -167,7 +172,7 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'ORGANISM_ID':
             return value;
           case 'PUBLISHING_COUNTRY':
-            return getTranslation(`enums.countryCode.${constantCase(value)}`);
+            return getTranslation(`enums.countryCode.${constantCase(value)}`, `"${value}"`);
           case 'SAMPLE_SIZE_UNIT':
             return value;
           case 'LITHOSTRATIGRAPHY':
@@ -195,13 +200,13 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'EARLIEST_EPOCH_OR_LOWEST_SERIES':
             return <GeoTimeLabel id={value} />;
           case 'IS_SEQUENCED':
-            return getTranslation(`enums.yesNo.${camelCase(value)}`);
+            return getTranslation(`enums.yesNo.${camelCase(value)}`, `"${value}"`);
           case 'TAXON_ID':
             return value;
           case 'EARLIEST_PERIOD_OR_LOWEST_SYSTEM':
             return <GeoTimeLabel id={value} />;
           case 'MEDIA_TYPE':
-            return getTranslation(`enums.mediaType.${constantCase(value)}`);
+            return getTranslation(`enums.mediaType.${constantCase(value)}`, `"${value}"`);
           case 'CLASS_KEY':
             return <TaxonLabel id={value} checklistKey={checklistKey} />;
           case 'LIFE_STAGE':
@@ -227,7 +232,7 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'SAMPLING_PROTOCOL':
             return value;
           case 'IS_IN_CLUSTER':
-            return getTranslation(`enums.yesNo.${camelCase(value)}`);
+            return getTranslation(`enums.yesNo.${camelCase(value)}`, `"${value}"`);
           case 'RECORD_NUMBER':
             return value;
           case 'PUBLISHING_ORG':
@@ -237,7 +242,7 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'COLLECTION_KEY':
             return <CollectionLabel id={value} />;
           case 'LICENSE':
-            return getTranslation(`enums.license.${constantCase(value)}`);
+            return getTranslation(`enums.license.${constantCase(value)}`, `"${value}"`);
           case 'LAST_INTERPRETED':
             return value;
           case 'KINGDOM_KEY':
@@ -251,7 +256,7 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'CRAWL_ID':
             return value;
           case 'HAS_COORDINATE':
-            return getTranslation(`enums.yesNo.${camelCase(value)}`);
+            return getTranslation(`enums.yesNo.${camelCase(value)}`, `"${value}"`);
           case 'GROUP':
             return value;
           case 'LATEST_EPOCH_OR_HIGHEST_SERIES':
@@ -261,13 +266,13 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'ORDER_KEY':
             return <TaxonLabel id={value} checklistKey={checklistKey} />;
           case 'ISSUE':
-            return getTranslation(`enums.occurrenceIssue.${constantCase(value)}`);
+            return getTranslation(`enums.occurrenceIssue.${constantCase(value)}`, `"${value}"`);
           case 'INSTALLATION_KEY':
             return <InstallationLabel id={value} />;
           case 'VERBATIM_SCIENTIFIC_NAME':
             return value;
           case 'GBIF_REGION':
-            return getTranslation(`enums.gbifRegion.${constantCase(value)}`);
+            return getTranslation(`enums.gbifRegion.${constantCase(value)}`, `"${value}"`);
           case 'COORDINATE_UNCERTAINTY_IN_METERS':
             return value;
           case 'PARENT_EVENT_ID':
@@ -275,7 +280,7 @@ export const PredicateDisplay = ({ predicate }) => {
           case 'RECORDED_BY':
             return value;
           case 'BASIS_OF_RECORD':
-            return getTranslation(`enums.basisOfRecord.${constantCase(value)}`);
+            return getTranslation(`enums.basisOfRecord.${constantCase(value)}`, `"${value}"`);
           case 'BIOSTRATIGRAPHY':
             return value;
           case 'DATASET_KEY':
@@ -292,6 +297,10 @@ export const PredicateDisplay = ({ predicate }) => {
   }, [getTranslation]);
 
   if (!predicate) return null;
+
+  if (typeof predicate === 'string') {
+    predicate = JSON.parse(predicate);
+  }
 
   if (JSON.stringify(predicate).length > 2000) {
     return <pre>{JSON.stringify(predicate, null, 2)}</pre>;
@@ -339,7 +348,10 @@ export const PredicateDisplay = ({ predicate }) => {
       return (
         <div className="leaf">
           <span dir="auto" className="node">
-            {getTranslation(`downloadKey.predicate.keys.${constantCase(predicate.key)}`)}
+            {getTranslation(
+              `downloadKey.predicate.keys.${constantCase(predicate.key)}`,
+              `"${predicate.key}"`
+            )}
           </span>
           <ol className="inlineBulletList">
             {predicate.values.map((option, index) => (
@@ -365,10 +377,13 @@ export const PredicateDisplay = ({ predicate }) => {
       return (
         <div className="leaf">
           <span dir="auto" className="node">
-            {getTranslation(`downloadKey.predicate.keys.${constantCase(predicate.parameter)}`)}
+            {getTranslation(
+              `downloadKey.predicate.keys.${constantCase(predicate.parameter)}`,
+              `"${predicate.parameter}"`
+            )}
           </span>
           <span dir="auto" className="node-value discreet--very">
-            {getTranslation(`downloadKey.predicate.${predicate.type}`)}
+            {getTranslation(`downloadKey.predicate.${predicate.type}`, `"${predicate.type}"`)}
           </span>
         </div>
       );
@@ -387,7 +402,10 @@ export const PredicateDisplay = ({ predicate }) => {
       return (
         <div className="leaf">
           <span dir="auto" className="node">
-            {getTranslation(`downloadKey.predicate.keys.${constantCase(predicate.key)}`)}
+            {getTranslation(
+              `downloadKey.predicate.keys.${constantCase(predicate.key)}`,
+              `"${predicate.key}"`
+            )}
           </span>
           <span dir="auto" className="node-value">
             {getValueTranslation(predicate)}

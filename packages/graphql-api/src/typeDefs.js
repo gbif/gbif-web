@@ -1,6 +1,6 @@
-import { getEnumTypeDefs } from '#/helpers/enums';
 import { gql } from 'apollo-server';
 import { get } from 'lodash';
+import { getEnumTypeDefs } from '#/helpers/enums';
 import config from './config';
 import * as resources from './resources';
 
@@ -16,6 +16,9 @@ const inputTypeDef = gql`
     predicate: Predicate
     predicates: [Predicate]
     checklistKey: ID
+    matchCase: Boolean
+    parameter: String
+    geometry: String
   }
 
   enum PredicateType {
@@ -32,6 +35,9 @@ const inputTypeDef = gql`
     nested
     range
     geoDistance
+    greaterThan
+    greaterThanOrEquals
+    lessThanOrEquals
   }
 `;
 

@@ -11,7 +11,7 @@ export function OccurrenceDownloadPage() {
   return (
     <article>
       <PageContainer topPadded className="g-bg-white">
-        <ArticleTextContainer className="g-max-w-3xl">
+        <ArticleTextContainer className="g-max-w-4xl">
           <ArticleTitle>
             <FormattedMessage
               id="download.request.createNewDownload"

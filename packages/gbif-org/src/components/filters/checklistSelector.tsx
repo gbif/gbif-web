@@ -13,8 +13,8 @@ import { FilterContext } from '@/contexts/filter';
 import { useConfig } from '@/config/config';
 import React, { useContext } from 'react';
 import { MdInfo } from 'react-icons/md';
-import { PiGitBranchBold as TaxonomyIcon } from 'react-icons/pi';
 import { FormattedMessage } from 'react-intl';
+import { TaxonomyIcon } from '../highlights';
 
 export function ChecklistSelector(): React.ReactElement | null {
   const currentFilterContext = useContext(FilterContext);
