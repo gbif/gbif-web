@@ -8,6 +8,7 @@ const { getSuggestQuery } = require('../../requestAdapter/suggest');
 const normalizePredicate = require('../../requestAdapter/util/normalizePredicate');
 const dataSource = require('./occurrence.dataSource');
 const logger = require('../../logger');
+const { ResponseError } = require('../errorHandler');
 
 function suggestConfig() {
   return suggestConfigFromAlias({
@@ -106,7 +107,11 @@ function predicate2esQuery(predicate, q) {
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new ResponseError(
+          400,
+          'INVALID_PREDICATE',
+          `The predicate could not be interpreted by the API`,
+        );
       }
       return response.json();
     })

@@ -8,10 +8,11 @@ class ResponseError extends Error {
 }
 
 function errorHandler(err, req, res, next) {
-  const { statusCode, message } = err;
+  const { statusCode, displayName, message } = err;
   res.setHeader('Cache-Control', 'no-cache');
   res.status(statusCode || 503).json({
     statusCode: statusCode || 503,
+    displayName,
     message,
   });
 
