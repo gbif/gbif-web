@@ -291,6 +291,7 @@ function reduce(item, fields) {
     // organismQuantity:                   source.organismQuantity,// this field is only present when it can be interpreted as a number
     organismQuantityType: source.organismQuantityType,
     protocol: source.protocol,
+    projectId: source.projectId,
     publishingCountry: source.publishingCountry,
     recordNumber: source.recordNumber,
     recordedBy: source.recordedBy,
