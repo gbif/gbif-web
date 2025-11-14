@@ -62,7 +62,7 @@ function rangeOrEqualLabel(
         <FormattedMessage
           id="intervals.description.lt"
           defaultMessage={`< ${formatValue(value?.value, intl)}`}
-          values={{ from: formatValue(value.value, intl) }}
+          values={{ to: formatValue(value.value, intl) }}
         />
       );
     } else if (value?.type === 'greaterThan') {
@@ -70,7 +70,7 @@ function rangeOrEqualLabel(
         <FormattedMessage
           id="intervals.description.gt"
           defaultMessage={`> ${formatValue(value?.value, intl)}`}
-          values={{ to: formatValue(value.value, intl) }}
+          values={{ from: formatValue(value.value, intl) }}
         />
       );
     } else {
