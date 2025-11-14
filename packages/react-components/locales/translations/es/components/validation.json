@@ -1,5 +1,8 @@
 {
+  "checkboxRequired": "Por favor, marca esta casilla",
+  "required": "Por favor, llena este campo",
   "invalidEmail": "Por favor proporcione un correo electrónico válido",
+  "invalidURL": "Por favor, escribe una URL válida.",
   "invalidWebsiteAddress": "Por favor, proporciona una dirección web válida",
   "pleaseSelectAValue": "Por favor, selecciona un valor"
 }
