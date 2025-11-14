@@ -35,15 +35,12 @@ function isAllowedDomain(url: string): boolean {
       const allowed = allowedDomains.some(
         (allowed) => domain === allowed || domain.endsWith('.' + allowed)
       );
-      console.log('absolute url detected in hypertext component:', url, 'allowed:', allowed);
       return allowed;
     }
 
     // No protocol means relative URL - allow it
-    console.log('relative url detected in hypertext component:', url);
     return true;
   } catch {
-    console.log('invalid url detected in hypertext component:', url);
     return false;
   }
 }
