@@ -1,6 +1,27 @@
 {
   "primaryContact": "Contacto primario",
+  "languages": "Lenguajes",
+  "experience": "Experiencia",
+  "experienceHeading": "Nivel de experiencia con herramientas y lenguajes relacionados",
+  "terms": "Términos",
   "termsHeading": "Términos y condiciones",
   "name": "Nombre",
-  "email": "Correo electrónico"
+  "email": "Correo electrónico",
+  "github": "Nombre de usuario de GitHub",
+  "githubDescription": "Si es posible, facilita tu nombre de usuario de GitHub. Lo utilizaremos para darte acceso y puedas seguir el progreso de tu solicitud",
+  "hostedPortalNameDescription": "Indica el nombre que deseas utilizar para tu portal alojado",
+  "applicationType.nationalPortal": "Un portal nacional sobre diversidad biodiversidad",
+  "applicationType.participantCountry": "País participante",
+  "nodeContact.iAmNodeManager": "Yo soy el Administrador del Nodo",
+  "userGroupDescription": "¿Haz identificado un grupo de usuarios para el portal? ¿Cómo describirías sus necesidades? Explica también cómo has identificado el grupo de usuarios y sus necesidades. Si el portal sustituye a un sitio web existente, facilita un enlace, si está disponible, y explica por qué crees que un portal alojado sería una mejor solución ",
+  "timelinesDescription": "¿Hay algún plazo que debas cumplir en relación con la implementación, promoción y uso continuo del portal?",
+  "languagesDescription": "¿En qué idiomas te gustaría que estuviera disponible tu portal alojado? Ten en cuenta que deberás traducir su propio contenido y menú, y es posible que tengas que aportar traducciones para elementos comunes, como componentes de búsqueda de datos para idiomas distintos del inglés, si aún no están disponibles",
+  "experienceDescription": "Gestionaremos los portales alojados en GitHub. Deberás crear contenido utilizando Markdown y YAML. No es difícil y, si lo necesitas, podemos remitirte a la documentación y proporcionarte asistencia para empezar. Indica tu nivel de experiencia con estas herramientas:",
+  "experience.plenty": "Me siento a gusto utilizando GitHub, Markdown y YAML para crear contenido web",
+  "experience.limited": "Tengo algo de experiencia, pero me gustaría recibir ayuda para empezar",
+  "experience.none": "Nunca he utilizado GitHub, Markdown o YAML para crear contenido web",
+  "termsLabel": "He leído el contrato de servicio y el contrato de procesamiento de datos, y acepto estos términos y condiciones para el portal alojado que tengo previsto lanzar",
+  "protectedFormTitle": "Necesitas una cuenta para solicitar un portal alojado",
+  "protectedFormMessage": "Inicia sesión o crea una cuenta para continuar solicitando un portal alojado",
+  "createNewApplication": "¿Crear una nueva solicitud?"
 }
