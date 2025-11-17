@@ -1,6 +1,7 @@
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import useKeyPress from '@/hooks/useKeyPress';
 import { pixelRatio } from '@/utils/pixelRatio';
+import { useMapPosition } from '@/routes/occurrence/search/views/map/Map/useMapPosition';
 import { Feature } from 'ol';
 import { defaults as olControlDefaults } from 'ol/control';
 import { GeoJSON, WKT } from 'ol/format';
@@ -72,6 +73,7 @@ const OpenLayersMap = ({
     select: Select;
   } | null>(null);
   const [tool, setTool] = useState<string | null>(null); // DRAW, DELETE or null
+  const { getStoredPosition, savePosition } = useMapPosition();
   const cancelInteraction = useCallback(() => {
     if (!map) return;
     map.getInteractions().forEach((interaction) => {
@@ -156,17 +158,35 @@ const OpenLayersMap = ({
     });
     const geometries = getFeaturesFromWktList({ geometry: initialGeometries });
     source.addFeatures(geometries);
+
+    // Get stored position or use defaults
+    const storedPosition = getStoredPosition();
+
     const newMap = new Map({
       layers: [epsg_4326_raster, vector],
       target: mapRef.current,
       view: new View({
-        center: [0, 0],
+        center: [storedPosition.lng, storedPosition.lat],
         projection: 'EPSG:4326',
-        zoom: 1,
+        zoom: storedPosition.zoom,
       }),
       // logo: false,
       controls: olControlDefaults({ zoom: false, attribution: true }),
       interactions: interactionOptions,
+    });
+
+    // Save position whenever the map view changes
+    const view = newMap.getView();
+    view.on('change', () => {
+      const center = view.getCenter();
+      const zoom = view.getZoom();
+      if (center && zoom !== undefined) {
+        savePosition({
+          lng: center[0],
+          lat: center[1],
+          zoom: zoom,
+        });
+      }
     });
 
     const draw = new Draw({
@@ -228,7 +248,7 @@ const OpenLayersMap = ({
       newMap.removeInteraction(select);
       newMap.setTarget(undefined);
     };
-  }, [mapRef, initialGeometries, onChange]);
+  }, [mapRef, initialGeometries, onChange, getStoredPosition, savePosition]);
 
   useEffect(() => {
     if (map && vectorSource) {
