@@ -5,6 +5,7 @@ import { isWebglSupported } from '@/utils/isWebglSupported';
 import { wktToGeoJSON, geoJSONToWKT } from '@/utils/wktHelpers';
 import maplibre from 'maplibre-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
+import StaticMode from '@mapbox/mapbox-gl-draw-static-mode';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { getLayerConfig } from './getLayerConfig';
@@ -135,10 +136,15 @@ class MapLibreMap extends Component {
   initializeDrawControl() {
     if (!this.map || this.draw) return;
 
+    // Register custom modes
+    const modes = MapboxDraw.modes;
+    modes.static = StaticMode;
+
     // Initialize MapboxDraw
     this.draw = new MapboxDraw({
       displayControlsDefault: false,
       controls: {},
+      modes: modes,
       styles: [
         // Polygon fill
         {
@@ -154,7 +160,7 @@ class MapLibreMap extends Component {
         {
           id: 'gl-draw-polygon-stroke-active',
           type: 'line',
-          filter: ['all', ['==', '$type', 'Polygon'], ['!=', 'mode', 'static']],
+          filter: ['all', ['==', '$type', 'Polygon']],
           paint: {
             'line-color': '#0099ff',
             'line-width': 4,
@@ -174,6 +180,9 @@ class MapLibreMap extends Component {
     });
 
     this.map.addControl(this.draw, 'top-left');
+
+    // Start in static mode (no interaction, display only)
+    this.draw.changeMode('static');
 
     // Add event listeners
     this.map.on('draw.create', this.handleDrawCreate);
@@ -195,6 +204,15 @@ class MapLibreMap extends Component {
         this.draw.add(feature);
       }
     });
+
+    // After adding features, ensure we're in the correct mode based on current tool
+    // If no tool is active, use static mode (completely non-interactive)
+    if (!this.props.drawingTool) {
+      this.draw.changeMode('static');
+    } else {
+      // Tool is active, update to the appropriate mode
+      this.updateDrawingMode();
+    }
   }
 
   updateDrawingMode() {
@@ -206,13 +224,23 @@ class MapLibreMap extends Component {
     if (drawingTool === 'DRAW') {
       this.draw.changeMode('draw_polygon');
     } else if (drawingTool === 'SELECT') {
-      this.draw.changeMode('direct_select', {
-        featureId: this.draw.getAll().features[0]?.id,
-      });
+      // Only allow direct_select (vertex editing) when SELECT tool is active
+      const features = this.draw.getAll().features;
+      if (features.length > 0) {
+        this.draw.changeMode('direct_select', {
+          featureId: features[0].id,
+        });
+      } else {
+        // No features to select, stay in static mode
+        this.draw.changeMode('static');
+      }
     } else if (drawingTool === 'DELETE') {
+      // For DELETE tool, use simple_select so user can click to select what to delete
       this.draw.changeMode('simple_select');
     } else {
-      this.draw.changeMode('simple_select');
+      // No tool active - use static mode (completely non-interactive, display only)
+      // This prevents any selection or editing when tools are not active
+      this.draw.changeMode('static');
     }
   }
 
