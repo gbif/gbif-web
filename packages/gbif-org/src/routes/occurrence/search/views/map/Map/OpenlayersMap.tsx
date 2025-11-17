@@ -611,6 +611,11 @@ class Map extends Component<Props, State> {
     const pointClickHandler = this.onPointClick;
     const clickHandler = this.props.onMapClick;
     map.on('singleclick', (event) => {
+      // Don't handle point clicks when drawing tools are active
+      if (this.props.drawingTool) {
+        return;
+      }
+
       // todo : hover and click do not agree on wether there is a point or not
       occurrenceLayer.getFeatures(event.pixel).then(function (features) {
         const feature = features.length ? features[0] : undefined;
