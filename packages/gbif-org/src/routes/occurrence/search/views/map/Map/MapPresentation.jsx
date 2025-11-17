@@ -451,6 +451,7 @@ function Map({
             drawingTool={drawingTool}
             onDrawingToolChange={setDrawingTool}
             features={features}
+            onFeaturesChange={onFeaturesChange}
           />
         </div>
       </div>

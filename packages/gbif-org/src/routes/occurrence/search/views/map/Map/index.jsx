@@ -179,7 +179,6 @@ function Map({ style, className, mapProps }) {
 
   if (typeof window !== 'undefined') {
     return <MapPresentation {...options} {...{ style, className, mapProps }} />;
-    // return <h1>Map placeholder</h1>
   } else {
     return <h1>Map placeholder</h1>;
   }

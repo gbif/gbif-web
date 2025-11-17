@@ -7,11 +7,15 @@ import { Projection } from '@/config/config';
 import { OccurrenceSearchMetadata } from '@/contexts/search';
 import { BoundingBox } from '@/types';
 import { pixelRatio } from '@/utils/pixelRatio';
-import { getFeaturesFromWktList } from '@/utils/wktHelpers';
+import { getFeatureAsWKT, getFeaturesFromWktList } from '@/utils/wktHelpers';
 import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
 import { Fill, Stroke, Style } from 'ol/style';
 import { apply, applyBackground, applyStyle, stylefunction } from 'ol-mapbox-style';
+import Draw from 'ol/interaction/Draw';
+import Modify from 'ol/interaction/Modify';
+import Select from 'ol/interaction/Select';
+import Snap from 'ol/interaction/Snap';
 import { defaults as olControlDefaults } from 'ol/control';
 import { MVT as MVTFormat } from 'ol/format';
 import * as olInteraction from 'ol/interaction';
@@ -66,6 +70,9 @@ type Props = {
   onPointClick(point: PointData): void;
   mapPosition: ReturnType<typeof useMapPosition>;
   features?: string[];
+  drawingTool?: string | null;
+  onDrawingToolChange?(tool: string | null): void;
+  onFeaturesChange?(params: { features: string[] }): void;
 };
 
 type State = {
@@ -73,11 +80,19 @@ type State = {
   epsg?: Projection;
 };
 
+type DrawingInteractions = {
+  draw: Draw;
+  modify: Modify;
+  snap: Snap;
+  select: Select;
+} | null;
+
 class Map extends Component<Props, State> {
   myRef: React.RefObject<HTMLDivElement>;
   map?: OlMap;
   mapLoaded = false;
   filterVectorLayer?: VectorLayer<VectorSource>;
+  drawingInteractions: DrawingInteractions = null;
 
   constructor(props: Props) {
     super(props);
@@ -107,6 +122,85 @@ class Map extends Component<Props, State> {
     this.mapLoaded = true;
     this.addLayer();
     this.updateFilterGeometries();
+    this.initializeDrawingInteractions();
+  }
+
+  initializeDrawingInteractions() {
+    if (!this.map || !this.filterVectorLayer) return;
+
+    const source = this.filterVectorLayer.getSource();
+    if (!source) return;
+
+    const draw = new Draw({
+      source: source,
+      type: 'Polygon',
+    });
+
+    const modify = new Modify({ source: source });
+    const snap = new Snap({ source: source });
+    const select = new Select({ layers: [this.filterVectorLayer] });
+
+    this.map.addInteraction(draw);
+    this.map.addInteraction(modify);
+    this.map.addInteraction(snap);
+    this.map.addInteraction(select);
+
+    // Initially disable all interactions
+    draw.setActive(false);
+    modify.setActive(false);
+    snap.setActive(false);
+    select.setActive(false);
+
+    this.drawingInteractions = { draw, modify, snap, select };
+
+    // Handle draw events - arrow function ensures 'this' is bound correctly
+    const handleDrawEnd = (event: any) => {
+      const geometries: string[] = [];
+      source.forEachFeature((f) => {
+        geometries.push(getFeatureAsWKT(f));
+      });
+      const latestWkt = getFeatureAsWKT(event.feature);
+      geometries.push(latestWkt);
+
+      if (this.props.onFeaturesChange) {
+        this.props.onFeaturesChange({ features: geometries });
+      }
+    };
+    draw.on('drawend', handleDrawEnd);
+
+    // Handle modify events - arrow function ensures 'this' is bound correctly
+    const handleModifyEnd = () => {
+      setTimeout(() => {
+        const geometries: string[] = [];
+        source.forEachFeature((f) => {
+          geometries.push(getFeatureAsWKT(f));
+        });
+        if (this.props.onFeaturesChange) {
+          this.props.onFeaturesChange({ features: geometries });
+        }
+      }, 0);
+    };
+    modify.on('modifyend', handleModifyEnd);
+
+    // Handle select events (for deletion) - arrow function ensures 'this' is bound correctly
+    const handleSelect = () => {
+      select.getFeatures().forEach((selectedFeature) => {
+        const layer = select.getLayer(selectedFeature);
+        if (layer) {
+          layer.getSource()?.removeFeature(selectedFeature);
+        }
+      });
+      setTimeout(() => {
+        const geometries: string[] = [];
+        source.forEachFeature((f) => {
+          geometries.push(getFeatureAsWKT(f));
+        });
+        if (this.props.onFeaturesChange) {
+          this.props.onFeaturesChange({ features: geometries });
+        }
+      }, 0);
+    };
+    select.on('select', handleSelect);
   }
 
   updateFilterGeometries() {
@@ -157,12 +251,34 @@ class Map extends Component<Props, State> {
       });
 
       this.map.addLayer(this.filterVectorLayer);
+
+      // Reinitialize drawing interactions with the new layer
+      if (this.drawingInteractions) {
+        this.map.removeInteraction(this.drawingInteractions.draw);
+        this.map.removeInteraction(this.drawingInteractions.modify);
+        this.map.removeInteraction(this.drawingInteractions.snap);
+        this.map.removeInteraction(this.drawingInteractions.select);
+      }
+      this.initializeDrawingInteractions();
+
+      // Restore the active tool state
+      if (this.props.drawingTool === 'DRAW') {
+        this.enableDrawingTool();
+      } else if (this.props.drawingTool === 'DELETE') {
+        this.enableDeleteTool();
+      }
     }
   }
 
   componentWillUnmount() {
     // https://github.com/openlayers/openlayers/issues/9556#issuecomment-493190400
     if (this.map) {
+      if (this.drawingInteractions) {
+        this.map.removeInteraction(this.drawingInteractions.draw);
+        this.map.removeInteraction(this.drawingInteractions.modify);
+        this.map.removeInteraction(this.drawingInteractions.snap);
+        this.map.removeInteraction(this.drawingInteractions.select);
+      }
       if (this.filterVectorLayer) {
         this.map.removeLayer(this.filterVectorLayer);
       }
@@ -216,6 +332,17 @@ class Map extends Component<Props, State> {
     if (prevProps.features !== this.props.features && this.mapLoaded) {
       this.updateFilterGeometries();
     }
+
+    // Handle drawing tool changes
+    if (prevProps.drawingTool !== this.props.drawingTool && this.mapLoaded) {
+      this.disableAllDrawingInteractions();
+
+      if (this.props.drawingTool === 'DRAW') {
+        this.enableDrawingTool();
+      } else if (this.props.drawingTool === 'DELETE') {
+        this.enableDeleteTool();
+      }
+    }
   }
 
   zoomIn() {
@@ -247,6 +374,26 @@ class Map extends Component<Props, State> {
       type: 'EXPLORE_AREA',
       bbox: getBoundingBox({ map: this.map }),
     });
+  }
+
+  disableAllDrawingInteractions() {
+    if (!this.drawingInteractions) return;
+    this.drawingInteractions.draw.setActive(false);
+    this.drawingInteractions.modify.setActive(false);
+    this.drawingInteractions.snap.setActive(false);
+    this.drawingInteractions.select.setActive(false);
+  }
+
+  enableDrawingTool() {
+    if (!this.drawingInteractions) return;
+    this.drawingInteractions.draw.setActive(true);
+    this.drawingInteractions.modify.setActive(true);
+    this.drawingInteractions.snap.setActive(true);
+  }
+
+  enableDeleteTool() {
+    if (!this.drawingInteractions) return;
+    this.drawingInteractions.select.setActive(true);
   }
 
   removeLayer(name: string) {
