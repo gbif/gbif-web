@@ -28,6 +28,8 @@ import {
   MdOutlineLayers,
   MdZoomIn,
   MdZoomOut,
+  MdEdit,
+  MdDelete,
 } from 'react-icons/md';
 // import { ViewHeader } from '../ViewHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
@@ -117,6 +119,7 @@ function Map({
   const [searchingLocation, setLocationSearch] = useState();
   const [basemapOptions, setBasemapOptions] = useState();
   const [listVisible, showList] = useState(false);
+  const [drawingTool, setDrawingTool] = useState(null);
   const { toast } = useToast();
   const [, setPreviewKey] = useEntityDrawer();
   const [mapLoading, setMapLoading] = useState(false);
@@ -248,6 +251,14 @@ function Map({
     }
   }, [toast]);
 
+  const toggleDrawingTool = useCallback(() => {
+    setDrawingTool((current) => (current === 'DRAW' ? null : 'DRAW'));
+  }, []);
+
+  const toggleDeleteTool = useCallback(() => {
+    setDrawingTool((current) => (current === 'DELETE' ? null : 'DELETE'));
+  }, []);
+
   const menuLayerOptions = layerOptions?.[projection].map((layerId) => {
     const layerStyle = getStyle({
       styles: basemapOptions,
@@ -359,6 +370,37 @@ function Map({
               </SimpleTooltip>
             )}
 
+            {notPolarProjection && (
+              <>
+                <SimpleTooltip
+                  asChild
+                  title={
+                    <FormattedMessage id="map.drawPolygon" defaultMessage="Draw polygon" />
+                  }
+                >
+                  <MenuButton
+                    onClick={toggleDrawingTool}
+                    className={cn('g-p-2', drawingTool === 'DRAW' && 'g-bg-primary g-text-white')}
+                  >
+                    <MdEdit />
+                  </MenuButton>
+                </SimpleTooltip>
+                <SimpleTooltip
+                  asChild
+                  title={
+                    <FormattedMessage id="map.deletePolygon" defaultMessage="Delete polygon" />
+                  }
+                >
+                  <MenuButton
+                    onClick={toggleDeleteTool}
+                    className={cn('g-p-2', drawingTool === 'DELETE' && 'g-bg-primary g-text-white')}
+                  >
+                    <MdDelete />
+                  </MenuButton>
+                </SimpleTooltip>
+              </>
+            )}
+
             {projectionOptions.length > 1 && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -409,6 +451,8 @@ function Map({
             registerPredicate={registerPredicate}
             height={height}
             width={width}
+            drawingTool={drawingTool}
+            onDrawingToolChange={setDrawingTool}
           />
         </div>
       </div>
