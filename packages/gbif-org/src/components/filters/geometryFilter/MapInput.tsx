@@ -223,7 +223,7 @@ const OpenLayersMap = ({
           geometries.push(getFeatureAsWKT(f));
         });
         onChange({ wkt: geometries });
-      });
+      }, 0);
     });
 
     select.on('select', function () {
@@ -251,12 +251,21 @@ const OpenLayersMap = ({
   }, [mapRef, initialGeometries, onChange, getStoredPosition, savePosition]);
 
   useEffect(() => {
-    if (map && vectorSource) {
+    if (map && vectorSource && interactions) {
       vectorSource.clear();
       const geometries = getFeaturesFromWktList({ geometry: geometryList });
       vectorSource.addFeatures(geometries);
+      
+      // Re-enable the active tool after updating geometries
+      if (tool === 'DRAW') {
+        interactions.draw.setActive(true);
+        interactions.modify.setActive(true);
+        interactions.snap.setActive(true);
+      } else if (tool === 'DELETE') {
+        interactions.select.setActive(true);
+      }
     }
-  }, [map, vectorSource, geometryList]);
+  }, [map, vectorSource, geometryList, interactions, tool]);
 
   return (
     <div className="g-relative">
