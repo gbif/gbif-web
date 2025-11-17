@@ -56,6 +56,7 @@ class MapLibreMap extends Component {
     this.myRef = React.createRef();
     this.state = { loadDiff: 0 };
     this.draw = null;
+    this.isInternalChange = false;
   }
 
   componentDidMount() {
@@ -122,9 +123,15 @@ class MapLibreMap extends Component {
       setTimeout(() => this.updateLayer(), 500);
     }
 
-    // Update features when they change
+    // Update features when they change (but only if not caused by our own draw events)
     if (prevProps.features !== this.props.features && this.mapLoaded && this.draw) {
-      this.updateFeatures();
+      console.log('isInternalChange', this.isInternalChange);
+      if (!this.isInternalChange) {
+        this.updateFeatures();
+      } else {
+        // Reset the flag after handling the internal change
+        this.isInternalChange = false;
+      }
     }
 
     // Handle drawing tool changes
@@ -256,12 +263,8 @@ class MapLibreMap extends Component {
 
     // After adding features, ensure we're in the correct mode based on current tool
     // If no tool is active, use static mode (completely non-interactive)
-    if (!this.props.drawingTool) {
-      this.draw.changeMode('static');
-    } else {
-      // Tool is active, update to the appropriate mode
-      this.updateDrawingMode();
-    }
+    this.draw.changeMode('static');
+    this.props.onDrawingToolChange(null);
   }
 
   updateDrawingMode() {
@@ -294,14 +297,25 @@ class MapLibreMap extends Component {
   }
 
   handleDrawCreate(e) {
+    this.isInternalChange = true;
     this.notifyFeaturesChanged();
+
+    // After creating a feature, MapboxDraw switches to simple_select
+    // We need to restore the correct mode based on the current tool
+    setTimeout(() => {
+      if (!this.draw) return;
+      this.draw.changeMode('static');
+      this.props.onDrawingToolChange(null);
+    }, 0);
   }
 
   handleDrawUpdate(e) {
+    this.isInternalChange = true;
     this.notifyFeaturesChanged();
   }
 
   handleDrawDelete(e) {
+    this.isInternalChange = true;
     this.notifyFeaturesChanged();
 
     // If we're in delete mode and deleted a feature, clear the selection
