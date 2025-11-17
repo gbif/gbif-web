@@ -311,7 +311,11 @@ class MapLibreMap extends Component {
         map.on('zoomend', saveCurrentPosition);
         map.on('moveend', saveCurrentPosition);
 
-        map.on('mouseenter', 'occurrences', function (e) {
+        map.on('mouseenter', 'occurrences', (e) => {
+          // Don't handle point clicks when drawing tools are active
+          if (this.props.drawingTool) {
+            return;
+          }
           map.getCanvas().style.cursor = 'pointer';
         });
 
