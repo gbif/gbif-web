@@ -53,6 +53,7 @@ class MapLibreMap extends Component {
     this.handleDrawCreate = this.handleDrawCreate.bind(this);
     this.handleDrawUpdate = this.handleDrawUpdate.bind(this);
     this.handleDrawDelete = this.handleDrawDelete.bind(this);
+    this.handleDrawSelectionChange = this.handleDrawSelectionChange.bind(this);
     this.myRef = React.createRef();
     this.state = { loadDiff: 0 };
     this.draw = null;
@@ -88,6 +89,7 @@ class MapLibreMap extends Component {
       this.map.off('draw.create', this.handleDrawCreate);
       this.map.off('draw.update', this.handleDrawUpdate);
       this.map.off('draw.delete', this.handleDrawDelete);
+      this.map.off('draw.selectionchange', this.handleDrawSelectionChange);
       this.map.removeControl(this.draw);
     }
     if (this.map) this.map.remove();
@@ -244,6 +246,7 @@ class MapLibreMap extends Component {
     this.map.on('draw.create', this.handleDrawCreate);
     this.map.on('draw.update', this.handleDrawUpdate);
     this.map.on('draw.delete', this.handleDrawDelete);
+    this.map.on('draw.selectionchange', this.handleDrawSelectionChange);
   }
 
   updateFeatures() {
@@ -315,14 +318,28 @@ class MapLibreMap extends Component {
   }
 
   handleDrawDelete(e) {
+    // This may be triggered by MapboxDraw's built-in delete operations
+    // (e.g., pressing Delete/Backspace key while a feature is selected)
     this.isInternalChange = true;
     this.notifyFeaturesChanged();
+  }
 
-    // If we're in delete mode and deleted a feature, clear the selection
-    if (this.props.drawingTool === 'DELETE') {
-      // Reset to simple_select after deletion
+  handleDrawSelectionChange(e) {
+    // If we're in DELETE mode and a feature was selected, delete it immediately
+    if (this.props.drawingTool === 'DELETE' && e.features.length > 0) {
+      const featureIds = e.features.map(f => f.id);
+      featureIds.forEach(id => {
+        this.draw.delete(id);
+      });
+      
+      // Mark as internal change and notify
+      this.isInternalChange = true;
+      this.notifyFeaturesChanged();
+      
+      // Switch back to static mode and clear the drawing tool
       setTimeout(() => {
         if (this.draw && this.props.onDrawingToolChange) {
+          this.draw.changeMode('static');
           this.props.onDrawingToolChange(null);
         }
       }, 0);
