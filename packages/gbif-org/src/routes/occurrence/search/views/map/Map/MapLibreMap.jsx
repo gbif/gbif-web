@@ -2,7 +2,9 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ErrorMessage } from '@/components/errorMessage';
 import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
 import { isWebglSupported } from '@/utils/isWebglSupported';
+import { wktToGeoJSON, geoJSONToWKT } from '@/utils/wktHelpers';
 import maplibre from 'maplibre-gl';
+import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { getLayerConfig } from './getLayerConfig';
@@ -45,8 +47,14 @@ class MapLibreMap extends Component {
     this.addLayer = this.addLayer.bind(this);
     this.updateLayer = this.updateLayer.bind(this);
     this.onPointClick = this.onPointClick.bind(this);
+    this.initializeDrawControl = this.initializeDrawControl.bind(this);
+    this.updateFeatures = this.updateFeatures.bind(this);
+    this.handleDrawCreate = this.handleDrawCreate.bind(this);
+    this.handleDrawUpdate = this.handleDrawUpdate.bind(this);
+    this.handleDrawDelete = this.handleDrawDelete.bind(this);
     this.myRef = React.createRef();
     this.state = { loadDiff: 0 };
+    this.draw = null;
   }
 
   componentDidMount() {
@@ -65,11 +73,21 @@ class MapLibreMap extends Component {
       zoom,
       center: [position.lng, position.lat],
     });
-    // this.map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
-    this.map.on('load', this.addLayer);
+
+    this.map.on('load', () => {
+      this.addLayer();
+      this.initializeDrawControl();
+      this.updateFeatures();
+    });
   }
 
   componentWillUnmount() {
+    if (this.draw && this.map) {
+      this.map.off('draw.create', this.handleDrawCreate);
+      this.map.off('draw.update', this.handleDrawUpdate);
+      this.map.off('draw.delete', this.handleDrawDelete);
+      this.map.removeControl(this.draw);
+    }
     if (this.map) this.map.remove();
   }
 
@@ -86,13 +104,12 @@ class MapLibreMap extends Component {
         this.map.flyTo({
           center: [this.props.latestEvent.lng, this.props.latestEvent.lat],
           zoom: this.props.latestEvent.zoom,
-          essential: true, // this animation is considered essential with respect to prefers-reduced-motion
+          essential: true,
         });
       } else if (this.props.latestEvent?.type === 'EXPLORE_AREA') {
         this.exploreArea();
       }
     }
-    // check if the size of the map container has changed and if so resize the map
     if (
       (prevProps.height !== this.props.height || prevProps.width !== this.props.width) &&
       this.mapLoaded
@@ -100,17 +117,142 @@ class MapLibreMap extends Component {
       this.map.resize();
     }
     if (prevProps.mapConfig !== this.props.mapConfig && this.mapLoaded) {
-      // seems we do not need to remove the sources when we load the style this way
       this.map.setStyle(this.getStyle());
-      setTimeout((x) => this.updateLayer(), 500); // apparently we risk adding the occurrence layer below the layers if we do not wait
+      setTimeout(() => this.updateLayer(), 500);
+    }
+
+    // Update features when they change
+    if (prevProps.features !== this.props.features && this.mapLoaded && this.draw) {
+      this.updateFeatures();
+    }
+
+    // Handle drawing tool changes
+    if (prevProps.drawingTool !== this.props.drawingTool && this.mapLoaded && this.draw) {
+      this.updateDrawingMode();
     }
   }
 
+  initializeDrawControl() {
+    if (!this.map || this.draw) return;
+
+    // Initialize MapboxDraw
+    this.draw = new MapboxDraw({
+      displayControlsDefault: false,
+      controls: {},
+      styles: [
+        // Polygon fill
+        {
+          id: 'gl-draw-polygon-fill',
+          type: 'fill',
+          filter: ['all', ['==', '$type', 'Polygon'], ['!=', 'mode', 'static']],
+          paint: {
+            'fill-color': '#f1fbff6b',
+            'fill-opacity': 1,
+          },
+        },
+        // Polygon outline
+        {
+          id: 'gl-draw-polygon-stroke-active',
+          type: 'line',
+          filter: ['all', ['==', '$type', 'Polygon'], ['!=', 'mode', 'static']],
+          paint: {
+            'line-color': '#0099ff',
+            'line-width': 4,
+          },
+        },
+        // Polygon and line vertices
+        {
+          id: 'gl-draw-polygon-and-line-vertex-active',
+          type: 'circle',
+          filter: ['all', ['==', 'meta', 'vertex'], ['==', '$type', 'Point']],
+          paint: {
+            'circle-radius': 5,
+            'circle-color': '#0099ff',
+          },
+        },
+      ],
+    });
+
+    this.map.addControl(this.draw, 'top-left');
+
+    // Add event listeners
+    this.map.on('draw.create', this.handleDrawCreate);
+    this.map.on('draw.update', this.handleDrawUpdate);
+    this.map.on('draw.delete', this.handleDrawDelete);
+  }
+
+  updateFeatures() {
+    if (!this.draw || !this.props.features) return;
+
+    // Clear existing features
+    this.draw.deleteAll();
+
+    // Add features from props
+    const features = this.props.features || [];
+    features.forEach((wktString) => {
+      const feature = wktToGeoJSON(wktString);
+      if (feature) {
+        this.draw.add(feature);
+      }
+    });
+  }
+
+  updateDrawingMode() {
+    if (!this.draw) return;
+
+    const { drawingTool } = this.props;
+
+    // Change the draw mode based on the active tool
+    if (drawingTool === 'DRAW') {
+      this.draw.changeMode('draw_polygon');
+    } else if (drawingTool === 'SELECT') {
+      this.draw.changeMode('direct_select', {
+        featureId: this.draw.getAll().features[0]?.id,
+      });
+    } else if (drawingTool === 'DELETE') {
+      this.draw.changeMode('simple_select');
+    } else {
+      this.draw.changeMode('simple_select');
+    }
+  }
+
+  handleDrawCreate(e) {
+    this.notifyFeaturesChanged();
+  }
+
+  handleDrawUpdate(e) {
+    this.notifyFeaturesChanged();
+  }
+
+  handleDrawDelete(e) {
+    this.notifyFeaturesChanged();
+
+    // If we're in delete mode and deleted a feature, clear the selection
+    if (this.props.drawingTool === 'DELETE') {
+      // Reset to simple_select after deletion
+      setTimeout(() => {
+        if (this.draw && this.props.onDrawingToolChange) {
+          this.props.onDrawingToolChange(null);
+        }
+      }, 0);
+    }
+  }
+
+  notifyFeaturesChanged() {
+    if (!this.draw || !this.props.onFeaturesChange) return;
+
+    const allFeatures = this.draw.getAll();
+    const wktStrings = allFeatures.features
+      .map((feature) => geoJSONToWKT(feature))
+      .filter((wkt) => wkt !== null);
+
+    this.props.onFeaturesChange({ features: wktStrings });
+  }
+
   exploreArea() {
-    // get the current view of the map as a bounding box and send it to the parent component
     const { listener } = this.props;
     if (!listener || typeof listener !== 'function') return;
-    // get extent of the map view
+
     const bounds = this.map.getBounds();
     listener({
       type: 'EXPLORE_AREA',
@@ -138,7 +280,6 @@ class MapLibreMap extends Component {
     } else {
       this.addLayer();
     }
-    // this.addLayer();
   }
 
   onPointClick(pointData) {
@@ -147,28 +288,21 @@ class MapLibreMap extends Component {
 
   addLayer() {
     try {
-      // const source = this.map.getSource('occurrences');
-      // source.setTiles([`${env.API_V2}/map/occurrence/adhoc/{z}/{x}/{y}.mvt?style=scaled.circles&mode=GEO_CENTROID&srs=EPSG%3A3857&squareSize=256&predicateHash=${this.props.predicateHash}&${this.props.q ? `&q=${this.props.q} ` : ''}`])
-
       this.state.loadDiff = 0;
       var tileString = `${PUBLIC_API_V2}/map/occurrence/adhoc/{z}/{x}/{y}.mvt?style=scaled.circles&mode=GEO_CENTROID&srs=EPSG%3A3857&squareSize=256&predicateHash=${
         this.props.predicateHash ?? ''
       }&${this.props.q ? `&q=${this.props.q} ` : ''}`;
 
-      this.map.addLayer(
-        getLayerConfig({ tileString, theme: this.props.theme })
-        // "poi-scalerank2"
-      );
+      this.map.addLayer(getLayerConfig({ tileString, theme: this.props.theme }));
 
       const map = this.map;
       if (!this.mapLoaded) {
         const { savePosition } = this.props.mapPosition;
 
-        // remember map position
         const saveCurrentPosition = () => {
           const center = map.getCenter();
           savePosition({
-            zoom: map.getZoom() + 1, // MapLibre stores zoom-1
+            zoom: map.getZoom() + 1,
             lng: center.lng,
             lat: center.lat,
           });
@@ -178,11 +312,15 @@ class MapLibreMap extends Component {
         map.on('moveend', saveCurrentPosition);
 
         map.on('mouseenter', 'occurrences', function (e) {
-          // Change the cursor style as a UI indicator.
           map.getCanvas().style.cursor = 'pointer';
         });
 
         map.on('click', 'occurrences', (e) => {
+          // Don't handle point clicks when drawing tools are active
+          if (this.props.drawingTool) {
+            return;
+          }
+
           this.onPointClick({
             geohash: e.features[0].properties.geohash,
             count: e.features[0].properties.count,
@@ -202,7 +340,6 @@ class MapLibreMap extends Component {
           if (e?.error?.status === 400 && this.props.registerPredicate) {
             this.props.registerPredicate();
           } else if (e.type === 'error' && this.props.onTileError) {
-            // notify the user that we had dificulties loading the tiles
             this.props.onTileError();
           }
         });

@@ -51,3 +51,52 @@ export function getFeaturesFromWktList({ geometry }: { geometry: string[] }): Fe
   }
   return geometries;
 }
+
+/**
+ * Convert WKT string to GeoJSON feature object (for MapLibre)
+ */
+export function wktToGeoJSON(wktString: string): GeoJSON.Feature | null {
+  try {
+    const feature = wktFormatter.readFeature(wktString, {
+      dataProjection: 'EPSG:4326',
+      featureProjection: 'EPSG:4326',
+    });
+    const geoJsonFeature = geoJsonFormatter.writeFeatureObject(feature, {
+      dataProjection: 'EPSG:4326',
+      featureProjection: 'EPSG:4326',
+      rightHanded: true,
+      decimals: 5,
+    });
+    return geoJsonFeature as GeoJSON.Feature;
+  } catch (error) {
+    console.warn(`Failed to parse WKT geometry: ${wktString}`, error);
+    return null;
+  }
+}
+
+/**
+ * Convert GeoJSON feature or geometry to WKT string (for MapLibre)
+ */
+export function geoJSONToWKT(geoJson: GeoJSON.Feature | GeoJSON.Geometry): string | null {
+  try {
+    // Read the GeoJSON as an OpenLayers feature
+    const feature = geoJsonFormatter.readFeature(geoJson, {
+      dataProjection: 'EPSG:4326',
+      featureProjection: 'EPSG:4326',
+    });
+
+    // Convert to WKT with right-handed coordinate order
+    const asGeoJson = geoJsonFormatter.writeFeature(feature, { rightHanded: true });
+    const rightHandCorrectedFeature = geoJsonFormatter.readFeature(asGeoJson);
+    const wkt = wktFormatter.writeFeature(rightHandCorrectedFeature, {
+      dataProjection: 'EPSG:4326',
+      featureProjection: 'EPSG:4326',
+      rightHanded: true,
+      decimals: 5,
+    });
+    return wkt;
+  } catch (error) {
+    console.warn('Failed to convert GeoJSON to WKT:', geoJson, error);
+    return null;
+  }
+}
