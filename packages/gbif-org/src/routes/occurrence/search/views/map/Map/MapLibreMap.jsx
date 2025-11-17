@@ -146,13 +146,23 @@ class MapLibreMap extends Component {
       controls: {},
       modes: modes,
       styles: [
-        // Polygon fill
+        // Polygon fill - inactive
         {
-          id: 'gl-draw-polygon-fill',
+          id: 'gl-draw-polygon-fill-inactive',
           type: 'fill',
-          filter: ['all', ['==', '$type', 'Polygon'], ['!=', 'mode', 'static']],
+          filter: ['all', ['==', '$type', 'Polygon'], ['==', 'active', 'false']],
           paint: {
             'fill-color': '#f1fbff6b',
+            'fill-opacity': 1,
+          },
+        },
+        // Polygon fill - active (editing)
+        {
+          id: 'gl-draw-polygon-fill-active',
+          type: 'fill',
+          filter: ['all', ['==', '$type', 'Polygon'], ['==', 'active', 'true']],
+          paint: {
+            'fill-color': '#fbb03b33',
             'fill-opacity': 1,
           },
         },
@@ -166,11 +176,50 @@ class MapLibreMap extends Component {
             'line-width': 4,
           },
         },
-        // Polygon and line vertices
+        // Vertex points
         {
           id: 'gl-draw-polygon-and-line-vertex-active',
           type: 'circle',
           filter: ['all', ['==', 'meta', 'vertex'], ['==', '$type', 'Point']],
+          paint: {
+            'circle-radius': 5,
+            'circle-color': '#0099ff',
+          },
+        },
+        // Midpoint vertices (between vertices in edit mode)
+        {
+          id: 'gl-draw-polygon-midpoint',
+          type: 'circle',
+          filter: ['all', ['==', '$type', 'Point'], ['==', 'meta', 'midpoint']],
+          paint: {
+            'circle-radius': 4,
+            'circle-color': '#ffffff',
+            'circle-stroke-color': '#0099ff',
+            'circle-stroke-width': 2,
+          },
+        },
+        // Line being drawn (shows after first point)
+        {
+          id: 'gl-draw-line-active',
+          type: 'line',
+          filter: ['all', ['==', '$type', 'LineString'], ['==', 'active', 'true']],
+          paint: {
+            'line-color': '#0099ff',
+            'line-dasharray': [2, 2],
+            'line-width': 2,
+          },
+        },
+
+        // First vertex point (shows immediately when drawing starts)
+        {
+          id: 'gl-draw-point-active',
+          type: 'circle',
+          filter: [
+            'all',
+            ['==', '$type', 'Point'],
+            ['==', 'active', 'true'],
+            ['!=', 'meta', 'midpoint'],
+          ],
           paint: {
             'circle-radius': 5,
             'circle-color': '#0099ff',
