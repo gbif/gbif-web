@@ -2,6 +2,7 @@ import { projections } from '@/components/maps/openlayers/projections';
 import React, { Component } from 'react';
 
 import { getBoundingBox } from '@/components/maps/openlayers/helpers/getBoundingBox';
+import { useMapPosition } from './useMapPosition';
 import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
 import { Projection } from '@/config/config';
 import { OccurrenceSearchMetadata } from '@/contexts/search';
@@ -60,6 +61,7 @@ type Props = {
   onMapClick?(): void;
   className?: string;
   onPointClick(point: PointData): void;
+  mapPosition: ReturnType<typeof useMapPosition>;
 };
 
 type State = {
@@ -89,7 +91,7 @@ class Map extends Component<Props, State> {
   componentDidMount() {
     const currentProjection = projections[this.props.mapConfig?.projection || 'EPSG_3031'];
 
-    const mapPos = this.getStoredMapPosition();
+    const mapPos = this.props.mapPosition.getStoredPosition();
 
     const mapConfig = {
       target: this.myRef.current ?? undefined,
@@ -153,28 +155,6 @@ class Map extends Component<Props, State> {
     }
   }
 
-  getStoredMapPosition() {
-    let zoom = Number(
-      sessionStorage.getItem('mapZoom') || this.props.defaultMapSettings?.zoom || 0
-    );
-    zoom = Math.min(Math.max(0, zoom), 20);
-
-    let lng = Number(sessionStorage.getItem('mapLng') || this.props.defaultMapSettings?.lng || 0);
-    while (lng < -180) lng += 360;
-    while (lng > 180) lng -= 360;
-    lng = Math.min(Math.max(-180, lng), 180);
-
-    let lat = Number(sessionStorage.getItem('mapLat') || this.props.defaultMapSettings?.lat || 0);
-    lat = Math.min(Math.max(-90, lat), 90);
-    // const currentProjection = projections[this.props.mapConfig?.projection || 'EPSG_3031'];
-    // const reprojectedCenter = transform([lng, lat], 'EPSG:4326', currentProjection.srs);
-    return {
-      lat, //: reprojectedCenter[1],
-      lng, //: reprojectedCenter[0],
-      zoom,
-    };
-  }
-
   zoomIn() {
     if (!this.map) return;
     const view = this.map.getView();
@@ -226,7 +206,10 @@ class Map extends Component<Props, State> {
     // this.updateProjection();
 
     // update projection
-    // const mapPos = this.getStoredMapPosition();
+    // const mapPos = this.props.mapPosition.getStoredPosition({
+    //   maxLat: currentProjection.maxLat || 90,
+    //   minLat: currentProjection.minLat || -90,
+    // });
     // const newView = currentProjection.getView(mapPos.lat, mapPos.lng, mapPos.zoom);
     // this.map.setView(newView);
 
@@ -254,7 +237,7 @@ class Map extends Component<Props, State> {
         // if this map style is intended to be reprojected then continue
         await apply(this.map, styleResponse);
 
-        const mapPos = this.getStoredMapPosition();
+        const mapPos = this.props.mapPosition.getStoredPosition();
         const map = this.map;
 
         const mapboxStyle = this.map.get('mapbox-style');
@@ -324,7 +307,7 @@ class Map extends Component<Props, State> {
     }
 
     // update projection
-    const mapPos = this.getStoredMapPosition();
+    const mapPos = this.props.mapPosition.getStoredPosition();
     const newView = currentProjection.getView(mapPos.lat, mapPos.lng, mapPos.zoom);
     this.map.setView(newView);
 
@@ -402,13 +385,16 @@ class Map extends Component<Props, State> {
     this.map.addLayer(occurrenceLayer);
 
     const map = this.map;
+    const { savePosition } = this.props.mapPosition;
 
     map.on('moveend', function () {
       const { center, zoom } = map.getView().getState();
       const reprojectedCenter = transform(center, currentProjection.srs, 'EPSG:4326');
-      sessionStorage.setItem('mapZoom', zoom.toString());
-      sessionStorage.setItem('mapLng', reprojectedCenter[0].toString());
-      sessionStorage.setItem('mapLat', reprojectedCenter[1].toString());
+      savePosition({
+        zoom,
+        lng: reprojectedCenter[0],
+        lat: reprojectedCenter[1],
+      });
     });
 
     const pointClickHandler = this.onPointClick;
@@ -427,6 +413,7 @@ class Map extends Component<Props, State> {
     });
 
     // the performance of this is really bad. It is a shame, but I think it is better to have it disabled until we can find a better solution. Probably updating to a newer version of openlayers will do it.
+    // reviewed nov 2025 OL10 - performance is slightly better but still not good enough to enable
     // map.on('pointermove', function (e) {
     //   if (e.dragging) {
     //     return;
@@ -443,4 +430,9 @@ class Map extends Component<Props, State> {
   }
 }
 
-export default Map;
+function MapWithHook(props: Omit<Props, 'mapPosition'>) {
+  const mapPosition = useMapPosition(props.defaultMapSettings);
+  return <Map {...props} mapPosition={mapPosition} />;
+}
+
+export default MapWithHook;

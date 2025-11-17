@@ -19,7 +19,7 @@ export function useMapPosition(defaultMapSettings?: OccurrenceSearchMetadata['ma
    * Enforces bounds to ensure valid coordinates
    */
   const getStoredPosition = useCallback(
-    ({ maxLat, minLat }: { maxLat: number; minLat: number }): MapPosition => {
+    ({ maxLat = 90, minLat = -90 }: { maxLat?: number; minLat?: number } = {}): MapPosition => {
       let zoom = Number(
         sessionStorage.getItem(STORAGE_KEYS.MAP_ZOOM) || defaultMapSettings?.zoom || 0
       );
@@ -28,6 +28,9 @@ export function useMapPosition(defaultMapSettings?: OccurrenceSearchMetadata['ma
       let lng = Number(
         sessionStorage.getItem(STORAGE_KEYS.MAP_LNG) || defaultMapSettings?.lng || 0
       );
+      // Handle longitude wrapping for OpenLayers compatibility
+      while (lng < -180) lng += 360;
+      while (lng > 180) lng -= 360;
       lng = Math.min(Math.max(MAP_BOUNDS.MIN_LNG, lng), MAP_BOUNDS.MAX_LNG);
 
       let lat = Number(

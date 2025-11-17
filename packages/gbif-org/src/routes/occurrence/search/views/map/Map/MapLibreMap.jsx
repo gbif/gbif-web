@@ -6,6 +6,7 @@ import maplibre from 'maplibre-gl';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { getLayerConfig } from './getLayerConfig';
+import { useMapPosition } from './useMapPosition';
 
 const PUBLIC_API_V2 = import.meta.env.PUBLIC_API_V2;
 
@@ -14,6 +15,8 @@ const mapStyles = {
 };
 
 function Map(props) {
+  const mapPosition = useMapPosition(props.defaultMapSettings);
+
   return (
     <>
       {!isWebglSupported() && (
@@ -29,7 +32,7 @@ function Map(props) {
         debugTitle="GeoJsonMap"
         className="g-mt-8 g-me-2"
       >
-        <MapLibreMap {...props} />
+        <MapLibreMap {...props} mapPosition={mapPosition} />
       </ErrorBoundary>
     </>
   );
@@ -47,21 +50,20 @@ class MapLibreMap extends Component {
   }
 
   componentDidMount() {
-    let zoom = sessionStorage.getItem('mapZoom') || this.props.defaultMapSettings?.zoom || 0;
-    zoom = Math.min(Math.max(0, zoom), 20);
-    zoom -= 1;
+    const { getStoredPosition } = this.props.mapPosition;
+    const position = getStoredPosition({
+      maxLat: 85,
+      minLat: -85,
+    });
 
-    let lng = sessionStorage.getItem('mapLng') || this.props.defaultMapSettings?.lng || 0;
-    lng = Math.min(Math.max(-180, lng), 180);
-
-    let lat = sessionStorage.getItem('mapLat') || this.props.defaultMapSettings?.lat || 0;
-    lat = Math.min(Math.max(-85, lat), 85);
+    // MapLibre uses zoom-1 internally
+    const zoom = position.zoom - 1;
 
     this.map = new maplibre.Map({
       container: this.myRef.current,
       style: this.getStyle(),
       zoom,
-      center: [lng, lat],
+      center: [position.lng, position.lat],
     });
     // this.map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
     this.map.on('load', this.addLayer);
@@ -160,19 +162,20 @@ class MapLibreMap extends Component {
 
       const map = this.map;
       if (!this.mapLoaded) {
+        const { savePosition } = this.props.mapPosition;
+
         // remember map position
-        map.on('zoomend', function () {
+        const saveCurrentPosition = () => {
           const center = map.getCenter();
-          sessionStorage.setItem('mapZoom', map.getZoom() + 1);
-          sessionStorage.setItem('mapLng', center.lng);
-          sessionStorage.setItem('mapLat', center.lat);
-        });
-        map.on('moveend', function () {
-          const center = map.getCenter();
-          sessionStorage.setItem('mapZoom', map.getZoom() + 1);
-          sessionStorage.setItem('mapLng', center.lng);
-          sessionStorage.setItem('mapLat', center.lat);
-        });
+          savePosition({
+            zoom: map.getZoom() + 1, // MapLibre stores zoom-1
+            lng: center.lng,
+            lat: center.lat,
+          });
+        };
+
+        map.on('zoomend', saveCurrentPosition);
+        map.on('moveend', saveCurrentPosition);
 
         map.on('mouseenter', 'occurrences', function (e) {
           // Change the cursor style as a UI indicator.
