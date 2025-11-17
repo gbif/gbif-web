@@ -164,7 +164,7 @@ const OpenLayersMap = ({
       view: new View({
         center: [storedPosition.lng, storedPosition.lat],
         projection: 'EPSG:4326',
-        zoom: storedPosition.zoom,
+        zoom: storedPosition.zoom - 1,
       }),
       // logo: false,
       controls: olControlDefaults({ zoom: false, attribution: true }),
@@ -180,7 +180,7 @@ const OpenLayersMap = ({
         savePosition({
           lng: center[0],
           lat: center[1],
-          zoom: zoom,
+          zoom: zoom + 1,
         });
       }
     });
