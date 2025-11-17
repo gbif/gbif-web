@@ -355,28 +355,24 @@ function Map({
               <MdZoomOut />
             </MenuButton>
             {notPolarProjection && (
-              <SimpleTooltip
-                asChild
-                title={
-                  <FormattedMessage id="map.filterByView" defaultMessage="Use view as filter" />
-                }
-              >
-                <MenuButton
-                  onClick={() => broadcastEvent({ type: 'EXPLORE_AREA' })}
-                  className="g-p-2"
-                >
-                  <ExploreAreaIcon />
-                </MenuButton>
-              </SimpleTooltip>
-            )}
-
-            {notPolarProjection && (
               <>
+                <ToolSeparator />
                 <SimpleTooltip
                   asChild
                   title={
-                    <FormattedMessage id="map.drawPolygon" defaultMessage="Draw polygon" />
+                    <FormattedMessage id="map.filterByView" defaultMessage="Use view as filter" />
                   }
+                >
+                  <MenuButton
+                    onClick={() => broadcastEvent({ type: 'EXPLORE_AREA' })}
+                    className="g-p-2"
+                  >
+                    <ExploreAreaIcon />
+                  </MenuButton>
+                </SimpleTooltip>
+                <SimpleTooltip
+                  asChild
+                  title={<FormattedMessage id="map.drawPolygon" defaultMessage="Draw polygon" />}
                 >
                   <MenuButton
                     onClick={toggleDrawingTool}
@@ -398,6 +394,7 @@ function Map({
                     <MdDelete />
                   </MenuButton>
                 </SimpleTooltip>
+                <ToolSeparator />
               </>
             )}
 
@@ -459,6 +456,10 @@ function Map({
       </div>
     </>
   );
+}
+
+function ToolSeparator() {
+  return <div className="g-h-6 g-border-r g-border-solid g-border-slate-200"></div>;
 }
 
 export default Map;
