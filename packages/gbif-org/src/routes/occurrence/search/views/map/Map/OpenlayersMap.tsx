@@ -378,6 +378,7 @@ class Map extends Component<Props, State> {
     this.map.setView(newView);
 
     this.addLayer();
+    this.updateFilterGeometries();
   }
 
   // async updateProjection() {
