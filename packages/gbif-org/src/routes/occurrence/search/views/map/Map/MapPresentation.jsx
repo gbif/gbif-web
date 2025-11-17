@@ -28,9 +28,12 @@ import {
   MdOutlineLayers,
   MdZoomIn,
   MdZoomOut,
-  MdEdit,
+  MdEdit as DrawIcon2,
   MdDelete,
 } from 'react-icons/md';
+import { PiPolygonFill as DrawIcon } from 'react-icons/pi';
+import { BiPointer as SelectIcon } from 'react-icons/bi';
+
 // import { ViewHeader } from '../ViewHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { MapMenuButton as MenuButton } from '@/components/maps/mapMenuButton';
@@ -259,6 +262,10 @@ function Map({
     setDrawingTool((current) => (current === 'DELETE' ? null : 'DELETE'));
   }, []);
 
+  const toggleSelectTool = useCallback(() => {
+    setDrawingTool((current) => (current === 'SELECT' ? null : 'SELECT'));
+  }, []);
+
   const menuLayerOptions = layerOptions?.[projection].map((layerId) => {
     const layerStyle = getStyle({
       styles: basemapOptions,
@@ -357,6 +364,27 @@ function Map({
             {notPolarProjection && (
               <>
                 <ToolSeparator />
+                {MapComponent === MapComponentML && (
+                  <SimpleTooltip
+                    asChild
+                    title={
+                      <FormattedMessage
+                        id="map.selectPolygon"
+                        defaultMessage="Select/edit polygon"
+                      />
+                    }
+                  >
+                    <MenuButton
+                      onClick={toggleSelectTool}
+                      className={cn(
+                        'g-p-2',
+                        drawingTool === 'SELECT' && 'g-bg-primary g-text-white'
+                      )}
+                    >
+                      <SelectIcon />
+                    </MenuButton>
+                  </SimpleTooltip>
+                )}
                 <SimpleTooltip
                   asChild
                   title={
@@ -378,7 +406,7 @@ function Map({
                     onClick={toggleDrawingTool}
                     className={cn('g-p-2', drawingTool === 'DRAW' && 'g-bg-primary g-text-white')}
                   >
-                    <MdEdit />
+                    <DrawIcon />
                   </MenuButton>
                 </SimpleTooltip>
                 <SimpleTooltip
