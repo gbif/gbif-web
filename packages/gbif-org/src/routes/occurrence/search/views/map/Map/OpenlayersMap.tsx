@@ -1,6 +1,5 @@
 import { projections } from '@/components/maps/openlayers/projections';
 import React, { Component } from 'react';
-
 import { getBoundingBox } from '@/components/maps/openlayers/helpers/getBoundingBox';
 import { useMapPosition } from './useMapPosition';
 import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
@@ -96,9 +95,7 @@ class Map extends Component<Props, State> {
 
   componentDidMount() {
     const currentProjection = projections[this.props.mapConfig?.projection || 'EPSG_3031'];
-
     const mapPos = this.props.mapPosition.getStoredPosition();
-
     const mapConfig = {
       target: this.myRef.current ?? undefined,
       view: currentProjection.getView(mapPos.lat, mapPos.lng, mapPos.zoom),
