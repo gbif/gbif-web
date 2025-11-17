@@ -8,6 +8,10 @@ import { Projection } from '@/config/config';
 import { OccurrenceSearchMetadata } from '@/contexts/search';
 import { BoundingBox } from '@/types';
 import { pixelRatio } from '@/utils/pixelRatio';
+import { getFeaturesFromWktList } from '@/utils/wktHelpers';
+import { Vector as VectorLayer } from 'ol/layer';
+import { Vector as VectorSource } from 'ol/source';
+import { Fill, Stroke, Style } from 'ol/style';
 import { apply, applyBackground, applyStyle, stylefunction } from 'ol-mapbox-style';
 import { defaults as olControlDefaults } from 'ol/control';
 import { MVT as MVTFormat } from 'ol/format';
@@ -62,6 +66,7 @@ type Props = {
   className?: string;
   onPointClick(point: PointData): void;
   mapPosition: ReturnType<typeof useMapPosition>;
+  features?: string[];
 };
 
 type State = {
@@ -73,6 +78,7 @@ class Map extends Component<Props, State> {
   myRef: React.RefObject<HTMLDivElement>;
   map?: OlMap;
   mapLoaded = false;
+  filterVectorLayer?: VectorLayer<VectorSource>;
 
   constructor(props: Props) {
     super(props);
@@ -103,11 +109,66 @@ class Map extends Component<Props, State> {
     this.updateMapLayers();
     this.mapLoaded = true;
     this.addLayer();
+    this.updateFilterGeometries();
+  }
+
+  updateFilterGeometries() {
+    if (!this.map) return;
+
+    const features = this.props.features || [];
+
+    // Remove existing filter layer if it exists
+    if (this.filterVectorLayer) {
+      this.map.removeLayer(this.filterVectorLayer);
+    }
+
+    // Only show filter geometries for MERCATOR and PLATE_CAREE projections
+    // Polar projections (EPSG_3031 Antarctic, EPSG_3995 Arctic) require geodesic edge densification:
+    // - WKT geometries are defined in EPSG:4326 with straight edges between vertices
+    // - In polar projections, these edges should follow geodesic curves (great circles)
+    // - Simple reprojection only transforms vertices, not the edges between them
+    // - This results in incorrect polygon shapes where edges appear as straight lines in the
+    //   projected space rather than following the actual geodesic path
+    // - Proper support would require densifying edges before transformation, which is more complex.
+    // For now we will just not show polygons on polar projections
+    const projection = this.props.mapConfig?.projection || 'EPSG_3031';
+    const supportedProjections = ['EPSG_3857', 'EPSG_4326'];
+
+    if (!supportedProjections.includes(projection)) {
+      // Don't display filter geometries for polar projections
+      return;
+    }
+
+    // Only create layer if there are features to display
+    if (features.length > 0) {
+      const vectorSource = new VectorSource({ wrapX: true });
+      const geometryFeatures = getFeaturesFromWktList({ geometry: features });
+      vectorSource.addFeatures(geometryFeatures);
+
+      this.filterVectorLayer = new VectorLayer({
+        source: vectorSource,
+        style: new Style({
+          fill: new Fill({
+            color: '#f1fbff6b',
+          }),
+          stroke: new Stroke({
+            color: '#0099ff',
+            width: 4,
+          }),
+        }),
+        zIndex: 100, // Ensure filter geometries are above the occurrence layer
+      });
+
+      this.map.addLayer(this.filterVectorLayer);
+    }
   }
 
   componentWillUnmount() {
     // https://github.com/openlayers/openlayers/issues/9556#issuecomment-493190400
     if (this.map) {
+      if (this.filterVectorLayer) {
+        this.map.removeLayer(this.filterVectorLayer);
+      }
       this.map.setTarget(undefined);
     }
   }
@@ -152,6 +213,11 @@ class Map extends Component<Props, State> {
       this.mapLoaded
     ) {
       this.map?.updateSize();
+    }
+
+    // Update filter geometries when features prop changes
+    if (prevProps.features !== this.props.features && this.mapLoaded) {
+      this.updateFilterGeometries();
     }
   }
 

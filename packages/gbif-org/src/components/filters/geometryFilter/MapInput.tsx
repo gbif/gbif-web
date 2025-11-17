@@ -1,10 +1,9 @@
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import useKeyPress from '@/hooks/useKeyPress';
 import { pixelRatio } from '@/utils/pixelRatio';
+import { getFeatureAsWKT, getFeaturesFromWktList } from '@/utils/wktHelpers';
 import { useMapPosition } from '@/routes/occurrence/search/views/map/Map/useMapPosition';
-import { Feature } from 'ol';
 import { defaults as olControlDefaults } from 'ol/control';
-import { GeoJSON, WKT } from 'ol/format';
 import * as olInteraction from 'ol/interaction';
 import Draw from 'ol/interaction/Draw.js';
 import Modify from 'ol/interaction/Modify.js';
@@ -51,9 +50,6 @@ const epsg_4326_raster = new TileLayer({
     wrapX: true,
   }),
 });
-
-const wktFormatter = new WKT();
-const geoJsonFormatter = new GeoJSON();
 
 const OpenLayersMap = ({
   geometryList,
@@ -255,7 +251,7 @@ const OpenLayersMap = ({
       vectorSource.clear();
       const geometries = getFeaturesFromWktList({ geometry: geometryList });
       vectorSource.addFeatures(geometries);
-      
+
       // Re-enable the active tool after updating geometries
       if (tool === 'DRAW') {
         interactions.draw.setActive(true);
@@ -319,39 +315,5 @@ const OpenLayersMap = ({
     </div>
   );
 };
-
-function getFeatureAsWKT(feature: Feature) {
-  const asGeoJson = geoJsonFormatter.writeFeature(feature, { rightHanded: true });
-  const rightHandCorrectedFeature = geoJsonFormatter.readFeature(asGeoJson);
-  const wkt = wktFormatter.writeFeature(rightHandCorrectedFeature, {
-    dataProjection: 'EPSG:4326',
-    featureProjection: 'EPSG:4326',
-    rightHanded: true,
-    decimals: 5,
-  });
-  return wkt;
-}
-
-function getFeaturesFromWktList({ geometry }: { geometry: string[] }) {
-  const geometries = [];
-  if (Array.isArray(geometry)) {
-    for (let i = 0; i < geometry.length; i++) {
-      geometries.push(
-        wktFormatter.readFeature(geometry[i], {
-          dataProjection: 'EPSG:4326',
-          featureProjection: 'EPSG:4326',
-        })
-      );
-    }
-  } else if (typeof geometry === 'string') {
-    geometries.push(
-      wktFormatter.readFeature(geometry, {
-        dataProjection: 'EPSG:4326',
-        featureProjection: 'EPSG:4326',
-      })
-    );
-  }
-  return geometries;
-}
 
 export default OpenLayersMap;
