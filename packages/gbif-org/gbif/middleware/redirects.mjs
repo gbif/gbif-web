@@ -1,7 +1,7 @@
 /**
  For redirects to have pretty urls for menu items and selected items. Could also support legacy urls
  */
-import { camelCase } from 'change-case';
+import { camelCase, snakeCase } from 'change-case';
 import querystring from 'querystring';
 import redirectList from '../../redirects.json' with { type: "json" };
 
@@ -25,6 +25,7 @@ function handleRedirects(req, res, next) {
   // remove query params from url first
   const splitted = req.url.split('?');
   let redirectTo = redirectTable[splitted[0]];
+ 
   if (redirectTo) {
     let redirectSplitted = redirectTo.split('?');
     // there may be parameters in target which should be merged with the incoming parameters
@@ -32,11 +33,17 @@ function handleRedirects(req, res, next) {
     let redirectUrl = redirectSplitted[0];
     redirectTo = redirectUrl + '?' + fixParameterCasing(splitted[1], parameters);
     //console.log('Redirecting:', req.url, 'to:', redirectTo);
+  } else {
+    // check for old query parameters needing casing fixes
+    const { correctedQuery, different } = redirectOldQueries(req, res);
+    if (different) {
+      redirectTo = splitted[0] + '?' + correctedQuery;
+    }
   }
 
   if (redirectTo) {
     res.redirect(302, redirectTo);
-  } else {
+  } else  {
     next();
   }
 }
@@ -54,6 +61,52 @@ function fixParameterCasing(str, parameters = '') {
   } catch (error) {
     console.error('Error fixing parameter casing:', error);
   }
+}
+
+let re = /^[-,0-9]+/i;
+function redirectOldQueries(req, res) {
+  
+  const [pathName, queryAsString] = req.url.split('?');
+  const query = querystring.parse(queryAsString || '');
+    // handle old query params
+    let 
+        camelQuery = {},
+        different = false;
+        
+ 
+    Object.keys(query).forEach(key => {
+        let camelKey = camelCase(key);
+        camelQuery[camelKey] = query[key];
+        different = different || key !== camelKey;
+    });
+
+    // the old site used display=map as a param to indicate a map view. map this to a route
+    if (query.display == 'map') {
+        delete camelQuery.display;
+        camelQuery.view = 'map';
+        different = true;
+    }
+
+    // the old site didn't use WKT, but only the coordinates and assumed polygon - this site uses wkt instead
+    if (camelQuery.geometry) {
+        let a = [].concat(camelQuery.geometry);
+        camelQuery.geometry = a.map(function(e) {
+            let startsWithNumber = e.match(re);
+            if (startsWithNumber) {
+                different = true;
+                return 'POLYGON((' + e + '))';
+            } else {
+                return e;
+            }
+        });
+    }
+
+    // if the query has been rewritten then redirect with the normalized params
+    
+    return {
+      correctedQuery: querystring.stringify(camelQuery),
+      different: different
+    };
 }
 
 export default handleRedirects;
