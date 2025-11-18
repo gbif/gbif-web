@@ -48,10 +48,10 @@
   "lastModified": "Naposledy upraveno",
   "modifiedBy": "Změněno od",
   "masterSource": "",
-  "fromInstitution": "",
+  "fromInstitution": "Od {institution}",
   "tabs": {
     "about": "O",
-    "explore": ""
+    "explore": "Procházet katalog"
   },
   "citesPermitNumber": "Cituje číslo povolení",
   "collectionDescriptorsHeadline": "Deskriptory sbírky",
