@@ -22,13 +22,12 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu';
 import {
-  MdOutlineFilterAlt as ExploreAreaIcon,
+  MdOutlineFullscreen as ExploreAreaIcon,
   MdLanguage,
   MdMyLocation,
   MdOutlineLayers,
   MdZoomIn,
   MdZoomOut,
-  MdEdit as DrawIcon2,
   MdDelete,
 } from 'react-icons/md';
 import { PiPolygonFill as DrawIcon } from 'react-icons/pi';
