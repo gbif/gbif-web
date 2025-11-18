@@ -22,13 +22,16 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu';
 import {
-  MdOutlineFilterAlt as ExploreAreaIcon,
+  MdOutlineFullscreen as ExploreAreaIcon,
   MdLanguage,
   MdMyLocation,
   MdOutlineLayers,
   MdZoomIn,
   MdZoomOut,
+  MdDeleteOutline,
 } from 'react-icons/md';
+import { PiPolygonFill as DrawIcon } from 'react-icons/pi';
+
 // import { ViewHeader } from '../ViewHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { MapMenuButton as MenuButton } from '@/components/maps/mapMenuButton';
@@ -49,6 +52,7 @@ import MapComponentML from './MapLibreMap';
 import MapComponentOL from './OpenlayersMap';
 import { getMapStyles } from './standardMapStyles';
 import { useI18n } from '@/reactRouterPlugins';
+import { ModifyPolygonIcon } from '@/components/icons/icons';
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
 const hasGeoLocation = 'geolocation' in navigator;
 
@@ -117,6 +121,7 @@ function Map({
   const [searchingLocation, setLocationSearch] = useState();
   const [basemapOptions, setBasemapOptions] = useState();
   const [listVisible, showList] = useState(false);
+  const [drawingTool, setDrawingTool] = useState(null);
   const { toast } = useToast();
   const [, setPreviewKey] = useEntityDrawer();
   const [mapLoading, setMapLoading] = useState(false);
@@ -248,6 +253,18 @@ function Map({
     }
   }, [toast]);
 
+  const toggleDrawingTool = useCallback(() => {
+    setDrawingTool((current) => (current === 'DRAW' ? null : 'DRAW'));
+  }, []);
+
+  const toggleDeleteTool = useCallback(() => {
+    setDrawingTool((current) => (current === 'DELETE' ? null : 'DELETE'));
+  }, []);
+
+  const toggleSelectTool = useCallback(() => {
+    setDrawingTool((current) => (current === 'SELECT' ? null : 'SELECT'));
+  }, []);
+
   const menuLayerOptions = layerOptions?.[projection].map((layerId) => {
     const layerStyle = getStyle({
       styles: basemapOptions,
@@ -344,19 +361,68 @@ function Map({
               <MdZoomOut />
             </MenuButton>
             {notPolarProjection && (
-              <SimpleTooltip
-                asChild
-                title={
-                  <FormattedMessage id="map.filterByView" defaultMessage="Use view as filter" />
-                }
-              >
-                <MenuButton
-                  onClick={() => broadcastEvent({ type: 'EXPLORE_AREA' })}
-                  className="g-p-2"
+              <>
+                <ToolSeparator />
+                <SimpleTooltip
+                  asChild
+                  title={
+                    <FormattedMessage id="map.filterByView" defaultMessage="Use view as filter" />
+                  }
                 >
-                  <ExploreAreaIcon />
-                </MenuButton>
-              </SimpleTooltip>
+                  <MenuButton
+                    onClick={() => broadcastEvent({ type: 'EXPLORE_AREA' })}
+                    className="g-p-2"
+                  >
+                    <ExploreAreaIcon />
+                  </MenuButton>
+                </SimpleTooltip>
+                <SimpleTooltip
+                  asChild
+                  title={<FormattedMessage id="map.drawPolygon" defaultMessage="Draw polygon" />}
+                >
+                  <MenuButton
+                    onClick={toggleDrawingTool}
+                    className={cn('g-p-2', drawingTool === 'DRAW' && 'g-bg-primary g-text-white')}
+                  >
+                    <DrawIcon />
+                  </MenuButton>
+                </SimpleTooltip>
+                {MapComponent === MapComponentML && (
+                  <SimpleTooltip
+                    asChild
+                    title={
+                      <FormattedMessage
+                        id="map.selectPolygon"
+                        defaultMessage="Select/edit polygon"
+                      />
+                    }
+                  >
+                    <MenuButton
+                      onClick={toggleSelectTool}
+                      className={cn(
+                        'g-p-2',
+                        drawingTool === 'SELECT' && 'g-bg-primary g-text-white'
+                      )}
+                    >
+                      <ModifyPolygonIcon />
+                    </MenuButton>
+                  </SimpleTooltip>
+                )}
+                <SimpleTooltip
+                  asChild
+                  title={
+                    <FormattedMessage id="map.deletePolygon" defaultMessage="Delete polygon" />
+                  }
+                >
+                  <MenuButton
+                    onClick={toggleDeleteTool}
+                    className={cn('g-p-2', drawingTool === 'DELETE' && 'g-bg-primary g-text-white')}
+                  >
+                    <MdDeleteOutline />
+                  </MenuButton>
+                </SimpleTooltip>
+                <ToolSeparator />
+              </>
             )}
 
             {projectionOptions.length > 1 && (
@@ -409,11 +475,19 @@ function Map({
             registerPredicate={registerPredicate}
             height={height}
             width={width}
+            drawingTool={drawingTool}
+            onDrawingToolChange={setDrawingTool}
+            features={features}
+            onFeaturesChange={onFeaturesChange}
           />
         </div>
       </div>
     </>
   );
+}
+
+function ToolSeparator() {
+  return <div className="g-h-6 g-border-r g-border-solid g-border-slate-200"></div>;
 }
 
 export default Map;

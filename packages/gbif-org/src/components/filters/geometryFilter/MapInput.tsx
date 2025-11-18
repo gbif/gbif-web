@@ -1,9 +1,9 @@
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import useKeyPress from '@/hooks/useKeyPress';
 import { pixelRatio } from '@/utils/pixelRatio';
-import { Feature } from 'ol';
+import { getFeatureAsWKT, getFeaturesFromWktList } from '@/utils/wktHelpers';
+import { useMapPosition } from '@/routes/occurrence/search/views/map/Map/useMapPosition';
 import { defaults as olControlDefaults } from 'ol/control';
-import { GeoJSON, WKT } from 'ol/format';
 import * as olInteraction from 'ol/interaction';
 import Draw from 'ol/interaction/Draw.js';
 import Modify from 'ol/interaction/Modify.js';
@@ -51,9 +51,6 @@ const epsg_4326_raster = new TileLayer({
   }),
 });
 
-const wktFormatter = new WKT();
-const geoJsonFormatter = new GeoJSON();
-
 const OpenLayersMap = ({
   geometryList,
   onChange,
@@ -72,6 +69,7 @@ const OpenLayersMap = ({
     select: Select;
   } | null>(null);
   const [tool, setTool] = useState<string | null>(null); // DRAW, DELETE or null
+  const { getStoredPosition, savePosition } = useMapPosition();
   const cancelInteraction = useCallback(() => {
     if (!map) return;
     map.getInteractions().forEach((interaction) => {
@@ -156,17 +154,35 @@ const OpenLayersMap = ({
     });
     const geometries = getFeaturesFromWktList({ geometry: initialGeometries });
     source.addFeatures(geometries);
+
+    // Get stored position or use defaults
+    const storedPosition = getStoredPosition();
+
     const newMap = new Map({
       layers: [epsg_4326_raster, vector],
       target: mapRef.current,
       view: new View({
-        center: [0, 0],
+        center: [storedPosition.lng, storedPosition.lat],
         projection: 'EPSG:4326',
-        zoom: 1,
+        zoom: storedPosition.zoom - 1,
       }),
       // logo: false,
       controls: olControlDefaults({ zoom: false, attribution: true }),
       interactions: interactionOptions,
+    });
+
+    // Save position whenever the map view changes
+    const view = newMap.getView();
+    view.on('change', () => {
+      const center = view.getCenter();
+      const zoom = view.getZoom();
+      if (center && zoom !== undefined) {
+        savePosition({
+          lng: center[0],
+          lat: center[1],
+          zoom: zoom + 1,
+        });
+      }
     });
 
     const draw = new Draw({
@@ -203,7 +219,7 @@ const OpenLayersMap = ({
           geometries.push(getFeatureAsWKT(f));
         });
         onChange({ wkt: geometries });
-      });
+      }, 0);
     });
 
     select.on('select', function () {
@@ -228,15 +244,24 @@ const OpenLayersMap = ({
       newMap.removeInteraction(select);
       newMap.setTarget(undefined);
     };
-  }, [mapRef, initialGeometries, onChange]);
+  }, [mapRef, initialGeometries, onChange, getStoredPosition, savePosition]);
 
   useEffect(() => {
-    if (map && vectorSource) {
+    if (map && vectorSource && interactions) {
       vectorSource.clear();
       const geometries = getFeaturesFromWktList({ geometry: geometryList });
       vectorSource.addFeatures(geometries);
+
+      // Re-enable the active tool after updating geometries
+      if (tool === 'DRAW') {
+        interactions.draw.setActive(true);
+        interactions.modify.setActive(true);
+        interactions.snap.setActive(true);
+      } else if (tool === 'DELETE') {
+        interactions.select.setActive(true);
+      }
     }
-  }, [map, vectorSource, geometryList]);
+  }, [map, vectorSource, geometryList, interactions, tool]);
 
   return (
     <div className="g-relative">
@@ -290,39 +315,5 @@ const OpenLayersMap = ({
     </div>
   );
 };
-
-function getFeatureAsWKT(feature: Feature) {
-  const asGeoJson = geoJsonFormatter.writeFeature(feature, { rightHanded: true });
-  const rightHandCorrectedFeature = geoJsonFormatter.readFeature(asGeoJson);
-  const wkt = wktFormatter.writeFeature(rightHandCorrectedFeature, {
-    dataProjection: 'EPSG:4326',
-    featureProjection: 'EPSG:4326',
-    rightHanded: true,
-    decimals: 5,
-  });
-  return wkt;
-}
-
-function getFeaturesFromWktList({ geometry }: { geometry: string[] }) {
-  const geometries = [];
-  if (Array.isArray(geometry)) {
-    for (let i = 0; i < geometry.length; i++) {
-      geometries.push(
-        wktFormatter.readFeature(geometry[i], {
-          dataProjection: 'EPSG:4326',
-          featureProjection: 'EPSG:4326',
-        })
-      );
-    }
-  } else if (typeof geometry === 'string') {
-    geometries.push(
-      wktFormatter.readFeature(geometry, {
-        dataProjection: 'EPSG:4326',
-        featureProjection: 'EPSG:4326',
-      })
-    );
-  }
-  return geometries;
-}
 
 export default OpenLayersMap;

@@ -2,10 +2,14 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ErrorMessage } from '@/components/errorMessage';
 import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
 import { isWebglSupported } from '@/utils/isWebglSupported';
+import { wktToGeoJSON, geoJSONToWKT } from '@/utils/wktHelpers';
 import maplibre from 'maplibre-gl';
+import MapboxDraw from '@mapbox/mapbox-gl-draw';
+import StaticMode from '@mapbox/mapbox-gl-draw-static-mode';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { getLayerConfig } from './getLayerConfig';
+import { useMapPosition } from './useMapPosition';
 
 const PUBLIC_API_V2 = import.meta.env.PUBLIC_API_V2;
 
@@ -14,6 +18,8 @@ const mapStyles = {
 };
 
 function Map(props) {
+  const mapPosition = useMapPosition(props.defaultMapSettings);
+
   return (
     <>
       {!isWebglSupported() && (
@@ -29,7 +35,7 @@ function Map(props) {
         debugTitle="GeoJsonMap"
         className="g-mt-8 g-me-2"
       >
-        <MapLibreMap {...props} />
+        <MapLibreMap {...props} mapPosition={mapPosition} />
       </ErrorBoundary>
     </>
   );
@@ -42,32 +48,57 @@ class MapLibreMap extends Component {
     this.addLayer = this.addLayer.bind(this);
     this.updateLayer = this.updateLayer.bind(this);
     this.onPointClick = this.onPointClick.bind(this);
+    this.initializeDrawControl = this.initializeDrawControl.bind(this);
+    this.updateFeatures = this.updateFeatures.bind(this);
+    this.handleDrawCreate = this.handleDrawCreate.bind(this);
+    this.handleDrawUpdate = this.handleDrawUpdate.bind(this);
+    this.handleDrawDelete = this.handleDrawDelete.bind(this);
+    this.handleDrawSelectionChange = this.handleDrawSelectionChange.bind(this);
     this.myRef = React.createRef();
     this.state = { loadDiff: 0 };
+    this.draw = null;
+    this.isInternalChange = false;
   }
 
   componentDidMount() {
-    let zoom = sessionStorage.getItem('mapZoom') || this.props.defaultMapSettings?.zoom || 0;
-    zoom = Math.min(Math.max(0, zoom), 20);
-    zoom -= 1;
+    const { getStoredPosition } = this.props.mapPosition;
+    const position = getStoredPosition({
+      maxLat: 85,
+      minLat: -85,
+    });
 
-    let lng = sessionStorage.getItem('mapLng') || this.props.defaultMapSettings?.lng || 0;
-    lng = Math.min(Math.max(-180, lng), 180);
-
-    let lat = sessionStorage.getItem('mapLat') || this.props.defaultMapSettings?.lat || 0;
-    lat = Math.min(Math.max(-85, lat), 85);
+    // MapLibre uses zoom-1 internally
+    const zoom = position.zoom - 1;
 
     this.map = new maplibre.Map({
       container: this.myRef.current,
       style: this.getStyle(),
       zoom,
-      center: [lng, lat],
+      center: [position.lng, position.lat],
     });
-    // this.map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
-    this.map.on('load', this.addLayer);
+
+    this.map.on('load', () => {
+      this.addLayer();
+      this.initializeDrawControl();
+      this.updateFeatures();
+    });
+
+    // Add scale control to bottom-left corner
+    const scale = new maplibre.ScaleControl({
+      maxWidth: 100,
+      unit: 'metric',
+    });
+    this.map.addControl(scale, 'bottom-left');
   }
 
   componentWillUnmount() {
+    if (this.draw && this.map) {
+      this.map.off('draw.create', this.handleDrawCreate);
+      this.map.off('draw.update', this.handleDrawUpdate);
+      this.map.off('draw.delete', this.handleDrawDelete);
+      this.map.off('draw.selectionchange', this.handleDrawSelectionChange);
+      this.map.removeControl(this.draw);
+    }
     if (this.map) this.map.remove();
   }
 
@@ -84,13 +115,12 @@ class MapLibreMap extends Component {
         this.map.flyTo({
           center: [this.props.latestEvent.lng, this.props.latestEvent.lat],
           zoom: this.props.latestEvent.zoom,
-          essential: true, // this animation is considered essential with respect to prefers-reduced-motion
+          essential: true,
         });
       } else if (this.props.latestEvent?.type === 'EXPLORE_AREA') {
         this.exploreArea();
       }
     }
-    // check if the size of the map container has changed and if so resize the map
     if (
       (prevProps.height !== this.props.height || prevProps.width !== this.props.width) &&
       this.mapLoaded
@@ -98,10 +128,254 @@ class MapLibreMap extends Component {
       this.map.resize();
     }
     if (prevProps.mapConfig !== this.props.mapConfig && this.mapLoaded) {
-      // seems we do not need to remove the sources when we load the style this way
       this.map.setStyle(this.getStyle());
-      setTimeout((x) => this.updateLayer(), 500); // apparently we risk adding the occurrence layer below the layers if we do not wait
+      setTimeout(() => this.updateLayer(), 500);
     }
+
+    // Update features when they change (but only if not caused by our own draw events)
+    if (prevProps.features !== this.props.features && this.mapLoaded && this.draw) {
+      if (!this.isInternalChange) {
+        this.updateFeatures();
+      } else {
+        // Reset the flag after handling the internal change
+        this.isInternalChange = false;
+      }
+    }
+
+    // Handle drawing tool changes
+    if (prevProps.drawingTool !== this.props.drawingTool && this.mapLoaded && this.draw) {
+      this.updateDrawingMode();
+    }
+  }
+
+  initializeDrawControl() {
+    if (!this.map || this.draw) return;
+
+    // Register custom modes
+    const modes = MapboxDraw.modes;
+    modes.static = StaticMode;
+
+    // Initialize MapboxDraw
+    this.draw = new MapboxDraw({
+      displayControlsDefault: false,
+      controls: {},
+      modes: modes,
+      styles: [
+        // Polygon fill - inactive
+        {
+          id: 'gl-draw-polygon-fill-inactive',
+          type: 'fill',
+          filter: ['all', ['==', '$type', 'Polygon'], ['==', 'active', 'false']],
+          paint: {
+            'fill-color': '#f1fbff6b',
+            'fill-opacity': 1,
+          },
+        },
+        // Polygon fill - active (editing)
+        {
+          id: 'gl-draw-polygon-fill-active',
+          type: 'fill',
+          filter: ['all', ['==', '$type', 'Polygon'], ['==', 'active', 'true']],
+          paint: {
+            'fill-color': '#fbb03b33',
+            'fill-opacity': 1,
+          },
+        },
+        // Polygon outline
+        {
+          id: 'gl-draw-polygon-stroke-active',
+          type: 'line',
+          filter: ['all', ['==', '$type', 'Polygon']],
+          paint: {
+            'line-color': '#0099ff',
+            'line-width': 4,
+          },
+        },
+        // Vertex points
+        {
+          id: 'gl-draw-polygon-and-line-vertex-active',
+          type: 'circle',
+          filter: ['all', ['==', 'meta', 'vertex'], ['==', '$type', 'Point']],
+          paint: {
+            'circle-radius': 5,
+            'circle-color': '#0099ff',
+          },
+        },
+        // Midpoint vertices (between vertices in edit mode)
+        {
+          id: 'gl-draw-polygon-midpoint',
+          type: 'circle',
+          filter: ['all', ['==', '$type', 'Point'], ['==', 'meta', 'midpoint']],
+          paint: {
+            'circle-radius': 4,
+            'circle-color': '#ffffff',
+            'circle-stroke-color': '#0099ff',
+            'circle-stroke-width': 2,
+          },
+        },
+        // Line being drawn (shows after first point)
+        {
+          id: 'gl-draw-line-active',
+          type: 'line',
+          filter: ['all', ['==', '$type', 'LineString'], ['==', 'active', 'true']],
+          paint: {
+            'line-color': '#0099ff',
+            'line-dasharray': [2, 2],
+            'line-width': 2,
+          },
+        },
+
+        // First vertex point (shows immediately when drawing starts)
+        {
+          id: 'gl-draw-point-active',
+          type: 'circle',
+          filter: [
+            'all',
+            ['==', '$type', 'Point'],
+            ['==', 'active', 'true'],
+            ['!=', 'meta', 'midpoint'],
+          ],
+          paint: {
+            'circle-radius': 5,
+            'circle-color': '#0099ff',
+          },
+        },
+      ],
+    });
+
+    this.map.addControl(this.draw, 'top-left');
+
+    // Start in static mode (no interaction, display only)
+    this.draw.changeMode('static');
+
+    // Add event listeners
+    this.map.on('draw.create', this.handleDrawCreate);
+    this.map.on('draw.update', this.handleDrawUpdate);
+    this.map.on('draw.delete', this.handleDrawDelete);
+    this.map.on('draw.selectionchange', this.handleDrawSelectionChange);
+  }
+
+  updateFeatures() {
+    if (!this.draw || !this.props.features) return;
+
+    // Clear existing features
+    this.draw.deleteAll();
+
+    // Add features from props
+    const features = this.props.features || [];
+    features.forEach((wktString) => {
+      const feature = wktToGeoJSON(wktString);
+      if (feature) {
+        this.draw.add(feature);
+      }
+    });
+
+    // After adding features, ensure we're in the correct mode based on current tool
+    // If no tool is active, use static mode (completely non-interactive)
+    this.draw.changeMode('static');
+    this.props.onDrawingToolChange(null);
+  }
+
+  updateDrawingMode() {
+    if (!this.draw) return;
+
+    const { drawingTool } = this.props;
+
+    // Change the draw mode based on the active tool
+    if (drawingTool === 'DRAW') {
+      this.draw.changeMode('draw_polygon');
+    } else if (drawingTool === 'SELECT') {
+      // Only allow direct_select (vertex editing) when SELECT tool is active
+      const features = this.draw.getAll().features;
+      if (features.length > 0) {
+        this.draw.changeMode('direct_select', {
+          featureId: features[0].id,
+        });
+      } else {
+        // No features to select, stay in static mode
+        this.draw.changeMode('static');
+        this.props.onDrawingToolChange(null);
+      }
+    } else if (drawingTool === 'DELETE') {
+      // For DELETE tool, use simple_select so user can click to select what to delete
+      const features = this.draw.getAll().features;
+      if (features.length > 0) {
+        this.draw.changeMode('simple_select');
+      } else {
+        // No features to select, stay in static mode
+        this.draw.changeMode('static');
+        this.props.onDrawingToolChange(null);
+      }
+    } else {
+      // No tool active - use static mode (completely non-interactive, display only)
+      // This prevents any selection or editing when tools are not active
+      this.draw.changeMode('static');
+    }
+  }
+
+  handleDrawCreate(e) {
+    this.isInternalChange = true;
+    this.notifyFeaturesChanged();
+
+    // After creating a feature, MapboxDraw switches to simple_select mode automatically
+    // for some reason this fails if not wrapped in a timeout
+    setTimeout(() => {
+      if (!this.draw) return;
+      this.draw.changeMode('static');
+      this.props.onDrawingToolChange(null);
+    }, 0);
+  }
+
+  handleDrawUpdate(e) {
+    this.isInternalChange = true;
+    this.notifyFeaturesChanged();
+  }
+
+  handleDrawDelete(e) {
+    // This may be triggered by MapboxDraw's built-in delete operations
+    // (e.g., pressing Delete/Backspace key while a feature is selected)
+    this.isInternalChange = true;
+    this.notifyFeaturesChanged();
+    const features = this.draw.getAll().features;
+    if (features.length === 0) {
+      this.draw.changeMode('static');
+      this.props.onDrawingToolChange(null);
+    }
+  }
+
+  handleDrawSelectionChange(e) {
+    // If we're in DELETE mode and a feature was selected, delete it immediately
+    if (this.props.drawingTool === 'DELETE' && e.features.length > 0) {
+      const featureIds = e.features.map((f) => f.id);
+      featureIds.forEach((id) => {
+        this.draw.delete(id);
+      });
+
+      // Mark as internal change and notify
+      this.isInternalChange = true;
+      this.notifyFeaturesChanged();
+
+      // for some reason this fails if not wrapped in a timeout
+      setTimeout(() => {
+        if (!this.draw) return;
+        const features = this.draw.getAll().features;
+        if (features.length === 0) {
+          this.draw.changeMode('static');
+          this.props.onDrawingToolChange(null);
+        }
+      }, 0);
+    }
+  }
+
+  notifyFeaturesChanged() {
+    if (!this.draw || !this.props.onFeaturesChange) return;
+
+    const allFeatures = this.draw.getAll();
+    const wktStrings = allFeatures.features
+      .map((feature) => geoJSONToWKT(feature))
+      .filter((wkt) => wkt !== null);
+
+    this.props.onFeaturesChange({ features: wktStrings });
   }
 
   exploreArea() {
@@ -136,7 +410,6 @@ class MapLibreMap extends Component {
     } else {
       this.addLayer();
     }
-    // this.addLayer();
   }
 
   onPointClick(pointData) {
@@ -145,41 +418,43 @@ class MapLibreMap extends Component {
 
   addLayer() {
     try {
-      // const source = this.map.getSource('occurrences');
-      // source.setTiles([`${env.API_V2}/map/occurrence/adhoc/{z}/{x}/{y}.mvt?style=scaled.circles&mode=GEO_CENTROID&srs=EPSG%3A3857&squareSize=256&predicateHash=${this.props.predicateHash}&${this.props.q ? `&q=${this.props.q} ` : ''}`])
-
       this.state.loadDiff = 0;
       var tileString = `${PUBLIC_API_V2}/map/occurrence/adhoc/{z}/{x}/{y}.mvt?style=scaled.circles&mode=GEO_CENTROID&srs=EPSG%3A3857&squareSize=256&predicateHash=${
         this.props.predicateHash ?? ''
       }&${this.props.q ? `&q=${this.props.q} ` : ''}`;
 
-      this.map.addLayer(
-        getLayerConfig({ tileString, theme: this.props.theme })
-        // "poi-scalerank2"
-      );
+      this.map.addLayer(getLayerConfig({ tileString, theme: this.props.theme }));
 
       const map = this.map;
       if (!this.mapLoaded) {
-        // remember map position
-        map.on('zoomend', function () {
-          const center = map.getCenter();
-          sessionStorage.setItem('mapZoom', map.getZoom() + 1);
-          sessionStorage.setItem('mapLng', center.lng);
-          sessionStorage.setItem('mapLat', center.lat);
-        });
-        map.on('moveend', function () {
-          const center = map.getCenter();
-          sessionStorage.setItem('mapZoom', map.getZoom() + 1);
-          sessionStorage.setItem('mapLng', center.lng);
-          sessionStorage.setItem('mapLat', center.lat);
-        });
+        const { savePosition } = this.props.mapPosition;
 
-        map.on('mouseenter', 'occurrences', function (e) {
-          // Change the cursor style as a UI indicator.
+        const saveCurrentPosition = () => {
+          const center = map.getCenter();
+          savePosition({
+            zoom: map.getZoom() + 1,
+            lng: center.lng,
+            lat: center.lat,
+          });
+        };
+
+        map.on('zoomend', saveCurrentPosition);
+        map.on('moveend', saveCurrentPosition);
+
+        map.on('mouseenter', 'occurrences', (e) => {
+          // Don't handle point clicks when drawing tools are active
+          if (this.props.drawingTool) {
+            return;
+          }
           map.getCanvas().style.cursor = 'pointer';
         });
 
         map.on('click', 'occurrences', (e) => {
+          // Don't handle point clicks when drawing tools are active
+          if (this.props.drawingTool) {
+            return;
+          }
+
           this.onPointClick({
             geohash: e.features[0].properties.geohash,
             count: e.features[0].properties.count,
@@ -199,7 +474,6 @@ class MapLibreMap extends Component {
           if (e?.error?.status === 400 && this.props.registerPredicate) {
             this.props.registerPredicate();
           } else if (e.type === 'error' && this.props.onTileError) {
-            // notify the user that we had dificulties loading the tiles
             this.props.onTileError();
           }
         });

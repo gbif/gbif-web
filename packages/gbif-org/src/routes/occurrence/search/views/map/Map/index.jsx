@@ -7,7 +7,7 @@ import { filter2predicate } from '@/dataManagement/filterAdapter';
 import { PredicateType } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import Geohash from 'latlon-geohash';
-import { useCallback, useContext, useEffect } from 'react';
+import { useCallback, useContext, useEffect, useMemo } from 'react';
 import { searchConfig } from '../../../searchConfig';
 import MapPresentation from './MapPresentation';
 
@@ -94,6 +94,13 @@ function Map({ style, className, mapProps }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFilterContext.filterHash, searchContext, scope, load, loadHashAndCount]);
 
+  // use memo to store the current geometries (filter.must?.geometry ?? []).map((x) => x.toString())
+  const features = useMemo(() => {
+    return (currentFilterContext.filter?.must?.geometry ?? []).map((x) => x.toString());
+    // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentFilterContext.filterHash]);
+
   let registrationEmbargo;
   /**
    * Allow the map to register the predicate again. This can be useful when tile with status code 400 errors come back.
@@ -167,11 +174,11 @@ function Map({ style, className, mapProps }) {
     q,
     defaultMapSettings: mapSettings,
     onFeaturesChange: handleFeatureChange,
+    features,
   };
 
   if (typeof window !== 'undefined') {
     return <MapPresentation {...options} {...{ style, className, mapProps }} />;
-    // return <h1>Map placeholder</h1>
   } else {
     return <h1>Map placeholder</h1>;
   }

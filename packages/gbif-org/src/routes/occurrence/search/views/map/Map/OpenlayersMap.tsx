@@ -1,14 +1,22 @@
 import { projections } from '@/components/maps/openlayers/projections';
 import React, { Component } from 'react';
-
 import { getBoundingBox } from '@/components/maps/openlayers/helpers/getBoundingBox';
+import { useMapPosition } from './useMapPosition';
 import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
 import { Projection } from '@/config/config';
 import { OccurrenceSearchMetadata } from '@/contexts/search';
 import { BoundingBox } from '@/types';
 import { pixelRatio } from '@/utils/pixelRatio';
+import { getFeatureAsWKT, getFeaturesFromWktList } from '@/utils/wktHelpers';
+import { Vector as VectorLayer } from 'ol/layer';
+import { Vector as VectorSource } from 'ol/source';
+import { Fill, Stroke, Style } from 'ol/style';
 import { apply, applyBackground, applyStyle, stylefunction } from 'ol-mapbox-style';
-import { defaults as olControlDefaults } from 'ol/control';
+import Draw from 'ol/interaction/Draw';
+import Modify from 'ol/interaction/Modify';
+import Select from 'ol/interaction/Select';
+import Snap from 'ol/interaction/Snap';
+import { defaults as olControlDefaults, ScaleLine } from 'ol/control';
 import { MVT as MVTFormat } from 'ol/format';
 import * as olInteraction from 'ol/interaction';
 import BaseTileLayer from 'ol/layer/BaseTile';
@@ -60,6 +68,11 @@ type Props = {
   onMapClick?(): void;
   className?: string;
   onPointClick(point: PointData): void;
+  mapPosition: ReturnType<typeof useMapPosition>;
+  features?: string[];
+  drawingTool?: string | null;
+  onDrawingToolChange?(tool: string | null): void;
+  onFeaturesChange?(params: { features: string[] }): void;
 };
 
 type State = {
@@ -67,10 +80,19 @@ type State = {
   epsg?: Projection;
 };
 
+type DrawingInteractions = {
+  draw: Draw;
+  modify: Modify;
+  snap: Snap;
+  select: Select;
+} | null;
+
 class Map extends Component<Props, State> {
   myRef: React.RefObject<HTMLDivElement>;
   map?: OlMap;
   mapLoaded = false;
+  filterVectorLayer?: VectorLayer<VectorSource>;
+  drawingInteractions: DrawingInteractions = null;
 
   constructor(props: Props) {
     super(props);
@@ -88,24 +110,184 @@ class Map extends Component<Props, State> {
 
   componentDidMount() {
     const currentProjection = projections[this.props.mapConfig?.projection || 'EPSG_3031'];
-
-    const mapPos = this.getStoredMapPosition();
-
+    const mapPos = this.props.mapPosition.getStoredPosition();
     const mapConfig = {
       target: this.myRef.current ?? undefined,
       view: currentProjection.getView(mapPos.lat, mapPos.lng, mapPos.zoom),
-      controls: olControlDefaults({ zoom: false, attribution: true }),
+      controls: olControlDefaults({ zoom: false, attribution: true }).extend([
+        new ScaleLine({
+          units: 'metric',
+        }),
+      ]),
       interactions,
     };
     this.map = new OlMap(mapConfig);
     this.updateMapLayers();
     this.mapLoaded = true;
     this.addLayer();
+    this.updateFilterGeometries();
+    this.initializeDrawingInteractions();
+  }
+
+  initializeDrawingInteractions() {
+    if (!this.map || !this.filterVectorLayer) return;
+
+    const source = this.filterVectorLayer.getSource();
+    if (!source) return;
+
+    const draw = new Draw({
+      source: source,
+      type: 'Polygon',
+    });
+
+    const modify = new Modify({ source: source });
+    const snap = new Snap({ source: source });
+    const select = new Select({ layers: [this.filterVectorLayer] });
+
+    this.map.addInteraction(draw);
+    this.map.addInteraction(modify);
+    this.map.addInteraction(snap);
+    this.map.addInteraction(select);
+
+    // Initially disable all interactions
+    draw.setActive(false);
+    modify.setActive(false);
+    snap.setActive(false);
+    select.setActive(false);
+
+    this.drawingInteractions = { draw, modify, snap, select };
+
+    // Handle draw events - arrow function ensures 'this' is bound correctly
+    const handleDrawEnd = (event: any) => {
+      const geometries: string[] = [];
+      source.forEachFeature((f) => {
+        geometries.push(getFeatureAsWKT(f));
+      });
+      const latestWkt = getFeatureAsWKT(event.feature);
+      geometries.push(latestWkt);
+
+      if (this.props.onFeaturesChange) {
+        this.props.onFeaturesChange({ features: geometries });
+      }
+    };
+    draw.on('drawend', handleDrawEnd);
+
+    // Handle modify events - arrow function ensures 'this' is bound correctly
+    const handleModifyEnd = () => {
+      setTimeout(() => {
+        const geometries: string[] = [];
+        source.forEachFeature((f) => {
+          geometries.push(getFeatureAsWKT(f));
+        });
+        if (this.props.onFeaturesChange) {
+          this.props.onFeaturesChange({ features: geometries });
+        }
+      }, 0);
+    };
+    modify.on('modifyend', handleModifyEnd);
+
+    // Handle select events (for deletion) - arrow function ensures 'this' is bound correctly
+    const handleSelect = () => {
+      select.getFeatures().forEach((selectedFeature) => {
+        const layer = select.getLayer(selectedFeature);
+        if (layer) {
+          layer.getSource()?.removeFeature(selectedFeature);
+        }
+      });
+      setTimeout(() => {
+        const geometries: string[] = [];
+        source.forEachFeature((f) => {
+          geometries.push(getFeatureAsWKT(f));
+        });
+        if (this.props.onFeaturesChange) {
+          this.props.onFeaturesChange({ features: geometries });
+        }
+      }, 0);
+    };
+    select.on('select', handleSelect);
+  }
+
+  updateFilterGeometries() {
+    if (!this.map) return;
+
+    const features = this.props.features || [];
+
+    // Remove existing filter layer if it exists
+    if (this.filterVectorLayer) {
+      this.map.removeLayer(this.filterVectorLayer);
+    }
+
+    // Only show filter geometries for MERCATOR and PLATE_CAREE projections
+    // Polar projections (EPSG_3031 Antarctic, EPSG_3995 Arctic) require geodesic edge densification:
+    // - WKT geometries are defined in EPSG:4326 with straight edges between vertices
+    // - In polar projections, these edges should follow geodesic curves (great circles)
+    // - Simple reprojection only transforms vertices, not the edges between them
+    // - This results in incorrect polygon shapes where edges appear as straight lines in the
+    //   projected space rather than following the actual geodesic path
+    // - Proper support would require densifying edges before transformation, which is more complex.
+    // For now we will just not show polygons on polar projections
+    const projection = this.props.mapConfig?.projection || 'EPSG_3031';
+    const supportedProjections = ['EPSG_3857', 'EPSG_4326'];
+
+    if (!supportedProjections.includes(projection)) {
+      // Don't display filter geometries for polar projections
+      return;
+    }
+
+    // Always create the filter layer (even with no features) to ensure drawing interactions work
+    const vectorSource = new VectorSource({ wrapX: true });
+    
+    // Add existing features if any
+    if (features.length > 0) {
+      const geometryFeatures = getFeaturesFromWktList({ geometry: features });
+      vectorSource.addFeatures(geometryFeatures);
+    }
+
+    this.filterVectorLayer = new VectorLayer({
+      source: vectorSource,
+      style: new Style({
+        fill: new Fill({
+          color: '#f1fbff6b',
+        }),
+        stroke: new Stroke({
+          color: '#0099ff',
+          width: 4,
+        }),
+      }),
+      zIndex: 100, // Ensure filter geometries are above the occurrence layer
+    });
+
+    this.map.addLayer(this.filterVectorLayer);
+
+    // Reinitialize drawing interactions with the new layer
+    if (this.drawingInteractions) {
+      this.map.removeInteraction(this.drawingInteractions.draw);
+      this.map.removeInteraction(this.drawingInteractions.modify);
+      this.map.removeInteraction(this.drawingInteractions.snap);
+      this.map.removeInteraction(this.drawingInteractions.select);
+    }
+    this.initializeDrawingInteractions();
+
+    // Restore the active tool state
+    if (this.props.drawingTool === 'DRAW') {
+      this.enableDrawingTool();
+    } else if (this.props.drawingTool === 'DELETE') {
+      this.enableDeleteTool();
+    }
   }
 
   componentWillUnmount() {
     // https://github.com/openlayers/openlayers/issues/9556#issuecomment-493190400
     if (this.map) {
+      if (this.drawingInteractions) {
+        this.map.removeInteraction(this.drawingInteractions.draw);
+        this.map.removeInteraction(this.drawingInteractions.modify);
+        this.map.removeInteraction(this.drawingInteractions.snap);
+        this.map.removeInteraction(this.drawingInteractions.select);
+      }
+      if (this.filterVectorLayer) {
+        this.map.removeLayer(this.filterVectorLayer);
+      }
       this.map.setTarget(undefined);
     }
   }
@@ -151,28 +333,22 @@ class Map extends Component<Props, State> {
     ) {
       this.map?.updateSize();
     }
-  }
 
-  getStoredMapPosition() {
-    let zoom = Number(
-      sessionStorage.getItem('mapZoom') || this.props.defaultMapSettings?.zoom || 0
-    );
-    zoom = Math.min(Math.max(0, zoom), 20);
+    // Update filter geometries when features prop changes
+    if (prevProps.features !== this.props.features && this.mapLoaded) {
+      this.updateFilterGeometries();
+    }
 
-    let lng = Number(sessionStorage.getItem('mapLng') || this.props.defaultMapSettings?.lng || 0);
-    while (lng < -180) lng += 360;
-    while (lng > 180) lng -= 360;
-    lng = Math.min(Math.max(-180, lng), 180);
+    // Handle drawing tool changes
+    if (prevProps.drawingTool !== this.props.drawingTool && this.mapLoaded) {
+      this.disableAllDrawingInteractions();
 
-    let lat = Number(sessionStorage.getItem('mapLat') || this.props.defaultMapSettings?.lat || 0);
-    lat = Math.min(Math.max(-90, lat), 90);
-    // const currentProjection = projections[this.props.mapConfig?.projection || 'EPSG_3031'];
-    // const reprojectedCenter = transform([lng, lat], 'EPSG:4326', currentProjection.srs);
-    return {
-      lat, //: reprojectedCenter[1],
-      lng, //: reprojectedCenter[0],
-      zoom,
-    };
+      if (this.props.drawingTool === 'DRAW') {
+        this.enableDrawingTool();
+      } else if (this.props.drawingTool === 'DELETE') {
+        this.enableDeleteTool();
+      }
+    }
   }
 
   zoomIn() {
@@ -206,6 +382,26 @@ class Map extends Component<Props, State> {
     });
   }
 
+  disableAllDrawingInteractions() {
+    if (!this.drawingInteractions) return;
+    this.drawingInteractions.draw.setActive(false);
+    this.drawingInteractions.modify.setActive(false);
+    this.drawingInteractions.snap.setActive(false);
+    this.drawingInteractions.select.setActive(false);
+  }
+
+  enableDrawingTool() {
+    if (!this.drawingInteractions) return;
+    this.drawingInteractions.draw.setActive(true);
+    this.drawingInteractions.modify.setActive(true);
+    this.drawingInteractions.snap.setActive(true);
+  }
+
+  enableDeleteTool() {
+    if (!this.drawingInteractions) return;
+    this.drawingInteractions.select.setActive(true);
+  }
+
   removeLayer(name: string) {
     if (!this.map) return;
     this.map
@@ -226,7 +422,10 @@ class Map extends Component<Props, State> {
     // this.updateProjection();
 
     // update projection
-    // const mapPos = this.getStoredMapPosition();
+    // const mapPos = this.props.mapPosition.getStoredPosition({
+    //   maxLat: currentProjection.maxLat || 90,
+    //   minLat: currentProjection.minLat || -90,
+    // });
     // const newView = currentProjection.getView(mapPos.lat, mapPos.lng, mapPos.zoom);
     // this.map.setView(newView);
 
@@ -254,7 +453,7 @@ class Map extends Component<Props, State> {
         // if this map style is intended to be reprojected then continue
         await apply(this.map, styleResponse);
 
-        const mapPos = this.getStoredMapPosition();
+        const mapPos = this.props.mapPosition.getStoredPosition();
         const map = this.map;
 
         const mapboxStyle = this.map.get('mapbox-style');
@@ -324,11 +523,12 @@ class Map extends Component<Props, State> {
     }
 
     // update projection
-    const mapPos = this.getStoredMapPosition();
+    const mapPos = this.props.mapPosition.getStoredPosition();
     const newView = currentProjection.getView(mapPos.lat, mapPos.lng, mapPos.zoom);
     this.map.setView(newView);
 
     this.addLayer();
+    this.updateFilterGeometries();
   }
 
   // async updateProjection() {
@@ -402,18 +602,26 @@ class Map extends Component<Props, State> {
     this.map.addLayer(occurrenceLayer);
 
     const map = this.map;
+    const { savePosition } = this.props.mapPosition;
 
     map.on('moveend', function () {
       const { center, zoom } = map.getView().getState();
       const reprojectedCenter = transform(center, currentProjection.srs, 'EPSG:4326');
-      sessionStorage.setItem('mapZoom', zoom.toString());
-      sessionStorage.setItem('mapLng', reprojectedCenter[0].toString());
-      sessionStorage.setItem('mapLat', reprojectedCenter[1].toString());
+      savePosition({
+        zoom,
+        lng: reprojectedCenter[0],
+        lat: reprojectedCenter[1],
+      });
     });
 
     const pointClickHandler = this.onPointClick;
     const clickHandler = this.props.onMapClick;
     map.on('singleclick', (event) => {
+      // Don't handle point clicks when drawing tools are active
+      if (this.props.drawingTool) {
+        return;
+      }
+
       // todo : hover and click do not agree on wether there is a point or not
       occurrenceLayer.getFeatures(event.pixel).then(function (features) {
         const feature = features.length ? features[0] : undefined;
@@ -427,6 +635,7 @@ class Map extends Component<Props, State> {
     });
 
     // the performance of this is really bad. It is a shame, but I think it is better to have it disabled until we can find a better solution. Probably updating to a newer version of openlayers will do it.
+    // reviewed nov 2025 OL10 - performance is slightly better but still not good enough to enable
     // map.on('pointermove', function (e) {
     //   if (e.dragging) {
     //     return;
@@ -443,4 +652,9 @@ class Map extends Component<Props, State> {
   }
 }
 
-export default Map;
+function MapWithHook(props: Omit<Props, 'mapPosition'>) {
+  const mapPosition = useMapPosition(props.defaultMapSettings);
+  return <Map {...props} mapPosition={mapPosition} />;
+}
+
+export default MapWithHook;
