@@ -1,10 +1,18 @@
 {
+  "protectedTitle": "K podání žádosti potřebujete účet",
+  "protectedMessage": "Přihlaste se nebo si vytvořte účet, abyste mohli pokračovat v podávání žádosti.",
   "successMessage": "Id spravované poskytovatelem",
+  "primaryContactHeading": "Hlavní kontakt pro tuto žádost",
   "description": "Popis",
   "descriptionLabel": "Popis",
   "typeOfApplication": "Typ",
+  "publishing": "Režim zveřejňování",
+  "anticipatedUsers": "Poskytovatelé obsahu",
+  "timeline": "Časová osa",
   "domain": "Doména",
+  "terms": "Podmínky",
   "personName": "Jméno",
   "email": "E-mail",
-  "participantLabel": "Účastník"
+  "participantLabel": "Účastník",
+  "submitErrorTitle": "Nepodařilo se odeslat žádost"
 }
