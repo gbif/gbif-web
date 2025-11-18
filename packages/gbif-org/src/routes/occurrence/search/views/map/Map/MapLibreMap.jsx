@@ -86,7 +86,7 @@ class MapLibreMap extends Component {
     // Add scale control to bottom-left corner
     const scale = new maplibre.ScaleControl({
       maxWidth: 100,
-      unit: 'metric'
+      unit: 'metric',
     });
     this.map.addControl(scale, 'bottom-left');
   }
@@ -334,15 +334,15 @@ class MapLibreMap extends Component {
   handleDrawSelectionChange(e) {
     // If we're in DELETE mode and a feature was selected, delete it immediately
     if (this.props.drawingTool === 'DELETE' && e.features.length > 0) {
-      const featureIds = e.features.map(f => f.id);
-      featureIds.forEach(id => {
+      const featureIds = e.features.map((f) => f.id);
+      featureIds.forEach((id) => {
         this.draw.delete(id);
       });
-      
+
       // Mark as internal change and notify
       this.isInternalChange = true;
       this.notifyFeaturesChanged();
-      
+
       // Switch back to static mode and clear the drawing tool
       setTimeout(() => {
         if (this.draw && this.props.onDrawingToolChange) {
