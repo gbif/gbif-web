@@ -230,43 +230,45 @@ class Map extends Component<Props, State> {
       return;
     }
 
-    // Only create layer if there are features to display
+    // Always create the filter layer (even with no features) to ensure drawing interactions work
+    const vectorSource = new VectorSource({ wrapX: true });
+    
+    // Add existing features if any
     if (features.length > 0) {
-      const vectorSource = new VectorSource({ wrapX: true });
       const geometryFeatures = getFeaturesFromWktList({ geometry: features });
       vectorSource.addFeatures(geometryFeatures);
+    }
 
-      this.filterVectorLayer = new VectorLayer({
-        source: vectorSource,
-        style: new Style({
-          fill: new Fill({
-            color: '#f1fbff6b',
-          }),
-          stroke: new Stroke({
-            color: '#0099ff',
-            width: 4,
-          }),
+    this.filterVectorLayer = new VectorLayer({
+      source: vectorSource,
+      style: new Style({
+        fill: new Fill({
+          color: '#f1fbff6b',
         }),
-        zIndex: 100, // Ensure filter geometries are above the occurrence layer
-      });
+        stroke: new Stroke({
+          color: '#0099ff',
+          width: 4,
+        }),
+      }),
+      zIndex: 100, // Ensure filter geometries are above the occurrence layer
+    });
 
-      this.map.addLayer(this.filterVectorLayer);
+    this.map.addLayer(this.filterVectorLayer);
 
-      // Reinitialize drawing interactions with the new layer
-      if (this.drawingInteractions) {
-        this.map.removeInteraction(this.drawingInteractions.draw);
-        this.map.removeInteraction(this.drawingInteractions.modify);
-        this.map.removeInteraction(this.drawingInteractions.snap);
-        this.map.removeInteraction(this.drawingInteractions.select);
-      }
-      this.initializeDrawingInteractions();
+    // Reinitialize drawing interactions with the new layer
+    if (this.drawingInteractions) {
+      this.map.removeInteraction(this.drawingInteractions.draw);
+      this.map.removeInteraction(this.drawingInteractions.modify);
+      this.map.removeInteraction(this.drawingInteractions.snap);
+      this.map.removeInteraction(this.drawingInteractions.select);
+    }
+    this.initializeDrawingInteractions();
 
-      // Restore the active tool state
-      if (this.props.drawingTool === 'DRAW') {
-        this.enableDrawingTool();
-      } else if (this.props.drawingTool === 'DELETE') {
-        this.enableDeleteTool();
-      }
+    // Restore the active tool state
+    if (this.props.drawingTool === 'DRAW') {
+      this.enableDrawingTool();
+    } else if (this.props.drawingTool === 'DELETE') {
+      this.enableDeleteTool();
     }
   }
 
