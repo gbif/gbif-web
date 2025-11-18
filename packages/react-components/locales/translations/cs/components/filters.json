@@ -153,7 +153,7 @@
   "alternativeCode": {
     "name": "Alternativní kód",
     "count": "DWCA rozšíření",
-    "description": ""
+    "description": "Jakýkoli další kód, který je již používán pro stejný záznam v jiných kontextech (například historické kódy)."
   },
   "identifier": {
     "name": "Identifikátor",
