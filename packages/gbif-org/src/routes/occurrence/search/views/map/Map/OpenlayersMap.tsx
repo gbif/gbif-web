@@ -26,6 +26,7 @@ import { transform } from 'ol/proj';
 import ImageTile from 'ol/source/ImageTile';
 import VectorTileSource from 'ol/source/VectorTile';
 import TileGrid from 'ol/tilegrid/TileGrid';
+import { Theme } from '@/config/theme/theme';
 
 const interactions = olInteraction.defaults({
   altShiftDragRotate: false,
@@ -62,7 +63,7 @@ type Props = {
   listener?(event: MapEvent): void;
   predicateHash: string;
   q?: string;
-  theme: string;
+  theme: Partial<Theme> | undefined;
   registerPredicate?(): void;
   onTileError?(): void;
   onMapClick?(): void;
@@ -236,7 +237,7 @@ class Map extends Component<Props, State> {
 
     // Always create the filter layer (even with no features) to ensure drawing interactions work
     const vectorSource = new VectorSource({ wrapX: true });
-    
+
     // Add existing features if any
     if (features.length > 0) {
       const geometryFeatures = getFeaturesFromWktList({ geometry: features });
