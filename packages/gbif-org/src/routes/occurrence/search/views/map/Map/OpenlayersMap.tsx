@@ -16,7 +16,7 @@ import Draw from 'ol/interaction/Draw';
 import Modify from 'ol/interaction/Modify';
 import Select from 'ol/interaction/Select';
 import Snap from 'ol/interaction/Snap';
-import { defaults as olControlDefaults } from 'ol/control';
+import { defaults as olControlDefaults, ScaleLine } from 'ol/control';
 import { MVT as MVTFormat } from 'ol/format';
 import * as olInteraction from 'ol/interaction';
 import BaseTileLayer from 'ol/layer/BaseTile';
@@ -114,7 +114,11 @@ class Map extends Component<Props, State> {
     const mapConfig = {
       target: this.myRef.current ?? undefined,
       view: currentProjection.getView(mapPos.lat, mapPos.lng, mapPos.zoom),
-      controls: olControlDefaults({ zoom: false, attribution: true }),
+      controls: olControlDefaults({ zoom: false, attribution: true }).extend([
+        new ScaleLine({
+          units: 'metric',
+        }),
+      ]),
       interactions,
     };
     this.map = new OlMap(mapConfig);
