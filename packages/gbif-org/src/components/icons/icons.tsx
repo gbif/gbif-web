@@ -143,11 +143,6 @@ const modifyPolygonJson = {
   tag: 'svg',
   attr: {
     viewBox: '0 0 100 100',
-    ariaHidden: 'true',
-    role: 'img',
-    preserveAspectRatio: 'xMidYMid meet',
-    dataIconid: '399183',
-    dataSvgname: 'Modify poly o',
   },
   child: [
     {
