@@ -5,11 +5,35 @@ const wktFormatter = new WKT();
 const geoJsonFormatter = new GeoJSON();
 
 /**
+ * Cap latitude values to valid range [-90, 90]
+ * Recursively processes all coordinate arrays in GeoJSON geometry
+ */
+function capLatitudeInCoordinates(coordinates: any): any {
+  if (typeof coordinates[0] === 'number') {
+    // This is a [longitude, latitude] pair
+    const [lon, lat] = coordinates;
+    const cappedLat = Math.max(-90, Math.min(90, lat));
+    return [lon, cappedLat];
+  }
+  // Recursively process nested arrays
+  return coordinates.map((coord: any) => capLatitudeInCoordinates(coord));
+}
+
+/**
  * Convert an OpenLayers feature to WKT format
+ * Ensures latitude values are capped within valid range [-90, 90]
  */
 export function getFeatureAsWKT(feature: Feature): string {
   const asGeoJson = geoJsonFormatter.writeFeature(feature, { rightHanded: true });
-  const rightHandCorrectedFeature = geoJsonFormatter.readFeature(asGeoJson);
+  const geoJsonObj = JSON.parse(asGeoJson);
+  
+  // Cap latitude values in the geometry coordinates
+  if (geoJsonObj.geometry && geoJsonObj.geometry.coordinates) {
+    geoJsonObj.geometry.coordinates = capLatitudeInCoordinates(geoJsonObj.geometry.coordinates);
+  }
+  
+  const correctedGeoJson = JSON.stringify(geoJsonObj);
+  const rightHandCorrectedFeature = geoJsonFormatter.readFeature(correctedGeoJson);
   const wkt = wktFormatter.writeFeature(rightHandCorrectedFeature, {
     dataProjection: 'EPSG:4326',
     featureProjection: 'EPSG:4326',
