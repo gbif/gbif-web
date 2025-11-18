@@ -28,10 +28,9 @@ import {
   MdOutlineLayers,
   MdZoomIn,
   MdZoomOut,
-  MdDelete,
+  MdDeleteOutline,
 } from 'react-icons/md';
 import { PiPolygonFill as DrawIcon } from 'react-icons/pi';
-import { BiPointer as SelectIcon } from 'react-icons/bi';
 
 // import { ViewHeader } from '../ViewHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
@@ -53,6 +52,7 @@ import MapComponentML from './MapLibreMap';
 import MapComponentOL from './OpenlayersMap';
 import { getMapStyles } from './standardMapStyles';
 import { useI18n } from '@/reactRouterPlugins';
+import { ModifyPolygonIcon } from '@/components/icons/icons';
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
 const hasGeoLocation = 'geolocation' in navigator;
 
@@ -363,27 +363,6 @@ function Map({
             {notPolarProjection && (
               <>
                 <ToolSeparator />
-                {MapComponent === MapComponentML && (
-                  <SimpleTooltip
-                    asChild
-                    title={
-                      <FormattedMessage
-                        id="map.selectPolygon"
-                        defaultMessage="Select/edit polygon"
-                      />
-                    }
-                  >
-                    <MenuButton
-                      onClick={toggleSelectTool}
-                      className={cn(
-                        'g-p-2',
-                        drawingTool === 'SELECT' && 'g-bg-primary g-text-white'
-                      )}
-                    >
-                      <SelectIcon />
-                    </MenuButton>
-                  </SimpleTooltip>
-                )}
                 <SimpleTooltip
                   asChild
                   title={
@@ -408,6 +387,27 @@ function Map({
                     <DrawIcon />
                   </MenuButton>
                 </SimpleTooltip>
+                {MapComponent === MapComponentML && (
+                  <SimpleTooltip
+                    asChild
+                    title={
+                      <FormattedMessage
+                        id="map.selectPolygon"
+                        defaultMessage="Select/edit polygon"
+                      />
+                    }
+                  >
+                    <MenuButton
+                      onClick={toggleSelectTool}
+                      className={cn(
+                        'g-p-2',
+                        drawingTool === 'SELECT' && 'g-bg-primary g-text-white'
+                      )}
+                    >
+                      <ModifyPolygonIcon />
+                    </MenuButton>
+                  </SimpleTooltip>
+                )}
                 <SimpleTooltip
                   asChild
                   title={
@@ -418,7 +418,7 @@ function Map({
                     onClick={toggleDeleteTool}
                     className={cn('g-p-2', drawingTool === 'DELETE' && 'g-bg-primary g-text-white')}
                   >
-                    <MdDelete />
+                    <MdDeleteOutline />
                   </MenuButton>
                 </SimpleTooltip>
                 <ToolSeparator />
