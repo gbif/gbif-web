@@ -82,6 +82,13 @@ class MapLibreMap extends Component {
       this.initializeDrawControl();
       this.updateFeatures();
     });
+
+    // Add scale control to bottom-left corner
+    const scale = new maplibre.ScaleControl({
+      maxWidth: 100,
+      unit: 'metric'
+    });
+    this.map.addControl(scale, 'bottom-left');
   }
 
   componentWillUnmount() {
