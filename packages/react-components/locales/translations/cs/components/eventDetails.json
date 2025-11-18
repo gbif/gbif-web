@@ -38,7 +38,7 @@
     "images": "Multimédia",
     "other": "Jiné",
     "methodology": "Metodika",
-    "taxonomicCoverage": ""
+    "taxonomicCoverage": "Taxonomické pokrytí"
   },
   "siteTooltip": "{count, plural, one {# událost} few {# události} many {# událostí} other {# událostí}} na {site} v {date}",
   "siteTableLegend": "Místo / Rok",
