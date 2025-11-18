@@ -6,7 +6,7 @@
   "downloadKeyDatasetsExport": "Descargar lista de conjuntos de datos que aportan datos a una descarga.",
   "singleOccurrence": "Obtenga un solo registro biológico.",
   "searchOccurrences": "Obtener todos los registros biológicos.",
-  "filterOccurrences": "Buscar ocurrencias.",
+  "filterOccurrences": "Buscar registros de presencia.",
   "searchOccurrencesExample": "Primeros cinco registros del taxón con taxonKey 9778871 (Flabellina McMurtrie, 1831) que se registraron en mayo entre los años 2000 y 2024.",
   "relatedOccurrences": "Registros biológicos relacionados (experimental).",
   "occurrenceFragment": "Registro antes de ser interpretado.",
