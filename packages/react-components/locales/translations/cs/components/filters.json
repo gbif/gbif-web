@@ -163,7 +163,7 @@
   "institutionType": {
     "name": "Typ",
     "count": "",
-    "description": ""
+    "description": "Typ instituce (muzeum, herbář atd.)"
   },
   "discipline": {
     "name": "Obor",
