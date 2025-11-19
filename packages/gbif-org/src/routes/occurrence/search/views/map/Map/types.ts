@@ -1,7 +1,7 @@
 import { Theme } from '@/config/theme/theme';
-import { BoundingBox } from '@/types';
 import { MapConfig, OverlayStyle } from './mapTypes';
 import { Projection } from '@/components/maps/openlayers/projections';
+import { BoundingBox } from '@/types';
 
 /**
  * Map events that can be triggered by user interactions or programmatic actions

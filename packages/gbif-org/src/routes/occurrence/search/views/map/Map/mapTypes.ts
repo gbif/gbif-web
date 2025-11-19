@@ -3,6 +3,7 @@
  */
 
 import { Projection } from '@/components/maps/openlayers/projections';
+import { AdHocMapProps } from './OpenlayersMap';
 
 /**
  * Human-readable projection names
@@ -37,7 +38,7 @@ export interface MapConfig {
  */
 export interface MapStyleConfig {
   labelKey: string;
-  component: React.ComponentType<any>;
+  component: React.ComponentType<AdHocMapProps>;
   mapConfig: MapConfig;
 }
 
@@ -52,11 +53,6 @@ export interface OverlayStyle {
   /** Circle radius stops for different density levels */
   radiusStops?: [number, number][];
 }
-
-/**
- * Bounding box coordinates [minLng, minLat, maxLng, maxLat]
- */
-export type BoundingBox = [number, number, number, number];
 
 /**
  * API keys for external map services
