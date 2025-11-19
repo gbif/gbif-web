@@ -1,20 +1,5 @@
-// @ts-nocheck
-/*
-Map options
-it would be nice to be able to support overlays at some point. With an opacity setting I imagine
-Other than that we need 4 projections
-satellite map (hp participants will have to register to get a token themselves - to avoid overloading the service)
-mercator maps will support both OL and MB
-and some default styles for OL and MB to choose from, possibly an option to add ones own.
-And probably the point overlays will have to be dependent on the basemap as well?
-
-*/
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-// import { DetailsDrawer, Menu, MenuAction, Button, Tooltip } from '../../../../components';
-// import { OccurrenceSidebar } from '../../../../entities';
-// import { useDialogState } from "reakit/Dialog";
-// import ListBox from './ListBox';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,46 +16,107 @@ import {
   MdDeleteOutline,
 } from 'react-icons/md';
 import { PiPolygonFill as DrawIcon } from 'react-icons/pi';
+import { BsLightningFill } from 'react-icons/bs';
+import { FormattedMessage } from 'react-intl';
 
-// import { ViewHeader } from '../ViewHeader';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { MapMenuButton as MenuButton } from '@/components/maps/mapMenuButton';
 import { SimpleTooltip } from '@/components/simpleTooltip';
 import StripeLoader from '@/components/stripeLoader';
 import { useToast } from '@/components/ui/use-toast';
 import { ViewHeader } from '@/components/ViewHeader';
+import { ModifyPolygonIcon } from '@/components/icons/icons';
 import { useConfig } from '@/config/config';
 import { boundingBoxToWKT } from '@/utils/boundingBoxToWKT';
 import { pixelRatio } from '@/utils/pixelRatio';
 import { cn } from '@/utils/shadcn';
-import { BsLightningFill } from 'react-icons/bs';
-import { FormattedMessage } from 'react-intl';
+import { useI18n } from '@/reactRouterPlugins';
 import { useEntityDrawer } from '../../browseList/useEntityDrawer';
 import { useOrderedList } from '../../browseList/useOrderedList';
-import ListBox from './ListBox';
 import MapComponentML from './MapLibreMap';
 import MapComponentOL from './OpenlayersMap';
 import { getMapStyles } from './standardMapStyles';
-import { useI18n } from '@/reactRouterPlugins';
-import { ModifyPolygonIcon } from '@/components/icons/icons';
+import { OccurrenceOverlay } from './types';
+import { OccurrenceSearchMetadata } from '@/contexts/search';
+import { BoundingBox } from '@/types';
+import ListBox from './ListBox';
+
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
 const hasGeoLocation = 'geolocation' in navigator;
 
-const defaultLayerOptions = {
-  // ARCTIC: ['NATURAL', 'BRIGHT', 'DARK'],
-  // PLATE_CAREE: ['NATURAL', 'BRIGHT', 'DARK'],
+type LayerOptions = Record<string, string[]>;
+
+const defaultLayerOptions: LayerOptions = {
   MERCATOR: ['BRIGHT', 'NATURAL'],
-  // ANTARCTIC: ['NATURAL', 'BRIGHT', 'DARK'],
 };
 
-function getStyle({ styles = {}, projection, type, lookup = {}, layerOptions }) {
+type MapStyleConfig = {
+  component?: React.ComponentType<any>;
+  labelKey?: string;
+  mapConfig?: any;
+};
+
+type BasemapOptions = Record<string, MapStyleConfig>;
+
+type StyleLookup = Record<string, Record<string, string>>;
+
+type MapEvent =
+  | { type: 'ZOOM_TO'; lat: number; lng: number; zoom: number }
+  | { type: 'EXPLORE_AREA'; bbox?: BoundingBox }
+  | { type: 'ZOOM_IN' }
+  | { type: 'ZOOM_OUT' };
+
+type OccurrenceResult = {
+  key: string;
+  [key: string]: any;
+};
+
+type PointData = {
+  occurrenceSearch?: {
+    documents?: {
+      results?: OccurrenceResult[];
+    };
+  };
+};
+
+interface MapProps {
+  q?: string;
+  pointData?: PointData;
+  pointError?: any;
+  pointLoading?: boolean;
+  loading?: boolean;
+  total?: number;
+  predicateHash?: string;
+  registerPredicate?: () => void;
+  loadPointData?: (data: { geohash: string; count: number }) => void;
+  defaultMapSettings?: OccurrenceSearchMetadata['mapSettings'];
+  style?: React.CSSProperties;
+  className?: string;
+  mapProps?: any;
+  features?: string[];
+  onFeaturesChange?: (params: { features: string[] }) => void;
+}
+
+function getStyle({
+  styles = {},
+  projection,
+  type,
+  lookup = {},
+  layerOptions,
+}: {
+  styles: BasemapOptions;
+  projection: string;
+  type: string;
+  lookup: StyleLookup;
+  layerOptions?: LayerOptions;
+}): MapStyleConfig | undefined {
   const fallbackStyleName = `${layerOptions?.[projection]?.[0]}_${projection}`;
   const styleKey = lookup?.[projection]?.[type] || `${type}_${projection}`;
-  let style = styles[styleKey] ? styles[styleKey] : styles[fallbackStyleName];
+  const style = styles[styleKey] ? styles[styleKey] : styles[fallbackStyleName];
   return style;
 }
 
-function Map({
+function MapPresentation({
   q,
   pointData,
   pointError,
@@ -86,16 +132,16 @@ function Map({
   mapProps,
   features,
   onFeaturesChange,
-  ...props
-}) {
+}: MapProps) {
   const config = useConfig();
   const { locale } = useI18n();
   const userLocationEnabled = config?.occurrenceSearch?.mapSettings?.userLocationEnabled;
-  const styleLookup = config?.maps?.styleLookup || {};
+  const styleLookup = (config?.maps?.styleLookup || {}) as StyleLookup;
   const { setOrderedList } = useOrderedList();
   const mapStyles = config?.maps?.mapStyles?.options || defaultLayerOptions;
   const supportedProjections = Object.keys(mapStyles);
-  const [projectionOptions] = useState(supportedProjections);
+  const [projectionOptions] = useState<string[]>(supportedProjections);
+
   let defaultProjection =
     sessionStorage.getItem('defaultOccurrenceProjection') ||
     config?.maps?.mapStyles?.defaultProjection ||
@@ -103,7 +149,7 @@ function Map({
   if (!supportedProjections.includes(defaultProjection)) {
     defaultProjection = supportedProjections[0];
   }
-  const [projection, setProjection] = useState(defaultProjection);
+  const [projection, setProjection] = useState<string>(defaultProjection);
 
   let defaultStyle =
     sessionStorage.getItem('defaultOccurrenceLayer') ||
@@ -113,26 +159,26 @@ function Map({
     defaultStyle = mapStyles?.[defaultProjection]?.[0];
   }
 
-  const [layerOptions] = useState(mapStyles);
-  const [layerId, setLayerId] = useState(defaultStyle);
-  const [latestEvent, broadcastEvent] = useState();
-  const [searchingLocation, setLocationSearch] = useState();
-  const [basemapOptions, setBasemapOptions] = useState();
-  const [listVisible, showList] = useState(false);
-  const [drawingTool, setDrawingTool] = useState(null);
+  const [layerOptions] = useState<LayerOptions>(mapStyles);
+  const [layerId, setLayerId] = useState<string>(defaultStyle);
+  const [latestEvent, broadcastEvent] = useState<MapEvent | undefined>();
+  const [searchingLocation, setLocationSearch] = useState<boolean>(false);
+  const [basemapOptions, setBasemapOptions] = useState<BasemapOptions | undefined>();
+  const [listVisible, showList] = useState<boolean>(false);
+  const [drawingTool, setDrawingTool] = useState<string | null>(null);
   const { toast } = useToast();
   const [, setPreviewKey] = useEntityDrawer();
-  const [mapLoading, setMapLoading] = useState(false);
-  const items = React.useMemo(
+  const [mapLoading, setMapLoading] = useState<boolean>(false);
+  const items = React.useMemo<OccurrenceResult[]>(
     () => pointData?.occurrenceSearch?.documents?.results || [],
     [pointData]
   );
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const timeoutRef = useRef(null);
+  const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Convert predicateHash and q into overlay format
   // In the future, this will be extended to support multiple overlays
-  const overlays = React.useMemo(() => {
+  const overlays = React.useMemo<OccurrenceOverlay[]>(() => {
     if (!predicateHash) return [];
 
     return [
@@ -146,23 +192,21 @@ function Map({
         predicateHash: '-1312810364',
         q: q,
         style: {
-          // 5 blue purple gradients. going from blue to purple
           colors: ['#4343d3'],
         },
       },
-      {
-        id: 'triangle',
-        predicateHash: '-1312791797',
-        q: q,
-        style: {
-          // 5 purple gradients
-          colors: ['#800080', '#bf40bf', '#d580d5', '#e6a6e6', '#f2c2f2'],
-        },
-      },
+      // {
+      //   id: 'triangle',
+      //   predicateHash: '-1312791797',
+      //   q: q,
+      //   style: {
+      //     colors: ['#800080', '#bf40bf', '#d580d5', '#e6a6e6', '#f2c2f2'],
+      //   },
+      // },
     ];
   }, [predicateHash, q]);
 
-  const updateLoading = useCallback((loading) => {
+  const updateLoading = useCallback((loading: boolean) => {
     setMapLoading(loading);
   }, []);
 
@@ -195,7 +239,7 @@ function Map({
   }, [items, setOrderedList]);
 
   const selectPreview = useCallback(
-    (key) => {
+    (key: string) => {
       updateList();
       setPreviewKey(`o_${key}`);
     },
@@ -213,7 +257,7 @@ function Map({
       apiKeys: config?.apiKeys,
       language: locale.mapTileLocale || 'en',
     });
-    let mapStyleOverwrites = {};
+    let mapStyleOverwrites: BasemapOptions = {};
     if (config?.maps?.addMapStyles) {
       mapStyleOverwrites = config.maps.addMapStyles({
         apiKeys: config.apiKeys,
@@ -231,7 +275,7 @@ function Map({
   }, [config, locale]);
 
   const eventListener = useCallback(
-    (event) => {
+    (event: MapEvent) => {
       if (onFeaturesChange && event.type === 'EXPLORE_AREA') {
         if (['PLATE_CAREE', 'MERCATOR'].indexOf(projection) < 0) {
           toast.error('This action is not supported in polar projections', {
@@ -240,10 +284,11 @@ function Map({
           });
           return;
         }
-        const { bbox } = event; //top, left, right, bottom
-        // create wkt from bounds, making sure that it is counter clockwise
+        const { bbox } = event;
+        if (!bbox) return;
+
         const wkt = boundingBoxToWKT(bbox);
-        onFeaturesChange({ features: [wkt] }); //remove existing geometries
+        onFeaturesChange({ features: [wkt] });
       }
     },
     [onFeaturesChange, projection, toast]
@@ -295,9 +340,9 @@ function Map({
     setDrawingTool((current) => (current === 'SELECT' ? null : 'SELECT'));
   }, []);
 
-  const menuLayerOptions = layerOptions?.[projection].map((layerId) => {
+  const menuLayerOptions = layerOptions?.[projection]?.map((layerId) => {
     const layerStyle = getStyle({
-      styles: basemapOptions,
+      styles: basemapOptions || {},
       projection,
       type: layerId,
       lookup: styleLookup,
@@ -331,7 +376,7 @@ function Map({
   ));
 
   const mapConfiguration = getStyle({
-    styles: basemapOptions,
+    styles: basemapOptions || {},
     projection,
     type: layerId,
     lookup: styleLookup,
@@ -339,7 +384,7 @@ function Map({
   });
 
   if (!basemapOptions || !mapConfiguration) return null;
-  // const MapComponent = MapComponentOL;
+
   const MapComponent = mapConfiguration?.component || MapComponentOL;
 
   const notPolarProjection = ['PLATE_CAREE', 'MERCATOR'].indexOf(projection) >= 0;
@@ -349,7 +394,7 @@ function Map({
       <div
         ref={ref}
         className={cn('mapArea g-flex-auto g-flex g-h-full g-flex-col g-relative', className)}
-        {...{ style }}
+        style={style}
       >
         <ViewHeader message="counts.nResultsWithCoordinates" loading={loading} total={total} />
         <div className="g-flex-auto g-h-96 g-relative g-z-10">
@@ -358,7 +403,7 @@ function Map({
               <ErrorBoundary type="CARD">
                 <ListBox
                   onCloseRequest={() => showList(false)}
-                  onClick={({ index }) => {
+                  onClick={({ index }: { index: number }) => {
                     selectPreview(`${items[index].key}`);
                   }}
                   data={pointData}
@@ -491,9 +536,11 @@ function Map({
             onLoading={updateLoading}
             onTileError={failedTileHandler}
             onMapClick={() => showList(false)}
-            onPointClick={(data) => {
+            onPointClick={(data: { geohash: string; count: number }) => {
               showList(true);
-              loadPointData(data);
+              if (loadPointData) {
+                loadPointData(data);
+              }
             }}
             listener={eventListener}
             registerPredicate={registerPredicate}
@@ -513,5 +560,4 @@ function Map({
 function ToolSeparator() {
   return <div className="g-h-6 g-border-r g-border-solid g-border-slate-200"></div>;
 }
-
-export default Map;
+export default MapPresentation;

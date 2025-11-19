@@ -1,24 +1,65 @@
 import { pixelRatio } from '@/utils/pixelRatio';
 import MapComponentML from './MapLibreMap';
 import MapComponentOL from './OpenlayersMap';
+import type { ComponentType } from 'react';
 
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
 
-type Args = {
-  apiKeys?: { maptiler?: string };
-  language: string;
-};
+// Type definitions
+type Projection = 'EPSG_3575' | 'EPSG_4326' | 'EPSG_3857' | 'EPSG_3031';
 
-export function getMapStyles({ apiKeys = {}, language = 'en' }: Args) {
-  const natural = `styleName=natural&background=${encodeURIComponent(
-    '#e5e9cd'
+type StyleName = 'natural' | 'geyser' | 'tuatara';
+
+interface MapConfig {
+  basemapStyle: string;
+  projection: Projection;
+}
+
+interface MapStyle {
+  labelKey: string;
+  component: ComponentType<any>;
+  mapConfig: MapConfig;
+}
+
+type MapStyleKey =
+  | 'NATURAL_ARCTIC'
+  | 'BRIGHT_ARCTIC'
+  | 'DARK_ARCTIC'
+  | 'NATURAL_PLATE_CAREE'
+  | 'BRIGHT_PLATE_CAREE'
+  | 'DARK_PLATE_CAREE'
+  | 'SATELLITE_MERCATOR'
+  | 'NATURAL_MERCATOR'
+  | 'NATURAL_HILLSHADE_MERCATOR'
+  | 'BRIGHT_MERCATOR'
+  | 'DARK_MERCATOR'
+  | 'NATURAL_ANTARCTIC'
+  | 'BRIGHT_ANTARCTIC'
+  | 'DARK_ANTARCTIC';
+
+type MapStyles = Record<MapStyleKey, MapStyle>;
+
+interface ApiKeys {
+  maptiler?: string;
+}
+
+interface GetMapStylesArgs {
+  apiKeys?: ApiKeys;
+  language?: string;
+}
+
+// Helper functions
+function buildStyleQuery(styleName: StyleName, background: string, language: string): string {
+  return `styleName=${styleName}&background=${encodeURIComponent(
+    background
   )}&language=${language}&pixelRatio=${pixelRatio}`;
-  const light = `styleName=geyser&background=${encodeURIComponent(
-    '#f3f3f1'
-  )}&language=${language}&pixelRatio=${pixelRatio}`;
-  const dark = `styleName=tuatara&background=${encodeURIComponent(
-    '#363332'
-  )}&language=${language}&pixelRatio=${pixelRatio}`;
+}
+
+export function getMapStyles({ apiKeys = {}, language = 'en' }: GetMapStylesArgs = {}): MapStyles {
+  const natural = buildStyleQuery('natural', '#e5e9cd', language);
+  const light = buildStyleQuery('geyser', '#f3f3f1', language);
+  const dark = buildStyleQuery('tuatara', '#363332', language);
+
   return {
     NATURAL_ARCTIC: {
       labelKey: 'map.styles.natural',
@@ -134,3 +175,6 @@ export function getMapStyles({ apiKeys = {}, language = 'en' }: Args) {
     },
   };
 }
+
+// Export types for use in other files
+export type { MapStyles, MapStyleKey, MapStyle, MapConfig, Projection };

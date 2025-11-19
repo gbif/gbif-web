@@ -9,8 +9,8 @@ import useQuery from '@/hooks/useQuery';
 import Geohash from 'latlon-geohash';
 import { useCallback, useContext, useEffect, useMemo } from 'react';
 import { searchConfig } from '../../../searchConfig';
-import MapPresentation from './MapPresentation';
 import { TestMap } from './Test';
+import MapPresentation from './MapPresentation';
 
 const OCCURRENCE_MAP = `
 query map($q: String, $predicate: Predicate){
