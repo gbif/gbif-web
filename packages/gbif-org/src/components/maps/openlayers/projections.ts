@@ -42,8 +42,21 @@ const tileSize = 512;
 const maxZoom = 13;
 const maxZoomView = 18;
 
-type ProjectionHelper = {
-  name: string;
+/**
+ * EPSG projection codes supported by the application
+ */
+export type Projection = 'EPSG_4326' | 'EPSG_3857' | 'EPSG_3031' | 'EPSG_3575';
+
+/**
+ * Progress tracking for tile loading
+ */
+export interface TileProgress {
+  addLoading: () => void;
+  addLoaded: () => void;
+}
+
+export type ProjectionHelper = {
+  name: Projection;
   commonName: string;
   resolutions?: number[];
   fitExtent: number[];
@@ -62,6 +75,18 @@ type ProjectionHelper = {
   zoomToFitContainer?: (map: Map) => void;
   getProjectedCoordinate: (coordinate: Coordinate) => Coordinate;
 };
+
+// Enhanced Params type with proper typing for progress
+export interface ProjectionParams extends Record<string, any> {
+  srs?: string;
+  progress?: TileProgress;
+  onError?: () => void;
+  attributions?: string[];
+  siteTheme?: any;
+  properties?: any;
+  predicateHash?: string;
+  q?: string;
+}
 
 // Plate Carree projection
 function get4326(): ProjectionHelper {
@@ -345,7 +370,7 @@ function get3031(): ProjectionHelper {
   };
 }
 
-function getVectorLayer(baseUrl: string, proj: ProjectionHelper, params: Params) {
+function getVectorLayer(baseUrl: string, proj: ProjectionHelper, params: ProjectionParams) {
   params = params || {};
   params.srs = proj.srs;
   const progress = params.progress;
@@ -388,7 +413,7 @@ function getVectorLayer(baseUrl: string, proj: ProjectionHelper, params: Params)
   return layer;
 }
 
-function getRasterLayer(baseUrl: string, proj: ProjectionHelper, params: Params) {
+function getRasterLayer(baseUrl: string, proj: ProjectionHelper, params: ProjectionParams) {
   params = params || {};
   params.srs = proj.srs;
   const progress = params.progress;
@@ -450,7 +475,7 @@ function getRasterLayer(baseUrl: string, proj: ProjectionHelper, params: Params)
 13: 2048
 14: 4096
 */
-function getAdhocVectorLayer(baseUrl: string, proj: ProjectionHelper, params: Params) {
+function getAdhocVectorLayer(baseUrl: string, proj: ProjectionHelper, params: ProjectionParams) {
   params = params || {};
   params.srs = proj.srs;
   const progress = params.progress;
@@ -500,7 +525,11 @@ function getAdhocVectorLayer(baseUrl: string, proj: ProjectionHelper, params: Pa
   });
 }
 
-export function getAdhocVectorSource(baseUrl: string, proj: ProjectionHelper, params: Params) {
+export function getAdhocVectorSource(
+  baseUrl: string,
+  proj: ProjectionHelper,
+  params: ProjectionParams
+) {
   const source = new VectorTileSource({
     format: new MVTFormat(),
     projection: proj.srs,
@@ -512,7 +541,7 @@ export function getAdhocVectorSource(baseUrl: string, proj: ProjectionHelper, pa
   return source;
 }
 
-export const projections = {
+export const projections: Record<Projection, ProjectionHelper> = {
   EPSG_4326: get4326(),
   EPSG_3575: get3575(),
   EPSG_3031: get3031(),
@@ -520,3 +549,6 @@ export const projections = {
 };
 
 export type ProjectionHelpers = (typeof projections)[keyof typeof projections];
+
+// Export for convenience
+export type { Projection };

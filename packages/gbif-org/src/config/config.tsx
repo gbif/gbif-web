@@ -9,6 +9,8 @@ import { configDefault } from './configDefaults';
 import { Endpoints } from './endpoints';
 import themeBuilder from './theme/index';
 import { Theme } from './theme/theme';
+import { MapConfig, ProjectionName } from '@/routes/occurrence/search/views/map/Map/mapTypes';
+import { AdHocMapProps } from '@/routes/occurrence/search/views/map/Map/OpenlayersMap';
 
 export type PageConfig = {
   id: string;
@@ -149,14 +151,9 @@ export type Config = Endpoints & {
   maps: {
     locale?: string;
     mapStyles: {
-      defaultProjection: 'MERCATOR' | 'PLATE_CAREE' | 'ARCTIC' | 'ANTARCTIC';
+      defaultProjection: ProjectionName;
       defaultMapStyle: MapStyleType;
-      options: {
-        ARCTIC?: MapStyleType[];
-        PLATE_CAREE?: MapStyleType[];
-        MERCATOR?: MapStyleType[];
-        ANTARCTIC?: MapStyleType[];
-      };
+      options: Partial<Record<ProjectionName, string[]>>;
     };
     addMapStyles?: (args: {
       mapStyleServer: string;
@@ -164,26 +161,21 @@ export type Config = Endpoints & {
       pixelRatio: number;
       apiKeys?: ApiKeysType;
       mapComponents: {
-        OpenlayersMap: React.ComponentType;
-        MapboxMap: React.ComponentType;
+        OpenlayersMap: React.ComponentType<AdHocMapProps>;
+        MapboxMap: React.ComponentType<AdHocMapProps>;
       };
     }) => Record<
       string,
       {
-        component: React.ComponentType;
+        component: React.ComponentType<AdHocMapProps>;
         labelKey: string;
-        mapConfig: {
-          basemapStyle: string;
-          projection: Projection;
-        };
+        mapConfig: MapConfig;
       }
     >;
     styleLookup?: Partial<Record<ProjectionName, Record<string, string>>>;
   };
 };
 
-export type Projection = 'EPSG_4326' | 'EPSG_3857' | 'EPSG_3031' | 'EPSG_3575';
-type ProjectionName = 'PLATE_CAREE' | 'MERCATOR' | 'ARCTIC' | 'ANTARCTIC';
 type MapStyleType = 'NATURAL' | 'BRIGHT' | 'DARK' | 'SATELLITE' | string;
 
 const ConfigContext = React.createContext<Config | null>(null);

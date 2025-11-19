@@ -1,9 +1,9 @@
-import { projections } from '@/components/maps/openlayers/projections';
+import { Projection, projections } from '@/components/maps/openlayers/projections';
 import React, { Component } from 'react';
 import { getBoundingBox } from '@/components/maps/openlayers/helpers/getBoundingBox';
 import { useMapPosition } from './useMapPosition';
 import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
-import { Projection, useConfig } from '@/config/config';
+import { useConfig } from '@/config/config';
 import { PointData, OccurrenceOverlay, MapProps } from './types';
 import { pixelRatio } from '@/utils/pixelRatio';
 import { getFeatureAsWKT, getFeaturesFromWktList } from '@/utils/wktHelpers';
@@ -80,8 +80,7 @@ class Map extends Component<MapProps, State> {
     this.myRef = React.createRef();
     this.state = {
       loadDiff: 0,
-      // Is this the same as this.props.mapConfig?.projection || 'EPSG_3031'?
-      epsg: undefined,
+      epsg: undefined as Projection | undefined,
     };
   }
 
@@ -404,15 +403,6 @@ class Map extends Component<MapProps, State> {
     this.setState({ epsg });
 
     this.map.getLayers().clear();
-    // this.updateProjection();
-
-    // update projection
-    // const mapPos = this.props.mapPosition.getStoredPosition({
-    //   maxLat: currentProjection.maxLat || 90,
-    //   minLat: currentProjection.minLat || -90,
-    // });
-    // const newView = currentProjection.getView(mapPos.lat, mapPos.lng, mapPos.zoom);
-    // this.map.setView(newView);
 
     const basemapStyle = this.props.mapConfig?.basemapStyle || 'klokantech';
     const layerStyle = mapStyles[basemapStyle];
@@ -566,7 +556,6 @@ class Map extends Component<MapProps, State> {
         const oldFilter = getFilterFromOverlay(prevOverlay!);
         const newFilter = getFilterFromOverlay(overlay);
         if (hash(oldFilter) !== hash(newFilter)) {
-          console.log('filters has changed');
           const newSource = this.getOverlaySource(overlay);
           existingLayer.setSource(newSource);
         }
@@ -574,13 +563,11 @@ class Map extends Component<MapProps, State> {
         const prevStyleHash = prevOverlay?.style ? hash(prevOverlay.style) : hash({}); // handle undefined style
         const newStyleHash = overlay.style ? hash(overlay.style) : hash({});
         if (prevStyleHash !== newStyleHash) {
-          console.log('style has changed');
           const newTheme = this.getMergedTheme(overlay);
           const style = densityPoints(newTheme);
           existingLayer.setStyle(style);
         }
       } else {
-        console.log('Adding new occurrence layer to map');
         // If there isn't one then create it at the right z-position
         const occurrenceLayer = this.getLayer(overlay);
         occurrenceLayer.setZIndex(OCCURRENCE_LAYERS_START_Z_INDEX + index);
@@ -777,18 +764,10 @@ class Map extends Component<MapProps, State> {
   }
 }
 
-function MapWithHook(props: Omit<MapProps, 'mapPosition' | 'theme'>) {
-  const mapPosition = useMapPosition(props.defaultMapSettings);
-  const config = useConfig();
-  return <Map {...props} mapPosition={mapPosition} theme={config?.theme} />;
-}
-
 const OCCURRENCE_LAYER_PREFIX = 'occurrences__';
 function getLayerName(overlay: OccurrenceOverlay): string {
   return `${OCCURRENCE_LAYER_PREFIX}${overlay.id}`;
 }
-
-export default MapWithHook;
 
 function getFilterFromOverlay(overlay: OccurrenceOverlay) {
   const filter: { predicateHash?: string; q?: string } = {};
@@ -800,3 +779,12 @@ function getFilterFromOverlay(overlay: OccurrenceOverlay) {
   }
   return filter;
 }
+
+export type AdHocMapProps = Omit<MapProps, 'mapPosition' | 'theme'>;
+
+function MapWithHook(props: AdHocMapProps) {
+  const mapPosition = useMapPosition(props.defaultMapSettings);
+  const config = useConfig();
+  return <Map {...props} mapPosition={mapPosition} theme={config?.theme} />;
+}
+export default MapWithHook;

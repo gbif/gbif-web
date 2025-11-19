@@ -313,8 +313,9 @@ const preconfiguredCharts = {
         <Card className="g-overflow-y-auto g-h-full g-p-2 g-overflow-x-hidden">
           <Map
             className=""
-            mapProps={{
-              style: { border: 0, borderRadius: '0 0 var(--borderRadiusPx) var(--borderRadiusPx)' },
+            mapStyleAttr={{
+              border: 0,
+              borderRadius: '0 0 var(--borderRadiusPx) var(--borderRadiusPx)',
             }}
             {...props}
           />

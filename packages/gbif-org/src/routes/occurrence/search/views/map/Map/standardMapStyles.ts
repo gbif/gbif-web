@@ -1,25 +1,12 @@
 import { pixelRatio } from '@/utils/pixelRatio';
 import MapComponentML from './MapLibreMap';
 import MapComponentOL from './OpenlayersMap';
-import type { ComponentType } from 'react';
+import type { MapStyleConfig, MapApiKeys } from './mapTypes';
 
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
 
 // Type definitions
-type Projection = 'EPSG_3575' | 'EPSG_4326' | 'EPSG_3857' | 'EPSG_3031';
-
 type StyleName = 'natural' | 'geyser' | 'tuatara';
-
-interface MapConfig {
-  basemapStyle: string;
-  projection: Projection;
-}
-
-interface MapStyle {
-  labelKey: string;
-  component: ComponentType<any>;
-  mapConfig: MapConfig;
-}
 
 type MapStyleKey =
   | 'NATURAL_ARCTIC'
@@ -37,14 +24,10 @@ type MapStyleKey =
   | 'BRIGHT_ANTARCTIC'
   | 'DARK_ANTARCTIC';
 
-type MapStyles = Record<MapStyleKey, MapStyle>;
-
-interface ApiKeys {
-  maptiler?: string;
-}
+type MapStyles = Record<MapStyleKey, MapStyleConfig>;
 
 interface GetMapStylesArgs {
-  apiKeys?: ApiKeys;
+  apiKeys?: MapApiKeys;
   language?: string;
 }
 
@@ -177,4 +160,5 @@ export function getMapStyles({ apiKeys = {}, language = 'en' }: GetMapStylesArgs
 }
 
 // Export types for use in other files
-export type { MapStyles, MapStyleKey, MapStyle, MapConfig, Projection };
+export type { MapStyles, MapStyleKey, GetMapStylesArgs };
+export type { MapStyleConfig, MapConfig } from './mapTypes';

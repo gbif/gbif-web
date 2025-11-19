@@ -1,5 +1,7 @@
 import { Theme } from '@/config/theme/theme';
 import { BoundingBox } from '@/types';
+import { MapConfig, OverlayStyle } from './mapTypes';
+import { Projection } from '@/components/maps/openlayers/projections';
 
 /**
  * Map events that can be triggered by user interactions or programmatic actions
@@ -19,35 +21,17 @@ export type PointData = {
 };
 
 /**
- * Custom styling options for overlay layers
- */
-export type OverlayStyle = {
-  /** Custom color palette for density visualization */
-  colors?: string[];
-
-  /** Opacity for the layer (0-1) */
-  opacity?: number;
-
-  /** Circle radius stops for different density levels */
-  radiusStops?: [number, number][];
-};
-
-/**
  * Configuration for a single occurrence overlay layer
  */
 export type OccurrenceOverlay = {
   /** Unique identifier for the overlay */
   id: string;
-
   /** The predicate hash for the occurrence query */
   predicateHash: string;
-
   /** Optional query string parameter */
   q?: string;
-
   /** Custom styling for this overlay */
   style?: OverlayStyle;
-
   /** Z-index for layer ordering (higher = on top) */
   zIndex?: number;
 };
@@ -87,88 +71,92 @@ export type OccurrenceSearchData = {
 };
 
 /**
+ * Map position storage interface
+ */
+export interface MapPosition {
+  getStoredPosition: (constraints?: { maxLat?: number; minLat?: number }) => {
+    lat: number;
+    lng: number;
+    zoom: number;
+  };
+  savePosition: (position: { lat: number; lng: number; zoom: number }) => void;
+}
+
+/**
  * Props for overlay management in map components
  */
-export type OverlayProps = {
+export interface OverlayProps {
   /** Array of overlay configurations to render */
   overlays: OccurrenceOverlay[];
-
   /** Theme for default styling */
   theme?: Partial<Theme>;
-
   /** Callback when a predicate needs to be registered */
   registerPredicate?: (predicateHash: string) => void;
-
   /** Callback when a tile fails to load */
   onTileError?: () => void;
-};
+}
 
 /**
  * Props for map event handling
  */
-export type MapEventProps = {
+export interface MapEventProps {
   /** Latest event to process */
   latestEvent?: MapEvent;
-
   /** Event listener callback */
   listener?: (event: MapEvent) => void;
-};
+}
 
 /**
  * Props for map interactions
  */
-export type MapInteractionProps = {
+export interface MapInteractionProps {
   /** Callback when map is clicked (outside of features) */
   onMapClick?: () => void;
-
   /** Callback when an occurrence point is clicked */
   onPointClick?: (point: PointData) => void;
-
   /** Callback for loading state changes */
   onLoading?: (loading: boolean) => void;
-};
+}
 
 /**
  * Props for drawing/filter functionality
  */
-export type DrawingProps = {
+export interface DrawingProps {
   /** Current drawing tool mode */
   drawingTool?: string | null;
-
   /** Callback when drawing tool changes */
   onDrawingToolChange?: (tool: string | null) => void;
-
   /** Current filter geometries as WKT strings */
   features?: string[];
-
   /** Callback when filter geometries change */
   onFeaturesChange?: (params: { features: string[] }) => void;
-};
+}
+
+/**
+ * Map settings that can be persisted
+ */
+export interface MapSettings {
+  lat?: number;
+  lng?: number;
+  zoom?: number;
+  projection?: Projection;
+}
 
 /**
  * Combined props for the map component
  */
-export type MapProps = {
-  mapConfig?: {
-    basemapStyle: string;
-    projection: Projection;
-  };
-  onLoading?(loading: boolean): void;
+export interface MapProps
+  extends MapEventProps,
+    MapInteractionProps,
+    DrawingProps,
+    Pick<OverlayProps, 'overlays' | 'theme' | 'registerPredicate' | 'onTileError'> {
+  mapConfig?: MapConfig;
   containerHeight?: number;
   containerWidth?: number;
-  latestEvent?: MapEvent;
-  defaultMapSettings?: OccurrenceSearchMetadata['mapSettings'];
-  listener?(event: MapEvent): void;
-  overlays: OccurrenceOverlay[];
-  theme: Partial<Theme> | undefined;
-  registerPredicate?(): void;
-  onTileError?(): void;
-  onMapClick?(): void;
+  defaultMapSettings?: MapSettings;
   className?: string;
-  onPointClick?(point: PointData): void;
-  mapPosition: ReturnType<typeof useMapPosition>;
-  features?: string[];
-  drawingTool?: string | null;
-  onDrawingToolChange?(tool: string | null): void;
-  onFeaturesChange?(params: { features: string[] }): void;
-};
+  mapPosition: MapPosition;
+}
+
+// Re-export shared types for convenience
+export type { OverlayStyle, MapConfig } from './mapTypes';

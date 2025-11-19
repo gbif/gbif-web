@@ -9,7 +9,6 @@ import useQuery from '@/hooks/useQuery';
 import Geohash from 'latlon-geohash';
 import { useCallback, useContext, useEffect, useMemo } from 'react';
 import { searchConfig } from '../../../searchConfig';
-import { TestMap } from './Test';
 import MapPresentation from './MapPresentation';
 
 const OCCURRENCE_MAP = `
@@ -53,7 +52,7 @@ query point($q: String, $predicate: Predicate, $checklistKey: ID){
 `;
 const wktBBoxTemplate = '((W S,E S,E N,W N,W S))';
 
-function Map({ style, className, mapProps }) {
+function Map({ style, className, mapStyleAttr }) {
   const searchContext = useSearchContext();
   const currentFilterContext = useContext(FilterContext);
   const { scope, mapSettings } = searchContext;
@@ -177,8 +176,7 @@ function Map({ style, className, mapProps }) {
   };
 
   if (typeof window !== 'undefined') {
-    return <MapPresentation {...options} {...{ style, className, mapProps }} />;
-    // return <TestMap />;
+    return <MapPresentation {...options} {...{ style, className, mapStyleAttr }} />;
   } else {
     return <h1>Map placeholder</h1>;
   }

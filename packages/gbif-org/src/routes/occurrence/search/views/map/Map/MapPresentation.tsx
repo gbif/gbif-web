@@ -17,7 +17,7 @@ import {
 } from 'react-icons/md';
 import { PiPolygonFill as DrawIcon } from 'react-icons/pi';
 import { BsLightningFill } from 'react-icons/bs';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { MapMenuButton as MenuButton } from '@/components/maps/mapMenuButton';
@@ -35,7 +35,7 @@ import { useEntityDrawer } from '../../browseList/useEntityDrawer';
 import { useOrderedList } from '../../browseList/useOrderedList';
 import MapComponentML from './MapLibreMap';
 import MapComponentOL from './OpenlayersMap';
-import { getMapStyles } from './standardMapStyles';
+import { getMapStyles, MapStyleConfig } from './standardMapStyles';
 import {
   OccurrenceOverlay,
   MapEvent,
@@ -45,25 +45,18 @@ import {
 } from './types';
 import { OccurrenceSearchMetadata } from '@/contexts/search';
 import ListBox from './ListBox';
+import { ProjectionName } from './mapTypes';
 
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
 const hasGeoLocation = 'geolocation' in navigator;
 
-type LayerOptions = Record<string, string[]>;
+type LayerOptions = Partial<Record<ProjectionName, string[]>>;
+type BasemapOptions = Partial<Record<ProjectionName, MapStyleConfig>>;
+type StyleLookup = Partial<Record<ProjectionName, Record<string, string>>>;
 
 const defaultLayerOptions: LayerOptions = {
   MERCATOR: ['BRIGHT', 'NATURAL'],
 };
-
-type MapStyleConfig = {
-  component?: React.ComponentType<any>;
-  labelKey?: string;
-  mapConfig?: any;
-};
-
-type BasemapOptions = Record<string, MapStyleConfig>;
-
-type StyleLookup = Record<string, Record<string, string>>;
 
 interface MapProps {
   q?: string;
@@ -78,7 +71,7 @@ interface MapProps {
   defaultMapSettings?: OccurrenceSearchMetadata['mapSettings'];
   style?: React.CSSProperties;
   className?: string;
-  mapProps?: any;
+  mapProps?: React.CSSProperties;
   features?: string[];
   onFeaturesChange?: (params: { features: string[] }) => void;
 }
@@ -91,7 +84,7 @@ function getStyle({
   layerOptions,
 }: {
   styles: BasemapOptions;
-  projection: string;
+  projection: ProjectionName;
   type: string;
   lookup: StyleLookup;
   layerOptions?: LayerOptions;
@@ -115,34 +108,35 @@ function MapPresentation({
   defaultMapSettings,
   style,
   className,
-  mapProps,
+  mapStyleAttr,
   features,
   onFeaturesChange,
 }: MapProps) {
+  const { formatMessage } = useIntl();
   const config = useConfig();
   const { locale } = useI18n();
   const userLocationEnabled = config?.occurrenceSearch?.mapSettings?.userLocationEnabled;
   const styleLookup = (config?.maps?.styleLookup || {}) as StyleLookup;
   const { setOrderedList } = useOrderedList();
   const mapStyles = config?.maps?.mapStyles?.options || defaultLayerOptions;
-  const supportedProjections = Object.keys(mapStyles);
-  const [projectionOptions] = useState<string[]>(supportedProjections);
+  const supportedProjections = Object.keys(mapStyles) as ProjectionName[];
+  const [projectionOptions] = useState<ProjectionName[]>(supportedProjections);
 
   let defaultProjection =
-    sessionStorage.getItem('defaultOccurrenceProjection') ||
+    (sessionStorage.getItem('defaultOccurrenceProjection') as ProjectionName) || // TODO: is this cheating Daniel?
     config?.maps?.mapStyles?.defaultProjection ||
     supportedProjections[0];
   if (!supportedProjections.includes(defaultProjection)) {
     defaultProjection = supportedProjections[0];
   }
-  const [projection, setProjection] = useState<string>(defaultProjection);
+  const [projection, setProjection] = useState<ProjectionName>(defaultProjection);
 
   let defaultStyle =
     sessionStorage.getItem('defaultOccurrenceLayer') ||
     config?.maps?.mapStyles?.defaultMapStyle ||
     'BRIGHT';
   if (!mapStyles?.[defaultProjection]?.includes(defaultStyle)) {
-    defaultStyle = mapStyles?.[defaultProjection]?.[0];
+    defaultStyle = mapStyles?.[defaultProjection]?.[0] ?? 'BRIGHT';
   }
 
   const [layerOptions] = useState<LayerOptions>(mapStyles);
@@ -264,9 +258,9 @@ function MapPresentation({
     (event: MapEvent) => {
       if (onFeaturesChange && event.type === 'EXPLORE_AREA') {
         if (['PLATE_CAREE', 'MERCATOR'].indexOf(projection) < 0) {
-          toast.error('This action is not supported in polar projections', {
-            backgroundColor: 'tomato',
-            color: '#ffffff',
+          toast({
+            title: 'This action is not supported in polar projections',
+            variant: 'destructive',
           });
           return;
         }
@@ -290,29 +284,22 @@ function MapPresentation({
           broadcastEvent({ type: 'ZOOM_TO', lat: latitude, lng: longitude, zoom: 11 });
         },
         () => {
-          toast.error(
-            <div>
-              <h3>
-                <FormattedMessage
-                  id="map.failedToGetUserLocation.title"
-                  defaultMessage="Unable to get location."
-                />
-              </h3>
-              <FormattedMessage
-                id="map.failedToGetUserLocation.message"
-                defaultMessage="Check browser settings."
-              />
-            </div>,
-            {
-              backgroundColor: 'tomato',
-              color: '#ffffff',
-            }
-          );
+          toast({
+            title: formatMessage({
+              id: 'map.failedToGetUserLocation.title',
+              defaultMessage: 'Unable to get location.',
+            }),
+            description: formatMessage({
+              id: 'map.failedToGetUserLocation.message',
+              defaultMessage: 'Check browser settings.',
+            }),
+            variant: 'destructive',
+          });
           setLocationSearch(false);
         }
       );
     }
-  }, [toast]);
+  }, [toast, formatMessage]);
 
   const toggleDrawingTool = useCallback(() => {
     setDrawingTool((current) => (current === 'DRAW' ? null : 'DRAW'));
@@ -348,7 +335,7 @@ function MapPresentation({
     );
   });
 
-  const projectionMenuOptions = projectionOptions.map((proj) => (
+  const projectionMenuOptions = projectionOptions.map((proj: ProjectionName) => (
     <DropdownMenuItem
       key={proj}
       onSelect={(event) => {
@@ -501,7 +488,7 @@ function MapPresentation({
               </DropdownMenu>
             )}
 
-            {layerOptions?.[projection]?.length > 1 && (
+            {(layerOptions?.[projection]?.length ?? 0) > 1 && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <MenuButton>
@@ -513,7 +500,7 @@ function MapPresentation({
             )}
           </div>
           <MapComponent
-            {...mapProps}
+            style={mapStyleAttr}
             mapConfig={mapConfiguration.mapConfig}
             latestEvent={latestEvent}
             defaultMapSettings={defaultMapSettings}
