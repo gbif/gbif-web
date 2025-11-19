@@ -8,7 +8,6 @@ import {
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import equal from 'fast-deep-equal/react';
-import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { BasicField } from '../properties';
 import { useConfig } from '@/config/config';
@@ -111,13 +110,7 @@ function Agents({ label, value }: { label: string; value: { type: string; value:
   );
 }
 
-export function DynamicProperties({
-  termMap,
-  slowOccurrence,
-}: {
-  termMap: any;
-  slowOccurrence?: any;
-}) {
+export function DynamicProperties({ termMap }: { termMap: any }) {
   const value = termMap?.dynamicProperties?.value;
   if (!value) return null;
 
@@ -142,27 +135,6 @@ export function DynamicProperties({
         />
       </T>
       <V style={{ overflow: 'hidden' }}>{content}</V>
-      {slowOccurrence?.localContext?.[0]?.name && slowOccurrence?.localContext?.[0]?.img_url && (
-        <>
-          <T>
-            <img
-              style={{ width: 32, height: 32, marginRight: 8 }}
-              src={slowOccurrence.localContext[0].img_url}
-              alt={slowOccurrence.localContext[0].name}
-              title={slowOccurrence.localContext[0].name}
-            />
-          </T>
-          <V>
-            <h5 className="g-font-bold">
-              {slowOccurrence.localContext[0].name}{' '}
-              <a href={slowOccurrence.localContext[0].notice_page} target="_blank" rel="noreferrer">
-                <MdLink />
-              </a>
-            </h5>
-            {slowOccurrence.localContext[0]?.default_text}
-          </V>
-        </>
-      )}
     </>
   );
 }
@@ -180,11 +152,11 @@ export function LocalContexts({ localContexts }: { localContexts?: any }) {
       <V>
         {localContexts.map((localContext) => {
           const { project_page, title, description } = localContext;
-          const items = (localContext?.notice ?? [])?.filter(
-            (c) => c && c.name && c.img_url && c.default_text
+          const items = (localContext?.notes ?? [])?.filter(
+            (c) => c && c.name && c.img_url && c.description
           );
           return (
-            <div>
+            <div key={project_page}>
               <h5 className="g-flex g-items-center g-gap-1">
                 <a
                   href={project_page}
@@ -200,8 +172,8 @@ export function LocalContexts({ localContexts }: { localContexts?: any }) {
               </div>
               {items.length > 0 && (
                 <ul>
-                  {items.map((item) => (
-                    <li className="g-flex g-items-start g-mb-2" key={item.name}>
+                  {items.map((item, i) => (
+                    <li className="g-flex g-items-start g-mb-2" key={`${item.name}-${i}`}>
                       <img
                         className="g-flex-none g-me-2 g-w-5 g-h-5"
                         src={item.img_url}
@@ -210,15 +182,15 @@ export function LocalContexts({ localContexts }: { localContexts?: any }) {
                       />
                       <div className="g-flex-auto">
                         <a
-                          href={item.notice_page}
+                          href={item.pageUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="g-underline"
+                          className="g-underline g-text-inherit"
                         >
                           {item.name}
                         </a>
                         <div className="g-text-sm g-text-slate-600 g-mt-1 g-mb-2">
-                          {truncate(item.default_text, 140)}
+                          {truncate(item.description, 140)}
                         </div>
                       </div>
                     </li>
