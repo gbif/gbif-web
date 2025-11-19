@@ -30,5 +30,6 @@
   "http://rs.gbif.org/terms/1.0/SpeciesProfile": "GBIF profil druhu",
   "http://rs.gbif.org/terms/1.0/TypesAndSpecimen": "GBIF typy a exempláře",
   "http://rs.tdwg.org/dwc/terms/Event": "DwC událost",
+  "http://eol.org/schema/agent/Agent": "EOL agent",
   "http://rs.gbif.org/terms/1.0/Ellenberg": "GBIF Ellenberg"
 }
