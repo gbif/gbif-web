@@ -213,11 +213,11 @@ const DATASET_QUERY = /* GraphQL */ `
         project_page
         title
         description
-        notice {
+        notes {
           name
           img_url
-          default_text
-          notice_page
+          description
+          pageUrl
         }
       }
       gridded {
