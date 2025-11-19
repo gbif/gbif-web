@@ -196,11 +196,11 @@ const SLOW_OCCURRENCE_QUERY = /* GraphQL */ `
         project_page
         title
         description
-        notice {
+        notes {
           name(lang: $language)
           img_url
-          default_text(lang: $language)
-          notice_page
+          description(lang: $language)
+          pageUrl
         }
       }
       institution {

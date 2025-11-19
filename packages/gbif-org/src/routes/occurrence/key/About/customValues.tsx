@@ -180,11 +180,11 @@ export function LocalContexts({ localContexts }: { localContexts?: any }) {
       <V>
         {localContexts.map((localContext) => {
           const { project_page, title, description } = localContext;
-          const items = (localContext?.notice ?? [])?.filter(
-            (c) => c && c.name && c.img_url && c.default_text
+          const items = (localContext?.notes ?? [])?.filter(
+            (c) => c && c.name && c.img_url && c.description
           );
           return (
-            <div>
+            <div key={project_page}>
               <h5 className="g-flex g-items-center g-gap-1">
                 <a
                   href={project_page}
@@ -200,8 +200,8 @@ export function LocalContexts({ localContexts }: { localContexts?: any }) {
               </div>
               {items.length > 0 && (
                 <ul>
-                  {items.map((item) => (
-                    <li className="g-flex g-items-start g-mb-2" key={item.name}>
+                  {items.map((item, i) => (
+                    <li className="g-flex g-items-start g-mb-2" key={`${item.name}-${i}`}>
                       <img
                         className="g-flex-none g-me-2 g-w-5 g-h-5"
                         src={item.img_url}
@@ -210,7 +210,7 @@ export function LocalContexts({ localContexts }: { localContexts?: any }) {
                       />
                       <div className="g-flex-auto">
                         <a
-                          href={item.notice_page}
+                          href={item.pageUrl}
                           target="_blank"
                           rel="noreferrer"
                           className="g-underline"
@@ -218,7 +218,7 @@ export function LocalContexts({ localContexts }: { localContexts?: any }) {
                           {item.name}
                         </a>
                         <div className="g-text-sm g-text-slate-600 g-mt-1 g-mb-2">
-                          {truncate(item.default_text, 140)}
+                          {truncate(item.description, 140)}
                         </div>
                       </div>
                     </li>

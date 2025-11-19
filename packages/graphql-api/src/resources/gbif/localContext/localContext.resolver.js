@@ -11,21 +11,80 @@ const localeMap = {
   spa: 'es',
 };
 
+function label2note(label) {
+  return {
+    ...label,
+    pageUrl: label.label_page,
+    description: label.label_text,
+  };
+}
 export default {
+  // Be very defensive as we have no control over API changes. Fail silently
+  LocalContext: {
+    labels: (localContext) => {
+      const bcLabels = localContext?.bc_labels ?? [];
+      const tkLabels = localContext?.tk_labels ?? [];
+      return [...bcLabels, ...tkLabels];
+    },
+    notes: (localContext) => {
+      const notes = [
+        ...(localContext?.bc_labels ?? []).map(label2note),
+        ...(localContext?.tk_labels ?? []).map(label2note),
+        ...(localContext?.notice ?? []).map((notice) => ({
+          ...notice,
+          pageUrl: notice.notice_page,
+          description: notice.default_text,
+        })),
+      ];
+      return notes;
+    },
+  },
   LocalContextNotice: {
     name: (notice, { lang }) => {
       const translations = notice?.translations ?? [];
       const translatedText = translations.find(
         (t) => t && t.language_tag === localeMap[lang],
       )?.translated_name;
-      return translatedText ?? notice.name;
+      return translatedText ?? notice?.name;
     },
     default_text: (notice, { lang }) => {
       const translations = notice?.translations ?? [];
       const translatedText = translations.find(
         (t) => t.language_tag === localeMap[lang],
       )?.translated_text;
-      return translatedText ?? notice.default_text;
+      return translatedText ?? notice?.default_text;
+    },
+  },
+  LocalContextLabel: {
+    name: (label, { lang }) => {
+      const translations = label?.translations ?? [];
+      const translatedText = translations.find(
+        (t) => t && t.language_tag === localeMap[lang],
+      )?.translated_name;
+      return translatedText ?? label?.name;
+    },
+    label_text: (label, { lang }) => {
+      const translations = label?.translations ?? [];
+      const translatedText = translations.find(
+        (t) => t.language_tag === localeMap[lang],
+      )?.translated_text;
+      return translatedText ?? label?.label_text;
+    },
+  },
+  LocalContextNote: {
+    name: (note, { lang }) => {
+      const translations = note?.translations ?? [];
+      const translatedText = translations.find(
+        (t) => t && t.language_tag === localeMap[lang],
+      )?.translated_name;
+      return translatedText ?? note?.name;
+    },
+    description: (note, { lang }) => {
+      const translations = note?.translations ?? [];
+      const translatedText = translations.find(
+        (t) => t.language_tag === localeMap[lang],
+      )?.translated_text;
+      return translatedText ?? note?.description;
     },
   },
 };
