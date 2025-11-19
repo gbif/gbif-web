@@ -4,8 +4,7 @@ import { getBoundingBox } from '@/components/maps/openlayers/helpers/getBounding
 import { useMapPosition } from './useMapPosition';
 import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
 import { Projection, useConfig } from '@/config/config';
-import { OccurrenceSearchMetadata } from '@/contexts/search';
-import { BoundingBox } from '@/types';
+import { PointData, OccurrenceOverlay, MapProps } from './types';
 import { pixelRatio } from '@/utils/pixelRatio';
 import { getFeatureAsWKT, getFeaturesFromWktList } from '@/utils/wktHelpers';
 import { Vector as VectorLayer } from 'ol/layer';
@@ -44,57 +43,10 @@ const mapStyles: Record<string, any> = {
   klokantech,
 };
 
-type MapEvent =
-  | { type: 'ZOOM_TO'; lat: number; lng: number; zoom: number }
-  | { type: 'EXPLORE_AREA'; bbox?: BoundingBox }
-  | { type: 'ZOOM_IN' }
-  | { type: 'ZOOM_OUT' };
-
-type PointData = {
-  geohash: string;
-  count: number;
-};
-
 const DEFAULT_SOURCE_PARAMS = {
   style: 'scaled.circles',
   mode: 'GEO_CENTROID',
   squareSize: 512,
-};
-
-export type OccurrenceOverlay = {
-  id: string;
-  predicateHash: string;
-  q?: string;
-  style?: OverlayStyle;
-};
-
-export type OverlayStyle = {
-  colors?: string[];
-};
-
-type Props = {
-  mapConfig?: {
-    basemapStyle: string;
-    projection: Projection;
-  };
-  onLoading?(loading: boolean): void;
-  containerHeight?: number;
-  containerWidth?: number;
-  latestEvent?: MapEvent;
-  defaultMapSettings?: OccurrenceSearchMetadata['mapSettings'];
-  listener?(event: MapEvent): void;
-  overlays: OccurrenceOverlay[];
-  theme: Partial<Theme> | undefined;
-  registerPredicate?(): void;
-  onTileError?(): void;
-  onMapClick?(): void;
-  className?: string;
-  onPointClick?(point: PointData): () => void;
-  mapPosition: ReturnType<typeof useMapPosition>;
-  features?: string[];
-  drawingTool?: string | null;
-  onDrawingToolChange?(tool: string | null): void;
-  onFeaturesChange?(params: { features: string[] }): void;
 };
 
 type State = {
@@ -109,7 +61,7 @@ type DrawingInteractions = {
   select: Select;
 } | null;
 
-class Map extends Component<Props, State> {
+class Map extends Component<MapProps, State> {
   myRef: React.RefObject<HTMLDivElement>;
   map?: OlMap;
   mapLoaded = false;
@@ -119,7 +71,7 @@ class Map extends Component<Props, State> {
   moveendKey: EventsKey | null = null;
   clickKey: EventsKey | null = null;
 
-  constructor(props: Props) {
+  constructor(props: MapProps) {
     super(props);
 
     this.addLayers = this.addLayers.bind(this);
@@ -320,7 +272,7 @@ class Map extends Component<Props, State> {
     }
   }
 
-  componentDidUpdate(prevProps: Props) {
+  componentDidUpdate(prevProps: MapProps) {
     if (this.props.onLoading) {
       if (this.state.loadDiff > 0) {
         this.props.onLoading(true);
@@ -825,7 +777,7 @@ class Map extends Component<Props, State> {
   }
 }
 
-function MapWithHook(props: Omit<Props, 'mapPosition' | 'theme'>) {
+function MapWithHook(props: Omit<MapProps, 'mapPosition' | 'theme'>) {
   const mapPosition = useMapPosition(props.defaultMapSettings);
   const config = useConfig();
   return <Map {...props} mapPosition={mapPosition} theme={config?.theme} />;

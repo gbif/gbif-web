@@ -36,9 +36,14 @@ import { useOrderedList } from '../../browseList/useOrderedList';
 import MapComponentML from './MapLibreMap';
 import MapComponentOL from './OpenlayersMap';
 import { getMapStyles } from './standardMapStyles';
-import { OccurrenceOverlay } from './types';
+import {
+  OccurrenceOverlay,
+  MapEvent,
+  PointData,
+  OccurrenceSearchData,
+  OccurrenceRecord,
+} from './types';
 import { OccurrenceSearchMetadata } from '@/contexts/search';
-import { BoundingBox } from '@/types';
 import ListBox from './ListBox';
 
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
@@ -60,35 +65,16 @@ type BasemapOptions = Record<string, MapStyleConfig>;
 
 type StyleLookup = Record<string, Record<string, string>>;
 
-type MapEvent =
-  | { type: 'ZOOM_TO'; lat: number; lng: number; zoom: number }
-  | { type: 'EXPLORE_AREA'; bbox?: BoundingBox }
-  | { type: 'ZOOM_IN' }
-  | { type: 'ZOOM_OUT' };
-
-type OccurrenceResult = {
-  key: string;
-  [key: string]: any;
-};
-
-type PointData = {
-  occurrenceSearch?: {
-    documents?: {
-      results?: OccurrenceResult[];
-    };
-  };
-};
-
 interface MapProps {
   q?: string;
-  pointData?: PointData;
+  pointData?: OccurrenceSearchData;
   pointError?: any;
   pointLoading?: boolean;
   loading?: boolean;
   total?: number;
   predicateHash?: string;
   registerPredicate?: () => void;
-  loadPointData?: (data: { geohash: string; count: number }) => void;
+  loadPointData?: (data: PointData) => void;
   defaultMapSettings?: OccurrenceSearchMetadata['mapSettings'];
   style?: React.CSSProperties;
   className?: string;
@@ -169,7 +155,7 @@ function MapPresentation({
   const { toast } = useToast();
   const [, setPreviewKey] = useEntityDrawer();
   const [mapLoading, setMapLoading] = useState<boolean>(false);
-  const items = React.useMemo<OccurrenceResult[]>(
+  const items = React.useMemo<OccurrenceRecord[]>(
     () => pointData?.occurrenceSearch?.documents?.results || [],
     [pointData]
   );
@@ -536,7 +522,7 @@ function MapPresentation({
             onLoading={updateLoading}
             onTileError={failedTileHandler}
             onMapClick={() => showList(false)}
-            onPointClick={(data: { geohash: string; count: number }) => {
+            onPointClick={(data: PointData) => {
               showList(true);
               if (loadPointData) {
                 loadPointData(data);

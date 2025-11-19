@@ -4,29 +4,11 @@ import StripeLoader from '@/components/stripeLoader';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
-
-interface OccurrenceItem {
-  key: string;
-  classification?: {
-    taxonMatch?: {
-      usage?: {
-        canonicalName?: string;
-      };
-    };
-    usage?: {
-      name?: string;
-    };
-  };
-  eventDate?: string;
-  basisOfRecord?: string;
-  primaryImage?: {
-    identifier?: string;
-  };
-}
+import { OccurrenceRecord, OccurrenceSearchData } from './types';
 
 interface ListItemProps {
   id: string;
-  item: OccurrenceItem;
+  item: OccurrenceRecord;
   onClick?: (params: { id: string }) => void;
 }
 
@@ -68,15 +50,6 @@ function ListItem({ id, item, onClick = () => {} }: ListItemProps) {
       </div>
     </button>
   );
-}
-
-interface OccurrenceSearchData {
-  occurrenceSearch?: {
-    documents?: {
-      results?: OccurrenceItem[];
-      total?: number;
-    };
-  };
 }
 
 interface ListBoxProps {

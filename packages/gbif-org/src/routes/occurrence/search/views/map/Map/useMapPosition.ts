@@ -1,6 +1,22 @@
 import { useCallback } from 'react';
-import { MAP_BOUNDS, STORAGE_KEYS } from './mapConstants';
 import { OccurrenceSearchMetadata } from '@/contexts/search';
+
+/** Map bounds constraints */
+const MAP_BOUNDS = {
+  MIN_ZOOM: 0,
+  MAX_ZOOM: 20,
+  MIN_LNG: -180,
+  MAX_LNG: 180,
+} as const;
+
+/** Session storage keys */
+export const STORAGE_KEYS = {
+  MAP_ZOOM: 'mapZoom',
+  MAP_LNG: 'mapLng',
+  MAP_LAT: 'mapLat',
+  DEFAULT_PROJECTION: 'defaultOccurrenceProjection',
+  DEFAULT_LAYER: 'defaultOccurrenceLayer',
+} as const;
 
 type MapPosition = {
   lat: number;

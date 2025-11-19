@@ -1,10 +1,42 @@
 import { Theme } from '@/config/theme/theme';
+import { BoundingBox } from '@/types';
+
+/**
+ * Map events that can be triggered by user interactions or programmatic actions
+ */
+export type MapEvent =
+  | { type: 'ZOOM_TO'; lat: number; lng: number; zoom: number }
+  | { type: 'EXPLORE_AREA'; bbox?: BoundingBox }
+  | { type: 'ZOOM_IN' }
+  | { type: 'ZOOM_OUT' };
+
+/**
+ * Data structure for occurrence point clicks on the map
+ */
+export type PointData = {
+  geohash: string;
+  count: number;
+};
+
+/**
+ * Custom styling options for overlay layers
+ */
+export type OverlayStyle = {
+  /** Custom color palette for density visualization */
+  colors?: string[];
+
+  /** Opacity for the layer (0-1) */
+  opacity?: number;
+
+  /** Circle radius stops for different density levels */
+  radiusStops?: [number, number][];
+};
 
 /**
  * Configuration for a single occurrence overlay layer
  */
 export type OccurrenceOverlay = {
-  /** Unique identifier for the overlay, typically the predicateHash */
+  /** Unique identifier for the overlay */
   id: string;
 
   /** The predicate hash for the occurrence query */
@@ -14,19 +46,44 @@ export type OccurrenceOverlay = {
   q?: string;
 
   /** Custom styling for this overlay */
-  style?: {
-    /** Custom color palette for density visualization */
-    colors?: string[];
-
-    /** Opacity for the layer (0-1) */
-    opacity?: number;
-
-    /** Circle radius stops for different density levels */
-    radiusStops?: [number, number][];
-  };
+  style?: OverlayStyle;
 
   /** Z-index for layer ordering (higher = on top) */
   zIndex?: number;
+};
+
+/**
+ * Basic occurrence record structure
+ */
+export type OccurrenceRecord = {
+  key: string;
+  classification?: {
+    taxonMatch?: {
+      usage?: {
+        canonicalName?: string;
+      };
+    };
+    usage?: {
+      name?: string;
+    };
+  };
+  eventDate?: string;
+  basisOfRecord?: string;
+  primaryImage?: {
+    identifier?: string;
+  };
+};
+
+/**
+ * Occurrence search response structure
+ */
+export type OccurrenceSearchData = {
+  occurrenceSearch?: {
+    documents?: {
+      results?: OccurrenceRecord[];
+      total?: number;
+    };
+  };
 };
 
 /**
@@ -44,4 +101,74 @@ export type OverlayProps = {
 
   /** Callback when a tile fails to load */
   onTileError?: () => void;
+};
+
+/**
+ * Props for map event handling
+ */
+export type MapEventProps = {
+  /** Latest event to process */
+  latestEvent?: MapEvent;
+
+  /** Event listener callback */
+  listener?: (event: MapEvent) => void;
+};
+
+/**
+ * Props for map interactions
+ */
+export type MapInteractionProps = {
+  /** Callback when map is clicked (outside of features) */
+  onMapClick?: () => void;
+
+  /** Callback when an occurrence point is clicked */
+  onPointClick?: (point: PointData) => void;
+
+  /** Callback for loading state changes */
+  onLoading?: (loading: boolean) => void;
+};
+
+/**
+ * Props for drawing/filter functionality
+ */
+export type DrawingProps = {
+  /** Current drawing tool mode */
+  drawingTool?: string | null;
+
+  /** Callback when drawing tool changes */
+  onDrawingToolChange?: (tool: string | null) => void;
+
+  /** Current filter geometries as WKT strings */
+  features?: string[];
+
+  /** Callback when filter geometries change */
+  onFeaturesChange?: (params: { features: string[] }) => void;
+};
+
+/**
+ * Combined props for the map component
+ */
+export type MapProps = {
+  mapConfig?: {
+    basemapStyle: string;
+    projection: Projection;
+  };
+  onLoading?(loading: boolean): void;
+  containerHeight?: number;
+  containerWidth?: number;
+  latestEvent?: MapEvent;
+  defaultMapSettings?: OccurrenceSearchMetadata['mapSettings'];
+  listener?(event: MapEvent): void;
+  overlays: OccurrenceOverlay[];
+  theme: Partial<Theme> | undefined;
+  registerPredicate?(): void;
+  onTileError?(): void;
+  onMapClick?(): void;
+  className?: string;
+  onPointClick?(point: PointData): void;
+  mapPosition: ReturnType<typeof useMapPosition>;
+  features?: string[];
+  drawingTool?: string | null;
+  onDrawingToolChange?(tool: string | null): void;
+  onFeaturesChange?(params: { features: string[] }): void;
 };
