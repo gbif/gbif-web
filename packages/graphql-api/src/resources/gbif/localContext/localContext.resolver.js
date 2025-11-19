@@ -45,7 +45,7 @@ export default {
       const translatedText = translations.find(
         (t) => t && t.language_tag === localeMap[lang],
       )?.translated_name;
-      return translatedText ?? notice?.name;
+      return translatedText ?? notice?.name ?? 'No name provided';
     },
     default_text: (notice, { lang }) => {
       const translations = notice?.translations ?? [];
@@ -61,7 +61,7 @@ export default {
       const translatedText = translations.find(
         (t) => t && t.language_tag === localeMap[lang],
       )?.translated_name;
-      return translatedText ?? label?.name;
+      return translatedText ?? label?.name ?? 'No name provided';
     },
     label_text: (label, { lang }) => {
       const translations = label?.translations ?? [];
@@ -77,7 +77,7 @@ export default {
       const translatedText = translations.find(
         (t) => t && t.language_tag === localeMap[lang],
       )?.translated_name;
-      return translatedText ?? note?.name;
+      return translatedText ?? note?.name ?? 'No name provided';
     },
     description: (note, { lang }) => {
       const translations = note?.translations ?? [];
