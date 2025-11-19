@@ -46,7 +46,7 @@ function ListItem({ id, item, onClick = (id) => {}, ...props }) {
   );
 }
 
-function ListBox({ className, labelMap, onCloseRequest, onClick, data, error, loading, ...props }) {
+function ListBox({ className, onCloseRequest, onClick, data, error, loading, ...props }) {
   if (!error && !loading && !data) return null;
 
   const criticalError = error && !data.occurrenceSearch?.documents?.results;
@@ -88,7 +88,7 @@ function ListBox({ className, labelMap, onCloseRequest, onClick, data, error, lo
   }
 
   return (
-    <section {...props} className={cn('g-flex g-flex-col g-bg-white g-border', className)}>
+    <section {...props} className={cn('g-flex g-flex-col g-bg-white g-border g-h-full', className)}>
       <header className="g-flex g-flex-col g-flex-none g-border-b g-text-sm g-font-bold g-px-2 g-py-1">
         <div className="g-flex g-flex-row g-items-center">
           <h3 className="g-flex-1">

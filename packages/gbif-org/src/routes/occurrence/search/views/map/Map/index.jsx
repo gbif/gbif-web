@@ -10,6 +10,7 @@ import Geohash from 'latlon-geohash';
 import { useCallback, useContext, useEffect, useMemo } from 'react';
 import { searchConfig } from '../../../searchConfig';
 import MapPresentation from './MapPresentation';
+import { TestMap } from './Test';
 
 const OCCURRENCE_MAP = `
 query map($q: String, $predicate: Predicate){
@@ -161,7 +162,6 @@ function Map({ style, className, mapProps }) {
     loading,
     error,
     total: data?.occurrenceSearch?.documents?.total,
-    query: data?.occurrenceSearch?._meta?.query || {},
     predicateHash: data?.occurrenceSearch?.metaPredicate,
     rootPredicate: scope,
     predicateConfig: searchConfig,
@@ -170,7 +170,6 @@ function Map({ style, className, mapProps }) {
     pointData,
     pointLoading,
     pointError,
-    labelMap: {},
     q,
     defaultMapSettings: mapSettings,
     onFeaturesChange: handleFeatureChange,
@@ -179,6 +178,7 @@ function Map({ style, className, mapProps }) {
 
   if (typeof window !== 'undefined') {
     return <MapPresentation {...options} {...{ style, className, mapProps }} />;
+    // return <TestMap />;
   } else {
     return <h1>Map placeholder</h1>;
   }

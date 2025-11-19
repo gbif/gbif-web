@@ -71,8 +71,6 @@ function getStyle({ styles = {}, projection, type, lookup = {}, layerOptions }) 
 }
 
 function Map({
-  labelMap,
-  query,
   q,
   pointData,
   pointError,
@@ -145,7 +143,7 @@ function Map({
       },
       {
         id: 'something',
-        predicateHash: '-148112226',
+        predicateHash: '-1312810364',
         q: q,
         style: {
           // 5 blue purple gradients. going from blue to purple
@@ -154,7 +152,7 @@ function Map({
       },
       {
         id: 'triangle',
-        predicateHash: '908132731',
+        predicateHash: '-1312791797',
         q: q,
         style: {
           // 5 purple gradients
@@ -260,7 +258,7 @@ function Map({
           const { latitude, longitude } = position.coords;
           broadcastEvent({ type: 'ZOOM_TO', lat: latitude, lng: longitude, zoom: 11 });
         },
-        (err) => {
+        () => {
           toast.error(
             <div>
               <h3>
@@ -356,11 +354,10 @@ function Map({
         <ViewHeader message="counts.nResultsWithCoordinates" loading={loading} total={total} />
         <div className="g-flex-auto g-h-96 g-relative g-z-10">
           {listVisible && (
-            <div className="gbif-resultList g-z-20 g-absolute g-start-0 g-top-0 g-m-2 g-w-96 g-max-w-full g-max-h-[calc(100%-4rem)]">
+            <div className="gbif-resultList g-z-20 g-absolute g-start-0 g-top-0 g-m-2 g-w-96 g-max-w-full g-max-h-[calc(100%-4rem)] g-h-full">
               <ErrorBoundary type="CARD">
                 <ListBox
                   onCloseRequest={() => showList(false)}
-                  labelMap={labelMap}
                   onClick={({ index }) => {
                     selectPreview(`${items[index].key}`);
                   }}
@@ -392,6 +389,11 @@ function Map({
             <MenuButton onClick={() => broadcastEvent({ type: 'ZOOM_OUT' })}>
               <MdZoomOut />
             </MenuButton>
+            {userLocationEnabled && (
+              <MenuButton loading={searchingLocation} onClick={getUserLocation}>
+                <MdMyLocation />
+              </MenuButton>
+            )}
             {notPolarProjection && (
               <>
                 <ToolSeparator />
@@ -478,34 +480,25 @@ function Map({
                 <DropdownMenuContent align="end">{menuLayerOptions}</DropdownMenuContent>
               </DropdownMenu>
             )}
-
-            {userLocationEnabled && (
-              <MenuButton loading={searchingLocation} onClick={getUserLocation}>
-                <MdMyLocation />
-              </MenuButton>
-            )}
           </div>
           <MapComponent
             {...mapProps}
-            theme={config?.theme}
             mapConfig={mapConfiguration.mapConfig}
             latestEvent={latestEvent}
             defaultMapSettings={defaultMapSettings}
             overlays={overlays}
             className="mapComponent g-relative [&>canvas:focus]:g-outline-none g-border g-border-solid g-border-slate-200 g-rounded g-flex g-flex-col g-h-full g-flex-auto g-z-0"
-            query={query}
             onLoading={updateLoading}
             onTileError={failedTileHandler}
-            onMapClick={(e) => showList(false)}
+            onMapClick={() => showList(false)}
             onPointClick={(data) => {
-              // check that it is only doing so for the top layer - it should call multiple times for each layer
               showList(true);
               loadPointData(data);
             }}
             listener={eventListener}
             registerPredicate={registerPredicate}
-            height={height}
-            width={width}
+            containerHeight={height}
+            containerWidth={width}
             drawingTool={drawingTool}
             onDrawingToolChange={setDrawingTool}
             features={features}

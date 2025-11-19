@@ -122,7 +122,8 @@ class MapLibreMap extends Component {
       }
     }
     if (
-      (prevProps.height !== this.props.height || prevProps.width !== this.props.width) &&
+      (prevProps.containerHeight !== this.props.containerHeight ||
+        prevProps.containerWidth !== this.props.containerWidth) &&
       this.mapLoaded
     ) {
       this.map.resize();

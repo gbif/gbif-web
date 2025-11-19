@@ -1,9 +1,9 @@
-import { getAdhocVectorSource, projections } from '@/components/maps/openlayers/projections';
+import { projections } from '@/components/maps/openlayers/projections';
 import React, { Component } from 'react';
 import { getBoundingBox } from '@/components/maps/openlayers/helpers/getBoundingBox';
 import { useMapPosition } from './useMapPosition';
 import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
-import { Projection } from '@/config/config';
+import { Projection, useConfig } from '@/config/config';
 import { OccurrenceSearchMetadata } from '@/contexts/search';
 import { BoundingBox } from '@/types';
 import { pixelRatio } from '@/utils/pixelRatio';
@@ -78,8 +78,8 @@ type Props = {
     projection: Projection;
   };
   onLoading?(loading: boolean): void;
-  height: number;
-  width: number;
+  containerHeight?: number;
+  containerWidth?: number;
   latestEvent?: MapEvent;
   defaultMapSettings?: OccurrenceSearchMetadata['mapSettings'];
   listener?(event: MapEvent): void;
@@ -89,7 +89,7 @@ type Props = {
   onTileError?(): void;
   onMapClick?(): void;
   className?: string;
-  onPointClick(point: PointData): void;
+  onPointClick?(point: PointData): () => void;
   mapPosition: ReturnType<typeof useMapPosition>;
   features?: string[];
   drawingTool?: string | null;
@@ -360,7 +360,8 @@ class Map extends Component<Props, State> {
     }
     // check if the size of the map container has changed and if so resize the map
     if (
-      (prevProps.height !== this.props.height || prevProps.width !== this.props.width) &&
+      (prevProps.containerHeight !== this.props.containerHeight ||
+        prevProps.containerWidth !== this.props.containerWidth) &&
       this.mapLoaded
     ) {
       this.map?.updateSize();
@@ -637,7 +638,9 @@ class Map extends Component<Props, State> {
   }
 
   onPointClick(pointData: PointData) {
-    this.props.onPointClick(pointData);
+    if (this.props.onPointClick) {
+      this.props.onPointClick(pointData);
+    }
   }
 
   getMergedTheme(overlay: OccurrenceOverlay): Partial<Theme> {
@@ -822,9 +825,10 @@ class Map extends Component<Props, State> {
   }
 }
 
-function MapWithHook(props: Omit<Props, 'mapPosition'>) {
+function MapWithHook(props: Omit<Props, 'mapPosition' | 'theme'>) {
   const mapPosition = useMapPosition(props.defaultMapSettings);
-  return <Map {...props} mapPosition={mapPosition} />;
+  const config = useConfig();
+  return <Map {...props} mapPosition={mapPosition} theme={config?.theme} />;
 }
 
 const OCCURRENCE_LAYER_PREFIX = 'occurrences__';
