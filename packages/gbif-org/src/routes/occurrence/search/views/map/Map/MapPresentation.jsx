@@ -132,6 +132,38 @@ function Map({
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const timeoutRef = useRef(null);
 
+  // Convert predicateHash and q into overlay format
+  // In the future, this will be extended to support multiple overlays
+  const overlays = React.useMemo(() => {
+    if (!predicateHash) return [];
+
+    return [
+      {
+        id: 'live',
+        predicateHash: predicateHash,
+        q: q,
+      },
+      {
+        id: 'something',
+        predicateHash: '-148112226',
+        q: q,
+        style: {
+          // 5 blue purple gradients. going from blue to purple
+          colors: ['#4343d3'],
+        },
+      },
+      {
+        id: 'triangle',
+        predicateHash: '908132731',
+        q: q,
+        style: {
+          // 5 purple gradients
+          colors: ['#800080', '#bf40bf', '#d580d5', '#e6a6e6', '#f2c2f2'],
+        },
+      },
+    ];
+  }, [predicateHash, q]);
+
   const updateLoading = useCallback((loading) => {
     setMapLoading(loading);
   }, []);
@@ -459,8 +491,7 @@ function Map({
             mapConfig={mapConfiguration.mapConfig}
             latestEvent={latestEvent}
             defaultMapSettings={defaultMapSettings}
-            predicateHash={predicateHash}
-            q={q}
+            overlays={overlays}
             className="mapComponent g-relative [&>canvas:focus]:g-outline-none g-border g-border-solid g-border-slate-200 g-rounded g-flex g-flex-col g-h-full g-flex-auto g-z-0"
             query={query}
             onLoading={updateLoading}

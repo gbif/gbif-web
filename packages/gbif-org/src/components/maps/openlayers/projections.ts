@@ -98,6 +98,9 @@ function get4326() {
     getAdhocVectorLayer: function (params: Params = {}) {
       return getAdhocVectorLayer(adhocVectorLayerBaseUrl, this, params);
     },
+    getAdhocVectorSource: function (params: Params = {}) {
+      return getAdhocVectorSource(adhocVectorLayerBaseUrl, this, params);
+    },
     getProjectedCoordinate: function (coordinate: Coordinate) {
       return coordinate;
     },
@@ -151,8 +154,11 @@ function get3857() {
     getOccurrenceRasterLayer: function (params = {}) {
       return getRasterLayer(occurrenceRasterLayerBaseUrl, this, params);
     },
-    getAdhocVectorLayer: function (params = {}) {
+    getAdhocVectorLayer: function (params: Params = {}) {
       return getAdhocVectorLayer(adhocVectorLayerBaseUrl, this, params);
+    },
+    getAdhocVectorSource: function (params: Params = {}) {
+      return getAdhocVectorSource(adhocVectorLayerBaseUrl, this, params);
     },
     getProjectedCoordinate: function (coordinate: Coordinate) {
       return transform(coordinate, 'EPSG:3857', 'EPSG:4326');
@@ -222,8 +228,11 @@ function get3575() {
     getOccurrenceRasterLayer: function (params = {}) {
       return getRasterLayer(occurrenceRasterLayerBaseUrl, this, params);
     },
-    getAdhocVectorLayer: function (params = {}) {
+    getAdhocVectorLayer: function (params: Params = {}) {
       return getAdhocVectorLayer(adhocVectorLayerBaseUrl, this, params);
+    },
+    getAdhocVectorSource: function (params: Params = {}) {
+      return getAdhocVectorSource(adhocVectorLayerBaseUrl, this, params);
     },
     zoomToFitContainer: function (map: Map) {
       const extent = olProj.get('EPSG:3575')?.getExtent();
@@ -300,8 +309,11 @@ function get3031() {
     getOccurrenceRasterLayer: function (params = {}) {
       return getRasterLayer(occurrenceRasterLayerBaseUrl, this, params);
     },
-    getAdhocVectorLayer: function (params = {}) {
+    getAdhocVectorLayer: function (params: Params = {}) {
       return getAdhocVectorLayer(adhocVectorLayerBaseUrl, this, params);
+    },
+    getAdhocVectorSource: function (params: Params = {}) {
+      return getAdhocVectorSource(adhocVectorLayerBaseUrl, this, params);
     },
     zoomToFitContainer: function (map: Map) {
       const extent = olProj.get('EPSG:3031')?.getExtent();
@@ -437,6 +449,8 @@ function getAdhocVectorLayer(baseUrl: string, proj: any, params: Params, name = 
   delete params.onError;
   const siteTheme = params.siteTheme;
   delete params.siteTheme;
+  const properties = params.properties;
+  delete params.properties;
   const source = new VectorTileSource({
     format: new MVTFormat(),
     projection: proj.projection,
@@ -469,11 +483,23 @@ function getAdhocVectorLayer(baseUrl: string, proj: any, params: Params, name = 
     source: source,
     useInterimTilesOnError: false,
     visible: true,
-    name: name,
+    properties: properties,
     style: densityPoints(siteTheme),
     // className: 'occurrenceLayer'
     zIndex: 1000,
   });
+}
+
+export function getAdhocVectorSource(baseUrl: string, proj: any, params: Params) {
+  const source = new VectorTileSource({
+    format: new MVTFormat(),
+    projection: proj.projection,
+    tileGrid: proj.tileGrid,
+    url: baseUrl + stringify({ ...params, srs: proj.srs }),
+    wrapX: proj.wrapX,
+    maxZoom: 18,
+  });
+  return source;
 }
 
 export const projections = {

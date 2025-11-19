@@ -288,7 +288,6 @@ export type ClbBreakdownTaxon = {
 
 export type ClbDataset = {
   __typename?: 'ClbDataset';
-  alias?: Maybe<Scalars['String']['output']>;
   attempt?: Maybe<Scalars['Int']['output']>;
   created?: Maybe<Scalars['DateTime']['output']>;
   createdBy?: Maybe<Scalars['Int']['output']>;
@@ -6954,12 +6953,9 @@ export enum PipelineStep_Status {
 export type Predicate = {
   checklistKey?: InputMaybe<Scalars['ID']['input']>;
   distance?: InputMaybe<Scalars['String']['input']>;
-  geometry?: InputMaybe<Scalars['String']['input']>;
   key?: InputMaybe<Scalars['String']['input']>;
   latitude?: InputMaybe<Scalars['JSON']['input']>;
   longitude?: InputMaybe<Scalars['JSON']['input']>;
-  matchCase?: InputMaybe<Scalars['Boolean']['input']>;
-  parameter?: InputMaybe<Scalars['String']['input']>;
   predicate?: InputMaybe<Predicate>;
   predicates?: InputMaybe<Array<InputMaybe<Predicate>>>;
   type?: InputMaybe<PredicateType>;
@@ -6972,12 +6968,9 @@ export enum PredicateType {
   Equals = 'equals',
   Fuzzy = 'fuzzy',
   GeoDistance = 'geoDistance',
-  GreaterThan = 'greaterThan',
-  GreaterThanOrEquals = 'greaterThanOrEquals',
   In = 'in',
   IsNotNull = 'isNotNull',
   IsNull = 'isNull',
-  LessThanOrEquals = 'lessThanOrEquals',
   Like = 'like',
   Nested = 'nested',
   Not = 'not',
