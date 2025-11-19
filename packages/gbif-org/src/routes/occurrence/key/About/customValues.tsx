@@ -8,7 +8,6 @@ import {
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
 import equal from 'fast-deep-equal/react';
-import { MdLink } from 'react-icons/md';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { BasicField } from '../properties';
 import { useConfig } from '@/config/config';
@@ -111,13 +110,7 @@ function Agents({ label, value }: { label: string; value: { type: string; value:
   );
 }
 
-export function DynamicProperties({
-  termMap,
-  slowOccurrence,
-}: {
-  termMap: any;
-  slowOccurrence?: any;
-}) {
+export function DynamicProperties({ termMap }: { termMap: any }) {
   const value = termMap?.dynamicProperties?.value;
   if (!value) return null;
 
@@ -142,27 +135,6 @@ export function DynamicProperties({
         />
       </T>
       <V style={{ overflow: 'hidden' }}>{content}</V>
-      {slowOccurrence?.localContext?.[0]?.name && slowOccurrence?.localContext?.[0]?.img_url && (
-        <>
-          <T>
-            <img
-              style={{ width: 32, height: 32, marginRight: 8 }}
-              src={slowOccurrence.localContext[0].img_url}
-              alt={slowOccurrence.localContext[0].name}
-              title={slowOccurrence.localContext[0].name}
-            />
-          </T>
-          <V>
-            <h5 className="g-font-bold">
-              {slowOccurrence.localContext[0].name}{' '}
-              <a href={slowOccurrence.localContext[0].notice_page} target="_blank" rel="noreferrer">
-                <MdLink />
-              </a>
-            </h5>
-            {slowOccurrence.localContext[0]?.default_text}
-          </V>
-        </>
-      )}
     </>
   );
 }
@@ -213,7 +185,7 @@ export function LocalContexts({ localContexts }: { localContexts?: any }) {
                           href={item.pageUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="g-underline"
+                          className="g-underline g-text-inherit"
                         >
                           {item.name}
                         </a>

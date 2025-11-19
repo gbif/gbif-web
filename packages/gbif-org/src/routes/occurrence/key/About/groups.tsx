@@ -262,7 +262,6 @@ function Record({
       />
       <PlainTextField term={termMap.informationWithheld} showDetails={showAll} />
       <PlainTextField term={termMap.dataGeneralizations} showDetails={showAll} />
-      <DynamicProperties termMap={termMap} slowOccurrence={slowOccurrence} />
       <LocalContexts localContexts={slowOccurrence?.localContexts} />
     </PropGroup>
   );
@@ -785,6 +784,7 @@ function Other({
         getEnum={(value) => `enums.license.${value}`}
       />
       {/* RECORD LEVEL Actually belongs on Record card, but it seems wrong to put it first on the page, so I've moved it here along with other identifiers */}
+      <DynamicProperties termMap={termMap} />
       <PlainTextField term={termMap.institutionCode} showDetails={showAll} />
       <HtmlField term={termMap.institutionID} showDetails={showAll} />
       <PlainTextField term={termMap.ownerInstitutionCode} showDetails={showAll} />
