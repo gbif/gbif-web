@@ -6,6 +6,7 @@
   "portalName": "Název portálu",
   "hostedPortalName": "Název hostovaného portálu",
   "applicationType": "Typ žádosti",
+  "typeOfApplication": "Typ žádosti",
   "nodeContact": "Kontakt uzlu",
   "nodeContactHeading": "Jste v kontaktu s manažerem účastnického uzlu GBIF ohledně této žádosti?",
   "userGroup": "Uživatelská skupina",
