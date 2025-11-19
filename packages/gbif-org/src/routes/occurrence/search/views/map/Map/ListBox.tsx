@@ -4,15 +4,16 @@ import StripeLoader from '@/components/stripeLoader';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/shadcn';
 import { FormattedMessage } from 'react-intl';
-import { OccurrenceRecord, OccurrenceSearchData } from './types';
+import { OccurrencePointQuery } from '@/gql/graphql';
 
 interface ListItemProps {
   id: string;
-  item: OccurrenceRecord;
+  item: NonNullable<OccurrencePointQuery['occurrenceSearch']>['documents']['results'][0];
   onClick?: (params: { id: string }) => void;
 }
 
 function ListItem({ id, item, onClick = () => {} }: ListItemProps) {
+  if (!item) return null;
   return (
     <button
       className="gbif-listItem g-text-start g-w-full g-border-b g-p-2 g-text-sm g-min-h-20"
@@ -56,7 +57,7 @@ interface ListBoxProps {
   className?: string;
   onCloseRequest?: () => void;
   onClick?: (params: { index: number }) => void;
-  data?: OccurrenceSearchData;
+  data?: OccurrencePointQuery;
   error?: Error | null;
   loading?: boolean;
 }

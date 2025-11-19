@@ -1,87 +1,127 @@
-// @ts-nocheck
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { getAsQuery } from '@/components/filters/filterTools';
-import { FilterContext } from '@/contexts/filter';
-import { useSearchContext } from '@/contexts/search';
+import { FilterContext, FilterType } from '@/contexts/filter';
+import { OccurrenceSearchMetadata, SearchMetadata, useSearchContext } from '@/contexts/search';
 import { filter2predicate } from '@/dataManagement/filterAdapter';
-import { PredicateType } from '@/gql/graphql';
+import {
+  OccurrenceMapQuery,
+  OccurrenceMapQueryVariables,
+  OccurrencePointQuery,
+  OccurrencePointQueryVariables,
+  Predicate,
+  PredicateType,
+} from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import Geohash from 'latlon-geohash';
-import { useCallback, useContext, useEffect, useMemo } from 'react';
+import { CSSProperties, useCallback, useContext, useEffect, useMemo } from 'react';
 import { searchConfig } from '../../../searchConfig';
 import MapPresentation from './MapPresentation';
+import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 
-const OCCURRENCE_MAP = `
-query map($q: String, $predicate: Predicate){
-  occurrenceSearch(q: $q, predicate: $predicate) {
-    _meta
-    documents {
-      total
+const OCCURRENCE_MAP = /* GraphQL */ `
+  query occurrenceMap($q: String, $predicate: Predicate) {
+    occurrenceSearch(q: $q, predicate: $predicate) {
+      _meta
+      documents {
+        total
+      }
+      metaPredicate
     }
-    metaPredicate
   }
-}
 `;
 
-const OCCURRENCE_POINT = `
-query point($q: String, $predicate: Predicate, $checklistKey: ID){
-  occurrenceSearch(q: $q, predicate: $predicate) {
-    documents {
-      total
-      results {
-        key
-        basisOfRecord
-        eventDate
-        classification(checklistKey: $checklistKey) {
-          usage {
-            name
-          }
-          taxonMatch {
+const OCCURRENCE_POINT = /* GraphQL */ `
+  query occurrencePoint($q: String, $predicate: Predicate, $checklistKey: ID) {
+    occurrenceSearch(q: $q, predicate: $predicate) {
+      documents {
+        total
+        results {
+          key
+          basisOfRecord
+          eventDate
+          classification(checklistKey: $checklistKey) {
             usage {
-              canonicalName
+              name
+            }
+            taxonMatch {
+              usage {
+                canonicalName
+              }
             }
           }
-        }
-        primaryImage {
-          identifier: thumbor(width: 60, height: 60)
+          primaryImage {
+            identifier: thumbor(width: 60, height: 60)
+          }
         }
       }
     }
   }
-}
 `;
+
 const wktBBoxTemplate = '((W S,E S,E N,W N,W S))';
 
-function Map({ style, className, mapStyleAttr }) {
-  const searchContext = useSearchContext();
+interface MapProps {
+  style?: CSSProperties;
+  className?: string;
+  mapStyleAttr?: CSSProperties;
+}
+
+interface LoadHashAndCountParams {
+  filter: FilterType;
+  searchContext: SearchMetadata;
+  searchConfig: FilterConfigType;
+  load: (options: {
+    keepDataWhileLoading: boolean;
+    variables: OccurrenceMapQueryVariables;
+  }) => void;
+}
+
+interface LoadPointDataParams {
+  geohash: string;
+}
+
+interface HandleFeatureChangeParams {
+  features: any[];
+}
+
+function Map({ style, className, mapStyleAttr }: MapProps) {
+  const searchContext: OccurrenceSearchMetadata = useSearchContext();
   const currentFilterContext = useContext(FilterContext);
   const { scope, mapSettings } = searchContext;
-  const { data, error, loading, load } = useQuery(OCCURRENCE_MAP, {
-    lazyLoad: true,
-    throwAllErrors: true,
-  });
+  const { data, error, loading, load } = useQuery<OccurrenceMapQuery, OccurrenceMapQueryVariables>(
+    OCCURRENCE_MAP,
+    {
+      lazyLoad: true,
+      throwAllErrors: true,
+    }
+  );
   const {
     data: pointData,
     error: pointError,
     loading: pointLoading,
     load: pointLoad,
-  } = useQuery(OCCURRENCE_POINT, { lazyLoad: true });
+  } = useQuery<OccurrencePointQuery, OccurrencePointQueryVariables>(OCCURRENCE_POINT, {
+    lazyLoad: true,
+  });
 
-  const loadHashAndCount = useCallback(({ filter, searchContext, searchConfig, load }) => {
-    const query = getAsQuery({ filter, searchContext, searchConfig });
-    const predicate = {
-      type: PredicateType.And,
-      predicates: [
-        query.predicate,
-        {
-          type: 'equals',
-          key: 'hasCoordinate',
-          value: true,
-        },
-      ].filter((x) => x),
-    };
-    load({ keepDataWhileLoading: true, variables: { predicate, q: query.q } });
-  }, []);
+  const loadHashAndCount = useCallback(
+    ({ filter, searchContext, searchConfig, load }: LoadHashAndCountParams) => {
+      const query = getAsQuery({ filter, searchContext, searchConfig });
+      const predicate: Predicate = {
+        type: PredicateType.And,
+        predicates: [
+          query.predicate,
+          {
+            type: 'equals',
+            key: 'hasCoordinate',
+            value: true,
+          },
+        ].filter((x) => x),
+      };
+      load({ keepDataWhileLoading: true, variables: { predicate, q: query.q } });
+    },
+    []
+  );
 
   useEffect(() => {
     loadHashAndCount({
@@ -96,12 +136,12 @@ function Map({ style, className, mapStyleAttr }) {
 
   // use memo to store the current geometries (filter.must?.geometry ?? []).map((x) => x.toString())
   const features = useMemo(() => {
-    return (currentFilterContext.filter?.must?.geometry ?? []).map((x) => x.toString());
+    return (currentFilterContext.filter?.must?.geometry ?? []).map((x: any) => x.toString());
     // We are tracking filter changes via a hash that is updated whenever the filter changes. This is so we do not have to deep compare the object everywhere
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFilterContext.filterHash]);
 
-  let registrationEmbargo;
+  let registrationEmbargo: boolean;
   /**
    * Allow the map to register the predicate again. This can be useful when tile with status code 400 errors come back.
    * But it should only be allowed to do every so often as we do not want to send request 500 times a second when an error is persistent.
@@ -117,10 +157,11 @@ function Map({ style, className, mapStyleAttr }) {
       searchContext,
       load,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFilterContext.filterHash, searchContext, searchConfig, load]);
 
   const loadPointData = useCallback(
-    ({ geohash }) => {
+    ({ geohash }: LoadPointDataParams) => {
       const latLon = Geohash.bounds(geohash);
       const N = latLon.ne.lat,
         S = latLon.sw.lat,
@@ -128,9 +169,13 @@ function Map({ style, className, mapStyleAttr }) {
         E = latLon.ne.lon;
       const wkt =
         'POLYGON' +
-        wktBBoxTemplate.replace(/N/g, N).replace(/S/g, S).replace(/W/g, W).replace(/E/g, E);
-      const predicate = {
-        type: 'and',
+        wktBBoxTemplate
+          .replace(/N/g, String(N))
+          .replace(/S/g, String(S))
+          .replace(/W/g, String(W))
+          .replace(/E/g, String(E));
+      const predicate: Predicate = {
+        type: PredicateType.And,
         predicates: [
           scope,
           filter2predicate(currentFilterContext.filter, searchConfig),
@@ -149,8 +194,8 @@ function Map({ style, className, mapStyleAttr }) {
   );
 
   const handleFeatureChange = useCallback(
-    ({ features }) => {
-      currentFilterContext.setFullField('geometry', features ?? []);
+    ({ features }: HandleFeatureChangeParams) => {
+      currentFilterContext.setFullField('geometry', features ?? [], []);
     },
     [currentFilterContext]
   );
@@ -182,7 +227,7 @@ function Map({ style, className, mapStyleAttr }) {
   }
 }
 
-const MapBoundary = (props) => {
+const MapBoundary = (props: MapProps) => {
   return (
     <ErrorBoundary type="BLOCK">
       <Map {...props} />

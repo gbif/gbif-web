@@ -36,16 +36,12 @@ import { useOrderedList } from '../../browseList/useOrderedList';
 import MapComponentML from './MapLibreMap';
 import MapComponentOL from './OpenlayersMap';
 import { getMapStyles, MapStyleConfig } from './standardMapStyles';
-import {
-  OccurrenceOverlay,
-  MapEvent,
-  PointData,
-  OccurrenceSearchData,
-  OccurrenceRecord,
-} from './types';
+import { OccurrenceOverlay, MapEvent, PointData } from './types';
 import { OccurrenceSearchMetadata } from '@/contexts/search';
 import ListBox from './ListBox';
 import { ProjectionName } from './mapTypes';
+import { OccurrencePointQuery } from '@/gql/graphql';
+import { QueryError } from '@/hooks/useQuery';
 
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
 const hasGeoLocation = 'geolocation' in navigator;
@@ -60,8 +56,8 @@ const defaultLayerOptions: LayerOptions = {
 
 interface MapProps {
   q?: string;
-  pointData?: OccurrenceSearchData;
-  pointError?: any;
+  pointData?: OccurrencePointQuery;
+  pointError?: QueryError;
   pointLoading?: boolean;
   loading?: boolean;
   total?: number;
@@ -71,7 +67,7 @@ interface MapProps {
   defaultMapSettings?: OccurrenceSearchMetadata['mapSettings'];
   style?: React.CSSProperties;
   className?: string;
-  mapProps?: React.CSSProperties;
+  mapStyleAttr?: React.CSSProperties;
   features?: string[];
   onFeaturesChange?: (params: { features: string[] }) => void;
 }
@@ -149,7 +145,7 @@ function MapPresentation({
   const { toast } = useToast();
   const [, setPreviewKey] = useEntityDrawer();
   const [mapLoading, setMapLoading] = useState<boolean>(false);
-  const items = React.useMemo<OccurrenceRecord[]>(
+  const items = React.useMemo(
     () => pointData?.occurrenceSearch?.documents?.results || [],
     [pointData]
   );
@@ -215,7 +211,7 @@ function MapPresentation({
   }, []);
 
   const updateList = useCallback(() => {
-    setOrderedList(items.map((item) => `o_${item.key}`));
+    setOrderedList(items.filter((x) => x != null).map((item) => `o_${item.key}`));
   }, [items, setOrderedList]);
 
   const selectPreview = useCallback(
@@ -377,7 +373,10 @@ function MapPresentation({
                 <ListBox
                   onCloseRequest={() => showList(false)}
                   onClick={({ index }: { index: number }) => {
-                    selectPreview(`${items[index].key}`);
+                    const itemKey = items[index]?.key;
+                    if (typeof itemKey !== 'undefined') {
+                      selectPreview(`${itemKey}`);
+                    }
                   }}
                   data={pointData}
                   error={pointError}

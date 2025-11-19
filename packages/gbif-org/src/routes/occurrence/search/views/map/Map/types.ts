@@ -37,40 +37,6 @@ export type OccurrenceOverlay = {
 };
 
 /**
- * Basic occurrence record structure
- */
-export type OccurrenceRecord = {
-  key: string;
-  classification?: {
-    taxonMatch?: {
-      usage?: {
-        canonicalName?: string;
-      };
-    };
-    usage?: {
-      name?: string;
-    };
-  };
-  eventDate?: string;
-  basisOfRecord?: string;
-  primaryImage?: {
-    identifier?: string;
-  };
-};
-
-/**
- * Occurrence search response structure
- */
-export type OccurrenceSearchData = {
-  occurrenceSearch?: {
-    documents?: {
-      results?: OccurrenceRecord[];
-      total?: number;
-    };
-  };
-};
-
-/**
  * Map position storage interface
  */
 export interface MapPosition {
