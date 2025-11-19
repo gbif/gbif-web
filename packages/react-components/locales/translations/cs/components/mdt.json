@@ -37,8 +37,12 @@
   "terms": "Podmínky",
   "termsServiceAgreement": "Přečetl jsem si <a>smlouvu o poskytování služeb</a> a souhlasím s těmito podmínkami pro hostovanou sadu nástrojů Metabarcoding Data Toolkit, kterou budu používat.",
   "termsCommitHelp": "Zavazuji se zajistit, aby držitelé dat, kteří se zabývají publikováním dat, dostali odpovídající pomoc, aby mohli publikovat v GBIF.",
+  "termsQuarterlyWebinars": "Budu se účastnit čtvrtletních webinářů a budu uživatele (držitelé dat) vybízet, aby se k nim připojili a poskytli zpětnou vazbu.",
+  "termsEnsureOnline": "Souhlasím s tím, že pomohu zajistit, aby všechny datové soubory zveřejněné na GBIF.org během pilotního projektu zůstaly online i po skončení pilotního projektu, pokud dojde k přesunu instalací nebo ukončení programu.",
+  "followingSubmission": "Po odeslání žádosti zkontrolujeme způsobilost, nakonfigurujeme instalaci a budeme vás kontaktovat, abychom domluvili úvodní schůzku.",
   "personName": "Jméno",
   "email": "E-mail",
   "participantLabel": "Účastník",
+  "participantDescription": "Vyberte prosím účastnický uzel, ke kterému se tato aplikace vztahuje.",
   "submitErrorTitle": "Nepodařilo se odeslat žádost"
 }
