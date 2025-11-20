@@ -10,11 +10,15 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { getLayerConfig } from './getLayerConfig';
 import { useMapPosition } from './useMapPosition';
-import { MapProps, PointData } from './types';
+import { MapProps, OccurrenceOverlay, PointData } from './types';
 import type { Feature } from 'geojson';
 import { AdHocMapProps } from './OpenlayersMap';
+import { Theme } from '@/config/theme/theme';
+import hash from 'object-hash';
 
 const PUBLIC_API_V2 = import.meta.env.PUBLIC_API_V2;
+const OCCURRENCE_LAYER_PREFIX = 'occurrences__';
+const OCCURRENCE_SOURCE_PREFIX = 'occurrences__source__';
 
 const mapStyles: Record<string, any> = {
   klokantech,
@@ -46,7 +50,17 @@ function Map(props: AdHocMapProps) {
 
 type State = {
   loadDiff: number;
+  currentOverlayIds: string[];
 };
+
+// Helper to get unique layer/source names for each overlay
+function getLayerName(overlayId: string): string {
+  return `${OCCURRENCE_LAYER_PREFIX}${overlayId}`;
+}
+
+function getSourceName(overlayId: string): string {
+  return `${OCCURRENCE_SOURCE_PREFIX}${overlayId}`;
+}
 
 type DrawEvent = {
   features: Feature[];
@@ -62,8 +76,8 @@ class MapLibreMap extends Component<MapProps, State> {
   constructor(props: MapProps) {
     super(props);
 
-    this.addLayer = this.addLayer.bind(this);
-    this.updateLayer = this.updateLayer.bind(this);
+    this.addLayers = this.addLayers.bind(this);
+    this.updateLayers = this.updateLayers.bind(this);
     this.onPointClick = this.onPointClick.bind(this);
     this.initializeDrawControl = this.initializeDrawControl.bind(this);
     this.updateFeatures = this.updateFeatures.bind(this);
@@ -72,7 +86,7 @@ class MapLibreMap extends Component<MapProps, State> {
     this.handleDrawDelete = this.handleDrawDelete.bind(this);
     this.handleDrawSelectionChange = this.handleDrawSelectionChange.bind(this);
     this.myRef = React.createRef();
-    this.state = { loadDiff: 0 };
+    this.state = { loadDiff: 0, currentOverlayIds: [] };
   }
 
   componentDidMount() {
@@ -93,7 +107,7 @@ class MapLibreMap extends Component<MapProps, State> {
     });
 
     this.map.on('load', () => {
-      this.addLayer();
+      this.addLayers();
       this.initializeDrawControl();
       this.updateFeatures();
     });
@@ -114,23 +128,33 @@ class MapLibreMap extends Component<MapProps, State> {
       this.map.off('draw.selectionchange', this.handleDrawSelectionChange);
       this.map.removeControl(this.draw);
     }
-    if (this.map) this.map.remove();
+
+    // Clean up all overlay layers
+    if (this.map) {
+      this.state.currentOverlayIds.forEach((overlayId) => {
+        const layerName = getLayerName(overlayId);
+        const sourceName = getSourceName(overlayId);
+        if (this.map!.getLayer(layerName)) {
+          this.map!.removeLayer(layerName);
+        }
+        if (this.map!.getSource(sourceName)) {
+          this.map!.removeSource(sourceName);
+        }
+      });
+      this.map.remove();
+    }
   }
 
   componentDidUpdate(prevProps: MapProps) {
-    const overlays = this.props.overlays || [];
-    const prevOverlays = prevProps.overlays || [];
-    const primaryOverlay = overlays[0];
-    const prevPrimaryOverlay = prevOverlays[0];
+    // Check if overlays have changed (added, removed, or modified)
+    if (this.mapLoaded) {
+      const overlaysChanged =
+        prevProps.overlays !== this.props.overlays && // quick check
+        hash(prevProps.overlays) !== hash(this.props.overlays); // more expensive check
 
-    if (
-      primaryOverlay &&
-      prevPrimaryOverlay &&
-      (prevPrimaryOverlay.q !== primaryOverlay.q ||
-        prevPrimaryOverlay.predicateHash !== primaryOverlay.predicateHash) &&
-      this.mapLoaded
-    ) {
-      this.updateLayer();
+      if (overlaysChanged) {
+        this.updateLayers({ prevOverlays: prevProps.overlays });
+      }
     }
     if (prevProps.latestEvent !== this.props.latestEvent && this.mapLoaded) {
       if (this.props.latestEvent?.type === 'ZOOM_IN') {
@@ -156,7 +180,7 @@ class MapLibreMap extends Component<MapProps, State> {
     }
     if (prevProps.mapConfig !== this.props.mapConfig && this.mapLoaded) {
       this.map?.setStyle(this.getStyle());
-      setTimeout(() => this.updateLayer(), 500);
+      setTimeout(() => this.updateLayers(), 500);
     }
 
     // Update features when they change (but only if not caused by our own draw events)
@@ -444,16 +468,48 @@ class MapLibreMap extends Component<MapProps, State> {
     return layerStyle || this.props.mapConfig?.basemapStyle;
   }
 
-  updateLayer() {
+  updateLayers({ prevOverlays }: { prevOverlays?: OccurrenceOverlay[] } = {}) {
     if (!this.map) return;
-    const layer = this.map.getLayer('occurrences');
-    if (layer) {
-      this.map.removeLayer('occurrences');
-      this.map.removeSource('occurrences');
-      this.addLayer();
-    } else {
-      this.addLayer();
-    }
+    console.log('Updating overlay layers...');
+
+    const overlays = this.props.overlays || [];
+    const currentIds = new Set(overlays.map((o) => o.id));
+    const prevIds = new Set(this.state.currentOverlayIds);
+
+    // Remove layers that are no longer in overlays
+    this.state.currentOverlayIds.forEach((overlayId) => {
+      if (!currentIds.has(overlayId)) {
+        const layerName = getLayerName(overlayId);
+        const sourceName = getSourceName(overlayId);
+        if (this.map!.getLayer(layerName)) {
+          this.map!.removeLayer(layerName);
+        }
+        if (this.map!.getSource(sourceName)) {
+          this.map!.removeSource(sourceName);
+        }
+      }
+    });
+
+    // Add or update layers
+    overlays.forEach((overlay, index) => {
+      const layerName = getLayerName(overlay.id);
+      const sourceName = getSourceName(overlay.id);
+
+      if (prevIds.has(overlay.id)) {
+        // Layer exists, update if needed
+        if (this.map!.getLayer(layerName)) {
+          this.map!.removeLayer(layerName);
+        }
+        if (this.map!.getSource(sourceName)) {
+          this.map!.removeSource(sourceName);
+        }
+      }
+
+      // Add the layer
+      this.addSingleLayer(overlay, index);
+    });
+
+    this.setState({ currentOverlayIds: overlays.map((o) => o.id) });
   }
 
   onPointClick(pointData: PointData) {
@@ -462,20 +518,51 @@ class MapLibreMap extends Component<MapProps, State> {
     }
   }
 
-  addLayer() {
+  getMergedTheme(overlay: OccurrenceOverlay): Partial<Theme> {
+    return {
+      ...this.props.theme,
+      ...(overlay.style?.colors && { mapDensityColors: overlay.style.colors }),
+    };
+  }
+
+  addSingleLayer(overlay: OccurrenceOverlay, zIndex: number) {
     if (!this.map) return;
+    console.log(`Adding overlay layer: ${overlay.id}`);
+
+    const layerName = getLayerName(overlay.id);
+
+    const tileString = `${PUBLIC_API_V2}/map/occurrence/adhoc/{z}/{x}/{y}.mvt?style=scaled.circles&mode=GEO_CENTROID&srs=EPSG%3A3857&squareSize=256&predicateHash=${
+      overlay.predicateHash ?? ''
+    }${overlay.q ? `&q=${overlay.q}` : ''}`;
+
+    // Get merged theme for this overlay
+    const layerTheme = this.getMergedTheme(overlay);
+
+    this.map.addLayer(
+      getLayerConfig({
+        tileString,
+        theme: layerTheme,
+        layerName,
+        // zIndex: 100 + zIndex, // Base z-index of 100, then add overlay index
+      })
+    );
+  }
+
+  addLayers() {
+    if (!this.map) return;
+    console.log('Adding overlay layers...');
 
     try {
       this.setState({ loadDiff: 0 });
 
       const overlays = this.props.overlays || [];
-      const primaryOverlay = overlays[0];
 
-      const tileString = `${PUBLIC_API_V2}/map/occurrence/adhoc/{z}/{x}/{y}.mvt?style=scaled.circles&mode=GEO_CENTROID&srs=EPSG%3A3857&squareSize=256&predicateHash=${
-        primaryOverlay?.predicateHash ?? ''
-      }${primaryOverlay?.q ? `&q=${primaryOverlay.q}` : ''}`;
+      // Add each overlay as a separate layer with proper z-index
+      overlays.forEach((overlay, index) => {
+        this.addSingleLayer(overlay, index);
+      });
 
-      this.map.addLayer(getLayerConfig({ tileString, theme: this.props.theme }));
+      this.setState({ currentOverlayIds: overlays.map((o) => o.id) });
 
       const map = this.map;
       if (!this.mapLoaded) {
@@ -493,32 +580,44 @@ class MapLibreMap extends Component<MapProps, State> {
         map.on('zoomend', saveCurrentPosition);
         map.on('moveend', saveCurrentPosition);
 
-        map.on('mouseenter', 'occurrences', () => {
-          // Don't handle point clicks when drawing tools are active
-          if (this.props.drawingTool) {
-            return;
-          }
-          map.getCanvas().style.cursor = 'pointer';
+        // Add event handlers for all overlay layers
+        const setupLayerEvents = (layerName: string) => {
+          map.on('mouseenter', layerName, () => {
+            // Don't handle point clicks when drawing tools are active
+            if (this.props.drawingTool) {
+              return;
+            }
+            map.getCanvas().style.cursor = 'pointer';
+          });
+
+          map.on('click', layerName, (e) => {
+            // Don't handle point clicks when drawing tools are active
+            if (this.props.drawingTool) {
+              return;
+            }
+
+            if (e.features && e.features[0]) {
+              this.onPointClick({
+                geohash: e.features[0].properties?.geohash,
+                count: e.features[0].properties?.count,
+              });
+            }
+            e.preventDefault();
+          });
+
+          map.on('mouseleave', layerName, function () {
+            map.getCanvas().style.cursor = '';
+          });
+        };
+
+        // Set up events for initial layers
+        const overlays = this.props.overlays || [];
+        overlays.forEach((overlay) => {
+          setupLayerEvents(getLayerName(overlay.id));
         });
 
-        map.on('click', 'occurrences', (e) => {
-          // Don't handle point clicks when drawing tools are active
-          if (this.props.drawingTool) {
-            return;
-          }
-
-          if (e.features && e.features[0]) {
-            this.onPointClick({
-              geohash: e.features[0].properties?.geohash,
-              count: e.features[0].properties?.count,
-            });
-          }
-          e.preventDefault();
-        });
-
-        map.on('mouseleave', 'occurrences', function () {
-          map.getCanvas().style.cursor = '';
-        });
+        // Store the setup function for use when layers are added later
+        // (this.map as any)._setupLayerEvents = setupLayerEvents;
 
         map.on('click', (clickEvent) => {
           if (!clickEvent._defaultPrevented && this.props.onMapClick) {

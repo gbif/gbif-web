@@ -157,7 +157,7 @@ function MapPresentation({
   const overlays = React.useMemo<OccurrenceOverlay[]>(() => {
     if (!predicateHash) return [];
 
-    return [
+    const layers = [
       {
         id: 'live',
         predicateHash: predicateHash,
@@ -165,21 +165,32 @@ function MapPresentation({
       },
       {
         id: 'something',
-        predicateHash: '-1312810364',
+        predicateHash: '-2115594654',
         q: q,
         style: {
           colors: ['#4343d3'],
         },
       },
-      // {
-      //   id: 'triangle',
-      //   predicateHash: '-1312791797',
-      //   q: q,
-      //   style: {
-      //     colors: ['#800080', '#bf40bf', '#d580d5', '#e6a6e6', '#f2c2f2'],
-      //   },
-      // },
+      {
+        id: 'triangle',
+        predicateHash: '1225306695',
+        q: q,
+        style: {
+          colors: ['#800080', '#bf40bf', '#d580d5', '#e6a6e6', '#f2c2f2'],
+        },
+      },
+      {
+        id: 'greenish',
+        predicateHash: '-416261897',
+        q: q,
+        style: {
+          // subtle green gradients
+          colors: ['#d0f0c0', '#a0d080', '#70b040', '#408000', '#206000'],
+        },
+      },
     ];
+    // shuffle ordering randomly to test multiple overlays
+    return layers.sort(() => Math.random() - 0.5);
   }, [predicateHash, q]);
 
   const updateLoading = useCallback((loading: boolean) => {
