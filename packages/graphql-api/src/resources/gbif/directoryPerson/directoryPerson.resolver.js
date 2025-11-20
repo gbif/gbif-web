@@ -58,6 +58,8 @@ export default {
             }),
           );
         }),
+    directoryContact: (parent, { id }, { dataSources }) =>
+      dataSources.directoryPersonAPI.getDirectoryContactByKey({ key: id }),
   },
   DirectoryPersonRole: {
     Person: ({ personId }, args, { dataSources }) =>

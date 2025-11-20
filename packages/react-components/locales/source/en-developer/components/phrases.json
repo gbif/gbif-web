@@ -69,5 +69,8 @@
   "submit": "Submit",
   "pleaseTryAgainLater": "Please try again later",
   "weWillBeInTouchSoon": "We will be in touch soon",
-  "clickToSelect": "Click to select"
+  "clickToSelect": "Click to select",
+  "all": "All",
+  "clear": "Clear",
+  "search": "Search"
 }

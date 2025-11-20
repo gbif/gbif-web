@@ -18,6 +18,16 @@ export default {
       }),
     nodeSteeringGroup: (parent, args, { dataSources }) =>
       dataSources.participantAPI.getNsgReport(),
+    budgetCommittee: (parent, args, { dataSources }) =>
+      dataSources.participantAPI.getBudgetCommitteeReport(),
+    executiveCommittee: (parent, args, { dataSources }) =>
+      dataSources.participantAPI.getExecutiveCommitteeReport(),
+    scienceCommittee: (parent, args, { dataSources }) =>
+      dataSources.participantAPI.getScienceCommitteeReport(),
+    nodeManagersCommittee: (parent, args, { dataSources }) =>
+      dataSources.participantAPI.getNodeManagersCommitteeReport(),
+    secretariat: (parent, args, { dataSources }) =>
+      dataSources.participantAPI.getSecretariatReport(),
   },
   NsgMember: {
     contact: ({ id: personId }, args, { dataSources }) => {
@@ -42,7 +52,6 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response);
           const list = response?.results.filter((x) =>
             x.identifiers.some(
               (y) =>
@@ -57,6 +66,19 @@ export default {
       //   });
       // }
       // return null;
+    },
+    people: ({ people }, { id }) => {
+      const flattened = people.map((x) => ({
+        ...x,
+        ...x.person,
+        termStart: x.term?.start,
+      }));
+      if (id) {
+        return flattened.filter(
+          (x) => x.person.id?.toString() === id.toString(),
+        );
+      }
+      return flattened;
     },
   },
 };

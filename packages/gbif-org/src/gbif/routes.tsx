@@ -5,6 +5,7 @@ import { notImplementedRoutes } from '@/notImplementedRoutes';
 import { applyReactRouterPlugins } from '@/reactRouterPlugins';
 import { analyticsRoute } from '@/routes/analytics';
 import { becomeAPublisherRoute } from '@/routes/custom/becomeAPublisher';
+import { contactUsRoute } from '@/routes/custom/contact-us';
 import { occurrenceSnapshotsRoute } from '@/routes/custom/occurrenceSnapshots';
 import { faqRoute } from '@/routes/custom/faq';
 import { gbifNetworkRoute } from '@/routes/custom/gbifNetwork/gbifNetwork';
@@ -51,6 +52,7 @@ export function createGbifRoutes(config: Config) {
               occurrenceSnapshotsRoute,
               // custom pages
               becomeAPublisherRoute,
+              contactUsRoute,
               confirmEndorsmentRoute,
               gbifNetworkRoute,
               mdtRoute,

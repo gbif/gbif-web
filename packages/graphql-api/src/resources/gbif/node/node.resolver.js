@@ -30,7 +30,7 @@ export default {
     installation: ({ key }, args, { dataSources }) => {
       return dataSources.nodeAPI.getInstallations({ key, query: args });
     },
-    contacts: async (node, { type }, { dataSources, locale }) => {
+    contacts: async (node, { type, id }, { dataSources, locale }) => {
       let extendedContacts = node.contacts;
 
       try {
@@ -58,10 +58,18 @@ export default {
 
       // filter contacts on type (array of strings)
       if (type) {
-        return extendedContacts.filter((contact) =>
+        extendedContacts = extendedContacts.filter((contact) =>
           type.includes(contact.type),
         );
       }
+
+      // Filter contacts on id (string)
+      if (id) {
+        extendedContacts = extendedContacts.filter(
+          (contact) => contact.key?.toString() === id.toString(),
+        );
+      }
+
       return extendedContacts;
     },
     participant: (node, args, { dataSources, locale }) => {
