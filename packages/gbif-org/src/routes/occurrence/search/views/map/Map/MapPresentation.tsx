@@ -36,7 +36,7 @@ import { useOrderedList } from '../../browseList/useOrderedList';
 import MapComponentML from './MapLibreMap';
 import MapComponentOL from './OpenlayersMap';
 import { getMapStyles, MapStyleConfig } from './standardMapStyles';
-import { OccurrenceOverlay, MapEvent, PointData } from './types';
+import { OccurrenceOverlay, MapEvent, PointClickData } from './types';
 import { OccurrenceSearchMetadata } from '@/contexts/search';
 import ListBox from './ListBox';
 import { ProjectionName } from './types';
@@ -62,7 +62,7 @@ export interface MapPresentationProps {
   loading?: boolean;
   total?: number;
   registerPredicate?: () => void;
-  loadPointData?: (data: PointData) => void;
+  loadPointData?: (data: PointClickData) => void;
   defaultMapSettings?: OccurrenceSearchMetadata['mapSettings'];
   style?: React.CSSProperties;
   className?: string;
@@ -486,7 +486,7 @@ function MapPresentation({
             onLoading={updateLoading}
             onTileError={failedTileHandler}
             onMapClick={() => showList(false)}
-            onPointClick={(data: PointData) => {
+            onPointClick={(data: PointClickData) => {
               showList(true);
               if (loadPointData) {
                 loadPointData(data);

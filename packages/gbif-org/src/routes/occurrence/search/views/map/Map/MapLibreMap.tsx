@@ -14,7 +14,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { getLayerConfig } from './getLayerConfig';
 import { useMapPosition } from './useMapPosition';
-import { MapProps, OccurrenceOverlay, PointData } from './types';
+import { MapProps, OccurrenceOverlay, PointClickData } from './types';
 import type { Feature } from 'geojson';
 import { AdHocMapProps } from './OpenlayersMap';
 import { Theme } from '@/config/theme/theme';
@@ -509,7 +509,7 @@ class MapLibreMap extends Component<MapProps> {
     this.addLayers();
   }
 
-  onPointClick(pointData: PointData) {
+  onPointClick(pointData: PointClickData) {
     if (this.props.onPointClick) {
       this.props.onPointClick(pointData);
     }

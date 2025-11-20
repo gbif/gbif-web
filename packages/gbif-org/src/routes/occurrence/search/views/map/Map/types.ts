@@ -19,9 +19,10 @@ export type MapEvent =
 /**
  * Data structure for occurrence point clicks on the map
  */
-export type PointData = {
+export type PointClickData = {
   geohash: string;
   count: number;
+  layerId: string;
 };
 
 /**
@@ -69,7 +70,7 @@ export interface MapInteractionProps {
   /** Callback when map is clicked (outside of features) */
   onMapClick?: () => void;
   /** Callback when an occurrence point is clicked */
-  onPointClick?: (point: PointData) => void;
+  onPointClick?: (point: PointClickData) => void;
   /** Callback for loading state changes */
   onLoading?: (loading: boolean) => void;
 }

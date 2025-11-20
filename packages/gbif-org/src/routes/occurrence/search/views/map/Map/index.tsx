@@ -17,6 +17,7 @@ import { CSSProperties, useCallback, useContext, useEffect, useMemo } from 'reac
 import { searchConfig } from '../../../searchConfig';
 import MapPresentation, { MapPresentationProps } from './MapPresentation';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
+import { PointClickData } from './types';
 
 const OCCURRENCE_MAP = /* GraphQL */ `
   query occurrenceMap($q: String, $predicate: Predicate) {
@@ -74,10 +75,6 @@ interface LoadHashAndCountParams {
     keepDataWhileLoading: boolean;
     variables: OccurrenceMapQueryVariables;
   }) => void;
-}
-
-interface LoadPointDataParams {
-  geohash: string;
 }
 
 interface HandleFeatureChangeParams {
@@ -161,7 +158,8 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
   }, [currentFilterContext.filterHash, searchContext, searchConfig, load]);
 
   const loadPointData = useCallback(
-    ({ geohash }: LoadPointDataParams) => {
+    ({ geohash, layerId }: PointClickData) => {
+      console.log(layerId);
       const latLon = Geohash.bounds(geohash);
       const N = latLon.ne.lat,
         S = latLon.sw.lat,

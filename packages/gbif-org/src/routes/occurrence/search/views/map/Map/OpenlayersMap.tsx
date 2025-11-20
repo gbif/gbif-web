@@ -4,7 +4,7 @@ import { getBoundingBox } from '@/components/maps/openlayers/helpers/getBounding
 import { useMapPosition } from './useMapPosition';
 import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
 import { useConfig } from '@/config/config';
-import { PointData, OccurrenceOverlay, MapProps } from './types';
+import { PointClickData, OccurrenceOverlay, MapProps } from './types';
 import { pixelRatio } from '@/utils/pixelRatio';
 import { getFeatureAsWKT, getFeaturesFromWktList } from '@/utils/wktHelpers';
 import { Vector as VectorLayer } from 'ol/layer';
@@ -574,7 +574,7 @@ class Map extends Component<MapProps, State> {
     });
   }
 
-  onPointClick(pointData: PointData) {
+  onPointClick(pointData: PointClickData) {
     if (this.props.onPointClick) {
       this.props.onPointClick(pointData);
     }
@@ -726,11 +726,13 @@ class Map extends Component<MapProps, State> {
             if (!foundFeature && features.length) {
               foundFeature = true;
               const feature = features[0];
+              const layerName = layer.get('name');
+              const layerId = layerName.replace(OCCURRENCE_LAYER_PREFIX, '');
               const properties = feature.getProperties();
               pointClickHandler({
                 geohash: properties.geohash,
                 count: properties.total,
-                // layerName: layer.get('name'), // TODO, we need to send along a layername so we now which filter to use when searching for occurrences in the parent component
+                layerId,
               });
             }
           });
