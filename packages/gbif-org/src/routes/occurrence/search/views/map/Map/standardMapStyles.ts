@@ -1,7 +1,7 @@
 import { pixelRatio } from '@/utils/pixelRatio';
 import MapComponentML from './MapLibreMap';
 import MapComponentOL from './OpenlayersMap';
-import type { MapStyleConfig, MapApiKeys } from './mapTypes';
+import type { MapStyleConfig, MapApiKeys } from './types';
 
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
 

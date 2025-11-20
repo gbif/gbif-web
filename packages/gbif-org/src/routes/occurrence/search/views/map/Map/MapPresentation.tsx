@@ -39,7 +39,7 @@ import { getMapStyles, MapStyleConfig } from './standardMapStyles';
 import { OccurrenceOverlay, MapEvent, PointData } from './types';
 import { OccurrenceSearchMetadata } from '@/contexts/search';
 import ListBox from './ListBox';
-import { ProjectionName } from './mapTypes';
+import { ProjectionName } from './types';
 import { OccurrencePointQuery } from '@/gql/graphql';
 import { QueryError } from '@/hooks/useQuery';
 
