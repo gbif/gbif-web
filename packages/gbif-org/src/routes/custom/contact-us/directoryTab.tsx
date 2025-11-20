@@ -14,7 +14,8 @@ import { AssociateParticipantsTable } from './tabels/associateParticipants';
 import { ArticleContainer } from '@/routes/resource/key/components/articleContainer';
 import { SearchInputPresentation } from '@/routes/omniSearch/SearchInput';
 import { useState } from 'react';
-import { DirectoryContactDialog } from './directoryContactDialog';
+import { DirectoryContactDialogContent } from './directoryContactDialog';
+import { Dialog } from '@radix-ui/react-dialog';
 
 const GROUPS = [
   'voting',
@@ -51,7 +52,9 @@ export function DirectoryTab() {
 
   return (
     <ArticleContainer className="g-bg-slate-100">
-      <DirectoryContactDialog personId={personId} onClose={() => setPersonId(undefined)} />
+      <Dialog open={!!personId} onOpenChange={() => setPersonId(undefined)}>
+        <DirectoryContactDialogContent personId={personId} />
+      </Dialog>
 
       <ArticleTextContainer>
         <div className="g-mb-4">

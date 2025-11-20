@@ -119,6 +119,12 @@ export default {
 
       return directoryPerson?.institutionName;
     },
+    profilePicture: async (contact, args, { dataSources }) => {
+      return dataSources.directoryPersonAPI.getProfilePicture({
+        key: contact.key,
+        query: args,
+      });
+    },
   },
 };
 

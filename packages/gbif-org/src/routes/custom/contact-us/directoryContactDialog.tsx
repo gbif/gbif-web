@@ -1,5 +1,5 @@
 import { ContactAction, ContactEmail, ContactTelephone } from '@/components/contact';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Skeleton } from '@/components/ui/skeleton';
 import { DirectoryContactQuery, DirectoryContactQueryVariables, NodeType } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
@@ -53,10 +53,9 @@ const DIRECTORY_CONTACT_QUERY = /* GraphQL */ `
 
 type Props = {
   personId?: string | null;
-  onClose: () => void;
 };
 
-export function DirectoryContactDialog({ personId, onClose }: Props) {
+export function DirectoryContactDialogContent({ personId }: Props) {
   const { data, loading, load } = useQuery<DirectoryContactQuery, DirectoryContactQueryVariables>(
     DIRECTORY_CONTACT_QUERY,
     {
@@ -76,139 +75,137 @@ export function DirectoryContactDialog({ personId, onClose }: Props) {
   }, [data?.directoryContact]);
 
   return (
-    <Dialog open={!!personId} onOpenChange={onClose}>
-      <DialogContent className="g-max-h-[90dvh] g-overflow-y-auto g-bg-white g-max-w-[calc(100dvw-4rem)] g-p-4 md:g-p-10 md:g-max-w-lg">
-        {loading && !person && <DirectoryContactDialogSkeleton />}
-        {!loading && person && (
-          <>
-            <VisuallyHidden>
-              <DialogHeader>
-                <DialogTitle>{person.name}</DialogTitle>
-              </DialogHeader>
-            </VisuallyHidden>
+    <DialogContent className="g-max-h-[90dvh] g-overflow-y-auto g-bg-white g-max-w-[calc(100dvw-4rem)] g-p-4 md:g-p-10 md:g-max-w-lg">
+      {loading && !person && <DirectoryContactDialogSkeleton />}
+      {!loading && person && (
+        <>
+          <VisuallyHidden>
+            <DialogHeader>
+              <DialogTitle>{person.name}</DialogTitle>
+            </DialogHeader>
+          </VisuallyHidden>
 
-            <div className="g-flex g-flex-row g-items-center g-flex-wrap md:g-flex-nowrap g-gap-4">
-              {person.profilePicture ? (
-                <img
-                  src={`data:image/jpeg;base64,${person.profilePicture}`}
-                  alt={person.name}
-                  className="g-w-28 g-h-28 g-rounded-full g-object-cover"
-                />
-              ) : (
-                <div className="g-h-28 g-aspect-square g-rounded-full g-bg-slate-300 g-hidden md:g-flex g-items-center g-justify-center">
-                  <MdPerson className="g-w-10 g-h-10 g-text-slate-500" />
-                </div>
-              )}
-              <div>
-                <h2 className="g-text-xl g-font-bold">{person.name}</h2>
-                {person.institutionName && (
-                  <p className="g-text-base g-text-gray-700">{person.institutionName}</p>
-                )}
-              </div>
-            </div>
-
-            <div className="g-w-full g-space-y-2">
-              <Separator>
-                <FormattedMessage id="directory.details" />
-              </Separator>
-
-              {(person.address || person.countryCode) && (
-                <ContactAction>
-                  <div className="g-flex">
-                    <MdLocationOn className="g-flex-none g-mt-0.5" />
-                    <address
-                      className="g-text-slate-500 g-not-italic"
-                      style={{ whiteSpace: 'pre-wrap' }}
-                    >
-                      {person.address}
-                      {person.address && person.countryCode && <br />}
-                      {person.countryCode && (
-                        <FormattedMessage id={`enums.countryCode.${person.countryCode}`} />
-                      )}
-                    </address>
-                  </div>
-                </ContactAction>
-              )}
-              {person.orcidId && (
-                <ContactAction>
-                  <a href={person.orcidId} className="g-flex g-items-center g-text-inherit g-gap-4">
-                    <img
-                      style={{ pointerEvents: 'none' }}
-                      src="https://www.gbif.org/img/orcid_16x16.gif"
-                      alt="ORCID"
-                    />
-                    <span>{person.orcidId}</span>
-                  </a>
-                </ContactAction>
-              )}
-              {person.email && <ContactEmail email={person.email} />}
-              {person.phone && <ContactTelephone tel={person.phone} />}
-            </div>
-
-            {person.roles.length > 0 && (
-              <div>
-                <Separator>
-                  <FormattedMessage id="directory.roles" />
-                </Separator>
-
-                <ul className="g-space-y-4 g-mt-4">
-                  {person.roles.map((role) => (
-                    <li key={role.role}>
-                      <div>
-                        <span className="g-block g-leading-none">
-                          <FormattedMessage
-                            id={`enums.gbifRole.${role.role}`}
-                            defaultMessage={role.role}
-                          />
-                        </span>
-                        {role.jobTitle && (
-                          <span className="g-block g-text-sm g-italic g-text-gray-500">
-                            - {role.jobTitle}
-                          </span>
-                        )}
-                        {role.countryCode && (
-                          <DynamicLink
-                            className="g-text-sm g-underline g-text-primary-500"
-                            to={`/country/${role.countryCode}/summary`}
-                          >
-                            <FormattedMessage id={`enums.countryCode.${role.countryCode}`} />
-                          </DynamicLink>
-                        )}
-                        {role.participantId && (
-                          <DynamicLink
-                            className="g-text-sm g-underline g-text-primary-500"
-                            to={`/participant/${role.participantId}`}
-                          >
-                            {role.participantName}
-                          </DynamicLink>
-                        )}
-                        {role.termStart && (
-                          <span className="g-block g-text-sm g-text-gray-500">
-                            <FormattedMessage
-                              id="directory.sinceDate"
-                              values={{
-                                DATE: (
-                                  <FormattedDate
-                                    value={role.termStart}
-                                    year="numeric"
-                                    month="long"
-                                    day="numeric"
-                                  />
-                                ),
-                              }}
-                            />
-                          </span>
-                        )}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+          <div className="g-flex g-flex-row g-items-center g-flex-wrap md:g-flex-nowrap g-gap-4">
+            {person.profilePicture ? (
+              <img
+                src={`data:image/jpeg;base64,${person.profilePicture}`}
+                alt={person.name}
+                className="g-w-28 g-h-28 g-rounded-full g-object-cover"
+              />
+            ) : (
+              <div className="g-h-28 g-aspect-square g-rounded-full g-bg-slate-300 g-hidden md:g-flex g-items-center g-justify-center">
+                <MdPerson className="g-w-10 g-h-10 g-text-slate-500" />
               </div>
             )}
-          </>
-        )}
-      </DialogContent>
-    </Dialog>
+            <div>
+              <h2 className="g-text-xl g-font-bold">{person.name}</h2>
+              {person.institutionName && (
+                <p className="g-text-base g-text-gray-700">{person.institutionName}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="g-w-full g-space-y-2">
+            <Separator>
+              <FormattedMessage id="directory.details" />
+            </Separator>
+
+            {(person.address || person.countryCode) && (
+              <ContactAction>
+                <div className="g-flex">
+                  <MdLocationOn className="g-flex-none g-mt-0.5" />
+                  <address
+                    className="g-text-slate-500 g-not-italic"
+                    style={{ whiteSpace: 'pre-wrap' }}
+                  >
+                    {person.address}
+                    {person.address && person.countryCode && <br />}
+                    {person.countryCode && (
+                      <FormattedMessage id={`enums.countryCode.${person.countryCode}`} />
+                    )}
+                  </address>
+                </div>
+              </ContactAction>
+            )}
+            {person.orcidId && (
+              <ContactAction>
+                <a href={person.orcidId} className="g-flex g-items-center g-text-inherit g-gap-4">
+                  <img
+                    style={{ pointerEvents: 'none' }}
+                    src="https://www.gbif.org/img/orcid_16x16.gif"
+                    alt="ORCID"
+                  />
+                  <span>{person.orcidId}</span>
+                </a>
+              </ContactAction>
+            )}
+            {person.email && <ContactEmail email={person.email} />}
+            {person.phone && <ContactTelephone tel={person.phone} />}
+          </div>
+
+          {person.roles.length > 0 && (
+            <div>
+              <Separator>
+                <FormattedMessage id="directory.roles" />
+              </Separator>
+
+              <ul className="g-space-y-4 g-mt-4">
+                {person.roles.map((role) => (
+                  <li key={role.role}>
+                    <div>
+                      <span className="g-block g-leading-none">
+                        <FormattedMessage
+                          id={`enums.gbifRole.${role.role}`}
+                          defaultMessage={role.role}
+                        />
+                      </span>
+                      {role.jobTitle && (
+                        <span className="g-block g-text-sm g-italic g-text-gray-500">
+                          - {role.jobTitle}
+                        </span>
+                      )}
+                      {role.countryCode && (
+                        <DynamicLink
+                          className="g-text-sm g-underline g-text-primary-500"
+                          to={`/country/${role.countryCode}/summary`}
+                        >
+                          <FormattedMessage id={`enums.countryCode.${role.countryCode}`} />
+                        </DynamicLink>
+                      )}
+                      {role.participantId && (
+                        <DynamicLink
+                          className="g-text-sm g-underline g-text-primary-500"
+                          to={`/participant/${role.participantId}`}
+                        >
+                          {role.participantName}
+                        </DynamicLink>
+                      )}
+                      {role.termStart && (
+                        <span className="g-block g-text-sm g-text-gray-500">
+                          <FormattedMessage
+                            id="directory.sinceDate"
+                            values={{
+                              DATE: (
+                                <FormattedDate
+                                  value={role.termStart}
+                                  year="numeric"
+                                  month="long"
+                                  day="numeric"
+                                />
+                              ),
+                            }}
+                          />
+                        </span>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </>
+      )}
+    </DialogContent>
   );
 }
 
