@@ -309,40 +309,50 @@ function MapPresentation({
     setDrawingTool((current) => (current === 'SELECT' ? null : 'SELECT'));
   }, []);
 
-  const menuLayerOptions = layerOptions?.[projection]?.map((layerId) => {
+  const menuLayerOptions = layerOptions?.[projection]?.map((currentLayerId) => {
     const layerStyle = getStyle({
       styles: basemapOptions || {},
       projection,
-      type: layerId,
+      type: currentLayerId,
       lookup: styleLookup,
     });
     const labelKey = layerStyle?.labelKey;
+    const isSelected = currentLayerId === layerId;
     return (
       <DropdownMenuItem
-        key={layerId}
+        key={currentLayerId}
         onSelect={(event) => {
-          setLayerId(layerId);
-          sessionStorage.setItem('defaultOccurrenceLayer', layerId);
+          setLayerId(currentLayerId);
+          sessionStorage.setItem('defaultOccurrenceLayer', currentLayerId);
           event.preventDefault();
         }}
       >
-        <FormattedMessage id={labelKey || 'unknown'} defaultMessage={labelKey} />
+        <span className="g-flex g-items-center g-gap-2">
+          <span className="g-w-4">{isSelected ? '✓' : ''}</span>
+          <FormattedMessage id={labelKey || 'unknown'} defaultMessage={labelKey} />
+        </span>
       </DropdownMenuItem>
     );
   });
 
-  const projectionMenuOptions = projectionOptions.map((proj: ProjectionName) => (
-    <DropdownMenuItem
-      key={proj}
-      onSelect={(event) => {
-        setProjection(proj);
-        sessionStorage.setItem('defaultOccurrenceProjection', proj);
-        event.preventDefault();
-      }}
-    >
-      <FormattedMessage id={`map.projections.${proj}`} defaultMessage={proj} />
-    </DropdownMenuItem>
-  ));
+  const projectionMenuOptions = projectionOptions.map((proj: ProjectionName) => {
+    const isSelected = proj === projection;
+    return (
+      <DropdownMenuItem
+        key={proj}
+        onSelect={(event) => {
+          setProjection(proj);
+          sessionStorage.setItem('defaultOccurrenceProjection', proj);
+          event.preventDefault();
+        }}
+      >
+        <span className="g-flex g-items-center g-gap-2">
+          <span className="g-w-4">{isSelected ? '✓' : ''}</span>
+          <FormattedMessage id={`map.projections.${proj}`} defaultMessage={proj} />
+        </span>
+      </DropdownMenuItem>
+    );
+  });
 
   const mapConfiguration = getStyle({
     styles: basemapOptions || {},
