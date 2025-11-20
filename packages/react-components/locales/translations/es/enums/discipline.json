@@ -52,5 +52,17 @@
   "AGRICULTURAL_SOIL_SCIENCES": "Edafología agrícola",
   "AGRICULTURAL_WOOD_SCIENCE_AND_PULP_TECHNOLOGY": "Ciencia de la madera agrícola y tecnología de la pulpa",
   "HEALTH": "Salud",
+  "HEALTH_BIOMEDICAL_SCIENCE": "Salud ciencia biomédia",
+  "HEALTH_ENVIRONMENTAL_HEALTH": "Salud salud ambiental",
+  "HEALTH_EPIDEMIOLOGY_PUBLIC_HEALTH": "Salud epidemiología salud pública",
+  "HEALTH_GENETICS_GENOMICS": "Salud genética genómica",
+  "HEALTH_MICROBIOLOGY_BACTERIOLOGY_VIROLOGY": "Salud microbiología bacteriología virología",
+  "HEALTH_NEUROSCIENCES_AND_NEUROBIOLOGY": "Salud neurociencias y neurobiología",
+  "HEALTH_NUTRITION_SCIENCES": "Salud ciencias de la nutrición",
+  "HEALTH_PATHOLOGY_HUMAN": "Salud patología humana",
+  "HEALTH_PHARMACEUTICAL_MEDICINAL_SCIENCES": "Salud ciencias farmacéuticas medicinales",
+  "HEALTH_PHARMACOLOGY_HUMAN_AND_ANIMAL": "Salud farmacología humana y animal",
+  "HEALTH_TOXICOLOGY": "Salud toxicología",
+  "HEALTH_VETERINARY_SCIENCES": "Salud ciencias veterinarias",
   "MATERIAL": "Material"
 }
