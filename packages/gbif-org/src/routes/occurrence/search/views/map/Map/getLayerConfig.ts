@@ -1,20 +1,24 @@
 import { Theme } from '@/config/theme/theme';
+import { AddLayerObject } from 'maplibre-gl';
 
 type Args = {
   tileString: string;
-  theme: Theme;
+  theme: Partial<Theme>;
+  layerName: string;
 };
 
-export function getLayerConfig({ tileString, theme }: Args) {
-  const mapDensityColors = theme?.mapDensityColors ?? [
-    '#fed976',
-    '#fd8d3c',
-    '#F7642E',
-    '#f03b20',
-    '#bd0026',
+export function getLayerConfig({ tileString, theme, layerName }: Args) {
+  const mapDensityColors = [
+    ...(theme?.mapDensityColors ?? ['#fed976', '#fd8d3c', '#fd8d3c', '#f03b20', '#bd0026']),
   ];
-  return {
-    id: 'occurrences',
+  if (mapDensityColors.length < 5) {
+    // Ensure there are at least 5 colors
+    while (mapDensityColors.length < 5) {
+      mapDensityColors.push(mapDensityColors[mapDensityColors.length - 1]);
+    }
+  }
+  const config: AddLayerObject = {
+    id: layerName,
     type: 'circle',
     source: {
       type: 'vector',
@@ -41,17 +45,17 @@ export function getLayerConfig({ tileString, theme }: Args) {
         type: 'interval',
         stops: [0, 10, 100, 1000, 10000].map((x, i) => [x, mapDensityColors[i]]),
       },
-      'circle-opacity': {
-        property: 'total',
-        type: 'interval',
-        stops: [
-          [0, 1],
-          [10, 0.8],
-          [100, 0.8],
-          [1000, 0.7],
-          [10000, 0.7],
-        ],
-      },
+      // 'circle-opacity': {
+      //   property: 'total',
+      //   type: 'interval',
+      //   stops: [
+      //     [0, 1],
+      //     [10, 0.8],
+      //     [100, 0.8],
+      //     [1000, 0.7],
+      //     [10000, 0.7],
+      //   ],
+      // },
       'circle-stroke-color': mapDensityColors[2],
       'circle-stroke-width': {
         property: 'total',
@@ -65,4 +69,5 @@ export function getLayerConfig({ tileString, theme }: Args) {
       },
     },
   };
+  return config;
 }
