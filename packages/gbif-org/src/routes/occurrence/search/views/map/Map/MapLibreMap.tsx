@@ -590,6 +590,7 @@ class MapLibreMap extends Component<MapProps> {
               this.onPointClick({
                 geohash: e.features[0].properties?.geohash,
                 count: e.features[0].properties?.count,
+                layerId: layerName.replace(OCCURRENCE_LAYER_PREFIX, ''),
               });
             }
             e.preventDefault();

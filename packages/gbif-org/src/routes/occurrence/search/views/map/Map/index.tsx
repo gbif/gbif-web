@@ -159,7 +159,6 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
 
   const loadPointData = useCallback(
     ({ geohash, layerId }: PointClickData) => {
-      console.log(layerId);
       const latLon = Geohash.bounds(geohash);
       const N = latLon.ne.lat,
         S = latLon.sw.lat,
