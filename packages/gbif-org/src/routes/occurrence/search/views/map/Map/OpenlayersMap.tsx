@@ -31,6 +31,7 @@ import hash from 'object-hash';
 import { unByKey } from 'ol/Observable';
 import { EventsKey } from 'ol/events';
 
+const OCCURRENCE_LAYER_PREFIX = 'occurrences__';
 const OCCURRENCE_LAYERS_START_Z_INDEX = 100;
 
 const interactions = olInteraction.defaults({
@@ -65,7 +66,6 @@ class Map extends Component<MapProps, State> {
   myRef: React.RefObject<HTMLDivElement>;
   map?: OlMap;
   mapLoaded = false;
-  currentOverlayNames: string[] = [];
   filterVectorLayer?: VectorLayer<VectorSource>;
   drawingInteractions: DrawingInteractions = null;
   moveendKey: EventsKey | null = null;
@@ -527,23 +527,21 @@ class Map extends Component<MapProps, State> {
     const newOverlays = this.props.overlays || [];
 
     // iterate over existing layers. If there is any existing layers with IDs that aren't in the new list, then remove.
-    this.map.getAllLayers().forEach((layer) => {
-      const layerName = layer.get('name');
-      if (layerName && layerName.startsWith(OCCURRENCE_LAYER_PREFIX)) {
-        const overlayId = layerName.replace(OCCURRENCE_LAYER_PREFIX, '');
-        const stillExists = newOverlays.find((o) => o.id === overlayId);
-        if (!stillExists) {
-          this.map!.removeLayer(layer);
-        }
+    const occurrenceLayers = this.getOccurrenceLayers();
+    occurrenceLayers.forEach((layer) => {
+      const layerName = layer.get('name') as string | undefined;
+      if (!layerName) return;
+      const overlayId = layerName.replace(OCCURRENCE_LAYER_PREFIX, '');
+      const stillExists = newOverlays.find((o) => o.id === overlayId);
+      if (!stillExists) {
+        this.map!.removeLayer(layer);
       }
     });
-    this.currentOverlayNames = [];
 
     // Iterate over the new layers. for each layer, get the existing if there is one.
     this.setState({ loadDiff: 0 }); // first reset loadDiff
     newOverlays.forEach((overlay, index) => {
       const layerName = getLayerName(overlay);
-      this.currentOverlayNames.push(layerName);
       const existingLayer = this.map!.getAllLayers().find(
         (layer) => layer.get('name') === layerName
       ) as VectorTileLayer | undefined;
@@ -599,7 +597,6 @@ class Map extends Component<MapProps, State> {
   getLayer(overlay: OccurrenceOverlay): VectorTileLayer {
     const currentProjection = projections[this.props.mapConfig?.projection || 'EPSG_3031'];
     const layerName = getLayerName(overlay);
-    this.currentOverlayNames.push(layerName);
 
     const filter = getFilterFromOverlay(overlay);
 
@@ -641,13 +638,10 @@ class Map extends Component<MapProps, State> {
     if (!this.map) return;
     const overlays = this.props.overlays || [];
     // first remove existing occurrence layers
-    this.map.getAllLayers().forEach((layer) => {
-      const layerName = layer.get('name');
-      if (layerName && layerName.startsWith(OCCURRENCE_LAYER_PREFIX)) {
-        this.map!.removeLayer(layer);
-      }
+    const occurrenceLayers = this.getOccurrenceLayers();
+    occurrenceLayers.forEach((layer) => {
+      this.map!.removeLayer(layer);
     });
-    this.currentOverlayNames = [];
     this.setState({ loadDiff: 0 });
 
     // Add each overlay as a separate layer
@@ -682,6 +676,19 @@ class Map extends Component<MapProps, State> {
     //     map.getViewport().style.cursor = hit ? 'pointer' : '';
     //   }
     // });
+  }
+
+  getOccurrenceLayers(): VectorTileLayer[] {
+    const map = this.map;
+    if (!map) return [];
+    const occurrenceLayers = map
+      .getLayers()
+      .getArray()
+      .filter((l) => {
+        const name = l.get('name');
+        return name && name.startsWith(OCCURRENCE_LAYER_PREFIX);
+      });
+    return occurrenceLayers as VectorTileLayer[];
   }
 
   addMapEvents() {
@@ -722,27 +729,22 @@ class Map extends Component<MapProps, State> {
       // Check all occurrence layers for features at click point
       let foundFeature = false;
 
-      for (const layerName of this.currentOverlayNames) {
-        const layers = map
-          .getLayers()
-          .getArray()
-          .filter((l) => l.get('name') === layerName);
+      const occurrenceLayers = this.getOccurrenceLayers();
 
-        for (const layer of layers) {
-          if (layer instanceof VectorTileLayer) {
-            layer.getFeatures(event.pixel).then(function (features) {
-              if (!foundFeature && features.length) {
-                foundFeature = true;
-                const feature = features[0];
-                const properties = feature.getProperties();
-                pointClickHandler({
-                  geohash: properties.geohash,
-                  count: properties.total,
-                  // layerName: layerName, // TODO, we need to send along a layername so we now which filter to use when searching for occurrences in the parent component
-                });
-              }
-            });
-          }
+      for (const layer of occurrenceLayers) {
+        if (layer instanceof VectorTileLayer) {
+          layer.getFeatures(event.pixel).then(function (features) {
+            if (!foundFeature && features.length) {
+              foundFeature = true;
+              const feature = features[0];
+              const properties = feature.getProperties();
+              pointClickHandler({
+                geohash: properties.geohash,
+                count: properties.total,
+                // layerName: layer.get('name'), // TODO, we need to send along a layername so we now which filter to use when searching for occurrences in the parent component
+              });
+            }
+          });
         }
       }
 
@@ -764,7 +766,6 @@ class Map extends Component<MapProps, State> {
   }
 }
 
-const OCCURRENCE_LAYER_PREFIX = 'occurrences__';
 function getLayerName(overlay: OccurrenceOverlay): string {
   return `${OCCURRENCE_LAYER_PREFIX}${overlay.id}`;
 }

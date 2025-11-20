@@ -10,7 +10,7 @@ const thresholds = function (total: number) {
   return 4;
 };
 
-function getDensityPoint(theme?: Theme) {
+function getDensityPoint(theme?: Partial<Theme>): Style[] {
   const densityColours = [
     ...(theme?.mapDensityColors ?? ['#fed976', '#fd8d3c', '#fd8d3c', '#f03b20', '#bd0026']),
   ];
@@ -70,7 +70,7 @@ function getDensityPoint(theme?: Theme) {
   return densityPoints;
 }
 
-export default function (siteTheme?: Theme): StyleFunction {
+export default function (siteTheme?: Partial<Theme>): StyleFunction {
   const densityPoints = getDensityPoint(siteTheme);
   return function (feature) {
     const total = thresholds(feature.get('total'));
