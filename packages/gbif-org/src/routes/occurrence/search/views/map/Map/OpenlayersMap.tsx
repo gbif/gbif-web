@@ -652,17 +652,6 @@ class Map extends Component<MapProps, State> {
       this.map!.addLayer(occurrenceLayer);
     });
 
-    // // log how many layers are on the map
-    // console.log('layers on map after addLayers: ', this.map.getLayers().getArray().length);
-    // // what is the names of them
-    // console.log(
-    //   'layer names: ',
-    //   this.map
-    //     .getLayers()
-    //     .getArray()
-    //     .map((l) => l.get('name'))
-    // );
-
     this.addMapEvents();
 
     // the performance of this is really bad. It is a shame, but I think it is better to have it disabled until we can find a better solution. Probably updating to a newer version of openlayers will do it.

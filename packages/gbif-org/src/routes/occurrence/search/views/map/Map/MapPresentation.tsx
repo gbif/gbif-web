@@ -336,7 +336,6 @@ function MapPresentation({
 
   const notPolarProjection = ['PLATE_CAREE', 'MERCATOR'].indexOf(projection) >= 0;
 
-  console.log(overlays);
   return (
     <>
       <div
