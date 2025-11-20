@@ -534,7 +534,7 @@
   },
   "occurrenceCount": {
     "name": "Počet výskytů",
-    "count": "",
+    "count": "{num, plural, one {výskyt} few {výskyty} many {výskytů} other {výskytů}}",
     "description": "Počet výskytů události"
   },
   "eventType": {
