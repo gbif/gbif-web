@@ -162,7 +162,7 @@ export type Config = Endpoints & {
       apiKeys?: ApiKeysType;
       mapComponents: {
         OpenlayersMap: React.ComponentType<AdHocMapProps>;
-        MapboxMap: React.ComponentType<AdHocMapProps>;
+        MapLibreMap: React.ComponentType<AdHocMapProps>;
       };
     }) => Record<
       string,

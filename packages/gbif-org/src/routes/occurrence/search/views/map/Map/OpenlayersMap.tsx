@@ -583,7 +583,7 @@ class Map extends Component<MapProps, State> {
   getMergedTheme(overlay: OccurrenceOverlay): Partial<Theme> {
     return {
       ...this.props.theme,
-      ...(overlay.style?.colors && { mapDensityColors: overlay.style.colors }),
+      ...(overlay.style || {}),
     };
   }
 

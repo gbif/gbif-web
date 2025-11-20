@@ -134,7 +134,7 @@ class MapLibreMap extends Component<MapProps> {
         hash(prevProps.overlays) !== hash(this.props.overlays); // more expensive check
 
       if (overlaysChanged) {
-        this.updateLayers({ prevOverlays: prevProps.overlays || [] });
+        this.updateLayers();
       }
     }
     if (prevProps.latestEvent !== this.props.latestEvent && this.mapLoaded) {
@@ -457,7 +457,7 @@ class MapLibreMap extends Component<MapProps> {
     return style.layers.filter((layer) => layer.id.startsWith(OCCURRENCE_LAYER_PREFIX));
   }
 
-  updateLayers({ prevOverlays = [] }: { prevOverlays?: OccurrenceOverlay[] } = {}) {
+  updateLayers() {
     const map = this.map;
     if (!map) return;
 
@@ -518,7 +518,7 @@ class MapLibreMap extends Component<MapProps> {
   getMergedTheme(overlay: OccurrenceOverlay): Partial<Theme> {
     return {
       ...this.props.theme,
-      ...(overlay.style?.colors && { mapDensityColors: overlay.style.colors }),
+      ...(overlay.style || {}),
     };
   }
 
@@ -550,8 +550,8 @@ class MapLibreMap extends Component<MapProps> {
       const overlays = this.props.overlays || [];
 
       // Add each overlay as a separate layer with proper z-index
-      overlays.forEach((overlay, index) => {
-        this.addSingleLayer(overlay, index);
+      overlays.forEach((overlay) => {
+        this.addSingleLayer(overlay);
       });
 
       const map = this.map;

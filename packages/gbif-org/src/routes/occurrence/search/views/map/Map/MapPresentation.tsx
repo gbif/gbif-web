@@ -54,7 +54,7 @@ const defaultLayerOptions: LayerOptions = {
   MERCATOR: ['BRIGHT', 'NATURAL'],
 };
 
-interface MapProps {
+export interface MapPresentationProps {
   overlays?: OccurrenceOverlay[];
   pointData?: OccurrencePointQuery;
   pointError?: QueryError;
@@ -105,7 +105,7 @@ function MapPresentation({
   mapStyleAttr,
   features,
   onFeaturesChange,
-}: MapProps) {
+}: MapPresentationProps) {
   const { formatMessage } = useIntl();
   const config = useConfig();
   const { locale } = useI18n();
@@ -210,7 +210,7 @@ function MapPresentation({
         language: config?.maps?.locale || 'en',
         mapComponents: {
           OpenlayersMap: MapComponentOL,
-          MapLibreMap: () => MapComponentML,
+          MapLibreMap: MapComponentML,
         },
       });
     }

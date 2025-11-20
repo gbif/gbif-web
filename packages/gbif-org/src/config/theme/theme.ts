@@ -66,6 +66,8 @@ export interface Theme {
   darkPaperBackground: string;
   paperBackgroundElevated: string;
   mapDensityColors: string[];
+  mapPointOpacities: number[];
+  mapPointSizes: number[];
   chartColors: string[];
   iucnColors?: { [key: string]: string }; //custom colors for iucn categories
   // _cssVariables: { [key: string]: any };

@@ -36,8 +36,6 @@ export type OccurrenceOverlay = {
   q?: string;
   /** Custom styling for this overlay */
   style?: OverlayStyle;
-  /** Z-index for layer ordering (higher = on top) */
-  zIndex?: number;
 };
 
 /**
@@ -158,11 +156,11 @@ export interface MapStyleConfig {
  */
 export interface OverlayStyle {
   /** Custom color palette for density visualization */
-  colors?: string[];
+  mapDensityColors: string[];
   /** Opacity for the layer (0-1) */
-  opacity?: number;
-  /** Circle radius stops for different density levels */
-  radiusStops?: [number, number][];
+  mapPointOpacities: number[];
+  /** Circle radius thresholds for different density levels */
+  mapPointSizes: number[];
 }
 
 /**

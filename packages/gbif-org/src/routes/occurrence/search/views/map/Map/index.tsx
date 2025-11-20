@@ -15,7 +15,7 @@ import useQuery from '@/hooks/useQuery';
 import Geohash from 'latlon-geohash';
 import { CSSProperties, useCallback, useContext, useEffect, useMemo } from 'react';
 import { searchConfig } from '../../../searchConfig';
-import MapPresentation from './MapPresentation';
+import MapPresentation, { MapPresentationProps } from './MapPresentation';
 import { FilterConfigType } from '@/dataManagement/filterAdapter/filter2predicate';
 
 const OCCURRENCE_MAP = /* GraphQL */ `
@@ -202,12 +202,9 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
 
   const q = currentFilterContext.filter?.must?.q?.[0];
 
-  const options = {
+  const options: MapPresentationProps = {
     loading,
-    error,
     total: data?.occurrenceSearch?.documents?.total,
-    rootPredicate: scope,
-    predicateConfig: searchConfig,
     loadPointData,
     registerPredicate,
     pointData,
@@ -218,15 +215,24 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
         id: 'allOccurrences',
         q,
         predicateHash: data?.occurrenceSearch?.metaPredicate,
+        // style: {
+        //   // 5 colors in a gradient from purple to orange
+        //   mapDensityColors: ['#54278f'],
+        //   mapPointOpacities: [0.9, 0.9, 0.9, 0.8, 0.7],
+        //   mapPointSizes: [3, 4, 5, 7, 9],
+        // },
       },
     ],
     defaultMapSettings: mapSettings,
     onFeaturesChange: handleFeatureChange,
     features,
+    style,
+    className,
+    mapStyleAttr,
   };
 
   if (typeof window !== 'undefined') {
-    return <MapPresentation {...options} {...{ style, className, mapStyleAttr }} />;
+    return <MapPresentation {...options} />;
   } else {
     return <h1>Map placeholder</h1>;
   }
