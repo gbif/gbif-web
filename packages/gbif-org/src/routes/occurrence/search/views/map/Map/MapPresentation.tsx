@@ -117,7 +117,7 @@ function MapPresentation({
   const [projectionOptions] = useState<ProjectionName[]>(supportedProjections);
 
   let defaultProjection =
-    (sessionStorage.getItem('defaultOccurrenceProjection') as ProjectionName) || // TODO: is this cheating Daniel?
+    (sessionStorage.getItem('defaultOccurrenceProjection') as ProjectionName) ||
     config?.maps?.mapStyles?.defaultProjection ||
     supportedProjections[0];
   if (!supportedProjections.includes(defaultProjection)) {
