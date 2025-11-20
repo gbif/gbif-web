@@ -139,6 +139,7 @@
     "@types/dompurify": "^3.0.5",
     "@types/express": "^4.17.20",
     "@types/latlon-geohash": "^2.0.4",
+    "@types/mapbox__mapbox-gl-draw": "^1.4.9",
     "@types/node": "^20.8.10",
     "@types/object-hash": "^3.0.6",
     "@types/proj4": "^2.5.6",

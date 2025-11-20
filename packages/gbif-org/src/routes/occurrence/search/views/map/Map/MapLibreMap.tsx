@@ -3,21 +3,24 @@ import { ErrorMessage } from '@/components/errorMessage';
 import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
 import { isWebglSupported } from '@/utils/isWebglSupported';
 import { wktToGeoJSON, geoJSONToWKT } from '@/utils/wktHelpers';
-import maplibre from 'maplibre-gl';
+import maplibre, { Map as MapLibreMapInstance, ScaleControl } from 'maplibre-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import StaticMode from '@mapbox/mapbox-gl-draw-static-mode';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { getLayerConfig } from './getLayerConfig';
 import { useMapPosition } from './useMapPosition';
+import { MapProps, PointData } from './types';
+import type { Feature } from 'geojson';
+import { AdHocMapProps } from './OpenlayersMap';
 
 const PUBLIC_API_V2 = import.meta.env.PUBLIC_API_V2;
 
-const mapStyles = {
+const mapStyles: Record<string, any> = {
   klokantech,
 };
 
-function Map(props) {
+function Map(props: AdHocMapProps) {
   const mapPosition = useMapPosition(props.defaultMapSettings);
 
   return (
@@ -41,8 +44,22 @@ function Map(props) {
   );
 }
 
-class MapLibreMap extends Component {
-  constructor(props) {
+type State = {
+  loadDiff: number;
+};
+
+type DrawEvent = {
+  features: Feature[];
+};
+
+class MapLibreMap extends Component<MapProps, State> {
+  myRef: React.RefObject<HTMLDivElement>;
+  map?: MapLibreMapInstance;
+  mapLoaded = false;
+  draw: MapboxDraw | null = null;
+  isInternalChange = false;
+
+  constructor(props: MapProps) {
     super(props);
 
     this.addLayer = this.addLayer.bind(this);
@@ -56,8 +73,6 @@ class MapLibreMap extends Component {
     this.handleDrawSelectionChange = this.handleDrawSelectionChange.bind(this);
     this.myRef = React.createRef();
     this.state = { loadDiff: 0 };
-    this.draw = null;
-    this.isInternalChange = false;
   }
 
   componentDidMount() {
@@ -71,7 +86,7 @@ class MapLibreMap extends Component {
     const zoom = position.zoom - 1;
 
     this.map = new maplibre.Map({
-      container: this.myRef.current,
+      container: this.myRef.current!,
       style: this.getStyle(),
       zoom,
       center: [position.lng, position.lat],
@@ -84,7 +99,7 @@ class MapLibreMap extends Component {
     });
 
     // Add scale control to bottom-left corner
-    const scale = new maplibre.ScaleControl({
+    const scale = new ScaleControl({
       maxWidth: 100,
       unit: 'metric',
     });
@@ -102,17 +117,28 @@ class MapLibreMap extends Component {
     if (this.map) this.map.remove();
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.query !== this.props.query && this.mapLoaded) {
+  componentDidUpdate(prevProps: MapProps) {
+    const overlays = this.props.overlays || [];
+    const prevOverlays = prevProps.overlays || [];
+    const primaryOverlay = overlays[0];
+    const prevPrimaryOverlay = prevOverlays[0];
+
+    if (
+      primaryOverlay &&
+      prevPrimaryOverlay &&
+      (prevPrimaryOverlay.q !== primaryOverlay.q ||
+        prevPrimaryOverlay.predicateHash !== primaryOverlay.predicateHash) &&
+      this.mapLoaded
+    ) {
       this.updateLayer();
     }
     if (prevProps.latestEvent !== this.props.latestEvent && this.mapLoaded) {
       if (this.props.latestEvent?.type === 'ZOOM_IN') {
-        this.map.zoomIn();
+        this.map?.zoomIn();
       } else if (this.props.latestEvent?.type === 'ZOOM_OUT') {
-        this.map.zoomOut();
+        this.map?.zoomOut();
       } else if (this.props.latestEvent?.type === 'ZOOM_TO') {
-        this.map.flyTo({
+        this.map?.flyTo({
           center: [this.props.latestEvent.lng, this.props.latestEvent.lat],
           zoom: this.props.latestEvent.zoom,
           essential: true,
@@ -126,10 +152,10 @@ class MapLibreMap extends Component {
         prevProps.containerWidth !== this.props.containerWidth) &&
       this.mapLoaded
     ) {
-      this.map.resize();
+      this.map?.resize();
     }
     if (prevProps.mapConfig !== this.props.mapConfig && this.mapLoaded) {
-      this.map.setStyle(this.getStyle());
+      this.map?.setStyle(this.getStyle());
       setTimeout(() => this.updateLayer(), 500);
     }
 
@@ -153,7 +179,7 @@ class MapLibreMap extends Component {
     if (!this.map || this.draw) return;
 
     // Register custom modes
-    const modes = MapboxDraw.modes;
+    const modes = MapboxDraw.modes as any; // Else we get warnings since we are adding to it
     modes.static = StaticMode;
 
     // Initialize MapboxDraw
@@ -267,20 +293,22 @@ class MapLibreMap extends Component {
     features.forEach((wktString) => {
       const feature = wktToGeoJSON(wktString);
       if (feature) {
-        this.draw.add(feature);
+        this.draw!.add(feature);
       }
     });
 
     // After adding features, ensure we're in the correct mode based on current tool
     // If no tool is active, use static mode (completely non-interactive)
     this.draw.changeMode('static');
-    this.props.onDrawingToolChange(null);
+    if (this.props.onDrawingToolChange) {
+      this.props.onDrawingToolChange(null);
+    }
   }
 
   updateDrawingMode() {
     if (!this.draw) return;
 
-    const { drawingTool } = this.props;
+    const { drawingTool, onDrawingToolChange } = this.props;
 
     // Change the draw mode based on the active tool
     if (drawingTool === 'DRAW') {
@@ -288,14 +316,17 @@ class MapLibreMap extends Component {
     } else if (drawingTool === 'SELECT') {
       // Only allow direct_select (vertex editing) when SELECT tool is active
       const features = this.draw.getAll().features;
-      if (features.length > 0) {
+      if (features.length > 0 && !!features[0]?.id) {
+        // this gives a typescript error, but seems to be inline with the API docs: https://github.com/mapbox/mapbox-gl-draw/blob/main/docs/API.md#changemodemode-string-options-object-draw
         this.draw.changeMode('direct_select', {
-          featureId: features[0].id,
+          featureId: features[0]?.id,
         });
       } else {
         // No features to select, stay in static mode
         this.draw.changeMode('static');
-        this.props.onDrawingToolChange(null);
+        if (onDrawingToolChange) {
+          onDrawingToolChange(null);
+        }
       }
     } else if (drawingTool === 'DELETE') {
       // For DELETE tool, use simple_select so user can click to select what to delete
@@ -305,7 +336,9 @@ class MapLibreMap extends Component {
       } else {
         // No features to select, stay in static mode
         this.draw.changeMode('static');
-        this.props.onDrawingToolChange(null);
+        if (onDrawingToolChange) {
+          onDrawingToolChange(null);
+        }
       }
     } else {
       // No tool active - use static mode (completely non-interactive, display only)
@@ -314,7 +347,7 @@ class MapLibreMap extends Component {
     }
   }
 
-  handleDrawCreate(e) {
+  handleDrawCreate() {
     this.isInternalChange = true;
     this.notifyFeaturesChanged();
 
@@ -323,33 +356,40 @@ class MapLibreMap extends Component {
     setTimeout(() => {
       if (!this.draw) return;
       this.draw.changeMode('static');
-      this.props.onDrawingToolChange(null);
+      if (this.props.onDrawingToolChange) {
+        this.props.onDrawingToolChange(null);
+      }
     }, 0);
   }
 
-  handleDrawUpdate(e) {
+  handleDrawUpdate() {
     this.isInternalChange = true;
     this.notifyFeaturesChanged();
   }
 
-  handleDrawDelete(e) {
+  handleDrawDelete() {
     // This may be triggered by MapboxDraw's built-in delete operations
     // (e.g., pressing Delete/Backspace key while a feature is selected)
     this.isInternalChange = true;
     this.notifyFeaturesChanged();
+    if (!this.draw) return;
     const features = this.draw.getAll().features;
     if (features.length === 0) {
       this.draw.changeMode('static');
-      this.props.onDrawingToolChange(null);
+      if (this.props.onDrawingToolChange) {
+        this.props.onDrawingToolChange(null);
+      }
     }
   }
 
-  handleDrawSelectionChange(e) {
+  handleDrawSelectionChange(e: DrawEvent) {
     // If we're in DELETE mode and a feature was selected, delete it immediately
-    if (this.props.drawingTool === 'DELETE' && e.features.length > 0) {
+    if (this.props.drawingTool === 'DELETE' && e.features.length > 0 && this.draw) {
       const featureIds = e.features.map((f) => f.id);
       featureIds.forEach((id) => {
-        this.draw.delete(id);
+        if (id !== undefined) {
+          this.draw!.delete(id as string);
+        }
       });
 
       // Mark as internal change and notify
@@ -362,7 +402,9 @@ class MapLibreMap extends Component {
         const features = this.draw.getAll().features;
         if (features.length === 0) {
           this.draw.changeMode('static');
-          this.props.onDrawingToolChange(null);
+          if (this.props.onDrawingToolChange) {
+            this.props.onDrawingToolChange(null);
+          }
         }
       }, 0);
     }
@@ -374,7 +416,7 @@ class MapLibreMap extends Component {
     const allFeatures = this.draw.getAll();
     const wktStrings = allFeatures.features
       .map((feature) => geoJSONToWKT(feature))
-      .filter((wkt) => wkt !== null);
+      .filter((wkt): wkt is string => wkt !== null);
 
     this.props.onFeaturesChange({ features: wktStrings });
   }
@@ -382,7 +424,7 @@ class MapLibreMap extends Component {
   exploreArea() {
     // get the current view of the map as a bounding box and send it to the parent component
     const { listener } = this.props;
-    if (!listener || typeof listener !== 'function') return;
+    if (!listener || typeof listener !== 'function' || !this.map) return;
     // get extent of the map view
     const bounds = this.map.getBounds();
     listener({
@@ -396,13 +438,14 @@ class MapLibreMap extends Component {
     });
   }
 
-  getStyle() {
+  getStyle(): string | any {
     const basemapStyle = this.props.mapConfig?.basemapStyle || 'klokantech';
     const layerStyle = mapStyles[basemapStyle];
     return layerStyle || this.props.mapConfig?.basemapStyle;
   }
 
   updateLayer() {
+    if (!this.map) return;
     const layer = this.map.getLayer('occurrences');
     if (layer) {
       this.map.removeLayer('occurrences');
@@ -413,16 +456,24 @@ class MapLibreMap extends Component {
     }
   }
 
-  onPointClick(pointData) {
-    this.props.onPointClick(pointData);
+  onPointClick(pointData: PointData) {
+    if (this.props.onPointClick) {
+      this.props.onPointClick(pointData);
+    }
   }
 
   addLayer() {
+    if (!this.map) return;
+
     try {
-      this.state.loadDiff = 0;
-      var tileString = `${PUBLIC_API_V2}/map/occurrence/adhoc/{z}/{x}/{y}.mvt?style=scaled.circles&mode=GEO_CENTROID&srs=EPSG%3A3857&squareSize=256&predicateHash=${
-        this.props.predicateHash ?? ''
-      }&${this.props.q ? `&q=${this.props.q} ` : ''}`;
+      this.setState({ loadDiff: 0 });
+
+      const overlays = this.props.overlays || [];
+      const primaryOverlay = overlays[0];
+
+      const tileString = `${PUBLIC_API_V2}/map/occurrence/adhoc/{z}/{x}/{y}.mvt?style=scaled.circles&mode=GEO_CENTROID&srs=EPSG%3A3857&squareSize=256&predicateHash=${
+        primaryOverlay?.predicateHash ?? ''
+      }${primaryOverlay?.q ? `&q=${primaryOverlay.q}` : ''}`;
 
       this.map.addLayer(getLayerConfig({ tileString, theme: this.props.theme }));
 
@@ -442,7 +493,7 @@ class MapLibreMap extends Component {
         map.on('zoomend', saveCurrentPosition);
         map.on('moveend', saveCurrentPosition);
 
-        map.on('mouseenter', 'occurrences', (e) => {
+        map.on('mouseenter', 'occurrences', () => {
           // Don't handle point clicks when drawing tools are active
           if (this.props.drawingTool) {
             return;
@@ -456,10 +507,12 @@ class MapLibreMap extends Component {
             return;
           }
 
-          this.onPointClick({
-            geohash: e.features[0].properties.geohash,
-            count: e.features[0].properties.count,
-          });
+          if (e.features && e.features[0]) {
+            this.onPointClick({
+              geohash: e.features[0].properties?.geohash,
+              count: e.features[0].properties?.count,
+            });
+          }
           e.preventDefault();
         });
 
@@ -467,24 +520,30 @@ class MapLibreMap extends Component {
           map.getCanvas().style.cursor = '';
         });
 
-        map.on('click', (e) => {
-          if (!e._defaultPrevented && this.props.onMapClick) this.props.onMapClick();
+        map.on('click', (clickEvent) => {
+          if (!clickEvent._defaultPrevented && this.props.onMapClick) {
+            this.props.onMapClick();
+          }
         });
 
-        map.on('error', (e) => {
-          if (e?.error?.status === 400 && this.props.registerPredicate) {
+        map.on('error', (errorEvent) => {
+          if (errorEvent?.error?.status === 400 && this.props.registerPredicate) {
             this.props.registerPredicate();
-          } else if (e.type === 'error' && this.props.onTileError) {
+          } else if (errorEvent.type === 'error' && this.props.onTileError) {
             this.props.onTileError();
           }
         });
 
-        map.on('dataloading', (e) => {
-          this.props.onLoading(true);
+        map.on('dataloading', () => {
+          if (this.props.onLoading) {
+            this.props.onLoading(true);
+          }
         });
 
-        map.on('idle', (e) => {
-          this.props.onLoading(false);
+        map.on('idle', () => {
+          if (this.props.onLoading) {
+            this.props.onLoading(false);
+          }
         });
       }
       this.mapLoaded = true;
