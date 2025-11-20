@@ -1,5 +1,6 @@
 import { ContactAction, ContactEmail, ContactTelephone } from '@/components/contact';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Skeleton } from '@/components/ui/skeleton';
 import { DirectoryContactQuery, DirectoryContactQueryVariables, NodeType } from '@/gql/graphql';
 import useQuery from '@/hooks/useQuery';
 import { DynamicLink } from '@/reactRouterPlugins';
@@ -56,7 +57,7 @@ type Props = {
 };
 
 export function DirectoryContactDialog({ personId, onClose }: Props) {
-  const { data, load } = useQuery<DirectoryContactQuery, DirectoryContactQueryVariables>(
+  const { data, loading, load } = useQuery<DirectoryContactQuery, DirectoryContactQueryVariables>(
     DIRECTORY_CONTACT_QUERY,
     {
       lazyLoad: true,
@@ -77,7 +78,8 @@ export function DirectoryContactDialog({ personId, onClose }: Props) {
   return (
     <Dialog open={!!personId} onOpenChange={onClose}>
       <DialogContent className="g-max-h-[90dvh] g-overflow-y-auto g-bg-white g-max-w-[calc(100dvw-4rem)] g-p-4 md:g-p-10 md:g-max-w-lg">
-        {person && (
+        {loading && !person && <DirectoryContactDialogSkeleton />}
+        {!loading && person && (
           <>
             <VisuallyHidden>
               <DialogHeader>
@@ -326,6 +328,61 @@ function prepareData(data: NonNullable<DirectoryContactQuery['directoryContact']
   };
 
   return result;
+}
+
+function DirectoryContactDialogSkeleton() {
+  return (
+    <>
+      <VisuallyHidden>
+        <DialogHeader>
+          <DialogTitle>
+            <FormattedMessage id="phrases.loading" />
+          </DialogTitle>
+        </DialogHeader>
+      </VisuallyHidden>
+
+      <div className="g-flex g-flex-row g-items-center g-flex-wrap md:g-flex-nowrap g-gap-4">
+        <Skeleton className="g-w-28 g-h-28 g-rounded-full" />
+        <div className="g-flex-1 g-space-y-2">
+          <Skeleton className="g-h-7 g-w-48" />
+          <Skeleton className="g-h-5 g-w-64" />
+        </div>
+      </div>
+
+      <div className="g-w-full g-space-y-2">
+        <Separator>
+          <Skeleton className="g-h-4 g-w-20 g-inline-block" />
+        </Separator>
+
+        <div className="g-space-y-2">
+          <div className="g-flex g-items-start g-gap-2">
+            <Skeleton className="g-w-5 g-h-5 g-mt-0.5 g-flex-none" />
+            <Skeleton className="g-h-12 g-flex-1" />
+          </div>
+          <Skeleton className="g-h-6 g-w-64" />
+          <Skeleton className="g-h-6 g-w-56" />
+        </div>
+      </div>
+
+      <div className="g-w-full">
+        <Separator>
+          <Skeleton className="g-h-4 g-w-16 g-inline-block" />
+        </Separator>
+
+        <ul className="g-space-y-4 g-mt-4">
+          {Array.from({ length: 2 }).map((_, index) => (
+            <li key={index}>
+              <div className="g-space-y-2">
+                <Skeleton className="g-h-5 g-w-48" />
+                <Skeleton className="g-h-4 g-w-64" />
+                <Skeleton className="g-h-4 g-w-40" />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
+  );
 }
 
 function Separator({ className, children }: { className?: string; children: React.ReactNode }) {
