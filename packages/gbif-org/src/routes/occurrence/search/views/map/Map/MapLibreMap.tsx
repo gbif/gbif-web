@@ -3,7 +3,11 @@ import { ErrorMessage } from '@/components/errorMessage';
 import klokantech from '@/components/maps/openlayers/styles/klokantech.json';
 import { isWebglSupported } from '@/utils/isWebglSupported';
 import { wktToGeoJSON, geoJSONToWKT } from '@/utils/wktHelpers';
-import maplibre, { Map as MapLibreMapInstance, ScaleControl } from 'maplibre-gl';
+import maplibre, {
+  LayerSpecification,
+  Map as MapLibreMapInstance,
+  ScaleControl,
+} from 'maplibre-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import StaticMode from '@mapbox/mapbox-gl-draw-static-mode';
 import React, { Component } from 'react';
@@ -18,7 +22,6 @@ import hash from 'object-hash';
 
 const PUBLIC_API_V2 = import.meta.env.PUBLIC_API_V2;
 const OCCURRENCE_LAYER_PREFIX = 'occurrences__';
-const OCCURRENCE_SOURCE_PREFIX = 'occurrences__source__';
 
 const mapStyles: Record<string, any> = {
   klokantech,
@@ -48,25 +51,16 @@ function Map(props: AdHocMapProps) {
   );
 }
 
-type State = {
-  loadDiff: number;
-  currentOverlayIds: string[];
-};
-
 // Helper to get unique layer/source names for each overlay
 function getLayerName(overlayId: string): string {
   return `${OCCURRENCE_LAYER_PREFIX}${overlayId}`;
-}
-
-function getSourceName(overlayId: string): string {
-  return `${OCCURRENCE_SOURCE_PREFIX}${overlayId}`;
 }
 
 type DrawEvent = {
   features: Feature[];
 };
 
-class MapLibreMap extends Component<MapProps, State> {
+class MapLibreMap extends Component<MapProps> {
   myRef: React.RefObject<HTMLDivElement>;
   map?: MapLibreMapInstance;
   mapLoaded = false;
@@ -86,7 +80,6 @@ class MapLibreMap extends Component<MapProps, State> {
     this.handleDrawDelete = this.handleDrawDelete.bind(this);
     this.handleDrawSelectionChange = this.handleDrawSelectionChange.bind(this);
     this.myRef = React.createRef();
-    this.state = { loadDiff: 0, currentOverlayIds: [] };
   }
 
   componentDidMount() {
@@ -121,26 +114,14 @@ class MapLibreMap extends Component<MapProps, State> {
   }
 
   componentWillUnmount() {
-    if (this.draw && this.map) {
-      this.map.off('draw.create', this.handleDrawCreate);
-      this.map.off('draw.update', this.handleDrawUpdate);
-      this.map.off('draw.delete', this.handleDrawDelete);
-      this.map.off('draw.selectionchange', this.handleDrawSelectionChange);
-      this.map.removeControl(this.draw);
-    }
-
-    // Clean up all overlay layers
+    // if (this.draw && this.map) {
+    //   this.map.off('draw.create', this.handleDrawCreate);
+    //   this.map.off('draw.update', this.handleDrawUpdate);
+    //   this.map.off('draw.delete', this.handleDrawDelete);
+    //   this.map.off('draw.selectionchange', this.handleDrawSelectionChange);
+    //   this.map.removeControl(this.draw);
+    // }
     if (this.map) {
-      this.state.currentOverlayIds.forEach((overlayId) => {
-        const layerName = getLayerName(overlayId);
-        const sourceName = getSourceName(overlayId);
-        if (this.map!.getLayer(layerName)) {
-          this.map!.removeLayer(layerName);
-        }
-        if (this.map!.getSource(sourceName)) {
-          this.map!.removeSource(sourceName);
-        }
-      });
       this.map.remove();
     }
   }
@@ -153,7 +134,7 @@ class MapLibreMap extends Component<MapProps, State> {
         hash(prevProps.overlays) !== hash(this.props.overlays); // more expensive check
 
       if (overlaysChanged) {
-        this.updateLayers({ prevOverlays: prevProps.overlays });
+        this.updateLayers({ prevOverlays: prevProps.overlays || [] });
       }
     }
     if (prevProps.latestEvent !== this.props.latestEvent && this.mapLoaded) {
@@ -468,48 +449,64 @@ class MapLibreMap extends Component<MapProps, State> {
     return layerStyle || this.props.mapConfig?.basemapStyle;
   }
 
-  updateLayers({ prevOverlays }: { prevOverlays?: OccurrenceOverlay[] } = {}) {
-    if (!this.map) return;
-    console.log('Updating overlay layers...');
+  getOccurrenceLayers(): LayerSpecification[] {
+    const map = this.map;
+    if (!map) return [];
 
-    const overlays = this.props.overlays || [];
-    const currentIds = new Set(overlays.map((o) => o.id));
-    const prevIds = new Set(this.state.currentOverlayIds);
+    const style = map.getStyle();
+    return style.layers.filter((layer) => layer.id.startsWith(OCCURRENCE_LAYER_PREFIX));
+  }
 
-    // Remove layers that are no longer in overlays
-    this.state.currentOverlayIds.forEach((overlayId) => {
-      if (!currentIds.has(overlayId)) {
-        const layerName = getLayerName(overlayId);
-        const sourceName = getSourceName(overlayId);
-        if (this.map!.getLayer(layerName)) {
-          this.map!.removeLayer(layerName);
-        }
+  updateLayers({ prevOverlays = [] }: { prevOverlays?: OccurrenceOverlay[] } = {}) {
+    const map = this.map;
+    if (!map) return;
+
+    // const newOverlays = this.props.overlays || [];
+    // const occurrenceLayers = this.getOccurrenceLayers();
+    // // Remove layers that are no longer in overlays
+    // occurrenceLayers.forEach((layer) => {
+    //   const layerName = layer.id;
+    //   const overlayId = layerName.replace(OCCURRENCE_LAYER_PREFIX, '');
+    //   const stillExists = newOverlays.find((o) => o.id === overlayId);
+    //   if (!stillExists) {
+    //     // we should delete the layer since it no longer exists
+    //     const mapLayer = map.getLayer(layerName);
+    //     if (mapLayer) {
+    //       const sourceName = mapLayer.source;
+    //       this.map!.removeLayer(layerName);
+    //       if (this.map!.getSource(sourceName)) {
+    //         this.map!.removeSource(sourceName);
+    //       }
+    //     }
+    //   }
+    // });
+    // // Add or update layers
+    // newOverlays.forEach((overlay, index) => {
+    //   const layerName = getLayerName(overlay.id);
+    //   const existingLayer = map.getLayer(layerName);
+    //   if (existingLayer) {
+    //     // Layer exists - check if it needs to be updated
+    //     // ...
+    //   } else {
+    //     this.addSingleLayer(overlay);
+    //   }
+    // });
+
+    // Simplest approach seem to perform fine here: remove all existing occurrence layers and re-add
+    // more optimized might be to diff and only add/remove changed layers
+    const occurrenceLayers = this.getOccurrenceLayers();
+    occurrenceLayers.forEach((layer) => {
+      const layerName = layer.id;
+      const mapLayer = map.getLayer(layerName);
+      if (mapLayer) {
+        const sourceName = mapLayer.source;
+        this.map!.removeLayer(layerName);
         if (this.map!.getSource(sourceName)) {
           this.map!.removeSource(sourceName);
         }
       }
     });
-
-    // Add or update layers
-    overlays.forEach((overlay, index) => {
-      const layerName = getLayerName(overlay.id);
-      const sourceName = getSourceName(overlay.id);
-
-      if (prevIds.has(overlay.id)) {
-        // Layer exists, update if needed
-        if (this.map!.getLayer(layerName)) {
-          this.map!.removeLayer(layerName);
-        }
-        if (this.map!.getSource(sourceName)) {
-          this.map!.removeSource(sourceName);
-        }
-      }
-
-      // Add the layer
-      this.addSingleLayer(overlay, index);
-    });
-
-    this.setState({ currentOverlayIds: overlays.map((o) => o.id) });
+    this.addLayers();
   }
 
   onPointClick(pointData: PointData) {
@@ -525,9 +522,8 @@ class MapLibreMap extends Component<MapProps, State> {
     };
   }
 
-  addSingleLayer(overlay: OccurrenceOverlay, zIndex: number) {
+  addSingleLayer(overlay: OccurrenceOverlay) {
     if (!this.map) return;
-    console.log(`Adding overlay layer: ${overlay.id}`);
 
     const layerName = getLayerName(overlay.id);
 
@@ -543,26 +539,20 @@ class MapLibreMap extends Component<MapProps, State> {
         tileString,
         theme: layerTheme,
         layerName,
-        // zIndex: 100 + zIndex, // Base z-index of 100, then add overlay index
       })
     );
   }
 
   addLayers() {
     if (!this.map) return;
-    console.log('Adding overlay layers...');
 
     try {
-      this.setState({ loadDiff: 0 });
-
       const overlays = this.props.overlays || [];
 
       // Add each overlay as a separate layer with proper z-index
       overlays.forEach((overlay, index) => {
         this.addSingleLayer(overlay, index);
       });
-
-      this.setState({ currentOverlayIds: overlays.map((o) => o.id) });
 
       const map = this.map;
       if (!this.mapLoaded) {

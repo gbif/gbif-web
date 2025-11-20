@@ -151,7 +151,7 @@ function MapPresentation({
   );
   const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
+  const [test, setTest] = useState<number>(0); // for testing multiple overlays
   // Convert predicateHash and q into overlay format
   // In the future, this will be extended to support multiple overlays
   const overlays = React.useMemo<OccurrenceOverlay[]>(() => {
@@ -165,7 +165,7 @@ function MapPresentation({
       },
       {
         id: 'something',
-        predicateHash: '-2115594654',
+        predicateHash: '1616224215',
         q: q,
         style: {
           colors: ['#4343d3'],
@@ -173,7 +173,7 @@ function MapPresentation({
       },
       {
         id: 'triangle',
-        predicateHash: '1225306695',
+        predicateHash: '582181296',
         q: q,
         style: {
           colors: ['#800080', '#bf40bf', '#d580d5', '#e6a6e6', '#f2c2f2'],
@@ -181,7 +181,7 @@ function MapPresentation({
       },
       {
         id: 'greenish',
-        predicateHash: '-416261897',
+        predicateHash: '614435751',
         q: q,
         style: {
           // subtle green gradients
@@ -191,7 +191,11 @@ function MapPresentation({
     ];
     // shuffle ordering randomly to test multiple overlays
     return layers.sort(() => Math.random() - 0.5);
-  }, [predicateHash, q]);
+  }, [predicateHash, q, test]);
+
+  // setInterval(() => {
+  //   setTest((prev) => prev + 1);
+  // }, 2000); // every 30 seconds
 
   const updateLoading = useCallback((loading: boolean) => {
     setMapLoading(loading);
