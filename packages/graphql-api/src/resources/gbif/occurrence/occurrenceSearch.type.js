@@ -125,7 +125,7 @@ const typeDef = gql`
     """
     Register the search predicate with the v1 endpoints and get a hash back. This can be used to query e.g. the tile API.
     """
-    metaPredicate: JSON
+    metaPredicate: JSON @cacheControl(maxAge: 5, scope: PUBLIC) # Cache for 5 seconds
   }
 
   type OccurrenceMetaPredicate {

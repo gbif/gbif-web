@@ -206,7 +206,6 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
     loading,
     error,
     total: data?.occurrenceSearch?.documents?.total,
-    predicateHash: data?.occurrenceSearch?.metaPredicate,
     rootPredicate: scope,
     predicateConfig: searchConfig,
     loadPointData,
@@ -214,7 +213,13 @@ function Map({ style, className, mapStyleAttr }: MapProps) {
     pointData,
     pointLoading,
     pointError,
-    q,
+    overlays: [
+      {
+        id: 'allOccurrences',
+        q,
+        predicateHash: data?.occurrenceSearch?.metaPredicate,
+      },
+    ],
     defaultMapSettings: mapSettings,
     onFeaturesChange: handleFeatureChange,
     features,
