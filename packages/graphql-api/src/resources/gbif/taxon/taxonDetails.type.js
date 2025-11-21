@@ -40,6 +40,21 @@ const typeDef = gql`
     type: MediaType
   }
 
+  type TaxonOccurrenceMedia {
+    taxonKey: ID!
+    mediaType: MediaType
+    offset: Int!
+    limit: Int!
+    count: Int!
+    endOfRecords: Boolean!
+    results: [TaxonOccurrenceMediaResult]!
+  }
+
+  type TaxonOccurrenceMediaResult {
+    occurrenceKey: ID!
+    identifier: URL
+  }
+
   type TaxonDescriptionResult {
     results: [TaxonDescription]!
     limit: Int!
@@ -223,6 +238,15 @@ const typeDef = gql`
       """
       source: String
     ): TaxonVernacularNameResult
+
+    """
+    Lists occurrence media for a taxon
+    """
+    occurrenceMedia(
+      limit: Int
+      offset: Int
+      mediaType: MediaType
+    ): TaxonOccurrenceMedia
 
     """
     Lists all type specimens for a name usage, see also lmitations: https://github.com/gbif/portal-feedback/issues/1146#issuecomment-366260607

@@ -368,6 +368,13 @@ class TaxonAPI extends QueuedRESTDataSource {
     });
     return sortedResults;
   }
+
+  async getTaxonOccurrenceMedia({ taxonKey, limit, offset, mediaType }) {
+    return this.get(
+      `/occurrence/experimental/multimedia/species/${taxonKey}/`,
+      { limit, offset, mediaType },
+    );
+  }
 }
 
 export default TaxonAPI;
