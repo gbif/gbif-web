@@ -38,6 +38,38 @@ import { ProjectionName } from './types';
 const MAP_STYLES = `${import.meta.env.PUBLIC_WEB_UTILS}/map-styles`;
 const hasGeoLocation = 'geolocation' in navigator;
 
+interface ToolVisibility {
+  draw: boolean;
+  projection: boolean;
+  layer: boolean;
+  location: boolean;
+  zoom: boolean;
+}
+
+function parseToolsConfig(
+  tools:
+    | boolean
+    | {
+        draw: boolean;
+        projection: boolean;
+        layer: boolean;
+        location: boolean;
+        zoom: boolean;
+      }
+): ToolVisibility | null {
+  if (tools === false) return null;
+  if (tools === true) {
+    return {
+      draw: true,
+      projection: true,
+      layer: true,
+      location: true,
+      zoom: true,
+    };
+  }
+  return tools;
+}
+
 type LayerOptions = Partial<Record<ProjectionName, string[]>>;
 type BasemapOptions = Partial<Record<ProjectionName, MapStyleConfig>>;
 type StyleLookup = Partial<Record<ProjectionName, Record<string, string>>>;
@@ -297,6 +329,8 @@ export default function AdHocMap({
     );
   });
 
+  const toolVisibility = parseToolsConfig(tools);
+
   const mapConfiguration = getStyle({
     styles: basemapOptions || {},
     projection,
@@ -327,95 +361,101 @@ export default function AdHocMap({
       <div className="g-z-10 g-absolute g-start-0 g-top-0 g-end-0">
         <StripeLoader active={mapLoading} className="g-w-full" />
       </div>
-      <div className="mapControls g-flex g-absolute g-bg-white g-z-10 g-border g-border-solid g-m-2 g-end-0 g-items-center">
-        <MenuButton onClick={() => broadcastEvent({ type: 'ZOOM_IN' })}>
-          <MdZoomIn />
-        </MenuButton>
-        <MenuButton onClick={() => broadcastEvent({ type: 'ZOOM_OUT' })}>
-          <MdZoomOut />
-        </MenuButton>
-        {userLocationEnabled && (
-          <MenuButton loading={searchingLocation} onClick={getUserLocation}>
-            <MdMyLocation />
-          </MenuButton>
-        )}
-        {notPolarProjection && (
-          <>
-            <ToolSeparator />
-            <SimpleTooltip
-              asChild
-              title={<FormattedMessage id="map.filterByView" defaultMessage="Use view as filter" />}
-            >
-              <MenuButton
-                onClick={() => broadcastEvent({ type: 'EXPLORE_AREA' })}
-                className="g-p-2"
-              >
-                <ExploreAreaIcon />
+      {toolVisibility && (
+        <div className="mapControls g-flex g-absolute g-bg-white g-z-10 g-border g-border-solid g-m-2 g-end-0 g-items-center">
+          {toolVisibility.zoom && (
+            <>
+              <MenuButton onClick={() => broadcastEvent({ type: 'ZOOM_IN' })}>
+                <MdZoomIn />
               </MenuButton>
-            </SimpleTooltip>
-            <SimpleTooltip
-              asChild
-              title={<FormattedMessage id="map.drawPolygon" defaultMessage="Draw polygon" />}
-            >
-              <MenuButton
-                onClick={toggleDrawingTool}
-                className={cn('g-p-2', drawingTool === 'DRAW' && 'g-bg-primary g-text-white')}
-              >
-                <DrawIcon />
+              <MenuButton onClick={() => broadcastEvent({ type: 'ZOOM_OUT' })}>
+                <MdZoomOut />
               </MenuButton>
-            </SimpleTooltip>
-            {MapComponent === MapComponentML && (
+            </>
+          )}
+          {toolVisibility.location && userLocationEnabled && (
+            <MenuButton loading={searchingLocation} onClick={getUserLocation}>
+              <MdMyLocation />
+            </MenuButton>
+          )}
+          {toolVisibility.draw && notPolarProjection && (
+            <>
+              <ToolSeparator />
               <SimpleTooltip
                 asChild
-                title={
-                  <FormattedMessage id="map.selectPolygon" defaultMessage="Select/edit polygon" />
-                }
+                title={<FormattedMessage id="map.filterByView" defaultMessage="Use view as filter" />}
               >
                 <MenuButton
-                  onClick={toggleSelectTool}
-                  className={cn('g-p-2', drawingTool === 'SELECT' && 'g-bg-primary g-text-white')}
+                  onClick={() => broadcastEvent({ type: 'EXPLORE_AREA' })}
+                  className="g-p-2"
                 >
-                  <ModifyPolygonIcon />
+                  <ExploreAreaIcon />
                 </MenuButton>
               </SimpleTooltip>
-            )}
-            <SimpleTooltip
-              asChild
-              title={<FormattedMessage id="map.deletePolygon" defaultMessage="Delete polygon" />}
-            >
-              <MenuButton
-                onClick={toggleDeleteTool}
-                className={cn('g-p-2', drawingTool === 'DELETE' && 'g-bg-primary g-text-white')}
+              <SimpleTooltip
+                asChild
+                title={<FormattedMessage id="map.drawPolygon" defaultMessage="Draw polygon" />}
               >
-                <MdDeleteOutline />
-              </MenuButton>
-            </SimpleTooltip>
-            <ToolSeparator />
-          </>
-        )}
+                <MenuButton
+                  onClick={toggleDrawingTool}
+                  className={cn('g-p-2', drawingTool === 'DRAW' && 'g-bg-primary g-text-white')}
+                >
+                  <DrawIcon />
+                </MenuButton>
+              </SimpleTooltip>
+              {MapComponent === MapComponentML && (
+                <SimpleTooltip
+                  asChild
+                  title={
+                    <FormattedMessage id="map.selectPolygon" defaultMessage="Select/edit polygon" />
+                  }
+                >
+                  <MenuButton
+                    onClick={toggleSelectTool}
+                    className={cn('g-p-2', drawingTool === 'SELECT' && 'g-bg-primary g-text-white')}
+                  >
+                    <ModifyPolygonIcon />
+                  </MenuButton>
+                </SimpleTooltip>
+              )}
+              <SimpleTooltip
+                asChild
+                title={<FormattedMessage id="map.deletePolygon" defaultMessage="Delete polygon" />}
+              >
+                <MenuButton
+                  onClick={toggleDeleteTool}
+                  className={cn('g-p-2', drawingTool === 'DELETE' && 'g-bg-primary g-text-white')}
+                >
+                  <MdDeleteOutline />
+                </MenuButton>
+              </SimpleTooltip>
+              <ToolSeparator />
+            </>
+          )}
 
-        {projectionOptions.length > 1 && (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <MenuButton>
-                <MdLanguage />
-              </MenuButton>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">{projectionMenuOptions}</DropdownMenuContent>
-          </DropdownMenu>
-        )}
+          {toolVisibility.projection && projectionOptions.length > 1 && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <MenuButton>
+                  <MdLanguage />
+                </MenuButton>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">{projectionMenuOptions}</DropdownMenuContent>
+            </DropdownMenu>
+          )}
 
-        {(layerOptions?.[projection]?.length ?? 0) > 1 && (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <MenuButton>
-                <MdOutlineLayers />
-              </MenuButton>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">{menuLayerOptions}</DropdownMenuContent>
-          </DropdownMenu>
-        )}
-      </div>
+          {toolVisibility.layer && (layerOptions?.[projection]?.length ?? 0) > 1 && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <MenuButton>
+                  <MdOutlineLayers />
+                </MenuButton>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">{menuLayerOptions}</DropdownMenuContent>
+            </DropdownMenu>
+          )}
+        </div>
+      )}
       <MapComponent
         mapConfig={mapConfiguration.mapConfig}
         latestEvent={latestEvent}

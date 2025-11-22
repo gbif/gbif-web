@@ -74,6 +74,7 @@ function MapPresentation({
     features,
     onFeaturesChange,
     showList,
+    tools: true,
   };
   return (
     <>
